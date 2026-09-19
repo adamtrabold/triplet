@@ -119,34 +119,6 @@
     #error.show { display: block; }
     #error.info { background: var(--navy); color: var(--paper); }
 
-    /* ---- The seal: ref 1's luggage label. ONE seal, ONE place. --------- */
-    #seal {
-      position: fixed;
-      top: var(--s4);
-      left: var(--s4);
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: var(--paper);
-      /* a 1px paper ring inset 4px */
-      box-shadow: inset 0 0 0 4px var(--navy), inset 0 0 0 5px var(--paper);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* 8px inset so the wordmark is never flush against its own ring. */
-      padding: var(--s2);
-      font-family: var(--font-script);
-      /* The wordmark's type-scale size is 26px; inside a 64px seal with a
-         5px ring and an 8px inset the usable width is ~48px, so this
-         instance is optically scaled to fit rather than overflowing. */
-      font-size: 17px;
-      line-height: 20px;
-      z-index: 1200;
-      pointer-events: none;
-      user-select: none;
-    }
-
     /* Floating controls stay circular -- the badge motif is on-brief and
        they are already thumb-sized. Navy field, figure glyph, a 1px paper
        ring so they read as seals. The shadow is a print-registration
@@ -672,36 +644,23 @@
       display: none;
     }
 
-    /* TIER 1a -- IDENTITY. A persistent, per-city --figure field carrying
-       navy type. This is where the "one rigid system re-inked per poster"
-       idea (ref 8) becomes visible in daily use. The 2px navy rule gives
-       the field a DEFINED edge: --figure vs --paper is only 1.89-2.73:1,
-       below the 3:1 floor every other non-text boundary here clears, so
-       the edge must not be load-bearing. Navy is 12.51:1 on paper and
-       4.58-6.63:1 on every city's figure. */
+    /* Same surface as the list body -- --paper, not the per-city --figure
+       field. Navy text on paper is 12.51:1, comfortably AA regardless of
+       which city's palette is active. */
     #locationsHeader {
       display: flex;
       align-items: center;
       gap: var(--gap);
       flex-shrink: 0;
       /* REAL vertical inset, not height-driven flex centring: this band
-         paints a background AND a rule on both edges, so its text needs
-         measured clearance from them rather than whatever centring happens
-         to leave. 12 + 32 + 12 = 56px content box, + the two 2px rules =
-         a 60px bar. */
+         paints a background AND a rule on the bottom edge, so its text
+         needs measured clearance rather than whatever centring happens to
+         leave. 12 + 32 + 12 = 56px content box, + the 1px rule below. */
       min-height: 56px;
       padding: var(--s3) var(--gutter);
-      background: var(--figure);
+      background: var(--paper);
       color: var(--navy);
-      /* BOTH edges of the field get a defined rule, not just the bottom:
-         on a phone the header's top edge meets the map tiles, which is the
-         more prominent of the two boundaries. */
-      border-top: 2px solid var(--navy);
-      border-bottom: 2px solid var(--navy);
-    }
-
-    @media (min-width: 900px) {
-      #locationsHeader { border-top: none; }
+      border-bottom: 1px solid var(--hair);
     }
 
     #locationsHeader h2 {
@@ -1028,7 +987,6 @@
       overflow: hidden;
     }
 
-    /* The modal header band, with the seal on the spine. */
     #authModalHead {
       display: flex;
       align-items: center;
@@ -1036,21 +994,6 @@
       background: var(--navy);
       color: var(--paper);
       padding: var(--s3) var(--gutter);
-    }
-
-    #authModalHead .seal-sm {
-      width: var(--col-glyph);
-      height: var(--col-glyph);
-      border-radius: 50%;
-      background: var(--navy);
-      box-shadow: inset 0 0 0 2px var(--navy), inset 0 0 0 3px var(--paper);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-script);
-      font-size: 13px;
-      line-height: 1;
-      flex-shrink: 0;
     }
 
     #authModalContent h2 {
@@ -1150,7 +1093,6 @@
          full-height rail -- there is no bottom sheet left to sit above. */
       #filtersPanel { left: 360px; bottom: 0; }
       #filtersPanel.collapsed-mode { bottom: 0; }
-      #seal { left: 376px; }
     }
   </style>
 </head>
@@ -1191,10 +1133,6 @@
     <symbol id="g-compass" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/></symbol>
   </defs></svg>
 
-  <!-- ONE seal, ONE place: the previously-empty top-left corner of the map
-       (ref 1's luggage label). One seal is a brand; five is a scrapbook. -->
-  <div id="seal" aria-hidden="true">Triplet</div>
-
   <div id="error">
     <p id="errorText"></p>
   </div>
@@ -1208,7 +1146,6 @@
   <div id="authModal">
     <div id="authModalContent">
       <div id="authModalHead">
-        <span class="seal-sm">T</span>
         <h2>Login Required</h2>
       </div>
       <div id="authModalBody">
