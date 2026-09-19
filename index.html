@@ -3476,14 +3476,15 @@
     // city's edge, and Copenhagen/Malmö are one travel area across the Øresund.
     map = L.map('map', { minZoom: 3, worldCopyJump: true })
            .setView(CITIES[DEFAULT_CITY].center, CITIES[DEFAULT_CITY].zoom);
-    // CARTO's light basemap instead of standard OSM: OSM's default raster
-    // tiles are the single biggest pastel offender, and no amount of CSS
-    // around them fixes a minty picture. The aging filter lives on
-    // .leaflet-tile-pane ONLY (see the stylesheet) -- applying it to
+    // Standard OSM raster tiles. CARTO's anonymous light_all/rastertiles
+    // endpoints now require an API key (they render an "API KEY REQUIRED"
+    // watermark instead of tiles without one) -- reverted rather than
+    // ship a key. The aging/desaturating filter on .leaflet-tile-pane ONLY
+    // (see the stylesheet) still does the re-toning work; applying it to
     // .leaflet-pane would sepia the markers and popups too.
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© OpenStreetMap contributors © CARTO',
-      subdomains: 'abcd',
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      subdomains: 'abc',
       minZoom: 3,
       maxZoom: 19
     }).addTo(map);
