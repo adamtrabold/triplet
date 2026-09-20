@@ -76,33 +76,39 @@
        mark looks MOST like a T. It looks least like one at 1024. Going much
        below r=2.8 starts thinning that 16px impression toward a smudge.
 
-       Glyph is 36% of badge diameter, clears the scallop troughs by 164px
-       (19%), and sits ~16px below the badge centre by bbox (nudged down
-       further on direct feedback that it read slightly high) -- the dots
-       carry the mass, so dead-centring reads as hanging high. -->
+       Glyph is 36% of badge diameter (the badge shrank around it, so this
+       ratio ticked up slightly from 36% at the larger size -- glyph itself
+       is untouched), clears the scallop troughs by 145px (19%), and sits
+       ~16px below the badge centre by bbox (nudged down further on direct
+       feedback that it read slightly high) -- the dots carry the mass, so
+       dead-centring reads as hanging high. -->
   <!-- 2026-09: superseded a Grand Hotel / Georgia script T. The webfont
        never loaded in the favicon's isolated render context anyway, so the
        tab and the home-screen icon had been showing different letterforms;
        that whole split is gone with the font. -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='57.00,32.00 57.91,33.16 58.41,34.38 58.28,35.56 57.52,36.63 56.37,37.56 55.19,38.40 54.33,39.26 53.98,40.25 54.12,41.46 54.52,42.85 54.84,44.29 54.77,45.60 54.13,46.61 52.99,47.25 51.55,47.59 50.12,47.83 48.97,48.22 48.22,48.97 47.83,50.12 47.59,51.55 47.25,52.99 46.61,54.13 45.60,54.77 44.29,54.84 42.85,54.52 41.46,54.12 40.25,53.98 39.26,54.33 38.40,55.19 37.56,56.37 36.63,57.52 35.56,58.28 34.38,58.41 33.16,57.91 32.00,57.00 30.92,56.04 29.90,55.38 28.85,55.27 27.70,55.67 26.44,56.37 25.10,57.01 23.80,57.22 22.68,56.83 21.80,55.85 21.15,54.52 20.60,53.19 19.96,52.15 19.07,51.59 17.86,51.46 16.41,51.55 14.93,51.54 13.67,51.17 12.83,50.33 12.46,49.07 12.45,47.59 12.54,46.14 12.41,44.93 11.85,44.04 10.81,43.40 9.48,42.85 8.15,42.20 7.17,41.32 6.78,40.20 6.99,38.90 7.63,37.56 8.33,36.30 8.73,35.15 8.62,34.10 7.96,33.08 7.00,32.00 6.09,30.84 5.59,29.62 5.72,28.44 6.48,27.37 7.63,26.44 8.81,25.60 9.67,24.74 10.02,23.75 9.88,22.54 9.48,21.15 9.16,19.71 9.23,18.40 9.87,17.39 11.01,16.75 12.45,16.41 13.88,16.17 15.03,15.78 15.78,15.03 16.17,13.88 16.41,12.45 16.75,11.01 17.39,9.87 18.40,9.23 19.71,9.16 21.15,9.48 22.54,9.88 23.75,10.02 24.74,9.67 25.60,8.81 26.44,7.63 27.37,6.48 28.44,5.72 29.62,5.59 30.84,6.09 32.00,7.00 33.08,7.96 34.10,8.62 35.15,8.73 36.30,8.33 37.56,7.63 38.90,6.99 40.20,6.78 41.32,7.17 42.20,8.15 42.85,9.48 43.40,10.81 44.04,11.85 44.93,12.41 46.14,12.54 47.59,12.45 49.07,12.46 50.33,12.83 51.17,13.67 51.54,14.93 51.55,16.41 51.46,17.86 51.59,19.07 52.15,19.96 53.19,20.60 54.52,21.15 55.85,21.80 56.83,22.68 57.22,23.80 57.01,25.10 56.37,26.44 55.67,27.70 55.27,28.85 55.38,29.90 56.04,30.92' fill='%2312293F'/%3E%3Ccircle cx='23.40' cy='27.00' r='2.80' fill='%23F2EBDD'/%3E%3Ccircle cx='32.00' cy='27.00' r='2.80' fill='%23F2EBDD'/%3E%3Ccircle cx='40.60' cy='27.00' r='2.80' fill='%23F2EBDD'/%3E%3Crect x='30.00' y='32.80' width='4.00' height='8.90' rx='0.40' fill='%23F2EBDD'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='55.25,32.00 56.10,33.08 56.56,34.21 56.44,35.31 55.73,36.31 54.66,37.17 53.57,37.95 52.77,38.75 52.44,39.67 52.57,40.80 52.94,42.09 53.24,43.43 53.18,44.65 52.58,45.59 51.52,46.18 50.18,46.50 48.85,46.72 47.78,47.08 47.08,47.78 46.72,48.85 46.50,50.18 46.18,51.52 45.59,52.58 44.65,53.18 43.43,53.24 42.09,52.94 40.80,52.57 39.67,52.44 38.75,52.77 37.95,53.57 37.17,54.66 36.31,55.73 35.31,56.44 34.21,56.56 33.08,56.10 32.00,55.25 31.00,54.36 30.05,53.74 29.07,53.64 28.00,54.01 26.83,54.66 25.58,55.26 24.37,55.45 23.33,55.09 22.51,54.18 21.91,52.94 21.40,51.71 20.80,50.74 19.98,50.22 18.85,50.10 17.50,50.18 16.12,50.17 14.95,49.83 14.17,49.05 13.83,47.88 13.82,46.50 13.90,45.15 13.78,44.02 13.26,43.20 12.29,42.60 11.06,42.09 9.82,41.49 8.91,40.67 8.55,39.63 8.74,38.42 9.34,37.17 9.99,36.00 10.36,34.93 10.26,33.95 9.64,33.00 8.75,32.00 7.90,30.92 7.44,29.79 7.56,28.69 8.27,27.69 9.34,26.83 10.43,26.05 11.23,25.25 11.56,24.33 11.43,23.20 11.06,21.91 10.76,20.57 10.82,19.35 11.42,18.41 12.48,17.82 13.82,17.50 15.15,17.28 16.22,16.92 16.92,16.22 17.28,15.15 17.50,13.82 17.82,12.48 18.41,11.42 19.35,10.82 20.57,10.76 21.91,11.06 23.20,11.43 24.33,11.56 25.25,11.23 26.05,10.43 26.83,9.34 27.69,8.27 28.69,7.56 29.79,7.44 30.92,7.90 32.00,8.75 33.00,9.64 33.95,10.26 34.93,10.36 36.00,9.99 37.17,9.34 38.42,8.74 39.63,8.55 40.67,8.91 41.49,9.82 42.09,11.06 42.60,12.29 43.20,13.26 44.02,13.78 45.15,13.90 46.50,13.82 47.88,13.83 49.05,14.17 49.83,14.95 50.17,16.12 50.18,17.50 50.10,18.85 50.22,19.98 50.74,20.80 51.71,21.40 52.94,21.91 54.18,22.51 55.09,23.33 55.45,24.37 55.26,25.58 54.66,26.83 54.01,28.00 53.64,29.07 53.74,30.05 54.36,31.00' fill='%2312293F'/%3E%3Ccircle cx='23.40' cy='27.00' r='2.80' fill='%23F2EBDD'/%3E%3Ccircle cx='32.00' cy='27.00' r='2.80' fill='%23F2EBDD'/%3E%3Ccircle cx='40.60' cy='27.00' r='2.80' fill='%23F2EBDD'/%3E%3Crect x='30.00' y='32.80' width='4.00' height='8.90' rx='0.40' fill='%23F2EBDD'/%3E%3C/svg%3E">
   <!-- iOS Home Screen. Safari will not use the SVG data URI above, so this
        is a real opaque 1024x1024 PNG: the same navy seal on a --paper field
        (the badge's own ground everywhere else in the app) rather than on
        transparency, which iOS renders as solid black.
 
        Rasterised from the SAME markup as the tag above -- same 140-point
-       polygon, same three dots and stem, same 0 0 64 64 viewBox -- so the
-       badge occupies the identical 82.3% of its square and the glyph is the
-       identical geometry. One mark, two rasters, no font in either. (The
+       polygon (scaled 0.93x around its own centre, on direct feedback that
+       the badge ran a little too close to the frame edge; the glyph was
+       deliberately left untouched), same three dots and stem, same
+       0 0 64 64 viewBox -- so the badge occupies the identical 76.8% of its
+       square and the glyph is the identical geometry. One mark, two
+       rasters, no font in either. (The
        three dots are Triplet's name, the app's own pin markers, and the
        crossbar of the T, all at once -- see the note above the icon tag,
        which also records why nothing in the mark is allowed to touch.)
 
        NOT rounded here -- iOS masks it itself, and double-rounding shows.
        Safe at this scale: the mask only removes material outside the
-       inscribed circle, which the badge (peak radius 424.4 < 512) never
-       reaches. Verified 0 non-paper pixels clipped under both an r=230
-       rounded rect and an n=5 superellipse.
+       inscribed circle, which the badge (peak radius 394.7 < 512) never
+       reaches, with even more headroom than before now that it's smaller.
+       Verified 0 non-paper pixels clipped under both an r=230 rounded rect
+       and an n=5 superellipse.
 
        One generous master; iOS downscales to whatever @Nx it needs. -->
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
