@@ -1085,7 +1085,11 @@
     .popup-cat {
       display: flex;
       align-items: center;
-      gap: var(--s2);
+      /* --s1, not --s2 -- at this row's 20px glyph size (vs. the filter
+         chips' 12px using the same glyphHtml(), same --s2 gap, and
+         looking fine) each symbol's own internal padding scales up
+         enough to read as extra space stacked on top of the flat gap. */
+      gap: var(--s1);
       font-stretch: 75%;
       text-transform: uppercase;
       font-size: 10px;
