@@ -126,11 +126,9 @@ go stale, and don't leave it silently out of date either.
   untouched. A fade-in-only animation on newly-added markers was proposed
   but not built; only worth it if the banding alone doesn't feel smooth
   enough after a real-browser check.
-
-**Not yet merged:**
-- `claude/visited-btn-and-city-cleanup` branch — visited-checkbox CSS fix
-  + orphan-city cleanup, pushed but still awaiting the owner's own
-  merge/review decision (unrelated to the marker work above).
+- Visited-checkbox CSS fix + orphan-city cleanup — merged to `main`
+  (`1d6602e`). See git history for detail; this was written up earlier in
+  this same session before the marker-size work started.
 
 **Queued next (ready to start) — "Get Directions" button:**
 A button (per pin, likely on the map popup and/or the location card) that
