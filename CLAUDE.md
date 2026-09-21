@@ -97,45 +97,41 @@ temporary simplification.**
 Update this list as items get resolved or new ones surface — don't let it
 go stale, and don't leave it silently out of date either.
 
-**In progress:**
-- Marker size/density fix (branch `claude/visited-btn-and-city-cleanup` has
-  the unrelated visited-checkbox CSS fix + city-cleanup work, already
-  pushed but not yet merged — the marker work below is a *separate*,
-  not-yet-branched change). Owner reported pins are too large and dense
-  areas don't render gracefully (overlap itself is fine, not the
-  complaint). Design/CD loop has converged on: two-tier sizing
-  (`MARKER_SIZE_NEAR`/`MARKER_SIZE_FAR` replacing flat
-  `MARKER_SIZE`/`MARKER_SIZE_HI` at index.html:2717-2718, sharing
-  `GLYPH_MIN_ZOOM`'s existing crossing-guard), a size-aware glyph-floor
-  formula in `badgeHtml()`, a shared `applyMarkerStacking()` z-index
-  helper so a highlighted marker always renders on top in a dense cluster,
-  and a padded invisible hit-area for the small far-tier badges (WCAG
-  2.5.8). Real point-clustering (`leaflet.markercluster`) was rejected as
-  disproportionate to this app's scale and in conflict with the
-  click-list-item-navigates-to-it contract — but a *narrower* clustering
-  question (does a cheap grid-snap help only at very-low-zoom/high-density,
-  without touching the near-tier navigation contract) and whether the
-  chosen pixel values should snap to the app's `--s1`../`--s12` spacing
-  scale (index.html:160-161) were still being explored as of this
-  writing. Not implemented yet — plan only, pending final CD pass +
-  `impeccable` + the owner's visual review before anything ships.
+**Shipped (2026-09-21):**
+- Marker size/density fix — merged to `main` (`05afef5`). Two-tier sizing
+  (`MARKER_SIZE_NEAR`=24/`MARKER_SIZE_FAR`=16, scale-aligned to `--s6`/
+  `--s4`, sharing `GLYPH_MIN_ZOOM`'s crossing-guard; highlighted = tier +
+  `MARKER_HI_DELTA`=8), a size-aware glyph-floor formula in `badgeHtml()`,
+  a shared `applyMarkerStacking()` z-index helper, a padded invisible
+  hit-area for far-tier badges (WCAG 2.5.8), and a scoped grid-snap
+  clustering (`mapVisibleLocations()`) for pins that are genuinely
+  pixel-coincident below `GLYPH_MIN_ZOOM` — click-to-navigate only, never
+  expand-in-place, so it can't conflict with the sidebar list's
+  click-to-navigate contract. Went through 3 rounds of CD review (final
+  score 9/10) before shipping. Not yet visually smoke-tested in a real
+  browser (this environment can't reach Supabase/tiles) — worth a check on
+  a real trip city, especially the zoom-12 crossing transition and the
+  cluster badges in Reykjavik/Stockholm's old-town cores.
 
-**Queued next (not started) — "Get Directions" button:**
+**Not yet merged:**
+- `claude/visited-btn-and-city-cleanup` branch — visited-checkbox CSS fix
+  + orphan-city cleanup, pushed but still awaiting the owner's own
+  merge/review decision (unrelated to the marker work above).
+
+**Queued next (ready to start) — "Get Directions" button:**
 A button (per pin, likely on the map popup and/or the location card) that
 opens the device's native maps app pre-loaded with directions to that
 pin's coordinates — the owner is primarily on an iPhone. Explicitly
 requested to go through the same design agent + UX expert agent + CD
-review loop used for the marker-size work, run only *after* that work
-ships. Nothing has been designed yet — open questions for that loop to
-resolve: which URL scheme(s) to target (Apple Maps `maps://`/
+review loop used for the marker-size work — that work has now shipped, so
+this is unblocked. Nothing has been designed yet — open questions for
+that loop to resolve: which URL scheme(s) to target (Apple Maps `maps://`/
 `https://maps.apple.com/?daddr=`, a `geo:` intent for Android, a Google
 Maps universal link as a fallback — this app has no platform detection
 today, so "opens in maps on my phone" needs a decision on how that
 resolves cross-platform, not just for iOS), where the button lives (map
 popup only, list card only, both), and how it fits the existing
-click-to-navigate/highlight interaction without conflicting with it. This
-note exists so the request survives a lost session (rate limits) — start
-the design/CD loop on this once the marker-size work above is merged.
+click-to-navigate/highlight interaction without conflicting with it.
 
 **Needs the user's action:**
 - ~~Confirm the `cities` table migration has been run~~ — confirmed done
