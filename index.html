@@ -842,7 +842,7 @@
        ===================================================================== */
     .location-card {
       display: grid;
-      grid-template-columns: var(--col-glyph) 1fr auto;
+      grid-template-columns: var(--col-glyph) 1fr auto auto;
       column-gap: var(--gap);
       align-items: center;
       min-height: 56px;
@@ -880,6 +880,43 @@
     .row-badge svg { display: block; }
 
     .row-main { min-width: 0; }
+
+    /* Glanceable, not tappable -- a plain span, its own fixed grid column
+       (not trailing the variable-length row-meta text, which would shift
+       its x-position row to row and defeat "scan the list at a glance").
+       Same hollow/filled shape grammar as the popup's .popup-visited-check,
+       just sized for this denser row: 8px, not 14px -- big enough to read
+       as a ring rather than fade into the &middot; separator on the same
+       line, still nowhere near large enough to read as a touch target.
+       Renders on every row, hollow when unvisited: the real use case is
+       scanning for what's LEFT, which needs the negative state visible
+       too, not just marking what's done. */
+    .row-visited-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid var(--hair);
+    }
+
+    .row-visited-dot.visited {
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    /* An absolute-positioned, zero-size clip -- the standard visually-hidden
+       pattern. Screen-reader-only text lives here so sighted and
+       non-sighted users get the same visited signal from one source. */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
     .location-card h3 {
       font-size: 15px;
@@ -924,6 +961,12 @@
     .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.54:1 */
     .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
     .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
+    /* --hair would nearly vanish on --figure-deep; --paper-warm is the
+       same reversed-secondary color .row-meta already uses on this field.
+       Visited-fill flips navy->paper too, matching every other element in
+       this block rather than adding navy as a one-off reversed-state color. */
+    .location-card.highlighted .row-visited-dot { border-color: var(--paper-warm); }
+    .location-card.highlighted .row-visited-dot.visited { background: var(--paper); border-color: var(--paper); }
 
     .locations-empty {
       color: var(--ink-2);
@@ -944,6 +987,13 @@
     /* Delete is the row's only action now -- visited and directions moved
        to the popup (see buildPopupHtml()). */
     .location-actions {
+      /* Pinned to the grid's last column explicitly -- pin rows have a
+         .row-visited-dot as their 3rd grid child (making actions the 4th),
+         shape rows don't (making actions the 3rd by source order alone).
+         Without this, shape-card delete buttons would auto-place one
+         column earlier than pin-card ones and the two row kinds would
+         misalign. */
+      grid-column: -1;
       display: flex;
       gap: var(--s1);
       align-items: center;
@@ -3235,9 +3285,10 @@
       return el;
     }
 
-    // A ledger row, not a card: 28px glyph | 1fr content | action cluster.
-    // The category ink moved out of a 4px left border and into the glyph;
-    // the label is --ink-2 and the metadata line reads CATEGORY · CITY.
+    // A ledger row, not a card: 28px glyph | 1fr content | visited dot |
+    // action cluster. The category ink moved out of a 4px left border and
+    // into the glyph; the label is --ink-2 and the metadata line reads
+    // CATEGORY · CITY.
     function renderCard(el, loc) {
       const ink = categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
@@ -3245,8 +3296,9 @@
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
         <div class="row-main">
           <h3>${escapeHtml(loc.name)}</h3>
-          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}</div>
+          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
+        <span class="row-visited-dot ${loc.visited ? 'visited' : ''}" aria-hidden="true"></span>
         <div class="location-actions">
           <button class="delete-btn" aria-label="Delete">&times;</button>
         </div>
