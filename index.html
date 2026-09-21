@@ -503,6 +503,21 @@
       border: 1px solid var(--hair);
     }
 
+    /* The shape flow's "or pick an existing city" row -- a select plus its
+       own action button, distinct from the winner-city "Add to" shortcut
+       above it since either, both, or neither may be showing. */
+    .shape-city-confirm-existing {
+      display: flex;
+      gap: var(--s2);
+      align-items: center;
+      margin: var(--s2) 0 var(--s1) 0;
+    }
+
+    .shape-city-confirm-existing select {
+      flex: 1;
+      min-width: 0;
+    }
+
     /* Shown under categoryInput only when a shape category (district/street)
        is selected -- see isShapeCategory() in the script. */
     .mode-toggle-hint {
@@ -937,11 +952,7 @@
     }
 
     .location-actions button {
-      width: var(--col-action);
-      height: var(--col-action);
       padding: 0;
-      border: none;
-      background: transparent;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -952,6 +963,7 @@
 
     .visit-btn {
       color: var(--ink-2);
+      background: transparent;
       border: 1px solid var(--hair);
       border-radius: 50%;
       width: 20px;
@@ -968,6 +980,10 @@
     /* Quiet until the row is active -- a fast scroll must never show a
        column of red X's. */
     .delete-btn {
+      width: var(--col-action);
+      height: var(--col-action);
+      border: none;
+      background: transparent;
       color: var(--ink-2);
     }
 
@@ -1318,6 +1334,10 @@
           <p id="shapeCityConfirmText"></p>
           <button type="button" id="shapeCityConfirmAddCity">Add city</button>
           <button type="button" id="shapeCityConfirmAddTo" class="secondary"></button>
+          <div class="shape-city-confirm-existing">
+            <select id="shapeCityConfirmExisting"></select>
+            <button type="button" id="shapeCityConfirmUseExisting" class="secondary">Use this city</button>
+          </div>
           <button type="button" id="shapeCityConfirmCancel" class="secondary">Cancel</button>
         </div>
 
@@ -1330,7 +1350,7 @@
           <span class="eyebrow">New city?</span>
           <p id="newCityConfirmText"></p>
           <button type="button" id="newCityConfirmAdd">Add city</button>
-          <button type="button" id="newCityConfirmDismiss" class="secondary">Not right</button>
+          <button type="button" id="newCityConfirmDismiss" class="secondary">Pick from my list</button>
         </div>
         <textarea id="notesInput" placeholder="Notes (optional)" rows="2"></textarea>
         <button id="submitBtn">Add Location</button>
@@ -1483,6 +1503,10 @@
                     geocodeSuffix: 'Stockholm',       countrycodes: 'se',
                     viewbox: '17.850,59.250,18.220,59.420' }
     };
+
+    // Captured before fetchCities() ever merges runtime rows in -- the
+    // permanent, never-delete set for cleanupOrphanCities().
+    const SEED_CITY_IDS = new Set(Object.keys(CITIES));
 
     const DEFAULT_CITY = 'la';
     const ALL_CITIES   = '__all__';   // explicit, persisted sentinel for "all cities"
@@ -1721,6 +1745,7 @@
         if (error) throw error;
         await refetchLocations();
         hideError('mutation');
+        cleanupOrphanCities();
       } catch (err) {
         showError(handleRLSError(err, 'delete'), 'mutation');
       }
@@ -1738,6 +1763,7 @@
         if (error) throw error;
         await fetchNeighborhoodShapes();
         hideError('mutation');
+        cleanupOrphanCities();
       } catch (err) {
         showError(handleRLSError(err, 'delete'), 'mutation');
       }
@@ -2409,6 +2435,55 @@
       }
     }
 
+    // Removes runtime-created cities that nothing references any more --
+    // the only "delete a city" path in the app, deliberately never a
+    // standing UI. A city can end up orphaned two ways: its one pin/shape
+    // gets deleted, or the add-form's city step ran (addCity() writes the
+    // row immediately) but the form itself was abandoned before saving.
+    // Both are caught here since locations/neighborhoodShapes are always
+    // fetched in full (never city-filtered), so membership is checked
+    // against local state, not a fresh query. Runs at boot and after every
+    // delete; failures are swallowed -- this is best-effort hygiene, never
+    // something worth surfacing as an error.
+    async function cleanupOrphanCities() {
+      const referenced = new Set([
+        ...locations.map(loc => loc.city),
+        ...neighborhoodShapes.map(shape => shape.city)
+      ]);
+      const orphanIds = Object.keys(CITIES).filter(id =>
+        !SEED_CITY_IDS.has(id) && !referenced.has(id));
+      if (orphanIds.length === 0) return;
+
+      try {
+        const { error } = await supabaseClient
+          .from('cities')
+          .delete()
+          .in('id', orphanIds)
+          .eq('auto_added', true);
+        if (error) throw error;
+      } catch (err) {
+        return;
+      }
+
+      const removedLabels = orphanIds.map(id => CITIES[id]?.label).filter(Boolean);
+      orphanIds.forEach(id => delete CITIES[id]);
+
+      if (orphanIds.includes(citySelection)) {
+        setActiveCity(DEFAULT_CITY);
+      } else {
+        populateCityInput();
+        createCitySelector();
+        updateCitySelectorUI();
+      }
+
+      if (removedLabels.length) {
+        showInfo(
+          `Removed unused ${removedLabels.length === 1 ? 'city' : 'cities'}: ${removedLabels.join(', ')}`,
+          'cleanup'
+        );
+      }
+    }
+
     // ---- add-form city detection state ---------------------------------------
     let pendingNewCity = null;
     let userOverrodeCity = false;   // a manual cityInput pick stops further auto-guessing this form session
@@ -2587,13 +2662,22 @@
     function showError(msg, source) {
       currentErrorSource = source;
       document.getElementById('errorText').textContent = msg;
+      document.getElementById('error').classList.remove('info');
       document.getElementById('error').classList.add('show');
+    }
+
+    // Same banner, navy "info" styling instead of the error color -- for
+    // messages that report something that happened, not something that failed.
+    function showInfo(msg, source) {
+      currentErrorSource = source;
+      document.getElementById('errorText').textContent = msg;
+      document.getElementById('error').classList.add('info', 'show');
     }
 
     function hideError(source) {
       if (source !== currentErrorSource) return;
       currentErrorSource = null;
-      document.getElementById('error').classList.remove('show');
+      document.getElementById('error').classList.remove('show', 'info');
     }
 
     // =========================================================================
@@ -2945,7 +3029,7 @@
           <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}</div>
         </div>
         <div class="location-actions">
-          <button class="visit-btn ${loc.visited ? 'visited' : ''}" aria-label="Toggle visited">${loc.visited ? '&#10003;' : ''}</button>
+          <button class="visit-btn ${loc.visited ? 'visited' : ''}" aria-label="Toggle visited" aria-pressed="${loc.visited ? 'true' : 'false'}">${loc.visited ? '&#10003;' : ''}</button>
           <button class="delete-btn" aria-label="Delete">&times;</button>
         </div>
       `;
@@ -3376,6 +3460,12 @@
         document.getElementById('shapeCityConfirmText').textContent =
           `This doesn't match any known city. Add it as a new city?`;
       }
+      const existingSelect = document.getElementById('shapeCityConfirmExisting');
+      existingSelect.innerHTML =
+        Object.entries(CITIES)
+          .map(([id, c]) => `<option value="${id}">${escapeHtml(c.label)}</option>`)
+          .join('');
+      if (resolved.winner && CITIES[resolved.winner]) existingSelect.value = resolved.winner;
       document.getElementById('shapeCityConfirm').style.display = '';
     }
 
@@ -3402,6 +3492,14 @@
       const { resolved, saveShape } = pendingShapeCity;
       hideShapeCityConfirm();
       await saveShape(resolved.winner);
+    };
+
+    document.getElementById('shapeCityConfirmUseExisting').onclick = async () => {
+      if (!pendingShapeCity) return;
+      const { saveShape } = pendingShapeCity;
+      const cityId = document.getElementById('shapeCityConfirmExisting').value;
+      hideShapeCityConfirm();
+      await saveShape(cityId);
     };
 
     document.getElementById('shapeCityConfirmCancel').onclick = () => {
@@ -3645,9 +3743,8 @@
     const restoredCity = restoreCitySelection();          // cityId | ALL_CITIES | null
     setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false });
 
-    fetchLocations();
-    fetchNeighborhoodShapes();
-    fetchCities();
+    Promise.all([fetchLocations(), fetchNeighborhoodShapes(), fetchCities()])
+      .then(() => cleanupOrphanCities());
     startPoll();
 
     // The bottom sheet becomes a left rail at >=900px (see the media query).
