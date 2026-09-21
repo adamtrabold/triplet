@@ -182,7 +182,60 @@ go stale, and don't leave it silently out of date either.
   tapped in a real browser (same sandbox constraint as everything else
   needing live Supabase/tiles) — worth confirming the Apple Maps link
   actually opens correctly and the popup's new row doesn't crowd existing
-  content.
+  content. **Superseded in part by the next entry**: `.directions-btn` was
+  later removed from the list card (see below) — Get Directions now lives
+  in the popup only, not both places.
+- List row made delete-only; visited-toggle + directions moved to the
+  popup — merged to `main` (`9858161`). The owner found the three-button
+  list row (`visit-btn`, `directions-btn`, `delete-btn`) risked mis-tapping
+  delete. A design/UX/CD loop found removing visited-toggle from the list
+  entirely would be a real regression (it's likely the app's most-tapped
+  action) and that making the popup's visited status clickable required
+  building the app's *first-ever* popup-scoped click handler (Leaflet
+  popups are plain HTML strings re-inserted via `setPopupContent()`, no
+  built-in event wiring) — the owner was shown this tradeoff and chose it
+  anyway: list is now delete-only, and a real popup toggle got built.
+  - `buildPopupHtml()` reordered: category-with-glyph now sits above the
+    title (was below), so title+notes/address chunk together; requested
+    directly by the owner after seeing the shipped layout.
+  - New `.popup-visited` button (was a read-only `✓ Visited` div) toggles
+    via a single delegated click listener on Leaflet's own `popupPane`
+    (`map.getPane('popupPane').addEventListener('click', ...)`), bound
+    once at map init — reused for every popup open/replace, so it can't
+    double-bind. Reads the target location off a `data-id` attribute, not
+    Leaflet's popup internals. A first UX pass shipped this as plain text
+    with a color swap; a second review caught that it looked pixel-identical
+    to the old *read-only* status text (no signal it was now tappable) and
+    had an ~12px touch target — fixed with a small bordered-circle checkbox
+    affordance (hollow/filled, reusing `.visit-btn`'s old shape grammar)
+    and bigger padding.
+  - A UX review after the list went delete-only caught a real regression
+    nobody had scoped: the list lost ALL visited signal, not just the
+    tappable toggle — no way to scan the list for what's left without
+    opening every popup. Fixed with `.row-visited-dot`, a small
+    non-interactive hollow/filled circle rendered unconditionally (hollow
+    = unvisited, since "what's left" scanning needs the negative state
+    visible too). Placed as its own fixed grid column on `.location-card`
+    (already `display:grid`) rather than trailing the variable-length
+    category/city text — a CD review caught that trailing placement would
+    shift the dot's x-position row to row and defeat the "glance down the
+    list" goal entirely. `.location-actions` got an explicit
+    `grid-column: -1` so shape-card rows (which have no dot) keep their
+    delete button aligned with pin rows instead of auto-placing one column
+    earlier.
+  - Two follow-ups explicitly deferred, not forgotten: a "12/38 visited"
+    header count (`updateUI()`'s `${activeCityLabel()} list (...)` text) —
+    low-risk but judged to deserve its own review rather than riding along;
+    and map markers still don't reflect visited status anywhere on the map
+    itself (only the list/popup do) — a real, related gap, but a bigger,
+    separate design problem (touches `markerIcon()`/`badgeHtml()`, shared
+    with cluster badges, and the marker-size work already went through 3
+    rounds of CD review to get that system right).
+  - Not yet visually smoke-tested in a real browser (same sandbox
+    constraint as everything else needing live Supabase/tiles) — worth
+    checking the dot's actual legibility at 8px, the checkbox's tap
+    precision, and whether the `--gap` (12px) spacing between the dot and
+    its neighbors looks right in person.
 
 **Needs the user's action:**
 - ~~Confirm the `cities` table migration has been run~~ — confirmed done
