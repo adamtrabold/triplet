@@ -138,6 +138,24 @@ go stale, and don't leave it silently out of date either.
   different cells despite looking close together on screen — not yet hit
   in practice, but the next thing to look at if bumping the band size
   again doesn't fix a reported case.
+- Clustering extended past `GLYPH_MIN_ZOOM` — merged to `main` (`79c037c`).
+  Real screenshots showed glyphs already visible (so real zoom was 12+,
+  not 11) with dense overlap still there — clustering had been hard-capped
+  at `GLYPH_MIN_ZOOM`=12 specifically because that's also where
+  `highlightMarker()`'s `focusMap({ atLeast: 14 })` was known to always
+  land past, the property that keeps a list-item click from ever landing
+  on a still-clustered pin. Rather than raise `GLYPH_MIN_ZOOM` itself
+  (which would also delay glyphs turning on, unrelated), clustering now
+  has its own cutoff, **`SOLO_MIN_ZOOM` = 14**, pinned exactly to that
+  `focusMap()` call — both the list-click and cluster-badge-click paths
+  reference the constant directly instead of a duplicated `14` literal, so
+  the safety property can't silently drift out of sync if either changes
+  later. `clusterCellPxForZoom()` gained two more bands: 24px at zoom 12,
+  16px at zoom 13. `GLYPH_MIN_ZOOM` itself and everything tied to it
+  (glyph visibility, NEAR/FAR marker size) is untouched — a solo NEAR-tier
+  marker still renders exactly as before; only which pins get absorbed
+  into a cluster badge changed. Not yet re-confirmed against a fresh
+  screenshot at the app's actual real-world zoom.
 - Visited-checkbox CSS fix + orphan-city cleanup — merged to `main`
   (`1d6602e`). See git history for detail; this was written up earlier in
   this same session before the marker-size work started.
