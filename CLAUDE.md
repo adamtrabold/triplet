@@ -159,21 +159,30 @@ go stale, and don't leave it silently out of date either.
 - Visited-checkbox CSS fix + orphan-city cleanup — merged to `main`
   (`1d6602e`). See git history for detail; this was written up earlier in
   this same session before the marker-size work started.
-
-**Queued next (ready to start) — "Get Directions" button:**
-A button (per pin, likely on the map popup and/or the location card) that
-opens the device's native maps app pre-loaded with directions to that
-pin's coordinates — the owner is primarily on an iPhone. Explicitly
-requested to go through the same design agent + UX expert agent + CD
-review loop used for the marker-size work — that work has now shipped, so
-this is unblocked. Nothing has been designed yet — open questions for
-that loop to resolve: which URL scheme(s) to target (Apple Maps `maps://`/
-`https://maps.apple.com/?daddr=`, a `geo:` intent for Android, a Google
-Maps universal link as a fallback — this app has no platform detection
-today, so "opens in maps on my phone" needs a decision on how that
-resolves cross-platform, not just for iOS), where the button lives (map
-popup only, list card only, both), and how it fits the existing
-click-to-navigate/highlight interaction without conflicting with it.
+- "Get Directions" button — merged to `main` (`02ebca8`). Design + UX +
+  CD loop (final score 9/10). Plain static `directionsUrl(loc)` link to
+  `https://maps.apple.com/?daddr=lat,lng&dirflg=d` — no JS platform
+  detection, opens the native app on iOS and degrades to a normal webpage
+  everywhere else. Ships in BOTH the location card's action cluster
+  (`.directions-btn`, reuses the `#g-compass` glyph, icon-only) and the
+  map popup (`.popup-directions`, visible "Get Directions" text) — design
+  initially proposed card-only and deferring the popup as a separate
+  follow-up, but the CD caught that assumption was wrong: `buildPopupHtml()`
+  has no click listener to guard against at all (unlike the card, which
+  needs the same `.directions-btn` exclusion its `.visit-btn`/`.delete-btn`
+  already have in `createCard()`'s click handler), so the popup version is
+  actually cheaper than the card version, not more expensive — shipping
+  both cost nothing extra. No `confirm()` dialog, no visited-state
+  coupling, pins only (shapes excluded — no single natural destination
+  point). The CD also caught two things neither agent's plan mentioned: the
+  `.location-card.highlighted` color-override selector needed
+  `.directions-btn` added or it'd render illegibly on the dark highlighted
+  background, and two "two-button cluster" doc comments needed updating
+  for the new third button — both folded in before shipping. Not yet
+  tapped in a real browser (same sandbox constraint as everything else
+  needing live Supabase/tiles) — worth confirming the Apple Maps link
+  actually opens correctly and the popup's new row doesn't crowd existing
+  content.
 
 **Needs the user's action:**
 - ~~Confirm the `cities` table migration has been run~~ — confirmed done
