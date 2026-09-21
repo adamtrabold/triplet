@@ -2713,8 +2713,11 @@
 
     // Two size tiers, not one flat number: NEAR is used with the glyph
     // visible (needs interior room), FAR is shape/color only (doesn't) --
-    // see GLYPH_MIN_ZOOM below, which gates both together, one threshold,
-    // three consumers (glyph visibility, size tier, cluster-cell gate).
+    // see GLYPH_MIN_ZOOM below, which gates both. Clustering used to share
+    // this same threshold too, but it's now governed separately by
+    // SOLO_MIN_ZOOM (see below) -- a solo NEAR-tier marker (glyph visible)
+    // can still be absorbed into a cluster badge; that's independent of
+    // whether ITS OWN size/glyph would be NEAR or FAR if it were solo.
     // Both values land on the app's own spacing scale (--s6/--s4,
     // index.html ~160) rather than being picked freestanding. Highlighted
     // sizes are a flat +8 (--s2) on top of the active tier, not a
@@ -2729,28 +2732,41 @@
 
     // Below this zoom pins cluster and 11 pictograms stop being readable, so
     // markers drop to badge SHAPE only -- which still answers the question
-    // that matters at that scale ("is that a pin or a district?").
+    // that matters at that scale ("is that a pin or a district?"). This
+    // governs glyph visibility and marker size ONLY -- see SOLO_MIN_ZOOM
+    // below for the (separate, higher) zoom where clustering itself ends.
     const GLYPH_MIN_ZOOM = 12;
 
+    // Clustering's own cutoff -- deliberately NOT the same as GLYPH_MIN_ZOOM.
+    // It's pinned to highlightMarker()'s focusMap({ atLeast: 14 }) call,
+    // which is what every list-item click and every cluster-badge click
+    // routes through: as long as this stays <= that atLeast value, a click
+    // is GUARANTEED to land at a zoom where the thing it's navigating to is
+    // rendered solo, never still hidden inside a cluster bubble -- the same
+    // safety property GLYPH_MIN_ZOOM=12 gave clustering before this existed,
+    // just at the zoom navigation actually lands on instead of the zoom
+    // glyphs happen to turn on. Real density (dense old-town cores) persists
+    // well past zoom 12 with real glyphs visible, which GLYPH_MIN_ZOOM alone
+    // couldn't address without also hiding glyphs at those zooms -- this
+    // constant is what lets clustering extend there independently.
+    const SOLO_MIN_ZOOM = 14;
+
     // Cluster-cell size for mapVisibleLocations()'s grid-snap below
-    // GLYPH_MIN_ZOOM, banded by zoom rather than one flat number -- a
+    // SOLO_MIN_ZOOM, banded by zoom rather than one flat number -- a
     // coarser cell far out, finer as you approach the solo cutoff, so a
     // dense cluster gets more chances to split into smaller ones across
     // several zoom ticks instead of jumping straight from "one badge" to
     // "every pin solo" in a single tick. Leaflet's default zoomSnap means
     // map.getZoom() is always an integer, so these band on whole zoom
-    // levels cleanly.
-    //
-    // Reykjavik/LA/Stockholm's own default city zoom (11) is the LAST band
-    // before the solo cutoff, not some rarely-seen far-out state -- so it
-    // needs real clustering strength, not the finest step. 64 is a new
-    // top tier above the app's own --s12=48 spacing token (still a 4px
-    // multiple, continuing that scale's convention past its own ceiling);
-    // 48/32 are --s12/--s8.
+    // levels cleanly. All five values are 4px multiples continuing the
+    // app's own spacing-scale convention (64/48 sit above its --s12=48
+    // ceiling; 32/24/16 are --s8/--s6/--s4).
     function clusterCellPxForZoom(zoom) {
-      if (zoom <= 9) return 64;
+      if (zoom <= 9)  return 64;
       if (zoom === 10) return 48;
-      return 32; // zoom === 11 (last band before GLYPH_MIN_ZOOM's solo cutoff)
+      if (zoom === 11) return 32;
+      if (zoom === 12) return 24;
+      return 16; // zoom === 13 (last band before SOLO_MIN_ZOOM's cutoff)
     }
 
     // The cluster badge's own rendered size, independent of whichever cell
@@ -2908,7 +2924,10 @@
 
       noteInteraction();
       setHighlighted(locationId);
-      focusMap([location.lat, location.lng], { atLeast: 14 }, { animate: true, duration: 0.5 });
+      // atLeast: SOLO_MIN_ZOOM -- not a coincidence, see that constant's
+      // comment. This is the call the whole clustering safety property
+      // rests on; if it ever changes, SOLO_MIN_ZOOM must move with it.
+      focusMap([location.lat, location.lng], { atLeast: SOLO_MIN_ZOOM }, { animate: true, duration: 0.5 });
 
       const entry = markersById.get(locationId);
       if (entry) {
@@ -3007,17 +3026,20 @@
     // Adds a zoom-gated grid-snap on top of visibleLocations() -- same split
     // as mapVisibleNeighborhoodShapes(): the sidebar list keeps enumerating
     // every pin via visibleLocations() unchanged, only what's drawn on the
-    // MAP is affected. At/above GLYPH_MIN_ZOOM every pin renders on its own,
-    // same as before this existed. Below it, pins whose screen positions
+    // MAP is affected. At/above SOLO_MIN_ZOOM every pin renders on its own,
+    // same as before clustering existed -- that cutoff, not GLYPH_MIN_ZOOM,
+    // is what a list-item click is guaranteed to land past (see
+    // SOLO_MIN_ZOOM's own comment). Below it, pins whose screen positions
     // round to the same clusterCellPxForZoom() cell (a real, not just visual,
-    // overlap at that zoom -- e.g. Reykjavik/Stockholm's old-town cores at
-    // their own default city zoom) collapse into a single cluster point
-    // rather than rendering as indistinguishable, unclickable stacked dots.
-    // A lone pin in a cell is untouched -- most of the map, most of the
-    // time, looks exactly as it always has.
+    // overlap at that zoom -- e.g. Reykjavik/Stockholm's old-town cores,
+    // which stay dense well past GLYPH_MIN_ZOOM with real glyphs visible)
+    // collapse into a single cluster point rather than rendering as
+    // indistinguishable, unclickable stacked dots. A lone pin in a cell is
+    // untouched -- most of the map, most of the time, looks exactly as it
+    // always has.
     function mapVisibleLocations() {
       const visible = visibleLocations();
-      if (!map || map.getZoom() >= GLYPH_MIN_ZOOM) return { solo: visible, clusters: [] };
+      if (!map || map.getZoom() >= SOLO_MIN_ZOOM) return { solo: visible, clusters: [] };
 
       const cellPx = clusterCellPxForZoom(map.getZoom());
       const cells = new Map();
@@ -3046,7 +3068,7 @@
 
     // Cluster badge: paper count on a solid field, deliberately not a
     // category badge (it stands for 2+ mixed-category pins). Clicking it
-    // navigates past GLYPH_MIN_ZOOM like any other click-to-navigate
+    // navigates past SOLO_MIN_ZOOM like any other click-to-navigate
     // target (focusMap, same as focusShape()'s flyToBounds()) -- it never
     // expands in place, so it can't swallow a specific pin a list click or
     // another cluster click is trying to reach.
@@ -3068,7 +3090,7 @@
         seen.add(cluster.id);
         if (clusterMarkersById.has(cluster.id)) return;
         const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count) }).addTo(map);
-        marker.on('click', () => focusMap([cluster.lat, cluster.lng], { atLeast: 14 }, { animate: true }));
+        marker.on('click', () => focusMap([cluster.lat, cluster.lng], { atLeast: SOLO_MIN_ZOOM }, { animate: true }));
         clusterMarkersById.set(cluster.id, marker);
       });
 
