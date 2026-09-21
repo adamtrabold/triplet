@@ -112,20 +112,32 @@ go stale, and don't leave it silently out of date either.
   browser (this environment can't reach Supabase/tiles) — worth a check on
   a real trip city, especially the zoom-12 crossing transition and the
   cluster badges in Reykjavik/Stockholm's old-town cores.
-- Cluster banding follow-up — merged to `main` (`77b674e`). The clustering
-  above was a single on/off switch at `GLYPH_MIN_ZOOM`, which the owner
-  felt "blasted" from all-clustered to all-solo in one zoom tick (three of
-  five cities default to zoom 11, right at that boundary). Replaced the
-  flat `CLUSTER_CELL_PX` with `clusterCellPxForZoom()`: 48px at zoom ≤9,
-  32px at zoom 10, 24px at zoom 11 (unchanged) — still on the app's 4px
-  scale, still no clustering at/above `GLYPH_MIN_ZOOM`=12. Cluster badges
-  now render at a fixed `CLUSTER_BADGE_PX`=24 regardless of which band
-  bucketed them, so they don't balloon at the coarsest band. UX-agent-only
-  pass this time (owner explicitly skipped the CD loop), scope
-  deliberately limited to clustering only — marker size/glyph tiers
-  untouched. A fade-in-only animation on newly-added markers was proposed
-  but not built; only worth it if the banding alone doesn't feel smooth
-  enough after a real-browser check.
+- Cluster banding follow-up — merged to `main` (`77b674e`, then retuned at
+  `4d4a28e`). The clustering above was a single on/off switch at
+  `GLYPH_MIN_ZOOM`, which the owner felt "blasted" from all-clustered to
+  all-solo in one zoom tick (three of five cities default to zoom 11,
+  right at that boundary). Replaced the flat `CLUSTER_CELL_PX` with
+  `clusterCellPxForZoom()`, currently **64px at zoom ≤9, 48px at zoom 10,
+  32px at zoom 11** — still no clustering at/above `GLYPH_MIN_ZOOM`=12.
+  (First pass shipped 48/32/24, leaving zoom 11 unchanged from before
+  clustering existed; a real screenshot of downtown Reykjavik's *default*
+  view — zoom 11, not some rarely-seen far-out state — showed that was
+  still a dense overlapping cascade, so every band got bumped up a step.
+  64 is a new top tier above the app's own `--s12`=48 spacing token,
+  still a 4px multiple, past that scale's own ceiling.) Cluster badges
+  render at a fixed `CLUSTER_BADGE_PX`=24 regardless of which band bucketed
+  them, so they don't balloon at the coarsest band. UX-agent-only pass
+  (owner explicitly skipped the CD loop both rounds), scope deliberately
+  limited to clustering only — marker size/glyph tiers untouched. A
+  fade-in-only animation on newly-added markers was proposed but not
+  built; only worth it if the banding alone doesn't feel smooth enough
+  after a real-browser check. Grid-snap bucketing has a known limitation
+  worth knowing about if the owner reports a *chain* of pins along a
+  street still not fully merging: it's an independent per-point rounding,
+  not nearest-neighbor merging, so points near a cell boundary can land in
+  different cells despite looking close together on screen — not yet hit
+  in practice, but the next thing to look at if bumping the band size
+  again doesn't fix a reported case.
 - Visited-checkbox CSS fix + orphan-city cleanup — merged to `main`
   (`1d6602e`). See git history for detail; this was written up earlier in
   this same session before the marker-size work started.
