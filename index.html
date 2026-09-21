@@ -1501,6 +1501,7 @@
 
     // ---- reconciler state (Phase 0) -----------------------------------------
     const markersById = new Map();   // id → { marker, signature, loc }
+    const clusterMarkersById = new Map();   // stable cluster id → L.Marker, present only while visible
     const cardsById   = new Map();   // id → { el, signature }
     const shapeCardsById = new Map();   // id → { el, signature } -- neighborhood_shapes' list-panel counterpart to cardsById
     let highlightedId = null;
@@ -2626,17 +2627,31 @@
     //                         from a real pin before this.
     // =========================================================================
 
-    // The old 24px marker was a colored DOT carrying no glyph, so it never
-    // needed interior room. 28px minus a 2px rim leaves a 24px field and an
-    // ~18px glyph -- the practical floor for telling 11 silhouettes apart
-    // over live map tiles.
-    const MARKER_SIZE    = 28;
-    const MARKER_SIZE_HI = 36;
+    // Two size tiers, not one flat number: NEAR is used with the glyph
+    // visible (needs interior room), FAR is shape/color only (doesn't) --
+    // see GLYPH_MIN_ZOOM below, which gates both together, one threshold,
+    // three consumers (glyph visibility, size tier, cluster-cell gate).
+    // Both values land on the app's own spacing scale (--s6/--s4,
+    // index.html ~160) rather than being picked freestanding. Highlighted
+    // sizes are a flat +8 (--s2) on top of the active tier, not a
+    // multiplier -- that's what makes both bases land back on the scale
+    // (24->32, 16->24); it's a property of these two specific values, not
+    // a general rule, so a future third tier shouldn't assume it transfers.
+    const MARKER_SIZE_NEAR    = 24;   // --s6, glyph visible
+    const MARKER_SIZE_FAR     = 16;   // --s4, shape/color only
+    const MARKER_HI_DELTA     = 8;    // --s2, additive
+    const MARKER_SIZE_NEAR_HI = MARKER_SIZE_NEAR + MARKER_HI_DELTA; // 32, --s8
+    const MARKER_SIZE_FAR_HI  = MARKER_SIZE_FAR  + MARKER_HI_DELTA; // 24, --s6
 
     // Below this zoom pins cluster and 11 pictograms stop being readable, so
     // markers drop to badge SHAPE only -- which still answers the question
     // that matters at that scale ("is that a pin or a district?").
     const GLYPH_MIN_ZOOM = 12;
+
+    // Cluster-cell size for mapVisibleLocations()'s grid-snap below
+    // GLYPH_MIN_ZOOM -- reuses the far-tier's own WCAG hit-pad size rather
+    // than a freestanding number.
+    const CLUSTER_CELL_PX = 24;
 
     function categoryInk(category) {
       return CATEGORY_COLORS[category] || CATEGORY_COLORS.other;
@@ -2682,7 +2697,13 @@
 
       let glyph = '';
       if (opts.glyph !== false) {
-        const g = Math.round(size * 0.62);
+        // Size-aware, not a flat fraction of `size` -- a flat ratio shrinks
+        // faster than the badge shrinks as tiers get smaller, which can push
+        // the glyph below the ~18px floor for telling 11 silhouettes apart.
+        // Floored for legibility, capped so it can never exceed the badge's
+        // own interior field regardless of how small `size` gets.
+        const field = size - rim * 2;
+        const g = Math.min(field - 2, Math.max(18, field - 4));
         const o = (size - g) / 2;
         glyph = `<svg x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24" style="color:${mark}"><use href="#g-${escapeAttr(category)}"/></svg>`;
       }
@@ -2690,36 +2711,56 @@
     }
 
     function markerIcon(loc, highlighted) {
-      const size = highlighted ? MARKER_SIZE_HI : MARKER_SIZE;
       const showGlyph = !map || map.getZoom() >= GLYPH_MIN_ZOOM;
+      const size = (showGlyph ? MARKER_SIZE_NEAR : MARKER_SIZE_FAR) + (highlighted ? MARKER_HI_DELTA : 0);
       const ink = categoryInk(loc.category);
-      const html = `<div class="${highlighted ? 'highlighted-marker' : ''}" style="width:${size}px;height:${size}px;line-height:0;">` +
-        badgeHtml(loc.category, markerKind(loc), size, {
-          ink,
-          // Highlighted inverts: ink field, paper glyph.
-          fill: highlighted ? ink : '#F2EBDD',
-          mark: highlighted ? '#F2EBDD' : ink,
-          rim: highlighted ? 2.5 : 2,
-          glyph: showGlyph
-        }) + '</div>';
+      const badge = badgeHtml(loc.category, markerKind(loc), size, {
+        ink,
+        // Highlighted inverts: ink field, paper glyph.
+        fill: highlighted ? ink : '#F2EBDD',
+        mark: highlighted ? '#F2EBDD' : ink,
+        rim: highlighted ? 2.5 : 2,
+        glyph: showGlyph
+      });
+      // Far-tier badges render smaller than WCAG 2.5.8's 24px AA touch
+      // target -- pad the invisible click/tap area out to 24px around the
+      // small visible badge rather than shrinking the tap target with it.
+      const hit = Math.max(size, 24);
+      const html = hit === size
+        ? `<div class="${highlighted ? 'highlighted-marker' : ''}" style="width:${size}px;height:${size}px;line-height:0;">${badge}</div>`
+        : `<div style="width:${hit}px;height:${hit}px;display:flex;align-items:center;justify-content:center;">` +
+          `<div class="${highlighted ? 'highlighted-marker' : ''}" style="width:${size}px;height:${size}px;line-height:0;">${badge}</div></div>`;
       return L.divIcon({
         html,
         className: '',
-        iconSize: [size, size],
-        iconAnchor: [size / 2, size / 2]
+        iconSize: [hit, hit],
+        iconAnchor: [hit / 2, hit / 2]
       });
     }
 
-    // Re-icons every marker when the map crosses GLYPH_MIN_ZOOM. Guarded on a
-    // state flag so an ordinary zoom tick touches nothing.
+    // Resyncs cluster membership on every view change (pan shifts which
+    // cluster cell a pin's screen position falls into, even without a zoom
+    // change) -- and additionally force-re-icons every remaining solo
+    // marker when the map crosses GLYPH_MIN_ZOOM, since glyph visibility
+    // and size tier both gate off that threshold but AREN'T part of a
+    // marker's data signature, so the ordinary syncMarkers() diff wouldn't
+    // otherwise notice they need to change. Crossing-guarded so an ordinary
+    // move that doesn't cross the threshold skips the force-re-icon pass.
     let lastGlyphZoomOn = null;
     function syncMarkerGlyphZoom() {
       if (!map) return;
       const on = map.getZoom() >= GLYPH_MIN_ZOOM;
-      if (on === lastGlyphZoomOn) return;
+      const crossed = on !== lastGlyphZoomOn;
       lastGlyphZoomOn = on;
+
+      const mapVisible = mapVisibleLocations();
+      syncMarkers(mapVisible.solo);
+      syncClusterMarkers(mapVisible.clusters);
+
+      if (!crossed) return;
       markersById.forEach((entry, id) => {
         entry.marker.setIcon(markerIcon(entry.loc, id === highlightedId));
+        applyMarkerStacking(entry.marker, id === highlightedId);
       });
     }
 
@@ -2746,7 +2787,10 @@
       [prev, id].forEach(key => {
         if (!key) return;
         const marker = markersById.get(key);
-        if (marker) marker.marker.setIcon(markerIcon(marker.loc, key === id));
+        if (marker) {
+          marker.marker.setIcon(markerIcon(marker.loc, key === id));
+          applyMarkerStacking(marker.marker, key === id);
+        }
         const card = cardsById.get(key);
         if (card) card.el.classList.toggle('highlighted', key === id);
       });
@@ -2772,7 +2816,9 @@
       const visibleShapes = visibleNeighborhoodShapes();
       document.querySelector('#locationsHeader h2').textContent =
         `${activeCityLabel()} list (${visible.length + visibleShapes.length})`;
-      syncMarkers(visible);
+      const mapVisible = mapVisibleLocations();
+      syncMarkers(mapVisible.solo);
+      syncClusterMarkers(mapVisible.clusters);
       syncLocationCards(visible);
       syncShapeCards(visibleShapes, visible.length);
       syncNeighborhoodLayers();
@@ -2852,6 +2898,88 @@
       });
     }
 
+    // Adds a zoom-gated grid-snap on top of visibleLocations() -- same split
+    // as mapVisibleNeighborhoodShapes(): the sidebar list keeps enumerating
+    // every pin via visibleLocations() unchanged, only what's drawn on the
+    // MAP is affected. At/above GLYPH_MIN_ZOOM every pin renders on its own,
+    // same as before this existed. Below it, pins whose screen positions
+    // round to the same CLUSTER_CELL_PX cell (a real, not just visual,
+    // overlap at that zoom -- e.g. Reykjavik/Stockholm's old-town cores at
+    // their own default city zoom) collapse into a single cluster point
+    // rather than rendering as indistinguishable, unclickable stacked dots.
+    // A lone pin in a cell is untouched -- most of the map, most of the
+    // time, looks exactly as it always has.
+    function mapVisibleLocations() {
+      const visible = visibleLocations();
+      if (!map || map.getZoom() >= GLYPH_MIN_ZOOM) return { solo: visible, clusters: [] };
+
+      const cells = new Map();
+      visible.forEach(loc => {
+        const pt = map.latLngToContainerPoint([loc.lat, loc.lng]);
+        const key = Math.round(pt.x / CLUSTER_CELL_PX) + ':' + Math.round(pt.y / CLUSTER_CELL_PX);
+        if (!cells.has(key)) cells.set(key, []);
+        cells.get(key).push(loc);
+      });
+
+      const solo = [];
+      const clusters = [];
+      cells.forEach(members => {
+        if (members.length === 1) { solo.push(members[0]); return; }
+        const lat = members.reduce((sum, m) => sum + m.lat, 0) / members.length;
+        const lng = members.reduce((sum, m) => sum + m.lng, 0) / members.length;
+        // Stable id from the exact member set -- an unchanged cluster keeps
+        // its marker; a changed one (a pin entered/left the cell) gets a new
+        // id, so syncClusterMarkers()'s add/remove diff recreates it rather
+        // than needing a separate signature check.
+        const id = 'cluster:' + members.map(m => m.id).sort().join(',');
+        clusters.push({ id, lat, lng, count: members.length });
+      });
+      return { solo, clusters };
+    }
+
+    // Cluster badge: paper count on a solid field, deliberately not a
+    // category badge (it stands for 2+ mixed-category pins). Clicking it
+    // navigates past GLYPH_MIN_ZOOM like any other click-to-navigate
+    // target (focusMap, same as focusShape()'s flyToBounds()) -- it never
+    // expands in place, so it can't swallow a specific pin a list click or
+    // another cluster click is trying to reach.
+    function clusterMarkerIcon(count) {
+      const size = CLUSTER_CELL_PX - 2;
+      const c = size / 2;
+      const html = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">` +
+        `<circle cx="${c}" cy="${c}" r="${c - 1}" fill="var(--figure-deep)" stroke="#F2EBDD" stroke-width="2"/>` +
+        `<text x="${c}" y="${c}" text-anchor="middle" dominant-baseline="central" font-family="var(--font-ui)" font-weight="700" font-size="10" fill="#F2EBDD">${count}</text>` +
+        `</svg>`;
+      return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [c, c] });
+    }
+
+    function syncClusterMarkers(clusters) {
+      if (!map) return;
+      const seen = new Set();
+
+      clusters.forEach(cluster => {
+        seen.add(cluster.id);
+        if (clusterMarkersById.has(cluster.id)) return;
+        const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count) }).addTo(map);
+        marker.on('click', () => focusMap([cluster.lat, cluster.lng], { atLeast: 14 }, { animate: true }));
+        clusterMarkersById.set(cluster.id, marker);
+      });
+
+      clusterMarkersById.forEach((marker, id) => {
+        if (seen.has(id)) return;
+        map.removeLayer(marker);
+        clusterMarkersById.delete(id);
+      });
+    }
+
+    // Single writer of a marker's stacking, so creation, reconciliation and
+    // the highlight toggle can never diverge on which one remembered the
+    // bump -- a dense cluster's just-selected pin always renders on top,
+    // regardless of Leaflet's default latitude-based z-order.
+    function applyMarkerStacking(marker, highlighted) {
+      marker.setZIndexOffset(highlighted ? 1000 : 0);
+    }
+
     function syncMarkers(visible) {
       const seen = new Set();
 
@@ -2866,6 +2994,7 @@
           }).addTo(map);
           marker.locationId = loc.id;
           marker.bindPopup(buildPopupHtml(loc));
+          applyMarkerStacking(marker, loc.id === highlightedId);
           markersById.set(loc.id, { marker, signature, loc });
           return;
         }
@@ -2876,6 +3005,7 @@
           entry.marker.setLatLng([loc.lat, loc.lng]);
           entry.marker.setIcon(markerIcon(loc, loc.id === highlightedId));
           entry.marker.setPopupContent(buildPopupHtml(loc));
+          applyMarkerStacking(entry.marker, loc.id === highlightedId);
         }
       });
 
@@ -3595,7 +3725,9 @@
 
     map.on('dragend zoomend', noteInteraction);
     map.on('zoomend', syncNeighborhoodLayers);
-    map.on('zoomend', syncMarkerGlyphZoom);
+    // moveend (not zoomend) -- clustering depends on screen position, which
+    // panning changes even without a zoom crossing.
+    map.on('moveend', syncMarkerGlyphZoom);
 
     // Initialize auth and set up auth state listener
     supabaseClient.auth.onAuthStateChange((event, session) => {
