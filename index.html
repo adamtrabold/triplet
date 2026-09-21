@@ -1050,14 +1050,14 @@
     .popup-addr  { font-size: 12px; line-height: 16px; color: var(--ink-2); }
     .popup-notes { font-size: 12px; line-height: 16px; color: var(--ink-2); font-style: italic; margin-top: var(--s2); }
 
-    /* --navy, not --figure-deep: on a restaurant popup the deep figure would
-       sit ~40px from a restaurant-ink glyph they collide with in all five
-       cities. Navy is 2.71:1 away in value from every category ink. */
     /* A <button>, not a static status div -- the popup is the only place
        visited can be toggled now that the list row is delete-only. Same
        10px uppercase tracked-label voice as before, just clickable, with
        an unvisited/visited color swap standing in for the checkmark that
-       .visit-btn used to show inline. */
+       .visit-btn used to show inline. The visited state uses --navy, not
+       --figure-deep: on a restaurant popup the deep figure would sit
+       ~40px from a restaurant-ink glyph they collide with in all five
+       cities. Navy is 2.71:1 away in value from every category ink. */
     .popup-visited {
       display: block;
       width: 100%;
