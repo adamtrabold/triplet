@@ -2649,9 +2649,25 @@
     const GLYPH_MIN_ZOOM = 12;
 
     // Cluster-cell size for mapVisibleLocations()'s grid-snap below
-    // GLYPH_MIN_ZOOM -- reuses the far-tier's own WCAG hit-pad size rather
-    // than a freestanding number.
-    const CLUSTER_CELL_PX = 24;
+    // GLYPH_MIN_ZOOM, banded by zoom rather than one flat number -- a
+    // coarser cell far out, finer as you approach the solo cutoff, so a
+    // dense cluster gets more chances to split into smaller ones across
+    // several zoom ticks instead of jumping straight from "one badge" to
+    // "every pin solo" in a single tick. Leaflet's default zoomSnap means
+    // map.getZoom() is always an integer, so these band on whole zoom
+    // levels cleanly. All three values are existing tokens on the app's
+    // own 4px scale (--s12/--s8/--s6, index.html ~160).
+    function clusterCellPxForZoom(zoom) {
+      if (zoom <= 9) return 48;
+      if (zoom === 10) return 32;
+      return 24; // zoom === 11 (last band before GLYPH_MIN_ZOOM's solo cutoff)
+    }
+
+    // The cluster badge's own rendered size, independent of whichever cell
+    // size bucketed it -- so the badge always looks like the rest of the
+    // app's UI regardless of how coarse the current band's bucketing is,
+    // rather than ballooning to ~46px at the 48px band.
+    const CLUSTER_BADGE_PX = 24;
 
     function categoryInk(category) {
       return CATEGORY_COLORS[category] || CATEGORY_COLORS.other;
@@ -2903,7 +2919,7 @@
     // every pin via visibleLocations() unchanged, only what's drawn on the
     // MAP is affected. At/above GLYPH_MIN_ZOOM every pin renders on its own,
     // same as before this existed. Below it, pins whose screen positions
-    // round to the same CLUSTER_CELL_PX cell (a real, not just visual,
+    // round to the same clusterCellPxForZoom() cell (a real, not just visual,
     // overlap at that zoom -- e.g. Reykjavik/Stockholm's old-town cores at
     // their own default city zoom) collapse into a single cluster point
     // rather than rendering as indistinguishable, unclickable stacked dots.
@@ -2913,10 +2929,11 @@
       const visible = visibleLocations();
       if (!map || map.getZoom() >= GLYPH_MIN_ZOOM) return { solo: visible, clusters: [] };
 
+      const cellPx = clusterCellPxForZoom(map.getZoom());
       const cells = new Map();
       visible.forEach(loc => {
         const pt = map.latLngToContainerPoint([loc.lat, loc.lng]);
-        const key = Math.round(pt.x / CLUSTER_CELL_PX) + ':' + Math.round(pt.y / CLUSTER_CELL_PX);
+        const key = Math.round(pt.x / cellPx) + ':' + Math.round(pt.y / cellPx);
         if (!cells.has(key)) cells.set(key, []);
         cells.get(key).push(loc);
       });
@@ -2944,7 +2961,7 @@
     // expands in place, so it can't swallow a specific pin a list click or
     // another cluster click is trying to reach.
     function clusterMarkerIcon(count) {
-      const size = CLUSTER_CELL_PX - 2;
+      const size = CLUSTER_BADGE_PX - 2;
       const c = size / 2;
       const html = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">` +
         `<circle cx="${c}" cy="${c}" r="${c - 1}" fill="var(--figure-deep)" stroke="#F2EBDD" stroke-width="2"/>` +
