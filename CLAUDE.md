@@ -261,10 +261,25 @@ go stale, and don't leave it silently out of date either.
     from. Since the dot is no longer its own grid column, `.location-card`
     reverted to its original 3-column grid and `.location-actions` dropped
     the now-unneeded `grid-column: -1` hack.
-  - Not yet visually smoke-tested in a real browser (same sandbox
-    constraint as everything else needing live Supabase/tiles) — worth
-    checking the popup buttons don't wrap on a real phone at 240px and
-    that "Visited" reads clearly leading the row-meta line.
+  - Real-device check confirmed the popup buttons and "Visited" placement
+    both read fine — the owner's only follow-up from looking at this live
+    was the category-icon spacing, fixed in the next entry.
+- Popup category icon/text gap tightened — merged to `main` (`bcb72ca`).
+  Owner reported the category glyph and its label (e.g. a shopping-bag
+  icon next to "SHOPPING") looked too far apart on a real phone.
+  `.popup-cat`'s `gap` was `var(--s2)` (8px) — the same value the sidebar
+  filter chips use for an identical glyph+label pairing, so the gap
+  itself wasn't an outlier value. The actual cause: `glyphHtml()`'s SVG
+  symbols carry real internal whitespace (e.g. `#g-shopping`'s path only
+  spans ~67% of its `viewBox`), which scales up with render size — at the
+  chips' 12px it's ~1-2px, invisible; at the popup's 20px it's ~3-4px,
+  stacking with the flat 8px gap to look like much more separation than
+  the identical gap produces at chip size. Fix scoped to `.popup-cat`
+  alone: `gap: var(--s1)` (4px) — chips, `glyphHtml()`, and every other
+  icon+text pairing in the file are untouched. CD confirmed a flat
+  hardcoded value (not a size-proportional formula) was the right call
+  given there's only one 20px call site and no way to visually iterate
+  in this sandbox — lowest-risk, most reversible option.
 
 **Needs the user's action:**
 - ~~Confirm the `cities` table migration has been run~~ — confirmed done
