@@ -1051,18 +1051,22 @@
     .popup-notes { font-size: 12px; line-height: 16px; color: var(--ink-2); font-style: italic; margin-top: var(--s2); }
 
     /* A <button>, not a static status div -- the popup is the only place
-       visited can be toggled now that the list row is delete-only. Same
-       10px uppercase tracked-label voice as before, just clickable, with
-       an unvisited/visited color swap standing in for the checkmark that
-       .visit-btn used to show inline. The visited state uses --navy, not
-       --figure-deep: on a restaurant popup the deep figure would sit
-       ~40px from a restaurant-ink glyph they collide with in all five
-       cities. Navy is 2.71:1 away in value from every category ink. */
+       visited can be toggled now that the list row is delete-only. A real
+       checkbox affordance (the bordered circle .visit-btn used to show),
+       not just a color swap on plain text -- text alone was visually
+       identical to the old read-only status line, giving no sign it's now
+       tappable. Padding grows the touch target well past the bare 12px
+       line-height. The visited state uses --navy, not --figure-deep: on a
+       restaurant popup the deep figure would sit ~40px from a
+       restaurant-ink glyph they collide with in all five cities. Navy is
+       2.71:1 away in value from every category ink. */
     .popup-visited {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: var(--s2);
       width: 100%;
       text-align: left;
-      padding: 0;
+      padding: var(--s2) 0;
       border: none;
       background: transparent;
       cursor: pointer;
@@ -1077,7 +1081,25 @@
       margin-top: var(--s2);
     }
 
-    .popup-visited.visited { color: var(--navy); }
+    .popup-visited:active { opacity: 0.6; }
+
+    .popup-visited-check {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      border: 1px solid var(--hair);
+      border-radius: 50%;
+    }
+
+    .popup-visited.visited {
+      color: var(--navy);
+    }
+
+    .popup-visited.visited .popup-visited-check {
+      background: var(--navy);
+      border-color: var(--navy);
+    }
 
     .popup-directions {
       display: flex;
@@ -2919,7 +2941,7 @@
           <div class="popup-title">${escapeHtml(loc.name)}</div>
           ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
           ${loc.notes ? `<div class="popup-notes">${escapeHtml(loc.notes)}</div>` : ''}
-          <button type="button" class="popup-visited ${loc.visited ? 'visited' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.visited ? 'true' : 'false'}">${loc.visited ? '&#10003; Visited' : 'Mark Visited'}</button>
+          <button type="button" class="popup-visited ${loc.visited ? 'visited' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.visited ? 'true' : 'false'}"><span class="popup-visited-check" aria-hidden="true"></span>${loc.visited ? 'Visited' : 'Mark Visited'}</button>
           <a class="popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Get Directions</a>
         </div>
       `;
