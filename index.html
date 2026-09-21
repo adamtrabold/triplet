@@ -2739,12 +2739,18 @@
     // several zoom ticks instead of jumping straight from "one badge" to
     // "every pin solo" in a single tick. Leaflet's default zoomSnap means
     // map.getZoom() is always an integer, so these band on whole zoom
-    // levels cleanly. All three values are existing tokens on the app's
-    // own 4px scale (--s12/--s8/--s6, index.html ~160).
+    // levels cleanly.
+    //
+    // Reykjavik/LA/Stockholm's own default city zoom (11) is the LAST band
+    // before the solo cutoff, not some rarely-seen far-out state -- so it
+    // needs real clustering strength, not the finest step. 64 is a new
+    // top tier above the app's own --s12=48 spacing token (still a 4px
+    // multiple, continuing that scale's convention past its own ceiling);
+    // 48/32 are --s12/--s8.
     function clusterCellPxForZoom(zoom) {
-      if (zoom <= 9) return 48;
-      if (zoom === 10) return 32;
-      return 24; // zoom === 11 (last band before GLYPH_MIN_ZOOM's solo cutoff)
+      if (zoom <= 9) return 64;
+      if (zoom === 10) return 48;
+      return 32; // zoom === 11 (last band before GLYPH_MIN_ZOOM's solo cutoff)
     }
 
     // The cluster badge's own rendered size, independent of whichever cell
