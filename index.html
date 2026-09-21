@@ -166,8 +166,8 @@
          form labels and modal headers all start on it. Content therefore
          always begins at 16 + 28 + 12 = 56px.                             */
       --col-glyph:  28px;
-      --col-action: 28px;   /* ONE control. The row's two-button cluster
-                               sizes naturally (2x28 + 4 gap) so touch
+      --col-action: 28px;   /* ONE control. The row's action cluster (visit,
+                               directions, delete) sizes naturally so touch
                                targets are never shrunk to fit the token. */
       --gap:    12px;
       --gutter: 16px;
@@ -923,6 +923,7 @@
     .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.54:1 */
     .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
     .location-card.highlighted .visit-btn,
+    .location-card.highlighted .directions-btn,
     .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
     .location-card.highlighted .visit-btn.visited { background: var(--paper); color: var(--figure-deep); }
 
@@ -942,16 +943,17 @@
 
     .locations-empty svg { display: block; margin: 0 auto var(--s3); color: var(--hair); }
 
-    /* Two 28px controls, 4px apart -- the action cluster sizes naturally
-       rather than being crushed into a 28px token. Touch targets are never
-       shrunk to fit the grid. */
+    /* Three controls (visit, directions, delete), 4px apart -- the action
+       cluster sizes naturally rather than being crushed into a 28px token.
+       Touch targets are never shrunk to fit the grid. */
     .location-actions {
       display: flex;
       gap: var(--s1);
       align-items: center;
     }
 
-    .location-actions button {
+    .location-actions button,
+    .location-actions .directions-btn {
       padding: 0;
       cursor: pointer;
       display: flex;
@@ -976,6 +978,21 @@
       border-color: var(--figure);
       color: var(--navy);
     }
+
+    /* Always-available, like visit -- not suppressed until active like
+       delete. An <a>, not a <button>: it's a plain link handoff to another
+       app, needs no click handler of its own. */
+    .directions-btn {
+      color: var(--ink-2);
+      background: transparent;
+      border: 1px solid var(--hair);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      text-decoration: none;
+    }
+
+    .directions-btn svg { width: 12px; height: 12px; }
 
     /* Quiet until the row is active -- a fast scroll must never show a
        column of red X's. */
@@ -1081,6 +1098,23 @@
       color: var(--navy);
       margin-top: var(--s2);
     }
+
+    .popup-directions {
+      display: flex;
+      align-items: center;
+      gap: var(--s1);
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 10px;
+      line-height: 12px;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--figure-deep);
+      margin-top: var(--s2);
+      text-decoration: none;
+    }
+
+    .popup-directions svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* Auth Modal */
     #authModal {
@@ -2779,6 +2813,15 @@
       return CATEGORY_COLORS[category] || CATEGORY_COLORS.other;
     }
 
+    // Plain static link, no JS platform detection -- an Apple Maps
+    // universal link opens the native app on iOS and degrades to a normal
+    // webpage everywhere else, never a dead click. Pins only: a shape has
+    // no single natural destination point (see neighborhoodShapes'
+    // geometry, an arbitrary point array framed by bounds, not a coordinate).
+    function directionsUrl(loc) {
+      return `https://maps.apple.com/?daddr=${loc.lat},${loc.lng}&dirflg=d`;
+    }
+
     // An approximate pin records its provenance in the name suffix written by
     // handleAddShapeSubmit(); that is the only marker of its kind on the row.
     function markerKind(loc) {
@@ -2895,6 +2938,7 @@
           ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
           ${loc.notes ? `<div class="popup-notes">${escapeHtml(loc.notes)}</div>` : ''}
           ${loc.visited ? '<div class="popup-visited">&#10003; Visited</div>' : ''}
+          <a class="popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Get Directions</a>
         </div>
       `;
     }
@@ -3180,6 +3224,7 @@
           if (current) toggleVisited(current.id, current.visited);
           return;
         }
+        if (e.target.closest('.directions-btn')) return;   // let the link navigate
         if (e.target.closest('.delete-btn')) {
           if (current) confirmDelete(current.id, current.name);
           return;
@@ -3205,6 +3250,7 @@
         </div>
         <div class="location-actions">
           <button class="visit-btn ${loc.visited ? 'visited' : ''}" aria-label="Toggle visited" aria-pressed="${loc.visited ? 'true' : 'false'}">${loc.visited ? '&#10003;' : ''}</button>
+          <a class="directions-btn" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg></a>
           <button class="delete-btn" aria-label="Delete">&times;</button>
         </div>
       `;
