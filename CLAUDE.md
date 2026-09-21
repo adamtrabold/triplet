@@ -112,6 +112,20 @@ go stale, and don't leave it silently out of date either.
   browser (this environment can't reach Supabase/tiles) — worth a check on
   a real trip city, especially the zoom-12 crossing transition and the
   cluster badges in Reykjavik/Stockholm's old-town cores.
+- Cluster banding follow-up — merged to `main` (`77b674e`). The clustering
+  above was a single on/off switch at `GLYPH_MIN_ZOOM`, which the owner
+  felt "blasted" from all-clustered to all-solo in one zoom tick (three of
+  five cities default to zoom 11, right at that boundary). Replaced the
+  flat `CLUSTER_CELL_PX` with `clusterCellPxForZoom()`: 48px at zoom ≤9,
+  32px at zoom 10, 24px at zoom 11 (unchanged) — still on the app's 4px
+  scale, still no clustering at/above `GLYPH_MIN_ZOOM`=12. Cluster badges
+  now render at a fixed `CLUSTER_BADGE_PX`=24 regardless of which band
+  bucketed them, so they don't balloon at the coarsest band. UX-agent-only
+  pass this time (owner explicitly skipped the CD loop), scope
+  deliberately limited to clustering only — marker size/glyph tiers
+  untouched. A fade-in-only animation on newly-added markers was proposed
+  but not built; only worth it if the banding alone doesn't feel smooth
+  enough after a real-browser check.
 
 **Not yet merged:**
 - `claude/visited-btn-and-city-cleanup` branch — visited-checkbox CSS fix
