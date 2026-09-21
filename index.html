@@ -980,19 +980,20 @@
     }
 
     /* Always-available, like visit -- not suppressed until active like
-       delete. An <a>, not a <button>: it's a plain link handoff to another
-       app, needs no click handler of its own. */
+       delete. No ring: the compass glyph is legible enough to be the whole
+       button, so it doesn't need a circle to read as tappable. An <a>, not
+       a <button>: it's a plain link handoff to another app, needs no click
+       handler of its own. */
     .directions-btn {
       color: var(--ink-2);
       background: transparent;
-      border: 1px solid var(--hair);
-      border-radius: 50%;
+      border: none;
       width: 20px;
       height: 20px;
       text-decoration: none;
     }
 
-    .directions-btn svg { width: 12px; height: 12px; }
+    .directions-btn svg { width: 20px; height: 20px; }
 
     /* Quiet until the row is active -- a fast scroll must never show a
        column of red X's. */
