@@ -222,7 +222,8 @@ go stale, and don't leave it silently out of date either.
     list" goal entirely. `.location-actions` got an explicit
     `grid-column: -1` so shape-card rows (which have no dot) keep their
     delete button aligned with pin rows instead of auto-placing one column
-    earlier.
+    earlier. **Superseded by the next entry** — the unconditional/hollow
+    version below didn't survive contact with a real device.
   - Two follow-ups explicitly deferred, not forgotten: a "12/38 visited"
     header count (`updateUI()`'s `${activeCityLabel()} list (...)` text) —
     low-risk but judged to deserve its own review rather than riding along;
@@ -230,12 +231,40 @@ go stale, and don't leave it silently out of date either.
     itself (only the list/popup do) — a real, related gap, but a bigger,
     separate design problem (touches `markerIcon()`/`badgeHtml()`, shared
     with cluster badges, and the marker-size work already went through 3
-    rounds of CD review to get that system right).
+    rounds of CD review to get that system right). Both still open.
+- Popup buttons side-by-side; list dot reverted to visited-only — merged
+  to `main` (`62880ce`). Two changes the owner asked for after seeing the
+  prior entry live on their phone.
+  - **Popup**: `.popup-visited`/`.popup-directions` were stacked full-width
+    lines; now share one row (`.popup-actions`, `space-between` — visited
+    left, directions right). Popup's inline `min-width` bumped 200→240px
+    so neither label wraps (Leaflet's own 300px popup cap is what actually
+    prevents overflow; the `min-width` is only a floor — noted so a future
+    reader isn't misled about the mechanism).
+  - **List**: `.row-visited-dot` no longer renders unconditionally. UX
+    review confirmed the owner's instinct was right, not just a
+    preference call: a hollow dot on nearly every row (most places are
+    unvisited early in a trip) reads as clutter, not signal — the eye
+    scans for *presence* of a mark far more easily than *absence* of one.
+    Now: nothing renders on unvisited rows; visited rows get a filled dot
+    + the word "Visited", leading `.row-meta`'s text (before category/
+    city) rather than trailing it, since `text-overflow:ellipsis` clips
+    from the end and "Visited" must never be the part that gets clipped
+    on a long name. A CD review caught two bugs in the first draft before
+    it shipped: the dot would've silently rendered as an invisible sliver
+    once moved from a grid child into inline text (non-replaced inline
+    elements ignore `width`/`height` — needed explicit `display:
+    inline-block`/`inline-flex`), and the new visible "Visited" text
+    needed `aria-hidden="true"` on its wrapper so it isn't announced
+    twice alongside the existing (unconditional, both-branches-kept)
+    `.sr-only` text, which stays the one source screen readers get this
+    from. Since the dot is no longer its own grid column, `.location-card`
+    reverted to its original 3-column grid and `.location-actions` dropped
+    the now-unneeded `grid-column: -1` hack.
   - Not yet visually smoke-tested in a real browser (same sandbox
     constraint as everything else needing live Supabase/tiles) — worth
-    checking the dot's actual legibility at 8px, the checkbox's tap
-    precision, and whether the `--gap` (12px) spacing between the dot and
-    its neighbors looks right in person.
+    checking the popup buttons don't wrap on a real phone at 240px and
+    that "Visited" reads clearly leading the row-meta line.
 
 **Needs the user's action:**
 - ~~Confirm the `cities` table migration has been run~~ — confirmed done
