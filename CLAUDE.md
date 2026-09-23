@@ -335,7 +335,53 @@ go stale, and don't leave it silently out of date either.
     rendering, `text-box`, `color-mix()` and tap targeting are unverified
     on a real iPhone.
 
+- Visited rows recede (scannability) — on branch
+  `claude/visited-state-badge-list-yultpy` (2026-09-23), not yet merged.
+  The owner's actual problem was scanning the list for what's left; the
+  stamp helped but wasn't enough at a glance. Visited rows get
+  `.is-visited` (toggled in `renderCard()`, which re-runs whenever
+  `cardSignature()` — which includes `visited` — changes) and sit on
+  `--paper-filed: #E7DFD0`: `--paper` one value step down with hue and
+  chroma held (LCh 89.1/8.3/89 vs 93.2/7.6/90), 1.12:1 against `--paper`.
+  Every ink is unchanged, so rows never read disabled (name 13.17:1, meta
+  5.53:1, stamp 6.92:1, divider 1.18:1 on the field). The field is the
+  ROW-level cue (peripheral, mid-scroll), the stamp the POINT-level and
+  non-colour one (WCAG 1.4.1) — keep both. Design/UX/CD loop, 2 rounds
+  (8/10 → 9/10), then Impeccable (baseline 3 only).
+  - Round 1's `#E5DFD4` was pitched as "cooler/navy-tinted" but measured
+    the same hue, only greyer (chroma 7.6→6.1) — read as putty/dust,
+    leaning into the "greyed-out" look the brief forbade. Aged paper gets
+    warmer, not grey.
+  - Darker, never lighter: a lighter field advances visited rows and
+    collides with `--paper-raised` (the press state). Rule order matters:
+    `.is-visited` sits above the press rule (press wins) and the
+    `.highlighted` block (focus wins).
+  - **Dial** (documented in the token comment): if too faint on device,
+    `#E3DBCC` TOGETHER WITH a `#CBC0A9` visited-row divider — the field
+    alone would drop `--hair` to 1.14:1 and runs would slab together.
+  - Shipped with a separate prior commit fixing a pre-existing AA failure
+    the designer found: `--paper-warm` `#F0D9C8` → `#F4E6DA` (highlighted
+    row's category line was 4.19:1 on Stockholm; now 4.65–5.05:1).
+  - Chromium-only numbers; whether a 1.12:1 step reads on the owner's OLED
+    in daylight is unproven — that's what the dial is for.
+
+**Priority (owner-requested, next up):**
+- Make the visited stamp's per-place tilt actually visible. It's live and
+  working, but the owner can't perceive it: `stampTilt()` maps to
+  −1.5°…−3.5° in 0.25° steps, all leaning one way, so adjacent rows often
+  differ by only 0.25–0.5° (the 9 currently-visited Reykjavík places land
+  on −2.00…−3.50°). The range was capped at −3.5° to keep 10px caps crisp
+  at 1x. Likely fix: widen the range and/or allow some positive tilt (e.g.
+  +1°…−5°); needs a Design/UX/CD pass with measured 1x text crispness at
+  the new extremes. Changing the range only touches `stampTilt()` — the
+  stamp's mask geometry rotates with the element and is unaffected.
+
 **Needs the user's action:**
+- iPhone check of the visited-row background: (1) at a glance in
+  daylight, visited rows visibly sit back from unvisited ones (if not,
+  apply the dial — field and divider together); (2) the visited field
+  reads as warm, older paper, not grey; (3) pressing a visited row flashes
+  lighter.
 - iPhone check of the visited stamp (round 3): (1) the outer track is
   evenly spaced round dots, no bunching/collision at top-centre (if it's
   uneven or solid, swap in the JS fallback per
@@ -383,8 +429,11 @@ go stale, and don't leave it silently out of date either.
   a data cleanup that would win back truncation room on visited rows.
 - Possible follow-up: a matching mini-stamp for the popup's visited state
   (`.popup-visited`), for visual coherence. Not scoped.
-- Next design topic queued by the owner: the list row's background
-  treatment and typography.
+- Shape rows (districts/streets) have no visited state, so they always
+  stay forward on `--paper` — late in the trip they'll be the brightest
+  rows and can't be cleared. Known consequence of the visited-row field;
+  don't tint shapes to fake it. Resolved properly only if shapes gain a
+  `visited` column (see the street/district popup item below).
 - Street/district popups lag behind pin popups (owner-reported
   2026-09-23). `buildNeighborhoodLayer()` binds a bare
   `<strong>label</strong><p>note</p>` string, while pins get

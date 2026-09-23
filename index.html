@@ -139,11 +139,24 @@
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
       --paper-raised: #FAF5EA;   /* one step up: pressed rows, chips, fields */
-      --paper-warm:   #F0D9C8;   /* reversed secondary text (4.54:1 on deep) */
+      --paper-warm:   #F4E6DA;   /* reversed secondary text on --figure-deep:
+                                    4.65:1 Stockholm .. 5.05:1 Reykjavik */
       --navy:         #12293F;   /* the frame, the cold north -- 12.51:1     */
       --ink:          #1A1A18;   /* body text -- 14.69:1 on --paper          */
       --ink-2:        #5A564C;   /* metadata + EVERY category label -- 6.17:1 */
       --hair:         #D8CEBA;   /* 1px rules, dashed borders               */
+      --paper-filed:  #E7DFD0;   /* visited-row field: --paper one
+                                    value step down, hue and chroma held
+                                    (LCh 89.1/8.3/89 vs paper 93.2/7.6/90):
+                                    an older page, not a greyer one.
+                                    1.12:1 vs --paper.
+                                    DIAL, if too faint on device: #E3DBCC
+                                    (1.16:1) TOGETHER WITH
+                                    .location-card.is-visited
+                                    { border-bottom-color: #CBC0A9 } --
+                                    on #E3DBCC --hair falls to 1.14:1 and
+                                    runs slab together; #CBC0A9 restores
+                                    1.31:1. Change both or neither. */
 
       /* ---- Per-city accent (rewritten by applyCityPalette()) -----------
          --figure       carries NAVY type, or sits against navy. Clears
@@ -857,6 +870,23 @@
       user-select: none;
     }
 
+    /* DONE -- visited rows recede so what's LEFT reads first. One move:
+       the row's field steps down to --paper-filed; every ink stays as it
+       is, so the row never reads disabled (name 13.17:1, meta and delete
+       5.53:1, stamp 6.92:1, --hair rule 1.18:1 on the field -- all
+       measured for #E7DFD0).
+       Two cues, not one redundant one: the field is the ROW-level cue
+       (peripheral vision, mid flick-scroll); the stamp is the POINT-level
+       cue and the non-colour one (WCAG 1.4.1). Keep both.
+       Darker, never lighter: a lighter field advances visited rows and
+       collides with --paper-raised, the press state.
+       Order matters: this sits ABOVE the press rule (same specificity --
+       press wins) and the .highlighted block (focus wins). The badge's
+       disc goes transparent so it follows whichever field is showing.
+       Shape rows have no visited state and stay on --paper by design. */
+    .location-card.is-visited { background: var(--paper-filed); }
+    .location-card.is-visited .row-badge { --badge-field: transparent; }
+
     /* Press state is a background change only. `scale(0.98)` is deliberately
        GONE: scaling a flush ruled row looks broken where scaling a floating
        card looked fine. */
@@ -1043,7 +1073,7 @@
     }
 
     .location-card.highlighted h3 { color: var(--paper); }          /* 5.20:1 */
-    .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.54:1 */
+    .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.65:1 worst (Stockholm) */
     .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
     .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
     /* Exempt from the stamp's 82% ink, for two reasons. AA: paper at 90%
@@ -3400,6 +3430,10 @@
     // the action cluster (see .row-stamp), at a fixed x so the list scans
     // as a column; the .sr-only text in .row-meta is its accessible name.
     function renderCard(el, loc) {
+      // Visited rows recede (.is-visited) -- see the DONE block in the CSS.
+      // Safe here: renderCard() re-runs whenever cardSignature() changes,
+      // and that signature includes loc.visited.
+      el.classList.toggle('is-visited', !!loc.visited);
       const ink = categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
       const stamp = loc.visited
