@@ -959,7 +959,7 @@
       margin-right: var(--s2);
       color: var(--navy);                  /* no color-mix() support */
       color: color-mix(in srgb, var(--navy) 82%, transparent);
-      /* Per-place angle from stampTilt(loc.id), -1.5..-3.5deg. Rotation
+      /* Per-place angle from stampTilt(loc.id), +-2..+-5deg. Rotation
          is about the centre, so the column's x never moves. */
       transform: rotate(var(--stamp-tilt, -3deg));
       pointer-events: none;
@@ -3428,15 +3428,23 @@
       return el;
     }
 
-    // Deterministic per-place stamp angle, -1.5deg .. -3.5deg in 0.25deg
-    // steps. Same place -> same angle on every render (never Math.random,
-    // which would re-roll on each re-render). Capped at -3.5 so 10px caps
-    // stay crisp at 1x. For a fixed angle instead, drop this helper and
-    // the inline --stamp-tilt below; the CSS default (-3deg) takes over.
+    // Deterministic per-place stamp angle: one of six hand-stamped leans,
+    // BOTH ways (positive = left side higher), never near level:
+    // +-2, +-3.5, +-5deg. Same place -> same angle on every render (never
+    // Math.random, which would re-roll on each re-render).
+    // Six separated buckets, not a fine ramp: two different leans always
+    // differ by >= 1.5deg (a 0.25deg one-way ramp read as "all the same"),
+    // and nothing under 2deg, which reads as straight/unstamped. Measured:
+    // at 5deg the 10px caps are as crisp at 1x as the old -3.5deg cap, and
+    // the rotated box (74.5 x 38.2) stays >= 10.7px clear of the delete X
+    // and >= 8.4px inside the row. For a fixed angle instead, drop this
+    // helper and the inline --stamp-tilt below; the CSS default (-3deg)
+    // takes over.
+    const STAMP_TILTS = [-5, -3.5, -2, 2, 3.5, 5];
     function stampTilt(id) {
       let h = 0;
       for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) | 0;
-      return -1.5 - (Math.abs(h) % 9) * 0.25;
+      return STAMP_TILTS[Math.abs(h) % STAMP_TILTS.length];
     }
 
     // A ledger row, not a card: 28px glyph | 1fr content | action cluster.

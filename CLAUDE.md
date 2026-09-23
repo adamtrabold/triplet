@@ -322,9 +322,18 @@ go stale, and don't leave it silently out of date either.
   - 1x fallback: the same path with dashes (`--stamp-track-1x`, via
     `max-resolution: 1dppx` + `-webkit-max-device-pixel-ratio: 1` twin) —
     dots rasterize to haze at 1x.
-  - Per-place tilt via `stampTilt(loc.id)` (−1.5°…−3.5°, deterministic,
-    never `Math.random`). Fixed −3° is a two-line revert (drop the helper
-    and the inline `--stamp-tilt`; the CSS default takes over).
+  - Per-place tilt via `stampTilt(loc.id)`, deterministic (never
+    `Math.random`). Originally −1.5°…−3.5° one-way; the owner couldn't see
+    any variation, so it's now six separated buckets `STAMP_TILTS =
+    [−5, −3.5, −2, 2, 3.5, 5]` — both directions (positive = left side
+    higher), nothing under 2° (reads as unstamped), distinct leans ≥1.5°
+    apart. Measured: ±5° is as crisp at 1x as the old −3.5°; the rotated
+    box stays ≥10.7px clear of the delete X and ≥8.4px inside the row.
+    About 1 in 6 neighbouring rows repeat an angle (unavoidable while the
+    angle depends only on the place). The 9 visited Reykjavík places split
+    4 left-high / 5 right-high. Gentler alternative (±1.5/±2.75/±4) was
+    rejected: ±1.5 is too slight to see. Fixed −3° is a two-line revert
+    (drop the helper and the inline `--stamp-tilt`).
   - Also fixed a bug the stamp would have introduced: `createCard()`'s
     `addActive` excluded the whole `.location-actions` cluster, so a tap
     on the (pointer-events:none) stamp right after a scroll never reset
@@ -365,6 +374,25 @@ go stale, and don't leave it silently out of date either.
   - Chromium-only numbers; whether a 1.12:1 step reads on the owner's OLED
     in daylight is unproven — that's what the dial is for.
 
+- Pressed row goes darker, not lighter — on branch
+  `claude/visited-state-badge-list-yultpy` (2026-09-23). Owner found the
+  press flash too light once visited rows sat on `--paper-filed` (a
+  visited row jumped 1.22:1 *lighter* to `--paper-raised`). Every row now
+  presses to `--paper-pressed: #DCD3C3` — same hue, one equal step below
+  the visited field (paper → filed → pressed at ~1.12:1 each), so a press
+  can't read as "visited" and never flashes. AA while pressed: name 11.74,
+  meta 4.93, stamp 6.37; `.highlighted` still wins. The old
+  `.location-card.active .delete-btn` colour rule was removed: it matched
+  only the persisted `.active` class (the X changed when the row was
+  pressed, not when the X was), failed AA on the new colour, and made the
+  X invisible on the focus row. `--paper-raised` no longer means "pressed
+  row" (chips/fields only). Design/UX/CD round (9/10), Impeccable
+  baseline only. Rejected: per-state press colours (a pressed unvisited
+  row sat only 1.089:1 from the visited field) and a softer lighter press.
+  iPhone fallbacks, not pre-applied: if rows blink darker at the start of
+  a flick-scroll, add a ~80ms press delay (don't change the colour); if
+  the visited press feels faint, `#D9D0BF` still passes AA.
+
 **Priority (owner-requested, next up):**
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
@@ -396,17 +424,6 @@ go stale, and don't leave it silently out of date either.
   `resolveShapeCity()` / new-city creation fit in); needs discovery and a
   proposal the owner approves before any build. Related: Phase 2 "trip
   context (dates/closures)" in the deferred roadmap.
-- Make the visited stamp's per-place tilt actually visible. It's live and
-  working, but the owner can't perceive it: `stampTilt()` maps to
-  −1.5°…−3.5° in 0.25° steps, all leaning one way, so adjacent rows often
-  differ by only 0.25–0.5° (the 9 currently-visited Reykjavík places land
-  on −2.00…−3.50°). The range was capped at −3.5° to keep 10px caps crisp
-  at 1x. Likely fix: widen the range and/or allow some positive tilt (e.g.
-  +1°…−5°); needs a Design/UX/CD pass with measured 1x text crispness at
-  the new extremes. Changing the range only touches `stampTilt()` — the
-  stamp's mask geometry rotates with the element and is unaffected.
-
-**Needs the user's action:**
 - iPhone check of the visited-row background: (1) at a glance in
   daylight, visited rows visibly sit back from unvisited ones (if not,
   apply the dial — field and divider together); (2) the visited field
