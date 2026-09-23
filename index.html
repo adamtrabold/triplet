@@ -138,7 +138,12 @@
 
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
-      --paper-raised: #FAF5EA;   /* one step up: pressed rows, chips, fields */
+      --paper-raised: #FAF5EA;   /* one step up: chips, fields */
+      --paper-pressed: #DCD3C3;  /* pressed row, visited or not: --paper's hue,
+                                    pressed IN, not lit up. One more equal
+                                    step down the ladder paper -> filed ->
+                                    pressed (1.12:1, 1.12:1; 1.25:1 from
+                                    paper). ink 11.74, ink-2 4.93, stamp 6.37. */
       --paper-warm:   #F4E6DA;   /* reversed secondary text on --figure-deep:
                                     4.65:1 Stockholm .. 5.05:1 Reykjavik */
       --navy:         #12293F;   /* the frame, the cold north -- 12.51:1     */
@@ -889,10 +894,14 @@
 
     /* Press state is a background change only. `scale(0.98)` is deliberately
        GONE: scaling a flush ruled row looks broken where scaling a floating
-       card looked fine. */
+       card looked fine.
+       Pressed IN, never lit up: one value for every row, darker than both
+       resting fields, so a press can't be read as "visited" (filed) and
+       doesn't flash. Beats .is-visited on equal specificity by coming
+       after it; .highlighted still wins (it comes later again). */
     .location-card:active,
     .location-card.active {
-      background: var(--paper-raised);
+      background: var(--paper-pressed);
     }
 
     /* The badge follows `color`, so the reversed block below can flip the
@@ -1128,7 +1137,13 @@
       color: var(--ink-2);
     }
 
-    .location-card.active .delete-btn { color: var(--figure-deep); }
+    /* No pressed-X colour rule, deliberately. The old
+       `.location-card.active .delete-btn { color: var(--figure-deep) }`
+       matched only the persisted .active class, not :active, so the X
+       changed when the ROW was pressed but not when the X itself was
+       (backwards feedback); it also fell to 3.83:1 (Stockholm) on
+       --paper-pressed and went invisible (1:1) on the focus row. The
+       resting X is already AA on --paper-pressed (4.93:1). */
 
     @keyframes markerPulse {
       0%   { transform: scale(1);    opacity: 1; }
