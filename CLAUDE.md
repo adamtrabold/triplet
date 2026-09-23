@@ -92,7 +92,7 @@ temporary simplification.**
   with a copy button, over `SendUserFile` for anything they need to paste
   elsewhere (like SQL for the Supabase editor).
 
-## Open items (as of 2026-09-21)
+## Open items (as of 2026-09-23)
 
 Update this list as items get resolved or new ones surface — don't let it
 go stale, and don't leave it silently out of date either.
@@ -280,8 +280,72 @@ go stale, and don't leave it silently out of date either.
   hardcoded value (not a size-proportional formula) was the right call
   given there's only one 20px call site and no way to visually iterate
   in this sandbox — lowest-risk, most reversible option.
+- Visited "passport stamp" in the list row — on branch
+  `claude/visited-state-badge-list-yultpy` (2026-09-23), replacing the
+  inline `.row-visited` dot + "Visited" text in `.row-meta`. `.row-stamp`
+  (84-dot SVG-mask track, see round 3 below) wrapping `.row-stamp-ring` (2px solid ring +
+  "VISITED" in `.row-meta`'s type voice), 72×32, placed at the head of
+  `.location-actions` with `margin-right: var(--s2)` before delete.
+  Design/UX/CD loop, 3 rounds (7/10 → 9/10 → owner-caught defects →
+  9/10), then Impeccable (baseline 3 only). Decisions worth knowing before touching it:
+  - **CSS borders, never SVG strokes** for the oval — SVG-stroked
+    ellipses read as variable-width at this size; the full history is in
+    `design/visited-badge/NOTES.md`. Inspo lives in `design/inspo/`.
+  - Ink is navy at 82% via `color-mix()` (solid `--navy` fallback line
+    first) so the place name wins the first read; the highlighted row is
+    100% `--paper` because 90% fails AA on Stockholm's `--figure-deep`.
+    `mix-blend-mode: multiply` was tried and dropped (visually inert,
+    risked softening rotated 10px text on iOS).
+  - **Round 3 (owner caught 3 geometry defects on-device that the CD's
+    9/10 missed):** the dotted track and ring weren't parallel (two
+    `border-radius:50%` ovals of different aspect ratios aren't parallel
+    curves — gap swung ~1.6px), the dotted border had a start/end seam
+    (dot collision at top-centre), and "VISITED" sat off-centre. Fixed and
+    *pixel-measured*, not eyeballed: the track is now a static SVG **mask**
+    (`--stamp-track` data URI on `.row-stamp::before`, no JS) of 84 round
+    zero-length-dash dots on a path tuned to the ring's parallel curve
+    (gap spread ≤0.27px, no seam); the text uses `text-box: trim-both cap
+    alphabetic` (needs iOS 18.2+; without it the caps sit ~0.4px high,
+    never low). The solid ring is still a CSS border — the "no SVG strokes
+    for the ring" rule stands; round-cap dots have no stroke width to vary.
+    The owner asked the team to justify this against pure CSS: every CSS
+    option measured kept a seam (the browser places dotted-border dots
+    itself, and WebKit does so differently), and a JS-generated mask was
+    only ~0.1px better than the static one, so simplest won.
+    **`pathLength='166.29'` is load-bearing**: it deliberately equals the
+    path's measured length, with dasharrays in real units, so an engine
+    that ignores `pathLength` still gets near-correct dots rather than a
+    solid second ring. Path, `pathLength` and both dasharrays change
+    together (re-measure with `getTotalLength()`), and the path assumes
+    `.row-stamp` 72×32 / ring inset `--s1` + 2px border. JS fallback, radius
+    search and swap steps: `design/visited-badge/README.md`.
+  - 1x fallback: the same path with dashes (`--stamp-track-1x`, via
+    `max-resolution: 1dppx` + `-webkit-max-device-pixel-ratio: 1` twin) —
+    dots rasterize to haze at 1x.
+  - Per-place tilt via `stampTilt(loc.id)` (−1.5°…−3.5°, deterministic,
+    never `Math.random`). Fixed −3° is a two-line revert (drop the helper
+    and the inline `--stamp-tilt`; the CSS default takes over).
+  - Also fixed a bug the stamp would have introduced: `createCard()`'s
+    `addActive` excluded the whole `.location-actions` cluster, so a tap
+    on the (pointer-events:none) stamp right after a scroll never reset
+    `touchMoved` and was silently dropped. It now excludes only `.delete-btn`.
+  - Cost accepted by the CD: visited rows truncate ~12 chars earlier
+    (~21–25 chars fit at 375–390px; 17% of current names exceed that).
+  - All pixel numbers are Chromium-only; Safari's mask/`pathLength`
+    rendering, `text-box`, `color-mix()` and tap targeting are unverified
+    on a real iPhone.
 
 **Needs the user's action:**
+- iPhone check of the visited stamp (round 3): (1) the outer track is
+  evenly spaced round dots, no bunching/collision at top-centre (if it's
+  uneven or solid, swap in the JS fallback per
+  `design/visited-badge/README.md`); (2) the dotted track and solid ring
+  look parallel — even gap all the way round; (3) "VISITED" looks centred,
+  and if off at all, high rather than low; (4) scroll, then immediately
+  tap a stamp — the map should navigate; (5) tap just left of the X on a
+  visited row — should navigate, not raise the delete confirm; (6) stamp
+  text at arm's length looks crisp, not soft. Also pick fixed −3° vs
+  per-place tilt if per-place doesn't feel right.
 - ~~Confirm the `cities` table migration has been run~~ — confirmed done
   (2026-09-19).
 - Smoke-test the new shape-city resolution in a real browser (agent
@@ -307,7 +371,36 @@ go stale, and don't leave it silently out of date either.
   tiers genuinely come up empty for either, manual tracing via geojson.io is
   still the last resort.
 
-**Known minor bugs:** none currently tracked. (Previously: `showError()`/
+**Known minor bugs / follow-ups:**
+- Delete X's effective tap zone extends ~9–12px left of its 28px box via
+  browser touch adjustment (measured in Chromium on today's unvisited
+  rows; iOS unmeasured — its hit-testing may favor the clickable row
+  more). Pre-existing, not caused by the stamp. `confirm()` is the
+  backstop. If mis-deletes are still reported, the next move is
+  shrinking/relocating delete, not more stamp margin.
+- Many `locations.name` values redundantly end in the city already shown
+  in `.row-meta` (e.g. "Mother restaurant Copenhagen") — trimming them is
+  a data cleanup that would win back truncation room on visited rows.
+- Possible follow-up: a matching mini-stamp for the popup's visited state
+  (`.popup-visited`), for visual coherence. Not scoped.
+- Next design topic queued by the owner: the list row's background
+  treatment and typography.
+- Street/district popups lag behind pin popups (owner-reported
+  2026-09-23). `buildNeighborhoodLayer()` binds a bare
+  `<strong>label</strong><p>note</p>` string, while pins get
+  `buildPopupHtml()`: category glyph + label, title, address, notes, and a
+  `.popup-actions` row with the visited toggle and Get Directions. Gaps to
+  resolve: no category/type header, none of the popup typography classes,
+  no visited toggle, no directions. Visited needs a schema change first —
+  `neighborhood_shapes` has no `visited` column (checked 2026-09-23:
+  id, city, type, label, color, note, min_zoom, geometry, created_at), and
+  the shape list rows (`createShapeCard()`) would need the stamp too.
+  Directions were deliberately excluded for shapes when that feature
+  shipped (no single natural destination point); revisit with a centroid
+  or nearest-point destination, or keep excluded on purpose. Needs a
+  Design/UX/CD pass rather than a straight port.
+
+Previously tracked and fixed: (Previously: `showError()`/
 `hideError()` banner masking, and `slugifyCityId()` not decomposing Nordic
 `ø`/`æ`/`å`/`þ`/`ð` — both fixed 2026-09-19. `showError`/`hideError` now
 take a `source` tag and only a matching source's `hideError()` clears the
