@@ -283,7 +283,7 @@ go stale, and don't leave it silently out of date either.
 - Visited "passport stamp" in the list row — on branch
   `claude/visited-state-badge-list-yultpy` (2026-09-23), replacing the
   inline `.row-visited` dot + "Visited" text in `.row-meta`. `.row-stamp`
-  (dotted 1.5px track) wrapping `.row-stamp-ring` (2px solid ring +
+  (84-dot SVG-mask track, see round 3 below) wrapping `.row-stamp-ring` (2px solid ring +
   "VISITED" in `.row-meta`'s type voice), 72×32, placed at the head of
   `.location-actions` with `margin-right: var(--s2)` before delete.
   Design/UX/CD loop, 3 rounds (7/10 → 9/10 → owner-caught defects →
