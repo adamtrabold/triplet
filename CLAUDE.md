@@ -394,6 +394,20 @@ go stale, and don't leave it silently out of date either.
   the visited press feels faint, `#D9D0BF` still passes AA.
 
 **Priority (owner-requested, next up):**
+- **Selecting a list item must ALWAYS open its popup** (owner,
+  2026-09-23) — pins and shapes alike. Today it's a race, not a
+  guarantee: `highlightMarker()` starts a 0.5s `focusMap()` animation,
+  then opens the popup on a fixed `setTimeout(…, 300)` using whatever is
+  in `markersById` at that moment. If the pin was clustered at the
+  starting zoom (below `SOLO_MIN_ZOOM`), there's no solo marker yet (the
+  zoomend-driven `updateUI()` creates it after the animation), so nothing
+  opens; a marker replaced mid-animation has the same problem.
+  `focusShape()` has the identical 300ms race against `flyToBounds()` and
+  `neighborhoodMinZoom()` gating. Fix direction: open on the map's
+  `moveend`/`zoomend` after the sync (or re-look-up the marker/layer
+  then), not on a timer — and keep reduced-motion (non-animated) paths
+  working. Mostly an engineering fix, but get a UX pass on the timing
+  (popup appearing mid-fly vs after landing).
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
   { ascending: false })` (newest-added first) and `syncLocationCards()`
