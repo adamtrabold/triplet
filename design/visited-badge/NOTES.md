@@ -1,7 +1,12 @@
 # Visited-state "stamp" badge — design exercise notes
 
-Status: **not yet implemented in `index.html`**. Everything here is scratch/mockup,
-saved to the repo (not `/tmp`) because scratchpad doesn't survive a session end.
+Status: **implemented in `index.html`** (2026-09-23, branch
+`claude/visited-state-badge-list-yultpy`) after a Design/UX/CD loop: round 1
+scored 7/10, round 2 scored 9/10, then Impeccable clean (baseline 3 only).
+Approved mockup: `mockup13-css-stamp-approved.html`; screenshots and the
+CD/UX reviews are in `final/`. See CLAUDE.md's open items for the shipped
+entry and what's still unverified on a real iPhone. The rest of this file is
+the pre-implementation history.
 
 ## Goal
 

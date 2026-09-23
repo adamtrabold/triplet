@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visited Stamp R2</title>
+<style>
+  /* Archivo, served locally so the screenshot is deterministic. Same
+     variable font file Google Fonts serves index.html (wdth 62..125,
+     wght 400..700). */
+  @font-face {
+    font-family: 'Archivo';
+    font-style: normal;
+    font-weight: 400 700;
+    font-stretch: 62% 125%;
+    src: url(archivo-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Archivo';
+    font-style: normal;
+    font-weight: 400 700;
+    font-stretch: 62% 125%;
+    src: url(archivo-latinext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  /* ===== VERBATIM from index.html :root (lines 136-177) ===== */
+  :root {
+    --paper:        #F2EBDD;
+    --paper-raised: #FAF5EA;
+    --paper-warm:   #F0D9C8;
+    --navy:         #12293F;
+    --ink:          #1A1A18;
+    --ink-2:        #5A564C;
+    --hair:         #D8CEBA;
+    --figure:      #EE7434;
+    --figure-deep: #A8400C;
+    --s1: 4px;  --s2: 8px;   --s3: 12px;  --s4: 16px;
+    --s6: 24px; --s8: 32px;  --s12: 48px;
+    --col-glyph:  28px;
+    --col-action: 28px;
+    --gap:    12px;
+    --gutter: 16px;
+    --font-ui: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-ui);
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== VERBATIM from index.html: .locations-header h2, LEDGER ROWS ===== */
+  .locations-header {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    min-height: 56px;
+    padding: var(--s3) var(--gutter);
+    background: var(--paper);
+    color: var(--navy);
+    border-bottom: 1px solid var(--hair);
+  }
+  .locations-header h2 {
+    font-stretch: 75%;
+    text-transform: uppercase;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .location-card {
+    display: grid;
+    grid-template-columns: var(--col-glyph) 1fr auto;
+    column-gap: var(--gap);
+    align-items: center;
+    min-height: 56px;
+    padding: var(--s2) var(--gutter);
+    background: var(--paper);
+    border-bottom: 1px solid var(--hair);
+    transition: background 0.12s ease;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .location-card:active,
+  .location-card.active { background: var(--paper-raised); }
+
+  .row-badge {
+    width: var(--col-glyph);
+    height: var(--col-glyph);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--row-ink, var(--ink-2));
+    --badge-field: var(--paper);
+  }
+  .row-badge svg { display: block; }
+  .row-main { min-width: 0; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .location-card h3 {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .location-card .row-meta {
+    font-stretch: 75%;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--ink-2);
+    margin-top: var(--s1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .location-card.highlighted {
+    background: var(--figure-deep);
+    border-bottom-color: var(--figure-deep);
+  }
+  .location-card.highlighted h3 { color: var(--paper); }
+  .location-card.highlighted .row-meta { color: var(--paper-warm); }
+  .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
+  .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
+
+  .location-actions {
+    display: flex;
+    gap: var(--s1);
+    align-items: center;
+  }
+  .location-actions button {
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .delete-btn {
+    width: var(--col-action);
+    height: var(--col-action);
+    border: none;
+    background: transparent;
+    color: var(--ink-2);
+  }
+  .location-card.active .delete-btn { color: var(--figure-deep); }
+
+  /* =====================================================================
+     PROPOSED (R2): the VISITED stamp (replaces .row-visited / .row-visited-dot)
+     ===================================================================== */
+  .row-stamp {
+    position: relative;
+    flex-shrink: 0;
+    width: calc(var(--s6) * 3);            /* 72 */
+    height: var(--s8);                     /* 32 */
+    margin-right: var(--s2);               /* S1: dead space before the X */
+    border: 1.5px dotted currentColor;     /* perforated outer track */
+    border-radius: 50%;
+    color: var(--navy);                    /* fallback: no color-mix() */
+    color: color-mix(in srgb, var(--navy) 82%, transparent);
+    mix-blend-mode: multiply;              /* ink sits IN the paper */
+    transform: rotate(var(--stamp-tilt, -3deg));
+    pointer-events: none;
+  }
+  .row-stamp-ring {
+    position: absolute;
+    inset: 2.5px;                          /* track 1.5 + gap 2.5 = --s1 */
+    border: 2px solid currentColor;        /* = badgeHtml() rim */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0.08em;                  /* re-centres trailing tracking */
+    font-stretch: 75%;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.08em;                /* = .caps */
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  /* Reversed block: full-strength paper, no blend. Multiply does nothing
+     useful light-on-dark, and paper at 90% drops to 4.21:1 on Stockholm's
+     --figure-deep -- below AA for 10px text. 100% paper = the h3's own
+     pairing, 4.79:1 worst case. */
+  .location-card.highlighted .row-stamp {
+    color: var(--paper);
+    mix-blend-mode: normal;
+  }
+  /* Rendering fallback, not a second design: at 1 device px per CSS px a
+     1.5px dotted border rasterises to grey haze that reads as an
+     anti-aliasing fault. Dashes survive. Pair covers Safari on 1x. */
+  @media (max-resolution: 1dppx), (-webkit-max-device-pixel-ratio: 1) {
+    .row-stamp { border-style: dashed; }
+  }
+
+  /* ===== Mockup page chrome only (not proposed for index.html) ===== */
+  .mock-wrap { display: flex; flex-wrap: wrap; gap: var(--s8); align-items: flex-start; }
+  .mock-col { width: 100%; max-width: 390px; }
+  .mock-note {
+    font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+    font-size: 11px; line-height: 16px; letter-spacing: 0.12em;
+    color: var(--ink-2); padding: var(--s4) var(--gutter) var(--s2);
+    border-top: 2px solid var(--navy);
+  }
+  .mock-col:first-child .mock-note { border-top: none; }
+  .city-stockholm { --figure-deep: #995610; --figure: #D98A2B; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="g-restaurant" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h2v7h1V2h2v7h1V2h2v8a3 3 0 0 1-2 2.83V22h-4v-9.17A3 3 0 0 1 6 10V2z"/></symbol>
+  <symbol id="g-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h13v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V4z"/><path fill="currentColor" d="M17 6h2a3 3 0 0 1 0 6h-2V6z"/><path fill="currentColor" d="M2 19h16v2H2z"/></symbol>
+  <symbol id="g-bar" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18l-8 9v7h4v2H7v-2h4v-7L3 3z"/></symbol>
+  <symbol id="g-attraction" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 6v11H9V8l3-6z"/><path fill="currentColor" d="M7 20h10v2H7z"/></symbol>
+  <symbol id="g-nature" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l4 6h-2.5l3 5H14l3.5 6h-11L10 13H7.5l3-5H8l4-6z"/><path fill="currentColor" d="M11 18h2v4h-2z"/></symbol>
+  <symbol id="g-shopping" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1a4 4 0 0 0-4 4v2h2V5a2 2 0 0 1 4 0v2h2V5a4 4 0 0 0-4-4z"/><path fill="currentColor" d="M4 7h16l-1.5 15h-13L4 7z"/></symbol>
+  <symbol id="g-hotel" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6h3v7h9a5 5 0 0 1 5 5v3h-3v-2H5v2H2V6z"/><circle fill="currentColor" cx="8.5" cy="9.5" r="2.5"/></symbol>
+  <symbol id="g-district" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/></symbol>
+  <symbol id="g-street" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8" d="M3 18C7 6 17 18 21 6"/></symbol>
+</defs></svg>
+
+<div class="mock-wrap">
+  <section class="mock-col" data-variant="fixed">
+    <div class="mock-note">Option 1 &middot; fixed tilt</div>
+    <div class="locations-header"><h2>Stockholm list (10)</h2></div>
+    <div class="list" data-rows="main" data-tilt="fixed"></div>
+  </section>
+  <section class="mock-col" data-variant="hashed">
+    <div class="mock-note">Option 2 &middot; per-place tilt</div>
+    <div class="locations-header"><h2>Stockholm list (10)</h2></div>
+    <div class="list" data-rows="main" data-tilt="hashed"></div>
+  </section>
+  <section class="mock-col" data-variant="stress">
+    <div class="mock-note">Real names, unvisited</div>
+    <div class="list" data-rows="stress" data-tilt="hashed"></div>
+  </section>
+</div>
+
+<script>
+  // ---- verbatim helpers from index.html ----
+  const CATEGORY_COLORS = {
+    restaurant: '#AC5019', cafe: '#6E4C22', bar: '#3D5A7A', attraction: '#A68018',
+    nature: '#1E3A2B', shopping: '#8A7AA8', area: '#2B3F52', hotel: '#2E2433',
+    other: '#4F5450', district: '#328177', street: '#5E2C17'
+  };
+  function categoryInk(c) { return CATEGORY_COLORS[c] || CATEGORY_COLORS.other; }
+  function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function escapeAttr(t) { return String(t).replace(/[&"'<>]/g, ch => ({'&':'&amp;','"':'&quot;',"'":'&#39;','<':'&lt;','>':'&gt;'}[ch])); }
+  function markerKind(loc) {
+    if (typeof loc.name === 'string' && loc.name.indexOf('(approx.)') !== -1) return 'dashed';
+    return 'circle';
+  }
+  function badgeHtml(category, kind, size, opts = {}) {
+    const ink  = opts.ink  || 'currentColor';
+    const fill = opts.fill || 'var(--badge-field, #F2EBDD)';
+    const mark = opts.mark || ink;
+    const rim  = opts.rim || 2;
+    const c    = size / 2;
+    const r    = c - rim / 2;
+    let shell;
+    if (kind === 'diamond') {
+      const p = `${c},${rim / 2} ${size - rim / 2},${c} ${c},${size - rim / 2} ${rim / 2},${c}`;
+      shell = `<polygon points="${p}" fill="${fill}" stroke="${ink}" stroke-width="${rim}" stroke-linejoin="round"/>`;
+    } else if (kind === 'dashed') {
+      shell = `<circle cx="${c}" cy="${c}" r="${r}" fill="${fill}" stroke="${ink}" stroke-width="${rim}" stroke-dasharray="3 3"/>`;
+    } else {
+      shell = `<circle cx="${c}" cy="${c}" r="${r}" fill="${fill}" stroke="${ink}" stroke-width="${rim}"/>`;
+    }
+    let glyph = '';
+    if (opts.glyph !== false) {
+      const field = size - rim * 2;
+      const g = Math.min(field - 2, Math.max(18, field - 4));
+      const o = (size - g) / 2;
+      glyph = `<svg x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24" style="color:${mark}"><use href="#g-${escapeAttr(category)}"/></svg>`;
+    }
+    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${shell}${glyph}</svg>`;
+  }
+
+  // ---- PROPOSED: deterministic per-place tilt, -1.5deg .. -3.5deg ----
+  // Same place -> same angle on every render (no Math.random). 9 steps of
+  // 0.25deg. Rotation is about the box centre, so the stamp column's x
+  // never moves -- only the angle varies.
+  function stampTilt(id) {
+    let h = 0;
+    for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) | 0;
+    return -1.5 - (Math.abs(h) % 9) * 0.25;
+  }
+
+  // ---- PROPOSED renderCard() ----
+  let TILT_MODE = 'hashed';
+  function renderCard(el, loc) {
+    const ink = categoryInk(loc.category);
+    const city = loc.city;
+    const tilt = TILT_MODE === 'hashed' ? stampTilt(loc.id) : -3;
+    const stamp = loc.visited
+      ? `<span class="row-stamp" style="--stamp-tilt:${tilt}deg" aria-hidden="true"><span class="row-stamp-ring">Visited</span></span>`
+      : '';
+    el.innerHTML = `
+      <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
+      <div class="row-main">
+        <h3>${escapeHtml(loc.name)}</h3>
+        <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.visited ? ', visited' : ', not visited yet'}</span></div>
+      </div>
+      <div class="location-actions">
+        ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
+      </div>
+    `;
+  }
+  // verbatim renderShapeCard() body
+  function renderShapeCard(el, nb) {
+    const ink = nb.color || categoryInk(nb.type);
+    el.innerHTML = `
+      <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(nb.type, 'diamond', 24)}</div>
+      <div class="row-main">
+        <h3>${escapeHtml(nb.label)}</h3>
+        <div class="row-meta">${escapeHtml(nb.type)}${nb.city ? ' &middot; ' + escapeHtml(nb.city) : ''}</div>
+      </div>
+      <div class="location-actions">
+        <button class="delete-btn" aria-label="Delete">&times;</button>
+      </div>
+    `;
+  }
+
+  const MAIN = [
+    { id: '3f1c9a2e-7b4d-4e0a-9c1f-2a6b8d0e4f11', name: 'Café Pascal', category: 'cafe', city: 'Stockholm', visited: false, state: 'unvisited' },
+    { id: 'a8d2e4f6-1b3c-4d5e-8f70-9a1b2c3d4e5f', name: 'Fotografiska', category: 'attraction', city: 'Stockholm', visited: true, state: 'visited-short' },
+    { id: '5e7f9a1b-3c5d-4e7f-a1b3-c5d7e9f1a3b5', name: 'Swedish Museum of Performing Arts Scenkonstmuseet', category: 'attraction', city: 'Stockholm', visited: true, state: 'visited-long-1' },
+    { id: 'c2e4a6b8-d0f2-4a4c-8e6f-0b2d4f6a8c0e', name: 'Stockholm Public Library Stadsbiblioteket', category: 'attraction', city: 'Stockholm', visited: true, highlighted: true, state: 'visited-highlighted' },
+    { id: '9b1d3f5a-7c9e-4b1d-a3f5-7c9e1b3d5f7a', name: 'The Handknitting Association of Iceland', category: 'shopping', city: 'Reykjavík', visited: true, active: true, state: 'visited-pressed' },
+    { id: '1a3c5e7f-9b1d-4f3a-b5c7-e9f1a3c5e7b9', name: 'Mother restaurant Copenhagen', category: 'restaurant', city: 'Copenhagen', visited: true, state: 'visited-long-4' },
+    { id: '7f9b1d3e-5a7c-4e9b-81d3-f5a7c9e1b3d5', name: 'Hafnarhús Reykjavik Art Museum', category: 'attraction', city: 'Reykjavík', visited: true, state: 'visited-long-5' },
+    { id: 'e4f6a8b0-c2d4-4f6a-8b0c-2d4e6f8a0b2c', name: 'Grandi Mathöll', category: 'restaurant', city: 'Reykjavík', visited: false, state: 'unvisited-highlighted', highlighted: true },
+    { id: 'd6b8f0a2-c4e6-48a0-b2c4-e6f8a0b2c4d6', name: 'Nyboder (approx.)', category: 'district', city: 'Copenhagen', visited: false, state: 'approx-pin' },
+    { shape: true, label: 'Skólavörðustígur', type: 'street', city: 'Reykjavík', state: 'shape' }
+  ];
+  const STRESS = [
+    'Swedish Museum of Performing Arts Scenkonstmuseet',
+    'Stockholm Public Library Stadsbiblioteket',
+    'The Handknitting Association of Iceland',
+    'Mother restaurant Copenhagen',
+    'Hafnarhús Reykjavik Art Museum'
+  ].map((name, i) => ({ id: 'u' + i, name, category: 'attraction', city: 'Stockholm', visited: false, state: 'stress-unvisited-' + (i + 1) }));
+
+  document.querySelectorAll('.list').forEach(list => {
+    TILT_MODE = list.dataset.tilt;
+    const rows = list.dataset.rows === 'main' ? MAIN : STRESS;
+    rows.forEach(r => {
+      const el = document.createElement('div');
+      el.className = 'location-card';
+      el.dataset.state = r.state;
+      if (r.shape) renderShapeCard(el, r); else renderCard(el, r);
+      if (r.highlighted) el.classList.add('highlighted');
+      if (r.active) el.classList.add('active');
+      list.appendChild(el);
+    });
+  });
+  // The whole mockup renders under Stockholm's palette -- the lowest-contrast
+  // --figure-deep (4.79:1 with paper), i.e. the worst case for the
+  // highlighted stamp.
+  document.body.classList.add('city-stockholm');
+</script>
+</body>
+</html>

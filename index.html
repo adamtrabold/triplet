@@ -166,10 +166,11 @@
          form labels and modal headers all start on it. Content therefore
          always begins at 16 + 28 + 12 = 56px.                             */
       --col-glyph:  28px;
-      --col-action: 28px;   /* ONE control -- the list row's only action is
-                               delete now. Visited is read-only here (see
-                               buildPopupHtml()); directions lives there
-                               too. Neither is interactive on the row. */
+      --col-action: 28px;   /* ONE control -- delete is the row's only
+                               action. Visited SHOWS here as a
+                               non-interactive stamp (.row-stamp) but is
+                               toggled in the popup (buildPopupHtml()),
+                               where directions also lives. */
       --gap:    12px;
       --gutter: 16px;
 
@@ -881,35 +882,69 @@
 
     .row-main { min-width: 0; }
 
-    /* Conditional, not glanceable-by-absence -- only renders when visited.
-       An always-on hollow dot on every unvisited row (the prior design)
-       read as clutter in practice, not signal: most rows are unvisited
-       early in a trip, so a ring down nearly every row stopped being
-       individually meaningful. Silence is the unvisited state again;
-       "Visited" is an explicit word, not just a mark, so a fast scroll
-       doesn't need to remember what a bare dot meant. Leads row-meta's
-       text (before category/city), not trails it -- text-overflow:ellipsis
-       clips from the end, and "Visited" is the one thing on this line
-       that must never be the part that gets clipped. aria-hidden: the
-       .sr-only span below stays the ONE source screen readers get this
-       from, so it isn't announced twice. */
-    .row-visited {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--s1);
+    /* VISITED STAMP -- a passport arrival stamp in the action column.
+       Only renders when visited: silence is the unvisited state (an
+       always-on hollow marker read as clutter). The fixed x of the action
+       column is what makes it scannable -- a column of stamps down the
+       right edge.
+
+       Shape: plain border-radius:50% on two boxes. CSS borders are
+       constant-width by construction; SVG-stroked ovals read as
+       variable-width at this size (design/visited-badge/NOTES.md).
+       Perforated track 1.5 + gap 2.5 = --s1; ring 2px = badgeHtml()'s
+       rim; type = .row-meta's voice at .caps tracking.
+
+       Ink, not a component: navy at 82% (7.48:1 on --paper, 7.94:1
+       pressed) lets the paper tone through, so the place name wins the
+       first read and the stamp wins the scan. No mix-blend-mode: it was
+       visually inert here and forces a stacking context that can soften
+       rotated 10px text on iOS.
+
+       32px tall inside the row's 39px content box -- can never grow the
+       row. margin-right keeps the stamp clear of the delete button's
+       touch-adjustment zone, so a thumb on the stamp navigates, not
+       deletes. Non-interactive and aria-hidden: the .sr-only span in
+       .row-meta stays the ONE source screen readers get. */
+    .row-stamp {
+      position: relative;
+      flex-shrink: 0;
+      width: calc(var(--s6) * 3);          /* 72 */
+      height: var(--s8);                   /* 32 */
       margin-right: var(--s2);
-      color: var(--navy);
-      vertical-align: middle;
+      border: 1.5px dotted currentColor;
+      border-radius: 50%;
+      color: var(--navy);                  /* no color-mix() support */
+      color: color-mix(in srgb, var(--navy) 82%, transparent);
+      /* Per-place angle from stampTilt(loc.id), -1.5..-3.5deg. Rotation
+         is about the centre, so the column's x never moves. */
+      transform: rotate(var(--stamp-tilt, -3deg));
+      pointer-events: none;
     }
 
-    .row-visited-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
+    .row-stamp-ring {
+      position: absolute;
+      inset: 2.5px;
+      border: 2px solid currentColor;
       border-radius: 50%;
-      background: var(--navy);
-      border: 1px solid var(--navy);
-      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 0.08em;                /* re-centres trailing tracking */
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Rendering fallback, not a second design: at 1 device px per CSS px
+       a 1.5px dotted border rasterises to grey haze that reads as an
+       anti-aliasing fault. Dashes survive. The -webkit- twin covers
+       Safari on a 1x external display. */
+    @media (max-resolution: 1dppx), (-webkit-max-device-pixel-ratio: 1) {
+      .row-stamp { border-style: dashed; }
     }
 
     /* An absolute-positioned, zero-size clip -- the standard visually-hidden
@@ -970,10 +1005,12 @@
     .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.54:1 */
     .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
     .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
-    /* Flips navy->paper, matching every other element in this block,
-       rather than adding navy as a one-off reversed-state color. */
-    .location-card.highlighted .row-visited { color: var(--paper); }
-    .location-card.highlighted .row-visited-dot { background: var(--paper); border-color: var(--paper); }
+    /* Exempt from the stamp's 82% ink, for two reasons. AA: paper at 90%
+       falls to 4.21:1 on Stockholm's --figure-deep, below 4.5 for 10px
+       text; 100% paper is the h3's own pairing (4.79:1 worst city).
+       Emphasis: there is only ever one focus row, so a full-strength
+       stamp there reads as part of the focus state, not inconsistency. */
+    .location-card.highlighted .row-stamp { color: var(--paper); }
 
     .locations-empty {
       color: var(--ink-2);
@@ -991,8 +1028,9 @@
 
     .locations-empty svg { display: block; margin: 0 auto var(--s3); color: var(--hair); }
 
-    /* Delete is the row's only action now -- visited and directions moved
-       to the popup (see buildPopupHtml()). */
+    /* Delete is the row's only action. The visited stamp sits here too,
+       but it is decoration (pointer-events:none), so a tap on it falls to
+       the row and navigates -- see createCard()'s addActive. */
     .location-actions {
       display: flex;
       gap: var(--s1);
@@ -3268,8 +3306,12 @@
       // Listeners are attached once, at creation — not on every render.
       let touchMoved = false;
 
+      // Only delete is excluded from the row press. The actions cluster
+      // also holds the non-interactive visited stamp; excluding the whole
+      // cluster meant a tap on the stamp after a scroll never reset
+      // touchMoved, so it was silently dropped.
       const addActive = (e) => {
-        if (!e.target.closest('.location-actions')) {
+        if (!e.target.closest('.delete-btn')) {
           touchMoved = false;
           el.classList.add('active');
         }
@@ -3300,26 +3342,36 @@
       return el;
     }
 
-    // A ledger row, not a card: 28px glyph | 1fr content | visited dot |
-    // action cluster. The category ink moved out of a 4px left border and
-    // into the glyph; the label is --ink-2 and the metadata line reads
-    // VISITED (if applicable) · CATEGORY · CITY -- visited leads so
-    // ellipsis truncation never clips the one new signal this line exists
-    // to show.
+    // Deterministic per-place stamp angle, -1.5deg .. -3.5deg in 0.25deg
+    // steps. Same place -> same angle on every render (never Math.random,
+    // which would re-roll on each re-render). Capped at -3.5 so 10px caps
+    // stay crisp at 1x. For a fixed angle instead, drop this helper and
+    // the inline --stamp-tilt below; the CSS default (-3deg) takes over.
+    function stampTilt(id) {
+      let h = 0;
+      for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) | 0;
+      return -1.5 - (Math.abs(h) % 9) * 0.25;
+    }
+
+    // A ledger row, not a card: 28px glyph | 1fr content | action cluster.
+    // The category ink lives in the glyph; the metadata line reads
+    // CATEGORY · CITY in --ink-2. Visited shows as a stamp at the head of
+    // the action cluster (see .row-stamp), at a fixed x so the list scans
+    // as a column; the .sr-only text in .row-meta is its accessible name.
     function renderCard(el, loc) {
       const ink = categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
-      const visitedTag = loc.visited
-        ? '<span class="row-visited" aria-hidden="true"><span class="row-visited-dot"></span>Visited</span>'
+      const stamp = loc.visited
+        ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring">Visited</span></span>`
         : '';
       el.innerHTML = `
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
         <div class="row-main">
           <h3>${escapeHtml(loc.name)}</h3>
-          <div class="row-meta">${visitedTag}${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.visited ? ', visited' : ', not visited yet'}</span></div>
+          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
         <div class="location-actions">
-          <button class="delete-btn" aria-label="Delete">&times;</button>
+          ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
         </div>
       `;
     }
