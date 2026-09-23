@@ -366,6 +366,36 @@ go stale, and don't leave it silently out of date either.
     in daylight is unproven — that's what the dial is for.
 
 **Priority (owner-requested, next up):**
+- **List ordering is confusing** (owner, 2026-09-23). Current behavior,
+  not a designed choice: `locations` are fetched `.order('created_at',
+  { ascending: false })` (newest-added first) and `syncLocationCards()`
+  keeps that order after `visibleLocations()` filters by city/category;
+  shape rows render in their own block via `createShapeCard()`. Nothing
+  groups by visited state, category, or proximity, so the list reads as
+  arbitrary. Needs a Design/UX/CD pass on what the list is *for*
+  (planning vs. on-the-ground "what's near/left") — and it interacts with
+  the visited-row field (e.g. sorting visited to the bottom would change
+  what the field is doing). Don't just pick a sort.
+- **Trip vs. place location model — search can't find places in other
+  cities** (owner, 2026-09-23). Root cause of the search failure: every
+  Nominatim call goes through `currentSearchCityConfig()` (the city
+  detected from the map/filter, or the form's city), which appends that
+  city's `geocodeSuffix` to the query (e.g. `"<query>, Stockholm"`) AND
+  sets its `countrycodes` as a HARD filter (`CITIES` in `index.html`) —
+  so a place outside the current city's country(ies) can never be
+  returned, and one in another city of the same country is ranked
+  against the wrong suffix. The owner's intended mental model: a **trip**
+  has an overarching location, and the **places** on that trip may or
+  may not be in the same city (day trips, other towns, a stop en route).
+  The app currently conflates the two — `cities` is doing double duty as
+  both "where the trip is" and "where this place is". Constraint from the
+  owner: adding a place must stay low-friction ("I don't want adding
+  things to the list to be crazy egregious") — no forced multi-step
+  city/trip selection just to add a pin. Scope is a real rework (data
+  model, search scoping, the city filter/list, the add form, and how
+  `resolveShapeCity()` / new-city creation fit in); needs discovery and a
+  proposal the owner approves before any build. Related: Phase 2 "trip
+  context (dates/closures)" in the deferred roadmap.
 - Make the visited stamp's per-place tilt actually visible. It's live and
   working, but the owner can't perceive it: `stampTilt()` maps to
   −1.5°…−3.5° in 0.25° steps, all leaning one way, so adjacent rows often
