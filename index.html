@@ -139,7 +139,8 @@
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
       --paper-raised: #FAF5EA;   /* one step up: pressed rows, chips, fields */
-      --paper-warm:   #F0D9C8;   /* reversed secondary text (4.54:1 on deep) */
+      --paper-warm:   #F4E6DA;   /* reversed secondary text on --figure-deep:
+                                    4.65:1 Stockholm .. 5.05:1 Reykjavik */
       --navy:         #12293F;   /* the frame, the cold north -- 12.51:1     */
       --ink:          #1A1A18;   /* body text -- 14.69:1 on --paper          */
       --ink-2:        #5A564C;   /* metadata + EVERY category label -- 6.17:1 */
@@ -1043,7 +1044,7 @@
     }
 
     .location-card.highlighted h3 { color: var(--paper); }          /* 5.20:1 */
-    .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.54:1 */
+    .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.65:1 worst (Stockholm) */
     .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
     .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
     /* Exempt from the stamp's 82% ink, for two reasons. AA: paper at 90%
