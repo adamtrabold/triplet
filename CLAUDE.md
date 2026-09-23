@@ -335,6 +335,19 @@ go stale, and don't leave it silently out of date either.
     rendering, `text-box`, `color-mix()` and tap targeting are unverified
     on a real iPhone.
 
+**Priority (owner-requested, next up):**
+- List row background treatment + typography — in progress (Design/UX/CD
+  loop round 1, started 2026-09-23).
+- Make the visited stamp's per-place tilt actually visible. It's live and
+  working, but the owner can't perceive it: `stampTilt()` maps to
+  −1.5°…−3.5° in 0.25° steps, all leaning one way, so adjacent rows often
+  differ by only 0.25–0.5° (the 9 currently-visited Reykjavík places land
+  on −2.00…−3.50°). The range was capped at −3.5° to keep 10px caps crisp
+  at 1x. Likely fix: widen the range and/or allow some positive tilt (e.g.
+  +1°…−5°); needs a Design/UX/CD pass with measured 1x text crispness at
+  the new extremes. Changing the range only touches `stampTilt()` — the
+  stamp's mask geometry rotates with the element and is unaffected.
+
 **Needs the user's action:**
 - iPhone check of the visited stamp (round 3): (1) the outer track is
   evenly spaced round dots, no bunching/collision at top-centre (if it's
