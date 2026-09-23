@@ -888,11 +888,18 @@
        column is what makes it scannable -- a column of stamps down the
        right edge.
 
-       Shape: plain border-radius:50% on two boxes. CSS borders are
+       Shape: the solid ring is a plain border-radius:50% CSS border --
        constant-width by construction; SVG-stroked ovals read as
-       variable-width at this size (design/visited-badge/NOTES.md).
-       Perforated track 1.5 + gap 2.5 = --s1; ring 2px = badgeHtml()'s
-       rim; type = .row-meta's voice at .caps tracking.
+       variable-width at this size (design/visited-badge/NOTES.md). The
+       perforated track is NOT a second CSS oval: an ellipse inset from an
+       ellipse is not a parallel curve (the gap pinched and swelled by
+       ~1.6px) and a dotted border leaves a seam at its start. It is a
+       static SVG mask of round dots on a path tuned to the ring's
+       parallel curve -- see --stamp-track below. That doesn't break the
+       ring rule: zero-length round-cap dashes render as discs, not a
+       continuous stroke, so there is no stroke width to vary. Ring 2px =
+       badgeHtml()'s rim; type = .row-meta's voice at .caps tracking,
+       caps centred with text-box.
 
        Ink, not a component: navy at 82% (7.48:1 on --paper, 7.94:1
        pressed) lets the paper tone through, so the place name wins the
@@ -911,19 +918,45 @@
       width: calc(var(--s6) * 3);          /* 72 */
       height: var(--s8);                   /* 32 */
       margin-right: var(--s2);
-      border: 1.5px dotted currentColor;
-      border-radius: 50%;
       color: var(--navy);                  /* no color-mix() support */
       color: color-mix(in srgb, var(--navy) 82%, transparent);
       /* Per-place angle from stampTilt(loc.id), -1.5..-3.5deg. Rotation
          is about the centre, so the column's x never moves. */
       transform: rotate(var(--stamp-tilt, -3deg));
       pointer-events: none;
+      /* Perforated track: 84 round dots on a rounded-rect path tuned to
+         the ring's parallel curve (max deviation 0.108px vs 0.307px for a
+         concentric ellipse). Dots are spaced by arc length, starting at
+         top-centre, with no start/end seam. 1x: 32 dashes on the same path.
+         pathLength='166.29' deliberately equals the path's measured
+         length, with both dasharrays in real units (dots 0 1.9797 =
+         166.29/84; 1x 3.118 2.079, offset 1.559 = 166.29/32): engines that
+         honour pathLength get exact spacing, engines that ignore it still
+         get ~correct spacing instead of a solid line. If the path changes,
+         re-measure it with getTotalLength() and update the path, the
+         pathLength and BOTH dasharray values together.
+         Path geometry assumes .row-stamp 72x32 and .row-stamp-ring at
+         inset var(--s1) + 2px border -- change both together. Derivation,
+         radius search and the JS-generated fallback: design/visited-badge/. */
+      --stamp-track: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 32'%3E%3Cpath d='M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z' fill='none' stroke='%23000' stroke-width='1.1' stroke-linecap='round' pathLength='166.29' stroke-dasharray='0 1.9797'/%3E%3C/svg%3E");
+      --stamp-track-1x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 32'%3E%3Cpath d='M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z' fill='none' stroke='%23000' stroke-width='1.25' pathLength='166.29' stroke-dasharray='3.118 2.079' stroke-dashoffset='1.559'/%3E%3C/svg%3E");
+    }
+
+    /* The perforated track: currentColor through the dot mask. The
+       fallback is a fully transparent mask -- if the track is ever
+       missing, the stamp loses its dots, never becomes a solid block. */
+    .row-stamp::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      -webkit-mask: var(--stamp-track, linear-gradient(transparent, transparent)) 0 0 / 100% 100% no-repeat;
+      mask: var(--stamp-track, linear-gradient(transparent, transparent)) 0 0 / 100% 100% no-repeat;
     }
 
     .row-stamp-ring {
       position: absolute;
-      inset: 2.5px;
+      inset: var(--s1);                    /* ring box 64x24 -- see --stamp-track */
       border: 2px solid currentColor;
       border-radius: 50%;
       display: flex;
@@ -939,12 +972,20 @@
       white-space: nowrap;
     }
 
+    /* Centre the CAPS, not the line box: text-box trims the word to
+       cap-height..baseline, so flex centring centres the ink itself.
+       Browsers without text-box ignore it and sit ~0.4px high. */
+    .row-stamp-word { text-box: trim-both cap alphabetic; }
+
     /* Rendering fallback, not a second design: at 1 device px per CSS px
-       a 1.5px dotted border rasterises to grey haze that reads as an
-       anti-aliasing fault. Dashes survive. The -webkit- twin covers
-       Safari on a 1x external display. */
+       dots this small rasterise to grey haze that reads as an
+       anti-aliasing fault. Dashes on the same path survive. The
+       -webkit- twin covers Safari on a 1x external display. */
     @media (max-resolution: 1dppx), (-webkit-max-device-pixel-ratio: 1) {
-      .row-stamp { border-style: dashed; }
+      .row-stamp::before {
+        -webkit-mask-image: var(--stamp-track-1x, linear-gradient(transparent, transparent));
+        mask-image: var(--stamp-track-1x, linear-gradient(transparent, transparent));
+      }
     }
 
     /* An absolute-positioned, zero-size clip -- the standard visually-hidden
@@ -3362,7 +3403,7 @@
       const ink = categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
       const stamp = loc.visited
-        ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring">Visited</span></span>`
+        ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`
         : '';
       el.innerHTML = `
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
