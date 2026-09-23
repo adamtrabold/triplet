@@ -335,8 +335,8 @@ go stale, and don't leave it silently out of date either.
     rendering, `text-box`, `color-mix()` and tap targeting are unverified
     on a real iPhone.
 
-- Visited rows recede (scannability) — on branch
-  `claude/visited-state-badge-list-yultpy` (2026-09-23), not yet merged.
+- Visited rows recede (scannability) — merged to `main`
+  (`807c0d4`, 2026-09-23).
   The owner's actual problem was scanning the list for what's left; the
   stamp helped but wasn't enough at a glance. Visited rows get
   `.is-visited` (toggled in `renderCard()`, which re-runs whenever
