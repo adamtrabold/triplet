@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --paper: #F2EBDD;
+    --paper-raised: #FAF5EA;
+    --paper-warm: #F0D9C8;
+    --navy: #12293F;
+    --ink: #1A1A18;
+    --ink-2: #5A564C;
+    --hair: #D8CEBA;
+    --figure-deep: #A8400C;
+    --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px;
+  }
+  body { background: var(--paper); font-family: -apple-system, sans-serif; padding: 24px; }
+  .location-card {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: var(--s3);
+    align-items: center;
+    height: 56px;
+    padding: 0 var(--s3);
+    background: var(--paper-raised);
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    margin-bottom: var(--s2);
+  }
+  .location-card.highlighted { background: var(--figure-deep); border-color: var(--figure-deep); }
+  .row-badge { width: 28px; height: 28px; border-radius: 50%; background: var(--hair); }
+  .row-main h3 { margin: 0; font-size: 14px; color: var(--ink); }
+  .row-meta { font-size: 12px; color: var(--ink-2); }
+  .highlighted .row-main h3, .highlighted .row-meta { color: var(--paper); }
+  .location-actions { display: flex; align-items: center; gap: var(--s2); }
+  .delete-btn { width: 24px; height: 24px; border-radius: 50%; background: var(--hair); }
+
+  /* --- CSS-only oval stamp: two concentric border-radius ovals, dashed outer track --- */
+  .stamp {
+    position: relative;
+    width: 80px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-3deg);
+  }
+  .stamp-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px dashed var(--ink-2);
+  }
+  .stamp-ring {
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    border: 2px solid var(--ink-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stamp-ring span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--ink-2);
+  }
+  .highlighted .stamp-track { border-color: var(--paper-warm) !important; }
+  .highlighted .stamp-ring { border-color: var(--paper-warm) !important; }
+  .highlighted .stamp-ring span { color: var(--paper-warm) !important; }
+</style>
+</head>
+<body>
+
+<h2 style="font-size:14px;color:#5A564C">CSS-only approach: border-radius:50% on plain divs, dashed border for outer track</h2>
+
+<div class="location-card">
+  <div class="row-badge"></div>
+  <div class="row-main"><h3>Café Babalú</h3><div class="row-meta">Café · Reykjavík</div></div>
+  <div class="location-actions"><div class="delete-btn"></div></div>
+</div>
+
+<div class="location-card">
+  <div class="row-badge"></div>
+  <div class="row-main"><h3>Sandholt Bakery</h3><div class="row-meta">Bakery · Reykjavík</div></div>
+  <div class="location-actions">
+    <div class="stamp"><div class="stamp-track"></div><div class="stamp-ring"><span>VISITED</span></div></div>
+    <div class="delete-btn"></div>
+  </div>
+</div>
+
+<div class="location-card highlighted">
+  <div class="row-badge"></div>
+  <div class="row-main"><h3>Reykjavík Roasters</h3><div class="row-meta">Café · Reykjavík</div></div>
+  <div class="location-actions">
+    <div class="stamp"><div class="stamp-track"></div><div class="stamp-ring"><span>VISITED</span></div></div>
+    <div class="delete-btn"></div>
+  </div>
+</div>
+
+</body>
+</html>
