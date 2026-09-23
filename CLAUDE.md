@@ -280,8 +280,8 @@ go stale, and don't leave it silently out of date either.
   hardcoded value (not a size-proportional formula) was the right call
   given there's only one 20px call site and no way to visually iterate
   in this sandbox — lowest-risk, most reversible option.
-- Visited "passport stamp" in the list row — on branch
-  `claude/visited-state-badge-list-yultpy` (2026-09-23), replacing the
+- Visited "passport stamp" in the list row — merged to `main`
+  (`24bb7db`, 2026-09-23), replacing the
   inline `.row-visited` dot + "Visited" text in `.row-meta`. `.row-stamp`
   (84-dot SVG-mask track, see round 3 below) wrapping `.row-stamp-ring` (2px solid ring +
   "VISITED" in `.row-meta`'s type voice), 72×32, placed at the head of
