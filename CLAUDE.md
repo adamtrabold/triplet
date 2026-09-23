@@ -355,6 +355,20 @@ go stale, and don't leave it silently out of date either.
   (`.popup-visited`), for visual coherence. Not scoped.
 - Next design topic queued by the owner: the list row's background
   treatment and typography.
+- Street/district popups lag behind pin popups (owner-reported
+  2026-09-23). `buildNeighborhoodLayer()` binds a bare
+  `<strong>label</strong><p>note</p>` string, while pins get
+  `buildPopupHtml()`: category glyph + label, title, address, notes, and a
+  `.popup-actions` row with the visited toggle and Get Directions. Gaps to
+  resolve: no category/type header, none of the popup typography classes,
+  no visited toggle, no directions. Visited needs a schema change first —
+  `neighborhood_shapes` has no `visited` column (checked 2026-09-23:
+  id, city, type, label, color, note, min_zoom, geometry, created_at), and
+  the shape list rows (`createShapeCard()`) would need the stamp too.
+  Directions were deliberately excluded for shapes when that feature
+  shipped (no single natural destination point); revisit with a centroid
+  or nearest-point destination, or keep excluded on purpose. Needs a
+  Design/UX/CD pass rather than a straight port.
 
 Previously tracked and fixed: (Previously: `showError()`/
 `hideError()` banner masking, and `slugifyCityId()` not decomposing Nordic
