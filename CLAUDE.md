@@ -374,8 +374,8 @@ go stale, and don't leave it silently out of date either.
   - Chromium-only numbers; whether a 1.12:1 step reads on the owner's OLED
     in daylight is unproven — that's what the dial is for.
 
-- Pressed row goes darker, not lighter — on branch
-  `claude/visited-state-badge-list-yultpy` (2026-09-23). Owner found the
+- Pressed row goes darker, not lighter; stamp tilts both ways — merged
+  to `main` (`a6f08f9`, 2026-09-23). Owner found the
   press flash too light once visited rows sat on `--paper-filed` (a
   visited row jumped 1.22:1 *lighter* to `--paper-raised`). Every row now
   presses to `--paper-pressed: #DCD3C3` — same hue, one equal step below
