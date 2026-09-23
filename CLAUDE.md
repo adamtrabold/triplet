@@ -424,11 +424,18 @@ go stale, and don't leave it silently out of date either.
   `resolveShapeCity()` / new-city creation fit in); needs discovery and a
   proposal the owner approves before any build. Related: Phase 2 "trip
   context (dates/closures)" in the deferred roadmap.
+
+**Needs the user's action:**
+- iPhone check of press + tilt: (1) pressing a row reads as pressed in,
+  not a flash, on both visited and unvisited rows; (2) rows don't blink
+  darker when starting a flick-scroll; (3) the ±5° stamps look deliberate
+  and hand-stamped, not broken.
 - iPhone check of the visited-row background: (1) at a glance in
   daylight, visited rows visibly sit back from unvisited ones (if not,
   apply the dial — field and divider together); (2) the visited field
-  reads as warm, older paper, not grey; (3) pressing a visited row flashes
-  lighter.
+  reads as warm, older paper, not grey. (Its original check (3), "pressing
+  a visited row flashes lighter", is superseded: the owner found that
+  flash too light and presses now go darker — see the press check above.)
 - iPhone check of the visited stamp (round 3): (1) the outer track is
   evenly spaced round dots, no bunching/collision at top-centre (if it's
   uneven or solid, swap in the JS fallback per
