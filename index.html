@@ -3155,6 +3155,65 @@
       });
     }
 
+    // ---- list click -> popup, GUARANTEED -----------------------------------
+    // A list click must always end with that item's popup open. The old
+    // code opened it on a fixed 300ms timer, racing a 0.5s fly: a pin that
+    // started inside a cluster had no solo marker yet (syncMarkerGlyphZoom()
+    // makes it on moveend), and a shape below its min zoom had no layer, so
+    // nothing opened. Now the popup opens when the map has ARRIVED at the
+    // target view -- checked on every moveend, not assumed from the first
+    // one -- after re-running the (idempotent) syncs, re-looking the marker
+    // or layer up at that moment.
+    //   - Reduced motion: setView() fires moveend synchronously inside
+    //     move(); the listener is already attached, so the same path runs.
+    //   - Already there: no move happens, so it opens immediately.
+    //   - Last tap wins: one pending intent at a time; a newer tap cancels
+    //     the older listener and closes any open popup first, so a stale
+    //     popup can never appear after the tap that replaced it.
+    //   - The user takes over mid-flight -- ANY direct map input (a pin or
+    //     cluster tap, a drag, a pinch, a wheel) -- and the intent is
+    //     dropped: pointerdown/wheel in the capture phase on the map
+    //     container, so it runs before Leaflet's own handlers. Without it a
+    //     stale list-tap popup could replace the pin the user just tapped,
+    //     or fire later on any moveend that happened to land on the target.
+    let pendingPopupOpen = null;
+
+    function openPopupOnArrival(center, zoom, getLayer, move) {
+      if (pendingPopupOpen) pendingPopupOpen();
+      map.closePopup();
+
+      const target = L.latLng(center);
+      const arrived = () => {
+        if (map.getZoom() < zoom - 0.01) return false;
+        const p = map.latLngToContainerPoint(target);
+        return p.distanceTo(map.getSize().divideBy(2)) <= 2;
+      };
+      const container = map.getContainer();
+      const cancel = () => {
+        map.off('moveend', onMoveEnd);
+        map.off('dragstart', cancel);
+        container.removeEventListener('pointerdown', cancel, true);
+        container.removeEventListener('wheel', cancel, true);
+        if (pendingPopupOpen === cancel) pendingPopupOpen = null;
+      };
+      function onMoveEnd() {
+        if (!arrived()) return;          // an intermediate/other move -- keep waiting
+        cancel();
+        syncMarkerGlyphZoom();
+        syncNeighborhoodLayers();
+        const layer = getLayer();
+        if (layer) layer.openPopup();
+      }
+
+      pendingPopupOpen = cancel;
+      map.on('moveend', onMoveEnd);
+      map.on('dragstart', cancel);
+      container.addEventListener('pointerdown', cancel, true);
+      container.addEventListener('wheel', cancel, { capture: true, passive: true });
+      if (arrived()) onMoveEnd();
+      else move();
+    }
+
     function highlightMarker(locationId) {
       const location = locations.find(loc => loc.id === locationId);
       if (!location) return;
@@ -3164,13 +3223,12 @@
       // atLeast: SOLO_MIN_ZOOM -- not a coincidence, see that constant's
       // comment. This is the call the whole clustering safety property
       // rests on; if it ever changes, SOLO_MIN_ZOOM must move with it.
-      focusMap([location.lat, location.lng], { atLeast: SOLO_MIN_ZOOM }, { animate: true, duration: 0.5 });
-
-      const entry = markersById.get(locationId);
-      if (entry) {
-        // Let the pan start before the popup opens.
-        setTimeout(() => entry.marker.openPopup(), 300);
-      }
+      // Arrival is checked at that same zoom, so the popup can only ever
+      // open on a solo (never clustered) marker.
+      const center = [location.lat, location.lng];
+      openPopupOnArrival(center, Math.max(map.getZoom(), SOLO_MIN_ZOOM),
+        () => { const entry = markersById.get(locationId); return entry && entry.marker; },
+        () => focusMap(center, { atLeast: SOLO_MIN_ZOOM }, { animate: true, duration: 0.5 }));
     }
 
     function updateUI() {
@@ -3521,19 +3579,24 @@
       if (!nb) return;
 
       noteInteraction();
+      // Fit the shape, but never land below neighborhoodMinZoom(): the
+      // map layer (and so its popup) doesn't exist under that zoom, so a
+      // fit that settled there would show nothing and open nothing. A
+      // shape small enough to fit below its min zoom is now framed AT its
+      // min zoom instead ("zoom in enough to actually see the thing").
       const bounds = L.latLngBounds(nb.geometry).pad(0.15);
-      if (prefersReducedMotion()) {
-        map.fitBounds(bounds, { animate: false });
-      } else {
-        map.flyToBounds(bounds, { duration: 0.5 });
-      }
-
-      // zoomend (fired by the above) re-runs syncNeighborhoodLayers, so the
-      // layer may not exist yet on this tick -- give it one before opening.
-      setTimeout(() => {
-        const layer = neighborhoodLayersById.get(shapeId);
-        if (layer) layer.openPopup();
-      }, 300);
+      const center = bounds.getCenter();
+      const zoom = Math.min(map.getMaxZoom(),
+        Math.max(map.getBoundsZoom(bounds), neighborhoodMinZoom(nb)));
+      openPopupOnArrival(center, zoom,
+        () => neighborhoodLayersById.get(shapeId),
+        () => {
+          if (prefersReducedMotion()) {
+            map.setView(center, zoom, { animate: false });
+          } else {
+            map.flyTo(center, zoom, { duration: 0.5 });
+          }
+        });
     }
 
     function createShapeCard(nb) {
