@@ -438,6 +438,30 @@ go stale, and don't leave it silently out of date either.
   `resolveShapeCity()` / new-city creation fit in); needs discovery and a
   proposal the owner approves before any build. Related: Phase 2 "trip
   context (dates/closures)" in the deferred roadmap.
+- **Personal priority / "I really care about this one"** (owner,
+  2026-09-27). A way to star or otherwise flag places that matter most,
+  distinct from category and from visited. Problem for the team, not a
+  spec: what the signal is (binary star vs. tiers), where it shows (list
+  row, marker, popup), how it's set (popup toggle like visited? the row
+  is deliberately delete-only), and how it interacts with list ordering
+  (item above) and the visited field/stamp. Needs a schema addition on
+  `locations` (and decide whether shapes get it). Keep the row calm —
+  the stamp + visited field already carry a lot.
+- **Day agendas — plan AND follow an ordered route** (owner,
+  2026-09-27). For days where the owner wants a set order: build an
+  agenda for a given day, then use it on the ground. The owner is unsure
+  how deep v1 needs to go to test the idea; the aspirational end state is
+  maps-app-like — paths drawn between stops, reorder stops and see how
+  the route/travel changes. Problem for the team to scope: the smallest
+  v1 that tests plan+follow (e.g. an ordered list per day with
+  prev/next and numbered markers) vs. what needs routing data. Known
+  constraints to weigh: no build step; the sandbox can't reach OSM
+  services (routing would need a provider — check what's reachable from
+  the browser and its usage terms); Get Directions already hands off to
+  Apple Maps per stop (`directionsUrl()`), which may be enough for
+  "follow" in v1. Relates to list ordering, the trip/place location
+  rework, Phase 2 trip dates, and personal priority — sequence the
+  discovery so these don't get designed in isolation.
 
 **Needs the user's action:**
 - iPhone check of press + tilt: (1) pressing a row reads as pressed in,
