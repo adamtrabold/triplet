@@ -446,6 +446,46 @@
       margin-bottom: var(--s6);
     }
 
+    /* Star a place as it's added -- the moment "I really care about this
+       one" usually happens. The popup star's form exactly (hollow --ink-2
+       2/24 stroke = 1.33px at 16px; filled --figure-deep when on) beside
+       the word in .field-label's voice. Optional, off by default, no new
+       step. The whole row is the target: 44px tall, full width. Pulled up
+       --s2 into the textarea's 24px margin so the underline-to-star gap
+       reads as one field spacing, not two. position:relative is load-
+       bearing: the textarea is inline-block, so its line box (margin
+       included) overlaps that pulled-up strip, and inline content
+       out-ranks a later block in hit-testing -- without it the top 8px of
+       the target went to #addForm (measured). Hidden for district/street
+       (isShapeCategory()) -- shapes have no starred column. */
+    #addForm .form-star {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--s2);
+      width: 100%;
+      min-height: 44px;
+      margin: calc(-1 * var(--s2)) 0 var(--s2);
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-ui);
+      font-stretch: 75%;
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-2);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #addForm .form-star svg { width: var(--s4); height: var(--s4); flex-shrink: 0; }
+    #addForm .form-star[aria-pressed="true"] svg { color: var(--figure-deep); }
+    #addForm .form-star:active svg { transform: scale(0.85); }
+
     #addForm .field-group select {
       margin-bottom: 0;
     }
@@ -1053,6 +1093,32 @@
       text-overflow: ellipsis;
     }
 
+    /* PRIORITY STAR -- the Baedeker star. Guidebooks printed a star
+       BEFORE a sight's name to mean "particularly worth seeing"; here it
+       leads the h3 the same way. Leading, not trailing: ellipsis clips
+       from the end, so the star can never be the part that's cut, and it
+       sits at one fixed x (the 56px content edge) on every starred row,
+       so the list scans as a column of stars down the reading edge.
+       Opposite channel to visited on purpose: visited is navy and
+       RECEDES (stamp + filed field); starred is the city's --figure-deep
+       and ADVANCES. Both can be true; neither overrides the other.
+       Ink: --figure-deep, 4.79:1 (Stockholm) .. 5.20:1 on --paper,
+       >= 3.83:1 on --paper-pressed -- all 5 cities clear 3:1 for a
+       non-text mark in every state. Highlighted row: paper (below).
+       Decorative (aria-hidden); the .sr-only text in .row-meta is the
+       ONE accessible source, as for visited. */
+    .row-star {
+      display: inline-block;
+      width: var(--s3);                    /* 12 */
+      height: var(--s3);
+      margin-right: var(--s1);
+      vertical-align: -1px;                /* SITS ON THE BASELINE, like a typeset
+                                              star: ink bottom = baseline, top
+                                              0.67px under cap height (measured,
+                                              3x). Deliberate -- not cap-centred. */
+      color: var(--figure-deep);
+    }
+
     /* Category labels are ALWAYS --ink-2, never the category ink: 11 inks
        cannot all clear 4.5:1 as 10px text and still hold a value ladder.
        The glyph carries the ink; the word stays quiet. */
@@ -1091,6 +1157,7 @@
        Emphasis: there is only ever one focus row, so a full-strength
        stamp there reads as part of the focus state, not inconsistency. */
     .location-card.highlighted .row-stamp { color: var(--paper); }
+    .location-card.highlighted .row-star { color: var(--paper); }    /* 4.79:1 worst (Stockholm) */
 
     .locations-empty {
       color: var(--ink-2);
@@ -1144,6 +1211,10 @@
        (backwards feedback); it also fell to 3.83:1 (Stockholm) on
        --paper-pressed and went invisible (1:1) on the focus row. The
        resting X is already AA on --paper-pressed (4.93:1). */
+
+    /* Map star (markerStarHtml()): paper halo under an ink star. */
+    .marker-star-halo { color: var(--paper); stroke: var(--paper); }
+    .marker-star-ink  { color: var(--ink); }
 
     @keyframes markerPulse {
       0%   { transform: scale(1);    opacity: 1; }
@@ -1225,6 +1296,60 @@
     }
 
     .popup-cat svg { width: 20px; height: 20px; display: block; flex-shrink: 0; }
+
+    /* The star leads the title, exactly where the list row prints it --
+       the control sits where its mark shows, so setting it teaches where
+       to look for it. It lives here, not in .popup-actions: that row is
+       Visited | Directions, which the owner approved, and a third
+       control would crowd a 240px row. Off: hollow --ink-2 star (6.17:1
+       on --paper). On: filled --figure-deep (>= 4.79:1). */
+    .popup-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--s1);
+    }
+
+    .popup-star {
+      position: relative;
+      /* Above the category glyph: leaflet.css gives every svg in the map
+         pane z-index:200, which takes effect on a flex-item svg like
+         .popup-cat's, and would otherwise eat the top of this hit area. */
+      z-index: 201;
+      flex-shrink: 0;
+      width: 20px;                         /* = .popup-cat's glyph box, so star and
+                                              category glyph share one icon column
+                                              and the title starts exactly where
+                                              the category word does (20 + --s1) */
+      height: 20px;                        /* = .popup-title line-height */
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--ink-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 44 x 44 hit area without moving layout: 20x20 box + this inset.
+       Biased UP (20 above, 4 below) into the non-interactive category
+       line. With .popup-actions' --s3 margin, the worst case (one-line
+       title, no address/notes) leaves an 8px DEAD BAND between this
+       target's bottom (title + 4) and Mark Visited's top (title + 12) --
+       a thumb landing between them does nothing rather than the wrong
+       thing. 13px left keeps it inside the popup border; clear of the
+       close button. Accepted side effect: the first ~11px of the title
+       also toggles the star (titles aren't interactive otherwise). */
+    .popup-star::after {
+      content: '';
+      position: absolute;
+      inset: -20px -11px -4px -13px;
+    }
+
+    .popup-star svg { width: var(--s4); height: var(--s4); display: block; }
+    .popup-star.starred { color: var(--figure-deep); }
+    .popup-star:active svg { transform: scale(0.85); }
     .popup-addr  { font-size: 12px; line-height: 16px; color: var(--ink-2); }
     .popup-notes { font-size: 12px; line-height: 16px; color: var(--ink-2); font-style: italic; margin-top: var(--s2); }
 
@@ -1238,12 +1363,16 @@
        restaurant popup the deep figure would sit ~40px from a
        restaurant-ink glyph they collide with in all five cities. Navy is
        2.71:1 away in value from every category ink. */
+    /* 44px tall target: 12px line + 2 x --s4. The ring is centred on
+       the popup's 20px icon column (3px each side of the 14px ring) and
+       the gap is --s1, so "MARK VISITED" starts at 24px -- the same x as
+       the category word and the title above it. */
     .popup-visited {
       display: flex;
       align-items: center;
-      gap: var(--s2);
+      gap: var(--s1);
       text-align: left;
-      padding: var(--s2) 0;
+      padding: var(--s4) 0;
       border: none;
       background: transparent;
       cursor: pointer;
@@ -1259,13 +1388,21 @@
 
     .popup-visited:active { opacity: 0.6; }
 
+    /* Hollow "tap to fill" ring at the SAME weight and ink as the hollow
+       star above it (.popup-star, 2/24 of 16px = 1.33px, --ink-2) so the
+       column reads as one family of controls. Was 1px --hair (1.3:1),
+       under the 3:1 non-text bar. --ink-2: 6.17:1 on --paper.
+       An inset box-shadow, not a border: Chromium floors a 1.33px
+       border to 1px (measured), while a shadow spread keeps the
+       fraction -- 4 device px at 3x, the star's exact stroke. */
     .popup-visited-check {
       display: inline-block;
       width: 14px;
       height: 14px;
+      margin: 0 3px;
       flex-shrink: 0;
-      border: 1px solid var(--hair);
       border-radius: 50%;
+      box-shadow: inset 0 0 0 1.33px var(--ink-2);
     }
 
     .popup-visited.visited {
@@ -1274,14 +1411,14 @@
 
     .popup-visited.visited .popup-visited-check {
       background: var(--navy);
-      border-color: var(--navy);
+      box-shadow: none;
     }
 
     .popup-directions {
       display: flex;
       align-items: center;
       gap: var(--s1);
-      padding: var(--s2) 0;
+      padding: var(--s4) 0;                /* 44px target, as .popup-visited */
       font-stretch: 75%;
       text-transform: uppercase;
       font-size: 10px;
@@ -1292,17 +1429,28 @@
       text-decoration: none;
     }
 
+    /* leaflet.css's `.leaflet-container a { color: #0078A8 }` (0,1,1)
+       outranks .popup-directions (0,1,0) -- Directions shipped Leaflet
+       blue. This restates the intended colour at (0,2,1). */
+    .leaflet-container a.popup-directions { color: var(--figure-deep); }
+
     .popup-directions svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* Visited (left) and directions (right), one row -- previously stacked
        full-width, which the owner found awkward on a real phone. Neither
        button needs flex:1 or explicit alignment; space-between alone pins
        them since they're the row's only two children. */
+    /* margin-top --s3 makes the 8px dead band against the star target
+       (see .popup-star::after). margin-bottom -8px hands the buttons'
+       new 16px bottom padding back to Leaflet's own 8px content margin,
+       so the labels keep exactly their shipped distance from the popup's
+       bottom edge (20px) and the popup grows only by the top change. */
     .popup-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: var(--s2);
+      margin-top: var(--s3);
+      margin-bottom: calc(-1 * var(--s2));
     }
 
     /* Auth Modal */
@@ -1479,6 +1627,12 @@
     <symbol id="g-other" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
     <symbol id="g-district" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/></symbol>
     <symbol id="g-street" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8" d="M3 18C7 6 17 18 21 6"/></symbol>
+    <!-- Priority star -- the Baedeker star: guidebooks marked the sights
+         "particularly worth seeing" with a star printed before the name.
+         Filled path, no stroke attribute, so a <use> can add a halo stroke
+         (markers). -open is the popup's unstarred control state. -->
+    <symbol id="g-star" viewBox="0 0 24 24"><path fill="currentColor" stroke-linejoin="round" d="M12 1.87L15.03 8.9L22.65 9.61L16.9 14.66L18.58 22.13L12 18.22L5.42 22.13L7.1 14.66L1.35 9.61L8.97 8.9Z"/></symbol>
+    <symbol id="g-star-open" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 1.87L15.03 8.9L22.65 9.61L16.9 14.66L18.58 22.13L12 18.22L5.42 22.13L7.1 14.66L1.35 9.61L8.97 8.9Z"/></symbol>
     <symbol id="g-compass" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/></symbol>
   </defs></svg>
 
@@ -1576,6 +1730,7 @@
           <button type="button" id="newCityConfirmDismiss" class="secondary">Pick from my list</button>
         </div>
         <textarea id="notesInput" placeholder="Notes (optional)" rows="2"></textarea>
+        <button type="button" id="starInput" class="form-star" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star-open"/></svg><span>Star</span></button>
         <button id="submitBtn">Add Location</button>
       </div>
     </div>
@@ -1857,6 +2012,14 @@
       return true;
     }
 
+    // Visited/starred writes in flight (toggleLocationFlag()). While any is
+    // pending, a fetch -- the 10s poll or another write's refetch -- must
+    // not paint server rows over the optimistic screen: that repainted a
+    // just-removed star for ~230ms when the owner tapped twice. The fetch
+    // still runs; its rows are simply not applied. The last write to
+    // settle refetches once, which reconciles everything.
+    let flagWritesInFlight = 0;
+
     // Explicit column list: created_at is ordered by server-side but never
     // rendered, so it is deliberately not selected. PostgREST allows ordering
     // on an unselected column.
@@ -1864,10 +2027,11 @@
       try {
         const { data, error } = await supabaseClient
           .from('locations')
-          .select('id,name,address,category,lat,lng,notes,visited,city')
+          .select('id,name,address,category,lat,lng,notes,visited,starred,city')
           .order('created_at', { ascending: false });
 
         if (error) throw error;
+        if (flagWritesInFlight > 0) return;   // see flagWritesInFlight
         const rows = data || [];
         const digest = payloadDigest(rows);
         locations = rows;
@@ -1993,23 +2157,56 @@
       }
     }
 
-    async function toggleVisited(id, visited) {
-      if (!await requireAuth()) return;
+    // Visited and starred are both one-tap popup toggles, so they share
+    // one writer. OPTIMISTIC: the local row flips and updateUI() re-renders
+    // the popup, list row and marker at once; the write follows. On
+    // failure the flip is reverted. The refetch after a successful write
+    // returns the state already on screen, so every signature matches and
+    // nothing re-renders (no flicker). The target value is written, not
+    // "!current" server-side, so a quick double-tap lands where the
+    // screen says it did.
+    function setLocationFlag(id, field, value) {
+      // Re-rendering replaces the popup's HTML; keep keyboard/VoiceOver
+      // focus on the control that was just used.
+      const focused = document.activeElement;
+      const refocus = focused && focused.matches && focused.matches('.popup-star, .popup-visited')
+        ? `.${focused.classList[0]}[data-id="${CSS.escape(id)}"]` : null;
+      locations = locations.map(l => l.id === id ? { ...l, [field]: value } : l);
+      updateUI();
+      if (refocus) {
+        const btn = document.querySelector(`.leaflet-popup ${refocus}`);
+        if (btn) btn.focus({ preventScroll: true });
+      }
+    }
 
+    async function toggleLocationFlag(id, field) {
+      if (!await requireAuth()) return;
+      const loc = locations.find(l => l.id === id);
+      if (!loc) return;
+      const next = !loc[field];
+
+      setLocationFlag(id, field, next);
+      flagWritesInFlight++;
       try {
         const { error } = await supabaseClient
           .from('locations')
-          .update({ visited: !visited })
+          .update({ [field]: next })
           .eq('id', id);
 
         if (error) throw error;
-        await refetchLocations();
         hideError('mutation');
       } catch (err) {
+        // Rollback is per write: only this tap's flip is undone.
+        setLocationFlag(id, field, !next);
         showError(handleRLSError(err, 'update'), 'mutation');
+      } finally {
+        flagWritesInFlight--;
       }
+      // Only the last write to settle reconciles with the server -- see
+      // flagWritesInFlight. One visible change per tap, nothing after.
+      if (flagWritesInFlight === 0) await refetchLocations();
     }
-    
+
     // The single Nominatim call site. A city is configured in exactly one place
     // (CITIES), and the geocoding context always comes from formCityId().
     // NOTE: no User-Agent header — it is a forbidden header name for fetch and
@@ -2915,12 +3112,12 @@
     // the signature can force the refresh.
     function markerSignature(loc) {
       return [loc.name, loc.address, loc.category, loc.lat, loc.lng,
-              loc.notes, loc.visited, loc.city].join('|');
+              loc.notes, loc.visited, loc.city, loc.starred].join('|');
     }
 
     // Everything the list card renders.
     function cardSignature(loc) {
-      return [loc.name, loc.address, loc.category, loc.visited].join('|');
+      return [loc.name, loc.address, loc.category, loc.visited, loc.starred].join('|');
     }
 
     // =========================================================================
@@ -3064,6 +3261,25 @@
       return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${shell}${glyph}</svg>`;
     }
 
+    // The list's Baedeker star, riding a map seal's upper-right shoulder
+    // (45deg on the rim). A marker has no name to lead, so the star goes
+    // on the seal. INK on the map, not --figure-deep as in the list and
+    // popup: on the map --figure-deep already means "cluster" (the disc)
+    // and is ~1.1:1 from the restaurant seal, so the star would fuse into
+    // both. --ink is 14.69:1 on its --paper halo and dark against every
+    // seal and disc. Shape is the identity across surfaces; colour adapts.
+    // Colours are .marker-star-halo / .marker-star-ink in the CSS (tokens
+    // can't go in SVG presentation attributes). `size` is the seal's px;
+    // the star scales with it (12 near / 10 far / +2 hi).
+    function markerStarHtml(size) {
+      const s = size >= 24 ? size / 2 : 10;
+      const c = size / 2, r = c - 1;
+      const x = c + r * Math.SQRT1_2 - s / 2, y = c - r * Math.SQRT1_2 - s / 2;
+      return `<svg class="marker-star" width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:${x}px;top:${y}px;overflow:visible">` +
+        `<use class="marker-star-halo" href="#g-star" stroke-width="${(3 * 24 / s).toFixed(2)}" stroke-linejoin="round"/>` +
+        `<use class="marker-star-ink" href="#g-star"/></svg>`;
+    }
+
     function markerIcon(loc, highlighted) {
       const showGlyph = !map || map.getZoom() >= GLYPH_MIN_ZOOM;
       const size = (showGlyph ? MARKER_SIZE_NEAR : MARKER_SIZE_FAR) + (highlighted ? MARKER_HI_DELTA : 0);
@@ -3080,10 +3296,11 @@
       // target -- pad the invisible click/tap area out to 24px around the
       // small visible badge rather than shrinking the tap target with it.
       const hit = Math.max(size, 24);
+      const star = loc.starred ? markerStarHtml(size) : '';
       const html = hit === size
-        ? `<div class="${highlighted ? 'highlighted-marker' : ''}" style="width:${size}px;height:${size}px;line-height:0;">${badge}</div>`
+        ? `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div>`
         : `<div style="width:${hit}px;height:${hit}px;display:flex;align-items:center;justify-content:center;">` +
-          `<div class="${highlighted ? 'highlighted-marker' : ''}" style="width:${size}px;height:${size}px;line-height:0;">${badge}</div></div>`;
+          `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div></div>`;
       return L.divIcon({
         html,
         className: '',
@@ -3114,7 +3331,7 @@
       if (!crossed) return;
       markersById.forEach((entry, id) => {
         entry.marker.setIcon(markerIcon(entry.loc, id === highlightedId));
-        applyMarkerStacking(entry.marker, id === highlightedId);
+        applyMarkerStacking(entry.marker, id === highlightedId, entry.loc.starred);
       });
     }
 
@@ -3125,7 +3342,10 @@
       return `
         <div style="min-width: 240px;">
           <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}</div>
-          <div class="popup-title">${escapeHtml(loc.name)}</div>
+          <div class="popup-title-row">
+            <button type="button" class="popup-star ${loc.starred ? 'starred' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="Star"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg></button>
+            <div class="popup-title">${escapeHtml(loc.name)}</div>
+          </div>
           ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
           ${loc.notes ? `<div class="popup-notes">${escapeHtml(loc.notes)}</div>` : ''}
           <div class="popup-actions">
@@ -3148,7 +3368,7 @@
         const marker = markersById.get(key);
         if (marker) {
           marker.marker.setIcon(markerIcon(marker.loc, key === id));
-          applyMarkerStacking(marker.marker, key === id);
+          applyMarkerStacking(marker.marker, key === id, marker.loc.starred);
         }
         const card = cardsById.get(key);
         if (card) card.el.classList.toggle('highlighted', key === id);
@@ -3355,8 +3575,12 @@
         // its marker; a changed one (a pin entered/left the cell) gets a new
         // id, so syncClusterMarkers()'s add/remove diff recreates it rather
         // than needing a separate signature check.
-        const id = 'cluster:' + members.map(m => m.id).sort().join(',');
-        clusters.push({ id, lat, lng, count: members.length });
+        // A starred member keeps its star on the cluster, so the place the
+        // owner cares about never disappears into a bare count. `*` in the
+        // id makes a star toggle recreate the badge like a membership change.
+        const starred = members.some(m => m.starred);
+        const id = 'cluster:' + (starred ? '*' : '') + members.map(m => m.id).sort().join(',');
+        clusters.push({ id, lat, lng, count: members.length, starred });
       });
       return { solo, clusters };
     }
@@ -3367,13 +3591,14 @@
     // target (focusMap, same as focusShape()'s flyToBounds()) -- it never
     // expands in place, so it can't swallow a specific pin a list click or
     // another cluster click is trying to reach.
-    function clusterMarkerIcon(count) {
+    function clusterMarkerIcon(count, starred) {
       const size = CLUSTER_BADGE_PX - 2;
       const c = size / 2;
-      const html = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">` +
+      const star = starred ? markerStarHtml(size) : '';
+      const html = `<div style="position:relative;width:${size}px;height:${size}px;line-height:0;"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">` +
         `<circle cx="${c}" cy="${c}" r="${c - 1}" fill="var(--figure-deep)" stroke="#F2EBDD" stroke-width="2"/>` +
         `<text x="${c}" y="${c}" text-anchor="middle" dominant-baseline="central" font-family="var(--font-ui)" font-weight="700" font-size="10" fill="#F2EBDD">${count}</text>` +
-        `</svg>`;
+        `</svg>${star}</div>`;
       return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [c, c] });
     }
 
@@ -3384,7 +3609,8 @@
       clusters.forEach(cluster => {
         seen.add(cluster.id);
         if (clusterMarkersById.has(cluster.id)) return;
-        const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count) }).addTo(map);
+        const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count, cluster.starred) }).addTo(map);
+        applyMarkerStacking(marker, false, cluster.starred, true);
         marker.on('click', () => focusMap([cluster.lat, cluster.lng], { atLeast: SOLO_MIN_ZOOM }, { animate: true }));
         clusterMarkersById.set(cluster.id, marker);
       });
@@ -3400,8 +3626,20 @@
     // the highlight toggle can never diverge on which one remembered the
     // bump -- a dense cluster's just-selected pin always renders on top,
     // regardless of Leaflet's default latitude-based z-order.
-    function applyMarkerStacking(marker, highlighted) {
-      marker.setZIndexOffset(highlighted ? 1000 : 0);
+    // THE stacking ladder -- every marker's z-offset comes from here:
+    //   highlighted 1000 > starred cluster 700 > cluster 600
+    //     > starred pin 500 > pin 0
+    // Clusters beat every pin: a cluster is a multi-place destination and
+    // its count must never be buried under one pin, starred or not.
+    // Among equals the starred one wins, so the place the owner cares
+    // about is never the one hidden underneath. The selected pin always
+    // tops everything.
+    const Z_HIGHLIGHTED = 1000, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500;
+    function applyMarkerStacking(marker, highlighted, starred, cluster = false) {
+      marker.setZIndexOffset(
+        highlighted ? Z_HIGHLIGHTED
+        : cluster ? (starred ? Z_CLUSTER_STARRED : Z_CLUSTER)
+        : starred ? Z_PIN_STARRED : 0);
     }
 
     function syncMarkers(visible) {
@@ -3418,7 +3656,7 @@
           }).addTo(map);
           marker.locationId = loc.id;
           marker.bindPopup(buildPopupHtml(loc));
-          applyMarkerStacking(marker, loc.id === highlightedId);
+          applyMarkerStacking(marker, loc.id === highlightedId, loc.starred);
           markersById.set(loc.id, { marker, signature, loc });
           return;
         }
@@ -3429,7 +3667,7 @@
           entry.marker.setLatLng([loc.lat, loc.lng]);
           entry.marker.setIcon(markerIcon(loc, loc.id === highlightedId));
           entry.marker.setPopupContent(buildPopupHtml(loc));
-          applyMarkerStacking(entry.marker, loc.id === highlightedId);
+          applyMarkerStacking(entry.marker, loc.id === highlightedId, loc.starred);
         }
       });
 
@@ -3523,8 +3761,8 @@
       el.innerHTML = `
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
         <div class="row-main">
-          <h3>${escapeHtml(loc.name)}</h3>
-          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.visited ? ', visited' : ', not visited yet'}</span></div>
+          <h3>${loc.starred ? '<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>' : ''}${escapeHtml(loc.name)}</h3>
+          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
         <div class="location-actions">
           ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
@@ -3906,11 +4144,32 @@
       return category === 'district' || category === 'street';
     }
 
+    // Add-form star (#starInput). Its value only counts while it's shown:
+    // on a district/street category it's hidden, and anything saved --
+    // including the approximate pin findApproximatePoint() can fall back
+    // to -- arrives unstarred. Its pressed state survives a category
+    // round-trip (street -> restaurant) and is reset by closeAddForm().
+    function setAddFormStarred(on) {
+      const btn = document.getElementById('starInput');
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.querySelector('use').setAttribute('href', on ? '#g-star' : '#g-star-open');
+    }
+
+    function addFormStarred() {
+      return !isShapeCategory(document.getElementById('categoryInput').value) &&
+        document.getElementById('starInput').getAttribute('aria-pressed') === 'true';
+    }
+
+    document.getElementById('starInput').addEventListener('click', () => {
+      setAddFormStarred(!(document.getElementById('starInput').getAttribute('aria-pressed') === 'true'));
+    });
+
     document.getElementById('categoryInput').addEventListener('change', (e) => {
       const isShape = isShapeCategory(e.target.value);
       document.getElementById('addressInput').style.display = isShape ? 'none' : '';
       document.getElementById('addressInput').required = !isShape;
       document.getElementById('shapeHint').style.display = isShape ? '' : 'none';
+      document.getElementById('starInput').style.display = isShape ? 'none' : '';
       document.getElementById('nameInput').placeholder = isShape
         ? 'Neighborhood/street name to search OSM for (e.g. Nørrebro)'
         : 'Search for a place...';
@@ -3925,6 +4184,7 @@
       document.getElementById('nameInput').value = '';
       document.getElementById('addressInput').value = '';
       document.getElementById('notesInput').value = '';
+      setAddFormStarred(false);
       document.getElementById('categoryInput').value = 'restaurant';
       document.getElementById('categoryInput').dispatchEvent(new Event('change'));
       document.getElementById('controls').classList.remove('show');
@@ -4059,7 +4319,11 @@
             lat: point.lat,
             lng: point.lng,
             notes: notes ? `${notes}\n\n${tag}` : tag,
-            visited: false
+            visited: false,
+            // Carried through for when shapes can be starred; today this
+            // is always false -- the toggle is hidden on shape categories,
+            // so an approx pin from a district/street add arrives unstarred.
+            starred: addFormStarred()
           });
           closeAddForm();
         };
@@ -4161,7 +4425,8 @@
         lat: coords.lat,
         lng: coords.lng,
         notes: notes || null,
-        visited: false
+        visited: false,
+        starred: addFormStarred()
       });
 
       closeAddForm();
@@ -4206,10 +4471,18 @@
     // popup open/close/replace, so a SINGLE delegated listener here can
     // never double-bind the way a per-popup listener would risk.
     map.getPane('popupPane').addEventListener('click', (e) => {
-      const btn = e.target.closest('.popup-visited');
+      const btn = e.target.closest('.popup-visited, .popup-star');
       if (!btn) return;
       const loc = locations.find(l => l.id === btn.dataset.id);
-      if (loc) toggleVisited(loc.id, loc.visited);
+      if (!loc) return;
+      // Consume the click. The optimistic toggle re-renders the popup
+      // HTML within this same dispatch (after requireAuth()'s microtask),
+      // detaching the button; if the click then bubbled on to the map
+      // container, Leaflet would walk the detached target, not find its
+      // popup's click-disable flag, treat it as a map click, and CLOSE the
+      // popup (measured in Playwright before this line existed).
+      e.stopPropagation();
+      toggleLocationFlag(loc.id, btn.classList.contains('popup-star') ? 'starred' : 'visited');
     });
 
     // Initialize auth and set up auth state listener

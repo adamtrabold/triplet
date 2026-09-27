@@ -393,21 +393,11 @@ go stale, and don't leave it silently out of date either.
   a flick-scroll, add a ~80ms press delay (don't change the colour); if
   the visited press feels faint, `#D9D0BF` still passes AA.
 
+- **List click always opens the popup** — on branch `claude/visited-state-badge-list-yultpy` (2026-09-27, not yet merged). `openPopupOnArrival()` replaces the 300ms timers in `highlightMarker()`/`focusShape()`, which raced the 0.5s fly: a pin clustered at the start zoom had no solo marker yet, a shape below its min zoom had no layer, and nothing opened. The popup now opens on the `moveend` where the map has ARRIVED (zoom ≥ target, target within 2px of centre) — checked on every moveend, not assumed from the first — after re-running the idempotent syncs and re-looking up the marker/layer. No timer. Reduced motion: `setView()` fires moveend synchronously, same path. Already there: opens immediately. Last tap wins (one pending intent; a new tap cancels it and closes any open popup). **Any direct map input cancels a pending intent** — `pointerdown`/`wheel` capture listeners on the map container, plus `dragstart` — so a stale list-tap popup can't replace a pin the user just tapped, or fire later on an unrelated moveend. Arrival is checked at `SOLO_MIN_ZOOM` for pins, so the clustering safety property holds. `focusShape()` never lands below `neighborhoodMinZoom()`: a shape that would fit below it is framed AT its min zoom on purpose, even if part of its outline sits off-screen — before, it could never open at all. Popups appear after landing (~0.5s), not mid-fly; that timing is deliberate (cause and effect on a still frame). Playwright suite: 20 cases × both motion modes, 20/20.
+
+- **Personal priority star ("Baedeker star")** — on branch `claude/visited-state-badge-list-yultpy` (2026-09-27, not yet merged), after the `starred` migration (`locations.starred boolean not null default false`; RLS unchanged, table-level). Baedeker guidebooks printed a star *before* a sight's name for "particularly worth seeing" — that precedent sets the meaning (one bit; a `**` tier is the upgrade path via `smallint`) and the placement. **List:** 12px `--figure-deep` star leading the `h3` (ellipsis clips from the end, so it's never cut; fixed x = a scannable column); sits on the baseline on purpose; non-interactive (a tap navigates like the rest of the row); single `.sr-only` source ", starred". **Popup:** hollow/filled star leading the title, in the 20px icon column shared with the category glyph and the Visited ring — one family of `--ink-2` 1.33px hollow controls (the ring is an inset box-shadow because Chromium floors a 1.33px border to 1px). 44×44 star target biased up; an 8px dead band separates it from Mark Visited; Visited/Directions targets 46px (were 30); `.popup-actions` hands its extra bottom padding back via `margin-bottom:-8px`. `z-index:201` on `.popup-star` is load-bearing — leaflet.css gives flex-item svgs `z-index:200`. **Add form:** "STAR" toggle between Notes and Add Location, off by default, whole row a 44px target (`position:relative` is load-bearing — the inline-block textarea's line box otherwise eats its top 8px); hidden for district/street (`isShapeCategory()`); `findApproximatePoint()`'s approx-pin save carries `starred: addFormStarred()`, which is always false today because the toggle is hidden on shape categories — plumbing for when shapes can be starred. **Colour split, on purpose:** list/popup/form use `--figure-deep` (the star advances; visited is navy and recedes); the MAP star is `--ink` on a `--paper` halo, because on the map `--figure-deep` already means "cluster" and is ~1.06:1 from the restaurant seal. Shape is the identity; colour adapts. A cluster wears the star if any member is starred. **Expected saturation:** the star is meant to be scarce — past ~⅓ of a city starred, nearly every z≤11 cluster wears one; known, not a bug. A starred pin's star peeking out from under an unstarred cluster can read as a starred cluster for a moment — the grid-snap overlap limitation, not a star bug. **Stacking ladder** (`applyMarkerStacking()`): highlighted 1000 > starred cluster 700 > cluster 600 > starred pin 500 > pin 0; steps of 100 because Leaflet adds `pos.y` — it orders OVERLAPPING markers only. **Toggles:** Visited and star share `toggleLocationFlag()` — optimistic (flip + `updateUI()` at once), writes the target value, reverts per write on error; `flagWritesInFlight` holds the refetch and the 10s poll's row-apply while any write is pending, and only the last write to settle refetches (one visible change per tap); the popupPane listener `stopPropagation()`s because the optimistic re-render detaches the button mid-click and Leaflet would otherwise close the popup. Also fixed: Get Directions rendered Leaflet blue (`.leaflet-container a` outranked `.popup-directions`); Visited "off" ring was 1.32:1 (now 6.17:1). **Starring from the list — decided (owner challenged it; CD ruled):** never a per-row star target — the row's leading edge is where a thumb opens the place, the trailing edge is delete (the mis-tap that made the row delete-only), a dedicated column puts a hollow star on every row (the clutter the owner rejected for the hollow visited dot) and costs names (+4 truncated unvisited, +27 visited at 375); swipe (clashes with Safari's back-swipe, invisible) and long-press (no affordance, no iOS web haptics) rejected. The add-form toggle covers the "I care about this one" moment at add time; the popup covers everything else (and is the accessible path); batch catch-up is "Star…" mode, deferred to the list-ordering round (see Priority). Shapes have no star (no column) — revisit with the shape-popup item. Chromium-only numbers; see the iPhone checks.
+
 **Priority (owner-requested, next up):**
-- **Selecting a list item must ALWAYS open its popup** (owner,
-  2026-09-23) — pins and shapes alike. Today it's a race, not a
-  guarantee: `highlightMarker()` starts a 0.5s `focusMap()` animation,
-  then opens the popup on a fixed `setTimeout(…, 300)` using whatever is
-  in `markersById` at that moment. If the pin was clustered at the
-  starting zoom (below `SOLO_MIN_ZOOM`), there's no solo marker yet (the
-  zoomend-driven `updateUI()` creates it after the animation), so nothing
-  opens; a marker replaced mid-animation has the same problem.
-  `focusShape()` has the identical 300ms race against `flyToBounds()` and
-  `neighborhoodMinZoom()` gating. Fix direction: open on the map's
-  `moveend`/`zoomend` after the sync (or re-look-up the marker/layer
-  then), not on a timer — and keep reduced-motion (non-animated) paths
-  working. Mostly an engineering fix, but get a UX pass on the timing
-  (popup appearing mid-fly vs after landing).
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
   { ascending: false })` (newest-added first) and `syncLocationCards()`
@@ -418,6 +408,7 @@ go stale, and don't leave it silently out of date either.
   (planning vs. on-the-ground "what's near/left") — and it interacts with
   the visited-row field (e.g. sorting visited to the bottom would change
   what the field is doing). Don't just pick a sort.
+  Includes **"Star…" mode** (deferred from the star work, owner-approved direction): a list-header entry that turns a row tap into a star toggle for batch catch-up starring. Rules already set by the CD: the entry control is the WORD "Star…", not a star glyph (a header star would read as "show starred only" once ordering lands); ≥44px target; auto-exits when the sheet collapses, the city changes, or on `visibilitychange: hidden`; delete hidden while on; shapes inert; the navy mode header ("TAP TO STAR · N STARRED · DONE") needs its own contrast and truncation check. Design it together with the ordering header ("starred first" is one of the orderings) — a rough mock is `design/star/star-mode-mock.png`.
 - **Trip vs. place location model — search can't find places in other
   cities** (owner, 2026-09-23). Root cause of the search failure: every
   Nominatim call goes through `currentSearchCityConfig()` (the city
@@ -438,15 +429,6 @@ go stale, and don't leave it silently out of date either.
   `resolveShapeCity()` / new-city creation fit in); needs discovery and a
   proposal the owner approves before any build. Related: Phase 2 "trip
   context (dates/closures)" in the deferred roadmap.
-- **Personal priority / "I really care about this one"** (owner,
-  2026-09-27). A way to star or otherwise flag places that matter most,
-  distinct from category and from visited. Problem for the team, not a
-  spec: what the signal is (binary star vs. tiers), where it shows (list
-  row, marker, popup), how it's set (popup toggle like visited? the row
-  is deliberately delete-only), and how it interacts with list ordering
-  (item above) and the visited field/stamp. Needs a schema addition on
-  `locations` (and decide whether shapes get it). Keep the row calm —
-  the stamp + visited field already carry a lot.
 - **Day agendas — plan AND follow an ordered route** (owner,
   2026-09-27). For days where the owner wants a set order: build an
   agenda for a given day, then use it on the ground. The owner is unsure
@@ -464,6 +446,7 @@ go stale, and don't leave it silently out of date either.
   discovery so these don't get designed in isolation.
 
 **Needs the user's action:**
+- iPhone check of the star release: (1) tap between the popup star and Mark Visited on a one-line popup — nothing should toggle (8px dead band); (2) after toggling star or Visited the popup stays open and the change is instant; (3) the map's ink star with its paper halo reads cleanly on real tiles; (4) tap a list row, then pinch the map mid-flight — no popup should appear afterwards; (5) fly-then-open (~0.5s) feels responsive, not laggy; (6) the popup's hollow Visited ring looks as crisp as the hollow star; (7) the star's upper tap area (over the category glyph) works in Safari (`z-index:201`); (8) the add form's STAR row toggles with one tap and a starred add arrives starred in the list.
 - iPhone check of press + tilt: (1) pressing a row reads as pressed in,
   not a flash, on both visited and unvisited rows; (2) rows don't blink
   darker when starting a flick-scroll; (3) the ±5° stamps look deliberate
