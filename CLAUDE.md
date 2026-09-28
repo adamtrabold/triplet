@@ -446,6 +446,22 @@ go stale, and don't leave it silently out of date either.
   - Design record `design/pencil-star/` now includes the r4–r6 decision frames and `r4-trunc.json`.
 
 **Priority (owner-requested, next up):**
+- **Swipe LEFT to mark visited** (owner, 2026-09-28) — queued to start
+  right after the Pencil Star round 7/8 (pop/angle/haptics) ships. "Copy
+  the pattern": the row stroke that stars (right) gets a mirror (left)
+  that stamps VISITED, completing the grammar (pencilled = care about,
+  stamped = been). New interaction → **concept stage first** (per Team
+  process), then perfection. Known constraints the concept must answer:
+  a left stroke usually starts on the right half of the row, where the
+  delete X and the stamp column live (the owner's mis-tap history —
+  delete must stay impossible to trigger by a swipe); Safari's
+  forward-swipe claims the right screen EDGE (same `EDGE` guard idea);
+  the row currently gives 6px and is inert on left; the visited stamp's
+  shipped geometry/tilt/ink should be the mark that lands (a stamp
+  *pressed* on, vs the star *drawn*); un-visit = the same stroke on a
+  visited row; haptic click like the star; the popup's Mark Visited stays
+  the non-gesture path; the visited field tint + stamp must stay
+  consistent with however it's set.
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
   { ascending: false })` (newest-added first) and `syncLocationCards()`
