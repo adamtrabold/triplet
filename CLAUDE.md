@@ -231,8 +231,14 @@ go stale, and don't leave it silently out of date either.
   it. It's an owner-reported fix to a shipped design, so it can go
   straight to the perfection stage; ask the owner for a screenshot of
   what looks off before briefing the designer.
-- Test harnesses live in `tests/` (see `tests/README.md`); run them per
-  the scoped-gate rule. Design records live in `design/<topic>/`.
+- Test harnesses live in `tests/` (see `tests/README.md`; all pass at
+  `c58afe4`, full gate ~17 min run one at a time); run them per the
+  scoped-gate rule. Caveats: run `star-curve.js` alone (CPU contention
+  drops frame counts; its row threshold is ≥10 with 11 nominal —
+  frame-phase jitter); `a11y`/`haptic-overlays`/`popup-geo` compare
+  against `BASE=<saved main build>` and are self-comparisons without it;
+  the `.js` files under `design/*/` are historical copies. Design records
+  live in `design/<topic>/`.
 - The owner has many unrun iPhone checks (below); their device feedback
   usually starts the next round.
 
