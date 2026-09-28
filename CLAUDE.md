@@ -84,6 +84,68 @@ fresh agents when a warm one has the context.
   touches the shared row-gesture/touch plumbing. Agents report which
   checks they ran and why those cover the diff.
 
+## Operator playbook (how to run the loop — read before starting work)
+
+The owner hands work to an operator (the main Claude session), who runs
+it through agents and never does design work itself. Everything below is
+how it has actually worked; follow it rather than re-deriving it.
+
+**Setup per problem**
+- Write a brief in a scratch working folder (`<scratchpad>/loop/<topic>/`):
+  the owner's words VERBATIM (quote, don't paraphrase), what's decided vs
+  open, hard constraints (tokens, AA, 56px rows, 375/390px, no build step,
+  Impeccable baseline), the process rules, tooling, and "do NOT edit
+  `index.html` or the DB — work in the scratch folder". Append every later
+  owner message to the brief verbatim, so a restarted agent loses nothing.
+  Examples: `design/pencil-star/BRIEF-owner-feedback.md`,
+  `design/swipe-visit/BRIEF-owner-feedback.md`.
+- Agents (Agent tool, background): **designer** (Opus), **UX** reviewer
+  (Opus for design judgement; Sonnet is enough for mechanical/layout QA),
+  **creative director** (Opus). Engineering-only bugs can use an
+  **engineer** agent + a UX check instead of the CD. Reuse warm agents via
+  SendMessage; a stopped agent can't be resumed without the owner's OK —
+  then spawn a fresh one pointed at the folder and brief.
+- Deliverables per round, named by round (`p3-…`, `r4-…`):
+  `<round>-design.md`, `<round>-proposed.diff` (against the named repo
+  HEAD), `<round>-proto.html` (the diff applied), stills at 3x + ~4x crops
+  + 1x and real-timing filmstrips for motion, then `<round>-ux.md`,
+  `<round>-cd.md` (score + blockers/nits).
+
+**Flow**
+1. Concept stage for new ideas (see Team process) → show the owner stills
+   + one-line why + rejected alternatives → wait for approval.
+2. Perfection rounds: designer → UX (independently re-measures; never
+   trusts the designer's logs) → CD scores. UX findings that are clear and
+   small go straight back to the designer without spending a CD round.
+3. Before sending anything on, the operator checks the diff applies to
+   the current HEAD and the result is byte-identical to the proto
+   (`patch` + `cmp`), and eyeballs the compare strip — the operator's own
+   skeptical read has caught real issues (a greyed ghost, a word-fragment
+   first frame, a too-heavy orange button).
+4. On CD ≥9: apply the diff, `cmp` against the proto, run Impeccable and
+   the scoped checks (`tests/`), commit CODE and DOCS separately, push the
+   branch, update this file (Shipped entry + iPhone checks + priorities),
+   copy the design record into `design/<topic>/`, then ASK the owner
+   before merging to `main` (merges only on the owner's say-so; they often
+   merge to test on their phone, and their device feedback starts the
+   next round).
+
+**Hard-won lessons**
+- A CD 9 at normal zoom missed defects the owner saw instantly; review at
+  ~4x crops and measure (Playwright pixels/DOM), never eyeball.
+- Motion must be judged at real timing: twice "too fast to see" came from
+  effect-level easing or distance-tied animation.
+- Chromium ≠ iOS Safari. When behaviour depends on Safari (viewport,
+  toolbars, haptics), don't assert — build a tiny probe page
+  (`tools/viewport-test.html` is the pattern), have the owner screenshot
+  it, and decide from that. Research claims (WebKit bugs) with sources.
+- iOS haptics: only a TRUSTED tap on a `<label>` for a `<input switch>`
+  ticks on iOS 26.5+; scripted ticks are silent there (platform limit).
+- The owner prefers fewer, confident updates; don't narrate, don't
+  re-explain, and say plainly when something is unverified on device.
+- The owner often works from a phone: links, not files; screenshots come
+  back as images.
+
 ## Architecture
 
 - `locations` table: pins (point features) — `city`, `category`, `lat/lng`.
@@ -154,10 +216,25 @@ fresh agents when a warm one has the context.
   with a copy button, over `SendUserFile` for anything they need to paste
   elsewhere (like SQL for the Supabase editor).
 
-## Open items (as of 2026-09-23)
+## Open items (as of 2026-09-28)
 
 Update this list as items get resolved or new ones surface — don't let it
 go stale, and don't leave it silently out of date either.
+
+**Handoff to the next operator (2026-09-28):**
+- `main` is current (everything shipped is merged; branch
+  `claude/visited-state-badge-list-yultpy` == `main`). No agent work is in
+  flight.
+- **Start with star alignment** (first Priority item below): the owner
+  finds the star's alignment off in BOTH the list row and the popup, and
+  the CD deferred the 41px gap above Get Directions in a bare popup into
+  it. It's an owner-reported fix to a shipped design, so it can go
+  straight to the perfection stage; ask the owner for a screenshot of
+  what looks off before briefing the designer.
+- Test harnesses live in `tests/` (see `tests/README.md`); run them per
+  the scoped-gate rule. Design records live in `design/<topic>/`.
+- The owner has many unrun iPhone checks (below); their device feedback
+  usually starts the next round.
 
 **Shipped (2026-09-21):**
 - Marker size/density fix — merged to `main` (`05afef5`). Two-tier sizing
@@ -552,7 +629,7 @@ go stale, and don't leave it silently out of date either.
   focusable, so in a tab a keyboard/VoiceOver focus there scroll-then-snaps;
   pre-existing focusability, cosmetic — make the closed panel `inert`.
   Follow-up: `maybeTeachStar()` counts a row behind the toolbar as on
-  screen. Design record: scratch `loop/sheet/`.
+  screen. Design record: `design/sheet/`.
 
 - **Popup + replay round ("p8")** — merged to `main` (`d5e765f`),
   2026-09-28, CD 9/10 (UX
@@ -700,8 +777,8 @@ go stale, and don't leave it silently out of date either.
   7. No flicker at the FLIP swap, the feathered edge, the pencil → ink hand-off, or the one-frame spread (at 120Hz it's 8ms — confirm it doesn't read as a flash); `color-mix()` renders in the SVG fills.
   8. The 80ms press feels like a press, not lag; a quick tap's press on release reads as a press, not a flash; no dark blink at the start of a stroke or a flick-scroll.
   9. Star a place, then immediately tap the next one: it navigates.
-  10. Popup star: one tap draws then inks; one tap rubs out to the hollow star; with the popup open it plays once and doesn't replay after the save.
-  11. The first two popup stars replay the stroke on the on-screen row; after that it never replays.
+  10. ~~Popup star draws then inks / rubs out~~ — superseded by the popup round (fade + pop, no pencil); see its checks.
+  11. ~~First two popup stars replay on the row~~ — superseded: the row now replays every time, both ways (popup round checks).
   12. Still open from before (keep them): the popup's 8px dead band and `z-index:201` upper target, the map's ink star on real tiles, list-tap → pinch mid-flight → no popup, the add form's STAR row, and the press/tilt, visited-background and visited-stamp checks below.
   13. The pressure step at 56 is visible under the thumb, and the 3px catch is felt, not seen as a glitch (dials: pressure 1.3–1.5×, detent 2–4px).
   14. The soft black star beside the category ring reads as one entry ("★ Name"), not a second badge; softened but still a star in daylight. If it feels heavy, fall back to `--ink-2`.
