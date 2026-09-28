@@ -389,25 +389,13 @@ go stale, and don't leave it silently out of date either.
   row" (chips/fields only). Design/UX/CD round (9/10), Impeccable
   baseline only. Rejected: per-state press colours (a pressed unvisited
   row sat only 1.089:1 from the visited field) and a softer lighter press.
-  iPhone fallbacks, not pre-applied: if rows blink darker at the start of
-  a flick-scroll, add a ~80ms press delay (don't change the colour); if
-  the visited press feels faint, `#D9D0BF` still passes AA.
+  iPhone fallbacks: the ~80ms press delay is now SHIPPED (with the Pencil Star): a touch press shows after 80ms of stillness, and a quicker tap shows a 100ms press on release, so neither a star stroke nor a flick-scroll starts with a dark blink; mouse presses stay immediate, and compat mouse events within 800ms of a touch are ignored (they were clearing the release press after 1ms). The bare `:active` rule is neutralised for touch so it can't paint the press early. If the visited press feels faint, `#D9D0BF` still passes AA.
+
+- **List click always opens the popup** — on branch `claude/visited-state-badge-list-yultpy` (2026-09-27, not yet merged). `openPopupOnArrival()` replaces the 300ms timers in `highlightMarker()`/`focusShape()`, which raced the 0.5s fly: a pin clustered at the start zoom had no solo marker yet, a shape below its min zoom had no layer, and nothing opened. The popup now opens on the `moveend` where the map has ARRIVED (zoom ≥ target, target within 2px of centre) — checked on every moveend, not assumed from the first — after re-running the idempotent syncs and re-looking up the marker/layer. No timer. Reduced motion: `setView()` fires moveend synchronously, same path. Already there: opens immediately. Last tap wins (one pending intent; a new tap cancels it and closes any open popup). **Any direct map input cancels a pending intent** — `pointerdown`/`wheel` capture listeners on the map container, plus `dragstart` — so a stale list-tap popup can't replace a pin the user just tapped, or fire later on an unrelated moveend. Arrival is checked at `SOLO_MIN_ZOOM` for pins, so the clustering safety property holds. `focusShape()` never lands below `neighborhoodMinZoom()`: a shape that would fit below it is framed AT its min zoom on purpose, even if part of its outline sits off-screen — before, it could never open at all. Popups appear after landing (~0.5s), not mid-fly; that timing is deliberate (cause and effect on a still frame). Playwright suite: 20 cases × both motion modes, 20/20.
+
+- **Personal priority star — the "Pencil Star"** — on branch `claude/visited-state-badge-list-yultpy` (2026-09-28, not yet merged), after the `starred` migration (`locations.starred boolean not null default false`; RLS unchanged). **Display (unchanged from the first star round):** Baedeker printed a star *before* a sight's name for "particularly worth seeing" — one bit (a `**` tier is the `smallint` upgrade path). List: 12px `--figure-deep` star leading the `h3` (never ellipsis-clipped, fixed x = a scannable column), non-interactive, single `.sr-only` source ", starred". Map: `--ink` star on a `--paper` halo (on the map `--figure-deep` already means "cluster"); a cluster wears the star if any member is starred; stacking ladder highlighted 1000 > starred cluster 700 > cluster 600 > starred pin 500 > pin 0. Popup: hollow/filled star leading the title (44×44 target, 8px dead band to Mark Visited, `z-index:201` load-bearing). Add form: "STAR" toggle, hidden for district/street. **Interaction history:** the first round made the popup (and add form) the only way to star, and ruled any list-row interaction out. **The owner rejected that as "very average"**: starring must be fast *from the row itself*, with as few interactions as possible, and "better than what every other app does, not a copy". A batch "Star…" mode was dropped as unnecessary once a per-row action is fast. Swipe was reconsidered once the Safari back-swipe was measured rather than assumed (WebKit's `ViewGestureControllerIOS.mm`: a screen-EDGE pan recogniser, left = back, right = forward; still edge-only in Safari on iOS 26). **The Pencil Star won** (design/UX/CD, 3 rounds, 6 → 8 → 9/10) against a Mail-style tag reveal (2 interactions, chrome, on the delete side), a long-press stamp (≥450ms, and it spends the *visited* stamp metaphor), a double-tap punch (+250–300ms on every navigation tap, or mis-stars on impatient re-taps) and a dog-ear (next to delete). It completes the app's three-way grammar: **printed = the guide's facts, stamped = where you've been, pencilled = what you care about.** **Gesture:** stroke a row RIGHT: the name + meta slide as one block (transform, 1:1), and in the printed star's own box a star is pencilled in five straight strokes, the way a hand draws one, leaning −7°. At 56px of content travel the ink lands (the approved `--figure-deep` printed star, 100% on its first frame, pressed in 1.2→1 over 160ms, one 17ms spread frame); release and the name docks against it. The SAME stroke on a starred row rubs it out: colour first (ink → `--ink-2` over 0–10px, no grain on orange — it read as glitter), grain only once 100% graphite (10–16), erosion from the points inwards with a widening smudge (16–50), a 25% ghost of the star held from 44 to the commit, and the ghost vanishes + three specks of eraser dust fall on the 56px frame exactly (honest: letting go before 56 never looks done). Left is inert (6px of give); shape rows give 6px and never star. **Numbers (`STAR_SWIPE`):** EDGE 24 (no arming within 24px of either screen edge; never `preventDefault` on touchstart, so Safari's back-swipe stays intact), LOCK 10px horizontal at >1.5× vertical (flatter than ~34°), SCROLL 8 (8px of vertical travel before the lock hands the touch to the scroller for good — 34–45° drags scroll exactly as on `main`), COMMIT 56 (66px of finger), MAX 104 with ×0.35 rubber-band, FLICK ≥32px at ≥0.5px/ms **stars only** (unstar must pass through the visible erase). **Clearance rule:** no graphite until the name is ≥3px clear of the whole sketch, measured per row at lock (`mountPencilStar()`/`textLeft()`; the five strokes are remapped into the travel that has clearance, still front-loaded: Λ within 8px of stroke 1). First 16px of a star stroke move the name without a mark — accepted by the CD; don't claw it back by overlapping the name. **FLIP-at-release rule (`flipToFinal()`):** the final row (printed star in/out, final truncation) is laid out on the RELEASE frame and the name slides home from the dragged offset — letters never change on the frame the eye comes to rest. During the drag the name slips under an 8px feathered `mask-image` edge 12px before the stamp/X (never a hard clip). **Touch plumbing:** `touch-action: auto`; a non-passive `touchmove` calls `preventDefault()` only after the lock and only if `cancelable`; a one-shot `eatClick` eats only the stroke's own click (never a time window — a tap right after a star must navigate). **Ghost-contrast ruling:** the rub-out ghost is 1.41–1.51:1 and is NOT a 3:1 mark by design — a transient preview whose meaning is also carried by the name held aside and the absent dust; both resting states pass (printed star ≥4.30:1, "no star" = the name). **Dial if the owner's daylight check fails: ghost opacity 0.35, ceiling 0.45** (past ~0.5 it reads as a state); add no other cue. **Popup (the non-gesture/accessible path):** one tap on the star draws the same five strokes (40ms each) then inks at 220ms, with the hollow star held until stroke 1 is under way (no empty slot); unstar plays the same colour-first rub over 240ms then the hollow star; `popupInkId` plays once and never replays on refetch. **Teaching:** the first two times a star is set from the POPUP while that place's row is on screen, the row replays the stroke once (~500ms); `localStorage` cap (try/catch), off-screen rows skipped and not counted; reduced motion shows a static sketch then the ink by opacity, no toast. **Reduced motion generally:** finger-driven motion stays; release lands in 0ms; no press-in, no dust. **Writes:** the stroke commits through `toggleLocationFlag()` (optimistic, `flagWritesInFlight`, per-write rollback); `syncLocationCards()` holds only the dragged row's re-render. Pencil→printed hand-off measured 0/2,916 px. Rows 56.00px throughout; tap delay 0ms added; Impeccable baseline 3. Chromium-only numbers — see the iPhone checks. Design record: `design/pencil-star/`.
 
 **Priority (owner-requested, next up):**
-- **Selecting a list item must ALWAYS open its popup** (owner,
-  2026-09-23) — pins and shapes alike. Today it's a race, not a
-  guarantee: `highlightMarker()` starts a 0.5s `focusMap()` animation,
-  then opens the popup on a fixed `setTimeout(…, 300)` using whatever is
-  in `markersById` at that moment. If the pin was clustered at the
-  starting zoom (below `SOLO_MIN_ZOOM`), there's no solo marker yet (the
-  zoomend-driven `updateUI()` creates it after the animation), so nothing
-  opens; a marker replaced mid-animation has the same problem.
-  `focusShape()` has the identical 300ms race against `flyToBounds()` and
-  `neighborhoodMinZoom()` gating. Fix direction: open on the map's
-  `moveend`/`zoomend` after the sync (or re-look-up the marker/layer
-  then), not on a timer — and keep reduced-motion (non-animated) paths
-  working. Mostly an engineering fix, but get a UX pass on the timing
-  (popup appearing mid-fly vs after landing).
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
   { ascending: false })` (newest-added first) and `syncLocationCards()`
@@ -418,6 +406,7 @@ go stale, and don't leave it silently out of date either.
   (planning vs. on-the-ground "what's near/left") — and it interacts with
   the visited-row field (e.g. sorting visited to the bottom would change
   what the field is doing). Don't just pick a sort.
+  "Star…" (batch) mode was dropped: the owner ruled a fast per-row action makes it unnecessary, and the Pencil Star stroke is that action. "Starred first" remains a candidate ordering for this pass.
 - **Trip vs. place location model — search can't find places in other
   cities** (owner, 2026-09-23). Root cause of the search failure: every
   Nominatim call goes through `currentSearchCityConfig()` (the city
@@ -438,11 +427,38 @@ go stale, and don't leave it silently out of date either.
   `resolveShapeCity()` / new-city creation fit in); needs discovery and a
   proposal the owner approves before any build. Related: Phase 2 "trip
   context (dates/closures)" in the deferred roadmap.
+- **Day agendas — plan AND follow an ordered route** (owner,
+  2026-09-27). For days where the owner wants a set order: build an
+  agenda for a given day, then use it on the ground. The owner is unsure
+  how deep v1 needs to go to test the idea; the aspirational end state is
+  maps-app-like — paths drawn between stops, reorder stops and see how
+  the route/travel changes. Problem for the team to scope: the smallest
+  v1 that tests plan+follow (e.g. an ordered list per day with
+  prev/next and numbered markers) vs. what needs routing data. Known
+  constraints to weigh: no build step; the sandbox can't reach OSM
+  services (routing would need a provider — check what's reachable from
+  the browser and its usage terms); Get Directions already hands off to
+  Apple Maps per stop (`directionsUrl()`), which may be enough for
+  "follow" in v1. Relates to list ordering, the trip/place location
+  rework, Phase 2 trip dates, and personal priority — sequence the
+  discovery so these don't get designed in isolation.
 
 **Needs the user's action:**
+- iPhone check of the Pencil Star (in this order — #1 is a gate):
+  1. **(Gate)** A horizontal stroke on a list row engages the star (iOS Safari delivers a *cancelable* `touchmove`). If it never arms, stop and report before anything else.
+  2. Loose-thumb flick scrolls never stick or catch a row; 34–45° drags scroll; no jank on a long list (non-passive `touchmove` on every row).
+  3. A stroke starting ~24–40px from the left edge stars and isn't taken by Safari's back-swipe; one from the very edge still goes back.
+  4. A real quick flick stars; a flick on a starred row springs back without unstarring.
+  5. The pencil grain reads as graphite (not noise or a rendering fault) on the OLED; the ink landing reads beside the thumb in daylight.
+  6. The unstar commit — the ghost vanishing and the dust falling at 56px — is noticeable in daylight; if not, apply the ghost dial (0.35, ceiling 0.45).
+  7. No flicker at the release frame (FLIP), from the feathered edge during the slide, or at the pencil → printed hand-off; `color-mix()` renders in the SVG fills.
+  8. The 80ms press feels like a press, not lag; a quick tap's press on release reads as a press, not a flash; no dark blink at the start of a stroke or a flick-scroll.
+  9. Star a place, then immediately tap the next one: it navigates.
+  10. Popup star: one tap draws then inks; one tap rubs out to the hollow star; with the popup open it plays once and doesn't replay after the save.
+  11. The first two popup stars replay the stroke on the on-screen row; after that it never replays.
+  12. Still open from before (keep them): the popup's 8px dead band and `z-index:201` upper target, the map's ink star on real tiles, list-tap → pinch mid-flight → no popup, the add form's STAR row, and the press/tilt, visited-background and visited-stamp checks below.
 - iPhone check of press + tilt: (1) pressing a row reads as pressed in,
-  not a flash, on both visited and unvisited rows; (2) rows don't blink
-  darker when starting a flick-scroll; (3) the ±5° stamps look deliberate
+  not a flash, on both visited and unvisited rows; (2) ~~rows don't blink darker when starting a flick-scroll~~ — covered by Pencil Star check 8; (3) the ±5° stamps look deliberate
   and hand-stamped, not broken.
 - iPhone check of the visited-row background: (1) at a glance in
   daylight, visited rows visibly sit back from unvisited ones (if not,

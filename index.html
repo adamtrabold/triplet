@@ -446,6 +446,46 @@
       margin-bottom: var(--s6);
     }
 
+    /* Star a place as it's added -- the moment "I really care about this
+       one" usually happens. The popup star's form exactly (hollow --ink-2
+       2/24 stroke = 1.33px at 16px; filled --figure-deep when on) beside
+       the word in .field-label's voice. Optional, off by default, no new
+       step. The whole row is the target: 44px tall, full width. Pulled up
+       --s2 into the textarea's 24px margin so the underline-to-star gap
+       reads as one field spacing, not two. position:relative is load-
+       bearing: the textarea is inline-block, so its line box (margin
+       included) overlaps that pulled-up strip, and inline content
+       out-ranks a later block in hit-testing -- without it the top 8px of
+       the target went to #addForm (measured). Hidden for district/street
+       (isShapeCategory()) -- shapes have no starred column. */
+    #addForm .form-star {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--s2);
+      width: 100%;
+      min-height: 44px;
+      margin: calc(-1 * var(--s2)) 0 var(--s2);
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-ui);
+      font-stretch: 75%;
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-2);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #addForm .form-star svg { width: var(--s4); height: var(--s4); flex-shrink: 0; }
+    #addForm .form-star[aria-pressed="true"] svg { color: var(--figure-deep); }
+    #addForm .form-star:active svg { transform: scale(0.85); }
+
     #addForm .field-group select {
       margin-bottom: 0;
     }
@@ -1053,6 +1093,32 @@
       text-overflow: ellipsis;
     }
 
+    /* PRIORITY STAR -- the Baedeker star. Guidebooks printed a star
+       BEFORE a sight's name to mean "particularly worth seeing"; here it
+       leads the h3 the same way. Leading, not trailing: ellipsis clips
+       from the end, so the star can never be the part that's cut, and it
+       sits at one fixed x (the 56px content edge) on every starred row,
+       so the list scans as a column of stars down the reading edge.
+       Opposite channel to visited on purpose: visited is navy and
+       RECEDES (stamp + filed field); starred is the city's --figure-deep
+       and ADVANCES. Both can be true; neither overrides the other.
+       Ink: --figure-deep, 4.79:1 (Stockholm) .. 5.20:1 on --paper,
+       >= 3.83:1 on --paper-pressed -- all 5 cities clear 3:1 for a
+       non-text mark in every state. Highlighted row: paper (below).
+       Decorative (aria-hidden); the .sr-only text in .row-meta is the
+       ONE accessible source, as for visited. */
+    .row-star {
+      display: inline-block;
+      width: var(--s3);                    /* 12 */
+      height: var(--s3);
+      margin-right: var(--s1);
+      vertical-align: -1px;                /* SITS ON THE BASELINE, like a typeset
+                                              star: ink bottom = baseline, top
+                                              0.67px under cap height (measured,
+                                              3x). Deliberate -- not cap-centred. */
+      color: var(--figure-deep);
+    }
+
     /* Category labels are ALWAYS --ink-2, never the category ink: 11 inks
        cannot all clear 4.5:1 as 10px text and still hold a value ladder.
        The glyph carries the ink; the word stays quiet. */
@@ -1091,6 +1157,7 @@
        Emphasis: there is only ever one focus row, so a full-strength
        stamp there reads as part of the focus state, not inconsistency. */
     .location-card.highlighted .row-stamp { color: var(--paper); }
+    .location-card.highlighted .row-star { color: var(--paper); }    /* 4.79:1 worst (Stockholm) */
 
     .locations-empty {
       color: var(--ink-2);
@@ -1144,6 +1211,10 @@
        (backwards feedback); it also fell to 3.83:1 (Stockholm) on
        --paper-pressed and went invisible (1:1) on the focus row. The
        resting X is already AA on --paper-pressed (4.93:1). */
+
+    /* Map star (markerStarHtml()): paper halo under an ink star. */
+    .marker-star-halo { color: var(--paper); stroke: var(--paper); }
+    .marker-star-ink  { color: var(--ink); }
 
     @keyframes markerPulse {
       0%   { transform: scale(1);    opacity: 1; }
@@ -1225,6 +1296,60 @@
     }
 
     .popup-cat svg { width: 20px; height: 20px; display: block; flex-shrink: 0; }
+
+    /* The star leads the title, exactly where the list row prints it --
+       the control sits where its mark shows, so setting it teaches where
+       to look for it. It lives here, not in .popup-actions: that row is
+       Visited | Directions, which the owner approved, and a third
+       control would crowd a 240px row. Off: hollow --ink-2 star (6.17:1
+       on --paper). On: filled --figure-deep (>= 4.79:1). */
+    .popup-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--s1);
+    }
+
+    .popup-star {
+      position: relative;
+      /* Above the category glyph: leaflet.css gives every svg in the map
+         pane z-index:200, which takes effect on a flex-item svg like
+         .popup-cat's, and would otherwise eat the top of this hit area. */
+      z-index: 201;
+      flex-shrink: 0;
+      width: 20px;                         /* = .popup-cat's glyph box, so star and
+                                              category glyph share one icon column
+                                              and the title starts exactly where
+                                              the category word does (20 + --s1) */
+      height: 20px;                        /* = .popup-title line-height */
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--ink-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 44 x 44 hit area without moving layout: 20x20 box + this inset.
+       Biased UP (20 above, 4 below) into the non-interactive category
+       line. With .popup-actions' --s3 margin, the worst case (one-line
+       title, no address/notes) leaves an 8px DEAD BAND between this
+       target's bottom (title + 4) and Mark Visited's top (title + 12) --
+       a thumb landing between them does nothing rather than the wrong
+       thing. 13px left keeps it inside the popup border; clear of the
+       close button. Accepted side effect: the first ~11px of the title
+       also toggles the star (titles aren't interactive otherwise). */
+    .popup-star::after {
+      content: '';
+      position: absolute;
+      inset: -20px -11px -4px -13px;
+    }
+
+    .popup-star svg { width: var(--s4); height: var(--s4); display: block; }
+    .popup-star.starred { color: var(--figure-deep); }
+    .popup-star:active svg { transform: scale(0.85); }
     .popup-addr  { font-size: 12px; line-height: 16px; color: var(--ink-2); }
     .popup-notes { font-size: 12px; line-height: 16px; color: var(--ink-2); font-style: italic; margin-top: var(--s2); }
 
@@ -1238,12 +1363,16 @@
        restaurant popup the deep figure would sit ~40px from a
        restaurant-ink glyph they collide with in all five cities. Navy is
        2.71:1 away in value from every category ink. */
+    /* 44px tall target: 12px line + 2 x --s4. The ring is centred on
+       the popup's 20px icon column (3px each side of the 14px ring) and
+       the gap is --s1, so "MARK VISITED" starts at 24px -- the same x as
+       the category word and the title above it. */
     .popup-visited {
       display: flex;
       align-items: center;
-      gap: var(--s2);
+      gap: var(--s1);
       text-align: left;
-      padding: var(--s2) 0;
+      padding: var(--s4) 0;
       border: none;
       background: transparent;
       cursor: pointer;
@@ -1259,13 +1388,21 @@
 
     .popup-visited:active { opacity: 0.6; }
 
+    /* Hollow "tap to fill" ring at the SAME weight and ink as the hollow
+       star above it (.popup-star, 2/24 of 16px = 1.33px, --ink-2) so the
+       column reads as one family of controls. Was 1px --hair (1.3:1),
+       under the 3:1 non-text bar. --ink-2: 6.17:1 on --paper.
+       An inset box-shadow, not a border: Chromium floors a 1.33px
+       border to 1px (measured), while a shadow spread keeps the
+       fraction -- 4 device px at 3x, the star's exact stroke. */
     .popup-visited-check {
       display: inline-block;
       width: 14px;
       height: 14px;
+      margin: 0 3px;
       flex-shrink: 0;
-      border: 1px solid var(--hair);
       border-radius: 50%;
+      box-shadow: inset 0 0 0 1.33px var(--ink-2);
     }
 
     .popup-visited.visited {
@@ -1274,14 +1411,14 @@
 
     .popup-visited.visited .popup-visited-check {
       background: var(--navy);
-      border-color: var(--navy);
+      box-shadow: none;
     }
 
     .popup-directions {
       display: flex;
       align-items: center;
       gap: var(--s1);
-      padding: var(--s2) 0;
+      padding: var(--s4) 0;                /* 44px target, as .popup-visited */
       font-stretch: 75%;
       text-transform: uppercase;
       font-size: 10px;
@@ -1292,17 +1429,28 @@
       text-decoration: none;
     }
 
+    /* leaflet.css's `.leaflet-container a { color: #0078A8 }` (0,1,1)
+       outranks .popup-directions (0,1,0) -- Directions shipped Leaflet
+       blue. This restates the intended colour at (0,2,1). */
+    .leaflet-container a.popup-directions { color: var(--figure-deep); }
+
     .popup-directions svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* Visited (left) and directions (right), one row -- previously stacked
        full-width, which the owner found awkward on a real phone. Neither
        button needs flex:1 or explicit alignment; space-between alone pins
        them since they're the row's only two children. */
+    /* margin-top --s3 makes the 8px dead band against the star target
+       (see .popup-star::after). margin-bottom -8px hands the buttons'
+       new 16px bottom padding back to Leaflet's own 8px content margin,
+       so the labels keep exactly their shipped distance from the popup's
+       bottom edge (20px) and the popup grows only by the top change. */
     .popup-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: var(--s2);
+      margin-top: var(--s3);
+      margin-bottom: calc(-1 * var(--s2));
     }
 
     /* Auth Modal */
@@ -1443,6 +1591,102 @@
       #filtersPanel { left: 360px; bottom: 0; }
       #filtersPanel.collapsed-mode { bottom: 0; }
     }
+
+    /* =====================================================================
+       PENCIL STAR -- printed = the guide's facts, stamped = where you've
+       been, PENCILLED = what you care about. Stroke a row right: the name
+       slides aside as one block and a star is pencilled -- five straight
+       strokes, the way a hand draws one -- in the exact box where the
+       printed Baedeker star will sit. At 56px the ink lands; let go and the
+       name docks against it. The same stroke on a starred row lightens the
+       ink to graphite and rubs it out, edges first. Left is inert.
+       ===================================================================== */
+    .location-card .row-main { position: relative; }
+    /* The name moves as an OBJECT: transform, never re-truncation. It
+       slips UNDER a feathered edge (8px mask, fading in with the first 8px
+       of travel) at the content column's right edge -- 12px before the
+       stamp/X, which are never under the mask. The column borrows the
+       12px glyph gap on its left (margin/padding swap, zero layout shift)
+       so the ink's 1.2x press-in isn't cut by the mask box. */
+    .location-card.sg-live .row-main {
+      margin-left: -12px; padding-left: 12px;
+      -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 8px), rgba(0, 0, 0, var(--sg-fade-a, 1)));
+      mask-image: linear-gradient(to right, #000 calc(100% - 8px), rgba(0, 0, 0, var(--sg-fade-a, 1)));
+    }
+    .location-card.sg-live .row-star { visibility: hidden; }
+    .location-card.sg-live { transition: none; }   /* a held press snaps off when the stroke starts */
+    .location-card.sg-live h3,
+    .location-card.sg-live .row-meta { will-change: transform; }
+
+    /* A drag is not a press. */
+    .location-card.sg-live:not(.highlighted),
+    .location-card.sg-live:not(.highlighted):active { background: var(--paper); }
+    .location-card.is-visited.sg-live:not(.highlighted),
+    .location-card.is-visited.sg-live:not(.highlighted):active { background: var(--paper-filed); }
+    /* S2: touch presses are delayed 80ms (createCard()), so the bare
+       :active pseudo-class must not paint the press instantly. */
+    .location-card:not(.highlighted):not(.active):active { background: var(--paper); }
+    .location-card.is-visited:not(.highlighted):not(.active):active { background: var(--paper-filed); }
+
+    .sg-star {
+      position: absolute;
+      width: var(--s3);                    /* 12 = .row-star */
+      height: var(--s3);
+      overflow: visible;
+      pointer-events: none;
+    }
+    /* Graphite: --ink-2 through a grain filter (feTurbulence alpha
+       speckle + a 0.35px displacement wobble) with a pressure taper per
+       stroke. Ink: the approved printed star, --figure-deep. */
+    /* The sketch leans -7deg, as a hand does; the ink lands upright over
+       it. The lean also keeps a half-drawn star (a Λ, then a Λ with a
+       crossbar) from sitting on the type's baseline and reading as a letter. */
+    .sg-star .sg-pencil,
+    .sgp .sg-pencil { color: var(--ink-2); fill: currentColor;
+                      transform-box: fill-box; transform-origin: 50% 55%; transform: rotate(-7deg); }
+    .sg-star .sg-ink,
+    .sgp .sg-ink { color: var(--figure-deep); fill: currentColor; opacity: 0;
+                   transform-box: fill-box; transform-origin: 50% 55%; }
+    .sg-spread { opacity: 0; transform-box: fill-box; transform-origin: 50% 55%; }
+    .sg-smudge, .sg-ghost { fill: var(--ink-2); }
+    .sg-inkg { opacity: 0; }
+    .sg-star.inked .sg-ink, .sgp.inked .sg-ink { opacity: 1; }
+    .sg-star.inked .sg-pencil, .sgp.inked .sg-pencil { opacity: 0; }
+    .sg-crumb {
+      position: absolute; width: 1.5px; height: 1.5px; border-radius: 1px;
+      background: var(--ink-2); pointer-events: none;
+    }
+    .location-card.highlighted .sg-pencil,
+    .location-card.highlighted .sg-ink { color: var(--paper); }
+    .location-card.highlighted .sg-smudge,
+    .location-card.highlighted .sg-ghost { fill: var(--paper); }
+    .location-card.highlighted .sg-crumb { background: var(--paper); }
+
+    /* Popup: the same material at 16px, played once on set (CSS only):
+       five strokes x 40ms, then the ink lands at 220ms (one 17ms spread frame). */
+    .popup-star .sgp { width: var(--s4); height: var(--s4); display: block; overflow: visible; }
+    .popup-star .sgp.sgp-play .sg-rev {
+      stroke-dasharray: var(--L) var(--L); stroke-dashoffset: var(--L);
+      animation: sgpStroke 40ms linear var(--d) forwards;
+    }
+    .popup-star .sgp.sgp-play .sg-pencil { animation: sgpOff 1ms linear 220ms forwards; }
+    /* N-b: the hollow star stays until stroke 1 is half drawn -- no empty slot on tap. */
+    .sgp-hollow { display: none; }
+    .popup-star .sgp.sgp-play .sgp-hollow { display: inline; color: var(--ink-2); animation: sgpOff 1ms linear 20ms forwards; }
+    .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 220ms forwards, sgpPress 160ms cubic-bezier(.2, .8, .3, 1) 220ms backwards; }
+    .popup-star .sgp.sgp-play .sg-spread { animation: sgpSpread 17ms steps(1, end) 220ms; }
+    @keyframes sgpStroke { to { stroke-dashoffset: 0; } }
+    @keyframes sgpOff    { to { opacity: 0; } }
+    @keyframes sgpOn     { to { opacity: 1; } }
+    @keyframes sgpPress  { from { transform: scale(1.2); } to { transform: scale(1); } }
+    @keyframes sgpSpread { from { opacity: .45; transform: scale(1.3); } to { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .popup-star .sgp.sgp-play .sg-rev { animation: none; stroke-dashoffset: 0; }
+      .popup-star .sgp.sgp-play .sg-pencil { animation: sgpOff 1ms linear 600ms forwards; }
+      .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 600ms forwards; }
+      .popup-star .sgp.sgp-play .sg-spread { animation: none; }
+      .popup-star .sgp.sgp-play .sgp-hollow { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -1479,6 +1723,12 @@
     <symbol id="g-other" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
     <symbol id="g-district" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/></symbol>
     <symbol id="g-street" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8" d="M3 18C7 6 17 18 21 6"/></symbol>
+    <!-- Priority star -- the Baedeker star: guidebooks marked the sights
+         "particularly worth seeing" with a star printed before the name.
+         Filled path, no stroke attribute, so a <use> can add a halo stroke
+         (markers). -open is the popup's unstarred control state. -->
+    <symbol id="g-star" viewBox="0 0 24 24"><path fill="currentColor" stroke-linejoin="round" d="M12 1.87L15.03 8.9L22.65 9.61L16.9 14.66L18.58 22.13L12 18.22L5.42 22.13L7.1 14.66L1.35 9.61L8.97 8.9Z"/></symbol>
+    <symbol id="g-star-open" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 1.87L15.03 8.9L22.65 9.61L16.9 14.66L18.58 22.13L12 18.22L5.42 22.13L7.1 14.66L1.35 9.61L8.97 8.9Z"/></symbol>
     <symbol id="g-compass" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/></symbol>
   </defs></svg>
 
@@ -1576,6 +1826,7 @@
           <button type="button" id="newCityConfirmDismiss" class="secondary">Pick from my list</button>
         </div>
         <textarea id="notesInput" placeholder="Notes (optional)" rows="2"></textarea>
+        <button type="button" id="starInput" class="form-star" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star-open"/></svg><span>Star</span></button>
         <button id="submitBtn">Add Location</button>
       </div>
     </div>
@@ -1857,6 +2108,14 @@
       return true;
     }
 
+    // Visited/starred writes in flight (toggleLocationFlag()). While any is
+    // pending, a fetch -- the 10s poll or another write's refetch -- must
+    // not paint server rows over the optimistic screen: that repainted a
+    // just-removed star for ~230ms when the owner tapped twice. The fetch
+    // still runs; its rows are simply not applied. The last write to
+    // settle refetches once, which reconciles everything.
+    let flagWritesInFlight = 0;
+
     // Explicit column list: created_at is ordered by server-side but never
     // rendered, so it is deliberately not selected. PostgREST allows ordering
     // on an unselected column.
@@ -1864,10 +2123,11 @@
       try {
         const { data, error } = await supabaseClient
           .from('locations')
-          .select('id,name,address,category,lat,lng,notes,visited,city')
+          .select('id,name,address,category,lat,lng,notes,visited,starred,city')
           .order('created_at', { ascending: false });
 
         if (error) throw error;
+        if (flagWritesInFlight > 0) return;   // see flagWritesInFlight
         const rows = data || [];
         const digest = payloadDigest(rows);
         locations = rows;
@@ -1993,23 +2253,56 @@
       }
     }
 
-    async function toggleVisited(id, visited) {
-      if (!await requireAuth()) return;
+    // Visited and starred are both one-tap popup toggles, so they share
+    // one writer. OPTIMISTIC: the local row flips and updateUI() re-renders
+    // the popup, list row and marker at once; the write follows. On
+    // failure the flip is reverted. The refetch after a successful write
+    // returns the state already on screen, so every signature matches and
+    // nothing re-renders (no flicker). The target value is written, not
+    // "!current" server-side, so a quick double-tap lands where the
+    // screen says it did.
+    function setLocationFlag(id, field, value) {
+      // Re-rendering replaces the popup's HTML; keep keyboard/VoiceOver
+      // focus on the control that was just used.
+      const focused = document.activeElement;
+      const refocus = focused && focused.matches && focused.matches('.popup-star, .popup-visited')
+        ? `.${focused.classList[0]}[data-id="${CSS.escape(id)}"]` : null;
+      locations = locations.map(l => l.id === id ? { ...l, [field]: value } : l);
+      updateUI();
+      if (refocus) {
+        const btn = document.querySelector(`.leaflet-popup ${refocus}`);
+        if (btn) btn.focus({ preventScroll: true });
+      }
+    }
 
+    async function toggleLocationFlag(id, field) {
+      if (!await requireAuth()) return;
+      const loc = locations.find(l => l.id === id);
+      if (!loc) return;
+      const next = !loc[field];
+
+      setLocationFlag(id, field, next);
+      flagWritesInFlight++;
       try {
         const { error } = await supabaseClient
           .from('locations')
-          .update({ visited: !visited })
+          .update({ [field]: next })
           .eq('id', id);
 
         if (error) throw error;
-        await refetchLocations();
         hideError('mutation');
       } catch (err) {
+        // Rollback is per write: only this tap's flip is undone.
+        setLocationFlag(id, field, !next);
         showError(handleRLSError(err, 'update'), 'mutation');
+      } finally {
+        flagWritesInFlight--;
       }
+      // Only the last write to settle reconciles with the server -- see
+      // flagWritesInFlight. One visible change per tap, nothing after.
+      if (flagWritesInFlight === 0) await refetchLocations();
     }
-    
+
     // The single Nominatim call site. A city is configured in exactly one place
     // (CITIES), and the geocoding context always comes from formCityId().
     // NOTE: no User-Agent header — it is a forbidden header name for fetch and
@@ -2915,12 +3208,12 @@
     // the signature can force the refresh.
     function markerSignature(loc) {
       return [loc.name, loc.address, loc.category, loc.lat, loc.lng,
-              loc.notes, loc.visited, loc.city].join('|');
+              loc.notes, loc.visited, loc.city, loc.starred].join('|');
     }
 
     // Everything the list card renders.
     function cardSignature(loc) {
-      return [loc.name, loc.address, loc.category, loc.visited].join('|');
+      return [loc.name, loc.address, loc.category, loc.visited, loc.starred].join('|');
     }
 
     // =========================================================================
@@ -3064,6 +3357,25 @@
       return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${shell}${glyph}</svg>`;
     }
 
+    // The list's Baedeker star, riding a map seal's upper-right shoulder
+    // (45deg on the rim). A marker has no name to lead, so the star goes
+    // on the seal. INK on the map, not --figure-deep as in the list and
+    // popup: on the map --figure-deep already means "cluster" (the disc)
+    // and is ~1.1:1 from the restaurant seal, so the star would fuse into
+    // both. --ink is 14.69:1 on its --paper halo and dark against every
+    // seal and disc. Shape is the identity across surfaces; colour adapts.
+    // Colours are .marker-star-halo / .marker-star-ink in the CSS (tokens
+    // can't go in SVG presentation attributes). `size` is the seal's px;
+    // the star scales with it (12 near / 10 far / +2 hi).
+    function markerStarHtml(size) {
+      const s = size >= 24 ? size / 2 : 10;
+      const c = size / 2, r = c - 1;
+      const x = c + r * Math.SQRT1_2 - s / 2, y = c - r * Math.SQRT1_2 - s / 2;
+      return `<svg class="marker-star" width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:${x}px;top:${y}px;overflow:visible">` +
+        `<use class="marker-star-halo" href="#g-star" stroke-width="${(3 * 24 / s).toFixed(2)}" stroke-linejoin="round"/>` +
+        `<use class="marker-star-ink" href="#g-star"/></svg>`;
+    }
+
     function markerIcon(loc, highlighted) {
       const showGlyph = !map || map.getZoom() >= GLYPH_MIN_ZOOM;
       const size = (showGlyph ? MARKER_SIZE_NEAR : MARKER_SIZE_FAR) + (highlighted ? MARKER_HI_DELTA : 0);
@@ -3080,10 +3392,11 @@
       // target -- pad the invisible click/tap area out to 24px around the
       // small visible badge rather than shrinking the tap target with it.
       const hit = Math.max(size, 24);
+      const star = loc.starred ? markerStarHtml(size) : '';
       const html = hit === size
-        ? `<div class="${highlighted ? 'highlighted-marker' : ''}" style="width:${size}px;height:${size}px;line-height:0;">${badge}</div>`
+        ? `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div>`
         : `<div style="width:${hit}px;height:${hit}px;display:flex;align-items:center;justify-content:center;">` +
-          `<div class="${highlighted ? 'highlighted-marker' : ''}" style="width:${size}px;height:${size}px;line-height:0;">${badge}</div></div>`;
+          `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div></div>`;
       return L.divIcon({
         html,
         className: '',
@@ -3114,18 +3427,26 @@
       if (!crossed) return;
       markersById.forEach((entry, id) => {
         entry.marker.setIcon(markerIcon(entry.loc, id === highlightedId));
-        applyMarkerStacking(entry.marker, id === highlightedId);
+        applyMarkerStacking(entry.marker, id === highlightedId, entry.loc.starred);
       });
     }
 
     // Category sits above the title so the title and its notes/address chunk
     // together as one visual group, category read first as context.
+    let popupInkId = null;   // popup star just set: play pencil -> ink ONCE (consumed on first render)
     function buildPopupHtml(loc) {
+      const inkNow = !!loc.starred && popupInkId === loc.id;
+      if (inkNow) popupInkId = null;
+      const rubNow = !loc.starred && popupRubId === loc.id;
+      if (rubNow) popupRubId = null;
       const ink = categoryInk(loc.category);
       return `
         <div style="min-width: 240px;">
           <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}</div>
-          <div class="popup-title">${escapeHtml(loc.name)}</div>
+          <div class="popup-title-row">
+            <button type="button" class="popup-star ${loc.starred ? 'starred' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="Star">${inkNow ? pencilStarMarkup('sgp', { play: true }) : rubNow ? pencilStarMarkup('sgp inked sgp-rub') : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`}</button>
+            <div class="popup-title">${escapeHtml(loc.name)}</div>
+          </div>
           ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
           ${loc.notes ? `<div class="popup-notes">${escapeHtml(loc.notes)}</div>` : ''}
           <div class="popup-actions">
@@ -3148,11 +3469,70 @@
         const marker = markersById.get(key);
         if (marker) {
           marker.marker.setIcon(markerIcon(marker.loc, key === id));
-          applyMarkerStacking(marker.marker, key === id);
+          applyMarkerStacking(marker.marker, key === id, marker.loc.starred);
         }
         const card = cardsById.get(key);
         if (card) card.el.classList.toggle('highlighted', key === id);
       });
+    }
+
+    // ---- list click -> popup, GUARANTEED -----------------------------------
+    // A list click must always end with that item's popup open. The old
+    // code opened it on a fixed 300ms timer, racing a 0.5s fly: a pin that
+    // started inside a cluster had no solo marker yet (syncMarkerGlyphZoom()
+    // makes it on moveend), and a shape below its min zoom had no layer, so
+    // nothing opened. Now the popup opens when the map has ARRIVED at the
+    // target view -- checked on every moveend, not assumed from the first
+    // one -- after re-running the (idempotent) syncs, re-looking the marker
+    // or layer up at that moment.
+    //   - Reduced motion: setView() fires moveend synchronously inside
+    //     move(); the listener is already attached, so the same path runs.
+    //   - Already there: no move happens, so it opens immediately.
+    //   - Last tap wins: one pending intent at a time; a newer tap cancels
+    //     the older listener and closes any open popup first, so a stale
+    //     popup can never appear after the tap that replaced it.
+    //   - The user takes over mid-flight -- ANY direct map input (a pin or
+    //     cluster tap, a drag, a pinch, a wheel) -- and the intent is
+    //     dropped: pointerdown/wheel in the capture phase on the map
+    //     container, so it runs before Leaflet's own handlers. Without it a
+    //     stale list-tap popup could replace the pin the user just tapped,
+    //     or fire later on any moveend that happened to land on the target.
+    let pendingPopupOpen = null;
+
+    function openPopupOnArrival(center, zoom, getLayer, move) {
+      if (pendingPopupOpen) pendingPopupOpen();
+      map.closePopup();
+
+      const target = L.latLng(center);
+      const arrived = () => {
+        if (map.getZoom() < zoom - 0.01) return false;
+        const p = map.latLngToContainerPoint(target);
+        return p.distanceTo(map.getSize().divideBy(2)) <= 2;
+      };
+      const container = map.getContainer();
+      const cancel = () => {
+        map.off('moveend', onMoveEnd);
+        map.off('dragstart', cancel);
+        container.removeEventListener('pointerdown', cancel, true);
+        container.removeEventListener('wheel', cancel, true);
+        if (pendingPopupOpen === cancel) pendingPopupOpen = null;
+      };
+      function onMoveEnd() {
+        if (!arrived()) return;          // an intermediate/other move -- keep waiting
+        cancel();
+        syncMarkerGlyphZoom();
+        syncNeighborhoodLayers();
+        const layer = getLayer();
+        if (layer) layer.openPopup();
+      }
+
+      pendingPopupOpen = cancel;
+      map.on('moveend', onMoveEnd);
+      map.on('dragstart', cancel);
+      container.addEventListener('pointerdown', cancel, true);
+      container.addEventListener('wheel', cancel, { capture: true, passive: true });
+      if (arrived()) onMoveEnd();
+      else move();
     }
 
     function highlightMarker(locationId) {
@@ -3164,13 +3544,12 @@
       // atLeast: SOLO_MIN_ZOOM -- not a coincidence, see that constant's
       // comment. This is the call the whole clustering safety property
       // rests on; if it ever changes, SOLO_MIN_ZOOM must move with it.
-      focusMap([location.lat, location.lng], { atLeast: SOLO_MIN_ZOOM }, { animate: true, duration: 0.5 });
-
-      const entry = markersById.get(locationId);
-      if (entry) {
-        // Let the pan start before the popup opens.
-        setTimeout(() => entry.marker.openPopup(), 300);
-      }
+      // Arrival is checked at that same zoom, so the popup can only ever
+      // open on a solo (never clustered) marker.
+      const center = [location.lat, location.lng];
+      openPopupOnArrival(center, Math.max(map.getZoom(), SOLO_MIN_ZOOM),
+        () => { const entry = markersById.get(locationId); return entry && entry.marker; },
+        () => focusMap(center, { atLeast: SOLO_MIN_ZOOM }, { animate: true, duration: 0.5 }));
     }
 
     function updateUI() {
@@ -3297,8 +3676,12 @@
         // its marker; a changed one (a pin entered/left the cell) gets a new
         // id, so syncClusterMarkers()'s add/remove diff recreates it rather
         // than needing a separate signature check.
-        const id = 'cluster:' + members.map(m => m.id).sort().join(',');
-        clusters.push({ id, lat, lng, count: members.length });
+        // A starred member keeps its star on the cluster, so the place the
+        // owner cares about never disappears into a bare count. `*` in the
+        // id makes a star toggle recreate the badge like a membership change.
+        const starred = members.some(m => m.starred);
+        const id = 'cluster:' + (starred ? '*' : '') + members.map(m => m.id).sort().join(',');
+        clusters.push({ id, lat, lng, count: members.length, starred });
       });
       return { solo, clusters };
     }
@@ -3309,13 +3692,14 @@
     // target (focusMap, same as focusShape()'s flyToBounds()) -- it never
     // expands in place, so it can't swallow a specific pin a list click or
     // another cluster click is trying to reach.
-    function clusterMarkerIcon(count) {
+    function clusterMarkerIcon(count, starred) {
       const size = CLUSTER_BADGE_PX - 2;
       const c = size / 2;
-      const html = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">` +
+      const star = starred ? markerStarHtml(size) : '';
+      const html = `<div style="position:relative;width:${size}px;height:${size}px;line-height:0;"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">` +
         `<circle cx="${c}" cy="${c}" r="${c - 1}" fill="var(--figure-deep)" stroke="#F2EBDD" stroke-width="2"/>` +
         `<text x="${c}" y="${c}" text-anchor="middle" dominant-baseline="central" font-family="var(--font-ui)" font-weight="700" font-size="10" fill="#F2EBDD">${count}</text>` +
-        `</svg>`;
+        `</svg>${star}</div>`;
       return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [c, c] });
     }
 
@@ -3326,7 +3710,8 @@
       clusters.forEach(cluster => {
         seen.add(cluster.id);
         if (clusterMarkersById.has(cluster.id)) return;
-        const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count) }).addTo(map);
+        const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count, cluster.starred) }).addTo(map);
+        applyMarkerStacking(marker, false, cluster.starred, true);
         marker.on('click', () => focusMap([cluster.lat, cluster.lng], { atLeast: SOLO_MIN_ZOOM }, { animate: true }));
         clusterMarkersById.set(cluster.id, marker);
       });
@@ -3342,8 +3727,20 @@
     // the highlight toggle can never diverge on which one remembered the
     // bump -- a dense cluster's just-selected pin always renders on top,
     // regardless of Leaflet's default latitude-based z-order.
-    function applyMarkerStacking(marker, highlighted) {
-      marker.setZIndexOffset(highlighted ? 1000 : 0);
+    // THE stacking ladder -- every marker's z-offset comes from here:
+    //   highlighted 1000 > starred cluster 700 > cluster 600
+    //     > starred pin 500 > pin 0
+    // Clusters beat every pin: a cluster is a multi-place destination and
+    // its count must never be buried under one pin, starred or not.
+    // Among equals the starred one wins, so the place the owner cares
+    // about is never the one hidden underneath. The selected pin always
+    // tops everything.
+    const Z_HIGHLIGHTED = 1000, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500;
+    function applyMarkerStacking(marker, highlighted, starred, cluster = false) {
+      marker.setZIndexOffset(
+        highlighted ? Z_HIGHLIGHTED
+        : cluster ? (starred ? Z_CLUSTER_STARRED : Z_CLUSTER)
+        : starred ? Z_PIN_STARRED : 0);
     }
 
     function syncMarkers(visible) {
@@ -3360,7 +3757,7 @@
           }).addTo(map);
           marker.locationId = loc.id;
           marker.bindPopup(buildPopupHtml(loc));
-          applyMarkerStacking(marker, loc.id === highlightedId);
+          applyMarkerStacking(marker, loc.id === highlightedId, loc.starred);
           markersById.set(loc.id, { marker, signature, loc });
           return;
         }
@@ -3371,7 +3768,7 @@
           entry.marker.setLatLng([loc.lat, loc.lng]);
           entry.marker.setIcon(markerIcon(loc, loc.id === highlightedId));
           entry.marker.setPopupContent(buildPopupHtml(loc));
-          applyMarkerStacking(entry.marker, loc.id === highlightedId);
+          applyMarkerStacking(entry.marker, loc.id === highlightedId, loc.starred);
         }
       });
 
@@ -3396,21 +3793,40 @@
       // also holds the non-interactive visited stamp; excluding the whole
       // cluster meant a tap on the stamp after a scroll never reset
       // touchMoved, so it was silently dropped.
+      // S2: a TOUCH press shows after 80ms of stillness, so a stroke or a
+      // flick-scroll never starts with a dark blink; a quicker tap still
+      // acknowledges with a 100ms press on release. Mouse is immediate.
+      let pressTimer = 0, lastTouch = -1e9;
       const addActive = (e) => {
+        if (e.type === 'touchstart') lastTouch = performance.now();
+        else if (performance.now() - lastTouch < 800) return;   // compat mouse events after a touch
         if (!e.target.closest('.delete-btn')) {
           touchMoved = false;
-          el.classList.add('active');
+          clearTimeout(pressTimer);
+          if (e.type === 'touchstart') {
+            pressTimer = setTimeout(() => { pressTimer = 0; if (!touchMoved) el.classList.add('active'); }, 80);
+          } else {
+            el.classList.add('active');
+          }
         }
       };
-      const removeActive = () => el.classList.remove('active');
+      const removeActive = () => { clearTimeout(pressTimer); pressTimer = 0; el.classList.remove('active'); };
       const handleTouchMove = () => { touchMoved = true; removeActive(); };
+      const handleTouchEnd = () => {
+        if (pressTimer && !touchMoved) {
+          clearTimeout(pressTimer); pressTimer = 0;
+          el.classList.add('active');
+          setTimeout(() => el.classList.remove('active'), 100);
+        } else removeActive();
+      };
 
       el.addEventListener('mousedown', addActive);
       el.addEventListener('touchstart', addActive, { passive: true });
       el.addEventListener('touchmove', handleTouchMove, { passive: true });
-      el.addEventListener('mouseup', removeActive);
-      el.addEventListener('mouseleave', removeActive);
-      el.addEventListener('touchend', removeActive);
+      const mouseRemove = () => { if (performance.now() - lastTouch >= 800) removeActive(); };
+      el.addEventListener('mouseup', mouseRemove);
+      el.addEventListener('mouseleave', mouseRemove);
+      el.addEventListener('touchend', handleTouchEnd);
       el.addEventListener('touchcancel', removeActive);
 
       el.addEventListener('click', (e) => {
@@ -3425,7 +3841,433 @@
         highlightMarker(id);
       });
 
+      attachStarGesture(el);
       return el;
+    }
+
+
+    // ---- PENCIL STAR ----------------------------------------------------------
+    // Numbers (px of CONTENT travel, i.e. past the 10px lock):
+    //   EDGE 24    touches starting this close to either screen edge never
+    //              arm (Safari's back/forward swipe is a screen-edge pan).
+    //   LOCK 10    horizontal travel that claims the stroke, only while
+    //              |dx| > 1.5|dy| (flatter than ~34deg) AND |dy| < 8.
+    //   SCROLL 8   any 8px of vertical travel before the lock hands the
+    //              touch to the scroller for good (S3: 34-45deg scrolls).
+    //   STROKES    the five pencil strokes start at 0/6/12/25/38 and the
+    //              sketch is whole at 50: two strokes by 12px, so the mark
+    //              reads as a star being drawn almost at once.
+    //   COMMIT 56  the ink lands. A flick (>=32px at >=0.5px/ms) can STAR;
+    //              only the full stroke can UNSTAR (S5).
+    // A tap is never delayed; nothing is prevented until the lock.
+    const STAR_SWIPE = { EDGE: 24, LOCK: 10, SCROLL: 8, UNLOCK_DY: 16, UNLOCK_MAX: 16,
+                         COMMIT: 56, MAX: 104, FLICK_V: 0.5, FLICK_MIN: 32,
+                         WRONG_MAX: 6, STAR_W: 16, STROKES: [0, 6, 12, 25, 38, 50], SETTLE: 220 };
+    const STAR_D = 'M12 1.87L15.03 8.9L22.65 9.61L16.9 14.66L18.58 22.13L12 18.22L5.42 22.13L7.1 14.66L1.35 9.61L8.97 8.9Z';
+    // One continuous line, as a hand draws it: lower-left, up to the top,
+    // down right, across to the left arm, across to the right arm, home.
+    const PENTA = [[5.42, 22.13], [12, 1.87], [18.58, 22.13], [1.35, 9.61], [22.65, 9.61], [5.42, 22.13]];
+    let starGesture = null;               // { id } while a row's re-render is held
+    let starUid = 0;
+
+    function pencilStarMarkup(cls, { play = false } = {}) {
+      const u = 'ps' + (++starUid);
+      let masks = '', strokes = '', t = 0;
+      for (let k = 0; k < 5; k++) {
+        const [x1, y1] = PENTA[k], [x2, y2] = PENTA[k + 1];
+        const L = Math.hypot(x2 - x1, y2 - y1), nx = -(y2 - y1) / L, ny = (x2 - x1) / L;
+        const wa = 1.35, wb = 0.8;          // half-widths: pressure lifts off along each stroke
+        const p = [[x1 + nx * wa, y1 + ny * wa], [x2 + nx * wb, y2 + ny * wb], [x2 - nx * wb, y2 - ny * wb], [x1 - nx * wa, y1 - ny * wa]]
+          .map(q => q.map(v => v.toFixed(2)).join(',')).join(' ');
+        const L1 = (L + 1).toFixed(2);
+        masks += `<mask id="${u}-m${k}" maskUnits="userSpaceOnUse" x="-4" y="-4" width="32" height="32"><line class="sg-rev" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff" stroke-width="5" stroke-dasharray="${L1} ${L1}" stroke-dashoffset="${L1}" data-l="${L1}" style="--L:${L1};--d:${k * 40}ms"/></mask>`;
+        strokes += `<polygon points="${p}" mask="url(#${u}-m${k})"/>`;
+      }
+      return `<svg class="${cls}${play ? ' sgp-play' : ''}" viewBox="0 0 24 24" aria-hidden="true" data-u="${u}"><defs>
+        <filter id="${u}-gr" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="2" seed="4" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="0.7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.4 0 0 0 -0.8" result="g"/>
+          <feComposite in="d" in2="g" operator="in"/>
+        </filter>
+        <filter id="${u}-bl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="0.01"/></filter>
+        <radialGradient id="${u}-rad" gradientUnits="userSpaceOnUse" cx="12" cy="13" r="11"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
+        <filter id="${u}-rf" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="9"/>
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0 1" result="n"/>
+          <feComposite in="SourceGraphic" in2="n" operator="arithmetic" k1="0" k2="0.7" k3="0.6" k4="0"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  20 0 0 0 -1"/>
+        </filter>
+        <mask id="${u}-rub" maskUnits="userSpaceOnUse" x="-4" y="-4" width="32" height="32"><rect x="-4" y="-4" width="32" height="32" fill="url(#${u}-rad)" filter="url(#${u}-rf)"/></mask>
+        ${masks}</defs>
+        <use class="sgp-hollow" href="#g-star-open" width="24" height="24"/>
+        <path class="sg-smudge" d="${STAR_D}" filter="url(#${u}-bl)" opacity="0"/>
+        <path class="sg-ghost" d="${STAR_D}" opacity="0"/>
+        <g class="sg-pencil" filter="url(#${u}-gr)">${strokes}</g>
+        <g class="sg-ink"><path class="sg-spread" d="${STAR_D}"/><path class="sg-inkp" d="${STAR_D}"/><path class="sg-inkg" d="${STAR_D}" filter="url(#${u}-gr)"/></g>
+      </svg>`;
+    }
+
+    // Drive one pencil star. raw = content px of the stroke.
+    function pencilStar(svg, strokes = STAR_SWIPE.STROKES) {
+      const u = svg.dataset.u, revs = [...svg.querySelectorAll('.sg-rev')];
+      const ink = svg.querySelector('.sg-ink'), inkp = svg.querySelector('.sg-inkp'), spread = svg.querySelector('.sg-spread');
+      const smudge = svg.querySelector('.sg-smudge'), blur = svg.querySelector(`#${u}-bl feGaussianBlur`);
+      const rubM = svg.querySelector(`#${u}-rf feColorMatrix:last-child`);
+      const S = strokes, inkg = svg.querySelector('.sg-inkg'), ghost = svg.querySelector('.sg-ghost');
+      return {
+        draw(raw) {                        // the sketch, stroke by stroke
+          revs.forEach((r, k) => {
+            const f = Math.max(0, Math.min(1, (raw - S[k]) / (S[k + 1] - S[k])));
+            r.setAttribute('stroke-dashoffset', (parseFloat(r.dataset.l) * (1 - f)).toFixed(2));
+          });
+        },
+        ink(animate) {                     // the ink LANDS: full opacity on the
+          svg.classList.add('inked');      // first frame, pressed in from 1.2x
+          if (!animate || prefersReducedMotion()) return;
+          ink.animate([{ transform: 'scale(1.2)' }, { transform: 'scale(1)' }], { duration: 160, easing: 'cubic-bezier(.2,.8,.3,1)' });
+          spread.animate([{ opacity: 0.45, transform: 'scale(1.3)' }, { opacity: 0, transform: 'scale(1)' }], { duration: 17, easing: 'steps(1, end)' });
+        },
+        unink() { svg.classList.remove('inked'); ink.getAnimations().forEach(a => a.cancel()); },
+        // Rub-out, in this order, all as a function of travel (so a
+        // cancel plays it backwards exactly):
+        //   0-10   colour only: ink -> graphite, smooth (never grain on ink)
+        //   10-16  grain fades in over the now-100%-graphite fill
+        //   16-50  erased from the points inwards, unevenly; smudge widens
+        //   24-44  a faint ghost of the star rises to 25% and HOLDS
+        //   56     the ghost goes and the dust falls -- only at the commit.
+        rub(raw) {
+          const hi = !!svg.closest('.highlighted');
+          if (raw <= 0) {                   // identical to the printed star until travel begins
+            ink.removeAttribute('mask'); inkp.style.fill = ''; inkg.style.fill = '';
+            inkp.style.opacity = ''; inkg.style.opacity = '';
+            smudge.setAttribute('opacity', '0'); ghost.setAttribute('opacity', '0'); return;
+          }
+          const clamp = v => Math.max(0, Math.min(1, v));
+          const m = clamp(raw / 10), q = clamp((raw - 10) / 6), t = clamp((raw - 16) / 34);
+          const fill = hi ? '' : `color-mix(in srgb, currentColor ${Math.round(100 - 100 * m)}%, var(--ink-2))`;
+          inkp.style.fill = fill; inkg.style.fill = fill;
+          inkp.style.opacity = String(1 - q); inkg.style.opacity = String(q);
+          if (t > 0) {
+            ink.setAttribute('mask', `url(#${u}-rub)`);
+            rubM.setAttribute('values', `0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  20 0 0 0 ${(-20 * (-0.05 + 1.3 * Math.pow(t, 1.6))).toFixed(3)}`);
+          } else ink.removeAttribute('mask');
+          const sm = clamp((raw - 12) / 40);
+          smudge.setAttribute('opacity', (0.2 * Math.sin(Math.PI * sm)).toFixed(3));
+          blur.setAttribute('stdDeviation', (0.5 + 1.6 * sm).toFixed(2));
+          smudge.style.transformBox = 'fill-box'; smudge.style.transformOrigin = '50% 55%';
+          smudge.style.transform = `scale(${(1 + 0.22 * sm).toFixed(3)})`;
+          ghost.setAttribute('opacity', raw >= STAR_SWIPE.COMMIT ? '0' : (0.25 * clamp((raw - 24) / 20)).toFixed(3));
+        },
+      };
+    }
+
+    function attachStarGesture(el) {
+      let g = null;
+      let eatClick = false;                 // S1: eats only THIS drag's own click
+
+      el.addEventListener('click', (e) => {
+        if (eatClick) { eatClick = false; e.stopImmediatePropagation(); e.preventDefault(); }
+      }, true);
+
+      const start = (x, y, target, src) => {
+        eatClick = false;
+        if (starGesture || target.closest('.delete-btn')) { g = null; return; }
+        if (src === 'touch' && (x < STAR_SWIPE.EDGE || x > window.innerWidth - STAR_SWIPE.EDGE)) { g = null; return; }
+        g = { x0: x, y0: y, src, state: 'pending', samples: [] };
+      };
+      // returns true when the event must be prevented (the row owns it)
+      const move = (x, y, ts, cancelable) => {
+        if (!g) return false;
+        const dx = x - g.x0, dy = y - g.y0;
+        if (g.state === 'pending') {
+          const flat = Math.abs(dx) >= STAR_SWIPE.LOCK && Math.abs(dx) > 1.5 * Math.abs(dy);
+          if (!flat) {
+            if (Math.abs(dy) >= STAR_SWIPE.SCROLL) { g = null; return false; }          // S3(a): the scroller's
+            return false;
+          }
+          if (!cancelable || !beginStarDrag(el, g, dx > 0)) { g = null; return false; }  // the scroller already has it
+          eatClick = true;
+        } else if (g.raw < STAR_SWIPE.UNLOCK_MAX && Math.abs(dy) >= STAR_SWIPE.UNLOCK_DY && Math.abs(dy) > Math.abs(dx)) {
+          abortStarDrag(el, g); g = null; return false;                                  // it was a scroll after all
+        }
+        g.samples.push([ts, x]);
+        while (g.samples.length > 2 && ts - g.samples[0][0] > 80) g.samples.shift();
+        paintStarDrag(g, dx);
+        return true;
+      };
+      const end = (cancelled) => {
+        const cur = g; g = null;
+        if (!cur || cur.state !== 'drag') return;
+        let commit = false;
+        if (!cancelled && cur.forward) {
+          const s = cur.samples, v = s.length > 1 ? (s[s.length - 1][1] - s[0][1]) / Math.max(1, s[s.length - 1][0] - s[0][0]) : 0;
+          commit = cur.raw >= STAR_SWIPE.COMMIT ||
+                   (!cur.starred && cur.raw >= STAR_SWIPE.FLICK_MIN && v >= STAR_SWIPE.FLICK_V);   // S5: flick stars, never unstars
+        }
+        settleStarDrag(el, cur, commit);
+      };
+
+      // Touch: touch-action stays AUTO (S3). touchmove is non-passive and
+      // prevents ONLY after the lock, so every other touch scrolls natively.
+      el.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) { if (g) end(true); return; }
+        start(e.touches[0].clientX, e.touches[0].clientY, e.target, 'touch');
+      }, { passive: true });
+      el.addEventListener('touchmove', (e) => {
+        if (!g) return;
+        const t = e.touches[0];
+        if (move(t.clientX, t.clientY, e.timeStamp, e.cancelable) && e.cancelable) e.preventDefault();
+      }, { passive: false });
+      el.addEventListener('touchend', () => end(false));
+      el.addEventListener('touchcancel', () => end(true));
+      // Mouse (desktop rail): pointer events, no edge guard.
+      el.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse' && e.button === 0) start(e.clientX, e.clientY, e.target, 'mouse'); });
+      el.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse' || !g) return;
+        if (move(e.clientX, e.clientY, e.timeStamp, true) && g && g.state === 'drag' && !g.cap) { g.cap = true; try { el.setPointerCapture(e.pointerId); } catch (_) {} }
+      });
+      el.addEventListener('pointerup', (e) => { if (e.pointerType === 'mouse') end(false); });
+      el.addEventListener('pointercancel', (e) => { if (e.pointerType === 'mouse') end(true); });
+    }
+
+    // Left edge of the name's first glyph box (skips the printed star).
+    function textLeft(h3) {
+      const w = document.createTreeWalker(h3, NodeFilter.SHOW_TEXT, { acceptNode: n => n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP });
+      const n = w.nextNode();
+      if (!n) return h3.getBoundingClientRect().left;
+      const r = document.createRange(); r.setStart(n, 0); r.setEnd(n, 1);
+      return r.getBoundingClientRect().left;
+    }
+
+    // Build the live overlay in the printed star's own box.
+    function mountPencilStar(el, loc) {
+      const h3 = el.querySelector('h3'), meta = el.querySelector('.row-meta'), main = el.querySelector('.row-main');
+      if (!h3 || !meta || !main) return null;
+      el.classList.add('sg-live');          // geometry first: the feather edge borrows 12px
+      let probe = h3.querySelector('.row-star'), made = false;
+      if (!probe) {
+        probe = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        probe.setAttribute('class', 'row-star'); probe.style.visibility = 'hidden'; h3.prepend(probe); made = true;
+      }
+      const pr = probe.getBoundingClientRect(), mr = main.getBoundingClientRect();
+      if (made) probe.remove();
+      const wrap = document.createElement('div');
+      wrap.innerHTML = pencilStarMarkup('sg-star');
+      const svg = wrap.firstElementChild;
+      svg.style.left = (pr.left - mr.left) + 'px';
+      svg.style.top = (pr.top - mr.top) + 'px';
+      main.appendChild(svg);
+      // Clearance: no graphite until the name has moved >= 3px clear of
+      // the WHOLE sketch (its leaned box vs the first glyph's box). The
+      // five strokes are remapped into the travel that has clearance,
+      // still front-loaded: the Λ is done 8px after stroke 1 starts.
+      const pen = svg.querySelector('.sg-pencil').getBoundingClientRect();
+      const gl = textLeft(h3);
+      const s0 = Math.min(30, Math.max(0, Math.ceil(pen.right + 3 - gl)));
+      const r3 = (50 - s0 - 8) / 3;
+      const strokes = [s0, s0 + 4, s0 + 8, s0 + 8 + r3, s0 + 8 + 2 * r3, 50];
+      const ps = pencilStar(svg, strokes);
+      if (loc.starred) ps.ink(false);
+      starGesture = { id: loc.id };
+      return { h3, meta, main, svg, ps, strokes };
+    }
+
+    function beginStarDrag(el, g, forward) {
+      const id = el.getAttribute('data-id');
+      const loc = locations.find(l => l.id === id);
+      if (!loc) return false;
+      el.classList.remove('active');
+      const m = mountPencilStar(el, loc);
+      if (!m) return false;
+      Object.assign(g, m, { state: 'drag', forward, id, starred: !!loc.starred, raw: 0, off: 0, armed: false });
+      return true;
+    }
+
+    // Name + meta move as one block while the finger drives; on the settle
+    // they part: the name docks against (or over the gap of) the star, the
+    // meta line always returns home.
+    function setSlip(g, off, metaOff = off) {
+      g.off = off; g.metaOff = metaOff;
+      g.h3.style.transform = off ? `translateX(${off}px)` : '';
+      g.meta.style.transform = metaOff ? `translateX(${metaOff}px)` : '';
+      g.main.style.setProperty('--sg-fade-a', String(Math.max(0, 1 - Math.max(Math.abs(off), Math.abs(metaOff)) / 8)));
+    }
+
+    // Paint the stroke at content travel `raw` (visual only).
+    function paintStarVisual(g, raw) {
+      if (g.starred) {
+        g.ps.rub(raw);
+        const armed = raw >= STAR_SWIPE.COMMIT;
+        if (armed && !g.armed) starCrumbs(g);
+        g.armed = armed;
+      } else {
+        g.ps.draw(raw);
+        const armed = raw >= STAR_SWIPE.COMMIT;
+        if (armed && !g.armed) g.ps.ink(true);
+        if (!armed && g.armed) g.ps.unink();
+        g.armed = armed;
+      }
+    }
+
+    function paintStarDrag(g, dx) {
+      if (!g.forward) {                    // wrong way: a little give, nothing else
+        const give = Math.min(STAR_SWIPE.WRONG_MAX, Math.max(0, -(dx + STAR_SWIPE.LOCK)) * 0.12);
+        g.main.style.transform = give ? `translateX(${-give}px)` : '';
+        return;
+      }
+      const raw = Math.max(0, dx - STAR_SWIPE.LOCK);
+      g.raw = raw;
+      setSlip(g, raw <= STAR_SWIPE.COMMIT ? raw : Math.min(STAR_SWIPE.MAX, STAR_SWIPE.COMMIT + (raw - STAR_SWIPE.COMMIT) * 0.35));
+      paintStarVisual(g, raw);
+    }
+
+    // Eraser dust: three graphite specks, <=2px of drift, gone in 200ms.
+    function starCrumbs(g) {
+      if (prefersReducedMotion()) return;
+      const x = parseFloat(g.svg.style.left), y = parseFloat(g.svg.style.top);
+      [[2, 9, -1], [6, 11, 0.5], [10, 8, 1]].forEach(([cx, cy, drift], i) => {
+        const c = document.createElement('span');
+        c.className = 'sg-crumb';
+        c.style.left = (x + cx) + 'px'; c.style.top = (y + cy) + 'px';
+        g.main.appendChild(c);
+        c.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: `translate(${drift}px, 2px)`, opacity: 0 }],
+                  { duration: 140 + i * 30, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' })
+          .finished.then(() => c.remove(), () => c.remove());
+      });
+    }
+
+    function releaseStarRow(el, g, restore) {
+      el.classList.remove('sg-live');
+      if (restore) { g.svg.remove(); setSlip(g, 0); g.main.style.transform = ''; g.main.style.removeProperty('--sg-fade-a'); }
+      if (starGesture && starGesture.id === g.id) starGesture = null;
+    }
+
+    function abortStarDrag(el, g) { releaseStarRow(el, g, true); }
+
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+    let sgNow = () => performance.now();   // one clock for every timeline (a test can step it)
+    function runTimeline(ms, frame, done) {
+      if (ms <= 0 || prefersReducedMotion()) { frame(1); done(); return; }
+      const t0 = sgNow();
+      const step = () => { const t = Math.min(1, (sgNow() - t0) / ms); frame(t); if (t < 1) requestAnimationFrame(step); else done(); };
+      requestAnimationFrame(step);
+    }
+
+    // R2-S1: the FINAL row (printed star in or out, final truncation) is
+    // laid out on the release frame; the name then FLIPs home from where
+    // the finger left it. Letters change while the name is moving fastest,
+    // never on the frame it comes to rest.
+    function flipToFinal(el, g, nowStarred, ms, done) {
+      const oldH = textLeft(g.h3);
+      const oldMeta = g.meta.getBoundingClientRect().left;
+      const loc = locations.find(l => l.id === g.id) || {};
+      const fin = { ...loc, starred: nowStarred };
+      const svg = g.svg; svg.remove();
+      const dust = [...g.main.querySelectorAll('.sg-crumb')]; dust.forEach(c => c.remove());   // the dust keeps falling
+      renderCard(el, fin);
+      const entry = cardsById.get(g.id); if (entry) entry.signature = cardSignature(fin);
+      g.h3 = el.querySelector('h3'); g.meta = el.querySelector('.row-meta'); g.main = el.querySelector('.row-main');
+      g.main.appendChild(svg); dust.forEach(c => g.main.appendChild(c));
+      const dH = oldH - textLeft(g.h3), dM = oldMeta - g.meta.getBoundingClientRect().left;
+      setSlip(g, dH, dM);
+      runTimeline(ms, t => { const e = easeOut(t); setSlip(g, dH * (1 - e), dM * (1 - e)); }, done);
+    }
+
+    function settleStarDrag(el, g, commit) {
+      const nowStarred = commit ? !g.starred : g.starred;
+      if (!commit) el.querySelectorAll('.sg-crumb').forEach(c => c.remove());   // a cancel takes its dust back
+      const off0 = g.off, meta0 = g.metaOff || 0, raw0 = g.raw, give0 = g.main.style.transform;
+      if (commit && !g.starred && !g.armed) { g.ps.draw(STAR_SWIPE.COMMIT); g.ps.ink(true); g.armed = true; }  // a flick inks on release
+      if (commit) {
+        toggleLocationFlag(g.id, 'starred');   // optimistic; this row's re-render is held -- we lay it out ourselves
+        flipToFinal(el, g, nowStarred, STAR_SWIPE.SETTLE, () => { releaseStarRow(el, g, true); updateUI(); });
+        return;
+      }
+      runTimeline(STAR_SWIPE.SETTLE, (t) => {
+        const e = easeOut(t);
+        if (give0) g.main.style.transform = `translateX(${(parseFloat(give0.slice(11)) * (1 - e)).toFixed(2)}px)`;
+        if (!g.forward) return;
+        setSlip(g, off0 * (1 - e), meta0 * (1 - e));
+        paintStarVisual(g, raw0 * (1 - e));   // pencil retracts / ink returns, same function of travel
+      }, () => releaseStarRow(el, g, true));
+    }
+
+    // N3: shape rows have no star -- a stroke gets the same 6px of give.
+    function attachShapeGive(el) {
+      let g = null;
+      el.addEventListener('touchstart', (e) => { const t = e.touches[0]; g = t ? { x0: t.clientX, y0: t.clientY, lock: false } : null; }, { passive: true });
+      el.addEventListener('touchmove', (e) => {
+        if (!g) return; const t = e.touches[0], dx = t.clientX - g.x0, dy = t.clientY - g.y0;
+        if (!g.lock) { if (Math.abs(dy) >= STAR_SWIPE.SCROLL) { g = null; return; } if (Math.abs(dx) < STAR_SWIPE.LOCK || Math.abs(dx) <= 1.5 * Math.abs(dy) || !e.cancelable) return; g.lock = true; }
+        if (e.cancelable) e.preventDefault();
+        const give = Math.sign(dx) * Math.min(STAR_SWIPE.WRONG_MAX, (Math.abs(dx) - STAR_SWIPE.LOCK) * 0.12);
+        const main = el.querySelector('.row-main'); if (main) main.style.transform = `translateX(${give}px)`;
+      }, { passive: false });
+      const end = () => { if (!g || !g.lock) { g = null; return; } g = null; const main = el.querySelector('.row-main'); if (!main) return;
+        const from = parseFloat((main.style.transform || '').slice(11)) || 0;
+        runTimeline(160, t => { main.style.transform = `translateX(${(from * (1 - easeOut(t))).toFixed(2)}px)`; }, () => { main.style.transform = ''; }); };
+      el.addEventListener('touchend', end); el.addEventListener('touchcancel', end);
+    }
+
+    // S4: teach the stroke, in place, at most twice per device -- only when
+    // a star is set from the POPUP and that place's row is on screen.
+    const STAR_TEACH_KEY = 'triplet.pencilStarTaught';
+    function maybeTeachStar(id) {
+      let n = 0; try { n = parseInt(localStorage.getItem(STAR_TEACH_KEY) || '0', 10) || 0; } catch (_) { return false; }
+      if (n >= 2 || starGesture) return false;
+      const entry = cardsById.get(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
+      if (!entry || !list || !entry.el.isConnected || (sheet && sheet.classList.contains('collapsed'))) return false;
+      const r = entry.el.getBoundingClientRect(), lr = list.getBoundingClientRect();
+      if (r.top < lr.top || r.bottom > lr.bottom || r.height === 0) return false;     // not on screen: skip, don't count
+      const loc = locations.find(l => l.id === id);
+      if (!loc || loc.starred) return false;
+      try { localStorage.setItem(STAR_TEACH_KEY, String(n + 1)); } catch (_) {}
+      const el = entry.el, m = mountPencilStar(el, loc);
+      if (!m) return false;
+      const g = { ...m, id, starred: false, off: 0 };
+      const done = () => { releaseStarRow(el, g, true); updateUI(); };
+      if (prefersReducedMotion()) {        // static pencilled star for ~1s, then the ink by opacity only
+        g.ps.draw(STAR_SWIPE.COMMIT);
+        flipToFinal(el, g, true, 0, () => {});   // final row at once (reduced motion: no slip)
+        setTimeout(() => {
+          const pen = g.svg.querySelector('.sg-pencil'), ink = g.svg.querySelector('.sg-ink');
+          pen.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' });
+          ink.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' }).finished.then(done, done);
+        }, 1000);
+        return true;
+      }
+      // A ghost of the real stroke: slip out to 30px (clear of the sketch),
+      // five strokes, ink, then FLIP into the final row. ~500ms.
+      const t0 = sgNow(); let inked = false;
+      const step = () => {
+        const ms = sgNow() - t0;
+        const out = Math.min(1, ms / 120);
+        setSlip(g, 30 * (0.5 - 0.5 * Math.cos(Math.PI * out)), 30 * (0.5 - 0.5 * Math.cos(Math.PI * out)));
+        const p = Math.max(0, Math.min(1, (ms - 120) / 180));
+        g.ps.draw(g.strokes[0] + (50 - g.strokes[0]) * p);
+        if (ms >= 310 && !inked) {
+          inked = true; g.ps.draw(STAR_SWIPE.COMMIT); g.ps.ink(true);
+          flipToFinal(el, g, true, 190, done);
+          return;
+        }
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      return true;
+    }
+
+    // Popup rub-out (star removed from the popup): the same rub as the
+    // row, over 240ms, then the hollow star.
+    let popupRubId = null;
+    function runPopupRub(tries = 0) {
+      const svg = document.querySelector('.leaflet-popup .sgp.sgp-rub:not(.run)');
+      if (!svg) { if (tries < 30) requestAnimationFrame(() => runPopupRub(tries + 1)); return; }
+      svg.classList.add('run');
+      const ps = pencilStar(svg);
+      const finish = () => { const b = svg.closest('.popup-star'); if (b && svg.isConnected) b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star-open"/></svg>'; };
+      if (prefersReducedMotion()) { finish(); return; }
+      runTimeline(240, t => ps.rub(t < 0.3 ? 10 * t / 0.3 : 10 + 45.9 * (t - 0.3) / 0.7), () => { ps.rub(STAR_SWIPE.COMMIT); finish(); });
     }
 
     // Deterministic per-place stamp angle: one of six hand-stamped leans,
@@ -3465,8 +4307,8 @@
       el.innerHTML = `
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
         <div class="row-main">
-          <h3>${escapeHtml(loc.name)}</h3>
-          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.visited ? ', visited' : ', not visited yet'}</span></div>
+          <h3>${loc.starred ? '<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>' : ''}${escapeHtml(loc.name)}</h3>
+          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
         <div class="location-actions">
           ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
@@ -3488,7 +4330,8 @@
         }
 
         const signature = cardSignature(loc);
-        if (signature !== entry.signature) {
+        // Held while the pencil star owns this row (settleStarDrag() / maybeTeachStar()).
+        if (signature !== entry.signature && !(starGesture && starGesture.id === loc.id)) {
           renderCard(entry.el, loc);
           entry.signature = signature;
         }
@@ -3521,19 +4364,24 @@
       if (!nb) return;
 
       noteInteraction();
+      // Fit the shape, but never land below neighborhoodMinZoom(): the
+      // map layer (and so its popup) doesn't exist under that zoom, so a
+      // fit that settled there would show nothing and open nothing. A
+      // shape small enough to fit below its min zoom is now framed AT its
+      // min zoom instead ("zoom in enough to actually see the thing").
       const bounds = L.latLngBounds(nb.geometry).pad(0.15);
-      if (prefersReducedMotion()) {
-        map.fitBounds(bounds, { animate: false });
-      } else {
-        map.flyToBounds(bounds, { duration: 0.5 });
-      }
-
-      // zoomend (fired by the above) re-runs syncNeighborhoodLayers, so the
-      // layer may not exist yet on this tick -- give it one before opening.
-      setTimeout(() => {
-        const layer = neighborhoodLayersById.get(shapeId);
-        if (layer) layer.openPopup();
-      }, 300);
+      const center = bounds.getCenter();
+      const zoom = Math.min(map.getMaxZoom(),
+        Math.max(map.getBoundsZoom(bounds), neighborhoodMinZoom(nb)));
+      openPopupOnArrival(center, zoom,
+        () => neighborhoodLayersById.get(shapeId),
+        () => {
+          if (prefersReducedMotion()) {
+            map.setView(center, zoom, { animate: false });
+          } else {
+            map.flyTo(center, zoom, { duration: 0.5 });
+          }
+        });
     }
 
     function createShapeCard(nb) {
@@ -3572,6 +4420,7 @@
         focusShape(id);
       });
 
+      attachShapeGive(el);
       return el;
     }
 
@@ -3843,11 +4692,32 @@
       return category === 'district' || category === 'street';
     }
 
+    // Add-form star (#starInput). Its value only counts while it's shown:
+    // on a district/street category it's hidden, and anything saved --
+    // including the approximate pin findApproximatePoint() can fall back
+    // to -- arrives unstarred. Its pressed state survives a category
+    // round-trip (street -> restaurant) and is reset by closeAddForm().
+    function setAddFormStarred(on) {
+      const btn = document.getElementById('starInput');
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.querySelector('use').setAttribute('href', on ? '#g-star' : '#g-star-open');
+    }
+
+    function addFormStarred() {
+      return !isShapeCategory(document.getElementById('categoryInput').value) &&
+        document.getElementById('starInput').getAttribute('aria-pressed') === 'true';
+    }
+
+    document.getElementById('starInput').addEventListener('click', () => {
+      setAddFormStarred(!(document.getElementById('starInput').getAttribute('aria-pressed') === 'true'));
+    });
+
     document.getElementById('categoryInput').addEventListener('change', (e) => {
       const isShape = isShapeCategory(e.target.value);
       document.getElementById('addressInput').style.display = isShape ? 'none' : '';
       document.getElementById('addressInput').required = !isShape;
       document.getElementById('shapeHint').style.display = isShape ? '' : 'none';
+      document.getElementById('starInput').style.display = isShape ? 'none' : '';
       document.getElementById('nameInput').placeholder = isShape
         ? 'Neighborhood/street name to search OSM for (e.g. Nørrebro)'
         : 'Search for a place...';
@@ -3862,6 +4732,7 @@
       document.getElementById('nameInput').value = '';
       document.getElementById('addressInput').value = '';
       document.getElementById('notesInput').value = '';
+      setAddFormStarred(false);
       document.getElementById('categoryInput').value = 'restaurant';
       document.getElementById('categoryInput').dispatchEvent(new Event('change'));
       document.getElementById('controls').classList.remove('show');
@@ -3996,7 +4867,11 @@
             lat: point.lat,
             lng: point.lng,
             notes: notes ? `${notes}\n\n${tag}` : tag,
-            visited: false
+            visited: false,
+            // Carried through for when shapes can be starred; today this
+            // is always false -- the toggle is hidden on shape categories,
+            // so an approx pin from a district/street add arrives unstarred.
+            starred: addFormStarred()
           });
           closeAddForm();
         };
@@ -4098,7 +4973,8 @@
         lat: coords.lat,
         lng: coords.lng,
         notes: notes || null,
-        visited: false
+        visited: false,
+        starred: addFormStarred()
       });
 
       closeAddForm();
@@ -4143,10 +5019,21 @@
     // popup open/close/replace, so a SINGLE delegated listener here can
     // never double-bind the way a per-popup listener would risk.
     map.getPane('popupPane').addEventListener('click', (e) => {
-      const btn = e.target.closest('.popup-visited');
+      const btn = e.target.closest('.popup-visited, .popup-star');
       if (!btn) return;
       const loc = locations.find(l => l.id === btn.dataset.id);
-      if (loc) toggleVisited(loc.id, loc.visited);
+      if (!loc) return;
+      // Consume the click. The optimistic toggle re-renders the popup
+      // HTML within this same dispatch (after requireAuth()'s microtask),
+      // detaching the button; if the click then bubbled on to the map
+      // container, Leaflet would walk the detached target, not find its
+      // popup's click-disable flag, treat it as a map click, and CLOSE the
+      // popup (measured in Playwright before this line existed).
+      e.stopPropagation();
+      const isStar = btn.classList.contains('popup-star');
+      if (isStar && !loc.starred) { popupInkId = loc.id; maybeTeachStar(loc.id); }
+      if (isStar && loc.starred) { popupRubId = loc.id; requestAnimationFrame(() => runPopupRub()); }
+      toggleLocationFlag(loc.id, isStar ? 'starred' : 'visited');
     });
 
     // Initialize auth and set up auth state listener
