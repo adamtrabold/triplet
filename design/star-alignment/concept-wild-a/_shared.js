@@ -1,0 +1,53 @@
+// Shared markup/tokens for the three wildcard mockups. Reuses real CSS
+// custom properties and glyph paths copied verbatim from index.html so
+// the mockups read as this app, not a generic list.
+
+const TOKENS = `
+      --paper:        #F2EBDD;
+      --paper-raised: #FAF5EA;
+      --paper-pressed: #DCD3C3;
+      --paper-warm:   #F4E6DA;
+      --navy:         #12293F;
+      --ink:          #1A1A18;
+      --ink-2:        #5A564C;
+      --hair:         #D8CEBA;
+      --paper-filed:  #E7DFD0;
+      --figure:      #EE7434;
+      --figure-deep: #A8400C;
+      --s1: 4px;  --s2: 8px;   --s3: 12px;  --s4: 16px;
+      --s6: 24px; --s8: 32px;  --s12: 48px;
+      --col-glyph:  28px;
+      --col-action: 28px;
+      --gap:    12px;
+      --gutter: 16px;
+      --font-ui: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+`;
+
+const SYMBOLS = `
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="g-restaurant" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h2v7h1V2h2v7h1V2h2v8a3 3 0 0 1-2 2.83V22h-4v-9.17A3 3 0 0 1 6 10V2z"/></symbol>
+  <symbol id="g-attraction" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 6v11H9V8l3-6z"/><path fill="currentColor" d="M7 20h10v2H7z"/></symbol>
+  <symbol id="g-shopping" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1a4 4 0 0 0-4 4v2h2V5a2 2 0 0 1 4 0v2h2V5a4 4 0 0 0-4-4z"/><path fill="currentColor" d="M4 7h16l-1.5 15h-13L4 7z"/></symbol>
+  <symbol id="g-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h13v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V4z"/><path fill="currentColor" d="M17 6h2a3 3 0 0 1 0 6h-2V6z"/><path fill="currentColor" d="M2 19h16v2H2z"/></symbol>
+  <symbol id="g-star" viewBox="0 0 24 24"><path fill="currentColor" stroke-linejoin="round" d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
+</svg>`;
+
+function badge(category, ink) {
+  const c = 12, r = 11;
+  return `<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="${c}" cy="${c}" r="${r}" fill="var(--paper)" stroke="${ink}" stroke-width="2"/>
+    <svg x="1" y="1" width="22" height="22" viewBox="0 0 24 24" style="color:${ink}"><use href="#g-${category}"/></svg>
+  </svg>`;
+}
+
+const CATS = { restaurant: '#A8400C', attraction: '#12293F', shopping: '#5A564C', cafe: '#A8400C' };
+
+// stampTilt-equivalent, deterministic per id, only used by variant C.
+function tilt(id) {
+  const T = [-5, -3.5, -2, 2, 3.5, 5];
+  let h = 0;
+  for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) | 0;
+  return T[Math.abs(h) % T.length];
+}
+
+module.exports = { TOKENS, SYMBOLS, badge, CATS, tilt };
