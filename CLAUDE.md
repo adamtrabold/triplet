@@ -444,7 +444,7 @@ go stale, and don't leave it silently out of date either.
   - **Test gate: "84 + 8"** — touch suite 84/84 in both motion modes (4 obsolete "laid out on release" cases were retired, replaced by) + `flip6.js` 8/8; plus popup-open 20/20, 0 dust-over-text frames, rows 56.00px, 0ms tap delay, hand-off 0/5,184 px, Impeccable baseline 3. Always report it as "84 + 8", never "84".
   - **Dials:** `HAND_MS` (280–440), pressure step 0.5–0.9 units (1.3–1.5×), light-graphite opacity 0.8–0.9, detent 2–4px, ghost 0.35 (ceiling 0.45), `RUB_AFTER_LIFT`, dust fade (toward 160ms / two specks if it reads as punctuation), star ink `--ink-2` if black feels heavy.
   - Design record `design/pencil-star/` now includes the r4–r6 decision frames and `r4-trunc.json`.
-  **Rounds 7–8 (on branch `claude/visited-state-badge-list-yultpy`, not yet merged; owner: "more dramatic pop and angle"; a haptic click). Perfection stage: CD scored round 7 at 8, round 8 at 9/10. These SUPERSEDE the rounds 4–6 "Ink landing" bullet above. Keep that bullet as history only: the 1.1→1 press-in plus one 1.15× spread frame is no longer current behaviour.**
+  **Rounds 7–8 (merged to `main` `0c95a59`, 2026-09-28; owner: "more dramatic pop and angle"; a haptic click). Perfection stage: CD scored round 7 at 8, round 8 at 9/10. These SUPERSEDE the rounds 4–6 "Ink landing" bullet above. Keep that bullet as history only: the 1.1→1 press-in plus one 1.15× spread frame is no longer current behaviour.**
   - **Spin-stamp ink landing.** Row and popup share one table, `STAR_POP`, with `STAR_POP_MS` = 380:
 
     | Offset | Rotation | Scale | Easing into the next segment |
@@ -491,8 +491,8 @@ go stale, and don't leave it silently out of date either.
     - 0 dust-over-text frames, rows 56.00px, tap delay ≤~2ms over `main` (touchend→navigate 1.8–2.8ms vs ~1.0ms; imperceptible), hand-off 0/5,184, Impeccable baseline 3.
 
 **Priority (owner-requested, next up):**
-- **Swipe LEFT to mark visited** (owner, 2026-09-28) — queued to start
-  right after the Pencil Star round 7/8 (pop/angle/haptics) ships. "Copy
+- **Swipe LEFT to mark visited** (owner, 2026-09-28) — NEXT UP — concept stage
+  (Pencil Star rounds 7/8 shipped). "Copy
   the pattern": the row stroke that stars (right) gets a mirror (left)
   that stamps VISITED, completing the grammar (pencilled = care about,
   stamped = been). New interaction → **concept stage first** (per Team
