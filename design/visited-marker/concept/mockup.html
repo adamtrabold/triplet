@@ -1,0 +1,211 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Archivo'; src: local('Arial'); }
+  html,body{margin:0;padding:0;background:#F2EFE9;font-family:Archivo,Arial,sans-serif;}
+  .sheet{padding:24px;}
+  h2{font:700 15px/1.3 Archivo,Arial;color:#12293F;margin:28px 0 4px;}
+  .sub{font:400 11px/1.4 Archivo,Arial;color:#5A564C;margin:0 0 10px;max-width:640px;}
+  .row{display:flex;align-items:center;gap:18px;margin-bottom:6px;flex-wrap:wrap;}
+  .cell{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .cell .lab{font:600 9px/1 Archivo,Arial;color:#5A564C;text-transform:uppercase;letter-spacing:.03em;}
+  .tile{background:#F2EFE9;border:1px solid #D8CEBA;border-radius:4px;display:flex;align-items:center;justify-content:center;}
+  svg.marker-star-halo{stroke:#F2EBDD;fill:#1A1A18;}
+  svg.marker-star-ink{fill:#1A1A18;}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="g-restaurant" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h2v7h1V2h2v7h1V2h2v8a3 3 0 0 1-2 2.83V22h-4v-9.17A3 3 0 0 1 6 10V2z"/></symbol>
+<symbol id="g-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h13v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V4z"/><path fill="currentColor" d="M17 6h2a3 3 0 0 1 0 6h-2V6z"/><path fill="currentColor" d="M2 19h16v2H2z"/></symbol>
+<symbol id="g-bar" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18l-8 9v7h4v2H7v-2h4v-7L3 3z"/></symbol>
+<symbol id="g-attraction" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 6v11H9V8l3-6z"/><path fill="currentColor" d="M7 20h10v2H7z"/></symbol>
+<symbol id="g-nature" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l4 6h-2.5l3 5H14l3.5 6h-11L10 13H7.5l3-5H8l4-6z"/><path fill="currentColor" d="M11 18h2v4h-2z"/></symbol>
+<symbol id="g-shopping" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1a4 4 0 0 0-4 4v2h2V5a2 2 0 0 1 4 0v2h2V5a4 4 0 0 0-4-4z"/><path fill="currentColor" d="M4 7h16l-1.5 15h-13L4 7z"/></symbol>
+<symbol id="g-hotel" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6h3v7h9a5 5 0 0 1 5 5v3h-3v-2H5v2H2V6z"/><circle fill="currentColor" cx="8.5" cy="9.5" r="2.5"/></symbol>
+<symbol id="g-star" viewBox="0 0 24 24"><path fill="currentColor" stroke-linejoin="round" d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
+<symbol id="g-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M4 12.5l5 5.5L20 6"/></symbol>
+</svg>
+
+<div class="sheet" id="app"></div>
+
+<script>
+const CATEGORY_COLORS = {
+  restaurant: '#AC5019', cafe: '#6E4C22', bar: '#3D5A7A', attraction: '#A68018',
+  nature: '#1E3A2B', shopping: '#8A7AA8', hotel: '#2E2433', other: '#4F5450'
+};
+const PAPER = '#F2EBDD';
+const PAPER_FILED = '#E7DFD0';
+const INK = '#1A1A18';
+const INK2 = '#5A564C';
+const FIGURE_DEEP = '#A8400C'; // stand-in per-city accent for cluster fill
+
+function categoryInk(cat){ return CATEGORY_COLORS[cat] || CATEGORY_COLORS.other; }
+
+// ---- faithful port of badgeHtml() ----
+function badgeHtml(category, size, opts={}) {
+  const ink = opts.ink || 'currentColor';
+  const fill = opts.fill || PAPER;
+  const mark = opts.mark || ink;
+  const rim = opts.rim || 2;
+  const c = size/2, r = c - rim/2;
+  let shell;
+  if (opts.dashRim) {
+    shell = `<circle cx="${c}" cy="${c}" r="${r}" fill="${fill}" stroke="${ink}" stroke-width="${rim}" stroke-dasharray="${opts.dashRim}"/>`;
+  } else {
+    shell = `<circle cx="${c}" cy="${c}" r="${r}" fill="${fill}" stroke="${ink}" stroke-width="${rim}"/>`;
+  }
+  let glyph = '';
+  if (opts.glyph !== false) {
+    const field = size - rim*2;
+    const g = Math.min(field-2, Math.max(18, field-4));
+    const o = (size-g)/2;
+    glyph = `<svg x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24" style="color:${mark};opacity:${opts.glyphOpacity!=null?opts.glyphOpacity:1}"><use href="#g-${category}"/></svg>`;
+  }
+  let extra = opts.extra || '';
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${shell}${glyph}${extra}</svg>`;
+}
+
+function starHtml(size){
+  const s = size >= 24 ? size/2 : 10;
+  const c = size/2, r = c-1;
+  const x = c + r*Math.SQRT1_2 - s/2, y = c - r*Math.SQRT1_2 - s/2;
+  return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:${x}px;top:${y}px;overflow:visible">`+
+    `<use class="marker-star-halo" href="#g-star" stroke-width="${(3*24/s).toFixed(2)}" stroke-linejoin="round"/>`+
+    `<use class="marker-star-ink" href="#g-star"/></svg>`;
+}
+
+// Treatment A: dotted rim (passport-stamp motif ported to the badge shell)
+function markerA(category, size, {visited, starred, highlighted}={}) {
+  const ink = categoryInk(category);
+  const badge = badgeHtml(category, size, {
+    ink, fill: highlighted ? ink : PAPER, mark: highlighted ? PAPER : ink,
+    rim: highlighted ? 2.5 : 2,
+    dashRim: visited ? '1.6 2.1' : null
+  });
+  return wrap(badge, size, starred, highlighted);
+}
+
+// Treatment B: receded field + muted ink (paper-filed / desaturated)
+function muted(hex, amt){
+  // blend hex toward INK2 (desaturate/darken slightly) by amt 0-1
+  const h = hex.replace('#','');
+  const r=parseInt(h.substr(0,2),16), g=parseInt(h.substr(2,2),16), b=parseInt(h.substr(4,2),16);
+  const tr=90,tg=86,tb=76; // ~INK2
+  const mr=Math.round(r+(tr-r)*amt), mg=Math.round(g+(tg-g)*amt), mb=Math.round(b+(tb-b)*amt);
+  return `rgb(${mr},${mg},${mb})`;
+}
+function markerB(category, size, {visited, starred, highlighted}={}) {
+  const ink0 = categoryInk(category);
+  const ink = visited ? muted(ink0, 0.42) : ink0;
+  const fill = visited ? PAPER_FILED : PAPER;
+  const badge = badgeHtml(category, size, {
+    ink: highlighted ? ink : ink,
+    fill: highlighted ? ink : fill,
+    mark: highlighted ? fill : ink,
+    rim: highlighted ? 2.5 : 2,
+    glyphOpacity: visited && !highlighted ? 0.72 : 1
+  });
+  return wrap(badge, size, starred, highlighted);
+}
+
+// Treatment C: small checkmark tick, opposite corner from the star (bottom-left)
+function tickHtml(size){
+  const s = size >= 24 ? size*0.42 : 10;
+  const c = size/2, r = c-1;
+  const x = c - r*Math.SQRT1_2 - s/2, y = c + r*Math.SQRT1_2 - s/2;
+  return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:${x}px;top:${y}px;overflow:visible">`+
+    `<circle cx="12" cy="12" r="11" fill="${PAPER}" stroke="${INK}" stroke-width="1.6"/>`+
+    `<use href="#g-check" style="color:${INK}"/></svg>`;
+}
+function markerC(category, size, {visited, starred, highlighted}={}) {
+  const ink = categoryInk(category);
+  const badge = badgeHtml(category, size, {
+    ink, fill: highlighted ? ink : PAPER, mark: highlighted ? PAPER : ink,
+    rim: highlighted ? 2.5 : 2
+  });
+  const tick = visited ? tickHtml(size) : '';
+  return wrap(badge + tick, size, starred, highlighted, true);
+}
+
+// Treatment D: opacity reduction only
+function markerD(category, size, {visited, starred, highlighted}={}) {
+  const ink = categoryInk(category);
+  const badge = badgeHtml(category, size, {
+    ink, fill: highlighted ? ink : PAPER, mark: highlighted ? PAPER : ink,
+    rim: highlighted ? 2.5 : 2
+  });
+  const op = visited && !highlighted ? 0.55 : 1;
+  return `<div style="position:relative;width:${size}px;height:${size}px;opacity:${op}">${badge}${starred?starHtml(size):''}</div>`;
+}
+
+function wrap(inner, size, starred, highlighted, allowOverlap){
+  return `<div style="position:relative;width:${size}px;height:${size}px;line-height:0;overflow:${allowOverlap?'visible':'visible'}">${inner}${starred?starHtml(size):''}</div>`;
+}
+
+function cell(label, html){
+  return `<div class="cell"><div class="lab">${label}</div><div class="tile" style="width:40px;height:40px;">${html}</div></div>`;
+}
+
+function clusterBadge(count, {starred, allVisited, someVisited}={}){
+  const size = 22;
+  const c = size/2;
+  const fill = allVisited ? '#8a8378' : FIGURE_DEEP; // receded fill when fully cleared
+  const textOp = allVisited ? 0.85 : 1;
+  const ring = someVisited && !allVisited ? `<circle cx="${c}" cy="${c}" r="${c-2.6}" fill="none" stroke="${PAPER}" stroke-width="1" stroke-dasharray="1 1.6" opacity="0.55"/>` : '';
+  return `<div style="position:relative;width:${size}px;height:${size}px;line-height:0;"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">`+
+    `<circle cx="${c}" cy="${c}" r="${c-1}" fill="${fill}" stroke="#F2EBDD" stroke-width="2"/>`+
+    ring +
+    `<text x="${c}" y="${c}" text-anchor="middle" dominant-baseline="central" font-family="Archivo" font-weight="700" font-size="10" fill="#F2EBDD" opacity="${textOp}">${count}</text>`+
+    `</svg>${starred?starHtml(size):''}</div>`;
+}
+
+const CATS = ['restaurant','nature','hotel','shopping'];
+const SIZES = [{tag:'FAR 16px', px:16}, {tag:'NEAR 24px', px:24}, {tag:'HI 32px', px:32, hi:true}];
+
+function buildRowSet(title, sub, fn){
+  let html = `<h2>${title}</h2><p class="sub">${sub}</p>`;
+  SIZES.forEach(s=>{
+    html += `<div class="row">`;
+    CATS.forEach(cat=>{
+      html += cell(`${cat}<br>unvisited ${s.tag}`, fn(cat, s.px, {visited:false, highlighted:s.hi}));
+      html += cell(`${cat}<br>VISITED ${s.tag}`, fn(cat, s.px, {visited:true, highlighted:s.hi}));
+    });
+    // starred + visited combo at NEAR only
+    if (s.px===24 && !s.hi) {
+      html += cell(`restaurant<br>visited+starred`, fn('restaurant', s.px, {visited:true, starred:true}));
+    }
+    html += `</div>`;
+  });
+  return html;
+}
+
+let out = '';
+out += buildRowSet('Treatment A — Dotted rim (passport-stamp motif)',
+  'The badge shell switches from a solid rim to a fine dotted rim once visited — a direct, small-scale echo of the .row-stamp/dotted-track motif already established for list rows, applied to the existing circular shell rather than adding a new element.',
+  markerA);
+out += buildRowSet('Treatment B — Receded field + muted ink (aged-paper motif)',
+  'Field goes from --paper to --paper-filed and the category ink is pulled toward --ink-2, same directional move as .is-visited on list rows (older paper, never grey, ink never dies). No new geometry — same shell, same glyph, just recoloured.',
+  markerB);
+out += buildRowSet('Treatment C — Small checkmark tick (independent motif, opposite corner from the star)',
+  'A tiny bordered-circle checkmark badge sits at the badge\'s lower-left shoulder — the mirror position of the star\'s upper-right shoulder — so the two independent signals (care-about vs been-there) each get their own fixed slot and never collide.',
+  markerC);
+out += buildRowSet('Treatment D — Opacity only (no new geometry, no new colour)',
+  'The whole marker (shell + glyph + rim) drops to ~55% opacity once visited. Cheapest possible signal: no new element, no recolouring logic, works at literally any size including the smallest FAR tier.',
+  markerD);
+
+// Cluster case
+out += `<h2>Cluster badges — the aggregate case</h2>`;
+out += `<p class="sub">A cluster already carries one aggregate signal (the star, "any member starred"). Visited is being explored as a second, different rule: only recede the WHOLE cluster once every member is visited (a genuinely "cleared" area) — a partially-visited cluster stays at full strength, because there is still a reason to go there.</p>`;
+out += `<div class="row">`;
+out += cell('plain cluster (5)', clusterBadge(5));
+out += cell('cluster, some visited (5)', clusterBadge(5, {someVisited:true}));
+out += cell('cluster, ALL visited (5)', clusterBadge(5, {allVisited:true}));
+out += cell('cluster, starred + some visited', clusterBadge(5, {starred:true, someVisited:true}));
+out += cell('cluster, starred + ALL visited', clusterBadge(5, {starred:true, allVisited:true}));
+out += `</div>`;
+out += `<p class="sub">A rejected alternative shown for comparison: a dashed inner ring meaning "some visited inside" (visible above on the "some visited" cluster) — tested and NOT recommended, see README.</p>`;
+
+document.getElementById('app').innerHTML = out;
+</script>
+</body></html>
