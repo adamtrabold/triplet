@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Home-screen (standalone) launch: draw under the status bar / Dynamic
+       Island instead of iOS reserving a solid band above the page. Every
+       top-anchored control adds env(safe-area-inset-top) to clear it; in a
+       normal Safari tab that inset is 0, so nothing moves there. -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Triplet</title>
   <!-- The removed map-corner seal, reduced to its single most legible glyph:
        navy field, cream inset ring, one letter instead of the whole
@@ -203,6 +210,7 @@
       color: var(--ink);
       overflow: hidden;
       height: 100vh;
+      height: 100dvh;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -232,6 +240,7 @@
       line-height: 20px;
       letter-spacing: 0.06em;
       padding: 12px var(--gutter);
+      padding-top: calc(12px + env(safe-area-inset-top, 0px));
       display: none;
       position: fixed;
       top: 0;
@@ -252,7 +261,7 @@
     #floatingAddBtn,
     #accountBtn {
       position: fixed;
-      top: var(--s4);
+      top: calc(var(--s4) + env(safe-area-inset-top, 0px));
       background: var(--navy);
       border: none;
       color: var(--figure);
@@ -301,7 +310,7 @@
 
     #accountDropdown {
       position: fixed;
-      top: 74px;
+      top: calc(74px + env(safe-area-inset-top, 0px));
       right: 74px;
       background: var(--paper);
       border: 2px solid var(--navy);
@@ -360,6 +369,10 @@
          transform settles. */
     }
 
+    /* Leaflet's zoom control clears the status bar / Dynamic Island in a
+       home-screen launch (inset is 0 in a Safari tab). */
+    .leaflet-top { margin-top: env(safe-area-inset-top, 0px); }
+
     #mapContainer {
       position: absolute;
       top: 0;
@@ -373,6 +386,7 @@
     #controls {
       position: relative;
       padding: 80px var(--gutter) var(--s6) 56px;   /* 56px left = the spine */
+      padding-top: calc(80px + env(safe-area-inset-top, 0px));
       border-bottom: 2px solid var(--navy);
       background: var(--paper);
       display: none;
