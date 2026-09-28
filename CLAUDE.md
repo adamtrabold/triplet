@@ -75,6 +75,14 @@ fresh agents when a warm one has the context.
   (stages, CD ≥9, UX verification, 3x/4x/1x + real-timing review,
   measured claims, Impeccable baseline, the gates, byte-compare before
   integrating) still applies in full.
+- **Scope the test gate to what the change touches** (owner, 2026-09-28:
+  "there's no reason these simple tweaks should risk breaking
+  everything"). Keep diffs confined; run only the suites that cover the
+  touched code (e.g. popup change → popup/replay/haptic cases +
+  popup-open + Impeccable), iterate on fast checks, and run the full
+  gesture gate (touch suite, flip6, curve8, dust) only when the diff
+  touches the shared row-gesture/touch plumbing. Agents report which
+  checks they ran and why those cover the diff.
 
 ## Architecture
 
