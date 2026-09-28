@@ -492,8 +492,16 @@ go stale, and don't leave it silently out of date either.
     - 0 dust-over-text frames, rows 56.00px, tap delay ≤~2ms over `main` (touchend→navigate 1.8–2.8ms vs ~1.0ms; imperceptible), hand-off 0/5,184, Impeccable baseline 3.
 
 **Priority (owner-requested, next up):**
-- **Swipe LEFT to mark visited** (owner, 2026-09-28) — NEXT UP — concept stage
-  (Pencil Star rounds 7/8 shipped). "Copy
+- **Swipe LEFT to mark visited** (owner, 2026-09-28) — **concept "carry and
+  press" APPROVED by the owner (CD concept 9/10; `design`/scratch `visit/c1-*`);
+  now in the PERFECTION stage.** Stamp carried in lifted from the action
+  column, pressed in one instant at the 56px commit (ink + squash + field
+  wash on one frame); un-visit lifts it off. Rejected: slam, roller,
+  long-press. Perfection conditions: only a near-still (<~4px) tap on the
+  X may delete; a pressed stamp never moves (concept smeared ~8px);
+  "lifted" reads raised, not faded; the press lands as a clear thunk;
+  inherits the star's FLIP/detent/reduced-motion rules and must handle
+  starred+visited rows. "Copy
   the pattern": the row stroke that stars (right) gets a mirror (left)
   that stamps VISITED, completing the grammar (pencilled = care about,
   stamped = been). New interaction → **concept stage first** (per Team
