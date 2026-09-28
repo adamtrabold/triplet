@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Viewport test</title>
   <!-- Standalone diagnostic, not part of the app. Which full-screen layer
        does iOS Safari draw behind its status bar and toolbar? Pick a
@@ -34,6 +37,17 @@
     body.v-absolute .layer { position: absolute; top: 0; left: 0; right: 0; height: 100lvh; }
     /* D: plain in-flow page content, taller than the screen by a hair */
     body.v-flow .layer { position: relative; min-height: calc(100lvh + 1px); }
+    /* E/F: a bottom SHEET like the app's list. E = fixed bottom 0 (the app
+       today). F = absolute inside a 100lvh-tall root (the candidate fix). */
+    html.v-sheetabs, html.v-sheetabs body { height: 100lvh; }
+    body.v-sheetfix .layer, body.v-sheetabs .layer { position: fixed; inset: 0; }
+    .sheet { display: none; left: 0; right: 0; bottom: 0; height: 300px; z-index: 5;
+      background: repeating-linear-gradient(0deg, #F2EBDD 0 44px, #12293F 44px 46px); }
+    .sheet::after { content: 'SHEET BOTTOM EDGE'; position: absolute; left: 0; right: 0; bottom: 0; height: 20px;
+      background: #C0392B; color: #fff; font: 700 12px/20px sans-serif; text-align: center; }
+    body.v-sheetfix .sheet { display: block; position: fixed; }
+    body.v-sheetabs .sheet { display: block; position: absolute; }
+    body.v-sheetfix .panel, body.v-sheetabs .panel { top: 35%; }
     .panel {
       position: fixed; left: 16px; right: 16px; top: 50%; transform: translateY(-50%);
       background: #F2EBDD; border: 2px solid #12293F; padding: 12px; z-index: 10;
@@ -52,6 +66,7 @@
 <body>
   <div class="layer"></div>
   <div id="probe"></div>
+  <div class="sheet"></div>
   <div class="panel">
     <h1>Does the green striped layer reach behind the clock (red bar at the very top)?</h1>
     <div class="btns">
@@ -59,16 +74,20 @@
       <a href="?v=fixedneg" data-v="fixedneg">B · fixed, pulled out</a>
       <a href="?v=absolute" data-v="absolute">C · absolute</a>
       <a href="?v=flow" data-v="flow">D · page content</a>
+      <a href="?v=sheetfix" data-v="sheetfix">E · sheet, fixed</a>
+      <a href="?v=sheetabs" data-v="sheetabs">F · sheet, absolute</a>
     </div>
     <div id="read"></div>
   </div>
   <script>
     const v = new URLSearchParams(location.search).get('v') || 'fixed';
     document.body.className = 'v-' + v;
+    document.documentElement.className = 'v-' + v;
     document.querySelectorAll('.btns a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
     const read = () => {
       const p = getComputedStyle(document.getElementById('probe'));
-      const r = document.querySelector('.layer').getBoundingClientRect();
+      const sh = document.querySelector('.sheet');
+      const r = (getComputedStyle(sh).display !== 'none' ? sh : document.querySelector('.layer')).getBoundingClientRect();
       document.getElementById('read').textContent =
         `variant ${v}\ninset top ${p.top}  bottom ${p.bottom}\n` +
         `innerHeight ${innerHeight}  screen ${screen.height}\n` +
