@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+/* ---- tokens copied verbatim from index.html :root (concept mockup only) ---- */
+:root {
+  --paper:        #F2EBDD;
+  --paper-raised: #FAF5EA;
+  --paper-pressed: #DCD3C3;
+  --paper-warm:   #F4E6DA;
+  --paper-filed:  #E7DFD0;
+  --navy:         #12293F;
+  --ink:          #1A1A18;
+  --ink-2:        #5A564C;
+  --hair:         #D8CEBA;
+  --figure:      #EE7434;
+  --figure-deep: #A8400C;
+  --s1: 4px;  --s2: 8px;   --s3: 12px;  --s4: 16px;
+  --s6: 24px; --s8: 32px;  --s12: 48px;
+  --col-glyph:  28px;
+  --col-action: 28px;
+  --gap:    12px;
+  --gutter: 16px;
+  --font-ui: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: var(--font-ui); background:#ccc; color:var(--ink); padding:24px; }
+.row { display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; margin-bottom:32px; }
+.phone { width:390px; background:var(--paper); border:1px solid #999; }
+.section-label { font-family: var(--font-ui); font-stretch:75%; text-transform:uppercase; font-size:11px; letter-spacing:.08em; font-weight:700; color:#333; margin-bottom:8px; max-width:390px; }
+.note { font-family: var(--font-ui); font-size:11px; color:#444; max-width:390px; margin-top:6px; line-height:1.5; }
+
+/* ---- real header chrome, copied verbatim (#locationsHeader) ---- */
+#locationsHeader { display:flex; align-items:center; gap:var(--gap); min-height:56px; padding:var(--s3) var(--gutter); background:var(--paper); color:var(--navy); border-bottom:1px solid var(--hair); }
+#locationsHeader h2 { font-stretch:75%; text-transform:uppercase; font-size:15px; line-height:20px; letter-spacing:.08em; font-weight:700; margin:0; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; gap:6px; }
+#collapseBtn, #toggleFiltersBtn, #centerMeBtn, #sortBtn { background:transparent; border:none; color:var(--navy); width:32px; height:32px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:0; }
+#collapseBtn { font-size:14px; line-height:1; }
+
+/* NEW, treatment 1: the heading text IS the control. The double-caret is
+   borrowed straight from collapseBtn's existing ▼ glyph -- same shape,
+   same voice -- so it reads as "this text expand/changes" using a grammar
+   already on screen, not a new icon language. */
+.sort-caret { display:inline-flex; flex-direction:column; gap:1px; color:var(--ink-2); flex-shrink:0; }
+.sort-caret svg { width:8px; height:5px; display:block; }
+
+/* NEW, treatment 2 (considered, not recommended): a 4th icon-only button,
+   same 32px square as its siblings, whose GLYPH swaps per mode. */
+.sort-icon-btn svg { width:18px; height:18px; }
+
+.tier-caption { padding: var(--s2) var(--gutter) 2px; font-size:10px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--ink-2); background:var(--paper-raised); border-bottom:1px dashed var(--hair); }
+
+/* ---- location rows, copied structure (unchanged from A/B/C draft) ---- */
+#locationsList { }
+.location-card { display:grid; grid-template-columns: var(--col-glyph) 1fr auto; column-gap: var(--gap); align-items:center; min-height:56px; padding: var(--s2) var(--gutter); background:var(--paper); border-bottom:1px solid var(--hair); }
+.location-card.is-visited { background: var(--paper-filed); }
+.row-badge { width:var(--col-glyph); height:var(--col-glyph); display:flex; align-items:center; justify-content:center; }
+.row-badge .dot { width:14px; height:14px; border-radius:50%; border:2px solid var(--dot, var(--ink-2)); }
+.row-main { min-width:0; position:relative; }
+.location-card.is-starred .row-main { padding-left:26px; }
+.row-star { position:absolute; left:0; top:50%; width:18px; height:18px; margin-top:-9px; color:var(--ink); font-size:18px; line-height:18px; }
+.location-card h3 { font-size:15px; line-height:20px; font-weight:600; letter-spacing:-.005em; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.row-meta { font-stretch:75%; text-transform:uppercase; font-size:10px; line-height:12px; letter-spacing:.1em; font-weight:700; color:var(--ink-2); margin-top:var(--s1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.row-stamp-mini { width:44px; height:20px; border:1.5px solid color-mix(in srgb, var(--navy) 82%, transparent); border-radius:50%; color:color-mix(in srgb, var(--navy) 82%, transparent); font-size:8px; font-weight:700; letter-spacing:.08em; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-right:var(--s2); }
+.delete-btn { width:28px; height:28px; display:flex; align-items:center; justify-content:center; color:var(--ink-2); font-size:16px; }
+</style>
+</head>
+<body>
+
+<div class="section-label">TREATMENT 1 (recommended) &mdash; the "All Locations" heading itself is the dial. No new row, no new chrome; the tap target and text that were already sitting there just do double duty. Tapping cycles; the double-caret is the only new pixel, and it's collapseBtn's own ▼ split in two.</div>
+<div class="row">
+  <div>
+    <div class="phone">
+      <div id="locationsHeader">
+        <button id="collapseBtn">▼</button>
+        <h2>All Locations<span class="sort-caret"><svg viewBox="0 0 8 5"><path d="M0 0L4 5L8 0Z" fill="currentColor"/></svg><svg viewBox="0 0 8 5"><path d="M0 0L4 5L8 0Z" fill="currentColor" opacity="0.5"/></svg></span></h2>
+        <button id="toggleFiltersBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></svg></button>
+        <button id="centerMeBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="23"/><line x1="1" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="23" y2="12"/></svg></button>
+      </div>
+    </div>
+    <div class="note">Frame 1 &mdash; default state, before the owner has ever touched sort. Reads as a plain title, same as production today.</div>
+  </div>
+  <div>
+    <div class="phone">
+      <div id="locationsHeader">
+        <button id="collapseBtn">▼</button>
+        <h2>What's Left<span class="sort-caret"><svg viewBox="0 0 8 5"><path d="M0 0L4 5L8 0Z" fill="currentColor"/></svg><svg viewBox="0 0 8 5"><path d="M0 0L4 5L8 0Z" fill="currentColor" opacity="0.5"/></svg></span></h2>
+        <button id="toggleFiltersBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></svg></button>
+        <button id="centerMeBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="23"/><line x1="1" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="23" y2="12"/></svg></button>
+      </div>
+    </div>
+    <div class="note">Frame 2 &mdash; one tap. Default (v1) mode. Same weight/tracking as "All Locations" so the header never visibly jumps in size.</div>
+  </div>
+  <div>
+    <div class="phone">
+      <div id="locationsHeader">
+        <button id="collapseBtn">▼</button>
+        <h2>Starred<span class="sort-caret"><svg viewBox="0 0 8 5"><path d="M0 0L4 5L8 0Z" fill="currentColor"/></svg><svg viewBox="0 0 8 5"><path d="M0 0L4 5L8 0Z" fill="currentColor" opacity="0.5"/></svg></span></h2>
+        <button id="toggleFiltersBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></svg></button>
+        <button id="centerMeBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="23"/><line x1="1" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="23" y2="12"/></svg></button>
+      </div>
+    </div>
+    <div class="note">Frame 3 &mdash; second tap. Third tap ("Recent") then a fourth returns to "What's Left" &mdash; a closed loop, never a dead end.</div>
+  </div>
+</div>
+
+<div class="section-label">TREATMENT 2 (considered, not recommended) &mdash; a 4th icon-only button beside collapse/filters/center-me, glyph swaps per mode (footprint / star / open book). Rejected below.</div>
+<div class="row">
+  <div>
+    <div class="phone">
+      <div id="locationsHeader">
+        <button id="collapseBtn">▼</button>
+        <h2>All Locations</h2>
+        <button id="sortBtn" class="sort-icon-btn" title="Sort: What's Left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l4-9 4 9M5.5 14h5M14 7h6M14 12h4M14 17h2"/></svg></button>
+        <button id="toggleFiltersBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></svg></button>
+        <button id="centerMeBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="23"/><line x1="1" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="23" y2="12"/></svg></button>
+      </div>
+    </div>
+    <div class="note">A real 5th tap target in an already-busy 4-button header row. "All Locations" stays inert, so the sort state now lives ONLY in a small glyph nobody has a reason to look at until told what it means &mdash; the opposite of "obvious because simple." Kept as the fallback if the owner finds treatment 1 too clever/undiscoverable in practice.</div>
+  </div>
+</div>
+
+<div class="section-label">List body under Treatment 1, "What's Left" (default mode) &mdash; tiers shown with captions for this mockup only; production has no caption rows, tiers are conveyed by the field/stamp/star cues already shipped.</div>
+<div class="row">
+  <div>
+    <div class="phone">
+      <div id="locationsList">
+        <div class="tier-caption">Not visited, starred</div>
+        <div class="location-card is-starred">
+          <div class="row-badge"><span class="dot" style="--dot:#AC5019"></span></div>
+          <div class="row-main"><span class="row-star">★</span><h3>Slippurinn</h3><div class="row-meta">Restaurant · Reykjavík</div></div>
+          <div class="delete-btn">✕</div>
+        </div>
+        <div class="tier-caption">Not visited</div>
+        <div class="location-card">
+          <div class="row-badge"><span class="dot" style="--dot:#328177"></span></div>
+          <div class="row-main"><h3>Grjótaþorpið</h3><div class="row-meta">District · Reykjavík</div></div>
+          <div class="delete-btn">✕</div>
+        </div>
+        <div class="location-card">
+          <div class="row-badge"><span class="dot" style="--dot:#A68018"></span></div>
+          <div class="row-main"><h3>Hallgrímskirkja</h3><div class="row-meta">Attraction · Reykjavík</div></div>
+          <div class="delete-btn">✕</div>
+        </div>
+        <div class="tier-caption">Visited, starred</div>
+        <div class="location-card is-starred is-visited">
+          <div class="row-badge"><span class="dot" style="--dot:#6E4C22"></span></div>
+          <div class="row-main"><span class="row-star">★</span><h3>Reykjavík Roasters</h3><div class="row-meta">Cafe · Reykjavík</div></div>
+          <div style="display:flex;align-items:center;flex-shrink:0;"><div class="row-stamp-mini">VSTD</div><div class="delete-btn">✕</div></div>
+        </div>
+        <div class="tier-caption">Visited</div>
+        <div class="location-card is-visited">
+          <div class="row-badge"><span class="dot" style="--dot:#AC5019"></span></div>
+          <div class="row-main"><h3>Fish Market</h3><div class="row-meta">Restaurant · Reykjavík</div></div>
+          <div style="display:flex;align-items:center;flex-shrink:0;"><div class="row-stamp-mini">VSTD</div><div class="delete-btn">✕</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
