@@ -304,3 +304,243 @@ This goes into `index.html` on branch `claude/visited-state-badge-list-yultpy`. 
 10. Popup star: one tap draws, then inks; one tap rubs out to hollow; with the popup open it plays once and doesn't replay on refetch.
 11. The first two popup stars replay the stroke on the on-screen row; after that it never replays.
 12. Carry-over checks from before this work (visited stamp, visited field, list-tap popup) that are still open stay on the list.
+
+---
+
+# Round 4 (the owner's iPhone feedback: too fast, too pointy, size/placement)
+
+SCORE 8/10
+
+## Verdict
+
+**The diagnosis is excellent, and the main fix is right.** The per-frame harness shows why the owner couldn't see the star:
+- On `main`, a natural swipe shows the sketch for **4 frames** (66ms); a brisk one for 2.
+- The hand-speed pen gives **21 frames at every swipe speed** without giving up the finger's ownership of the name or the commit.
+
+I read `r4-realtime-r4.png` frame by frame, 35 compositor frames of one natural swipe. For the first time, you can *watch a star being pencilled*: a tick, then a Λ, then a crossbar, then a star, and then the ink. That fixes the owner's complaint.
+
+**It is not a 9 yet, for three reasons:**
+1. **The commit is no longer felt.** UX's R4-S1 is real. The fix UX proposes would partly re-create the owner's complaint (ruling below).
+2. **P1 creates a two-icon problem on exactly the rows the owner will star most.** I rendered it myself because the pack didn't include it (`cd4-rest-P1-*.png`, `cd4-rest-P0-*.png`):
+   - A starred **restaurant** row in P1 shows an orange fork ring next to an 18px orange star. In Stockholm they are nearly the same colour, and read as one paired icon.
+   - In **Copenhagen**, the red `--figure-deep` star sits next to the orange restaurant ring and clashes.
+   - At 1x, the left edge becomes two icon columns.
+
+   That is precisely the "next to the category icon… feels a little weird" the owner flagged.
+3. **The ink-landing frame regressed in real time.** In `r4-realtime-r4.png`, frames 23 and 24 (+392 and +406ms) show a large, soft, blurred star. The 1.3× spread frame, scaled to an 18px star, overhangs by about 3px and now holds for **2 frames**. At 4x (`r4-4x-star-unstar.png`, frame 27) it reads as a tan sticker outline. My round-2 rule was that the ink frame must be the crispest frame, and at real timing it is now the softest.
+
+## What's working
+
+- **The hand-speed pen (option B).**
+  - The finger owns the name and the 56px commit; the pen can't outrun a hand; backing off retracts it at once.
+  - After a committed release, it finishes drawing and then inks.
+  - UX's honesty matrix (55/62 never star; 68/72/90 star; fast to 90 then back to 40 does not star) holds.
+  - Taps, press, diagonal scroll, edge and delete are all unchanged from `main`.
+- **The order of the finish.** In real time, the name docks against the pencil sketch and *then* the ink lands. The ink becomes the last beat, like a stamp coming down. Keep this order.
+- **Popup** at 72ms per stroke and ink at 380ms. State flips on the tap, so pace never blocks input. Approved.
+- **S1, the soft star, is approved** at 4x and 1x in the row, popup and map pin. It is softened and still unmistakably a star. S2 goes blobby at 1x, as the designer found. Using one path for `#g-star`, `#g-star-open` and `STAR_D`, with capsule pencil strokes, keeps it one mark.
+- **Graphite contrast improves** with the bigger star (≥4.67 at 3x, ≥4.06 at 1x). The hand-off stays 0/5,184 pixels.
+- **Unstar** reads well at real time: colour, then grain, then erosion, then ghost, then dust, with no glitter.
+
+## Ruling: the R4-S1 tension
+
+**Rejected as written.** Finishing the pen within about 120ms of crossing 56 puts the fast-swipe sketch back to about 7–12 frames, which reintroduces the owner's exact complaint. UX is right, though, that the commit must be legible *before* lift-off.
+
+**The answer: signal the commit with the pencil's weight, not its speed.** When finger travel crosses 56, all within the same frame:
+1. **Pressure.** Every stroke already drawn, and every stroke still to come, steps from sketch weight to a heavier, darker graphite: about 1.4× width, 100% opacity instead of about 85%, and grain density up. The hand is visibly pressing harder: "this one counts".
+   - A stroke that is backed off before 56 never gets heavy.
+   - This is legible at a glance, even mid-sketch, and it belongs to the metaphor (you go over a pencil star harder once you've decided).
+2. **The detent.** The name block takes a 3px catch at 56 (a short spring against the ×0.35 rubber-band), so the threshold is felt in the finger, not only seen.
+3. **Pace.** After commit, the pen may speed up modestly: remaining strokes at no less than 55ms each, and the whole sketch visible for **at least 280ms** (the designer's own floor). Ink lands when the sketch completes. It does not jump.
+
+**Unstar mirror:** at the crossing of 56, the first eraser speck drops at once (the commit cue). The rest of the dust falls when the rub completes.
+
+**Measure:**
+- Frames from crossing 56 to the first heavy-graphite frame: **≤1**.
+- Time from crossing to ink: ≤250ms for a natural swipe.
+- Sketch frames at a brisk swipe: ≥17 at 60Hz.
+- A 3x/4x pair showing released-at-62 against released-at-72: mid-sketch, the two must be distinguishable.
+
+## UX findings
+
+- **R4-S2: ACCEPT.** When a new row locks, fast-forward the previous row. It must jump to its **ink** frame and still play the 160ms ink press-in; don't snap silently to the printed star, because the owner must see each star land. Then run the FLIP. Re-test 100/250ms: both must star.
+- **N4-a: promoted.** It is the core of the placement ruling below.
+- **N4-b: ACCEPT.** Start an unstar's name home 100ms before the dust falls. Today it freezes for about 300ms after lift-off (`r4-film-unstar.png`, frames 10–28), which is long enough to read as stuck.
+
+## Ruling: P1 or P0
+
+**P1 is the right *structure*.** It is what the owner reached for: both lines move, the star is a mark on the whole entry, and it gives the pencil room to be seen. P0 answers none of that. The ragged text edge on starred rows is acceptable *because* stars are scarce: it reads as a guidebook call-out.
+
+**But P1 must not ship in `--figure-deep`.** Next to the category badge, a big accent-coloured star becomes a second badge, and on restaurant rows it merges with the badge (Stockholm) or clashes with it (Copenhagen).
+
+**Direction: make the P1 printed star an ink star.** Use `--ink` for the list, the popup and the add form, which also matches the map, where the star is already `--ink` on a paper halo.
+- This is historically right: Baedeker's stars were printed in black ink, next to the entry.
+- It is metaphor-right: the pencil becomes *ink* when it commits.
+- It separates the star from every category colour in every city, so the star reads as typography and the badge as a symbol. The one-mark-everywhere goal from S1 is then satisfied in colour as well as shape.
+- Highlighted rows stay `--paper`.
+
+Show P1 in `--figure-deep` against P1 in `--ink`:
+- on starred restaurant, cafe and attraction rows, in all 5 cities;
+- at 3x, 4x and 1x;
+- with the contrast figures.
+
+The ink landing (the press-in plus a trimmed spread) then lands in ink. If the ink star makes the list feel heavy, the fallback is `--ink-2` at 18px, not `--figure-deep`. P0 remains the one-file fallback only if the owner dislikes P1 on the device.
+
+## Directions for round 5, in order
+
+1. **Placement colour.** Build P1 with an `--ink` printed star everywhere (list, popup filled, add form; the map is already ink), and show the side-by-side above. Re-measure every contrast; ink on paper, filed and pressed will be well above 3:1.
+2. **R4-S1 as ruled.** Pressure step plus the 3px detent at 56, pace floors as specified, and the unstar speck. Deliver the 62-vs-72 stills and a real-time compositor strip of a brisk swipe.
+3. **Fix the ink-landing frame.**
+   - The spread must hold for exactly **1 frame** at 60Hz. Scale it to the star, so it overhangs by ≤1.5px (about 1.15× at 18px), not 1.3×.
+   - Show 5 real-time frames around the landing at 3x, plus the 4x peak. The peak frame must again be the crispest one.
+4. **R4-S2** fast-forward (with the visible ink press-in) and **N4-b** overlap. Re-run UX's repeated-starring matrix.
+5. **Re-run everything:** the suite in both motion modes, UX's scripts, the popup-open suite, rows 56.00px, 0ms tap delay, the hand-off, contrast in all 5 cities (now including the ink star), Impeccable baseline 3. Also produce `r5-proposed.diff` against `main`.
+
+## Dials to carry to the iPhone
+
+- **`HAND_MS`:** range 280–440, default 360.
+- **Pressure step:** 1.3–1.5×.
+- **Ghost opacity:** 0.35, ceiling 0.45.
+
+---
+
+# Round 5
+
+SCORE 8/10
+
+## Verdict
+
+**All three of my round-4 blockers are fixed at real timing.** R4-S2 and N4-b are fixed too. This is now the best version of the gesture: you watch a pencil star being drawn, the stroke visibly presses harder when it counts, and a black ink star lands as the last beat.
+
+**One new defect stops me from staking a 9 on it.** It is the same class of defect the owner and I have caught before: a mark that reads as a typo. N4-b now starts the unstarred name home 100ms *before* the eraser dust falls. In P1, the star's slot is where the text column begins at rest, so the name slides home **over the falling dust**. For about 100–250ms, the specks sit on the meta line and read as diacritics:
+- "ÀTTRACTION" at 1x (`r5-1x.png`, unstar frame 27);
+- a speck over the T (frame 30);
+- a stray point before or above the "A" at 3x (`r5-film-unstar.png`, frames 26–32, 434–534ms).
+
+This is round 2's "/Café" problem in reverse, and the owner will see it on their first unstar.
+
+## My three blockers, verified at real timing
+
+| # | Blocker | Evidence | Result |
+|---|---|---|---|
+| 1 | **Pressure, not speed** | `r5-62-vs-72.png`: light graphite at 62 vs heavy, darker, denser graphite at 72, distinguishable mid-sketch at 3x and 4x. `r5-realtime-brisk.png`: crossing at ~55ms, sketch frames #2 → #18 (17 frames, about 265ms), ink at +310ms. It never jumps: strokes keep their pace and weight changes at the crossing. UX confirmed `.sg-press` on the crossing event itself, and that a 62px stroke never goes heavy. Metrics: 0 frames to heavy; 17 sketch frames at brisk; crossing → ink 250ms (natural). Unstar speck at the crossing: 0 frames. | **Pass** |
+| 2 | **Black ink in all 5 cities** | `r5-restaurant-5cities-3x.png`, normal and highlighted rows. The ink star is cleanly separate from the orange fork ring in every city. The Stockholm merge and Copenhagen clash are gone. The highlighted row shows a `--paper` star and reads by shape and the 12px gap. At 1x it reads as "★ Name", typography rather than a second badge. Contrast 14.69 / 13.17 / 11.74, highlighted ≥4.79. | **Pass** |
+| 3 | **One 1.15× spread frame** | `r5-ink-landing-4x.png`: the +10ms frame is the only enlarged one, crisp-edged, with no halo band; +15ms is the 1.1× press-in, and the star is crisp and settled from +32ms. `r5-ink-landing-3x.png` is the same. The rAF show/hide can't straddle two frames. Measured: 1 frame at every speed. The peak is crisp again. | **Pass** |
+
+**Also verified:**
+- **R4-S2:** 4/4 at 0/100/250/400ms, and 3/3 rapid strokes, each visibly inking.
+- **N4-b:** the name starts home 56ms after lift. The mechanism is right; only its collision with the dust is wrong.
+- **Reduced-motion film:** no detent, the pen follows the finger, lands at once.
+- **Popup:** 1.1 press, 1.15 spread, 16ms.
+- Rows 56.00px, 0ms tap delay, hand-off 0/5,184 pixels, suite and UX scripts matching `main`, Impeccable baseline 3.
+
+## Ruling on UX N5-a (the FLIP test)
+
+**Accept and require it.**
+- UX's skeptical frame log is the real evidence. The only unstar swap happens under the feathered mask (truncation edges at x = 314 and 340, fade starting at 242, text left edge unchanged), then 13 frames of motion.
+- `flip5.js` must be rewritten to assert exactly that:
+  - no `cardSignature`/`h3` change within the last 3 motion frames;
+  - any change of `clientWidth` or truncation edge happens with the old and new edges both at or beyond the mask's fade start;
+  - the name's measured screen x (from `getBoundingClientRect`, not the transform string) changes on at least 3 frames after the swap;
+  - under reduced motion, it asserts the single-frame landing explicitly rather than passing trivially.
+
+## Directions for round 6 (one defect plus hygiene; no new ideas)
+
+1. **The dust must never touch text.** Pick whichever is cleanest, and show it at real timing:
+   - **(a)** The dust falls *down and left*, away from the text column. It drifts ≤2px as before, but its origin is the star's lower-left inner corner, and it has faded to 0 before the name's left edge reaches the dust's x.
+   - **(b)** Keep the dust where it is, and let the name's slide home begin at the dust fade-out minus about 40ms, not the dust fall minus 100ms. This keeps most of N4-b's benefit: measure lift → name-moving and keep it ≤150ms.
+
+   **Measure** at 60Hz (both motion modes, long and short names, visited and unvisited):
+   - frames in which any dust pixel with opacity >0.05 lies inside the `h3` or meta text box: **must be 0**;
+   - lift → name moving: **≤150ms**.
+
+   **Deliver** `r6-film-unstar.png` (3x), a 1x unstar strip, and a 4x crop of the dust frames next to the text.
+2. **Rewrite `flip5.js`** per N5-a, and keep it in the suite.
+3. **Re-run** the touch suite (both modes), UX's scripts, popup-open 20/20, rows, tap delay, hand-off, contrast and Impeccable. Produce `r6-proposed.diff` against `main`.
+
+If item 1 measures 0 collision frames with a lift → move time ≤150ms, and nothing else moves, round 6 gets my approval. These are the integration conditions I will attach then:
+- `CLAUDE.md`: update the Pencil Star entry with the pace, pressure, P1 and ink numbers;
+- replace iPhone checks 5 and 7 with the round-5 checks;
+- `flip5.js` as specified above.
+
+---
+
+# Round 6
+
+SCORE 9/10
+
+## Verdict
+
+**Approved for integration.** The one round-5 defect is fixed, and nothing else moved.
+
+I checked the real-time strips frame by frame at 3x, 1x and 4x (`r6-realtime-unstar-long-{3x,1x,4x}.png`, `-short-3x`):
+- The first speck drops at the crossing (frame 7, +136ms) just left of the star.
+- The rest fall after the rub and are swept 11–13px left into the gutter while the name is already sliding home.
+- Everything has faded by about 530ms.
+- There are **0 frames with a speck over text** (round 5 had 459 across the runs). UX reproduced this with an independent detector that does flag round 5.
+- Lift → name moving: ≤117ms (12ms in UX's runs). The freeze is gone.
+
+**Does it read as dirt left by the badge? No.**
+- The specks are 1.5px, faint, and moving. They sit in the empty gutter for at most about 170ms, while the eye is tracking the name coming home, and they are gone before it lands.
+- At rest, the gutter is clean in every strip.
+
+**The one thing I watched most closely:** at 4x (frames 10–11), two specks briefly stack vertically about 5px left of "ATTRACTION" and could suggest a colon. At 3x and 1x at real speed they are sub-perceptual and in motion, so this doesn't block. It goes on the iPhone list with a dial, below.
+
+**Regressions: none.**
+- UX's full re-run matches `main` on taps, press, diagonal, edge, delete and popup.
+- Pressure, R4-S2 and N4-b hold.
+- Hand-off 0/5,184 px; contrast unchanged; rows 56.00px; 0ms tap delay; Impeccable baseline 3.
+- The 88 → 84 drop is exactly the obsolete R2-S1 block (2 rows × 2 modes), replaced by a superset. `flip6.js` passes 8/8 and its at-rest-swap control fails 4/4, so it can detect the defect it guards against.
+
+It is not a 10 only because feel, the grain, the pressure step and the dust can be judged only on the owner's iPhone.
+
+## Integration conditions
+
+1. **Apply `r6-proposed.diff`** to `index.html` on `main` (`ab82197`). It must apply cleanly and produce `r6-proto.html` byte-for-byte. If `main` has moved, re-anchor with `build6.py`'s asserted anchors; never hand-merge.
+2. **Test gate: "84 + 8".** The touch suite (`test6.js`) must pass 84/84 in both motion modes, plus `flip6.js` 8/8 with its negative control failing 4/4.
+   - Report the gate as **"84 + 8"** everywhere (commit message, `CLAUDE.md`, summaries), never as "84".
+   - Also: the popup-open suite 20/20; UX's `ux2-*` scripts matching `main`; rows 56.00px; tap delay 0ms added; hand-off 0/5,184; the dust detector at 0 over-text frames; Impeccable exactly the 3 baseline findings.
+   - Run all of this on the integrated `index.html` with injected rows, not only on the prototype.
+3. **`CLAUDE.md`: rewrite the "Personal priority star — the Pencil Star" entry.** Keep its history and rulings, and add or replace:
+   - **Display:**
+     - P1: an 18px star in its own slot at the head of the text column, centred across both lines; starred rows indent both lines 26px.
+     - The star is **black ink (`--ink`) everywhere** (list, popup filled, add form, gesture ink; the map already was); `--paper` on highlighted rows. `--figure-deep` was dropped because an 18px accent star became a second badge and merged with or clashed against restaurant rings (Stockholm, Copenhagen).
+     - Contrast 14.69 / 13.17 / 11.74, highlighted ≥4.79.
+     - The **S1 soft star**, one path for `#g-star`, `#g-star-open` and `STAR_D` (tip rounding 1.3, inner 0.6, ratio 0.47; S2 rejected as blobby at 1x).
+     - The truncation cost from `r4-trunc.json`.
+     - The accepted ragged text edge, which relies on stars staying scarce.
+     - P0 (12px inline) as the recorded fallback.
+   - **Pace:**
+     - The pen is hand-speed: `HAND_MS` 360 (dial 280–440). The finger still owns the name and the 56px commit; the pen never runs ahead and retracts at once on back-off; a committed release finishes drawing, then inks.
+     - The root cause the owner hit: on the old build a natural swipe showed the sketch for only 4 frames.
+     - Unstar rub ≥400ms; `RUB_AFTER_LIFT` 180ms.
+     - Popup: 72ms per stroke, ink at 380ms.
+   - **Commit cue: pressure, not speed.**
+     - At the 56px crossing, in the same event, every stroke goes heavier (about 1.4×, 85%→100% opacity, darker, denser grain). Back-off lightens it.
+     - A 3px, 140ms detent on the name (not under reduced motion).
+     - After commit, strokes are ≥55ms each and the sketch is visible for ≥280ms (`SKETCH_MIN`).
+     - Unstar's first speck drops at the crossing.
+     - Record the ruling: UX's "finish within 120ms" was rejected because it re-creates "too fast to see".
+   - **Ink landing:** a 1.1→1 press-in over 140ms, plus exactly one rAF-driven 1.15× spread frame (the peak must be the crispest frame).
+   - **Dust sweep:**
+     - Specks start at the star's lower-left inner corner and are swept 11–13px left into the badge/text gutter, fading over 200–240ms.
+     - `releaseStarRow()` compensates the box shift.
+     - The name leaves at dust − 100ms (N4-b), lift → moving ≤150ms.
+     - **Rule: dust may never overlap text: 0 frames**, guarded by the dust detector. Round 5's "ÀTTRACTION" is the example of why.
+   - **R4-S2:** a new row's lock fast-forwards any finishing row to its visible ink landing (never refuses, never snaps silently).
+   - **FLIP rule, re-specified:** glyph changes happen only while the name is moving, at least 3 motion frames before rest, and any truncation-edge change lies under the feathered mask. Replace the old "laid out on the release frame" wording. `flip6.js` is the proof.
+   - **Dials:** `HAND_MS`, pressure step 0.5–0.9 units, light-graphite opacity 0.8–0.9, detent 2–4px, ghost 0.35 (ceiling 0.45), `RUB_AFTER_LIFT`, dust sweep.
+   - Also update: the design record path (`design/pencil-star/`, with the r4–r6 decision frames and `r4-trunc.json`), and the "Starred first" note under list ordering (unchanged).
+4. **`CLAUDE.md`: iPhone checks for the Pencil Star.** Replace items 5 and 7, and add new ones:
+   - **(5, replaced)** At a natural swipe you can **watch** the star being pencilled stroke by stroke, and the ink landing after release feels like a finish, not a lag (dial `HAND_MS`).
+   - **(7, replaced)** No flicker at the FLIP swap, the feathered edge, the pencil → ink hand-off, or the one-frame spread (at 120Hz it's 8ms: confirm it doesn't read as a flash). `color-mix()` renders in the SVG fills.
+   - **(new)** The pressure step at 56 is visible under the thumb, and the 3px catch is felt, not seen as a glitch (dials: pressure 1.3–1.5×, detent 2–4px).
+   - **(new)** The soft black star beside the category ring reads as one entry, "★ Name", not a second badge; it is softened but still a star in daylight. If it feels heavy, the fallback is `--ink-2`.
+   - **(new)** The swept dust reads as eraser crumbs brushed off, not dirt beside the badge or a colon before the category. If it reads as punctuation, shorten the fade toward 160ms or trim to two specks.
+   - **(new)** Three quick stars down the list all land, each visibly inking.
+   - **(new)** On unstar, the name leaves at lift; nothing feels stuck.
+   - Keep checks 1–4, 6 and 8–12 as they are. Check 6 (the ghost and dust commit) now reads "ghost vanishes and the first speck drops at the crossing".
+5. **Commit hygiene.**
+   - Make separate commits: the `index.html` change, then the docs (`CLAUDE.md` plus `design/pencil-star/`).
+   - The commit message states the gate as "84 + 8", with the attribution lines.
+   - No DB or RLS change.

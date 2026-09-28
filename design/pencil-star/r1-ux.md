@@ -280,3 +280,249 @@ I re-ran my own scripts against `r3-proto.html`, as copies re-pointed at it (`me
 
 1. No flicker from `mask-image` on a transformed child, and the FLIP swap on release is invisible at 120Hz.
 2. The unstar commit cue (ghost to gone, plus dust) is noticeable in daylight.
+
+---
+
+# Round 4 (the owner's iPhone feedback: too fast, too pointy, size/placement)
+
+I verified `r4-proto.html` with my own scripts:
+- **New:** `me4.js` (honesty, commit cue and repeated starring) and `me4-edge.js` (edge guard and popup).
+- **Re-pointed:** `me4-touch.js`, which is `ux2-touch` aimed at r4.
+
+CDP delivers a touchmove about every 45ms here, so the absolute times below include that latency. The *relative* ordering is what matters.
+
+## Verdict
+
+**Approve the direction:**
+- the hand-speed pen;
+- the S1 soft star;
+- P1, subject to the owner's on-device look.
+
+**Two should-fixes**, both side-effects of the pen now trailing the finger:
+- **R4-S1:** the commit cue now arrives late.
+- **R4-S2:** a quick second star on another row is dropped.
+
+## Verified
+
+| Check | Result |
+|---|---|
+| **Honesty: fast release at finger 55 / 62px** (content < 56) | Never inks, never stars. Timeline empty. |
+| **Honesty: fast release at finger 68 / 72 / 90px** | Stars. Ink lands **after** release (~545–596ms from touch start), and the printed star follows ~165ms later. |
+| **Fast to 90, back to 40, release** | No ink, no star |
+| **Fast to 90, hold 150ms, back to 40** | Ink appeared while held (482ms), lifted on back-off (566ms); no star. Honest. |
+| **Fast to 90, hold** | Ink at 482ms, about 300ms after the finger crossed the commit (see R4-S1) |
+| **Taps after a star** | Touch: other and same row at 0 / 60 / 150ms, **6/6 navigate**. Mouse: **3/3**. A tap on the same row while its pen is still finishing navigates. |
+| **Press** | 50ms tap: press on release, navigation at 71ms. 300ms hold: press at 110ms. |
+| **Diagonal** | r4 scrolls 0 / 0 / 0 / 58 / 65 / 71px at 34 / 36 / 38 / 40 / 45 / 50°; `main` 0 / 0 / 0 / 58 / 64 / 70. Sideways-then-up: 164 vs 165px. |
+| **Edge** | x = 20 or 23 inert; x = 25 or 30 stars |
+| **Delete** | A drag starting 2 or 8px left of the X: nothing. A drag ending on the X: stars, no delete. |
+| **Popup** | Star `aria-pressed` and data flip on the tap (+30ms). A second tap 30ms later flips back. The 380ms draw never blocks a tap. |
+| **Repeated starring** | Star row 0, then stroke row 3 after 100 / **250** / 400 / 600ms → row 3 stars **no / no / yes / yes**. The dropped strokes don't navigate either: the stroke is simply dead. |
+
+## Answers
+
+1. **Honesty: yes, it holds.** The pen never runs ahead of the finger. A release short of 56 never shows ink, and ink never lands for an uncommitted stroke. Finishing after release is honest, because the result was decided at release.
+   - **But the threshold is no longer *felt*** (R4-S1). With the pen trailing, a stroke released at 62px and one released at 72px look identical under the finger: both show a partial sketch. The difference appears only after lift-off, when one retracts and the other completes. The only live threshold cue is the ×0.35 rubber-band past 56, and that is subtle.
+2. **360ms+ for repeated starring.** The duration itself isn't slow: taps navigate at once, and the draw runs in the background. The **~250–400ms dead window for the next stroke** is the real cost (R4-S2). Going down a list starring several places is exactly the owner's flow.
+3. **P1 vs P0: recommend P1.**
+   - The 18px star at a fixed x is the strongest scan signal of the options, and it matches the gesture (both lines move).
+   - The badge is a ringed glyph and the star an un-ringed filled shape, so the two icons read as different kinds of mark. On restaurant rows they share a hue family, but the shape separates them (as in round 1).
+   - **The real cost is a ragged text edge:** starred rows' whole text block starts 26px further right. Because stars are scarce, that reads as an intentional call-out (the guidebook convention), not misalignment. It would stop working if the owner starred most places.
+   - The truncation cost (+2 unvisited; +8 at 375 and +10 at 390 visited, of 193, worst case with every row starred) is acceptable.
+   - The owner judges it on device; P0 remains the one-file fallback.
+4. **Popup at the new pace: fine.** The state is immediate, and 72ms strokes plus ink at 380ms read as drawing without delaying anything.
+5. **Scroll, flick and edge: unchanged.** Flick is still untestable in real time here.
+
+## Findings
+
+### Blockers
+
+None.
+
+### Should-fix
+
+**R4-S1. Give the commit a live cue again.**
+- Keep hand speed *before* the threshold. Once finger travel crosses 56, have the pen **finish its remaining strokes within ~120ms**, and let the ink land then.
+- A slow drag still shows ≥ 360ms of drawing. A fast one still shows ≥ ~200ms of strokes (the owner's "can't see it" is solved) plus a visible acceleration into the ink.
+- The ink goes back to meaning "you're past the line", close to when you crossed it: about 120ms instead of about 300ms.
+- Backing off still retracts.
+- **Measure:** time from crossing 56 to the ink frame; target ≤ 150ms.
+
+**R4-S2. Never drop a stroke because the previous row is still finishing.**
+- When a new row locks, fast-forward the previous row: finish its pen, ink and settle instantly, then run the FLIP to final.
+- Don't refuse to arm the new row.
+- **Re-test** the 100 and 250ms cases above. Both must star.
+
+### Nits
+
+- **N4-a.** On a starred **restaurant** row in P1, check the 18px `--figure-deep` star beside the orange fork ring at 1x in daylight. It is the one place where the two left icons could merge.
+- **N4-b.** The unstar hold (the name waits until the dust falls, ≥ 400ms) should be judged on device. If it feels stuck, let the name start home at dust-fall minus 100ms.
+
+## iPhone checks (additions)
+
+1. At a natural swipe, the star is visibly drawn stroke by stroke.
+2. After R4-S1, you can tell during the stroke when it has gone far enough.
+3. Starring three rows in quick succession: every stroke lands.
+4. P1 next to the category glyph reads as one entry, not two competing icons. If not, ship P0.
+
+---
+
+# Round 5 (pressure commit, black ink star, R4-S2, N4-b)
+
+I checked `r5-proto.html` with my own scripts:
+
+| Script | What it covers |
+|---|---|
+| `me5.js` | Pressure cue, repeated strokes, N4-b |
+| `me5b.js` | Three quick strokes on visible rows |
+| `me5-flip.js`, `me5-flip2.js` | Frame-by-frame FLIP audit |
+| `me5-touch.js`, `me5-edge.js` | Regression suite, re-pointed at r5 |
+
+## Verdict
+
+**Approve. No blockers and no should-fixes.**
+
+- The CD's pressure ruling solves R4-S1 better than my proposal did: the threshold becomes legible without shortening the drawing.
+- The test re-spec is legitimate. I checked it independently (§4).
+
+## 1. Pressure commit cue
+
+- **Same event.** A document listener, running *after* the row's handler in the same `touchmove` event, sees `.sg-press` on the first event whose travel crosses 56:
+  - finger 72: the event at x = 242 (dx 72) is the first pressed one;
+  - finger 62: never pressed, never starred.
+- **Nothing is inked before commit.** `.sg-press` is present at release only when the stroke commits.
+- **Pre-release legibility.**
+  - `r5-62-vs-72.png` shows a clear light/heavy difference at 3x and 4x.
+  - More importantly, the user sees the *change*: a stroke visibly darkens in one frame as it crosses. Change-detection doesn't need a remembered reference.
+  - At natural and brisk speed the sketch is still mid-draw at the crossing (≥ 17 sketch frames, per the designer's metrics), so the darkening lands on visible strokes, not on an empty slot.
+- The 3px detent adds the felt beat.
+- **Verdict:** a committing stroke now reads differently from a failing one *before* lift-off.
+
+## 2. R4-S2: fixed
+
+| Test | Result |
+|---|---|
+| Second stroke on another row at 0 / 100 / 250 / 400ms | **4/4: both rows star, both end printed**, no stray navigation, no overlay left behind |
+| Three strokes on three visible rows, 0ms and 150ms apart | 3/3 each time |
+
+(One harness run used an off-screen row 5; that was my mistake, and the re-run used visible rows.)
+
+## 3. N4-b: fixed
+
+- On an unstar with a natural swipe, the name starts home **56ms after lift**, where round 4 held it about 300ms.
+- The first eraser speck is already visible at release (it dropped at the crossing), and 3 specks peak as designed.
+- Nothing reads as stuck.
+
+## 4. The skeptical check: the FLIP re-spec is legitimate, not a masked regression
+
+I did not rely on `flip5.js`. Its "moving" test only checks that the transform isn't `''`, which would pass a still, offset name, and under reduced motion it passes trivially. Instead I logged every rAF frame: the `h3` node identity, `clientWidth` and `scrollWidth`, the printed-star visibility, and the computed translateX.
+
+**Star (long visited, and short):**
+- The only re-layout (cw 194 → 168) happens at tx ≈ 38px, with **13 more frames of motion after it**. That is 216ms before rest.
+- The only change on the rest frame is the overlay → printed star swap, which is the pixel-identical hand-off (0/5,184). No glyphs change.
+
+**Unstar (long visited):**
+- The re-layout (cw 168 → 194) happens as the name *starts* home.
+- The raw tx jumps 63.9 → 89.9 on that frame. That jump is the FLIP compensating the removed 26px slot, so on screen the name is **still** on that frame and starts moving on the next. That is exactly why "only while moving" had to be re-specified.
+- **I checked whether the swap is visible** (`me5-flip2.js`):
+
+| Stroke | Old truncation edge | New truncation edge | Mask fade starts at |
+|---|---|---|---|
+| Unstar | x = 314 | x = 340 | x = 242 |
+| Star | x = 314 | x = 288 | x = 242 |
+
+- Both edges are **fully under the feathered mask**, and the text's left edge is unchanged (146 → 146).
+- So the only glyphs that change are the tail letters, which are invisible at that moment. The visible letters are identical. Then there are 13 frames of motion and 216ms before rest.
+
+**This holds in general.** The margin under the mask is (name offset at the swap) − about 18px. Star swaps happen at ~38px and unstar swaps at ~90px, so both clear it. Under reduced motion everything lands in one frame by design.
+
+**Conclusion:** letters never change on the frame the eye comes to rest, for star or unstar, long or short names. The old assertion (re-render on the release frame) no longer matches the choreography, because of the unstar hold and N4-b. The new rule is the one that actually protects the user.
+
+**Suggestion (N5-a):** replace `flip5.js`'s check with the two measurements above: no signature change within the last 3 motion frames, and any truncation edge change lying under the mask.
+
+## 5. Light pencil at 3.28:1 (1x): legible
+
+- In `r5-1x.png`, the Λ reads from about 150ms and the star from about 250ms.
+- It is transient and never the committed state. On commit it jumps to the pressed graphite (9.44:1 as a token).
+- The owner's 3x screen gets ≥ 3.84.
+- Accept.
+
+## 6. The black ink star: reads as "I care", and does not recede
+
+- At 14.69:1 it is the highest-contrast mark in the row. It reads as typography ("★ Name"), not as a second badge.
+- **On starred restaurant rows in all 5 cities** (`r5-restaurant-5cities-3x/1x.png`), it separates cleanly from the orange fork ring. The Stockholm merge and the Copenhagen clash of round 4 are gone.
+- Next to the navy VISITED stamp on starred+visited rows, the shapes are distinct.
+- If anything it is now the loudest mark on the left. That's appropriate while stars stay scarce; if the owner finds it heavy, the CD's `--ink-2` fallback is the dial.
+
+## 7. Regressions: none
+
+| Check | Result |
+|---|---|
+| Taps after a star | 6/6 touch, 3/3 mouse |
+| Press | 50ms tap: press on release, navigation at 61ms |
+| Diagonal 34–50° | r5 0 / 0 / 0 / 58 / 65 / 70px; `main` 0 / 0 / 0 / 57 / 64 / 70 |
+| Sideways-then-up | 166 = 166 |
+| Edge | x = 20 or 23 inert; x = 25 or 30 stars |
+| Delete | Safe: a drag from near the X does nothing; a drag ending on the X stars only |
+| Popup | Row tap → popup opens (real `highlightMarker`); popup star flips on each tap within 30ms |
+
+## iPhone checks (additions)
+
+1. The pressure step is visible under the thumb at the crossing (dial 1.3–1.5×), and the 3px catch is felt, not seen as a glitch.
+2. Three quick stars down the list all land, each visibly inking.
+3. The black star next to the category ring reads as one entry.
+
+---
+
+# Round 6 (dust swept into the gutter, a faster unstar release, `flip6.js`)
+
+## Verdict
+
+**Approve. No findings.**
+
+## 1. Regressions: none
+
+My round-5 scripts, re-pointed at `r6-proto.html` (`me6-touch.js`, `me6-edge.js`, `me6-main.js`):
+
+| Check | Result |
+|---|---|
+| Taps after a star | 6/6 touch, 3/3 mouse |
+| Press | 50ms tap: press on release, navigation at 68ms |
+| Diagonal 34–50° | r6 0 / 0 / 0 / 58 / 65 / 70px = `main` 0 / 0 / 0 / 58 / 65 / 70 |
+| Sideways-then-up | 166 vs 167px |
+| Delete | Safe |
+| Edge | x = 20 or 23 inert; x = 25 or 30 arm |
+| Popup | Opens from a list tap; the star flips on each tap |
+| Pressure | Applied in the crossing event; a 62px stroke never pressed or starred |
+| Second stroke at 0 / 100 / 250 / 400ms | 4/4 |
+| N4-b | The name leaves **12ms** after lift (round 5: 56ms) |
+
+The "three strokes" row-5 miss is my known off-screen-row harness artifact from round 5, not a regression.
+
+## 2. Dust over text: 0
+
+`me6-dust.js` checks every rAF frame for any `.sg-crumb` with opacity > 0.05 whose box overlaps the stroked row's h3 or meta **text** (Range) box. It is independent of the designer's `dust6.js`.
+
+- **Coverage:**
+  - long visited, normal and **highlighted** (Stockholm, LA brisk);
+  - short, normal (Reykjavík) and **highlighted** (Copenhagen);
+  - a Malmö slow stroke.
+- **Result: 0 over-text frames in 6/6 runs.** Every run unstarred, with 18–21 speck frames each.
+- **The detector is sensitive.** The same script on `r5-proto.html` flags 6 over-text frames on the LA brisk highlighted run.
+
+## 3. `flip6.js` does fail on an at-rest swap
+
+I ran it myself. The real cases pass 8/8 (4 rows × 2 motion modes; swaps sit 12–13 frames before the last motion). **The negative control fails 4/4:**
+- It overrides `flipToFinal` to slide the *old* row home and then `renderCard` at the end.
+- It reports "swap within the last 3 motion frames" and "0 motion frames after swap".
+
+So the new proof can detect the defect it guards against. That resolves my round-5 N5-a.
+
+## 4. The suite going from 88 to 84: legitimate
+
+`diff test4.js test6.js` shows exactly one removed block: the R2-S1 FLIP case, which ran on 2 rows (star long visited, unstar long) in 2 motion modes. That is **the 4 cases**.
+
+- That was the obsolete "laid out on release, same h3 node at rest" assertion. It froze `sgNow` and couldn't see the post-round-4 choreography. It's the one that failed in round 5.
+- The case log diff confirms that nothing else was dropped. The other line differences are only measured values in case titles (the S2 ms and S3 scroll px), whose counts are unchanged.
+- It is **replaced by a superset**: `flip6.js` covers 4 rows (adding short star and short unstar) × 2 modes = 8 frame-by-frame cases, plus a failing negative control.
+- **One condition:** the reported total should read "84 + 8 (`flip6.js`)" wherever it's summarised, so the FLIP proof stays in the gate and isn't quietly dropped.
