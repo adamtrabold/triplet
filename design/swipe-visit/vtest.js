@@ -1,0 +1,166 @@
+// Swipe-LEFT visit stamp: visit cases + delete-safety cases, both motion modes. env PROTO (path), OUT.
+const L = require('../star2/lib'); const fs = require('fs');
+const FILE = process.env.PROTO || __dirname + '/p2-proto.html';
+const results = []; let pass = 0, total = 0;
+const ok = (mode, name, cond, info) => { total++; if (cond) pass++; results.push({ mode, name, pass: !!cond, info }); console.log(`${mode.padEnd(8)} ${cond ? 'PASS' : 'FAIL'} ${name} ${info ? JSON.stringify(info) : ''}`); };
+const W = ms => new Promise(r => setTimeout(r, ms));
+async function geo(page, idx) { await page.evaluate(i => { const el = document.querySelectorAll('#locationsList .location-card')[i]; const l = document.getElementById('locationsList'); const r = el.getBoundingClientRect(), lr = l.getBoundingClientRect(); if (r.top < lr.top || r.bottom > lr.bottom - 4) l.scrollTop += r.top - lr.top - 60; }, idx); await W(120); return page.evaluate(i => { const el = document.querySelectorAll('#locationsList .location-card')[i]; const r = el.getBoundingClientRect(), x = el.querySelector('.delete-btn').getBoundingClientRect();
+  return { y: r.y + r.height / 2, xc: x.x + x.width / 2, xl: x.x, mid: r.x + r.width / 2, id: el.dataset.id }; }, idx); }
+const st = (page, id) => page.evaluate(id => { const l = locations.find(x => x.id === id); const el = document.querySelector(`.location-card[data-id="${id}"]`);
+  return { visited: l.visited, starred: l.starred, field: el.classList.contains('is-visited'), stamps: el.querySelectorAll('.row-stamp').length, carry: el.querySelectorAll('.vs-carry').length,
+    live: el.classList.contains('vs-live') || el.classList.contains('vs-settle'), xhide: el.classList.contains('vs-xhide'), del: __del.length, nav: __nav.length, held: starHeld.size, star: !!el.querySelector('.row-star') }; }, id);
+const left = (g, dist, n, dy = 0) => L.line(g.xc, g.y, g.xc - dist, g.y + dy, n);
+(async () => { const b = await L.launch();
+  for (const reduced of [false, true]) { const mode = reduced ? 'reduced' : 'full';
+    const fresh = async () => { const o = await L.openProto(b, { dsf: 1, file: FILE, reduced }); await o.page.evaluate(() => { window.__vib = []; Object.defineProperty(Navigator.prototype, 'vibrate', { configurable: true, value: p => { __vib.push(JSON.stringify(p)); return true; } }); }); return o; };
+    // ---- VISIT CASES ----
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
+      await L.drag(page, cdp, left(g, 110, 12)); await W(700); const s = await st(page, g.id);
+      ok(mode, 'V1 left stroke from the X visits: stamp in flow, field on, X back, 0 deletes/navs', s.visited && s.field && s.stamps === 1 && !s.carry && !s.live && !s.xhide && !s.del && !s.nav && !s.held, s);
+      const vib = await page.evaluate(() => __vib); ok(mode, 'V1b haptic: one ink tick on the press', vib.length === 1 && vib[0] === '10', vib);
+      await L.drag(page, cdp, left(g, 110, 12)); await W(700); const s2 = await st(page, g.id);
+      ok(mode, 'V2 same stroke on the visited row un-visits: stamp gone, field off, 0 deletes', !s2.visited && !s2.field && !s2.stamps && !s2.del && !s2.nav && !s2.live, s2);
+      const vib2 = await page.evaluate(() => __vib); ok(mode, 'V2b haptic: erase double tick on the lift', vib2.length === 2 && vib2[1] === '[6,45,6]', vib2);
+      await ctx.close(); }
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
+      await L.drag(page, cdp, left(g, 50, 6)); await W(500); const s = await st(page, g.id);
+      ok(mode, 'V3 released before 56: nothing inked, stamp gone, X back, row clean', !s.visited && !s.field && !s.carry && !s.stamps && !s.xhide && !s.live && !s.del && !s.nav, s);
+      await L.drag(page, cdp, [...left(g, 100, 10), ...L.line(g.xc - 100, g.y, g.xc - 30, g.y, 6)]); await W(500); const s2 = await st(page, g.id);
+      ok(mode, 'V4 press then back off below 52: lifts again, nothing visited', !s2.visited && !s2.field && !s2.carry && !s2.live, s2);
+      await L.drag(page, cdp, left(g, 58, 3), { stepMs: 16, synthTs: true }); await W(700); const s3 = await st(page, g.id);
+      ok(mode, 'V5 quick flick (~48px content, 1.2px/ms) visits', s3.visited && s3.field && s3.stamps === 1 && !s3.live, s3);
+      await L.drag(page, cdp, left(g, 58, 3), { stepMs: 16, synthTs: true }); await W(600); const s4 = await st(page, g.id);
+      ok(mode, 'V6 the same flick on a visited row does NOT un-visit', s4.visited && s4.stamps === 1 && !s4.live, s4);
+      await ctx.close(); }
+    // V7: a pressed impression never moves (overtravel to 150px), + V8 hand-off identical to the rendered stamp
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0); const rects = [];
+      await L.drag(page, cdp, left(g, 150, 18), { hold: 350, onStep: async (i) => { if (i >= 9) rects.push(await page.evaluate(() => { const s = document.querySelector('.vs-carry'); if (!s) return null; const r = s.getBoundingClientRect();
+        return { cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, pressed: s.style.opacity === '1' }; })); } });
+      const pr = rects.filter(r => r && r.pressed); const dx = Math.max(...pr.map(r => r.cx)) - Math.min(...pr.map(r => r.cx)), dy = Math.max(...pr.map(r => r.cy)) - Math.min(...pr.map(r => r.cy));
+      ok(mode, 'V7 pressed impression never moves on overtravel to 150px (centre drift)', pr.length >= 6 && dx < 0.01 && dy < 0.6, { frames: pr.length, dx: +dx.toFixed(3), dy: +dy.toFixed(3) });
+      await ctx.close(); }
+    if (!reduced) { const { ctx, page, cdp } = await L.openProto(b, { dsf: 3, file: FILE }); const g = await geo(page, 0); let shotA;
+      const clip = await page.evaluate(() => { const x = document.querySelectorAll('#locationsList .location-card')[0].querySelector('.delete-btn').getBoundingClientRect(); return { x: x.x - 90, y: x.y - 14, width: 82, height: 56 }; });
+      await L.drag(page, cdp, left(g, 110, 12), { hold: 500, onStep: async (i) => { if (i === 12) { await W(420); shotA = await page.screenshot({ clip }); } } }); await W(800);
+      const shotB = await page.screenshot({ clip });
+      const diff = await page.evaluate(async ([a, b]) => { const load = s => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = 'data:image/png;base64,' + s; });
+        const [ia, ib] = await Promise.all([load(a), load(b)]); const c = document.createElement('canvas'); c.width = ia.width; c.height = ia.height; const x = c.getContext('2d');
+        x.drawImage(ia, 0, 0); const da = x.getImageData(0, 0, c.width, c.height).data; x.clearRect(0, 0, c.width, c.height); x.drawImage(ib, 0, 0); const db = x.getImageData(0, 0, c.width, c.height).data;
+        let n = 0, mx = 0; for (let i = 0; i < da.length; i += 4) { const d = Math.max(Math.abs(da[i] - db[i]), Math.abs(da[i + 1] - db[i + 1]), Math.abs(da[i + 2] - db[i + 2])); mx = Math.max(mx, d); if (d > 2) n++; } return { px: da.length / 4, differing: n, max: mx }; }, [shotA.toString('base64'), shotB.toString('base64')]);
+      fs.writeFileSync(__dirname + '/v8-A.png', shotA); fs.writeFileSync(__dirname + '/v8-B.png', shotB);
+      ok(mode, 'V8 hand-off: pressed stamp == rendered stamp (3x, per-place tilt kept)', diff.differing === 0, diff);
+      await ctx.close(); }
+    // V9 starred + visited row: both marks coexist; visit & star gestures on the same row
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 1);
+      await L.drag(page, cdp, left(g, 110, 12)); await W(700); const s = await st(page, g.id);
+      ok(mode, 'V9 starred+visited row: left stroke un-visits, star kept', !s.visited && s.starred && s.star && !s.stamps && !s.live, s);
+      await L.drag(page, cdp, left(g, 110, 12)); await W(700); const s2 = await st(page, g.id);
+      ok(mode, 'V9b ...and visits again, star kept', s2.visited && s2.starred && s2.star && s2.stamps === 1, s2);
+      await L.drag(page, cdp, L.line(g.mid - 100, g.y, g.mid + 10, g.y, 12)); await W(1400); const s3 = await st(page, g.id);
+      ok(mode, 'V9c right stroke on the same row unstars; stamp + field kept', s3.visited && !s3.starred && !s3.star && s3.stamps === 1 && s3.field, s3);
+      await L.drag(page, cdp, L.line(g.mid - 100, g.y, g.mid + 10, g.y, 12)); await W(1400); await L.drag(page, cdp, left(g, 110, 12)); await W(700); const s4 = await st(page, g.id);
+      ok(mode, 'V9d star, then un-visit: star kept, stamp gone', !s4.visited && s4.starred && s4.star && !s4.stamps, s4);
+      await ctx.close(); }
+    // V10 rapid strokes: visit row 0, then immediately row 5 -> both land (fast-forward)
+    { const { ctx, page, cdp } = await fresh(); const a = await geo(page, 5), c = await geo(page, 7);
+      await L.drag(page, cdp, left(a, 110, 8)); await L.drag(page, cdp, left(c, 110, 8)); await W(800); const sa = await st(page, a.id), sc = await st(page, c.id);
+      ok(mode, 'V10 two quick visit strokes: both land, nothing stuck', sa.visited && sc.visited && sa.stamps === 1 && sc.stamps === 1 && !sa.live && !sc.live && !sc.held, { sa, sc });
+      await L.drag(page, cdp, left(a, 110, 8)); await L.drag(page, cdp, L.line(c.mid - 100, c.y, c.mid + 10, c.y, 8)); await W(1400); const sa2 = await st(page, a.id), sc2 = await st(page, c.id);
+      ok(mode, 'V10b un-visit then an immediate star stroke on another row: both land', !sa2.visited && sc2.starred && !sa2.live && !sa2.held, { sa2, sc2 });
+      await ctx.close(); }
+    // V11 tap right after a visit stroke navigates; V12 tap delay unchanged
+    { const { ctx, page, cdp } = await fresh(); const a = await geo(page, 5), c = await geo(page, 6);
+      await L.drag(page, cdp, left(a, 110, 8)); await L.T(cdp, 'touchStart', c.mid, c.y); await W(40); await L.T(cdp, 'touchEnd'); await W(300);
+      const n = await page.evaluate(() => __nav.map(x => x[0])); ok(mode, 'V11 tap on another row right after a visit stroke navigates', n.length === 1 && n[0] === c.id, n);
+      const d = await page.evaluate(() => __nav[0][1] - __te[__te.length - 1]); ok(mode, 'V12 tap delay: 0ms added (touchend -> navigate)', d < 8, { ms: +d.toFixed(2) });
+      await ctx.close(); }
+    // V13 lifted reads RAISED (not faded); V14 text never under the stamp; long name
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 5); const samp = [];
+      await L.drag(page, cdp, left(g, 110, 22), { hold: 300, onStep: async () => samp.push(await page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card')[5], s = el.querySelector('.vs-carry'); if (!s) return null;
+        const m = new DOMMatrix(getComputedStyle(s).transform), sr = s.getBoundingClientRect(), main = el.querySelector('.row-main'), mr = main.getBoundingClientRect();
+        const edge = parseFloat(main.style.getPropertyValue('--vs-edge')), a = parseFloat(main.style.getPropertyValue('--vs-a'));
+        const vis = parseFloat(s.style.opacity || 1); const textVisRight = mr.left + (a > 0.01 ? mr.width : edge);   // alpha > 0 up to here
+        return { scale: Math.hypot(m.a, m.b), op: vis, sh: parseFloat(s.style.getPropertyValue('--vs-sh-a') || 0), fill: s.style.getPropertyValue('--vs-fill'), col: getComputedStyle(s).color, filt: getComputedStyle(s).filter, gap: sr.left - textVisRight }; })) });
+      const carried = samp.filter(x => x && x.fill && x.op > 0.999);
+      const raised = carried.filter(x => x.scale > 1.03 && x.sh > 0.05 && x.filt === 'none');
+      const hue = await page.evaluate(cols => { const lin = c => (c /= 255) <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        const ok = ([r, g, b]) => { [r, g, b] = [r, g, b].map(lin); let l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b, m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b, q = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b; [l, m, q] = [l, m, q].map(Math.cbrt);
+          const a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * q, bb = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * q; return { L: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * q, C: Math.hypot(a, bb), h: (Math.atan2(bb, a) * 180 / Math.PI + 360) % 360 }; };
+        const rgb = c => { const d = document.createElement('div'); d.style.color = c; document.body.appendChild(d); const v = getComputedStyle(d).color; d.remove(); const n = v.match(/[\d.]+/g).map(Number); return v.startsWith('color(srgb') ? n.slice(0, 3).map(x => x * 255) : n.slice(0, 3); };
+        const navy = rgb('var(--navy)'), filed = rgb('var(--paper-filed)'); const pressed = navy.map((v, i) => 0.82 * v + 0.18 * filed[i]);
+        const c = cols[0] ? ok(rgb(cols[0])) : null; return { carried: c, pressed: ok(pressed) }; }, [carried.length ? carried[Math.floor(carried.length / 2)].col : null]);
+      const dh = hue.carried ? Math.abs(hue.carried.h - hue.pressed.h) : 999;
+      ok(mode, reduced ? 'V13 (reduced) no carry motion: scale 1 while carried; face opaque navy' : 'V13 lifted reads raised + solid: every carried frame scaled up, casts an outside shadow, opaque face, navy ink (hue within 10deg of the pressed stamp)',
+        (reduced ? carried.every(x => Math.abs(x.scale - 1) < 0.001) : (carried.length >= 4 && raised.length === carried.length)) && dh <= 10, { frames: carried.length, raised: raised.length, hueCarried: hue.carried && +hue.carried.h.toFixed(1), chromaCarried: hue.carried && +hue.carried.C.toFixed(4), huePressed: +hue.pressed.h.toFixed(1), dh: +dh.toFixed(1) });
+      const inked = samp.filter(x => x && x.op > 0.001); const minGap = Math.min(...inked.map(x => x.gap));
+      ok(mode, 'V14 ink never over text: visible text stays >= 8px clear of the stamp\'s (rotated, squashing) box on every frame', minGap >= 8, { frames: inked.length, minGap: +minGap.toFixed(2) });
+      await W(700); ctx.close(); }
+    // V15 letters never change at full ink across the final swap (visit + un-visit, long name, 3x)
+    if (!reduced) for (const [idx, what] of [[5, 'visit'], [2, 'un-visit']]) { const { ctx, page, cdp } = await L.openProto(b, { dsf: 3, file: FILE }); const g = await geo(page, idx); let A, clip;
+      await L.drag(page, cdp, left(g, 110, 12), { hold: 400, onStep: async (i) => { if (i === 12) { await W(380); clip = await page.evaluate(i => { const el = document.querySelectorAll('#locationsList .location-card')[i], m = el.querySelector('.row-main'), r = m.getBoundingClientRect();
+        const e = parseFloat(m.style.getPropertyValue('--vs-edge')); const a = parseFloat(m.style.getPropertyValue('--vs-a')); const right = r.left + (a > 0.99 ? r.width : e - 20); return { x: r.left, y: r.top, width: Math.floor(right - r.left) - 1, height: r.height }; }, idx); A = await page.screenshot({ clip }); } } });
+      await W(900); const B = await page.screenshot({ clip });
+      const diff = await page.evaluate(async ([a, b]) => { const load = s => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = 'data:image/png;base64,' + s; });
+        const [ia, ib] = await Promise.all([load(a), load(b)]); const c = document.createElement('canvas'); c.width = ia.width; c.height = ia.height; const x = c.getContext('2d');
+        x.drawImage(ia, 0, 0); const da = x.getImageData(0, 0, c.width, c.height).data; x.clearRect(0, 0, c.width, c.height); x.drawImage(ib, 0, 0); const db = x.getImageData(0, 0, c.width, c.height).data;
+        let n = 0; for (let i = 0; i < da.length; i += 4) { const d = Math.max(Math.abs(da[i] - db[i]), Math.abs(da[i + 1] - db[i + 1]), Math.abs(da[i + 2] - db[i + 2])); if (d > 2) n++; } return { px: da.length / 4, differing: n }; }, [A.toString('base64'), B.toString('base64')]);
+      ok(mode, `V15 ${what}: every letter at full ink before release is pixel-identical after the final layout`, diff.differing === 0, { ...diff, clipW: clip.width });
+      await ctx.close(); }
+    // V18: glyphs/ellipsis change only on the press/lift frame (visit) or under the sweep (un-visit). Long names.
+    for (const [idx, what, pts] of [[5, 'visit', g => left(g, 110, 22)], [5, 'press then back off', g => [...left(g, 110, 14), ...L.line(g.xc - 110, g.y, g.xc - 40, g.y, 8)]], [2, 'un-visit', g => left(g, 110, 22)]]) {
+      const { ctx, page, cdp } = await fresh(); const g = await geo(page, idx);
+      await page.evaluate(i => { const el = document.querySelectorAll('#locationsList .location-card')[i]; window.__gf = []; let prev = null, run = true;
+        const tick = () => { if (!run) return; const h3 = el.querySelector('h3'), c = el.querySelector('.vs-carry'); const w = h3.getBoundingClientRect().width;
+          const pressed = !!c && c.style.opacity === '1' && !c.style.getPropertyValue('--vs-fill'); const settle = el.classList.contains('vs-settle'); const lifted = el.classList.contains('vs-live') && !el.classList.contains('is-visited') && !c;
+          __gf.push({ w: +w.toFixed(2), pressed, settle, vis: el.classList.contains('is-visited') }); requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__gstop = () => { run = false; }; }, idx);
+      await L.drag(page, cdp, pts(g)); await W(700); const f = await page.evaluate(() => { __gstop(); return __gf; });
+      let bad = 0, changes = 0; for (let i = 1; i < f.length; i++) if (f[i].w !== f[i - 1].w) { changes++; const ok2 = f[i].pressed !== f[i - 1].pressed || f[i].vis !== f[i - 1].vis || f[i].settle || f[i - 1].settle; if (!ok2) bad++; }
+      ok(mode, `V18 ${what}: truncation changes only on the press/lift frame or under the sweep (0 still-frame changes)`, bad === 0, { changes, stillFrameChanges: bad }); await ctx.close(); }
+    if (!reduced) { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
+      await page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card')[0]; window.__xf = []; let run = true;
+        const tick = () => { if (!run) return; const c = el.querySelector('.vs-carry'), x = el.querySelector('.delete-btn'); if (c) { const xo = parseFloat(getComputedStyle(x).opacity), so = parseFloat(c.style.opacity || 0);
+          const m = new DOMMatrix(getComputedStyle(c).transform), sc = Math.hypot(m.a, m.b), t = Math.abs(Math.atan2(m.b, m.a)); const ar = c.parentElement.getBoundingClientRect(); const cx = ar.right - 40 - 36 + m.e;
+          const ins = (c.style.clipPath.match(/inset\(0(?:px)? ([\d.]+)px/) || [0, 0])[1]; const localRight = 36 - parseFloat(ins); const visRight = cx + localRight * sc * Math.cos(t) + 16 * sc * Math.sin(t);
+          __xf.push({ xo, so, over: visRight - x.getBoundingClientRect().left }); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__xstop = () => { run = false; }; });
+      await L.drag(page, cdp, left(g, 110, 12)); await W(500); const f = await page.evaluate(() => { __xstop(); return __xf; });
+      const both = f.filter(x => x.xo > 0.01 && x.so > 0.01); const worst = both.length ? Math.max(...both.map(x => x.over)) : -99;
+      ok(mode, 'V19 no stamp pixel over the X while it fades (stamp clipped at the X until the fade ends)', worst <= 0, { framesBoth: both.length, worstOverlapPx: +worst.toFixed(2) }); await ctx.close(); }
+    // V16 popup Mark Visited: the non-gesture path; row tint + stamp in sync
+    { const { ctx, page } = await fresh(); const r = await page.evaluate(async () => { const loc = locations[0]; map.setView([loc.lat, loc.lng], 16, { animate: false }); await new Promise(r => setTimeout(r, 150)); updateUI();
+        markersById.get(loc.id).marker.openPopup(); await new Promise(r => setTimeout(r, 300)); document.querySelector('.leaflet-popup .popup-visited').click(); await new Promise(r => setTimeout(r, 300));
+        const el = document.querySelector(`.location-card[data-id="${loc.id}"]`); return { visited: loc.visited || locations[0].visited, field: el.classList.contains('is-visited'), stamps: el.querySelectorAll('.row-stamp').length }; });
+      ok(mode, 'V16 popup Mark Visited still visits; row field + stamp in sync', r.visited && r.field && r.stamps === 1, r); await ctx.close(); }
+    // V17 press lands as a thunk at real timing (full motion): contact frame shadow gone + 100% ink; >=2 squash frames <=0.97
+    if (!reduced) { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
+      await page.evaluate(() => { window.__f = []; const tick = () => { const s = document.querySelector('.vs-carry'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __f.push({ t: performance.now(), sc: Math.hypot(m.a, m.b), op: s.style.opacity, fill: s.style.getPropertyValue('--vs-fill'), f: getComputedStyle(s).filter, sh: parseFloat(s.style.getPropertyValue('--vs-sh-a') || 0) }); } if (__f.length < 400) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
+      await L.drag(page, cdp, left(g, 110, 12), { hold: 400 }); await W(200);
+      const f = await page.evaluate(() => __f); const i = f.findIndex(x => !x.fill); const after = f.slice(i, i + 16);
+      const squash = after.filter(x => x.sc <= 0.97).length, contactShadowless = after[0] && after[0].sh === 0;
+      ok(mode, 'V17 thunk at real timing: contact frame has no cast shadow + full ink; >=2 frames squashed <=0.97', i > 0 && contactShadowless && squash >= 2, { squash, contact: after[0], before: f[i - 1] });
+      await ctx.close(); }
+    // ---- DELETE SAFETY ----
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
+      const tapMove = async (dx) => { await L.T(cdp, 'touchStart', g.xc, g.y); await W(30); if (dx) { await L.T(cdp, 'touchMove', g.xc - dx / 2, g.y); await W(16); await L.T(cdp, 'touchMove', g.xc - dx, g.y); await W(30); } await L.T(cdp, 'touchEnd'); await W(250); return page.evaluate(() => __del.length); };
+      let d = await tapMove(0); ok(mode, 'D1 still tap on the X deletes (confirm)', d === 1, { del: d });
+      d = await tapMove(3); ok(mode, 'D2 tap with 3px of movement still deletes', d === 2, { del: d });
+      for (const dist of [4, 6, 8, 12, 20, 40]) { const before = d; d = await tapMove(dist); const s = await st(page, g.id); ok(mode, `D3 hesitant ${dist}px left stroke from the X: no delete`, d === before && !s.visited, { del: d - before }); }
+      { const before = d; await L.drag(page, cdp, L.line(g.xc - 10, g.y, g.xc + 5, g.y, 4)); await W(300); d = await page.evaluate(() => __del.length); const s = await st(page, g.id);
+        ok(mode, 'D4 right stroke from the X: no delete, no star', d === before && !s.starred, { del: d - before }); }
+      { const before = d; await L.drag(page, cdp, L.line(g.xc, g.y, g.xc, g.y - 60, 8)); await W(300); d = await page.evaluate(() => __del.length); ok(mode, 'D5 vertical drag from the X: no delete', d === before, { del: d - before }); }
+      { const before = d; await L.drag(page, cdp, left(g, 110, 12)); await W(700); d = await page.evaluate(() => __del.length); ok(mode, 'D6 full visit stroke from the X: no delete', d === before, { del: d - before }); }
+      // D7: taps on the X right after a stroke: never deletes while it's faded; deletes once it's back
+      { const before = d; await L.drag(page, cdp, left(g, 110, 12)); await L.T(cdp, 'touchStart', g.xc, g.y); await W(30); await L.T(cdp, 'touchEnd'); await W(50);
+        const d0 = await page.evaluate(() => __del.length); await W(800); await L.T(cdp, 'touchStart', g.xc, g.y); await W(30); await L.T(cdp, 'touchEnd'); await W(200); d = await page.evaluate(() => __del.length);
+        ok(mode, 'D7 X tap at ~0ms after a stroke does not delete; once the X is back it does', d0 === before && d === before + 1, { at0: d0 - before, later: d - before }); }
+      // D8 mouse: an 8px drag from the X doesn't delete; a still click does. D9 keyboard Enter on the X deletes.
+      { const before = d; await page.mouse.move(g.xc, g.y); await page.mouse.down(); await page.mouse.move(g.xc - 8, g.y, { steps: 3 }); await page.mouse.up(); await W(200); const m1 = await page.evaluate(() => __del.length);
+        await page.mouse.click(g.xc, g.y); await W(200); const m2 = await page.evaluate(() => __del.length);
+        ok(mode, 'D8 mouse: 8px drag from the X no delete; still click deletes', m1 === before && m2 === before + 1, { drag: m1 - before, click: m2 - before }); d = m2; }
+      { const before = d; await page.evaluate(() => document.querySelectorAll('#locationsList .location-card')[0].querySelector('.delete-btn').focus()); await page.keyboard.press('Enter'); await W(200); d = await page.evaluate(() => __del.length);
+        ok(mode, 'D9 keyboard Enter on the X deletes', d === before + 1, { del: d - before }); }
+      await ctx.close(); }
+    // D10: Safari forward-swipe edge: a stroke starting within 24px of the right edge is inert
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0); await L.drag(page, cdp, L.line(372, g.y, 260, g.y, 12)); await W(500); const s = await st(page, g.id);
+      ok(mode, 'D10 stroke from x=372 (inside EDGE 24) is inert: no visit, no delete', !s.visited && !s.del && !s.live, s); await ctx.close(); }
+  }
+  console.log(`${pass}/${total}`); fs.writeFileSync(process.env.OUT || __dirname + '/p2-vtest.json', JSON.stringify(results, null, 1)); await b.close(); })();

@@ -491,23 +491,15 @@ go stale, and don't leave it silently out of date either.
     - `haptic8.js` (0 frames of focus on the switch, 0 document clicks, overlays stay open) and `tap8.js` (1 toggle per tap, trusted);
     - 0 dust-over-text frames, rows 56.00px, tap delay ≤~2ms over `main` (touchend→navigate 1.8–2.8ms vs ~1.0ms; imperceptible), hand-off 0/5,184, Impeccable baseline 3.
 
+- **Swipe LEFT to mark visited — "carry and press"** — merged to `main` (2026-09-28) **at the owner's request, before the round-2 UX re-verification and CD perfection score finished** ("merge it, it's the best way for me to test"). Concept approved by the owner (CD concept 9/10; rejected: slam, roller, long-press). Perfection round 1 scored CD 8/10; round 2 fixed both blockers (below) and passed its own gates, but the CD has NOT yet scored it — treat the owner's iPhone checks as the real review, and feed any UX/CD findings back as a follow-up round. Design record: `design/swipe-visit/` (concept + CD, p1/p2 design docs, CD p1 review, p2 strips).
+  - **Gesture:** stroke a pin row LEFT (the mirror of the Pencil Star's right stroke; same LOCK/EDGE 24/SCROLL/COMMIT 56/flick numbers). The X fades out (80ms) and stops taking taps; the name's tail feathers back 12px clear of the stamp slot; the shipped `.row-stamp` is carried in 1:1 under the thumb, LIFTED (1.15×, 3px up, opaque face in the row's own field colour, navy ink at 70% via `color-mix`, shadow only outside the silhouette), lowering as 1 − p² (the pressure cue). **At 56px, in one event:** contact (shadow 0, 82% ink = the in-flow stamp), visited field on the same frame, haptic tick, thunk squash 1.04 → 0.93 → 1 over 220ms (rAF, not WAAPI — a compositor transform rasterised soft), and the final truncation (`.vs-reserve`) — letters change on the press frame, never on a still frame. **A pressed stamp never moves** (0.000px drift on overtravel); backing off 4px (`HYST`) lifts it again and a release is then a cancel. Release: the in-flow stamp is pixel-identical to the pressed one (per-place `stampTilt()` kept). Flick visits. **Un-visit** (same stroke on a visited row): the stamp is picked straight up — lift leads, ink fades trailing by 12px (`FADE_LAG`) to a 30% ghost at 44, gone at 56 with the field draining and the erase double tick; the wider row is revealed under a feather sweep. A flick never un-visits. Shape rows don't take it. Popup Mark Visited stays the non-gesture path, in sync (V16).
+  - **Delete safety:** only a near-still tap on the X deletes — `DELETE_TAP_SLOP` 4px between down and up (read from `touchend`); a touch that moves more does nothing (no delete, no navigate). Keyboard Enter unaffected. A stroke's own click eaten by `eatClick`. No carried stamp ever overlaps the fading X (clip-path, ≥0.99px clear).
+  - **Reduced motion:** no carry/lift/squash; the stamp waits as a 55% impression and the press just appears. Haptics still fire.
+  - **Gates (Chromium):** star "84 + 8 (+ N8-a)", visit suite `vtest.js` 81/81 both motion modes (incl. D1–D10 delete safety, V18 0 still-frame glyph changes), popup-open 20/20, dust 0, rows 56.00px, tap delay ~1.6ms, hand-off 0/41,328, Impeccable baseline 3. Open question for UX: `curve8` row measured 10 frames ≥1.3× vs the 11 on record — designer says frame-phase jitter (main also measured 10); not yet independently confirmed.
+  - **Dials:** `LIFT_SCALE` 1.15 (1.1–1.2), `CARRY_INK` 0.7 (0.65–0.8), shadow alpha 0.10–0.20, squash 0.93 (0.92–0.95), `PRESS_MS` 220, `GHOST` 0.3, `HYST` 4, `FADE_LAG` 12, `DELETE_TAP_SLOP` 4 (3–6).
+  - Not done: a teaching replay from the popup's Mark Visited.
+
 **Priority (owner-requested, next up):**
-- **Swipe LEFT to mark visited** (owner, 2026-09-28) — NEXT UP — concept stage
-  (Pencil Star rounds 7/8 shipped). "Copy
-  the pattern": the row stroke that stars (right) gets a mirror (left)
-  that stamps VISITED, completing the grammar (pencilled = care about,
-  stamped = been). New interaction → **concept stage first** (per Team
-  process), then perfection. Known constraints the concept must answer:
-  a left stroke usually starts on the right half of the row, where the
-  delete X and the stamp column live (the owner's mis-tap history —
-  delete must stay impossible to trigger by a swipe); Safari's
-  forward-swipe claims the right screen EDGE (same `EDGE` guard idea);
-  the row currently gives 6px and is inert on left; the visited stamp's
-  shipped geometry/tilt/ink should be the mark that lands (a stamp
-  *pressed* on, vs the star *drawn*); un-visit = the same stroke on a
-  visited row; haptic click like the star; the popup's Mark Visited stays
-  the non-gesture path; the visited field tint + stamp must stay
-  consistent with however it's set.
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
   { ascending: false })` (newest-added first) and `syncLocationCards()`
@@ -556,6 +548,15 @@ go stale, and don't leave it silently out of date either.
   discovery so these don't get designed in isolation.
 
 **Needs the user's action:**
+- iPhone check of swipe-left visited (#1 is a gate):
+  1. **(Gate)** A left stroke from the X or the row's right half stamps. A hesitant 4–12px nudge on the X never raises the delete confirm; a still tap still does (dial `DELETE_TAP_SLOP` 3–6).
+  2. The carried stamp is navy and opaque, held above the page (shadow + size) — never grey or faded.
+  3. The press reads as a thunk even with no haptic (iOS 27): contact, squash, field, one beat.
+  4. The pressed stamp never slides with the finger.
+  5. Un-visit reads as the stamp picked straight up (rises first, then pales).
+  6. Long names: the ellipsis lands with the press; nothing changes when you let go, and no pop when the wider row returns on un-visit.
+  7. A stroke from the X's outer edge belongs to Safari's forward swipe (EDGE 24).
+  8. Android / iOS ≤26.4: tick on press, double tick on lift. iOS 26.5+: a swipe is silent (platform limit).
 - iPhone check of the Pencil Star (in this order — #1 is a gate):
   1. **(Gate)** A horizontal stroke on a list row engages the star (iOS Safari delivers a *cancelable* `touchmove`). If it never arms, stop and report before anything else.
   2. Loose-thumb flick scrolls never stick or catch a row; 34–45° drags scroll; no jank on a long list (non-passive `touchmove` on every row).

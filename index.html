@@ -1644,9 +1644,56 @@
 
     /* A drag is not a press. */
     .location-card.sg-live:not(.highlighted),
-    .location-card.sg-live:not(.highlighted):active { background: var(--paper); }
+    .location-card.sg-live:not(.highlighted):active,
+    .location-card.vs-live:not(.highlighted),
+    .location-card.vs-live:not(.highlighted):active { background: var(--paper); }
     .location-card.is-visited.sg-live:not(.highlighted),
-    .location-card.is-visited.sg-live:not(.highlighted):active { background: var(--paper-filed); }
+    .location-card.is-visited.sg-live:not(.highlighted):active,
+    .location-card.is-visited.vs-live:not(.highlighted),
+    .location-card.is-visited.vs-live:not(.highlighted):active { background: var(--paper-filed); }
+
+    /* VISIT STAMP (swipe LEFT): see attachStarGesture() / paintVisit().
+       The field changes on the press frame itself -- no 120ms fade -- so
+       ink and field land as ONE event. The text column never runs under
+       the stamp: its right edge is a 20px feather (wide enough to cover an
+       ellipsis plus the widest glyph it can replace) that stays 12px clear of
+       the stamp's actual (scaled) box, the star's own rule, and it only
+       ever hides or reveals letters -- they never change at full ink. */
+    .location-card.vs-live { transition: none; }
+    .location-card.vs-live .row-main,
+    .location-card.vs-settle .row-main {
+      -webkit-mask-image: linear-gradient(to right, #000 calc(var(--vs-edge, 100%) - 20px), rgba(0, 0, 0, var(--vs-a, 1)) var(--vs-edge, 100%));
+      mask-image: linear-gradient(to right, #000 calc(var(--vs-edge, 100%) - 20px), rgba(0, 0, 0, var(--vs-a, 1)) var(--vs-edge, 100%));
+    }
+    .location-card.vs-live .location-actions { position: relative; }
+    .vs-carry {                             /* the carried stamp: the shipped .row-stamp, out of flow at its slot */
+      position: absolute;
+      right: calc(var(--col-action) + var(--s1));   /* = its flow slot: [stamp][8px margin][4px gap][X], keyed to the X */
+      top: calc(50% - var(--s4));           /* 32px box centred on the row, as in flow */
+    }
+    /* The lifted stamp is a solid OBJECT: an opaque face in the row's own
+       field colour fills its silhouette (so nothing ever shows through the
+       ink), and its cast shadow is a box-shadow, which paints only OUTSIDE
+       that silhouette -- never a halo, never grey through the face. Both
+       are driven by --vs-fill / --vs-sh-*; at contact the face goes back to
+       transparent, exactly the in-flow stamp. */
+    .location-card.vs-live .row-stamp::after {
+      content: '';
+      position: absolute;
+      inset: -0.5px;                        /* covers the dotted track's outer edge */
+      border-radius: 50%;
+      background: var(--vs-fill, transparent);
+      box-shadow: 0 var(--vs-sh-y, 0px) var(--vs-sh-b, 0px) rgb(18 41 63 / var(--vs-sh-a, 0));
+      z-index: -1;
+      pointer-events: none;
+    }
+    /* On the PRESS frame the text column takes its visited width (the stamp's
+       72 + 8 + 4px), so the new truncation lands inside the press itself --
+       the one frame where ink, field and scale all change -- never on a
+       still name at release. The final render then changes nothing. */
+    .location-card.vs-reserve .location-actions { padding-left: calc(var(--s6) * 3 + var(--s2) + var(--s1)); }
+    .location-card.vs-live .delete-btn { transition: opacity 80ms linear; }
+    .location-card.vs-xhide .delete-btn { opacity: 0; pointer-events: none; }
     /* S2: touch presses are delayed 80ms (createCard()), so the bare
        :active pseudo-class must not paint the press instantly. */
     .location-card:not(.highlighted):not(.active):active { background: var(--paper); }
@@ -3822,6 +3869,22 @@
       // Listeners are attached once, at creation — not on every render.
       let touchMoved = false;
 
+      // Delete safety (swipe-left, UX C1): the X is where a left stroke
+      // naturally STARTS, so only a near-still tap on it may delete. Any
+      // pointer that travelled >= DELETE_TAP_SLOP (4px) between down and up
+      // can't -- including sub-slop moves the browser still calls a tap
+      // (the release point is read from touchend, which always arrives).
+      // Keyboard activation (click.detail 0) is unaffected.
+      let xDown = null, xTravel = 0;
+      const xStart = (x, y) => { xDown = [x, y]; xTravel = 0; };
+      const xMove = (x, y) => { if (xDown) xTravel = Math.max(xTravel, Math.hypot(x - xDown[0], y - xDown[1])); };
+      el.addEventListener('touchstart', (e) => { const t = e.touches[0]; if (t) xStart(t.clientX, t.clientY); }, { passive: true });
+      el.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) xMove(t.clientX, t.clientY); }, { passive: true });
+      el.addEventListener('touchend', (e) => { const t = e.changedTouches[0]; if (t) xMove(t.clientX, t.clientY); }, { passive: true });
+      el.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') xStart(e.clientX, e.clientY); });
+      el.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && e.buttons) xMove(e.clientX, e.clientY); });
+      el.addEventListener('pointerup', (e) => { if (e.pointerType === 'mouse') xMove(e.clientX, e.clientY); });
+
       // Only delete is excluded from the row press. The actions cluster
       // also holds the non-interactive visited stamp; excluding the whole
       // cluster meant a tap on the stamp after a scroll never reset
@@ -3867,6 +3930,7 @@
         const current = locations.find(l => l.id === id);
 
         if (e.target.closest('.delete-btn')) {
+          if (e.detail !== 0 && xTravel >= DELETE_TAP_SLOP) return;   // a stroke, not a tap: never deletes
           if (current) confirmDelete(current.id, current.name);
           return;
         }
@@ -4123,9 +4187,11 @@
 
       const start = (x, y, target, src) => {
         eatClick = false;
-        if (starHeld.has(el.getAttribute('data-id')) || target.closest('.delete-btn')) { g = null; return; }
+        if (starHeld.has(el.getAttribute('data-id'))) { g = null; return; }
         if (src === 'touch' && (x < STAR_SWIPE.EDGE || x > window.innerWidth - STAR_SWIPE.EDGE)) { g = null; return; }
-        g = { x0: x, y0: y, src, state: 'pending', samples: [] };
+        // A LEFT stroke may start on the X (that's where a right thumb lands,
+        // and where the stamp comes from); a right stroke from it may not.
+        g = { x0: x, y0: y, src, state: 'pending', samples: [], onX: !!target.closest('.delete-btn') };
       };
       // returns true when the event must be prevented (the row owns it)
       const move = (x, y, ts, cancelable) => {
@@ -4137,19 +4203,25 @@
             if (Math.abs(dy) >= STAR_SWIPE.SCROLL) { g = null; return false; }          // S3(a): the scroller's
             return false;
           }
-          if (!cancelable || !beginStarDrag(el, g, dx > 0)) { g = null; return false; }  // the scroller already has it
+          if (dx > 0 && g.onX) { g = null; return false; }                                // no star stroke from the X
+          if (!cancelable || !(dx < 0 ? beginVisitDrag(el, g) : beginStarDrag(el, g, true))) { g = null; return false; }  // the scroller already has it
           eatClick = true;
         } else if (g.raw < STAR_SWIPE.UNLOCK_MAX && Math.abs(dy) >= STAR_SWIPE.UNLOCK_DY && Math.abs(dy) > Math.abs(dx)) {
-          abortStarDrag(el, g); g = null; return false;                                  // it was a scroll after all
+          if (g.visit) abortVisitDrag(el, g); else abortStarDrag(el, g); g = null; return false;   // it was a scroll after all
         }
         g.samples.push([ts, x]);
         while (g.samples.length > 2 && ts - g.samples[0][0] > 80) g.samples.shift();
-        paintStarDrag(g, dx);
+        if (g.visit) paintVisitDrag(g, dx); else paintStarDrag(g, dx);
         return true;
       };
       const end = (cancelled) => {
         const cur = g; g = null;
         if (!cur || cur.state !== 'drag') return;
+        if (cur.visit) {
+          const s = cur.samples, v = s.length > 1 ? (s[0][1] - s[s.length - 1][1]) / Math.max(1, s[s.length - 1][0] - s[0][0]) : 0;
+          settleVisitDrag(el, cur, !cancelled && (cur.visited ? cur.lifted : (cur.pressed || (cur.raw >= STAR_SWIPE.FLICK_MIN && v >= STAR_SWIPE.FLICK_V))));   // flick visits, never un-visits
+          return;
+        }
         let commit = false;
         if (!cancelled && cur.forward) {
           const s = cur.samples, v = s.length > 1 ? (s[s.length - 1][1] - s[0][1]) / Math.max(1, s[s.length - 1][0] - s[0][0]) : 0;
@@ -4452,6 +4524,252 @@
         setSlip(g, off0 * (1 - e), meta0 * (1 - e));
         paintStarVisual(g, Math.min(v0, raw0 * (1 - e)));   // pencil retracts / ink returns, never ahead of the finger
       }, () => releaseStarRow(el, g, true));
+    }
+
+    // ---- VISIT STAMP: swipe LEFT, "carry and press" ----------------------------
+    // The mirror of the Pencil Star: a pencil DRAWS over time in the star's
+    // slot (left); a stamp is CARRIED in and PRESSED in one instant, in the
+    // stamp's own column (right). The mark is the shipped .row-stamp --
+    // same box, ring, track, 82% navy and per-place stampTilt().
+    //   Carry (0..56px of content travel, past the 10px lock): the stamp
+    //     rides in 1:1 under the thumb from 56px right of its slot, LIFTED --
+    //     elevation, not fade: 1.15x, 3px up, an opaque face in the row's field
+    //     colour with navy ink at 70% (colour-mixed, never alpha), and a cast
+    //     shadow outside its silhouette only. It lowers as it comes, fastest in the last few
+    //     px (height = 1 - p^2): the shadow tightens to a hair and it hovers
+    //     at 1.04x just above the page -- the pressure cue.
+    //   Press (the 56px crossing, in the same event): runStampPress() -- contact
+    //     on the first frame (shadow gone, 100% ink, one 1px ink-bleed frame),
+    //     a thunk (squash to 0.93 in ~30ms, held ~35ms, rebound 1.015, rest 1 at 220ms),
+    //     the visited field on the same frame, haptic. From then on the
+    //     impression is FIXED: extra travel moves nothing (an impression
+    //     can't smear); backing off 4px below 56 lifts it again (hysteresis).
+    //     The text column takes its visited width ON the press frame (and
+    //     gives it back on a lift frame), so truncation never changes at rest.
+    //   Un-visit: the same stroke on a visited row lifts it straight up
+    //     (it doesn't travel: it's picked up where it lies) -- the lift leads
+    //     (1.15x and its shadow ramp from the lock), the ink trails 12px behind,
+    //     lightening to a 30% ghost by 44; at 56 the ghost is gone and the field drains.
+    //   Release: visit -- the row is already final (since the press frame), so
+    //     the render changes nothing; un-visit -- the wider row is revealed by
+    //     the 20px feather sweeping out to the new edge: letters never change at
+    //     full ink on a still frame.
+    //   Reduced motion: no carry, no lift, no squash; the stamp waits at its
+    //     slot as a faint impression and the press simply appears. Haptics
+    //     still fire.
+    const VISIT_SWIPE = { LIFT_SCALE: 1.15, NEAR_SCALE: 1.04, LIFT_Y: 3, CARRY_INK: 0.7, PRINT_INK: 0.82, GHOST: 0.3, FADE_LAG: 12, HYST: 4, XFADE_MS: 80,
+                          TAIL_OUT: 6, STAMP_IN: 12, PRESS_MS: 220, RETURN_MS: 180, CLEAR_MS: 160, REVEAL_MS: 200, XBACK_MS: 120 };
+    const DELETE_TAP_SLOP = 4;
+    // The thunk, as a rAF-driven curve (main-thread inline styles, never a
+    // promoted layer -- a composited transform layer rasterised soft at 4x
+    // and snapped crisp ~250ms later). ms -> scale; frame 0 carries the ink
+    // bleed. Keyframes: 0 1.04 | 31ms 0.93 (ease-in: the drop) | 66ms 0.94
+    // (held: the ink sits) | 121ms 1.015 (rebound) | 220ms 1 (rest).
+    const STAMP_PRESS_KEYS = [[0, 1.04, t => t * t], [31, 0.93, t => t], [66, 0.94, t => t * t * (3 - 2 * t)], [121, 1.015, t => 1 - Math.pow(1 - t, 3)], [220, 1, null]];
+    function stampPressScale(ms) {
+      const K = STAMP_PRESS_KEYS;
+      if (ms >= K[K.length - 1][0]) return 1;
+      for (let i = 0; i < K.length - 1; i++) if (ms < K[i + 1][0]) { const [a, sa, e] = K[i], [b, sb] = K[i + 1]; return sa + (sb - sa) * e((ms - a) / (b - a)); }
+      return 1;
+    }
+    function runStampPress(g) {
+      const st = g.st, t0 = sgNow(); let frame = 0;
+      const step = () => {
+        if (g.pressRaf === undefined || !g.pressed) return;
+        const ms = sgNow() - t0, sc = stampPressScale(ms);
+        st.style.transform = `scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+        st.style.filter = frame++ === 0 ? 'drop-shadow(0 0 0.8px currentColor)' : 'none';   // ONE bleed frame
+        if (ms < VISIT_SWIPE.PRESS_MS) g.pressRaf = requestAnimationFrame(step);
+        else { st.style.transform = `rotate(${g.tilt}deg)`; g.pressRaf = undefined; }
+      };
+      step();
+    }
+
+    function vsShadow(st, h, k = 1) {       // cast shadow for height h (0 = touching); k fades it in with the face
+      st.style.setProperty('--vs-sh-a', h > 0 ? ((0.10 + 0.10 * h) * k).toFixed(3) : '0');
+      st.style.setProperty('--vs-sh-b', (1 + 2.5 * h).toFixed(2) + 'px');
+      st.style.setProperty('--vs-sh-y', (1 + 2.5 * h).toFixed(2) + 'px');
+    }
+    // The lifted face's ink: navy mixed with the row's own field -- opaque,
+    // never alpha over a shadow (which read as a grey, disabled pill).
+    function vsInk(g, k) { return `color-mix(in srgb, ${g.inkBase} ${(k * 100).toFixed(1)}%, ${g.fill})`; }
+    function vsFace(g, on) {
+      if (on) { g.st.style.setProperty('--vs-fill', g.fill); }
+      else { g.st.style.removeProperty('--vs-fill'); g.st.style.color = ''; }
+    }
+
+    function beginVisitDrag(el, g) {
+      const id = el.getAttribute('data-id'), loc = locations.find(l => l.id === id);
+      if (!loc) return false;
+      starHeld.forEach((h, hid) => { if (hid !== id && h.ff) h.ff(); });     // R4-S2 for any finishing row
+      el.classList.remove('active');
+      const main = el.querySelector('.row-main'), acts = el.querySelector('.location-actions');
+      if (!main || !acts) return false;
+      const tilt = stampTilt(id), visited = !!loc.visited;
+      let st = el.querySelector('.row-stamp');
+      if (!visited) {
+        st = document.createElement('span');
+        st.className = 'row-stamp vs-carry'; st.setAttribute('aria-hidden', 'true');
+        st.style.setProperty('--stamp-tilt', tilt + 'deg');
+        st.innerHTML = '<span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span>';
+        st.style.opacity = '0';
+      }
+      const fill = getComputedStyle(el).backgroundColor;             // the row's own field, before the drag styles apply
+      const inkBase = el.classList.contains('highlighted') ? 'var(--paper)' : 'var(--navy)';
+      el.classList.add('vs-live', 'vs-xhide');
+      if (!visited) acts.prepend(st);
+      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, tilt, fill, inkBase, lockT: sgNow(), raw: 0, pressed: false, lifted: false, armed: false });
+      vsFace(g, true);
+      // N1: while the X fades (80ms) no stamp pixel may sit over it -- repaint once it's gone
+      setTimeout(() => { if (g.state === 'drag') paintVisit(g); }, VISIT_SWIPE.XFADE_MS + 5);
+      starHeld.set(id, { ff: null });
+      paintVisit(g);
+      return true;
+    }
+
+    function paintVisitDrag(g, dx) {
+      g.raw = Math.max(0, -dx - STAR_SWIPE.LOCK);
+      paintVisit(g);
+    }
+
+    // Visual state for content travel g.raw (no layout change, ever).
+    function paintVisit(g) {
+      const C = STAR_SWIPE.COMMIT, V = VISIT_SWIPE, rm = prefersReducedMotion();
+      const r = g.raw, st = g.st, el = g.el;
+      if (!g.visited) {
+        const wasPressed = g.pressed;
+        g.pressed = wasPressed ? r >= C - V.HYST : r >= C;
+        if (g.pressed) {
+          if (!wasPressed) {                // contact: same event, same frame
+            st.style.transform = `rotate(${g.tilt}deg)`; st.style.filter = 'none'; st.style.opacity = '1'; st.style.clipPath = ''; vsShadow(st, 0); vsFace(g, false);
+            el.classList.add('is-visited', 'vs-reserve');                 // final truncation lands INSIDE the press
+            g.pressT = sgNow();
+            if (!rm) { g.pressRaf = 0; runStampPress(g); }
+            starHaptic('ink');
+          }
+        } else {
+          if (wasPressed) { if (g.pressRaf) cancelAnimationFrame(g.pressRaf); g.pressRaf = undefined; el.classList.remove('is-visited', 'vs-reserve'); vsFace(g, true); }   // lift frame: old layout back
+          const p = Math.min(1, r / C), h = rm ? 0.5 : 1 - p * p;
+          const x = rm ? 0 : C - Math.min(r, C);
+          const sc = rm ? 1 : V.NEAR_SCALE + (V.LIFT_SCALE - V.NEAR_SCALE) * h, y = rm ? 0 : -(0.5 + (V.LIFT_Y - 0.5) * h);
+          st.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+          // the text tail feathers out FIRST (0..6px); then the stamp is there, whole and
+          // opaque -- never a see-through ramp (grey). While the X fades it slides
+          // out from behind the X's edge (the N1 clip below), so it still emerges.
+          const k = r >= V.TAIL_OUT ? 1 : 0;
+          vsShadow(st, h, k);
+          st.style.color = vsInk(g, V.CARRY_INK);
+          st.style.opacity = String(k);
+          // N1: clip the stamp at the X's left edge until the X's fade is over
+          const xb = el.querySelector('.delete-btn');
+          if (xb && sgNow() - g.lockT < V.XFADE_MS) {
+            const xl = xb.getBoundingClientRect().left - 1, ar = st.parentElement.getBoundingClientRect();
+            const cx = ar.right - 40 - 36 + x, t = Math.abs(g.tilt) * Math.PI / 180;
+            const localMax = ((xl - cx) - 16 * sc * Math.sin(t)) / (sc * Math.cos(t));
+            st.style.clipPath = `inset(0 ${Math.max(0, 36 - localMax).toFixed(2)}px 0 0)`;
+          } else st.style.clipPath = '';
+        }
+      } else {
+        const wasLifted = g.lifted;
+        g.lifted = wasLifted ? r >= C - V.HYST : r >= C;
+        // N3: the LIFT leads -- scale and shadow ramp linearly from the lock --
+        // and the ink trails it by 12px: it lightens (opaquely, toward the
+        // field) to a 30% ghost between 12 and 44, gone at 56.
+        const h = rm ? 0 : Math.min(1, r / C);
+        const sc = 1 + (V.LIFT_SCALE - 1) * h, y = -V.LIFT_Y * h;
+        st.style.transform = `translate(0px, ${y.toFixed(2)}px) scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+        vsShadow(st, h);
+        const f = Math.max(0, Math.min(1, (r - V.FADE_LAG) / (44 - V.FADE_LAG)));
+        st.style.color = vsInk(g, V.PRINT_INK + (V.GHOST - V.PRINT_INK) * f);
+        st.style.opacity = g.lifted ? '0' : '1';
+        if (g.lifted && !wasLifted) { el.classList.remove('is-visited'); starHaptic('erase'); }
+        if (!g.lifted && wasLifted) el.classList.add('is-visited');
+        // Reduced motion has no sweep to hide the wider truncation under, so it
+        // lands on the lift frame itself (the stamp and field go on that frame).
+        if (rm) st.style.display = g.lifted ? 'none' : '';
+      }
+      // the 12px feather: 12px clear of the stamp's actual box, never over the letters' final edge
+      // Visit: over the first 6px the tail feathers in and pulls back to 12px
+      // clear of the (still invisible) stamp; from then on it tracks the stamp.
+      // Un-visit: the last 20px of the column feather in over the first 6px,
+      // so the wider final row can later be revealed under it.
+      if (!g.visited && g.pressed) { g.main.style.removeProperty('--vs-edge'); g.main.style.setProperty('--vs-a', '1'); return; }
+      const mr = g.main.getBoundingClientRect(), sr = st.getBoundingClientRect();
+      const tail = Math.max(0, Math.min(1, r / V.TAIL_OUT));
+      const stampEdge = sr.left - 12 - mr.left, full = mr.width;
+      const edge = g.visited ? full : full + (Math.min(full, stampEdge) - full) * tail;
+      g.main.style.setProperty('--vs-edge', edge.toFixed(2) + 'px');
+      g.main.style.setProperty('--vs-a', (1 - tail).toFixed(3));
+    }
+
+    function vsCleanup(el, g) {
+      el.classList.remove('vs-live', 'vs-settle', 'vs-reserve');
+      if (g.main) { g.main.style.removeProperty('--vs-edge'); g.main.style.removeProperty('--vs-a'); }
+      starHeld.delete(g.id);
+    }
+    function vsXBack(el, g) {               // the X fades back; it is tappable only once it's fully there
+      el.classList.remove('vs-xhide');
+      const x = el.querySelector('.delete-btn');
+      if (!x) return;
+      x.style.pointerEvents = 'none';           // reduced motion too: it appears at once, but is live only after XBACK_MS
+      const live = () => { x.style.pointerEvents = ''; };
+      if (prefersReducedMotion() || !x.animate) { setTimeout(live, VISIT_SWIPE.XBACK_MS); return; }
+      x.animate([{ opacity: 0 }, { opacity: 1 }], { duration: VISIT_SWIPE.XBACK_MS, easing: 'linear' }).finished.then(live, live);
+    }
+
+    function abortVisitDrag(el, g) { settleVisitDrag(el, g, false); }
+
+    function settleVisitDrag(el, g, commit) {
+      const V = VISIT_SWIPE, C = STAR_SWIPE.COMMIT;
+      g.state = 'settle';
+      let dead = false;
+      const nowVisited = commit ? !g.visited : g.visited;
+      // FINAL row: laid out under the feather; the feather then clears (visit)
+      // or sweeps out to the new, wider edge (un-visit).
+      const finish = () => {
+        if (dead) return; dead = true;
+        if (g.pressRaf) cancelAnimationFrame(g.pressRaf); g.pressRaf = undefined;
+        if (!commit) {
+          if (!g.visited) g.st.remove();
+          else { g.st.style.transform = ''; g.st.style.filter = ''; g.st.style.opacity = ''; g.st.style.color = ''; g.st.style.display = ''; ['--vs-sh-a', '--vs-sh-b', '--vs-sh-y', '--vs-fill'].forEach(k => g.st.style.removeProperty(k)); el.classList.add('is-visited'); }
+          el.classList.remove('vs-reserve');
+          vsXBack(el, g); vsCleanup(el, g); updateUI();
+          return;
+        }
+        const mr0 = g.main.getBoundingClientRect(), edgeAbs = mr0.left + (parseFloat(g.main.style.getPropertyValue('--vs-edge')) || mr0.width);
+        const loc = locations.find(l => l.id === g.id) || {};
+        const fin = { ...loc, visited: nowVisited };
+        renderCard(el, fin);
+        const entry = cardsById.get(g.id); if (entry) entry.signature = cardSignature(fin);
+        el.classList.remove('vs-live', 'vs-reserve'); el.classList.add('vs-xhide');
+        const main = el.querySelector('.row-main'); g.main = main;
+        vsXBack(el, g);
+        const end = () => { vsCleanup(el, g); updateUI(); };
+        if (nowVisited || prefersReducedMotion()) { end(); return; }   // already final since the press/lift frame: nothing changes
+        el.classList.add('vs-settle');
+        const mr = main.getBoundingClientRect(), e0 = Math.min(mr.width, edgeAbs - mr.left);
+        main.style.setProperty('--vs-edge', e0.toFixed(2) + 'px'); main.style.setProperty('--vs-a', '0');
+        runTimeline(V.REVEAL_MS, t => { const e = easeOut(t); main.style.setProperty('--vs-edge', (e0 + (mr.width + 12 - e0) * e).toFixed(2) + 'px'); }, end);
+      };
+      const held = starHeld.get(g.id); if (held) held.ff = () => finish();
+      if (commit) {
+        toggleLocationFlag(g.id, 'visited');      // optimistic; this row's re-render is held -- we lay it out ourselves
+        if (!g.visited && !g.pressed) {           // a flick: the stamp finishes its carry, then presses
+          const r0 = g.raw, ms = Math.max(60, (C - r0) / 0.6);
+          runTimeline(ms, t => { if (dead) return; g.raw = r0 + (C - r0) * t; paintVisit(g); }, () => { if (dead) return; g.raw = C; paintVisit(g); setTimeout(finish, prefersReducedMotion() ? 0 : V.PRESS_MS); });
+          return;
+        }
+        if (!g.visited) {                          // let the press finish -- the impression doesn't move meanwhile
+          const left = prefersReducedMotion() ? 0 : Math.max(0, V.PRESS_MS - (sgNow() - (g.pressT || 0)));
+          setTimeout(finish, left);
+          return;
+        }
+        finish();
+        return;
+      }
+      // cancel: the stamp goes back where it came from (visit) or back down (un-visit)
+      const r0 = g.raw;
+      runTimeline(V.RETURN_MS, t => { if (dead) return; g.raw = r0 * (1 - easeOut(t)); paintVisit(g); }, finish);
     }
 
     // N3: shape rows have no star -- a stroke gets the same 6px of give.
