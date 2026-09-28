@@ -40,6 +40,7 @@
     /* E/F: a bottom SHEET like the app's list. E = fixed bottom 0 (the app
        today). F = absolute inside a 100lvh-tall root (the candidate fix). */
     html.v-sheetabs, html.v-sheetabs body { height: 100lvh; }
+    html.v-sheetabs body { position: relative; }   /* the sheet anchors to the 100lvh body, not the short initial containing block */
     body.v-sheetfix .layer, body.v-sheetabs .layer { position: fixed; inset: 0; }
     .sheet { display: none; left: 0; right: 0; bottom: 0; height: 300px; z-index: 5;
       background: repeating-linear-gradient(0deg, #F2EBDD 0 44px, #12293F 44px 46px); }
