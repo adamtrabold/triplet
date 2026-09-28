@@ -11,6 +11,10 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Triplet</title>
+  <!-- Home Screen launch: the bottom-chrome allowance (--chrome-bottom) is 0
+       there. Set before first paint; the display-mode query below is the
+       CSS-only twin for engines that report it. -->
+  <script>if (navigator.standalone) document.documentElement.classList.add('standalone');</script>
   <!-- The removed map-corner seal, reduced to its single most legible glyph:
        navy field, cream inset ring, one letter instead of the whole
        wordmark -- there's room to run it much larger than 7 glyphs ever
@@ -141,7 +145,17 @@
        clear 4.5:1 and still hold a value ladder).
        ===================================================================== */
     :root {
-      --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+      /* BOTTOM CHROME. The sheet and map are absolute layers inside a
+         100lvh body (not position:fixed -- see the html/body rule), so the
+         sheet's box runs to the physical bottom edge: behind Safari's
+         translucent toolbar in a tab, behind the home indicator from the
+         Home Screen. --chrome-bottom is the TOOLBAR's height (100lvh - 100dvh
+         in a tab, ~100px; 0 on desktop and from the Home Screen);
+         --sheet-under is everything the sheet's box runs under (toolbar +
+         home-indicator inset). Content that must stay usable is kept above
+         it; only paper runs behind. */
+      --chrome-bottom: 0px;
+      --sheet-under: calc(var(--chrome-bottom) + env(safe-area-inset-bottom, 0px));
 
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
@@ -202,15 +216,48 @@
       --font-ui: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    @supports (height: 100lvh) {
+      :root { --chrome-bottom: max(0px, 100lvh - 100dvh); }
+    }
+    /* From the Home Screen there is no toolbar, but WebKit's short-layout-
+       viewport bug can make 100dvh read short by the top inset -- which the
+       formula above would mistake for a toolbar. Pin it to 0 there. */
+    @media (display-mode: standalone), (display-mode: fullscreen) {
+      :root { --chrome-bottom: 0px; }
+    }
+    :root.standalone { --chrome-bottom: 0px; }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* THE LAYOUT ROOT. Bottom-anchored layers (#filtersPanel, #locations,
+       #authModal) are position:ABSOLUTE in this 100lvh body, not
+       position:fixed: from the Home Screen WebKit makes the fixed containing
+       block short by the top inset (a 62px band under the sheet), and in a
+       Safari tab fixed stops above the translucent toolbar. A 100lvh root
+       reaches the physical bottom in both (measured on iPhone,
+       tools/viewport-test.html variant F). #mainContent and the top-anchored
+       controls stay fixed, sized from the top only.
+       The page must never scroll, although the root can be taller than
+       innerHeight in a tab and the collapsed sheet / hidden filter panel
+       translate past the bottom: body's overflow:hidden propagates to the
+       viewport (iOS 16+ honours it for touch, as it already did here),
+       overscroll-behavior kills the rubber band, and a scroll guard at the
+       end of the script undoes any programmatic scroll (focus, etc.). */
+    html {
+      height: 100%;
+      height: 100lvh;
+      overscroll-behavior: none;
+    }
 
     body {
       font-family: var(--font-ui);
       background: var(--paper);
       color: var(--ink);
+      position: relative;   /* the containing block for the layers */
       overflow: hidden;
+      overscroll-behavior: none;
       height: 100vh;
-      height: 100dvh;
+      height: 100lvh;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -357,16 +404,32 @@
     }
 
     #mainContent {
+      /* Stays FIXED (Safari tints its tab status bar from the top fixed
+         layer -- see .leaflet-container), but sized by HEIGHT from top 0,
+         never by `bottom`: a fixed element's bottom is what WebKit cuts
+         short. 100lvh is the same box the sheet lives in, so the map meets
+         the sheet's top edge exactly (the sheet is 300px + the toolbar
+         allowance tall). */
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 300px;
+      height: calc(100vh - 300px - var(--chrome-bottom));
+      height: calc(100lvh - 300px - var(--chrome-bottom));
       overflow: hidden;
-      /* `bottom` is a layout property and is deliberately NOT transitioned:
+      /* `height` is a layout property and is deliberately NOT transitioned:
          animating it would relayout (and re-tile) the Leaflet canvas every
          frame. It snaps, and invalidateSize() runs once after the sheet's
          transform settles. */
+    }
+
+    /* Collapsed sheet: the map runs down to the 60px header band, which
+       sits above everything the sheet runs under. Toggled by the collapse
+       handler (a class, not an inline style, so a rail/phone resize can't
+       leave the two out of step). */
+    #mainContent.sheet-collapsed {
+      height: calc(100vh - 60px - var(--sheet-under));
+      height: calc(100lvh - 60px - var(--sheet-under));
     }
 
     /* Leaflet's zoom control clears the status bar / Dynamic Island in a
@@ -656,14 +719,14 @@
     }
     
     #filtersPanel {
-      position: fixed;
-      bottom: 300px;
+      position: absolute;
+      bottom: calc(300px + var(--chrome-bottom));
       left: 0;
       right: 0;
       background: var(--paper);
       border-top: 1px solid var(--hair);
       z-index: 999;
-      transform: translateY(calc(100% + 300px));
+      transform: translateY(calc(100% + 300px + var(--chrome-bottom)));
       transition: transform 0.3s ease;   /* `bottom` is layout -- not animated */
       max-height: 40vh;
       overflow-y: auto;
@@ -674,8 +737,8 @@
     }
 
     #filtersPanel.collapsed-mode {
-      bottom: calc(60px + env(safe-area-inset-bottom, 0px));
-      transform: translateY(calc(100% + 60px + env(safe-area-inset-bottom, 0px)));
+      bottom: calc(60px + var(--sheet-under));
+      transform: translateY(calc(100% + 60px + var(--sheet-under)));
     }
 
     #filtersPanel.collapsed-mode.visible {
@@ -797,13 +860,17 @@
        300px box and slides down by (300 - 60) = 240px, which leaves exactly
        the 60px header band (a 56px content box plus its two 2px rules) on
        screen. Animating height/padding/margin thrashes layout on every
-       frame; translateY is composited. */
+       frame; translateY is composited.
+       The box is 300px PLUS the toolbar allowance and its bottom is the
+       physical screen edge, so paper runs behind Safari's toolbar while the
+       visible sheet stays 300px; the collapse offset is unchanged because
+       the extra height sits below the band it keeps on screen. */
     #locations {
-      position: fixed;
+      position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 300px;
+      height: calc(300px + var(--chrome-bottom));
       background: var(--paper);
       z-index: 1000;
       transform: translateY(0);
@@ -838,8 +905,9 @@
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20px, black 100%);
     }
 
+    /* Lets the last row scroll fully clear of the toolbar/home indicator. */
     .location-list-spacer {
-      height: env(safe-area-inset-bottom, 0px);
+      height: var(--sheet-under);
       flex-shrink: 0;
     }
 
@@ -1498,7 +1566,9 @@
     /* Auth Modal */
     #authModal {
       display: none;
-      position: fixed;
+      /* absolute in the 100lvh body, like the sheet: a fixed scrim stops
+         62px short from the Home Screen and would leave the sheet unscrimmed. */
+      position: absolute;
       top: 0;
       left: 0;
       right: 0;
@@ -1510,6 +1580,8 @@
       align-items: center;
       justify-content: center;
       padding: var(--s4);
+      /* centre the card in what's visible above the toolbar, not behind it */
+      padding-bottom: calc(var(--s4) + var(--chrome-bottom));
     }
 
     #authModal.show {
@@ -1619,7 +1691,7 @@
         left: 0;
         right: auto;
         width: 360px;
-        height: 100vh;
+        height: auto;   /* top/bottom 0 in the 100lvh body */
         border-right: 2px solid var(--navy);
       }
       /* A full-height rail has nothing to collapse into, so the slide-down
@@ -1627,7 +1699,7 @@
       #locations.collapsed { transform: none; }
       #locations.collapsed #locationsList { display: block; }
       #collapseBtn { display: none; }
-      #mainContent { left: 360px; bottom: 0 !important; }
+      #mainContent { left: 360px; bottom: 0 !important; height: auto !important; }
       /* The panel slides up from the viewport bottom once the sheet is a
          full-height rail -- there is no bottom sheet left to sit above. */
       #filtersPanel { left: 360px; bottom: 0; }
@@ -5238,13 +5310,9 @@
       mapElement.classList.toggle('expanded');
       filtersPanel.classList.toggle('collapsed-mode');
 
-      // Adjust mainContent bottom to match location panel height
-      const safeAreaBottom = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom');
-      if (locations.classList.contains('collapsed')) {
-        mainContent.style.bottom = `calc(60px + ${safeAreaBottom})`;
-      } else {
-        mainContent.style.bottom = '300px';
-      }
+      // The map meets the sheet's top edge; the geometry lives in CSS
+      // (#mainContent / #mainContent.sheet-collapsed).
+      mainContent.classList.toggle('sheet-collapsed', locations.classList.contains('collapsed'));
 
       // Force Leaflet to redraw map after resize
       setTimeout(() => {
@@ -5751,6 +5819,22 @@
     if (railQuery.addEventListener) railQuery.addEventListener('change', handleRailChange);
     else if (railQuery.addListener) railQuery.addListener(handleRailChange);
     if (railQuery.matches) document.getElementById('mainContent').style.bottom = '';
+
+    // The page never scrolls. Touch can't (body overflow:hidden reaches the
+    // viewport; overscroll-behavior stops the rubber band), but the 100lvh
+    // root can be taller than innerHeight in a Safari tab and the collapsed
+    // sheet / hidden filter panel translate past the bottom, so focus() or
+    // similar could scroll it programmatically. Undo that -- except while a
+    // field has focus (iOS lifting it above the keyboard), and again once
+    // it loses focus.
+    const unscrollPage = () => {
+      if (!window.scrollY && !window.scrollX) return;
+      const a = document.activeElement;
+      if (a && a.matches('input, textarea, select, [contenteditable]')) return;
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('scroll', unscrollPage, { passive: true });
+    document.addEventListener('focusout', () => setTimeout(unscrollPage, 0));
 
     // A phone in a pocket is the dominant state of this app during a trip:
     // pause entirely while hidden, catch up immediately on return.
