@@ -1666,30 +1666,58 @@
       mask-image: linear-gradient(to right, #000 calc(var(--vs-edge, 100%) - 20px), rgba(0, 0, 0, var(--vs-a, 1)) var(--vs-edge, 100%));
     }
     .location-card.vs-live .location-actions { position: relative; }
-    .vs-carry {                             /* the carried stamp: the shipped .row-stamp, out of flow at its slot */
+    .vs-carry {                             /* the new stamp: the shipped .row-stamp, out of flow AT its slot */
       position: absolute;
       right: calc(var(--col-action) + var(--s1));   /* = its flow slot: [stamp][8px margin][4px gap][X], keyed to the X */
       top: calc(50% - var(--s4));           /* 32px box centred on the row, as in flow */
     }
-    /* The lifted stamp is a solid OBJECT: an opaque face in the row's own
-       field colour fills its silhouette (so nothing ever shows through the
-       ink), and its cast shadow is a box-shadow, which paints only OUTSIDE
-       that silhouette -- never a halo, never grey through the face. Both
-       are driven by --vs-fill / --vs-sh-*; at contact the face goes back to
-       transparent, exactly the in-flow stamp. */
-    .location-card.vs-live .row-stamp::after {
-      content: '';
-      position: absolute;
-      inset: -0.5px;                        /* covers the dotted track's outer edge */
-      border-radius: 50%;
-      background: var(--vs-fill, transparent);
-      box-shadow: 0 var(--vs-sh-y, 0px) var(--vs-sh-b, 0px) rgb(18 41 63 / var(--vs-sh-a, 0));
-      z-index: -1;
-      pointer-events: none;
+    /* Before the commit the stamp BLEEDS into the paper (owner: "it should
+       look like ink bleeding in"): a CRISP pale core (<= 45% of the pressed
+       ink) revealed from the centre out, with a wet, blurred halo leading it
+       by ~3px and a small dense blot where the stamp first touched. The
+       front is a STATIC paper-fibre edge (--vs-wick: a feTurbulence-displaced
+       feathered ellipse, baked into an SVG image once -- a mask image, never
+       a live filter). The spread is transform: scale() on the mask carrier
+       (.vs-rv) with its content counter-scaled (.vs-cs), so the ink never
+       moves or resizes and a drag frame repaints nothing: no per-frame blur,
+       gradient or filter. At 54px the ends are still soaking; the ring only
+       closes crisp on the press frame, when all of this is removed. */
+    .row-stamp.vs-open::before,
+    .row-stamp.vs-open > .row-stamp-ring { visibility: hidden; }
+    .vs-bleed { position: absolute; inset: 0; pointer-events: none; }
+    .row-stamp:not(.vs-open) > .vs-bleed { display: none; }
+    .vs-rv {
+      position: absolute; inset: 0;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 64'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.6' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='f' x='-15%' y='-25%' width='130%' height='150%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09 .16' numOctaves='3' seed='11' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='7' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/defs%3E%3Cellipse cx='72' cy='32' rx='36.4' ry='26' fill='url(%23g)' filter='url(%23f)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 64'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.6' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='f' x='-15%' y='-25%' width='130%' height='150%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09 .16' numOctaves='3' seed='11' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='7' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/defs%3E%3Cellipse cx='72' cy='32' rx='36.4' ry='26' fill='url(%23g)' filter='url(%23f)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+      will-change: transform;
     }
+    .vs-cs { position: absolute; inset: 0; will-change: transform; }   /* counter-scale on the compositor too: net scale 1, never re-rastered */
+    .row-stamp.vs-copy { position: absolute; inset: 0; margin: 0; transform: none; }
+    .location-card .row-stamp.vs-copy { color: var(--vs-ink-1); }   /* beats .location-card.highlighted .row-stamp (P5-S1) */
+    .location-card .vs-rv-core .row-stamp.vs-copy.vs-k2 { color: var(--vs-ink-2); }
+    .location-card .vs-rv-core .row-stamp.vs-copy.vs-k3 { color: var(--vs-ink-3); }
+    .vs-rv-core .vs-copy.vs-k2, .vs-rv-core .vs-copy.vs-k3 { opacity: 0; will-change: opacity; }
+    .vs-rv-halo .vs-copy { filter: blur(1.4px); opacity: 0.8; }   /* constant: never animated */
+    .vs-blot {
+      position: absolute; left: 50%; top: 50%;
+      width: var(--s6); height: var(--s3); margin: calc(var(--s3) / -2) 0 0 calc(var(--s6) / -2);
+      border-radius: 50%;
+      background: radial-gradient(closest-side, var(--vs-ink-1), var(--vs-ink-1) 45%, transparent);
+      filter: blur(1px);
+      will-change: opacity;
+    }
+    /* Core strength deepens with travel through three PRE-RENDERED core
+       copies (.vs-k1..3), stacked and crossfaded by opacity -- compositor-
+       only, so the ink deepening never repaints mid-drag (P6-N1). The halo
+       and blot stay at the lightest ink. Normal rows: the stamp's own navy at lower
+       density -- hue 247 and chroma 0.035 held at the pressed stamp's values,
+       only lightness steps (never a brighter, bluer ink). Highlighted rows:
+       paper toward the row's field, capped the same way (P5-S1). Every step
+       <= 3:1 against its field; the pressed stamp is 6.9:1 / 4.8:1. */
     /* On the PRESS frame the text column takes its visited width (the stamp's
        72 + 8 + 4px), so the new truncation lands inside the press itself --
-       the one frame where ink, field and scale all change -- never on a
+       the one frame where ink, field and the pop all change -- never on a
        still name at release. The final render then changes nothing. */
     .location-card.vs-reserve .location-actions { padding-left: calc(var(--s6) * 3 + var(--s2) + var(--s1)); }
     .location-card.vs-live .delete-btn { transition: opacity 80ms linear; }
@@ -4526,77 +4554,115 @@
       }, () => releaseStarRow(el, g, true));
     }
 
-    // ---- VISIT STAMP: swipe LEFT, "carry and press" ----------------------------
+    // ---- VISIT STAMP: swipe LEFT -- the stamp STAMPS ---------------------------
     // The mirror of the Pencil Star: a pencil DRAWS over time in the star's
-    // slot (left); a stamp is CARRIED in and PRESSED in one instant, in the
-    // stamp's own column (right). The mark is the shipped .row-stamp --
-    // same box, ring, track, 82% navy and per-place stampTilt().
-    //   Carry (0..56px of content travel, past the 10px lock): the stamp
-    //     rides in 1:1 under the thumb from 56px right of its slot, LIFTED --
-    //     elevation, not fade: 1.15x, 3px up, an opaque face in the row's field
-    //     colour with navy ink at 70% (colour-mixed, never alpha), and a cast
-    //     shadow outside its silhouette only. It lowers as it comes, fastest in the last few
-    //     px (height = 1 - p^2): the shadow tightens to a hair and it hovers
-    //     at 1.04x just above the page -- the pressure cue.
-    //   Press (the 56px crossing, in the same event): runStampPress() -- contact
-    //     on the first frame (shadow gone, 100% ink, one 1px ink-bleed frame),
-    //     a thunk (squash to 0.93 in ~30ms, held ~35ms, rebound 1.015, rest 1 at 220ms),
-    //     the visited field on the same frame, haptic. From then on the
-    //     impression is FIXED: extra travel moves nothing (an impression
-    //     can't smear); backing off 4px below 56 lifts it again (hysteresis).
-    //     The text column takes its visited width ON the press frame (and
-    //     gives it back on a lift frame), so truncation never changes at rest.
-    //   Un-visit: the same stroke on a visited row lifts it straight up
-    //     (it doesn't travel: it's picked up where it lies) -- the lift leads
-    //     (1.15x and its shadow ramp from the lock), the ink trails 12px behind,
-    //     lightening to a 30% ghost by 44; at 56 the ghost is gone and the field drains.
-    //   Release: visit -- the row is already final (since the press frame), so
-    //     the render changes nothing; un-visit -- the wider row is revealed by
-    //     the 20px feather sweeping out to the new edge: letters never change at
-    //     full ink on a still frame.
-    //   Reduced motion: no carry, no lift, no squash; the stamp waits at its
-    //     slot as a faint impression and the press simply appears. Haptics
-    //     still fire.
-    const VISIT_SWIPE = { LIFT_SCALE: 1.15, NEAR_SCALE: 1.04, LIFT_Y: 3, CARRY_INK: 0.7, PRINT_INK: 0.82, GHOST: 0.3, FADE_LAG: 12, HYST: 4, XFADE_MS: 80,
-                          TAIL_OUT: 6, STAMP_IN: 12, PRESS_MS: 220, RETURN_MS: 180, CLEAR_MS: 160, REVEAL_MS: 200, XBACK_MS: 120 };
+    // slot (left); a stamp is PRESSED in one instant in its own column (right).
+    // The mark is the shipped .row-stamp -- same box, ring, track, 82% navy and
+    // per-place stampTilt(). Nothing slides (owner, round 3: "it should stamp
+    // with some grow shrink ... maybe the same as the star").
+    //   Before the commit (0..56px of content travel, past the 10px lock):
+    //     the stamp never slides. The name's tail feathers out of the slot
+    //     (0..6px), then the ink BLEEDS into the paper in the slot (vsCue,
+    //     6..56px): a dense blot where it touched, then a crisp pale core
+    //     spreading out under a wet fibrous front -- never the whole ring, never full ink.
+    //   Press (the 56px crossing, in the same event): the cue gives way to the
+    //     whole stamp at full strength (ring, track, word), the visited field and the final
+    //     truncation land on this frame, haptic, and VISIT_POP plays: the
+    //     star's STAR_POP -- same timing, offsets and per-segment easings --
+    //     about the place's own tilt, scaled for a 72x32 oval (peak 1.2x, twist
+    //     -12 -> +4 -> -1.5deg; measured clearance below). Backing off 4px
+    //     below 56 un-presses on that frame (hysteresis).
+    //   Un-visit: the same stroke on a visited row. At the lock the stamp
+    //     lifts with the star's erase pop (STAR_ERASE_POP: 1.12x, no twist);
+    //     then it pales toward a light navy tint (full opacity, chroma >= 0.045)
+    //     between 12 and 44px; at 56 it is gone, the field drains, erase haptic.
+    //   Reduced motion: no pop, no lift; the sweep (finger-driven, not motion)
+    //     stays and the press simply appears. Haptics still fire.
+    const VISIT_SWIPE = { PRINT_INK: 0.82, GHOST: 0.3, FADE_LAG: 12, HYST: 4, TAIL_OUT: 6,
+                          RETURN_MS: 180, REVEAL_MS: 200, XBACK_MS: 120 };
     const DELETE_TAP_SLOP = 4;
-    // The thunk, as a rAF-driven curve (main-thread inline styles, never a
-    // promoted layer -- a composited transform layer rasterised soft at 4x
-    // and snapped crisp ~250ms later). ms -> scale; frame 0 carries the ink
-    // bleed. Keyframes: 0 1.04 | 31ms 0.93 (ease-in: the drop) | 66ms 0.94
-    // (held: the ink sits) | 121ms 1.015 (rebound) | 220ms 1 (rest).
-    const STAMP_PRESS_KEYS = [[0, 1.04, t => t * t], [31, 0.93, t => t], [66, 0.94, t => t * t * (3 - 2 * t)], [121, 1.015, t => 1 - Math.pow(1 - t, 3)], [220, 1, null]];
-    function stampPressScale(ms) {
-      const K = STAMP_PRESS_KEYS;
-      if (ms >= K[K.length - 1][0]) return 1;
-      for (let i = 0; i < K.length - 1; i++) if (ms < K[i + 1][0]) { const [a, sa, e] = K[i], [b, sb] = K[i + 1]; return sa + (sb - sa) * e((ms - a) / (b - a)); }
-      return 1;
+    // STAR_POP, about the stamp's tilt: [offset, twist (deg, added to the tilt), scale, easing into the next].
+    // Deviations from the star, both measured: peak 1.2x (not 1.4x) -- the
+    // 72px oval grows 14px wide at 1.2x, twice the star's growth at 1.4x, and
+    // 1.25x would leave < 4px to the name at the peak; twist x0.6 (-12/+4/-1.5,
+    // not -20/+6/-2) -- a wide oval's ends swing ~3x further than a star's
+    // points for the same angle.
+    const VISIT_POP_PEAK = 1.2;
+    const VISIT_POP = [[0, -12, 1, [.2, .9, .3, 1]], [0.34, 4, VISIT_POP_PEAK, [.6, 0, .85, .45]], [0.65, -1.5, 0.95, [.4, 0, .3, 1]], [1, 0, 1, null]];
+    const VISIT_POP_MS = STAR_POP_MS;
+    const VISIT_LIFT = [[0, 0, 1, [.2, .9, .3, 1]], [0.35, 0, 1.12, [.5, 0, .4, 1]], [1, 0, 1, null]];   // = STAR_ERASE_POP
+    function cubicBezier(x1, y1, x2, y2) {
+      const bx = t => ((1 - 3 * x2 + 3 * x1) * t + (3 * x2 - 6 * x1)) * t * t + 3 * x1 * t;
+      const by = t => ((1 - 3 * y2 + 3 * y1) * t + (3 * y2 - 6 * y1)) * t * t + 3 * y1 * t;
+      return x => { let lo = 0, hi = 1, t = x; for (let i = 0; i < 24; i++) { const v = bx(t); if (Math.abs(v - x) < 1e-5) break; if (v < x) lo = t; else hi = t; t = (lo + hi) / 2; } return by(t); };
     }
-    function runStampPress(g) {
-      const st = g.st, t0 = sgNow(); let frame = 0;
+    const vsEase = new Map();
+    function keyAt(keys, u) {                // linear effect, per-segment easing (the star's model)
+      if (u >= 1) return [keys[keys.length - 1][1], keys[keys.length - 1][2]];
+      for (let i = 0; i < keys.length - 1; i++) if (u < keys[i + 1][0]) {
+        const [o0, r0, s0, e] = keys[i], [o1, r1, s1] = keys[i + 1];
+        if (!vsEase.has(e)) vsEase.set(e, cubicBezier(...e));
+        const k = vsEase.get(e)((u - o0) / (o1 - o0));
+        return [r0 + (r1 - r0) * k, s0 + (s1 - s0) * k];
+      }
+      return [0, 1];
+    }
+    // rAF-driven (main-thread inline styles, never a promoted layer, so every
+    // frame rasterises crisp at 4x).
+    function runVisitPop(g, keys, ms, done) {
+      const st = g.st, t0 = sgNow(), id = (g.popId = (g.popId || 0) + 1);
       const step = () => {
-        if (g.pressRaf === undefined || !g.pressed) return;
-        const ms = sgNow() - t0, sc = stampPressScale(ms);
-        st.style.transform = `scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
-        st.style.filter = frame++ === 0 ? 'drop-shadow(0 0 0.8px currentColor)' : 'none';   // ONE bleed frame
-        if (ms < VISIT_SWIPE.PRESS_MS) g.pressRaf = requestAnimationFrame(step);
-        else { st.style.transform = `rotate(${g.tilt}deg)`; g.pressRaf = undefined; }
+        if (g.popId !== id) return;
+        const u = Math.min(1, (sgNow() - t0) / ms), [dr, sc] = keyAt(keys, u);
+        st.style.transform = `scale(${sc.toFixed(4)}) rotate(${(g.tilt + dr).toFixed(3)}deg)`;
+        if (u < 1) requestAnimationFrame(step); else { st.style.transform = `rotate(${g.tilt}deg)`; g.popId++; if (done) done(); }
       };
       step();
     }
+    function stopVisitPop(g) { g.popId = (g.popId || 0) + 1; g.st.style.transform = `rotate(${g.tilt}deg)`; }
+    // The pre-commit cue for travel fraction p (0..1): see the CSS.
+    // The bleed (see the CSS): p (0..1) drives only transforms and opacities.
+    const VS_BLEED = { S0: 0.1, S1: 1.55, WAIT: 0.24, LEAD: 0.16, BLOT_OUT: [0.3, 0.7], BLOT_REST: 0.35, RX: 18.2, RY: 13, STEP2: [0.31, 0.39], STEP3: [0.66, 0.74] };
+    // The reveal ellipse is 18.2 x 13 CSS px at scale 1 (aspect 1.4). At S0 the
+    // core is 1.8 x 1.3px -- inside the blot's solid 5.4 x 2.7px -- until
+    // WAIT (content 18px), on every row type. It reaches the ring's top and
+    // bottom (12px) from ~27px; its half-width tops out at ~30px (< the
+    // ring's 32 / the track's 36), so the ends are still soaking at 54px.
+    const VS_INK = ['oklch(0.70 0.035 247)', 'oklch(0.665 0.035 247)', 'oklch(0.632 0.035 247)'];
+    const VS_INK_HI = [34, 42, 50];   // % paper into the highlighted row's field
+    function vsBleedMarkup() {
+      const copy = (k = '') => `<span class="row-stamp vs-copy${k}"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`;
+      return '<span class="vs-bleed" aria-hidden="true">'
+        + '<span class="vs-rv vs-rv-halo"><span class="vs-cs">' + copy() + '<span class="vs-blot"></span></span></span>'
+        + '<span class="vs-rv vs-rv-core"><span class="vs-cs">' + copy() + copy(' vs-k2') + copy(' vs-k3') + '</span></span></span>';
+    }
+    function vsCue(st, p, k = 1) {
+      const q = Math.max(0, Math.min(1, p)), B = VS_BLEED;
+      const u = Math.max(0, (q - B.WAIT) / (1 - B.WAIT));                  // the blot first: the core waits inside it until ~18px
+      const sc = B.S0 + B.S1 * Math.sqrt(u), sh = sc + B.LEAD;           // capillary: fast, then slowing; the wet halo leads
+      st.__vsQ = q;
+      const key = sc.toFixed(4); if (st.__vsKey === key && st.__vsK === k) return; st.__vsKey = key; st.__vsK = k;
+      const rv = st.querySelectorAll(':scope > .vs-bleed > .vs-rv');
+      if (rv.length === 2) {
+        rv[0].style.transform = `scale(${sh.toFixed(4)})`; rv[0].firstElementChild.style.transform = `scale(${(1 / sh).toFixed(5)})`;
+        rv[1].style.transform = `scale(${sc.toFixed(4)})`; rv[1].firstElementChild.style.transform = `scale(${(1 / sc).toFixed(5)})`;
+        const blot = rv[0].querySelector('.vs-blot'), [b0, b1] = B.BLOT_OUT;
+        blot.style.opacity = (1 - (1 - B.BLOT_REST) * Math.max(0, Math.min(1, (q - b0) / (b1 - b0)))).toFixed(3);
+      }
+      // P6-N1: the ink deepens by crossfading pre-rendered copies (opacity only)
+      const sm = (a, b) => { const t = Math.max(0, Math.min(1, (q - a) / (b - a))); return t * t * (3 - 2 * t); };
+      const w2 = sm(B.STEP2[0], B.STEP2[1]), w3 = sm(B.STEP3[0], B.STEP3[1]);
+      if (rv.length === 2) { const cs = rv[1].firstElementChild.children; cs[1].style.opacity = w2.toFixed(3); cs[2].style.opacity = w3.toFixed(3); }
+      st.style.opacity = k.toFixed(3);
+    }
+    function vsCueReach(p) { const q = Math.max(0, Math.min(1, p)), B = VS_BLEED; const u = Math.max(0, (q - B.WAIT) / (1 - B.WAIT)); const s = B.S0 + B.S1 * Math.sqrt(u) + B.LEAD; return Math.max(0, (B.RX + 1.75) * s + 3 - 36); }   // halo ellipse + fibre + blur past the slot
+    function vsCueClear(st) { st.style.opacity = ''; }
 
-    function vsShadow(st, h, k = 1) {       // cast shadow for height h (0 = touching); k fades it in with the face
-      st.style.setProperty('--vs-sh-a', h > 0 ? ((0.10 + 0.10 * h) * k).toFixed(3) : '0');
-      st.style.setProperty('--vs-sh-b', (1 + 2.5 * h).toFixed(2) + 'px');
-      st.style.setProperty('--vs-sh-y', (1 + 2.5 * h).toFixed(2) + 'px');
-    }
-    // The lifted face's ink: navy mixed with the row's own field -- opaque,
-    // never alpha over a shadow (which read as a grey, disabled pill).
-    function vsInk(g, k) { return `color-mix(in srgb, ${g.inkBase} ${(k * 100).toFixed(1)}%, ${g.fill})`; }
-    function vsFace(g, on) {
-      if (on) { g.st.style.setProperty('--vs-fill', g.fill); }
-      else { g.st.style.removeProperty('--vs-fill'); g.st.style.color = ''; }
-    }
+    // P3-N1: the un-visit ghost pales toward a LIGHT NAVY TINT at full opacity
+    // (oklch, hue held), never by alpha over warm paper, which went neutral
+    // grey (chroma 0.016). Chroma stays >= 0.045 on every frame until it's gone.
+    const VS_GHOST_TINT = 'oklch(0.80 0.045 249.2)';
+    function vsGhostInk(k) { return `color-mix(in oklch, var(--navy) ${(k * 100).toFixed(1)}%, ${VS_GHOST_TINT})`; }
 
     function beginVisitDrag(el, g) {
       const id = el.getAttribute('data-id'), loc = locations.find(l => l.id === id);
@@ -4609,20 +4675,21 @@
       let st = el.querySelector('.row-stamp');
       if (!visited) {
         st = document.createElement('span');
-        st.className = 'row-stamp vs-carry'; st.setAttribute('aria-hidden', 'true');
+        st.className = 'row-stamp vs-carry vs-open'; st.setAttribute('aria-hidden', 'true');
         st.style.setProperty('--stamp-tilt', tilt + 'deg');
-        st.innerHTML = '<span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span>';
-        st.style.opacity = '0';
+        st.style.transform = `rotate(${tilt}deg)`;
+        st.innerHTML = '<span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span>' + vsBleedMarkup();
+        const hl = el.classList.contains('highlighted');
+        const bg = getComputedStyle(el).backgroundColor;
+        (hl ? VS_INK_HI.map(k => `color-mix(in oklch, var(--paper) ${k}%, ${bg})`) : VS_INK).forEach((c, i) => st.style.setProperty(`--vs-ink-${i + 1}`, c));
+        vsCue(st, 0, 0);
       }
-      const fill = getComputedStyle(el).backgroundColor;             // the row's own field, before the drag styles apply
-      const inkBase = el.classList.contains('highlighted') ? 'var(--paper)' : 'var(--navy)';
+      const field = getComputedStyle(el).backgroundColor;
       el.classList.add('vs-live', 'vs-xhide');
       if (!visited) acts.prepend(st);
-      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, tilt, fill, inkBase, lockT: sgNow(), raw: 0, pressed: false, lifted: false, armed: false });
-      vsFace(g, true);
-      // N1: while the X fades (80ms) no stamp pixel may sit over it -- repaint once it's gone
-      setTimeout(() => { if (g.state === 'drag') paintVisit(g); }, VISIT_SWIPE.XFADE_MS + 5);
+      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, tilt, field, hi: el.classList.contains('highlighted'), raw: 0, pressed: false, lifted: false, armed: false });
       starHeld.set(id, { ff: null });
+      if (visited && !prefersReducedMotion()) runVisitPop(g, VISIT_LIFT, 240);   // the star's erase pop: lift to rub it out
       paintVisit(g);
       return true;
     }
@@ -4632,7 +4699,7 @@
       paintVisit(g);
     }
 
-    // Visual state for content travel g.raw (no layout change, ever).
+    // Visual state for content travel g.raw.
     function paintVisit(g) {
       const C = STAR_SWIPE.COMMIT, V = VISIT_SWIPE, rm = prefersReducedMotion();
       const r = g.raw, st = g.st, el = g.el;
@@ -4640,66 +4707,48 @@
         const wasPressed = g.pressed;
         g.pressed = wasPressed ? r >= C - V.HYST : r >= C;
         if (g.pressed) {
-          if (!wasPressed) {                // contact: same event, same frame
-            st.style.transform = `rotate(${g.tilt}deg)`; st.style.filter = 'none'; st.style.opacity = '1'; st.style.clipPath = ''; vsShadow(st, 0); vsFace(g, false);
-            el.classList.add('is-visited', 'vs-reserve');                 // final truncation lands INSIDE the press
+          if (!wasPressed) {                // the stamp lands: same event, same frame
+            st.classList.remove('vs-open'); vsCueClear(st);
+            el.classList.add('is-visited', 'vs-reserve');                 // field + final truncation land INSIDE the press
             g.pressT = sgNow();
-            if (!rm) { g.pressRaf = 0; runStampPress(g); }
+            if (!rm) runVisitPop(g, VISIT_POP, VISIT_POP_MS); else stopVisitPop(g);
             starHaptic('ink');
           }
         } else {
-          if (wasPressed) { if (g.pressRaf) cancelAnimationFrame(g.pressRaf); g.pressRaf = undefined; el.classList.remove('is-visited', 'vs-reserve'); vsFace(g, true); }   // lift frame: old layout back
-          const p = Math.min(1, r / C), h = rm ? 0.5 : 1 - p * p;
-          const x = rm ? 0 : C - Math.min(r, C);
-          const sc = rm ? 1 : V.NEAR_SCALE + (V.LIFT_SCALE - V.NEAR_SCALE) * h, y = rm ? 0 : -(0.5 + (V.LIFT_Y - 0.5) * h);
-          st.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
-          // the text tail feathers out FIRST (0..6px); then the stamp is there, whole and
-          // opaque -- never a see-through ramp (grey). While the X fades it slides
-          // out from behind the X's edge (the N1 clip below), so it still emerges.
-          const k = r >= V.TAIL_OUT ? 1 : 0;
-          vsShadow(st, h, k);
-          st.style.color = vsInk(g, V.CARRY_INK);
-          st.style.opacity = String(k);
-          // N1: clip the stamp at the X's left edge until the X's fade is over
-          const xb = el.querySelector('.delete-btn');
-          if (xb && sgNow() - g.lockT < V.XFADE_MS) {
-            const xl = xb.getBoundingClientRect().left - 1, ar = st.parentElement.getBoundingClientRect();
-            const cx = ar.right - 40 - 36 + x, t = Math.abs(g.tilt) * Math.PI / 180;
-            const localMax = ((xl - cx) - 16 * sc * Math.sin(t)) / (sc * Math.cos(t));
-            st.style.clipPath = `inset(0 ${Math.max(0, 36 - localMax).toFixed(2)}px 0 0)`;
-          } else st.style.clipPath = '';
+          if (wasPressed) { stopVisitPop(g); st.classList.add('vs-open'); el.classList.remove('is-visited', 'vs-reserve'); }   // un-press frame: old layout back
+          vsCue(st, (r - V.TAIL_OUT) / (C - V.TAIL_OUT), Math.max(0, Math.min(1, (r - V.TAIL_OUT) / V.TAIL_OUT)));
         }
       } else {
         const wasLifted = g.lifted;
         g.lifted = wasLifted ? r >= C - V.HYST : r >= C;
-        // N3: the LIFT leads -- scale and shadow ramp linearly from the lock --
-        // and the ink trails it by 12px: it lightens (opaquely, toward the
-        // field) to a 30% ghost between 12 and 44, gone at 56.
-        const h = rm ? 0 : Math.min(1, r / C);
-        const sc = 1 + (V.LIFT_SCALE - 1) * h, y = -V.LIFT_Y * h;
-        st.style.transform = `translate(0px, ${y.toFixed(2)}px) scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
-        vsShadow(st, h);
         const f = Math.max(0, Math.min(1, (r - V.FADE_LAG) / (44 - V.FADE_LAG)));
-        st.style.color = vsInk(g, V.PRINT_INK + (V.GHOST - V.PRINT_INK) * f);
-        st.style.opacity = g.lifted ? '0' : '1';
+        // P3-N1 + P5-S2: the ghost path starts AT the resting ink (82% navy on
+        // this field: L 0.40 / C 0.035) and only pales, in oklch, toward a light
+        // navy tint at full opacity -- lightness never drops, chroma never
+        // falls below the rest's, and until 12px nothing changes at all.
+        if (!g.hi) st.style.color = f <= 0 ? '' : `color-mix(in oklch, color-mix(in srgb, var(--navy) 82%, ${g.field}) ${((1 - f) * 100).toFixed(1)}%, ${VS_GHOST_TINT})`;
+        st.style.opacity = g.lifted ? '0' : g.hi ? (1 - (1 - V.GHOST / V.PRINT_INK) * f).toFixed(3) : '1';   // highlighted row: its paper ink thins
         if (g.lifted && !wasLifted) { el.classList.remove('is-visited'); starHaptic('erase'); }
         if (!g.lifted && wasLifted) el.classList.add('is-visited');
         // Reduced motion has no sweep to hide the wider truncation under, so it
         // lands on the lift frame itself (the stamp and field go on that frame).
         if (rm) st.style.display = g.lifted ? 'none' : '';
       }
-      // the 12px feather: 12px clear of the stamp's actual box, never over the letters' final edge
-      // Visit: over the first 6px the tail feathers in and pulls back to 12px
-      // clear of the (still invisible) stamp; from then on it tracks the stamp.
+      // The name's feather: 12px clear of the stamp's slot. Visit: it pulls in
+      // over the first 6px (before the track appears) and is switched off on
+      // the press frame, when the column itself takes its final width.
       // Un-visit: the last 20px of the column feather in over the first 6px,
       // so the wider final row can later be revealed under it.
-      if (!g.visited && g.pressed) { g.main.style.removeProperty('--vs-edge'); g.main.style.setProperty('--vs-a', '1'); return; }
-      const mr = g.main.getBoundingClientRect(), sr = st.getBoundingClientRect();
+      if (!g.visited && g.pressed) { g.edgeKey = null; g.main.style.removeProperty('--vs-edge'); g.main.style.setProperty('--vs-a', '1'); return; }
+      const mr = g.main.getBoundingClientRect(), ar = st.parentElement.getBoundingClientRect();
       const tail = Math.max(0, Math.min(1, r / V.TAIL_OUT));
-      const stampEdge = sr.left - 12 - mr.left, full = mr.width;
-      const edge = g.visited ? full : full + (Math.min(full, stampEdge) - full) * tail;
-      g.main.style.setProperty('--vs-edge', edge.toFixed(2) + 'px');
-      g.main.style.setProperty('--vs-a', (1 - tail).toFixed(3));
+      // The feather sits at the bleed's FULL reach from the start (it only pulls in over
+      // 0..6px), so after 6px it is never rewritten: no mask regeneration mid-drag (P6-N1).
+      const reach = g.visited ? 0 : vsCueReach(1);
+      const slotEdge = (ar.right - 40 - 72) - 12 - reach - mr.left, full = mr.width;      // slot left = X.left - 12 - 72, minus the cue's reach
+      const edge = g.visited ? full : full + (Math.min(full, slotEdge) - full) * tail;
+      const ek = edge.toFixed(2) + '|' + (1 - tail).toFixed(3);
+      if (g.edgeKey !== ek) { g.edgeKey = ek; g.main.style.setProperty('--vs-edge', edge.toFixed(2) + 'px'); g.main.style.setProperty('--vs-a', (1 - tail).toFixed(3)); }
     }
 
     function vsCleanup(el, g) {
@@ -4728,10 +4777,10 @@
       // or sweeps out to the new, wider edge (un-visit).
       const finish = () => {
         if (dead) return; dead = true;
-        if (g.pressRaf) cancelAnimationFrame(g.pressRaf); g.pressRaf = undefined;
+        g.popId = (g.popId || 0) + 1;
         if (!commit) {
           if (!g.visited) g.st.remove();
-          else { g.st.style.transform = ''; g.st.style.filter = ''; g.st.style.opacity = ''; g.st.style.color = ''; g.st.style.display = ''; ['--vs-sh-a', '--vs-sh-b', '--vs-sh-y', '--vs-fill'].forEach(k => g.st.style.removeProperty(k)); el.classList.add('is-visited'); }
+          else { g.st.classList.remove('vs-open'); g.st.style.transform = ''; g.st.style.opacity = ''; g.st.style.color = ''; g.st.style.display = ''; el.classList.add('is-visited'); }
           el.classList.remove('vs-reserve');
           vsXBack(el, g); vsCleanup(el, g); updateUI();
           return;
@@ -4754,20 +4803,20 @@
       const held = starHeld.get(g.id); if (held) held.ff = () => finish();
       if (commit) {
         toggleLocationFlag(g.id, 'visited');      // optimistic; this row's re-render is held -- we lay it out ourselves
-        if (!g.visited && !g.pressed) {           // a flick: the stamp finishes its carry, then presses
+        if (!g.visited && !g.pressed) {           // a flick: the ring finishes closing, then the stamp lands
           const r0 = g.raw, ms = Math.max(60, (C - r0) / 0.6);
-          runTimeline(ms, t => { if (dead) return; g.raw = r0 + (C - r0) * t; paintVisit(g); }, () => { if (dead) return; g.raw = C; paintVisit(g); setTimeout(finish, prefersReducedMotion() ? 0 : V.PRESS_MS); });
+          runTimeline(ms, t => { if (dead) return; g.raw = r0 + (C - r0) * t; paintVisit(g); }, () => { if (dead) return; g.raw = C; paintVisit(g); setTimeout(finish, prefersReducedMotion() ? 0 : VISIT_POP_MS + 20); });
           return;
         }
-        if (!g.visited) {                          // let the press finish -- the impression doesn't move meanwhile
-          const left = prefersReducedMotion() ? 0 : Math.max(0, V.PRESS_MS - (sgNow() - (g.pressT || 0)));
+        if (!g.visited) {                          // let the pop land -- the X stays away until it has
+          const left = prefersReducedMotion() ? 0 : Math.max(0, VISIT_POP_MS + 20 - (sgNow() - (g.pressT || 0)));
           setTimeout(finish, left);
           return;
         }
         finish();
         return;
       }
-      // cancel: the stamp goes back where it came from (visit) or back down (un-visit)
+      // cancel: the cue retracts, no ink (visit), or the stamp re-inks (un-visit)
       const r0 = g.raw;
       runTimeline(V.RETURN_MS, t => { if (dead) return; g.raw = r0 * (1 - easeOut(t)); paintVisit(g); }, finish);
     }
