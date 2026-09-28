@@ -576,6 +576,18 @@ go stale, and don't leave it silently out of date either.
   popup's Mark Visited toggle animates it (bleed + press / lift, like the
   row). New idea → concept stage first.
 
+- **(Low) List sheet behind Safari's bottom toolbar** (owner OK'd
+  logging it, 2026-09-28). Measured on the owner's iPhone with
+  `tools/viewport-test.html`: in a Safari TAB nothing draws behind the
+  top status bar (Safari fills it with a colour sampled from the page's
+  top fixed layer — hence `.leaflet-container` is OSM beige `#F2EFE9`),
+  but absolute/in-flow content DOES draw behind the translucent bottom
+  toolbar, while `position: fixed` stops above it. The sheet
+  (`#locations`) is fixed, so the list ends above the toolbar. Making it
+  run behind would mean moving the sheet off `position: fixed` — touches
+  collapse, the swipe gestures and safe-area spacing, so it's a loop item.
+  Home Screen launch is already full-bleed (owner-confirmed).
+
 **Needs the user's action:**
 - iPhone check of swipe-left visited (#1 is a gate):
   1. **(Gate)** A left stroke from the X or the row's right half visits. A 4–12px nudge on the X never raises delete; a still tap does (dial `DELETE_TAP_SLOP` 3–6).
