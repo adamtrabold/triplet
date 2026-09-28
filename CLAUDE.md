@@ -554,7 +554,53 @@ go stale, and don't leave it silently out of date either.
   Follow-up: `maybeTeachStar()` counts a row behind the toolbar as on
   screen. Design record: scratch `loop/sheet/`.
 
+- **Popup + replay round ("p8")** — on branch 2026-09-28, CD 9/10 (UX
+  approve). Owner asks, all shipped together; **these SUPERSEDE the
+  Pencil Star entry's popup draw/teaching bullets and the swipe-visit pop
+  peak.** Design record: scratch `loop/visit/p8-*` (copy to
+  `design/swipe-visit/` at handoff).
+  - **Visit pop 1.10×** (twist −10/+3/−1.2°, dip 0.97; was 1.2×) — owner:
+    "Visited pops too large". Stays distinct from the 1.12× un-visit lift
+    by twist + dip.
+  - **Popup layout:** title row (star) → address/notes → **Get Directions**
+    (the shipped `.popup-directions` TEXT link, own line, as wide as its
+    words) → bottom row: category (left) · **Mark Visited** with its circle
+    on the RIGHT. 44/46px targets, ≥8px dead bands, AA ≥4.79, no wrap,
+    width unchanged.
+  - **Popup star = the list's:** 18px own slot, centred across title +
+    address (title alone if no address; whole heading if it wraps). **No
+    pencil draw in the popup** ("the outline is already there"): star =
+    fill fades in + spin-stamp pop at 1.4×; unstar = ink fades off with the
+    1.12× lift, no rub/dust.
+  - **Popup → row replays, every time, both ways** (on-screen rows,
+    signed in): Mark Visited/Unmark replays the stamp (bleed → press → pop /
+    lift → pale); star replays pencil + ink, unstar the full rub + dust
+    (`ssReplay`/`vsReplay`: once per click, held against refetch, last tap
+    wins, reduced motion = state lands). The old 2-time teaching cap and
+    its localStorage key are gone.
+  - **Haptics everywhere logical** via one `hapticTap()` real-tap label
+    path: popup star, popup Mark Visited, add-form STAR (1 tick per tap,
+    works on iOS 26.5+; none from keyboard/VoiceOver; 0 document clicks;
+    a11y tree unchanged). Deliberately none on: filters/menus/collapse
+    (navigation), delete (`confirm()` follows), Add Location submit (can
+    fail), row tap, Get Directions (leaves the app); row swipes already tick.
+  - **Autopan clears the top chrome:** `bindPinPopup()` sets
+    `autoPanPaddingTopLeft` from the live bottom edge of the zoom control /
+    + / account buttons (which already include the safe-area top) + 8px —
+    82px in a tab, 141px with a 59px inset. Star target blocked 0/56 (main:
+    up to 77%).
+  - Deferred (CD): the 41px gap above Directions in a bare popup belongs to
+    the star-alignment loop. Accepted: VoiceOver reads category just before
+    "Visited"; a touch leaves focus on `body`.
+  - Gates (last full gate on the pre-autopan proto; autopan re-checked
+    scoped): touch 84/84, flip6 8/8, vtest 113/113, popup-open 20/20, dust
+    0, replays 64/64, tap8r/haptic8r/ax8r, curve8 ×10, Impeccable 3.
+
 **Priority (owner-requested, next up):**
+- **Star alignment looks off** (owner, 2026-09-28: "the star is looking
+  weird either way" = alignment, in both the list row and the popup) —
+  NEXT loop problem. Includes the CD-deferred 41px empty gap above Get
+  Directions in a bare popup (star-target geometry).
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
   { ascending: false })` (newest-added first) and `syncLocationCards()`
@@ -614,6 +660,16 @@ go stale, and don't leave it silently out of date either.
   row). New idea → concept stage first.
 
 **Needs the user's action:**
+- iPhone check of the popup round: (1) a long-name place opened high on
+  the map settles below the controls/Dynamic Island, and tapping the
+  star's left edge stars it (never zooms out); (2) one haptic tick per tap
+  on popup star, popup Mark Visited and the add-form STAR (none with
+  VoiceOver); (3) the popup star fades + pops (no pencil) and unstar fades
+  off; (4) popup Mark Visited / star / unstar replay on the list row
+  behind the popup every time; (5) the 1.10× visit pop still reads as a
+  thunk, distinct from the 1.12× un-visit lift; (6) Get Directions text
+  link sits right under the notes; category left, Mark Visited + circle
+  right.
 - iPhone check of the sheet fix: (1) Home Screen: the list reaches the
   bottom with no band; collapsed band just above the home indicator; map
   still behind the clock. (2) Collapse/expand: map meets the sheet, no
