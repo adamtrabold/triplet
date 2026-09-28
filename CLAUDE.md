@@ -557,8 +557,7 @@ go stale, and don't leave it silently out of date either.
 - **Popup + replay round ("p8")** — on branch 2026-09-28, CD 9/10 (UX
   approve). Owner asks, all shipped together; **these SUPERSEDE the
   Pencil Star entry's popup draw/teaching bullets and the swipe-visit pop
-  peak.** Design record: scratch `loop/visit/p8-*` (copy to
-  `design/swipe-visit/` at handoff).
+  peak.** Design record: `design/swipe-visit/p8-*`.
   - **Visit pop 1.10×** (twist −10/+3/−1.2°, dip 0.97; was 1.2×) — owner:
     "Visited pops too large". Stays distinct from the 1.12× un-visit lift
     by twist + dip.
