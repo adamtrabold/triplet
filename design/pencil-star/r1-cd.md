@@ -544,3 +544,163 @@ It is not a 10 only because feel, the grain, the pressure step and the dust can 
    - Make separate commits: the `index.html` change, then the docs (`CLAUDE.md` plus `design/pencil-star/`).
    - The commit message states the gate as "84 + 8", with the attribution lines.
    - No DB or RLS change.
+
+---
+
+# Round 7
+
+SCORE 8/10
+
+## Verdict
+
+**C, the spin-stamp, is the right pick. A reads as "a bit bigger", and B's 8° swing is lost at 18px.**
+- Landing twisted at −20°, swinging through +6° at 1.4× and settling upright is the one treatment that reads as *placed by a hand*, the way a stamp is pressed and turned home.
+- It isn't cartoonish. The 26° swing is short, there's no bounce-back beyond one 0.95 undershoot, and at peak it is still a crisp black print mark, not a squash-and-stretch toy.
+- The −12° sketch lean makes "drawn by hand, then set straight in ink" deliberate.
+- The peak is crisp: at 3x and 1x the 1.4× frames (+39 and +56ms) have clean edges with no blur hang. Clearance holds: name ≥5.6px, badge ≥9.8px, popup title ≥3.06px on the axis-aligned box.
+
+**Why it isn't a 9: the drama plays out in about 90ms, not 340ms.**
+- `STAR_POP` puts the peak at offset 0.38 and the undershoot at 0.70. But the WAAPI effect easing, `cubic-bezier(.25,.8,.35,1)`, is applied to *overall* progress, and it is strongly ease-out.
+- So in the real-time strips (`r7-C-landing-3x.png` and `-1x.png`):
+  - the swell peaks at about 40–56ms;
+  - it is back to about 1× by about 88–105ms;
+  - the last about 240ms is a near-still, imperceptible 0.95 → 1 creep.
+- Only about 2–3 frames sit above 1.3×.
+- That is the round-4 failure mode again, "too fast, I can't see it", applied to the exact beat the owner just asked to see: *"getting slightly larger then going down to the correct size."*
+- On an iPhone at arm's length, the swell will register as a flicker, not as a size shift.
+
+**The popup is timed differently.** It uses CSS `sgpPress`, where the timing function applies *per keyframe segment*, so its curve differs from the row's WAAPI curve. "One mark" needs one curve.
+
+## Rulings
+
+- **R7-S1: ACCEPT.** Blur the hidden input if it took focus, then restore `prev` only if it is focusable and not `body`. Verify `activeElement` is never the switch after a tick, starting from body, a focused row, or the popup star.
+- **R7-S2: ACCEPT.** Add a capture-phase `stopPropagation()` on the label for both the label click and the input's activation click. Verify **0** document-level clicks per tick, and that an open account dropdown and add-form autocomplete survive a star and an erase.
+- **N7-a: APPLY NOW, not as a dial.** At 1x (`r7-C-popup.png`, +420–480ms) the 1.4× popup star crowds "Café" (3.06px). Use a 1.35× peak in the popup only; the row keeps 1.4×.
+- **Haptics and reduced motion:** the tick still fires under reduced motion. Haptics aren't motion, and the click is the confirmation that replaces the pop there. Record that in the code comment.
+- **Haptics on iOS 26.5+:** accepted as the platform limit (WebKit fc1ef83). Don't build the popup-tap label until the owner answers. The iPhone check must tell the owner to read their iOS version first, so a silent phone isn't reported as a bug.
+
+## Directions for round 8 (timing only, plus the two should-fixes)
+
+1. **Retime the pop so the size shift is seen.**
+   - Use `easing: 'linear'` on the effect, with per-keyframe easings, and use the identical curve in the popup's CSS keyframes (translate them 1:1 so both paths share one curve).
+   - Targets (row):
+     - land at −20°, 1.0 at 0ms;
+     - ease-out into the peak at **about 110–130ms** (+6°, 1.4×);
+     - the undershoot (−2°, 0.95) at **about 220–240ms**;
+     - rest at **340–380ms**.
+   - **Measure** on real-time compositor frames at 60Hz:
+     - **≥6 frames at ≥1.3×**;
+     - ≥3 frames visibly below 1.0 (≤0.97);
+     - the peak frame crisp at 3x, 4x and 1x.
+   - Keep full ink on frame 1.
+   - Re-check clearance per frame (the maximum scale is unchanged, so this should hold) and the 0/5,184 hand-off.
+   - `STAR_POP_MS` plumbing (the hand-off, teaching and popup waits) follows whatever the final duration is.
+2. **Fix R7-S1 and R7-S2.**
+3. **Popup peak at 1.35×.** Re-measure title clearance (target ≥4px).
+4. **Deliver:**
+   - real-time strips at 3x and 1x, row and popup;
+   - a per-frame scale and rotation table read from `getComputedStyle` (the matrix), so the ≥6/≥3 frame counts are shown, not asserted;
+   - the "84 + 8" gate, dust 0, popup-open 20/20, 0ms tap delay, rows 56.00px, Impeccable baseline 3;
+   - `r8-proposed.diff`.
+
+If the swell is measurably held (≥6 frames ≥1.3×) with the same curve in both places, and the two haptic fixes verify, round 8 gets my approval.
+
+---
+
+# Round 8
+
+SCORE 9/10
+
+## Verdict
+
+**Approved for integration.** The round-7 blocker is fixed at real timing, and I read the strips frame by frame (`r8-row-landing-{3x,1x}.png`, `r8-popup-landing-{3x,1x}.png`):
+- The ink lands twisted and small (+7ms).
+- It swells and swings through by about 40ms.
+- It **holds the stamp at full swell with its slight +6° lean from about 40 to 205ms**, which is the beat the eye needs.
+- It dips visibly (0.95, about 253–305ms) and settles upright by about 370ms.
+- Measured: row 11 frames ≥1.3× and 3 frames ≤0.97; popup 8 and 3. Round 7 managed 2 frames above 1.3×.
+
+It now reads as a deliberate stamp pressed and turned home. It is visible at arm's length and at 1x, and it stays in the print world rather than going cartoonish: one swell, one small give, no bounce train, no squash.
+
+The peak frames are crisp at 3x and 1x with no blur hang. Row and popup now share one curve (a linear effect with per-keyframe easings). Clearance holds:
+- row: name ≥4.68px, badge ≥8.91px;
+- popup: title 4.41px, with the measured 70% origin and the 1.35× peak.
+
+**Haptics.**
+- R7-S1: the switch never holds focus (0 frames).
+- R7-S2: 0 document clicks per tick; the dropdown and autocomplete survive.
+- The owner-approved popup real-tap label is exactly the 44×44 target, adds no a11y node, gives 1 toggle per tap, and uses trusted events.
+
+**Gate.** "84 + 8", popup-open 20/20, dust 0, rows 56.00px, 0ms tap delay, hand-off 0/5,184, Impeccable baseline 3. UX: no regressions.
+
+It isn't a 10 because the haptic on iOS 26.5+ (via the label tap) and the feel of the ~160ms hang can only be judged on the owner's phone.
+
+**Watch item (dial, not a blocker).** Because the 0.95 undershoot follows a long hang, it could read as a second small "drop" on the device. If the owner says it bounces, set the undershoot to 0.97.
+
+## Rulings
+
+- **N8-a: APPLY.** In `popupStarTap()`, when the forwarded tap came from `pointerType === 'mouse'`, call `btn.focus({preventScroll:true})`. That restores round 2's focus behaviour for desktop pointer users. Touch keeps focus on `body`, as now, so no focus ring flashes on iPhone. Add one test: mouse click → `activeElement` is the star button.
+- **N8-b: accept as an iPhone check.** With VoiceOver on, a double-tap on the popup star toggles exactly once.
+
+## Integration conditions
+
+1. **Apply `r8-proposed.diff`** plus N8-a (one hunk).
+   - It must apply cleanly to `main`, and `cmp` must match `r8-proto.html` plus the N8-a hunk.
+   - Re-run the gate on the integrated `index.html`:
+     - "84 + 8", plus the new N8-a case;
+     - popup-open 20/20;
+     - dust 0;
+     - `curve8.js` (row ≥11/3, popup ≥8/3 frames);
+     - `haptic8.js` and `tap8.js`;
+     - rows 56.00px, 0ms tap delay, hand-off 0/5,184;
+     - Impeccable exactly 3.
+   - Report the gate as "84 + 8 (+ N8-a)".
+2. **`CLAUDE.md`, the Pencil Star entry.** Add a "Round 7–8 (owner: more dramatic pop and angle; haptic click)" block that supersedes the ink-landing line of rounds 4–6:
+   - **Spin-stamp ink landing.** One shared table (`STAR_POP`), `STAR_POP_MS` 380:
+
+     | Offset | Rotation | Scale | Easing into the next segment |
+     |---|---|---|---|
+     | 0 | −20° | 1 | `(.2,.9,.3,1)` |
+     | .34 | +6° | peak | `(.6,0,.85,.45)` |
+     | .65 | −2° | 0.95 | `(.4,0,.3,1)` |
+     | 1 | 0° | 1 | — |
+
+     - The effect easing is **linear**, with per-keyframe easings, on both the row (WAAPI) and the popup (CSS `sgpPress`).
+     - Row peak 1.4×; popup peak **1.35×** with `transform-origin` 70% 55% (measured for title clearance 4.41px).
+     - Full ink on the first frame. The hand-off, teaching and popup waits follow `STAR_POP_MS` + 20.
+     - Rule: **≥6 frames ≥1.3×** (measured 11 row / 8 popup).
+     - Why: round 7's effect-level ease-out compressed the drama into about 90ms, which was "too fast to see" again.
+     - A, the plain pop (reads as "a bit bigger"), and B, the 8° twist (lost at 18px), were rejected.
+     - Remove the old "1.1→1 press-in plus one 1.15× spread frame" as current behaviour; keep it as history.
+   - **Sketch lean −12°** (was −7°): "drawn by hand, then set straight in ink".
+   - **Reduced motion:** no scale and no rotation; the ink just appears. Haptics still fire, because they aren't motion and are the only finish cue there.
+   - **Haptics (`starHaptic(kind)`):**
+     - Android: `navigator.vibrate`, 10ms for star and `[6,45,6]` for erase.
+     - iOS: a hidden `<input type="checkbox" switch>` toggled via its label (the switch needs iOS 17.4+; the haptic needs 18+). It is lazy, fixed off-screen, clipped, `aria-hidden`, and `tabindex -1`.
+     - Its clicks are stopped at window capture (`stopImmediatePropagation`, 0 document clicks).
+     - It is blurred if it took focus; `prev` is restored only if focusable and not `body`.
+     - Row swipe: the tick fires **on the ink landing** (star) and on the erase commit (unstar: 2 toggles, 60ms apart).
+     - **Platform limit:** from iOS 26.5, WebKit fc1ef83 (bug 309082) makes a script `label.click()` untrusted, so it gives no haptic. **A swipe can never tick on iOS 26.5+.** That is not a bug and not fixable in timing. It works on iOS 18.0–26.4 and on Android.
+   - **Popup real-tap path (owner-approved):**
+     - `.popup-star-tap` is an `aria-hidden` `<label for="starHapticSwitch">` exactly over the 44×44 star target, at `z-index:202`.
+     - The finger's trusted tap toggles the switch (it ticks on iOS 26.5+), and `popupStarTap()` forwards the click to the button one task later.
+     - One tick at tap time, for star and unstar alike (a tap is one trusted event); Android vibrates on the tap.
+     - Keyboard and VoiceOver go straight to the button and produce no tick.
+     - The 8px dead band, `.popup-star` `z-index:201` and the accessibility tree (only `button "Star"`) are unchanged.
+     - Mouse clicks refocus the button (N8-a).
+   - **Dials:**
+     - peak 1.3–1.45× (popup ≤1.35×);
+     - twist −14° to −24°;
+     - duration 340–400ms;
+     - undershoot 0.95 → 0.97 if it reads as a bounce;
+     - sketch lean −7° to −12°.
+3. **`CLAUDE.md`, iPhone checks for the Pencil Star.** Add as 18–22 and amend 5:
+   - **(5, amended)** "…the ink landing after release feels like a finish…" now reads: **the ink lands twisted, swells and holds, then turns upright to size in about ⅓s, and reads as a stamp pressed home, not a bounce.** If the dip after the swell reads as a second bounce, apply the undershoot dial (0.97).
+   - **(18)** The −12° pencil lean looks hand-drawn, not broken (dial −7° to −10°).
+   - **(19)** The popup star's swell never feels crowded against the title (dial ≤1.35×).
+   - **(20) Haptic — first check Settings › General › About › iOS Version.**
+     - **Popup star tap:** one click on every tap, star and unstar alike, on **any** iOS ≥18, including 26.5+.
+     - **Row swipe:** on iOS 18.0–26.4, one click as the ink lands and a double click as the erase dust falls. **On 26.5+, expect no click from a swipe: this is the platform limit, not a bug.**
+   - **(21)** No side effects: an open account menu or address suggestions stay open after a swipe-star or swipe-erase. Nothing flashes on screen, and focus never jumps.
+   - **(22)** With VoiceOver on, double-tapping the popup star toggles it exactly once, and VoiceOver announces only "Star, toggle button"/"selected". No stray checkbox.
+4. **Commits.** Code and docs go in separate commits, with the gate in the message and the attribution lines. No DB change.
