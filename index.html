@@ -814,16 +814,21 @@
     #cityFilters {
       display: flex;
       flex-wrap: wrap;
+      gap: var(--s2);
       padding: var(--s4) var(--gutter) var(--s4) var(--gutter);
       border-bottom: 4px solid transparent;
       border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='4'%3E%3Cpath d='M0 2 Q2 0 4 2 T8 2 T12 2 T16 2' fill='none' stroke='%23D8CEBA' stroke-width='1.5'/%3E%3C/svg%3E") 0 0 4 0 repeat;
     }
 
+    /* Independently-rounded chips, gapped -- same pattern as .filter-btn
+       below. Every chip stands alone (no first/last-on-line special
+       casing), so wrapping to any number of lines just works. Single-
+       select is communicated by .active's solid fill, never by borders
+       touching (design/city-filter-wrap/concept, Option B). */
     .city-btn {
       padding: var(--s2) var(--s3);
       border: 1px solid var(--hair);
-      border-right-width: 0;
-      border-radius: 0;
+      border-radius: 3px;
       font-family: var(--font-ui);
       font-stretch: 75%;
       text-transform: uppercase;
@@ -835,16 +840,6 @@
       background: var(--paper-raised);
       color: var(--ink);
     }
-
-    .city-btn:first-child { border-radius: 3px 0 0 3px; }
-    /* "All cities" is a different KIND of choice -- past a 2px gap. */
-    .city-btn:last-child {
-      border-radius: 0 3px 3px 0;
-      border-right-width: 1px;
-      margin-left: 2px;
-      border-left-width: 1px;
-    }
-    .city-btn:nth-last-child(2) { border-right-width: 1px; border-radius: 0 3px 3px 0; }
 
     .city-btn.active {
       background: var(--navy);
