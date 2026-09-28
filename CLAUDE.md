@@ -525,8 +525,8 @@ go stale, and don't leave it silently out of date either.
   - **Dials:** peak 1.2× (ceiling 1.25×), twist ×0.6, `HYST` 4, `DELETE_TAP_SLOP` 4 (3–6), halo blur 1.4px, core-hidden-until 18px, reveal aspect 1.4; if the drag stutters on iPhone, keep the blur static and scale a masked wrapper (already so) or drop the fibre mask.
   - Not done: a teaching replay from the popup's Mark Visited.
 
-- **Sheet reaches the bottom edge (Home Screen + Safari tab)** — on
-  branch, 2026-09-28 (owner-reported band under the list). Measured on the
+- **Sheet reaches the bottom edge (Home Screen + Safari tab)** — merged
+  to `main` (`758470a`), 2026-09-28 (owner-reported band under the list). Measured on the
   owner's iPhone with `tools/viewport-test.html`: from the Home Screen
   (black-translucent) WebKit makes the layout viewport short by the top
   inset (innerHeight 894 of 956), so every bottom-anchored
@@ -554,7 +554,8 @@ go stale, and don't leave it silently out of date either.
   Follow-up: `maybeTeachStar()` counts a row behind the toolbar as on
   screen. Design record: scratch `loop/sheet/`.
 
-- **Popup + replay round ("p8")** — on branch 2026-09-28, CD 9/10 (UX
+- **Popup + replay round ("p8")** — merged to `main` (`d5e765f`),
+  2026-09-28, CD 9/10 (UX
   approve). Owner asks, all shipped together; **these SUPERSEDE the
   Pencil Star entry's popup draw/teaching bullets and the swipe-visit pop
   peak.** Design record: `design/swipe-visit/p8-*`.
