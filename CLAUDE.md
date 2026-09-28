@@ -120,13 +120,21 @@ fresh agents when a warm one has the context.
   gesture gate (touch suite, flip6, curve8, dust) only when the diff
   touches the shared row-gesture/touch plumbing. Agents report which
   checks they ran and why those cover the diff.
-- **Run concurrent workstreams in isolated git worktrees, never in the
-  primary working directory at the same time** (owner, 2026-09-28). This
-  is a single no-build-step file — two agents editing it live in the same
-  checkout race each other. Give each concurrent code workstream its own
-  worktree/branch; discovery/proposal-only work (no code touched) can
-  still run directly in the primary directory in parallel with anything,
-  since there's nothing to collide over.
+- **Every code-editing agent uses an isolated git worktree by default —
+  always, not as a judgment call the operator makes per task** (owner,
+  2026-09-28, after the operator kept getting burned by exactly this:
+  "you shouldn't be in charge of worktrees, the agents should just be
+  working like that"). This is a single no-build-step file — two agents
+  editing it live in the same checkout race each other, and an operator
+  deciding case-by-case whether a task "seems risky enough" to isolate
+  has already failed in practice more than once. So: any agent that will
+  touch index.html (or any other tracked file) gets `isolation:
+  "worktree"` unconditionally, regardless of whether anything else
+  happens to be running at that moment — it's the default, not a
+  precaution reached for after noticing a conflict. Discovery/proposal-
+  only work (no code touched) can still run directly in the primary
+  directory in parallel with anything, since there's nothing to collide
+  over there.
 - **The operator does not merge** (owner, 2026-09-28: "give that to a
   merge agent"). Landing a worktree branch back onto `main` — resolving
   conflicts, re-running the checks that branch's own build pass didn't
