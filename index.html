@@ -546,7 +546,7 @@
       gap: var(--s2);
       width: 100%;
       min-height: 44px;
-      margin: calc(-1 * var(--s2)) 0 var(--s2);
+      margin: 0;
       padding: 0;
       border: none;
       background: transparent;
@@ -565,7 +565,20 @@
 
     #addForm .form-star svg { width: var(--s4); height: var(--s4); flex-shrink: 0; }
     #addForm .form-star[aria-pressed="true"] svg { color: var(--ink); }
-    #addForm .form-star:active svg { transform: scale(0.85); }
+    #addForm .form-star:active svg,
+    #addForm .form-star-slot:has(> .form-star-tap:active) .form-star svg { transform: scale(0.85); }
+    /* The pull-up lives on the slot now (same -8 / +8), so the tap label below
+       covers exactly the button's 44px box. The label is the popup star's
+       real-tap path: one tick at tap time on every iOS >= 18 and Android;
+       keyboard / VoiceOver go straight to the button, no tick. */
+    #addForm .form-star-slot { position: relative; margin: calc(-1 * var(--s2)) 0 var(--s2); }
+    #addForm .form-star-tap {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
 
     #addForm .field-group select {
       margin-bottom: 0;
@@ -1388,22 +1401,40 @@
       letter-spacing: 0.1em;
       font-weight: 700;
       color: var(--ink-2);
-      margin-bottom: var(--s2);
+      min-width: 0;                        /* bottom row, left: yields to Mark Visited, never wraps it */
     }
 
     .popup-cat svg { width: 20px; height: 20px; display: block; flex-shrink: 0; }
 
-    /* The star leads the title, exactly where the list row prints it --
-       the control sits where its mark shows, so setting it teaches where
-       to look for it. It lives here, not in .popup-actions: that row is
-       Visited | Directions, which the owner approved, and a third
-       control would crowd a 240px row. Off: hollow --ink-2 star (6.17:1
-       on --paper). On: filled --figure-deep (>= 4.79:1). */
+    /* The star is the ENTRY's mark, as in the list row (P1, round 4): 18px,
+       in its own slot at the head of the text column, centred across the
+       title and the line under it (the address); the text column indents
+       26px (18 + --s2) -- the list's starred-row indent. It is always there
+       (hollow = not starred), so every popup's text starts at 26px.
+       - No address: centred on the title alone (a 2-line title included) --
+         the notes can run several lines, and centring on them would sink
+         the star below the name it marks.
+       - Title wraps (with an address): centred across the whole heading
+         block, as the list centres across its whole text column.
+       Off: hollow --ink-2 star (6.17:1 on --paper). On: filled --ink. */
     .popup-title-row {
+      display: grid;
+      grid-template-columns: 18px auto;    /* auto, not 1fr: a 1fr track has no max-content size, so
+                                              Leaflet's auto width would stop at the 240 floor and long
+                                              names would wrap to 3 lines instead of widening to 300 */
+      column-gap: var(--s2);
+    }
+    .popup-title-row > :not(.popup-star-slot) { grid-column: 2; }
+    .popup-title-row > .popup-title { grid-row: 1; }
+    .popup-title-row > .popup-addr  { grid-row: 2; }
+    .popup-title-row > .popup-notes { grid-row: 3; }
+    .popup-star-slot {
+      grid-column: 1;
+      grid-row: 1 / span 2;              /* title + address; row 2 is empty (0px) with no address */
+      align-self: center;
       position: relative;                  /* anchors .popup-star-tap (no z-index: no new stacking context) */
-      display: flex;
-      align-items: flex-start;
-      gap: var(--s1);
+      width: 18px;
+      height: 18px;
     }
 
     .popup-star {
@@ -1412,12 +1443,8 @@
          pane z-index:200, which takes effect on a flex-item svg like
          .popup-cat's, and would otherwise eat the top of this hit area. */
       z-index: 201;
-      flex-shrink: 0;
-      width: 20px;                         /* = .popup-cat's glyph box, so star and
-                                              category glyph share one icon column
-                                              and the title starts exactly where
-                                              the category word does (20 + --s1) */
-      height: 20px;                        /* = .popup-title line-height */
+      width: 18px;                         /* = .row-star */
+      height: 18px;
       padding: 0;
       border: none;
       background: transparent;
@@ -1429,33 +1456,33 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* 44 x 44 hit area without moving layout: 20x20 box + this inset.
-       Biased UP (20 above, 4 below) into the non-interactive category
-       line. With .popup-actions' --s3 margin, the worst case (one-line
-       title, no address/notes) leaves an 8px DEAD BAND between this
-       target's bottom (title + 4) and Mark Visited's top (title + 12) --
-       a thumb landing between them does nothing rather than the wrong
-       thing. 13px left keeps it inside the popup border; clear of the
-       close button. Accepted side effect: the first ~11px of the title
-       also toggles the star (titles aren't interactive otherwise). */
-    .popup-star::after {
+    /* 44 x 44 hit area without moving layout: 18x18 box + 13px all round.
+       No address: the star sits 1px from the top of the text (centred on a
+       one-line title), so the target reaches 9px up and 17px down -- its
+       top stays 5px inside the popup's top edge, never on the map above. The next control, Get Directions, keeps an 8px DEAD
+       BAND below the target in every case (see .popup-directions' margins
+       below). 13px left keeps it inside the popup border; clear of the
+       close button. Accepted side effect: the first ~13px of the title also
+       toggles the star (titles aren't interactive otherwise). */
+    .popup-star::after,
+    .popup-star-tap {
       content: '';
       position: absolute;
-      inset: -20px -11px -4px -13px;
+      inset: -13px;
     }
+    .no-sub > .popup-star-slot .popup-star::after,
+    .no-sub > .popup-star-slot .popup-star-tap { inset: -9px -13px -17px; }
 
-    .popup-star svg { width: var(--s4); height: var(--s4); display: block; }
+    .popup-star svg { width: 18px; height: 18px; display: block; }
     .popup-star.starred { color: var(--ink); }
     .popup-star:active svg,
-    .popup-title-row:has(> .popup-star-tap:active) .popup-star svg { transform: scale(0.85); }
+    .popup-star-slot:has(> .popup-star-tap:active) .popup-star svg { transform: scale(0.85); }
     /* Round 8 (owner): the finger's tap target. EXACTLY .popup-star::after's
-       44x44 box (the star is the row's first item at 0,0), one layer above it,
+       44x44 box (same inset rule, above), one layer above it,
        so the dead band to Mark Visited and z-index:201 are unchanged. It is a
        label for the hidden haptic switch: a real tap on it ticks on iOS
        (26.5+ too). aria-hidden -- the button is what assistive tech gets. */
     .popup-star-tap {
-      position: absolute;
-      left: -13px; top: -20px; width: 44px; height: 44px;
       z-index: 202;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
@@ -1481,7 +1508,8 @@
       display: flex;
       align-items: center;
       gap: var(--s1);
-      text-align: left;
+      flex-shrink: 0;
+      text-align: right;
       padding: var(--s4) 0;
       border: none;
       background: transparent;
@@ -1496,7 +1524,22 @@
       color: var(--ink-2);
     }
 
-    .popup-visited:active { opacity: 0.6; }
+    .popup-visited:active,
+    .popup-visited-slot:has(> .popup-visited-tap:active) .popup-visited { opacity: 0.6; }
+    /* The finger's tap target for Mark Visited (owner: "the haptics should
+       also be everywhere logical"): the popup star's real-tap label, exactly
+       over the button's 44px box, one layer above it. A real tap on it is a
+       trusted label click on the hidden haptic switch -- one tick at tap time,
+       iOS 26.5+ included -- and the click is forwarded to the button one task
+       later (hapticTap()). aria-hidden: the button is what assistive tech gets. */
+    .popup-visited-slot { position: relative; display: flex; flex-shrink: 0; }
+    .popup-visited-tap {
+      position: absolute;
+      inset: 0;
+      z-index: 202;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
 
     /* Hollow "tap to fill" ring at the SAME weight and ink as the hollow
        star above it (.popup-star, 2/24 of 16px = 1.33px, --ink-2) so the
@@ -1509,7 +1552,7 @@
       display: inline-block;
       width: 14px;
       height: 14px;
-      margin: 0 3px;
+      margin: 0 0 0 3px;                   /* the circle sits at the popup's trailing edge */
       flex-shrink: 0;
       border-radius: 50%;
       box-shadow: inset 0 0 0 1.33px var(--ink-2);
@@ -1524,11 +1567,20 @@
       box-shadow: none;
     }
 
+    /* Get Directions: the shipped text button (owner: "the same text button,
+       not a new button style") -- compass + condensed caps in --figure-deep,
+       44px target (12px line + 2 x --s4) -- on its own line under the
+       address/notes. Content-width, so only the words are the link. The
+       compass sits on the 20px icon column (3px each side, as the Mark
+       Visited ring used to), so "GET DIRECTIONS" starts at 24px -- the x of
+       the category word below it. */
     .popup-directions {
       display: flex;
       align-items: center;
       gap: var(--s1);
-      padding: var(--s4) 0;                /* 44px target, as .popup-visited */
+      width: fit-content;
+      padding: var(--s4) 0;
+      margin-top: var(--s2);
       font-stretch: 75%;
       text-transform: uppercase;
       font-size: 10px;
@@ -1538,28 +1590,31 @@
       color: var(--figure-deep);
       text-decoration: none;
     }
+    /* The 8px dead band to the star's target, where the text is short:
+       address only -- target ends 4px below the text: 4 + 8 = 12;
+       title only -- target ends 16px below it: 16 + 8 = 24. With notes the
+       text already clears it (--s2). */
+    .popup-title-row.addr-end + .popup-directions { margin-top: var(--s3); }   /* 12 */
+    .popup-title-row.solo + .popup-directions { margin-top: var(--s6); }       /* 24 */
 
     /* leaflet.css's `.leaflet-container a { color: #0078A8 }` (0,1,1)
        outranks .popup-directions (0,1,0) -- Directions shipped Leaflet
        blue. This restates the intended colour at (0,2,1). */
     .leaflet-container a.popup-directions { color: var(--figure-deep); }
 
-    .popup-directions svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .popup-directions svg { width: 14px; height: 14px; margin: 0 3px; flex-shrink: 0; }
 
-    /* Visited (left) and directions (right), one row -- previously stacked
-       full-width, which the owner found awkward on a real phone. Neither
-       button needs flex:1 or explicit alignment; space-between alone pins
-       them since they're the row's only two children. */
-    /* margin-top --s3 makes the 8px dead band against the star target
-       (see .popup-star::after). margin-bottom -8px hands the buttons'
-       new 16px bottom padding back to Leaflet's own 8px content margin,
-       so the labels keep exactly their shipped distance from the popup's
-       bottom edge (20px) and the popup grows only by the top change. */
+    /* Bottom row (owner): the category (non-interactive) on the left, Mark
+       Visited on the right with its circle at the trailing edge.
+       margin-top --s3 keeps an 8px dead band between Get Directions' 44px
+       target and Mark Visited's (both are their own boxes). margin-bottom -8px hands
+       the button's 16px bottom padding back to Leaflet's 8px content margin. */
     .popup-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: var(--s3);
+      gap: var(--s3);
+      margin-top: var(--s2);
       margin-bottom: calc(-1 * var(--s2));
     }
 
@@ -1830,17 +1885,14 @@
     /* The sketch leans -7deg, as a hand does; the ink lands upright over
        it. The lean also keeps a half-drawn star (a Λ, then a Λ with a
        crossbar) from sitting on the type's baseline and reading as a letter. */
-    .sg-star .sg-pencil,
-    .sgp .sg-pencil { color: var(--ink-2); fill: currentColor;
+    .sg-star .sg-pencil { color: var(--ink-2); fill: currentColor;
                       transform-box: fill-box; transform-origin: 50% 55%; transform: rotate(-12deg); }
-    .sg-star .sg-ink,
-    .sgp .sg-ink { color: var(--ink); fill: currentColor; opacity: 0;
+    .sg-star .sg-ink { color: var(--ink); fill: currentColor; opacity: 0;
                    transform-box: fill-box; transform-origin: 50% 55%; }
     .sg-spread { opacity: 0; transform-box: fill-box; transform-origin: 50% 55%; }
-    .popup-star .sgp .sg-ink { transform-origin: 70% 55%; }   /* round 8: origin toward the title so the 1.35x swell grows away from it (the ink path is drawn mirrored in fill-box; measured: 70% -> 4.41px clear, 50% -> 3.44) */
     .sg-smudge, .sg-ghost { fill: var(--ink-2); }
     .sg-inkg { opacity: 0; }
-    .sg-star.inked .sg-ink, .sgp.inked .sg-ink { opacity: 1; }
+    .sg-star.inked .sg-ink { opacity: 1; }
     /* Round 5: the COMMIT is shown by PRESSURE, not speed. Before 56px the
        sketch is light graphite (85%); the frame the finger crosses 56 every
        stroke -- drawn and still to come -- goes over harder: ~1.4x wider
@@ -1849,7 +1901,7 @@
     .sg-star .sg-pencil { opacity: 0.85; }
     .sg-star.sg-press .sg-pencil { opacity: 1; color: color-mix(in srgb, var(--ink-2) 55%, var(--ink)); stroke: currentColor; stroke-width: 0.7; stroke-linejoin: round; }
     .location-card.highlighted .sg-star.sg-press .sg-pencil { color: var(--paper); }
-    .sg-star.inked .sg-pencil, .sgp.inked .sg-pencil { opacity: 0; }
+    .sg-star.inked .sg-pencil { opacity: 0; }
     .sg-crumb {
       position: absolute; width: 1.5px; height: 1.5px; border-radius: 1px;
       background: var(--ink-2); pointer-events: none;
@@ -1860,30 +1912,32 @@
     .location-card.highlighted .sg-ghost { fill: var(--paper); }
     .location-card.highlighted .sg-crumb { background: var(--paper); }
 
-    /* Popup: the same material at 16px, played once on set (CSS only):
-       five strokes x 60ms (a hand's pace -- 40ms was too fast to see, 72ms read as slow), then the ink lands at 316ms. */
-    .popup-star .sgp { width: var(--s4); height: var(--s4); display: block; overflow: visible; }
-    .popup-star .sgp.sgp-play .sg-rev {
-      stroke-dasharray: var(--L) var(--L); stroke-dashoffset: var(--L);
-      animation: sgpStroke 60ms linear var(--d) forwards;
-    }
-    .popup-star .sgp.sgp-play .sg-pencil { animation: sgpOff 1ms linear 316ms forwards; }
-    /* N-b: the hollow star stays until stroke 1 is half drawn -- no empty slot on tap. */
-    .sgp-hollow { display: none; }
-    .popup-star .sgp.sgp-play .sgp-hollow { display: inline; color: var(--ink-2); animation: sgpOff 1ms linear 30ms forwards; }
-    .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 316ms forwards, sgpPress 380ms linear 316ms backwards; }
-    .popup-star .sgp.sgp-play .sg-spread { animation: none; }
-    @keyframes sgpStroke { to { stroke-dashoffset: 0; } }
+    /* Popup (owner: "it probably shouldn't be drawn in the card since the
+       outline is already there... just the fade/pop"). Star: the fill fades
+       into the outline over 100ms while the whole star plays the row's
+       spin-stamp (STAR_POP's table and easings, 380ms from the tap). The
+       outline goes on the frame the fill is full -- under full ink, mid-spin.
+       Unstar: the fill fades off the outline over 240ms while the star lifts
+       with the row's erase pop (1.12x, no twist) -- no rub, no dust. Both
+       once per tap (popupInkId / popupRubId); the rest state is the plain
+       glyph, same pixels. Reduced motion: no scale, no rotation -- the state
+       just lands. */
+    .popup-star .sgp { overflow: visible; }
+    .popup-star .sgp .sg-ink { transform-box: fill-box; transform-origin: 50% 55%; }
+    .popup-star .sgp-in .sg-ink  { animation: sgpPress 380ms linear; }
+    .popup-star .sgp-in .sgp-fill { animation: sgpOn 100ms linear backwards; }
+    .popup-star .sgp-in .sgp-hollow { animation: sgpOff 1ms linear 100ms forwards; }
+    .popup-star .sgp-out .sg-ink { animation: sgpLift 240ms linear; }
+    .popup-star .sgp-out .sgp-fill { color: var(--ink); animation: sgpOff 240ms cubic-bezier(.4,0,.6,1) forwards; }   /* the ink that fades is the ink that was there (the button is already --ink-2) */
     @keyframes sgpOff    { to { opacity: 0; } }
-    @keyframes sgpOn     { to { opacity: 1; } }
-    @keyframes sgpPress  { 0% { transform: rotate(-20deg) scale(1); animation-timing-function: cubic-bezier(.2,.9,.3,1); } 34% { transform: rotate(6deg) scale(1.35); animation-timing-function: cubic-bezier(.6,0,.85,.45); } 65% { transform: rotate(-2deg) scale(0.95); animation-timing-function: cubic-bezier(.4,0,.3,1); } 100% { transform: rotate(0deg) scale(1); } }
-    @keyframes sgpSpread { from { opacity: .45; transform: scale(1.15); } to { opacity: 0; } }
+    @keyframes sgpOn     { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes sgpPress  { 0% { transform: rotate(-20deg) scale(1); animation-timing-function: cubic-bezier(.2,.9,.3,1); } 34% { transform: rotate(6deg) scale(1.4); animation-timing-function: cubic-bezier(.6,0,.85,.45); } 65% { transform: rotate(-2deg) scale(0.95); animation-timing-function: cubic-bezier(.4,0,.3,1); } 100% { transform: rotate(0deg) scale(1); } }
+    @keyframes sgpLift   { 0% { transform: scale(1); animation-timing-function: cubic-bezier(.2,.9,.3,1); } 35% { transform: scale(1.12); animation-timing-function: cubic-bezier(.5,0,.4,1); } 100% { transform: scale(1); } }
     @media (prefers-reduced-motion: reduce) {
-      .popup-star .sgp.sgp-play .sg-rev { animation: none; stroke-dashoffset: 0; }
-      .popup-star .sgp.sgp-play .sg-pencil { animation: sgpOff 1ms linear 600ms forwards; }
-      .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 600ms forwards; }
-      .popup-star .sgp.sgp-play .sg-spread { animation: none; }
-      .popup-star .sgp.sgp-play .sgp-hollow { display: none; }
+      .popup-star .sgp .sg-ink,
+      .popup-star .sgp .sgp-fill { animation: none; }
+      .popup-star .sgp-in .sgp-hollow { animation: none; opacity: 0; }
+      .popup-star .sgp-out .sgp-fill { animation: none; opacity: 0; }
     }
   </style>
 </head>
@@ -2024,7 +2078,7 @@
           <button type="button" id="newCityConfirmDismiss" class="secondary">Pick from my list</button>
         </div>
         <textarea id="notesInput" placeholder="Notes (optional)" rows="2"></textarea>
-        <button type="button" id="starInput" class="form-star" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star-open"/></svg><span>Star</span></button>
+        <div id="starInputRow" class="form-star-slot"><button type="button" id="starInput" class="form-star" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star-open"/></svg><span>Star</span></button><label class="form-star-tap" for="starHapticSwitch" aria-hidden="true"></label></div>
         <button id="submitBtn">Add Location</button>
       </div>
     </div>
@@ -3631,7 +3685,33 @@
 
     // Category sits above the title so the title and its notes/address chunk
     // together as one visual group, category read first as context.
-    let popupInkId = null;   // popup star just set: play pencil -> ink ONCE (consumed on first render)
+    let popupInkId = null;   // popup star just set: fade + pop ONCE (consumed on first render)
+    // A pin's popup autopans clear of the TOP CONTROLS (UX S1). The star is
+    // the popup's top-left item and the "+" sits over its top-right, so the
+    // default 5px would pin a tall popup under the zoom control, the add
+    // button and, in a Home Screen launch, the status bar. The top padding
+    // is read from where those controls actually are (their bottom edge,
+    // which already includes env(safe-area-inset-top)) + --s2, each time a
+    // popup pans -- a getter on the popup's own options, which Leaflet
+    // re-reads in _adjustPan(). Fallback 84 = the zoom control's 74 + 10.
+    // Sides and bottom keep Leaflet's 5px.
+    const POPUP_PAN_GAP = 8;
+    function pinPopupTopPad() {
+      try {
+        const mt = map.getContainer().getBoundingClientRect().top;
+        let y = 0;
+        for (const el of [document.querySelector('.leaflet-control-zoom'), document.getElementById('floatingAddBtn'), document.getElementById('accountBtn')]) {
+          const r = el && el.getBoundingClientRect();
+          if (r && r.height) y = Math.max(y, r.bottom - mt);
+        }
+        return Math.round(y ? y + POPUP_PAN_GAP : 84);
+      } catch (_) { return 84; }
+    }
+    function bindPinPopup(marker, loc) {
+      marker.bindPopup(buildPopupHtml(loc));
+      Object.defineProperty(marker.getPopup().options, 'autoPanPaddingTopLeft', { get: () => L.point(5, pinPopupTopPad()), configurable: true });
+    }
+
     function buildPopupHtml(loc) {
       const inkNow = !!loc.starred && popupInkId === loc.id;
       if (inkNow) popupInkId = null;
@@ -3640,16 +3720,16 @@
       const ink = categoryInk(loc.category);
       return `
         <div style="min-width: 240px;">
-          <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}</div>
-          <div class="popup-title-row">
-            <button type="button" class="popup-star ${loc.starred ? 'starred' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="Star">${inkNow ? pencilStarMarkup('sgp', { play: true }) : rubNow ? pencilStarMarkup('sgp inked sgp-rub') : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`}</button><label class="popup-star-tap" for="starHapticSwitch" aria-hidden="true"></label>
+          <div class="popup-title-row${loc.address ? '' : ' no-sub'}${loc.notes ? '' : loc.address ? ' addr-end' : ' solo'}">
+            <span class="popup-star-slot"><button type="button" class="popup-star ${loc.starred ? 'starred' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="Star">${inkNow || rubNow ? `<svg class="sgp ${inkNow ? 'sgp-in' : 'sgp-out'}" viewBox="0 0 24 24" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>` : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`}</button><label class="popup-star-tap" for="starHapticSwitch" aria-hidden="true"></label></span>
             <div class="popup-title">${escapeHtml(loc.name)}</div>
+            ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
+            ${loc.notes ? `<div class="popup-notes">${escapeHtml(loc.notes)}</div>` : ''}
           </div>
-          ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
-          ${loc.notes ? `<div class="popup-notes">${escapeHtml(loc.notes)}</div>` : ''}
+          <a class="popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Get Directions</a>
           <div class="popup-actions">
-            <button type="button" class="popup-visited ${loc.visited ? 'visited' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.visited ? 'true' : 'false'}"><span class="popup-visited-check" aria-hidden="true"></span>${loc.visited ? 'Visited' : 'Mark Visited'}</button>
-            <a class="popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Get Directions</a>
+            <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}</div>
+            <span class="popup-visited-slot"><button type="button" class="popup-visited ${loc.visited ? 'visited' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.visited ? 'true' : 'false'}">${loc.visited ? 'Visited' : 'Mark Visited'}<span class="popup-visited-check" aria-hidden="true"></span></button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>
           </div>
         </div>
       `;
@@ -3954,7 +4034,7 @@
             icon: markerIcon(loc, loc.id === highlightedId)
           }).addTo(map);
           marker.locationId = loc.id;
-          marker.bindPopup(buildPopupHtml(loc));
+          bindPinPopup(marker, loc);
           applyMarkerStacking(marker, loc.id === highlightedId, loc.starred);
           markersById.set(loc.id, { marker, signature, loc });
           return;
@@ -4088,8 +4168,8 @@
     let sgInRaf = false;
     // Round 8: ONE curve for row and popup. LINEAR effect easing with the easing on each
     // keyframe segment (an effect-level ease-out had compressed the whole drama into ~90ms).
-    // Peak ~120ms (row 1.4x, popup 1.35x -- the popup's title sits closer), undershoot 0.95
-    // ~230ms, rest at 380ms. The popup's @keyframes sgpPress is the same table, 1:1.
+    // Peak ~120ms (row and popup 1.4x -- the popup star now has the row's size and 8px gap), undershoot 0.95
+    // ~230ms, rest at 380ms. The popup's @keyframes sgpPress is the same table, 1:1 (peak 1.4x).
     const STAR_POP = [{"transform": "rotate(-20deg) scale(1)", "offset": 0.0, "easing": "cubic-bezier(.2,.9,.3,1)"}, {"transform": "rotate(6deg) scale(1.4)", "offset": 0.34, "easing": "cubic-bezier(.6,0,.85,.45)"}, {"transform": "rotate(-2deg) scale(0.95)", "offset": 0.65, "easing": "cubic-bezier(.4,0,.3,1)"}, {"transform": "rotate(0deg) scale(1)", "offset": 1.0}];
     const STAR_POP_MS = 380;
     // Erase pop (owner: "the star should slightly pop out when erasing it"):
@@ -4119,7 +4199,9 @@
     //   - The POPUP star is different (round 8, owner): a finger's tap lands on
     //     .popup-star-tap, a <label for> this switch, so the tap is a TRUSTED
     //     label click and ticks on 26.5+ as well -- on the tap, star or unstar
-    //     (one tick: a tap is one trusted event). See popupStarTap().
+    //     (one tick: a tap is one trusted event). See hapticTap().
+    //   - The same real-tap label sits over popup Mark Visited and the add
+    //     form's STAR (p8): every place a finger sets or clears a mark ticks.
     // The switch is off-screen, clipped, aria-hidden, unfocusable and never
     // takes focus (focus is restored if the engine moves it): no layout
     // shift, never visible, never announced. The switch's single system
@@ -4146,8 +4228,8 @@
           window.addEventListener('click', e => {
             const t = e.target;
             if (l.contains(t)) { e.stopImmediatePropagation(); if (document.activeElement === t) t.blur(); return; }
-            const tap = t.closest && t.closest('.popup-star-tap');
-            if (tap) { e.stopImmediatePropagation(); popupStarTap(tap, e); }
+            const tap = t.closest && t.closest(HAPTIC_TAPS);
+            if (tap) { e.stopImmediatePropagation(); hapticTap(tap, e); }
           }, true);
           // N8-a: Safari's click has no pointerType, so remember the last press.
           window.addEventListener('pointerdown', e => { starPointerType = e.pointerType; }, true);
@@ -4155,18 +4237,21 @@
         }
         return starHapticEl.firstElementChild;
     }
-    // A real tap on the popup star: the tap itself is the haptic (the label's
-    // own activation toggles the switch -- trusted, so it ticks on 26.5+ too;
-    // Android vibrates here instead). The star action runs one task later, so
-    // the label is still attached when its activation looks up the switch
-    // (the toggle re-renders the popup). The button stays the only thing
-    // assistive tech sees; keyboard/VoiceOver activate it directly, untouched.
+    // A real tap on a mark's tap label (the popup star, popup Mark Visited,
+    // the add form's STAR): the tap itself is the haptic (the label's own
+    // activation toggles the switch -- trusted, so it ticks on 26.5+ too;
+    // Android vibrates here instead: 10ms to set, [6, 45, 6] to clear, the
+    // row gestures' rhythm). The action runs one task later, so the label is
+    // still attached when its activation looks up the switch (the toggle
+    // re-renders the popup). The button stays the only thing assistive tech
+    // sees; keyboard/VoiceOver activate it directly -- no tick.
+    const HAPTIC_TAPS = '.popup-star-tap, .popup-visited-tap, .form-star-tap';
     let starPointerType = '';
-    function popupStarTap(tap, e) {
-      const btn = tap.parentElement && tap.parentElement.querySelector('.popup-star');
+    function hapticTap(tap, e) {
+      const btn = tap.parentElement && tap.parentElement.querySelector('.popup-star, .popup-visited, .form-star');
       if (!btn) return;
-      if (navigator.vibrate) { const loc = locations.find(x => x.id === btn.dataset.id); try { navigator.vibrate(loc && loc.starred ? [6, 45, 6] : 10); } catch (_) {} }
-      // N8-a: a MOUSE click keeps focus on the star button, as a direct click
+      if (navigator.vibrate) { try { navigator.vibrate(btn.getAttribute('aria-pressed') === 'true' ? [6, 45, 6] : 10); } catch (_) {} }
+      // N8-a: a MOUSE click keeps focus on the button, as a direct click
       // on it used to (setLocationFlag()'s refocus carries it across the
       // re-render). Touch leaves focus on body -- no focus ring on iPhone.
       const mouse = ((e && e.pointerType) || starPointerType) === 'mouse';
@@ -4187,7 +4272,7 @@
     }                  // true inside the pen's rAF step (one-frame spread timing)
     let starUid = 0;
 
-    function pencilStarMarkup(cls, { play = false } = {}) {
+    function pencilStarMarkup(cls) {
       const u = 'ps' + (++starUid);
       let masks = '', strokes = '', t = 0;
       for (let k = 0; k < 5; k++) {
@@ -4202,7 +4287,7 @@
         masks += `<mask id="${u}-m${k}" maskUnits="userSpaceOnUse" x="-4" y="-4" width="32" height="32"><line class="sg-rev" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff" stroke-width="5" stroke-dasharray="${L1} ${L1}" stroke-dashoffset="${L1}" data-l="${L1}" style="--L:${L1};--d:${k * 60}ms"/></mask>`;
         strokes += `<path d="${p}" mask="url(#${u}-m${k})"/>`;
       }
-      return `<svg class="${cls}${play ? ' sgp-play' : ''}" viewBox="0 0 24 24" aria-hidden="true" data-u="${u}"><defs>
+      return `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true" data-u="${u}"><defs>
         <filter id="${u}-gr" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
           <feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="2" seed="4" result="n"/>
           <feDisplacementMap in="SourceGraphic" in2="n" scale="0.7" xChannelSelector="R" yChannelSelector="G" result="d"/>
@@ -4225,7 +4310,6 @@
         </filter>
         <mask id="${u}-rub" maskUnits="userSpaceOnUse" x="-4" y="-4" width="32" height="32"><rect x="-4" y="-4" width="32" height="32" fill="url(#${u}-rad)" filter="url(#${u}-rf)"/></mask>
         ${masks}</defs>
-        <use class="sgp-hollow" href="#g-star-open" width="24" height="24"/>
         <path class="sg-smudge" d="${STAR_D}" filter="url(#${u}-bl)" opacity="0"/>
         <path class="sg-ghost" d="${STAR_D}" opacity="0"/>
         <g class="sg-pencil" filter="url(#${u}-gr)" data-gr="${u}-gr" data-grh="${u}-grh">${strokes}</g>
@@ -4672,13 +4756,13 @@
                           RETURN_MS: 180, REVEAL_MS: 200, XBACK_MS: 120 };
     const DELETE_TAP_SLOP = 4;
     // STAR_POP, about the stamp's tilt: [offset, twist (deg, added to the tilt), scale, easing into the next].
-    // Deviations from the star, both measured: peak 1.2x (not 1.4x) -- the
-    // 72px oval grows 14px wide at 1.2x, twice the star's growth at 1.4x, and
-    // 1.25x would leave < 4px to the name at the peak; twist x0.6 (-12/+4/-1.5,
-    // not -20/+6/-2) -- a wide oval's ends swing ~3x further than a star's
-    // points for the same angle.
-    const VISIT_POP_PEAK = 1.2;
-    const VISIT_POP = [[0, -12, 1, [.2, .9, .3, 1]], [0.34, 4, VISIT_POP_PEAK, [.6, 0, .85, .45]], [0.65, -1.5, 0.95, [.4, 0, .3, 1]], [1, 0, 1, null]];
+    // Same timing, offsets and per-segment easings as the star; smaller, because
+    // a 72x32 oval's growth is large in absolute px (owner, live: "Visited pops
+    // too large" at 1.2x). Peak 1.1x, twist -10/+3/-1.2deg, dip 0.97. Still
+    // distinct from the un-visit lift (1.12x, no twist, no dip): the visit pop
+    // twists and dips; the lift only rises, then pales.
+    const VISIT_POP_PEAK = 1.1;
+    const VISIT_POP = [[0, -10, 1, [.2, .9, .3, 1]], [0.34, 3, VISIT_POP_PEAK, [.6, 0, .85, .45]], [0.65, -1.2, 0.97, [.4, 0, .3, 1]], [1, 0, 1, null]];
     const VISIT_POP_MS = STAR_POP_MS;
     const VISIT_LIFT = [[0, 0, 1, [.2, .9, .3, 1]], [0.35, 0, 1.12, [.5, 0, .4, 1]], [1, 0, 1, null]];   // = STAR_ERASE_POP
     function cubicBezier(x1, y1, x2, y2) {
@@ -4802,7 +4886,7 @@
             el.classList.add('is-visited', 'vs-reserve');                 // field + final truncation land INSIDE the press
             g.pressT = sgNow();
             if (!rm) runVisitPop(g, VISIT_POP, VISIT_POP_MS); else stopVisitPop(g);
-            starHaptic('ink');
+            if (!g.replay) starHaptic('ink');
           }
         } else {
           if (wasPressed) { stopVisitPop(g); st.classList.add('vs-open'); el.classList.remove('is-visited', 'vs-reserve'); }   // un-press frame: old layout back
@@ -4818,7 +4902,7 @@
         // falls below the rest's, and until 12px nothing changes at all.
         if (!g.hi) st.style.color = f <= 0 ? '' : `color-mix(in oklch, color-mix(in srgb, var(--navy) 82%, ${g.field}) ${((1 - f) * 100).toFixed(1)}%, ${VS_GHOST_TINT})`;
         st.style.opacity = g.lifted ? '0' : g.hi ? (1 - (1 - V.GHOST / V.PRINT_INK) * f).toFixed(3) : '1';   // highlighted row: its paper ink thins
-        if (g.lifted && !wasLifted) { el.classList.remove('is-visited'); starHaptic('erase'); }
+        if (g.lifted && !wasLifted) { el.classList.remove('is-visited'); if (!g.replay) starHaptic('erase'); }
         if (!g.lifted && wasLifted) el.classList.add('is-visited');
         // Reduced motion has no sweep to hide the wider truncation under, so it
         // lands on the lift frame itself (the stamp and field go on that frame).
@@ -4858,6 +4942,39 @@
 
     function abortVisitDrag(el, g) { settleVisitDrag(el, g, false); }
 
+    // POPUP -> ROW REPLAY. Mark Visited / Unmark in the popup plays the same
+    // stamp on the place's list row, every time (not a teaching cap): visit =
+    // a quick bleed, then the press frame (field + final truncation) and the
+    // pop; un-visit = the erase lift, the pale-out, gone, then the reveal. It
+    // is the gesture's own machinery driven by a timeline instead of a finger,
+    // so every rule carries over (glyphs change only on the press/lift frame
+    // or under the sweep; the row's re-render is held via starHeld, so a
+    // refetch can't cut it short or replay it). It is started by the click,
+    // never by a render, so it plays once. Only if the row is on screen;
+    // otherwise, and under reduced motion, the state simply lands. No haptic
+    // here: the popup tap already ticked (hapticTap()). Rapid toggles: the running replay is
+    // finished at once (its final state lands), then the next one starts from
+    // there -- last wins, no half states.
+    const VS_REPLAY = { VISIT_MS: 240, UNVISIT_MS: 260 };
+    function vsReplay(id) {
+      if (prefersReducedMotion() || !currentUser) return false;   // signed out: the toggle won't happen, so neither does the stamp
+      const entry = cardsById.get(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
+      if (!entry || !list || !entry.el.isConnected || (sheet && sheet.classList.contains('collapsed'))) return false;
+      const held = starHeld.get(id);
+      if (held && held.ff) held.ff();                          // last wins: land the running replay first
+      if (starHeld.has(id)) return false;                      // a live gesture on this row owns it
+      const el = entry.el, r = el.getBoundingClientRect(), lr = list.getBoundingClientRect();
+      if (r.height === 0 || r.bottom <= lr.top || r.top >= lr.bottom) return false;   // off screen: the state just lands
+      const g = { replay: true };
+      if (!beginVisitDrag(el, g)) return false;
+      const C = STAR_SWIPE.COMMIT;
+      let pressed = false;
+      const toPress = () => { if (pressed) return; pressed = true; g.raw = C; paintVisit(g); settleVisitDrag(el, g, true); };
+      starHeld.get(id).ff = () => { toPress(); const h = starHeld.get(id); if (h && h.ff) h.ff(); };
+      runTimeline(g.visited ? VS_REPLAY.UNVISIT_MS : VS_REPLAY.VISIT_MS, t => { if (pressed) return; g.raw = C * t; paintVisit(g); }, toPress);
+      return true;
+    }
+
     function settleVisitDrag(el, g, commit) {
       const V = VISIT_SWIPE, C = STAR_SWIPE.COMMIT;
       g.state = 'settle';
@@ -4892,7 +5009,7 @@
       };
       const held = starHeld.get(g.id); if (held) held.ff = () => finish();
       if (commit) {
-        toggleLocationFlag(g.id, 'visited');      // optimistic; this row's re-render is held -- we lay it out ourselves
+        if (!g.replay) toggleLocationFlag(g.id, 'visited');      // optimistic; this row's re-render is held -- we lay it out ourselves (a popup replay's caller toggles)
         if (!g.visited && !g.pressed) {           // a flick: the ring finishes closing, then the stamp lands
           const r0 = g.raw, ms = Math.max(60, (C - r0) / 0.6);
           runTimeline(ms, t => { if (dead) return; g.raw = r0 + (C - r0) * t; paintVisit(g); }, () => { if (dead) return; g.raw = C; paintVisit(g); setTimeout(finish, prefersReducedMotion() ? 0 : VISIT_POP_MS + 20); });
@@ -4928,66 +5045,84 @@
       el.addEventListener('touchend', end); el.addEventListener('touchcancel', end);
     }
 
-    // S4: teach the stroke, in place, at most twice per device -- only when
-    // a star is set from the POPUP and that place's row is on screen.
-    const STAR_TEACH_KEY = 'triplet.pencilStarTaught';
-    function maybeTeachStar(id) {
-      let n = 0; try { n = parseInt(localStorage.getItem(STAR_TEACH_KEY) || '0', 10) || 0; } catch (_) { return false; }
-      if (n >= 2 || starHeld.size) return false;
+    // POPUP -> ROW STAR REPLAY (owner: "Star animation should go both ways").
+    // Setting OR clearing the star in the popup plays the row's own mark on
+    // the place's list row, every time -- vsReplay()'s rules exactly: started
+    // by the click, never by a render, so it plays once; the row's re-render
+    // is held (starHeld), so a refetch can't cut it short or replay it; only
+    // if the row is on screen; last wins (a running replay lands its final
+    // state at once, then the next starts from there); reduced motion or
+    // signed out: no replay, the state just lands. No haptic here: the
+    // popup tap already ticked (hapticTap()).
+    //   Star = pencil, then ink (the row's grammar: a row star is always
+    //     pencilled; only the popup, where the outline is already printed,
+    //     fades): the name steps 30px aside (clear of the sketch), five
+    //     strokes at hand speed (HAND_MS), the ink lands with STAR_POP and the
+    //     name docks while it moves (FLIP). ~430ms to ink, rest ~810ms.
+    //   Unstar = the row's full erase: the star lifts (STAR_ERASE_POP), is
+    //     rubbed out over RUB_MS (colour first, grain, erosion, the ghost),
+    //     the ghost vanishes and the dust is swept off as the name moves home
+    //     (FLIP). ~620ms.
+    // (Replaces the 2-per-device teaching replay and its localStorage key.)
+    const SS_REPLAY = { SLIP: 30, SLIP_MS: 120 };
+    try { localStorage.removeItem('triplet.pencilStarTaught'); } catch (_) {}   // the old teaching counter: never read again
+    function ssReplay(id) {
+      if (prefersReducedMotion() || !currentUser) return false;
       const entry = cardsById.get(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
       if (!entry || !list || !entry.el.isConnected || (sheet && sheet.classList.contains('collapsed'))) return false;
-      const r = entry.el.getBoundingClientRect(), lr = list.getBoundingClientRect();
-      if (r.top < lr.top || r.bottom > lr.bottom || r.height === 0) return false;     // not on screen: skip, don't count
+      const held = starHeld.get(id);
+      if (held && held.ff) held.ff();                          // last wins: land the running replay first
+      if (starHeld.has(id)) return false;                      // a live gesture on this row owns it
+      const el = entry.el, r = el.getBoundingClientRect(), lr = list.getBoundingClientRect();
+      if (r.height === 0 || r.bottom <= lr.top || r.top >= lr.bottom) return false;   // off screen: the state just lands
       const loc = locations.find(l => l.id === id);
-      if (!loc || loc.starred) return false;
-      try { localStorage.setItem(STAR_TEACH_KEY, String(n + 1)); } catch (_) {}
-      const el = entry.el, m = mountPencilStar(el, loc);
+      if (!loc) return false;
+      el.classList.remove('active');
+      const m = mountPencilStar(el, loc);
       if (!m) return false;
-      const g = { ...m, id, starred: false, off: 0 };
-      const done = () => { releaseStarRow(el, g, true); updateUI(); };
-      if (prefersReducedMotion()) {        // static pencilled star for ~1s, then the ink by opacity only
-        g.ps.draw(STAR_SWIPE.COMMIT);
-        flipToFinal(el, g, true, 0, () => {});   // final row at once (reduced motion: no slip)
-        setTimeout(() => {
-          const pen = g.svg.querySelector('.sg-pencil'), ink = g.svg.querySelector('.sg-ink');
-          pen.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' });
-          ink.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' }).finished.then(done, done);
-        }, 1000);
-        return true;
-      }
-      // A ghost of the real stroke: slip out to 30px (clear of the sketch),
-      // five strokes, ink, then FLIP into the final row. ~500ms.
-      const t0 = sgNow(); let inked = false;
-      const step = () => {
-        const ms = sgNow() - t0;
-        const out = Math.min(1, ms / 120);
-        setSlip(g, 30 * (0.5 - 0.5 * Math.cos(Math.PI * out)), 30 * (0.5 - 0.5 * Math.cos(Math.PI * out)));
-        const p = Math.max(0, Math.min(1, (ms - 120) / STAR_SWIPE.HAND_MS));
-        g.ps.draw(g.strokes[0] + (50 - g.strokes[0]) * p);
-        if (ms >= 130 + STAR_SWIPE.HAND_MS && !inked) {
-          inked = true; g.ps.draw(STAR_SWIPE.COMMIT); g.ps.ink(true);
-          flipToFinal(el, g, true, 190, () => setTimeout(done, Math.max(0, STAR_POP_MS + 20 - 190)));
-          return;
-        }
-        requestAnimationFrame(step);
+      const was = !!loc.starred, g = { ...m, id, starred: was, off: 0, replay: true };
+      let dead = false;
+      const done = () => { if (dead) return; dead = true; releaseStarRow(el, g, true); updateUI(); };
+      starHeld.get(id).ff = () => {
+        if (dead) return; dead = true;
+        releaseStarRow(el, g, true);
+        el.querySelectorAll('.sg-crumb').forEach(c => c.remove());
+        const park = document.createElement('div'); g.h3 = g.meta = g.main = park;   // a running FLIP's late frames now move nothing
+        const fin = { ...(locations.find(l => l.id === id) || loc), starred: !was };
+        renderCard(el, fin);
+        const e2 = cardsById.get(id); if (e2) e2.signature = cardSignature(fin);
+        updateUI();
       };
-      requestAnimationFrame(step);
+      const t0 = sgNow();
+      if (!was) {
+        const step = () => {
+          if (dead) return;
+          const ms = sgNow() - t0, out = Math.min(1, ms / SS_REPLAY.SLIP_MS), k = 0.5 - 0.5 * Math.cos(Math.PI * out);
+          setSlip(g, SS_REPLAY.SLIP * k, SS_REPLAY.SLIP * k);
+          const p = Math.max(0, Math.min(1, (ms - SS_REPLAY.SLIP_MS) / STAR_SWIPE.HAND_MS));
+          g.ps.draw(g.strokes[0] + (50 - g.strokes[0]) * p);
+          if (ms >= SS_REPLAY.SLIP_MS + 10 + STAR_SWIPE.HAND_MS) {
+            g.ps.draw(STAR_SWIPE.COMMIT); g.ps.ink(true);
+            flipToFinal(el, g, true, 190, () => setTimeout(done, Math.max(0, STAR_POP_MS + 20 - 190)));
+            return;
+          }
+          requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      } else {
+        starErasePop(g.svg);
+        runTimeline(STAR_SWIPE.RUB_MS, t => { if (!dead) g.ps.rub(STAR_SWIPE.COMMIT * t); }, () => {
+          if (dead) return;
+          g.ps.rub(STAR_SWIPE.COMMIT); starCrumbs(g);
+          flipToFinal(el, g, false, STAR_SWIPE.SETTLE, done);
+        });
+      }
       return true;
     }
 
-    // Popup rub-out (star removed from the popup): the same rub as the
-    // row, over 240ms, then the hollow star.
-    let popupRubId = null;
-    function runPopupRub(tries = 0) {
-      const svg = document.querySelector('.leaflet-popup .sgp.sgp-rub:not(.run)');
-      if (!svg) { if (tries < 30) requestAnimationFrame(() => runPopupRub(tries + 1)); return; }
-      svg.classList.add('run');
-      const ps = pencilStar(svg);
-      const finish = () => { const b = svg.closest('.popup-star'); if (b && svg.isConnected) b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star-open"/></svg>'; };
-      if (prefersReducedMotion()) { finish(); return; }
-      starErasePop(svg);
-      runTimeline(240, t => ps.rub(t < 0.3 ? 10 * t / 0.3 : 10 + 45.9 * (t - 0.3) / 0.7), () => { ps.rub(STAR_SWIPE.COMMIT); finish(); });
-    }
+    // Popup unstar (owner: the outline is already there, so no drawing in
+    // the popup): the ink fades off the outline as the star lifts, 240ms.
+    let popupRubId = null;   // popup star just cleared: fade out + erase lift ONCE (CSS .sgp-out)
 
     // Deterministic per-place stamp angle: one of six hand-stamped leans,
     // BOTH ways (positive = left side higher), never near level:
@@ -5050,7 +5185,7 @@
         }
 
         const signature = cardSignature(loc);
-        // Held while the pencil star owns this row (settleStarDrag() / maybeTeachStar()).
+        // Held while the pencil star owns this row (settleStarDrag() / ssReplay() / vsReplay()).
         if (signature !== entry.signature && !starHeld.has(loc.id)) {
           renderCard(entry.el, loc);
           entry.signature = signature;
@@ -5433,7 +5568,7 @@
       document.getElementById('addressInput').style.display = isShape ? 'none' : '';
       document.getElementById('addressInput').required = !isShape;
       document.getElementById('shapeHint').style.display = isShape ? '' : 'none';
-      document.getElementById('starInput').style.display = isShape ? 'none' : '';
+      document.getElementById('starInputRow').style.display = isShape ? 'none' : '';
       document.getElementById('nameInput').placeholder = isShape
         ? 'Neighborhood/street name to search OSM for (e.g. Nørrebro)'
         : 'Search for a place...';
@@ -5748,10 +5883,11 @@
       // popup (measured in Playwright before this line existed).
       e.stopPropagation();
       const isStar = btn.classList.contains('popup-star');
-      // No tick here: a finger's tap already ticked on touch (popupStarTap());
+      // No tick here: a finger's tap already ticked on touch (hapticTap());
       // keyboard / VoiceOver activation gets none -- their own feedback stands.
-      if (isStar && !loc.starred) { popupInkId = loc.id; maybeTeachStar(loc.id); }
-      if (isStar && loc.starred) { popupRubId = loc.id; requestAnimationFrame(() => runPopupRub()); }
+      if (isStar && !loc.starred) popupInkId = loc.id;
+      if (isStar && loc.starred) popupRubId = loc.id;
+      if (isStar) ssReplay(loc.id); else vsReplay(loc.id);  // before the toggle, so the row is held and plays from its old state
       toggleLocationFlag(loc.id, isStar ? 'starred' : 'visited');
     });
 
