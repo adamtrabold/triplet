@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>city filter wrap — concept proto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<style>
+  /* ---- tokens copied verbatim from index.html :root (paper/ink/spacing) ---- */
+  :root {
+    --paper:        #F2EBDD;
+    --paper-raised: #FAF5EA;
+    --navy:         #12293F;
+    --ink:          #1A1A18;
+    --ink-2:        #5A564C;
+    --hair:         #D8CEBA;
+    --figure:       #EE7434;
+    --figure-deep:  #A8400C;
+    --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s6: 24px; --s8: 32px; --s12: 48px;
+    --gutter: 16px;
+    --font-ui: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #ddd6c8;
+    font-family: var(--font-ui);
+    padding: 24px 0 80px;
+  }
+  .phone {
+    width: 375px;
+    margin: 0 auto 40px;
+    background: var(--paper);
+    border: 1px solid #bbb;
+    overflow: hidden;
+  }
+  .label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7a7263;
+    background: #ddd6c8;
+    padding: 10px 16px 4px;
+  }
+  .sub {
+    font-size: 11px;
+    color: #948b78;
+    padding: 0 16px 8px;
+    line-height: 1.5;
+  }
+
+  /* =========================================================
+     SHARED base button look (matches .city-btn in index.html)
+     ========================================================= */
+  .city-btn-base {
+    padding: var(--s2) var(--s3);
+    font-family: var(--font-ui);
+    font-stretch: 75%;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--paper-raised);
+    color: var(--ink);
+    border: 1px solid var(--hair);
+  }
+  .city-btn-base.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--paper);
+  }
+
+  /* =========================================================
+     APPROACH A -- JS row-aware corner rounding (flush pill, robust)
+     ========================================================= */
+  .approachA #cityFilters {
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--s4) var(--gutter);
+    border-bottom: 4px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='4'%3E%3Cpath d='M0 2 Q2 0 4 2 T8 2 T12 2 T16 2' fill='none' stroke='%23D8CEBA' stroke-width='1.5'/%3E%3C/svg%3E") 0 0 4 0 repeat;
+    row-gap: 6px; /* small vertical breathing room between rows */
+  }
+  .approachA .city-btn { border-radius: 0; border-right-width: 0; margin-left: 0; }
+  .approachA .city-btn.row-start { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+  .approachA .city-btn.row-end   { border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-right-width: 1px; }
+  .approachA .city-btn.all-city { margin-left: 2px; }
+
+  /* =========================================================
+     APPROACH B -- independently-rounded chips w/ gap (chip pattern)
+     ========================================================= */
+  .approachB #cityFilters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    padding: var(--s4) var(--gutter);
+  }
+  .approachB .city-btn { border-radius: 3px; }
+  .approachB .city-btn.all-city { border-left: 1px solid var(--hair); }
+
+  /* =========================================================
+     APPROACH C -- "All Cities" pinned to its own row, always
+     ========================================================= */
+  .approachC #cityFilters {
+    padding: var(--s4) var(--gutter) 0;
+    border-bottom: 4px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='4'%3E%3Cpath d='M0 2 Q2 0 4 2 T8 2 T12 2 T16 2' fill='none' stroke='%23D8CEBA' stroke-width='1.5'/%3E%3C/svg%3E") 0 0 4 0 repeat;
+  }
+  .approachC .city-row {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+  .approachC .city-btn { border-radius: 0; border-right-width: 0; }
+  .approachC .city-btn.row-start { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+  .approachC .city-btn.row-end   { border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-right-width: 1px; }
+  .approachC .all-city-row {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--s2) 0 var(--s4);
+  }
+  .approachC .city-btn.all-city {
+    border-radius: 3px;
+    border-right-width: 1px;
+  }
+
+  /* =========================================================
+     APPROACH D -- horizontal scroll strip, never wraps
+     ========================================================= */
+  .approachD #cityFilters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: var(--s4) var(--gutter);
+    border-bottom: 4px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='4'%3E%3Cpath d='M0 2 Q2 0 4 2 T8 2 T12 2 T16 2' fill='none' stroke='%23D8CEBA' stroke-width='1.5'/%3E%3C/svg%3E") 0 0 4 0 repeat;
+    position: relative;
+    -ms-overflow-style: none;
+  }
+  .approachD #cityFilters::-webkit-scrollbar { display: none; }
+  .approachD .city-btn { border-radius: 0; border-right-width: 0; flex-shrink: 0; }
+  .approachD .city-btn:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+  .approachD .city-btn.all-city {
+    border-radius: 3px;
+    border-right-width: 1px;
+    margin-left: 2px;
+  }
+  .approachD .scroll-wrap { position: relative; }
+  .approachD .fade-edge {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 28px;
+    background: linear-gradient(to right, transparent, var(--paper) 78%);
+    pointer-events: none;
+  }
+  .approachD .fade-edge-left {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 20px;
+    background: linear-gradient(to left, transparent, var(--paper) 78%);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     APPROACH A -- JS row-aware corner rounding
+     ============================================================ -->
+<div class="label">A — JS row-aware rounding (flush pill preserved)</div>
+<div class="sub">6 buttons (today's real case: 5 cities + All Cities)</div>
+<div class="phone approachA">
+  <div id="cityFilters" data-set="6"></div>
+</div>
+<div class="sub">8 buttons (future growth: main group itself wraps)</div>
+<div class="phone approachA">
+  <div id="cityFilters" data-set="8"></div>
+</div>
+
+<!-- ============================================================
+     APPROACH B -- independent rounded chips, gapped
+     ============================================================ -->
+<div class="label">B — independent rounded chips (borrows chip pattern)</div>
+<div class="sub">6 buttons</div>
+<div class="phone approachB">
+  <div id="cityFilters" data-set="6"></div>
+</div>
+<div class="sub">8 buttons</div>
+<div class="phone approachB">
+  <div id="cityFilters" data-set="8"></div>
+</div>
+
+<!-- ============================================================
+     APPROACH C -- All Cities always on its own row
+     ============================================================ -->
+<div class="label">C — "All Cities" always its own row (+ JS rounding for main group)</div>
+<div class="sub">6 buttons (main group only 5 cities -> fits one line here)</div>
+<div class="phone approachC">
+  <div id="cityFilters" data-set="6c"></div>
+</div>
+<div class="sub">8 buttons (main group grows to 7 cities -> wraps, still handled)</div>
+<div class="phone approachC">
+  <div id="cityFilters" data-set="8c"></div>
+</div>
+
+<!-- ============================================================
+     APPROACH D -- horizontal scroll strip, never wraps
+     ============================================================ -->
+<div class="label">D — horizontal scroll strip (structurally never wraps)</div>
+<div class="sub">6 buttons, at rest (note the trailing fade cueing more content)</div>
+<div class="phone approachD">
+  <div class="scroll-wrap">
+    <div id="cityFilters" data-set="6"></div>
+    <div class="fade-edge"></div>
+  </div>
+</div>
+<div class="sub">8 buttons, at rest</div>
+<div class="phone approachD">
+  <div class="scroll-wrap">
+    <div id="cityFilters" data-set="8"></div>
+    <div class="fade-edge"></div>
+  </div>
+</div>
+<div class="sub">8 buttons, scrolled mid-way (user has swiped) -- fade both edges</div>
+<div class="phone approachD">
+  <div class="scroll-wrap">
+    <div id="cityFilters" data-set="8" data-scroll="mid"></div>
+    <div class="fade-edge"></div>
+    <div class="fade-edge-left"></div>
+  </div>
+</div>
+
+<script>
+  const SET6 = ['LA','Reykjavík','Copenhagen','Malmö','Stockholm'];
+  const SET8 = ['LA','Reykjavík','Copenhagen','Malmö','Stockholm','Oslo','Bergen'];
+  const ACTIVE = 'Copenhagen';
+
+  function buildButtons(container, cities, activeLabel) {
+    const frag = document.createDocumentFragment();
+    cities.forEach(label => {
+      const b = document.createElement('button');
+      b.className = 'city-btn city-btn-base' + (label === activeLabel ? ' active' : '');
+      b.textContent = label;
+      frag.appendChild(b);
+    });
+    const all = document.createElement('button');
+    all.className = 'city-btn city-btn-base all-city' + (activeLabel === 'All cities' ? ' active' : '');
+    all.textContent = 'All cities';
+    frag.appendChild(all);
+    container.appendChild(frag);
+  }
+
+  function markRowEdges(container) {
+    const btns = Array.from(container.querySelectorAll('.city-btn'));
+    let lastTop = null;
+    btns.forEach((b, i) => {
+      const top = b.offsetTop;
+      if (top !== lastTop) {
+        if (i > 0) btns[i - 1].classList.add('row-end');
+        b.classList.add('row-start');
+        lastTop = top;
+      }
+    });
+    btns[btns.length - 1].classList.add('row-end');
+  }
+
+  document.querySelectorAll('#cityFilters').forEach(container => {
+    const set = container.getAttribute('data-set');
+    const cities = (set === '8' || set === '8c') ? SET8 : SET6;
+    buildButtons(container, cities, ACTIVE);
+  });
+
+  // Approach A + D: row-aware rounding for the flush groups (A only; D never wraps so skip)
+  document.querySelectorAll('.approachA #cityFilters').forEach(markRowEdges);
+
+  // Approach C: split into "main group" row(s) + separate All-Cities row
+  document.querySelectorAll('.approachC #cityFilters').forEach(container => {
+    const allBtn = container.querySelector('.all-city');
+    const mainBtns = Array.from(container.querySelectorAll('.city-btn:not(.all-city)'));
+    allBtn.remove();
+
+    const row = document.createElement('div');
+    row.className = 'city-row';
+    mainBtns.forEach(b => row.appendChild(b));
+    container.appendChild(row);
+    markRowEdges(row);
+
+    const allRow = document.createElement('div');
+    allRow.className = 'all-city-row';
+    allRow.appendChild(allBtn);
+    container.appendChild(allRow);
+  });
+
+  // Approach D scroll offset simulation
+  document.querySelectorAll('.approachD #cityFilters[data-scroll="mid"]').forEach(el => {
+    requestAnimationFrame(() => { el.scrollLeft = 90; });
+  });
+</script>
+</body>
+</html>
