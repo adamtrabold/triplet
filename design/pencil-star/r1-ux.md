@@ -526,3 +526,98 @@ So the new proof can detect the defect it guards against. That resolves my round
 - The case log diff confirms that nothing else was dropped. The other line differences are only measured values in case titles (the S2 ms and S3 scroll px), whose counts are unchanged.
 - It is **replaced by a superset**: `flip6.js` covers 4 rows (adding short star and short unstar) × 2 modes = 8 frame-by-frame cases, plus a failing negative control.
 - **One condition:** the reported total should read "84 + 8 (`flip6.js`)" wherever it's summarised, so the FLIP proof stays in the gate and isn't quietly dropped.
+
+---
+
+# Round 7 (the C spin-stamp, the −12° sketch lean, the haptic tick)
+
+**Scripts:**
+- **New:** `me7.js` and `me7b.js` (popup clearance, reduced motion, haptic element).
+- **Re-pointed:** `me7-touch.js`, `me7-edge.js`, `me7-main.js` and `me7-dust.js`, i.e. the round-6 set aimed at r7.
+
+## Verdict
+
+**Approve the motion. Two small should-fixes, both in `starHaptic()`.**
+
+## Motion
+
+| Check | Result |
+|---|---|
+| **Popup clearance, peak frame** (ink element rect, every rAF, 32 ink frames) | Title **3.06px**, category glyph and word 7.35px, Visited ring 27.7px (one-line title) or 47.7px (two-line). Peak scale 1.4, peak rotation 20°. |
+| **Taps after a star during the bigger pop** | Touch at 0 / 60 / 150ms, other row and same row: **6/6 navigate**. Mouse: **3/3**. The pop never delays or eats a tap. |
+| **Reduced motion, popup** | Scale 1.00, rotation 0° |
+| **Reduced motion, row stroke** | Scale 1.00. The only rotation seen is the static −12° sketch lean, not the spin. |
+| **Regressions** | S2 press, S3 diagonal (r7 0 / 0 / 0 / 57 / 65 / 69 vs `main` 0 / 0 / 0 / 58 / 65 / 70), sideways 169/168, delete safe, edge 20/23 inert and 25/30 arm, popup taps, pressure cue at the crossing event, second stroke at 0–400ms 4/4, **dust over text 0/6 runs**, lift → name moving 57ms. |
+
+**On the 3.06px popup clearance.** It is measured from the axis-aligned box of a rotated star, so the true ink-to-glyph gap is larger. Nothing touches or overlaps, so it is **acceptable**. **N7-a:** if the owner finds the popup crowded at peak, dial the popup to 1.35× only.
+
+## The haptic element
+
+I forced the iOS path by removing `navigator.vibrate`. That matters, because Chromium has `vibrate`, so the switch code never runs in a default Playwright run.
+
+| Check | Result |
+|---|---|
+| Invisible | Yes: at (−9999, 0), 1×1, clip-path, opacity 0 |
+| No layout shift | Yes: scroll size unchanged |
+| Accessibility tree | Not present (the Playwright snapshot with `interestingOnly:false` has no switch or checkbox node from it) |
+| Scroll after a tick | 169–172px. The ios-haptics "touch starts on the element" issue can't happen here, because the element is off-screen with `pointer-events: none`. |
+| Toggles | Star 1, unstar 2 (the double tick) |
+
+**Should-fix 1: R7-S1, focus is stolen when nothing was focused.**
+- After a row stroke, `document.activeElement` went **BODY → the hidden INPUT**.
+- The restore only runs `prev.focus()`, and `body.focus()` is a no-op, so the off-screen, `aria-hidden` checkbox keeps focus.
+- That is focus on an `aria-hidden` element, and a keyboard or switch-control user's next Tab starts from the end of `<body>`.
+- With the popup star focused, focus was preserved correctly.
+- **Fix:** after the click, `if (document.activeElement === input) input.blur()`, then restore `prev` if it is focusable.
+
+**Should-fix 2: R7-S2, each tick dispatches 2 synthetic clicks that bubble to `document`** (4 for an erase: LABEL (synthetic), then INPUT).
+- `document` has two global click listeners:
+  - one that closes the account dropdown on an outside click;
+  - one that hides the add-form autocomplete.
+- A haptic tick can therefore close either of them.
+- On desktop Safari (no `vibrate`, no `switch` haptic) the click still runs silently, with the same side effects.
+- **Fix:** a capture-phase listener on the label that calls `e.stopPropagation()` for both the label click and the input's activation click.
+- **Verify:** 0 document-level clicks per tick.
+
+## Carry to the iPhone
+
+The designer's list stands, plus:
+1. On **iOS 18.0–26.4**, after a tick, an open account dropdown stays open (after R7-S2), and external-keyboard Tab continues from the row (after R7-S1).
+2. On **iOS 26.5+**, no tick is expected, as the designer's research says.
+
+---
+
+# Round 8 (re-cut pop, the popup origin, R7 fixes, the popup real-tap haptic)
+
+**Scripts:**
+- **New:** `me8.js`.
+- **Re-pointed:** `me8-touch.js`, `me8-edge.js`, `me8-main.js` and `me8-dust.js`.
+- The iOS path was forced by removing `navigator.vibrate`.
+
+## Verdict
+
+**Approve. No blockers and no should-fixes.** R7-S1 and R7-S2 are fixed.
+
+## Checks
+
+| Check | Result |
+|---|---|
+| **Popup star, touch tap** (CDP) | Toggles; `aria-pressed` follows; **exactly 1** switch toggle |
+| **Popup star, mouse click** | Toggles; 1 toggle |
+| **Popup star, keyboard** (Enter, then Space on the focused button) | Toggles each time. 0 toggles, which is correct: no tick for keyboard. Focus stays on the button. |
+| **Accessibility tree of the popup** | `button "Star" pressed=false`, `button "MARK VISITED"`, `link "Get directions"`, `button "Close popup"`. **No label, no checkbox.** |
+| **Hit-map** | Star (label + button) 1,980px = 44×45, unchanged. **Dead band to Mark Visited: 7 clear rows (8px geometric)**, unchanged. The star's box over the title's first glyphs: 112px, the known and accepted N1, unchanged. |
+| **Taps** | A tap at Mark Visited's top edge toggles Visited, not the star. A tap mid-title toggles nothing. |
+| **Document clicks** | Row swipe on the iOS path: **0 document clicks** (star: 1 switch toggle; unstar: 2). The account dropdown stays open. |
+| **Focus after a swipe** | BODY → BODY: never the switch |
+| **Popup tap** | The only document click is the forwarded Star-button click, the same as a direct tap on `main` |
+| **Taps after a star (longer pop)** | 6/6 touch at 0 / 60 / 150ms, other and same row; 3/3 mouse. The pop never delays a tap. |
+| **Regressions** | None: S2 press, S3 diagonal (0 / 0 / 0 / 58 / 64 / 69 vs `main` 0 / 0 / 0 / 58 / 65 / 69), sideways 165/166, delete safe, edge 20/23 inert and 25/30 arm, pressure at the crossing event, second stroke 4/4, dust over text 0/6, lift → move 58ms |
+
+## Nits
+
+- **N8-a. Focus after a mouse or touch toggle is `body`, not the button.**
+  - The overlay forwards the click programmatically, so the button no longer takes focus on a pointer click. With round 2's refocus, a pointer toggle used to leave focus on the button.
+  - Keyboard users are unaffected (focus stays on the button). Touch doesn't need focus.
+  - A desktop mouse user who clicks and then presses Tab starts from the document. Low impact. Optionally, call `btn.focus({preventScroll:true})` in `popupStarTap()` when `pointerType === 'mouse'`.
+- **N8-b. VoiceOver double-tap** activates at the button's centre, where the hit test lands on the `aria-hidden` label, which forwards the click. It should toggle exactly once; confirm on the iPhone with VoiceOver on (**new iPhone check**).

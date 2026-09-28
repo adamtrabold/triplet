@@ -1314,6 +1314,7 @@
        control would crowd a 240px row. Off: hollow --ink-2 star (6.17:1
        on --paper). On: filled --figure-deep (>= 4.79:1). */
     .popup-title-row {
+      position: relative;                  /* anchors .popup-star-tap (no z-index: no new stacking context) */
       display: flex;
       align-items: flex-start;
       gap: var(--s1);
@@ -1359,7 +1360,20 @@
 
     .popup-star svg { width: var(--s4); height: var(--s4); display: block; }
     .popup-star.starred { color: var(--ink); }
-    .popup-star:active svg { transform: scale(0.85); }
+    .popup-star:active svg,
+    .popup-title-row:has(> .popup-star-tap:active) .popup-star svg { transform: scale(0.85); }
+    /* Round 8 (owner): the finger's tap target. EXACTLY .popup-star::after's
+       44x44 box (the star is the row's first item at 0,0), one layer above it,
+       so the dead band to Mark Visited and z-index:201 are unchanged. It is a
+       label for the hidden haptic switch: a real tap on it ticks on iOS
+       (26.5+ too). aria-hidden -- the button is what assistive tech gets. */
+    .popup-star-tap {
+      position: absolute;
+      left: -13px; top: -20px; width: 44px; height: 44px;
+      z-index: 202;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
     .popup-addr  { font-size: 12px; line-height: 16px; color: var(--ink-2); }
     .popup-notes { font-size: 12px; line-height: 16px; color: var(--ink-2); font-style: italic; margin-top: var(--s2); }
 
@@ -1653,11 +1667,12 @@
        crossbar) from sitting on the type's baseline and reading as a letter. */
     .sg-star .sg-pencil,
     .sgp .sg-pencil { color: var(--ink-2); fill: currentColor;
-                      transform-box: fill-box; transform-origin: 50% 55%; transform: rotate(-7deg); }
+                      transform-box: fill-box; transform-origin: 50% 55%; transform: rotate(-12deg); }
     .sg-star .sg-ink,
     .sgp .sg-ink { color: var(--ink); fill: currentColor; opacity: 0;
                    transform-box: fill-box; transform-origin: 50% 55%; }
     .sg-spread { opacity: 0; transform-box: fill-box; transform-origin: 50% 55%; }
+    .popup-star .sgp .sg-ink { transform-origin: 70% 55%; }   /* round 8: origin toward the title so the 1.35x swell grows away from it (the ink path is drawn mirrored in fill-box; measured: 70% -> 4.41px clear, 50% -> 3.44) */
     .sg-smudge, .sg-ghost { fill: var(--ink-2); }
     .sg-inkg { opacity: 0; }
     .sg-star.inked .sg-ink, .sgp.inked .sg-ink { opacity: 1; }
@@ -1691,12 +1706,12 @@
     /* N-b: the hollow star stays until stroke 1 is half drawn -- no empty slot on tap. */
     .sgp-hollow { display: none; }
     .popup-star .sgp.sgp-play .sgp-hollow { display: inline; color: var(--ink-2); animation: sgpOff 1ms linear 36ms forwards; }
-    .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 380ms forwards, sgpPress 140ms cubic-bezier(.2, .8, .3, 1) 380ms backwards; }
-    .popup-star .sgp.sgp-play .sg-spread { animation: sgpSpread 16ms steps(1, end) 380ms; }
+    .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 380ms forwards, sgpPress 380ms linear 380ms backwards; }
+    .popup-star .sgp.sgp-play .sg-spread { animation: none; }
     @keyframes sgpStroke { to { stroke-dashoffset: 0; } }
     @keyframes sgpOff    { to { opacity: 0; } }
     @keyframes sgpOn     { to { opacity: 1; } }
-    @keyframes sgpPress  { from { transform: scale(1.1); } to { transform: scale(1); } }
+    @keyframes sgpPress  { 0% { transform: rotate(-20deg) scale(1); animation-timing-function: cubic-bezier(.2,.9,.3,1); } 34% { transform: rotate(6deg) scale(1.35); animation-timing-function: cubic-bezier(.6,0,.85,.45); } 65% { transform: rotate(-2deg) scale(0.95); animation-timing-function: cubic-bezier(.4,0,.3,1); } 100% { transform: rotate(0deg) scale(1); } }
     @keyframes sgpSpread { from { opacity: .45; transform: scale(1.15); } to { opacity: 0; } }
     @media (prefers-reduced-motion: reduce) {
       .popup-star .sgp.sgp-play .sg-rev { animation: none; stroke-dashoffset: 0; }
@@ -3462,7 +3477,7 @@
         <div style="min-width: 240px;">
           <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}</div>
           <div class="popup-title-row">
-            <button type="button" class="popup-star ${loc.starred ? 'starred' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="Star">${inkNow ? pencilStarMarkup('sgp', { play: true }) : rubNow ? pencilStarMarkup('sgp inked sgp-rub') : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`}</button>
+            <button type="button" class="popup-star ${loc.starred ? 'starred' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="Star">${inkNow ? pencilStarMarkup('sgp', { play: true }) : rubNow ? pencilStarMarkup('sgp inked sgp-rub') : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`}</button><label class="popup-star-tap" for="starHapticSwitch" aria-hidden="true"></label>
             <div class="popup-title">${escapeHtml(loc.name)}</div>
           </div>
           ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
@@ -3888,7 +3903,95 @@
     const PENTA = [[5.65, 21.81], [12.0, 2.27], [18.35, 21.81], [1.73, 9.73], [22.27, 9.73], [5.65, 21.81]];   // the soft star's tips, pulled in to sit inside its rounded points
     let starGesture = null;               // { id } of the most recent stroke
     const starHeld = new Map();           // id -> { ff } for every row whose re-render is held (R4-S2)
-    let sgInRaf = false;                  // true inside the pen's rAF step (one-frame spread timing)
+    let sgInRaf = false;
+    // Round 8: ONE curve for row and popup. LINEAR effect easing with the easing on each
+    // keyframe segment (an effect-level ease-out had compressed the whole drama into ~90ms).
+    // Peak ~120ms (row 1.4x, popup 1.35x -- the popup's title sits closer), undershoot 0.95
+    // ~230ms, rest at 380ms. The popup's @keyframes sgpPress is the same table, 1:1.
+    const STAR_POP = [{"transform": "rotate(-20deg) scale(1)", "offset": 0.0, "easing": "cubic-bezier(.2,.9,.3,1)"}, {"transform": "rotate(6deg) scale(1.4)", "offset": 0.34, "easing": "cubic-bezier(.6,0,.85,.45)"}, {"transform": "rotate(-2deg) scale(0.95)", "offset": 0.65, "easing": "cubic-bezier(.4,0,.3,1)"}, {"transform": "rotate(0deg) scale(1)", "offset": 1.0}];
+    const STAR_POP_MS = 380;
+
+    // THE CLICK (round 7): one haptic tick on each FINISH beat -- the ink
+    // landing (star) and the dust falling (erase, two quick ticks, like a
+    // rub). Fails silently everywhere it can't work:
+    //   - Android/Chrome: navigator.vibrate (10ms; erase [6, 45, 6]).
+    //   - iOS Safari has no Vibration API. The only hook is toggling a
+    //     hidden <input type=checkbox switch> via its <label> (switch:
+    //     iOS 17.4+, haptic: iOS 18+). From iOS 26.5, WebKit fc1ef83 makes a
+    //     script label.click() an UNTRUSTED click, which fires no haptic --
+    //     and a swipe produces no trusted click at all -- so on 26.5+ this
+    //     is silent. It is not an activation-window problem (timing can't
+    //     fix it), which is why it simply stays on the finish beat.
+    //   - Desktop: nothing.
+    //   - The POPUP star is different (round 8, owner): a finger's tap lands on
+    //     .popup-star-tap, a <label for> this switch, so the tap is a TRUSTED
+    //     label click and ticks on 26.5+ as well -- on the tap, star or unstar
+    //     (one tick: a tap is one trusted event). See popupStarTap().
+    // The switch is off-screen, clipped, aria-hidden, unfocusable and never
+    // takes focus (focus is restored if the engine moves it): no layout
+    // shift, never visible, never announced. The switch's single system
+    // tick can't be varied in strength, so erase differs by rhythm only.
+    let starHapticEl = null;
+    function starHaptic(kind) {
+      try {
+        if (navigator.vibrate) { navigator.vibrate(kind === 'erase' ? [6, 45, 6] : 10); return; }
+        starHapticSwitch();
+        return tickSwitch(kind);
+      } catch (_) { /* no haptics here -- fine */ }
+    }
+    function starHapticSwitch() {
+        if (!starHapticEl) {
+          const l = document.createElement('label');
+          l.setAttribute('aria-hidden', 'true');
+          l.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none';
+          l.innerHTML = '<input type="checkbox" switch id="starHapticSwitch" tabindex="-1" aria-hidden="true">';
+          // R7-S2: no click the switch machinery makes reaches ANY listener --
+          // document's outside-click handlers would close the account dropdown
+          // and the address autocomplete. Stopped at window capture, the first
+          // hop; the switch still toggles (activation ignores propagation).
+          // R7-S1: if the engine moved focus onto the switch, drop it.
+          window.addEventListener('click', e => {
+            const t = e.target;
+            if (l.contains(t)) { e.stopImmediatePropagation(); if (document.activeElement === t) t.blur(); return; }
+            const tap = t.closest && t.closest('.popup-star-tap');
+            if (tap) { e.stopImmediatePropagation(); popupStarTap(tap, e); }
+          }, true);
+          // N8-a: Safari's click has no pointerType, so remember the last press.
+          window.addEventListener('pointerdown', e => { starPointerType = e.pointerType; }, true);
+          document.body.appendChild(l); starHapticEl = l;
+        }
+        return starHapticEl.firstElementChild;
+    }
+    // A real tap on the popup star: the tap itself is the haptic (the label's
+    // own activation toggles the switch -- trusted, so it ticks on 26.5+ too;
+    // Android vibrates here instead). The star action runs one task later, so
+    // the label is still attached when its activation looks up the switch
+    // (the toggle re-renders the popup). The button stays the only thing
+    // assistive tech sees; keyboard/VoiceOver activate it directly, untouched.
+    let starPointerType = '';
+    function popupStarTap(tap, e) {
+      const btn = tap.parentElement && tap.parentElement.querySelector('.popup-star');
+      if (!btn) return;
+      if (navigator.vibrate) { const loc = locations.find(x => x.id === btn.dataset.id); try { navigator.vibrate(loc && loc.starred ? [6, 45, 6] : 10); } catch (_) {} }
+      // N8-a: a MOUSE click keeps focus on the star button, as a direct click
+      // on it used to (setLocationFlag()'s refocus carries it across the
+      // re-render). Touch leaves focus on body -- no focus ring on iPhone.
+      const mouse = ((e && e.pointerType) || starPointerType) === 'mouse';
+      setTimeout(() => { if (!btn.isConnected) return; if (mouse) btn.focus({ preventScroll: true }); btn.click(); }, 0);
+    }
+    function tickSwitch(kind) {
+      try {
+        const tick = () => {
+          const prev = document.activeElement, input = starHapticEl.firstElementChild;
+          starHapticEl.click();
+          // R7-S1: the aria-hidden switch never keeps focus.
+          if (document.activeElement === input) input.blur();
+          if (prev && prev !== document.body && prev !== input && document.activeElement !== prev && prev.focus) prev.focus({ preventScroll: true });
+        };
+        tick();
+        if (kind === 'erase') setTimeout(tick, 60);
+      } catch (_) { /* no haptics here -- fine */ }
+    }                  // true inside the pen's rAF step (one-frame spread timing)
     let starUid = 0;
 
     function pencilStarMarkup(cls, { play = false } = {}) {
@@ -3960,10 +4063,10 @@
           // and the 17ms spread could straddle two frames -- the landing
           // read soft. Now a 1.1x press (<=0.9px/side) and a 1.15x spread
           // held for EXACTLY one painted frame (rAF, not a timed animation).
-          ink.animate([{ transform: 'scale(1.1)' }, { transform: 'scale(1)' }], { duration: 140, easing: 'cubic-bezier(.2,.8,.3,1)' });
-          spread.style.opacity = '0.45'; spread.style.transform = 'scale(1.15)';
-          const hide = () => { spread.style.opacity = ''; spread.style.transform = ''; };
-          if (sgInRaf) requestAnimationFrame(hide); else requestAnimationFrame(() => requestAnimationFrame(hide));
+          // Round 7 (owner: "more dramatic ... getting slightly larger then going
+          // down to the correct size"): ONE legible overshoot-settle -- twists from -20 through +6 at 1.4x, settles upright,
+          // 340ms. Full ink on the first frame; the peak is a real frame, not a blur hang.
+          ink.animate(STAR_POP, { duration: STAR_POP_MS, easing: 'linear' });
         },
         unink() { svg.classList.remove('inked'); ink.getAnimations().forEach(a => a.cancel()); },
         // Rub-out, in this order, all as a function of travel (so a
@@ -4197,12 +4300,12 @@
       if (g.starred) {
         g.ps.rub(raw);
         const armed = raw >= STAR_SWIPE.COMMIT;
-        if (armed && !g.armed) starCrumbs(g, g.speck ? [1, 2] : [0, 1, 2]);
+        if (armed && !g.armed) { starCrumbs(g, g.speck ? [1, 2] : [0, 1, 2]); starHaptic('erase'); }
         g.armed = armed;
       } else {
         g.ps.draw(raw);
         const armed = raw >= STAR_SWIPE.COMMIT;
-        if (armed && !g.armed) g.ps.ink(true);
+        if (armed && !g.armed) { g.ps.ink(true); starHaptic('ink'); }
         if (!armed && g.armed) g.ps.unink();
         g.armed = armed;
       }
@@ -4323,7 +4426,7 @@
           if ((g.v || 0) >= at && g.onNear) { const cb = g.onNear.cb; g.onNear = null; cb(); }
           return;
         }
-        g.onPen = () => setTimeout(both, g.starred || prefersReducedMotion() ? 0 : 170);   // let the ink press in
+        g.onPen = () => setTimeout(both, g.starred || prefersReducedMotion() ? 0 : STAR_POP_MS + 20);   // let the ink pop land
         setPen(g, STAR_SWIPE.COMMIT);
         if (g.v >= STAR_SWIPE.COMMIT && g.onPen) { const cb = g.onPen; g.onPen = null; cb(); }
         flipToFinal(el, g, nowStarred, STAR_SWIPE.SETTLE, both);
@@ -4394,7 +4497,7 @@
         g.ps.draw(g.strokes[0] + (50 - g.strokes[0]) * p);
         if (ms >= 130 + STAR_SWIPE.HAND_MS && !inked) {
           inked = true; g.ps.draw(STAR_SWIPE.COMMIT); g.ps.ink(true);
-          flipToFinal(el, g, true, 190, done);
+          flipToFinal(el, g, true, 190, () => setTimeout(done, Math.max(0, STAR_POP_MS + 20 - 190)));
           return;
         }
         requestAnimationFrame(step);
@@ -5165,6 +5268,7 @@
     // popupPane for the map's whole lifetime and reuses it for every
     // popup open/close/replace, so a SINGLE delegated listener here can
     // never double-bind the way a per-popup listener would risk.
+    starHapticSwitch();   // the popup star's tap label points at it from the first popup
     map.getPane('popupPane').addEventListener('click', (e) => {
       const btn = e.target.closest('.popup-visited, .popup-star');
       if (!btn) return;
@@ -5178,6 +5282,8 @@
       // popup (measured in Playwright before this line existed).
       e.stopPropagation();
       const isStar = btn.classList.contains('popup-star');
+      // No tick here: a finger's tap already ticked on touch (popupStarTap());
+      // keyboard / VoiceOver activation gets none -- their own feedback stands.
       if (isStar && !loc.starred) { popupInkId = loc.id; maybeTeachStar(loc.id); }
       if (isStar && loc.starred) { popupRubId = loc.id; requestAnimationFrame(() => runPopupRub()); }
       toggleLocationFlag(loc.id, isStar ? 'starred' : 'visited');

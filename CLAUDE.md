@@ -444,8 +444,69 @@ go stale, and don't leave it silently out of date either.
   - **Test gate: "84 + 8"** — touch suite 84/84 in both motion modes (4 obsolete "laid out on release" cases were retired, replaced by) + `flip6.js` 8/8; plus popup-open 20/20, 0 dust-over-text frames, rows 56.00px, 0ms tap delay, hand-off 0/5,184 px, Impeccable baseline 3. Always report it as "84 + 8", never "84".
   - **Dials:** `HAND_MS` (280–440), pressure step 0.5–0.9 units (1.3–1.5×), light-graphite opacity 0.8–0.9, detent 2–4px, ghost 0.35 (ceiling 0.45), `RUB_AFTER_LIFT`, dust fade (toward 160ms / two specks if it reads as punctuation), star ink `--ink-2` if black feels heavy.
   - Design record `design/pencil-star/` now includes the r4–r6 decision frames and `r4-trunc.json`.
+  **Rounds 7–8 (on branch `claude/visited-state-badge-list-yultpy`, not yet merged; owner: "more dramatic pop and angle"; a haptic click). Perfection stage: CD scored round 7 at 8, round 8 at 9/10. These SUPERSEDE the rounds 4–6 "Ink landing" bullet above. Keep that bullet as history only: the 1.1→1 press-in plus one 1.15× spread frame is no longer current behaviour.**
+  - **Spin-stamp ink landing.** Row and popup share one table, `STAR_POP`, with `STAR_POP_MS` = 380:
+
+    | Offset | Rotation | Scale | Easing into the next segment |
+    |---|---|---|---|
+    | 0 | −20° | 1 | `cubic-bezier(.2,.9,.3,1)` |
+    | .34 | +6° | peak | `cubic-bezier(.6,0,.85,.45)` |
+    | .65 | −2° | 0.95 | `cubic-bezier(.4,0,.3,1)` |
+    | 1 | 0° | 1 | — |
+
+    - **The effect easing is LINEAR, with the easing on each keyframe.** The row uses WAAPI `ink.animate(STAR_POP, { easing: 'linear' })`. The popup uses CSS `@keyframes sgpPress` with per-keyframe `animation-timing-function`, 1:1 with the table.
+    - Why: round 7 used an effect-level ease-out, which compressed the whole drama into about 90ms. That was "too fast to see" again.
+    - Peaks: the row peaks at 1.4×. The popup peaks at **1.35×**, with the popup ink's `transform-origin` at 70% 55%. That origin was measured, not assumed: title clearance is 4.41px (50% gave 3.44px).
+    - Full ink on the first frame. The hand-off, teaching and popup waits follow `STAR_POP_MS` + 20.
+    - **Rule: at least 6 frames at ≥1.3×**, measured at real timing. Measured: row 11 frames at ≥1.3× and 3 at ≤0.97; popup 8 and 3. Peak about 100–117ms, dip about 233–250ms, rest about 350–367ms.
+    - Clearance at the peak: row name ≥4.68px, badge ≥8.91px.
+    - Rejected: A, a plain pop (read as "a bit bigger"), and B, an 8° twist (lost at 18px).
+  - **Sketch lean −12°** (was −7°): drawn by hand, then set straight in ink.
+  - **Reduced motion:** no scale and no rotation; the ink just appears. **Haptics still fire.** They aren't motion, and they are the only finish cue there.
+  - **Haptics (`starHaptic(kind)`):**
+    - Android: `navigator.vibrate`, 10ms for star and `[6,45,6]` for erase.
+    - iOS: a hidden `<input type="checkbox" switch id="starHapticSwitch">`, toggled via its label. The switch needs iOS 17.4+; the haptic needs 18+.
+      - `starHapticSwitch()` builds it lazily, fixed off-screen, clipped, `aria-hidden`, `tabindex -1`.
+      - All of its clicks are stopped at **window capture** (`stopImmediatePropagation`), so 0 clicks reach document. Otherwise the outside-click handlers would close the account menu and the address suggestions.
+      - If it takes focus it is blurred. The previous focus is restored only if focusable and not `body`.
+    - Row swipe: the tick fires **on the ink landing** (star), and as a double tick (two toggles 60ms apart) at the erase commit (unstar).
+    - **Platform limit:** from iOS 26.5, WebKit fc1ef83 (bug 309082) makes a script `label.click()` untrusted, and an untrusted click gives no haptic. **A swipe can never tick on iOS 26.5+.** That is not a bug and can't be fixed by timing. It works on iOS 18.0–26.4 and on Android.
+  - **Popup real-tap path (owner-approved):**
+    - `.popup-star-tap` is an `aria-hidden` `<label for="starHapticSwitch">` placed exactly over the star's 44×44 `::after` target, at `z-index:202`. `.popup-title-row` is `position:relative` with no z-index.
+    - The finger's trusted tap toggles the switch, so it ticks on iOS 26.5+ too. `popupStarTap()` forwards the click to the button one task later, which keeps the label attached while its activation finds the switch.
+    - One tick at tap time, for star and unstar alike (a tap is one trusted event). Android vibrates on the tap. There are no delayed popup ticks.
+    - Keyboard and VoiceOver go straight to the button and produce no tick.
+    - Unchanged: the 8px dead band, `.popup-star` `z-index:201`, and the accessibility tree (only `button "Star"` with `pressed`).
+    - A **mouse** click refocuses the button (N8-a). It uses `pointerType`, or the last `pointerdown` type on Safari. A touch leaves focus on `body`, so no focus ring appears on iPhone.
+  - **Dials:**
+    - peak 1.3–1.45× (popup ≤1.35×);
+    - twist −14° to −24°;
+    - duration 340–400ms;
+    - undershoot 0.95 → **0.97** if the dip after the swell reads as a bounce;
+    - sketch lean −7° to −12°.
+  - **Test gate:** "84 + 8 (+ N8-a)". That is the touch suite 84/84 plus `flip6.js` 8/8, plus a mouse click on the popup star leaving focus on the star button. Also:
+    - popup-open 20/20;
+    - `curve8.js` frame counts (row ≥11/3, popup ≥8/3);
+    - `haptic8.js` (0 frames of focus on the switch, 0 document clicks, overlays stay open) and `tap8.js` (1 toggle per tap, trusted);
+    - 0 dust-over-text frames, rows 56.00px, tap delay ≤~2ms over `main` (touchend→navigate 1.8–2.8ms vs ~1.0ms; imperceptible), hand-off 0/5,184, Impeccable baseline 3.
 
 **Priority (owner-requested, next up):**
+- **Swipe LEFT to mark visited** (owner, 2026-09-28) — queued to start
+  right after the Pencil Star round 7/8 (pop/angle/haptics) ships. "Copy
+  the pattern": the row stroke that stars (right) gets a mirror (left)
+  that stamps VISITED, completing the grammar (pencilled = care about,
+  stamped = been). New interaction → **concept stage first** (per Team
+  process), then perfection. Known constraints the concept must answer:
+  a left stroke usually starts on the right half of the row, where the
+  delete X and the stamp column live (the owner's mis-tap history —
+  delete must stay impossible to trigger by a swipe); Safari's
+  forward-swipe claims the right screen EDGE (same `EDGE` guard idea);
+  the row currently gives 6px and is inert on left; the visited stamp's
+  shipped geometry/tilt/ink should be the mark that lands (a stamp
+  *pressed* on, vs the star *drawn*); un-visit = the same stroke on a
+  visited row; haptic click like the star; the popup's Mark Visited stays
+  the non-gesture path; the visited field tint + stamp must stay
+  consistent with however it's set.
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
   { ascending: false })` (newest-added first) and `syncLocationCards()`
@@ -499,7 +560,7 @@ go stale, and don't leave it silently out of date either.
   2. Loose-thumb flick scrolls never stick or catch a row; 34–45° drags scroll; no jank on a long list (non-passive `touchmove` on every row).
   3. A stroke starting ~24–40px from the left edge stars and isn't taken by Safari's back-swipe; one from the very edge still goes back.
   4. A real quick flick stars; a flick on a starred row springs back without unstarring.
-  5. At a natural swipe you can **watch** the star being pencilled stroke by stroke, and the ink landing after release feels like a finish, not a lag (dial `HAND_MS`). The pencil grain reads as graphite on the OLED.
+  5. At a natural swipe you can **watch** the star being pencilled stroke by stroke. The ink lands twisted, swells and holds, then turns upright to size in about ⅓s. It reads as a stamp pressed home, not a bounce. If the dip after the swell reads as a second bounce, apply the undershoot dial (0.97). The pencil grain reads as graphite on the OLED; dial `HAND_MS` for the pencil pace.
   6. The unstar commit — the ghost vanishes and the first speck drops at the crossing — is noticeable in daylight; if not, apply the ghost dial (0.35, ceiling 0.45).
   7. No flicker at the FLIP swap, the feathered edge, the pencil → ink hand-off, or the one-frame spread (at 120Hz it's 8ms — confirm it doesn't read as a flash); `color-mix()` renders in the SVG fills.
   8. The 80ms press feels like a press, not lag; a quick tap's press on release reads as a press, not a flash; no dark blink at the start of a stroke or a flick-scroll.
@@ -512,6 +573,13 @@ go stale, and don't leave it silently out of date either.
   15. The swept dust reads as eraser crumbs brushed off — not dirt beside the badge or a colon before the category. If it reads as punctuation, shorten the fade toward 160ms or trim to two specks.
   16. Three quick stars down the list all land, each visibly inking.
   17. On unstar, the name leaves at lift; nothing feels stuck.
+  18. The −12° pencil lean looks hand-drawn, not broken (dial −7° to −10°).
+  19. The popup star's swell never feels crowded against the title (dial ≤1.35×).
+  20. **Haptic. First check Settings › General › About › iOS Version.**
+      - **Popup star tap:** one click on every tap, star and unstar alike, on **any** iOS ≥18, including 26.5+.
+      - **Row swipe:** on iOS 18.0–26.4, one click as the ink lands and a double click as the erase dust falls. **On 26.5+, expect no click from a swipe: that is the platform limit, not a bug.**
+  21. No side effects: an open account menu or address suggestions stay open after a swipe-star or swipe-erase. Nothing flashes on screen, and focus never jumps.
+  22. With VoiceOver on, double-tapping the popup star toggles it exactly once, and VoiceOver announces only "Star, toggle button"/"selected". There is no stray checkbox.
 - iPhone check of press + tilt: (1) pressing a row reads as pressed in,
   not a flash, on both visited and unvisited rows; (2) ~~rows don't blink darker when starting a flick-scroll~~ — covered by Pencil Star check 8; (3) the ±5° stamps look deliberate
   and hand-stamped, not broken.
