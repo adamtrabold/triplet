@@ -1,0 +1,188 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>V4 &middot; Typographic only (no icon)</title>
+<style>
+/* Tokens lifted verbatim from index.html, Reykjavik ink (--figure-deep #A8400C) */
+:root {
+  --paper:        #F2EBDD;
+  --paper-raised: #FAF5EA;
+  --paper-pressed:#DCD3C3;
+  --paper-filed:  #E7DFD0;
+  --paper-warm:   #F4E6DA;
+  --navy:         #12293F;
+  --ink:          #1A1A18;
+  --ink-2:        #5A564C;
+  --hair:         #D8CEBA;
+  --figure-deep:  #A8400C;
+
+  --s1: 4px;  --s2: 8px;   --s3: 12px;  --s4: 16px;
+  --s6: 24px; --s8: 32px;  --s12: 48px;
+
+  --col-glyph:  28px;
+  --col-action: 28px;
+  --gap:    12px;
+  --gutter: 16px;
+  --font-ui: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  font-family: var(--font-ui);
+  color: var(--ink);
+  width: 390px;
+}
+body { padding-bottom: 24px; }
+.frame-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  padding: 14px var(--gutter) 6px;
+  border-top: 3px solid var(--navy);
+  margin-top: 18px;
+}
+.frame-label:first-child { margin-top: 0; }
+
+.location-card {
+  display: grid;
+  grid-template-columns: var(--col-glyph) 1fr auto;
+  column-gap: var(--gap);
+  align-items: center;
+  min-height: 56px;
+  padding: var(--s2) var(--gutter);
+  background: var(--paper);
+  border-bottom: 1px solid var(--hair);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.row-main { min-width: 0; position: relative; }
+
+.row-badge {
+  width: var(--col-glyph);
+  height: var(--col-glyph);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-2);
+}
+.row-badge svg { display: block; }
+
+.location-card h3 {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.location-card .row-meta {
+  font-stretch: 75%;
+  text-transform: uppercase;
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--ink-2);
+  margin-top: var(--s1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.location-actions { display: flex; gap: var(--s1); align-items: center; }
+.delete-btn {
+  width: var(--col-action);
+  height: var(--col-action);
+  border: none;
+  background: transparent;
+  color: var(--ink-2);
+  display: flex; align-items: center; justify-content: center;
+}
+.delete-btn svg { display: block; }
+
+.location-card.is-visited { background: var(--paper-filed); }
+.location-card.highlighted { background: var(--figure-deep); }
+.location-card.highlighted h3 { color: var(--paper); }
+.location-card.highlighted .row-meta { color: var(--paper-warm); }
+.location-card.highlighted .row-badge { color: var(--paper); }
+.location-card.highlighted .delete-btn { color: var(--paper); }
+
+
+.location-card h3.starred-name {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.location-card h3.starred-name::before {
+  content: 'STAR \2014 ';
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--figure-deep);
+  vertical-align: 1px;
+}
+.location-card.highlighted h3.starred-name::before { color: var(--paper-warm); }
+
+#list { border-top: 1px solid var(--hair); }
+.note { padding: 10px 16px; font-size: 12px; color: var(--ink-2); background: var(--paper-raised); border-bottom: 1px solid var(--hair); }
+h1.v-title { font-size: 14px; margin: 0; padding: 12px 16px 4px; color: var(--navy); font-weight: 800; letter-spacing: 0.01em; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="g-star" viewBox="0 0 24 24"><path fill="currentColor" d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
+  <symbol id="g-star-open" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
+  <symbol id="g-food" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2v8a2 2 0 0 0 2 2v10h2V12a2 2 0 0 0 2-2V2h-1.5v7h-1V2h-1v7h-1V2H6zm11 0c-2 0-3 3-3 6v3a2 2 0 0 0 2 2v9h2V2z"/></symbol>
+  <symbol id="g-view" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C6 4 2 9 1 12c1 3 5 8 11 8s10-5 11-8c-1-3-5-8-11-8zm0 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></symbol>
+  <symbol id="g-museum" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 2 8h20zM4 10v9H2v2h20v-2h-2v-9h-2v9h-3v-9h-2v9h-2v-9H8v9H5v-9z"/></symbol>
+  <symbol id="g-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+
+<h1 class="v-title">V4 &middot; Typographic only (no icon)</h1>
+<div class="note">No icon anywhere &mdash; not even the printed star. A starred name gets a small run-in label (&ldquo;STAR &mdash;&rdquo;) plus a heavier weight, both purely typographic, so the star 'lives' as an eyebrow on the word itself rather than a separate mark. Flagged honestly: CLAUDE.md's Round 4 already tried and explicitly rejected 'the star as a character in the name' for a documented reason (ellipsis clips from the end, so a trailing/inline mark can be the part that gets cut, and it broke the scannable column down the list) &mdash; this variant re-opens that decision rather than sidestepping it, which the eyebrow-label approach only partly addresses (a run-in prefix survives truncation better than a suffix, but still costs column-scannability).</div>
+<div id="list">
+  <div class="location-card is-starred">
+    <div class="row-badge"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#g-food"/></svg></div>
+    <div class="row-main"><h3 class="starred-name">Café Loki<span class="sr-only">, starred</span></h3><div class="row-meta">RESTAURANT · REYKJAVÍK</div></div>
+    <div class="location-actions"><button class="delete-btn" aria-label="Delete"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#g-x"/></svg></button></div>
+  </div>
+  <div class="location-card is-starred">
+    <div class="row-badge"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#g-food"/></svg></div>
+    <div class="row-main"><h3 class="starred-name">Fisketorget Seafood Restaurant & Bar Uptown<span class="sr-only">, starred</span></h3><div class="row-meta">RESTAURANT · REYKJAVÍK</div></div>
+    <div class="location-actions"><button class="delete-btn" aria-label="Delete"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#g-x"/></svg></button></div>
+  </div>
+  <div class="location-card">
+    <div class="row-badge"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#g-museum"/></svg></div>
+    <div class="row-main"><h3 class="">Hallgrímskirkja<span class="sr-only"></span></h3><div class="row-meta">SIGHT · REYKJAVÍK</div></div>
+    <div class="location-actions"><button class="delete-btn" aria-label="Delete"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#g-x"/></svg></button></div>
+  </div>
+  <div class="location-card is-starred highlighted">
+    <div class="row-badge"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#g-view"/></svg></div>
+    <div class="row-main"><h3 class="starred-name">Sundhöllin Thermal Baths<span class="sr-only">, starred</span></h3><div class="row-meta">ACTIVITY · REYKJAVÍK</div></div>
+    <div class="location-actions"><button class="delete-btn" aria-label="Delete"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#g-x"/></svg></button></div>
+  </div>
+  <div class="location-card is-visited">
+    <div class="row-badge"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#g-food"/></svg></div>
+    <div class="row-main"><h3 class="">Kolaportið Flea Market<span class="sr-only"></span></h3><div class="row-meta">SHOPPING · REYKJAVÍK</div></div>
+    <div class="location-actions"><button class="delete-btn" aria-label="Delete"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#g-x"/></svg></button></div>
+  </div>
+
+</div>
+</body></html>
