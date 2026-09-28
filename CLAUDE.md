@@ -83,6 +83,22 @@ fresh agents when a warm one has the context.
   gesture gate (touch suite, flip6, curve8, dust) only when the diff
   touches the shared row-gesture/touch plumbing. Agents report which
   checks they ran and why those cover the diff.
+- **Run concurrent workstreams in isolated git worktrees, never in the
+  primary working directory at the same time** (owner, 2026-09-28). This
+  is a single no-build-step file — two agents editing it live in the same
+  checkout race each other. Give each concurrent code workstream its own
+  worktree/branch; discovery/proposal-only work (no code touched) can
+  still run directly in the primary directory in parallel with anything,
+  since there's nothing to collide over.
+- **The operator does not merge** (owner, 2026-09-28: "give that to a
+  merge agent"). Landing a worktree branch back onto `main` — resolving
+  conflicts, re-running the checks that branch's own build pass didn't
+  cover, confirming the result matches intent, and running Impeccable
+  post-merge — is the **merge agent**'s job, a distinct role from
+  designer/UX/CD. The operator kicks off and tracks workstreams, decides
+  merge order when two branches touch overlapping regions, and hands each
+  finished branch to the merge agent one at a time; it does not touch
+  `git merge`/rebase or resolve conflicts itself.
 
 ## Architecture
 
