@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Viewport test</title>
+  <!-- Standalone diagnostic, not part of the app. Which full-screen layer
+       does iOS Safari draw behind its status bar and toolbar? Pick a
+       variant with the buttons; the striped "map" layer should reach the
+       very top of the screen (behind the clock) if that variant works. -->
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: #F2EBDD; font: 15px/1.35 -apple-system, sans-serif; color: #12293F; }
+    .layer {
+      background:
+        repeating-linear-gradient(45deg, rgba(18,41,63,.10) 0 12px, transparent 12px 24px),
+        #D8E6C8;
+    }
+    .layer::before, .layer::after {
+      content: ''; position: absolute; left: 0; right: 0; height: 12px; background: #C0392B;
+    }
+    .layer::before { top: 0; }
+    .layer::after { bottom: 0; }
+    /* A: fixed, inset 0 (what the app does today) */
+    body.v-fixed .layer { position: fixed; inset: 0; }
+    /* B: fixed, pulled up/down by the safe-area insets */
+    body.v-fixedneg .layer {
+      position: fixed;
+      top: calc(-1 * env(safe-area-inset-top, 0px) - 60px);
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px) - 60px);
+      left: 0; right: 0;
+    }
+    /* C: absolute, full large viewport */
+    body.v-absolute .layer { position: absolute; top: 0; left: 0; right: 0; height: 100lvh; }
+    /* D: plain in-flow page content, taller than the screen by a hair */
+    body.v-flow .layer { position: relative; min-height: calc(100lvh + 1px); }
+    .panel {
+      position: fixed; left: 16px; right: 16px; top: 50%; transform: translateY(-50%);
+      background: #F2EBDD; border: 2px solid #12293F; padding: 12px; z-index: 10;
+    }
+    .panel h1 { font-size: 16px; margin-bottom: 8px; }
+    .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+    .btns a {
+      display: block; text-align: center; padding: 10px 4px; border: 2px solid #12293F;
+      color: #12293F; text-decoration: none; font-weight: 700;
+    }
+    .btns a.on { background: #12293F; color: #F2EBDD; }
+    #read { font: 12px/1.4 ui-monospace, monospace; white-space: pre-wrap; }
+    #probe { position: fixed; top: env(safe-area-inset-top, 0px); bottom: env(safe-area-inset-bottom, 0px); visibility: hidden; }
+  </style>
+</head>
+<body>
+  <div class="layer"></div>
+  <div id="probe"></div>
+  <div class="panel">
+    <h1>Does the green striped layer reach behind the clock (red bar at the very top)?</h1>
+    <div class="btns">
+      <a href="?v=fixed" data-v="fixed">A · fixed</a>
+      <a href="?v=fixedneg" data-v="fixedneg">B · fixed, pulled out</a>
+      <a href="?v=absolute" data-v="absolute">C · absolute</a>
+      <a href="?v=flow" data-v="flow">D · page content</a>
+    </div>
+    <div id="read"></div>
+  </div>
+  <script>
+    const v = new URLSearchParams(location.search).get('v') || 'fixed';
+    document.body.className = 'v-' + v;
+    document.querySelectorAll('.btns a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
+    const read = () => {
+      const p = getComputedStyle(document.getElementById('probe'));
+      const r = document.querySelector('.layer').getBoundingClientRect();
+      document.getElementById('read').textContent =
+        `variant ${v}\ninset top ${p.top}  bottom ${p.bottom}\n` +
+        `innerHeight ${innerHeight}  screen ${screen.height}\n` +
+        `visualViewport ${visualViewport ? Math.round(visualViewport.height) + ' @ ' + Math.round(visualViewport.offsetTop) : '-'}\n` +
+        `layer top ${Math.round(r.top)}  bottom ${Math.round(r.bottom)}\n` +
+        `standalone ${navigator.standalone === true}\n${navigator.userAgent.match(/OS [\d_]+/)?.[0] || ''}`;
+    };
+    read(); addEventListener('resize', read); visualViewport && visualViewport.addEventListener('resize', read);
+  </script>
+</body>
+</html>
