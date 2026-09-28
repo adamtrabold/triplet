@@ -1,6 +1,7 @@
 // Swipe-LEFT visit stamp: visit cases + delete-safety cases, both motion modes. env PROTO (path), OUT.
 const L = require('../star2/lib'); const fs = require('fs');
-const FILE = process.env.PROTO || __dirname + '/p2-proto.html';
+const FILE = process.env.PROTO || __dirname + '/p7-proto.html';
+const VAR = 'W';
 const results = []; let pass = 0, total = 0;
 const ok = (mode, name, cond, info) => { total++; if (cond) pass++; results.push({ mode, name, pass: !!cond, info }); console.log(`${mode.padEnd(8)} ${cond ? 'PASS' : 'FAIL'} ${name} ${info ? JSON.stringify(info) : ''}`); };
 const W = ms => new Promise(r => setTimeout(r, ms));
@@ -35,7 +36,7 @@ const left = (g, dist, n, dy = 0) => L.line(g.xc, g.y, g.xc - dist, g.y + dy, n)
     // V7: a pressed impression never moves (overtravel to 150px), + V8 hand-off identical to the rendered stamp
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0); const rects = [];
       await L.drag(page, cdp, left(g, 150, 18), { hold: 350, onStep: async (i) => { if (i >= 9) rects.push(await page.evaluate(() => { const s = document.querySelector('.vs-carry'); if (!s) return null; const r = s.getBoundingClientRect();
-        return { cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, pressed: s.style.opacity === '1' }; })); } });
+        return { cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, pressed: !s.classList.contains('vs-open') }; })); } });
       const pr = rects.filter(r => r && r.pressed); const dx = Math.max(...pr.map(r => r.cx)) - Math.min(...pr.map(r => r.cx)), dy = Math.max(...pr.map(r => r.cy)) - Math.min(...pr.map(r => r.cy));
       ok(mode, 'V7 pressed impression never moves on overtravel to 150px (centre drift)', pr.length >= 6 && dx < 0.01 && dy < 0.6, { frames: pr.length, dx: +dx.toFixed(3), dy: +dy.toFixed(3) });
       await ctx.close(); }
@@ -74,27 +75,37 @@ const left = (g, dist, n, dy = 0) => L.line(g.xc, g.y, g.xc - dist, g.y + dy, n)
       const n = await page.evaluate(() => __nav.map(x => x[0])); ok(mode, 'V11 tap on another row right after a visit stroke navigates', n.length === 1 && n[0] === c.id, n);
       const d = await page.evaluate(() => __nav[0][1] - __te[__te.length - 1]); ok(mode, 'V12 tap delay: 0ms added (touchend -> navigate)', d < 8, { ms: +d.toFixed(2) });
       await ctx.close(); }
-    // V13 lifted reads RAISED (not faded); V14 text never under the stamp; long name
+    // V13 before the commit NOTHING moves: the stamp sits at its slot, tilt, scale 1; only the track, swept by travel; ring hidden
+    // V14 text never under the stamp's ink (analytic ellipse of the ring/track, incl. the pop), long name
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 5); const samp = [];
-      await L.drag(page, cdp, left(g, 110, 22), { hold: 300, onStep: async () => samp.push(await page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card')[5], s = el.querySelector('.vs-carry'); if (!s) return null;
-        const m = new DOMMatrix(getComputedStyle(s).transform), sr = s.getBoundingClientRect(), main = el.querySelector('.row-main'), mr = main.getBoundingClientRect();
-        const edge = parseFloat(main.style.getPropertyValue('--vs-edge')), a = parseFloat(main.style.getPropertyValue('--vs-a'));
-        const vis = parseFloat(s.style.opacity || 1); const textVisRight = mr.left + (a > 0.01 ? mr.width : edge);   // alpha > 0 up to here
-        return { scale: Math.hypot(m.a, m.b), op: vis, sh: parseFloat(s.style.getPropertyValue('--vs-sh-a') || 0), fill: s.style.getPropertyValue('--vs-fill'), col: getComputedStyle(s).color, filt: getComputedStyle(s).filter, gap: sr.left - textVisRight }; })) });
-      const carried = samp.filter(x => x && x.fill && x.op > 0.999);
-      const raised = carried.filter(x => x.scale > 1.03 && x.sh > 0.05 && x.filt === 'none');
-      const hue = await page.evaluate(cols => { const lin = c => (c /= 255) <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-        const ok = ([r, g, b]) => { [r, g, b] = [r, g, b].map(lin); let l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b, m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b, q = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b; [l, m, q] = [l, m, q].map(Math.cbrt);
-          const a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * q, bb = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * q; return { L: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * q, C: Math.hypot(a, bb), h: (Math.atan2(bb, a) * 180 / Math.PI + 360) % 360 }; };
-        const rgb = c => { const d = document.createElement('div'); d.style.color = c; document.body.appendChild(d); const v = getComputedStyle(d).color; d.remove(); const n = v.match(/[\d.]+/g).map(Number); return v.startsWith('color(srgb') ? n.slice(0, 3).map(x => x * 255) : n.slice(0, 3); };
-        const navy = rgb('var(--navy)'), filed = rgb('var(--paper-filed)'); const pressed = navy.map((v, i) => 0.82 * v + 0.18 * filed[i]);
-        const c = cols[0] ? ok(rgb(cols[0])) : null; return { carried: c, pressed: ok(pressed) }; }, [carried.length ? carried[Math.floor(carried.length / 2)].col : null]);
-      const dh = hue.carried ? Math.abs(hue.carried.h - hue.pressed.h) : 999;
-      ok(mode, reduced ? 'V13 (reduced) no carry motion: scale 1 while carried; face opaque navy' : 'V13 lifted reads raised + solid: every carried frame scaled up, casts an outside shadow, opaque face, navy ink (hue within 10deg of the pressed stamp)',
-        (reduced ? carried.every(x => Math.abs(x.scale - 1) < 0.001) : (carried.length >= 4 && raised.length === carried.length)) && dh <= 10, { frames: carried.length, raised: raised.length, hueCarried: hue.carried && +hue.carried.h.toFixed(1), chromaCarried: hue.carried && +hue.carried.C.toFixed(4), huePressed: +hue.pressed.h.toFixed(1), dh: +dh.toFixed(1) });
-      const inked = samp.filter(x => x && x.op > 0.001); const minGap = Math.min(...inked.map(x => x.gap));
-      ok(mode, 'V14 ink never over text: visible text stays >= 8px clear of the stamp\'s (rotated, squashing) box on every frame', minGap >= 8, { frames: inked.length, minGap: +minGap.toFixed(2) });
-      await W(700); ctx.close(); }
+      await page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card')[5]; window.__vf = []; let run = true;
+        const tick = () => { if (!run) return; const s = el.querySelector('.vs-carry'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform), sr = s.getBoundingClientRect(), main = el.querySelector('.row-main'), mr = main.getBoundingClientRect();
+          const edge = parseFloat(main.style.getPropertyValue('--vs-edge')), a = parseFloat(main.style.getPropertyValue('--vs-a')); const textVisRight = mr.left + (isNaN(a) || a > 0.01 || isNaN(edge) ? mr.width : edge);
+          const cx = sr.x + sr.width / 2, hw = Math.sqrt((36 * m.a) ** 2 + (16 * m.c) ** 2);
+          __vf.push({ scale: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI, cx: +cx.toFixed(3), cy: +(sr.y + sr.height / 2).toFixed(3), sweep: parseFloat(s.style.getPropertyValue('--vs-sweep') || 0), q: s.__vsQ, coreS: (() => { const rv = s.querySelector('.vs-rv-core'); return rv ? new DOMMatrix(getComputedStyle(rv).transform).a : 0; })(),
+            coreFilter: (() => { const c = s.querySelector('.vs-rv-core .vs-copy'); return c ? getComputedStyle(c).filter : 'none'; })(),
+            haloBlur: (() => { const c = s.querySelector('.vs-rv-halo .vs-copy'); return c ? getComputedStyle(c).filter : ''; })(),
+            coreInk: (() => { const c = s.querySelector('.vs-rv-core .vs-copy'); return c ? getComputedStyle(c).color : ''; })(),
+            op: parseFloat(s.style.opacity || 1), swept: s.classList.contains('vs-open'),
+            ring: getComputedStyle(s.firstElementChild).visibility, track: getComputedStyle(s, '::before').visibility, word: getComputedStyle(s.querySelector('.row-stamp-word')).visibility, gap: (cx - hw) - textVisRight }); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__vstop = () => { run = false; }; });
+      await L.drag(page, cdp, left(g, 110, 22), { hold: 450 });
+      const f = await page.evaluate(() => { __vstop(); return __vf; }); const tilt = await page.evaluate(id => stampTilt(id), g.id);
+      const pre = f.filter(x => x.swept), cxs = f.map(x => x.cx), cys = f.map(x => x.cy);
+      const still = pre.every(x => Math.abs(x.scale - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01);
+      const vis = pre.filter(x => x.op > 0.01);
+      const cr = await page.evaluate(cols => { const lum = c => { const d = document.createElement('div'); d.style.color = c; document.body.appendChild(d); const v = getComputedStyle(d).color; d.remove(); const n = v.match(/[\d.]+/g).map(Number); const rgb = v.startsWith('color(srgb') ? n.slice(0, 3) : v.startsWith('oklch') ? null : n.slice(0, 3).map(x => x / 255);
+          if (!rgb) { const cv = document.createElement('canvas').getContext('2d'); cv.fillStyle = c; cv.fillRect(0, 0, 1, 1); const px = cv.getImageData(0, 0, 1, 1).data; return lumRgb([px[0] / 255, px[1] / 255, px[2] / 255]); } return lumRgb(rgb); };
+        const lumRgb = rgb => { const L = rgb.map(x => x <= 0.04045 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4)); return 0.2126 * L[0] + 0.7152 * L[1] + 0.0722 * L[2]; };
+        const bg = lum(getComputedStyle(document.documentElement).getPropertyValue('--paper').trim()); return cols.map(c => { const l = lum(c); return (Math.max(l, bg) + 0.05) / (Math.min(l, bg) + 0.05); }); }, [...new Set(vis.map(x => x.coreInk))]);
+      const soft = vis.every(x => x.coreFilter === 'none' && x.haloBlur === 'blur(1.4px)' && x.coreS * 18.2 < 32);   // the reveal's half-width never reaches the ring's end
+      const blotFirst = vis.filter(x => x.q !== undefined && x.q < 0.24).every(x => x.coreS <= 0.1001);          // the core stays inside the blot until ~18px
+      let mono = true; for (let i = 1; i < vis.length; i++) if (vis[i].coreS < vis[i - 1].coreS - 1e-4) mono = false;
+      const drift = Math.max(Math.max(...cxs) - Math.min(...cxs), Math.max(...cys) - Math.min(...cys));
+      ok(mode, 'V13 before the commit the ink BLEEDS: stamp never moves; the core stays inside the blot until ~18px; core crisp (no filter), halo blur constant 1.4px; the reveal never reaches the ring ends; spread monotonic; pre-commit ink <= 3:1',
+        vis.length >= 5 && still && soft && blotFirst && mono && drift < 0.01 && Math.max(...cr) <= 3.0, { visibleFrames: vis.length, coreScale: [vis[0] && +vis[0].coreS.toFixed(3), vis.length && +vis[vis.length - 1].coreS.toFixed(3)], maxContrast: +Math.max(...cr).toFixed(2), centreDrift: +drift.toFixed(3) });
+      const minGap = Math.min(...f.filter(x => !x.swept || x.sweep > 0).map(x => x.gap));
+      ok(mode, 'V14 ink never over text: visible text >= 4px clear of the stamp\'s ink ellipse on every frame (incl. the pop peak)', minGap >= 4, { frames: f.length, minGap: +minGap.toFixed(2) });
+      await W(500); await ctx.close(); }
     // V15 letters never change at full ink across the final swap (visit + un-visit, long name, 3x)
     if (!reduced) for (const [idx, what] of [[5, 'visit'], [2, 'un-visit']]) { const { ctx, page, cdp } = await L.openProto(b, { dsf: 3, file: FILE }); const g = await geo(page, idx); let A, clip;
       await L.drag(page, cdp, left(g, 110, 12), { hold: 400, onStep: async (i) => { if (i === 12) { await W(380); clip = await page.evaluate(i => { const el = document.querySelectorAll('#locationsList .location-card')[i], m = el.querySelector('.row-main'), r = m.getBoundingClientRect();
@@ -111,32 +122,74 @@ const left = (g, dist, n, dy = 0) => L.line(g.xc, g.y, g.xc - dist, g.y + dy, n)
       const { ctx, page, cdp } = await fresh(); const g = await geo(page, idx);
       await page.evaluate(i => { const el = document.querySelectorAll('#locationsList .location-card')[i]; window.__gf = []; let prev = null, run = true;
         const tick = () => { if (!run) return; const h3 = el.querySelector('h3'), c = el.querySelector('.vs-carry'); const w = h3.getBoundingClientRect().width;
-          const pressed = !!c && c.style.opacity === '1' && !c.style.getPropertyValue('--vs-fill'); const settle = el.classList.contains('vs-settle'); const lifted = el.classList.contains('vs-live') && !el.classList.contains('is-visited') && !c;
+          const pressed = !!c && !c.classList.contains('vs-open'); const settle = el.classList.contains('vs-settle'); const lifted = el.classList.contains('vs-live') && !el.classList.contains('is-visited') && !c;
           __gf.push({ w: +w.toFixed(2), pressed, settle, vis: el.classList.contains('is-visited') }); requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__gstop = () => { run = false; }; }, idx);
       await L.drag(page, cdp, pts(g)); await W(700); const f = await page.evaluate(() => { __gstop(); return __gf; });
       let bad = 0, changes = 0; for (let i = 1; i < f.length; i++) if (f[i].w !== f[i - 1].w) { changes++; const ok2 = f[i].pressed !== f[i - 1].pressed || f[i].vis !== f[i - 1].vis || f[i].settle || f[i - 1].settle; if (!ok2) bad++; }
       ok(mode, `V18 ${what}: truncation changes only on the press/lift frame or under the sweep (0 still-frame changes)`, bad === 0, { changes, stillFrameChanges: bad }); await ctx.close(); }
-    if (!reduced) { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
       await page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card')[0]; window.__xf = []; let run = true;
-        const tick = () => { if (!run) return; const c = el.querySelector('.vs-carry'), x = el.querySelector('.delete-btn'); if (c) { const xo = parseFloat(getComputedStyle(x).opacity), so = parseFloat(c.style.opacity || 0);
-          const m = new DOMMatrix(getComputedStyle(c).transform), sc = Math.hypot(m.a, m.b), t = Math.abs(Math.atan2(m.b, m.a)); const ar = c.parentElement.getBoundingClientRect(); const cx = ar.right - 40 - 36 + m.e;
-          const ins = (c.style.clipPath.match(/inset\(0(?:px)? ([\d.]+)px/) || [0, 0])[1]; const localRight = 36 - parseFloat(ins); const visRight = cx + localRight * sc * Math.cos(t) + 16 * sc * Math.sin(t);
-          __xf.push({ xo, so, over: visRight - x.getBoundingClientRect().left }); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__xstop = () => { run = false; }; });
-      await L.drag(page, cdp, left(g, 110, 12)); await W(500); const f = await page.evaluate(() => { __xstop(); return __xf; });
-      const both = f.filter(x => x.xo > 0.01 && x.so > 0.01); const worst = both.length ? Math.max(...both.map(x => x.over)) : -99;
-      ok(mode, 'V19 no stamp pixel over the X while it fades (stamp clipped at the X until the fade ends)', worst <= 0, { framesBoth: both.length, worstOverlapPx: +worst.toFixed(2) }); await ctx.close(); }
+        const tick = () => { if (!run) return; const c = el.querySelector('.vs-carry'), x = el.querySelector('.delete-btn'); if (c && x) { const xo = parseFloat(getComputedStyle(x).opacity); __xf.push({ xo, over: c.getBoundingClientRect().right - x.getBoundingClientRect().left }); } requestAnimationFrame(tick); };
+        requestAnimationFrame(tick); window.__xstop = () => { run = false; }; });
+      await L.drag(page, cdp, left(g, 110, 12)); await W(600); const f = await page.evaluate(() => { __xstop(); return __xf; });
+      const both = f.filter(x => x.xo > 0.01); const worst = both.length ? Math.max(...both.map(x => x.over)) : -99;
+      ok(mode, 'V19 the stamp (incl. its pop peak) never reaches the X while the X is visible', worst <= 0, { framesXVisible: both.length, worstOverlapPx: +worst.toFixed(2) }); await ctx.close(); }
     // V16 popup Mark Visited: the non-gesture path; row tint + stamp in sync
     { const { ctx, page } = await fresh(); const r = await page.evaluate(async () => { const loc = locations[0]; map.setView([loc.lat, loc.lng], 16, { animate: false }); await new Promise(r => setTimeout(r, 150)); updateUI();
         markersById.get(loc.id).marker.openPopup(); await new Promise(r => setTimeout(r, 300)); document.querySelector('.leaflet-popup .popup-visited').click(); await new Promise(r => setTimeout(r, 300));
         const el = document.querySelector(`.location-card[data-id="${loc.id}"]`); return { visited: loc.visited || locations[0].visited, field: el.classList.contains('is-visited'), stamps: el.querySelectorAll('.row-stamp').length }; });
       ok(mode, 'V16 popup Mark Visited still visits; row field + stamp in sync', r.visited && r.field && r.stamps === 1, r); await ctx.close(); }
-    // V17 press lands as a thunk at real timing (full motion): contact frame shadow gone + 100% ink; >=2 squash frames <=0.97
-    if (!reduced) { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
-      await page.evaluate(() => { window.__f = []; const tick = () => { const s = document.querySelector('.vs-carry'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __f.push({ t: performance.now(), sc: Math.hypot(m.a, m.b), op: s.style.opacity, fill: s.style.getPropertyValue('--vs-fill'), f: getComputedStyle(s).filter, sh: parseFloat(s.style.getPropertyValue('--vs-sh-a') || 0) }); } if (__f.length < 400) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
-      await L.drag(page, cdp, left(g, 110, 12), { hold: 400 }); await W(200);
-      const f = await page.evaluate(() => __f); const i = f.findIndex(x => !x.fill); const after = f.slice(i, i + 16);
-      const squash = after.filter(x => x.sc <= 0.97).length, contactShadowless = after[0] && after[0].sh === 0;
-      ok(mode, 'V17 thunk at real timing: contact frame has no cast shadow + full ink; >=2 frames squashed <=0.97', i > 0 && contactShadowless && squash >= 2, { squash, contact: after[0], before: f[i - 1] });
+    // V17 the stamp's pop at real timing: >= 6 frames within 0.05 of the 1.2x peak, >= 3 at <= 0.97, peak <= 1.2, rests at the place's tilt
+    //      (reduced: no pop -- scale 1 on every frame after the press)
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
+      await page.evaluate(() => { window.__f = []; const tick = () => { const s = document.querySelectorAll('#locationsList .location-card')[0].querySelector('.row-stamp'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __f.push({ t: performance.now(), sc: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI, sw: s.classList.contains('vs-open') }); } if (__f.length < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
+      await L.drag(page, cdp, left(g, 110, 12), { hold: 500 }); await W(200);
+      const f = await page.evaluate(() => __f); const tilt = await page.evaluate(id => stampTilt(id), g.id); const i = f.findIndex(x => !x.sw); const after = f.slice(i);
+      const peak = Math.max(...after.map(x => x.sc)), nearPeak = after.filter(x => x.sc >= 1.15).length, under = after.filter(x => x.sc <= 0.97).length, rest = after[after.length - 1];
+      ok(mode, reduced ? 'V17 (reduced) the press appears: no pop, scale 1 and the place\'s tilt on every frame' : 'V17 pop at real timing: >= 6 frames >= 1.15x, >= 2 frames <= 0.97 (the star\'s dip; 2-3 by frame phase), peak <= 1.2, rests at the place\'s tilt',
+        reduced ? after.every(x => Math.abs(x.sc - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01) : (nearPeak >= 6 && under >= 2 && peak <= 1.2001 && Math.abs(rest.rot - tilt) < 0.01 && Math.abs(rest.sc - 1) < 1e-3),
+        { nearPeak, under, peak: +peak.toFixed(4), restRot: +rest.rot.toFixed(3), tilt });
+      await ctx.close(); }
+    // V20 un-visit: the star's erase pop at the lock (1.12x, no twist); none under reduced motion. V21 cancel: nothing left behind.
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 2);
+      await page.evaluate(() => { window.__u = []; const el = document.querySelectorAll('#locationsList .location-card')[2]; const tick = () => { const s = el.querySelector('.row-stamp'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __u.push({ sc: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI }); } if (__u.length < 300) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
+      await L.drag(page, cdp, left(g, 40, 6), { onStep: async i => { if (i === 3) globalThis.__ringVis = await page.evaluate(() => getComputedStyle(document.querySelectorAll('#locationsList .location-card')[2].querySelector('.row-stamp-ring')).visibility); } }); await W(500); const u = await page.evaluate(() => __u); const tilt = await page.evaluate(id => stampTilt(id), g.id); const s1 = await st(page, g.id);
+      const peak = Math.max(...u.map(x => x.sc)), twist = Math.max(...u.map(x => Math.abs(x.rot - tilt)));
+      ok(mode, reduced ? 'V20 (reduced) un-visit lift: no pop' : 'V20 un-visit lifts with the star\'s erase pop: peak 1.12x, no twist', reduced ? peak < 1.001 : (Math.abs(peak - 1.12) < 0.01 && twist < 0.01), { peak: +peak.toFixed(4), twist: +twist.toFixed(3) });
+      ok(mode, 'V20b un-visit: ring + word stay visible while the stamp thins (only the track sweeps out)', globalThis.__ringVis === 'visible', { ring: globalThis.__ringVis });
+      ok(mode, 'V21 un-visit let go at 40px: still visited, stamp back at full ink, track whole, row clean', s1.visited && s1.field && s1.stamps === 1 && !s1.live, s1);
+      const g0 = await geo(page, 0); await L.drag(page, cdp, left(g0, 50, 6)); await W(500); const s0 = await st(page, g0.id);
+      const sw = await page.evaluate(() => document.querySelectorAll('.vs-open').length);
+      ok(mode, 'V21b visit let go at 40px: nothing inked, no stamp or partial track left, X back', !s0.visited && !s0.stamps && !s0.carry && !s0.live && !s0.xhide && sw === 0, { ...s0, sweeps: sw });
+      await ctx.close(); }
+    // V22 (P3-N1) un-visit ghost: light navy at full opacity, oklch chroma >= 0.04 on every frame until it's gone
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 2);
+      await page.evaluate(() => { window.__gc = []; const el = document.querySelectorAll('#locationsList .location-card')[2]; let run = true;
+        const lin = c => (c /= 255) <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        const okc = ([r, g2, b]) => { const o = okc0([r, g2, b]); return o; }; const okc0 = ([r, g2, b]) => { [r, g2, b] = [r, g2, b].map(lin); let l = 0.4122214708 * r + 0.5363325363 * g2 + 0.0514459929 * b, m = 0.2119034982 * r + 0.6806995451 * g2 + 0.1073969566 * b, q = 0.0883024619 * r + 0.2817188376 * g2 + 0.6299787005 * b; [l, m, q] = [l, m, q].map(Math.cbrt);
+          const a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * q, bb = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * q; return { L: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * q, C: Math.hypot(a, bb), h: (Math.atan2(bb, a) * 180 / Math.PI + 360) % 360 }; };
+        const bg = () => getComputedStyle(el).backgroundColor.match(/[\d.]+/g).map(Number);
+        const tick = () => { if (!run) return; const s = el.querySelector('.row-stamp'); if (s && el.classList.contains('vs-live')) { const cs = getComputedStyle(s); const v = cs.color; const n = v.match(/[\d.]+/g).map(Number);
+          let rgb, a; if (v.startsWith('color(srgb')) { rgb = n.slice(0, 3).map(x => x * 255); a = n.length > 3 ? n[3] : 1; } else if (v.startsWith('oklch')) { a = 1; rgb = null; __gc.push({ L: n[0], C: n[1], h: n[2], op: parseFloat(cs.opacity) }); } else { rgb = n.slice(0, 3); a = n.length > 3 ? n[3] : 1; }
+          if (rgb) { const b = bg(), o = parseFloat(cs.opacity) * a; const comp = rgb.map((x, i) => o * x + (1 - o) * b[i]); const c = okc(comp); __gc.push({ L: c.L, C: c.C, h: c.h, op: parseFloat(cs.opacity) }); } }
+          requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__gstop2 = () => { run = false; }; });
+      await L.drag(page, cdp, left(g, 110, 22)); await W(600); const all = await page.evaluate(() => { __gstop2(); return __gc.filter(x => x.op > 0.01); });
+      let lMono = true; for (let i = 1; i < all.length; i++) if (all[i].L < all[i - 1].L - 1e-3) lMono = false;   // P5-S2: never darker
+      const f = all;
+      const minC = Math.min(...f.map(x => x.C)), hues = f.map(x => x.h);
+      ok(mode, 'V22 (P3-N1 + P5-S2) un-visit ghost starts AT the resting ink (L 0.401) and only pales: L never drops on any frame, chroma never below the rest (>= 0.033), hue held', f.length >= 5 && minC >= 0.033 && lMono && Math.abs(all[0].L - 0.401) < 0.01, { restL: all[0] && +all[0].L.toFixed(3), lastL: +all[all.length - 1].L.toFixed(3), lMonotonic: lMono, frames: f.length, minChroma: +minC.toFixed(4), hue: [+Math.min(...hues).toFixed(1), +Math.max(...hues).toFixed(1)] });
+      await ctx.close(); }
+    // V23 (P6-N1) no repaint-driving writes mid-drag: between the lock and the press, the stamp's subtree sees 0 class changes,
+    //      and every inline style write is a transform or an opacity (compositor-only)
+    { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 5);
+      await page.evaluate(() => { window.__mo = { cls: 0, other: [], writes: 0, mainWrites: 0 }; const list = document.getElementById('locationsList');
+        document.addEventListener('touchend', () => { __mo.up = true; }, true); const mo = new MutationObserver(ms => ms.forEach(m => { if (__mo.up) return; const t = m.target; if (t.classList && t.classList.contains('row-main') && m.attributeName === 'style' && t.closest('.vs-live')) __mo.mainWrites++; const st = t.closest && t.closest('.vs-carry'); if (!st || !st.classList.contains('vs-open')) return;
+          if (m.attributeName === 'class' && t !== st) __mo.cls++;
+          if (m.attributeName === 'class' && t === st && !String(m.oldValue).includes('vs-open') === false && st.className !== m.oldValue) __mo.cls++;
+          if (m.attributeName === 'style') { __mo.writes++; const props = [...t.style].filter(k => !/^(transform|opacity)$/.test(k) && !/^--vs-ink-|^--stamp-tilt$/.test(k)); if (props.length) __mo.other.push(props.join(',')); } }));
+        mo.observe(list, { subtree: true, attributes: true, attributeOldValue: true, attributeFilter: ['class', 'style'] }); window.__mostop = () => mo.disconnect(); });
+      await L.drag(page, cdp, left(g, 60, 20)); await W(400); const m = await page.evaluate(() => { __mostop(); return __mo; });
+      ok(mode, 'V23 (P6-N1) mid-drag, the bleed only writes transforms and opacities (0 class changes, 0 other style properties), and the name feather is only written while it pulls in (0..6px)', m.cls === 0 && m.other.length === 0 && m.writes > 10 && m.mainWrites <= 8, { classChanges: m.cls, otherProps: [...new Set(m.other)].slice(0, 5), styleWrites: m.writes, featherWrites: m.mainWrites });
       await ctx.close(); }
     // ---- DELETE SAFETY ----
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
@@ -163,4 +216,4 @@ const left = (g, dist, n, dy = 0) => L.line(g.xc, g.y, g.xc - dist, g.y + dy, n)
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0); await L.drag(page, cdp, L.line(372, g.y, 260, g.y, 12)); await W(500); const s = await st(page, g.id);
       ok(mode, 'D10 stroke from x=372 (inside EDGE 24) is inert: no visit, no delete', !s.visited && !s.del && !s.live, s); await ctx.close(); }
   }
-  console.log(`${pass}/${total}`); fs.writeFileSync(process.env.OUT || __dirname + '/p2-vtest.json', JSON.stringify(results, null, 1)); await b.close(); })();
+  console.log(`${pass}/${total}`); fs.writeFileSync(process.env.OUT || __dirname + '/p7-vtest.json', JSON.stringify(results, null, 1)); await b.close(); })();
