@@ -63,6 +63,29 @@ fresh agents when a warm one has the context.
 
 ### Operator guidelines (owner-set, 2026-09-28)
 
+- **Ground every design/concept-stage brief in the app's actual inspo, not
+  just its code** (owner, 2026-09-28: "don't forget to have everyone
+  understand the inspo"). `design/inspo/project/` is the app's overarching
+  visual language (vintage travel labels, matchbook collections, national
+  park posters — what the paper/ink/figure-deep tokens and the
+  stamp/label/ledger-row motifs draw from); feature folders like
+  `design/inspo/visited-badge/` hold reference for one specific mark.
+  Briefing an agent to reuse index.html's CSS tokens/markup is necessary
+  but not sufficient — point it at the relevant inspo folder(s) too, so
+  concepts are grounded in the actual aesthetic, not just pattern-matched
+  from existing selectors. If a design workstream doesn't have its own
+  inspo folder yet, that's fine — `project/` still applies.
+- **Don't let "inject randomness" relitigate a decision the owner already
+  confirmed is fine** (owner, 2026-09-28, re: the star-alignment concept
+  round: "why did it explore moving the star in the list item — the list
+  item is fine"). The brief was to fix the *alignment/reserved-space*
+  mechanism; several wildcard variants instead relocated the star itself
+  (dog-ear, corner badge, action-cluster, a starred-only section with no
+  per-row mark). That's genuine divergent ideation working as intended in
+  general, but it drifted off the actual scope here. When briefing
+  "inject randomness" exploration, say explicitly which part of the
+  design is confirmed-correct and off the table, vs. which part is
+  actually the open question — don't leave the boundary implicit.
 - **Pick the best model for each role and task.** Match capability to the
   job (e.g. the strongest model for design/CD judgment and tricky
   measurement; cheaper/faster ones for mechanical checks), and reuse warm

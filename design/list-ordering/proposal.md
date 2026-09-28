@@ -232,6 +232,29 @@ block.
 
 ---
 
+## 6.7 Correction (owner, 2026-09-28): the heading-as-dial idea is blocked
+
+§6's recommended picker — tapping `#locationsHeader`'s `<h2>` to cycle
+modes, its text replaced by the mode name — doesn't work as proposed. The
+owner: "I don't like the header for sort because that's the city name."
+
+That `<h2>` is not a generic "All Locations" label available to repurpose
+— it's `updateUI()`'s `${activeCityLabel()} list (...)` text (e.g.
+"Reykjavík list (12/38)"), carrying live, load-bearing information (which
+city's list this is, how many visited) that can't be silently replaced by
+a sort-mode name without losing it. The concept's own mockup apparently
+assumed a static "All Locations" heading rather than checking what
+actually renders there — a real miss, not a matter of taste.
+
+**Needs a fresh placement idea** that doesn't collide with the city/count
+text. Whatever replaces it should still aim for the same bar (no new
+settings-style control, feels inevitable, not bolted-on) — the "reuse
+something already there instead of adding a new element" instinct behind
+the heading idea was right, it just picked the wrong element. Worth
+looking at `#collapseBtn`/`#toggleFiltersBtn`/`#centerMeBtn` (the header's
+existing icon row) or the row-count portion of the text specifically
+(rather than the whole heading) before reaching for a new control.
+
 ## 6. Revision (2026-09-28): multiple selectable modes, not one sort
 
 The owner reviewed §4's single-candidate recommendation and pushed back on
