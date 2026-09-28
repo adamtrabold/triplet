@@ -525,6 +525,35 @@ go stale, and don't leave it silently out of date either.
   - **Dials:** peak 1.2× (ceiling 1.25×), twist ×0.6, `HYST` 4, `DELETE_TAP_SLOP` 4 (3–6), halo blur 1.4px, core-hidden-until 18px, reveal aspect 1.4; if the drag stutters on iPhone, keep the blur static and scale a masked wrapper (already so) or drop the fibre mask.
   - Not done: a teaching replay from the popup's Mark Visited.
 
+- **Sheet reaches the bottom edge (Home Screen + Safari tab)** — on
+  branch, 2026-09-28 (owner-reported band under the list). Measured on the
+  owner's iPhone with `tools/viewport-test.html`: from the Home Screen
+  (black-translucent) WebKit makes the layout viewport short by the top
+  inset (innerHeight 894 of 956), so every bottom-anchored
+  `position: fixed` layer stopped 62px short; in a Safari tab, fixed
+  layers stop above the translucent toolbar while absolute content in a
+  `100lvh` root runs behind it; nothing draws behind the TOP status bar
+  in a tab (Safari tints it from the top fixed layer, hence
+  `.leaflet-container` = OSM beige `#F2EFE9`). Fix: `html, body
+  { height: 100lvh }`, `body { position: relative }`, and `#locations`,
+  `#filtersPanel`, `#authModal` are `absolute`; `#mainContent` stays fixed
+  but is sized by height from the top (WebKit only cuts a fixed element's
+  bottom) and keeps the status-bar tint from the map. `--chrome-bottom` =
+  `max(0, 100lvh − 100dvh)` (toolbar allowance, pinned to 0 standalone via
+  `html.standalone`), `--sheet-under` = that + safe-area bottom: list
+  bottom padding and the collapsed band sit above the toolbar/home
+  indicator. Collapse now toggles `#mainContent.sheet-collapsed` (also
+  fixes a collapse→desktop-rail→back desync). `unscrollPage()` resets any
+  programmatic page scroll (a taller-than-viewport root can be scrolled by
+  focus), but stands aside while a form field has focus so iOS can lift it
+  above the keyboard. Engineer + UX (scoped gate: geometry 75/75 in
+  phone/standalone/tab/desktop, smoke 12/12, popup-open 20/20, op-check,
+  Impeccable 3). Should-fix (UX): a CLOSED filters panel's chips are still
+  focusable, so in a tab a keyboard/VoiceOver focus there scroll-then-snaps;
+  pre-existing focusability, cosmetic — make the closed panel `inert`.
+  Follow-up: `maybeTeachStar()` counts a row behind the toolbar as on
+  screen. Design record: scratch `loop/sheet/`.
+
 **Priority (owner-requested, next up):**
 - **List ordering is confusing** (owner, 2026-09-23). Current behavior,
   not a designed choice: `locations` are fetched `.order('created_at',
@@ -584,19 +613,17 @@ go stale, and don't leave it silently out of date either.
   popup's Mark Visited toggle animates it (bleed + press / lift, like the
   row). New idea → concept stage first.
 
-- **(Low) List sheet behind Safari's bottom toolbar** (owner OK'd
-  logging it, 2026-09-28). Measured on the owner's iPhone with
-  `tools/viewport-test.html`: in a Safari TAB nothing draws behind the
-  top status bar (Safari fills it with a colour sampled from the page's
-  top fixed layer — hence `.leaflet-container` is OSM beige `#F2EFE9`),
-  but absolute/in-flow content DOES draw behind the translucent bottom
-  toolbar, while `position: fixed` stops above it. The sheet
-  (`#locations`) is fixed, so the list ends above the toolbar. Making it
-  run behind would mean moving the sheet off `position: fixed` — touches
-  collapse, the swipe gestures and safe-area spacing, so it's a loop item.
-  Home Screen launch is already full-bleed (owner-confirmed).
-
 **Needs the user's action:**
+- iPhone check of the sheet fix: (1) Home Screen: the list reaches the
+  bottom with no band; collapsed band just above the home indicator; map
+  still behind the clock. (2) Collapse/expand: map meets the sheet, no
+  sliver/overlap. (3) Safari tab: rows scroll behind the toolbar and the
+  last row ends fully above it; the collapsed band sits right on the
+  toolbar (if it floats ~100px high or hides under it, report the gap).
+  (4) Dragging the band/map edge/list end never moves or rubber-bands the
+  page. (5) Filters panel flush on the sheet. (6) Login: scrim covers
+  everything; the password field lifts above the keyboard; dismissing
+  returns the page to 0. (7) Rotate / toolbar minimise: band follows.
 - iPhone check of swipe-left visited (#1 is a gate):
   1. **(Gate)** A left stroke from the X or the row's right half visits. A 4–12px nudge on the X never raises delete; a still tap does (dial `DELETE_TAP_SLOP` 3–6).
   2. The drag reads as **ink bleeding into the paper**: a drop at the centre soaking outward in the stamp's own navy, thinner — not fog, not a focus pull, not a brighter blue.
