@@ -372,6 +372,10 @@
     /* Leaflet's zoom control clears the status bar / Dynamic Island in a
        home-screen launch (inset is 0 in a Safari tab). */
     .leaflet-top { margin-top: env(safe-area-inset-top, 0px); }
+    /* OSM land beige, not leaflet.css's #ddd: iOS Safari tints its status
+       bar from the top fixed layer, so this makes the strip read as map
+       (and tiles loading in show beige, not grey). */
+    .leaflet-container { background: #F2EFE9; }
 
     #mapContainer {
       position: absolute;
