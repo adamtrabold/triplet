@@ -22,6 +22,37 @@ temporary simplification.**
   add-form's category dropdown — adding a category to one doesn't require
   touching the other, and the reverse is also true.
 
+## Team process (owner-set, 2026-09-28)
+
+Design work runs through a designer → UX → creative director (CD) loop,
+coordinated by an operator who doesn't do design work. **New ideas go
+through two stages, not one**, because driving every concept to a 9
+before the owner has seen it burned heavy tokens on directions the owner
+then rejected (e.g. the popup-only star went to 9/10 and was rejected as
+"very average"):
+
+1. **Concept stage — "good enough for owner review."** The designer
+   explores a few distinct directions and prototypes the pick to a
+   reviewable fidelity. ONE light UX pass (blockers only: does it
+   break tap-to-navigate, scroll, delete safety, a11y basics) and ONE CD
+   pass judging the *direction* (is it on-brief and worth pursuing) —
+   no pixel polish, no exhaustive measurement, no multi-round
+   iteration. Target: CD says "ready for owner" (~7/10 on direction).
+   Then show the owner the concept (stills/filmstrip + the one-line
+   why, and the rejected alternatives in a line each) and ask for
+   approval or redirection.
+2. **Perfection stage — only after the owner approves the concept.**
+   The full loop: designer → UX → CD rounds until the CD scores ≥9,
+   measured at 3x, ~4x crops and 1x, with real-timing checks for
+   motion; then `npx -y impeccable@4.1.0 detect index.html` must show
+   exactly the 3 baseline findings; then integrate, verify, and hand
+   back with iPhone checks.
+
+Small, well-specified follow-ups (a bug the owner reported, a tweak to
+an approved design) skip stage 1 and go straight to stage 2. Pick the
+cheapest model/agent setup that does each stage well; don't spin up
+fresh agents when a warm one has the context.
+
 ## Architecture
 
 - `locations` table: pins (point features) — `city`, `category`, `lat/lng`.
