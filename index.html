@@ -1869,13 +1869,17 @@
        Unlike the star (whose rightward slide runs toward the action
        cluster, which is LATER in paint order and so already covers any
        overrun), a leftward slide here runs toward .row-badge, which is
-       EARLIER in paint order -- so it needs its own overflow:hidden guard.
-       No fade-edge mask (unlike sg-live's): the printed star sits at
-       the very head of this same box (left:0, see .row-star), inside any
-       edge-fade zone that would be pinned to row-main's own coordinates --
-       a static, untranslated icon has no business fading with the drag. */
-    .location-card.vs-live { transition: none; }
-    .location-card.vs-live .row-main { overflow: hidden; }
+       EARLIER in paint order. .row-badge now slides WITH the text
+       (setSlip() also translates g.badge when the gesture set one --
+       visit-only, the star never does), so the two never converge or
+       cross a clip edge -- the old .row-main overflow:hidden guard
+       (which existed only for that collision) is gone. What replaces it:
+       at full rubber-band travel (STAR_SWIPE.MAX past COMMIT, ~73px) the
+       badge+text block would slide past the row's own left padding into
+       whatever sits above/behind it, since .row-badge is flush with the
+       card's left edge. .location-card itself gets the guard instead, so
+       both the badge and the text clip cleanly at the row's own bounds. */
+    .location-card.vs-live { transition: none; overflow: hidden; }
     /* The printed star is static (never translated) but sits at row-main's
        own head, in the sliding text's path -- the star gesture's own fix
        for this (row-star hidden for the drag's whole live window,
@@ -4594,6 +4598,12 @@
       g.h3.style.transform = off ? `translateX(${off}px)` : '';
       g.meta.style.transform = metaOff ? `translateX(${metaOff}px)` : '';
       g.main.style.setProperty('--sg-fade-a', String(Math.max(0, 1 - Math.max(Math.abs(off), Math.abs(metaOff)) / 8)));
+      // Visit-swipe only (g.badge is set solely by beginVisitDrag): the
+      // leftward slide runs TOWARD .row-badge, so the badge must travel
+      // with the text -- same value as the name, not a separate offset.
+      // The star's rightward slide runs away from the badge and never
+      // sets g.badge, so this is a no-op for every star call site.
+      if (g.badge) g.badge.style.transform = off ? `translateX(${off}px)` : '';
     }
 
     // HAND-SPEED PEN (round 4). The finger still owns the name (1:1) and
@@ -4914,6 +4924,7 @@
       el.classList.remove('active');
       const main = el.querySelector('.row-main'), acts = el.querySelector('.location-actions');
       const h3 = el.querySelector('h3'), meta = el.querySelector('.row-meta');
+      const badge = el.querySelector('.row-badge');
       if (!main || !acts || !h3 || !meta) return false;
       const tilt = stampTilt(id), visited = !!loc.visited;
       let st = el.querySelector('.row-stamp');
@@ -4931,7 +4942,7 @@
       const field = getComputedStyle(el).backgroundColor;
       el.classList.add('vs-live', 'vs-xhide');
       if (!visited) acts.prepend(st);
-      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, h3, meta, tilt, field, hi: el.classList.contains('highlighted'), raw: 0, pressed: false, lifted: false, armed: false });
+      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, h3, meta, badge, tilt, field, hi: el.classList.contains('highlighted'), raw: 0, pressed: false, lifted: false, armed: false });
       starHeld.set(id, { ff: null });
       if (visited && !prefersReducedMotion()) runVisitPop(g, VISIT_LIFT, 240);   // the star's erase pop: lift to rub it out
       paintVisit(g);
@@ -5050,6 +5061,7 @@
       renderCard(el, fin);
       const entry = cardsById.get(g.id); if (entry) entry.signature = cardSignature(fin);
       g.h3 = el.querySelector('h3'); g.meta = el.querySelector('.row-meta'); g.main = el.querySelector('.row-main'); g.st = el.querySelector('.row-stamp');
+      g.badge = el.querySelector('.row-badge');
       if (mid) mid();
       const dH = oldH - textLeft(g.h3), dM = oldMeta - g.meta.getBoundingClientRect().left;
       setSlip(g, dH, dM);
