@@ -1139,16 +1139,23 @@
        rotated 10px text on iOS.
 
        32px tall inside the row's 39px content box -- can never grow the
-       row. margin-right keeps the stamp clear of the delete button's
-       touch-adjustment zone, so a thumb on the stamp navigates, not
-       deletes. Non-interactive and aria-hidden: the .sr-only span in
-       .row-meta stays the ONE source screen readers get. */
+       row. No margin-right of its own: the stamp-to-delete gap is now a
+       single var(--s1) (4px), owned entirely by .location-actions's flex
+       gap (owner, 2026-09-28: "closer to the X, it's not interactive" --
+       decorative and pointer-events:none, so this carries no tap-target
+       risk for the stamp itself; the pre-existing note about the
+       delete button's OWN touch-adjustment overrun is unrelated and
+       still tracked separately in CLAUDE.md). Was margin-right: var(--s2)
+       (8px) stacked on the flex gap (12px combined) -- see vs-carry's
+       `right: calc(...)` below, which keyed off this same margin and
+       still resolves correctly now that it's gone. Non-interactive and
+       aria-hidden: the .sr-only span in .row-meta stays the ONE source
+       screen readers get. */
     .row-stamp {
       position: relative;
       flex-shrink: 0;
       width: calc(var(--s6) * 3);          /* 72 */
       height: var(--s8);                   /* 32 */
-      margin-right: var(--s2);
       color: var(--navy);                  /* no color-mix() support */
       color: color-mix(in srgb, var(--navy) 82%, transparent);
       /* Per-place angle from stampTilt(loc.id), +-2..+-5deg. Rotation
@@ -1889,7 +1896,13 @@
     .location-card.vs-live .location-actions { position: relative; }
     .vs-carry {                             /* the new stamp: the shipped .row-stamp, out of flow AT its slot */
       position: absolute;
-      right: calc(var(--col-action) + var(--s1));   /* = its flow slot: [stamp][8px margin][4px gap][X], keyed to the X */
+      right: calc(var(--col-action) + var(--s1));   /* = its flow slot: [stamp][4px gap][X], keyed to the X.
+         Used to be col-action + s1 (32) PLUS .row-stamp's own margin-right:
+         s2 (8), which still applies to position:absolute boxes -- 40 total,
+         matching the old margin(8)+gap(4)=12 flow spacing. Now that
+         margin-right is gone, this same 32 IS the whole offset, matching
+         the new gap(4) flow spacing. If the flow gap changes again, update
+         this calc to col-action + <new combined gap>. */
       top: calc(50% - var(--s4));           /* 32px box centred on the row, as in flow */
     }
     /* Before the commit the stamp BLEEDS into the paper (owner: "it should
