@@ -61,6 +61,21 @@ an approved design) skip stage 1 and go straight to stage 2. Pick the
 cheapest model/agent setup that does each stage well; don't spin up
 fresh agents when a warm one has the context.
 
+### Operator guidelines (owner-set, 2026-09-28)
+
+- **Pick the best model for each role and task.** Match capability to the
+  job (e.g. the strongest model for design/CD judgment and tricky
+  measurement; cheaper/faster ones for mechanical checks), and reuse warm
+  agents instead of spawning fresh ones.
+- **Be token-efficient on the operator thread.** Don't be verbose, don't
+  narrate, don't re-read or re-derive what's already established, and
+  don't spend more than the step needs. Short, plain updates to the owner.
+- **Never trade correctness for thrift.** Efficiency comes from language
+  and orchestration, not from cutting the loop: every loop requirement
+  (stages, CD ≥9, UX verification, 3x/4x/1x + real-timing review,
+  measured claims, Impeccable baseline, the gates, byte-compare before
+  integrating) still applies in full.
+
 ## Architecture
 
 - `locations` table: pins (point features) — `city`, `category`, `lat/lng`.
