@@ -470,7 +470,7 @@ go stale, and don't leave it silently out of date either.
       - All of its clicks are stopped at **window capture** (`stopImmediatePropagation`), so 0 clicks reach document. Otherwise the outside-click handlers would close the account menu and the address suggestions.
       - If it takes focus it is blurred. The previous focus is restored only if focusable and not `body`.
     - Row swipe: the tick fires **on the ink landing** (star), and as a double tick (two toggles 60ms apart) at the erase commit (unstar).
-    - **Platform limit:** from iOS 26.5, WebKit fc1ef83 (bug 309082) makes a script `label.click()` untrusted, and an untrusted click gives no haptic. **A swipe can never tick on iOS 26.5+.** That is not a bug and can't be fixed by timing. It works on iOS 18.0–26.4 and on Android.
+    - **Platform limit:** from iOS 26.5, WebKit fc1ef83 (bug 309082) makes a script `label.click()` untrusted, and an untrusted click gives no haptic. **A swipe can never tick on iOS 26.5+.** That is not a bug and can't be fixed by timing. **Owner-confirmed on iOS 27 (2026-09-28): the popup real-tap path ticks; the swipe path is silent — as predicted.** It works on iOS 18.0–26.4 and on Android.
   - **Popup real-tap path (owner-approved):**
     - `.popup-star-tap` is an `aria-hidden` `<label for="starHapticSwitch">` placed exactly over the star's 44×44 `::after` target, at `z-index:202`. `.popup-title-row` is `position:relative` with no z-index.
     - The finger's trusted tap toggles the switch, so it ticks on iOS 26.5+ too. `popupStarTap()` forwards the click to the button one task later, which keeps the label attached while its activation finds the switch.
