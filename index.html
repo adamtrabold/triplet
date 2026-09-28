@@ -4,9 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <!-- Home-screen (standalone) launch: draw under the status bar / Dynamic
-       Island instead of iOS reserving a solid band above the page. Every
-       top-anchored control adds env(safe-area-inset-top) to clear it; in a
-       normal Safari tab that inset is 0, so nothing moves there. -->
+       Island instead of iOS reserving a solid band above the page.
+       env(safe-area-inset-top) itself is nonzero in a plain Safari tab too
+       (it reports the physical notch, not standalone-ness) -- but a tab's
+       own opaque toolbar already occupies that strip, so the floating
+       icons (#floatingAddBtn/#accountBtn/#accountDropdown) use
+       --chrome-top-inset, which only carries the real inset in standalone
+       (see its definition in :root) and is 0 in a tab, so those icons
+       don't double-pad there. Other top-anchored controls that clear the
+       physical notch itself, not a colored bar, still use the raw env()
+       unconditionally. -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -157,6 +164,27 @@
       --chrome-bottom: 0px;
       --sheet-under: calc(var(--chrome-bottom) + env(safe-area-inset-bottom, 0px));
 
+      /* TOP CHROME, for the icons only. env(safe-area-inset-top) reflects
+         the physical notch/Dynamic-Island cutout on ANY launch (tab or
+         standalone) -- viewport-fit=cover always reports it, it isn't a
+         standalone-only signal the way the --chrome-bottom toolbar height
+         is. In STANDALONE (Home Screen) the map paints under the status
+         bar (see the head comment + navigator.standalone class), so the
+         floating icons need the inset to clear that colored bar. In a
+         PLAIN TAB, Safari's own opaque toolbar already occupies that
+         strip -- there is no colored bar to clear there, so adding the
+         same inset would just pad the icons down for nothing. This is
+         therefore the OPPOSITE default from --chrome-bottom (which starts
+         nonzero and gets pinned to 0 in standalone): --chrome-top-inset
+         starts at 0px and only picks up the real inset once we know we're
+         in standalone. Only for the icons (#floatingAddBtn/#accountBtn/
+         #accountDropdown) -- other env(safe-area-inset-top) call sites in
+         this file are about clearing the physical notch itself (the error
+         banner, the add-form controls panel, Leaflet's zoom control), not
+         about a colored status bar, so they keep the unconditional inset
+         and are left alone. */
+      --chrome-top-inset: 0px;
+
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
       --paper-raised: #FAF5EA;   /* one step up: chips, fields */
@@ -226,6 +254,14 @@
       :root { --chrome-bottom: 0px; }
     }
     :root.standalone { --chrome-bottom: 0px; }
+
+    /* --chrome-top-inset: standalone only, the mirror image of the
+       --chrome-bottom overrides above (there 0 is the standalone value;
+       here the real inset is). Both signals, same as --chrome-bottom. */
+    @media (display-mode: standalone), (display-mode: fullscreen) {
+      :root { --chrome-top-inset: env(safe-area-inset-top, 0px); }
+    }
+    :root.standalone { --chrome-top-inset: env(safe-area-inset-top, 0px); }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -308,7 +344,9 @@
     #floatingAddBtn,
     #accountBtn {
       position: fixed;
-      top: calc(var(--s4) + env(safe-area-inset-top, 0px));
+      /* --chrome-top-inset, not the raw env() -- only standalone has a
+         colored bar behind these to clear (see the var's definition). */
+      top: calc(var(--s4) + var(--chrome-top-inset));
       background: var(--navy);
       border: none;
       color: var(--figure);
@@ -357,7 +395,8 @@
 
     #accountDropdown {
       position: fixed;
-      top: calc(74px + env(safe-area-inset-top, 0px));
+      /* Hangs off #accountBtn -- same --chrome-top-inset reasoning. */
+      top: calc(74px + var(--chrome-top-inset));
       right: 74px;
       background: var(--paper);
       border: 2px solid var(--navy);
@@ -930,7 +969,14 @@
 
     /* Same surface as the list body -- --paper, not the per-city --figure
        field. Navy text on paper is 12.51:1, comfortably AA regardless of
-       which city's palette is active. */
+       which city's palette is active.
+       The h2 title's left edge matches every row's name: collapseBtn is
+       resized to --col-glyph (28px, see its own rule) so it occupies the
+       identical leading slot a row's glyph column does -- gutter(16) +
+       col-glyph(28) + gap(12) = 56px, same formula as "content always
+       begins at 56px" above. On the desktop rail collapseBtn is display:none
+       (see the min-width:900px block), so a ::before spacer of the same
+       width stands in for it there -- the title lands on 56px either way. */
     #locationsHeader {
       display: flex;
       align-items: center;
@@ -981,7 +1027,13 @@
       transition: opacity 0.15s ease;
     }
 
-    #collapseBtn { font-size: 14px; line-height: 1; transition: transform 0.3s ease; }
+    /* Alignment spine: collapseBtn is the header's leading item, same slot a
+       row's glyph column occupies (--col-glyph 28px, not the shared 32px
+       button size above) so 16 (gutter) + 28 + 12 (gap) = 56px lines up the
+       title's text with every row's name -- see the header/desktop rules
+       below for the matching gutter+col-glyph+gap math on the collapsed
+       (desktop-rail) state, where this button is hidden. */
+    #collapseBtn { width: var(--col-glyph); height: var(--col-glyph); font-size: 14px; line-height: 1; transition: transform 0.3s ease; }
     #collapseBtn.collapsed { transform: rotate(-180deg); }
 
     #collapseBtn:active,
@@ -1754,6 +1806,16 @@
       #locations.collapsed { transform: none; }
       #locations.collapsed #locationsList { display: block; }
       #collapseBtn { display: none; }
+      /* collapseBtn (the header's alignment spacer, see its rule above) is
+         gone in the rail, so stand in with a blank spacer of the same
+         width -- otherwise the title would sit flush at the gutter instead
+         of 56px, out of line with every row's name. */
+      #locationsHeader::before {
+        content: '';
+        display: block;
+        width: var(--col-glyph);
+        flex-shrink: 0;
+      }
       #mainContent { left: 360px; bottom: 0 !important; height: auto !important; }
       /* The panel slides up from the viewport bottom once the sheet is a
          full-height rail -- there is no bottom sheet left to sit above. */
