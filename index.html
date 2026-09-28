@@ -1696,17 +1696,17 @@
     .location-card.highlighted .sg-crumb { background: var(--paper); }
 
     /* Popup: the same material at 16px, played once on set (CSS only):
-       five strokes x 72ms (a hand's pace -- 40ms was too fast to see on a phone), then the ink lands at 380ms (one 17ms spread frame). */
+       five strokes x 60ms (a hand's pace -- 40ms was too fast to see, 72ms read as slow), then the ink lands at 316ms. */
     .popup-star .sgp { width: var(--s4); height: var(--s4); display: block; overflow: visible; }
     .popup-star .sgp.sgp-play .sg-rev {
       stroke-dasharray: var(--L) var(--L); stroke-dashoffset: var(--L);
-      animation: sgpStroke 72ms linear var(--d) forwards;
+      animation: sgpStroke 60ms linear var(--d) forwards;
     }
-    .popup-star .sgp.sgp-play .sg-pencil { animation: sgpOff 1ms linear 380ms forwards; }
+    .popup-star .sgp.sgp-play .sg-pencil { animation: sgpOff 1ms linear 316ms forwards; }
     /* N-b: the hollow star stays until stroke 1 is half drawn -- no empty slot on tap. */
     .sgp-hollow { display: none; }
-    .popup-star .sgp.sgp-play .sgp-hollow { display: inline; color: var(--ink-2); animation: sgpOff 1ms linear 36ms forwards; }
-    .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 380ms forwards, sgpPress 380ms linear 380ms backwards; }
+    .popup-star .sgp.sgp-play .sgp-hollow { display: inline; color: var(--ink-2); animation: sgpOff 1ms linear 30ms forwards; }
+    .popup-star .sgp.sgp-play .sg-ink { animation: sgpOn 1ms linear 316ms forwards, sgpPress 380ms linear 316ms backwards; }
     .popup-star .sgp.sgp-play .sg-spread { animation: none; }
     @keyframes sgpStroke { to { stroke-dashoffset: 0; } }
     @keyframes sgpOff    { to { opacity: 0; } }
@@ -3896,7 +3896,7 @@
     const STAR_SWIPE = { EDGE: 24, LOCK: 10, SCROLL: 8, UNLOCK_DY: 16, UNLOCK_MAX: 16,
                          COMMIT: 56, MAX: 104, FLICK_V: 0.5, FLICK_MIN: 32,
                          WRONG_MAX: 6, STAR_W: 16, STROKES: [0, 6, 12, 25, 38, 50], SETTLE: 220,
-                         HAND_MS: 360, RUB_MS: 400, SKETCH_MIN: 280, RUB_AFTER_LIFT: 180 };
+                         HAND_MS: 300, RUB_MS: 400, SKETCH_MIN: 235, RUB_AFTER_LIFT: 180 };
     const STAR_D = 'M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z';
     // One continuous line, as a hand draws it: lower-left, up to the top,
     // down right, across to the left arm, across to the right arm, home.
@@ -3910,6 +3910,17 @@
     // ~230ms, rest at 380ms. The popup's @keyframes sgpPress is the same table, 1:1.
     const STAR_POP = [{"transform": "rotate(-20deg) scale(1)", "offset": 0.0, "easing": "cubic-bezier(.2,.9,.3,1)"}, {"transform": "rotate(6deg) scale(1.4)", "offset": 0.34, "easing": "cubic-bezier(.6,0,.85,.45)"}, {"transform": "rotate(-2deg) scale(0.95)", "offset": 0.65, "easing": "cubic-bezier(.4,0,.3,1)"}, {"transform": "rotate(0deg) scale(1)", "offset": 1.0}];
     const STAR_POP_MS = 380;
+    // Erase pop (owner: "the star should slightly pop out when erasing it"):
+    // as the rub begins, the star lifts 1.12x -- well under the 1.4x landing,
+    // no twist -- and sinks back while the colour drains. Same technique as
+    // STAR_POP (linear effect, per-keyframe easing); none under reduced motion.
+    const STAR_ERASE_POP = [{ transform: 'scale(1)', offset: 0, easing: 'cubic-bezier(.2,.9,.3,1)' }, { transform: 'scale(1.12)', offset: 0.35, easing: 'cubic-bezier(.5,0,.4,1)' }, { transform: 'scale(1)', offset: 1 }];
+    const STAR_ERASE_POP_MS = 240;
+    function starErasePop(svg) {
+      if (prefersReducedMotion() || !svg.animate) return;
+      svg.style.transformOrigin = '50% 55%';
+      svg.animate(STAR_ERASE_POP, { duration: STAR_ERASE_POP_MS, easing: 'linear' });
+    }
 
     // THE CLICK (round 7): one haptic tick on each FINISH beat -- the ink
     // landing (star) and the dust falling (erase, two quick ticks, like a
@@ -4006,7 +4017,7 @@
         // at the star's points they meet round, like the printed star.
         const p = `M${f(x1 + nx * wa)} ${f(y1 + ny * wa)}L${f(x2 + nx * wb)} ${f(y2 + ny * wb)}A${wb} ${wb} 0 0 1 ${f(x2 - nx * wb)} ${f(y2 - ny * wb)}L${f(x1 - nx * wa)} ${f(y1 - ny * wa)}A${wa} ${wa} 0 0 1 ${f(x1 + nx * wa)} ${f(y1 + ny * wa)}Z`;
         const L1 = (L + 1).toFixed(2);
-        masks += `<mask id="${u}-m${k}" maskUnits="userSpaceOnUse" x="-4" y="-4" width="32" height="32"><line class="sg-rev" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff" stroke-width="5" stroke-dasharray="${L1} ${L1}" stroke-dashoffset="${L1}" data-l="${L1}" style="--L:${L1};--d:${k * 72}ms"/></mask>`;
+        masks += `<mask id="${u}-m${k}" maskUnits="userSpaceOnUse" x="-4" y="-4" width="32" height="32"><line class="sg-rev" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff" stroke-width="5" stroke-dasharray="${L1} ${L1}" stroke-dashoffset="${L1}" data-l="${L1}" style="--L:${L1};--d:${k * 60}ms"/></mask>`;
         strokes += `<path d="${p}" mask="url(#${u}-m${k})"/>`;
       }
       return `<svg class="${cls}${play ? ' sgp-play' : ''}" viewBox="0 0 24 24" aria-hidden="true" data-u="${u}"><defs>
@@ -4227,6 +4238,7 @@
       const m = mountPencilStar(el, loc);
       if (!m) return false;
       Object.assign(g, m, { state: 'drag', forward, id, starred: !!loc.starred, raw: 0, off: 0, armed: false });
+      if (forward && loc.starred) starErasePop(m.svg);   // the rub starts at the lock: lift as it begins
       return true;
     }
 
@@ -4267,9 +4279,9 @@
           if (!g.starred && v > s0 && g.sketchT0 === undefined) g.sketchT0 = now;
           if (!g.starred && f >= STAR_SWIPE.COMMIT && g.sketchT0 !== undefined) {
             // Committed: the hand may hurry -- but every remaining stroke
-            // still takes >= 55ms and the whole sketch stays >= 280ms.
+            // still takes >= 46ms and the whole sketch stays >= SKETCH_MIN.
             const left = STAR_SWIPE.COMMIT - v, strokesLeft = g.strokes.slice(1).filter(e => e > v).length;
-            const allowed = Math.max(55 * strokesLeft, STAR_SWIPE.SKETCH_MIN - (now - g.sketchT0), 1);
+            const allowed = Math.max(46 * strokesLeft, STAR_SWIPE.SKETCH_MIN - (now - g.sketchT0), 1);
             rate = Math.max(rate, left / allowed);
           }
           v = Math.min(f, v + dt * rate);
@@ -4516,6 +4528,7 @@
       const ps = pencilStar(svg);
       const finish = () => { const b = svg.closest('.popup-star'); if (b && svg.isConnected) b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star-open"/></svg>'; };
       if (prefersReducedMotion()) { finish(); return; }
+      starErasePop(svg);
       runTimeline(240, t => ps.rub(t < 0.3 ? 10 * t / 0.3 : 10 + 45.9 * (t - 0.3) / 0.7), () => { ps.rub(STAR_SWIPE.COMMIT); finish(); });
     }
 
