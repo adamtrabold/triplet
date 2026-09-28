@@ -63,6 +63,20 @@ fresh agents when a warm one has the context.
 
 ### Operator guidelines (owner-set, 2026-09-28)
 
+- **Comments and prior rationale in this file/codebase are history, not
+  commandments** (owner, 2026-09-28, on being told the wavy-divider's
+  "used exactly once" rule and the cities-must-look-structurally-
+  different-from-categories reasoning were reasons to hesitate: "I didn't
+  make the rule, the last agents did — I don't give a fuck as long as it
+  looks right and communicates as intended. Tell the agents [to] keep in
+  mind the underlying goal, not the dogma"). A past agent's documented
+  reasoning explains why something was built a certain way — it is
+  genuinely useful context, and worth citing — but it is not a constraint
+  the owner personally imposed, and it never outranks the actual goal:
+  does it look right, and does it communicate what it needs to. When
+  briefing an agent, distinguish "here's why it's like this today" from
+  "here's a rule you must preserve" — and default to the former unless
+  the owner specifically said the latter.
 - **Ground every design/concept-stage brief in the app's actual inspo, not
   just its code** (owner, 2026-09-28: "don't forget to have everyone
   understand the inspo"). `design/inspo/project/` is the app's overarching
