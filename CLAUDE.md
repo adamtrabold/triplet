@@ -31,22 +31,30 @@ before the owner has seen it burned heavy tokens on directions the owner
 then rejected (e.g. the popup-only star went to 9/10 and was rejected as
 "very average"):
 
-1. **Concept stage — "good enough for owner review."** The designer
-   explores a few distinct directions and prototypes the pick to a
-   reviewable fidelity. ONE light UX pass (blockers only: does it
-   break tap-to-navigate, scroll, delete safety, a11y basics) and ONE CD
-   pass judging the *direction* (is it on-brief and worth pursuing) —
-   no pixel polish, no exhaustive measurement, no multi-round
-   iteration. Target: CD says "ready for owner" (~7/10 on direction).
-   Then show the owner the concept (stills/filmstrip + the one-line
-   why, and the rejected alternatives in a line each) and ask for
-   approval or redirection.
-2. **Perfection stage — only after the owner approves the concept.**
-   The full loop: designer → UX → CD rounds until the CD scores ≥9,
-   measured at 3x, ~4x crops and 1x, with real-timing checks for
+The CD's bar is **9/10 in both stages** — what changes is what's being
+scored.
+
+1. **Concept stage — scored on QUALITY OF CONCEPT.** The designer
+   explores a few distinct directions and prototypes the pick only to
+   the fidelity needed to judge the idea. UX checks for concept-level
+   blockers (does the idea break tap-to-navigate, scroll, delete
+   safety, a11y basics) — not polish. The CD scores 1–10 on the
+   concept itself: on-brief, intentional, the right idea for this
+   app/brand, better than the alternatives. Rounds continue until the
+   CD gives the *concept* ≥9. Execution flaws (pixel alignment, exact
+   timing, contrast tuning, edge cases) are noted but do NOT cost
+   points here and are NOT fixed yet — no exhaustive measurement, no
+   polish passes. Then show the owner the concept (stills/filmstrip +
+   the one-line why, and the rejected alternatives in a line each) and
+   ask for approval or redirection.
+2. **Perfection stage — only after the owner approves the concept —
+   scored on PRODUCTION READINESS / EXECUTIONAL PERFECTION.** The full
+   loop: designer → UX → CD rounds until the CD scores the execution
+   ≥9, measured at 3x, ~4x crops and 1x, with real-timing checks for
    motion; then `npx -y impeccable@4.1.0 detect index.html` must show
    exactly the 3 baseline findings; then integrate, verify, and hand
-   back with iPhone checks.
+   back with iPhone checks. The concept itself isn't relitigated here
+   unless execution proves it unworkable (then back to the owner).
 
 Small, well-specified follow-ups (a bug the owner reported, a tweak to
 an approved design) skip stage 1 and go straight to stage 2. Pick the
