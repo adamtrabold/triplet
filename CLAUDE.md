@@ -565,6 +565,17 @@ go stale, and don't leave it silently out of date either.
   rework, Phase 2 trip dates, and personal priority — sequence the
   discovery so these don't get designed in isolation.
 
+- **Ghost the VISITED stamp in the popup** (owner, 2026-09-28; promoted
+  from the old "popup mini-stamp" follow-up). Once a place is marked
+  visited, a ghosted VISITED stamp should appear somewhere in the popup
+  card, so the popup carries the same "been here" mark as the list row.
+  Problem for the team: where it sits (without crowding the p8 layout —
+  title/star, notes, Get Directions button, category + Mark Visited row),
+  how ghosted (it must read as a mark, not a disabled state), whether it
+  reuses the shipped `.row-stamp` geometry/tilt/ink, and whether the
+  popup's Mark Visited toggle animates it (bleed + press / lift, like the
+  row). New idea → concept stage first.
+
 **Needs the user's action:**
 - iPhone check of swipe-left visited (#1 is a gate):
   1. **(Gate)** A left stroke from the X or the row's right half visits. A 4–12px nudge on the X never raises delete; a still tap does (dial `DELETE_TAP_SLOP` 3–6).
@@ -655,8 +666,6 @@ go stale, and don't leave it silently out of date either.
 - Many `locations.name` values redundantly end in the city already shown
   in `.row-meta` (e.g. "Mother restaurant Copenhagen") — trimming them is
   a data cleanup that would win back truncation room on visited rows.
-- Possible follow-up: a matching mini-stamp for the popup's visited state
-  (`.popup-visited`), for visual coherence. Not scoped.
 - Shape rows (districts/streets) have no visited state, so they always
   stay forward on `--paper` — late in the trip they'll be the brightest
   rows and can't be cleared. Known consequence of the visited-row field;
