@@ -50,8 +50,8 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
       const got = await ids(page);
       const ge = await page.evaluate(() => { const cards = [...document.querySelectorAll('#locationsList .location-card[data-id]')], cat = id => locations.find(l => l.id === id).category;
         const want = cards.map((c, i) => i < cards.length - 1 && cat(c.dataset.id) !== cat(cards[i + 1].dataset.id)); const has = cards.map(c => c.classList.contains('group-end'));
-        return { ok: sortMode === 'category' ? want.join() === has.join() && want.some(Boolean) : !has.some(Boolean), n: has.filter(Boolean).length, color: (cards.find(c => c.classList.contains('group-end')) ? getComputedStyle(cards.find(c => c.classList.contains('group-end'))).borderBottomColor : null), h: cards.every(c => c.getBoundingClientRect().height === 56) }; });
-      ok(`S3b ${m}: category runs end in an ink hairline only in Category order; rows stay 56px`, ge.ok && ge.h && (m !== 'category' || ge.color === 'rgb(90, 86, 76)'), ge);
+        return { ok: sortMode === 'category' ? want.join() === has.join() && want.some(Boolean) : !has.some(Boolean), n: has.filter(Boolean).length, color: (cards.find(c => c.classList.contains('group-end')) ? (cs => cs.borderBottomColor + ' ' + cs.borderBottomWidth)(getComputedStyle(cards.find(c => c.classList.contains('group-end')))) : null), h: cards.every(c => c.getBoundingClientRect().height === 56) }; });
+      ok(`S3b ${m}: category runs end in a 2px --hair rule only in Category order; rows stay 56px`, ge.ok && ge.h && (m !== 'category' || ge.color === 'rgb(216, 206, 186) 2px'), ge);
       ok(`S3 ${m}: order matches its key`, JSON.stringify(got) === JSON.stringify(await expected(page, m)), got.slice(0, 6));
       ok(`S4 ${m}: same membership as A-Z (reorders, never filters)`, got.slice().sort().join() === base);
       s = await state(page);

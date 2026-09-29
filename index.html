@@ -1170,9 +1170,10 @@
        disc goes transparent so it follows whichever field is showing.
        Shape rows have no visited state and stay on --paper by design. */
     .location-card.is-visited { background: var(--paper-filed); }
-    /* Category order: one plain hairline in ink where the category changes
-       (the --hair rule between rows, darkened) -- no label, no extra height. */
-    .location-card.group-end { border-bottom-color: var(--ink-2); }
+    /* Category order: where the category changes, the row rule doubles to
+       2px in the same --hair -- no louder than the header's own rule, no
+       label, no extra height (the row's min-height includes its border). */
+    .location-card.group-end { border-bottom-width: 2px; }
     .location-card.is-visited .row-badge { --badge-field: transparent; }
 
     /* Press state is a background change only. `scale(0.98)` is deliberately

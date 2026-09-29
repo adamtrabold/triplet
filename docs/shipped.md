@@ -472,8 +472,8 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     (tested per mode, with and without a category filter). Shape rows keep
     their own block after the pins: A–Z by label, by type in Category, by
     centroid distance in Nearest. Category has **no group labels**; the
-    last row of each category run carries its rule in `--ink-2` instead of
-    `--hair` (`.group-end`, CD round 2) -- one plain hairline, no height.
+    last row of each category run doubles its `--hair` rule to 2px
+    (`.group-end`, CD rounds 2-3) -- no louder than the header's rule, no height.
   - **Button:** `#sortBtn` sits between the title and the filters button,
     drawn in the sliders icon's terms (18px, 24-unit box, 2px butt
     strokes, solid heads). Hit zone 50×56 (12px into the title gap and
