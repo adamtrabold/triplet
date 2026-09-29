@@ -601,7 +601,7 @@ Owner: "why are the active states not matching come on we should have clear
 systems at this point." One rule per meaning, on existing tokens, no new
 colours or dots. Tokens on `:root`: `--state-press` (= `--paper-pressed`),
 `--state-on-bg` (= `--navy`), `--state-on-fg` (= `--paper`),
-`--state-on-press` (#1B3A57, an ON tile pressed; also the floating add/account press, no visual change), `--state-off-alpha` (.4). Design record and audit: `design/state-system/`
+`--state-on-press` (#2A4F73, about 1.7:1 from navy: an ON tile pressed, and the floating add/account press), `--state-off-alpha` (.4). Design record and audit: `design/state-system/`
 (sheet, README audit table, `stills.js`, `check.js`, stills in `stills/`).
 
 | Meaning | Treatment | Applies to |
@@ -610,6 +610,7 @@ colours or dots. Tokens on `:root`: `--state-press` (= `--paper-pressed`),
 | On / open / selected, then pressed | `--state-on-press` (open sort / filters held) | header sort and filters |
 | On / open / selected | `--state-on-bg` tile, `--state-on-fg` glyph/text | sort open, filters open (`#toggleFiltersBtn.active`), selected city chip |
 | Unavailable / loading | opacity `--state-off-alpha` | locate/sort loading, submit disabled (was .6) |
+| Filled primary button, pressed | one tone step: submit DEEPENS (`--figure` to `--figure-deep`); floating add/account LIGHTEN (`--navy` to `--state-on-press`, was #1B3A57, now slightly lighter) | submit, floating add, account |
 | Current item | figure-deep reversed block (row), check (sort menu) | unchanged |
 
 Deliberate exceptions (unchanged): category chips keep the category rule
@@ -623,3 +624,5 @@ flip6 / vtest suites could not run (their helper files were never
 committed).
 
 Revision after CD 8/10: open-pressed variant added; popup star moved from shrink to the tile; Mark Visited tile got equal insets; loading verified at computed opacity 0.4 (settled past the .15s transition); collapse arrow shows its pressed tile (28px, the spine width, not 32). check.js 11/11, sorttest 77/77, gesturediff identical.
+
+Second revision (CD 8/10 again): `--state-on-press` lightened to #2A4F73 (open-pressed now reads at 1x; paper glyph on it stays >=7:1); this also lightens the floating add/account press slightly. Fourth meaning added, filled primary buttons shift one tone step when pressed. The two directions differ on purpose and are flagged: the coral submit field can go deeper, the navy floating buttons cannot, so they lighten. Submit disabled text is `--ink` (was navy) at .4, a warm grey rather than blue-grey on the coral; it reads as unavailable, not broken.

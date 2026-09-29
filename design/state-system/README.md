@@ -47,3 +47,9 @@ Sheet: `sheet.png` (390px, 1x; source `sheet.html`, built by `build.mjs` from in
 | hover | autocomplete / account menu | paper / paper-raised | 756, 441 |
 
 Inconsistencies: (1) filters-open looks like pressed; (2) sort-open navy tile vs filters-open dim; (3) pressed has 6 treatments (opacity .55, opacity .6, scale, paper-pressed, figure-deep, hex); (4) chips have no pressed state; (5) selected: navy fill vs rule/dashed vs check; (6) disabled .6 vs loading .4 vs ink-2 text; (7) floating buttons' press is an off-token hex; (8) hover exists on 3 menu items only; (9) sort-button comment says "ink tile", code is navy.
+
+## Shipped revisions (perfection stage)
+
+- Fourth meaning: **filled primary buttons shift one tone step when pressed.** Submit deepens (`--figure` to `--figure-deep`). Floating add/account lighten (`--navy` to `--state-on-press`). The directions differ on purpose: the coral field can go deeper, navy cannot. Flagged, not unified.
+- `--state-on-press` is #2A4F73 (about 1.7:1 from navy). It also lightens the floating add/account pressed colour slightly (was #1B3A57); acceptable, still a navy step.
+- Submit disabled: opacity .4 with `--ink` text; reads as unavailable at 1x.

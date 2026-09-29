@@ -195,7 +195,7 @@
       --state-press: var(--paper-pressed);
       --state-on-bg: var(--navy);
       --state-on-fg: var(--paper);
-      --state-on-press: #1B3A57; /* an ON tile pressed: one step lighter navy (the value the floating add/account buttons already pressed to) */
+      --state-on-press: #2A4F73; /* an ON tile or a filled navy button pressed: one clear step lighter navy (about 1.7:1 from --navy; paper glyph stays >=7:1). Floating add/account pressed to #1B3A57 before */
       --state-off-alpha: 0.4;
       --paper-pressed: #DCD3C3;  /* pressed row, visited or not: --paper's hue,
                                     pressed IN, not lit up. One more equal
@@ -568,8 +568,9 @@
       margin-top: var(--s1);
     }
 
+    /* State system, filled primary buttons: pressed = one tone step. Submit deepens (--figure to --figure-deep); the navy floating add/account buttons lighten (--navy to --state-on-press). */
     #addForm button#submitBtn:active { background: var(--figure-deep); color: var(--paper); }
-    #addForm button#submitBtn:disabled { opacity: var(--state-off-alpha); cursor: default; }
+    #addForm button#submitBtn:disabled { opacity: var(--state-off-alpha); color: var(--ink); cursor: default; }
 
     #addForm .field-group {
       margin-bottom: var(--s6);
