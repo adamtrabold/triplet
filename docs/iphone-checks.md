@@ -93,3 +93,20 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   but this hasn't been verified against the real Overpass response, since
   the agent that wrote it can't reach Overpass either. Check the card's
   warning text before accepting.
+- Browser/iPhone check of search widening (needs live Nominatim; any
+  browser, signed in, open Add):
+  1. **Other town, same country:** put the map on Stockholm and type
+     "Uppsala domkyrka". After a short extra pause (~1s), Uppsala
+     Cathedral appears. Picking it shows "Uppsala isn't in your city list
+     yet. Add it?" (expected; filing is unchanged).
+  2. **Other country:** put the map on Reykjavík and type "Vasamuseet".
+     The Stockholm result appears; picking it files under Stockholm with
+     no prompt. Then type "Bryggen Bergen": the Bergen result appears,
+     with an "Add Bergen?" prompt on pick.
+  3. **Local search unchanged:** with the map on Copenhagen, type a
+     Copenhagen place (e.g. "Torvehallerne"). Same results and speed as
+     before, no extra pause.
+  4. **Typing fast:** type a miss, then keep typing within a second. Only
+     results for the final text show, never a flash of older ones.
+  5. **District:** Add → District, map on Stockholm, name "Fjärdingen"
+     (Uppsala). It fetches an outline and asks which city.

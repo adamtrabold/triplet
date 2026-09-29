@@ -1,3 +1,8 @@
+> **Superseded (2026-09-29)** by `design/trip-location-model/proposal.md`.
+> That doc corrects two errors here: `city` is an enforced FK and
+> `NOT NULL`; a union-of-countries filter still misses other countries.
+> Kept for history only.
+
 # Trip vs. place location model — discovery proposal
 
 Status: **discovery only, nothing built.** Owner opened 2026-09-23; this

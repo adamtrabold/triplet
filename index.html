@@ -2664,9 +2664,46 @@
 
       const init = {};
       if (opts.timeout) init.signal = AbortSignal.timeout(opts.timeout);
+      lastNominatimAt = performance.now();
       const response = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, init);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.json();
+    }
+
+    // ---- widen on miss --------------------------------------------------------
+    // A trip's places aren't all in the current city (day trips, other towns,
+    // another country), but the scoped search above can never return them:
+    // the city suffix is part of `q` and `countrycodes` is a hard filter.
+    // Owner decision (2026-09-29): search the current city first, exactly as
+    // before, and only when that finds NOTHING run one wider search -- no
+    // suffix, no countrycodes, the same viewbox as a SOFT bias (never
+    // bounded). Filing is untouched. See design/trip-location-model/.
+    // Nominatim's usage policy is at most 1 request/s, so the widened call
+    // waits until NOMINATIM_SPACING_MS after the previous request started.
+    const NOMINATIM_SPACING_MS = 1000;
+    let lastNominatimAt = 0;
+
+    // Null when there is nothing to widen (already unscoped and unbounded).
+    function widenedSearchConfig(cfg) {
+      if (!cfg || !cfg.viewbox) return null;
+      if (!cfg.geocodeSuffix && !cfg.countrycodes && !cfg.bounded) return null;
+      return { viewbox: cfg.viewbox };
+    }
+
+    // `isStale()` (optional) is checked before the wait, after it, and after
+    // the widened response: a stale search returns null and is dropped.
+    async function nominatimWithFallback(query, cfg, opts = {}, isStale = null) {
+      const stale = () => !!(isStale && isStale());
+      const data = await nominatim(query, cfg, opts);
+      if (stale()) return null;
+      if (data && data.length) return data;
+      const wide = widenedSearchConfig(cfg);
+      if (!wide) return data;
+      const wait = lastNominatimAt + NOMINATIM_SPACING_MS - performance.now();
+      if (wait > 0) await new Promise(resolve => setTimeout(resolve, Math.ceil(wait)));
+      if (stale()) return null;
+      const widened = await nominatim(query, wide, opts);
+      return stale() ? null : widened;
     }
 
     // Fetches a district's real OSM boundary polygon -- GeoJSON is [lng, lat],
@@ -2674,7 +2711,7 @@
     // ever has to think about coordinate order.
     async function nominatimPolygon(name, cfg) {
       try {
-        const data = await nominatim(name, cfg, { limit: 1, polygonGeojson: true, timeout: 8000 });
+        const data = await nominatimWithFallback(name, cfg, { limit: 1, polygonGeojson: true, timeout: 8000 });
         if (!data || !data.length || !data[0].geojson) return null;
         const gj = data[0].geojson;
         let ring;
@@ -2733,7 +2770,7 @@
     // separate concern -- not attempted here.
     async function findApproximatePoint(name, cfg) {
       try {
-        const data = await nominatim(name, cfg, { limit: 1, timeout: 8000 });
+        const data = await nominatimWithFallback(name, cfg, { limit: 1, timeout: 8000 });
         if (data && data.length) {
           return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon), tier: 'point search' };
         }
@@ -2761,7 +2798,7 @@
 
     async function geocode(address) {
       try {
-        const data = await nominatim(address, currentSearchCityConfig(), { limit: 1, addressdetails: true });
+        const data = await nominatimWithFallback(address, currentSearchCityConfig(), { limit: 1, addressdetails: true });
         if (data && data.length > 0) {
           return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon), addressDetails: data[0].address || null };
         }
@@ -2782,7 +2819,11 @@
     }
 
     // Autocomplete search function
+    // searchSeq drops a response (scoped or widened) once a newer search has
+    // started or the Name field no longer holds the query it answers.
+    let searchSeq = 0;
     async function searchAddress(query) {
+      const seq = ++searchSeq;
       if (query.length < 2) {
         hideAutocomplete();
         return;
@@ -2792,12 +2833,14 @@
       autocompleteDiv.innerHTML = '<div class="autocomplete-loading">Searching...</div>';
       autocompleteDiv.classList.add('show');
 
+      const isStale = () => seq !== searchSeq || document.getElementById('nameInput').value !== query;
       try {
-        const data = await nominatim(query, currentSearchCityConfig(), {
+        const data = await nominatimWithFallback(query, currentSearchCityConfig(), {
           limit: 10,
           addressdetails: true,
           timeout: 5000
-        });
+        }, isStale);
+        if (isStale()) return;
 
         if (data && data.length > 0) {
           autocompleteDiv.innerHTML = data.map(result => {
@@ -2815,6 +2858,7 @@
         }
       } catch (err) {
         console.error('Autocomplete search failed:', err);
+        if (isStale()) return;
         if (err.name === 'TimeoutError') {
           autocompleteDiv.innerHTML = '<div class="autocomplete-loading">Search timed out. Try again.</div>';
         } else {

@@ -177,9 +177,10 @@ decision before building.
 - **Visited pins on the map** — Round 4 (dots outside the rim) scored 9/10
   in `design/visited-marker/concept/`; owner's last read was skeptical
   ("not following good design principles") — review with fresh eyes.
-- **Trip vs. place location model** — search is hard-scoped to the current
-  city's country; needs discovery + owner-approved proposal. Adding a place
-  must stay low-friction.
+- **Trips vs. cities restructure**: search already widens on a miss. Still
+  open: a trip entity and day-trip filing, with no distance setting for
+  the user (`design/trip-location-model/`). Adding a place must stay
+  low-friction.
 - **Day agendas** — ordered per-day route to plan and follow; scope the
   smallest v1.
 - **Ghost VISITED stamp in the popup** — new idea, concept stage.

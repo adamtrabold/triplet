@@ -12,7 +12,8 @@ Sections: marker size · cluster banding · clustering past GLYPH_MIN_ZOOM ·
 visited-checkbox fix · Get Directions · delete-only list row · popup buttons
 side-by-side · popup category gap · visited passport stamp · visited rows
 recede · pressed row darker · list click opens popup · Pencil Star (rounds
-1–8) · swipe-left visited · sheet reaches bottom edge · popup + replay (p8).
+1–8) · swipe-left visited · sheet reaches bottom edge · popup + replay (p8) ·
+search widens on a miss.
 
 - Marker size/density fix — merged to `main` (`05afef5`). Two-tier sizing
   (`MARKER_SIZE_NEAR`=24/`MARKER_SIZE_FAR`=16, scale-aligned to `--s6`/
@@ -457,3 +458,53 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
   - Gates (last full gate on the pre-autopan proto; autopan re-checked
     scoped): touch 84/84, flip6 8/8, vtest 113/113, popup-open 20/20, dust
     0, replays 64/64, tap8r/haptic8r/ax8r, curve8 ×10, Impeccable 3.
+
+- **Search widens on a miss** — branch `worktree-agent-a356ba8b4fe22d230`
+  (2026-09-29). Owner decision (verbatim): "For now we should simply widen
+  the search if it doesn't find it in the trip city. When we expand cities
+  vs trips and create the different structure maybe that should change.
+  User should not have to select distance." Why: every search was scoped
+  to one city: the city's `geocodeSuffix` is appended to `q` and its
+  `countrycodes` is a hard filter. A place in another country could never
+  come back, and one in another town of the same country probably couldn't
+  either (city-name suffixes). **Behaviour:** `nominatimWithFallback()`
+  runs the scoped query exactly as before. Only on **zero results** does it
+  run ONE widened query: no suffix, no `countrycodes`, the same `viewbox`
+  as a SOFT bias (`bounded` dropped; `widenedSearchConfig()` returns null,
+  so no second call, when there's nothing to widen). Widened rows render
+  exactly like normal ones, with no divider; the address says where. A
+  scoped error or timeout does not widen.
+  - **Paths:** autocomplete (`searchAddress()`), typed-address submit
+    (`geocode()`), district outline (`nominatimPolygon()`), and the
+    Nominatim step of `findApproximatePoint()`. Deliberately not widened:
+    Overpass street/node lookups (need a city bbox) and
+    `deriveNewCityConfig()`'s country-scoped settlement lookup.
+  - **Etiquette:** the widened call waits until `NOMINATIM_SPACING_MS`
+    (1000) after the previous request started (`lastNominatimAt`, set in
+    `nominatim()`), per Nominatim's 1 req/s policy.
+  - **Stale guard:** `searchSeq` + the Name field's current value. A
+    response (scoped or widened) is dropped if a newer search started or
+    the field no longer holds its query. It is checked before the wait,
+    after it (so no widened request is sent), and on arrival.
+  - **Filing unchanged** (`maybeDetectCity()`/`matchCity()`). Traced with
+    a stubbed fetch:
+    - Malmö place with the map on Copenhagen → filed `malmo`, no prompt.
+    - Uppsala from Stockholm, or Bergen from Reykjavík → the existing "X
+      isn't in your city list yet. Add it?" prompt. Tapping Add Location
+      while the prompt shows saves nothing. Add creates the city (then tap
+      Add Location again). Dismiss files it under the map's city.
+    - A result with no city/town/village in its address → saved silently
+      under the map's city (wrong for a far-away rural spot).
+    - A far district polygon → `shapeCityConfirm` "doesn't match any known
+      city".
+  - **Deferred** to the trips restructure: nearest-base filing for day
+    trips, a trip entity, widening Overpass lookups. See
+    `design/trip-location-model/proposal.md`.
+  - **Gates:** `design/trip-location-model/widen-test.js`, a
+    stubbed-fetch headless-Chromium check, 19/19 (scoped
+    unchanged, one widened call, ≥1000ms spacing, bounded dropped, no
+    widen on error or when unscoped, stale drop ×3, geocode / polygon /
+    approx paths, settlement lookup untouched). A mutation run with the
+    guard removed fails B4/B5, so the stale checks discriminate. No repo
+    suite covers the add form or search. Impeccable 3. Live Nominatim is
+    owner-verified only (`docs/iphone-checks.md`).

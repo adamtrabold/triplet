@@ -3,6 +3,25 @@
 Status: discovery only. Nothing built, no schema touched. Written
 2026-09-29. Line numbers are `index.html` at `7b8a52e`.
 
+## Owner decision (2026-09-29): search only, for now
+
+> "For now we should simply widen the search if it doesn't find it in the
+> trip city. When we expand cities vs trips and create the different
+> structure maybe that should change. User should not have to select
+> distance."
+
+- **Built:** option A. On zero scoped results, run one widened search: no
+  suffix, no countrycodes, soft viewbox, spaced ≥1 s, with a stale guard.
+  Applies to autocomplete, typed-address submit, district outline, and the
+  approx-pin Nominatim step. Spec: `docs/shipped.md`, "Search widens on a
+  miss".
+- **Not built:** the §3B nearest-base filing rule, any distance setting,
+  a trip entity. All three are deferred to the trips/cities restructure
+  (`docs/backlog.md`). Filing is unchanged; see the trace in
+  `docs/shipped.md` for what a far-away pick does today.
+- The rest of this doc is the discovery as written. Its recommendation (B)
+  and §6 questions 1–3 are answered or deferred by the decision above.
+
 ## Summary (read this on a phone)
 
 1. **Why search misses:** each search is locked to one city. It adds that city's name to what you type and only allows its country, so other cities and countries get cut out.
