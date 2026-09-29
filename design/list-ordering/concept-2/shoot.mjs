@@ -29,11 +29,12 @@ async function shoot(p, v, out, sel = '.board') {
 }
 const p2 = await page(2);
 for (const [v, out] of [['A', 'A.png'], ['B', 'B.png'], ['C', 'C.png'], ['D', 'D.png'], ['film', 'filmstrip.png'],
-  ['pick', 'pick-A-byline.png'], ['Cwide', 'C-tag-long-city.png']]) await shoot(p2, v, out);
+  ['pick', 'pick-A-byline.png'], ['Cwide', 'C-tag-long-city.png'], ['compare', 'compare-A-B-D.png'], ['collapsed', 'pick-A-collapsed.png']]) await shoot(p2, v, out);
 const p3 = await page(3);
 await shoot(p3, 'flip', 'pick-A-flip-3x.png');
 await shoot(p3, 'flipReduced', 'pick-A-flip-reduced-3x.png');
 await shoot(p3, 'states', 'pick-A-states-3x.png');
+await shoot(p3, 'labels', 'pick-A-labels-3x.png');
 
 // measurements: hit zone by hit-testing, header height, list viewport
 await p2.goto(url('pick')); await p2.evaluate(() => document.fonts.ready);

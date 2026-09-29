@@ -33,6 +33,10 @@
      6 top pad + 18 to ink bottom + 44 zone. At 57px the same zone is
      only 27px -- measured, so "overlap the name's lower slack" alone
      can't reach 44.
+     rev 3 (CD round 2, subtraction): no fist, no colour, no fixed blank.
+     The byline is .row-meta exactly (10/12, --ink-2); the only mark is a
+     dotted underline hugging the mode word, in the same --ink-2.
+     (rev 2 text follows, superseded where it disagrees.)
      The mode word sits on a DOTTED BLANK -- a fill-in blank on a form,
      dots on the stamp track's rhythm -- so the line reads as a choice,
      not a status. "first" is printed; only the blank changes.
@@ -59,17 +63,16 @@
   .byline > * { position: relative; z-index: 2; }
   .byline:active::after, .byline.is-pressed::after { background: var(--paper-pressed); z-index: 0; }
   .byline:focus-visible::after, .byline.is-focus::after { outline: 2px solid var(--navy); outline-offset: -2px; }
-  .byline .fist { width: 17px; height: 10px; flex: none; color: var(--figure-deep); display: block; }
-  .byline .phrase { display: flex; align-items: baseline; gap: 0.45em; color: var(--navy); }
-  .blank { position: relative; display: inline-grid; height: 12px; perspective: 60px; padding: 0 2px; }
-  .blank > * { grid-area: 1 / 1; justify-self: center; }
-  .blank .sizer { visibility: hidden; }
-  .blank::after { /* the dotted blank: round dots, 3px pitch, navy at the stamp's 82% */
+  .byline .phrase { display: block; color: var(--ink-2); }
+  .blank { position: relative; display: inline-grid; height: 12px; perspective: 60px; vertical-align: top; }
+  .blank > * { grid-area: 1 / 1; justify-self: start; }
+  .blank::after { /* hugs the word: round dots, 3px pitch, --ink-2 (the meta line's own ink) */
     content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px;
-    background: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--navy) 82%, transparent) 0 0.75px, transparent 0.95px) 0 0 / 3px 2px repeat-x;
+    background: radial-gradient(circle at 1px 1px, var(--ink-2) 0 0.75px, transparent 0.95px) 0 0 / 3px 2px repeat-x;
   }
   .blank .word { display: block; transform-origin: 50% 55%; backface-visibility: hidden; }
   .phone.crop { height: 184px; }
+  .phone.collapsed .locations { transform: translateY(232px); }   /* 300 - 68: the band grows, so the offset shrinks */
   .phone.crop .locations { top: 0; bottom: auto; }
   .hdr3 { width: 390px; overflow: hidden; }
 
@@ -208,9 +211,8 @@ function frame(dir, mode, opts={}){
   const m = MODES[mode];
   let header, pre='', extra='', listTop='';
   if (dir==='A'){
-    const fist = `<svg class="fist" viewBox="0 0 34 20" aria-hidden="true"><use href="#g-fist"/></svg>`;
     const st = opts.state ? ' is-'+opts.state : '';
-    header = `${COLLAPSE}<div class="titleBlock">${H2('Reykjavík')}<button class="byline hitbox${st}" aria-label="List order: ${m.byline}. Tap to change.">${fist}<span class="phrase"><span class="blank"><span class="sizer" aria-hidden="true">${MODES.left.word}</span><span class="word cur">${m.word}</span>${opts.next?`<span class="word next">${MODES[opts.next].word}</span>`:''}</span><span>first</span></span></button></div>${FILTERS}${CENTER}`;
+    header = `${COLLAPSE}<div class="titleBlock">${H2('Reykjavík')}<button class="byline hitbox${st}" aria-label="List order: ${m.byline}. Tap to change."><span class="phrase"><span class="blank"><span class="word cur">${opts.word||m.word}</span>${opts.next?`<span class="word next">${MODES[opts.next].word}</span>`:''}</span> first</span></button></div>${FILTERS}${CENTER}`;
   } else if (dir==='B'){
     header = `${COLLAPSE}${H2('Reykjavík')}${FILTERS}${CENTER}`;
     pre = `<div class="tabs" role="tablist" aria-label="List order">${['left','starred','recent'].map(k=>`<button class="tab hitbox" role="tab" aria-selected="${k===mode}">${MODES[k].tab}</button>`).join('')}</div>`;
@@ -220,14 +222,14 @@ function frame(dir, mode, opts={}){
     header = `${COLLAPSE}${H2('Reykjavík')}${FILTERS}${CENTER}`;
     listTop = `<button class="rubric hitbox" aria-label="List order: ${m.rubric}. Tap to change."><span>Arranged &middot; <b>${m.rubric}</b></span></button>`;
   }
-  return `<div class="phone dir${dir} ${opts.hit?'hit':''} ${opts.crop?'crop':''}">${MAP}${pre}
+  return `<div class="phone dir${dir} ${opts.hit?'hit':''} ${opts.crop?'crop':''} ${opts.collapsed?'collapsed':''}">${MAP}${pre}
     <div class="locations"><div class="locationsHeader">${header}</div>
     <div class="locationsList">${listTop}${listHtml(opts.listMode||mode)}</div></div></div>`;
 }
 function cell(cap, sub, html){ return `<div class="cell"><p class="cap">${cap}</p><p class="sub">${sub}</p>${html}</div>`; }
 
 const DIRS = {
-  A: { name:'A · Byline', rest:'Header becomes a row: city name, and under it a byline with the order on a dotted blank. The byline (not the name) cycles.', change:'Tapped once: Starred first. The word flips on the blank; the name never changes. Band 68px.' },
+  A: { name:'A · Byline', rest:'Header becomes a row: city name, and under it one quiet meta line; the order word is dotted-underlined. The byline (not the name) cycles.', change:'Tapped once: Starred first. The word flips; the name never changes. Band 68px.' },
   B: { name:'B · Index tabs', rest:'Ledger thumb-tabs standing on the sheet’s top edge, over the map. All three visible; tap picks.', change:'Starred tab picked; it joins the page.' },
   C: { name:'C · Luggage tag', rest:'A tag hung in the header’s icon row, naming the order. Tap cycles.', change:'Tapped once: Starred.' },
   D: { name:'D · Rubric', rest:'A printed caption heading the ledger, inside the list. Scrolls away with it. Tap cycles.', change:'Tapped once: Starred first.' },
@@ -235,23 +237,24 @@ const DIRS = {
 
 /* THE FLIP (concept timing). Tap release -> old word folds away on its
    top-bottom axis (110ms, ease-in), the list reorders at the fold, the
-   new word unfolds onto the same dotted blank (150ms, ease-out); the fist
-   nudges 2px toward it. 260ms total. The blank and "first" never move.
+   new word unfolds onto the dotted underline (150ms, ease-out). 260ms
+   total. rev 3: no fist nudge; the underline takes the new word's width
+   at the fold ("first" shifts with it -- smoothing that is execution).
    Reduced motion: 120ms crossfade, no rotation, no nudge. */
 const FLIP = { OUT: 110, IN: 150, NUDGE: 260 };
 function flip(btn, reduced){
-  const cur = btn.querySelector('.word.cur'), nxt = btn.querySelector('.word.next'), fist = btn.querySelector('.fist');
+  const cur = btn.querySelector('.word.cur'), nxt = btn.querySelector('.word.next');
   if (reduced) return [
     cur.animate([{opacity:1},{opacity:0}], {duration:120, fill:'forwards'}),
     nxt.animate([{opacity:0},{opacity:1}], {duration:120, fill:'both'}) ];
   return [
     cur.animate([{transform:'rotateX(0deg)', opacity:1},{transform:'rotateX(90deg)', opacity:.35}], {duration:FLIP.OUT, easing:'cubic-bezier(.55,0,.9,.45)', fill:'forwards'}),
-    nxt.animate([{transform:'rotateX(-90deg)', opacity:.35},{transform:'rotateX(0deg)', opacity:1}], {duration:FLIP.IN, delay:FLIP.OUT, easing:'cubic-bezier(.15,.75,.3,1)', fill:'both'}),
-    fist.animate([{transform:'translateX(0)'},{transform:'translateX(2px)', offset:.45},{transform:'translateX(0)'}], {duration:FLIP.NUDGE, easing:'ease-in-out'}) ];
+    nxt.animate([{transform:'rotateX(-90deg)', opacity:.35},{transform:'rotateX(0deg)', opacity:1}], {duration:FLIP.IN, delay:FLIP.OUT, easing:'cubic-bezier(.15,.75,.3,1)', fill:'both'}) ];
 }
 window.flipLive = async () => {           // real-time run, sampled per rAF
   const btn = document.querySelector('.live .byline');
   const anims = flip(btn, false), t0 = performance.now(), samples = [];
+  setTimeout(() => { btn.querySelector('.word.cur').style.visibility = 'hidden'; }, FLIP.OUT);   // fold: underline takes the new word's width
   let raf; const tick = () => { samples.push([+(performance.now()-t0).toFixed(1), getComputedStyle(btn.querySelector('.word.cur')).transform, getComputedStyle(btn.querySelector('.word.next')).transform]); raf = requestAnimationFrame(tick); };
   tick();
   await Promise.all(anims.map(a => a.finished));
@@ -280,17 +283,23 @@ if (DIRS[view]){
   const T = [0, 55, 100, 135, 180, 260];
   const lab = {0:'0 ms · press', 55:'55 ms · folding', 100:'100 ms · edge-on', 135:'135 ms · list reordered, unfolding', 180:'180 ms', 260:'260 ms · settled'};
   root.innerHTML = `<div class="board">${T.map(t=>cell(lab[t], '', frame('A','left',{crop:true, next:'starred', listMode: t>=FLIP.OUT?'starred':'left', state: t<100?'pressed':''}))).join('')}</div>`;
-  document.querySelectorAll('.phone').forEach((ph,i)=>{ flip(ph.querySelector('.byline'), false).forEach(a=>{ a.pause(); a.currentTime = T[i]; }); });
+  document.querySelectorAll('.phone').forEach((ph,i)=>{ flip(ph.querySelector('.byline'), false).forEach(a=>{ a.pause(); a.currentTime = T[i]; }); if (T[i] >= FLIP.OUT) ph.querySelector('.word.cur').style.display = 'none'; });
 } else if (view==='flipReduced'){
   const T = [0, 60, 120];
   root.innerHTML = `<div class="board">${T.map(t=>cell('reduced motion · '+t+' ms','',frame('A','left',{crop:true, next:'starred', listMode: t>=60?'starred':'left'}))).join('')}</div>`;
-  document.querySelectorAll('.phone').forEach((ph,i)=>{ flip(ph.querySelector('.byline'), true).forEach(a=>{ a.pause(); a.currentTime = T[i]; }); });
+  document.querySelectorAll('.phone').forEach((ph,i)=>{ flip(ph.querySelector('.byline'), true).forEach(a=>{ a.pause(); a.currentTime = T[i]; }); if (T[i] >= 120) ph.querySelector('.word.cur').style.display = 'none'; });
 } else if (view==='states'){
   root.innerHTML = `<div class="board">
     ${cell('Resting','',frame('A','left',{crop:true}))}
     ${cell('Pressed','Byline zone only; the name never presses.',frame('A','left',{crop:true, state:'pressed'}))}
     ${cell('Keyboard focus','Ring on the byline zone.',frame('A','left',{crop:true, state:'focus'}))}
-    ${cell('Hit zone','244 × 44, from the name’s ink bottom.',frame('A','left',{crop:true, hit:true}))}</div>`;
+    ${cell('Hit zone','From the name’s ink bottom to the band’s edge.',frame('A','left',{crop:true, hit:true}))}</div>`;
+} else if (view==='labels'){
+  root.innerHTML = `<div class="board">${["What’s left","Unvisited","Still to see"].map(w=>cell('Default label · “'+w+' first”','',frame('A','left',{crop:true, word:w}))).join('')}</div>`;
+} else if (view==='collapsed'){
+  root.innerHTML = `<div class="board">${cell('A · collapsed sheet','Band 68px on screen; byline visible and tappable (offset 300−68 = 232px).',frame('A','left',{collapsed:true}))}${cell('A · collapsed, hit zone','',frame('A','left',{collapsed:true, hit:true}))}</div>`;
+} else if (view==='compare'){
+  root.innerHTML = `<div class="board">${cell('A · Byline (pick)','Resting.',frame('A','left'))}${cell('B · Index tabs','Resting.',frame('B','left'))}${cell('D · Rubric','Resting.',frame('D','left'))}</div>`;
 } else if (view==='live'){
   root.innerHTML = `<div class="board live">${frame('A','left',{next:'starred'})}</div>`;
 } else if (view==='Cwide'){

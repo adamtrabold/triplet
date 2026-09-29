@@ -18,9 +18,9 @@ how. Nothing is built, and `index.html` is untouched.
 
 **(4) Assumptions the owner should confirm:**
 1. The "header for sort" objection was about the **city name** (replacing it, or being it), not about the header band as a whole. In the pick, the name is neither the control nor changed; the order gets its own line under it. If the objection was to the whole band, D is the fallback.
-2. The mode labels read as an order, not a filter: **"What's left first / Starred first / Newest first"**. "Recent" becomes "Newest first", and "Starred" gains "first" so it doesn't read as "only starred". **Flag:** "What's left first" is slightly clumsy; a better phrase for the default is welcome, as long as it still fits the blank.
+2. The mode labels read as an order, not a filter: **"What's left first / Starred first / Newest first"**. "Recent" becomes "Newest first", and "Starred" gains "first" so it doesn't read as "only starred". **Default label, owner's pick:** "What's left first" (slightly clumsy), "Unvisited first", or "Still to see first". All three are shown in `pick-A-labels-3x.png`.
 3. The three modes and §6.1's keys stand as proposed (What's Left, Starred 2b, Recent), with alphabetical tiebreaks. The prototype uses those keys.
-4. The header band grows from 57 to **68px** (the list viewport goes from 243 to 232px, about 0.2 row) so the byline alone gets a 44px target. See §3.
+4. The header band grows from 57 to **68px** (the list viewport goes from 243 to 232px, about 0.2 row) so the byline alone gets a 44px target. The collapsed band grows with it. See §3.
 
 ## 1. Directions
 
@@ -28,34 +28,35 @@ All frames are 390px at 2x, built from `index.html`'s real CSS copied verbatim (
 
 | | Mechanism | Measured |
 |---|---|---|
-| **A · Byline (PICK)** | The header becomes a row. The city name stays as it is, and under it sits a 10px byline in the rows' own voice: ☞ <u>WHAT'S LEFT</u> FIRST, with the mode word on a dotted fill-in blank. Tapping the **byline** (never the name) flips the word to the next mode. The ☞ is a printer's fist (manicule), the Baedeker star's sibling from the same printed guidebooks, in `--figure-deep`. | Band **68px** (was 57). Byline hit zone **244×44**, starting at the name's ink bottom. 0 of 1120 probes over the name's ink hit the control. The h2 keeps its full 230px width. |
+| **A · Byline (PICK)** | The header becomes a row. The city name stays as it is, and under it sits one quiet line exactly like a row's meta line (10px, `--ink-2`): <u>WHAT'S LEFT</u> FIRST. Only the mode word gets a dotted underline. Tapping the **byline** (never the name) flips the word to the next mode. | Band **68px** (was 57). Byline hit zone **244×44**, starting at the name's ink bottom. 0 of 1120 probes over the name's ink hit the control. The h2 keeps its full 230px width. |
 | B · Index tabs | Three ledger thumb-tabs stand on the sheet's top edge, over the map. The picked tab joins the page. | Tabs hit 44–45px tall. |
 | C · Luggage tag | A tag hung in the header icon row, naming the mode. A tap cycles. | Hit 104×44. The h2 drops to **128px**, so every city name gets an ellipsis: Reykjavík needs 139, Copenhagen 166, "All cities (120)" 153 (`C-tag-long-city.png`). |
 | D · Rubric | A printed caption, "ARRANGED · WHAT'S LEFT FIRST", at the head of the list. It scrolls with the list. A tap cycles. | 390×44. Costs 44 of the list's 243px viewport (about 0.8 row). |
 
-## 2. Pick: A · Byline (rev 2, after CD round 1: 8/10)
+## 2. Pick: A · Byline (rev 3: subtraction pass after CD round 2, 7/10)
 
-**Why:** every row already reads as a name plus a meta line, so a header that says "Reykjavík list" and underneath "☞ ___ first" is the one place the order could live that feels inevitable. The dotted blank makes it read as a choice, the flip teaches the loop on the first tap, and the city name is never touched, neither as text nor as a button.
+**Why:** every row already reads as a name plus a meta line. So the header becomes "Reykjavík list" with one more meta line under it, saying how the list is ordered. At rest it looks like today's header plus one quiet line. The dotted underline under the mode word is the only sign that it is a choice, and the flip on the first tap teaches the loop.
 
-**Changes in rev 2:**
-1. **The name is not the button.** The control is the byline alone. Its hit zone, press state (`--paper-pressed`) and focus ring start at the name's measured ink bottom and run to the band's bottom edge. The h2 has `pointer-events: none`, so its glyphs never press.
-   - To reach 44px, I chose **growing the band to 68px** over "overlap only the name's lower slack", because the slack option can't reach 44. The measurements: "(8)" descends to line top +18px. At the old 57px band, the zone from the ink bottom down is only 27px. At 64px it would be 40px, still short. At 68px (6 top pad + 18 + 44) it is exactly 44.
-   - The zone also reaches 8px left into the gap after the collapse button and 6px right, stopping short of the filters button (zone 48→291 vs collapse ending at 44 and filters starting at 298).
-2. **It reads as a choice.** The mode word sits on a dotted blank: round dots, 3px pitch, navy at the stamp's 82% ink, echoing the VISITED track. "first" is printed plain. The blank is as wide as the widest word ("What's left"), so "first" never moves and a shorter word sits centred on it, like a filled-in form. There are no chevrons or pips; the ☞ is still the only decoration.
-3. **The flip is part of the concept.** On tap release:
-   - The old word folds away on its horizontal axis (rotateX 0→90°, 110ms, ease-in).
-   - The list reorders at the fold, while the word is edge-on.
-   - The new word unfolds onto the same blank (−90→0°, 150ms, ease-out).
-   - The fist nudges 2px toward it (260ms).
+**Subtracted in rev 3:**
+- **No ☞.** At 1x it was the loudest mark in the header, and its rust was close to the restaurant ink.
+- **Nothing coloured.** The byline is `.row-meta` exactly: 10/12px, condensed caps, `--ink-2`. The dotted underline is `--ink-2` too, with round dots at a 3px pitch echoing the VISITED track.
+- **No fixed-width blank.** The underline hugs just the mode word, with normal word spacing, so "STARRED FIRST" reads as one phrase. "first" shifts with the word's width between modes; smoothing that is execution work, not a gap.
 
-   Total designed time is **260ms**. A live Chromium run measured **278ms to `finished`** over 17 rAF samples; the extra is about one frame of start latency, with the first sample still at rest at 12.7ms. Seeing the word physically turn over on a fixed blank is what teaches "this cycles", and the second tap confirms it. Reduced motion uses a 120ms crossfade with no rotation or nudge.
+**Kept from rev 2:**
+- **The name is not the button.** The hit zone, press state and focus ring belong to the byline alone. The zone runs from the name's measured ink bottom to the band's edge, and the h2 has `pointer-events: none`.
+- **68px band.** At 57px the zone below the name's ink is only 27px (the "(8)" parens descend to line top +18px), and at 64px only 40px. At 68px it is exactly 44.
+- **The flip.** The old word folds away (rotateX 0→90°, 110ms, ease-in). The list reorders at the fold, where the underline takes the new word's width. The new word unfolds (−90→0°, 150ms, ease-out). The designed total is 260ms; a live Chromium run measured 268ms to `finished` over 17 rAF samples. Reduced motion uses a 120ms crossfade.
 
 **Files:**
+- `pick-A-header-1x.png`: true size, and the priority frame.
+- `pick-A-header-4x.png`: close-up crop.
 - `pick-A-byline.png`: three modes plus the hit zone.
 - `pick-A-flip-3x.png`: motion filmstrip at 0/55/100/135/180/260ms, seeked on the real WAAPI animation.
 - `pick-A-flip-reduced-3x.png`: the reduced-motion version.
 - `pick-A-states-3x.png`: resting, pressed, focus and hit zone.
-- `pick-A-header-4x.png` and `pick-A-header-1x.png`: legibility crops.
+- `pick-A-collapsed.png`: the collapsed sheet, with and without the hit zone.
+- `pick-A-labels-3x.png`: the three default-label options.
+- `compare-A-B-D.png`: plain resting frames of A, B and D side by side.
 
 **Rejected:**
 - **B tabs:** showing all three options is the most obvious choice, but tabs read as *sections or filters*, which is the wrong promise for a reorder. They also add a permanent band over the map, and they collide with `#filtersPanel`, which slides up to that exact edge.
@@ -64,19 +65,26 @@ All frames are 390px at 2x, built from `index.html`'s real CSS copied verbatim (
 
 ## 3. Concept-level UX self-check (A)
 
-- **Tap target:** 244×44px, measured by hit-testing. The name's ink box gives 0 hits (0/1120 probes).
+- **Tap target:** 244×44px, measured by hit-testing. The name's ink box gives 0 hits (0/1120 probes). The zone spans x 48→291, clear of the collapse button (ends at 44) and the filters button (starts at 298).
 - **Row gestures and scroll:** no conflict. The control is in the header, and the star-right and visit-left swipes and vertical scroll are bound to `.location-card` / `#locationsList`. There are no header handlers today (UX check).
 - **DOM:** the byline is a **sibling** of the `<h2>`, because `updateUI()` (index.html ~3921) rewrites the h2's `textContent` on every render and would erase anything nested inside it.
-- **Collapse:** the byline stays visible on the collapsed band, so the order is legible even when the sheet is down. The collapse offset must follow the new band height (68 instead of 60 on screen); that's execution work.
-- **a11y:** a real `<button>` labelled "List order: Starred first. Tap to change.". It sits after the h2 in DOM order, with a focus ring on the zone. Text is `--navy` (12.51:1). The fist is a non-text mark in `--figure-deep` with `aria-hidden`.
+- **Collapsed sheet (required, from UX):** the collapsed geometry assumes a 60px band in four places, and all of them must grow with the header so the byline stays visible and tappable when collapsed:
+  - `#locations.collapsed`'s `translateY(240px − safe area)` (index.html:938) becomes 300 − band.
+  - `#mainContent.sheet-collapsed`'s `100lvh − 60px` (470–471).
+  - `#filtersPanel.collapsed-mode`'s `60px` (793–794).
+  - The explanatory comment at 909.
+
+  Make the band a single variable (for example `--sheet-band`) rather than four literals. `pick-A-collapsed.png` shows the result: offset 232px, the byline on screen and its zone intact.
+- **a11y:** a real `<button>` labelled "List order: Starred first. Tap to change.". It sits after the h2 in DOM order, with a focus ring on the zone. The text is `--ink-2` (6.17:1).
 - **List rule:** all modes are pure reorders of `visibleLocations()`. Nothing is hidden.
 
 ## 4. Execution notes (for the perfection stage, not scored here)
 
-- **Recovery from a stray tap:** the cycle only goes forward and has three steps, so the worst case is two more taps back, and the byline always names the current mode. That seems enough: a stray tap costs nothing, since the order is only a view. I don't recommend long-press-to-go-back, which would be invisible. The list keeps its scroll position, and the tapped row isn't involved.
-- **Persistence:** I recommend persisting the last mode per device in `localStorage` (try/catch, falling back to What's left first). It's view state, not shared data, and on the ground the owner reopens the app many times a day. Resetting on every open would fight their choice.
-- **Announcement:** a visually hidden `aria-live="polite"` region should announce "Order: Starred first" after each change. The button's label updates too, but VoiceOver doesn't re-read a focused button's label on its own.
-- **Desktop rail:** `#locationsHeader::before` stands in for the hidden collapse button (28px), so the title block, and therefore the byline, start on the 56px spine. The byline's left hit extension (−8px) runs into that spacer's gap, which is harmless. Check that the band height and the fist sit on the spine at 1x.
-- **The fist:** at 1x it reads as a small rust blob and needs a redraw (or a sharper silhouette). Its `--figure-deep` rust (#A8400C in Reykjavík) is also close to the **restaurant** category ink (#AC5019). Consider `--ink-2` or navy for the fist, or accept it, because it never sits beside a restaurant badge.
-- **Band balance:** at 68px the byline sits slightly high, with more air below it than above the name. That air is the hit zone. Tune the byline's margin at 3x/1x.
-- **Timing:** the 110+150ms flip and the list reorder happening at the fold need a real-device check. Reordering a long list at the fold (§6.3) also needs measuring.
+- **Recovery from a stray tap:** the cycle only goes forward and has three steps, so the worst case is two more taps back, and the byline always names the current mode. A stray tap costs nothing, since the order is only a view. I don't recommend long-press-to-go-back, which would be invisible. The list keeps its scroll position.
+- **Persistence:** I recommend persisting the last mode per device in `localStorage` (try/catch, falling back to the default mode). It's view state, not shared data, and on the ground the owner reopens the app many times a day.
+- **Announcement:** a visually hidden `aria-live="polite"` region should announce "Order: Starred first" after each change. VoiceOver doesn't re-read a focused button's label on its own.
+- **Desktop rail:** `#locationsHeader::before` stands in for the hidden collapse button (28px), so the byline starts on the 56px spine. Check at 1x.
+- **"first" shifting** between modes as the word's width changes: consider animating it, or accept it. Don't reintroduce a gap.
+- **Band balance:** at 68px there is more air below the byline than above the name. That air is the hit zone. Tune at 3x/1x.
+- **Timing:** the flip and the list reorder at the fold need a real-device check. Reordering a long list (§6.3) also needs measuring.
+- **Superseded:** the rev 2 ☞ and its rust/restaurant clash are gone. If any mark ever returns, it needs a colour that isn't a category ink.
