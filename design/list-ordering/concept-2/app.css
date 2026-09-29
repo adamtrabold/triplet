@@ -1,0 +1,555 @@
+/* VERBATIM from index.html -- see extract-css.py. Do not hand-edit. */
+    :root {
+      /* BOTTOM CHROME. The sheet and map are absolute layers inside a
+         100lvh body (not position:fixed -- see the html/body rule), so the
+         sheet's box runs to the physical bottom edge: behind Safari's
+         translucent toolbar in a tab, behind the home indicator from the
+         Home Screen. --chrome-bottom is the TOOLBAR's height (100lvh - 100dvh
+         in a tab, ~100px; 0 on desktop and from the Home Screen);
+         --sheet-under is everything the sheet's box runs under (toolbar +
+         home-indicator inset). Content that must stay usable is kept above
+         it; only paper runs behind. */
+      --chrome-bottom: 0px;
+      --sheet-under: calc(var(--chrome-bottom) + env(safe-area-inset-bottom, 0px));
+
+      /* TOP CHROME, for the icons only. env(safe-area-inset-top) reflects
+         the physical notch/Dynamic-Island cutout on ANY launch (tab or
+         standalone) -- viewport-fit=cover always reports it, it isn't a
+         standalone-only signal the way the --chrome-bottom toolbar height
+         is. In STANDALONE (Home Screen) the map paints under the status
+         bar (see the head comment + navigator.standalone class), so the
+         floating icons need the inset to clear that colored bar. In a
+         PLAIN TAB, Safari's own opaque toolbar already occupies that
+         strip -- there is no colored bar to clear there, so adding the
+         same inset would just pad the icons down for nothing. This is
+         therefore the OPPOSITE default from --chrome-bottom (which starts
+         nonzero and gets pinned to 0 in standalone): --chrome-top-inset
+         starts at 0px and only picks up the real inset once we know we're
+         in standalone. Only for the icons (#floatingAddBtn/#accountBtn/
+         #accountDropdown) -- other env(safe-area-inset-top) call sites in
+         this file are about clearing the physical notch itself (the error
+         banner, the add-form controls panel, Leaflet's zoom control), not
+         about a colored status bar, so they keep the unconditional inset
+         and are left alone. */
+      --chrome-top-inset: 0px;
+
+      /* ---- Paper & ink (fixed) ---------------------------------------- */
+      --paper:        #F2EBDD;   /* oat ground                              */
+      --paper-raised: #FAF5EA;   /* one step up: chips, fields */
+      --paper-pressed: #DCD3C3;  /* pressed row, visited or not: --paper's hue,
+                                    pressed IN, not lit up. One more equal
+                                    step down the ladder paper -> filed ->
+                                    pressed (1.12:1, 1.12:1; 1.25:1 from
+                                    paper). ink 11.74, ink-2 4.93, stamp 6.37. */
+      --paper-warm:   #F4E6DA;   /* reversed secondary text on --figure-deep:
+                                    4.65:1 Stockholm .. 5.05:1 Reykjavik */
+      --navy:         #12293F;   /* the frame, the cold north -- 12.51:1     */
+      --ink:          #1A1A18;   /* body text -- 14.69:1 on --paper          */
+      --ink-2:        #5A564C;   /* metadata + EVERY category label -- 6.17:1 */
+      --hair:         #D8CEBA;   /* 1px rules, dashed borders               */
+      --paper-filed:  #E7DFD0;   /* visited-row field: --paper one
+                                    value step down, hue and chroma held
+                                    (LCh 89.1/8.3/89 vs paper 93.2/7.6/90):
+                                    an older page, not a greyer one.
+                                    1.12:1 vs --paper.
+                                    DIAL, if too faint on device: #E3DBCC
+                                    (1.16:1) TOGETHER WITH
+                                    .location-card.is-visited
+                                    { border-bottom-color: #CBC0A9 } --
+                                    on #E3DBCC --hair falls to 1.14:1 and
+                                    runs slab together; #CBC0A9 restores
+                                    1.31:1. Change both or neither. */
+
+      /* ---- Per-city accent (rewritten by applyCityPalette()) -----------
+         --figure       carries NAVY type, or sits against navy. Clears
+                        4.5:1 on --navy in all five cities (4.58 LA ..
+                        6.63 Malmo). NEVER text on paper (2.46:1).
+         --figure-deep  carries PAPER type. Clears 4.5:1 on --paper in all
+                        five cities (4.79 Stockholm .. 5.20 Reykjavik).
+         Neither may be nudged without re-running BOTH checks: Reykjavik's
+         --figure clears AA on navy by only 0.14.                          */
+      --figure:      #EE7434;
+      --figure-deep: #A8400C;
+
+      /* ---- 4px spacing scale ------------------------------------------ */
+      --s1: 4px;  --s2: 8px;   --s3: 12px;  --s4: 16px;
+      --s6: 24px; --s8: 32px;  --s12: 48px;
+
+      /* ---- The grid spine ----------------------------------------------
+         28px glyph | 1fr content | action. The 28px glyph column is the
+         app's alignment spine: row glyphs, the sheet header's chevron,
+         form labels and modal headers all start on it. Content therefore
+         always begins at 16 + 28 + 12 = 56px.                             */
+      --col-glyph:  28px;
+      --col-action: 28px;   /* ONE control -- delete is the row's only
+                               action. Visited SHOWS here as a
+                               non-interactive stamp (.row-stamp) but is
+                               toggled in the popup (buildPopupHtml()),
+                               where directions also lives. */
+      --gap:    12px;
+      --gutter: 16px;
+
+      --font-ui: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .caps {
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .locations {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(300px + var(--chrome-bottom));
+      background: var(--paper);
+      z-index: 1000;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+      will-change: transform;
+      display: flex;
+      flex-direction: column;
+      /* NO horizontal padding: rows carry their own 16px gutter so the
+         highlighted row can bleed edge-to-edge while its content stays on
+         the grid spine. */
+      padding: 0;
+    }
+
+    .locations.collapsed {
+      /* ...minus the safe area, so the bar clears the home indicator the way
+         the old `bottom: env(...)` did. */
+      transform: translateY(calc(240px - env(safe-area-inset-bottom, 0px)));
+    }
+
+    .locationsList {
+      overflow-y: auto;
+      flex: 1;
+      position: relative;
+      mask-image: none;
+      -webkit-mask-image: none;
+      transition: mask-image 0.3s ease, -webkit-mask-image 0.3s ease;
+    }
+
+    .locationsList.scrolling {
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 20px, black 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20px, black 100%);
+    }
+
+    /* Lets the last row scroll fully clear of the toolbar/home indicator. */
+    .location-list-spacer {
+      height: var(--sheet-under);
+      flex-shrink: 0;
+    }
+
+    .locations.collapsed .locationsList {
+      display: none;
+    }
+
+    /* Same surface as the list body -- --paper, not the per-city --figure
+       field. Navy text on paper is 12.51:1, comfortably AA regardless of
+       which city's palette is active.
+       The h2 title's left edge matches every row's name: collapseBtn is
+       resized to --col-glyph (28px, see its own rule) so it occupies the
+       identical leading slot a row's glyph column does -- gutter(16) +
+       col-glyph(28) + gap(12) = 56px, same formula as "content always
+       begins at 56px" above. On the desktop rail collapseBtn is display:none
+       (see the min-width:900px block), so a ::before spacer of the same
+       width stands in for it there -- the title lands on 56px either way. */
+    .locationsHeader {
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+      flex-shrink: 0;
+      /* REAL vertical inset, not height-driven flex centring: this band
+         paints a background AND a rule on the bottom edge, so its text
+         needs measured clearance rather than whatever centring happens to
+         leave. 12 + 32 + 12 = 56px content box, + the 1px rule below. */
+      min-height: 56px;
+      padding: var(--s3) var(--gutter);
+      background: var(--paper);
+      color: var(--navy);
+      border-bottom: 1px solid var(--hair);
+    }
+
+    .locationsHeader h2 {
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 15px;
+      line-height: 20px;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin: 0;
+      flex: 1;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .collapseBtn,
+    .toggleFiltersBtn,
+    .centerMeBtn {
+      background: transparent;
+      border: none;
+      color: var(--navy);
+      /* 32px square: sits inside the header's 12px inset without pushing the
+         bar taller, and stays a usable tap target. */
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    /* Alignment spine: collapseBtn is the header's leading item, same slot a
+       row's glyph column occupies (--col-glyph 28px, not the shared 32px
+       button size above) so 16 (gutter) + 28 + 12 (gap) = 56px lines up the
+       title's text with every row's name -- see the header/desktop rules
+       below for the matching gutter+col-glyph+gap math on the collapsed
+       (desktop-rail) state, where this button is hidden. */
+    .collapseBtn { width: var(--col-glyph); height: var(--col-glyph); font-size: 14px; line-height: 1; transition: transform 0.3s ease; }
+    .collapseBtn.collapsed { transform: rotate(-180deg); }
+
+    .collapseBtn:active,
+    .toggleFiltersBtn:active,
+    .centerMeBtn:active { opacity: 0.55; }
+
+    .toggleFiltersBtn.active { opacity: 0.55; }
+    .centerMeBtn.loading { opacity: 0.4; }
+
+    /* =====================================================================
+       LEDGER ROWS
+       Flush 56px rows on paper, 1px rules between, no gap/shadow/radius.
+       The old card burned ~40% of the 300px sheet on chrome; this shows
+       ~5.3 rows where it showed ~3.5, and reads MORE ordered, not less.
+       Grid: 28px glyph | 1fr content | action cluster.
+       ===================================================================== */
+    .location-card {
+      display: grid;
+      grid-template-columns: var(--col-glyph) 1fr auto;
+      column-gap: var(--gap);
+      align-items: center;
+      min-height: 56px;
+      padding: var(--s2) var(--gutter);
+      background: var(--paper);
+      border-bottom: 1px solid var(--hair);
+      transition: background 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* DONE -- visited rows recede so what's LEFT reads first. One move:
+       the row's field steps down to --paper-filed; every ink stays as it
+       is, so the row never reads disabled (name 13.17:1, meta and delete
+       5.53:1, stamp 6.92:1, --hair rule 1.18:1 on the field -- all
+       measured for #E7DFD0).
+       Two cues, not one redundant one: the field is the ROW-level cue
+       (peripheral vision, mid flick-scroll); the stamp is the POINT-level
+       cue and the non-colour one (WCAG 1.4.1). Keep both.
+       Darker, never lighter: a lighter field advances visited rows and
+       collides with --paper-raised, the press state.
+       Order matters: this sits ABOVE the press rule (same specificity --
+       press wins) and the .highlighted block (focus wins). The badge's
+       disc goes transparent so it follows whichever field is showing.
+       Shape rows have no visited state and stay on --paper by design. */
+    .location-card.is-visited { background: var(--paper-filed); }
+    .location-card.is-visited .row-badge { --badge-field: transparent; }
+
+    /* Press state is a background change only. `scale(0.98)` is deliberately
+       GONE: scaling a flush ruled row looks broken where scaling a floating
+       card looked fine.
+       Pressed IN, never lit up: one value for every row, darker than both
+       resting fields, so a press can't be read as "visited" (filed) and
+       doesn't flash. Beats .is-visited on equal specificity by coming
+       after it; .highlighted still wins (it comes later again). */
+    .location-card:active,
+    .location-card.active {
+      background: var(--paper-pressed);
+    }
+
+    /* The badge follows `color`, so the reversed block below can flip the
+       whole thing to paper without a re-render. The inline style sets only
+       the custom property, so these rules still cascade normally. */
+    .row-badge {
+      width: var(--col-glyph);
+      height: var(--col-glyph);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--row-ink, var(--ink-2));
+      --badge-field: var(--paper);
+    }
+
+    .row-badge svg { display: block; }
+
+    .row-main { min-width: 0; }
+
+    /* VISITED STAMP -- a passport arrival stamp in the action column.
+       Only renders when visited: silence is the unvisited state (an
+       always-on hollow marker read as clutter). The fixed x of the action
+       column is what makes it scannable -- a column of stamps down the
+       right edge.
+
+       Shape: the solid ring is a plain border-radius:50% CSS border --
+       constant-width by construction; SVG-stroked ovals read as
+       variable-width at this size (design/visited-badge/NOTES.md). The
+       perforated track is NOT a second CSS oval: an ellipse inset from an
+       ellipse is not a parallel curve (the gap pinched and swelled by
+       ~1.6px) and a dotted border leaves a seam at its start. It is a
+       static SVG mask of round dots on a path tuned to the ring's
+       parallel curve -- see --stamp-track below. That doesn't break the
+       ring rule: zero-length round-cap dashes render as discs, not a
+       continuous stroke, so there is no stroke width to vary. Ring 2px =
+       badgeHtml()'s rim; type = .row-meta's voice at .caps tracking,
+       caps centred with text-box.
+
+       Ink, not a component: navy at 82% (7.48:1 on --paper, 7.94:1
+       pressed) lets the paper tone through, so the place name wins the
+       first read and the stamp wins the scan. No mix-blend-mode: it was
+       visually inert here and forces a stacking context that can soften
+       rotated 10px text on iOS.
+
+       32px tall inside the row's 39px content box -- can never grow the
+       row. No margin-right of its own: the stamp-to-delete gap is now a
+       single var(--s1) (4px), owned entirely by .location-actions's flex
+       gap (owner, 2026-09-28: "closer to the X, it's not interactive" --
+       decorative and pointer-events:none, so this carries no tap-target
+       risk for the stamp itself; the pre-existing note about the
+       delete button's OWN touch-adjustment overrun is unrelated and
+       still tracked separately in CLAUDE.md). Was margin-right: var(--s2)
+       (8px) stacked on the flex gap (12px combined) -- see vs-carry's
+       `right: calc(...)` below, which keyed off this same margin and
+       still resolves correctly now that it's gone. Non-interactive and
+       aria-hidden: the .sr-only span in .row-meta stays the ONE source
+       screen readers get. */
+    .row-stamp {
+      position: relative;
+      flex-shrink: 0;
+      width: calc(var(--s6) * 3);          /* 72 */
+      height: var(--s8);                   /* 32 */
+      color: var(--navy);                  /* no color-mix() support */
+      color: color-mix(in srgb, var(--navy) 82%, transparent);
+      /* Per-place angle from stampTilt(loc.id), +-2..+-5deg. Rotation
+         is about the centre, so the column's x never moves. */
+      transform: rotate(var(--stamp-tilt, -3deg));
+      pointer-events: none;
+      /* Perforated track: 84 round dots on a rounded-rect path tuned to
+         the ring's parallel curve (max deviation 0.108px vs 0.307px for a
+         concentric ellipse). Dots are spaced by arc length, starting at
+         top-centre, with no start/end seam. 1x: 32 dashes on the same path.
+         pathLength='166.29' deliberately equals the path's measured
+         length, with both dasharrays in real units (dots 0 1.9797 =
+         166.29/84; 1x 3.118 2.079, offset 1.559 = 166.29/32): engines that
+         honour pathLength get exact spacing, engines that ignore it still
+         get ~correct spacing instead of a solid line. If the path changes,
+         re-measure it with getTotalLength() and update the path, the
+         pathLength and BOTH dasharray values together.
+         Path geometry assumes .row-stamp 72x32 and .row-stamp-ring at
+         inset var(--s1) + 2px border -- change both together. Derivation,
+         radius search and the JS-generated fallback: design/visited-badge/. */
+      --stamp-track: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 32'%3E%3Cpath d='M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z' fill='none' stroke='%23000' stroke-width='1.1' stroke-linecap='round' pathLength='166.29' stroke-dasharray='0 1.9797'/%3E%3C/svg%3E");
+      --stamp-track-1x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 32'%3E%3Cpath d='M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z' fill='none' stroke='%23000' stroke-width='1.25' pathLength='166.29' stroke-dasharray='3.118 2.079' stroke-dashoffset='1.559'/%3E%3C/svg%3E");
+    }
+
+    /* The perforated track: currentColor through the dot mask. The
+       fallback is a fully transparent mask -- if the track is ever
+       missing, the stamp loses its dots, never becomes a solid block. */
+    .row-stamp::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      -webkit-mask: var(--stamp-track, linear-gradient(transparent, transparent)) 0 0 / 100% 100% no-repeat;
+      mask: var(--stamp-track, linear-gradient(transparent, transparent)) 0 0 / 100% 100% no-repeat;
+    }
+
+    .row-stamp-ring {
+      position: absolute;
+      inset: var(--s1);                    /* ring box 64x24 -- see --stamp-track */
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 0.08em;                /* re-centres trailing tracking */
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Centre the CAPS, not the line box: text-box trims the word to
+       cap-height..baseline, so flex centring centres the ink itself.
+       Browsers without text-box ignore it and sit ~0.4px high. */
+    .row-stamp-word { text-box: trim-both cap alphabetic; }
+
+    /* Rendering fallback, not a second design: at 1 device px per CSS px
+       dots this small rasterise to grey haze that reads as an
+       anti-aliasing fault. Dashes on the same path survive. The
+       -webkit- twin covers Safari on a 1x external display. */
+    @media (max-resolution: 1dppx), (-webkit-max-device-pixel-ratio: 1) {
+      .row-stamp::before {
+        -webkit-mask-image: var(--stamp-track-1x, linear-gradient(transparent, transparent));
+        mask-image: var(--stamp-track-1x, linear-gradient(transparent, transparent));
+      }
+    }
+
+    /* An absolute-positioned, zero-size clip -- the standard visually-hidden
+       pattern. Screen-reader-only text lives here so sighted and
+       non-sighted users get the same visited signal from one source. */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .location-card h3 {
+      font-size: 15px;
+      line-height: 20px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* PRIORITY STAR -- the Baedeker star. Guidebooks printed a star
+       BEFORE a sight's name to mean "particularly worth seeing"; here it
+       leads the h3 the same way. Leading, not trailing: ellipsis clips
+       from the end, so the star can never be the part that's cut, and it
+       sits at one fixed x (the 56px content edge) on every starred row,
+       so the list scans as a column of stars down the reading edge.
+       Opposite channel to visited on purpose: visited is navy and
+       RECEDES (stamp + filed field); starred is the city's --figure-deep
+       and ADVANCES. Both can be true; neither overrides the other.
+       Ink: --figure-deep, 4.79:1 (Stockholm) .. 5.20:1 on --paper,
+       >= 3.83:1 on --paper-pressed -- all 5 cities clear 3:1 for a
+       non-text mark in every state. Highlighted row: paper (below).
+       Decorative (aria-hidden); the .sr-only text in .row-meta is the
+       ONE accessible source, as for visited. */
+    /* Round 4: the star is the ENTRY's mark, not a character in the
+       name: 18px, in its own slot at the head of the text column, centred
+       across BOTH lines (name + meta), and both lines indent 26px (18 +
+       --s2) on a starred row -- so the drag, which already moves both
+       lines, lands where it looks like it should. Soft points (S1). */
+    .location-card .row-main { position: relative; }
+    .location-card.is-starred .row-main { padding-left: 26px; }
+    .location-card.is-starred.sg-live .row-main { padding-left: 38px; }
+    .row-star {
+      position: absolute;
+      left: var(--sg-lead, 0px);
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      margin-top: -9px;
+      color: var(--ink);                   /* Round 5: printed in BLACK INK, as Baedeker printed it and as
+                                              the map star already is -- a --figure-deep star beside the
+                                              category ring read as a second badge (Stockholm) or clashed
+                                              (Copenhagen). 14.69:1 paper, 13.17 filed, 11.74 pressed;
+                                              highlighted row: --paper (below), 4.79:1 worst. */
+    }
+
+    /* Category labels are ALWAYS --ink-2, never the category ink: 11 inks
+       cannot all clear 4.5:1 as 10px text and still hold a value ladder.
+       The glyph carries the ink; the word stays quiet. */
+    .location-card .row-meta {
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 10px;
+      line-height: 12px;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--ink-2);
+      margin-top: var(--s1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* TIER 1b -- FOCUS. The reversed data block, modelled on ref 7's
+       mileage table (place names + numbers reversed out of a solid
+       vermilion field). Full-bleed: because .locations has no horizontal
+       padding and the gutter lives INSIDE the row, the field already
+       spans edge to edge while the content stays on the spine. This is the
+       only element permitted to break the 16px gutter. */
+    .location-card.highlighted {
+      background: var(--figure-deep);
+      border-bottom-color: var(--figure-deep);
+    }
+
+    .location-card.highlighted h3 { color: var(--paper); }          /* 5.20:1 */
+    .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.65:1 worst (Stockholm) */
+    .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
+    .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
+    /* Exempt from the stamp's 82% ink, for two reasons. AA: paper at 90%
+       falls to 4.21:1 on Stockholm's --figure-deep, below 4.5 for 10px
+       text; 100% paper is the h3's own pairing (4.79:1 worst city).
+       Emphasis: there is only ever one focus row, so a full-strength
+       stamp there reads as part of the focus state, not inconsistency. */
+    .location-card.highlighted .row-stamp { color: var(--paper); }
+    .location-card.highlighted .row-star { color: var(--paper); }    /* 4.79:1 worst (Stockholm) */
+
+    .locations-empty {
+      color: var(--ink-2);
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      text-align: center;
+      padding: var(--s12) var(--gutter);
+      max-width: 62ch;
+      margin: 0 auto;
+    }
+
+    .locations-empty svg { display: block; margin: 0 auto var(--s3); color: var(--hair); }
+
+    /* Delete is the row's only action. The visited stamp sits here too,
+       but it is decoration (pointer-events:none), so a tap on it falls to
+       the row and navigates -- see createCard()'s addActive. */
+    .location-actions {
+      display: flex;
+      gap: var(--s1);
+      align-items: center;
+    }
+
+    .location-actions button {
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    /* Quiet until the row is active -- a fast scroll must never show a
+       column of red X's. */
+    .delete-btn {
+      width: var(--col-action);
+      height: var(--col-action);
+      border: none;
+      background: transparent;
+      color: var(--ink-2);
+    }
+
