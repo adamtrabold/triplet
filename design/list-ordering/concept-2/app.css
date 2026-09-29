@@ -98,6 +98,129 @@
       font-weight: 700;
       letter-spacing: 0.08em;
     }
+    .filtersPanel {
+      position: absolute;
+      bottom: calc(300px + var(--chrome-bottom));
+      left: 0;
+      right: 0;
+      background: var(--paper);
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      z-index: 999;
+      transform: translateY(calc(100% + 300px + var(--chrome-bottom)));
+      transition: transform 0.3s ease;   /* `bottom` is layout -- not animated */
+      max-height: 40vh;
+      overflow-y: auto;
+    }
+
+    .filtersPanel.visible {
+      transform: translateY(0);
+    }
+
+    .filtersPanel.collapsed-mode {
+      bottom: calc(60px + var(--sheet-under));
+      transform: translateY(calc(100% + 60px + var(--sheet-under)));
+    }
+
+    .filtersPanel.collapsed-mode.visible {
+      transform: translateY(0);
+    }
+
+    /* Categories are a wrapping BADGE GRID (multi-select). Cities are a flush
+       SEGMENTED CONTROL (single-select, matching setActiveCity). They used to
+       look identical, which miscommunicated the interaction model. */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s2);
+      padding: var(--s4) var(--gutter);
+    }
+
+    /* The one ornamented divider in the app: a rope/braid hairline, used
+       exactly once. Ornament that appears once reads as craft; repeated, as
+       wallpaper. (ref 7) */
+    .cityFilters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s2);
+      padding: var(--s4) var(--gutter) var(--s4) var(--gutter);
+      border-bottom: 4px solid transparent;
+      border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='4'%3E%3Cpath d='M0 2 Q2 0 4 2 T8 2 T12 2 T16 2' fill='none' stroke='%23D8CEBA' stroke-width='1.5'/%3E%3C/svg%3E") 0 0 4 0 repeat;
+    }
+
+    /* Independently-rounded chips, gapped -- same pattern as .filter-btn
+       below. Every chip stands alone (no first/last-on-line special
+       casing), so wrapping to any number of lines just works. Single-
+       select is communicated by .active's solid fill, never by borders
+       touching (design/city-filter-wrap/concept, Option B). */
+    .city-btn {
+      padding: var(--s2) var(--s3);
+      border: 1px solid var(--hair);
+      border-radius: 3px;
+      font-family: var(--font-ui);
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--paper-raised);
+      color: var(--ink);
+    }
+
+    .city-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--paper);
+    }
+
+    /* Chips carry INK text on paper, never white-on-category-color (which was
+       1.80:1 on the old palette). Only the RULE changes between states, so
+       contrast is constant and all 11 stay AA regardless of their ink.
+       No italics, no opacity-as-state, no !important. */
+    .filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s2);
+      padding: var(--s2) var(--s3);
+      background: var(--paper-raised);
+      color: var(--ink);
+      border: 1px solid var(--hair);
+      border-bottom: 2px solid transparent;
+      border-radius: 3px;
+      font-family: var(--font-ui);
+      font-stretch: 75%;
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s ease;
+    }
+
+    /* The category ink arrives as a custom property (--chip-ink) rather than
+       an inline `color`, so the inactive rule below can override it without
+       needing !important. */
+    .filter-btn .chip-glyph {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+      display: block;
+      color: var(--chip-ink, var(--ink-2));
+    }
+
+    /* ACTIVE = a 2px solid rule in the category ink. */
+    .filter-btn { border-bottom-color: var(--chip-ink, transparent); }
+
+    /* INACTIVE = dashed hairline, quiet glyph, no rule. */
+    .filter-btn.inactive {
+      border: 1px dashed var(--hair);
+      color: var(--ink-2);
+    }
+
+    .filter-btn.inactive .chip-glyph { color: var(--ink-2); }
     .locations {
       position: absolute;
       bottom: 0;
