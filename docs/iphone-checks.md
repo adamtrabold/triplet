@@ -6,6 +6,20 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- iPhone check of the ⇅ list order: (1) ⇅ sits between the title and the
+  filters icon, same weight as the sliders; a tap on it never opens filters
+  (and vice versa); the longest city title isn't cut. (2) The menu rises
+  above the sheet over the map, collapsed or not; tapping the map/list
+  while it's open only closes it. (3) Pick each order: A–Z, Category,
+  What's left, Starred, Newest reorder the list and nothing disappears.
+  (4) Nearest: iOS asks for location only now; the list sorts by distance
+  with "NN M ·" leading each row; walking a block (~150 m) re-sorts, small
+  moves don't. Deny location: back to A–Z with a short banner, Nearest
+  greyed "Location off". (5) Close and reopen the app: the order is
+  remembered (Nearest only if location is already allowed). (6) Star a row
+  in Starred order / visit one in What's left: the animation plays in
+  place, then the row moves. (7) VoiceOver: ⇅ reads "Sort list, A–Z",
+  the menu reads as radio items, the new order is announced.
 - iPhone check of the popup round: (1) a long-name place opened high on
   the map settles below the controls/Dynamic Island, and tapping the
   star's left edge stars it (never zooms out); (2) one haptic tick per tap

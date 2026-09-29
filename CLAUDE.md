@@ -166,14 +166,12 @@ design) skip straight to stage 2.
 
 ## Current priorities (full text in `docs/backlog.md`)
 
-Concept work exists for list ordering and visited pins (owner hasn't
-picked); popup star concept is in progress. Get a decision before building.
+Concept work exists for visited pins (owner hasn't picked); popup star
+concept is in progress. Get a decision before building.
 
 - **Popup star alignment** (star looks off when the popup has full
   content; list-row star-only-when-starred is settled). Active concept:
   `design/popup-star-alignment/`; `design/star-alignment/` is history.
-- **List ordering** — 3-mode proposal in `design/list-ordering/proposal.md`
-  §6; picker placement still unsolved (not the `<h2>`).
 - **Visited pins on the map** — Round 4 (dots outside the rim) scored 9/10
   in `design/visited-marker/concept/`; owner's last read was skeptical
   ("not following good design principles") — review with fresh eyes.

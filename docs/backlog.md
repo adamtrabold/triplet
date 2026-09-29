@@ -24,20 +24,6 @@ pick/redirect before building anything.
   an outline/list-row question, so its variants (reserved-column,
   dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
   are not candidates.
-- **List ordering is confusing** (owner, 2026-09-23: don't just pick a
-  sort). **Concept work already produced, owner has NOT picked a final
-  spec:** `design/list-ordering/proposal.md` — §§1-5 is the original
-  single-sort analysis (superseded), §6 is the revision into **3
-  selectable modes** (What's Left / Starred / Recent) per the owner's
-  "options, not one hardcoded default" pushback, §6.7 is a correction:
-  the picker can't be `#locationsHeader`'s `<h2>` (that's the live
-  city+count label, not free real estate) — needs a fresh placement idea
-  that still hits the owner's "whimsical but painfully minimal, feels
-  inevitable" bar (their words, 2026-09-28) before anything is built.
-  `design/list-ordering/concept/mockup.html`/`.png` is the (now-invalid)
-  heading-picker mockup — useful as a reference for what NOT to do, not
-  a starting point. "Starred first" is folded into the What's Left mode's
-  tiebreak logic already, not a separate open question.
 - **Visited pins have no map treatment** (owner, 2026-09-29, asked
   directly: "should visited places have a different treatment on the
   map itself"). **Concept work already produced,
@@ -175,6 +161,10 @@ pick/redirect before building anything.
 - Header visited count ("12/38 visited" in `updateUI()`'s
   `${activeCityLabel()} list (...)` text) — deferred in the delete-only
   list-row round to get its own review; still not built.
+- **Gesture test harness can't run** (infra): `design/pencil-star/lib.js`,
+  `s2.js`, `design/star2/lib.js` (and `curve8.js`) were never committed, so
+  the "84 + 8 (+ N8-a)" touch/flip6 gate and `vtest.js` can't be run.
+  Rebuild or recover them.
 
 Previously tracked and fixed: `showError()`/
 `hideError()` banner masking, and `slugifyCityId()` not decomposing Nordic

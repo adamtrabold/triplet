@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List order picker, round 3</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<link rel="stylesheet" href="../concept-2/app.css"><!-- index.html's real CSS, verbatim -->
+<style>
+  /* ---------- presentation only ---------- */
+  html, body { margin: 0; background: #CFCAC0; font-family: var(--font-ui); color: var(--ink); }
+  .sheet { display: grid; grid-template-columns: repeat(4, 390px); gap: 14px 24px; padding: 20px; width: max-content; align-items: start; }
+  .rowhead { grid-column: 1 / -1; font-stretch: 75%; text-transform: uppercase; font-weight: 700; letter-spacing: .08em; font-size: 14px; margin-top: 8px; }
+  .rowhead span { font-weight: 500; text-transform: none; letter-spacing: 0; font-stretch: 100%; color: #4a463d; font-size: 12px; margin-left: 8px; }
+  .cap { font-stretch: 75%; text-transform: uppercase; font-weight: 700; letter-spacing: .08em; font-size: 11px; margin: 0 0 6px; color: #3a372f; }
+  .phone { position: relative; width: 390px; height: 440px; overflow: hidden; background: #E6DDC8; border-radius: 3px; }
+  .phone .map { position: absolute; inset: 0; }
+  .strip { position: relative; width: 390px; overflow: hidden; border-radius: 3px; margin-bottom: 8px; }
+  .strip .locations { position: relative; height: auto; }
+  .locations { position: absolute; }
+  .filtersPanel { position: absolute; }
+  .hit .hz::after { outline: 2px dashed #D0138A; outline-offset: -2px; background: rgba(208,19,138,.12); }
+  .hit .hz2 { outline: 2px dashed #1C7C54; outline-offset: -2px; background: rgba(28,124,84,.12); }
+
+  /* ---------- proposed: a 4th header button, same class of button ---------- */
+  .sortBtn {
+    background: transparent; border: none; color: var(--navy); width: 32px; height: 32px; padding: 0;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; position: relative;
+    transition: opacity 0.15s ease;
+  }
+  .sortBtn:active { opacity: 0.55; }
+  /* 44px target: 6px into each 12px gap (the neighbours keep the other 6),
+     12px up/down into the band's padding -> 44 x 56, abutting, never overlapping. */
+  .sortBtn::after { content: ''; position: absolute; inset: -12px -6px; }
+  .sortBtn.open { opacity: 0.55; }        /* = #toggleFiltersBtn.active */
+
+  /* 1 · menu: the popup card's grammar (paper, 1px ink, 2px radius), 3 x 44px rows */
+  .sortMenu {
+    position: absolute; z-index: 1003; right: 60px; top: 50px; width: 176px;
+    background: var(--paper); border: 1px solid var(--ink); border-radius: 2px; padding: 4px 0;
+  }
+  .sortMenu button {
+    all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between;
+    width: 100%; height: 44px; padding: 0 14px; font-family: var(--font-ui);
+    font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.005em; color: var(--ink);
+  }
+  .sortMenu button + button { border-top: 1px solid var(--hair); }
+  .sortMenu svg { width: 14px; height: 14px; color: var(--ink); }
+
+  /* 2 · toast naming the new mode, over the map above the icon, ~1.4s */
+  .toast {
+    position: absolute; z-index: 1003; bottom: 305px; right: 44px;
+    background: var(--paper); border: 1px solid var(--ink); border-radius: 2px; padding: 6px 10px;
+    font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 14px; letter-spacing: .1em; color: var(--ink);
+  }
+
+  /* 3 · an ORDER row in the filters panel, city-chip grammar (single-select) */
+  .orderRow { display: flex; gap: var(--s2); padding: var(--s4) var(--gutter) 0; }
+  .orderRow .city-btn { min-height: 34px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="g-restaurant" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h2v7h1V2h2v7h1V2h2v8a3 3 0 0 1-2 2.83V22h-4v-9.17A3 3 0 0 1 6 10V2z"/></symbol>
+  <symbol id="g-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h13v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V4z"/><path fill="currentColor" d="M17 6h2a3 3 0 0 1 0 6h-2V6z"/><path fill="currentColor" d="M2 19h16v2H2z"/></symbol>
+  <symbol id="g-bar" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18l-8 9v7h4v2H7v-2h4v-7L3 3z"/></symbol>
+  <symbol id="g-attraction" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 6v11H9V8l3-6z"/><path fill="currentColor" d="M7 20h10v2H7z"/></symbol>
+  <symbol id="g-nature" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l4 6h-2.5l3 5H14l3.5 6h-11L10 13H7.5l3-5H8l4-6z"/><path fill="currentColor" d="M11 18h2v4h-2z"/></symbol>
+  <symbol id="g-star" viewBox="0 0 24 24"><path fill="currentColor" d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
+</defs></svg>
+<script>
+const CATEGORY_COLORS = { restaurant:'#AC5019', cafe:'#6E4C22', bar:'#3D5A7A', attraction:'#A68018', nature:'#1E3A2B' };
+const STAMP_TILTS = [-5, -3.5, -2, 2, 3.5, 5];
+function stampTilt(id){ let h=0; for (const ch of String(id)) h=(h*31+ch.charCodeAt(0))|0; return STAMP_TILTS[Math.abs(h)%STAMP_TILTS.length]; }
+function badgeHtml(category, size){
+  const c=size/2, r=c-1, g=18, o=(size-g)/2;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true"><circle cx="${c}" cy="${c}" r="${r}" fill="var(--badge-field, #F2EBDD)" stroke="currentColor" stroke-width="2"/><svg x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24"><use href="#g-${category}"/></svg></svg>`;
+}
+function cardHtml(loc){
+  const stamp = loc.visited ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>` : '';
+  return `<div class="location-card ${loc.visited?'is-visited':''} ${loc.starred?'is-starred':''}">
+    <div class="row-badge" style="--row-ink:${CATEGORY_COLORS[loc.category]}">${badgeHtml(loc.category,24)}</div>
+    <div class="row-main">${loc.starred?'<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>':''}<h3>${loc.name}</h3><div class="row-meta">${loc.category} &middot; Reykjavík</div></div>
+    <div class="location-actions">${stamp}<button class="delete-btn" aria-label="Delete">&times;</button></div></div>`;
+}
+const LOCS = [
+  { id:'a1', name:'Sky Lagoon', category:'nature', starred:true, visited:false, n:3 },
+  { id:'a2', name:'Fish Market', category:'restaurant', starred:false, visited:false, n:7 },
+  { id:'a3', name:'Kaffibarinn', category:'bar', starred:false, visited:false, n:6 },
+  { id:'a4', name:'Reykjavík Roasters', category:'cafe', starred:false, visited:false, n:4 },
+  { id:'a5', name:'Slippurinn', category:'restaurant', starred:false, visited:false, n:8 },
+  { id:'a6', name:'Brauð & Co', category:'cafe', starred:true, visited:true, n:5 },
+  { id:'a7', name:'Hallgrímskirkja', category:'attraction', starred:true, visited:true, n:1 },
+  { id:'a8', name:'Harpa', category:'attraction', starred:false, visited:true, n:2 },
+];
+const by = (...ks) => (a,b) => { for (const k of ks){ const d=k(a)-k(b); if (d) return d; } return a.name.localeCompare(b.name); };
+const SORTS = { left: by(l=>+l.visited, l=>+!l.starred), starred: by(l=>+!l.starred, l=>+l.visited), recent: (a,b)=>b.n-a.n };
+const SHORT = { left:"What’s left", starred:"Starred", recent:"Newest" };
+const LABEL = { left:"What’s left first", starred:"Starred first", recent:"Newest first" };
+const listHtml = mode => LOCS.slice().sort(SORTS[mode]).map(cardHtml).join('');
+
+const COLLAPSE = `<button class="collapseBtn">▼</button>`;
+const FILTERS = (on) => `<button class="toggleFiltersBtn${on?' active':''}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></svg></button>`;
+const CENTER = `<button class="centerMeBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="23"/><line x1="1" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="23" y2="12"/></svg></button>`;
+
+/* 1 · the sort glyph: up/down arrows, same 2px stroke as the filters icon */
+const SORT_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4v16M4 16l4 4 4-4"/><path d="M16 20V4M12 8l4-4 4 4"/></svg>`;
+/* 2 · a list whose FIRST line carries the mode's mark: ring (not yet visited), star, clock */
+const MARK = {
+  left:    `<circle cx="5" cy="6" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>`,
+  starred: `<svg x="0.6" y="1.4" width="9" height="9" viewBox="0 0 24 24"><use href="#g-star"/></svg>`,
+  recent:  `<circle cx="5" cy="6" r="3.1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 4.2V6h1.6" fill="none" stroke="currentColor" stroke-width="1.3"/>`,
+};
+const CYCLE_SVG = m => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${MARK[m]}<path d="M11 6h10M3 12h18M3 18h18"/></svg>`;
+
+const MAP = `<svg class="map" viewBox="0 0 390 440" preserveAspectRatio="none" aria-hidden="true"><rect width="390" height="440" fill="#E7DECA"/><path d="M0 0H390V30C320 50 250 20 180 44S60 60 0 50Z" fill="#C4D2CF"/><g stroke="#F6F1E6" stroke-width="5" fill="none"><path d="M-10 80C100 60 200 100 400 70"/><path d="M90 20L130 110"/><path d="M280 30L300 110"/></g></svg>`;
+
+function header(dir, o){
+  const city = o.city || 'Reykjavík', n = o.n || 8, h2 = `<h2>${city} list (${n})</h2>`;
+  if (dir===1) return `${COLLAPSE}${h2}<button class="sortBtn hz${o.open?' open':''}" aria-label="Sort: ${LABEL[o.mode||'left']}" aria-haspopup="menu">${SORT_SVG}</button>${FILTERS()}${CENTER}`;
+  if (dir===2) return `${COLLAPSE}${h2}<button class="sortBtn hz" aria-label="Sort: ${LABEL[o.mode||'left']}. Tap to change.">${CYCLE_SVG(o.mode||'left')}</button>${FILTERS()}${CENTER}`;
+  return `${COLLAPSE}${h2}${FILTERS(o.panel)}${CENTER}`;
+}
+const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>`;
+function phone(dir, o={}){
+  const mode = o.mode || 'left';
+  let over = '';
+  if (dir===1 && o.open) over = `<div class="sortMenu" role="menu" style="top:${140+50}px">${['left','starred','recent'].map(k=>`<button role="menuitemradio" aria-checked="${k===mode}">${LABEL[k]}${k===mode?CHECK:''}</button>`).join('')}</div>`;
+  if (dir===2 && o.toast) over = `<div class="toast" role="status">${LABEL[mode]}</div>`;
+  if (dir===3 && o.panel) over = `<div class="filtersPanel visible" style="bottom:300px; transform:none; max-height:none">
+      <div class="orderRow">${['left','starred','recent'].map(k=>`<button class="city-btn${k===mode?' active':''}">${SHORT[k]}</button>`).join('')}</div>
+      <div class="cityFilters"><button class="city-btn">All</button><button class="city-btn active">Reykjavík</button><button class="city-btn">Copenhagen</button><button class="city-btn">Malmö</button></div></div>`;
+  return `<div class="phone ${o.hit?'hit':''}">${MAP}${over}<div class="locations"><div class="locationsHeader">${header(dir,o)}</div><div class="locationsList">${listHtml(mode)}</div></div></div>`;
+}
+function strip(dir, o){ return `<div class="strip ${o.hit?'hit':''}"><div class="locations"><div class="locationsHeader">${header(dir,o)}</div></div></div>`; }
+const cell = (cap, html) => `<div><p class="cap">${cap}</p>${html}</div>`;
+
+const D = [
+  [1, 'Sort icon + tiny menu', 'one ⇅ beside filters; tap opens 3 named options, check on the active one'],
+  [2, 'Cycling icon', 'the icon IS the mode (list whose first line is ○ / ★ / clock); tap cycles, a 1.4s toast names it'],
+  [3, 'Order in the filters panel', 'no new header chrome at all; an ORDER chip row tops the panel the filters button already opens'],
+];
+let h = '<div class="sheet">';
+for (const [d, name, sub] of D){
+  h += `<div class="rowhead">${d} · ${name}<span>${sub}</span></div>`;
+  h += cell('Resting', phone(d, {}));
+  h += cell(d===1?'Change: tap ⇅ → menu (active = ✓)': d===2?'Change: tap → Starred (icon ★ + toast)':'Change: open filters → pick (active = filled chip)',
+            d===1? phone(1,{open:true, mode:'left'}) : d===2? phone(2,{mode:'starred', toast:true}) : phone(3,{panel:true, mode:'starred'}));
+  h += cell('Long names', strip(d,{city:'Copenhagen', n:38}) + strip(d,{city:'All cities', n:120}) + (d===2? strip(2,{mode:'recent'}) + '<p class="cap" style="margin-top:-2px">icon in Newest mode ↑</p>':''));
+  h += cell('Tap targets (magenta = new control)', strip(d,{hit:true}));
+}
+document.getElementById('root').innerHTML = h + '</div>';
+</script>
+</body>
+</html>
