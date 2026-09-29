@@ -393,6 +393,9 @@
       background: var(--state-on-press);
     }
 
+    /* State system: a navy button can't reverse to a navy tile, so its ON
+       (open) state inverts to --figure with the navy glyph. Named exception
+       to the navy-tile rule. */
     /* Open state INVERTS rather than going transparent. The scalloped
        mask carries over unchanged -- only the fill and icon color flip. */
     #floatingAddBtn.active,
@@ -400,6 +403,14 @@
       background: var(--figure);
       color: var(--navy);
       box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    }
+
+    /* Open, then held: one tone step deeper (--figure to --figure-deep), glyph
+       flips to paper for contrast, same as submit. Must follow .active. */
+    #floatingAddBtn.active:active,
+    #accountBtn.active:active {
+      background: var(--figure-deep);
+      color: var(--paper);
     }
 
     #accountDropdown {
@@ -614,8 +625,11 @@
 
     #addForm .form-star svg { width: var(--s4); height: var(--s4); flex-shrink: 0; }
     #addForm .form-star[aria-pressed="true"] svg { color: var(--ink); }
-    #addForm .form-star:active svg,
-    #addForm .form-star-slot:has(> .form-star-tap:active) .form-star svg { transform: scale(0.85); }
+    /* State system: pressed = the pale tile (was a .85 shrink). */
+    #addForm .form-star { isolation: isolate; }
+    #addForm .form-star::before { content: ''; position: absolute; inset: 8px -6px; z-index: -1; border-radius: 3px; }
+    #addForm .form-star:active::before,
+    #addForm .form-star-slot:has(> .form-star-tap:active) .form-star::before { background: var(--state-press); }
     /* The pull-up lives on the slot now (same -8 / +8), so the tap label below
        covers exactly the button's 44px box. The label is the popup star's
        real-tap path: one tick at tap time on every iOS >= 18 and Android;
@@ -1053,10 +1067,14 @@
     #sortBtn,
     #toggleFiltersBtn,
     #centerMeBtn { border-radius: 3px; transition: background 0.12s ease, color 0.12s ease, opacity 0.15s ease, transform 0.3s ease; }
-    #collapseBtn:active,
     #toggleFiltersBtn:active,
     #centerMeBtn:active,
     #sortBtn:active { background: var(--state-press); }
+    /* The collapse arrow keeps its 28px spine box; its pressed tile is the
+       same 32px as the others (2px bleed each side, so the spine holds). */
+    #collapseBtn { position: relative; isolation: isolate; }
+    #collapseBtn::before { content: ''; position: absolute; inset: -2px; z-index: -1; border-radius: 3px; }
+    #collapseBtn:active::before { background: var(--state-press); }
     #toggleFiltersBtn.active,
     #sortBtn[aria-expanded="true"] { background: var(--state-on-bg); color: var(--state-on-fg); }
     #toggleFiltersBtn.active:active,
@@ -1650,12 +1668,15 @@
     .popup-star.starred { color: var(--ink); }
     /* State system: pressed = the pale tile, same as Mark Visited (the ink /
        rub animation lives on the svg's children and is untouched). */
-    .popup-star:active,
-    .popup-star-slot:has(> .popup-star-tap:active) .popup-star {
-      background: var(--state-press);
-      border-radius: 3px;
-      box-shadow: 0 0 0 4px var(--state-press);
+    .popup-star::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      z-index: -1;
+      border-radius: 3px;              /* one radius everywhere: 3px */
     }
+    .popup-star:active::before,
+    .popup-star-slot:has(> .popup-star-tap:active) .popup-star::before { background: var(--state-press); }
     /* Round 8 (owner): the finger's tap target. EXACTLY .popup-star::after's
        44x44 box (same inset rule, above), one layer above it,
        so the dead band to Mark Visited and z-index:201 are unchanged. It is a

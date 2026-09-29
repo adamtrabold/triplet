@@ -22,6 +22,16 @@ const click = (page, id) => page.evaluate(id => document.getElementById(id).clic
     const s = `@${dsf}x`;
     const { ctx, page } = await open(b, { dsf });
     const shot = async (name, sel, pad) => page.screenshot({ path: `${OUT}/${name}${s}.png`, clip: await clip(page, sel, pad) });
+    await page.evaluate(() => document.getElementById('accountBtn').classList.add('show'));
+    const FB = ['#floatingAddBtn', '#accountBtn'];
+    const fshot = async (name) => page.screenshot({ path: `${OUT}/${name}${s}.png`, clip: await page.evaluate(() => { const a = document.getElementById('accountBtn').getBoundingClientRect(), b = document.getElementById('floatingAddBtn').getBoundingClientRect(); return { x: a.x - 6, y: a.y - 6, width: b.right - a.x + 12, height: a.height + 12 }; }) });
+    await fshot('floating-idle');
+    await force(page, FB); await fshot('floating-pressed'); await force(page, FB, false);
+        await page.evaluate(() => { document.getElementById('accountBtn').classList.add('active'); document.getElementById('floatingAddBtn').classList.add('active'); });
+    await W(300); await fshot('floating-open');
+    await force(page, FB); await fshot('floating-open-pressed'); await force(page, FB, false);
+    await page.evaluate(() => { document.getElementById('accountBtn').classList.remove('active'); document.getElementById('floatingAddBtn').classList.remove('active'); });
+    await W(300);
     const HB = ['#collapseBtn', '#sortBtn', '#toggleFiltersBtn', '#centerMeBtn'];
     await shot('header-idle', '#locationsHeader');
     await force(page, HB); await shot('header-pressed', '#locationsHeader'); await force(page, HB, false);
@@ -36,6 +46,8 @@ const click = (page, id) => page.evaluate(id => document.getElementById(id).clic
     await W(400); await shot('header-loading', '#locationsHeader');
     await page.evaluate(() => { document.getElementById('centerMeBtn').classList.remove('loading'); document.getElementById('sortBtn').classList.remove('loading'); });
     await click(page, 'sortBtn'); await W(400);
+    await shot('sortmenu-idle', '#sortMenu', 6);
+    await page.evaluate(() => { document.querySelectorAll('.sort-opt')[1].id = 'so1'; }); await force(page, ['#so1']); await shot('sortmenu-pressed', '#sortMenu', 6); await force(page, ['#so1'], false);
     await shot('header-open-sort', '#locationsHeader');
     await force(page, ['#sortBtn']); await shot('header-open-sort-pressed', '#locationsHeader'); await force(page, ['#sortBtn'], false);
     await click(page, 'sortBtn'); await W(300);
@@ -52,7 +64,9 @@ const click = (page, id) => page.evaluate(id => document.getElementById(id).clic
     await shot('submit-enabled', '#submitBtn', 8);
     await page.evaluate(() => { document.getElementById('submitBtn').disabled = true; }); await shot('submit-disabled', '#submitBtn', 8);
     await page.evaluate(() => { document.getElementById('submitBtn').disabled = false; });
-    await force(page, ['#submitBtn']); await shot('submit-pressed', '#submitBtn', 8);
+    await force(page, ['#submitBtn']); await shot('submit-pressed', '#submitBtn', 8); await force(page, ['#submitBtn'], false);
+    await shot('formstar-idle', '#starInputRow', 6);
+    await force(page, ['.form-star-tap']); await shot('formstar-pressed', '#starInputRow', 6); await force(page, ['.form-star-tap'], false);
     await ctx.close();
   }
   await b.close();

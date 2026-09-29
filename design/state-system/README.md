@@ -53,3 +53,24 @@ Inconsistencies: (1) filters-open looks like pressed; (2) sort-open navy tile vs
 - Fourth meaning: **filled primary buttons shift one tone step when pressed.** Submit deepens (`--figure` to `--figure-deep`). Floating add/account lighten (`--navy` to `--state-on-press`). The directions differ on purpose: the coral field can go deeper, navy cannot. Flagged, not unified.
 - `--state-on-press` is #2A4F73 (about 1.7:1 from navy). It also lightens the floating add/account pressed colour slightly (was #1B3A57); acceptable, still a navy step.
 - Submit disabled: opacity .4 with `--ink` text; reads as unavailable at 1x.
+
+## Closing checklist (every element with a state rule; stills in `stills/after/`, each at @1x @3x @4x)
+
+| Element | Idle | Pressed | On / open | Open-pressed | Rule |
+|---|---|---|---|---|---|
+| Collapse arrow | header-idle | header-pressed (32px tile via 2px bleed) | n/a | n/a | pressed fill |
+| Sort, filters, locate | header-idle | header-pressed | header-open-sort / -filters | header-open-*-pressed | pressed fill / navy tile / lighter navy; loading .4 (header-loading) |
+| City + category chips | chips-idle | chips-pressed | selected city = navy (chips-idle); category off = dashed | n/a | pressed fill / navy tile; category chips exception |
+| Popup star | popup-visited-idle (star shown) | popup-star-pressed (tile, 3px radius) | filled ink star | n/a | pressed fill; on = glyph fill exception |
+| Popup Mark Visited | popup-visited-idle | popup-visited-idle-pressed | popup-visited-on | popup-visited-on-pressed | pressed fill; on = glyph fill exception |
+| Form star | formstar-idle | formstar-pressed (was .85 shrink) | ink glyph | n/a | pressed fill; on = glyph fill exception |
+| Submit | submit-enabled | submit-pressed | n/a | n/a | filled-button rule; disabled .4 (submit-disabled) |
+| Floating add / account | floating-idle | floating-pressed | floating-open | floating-open-pressed | filled-button rule; open = named exception below |
+| Sort menu items | sortmenu-idle | sortmenu-pressed | check mark = current | n/a | pressed fill; current = check |
+| Rows | (reference) | paper-pressed | highlighted = figure-deep block | n/a | unchanged; already the reference |
+| Account menu / autocomplete / secondary button | n/a | n/a | hover only (no touch state) | n/a | named exception: hover is pointer-only |
+
+There are no plan/other menus in the app: the only menus are the sort menu and the account dropdown.
+
+**Named exceptions:** (1) category chips: rule = on, dashed = off. (2) star / visited / form-star: on is the glyph filling. (3) Floating add/account open: a navy button can't reverse to a navy tile, so it inverts to `--figure` with the navy glyph. (4) Filled primary buttons (submit, floating add/account): pressed shifts one tone step and the glyph/text flips to paper for contrast. Submit and floating-open deepen to `--figure-deep`; the navy rest state lightens to `--state-on-press`. Open-pressed floating buttons deepen `--figure` to `--figure-deep` (same step as submit).
+**One radius:** every pressed tile is 3px. **Collapse tile:** 32px like the others; the button keeps its 28px spine box.
