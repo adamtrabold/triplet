@@ -478,16 +478,20 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     strokes, solid heads). Hit zone 50×56 (12px into the title gap and
     band padding, 6px right) leaving a **6px inert margin** before the
     filters box. Open = pressed paper square (`--paper-pressed`), not the
-    greyed opacity of a toggled filter. The header stays **one 57px row**;
+    greyed opacity of a toggled filter -- CD round 1: now an **ink tile with a
+    paper glyph** (navy field, like an active city chip). The header stays **one 57px row**;
     the title keeps 186px on a 390 phone (widest real title 166). Desktop
     rail packs the icons at 4px (title 176px wide, spine still 56px).
     **No "not A–Z" mark** at rest — a 4px ink dot was tried and cut (read
     as a notification badge; non-default orders show themselves).
-  - **Menu:** a paper label slip — `--paper`, 1px navy, 2px radius, 1px
-    registration offset, six 44px ledger rows ruled in `--hair`, 13px
-    condensed tracked caps, a navy radio disc on the current order. Fixed
-    to the viewport, placed above the header band (over the map; works
-    collapsed) or below ⇅ when there's no room (desktop rail). 140ms slip-in
+  - **Menu** (after CD round 1, 7/10): a label slip — `--paper-raised`
+    (one step lighter than the sheet), 1px navy edge + crisp 2px navy
+    offset, a "SORT BY" caption band (the one label motif), six 40px ledger
+    rows (each with a 2px-above/below hit extension → 44px targets), 13px
+    condensed caps at 0.05em, an **ink ✓** (1.5px stroke, 16px gutter) on
+    the current order. Fixed width 200px (fits NEAREST + "LOCATION OFF").
+    Sits **flush** on the header band, right-aligned to ⇅ (below ⇅ on the
+    desktop rail); the Leaflet attribution is hidden while it's open. 140ms slip-in
     (none under reduced motion). A transparent scrim swallows the outside
     tap; a second ⇅ tap, Escape and Tab also close. Opening it closes the
     filters panel and vice versa.
@@ -504,19 +508,20 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     while Nearest is the order; center-me's fix is shared (`takeFix()`), so
     it can sort at once. Re-sorts only after moving ≥ `NEAREST_RESORT_M`
     (150 m) from the position the order was computed at. Denied → A–Z with
-    a 4s banner + announcement, and the Nearest row greys with "Location
+    a 4s notice slip docked on the header band above ⇅ (never over the
+    zoom/account/add controls) + announcement, and the Nearest row greys with "Location
     off"; no fix (error or 20s `NEAREST_WAIT_MS` with nothing) → same with
     "No fix". Tapping the greyed row retries. While locating, ⇅ dims
     (0.4, like center-me) and the list stays A–Z. In Nearest the distance
-    leads the row meta ("80 M · SHOPPING · COPENHAGEN"); works across
-    cities.
+    leads the row meta in **ink** ("80 M · SHOPPING · COPENHAGEN", "1.2 KM");
+    a long name ellipsizes, the distance never does; works across cities.
   - **Row gestures:** while any row is held (`starHeld`: pencil star, visit
     stamp, popup replays) the list keeps its current order; the re-sort
     runs when the last hold releases (`starHeld` is a Map subclass whose
     `delete()` calls `afterRowGesture()`). So a star in Starred order or a
     visit in What's left moves the row once the gesture has landed.
   - **Gates run** (Chromium, 390×844 touch + 1280×800 mouse,
-    `design/list-ordering/build/sorttest.js`): **70/70** — keys ×5,
+    `design/list-ordering/build/sorttest.js`): **73/73** — keys ×5,
     never-filters, menu a11y/keyboard/dismissal/mutual exclusion, motion
     real-timing (140ms), reduced motion, persistence (incl. throwing
     storage), Nearest (mocked position, 100 m no-jump, 2 km re-sort,
@@ -524,8 +529,13 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     sharing), star/visit gestures in sorted orders, **popup-open 20/20**
     across five orders, geometry (57px header, rows 56.00px, 50×56 zone,
     6px inert), desktop rail, collapsed sheet. Impeccable: 3 (baseline,
-    identical findings). The shared touch suite / flip6 / vtest / curve8
-    harness is not in the repo and was not re-run; the gesture plumbing
-    change is the `starHeld` subclass only (G1/G4 cover star + visit in a
-    sorted list).
+    identical findings). **Gesture gate caveat:** `test6.js`, `flip6.js` and `vtest.js` are
+    tracked but cannot run -- their harness (`design/pencil-star/lib.js`,
+    `s2.js`, `r5-metrics.js`, the `r6`/`p7` protos, `design/star2/lib.js`)
+    was never committed to any ref, and `curve8.js` does not exist
+    anywhere; no "84 + 8 (+ N8-a)", vtest, dust or curve8 numbers could be
+    produced. Stand-in: `build/gesturediff.js` runs 11 gesture cases
+    (star, unstar, cancel, visit, un-visit, cancel, X nudge, X tap, row
+    tap, two quick strokes, rows 56.00px) × both motion modes against the
+    base commit and this branch: **22/22 identical outcomes, 0 errors**.
 

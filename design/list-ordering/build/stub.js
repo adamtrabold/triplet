@@ -29,7 +29,8 @@ window.__ROWS = [
  ["sbr","Second Beat Records","Jagtvej, Nørrebro, Copenhagen","shopping",55.6989467,12.554002,null],
  ["cha","CHAMOI Vintage Store","2, Elmegade, Nørrebro, Copenhagen","shopping",55.689365,12.557999,null],
  ["lil","Lilla Torg","Lilla Torg, Malmö","area",55.6050909,12.9987743,null],
- ["dmd","Designmuseum Danmark","Bredgade, Indre By, Copenhagen","attraction",55.6863742,12.5944077,"Closed Mondays."]
+ ["dmd","Designmuseum Danmark","Bredgade, Indre By, Copenhagen","attraction",55.6863742,12.5944077,"Closed Mondays."],
+ ["lng","Sankt Hans Torv to Blågårdsgade walking street","Blågårdsgade, Nørrebro, Copenhagen","area",55.6868,12.5545,"Long-name truncation case (test data)."]
 ].map(([id,name,address,category,lat,lng,notes]) => ({ id, name, address, category, lat, lng, notes, visited: id === 'ref', starred: id === 'cof' || id === 'tor' || id === 'pal', city: id === 'lil' ? 'malmo' : 'copenhagen' }));
 window.__SHAPES = [
   { id: 'shp-vb', city: 'copenhagen', type: 'district', label: 'Vesterbro', color: null, note: null, min_zoom: null, geometry: [[55.667,12.545],[55.672,12.545],[55.672,12.560],[55.667,12.560]] },

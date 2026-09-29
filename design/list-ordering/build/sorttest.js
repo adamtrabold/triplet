@@ -71,13 +71,19 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     const m = await page.evaluate(() => { const menu = document.getElementById('sortMenu'), r = menu.getBoundingClientRect(), br = document.getElementById('sortBtn').getBoundingClientRect(), btn = document.getElementById('sortBtn'), cs = getComputedStyle(btn);
       return { role: menu.getAttribute('role'), items: [...menu.querySelectorAll('[role="menuitemradio"]')].map(e => [e.dataset.sort, e.getAttribute('aria-checked')]), focus: document.activeElement.dataset.sort,
         above: r.bottom <= br.top, inView: r.top >= 0 && r.left >= 0 && r.right <= innerWidth, panel: document.getElementById('filtersPanel').classList.contains('visible'),
-        opacity: cs.opacity, bg: cs.backgroundColor, rowH: [...menu.querySelectorAll('.sort-opt')].map(e => e.getBoundingClientRect().height) }; });
+        opacity: cs.opacity, bg: cs.backgroundColor, fg: cs.color, rowH: [...menu.querySelectorAll('.sort-opt')].map(e => e.getBoundingClientRect().height),
+        hit: [...menu.querySelectorAll('.sort-opt')].map(e => { const a = getComputedStyle(e, '::before'); return e.getBoundingClientRect().height - parseFloat(a.top) - parseFloat(a.bottom); }),
+        flush: Math.round(document.getElementById('locationsHeader').getBoundingClientRect().top - r.bottom), width: r.width,
+        fits: [...menu.querySelectorAll('.sort-opt')].every(e => e.scrollWidth <= e.clientWidth), cap: (menu.querySelector('.sort-cap') || {}).textContent,
+        attr: getComputedStyle(document.querySelector('.leaflet-control-attribution')).visibility,
+        check: [...menu.querySelectorAll('.sort-opt')].map(e => getComputedStyle(e.querySelector('.sort-check')).visibility).join() }; });
     ok('M1 role=menu, 6 menuitemradio in order, exactly one aria-checked (A-Z)', m.role === 'menu' && m.items.map(x => x[0]).join() === 'az,category,nearest,left,starred,newest' && m.items.filter(x => x[1] === 'true').length === 1 && m.items[0][1] === 'true', m.items);
     ok('M2 focus moves to the checked item on open', m.focus === 'az', m.focus);
     ok('M3 opens upward over the map, fully on screen', m.above && m.inView, m);
     ok('M4 opening the menu closed the filters panel', !m.panel);
-    ok('M5 open ⇅ reads pressed (paper-pressed field), not greyed', m.opacity === '1' && m.bg === 'rgb(220, 211, 195)', { opacity: m.opacity, bg: m.bg });
-    ok('M6 every item is a 44px row', m.rowH.every(h => h >= 44), m.rowH);
+    ok('M5 open ⇅ = ink tile with a paper glyph, not greyed', m.opacity === '1' && m.bg === 'rgb(18, 41, 63)' && m.fg === 'rgb(242, 235, 221)', { opacity: m.opacity, bg: m.bg, fg: m.fg });
+    ok('M6 rows 40px, every target 44px', m.rowH.every(h => h === 40) && m.hit.every(h => h === 44), { rowH: m.rowH, hit: m.hit });
+    ok('M6b slip: flush on the band, fixed 200px, caption "Sort by", attribution stepped out, ✓ only on A–Z', m.flush === 0 && m.width === 200 && m.cap === 'Sort by' && m.attr === 'hidden' && m.check === 'visible,hidden,hidden,hidden,hidden,hidden', m);
     await page.keyboard.press('ArrowDown'); let f = await page.evaluate(() => document.activeElement.dataset.sort);
     await page.keyboard.press('ArrowUp'); await page.keyboard.press('ArrowUp'); const f2 = await page.evaluate(() => document.activeElement.dataset.sort);
     await page.keyboard.press('Home'); const f3 = await page.evaluate(() => document.activeElement.dataset.sort);
@@ -139,6 +145,8 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     ok('N1 Nearest with a mocked position: ascending distance', JSON.stringify(got) === JSON.stringify(exp), got.slice(0, 5));
     const meta = await page.evaluate(id => document.querySelector(`.location-card[data-id="${id}"] .row-meta`).textContent, got[0]);
     ok('N2 distance leads the meta in Nearest', /^\d+ m · /.test(meta), meta);
+    const dc = await page.evaluate(id => getComputedStyle(document.querySelector(`.location-card[data-id="${id}"] .row-dist`)).color, got[0]);
+    ok('N2b distance in ink (not grey meta)', dc === 'rgb(26, 26, 24)', dc);
     ok('N3 membership unchanged (never filters)', got.slice().sort().join() === (await expected(page, 'az')).slice().sort().join());
     const fix0 = await page.evaluate(() => sortFix);
     // ~100 m east: below the 150 m threshold -> no re-sort
@@ -149,6 +157,10 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     const far = { latitude: 55.6760, longitude: 12.5690 };
     await ctx.setGeolocation(far); await W(700);
     got = await ids(page);
+    const km = await page.evaluate(() => [...document.querySelectorAll('.row-dist')].map(e => e.textContent));
+    const longRow = await page.evaluate(() => { const e = document.querySelector('.location-card[data-id="lng"]'), m = e.querySelector('.row-meta'), h = e.querySelector('h3'), d = m.querySelector('.row-dist');
+      return { h3Trunc: h.scrollWidth > h.clientWidth, dist: d.textContent, distVisible: d.getBoundingClientRect().right <= m.getBoundingClientRect().right, height: e.getBoundingClientRect().height }; });
+    ok('N5b km format ("1.2 km") and a long street name: name ellipsizes, distance stays whole, row 56px', km.some(t => /^\d\.\d km$/.test(t)) && longRow.h3Trunc && longRow.distVisible && longRow.height === 56, { km: km.slice(0, 8), longRow });
     ok('N5 moved past the threshold: re-sorted to the new position', JSON.stringify(got) === JSON.stringify(await expected(page, 'nearest', far)), got.slice(0, 4));
     await pick(page, 'az');
     const w = await page.evaluate(() => ({ watch: nearestWatch, meta: document.querySelector('#locationsList .location-card .row-meta').textContent }));
@@ -158,10 +170,12 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
   { const { ctx, page, errors } = await open(b, { init: () => { navigator.geolocation.watchPosition = (ok, err) => { setTimeout(() => err({ code: 1, message: 'denied' }), 80); return 9; }; } });   // user denies the prompt
     await pick(page, 'nearest'); await W(900);
     const s = await state(page);
-    const r = await page.evaluate(() => ({ banner: document.getElementById('errorText').textContent, shown: document.getElementById('error').classList.contains('show') }));
+    const r = await page.evaluate(() => { const n = document.getElementById('sortNote'), nr = n.getBoundingClientRect(), hd = document.getElementById('locationsHeader').getBoundingClientRect();
+      const hits = ['.leaflet-control-zoom', '#floatingAddBtn', '#accountBtn'].map(q => document.querySelector(q)).filter(e => e && e.offsetParent !== null).map(e => e.getBoundingClientRect()).some(c => !(c.right <= nr.left || c.left >= nr.right || c.bottom <= nr.top || c.top >= nr.bottom));
+      return { banner: n.textContent, shown: !n.hidden, docked: Math.round(hd.top - nr.bottom) === 0, overlapsControls: hits, errorBanner: document.getElementById('error').classList.contains('show') }; });
     await tapEl(page, '#sortBtn'); await W(250);
     const row = await page.evaluate(() => { const e = document.querySelector('.sort-opt[data-sort="nearest"]'); return { off: e.classList.contains('is-off'), why: e.querySelector('.sort-why').textContent, color: getComputedStyle(e).color }; });
-    ok('N8 denied: visibly falls back to A-Z (order, label, banner, announcement)', s.mode === 'az' && JSON.stringify(await ids(page)) === JSON.stringify(await expected(page, 'az')) && r.shown && /A–Z/.test(r.banner) && /Location unavailable/.test(s.live), { s, r });
+    ok('N8 denied: visibly falls back to A-Z (order, label, banner, announcement)', s.mode === 'az' && JSON.stringify(await ids(page)) === JSON.stringify(await expected(page, 'az')) && r.shown && r.banner === 'Location off — sorted A–Z' && r.docked && !r.overlapsControls && !r.errorBanner && /Location unavailable/.test(s.live), { s, r });
     ok('N9 denied: Nearest greys out with a short reason', row.off && row.why === 'Location off' && row.color === 'rgb(90, 86, 76)', row);
     ok('N10 no page errors', !errors.length, errors);
     await ctx.close(); }

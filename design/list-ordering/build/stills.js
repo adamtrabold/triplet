@@ -28,6 +28,11 @@ const union = (a, b) => { const x = Math.min(a.x, b.x), y = Math.min(a.y, b.y); 
       await tapBtn(page); await page.evaluate(() => document.querySelector('.sort-opt[data-sort="nearest"]').click()); await W(700);
       await page.screenshot({ path: `${OUT}/phone-nearest${s}.png` });
       await ctx.close(); }
+    { const { ctx, page } = await open(b, { dsf, geo: { latitude: 55.6760, longitude: 12.5690 } });
+      await tapBtn(page); await page.evaluate(() => document.querySelector('.sort-opt[data-sort="nearest"]').click()); await W(700);
+      await page.evaluate(() => document.querySelector('.location-card[data-id="lng"]').scrollIntoView({ block: 'center' })); await W(200);
+      await page.screenshot({ path: `${OUT}/phone-nearest-km-longname${s}.png` });
+      await ctx.close(); }
     { const { ctx, page } = await open(b, { dsf, init: () => { navigator.geolocation.watchPosition = (ok, err) => { setTimeout(() => err({ code: 1 }), 60); return 1; }; } });
       await tapBtn(page); await page.evaluate(() => document.querySelector('.sort-opt[data-sort="nearest"]').click()); await W(500);
       await page.screenshot({ path: `${OUT}/phone-nearest-denied${s}.png` });

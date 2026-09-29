@@ -1050,52 +1050,74 @@
        Hit zone: the 32px box plus 12px up/down (the band's padding), 12px
        left (the gap after the title, which isn't interactive) and 6px
        right -- so 50 x 56, leaving a 6px INERT margin before the filters
-       button's box. Open: the button sits in a pressed paper square (the
-       press field rows use), not the greyed opacity of a toggled-on
-       filters button -- "this is open", not "this is off". */
-    #sortBtn { position: relative; }
+       button's box. Open: the button inverts to an INK TILE with a paper
+       glyph -- the ledger's reversed block, the same move as an active
+       city chip -- so the slip reads as coming out of it. */
+    #sortBtn { position: relative; border-radius: 3px; }
     #sortBtn::after { content: ''; position: absolute; inset: -12px -6px -12px -12px; }
     #sortBtn:active { opacity: 0.55; }
-    #sortBtn[aria-expanded="true"] { background: var(--paper-pressed); border-radius: 3px; opacity: 1; }
+    #sortBtn[aria-expanded="true"] { background: var(--navy); color: var(--paper); opacity: 1; }
     #sortBtn.loading { opacity: 0.4; }
-    /* No "not A-Z" mark on the glyph at rest: tried (a 4px ink dot on its
-       shoulder) and cut -- it read as an unread/notification badge, and
-       every non-default order already shows itself in the list (distances,
-       category runs, stars on top). .not-default stays as a state hook. */
+    /* No at-rest "not A-Z" mark on the glyph: tried (a 4px ink dot) and cut
+       -- it read as a notification badge, and every non-default order shows
+       itself in the list (distances, category runs, stars on top).
+       .not-default stays as a state hook only. */
 
-    /* The menu is a paper LABEL SLIP: the popup card's paper and hard
-       edge (1px navy, 2px radius, the floating buttons' 1px registration
-       offset instead of a blur), ledger rows ruled in --hair, the header's
-       condensed tracked caps. Fixed to the viewport and placed by JS
-       beside the button -- above it (over the map) on the phone, below it
-       when there's no room above (the desktop rail's top-of-screen
-       header). A transparent scrim under it swallows the outside tap. */
+    /* The menu is a LABEL SLIP: one step lighter than the sheet
+       (--paper-raised), a 1px ink edge with a crisp 2px ink offset (a
+       printed label's registration, never a blur), a "SORT BY" caption band
+       as its one label motif, and ledger rows ruled in --hair. It sits
+       FLUSH on the header band, right-aligned to the button, so it reads as
+       drawn out of it; below the button only when there's no room above
+       (the desktop rail). One fixed width, sized for the longest state
+       (NEAREST + "LOCATION OFF"). A transparent scrim under it swallows the
+       outside tap; the map's attribution steps out while it's open. */
     #sortScrim { position: fixed; inset: 0; z-index: 2550; background: transparent; }
-    #sortMenu {
-      position: fixed; z-index: 2600; min-width: 152px;
-      background: var(--paper); border: 1px solid var(--navy); border-radius: 2px;
-      box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    #sortMenu, #sortNote {
+      position: fixed; z-index: 2600;
+      background: var(--paper-raised); border: 1px solid var(--navy); border-radius: 2px;
+      box-shadow: 2px 2px 0 var(--navy);
       padding: 0; margin: 0;
     }
-    #sortScrim[hidden], #sortMenu[hidden] { display: none; }
+    #sortMenu { width: 200px; }
+    #sortScrim[hidden], #sortMenu[hidden], #sortNote[hidden] { display: none; }
+    body.sort-open .leaflet-control-attribution { visibility: hidden; }
+    .sort-cap {
+      height: 24px; display: flex; align-items: center; padding: 0 var(--s3) 0 36px;
+      border-bottom: 1px solid var(--navy);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 10px; line-height: 12px; letter-spacing: 0.12em; color: var(--ink-2);
+    }
+    /* 40px ledger rows (tight tracking); each claims 2px more above and
+       below, so every target is 44px without spacing the rows apart. */
     .sort-opt {
-      display: grid; grid-template-columns: 14px 1fr auto; align-items: center; column-gap: var(--s2);
-      width: 100%; height: 44px; padding: 0 var(--s4) 0 var(--s3);
+      position: relative;
+      display: grid; grid-template-columns: 16px 1fr auto; align-items: center; column-gap: var(--s2);
+      width: 100%; height: 40px; padding: 0 var(--s3) 0 var(--s3);
       background: transparent; border: none; border-bottom: 1px solid var(--hair);
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
-      font-size: 13px; line-height: 16px; letter-spacing: 0.08em; color: var(--navy);
+      font-size: 13px; line-height: 16px; letter-spacing: 0.05em; color: var(--navy);
       text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
     }
+    .sort-opt::before { content: ''; position: absolute; left: 0; right: 0; top: -2px; bottom: -2px; }
     .sort-opt:last-child { border-bottom: none; }
     .sort-opt:active, .sort-opt:focus-visible { background: var(--paper-pressed); outline: none; }
     .sort-opt:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
-    /* Radio disc in the leading column: filled = the current order. */
-    .sort-opt .sort-dot { width: 6px; height: 6px; border-radius: 50%; justify-self: center; }
-    .sort-opt[aria-checked="true"] .sort-dot { background: var(--navy); }
+    /* The current order: an ink check in the 16px gutter, stroked like the
+       header icons (1.5px at this size, butt ends). */
+    .sort-opt .sort-check { width: 16px; height: 16px; display: block; visibility: hidden; }
+    .sort-opt[aria-checked="true"] .sort-check { visibility: visible; }
     .sort-opt .sort-why {
-      font-size: 10px; line-height: 12px; letter-spacing: 0.1em; color: var(--ink-2);
+      font-size: 10px; line-height: 12px; letter-spacing: 0.08em; color: var(--ink-2);
     }
     .sort-opt.is-off { color: var(--ink-2); }
+    /* The Nearest fallback notice: the same slip, docked on the header
+       band above the button -- never over the map's controls. */
+    #sortNote {
+      padding: 8px var(--s3);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 11px; line-height: 14px; letter-spacing: 0.08em; color: var(--navy); white-space: nowrap;
+    }
     @media (prefers-reduced-motion: no-preference) {
       #sortMenu.opening { animation: sortSlip 140ms cubic-bezier(.2,.8,.3,1); }
     }
@@ -1103,6 +1125,11 @@
       from { opacity: 0; transform: translateY(var(--slip-from, 4px)); }
       to   { opacity: 1; transform: none; }
     }
+
+    /* Nearest: the distance leads the row meta in INK -- the one fact the
+       order is about; the category and city stay quiet --ink-2. */
+    .location-card .row-meta .row-dist { color: var(--ink); }
+    .location-card.highlighted .row-meta .row-dist { color: var(--paper); }
 
     /* =====================================================================
        LEDGER ROWS
@@ -2289,6 +2316,7 @@
        floating buttons) whichever state the sheet is in. -->
   <div id="sortScrim" hidden></div>
   <div id="sortMenu" role="menu" aria-label="Sort list" hidden></div>
+  <div id="sortNote" hidden></div>
   <div id="sortLive" class="sr-only" aria-live="polite"></div>
 
   <script>
@@ -4113,32 +4141,35 @@
     }
     function renderSortMenu() {
       const menu = document.getElementById('sortMenu');
-      menu.innerHTML = SORT_MODES.map(m => {
+      menu.innerHTML = '<div class="sort-cap" aria-hidden="true">Sort by</div>' + SORT_MODES.map(m => {
         const off = m === 'nearest' && nearestState === 'off';
         const why = m === 'nearest' ? (nearestState === 'off' ? nearestWhy : nearestState === 'pending' ? 'Locating…' : '') : '';
         return `<button class="sort-opt${off ? ' is-off' : ''}" role="menuitemradio" tabindex="-1" data-sort="${m}" aria-checked="${m === sortMode}"${why ? ` aria-describedby="sortWhy-${m}"` : ''}>` +
-          `<span class="sort-dot" aria-hidden="true"></span><span>${escapeHtml(SORT_LABELS[m])}</span>` +
+          `<svg class="sort-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.5l5.5 5.5L20.5 6" fill="none" stroke="currentColor" stroke-width="2.25"/></svg><span>${escapeHtml(SORT_LABELS[m])}</span>` +
           `<span class="sort-why" id="sortWhy-${m}">${escapeHtml(why)}</span></button>`;
       }).join('');
     }
     function sortMenuOpen() { return !document.getElementById('sortMenu').hidden; }
-    function placeSortMenu() {
-      const btn = document.getElementById('sortBtn'), menu = document.getElementById('sortMenu');
+    function placeSortMenu(menu = document.getElementById('sortMenu')) {
+      const btn = document.getElementById('sortBtn');
       // Above the whole header band (it rises off the sheet's top edge, over
       // the map); below the button only when there's no room above.
       const r = btn.getBoundingClientRect(), band = btn.closest('#locationsHeader').getBoundingClientRect();
-      const w = menu.offsetWidth, h = menu.offsetHeight, gap = 8;
+      const w = menu.offsetWidth, h = menu.offsetHeight;
       const vw = document.documentElement.clientWidth;
-      const above = band.top - gap - h >= 8;
-      menu.style.top = `${above ? band.top - gap - h : r.bottom + gap}px`;
+      const above = band.top - h >= 8;
+      menu.style.top = `${above ? band.top - h : r.bottom + 6}px`;   // flush on the band (its 2px offset overlaps it)
       menu.style.left = `${Math.max(8, Math.min(vw - w - 8, r.right - w))}px`;
       menu.style.setProperty('--slip-from', above ? '4px' : '-4px');
+      return above;
     }
     function openSortMenu() {
       const btn = document.getElementById('sortBtn'), menu = document.getElementById('sortMenu');
       closeFiltersPanel();
       renderSortMenu();
+      hideSortNote();
       document.getElementById('sortScrim').hidden = false;
+      document.body.classList.add('sort-open');
       menu.hidden = false;
       placeSortMenu();
       menu.classList.remove('opening'); void menu.offsetWidth; menu.classList.add('opening');
@@ -4151,6 +4182,7 @@
       if (menu.hidden) return;
       menu.hidden = true; menu.classList.remove('opening');
       document.getElementById('sortScrim').hidden = true;
+      document.body.classList.remove('sort-open');
       const btn = document.getElementById('sortBtn');
       btn.setAttribute('aria-expanded', 'false');
       if (refocus) btn.focus({ preventScroll: true });
@@ -4192,10 +4224,17 @@
       nearestState = 'off'; nearestWhy = reason;
       setSortMode(SORT_DEFAULT, { announce: false });
       announceSort(`Location unavailable. Sort: ${SORT_LABELS[SORT_DEFAULT]}`);
-      showInfo(`Location unavailable — sorted ${SORT_LABELS[SORT_DEFAULT]}`, 'sort');
-      setTimeout(() => hideError('sort'), 4000);
+      showSortNote(`${reason} — sorted ${SORT_LABELS[SORT_DEFAULT]}`);
       if (sortMenuOpen()) renderSortMenu();
     }
+    let sortNoteTimer = 0;
+    function showSortNote(text) {
+      const note = document.getElementById('sortNote');
+      note.textContent = text; note.hidden = false;
+      placeSortMenu(note);
+      clearTimeout(sortNoteTimer); sortNoteTimer = setTimeout(hideSortNote, 4000);
+    }
+    function hideSortNote() { clearTimeout(sortNoteTimer); const n = document.getElementById('sortNote'); if (n) n.hidden = true; }
     function startNearest() {
       if (nearestWatch !== null) return;
       if (!navigator.geolocation) { nearestFailed('Not supported'); return; }
@@ -5612,7 +5651,7 @@
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
         <div class="row-main">${loc.starred ? '<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>' : ''}
           <h3>${escapeHtml(loc.name)}</h3>
-          <div class="row-meta">${dist ? escapeHtml(dist) + ' &middot; ' : ''}${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
+          <div class="row-meta">${dist ? `<span class="row-dist">${escapeHtml(dist)}</span> &middot; ` : ''}${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
         <div class="location-actions">
           ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
