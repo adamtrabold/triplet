@@ -1,3 +1,14 @@
+> **Note (2026-09-29) — history only.** This exploration misframed the
+> problem as an outline/list-row question. Owner, verbatim: "I was never
+> debating outline or not that was decided forever ago. No star unless it's
+> been starred. What I need to fix is the alignment of the star in the pop
+> up - it looks weird when all the content is in it." The list row showing
+> a star only when starred is settled; the real open item is the popup
+> star's alignment with full content. Active work is in
+> `design/popup-star-alignment/`. `concept-legacy/variant-2-nested-always`
+> (always-shown hollow/filled glyph) is **rejected by the owner** (settled
+> long ago).
+
 # Star alignment — scope correction (owner, 2026-09-28)
 
 The star's position — leading the text, before the name, in the list row
