@@ -1484,6 +1484,131 @@
 
     .locations-empty svg { display: block; margin: 0 auto var(--s3); color: var(--hair); }
 
+    /* =====================================================================
+       PLANS (phase 1; design/plans-deepdive/v2/, docs/shipped.md "Plans").
+       Places | Plans is ONE joined switch at the top of the filter panel.
+       Places is the app as it was. Plans lists one plan's stops in plan
+       order, read-only for following: an outline number tile per stop in
+       the delete X's own 28px slot (so a plan row lays out exactly like a
+       place row), and the ONE solid navy tile is NEXT (the first stop not
+       yet visited). The same number replaces the pin glyph on the map.
+       State system: pressed = pale tile, on = navy tile + paper text,
+       unavailable = ink-2 text + a reason (the sort menu's Nearest rule).
+       ===================================================================== */
+    .seg-wrap { padding: var(--s3) var(--gutter); border-bottom: 1px solid var(--hair); }
+    .seg { display: flex; height: 36px; border: 1px solid var(--navy); border-radius: 3px; background: var(--paper-raised); overflow: hidden; }
+    .seg button {
+      flex: 1 1 0; position: relative; border: none; margin: 0; padding: 0; background: transparent; color: var(--navy); cursor: pointer;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-size: 12px; line-height: 16px; letter-spacing: 0.08em; font-weight: 700;
+      -webkit-tap-highlight-color: transparent; transition: background 0.12s ease, color 0.12s ease;
+    }
+    .seg button + button { border-left: 1px solid var(--navy); }
+    .seg button::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
+    .seg button:active { background: var(--state-press); }
+    .seg button[aria-checked="true"] { background: var(--state-on-bg); color: var(--state-on-fg); }
+    .seg button[aria-checked="true"]:active { background: var(--state-on-press); }
+    .seg button:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
+    .seg button[aria-checked="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--navy), inset 0 0 0 4px var(--paper); }
+
+    /* The Plans side holds only the switch and the plan list: a plan always
+       shows whole, so the city and category chips would do nothing there. */
+    #planLedger { border-bottom: 1px solid var(--hair); }
+    #filtersPanel:not(.plans-side) #planLedger,
+    #filtersPanel.plans-side #cityFilters,
+    #filtersPanel.plans-side #filters { display: none; }
+    /* 44px ledger rows + a 1px --hair rule: the sort menu's row voice. */
+    .plan-opt {
+      display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center;
+      height: 45px; border-bottom: 1px solid var(--hair); position: relative;
+    }
+    .plan-opt:last-child { border-bottom: none; }
+    .plan-pick {
+      display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; column-gap: var(--s2);
+      height: 44px; min-width: 0; padding: 0 0 0 var(--gutter); margin: 0; border: none; background: transparent; cursor: pointer; text-align: left;
+      color: var(--navy); -webkit-tap-highlight-color: transparent;
+    }
+    .plan-opt:not(:has(.plan-more)) .plan-pick { grid-column: 1 / -1; padding-right: 44px; }
+    .plan-pick:active { background: var(--state-press); }
+    .plan-pick:focus-visible, .plan-more:focus-visible, .plan-act:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--navy); }
+    .plan-check { width: 16px; height: 16px; display: block; visibility: hidden; }
+    .plan-pick[aria-current="true"] .plan-check,
+    .plan-new .plan-check { visibility: visible; }
+    .plan-name, .plan-act, .plan-note {
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 13px; line-height: 16px; letter-spacing: 0.05em;
+    }
+    .plan-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    .plan-count {
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 11px; line-height: 12px; letter-spacing: 0.08em; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums;
+    }
+    .plan-new { color: var(--ink-2); }
+    .plan-more {
+      width: 44px; height: 44px; padding: 0; margin: 0; border: none; background: transparent; color: var(--navy); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent;
+    }
+    .plan-more svg { width: 18px; height: 18px; display: block; }
+    .plan-more:active { background: var(--state-press); }
+    /* In-row states (the ⋯ actions, rename, create): the row steps up to
+       --paper-raised, the field colour, so it reads as "being edited". */
+    .plan-opt.plan-form { display: flex; gap: 0; padding-left: var(--gutter); background: var(--paper-raised); }
+    .plan-form input {
+      flex: 1 1 auto; min-width: 0; font: 400 16px/20px var(--font-ui); color: var(--ink); background: transparent;
+      border: none; border-bottom: 1px solid var(--navy); border-radius: 0; padding: 4px 0; margin-right: var(--s1); outline: none;
+    }
+    .plan-form input::placeholder { color: var(--ink-2); }
+    .plan-form .plan-spacer { flex: 1 1 auto; }
+    .plan-act {
+      height: 44px; padding: 0 var(--s3); margin: 0; border: none; background: transparent; cursor: pointer; flex-shrink: 0;
+      font-size: 12px; letter-spacing: 0.08em; color: var(--ink-2); -webkit-tap-highlight-color: transparent;
+    }
+    .plan-act.primary { color: var(--navy); }
+    .plan-act.danger { color: var(--figure-deep); }
+    .plan-act:first-child { margin-left: calc(var(--s3) * -1); }
+    .plan-act:active { background: var(--state-press); }
+    .plan-note { padding: var(--s3) var(--gutter); color: var(--ink-2); font-size: 12px; }
+
+    /* Plans: Plan order is the only order, so there's no sort. */
+    body.plan-view #sortBtn { display: none; }
+
+    /* The stop tile: information, not a control -- a tap on it is a tap on
+       the row (fly + popup). 28px, the delete X's own slot. */
+    .plan-tile {
+      width: var(--col-action); height: var(--col-action); box-sizing: border-box; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--navy); border-radius: 3px; background: var(--paper-raised); color: var(--navy);
+      font-family: var(--font-ui); font-stretch: 80%; font-weight: 700; font-size: 14px; line-height: 1; font-variant-numeric: tabular-nums;
+    }
+    .plan-tile.next { background: var(--state-on-bg); border-color: var(--state-on-bg); color: var(--state-on-fg); }
+    .location-card.highlighted .plan-tile { background: transparent; border-color: var(--paper); color: var(--paper); }
+    .location-card.highlighted .plan-tile.next { background: var(--paper); border-color: var(--paper); color: var(--navy); }
+    /* The shared VISITED stamp, muted: in a plan the numbers lead the scan. */
+    body.plan-view .location-card .row-stamp:not(.vs-copy) { color: color-mix(in srgb, var(--navy) 55%, transparent); }
+    body.plan-view .location-card.highlighted .row-stamp:not(.vs-copy) { color: var(--paper); }
+
+    /* "Edit stops": the plan's first row, an ACTION row (exempt from
+       tap-to-fly). Phase 1: unavailable, with its reason -- editing ships
+       in phase 2. */
+    .plan-edit-row {
+      display: grid; grid-template-columns: var(--col-glyph) 1fr auto; column-gap: var(--gap); align-items: center;
+      width: 100%; min-height: 56px; margin: 0; padding: var(--s2) var(--gutter); box-sizing: border-box;
+      border: none; border-bottom: 1px solid var(--hair); background: var(--paper); color: var(--ink-2); text-align: left; cursor: default;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: 0.06em;
+    }
+    .plan-edit-row svg { width: 20px; height: 20px; display: block; justify-self: center; }
+    .plan-edit-why { font-size: 10px; line-height: 12px; letter-spacing: 0.08em; }
+
+    /* Map: a stop's number replaces its glyph inside the same ring. */
+    .pin-num {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
+      font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 12px; line-height: 1; font-variant-numeric: tabular-nums;
+    }
+    .popup-stop { white-space: nowrap; }
+    .shape-stop {
+      display: block; margin-top: var(--s1); color: var(--ink-2);
+      font-stretch: 75%; text-transform: uppercase; font-size: 10px; line-height: 12px; letter-spacing: 0.1em; font-weight: 700;
+    }
+
     /* Delete is the row's only action. The visited stamp sits here too,
        but it is decoration (pointer-events:none), so a tap on it falls to
        the row and navigates -- see createCard()'s addActive. */
@@ -2264,7 +2389,7 @@
         <h2>Login Required</h2>
       </div>
       <div id="authModalBody">
-        <p>You need to log in to add, edit, or delete locations. Anyone can view locations without logging in.</p>
+        <p>You need to log in to make changes. Anyone can view places and plans without logging in.</p>
         <input type="email" id="authEmailInput" placeholder="Email" autocomplete="email">
         <input type="password" id="authPasswordInput" placeholder="Password" autocomplete="current-password">
         <button id="loginBtn">Login</button>
@@ -2353,6 +2478,10 @@
   </div>
   
   <div id="filtersPanel">
+    <!-- Places | Plans: one joined switch. Places first: it's the default
+         and the app as it always was; Plans is a view you step into. -->
+    <div class="seg-wrap"><div class="seg" id="listSwitch" role="radiogroup" aria-label="List"><button type="button" role="radio" data-view="places" aria-checked="true" tabindex="0">Places</button><button type="button" role="radio" data-view="plans" aria-checked="false" tabindex="-1">Plans</button></div></div>
+    <div id="planLedger" aria-label="Plans"></div>
     <div id="cityFilters"></div>
     <div id="filters"></div>
   </div>
@@ -2550,6 +2679,18 @@
     let pollScheduledMs = 0;
     let lastInteractionAt = Date.now();
     let fetchPromise = null;         // in-flight guard
+
+    // ---- plans state (PLANS, below) --------------------------------------------
+    let listView = 'places';         // 'places' | 'plans' -- the Places | Plans switch
+    let plans = [];                  // [{ id, name, created_at }]
+    let planStops = [];              // [{ id, plan_id, location_id, shape_id, position }]
+    let plansAvailable = null;       // null = not loaded yet; false = tables missing / unreadable (fail soft)
+    let activePlanId = null;
+    let planWritesInFlight = 0;
+    let plansDigest = null;
+    let plansFetchPromise = null;
+    let planMarksCache = null;
+    let planPanel = { mode: null, draft: '' };   // mode: null | 'creating' | 'acting' | 'renaming'
 
     // Auth functions
     async function checkAuth() {
@@ -3138,6 +3279,8 @@
     }
 
     function visibleLocations() {
+      // Plans: the plan's stops, whole -- the city and category filters don't apply.
+      if (inPlanView()) return planMarks().rows.filter(r => r.loc).map(r => r.loc);
       return locations.filter(loc =>
         filters.categories[loc.category] &&
         (filters.city === null || loc.city === filters.city));
@@ -3665,6 +3808,7 @@
       // Phase 2 hook: refreshTodayKey() belongs here, so date-dependent
       // rendering rolls over even in a tab that never fires visibilitychange.
       fetchLocations();
+      fetchPlans();
       startPoll();
     }
 
@@ -3789,7 +3933,7 @@
 
     // Everything the list card renders.
     function cardSignature(loc) {
-      return [loc.name, loc.address, loc.category, loc.visited, loc.starred, distanceLabel(loc)].join('|');
+      return [loc.name, loc.address, loc.category, loc.visited, loc.starred, distanceLabel(loc), planMarkKey('loc', loc.id)].join('|');
     }
 
     // =========================================================================
@@ -3956,6 +4100,11 @@
       const showGlyph = !map || map.getZoom() >= GLYPH_MIN_ZOOM;
       const size = (showGlyph ? MARKER_SIZE_NEAR : MARKER_SIZE_FAR) + (highlighted ? MARKER_HI_DELTA : 0);
       const ink = categoryInk(loc.category);
+      // Plans: the stop's number takes the glyph's place in the same ring
+      // (numbers need the glyph tier's room, so the same zoom gate). NEXT is
+      // the list's solid tile: a navy field with a paper numeral.
+      const stop = showGlyph ? planMarks().byLoc.get(loc.id) : null;
+      if (stop) return planNumberIcon(loc.category, markerKind(loc), ink, stop, size, highlighted, loc.starred);
       const badge = badgeHtml(loc.category, markerKind(loc), size, {
         ink,
         // Highlighted inverts: ink field, paper glyph.
@@ -4042,6 +4191,7 @@
       const rubNow = !loc.starred && popupRubId === loc.id;
       if (rubNow) popupRubId = null;
       const ink = categoryInk(loc.category);
+      const stopLine = planStopLine('loc', loc.id);   // Plans: "Stop n of m" -- information, never a control
       return `
         <div style="min-width: 240px;">
           <div class="popup-title-row${loc.address ? '' : ' no-sub'}${loc.notes ? '' : loc.address ? ' addr-end' : ' solo'}">
@@ -4052,7 +4202,7 @@
           </div>
           <a class="popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Get Directions</a>
           <div class="popup-actions">
-            <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}</div>
+            <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}${stopLine ? `<span class="popup-stop">&middot;&nbsp;${stopLine}</span>` : ''}</div>
             <span class="popup-visited-slot"><button type="button" class="popup-visited ${loc.visited ? 'visited' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.visited ? 'true' : 'false'}">${loc.visited ? 'Visited' : 'Mark Visited'}<span class="popup-visited-check" aria-hidden="true"></span></button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>
           </div>
         </div>
@@ -4225,7 +4375,7 @@
     // Nearest mode leads a row's meta with its distance -- the one fact that
     // mode is about. Other modes: empty, the meta line is unchanged.
     function distanceLabel(loc) {
-      if (sortMode !== 'nearest' || !sortFix) return '';
+      if (sortMode !== 'nearest' || !sortFix || inPlanView()) return '';   // Plans has no sort, so no Nearest meta
       const km = kmFromFix(loc.lat, loc.lng);
       if (km < 1) return `${Math.max(10, Math.round(km * 100) * 10)} m`;
       if (km < 10) return `${km.toFixed(1)} km`;
@@ -4423,26 +4573,566 @@
       syncSortButton();
     }
 
+    // =========================================================================
+    // PLANS (phase 1 of 2; design/plans-deepdive/v2/, docs/shipped.md "Plans").
+    // A plan is a named, ordered list of stops -- pins or districts/streets,
+    // any city. `plans` + `plan_stops` in Supabase (supabase/migrations/
+    // 20260929000000_add_plans.sql), same RLS as locations. Places | Plans is
+    // a switch at the top of the filter panel; Plans lists ONE plan's stops
+    // in order, read-only for following. Editing stops is phase 2.
+    // Fails soft: until the tables exist the Plans side says so, and Places
+    // is exactly the app it was.
+    // =========================================================================
+    const LIST_VIEW_KEY = 'triplet.listView';      // per device: 'places' | 'plans'
+    const ACTIVE_PLAN_KEY = 'triplet.activePlan';  // per device: the plan last open
+    const PLAN_NAME_MAX = 80;                      // = the plans.name CHECK
+    const PLAN_SVG = {
+      check: '<svg class="plan-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.5l5.5 5.5L20.5 6" fill="none" stroke="currentColor" stroke-width="2.25"/></svg>',
+      plus: '<svg class="plan-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.25"/></svg>',
+      more: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>',
+      pencil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 20l4.5-1 10-10-3.5-3.5-10 10z"/><path d="M13.5 7l3.5 3.5"/></svg>'
+    };
+
+    function inPlanView() { return listView === 'plans'; }
+    function activePlan() { return plans.find(p => p.id === activePlanId) || null; }
+    function stopsOf(planId) {
+      return planStops.filter(s => s.plan_id === planId)
+        .sort((a, b) => (a.position - b.position) || String(a.id).localeCompare(String(b.id)));
+    }
+    function stopCount(planId) { return planRowsFor(planId).length; }
+
+    // The plan's stops that resolve to a loaded place or shape, in order.
+    // NEXT = the first stop not yet visited. A district/street has no visited
+    // state, so it counts as passed once any later stop is visited (else a
+    // shape at stop 1 would stay NEXT forever).
+    function planRowsFor(planId) {
+      if (!planId) return [];
+      const rows = [];
+      stopsOf(planId).forEach(s => {
+        if (s.location_id != null) {
+          const loc = locations.find(l => l.id === s.location_id);
+          if (loc) rows.push({ stop: s, loc });
+        } else if (s.shape_id != null) {
+          const nb = neighborhoodShapes.find(n => n.id === Number(s.shape_id));
+          if (nb) rows.push({ stop: s, nb });
+        }
+      });
+      let lastVisited = -1;
+      rows.forEach((r, i) => { if (r.loc && r.loc.visited) lastVisited = i; });
+      const next = rows.findIndex((r, i) => r.loc ? !r.loc.visited : i > lastVisited);
+      rows.forEach((r, i) => { r.n = i + 1; r.m = rows.length; r.next = i === next; });
+      return rows;
+    }
+
+    // One lookup for every surface (list, map, popup), recomputed only when
+    // an input changes identity: every writer of these arrays replaces them.
+    function planMarks() {
+      const key = [listView, activePlanId, planStops, locations, neighborhoodShapes];
+      if (planMarksCache && planMarksCache.key.every((v, i) => v === key[i])) return planMarksCache;
+      const rows = inPlanView() ? planRowsFor(activePlanId) : [];
+      const byLoc = new Map(), byShape = new Map();
+      rows.forEach(r => { if (r.loc) byLoc.set(r.loc.id, r); else byShape.set(r.nb.id, r); });
+      planMarksCache = { key, rows, byLoc, byShape };
+      return planMarksCache;
+    }
+    function planMark(kind, id) { const pm = planMarks(); return (kind === 'loc' ? pm.byLoc : pm.byShape).get(id) || null; }
+    function planMarkKey(kind, id) { const r = planMark(kind, id); return r ? `${r.n}/${r.m}${r.next ? 'n' : ''}` : ''; }
+    function planStopLine(kind, id) { const r = planMark(kind, id); return r ? `Stop ${r.n} of ${r.m}` : ''; }
+
+    function planTileHtml(r) {
+      return `<span class="plan-tile${r.next ? ' next' : ''}" role="img" aria-label="Stop ${r.n} of ${r.m}${r.next ? ', next' : ''}">${r.n}</span>`;
+    }
+
+    function shapePopupHtml(nb) {
+      const line = planStopLine('shape', nb.id);
+      return `<strong>${escapeHtml(nb.label)}</strong>${line ? `<span class="shape-stop">${line}</span>` : ''}${nb.note ? `<p>${escapeHtml(nb.note)}</p>` : ''}`;
+    }
+
+    // A numbered seal: the pin's own ring (category ink, same kind -- dashed
+    // for an approximate pin, diamond for a shape stop), the number where the
+    // glyph was. The star keeps its corner.
+    function planNumberIcon(category, kind, ink, r, size, highlighted, starred) {
+      const next = r.next && !highlighted;
+      const fill = highlighted ? ink : next ? '#12293F' : '#F2EBDD';   // --navy / --paper (SVG attributes can't take tokens)
+      const fg = highlighted || next ? '#F2EBDD' : ink;
+      const badge = badgeHtml(category, kind, size, { ink, fill, mark: fg, rim: highlighted ? 2.5 : 2, glyph: false });
+      const star = starred ? markerStarHtml(size) : '';
+      const html = `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}<span class="pin-num" style="color:${fg}">${r.n}</span>${star}</div>`;
+      return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
+    }
+
+    // A shape stop has no pin, so its number sits in the list's own diamond
+    // badge at the shape's centroid -- one mark per stop, so the map reads
+    // 1..m with no gaps. Same zoom gate as pin numbers; a tap is the row's tap.
+    const planShapeMarkers = new Map();   // shape id -> { marker, sig }
+    function syncPlanShapeMarkers() {
+      if (!map) return;
+      const seen = new Set();
+      if (inPlanView() && map.getZoom() >= GLYPH_MIN_ZOOM) {
+        planMarks().rows.forEach(r => {
+          if (!r.nb) return;
+          const c = shapeCentroid(r.nb);
+          if (!c) return;
+          const id = r.nb.id;
+          seen.add(id);
+          const ink = r.nb.color || categoryInk(r.nb.type);
+          const sig = [r.n, r.next, c.join(), ink, r.nb.type].join('|');
+          const had = planShapeMarkers.get(id);
+          if (had && had.sig === sig) return;
+          if (had) map.removeLayer(had.marker);
+          const marker = L.marker(c, {
+            icon: planNumberIcon(r.nb.type, 'diamond', ink, r, MARKER_SIZE_NEAR, false, false),
+            zIndexOffset: r.next ? Z_PLAN_NEXT : Z_PLAN_STOP,
+            title: `Stop ${r.n}: ${r.nb.label}`
+          }).addTo(map);
+          marker.on('click', () => focusShape(id));
+          planShapeMarkers.set(id, { marker, sig });
+        });
+      }
+      planShapeMarkers.forEach((e, id) => {
+        if (seen.has(id)) return;
+        map.removeLayer(e.marker);
+        planShapeMarkers.delete(id);
+      });
+    }
+
+    function emptyText(planMode) {
+      if (!planMode) return 'Nothing here yet.';
+      if (plansAvailable === false) return 'Plans aren’t available yet.';
+      if (plansAvailable === null) return 'Loading plans…';
+      if (!plans.length) return 'No plans yet.';
+      if (!activePlan()) return 'Pick a plan.';
+      return 'No stops yet.';
+    }
+
+    // "Edit stops": the first row of an open plan, an ACTION row -- never a
+    // place, so it is exempt from tap-to-fly. Phase 1 ships it unavailable
+    // with its reason (the state system's rule for a control that can't act
+    // yet); phase 2 makes it open Edit mode.
+    const planEditRow = document.createElement('button');
+    planEditRow.type = 'button';
+    planEditRow.className = 'plan-edit-row';
+    planEditRow.setAttribute('aria-disabled', 'true');
+    planEditRow.innerHTML = `${PLAN_SVG.pencil}<span>Edit stops</span><span class="plan-edit-why">Coming next</span>`;
+    planEditRow.setAttribute('aria-label', 'Edit stops, coming in the next update');
+
+    // Plans' own reconciler over the same card maps: pins AND shapes, one
+    // list, interleaved in plan order after the Edit stops row. The Places
+    // reconcilers (syncLocationCards / syncShapeCards) never run in Plans,
+    // so neither they nor the poll can reorder or re-filter a plan.
+    function syncPlanCards(rows) {
+      const list = document.getElementById('locationsList');
+      const want = [];
+      const seenLoc = new Set(), seenShape = new Set();
+      if (activePlan()) want.push(planEditRow);
+      else if (planEditRow.parentNode) planEditRow.remove();
+      rows.forEach(r => {
+        if (r.loc) {
+          const loc = r.loc;
+          seenLoc.add(loc.id);
+          let entry = cardsById.get(loc.id);
+          if (!entry) { entry = { el: createCard(loc), signature: null }; cardsById.set(loc.id, entry); }
+          const signature = cardSignature(loc);
+          if (signature !== entry.signature && !starHeld.has(loc.id)) { renderCard(entry.el, loc); entry.signature = signature; }
+          entry.el.classList.toggle('highlighted', loc.id === highlightedId);
+          entry.el.classList.remove('group-end');
+          want.push(entry.el);
+        } else {
+          const nb = r.nb;
+          seenShape.add(nb.id);
+          let entry = shapeCardsById.get(nb.id);
+          if (!entry) { entry = { el: createShapeCard(nb), signature: null }; shapeCardsById.set(nb.id, entry); }
+          const signature = shapeCardSignature(nb);
+          if (signature !== entry.signature) { renderShapeCard(entry.el, nb); entry.signature = signature; }
+          want.push(entry.el);
+        }
+      });
+      cardsById.forEach((entry, id) => { if (!seenLoc.has(id)) { entry.el.remove(); cardsById.delete(id); } });
+      shapeCardsById.forEach((entry, id) => { if (!seenShape.has(id)) { entry.el.remove(); shapeCardsById.delete(id); } });
+      want.forEach((el, i) => { if (list.children[i] !== el) list.insertBefore(el, list.children[i] || null); });
+    }
+
+    // ---- per-device view state --------------------------------------------
+    function writePlanPrefs() {
+      try {
+        localStorage.setItem(LIST_VIEW_KEY, listView);
+        if (activePlanId) localStorage.setItem(ACTIVE_PLAN_KEY, activePlanId); else localStorage.removeItem(ACTIVE_PLAN_KEY);
+      } catch (e) { /* private mode etc.: the view just won't persist */ }
+    }
+    function restorePlanPrefs() {
+      try {
+        if (localStorage.getItem(LIST_VIEW_KEY) === 'plans') listView = 'plans';
+        activePlanId = localStorage.getItem(ACTIVE_PLAN_KEY) || null;
+      } catch (e) { /* nothing stored: Places */ }
+    }
+
+    // ---- reads ------------------------------------------------------------
+    // Polled with locations (pollTick) so the other traveller's changes
+    // arrive. Any read error -- above all "table doesn't exist yet" before
+    // the migration is applied -- fails SOFT: no banner, no throw; the Plans
+    // side says plans aren't available, and a later good read recovers.
+    async function doFetchPlans() {
+      let res;
+      try {
+        res = await Promise.all([
+          supabaseClient.from('plans').select('id,name,created_at').order('created_at', { ascending: true }),
+          supabaseClient.from('plan_stops').select('id,plan_id,location_id,shape_id,position')
+        ]);
+      } catch (err) { res = [{ error: err }]; }
+      if (res.some(r => !r || r.error)) {
+        if (plansAvailable !== true) {
+          const first = plansAvailable === null;
+          plansAvailable = false;
+          if (first && inPlanView()) listView = 'places';   // a stored Plans view can't open yet: start in Places
+          updateUI();
+        }
+        return;
+      }
+      if (planWritesInFlight > 0) return;   // an optimistic write is on screen: the last to settle refetches
+      applyPlansPayload(res[0].data || [], res[1].data || []);
+    }
+    function applyPlansPayload(planRows, stopRows) {
+      const digest = JSON.stringify([planRows, stopRows]);
+      const first = plansAvailable !== true;
+      plansAvailable = true;
+      if (!first && digest === plansDigest) return;   // no-op poll: never touch the DOM or the map
+      plansDigest = digest;
+      plans = planRows.map(p => ({ id: p.id, name: p.name, created_at: p.created_at }));
+      planStops = stopRows.map(s => ({ id: s.id, plan_id: s.plan_id, location_id: s.location_id ?? null,
+        shape_id: s.shape_id == null ? null : Number(s.shape_id), position: Number(s.position) }));
+      if (activePlanId && !activePlan()) {   // deleted (here or on the other phone)
+        activePlanId = inPlanView() && plans.length ? plans[0].id : null;
+        if (planPanel.mode !== 'creating') planPanel = { mode: null, draft: '' };
+        writePlanPrefs();
+      }
+      if (inPlanView() && !activePlanId && plans.length) { activePlanId = plans[0].id; writePlanPrefs(); }
+      updateUI();
+    }
+    function fetchPlans() {
+      if (plansFetchPromise) return plansFetchPromise;
+      plansFetchPromise = doFetchPlans().finally(() => { plansFetchPromise = null; });
+      return plansFetchPromise;
+    }
+    async function refetchPlans() {
+      if (plansFetchPromise) { try { await plansFetchPromise; } catch (e) { /* soft */ } }
+      return fetchPlans();
+    }
+
+    // ---- writes -----------------------------------------------------------
+    // Every write is login-gated (requireAuth() opens the sign-in) and
+    // OPTIMISTIC: the local rows change and the screen follows at once, the
+    // write goes out, and a failure undoes exactly that change (never a
+    // whole-state snapshot, so overlapping writes can't undo each other).
+    // While any is in flight a read is not applied; the last to settle
+    // refetches once -- the pattern of toggleLocationFlag().
+    function planErrorText(err, op) {
+      const msg = (err && err.message) || String(err);
+      if (/row-level security|policy/i.test(msg)) return `Access denied: Only authorized users can ${op}.`;
+      return `Couldn’t ${op}: ${msg}`;
+    }
+    async function planWrite(op, apply, rollback, run) {
+      if (!await requireAuth()) return false;
+      if (plansAvailable !== true) return false;
+      noteInteraction();
+      apply();
+      updateUI();
+      planWritesInFlight++;
+      let ok = true;
+      try {
+        const res = await run();
+        if (res && res.error) throw res.error;
+        hideError('plans');
+      } catch (err) {
+        ok = false;
+        rollback();
+        updateUI();
+        showError(planErrorText(err, op), 'plans');
+      } finally {
+        planWritesInFlight--;
+      }
+      if (planWritesInFlight === 0) await refetchPlans();
+      return ok;
+    }
+    const newPlanId = () => (crypto.randomUUID ? crypto.randomUUID()
+      : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); }));
+    const cleanPlanName = name => String(name || '').trim().replace(/\s+/g, ' ').slice(0, PLAN_NAME_MAX);
+
+    async function createPlan(name) {
+      name = cleanPlanName(name);
+      if (!name) return null;
+      const row = { id: newPlanId(), name, created_at: new Date().toISOString() };
+      const ok = await planWrite('create the plan',
+        () => { plans = plans.concat([row]); },
+        () => { plans = plans.filter(p => p.id !== row.id); if (activePlanId === row.id) { activePlanId = plans[0] ? plans[0].id : null; writePlanPrefs(); } },
+        () => supabaseClient.from('plans').insert([{ id: row.id, name: row.name }]));
+      return ok ? row.id : null;
+    }
+    async function renamePlan(id, name) {
+      name = cleanPlanName(name);
+      const p = plans.find(q => q.id === id);
+      if (!p || !name || name === p.name) return false;
+      const old = p.name;
+      return planWrite('rename the plan',
+        () => { plans = plans.map(q => q.id === id ? { ...q, name } : q); },
+        () => { plans = plans.map(q => q.id === id && q.name === name ? { ...q, name: old } : q); },
+        () => supabaseClient.from('plans').update({ name }).eq('id', id));
+    }
+    async function deletePlan(id) {
+      const p = plans.find(q => q.id === id);
+      if (!p) return false;
+      const at = plans.indexOf(p), gone = planStops.filter(s => s.plan_id === id), wasActive = activePlanId === id;
+      return planWrite('delete the plan',
+        () => {
+          plans = plans.filter(q => q.id !== id);
+          planStops = planStops.filter(s => s.plan_id !== id);   // the DB cascades the same way
+          if (wasActive) { activePlanId = plans[0] ? plans[0].id : null; writePlanPrefs(); }
+        },
+        () => {
+          if (!plans.some(q => q.id === id)) { plans = plans.slice(); plans.splice(Math.min(at, plans.length), 0, p); }
+          planStops = planStops.concat(gone.filter(s => !planStops.some(t => t.id === s.id)));
+          if (wasActive) { activePlanId = id; writePlanPrefs(); }
+        },
+        () => supabaseClient.from('plans').delete().eq('id', id));
+    }
+    // target: { locationId } | { shapeId }. Appends as the last stop.
+    async function addStop(planId, target) {
+      if (!plans.some(p => p.id === planId)) return null;
+      const locationId = target && target.locationId != null ? target.locationId : null;
+      const shapeId = target && target.shapeId != null ? Number(target.shapeId) : null;
+      if ((locationId == null) === (shapeId == null)) return null;   // exactly one (the table's CHECK)
+      const existing = stopsOf(planId);
+      if (existing.some(s => (locationId != null && s.location_id === locationId) || (shapeId != null && s.shape_id === shapeId))) return null;
+      const row = { id: newPlanId(), plan_id: planId, location_id: locationId, shape_id: shapeId,
+        position: existing.length ? existing[existing.length - 1].position + 1 : 1 };
+      const ok = await planWrite('add the stop',
+        () => { planStops = planStops.concat([row]); },
+        () => { planStops = planStops.filter(s => s.id !== row.id); },
+        () => supabaseClient.from('plan_stops').insert([row]));
+      return ok ? row.id : null;
+    }
+    async function removeStop(stopId) {
+      const s = planStops.find(t => t.id === stopId);
+      if (!s) return false;
+      return planWrite('remove the stop',
+        () => { planStops = planStops.filter(t => t.id !== stopId); },
+        () => { if (!planStops.some(t => t.id === stopId)) planStops = planStops.concat([s]); },
+        () => supabaseClient.from('plan_stops').delete().eq('id', stopId));
+    }
+    // Moves a stop to index `to` (0-based) in its plan. One row is written
+    // (the midpoint between its new neighbours); if they are ever too close
+    // for a float midpoint, the plan is renumbered 1..n in one upsert.
+    async function reorderStop(stopId, to) {
+      const s = planStops.find(t => t.id === stopId);
+      if (!s) return false;
+      const order = stopsOf(s.plan_id), from = order.findIndex(t => t.id === stopId);
+      to = Math.max(0, Math.min(order.length - 1, to));
+      if (from === to) return false;
+      const rest = order.filter(t => t.id !== stopId), before = rest[to - 1], after = rest[to];
+      const tight = before && after && !(after.position - before.position > 1e-9);
+      const olds = new Map(order.map(t => [t.id, t.position]));
+      let changes;
+      if (tight) {
+        const moved = rest.slice(); moved.splice(to, 0, s);
+        changes = moved.map((t, i) => ({ ...t, position: i + 1 }));
+      } else {
+        const pos = before && after ? (before.position + after.position) / 2 : before ? before.position + 1 : after.position - 1;
+        changes = [{ ...s, position: pos }];
+      }
+      const byId = new Map(changes.map(c => [c.id, c.position]));
+      return planWrite('reorder the plan',
+        () => { planStops = planStops.map(t => byId.has(t.id) ? { ...t, position: byId.get(t.id) } : t); },
+        () => { planStops = planStops.map(t => byId.has(t.id) && t.position === byId.get(t.id) ? { ...t, position: olds.get(t.id) } : t); },
+        () => changes.length === 1
+          ? supabaseClient.from('plan_stops').update({ position: changes[0].position }).eq('id', stopId)
+          : supabaseClient.from('plan_stops').upsert(changes.map(c => ({ id: c.id, plan_id: c.plan_id, location_id: c.location_id, shape_id: c.shape_id, position: c.position }))));
+    }
+
+    // ---- view -------------------------------------------------------------
+    // Frame a plan's stops. The panel stays open over the bottom of the map on
+    // a phone, so the fit keeps the stops clear of it.
+    function frameActivePlan(opts = {}) {
+      const pts = planMarks().rows.map(r => r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb)).filter(Boolean);
+      if (!pts.length || !map) return;
+      const panel = document.getElementById('filtersPanel');
+      const under = panel.classList.contains('visible') && !window.matchMedia('(min-width: 900px)').matches ? panel.offsetHeight : 0;
+      const animate = opts.animate !== false && !prefersReducedMotion();
+      map.fitBounds(L.latLngBounds(pts), { paddingTopLeft: [40, 96], paddingBottomRight: [40, 40 + under], maxZoom: 16, animate });
+    }
+
+    // The only writer of listView. Leaving a plan restores the city the
+    // Places list had: a plan never changes the city selection (Plans has
+    // no city chips), so "restore" is re-framing that city.
+    function setListView(view) {
+      if (view !== 'plans') view = 'places';
+      if (view === listView) return;
+      closeSortMenu(false);
+      noteInteraction();
+      planPanel = { mode: null, draft: '' };
+      listView = view;
+      setHighlighted(null);
+      if (map) map.closePopup();
+      if (view === 'plans') {
+        if (!activePlan()) activePlanId = plans[0] ? plans[0].id : null;
+        updateUI();
+        frameActivePlan();
+      } else {
+        updateUI();
+        focusCity(citySelection, { animate: true });
+      }
+      writePlanPrefs();
+      document.getElementById('locationsList').scrollTop = 0;
+    }
+    // Picking a plan opens it and leaves the panel open (switching again is
+    // one more tap); the map frames its stops.
+    function choosePlan(id) {
+      if (!plans.some(p => p.id === id)) return;
+      noteInteraction();
+      const same = listView === 'plans' && activePlanId === id;
+      listView = 'plans';
+      activePlanId = id;
+      planPanel = { mode: null, draft: '' };
+      if (!same) { setHighlighted(null); if (map) map.closePopup(); }
+      updateUI();
+      frameActivePlan();   // re-picking the open plan re-frames it (the city chip's recovery move)
+      writePlanPrefs();
+      if (!same) document.getElementById('locationsList').scrollTop = 0;
+    }
+
+    // ---- the panel: switch + plan ledger ----------------------------------
+    let planLedgerSig = null;
+    function renderPlanPanel() {
+      const panel = document.getElementById('filtersPanel');
+      panel.classList.toggle('plans-side', inPlanView());
+      document.querySelectorAll('#listSwitch [role="radio"]').forEach(b => {
+        const on = b.dataset.view === listView;
+        b.setAttribute('aria-checked', String(on));
+        b.tabIndex = on ? 0 : -1;
+      });
+      const ledger = document.getElementById('planLedger');
+      const counts = plans.map(p => stopCount(p.id));
+      const sig = JSON.stringify([listView, plansAvailable, activePlanId, planPanel.mode, plans.map(p => [p.id, p.name]), counts]);
+      if (sig === planLedgerSig) return;
+      planLedgerSig = sig;
+      const hadFocus = ledger.contains(document.activeElement) ? document.activeElement : null;
+      const focusKey = hadFocus && (hadFocus.dataset.plan || hadFocus.dataset.act || (hadFocus.tagName === 'INPUT' ? 'input' : null));
+      if (!inPlanView()) { ledger.innerHTML = ''; return; }
+      if (plansAvailable === false) { ledger.innerHTML = '<p class="plan-note">Plans aren’t available yet.</p>'; return; }
+      if (plansAvailable === null) { ledger.innerHTML = '<p class="plan-note">Loading plans…</p>'; return; }
+      const form = (label, act) => `<div class="plan-opt plan-form"><input type="text" maxlength="${PLAN_NAME_MAX}" enterkeyhint="done" autocomplete="off" aria-label="${label}" placeholder="Plan name" value="${escapeAttr(planPanel.draft)}">` +
+        `<button type="button" class="plan-act" data-act="cancel">Cancel</button><button type="button" class="plan-act primary" data-act="${act}">${act === 'create' ? 'Create' : 'Save'}</button></div>`;
+      ledger.innerHTML = plans.map((p, i) => {
+        const cur = p.id === activePlanId;
+        if (cur && planPanel.mode === 'renaming') return form('Plan name', 'save');
+        if (cur && planPanel.mode === 'acting') {
+          return `<div class="plan-opt plan-form" role="group" aria-label="${escapeAttr(p.name)}"><button type="button" class="plan-act primary" data-act="rename">Rename</button>` +
+            `<button type="button" class="plan-act danger" data-act="delete">Delete plan</button><span class="plan-spacer"></span><button type="button" class="plan-act" data-act="cancel">Cancel</button></div>`;
+        }
+        const n = counts[i], ct = `${n} ${n === 1 ? 'stop' : 'stops'}`;
+        return `<div class="plan-opt"><button type="button" class="plan-pick" data-plan="${escapeAttr(p.id)}" aria-current="${cur}" aria-label="${escapeAttr(p.name)}, ${ct}">` +
+          `${PLAN_SVG.check}<span class="plan-name">${escapeHtml(p.name)}</span><span class="plan-count">${ct}</span></button>` +
+          (cur ? `<button type="button" class="plan-more" data-act="more" aria-label="Rename or delete ${escapeAttr(p.name)}">${PLAN_SVG.more}</button>` : '') + '</div>';
+      }).join('') + (planPanel.mode === 'creating' ? form('New plan name', 'create')
+        : `<div class="plan-opt"><button type="button" class="plan-pick plan-new" data-act="new">${PLAN_SVG.plus}<span class="plan-name">New plan</span><span></span></button></div>`);
+      // Keep focus where it was across a re-render (a poll while typing).
+      const input = ledger.querySelector('input');
+      if (input && (focusKey === 'input' || planPanel.focusInput)) {
+        planPanel.focusInput = false;
+        input.focus({ preventScroll: true });
+        input.setSelectionRange(input.value.length, input.value.length);
+      } else if (focusKey) {
+        const again = ledger.querySelector(`[data-plan="${CSS.escape(focusKey)}"], [data-act="${CSS.escape(focusKey)}"]`);
+        if (again) again.focus({ preventScroll: true });
+      }
+    }
+    function setPlanPanelMode(mode, draft = '') {
+      planPanel = { mode, draft, focusInput: mode === 'creating' || mode === 'renaming' };
+      renderPlanPanel();
+      if (mode === 'acting') { const r = document.querySelector('#planLedger [data-act="rename"]'); if (r) r.focus({ preventScroll: true }); }
+    }
+    async function submitPlanForm() {
+      const name = cleanPlanName(planPanel.draft);
+      if (!name) { const i = document.querySelector('#planLedger input'); if (i) i.focus(); return; }
+      if (planPanel.mode === 'creating') {
+        setPlanPanelMode(null);
+        const id = await createPlan(name);
+        if (id) choosePlan(id);
+      } else if (planPanel.mode === 'renaming') {
+        const id = activePlanId;
+        setPlanPanelMode(null);
+        await renamePlan(id, name);
+      }
+    }
+    function initPlans() {
+      const sw = document.getElementById('listSwitch');
+      sw.addEventListener('click', e => { const b = e.target.closest('[role="radio"]'); if (b) setListView(b.dataset.view); });
+      sw.addEventListener('keydown', e => {
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
+        e.preventDefault();
+        const v = e.key === 'Home' ? 'places' : e.key === 'End' ? 'plans' : (listView === 'places' ? 'plans' : 'places');
+        setListView(v);
+        sw.querySelector(`[data-view="${v}"]`).focus();
+      });
+      const ledger = document.getElementById('planLedger');
+      ledger.addEventListener('input', e => { if (e.target.tagName === 'INPUT') planPanel.draft = e.target.value; });
+      ledger.addEventListener('keydown', e => {
+        if (e.target.tagName !== 'INPUT') return;
+        if (e.key === 'Enter') { e.preventDefault(); submitPlanForm(); }
+        else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); setPlanPanelMode(null); }
+      });
+      ledger.addEventListener('click', async e => {
+        const pick = e.target.closest('[data-plan]');
+        if (pick) { choosePlan(pick.dataset.plan); return; }
+        const b = e.target.closest('[data-act]');
+        if (!b) return;
+        const act = b.dataset.act, p = activePlan();
+        if (act === 'cancel') setPlanPanelMode(null);
+        else if (act === 'create' || act === 'save') submitPlanForm();
+        else if (act === 'new') { if (await requireAuth()) setPlanPanelMode('creating'); }
+        else if (act === 'more') setPlanPanelMode('acting');
+        else if (act === 'rename' && p) { if (await requireAuth()) setPlanPanelMode('renaming', p.name); else setPlanPanelMode(null); }
+        else if (act === 'delete' && p) {
+          if (!await requireAuth()) { setPlanPanelMode(null); return; }
+          setPlanPanelMode(null);
+          // Plain words, the phone's own dialog (the app's other deletes do the same).
+          if (confirm(`Delete “${p.name}”? Its places stay in your list.`)) await deletePlan(p.id);
+        }
+      });
+    }
+
     function updateUI() {
-      const visible = (() => { const v = visibleLocations(); return heldOrder(v) || sortLocations(v); })();
-      const visibleShapes = sortShapes(visibleNeighborhoodShapes());
-      document.querySelector('#locationsHeader h2').textContent =
-        `${activeCityLabel()} list (${visible.length + visibleShapes.length})`;
+      const planMode = inPlanView();
+      // Plans: plan order is the only order (planMarks().rows), so no sort and
+      // no held order -- a row gesture never moves a stop.
+      const visible = planMode ? visibleLocations() : (() => { const v = visibleLocations(); return heldOrder(v) || sortLocations(v); })();
+      const visibleShapes = planMode ? visibleNeighborhoodShapes() : sortShapes(visibleNeighborhoodShapes());
+      // The header is only a label: whatever the list is. Places: the city
+      // list and its count. Plans: the plan's name, no count.
+      document.querySelector('#locationsHeader h2').textContent = planMode
+        ? (activePlan() ? activePlan().name : 'Plans')
+        : `${activeCityLabel()} list (${visible.length + visibleShapes.length})`;
+      document.body.classList.toggle('plan-view', planMode);
       const mapVisible = mapVisibleLocations();
       syncMarkers(mapVisible.solo);
       syncClusterMarkers(mapVisible.clusters);
-      syncLocationCards(visible);
-      syncShapeCards(visibleShapes, visible.length);
+      if (planMode) syncPlanCards(planMarks().rows);
+      else {
+        if (planEditRow.parentNode) planEditRow.remove();   // the index-based reconcilers own the list from row 0
+        syncLocationCards(visible);
+        syncShapeCards(visibleShapes, visible.length);
+      }
       syncNeighborhoodLayers();
+      syncPlanShapeMarkers();
 
       // Empty state + bottom spacer always come last, after both card kinds.
       const list = document.getElementById('locationsList');
       const emptyState = document.getElementById('locationsEmpty');
       emptyState.style.display = (visible.length + visibleShapes.length) === 0 ? 'block' : 'none';
+      emptyState.lastChild.textContent = emptyText(planMode);
       if (list.lastElementChild !== listSpacer) {
         list.appendChild(emptyState);
         list.appendChild(listSpacer);
       }
+      renderPlanPanel();
     }
 
     // ---- neighborhood shape rendering (Phase 3) ------------------------------
@@ -4467,9 +5157,8 @@
       const layer = nb.type === 'street'
         ? L.polyline(nb.geometry, neighborhoodStyle(nb))
         : L.polygon(nb.geometry, neighborhoodStyle(nb));
-      layer.bindPopup(
-        `<strong>${escapeHtml(nb.label)}</strong>${nb.note ? `<p>${escapeHtml(nb.note)}</p>` : ''}`
-      );
+      layer.bindPopup(shapePopupHtml(nb));
+      layer._planKey = planMarkKey('shape', nb.id);
       return layer;
     }
 
@@ -4478,6 +5167,7 @@
     // everything available; it isn't a viewport, so zoom has no business
     // hiding rows from it (unlike the map layer, see mapVisibleNeighborhoodShapes()).
     function visibleNeighborhoodShapes() {
+      if (inPlanView()) return planMarks().rows.filter(r => r.nb).map(r => r.nb);
       return neighborhoodShapes.filter(nb => {
         if (!filters.categories[nb.type]) return false;   // same category filter chips as pins
         if (!isAllCities() && nb.city !== activeCity) return false;
@@ -4489,6 +5179,9 @@
     // one feeds the actual map layer, so the map still stays uncluttered when
     // zoomed out while the list shows everything that matches the filters.
     function mapVisibleNeighborhoodShapes() {
+      // A plan's own shape stops draw at any zoom: the gate thins Places, and
+      // a plan's stops are never clutter (their numbered diamond needs them).
+      if (inPlanView()) return visibleNeighborhoodShapes();
       const zoom = map.getZoom();
       return visibleNeighborhoodShapes().filter(nb => zoom >= neighborhoodMinZoom(nb));
     }
@@ -4504,7 +5197,16 @@
       });
 
       neighborhoodLayersById.forEach((layer, id) => {
-        if (shouldShow.has(id)) return;
+        if (shouldShow.has(id)) {
+          // "Stop n of m" follows the plan without rebuilding the layer.
+          const key = planMarkKey('shape', id);
+          if (layer._planKey !== key) {
+            const nb = neighborhoodShapes.find(n => n.id === id);
+            if (nb) layer.setPopupContent(shapePopupHtml(nb));
+            layer._planKey = key;
+          }
+          return;
+        }
         map.removeLayer(layer);
         neighborhoodLayersById.delete(id);
       });
@@ -4607,10 +5309,15 @@
     // about is never the one hidden underneath. The selected pin always
     // tops everything.
     const Z_HIGHLIGHTED = 1000, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500;
+    // Plans: a stop pin draws above any place pin it overlaps (NEXT above the
+    // other stops), still under the clusters and the selected pin.
+    const Z_PLAN_NEXT = 560, Z_PLAN_STOP = 550;
     function applyMarkerStacking(marker, highlighted, starred, cluster = false) {
+      const stop = !cluster && marker.locationId != null ? planMarks().byLoc.get(marker.locationId) : null;
       marker.setZIndexOffset(
         highlighted ? Z_HIGHLIGHTED
         : cluster ? (starred ? Z_CLUSTER_STARRED : Z_CLUSTER)
+        : stop ? (stop.next ? Z_PLAN_NEXT : Z_PLAN_STOP)
         : starred ? Z_PIN_STARRED : 0);
     }
 
@@ -4619,7 +5326,7 @@
 
       visible.forEach(loc => {
         seen.add(loc.id);
-        const signature = markerSignature(loc);
+        const signature = markerSignature(loc) + '|' + planMarkKey('loc', loc.id);   // plan number / NEXT re-icons + re-labels the popup
         const entry = markersById.get(loc.id);
 
         if (!entry) {
@@ -5768,6 +6475,7 @@
       const ink = categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
       const dist = distanceLabel(loc);   // Nearest only: the distance leads the meta
+      const stop = planMarks().byLoc.get(loc.id);   // Plans: the stop tile takes the X's slot (the X is Places-only)
       const stamp = loc.visited
         ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`
         : '';
@@ -5778,7 +6486,7 @@
           <div class="row-meta">${dist ? `<span class="row-dist">${escapeHtml(dist)}</span> &middot; ` : ''}${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
         <div class="location-actions">
-          ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
+          ${stamp}${stop ? planTileHtml(stop) : '<button class="delete-btn" aria-label="Delete">&times;</button>'}
         </div>
       `;
     }
@@ -5825,7 +6533,7 @@
     // pin cards syncLocationCards() just wrote, so the two reconcilers can
     // share one DOM list without stepping on each other's child indices.
     function shapeCardSignature(nb) {
-      return [nb.label, nb.type, nb.color].join('|');
+      return [nb.label, nb.type, nb.color, planMarkKey('shape', nb.id)].join('|');
     }
 
     function focusShape(shapeId) {
@@ -5898,6 +6606,7 @@
     function renderShapeCard(el, nb) {
       const ink = nb.color || categoryInk(nb.type);
       const city = nb.city && CITIES[nb.city] ? CITIES[nb.city].label : nb.city;
+      const stop = planMarks().byShape.get(nb.id);
       el.innerHTML = `
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(nb.type, 'diamond', 24)}</div>
         <div class="row-main">
@@ -5905,7 +6614,7 @@
           <div class="row-meta">${escapeHtml(nb.type)}${city ? ' &middot; ' + escapeHtml(city) : ''}</div>
         </div>
         <div class="location-actions">
-          <button class="delete-btn" aria-label="Delete">&times;</button>
+          ${stop ? planTileHtml(stop) : '<button class="delete-btn" aria-label="Delete">&times;</button>'}
         </div>
       `;
     }
@@ -6549,14 +7258,16 @@
     populateCityInput();
     createCitySelector();
     createFilters();
+    restorePlanPrefs();
+    initPlans();
 
     // Sole entry point for city state. On cold start there is nothing to
     // animate away from, so framing is instant.
     const restoredCity = restoreCitySelection();          // cityId | ALL_CITIES | null
     setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false });
 
-    Promise.all([fetchLocations(), fetchNeighborhoodShapes(), fetchCities()])
-      .then(() => cleanupOrphanCities());
+    Promise.all([fetchLocations(), fetchNeighborhoodShapes(), fetchCities(), fetchPlans()])
+      .then(() => { if (inPlanView() && activePlan()) frameActivePlan({ animate: false }); cleanupOrphanCities(); });
     startPoll();
 
     // The bottom sheet becomes a left rail at >=900px (see the media query).
@@ -6596,6 +7307,7 @@
       } else {
         lastInteractionAt = Date.now();
         fetchLocations();
+        fetchPlans();
         startPoll();
       }
     });
