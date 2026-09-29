@@ -666,22 +666,74 @@ go stale, and don't leave it silently out of date either.
     scoped): touch 84/84, flip6 8/8, vtest 113/113, popup-open 20/20, dust
     0, replays 64/64, tap8r/haptic8r/ax8r, curve8 ×10, Impeccable 3.
 
-**Priority (owner-requested, next up):**
+**Priority (owner-requested, next up) — concept work already produced,
+next crew should pick/redirect before building anything:**
 - **Star alignment looks off** (owner, 2026-09-28: "the star is looking
-  weird either way" = alignment, in both the list row and the popup) —
-  NEXT loop problem. Includes the CD-deferred 41px empty gap above Get
-  Directions in a bare popup (star-target geometry).
-- **List ordering is confusing** (owner, 2026-09-23). Current behavior,
-  not a designed choice: `locations` are fetched `.order('created_at',
-  { ascending: false })` (newest-added first) and `syncLocationCards()`
-  keeps that order after `visibleLocations()` filters by city/category;
-  shape rows render in their own block via `createShapeCard()`. Nothing
-  groups by visited state, category, or proximity, so the list reads as
-  arbitrary. Needs a Design/UX/CD pass on what the list is *for*
-  (planning vs. on-the-ground "what's near/left") — and it interacts with
-  the visited-row field (e.g. sorting visited to the bottom would change
-  what the field is doing). Don't just pick a sort.
-  "Star…" (batch) mode was dropped: the owner ruled a fast per-row action makes it unnecessary, and the Pencil Star stroke is that action. "Starred first" remains a candidate ordering for this pass.
+  weird either way" = alignment, in both the list row and the popup;
+  "no clean alignment, no clean grid"). Includes the CD-deferred 41px
+  empty gap above Get Directions in a bare popup (star-target geometry).
+  Root cause: `.location-card.is-starred .row-main { padding-left: 26px }`
+  only indents starred rows, so the name's x-position depends on starred
+  state — no shared grid line with unstarred rows. **Three concept
+  tracks already built and screenshotted, owner has NOT picked one:**
+  `design/star-alignment/README.md` (scope note: the star's position is
+  confirmed correct, only the reserved-space mechanism needs fixing —
+  several wildcard variants explored relocating the star instead, which
+  is off-scope, filed as history not candidates).
+  - `concept-legacy/` — 3 reserved-column variants (nested-silent,
+    nested-always, outer-column). Top pick: nested-silent.
+  - `concept-wild-a/` — dog-ear, edge stripe, action-cluster star. Top
+    pick: the stripe (least new risk, but not star-shaped).
+  - `concept-wild-b/` — corner badge, starred-only section (no per-row
+    glyph — cross-references list-ordering below), reserved-margin
+    (independently converged on the same fix as concept-legacy), a
+    typographic-only treatment (rejected, reopens a settled Pencil Star
+    decision).
+  Owner has seen the screenshots (sent via chat) but not yet said which
+  to build.
+- **List ordering is confusing** (owner, 2026-09-23: don't just pick a
+  sort). **Concept work already produced, owner has NOT picked a final
+  spec:** `design/list-ordering/proposal.md` — §§1-5 is the original
+  single-sort analysis (superseded), §6 is the revision into **3
+  selectable modes** (What's Left / Starred / Recent) per the owner's
+  "options, not one hardcoded default" pushback, §6.7 is a correction:
+  the picker can't be `#locationsHeader`'s `<h2>` (that's the live
+  city+count label, not free real estate) — needs a fresh placement idea
+  that still hits the owner's "whimsical but painfully minimal, feels
+  inevitable" bar (their words, 2026-09-28) before anything is built.
+  `design/list-ordering/concept/mockup.html`/`.png` is the (now-invalid)
+  heading-picker mockup — useful as a reference for what NOT to do, not
+  a starting point. "Starred first" is folded into the What's Left mode's
+  tiebreak logic already, not a separate open question.
+- **Visited pins have no map treatment** (owner, 2026-09-29, asked
+  directly: "should visited places have a different treatment on the
+  map itself"). New item this session. **Concept work already produced,
+  through a full UX-check + CD loop, scored 9/10, owner has NOT yet
+  approved or redirected:** `design/visited-marker/concept/README.md`.
+  Path taken: 4 initial options (A dotted rim, B receded field — tested
+  and REJECTED, invisible at marker scale, direct evidence against
+  porting list-row visual rationale unchanged — C checkmark tick,
+  overlap issues, D opacity-only, can't rule out a "still loading"
+  read) → owner reviewed the shipped list-stamp's dotted track live on
+  their phone, found it "unintelligible" at real size, asked for a
+  hybrid of B's receded field + a toned-down dotted rim → 3 dot-density
+  hybrids tested at true 1x (not just 4x blowup), Hybrid 2 (12 dots)
+  picked as the sweet spot → owner said tighten it further toward the
+  real `.row-stamp` grammar (full-strength navy ink, not muted) →
+  Round 3 (dots inside the rim) scored 6/10, rejected — collided with
+  `badgeHtml()`'s glyph, a real legibility blocker not a dial → **Round 4
+  (dots OUTSIDE the rim) scored 9/10, recommended** — sent to the owner
+  as `stampring-truesize-restauranthotel.png`/`-shopping.png` (the risky
+  hue)/`-starred.png` (checked against the existing star shoulder, no
+  collision). Two things explicitly flagged as still open for perfection
+  stage, not assumed fine: real-tile legibility (sandbox can't render
+  live tiles) and whether the outer-ring treatment extends cleanly to
+  cluster badges (the existing "recede only if ALL members visited" rule
+  is separate and untouched). This is concept-stage sign-off only —
+  nothing built. The owner's last read on this whole thread: "these
+  aren't even following good design principles at this point" — treat
+  that as a real signal to look at Round 4 with fresh, skeptical eyes,
+  not to assume it's a done deal.
 - **Trip vs. place location model — search can't find places in other
   cities** (owner, 2026-09-23). Root cause of the search failure: every
   Nominatim call goes through `currentSearchCityConfig()` (the city
