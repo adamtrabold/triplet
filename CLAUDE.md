@@ -107,6 +107,15 @@ fresh agents when a warm one has the context.
 - **Be token-efficient on the operator thread.** Don't be verbose, don't
   narrate, don't re-read or re-derive what's already established, and
   don't spend more than the step needs. Short, plain updates to the owner.
+  (Owner, 2026-09-29, after the operator went off investigating a bug
+  that turned out not to exist: "the operator should be as concise as
+  possible and not overly explain things or send a bunch of extra
+  messages — only what's necessary and helpful.") Send one message per
+  real event (a decision needed, a thread finished, a blocker), not a
+  message per sub-step. Don't restate context the owner already has.
+  Farm out research, investigation, and verification to agents instead
+  of doing it inline on the operator thread — including checking
+  whether a reported bug is real before theorizing about it out loud.
 - **Never trade correctness for thrift.** Efficiency comes from language
   and orchestration, not from cutting the loop: every loop requirement
   (stages, CD ≥9, UX verification, 3x/4x/1x + real-timing review,
