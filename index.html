@@ -1887,12 +1887,15 @@
        card's left edge. .location-card itself gets the guard instead, so
        both the badge and the text clip cleanly at the row's own bounds. */
     .location-card.vs-live { transition: none; overflow: hidden; }
-    /* The printed star is static (never translated) but sits at row-main's
-       own head, in the sliding text's path -- the star gesture's own fix
-       for this (row-star hidden for the drag's whole live window,
-       reappearing only once its own flip is fully at rest) applies here
-       for the same reason: a name in transit must never visibly cross it. */
-    .location-card.vs-live .row-star { visibility: hidden; }
+    /* The printed star moves WITH the sliding block instead of hiding: it
+       is absolutely positioned (row-main's own head), so it needs its own
+       translateX -- setSlip() drives it at the same offset as .row-badge
+       (owner: "it should move like any other element", after the badge
+       got the same treatment). Unlike the star gesture's OWN sweep (which
+       hides row-star because the pencil draws IN its slot -- a different,
+       unrelated case, left alone), nothing is drawn here, so sliding is
+       enough; .location-card's overflow:hidden guard (above) covers it at
+       full rubber-band travel exactly as it does the badge and text. */
     .location-card.vs-live .location-actions { position: relative; }
     .vs-carry {                             /* the new stamp: the shipped .row-stamp, out of flow AT its slot */
       position: absolute;
@@ -4617,6 +4620,12 @@
       // The star's rightward slide runs away from the badge and never
       // sets g.badge, so this is a no-op for every star call site.
       if (g.badge) g.badge.style.transform = off ? `translateX(${off}px)` : '';
+      // Visit-swipe only (g.star is set solely by beginVisitDrag, same as
+      // g.badge): the printed star moves with the text block instead of
+      // hiding. It's absolutely positioned, so it needs its own
+      // translateX at the same offset as the name/badge -- not metaOff,
+      // same reasoning as the badge (it isn't part of .row-meta).
+      if (g.star) g.star.style.transform = off ? `translateX(${off}px)` : '';
     }
 
     // HAND-SPEED PEN (round 4). The finger still owns the name (1:1) and
@@ -4938,6 +4947,7 @@
       const main = el.querySelector('.row-main'), acts = el.querySelector('.location-actions');
       const h3 = el.querySelector('h3'), meta = el.querySelector('.row-meta');
       const badge = el.querySelector('.row-badge');
+      const star = el.querySelector('.row-star');
       if (!main || !acts || !h3 || !meta) return false;
       const tilt = stampTilt(id), visited = !!loc.visited;
       let st = el.querySelector('.row-stamp');
@@ -4955,7 +4965,7 @@
       const field = getComputedStyle(el).backgroundColor;
       el.classList.add('vs-live', 'vs-xhide');
       if (!visited) acts.prepend(st);
-      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, h3, meta, badge, tilt, field, hi: el.classList.contains('highlighted'), raw: 0, pressed: false, lifted: false, armed: false });
+      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, h3, meta, badge, star, tilt, field, hi: el.classList.contains('highlighted'), raw: 0, pressed: false, lifted: false, armed: false });
       starHeld.set(id, { ff: null });
       if (visited && !prefersReducedMotion()) runVisitPop(g, VISIT_LIFT, 240);   // the star's erase pop: lift to rub it out
       paintVisit(g);
@@ -5075,6 +5085,7 @@
       const entry = cardsById.get(g.id); if (entry) entry.signature = cardSignature(fin);
       g.h3 = el.querySelector('h3'); g.meta = el.querySelector('.row-meta'); g.main = el.querySelector('.row-main'); g.st = el.querySelector('.row-stamp');
       g.badge = el.querySelector('.row-badge');
+      g.star = el.querySelector('.row-star');
       if (mid) mid();
       const dH = oldH - textLeft(g.h3), dM = oldMeta - g.meta.getBoundingClientRect().left;
       setSlip(g, dH, dM);
