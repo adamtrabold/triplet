@@ -145,7 +145,7 @@ bases; a place belongs to the base you'd do it from*.
   path for shapes (`resolveShapeCity([[lat,lng]])`) use the same
   fallback.
 - **Risks:** the radius has to be chosen. Too big and a new city gets
-  swallowed by an old one (Reykjavík → Vík is 180 km; Copenhagen →
+  swallowed by an old one (Reykjavík → Vík is ~140 km straight-line, Gullfoss ~90 km; Copenhagen →
   Stockholm is 520 km, so that's safe). LA is also a "base", which is
   harmless because it's far from everything. A place filed under the
   wrong base is fixed today by the City menu before saving; there's no
