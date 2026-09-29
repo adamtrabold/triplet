@@ -67,26 +67,32 @@ pick/redirect before building anything.
   aren't even following good design principles at this point" — treat
   that as a real signal to look at Round 4 with fresh, skeptical eyes,
   not to assume it's a done deal.
-- **Trip vs. place location model — search can't find places in other
-  cities** (owner, 2026-09-23). Root cause of the search failure: every
-  Nominatim call goes through `currentSearchCityConfig()` (the city
-  detected from the map/filter, or the form's city), which appends that
-  city's `geocodeSuffix` to the query (e.g. `"<query>, Stockholm"`) AND
-  sets its `countrycodes` as a HARD filter (`CITIES` in `index.html`) —
-  so a place outside the current city's country(ies) can never be
-  returned, and one in another city of the same country is ranked
-  against the wrong suffix. The owner's intended mental model: a **trip**
-  has an overarching location, and the **places** on that trip may or
-  may not be in the same city (day trips, other towns, a stop en route).
-  The app currently conflates the two — `cities` is doing double duty as
-  both "where the trip is" and "where this place is". Constraint from the
-  owner: adding a place must stay low-friction ("I don't want adding
-  things to the list to be crazy egregious") — no forced multi-step
-  city/trip selection just to add a pin. Scope is a real rework (data
-  model, search scoping, the city filter/list, the add form, and how
-  `resolveShapeCity()` / new-city creation fit in); needs discovery and a
-  proposal the owner approves before any build. Related: Phase 2 "trip
-  context (dates/closures)" in the deferred roadmap.
+- **Trips vs. cities restructure** (owner, 2026-09-23; trimmed
+  2026-09-29). *The search bug is fixed:* search widens on a miss (see
+  `docs/shipped.md`, "Search widens on a miss"). Owner: "When we expand
+  cities vs trips and create the different structure maybe that should
+  change. User should not have to select distance." Still open, as one
+  piece of work:
+  - **A trip entity.** A trip has an overarching location; the places on
+    it may or may not be in one city (day trips, other towns, a stop en
+    route). Today `cities` does double duty as both "where the trip is"
+    and "where this place is".
+  - **Filing friction a widened search now exposes:**
+    - A pick outside every city box raises "Add <town>?", even for a day
+      trip (e.g. Uppsala from Stockholm, Reykjanes from Reykjavík).
+    - Dismissing it files the place under the map's city.
+    - A result with no city/town/village in its address (a rural
+      viewpoint) is filed silently under the map's city, even in another
+      country.
+    - A pin filed to a new city doesn't appear in the current city's list
+      until you switch city.
+  - **No distance setting** for the owner, per the quote above.
+  - **Overpass street/node lookups** outside known city boxes (need a
+    bbox).
+  - **Constraint:** adding a place stays low-friction, with no forced
+    city/trip picking.
+  - Discovery: `design/trip-location-model/proposal.md`. Related: Phase 2
+    "trip context (dates/closures)".
 - **Day agendas — plan AND follow an ordered route** (owner,
   2026-09-27). For days where the owner wants a set order: build an
   agenda for a given day, then use it on the ground. The owner is unsure
