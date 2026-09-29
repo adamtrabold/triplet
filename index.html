@@ -7184,6 +7184,7 @@
 
     map.on('dragend zoomend', noteInteraction);
     map.on('zoomend', syncNeighborhoodLayers);
+    map.on('zoomend', syncPlanShapeMarkers);   // the numbered diamonds share the pin numbers' zoom gate
     // moveend (not zoomend) -- clustering depends on screen position, which
     // panning changes even without a zoom crossing.
     map.on('moveend', syncMarkerGlyphZoom);
