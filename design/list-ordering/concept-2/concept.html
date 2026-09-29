@@ -23,18 +23,27 @@
   .hitnote { position: absolute; z-index: 3000; font: 700 11px/14px var(--font-ui); color: #fff; background: #D0138A; padding: 2px 6px; border-radius: 2px; white-space: nowrap; }
 
   /* =====================================================================
-     A · BYLINE -- the header becomes a row: name line + meta line.
-     The h2 is untouched (same text, same 15px voice); a 12px byline in
-     .row-meta's voice sits under it inside the SAME 32px content box
-     (20 + 12), so the band stays 56px. The byline is the button; its
-     ::after claims the whole title block (57px tall) as the hit area,
-     so the tap target clears 44px without growing anything.
+     A · BYLINE, rev 2 (CD round 1).
+     The header becomes a row: the h2 (untouched text, untouched voice)
+     and under it a byline in .row-meta's voice. The NAME IS NOT THE
+     BUTTON: the byline alone is the control, and its hit zone starts at
+     the name's measured INK bottom (line-top + 18px: the "(8)" parens
+     descend 3px under the baseline) and runs to the header's bottom
+     edge. 44px of zone below the ink needs a 68px band (was 57):
+     6 top pad + 18 to ink bottom + 44 zone. At 57px the same zone is
+     only 27px -- measured, so "overlap the name's lower slack" alone
+     can't reach 44.
+     The mode word sits on a DOTTED BLANK -- a fill-in blank on a form,
+     dots on the stamp track's rhythm -- so the line reads as a choice,
+     not a status. "first" is printed; only the blank changes.
      ===================================================================== */
+  .dirA .locationsHeader { min-height: 68px; padding-top: 6px; padding-bottom: 0; align-items: stretch; }
+  .dirA .locationsHeader > button { align-self: center; }
   .dirA .titleBlock { flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; }
-  .dirA .titleBlock h2 { flex: none; }
+  .dirA .titleBlock h2 { flex: none; pointer-events: none; }
   .byline {
-    all: unset; box-sizing: border-box;
-    display: flex; align-items: center; gap: 5px;
+    all: unset; box-sizing: border-box; position: static;
+    display: flex; align-items: center; gap: 5px; margin-top: 7px;
     font-family: var(--font-ui);
     font-stretch: 75%; text-transform: uppercase; font-weight: 700;
     font-size: 10px; line-height: 12px; letter-spacing: 0.1em;
@@ -42,9 +51,27 @@
     white-space: nowrap; cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .byline::after { content: ''; position: absolute; inset: -12px -6px -13px -6px; }
+  /* The hit zone: name ink bottom (18px into the block) to the band's
+     bottom edge, 8px past the title block on the left (into the gap
+     after collapseBtn) and 6px on the right (into the gap before the
+     filters button) -- never over either button. */
+  .byline::after { content: ''; position: absolute; left: -8px; right: -6px; top: 18px; bottom: -1px; z-index: 1; }
+  .byline > * { position: relative; z-index: 2; }
+  .byline:active::after, .byline.is-pressed::after { background: var(--paper-pressed); z-index: 0; }
+  .byline:focus-visible::after, .byline.is-focus::after { outline: 2px solid var(--navy); outline-offset: -2px; }
   .byline .fist { width: 17px; height: 10px; flex: none; color: var(--figure-deep); display: block; }
-  .byline b { font-weight: 700; color: var(--navy); }
+  .byline .phrase { display: flex; align-items: baseline; gap: 0.45em; color: var(--navy); }
+  .blank { position: relative; display: inline-grid; height: 12px; perspective: 60px; padding: 0 2px; }
+  .blank > * { grid-area: 1 / 1; justify-self: center; }
+  .blank .sizer { visibility: hidden; }
+  .blank::after { /* the dotted blank: round dots, 3px pitch, navy at the stamp's 82% */
+    content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px;
+    background: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--navy) 82%, transparent) 0 0.75px, transparent 0.95px) 0 0 / 3px 2px repeat-x;
+  }
+  .blank .word { display: block; transform-origin: 50% 55%; backface-visibility: hidden; }
+  .phone.crop { height: 184px; }
+  .phone.crop .locations { top: 0; bottom: auto; }
+  .hdr3 { width: 390px; overflow: hidden; }
 
   /* =====================================================================
      B · INDEX TABS -- ledger thumb-tabs standing on the sheet's top edge.
@@ -155,9 +182,9 @@ const SORTS = {
   recent:  (a,b)=>b.n-a.n,
 };
 const MODES = {
-  left:    { byline:"What’s left first", tab:"What’s left", tag:"What’s left", rubric:"What’s left first" },
-  starred: { byline:"Starred first",     tab:"Starred",     tag:"Starred",     rubric:"Starred first" },
-  recent:  { byline:"Newest first",      tab:"Newest",      tag:"Newest",      rubric:"Newest first" },
+  left:    { word:"What’s left", byline:"What’s left first", tab:"What’s left", tag:"What’s left", rubric:"What’s left first" },
+  starred: { word:"Starred", byline:"Starred first",     tab:"Starred",     tag:"Starred",     rubric:"Starred first" },
+  recent:  { word:"Newest", byline:"Newest first",      tab:"Newest",      tag:"Newest",      rubric:"Newest first" },
 };
 const listHtml = mode => LOCS.slice().sort(SORTS[mode]).map(cardHtml).join('');
 
@@ -182,7 +209,8 @@ function frame(dir, mode, opts={}){
   let header, pre='', extra='', listTop='';
   if (dir==='A'){
     const fist = `<svg class="fist" viewBox="0 0 34 20" aria-hidden="true"><use href="#g-fist"/></svg>`;
-    header = `${COLLAPSE}<div class="titleBlock">${H2('Reykjavík')}<button class="byline hitbox" aria-label="List order: ${m.byline}. Tap to change.">${fist}<b>${m.byline}</b></button></div>${FILTERS}${CENTER}`;
+    const st = opts.state ? ' is-'+opts.state : '';
+    header = `${COLLAPSE}<div class="titleBlock">${H2('Reykjavík')}<button class="byline hitbox${st}" aria-label="List order: ${m.byline}. Tap to change.">${fist}<span class="phrase"><span class="blank"><span class="sizer" aria-hidden="true">${MODES.left.word}</span><span class="word cur">${m.word}</span>${opts.next?`<span class="word next">${MODES[opts.next].word}</span>`:''}</span><span>first</span></span></button></div>${FILTERS}${CENTER}`;
   } else if (dir==='B'){
     header = `${COLLAPSE}${H2('Reykjavík')}${FILTERS}${CENTER}`;
     pre = `<div class="tabs" role="tablist" aria-label="List order">${['left','starred','recent'].map(k=>`<button class="tab hitbox" role="tab" aria-selected="${k===mode}">${MODES[k].tab}</button>`).join('')}</div>`;
@@ -192,17 +220,43 @@ function frame(dir, mode, opts={}){
     header = `${COLLAPSE}${H2('Reykjavík')}${FILTERS}${CENTER}`;
     listTop = `<button class="rubric hitbox" aria-label="List order: ${m.rubric}. Tap to change."><span>Arranged &middot; <b>${m.rubric}</b></span></button>`;
   }
-  return `<div class="phone dir${dir} ${opts.hit?'hit':''}">${MAP}${pre}
+  return `<div class="phone dir${dir} ${opts.hit?'hit':''} ${opts.crop?'crop':''}">${MAP}${pre}
     <div class="locations"><div class="locationsHeader">${header}</div>
-    <div class="locationsList">${listTop}${listHtml(mode)}</div></div></div>`;
+    <div class="locationsList">${listTop}${listHtml(opts.listMode||mode)}</div></div></div>`;
 }
 function cell(cap, sub, html){ return `<div class="cell"><p class="cap">${cap}</p><p class="sub">${sub}</p>${html}</div>`; }
 
 const DIRS = {
-  A: { name:'A · Byline', rest:'Header becomes a row: city name, and under it a meta line in the rows’ own voice. Tap cycles.', change:'Tapped once: Starred first. City name untouched; header still 56px.' },
+  A: { name:'A · Byline', rest:'Header becomes a row: city name, and under it a byline with the order on a dotted blank. The byline (not the name) cycles.', change:'Tapped once: Starred first. The word flips on the blank; the name never changes. Band 68px.' },
   B: { name:'B · Index tabs', rest:'Ledger thumb-tabs standing on the sheet’s top edge, over the map. All three visible; tap picks.', change:'Starred tab picked; it joins the page.' },
   C: { name:'C · Luggage tag', rest:'A tag hung in the header’s icon row, naming the order. Tap cycles.', change:'Tapped once: Starred.' },
   D: { name:'D · Rubric', rest:'A printed caption heading the ledger, inside the list. Scrolls away with it. Tap cycles.', change:'Tapped once: Starred first.' },
+};
+
+/* THE FLIP (concept timing). Tap release -> old word folds away on its
+   top-bottom axis (110ms, ease-in), the list reorders at the fold, the
+   new word unfolds onto the same dotted blank (150ms, ease-out); the fist
+   nudges 2px toward it. 260ms total. The blank and "first" never move.
+   Reduced motion: 120ms crossfade, no rotation, no nudge. */
+const FLIP = { OUT: 110, IN: 150, NUDGE: 260 };
+function flip(btn, reduced){
+  const cur = btn.querySelector('.word.cur'), nxt = btn.querySelector('.word.next'), fist = btn.querySelector('.fist');
+  if (reduced) return [
+    cur.animate([{opacity:1},{opacity:0}], {duration:120, fill:'forwards'}),
+    nxt.animate([{opacity:0},{opacity:1}], {duration:120, fill:'both'}) ];
+  return [
+    cur.animate([{transform:'rotateX(0deg)', opacity:1},{transform:'rotateX(90deg)', opacity:.35}], {duration:FLIP.OUT, easing:'cubic-bezier(.55,0,.9,.45)', fill:'forwards'}),
+    nxt.animate([{transform:'rotateX(-90deg)', opacity:.35},{transform:'rotateX(0deg)', opacity:1}], {duration:FLIP.IN, delay:FLIP.OUT, easing:'cubic-bezier(.15,.75,.3,1)', fill:'both'}),
+    fist.animate([{transform:'translateX(0)'},{transform:'translateX(2px)', offset:.45},{transform:'translateX(0)'}], {duration:FLIP.NUDGE, easing:'ease-in-out'}) ];
+}
+window.flipLive = async () => {           // real-time run, sampled per rAF
+  const btn = document.querySelector('.live .byline');
+  const anims = flip(btn, false), t0 = performance.now(), samples = [];
+  let raf; const tick = () => { samples.push([+(performance.now()-t0).toFixed(1), getComputedStyle(btn.querySelector('.word.cur')).transform, getComputedStyle(btn.querySelector('.word.next')).transform]); raf = requestAnimationFrame(tick); };
+  tick();
+  await Promise.all(anims.map(a => a.finished));
+  const end = performance.now() - t0; cancelAnimationFrame(raf);
+  return { total_ms: +end.toFixed(1), frames: samples.length, first: samples.slice(0,3), last: samples.slice(-2) };
 };
 
 const view = new URLSearchParams(location.search).get('view') || 'film';
@@ -221,7 +275,24 @@ if (DIRS[view]){
     ${cell('A · What’s left first (default)','Unvisited first, starred leading; done places sink.',frame('A','left'))}
     ${cell('A · tap → Starred first','Starred first, not-yet-done leading within them.',frame('A','starred'))}
     ${cell('A · tap → Newest first','Order added. One more tap returns to What’s left.',frame('A','recent'))}
-    ${cell('A · tap target','Whole title block, 57px tall; the h2 text never changes.',frame('A','left',{hit:true}))}</div>`;
+    ${cell('A · hit zone','Byline only: from the name’s ink bottom to the band’s edge, 44px tall. The name is not the button.',frame('A','left',{hit:true}))}</div>`;
+} else if (view==='flip'){
+  const T = [0, 55, 100, 135, 180, 260];
+  const lab = {0:'0 ms · press', 55:'55 ms · folding', 100:'100 ms · edge-on', 135:'135 ms · list reordered, unfolding', 180:'180 ms', 260:'260 ms · settled'};
+  root.innerHTML = `<div class="board">${T.map(t=>cell(lab[t], '', frame('A','left',{crop:true, next:'starred', listMode: t>=FLIP.OUT?'starred':'left', state: t<100?'pressed':''}))).join('')}</div>`;
+  document.querySelectorAll('.phone').forEach((ph,i)=>{ flip(ph.querySelector('.byline'), false).forEach(a=>{ a.pause(); a.currentTime = T[i]; }); });
+} else if (view==='flipReduced'){
+  const T = [0, 60, 120];
+  root.innerHTML = `<div class="board">${T.map(t=>cell('reduced motion · '+t+' ms','',frame('A','left',{crop:true, next:'starred', listMode: t>=60?'starred':'left'}))).join('')}</div>`;
+  document.querySelectorAll('.phone').forEach((ph,i)=>{ flip(ph.querySelector('.byline'), true).forEach(a=>{ a.pause(); a.currentTime = T[i]; }); });
+} else if (view==='states'){
+  root.innerHTML = `<div class="board">
+    ${cell('Resting','',frame('A','left',{crop:true}))}
+    ${cell('Pressed','Byline zone only; the name never presses.',frame('A','left',{crop:true, state:'pressed'}))}
+    ${cell('Keyboard focus','Ring on the byline zone.',frame('A','left',{crop:true, state:'focus'}))}
+    ${cell('Hit zone','244 × 44, from the name’s ink bottom.',frame('A','left',{crop:true, hit:true}))}</div>`;
+} else if (view==='live'){
+  root.innerHTML = `<div class="board live">${frame('A','left',{next:'starred'})}</div>`;
 } else if (view==='Cwide'){
   root.innerHTML = `<div class="board">${cell('C · longest real city','Copenhagen: the tag squeezes the city name.',frame('C','left',{city:'Copenhagen'}))}${cell('C · All cities','',frame('C','left',{city:'All cities'}))}</div>`;
 }
