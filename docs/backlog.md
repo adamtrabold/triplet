@@ -1,6 +1,7 @@
 # Backlog
 
-Moved verbatim from `CLAUDE.md` (2026-09-29). Keep it current: close items
+Moved from `CLAUDE.md` (2026-09-29; shipped/stale items cleaned the same
+day). Keep it current: close items
 as they ship (and record them in `docs/shipped.md`), add new ones as they
 surface. `CLAUDE.md` carries a one-line summary of the priority items.
 
@@ -48,7 +49,7 @@ pick/redirect before building anything.
   tiebreak logic already, not a separate open question.
 - **Visited pins have no map treatment** (owner, 2026-09-29, asked
   directly: "should visited places have a different treatment on the
-  map itself"). New item this session. **Concept work already produced,
+  map itself"). **Concept work already produced,
   through a full UX-check + CD loop, scored 9/10, owner has NOT yet
   approved or redirected:** `design/visited-marker/concept/README.md`.
   Path taken: 4 initial options (A dotted rim, B receded field — tested
@@ -126,7 +127,7 @@ pick/redirect before building anything.
 
 - `copenhagen-nyboder` (Nyboder) and `stockholm-gamla-stan` (Gamla Stan)
   should now resolve automatically as approximate pins via
-  `findApproximatePoint()`'s fallback chain (see Architecture above) next
+  `findApproximatePoint()`'s fallback chain (see Architecture in `CLAUDE.md`) next
   time they're added through the live form or the bulk tool — not yet
   verified against the real Nominatim/Overpass response, same environment
   constraint as everything else needing live OSM access. If both fallback
@@ -138,8 +139,9 @@ pick/redirect before building anything.
 - Delete X's effective tap zone extends ~9–12px left of its 28px box via
   browser touch adjustment (measured in Chromium on today's unvisited
   rows; iOS unmeasured — its hit-testing may favor the clickable row
-  more). Pre-existing, not caused by the stamp. `confirm()` is the
-  backstop. If mis-deletes are still reported, the next move is
+  more). Pre-existing, not caused by the stamp. Since the swipe-visit
+  round, delete also needs a near-still tap (`DELETE_TAP_SLOP` 4px), and
+  `confirm()` is the backstop. If mis-deletes are still reported, the next move is
   shrinking/relocating delete, not more stamp margin.
 - Many `locations.name` values redundantly end in the city already shown
   in `.row-meta` (e.g. "Mother restaurant Copenhagen") — trimming them is
@@ -152,8 +154,9 @@ pick/redirect before building anything.
 - Street/district popups lag behind pin popups (owner-reported
   2026-09-23). `buildNeighborhoodLayer()` binds a bare
   `<strong>label</strong><p>note</p>` string, while pins get
-  `buildPopupHtml()`: category glyph + label, title, address, notes, and a
-  `.popup-actions` row with the visited toggle and Get Directions. Gaps to
+  `buildPopupHtml()` (p8 layout): title row with the star, address/notes,
+  the Get Directions text link, then a bottom row of category glyph +
+  label (left) and Mark Visited (right). Gaps to
   resolve: no category/type header, none of the popup typography classes,
   no visited toggle, no directions. Visited needs a schema change first —
   `neighborhood_shapes` has no `visited` column (checked 2026-09-23:
@@ -163,13 +166,25 @@ pick/redirect before building anything.
   shipped (no single natural destination point); revisit with a centroid
   or nearest-point destination, or keep excluded on purpose. Needs a
   Design/UX/CD pass rather than a straight port.
+- Closed filters panel's chips stay focusable: in a Safari tab a
+  keyboard/VoiceOver focus there scroll-then-snaps (UX should-fix from the
+  sheet round, 2026-09-28). Cosmetic; fix is making the closed panel
+  `inert`. Not done as of 2026-09-29.
+- Popup → row replays (`ssReplay`/`vsReplay`) treat a row hidden behind
+  the Safari toolbar as on screen (they test against the list's rect,
+  which extends behind the toolbar), so the replay can play unseen.
+  Carried over from the sheet round's `maybeTeachStar()` follow-up;
+  cosmetic.
+- Header visited count ("12/38 visited" in `updateUI()`'s
+  `${activeCityLabel()} list (...)` text) — deferred in the delete-only
+  list-row round to get its own review; still not built.
 
-Previously tracked and fixed: (Previously: `showError()`/
+Previously tracked and fixed: `showError()`/
 `hideError()` banner masking, and `slugifyCityId()` not decomposing Nordic
 `ø`/`æ`/`å`/`þ`/`ð` — both fixed 2026-09-19. `showError`/`hideError` now
 take a `source` tag and only a matching source's `hideError()` clears the
 banner; `slugifyCityId()` (and the bulk tool's mirrored `slugify()`)
-explicitly map those five letters before the generic NFD strip.)
+explicitly map those five letters before the generic NFD strip.
 
 
 ## Deferred roadmap (not started)

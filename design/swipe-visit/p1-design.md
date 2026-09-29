@@ -1,5 +1,7 @@
 # Swipe LEFT to mark visited — "carry and press", perfection round 1 (p1)
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 - Diff: `p1-proposed.diff`, index.html only, against main `741731a`.
   - 6 hunks, 278 changed lines. Nothing else in `index.html` changed through `35887d1`.
   - Verified with `git apply` + `cmp` against `p1-proto.html` (built by `buildp1.py` from main).

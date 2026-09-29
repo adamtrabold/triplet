@@ -1,5 +1,7 @@
 # Swipe LEFT to mark visited: p7, the P6-N1 fix (compositor-only ink deepening)
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 **Deliverables:**
 - `p7-proposed.diff`: `index.html` only, against main `aa0445e`. It is the full change (p6 plus this fix): 7 hunks, 329 changed lines.
 - `p7-proto.html`: built by `buildp8.py`, and matched by `git apply` then `cmp`.

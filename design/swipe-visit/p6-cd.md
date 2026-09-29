@@ -2,6 +2,8 @@ SCORE 9/10
 
 # Swipe LEFT to mark visited, p6 "ink bleed" (core + wet halo): CD review (perfection stage)
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 ## Verdict
 
 **Approved for integration, with one must-fix before it ships.** This now reads as ink bleeding into paper. That is the owner's ask: no drawing, no slide, and a pop like the star's.

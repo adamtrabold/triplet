@@ -1,5 +1,7 @@
 # Visited pins on the map — concept stage
 
+> Note (2026-09-29): `CLAUDE.md`'s shipped-feature history and open items, cited below as "CLAUDE.md", now live in `docs/shipped.md` and `docs/backlog.md`.
+
 Owner's question (2026-09-28, posed as a concept question, not a commitment):
 *"should visited places have a different treatment on the map itself?"*
 

@@ -1,6 +1,8 @@
 SCORE 9/10 (final)
 TECHNIQUE RULING: B2, a static SVG path mask (pathLength=84, no JS). C, the JS generator, is REJECTED as the default and kept only as the documented fallback if the iPhone check shows WebKit mishandling pathLength. A3 (pure CSS) is rejected because it keeps the seam.
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them. (Also: the `pathLength=84` above was later changed — the shipped value is `166.29`; see `docs/shipped.md`.)
+
 ## R3b ruling (supersedes §3 and condition 1 below where they conflict)
 **Method.** I read `r3b-justification.md` and `r3b-measure.json`, then re-zoomed the C and B2 3x cells of `r3b-compare-3x.png` to about 4.4x with pixelated scaling (`scratchpad/cd-zoom-C.png` and `cd-zoom-B2.png`).
 

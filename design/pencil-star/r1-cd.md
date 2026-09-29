@@ -2,6 +2,8 @@ SCORE 6/10
 
 # Star action (star2), round 1: CD review of the Pencil Star
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 Reviewed at 3x (filmstrips), at ~4x (`r1-crops-4x.png`, `r1-film-4x.png`) and at 1x-equivalent arm's-length reads. I also checked the prototype's CSS and JS (`r1-proto.html`, from line 1596 and from line 3833) against what the frames show. I cannot play the .webm files, so I judged motion from the filmstrips, the contact sheets and the code's timing values.
 
 ## Verdict

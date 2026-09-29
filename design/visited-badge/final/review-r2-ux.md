@@ -1,5 +1,7 @@
 # R2 — UX review (visited passport stamp)
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 **Verdict: approve for implementation. No blockers.**
 
 Every R1 finding is closed:

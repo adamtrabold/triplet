@@ -2,6 +2,8 @@ SCORE 9/10
 
 # R2 — Creative Director review
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 ## Verdict
 Approved for implementation, subject to the conditions below. Every R1 direction landed, and two of them were improved by evidence rather than followed blindly: the 100% paper exception on the highlighted row, and the snap-zone finding that re-grounds S1.
 

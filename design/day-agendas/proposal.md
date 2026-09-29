@@ -1,5 +1,7 @@
 # Day agendas — v1 scoping proposal
 
+> Note (2026-09-29): `CLAUDE.md`'s shipped-feature history and open items, cited below as "CLAUDE.md", now live in `docs/shipped.md` and `docs/backlog.md`.
+
 Discovery only, no code. Written in response to the open item "Day agendas
 — plan AND follow an ordered route" (owner, 2026-09-27). Environment check
 redone for this task: no MCP connector reaches a routing/maps provider (only

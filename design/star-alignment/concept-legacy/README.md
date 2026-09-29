@@ -1,5 +1,7 @@
 # Star alignment — concept stage (legacy/safe track)
 
+> Note (2026-09-29): `CLAUDE.md`'s shipped-feature history and open items, cited below as "CLAUDE.md", now live in `docs/shipped.md` and `docs/backlog.md`.
+
 Problem: `.location-card.is-starred .row-main { padding-left: 26px }` only
 indents the text column on starred rows, so a row's name/meta start at a
 different x depending on starred state — "no clean grid." This track

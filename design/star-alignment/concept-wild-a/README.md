@@ -1,5 +1,7 @@
 # Star alignment — wildcard concepts (concept stage, track A)
 
+> Note (2026-09-29): `CLAUDE.md`'s shipped-feature history and open items, cited below as "CLAUDE.md", now live in `docs/shipped.md` and `docs/backlog.md`.
+
 Problem: `.location-card.is-starred .row-main { padding-left: 26px }` shifts the
 whole text block only on starred rows, so the list's left text edge isn't a
 clean grid — it jogs 26px depending on state. Owner: "pushes all the content

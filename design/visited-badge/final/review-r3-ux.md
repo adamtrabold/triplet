@@ -1,5 +1,7 @@
 # R3 — UX review (parallel-curve track, seam, text centring)
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 **Verdict: approve. No blockers.**
 
 The fix fails safe and costs nothing measurable. It leaves click-to-navigate and the B1 tap fix untouched. The complexity is proportionate, because the owner saw these defects on a real device and there is no simpler technique that fixes both the parallelism and the seam. There are two should-fixes, both cheap. One of them matters for the owner: the text-centring diagnosis is Chromium-only, so the iPhone re-check needs to explicitly re-test all three reported defects.

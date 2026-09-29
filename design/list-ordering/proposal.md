@@ -1,5 +1,7 @@
 # List ordering — concept-stage proposal
 
+> Note (2026-09-29): `CLAUDE.md`'s shipped-feature history and open items, cited below as "CLAUDE.md", now live in `docs/shipped.md` and `docs/backlog.md`.
+
 Owner problem (2026-09-23): the sidebar list's order is an accident, not a
 design — `locations` is fetched `.order('created_at', {ascending:false})`
 (`index.html` ~line 2379) and `syncLocationCards()` (~5174) renders

@@ -1,5 +1,7 @@
 # Star alignment — wildcard exploration B (concept stage)
 
+> Note (2026-09-29): `CLAUDE.md`'s shipped-feature history and open items, cited below as "CLAUDE.md", now live in `docs/shipped.md` and `docs/backlog.md`.
+
 Independent, parallel wildcard track to `concept-wild-a`. Owner's problem:
 the shipped `.location-card.is-starred .row-main { padding-left: 26px }`
 shifts the whole text block *only* on starred rows, with no visible grid

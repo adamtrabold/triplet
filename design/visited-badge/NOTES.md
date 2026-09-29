@@ -4,15 +4,16 @@ Status: **implemented in `index.html`** (2026-09-23, branch
 `claude/visited-state-badge-list-yultpy`) after a Design/UX/CD loop: round 1
 scored 7/10, round 2 scored 9/10, then Impeccable clean (baseline 3 only).
 Approved mockup: `mockup13-css-stamp-approved.html`; screenshots and the
-CD/UX reviews are in `final/`. See CLAUDE.md's open items for the shipped
-entry and what's still unverified on a real iPhone. The rest of this file is
+CD/UX reviews are in `final/`. See `docs/shipped.md` (visited passport
+stamp) for the shipped entry and `docs/iphone-checks.md` for what's still
+unverified on a real iPhone. The rest of this file is
 the pre-implementation history.
 
 ## Goal
 
 A visual "VISITED" stamp badge on `.location-actions` in the sidebar list row,
 next to the existing delete button (list rows are otherwise delete-only —
-visited-toggle lives in the map popup, see CLAUDE.md's shipped-work log).
+visited-toggle lives in the map popup, see `docs/shipped.md`).
 Styled like a passport/rubber ink stamp: an oval ring with "VISITED" text
 inside, a dashed dot-track just outside it, rotated a few degrees off-axis.
 

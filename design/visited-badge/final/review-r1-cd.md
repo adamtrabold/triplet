@@ -2,6 +2,8 @@ SCORE 7/10
 
 # R1 — Creative Director review
 
+> **Historical record (note added 2026-09-29).** Instructions below to update `CLAUDE.md` were carried out at the time; those entries now live in `docs/shipped.md` (feature history/spec), `docs/iphone-checks.md` and `docs/backlog.md`. Don't re-apply them — later rounds may have superseded them.
+
 ## Verdict
 The approach is right, and so are most of the numbers. A CSS double oval in one ink, set in the row's own type voice, placed in the fixed action column, is the correct structure. The craft is careful: 56px on every row, spacing on tokens, no new Impeccable findings. It is not shippable yet, for three reasons:
 1. There is a real interaction blocker (UX B1).
