@@ -10,29 +10,20 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
-- **Star alignment looks off** (owner, 2026-09-28: "the star is looking
-  weird either way" = alignment, in both the list row and the popup;
-  "no clean alignment, no clean grid"). Includes the CD-deferred 41px
-  empty gap above Get Directions in a bare popup (star-target geometry).
-  Root cause: `.location-card.is-starred .row-main { padding-left: 26px }`
-  only indents starred rows, so the name's x-position depends on starred
-  state — no shared grid line with unstarred rows. **Three concept
-  tracks already built and screenshotted, owner has NOT picked one:**
-  `design/star-alignment/README.md` (scope note: the star's position is
-  confirmed correct, only the reserved-space mechanism needs fixing —
-  several wildcard variants explored relocating the star instead, which
-  is off-scope, filed as history not candidates).
-  - `concept-legacy/` — 3 reserved-column variants (nested-silent,
-    nested-always, outer-column). Top pick: nested-silent.
-  - `concept-wild-a/` — dog-ear, edge stripe, action-cluster star. Top
-    pick: the stripe (least new risk, but not star-shaped).
-  - `concept-wild-b/` — corner badge, starred-only section (no per-row
-    glyph — cross-references list-ordering below), reserved-margin
-    (independently converged on the same fix as concept-legacy), a
-    typographic-only treatment (rejected, reopens a settled Pencil Star
-    decision).
-  Owner has seen the screenshots (sent via chat) but not yet said which
-  to build.
+- **Popup star alignment with full content** (owner, 2026-09-29,
+  verbatim: "I was never debating outline or not that was decided forever
+  ago. No star unless it's been starred. What I need to fix is the
+  alignment of the star in the pop up - it looks weird when all the content
+  is in it."). Settled, not candidates: the list row shows a star only when
+  starred (no always-visible or hollow star in the list). Open: the POPUP
+  star's alignment when the popup has full content (long name, address,
+  notes); includes the CD-deferred 41px empty gap above Get Directions in a
+  bare popup (star-target geometry). **Active concept thread:
+  `design/popup-star-alignment/`.** `design/star-alignment/` is history
+  only: an earlier exploration (2026-09-28) that misframed the problem as
+  an outline/list-row question, so its variants (reserved-column,
+  dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
+  are not candidates.
 - **List ordering is confusing** (owner, 2026-09-23: don't just pick a
   sort). **Concept work already produced, owner has NOT picked a final
   spec:** `design/list-ordering/proposal.md` — §§1-5 is the original

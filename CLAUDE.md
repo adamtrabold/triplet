@@ -169,9 +169,9 @@ design) skip straight to stage 2.
 Concept work exists for the first three; the owner hasn't picked. Get a
 decision before building.
 
-- **Star alignment** (list row + popup; incl. 41px gap above Get
-  Directions). Three concept tracks in `design/star-alignment/`; star
-  position is confirmed correct, only the reserved-space mechanism is open.
+- **Popup star alignment** (star looks off when the popup has full
+  content; list-row star-only-when-starred is settled). Active concept:
+  `design/popup-star-alignment/`; `design/star-alignment/` is history.
 - **List ordering** — 3-mode proposal in `design/list-ordering/proposal.md`
   §6; picker placement still unsolved (not the `<h2>`).
 - **Visited pins on the map** — Round 4 (dots outside the rim) scored 9/10
