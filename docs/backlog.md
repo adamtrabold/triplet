@@ -122,6 +122,11 @@ pick/redirect before building anything.
 - State system shipped (see `docs/shipped.md`). Left open: floating
   add/account buttons' pressed fill is the off-token literal `#1B3A57`; map
   it to a token or leave it. Hover styles exist only on three menu items.
+  Known polish (not restyled, from `design/state-system/README.md`): the
+  popup star tile's right edge sits 4px from the popup title; the popup's
+  right-side tiles (close x and Mark Visited) do not share a right edge. By
+  design, not bugs: the row delete X has no pressed look (the row press is
+  the feedback); hover is pointer-only (raised paper) and touch uses pressed.
 
 - Delete X's effective tap zone extends ~9–12px left of its 28px box via
   browser touch adjustment (measured in Chromium on today's unvisited
