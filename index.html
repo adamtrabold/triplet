@@ -197,6 +197,8 @@
       --state-on-fg: var(--paper);
       --state-on-press: #2A4F73; /* an ON tile or a filled navy button pressed: one clear step lighter navy (about 1.7:1 from --navy; paper glyph stays >=7:1). Floating add/account pressed to #1B3A57 before */
       --state-off-alpha: 0.4;
+      --state-tile-inset: 4px;   /* popup pressed tiles (star, Mark Visited, Get Directions): the tile clears the glyph/words by this on every side */
+      --state-press-filed: #D1C8B7;   /* pressed on a FILED (visited) row: one more equal step down the ladder (paper, filed, pressed, this), so a press still reads on --paper-filed */
       --paper-pressed: #DCD3C3;  /* pressed row, visited or not: --paper's hue,
                                     pressed IN, not lit up. One more equal
                                     step down the ladder paper -> filed ->
@@ -1213,6 +1215,9 @@
        disc goes transparent so it follows whichever field is showing.
        Shape rows have no visited state and stay on --paper by design. */
     .location-card.is-visited { background: var(--paper-filed); }
+    /* State system: a press on a filed row steps one more tone down, so the
+       press still reads against --paper-filed (the two tans were ~1.1:1). */
+    .location-card.is-visited.active:not(.highlighted) { background: var(--state-press-filed); }
     /* Category order: where the category changes, the row rule doubles to
        2px in the same --hair -- no louder than the header's own rule, no
        label, no extra height (the row's min-height includes its border). */
@@ -1563,7 +1568,10 @@
 
     .leaflet-popup-content { margin: var(--s2); font-family: var(--font-ui); }
     .leaflet-popup-close-button { color: var(--ink-2) !important; }
-    .leaflet-container a.leaflet-popup-close-button:active { background: var(--state-press); border-radius: 3px; }   /* pressed = the pale tile */
+    /* pressed = the pale tile, inset 3px so the popup's 1px ink border stays unbroken */
+    .leaflet-container a.leaflet-popup-close-button { isolation: isolate; }
+    .leaflet-container a.leaflet-popup-close-button::before { content: ''; position: absolute; inset: 3px; z-index: -1; border-radius: 3px; }
+    .leaflet-container a.leaflet-popup-close-button:active::before { background: var(--state-press); }
 
     .popup-head {
       display: flex;
@@ -1676,7 +1684,7 @@
     .popup-star::before {
       content: '';
       position: absolute;
-      inset: -4px;
+      inset: calc(-1 * var(--state-tile-inset));
       z-index: -1;
       border-radius: 3px;              /* one radius everywhere: 3px */
     }
@@ -1735,7 +1743,7 @@
     .popup-visited::before {
       content: '';
       position: absolute;
-      inset: 10px -6px;
+      inset: calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset));
       z-index: -1;
       border-radius: 3px;
     }
@@ -1820,7 +1828,7 @@
     .popup-directions svg { width: 14px; height: 14px; margin: 0 3px; flex-shrink: 0; }
     /* Pressed = the pale tile, same 6px inset as Mark Visited. */
     .popup-directions { position: relative; isolation: isolate; }
-    .popup-directions::before { content: ''; position: absolute; inset: 10px -3px; z-index: -1; border-radius: 3px; }
+    .popup-directions::before { content: ''; position: absolute; inset: calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset)) calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset)); z-index: -1; border-radius: 3px; }   /* left edge = the star tile's (the compass keeps its 3px icon margin, so 7px clear on that side) */
     .popup-directions:active::before { background: var(--state-press); }
 
     /* Bottom row (owner): the category (non-interactive) on the left, Mark

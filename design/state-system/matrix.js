@@ -50,8 +50,16 @@ async function realTap(page, sel) {
   const r = await page.evaluate(s => { const b = document.querySelector(s).getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; }, sel);
   await page.touchscreen.tap(r.x, r.y); await W(450);
 }
-const rectOf = (page, sel, pad) => page.evaluate(([s, pad]) => { const b = document.querySelector(s).getBoundingClientRect();
-  return { x: Math.max(0, b.x - pad), y: Math.max(0, b.y - pad), width: Math.min(b.width + pad * 2, innerWidth), height: b.height + pad * 2 }; }, [sel, pad]);
+const rectOf = (page, sel, pad, maxW) => page.evaluate(([s, pad, maxW]) => { const b = document.querySelector(s).getBoundingClientRect();
+  return { x: Math.max(0, b.x - pad), y: Math.max(0, b.y - pad), width: Math.min(b.width + pad * 2, innerWidth, maxW || 1e9), height: b.height + pad * 2 }; }, [sel, pad, maxW]);
+const tileInsets = (p, host, target) => p.evaluate(([host, target]) => { const h = document.querySelector(host), t = document.querySelector(target || host); const cb = getComputedStyle(h, '::before'); const hr = h.getBoundingClientRect();
+  const L = hr.left + parseFloat(cb.left), Tp = hr.top + parseFloat(cb.top), R = L + parseFloat(cb.width), B = Tp + parseFloat(cb.height); const rg = document.createRange(); rg.selectNodeContents(t); const c = rg.getBoundingClientRect();
+  return { l: c.left - L, t: c.top - Tp, r: R - c.right, b: B - c.bottom, tileL: L }; }, [host, target]);
+const chDiff = (a, b) => { const f = x => x.match(/\d+/g).slice(0, 3).map(Number); const A = f(a), B = f(b); return Math.max(...A.map((v, i) => Math.abs(v - B[i]))); };
+const near = (v, x, tol = 0.8) => Math.abs(v - x) <= tol;
+const insetsOk = i => near(i.l, 4) && near(i.t, 4) && near(i.r, 4) && near(i.b, 4);
+const isolatePin = p => p.evaluate(() => { const st = document.createElement('style'); st.id = 'isoPin'; st.textContent = '.leaflet-marker-icon{visibility:hidden}.leaflet-marker-icon.pinShot{visibility:visible!important}'; document.head.appendChild(st); markersById.get(window.__pid).marker._icon.classList.add('pinShot'); });
+const unisolatePin = p => p.evaluate(() => { const e = document.getElementById('isoPin'); if (e) e.remove(); const i = markersById.get(window.__pid); if (i && i.marker._icon) i.marker._icon.classList.remove('pinShot'); });
 const popupFor = async (page, pred) => { await page.evaluate(p => { const l = locations.find(new Function('x', 'return ' + p)); highlightedId = null; highlightMarker(l.id); }, pred); await W(1000); };
 const closePopup = page => page.evaluate(() => map.closePopup()).then(() => W(200));
 const openForm = async page => { await click(page, '#floatingAddBtn'); await W(500); };
@@ -83,8 +91,8 @@ add(Object.assign(headerButton('Collapse arrow', '#collapseBtn', {}), { cells: {
 add(Object.assign(headerButton('Sort', '#sortBtn', {}), { cells: {
   idle: { rule: 'press', check: async (p, T) => [['transparent', (await cs(p, '#sortBtn', 'backgroundColor')) === TRANSPARENT], ['opacity 1', (await cs(p, '#sortBtn', 'opacity')) === '1']] },
   pressed: { press: ['#sortBtn'], rule: 'press', check: async (p, T) => [['bg = --state-press', (await cs(p, '#sortBtn', 'backgroundColor')) === T.press]] },
-  on: { run: p => realTap(p, '#sortBtn'), undo: p => click(p, '#sortBtn').then(() => W(300)), rule: 'on', check: async (p, T) => [['bg navy', (await cs(p, '#sortBtn', 'backgroundColor')) === T.navy], ['glyph paper', (await cs(p, '#sortBtn', 'color')) === T.paper], ['menu open', (await cs(p, '#sortBtn', 'ariaExpanded') || await p.evaluate(() => document.getElementById('sortBtn').getAttribute('aria-expanded'))) === 'true']] },
-  onpressed: { run: p => realTap(p, '#sortBtn'), press: ['#sortBtn'], undo: p => click(p, '#sortBtn').then(() => W(300)), rule: 'onpress', check: async (p, T) => [['bg = --state-on-press', (await cs(p, '#sortBtn', 'backgroundColor')) === T.onpress], ['glyph paper', (await cs(p, '#sortBtn', 'color')) === T.paper]] },
+  on: { coverSel: '#sortBtn', run: p => realTap(p, '#sortBtn'), undo: p => click(p, '#sortBtn').then(() => W(300)), rule: 'on', check: async (p, T) => [['bg navy', (await cs(p, '#sortBtn', 'backgroundColor')) === T.navy], ['glyph paper', (await cs(p, '#sortBtn', 'color')) === T.paper], ['menu open', (await cs(p, '#sortBtn', 'ariaExpanded') || await p.evaluate(() => document.getElementById('sortBtn').getAttribute('aria-expanded'))) === 'true']] },
+  onpressed: { coverSel: '#sortBtn', run: p => realTap(p, '#sortBtn'), press: ['#sortBtn'], undo: p => click(p, '#sortBtn').then(() => W(300)), rule: 'onpress', check: async (p, T) => [['bg = --state-on-press', (await cs(p, '#sortBtn', 'backgroundColor')) === T.onpress], ['glyph paper', (await cs(p, '#sortBtn', 'color')) === T.paper]] },
   off: { run: p => p.evaluate(() => document.getElementById('sortBtn').classList.add('loading')), undo: p => p.evaluate(() => document.getElementById('sortBtn').classList.remove('loading')), rule: 'off', check: async (p) => [['loading opacity .4', (await cs(p, '#sortBtn', 'opacity')) === '0.4']] },
   other: NA('n/a') } }));
 
@@ -120,7 +128,7 @@ add({ key: 'catchip', name: 'Category chip', group: 'Filters panel', shot: '#fil
     off: { shotSel: '#filter-cafe', pad: 10, run: async p => { await click(p, '#filter-cafe'); await W(300); }, undo: async p => { await click(p, '#filter-cafe'); await W(300); }, rule: 'chip', check: async (p, T) => [['off: dashed border', (await cs(p, '#filter-cafe', 'borderTopStyle')) === 'dashed'], ['off: text ink-2', (await cs(p, '#filter-cafe', 'color')) === T.ink2]] },
     other: { label: 'off + pressed', shotSel: '#filter-cafe', pad: 10, run: async p => { await click(p, '#filter-cafe'); await W(300); }, press: ['#filter-cafe'], undo: async p => { await click(p, '#filter-cafe'); await W(300); }, rule: 'press', check: async (p, T) => [['off pressed: bg = --state-press', (await cs(p, '#filter-cafe', 'backgroundColor')) === T.press], ['still dashed', (await cs(p, '#filter-cafe', 'borderTopStyle')) === 'dashed']] } } });
 
-const starTile = (sel, tap) => ({ press: [tap], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, sel, 'backgroundColor', '::before')) === T.press], ['radius 3px', (await cs(p, sel, 'borderTopLeftRadius', '::before')) === '3px']] });
+const starTile = (sel, tap) => ({ press: [tap], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, sel, 'backgroundColor', '::before')) === T.press], ['radius 3px', (await cs(p, sel, 'borderTopLeftRadius', '::before')) === '3px'], ['tile 4px clear of glyph on every side', insetsOk(await tileInsets(p, sel))]] });
 add({ key: 'popupstar', name: 'Popup star', group: 'Popup', shot: '.leaflet-popup-content-wrapper', pad: 6,
   enter: async p => { await popupFor(p, '!x.starred'); },
   cells: {
@@ -135,7 +143,7 @@ add({ key: 'popupvisited', name: 'Popup Mark Visited', group: 'Popup', shot: '.l
   cells: {
     idle: { rule: 'glyph', check: async (p, T) => [['ink-2 text', (await cs(p, '.popup-visited', 'color')) === T.ink2], ['tile hidden', (await cs(p, '.popup-visited', 'backgroundColor', '::before')) === TRANSPARENT]] },
     pressed: { press: ['.popup-visited-tap'], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, '.popup-visited', 'backgroundColor', '::before')) === T.press], ['radius 3px', (await cs(p, '.popup-visited', 'borderTopLeftRadius', '::before')) === '3px'],
-      ['equal 6px insets', await p.evaluate(() => { const b = document.querySelector('.popup-visited'), r = b.getBoundingClientRect(); const t = document.querySelector('.popup-visited-check').getBoundingClientRect(); const cb = getComputedStyle(b, '::before'); const top = parseFloat(cb.top), h = parseFloat(cb.height); const tileTop = r.top + top, tileBot = tileTop + h; return Math.abs((t.top - tileTop) - (tileBot - t.bottom)) < 1.01 && Math.abs((t.top - tileTop) - 6) < 1.01; })]] },
+      ['tile 4px clear of the words/ring on every side', insetsOk(await tileInsets(p, '.popup-visited'))]] },
     on: { run: async p => { await closePopup(p); await popupFor(p, 'x.visited'); }, rule: 'glyph', check: async (p, T) => [['navy text', (await cs(p, '.popup-visited', 'color')) === T.navy], ['navy dot', (await cs(p, '.popup-visited-check', 'backgroundColor')) === T.navy]] },
     onpressed: { run: async p => { await closePopup(p); await popupFor(p, 'x.visited'); }, press: ['.popup-visited-tap'], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, '.popup-visited', 'backgroundColor', '::before')) === T.press]] },
     off: NA('never unavailable'), other: NA('n/a') } });
@@ -144,17 +152,17 @@ add({ key: 'popupclose', name: 'Popup close', group: 'Popup', shot: '.leaflet-po
   enter: async p => { await popupFor(p, '!x.visited'); },
   cells: {
     idle: { rule: 'press', check: async (p) => [['transparent', (await cs(p, '.leaflet-popup-close-button', 'backgroundColor')) === TRANSPARENT]] },
-    pressed: { press: ['.leaflet-popup-close-button'], rule: 'press', check: async (p, T) => [['bg = --state-press', (await cs(p, '.leaflet-popup-close-button', 'backgroundColor')) === T.press], ['radius 3px', (await cs(p, '.leaflet-popup-close-button', 'borderTopLeftRadius')) === '3px']] },
+    pressed: { press: ['.leaflet-popup-close-button'], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, '.leaflet-popup-close-button', 'backgroundColor', '::before')) === T.press], ['radius 3px', (await cs(p, '.leaflet-popup-close-button', 'borderTopLeftRadius', '::before')) === '3px'], ['tile clears the popup border by >= 1px (border unbroken)', await p.evaluate(() => { const b = document.querySelector('.leaflet-popup-close-button'), w = document.querySelector('.leaflet-popup-content-wrapper'), cb = getComputedStyle(b, '::before'), r = b.getBoundingClientRect(), wr = w.getBoundingClientRect(), bw = parseFloat(getComputedStyle(w).borderTopWidth); return (wr.right - (r.left + parseFloat(cb.left) + parseFloat(cb.width))) >= bw + 1 && ((r.top + parseFloat(cb.top)) - wr.top) >= bw + 1; })]] },
     on: NA('not a toggle'), onpressed: NA('not a toggle'), off: NA('never unavailable'), other: NA('n/a') } });
 
 add({ key: 'directions', name: 'Get Directions', group: 'Popup', shot: '.leaflet-popup-content-wrapper', pad: 6,
   enter: async p => { await popupFor(p, '!x.visited'); },
   cells: {
     idle: { rule: 'press', check: async (p) => [['tile hidden', (await cs(p, '.popup-directions', 'backgroundColor', '::before')) === TRANSPARENT]] },
-    pressed: { press: ['.popup-directions'], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, '.popup-directions', 'backgroundColor', '::before')) === T.press], ['radius 3px', (await cs(p, '.popup-directions', 'borderTopLeftRadius', '::before')) === '3px']] },
+    pressed: { press: ['.popup-directions'], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, '.popup-directions', 'backgroundColor', '::before')) === T.press], ['radius 3px', (await cs(p, '.popup-directions', 'borderTopLeftRadius', '::before')) === '3px'], ['tile 4px clear top/right/bottom; 7px left (4 + the compass 3px icon margin)', await (async () => { const i = await tileInsets(p, '.popup-directions'); return near(i.t, 4) && near(i.r, 4) && near(i.b, 4) && near(i.l, 7); })()], ['left edge aligns with the star tile', near((await tileInsets(p, '.popup-directions')).tileL, (await tileInsets(p, '.popup-star')).tileL, 0.6)]] },
     on: NA('link, not a toggle'), onpressed: NA('link'), off: NA('never unavailable'), other: NA('n/a') } });
 
-add({ key: 'formstar', name: 'Add-form star', group: 'Add form', shot: '#starInputRow', pad: 10, enter: openForm,
+add({ key: 'formstar', name: 'Add-form star', group: 'Add form', shot: '#starInputRow', pad: 4, maxW: 96, enter: openForm,
   cells: {
     idle: { rule: 'glyph', check: async (p) => [['aria-pressed false', (await p.evaluate(() => starInput.getAttribute('aria-pressed'))) === 'false'], ['tile hidden', (await cs(p, '#starInput', 'backgroundColor', '::before')) === TRANSPARENT]] },
     pressed: { press: ['.form-star-tap'], rule: 'press', check: async (p, T) => [['::before bg = --state-press', (await cs(p, '#starInput', 'backgroundColor', '::before')) === T.press], ['radius 3px', (await cs(p, '#starInput', 'borderTopLeftRadius', '::before')) === '3px']] },
@@ -198,27 +206,28 @@ add({ key: 'sortitem', name: 'Sort menu item', group: 'Menus', shot: '#sortMenu'
     other: NA('n/a') } });
 
 const rowSel = (n) => `#locationsList .location-card[data-id]${n}`;
-add({ key: 'row', name: 'List row', group: 'Rows', shot: '#rowShot', pad: 0, enter: async p => {
+add({ key: 'row', name: 'List row', group: 'Rows', shot: '#rowShot', pad: 0, maxW: 230, enter: async p => {
     await p.evaluate(() => { const cards = [...document.querySelectorAll('#locationsList .location-card[data-id]')]; const u = cards.find(c => !c.classList.contains('is-visited')), v = cards.find(c => c.classList.contains('is-visited')); u.id = 'rowU'; v.id = 'rowV'; window.__idU = u.dataset.id; window.__idV = v.dataset.id; }); },
   cells: {
     idle: { shotSel: '#rowU', rule: 'row', check: async (p, T) => [['unvisited bg paper', (await cs(p, '#rowU', 'backgroundColor')) === T.paper]] },
-    pressed: { shotSel: '#rowU', run: p => p.evaluate(() => document.getElementById('rowU').classList.add('active')), undo: p => p.evaluate(() => document.getElementById('rowU').classList.remove('active')), rule: 'press', check: async (p, T) => [['bg = --state-press', (await cs(p, '#rowU', 'backgroundColor')) === T.press]] },
+    pressed: { shotSel: '#rowU', run: p => p.evaluate(() => document.getElementById('rowU').classList.add('active')), undo: p => p.evaluate(() => document.getElementById('rowU').classList.remove('active')), rule: 'press', check: async (p, T) => [['bg = --state-press', (await cs(p, '#rowU', 'backgroundColor')) === T.press], ['visible step vs idle (max channel diff >= 20)', chDiff(await cs(p, '#rowU', 'backgroundColor'), T.paper) >= 20]] },
     on: { shotSel: '#rowU', run: async p => { await p.evaluate(() => { highlightedId = null; highlightMarker(window.__idU); }); await W(1100); await p.evaluate(() => document.getElementById('rowU').scrollIntoView({ block: 'center' })); await W(200); }, undo: p => closePopup(p), rule: 'row', check: async (p, T) => [['highlighted bg --figure-deep', (await cs(p, '#rowU', 'backgroundColor')) === T.figureDeep], ['name paper', (await cs(p, '#rowU h3', 'color')) === T.paper]] },
     onpressed: { shotSel: '#rowU', run: async p => { await p.evaluate(() => { highlightedId = null; highlightMarker(window.__idU); }); await W(1100); await p.evaluate(() => document.getElementById('rowU').scrollIntoView({ block: 'center' })); await W(200); await p.evaluate(() => document.getElementById('rowU').classList.add('active')); }, undo: async p => { await p.evaluate(() => document.getElementById('rowU').classList.remove('active')); await closePopup(p); }, rule: 'row', check: async (p, T) => [['highlighted + pressed stays --figure-deep (already reversed; named exception: no deeper step)', (await cs(p, '#rowU', 'backgroundColor')) === T.figureDeep]] },
     off: { label: 'visited (filed)', shotSel: '#rowV', rule: 'row', check: async (p, T) => [['visited bg --paper-filed', (await cs(p, '#rowV', 'backgroundColor')) === T.filed]] },
-    other: { label: 'visited + pressed', shotSel: '#rowV', run: p => p.evaluate(() => document.getElementById('rowV').classList.add('active')), undo: p => p.evaluate(() => document.getElementById('rowV').classList.remove('active')), rule: 'press', check: async (p, T) => [['bg = --state-press', (await cs(p, '#rowV', 'backgroundColor')) === T.press]] } } });
+    other: { label: 'visited + pressed', shotSel: '#rowV', run: p => p.evaluate(() => document.getElementById('rowV').classList.add('active')), undo: p => p.evaluate(() => document.getElementById('rowV').classList.remove('active')), rule: 'press', check: async (p, T) => [['filed row pressed = --state-press-filed', (await cs(p, '#rowV', 'backgroundColor')) === T.pressFiled], ['visible step vs filed idle (max channel diff >= 20)', chDiff(await cs(p, '#rowV', 'backgroundColor'), T.filed) >= 20]] } } });
 
-add({ key: 'delx', name: 'Row delete X', group: 'Rows', shot: '#rowShot', enter: async p => { await p.evaluate(() => { const c = document.querySelector('#locationsList .location-card[data-id]'); c.id = 'rowD'; }); },
+add({ key: 'delx', name: 'Row delete X', group: 'Rows', shot: '#rowShot', maxW: 390, enter: async p => { await p.evaluate(() => { const c = document.querySelector('#locationsList .location-card[data-id]'); c.id = 'rowD'; }); },
   cells: {
     idle: { shotSel: '#rowD', rule: 'row', check: async (p, T) => [['ink-2', (await cs(p, '#rowD .delete-btn', 'color')) === T.ink2]] },
     pressed: NA('deliberately no pressed-X rule (index.html comment: pressed-X colour was backwards feedback and failed contrast); the row press is the feedback'),
     on: NA('not a toggle'), onpressed: NA('not a toggle'), off: NA('n/a'), other: NA('n/a') } });
 
-add({ key: 'pin', name: 'Map pin', group: 'Map', shot: '#map', enter: async p => { await p.evaluate(() => { window.__pid = [...markersById.keys()][0]; }); },
+add({ key: 'pin', name: 'Map pin', group: 'Map', shot: '#map', enter: async p => { await p.evaluate(() => { let best = null, bd = -1; const ic = [...markersById.entries()].map(([id, m]) => [id, m.marker._icon.getBoundingClientRect()]).filter(([, r]) => r.y > 20 && r.bottom < 500 && r.x > 40 && r.right < 350);
+    for (const [id, r] of ic) { let md = 1e9; for (const [id2, r2] of ic) if (id2 !== id) md = Math.min(md, Math.hypot(r.x - r2.x, r.y - r2.y)); if (md > bd) { bd = md; best = id; } } window.__pid = best; }); },
   cells: {
-    idle: { shotFn: async p => p.evaluate(() => { const b = markersById.get(window.__pid).marker._icon.getBoundingClientRect(); return { x: b.x - 24, y: b.y - 24, width: b.width + 48, height: b.height + 48 }; }), rule: 'row', check: async (p) => [['idle: no pulse', await p.evaluate(() => !markersById.get(window.__pid).marker._icon.querySelector('.highlighted-marker'))]] },
+    idle: { label: 'other pins hidden for the crop', run: isolatePin, undo: unisolatePin, shotFn: async p => p.evaluate(() => { const b = markersById.get(window.__pid).marker._icon.getBoundingClientRect(); return { x: b.x - 24, y: b.y - 24, width: b.width + 48, height: b.height + 48 }; }), rule: 'row', check: async (p) => [['idle: no pulse', await p.evaluate(() => !markersById.get(window.__pid).marker._icon.querySelector('.highlighted-marker'))]] },
     pressed: NA('map pins open the popup on tap; the popup is the feedback'),
-    on: { shotFn: async p => p.evaluate(() => { const b = markersById.get(window.__pid).marker._icon.getBoundingClientRect(); return { x: b.x - 24, y: b.y - 24, width: b.width + 48, height: b.height + 48 }; }), run: async p => { await p.evaluate(() => { highlightedId = null; highlightMarker(window.__pid); }); await W(1000); }, undo: p => closePopup(p), rule: 'row', check: async (p) => [['highlighted: pulse animation', await p.evaluate(() => { const e = markersById.get(window.__pid).marker._icon.querySelector('.highlighted-marker'); return !!e && getComputedStyle(e).animationName === 'markerPulse'; })]] },
+    on: { shotFn: async p => p.evaluate(() => { const b = markersById.get(window.__pid).marker._icon.getBoundingClientRect(); return { x: b.x - 24, y: b.y - 24, width: b.width + 48, height: b.height + 48 }; }), run: async p => { await p.evaluate(() => { highlightedId = null; highlightMarker(window.__pid); }); await W(1000); await isolatePin(p); await p.evaluate(() => { const st = document.createElement('style'); st.id = 'hidePopup'; st.textContent = '.leaflet-popup-pane{visibility:hidden}'; document.head.appendChild(st); }); await W(100); }, undo: async p => { await p.evaluate(() => document.getElementById('hidePopup').remove()); await unisolatePin(p); await closePopup(p); }, cover: p => p.evaluate(() => { const i = markersById.get(window.__pid).marker._icon, r = i.getBoundingClientRect(), e = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return !!e && i.contains(e); }), label: 'highlighted (popup and other pins hidden for the crop)', rule: 'row', check: async (p) => [['highlighted: pulse animation', await p.evaluate(() => { const e = markersById.get(window.__pid).marker._icon.querySelector('.highlighted-marker'); return !!e && getComputedStyle(e).animationName === 'markerPulse'; })]] },
     onpressed: NA('n/a'), off: NA('n/a'), other: NA('n/a') } });
 
 // ---- driver -----------------------------------------------------------------
@@ -229,22 +238,27 @@ async function runPass(browser, dsf, isFirst) {
     const { ctx, page } = await open(browser, { dsf });
     cdp = null; forced = [];
     const T = { press: await tok(page, '--state-press'), onpress: await tok(page, '--state-on-press'), navy: await tok(page, '--navy'), paper: await tok(page, '--paper'), raised: await tok(page, '--paper-raised'),
-      figure: await tok(page, '--figure'), figureDeep: await tok(page, '--figure-deep'), ink: await tok(page, '--ink'), ink2: await tok(page, '--ink-2'), filed: await tok(page, '--paper-filed') };
+      figure: await tok(page, '--figure'), figureDeep: await tok(page, '--figure-deep'), ink: await tok(page, '--ink'), ink2: await tok(page, '--ink-2'), filed: await tok(page, '--paper-filed'), pressFiled: await tok(page, '--state-press-filed') };
     if (row.enter) await row.enter(page);
     for (const col of COLS) {
       const c = row.cells[col]; if (!c || c.na !== undefined) continue;
       if (c.run) await c.run(page);
       if (c.press) await force(page, c.press);
       if (c.hover) { const r = await page.evaluate(s => { const b = document.querySelector(s).getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; }, c.hover); await page.mouse.move(r.x, r.y); }
+      if (c.shotSel) await page.evaluate(s => document.querySelector(s).scrollIntoView({ block: 'center' }), c.shotSel);
       await W(450);   // transitions settle
       const results = c.check ? await c.check(page, T) : [];
+      { let cov = true;
+        if (c.cover) cov = await c.cover(page);
+        else { const sel = c.coverSel || c.shotSel || (typeof row.shot === 'string' && row.shot[1] !== 'r' && row.shot !== '#map' ? row.shot : null);
+          if (sel) cov = await page.evaluate(s => { const t = document.querySelector(s), r = t.getBoundingClientRect(), els = document.elementsFromPoint(r.x + r.width / 2, Math.min(Math.max(r.y + r.height / 2, 1), innerHeight - 1)); const i = els.findIndex(e => t.contains(e)); if (i < 0) return false; return els.slice(0, i).every(e => { if (e.closest('[class*="-tap"]')) return true; const c = getComputedStyle(e); const m = c.backgroundColor.match(/[\d.]+/g); const a = m && m.length > 3 ? +m[3] : (m ? 1 : 0); return a < 0.02 && c.backgroundImage === 'none'; }); }, sel); }
+        results.push(['crop target not covered', cov]); }
       if (!c.press && !c.hover && !(col === 'idle' && row.key === 'sortitem')) results.push(['no stray focus ring', await page.evaluate(() => !document.querySelector(':focus-visible'))]);
-      CLAIMS[cellName(row, col)] = results.map(r => r[0]).filter(l => l !== 'no stray focus ring');
+      CLAIMS[cellName(row, col)] = results.map(r => r[0]).filter(l => l !== 'no stray focus ring' && l !== 'crop target not covered');
       for (const [label, ok] of results) if (!ok) fails.push(`${dsf}x ${cellName(row, col)}: ${label}`);
       let clip;
-      if (c.shotSel) await page.evaluate(s => document.querySelector(s).scrollIntoView({ block: 'center' }), c.shotSel);
       if (c.shotFn) clip = await c.shotFn(page);
-      else { const sel = c.shotSel || (typeof row.shot === 'string' ? row.shot : row.shot.sel); if (sel === '#rowShot') throw new Error('rowShot'); clip = await rectOf(page, sel, c.pad !== undefined ? c.pad : (row.pad || 0)); }
+      else { const sel = c.shotSel || (typeof row.shot === 'string' ? row.shot : row.shot.sel); if (sel === '#rowShot') throw new Error('rowShot'); clip = await rectOf(page, sel, c.pad !== undefined ? c.pad : (row.pad || 0), row.maxW); }
       const file = `${cellName(row, col)}@${dsf}x.png`;
       try { await page.screenshot({ path: path.join(OUT, file), clip }); } catch (e) { fails.push(`${dsf}x ${cellName(row, col)}: screenshot failed, clip ${JSON.stringify(clip)}`); }
       shots[cellName(row, col)] = file;
@@ -273,6 +287,12 @@ async function runPass(browser, dsf, isFirst) {
   const pg = await b.newPage({ viewport: { width: 1500, height: 900 }, deviceScaleFactor: 1 });
   await pg.goto('file://' + path.join(__dirname, 'matrix.html')); await pg.waitForTimeout(500);
   await pg.screenshot({ path: path.join(__dirname, 'matrix@1x.png'), fullPage: true });
+  // automatic crop-quality check: no crop blank or mostly one colour
+  { const pg2 = await b.newPage(); const bad = [];
+    for (const f of fs.readdirSync(OUT)) { const b64 = fs.readFileSync(path.join(OUT, f)).toString('base64');
+      const r = await pg2.evaluate(async b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; await img.decode(); const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; const x = c.getContext('2d'); x.drawImage(img, 0, 0); const d = x.getImageData(0, 0, c.width, c.height).data; const m = new Map(); for (let i = 0; i < d.length; i += 4) { const k = (d[i] << 16) | (d[i + 1] << 8) | d[i + 2]; m.set(k, (m.get(k) || 0) + 1); } let top = 0; for (const v of m.values()) top = Math.max(top, v); return { w: c.width, h: c.height, n: m.size, share: top / (c.width * c.height) }; }, b64);
+      if (r.w < 8 || r.h < 8 || r.n < 4 || r.share > 0.97) bad.push(`${f}: ${r.w}x${r.h}, ${r.n} colours, dominant ${(r.share * 100).toFixed(1)}%`); }
+    bad.forEach(x => allFails.push('crop quality: ' + x)); await pg2.close(); }
   await b.close();
   // README checklist block from the table
   const mdRows = ROWS.map(r => `| ${r.group}: ${r.name} | ${COLS.map(c => { const x = r.cells[c]; return !x || x.na !== undefined ? 'n/a: ' + ((x && x.na) || '') : (x.label ? x.label + ': ' : '') + (CLAIMS[cellName(r, c)] || []).join('; ') + ' [' + RULES[x.rule] + ']'; }).join(' | ')} |`).join('\n');
