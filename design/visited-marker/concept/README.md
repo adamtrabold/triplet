@@ -343,3 +343,171 @@ solo-badge rim/field question the owner specifically flagged.
 Not a build decision — concept-stage only, `index.html` untouched. Next
 step if the owner approves Hybrid 2: UX concept-level blocker check, then
 a CD round, per the normal loop.
+
+## Stamp-tightened round (owner direction, 2026-09-29)
+
+The owner liked the dotted-rim direction and asked to keep iterating on
+the *dot treatment specifically* (not the shipped `.row-stamp`, which
+stays as-is) so it reads as more of a piece with the app's actual
+passport-stamp grammar per `design/inspo/project/`. Instructed to run the
+rest of the loop (UX blocker check, CD round(s) to ≥9) without stopping
+to check in after each round. All work below is still concept-stage —
+`index.html` untouched — in `stampring-mockup.html`, a copy of the same
+`badgeHtml()`/`markerStarHtml()` port used above.
+
+**What "tighter to the stamp" means, concretely.** Re-read `.row-stamp`
+in `index.html` (~1120–1225) before touching anything, and two things
+about the real component didn't carry into Hybrid 2:
+
+1. **`.is-visited` never touches ink.** The shipped list-row recipe is
+   "field recedes (`--paper` → `--paper-filed`), every ink stays at full
+   strength" — documented in CLAUDE.md's own history as deliberate ("Every
+   ink is unchanged, so rows never read disabled"). Hybrid 2 muted the
+   category ink and dropped glyph opacity, which isn't what the real
+   component does and reintroduces the exact "reads as disabled/washed
+   out" risk the row was built to avoid.
+2. **The mark is navy, not a muted version of whatever's under it.** The
+   stamp's ink is a fixed `--navy` at 82%, independent of context — an
+   "official stamp" color, not a recolored version of the row's own
+   ink. Hybrid 2's dots were `muted(categoryColor)` — a desaturated
+   version of *that pin's own hue*, so a stamp on a lavender shopping pin
+   looked different from a stamp on an orange restaurant pin. The real
+   stamp doesn't vary by what it's stamped on.
+3. **The stamp is structurally two concentric parts**, not one dashed
+   line standing in for a solid one: a perforated dot *track* and a solid
+   *ring*, at different radii (`--stamp-track`'s mask covers the whole
+   72×32 box; `.row-stamp-ring`'s solid border sits inset inside it,
+   `var(--s1)` + border in from the track's own edge). Hybrid 2 replaced
+   the badge's one existing rim with dashes — same single-ring shape,
+   losing the two-part relationship entirely.
+
+### Round 3 — dots moved inside the rim (concept score: does not reach 9, real execution defect)
+
+First attempt: keep the solid category rim exactly as an unvisited badge
+(full ink, no muting — fixes point 1 above), add a *separate* navy dotted
+ring (point 2 and 3) inset just inside it, mirroring ring+track as two
+concentric elements.
+
+**UX concept-blocker check caught a real problem before this went
+further, not just a polish nit.** `stampring-truesize-restauranthotel.png`
+(rows 2–3, the 9-dot and 7-dot inner variants) and
+`stampring-truesize-shopping.png` (row 1, cols 6/8 and row 2, cols 2/4)
+show the inner dots landing **on top of the category glyph itself** —
+`badgeHtml()`'s existing glyph-floor formula already sizes the glyph to
+fill nearly the entire field inside the rim (by design — 3 rounds of CD
+review already went into that budget for the marker-size work), so
+there's no free radius left inside the rim for a second ring without
+either shrinking the glyph (touches the shared formula, affects every
+badge, not just visited ones — out of scope) or overlapping it. At FAR
+16px this reads as noise on the glyph, not a ring; the shopping crop
+confirms it's not restaurant-specific. Concept-blocker, not an execution
+flaw: the idea only works if it doesn't visibly break the glyph, and it
+does. **Scored ~6/10** — genuinely closer to the stamp's real structure
+in principle, but fails "communicates visited clearly at marker scale"
+in practice. Not worth a second inner-dot-count iteration; the fix is
+geometric, not a dial.
+
+### Round 4 — dots moved outside the rim (concept score: 9/10)
+
+Fix: put the navy dots on the **outside** of the solid rim instead of
+the inside (`markerStampRingOuter()` in `stampring-mockup.html`,
+`stampring-full-4x.png` / `stampring-full-1x.png`). This isn't just
+dodging the collision — it's actually the more faithful mapping of the
+real component's own order once you look at it precisely: the real
+track is the *larger* of the two concentric parts (it's the outer 72×32
+box; the solid ring is inset inside it). So "solid ring smaller, dotted
+mark larger and outside it" is the same relationship, not just a
+different one that happens to avoid the bug. Adds ~3px to the badge's
+visible radius on visited pins only; the rim and the entire glyph field
+are byte-for-byte untouched.
+
+Rendered at true 1x device pixels (`stampring-truesize-restauranthotel.png`,
+`stampring-truesize-shopping.png`, `stampring-starred-truesize.png`),
+FAR 16px and NEAR 24px, across restaurant/nature/hotel/shopping
+(shopping specifically because the original round flagged its lavender
+as the low-contrast case to watch):
+
+- **Reads clearly as a distinct navy ring at both FAR and NEAR, every hue
+  tested**, including shopping's lavender and hotel's near-black plum —
+  because the dots sit *outside* the rim, against the paper/paper-filed
+  field, their contrast no longer depends on what category color they're
+  next to. This is a real, measurable improvement over Hybrid 2 and
+  Treatment A, where the mark's legibility varied by hue because it
+  shared the rim's own space.
+- **Category rim and glyph are completely undisturbed** — same ink,
+  same opacity, same shape as an unvisited pin. No "is this washed out or
+  still loading" risk (Treatment D's flagged risk), because nothing about
+  the pin's own identity changed; only a mark was added.
+- **Visited + starred combo** (`stampring-starred-truesize.png`): the
+  star still sits at its existing 45° shoulder position on the rim
+  itself; the outer dot ring simply continues past/around it. One or two
+  dots in that exact 45° arc sit under the star's own paper halo, the
+  same way the star already partially covers the rim there for an
+  *unvisited* pin — not a new collision, an existing, already-accepted
+  one extended to one more layer. Reads fine in the crop, no crowding.
+- **Round 4b** (`navyOpacity: 0.7`, 8 dots) tests a softer version — still
+  legible but a noticeably quieter signal; kept as the dial, not the
+  recommendation, since full-strength navy is what actually reads at a
+  glance in the true-1x crops.
+
+**UX concept-blocker check (Round 4):**
+- Tap-to-open-popup: unaffected — the dots/ring are decorative SVG
+  layered inside the same marker icon Leaflet already treats as one
+  click target, same as the existing star overlay. No new listener, no
+  new hit-testing.
+- Cluster-star precedent: untouched by this round on purpose — scope was
+  the solo-badge dot/field question the owner flagged; the cluster
+  aggregate rule (recede the whole cluster only once every member is
+  visited) from the base round stands as-is and wasn't re-tested against
+  this specific ring-outside geometry. Flagging as open, not assuming it
+  carries over cleanly — a cluster's fill already uses `--figure-deep`
+  muted toward the "cleared" color, and a navy outer ring on TOP of a
+  22px cluster disc that's already changing color on the aggregate rule
+  needs its own render before it's approved, not assumed from the solo
+  case.
+- Accessibility basics: decorative (`aria-hidden`), non-color mark
+  (shape + a second field cue), same "don't rely on color alone" pattern
+  the list row itself satisfies (WCAG 1.4.1). No text alternative is
+  newly needed here since the map layer already isn't the accessible
+  surface for this app (the list is); unchanged from every earlier round
+  in this doc.
+- Legibility against real tile colors: **still can't test this — same
+  sandbox limitation as every earlier round.** Flagging honestly rather
+  than asserting it reads fine against a busy real OSM tile; this is the
+  first thing to check once it's in a real browser.
+- New item this round: the ~3px footprint growth on visited pins only
+  is a real, measurable geometry change (not present in Hybrid 2, which
+  stayed within the existing shell). It doesn't break any interaction
+  (hit-testing is already handled by `badgeHtml()`'s separate padded hit
+  area, not the visible glyph bounds), but it's worth a real-device check
+  for whether it visibly crowds an *adjacent*, non-clustered pin at NEAR
+  tier in a dense area — not a concept blocker, but flagged for the
+  perfection stage rather than asserted fine.
+
+**CD score: 9/10.** On-brief: this is the most faithful of every
+treatment tried so far, not because reuse was a goal in itself but
+because — unlike Hybrid 2's muted-rim recipe, which was an invented
+approximation — this one actually uses the real `.row-stamp` ink (navy,
+not a muted category hue) and the real two-part concentric relationship
+(inset ring, larger mark around it), and it's the only one of the two
+"tightened" attempts that survives contact with the marker's actual
+glyph budget. Communicates "visited" clearly at marker scale: confirmed
+at true 1x pixels across four hues including the one flagged as risky.
+Distinct from the star (black ink, corner shoulder) and the cluster
+badge (`--figure-deep`, filled disc, no ring): yes, by both color and
+shape. Not a 10 only because of the deferred items above (real-tile
+legibility, cluster-badge application, the exact dot-count/opacity dial)
+— genuine perfection-stage/follow-up questions, not concept flaws, per
+the loop's own rule that execution polish doesn't cost points at this
+stage.
+
+### Recommendation
+
+**Round 4 (outer navy dotted ring + untouched solid category rim)
+supersedes Hybrid 2 as the recommended direction**, pending the owner's
+sign-off. Concept-stage only — nothing in `index.html` changed. Before
+any real build: (1) the owner looks at `stampring-truesize-*.png` and
+`stampring-full-1x.png` and either approves this direction or redirects;
+(2) if approved, the deferred items above (cluster-badge application,
+real-tile check, dot-count/opacity dial) get resolved in the perfection
+stage, not decided here.
