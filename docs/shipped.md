@@ -594,3 +594,29 @@ search widens on a miss.
     tap, two quick strokes, rows 56.00px) × both motion modes against the
     base commit and this branch: **22/22 identical outcomes, 0 errors**.
 
+
+## State system (2026-09-29)
+
+Owner: "why are the active states not matching come on we should have clear
+systems at this point." One rule per meaning, on existing tokens, no new
+colours or dots. Tokens on `:root`: `--state-press` (= `--paper-pressed`),
+`--state-on-bg` (= `--navy`), `--state-on-fg` (= `--paper`),
+`--state-off-alpha` (.4). Design record and audit: `design/state-system/`
+(sheet, README audit table, `stills.js`, `check.js`, stills in `stills/`).
+
+| Meaning | Treatment | Applies to |
+|---|---|---|
+| Pressed (finger down) | `--state-press` fill, pressed IN, never dimmed | rows (already), header buttons (collapse, sort, filters, locate; 3px tile), city and category chips (unselected only), popup Mark Visited (tile +6px each side, 3px radius) |
+| On / open / selected | `--state-on-bg` tile, `--state-on-fg` glyph/text | sort open, filters open (`#toggleFiltersBtn.active`), selected city chip |
+| Unavailable / loading | opacity `--state-off-alpha` | locate/sort loading, submit disabled (was .6) |
+| Current item | figure-deep reversed block (row), check (sort menu) | unchanged |
+
+Deliberate exceptions (unchanged): category chips keep the category rule
+= on, dashed hairline = off (on is the default; 11 navy chips would shout);
+star and visited toggles fill their own glyph. Open press order: `open`
+rules come after `:active`, so pressing an open button keeps the navy tile.
+Not done: floating add/account buttons still press to hard-coded `#1B3A57`
+(off-token; needs an owner call). Checks: sorttest.js 77/77 (incl. popup-open
+20/20), `check.js` 9/9, gesturediff.js identical to origin/main. The touch /
+flip6 / vtest suites could not run (their helper files were never
+committed).
