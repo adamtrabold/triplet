@@ -195,6 +195,7 @@
       --state-press: var(--paper-pressed);
       --state-on-bg: var(--navy);
       --state-on-fg: var(--paper);
+      --state-on-press: #1B3A57; /* an ON tile pressed: one step lighter navy (the value the floating add/account buttons already pressed to) */
       --state-off-alpha: 0.4;
       --paper-pressed: #DCD3C3;  /* pressed row, visited or not: --paper's hue,
                                     pressed IN, not lit up. One more equal
@@ -389,7 +390,7 @@
 
     #floatingAddBtn:active,
     #accountBtn:active {
-      background: #1B3A57;
+      background: var(--state-on-press);
     }
 
     /* Open state INVERTS rather than going transparent. The scalloped
@@ -1057,6 +1058,8 @@
     #sortBtn:active { background: var(--state-press); }
     #toggleFiltersBtn.active,
     #sortBtn[aria-expanded="true"] { background: var(--state-on-bg); color: var(--state-on-fg); }
+    #toggleFiltersBtn.active:active,
+    #sortBtn[aria-expanded="true"]:active { background: var(--state-on-press); }
     #centerMeBtn.loading,
     #sortBtn.loading { opacity: var(--state-off-alpha); }
 
@@ -1644,8 +1647,14 @@
 
     .popup-star svg { width: 18px; height: 18px; display: block; }
     .popup-star.starred { color: var(--ink); }
-    .popup-star:active svg,
-    .popup-star-slot:has(> .popup-star-tap:active) .popup-star svg { transform: scale(0.85); }
+    /* State system: pressed = the pale tile, same as Mark Visited (the ink /
+       rub animation lives on the svg's children and is untouched). */
+    .popup-star:active,
+    .popup-star-slot:has(> .popup-star-tap:active) .popup-star {
+      background: var(--state-press);
+      border-radius: 3px;
+      box-shadow: 0 0 0 4px var(--state-press);
+    }
     /* Round 8 (owner): the finger's tap target. EXACTLY .popup-star::after's
        44x44 box (same inset rule, above), one layer above it,
        so the dead band to Mark Visited and z-index:201 are unchanged. It is a
@@ -1693,12 +1702,18 @@
       color: var(--ink-2);
     }
 
-    .popup-visited:active,
-    .popup-visited-slot:has(> .popup-visited-tap:active) .popup-visited {
-      background: var(--state-press);
+    /* Pressed tile: a ::before sized to the words + ring with an equal
+       6px inset on every side (the 44px button box is only the tap target). */
+    .popup-visited { position: relative; isolation: isolate; }
+    .popup-visited::before {
+      content: '';
+      position: absolute;
+      inset: 10px -6px;
+      z-index: -1;
       border-radius: 3px;
-      box-shadow: -6px 0 0 var(--state-press), 6px 0 0 var(--state-press);   /* tile clears the words horizontally; height is already the 44px box */
     }
+    .popup-visited:active::before,
+    .popup-visited-slot:has(> .popup-visited-tap:active) .popup-visited::before { background: var(--state-press); }
     /* The finger's tap target for Mark Visited (owner: "the haptics should
        also be everywhere logical"): the popup star's real-tap label, exactly
        over the button's 44px box, one layer above it. A real tap on it is a

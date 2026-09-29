@@ -601,12 +601,13 @@ Owner: "why are the active states not matching come on we should have clear
 systems at this point." One rule per meaning, on existing tokens, no new
 colours or dots. Tokens on `:root`: `--state-press` (= `--paper-pressed`),
 `--state-on-bg` (= `--navy`), `--state-on-fg` (= `--paper`),
-`--state-off-alpha` (.4). Design record and audit: `design/state-system/`
+`--state-on-press` (#1B3A57, an ON tile pressed; also the floating add/account press, no visual change), `--state-off-alpha` (.4). Design record and audit: `design/state-system/`
 (sheet, README audit table, `stills.js`, `check.js`, stills in `stills/`).
 
 | Meaning | Treatment | Applies to |
 |---|---|---|
-| Pressed (finger down) | `--state-press` fill, pressed IN, never dimmed | rows (already), header buttons (collapse, sort, filters, locate; 3px tile), city and category chips (unselected only), popup Mark Visited (tile +6px each side, 3px radius) |
+| Pressed (finger down) | `--state-press` fill, pressed IN, never dimmed | rows (already), header buttons (collapse, sort, filters, locate; 3px tile), city and category chips (unselected only), popup Mark Visited (`::before` tile, equal 6px inset on all sides), popup star (tile, 4px spread; the star's ink/rub animation is on the svg and untouched; the old scale .85 shrink is gone) |
+| On / open / selected, then pressed | `--state-on-press` (open sort / filters held) | header sort and filters |
 | On / open / selected | `--state-on-bg` tile, `--state-on-fg` glyph/text | sort open, filters open (`#toggleFiltersBtn.active`), selected city chip |
 | Unavailable / loading | opacity `--state-off-alpha` | locate/sort loading, submit disabled (was .6) |
 | Current item | figure-deep reversed block (row), check (sort menu) | unchanged |
@@ -620,3 +621,5 @@ Not done: floating add/account buttons still press to hard-coded `#1B3A57`
 20/20), `check.js` 9/9, gesturediff.js identical to origin/main. The touch /
 flip6 / vtest suites could not run (their helper files were never
 committed).
+
+Revision after CD 8/10: open-pressed variant added; popup star moved from shrink to the tile; Mark Visited tile got equal insets; loading verified at computed opacity 0.4 (settled past the .15s transition); collapse arrow shows its pressed tile (28px, the spine width, not 32). check.js 11/11, sorttest 77/77, gesturediff identical.

@@ -28,6 +28,12 @@ const cs = (page, sel, p) => page.evaluate(([s, p]) => getComputedStyle(document
     const after = await page.evaluate(id => locations.find(x => x.id === id).visited, id);
     ok(`popup visited tap toggles (was ${want})`, !!after === !want, { before });
   }
+  for (const want of [false, true]) {
+    const id = await page.evaluate(want => { const l = locations.find(x => !!x.starred === want); highlightedId = null; highlightMarker(l.id); return l.id; }, want); await W(900);
+    const r = await page.evaluate(() => { const b = document.querySelector('.popup-star-tap').getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; });
+    await page.touchscreen.tap(r.x, r.y); await W(900);
+    ok(`popup star tap toggles (was ${want})`, !!(await page.evaluate(id => locations.find(x => x.id === id).starred, id)) === !want);
+  }
   ok('no page errors', errors.length === 0, errors);
   console.log(`${pass}/${total} passed`);
   await ctx.close(); await b.close();

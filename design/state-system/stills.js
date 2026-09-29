@@ -13,7 +13,7 @@ async function force(page, sels, on = true) {   // CDP :active
   const { root } = await c.send('DOM.getDocument', { depth: -1 });
   for (const sel of sels) { const { nodeId } = await c.send('DOM.querySelector', { nodeId: root.nodeId, selector: sel });
     if (nodeId) await c.send('CSS.forcePseudoState', { nodeId, forcedPseudoClasses: on ? ['active'] : [] }); }
-  await W(260);
+  await W(400);
 }
 const click = (page, id) => page.evaluate(id => document.getElementById(id).click(), id);
 (async () => {
@@ -22,7 +22,7 @@ const click = (page, id) => page.evaluate(id => document.getElementById(id).clic
     const s = `@${dsf}x`;
     const { ctx, page } = await open(b, { dsf });
     const shot = async (name, sel, pad) => page.screenshot({ path: `${OUT}/${name}${s}.png`, clip: await clip(page, sel, pad) });
-    const HB = ['#sortBtn', '#toggleFiltersBtn', '#centerMeBtn'];
+    const HB = ['#collapseBtn', '#sortBtn', '#toggleFiltersBtn', '#centerMeBtn'];
     await shot('header-idle', '#locationsHeader');
     await force(page, HB); await shot('header-pressed', '#locationsHeader'); await force(page, HB, false);
     await click(page, 'toggleFiltersBtn'); await W(400);
@@ -33,10 +33,11 @@ const click = (page, id) => page.evaluate(id => document.getElementById(id).clic
     await force(page, ['#pc', '#pf']); await shot('chips-pressed', '#filtersPanel'); await force(page, ['#pc', '#pf'], false);
     await click(page, 'toggleFiltersBtn'); await W(400);
     await page.evaluate(() => { document.getElementById('centerMeBtn').classList.add('loading'); document.getElementById('sortBtn').classList.add('loading'); });
-    await shot('header-loading', '#locationsHeader');
+    await W(400); await shot('header-loading', '#locationsHeader');
     await page.evaluate(() => { document.getElementById('centerMeBtn').classList.remove('loading'); document.getElementById('sortBtn').classList.remove('loading'); });
     await click(page, 'sortBtn'); await W(400);
     await shot('header-open-sort', '#locationsHeader');
+    await force(page, ['#sortBtn']); await shot('header-open-sort-pressed', '#locationsHeader'); await force(page, ['#sortBtn'], false);
     await click(page, 'sortBtn'); await W(300);
     for (const want of [false, true]) {
       await page.evaluate(want => { const l = locations.find(x => !!x.visited === want); if (l) { highlightedId = null; highlightMarker(l.id); } }, want).catch(() => {});
@@ -45,6 +46,7 @@ const click = (page, id) => page.evaluate(id => document.getElementById(id).clic
       const t = want ? 'popup-visited-on' : 'popup-visited-idle';
       await shot(t, '.leaflet-popup-content-wrapper', 6);
       await force(page, ['.popup-visited-tap']); await shot(t + '-pressed', '.leaflet-popup-content-wrapper', 6); await force(page, ['.popup-visited-tap'], false);
+      if (!want) { await force(page, ['.popup-star-tap']); await shot('popup-star-pressed', '.leaflet-popup-content-wrapper', 6); await force(page, ['.popup-star-tap'], false); }
     }
     await page.evaluate(() => { map.closePopup(); document.getElementById('floatingAddBtn').click(); }); await W(500);
     await shot('submit-enabled', '#submitBtn', 8);
