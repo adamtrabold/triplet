@@ -471,8 +471,9 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     pure reorder of `visibleLocations()`: **an order never filters**
     (tested per mode, with and without a category filter). Shape rows keep
     their own block after the pins: A–Z by label, by type in Category, by
-    centroid distance in Nearest. Category has **no group labels** — the
-    glyph + meta already carry the category and the runs are visible.
+    centroid distance in Nearest. Category has **no group labels**; the
+    last row of each category run carries its rule in `--ink-2` instead of
+    `--hair` (`.group-end`, CD round 2) -- one plain hairline, no height.
   - **Button:** `#sortBtn` sits between the title and the filters button,
     drawn in the sliders icon's terms (18px, 24-unit box, 2px butt
     strokes, solid heads). Hit zone 50×56 (12px into the title gap and
@@ -490,7 +491,8 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     rows (each with a 2px-above/below hit extension → 44px targets), 13px
     condensed caps at 0.05em, an **ink ✓** (1.5px stroke, 16px gutter) on
     the current order. Fixed width 200px (fits NEAREST + "LOCATION OFF").
-    Sits **flush** on the header band, right-aligned to ⇅ (below ⇅ on the
+    Sits on the header band with its 2px ink offset ending exactly on the
+    band's top line (CD round 2), right-aligned to ⇅ (below ⇅ on the
     desktop rail); the Leaflet attribution is hidden while it's open. 140ms slip-in
     (none under reduced motion). A transparent scrim swallows the outside
     tap; a second ⇅ tap, Escape and Tab also close. Opening it closes the
@@ -508,8 +510,9 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     while Nearest is the order; center-me's fix is shared (`takeFix()`), so
     it can sort at once. Re-sorts only after moving ≥ `NEAREST_RESORT_M`
     (150 m) from the position the order was computed at. Denied → A–Z with
-    a 4s notice slip docked on the header band above ⇅ (never over the
-    zoom/account/add controls) + announcement, and the Nearest row greys with "Location
+    a 4s notice slip on the header band above ⇅ (never over the
+    zoom/account/add controls; the OSM attribution is hidden while it shows
+    -- never half-covered) + announcement, and the Nearest row greys with "Location
     off"; no fix (error or 20s `NEAREST_WAIT_MS` with nothing) → same with
     "No fix". Tapping the greyed row retries. While locating, ⇅ dims
     (0.4, like center-me) and the list stays A–Z. In Nearest the distance
@@ -521,7 +524,7 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
     `delete()` calls `afterRowGesture()`). So a star in Starred order or a
     visit in What's left moves the row once the gesture has landed.
   - **Gates run** (Chromium, 390×844 touch + 1280×800 mouse,
-    `design/list-ordering/build/sorttest.js`): **73/73** — keys ×5,
+    `design/list-ordering/build/sorttest.js`): **77/77** — keys ×5,
     never-filters, menu a11y/keyboard/dismissal/mutual exclusion, motion
     real-timing (140ms), reduced motion, persistence (incl. throwing
     storage), Nearest (mocked position, 100 m no-jump, 2 km re-sort,

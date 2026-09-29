@@ -48,6 +48,10 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     for (const m of ['category', 'left', 'starred', 'newest']) {
       await pick(page, m);
       const got = await ids(page);
+      const ge = await page.evaluate(() => { const cards = [...document.querySelectorAll('#locationsList .location-card[data-id]')], cat = id => locations.find(l => l.id === id).category;
+        const want = cards.map((c, i) => i < cards.length - 1 && cat(c.dataset.id) !== cat(cards[i + 1].dataset.id)); const has = cards.map(c => c.classList.contains('group-end'));
+        return { ok: sortMode === 'category' ? want.join() === has.join() && want.some(Boolean) : !has.some(Boolean), n: has.filter(Boolean).length, color: (cards.find(c => c.classList.contains('group-end')) ? getComputedStyle(cards.find(c => c.classList.contains('group-end'))).borderBottomColor : null), h: cards.every(c => c.getBoundingClientRect().height === 56) }; });
+      ok(`S3b ${m}: category runs end in an ink hairline only in Category order; rows stay 56px`, ge.ok && ge.h && (m !== 'category' || ge.color === 'rgb(90, 86, 76)'), ge);
       ok(`S3 ${m}: order matches its key`, JSON.stringify(got) === JSON.stringify(await expected(page, m)), got.slice(0, 6));
       ok(`S4 ${m}: same membership as A-Z (reorders, never filters)`, got.slice().sort().join() === base);
       s = await state(page);
@@ -83,7 +87,7 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     ok('M4 opening the menu closed the filters panel', !m.panel);
     ok('M5 open ⇅ = ink tile with a paper glyph, not greyed', m.opacity === '1' && m.bg === 'rgb(18, 41, 63)' && m.fg === 'rgb(242, 235, 221)', { opacity: m.opacity, bg: m.bg, fg: m.fg });
     ok('M6 rows 40px, every target 44px', m.rowH.every(h => h === 40) && m.hit.every(h => h === 44), { rowH: m.rowH, hit: m.hit });
-    ok('M6b slip: flush on the band, fixed 200px, caption "Sort by", attribution stepped out, ✓ only on A–Z', m.flush === 0 && m.width === 200 && m.cap === 'Sort by' && m.attr === 'hidden' && m.check === 'visible,hidden,hidden,hidden,hidden,hidden', m);
+    ok('M6b slip: its 2px ink offset ends exactly on the band line, fixed 200px, caption "Sort by", attribution stepped out, ✓ only on A–Z', m.flush === 2 && m.width === 200 && m.cap === 'Sort by' && m.attr === 'hidden' && m.check === 'visible,hidden,hidden,hidden,hidden,hidden', m);
     await page.keyboard.press('ArrowDown'); let f = await page.evaluate(() => document.activeElement.dataset.sort);
     await page.keyboard.press('ArrowUp'); await page.keyboard.press('ArrowUp'); const f2 = await page.evaluate(() => document.activeElement.dataset.sort);
     await page.keyboard.press('Home'); const f3 = await page.evaluate(() => document.activeElement.dataset.sort);
@@ -172,10 +176,10 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     const s = await state(page);
     const r = await page.evaluate(() => { const n = document.getElementById('sortNote'), nr = n.getBoundingClientRect(), hd = document.getElementById('locationsHeader').getBoundingClientRect();
       const hits = ['.leaflet-control-zoom', '#floatingAddBtn', '#accountBtn'].map(q => document.querySelector(q)).filter(e => e && e.offsetParent !== null).map(e => e.getBoundingClientRect()).some(c => !(c.right <= nr.left || c.left >= nr.right || c.bottom <= nr.top || c.top >= nr.bottom));
-      return { banner: n.textContent, shown: !n.hidden, docked: Math.round(hd.top - nr.bottom) === 0, overlapsControls: hits, errorBanner: document.getElementById('error').classList.contains('show') }; });
+      return { banner: n.textContent, shown: !n.hidden, docked: Math.round(hd.top - nr.bottom) === 2, attr: getComputedStyle(document.querySelector('.leaflet-control-attribution')).visibility, overlapsControls: hits, errorBanner: document.getElementById('error').classList.contains('show') }; });
     await tapEl(page, '#sortBtn'); await W(250);
     const row = await page.evaluate(() => { const e = document.querySelector('.sort-opt[data-sort="nearest"]'); return { off: e.classList.contains('is-off'), why: e.querySelector('.sort-why').textContent, color: getComputedStyle(e).color }; });
-    ok('N8 denied: visibly falls back to A-Z (order, label, banner, announcement)', s.mode === 'az' && JSON.stringify(await ids(page)) === JSON.stringify(await expected(page, 'az')) && r.shown && r.banner === 'Location off — sorted A–Z' && r.docked && !r.overlapsControls && !r.errorBanner && /Location unavailable/.test(s.live), { s, r });
+    ok('N8 denied: visibly falls back to A-Z (order, label, banner, announcement)', s.mode === 'az' && JSON.stringify(await ids(page)) === JSON.stringify(await expected(page, 'az')) && r.shown && r.banner === 'Location off — sorted A–Z' && r.docked && r.attr === 'hidden' && !r.overlapsControls && !r.errorBanner && /Location unavailable/.test(s.live), { s, r });
     ok('N9 denied: Nearest greys out with a short reason', row.off && row.why === 'Location off' && row.color === 'rgb(90, 86, 76)', row);
     ok('N10 no page errors', !errors.length, errors);
     await ctx.close(); }

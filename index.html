@@ -1081,7 +1081,8 @@
     }
     #sortMenu { width: 200px; }
     #sortScrim[hidden], #sortMenu[hidden], #sortNote[hidden] { display: none; }
-    body.sort-open .leaflet-control-attribution { visibility: hidden; }
+    body.sort-open .leaflet-control-attribution,
+    body.sort-noting .leaflet-control-attribution { visibility: hidden; }   /* never half-covered: a required credit */
     .sort-cap {
       height: 24px; display: flex; align-items: center; padding: 0 var(--s3) 0 36px;
       border-bottom: 1px solid var(--navy);
@@ -1169,6 +1170,9 @@
        disc goes transparent so it follows whichever field is showing.
        Shape rows have no visited state and stay on --paper by design. */
     .location-card.is-visited { background: var(--paper-filed); }
+    /* Category order: one plain hairline in ink where the category changes
+       (the --hair rule between rows, darkened) -- no label, no extra height. */
+    .location-card.group-end { border-bottom-color: var(--ink-2); }
     .location-card.is-visited .row-badge { --badge-field: transparent; }
 
     /* Press state is a background change only. `scale(0.98)` is deliberately
@@ -4158,7 +4162,7 @@
       const w = menu.offsetWidth, h = menu.offsetHeight;
       const vw = document.documentElement.clientWidth;
       const above = band.top - h >= 8;
-      menu.style.top = `${above ? band.top - h : r.bottom + 6}px`;   // flush on the band (its 2px offset overlaps it)
+      menu.style.top = `${above ? band.top - h - 2 : r.bottom + 6}px`;   // its 2px ink offset ends exactly on the band's top line
       menu.style.left = `${Math.max(8, Math.min(vw - w - 8, r.right - w))}px`;
       menu.style.setProperty('--slip-from', above ? '4px' : '-4px');
       return above;
@@ -4230,11 +4234,11 @@
     let sortNoteTimer = 0;
     function showSortNote(text) {
       const note = document.getElementById('sortNote');
-      note.textContent = text; note.hidden = false;
+      note.textContent = text; note.hidden = false; document.body.classList.add('sort-noting');
       placeSortMenu(note);
       clearTimeout(sortNoteTimer); sortNoteTimer = setTimeout(hideSortNote, 4000);
     }
-    function hideSortNote() { clearTimeout(sortNoteTimer); const n = document.getElementById('sortNote'); if (n) n.hidden = true; }
+    function hideSortNote() { clearTimeout(sortNoteTimer); const n = document.getElementById('sortNote'); if (n) n.hidden = true; document.body.classList.remove('sort-noting'); }
     function startNearest() {
       if (nearestWatch !== null) return;
       if (!navigator.geolocation) { nearestFailed('Not supported'); return; }
@@ -5679,6 +5683,8 @@
           entry.signature = signature;
         }
         entry.el.classList.toggle('highlighted', loc.id === highlightedId);
+        // Category order: the last row of each category run carries an ink rule.
+        entry.el.classList.toggle('group-end', sortMode === 'category' && index < visible.length - 1 && visible[index + 1].category !== loc.category);
 
         if (list.children[index] !== entry.el) {
           list.insertBefore(entry.el, list.children[index] || null);
