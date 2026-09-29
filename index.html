@@ -188,6 +188,17 @@
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
       --paper-raised: #FAF5EA;   /* one step up: chips, fields */
+      /* STATE SYSTEM (docs/shipped.md "State system"): one rule per meaning.
+         pressed = --state-press fill (pressed IN, never dimmed);
+         on / open / selected = --state-on-bg tile + --state-on-fg glyph or text;
+         unavailable / loading = --state-off-alpha. */
+      --state-press: var(--paper-pressed);
+      --state-on-bg: var(--navy);
+      --state-on-fg: var(--paper);
+      --state-on-press: #2A4F73; /* an ON tile or a filled navy button pressed: one clear step lighter navy (about 1.7:1 from --navy; paper glyph stays >=7:1). Floating add/account pressed to #1B3A57 before */
+      --state-off-alpha: 0.4;
+      --state-tile-inset: 4px;   /* popup pressed tiles (star, Mark Visited, Get Directions): the tile clears the glyph/words by this on every side */
+      --state-press-filed: #D1C8B7;   /* pressed on a FILED (visited) row: one more equal step down the ladder (paper, filed, pressed, this), so a press still reads on --paper-filed */
       --paper-pressed: #DCD3C3;  /* pressed row, visited or not: --paper's hue,
                                     pressed IN, not lit up. One more equal
                                     step down the ladder paper -> filed ->
@@ -381,9 +392,13 @@
 
     #floatingAddBtn:active,
     #accountBtn:active {
-      background: #1B3A57;
+      background: var(--state-on-press);
+      color: var(--paper);               /* filled buttons: glyph / text flips to paper when pressed */
     }
 
+    /* State system: a navy button can't reverse to a navy tile, so its ON
+       (open) state inverts to --figure with the navy glyph. Named exception
+       to the navy-tile rule. */
     /* Open state INVERTS rather than going transparent. The scalloped
        mask carries over unchanged -- only the fill and icon color flip. */
     #floatingAddBtn.active,
@@ -391,6 +406,14 @@
       background: var(--figure);
       color: var(--navy);
       box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    }
+
+    /* Open, then held: one tone step deeper (--figure to --figure-deep), glyph
+       flips to paper for contrast, same as submit. Must follow .active. */
+    #floatingAddBtn.active:active,
+    #accountBtn.active:active {
+      background: var(--figure-deep);
+      color: var(--paper);
     }
 
     #accountDropdown {
@@ -441,6 +464,7 @@
     #accountDropdown button:hover {
       background: var(--paper-raised);
     }
+    #accountDropdown button:active { background: var(--state-press); }
 
     #mainContent {
       /* Stays FIXED (Safari tints its tab status bar from the top fixed
@@ -559,8 +583,9 @@
       margin-top: var(--s1);
     }
 
+    /* State system, filled primary buttons: pressed = one tone step. Submit deepens (--figure to --figure-deep); the navy floating add/account buttons lighten (--navy to --state-on-press). */
     #addForm button#submitBtn:active { background: var(--figure-deep); color: var(--paper); }
-    #addForm button#submitBtn:disabled { opacity: 0.6; cursor: default; }
+    #addForm button#submitBtn:disabled { opacity: var(--state-off-alpha); color: var(--ink); cursor: default; }
 
     #addForm .field-group {
       margin-bottom: var(--s6);
@@ -604,8 +629,11 @@
 
     #addForm .form-star svg { width: var(--s4); height: var(--s4); flex-shrink: 0; }
     #addForm .form-star[aria-pressed="true"] svg { color: var(--ink); }
-    #addForm .form-star:active svg,
-    #addForm .form-star-slot:has(> .form-star-tap:active) .form-star svg { transform: scale(0.85); }
+    /* State system: pressed = the pale tile (was a .85 shrink). */
+    #addForm .form-star { isolation: isolate; }
+    #addForm .form-star::before { content: ''; position: absolute; inset: 8px -6px; z-index: -1; border-radius: 3px; }
+    #addForm .form-star:active::before,
+    #addForm .form-star-slot:has(> .form-star-tap:active) .form-star::before { background: var(--state-press); }
     /* The pull-up lives on the slot now (same -8 / +8), so the tap label below
        covers exactly the button's 44px box. The label is the popup star's
        real-tap path: one tick at tap time on every iOS >= 18 and Android;
@@ -756,6 +784,7 @@
     .autocomplete-item:hover {
       background: var(--paper);
     }
+    .autocomplete-item:active { background: var(--state-press); }
 
     .autocomplete-item:last-child {
       border-bottom: none;
@@ -841,10 +870,12 @@
       color: var(--ink);
     }
 
+    .city-btn:active:not(.active) { background: var(--state-press); }
+    .city-btn.active:active { background: var(--state-on-press); border-color: var(--state-on-press); }
     .city-btn.active {
-      background: var(--navy);
-      border-color: var(--navy);
-      color: var(--paper);
+      background: var(--state-on-bg);
+      border-color: var(--state-on-bg);
+      color: var(--state-on-fg);
     }
 
     /* Chips carry INK text on paper, never white-on-category-color (which was
@@ -893,6 +924,7 @@
     }
 
     .filter-btn.inactive .chip-glyph { color: var(--ink-2); }
+    .filter-btn:active { background: var(--state-press); }
     
     #map {
       position: absolute;
@@ -1033,12 +1065,28 @@
     #collapseBtn { width: var(--col-glyph); height: var(--col-glyph); font-size: 14px; line-height: 1; transition: transform 0.3s ease; }
     #collapseBtn.collapsed { transform: rotate(-180deg); }
 
-    #collapseBtn:active,
+    /* State system: all four header icon buttons share one 3px tile.
+       Pressed = paper-pressed fill; open = reversed navy tile. The order
+       matters: open comes after pressed, so a press on an open button
+       keeps the tile. Loading = --state-off-alpha. */
+    #collapseBtn,
+    #sortBtn,
+    #toggleFiltersBtn,
+    #centerMeBtn { border-radius: 3px; transition: background 0.12s ease, color 0.12s ease, opacity 0.15s ease, transform 0.3s ease; }
     #toggleFiltersBtn:active,
-    #centerMeBtn:active { opacity: 0.55; }
-
-    #toggleFiltersBtn.active { opacity: 0.55; }
-    #centerMeBtn.loading { opacity: 0.4; }
+    #centerMeBtn:active,
+    #sortBtn:active { background: var(--state-press); }
+    /* The collapse arrow keeps its 28px spine box; its pressed tile is the
+       same 32px as the others (2px bleed each side, so the spine holds). */
+    #collapseBtn { position: relative; isolation: isolate; }
+    #collapseBtn::before { content: ''; position: absolute; inset: -2px; z-index: -1; border-radius: 3px; }
+    #collapseBtn:active::before { background: var(--state-press); }
+    #toggleFiltersBtn.active,
+    #sortBtn[aria-expanded="true"] { background: var(--state-on-bg); color: var(--state-on-fg); }
+    #toggleFiltersBtn.active:active,
+    #sortBtn[aria-expanded="true"]:active { background: var(--state-on-press); }
+    #centerMeBtn.loading,
+    #sortBtn.loading { opacity: var(--state-off-alpha); }
 
     /* =====================================================================
        SORT -- one icon in the header's icon row, one small menu. The list's
@@ -1055,9 +1103,6 @@
        city chip -- so the slip reads as coming out of it. */
     #sortBtn { position: relative; border-radius: 3px; }
     #sortBtn::after { content: ''; position: absolute; inset: -12px -6px -12px -12px; }
-    #sortBtn:active { opacity: 0.55; }
-    #sortBtn[aria-expanded="true"] { background: var(--navy); color: var(--paper); opacity: 1; }
-    #sortBtn.loading { opacity: 0.4; }
     /* No at-rest "not A-Z" mark on the glyph: tried (a 4px ink dot) and cut
        -- it read as a notification badge, and every non-default order shows
        itself in the list (distances, category runs, stars on top).
@@ -1170,6 +1215,9 @@
        disc goes transparent so it follows whichever field is showing.
        Shape rows have no visited state and stay on --paper by design. */
     .location-card.is-visited { background: var(--paper-filed); }
+    /* State system: a press on a filed row steps one more tone down, so the
+       press still reads against --paper-filed (the two tans were ~1.1:1). */
+    .location-card.is-visited.active:not(.highlighted) { background: var(--state-press-filed); }
     /* Category order: where the category changes, the row rule doubles to
        2px in the same --hair -- no louder than the header's own rule, no
        label, no extra height (the row's min-height includes its border). */
@@ -1520,6 +1568,10 @@
 
     .leaflet-popup-content { margin: var(--s2); font-family: var(--font-ui); }
     .leaflet-popup-close-button { color: var(--ink-2) !important; }
+    /* pressed = the pale tile, inset 3px so the popup's 1px ink border stays unbroken */
+    .leaflet-container a.leaflet-popup-close-button { isolation: isolate; }
+    .leaflet-container a.leaflet-popup-close-button::before { content: ''; position: absolute; inset: 3px; z-index: -1; border-radius: 3px; }
+    .leaflet-container a.leaflet-popup-close-button:active::before { background: var(--state-press); }
 
     .popup-head {
       display: flex;
@@ -1627,8 +1679,17 @@
 
     .popup-star svg { width: 18px; height: 18px; display: block; }
     .popup-star.starred { color: var(--ink); }
-    .popup-star:active svg,
-    .popup-star-slot:has(> .popup-star-tap:active) .popup-star svg { transform: scale(0.85); }
+    /* State system: pressed = the pale tile, same as Mark Visited (the ink /
+       rub animation lives on the svg's children and is untouched). */
+    .popup-star::before {
+      content: '';
+      position: absolute;
+      inset: calc(-1 * var(--state-tile-inset));
+      z-index: -1;
+      border-radius: 3px;              /* one radius everywhere: 3px */
+    }
+    .popup-star:active::before,
+    .popup-star-slot:has(> .popup-star-tap:active) .popup-star::before { background: var(--state-press); }
     /* Round 8 (owner): the finger's tap target. EXACTLY .popup-star::after's
        44x44 box (same inset rule, above), one layer above it,
        so the dead band to Mark Visited and z-index:201 are unchanged. It is a
@@ -1676,8 +1737,18 @@
       color: var(--ink-2);
     }
 
-    .popup-visited:active,
-    .popup-visited-slot:has(> .popup-visited-tap:active) .popup-visited { opacity: 0.6; }
+    /* Pressed tile: a ::before sized to the words + ring with an equal
+       6px inset on every side (the 44px button box is only the tap target). */
+    .popup-visited { position: relative; isolation: isolate; }
+    .popup-visited::before {
+      content: '';
+      position: absolute;
+      inset: calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset));
+      z-index: -1;
+      border-radius: 3px;
+    }
+    .popup-visited:active::before,
+    .popup-visited-slot:has(> .popup-visited-tap:active) .popup-visited::before { background: var(--state-press); }
     /* The finger's tap target for Mark Visited (owner: "the haptics should
        also be everywhere logical"): the popup star's real-tap label, exactly
        over the button's 44px box, one layer above it. A real tap on it is a
@@ -1755,6 +1826,10 @@
     .leaflet-container a.popup-directions { color: var(--figure-deep); }
 
     .popup-directions svg { width: 14px; height: 14px; margin: 0 3px; flex-shrink: 0; }
+    /* Pressed = the pale tile, same 6px inset as Mark Visited. */
+    .popup-directions { position: relative; isolation: isolate; }
+    .popup-directions::before { content: ''; position: absolute; inset: calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset)) calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset)); z-index: -1; border-radius: 3px; }   /* left edge = the star tile's (the compass keeps its 3px icon margin, so 7px clear on that side) */
+    .popup-directions:active::before { background: var(--state-press); }
 
     /* Bottom row (owner): the category (non-interactive) on the left, Mark
        Visited on the right with its circle at the trailing edge.

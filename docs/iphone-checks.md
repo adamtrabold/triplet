@@ -124,3 +124,10 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      results for the final text show, never a flash of older ones.
   5. **District:** Add → District, map on Stockholm, name "Fjärdingen"
      (Uppsala). It fetches an outline and asks which city.
+- iPhone check of the state system: (1) press and hold each header icon
+  (collapse, sort, filters, locate): a soft beige tile appears behind it, no
+  dimming; (2) open filters: the icon becomes a navy tile with a paper glyph,
+  same as sort when its menu is open; pressing an open one keeps navy; (3) press
+  a city chip or category chip: the chip goes beige while held; (4) popup Mark
+  Visited: a beige tile shows while pressed, then the usual toggle; (5) Add
+  form submit while saving looks dim (.4), still legible.
