@@ -166,14 +166,12 @@ design) skip straight to stage 2.
 
 ## Current priorities (full text in `docs/backlog.md`)
 
-Concept work exists for the first three; the owner hasn't picked. Get a
+Concept work exists for the first two; the owner hasn't picked. Get a
 decision before building.
 
 - **Star alignment** (list row + popup; incl. 41px gap above Get
   Directions). Three concept tracks in `design/star-alignment/`; star
   position is confirmed correct, only the reserved-space mechanism is open.
-- **List ordering** — 3-mode proposal in `design/list-ordering/proposal.md`
-  §6; picker placement still unsolved (not the `<h2>`).
 - **Visited pins on the map** — Round 4 (dots outside the rim) scored 9/10
   in `design/visited-marker/concept/`; owner's last read was skeptical
   ("not following good design principles") — review with fresh eyes.

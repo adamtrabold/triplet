@@ -27,26 +27,12 @@ pick/redirect before building anything.
   - `concept-wild-a/` — dog-ear, edge stripe, action-cluster star. Top
     pick: the stripe (least new risk, but not star-shaped).
   - `concept-wild-b/` — corner badge, starred-only section (no per-row
-    glyph — cross-references list-ordering below), reserved-margin
+    glyph — list ordering has since shipped a Starred order), reserved-margin
     (independently converged on the same fix as concept-legacy), a
     typographic-only treatment (rejected, reopens a settled Pencil Star
     decision).
   Owner has seen the screenshots (sent via chat) but not yet said which
   to build.
-- **List ordering is confusing** (owner, 2026-09-23: don't just pick a
-  sort). **Concept work already produced, owner has NOT picked a final
-  spec:** `design/list-ordering/proposal.md` — §§1-5 is the original
-  single-sort analysis (superseded), §6 is the revision into **3
-  selectable modes** (What's Left / Starred / Recent) per the owner's
-  "options, not one hardcoded default" pushback, §6.7 is a correction:
-  the picker can't be `#locationsHeader`'s `<h2>` (that's the live
-  city+count label, not free real estate) — needs a fresh placement idea
-  that still hits the owner's "whimsical but painfully minimal, feels
-  inevitable" bar (their words, 2026-09-28) before anything is built.
-  `design/list-ordering/concept/mockup.html`/`.png` is the (now-invalid)
-  heading-picker mockup — useful as a reference for what NOT to do, not
-  a starting point. "Starred first" is folded into the What's Left mode's
-  tiebreak logic already, not a separate open question.
 - **Visited pins have no map treatment** (owner, 2026-09-29, asked
   directly: "should visited places have a different treatment on the
   map itself"). **Concept work already produced,

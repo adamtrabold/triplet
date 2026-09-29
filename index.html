@@ -1005,6 +1005,7 @@
     }
 
     #collapseBtn,
+    #sortBtn,
     #toggleFiltersBtn,
     #centerMeBtn {
       background: transparent;
@@ -1038,6 +1039,70 @@
 
     #toggleFiltersBtn.active { opacity: 0.55; }
     #centerMeBtn.loading { opacity: 0.4; }
+
+    /* =====================================================================
+       SORT -- one icon in the header's icon row, one small menu. The list's
+       ORDER is a view choice, never a filter: every mode reorders exactly
+       what the filters already let through (sortLocations()).
+       The glyph is drawn in the sliders icon's own terms (18px, 24-unit
+       box, 2px butt-capped strokes, solid heads for its solid dots): two
+       shafts, one head up, one head down.
+       Hit zone: the 32px box plus 12px up/down (the band's padding), 12px
+       left (the gap after the title, which isn't interactive) and 6px
+       right -- so 50 x 56, leaving a 6px INERT margin before the filters
+       button's box. Open: the button sits in a pressed paper square (the
+       press field rows use), not the greyed opacity of a toggled-on
+       filters button -- "this is open", not "this is off". */
+    #sortBtn { position: relative; }
+    #sortBtn::after { content: ''; position: absolute; inset: -12px -6px -12px -12px; }
+    #sortBtn:active { opacity: 0.55; }
+    #sortBtn[aria-expanded="true"] { background: var(--paper-pressed); border-radius: 3px; opacity: 1; }
+    #sortBtn.loading { opacity: 0.4; }
+    /* No "not A-Z" mark on the glyph at rest: tried (a 4px ink dot on its
+       shoulder) and cut -- it read as an unread/notification badge, and
+       every non-default order already shows itself in the list (distances,
+       category runs, stars on top). .not-default stays as a state hook. */
+
+    /* The menu is a paper LABEL SLIP: the popup card's paper and hard
+       edge (1px navy, 2px radius, the floating buttons' 1px registration
+       offset instead of a blur), ledger rows ruled in --hair, the header's
+       condensed tracked caps. Fixed to the viewport and placed by JS
+       beside the button -- above it (over the map) on the phone, below it
+       when there's no room above (the desktop rail's top-of-screen
+       header). A transparent scrim under it swallows the outside tap. */
+    #sortScrim { position: fixed; inset: 0; z-index: 2550; background: transparent; }
+    #sortMenu {
+      position: fixed; z-index: 2600; min-width: 152px;
+      background: var(--paper); border: 1px solid var(--navy); border-radius: 2px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+      padding: 0; margin: 0;
+    }
+    #sortScrim[hidden], #sortMenu[hidden] { display: none; }
+    .sort-opt {
+      display: grid; grid-template-columns: 14px 1fr auto; align-items: center; column-gap: var(--s2);
+      width: 100%; height: 44px; padding: 0 var(--s4) 0 var(--s3);
+      background: transparent; border: none; border-bottom: 1px solid var(--hair);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 13px; line-height: 16px; letter-spacing: 0.08em; color: var(--navy);
+      text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .sort-opt:last-child { border-bottom: none; }
+    .sort-opt:active, .sort-opt:focus-visible { background: var(--paper-pressed); outline: none; }
+    .sort-opt:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    /* Radio disc in the leading column: filled = the current order. */
+    .sort-opt .sort-dot { width: 6px; height: 6px; border-radius: 50%; justify-self: center; }
+    .sort-opt[aria-checked="true"] .sort-dot { background: var(--navy); }
+    .sort-opt .sort-why {
+      font-size: 10px; line-height: 12px; letter-spacing: 0.1em; color: var(--ink-2);
+    }
+    .sort-opt.is-off { color: var(--ink-2); }
+    @media (prefers-reduced-motion: no-preference) {
+      #sortMenu.opening { animation: sortSlip 140ms cubic-bezier(.2,.8,.3,1); }
+    }
+    @keyframes sortSlip {
+      from { opacity: 0; transform: translateY(var(--slip-from, 4px)); }
+      to   { opacity: 1; transform: none; }
+    }
 
     /* =====================================================================
        LEDGER ROWS
@@ -1819,6 +1884,13 @@
         width: var(--col-glyph);
         flex-shrink: 0;
       }
+      /* The 360px rail is 30px narrower than a phone, and the sort button
+         made the icon row four wide: the icons pack at 4px (mouse targets,
+         no thumb) so "Copenhagen list (38)" still fits untruncated. The
+         spine holds: spacer 28 + 4 gap + 8 margin = the title at 56px. */
+      #locationsHeader { gap: var(--s1); }
+      #locationsHeader::before { margin-right: var(--s2); }
+      #locationsHeader h2 { margin-right: var(--s1); }
       #mainContent { left: 360px; bottom: 0 !important; height: auto !important; }
       /* The panel slides up from the viewport bottom once the sheet is a
          full-height rail -- there is no bottom sheet left to sit above. */
@@ -2182,6 +2254,14 @@
     <div id="locationsHeader">
       <button id="collapseBtn">▼</button>
       <h2>All Locations</h2>
+      <button id="sortBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="sortMenu" aria-label="Sort list: A–Z">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="8" y1="8" x2="8" y2="21"/>
+          <path d="M8 2.5L12.5 9h-9z" fill="currentColor" stroke="none"/>
+          <line x1="16" y1="3" x2="16" y2="16"/>
+          <path d="M16 21.5L11.5 15h9z" fill="currentColor" stroke="none"/>
+        </svg>
+      </button>
       <button id="toggleFiltersBtn" title="Toggle category filters">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="4" y1="6" x2="20" y2="6"/>
@@ -2204,6 +2284,12 @@
     </div>
     <div id="locationsList"></div>
   </div>
+
+  <!-- Sort menu: body-level so it can sit above the scrim (and above the
+       floating buttons) whichever state the sheet is in. -->
+  <div id="sortScrim" hidden></div>
+  <div id="sortMenu" role="menu" aria-label="Sort list" hidden></div>
+  <div id="sortLive" class="sr-only" aria-live="polite"></div>
 
   <script>
     const SUPABASE_URL = 'https://jgvckilmltimabfdvaly.supabase.co';
@@ -3454,6 +3540,7 @@
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
+          takeFix(latitude, longitude);   // the list's Nearest order reuses this fix (no second prompt)
           
           // Remove old user location marker if exists
           if (userLocationMarker) {
@@ -3550,7 +3637,7 @@
 
     // Everything the list card renders.
     function cardSignature(loc) {
-      return [loc.name, loc.address, loc.category, loc.visited, loc.starred].join('|');
+      return [loc.name, loc.address, loc.category, loc.visited, loc.starred, distanceLabel(loc)].join('|');
     }
 
     // =========================================================================
@@ -3915,9 +4002,267 @@
         () => focusMap(center, { atLeast: SOLO_MIN_ZOOM }, { animate: true, duration: 0.5 }));
     }
 
+    // =========================================================================
+    // LIST ORDER (design/list-ordering/). Six orders, picked from #sortBtn's
+    // menu. An order only REORDERS what visibleLocations() already returns --
+    // it never adds, hides or pages anything (the list rule in CLAUDE.md).
+    // Per-device view state in localStorage; A-Z is the default.
+    // =========================================================================
+    const SORT_STORAGE_KEY = 'triplet.sortMode';
+    const SORT_MODES = ['az', 'category', 'nearest', 'left', 'starred', 'newest'];
+    const SORT_LABELS = { az: 'A–Z', category: 'Category', nearest: 'Nearest', left: 'What’s left', starred: 'Starred', newest: 'Newest' };
+    const SORT_DEFAULT = 'az';
+    // Nearest re-sorts only after the user has moved this far from the
+    // position the current order was computed at -- GPS jitter and a slow
+    // walk never shuffle the list under a thumb.
+    const NEAREST_RESORT_M = 150;
+    // No fix at all this long after asking (e.g. a permission prompt left
+    // unanswered, or no GPS indoors): fall back rather than wait forever.
+    const NEAREST_WAIT_MS = 20000;
+    let nearestTimer = 0;
+    let sortMode = SORT_DEFAULT;
+    let sortFix = null;         // {lat, lng} the Nearest order was computed at
+    let lastFix = null;         // newest known position (Nearest watcher OR center-me)
+    let nearestWatch = null;    // the one watchPosition, alive only while Nearest is the order
+    let nearestState = 'idle';  // idle | pending | ok | off
+    let nearestWhy = '';        // short reason shown on the greyed Nearest row
+    let sortDeferred = false;   // a re-sort waited for a row gesture to finish
+
+    function readSortMode() {
+      try { const v = localStorage.getItem(SORT_STORAGE_KEY); return SORT_MODES.includes(v) ? v : SORT_DEFAULT; }
+      catch (e) { return SORT_DEFAULT; }
+    }
+    function writeSortMode(v) {
+      try { localStorage.setItem(SORT_STORAGE_KEY, v); } catch (e) { /* private mode etc.: order just won't persist */ }
+    }
+
+    const nameCmp = (a, b) => String(a || '').localeCompare(String(b || ''), undefined, { sensitivity: 'base', numeric: true });
+    const categoryRank = cat => { const i = Object.keys(CATEGORY_COLORS).indexOf(cat); return i < 0 ? 999 : i; };
+    const kmFromFix = (lat, lng) => haversineKm([sortFix.lat, sortFix.lng], [lat, lng]);
+    function shapeCentroid(nb) {
+      const g = nb.geometry || []; if (!g.length) return null;
+      let la = 0, ln = 0; g.forEach(p => { la += p[0]; ln += p[1]; }); return [la / g.length, ln / g.length];
+    }
+
+    // Pure reorder of the pins. Nearest without a fix yet sorts A-Z.
+    function sortLocations(locs) {
+      const mode = sortMode === 'nearest' && !sortFix ? 'az' : sortMode;
+      if (mode === 'newest') return locs.slice();   // locations arrives created_at DESC from the server
+      const out = locs.slice();
+      const by = (...keys) => (a, b) => { for (const k of keys) { const d = k(a) - k(b); if (d) return d; } return nameCmp(a.name, b.name); };
+      if (mode === 'az') out.sort((a, b) => nameCmp(a.name, b.name));
+      else if (mode === 'category') out.sort(by(l => categoryRank(l.category)));
+      else if (mode === 'nearest') out.sort(by(l => kmFromFix(l.lat, l.lng)));
+      else if (mode === 'left') out.sort(by(l => +!!l.visited, l => +!l.starred));
+      else if (mode === 'starred') out.sort(by(l => +!l.starred, l => +!!l.visited));
+      return out;
+    }
+    // Shapes keep their own block after the pins; they have no visited /
+    // starred / created order, so they read A-Z except in Category (by
+    // type) and Nearest (by centroid).
+    function sortShapes(shapes) {
+      const out = shapes.slice(), lab = (a, b) => nameCmp(a.label, b.label);
+      if (sortMode === 'category') out.sort((a, b) => (categoryRank(a.type) - categoryRank(b.type)) || lab(a, b));
+      else if (sortMode === 'nearest' && sortFix) {
+        const d = nb => { const c = shapeCentroid(nb); return c ? kmFromFix(c[0], c[1]) : Infinity; };
+        out.sort((a, b) => (d(a) - d(b)) || lab(a, b));
+      } else out.sort(lab);
+      return out;
+    }
+
+    // Nearest mode leads a row's meta with its distance -- the one fact that
+    // mode is about. Other modes: empty, the meta line is unchanged.
+    function distanceLabel(loc) {
+      if (sortMode !== 'nearest' || !sortFix) return '';
+      const km = kmFromFix(loc.lat, loc.lng);
+      if (km < 1) return `${Math.max(10, Math.round(km * 100) * 10)} m`;
+      if (km < 10) return `${km.toFixed(1)} km`;
+      return `${Math.round(km).toLocaleString('en-US')} km`;
+    }
+
+    // A row gesture (pencil star, visit stamp, or their popup replays) owns
+    // its row until it settles: while any is live, rows keep their current
+    // order and the re-sort runs when the last one lets go.
+    function heldOrder(visible) {
+      if (!starHeld.size) return null;
+      sortDeferred = true;
+      const list = document.getElementById('locationsList'), pos = new Map();
+      [...list.children].forEach((el, i) => { const id = el.getAttribute && el.getAttribute('data-id'); if (id) pos.set(id, i); });
+      return visible.slice().sort((a, b) => (pos.has(a.id) ? pos.get(a.id) : 1e9) - (pos.has(b.id) ? pos.get(b.id) : 1e9));
+    }
+    function afterRowGesture() {
+      if (!sortDeferred || starHeld.size) return;
+      sortDeferred = false;
+      requestAnimationFrame(() => { if (!starHeld.size) updateUI(); else sortDeferred = true; });
+    }
+
+    // ---- the button + menu --------------------------------------------------
+    function syncSortButton() {
+      const btn = document.getElementById('sortBtn');
+      if (!btn) return;
+      const shown = sortMode === 'nearest' && !sortFix ? 'az' : sortMode;
+      btn.setAttribute('aria-label', `Sort list: ${SORT_LABELS[sortMode]}${sortMode === 'nearest' && nearestState === 'pending' ? ', locating' : ''}`);
+      btn.classList.toggle('not-default', shown !== SORT_DEFAULT);
+      btn.classList.toggle('loading', sortMode === 'nearest' && nearestState === 'pending');
+    }
+    function announceSort(msg) {
+      const live = document.getElementById('sortLive');
+      if (!live) return;
+      live.textContent = '';
+      setTimeout(() => { live.textContent = msg; }, 30);   // re-set so a repeat is re-announced
+    }
+    function renderSortMenu() {
+      const menu = document.getElementById('sortMenu');
+      menu.innerHTML = SORT_MODES.map(m => {
+        const off = m === 'nearest' && nearestState === 'off';
+        const why = m === 'nearest' ? (nearestState === 'off' ? nearestWhy : nearestState === 'pending' ? 'Locating…' : '') : '';
+        return `<button class="sort-opt${off ? ' is-off' : ''}" role="menuitemradio" tabindex="-1" data-sort="${m}" aria-checked="${m === sortMode}"${why ? ` aria-describedby="sortWhy-${m}"` : ''}>` +
+          `<span class="sort-dot" aria-hidden="true"></span><span>${escapeHtml(SORT_LABELS[m])}</span>` +
+          `<span class="sort-why" id="sortWhy-${m}">${escapeHtml(why)}</span></button>`;
+      }).join('');
+    }
+    function sortMenuOpen() { return !document.getElementById('sortMenu').hidden; }
+    function placeSortMenu() {
+      const btn = document.getElementById('sortBtn'), menu = document.getElementById('sortMenu');
+      // Above the whole header band (it rises off the sheet's top edge, over
+      // the map); below the button only when there's no room above.
+      const r = btn.getBoundingClientRect(), band = btn.closest('#locationsHeader').getBoundingClientRect();
+      const w = menu.offsetWidth, h = menu.offsetHeight, gap = 8;
+      const vw = document.documentElement.clientWidth;
+      const above = band.top - gap - h >= 8;
+      menu.style.top = `${above ? band.top - gap - h : r.bottom + gap}px`;
+      menu.style.left = `${Math.max(8, Math.min(vw - w - 8, r.right - w))}px`;
+      menu.style.setProperty('--slip-from', above ? '4px' : '-4px');
+    }
+    function openSortMenu() {
+      const btn = document.getElementById('sortBtn'), menu = document.getElementById('sortMenu');
+      closeFiltersPanel();
+      renderSortMenu();
+      document.getElementById('sortScrim').hidden = false;
+      menu.hidden = false;
+      placeSortMenu();
+      menu.classList.remove('opening'); void menu.offsetWidth; menu.classList.add('opening');
+      btn.setAttribute('aria-expanded', 'true');
+      const cur = menu.querySelector('[aria-checked="true"]') || menu.querySelector('.sort-opt');
+      cur.focus({ preventScroll: true });
+    }
+    function closeSortMenu(refocus = true) {
+      const menu = document.getElementById('sortMenu');
+      if (menu.hidden) return;
+      menu.hidden = true; menu.classList.remove('opening');
+      document.getElementById('sortScrim').hidden = true;
+      const btn = document.getElementById('sortBtn');
+      btn.setAttribute('aria-expanded', 'false');
+      if (refocus) btn.focus({ preventScroll: true });
+    }
+    function closeFiltersPanel() {
+      document.getElementById('filtersPanel').classList.remove('visible');
+      document.getElementById('toggleFiltersBtn').classList.remove('active');
+    }
+
+    function setSortMode(mode, { announce = true, persist = true } = {}) {
+      if (!SORT_MODES.includes(mode)) mode = SORT_DEFAULT;
+      const prev = sortMode;
+      sortMode = mode;
+      if (persist) writeSortMode(mode);
+      if (mode === 'nearest') startNearest(); else if (prev === 'nearest') stopNearest();
+      syncSortButton();
+      updateUI();
+      if (announce) announceSort(mode === 'nearest' && !sortFix ? 'Sort: Nearest. Finding your location.' : `Sort: ${SORT_LABELS[mode]}`);
+    }
+
+    // ---- Nearest: location only on request, one watcher, threshold re-sort --
+    function takeFix(lat, lng) {
+      lastFix = { lat, lng };
+      if (sortMode !== 'nearest') return;
+      const first = !sortFix;
+      if (first || haversineKm([sortFix.lat, sortFix.lng], [lat, lng]) * 1000 >= NEAREST_RESORT_M) {
+        sortFix = { lat, lng };
+        updateUI();
+      }
+      if (nearestState !== 'ok') {
+        nearestState = 'ok'; nearestWhy = '';
+        syncSortButton();
+        if (sortMenuOpen()) renderSortMenu();
+        if (first) announceSort('Sort: Nearest');
+      }
+    }
+    function nearestFailed(reason) {
+      stopNearest();
+      nearestState = 'off'; nearestWhy = reason;
+      setSortMode(SORT_DEFAULT, { announce: false });
+      announceSort(`Location unavailable. Sort: ${SORT_LABELS[SORT_DEFAULT]}`);
+      showInfo(`Location unavailable — sorted ${SORT_LABELS[SORT_DEFAULT]}`, 'sort');
+      setTimeout(() => hideError('sort'), 4000);
+      if (sortMenuOpen()) renderSortMenu();
+    }
+    function startNearest() {
+      if (nearestWatch !== null) return;
+      if (!navigator.geolocation) { nearestFailed('Not supported'); return; }
+      nearestState = 'pending'; nearestWhy = '';
+      clearTimeout(nearestTimer);
+      nearestTimer = setTimeout(() => { if (sortMode === 'nearest' && !sortFix) nearestFailed('No fix'); }, NEAREST_WAIT_MS);
+      if (lastFix) takeFix(lastFix.lat, lastFix.lng);   // e.g. center-me already found us
+      try {
+        nearestWatch = navigator.geolocation.watchPosition(
+          p => takeFix(p.coords.latitude, p.coords.longitude),
+          err => {
+            if (sortMode !== 'nearest') return;
+            if (err.code === 1) nearestFailed('Location off');           // PERMISSION_DENIED
+            else if (!sortFix) nearestFailed('No fix');                  // unavailable / timed out before any fix
+            // a later blip after a good fix keeps the order we have
+          },
+          { enableHighAccuracy: true, maximumAge: 30000, timeout: 15000 });
+      } catch (e) { nearestFailed('No fix'); }
+    }
+    function stopNearest() {
+      if (nearestWatch !== null && navigator.geolocation) { try { navigator.geolocation.clearWatch(nearestWatch); } catch (e) {} }
+      nearestWatch = null; sortFix = null; clearTimeout(nearestTimer);
+      if (nearestState === 'pending' || nearestState === 'ok') nearestState = 'idle';
+    }
+
+    function initSort() {
+      const btn = document.getElementById('sortBtn'), menu = document.getElementById('sortMenu'), scrim = document.getElementById('sortScrim');
+      btn.addEventListener('click', () => { if (sortMenuOpen()) closeSortMenu(); else openSortMenu(); });
+      // The outside tap only dismisses: the scrim takes it, so nothing under it (map, row, button) fires.
+      scrim.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); closeSortMenu(); });
+      menu.addEventListener('click', e => {
+        const opt = e.target.closest('.sort-opt'); if (!opt) return;
+        const m = opt.getAttribute('data-sort');
+        closeSortMenu();
+        if (m === 'nearest' && nearestState === 'off') nearestState = 'idle';   // a tap on the greyed row is a retry
+        if (m !== sortMode || (m === 'nearest' && !sortFix && nearestWatch === null)) setSortMode(m);
+        else announceSort(`Sort: ${SORT_LABELS[m]}`);
+      });
+      menu.addEventListener('keydown', e => {
+        const opts = [...menu.querySelectorAll('.sort-opt')], i = opts.indexOf(document.activeElement);
+        const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
+        if (e.key === 'ArrowDown') go(i + 1);
+        else if (e.key === 'ArrowUp') go(i - 1);
+        else if (e.key === 'Home') go(0);
+        else if (e.key === 'End') go(opts.length - 1);
+        else if (e.key === 'Escape' || e.key === 'Tab') { e.preventDefault(); closeSortMenu(); }
+      });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && sortMenuOpen()) closeSortMenu(); });
+      window.addEventListener('resize', () => { if (sortMenuOpen()) placeSortMenu(); });
+
+      // Restore. Nearest resumes only when location is ALREADY granted --
+      // never a permission prompt on load; otherwise it falls to A-Z.
+      const saved = readSortMode();
+      if (saved === 'nearest') {
+        sortMode = SORT_DEFAULT;
+        if (navigator.permissions && navigator.permissions.query) {
+          navigator.permissions.query({ name: 'geolocation' })
+            .then(s => { if (s.state === 'granted' && sortMode === SORT_DEFAULT) setSortMode('nearest', { announce: false }); })
+            .catch(() => {});
+        }
+      } else sortMode = saved;
+      syncSortButton();
+    }
+
     function updateUI() {
-      const visible = visibleLocations();
-      const visibleShapes = visibleNeighborhoodShapes();
+      const visible = (() => { const v = visibleLocations(); return heldOrder(v) || sortLocations(v); })();
+      const visibleShapes = sortShapes(visibleNeighborhoodShapes());
       document.querySelector('#locationsHeader h2').textContent =
         `${activeCityLabel()} list (${visible.length + visibleShapes.length})`;
       const mapVisible = mapVisibleLocations();
@@ -4249,7 +4594,9 @@
     // down right, across to the left arm, across to the right arm, home.
     const PENTA = [[5.65, 21.81], [12.0, 2.27], [18.35, 21.81], [1.73, 9.73], [22.27, 9.73], [5.65, 21.81]];   // the soft star's tips, pulled in to sit inside its rounded points
     let starGesture = null;               // { id } of the most recent stroke
-    const starHeld = new Map();           // id -> { ff } for every row whose re-render is held (R4-S2)
+    // id -> { ff } for every row whose re-render is held (R4-S2). Releasing
+    // the last one lets a list re-sort that waited for it run (afterRowGesture()).
+    const starHeld = new (class extends Map { delete(k) { const r = super.delete(k); if (r && !this.size) afterRowGesture(); return r; } })();
     let sgInRaf = false;
     // Round 8: ONE curve for row and popup. LINEAR effect easing with the easing on each
     // keyframe segment (an effect-level ease-out had compressed the whole drama into ~90ms).
@@ -5257,6 +5604,7 @@
       el.classList.toggle('is-starred', !!loc.starred);
       const ink = categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
+      const dist = distanceLabel(loc);   // Nearest only: the distance leads the meta
       const stamp = loc.visited
         ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`
         : '';
@@ -5264,7 +5612,7 @@
         <div class="row-badge" style="--row-ink:${ink}">${badgeHtml(loc.category, markerKind(loc), 24)}</div>
         <div class="row-main">${loc.starred ? '<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>' : ''}
           <h3>${escapeHtml(loc.name)}</h3>
-          <div class="row-meta">${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
+          <div class="row-meta">${dist ? escapeHtml(dist) + ' &middot; ' : ''}${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
         <div class="location-actions">
           ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
@@ -5528,6 +5876,7 @@
     }
 
     document.getElementById('toggleFiltersBtn').onclick = () => {
+      closeSortMenu(false);   // one overlay at a time: the panel and the sort menu never share the screen
       const filtersPanel = document.getElementById('filtersPanel');
       const toggleBtn = document.getElementById('toggleFiltersBtn');
       filtersPanel.classList.toggle('visible');
@@ -5557,6 +5906,7 @@
     };
 
     document.getElementById('centerMeBtn').onclick = centerOnUserLocation;
+    initSort();
 
     // Auth event listeners
     document.getElementById('loginBtn').onclick = login;

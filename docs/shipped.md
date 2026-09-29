@@ -457,3 +457,75 @@ recede · pressed row darker · list click opens popup · Pencil Star (rounds
   - Gates (last full gate on the pre-autopan proto; autopan re-checked
     scoped): touch 84/84, flip6 8/8, vtest 113/113, popup-open 20/20, dust
     0, replays 64/64, tap8r/haptic8r/ax8r, curve8 ×10, Impeccable 3.
+- **List order: ⇅ sort menu** (branch `worktree-agent-a8dadf08509e7d7df`,
+  2026-09-29; owner-approved concept-3 #1; design record
+  `design/list-ordering/` — proposal §6.1 keys, concept-2 byline (rejected
+  by the owner: two text rows hurt clarity), concept-3 contact sheet, and
+  `build/` with the harness, `sorttest.js` and stills).
+  - **Six orders**, menu order: **A–Z** (default; owner: "Should default to
+    alphabetical"), **Category** (groups in `CATEGORY_COLORS` / filter-chip
+    order, A–Z inside), **Nearest** (distance from you), **What's left**
+    (unvisited first, starred leading, A–Z), **Starred** (starred first,
+    not-yet-visited leading inside, A–Z), **Newest** (the server's
+    `created_at DESC` order — no schema change). `sortLocations()` is a
+    pure reorder of `visibleLocations()`: **an order never filters**
+    (tested per mode, with and without a category filter). Shape rows keep
+    their own block after the pins: A–Z by label, by type in Category, by
+    centroid distance in Nearest. Category has **no group labels** — the
+    glyph + meta already carry the category and the runs are visible.
+  - **Button:** `#sortBtn` sits between the title and the filters button,
+    drawn in the sliders icon's terms (18px, 24-unit box, 2px butt
+    strokes, solid heads). Hit zone 50×56 (12px into the title gap and
+    band padding, 6px right) leaving a **6px inert margin** before the
+    filters box. Open = pressed paper square (`--paper-pressed`), not the
+    greyed opacity of a toggled filter. The header stays **one 57px row**;
+    the title keeps 186px on a 390 phone (widest real title 166). Desktop
+    rail packs the icons at 4px (title 176px wide, spine still 56px).
+    **No "not A–Z" mark** at rest — a 4px ink dot was tried and cut (read
+    as a notification badge; non-default orders show themselves).
+  - **Menu:** a paper label slip — `--paper`, 1px navy, 2px radius, 1px
+    registration offset, six 44px ledger rows ruled in `--hair`, 13px
+    condensed tracked caps, a navy radio disc on the current order. Fixed
+    to the viewport, placed above the header band (over the map; works
+    collapsed) or below ⇅ when there's no room (desktop rail). 140ms slip-in
+    (none under reduced motion). A transparent scrim swallows the outside
+    tap; a second ⇅ tap, Escape and Tab also close. Opening it closes the
+    filters panel and vice versa.
+  - **a11y:** `aria-haspopup`/`aria-expanded`/`aria-controls` on ⇅, whose
+    `aria-label` is "Sort list: <order>"; `role=menu` of
+    `menuitemradio` with `aria-checked`; focus moves to the checked item
+    on open and back to ⇅ on close; Arrow/Home/End roving focus; a polite
+    `#sortLive` region announces "Sort: <order>".
+  - **Persistence:** `localStorage['triplet.sortMode']`, every read/write in
+    try/catch; unknown values fall back to A–Z.
+  - **Nearest:** location is asked for only when Nearest is picked, never
+    on load (a stored Nearest resumes silently only if the Permissions API
+    already says `granted`, else A–Z). One `watchPosition`, alive only
+    while Nearest is the order; center-me's fix is shared (`takeFix()`), so
+    it can sort at once. Re-sorts only after moving ≥ `NEAREST_RESORT_M`
+    (150 m) from the position the order was computed at. Denied → A–Z with
+    a 4s banner + announcement, and the Nearest row greys with "Location
+    off"; no fix (error or 20s `NEAREST_WAIT_MS` with nothing) → same with
+    "No fix". Tapping the greyed row retries. While locating, ⇅ dims
+    (0.4, like center-me) and the list stays A–Z. In Nearest the distance
+    leads the row meta ("80 M · SHOPPING · COPENHAGEN"); works across
+    cities.
+  - **Row gestures:** while any row is held (`starHeld`: pencil star, visit
+    stamp, popup replays) the list keeps its current order; the re-sort
+    runs when the last hold releases (`starHeld` is a Map subclass whose
+    `delete()` calls `afterRowGesture()`). So a star in Starred order or a
+    visit in What's left moves the row once the gesture has landed.
+  - **Gates run** (Chromium, 390×844 touch + 1280×800 mouse,
+    `design/list-ordering/build/sorttest.js`): **70/70** — keys ×5,
+    never-filters, menu a11y/keyboard/dismissal/mutual exclusion, motion
+    real-timing (140ms), reduced motion, persistence (incl. throwing
+    storage), Nearest (mocked position, 100 m no-jump, 2 km re-sort,
+    denied, no fix, unanswered prompt, no prompt on load, center-me
+    sharing), star/visit gestures in sorted orders, **popup-open 20/20**
+    across five orders, geometry (57px header, rows 56.00px, 50×56 zone,
+    6px inert), desktop rail, collapsed sheet. Impeccable: 3 (baseline,
+    identical findings). The shared touch suite / flip6 / vtest / curve8
+    harness is not in the repo and was not re-run; the gesture plumbing
+    change is the `starHeld` subclass only (G1/G4 cover star + visit in a
+    sorted list).
+
