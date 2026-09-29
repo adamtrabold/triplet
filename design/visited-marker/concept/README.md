@@ -226,3 +226,120 @@ clusters untouched. Show the marker treatment at every zoom, not gated by
 Not recommending a build decision here — this is the concept-stage
 comparison and the owner's call on which direction (if any) to carry to
 UX for concept-level blocker checks before a CD round.
+
+## Hybrid round (owner feedback, 2026-09-29)
+
+The owner reviewed the four treatments above **on a real device**, not
+just the Chromium crops, and gave concrete direction: Treatment A's
+dotted-track motif reads as noisy/"unintelligible" at real small marker
+sizes — the 4x crop overstated its legibility. Wanted: a **hybrid of B
+(receded/muted field) + a toned-down A (dotted rim), with far fewer
+dots** so it doesn't read as "wavy." Scoped to the map-marker concept
+only — `.row-stamp` (the shipped list-row badge) is untouched.
+
+Three hybrid variants were added to `mockup.html` (`markerHybrid()` +
+`markerHybrid1/2/3`), all built on the same real `badgeHtml()` port used
+above — same shell geometry, same `CATEGORY_COLORS`, same star math — so
+what's below is real marker code, not a stand-in. All three combine B's
+`--paper` → `--paper-filed` field shift + muted ink with a dotted rim at
+a **fixed, low dot count**, computed against the rim's actual
+circumference (`dottedRimDasharray()`) so the count stays constant across
+FAR/NEAR/HI instead of scaling into density the way a flat CSS
+`stroke-dasharray` would.
+
+- **Hybrid 1** — 8 dots, `muted()` amount 0.42 (same field/ink shift as
+  standalone B), glyph opacity 0.78.
+- **Hybrid 2** — 12 dots, same field/ink shift, glyph opacity 0.78.
+- **Hybrid 3** — 16 dots, a *lighter* field shift (0.30, closer to B's
+  untuned original) + glyph opacity 0.85, testing whether a lighter field
+  affords more dots before it reads as wavy.
+
+All three render the dots as true round dots (`stroke-linecap="round"`
+with a near-zero dash length) — the same technique behind the shipped
+`.row-stamp` mask's "84 round zero-length-dash dots," not the flat
+rectangular dashes Treatment A used. **This mattered in practice**: the
+first pass of this hybrid round left `stroke-linecap` at its default
+(`butt`), and a butt-capped zero-length dash is genuinely invisible —
+rendered at true 1x size, all three hybrids looked like they'd simply
+lost their rim entirely (no dots, no line, just a soft muted fill with
+no border), which would have been a false negative reported as "dots
+don't render at small sizes" when the actual bug was the missing
+linecap. Fixed before evaluating below. Worth remembering if this gets
+ported into `badgeHtml()` for real: a round-dot rim needs an explicit
+`stroke-linecap:round`, not just a short dash.
+
+**Renders:** `hybrid-full-4x.png` / `hybrid-full-1x.png` (same
+`chrome --headless=new --force-device-scale-factor={4,1}` method as the
+first round, now via Playwright's bundled Chromium for exact per-element
+crop coordinates). `crop-hybrid-4x.png` — restaurant, all three hybrids,
+FAR/NEAR/HI, for judging dot shape/spacing. **`crop-hybrid-truesize-nearest10x.png`
+— restaurant at true 1x device pixels, nearest-neighbor blown up 10x with
+no smoothing, i.e. exactly the real pixel grid a real marker would
+render, just magnified for viewing** — this is the crop that actually
+answers the legibility question, not the 4x one.
+`crop-hybrid-hues-truesize.png` — the same true-1x check across
+nature/hotel/shopping (dark green, dark purple, low-contrast lavender)
+to confirm the finding isn't restaurant's orange-specific.
+
+### Legibility at true 1x size (the honest answer)
+
+Reading `crop-hybrid-truesize-nearest10x.png` and
+`crop-hybrid-hues-truesize.png` — the FAR (16px) and NEAR (24px) tiers,
+which is where nearly all real-world zoom levels sit:
+
+- **Hybrid 1 (8 dots)** reads as a clean, sparse ring of distinct dots at
+  both FAR and NEAR, across all four hues. Not wavy. The only soft
+  concern: at 8 dots the ring is sparse enough that at FAR it can read
+  more like a few scattered flecks around the badge than a continuous
+  "ring" motif — still legible as "not a solid rim," which is the actual
+  bar, but the least "ring-like" of the three.
+- **Hybrid 2 (12 dots)** is the sweet spot: still clearly individual
+  round dots (not a line, not a blur) at every size and hue tested, but
+  dense enough to read as a deliberate ring rather than scattered marks.
+  This is the one that best satisfies the owner's brief — "dotted rim,
+  but not wavy."
+- **Hybrid 3 (16 dots)**, even with a lighter field pass, starts
+  crowding back toward continuous at FAR — individual dots are still
+  distinguishable under magnification, but at a glance it's closer to
+  Treatment A's original problem than to Hybrid 1/2. The lighter-field
+  trade didn't buy much: the field itself was less noticeable (closer to
+  B's original too-subtle problem) while the rim was busier — worse on
+  both axes it was meant to balance.
+- The **receded field alone (B's contribution)** is genuinely more
+  visible here than it was in standalone Treatment B, because it's now
+  paired with the dot rim as a second, corroborating cue rather than
+  standing alone — but on its own, at 1x, it's still a subtle shift, not
+  a strong signal. The dotted rim is doing most of the "this is visited"
+  work at a glance; the field is the supporting, closer-look confirmation
+  (a reasonable division of labor, consistent with the list row's own
+  two-channel approach: a peripheral field cue + a non-color point mark).
+- At **HI (32px)**, all three hybrids render `highlighted:true` (this
+  mockup's HI tier is always the highlighted/focused pin state, matching
+  the original A–D rows), which overrides to a solid ink fill per the
+  app's existing "highlighted wins" pattern — so the dotted rim doesn't
+  apply there by design, not by omission. A real *solo, non-highlighted*
+  32px badge isn't rendered separately here since the app has no such
+  state (32px only occurs via the highlighted `+8` bump); this matches
+  how the original four treatments were scoped too.
+
+### Recommendation
+
+**Hybrid 2 (12-dot rim + B's field/ink shift) is the one to carry
+forward.** It's the only variant that reads as an intentional, legible
+"dotted ring" at true FAR/NEAR pixel sizes across all four tested hues,
+without tipping into the "wavy"/noisy read the owner rejected in
+Treatment A, and it adds the field recede as a second corroborating cue
+rather than relying on the dots alone. Hybrid 1 (8 dots) is the fallback
+if the owner wants an even quieter mark and doesn't mind it reading as
+sparser/scattered. Hybrid 3 (16 dots) is not recommended — it re-opens
+the density problem the owner asked to fix, and its lighter field is a
+net loss on both dimensions the hybrid is meant to balance.
+
+Still open, same as the base round: whether visited should show at every
+zoom (recommend yes, unchanged) and the cluster aggregate rule
+(all-visited-only recede, unchanged) — this round only re-tested the
+solo-badge rim/field question the owner specifically flagged.
+
+Not a build decision — concept-stage only, `index.html` untouched. Next
+step if the owner approves Hybrid 2: UX concept-level blocker check, then
+a CD round, per the normal loop.

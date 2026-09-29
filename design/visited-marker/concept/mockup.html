@@ -51,7 +51,8 @@ function badgeHtml(category, size, opts={}) {
   const c = size/2, r = c - rim/2;
   let shell;
   if (opts.dashRim) {
-    shell = `<circle cx="${c}" cy="${c}" r="${r}" fill="${fill}" stroke="${ink}" stroke-width="${rim}" stroke-dasharray="${opts.dashRim}"/>`;
+    const cap = opts.dashRound ? ' stroke-linecap="round"' : '';
+    shell = `<circle cx="${c}" cy="${c}" r="${r}" fill="${fill}" stroke="${ink}" stroke-width="${rim}" stroke-dasharray="${opts.dashRim}"${cap}/>`;
   } else {
     shell = `<circle cx="${c}" cy="${c}" r="${r}" fill="${fill}" stroke="${ink}" stroke-width="${rim}"/>`;
   }
@@ -193,6 +194,47 @@ out += buildRowSet('Treatment C — Small checkmark tick (independent motif, opp
 out += buildRowSet('Treatment D — Opacity only (no new geometry, no new colour)',
   'The whole marker (shell + glyph + rim) drops to ~55% opacity once visited. Cheapest possible signal: no new element, no recolouring logic, works at literally any size including the smallest FAR tier.',
   markerD);
+
+// ---- Hybrid variants (owner-directed round): B's receded/muted field + a
+// toned-down, LOW dot-count rim (never A's dense dash pattern). Dots are
+// literal round caps (matching .row-stamp's real technique) spaced evenly
+// around the rim's actual circumference, so the count stays fixed
+// regardless of size instead of scaling into "wavy" territory at HI.
+function dottedRimDasharray(size, rim, dots){
+  const r = size/2 - rim/2;
+  const C = 2*Math.PI*r;
+  const gap = Math.max(0.1, C/dots - 0.02);
+  return `0.02 ${gap.toFixed(2)}`;
+}
+function markerHybrid(category, size, {visited, starred, highlighted, dots, fieldAmt, glyphOp}={}) {
+  const ink0 = categoryInk(category);
+  const ink = visited ? muted(ink0, fieldAmt) : ink0;
+  const fill = visited ? PAPER_FILED : PAPER;
+  const rim = highlighted ? 2.5 : 2;
+  const badge = badgeHtml(category, size, {
+    ink: highlighted ? ink : ink,
+    fill: highlighted ? ink : fill,
+    mark: highlighted ? fill : ink,
+    rim,
+    glyphOpacity: visited && !highlighted ? glyphOp : 1,
+    dashRim: (visited && !highlighted) ? dottedRimDasharray(size, rim, dots) : null,
+    dashRound: true
+  });
+  return wrap(badge, size, starred, highlighted);
+}
+const markerHybrid1 = (cat, size, o) => markerHybrid(cat, size, {...o, dots:8,  fieldAmt:0.42, glyphOp:0.78});
+const markerHybrid2 = (cat, size, o) => markerHybrid(cat, size, {...o, dots:12, fieldAmt:0.42, glyphOp:0.78});
+const markerHybrid3 = (cat, size, o) => markerHybrid(cat, size, {...o, dots:16, fieldAmt:0.30, glyphOp:0.85});
+
+out += buildRowSet('Hybrid 1 — receded field + 8-dot rim',
+  'B\'s muted field/ink (--paper-filed direction, ink pulled toward --ink-2) PLUS a toned-down dotted rim at just 8 round dots — far fewer than Treatment A\'s dense passport-stamp count, sized to the badge\'s own circumference so it never scales into a sunburst at HI.',
+  markerHybrid1);
+out += buildRowSet('Hybrid 2 — receded field + 12-dot rim',
+  'Same receded field as Hybrid 1, 12 dots instead of 8 — a mid-point between "barely there" and "reads as texture."',
+  markerHybrid2);
+out += buildRowSet('Hybrid 3 — lighter field + 16-dot rim',
+  'A lighter field step (closer to B\'s original, less muted ink) paired with 16 dots — the densest of the three hybrids, testing whether a lighter field can afford a few more dots before it reads as wavy.',
+  markerHybrid3);
 
 // Cluster case
 out += `<h2>Cluster badges — the aggregate case</h2>`;
