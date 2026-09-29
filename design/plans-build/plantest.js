@@ -299,6 +299,45 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('D7 failed add / remove / reorder each roll back exactly', r[0] === r[1], r);
     await ctx.close(); }
 
+  // ---------------------------------------------------------------- framing after the panel closes
+  { const { ctx, page } = await open(b, base);
+    await toPlans(page);
+    const inView = () => page.evaluate(() => { const mb = document.getElementById('map').getBoundingClientRect(), top = document.getElementById('filtersPanel').classList.contains('visible') ? document.getElementById('filtersPanel').getBoundingClientRect().top : document.getElementById('locations').getBoundingClientRect().top;
+      return planMarks().rows.every(r => { const ll = r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb); const p = map.latLngToContainerPoint(ll); return p.x >= 0 && p.x <= mb.width && p.y >= 0 && mb.top + p.y <= top; }); });
+    ok('M1 picking a plan frames every stop above the open panel', await inView());
+    const z0 = await page.evaluate(() => map.getZoom());
+    await closePanel(page); await W(900);
+    const z1 = await page.evaluate(() => map.getZoom());
+    ok('M2 closing the panel re-fits to the space it gave back (untouched map)', (await inView()) && z1 >= z0, [z0, z1]);
+    await openPanel(page); await tap(page, '#planLedger [data-plan="p-nor"]'); await W(900);
+    await page.evaluate(() => map.panBy([60, 40], { animate: false })); await W(200);
+    const c0 = await page.evaluate(() => planFitView());
+    await closePanel(page); await W(700);
+    ok('M3 once the user moved the map, closing the panel leaves it alone', (await page.evaluate(() => planFitView())) === c0);
+    await ctx.close(); }
+
+  // ---------------------------------------------------------------- row gestures still work on plan rows (no new gesture code)
+  { const { ctx, page } = await open(b, base);
+    await toPlans(page); await closePanel(page);
+    const cdp = await page.context().newCDPSession(page);
+    const drag = async pts => { await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [pts[0]] });
+      for (const p of pts.slice(1)) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [p] }); await W(16); }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); };
+    const line = (x0, y, x1, n) => Array.from({ length: n + 1 }, (_, i) => ({ x: x0 + (x1 - x0) * i / n, y }));
+    const pt = async (id, sel) => { await page.evaluate(id => document.querySelector(`.location-card[data-id="${id}"]`).scrollIntoView({ block: 'center' }), id); await W(250);
+      return page.evaluate(([id, sel]) => { const b = document.querySelector(`.location-card[data-id="${id}"] ${sel}`).getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2, l: b.x }; }, [id, sel]); };
+    let q = await pt('ass', '.row-main'); await drag(line(q.l + 10, q.y, q.l + 120, 12)); await W(1500);
+    ok('Q1 Pencil Star (swipe right) stars a plan row; its tile stays', await page.evaluate(() => locations.find(l => l.id === 'ass').starred && !!document.querySelector('.location-card[data-id="ass"] .plan-tile') && !!document.querySelector('.location-card[data-id="ass"] .row-star')));
+    q = await pt('jae', '.plan-tile'); await drag(line(q.x, q.y, q.x - 110, 12)); await W(1500);
+    const v = await page.evaluate(() => ({ v: locations.find(l => l.id === 'jae').visited, stamp: document.querySelectorAll('.location-card[data-id="jae"] .row-stamp').length, h: document.querySelector('.location-card[data-id="jae"]').getBoundingClientRect().height, held: starHeld.size }));
+    ok('Q2 visit swipe (left, starting on the tile) stamps a plan row, rows stay 56px', v.v && v.stamp === 1 && v.h === 56 && v.held === 0, v);
+    ok('Q3 …and NEXT moves on', (await tiles(page)).join() === '1,2,*3,4,5,6', await tiles(page));
+    q = await pt('cof', '.plan-tile');
+    const s0 = await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 0; return l.scrollTop; });
+    await drag([{ x: q.x, y: q.y + 40 }, { x: q.x, y: q.y + 20 }, { x: q.x, y: q.y }, { x: q.x, y: q.y - 20 }, { x: q.x, y: q.y - 40 }, { x: q.x, y: q.y - 60 }]); await W(400);
+    ok('Q4 a vertical stroke starting on a tile scrolls the list (no fly)', (await page.evaluate(() => document.getElementById('locationsList').scrollTop)) > s0 && !(await page.$('.leaflet-popup')));
+    await ctx.close(); }
+
   // ---------------------------------------------------------------- rail + collapsed
   { const { ctx, page, errors } = await open(b, { ...base, w: 1280, h: 800, touch: false });
     await page.click('#toggleFiltersBtn'); await W(400); await page.click('#listSwitch [data-view="plans"]'); await W(700);

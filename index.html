@@ -1606,7 +1606,7 @@
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
       font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 12px; line-height: 1; font-variant-numeric: tabular-nums;
     }
-    .popup-stop { white-space: nowrap; }
+    .popup-stop { white-space: nowrap; margin-left: calc(var(--s1) * -1); }   /* cancels the flex gap: the dot sits evenly between its words */
     .shape-stop {
       display: block; margin-top: var(--s1); color: var(--ink-2);
       font-stretch: 75%; text-transform: uppercase; font-size: 10px; line-height: 12px; letter-spacing: 0.1em; font-weight: 700;
@@ -4205,7 +4205,7 @@
           </div>
           <a class="popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Get Directions</a>
           <div class="popup-actions">
-            <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}${stopLine ? `<span class="popup-stop">&middot;&nbsp;${stopLine}</span>` : ''}</div>
+            <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}${stopLine ? `<span class="popup-stop">&nbsp;&middot;&nbsp;${stopLine}</span>` : ''}</div>
             <span class="popup-visited-slot"><button type="button" class="popup-visited ${loc.visited ? 'visited' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.visited ? 'true' : 'false'}">${loc.visited ? 'Visited' : 'Mark Visited'}<span class="popup-visited-check" aria-hidden="true"></span></button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>
           </div>
         </div>
@@ -4959,7 +4959,21 @@
       const panel = document.getElementById('filtersPanel');
       const under = panel.classList.contains('visible') && !window.matchMedia('(min-width: 900px)').matches ? panel.offsetHeight : 0;
       const animate = opts.animate !== false && !prefersReducedMotion();
+      const record = () => { lastPlanFit = { view: planFitView(), under }; };
       map.fitBounds(L.latLngBounds(pts), { paddingTopLeft: [40, 96], paddingBottomRight: [40, 40 + under], maxZoom: 16, animate });
+      record();                              // no move needed: the view is already final
+      if (animate) map.once('moveend', record);   // animated: the view it lands on
+    }
+    // The fit made room for the open panel. If the map is still exactly where
+    // that fit left it when the panel closes, re-fit to the space the panel
+    // gave back -- the stops would otherwise sit bunched at the top. Once the
+    // user has moved the map, it stays where they put it.
+    let lastPlanFit = null;
+    const planFitView = () => { const c = map.getCenter(); return `${c.lat.toFixed(6)},${c.lng.toFixed(6)},${map.getZoom()}`; };
+    function reframeAfterPanel() {
+      if (!inPlanView() || !lastPlanFit || !lastPlanFit.under) return;
+      if (planFitView() !== lastPlanFit.view) { lastPlanFit = null; return; }
+      frameActivePlan();
     }
 
     // The only writer of listView. Leaving a plan restores the city the
@@ -6758,6 +6772,7 @@
       const toggleBtn = document.getElementById('toggleFiltersBtn');
       filtersPanel.classList.toggle('visible');
       toggleBtn.classList.toggle('active');
+      if (!filtersPanel.classList.contains('visible')) reframeAfterPanel();
     };
 
     document.getElementById('collapseBtn').onclick = () => {
