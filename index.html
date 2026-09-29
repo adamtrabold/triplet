@@ -1496,13 +1496,16 @@
        unavailable = ink-2 text + a reason (the sort menu's Nearest rule).
        ===================================================================== */
     .seg-wrap { padding: var(--s3) var(--gutter); border-bottom: 1px solid var(--hair); }
-    .seg { display: flex; height: 36px; border: 1px solid var(--navy); border-radius: 3px; background: var(--paper-raised); overflow: hidden; }
+    /* One joined track: each half draws its own 1px navy edge (the shared
+       middle rule belongs to the second), so the track has no box of its own. */
+    .seg { display: flex; height: 36px; }
     .seg button {
-      flex: 1 1 0; position: relative; border: none; margin: 0; padding: 0; background: transparent; color: var(--navy); cursor: pointer;
+      flex: 1 1 0; position: relative; border: 1px solid var(--navy); margin: 0; padding: 0; background: var(--paper-raised); color: var(--navy); cursor: pointer;
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-size: 12px; line-height: 16px; letter-spacing: 0.08em; font-weight: 700;
       -webkit-tap-highlight-color: transparent; transition: background 0.12s ease, color 0.12s ease;
     }
-    .seg button + button { border-left: 1px solid var(--navy); }
+    .seg button:first-child { border-radius: 3px 0 0 3px; }
+    .seg button + button { border-left: none; border-radius: 0 3px 3px 0; }
     .seg button::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
     .seg button:active { background: var(--state-press); }
     .seg button[aria-checked="true"] { background: var(--state-on-bg); color: var(--state-on-fg); }
