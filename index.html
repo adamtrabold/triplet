@@ -1554,7 +1554,7 @@
     .plan-more:active { background: var(--state-press); }
     /* In-row states (the ⋯ actions, rename, create): the row steps up to
        --paper-raised, the field colour, so it reads as "being edited". */
-    .plan-opt.plan-form { display: flex; gap: 0; padding-left: var(--gutter); background: var(--paper-raised); }
+    .plan-opt.plan-form { display: flex; gap: 0; padding: 0 var(--s1) 0 var(--gutter); background: var(--paper-raised); }   /* the last action's words end on the 16px gutter */
     .plan-form input {
       flex: 1 1 auto; min-width: 0; font: 400 16px/20px var(--font-ui); color: var(--ink); background: transparent;
       border: none; border-bottom: 1px solid var(--navy); border-radius: 0; padding: 4px 0; margin-right: var(--s1); outline: none;
@@ -4951,13 +4951,13 @@
     }
 
     // ---- view -------------------------------------------------------------
-    // Frame a plan's stops. The panel stays open over the bottom of the map on
-    // a phone, so the fit keeps the stops clear of it.
+    // Frame a plan's stops. The panel stays open over the bottom of the map
+    // (phone and rail), so the fit keeps the stops clear of it.
     function frameActivePlan(opts = {}) {
       const pts = planMarks().rows.map(r => r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb)).filter(Boolean);
       if (!pts.length || !map) return;
       const panel = document.getElementById('filtersPanel');
-      const under = panel.classList.contains('visible') && !window.matchMedia('(min-width: 900px)').matches ? panel.offsetHeight : 0;
+      const under = panel.classList.contains('visible') ? panel.offsetHeight : 0;   // phone and rail alike: the panel lies over the map's bottom edge
       const animate = opts.animate !== false && !prefersReducedMotion();
       const record = () => { lastPlanFit = { view: planFitView(), under }; };
       map.fitBounds(L.latLngBounds(pts), { paddingTopLeft: [40, 96], paddingBottomRight: [40, 40 + under], maxZoom: 16, animate });
@@ -5061,10 +5061,11 @@
         if (again) again.focus({ preventScroll: true });
       }
     }
-    function setPlanPanelMode(mode, draft = '') {
+    function setPlanPanelMode(mode, draft = '', viaKeyboard = false) {
       planPanel = { mode, draft, focusInput: mode === 'creating' || mode === 'renaming' };
       renderPlanPanel();
-      if (mode === 'acting') { const r = document.querySelector('#planLedger [data-act="rename"]'); if (r) r.focus({ preventScroll: true }); }
+      // Keyboard / VoiceOver: focus follows into the row's actions (a finger needs no ring).
+      if (mode === 'acting' && viaKeyboard) { const r = document.querySelector('#planLedger [data-act="rename"]'); if (r) r.focus({ preventScroll: true }); }
     }
     async function submitPlanForm() {
       const name = cleanPlanName(planPanel.draft);
@@ -5105,7 +5106,7 @@
         if (act === 'cancel') setPlanPanelMode(null);
         else if (act === 'create' || act === 'save') submitPlanForm();
         else if (act === 'new') { if (await requireAuth()) setPlanPanelMode('creating'); }
-        else if (act === 'more') setPlanPanelMode('acting');
+        else if (act === 'more') setPlanPanelMode('acting', '', e.detail === 0);
         else if (act === 'rename' && p) { if (await requireAuth()) setPlanPanelMode('renaming', p.name); else setPlanPanelMode(null); }
         else if (act === 'delete' && p) {
           if (!await requireAuth()) { setPlanPanelMode(null); return; }
