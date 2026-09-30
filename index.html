@@ -4954,7 +4954,7 @@
     // Frame a plan's stops. The panel stays open over the bottom of the map
     // (phone and rail), so the fit keeps the stops clear of it.
     function frameActivePlan(opts = {}) {
-      const pts = planMarks().rows.map(r => r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb)).filter(Boolean);
+      const pts = [].concat(...planMarks().rows.map(r => r.loc ? [[r.loc.lat, r.loc.lng]] : (r.nb.geometry || [])));   // a shape frames whole
       if (!pts.length || !map) return;
       const panel = document.getElementById('filtersPanel');
       const under = panel.classList.contains('visible') ? panel.offsetHeight : 0;   // phone and rail alike: the panel lies over the map's bottom edge
