@@ -15,6 +15,7 @@ This file loads every session: keep it to rules and pointers. Detail goes in:
 - `docs/backlog.md` — open work in full (priority concepts, bugs, data
   cleanup, roadmap).
 - `docs/iphone-checks.md` — checks only the owner can run on a real device.
+- `docs/ux-brief.md` — mandatory brief/checklist for every UX agent.
 - `design/<feature>/` — design records; `design/inspo/` — visual reference.
 
 When something ships: add its entry to `docs/shipped.md`, close it in
@@ -43,9 +44,10 @@ operator who does no design work. The CD's bar is **9/10 in both stages**;
 what's scored differs.
 
 1. **Concept stage — quality of concept.** Designer explores a few distinct
-   directions, prototypes the pick only far enough to judge it. UX checks
-   concept-level blockers only (tap-to-navigate, scroll, delete safety,
-   a11y basics). CD scores the idea (on-brief, intentional, right for this
+   directions, prototypes the pick only far enough to judge it. UX runs
+   `docs/ux-brief.md` in full and owns the owner's jobs at both stages: job
+   walkthrough, control parity, hierarchy, convention (only pixel-level
+   execution is deferred to stage 2). CD scores the idea (on-brief, intentional, right for this
    app, better than alternatives); execution flaws are noted, not scored or
    fixed. At ≥9, show the owner stills/filmstrip + one-line why + a line per
    rejected alternative, and ask to approve or redirect. (Why two stages:
@@ -92,6 +94,8 @@ design) skip straight to stage 2.
   is; it's not an owner constraint unless the owner said so. The goal is
   "looks right and communicates as intended". In briefs, separate "why it's
   like this" from "must preserve", defaulting to the former.
+- **UX briefs:** paste `docs/ux-brief.md` verbatim, plus the owner's
+  verbatim quotes and job list; never brief UX as "verify against the spec".
 - **Ground design briefs in the inspo, not just the code.**
   `design/inspo/project/` is the app's visual language (vintage travel
   labels, matchbooks, national-park posters — source of the paper/ink/
