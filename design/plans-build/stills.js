@@ -40,7 +40,8 @@ const scenes = [
   ['15-signed-out', { signedOut: true }, async p => { await toPlans(p); await closePanel(p); await p.evaluate(() => document.querySelector('#planLedger [data-act="new"]').click()); await W(400); }, []],
   ['16-tables-missing', { missing: true }, async p => { await toPlans(p); }, [['ledger', '#filtersPanel', 0]]],
   ['17-highlighted-next', {}, async p => { await toPlans(p); await closePanel(p); await p.evaluate(() => { setHighlighted('jae'); }); await W(300); }, [['rows', '#locationsList', 0]]],
-  ['18-rail', { w: 1280, h: 800, touch: false }, async p => { await toPlans(p); await p.evaluate(() => map.setView([55.6912, 12.5520], 15, { animate: false })); await W(500); }, [['rail', '#locations', 0]]],
+  ['18-rail', { w: 1280, h: 800, touch: false }, async p => { await toPlans(p); }, [['rail', '#locations', 0]]],
+  ['19-rail-following', { w: 1280, h: 800, touch: false }, async p => { await toPlans(p); await closePanel(p); await W(600); }, []],
 ];
 
 (async () => {

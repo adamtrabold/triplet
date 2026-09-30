@@ -131,3 +131,23 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   a city chip or category chip: the chip goes beige while held; (4) popup Mark
   Visited: a beige tile shows while pressed, then the usual toggle; (5) Add
   form submit while saving looks dim (.4), still legible.
+- iPhone check of Plans, phase 1 (only once the plans migration is applied;
+  before that, step 1 only): (1) open filters: a PLACES | PLANS switch sits on
+  top, Places navy; tap Plans: the chips disappear and your plans list shows
+  (before the migration: "Plans aren't available yet.", and nothing else in
+  the app changes); (2) New plan: the keyboard opens on a name field in the
+  row; Create opens the plan, the panel stays open, the list shows EDIT STOPS
+  (greyed, "Coming next") and "No stops yet."; (3) with a plan that has stops
+  (added by the operator for now): stops in order, outline number tiles, the
+  first unvisited one solid navy, the same numbers inside the pins on the map
+  (a district gets one numbered diamond), no ⇅; tap a stop: the map flies
+  there and the popup says "· Stop n of m"; (4) swipe a stop row right and
+  left: the star and VISITED stamp work as in Places, and the solid number
+  moves on to the next unvisited stop; (5) ⋯ on the open plan → Rename (the
+  keyboard opens, Save/Enter), then ⋯ → Delete plan: the phone's own dialog
+  asks first; (6) switch back to Places: the same city, its list and count,
+  ⇅ and the X's all back; (7) close and reopen the app: it reopens where you
+  were (the plan, or Places); (8) signed out: plans are readable, New plan
+  opens the sign-in; (9) note the Places side of the panel now scrolls a
+  little (the District/Street chips sit below the fold on most phones):
+  say if that bothers you.

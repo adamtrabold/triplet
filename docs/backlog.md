@@ -79,21 +79,23 @@ pick/redirect before building anything.
     city/trip picking.
   - Discovery: `design/trip-location-model/proposal.md`. Related: Phase 2
     "trip context (dates/closures)".
-- **Day agendas — plan AND follow an ordered route** (owner,
-  2026-09-27). For days where the owner wants a set order: build an
-  agenda for a given day, then use it on the ground. The owner is unsure
-  how deep v1 needs to go to test the idea; the aspirational end state is
-  maps-app-like — paths drawn between stops, reorder stops and see how
-  the route/travel changes. Problem for the team to scope: the smallest
-  v1 that tests plan+follow (e.g. an ordered list per day with
-  prev/next and numbered markers) vs. what needs routing data. Known
-  constraints to weigh: no build step; the sandbox can't reach OSM
-  services (routing would need a provider — check what's reachable from
-  the browser and its usage terms); Get Directions already hands off to
-  Apple Maps per stop (`directionsUrl()`), which may be enough for
-  "follow" in v1. Relates to list ordering, the trip/place location
-  rework, Phase 2 trip dates, and personal priority — sequence the
-  discovery so these don't get designed in isolation.
+- **Plans, phase 2: Edit mode (option X)** (owner chose X, 2026-09-29).
+  Phase 1 shipped (`docs/shipped.md` "Plans, phase 1"): Places | Plans,
+  following a plan, map numbers, the data layer. **Blocker first:** apply
+  `supabase/migrations/20260929000000_add_plans.sql` to the live project
+  (operator, after review); until then the Plans side says plans aren't
+  available yet and nobody can create one. Phase 2 per
+  `design/plans-deepdive/v2/tables.md` §3/§3b/§5: "Edit stops" opens Edit
+  (stops on top with ≡ grips, a plain rule, then every other place and
+  shape with +); tap a stop's number to remove (Undo 6s, multi-level);
+  hold ≡ 250ms and drag to reorder (ArrowUp/Down on the keyboard); DONE
+  (ink-only word) in locate's slot; no ⇅; the Edit panel holds only the
+  Places filters; map numbers while editing (no solid NEXT); a new plan
+  lands in Edit. It touches row gesture plumbing, so the FULL gesture gate
+  applies. Open owner confirmations carried from the concept: Plans hides
+  the chips; stop numbers replace the pin glyph; choosing a plan leaves the
+  panel open (as built). Later ideas from the original agenda brief (paths
+  between stops, routing) stay out until the owner asks.
 
 - **Ghost the VISITED stamp in the popup** (owner, 2026-09-28; promoted
   from the old "popup mini-stamp" follow-up). Once a place is marked

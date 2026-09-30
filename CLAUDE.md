@@ -110,9 +110,11 @@ design) skip straight to stage 2.
   (`district`|`street`), `geometry` (array of `[lat,lng]`, not GeoJSON),
   fetched live from OSM (Nominatim polygon / Overpass way) at add time. No
   `visited` column.
+- `plans` / `plan_stops`: named, ordered stop lists (a stop is a pin OR a
+  shape); read by `fetchPlans()`, fail soft when the tables are missing.
 - `cities`: runtime-extensible registry, merged into (never replacing) the
   static `CITIES` bootstrap in `index.html`, the offline-safe seed.
-- RLS, identical on all three: public `SELECT`; writes restricted to
+- RLS, identical on all of them: public `SELECT`; writes restricted to
   `auth.jwt() ->> 'email' IN ('adamtrabold@gmail.com', 'ericatrabold@gmail.com')`.
 - The add form routes on category alone: `isShapeCategory()` (true for
   `district`/`street`) picks the fields and the target table — no separate
@@ -179,6 +181,7 @@ concept is in progress. Get a decision before building.
   open: a trip entity and day-trip filing, with no distance setting for
   the user (`design/trip-location-model/`). Adding a place must stay
   low-friction.
-- **Day agendas** — ordered per-day route to plan and follow; scope the
-  smallest v1.
+- **Plans phase 2 (Edit mode X)** — phase 1 (Places | Plans, following,
+  map numbers, data layer) is built; the plans migration must be applied
+  before anyone can create a plan. Spec: `design/plans-deepdive/v2/`.
 - **Ghost VISITED stamp in the popup** — new idea, concept stage.
