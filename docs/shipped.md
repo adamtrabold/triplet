@@ -812,37 +812,41 @@ the same hold; one window-level pointer pair (`stopMouseDrag`). Keyboard on
 the focused number: ArrowUp/Down one place, Home/End to first/last. Every
 move answers with the "Moved" slip.
 
-**Map (Places' approach; only the stops differ).** Everything that isn't a
-stop is exactly Places: pins, red count clusters, `SOLO_MIN_ZOOM`,
-tap-to-zoom, the tapped-place highlight. A stop is its ordinary Places pin
-(same ring and glyph, always the near size, at every zoom) plus a square
-paper tag (1px `--ink-2` edge, `--ink-2` numeral, one style). Stops are never
-clustered (`mapVisibleLocations()` keeps them out of the grid; in Places
-`planMarks()` is empty, so it is a no-op there). `applyPlanMap()` (after every
-sync and `moveend`) places each tag on the first free spot of eight (four
-corners, then four sides); a spot is free if it touches no cluster, no other
-stop's pin, no tag, no screen edge and no map chrome (`planChrome()`: zoom
-control, account and + buttons, attribution), is outside the
-`STOP_TAG_CLUSTER_BAND` (16px) round every cluster disc (`CLUSTER_DISC_R` 11;
-designer: a grey stop numeral never sits next to a cluster's count), and its
-centre is nearer its own pin than any other marker. Weights: screen edge 1000
-> on a control 400 > another tag 300 = a cluster's band 300 > nearer another
-marker 200 > another stop 100 > a place pin 20 > a control's 4px margin 5.
-With no clean spot, the spot farthest from the nearest cluster wins when a
-cluster is that close (screen-edge and on-control spots only if nothing else
-is left), else the least-bad. `matrix.js` R6 asserts it per cell and counts
-the tags that had all 8 spots blocked (as `sweep.js` does). Travel cap: the tag always touches its pin (near edge ≤13px
-from the centre), no leader line. Stops whose pins overlap
-(`STOP_OVERLAP` 22px) share one tag on the lowest-numbered pin in view,
-labelled "1–6" / "2–3" / "1,3". A stop pin's 12px margin is pass-through. A
-district/street stop gets the list's diamond badge plus tag at its centroid
-(`syncPlanShapeMarkers()`, tap = `focusShape()`); its outline draws at any
-zoom. **Z ladder (open plan only; Leaflet adds the marker's screen y, so the
+**Map (r17/r18, owner; design/plans-deepdive/v3 §12–§13).** Everything is
+Places: pins, red count clusters, `SOLO_MIN_ZOOM`, tap-to-zoom, the
+tapped-place highlight -- and stops cluster exactly like any pin (owner:
+"Stop clusters should function the same as a normal cluster"); the count
+includes them. A district/street stop joins the grid at its centroid
+(`'shape:<id>'` members in `mapVisibleLocations()`; clustered, its own mark
+hides via `clusteredShapeIds`). **A single stop pin shows its number in place
+of the category glyph** (owner: "change the icon to the number like we used
+to do"; `planNumberIcon()`): the same ring in its category ink (dashed for an
+approximate pin, a diamond for a district/street), the same paper field, the
+near size at every zoom; the numeral is `--ink-2`, 13px/700 (12px for two
+digits); selected, the ring fills with its ink and the numeral turns paper.
+No tag beside a single pin. **A red cluster holding stops carries one grey
+tag** listing their numbers ("3", "2–4", "1,5–6"; past
+`CLUSTER_TAG_MAX_RUNS` 3 runs "first…last"), flush against the count
+(`CLUSTER_TAG_GAP` 2px from the digits, level): on the right, on the left
+when the cluster's star rides its upper right, then above / below if a side
+runs off the visible map, onto a control, another tag or another cluster's
+count (`clusterStopTags()`). It may cover part of the disc, never a digit; a
+tap on it zooms in like the disc. A stop pin whose centre lies under a
+neighbouring cell's disc joins that cluster's tag (`applyPlanMap()`). Its
+shape is one dial, `--cluster-tag-radius` (3px square; the owner asked about
+a circle, the designer is deciding). The list is unchanged (owner). At
+`SOLO_MIN_ZOOM` and above nothing clusters, so a list tap always lands on the
+stop's own numbered pin. Two single stop pins drawn on top of each other show
+the lower number (Places' pin stacking; counted by matrix/sweep, not failed).
+**Z ladder (open plan only; Leaflet adds the marker's screen y, so the
 steps are 5000 apart):** selected stop `Z_PLAN_HI_STOP` 35000 > clusters
-`Z_PLAN_CLUSTER` 30000 (+100 starred; as in Places they beat every pin,
-stops included) > stop `Z_PLAN_STOP` − n (lower numbers on top) > the tapped
-place `Z_PLAN_PICKED` 15000 > places 0–500. Cluster ids carry the view
+`Z_PLAN_CLUSTER` 30000 (+100 starred; as in Places they beat every pin) >
+stop `Z_PLAN_STOP` − n (lower numbers on top) > the tapped place
+`Z_PLAN_PICKED` 15000 > places 0–500. Cluster ids carry the view
 ("pcluster:") so switching views recreates them on the right rung.
+Superseded (history): r7–r15 drew a stop as its glyph pin plus a free-standing
+grey tag placed on one of eight spots, stops never clustered, and r16 nudged
+discs off stop pins; the owner rejected all three.
 
 **Default view** (`frameActivePlan()`, jumps, no fly): framed inside
 `planSafeBox()` (24px in from the sides, 16px below the top controls, 24px
@@ -970,13 +974,12 @@ icon boxes aligned at 56 (round 15: aligned by ink). Deferred (v3 §6): add
 from a popup or the add form, sharing a route to Maps, animating the default
 fit, route mapping (backlog roadmap).
 
-**Known and accepted** (v3 §4): at z≥14 stops can sit over candidate pins;
-zoomed far out a plan is a pin knot with one "1–6" tag; at z8–z11 Places' red
-count discs draw over stop pins (tags stay clear); below z12 a candidate is a
-bare ring; a visited stop's pin looks unvisited on the map (see "Visited
-pins"); after your own pan, reopening the panel can leave a pin under a
-control (its tag moves clear); frame 34's "4" tag passes the nearer-its-own-pin
-rule by a few px.
+**Known and accepted** (v3 §4, §13): at z≥14 stops can sit over candidate
+pins; zoomed out, a plan becomes clusters with grey tags; a stop pin's
+category reads from its ring's colour and shape only (the list and popup
+keep the icon); below z12 a candidate is a bare ring; a visited stop's pin
+looks unvisited on the map (see "Visited pins"); after your own pan,
+reopening the panel can leave a pin under a control.
 
 **Checks (Chromium, stubbed Supabase; scope = the whole diff, since row
 plumbing is touched).** All in `design/plans-build/` (run with

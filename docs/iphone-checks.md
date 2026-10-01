@@ -183,14 +183,13 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      the line with +); the slip says "REMOVED …"; Undo puts it back at the
      same number. Swipe a stop row right (star) and left from × (visit): both
      work as in Places and nothing is removed.
-  9. **Map tags:** in daylight at arm's length, the grey tag numerals (10px)
-     and the caption line above the places ("ADD FROM …", 10px) are readable;
-     a tag never sits right next to a red cluster count. Zoom in and out on a plan: every stop keeps its pin and a
-     grey tag that touches its own pin, never under the zoom buttons, the
-     account/+ buttons or the attribution; a stop's tag should look equally
-     clearly its own when it sits between two pins (in frame 34 the "4" tag
-     was nearly as close to a neighbour — check it). Overlapping stops share
-     one tag ("1–6"). Red count circles stay red and readable.
+  9. **Map numbers:** each stop on the map is its pin with the grey number
+     where the icon was (selected: filled, white number); zoom out until stops
+     join red clusters: the cluster shows a small grey tag right beside its
+     count ("2–4"), never on top of the digits; tapping the tag zooms in like
+     the red disc. In daylight at arm's length the tag numerals (10px) and the
+     caption line above the places ("ADD FROM …", 10px) are readable. Say if
+     a stop's category is hard to tell from its ring colour alone.
   10. **The map's two jobs:** with the panel open the map shows the stops and
       the places you can add; close the panel: it re-fits to the stops (the
       selected city's leg on a two-city plan). Pan yourself, then close and
