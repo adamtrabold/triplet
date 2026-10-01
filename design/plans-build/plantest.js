@@ -345,6 +345,15 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const r1 = await ban(); await W(6500); const r2 = await ban();
     await page.evaluate(() => document.getElementById('error').click()); await W(100); const r3 = await ban();
     ok('B2 an RLS refusal says "Only Adam and Erica can edit places." and stays until tapped; a tap dismisses it', r1.text === 'Only Adam and Erica can edit places.' && r2.on && !r3.on, [r1, r2, r3]);
+    // keyboard (critics-final): Escape anywhere dismisses; the banner is focusable and Enter dismisses; no trap
+    await page.evaluate(() => toggleLocationFlag('tor', 'visited')); await W(400);
+    const k1 = await ban(); await page.keyboard.press('Escape'); await W(100); const k2 = await ban();
+    await page.evaluate(() => toggleLocationFlag('tor', 'visited')); await W(400);
+    const foc = await page.evaluate(() => { const e = document.getElementById('error'); e.focus(); return document.activeElement === e && e.tabIndex === 0; });
+    await page.keyboard.press('Tab'); const left = await page.evaluate(() => document.activeElement !== document.getElementById('error'));
+    await page.evaluate(() => document.getElementById('error').focus()); await page.keyboard.press('Enter'); await W(100);
+    const k3 = await ban(), blurred = await page.evaluate(() => document.activeElement !== document.getElementById('error'));
+    ok('B4 the banner from the keyboard: Escape dismisses it; it takes focus (tabindex 0), Tab moves on (no trap), Enter dismisses it and hands focus back', k1.on && !k2.on && foc && left && !k3.on && blurred, { k1, k2, foc, left, k3, blurred });
     // a failed poll: navy info band, keeps what is loaded; recovery clears it; no view switch
     const rows0 = await page.evaluate(() => document.querySelectorAll('#locationsList .location-card').length);
     await page.evaluate(async () => { window.__q0 = supabaseClient.from; supabaseClient.from = t => { const b = window.__q0(t); if (t === 'locations') { b.select = () => b; b.order = () => b; b.then = (ok, bad) => Promise.resolve({ data: null, error: { message: 'TypeError: Load failed' } }).then(ok, bad); } return b; }; await fetchLocations(); });
