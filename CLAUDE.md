@@ -180,6 +180,8 @@ operator makes none of these calls.
   **"84 + 8 (+ N8-a)"**, never "84"; visit suite `vtest.js`; plus
   popup-open 20/20, 0 dust-over-text frames, rows 56.00px, curve8 frame
   counts. Delete fires only on a near-still tap (`DELETE_TAP_SLOP` 4px).
+  All of it runs with `design/gesture-harness/run-all.sh [index.html]`
+  (Chromium-emulated touch; see its README for limits and known failures).
 - **iOS haptics:** from iOS 26.5 a scripted click gives no haptic, so swipe
   gestures are silent there by platform limit (owner-confirmed); real taps
   via `hapticTap()` still tick.
