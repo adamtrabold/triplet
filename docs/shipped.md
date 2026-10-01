@@ -927,11 +927,15 @@ at 40/110/260/1000/3000ms. (2) The slip's text is `[before, name, after]`:
 only the place name truncates (`.slip-name`), so "Added Café Lo… as stop 4"
 always shows the number (plan-rows case). (3) The banner is focusable
 (`tabindex=0`, focus ring): Enter / Space on it or Escape anywhere dismisses
-it; no focus trap (plantest B4). (4) In Plans, a place pin whose disc is partly under a
-cluster disc shows its ring only (`.glyph-clipped`, `applyPlanMap()`): the
-cut glyph left a stub that read as a numeral beside a stop tag (still 41).
-Clusters are exactly Places' (raising candidates above clusters would have
-changed that).
+it; no focus trap (plantest B4). (4) The stray "4" beside the "1–2,4" tag in still 41 was
+stop 4's own pin, half under the disc, its number already in the tag. In
+Plans a pin partly under a cluster disc now shows its ring only
+(`.glyph-clipped`, `applyPlanMap()`): a stop pin absorbed into a tag hides its
+number, and a place pin within the disc's reach hides its glyph. Clusters
+stay exactly as in Places; raising pins above clusters would have changed
+them. (5) The banner's keyboard hint is `aria-keyshortcuts`, not hidden
+text: hidden text inside the uppercase banner was a new Impeccable all-caps
+finding.
 
 **UX round (2026-10-01).** + and × ignore taps for `PLAN_ACT_LOCK_MS` 400ms
 after a row action (a double tap never adds or removes twice; the lock is
