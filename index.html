@@ -5116,7 +5116,7 @@
       const rule = list.querySelector('.plan-rule'), rr = rule && rule.getBoundingClientRect();
       planSlip.style.right = 'auto'; planSlip.style.bottom = 'auto';
       if (rr && rr.height && rr.top >= visTop - 1 && rr.bottom <= visBot + 1) {
-        planSlip.classList.add('on-rule'); planSlip.classList.remove('on-header');
+        planSlip.classList.add('on-rule'); planSlip.classList.remove('on-header', 'wide');
         Object.assign(planSlip.style, { left: `${rr.left}px`, width: `${rr.width}px`, top: `${rr.top}px`, height: `${rr.height}px` });
       } else {
         // over the plan's name; if the text needs more room (the one-time drag hint), it also covers

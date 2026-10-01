@@ -166,6 +166,11 @@ scene('13-removed', {}, async p => { await toPlans(p); await closePanel(p); awai
 scene('14-reorder-held', { touch: true }, async p => { await toPlans(p); await closePanel(p); await p.evaluate(() => frameActivePlan({ animate: false })); await W(300);
   await touchHoldDrag(p, '.location-card[data-id="jae"] .row-n', 62, { release: false }); await W(250); },
   [['rows', [0, 544, 390, 300]]]);
+// build: the reorder answers with the add/remove slip ("Moved … · Undo")
+scene('14b-reorder-dropped-undo', { touch: true }, async p => { await toPlans(p); await closePanel(p); await p.evaluate(() => frameActivePlan({ animate: false })); await W(300);
+  await touchHoldDrag(p, '.location-card[data-id="jae"] .row-n', 112); await W(700);
+  await p.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = l.querySelector('.plan-rule').getBoundingClientRect().top - l.getBoundingClientRect().top - 120; }); await W(300); },
+  [['rows', [0, 544, 390, 300]], ['slip', '#planSlip', 6]]);
 scene('15-sort-menu', {}, async p => { await toPlans(p); await closePanel(p); await p.evaluate(() => document.getElementById('sortBtn').click()); await W(400); }, []);
 scene('16-sort-category', {}, async p => { await toPlans(p); await closePanel(p); await p.evaluate(() => setSortMode('category')); await W(300); await p.evaluate(() => showPlanRule()); await scrollList(p, 56 * 5); await W(300); },
   [['rows', [0, 544, 390, 300]]]);
