@@ -5917,7 +5917,10 @@
       el.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) xMove(t.clientX, t.clientY); }, { passive: true });
       el.addEventListener('touchend', (e) => { const t = e.changedTouches[0]; if (t) xMove(t.clientX, t.clientY); }, { passive: true });
       el.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') xStart(e.clientX, e.clientY); });
-      el.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && e.buttons) xMove(e.clientX, e.clientY); });
+      // Touch pointermoves too: Chromium/Android hold back touchmoves inside
+      // their ~15px slop but still send pointermoves, so a 4-12px out-and-back
+      // wiggle on the X was otherwise read as a still tap and deleted.
+      el.addEventListener('pointermove', (e) => { if ((e.pointerType === 'mouse' && e.buttons) || e.pointerType === 'touch') xMove(e.clientX, e.clientY); });
       el.addEventListener('pointerup', (e) => { if (e.pointerType === 'mouse') xMove(e.clientX, e.clientY); });
 
       // Only delete is excluded from the row press. The actions cluster
@@ -6785,6 +6788,11 @@
     }
     function vsXBack(el, g) {               // the X fades back; it is tappable only once it's fully there
       el.classList.remove('vs-xhide');
+      // The guard lives on the ROW, not only the button: a re-render inside
+      // the window (reduced motion's synchronous updateUI() with the not yet
+      // flipped `locations`, a refetch) builds a fresh X, and renderCard()
+      // re-arms it from here (xGuardRearm()).
+      el.__xLiveAt = performance.now() + VISIT_SWIPE.XBACK_MS;
       const x = el.querySelector('.delete-btn');
       if (!x) return;
       x.style.pointerEvents = 'none';           // reduced motion too: it appears at once, but is live only after XBACK_MS
@@ -7035,6 +7043,16 @@
           ${stamp}${rowActionHtml(stop, loc.name)}
         </div>
       `;
+      xGuardRearm(el);
+    }
+    // vsXBack()'s 120ms "not live yet" guard, carried onto a freshly rendered X.
+    function xGuardRearm(el) {
+      const left = (el.__xLiveAt || 0) - performance.now();
+      if (left <= 0) return;
+      const x = el.querySelector('.delete-btn');
+      if (!x) return;
+      x.style.pointerEvents = 'none';
+      setTimeout(() => { x.style.pointerEvents = ''; }, left);
     }
 
     function syncLocationCards(visible) {
@@ -7139,7 +7157,7 @@
       el.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) aMove(t.clientX, t.clientY); }, { passive: true });
       el.addEventListener('touchend', (e) => { const t = e.changedTouches[0]; if (t) aMove(t.clientX, t.clientY); }, { passive: true });
       el.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') aStart(e.clientX, e.clientY); });
-      el.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && e.buttons) aMove(e.clientX, e.clientY); });
+      el.addEventListener('pointermove', (e) => { if ((e.pointerType === 'mouse' && e.buttons) || e.pointerType === 'touch') aMove(e.clientX, e.clientY); });   // touch too: the out-and-back wiggle (see createCard)
 
       el.addEventListener('click', (e) => {
         const id = Number(el.getAttribute('data-shape-id'));
