@@ -874,6 +874,29 @@ nothing was); the next good read clears it. With no plan open (none yet, not
 set up, offline) the map frames the selected city exactly as Places does
 (`focusCity()`: ALL CITIES = Places' all-cities fit), no stop pins.
 
+**Owner-approved Places changes (2026-10-01; shipped Places behaviour).**
+(1) A list-row tap (pin or district/street, Places and Plans) closes the
+filter panel first (`closeFiltersPanel({ reframe: false })`, the sliders
+button's close without the Plans re-fit, since the map is about to fly), then
+flies and opens the popup; the panel stays closed with its filters, plan and
+view kept; + / × / the delete X never close it. Every popup's autoPan keeps
+it clear of the list sheet (and the panel, if open) via
+`autoPanPaddingBottomRight` (`pinPopupBottomPad()`). (2) An empty list says
+why (`emptyMatchText()`): "Nothing matches these filters." when the chips hide
+places that exist, "Nothing here yet." for a city with no places (Places, and
+below the divider in Plans). (3) The shared banner (`#error`): never a raw
+message; tap to dismiss; above the floating badges (z 2100); a write that
+fails for want of a connection (fetch TypeError, "Failed to fetch" / Safari
+"Load failed", or `navigator.onLine` false) shows "Couldn’t save. Check your
+connection." for `BANNER_WRITE_MS` 6s (the row has rolled back); an RLS
+refusal shows "Only Adam and Erica can edit places." (plans: "…edit plans.")
+until tapped; any other write failure "Couldn’t save. Try again."
+(`showWriteError()`); a failed read (load or poll) shows the navy info band
+"Offline. Showing what’s loaded." ("Couldn’t load. …" if not a network
+failure) and keeps the list, cleared by the next good read of that source or
+the `online` event, with no view switch (`showReadProblem()`). Gate: the
+gesture harness's `places-ux.js` 30/30, popup-open 20/20 unchanged.
+
 **UX round (2026-10-01).** + and × ignore taps for `PLAN_ACT_LOCK_MS` 400ms
 after a row action (a double tap never adds or removes twice; the lock is
 dropped if nothing was written, e.g. signed out). Removals while the slip

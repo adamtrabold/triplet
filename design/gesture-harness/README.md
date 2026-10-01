@@ -19,7 +19,7 @@ design/gesture-harness/run-all.sh [path/to/index.html] [suite ...]
 
 - With no path, it runs this checkout's `index.html`. Any path works, e.g. a
   scratch copy or another worktree's file.
-- With no suite names, it runs all nine: `touch flip visit popup-open dust rows curve delete plans`.
+- With no suite names, it runs all ten: `touch flip visit popup-open dust rows curve delete plans places-ux`.
   (`plans` needs a page with Plans; on one without, it errors and the summary leaves it out.)
 - `OUTDIR=dir` keeps each suite's `.log` and `.json`. The default is a temp dir.
 - Single suite: `FILE=path OUT=x.json node design/gesture-harness/<suite>.js`.
@@ -79,6 +79,7 @@ GATE PASSED            (or: GATE FAILED: <suites>, followed by each failing case
 | `curve.js` | row **≥11/3**, popup **≥8/3** | Rounds 7–8 spin-stamp, and `r8-design.md` §1. |
 | `delete.js` | **36/36** | Swipe-left "Delete safety", the UX sweep. |
 | `plans.js` | **22/22**: 11 cases × 2 motion modes | "Plans (v3 build)": on a stop row, tap (text and number) navigates; star right, visit left from ×; a quick or 300ms-rested vertical stroke from the number scrolls; a 450ms hold lifts and moves one place; × removes and + adds only below `DELETE_TAP_SLOP`; rows 56.00px. Its fixture plan is opted in with localStorage `gh.plans`, so the other suites see no plans. |
+| `places-ux.js` | **30/30**: 15 cases × 2 motion modes | Owner, 2026-10-01 (docs/shipped.md "Plans (v3 build)"): a list-row tap with the filter panel open closes it, then the popup opens on arrival, clear of the sheet (8 rows, plus a district); the delete X never closes it; the banner (offline write, RLS refusal, failed read + `online`); "Nothing matches these filters." |
 
 Gate line in CLAUDE.md terms: star `"84 + 8 (+ N8-a)"` = touch + flip (+ N8-a);
 `vtest` = visit.

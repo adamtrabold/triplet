@@ -220,3 +220,14 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
       collapsed; account and locate have names.
   16. A starred + visited stop with a real long name: the row is the same
       136px-wide text area as in Places; say if names truncate badly.
+- iPhone check of the owner-approved Places changes (2026-10-01): (1) with the
+  filter panel open, tap a row in the list (Places, and a place in Plans): the
+  panel closes, the map flies, and the popup opens fully visible above the
+  list; reopen the panel: your filters (and plan) are as you left them; the
+  delete × and Plans' + / × never close the panel. (2) Turn every category chip
+  off: the list says "NOTHING MATCHES THESE FILTERS."; pick a city with no
+  places: "NOTHING HERE YET." (3) Airplane mode, then star or visit a place: it
+  flips back and the red band says "COULDN'T SAVE. CHECK YOUR CONNECTION.",
+  gone after about 6s; while offline the navy band "OFFLINE. SHOWING WHAT'S
+  LOADED." appears at the next refresh and goes when you're back online; any
+  band disappears when tapped and sits above the round account / + buttons.
