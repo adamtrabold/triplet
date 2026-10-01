@@ -4,7 +4,7 @@
 // <name>-panel.png (the whole filter panel, unscrolled, @1x) and ../frames/frames.json
 // (measured facts per frame; check.js asserts the truth list against them).
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
-const REPO = process.env.REPO || path.resolve(__dirname, '../../..');
+const REPO = process.env.REPO || path.resolve(__dirname, '../..');
 process.env.PAGE = process.env.PAGE || path.join(REPO, 'index.html');   // the REAL index.html
 const OUTROOT = process.env.OUT || '/tmp/plans-v3-out';   // checks write here, never into the repo
 const { open, launch, FIX } = require('./harness');
@@ -212,7 +212,6 @@ scene('37-new-place-below-rule', {}, async p => { await toPlans(p); await closeP
 scene('39-place-deleted-renumbered', { acceptDialog: true }, async p => { await openPanel(p); await closePanel(p);
   await p.evaluate(() => document.querySelector('.location-card[data-id="mir"]').scrollIntoView({ block: 'center' })); await W(200);
   await tapRowAction(p, '.location-card[data-id="mir"] .delete-btn'); await W(1200); await toPlans(p); await closePanel(p); await p.evaluate(() => frameActivePlan({ animate: false })); await W(600); }, [['rows', [0, 544, 390, 300]]]);
-scene('38-map-option-b-plan-only', { v3: { map: 'plan-only' } }, async p => { await toPlans(p); await closePanel(p); await click(p, '#collapseBtn'); await W(700); await p.evaluate(() => frameActivePlan({ animate: false })); await W(500); }, []);
 // r11: the number options are settled by the owner ("Numbers should be grey ... no multiple states").
 // Places beside Plans, same rows band, for the left-channel comparison (owner-11).
 // r14: two-digit numbers on the axis -- a 12-stop plan
@@ -226,7 +225,7 @@ scene('40-places-rows', {}, async p => { await openPanel(p); await closePanel(p)
   const facts = {};
   for (const sc of S) {
     if (ONLY && !ONLY.test(sc.name)) continue;
-    const init = sc.opts.v3 ? `window.__V3 = ${JSON.stringify(sc.opts.v3)};` : null;   // (plans/stops in opts override the fixture)
+    const init = null;   // (plans/stops in opts override the fixture)
     for (const dsf of [1, 3]) {
       const o = { ...BASE, ...sc.opts, dsf, init };
       const { ctx, page, errors } = await open(b, o);

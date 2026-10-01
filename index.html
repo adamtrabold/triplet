@@ -3436,7 +3436,7 @@
       const list = document.getElementById('locationsList');
       const rule = list.querySelector('.plan-rule');
       if (!rule || !planMarks().rows.length) return;
-      list.scrollTop = rule.offsetTop - list.offsetTop;
+      list.scrollTop += rule.getBoundingClientRect().top - list.getBoundingClientRect().top;
     }
 
     // ---- viewport ------------------------------------------------------------

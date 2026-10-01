@@ -6,7 +6,7 @@
 // of an anti-aliased stroke). Reports css px. Used by check.js (truths) and owner-11.
 //   REPO=<worktree> VENDOR=<dir> node ink.js   -> ../ink.json
 const fs = require('fs'), path = require('path'), zlib = require('zlib'), { execFileSync } = require('child_process');
-const REPO = process.env.REPO || path.resolve(__dirname, '../../..');
+const REPO = process.env.REPO || path.resolve(__dirname, '../..');
 process.env.PAGE = process.env.PAGE || path.join(REPO, 'index.html');   // the REAL index.html
 const OUTROOT = process.env.OUT || '/tmp/plans-v3-out';   // checks write here, never into the repo
 const { open, launch, FIX } = require('./harness');

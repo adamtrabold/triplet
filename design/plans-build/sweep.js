@@ -4,7 +4,7 @@
 // its own stop's pin than any other marker.
 //   REPO=<worktree> VENDOR=<dir> node sweep.js
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
-const REPO = process.env.REPO || path.resolve(__dirname, '../../..');
+const REPO = process.env.REPO || path.resolve(__dirname, '../..');
 process.env.PAGE = process.env.PAGE || path.join(REPO, 'index.html');   // the REAL index.html
 const OUTROOT = process.env.OUT || '/tmp/plans-v3-out';   // checks write here, never into the repo
 const { open, launch, FIX } = require('./harness');

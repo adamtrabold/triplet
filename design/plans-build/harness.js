@@ -1,10 +1,10 @@
-// Plans harness: the real index.html (REPO, default this worktree) with the plans-aware
-// Supabase double (../list-ordering/build/stub.js rows + ./stub.js), local Leaflet/fonts
-// from VENDOR (leaflet.js, leaflet.css, archivo.css, *.woff2), flat tiles. No network.
+// Plans harness: the real index.html (PAGE, default this checkout's) with the plans-aware
+// Supabase double (../list-ordering/build/stub.js rows + ./stub-malmo.js + ./stub.js), local
+// Leaflet/fonts from VENDOR (leaflet.js, leaflet.css, archivo.css, *.woff2), flat tiles.
 // open(browser, { plans, stops, missing, failWrites, writeDelay, signedOut, storage, dsf, w, h, reduced, init })
 const { launch } = require('../list-ordering/build/harness');
 const fs = require('fs'), path = require('path'), zlib = require('zlib');
-const REPO = process.env.REPO || path.resolve(__dirname, '../..');
+const PAGE = process.env.PAGE || path.resolve(__dirname, '../../index.html');
 const VENDOR = process.env.VENDOR;
 if (!VENDOR) { console.error('VENDOR=<dir with leaflet.js, leaflet.css, archivo.css, *.woff2> is required'); process.exit(2); }
 function png1(r, g, b) {
@@ -15,7 +15,7 @@ function png1(r, g, b) {
   return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(Buffer.from([0, r, g, b]))), chunk('IEND', Buffer.alloc(0))]);
 }
 const TILE = png1(0xE8, 0xE4, 0xDA);
-const STUB = fs.readFileSync(path.join(__dirname, '../list-ordering/build/stub.js'), 'utf8') + '\n' + fs.readFileSync(path.join(__dirname, 'stub.js'), 'utf8');
+const STUB = ['../list-ordering/build/stub.js', 'stub-malmo.js', 'stub.js'].map(f => fs.readFileSync(path.join(__dirname, f), 'utf8')).join('\n');
 
 async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, plans = [], stops = [], missing = false, failWrites = false, writeDelay = 0,
   signedOut = false, visited = null, reduced = false, init = null, touch = true, city = 'copenhagen', wait = 900 } = {}) {
@@ -26,7 +26,7 @@ async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, plans = 
   page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
   await page.route('**/*', async (route) => {
     const u = route.request().url();
-    if (u.startsWith('https://triplet.test/')) return route.fulfill({ contentType: 'text/html', body: fs.readFileSync(path.join(REPO, 'index.html'), 'utf8') });
+    if (u.startsWith('https://triplet.test/')) return route.fulfill({ contentType: 'text/html', body: fs.readFileSync(PAGE, 'utf8') });
     if (u.includes('leaflet.js')) return route.fulfill({ contentType: 'application/javascript', body: fs.readFileSync(VENDOR + '/leaflet.js') });
     if (u.includes('leaflet.css')) return route.fulfill({ contentType: 'text/css', body: fs.readFileSync(VENDOR + '/leaflet.css') });
     if (u.includes('supabase')) return route.fulfill({ contentType: 'application/javascript', body: STUB });
