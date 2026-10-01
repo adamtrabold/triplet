@@ -1633,9 +1633,9 @@
        and its grey: the glyph says which. 28px, reaching 8px past = 44x44. */
     .plan-add, .plan-x { position: relative; }
     .plan-add::before, .plan-x::before { content: ''; position: absolute; inset: -8px; }
-    .location-actions .plan-add { width: 28px; height: 28px; color: var(--ink-2); font-size: 20px; font-weight: 400; line-height: 1; border-radius: 3px; }
-    .location-actions .plan-add:active { background: var(--state-press); }
-    .location-card.highlighted .plan-add { color: var(--paper); }
+    /* + is the × itself turned 45° (designer): the same button, font, size and weight;
+       only the glyph rotates. Places' × is untouched. */
+    .plan-add-glyph { display: inline-block; transform: rotate(45deg); }
     /* Reorder: the lifted row sits on paper with a hairline edge and drop; the
        others make room. */
     .location-card.plan-lifted { position: relative; z-index: 5; background: var(--paper-raised); box-shadow: 0 0 0 1px var(--hair), 0 3px 0 var(--hair); }
@@ -4759,7 +4759,7 @@
       const p = activePlan();
       if (!p) return '';
       if (stop) return `<button class="delete-btn plan-x" aria-label="Remove ${escapeAttr(label)} from ${escapeAttr(p.name)}">&times;</button>`;
-      return `<button class="delete-btn plan-add" aria-label="Add ${escapeAttr(label)} to ${escapeAttr(p.name)}">+</button>`;
+      return `<button class="delete-btn plan-add" aria-label="Add ${escapeAttr(label)} to ${escapeAttr(p.name)}"><span class="plan-add-glyph" aria-hidden="true">&times;</span></button>`;
     }
 
     function shapePopupHtml(nb) {
