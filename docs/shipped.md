@@ -915,6 +915,22 @@ failure) and keeps the list, cleared by the next good read of that source or
 the `online` event, with no view switch (`showReadProblem()`). Gate: the
 gesture harness's `places-ux.js` 30/30, popup-open 20/20 unchanged.
 
+**Final review fixes (critics-final 9c5296e, CD 9/10).** (1, P1) The slip
+rides the rule through `flipPlanList()`'s 150ms slide: `placePlanSlip()` runs
+every frame of the slide and once more when it settles (it had been measured
+mid-slide and left on the rule's old place for 6s, over the next row's + after
+×, over the new stop's name after +); pause/6s timer unchanged. Gate:
+plan-rows "the Added / Removed slip never covers…", both motion modes, sampled
+at 40/110/260/1000/3000ms. (2) The slip's text is `[before, name, after]`:
+only the place name truncates (`.slip-name`), so "Added Café Lo… as stop 4"
+always shows the number (plan-rows case). (3) The banner is focusable
+(`tabindex=0`, focus ring): Enter / Space on it or Escape anywhere dismisses
+it; no focus trap. (4) In Plans, a place pin whose disc is partly under a
+cluster disc shows its ring only (`.glyph-clipped`, `applyPlanMap()`): the
+cut glyph left a stub that read as a numeral beside a stop tag (still 41).
+Clusters are exactly Places' (raising candidates above clusters would have
+changed that).
+
 **UX round (2026-10-01).** + and × ignore taps for `PLAN_ACT_LOCK_MS` 400ms
 after a row action (a double tap never adds or removes twice; the lock is
 dropped if nothing was written, e.g. signed out). Removals while the slip

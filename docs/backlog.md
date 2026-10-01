@@ -102,6 +102,16 @@ pick/redirect before building anything.
   popup's Mark Visited toggle animates it (bleed + press / lift, like the
   row). New idea → concept stage first.
 
+- **Plans follow-ups from the final review** (critics-final 9c5296e,
+  `design/impeccable-gate/reviews/2026-10-01-6d3609c2c34d/REPORT.md`; not
+  now): accessible names for map markers (numbered stop pins "Stop 2:
+  Harpa", tag-bearing clusters "Cluster of 11, stops 1–3"; Places' pins have
+  none either, WCAG 4.1.2); the error banner covers the account / + badges
+  and zoom + for its 6s (check against main: likely existing behaviour);
+  the star knock-out notch (existing Places); paper hex `#F2EBDD` hard-coded
+  in JS-built SVG instead of `var(--paper)`; cluster tag numerals 10px at 1x
+  (CD to judge on device).
+
 ## Data cleanup (neighborhood shapes)
 
 - `copenhagen-nyboder` (Nyboder) and `stockholm-gamla-stan` (Gamla Stan)

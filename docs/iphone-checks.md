@@ -158,7 +158,9 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      never slides away from the first ones. Add a second: the slip (a band over
      the caption line, or filling the list header if the line is scrolled
      away; filter and locate stay tappable) reads "STOP 2 ADDED · HOLD A NUMBER TO MOVE"
-     (only once per phone), later "ADDED … AS STOP n". **Undo** inside 6s
+     (only once per phone), later "ADDED … AS STOP n" (a long name shortens,
+     the stop number always shows); the slip ends up on the divider line, never
+     over the new stop's name or the next row's + / ×. **Undo** inside 6s
      takes it back out. A sideways stroke that starts on + adds nothing.
   4. **Numbers at 1x:** grey numbers left of the icons; the chevron in the
      header, the numbers and the icons of the places below the line all sit
