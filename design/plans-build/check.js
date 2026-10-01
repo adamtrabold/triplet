@@ -34,11 +34,14 @@ const mapRules = f => {   // the frame-level subset of matrix.js's rules (the ma
   return [
     ['R1 digits only on stop tags and on Places’ red count clusters', f.markers.filter(m => m.onMap && !m.num && !m.redCluster).every(m => !/\d/.test(m.txt || ''))],
     [`R4 every shown stop tag on screen is uncovered (${st.filter(m => m.tagShown).length})`, st.filter(m => m.tagShown).every(m => m.tagTop)],
-    ['R4 no Places cluster is under a stop (clusters are topmost at their centres)', f.markers.filter(m => m.redCluster && m.onMap).every(m => m.topmost || !f.markers.some(s => s.num && Math.hypot(s.x - m.x, s.y - m.y) < 14 && s.z > m.z))],
+    ['R4 (r18) no cluster’s stop tag lies over another cluster’s count', !f.markers.some(m => m.ctagOnCount)],
+    ['R4 (r17) every cluster’s count is on top; stops cluster like any pin, and a cluster holding stops carries their grey tag', f.markers.filter(m => m.redCluster && m.onMap).every(m => m.countTop !== false)],
     ['R3 other places are ordinary Places pins (no muted/faint marks)', f.markers.every(m => !m.muted)]
   ];
 };
 const stopMarkers = f => f.markers.filter(m => m.num && m.onMap);
+// r17: every stop number shown on the map, on a stop's own tag or on a cluster's tag
+const shownNums = f => { const got = new Set(); f.markers.filter(m => m.onMap || m.clusterStops).forEach(m => [m.num, m.clusterStops].filter(Boolean).forEach(l => l.split(',').forEach(t => { const [a, b] = t.split(/[–…]/).map(Number); for (let i = a; i <= (b || a); i++) got.add(i); }))); return got; };
 // ---- truths common to every Plans frame with an open plan
 const HAIR = 'rgb(216, 206, 186)', INK2 = 'rgb(90, 86, 76)', NAVY = 'rgb(18, 41, 63)';
 const planCommon = (f, plan, n) => [
@@ -70,7 +73,7 @@ const T = {
   '40-places-rows': f => [['Places rows (the reference, unchanged): icon centred on the chevron’s axis (x=30, within 0.5px), text x=56, rules 1px --hair', f.view === 'places' && f.rows.length > 3 && f.rows.every(r => Math.abs(r.badgeCx - f.chevCx) <= 0.5 && r.mainLeft === 56 && r.rowBorder.endsWith(HAIR))]],
   '41-twelve-stops': f => [...planCommon(f, 'Twelve stops', 12), ['r14 two-digit numbers (10, 11, 12) are centred on the same axis as 1-digit ones and the chevron (within 0.5px)', (() => { const two = stops(f).filter(r => r.num.length === 2 && r.onScreen), one = stops(f).filter(r => r.num.length === 1 && r.onScreen); return two.length >= 2 && one.length >= 1 && two.concat(one).every(r => Math.abs(r.numCx - f.chevCx) <= 0.5); })()]],
   '03-plans-list': f => [...planCommon(f, 'Nørrebro afternoon', 6), ['stop 1 is visited: its row is a Places visited row (filed field), nothing plan-specific', stops(f)[0].visited && stops(f)[0].bg === 'rgb(231, 223, 208)'],
-    ['r11 following view: every stop in view, each number on one neutral tag (1px --ink-2 rule, --ink-2 numeral)', stopMarkers(f).length === 6 && f.lines.tag === `1px ${INK2}` && f.lines.tagInk === INK2]],
+    ['r18 following view: every stop in view, each its own pin with its grey number in place of the glyph (--ink-2), no tag beside a single pin', stopMarkers(f).length === 6 && f.lines.pinInk === INK2]],
   '04-rule-and-others': f => [...planCommon(f, 'Nørrebro afternoon', 6), ['the rule and places with + are on screen', f.rows.some(r => r.kind === 'place' && r.onScreen)]],
   '05-filter-cafe': f => [...inkTruths(), ...panelParity(f), ['only Cafe on (10 chips off); still Plans', offCats(f).length === 10 && !offCats(f).includes('cafe') && f.view === 'plans'],
     ...planCommon(f, 'Nørrebro afternoon', 6), ['below the rule: only cafés that are not stops (Hart Bageri)', others(f).map(r => r.name).join() === 'Hart Bageri'],
@@ -85,7 +88,7 @@ const T = {
     ['…on one line, untruncated (text fits); build (designer): the same band, flush -- the header\'s full height, x=0 to 8px before the filter toggle, no border or radius', f.slipBox && f.slipBox.fits && Math.round(f.slipBox.h) === Math.round(f.slipBox.headerH) && Math.round(f.slipBox.top) === Math.round(f.slipBox.headerTop) && Math.round(f.slipBox.l) === 0 && Math.round(f.slipBox.gapToFilter) === 8 && f.slipBox.border === '0px/0px' && f.slipBox.radius === '0px'],
     ['…and never over the filter toggle or locate button', f.slipBox && !f.slipBox.overFilterOrLocate]],
   '07-city-malmo': f => [...panelParity(f), ['Malmö on; still Plans', onCities(f).join() === 'Malmö' && f.view === 'plans'], ...planCommon(f, 'Nørrebro afternoon', 6),
-    ['r8 building fit across cities: the strip above the open panel shows BOTH the stops (all 6 drawn, Copenhagen) and Malmö’s places (pins or Places’ own cluster) -- stops 2–6 are never hidden by a city pick', f.markers.filter(m => !m.num && m.onMap).length >= 1 && f.markers.filter(m => m.num).length === 6 && f.markers.filter(m => m.num && m.onMap).length >= 1],
+    ['r8/r17 building fit across cities: the strip above the open panel shows BOTH the stops (all 6 numbers, on their own tags or their cluster’s) and Malmö’s places -- stops are never hidden by a city pick', f.markers.filter(m => !m.num && m.onMap).length >= 1 && [1, 2, 3, 4, 5, 6].every(n => shownNums(f).has(n))],
     ['below the rule: only Malmö places', others(f).length > 0 && others(f).every(r => /malm/i.test(r.meta))]],
   '08b-all-cities-building': f => [['build: ALL CITIES while building (panel open) zooms out to every city\'s places (zoom ≤ 10); still Plans', f.zoom <= 10 && onCities(f).join() === 'All cities' && f.view === 'plans']],
   '08-all-cities': f => [...mapRules(f), ['following (panel closed) with ALL CITIES frames every stop at a stop-level zoom (build: the prototype\'s z9 here was a focusCity race)', f.markers.filter(m => m.num && m.tagShown && m.onMap).length >= 1 && f.zoom >= 12], ['ALL CITIES on; still Plans', onCities(f).join() === 'All cities' && f.view === 'plans'], ...planCommon(f, 'Nørrebro afternoon', 6),
@@ -119,11 +122,11 @@ const T = {
     ['the map draws nothing the list does not show', f.markers.length === 0]],
   '19-signed-out-add': f => [['tapping + signed out opens the sign-in (writes are login-gated)', f.authOpen]],
   '20-tables-missing': f => [...panelParity(f), ['tables missing (UX): the picker is unavailable ("Not set up yet"), the list says "Plans aren’t set up yet."; no New plan button; filters still live', f.picker.disabled && f.picker.text === 'Not set up yet' && /aren’t set up yet/i.test(f.empty) && !f.emptyButton && !f.header.sort && f.markers.length === 0]],
-  '21-map-z16': f => [...mapRules(f), ['zoom 16: all 6 stops are numbered markers, every tag the same neutral style', f.zoom === 16 && f.markers.filter(m => m.num).length === 6 && f.lines.tag === `1px ${INK2}`]],
-  '22-map-z13-clusters': f => [...mapRules(f), ['zoom 13 (clusters on): all 6 stops still numbered, none inside a cluster', f.zoom === 13 && stopMarkers(f).length === 6], ['a stop draws above every place pin it overlaps (Places clusters draw above stops, as above every pin)', overlapsOk(f)],
+  '21-map-z16': f => [...mapRules(f), ['zoom 16: all 6 stops are numbered pins, each number grey in place of its glyph', f.zoom === 16 && f.markers.filter(m => m.num).length === 6 && f.lines.pinInk === INK2]],
+  '22-map-z13-clusters': f => [...mapRules(f), ['r17 zoom 13: all 6 stop numbers are on the map -- on a stop’s own tag, or on the grey tag beside the red cluster that holds it', f.zoom === 13 && (() => { const got = new Set(); f.markers.forEach(m => [m.num, m.clusterStops].filter(Boolean).forEach(l => l.split(',').forEach(t => { const [a, b] = t.split(/[–…]/).map(Number); for (let i = a; i <= (b || a); i++) got.add(i); }))); return [1, 2, 3, 4, 5, 6].every(n => got.has(n)); })()], ['a stop draws above every place pin it overlaps (Places clusters draw above stops, as above every pin)', overlapsOk(f)],
     ['clusters are Places’ red count discs; stop numerals sit on square grey-ruled paper tags (a different family)', f.markers.some(m => m.redCluster) && f.markers.filter(m => m.num).every(m => !m.redCluster)]],
-  '23-map-z11': f => [...mapRules(f), ['zoomed out, the 6 stops keep their true spots and share one tag “1–6”', f.markers.some(m => m.num && m.tagShown && m.num.replace(/\s/g, '') === '1–6')]],
-  '24-stop-tapped': f => [['tapping stop 2’s row flies + opens its popup ("Stop 2 of 6")', /Stop 2 of 6/.test(f.popup) && f.rows.find(r => r.highlighted).name === 'Jægersborggade'], ...planCommon(f, 'Nørrebro afternoon', 6)],
+  '23-map-z11': f => [...mapRules(f), ['r17 zoomed out, the 6 stops cluster like any pin and the cluster carries one grey tag “1–6” (or stops outside it keep theirs): all 6 numbers on the map', [1, 2, 3, 4, 5, 6].every(n => shownNums(f).has(n))]],
+  '24-stop-tapped': f => [['r17 the list tap flies to ≥ SOLO_MIN_ZOOM (14), so the tapped stop is its own pin, never inside a cluster', f.zoom >= 14 && f.markers.some(m => m.num && /(^|,|–)2(,|–|$)/.test(m.num) && m.onMap) && !f.markers.some(m => m.redCluster && m.onMap)], ['tapping stop 2’s row flies + opens its popup ("Stop 2 of 6")', /Stop 2 of 6/.test(f.popup) && f.rows.find(r => r.highlighted).name === 'Jægersborggade'], ...planCommon(f, 'Nørrebro afternoon', 6)],
   '25-other-place-tap': f => [['tapping a place below the rule flies + opens its popup', !!f.popup && f.rows.some(r => r.highlighted && r.kind === 'place')]],
   '26-collapsed': f => [['collapsed sheet in Plans: the header still names the plan', f.title === 'Nørrebro afternoon']],
   '27-long-name': f => [['a 45-char name truncates with an ellipsis (fit disclosed in README)', f.titleTrunc && f.title.length === 45], ...planCommon(f, 'Last full day before we fly home from Kastrup', 4)],

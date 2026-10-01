@@ -1692,8 +1692,13 @@
 
     /* Map: a stop is its Places pin plus a square grey numbered tag. The pin's
        12px margin is pass-through (never covers a neighbour's tag or tap). */
-    .leaflet-marker-icon.plan-stop-icon, .plan-stop-icon .plan-stop { pointer-events: none; }
-    .plan-stop-icon .plan-stop > * { pointer-events: auto; }
+    /* r18: a single stop pin carries its number in place of the glyph (grey; paper when selected) */
+    .plan-stop .pin-n { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
+      font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 13px; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+    .plan-stop .pin-n.two { font-size: 12px; letter-spacing: -0.02em; }
+    .plan-stop.highlighted-marker .pin-n { color: var(--paper); }
+    /* the grey tag beside a red cluster that holds stops: part of the cluster -- a tap zooms in, like the disc */
+    .stop-tag.cluster-stops { pointer-events: auto; cursor: pointer; }
     .stop-tag { position: absolute; z-index: 2; height: 14px; min-width: 14px; padding: 0 2px; box-sizing: border-box; border: 1px solid var(--ink-2); border-radius: 3px;
       background: var(--paper); color: var(--ink-2); font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 10px; line-height: 11px; text-align: center; white-space: nowrap; pointer-events: none; }
     .popup-stop { white-space: nowrap; margin-left: calc(var(--s1) * -1); }   /* cancels the flex gap: the dot sits evenly between its words */
@@ -4822,24 +4827,24 @@
       return `<strong>${escapeHtml(nb.label)}</strong>${line ? `<span class="shape-stop">${line}</span>` : ''}${nb.note ? `<p>${escapeHtml(nb.note)}</p>` : ''}`;
     }
 
-    // A stop on the map is its ordinary Places pin (same ring, same glyph --
-    // dashed for an approximate pin, a diamond for a shape stop; the star keeps
-    // its corner), always at the near size, plus a numbered TAG: a small
-    // square paper tile ruled 1px --ink-2 with an --ink-2 numeral, one style
-    // for every stop. The tag alone marks a stop. applyPlanMap() moves each
-    // tag to a free spot and merges the tags of stops whose pins overlap.
+    // r18 (owner: "change the icon to the number like we used to do ... only on the map"): a stop
+    // that is its own pin shows its NUMBER in place of the category glyph -- the same ring in its
+    // category ink (dashed for an approximate pin, a diamond for a district/street), the same
+    // paper field, the near size at every zoom; the numeral is the one grey number style
+    // (--ink-2, 13px/700; 12px for two digits). Selected: the ring fills with its ink and the
+    // numeral turns paper, as a selected Places pin does. The star keeps its corner. No tag.
     function planNumberIcon(category, kind, ink, r, size, highlighted, starred) {
-      const pad = 12, box = size + pad * 2, c = box / 2;
-      const badge = badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: highlighted ? '#F2EBDD' : ink, rim: highlighted ? 2.5 : 2, glyph: true });
-      const star = starred ? `<div style="position:absolute;left:${pad}px;top:${pad}px;width:${size}px;height:${size}px">${markerStarHtml(size)}</div>` : '';
-      const tag = `<div class="stop-tag" data-n="${r.n}" style="left:${pad - 11}px;top:${pad - 11}px">${r.n}</div>`;
-      const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}" data-n="${r.n}" style="position:relative;width:${box}px;height:${box}px;line-height:0;"><div style="position:absolute;left:${pad}px;top:${pad}px">${badge}</div>${star}${tag}</div>`;
-      return L.divIcon({ html, className: 'plan-stop-icon', iconSize: [box, box], iconAnchor: [c, c] });   // the 12px margin round the pin is pass-through (never covers a neighbour's tag or takes its tap)
+      const badge = badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: ink, rim: highlighted ? 2.5 : 2, glyph: false });
+      const star = starred ? markerStarHtml(size) : '';
+      const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}" data-n="${r.n}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>${star}</div>`;
+      return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
     }
 
-    // A shape stop has no pin, so it gets the list's own diamond badge (plus
-    // its tag) at the shape's centroid -- one mark per stop, so the map reads
-    // 1..m with no gaps, at every zoom; a tap is the row's tap.
+    // A shape stop has no pin, so it gets a numbered diamond at the shape's
+    // centroid -- one mark per stop, so the map reads 1..m with no gaps; a tap
+    // is the row's tap. Below SOLO_MIN_ZOOM it clusters like a pin (at its
+    // centroid, mapVisibleLocations()); clustered, its own mark hides and the
+    // cluster counts and tags it.
     const planShapeMarkers = new Map();   // shape id -> { marker, sig }
     function syncPlanShapeMarkers() {
       if (!map) return;
@@ -4847,6 +4852,7 @@
       if (inPlanView()) {
         planMarks().rows.forEach(r => {
           if (!r.nb) return;
+          if (clusteredShapeIds.has(r.nb.id)) return;   // inside a cluster: the cluster counts and tags it
           const c = shapeCentroid(r.nb);
           if (!c) return;
           const id = r.nb.id;
@@ -5816,25 +5822,19 @@
     // indistinguishable, unclickable stacked dots. A lone pin in a cell is
     // untouched -- most of the map, most of the time, looks exactly as it
     // always has.
-    // ---- THE PLANS MAP (design/plans-deepdive/v3 §4) --------------------------
-    // Places' clustering, pins and highlight, unchanged (owner: "I don't like
-    // using a different approach for clustered places"). Only the stops
-    // differ: never absorbed into a cluster, always at their true location,
-    // each its ordinary Places pin plus a small grey numbered TAG. Clusters
-    // still beat every pin (the ladder at applyMarkerStacking()).
-    // applyPlanMap() lays the tags out after every sync and move: stops whose
-    // PINS overlap (< STOP_OVERLAP px) keep their pins and share ONE tag
-    // ("2–3") on the lowest-numbered pin in view. Each tag takes the first
-    // free spot of eight (four corners, then four sides), always touching its
-    // own pin (near edge <= 13px from the pin centre, no leader line); a free
-    // spot touches no cluster, no other stop's pin, no tag, no screen edge and
-    // no map chrome, and is nearer its own pin than any other marker. If none
-    // is free, the least-bad spot wins (the weights below).
-    const STOP_OVERLAP = 22;
-    // A cluster disc's drawn radius (clusterMarkerIcon: CLUSTER_BADGE_PX - 2 across) and the
-    // band round it a stop tag keeps clear of, so a grey stop number never reads as part of
-    // a cluster's count.
-    const CLUSTER_DISC_R = (CLUSTER_BADGE_PX - 2) / 2, STOP_TAG_CLUSTER_BAND = 16;
+    // ---- THE PLANS MAP (design/plans-deepdive/v3 §4, §12, §13) ----------------
+    // Places' clustering, pins and highlight, unchanged, and the ONE
+    // implementation: stops cluster exactly like any pin (owner: "Stop clusters
+    // should function the same as a normal cluster"), a district/street stop at
+    // its centroid; the count includes them. A stop outside every cluster is its
+    // own numbered pin (planNumberIcon); at SOLO_MIN_ZOOM and above nothing
+    // clusters, so every stop is a numbered pin and a list tap always lands on
+    // one. A red cluster that holds stops carries ONE grey tag listing their
+    // numbers, flush against its count (clusterStopTags()). Clusters still beat
+    // every pin (the ladder at applyMarkerStacking()).
+    const CLUSTER_DISC_R = (CLUSTER_BADGE_PX - 2) / 2;   // a cluster disc's drawn radius (clusterMarkerIcon)
+    const CLUSTER_TAG_MAX_RUNS = 3, CLUSTER_TAG_GAP = 2;
+    let clusteredShapeIds = new Set();   // district/street stops currently inside a cluster
     // The map's own chrome, in container px -- the zoom control, the account
     // and add buttons, the attribution -- and the safe box inside it (above
     // the open filter panel) that every default fit frames into.
@@ -5855,76 +5855,57 @@
     }
     function applyPlanMap() {
       if (!map || !inPlanView() || !activePlan()) return;
+      syncPlanShapeMarkers();   // a district/street stop's mark follows its clustering at this zoom
       const pm = planMarks();
-      const stops = pm.rows.map(r => {
+      // A stop drawn as its own mark whose centre lies under a cluster disc (pins from a
+      // neighbouring cell) would be hidden by the disc: its number joins that cluster's tag.
+      const absorbed = new Map();   // cluster id -> [stop numbers]
+      pm.rows.forEach(r => {
         const e = r.loc ? markersById.get(r.loc.id) : planShapeMarkers.get(r.nb.id);
-        const el = e && e.marker.getElement();
-        return el ? { r, e, el, p: map.latLngToContainerPoint(e.marker.getLatLng()) } : null;
-      }).filter(Boolean);
-      const parent = stops.map((_, i) => i), find = i => parent[i] === i ? i : (parent[i] = find(parent[i]));
-      for (let i = 0; i < stops.length; i++) for (let j = i + 1; j < stops.length; j++) if (stops[i].p.distanceTo(stops[j].p) < STOP_OVERLAP) parent[find(i)] = find(j);
-      const groups = new Map();
-      stops.forEach((q, i) => { const g = find(i); if (!groups.has(g)) groups.set(g, []); groups.get(g).push(q); });
-      const clusters = [...clusterMarkersById.values()].map(m => map.latLngToContainerPoint(m.getLatLng()));
+        if (!e || !e.marker.getElement()) return;
+        const p = map.latLngToContainerPoint(e.marker.getLatLng());
+        for (const [id, m] of clusterMarkersById) if (map.latLngToContainerPoint(m.getLatLng()).distanceTo(p) < CLUSTER_DISC_R + 6) { absorbed.set(id, (absorbed.get(id) || []).concat([r.n])); break; }
+      });
+      clusterStopTags(absorbed);
+    }
+    // "3", "2–4", "1,5–6"; past CLUSTER_TAG_MAX_RUNS runs, "first…last".
+    function clusterStopLabel(ns) {
+      const runs = rangeLabel(ns).split(',');
+      return runs.length <= CLUSTER_TAG_MAX_RUNS ? runs.join(',') : `${ns[0]}…${ns[ns.length - 1]}`;
+    }
+    // The tag sits flush against the count, CLUSTER_TAG_GAP px from its digits and level with
+    // them: on the right, or on the left when the cluster's star rides the disc's upper right;
+    // then above / below if a side runs off the visible map, onto a control, another tag or
+    // another cluster's count. It may cover part of the red disc, never a digit.
+    function clusterStopTags(absorbed) {
+      const pm = planMarks(), msz = map.getSize(), chrome = planChrome(), placed = [];
       const mbr = document.getElementById('map').getBoundingClientRect();
-      const others = [...document.querySelectorAll('#map .leaflet-marker-icon')].filter(el => !el.querySelector('.plan-stop'))
-        .map(el => { const r = el.getBoundingClientRect(); return { el, p: L.point(r.left + r.width / 2 - mbr.left, r.top + r.height / 2 - mbr.top) }; })
-        .filter(o => o.p.x > -20 && o.p.y > -20 && o.p.x < mbr.width + 20 && o.p.y < mbr.height + 20);
-      const placed = [], msz = map.getSize(), chrome = planChrome();
-      // The bottom of the map you can SEE (the open panel and the list sheet lie over the map).
-      const visBottom = (() => { const mt = document.getElementById('map').getBoundingClientRect().top, pn = document.getElementById('filtersPanel'), lt = document.getElementById('locations').getBoundingClientRect().top;
-        return Math.min(msz.y, lt - mt, pn.classList.contains('visible') ? pn.getBoundingClientRect().top - mt : Infinity); })();
-      const hitsRect = (a, b) => a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2;
-      const rectCircle = (rc, p, r) => { const nx = Math.max(rc.x1, Math.min(p.x, rc.x2)), ny = Math.max(rc.y1, Math.min(p.y, rc.y2)); return Math.hypot(p.x - nx, p.y - ny) < r; };
-      const seeBox = planSafeBox(openPanelHeight());
-      [...groups.values()].sort((a, b) => Math.min(...a.map(q => q.r.n)) - Math.min(...b.map(q => q.r.n))).forEach(g => {
-        g.sort((x, y) => x.r.n - y.r.n);
-        // the shared tag rides the lowest-numbered pin that is inside the map you can see
-        const top = g.find(q => q.p.x >= seeBox.l && q.p.x <= seeBox.r && q.p.y >= seeBox.t && q.p.y <= seeBox.b) || g[0];
-        const label = rangeLabel(g.map(q => q.r.n));
-        g.forEach(q => {
-          const t = q.el.querySelector('.stop-tag');
-          if (!t) return;
-          if (q !== top) { t.style.display = 'none'; return; }
-          t.style.display = ''; t.textContent = label;
-          const w = t.offsetWidth || 14, h = 14, P = q.p;
-          // Four corners first, then the four sides (tag edge touching the ring, centred). Each
-          // spot is scored; the first clean one wins, else the least-bad (screen edge > map
-          // chrome > another tag = a cluster's band > nearer another marker > another stop > a
-          // place pin). A tag never sits next to a cluster's numeral: the STOP_TAG_CLUSTER_BAND
-          // round every cluster disc is off-limits, weighted like a placed tag; when no spot is
-          // clean, the spot farthest from the nearest cluster wins (screen-edge and on-control
-          // spots only if nothing else is left).
-          const spots = [[-13 - w + 2, -13 - h + 2], [11, -13 - h + 2], [11, 11], [-13 - w + 2, 11],
-            [-w / 2, -13 - h], [13, -h / 2], [-w / 2, 13], [-13 - w, -h / 2]];
-          const scored = spots.map(([dx, dy]) => {
-            const rc = { x1: P.x + dx, y1: P.y + dy, x2: P.x + dx + w, y2: P.y + dy + h };
-            const hard = (rc.x1 < 2 || rc.y1 < 2 || rc.x2 > msz.x - 2 || rc.y2 > visBottom - 2 ? 1000 : 0)
-              + 400 * chrome.filter(o => hitsRect(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })).length;   // on the control itself
-            const score = hard
-              + 300 * placed.filter(o => hitsRect(rc, o)).length
-              + 300 * clusters.filter(c => rectCircle(rc, c, CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND)).length
-              + 100 * stops.filter(o => !g.includes(o) && rectCircle(rc, o.p, 13)).length
-              + 5 * chrome.filter(o => hitsRect(rc, o)).length                                                     // in a control's 4px margin
-              + 20 * others.filter(o => rectCircle(rc, o.p, 11)).length
-              + (() => { const tc = L.point((rc.x1 + rc.x2) / 2, (rc.y1 + rc.y2) / 2), own = Math.min(...g.map(x => x.p.distanceTo(tc)));
-                  return 200 * (others.some(o => o.p.distanceTo(tc) < own) || stops.some(o => !g.includes(o) && o.p.distanceTo(tc) < own) ? 1 : 0); })();
-            const nx = c => Math.max(rc.x1, Math.min(c.x, rc.x2)), ny = c => Math.max(rc.y1, Math.min(c.y, rc.y2));
-            const dClu = clusters.length ? Math.min(...clusters.map(c => Math.hypot(c.x - nx(c), c.y - ny(c)))) : Infinity;
-            return { d: [dx, dy], hard, score, dClu };
-          });
-          let pick = scored.find(s => !s.score);
-          if (!pick) {
-            const pool = scored.some(s => !s.hard) ? scored.filter(s => !s.hard) : scored;
-            const nearCluster = pool.some(s => s.dClu < CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND);
-            pick = pool.slice().sort((a, b) => nearCluster && a.dClu !== b.dClu ? b.dClu - a.dClu : a.score - b.score)[0];
-          }
-          const best = pick.d;
-          const half = q.el.offsetWidth / 2;
-          t.style.left = `${half + best[0]}px`; t.style.top = `${half + best[1]}px`;
-          placed.push({ x1: P.x + best[0], y1: P.y + best[1], x2: P.x + best[0] + w, y2: P.y + best[1] + h });
-          q.e.marker.setZIndexOffset(Z_PLAN_STOP - Math.min(...g.map(x => x.r.n)));
-        });
+      const visBottom = (() => { const pn = document.getElementById('filtersPanel'), lt = document.getElementById('locations').getBoundingClientRect().top;
+        return Math.min(msz.y, lt - mbr.top, pn.classList.contains('visible') ? pn.getBoundingClientRect().top - mbr.top : Infinity); })();
+      const hits = (a, b) => a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2;
+      const discs = [...clusterMarkersById.entries()].map(([id, m]) => ({ id, el: m.getElement() })).filter(d => d.el && d.el.firstElementChild);
+      const countBox = d => { const r = d.el.querySelector('svg text').getBoundingClientRect(); return { x1: r.left - mbr.left - 1, y1: r.top - mbr.top - 1, x2: r.right - mbr.left + 1, y2: r.bottom - mbr.top + 1 }; };
+      discs.forEach(d => d.el.querySelectorAll('.cluster-stops').forEach(t => t.remove()));
+      const counts = discs.map(d => ({ d, box: countBox(d) }));
+      discs.forEach(d => {
+        const ns = d.id.replace(/^p?cluster:\*?/, '').split(',')
+          .map(id => id.startsWith('shape:') ? pm.byShape.get(Number(id.slice(6))) : pm.byLoc.get(id)).filter(Boolean).map(r => r.n)
+          .concat(absorbed.get(d.id) || []).sort((a, b) => a - b);
+        if (!ns.length) return;
+        const box = d.el.firstElementChild, t = document.createElement('div');
+        t.className = 'stop-tag cluster-stops'; t.textContent = clusterStopLabel(ns); t.setAttribute('aria-hidden', 'true');
+        box.appendChild(t);
+        const w = t.offsetWidth || 14, h = t.offsetHeight || 14, bb = box.getBoundingClientRect(), tb = d.el.querySelector('svg text').getBoundingClientRect();
+        const tl = tb.left - bb.left, tr = tb.right - bb.left, tt = tb.top - bb.top, tbm = tb.bottom - bb.top, tcx = (tl + tr) / 2, tcy = (tt + tbm) / 2;
+        const right = [tr + CLUSTER_TAG_GAP, tcy - h / 2], left = [tl - CLUSTER_TAG_GAP - w, tcy - h / 2], above = [tcx - w / 2, tt - CLUSTER_TAG_GAP - h], below = [tcx - w / 2, tbm + CLUSTER_TAG_GAP];
+        const toMap = ([x, y]) => ({ x1: bb.left - mbr.left + x, y1: bb.top - mbr.top + y, x2: bb.left - mbr.left + x + w, y2: bb.top - mbr.top + y + h });
+        const bad = sp => { const rc = toMap(sp); return rc.x1 < 2 || rc.x2 > msz.x - 2 || rc.y1 < 2 || rc.y2 > visBottom - 2
+          || chrome.some(o => hits(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })) || placed.some(o => hits(rc, o))
+          || counts.some(c => c.d !== d && hits(rc, c.box)); };
+        const order = d.id.includes(':*') ? [left, right, below, above] : [right, left, above, below];
+        const best = order.find(sp => !bad(sp)) || order[0];
+        t.style.left = `${best[0]}px`; t.style.top = `${best[1]}px`;
+        placed.push(toMap(best));
       });
     }
     function rangeLabel(ns) {
@@ -5934,12 +5915,12 @@
     }
     function mapVisibleLocations() {
       const all = visibleLocations();
-      if (!map || map.getZoom() >= SOLO_MIN_ZOOM) return { solo: all, clusters: [] };
-      // Plans: a stop is never absorbed into a cluster -- it keeps its pin and
-      // tag at every zoom. (In Places planMarks() is empty, so this is a no-op.)
-      const pm = planMarks();
-      const pinned = all.filter(l => pm.byLoc.has(l.id));
-      const visible = pinned.length ? all.filter(l => !pm.byLoc.has(l.id)) : all;
+      if (!map || map.getZoom() >= SOLO_MIN_ZOOM) { clusteredShapeIds = new Set(); return { solo: all, clusters: [] }; }
+      // Plans: a district/street stop joins the grid at its centroid like a pin ('shape:<id>');
+      // clustered, its own mark hides (syncPlanShapeMarkers()). Places: nothing is added.
+      const shapeStops = inPlanView() && activePlan() ? planMarks().rows.filter(r => r.nb && shapeCentroid(r.nb))
+        .map(r => { const c = shapeCentroid(r.nb); return { id: 'shape:' + r.nb.id, lat: c[0], lng: c[1], starred: false, planShape: true }; }) : [];
+      const visible = shapeStops.length ? all.concat(shapeStops) : all;
 
       const cellPx = clusterCellPxForZoom(map.getZoom());
       const cells = new Map();
@@ -5952,6 +5933,7 @@
 
       const solo = [];
       const clusters = [];
+      const inClusters = new Set();
       cells.forEach(members => {
         if (members.length === 1) { solo.push(members[0]); return; }
         const lat = members.reduce((sum, m) => sum + m.lat, 0) / members.length;
@@ -5968,8 +5950,10 @@
         // (above the stops), so switching views recreates it.
         const id = (inPlanView() && activePlan() ? 'pcluster:' : 'cluster:') + (starred ? '*' : '') + members.map(m => m.id).sort().join(',');
         clusters.push({ id, lat, lng, count: members.length, starred });
+        members.forEach(m => { if (m.planShape) inClusters.add(Number(String(m.id).slice(6))); });
       });
-      return { solo: pinned.concat(solo), clusters };
+      clusteredShapeIds = inClusters;
+      return { solo: shapeStops.length ? solo.filter(l => !l.planShape) : solo, clusters };
     }
 
     // Cluster badge: paper count on a solid field, deliberately not a

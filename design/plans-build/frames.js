@@ -74,11 +74,13 @@ const FACTS = () => {
     };
   });
   const markers = $$('.leaflet-marker-icon').map(m => {
-    const r = m.getBoundingClientRect(), num = m.querySelector('.stop-tag');
+    const r = m.getBoundingClientRect(), num = m.querySelector('.pin-n'), ctag = m.querySelector('.cluster-stops');
     const cx = r.x + r.width / 2, cy = r.y + r.height / 2, hit = document.elementFromPoint(cx, cy);
     return { num: num ? num.textContent : null, cluster: !!m.querySelector('.plan-cluster') || (!num && !m.querySelector('use[href^="#g-"]') && !!m.querySelector('text')),
       count: m.querySelector('.plan-cluster text') ? m.querySelector('.plan-cluster text').textContent : null, txt: m.textContent.trim(), stopgroup: false, picked: !num && !!m.querySelector('.highlighted-marker'), redCluster: !!m.querySelector('circle[fill="var(--figure-deep)"]'),
-      topmost: !!hit && hit.closest('.leaflet-marker-icon') === m, glyph: !!m.querySelector('use[href^="#g-"]'), opacity: (m.querySelector('.plan-muted') ? +m.querySelector('.plan-muted').style.opacity : 1),
+      topmost: !!hit && hit.closest('.leaflet-marker-icon') === m, clusterStops: ctag ? ctag.textContent : null,
+      ctagOnCount: ctag ? [...document.querySelectorAll('.leaflet-marker-icon svg text')].some(tx => { if (m.contains(tx)) return false; const a = ctag.getBoundingClientRect(), b = tx.getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom; }) : false,
+      countTop: (() => { const t = m.querySelector('text'); if (!t || num) return null; const b = t.getBoundingClientRect(), h = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2); return !!h && h.closest('.leaflet-marker-icon') === m; })(), glyph: !!m.querySelector('use[href^="#g-"]'), opacity: (m.querySelector('.plan-muted') ? +m.querySelector('.plan-muted').style.opacity : 1),
       x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2), w: r.width, z: +m.style.zIndex || 0,
       tagShown: !!(num && getComputedStyle(num).display !== 'none'),
       tagTop: !!num && getComputedStyle(num).display !== 'none' && (() => { const t = num.getBoundingClientRect(); const h = document.elementFromPoint(t.x + t.width / 2, t.y + t.height / 2); return !!h && h.closest('.leaflet-marker-icon') === m; })(), muted: !!m.querySelector('.plan-muted'), onMap: m.style.opacity !== '0' && cy > $('#map').getBoundingClientRect().top + 80 && cy < Math.min($('#locations').getBoundingClientRect().top, $('#filtersPanel').classList.contains('visible') ? $('#filtersPanel').getBoundingClientRect().top : 1e9) - 22 && cx > 14 && cx < innerWidth - 14 };
@@ -109,7 +111,8 @@ const FACTS = () => {
       const seg = $('#listSwitch button[aria-checked="false"]'), segOn = $('#listSwitch button[aria-checked="true"]');
       return { picker: cs($('#planPick .plan-picker'), 'Top'), segOff: cs(seg, 'Top'), segOn: cs(segOn, 'Top'), ledger: cs($('#planLedger'), 'Top'), ledgerShadow: $('#planLedger') ? getComputedStyle($('#planLedger')).boxShadow : null,
         slip: cs($('#planSlip'), 'Top'), slipShadow: $('#planSlip') ? getComputedStyle($('#planSlip')).boxShadow : null,
-        tag: cs($('#map .stop-tag'), 'Top'), tagInk: $('#map .stop-tag') ? getComputedStyle($('#map .stop-tag')).color : null }; })(),
+        tag: cs($('#map .stop-tag'), 'Top'), tagInk: $('#map .stop-tag') ? getComputedStyle($('#map .stop-tag')).color : null,
+        pinInk: $('#map .plan-stop:not(.highlighted-marker) .pin-n') ? getComputedStyle($('#map .plan-stop:not(.highlighted-marker) .pin-n')).color : null }; })(),
     // r10: where the slip sits and whether its text fits on one line (no ellipsis)
     slipBox: vis($('#planSlip')) ? (() => { const sl = $('#planSlip'), t = sl.querySelector('.slip-text'), r = sl.getBoundingClientRect();
       const live = ['toggleFiltersBtn', 'centerMeBtn'].map(id => document.getElementById(id)).filter(Boolean).map(e => e.getBoundingClientRect()).filter(q => q.width);

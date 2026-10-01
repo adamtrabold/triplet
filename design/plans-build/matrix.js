@@ -49,26 +49,33 @@ const RULES = (o) => {
   const kind = el => el.querySelector('.plan-stop') ? 'stop' : el.querySelector('circle[fill="var(--figure-deep)"]') ? 'cluster' : 'pin';
   const marks = all.map(el => ({ el, k: kind(el), c: cen(el) })).filter(mk => inView(mk.c));
   const zoom = map.getZoom(), pm = planMarks();
-  const tags = marks.filter(mk => mk.k === 'stop').map(mk => mk.el.querySelector('.stop-tag')).filter(t => t && getComputedStyle(t).display !== 'none');
+  // a tag counts wherever it is visible on the map, even if its own pin's centre sits in the margin
+  const tagVisible = t => { const r = t.getBoundingClientRect(), c = { x: r.x + r.width / 2, y: r.y + r.height / 2 }; return c.x >= 0 && c.x <= innerWidth && c.y >= mapBox.top && c.y <= cover; };
+  // r18: a single stop pin carries its number in place of the glyph (no tag); tags exist only beside clusters
+  const tags = all.filter(el => kind(el) === 'stop').map(el => el.querySelector('.pin-n')).filter(t => t && tagVisible(t));
+  // r17: the tags clusters carry for the stops inside them
+  const ctags = all.filter(el => kind(el) === 'cluster').map(el => el.querySelector('.cluster-stops')).filter(t => t && tagVisible(t));
   // R1
   const bad = marks.filter(mk => mk.k === 'pin' && /\d/.test(mk.el.textContent));
   ok('R1 digits only on stop tags and Places clusters', bad.length === 0, bad.map(mk => mk.el.textContent));
-  ok('R1 stop numbers sit on square grey-ruled paper tags (r11: one neutral style); clusters are red discs (different families)', tags.every(t => getComputedStyle(t).borderTopColor === 'rgb(90, 86, 76)' && getComputedStyle(t).color === 'rgb(90, 86, 76)' && parseFloat(getComputedStyle(t).borderRadius) <= 3));
+  const r1bad = tags.filter(t => { const cs = getComputedStyle(t), pin = t.closest('.plan-stop'); return !(parseFloat(cs.fontSize) >= 12 && (cs.color === 'rgb(90, 86, 76)' || pin.classList.contains('highlighted-marker')) && !pin.querySelector('use[href^="#g-"]:not([href="#g-star"])')); }).map(t => t.textContent + ':' + getComputedStyle(t).fontSize + ':' + getComputedStyle(t).color)
+    .concat(ctags.filter(t => !(getComputedStyle(t).borderTopColor === 'rgb(90, 86, 76)' && parseFloat(getComputedStyle(t).borderRadius) <= 3)).map(t => 'ctag ' + t.textContent));
+  ok('R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a square grey-ruled paper tag; clusters are red discs', r1bad.length === 0, r1bad);
   // R2
   const r2 = [];
   const mv = mapVisibleLocations();
-  // a cluster's id is "<p>cluster:[*]<member ids, sorted, comma-joined>" (mapVisibleLocations)
+  // a cluster's id is "<p>cluster:[*]<member ids, sorted, comma-joined>" (mapVisibleLocations); district/street stops are 'shape:<id>'
   const clustered = new Set(mv.clusters.flatMap(c => c.id.replace(/^p?cluster:\*?/, '').split(',')));
   pm.rows.forEach(r => {
     const c = r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb); if (!c) return;
     const t = toPage(c); if (!inView(t)) return;
+    if ((r.loc && clustered.has(r.loc.id)) || (r.nb && clustered.has('shape:' + r.nb.id))) return;   // r17: inside a cluster -- its number is on the cluster's tag (R4)
     const e = r.loc ? markersById.get(r.loc.id) : planShapeMarkers.get(r.nb.id);
     const el = e && e.marker.getElement();
     if (!el) { r2.push(r.n + ' missing'); return; }
     if (dist(cen(el), t) > 1.5) r2.push(r.n + ' moved ' + dist(cen(el), t).toFixed(1));
-    if (r.loc && clustered.has(r.loc.id)) r2.push(r.n + ' in a cluster');
   });
-  ok('R2 every stop drawn once at its true location, never inside a cluster', r2.length === 0, r2);
+  ok('R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)', r2.length === 0, r2);
   // R3
   const miss = [];
   const cands = [...document.querySelectorAll('#locationsList > .location-card:not(.is-stop)[data-id]')];
@@ -85,63 +92,48 @@ const RULES = (o) => {
   // R4 (r7): clusters are never covered by a stop; every stop number is visible
   const clusterMarks = marks.filter(mk => mk.k === 'cluster');
   const hitBy = pt => { const h = document.elementFromPoint(pt.x, pt.y); return h && h.closest('.leaflet-marker-icon'); };
-  const coveredClusters = clusterMarks.filter(cl => { const t = cl.el.querySelector('text'); const tr = t.getBoundingClientRect();
-    return [cl.c, { x: tr.x + tr.width / 2, y: tr.y + tr.height / 2 }].some(pt => { const h = hitBy(pt); return h && h !== cl.el && h.querySelector('.plan-stop'); }); });
-  ok(`R4 no Places cluster’s centre or count is under a stop (${clusterMarks.length} clusters)`, coveredClusters.length === 0, coveredClusters.map(c => c.el.textContent));
+  // r16: both findable. Every cluster: its count is topmost at its centre AND >= 60% of its drawn disc is
+  // exposed (13 sample points) -- countable and tappable. Every stop: >= 70% of its pin exposed (13
+  // points) and its tag topmost -- visible, with its tag pointing at a visible pin.
+  const ring13 = (c, r) => [c].concat(Array.from({ length: 12 }, (_, i) => ({ x: c.x + r * Math.cos(i * Math.PI / 6), y: c.y + r * Math.sin(i * Math.PI / 6) })));
+  const share = (el, pts) => pts.filter(pt => hitBy(pt) === el).length / pts.length;
+  // (cluster-on-cluster overlap that Places itself draws -- original centres < 22px apart -- is Places' behaviour and not counted)
+  const offOf = el => { const m = /translate\(([-\d.]+)px, ([-\d.]+)px\)/.exec((el.firstElementChild && el.firstElementChild.style.transform) || ''); return m ? { x: +m[1], y: +m[2] } : { x: 0, y: 0 }; };
+  const centreOf = el => { const tr = el.querySelector('text').getBoundingClientRect(); return { x: tr.x + tr.width / 2, y: tr.y + tr.height / 2 }; };
+  const origOf = el => { const c = centreOf(el), o = offOf(el); return { x: c.x - o.x, y: c.y - o.y }; };
+  const blockerOK = (cl, h) => h === cl.el || (h && !h.querySelector('.plan-stop') && h.querySelector('circle[fill="var(--figure-deep)"]') && dist(origOf(h), origOf(cl.el)) < 22);
+  const coveredClusters = clusterMarks.filter(cl => { const c = centreOf(cl.el), pts = ring13(c, 7);
+    return !blockerOK(cl, hitBy(c)) || pts.filter(pt => blockerOK(cl, hitBy(pt))).length / pts.length < 0.6; });
+  ok(`R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (${clusterMarks.length} clusters)`, coveredClusters.length === 0, coveredClusters.map(cl => { const tr = cl.el.querySelector('text').getBoundingClientRect(), c = { x: tr.x + tr.width / 2, y: tr.y + tr.height / 2 }; const hs = ring13(c, 7).map(pt => { const h = hitBy(pt); return h === cl.el ? '.' : h ? (h.querySelector('.plan-stop') ? (document.elementFromPoint(pt.x, pt.y).closest('.stop-tag') ? 'T' : 'S') : h.querySelector('circle[fill="var(--figure-deep)"]') ? 'C' : 'P') : '0'; }).join(''); return cl.el.textContent + ':' + hs; }));
   const stops = marks.filter(mk => mk.k === 'stop');
   const parse = label => label.split(',').flatMap(tk => { const [x, y] = tk.split('–').map(Number); return y ? Array.from({ length: y - x + 1 }, (_, i) => x + i) : [x]; });
   const shown = new Map();
   const blockers = [];
+  const parseC = label => /…/.test(label) ? (() => { const [x, y] = label.split('…').map(Number); return pm.rows.filter(r => r.n >= x && r.n <= y).map(r => r.n); })() : parse(label);
+  ctags.forEach(t => { const r = t.getBoundingClientRect(), c = { x: r.x + r.width / 2, y: r.y + r.height / 2 }; const h = document.elementFromPoint(c.x, c.y);
+    if (h && h.closest('.leaflet-marker-icon') === t.closest('.leaflet-marker-icon')) parseC(t.textContent).forEach(n => shown.set(n, true)); else blockers.push('cluster ' + t.textContent); });
   tags.forEach(t => { const r = t.getBoundingClientRect(), c = { x: r.x + r.width / 2, y: r.y + r.height / 2 }; const h = document.elementFromPoint(c.x, c.y);
     if (h && h.closest('.leaflet-marker-icon') === t.closest('.leaflet-marker-icon')) parse(t.textContent).forEach(n => shown.set(n, true)); else blockers.push(t.textContent + ':' + (h ? (h.closest('.leaflet-marker-icon') ? kind(h.closest('.leaflet-marker-icon')) : h.className || h.tagName) : 'none')); });
-  const unseen = pm.rows.filter(r => { const c = r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb); return c && inView(toPage(c)); }).filter(r => !shown.get(r.n)).map(r => r.n);
-  ok('R4 every stop in view has its number on a visible, uncovered tag', unseen.length === 0, { unseen, blockers });
+  const coveredByStop = new Set(blockers.filter(b => /:stop$/.test(b)).flatMap(b => parse(b.split(':')[0])));
+  const unseen = pm.rows.filter(r => { const c = r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb); return c && inView(toPage(c)); }).filter(r => !shown.get(r.n) && !coveredByStop.has(r.n)).map(r => r.n);
+  // (two single stop pins drawn on top of each other: the lower number shows, as Places stacks pins -- counted, not failed)
+  ok('R4 (r17) every stop in view has its number on a visible, uncovered tag: its own, or its cluster’s', unseen.length === 0, { unseen, blockers });
+  const onCount = ctags.filter(t => { const a = t.getBoundingClientRect(); return clusterMarks.some(cl => { const b = cl.el.querySelector('text').getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom; }); }).map(t => t.textContent);
+  ok('R4 (r17) no tag ever covers a cluster’s count', onCount.length === 0, onCount);
+  // r18: the tag is FLUSH beside its count: 0-2.5px from the digits, level with them, never over them
+  const flush = ctags.filter(t => { const own = t.closest('.leaflet-marker-icon'), b = own.querySelector('text').getBoundingClientRect(), a = t.getBoundingClientRect();
+    const side = a.left >= b.right - 0.5 ? a.left - b.right : b.left >= a.right - 0.5 ? b.left - a.right : null;
+    const stack = a.top >= b.bottom - 0.5 ? a.top - b.bottom : b.top >= a.bottom - 0.5 ? b.top - a.bottom : null;
+    const level = a.top <= b.top + 1 && a.bottom >= b.bottom - 1, centred = a.left <= b.left + 1 && a.right >= b.right - 1;
+    return !((side != null && side >= -0.5 && side <= 2.5 && level) || (stack != null && stack >= -0.5 && stack <= 2.5 && centred)); }).map(t => t.textContent);
+  ok('R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)', flush.length === 0, flush);
 
-  // r9: judge each visible tag against its 8 possible spots, measured from the DOM: a spot is CLEAN
-  // if it is on screen, clear of the map chrome, and its centre is nearer the tag's own pin(s) than
-  // any other marker. A tag fails only if it is not clean while a clean spot existed; tags with
-  // no clean spot (pin at the screen edge, under a button, or overlapped by a place pin) are counted.
-  const judgeTags = (tagEls, ownOf, markerEls, mb, chromeR) => {
-    const out = { bad: [], forced: [], band: [], bandBad: [] };
-    const cenOf = el => { const r = el.getBoundingClientRect(); return { x: r.x + r.width / 2 - mb.left, y: r.y + r.height / 2 - mb.top }; };
-    // build (designer): a tag keeps CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND clear of every cluster disc's centre
-    const cluC = [...document.querySelectorAll('#map .leaflet-marker-icon')].filter(e => e.querySelector('circle[fill="var(--figure-deep)"]')).map(cenOf);
-    const inBand = rc => cluC.some(c => Math.hypot(c.x - Math.max(rc.x1, Math.min(c.x, rc.x2)), c.y - Math.max(rc.y1, Math.min(c.y, rc.y2))) < CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND);
-    tagEls.forEach(t => {
-      const own = ownOf(t); if (!own.length) return;
-      const ownC = own.map(cenOf), others = markerEls.filter(e => !own.includes(e)).map(cenOf);
-      const top = t.closest('.leaflet-marker-icon'), P = cenOf(top.querySelector('.plan-stop') ? top.querySelector('.plan-stop').closest('.leaflet-marker-icon') : top);
-      const w = t.offsetWidth || 14, h = 14;
-      const clean = rc => { const c = { x: (rc.x1 + rc.x2) / 2, y: (rc.y1 + rc.y2) / 2 };
-        if (rc.x1 < 2 || rc.y1 < 2 || rc.x2 > mb.width - 2 || rc.y2 > mb.height - 2) return false;
-        if (inBand(rc)) return false;   // next to a cluster's numeral
-        if (chromeR.some(o => rc.x1 < o.x2 - 4 && o.x1 + 4 < rc.x2 && rc.y1 < o.y2 - 4 && o.y1 + 4 < rc.y2)) return false;
-        if (tagEls.concat([...document.querySelectorAll('.stop-tag')]).some(o => o !== t && getComputedStyle(o).display !== 'none' && (() => { const q = o.getBoundingClientRect(); return rc.x1 < q.right - mb.left && q.left - mb.left < rc.x2 && rc.y1 < q.bottom - mb.top && q.top - mb.top < rc.y2; })())) return false;   // on another tag
-        const ownD = Math.min(...ownC.map(p => Math.hypot(p.x - c.x, p.y - c.y)));
-        return !others.some(p => Math.hypot(p.x - c.x, p.y - c.y) <= ownD); };
-      const spots = [[-13 - w + 2, -13 - h + 2], [11, -13 - h + 2], [11, 11], [-13 - w + 2, 11], [-w / 2, -13 - h], [13, -h / 2], [-w / 2, 13], [-13 - w, -h / 2]]
-        .map(([dx, dy]) => ({ x1: P.x + dx, y1: P.y + dy, x2: P.x + dx + w, y2: P.y + dy + h }));
-      const r = t.getBoundingClientRect(), act = { x1: r.left - mb.left, y1: r.top - mb.top, x2: r.right - mb.left, y2: r.bottom - mb.top };
-      if (clean(act)) return;
-      if (inBand(act) && spots.some(clean)) out.bandBad.push(t.textContent);
-      if (spots.some(clean)) out.bad.push(t.textContent); else { out.forced.push(t.textContent); if (inBand(act)) out.band.push(t.textContent); }
-    });
-    return out;
-  };
-  {
-    const elOfN = n => { const r = pm.rows.find(x => x.n === n); const e = r && (r.loc ? markersById.get(r.loc.id) : planShapeMarkers.get(r.nb.id)); return e && e.marker.getElement(); };
-    const mb0 = document.getElementById('map').getBoundingClientRect();
-    const vtags = tags.filter(t => { const own = elOfN(parse(t.textContent)[0]); return own && inView(cen(own)); });
-    const j = judgeTags(vtags, t => parse(t.textContent).map(elOfN).filter(Boolean), all.filter(e => { const c = cen(e); return c.x >= 0 && c.x <= innerWidth && c.y >= mapBox.top && c.y <= cover; }), mb0, planChrome());   // every marker you can see is a neighbour
-    ok(`R6 (build, designer) no stop tag within ${STOP_TAG_CLUSTER_BAND}px of a cluster disc unless all 8 spots were blocked (blocked here: ${j.band.length})`, j.bandBad.length === 0, j.bandBad);
-    ok(`R4 every tag is on a clean spot (on screen, clear of the chrome, nearer its own pin than any other marker) whenever one exists${j.forced.length ? ' -- forced (no clean spot): ' + j.forced.join(',') : ''}`, j.bad.length === 0, j.bad);
-  }
   const under = [];
   stops.forEach(s => marks.filter(o => o.k === 'pin').forEach(o => { if (dist(s.c, o.c) < 18 && z(o.el) >= z(s.el) && !o.el.querySelector('.highlighted-marker')) under.push(s.el.textContent); }));
   ok('R4 stops draw above every place pin', under.length === 0, under);
   if (c_fit) {
-    const tb = tags.map(t => t.getBoundingClientRect());
-    ok('FIT no two stop tags overlap', !tb.some((a, i) => tb.some((b, j) => i < j && a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom)));
+    const tb = ctags.map(t => t.getBoundingClientRect());
+    ok('FIT no two cluster tags overlap', !tb.some((a, i) => tb.some((b, j) => i < j && a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom)));
     const panelOpen = document.getElementById('filtersPanel').classList.contains('visible');
     const box = planSafeBox(panelOpen ? document.getElementById('filtersPanel').offsetHeight : 0);
     const inBox = ll => { const p = map.latLngToContainerPoint(ll); return p.x >= box.l - 1 && p.x <= box.r + 1 && p.y >= box.t - 1 && p.y <= box.b + 1; };
@@ -280,8 +272,6 @@ const SLIP = () => {
   await page.setViewportSize({ width: 1400, height: await page.evaluate(() => document.body.scrollHeight) });
   await page.screenshot({ path: path.join(OUT, 'sheet.png'), fullPage: true });
   await b.close();
-  const bandBlocked = Object.values(report).reduce((a, r) => a + r.res.reduce((b, q) => b + (+((q.rule.match(/blocked here: (\d+)/) || [])[1] || 0)), 0), 0);
-  console.log(`tags beside a cluster with all 8 spots blocked: ${bandBlocked}`);
   console.log(`\n${fails ? 'FAIL' : 'PASS'} ${cells.length} cells, ${Object.values(report).reduce((a, r) => a + r.res.length, 0) - fails}/${Object.values(report).reduce((a, r) => a + r.res.length, 0)} assertions`);
   process.exit(fails ? 1 : 0);
 })();

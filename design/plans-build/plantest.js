@@ -121,19 +121,29 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     // the map at a stop-level zoom
     await page.evaluate(() => { map.closePopup(); setHighlighted(null); map.setView([55.6905, 12.5520], 15, { animate: false }); }); await W(600);
     const mk = await page.evaluate(() => {
-      const out = {}; markersById.forEach((m, id) => { const el = m.marker.getElement(); const t = el && el.querySelector('.stop-tag'); out[id] = { tag: t && t.style.display !== 'none' ? t.textContent : null, glyph: !!(el && el.querySelector('use[href^="#g-"]:not([href="#g-star"])')), z: m.marker.options.zIndexOffset }; });
-      const d = [...planShapeMarkers.values()].map(e => { const el = e.marker.getElement(); return { n: el.querySelector('.stop-tag').textContent, poly: !!el.querySelector('polygon') }; });
-      const tg = getComputedStyle(document.querySelector('.stop-tag'));
-      return { out, d, tag: { border: tg.borderTopWidth + ' ' + tg.borderTopColor, color: tg.color, bg: tg.backgroundColor } }; });
-    ok('V10 zoom 15: every stop pin keeps its glyph and carries its number on a tag', ['mir', 'jae', 'cof', 'ass', 'bla'].every((id, i) => mk.out[id] && mk.out[id].tag === String([1, 2, 3, 4, 6][i]) && mk.out[id].glyph), mk.out);
-    ok('V11 one tag style for every stop: paper tile, 1px --ink-2 edge and numeral', mk.tag.border === '1px ' + INK2 && mk.tag.color === INK2 && mk.tag.bg === 'rgb(242, 235, 221)', mk.tag);
-    ok('V12 the district stop gets ONE diamond with its tag (5)', mk.d.length === 1 && mk.d[0].n === '5' && mk.d[0].poly, mk.d);
+      const out = {}; markersById.forEach((m, id) => { const el = m.marker.getElement(); const n = el && el.querySelector('.pin-n');
+        out[id] = { n: n ? n.textContent : null, glyph: !!(el && el.querySelector('use[href^="#g-"]:not([href="#g-star"])')), tag: !!(el && el.querySelector('.stop-tag')), z: m.marker.options.zIndexOffset }; });
+      const d = [...planShapeMarkers.values()].map(e => { const el = e.marker.getElement(); return { n: (el.querySelector('.pin-n') || {}).textContent, poly: !!el.querySelector('polygon') }; });
+      const pn = getComputedStyle(document.querySelector('#map .plan-stop:not(.highlighted-marker) .pin-n'));
+      return { out, d, pin: { color: pn.color, size: pn.fontSize, weight: pn.fontWeight }, tags: document.querySelectorAll('#map .stop-tag').length }; });
+    ok('V10 (r18) zoom 15: every stop pin shows its number in place of its glyph, no tag beside it', ['mir', 'jae', 'cof', 'ass', 'bla'].every((id, i) => mk.out[id] && mk.out[id].n === String([1, 2, 3, 4, 6][i]) && !mk.out[id].glyph && !mk.out[id].tag) && mk.tags === 0, mk.out);
+    ok('V11 (r18) the pin numeral: grey --ink-2, 13px bold', mk.pin.color === INK2 && mk.pin.size === '13px' && mk.pin.weight === '700', mk.pin);
+    ok('V12 the district stop is ONE diamond with its number (5)', mk.d.length === 1 && mk.d[0].n === '5' && mk.d[0].poly, mk.d);
     ok('V13 stops stack at 20000 - n (lower numbers on top), above places', mk.out.mir.z === 19999 && mk.out.jae.z === 19998 && mk.out.bla.z === 19994, [mk.out.mir.z, mk.out.jae.z, mk.out.bla.z]);
-    ok('V14 every other place the filters match is on the map as in Places (no tag)', Object.keys(mk.out).length > 6 && Object.entries(mk.out).filter(([id]) => !['mir', 'jae', 'cof', 'ass', 'bla'].includes(id)).every(([, v]) => v.tag === null), Object.keys(mk.out).length);
-    await page.evaluate(() => map.setView([55.6905, 12.5520], 11, { animate: false })); await W(600);
-    const far = await page.evaluate(() => { const st = ['mir', 'jae', 'cof', 'ass', 'bla']; return { stops: st.filter(id => markersById.has(id)).length, clusters: clusterMarkersById.size, cz: [...clusterMarkersById.values()].map(m => m.options.zIndexOffset),
-      inCluster: false, diamonds: planShapeMarkers.size }; });
-    ok('V15 zoom 11: stops are never clustered (all drawn), Places clusters keep their counts and draw above stops (30000)', far.stops === 5 && far.diamonds === 1 && far.clusters >= 1 && far.cz.every(z => z >= 30000), far);
+    ok('V14 every other place the filters match is on the map as in Places (its glyph, no number)', Object.keys(mk.out).length > 6 && Object.entries(mk.out).filter(([id]) => !['mir', 'jae', 'cof', 'ass', 'bla'].includes(id)).every(([, v]) => v.n === null && v.glyph), Object.keys(mk.out).length);
+    await page.evaluate(() => { setHighlighted('jae'); }); await W(300);
+    const sel = await page.evaluate(() => { const el = markersById.get('jae').marker.getElement(); return { c: getComputedStyle(el.querySelector('.pin-n')).color, z: markersById.get('jae').marker.options.zIndexOffset }; });
+    ok('V14b (r18) a selected stop pin fills with its ink and its numeral turns paper; it draws on top', sel.c === 'rgb(242, 235, 221)' && sel.z === 35000, sel);
+    await page.evaluate(() => { setHighlighted(null); map.setView([55.6905, 12.5520], 11, { animate: false }); }); await W(600);
+    const far = await page.evaluate(() => {
+      const ids = [...clusterMarkersById.keys()].flatMap(id => id.replace(/^p?cluster:\*?/, '').split(','));
+      const st = planMarks().rows; const inCl = st.filter(r => ids.includes(r.loc ? r.loc.id : 'shape:' + r.nb.id)).map(r => r.n);
+      const tags = [...document.querySelectorAll('#map .cluster-stops')].map(t => t.textContent);
+      const pins = [...document.querySelectorAll('#map .plan-stop .pin-n')].map(t => +t.textContent);
+      const parse = l => /…/.test(l) ? (() => { const [x, y] = l.split('…').map(Number); return st.filter(r => r.n >= x && r.n <= y).map(r => r.n); })() : l.split(',').flatMap(tk => { const [x, y] = tk.split('–').map(Number); return y ? Array.from({ length: y - x + 1 }, (_, i) => x + i) : [x]; });
+      const shown = new Set(pins.concat(tags.flatMap(parse)));
+      return { inCl, tags, pins, all: st.every(r => shown.has(r.n)), cz: [...clusterMarkersById.values()].map(m => m.options.zIndexOffset) }; });
+    ok('V15 (r17/r18) zoom 11: stops cluster like any pin; a cluster holding stops carries one grey tag with their numbers; every stop number is on the map', far.inCl.length >= 1 && far.tags.length >= 1 && far.all && far.cz.every(z => z >= 30000), far);
     // visiting a stop: a Places visited row, nothing plan-specific
     await page.evaluate(async () => { await toggleLocationFlag('jae', 'visited'); }); await W(400);
     const vis = await page.evaluate(() => { const e = document.querySelector('.location-card[data-id="jae"]'), st = e.querySelector('.row-stamp:not(.vs-copy)'); return { n: e.querySelector('.row-n').textContent, stamp: st && getComputedStyle(st).color }; });
