@@ -15,9 +15,10 @@ const { rec, finish } = recorder('delete');
 // integers, so a 0.7071 diagonal "4px" lands at (3,3)->4.2 or (2,2)->2.8 -- not a 4px move. It is
 // skipped at 4px, where (2.4,3.2) rounds to 3.6px.
 const DIRS = { left: [-1, 0], right: [1, 0], up: [0, -1], down: [0, 1], diag: [-0.6, -0.8] };
-// PROBE (reported, not gated): out 4-12px and back to the start before lifting. Chromium (like
-// Android Chrome) suppresses touchmoves inside its ~15px touch slop when touchstart isn't consumed,
-// so the page only sees the release point (0px) and the X deletes. iOS sends every move; unverified.
+// OUT-AND-BACK (gated since fix-d7; was a probe): out 4-12px and back to the start before lifting.
+// Chromium (like Android Chrome) suppresses touchmoves inside its ~15px touch slop when touchstart
+// isn't consumed, but still sends touch pointermoves; the X's travel (max displacement, not end
+// displacement) reads those too, so none of these may delete. iOS sends every touchmove; unverified.
 const PROBE = [4, 6, 8, 12];
 (async () => {
   const b = await launch(); const probes = {};
@@ -40,8 +41,8 @@ const PROBE = [4, 6, 8, 12];
       if (back) { probe.push({ dist, ...o }); continue; }
       res.push({ dist, dn, ...o, ok: (want ? o.del === 1 : o.del === 0) && o.nav === 0 });
     }
-    console.log(`${mode.padEnd(8)} PROBE out-and-back (not gated): ${probe.map(p => `${p.dist}px -> ${p.del ? 'DELETES' : 'no delete'}`).join(', ')}`);
     probes[mode] = probe;
+    rec(mode, `touch out-and-back ${PROBE.join('/')}px (back to the start before lifting): never deletes, never navigates -> ${probe.map(p => `${p.dist}px ${p.del ? 'DELETES' : 'no delete'}`).join(', ')}`, probe.every(p => !p.del && !p.nav), probe);
     const bad = res.filter(r => !r.ok);
     for (const d of [0, 1, 2, 3, 4, 5, 6, 8, 12, 20, 40, 90]) { const rs = res.filter(r => r.dist === d); const ok = rs.every(r => r.ok);
       rec(mode, `touch ${d}px (${rs.map(r => r.dn).join('/')}): ${d < 4 ? 'deletes' : 'never deletes'}, never navigates -> deletes ${rs.map(r => r.del).join(',')}`, ok, rs.filter(r => !r.ok)); }

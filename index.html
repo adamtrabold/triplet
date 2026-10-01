@@ -4673,7 +4673,10 @@
       el.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) xMove(t.clientX, t.clientY); }, { passive: true });
       el.addEventListener('touchend', (e) => { const t = e.changedTouches[0]; if (t) xMove(t.clientX, t.clientY); }, { passive: true });
       el.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') xStart(e.clientX, e.clientY); });
-      el.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && e.buttons) xMove(e.clientX, e.clientY); });
+      // Touch pointermoves too: Chromium/Android hold back touchmoves inside
+      // their ~15px slop but still send pointermoves, so a 4-12px out-and-back
+      // wiggle on the X was otherwise read as a still tap and deleted.
+      el.addEventListener('pointermove', (e) => { if ((e.pointerType === 'mouse' && e.buttons) || e.pointerType === 'touch') xMove(e.clientX, e.clientY); });
       el.addEventListener('pointerup', (e) => { if (e.pointerType === 'mouse') xMove(e.clientX, e.clientY); });
 
       // Only delete is excluded from the row press. The actions cluster
