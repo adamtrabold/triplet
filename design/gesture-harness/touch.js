@@ -87,7 +87,7 @@ const n8 = [];
       r('diagonal 60x/100y never stars', same(s) && !s.live && !s.nav.length, s); await ctx.close(); }
     // --- clearance: no graphite while the name is < 3px clear of the sketch
     for (const nm of ['Café Pascal', 'Järntorget', 'Ítalía']) { const { ctx, page } = await fresh();
-      const q = await page.evaluate((nm) => { const id = __rowIds()[0]; locations = locations.map(l => l.id === id ? { ...l, name: nm } : l); updateUI();
+      const q = await page.evaluate((nm) => { const id = __rowIds()[0]; __rename(id, nm);
         const loc = locations.find(l => l.id === id); const el = document.querySelector(`.location-card[data-id="${id}"]`);
         const m = mountPencilStar(el, loc); const g = { ...m, id, starred: false, off: 0, armed: false, forward: true }; const pen = m.svg.querySelector('.sg-pencil').getBoundingClientRect();
         let minGap = 1e9, firstDrawn = null;

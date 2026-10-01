@@ -43,6 +43,9 @@ const INSTRUMENT = () => {
   confirmDelete = function (id) { __del.push(id); };
   confirmDeleteShape = function (id) { __del.push('shape:' + id); };
   document.addEventListener('touchend', () => __te.push(performance.now()), true);
+  // rename a place in the page AND in the stub's server rows (a refetch would otherwise revert it
+  // and re-render the row mid-test); returns its new A-Z index
+  window.__rename = (id, name) => { window.__ROWS.forEach(r => { if (r.id === id) r.name = name; }); locations = locations.map(l => l.id === id ? { ...l, name } : l); updateUI(); return __rowIds().indexOf(id); };
   window.__rowIds = () => [...document.querySelectorAll('#locationsList .location-card[data-id]')].map(e => e.dataset.id);
 };
 

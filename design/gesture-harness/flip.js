@@ -46,9 +46,10 @@ function judge(L, reduced) {
 (async () => {
   const b = await launch(); let controlFails = 0, controlRuns = 0;
   const cases = [['star long visited', 2, null], ['unstar long', 1, null], ['star short', 0, null], ['unstar short', 1, 'Kaffibarinn']];
-  for (const control of [false, true]) for (const reduced of (control ? [false] : [false, true])) for (const [lbl, idx, rn] of cases) {
+  for (const control of [false, true]) for (const reduced of (control ? [false] : [false, true])) for (const [lbl, idx0, rn] of cases) {
     const { ctx, page, cdp } = await openProto(b, { reduced });
-    await page.evaluate(rn => { if (rn) { const id = __rowIds()[1]; locations = locations.map(l => l.id === id ? { ...l, name: rn } : l); updateUI(); } }, rn);
+    // a rename re-sorts the A-Z list: follow the renamed row to its new index
+    const idx = await page.evaluate(([i, rn]) => { const id = __rowIds()[i]; return rn ? __rename(id, rn) : i; }, [idx0, rn]);
     if (control) await page.evaluate(() => { // NEGATIVE CONTROL: slide the old row home, then swap glyphs AT REST
       flipToFinal = (el, g, ns, ms, done) => { const o = g.off || 0, m = g.metaOff || 0; runTimeline(ms, t => setSlip(g, o * (1 - easeOut(t)), m * (1 - easeOut(t))), () => { const loc = locations.find(l => l.id === g.id); renderCard(el, { ...loc, starred: ns }); const e = cardsById.get(g.id); if (e) e.signature = cardSignature({ ...loc, starred: ns }); g.h3 = el.querySelector('h3'); g.meta = el.querySelector('.row-meta'); g.main = el.querySelector('.row-main'); setTimeout(done, 120); }); }; });
     await page.evaluate(LOG);
