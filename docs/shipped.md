@@ -679,8 +679,9 @@ finding was fixed and another introduced.
   attributed to their CSS selector by neutralise-one-rule probing.
 - **`--review`** + **`--check-review`**: the vendored skill
   (`.agents/skills/impeccable/`, tag `cli-v4.1.0`, engine 0.1.5, Apache-2.0)
-  runs `context`, and 17 critic commands run by agents read-only into a
-  committed `REPORT.md`; open P0/P1 block until designer/UX/CD dispose of them.
+  runs `context`, and `critique` + `audit` run by one agent read-only into a
+  committed `REPORT.md` (the other 15 critic commands are opt-in: `--review --all` /
+  `--commands a,b`; `--check-review` requires the packet's listed commands); open P0/P1 block until designer/UX/CD dispose of them.
 - Not run per change: `init`/`document`/`extract` (owner decisions), `shape`/
   `craft` (designer tools), `live` (needs a human at a browser), `help`/
   `install`/`update` (impeccable.style is blocked; replaced by vendoring),
