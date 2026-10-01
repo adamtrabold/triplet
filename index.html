@@ -1526,8 +1526,8 @@
     .plan-picker .plan-name { flex: 1 1 auto; text-align: left; font-size: 12px; }
     .plan-picker svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
     #filtersPanel:not(.plans-side) .plan-picker { color: var(--ink-2); }
-    /* No plans: an empty select -- "No plan" placeholder in --ink-2, regular case, chevron kept. */
-    .plan-picker.is-empty .plan-name { color: var(--ink-2); text-transform: none; font-weight: 400; letter-spacing: 0; font-size: 13px; }
+    /* No plans: an empty select -- "NO PLAN" in the picker's own type, --ink-2, chevron kept. */
+    .plan-picker.is-empty .plan-name { color: var(--ink-2); }
     .plan-picker:active { background: var(--state-press); }
     /* Open = the pressed tone with the chevron turned up. A named exception to
        the state system's "open = navy tile": beside the solid PLANS half, navy
@@ -1538,7 +1538,7 @@
     .plan-picker:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
     /* The picker's slip drops over the chips (no layout change): every plan
        with its count and ⋯ (rename / delete that plan), then New plan. */
-    #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: 54px; z-index: 5; max-height: 270px; overflow-y: auto;
+    #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: 54px; z-index: 5; box-sizing: border-box;
       background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; box-shadow: 0 2px 0 var(--hair); }
     #planLedger[hidden] { display: none; }
     /* 44px ledger rows + a 1px --hair rule: the sort menu's row voice. */
@@ -1547,6 +1547,8 @@
       height: 45px; border-bottom: 1px solid var(--hair); position: relative;
     }
     .plan-opt:last-child { border-bottom: none; }
+    .plan-scroll { overflow-y: auto; overscroll-behavior: contain; }   /* layoutPlanLedger() caps it */
+    .plan-scroll .plan-opt:last-child { border-bottom: 1px solid var(--hair); }   /* New plan sits below, pinned */
     .plan-pick {
       display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; column-gap: var(--s2);
       height: 44px; min-width: 0; padding: 0 0 0 var(--s3); margin: 0; border: none; background: transparent; cursor: pointer; text-align: left;
@@ -1588,7 +1590,7 @@
       font-size: 12px; letter-spacing: 0.08em; color: var(--ink-2); -webkit-tap-highlight-color: transparent;
     }
     .plan-act.primary { color: var(--navy); }
-    .plan-act.danger { color: var(--figure-deep); }
+    .plan-act.danger { color: var(--ink-2); }   /* not the city accent: the confirm() is the guard */
     .plan-act:first-child { margin-left: calc(var(--s3) * -1); }
     .plan-act:active { background: var(--state-press); }
 
@@ -1647,10 +1649,15 @@
     .plan-rule { box-sizing: border-box; min-height: 26px; padding: 7px var(--gutter) 5px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
       background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 10px; line-height: 12px; letter-spacing: 0.12em;
       color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* An empty section inside the list: Places' empty-state voice (condensed bold caps,
+       --ink-2), no glyph -- the compass belongs to an empty whole list. */
     .plan-list-note {
-      padding: var(--s4) var(--gutter); border-bottom: 1px solid var(--hair); text-align: center;
-      color: var(--ink-2); font-size: 12px; line-height: 16px; font-style: italic;
+      padding: var(--s4) var(--gutter); border-bottom: 1px solid var(--hair); text-align: center; color: var(--ink-2);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 16px; letter-spacing: 0.06em;
     }
+    /* add / remove: the rows round the change slide to open or close the gap (.plan-shift) */
+    .plan-rule.plan-shift, .plan-list-note.plan-shift { transition: transform 0.15s ease; }
+    @media (prefers-reduced-motion: reduce) { .plan-rule.plan-shift, .plan-list-note.plan-shift { transition: none; } }
     /* No plans yet: two explicit lines, then the one New plan, a city chip's 1px --hair. */
     .plan-empty-line { display: block; }
     .plan-empty-new { display: block; margin: var(--s4) auto 0; height: 36px; padding: 0 var(--s4); border: 1px solid var(--hair); border-radius: 3px;
@@ -1675,9 +1682,12 @@
     #planSlip.on-header { border-width: 0; }
     #planSlip.wide { letter-spacing: 0.04em; }   /* the one-time drag hint, on one line at 390px */
     #planSlip .slip-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-    #planSlip button { all: unset; flex-shrink: 0; align-self: stretch; margin-left: var(--s3); padding: 0 var(--gutter) 0 var(--s3); display: flex; align-items: center; border-left: 1px solid var(--hair); cursor: pointer; position: relative; text-decoration: underline; text-underline-offset: 3px; }
-    #planSlip button::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; bottom: -4px; }
+    #planSlip button { all: unset; box-sizing: border-box; flex-shrink: 0; align-self: stretch; min-width: 44px; justify-content: center; margin-left: var(--s3); padding: 0 var(--gutter) 0 var(--s3); display: flex; align-items: center; border-left: 1px solid var(--hair); cursor: pointer; position: relative; text-decoration: underline; text-underline-offset: 3px; }
+    /* Undo's target: >=44px wide, 36px tall on the 26px rule band (taller would reach the
+       x above and the + below); the header band is its own full height. */
+    #planSlip button::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }
     #planSlip.on-header button::before { top: 0; bottom: 0; }
+    #planSlip button:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
 
     /* Map: a stop is its Places pin plus a square grey numbered tag. The pin's
        12px margin is pass-through (never covers a neighbour's tag or tap). */
@@ -2481,7 +2491,7 @@
     </div>
   </div>
 
-  <button id="accountBtn">
+  <button id="accountBtn" aria-label="Account">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
       <circle cx="12" cy="7" r="4"></circle>
@@ -2580,7 +2590,7 @@
           <path d="M16 21.5L11.5 15h9z" fill="currentColor" stroke="none"/>
         </svg>
       </button>
-      <button id="toggleFiltersBtn" title="Toggle category filters">
+      <button id="toggleFiltersBtn" title="Filters and plans" aria-label="Filters and plans" aria-expanded="false" aria-controls="filtersPanel">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="4" y1="6" x2="20" y2="6"/>
           <line x1="4" y1="12" x2="20" y2="12"/>
@@ -2590,7 +2600,7 @@
           <circle cx="12" cy="18" r="2" fill="currentColor"/>
         </svg>
       </button>
-      <button id="centerMeBtn">
+      <button id="centerMeBtn" aria-label="Show my location">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <circle cx="12" cy="12" r="3"/>
           <line x1="12" y1="1" x2="12" y2="6"/>
@@ -2766,7 +2776,8 @@
     let listView = 'places';         // 'places' | 'plans' -- the Places | Plans switch
     let plans = [];                  // [{ id, name, created_at }]
     let planStops = [];              // [{ id, plan_id, location_id, shape_id, position }]
-    let plansAvailable = null;       // null = not loaded yet; false = tables missing / unreadable (fail soft)
+    let plansAvailable = null;       // null = not loaded yet; false = tables missing (fail soft)
+    let plansOffline = false;        // the last read failed for another reason (no connection): keep what's loaded
     let activePlanId = null;
     let planWritesInFlight = 0;
     let plansDigest = null;
@@ -4567,6 +4578,7 @@
       const was = document.getElementById('filtersPanel').classList.contains('visible');
       document.getElementById('filtersPanel').classList.remove('visible');
       document.getElementById('toggleFiltersBtn').classList.remove('active');
+      document.getElementById('toggleFiltersBtn').setAttribute('aria-expanded', 'false');
       if (was) reframeAfterPanel();   // Plans: the same re-fit rule as the toggle button
     }
 
@@ -4819,8 +4831,8 @@
 
     function emptyText(planMode) {
       if (!planMode) return 'Nothing here yet.';
-      if (plansAvailable === false) return 'Plans aren’t available yet.';
-      if (plansAvailable === null) return 'Loading plans…';
+      if (plansAvailable === false) return 'Plans aren’t set up yet.';
+      if (plansAvailable === null) return plansOffline ? 'Offline. Plans load when you’re back online.' : 'Loading plans…';
       if (!plans.length) return 'No plans yet.';   // + its second line (planEmptyLine2), never left to text-wrap
       if (!activePlan()) return 'Pick a plan.';
       return 'No stops yet.';
@@ -4835,7 +4847,7 @@
     const planRule = document.createElement('div');
     planRule.className = 'plan-rule'; planRule.setAttribute('role', 'separator');
     const planStopsNote = document.createElement('div'); planStopsNote.className = 'plan-list-note';
-    planStopsNote.textContent = 'No stops yet. Tap + on a place below.';
+    planStopsNote.textContent = 'No stops yet · tap + on a place below';
     const planOthersNote = document.createElement('div'); planOthersNote.className = 'plan-list-note';
     const planEmptyBtn = document.createElement('button'); planEmptyBtn.type = 'button'; planEmptyBtn.className = 'plan-empty-new'; planEmptyBtn.textContent = 'New plan';
     const planEmptyLine2 = document.createElement('span'); planEmptyLine2.className = 'plan-empty-line'; planEmptyLine2.textContent = 'A plan’s stops show here and on the map.';
@@ -4856,8 +4868,28 @@
         neighborhoodShapes.some(n => filters.categories[n.type] && (isAllCities() || n.city === activeCity));
       return any ? 'Every place these filters match is in this plan.' : 'No places match these filters.';
     }
+    // 9 (UX): after + / x (and their Undo) the rows on either side of the change slide to open or
+    // close the gap (150ms, .plan-shift; instant with reduced motion); the changed row just appears.
+    let planFlipNext = null;
+    function flipPlanList(list, before, changed) {
+      if (prefersReducedMotion()) return;
+      const moved = [];
+      [...list.children].forEach(el => {
+        const t0 = before.get(el);
+        if (t0 == null || el === changed || el.classList.contains('plan-lifted')) return;
+        const dy = t0 - el.getBoundingClientRect().top;
+        if (Math.abs(dy) < 0.5) return;
+        el.classList.remove('plan-shift'); el.style.transform = `translateY(${dy}px)`; moved.push(el);
+      });
+      if (!moved.length) return;
+      void list.offsetHeight;
+      moved.forEach(el => { el.classList.add('plan-shift'); el.style.transform = ''; });
+      setTimeout(() => moved.forEach(el => { if (!el.style.transform) el.classList.remove('plan-shift'); }), 200);
+    }
     function syncPlanCards(rows) {
       const list = document.getElementById('locationsList');
+      const flip = planFlipNext; planFlipNext = null;
+      const before = flip ? new Map([...list.children].map(el => [el, el.getBoundingClientRect().top])) : null;
       const want = [];
       const seenLoc = new Set(), seenShape = new Set();
       const open = !!activePlan();
@@ -4901,6 +4933,10 @@
       cardsById.forEach((entry, id) => { if (!seenLoc.has(id)) { entry.el.remove(); cardsById.delete(id); } });
       shapeCardsById.forEach((entry, id) => { if (!seenShape.has(id)) { entry.el.remove(); shapeCardsById.delete(id); } });
       want.forEach((el, i) => { if (list.children[i] !== el) list.insertBefore(el, list.children[i] || null); });
+      if (before) {
+        const changed = typeof flip === 'object' ? (flip.locationId != null ? cardsById.get(flip.locationId) : shapeCardsById.get(Number(flip.shapeId))) : null;
+        flipPlanList(list, before, changed && changed.el);
+      }
     }
 
     // ---- per-device view state --------------------------------------------
@@ -4931,16 +4967,25 @@
         ]);
       } catch (err) { res = [{ error: err }]; }
       if (res.some(r => !r || r.error)) {
-        if (plansAvailable !== true) {
-          const first = plansAvailable === null;
-          plansAvailable = false;
-          if (first && inPlanView()) listView = 'places';   // a stored Plans view can't open yet: start in Places
-          updateUI();
-        }
+        // Tables missing (the migration not applied yet): Plans isn't set up -- no banner, and
+        // only then a stored Plans view starts in Places. Any other failure (offline): Plans
+        // keeps its view and whatever is loaded; the picker says "Offline".
+        const missing = res.some(r => r && r.error && (r.error.code === 'PGRST205' || r.error.code === '42P01' || /could not find the table|does not exist/i.test(r.error.message || '')));
+        if (missing) {
+          if (plansAvailable !== true) {
+            const first = plansAvailable === null;
+            plansAvailable = false; plansOffline = false;
+            if (first && inPlanView()) listView = 'places';   // a stored Plans view can't open yet: start in Places
+            updateUI();
+          }
+        } else if (!plansOffline) { plansOffline = true; updateUI(); }
         return;
       }
       if (planWritesInFlight > 0) return;   // an optimistic write is on screen: the last to settle refetches
+      const wasOffline = plansOffline;
+      plansOffline = false;
       applyPlansPayload(res[0].data || [], res[1].data || []);
+      if (wasOffline) updateUI();
     }
     function applyPlansPayload(planRows, stopRows) {
       const digest = JSON.stringify([planRows, stopRows]);
@@ -5137,27 +5182,47 @@
     // It rides the list (re-placed on scroll and resize while it shows).
     document.getElementById('locationsList').addEventListener('scroll', () => placePlanSlip(), { passive: true });
     addEventListener('resize', () => placePlanSlip());
-    function showPlanSlip(text, undo) {
+    // kind: 'add' | 'remove' | 'move'; removed: the stop rows a 'remove' slip would put back.
+    let planSlipKind = null, planSlipRemoved = [], planSlipHeld = 0;
+    // The 6s pause while the slip is hovered, focused or pressed; leaving restarts a full 6s.
+    const armPlanSlipTimer = () => { clearTimeout(planSlipTimer); if (!planSlip.hidden && !planSlipHeld) planSlipTimer = setTimeout(hidePlanSlip, PLAN_SLIP_MS); };
+    const holdPlanSlip = on => { planSlipHeld = Math.max(0, planSlipHeld + (on ? 1 : -1)); if (planSlipHeld) clearTimeout(planSlipTimer); else armPlanSlipTimer(); };
+    function showPlanSlip(text, undo, kind = null, removed = []) {
       if (!planSlip.parentNode) {
         document.body.appendChild(planSlip);
         planSlip.querySelector('button').addEventListener('click', async () => { const u = planSlipUndo; hidePlanSlip(); if (u) await u(); });
+        planSlip.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') holdPlanSlip(true); });
+        planSlip.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') holdPlanSlip(false); });
+        planSlip.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') { holdPlanSlip(true); const up = () => { holdPlanSlip(false); removeEventListener('pointerup', up); removeEventListener('pointercancel', up); }; addEventListener('pointerup', up); addEventListener('pointercancel', up); } });
+        planSlip.addEventListener('focusin', () => holdPlanSlip(true));
+        planSlip.addEventListener('focusout', () => holdPlanSlip(false));
       }
       planSlip.querySelector('.slip-text').textContent = text;
-      planSlipUndo = undo; planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // again once the list has re-rendered
-      clearTimeout(planSlipTimer); planSlipTimer = setTimeout(hidePlanSlip, PLAN_SLIP_MS);
+      planSlipUndo = undo; planSlipKind = kind; planSlipRemoved = removed;
+      planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // again once the list has re-rendered
+      armPlanSlipTimer();
     }
-    function hidePlanSlip() { clearTimeout(planSlipTimer); planSlip.hidden = true; planSlipUndo = null; }
+    function hidePlanSlip() { clearTimeout(planSlipTimer); planSlip.hidden = true; planSlipUndo = null; planSlipKind = null; planSlipRemoved = []; }
     async function restoreStop(s) {   // Undo of a remove: the same row, back at its old position
       return planWrite('restore the stop',
         () => { if (!planStops.some(t => t.id === s.id)) planStops = planStops.concat([s]); },
         () => { planStops = planStops.filter(t => t.id !== s.id); },
         () => supabaseClient.from('plan_stops').insert([s]));
     }
+    // 2a (UX): + / x taps are ignored for PLAN_ACT_LOCK_MS after a row action (a double tap,
+    // or a tap on the row that slid under the finger, never adds or removes twice).
+    const PLAN_ACT_LOCK_MS = 400;
+    let planActLockUntil = 0;
     async function planRowAct(act, target, label) {
       const p = activePlan();
       if (!p) return;
+      if (performance.now() < planActLockUntil) return;
+      planActLockUntil = performance.now() + PLAN_ACT_LOCK_MS;
+      planFlipNext = target;   // the rows round the change slide (syncPlanCards)
       if (act === 'add') {
         const id = await addStop(p.id, target);
+        planFlipNext = null;   // consumed by the optimistic render (or nothing happened)
+        if (!id) planActLockUntil = 0;   // nothing was added (signed out, a failed write): no lock
         if (id) {
           const n = stopsOf(p.id).length;
           // The one-time hint for the drag, once per device (a plan now has something to reorder).
@@ -5181,9 +5246,18 @@
         return;
       }
       const r = planMarks().rows.find(x => target.locationId != null ? x.loc && x.loc.id === target.locationId : x.nb && x.nb.id === Number(target.shapeId));
-      if (!r) return;
+      if (!r) { planFlipNext = null; return; }
       const s = r.stop;
-      if (await removeStop(s.id)) showPlanSlip(`Removed ${label}`, () => restoreStop(s));
+      // 2b (UX): removals while the slip still shows merge into one slip; Undo puts them all back.
+      const prev = !planSlip.hidden && planSlipKind === 'remove' ? planSlipRemoved : [];
+      const removed = await removeStop(s.id);
+      planFlipNext = null;
+      if (!removed) planActLockUntil = 0;
+      if (removed) {
+        const all = prev.concat([s]);
+        showPlanSlip(all.length > 1 ? `Removed ${all.length} stops` : `Removed ${label}`,
+          async () => { for (const t of all) { planFlipNext = true; await restoreStop(t); } planFlipNext = null; }, 'remove', all);
+      }
     }
     // A reorder answers with the same slip; Undo moves the stop back to where
     // it was (the same order; its stored position may differ).
@@ -5369,7 +5443,9 @@
       if (view === 'plans') {
         if (!activePlan()) activePlanId = plans[0] ? plans[0].id : null;
         updateUI();
-        frameActivePlan();
+        // With no plan open (none yet, not set up, offline) the map frames the selected city
+        // exactly as Places does (ALL CITIES: Places' all-cities fit) -- never a blank spot.
+        if (activePlan()) frameActivePlan(); else focusCity(citySelection, { animate: true });
       } else {
         updateUI();
         focusCity(citySelection, { animate: true });
@@ -5410,14 +5486,14 @@
       const pick = document.getElementById('planPick'), ledger = document.getElementById('planLedger');
       const counts = plans.map(p => stopCount(p.id));
       const open = plansAvailable === true && (!!planPanel.open || planPanel.mode === 'creating');
-      const sig = JSON.stringify([listView, plansAvailable, activePlanId, planPanel.mode, open, planPanel.target, plans.map(p => [p.id, p.name]), counts]);
+      const sig = JSON.stringify([listView, plansAvailable, plansOffline, activePlanId, planPanel.mode, open, planPanel.target, plans.map(p => [p.id, p.name]), counts]);
       if (sig === planLedgerSig) return;
       planLedgerSig = sig;
       const hadFocus = panel.contains(document.activeElement) ? document.activeElement : null;
       const focusKey = hadFocus && (hadFocus.dataset.plan || hadFocus.dataset.more || hadFocus.dataset.act || (hadFocus.tagName === 'INPUT' ? 'input' : null));
       const cur = activePlan();
       // With no plans the picker is an empty select ("No plan"); its slip then holds only New plan.
-      const label = plansAvailable === false ? 'Not available yet' : plansAvailable === null ? 'Loading…' : cur ? cur.name : plans.length ? 'Pick a plan' : 'No plan';
+      const label = plansAvailable === false ? 'Not set up yet' : plansOffline ? 'Offline' : plansAvailable === null ? 'Loading…' : cur ? cur.name : plans.length ? 'Pick a plan' : 'No plan';
       const act = plansAvailable !== true ? 'none' : 'toggle';
       const empty = plansAvailable === true && !plans.length;
       pick.innerHTML = `<button type="button" class="plan-picker${empty ? ' is-empty' : ''}" data-act="${act}" aria-haspopup="true" aria-expanded="${open}"${act === 'none' ? ' aria-disabled="true"' : ''} aria-label="Plan: ${escapeAttr(label)}">` +
@@ -5426,19 +5502,20 @@
       if (!open) { ledger.innerHTML = ''; return; }
       const form = (lbl, a) => `<div class="plan-opt plan-form"><input type="text" maxlength="${PLAN_NAME_MAX}" enterkeyhint="done" autocomplete="off" aria-label="${lbl}" placeholder="Plan name" value="${escapeAttr(planPanel.draft)}">` +
         `<button type="button" class="plan-act" data-act="cancel">Cancel</button><button type="button" class="plan-act primary" data-act="${a}">${a === 'create' ? 'Create' : 'Save'}</button></div>`;
-      ledger.innerHTML = plans.map((p, i) => {
+      ledger.innerHTML = '<div class="plan-scroll">' + plans.map((p, i) => {
         const tgt = p.id === planPanel.target;
         if (tgt && planPanel.mode === 'renaming') return form('Plan name', 'save');
         if (tgt && planPanel.mode === 'acting') {
           return `<div class="plan-opt plan-form" role="group" aria-label="${escapeAttr(p.name)}"><button type="button" class="plan-act primary" data-act="rename">Rename</button>` +
-            `<button type="button" class="plan-act danger" data-act="delete">Delete plan</button><span class="plan-spacer"></span><button type="button" class="plan-act" data-act="cancel">Cancel</button></div>`;
+            `<button type="button" class="plan-act danger" data-act="delete">Delete plan…</button><span class="plan-spacer"></span><button type="button" class="plan-act" data-act="cancel">Cancel</button></div>`;
         }
         const n = counts[i], ct = `${n} ${n === 1 ? 'stop' : 'stops'}`;
         return `<div class="plan-opt"><button type="button" class="plan-pick" data-plan="${escapeAttr(p.id)}" aria-current="${p.id === activePlanId}" aria-label="${escapeAttr(p.name)}, ${ct}">` +
           `${PLAN_SVG.check}<span class="plan-name">${escapeHtml(p.name)}</span><span class="plan-count">${ct}</span></button>` +
           `<button type="button" class="plan-more" data-act="more" data-more="${escapeAttr(p.id)}" aria-label="Rename or delete ${escapeAttr(p.name)}">${PLAN_SVG.more}</button></div>`;
-      }).join('') + (planPanel.mode === 'creating' ? form('New plan name', 'create')
+      }).join('') + '</div>' + (planPanel.mode === 'creating' ? form('New plan name', 'create')
         : `<div class="plan-opt"><button type="button" class="plan-pick plan-new" data-act="new">${PLAN_SVG.plus}<span class="plan-name">New plan</span><span></span></button></div>`);
+      layoutPlanLedger();
       const input = ledger.querySelector('input');
       if (input && (focusKey === 'input' || planPanel.focusInput)) {
         planPanel.focusInput = false;
@@ -5449,6 +5526,33 @@
         if (again) again.focus({ preventScroll: true });
       }
     }
+    // The picker's slip (UX 4): when its plans don't all fit above the panel's bottom, the plan
+    // list scrolls, capped so its last visible row is cut in half (the scroll cue), with New plan
+    // pinned below it. When it does fit, its bottom edge never cuts through a chip: it extends
+    // to the middle of the gap under the chip row it would cross (or over the whole chip block).
+    function layoutPlanLedger() {
+      const panel = document.getElementById('filtersPanel'), ledger = document.getElementById('planLedger');
+      const sc = ledger.querySelector('.plan-scroll');
+      if (ledger.hidden || !sc) return;
+      ledger.style.minHeight = ''; sc.style.maxHeight = '';
+      const pr = panel.getBoundingClientRect(), lr = ledger.getBoundingClientRect(), DROP = 2;
+      const avail = pr.bottom - lr.top - DROP - 4;
+      const row = sc.firstElementChild ? sc.firstElementChild.getBoundingClientRect().height : 45;
+      if (lr.height > avail && sc.firstElementChild) {
+        const room = avail - (lr.height - sc.getBoundingClientRect().height);
+        sc.style.maxHeight = `${(Math.max(1, Math.floor(room / row - 0.5)) + 0.5) * row}px`;
+        return;
+      }
+      const chips = [...panel.querySelectorAll('.city-btn, .filter-btn')].map(c => c.getBoundingClientRect()).filter(r => r.height);
+      const bottom = lr.bottom + DROP;
+      const cut = chips.filter(r => r.top < bottom && r.bottom > bottom);
+      if (!cut.length) return;
+      const crossed = Math.max(...cut.map(r => r.bottom)), below = chips.filter(r => r.top >= crossed).map(r => r.top);
+      let target = below.length ? (crossed + Math.min(...below)) / 2 : crossed + 6;
+      if (target > lr.top + avail) target = Math.max(...chips.map(r => r.bottom)) + 6;   // cover the whole chip block
+      ledger.style.minHeight = `${target - DROP - lr.top}px`;
+    }
+    addEventListener('resize', () => layoutPlanLedger());
     function setPlanPanel(next) { planPanel = { mode: null, draft: '', open: true, ...next }; renderPlanPanel(); }
     async function submitPlanForm() {
       const name = cleanPlanName(planPanel.draft);
@@ -5503,7 +5607,10 @@
           setPlanPanel({});
           // Plain words, the phone's own dialog (the app's other deletes do the same). Any plan,
           // open or not: deleting another plan never changes what you're looking at.
-          if (confirm(`Delete “${tp.name}”? Its places stay in your list.`)) await deletePlan(tp.id);
+          if (confirm(`Delete “${tp.name}”? Its places stay in your list.`)) {
+            await deletePlan(tp.id);
+            if (inPlanView() && !activePlan()) focusCity(citySelection, { animate: true });   // the last plan: frame the city, as Places does
+          }
         }
       };
       ledger.addEventListener('click', onClick);
@@ -7372,6 +7479,7 @@
       const toggleBtn = document.getElementById('toggleFiltersBtn');
       filtersPanel.classList.toggle('visible');
       toggleBtn.classList.toggle('active');
+      toggleBtn.setAttribute('aria-expanded', String(filtersPanel.classList.contains('visible')));
       reframeAfterPanel();   // Plans: opening re-fits too (building), not only closing
       placePlanSlip();       // the list moved under the slip
     };

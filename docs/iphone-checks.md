@@ -134,9 +134,9 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   form submit while saving looks dim (.4), still legible.
 - iPhone check of Plans (v3 build). **Before the migration is applied (do
   this first):** (0) open filters, tap PLANS: the picker beside the switch
-  reads NOT AVAILABLE YET and does nothing when tapped, the list says "Plans
-  aren't available yet.", the city and category chips still work, the map is
-  empty, no error banner; tap PLACES: the app is exactly as before. A plan
+  reads NOT SET UP YET and does nothing when tapped, the list says "Plans
+  aren't set up yet.", the city and category chips still work, the map shows
+  the city as Places does (no stop pins), no error banner; tap PLACES: the app is exactly as before. A plan
   view you left open reopens in Places. **After the migration** (the operator
   applies it):
   1. **Panel, both views:** the switch and the picker share one row; every
@@ -149,7 +149,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      select); the list reads "No plans yet." / "A plan's stops show here and
      on the map." on two lines with one NEW PLAN button. **New plan:** the
      keyboard opens on a name field; Create opens the plan; the map frames the
-     city's places; the list says "No stops yet. Tap + on a place below."
+     city's places; the list says "NO STOPS YET · TAP + ON A PLACE BELOW"
      above a grey caption line ("ADD FROM COPENHAGEN (n)"), then your places
      with a grey + (the × turned 45°: say if it reads as a +).
   3. **+ :** tap + on a place: it becomes stop 1 above the line; on the map
@@ -207,3 +207,16 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
       will leave that plan too."; the plan renumbers 1..n.
   14. Signed out: everything readable; +, ×, dragging a number to a new place and
       New plan open the sign-in.
+  15. **UX round:** double-tap + quickly: only one stop is added. Remove two
+      stops within 6s: one slip "REMOVED 2 STOPS"; Undo brings both back in
+      place. Rest a finger on the slip past 6s: it stays; lift: it goes 6s
+      later. Undo is easy to hit without catching the × above or the + below.
+      Adding and removing: the rows around the change slide to open or close
+      the gap (no flash); with Reduce Motion on, instantly. With many plans the
+      picker's list scrolls with a half row showing at the bottom and New
+      plan pinned; with 0 or 1 plans its edge never cuts through a chip.
+      Airplane mode in Plans: the picker reads OFFLINE and the stops stay.
+      VoiceOver: the sliders button reads "Filters and plans", expanded or
+      collapsed; account and locate have names.
+  16. A starred + visited stop with a real long name: the row is the same
+      136px-wide text area as in Places; say if names truncate badly.

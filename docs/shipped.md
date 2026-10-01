@@ -733,7 +733,7 @@ chips and the 11 category chips exactly as in Places. Both controls speak the
 city chips' language (1px `--hair`, ink text); the switch's ON half is the
 state system's solid navy tile. The picker drops a slip over the chips (no
 layout change; 1px `--hair` + 2px `--hair` drop): every plan with its count
-and ⋯ (Rename / Delete plan / Cancel in the row, for any plan, without opening
+and ⋯ (Rename / Delete plan… (in `--ink-2`, not the city accent; its confirm() is the guard) / Cancel in the row, for any plan, without opening
 it), then New plan → name → Create / Cancel. Open picker = the pressed tone
 with the chevron up (a named exception to "open = navy": beside the PLANS
 half, navy read as a third segment). Picking closes the slip and keeps the
@@ -754,7 +754,9 @@ just the plan's name (20 characters fit at 390px; an ellipsis after); a tap
 on it scrolls the list back to the stops. After a city or chip change in
 Plans the list scrolls so the rule is at the top (`showPlanRule()`). Empty
 lines: "No places match these filters." / "Every place these filters match is
-in this plan." / "No stops yet. Tap + on a place below." / "No plans yet." +
+in this plan." / "No stops yet · tap + on a place below" (an empty section: Places'
+condensed bold caps in `--ink-2`, no glyph, no italic; the compass glyph belongs
+to an empty whole list) / "No plans yet." +
 "A plan’s stops show here and on the map." as two explicit lines (never left
 to text-wrap) with the one New plan button, 1px `--hair` like a city chip
 (sign-in first if needed); with no plan open the map draws nothing and ⇅ hides
@@ -863,9 +865,32 @@ still 08 shows the Copenhagen stops.
 
 **Other states.** Signed out: everything readable; + / × / drag / keyboard
 moves / New plan / Rename / Delete open the sign-in. Tables missing: the
-picker reads "Not available yet" (disabled), the list "Plans aren’t available
-yet.", the chips stay live, nothing on the map, a stored Plans view starts in
-Places, Places is unchanged. The add form opens over Plans unchanged; a new
+picker reads "Not set up yet" (disabled), the list "Plans aren’t set up yet.",
+no banner, the chips stay live, a stored Plans view starts in Places (only in
+this case), Places is unchanged. Offline (any other read failure,
+`plansOffline`): Plans keeps its view, the picker reads "Offline", the list
+keeps what's loaded ("Offline. Plans load when you’re back online." if
+nothing was); the next good read clears it. With no plan open (none yet, not
+set up, offline) the map frames the selected city exactly as Places does
+(`focusCity()`: ALL CITIES = Places' all-cities fit), no stop pins.
+
+**UX round (2026-10-01).** + and × ignore taps for `PLAN_ACT_LOCK_MS` 400ms
+after a row action (a double tap never adds or removes twice; the lock is
+dropped if nothing was written, e.g. signed out). Removals while the slip
+still shows merge into one slip, "Removed n stops"; Undo restores them all
+in their old positions; an add or move replaces the slip. Undo is ≥44px wide
+with a 36px tall target on the 26px rule band (taller would reach the × above
+and the + below; the header band is its own height), the `.plan-act` focus
+ring (`inset 0 0 0 2px var(--navy)`); the 6s timer pauses while the slip is
+hovered, focused or pressed and restarts a full 6s on leaving. After + / ×
+(and their Undo) the rows on either side of the change slide 150ms to open or
+close the gap (`flipPlanList()`, `.plan-shift`), the changed row just appears;
+reduced motion: instant. The picker's plan list scrolls when the plans don't
+fit above the panel's bottom, capped so the last visible row is cut in half,
+with New plan pinned below; otherwise its bottom never cuts through a chip
+(`layoutPlanLedger()`). The sliders button is "Filters and plans" (title and
+aria-label) with aria-expanded / aria-controls="filtersPanel"; the account
+and locate buttons got aria-labels (audit P1, WCAG 4.1.2). The add form opens over Plans unchanged; a new
 place that matches appears below the rule with +. Deleting (Places ×) a place
 that is a stop: "Delete <name>?\nIt is a stop in “<plan>”; it will leave that
 plan too." and the plan closes up to 1..n. Collapsed sheet and the ≥900px

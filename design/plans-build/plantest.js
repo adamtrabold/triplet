@@ -47,7 +47,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await toPlans(page);
     const f = await page.evaluate(() => ({ pick: document.querySelector('#planPick .plan-picker').textContent.trim(), dis: document.querySelector('#planPick .plan-picker').getAttribute('aria-disabled'),
       empty: document.getElementById('locationsEmpty').textContent.trim(), led: document.getElementById('planLedger').hidden }));
-    ok('F3 Plans side: the picker reads "Not available yet" (disabled), the list "Plans aren’t available yet.", no rows, no New plan', f.pick === 'Not available yet' && f.dis === 'true' && f.empty === 'Plans aren’t available yet.' && f.led && !(await page.$('.plan-empty-new')) && (await keys(page)).length === 0, f);
+    ok('F3 Plans side: the picker reads "Not set up yet" (disabled), the list "Plans aren’t set up yet.", no rows, no New plan', f.pick === 'Not set up yet' && f.dis === 'true' && f.empty === 'Plans aren’t set up yet.' && f.led && !(await page.$('.plan-empty-new')) && (await keys(page)).length === 0, f);
     await tap(page, '#planPick .plan-picker'); await W(200);
     ok('F4 the disabled picker opens nothing', await page.evaluate(() => document.getElementById('planLedger').hidden));
     ok('F5 Plans without tables: header "Plans", no ⇅, the chips stay live, nothing on the map', (await h2(page)) === 'Plans' && !(await shown(page, '#sortBtn')) && (await shown(page, '#cityFilters')) && (await shown(page, '#filters'))
@@ -160,7 +160,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('S2 spanning plan: each stop row names its city', metas[0].includes('Malmö') && metas[1].includes('Copenhagen'), metas);
     await pick(page, 'p-empty');
     const e0 = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.offsetParent).slice(0, 2).map(e => e.className + ':' + e.textContent.trim()));
-    ok('S3 a plan with 0 stops: "No stops yet. Tap + on a place below." above the rule, then the places', e0[0] === 'plan-list-note:No stops yet. Tap + on a place below.' && /^plan-rule:Add from Copenhagen/.test(e0[1]), e0);
+    ok('S3 a plan with 0 stops: "No stops yet · tap + on a place below" above the rule, then the places', e0[0] === 'plan-list-note:No stops yet · tap + on a place below' && /^plan-rule:Add from Copenhagen/.test(e0[1]), e0);
     await pick(page, 'p-long');
     const lg = await page.evaluate(() => { const h = document.querySelector('#locationsHeader h2 .h-name'); return { h: h.scrollWidth > h.clientWidth, e: getComputedStyle(h).textOverflow, lh: document.querySelector('#locationsHeader h2').getBoundingClientRect().height }; });
     ok('S4 a long name ellipsizes on one line, header stays one row', lg.h && lg.e === 'ellipsis' && lg.lh === 20, lg);
@@ -306,6 +306,85 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('U17 a still tap on it adds the street as stop 7', (await stopKeys(page)) === NOR + ',S9002', await stopKeys(page));
     await ctx.close(); }
 
+  // ---------------------------------------------------------------- UX round: offline, no-plan map, 2a/2b, Undo, labels, motion, picker list
+  { const { ctx, page, errors } = await open(b, { ...base, offline: true, storage: { ...HINTED, 'triplet.listView': 'plans', 'triplet.activePlan': 'p-nor' } });
+    await W(400);
+    const o = await page.evaluate(() => ({ view: listView, pick: document.querySelector('#planPick .plan-picker').textContent.trim(), empty: [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
+      banner: getComputedStyle(document.getElementById('error')).display }));
+    ok('O1 offline at load: Plans keeps its view; the picker reads "Offline"; the list says so; no banner from Plans', o.view === 'plans' && o.pick === 'Offline' && /^Offline\./.test(o.empty) && o.banner === 'none' && !errors.length, o);
+    await page.evaluate(async () => { window.__PLANS_OFFLINE = false; await fetchPlans(); }); await W(300);
+    ok('O2 back online: the plan opens', (await h2(page)) === 'Nørrebro afternoon' && (await stopKeys(page)) === NOR);
+    await page.evaluate(async () => { window.__PLANS_OFFLINE = true; await fetchPlans(); }); await W(300);
+    ok('O3 offline later: the picker reads "Offline" and the list keeps what is loaded', (await page.evaluate(() => document.querySelector('#planPick .plan-picker').textContent.trim())) === 'Offline' && (await stopKeys(page)) === NOR && (await h2(page)) === 'Nørrebro afternoon');
+    await ctx.close(); }
+  { const { ctx, page } = await open(b, { plans: [], stops: [] });
+    await page.evaluate(() => map.setView([10, 10], 5, { animate: false })); await W(200);
+    await toPlans(page); await W(800);
+    const c = await page.evaluate(() => ({ c: map.getCenter(), z: map.getZoom(), pins: markersById.size }));
+    ok('M7 no plan open: the map frames the selected city as Places does (Copenhagen, zoom 12), no stop pins', Math.abs(c.c.lat - 55.6761) < 0.02 && c.z === 12 && c.pins === 0, c);
+    await ctx.close(); }
+  { const { ctx, page, errors } = await open(b, base);
+    await toPlans(page); await closePanel(page);
+    const others2 = await page.evaluate(() => [...document.querySelectorAll('#locationsList .location-card:not(.is-stop)')].filter(e => e.dataset.id).slice(0, 2).map(e => e.dataset.id));
+    await page.evaluate(ids => { document.querySelector(`.location-card[data-id="${ids[0]}"] .plan-add`).click(); document.querySelector(`.location-card[data-id="${ids[1]}"] .plan-add`).click(); }, others2); await W(500);
+    const one = await stopKeys(page);
+    await W(400); await page.evaluate(id => document.querySelector(`.location-card[data-id="${id}"] .plan-add`).click(), others2[1]); await W(500);
+    ok('U18 (2a) a second + within 400ms of a row action is ignored; after 400ms it works', one === NOR + ',' + others2[0] && (await stopKeys(page)) === NOR + ',' + others2.join(), [one, await stopKeys(page)]);
+    await page.evaluate(async () => { for (const id of planStops.filter(s => s.plan_id === 'p-nor' && s.position > 6).map(s => s.id)) await removeStop(id); hidePlanSlip(); }); await W(300);
+    await page.evaluate(() => document.querySelector('.location-card[data-id="jae"] .plan-x').click()); await W(500);
+    await page.evaluate(() => document.querySelector('.location-card[data-id="ass"] .plan-x').click()); await W(500);
+    ok('U19 (2b) two removals while the slip shows merge: "Removed 2 stops"', (await slip(page)) === 'Removed 2 stops' && (await stopKeys(page)) === 'mir,cof,S9001,bla', [await slip(page), await stopKeys(page)]);
+    await page.evaluate(() => document.querySelector('#planSlip button').click()); await W(800);
+    ok('U20 Undo puts both back in their old positions', (await stopKeys(page)) === NOR, await stopKeys(page));
+    await page.evaluate(() => document.querySelector('.location-card[data-id="cof"] .plan-x').click()); await W(500);
+    await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 0; l.scrollTop = l.querySelector('.plan-rule').getBoundingClientRect().top - l.getBoundingClientRect().top - 100; }); await W(150);
+    const u = await page.evaluate(() => { const b = document.querySelector('#planSlip button'), r = b.getBoundingClientRect(), a = getComputedStyle(b, '::before');
+      const ring = [...document.styleSheets].flatMap(ss => { try { return [...ss.cssRules]; } catch (e) { return []; } }).filter(x => x.selectorText === '#planSlip button:focus-visible').map(x => x.style.boxShadow).join();
+      return { w: r.width, h: r.height - parseFloat(a.top) - parseFloat(a.bottom), ring }; });
+    ok('U21 Undo: ≥44px wide, a 36px tall target on the rule band, the inset navy focus ring', u.w >= 44 && Math.round(u.h) === 36 && /inset 0(px)? 0(px)? 0(px)? 2px var\(--navy\)/.test(u.ring), u);
+    await page.evaluate(() => document.querySelector('#planSlip button').blur());
+    await page.evaluate(() => document.querySelector('#planSlip').dispatchEvent(new FocusEvent('focusin'))); await W(6500);
+    const held = await slip(page);
+    await page.evaluate(() => document.querySelector('#planSlip').dispatchEvent(new FocusEvent('focusout'))); await W(3000);
+    const mid = await slip(page); await W(3300);
+    ok('U22 the 6s timer pauses while the slip is focused and restarts a full 6s on leaving', !!held && !!mid && (await slip(page)) === null, [held, mid]);
+    await page.evaluate(() => restoreStop(planStops.find(s => s.id === 's3') || { id: 's3', plan_id: 'p-nor', location_id: 'cof', shape_id: null, position: 3 })); await W(400);
+    const lb = await page.evaluate(() => { const t = document.getElementById('toggleFiltersBtn'); return [t.getAttribute('aria-label'), t.title, t.getAttribute('aria-controls'), t.getAttribute('aria-expanded'), document.getElementById('accountBtn').getAttribute('aria-label'), document.getElementById('centerMeBtn').getAttribute('aria-label')]; });
+    await openPanel(page);
+    const lb2 = await page.evaluate(() => document.getElementById('toggleFiltersBtn').getAttribute('aria-expanded'));
+    ok('A1 the sliders button is "Filters and plans" (title + aria-label), aria-controls the panel, aria-expanded follows it; account and locate have names', lb[0] === 'Filters and plans' && lb[1] === 'Filters and plans' && lb[2] === 'filtersPanel' && lb[3] === 'false' && lb2 === 'true' && !!lb[4] && !!lb[5], [lb, lb2]);
+    await closePanel(page);
+    // 9: motion -- rows below the change slide (plan-shift with a transform at the start), the changed row does not
+    const mv = await page.evaluate(async () => { const id = [...document.querySelectorAll('#locationsList .location-card:not(.is-stop)')].find(e => e.dataset.id).dataset.id;
+      const p = planRowAct('add', { locationId: id }, id); await new Promise(r => requestAnimationFrame(r));
+      const rule = document.querySelector('.plan-rule'), changed = document.querySelector(`.location-card[data-id="${id}"]`);
+      const out = { rule: rule.classList.contains('plan-shift'), changed: changed.classList.contains('plan-shift') || !!changed.style.transform }; await p; return out; });
+    ok('U23 (9) after +, the rows round the change slide (.plan-shift, 150ms); the added row just appears', mv.rule && !mv.changed, mv);
+    ok('U24 no errors', !errors.length, errors);
+    await ctx.close(); }
+  { const { ctx, page } = await open(b, { ...base, reduced: true });
+    await toPlans(page); await closePanel(page);
+    const mv = await page.evaluate(async () => { const id = [...document.querySelectorAll('#locationsList .location-card:not(.is-stop)')].find(e => e.dataset.id).dataset.id;
+      const p = planRowAct('add', { locationId: id }, id); await new Promise(r => requestAnimationFrame(r)); const n = document.querySelectorAll('.plan-shift').length; await p; return n; });
+    ok('U25 (9) reduced motion: the gap opens instantly (nothing slides)', mv === 0, mv);
+    await ctx.close(); }
+  { const many = FIX.plans.concat(Array.from({ length: 6 }, (_, i) => ({ id: 'p-x' + i, name: 'Extra plan ' + (i + 1), created_at: `2026-09-27T1${i}:00:00Z` })));
+    const { ctx, page } = await open(b, { ...base, plans: many });
+    await toPlans(page); await openPicker(page);
+    const L = await page.evaluate(() => { const sc = document.querySelector('#planLedger .plan-scroll'), lg = document.getElementById('planLedger'), pn = document.getElementById('filtersPanel');
+      const rows = [...sc.children], scR = sc.getBoundingClientRect(), last = rows.find(r => r.getBoundingClientRect().bottom > scR.bottom + 1);
+      const nw = lg.querySelector('.plan-new').getBoundingClientRect();
+      return { scroll: sc.scrollHeight > sc.clientHeight, cut: last ? (scR.bottom - last.getBoundingClientRect().top) / last.getBoundingClientRect().height : null, newVisible: nw.bottom <= pn.getBoundingClientRect().bottom && nw.top >= scR.bottom - 1, panelScroll: pn.scrollHeight - pn.clientHeight }; });
+    ok('L6 (UX 4) 11 plans: the plan list scrolls, its last visible row cut in half, New plan pinned below, the panel itself does not scroll', L.scroll && Math.abs(L.cut - 0.5) < 0.05 && L.newVisible && L.panelScroll <= 0, L);
+    await ctx.close(); }
+  for (const n of [0, 1]) {
+    const { ctx, page } = await open(b, { ...base, plans: FIX.plans.slice(0, n), stops: n ? FIX.stops.filter(s => s.plan_id === 'p-nor') : [] });
+    await toPlans(page); await openPicker(page);
+    const g = await page.evaluate(() => { const lr = document.getElementById('planLedger').getBoundingClientRect(), b = lr.bottom + 2;
+      return { b, cuts: [...document.querySelectorAll('#filtersPanel .city-btn, #filtersPanel .filter-btn')].map(c => c.getBoundingClientRect()).filter(r => r.top < b && r.bottom > b).length }; });
+    ok(`L7 (UX 4) ${n} plan${n === 1 ? '' : 's'}: the picker's slip ends in a gap between chip rows, never partway through a chip`, g.cuts === 0, g);
+    await ctx.close(); }
+
   // ---------------------------------------------------------------- writes through the panel
   { const { ctx, page, errors } = await open(b, base);
     await toPlans(page); await openPicker(page);
@@ -322,7 +401,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await openPicker(page);
     await tap(page, '#planLedger [data-more="p-tiv"]'); await W(200);
     const acts = await page.evaluate(() => [...document.querySelectorAll('#planLedger .plan-form .plan-act')].map(b => b.textContent));
-    ok('W4 ⋯ on a plan that is not open: Rename / Delete plan / Cancel in its row', acts.join() === 'Rename,Delete plan,Cancel', acts);
+    ok('W4 ⋯ on a plan that is not open: Rename / Delete plan / Cancel in its row', acts.join() === 'Rename,Delete plan…,Cancel', acts);
     await tap(page, '#planLedger [data-act="rename"]'); await W(200);
     await page.evaluate(() => { const i = document.querySelector('#planLedger input'); i.select(); }); await page.keyboard.type('Tivoli late'); await page.keyboard.press('Enter'); await W(600);
     const c2 = (await planCalls(page)).slice(1);

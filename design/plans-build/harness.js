@@ -17,7 +17,7 @@ function png1(r, g, b) {
 const TILE = png1(0xE8, 0xE4, 0xDA);
 const STUB = ['../list-ordering/build/stub.js', 'stub-malmo.js', 'stub.js'].map(f => fs.readFileSync(path.join(__dirname, f), 'utf8')).join('\n');
 
-async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, plans = [], stops = [], missing = false, failWrites = false, writeDelay = 0,
+async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, plans = [], stops = [], missing = false, offline = false, failWrites = false, writeDelay = 0,
   signedOut = false, visited = null, reduced = false, init = null, touch = true, city = 'copenhagen', wait = 900 } = {}) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: dsf, hasTouch: touch, isMobile: touch, reducedMotion: reduced ? 'reduce' : 'no-preference' });
   const page = await ctx.newPage();
@@ -39,7 +39,7 @@ async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, plans = 
     Object.assign(window, cfg);
     try { if (!sessionStorage.getItem('__seeded')) { sessionStorage.setItem('__seeded', '1');
       localStorage.setItem('triplet.citySelection', city); for (const [k, v] of Object.entries(st)) localStorage.setItem(k, v); } } catch (e) {}
-  }, [storage, city, { __PLANS: plans, __STOPS: stops, __PLANS_MISSING: missing, __FAIL_WRITES: failWrites, __WRITE_DELAY: writeDelay, __SIGNED_OUT: signedOut, __VISITED: visited }]);
+  }, [storage, city, { __PLANS: plans, __STOPS: stops, __PLANS_MISSING: missing, __PLANS_OFFLINE: offline, __FAIL_WRITES: failWrites, __WRITE_DELAY: writeDelay, __SIGNED_OUT: signedOut, __VISITED: visited }]);
   if (init) await page.addInitScript(init);
   await page.goto('https://triplet.test/index.html');
   await page.waitForTimeout(wait);

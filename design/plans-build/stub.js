@@ -3,6 +3,7 @@
 // double that implements the calls index.html makes: select / order / eq / insert / update /
 // delete / upsert, thenable like supabase-js. Knobs (set in an init script before load):
 //   __PLANS_MISSING  plans/plan_stops reads fail like a missing table (PGRST205)
+//   __PLANS_OFFLINE  plans/plan_stops reads fail like a network error (set it at runtime to go offline)
 //   __FAIL_WRITES    every plans/plan_stops write fails with an RLS error
 //   __WRITE_DELAY    ms before a write settles (default 0)
 //   __SIGNED_OUT     no session
@@ -49,6 +50,7 @@
       if (op !== 'select' && window.__WRITE_DELAY) await new Promise(r => setTimeout(r, window.__WRITE_DELAY));
       if (isPlanTable(table)) {
         if (window.__PLANS_MISSING) return { data: null, error: missing };
+        if (window.__PLANS_OFFLINE && op === 'select') return { data: null, error: { message: 'TypeError: Failed to fetch', code: '' } };   // supabase-js's shape for a failed fetch
         if (op !== 'select' && window.__FAIL_WRITES) return { data: null, error: rls };
       }
       const rows = db[table] || (db[table] = []);
