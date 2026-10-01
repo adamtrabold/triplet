@@ -200,7 +200,9 @@ concept is in progress. Get a decision before building.
   open: a trip entity and day-trip filing, with no distance setting for
   the user (`design/trip-location-model/`). Adding a place must stay
   low-friction.
-- **Plans phase 2 (Edit mode X)** — phase 1 (Places | Plans, following,
-  map numbers, data layer) is built; the plans migration must be applied
-  before anyone can create a plan. Spec: `design/plans-deepdive/v2/`.
+- **Plans** — v3 (build and follow in one list, shared filters, grey
+  numbers, map tags, Undo slip) is built on `plans-v3-build`, not merged;
+  the plans migration must be applied before anyone can create a plan.
+  Spec: `design/plans-deepdive/v3/README.md`; shipped entry "Plans (v3
+  build)". Route mapping is on the roadmap.
 - **Ghost VISITED stamp in the popup** — new idea, concept stage.

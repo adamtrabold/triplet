@@ -131,23 +131,70 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   a city chip or category chip: the chip goes beige while held; (4) popup Mark
   Visited: a beige tile shows while pressed, then the usual toggle; (5) Add
   form submit while saving looks dim (.4), still legible.
-- iPhone check of Plans, phase 1 (only once the plans migration is applied;
-  before that, step 1 only): (1) open filters: a PLACES | PLANS switch sits on
-  top, Places navy; tap Plans: the chips disappear and your plans list shows
-  (before the migration: "Plans aren't available yet.", and nothing else in
-  the app changes); (2) New plan: the keyboard opens on a name field in the
-  row; Create opens the plan, the panel stays open, the list shows EDIT STOPS
-  (greyed, "Coming next") and "No stops yet."; (3) with a plan that has stops
-  (added by the operator for now): stops in order, outline number tiles, the
-  first unvisited one solid navy, the same numbers inside the pins on the map
-  (a district gets one numbered diamond), no ⇅; tap a stop: the map flies
-  there and the popup says "· Stop n of m"; (4) swipe a stop row right and
-  left: the star and VISITED stamp work as in Places, and the solid number
-  moves on to the next unvisited stop; (5) ⋯ on the open plan → Rename (the
-  keyboard opens, Save/Enter), then ⋯ → Delete plan: the phone's own dialog
-  asks first; (6) switch back to Places: the same city, its list and count,
-  ⇅ and the X's all back; (7) close and reopen the app: it reopens where you
-  were (the plan, or Places); (8) signed out: plans are readable, New plan
-  opens the sign-in; (9) note the Places side of the panel now scrolls a
-  little (the District/Street chips sit below the fold on most phones):
-  say if that bothers you.
+- iPhone check of Plans (v3 build). **Before the migration is applied (do
+  this first):** (0) open filters, tap PLANS: the picker beside the switch
+  reads NOT AVAILABLE YET and does nothing when tapped, the list says "Plans
+  aren't available yet.", the city and category chips still work, the map is
+  empty, no error banner; tap PLACES: the app is exactly as before. A plan
+  view you left open reopens in Places. **After the migration** (the operator
+  applies it):
+  1. **Panel, both views:** the switch and the picker share one row; every
+     city chip and every category chip shows without scrolling, on PLACES and
+     on PLANS, and the panel is the same height in both. The picker in Places
+     is grey. Tap it: a list of plans drops over the chips (counts, ⋯ on
+     every plan, New plan); the picker turns beige with its arrow up. Say if
+     the map strip above the open panel now feels too short (it lost 33px).
+  2. **New plan** (in the picker): the keyboard opens on a name field; Create
+     opens the plan; the list says "No stops yet. Tap + on a place below."
+     above a grey caption line ("ADD FROM COPENHAGEN (n)"), then your places
+     with a grey +.
+  3. **+ :** tap + on a place: it becomes stop 1 above the line; on the map
+     its normal pin gets a small grey square number tag. Add a second: the
+     slip on the caption line reads "STOP 2 ADDED · HOLD A NUMBER TO MOVE"
+     (only once per phone), later "ADDED … AS STOP n". **Undo** inside 6s
+     takes it back out. A sideways stroke that starts on + adds nothing.
+  4. **Numbers at 1x:** grey numbers left of the icons; the chevron in the
+     header, the numbers and the icons of the places below the line all sit
+     on one vertical line; a stop's icon lines up with the first letter of
+     the place names below (ring to round letters). Say if anything looks
+     off-axis at arm's length.
+  5. **Hold-to-drag vs scroll:** rest a thumb on a number and hold still
+     about half a second: the row lifts onto paper; drag it and drop: the
+     slip reads "MOVED … TO STOP n · UNDO"; Undo puts it back. Then rest on a
+     number and scroll right away (or after a short rest): the list scrolls,
+     nothing lifts. Long move: with the panel open, drag stop 7 to the top
+     edge of the list: the list scrolls under it until stop 1.
+  6. **Long-press callout:** holding a number never brings up text selection,
+     the magnifier or a copy/share menu.
+  7. **Back-swipe from the left edge:** the number's touch area reaches the
+     screen's left edge. In Safari and from the Home Screen app, swipe in
+     from the very left edge over a stop row: say whether iOS goes back, the
+     row's visit swipe runs, or a row lifts (it should never lift without a
+     still hold). Then rest a thumb at the edge on a number (as when holding
+     the phone) and scroll: it should just scroll.
+  8. **× and Undo:** × on a stop removes it (the place stays in Places, below
+     the line with +); the slip says "REMOVED …"; Undo puts it back at the
+     same number. Swipe a stop row right (star) and left from × (visit): both
+     work as in Places and nothing is removed.
+  9. **Map tags:** zoom in and out on a plan: every stop keeps its pin and a
+     grey tag that touches its own pin, never under the zoom buttons, the
+     account/+ buttons or the attribution; a stop's tag should look equally
+     clearly its own when it sits between two pins (in frame 34 the "4" tag
+     was nearly as close to a neighbour — check it). Overlapping stops share
+     one tag ("1–6"). Red count circles stay red and readable.
+  10. **The map's two jobs:** with the panel open the map shows the stops and
+      the places you can add; close the panel: it re-fits to the stops (the
+      selected city's leg on a two-city plan). Pan yourself, then close and
+      reopen the panel: the map stays yours.
+  11. **Filters in Plans:** tap a category chip or a city: the stops all stay,
+      the list jumps so the caption line is at the top, and the caption names
+      the filters; tap the plan's name in the header to get back to the
+      stops. ⇅ sorts only the places below the line ("Sort places not in the
+      plan").
+  12. **Panel on a real phone:** the picker's list over the chips scrolls if
+      long; closing the panel closes it; Rename and Delete from ⋯ work on a
+      plan that isn't open; Delete asks with the phone's own dialog.
+  13. **Places ×** on a place that is a stop asks "It is a stop in “…”; it
+      will leave that plan too."; the plan renumbers 1..n.
+  14. Signed out: everything readable; +, ×, dragging a number to a new place and
+      New plan open the sign-in.

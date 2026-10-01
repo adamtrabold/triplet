@@ -79,23 +79,17 @@ pick/redirect before building anything.
     city/trip picking.
   - Discovery: `design/trip-location-model/proposal.md`. Related: Phase 2
     "trip context (dates/closures)".
-- **Plans, phase 2: Edit mode (option X)** (owner chose X, 2026-09-29).
-  Phase 1 shipped (`docs/shipped.md` "Plans, phase 1"): Places | Plans,
-  following a plan, map numbers, the data layer. **Blocker first:** apply
-  `supabase/migrations/20260929000000_add_plans.sql` to the live project
-  (operator, after review); until then the Plans side says plans aren't
-  available yet and nobody can create one. Phase 2 per
-  `design/plans-deepdive/v2/tables.md` §3/§3b/§5: "Edit stops" opens Edit
-  (stops on top with ≡ grips, a plain rule, then every other place and
-  shape with +); tap a stop's number to remove (Undo 6s, multi-level);
-  hold ≡ 250ms and drag to reorder (ArrowUp/Down on the keyboard); DONE
-  (ink-only word) in locate's slot; no ⇅; the Edit panel holds only the
-  Places filters; map numbers while editing (no solid NEXT); a new plan
-  lands in Edit. It touches row gesture plumbing, so the FULL gesture gate
-  applies. Open owner confirmations carried from the concept: Plans hides
-  the chips; stop numbers replace the pin glyph; choosing a plan leaves the
-  panel open (as built). Later ideas from the original agenda brief (paths
-  between stops, routing) stay out until the owner asks.
+- **Plans: apply the migration, then the iPhone checks** (v3 built on
+  branch `plans-v3-build`, see `docs/shipped.md` "Plans (v3 build)").
+  **Blocker:** apply `supabase/migrations/20260929000000_add_plans.sql` to
+  the live project (operator, after review); until then the Plans side says
+  plans aren't available yet and nobody can create one. Then the owner's
+  iPhone pass (`docs/iphone-checks.md`). Open for designer/UX at stage 2:
+  the starred stop's name starts at 122px, not 96px (v3 §7 CD note); the
+  build decisions listed in the shipped entry (reorder Undo copy, stamp at
+  normal ink, chip framing). Owner question still open (v3 §4, owner-12):
+  while following, should the map show every filter match (a, built) or only
+  the plan (b)?
 
 - **Ghost the VISITED stamp in the popup** (owner, 2026-09-28; promoted
   from the old "popup mini-stamp" follow-up). Once a place is marked
@@ -191,3 +185,15 @@ explicitly map those five letters before the generic NFD strip.
   vegetarian, etc.) across both pins and shapes.
 - SRI hashing on the CDN script tags.
 - Nominatim autocomplete-while-typing (currently only fires on submit).
+- **Plans: route mapping.** Draw a plan's route between its stops, in order,
+  on the map (walking route, or straight legs as a first cut), so the order
+  of the journey reads from the map itself. Today the order shows only
+  through the grey stop numbers: list numerals plus map tags, chosen by the
+  owner as the interim "until we can do full mapping". When this ships,
+  reconsider whether the numbers (list and map tags) are still needed or
+  should change. Open questions: routing source (no OSM routing connector in
+  the sandbox; the owner's browser only), cross-city legs, dense knots of
+  stops, and a starting-point marker (the owner floated one).
+- Plans, deferred from v3 §6: add a stop from a place's popup or straight
+  from the add form; share a route to Maps; animate the default fit (the
+  build jumps).
