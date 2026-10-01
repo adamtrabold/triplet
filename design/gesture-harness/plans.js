@@ -98,6 +98,34 @@ const STOPS = 'rey00,rey05,rey01';
     }
     rec(mode, `+ (add to the plan): ${ps.map(x => `${x.d}px ${x.added ? 'adds' : 'no'}`).join(', ')}; never navigates`, ps.every(x => (x.d < 4) === x.added && !x.nav) && (await order()) === STOPS, ps);
 
+    // the slip (critics-final P1): it sits on the rule's SETTLED place -- after + it never covers the new stop's
+    // name, after × never a row's + or × -- sampled during the 150ms slide and over its 6s life
+    const slipHits = () => page.evaluate(() => { const sl = document.getElementById('planSlip'); if (!sl || sl.hidden) return { shown: false };
+      const a = sl.getBoundingClientRect(), hit = el => { const q = el.getBoundingClientRect(); return q.height && a.left < q.right && q.left < a.right && a.top < q.bottom - 0.5 && q.top + 0.5 < a.bottom; };
+      const lr = document.getElementById('locationsList').getBoundingClientRect();
+      const ctl = [...document.querySelectorAll('#locationsList .plan-add, #locationsList .plan-x')].filter(el => { const q = el.getBoundingClientRect(); return q.top >= lr.top && q.bottom <= lr.bottom; });
+      const nm = [...document.querySelectorAll('#locationsList .location-card')].filter(c => c.querySelector('.plan-x')).map(c => c.querySelector('h3')).filter(Boolean);   // every stop's name, the new one too
+      return { shown: true, onRule: sl.classList.contains('on-rule'), top: Math.round(a.top), rule: Math.round(document.querySelector('.plan-rule').getBoundingClientRect().top), on: ctl.filter(hit).map(el => el.closest('.location-card').dataset.id + (el.classList.contains('plan-add') ? ':+' : ':×')).concat(nm.filter(hit).map(h => h.closest('.location-card').dataset.id + ':name')) }; });
+    const samples = async () => { const out = []; let t = 0; for (const at of [40, 110, 260, 1000, 3000]) { await W(at - t); t = at; out.push({ at, ...(await slipHits()) }); } return out; };
+    // + on the first place below the rule, with the rule in view (the critic's case: the slip covered the new stop's name)
+    await reset(); const firstAdd = await page.evaluate(() => document.querySelector('#locationsList .plan-add').closest('.location-card').dataset.id);
+    p = await box(firstAdd, '.plan-add'); await tap(p);
+    const sa = await samples();
+    await page.evaluate(() => { const b = document.querySelector('#planSlip button'); if (b) b.click(); }); await W(600);
+    await reset(); p = await box('rey05', '.plan-x'); await tap(p);
+    const sx = await samples();
+    await page.evaluate(() => { const b = document.querySelector('#planSlip button'); if (b) b.click(); }); await W(600);
+    rec(mode, 'the Added / Removed slip never covers the new stop\'s name or a row\'s + / × (during the slide and over its 6s); on the rule it rides the rule, even mid-slide',
+      sa.concat(sx).every(x => x.shown && !x.on.length && (!x.onRule || Math.abs(x.top - x.rule) <= 1)) && (await order()) === STOPS, { sa, sx });
+    // the add slip's news never goes to the ellipsis: a long name truncates, " as stop n" stays whole
+    await page.evaluate(() => { const l = locations.find(x => x.id === 'rey07'); window.__nm = l.name; l.name = 'Café Loki opposite Hallgrímskirkja church on the hill'; updateUI(); }); await W(300);
+    await reset(); p = await box('rey07', '.plan-add'); await tap(p); await W(400);
+    const tr = await page.evaluate(() => { const tx = document.querySelector('#planSlip .slip-text'), fx = [...tx.querySelectorAll('.slip-fix')], nm = tx.querySelector('.slip-name'), r = tx.getBoundingClientRect();
+      return { text: tx.textContent, suffix: fx.length ? fx[fx.length - 1].textContent : null, suffixIn: fx.every(f => { const q = f.getBoundingClientRect(); return q.right <= r.right + 0.5 && f.scrollWidth <= f.clientWidth + 0.5; }), nameCut: nm.scrollWidth > nm.clientWidth }; });
+    await page.evaluate(() => { const b = document.querySelector('#planSlip button'); if (b) b.click(); }); await W(500);
+    await page.evaluate(() => { locations.find(x => x.id === 'rey07').name = window.__nm; updateUI(); }); await W(300);
+    rec(mode, 'a long name: "Added … as stop 4" truncates the name only; the stop number always shows', /as stop 4$/i.test(tr.text) && / as stop 4/.test(tr.suffix || '') && tr.suffixIn && tr.nameCut && (await order()) === STOPS, tr);
+
     const hs = await page.evaluate(() => [...new Set([...document.querySelectorAll('#locationsList .location-card')].map(e => e.getBoundingClientRect().height.toFixed(2)))]);
     rec(mode, 'rows 56.00px (stop rows and the rows below the rule)', hs.length === 1 && hs[0] === '56.00', hs);
     rec(mode, 'no page errors', !errors.length, errors);

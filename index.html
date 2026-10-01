@@ -345,6 +345,7 @@
     }
 
     #error.show { display: block; }
+    #error:focus-visible { outline: 2px solid var(--ink); outline-offset: -4px; }
     #error.info { background: var(--navy); color: var(--paper); }
 
     /* Floating controls stay circular -- the badge motif is on-brief and
@@ -1682,7 +1683,9 @@
     #planSlip[hidden] { display: none; }
     #planSlip.on-header { border-width: 0; }
     #planSlip.wide { letter-spacing: 0.04em; }   /* the one-time drag hint, on one line at 390px */
-    #planSlip .slip-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    #planSlip .slip-text { flex: 1; display: flex; white-space: pre; overflow: hidden; min-width: 0; }
+    #planSlip .slip-name { overflow: hidden; text-overflow: ellipsis; min-width: 0; }   /* only the place name truncates */
+    #planSlip .slip-fix { flex: none; }   /* "Added " / " as stop 4": always whole */
     #planSlip button { all: unset; box-sizing: border-box; flex-shrink: 0; align-self: stretch; min-width: 44px; justify-content: center; margin-left: var(--s3); padding: 0 var(--gutter) 0 var(--s3); display: flex; align-items: center; border-left: 1px solid var(--hair); cursor: pointer; position: relative; text-decoration: underline; text-underline-offset: 3px; }
     /* Undo's target: >=44px wide, 36px tall on the 26px rule band (taller would reach the
        x above and the + below); the header band is its own full height. */
@@ -1698,6 +1701,7 @@
     .plan-stop .pin-n.two { font-size: 12px; letter-spacing: -0.02em; }
     .plan-stop.highlighted-marker .pin-n { color: var(--paper); }
     /* the grey tag beside a red cluster that holds stops: part of the cluster -- a tap zooms in, like the disc */
+    #map .glyph-clipped .badge-glyph { display: none; }   /* a place pin half under a cluster: ring only (applyPlanMap()) */
     .stop-tag.cluster-stops { pointer-events: auto; cursor: pointer; z-index: 3; }   /* r20: above the cluster's star -- a star never sits on a stop number */
     /* r19 (designer): drawn like a stop pin -- a paper field in a 1.5px grey ring, grey numeral; a 16px
        circle for one number, a pill for "2–4" / "1,5–6". A solid grey disc read as a second cluster; a
@@ -2474,8 +2478,9 @@
     <symbol id="g-compass" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/></symbol>
   </defs></svg>
 
-  <div id="error" role="alert" title="Tap to dismiss">
+  <div id="error" role="alert" tabindex="0" title="Tap to dismiss" aria-describedby="errorHint">
     <p id="errorText"></p>
+    <span id="errorHint" class="sr-only">Press Enter or Escape to dismiss.</span>
   </div>
 
   <div id="authStatus">
@@ -4057,6 +4062,11 @@
     }
     // Tap to dismiss, whatever it says.
     document.getElementById('error').addEventListener('click', () => hideError(currentErrorSource));
+    // ... and from the keyboard: Enter / Space on the focused banner, Escape anywhere while it shows.
+    // Focus never trapped: Tab moves on as usual; a dismissed banner hands focus back to the page.
+    function dismissErrorByKey() { const el = document.getElementById('error'); const had = el.contains(document.activeElement); hideError(currentErrorSource); if (had) el.blur(); }
+    document.getElementById('error').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissErrorByKey(); } });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('error').classList.contains('show')) dismissErrorByKey(); });
     // Back online: clear a read-problem band and refetch now rather than at the next poll.
     addEventListener('online', () => {
       if (['locations', 'shapes', 'cities'].includes(currentErrorSource)) hideError(currentErrorSource);
@@ -4218,7 +4228,7 @@
         const field = size - rim * 2;
         const g = Math.min(field - 2, Math.max(18, field - 4));
         const o = (size - g) / 2;
-        glyph = `<svg x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24" style="color:${mark}"><use href="#g-${escapeAttr(category)}"/></svg>`;
+        glyph = `<svg class="badge-glyph" x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24" style="color:${mark}"><use href="#g-${escapeAttr(category)}"/></svg>`;
       }
       return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${shell}${glyph}</svg>`;
     }
@@ -4944,7 +4954,10 @@
       if (!moved.length) return;
       void list.offsetHeight;
       moved.forEach(el => { el.classList.add('plan-shift'); el.style.transform = ''; });
-      setTimeout(() => moved.forEach(el => { if (!el.style.transform) el.classList.remove('plan-shift'); }), 200);
+      // The slip rides the rule through the slide (every frame) and is placed once more when it settles.
+      const t0 = performance.now(), follow = () => { placePlanSlip(); if (performance.now() - t0 < 220) requestAnimationFrame(follow); };
+      requestAnimationFrame(follow);
+      setTimeout(() => { moved.forEach(el => { if (!el.style.transform) el.classList.remove('plan-shift'); }); placePlanSlip(); }, 200);
     }
     function syncPlanCards(rows) {
       const list = document.getElementById('locationsList');
@@ -5219,6 +5232,8 @@
       const list = document.getElementById('locationsList'), lr = list.getBoundingClientRect();
       const hdr = document.getElementById('locationsHeader').getBoundingClientRect();
       const visTop = Math.max(lr.top, hdr.bottom), visBot = Math.min(lr.bottom, innerHeight);
+      // The rule's live box: during flipPlanList()'s slide the slip rides the rule frame by frame,
+      // so it never sits over a row sliding past (critics-final P1).
       const rule = list.querySelector('.plan-rule'), rr = rule && rule.getBoundingClientRect();
       planSlip.style.right = 'auto'; planSlip.style.bottom = 'auto';
       if (rr && rr.height && rr.top >= visTop - 1 && rr.bottom <= visBot + 1) {
@@ -5232,7 +5247,7 @@
         planSlip.classList.add('on-header'); planSlip.classList.remove('on-rule', 'wide');
         Object.assign(planSlip.style, { left: `${hdr.left}px`, width: `${Math.max(120, filt.left - 8 - hdr.left)}px`, top: `${hdr.top}px`, height: `${hdr.height}px` });
         const tx = planSlip.querySelector('.slip-text');
-        if (tx.scrollWidth > tx.clientWidth + 0.5) planSlip.classList.add('wide');
+        if ([...tx.children].some(c => c.scrollWidth > c.clientWidth + 0.5)) planSlip.classList.add('wide');
       }
     }
     // It rides the list (re-placed on scroll and resize while it shows).
@@ -5253,7 +5268,12 @@
         planSlip.addEventListener('focusin', () => holdPlanSlip(true));
         planSlip.addEventListener('focusout', () => holdPlanSlip(false));
       }
-      planSlip.querySelector('.slip-text').textContent = text;
+      // text: a string, or [before, name, after] -- only the name may truncate ("Added Café Lo… as stop 4")
+      const [pre, name, post] = Array.isArray(text) ? text : ['', text, ''];
+      const tx = planSlip.querySelector('.slip-text'); tx.replaceChildren();
+      if (pre) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: pre }));
+      tx.append(Object.assign(document.createElement('span'), { className: 'slip-name', textContent: name }));
+      if (post) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: post }));
       planSlipUndo = undo; planSlipKind = kind; planSlipRemoved = removed;
       planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // again once the list has re-rendered
       armPlanSlipTimer();
@@ -5284,7 +5304,7 @@
           // The one-time hint for the drag, once per device (a plan now has something to reorder).
           let hint = false;
           try { if (n >= 2 && !localStorage.getItem(REORDER_HINT_KEY)) { localStorage.setItem(REORDER_HINT_KEY, '1'); hint = true; } } catch (e) {}
-          showPlanSlip(hint ? `Stop ${n} added · hold a number to move` : `Added ${label} as stop ${n}`, () => removeStop(id));
+          showPlanSlip(hint ? `Stop ${n} added · hold a number to move` : ['Added ', label, ` as stop ${n}`], () => removeStop(id));
           // Keep the new stop in view, inside the safe box.
           const r = planMarks().rows.find(x => x.stop.id === id);
           const ll = r && stopLatLng(r);
@@ -5311,7 +5331,7 @@
       if (!removed) planActLockUntil = 0;
       if (removed) {
         const all = prev.concat([s]);
-        showPlanSlip(all.length > 1 ? `Removed ${all.length} stops` : `Removed ${label}`,
+        showPlanSlip(all.length > 1 ? `Removed ${all.length} stops` : ['Removed ', label, ''],
           async () => { for (const t of all) { planFlipNext = true; await restoreStop(t); } planFlipNext = null; }, 'remove', all);
       }
     }
@@ -5323,7 +5343,7 @@
       const from = r.n - 1, label = r.loc ? r.loc.name : r.nb.label;
       to = Math.max(0, Math.min(r.m - 1, to));
       if (to === from || !await reorderStop(stopId, to)) return false;
-      showPlanSlip(`Moved ${label} to stop ${to + 1}`, () => reorderStop(stopId, from));
+      showPlanSlip(['Moved ', label, ` to stop ${to + 1}`], () => reorderStop(stopId, from));
       return true;
     }
     function stopRowFor(el) {
@@ -5857,9 +5877,19 @@
       return { l: 24, r: sz.x - 24, t: topBand, b: bottom };
     }
     function applyPlanMap() {
+      document.querySelectorAll('#map .glyph-clipped').forEach(el => el.classList.remove('glyph-clipped'));
       if (!map || !inPlanView() || !activePlan()) return;
       syncPlanShapeMarkers();   // a district/street stop's mark follows its clustering at this zoom
       const pm = planMarks();
+      // A place pin partly under a cluster disc (clusters beat pins, as in Places) loses its glyph:
+      // a glyph cut by the disc's edge left a stub that read as a numeral beside a stop tag. Its
+      // ring stays (as below GLYPH_MIN_ZOOM); the cluster is untouched.
+      const discs = [...clusterMarkersById.values()].map(m => map.latLngToContainerPoint(m.getLatLng()));
+      markersById.forEach((e, id) => {
+        const el = e.marker.getElement(); if (!el || pm.byLoc.has(id) || !discs.length) return;
+        const p = map.latLngToContainerPoint(e.marker.getLatLng()), half = (el.offsetWidth || 24) / 2;
+        if (discs.some(c => c.distanceTo(p) < CLUSTER_DISC_R + 1 + half - 2)) el.classList.add('glyph-clipped');
+      });
       // A stop drawn as its own mark whose centre lies under a cluster disc (pins from a
       // neighbouring cell) would be hidden by the disc: its number joins that cluster's tag.
       const absorbed = new Map();   // cluster id -> [stop numbers]
