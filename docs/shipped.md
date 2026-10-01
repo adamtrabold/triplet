@@ -825,16 +825,21 @@ approximate pin, a diamond for a district/street), the same paper field, the
 near size at every zoom; the numeral is `--ink-2`, 13px/700 (12px for two
 digits); selected, the ring fills with its ink and the numeral turns paper.
 No tag beside a single pin. **A red cluster holding stops carries one grey
-tag** listing their numbers ("3", "2–4", "1,5–6"; past
+ring tag** (r19, designer v3 §14: drawn like a stop pin -- paper field, 1.5px
+`--ink-2` ring, grey 10px/700 numeral; a 16px circle for one number, a pill
+for more; rejected: a solid grey disc read as a second cluster, a square was
+the one square on a map of circles) listing their numbers ("3", "2–4", "1,5–6"; past
 `CLUSTER_TAG_MAX_RUNS` 3 runs "first…last"), flush against the count
 (`CLUSTER_TAG_GAP` 2px from the digits, level): on the right, on the left
 when the cluster's star rides its upper right, then above / below if a side
 runs off the visible map, onto a control, another tag or another cluster's
-count (`clusterStopTags()`). It may cover part of the disc, never a digit; a
+count (`clusterStopTags()`). With no clean spot it takes the least-bad one:
+over another cluster's count is worst, then off the map, a control, another
+tag; a tag forced over a count (a knot of overlapping clusters) is marked
+`data-forced` and disclosed by matrix/sweep, not failed. It may cover part of the disc, never a digit; a
 tap on it zooms in like the disc. A stop pin whose centre lies under a
 neighbouring cell's disc joins that cluster's tag (`applyPlanMap()`). Its
-shape is one dial, `--cluster-tag-radius` (3px square; the owner asked about
-a circle, the designer is deciding). The list is unchanged (owner). At
+shape is one dial, `--cluster-tag-radius` (8px, fully round). The list is unchanged (owner). At
 `SOLO_MIN_ZOOM` and above nothing clusters, so a list tap always lands on the
 stop's own numbered pin. Two single stop pins drawn on top of each other show
 the lower number (Places' pin stacking; counted by matrix/sweep, not failed).

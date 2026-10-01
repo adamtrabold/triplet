@@ -153,7 +153,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      above a grey caption line ("ADD FROM COPENHAGEN (n)"), then your places
      with a grey + (the × turned 45°: say if it reads as a +).
   3. **+ :** tap + on a place: it becomes stop 1 above the line; on the map
-     its normal pin gets a small grey square number tag. Add seven places
+     its pin shows the grey number 1 where the icon was. Add seven places
      from different corners of the city: the map keeps every stop in view and
      never slides away from the first ones. Add a second: the slip (a band over
      the caption line, or filling the list header if the line is scrolled
@@ -185,11 +185,11 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      work as in Places and nothing is removed.
   9. **Map numbers:** each stop on the map is its pin with the grey number
      where the icon was (selected: filled, white number); zoom out until stops
-     join red clusters: the cluster shows a small grey tag right beside its
-     count ("2–4"), never on top of the digits; tapping the tag zooms in like
+     join red clusters: the cluster shows a small grey ring (a circle, or a
+     pill for "2–4") right beside its count ("2–4"), never on top of the digits; tapping the tag zooms in like
      the red disc. In daylight at arm's length the tag numerals (10px) and the
-     caption line above the places ("ADD FROM …", 10px) are readable. Say if
-     a stop's category is hard to tell from its ring colour alone.
+     caption line above the places ("ADD FROM …", 10px) are readable. Say if the thin
+     ring tag reads as part of its cluster, and if a stop's category is hard to tell from its ring colour alone.
   10. **The map's two jobs:** with the panel open the map shows the stops and
       the places you can add; close the panel: it re-fits to the stops (the
       selected city's leg on a two-city plan). Pan yourself, then close and
