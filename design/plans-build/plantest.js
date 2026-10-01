@@ -306,6 +306,19 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('U17 a still tap on it adds the street as stop 7', (await stopKeys(page)) === NOR + ',S9002', await stopKeys(page));
     await ctx.close(); }
 
+  // ---------------------------------------------------------------- empty lists say why (owner, 2026-10-01)
+  { const { ctx, page } = await open(b, base);
+    const off = () => page.evaluate(() => Object.keys(CATEGORY_COLORS).forEach(c => { if (filters.categories[c]) document.getElementById('filter-' + c).click(); }));
+    const txt = () => page.evaluate(() => [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim());
+    await off(); await W(300);
+    const a = await txt();
+    await page.evaluate(() => setActiveCity('la', { frame: false })); await W(300);
+    const c = await txt();
+    await page.evaluate(() => { Object.keys(CATEGORY_COLORS).forEach(c => document.getElementById('filter-' + c).click()); setActiveCity('copenhagen', { frame: false }); }); await W(300);
+    await toPlans(page); await off(); await W(300);
+    const d = await page.evaluate(() => (document.querySelector('#locationsList .plan-list-note:last-of-type') || {}).textContent);
+    ok('EM1 Places, every chip off: "Nothing matches these filters."; a city with no places (LA): "Nothing here yet."; Plans below the divider says the same', a === 'Nothing matches these filters.' && c === 'Nothing here yet.' && [...await page.evaluate(() => [...document.querySelectorAll('#locationsList .plan-list-note')].map(n => n.textContent))].includes('Nothing matches these filters.'), [a, c, d]);
+    await ctx.close(); }
   // ---------------------------------------------------------------- UX round: offline, no-plan map, 2a/2b, Undo, labels, motion, picker list
   { const { ctx, page, errors } = await open(b, { ...base, offline: true, storage: { ...HINTED, 'triplet.listView': 'plans', 'triplet.activePlan': 'p-nor' } });
     await W(400);

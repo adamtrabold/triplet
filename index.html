@@ -4847,8 +4847,16 @@
       });
     }
 
+    // Owner (2026-10-01): an empty list says why. The city has places but the category chips
+    // hide them all: "Nothing matches these filters."; a city with no places at all: "Nothing
+    // here yet." (Places, and below the divider in Plans.)
+    function emptyMatchText() {
+      const inCity = x => filters.city === null || x.city === filters.city;
+      const exist = locations.some(inCity) || neighborhoodShapes.some(n => isAllCities() || n.city === activeCity);
+      return exist ? 'Nothing matches these filters.' : 'Nothing here yet.';
+    }
     function emptyText(planMode) {
-      if (!planMode) return 'Nothing here yet.';
+      if (!planMode) return emptyMatchText();
       if (plansAvailable === false) return 'Plans aren’t set up yet.';
       if (plansAvailable === null) return plansOffline ? 'Offline. Plans load when you’re back online.' : 'Loading plans…';
       if (!plans.length) return 'No plans yet.';   // + its second line (planEmptyLine2), never left to text-wrap
@@ -4884,7 +4892,7 @@
     function othersNoteText() {
       const any = locations.some(l => filters.categories[l.category] && (filters.city === null || l.city === filters.city)) ||
         neighborhoodShapes.some(n => filters.categories[n.type] && (isAllCities() || n.city === activeCity));
-      return any ? 'Every place these filters match is in this plan.' : 'No places match these filters.';
+      return any ? 'Every place these filters match is in this plan.' : emptyMatchText();
     }
     // 9 (UX): after + / x (and their Undo) the rows on either side of the change slide to open or
     // close the gap (150ms, .plan-shift; instant with reduced motion); the changed row just appears.

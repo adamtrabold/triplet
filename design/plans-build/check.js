@@ -94,7 +94,7 @@ const T = {
     ['the two café stops (1, 3) still show: the chips never hide a stop', /cafe/i.test(stops(f)[0].meta) && /cafe/i.test(stops(f)[2].meta)],
     ['no café below the rule', others(f).every(r => !/cafe/i.test(r.meta))]],
   '10-empty-filtered': f => [['LA on; still Plans', onCities(f).join() === 'LA' && f.view === 'plans'], ...planCommon(f, 'Nørrebro afternoon', 6),
-    ['below the rule: "No places match these filters."', f.rows.some(r => r.kind === 'note' && r.text === 'No places match these filters.') && others(f).length === 0]],
+    ['below the rule (owner, 2026-10-01): LA has no places at all, so "Nothing here yet."', f.rows.some(r => r.kind === 'note' && r.text === 'Nothing here yet.') && others(f).length === 0]],
   '11-all-in-plan': f => [['only District on', offCats(f).length === 10 && !offCats(f).includes('district')], ...planCommon(f, 'Nørrebro afternoon', 6),
     ['below the rule: "Every place these filters match is in this plan."', f.rows.some(r => r.kind === 'note' && r.text === 'Every place these filters match is in this plan.')]],
   '12-zero-stops': f => [['header "Rainy day"; first row says "No stops yet · tap + on a place below" (UX: the section voice, caps, no glyph)', f.title === 'Rainy day' && f.rows[0].kind === 'note' && f.rows[0].text === 'No stops yet · tap + on a place below'],
