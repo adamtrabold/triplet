@@ -1485,22 +1485,23 @@
     .locations-empty svg { display: block; margin: 0 auto var(--s3); color: var(--hair); }
 
     /* =====================================================================
-       PLANS (phase 1; design/plans-deepdive/v2/, docs/shipped.md "Plans").
-       Places | Plans is ONE joined switch at the top of the filter panel.
-       Places is the app as it was. Plans lists one plan's stops in plan
-       order, read-only for following: an outline number tile per stop in
-       the delete X's own 28px slot (so a plan row lays out exactly like a
-       place row), and the ONE solid navy tile is NEXT (the first stop not
-       yet visited). The same number replaces the pin glyph on the map.
+       PLANS (design/plans-deepdive/v3/README.md, docs/shipped.md "Plans").
+       Places | Plans is ONE joined switch at the top of the filter panel,
+       sharing its row with the plan picker; the city and category chips
+       below are the same in both views. Places is the app as it was. Plans
+       lists the open plan's stops, Places' group divider with a caption,
+       then every place the filters match (+ adds it). No navy lines: the
+       switch, picker, plan list, slip and lifted row use the city chips'
+       --hair language; the ON half is the state system's solid navy tile.
        State system: pressed = pale tile, on = navy tile + paper text,
        unavailable = ink-2 text + a reason (the sort menu's Nearest rule).
        ===================================================================== */
-    .seg-wrap { padding: var(--s3) var(--gutter); border-bottom: 1px solid var(--hair); }
-    /* One joined track: each half draws its own 1px navy edge (the shared
-       middle rule belongs to the second), so the track has no box of its own. */
-    .seg { display: flex; height: 36px; }
+    .seg-wrap { display: flex; align-items: center; gap: var(--s2); padding: var(--s3) var(--gutter); border-bottom: 1px solid var(--hair); }
+    /* One joined track: each half draws its own 1px edge (the shared middle
+       rule belongs to the second), so the track has no box of its own. */
+    .seg { display: flex; flex: 0 0 176px; height: 36px; }
     .seg button {
-      flex: 1 1 0; position: relative; border: 1px solid var(--navy); margin: 0; padding: 0; background: var(--paper-raised); color: var(--navy); cursor: pointer;
+      flex: 1 1 0; position: relative; border: 1px solid var(--hair); margin: 0; padding: 0; background: var(--paper-raised); color: var(--navy); cursor: pointer;
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-size: 12px; line-height: 16px; letter-spacing: 0.08em; font-weight: 700;
       -webkit-tap-highlight-color: transparent; transition: background 0.12s ease, color 0.12s ease;
     }
@@ -1508,15 +1509,36 @@
     .seg button + button { border-left: none; border-radius: 0 3px 3px 0; }
     .seg button::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
     .seg button:active { background: var(--state-press); }
-    .seg button[aria-checked="true"] { background: var(--state-on-bg); color: var(--state-on-fg); }
+    .seg button[aria-checked="true"] { background: var(--state-on-bg); border-color: var(--state-on-bg); color: var(--state-on-fg); }
     .seg button[aria-checked="true"]:active { background: var(--state-on-press); }
     .seg button:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
     .seg button[aria-checked="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--navy), inset 0 0 0 4px var(--paper); }
 
-    /* The Plans side holds only the switch and the plan list: a plan always
-       shows whole, so the city and category chips would do nothing there. */
-    #planLedger { border-bottom: 1px solid var(--hair); }
-    /* v3 r2: the panel is identical on both sides, picker included. */
+    /* The plan picker: the open plan's name with a chevron, a city chip's
+       hairline. Grey in Places (picking a plan there opens it in Plans). */
+    #planPick { flex: 1 1 auto; min-width: 0; }
+    .plan-picker {
+      position: relative; display: flex; align-items: center; gap: var(--s1); width: 100%; height: 36px; margin: 0; padding: 0 var(--s1) 0 var(--s3);
+      border: 1px solid var(--hair); border-radius: 3px; background: var(--paper-raised); color: var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 16px; letter-spacing: 0.06em;
+    }
+    .plan-picker::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
+    .plan-picker .plan-name { flex: 1 1 auto; text-align: left; font-size: 12px; }
+    .plan-picker svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
+    #filtersPanel:not(.plans-side) .plan-picker { color: var(--ink-2); }
+    .plan-picker:active { background: var(--state-press); }
+    /* Open = the pressed tone with the chevron turned up. A named exception to
+       the state system's "open = navy tile": beside the solid PLANS half, navy
+       read as a third segment. */
+    .plan-picker[aria-expanded="true"] { background: var(--state-press); }
+    .plan-picker[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .plan-picker[aria-disabled="true"] { opacity: var(--state-off-alpha); cursor: default; }
+    .plan-picker:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
+    /* The picker's slip drops over the chips (no layout change): every plan
+       with its count and ⋯ (rename / delete that plan), then New plan. */
+    #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: 54px; z-index: 5; max-height: 270px; overflow-y: auto;
+      background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; box-shadow: 0 2px 0 var(--hair); }
+    #planLedger[hidden] { display: none; }
     /* 44px ledger rows + a 1px --hair rule: the sort menu's row voice. */
     .plan-opt {
       display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center;
@@ -1525,7 +1547,7 @@
     .plan-opt:last-child { border-bottom: none; }
     .plan-pick {
       display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; column-gap: var(--s2);
-      height: 44px; min-width: 0; padding: 0 0 0 var(--gutter); margin: 0; border: none; background: transparent; cursor: pointer; text-align: left;
+      height: 44px; min-width: 0; padding: 0 0 0 var(--s3); margin: 0; border: none; background: transparent; cursor: pointer; text-align: left;
       color: var(--navy); -webkit-tap-highlight-color: transparent;
     }
     .plan-opt:not(:has(.plan-more)) .plan-pick { grid-column: 1 / -1; padding-right: 44px; }
@@ -1534,7 +1556,7 @@
     .plan-check { width: 16px; height: 16px; display: block; visibility: hidden; }
     .plan-pick[aria-current="true"] .plan-check,
     .plan-new .plan-check { visibility: visible; }
-    .plan-name, .plan-act, .plan-note {
+    .plan-name, .plan-act {
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
       font-size: 13px; line-height: 16px; letter-spacing: 0.05em;
     }
@@ -1552,7 +1574,7 @@
     .plan-more:active { background: var(--state-press); }
     /* In-row states (the ⋯ actions, rename, create): the row steps up to
        --paper-raised, the field colour, so it reads as "being edited". */
-    .plan-opt.plan-form { display: flex; gap: 0; padding: 0 var(--s1) 0 var(--gutter); background: var(--paper-raised); }   /* the last action's words end on the 16px gutter */
+    .plan-opt.plan-form { display: flex; gap: 0; padding: 0 var(--s1) 0 var(--s3); background: var(--paper-raised); }
     .plan-form input {
       flex: 1 1 auto; min-width: 0; font: 400 16px/20px var(--font-ui); color: var(--ink); background: transparent;
       border: none; border-bottom: 1px solid var(--navy); border-radius: 0; padding: 4px 0; margin-right: var(--s1); outline: none;
@@ -1567,114 +1589,37 @@
     .plan-act.danger { color: var(--figure-deep); }
     .plan-act:first-child { margin-left: calc(var(--s3) * -1); }
     .plan-act:active { background: var(--state-press); }
-    .plan-note { padding: var(--s3) var(--gutter); color: var(--ink-2); font-size: 12px; }
 
-    /* v3: Plans keeps the sort; it orders the places below the rule (stops keep plan order). */
+    /* The switch row added 61px; the panel grows by the 33px it would otherwise
+       scroll, so every chip shows unscrolled in both views (the map above the
+       open panel is 33px shorter). */
+    #filtersPanel { max-height: calc(40vh + 33px); }
+
+    /* Plans keeps the sort (it orders the places below the rule; stops keep
+       plan order) -- except with no plan open, when there is nothing to sort. */
     body.plan-none #sortBtn { display: none; }
 
-    /* The stop tile: information, not a control -- a tap on it is a tap on
-       the row (fly + popup). 28px, the delete X's own slot. */
-    .plan-tile {
-      width: var(--col-action); height: var(--col-action); box-sizing: border-box; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      border: 1px solid var(--navy); border-radius: 3px; background: var(--paper-raised); color: var(--navy);
-      font-family: var(--font-ui); font-stretch: 80%; font-weight: 700; font-size: 14px; line-height: 1; font-variant-numeric: tabular-nums;
-    }
-    .plan-tile.next { background: var(--state-on-bg); border-color: var(--state-on-bg); color: var(--state-on-fg); }
-    .location-card.highlighted .plan-tile { background: transparent; border-color: var(--paper); color: var(--paper); }
-    .location-card.highlighted .plan-tile.next { background: var(--paper); border-color: var(--paper); color: var(--navy); }
-    /* The shared VISITED stamp, muted: in a plan the numbers lead the scan. */
-    body.plan-view .location-card .row-stamp:not(.vs-copy) { color: color-mix(in srgb, var(--navy) 55%, transparent); }
-    body.plan-view .location-card.highlighted .row-stamp:not(.vs-copy) { color: var(--paper); }
-
-    /* "Edit stops": the plan's first row, an ACTION row (exempt from
-       tap-to-fly). Phase 1: unavailable, with its reason -- editing ships
-       in phase 2. */
-    .plan-edit-row {
-      display: grid; grid-template-columns: var(--col-glyph) 1fr auto; column-gap: var(--gap); align-items: center;
-      width: 100%; min-height: 56px; margin: 0; padding: var(--s2) var(--gutter); box-sizing: border-box;
-      border: none; border-bottom: 1px solid var(--hair); background: var(--paper); color: var(--ink-2); text-align: left; cursor: default;
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: 0.06em;
-    }
-    .plan-edit-row svg { width: 20px; height: 20px; display: block; justify-self: center; }
-    .plan-edit-why { font-size: 10px; line-height: 12px; letter-spacing: 0.08em; }
-
-    /* ---- v3 (design/plans-deepdive/v3) ---------------------------------------
-       A stop row is a Places row with two swaps: its number takes the glyph's
-       place in the SAME leading ring (as on the map), and its trailing X
-       removes it from the plan. An other-place row swaps the X for a +. */
-    .row-badge.row-num { position: relative; border-radius: 3px; }
-    body.plan-view .row-badge.row-num { cursor: grab; touch-action: pan-y; }
-    .row-num-n {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
-      font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 12px; line-height: 1; font-variant-numeric: tabular-nums;
-    }
-    .row-num.fill .row-num-n { color: var(--paper); }
-    .location-card.highlighted .row-num.fill .row-num-n { color: var(--figure-deep); }
-    .row-num:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--navy); }
-    /* option T2: a small quiet tile in the leading slot */
-    .row-tile {
-      width: 22px; height: 22px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;
-      border: 1px solid var(--ink-2); border-radius: 3px; color: var(--ink-2);
-      font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 12px; line-height: 1; font-variant-numeric: tabular-nums;
-    }
-    .location-card.highlighted .row-tile { color: var(--paper); border-color: var(--paper); }
-    /* + shares the X's slot, size and ink: both say "in or out of this list". */
-    /* 44px targets: the 28px number and the 28px +/X each reach 8px past their box. */
-    .plan-add, .plan-x { position: relative; }
-    .plan-add::before, .plan-x::before, body.plan-view .row-badge.row-num::before { content: ''; position: absolute; inset: -8px; }
-    /* The plan's end: Places' own group divider (2px --hair), then everything else the filters match. */
-    .plan-rule { height: 0; border-top: 1px solid var(--hair); }
-    .plan-list-note {
-      padding: var(--s4) var(--gutter); border-bottom: 1px solid var(--hair); text-align: center;
-      color: var(--ink-2); font-size: 12px; line-height: 16px; font-style: italic;
-    }
-    /* Reorder: hold the number 400ms, then drag. The row lifts; the others make room. */
-    .location-card.plan-lifted { position: relative; z-index: 5; background: var(--paper-raised); box-shadow: 0 0 0 1px var(--hair), 0 3px 0 var(--hair); }   /* r11: lifted on paper, no navy box */
-    .location-card.plan-shift { transition: transform 0.15s ease; }
-    @media (prefers-reduced-motion: reduce) { .location-card.plan-shift { transition: none; } }
-    /* The collapsed plan row: the ledger's current row, with a chevron. */
-    .plan-chev { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--navy); pointer-events: none; }
-    .plan-chev svg { width: 16px; height: 16px; display: block; }
-    .plan-opt.plan-cur .plan-pick { grid-column: auto; padding-right: 0; }
-    /* The slip: removed / added, with Undo, for 6s. */
-    #planSlip { position: fixed; z-index: 2600; display: flex; align-items: center; height: 32px; max-width: calc(100vw - 32px); padding: 0 0 0 var(--s3);
-      background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; color: var(--navy);   /* r11: a chip's hairline, not the menu's navy box */
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: 0.08em; }
-    #planSlip[hidden] { display: none; }
-    /* r9: docked on the rule's caption line: the rule's own box, square, no shadow; the Undo
-       target stays 44px tall via its ::before without reaching the next row's + (hit area). */
-    #planSlip.on-rule { max-width: none; box-sizing: border-box; border-radius: 0; box-shadow: none; border-width: 1px 0; padding-left: var(--gutter); }
-    #planSlip.on-rule .slip-text, #planSlip.on-header .slip-text { flex: 1; }
-    #planSlip.on-rule button { height: 100%; margin-left: var(--s3); padding: 0 var(--gutter) 0 var(--s3); }
-    #planSlip.on-rule button::before { top: -8px; bottom: -4px; }
-    #planSlip.on-header { box-sizing: border-box; max-width: none; }
-    #planSlip.on-header.wide { letter-spacing: 0.04em; padding-left: 8px; }   /* r10: the one-time hint on one line at 390px */
-    #planSlip.on-header.wide button { margin-left: 8px; padding: 0 10px; }
-    #planSlip .slip-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-    #planSlip button { all: unset; flex-shrink: 0; height: 32px; margin-left: var(--s3); padding: 0 var(--s3); display: flex; align-items: center; border-left: 1px solid var(--hair); cursor: pointer; position: relative; text-decoration: underline; text-underline-offset: 3px; }
-    #planSlip button::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }
-
-    /* r7: the switch row added 61px; the panel grows by the 33px it would otherwise scroll, so
-       every chip shows unscrolled in both views (the map above the open panel is 33px shorter). */
-    #filtersPanel { max-height: calc(40vh + 33px); }
-    /* ---- r14: ONE left axis, x = 30 (gutter 16 + half the 28px glyph column) -----------------
-       The header chevron, every Places icon and every stop number are centred on it. A stop row
-       is [number in the glyph column][--gap][its icon in a second glyph column][--gap][text]:
-       number centred at 30, icon 56-84 (its left edge on the header title's edge), text x=96.
-       A starred stop keeps Places' star slot at the head of its text (name x=122). Rows below
+    /* ---- Plans rows: ONE left axis, x = 30 (gutter 16 + half the 28px glyph
+       column). The header chevron, every Places icon and every stop number are
+       centred on it. A stop row is [number in the glyph column][--gap][its icon
+       in a second glyph column][--gap][text]: number centred at 30, icon 56-84
+       (its left edge on the header title's edge), text x=96. A starred stop
+       keeps Places' star slot at the head of its text (name x=122). Rows below
        the divider are plain Places rows: icon centred at 30, text 56. */
     body.plan-view .location-card.plan-num-row { grid-template-columns: calc(var(--col-glyph) * 2 + var(--gap)) 1fr auto; }
     .row-lead { display: flex; align-items: center; gap: var(--gap); }
-    /* r15 (owner: "make sure the icon in the plans list is visually left aligned with the text in
-       the normal list ... may not follow mathematical number"): measured on the rendered pixels
-       (harness/ink.js), a 24px badge centred in its 28px column puts its ring's ink 2px inside the
-       box (x=58), while a Places name's ink starts at ~56.7 (the letters' side-bearing). So a stop's
-       icon is pulled left by its INK: a ring's (and the dotted approx. ring's) left edge lands on the
-       names' ink edge; the district diamond's tip overshoots it by 1px, because a point carries
-       too little ink to read as reaching an edge it only touches (optical overshoot). */
-    .row-lead .row-badge { transform: translateX(-1.33px); }   /* a transform, so the sub-pixel shift is not snapped to whole px */
+    /* The stop's icon is placed by its INK, not its box (owner: "may not
+       follow mathematical number"). Measured on the rendered pixels
+       (design/plans-build/v3/ink.js), a 24px badge centred in its column puts
+       its ring's ink at x=58, while a Places name's ink starts at ~56.7 (the
+       letters' side-bearing). So a ring (and the dotted approx. ring) lands
+       where round capitals (C, G, O, S) land, and the district diamond's tip
+       where pointed capitals (A, T) land: type's own optical overshoot. A
+       transform, so the sub-pixel shift is not snapped to whole px. */
+    .row-lead .row-badge { transform: translateX(-1.33px); }
     .row-lead .row-badge[data-kind="diamond"] { transform: translateX(-1.83px); }
+    /* The number: one plain grey state, no ring, tile or navy. It is the
+       hold-to-drag handle: no long-press callout, no text selection. */
     .row-n { position: relative; flex: 0 0 var(--col-glyph); width: var(--col-glyph); height: 16px; text-align: center;
       font-family: var(--font-ui); font-weight: 600; font-size: 13px; line-height: 16px;
       font-variant-numeric: tabular-nums; color: var(--ink-2); cursor: grab; touch-action: pan-y; -webkit-tap-highlight-color: transparent;
@@ -1682,65 +1627,61 @@
     .row-n::before { content: ''; position: absolute; left: -16px; right: 0; top: -14px; bottom: -14px; }   /* 44 x 44: the screen edge to the glyph column's edge */
     .location-card.highlighted .row-n { color: var(--paper); }
     .row-n:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--navy); border-radius: 2px; }
-
-    /* ---- v3 round 2 ------------------------------------------------------------ */
-    .seg-wrap { display: flex; align-items: center; gap: var(--s2); }
-    .seg { flex: 0 0 176px; }
-    #planPick { flex: 1 1 auto; min-width: 0; }
-    .plan-picker {
-      position: relative; display: flex; align-items: center; gap: var(--s1); width: 100%; height: 36px; margin: 0; padding: 0 var(--s1) 0 var(--s3);
-      border: 1px solid var(--hair); border-radius: 3px; background: var(--paper-raised); color: var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent;   /* r11: a city chip's hairline */
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 16px; letter-spacing: 0.06em;
-    }
-    .plan-picker::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
-    .plan-picker .plan-name { flex: 1 1 auto; text-align: left; font-size: 12px; }
-    .plan-picker svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
-    #filtersPanel:not(.plans-side) .plan-picker { color: var(--ink-2); }   /* Places: the plan Plans would open, quiet */
-    /* r11: the switch speaks the city chips' language: hairline halves, the ON half a solid navy tile. */
-    .seg button { border-color: var(--hair); }
-    .seg button[aria-checked="true"] { border-color: var(--state-on-bg); }
-    .plan-picker:active { background: var(--state-press); }
-    /* r3: open = the pressed tone with the chevron turned up. Named exception to the state
-       system's "open = navy tile": beside the solid PLANS half, navy read as a third segment. */
-    .plan-picker[aria-expanded="true"] { background: var(--state-press); }
-    .plan-picker[aria-expanded="true"] svg { transform: rotate(180deg); }
-    .plan-picker[aria-disabled="true"] { opacity: var(--state-off-alpha); cursor: default; }
-    .plan-picker:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
-    #filtersPanel { position: absolute; }
-    #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: 54px; z-index: 5; max-height: 270px; overflow-y: auto;
-      background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; box-shadow: 0 2px 0 var(--hair); }   /* r11: hairline, not the navy box */
-    #planLedger[hidden] { display: none; }
-    #planLedger .plan-pick { padding-left: var(--s3); }
-    #planLedger .plan-opt.plan-form { padding-left: var(--s3); }
-    /* + is the build action: a navy-ruled tile (the chips' and switch's container language);
-       X stays a bare grey glyph. Different shape, tone and container. */
-    /* r7: + is a bare navy glyph, the X's size and weight class -- navy (the X is grey) marks it as the build action. */
-    .location-actions .plan-add { width: 28px; height: 28px; color: var(--ink-2);   /* r12 (CD): grey, the X's ink -- the glyph (+ vs ×) says which */ font-size: 20px; font-weight: 400; line-height: 1; border-radius: 3px; }
+    /* + (add) and × (remove from the plan) share the Places delete ×'s slot
+       and its grey: the glyph says which. 28px, reaching 8px past = 44x44. */
+    .plan-add, .plan-x { position: relative; }
+    .plan-add::before, .plan-x::before { content: ''; position: absolute; inset: -8px; }
+    .location-actions .plan-add { width: 28px; height: 28px; color: var(--ink-2); font-size: 20px; font-weight: 400; line-height: 1; border-radius: 3px; }
     .location-actions .plan-add:active { background: var(--state-press); }
     .location-card.highlighted .plan-add { color: var(--paper); }
-    /* r7: the stop tag on the map */
+    /* Reorder: the lifted row sits on paper with a hairline edge and drop; the
+       others make room. */
+    .location-card.plan-lifted { position: relative; z-index: 5; background: var(--paper-raised); box-shadow: 0 0 0 1px var(--hair), 0 3px 0 var(--hair); }
+    .location-card.plan-shift { transition: transform 0.15s ease; }
+    @media (prefers-reduced-motion: reduce) { .location-card.plan-shift { transition: none; } }
+    /* The plan ends at Places' group divider -- the last stop's 1px --hair
+       rule plus this 1px = the 2px --hair a category change draws in Places --
+       with a one-line caption naming what's below. */
+    .plan-rule { box-sizing: border-box; min-height: 26px; padding: 7px var(--gutter) 5px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
+      background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 10px; line-height: 12px; letter-spacing: 0.12em;
+      color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .plan-list-note {
+      padding: var(--s4) var(--gutter); border-bottom: 1px solid var(--hair); text-align: center;
+      color: var(--ink-2); font-size: 12px; line-height: 16px; font-style: italic;
+    }
+    .plan-empty-new { display: block; margin: var(--s4) auto 0; height: 36px; padding: 0 var(--s4); border: 1.5px solid var(--navy); border-radius: 3px;
+      background: var(--paper-raised); color: var(--navy); cursor: pointer; font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; font-style: normal; }
+    .plan-empty-new:active { background: var(--state-press); }
+    /* Header: just the plan's name; a tap returns the list to the stops. */
+    body.plan-view #locationsHeader h2 { display: flex; min-width: 0; cursor: pointer; }
+    #locationsHeader .h-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+    /* The slip: added / removed / moved, with Undo, for 6s. It sits ON the
+       rule's caption line (or on the list header over the plan's name), never
+       on the map, the chips, a stop row or a +. A chip's hairline. */
+    #planSlip { position: fixed; z-index: 2600; display: flex; align-items: center; height: 32px; max-width: calc(100vw - 32px); padding: 0 0 0 var(--s3);
+      background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; color: var(--navy);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: 0.08em; }
+    #planSlip[hidden] { display: none; }
+    /* On the rule: the rule's own box, square; the Undo target stays 44px tall
+       via its ::before without reaching the next row's + (hit area). */
+    #planSlip.on-rule { max-width: none; box-sizing: border-box; border-radius: 0; border-width: 1px 0; padding-left: var(--gutter); }
+    #planSlip.on-rule .slip-text, #planSlip.on-header .slip-text { flex: 1; }
+    #planSlip.on-rule button { height: 100%; margin-left: var(--s3); padding: 0 var(--gutter) 0 var(--s3); }
+    #planSlip.on-rule button::before { top: -8px; bottom: -4px; }
+    #planSlip.on-header { box-sizing: border-box; max-width: none; }
+    #planSlip.on-header.wide { letter-spacing: 0.04em; padding-left: 8px; }   /* the one-time drag hint, on one line at 390px */
+    #planSlip.on-header.wide button { margin-left: 8px; padding: 0 10px; }
+    #planSlip .slip-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    #planSlip button { all: unset; flex-shrink: 0; height: 32px; margin-left: var(--s3); padding: 0 var(--s3); display: flex; align-items: center; border-left: 1px solid var(--hair); cursor: pointer; position: relative; text-decoration: underline; text-underline-offset: 3px; }
+    #planSlip button::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }
+
+    /* Map: a stop is its Places pin plus a square grey numbered tag. The pin's
+       12px margin is pass-through (never covers a neighbour's tag or tap). */
     .leaflet-marker-icon.plan-stop-icon, .plan-stop-icon .plan-stop { pointer-events: none; }
     .plan-stop-icon .plan-stop > * { pointer-events: auto; }
     .stop-tag { position: absolute; z-index: 2; height: 14px; min-width: 14px; padding: 0 2px; box-sizing: border-box; border: 1px solid var(--ink-2); border-radius: 3px;
       background: var(--paper); color: var(--ink-2); font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 10px; line-height: 11px; text-align: center; white-space: nowrap; pointer-events: none; }
-    /* r11: the plan ends at Places' group divider -- the last stop's 1px --hair rule plus this 1px =
-       the 2px --hair a category change draws in Places -- and a one-line caption naming what's below. */
-    .plan-rule { height: auto; box-sizing: border-box; min-height: 26px; padding: 7px var(--gutter) 5px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
-      background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 10px; line-height: 12px; letter-spacing: 0.12em;
-      color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    /* Header: "<plan> (6)" -- the stop count in ink-2, the grammar of Places' "<city> list (32)". */
-    body.plan-view #locationsHeader h2 { display: flex; min-width: 0; cursor: pointer; }
-    #locationsHeader .h-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-    #locationsHeader .h-count { flex-shrink: 0; color: var(--ink-2); white-space: nowrap; }
-    .plan-empty-new { display: block; margin: var(--s4) auto 0; height: 36px; padding: 0 var(--s4); border: 1.5px solid var(--navy); border-radius: 3px;
-      background: var(--paper-raised); color: var(--navy); cursor: pointer; font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; font-style: normal; }
-    .plan-empty-new:active { background: var(--state-press); }
-
-    /* Map: a stop's number replaces its glyph inside the same ring. */
-    .pin-num {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
-      font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 12px; line-height: 1; font-variant-numeric: tabular-nums;
-    }
     .popup-stop { white-space: nowrap; margin-left: calc(var(--s1) * -1); }   /* cancels the flex gap: the dot sits evenly between its words */
     .shape-stop {
       display: block; margin-top: var(--s1); color: var(--ink-2);
@@ -3416,7 +3357,7 @@
       return isAllCities() ? 'All cities' : cityConfig(citySelection).label;
     }
 
-    // v3: the filters apply in BOTH views. Plans adds the open plan's stops,
+    // The filters apply in BOTH views. Plans adds the open plan's stops,
     // whole and whatever the filters say (the chips choose what you can add;
     // they never hide your plan).
     function visibleLocations() {
@@ -3471,7 +3412,10 @@
       // The highlighted location may belong to the city we are leaving.
       setHighlighted(null);
 
-      if (opts.frame !== false) {
+      // Plans with stops frames the plan instead (frameActivePlan(): the
+      // building fit takes in the new city's places; following, its leg).
+      const framePlan = inPlanView() && !!activePlan() && planMarks().rows.length > 0;
+      if (opts.frame !== false && !framePlan) {
         focusCity(selection, { animate: opts.animate !== false });
       }
 
@@ -3483,10 +3427,11 @@
       // Preserving scroll across a poll tick is the point of the reconciler;
       // preserving it across a city switch strands the user mid-list.
       document.getElementById('locationsList').scrollTop = 0;
-      if (inPlanView()) { showPlanRule(); if (opts.frame !== false && activePlan()) frameActivePlan({ animate: false }); }   // r8: the building fit (stops + what the filters match)   // v3: in Plans a filter change lands on what it changed; the map frames what you can add from
+      if (inPlanView()) { showPlanRule(); if (opts.frame !== false && framePlan) frameActivePlan(); }
     }
-    // v3: after a filter change in Plans, the list scrolls so the rule sits at
-    // the top of the list (the stops are one flick up). Nothing moves in Places.
+    // After a filter change in Plans, the list scrolls so the rule sits at the
+    // top of the list (the stops are one flick up, or a tap on the plan's name
+    // in the header). Nothing moves in Places.
     function showPlanRule() {
       const list = document.getElementById('locationsList');
       const rule = list.querySelector('.plan-rule');
@@ -4253,12 +4198,10 @@
       const showGlyph = !map || map.getZoom() >= GLYPH_MIN_ZOOM;
       const size = (showGlyph ? MARKER_SIZE_NEAR : MARKER_SIZE_FAR) + (highlighted ? MARKER_HI_DELTA : 0);
       const ink = categoryInk(loc.category);
-      // Plans: the stop's number takes the glyph's place in the same ring
-      // (numbers need the glyph tier's room, so the same zoom gate). NEXT is
-      // the list's solid tile: a navy field with a paper numeral.
-      // v3: numbers at EVERY zoom, always at the near size (a number needs the room).
+      // Plans: a stop is its Places pin at the near size, glyph and all, at
+      // every zoom, plus its numbered tag (planNumberIcon). Every other place
+      // is its ordinary Places pin.
       const stop = planMarks().byLoc.get(loc.id);
-      // r6: every place that isn't a stop is its ordinary Places pin (the owner: "the same approach").
       if (stop) return planNumberIcon(loc.category, markerKind(loc), ink, stop, MARKER_SIZE_NEAR + (highlighted ? MARKER_HI_DELTA : 0), highlighted, loc.starred);
       const badge = badgeHtml(loc.category, markerKind(loc), size, {
         ink,
@@ -4530,7 +4473,7 @@
     // Nearest mode leads a row's meta with its distance -- the one fact that
     // mode is about. Other modes: empty, the meta line is unchanged.
     function distanceLabel(loc) {
-      if (sortMode !== 'nearest' || !sortFix) return '';   // v3: Plans sorts its other places too
+      if (sortMode !== 'nearest' || !sortFix) return '';   // Plans sorts its other places too
       const km = kmFromFix(loc.lat, loc.lng);
       if (km < 1) return `${Math.max(10, Math.round(km * 100) * 10)} m`;
       if (km < 10) return `${km.toFixed(1)} km`;
@@ -4620,7 +4563,7 @@
       const was = document.getElementById('filtersPanel').classList.contains('visible');
       document.getElementById('filtersPanel').classList.remove('visible');
       document.getElementById('toggleFiltersBtn').classList.remove('active');
-      if (was && typeof reframeAfterPanel === 'function') reframeAfterPanel();   // r9: same rule as the button
+      if (was) reframeAfterPanel();   // Plans: the same re-fit rule as the toggle button
     }
 
     function setSortMode(mode, { announce = true, persist = true } = {}) {
@@ -4731,12 +4674,14 @@
     }
 
     // =========================================================================
-    // PLANS (phase 1 of 2; design/plans-deepdive/v2/, docs/shipped.md "Plans").
+    // PLANS (design/plans-deepdive/v3/README.md, docs/shipped.md "Plans").
     // A plan is a named, ordered list of stops -- pins or districts/streets,
     // any city. `plans` + `plan_stops` in Supabase (supabase/migrations/
     // 20260929000000_add_plans.sql), same RLS as locations. Places | Plans is
-    // a switch at the top of the filter panel; Plans lists ONE plan's stops
-    // in order, read-only for following. Editing stops is phase 2.
+    // a switch at the top of the filter panel; it changes only what the list
+    // shows (and so what the map draws). Filters, sort and the panel are
+    // shared. Plans is where you build AND follow a plan: the stops in order,
+    // a captioned divider, then every place the filters match with +.
     // Fails soft: until the tables exist the Plans side says so, and Places
     // is exactly the app it was.
     // =========================================================================
@@ -4746,8 +4691,7 @@
     const PLAN_SVG = {
       check: '<svg class="plan-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.5l5.5 5.5L20.5 6" fill="none" stroke="currentColor" stroke-width="2.25"/></svg>',
       plus: '<svg class="plan-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.25"/></svg>',
-      more: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>',
-      pencil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 20l4.5-1 10-10-3.5-3.5-10 10z"/><path d="M13.5 7l3.5 3.5"/></svg>'
+      more: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>'
     };
 
     function inPlanView() { return listView === 'plans'; }
@@ -4758,10 +4702,8 @@
     }
     function stopCount(planId) { return planRowsFor(planId).length; }
 
-    // The plan's stops that resolve to a loaded place or shape, in order.
-    // NEXT = the first stop not yet visited. A district/street has no visited
-    // state, so it counts as passed once any later stop is visited (else a
-    // shape at stop 1 would stay NEXT forever).
+    // The plan's stops that resolve to a loaded place or shape, in order,
+    // numbered 1..m (one grey number state; there is no NEXT).
     function planRowsFor(planId) {
       if (!planId) return [];
       const rows = [];
@@ -4774,7 +4716,7 @@
           if (nb) rows.push({ stop: s, nb });
         }
       });
-      rows.forEach((r, i) => { r.n = i + 1; r.m = rows.length; });   // r11: numbers only -- no NEXT
+      rows.forEach((r, i) => { r.n = i + 1; r.m = rows.length; });
       return rows;
     }
 
@@ -4790,25 +4732,23 @@
       return planMarksCache;
     }
     function planMark(kind, id) { const pm = planMarks(); return (kind === 'loc' ? pm.byLoc : pm.byShape).get(id) || null; }
-    function planMarkKey(kind, id) { const r = planMark(kind, id); return r ? `${r.n}/${r.m}${r.next ? 'n' : ''}` : ''; }
+    function planMarkKey(kind, id) { const r = planMark(kind, id); return r ? `${r.n}/${r.m}` : ''; }
     function planStopLine(kind, id) { const r = planMark(kind, id); return r ? `Stop ${r.n} of ${r.m}` : ''; }
 
-    // r13/r14 (owner: "Number should be to the left of the icon ... moving the icon over";
-    // "should be a centered vertical line for all the left column things (chevron, number, icon)"):
-    // a STOP row's number takes the glyph column itself -- centred on the app's left axis, x=30,
-    // the centre of the header chevron and of every Places icon -- and its Places badge moves one
-    // column over, to the text column's edge (x=56, the header title's edge); its text follows at
-    // x=96. Places rows below the divider stay plain Places rows (icon centred on x=30, text 56).
-    // The number is ONE grey state (r11). It is the drag handle (hold 400ms) and the keyboard's
-    // reorder control.
+    // A STOP row's number takes the glyph column -- centred on the app's left
+    // axis, x=30, the centre of the header chevron and of every Places icon --
+    // and its Places badge moves one column over (x=56, the header title's
+    // edge); its text follows at x=96. Rows below the divider are plain Places
+    // rows (icon centred on x=30, text 56). The number is one grey state; it is
+    // the drag handle (hold STOP_HOLD_MS) and the keyboard's reorder control.
     function numSpan(r, label) {
       const aria = `Stop ${r.n} of ${r.m}, ${escapeAttr(label)}. Hold and drag, or use the arrow keys (Home / End for first / last), to move it.`;
       return `<span class="row-n" role="button" tabindex="0" aria-label="${aria}">${r.n}</span>`;
     }
     function planLead(stop, category, kind, ink, label) {
-      const badge = `<div class="row-badge" style="--row-ink:${ink}">${badgeHtml(category, kind, 24)}</div>`;
-      // r15: the stop's icon is placed by its INK, not its box (data-kind picks the optical offset)
-      return stop && inPlanView() && activePlan() ? `<div class="row-lead">${numSpan(stop, label)}${badge.replace('<div class="row-badge"', `<div class="row-badge" data-kind="${kind}"`)}</div>` : badge;
+      if (!(stop && inPlanView() && activePlan())) return `<div class="row-badge" style="--row-ink:${ink}">${badgeHtml(category, kind, 24)}</div>`;
+      // The stop's icon is placed by its INK, not its box: data-kind picks the optical offset (CSS .row-lead).
+      return `<div class="row-lead">${numSpan(stop, label)}<div class="row-badge" data-kind="${kind}" style="--row-ink:${ink}">${badgeHtml(category, kind, 24)}</div></div>`;
     }
     function rowActionHtml(stop, label) {
       if (!inPlanView()) return '<button class="delete-btn" aria-label="Delete">&times;</button>';
@@ -4818,41 +4758,34 @@
       return `<button class="delete-btn plan-add" aria-label="Add ${escapeAttr(label)} to ${escapeAttr(p.name)}">+</button>`;
     }
 
-    function planTileHtml(r) {
-      return `<span class="plan-tile${r.next ? ' next' : ''}" role="img" aria-label="Stop ${r.n} of ${r.m}${r.next ? ', next' : ''}">${r.n}</span>`;
-    }
-
     function shapePopupHtml(nb) {
       const line = planStopLine('shape', nb.id);
       return `<strong>${escapeHtml(nb.label)}</strong>${line ? `<span class="shape-stop">${line}</span>` : ''}${nb.note ? `<p>${escapeHtml(nb.note)}</p>` : ''}`;
     }
 
-    // A numbered seal: the pin's own ring (category ink, same kind -- dashed
-    // for an approximate pin, diamond for a shape stop), the number where the
-    // glyph was. The star keeps its corner.
-    const V3 = Object.assign({}, window.__V3 || {});   // option-frame knobs (map: 'plan-only' for owner-12's option b)
-    // r7: a stop on the map is its ordinary Places pin (same ring, same glyph) plus a numbered
-    // TAG -- r11: one neutral style for every stop: a small square paper tile ruled 1px --ink-2 with an
-    // --ink-2 numeral (numbers are grey, one state). The tag alone marks a stop (no heavier rim, no ring: they didn't read at 1x
-    // and the ring covered neighbours). applyPlanMap() moves each tag to a free corner and merges
-    // the tags of stops whose pins overlap ("2–3").
+    // A stop on the map is its ordinary Places pin (same ring, same glyph --
+    // dashed for an approximate pin, a diamond for a shape stop; the star keeps
+    // its corner), always at the near size, plus a numbered TAG: a small
+    // square paper tile ruled 1px --ink-2 with an --ink-2 numeral, one style
+    // for every stop. The tag alone marks a stop. applyPlanMap() moves each
+    // tag to a free spot and merges the tags of stops whose pins overlap.
     function planNumberIcon(category, kind, ink, r, size, highlighted, starred) {
       const pad = 12, box = size + pad * 2, c = box / 2;
       const badge = badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: highlighted ? '#F2EBDD' : ink, rim: highlighted ? 2.5 : 2, glyph: true });
       const star = starred ? `<div style="position:absolute;left:${pad}px;top:${pad}px;width:${size}px;height:${size}px">${markerStarHtml(size)}</div>` : '';
       const tag = `<div class="stop-tag" data-n="${r.n}" style="left:${pad - 11}px;top:${pad - 11}px">${r.n}</div>`;
       const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}" data-n="${r.n}" style="position:relative;width:${box}px;height:${box}px;line-height:0;"><div style="position:absolute;left:${pad}px;top:${pad}px">${badge}</div>${star}${tag}</div>`;
-      return L.divIcon({ html, className: 'plan-stop-icon', iconSize: [box, box], iconAnchor: [c, c] });   // r8: the 12px margin round the pin is pass-through (never covers a neighbour's tag or steals its tap)
+      return L.divIcon({ html, className: 'plan-stop-icon', iconSize: [box, box], iconAnchor: [c, c] });   // the 12px margin round the pin is pass-through (never covers a neighbour's tag or takes its tap)
     }
 
-    // A shape stop has no pin, so its number sits in the list's own diamond
-    // badge at the shape's centroid -- one mark per stop, so the map reads
-    // 1..m with no gaps. Same zoom gate as pin numbers; a tap is the row's tap.
+    // A shape stop has no pin, so it gets the list's own diamond badge (plus
+    // its tag) at the shape's centroid -- one mark per stop, so the map reads
+    // 1..m with no gaps, at every zoom; a tap is the row's tap.
     const planShapeMarkers = new Map();   // shape id -> { marker, sig }
     function syncPlanShapeMarkers() {
       if (!map) return;
       const seen = new Set();
-      if (inPlanView()) {   // v3: every zoom
+      if (inPlanView()) {
         planMarks().rows.forEach(r => {
           if (!r.nb) return;
           const c = shapeCentroid(r.nb);
@@ -4860,7 +4793,7 @@
           const id = r.nb.id;
           seen.add(id);
           const ink = r.nb.color || categoryInk(r.nb.type);
-          const sig = [r.n, r.next, c.join(), ink, r.nb.type].join('|');
+          const sig = [r.n, c.join(), ink, r.nb.type].join('|');
           const had = planShapeMarkers.get(id);
           if (had && had.sig === sig) return;
           if (had) map.removeLayer(had.marker);
@@ -4889,23 +4822,12 @@
       return 'No stops yet.';
     }
 
-    // "Edit stops": the first row of an open plan, an ACTION row -- never a
-    // place, so it is exempt from tap-to-fly. Phase 1 ships it unavailable
-    // with its reason (the state system's rule for a control that can't act
-    // yet); phase 2 makes it open Edit mode.
-    const planEditRow = document.createElement('button');
-    planEditRow.type = 'button';
-    planEditRow.className = 'plan-edit-row';
-    planEditRow.setAttribute('aria-disabled', 'true');
-    planEditRow.innerHTML = `${PLAN_SVG.pencil}<span>Edit stops</span><span class="plan-edit-why">Coming next</span>`;
-    planEditRow.setAttribute('aria-label', 'Edit stops, coming in the next update');
-
-    // Plans' own reconciler over the same card maps: pins AND shapes, one
-    // list, interleaved in plan order after the Edit stops row. The Places
-    // reconcilers (syncLocationCards / syncShapeCards) never run in Plans,
-    // so neither they nor the poll can reorder or re-filter a plan.
-    // v3: the Plans list = the plan's stops (all, in order) / a 2px rule / every
-    // place and shape the filters match that is not a stop, in the sort's order.
+    // Plans' own reconciler over the same card maps (pins AND shapes, one
+    // list). The Places reconcilers (syncLocationCards / syncShapeCards) never
+    // run in Plans. The list = the plan's stops (all of them, in plan order,
+    // whatever the filters: the chips choose what you can add, they never hide
+    // your plan) / Places' group divider with a caption / every place and
+    // shape the filters match that is not a stop, in the current sort.
     const planRule = document.createElement('div');
     planRule.className = 'plan-rule'; planRule.setAttribute('role', 'separator');
     const planStopsNote = document.createElement('div'); planStopsNote.className = 'plan-list-note';
@@ -4917,14 +4839,6 @@
       const all = Object.keys(CATEGORY_COLORS), on = all.filter(c => filters.categories[c]);
       const cats = on.length === all.length ? '' : !on.length ? ' · no categories' : on.length <= 2 ? ' · ' + on.join(', ') : ` · ${on.length} categories`;
       return `Add from ${activeCityLabel()}${cats} (${n})`;
-    }
-    function frameOthers() {   // a city chip in Plans frames what you can add from, above the open panel
-      const o = planOthers();
-      const pts = o.locs.map(l => [l.lat, l.lng]).concat(...o.shapes.map(n => n.geometry || []));
-      if (!pts.length || !map) return;
-      const panel = document.getElementById('filtersPanel');
-      const under = panel.classList.contains('visible') ? panel.offsetHeight : 0;
-      map.fitBounds(L.latLngBounds(pts), { paddingTopLeft: [40, 96], paddingBottomRight: [40, 40 + under], maxZoom: 15, animate: !prefersReducedMotion() });
     }
     function planOthers() {
       const pm = planMarks();
@@ -4941,7 +4855,6 @@
       const list = document.getElementById('locationsList');
       const want = [];
       const seenLoc = new Set(), seenShape = new Set();
-      if (planEditRow.parentNode) planEditRow.remove();
       const open = !!activePlan();
       const others = open ? planOthers() : { locs: [], shapes: [] };
       const seq = rows.slice();
@@ -5180,16 +5093,21 @@
           : supabaseClient.from('plan_stops').upsert(changes.map(c => ({ id: c.id, plan_id: c.plan_id, location_id: c.location_id, shape_id: c.shape_id, position: c.position }))));
     }
 
-    // ---- v3: row actions, the slip, reorder --------------------------------
+    // ---- row actions, the slip, reorder ------------------------------------
+    // + adds a place as the last stop, × removes a stop (the place stays in
+    // Places), a hold-drag on the number reorders. Each answers with the slip:
+    // "Added … as stop n" / "Removed …" / "Moved … to stop n", with Undo, for
+    // PLAN_SLIP_MS.
     const PLAN_SLIP_MS = 6000;
+    const REORDER_HINT_KEY = 'triplet.reorderHint';   // per device: the one-time "hold a number to move" hint was shown
     const planSlip = document.createElement('div');
     planSlip.id = 'planSlip'; planSlip.hidden = true; planSlip.setAttribute('role', 'status'); planSlip.setAttribute('aria-live', 'polite');
     planSlip.innerHTML = '<span class="slip-text"></span><button type="button">Undo</button>';
     let planSlipUndo = null, planSlipTimer = 0;
     function placePlanSlip() {
-      // r9: the slip is about the plan's edge, so it sits ON the rule: it covers the rule's
-      // caption line ("ADD FROM ..."), exactly its box, for 6s. If the rule is scrolled out of
-      // the list, it sits on the list header over the plan's name (left of the buttons).
+      // The slip is news about the plan's edge, so it sits ON the rule: it covers the rule's
+      // caption line ("ADD FROM ..."), exactly its box. If the rule is scrolled out of the
+      // list, it sits on the list header over the plan's name (left of the buttons).
       // Never over the map (the stops' tags), the chips, a stop row or the next row's +.
       if (planSlip.hidden) return;
       const list = document.getElementById('locationsList'), lr = list.getBoundingClientRect();
@@ -5213,7 +5131,7 @@
         if (tx.scrollWidth > tx.clientWidth + 0.5) { planSlip.classList.add('wide'); set(hdr.left + 16, Math.min(leftOf('toggleFiltersBtn'), hdr.right - 16) - 8); }
       }
     }
-    // r9: it rides the list (re-placed on scroll and resize while it shows)
+    // It rides the list (re-placed on scroll and resize while it shows).
     document.getElementById('locationsList').addEventListener('scroll', () => placePlanSlip(), { passive: true });
     addEventListener('resize', () => placePlanSlip());
     function showPlanSlip(text, undo) {
@@ -5222,7 +5140,7 @@
         planSlip.querySelector('button').addEventListener('click', async () => { const u = planSlipUndo; hidePlanSlip(); if (u) await u(); });
       }
       planSlip.querySelector('.slip-text').textContent = text;
-      planSlipUndo = undo; planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // r9: again once the list has re-rendered
+      planSlipUndo = undo; planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // again once the list has re-rendered
       clearTimeout(planSlipTimer); planSlipTimer = setTimeout(hidePlanSlip, PLAN_SLIP_MS);
     }
     function hidePlanSlip() { clearTimeout(planSlipTimer); planSlip.hidden = true; planSlipUndo = null; }
@@ -5239,20 +5157,20 @@
         const id = await addStop(p.id, target);
         if (id) {
           const n = stopsOf(p.id).length;
-          // r7: the one-time hint for the drag (a plan now has something to reorder)
-          let hint = '';
-          try { if (n >= 2 && !localStorage.getItem('triplet.reorderHint')) { localStorage.setItem('triplet.reorderHint', '1'); hint = 'y'; } } catch (e) {}
+          // The one-time hint for the drag, once per device (a plan now has something to reorder).
+          let hint = false;
+          try { if (n >= 2 && !localStorage.getItem(REORDER_HINT_KEY)) { localStorage.setItem(REORDER_HINT_KEY, '1'); hint = true; } } catch (e) {}
           showPlanSlip(hint ? `Stop ${n} added · hold a number to move` : `Added ${label} as stop ${n}`, () => removeStop(id));
-          // r8: keep the new stop in view -- pan the least that brings it inside the safe box.
+          // Keep the new stop in view, inside the safe box.
           const r = planMarks().rows.find(x => x.stop.id === id);
-          const ll = r && (r.loc ? L.latLng(r.loc.lat, r.loc.lng) : shapeCentroid(r.nb) && L.latLng(shapeCentroid(r.nb)));
+          const ll = r && stopLatLng(r);
           if (ll && map) {
-            const pn = document.getElementById('filtersPanel'), bx = planSafeBox(pn.classList.contains('visible') ? pn.offsetHeight : 0), p = map.latLngToContainerPoint(ll);
-            const dx = p.x < bx.l ? p.x - bx.l : p.x > bx.r ? p.x - bx.r : 0, dy = p.y < bx.t ? p.y - bx.t : p.y > bx.b ? p.y - bx.b : 0;
+            const bx = planSafeBox(openPanelHeight()), pt = map.latLngToContainerPoint(ll);
+            const dx = pt.x < bx.l ? pt.x - bx.l : pt.x > bx.r ? pt.x - bx.r : 0, dy = pt.y < bx.t ? pt.y - bx.t : pt.y > bx.b ? pt.y - bx.b : 0;
             if (dx || dy) {
-              // r10: if the map is still where the app put it, re-fit the same view WITH the new stop
-              // (so the route doesn't slide off the other side); if you moved it, pan the least.
-              if (lastPlanFit && planFitView() === lastPlanFit.view) frameActivePlan({ animate: false });   // every stop, the new one included
+              // If the map is still where the app put it, re-fit WITH the new stop (so the
+              // route doesn't slide off the other side); if you moved it, pan the least.
+              if (planMapUnmoved()) frameActivePlan();   // every stop, the new one included
               else map.panBy([dx, dy], { animate: !prefersReducedMotion() });
             }
           }
@@ -5264,15 +5182,31 @@
       const s = r.stop;
       if (await removeStop(s.id)) showPlanSlip(`Removed ${label}`, () => restoreStop(s));
     }
+    // A reorder answers with the same slip; Undo moves the stop back to where
+    // it was (the same order; its stored position may differ).
+    async function moveStop(stopId, to) {
+      const r = planMarks().rows.find(x => x.stop.id === stopId);
+      if (!r) return false;
+      const from = r.n - 1, label = r.loc ? r.loc.name : r.nb.label;
+      to = Math.max(0, Math.min(r.m - 1, to));
+      if (to === from || !await reorderStop(stopId, to)) return false;
+      showPlanSlip(`Moved ${label} to stop ${to + 1}`, () => reorderStop(stopId, from));
+      return true;
+    }
     function stopRowFor(el) {
       const id = el.getAttribute('data-id'), sid = el.getAttribute('data-shape-id');
       return planMarks().rows.find(x => id != null ? x.loc && x.loc.id === id : x.nb && x.nb.id === Number(sid)) || null;
     }
-    // Reorder: HOLD the number still for 400ms (4px slop), then drag. Before it
-    // arms, the touch is the row's: a stroke scrolls, stars or visits exactly as
-    // in Places, and a tap flies. Once armed, this handler (registered before the
-    // star gesture) keeps the stroke. Keyboard: arrow keys on the focused number.
-    const STOP_HOLD_MS = 400, STOP_HOLD_SLOP = 4, STOP_EDGE = 48;   // r12 (UX): 400ms, clear of a scroll's settle
+    // Reorder: HOLD the number (or the stop's icon) still for STOP_HOLD_MS
+    // (STOP_HOLD_SLOP px), then drag. Before it arms, the touch is the row's: a
+    // stroke scrolls, stars or visits exactly as in Places, and a tap flies.
+    // Once armed, this handler (registered before the star gesture) keeps the
+    // stroke. Keyboard: ArrowUp/Down on the focused number move a stop one
+    // place, Home/End to first/last.
+    const STOP_HOLD_MS = 400, STOP_HOLD_SLOP = 4, STOP_EDGE = 48;   // 400ms (UX): clear of a scroll's settle
+    let stopMouseDrag = null;   // the row whose number a mouse is holding
+    window.addEventListener('pointermove', e => { if (stopMouseDrag && e.pointerType === 'mouse') stopMouseDrag.move(e); });
+    window.addEventListener('pointerup', e => { if (stopMouseDrag && e.pointerType === 'mouse') { const d = stopMouseDrag; stopMouseDrag = null; d.up(e); } });
     function attachStopDrag(el) {
       let timer = 0, start = null, armed = false, rows = null, from = -1, to = -1, lastY = 0, scroll0 = 0, raf = 0, baseTop = 0;
       const list = () => document.getElementById('locationsList');
@@ -5315,7 +5249,7 @@
         armed = false; cancelAnimationFrame(raf); raf = 0; el.classList.remove('plan-lifted'); el.style.transform = '';
         rows.forEach(row => { row.style.transform = ''; row.classList.remove('plan-shift'); });
         const r = stopRowFor(el);
-        if (commit && r && to !== from) reorderStop(r.stop.id, to);
+        if (commit && r && to !== from) moveStop(r.stop.id, to);
       };
       const begin = (x, y) => { start = [x, y]; clearTimeout(timer); timer = setTimeout(() => { timer = 0; arm(); }, STOP_HOLD_MS); };
       el.addEventListener('touchstart', e => { if (e.touches.length !== 1 || !onHandle(e.target)) return; begin(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
@@ -5327,81 +5261,77 @@
       }, { passive: false });
       el.addEventListener('touchend', e => { if (armed) { if (e.cancelable) e.preventDefault(); e.stopImmediatePropagation(); } end(true); });
       el.addEventListener('touchcancel', () => end(false));
-      el.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && e.button === 0 && onHandle(e.target)) begin(e.clientX, e.clientY); });
-      window.addEventListener('pointermove', e => {
-        if (e.pointerType !== 'mouse' || !start) return;
-        if (!armed) { if (Math.hypot(e.clientX - start[0], e.clientY - start[1]) > STOP_HOLD_SLOP) { clearTimeout(timer); timer = 0; start = null; } return; }
-        move(e.clientY);
-      });
-      window.addEventListener('pointerup', e => { if (e.pointerType === 'mouse' && start) { const was = armed; end(true); if (was) el.__eatClick = true; } });
-      el.addEventListener('click', e => { if (el.__eatClick) { el.__eatClick = false; e.stopImmediatePropagation(); e.preventDefault(); } }, true);
+      // Mouse: the hold and drag continue outside the row (one window-level pair, stopMouseDrag).
+      let eatClick = false;
+      const mouse = {
+        move: e => {
+          if (!start) return;
+          if (!armed) { if (Math.hypot(e.clientX - start[0], e.clientY - start[1]) > STOP_HOLD_SLOP) { clearTimeout(timer); timer = 0; start = null; } return; }
+          move(e.clientY);
+        },
+        up: () => { if (!start) return; const was = armed; end(true); if (was) eatClick = true; }
+      };
+      el.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && e.button === 0 && onHandle(e.target)) { begin(e.clientX, e.clientY); stopMouseDrag = mouse; } });
+      el.addEventListener('click', e => { if (eatClick) { eatClick = false; e.stopImmediatePropagation(); e.preventDefault(); } }, true);
       el.addEventListener('keydown', e => {
         if (!onHandle(e.target)) return;
         if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
         e.preventDefault(); e.stopPropagation();
         const r = stopRowFor(el);
+        if (!r) return;
         // Arrow = one place; Home / End = straight to first / last (the long move without dragging).
         const to = e.key === 'Home' ? 0 : e.key === 'End' ? r.m - 1 : r.n - 1 + (e.key === 'ArrowUp' ? -1 : 1);
-        if (r) reorderStop(r.stop.id, to).then(() => { const b = el.querySelector('.row-n'); if (b) b.focus(); });
+        moveStop(r.stop.id, to).then(() => { const b = el.querySelector('.row-n'); if (b) b.focus(); });
       });
     }
 
     // ---- view -------------------------------------------------------------
-    // Frame a plan's stops. The panel stays open over the bottom of the map
-    // (phone and rail), so the fit keeps the stops clear of it.
-    function frameActivePlan(opts = {}) {
-      const pts = [].concat(...planMarks().rows.map(r => r.loc ? [[r.loc.lat, r.loc.lng]] : (r.nb.geometry || [])));   // a shape frames whole
-      if (!pts.length || !map) return;
-      const panel = document.getElementById('filtersPanel');
-      const under = panel.classList.contains('visible') ? panel.offsetHeight : 0;   // phone and rail alike: the panel lies over the map's bottom edge
-      const animate = opts.animate !== false && !prefersReducedMotion();
-      const record = () => { lastPlanFit = { view: planFitView(), under }; };
-      // r8: the default view has two jobs.
-      //  BUILDING (filter panel open): fit the stops AND every place the filters match, into the
-      //    safe map box above the panel (clear of the zoom control, the round buttons and the
-      //    attribution). No zooming for close pairs.
-      //  FOLLOWING (panel closed): fit every stop (r11: there is no NEXT to favour). Stops whose
-      //    pins overlap share one tag; one close pair never sets the zoom.
+    // The default view, framed inside planSafeBox() (clear of the zoom
+    // control, the round buttons, the attribution and the open panel). It has
+    // two jobs:
+    //  BUILDING (filter panel open): the stops AND every place the filters
+    //    match, so you see what you are choosing from. No zooming in for a
+    //    close pair; overlapping stops share one tag.
+    //  FOLLOWING (panel closed): the stops in the selected city chip (the
+    //    "which leg am I on" control); with ALL CITIES, or when that city has
+    //    no stops, every stop.
+    // The view jumps (no fly): animating the default fit is deferred (v3 §6).
+    const stopLatLng = r => r.loc ? L.latLng(r.loc.lat, r.loc.lng) : (shapeCentroid(r.nb) && L.latLng(shapeCentroid(r.nb)));
+    function frameActivePlan() {
+      const rows = planMarks().rows;
+      if (!rows.length || !map || !rows.some(stopLatLng)) return;
+      const under = openPanelHeight();
       const box = planSafeBox(under), sz = map.getSize();
       const pad = { paddingTopLeft: [box.l, box.t], paddingBottomRight: [sz.x - box.r, sz.y - box.b], animate: false };
-      const rows = planMarks().rows;
-      const llOf = r => r.loc ? L.latLng(r.loc.lat, r.loc.lng) : (shapeCentroid(r.nb) && L.latLng(shapeCentroid(r.nb)));
-      const stopLL = rows.map(llOf).filter(Boolean);
-      const fit = (lls, maxZoom) => lls.length === 1 ? map.setView(lls[0], Math.max(map.getZoom(), 15), { animate: false }) : map.fitBounds(L.latLngBounds(lls), { ...pad, maxZoom });
-      const overlaps = lls => { const ps = lls.map(ll => map.latLngToContainerPoint(ll)); return ps.some((p, i) => ps.some((q, j) => i < j && p.distanceTo(q) < 30)); };
+      const stopLL = rows.map(stopLatLng).filter(Boolean);
+      const fit = lls => lls.length === 1 ? map.setView(lls[0], Math.max(map.getZoom(), 15), { animate: false }) : map.fitBounds(L.latLngBounds(lls), { ...pad, maxZoom: 16 });
       if (under) {
         const o = planOthers();
         const cand = o.locs.map(l => L.latLng(l.lat, l.lng)).concat(o.shapes.map(n => shapeCentroid(n)).filter(Boolean).map(c => L.latLng(c)));
-        fit(stopLL.concat(cand), 16);
+        fit(stopLL.concat(cand));
       } else {
-        // r12 (UX): FOLLOWING = the stops in the selected city chip -- the chip is the "which leg am I
-        // on" control. With ALL CITIES, or when that city has no stops, every stop. Overlapping
-        // stops share one tag ("2–3").
-        const inCity = filters.city === null ? [] : rows.filter(r => (r.loc ? r.loc.city : r.nb.city) === filters.city).map(llOf).filter(Boolean);
-        fit(inCity.length ? inCity : stopLL, 16);
+        const inCity = filters.city === null ? [] : rows.filter(r => (r.loc ? r.loc.city : r.nb.city) === filters.city).map(stopLatLng).filter(Boolean);
+        fit(inCity.length ? inCity : stopLL);
       }
-      record();
+      lastPlanFit = { view: planFitView() };
     }
-    // The fit made room for the open panel. If the map is still exactly where
-    // that fit left it when the panel closes, re-fit to the space the panel
-    // gave back -- the stops would otherwise sit bunched at the top. Once the
-    // user has moved the map, it stays where they put it.
+    // The panel changes the map's job (building vs following), so opening AND
+    // closing it re-fit -- while the map is still where the app last put it (a
+    // fit, or the pan after +). Once you have moved the map yourself it stays
+    // yours: closing leaves it alone (you only gain room); opening keeps your
+    // zoom and pans the least that lifts the stops you had on screen out from
+    // under the panel (zooming out only if they can't fit in the strip).
     let lastPlanFit = null;
     const planFitView = () => { const c = map.getCenter(); return `${c.lat.toFixed(6)},${c.lng.toFixed(6)},${map.getZoom()}`; };
-    // r9: the panel changes the map's job (building vs following), so opening AND closing it
-    // re-fit -- while the map is still where the app last put it (a fit, or the pan after +).
-    // Once you have moved the map yourself it stays yours: closing leaves it alone (you only
-    // gain room); opening keeps your zoom and pans the least that lifts the stops you had on
-    // screen out from under the panel (zooming out only if they can't fit in the strip).
     const planMapUnmoved = () => !!lastPlanFit && planFitView() === lastPlanFit.view;
     function reframeAfterPanel() {
       if (!inPlanView() || !activePlan() || !map) return;
-      if (planMapUnmoved()) { frameActivePlan({ animate: false }); return; }
+      if (planMapUnmoved()) { frameActivePlan(); return; }
       lastPlanFit = null;
       const pn = document.getElementById('filtersPanel');
       if (!pn.classList.contains('visible')) return;
       const box = planSafeBox(pn.offsetHeight), full = planSafeBox(0);
-      const pts = planMarks().rows.map(r => r.loc ? L.latLng(r.loc.lat, r.loc.lng) : (shapeCentroid(r.nb) && L.latLng(shapeCentroid(r.nb)))).filter(Boolean);
+      const pts = planMarks().rows.map(stopLatLng).filter(Boolean);
       const seen = pts.filter(ll => { const p = map.latLngToContainerPoint(ll); return p.x >= full.l && p.x <= full.r && p.y >= full.t && p.y <= full.b; });
       if (!seen.length) return;   // you had panned away from the plan: nothing of it to keep
       const ps = seen.map(ll => map.latLngToContainerPoint(ll));
@@ -5415,9 +5345,9 @@
       }
     }
 
-    // The only writer of listView. Leaving a plan restores the city the
-    // Places list had: a plan never changes the city selection (Plans has
-    // no city chips), so "restore" is re-framing that city.
+    // The only writer of listView. The switch changes only what the list shows
+    // (and so what the map draws): never the filters, the sort or the panel.
+    // Back in Places, the map re-frames the selected city.
     function setListView(view) {
       if (view !== 'plans') view = 'places';
       if (view === listView) return;
@@ -5438,15 +5368,15 @@
       writePlanPrefs();
       document.getElementById('locationsList').scrollTop = 0;
     }
-    // Picking a plan opens it and leaves the panel open (switching again is
-    // one more tap); the map frames its stops.
+    // Picking a plan opens it in Plans, closes the picker's slip and leaves the
+    // panel open; the map frames it.
     function choosePlan(id) {
       if (!plans.some(p => p.id === id)) return;
       noteInteraction();
       const same = listView === 'plans' && activePlanId === id;
       listView = 'plans';
       activePlanId = id;
-      planPanel = { mode: null, draft: '', open: false };   // v3: picking closes the plan slip
+      planPanel = { mode: null, draft: '', open: false };
       if (!same) { setHighlighted(null); if (map) map.closePopup(); }
       updateUI();
       frameActivePlan();   // re-picking the open plan re-frames it (the city chip's recovery move)
@@ -5454,7 +5384,7 @@
       if (!same) document.getElementById('locationsList').scrollTop = 0;
     }
 
-    // ---- the panel: switch + plan picker (v3 r2) ----------------------------
+    // ---- the panel: switch + plan picker ----------------------------------
     // The picker sits in the switch's row, in BOTH views (the panel is identical and the
     // same height); its slip lists every plan (✓ = open, count, ⋯ = rename/delete THAT plan)
     // and New plan. Picking a plan opens it in Plans and closes the slip; the panel stays.
@@ -5582,18 +5512,16 @@
 
     function updateUI() {
       const planMode = inPlanView();
-      // Plans: plan order is the only order (planMarks().rows), so no sort and
-      // no held order -- a row gesture never moves a stop.
+      // Plans orders its own list (syncPlanCards: the stops in plan order, then
+      // the other matches in the sort); Places sorts here, as it always has.
       const visible = (() => { const v = visibleLocations(); return planMode ? v : (heldOrder(v) || sortLocations(v)); })();
       const visibleShapes = planMode ? visibleNeighborhoodShapes() : sortShapes(visibleNeighborhoodShapes());
       // The header is only a label: whatever the list is. Places: the city
-      // list and its count. Plans: the plan's name, no count.
+      // list and its count. Plans: just the plan's name (a count cost two
+      // characters of fit; Places' "<city> list (N)" still tells them apart).
       const h2 = document.querySelector('#locationsHeader h2');
-      if (planMode && activePlan()) {
-        // Just the name: a count here cost 2 characters of fit (18-char names truncated). Places'
-        // title always reads "<city> list (N)", so a plan named "Copenhagen" still differs.
-        h2.innerHTML = `<span class="h-name">${escapeHtml(activePlan().name)}</span>`;
-      } else h2.textContent = planMode ? 'Plans' : `${activeCityLabel()} list (${visible.length + visibleShapes.length})`;
+      if (planMode && activePlan()) h2.innerHTML = `<span class="h-name">${escapeHtml(activePlan().name)}</span>`;
+      else h2.textContent = planMode ? 'Plans' : `${activeCityLabel()} list (${visible.length + visibleShapes.length})`;
       document.body.classList.toggle('plan-view', planMode);
       document.body.classList.toggle('plan-none', planMode && !activePlan());
       const mapVisible = mapVisibleLocations();
@@ -5601,14 +5529,14 @@
       syncClusterMarkers(mapVisible.clusters);
       if (planMode) syncPlanCards(planMarks().rows);
       else {
-        [planEditRow, planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });   // the index-based reconcilers own the list from row 0
+        [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });   // the index-based reconcilers own the list from row 0
         syncLocationCards(visible);
         syncShapeCards(visibleShapes, visible.length);
       }
       syncNeighborhoodLayers();
       syncPlanShapeMarkers();
       applyPlanMap();
-      if (typeof placePlanSlip === 'function') placePlanSlip();   // r9: the rule may have moved
+      placePlanSlip();   // the rule may have moved under it
 
       // Empty state + bottom spacer always come last, after both card kinds.
       const list = document.getElementById('locationsList');
@@ -5721,24 +5649,32 @@
     // indistinguishable, unclickable stacked dots. A lone pin in a cell is
     // untouched -- most of the map, most of the time, looks exactly as it
     // always has.
-    // ---- r6: THE PLANS MAP (the owner: "I don't like using a different approach for clustered
-    // places"). Places' clustering, pins and highlight are used unchanged. The only difference
-    // is the stops: never absorbed into a cluster, drawn at their true location, above every
-    // cluster and pin (the ladder at applyMarkerStacking). Overlapping stops overlap like pins:
-    // lower numbers on top.
-    // r7 tag layout (after every sync / move). Stops whose PINS overlap (< STOP_OVERLAP px) keep
-    // their pins at their true spots and share ONE tag on the top pin (the lowest
-    // number), labelled with every number in it ("2–3"). Each tag takes the first corner
-    // (upper-left, upper-right, lower-right, lower-left) that touches no Places cluster, no
-    // other stop's pin and no tag already placed, so a cluster's count and every stop number
-    // stay visible. Clusters draw above stops (as they draw above every pin in Places).
+    // ---- THE PLANS MAP (design/plans-deepdive/v3 §4) --------------------------
+    // Places' clustering, pins and highlight, unchanged (owner: "I don't like
+    // using a different approach for clustered places"). Only the stops
+    // differ: never absorbed into a cluster, always at their true location,
+    // each its ordinary Places pin plus a small grey numbered TAG. Clusters
+    // still beat every pin (the ladder at applyMarkerStacking()).
+    // applyPlanMap() lays the tags out after every sync and move: stops whose
+    // PINS overlap (< STOP_OVERLAP px) keep their pins and share ONE tag
+    // ("2–3") on the lowest-numbered pin in view. Each tag takes the first
+    // free spot of eight (four corners, then four sides), always touching its
+    // own pin (near edge <= 13px from the pin centre, no leader line); a free
+    // spot touches no cluster, no other stop's pin, no tag, no screen edge and
+    // no map chrome, and is nearer its own pin than any other marker. If none
+    // is free, the least-bad spot wins (the weights below).
     const STOP_OVERLAP = 22;
-    // r8: the map's own chrome, in container px -- the zoom control, the account and add
-    // buttons, the attribution -- and the safe box inside it (above the open filter panel).
+    // The map's own chrome, in container px -- the zoom control, the account
+    // and add buttons, the attribution -- and the safe box inside it (above
+    // the open filter panel) that every default fit frames into.
     function planChrome() {
       const mb = document.getElementById('map').getBoundingClientRect();
       return [document.querySelector('.leaflet-control-zoom'), document.getElementById('accountBtn'), document.getElementById('floatingAddBtn'), document.querySelector('.leaflet-control-attribution')]
         .filter(el => el && el.getBoundingClientRect().width).map(el => { const r = el.getBoundingClientRect(); return { x1: r.left - mb.left - 4, y1: r.top - mb.top - 4, x2: r.right - mb.left + 4, y2: r.bottom - mb.top + 4 }; });
+    }
+    function openPanelHeight() {   // the open filter panel lies over the map's bottom edge (phone and rail)
+      const pn = document.getElementById('filtersPanel');
+      return pn.classList.contains('visible') ? pn.offsetHeight : 0;
     }
     function planSafeBox(under) {
       const sz = map.getSize(), ch = planChrome();
@@ -5759,21 +5695,20 @@
       const groups = new Map();
       stops.forEach((q, i) => { const g = find(i); if (!groups.has(g)) groups.set(g, []); groups.get(g).push(q); });
       const clusters = [...clusterMarkersById.values()].map(m => map.latLngToContainerPoint(m.getLatLng()));
-      const stopEls = new Set(stops.map(q => q.el));
       const mbr = document.getElementById('map').getBoundingClientRect();
       const others = [...document.querySelectorAll('#map .leaflet-marker-icon')].filter(el => !el.querySelector('.plan-stop'))
         .map(el => { const r = el.getBoundingClientRect(); return { el, p: L.point(r.left + r.width / 2 - mbr.left, r.top + r.height / 2 - mbr.top) }; })
         .filter(o => o.p.x > -20 && o.p.y > -20 && o.p.x < mbr.width + 20 && o.p.y < mbr.height + 20);
       const placed = [], msz = map.getSize(), chrome = planChrome();
-      // r9: the bottom of the map you can SEE (the open panel and the list sheet lie over the map)
+      // The bottom of the map you can SEE (the open panel and the list sheet lie over the map).
       const visBottom = (() => { const mt = document.getElementById('map').getBoundingClientRect().top, pn = document.getElementById('filtersPanel'), lt = document.getElementById('locations').getBoundingClientRect().top;
         return Math.min(msz.y, lt - mt, pn.classList.contains('visible') ? pn.getBoundingClientRect().top - mt : Infinity); })();
       const hitsRect = (a, b) => a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2;
       const rectCircle = (rc, p, r) => { const nx = Math.max(rc.x1, Math.min(p.x, rc.x2)), ny = Math.max(rc.y1, Math.min(p.y, rc.y2)); return Math.hypot(p.x - nx, p.y - ny) < r; };
+      const seeBox = planSafeBox(openPanelHeight());
       [...groups.values()].sort((a, b) => Math.min(...a.map(q => q.r.n)) - Math.min(...b.map(q => q.r.n))).forEach(g => {
         g.sort((x, y) => x.r.n - y.r.n);
         // the shared tag rides the lowest-numbered pin that is inside the map you can see
-        const seeBox = planSafeBox((() => { const pn = document.getElementById('filtersPanel'); return pn.classList.contains('visible') ? pn.offsetHeight : 0; })());
         const top = g.find(q => q.p.x >= seeBox.l && q.p.x <= seeBox.r && q.p.y >= seeBox.t && q.p.y <= seeBox.b) || g[0];
         const label = rangeLabel(g.map(q => q.r.n));
         g.forEach(q => {
@@ -5782,10 +5717,9 @@
           if (q !== top) { t.style.display = 'none'; return; }
           t.style.display = ''; t.textContent = label;
           const w = t.offsetWidth || 14, h = 14, P = q.p;
-          // r8: four corners first, then the four sides (tag edge touching the ring, centred) --
-          // travel is capped: the tag always touches its own pin (max 13px from the pin centre to
-          // the tag's near edge), it never floats on a leader. Each spot is scored; the first clean
-          // one wins, else the least-bad (screen edge > another tag > another stop > cluster > chrome).
+          // Four corners first, then the four sides (tag edge touching the ring, centred). Each
+          // spot is scored; the first clean one wins, else the least-bad (screen edge > map
+          // chrome > another tag > nearer another marker > another stop > a cluster > a place pin).
           const spots = [[-13 - w + 2, -13 - h + 2], [11, -13 - h + 2], [11, 11], [-13 - w + 2, 11],
             [-w / 2, -13 - h], [13, -h / 2], [-w / 2, 13], [-13 - w, -h / 2]];
           let best = spots[0], bestScore = Infinity;
@@ -5817,13 +5751,12 @@
     }
     function mapVisibleLocations() {
       const all = visibleLocations();
-      if (V3.map === 'plan-only' && inPlanView() && activePlan()) { const pm0 = planMarks(); if (!map || map.getZoom() >= SOLO_MIN_ZOOM) return { solo: all.filter(l => pm0.byLoc.has(l.id) || l.id === highlightedId), clusters: [] }; }
       if (!map || map.getZoom() >= SOLO_MIN_ZOOM) return { solo: all, clusters: [] };
-      // v3: a stop is never absorbed into a cluster -- it keeps its number at every zoom.
+      // Plans: a stop is never absorbed into a cluster -- it keeps its pin and
+      // tag at every zoom. (In Places planMarks() is empty, so this is a no-op.)
       const pm = planMarks();
       const pinned = all.filter(l => pm.byLoc.has(l.id));
-      let visible = pinned.length ? all.filter(l => !pm.byLoc.has(l.id)) : all;
-      if (V3.map === 'plan-only' && inPlanView() && activePlan()) visible = visible.filter(l => l.id === highlightedId);   // option (b)
+      const visible = pinned.length ? all.filter(l => !pm.byLoc.has(l.id)) : all;
 
       const cellPx = clusterCellPxForZoom(map.getZoom());
       const cells = new Map();
@@ -5848,8 +5781,10 @@
         // owner cares about never disappears into a bare count. `*` in the
         // id makes a star toggle recreate the badge like a membership change.
         const starred = members.some(m => m.starred);
+        // The view is in the id too: a cluster's z-offset differs in Plans
+        // (above the stops), so switching views recreates it.
         const id = (inPlanView() && activePlan() ? 'pcluster:' : 'cluster:') + (starred ? '*' : '') + members.map(m => m.id).sort().join(',');
-        clusters.push({ id, lat, lng, count: members.length, starred, memberIds: members.map(m => m.id) });
+        clusters.push({ id, lat, lng, count: members.length, starred });
       });
       return { solo: pinned.concat(solo), clusters };
     }
@@ -5860,8 +5795,8 @@
     // target (focusMap, same as focusShape()'s flyToBounds()) -- it never
     // expands in place, so it can't swallow a specific pin a list click or
     // another cluster click is trying to reach.
-    // r6: Places' clusters, unchanged, in Plans too (red disc, paper count, tap zooms in).
-    function clusterMarkerIcon(count, starred, members) {
+    // Plans draws Places' clusters unchanged (red disc, paper count, tap zooms in).
+    function clusterMarkerIcon(count, starred) {
       const size = CLUSTER_BADGE_PX - 2;
       const c = size / 2;
       const star = starred ? markerStarHtml(size) : '';
@@ -5879,10 +5814,9 @@
       clusters.forEach(cluster => {
         seen.add(cluster.id);
         if (clusterMarkersById.has(cluster.id)) return;
-        const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count, cluster.starred, cluster.members) }).addTo(map);
+        const marker = L.marker([cluster.lat, cluster.lng], { icon: clusterMarkerIcon(cluster.count, cluster.starred) }).addTo(map);
         applyMarkerStacking(marker, false, cluster.starred, true);
-        // r4: a Plans group zooms to where its places really are, and at >= SOLO_MIN_ZOOM two steps further (they separate).
-        marker.on('click', () => focusMap([cluster.zlat ?? cluster.lat, cluster.zlng ?? cluster.lng], { atLeast: cluster.zlat != null ? Math.min(19, Math.max(SOLO_MIN_ZOOM, map.getZoom() + 2)) : SOLO_MIN_ZOOM }, { animate: true }));
+        marker.on('click', () => focusMap([cluster.lat, cluster.lng], { atLeast: SOLO_MIN_ZOOM }, { animate: true }));
         clusterMarkersById.set(cluster.id, marker);
       });
 
@@ -5906,21 +5840,20 @@
     // about is never the one hidden underneath. The selected pin always
     // tops everything.
     const Z_HIGHLIGHTED = 1000, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500;
-    // Plans: a stop pin draws above any place pin it overlaps (NEXT above the
-    // other stops), still under the clusters and the selected pin.
-    // v3: stops are never clustered, so they sit ABOVE clusters (a count must not bury a stop).
-    // r4, the Plans ladder. Leaflet's z-index = the marker's screen y + this offset, so the steps
-    // are 5000 apart (more than any screen is tall) or a lower mark further down would win:
-    //   selected stop 30000 > stop 20000-n > the tapped place 15000
-    //   > starred group 700 > group 600 > starred place 500 > place 0.
-    const Z_PLAN_HI_STOP = 35000, Z_PLAN_CLUSTER = 30000, Z_PLAN_NEXT = 25000, Z_PLAN_STOP = 20000, Z_PLAN_PICKED = 15000;
-    // r7 ladder: selected stop 35000 > Places clusters 30000 (they beat every pin, as in Places)
-    //   > stop 20000-n > the tapped place 15000 > places 0-500.
+    // The Plans ladder (an open plan only; design/plans-deepdive/v3 §4).
+    // Leaflet's z-index = the marker's screen y + this offset, so the steps are
+    // 5000 apart (more than any screen is tall) or a lower mark further down
+    // would win:
+    //   selected stop 35000 > clusters 30000 (+100 starred; as in Places they
+    //   beat every pin, stops included) > stop 20000-n (lower numbers on top)
+    //   > the tapped place 15000 > places 0-500.
+    const Z_PLAN_HI_STOP = 35000, Z_PLAN_CLUSTER = 30000, Z_PLAN_STOP = 20000, Z_PLAN_PICKED = 15000;
     function applyMarkerStacking(marker, highlighted, starred, cluster = false) {
+      const planOpen = inPlanView() && !!activePlan();
       const stop = !cluster && marker.locationId != null ? planMarks().byLoc.get(marker.locationId) : null;
       marker.setZIndexOffset(
-        highlighted ? (!cluster && inPlanView() && activePlan() ? (stop ? Z_PLAN_HI_STOP : Z_PLAN_PICKED) : Z_HIGHLIGHTED)
-        : cluster ? (inPlanView() && activePlan() ? Z_PLAN_CLUSTER + (starred ? 100 : 0) : starred ? Z_CLUSTER_STARRED : Z_CLUSTER)   // r7: as in Places, clusters beat every pin -- stops included
+        highlighted ? (!cluster && planOpen ? (stop ? Z_PLAN_HI_STOP : Z_PLAN_PICKED) : Z_HIGHLIGHTED)
+        : cluster ? (planOpen ? Z_PLAN_CLUSTER + (starred ? 100 : 0) : starred ? Z_CLUSTER_STARRED : Z_CLUSTER)
         : stop ? Z_PLAN_STOP - stop.n
         : starred ? Z_PIN_STARRED : 0);
     }
@@ -5930,7 +5863,7 @@
 
       visible.forEach(loc => {
         seen.add(loc.id);
-        const signature = markerSignature(loc) + '|' + planMarkKey('loc', loc.id) + '|' + (inPlanView() && activePlan() ? 'p' : '');   // plan number / NEXT / muted re-icons
+        const signature = markerSignature(loc) + '|' + planMarkKey('loc', loc.id) + '|' + (inPlanView() && activePlan() ? 'p' : '');   // a stop's number / the view re-icon and re-stack it
         const entry = markersById.get(loc.id);
 
         if (!entry) {
@@ -6031,7 +5964,7 @@
         const id = el.getAttribute('data-id');
         const current = locations.find(l => l.id === id);
 
-        // v3: + / X in Plans share the delete X's near-still-tap rule.
+        // Plans' + / × share the delete ×'s near-still-tap rule.
         const pa = e.target.closest('.plan-add, .plan-x');
         if (pa) {
           if (e.detail !== 0 && xTravel >= DELETE_TAP_SLOP) return;
@@ -6047,7 +5980,7 @@
         highlightMarker(id);
       });
 
-      attachStopDrag(el);   // v3: registered first, so an armed drag can keep the star/visit gesture out
+      attachStopDrag(el);   // registered first, so an armed drag can keep the star/visit gesture out
       attachStarGesture(el);
       return el;
     }
@@ -7087,8 +7020,8 @@
       const ink = categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
       const dist = distanceLabel(loc);   // Nearest only: the distance leads the meta
-      const stop = planMarks().byLoc.get(loc.id);   // v3: Plans: the numeral leads; the X removes from the plan
-      el.classList.toggle('plan-num-row', inPlanView() && !!activePlan() && !!stop);   // r13: number, then icon
+      const stop = planMarks().byLoc.get(loc.id);   // Plans: the number leads, then the icon; × removes from the plan
+      el.classList.toggle('plan-num-row', inPlanView() && !!activePlan() && !!stop);
       const stamp = loc.visited
         ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`
         : '';
@@ -7198,12 +7131,26 @@
       el.addEventListener('touchend', removeActive);
       el.addEventListener('touchcancel', removeActive);
 
+      // Plans' + / × fire only on a near-still tap (DELETE_TAP_SLOP), as on a pin row.
+      let aDown = null, aTravel = 0;
+      const aStart = (x, y) => { aDown = [x, y]; aTravel = 0; };
+      const aMove = (x, y) => { if (aDown) aTravel = Math.max(aTravel, Math.hypot(x - aDown[0], y - aDown[1])); };
+      el.addEventListener('touchstart', (e) => { const t = e.touches[0]; if (t) aStart(t.clientX, t.clientY); }, { passive: true });
+      el.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) aMove(t.clientX, t.clientY); }, { passive: true });
+      el.addEventListener('touchend', (e) => { const t = e.changedTouches[0]; if (t) aMove(t.clientX, t.clientY); }, { passive: true });
+      el.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') aStart(e.clientX, e.clientY); });
+      el.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && e.buttons) aMove(e.clientX, e.clientY); });
+
       el.addEventListener('click', (e) => {
         const id = Number(el.getAttribute('data-shape-id'));
         const current = neighborhoodShapes.find(n => n.id === id);
 
         const pa = e.target.closest('.plan-add, .plan-x');
-        if (pa) { planRowAct(pa.classList.contains('plan-add') ? 'add' : 'remove', { shapeId: id }, current ? current.label : ''); return; }
+        if (pa) {
+          if (e.detail !== 0 && aTravel >= DELETE_TAP_SLOP) return;
+          planRowAct(pa.classList.contains('plan-add') ? 'add' : 'remove', { shapeId: id }, current ? current.label : '');
+          return;
+        }
         if (e.target.closest('.delete-btn')) {
           if (current) confirmDeleteShape(current.id, current.label);
           return;
@@ -7313,7 +7260,7 @@
             btn.classList.add('inactive');
           }
           updateUI();
-          if (inPlanView()) { showPlanRule(); if (activePlan()) frameActivePlan({ animate: false }); }
+          if (inPlanView()) { showPlanRule(); frameActivePlan(); }   // Plans: land on what the chip changed
         };
       });
     }
@@ -7329,7 +7276,7 @@
       });
       updateUI();
     }
-    // v3: deleting a place that is a stop says so (the plan would otherwise renumber silently).
+    // Deleting a place that is a stop says so (the plan would otherwise renumber silently).
     function inPlansNote(match) {
       const inPlans = plans.filter(p => planStops.some(s => s.plan_id === p.id && match(s)));
       if (!inPlans.length) return '';
@@ -7379,8 +7326,8 @@
       const toggleBtn = document.getElementById('toggleFiltersBtn');
       filtersPanel.classList.toggle('visible');
       toggleBtn.classList.toggle('active');
-      reframeAfterPanel();   // r9: opening re-fits too (building), not only closing
-      if (typeof placePlanSlip === 'function') placePlanSlip();   // r9: the list moved under the slip
+      reframeAfterPanel();   // Plans: opening re-fits too (building), not only closing
+      placePlanSlip();       // the list moved under the slip
     };
 
     document.getElementById('collapseBtn').onclick = () => {
@@ -7814,7 +7761,7 @@
     // moveend (not zoomend) -- clustering depends on screen position, which
     // panning changes even without a zoom crossing.
     map.on('moveend', syncMarkerGlyphZoom);
-    map.on('moveend', applyPlanMap);   // r4: after the markers are synced
+    map.on('moveend', applyPlanMap);   // the stop tags, after the markers are synced
 
     // Popups are plain HTML strings (buildPopupHtml()), not real DOM
     // components -- there's no per-button listener to attach the way
@@ -7895,7 +7842,7 @@
     setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false });
 
     Promise.all([fetchLocations(), fetchNeighborhoodShapes(), fetchCities(), fetchPlans()])
-      .then(() => { if (inPlanView() && activePlan()) frameActivePlan({ animate: false }); cleanupOrphanCities(); });
+      .then(() => { if (inPlanView()) frameActivePlan(); cleanupOrphanCities(); });
     startPoll();
 
     // The bottom sheet becomes a left rail at >=900px (see the media query).
