@@ -86,6 +86,7 @@ const T = {
   '07-city-malmo': f => [...panelParity(f), ['Malmö on; still Plans', onCities(f).join() === 'Malmö' && f.view === 'plans'], ...planCommon(f, 'Nørrebro afternoon', 6),
     ['r8 building fit across cities: the strip above the open panel shows BOTH the stops (all 6 drawn, Copenhagen) and Malmö’s places (pins or Places’ own cluster) -- stops 2–6 are never hidden by a city pick', f.markers.filter(m => !m.num && m.onMap).length >= 1 && f.markers.filter(m => m.num).length === 6 && f.markers.filter(m => m.num && m.onMap).length >= 1],
     ['below the rule: only Malmö places', others(f).length > 0 && others(f).every(r => /malm/i.test(r.meta))]],
+  '08b-all-cities-building': f => [['build: ALL CITIES while building (panel open) zooms out to every city\'s places (zoom ≤ 10); still Plans', f.zoom <= 10 && onCities(f).join() === 'All cities' && f.view === 'plans']],
   '08-all-cities': f => [...mapRules(f), ['following (panel closed) with ALL CITIES frames every stop at a stop-level zoom (build: the prototype\'s z9 here was a focusCity race)', f.markers.filter(m => m.num && m.tagShown && m.onMap).length >= 1 && f.zoom >= 12], ['ALL CITIES on; still Plans', onCities(f).join() === 'All cities' && f.view === 'plans'], ...planCommon(f, 'Nørrebro afternoon', 6),
     ['below the rule: places from Copenhagen AND Malmö', others(f).some(r => /malm/i.test(r.meta)) || F['08-all-cities'].rows.length > 20]],
   '09-filter-excludes-stops': f => [['Cafe chip off', offCats(f).join() === 'cafe'], ...planCommon(f, 'Nørrebro afternoon', 6),

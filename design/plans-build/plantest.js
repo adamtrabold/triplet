@@ -431,6 +431,23 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const leg = await page.evaluate(() => { const b = map.getBounds(); return ['lil', 'tiv', 'nyh'].map(id => { const l = locations.find(x => x.id === id); return b.contains([l.lat, l.lng]); }); });
     ok('M4 following a two-city plan: the Malmö chip frames the Malmö leg', leg[0] && !leg[1], leg);
     await ctx.close(); }
+  // a brand-new plan: no stops yet frames the city's matching places, and seven + never chase
+  for (const panel of [true, false]) {
+    const { ctx, page } = await open(b, base);
+    await toPlans(page); await pick(page, 'p-empty'); if (!panel) await closePanel(page); await W(300);
+    const inBox = (lls) => page.evaluate(lls => { const box = planSafeBox(openPanelHeight()); return lls.filter(([la, ln]) => { const p = map.latLngToContainerPoint([la, ln]); return !(p.x >= box.l - 1 && p.x <= box.r + 1 && p.y >= box.t - 1 && p.y <= box.b + 1); }).length; }, lls);
+    const z = await page.evaluate(() => ({ z: map.getZoom(), fit: !!lastPlanFit, unmoved: planMapUnmoved(), cand: planOthers().locs.map(l => [l.lat, l.lng]) }));
+    const out0 = await inBox(z.cand);
+    ok(`M5 ${panel ? 'panel open' : 'panel closed'}: a plan with no stops frames the city's matching places (all in the safe box; zoom ≥ 11 closed, ≥ 10 in the strip above the open panel) and records the view`, out0 === 0 && z.z >= (panel ? 10 : 11) && z.fit && z.unmoved, { z: z.z, out0, fit: z.fit, unmoved: z.unmoved });
+    const ids = await page.evaluate(() => { const o = planOthers().locs.slice().sort((a, b) => a.lng - b.lng); const k = o.length; return [0, 1, 2, k - 1, k - 2, Math.floor(k / 2), Math.floor(k / 3)].map(i => o[i].id).filter((v, i, a) => a.indexOf(v) === i); });
+    const worst = [];
+    for (const id of ids) {
+      await page.evaluate(id => planRowAct('add', { locationId: id }, id), id); await W(400);
+      const lls = await page.evaluate(() => planMarks().rows.map(r => [r.loc.lat, r.loc.lng]));
+      worst.push(await inBox(lls));
+    }
+    ok(`M6 ${panel ? 'panel open' : 'panel closed'}: ${ids.length} adds from an empty plan keep every stop in the safe box (the map re-fits, never chases)`, ids.length === 7 && worst.every(n => n === 0) && (await page.evaluate(() => planMapUnmoved())), worst);
+    await ctx.close(); }
 
   // ---------------------------------------------------------------- row gestures still work on stop rows
   { const { ctx, page } = await open(b, base);

@@ -153,6 +153,8 @@ scene('06b-hint-on-header', {}, async p => { await toPlans(p); await closePanel(
 scene('07-city-malmo', {}, async p => { await toPlans(p); await city(p, 'malmo'); await W(1800); },
   [['rows', [0, 543, 390, 301]]], true);
 scene('08-all-cities', {}, async p => { await toPlans(p); await city(p, "__all__"); await closePanel(p); await p.evaluate(() => showPlanRule()); await W(300); }, []);
+// build: the same chip, panel still open -- the building fit zooms out to every city's places
+scene('08b-all-cities-building', {}, async p => { await toPlans(p); await city(p, "__all__"); await W(300); }, [['panel', '#filtersPanel', 0]]);
 scene('09-filter-excludes-stops', {}, async p => { await toPlans(p); await chip(p, 'cafe'); await closePanel(p); await scrollList(p, 0); await W(300); },
   [['rows', [0, 544, 390, 300]]]);
 scene('10-empty-filtered', {}, async p => { await toPlans(p); await city(p, 'la'); await closePanel(p); await p.evaluate(() => { frameActivePlan({ animate: false }); showPlanRule(); }); await W(300); },

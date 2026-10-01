@@ -3412,9 +3412,10 @@
       // The highlighted location may belong to the city we are leaving.
       setHighlighted(null);
 
-      // Plans with stops frames the plan instead (frameActivePlan(): the
-      // building fit takes in the new city's places; following, its leg).
-      const framePlan = inPlanView() && !!activePlan() && planMarks().rows.length > 0;
+      // Plans frames the open plan instead (frameActivePlan(): the building
+      // fit takes in the new city's places; following, its leg; no stops yet,
+      // the city's matching places).
+      const framePlan = inPlanView() && !!activePlan();
       if (opts.frame !== false && !framePlan) {
         focusCity(selection, { animate: opts.animate !== false });
       }
@@ -5297,18 +5298,24 @@
     //    no stops, every stop.
     // The view jumps (no fly): animating the default fit is deferred (v3 §6).
     const stopLatLng = r => r.loc ? L.latLng(r.loc.lat, r.loc.lng) : (shapeCentroid(r.nb) && L.latLng(shapeCentroid(r.nb)));
+    // A plan with no stops yet frames the places the filters match (the
+    // building fit, open panel or not), as Places frames its city; with none
+    // of those either, the selected city itself. Either way the view is
+    // recorded, so the first + re-fits instead of chasing the new stop.
     function frameActivePlan() {
+      if (!map || !activePlan()) return;
       const rows = planMarks().rows;
-      if (!rows.length || !map || !rows.some(stopLatLng)) return;
       const under = openPanelHeight();
       const box = planSafeBox(under), sz = map.getSize();
       const pad = { paddingTopLeft: [box.l, box.t], paddingBottomRight: [sz.x - box.r, sz.y - box.b], animate: false };
       const stopLL = rows.map(stopLatLng).filter(Boolean);
       const fit = lls => lls.length === 1 ? map.setView(lls[0], Math.max(map.getZoom(), 15), { animate: false }) : map.fitBounds(L.latLngBounds(lls), { ...pad, maxZoom: 16 });
-      if (under) {
-        const o = planOthers();
-        const cand = o.locs.map(l => L.latLng(l.lat, l.lng)).concat(o.shapes.map(n => shapeCentroid(n)).filter(Boolean).map(c => L.latLng(c)));
-        fit(stopLL.concat(cand));
+      const candidates = () => { const o = planOthers(); return o.locs.map(l => L.latLng(l.lat, l.lng)).concat(o.shapes.map(n => shapeCentroid(n)).filter(Boolean).map(c => L.latLng(c))); };
+      if (!stopLL.length) {
+        const cand = candidates();
+        if (cand.length) fit(cand); else focusCity(citySelection, { animate: false });
+      } else if (under) {
+        fit(stopLL.concat(candidates()));
       } else {
         const inCity = filters.city === null ? [] : rows.filter(r => (r.loc ? r.loc.city : r.nb.city) === filters.city).map(stopLatLng).filter(Boolean);
         fit(inCity.length ? inCity : stopLL);
@@ -5530,6 +5537,7 @@
       if (planMode) syncPlanCards(planMarks().rows);
       else {
         [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });   // the index-based reconcilers own the list from row 0
+        document.querySelectorAll('#locationsList .is-stop').forEach(e => e.classList.remove('is-stop'));   // Plans' marker class, back on a Places row
         syncLocationCards(visible);
         syncShapeCards(visibleShapes, visible.length);
       }

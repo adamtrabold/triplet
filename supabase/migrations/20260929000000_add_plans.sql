@@ -1,4 +1,5 @@
--- Plans (phase 1 of 2; design/plans-deepdive/v2/, docs/shipped.md "Plans").
+-- Plans (v3 build; design/plans-deepdive/v3/README.md, docs/shipped.md
+-- "Plans (v3 build)"). The schema is unchanged since phase 1.
 -- NOT YET APPLIED: the operator applies this to the live project after review.
 -- index.html fails soft until it is: the Plans side of the filter panel says
 -- plans aren't available yet, and everything else works exactly as before.
