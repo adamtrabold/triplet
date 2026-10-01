@@ -170,10 +170,38 @@ pick/redirect before building anything.
 - Header visited count ("12/38 visited" in `updateUI()`'s
   `${activeCityLabel()} list (...)` text) — deferred in the delete-only
   list-row round to get its own review; still not built.
-- **Gesture test harness can't run** (infra): `design/pencil-star/lib.js`,
-  `s2.js`, `design/star2/lib.js` (and `curve8.js`) were never committed, so
-  the "84 + 8 (+ N8-a)" touch/flip6 gate and `vtest.js` can't be run.
-  Rebuild or recover them.
+- ~~Gesture test harness can't run~~ — **rebuilt** (2026-10-01) as
+  `design/gesture-harness/`. One command, `design/gesture-harness/run-all.sh
+  [index.html]`, about 15 minutes. It runs eight suites: touch (84),
+  flip (8 plus a control that must fail), N8-a, vtest (p7's 95), popup-open
+  20/20 per mode, dust, rows 56.00px, curve8, and the delete-slop sweep.
+  It prints the gate line in CLAUDE.md's format.
+  - Limits: Chromium only, emulated CDP touch, not iOS. Not rebuilt:
+    `haptic8`/`tap8`/`ax8`, the 0/5,184 hand-off check, and p8's 18 extra
+    vtest cases (never committed).
+  - The old `test6.js`, `flip6.js` and `vtest.js` stay as history.
+  - Its first run on `origin/main` (`9a53d71`) found the items below. Details
+    are in `design/gesture-harness/README.md`, "Findings".
+- **Visit swipe vs. its gate after `1ec21c2`** ("text now slides + FLIPs",
+  merged after p8 without a gate run and absent from `docs/shipped.md`).
+  - **V14:** on long names the sliding text runs up to ~23px into the
+    bleeding stamp before the press. The text travels 56px; the stamp plus
+    its gap to the X is ~76px.
+  - **V15:** the final truncation now lands at release (FLIP), not on the
+    press frame as `docs/shipped.md` says. The spec needs updating, or the
+    code does.
+  - **D7, reduced motion only:** right after an un-visit stroke, a tap on the X
+    deletes. `settleVisitDrag()` finishes synchronously, before the async
+    toggle lands. The stale signature then re-renders the row and drops the
+    X's 120ms guard.
+- **curve8 row reads 10/3, not 11/3**, in the rebuilt harness (30/30 runs).
+  `STAR_POP` is unchanged since `48bb11e`. Its ≥1.3× window is 168.5ms =
+  10.11 frames, so 11 depends on frame phase. Here the animation starts on a
+  frame and the 12th sample lands 0.1ms late. Owner/CD call: keep ≥11, which
+  then fails in this harness, or restate it.
+- **Android-only delete edge (Chromium probe, not gated):** a 4–12px
+  out-and-back wiggle on the X deletes. Chromium suppresses touchmoves inside
+  its ~15px slop, so only the release point is seen. iOS is unknown.
 
 Previously tracked and fixed: `showError()`/
 `hideError()` banner masking, and `slugifyCityId()` not decomposing Nordic
