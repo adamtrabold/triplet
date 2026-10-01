@@ -1701,7 +1701,7 @@
     .plan-stop .pin-n.two { font-size: 12px; letter-spacing: -0.02em; }
     .plan-stop.highlighted-marker .pin-n { color: var(--paper); }
     /* the grey tag beside a red cluster that holds stops: part of the cluster -- a tap zooms in, like the disc */
-    #map .glyph-clipped .badge-glyph { display: none; }   /* a place pin half under a cluster: ring only (applyPlanMap()) */
+    #map .glyph-clipped .badge-glyph, #map .glyph-clipped .pin-n { display: none; }   /* a pin half under a cluster: ring only -- a place's glyph, or a stop's number already in the cluster's tag (applyPlanMap()) */
     .stop-tag.cluster-stops { pointer-events: auto; cursor: pointer; z-index: 3; }   /* r20: above the cluster's star -- a star never sits on a stop number */
     /* r19 (designer): drawn like a stop pin -- a paper field in a 1.5px grey ring, grey numeral; a 16px
        circle for one number, a pill for "2–4" / "1,5–6". A solid grey disc read as a second cluster; a
@@ -5892,11 +5892,12 @@
       // A stop drawn as its own mark whose centre lies under a cluster disc (pins from a
       // neighbouring cell) would be hidden by the disc: its number joins that cluster's tag.
       const absorbed = new Map();   // cluster id -> [stop numbers]
+      const el2 = e => e.marker.getElement();
       pm.rows.forEach(r => {
         const e = r.loc ? markersById.get(r.loc.id) : planShapeMarkers.get(r.nb.id);
         if (!e || !e.marker.getElement()) return;
         const p = map.latLngToContainerPoint(e.marker.getLatLng());
-        for (const [id, m] of clusterMarkersById) if (map.latLngToContainerPoint(m.getLatLng()).distanceTo(p) < CLUSTER_DISC_R + 6) { absorbed.set(id, (absorbed.get(id) || []).concat([r.n])); break; }
+        for (const [id, m] of clusterMarkersById) if (map.latLngToContainerPoint(m.getLatLng()).distanceTo(p) < CLUSTER_DISC_R + 6) { absorbed.set(id, (absorbed.get(id) || []).concat([r.n])); el2(e).classList.add('glyph-clipped'); break; }   // its number is in the tag: the pin's own, cut by the disc, would read as a stray digit
       });
       clusterStopTags(absorbed);
     }
