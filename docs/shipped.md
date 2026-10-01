@@ -899,8 +899,18 @@ SLIP over z9–z15 × three plans × panel/collapsed); `sweep.js` (392 panned
 views at z14/z15, the tag judgement after every pan). Places regressions:
 `list-ordering/build/sorttest.js`, `state-system/check.js` + `matrix.js`,
 `gesturediff.js` against origin/main, `trip-location-model/widen-test.js`;
-Impeccable exactly the 3 baseline findings. Counts for this build are in its
-hand-back (and the branch's last commit message). The touch / flip6 / curve8
-/ dust / vtest suites can't run yet (helper files never committed; see the
-backlog's gesture-harness item). Stills: `design/plans-build/stills/` (the
-v3 states rendered from the real build at 1x and 3x, with crops).
+Impeccable exactly the 3 baseline findings. The row-gesture gate
+(`design/gesture-harness/run-all.sh`) gained `plans.js` (plan rows, 22 cases:
+taps on text and number, star right, visit left from ×, quick and 300ms-rested
+vertical strokes scroll, the 450ms hold lifts and moves, × / + slop, rows 56).
+Results at hand-back (Chromium; merged with origin/main 4eec7f3): plantest
+113/113, griptest 30/30, check 375/375 (48 frames), matrix 56 cells 555/555,
+sweep 392/392 (21 tag-views with no clean spot, as accepted), sorttest 77/77,
+state-system check 11/11 and matrix 66 cells × 3 scales 0 failures,
+gesturediff identical to origin/main (22 outcomes), widen-test 19/19. Gesture
+gate, this build: star "84 + 8 (+ N8-a)" · vtest 91/95 · popup-open 20/20 +
+20/20 · dust 0 frames · rows 56.00px · curve8 10/3 · delete-slop 36/36 ·
+plan-rows 22/22 -- the same failures as origin/main (V14 ×2, V15 ×2, curve8
+10 vs ≥11, all pre-existing), so no regression. Stills:
+`design/plans-build/stills/` (the v3 states rendered from the real build at 1x
+and 3x, with crops, and `truths.md`).
