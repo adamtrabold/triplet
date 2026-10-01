@@ -179,8 +179,10 @@ operator makes none of these calls.
 - **Row gestures (Pencil Star right, visit left):** report the star gate as
   **"84 + 8 (+ N8-a)"**, never "84"; visit suite `vtest.js`; plus
   popup-open 20/20, 0 dust-over-text frames, rows 56.00px, curve8 frame
-  counts. Delete fires only on a near-still tap (`DELETE_TAP_SLOP` 4px).
-  All of it runs with `design/gesture-harness/run-all.sh [index.html]`
+  counts; plan-rows (Plans stop rows: number, 400ms hold, × / +) once
+  Plans is in the page. Delete fires only on a near-still tap
+  (`DELETE_TAP_SLOP` 4px). All of it runs with
+  `design/gesture-harness/run-all.sh [index.html]`
   (Chromium-emulated touch; see its README for limits and known failures).
 - **iOS haptics:** from iOS 26.5 a scripted click gives no haptic, so swipe
   gestures are silent there by platform limit (owner-confirmed); real taps
