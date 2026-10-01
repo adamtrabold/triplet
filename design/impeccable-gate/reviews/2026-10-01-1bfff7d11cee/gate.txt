@@ -1,0 +1,4 @@
+IMPECCABLE static ok: 3/3 baseline findings, 0 new, 0 missing  (index.html)
+IMPECCABLE runtime ok: 16/16 baseline findings, 0 new, 0 missing  (states: list 45, popup 49, sort 45, add 45, plans 45)
+  note: states n/a here [] vs baseline [plans]: a build that adds/removes a UI state needs its runtime baseline reviewed
+IMPECCABLE GATE PASSED

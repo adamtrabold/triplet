@@ -950,9 +950,12 @@ Impeccable exactly the 3 baseline findings. The row-gesture gate
 (`design/gesture-harness/run-all.sh`) gained `plans.js` (plan rows, 22 cases:
 taps on text and number, star right, visit left from ×, quick and 300ms-rested
 vertical strokes scroll, the 450ms hold lifts and moves, × / + slop, rows 56).
-Results at hand-back (Chromium; merged with origin/main 4eec7f3): plantest
-113/113, griptest 30/30, check 375/375 (48 frames), matrix 56 cells 555/555,
-sweep 392/392 (21 tag-views with no clean spot, as accepted), sorttest 77/77,
+Results after the review fixes (Chromium; merged with origin/main ff6b218):
+plantest 117/117, griptest 30/30, check 397/397 (49 frames), matrix 56 cells
+611/611 (18 tags beside a cluster with all 8 spots blocked, all in zoomed-out
+knots), sweep 392/392 (21 tag-views with no clean spot, 0 of them beside a
+cluster), Impeccable gate PASSED (static 3/3, runtime 16/16 incl. the plans
+state, 0 new), sorttest 77/77,
 state-system check 11/11 and matrix 66 cells × 3 scales 0 failures,
 gesturediff identical to origin/main (22 outcomes), widen-test 19/19. Gesture
 gate, this build: star "84 + 8 (+ N8-a)" · vtest 91/95 · popup-open 20/20 +
