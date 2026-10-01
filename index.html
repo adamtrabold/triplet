@@ -340,7 +340,8 @@
       top: 0;
       left: 0;
       right: 0;
-      z-index: 1002;
+      z-index: 2100;   /* above the floating account / add badges (2000) */
+      cursor: pointer;   /* tap to dismiss */
     }
 
     #error.show { display: block; }
@@ -2465,7 +2466,7 @@
     <symbol id="g-compass" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/></symbol>
   </defs></svg>
 
-  <div id="error">
+  <div id="error" role="alert" title="Tap to dismiss">
     <p id="errorText"></p>
   </div>
 
@@ -2903,7 +2904,7 @@
         }
         hideError('locations');
       } catch (err) {
-        showError(`Failed to load: ${err.message}`, 'locations');
+        showReadProblem(err, 'locations');
       }
     }
 
@@ -2934,7 +2935,7 @@
         updateUI();   // refreshes the list count/cards too, not just the map layers
         hideError('shapes');
       } catch (err) {
-        showError(`Failed to load neighborhood shapes: ${err.message}`, 'shapes');
+        showReadProblem(err, 'shapes');
       }
     }
 
@@ -2942,12 +2943,24 @@
       return rows.map(r => `${r.id}:${markerSignature(r)}`).join('~');
     }
 
-    function handleRLSError(error, operation) {
-      // Check if it's an RLS policy violation
-      if (error.message && (error.message.includes('row-level security') || error.message.includes('policy'))) {
-        return `Access denied: Only authorized users can ${operation} locations.`;
-      }
-      return `Failed to ${operation}: ${error.message}`;
+    // Owner (2026-10-01): the banner never shows a raw message. A write that fails for want of
+    // a connection (a fetch TypeError: Chromium "Failed to fetch", Safari "Load failed", or the
+    // browser offline) says "Couldn't save. Check your connection." and goes after 6s; a write
+    // the RLS policy refuses says who can edit and stays until tapped. Either way the row has
+    // already rolled back.
+    const BANNER_WRITE_MS = 6000;
+    const errText = err => `${(err && err.message) || err || ''} ${(err && err.code) || ''}`;
+    const isNetworkError = err => (typeof navigator !== 'undefined' && navigator.onLine === false) || err instanceof TypeError ||
+      /failed to fetch|load failed|networkerror|network request failed/i.test(errText(err));
+    const isRLSError = err => /row-level security|policy|42501/i.test(errText(err));
+    function showWriteError(err, what, source = 'mutation') {
+      if (isRLSError(err)) { showError(`Only Adam and Erica can edit ${what}.`, source); return; }
+      showError(isNetworkError(err) ? 'Couldn’t save. Check your connection.' : 'Couldn’t save. Try again.', source, { autoHideMs: BANNER_WRITE_MS });
+    }
+    // A failed read (load or poll) keeps what's on screen and says so in the navy info band;
+    // the next good read of that source, or the browser's `online` event, clears it.
+    function showReadProblem(err, source) {
+      showInfo(isNetworkError(err) ? 'Offline. Showing what’s loaded.' : 'Couldn’t load. Showing what’s loaded.', source);
     }
 
     async function addLocation(loc) {
@@ -2962,7 +2975,7 @@
         await refetchLocations();
         hideError('mutation');
       } catch (err) {
-        showError(handleRLSError(err, 'add'), 'mutation');
+        showWriteError(err, 'places');
       }
     }
 
@@ -2978,7 +2991,7 @@
         await fetchNeighborhoodShapes();
         hideError('mutation');
       } catch (err) {
-        showError(handleRLSError(err, 'add'), 'mutation');
+        showWriteError(err, 'places');
       }
     }
 
@@ -2996,7 +3009,7 @@
         hideError('mutation');
         cleanupOrphanCities();
       } catch (err) {
-        showError(handleRLSError(err, 'delete'), 'mutation');
+        showWriteError(err, 'places');
       }
     }
 
@@ -3014,7 +3027,7 @@
         hideError('mutation');
         cleanupOrphanCities();
       } catch (err) {
-        showError(handleRLSError(err, 'delete'), 'mutation');
+        showWriteError(err, 'places');
       }
     }
 
@@ -3059,7 +3072,7 @@
       } catch (err) {
         // Rollback is per write: only this tap's flip is undone.
         setLocationFlag(id, field, !next);
-        showError(handleRLSError(err, 'update'), 'mutation');
+        showWriteError(err, 'places');
       } finally {
         flagWritesInFlight--;
       }
@@ -3752,7 +3765,7 @@
         hideError('mutation');
         return true;
       } catch (err) {
-        showError(handleRLSError(err, 'add'), 'mutation');
+        showWriteError(err, 'places');
         return false;
       }
     }
@@ -3779,7 +3792,7 @@
         updateCitySelectorUI();
         hideError('cities');
       } catch (err) {
-        showError(`Failed to load cities: ${err.message}`, 'cities');
+        showReadProblem(err, 'cities');
       }
     }
 
@@ -4009,16 +4022,20 @@
     // single banner slot outright, since only one message fits at a time.
     let currentErrorSource = null;
 
-    function showError(msg, source) {
+    let errorHideTimer = 0;
+    function showError(msg, source, opts = {}) {
+      clearTimeout(errorHideTimer);
       currentErrorSource = source;
       document.getElementById('errorText').textContent = msg;
       document.getElementById('error').classList.remove('info');
       document.getElementById('error').classList.add('show');
+      if (opts.autoHideMs) errorHideTimer = setTimeout(() => hideError(source), opts.autoHideMs);
     }
 
     // Same banner, navy "info" styling instead of the error color -- for
     // messages that report something that happened, not something that failed.
     function showInfo(msg, source) {
+      clearTimeout(errorHideTimer);
       currentErrorSource = source;
       document.getElementById('errorText').textContent = msg;
       document.getElementById('error').classList.add('info', 'show');
@@ -4026,9 +4043,17 @@
 
     function hideError(source) {
       if (source !== currentErrorSource) return;
+      clearTimeout(errorHideTimer);
       currentErrorSource = null;
       document.getElementById('error').classList.remove('show', 'info');
     }
+    // Tap to dismiss, whatever it says.
+    document.getElementById('error').addEventListener('click', () => hideError(currentErrorSource));
+    // Back online: clear a read-problem band and refetch now rather than at the next poll.
+    addEventListener('online', () => {
+      if (['locations', 'shapes', 'cities'].includes(currentErrorSource)) hideError(currentErrorSource);
+      try { pollTick(); } catch (e) { /* not started yet */ }
+    });
 
     // =========================================================================
     // Rendering — id-keyed reconcilers. Nothing here tears down and rebuilds:
@@ -5047,11 +5072,7 @@
     // whole-state snapshot, so overlapping writes can't undo each other).
     // While any is in flight a read is not applied; the last to settle
     // refetches once -- the pattern of toggleLocationFlag().
-    function planErrorText(err, op) {
-      const msg = (err && err.message) || String(err);
-      if (/row-level security|policy/i.test(msg)) return `Access denied: Only authorized users can ${op}.`;
-      return `Couldn’t ${op}: ${msg}`;
-    }
+
     async function planWrite(op, apply, rollback, run) {
       if (!await requireAuth()) return false;
       if (plansAvailable !== true) return false;
@@ -5068,7 +5089,7 @@
         ok = false;
         rollback();
         updateUI();
-        showError(planErrorText(err, op), 'plans');
+        showWriteError(err, 'plans', 'plans');
       } finally {
         planWritesInFlight--;
       }

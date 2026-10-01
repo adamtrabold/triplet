@@ -319,6 +319,45 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const d = await page.evaluate(() => (document.querySelector('#locationsList .plan-list-note:last-of-type') || {}).textContent);
     ok('EM1 Places, every chip off: "Nothing matches these filters."; a city with no places (LA): "Nothing here yet."; Plans below the divider says the same', a === 'Nothing matches these filters.' && c === 'Nothing here yet.' && [...await page.evaluate(() => [...document.querySelectorAll('#locationsList .plan-list-note')].map(n => n.textContent))].includes('Nothing matches these filters.'), [a, c, d]);
     await ctx.close(); }
+  // ---------------------------------------------------------------- the shared banner (owner, 2026-10-01)
+  { const { ctx, page } = await open(b, base);
+    const ban = () => page.evaluate(() => { const e = document.getElementById('error'); return { on: e.classList.contains('show'), info: e.classList.contains('info'), text: document.getElementById('errorText').textContent, z: +getComputedStyle(e).zIndex }; });
+    // a network write failure (Places): rolls back, says so, goes after 6s
+    await page.evaluate(() => { const q = supabaseClient.from; supabaseClient.from = t => { if (t !== 'locations') return q(t); const b = q(t); b.update = () => ({ eq: async () => ({ data: null, error: { message: 'TypeError: Failed to fetch', code: '' } }) }); return b; }; });
+    const v0 = await page.evaluate(() => locations.find(l => l.id === 'tor').visited);
+    await page.evaluate(() => toggleLocationFlag('tor', 'visited')); await W(400);
+    const n1 = await ban(), v1 = await page.evaluate(() => locations.find(l => l.id === 'tor').visited);
+    await W(6200); const n2 = await ban();
+    ok('B1 a write that fails offline rolls back and says "Couldn’t save. Check your connection." (no raw message), above the badges; gone after 6s', n1.on && !n1.info && n1.text === 'Couldn’t save. Check your connection.' && n1.z > 2000 && v1 === v0 && !n2.on, [n1, n2]);
+    // an RLS refusal: who can edit; stays until tapped
+    await page.evaluate(() => { const q = supabaseClient.from; supabaseClient.from = t => { const b = q(t); if (t === 'locations') b.update = () => ({ eq: async () => ({ data: null, error: { message: 'new row violates row-level security policy for table "locations"', code: '42501' } }) }); return b; }; });
+    await page.evaluate(() => toggleLocationFlag('tor', 'visited')); await W(400);
+    const r1 = await ban(); await W(6500); const r2 = await ban();
+    await page.evaluate(() => document.getElementById('error').click()); await W(100); const r3 = await ban();
+    ok('B2 an RLS refusal says "Only Adam and Erica can edit places." and stays until tapped; a tap dismisses it', r1.text === 'Only Adam and Erica can edit places.' && r2.on && !r3.on, [r1, r2, r3]);
+    // a failed poll: navy info band, keeps what is loaded; recovery clears it; no view switch
+    const rows0 = await page.evaluate(() => document.querySelectorAll('#locationsList .location-card').length);
+    await page.evaluate(async () => { window.__q0 = supabaseClient.from; supabaseClient.from = t => { const b = window.__q0(t); if (t === 'locations') { b.select = () => b; b.order = () => b; b.then = (ok, bad) => Promise.resolve({ data: null, error: { message: 'TypeError: Load failed' } }).then(ok, bad); } return b; }; await fetchLocations(); });
+    await W(200); const o1 = await ban(), rows1 = await page.evaluate(() => document.querySelectorAll('#locationsList .location-card').length);
+    await page.evaluate(() => { supabaseClient.from = window.__q0; window.dispatchEvent(new Event('online')); }); await W(800); const o2 = await ban();
+    ok('B3 a failed read: the navy info band "Offline. Showing what’s loaded.", the list kept; the `online` event (or the next good read) clears it', o1.on && o1.info && o1.text === 'Offline. Showing what’s loaded.' && rows1 === rows0 && !o2.on, [o1, o2, rows0, rows1]);
+    await ctx.close(); }
+  // a list-row tap closes the filter panel first (Places and Plans), + / x never do
+  { const { ctx, page } = await open(b, base);
+    await openPanel(page);
+    await tap(page, '.location-card[data-id="tor"] .row-main'); await W(1800);
+    const p1 = await page.evaluate(() => ({ panel: document.getElementById('filtersPanel').classList.contains('visible'), exp: document.getElementById('toggleFiltersBtn').getAttribute('aria-expanded'), pop: !!document.querySelector('.leaflet-popup'), z: map.getZoom() }));
+    ok('R1 Places: a row tap with the panel open closes it, then flies and opens the popup', !p1.panel && p1.exp === 'false' && p1.pop && p1.z >= 14, p1);
+    await page.evaluate(() => map.closePopup());
+    await toPlans(page); await page.evaluate(() => document.getElementById('filter-bar').click()); await W(300);
+    const filt0 = await page.evaluate(() => JSON.stringify(filters));
+    await page.evaluate(() => document.querySelector('.location-card[data-id="cof"] .plan-x').click()); await W(500);
+    const keep = await panelOpen(page);
+    await page.evaluate(() => document.querySelector('#planSlip button').click()); await W(500);
+    await tap(page, '.location-card[data-id="jae"] .row-main'); await W(1800);
+    const p2 = await page.evaluate(() => ({ panel: document.getElementById('filtersPanel').classList.contains('visible'), pop: !!document.querySelector('.leaflet-popup'), view: listView, plan: activePlanId, filt: JSON.stringify(filters) }));
+    ok('R2 Plans: × leaves the panel open; a row tap closes it and opens the popup, with the filters, the plan and the view kept', keep && !p2.panel && p2.pop && p2.view === 'plans' && p2.plan === 'p-nor' && p2.filt === filt0, { keep, p2 });
+    await ctx.close(); }
   // ---------------------------------------------------------------- UX round: offline, no-plan map, 2a/2b, Undo, labels, motion, picker list
   { const { ctx, page, errors } = await open(b, { ...base, offline: true, storage: { ...HINTED, 'triplet.listView': 'plans', 'triplet.activePlan': 'p-nor' } });
     await W(400);
@@ -443,7 +482,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
       const n0 = planStops.length; await deletePlan('p-tiv'); const back = plans.some(x => x.id === 'p-tiv') && planStops.length === n0;
       return { mid, id, after, err, nm, back, h: document.querySelector('#locationsHeader h2').textContent };
     });
-    ok('W10 a failed write shows at once (optimistic), then rolls back with the RLS message', r.mid && r.id === null && !r.after && /Access denied: Only authorized users can create the plan\./.test(r.err), r);
+    ok('W10 a failed write shows at once (optimistic), then rolls back with the RLS message', r.mid && r.id === null && !r.after && r.err === 'Only Adam and Erica can edit plans.', r);
     ok('W11 failed rename and delete roll back exactly', r.nm === 'Nørrebro afternoon' && r.back && r.h === 'Nørrebro afternoon', r);
     await page.evaluate(() => planRowAct('add', { locationId: 'tor' }, 'Torvehallerne')); await W(700);
     ok('W12 a failed + rolls back and shows no slip', (await stopKeys(page)) === NOR && (await slip(page)) === null);
