@@ -57,7 +57,8 @@ const RULES = (o) => {
   // R2
   const r2 = [];
   const mv = mapVisibleLocations();
-  const clustered = new Set(mv.clusters.flatMap(c => c.memberIds || []));
+  // a cluster's id is "<p>cluster:[*]<member ids, sorted, comma-joined>" (mapVisibleLocations)
+  const clustered = new Set(mv.clusters.flatMap(c => c.id.replace(/^p?cluster:\*?/, '').split(',')));
   pm.rows.forEach(r => {
     const c = r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb); if (!c) return;
     const t = toPage(c); if (!inView(t)) return;

@@ -863,7 +863,7 @@ Undo slip incl. touch and mouse hold-drag and keyboard, shape slop, writes,
 rollback, login gate, default view, star/visit swipes on stop rows, rail,
 collapsed); `griptest.js` (row controls under CDP touch: the number's 44×44
 target, hold-drag 400ms vs scroll / tap / star / visit, long moves, keyboard,
-+ / × slop, delete copy, filters); `ink.js` → `frames.js` (47 states at 1x and
++ / × slop, delete copy, filters); `ink.js` → `frames.js` (48 states, incl. the build's reorder-Undo frame 14b, at 1x and
 3x + crops, `frames.json`) → `check.js` (per-frame truths incl. the x=30 axis
 and the ink edges ≤0.5px); `matrix.js` (the map rules R1–R5, FIT, REOPEN,
 SLIP over z9–z15 × three plans × panel/collapsed); `sweep.js` (392 panned
