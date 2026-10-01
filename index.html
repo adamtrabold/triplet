@@ -1698,7 +1698,7 @@
     .plan-stop .pin-n.two { font-size: 12px; letter-spacing: -0.02em; }
     .plan-stop.highlighted-marker .pin-n { color: var(--paper); }
     /* the grey tag beside a red cluster that holds stops: part of the cluster -- a tap zooms in, like the disc */
-    .stop-tag.cluster-stops { pointer-events: auto; cursor: pointer; }
+    .stop-tag.cluster-stops { pointer-events: auto; cursor: pointer; z-index: 3; }   /* r20: above the cluster's star -- a star never sits on a stop number */
     /* r19 (designer): drawn like a stop pin -- a paper field in a 1.5px grey ring, grey numeral; a 16px
        circle for one number, a pill for "2–4" / "1,5–6". A solid grey disc read as a second cluster; a
        square was the one square on a map of circles. Shape dial: --cluster-tag-radius (8px = fully round). */
@@ -5880,16 +5880,22 @@
     // them: on the right, or on the left when the cluster's star rides the disc's upper right;
     // then above / below if a side runs off the visible map, onto a control, another tag or
     // another cluster's count. It may cover part of the red disc, never a digit.
+    // r20: tags never overlap -- one that would land on another tag, or under another
+    // tag-bearing disc, merges its numbers into that tag, which is placed again at its new
+    // width; a tag-bearing cluster draws above plain ones (Z_PLAN_CLUSTER + 1000).
     function clusterStopTags(absorbed) {
-      const pm = planMarks(), msz = map.getSize(), chrome = planChrome(), placed = [];
+      const pm = planMarks(), msz = map.getSize(), chrome = planChrome(), placed = [], tagged = [];
       const mbr = document.getElementById('map').getBoundingClientRect();
       const visBottom = (() => { const pn = document.getElementById('filtersPanel'), lt = document.getElementById('locations').getBoundingClientRect().top;
         return Math.min(msz.y, lt - mbr.top, pn.classList.contains('visible') ? pn.getBoundingClientRect().top - mbr.top : Infinity); })();
       const hits = (a, b) => a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2;
-      const discs = [...clusterMarkersById.entries()].map(([id, m]) => ({ id, el: m.getElement() })).filter(d => d.el && d.el.firstElementChild);
+      const onDisc = (rc, c, r) => { const dx = c.x - Math.max(rc.x1, Math.min(c.x, rc.x2)), dy = c.y - Math.max(rc.y1, Math.min(c.y, rc.y2)); return dx * dx + dy * dy < r * r; };
+      const discs = [...clusterMarkersById.entries()].map(([id, m]) => ({ id, m, el: m.getElement(), c: map.latLngToContainerPoint(m.getLatLng()) })).filter(d => d.el && d.el.firstElementChild);
       const countBox = d => { const r = d.el.querySelector('svg text').getBoundingClientRect(); return { x1: r.left - mbr.left - 1, y1: r.top - mbr.top - 1, x2: r.right - mbr.left + 1, y2: r.bottom - mbr.top + 1 }; };
-      discs.forEach(d => d.el.querySelectorAll('.cluster-stops').forEach(t => t.remove()));
+      discs.forEach(d => { d.el.querySelectorAll('.cluster-stops').forEach(t => t.remove()); applyMarkerStacking(d.m, false, d.id.includes(':*'), true); });
       const counts = discs.map(d => ({ d, box: countBox(d) }));
+      const merge = (into, ns) => { into.ns = into.ns.concat(ns).sort((a, b) => a - b); into.t.textContent = clusterStopLabel(into.ns);
+        const i = placed.indexOf(into.rc); if (i >= 0) placed.splice(i, 1); into.rc = into.place(); placed.push(into.rc); };
       discs.forEach(d => {
         const ns = d.id.replace(/^p?cluster:\*?/, '').split(',')
           .map(id => id.startsWith('shape:') ? pm.byShape.get(Number(id.slice(6))) : pm.byLoc.get(id)).filter(Boolean).map(r => r.n)
@@ -5898,21 +5904,37 @@
         const box = d.el.firstElementChild, t = document.createElement('div');
         t.className = 'stop-tag cluster-stops'; t.textContent = clusterStopLabel(ns); t.setAttribute('aria-hidden', 'true');
         box.appendChild(t);
-        const w = t.offsetWidth || 14, h = t.offsetHeight || 14, bb = box.getBoundingClientRect(), tb = d.el.querySelector('svg text').getBoundingClientRect();
-        const tl = tb.left - bb.left, tr = tb.right - bb.left, tt = tb.top - bb.top, tbm = tb.bottom - bb.top, tcx = (tl + tr) / 2, tcy = (tt + tbm) / 2;
-        const right = [tr + CLUSTER_TAG_GAP, tcy - h / 2], left = [tl - CLUSTER_TAG_GAP - w, tcy - h / 2], above = [tcx - w / 2, tt - CLUSTER_TAG_GAP - h], below = [tcx - w / 2, tbm + CLUSTER_TAG_GAP];
-        const toMap = ([x, y]) => ({ x1: bb.left - mbr.left + x, y1: bb.top - mbr.top + y, x2: bb.left - mbr.left + x + w, y2: bb.top - mbr.top + y + h });
-        // The least-bad flush spot: over another cluster's count digits is worst (never, if any spot avoids it),
-        // then off the visible map, then a control, then another tag.
-        const bad = sp => { const rc = toMap(sp); return 1000 * counts.filter(c => c.d !== d && hits(rc, c.box)).length
-          + (rc.x1 < 2 || rc.x2 > msz.x - 2 || rc.y1 < 2 || rc.y2 > visBottom - 2 ? 500 : 0)
-          + 300 * chrome.filter(o => hits(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })).length
-          + 100 * placed.filter(o => hits(rc, o)).length; };
-        const order = d.id.includes(':*') ? [left, right, below, above] : [right, left, above, below];
-        const best = order.reduce((m, sp) => bad(sp) < bad(m) ? sp : m, order[0]);
-        if (bad(best) >= 1000) t.dataset.forced = '1';   // a knot of overlapping clusters: every flush spot is over another count (matrix discloses it)
-        t.style.left = `${best[0]}px`; t.style.top = `${best[1]}px`;
-        placed.push(toMap(best));
+        const place = () => {   // a closure: a tag that grows by a merge is placed again at its new width
+          const w = t.offsetWidth || 16, h = t.offsetHeight || 16, bb = box.getBoundingClientRect(), tb = d.el.querySelector('svg text').getBoundingClientRect();
+          const tl = tb.left - bb.left, tr = tb.right - bb.left, tt = tb.top - bb.top, tbm = tb.bottom - bb.top, tcx = (tl + tr) / 2, tcy = (tt + tbm) / 2;
+          const right = [tr + CLUSTER_TAG_GAP, tcy - h / 2], left = [tl - CLUSTER_TAG_GAP - w, tcy - h / 2], above = [tcx - w / 2, tt - CLUSTER_TAG_GAP - h], below = [tcx - w / 2, tbm + CLUSTER_TAG_GAP];
+          const toMap = ([x, y]) => ({ x1: bb.left - mbr.left + x, y1: bb.top - mbr.top + y, x2: bb.left - mbr.left + x + w, y2: bb.top - mbr.top + y + h });
+          const own = tagged.find(o => o.t === t), others = placed.filter(o => !own || o !== own.rc);
+          // The least-bad flush spot: over another cluster's count digits is worst (never, if any spot
+          // avoids it), then off the visible map, then a control, then another tag.
+          const bad = sp => { const rc = toMap(sp); return 1000 * counts.filter(c => c.d !== d && hits(rc, c.box)).length
+            + (rc.x1 < 2 || rc.x2 > msz.x - 2 || rc.y1 < 2 || rc.y2 > visBottom - 2 ? 500 : 0)
+            + 300 * chrome.filter(o => hits(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })).length
+            + 100 * others.filter(o => hits(rc, o)).length; };
+          const order = d.id.includes(':*') ? [left, right, below, above] : [right, left, above, below];
+          const best = order.reduce((m, sp) => bad(sp) < bad(m) ? sp : m, order[0]);
+          if (bad(best) >= 1000) t.dataset.forced = '1'; else delete t.dataset.forced;   // a knot of overlapping clusters: every flush spot is over another count (disclosed)
+          t.style.left = `${best[0]}px`; t.style.top = `${best[1]}px`;
+          return toMap(best);
+        };
+        const rc = place();
+        const host = tagged.find(o => hits(rc, o.rc));   // never tag-on-tag: "1,5" + "2,4" -> "1–2,4–5"
+        if (host) { t.remove(); merge(host, ns); return; }
+        tagged.push({ t, ns, rc, d, place });
+        d.m.setZIndexOffset(Z_PLAN_CLUSTER + 1000);   // above plain clusters, so no neighbouring disc hides the tag
+        placed.push(rc);
+      });
+      // A tag under ANOTHER tag-bearing disc (drawn above it) merges into that disc's tag.
+      const zOf = o => +o.d.el.style.zIndex || 0;
+      tagged.forEach(o => {
+        if (o.dead) return;
+        const top = tagged.find(q => q !== o && !q.dead && zOf(q) > zOf(o) && onDisc(o.rc, q.d.c, CLUSTER_DISC_R));
+        if (top) { o.t.remove(); o.dead = true; const i = placed.indexOf(o.rc); if (i >= 0) placed.splice(i, 1); merge(top, o.ns); }
       });
     }
     function rangeLabel(ns) {
