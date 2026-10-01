@@ -190,18 +190,18 @@ pick/redirect before building anything.
   - **V15:** the final truncation now lands at release (FLIP), not on the
     press frame as `docs/shipped.md` says. The spec needs updating, or the
     code does.
-  - **D7, reduced motion only:** right after an un-visit stroke, a tap on the X
-    deletes. `settleVisitDrag()` finishes synchronously, before the async
-    toggle lands. The stale signature then re-renders the row and drops the
-    X's 120ms guard.
+  - ~~**D7, reduced motion only:**~~ **fixed** (`fix-d7`, 2026-10-01): a tap
+    on the X right after an un-visit stroke deleted. See `docs/shipped.md`,
+    swipe-left "Delete safety".
 - **curve8 row reads 10/3, not 11/3**, in the rebuilt harness (30/30 runs).
   `STAR_POP` is unchanged since `48bb11e`. Its ≥1.3× window is 168.5ms =
   10.11 frames, so 11 depends on frame phase. Here the animation starts on a
   frame and the 12th sample lands 0.1ms late. Owner/CD call: keep ≥11, which
   then fails in this harness, or restate it.
-- **Android-only delete edge (Chromium probe, not gated):** a 4–12px
-  out-and-back wiggle on the X deletes. Chromium suppresses touchmoves inside
-  its ~15px slop, so only the release point is seen. iOS is unknown.
+- ~~**Android-only delete edge (Chromium probe, not gated):**~~ **fixed**
+  (`fix-d7`, 2026-10-01): a 4–12px out-and-back wiggle on the X deleted,
+  because the X's travel ignored touch `pointermove`s. Now gated in
+  `delete.js` (36 cases). iOS still to check on a device.
 
 Previously tracked and fixed: `showError()`/
 `hideError()` banner masking, and `slugifyCityId()` not decomposing Nordic

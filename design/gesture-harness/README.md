@@ -25,7 +25,7 @@ design/gesture-harness/run-all.sh [path/to/index.html] [suite ...]
 The last two lines printed are the gate. A fully passing run reads like this:
 
 ```
-GATE star "84 + 8 (+ N8-a)" · vtest 95/95 · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, lift->move <=127ms) · rows 56.00px · curve8 row 11/3, highlighted 11/3, popup 10/3 · delete-slop 34/34
+GATE star "84 + 8 (+ N8-a)" · vtest 95/95 · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, lift->move <=127ms) · rows 56.00px · curve8 row 11/3, highlighted 11/3, popup 10/3 · delete-slop 36/36
 GATE PASSED            (or: GATE FAILED: <suites>, followed by each failing case)
 ```
 
@@ -72,7 +72,7 @@ GATE PASSED            (or: GATE FAILED: <suites>, followed by each failing case
 | `dust.js` | **0** speck-over-text frames | Rounds 4–6 "Dust sweep" and `design/pencil-star/r6-design.md`. |
 | `rows.js` | **56.00px** is the only height ever seen | "Rows 56.00px throughout". |
 | `curve.js` | row **≥11/3**, popup **≥8/3** | Rounds 7–8 spin-stamp, and `r8-design.md` §1. |
-| `delete.js` | **34/34** | Swipe-left "Delete safety", the UX sweep. |
+| `delete.js` | **36/36** | Swipe-left "Delete safety", the UX sweep. |
 
 Gate line in CLAUDE.md terms: star `"84 + 8 (+ N8-a)"` = touch + flip (+ N8-a);
 `vtest` = visit.
@@ -156,7 +156,7 @@ Cases that assert the current spec instead of the r6 one are tagged in their nam
   - 0–3px must delete. 4/5/6/8/12/20/40/90px must not.
   - Directions: left, right, up, down and a 3-4-5 diagonal.
   - Plus mouse at 0/3/4/8px and keyboard Enter, both modes.
-  - Plus a **probe** that is reported and not gated (see Limits).
+  - Plus an out-and-back case: 4/6/8/12px out and back to the start must not delete. It was an ungated probe until fix-d7 fixed it.
 
 ## Findings on origin/main (`9a53d71`)
 
@@ -179,6 +179,7 @@ Full results: see the report that landed this folder, and re-run for current num
    - Under reduced motion, `settleVisitDrag()` → `flipVisitToFinal()` → `vsCleanup()` → `updateUI()` all run synchronously.
    - That happens before `toggleLocationFlag()` (async) has flipped `locations`. The stale signature re-renders the row and drops the X's 120ms `pointer-events:none` guard.
    - Full motion is unaffected.
+   - **Fixed on `fix-d7`**, with the out-and-back probe: see `docs/shipped.md` "Delete-guard fixes".
 
 ## Mutation check (2026-10-01)
 
@@ -201,7 +202,7 @@ flip.js has its own built-in control (swap at rest), which fails 4/4.
 - **Chromium only, emulated touch.** No WebKit and no iOS. Every pixel and timing number is Chromium's, as CLAUDE.md already says of `docs/`.
 - **Touch slop.** Chromium (`isMobile`) holds back touchmoves inside its ~15px slop when touchstart isn't consumed. Android Chrome does the same; iOS sends every move. Consequences seen here:
   - A stroke that starts slower than about 0.2px/ms shows the 80ms row press. S2 therefore strokes at a natural 0.6px/ms.
-  - The `delete.js` probe: a 4–12px move out and back to the start deletes. The page only sees the release point.
+  - The `delete.js` out-and-back case: here touchmoves inside the slop never arrive, but touch `pointermove`s do, and since fix-d7 the X reads them. Before that it deleted.
   - Neither is known on iOS. Both are device checks.
 - **Haptics**: only `navigator.vibrate` calls are observable. The iOS switch tick can't be.
   - `haptic8`/`tap8`/`ax8` (focus frames on the switch, document clicks, trusted toggles) were **not** rebuilt.

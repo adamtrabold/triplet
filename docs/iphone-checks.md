@@ -48,6 +48,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   4. Let go early: it dries away with no stain.
   5. On the focus (highlighted) row the bleed is visibly weaker than the pressed stamp.
   6. No hitch as the ink deepens mid-drag on a long list.
+  7. **(Gate, fix-d7)** With Settings → Accessibility → Motion → Reduce Motion **on**, un-visit a row with a left stroke from the X, then tap the X straight away: no delete confirm. Wait about a second and tap the X again: the confirm appears (cancel it). Also nudge the X 5–10px and back to the start before lifting: no confirm.
   7. Un-visit lifts with the star's erase pop, pales, never darkens or goes grey.
   8. The scaled mask and fibre edge render without shimmer.
   9. Haptics: swipes are silent on iOS 26.5+ (incl. iOS 27) — the platform limit, not a bug. Android / iOS ≤26.4: one tick on the press, a double tick on the lift.
