@@ -1000,11 +1000,11 @@ Impeccable exactly the 3 baseline findings. The row-gesture gate
 taps on text and number, star right, visit left from ×, quick and 300ms-rested
 vertical strokes scroll, the 450ms hold lifts and moves, × / + slop, rows 56).
 Results after the review fixes (Chromium; merged with origin/main ff6b218):
-plantest 117/117, griptest 30/30, check 397/397 (49 frames), matrix 56 cells
+plantest 139/139, griptest 30/30, check 397/397 (49 frames), matrix 56 cells
 611/611 (18 tags beside a cluster with all 8 spots blocked, all in zoomed-out
 knots), sweep 392/392 (21 tag-views with no clean spot, 0 of them beside a
 cluster), Impeccable gate PASSED (static 3/3, runtime 16/16 incl. the plans
-state, 0 new), sorttest 77/77,
+state, 0 new), places-ux 30/30, sorttest 77/77,
 state-system check 11/11 and matrix 66 cells × 3 scales 0 failures,
 gesturediff identical to origin/main (22 outcomes), widen-test 19/19. Gesture
 gate, this build: star "84 + 8 (+ N8-a)" · vtest 91/95 · popup-open 20/20 +
