@@ -662,3 +662,33 @@ harness (`design/gesture-harness/`).
   probably never affected there; that needs a device check.
 - Gates: `visit.js` D7 now passes in both modes. `delete.js` gates the
   out-and-back case (4/6/8/12px), so it now has 36 cases and needs 36/36.
+
+## Impeccable gate (impeccable-gate, 2026-10-01)
+
+One command for every part of Impeccable that can run here:
+`design/impeccable-gate/run.sh` (spec: `design/impeccable-gate/README.md`).
+Replaces the raw `npx -y impeccable@4.1.0 detect index.html` "3 findings" check,
+which any agent could run differently and which a count could pass while one
+finding was fixed and another introduced.
+
+- **`--gate`** (default, must pass): static file-mode `detect` plus URL-mode
+  `detect` on the stub-served app at 390x844 in five states (list, popup,
+  sort, add, plans), both diffed by identity against committed baselines
+  (`baseline.json`: the 3 known; `runtime-baseline.json`: 16). Fails on any
+  added or missing identity. Static `clipped-overflow-container` findings are
+  attributed to their CSS selector by neutralise-one-rule probing.
+- **`--review`** + **`--check-review`**: the vendored skill
+  (`.agents/skills/impeccable/`, tag `cli-v4.1.0`, engine 0.1.5, Apache-2.0)
+  runs `context`, and 17 critic commands run by agents read-only into a
+  committed `REPORT.md`; open P0/P1 block until designer/UX/CD dispose of them.
+- Not run per change: `init`/`document`/`extract` (owner decisions), `shape`/
+  `craft` (designer tools), `live` (needs a human at a browser), `help`/
+  `install`/`update` (impeccable.style is blocked; replaced by vendoring),
+  the design hook (would be harness config: owner decision).
+- Validation: origin/main and plans build `596b4fb` pass (6/6 identical
+  runtime runs, ~27s); mutations fail as they should (body clip fixed +
+  low-contrast paragraph added: count 3, gate fails; `#mainContent` clip
+  swapped for another clipped div: raw output byte-identical, gate fails;
+  a 9px JS-rendered sort-menu label: static green, runtime fails); an
+  `impeccable-disable` comment no longer hides findings; offline with a cold
+  npm cache and no Chromium both exit 3.

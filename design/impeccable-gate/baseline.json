@@ -1,0 +1,19 @@
+{
+  "tool": "impeccable@4.1.0",
+  "flags": "--json --no-config --no-inline-ignores --no-design-system",
+  "note": "Accepted static (file-mode) findings. Changes need owner/operator approval: only `run.sh --update` writes this file.",
+  "findings": [
+    {
+      "id": "clipped-overflow-container @ #mainContent",
+      "reason": "Possibly real: check the add-form autocomplete dropdown is not clipped by #mainContent's overflow:hidden (open, backlog)."
+    },
+    {
+      "id": "clipped-overflow-container @ body",
+      "reason": "Intentional: the page never scrolls (body overflow:hidden); popups/sheets are positioned inside the viewport."
+    },
+    {
+      "id": "cream-palette | cream/beige page background rgb(242, 235, 221)",
+      "reason": "Brand: --paper #F2EBDD is the vintage-label paper ground from design/inspo/project/."
+    }
+  ]
+}

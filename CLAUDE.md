@@ -55,8 +55,8 @@ what's scored differs.
    rejected.)
 2. **Perfection stage — execution, only after owner approval.** Full loop
    until CD scores execution ≥9, measured at 3x, ~4x crops and 1x, with
-   real-timing checks for motion; `npx -y impeccable@4.1.0 detect
-   index.html` must show exactly the 3 baseline findings; then integrate,
+   real-timing checks for motion; the Impeccable gate and review pass (see
+   the Impeccable bullet below); then integrate,
    verify, hand back with iPhone checks. The concept isn't relitigated
    unless execution proves it unworkable (then back to the owner).
 
@@ -80,7 +80,7 @@ operator makes none of these calls.
   checking a reported bug is real before theorizing about it.
 - **Never trade correctness for thrift.** Every loop requirement (stages,
   CD ≥9, UX verification, 3x/4x/1x + real-timing, measured claims,
-  Impeccable baseline, gates, byte-compare before integrating) applies in
+  Impeccable gate + review, gates, byte-compare before integrating) applies in
   full. Savings come from language and orchestration only.
 - **Cheapest setup that does each job well**: strongest model for design/CD
   judgment and tricky measurement, cheaper ones for mechanical checks.
@@ -90,7 +90,7 @@ operator makes none of these calls.
   already happened. Discovery-only (no edits) may run in the primary dir.
 - **The operator does not merge.** A merge agent lands each finished branch
   on `main`, one at a time: resolves conflicts, re-runs checks the branch
-  didn't cover, confirms intent, runs Impeccable post-merge. The operator
+  didn't cover, confirms intent, runs the Impeccable gate post-merge. The operator
   picks merge order when branches overlap.
 - **Scope the test gate to the diff.** Keep diffs confined, iterate on fast
   checks, and run only suites covering touched code
@@ -183,7 +183,16 @@ operator makes none of these calls.
 - **iOS haptics:** from iOS 26.5 a scripted click gives no haptic, so swipe
   gestures are silent there by platform limit (owner-confirmed); real taps
   via `hapticTap()` still tick.
-- **Impeccable:** exactly 3 baseline findings.
+- **Impeccable:** the only way to run it is `design/impeccable-gate/run.sh`
+  (never raw `npx impeccable`). Any UI change runs BOTH:
+  `run.sh` (gate: static + rendered states, identity diff vs committed
+  baselines; must print `IMPECCABLE GATE PASSED`) and `run.sh --review`
+  then `--check-review <packet>` (the skill's critic commands, run by agents;
+  open P0/P1 block until designer/UX/CD dispose of them). Exit 3 = didn't
+  run, never a pass. Baseline changes (`--update`) need owner/operator
+  approval. The vendored skill (`/impeccable`, `.agents/skills/impeccable/`)
+  is a critic and a tool: this file, the team process and the owner's brief
+  override its defaults. Details: `design/impeccable-gate/README.md`.
 
 ## Current priorities (full text in `docs/backlog.md`)
 

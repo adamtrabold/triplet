@@ -1,0 +1,94 @@
+{
+  "tool": "impeccable@4.1.0",
+  "flags": "--json --no-config --no-inline-ignores --no-design-system",
+  "note": "Accepted runtime (URL-mode, 390x844, stub fixture) findings, as a set across UI states. Changes need owner/operator approval.",
+  "states": {
+    "list": 45,
+    "popup": 49,
+    "sort": 45,
+    "add": 45,
+    "plans": "n/a"
+  },
+  "findings": [
+    {
+      "id": "all-caps-body | text-transform: uppercase on <n> chars of body text",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "clipped-overflow-container | div clips a positioned child",
+      "states": "list popup sort add",
+      "reason": "#mainContent overflow:hidden, same as the static baseline: possibly real (autocomplete dropdown clipping to be checked, backlog)."
+    },
+    {
+      "id": "clipped-overflow-container | div.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom clips a positioned child",
+      "states": "popup",
+      "reason": "Leaflet map container clips its popup pane by design (Leaflet library CSS); popups autopan inside the map."
+    },
+    {
+      "id": "cream-palette | cream/beige page background rgb(242, 235, 221)",
+      "states": "list popup sort add",
+      "reason": "Brand: --paper #F2EBDD is the vintage-label paper ground (design/inspo/project/); same as the static baseline."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"area · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"attraction · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"bar · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"cafe · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"district · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"Get Directions\" (below 11px floor)",
+      "states": "popup",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"Mark Visited\" (below 11px floor)",
+      "states": "popup",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"nature · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"restaurant · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"restaurant\" (below 11px floor)",
+      "states": "popup",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"shopping · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"street · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort add",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    }
+  ]
+}

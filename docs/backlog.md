@@ -119,6 +119,16 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- Impeccable gate follow-ups (`design/impeccable-gate/`): (1) 13 runtime
+  baseline identities are "pre-existing, unreviewed" (10px category·city
+  row meta, 10px popup "Get Directions"/"Mark Visited"/category, all-caps
+  row meta): CD/owner to accept each with a reason or fix it. (2) The first
+  full `--review` (17 critic commands) on `main` hasn't been run. (3) No
+  PRODUCT.md/DESIGN.md: `/impeccable init` / `document` are owner decisions
+  (they'd also feed the skill's context). (4) The design hook is not
+  installed (harness config: owner decision). (5) #mainContent clip: check
+  the add-form autocomplete dropdown isn't clipped (static baseline reason).
+
 - State system shipped (see `docs/shipped.md`). Left open: floating
   add/account buttons' pressed fill is the off-token literal `#1B3A57`; map
   it to a token or leave it. Hover styles exist only on three menu items.

@@ -1,0 +1,5 @@
+# Impeccable review screenshots (design/impeccable-gate/run.sh --review); the packet's
+# BRIEF.md / REPORT.md / gate.txt / context.txt are committed.
+design/impeccable-gate/reviews/*/shots/
+# Impeccable skill working files, if a command ever writes them
+.impeccable/

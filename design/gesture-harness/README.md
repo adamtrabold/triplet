@@ -7,6 +7,10 @@ Rebuilt 2026-10-01. The original harness was never committed. Its files were
 This folder replaces all of them. It runs against the real `index.html`, unmodified,
 in headless Chromium.
 
+The Impeccable gate lives next door: `design/impeccable-gate/run.sh`. It reuses this
+folder's `stub.js` and `vendor/` for its rendered-state scans, so a fixture change here
+can change its runtime baseline.
+
 ## Run it
 
 ```sh
