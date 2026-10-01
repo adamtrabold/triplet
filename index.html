@@ -4293,9 +4293,23 @@
         return Math.round(y ? y + POPUP_PAN_GAP : 84);
       } catch (_) { return 84; }
     }
+    // ... and clear of the list sheet (and the filter panel, if open) along the bottom: the
+    // popup's autoPan keeps it above whatever covers the map's lower edge.
+    function pinPopupBottomPad() {
+      try {
+        const mr = map.getContainer().getBoundingClientRect(), pn = document.getElementById('filtersPanel');
+        const tops = [document.getElementById('locations').getBoundingClientRect().top];
+        if (pn.classList.contains('visible')) tops.push(pn.getBoundingClientRect().top);
+        return Math.max(5, Math.round(mr.bottom - Math.min(...tops) + POPUP_PAN_GAP));
+      } catch (_) { return 5; }
+    }
+    function popupPadding(popup) {
+      Object.defineProperty(popup.options, 'autoPanPaddingTopLeft', { get: () => L.point(5, pinPopupTopPad()), configurable: true });
+      Object.defineProperty(popup.options, 'autoPanPaddingBottomRight', { get: () => L.point(5, pinPopupBottomPad()), configurable: true });
+    }
     function bindPinPopup(marker, loc) {
       marker.bindPopup(buildPopupHtml(loc));
-      Object.defineProperty(marker.getPopup().options, 'autoPanPaddingTopLeft', { get: () => L.point(5, pinPopupTopPad()), configurable: true });
+      popupPadding(marker.getPopup());
     }
 
     function buildPopupHtml(loc) {
@@ -4574,12 +4588,16 @@
       btn.setAttribute('aria-expanded', 'false');
       if (refocus) btn.focus({ preventScroll: true });
     }
-    function closeFiltersPanel() {
+    // opts.reframe false: the caller moves the map itself (a list-row tap flies to the place).
+    function closeFiltersPanel(opts = {}) {
       const was = document.getElementById('filtersPanel').classList.contains('visible');
       document.getElementById('filtersPanel').classList.remove('visible');
       document.getElementById('toggleFiltersBtn').classList.remove('active');
       document.getElementById('toggleFiltersBtn').setAttribute('aria-expanded', 'false');
-      if (was) reframeAfterPanel();   // Plans: the same re-fit rule as the toggle button
+      if (!was) return;
+      if (opts.reframe !== false) reframeAfterPanel();   // Plans: the same re-fit rule as the toggle button
+      else lastPlanFit = null;   // the map is about to be moved: it is no longer the app's fit
+      placePlanSlip();   // the list moved under the slip
     }
 
     function setSortMode(mode, { announce = true, persist = true } = {}) {
@@ -5697,6 +5715,7 @@
         ? L.polyline(nb.geometry, neighborhoodStyle(nb))
         : L.polygon(nb.geometry, neighborhoodStyle(nb));
       layer.bindPopup(shapePopupHtml(nb));
+      popupPadding(layer.getPopup());
       layer._planKey = planMarkKey('shape', nb.id);
       return layer;
     }
@@ -6115,6 +6134,9 @@
           return;
         }
         if (touchMoved) return;   // the tap was a scroll
+        // Owner (2026-10-01): a list-row tap closes the filter panel first (its filters, plan
+        // and view stay), so the flight and the popup aren't cut off by it. + / x never do.
+        closeFiltersPanel({ reframe: false });
         highlightMarker(id);
       });
 
@@ -7309,6 +7331,7 @@
           return;
         }
         if (touchMoved) return;   // the tap was a scroll
+        closeFiltersPanel({ reframe: false });   // as a pin row (owner, 2026-10-01)
         focusShape(id);
       });
 
