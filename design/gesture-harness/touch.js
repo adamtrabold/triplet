@@ -37,7 +37,7 @@ const n8 = [];
       await drag(page, cdp, line(170, y, 250, y, 16)); await W(1000); const s = await state(page);
       r('unstar: same stroke on starred row', !s.starred[1] && !s.printed[1] && !s.nav.length && !s.live, s); await ctx.close(); }
     for (const d of [30, 60]) { const { ctx, page, cdp } = await fresh(); const y = await Y(page, 0);
-      await drag(page, cdp, line(170, y, 170 + d, y, 8)); await W(800); const s = await state(page);
+      await drag(page, cdp, line(170, y, 170 + d, y, 8), { stepMs: 33 }); await W(800); const s = await state(page);   // stepMs 33: not a flick (see visit.js SLOW)
       r(`cancel: ${d}px finger then release`, same(s) && !s.nav.length && !s.live && s.tf[0] === '' && s.gesture === null, s); await ctx.close(); }
     { const { ctx, page, cdp } = await fresh(); const y = await Y(page, 0);
       await drag(page, cdp, [...line(170, y, 250, y, 12), ...line(250, y, 190, y, 10).slice(1)]); await W(800); const s = await state(page);
@@ -135,7 +135,10 @@ const n8 = [];
     { const { ctx, page, cdp } = await fresh(); const y = await Y(page, 0), y2 = await Y(page, 2);
       await page.evaluate(() => { window.__pr = []; document.querySelectorAll('#locationsList .location-card[data-id]').forEach((el, i) => new MutationObserver(() => __pr.push([i, el.classList.contains('active'), performance.now()])).observe(el, { attributes: true, attributeFilter: ['class'] }));
         window.__tt = []; for (const t of ['touchstart', 'touchend']) document.addEventListener(t, () => __tt.push([t, performance.now()]), true); });
-      await drag(page, cdp, line(170, y, 250, y, 16)); await W(1200);
+      // A natural 0.6px/ms stroke. (Chromium holds touchmoves back inside its ~15px slop, so a stroke
+      // that starts slower than ~0.2px/ms delivers no move before the 80ms press timer and DOES blink
+      // here; iOS sends moves from the first pixel. See README, "Limits".)
+      await drag(page, cdp, line(170, y, 266, y, 10)); await W(1200);
       const strokePressed = await page.evaluate(() => __pr.some(p => p[0] === 0 && p[1]));
       await page.evaluate(() => { __pr.length = 0; __tt.length = 0; }); await T(cdp, 'touchStart', 200, y2); await W(40); await T(cdp, 'touchEnd'); await W(300);
       const q1 = await page.evaluate(() => { const te = __tt.find(t => t[0] === 'touchend')[1]; const on = __pr.find(p => p[0] === 2 && p[1]), off = __pr.find(p => p[0] === 2 && !p[1] && on && p[2] > on[2]);
