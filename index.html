@@ -4940,7 +4940,7 @@
     }
     // 9 (UX): after + / x (and their Undo) the rows on either side of the change slide to open or
     // close the gap (150ms, .plan-shift; instant with reduced motion); the changed row just appears.
-    let planFlipNext = null;
+    let planFlipNext = null, planSliding = false;
     function flipPlanList(list, before, changed) {
       if (prefersReducedMotion()) return;
       const moved = [];
@@ -4954,10 +4954,11 @@
       if (!moved.length) return;
       void list.offsetHeight;
       moved.forEach(el => { el.classList.add('plan-shift'); el.style.transform = ''; });
-      // The slip rides the rule through the slide (every frame) and is placed once more when it settles.
-      const t0 = performance.now(), follow = () => { placePlanSlip(); if (performance.now() - t0 < 220) requestAnimationFrame(follow); };
-      requestAnimationFrame(follow);
-      setTimeout(() => { moved.forEach(el => { if (!el.style.transform) el.classList.remove('plan-shift'); }); placePlanSlip(); }, 200);
+      // During the slide every spot near the rule is crossed by a moving row (the old rule spot is
+      // the new stop's, the new one is where the next row slides from), so the slip waits it out
+      // and appears on the settled rule (critics-final P1); its 6s starts as usual.
+      planSliding = true; placePlanSlip();
+      setTimeout(() => { moved.forEach(el => { if (!el.style.transform) el.classList.remove('plan-shift'); }); planSliding = false; placePlanSlip(); }, 200);
     }
     function syncPlanCards(rows) {
       const list = document.getElementById('locationsList');
@@ -5229,11 +5230,10 @@
       // list, the same band fills the list header up to the filter toggle.
       // Never over the map (the stops' tags), the chips, a stop row or the next row's +.
       if (planSlip.hidden) return;
+      planSlip.style.visibility = planSliding ? 'hidden' : '';
       const list = document.getElementById('locationsList'), lr = list.getBoundingClientRect();
       const hdr = document.getElementById('locationsHeader').getBoundingClientRect();
       const visTop = Math.max(lr.top, hdr.bottom), visBot = Math.min(lr.bottom, innerHeight);
-      // The rule's live box: during flipPlanList()'s slide the slip rides the rule frame by frame,
-      // so it never sits over a row sliding past (critics-final P1).
       const rule = list.querySelector('.plan-rule'), rr = rule && rule.getBoundingClientRect();
       planSlip.style.right = 'auto'; planSlip.style.bottom = 'auto';
       if (rr && rr.height && rr.top >= visTop - 1 && rr.bottom <= visBot + 1) {

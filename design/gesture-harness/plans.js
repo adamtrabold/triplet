@@ -100,7 +100,7 @@ const STOPS = 'rey00,rey05,rey01';
 
     // the slip (critics-final P1): it sits on the rule's SETTLED place -- after + it never covers the new stop's
     // name, after × never a row's + or × -- sampled during the 150ms slide and over its 6s life
-    const slipHits = () => page.evaluate(() => { const sl = document.getElementById('planSlip'); if (!sl || sl.hidden) return { shown: false };
+    const slipHits = () => page.evaluate(() => { const sl = document.getElementById('planSlip'); if (!sl || sl.hidden || getComputedStyle(sl).visibility === 'hidden') return { shown: false };
       const a = sl.getBoundingClientRect(), hit = el => { const q = el.getBoundingClientRect(); return q.height && a.left < q.right && q.left < a.right && a.top < q.bottom - 0.5 && q.top + 0.5 < a.bottom; };
       const lr = document.getElementById('locationsList').getBoundingClientRect();
       const ctl = [...document.querySelectorAll('#locationsList .plan-add, #locationsList .plan-x')].filter(el => { const q = el.getBoundingClientRect(); return q.top >= lr.top && q.bottom <= lr.bottom; });
@@ -115,8 +115,8 @@ const STOPS = 'rey00,rey05,rey01';
     await reset(); p = await box('rey05', '.plan-x'); await tap(p);
     const sx = await samples();
     await page.evaluate(() => { const b = document.querySelector('#planSlip button'); if (b) b.click(); }); await W(600);
-    rec(mode, 'the Added / Removed slip never covers the new stop\'s name or a row\'s + / × (during the slide and over its 6s); on the rule it rides the rule, even mid-slide',
-      sa.concat(sx).every(x => x.shown && !x.on.length && (!x.onRule || Math.abs(x.top - x.rule) <= 1)) && (await order()) === STOPS, { sa, sx });
+    rec(mode, 'the Added / Removed slip never covers the new stop\'s name or a row\'s + / × (during the slide and over its 6s); shown from the settled rule on (it waits out the 150ms slide)',
+      sa.concat(sx).every(x => (x.shown || x.at < 200) && (!x.shown || !x.on.length && (!x.onRule || Math.abs(x.top - x.rule) <= 1))) && (await order()) === STOPS, { sa, sx });
     // the add slip's news never goes to the ellipsis: a long name truncates, " as stop n" stays whole
     await page.evaluate(() => { const l = locations.find(x => x.id === 'rey07'); window.__nm = l.name; l.name = 'Café Loki opposite Hallgrímskirkja church on the hill'; updateUI(); }); await W(300);
     await reset(); p = await box('rey07', '.plan-add'); await tap(p); await W(400);
