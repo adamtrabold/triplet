@@ -50,7 +50,31 @@
       geometry: [[la - 0.012, ln + 0.004], [la - 0.0125, ln + 0.012]] });
   }
   window.__ROWS = rows; window.__SHAPES = shapes;
+  // Plans (plans.js only, opted in with localStorage 'gh.plans'): one plan whose stops are the
+  // Reykjavík rows 0, 5 and 1 (short plain, long plain, long starred + visited), in a small
+  // in-memory plans / plan_stops store that applies the page's writes, so a refetch after a
+  // write returns what is on screen. Every other suite sees no plans, as before.
+  let ghPlans = false; try { ghPlans = localStorage.getItem('gh.plans') === '1'; } catch (e) {}
+  const PT = window.__PT = { plans: ghPlans ? [{ id: 'gh-p', name: 'Gate plan', created_at: '2026-09-01T00:00:00Z' }] : [],
+    plan_stops: ghPlans ? ['rey00', 'rey05', 'rey01'].map((l, i) => ({ id: 'gs' + i, plan_id: 'gh-p', location_id: l, shape_id: null, position: i + 1 })) : [] };
+  const qPlan = (table) => {
+    let op = 'select', payload = null; const f = [];
+    const hit = r => f.every(([k, v]) => r[k] === v);
+    const run = () => {
+      const t = PT[table];
+      if (op === 'insert') (Array.isArray(payload) ? payload : [payload]).forEach(r => t.push({ ...r }));
+      else if (op === 'upsert') (Array.isArray(payload) ? payload : [payload]).forEach(r => { const o = t.find(x => x.id === r.id); if (o) Object.assign(o, r); else t.push({ ...r }); });
+      else if (op === 'update') t.filter(hit).forEach(r => Object.assign(r, payload));
+      else if (op === 'delete') { PT[table] = t.filter(r => !hit(r)); if (table === 'plans') PT.plan_stops = PT.plan_stops.filter(s => PT.plans.some(p => p.id === s.plan_id)); }
+      return { data: op === 'select' ? PT[table].filter(hit).map(r => ({ ...r })) : null, error: null };
+    };
+    const b = { select() { return b; }, order() { return b; }, in() { return b; }, eq(k, v) { f.push([k, v]); return b; },
+      insert(r) { op = 'insert'; payload = r; return b; }, update(o) { op = 'update'; payload = o; return b; }, upsert(r) { op = 'upsert'; payload = r; return b; },
+      delete() { op = 'delete'; return b; }, then(ok, bad) { return Promise.resolve(run()).then(ok, bad); } };
+    return b;
+  };
   const q = (table) => {
+    if (table === 'plans' || table === 'plan_stops') return qPlan(table);
     const res = () => ({ data: table === 'locations' ? window.__ROWS.map(r => ({ ...r })) : table === 'neighborhood_shapes' ? window.__SHAPES.map(r => ({ ...r })) : [], error: null });
     let patch = null;
     const b = { select() { return b; }, order() { return b; }, in() { return b; }, limit() { return b; }, single() { return b; }, upsert() { return b; },
