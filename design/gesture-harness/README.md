@@ -18,11 +18,11 @@ design/gesture-harness/run-all.sh [path/to/index.html] [suite ...]
 - With no suite names, it runs all eight: `touch flip visit popup-open dust rows curve delete`.
 - `OUTDIR=dir` keeps each suite's `.log` and `.json`. The default is a temp dir.
 - Single suite: `FILE=path OUT=x.json node design/gesture-harness/<suite>.js`.
-- A full run takes about **14–15 minutes**. Suites run one at a time on purpose:
+- A full run takes about **12.5 minutes** (748s on origin/main, 4 cores). Suites run one at a time on purpose:
   `curve`, `dust`, `flip` and S2 measure real time per rAF, and parallel
   browsers would disturb that.
 
-The last two lines printed are the gate:
+The last two lines printed are the gate. A fully passing run reads like this:
 
 ```
 GATE star "84 + 8 (+ N8-a)" · vtest 95/95 · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, lift->move <=127ms) · rows 56.00px · curve8 row 11/3, highlighted 11/3, popup 10/3 · delete-slop 34/34
@@ -179,6 +179,22 @@ Full results: see the report that landed this folder, and re-run for current num
    - Under reduced motion, `settleVisitDrag()` → `flipVisitToFinal()` → `vsCleanup()` → `updateUI()` all run synchronously.
    - That happens before `toggleLocationFlag()` (async) has flipped `locations`. The stale signature re-renders the row and drops the X's 120ms `pointer-events:none` guard.
    - Full motion is unaffected.
+
+## Mutation check (2026-10-01)
+
+Each scratch copy of index.html below has one behaviour broken, and each one
+fails the suite that guards it:
+
+| Mutant | Suite | Result |
+|---|---|---|
+| `DELETE_TAP_SLOP` 40 | delete | 20/34 |
+| Flick may unstar | touch | 82/84 (S5 ×2) |
+| Dust swept right | dust | 20/65 (9 frames per unstar) |
+| 300ms popup timer | popup-open | 26/42 |
+| STAR_POP peak 1.2 | curve | 0 frames ≥1.3× |
+| Visited rows 57px | rows | 0/12 |
+
+flip.js has its own built-in control (swap at rest), which fails 4/4.
 
 ## Limits
 
