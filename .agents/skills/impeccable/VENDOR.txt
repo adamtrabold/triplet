@@ -1,0 +1,13 @@
+Vendored, unmodified: the Impeccable skill (SKILL.md version 4.3.0, engine 0.1.5)
+from https://github.com/pbakaus/impeccable at tag cli-v4.1.0, path plugin/skills/impeccable/,
+fetched 2026-10-01 via raw.githubusercontent.com (github.com/codeload and impeccable.style
+are blocked by the sandbox egress proxy). Apache-2.0, see LICENSE (copied from the repo root).
+
+Pinned to the same release as the gate's `npx impeccable@4.1.0` (its engine is 0.1.5, as
+scripts/VERSION says). The launcher scripts/impeccable needs an engine binary: the gate passes
+the one from the npm package via IMPECCABLE_BIN (design/impeccable-gate/run.sh --review);
+standalone it would download engine-v0.1.5 from GitHub releases into ~/.impeccable/bin/.
+
+Not vendored: the 16 MB engine binary (comes from npm), the plugin's hook manifests.
+Refresh: re-fetch every file listed by `find . -type f` from the new tag, bump both pins
+(this file and PKG in design/impeccable-gate/gate.mjs) together, re-run the gate.
