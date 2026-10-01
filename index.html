@@ -5901,11 +5901,14 @@
         const tl = tb.left - bb.left, tr = tb.right - bb.left, tt = tb.top - bb.top, tbm = tb.bottom - bb.top, tcx = (tl + tr) / 2, tcy = (tt + tbm) / 2;
         const right = [tr + CLUSTER_TAG_GAP, tcy - h / 2], left = [tl - CLUSTER_TAG_GAP - w, tcy - h / 2], above = [tcx - w / 2, tt - CLUSTER_TAG_GAP - h], below = [tcx - w / 2, tbm + CLUSTER_TAG_GAP];
         const toMap = ([x, y]) => ({ x1: bb.left - mbr.left + x, y1: bb.top - mbr.top + y, x2: bb.left - mbr.left + x + w, y2: bb.top - mbr.top + y + h });
-        const bad = sp => { const rc = toMap(sp); return rc.x1 < 2 || rc.x2 > msz.x - 2 || rc.y1 < 2 || rc.y2 > visBottom - 2
-          || chrome.some(o => hits(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })) || placed.some(o => hits(rc, o))
-          || counts.some(c => c.d !== d && hits(rc, c.box)); };
+        // The least-bad flush spot: over another cluster's count digits is worst (never, if any spot avoids it),
+        // then off the visible map, then a control, then another tag.
+        const bad = sp => { const rc = toMap(sp); return 1000 * counts.filter(c => c.d !== d && hits(rc, c.box)).length
+          + (rc.x1 < 2 || rc.x2 > msz.x - 2 || rc.y1 < 2 || rc.y2 > visBottom - 2 ? 500 : 0)
+          + 300 * chrome.filter(o => hits(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })).length
+          + 100 * placed.filter(o => hits(rc, o)).length; };
         const order = d.id.includes(':*') ? [left, right, below, above] : [right, left, above, below];
-        const best = order.find(sp => !bad(sp)) || order[0];
+        const best = order.reduce((m, sp) => bad(sp) < bad(m) ? sp : m, order[0]);
         t.style.left = `${best[0]}px`; t.style.top = `${best[1]}px`;
         placed.push(toMap(best));
       });
