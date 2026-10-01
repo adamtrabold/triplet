@@ -7,12 +7,12 @@ Pinned to `impeccable@4.1.0` (engine 0.1.5) and the matching skill, vendored at
 
 ```sh
 design/impeccable-gate/run.sh [path/to/index.html]           # --gate (default): deterministic, must pass
-design/impeccable-gate/run.sh --review [path/to/index.html]  # gate + review packet for the LLM critics
+design/impeccable-gate/run.sh --review [--all|--commands a,b] [path/to/index.html]  # gate + review packet (default: critique+audit)
 design/impeccable-gate/run.sh --check-review <packet-dir>    # is the filled review mergeable?
 design/impeccable-gate/run.sh --update [path/to/index.html]  # rewrite baselines: owner/operator approval only
 ```
 
-**Any UI change runs both `--gate` and `--review` (then `--check-review`).**
+**Any UI change runs both `--gate` and `--review` (then `--check-review`).** The default review is ONE agent running `critique` + `audit`; the other 15 commands are opt-in (see below).
 Exit codes: 0 pass, 1 failed/blocked, 3 could not run. Exit 3 is never a pass:
 it means the npm package could not be fetched (offline with a cold npm cache),
 no Chromium was found, or a UI state could not be reached.
@@ -24,7 +24,8 @@ no Chromium was found, or a UI state could not be reached.
 | `detect`, file mode (static HTML/CSS) | yes | `--gate`; `npx -y --offline impeccable@4.1.0 detect --json --no-config --no-inline-ignores --no-design-system`, registry fetch if not cached | any identity added or missing vs `baseline.json` |
 | `detect`, URL mode (rendered DOM) | yes | `--gate`; app served on loopback with the gesture-harness stub, 390x844, one scan per state: list, popup, sort, add, plans (n/a on builds without it) | any identity added or missing vs `runtime-baseline.json` |
 | skill `context` (deterministic) | yes | `--review`; vendored launcher with the npm engine via `IMPECCABLE_BIN` | no (its output goes in the packet) |
-| critic commands: critique, audit, polish, distill, harden, onboard, quieter, bolder, typeset, layout, colorize, animate, delight, overdrive, clarify, adapt, optimize | yes, by agents | `--review` writes `reviews/<date>-<sha>/BRIEF.md` + `REPORT.md`; agents follow `reference/<command>.md` read-only | `--check-review`: any section not done, a stale sha, or a P0/P1 without a designer/UX/CD disposition |
+| critic commands: `critique`, `audit` (default pair, the skill's Evaluate commands) | yes, ONE agent | `--review` writes `reviews/<date>-<sha>/BRIEF.md` + `REPORT.md`; the agent follows `reference/<command>.md` read-only | `--check-review`: a listed section not done, a stale sha, or a P0/P1 without a designer/UX/CD disposition |
+| opt-in deeper commands: polish, distill, harden, onboard, quieter, bolder, typeset, layout, colorize, animate, delight, overdrive, clarify, adapt, optimize | only when a designer/UX/CD asks | `--review --all` (all 17) or `--review --commands animate,typeset` (packet dir gets a `-all`/`-<cmds>` suffix) | `--check-review` requires exactly the commands the packet's `commands:` line lists |
 | `init`, `document`, `extract` | not per change | write PRODUCT.md / DESIGN.md / tokens: one-time owner decisions (backlog) | no |
 | `shape`, `craft` | not per change | build flows: the designer's tools in the concept stage | no |
 | `live` | no | interactive in-browser variant mode; needs a human at a browser and the live server | no |
@@ -94,3 +95,9 @@ critic agents: read the vendored SKILL.md and the command's reference, read-only
 CLAUDE.md + `design/inspo/project/` as product context in place of PRODUCT.md,
 P0-P3 severities) and a `REPORT.md` skeleton keyed to the file's sha256. Commit the
 packet (minus shots) with the change it reviews.
+
+Default = `critique` + `audit` by one agent: they are the skill's only two Evaluate
+commands (whole-surface review); the other 15 are refine/enhance/fix playbooks for one
+aspect. Ask for them when the change warrants: `animate` after motion, `typeset` after
+type, `harden` after data-layer UI, `adapt` after layout. `REPORT.md` carries a
+`commands:` line; `--check-review` requires exactly those sections done.

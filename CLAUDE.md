@@ -187,8 +187,10 @@ operator makes none of these calls.
   (never raw `npx impeccable`). Any UI change runs BOTH:
   `run.sh` (gate: static + rendered states, identity diff vs committed
   baselines; must print `IMPECCABLE GATE PASSED`) and `run.sh --review`
-  then `--check-review <packet>` (the skill's critic commands, run by agents;
-  open P0/P1 block until designer/UX/CD dispose of them). Exit 3 = didn't
+  then `--check-review <packet>` (ONE read-only agent runs `critique` +
+  `audit`; open P0/P1 block until designer/UX/CD dispose of them). The other
+  15 commands are opt-in deeper passes on request (`--review --all` or
+  `--commands animate,typeset,...`), not part of the per-change review. Exit 3 = didn't
   run, never a pass. Baseline changes (`--update`) need owner/operator
   approval. The vendored skill (`/impeccable`, `.agents/skills/impeccable/`)
   is a critic and a tool: this file, the team process and the owner's brief
