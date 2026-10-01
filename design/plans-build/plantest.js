@@ -187,7 +187,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await toPlans(page);
     const s = await page.evaluate(() => ({ pick: document.querySelector('#planPick .plan-picker').textContent.trim(), empty: document.getElementById('locationsEmpty').firstChild && [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
       btn: !!document.querySelector('#locationsEmpty .plan-empty-new'), h: document.querySelector('#locationsHeader h2').textContent, rows: document.querySelectorAll('#locationsList .location-card').length, map: markersById.size + clusterMarkersById.size }));
-    ok('E1 no plans yet: the picker offers New plan; the list says so with a New plan button; header "Plans"; no rows, nothing on the map, no ⇅', s.pick === 'New plan' && s.empty === 'No plans yet. A plan’s stops show here and on the map.' && s.btn && s.h === 'Plans' && !s.rows && !s.map && !(await shown(page, '#sortBtn')), s);
+    s.line2 = await page.evaluate(() => (document.querySelector('#locationsEmpty .plan-empty-line') || {}).textContent);
+    ok('E1 no plans yet: the picker is an empty select ("No plan"); the list says so on two lines with the one New plan button; header "Plans"; no rows, nothing on the map, no ⇅', s.pick === 'No plan' && s.empty === 'No plans yet.' && s.line2 === 'A plan’s stops show here and on the map.' && s.btn && s.h === 'Plans' && !s.rows && !s.map && !(await shown(page, '#sortBtn')), s);
     await closePanel(page); await tap(page, '#locationsEmpty .plan-empty-new'); await W(400);
     ok('E2 the empty list\'s New plan opens the panel with the name field, focused', (await panelOpen(page)) && (await page.evaluate(() => document.activeElement && document.activeElement.getAttribute('aria-label'))) === 'New plan name');
     await ctx.close(); }
@@ -240,7 +241,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 900; }); await W(100);
     const sl = await page.evaluate(() => { const s = document.getElementById('planSlip').getBoundingClientRect(), r = document.querySelector('.plan-rule').getBoundingClientRect(), h = document.getElementById('locationsHeader').getBoundingClientRect();
       return { onHeader: document.getElementById('planSlip').classList.contains('on-header'), s: [s.top, s.height].map(Math.round), r: [r.top, r.height].map(Math.round), h: [h.top, h.bottom].map(Math.round) }; });
-    ok('U3 the rule scrolled out of view: the slip sits on the list header', sl.onHeader && sl.s[0] > sl.h[0] && sl.s[0] + sl.s[1] < sl.h[1], sl);
+    ok('U3 the rule scrolled out of view: the slip fills the list header (the same band, flush)', sl.onHeader && sl.s[0] === sl.h[0] && sl.s[0] + sl.s[1] === sl.h[1], sl);
     await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 0; l.scrollTop = l.querySelector('.plan-rule').getBoundingClientRect().top - l.getBoundingClientRect().top - 100; }); await W(100);
     const sl2 = await page.evaluate(() => { const s = document.getElementById('planSlip').getBoundingClientRect(), r = document.querySelector('.plan-rule').getBoundingClientRect(); return [s.top, s.height, r.top, r.height, s.left, s.width, r.left, r.width].map(Math.round); });
     ok('U3b scrolled so the rule shows, the slip rides it, covering exactly the caption line', sl2[0] === sl2[2] && sl2[1] === sl2[3] && sl2[4] === sl2[6] && sl2[5] === sl2[7], sl2);

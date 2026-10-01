@@ -1526,6 +1526,8 @@
     .plan-picker .plan-name { flex: 1 1 auto; text-align: left; font-size: 12px; }
     .plan-picker svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
     #filtersPanel:not(.plans-side) .plan-picker { color: var(--ink-2); }
+    /* No plans: an empty select -- "No plan" placeholder in --ink-2, regular case, chevron kept. */
+    .plan-picker.is-empty .plan-name { color: var(--ink-2); text-transform: none; font-weight: 400; letter-spacing: 0; font-size: 13px; }
     .plan-picker:active { background: var(--state-press); }
     /* Open = the pressed tone with the chevron turned up. A named exception to
        the state system's "open = navy tile": beside the solid PLANS half, navy
@@ -1649,32 +1651,33 @@
       padding: var(--s4) var(--gutter); border-bottom: 1px solid var(--hair); text-align: center;
       color: var(--ink-2); font-size: 12px; line-height: 16px; font-style: italic;
     }
-    .plan-empty-new { display: block; margin: var(--s4) auto 0; height: 36px; padding: 0 var(--s4); border: 1.5px solid var(--navy); border-radius: 3px;
-      background: var(--paper-raised); color: var(--navy); cursor: pointer; font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; font-style: normal; }
+    /* No plans yet: two explicit lines, then the one New plan, a city chip's 1px --hair. */
+    .plan-empty-line { display: block; }
+    .plan-empty-new { display: block; margin: var(--s4) auto 0; height: 36px; padding: 0 var(--s4); border: 1px solid var(--hair); border-radius: 3px;
+      background: var(--paper-raised); color: var(--ink); cursor: pointer; font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; font-style: normal; }
     .plan-empty-new:active { background: var(--state-press); }
     /* Header: just the plan's name; a tap returns the list to the stops. */
     body.plan-view #locationsHeader h2 { display: flex; min-width: 0; cursor: pointer; }
     #locationsHeader .h-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
-    /* The slip: added / removed / moved, with Undo, for 6s. It sits ON the
-       rule's caption line (or on the list header over the plan's name), never
-       on the map, the chips, a stop row or a +. A chip's hairline. */
-    #planSlip { position: fixed; z-index: 2600; display: flex; align-items: center; height: 32px; max-width: calc(100vw - 32px); padding: 0 0 0 var(--s3);
-      background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; color: var(--navy);
+    /* The slip: added / removed / moved, with Undo, for 6s. ONE form, a
+       full-bleed band (designer): on the rule it covers exactly the caption
+       line, 1px --hair top and bottom; when the rule is scrolled out of the
+       list it fills the list header flush (its full height, no border) from
+       x=0 to 8px before the filter toggle, so filter and locate stay live.
+       Never on the map, the chips, a stop row or a +. Undo sits after a 1px
+       --hair divider; its target reaches 44px via ::before without touching
+       the next row's +. */
+    #planSlip { position: fixed; z-index: 2600; display: flex; align-items: center; box-sizing: border-box; padding: 0 0 0 var(--gutter);
+      background: var(--paper-raised); border: 0 solid var(--hair); border-width: 1px 0; border-radius: 0; color: var(--navy);
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: 0.08em; }
     #planSlip[hidden] { display: none; }
-    /* On the rule: the rule's own box, square; the Undo target stays 44px tall
-       via its ::before without reaching the next row's + (hit area). */
-    #planSlip.on-rule { max-width: none; box-sizing: border-box; border-radius: 0; border-width: 1px 0; padding-left: var(--gutter); }
-    #planSlip.on-rule .slip-text, #planSlip.on-header .slip-text { flex: 1; }
-    #planSlip.on-rule button { height: 100%; margin-left: var(--s3); padding: 0 var(--gutter) 0 var(--s3); }
-    #planSlip.on-rule button::before { top: -8px; bottom: -4px; }
-    #planSlip.on-header { box-sizing: border-box; max-width: none; }
-    #planSlip.on-header.wide { letter-spacing: 0.04em; padding-left: 8px; }   /* the one-time drag hint, on one line at 390px */
-    #planSlip.on-header.wide button { margin-left: 8px; padding: 0 10px; }
-    #planSlip .slip-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-    #planSlip button { all: unset; flex-shrink: 0; height: 32px; margin-left: var(--s3); padding: 0 var(--s3); display: flex; align-items: center; border-left: 1px solid var(--hair); cursor: pointer; position: relative; text-decoration: underline; text-underline-offset: 3px; }
-    #planSlip button::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }
+    #planSlip.on-header { border-width: 0; }
+    #planSlip.wide { letter-spacing: 0.04em; }   /* the one-time drag hint, on one line at 390px */
+    #planSlip .slip-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    #planSlip button { all: unset; flex-shrink: 0; align-self: stretch; margin-left: var(--s3); padding: 0 var(--gutter) 0 var(--s3); display: flex; align-items: center; border-left: 1px solid var(--hair); cursor: pointer; position: relative; text-decoration: underline; text-underline-offset: 3px; }
+    #planSlip button::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; bottom: -4px; }
+    #planSlip.on-header button::before { top: 0; bottom: 0; }
 
     /* Map: a stop is its Places pin plus a square grey numbered tag. The pin's
        12px margin is pass-through (never covers a neighbour's tag or tap). */
@@ -4818,7 +4821,7 @@
       if (!planMode) return 'Nothing here yet.';
       if (plansAvailable === false) return 'Plans aren’t available yet.';
       if (plansAvailable === null) return 'Loading plans…';
-      if (!plans.length) return 'No plans yet. A plan’s stops show here and on the map.';
+      if (!plans.length) return 'No plans yet.';   // + its second line (planEmptyLine2), never left to text-wrap
       if (!activePlan()) return 'Pick a plan.';
       return 'No stops yet.';
     }
@@ -4835,6 +4838,7 @@
     planStopsNote.textContent = 'No stops yet. Tap + on a place below.';
     const planOthersNote = document.createElement('div'); planOthersNote.className = 'plan-list-note';
     const planEmptyBtn = document.createElement('button'); planEmptyBtn.type = 'button'; planEmptyBtn.className = 'plan-empty-new'; planEmptyBtn.textContent = 'New plan';
+    const planEmptyLine2 = document.createElement('span'); planEmptyLine2.className = 'plan-empty-line'; planEmptyLine2.textContent = 'A plan’s stops show here and on the map.';
     // "Add from Copenhagen · cafe (1)": where the plan ends, and what the filters put below it.
     function ruleCaption(n) {
       const all = Object.keys(CATEGORY_COLORS), on = all.filter(c => filters.categories[c]);
@@ -5108,7 +5112,7 @@
     function placePlanSlip() {
       // The slip is news about the plan's edge, so it sits ON the rule: it covers the rule's
       // caption line ("ADD FROM ..."), exactly its box. If the rule is scrolled out of the
-      // list, it sits on the list header over the plan's name (left of the buttons).
+      // list, the same band fills the list header up to the filter toggle.
       // Never over the map (the stops' tags), the chips, a stop row or the next row's +.
       if (planSlip.hidden) return;
       const list = document.getElementById('locationsList'), lr = list.getBoundingClientRect();
@@ -5120,16 +5124,14 @@
         planSlip.classList.add('on-rule'); planSlip.classList.remove('on-header', 'wide');
         Object.assign(planSlip.style, { left: `${rr.left}px`, width: `${rr.width}px`, top: `${rr.top}px`, height: `${rr.height}px` });
       } else {
-        // over the plan's name; if the text needs more room (the one-time drag hint), it also covers
-        // the collapse chevron and the sort button for its 6s -- never the filter toggle or locate.
-        const title = document.querySelector('#locationsHeader h2'), tr = title.getBoundingClientRect();
-        const leftOf = id => { const b = document.getElementById(id); return b && b.offsetWidth ? b.getBoundingClientRect().left : Infinity; };
-        const narrowR = Math.min(leftOf('sortBtn'), leftOf('toggleFiltersBtn'), hdr.right - 16) - 8;
+        // The same band, flush on the list header: x=0 to 8px before the filter toggle (filter
+        // and locate stay live), the header's full height. Tighter tracking only if the text
+        // would not fit on one line (the one-time drag hint).
+        const filt = document.getElementById('toggleFiltersBtn').getBoundingClientRect();
         planSlip.classList.add('on-header'); planSlip.classList.remove('on-rule', 'wide');
-        const set = (l, r) => Object.assign(planSlip.style, { left: `${l}px`, width: `${Math.max(120, r - l)}px`, top: `${hdr.top + (hdr.height - 32) / 2}px`, height: '32px' });
-        set(tr.left, narrowR);
+        Object.assign(planSlip.style, { left: `${hdr.left}px`, width: `${Math.max(120, filt.left - 8 - hdr.left)}px`, top: `${hdr.top}px`, height: `${hdr.height}px` });
         const tx = planSlip.querySelector('.slip-text');
-        if (tx.scrollWidth > tx.clientWidth + 0.5) { planSlip.classList.add('wide'); set(hdr.left + 16, Math.min(leftOf('toggleFiltersBtn'), hdr.right - 16) - 8); }
+        if (tx.scrollWidth > tx.clientWidth + 0.5) planSlip.classList.add('wide');
       }
     }
     // It rides the list (re-placed on scroll and resize while it shows).
@@ -5414,10 +5416,12 @@
       const hadFocus = panel.contains(document.activeElement) ? document.activeElement : null;
       const focusKey = hadFocus && (hadFocus.dataset.plan || hadFocus.dataset.more || hadFocus.dataset.act || (hadFocus.tagName === 'INPUT' ? 'input' : null));
       const cur = activePlan();
-      const label = plansAvailable === false ? 'Not available yet' : plansAvailable === null ? 'Loading…' : cur ? cur.name : plans.length ? 'Pick a plan' : 'New plan';
-      const act = plansAvailable !== true ? 'none' : plans.length ? 'toggle' : 'new';
-      pick.innerHTML = `<button type="button" class="plan-picker" data-act="${act}" aria-haspopup="true" aria-expanded="${open}"${act === 'none' ? ' aria-disabled="true"' : ''} aria-label="Plan: ${escapeAttr(label)}">` +
-        `${act === 'new' ? PLAN_SVG.plus : ''}<span class="plan-name">${escapeHtml(label)}</span>${act === 'toggle' ? PLAN_CHEV : ''}</button>`;
+      // With no plans the picker is an empty select ("No plan"); its slip then holds only New plan.
+      const label = plansAvailable === false ? 'Not available yet' : plansAvailable === null ? 'Loading…' : cur ? cur.name : plans.length ? 'Pick a plan' : 'No plan';
+      const act = plansAvailable !== true ? 'none' : 'toggle';
+      const empty = plansAvailable === true && !plans.length;
+      pick.innerHTML = `<button type="button" class="plan-picker${empty ? ' is-empty' : ''}" data-act="${act}" aria-haspopup="true" aria-expanded="${open}"${act === 'none' ? ' aria-disabled="true"' : ''} aria-label="Plan: ${escapeAttr(label)}">` +
+        `<span class="plan-name">${escapeHtml(label)}</span>${act === 'toggle' ? PLAN_CHEV : ''}</button>`;
       ledger.hidden = !open;
       if (!open) { ledger.innerHTML = ''; return; }
       const form = (lbl, a) => `<div class="plan-opt plan-form"><input type="text" maxlength="${PLAN_NAME_MAX}" enterkeyhint="done" autocomplete="off" aria-label="${lbl}" placeholder="Plan name" value="${escapeAttr(planPanel.draft)}">` +
@@ -5554,8 +5558,8 @@
       if (emptyText_) emptyText_.textContent = emptyText(planMode);
       // No plans yet: the empty list offers the one next step (sign-in first if needed).
       const wantNew = planMode && plansAvailable === true && !plans.length;
-      if (wantNew && !planEmptyBtn.parentNode) emptyState.appendChild(planEmptyBtn);
-      else if (!wantNew && planEmptyBtn.parentNode) planEmptyBtn.remove();
+      if (wantNew && !planEmptyBtn.parentNode) emptyState.append(planEmptyLine2, planEmptyBtn);
+      else if (!wantNew && planEmptyBtn.parentNode) { planEmptyLine2.remove(); planEmptyBtn.remove(); }
       if (list.lastElementChild !== listSpacer) {
         list.appendChild(emptyState);
         list.appendChild(listSpacer);
@@ -5672,6 +5676,10 @@
     // no map chrome, and is nearer its own pin than any other marker. If none
     // is free, the least-bad spot wins (the weights below).
     const STOP_OVERLAP = 22;
+    // A cluster disc's drawn radius (clusterMarkerIcon: CLUSTER_BADGE_PX - 2 across) and the
+    // band round it a stop tag keeps clear of, so a grey stop number never reads as part of
+    // a cluster's count.
+    const CLUSTER_DISC_R = (CLUSTER_BADGE_PX - 2) / 2, STOP_TAG_CLUSTER_BAND = 16;
     // The map's own chrome, in container px -- the zoom control, the account
     // and add buttons, the attribution -- and the safe box inside it (above
     // the open filter panel) that every default fit frames into.
@@ -5727,24 +5735,36 @@
           const w = t.offsetWidth || 14, h = 14, P = q.p;
           // Four corners first, then the four sides (tag edge touching the ring, centred). Each
           // spot is scored; the first clean one wins, else the least-bad (screen edge > map
-          // chrome > another tag > nearer another marker > another stop > a cluster > a place pin).
+          // chrome > another tag = a cluster's band > nearer another marker > another stop > a
+          // place pin). A tag never sits next to a cluster's numeral: the STOP_TAG_CLUSTER_BAND
+          // round every cluster disc is off-limits, weighted like a placed tag; when no spot is
+          // clean, the spot farthest from the nearest cluster wins (screen-edge and on-control
+          // spots only if nothing else is left).
           const spots = [[-13 - w + 2, -13 - h + 2], [11, -13 - h + 2], [11, 11], [-13 - w + 2, 11],
             [-w / 2, -13 - h], [13, -h / 2], [-w / 2, 13], [-13 - w, -h / 2]];
-          let best = spots[0], bestScore = Infinity;
-          for (const [dx, dy] of spots) {
+          const scored = spots.map(([dx, dy]) => {
             const rc = { x1: P.x + dx, y1: P.y + dy, x2: P.x + dx + w, y2: P.y + dy + h };
-            const score = (rc.x1 < 2 || rc.y1 < 2 || rc.x2 > msz.x - 2 || rc.y2 > visBottom - 2 ? 1000 : 0)
+            const hard = (rc.x1 < 2 || rc.y1 < 2 || rc.x2 > msz.x - 2 || rc.y2 > visBottom - 2 ? 1000 : 0)
+              + 400 * chrome.filter(o => hitsRect(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })).length;   // on the control itself
+            const score = hard
               + 300 * placed.filter(o => hitsRect(rc, o)).length
+              + 300 * clusters.filter(c => rectCircle(rc, c, CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND)).length
               + 100 * stops.filter(o => !g.includes(o) && rectCircle(rc, o.p, 13)).length
-              + 30 * clusters.filter(c => rectCircle(rc, c, 13)).length
-              + 400 * chrome.filter(o => hitsRect(rc, { x1: o.x1 + 4, y1: o.y1 + 4, x2: o.x2 - 4, y2: o.y2 - 4 })).length   // on the control itself
-              + 5 * chrome.filter(o => hitsRect(rc, o)).length                                                     // in its 4px margin
+              + 5 * chrome.filter(o => hitsRect(rc, o)).length                                                     // in a control's 4px margin
               + 20 * others.filter(o => rectCircle(rc, o.p, 11)).length
               + (() => { const tc = L.point((rc.x1 + rc.x2) / 2, (rc.y1 + rc.y2) / 2), own = Math.min(...g.map(x => x.p.distanceTo(tc)));
                   return 200 * (others.some(o => o.p.distanceTo(tc) < own) || stops.some(o => !g.includes(o) && o.p.distanceTo(tc) < own) ? 1 : 0); })();
-            if (score < bestScore) { best = [dx, dy]; bestScore = score; }
-            if (!score) break;
+            const nx = c => Math.max(rc.x1, Math.min(c.x, rc.x2)), ny = c => Math.max(rc.y1, Math.min(c.y, rc.y2));
+            const dClu = clusters.length ? Math.min(...clusters.map(c => Math.hypot(c.x - nx(c), c.y - ny(c)))) : Infinity;
+            return { d: [dx, dy], hard, score, dClu };
+          });
+          let pick = scored.find(s => !s.score);
+          if (!pick) {
+            const pool = scored.some(s => !s.hard) ? scored.filter(s => !s.hard) : scored;
+            const nearCluster = pool.some(s => s.dClu < CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND);
+            pick = pool.slice().sort((a, b) => nearCluster && a.dClu !== b.dClu ? b.dClu - a.dClu : a.score - b.score)[0];
           }
+          const best = pick.d;
           const half = q.el.offsetWidth / 2;
           t.style.left = `${half + best[0]}px`; t.style.top = `${half + best[1]}px`;
           placed.push({ x1: P.x + best[0], y1: P.y + best[1], x2: P.x + best[0] + w, y2: P.y + best[1] + h });

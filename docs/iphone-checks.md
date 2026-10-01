@@ -145,13 +145,19 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      is grey. Tap it: a list of plans drops over the chips (counts, ⋯ on
      every plan, New plan); the picker turns beige with its arrow up. Say if
      the map strip above the open panel now feels too short (it lost 33px).
-  2. **New plan** (in the picker): the keyboard opens on a name field; Create
-     opens the plan; the list says "No stops yet. Tap + on a place below."
+  2. **No plans yet:** the picker reads "No plan" (grey, like an empty
+     select); the list reads "No plans yet." / "A plan's stops show here and
+     on the map." on two lines with one NEW PLAN button. **New plan:** the
+     keyboard opens on a name field; Create opens the plan; the map frames the
+     city's places; the list says "No stops yet. Tap + on a place below."
      above a grey caption line ("ADD FROM COPENHAGEN (n)"), then your places
-     with a grey +.
+     with a grey + (the × turned 45°: say if it reads as a +).
   3. **+ :** tap + on a place: it becomes stop 1 above the line; on the map
-     its normal pin gets a small grey square number tag. Add a second: the
-     slip on the caption line reads "STOP 2 ADDED · HOLD A NUMBER TO MOVE"
+     its normal pin gets a small grey square number tag. Add seven places
+     from different corners of the city: the map keeps every stop in view and
+     never slides away from the first ones. Add a second: the slip (a band over
+     the caption line, or filling the list header if the line is scrolled
+     away; filter and locate stay tappable) reads "STOP 2 ADDED · HOLD A NUMBER TO MOVE"
      (only once per phone), later "ADDED … AS STOP n". **Undo** inside 6s
      takes it back out. A sideways stroke that starts on + adds nothing.
   4. **Numbers at 1x:** grey numbers left of the icons; the chevron in the
@@ -177,7 +183,9 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      the line with +); the slip says "REMOVED …"; Undo puts it back at the
      same number. Swipe a stop row right (star) and left from × (visit): both
      work as in Places and nothing is removed.
-  9. **Map tags:** zoom in and out on a plan: every stop keeps its pin and a
+  9. **Map tags:** in daylight at arm's length, the grey tag numerals (10px)
+     and the caption line above the places ("ADD FROM …", 10px) are readable;
+     a tag never sits right next to a red cluster count. Zoom in and out on a plan: every stop keeps its pin and a
      grey tag that touches its own pin, never under the zoom buttons, the
      account/+ buttons or the attribution; a stop's tag should look equally
      clearly its own when it sits between two pins (in frame 34 the "4" tag

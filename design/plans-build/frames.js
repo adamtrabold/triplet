@@ -63,7 +63,7 @@ const FACTS = () => {
       starred: e.classList.contains('is-starred'), meta: (e.querySelector('.row-meta') || {}).textContent,
       action: act ? (act.classList.contains('plan-add') ? '+' : act.classList.contains('plan-x') ? 'x-remove' : 'x-delete') : null,
       actionLeft: ab ? Math.round(ab.left) : null, actionLabel: act ? act.getAttribute('aria-label') : null,
-      bg: getComputedStyle(e).backgroundColor, addBorder: act && act.classList.contains('plan-add') ? getComputedStyle(act).borderTopWidth + ' ' + getComputedStyle(act).borderTopColor : null, addColor: act && act.classList.contains('plan-add') ? getComputedStyle(act).color : null,
+      bg: getComputedStyle(e).backgroundColor, addBorder: act && act.classList.contains('plan-add') ? getComputedStyle(act).borderTopWidth + ' ' + getComputedStyle(act).borderTopColor : null, addColor: act && act.classList.contains('plan-add') ? getComputedStyle(act).color : null, addRot: act && act.querySelector('.plan-add-glyph') ? getComputedStyle(act.querySelector('.plan-add-glyph')).transform : null, addText: act ? act.textContent.trim() : null, actFont: act ? getComputedStyle(act).fontSize + '/' + getComputedStyle(act).fontWeight + '/' + getComputedStyle(act).fontFamily : null,
       highlighted: e.classList.contains('highlighted'), lifted: e.classList.contains('plan-lifted'), visited: e.classList.contains('is-visited'),
       numFont: num ? getComputedStyle(num).fontSize : null, badgeGlyph: !!e.querySelector('.row-badge use[href^="#g-"]'), badgeLeft: e.querySelector('.row-badge') ? Math.round(e.querySelector('.row-badge').getBoundingClientRect().left) : null,
       nameFont: h3 ? getComputedStyle(h3).fontSize : null, numColor: num ? getComputedStyle(num).color : null, numWeight: num ? getComputedStyle(num).fontWeight : null,
@@ -97,6 +97,9 @@ const FACTS = () => {
     picker: $('#planPick .plan-picker') ? { text: $('#planPick .plan-picker').textContent.trim(), expanded: $('#planPick .plan-picker').getAttribute('aria-expanded') === 'true', disabled: $('#planPick .plan-picker').getAttribute('aria-disabled') === 'true', w: $('#planPick .plan-picker').getBoundingClientRect().width } : null,
     planRow: vis($('#planLedger')) ? $$('#planLedger .plan-opt').map(o => o.textContent.replace(/\s+/g, ' ').trim()) : null,
     emptyButton: vis($('.plan-empty-new')) ? $('.plan-empty-new').textContent : null,
+    emptyButtonBorder: vis($('.plan-empty-new')) ? getComputedStyle($('.plan-empty-new')).borderTopWidth + ' ' + getComputedStyle($('.plan-empty-new')).borderTopColor : null,
+    emptyLine2: vis($('.plan-empty-line')) ? (() => { const r = $('.plan-empty-line').getBoundingClientRect(); return { text: $('.plan-empty-line').textContent, h: r.height, w: r.width }; })() : null,
+    pickerEmpty: $('#planPick .plan-picker.is-empty') ? (() => { const n = $('#planPick .plan-name'), c = getComputedStyle(n); return { color: c.color, tt: c.textTransform, chev: !!$('#planPick .plan-picker svg') }; })() : null,
     cities, cats, citiesVisible: vis($('#cityFilters')), catsVisible: vis($('#filters')),
     rows: rowInfo, empty: vis($('#locationsEmpty')) ? $('#locationsEmpty').textContent.trim() : null,
     chevCx: (() => { const c = $('#collapseBtn'); if (!c || !c.getBoundingClientRect().width) return null; const b = c.getBoundingClientRect(); return Math.round((b.left + b.width / 2) * 100) / 100; })(),
@@ -110,7 +113,8 @@ const FACTS = () => {
     // r10: where the slip sits and whether its text fits on one line (no ellipsis)
     slipBox: vis($('#planSlip')) ? (() => { const sl = $('#planSlip'), t = sl.querySelector('.slip-text'), r = sl.getBoundingClientRect();
       const live = ['toggleFiltersBtn', 'centerMeBtn'].map(id => document.getElementById(id)).filter(Boolean).map(e => e.getBoundingClientRect()).filter(q => q.width);
-      return { cls: sl.className, fits: t.scrollWidth <= t.clientWidth + 0.5, h: r.height, overFilterOrLocate: live.some(q => r.left < q.right && q.left < r.right && r.top < q.bottom && q.top < r.bottom) }; })() : null,
+      const hd = $('#locationsHeader').getBoundingClientRect(), ft = document.getElementById('toggleFiltersBtn').getBoundingClientRect();
+      return { cls: sl.className, fits: t.scrollWidth <= t.clientWidth + 0.5, h: r.height, l: r.left, gapToFilter: ft.left - r.right, headerH: hd.height, headerTop: hd.top, top: r.top, border: getComputedStyle(sl).borderTopWidth + '/' + getComputedStyle(sl).borderBottomWidth, radius: getComputedStyle(sl).borderTopLeftRadius, overFilterOrLocate: live.some(q => r.left < q.right && q.left < r.right && r.top < q.bottom && q.top < r.bottom) }; })() : null,
     // r10: stop pins cut by the map's side edges, and stop tags on the map chrome (attribution, controls)
     mapClear: (() => { if (typeof planChrome !== 'function' || !map) return null; const mb = $('#map').getBoundingClientRect(), ch = planChrome();
       const cut = [], onChrome = [];

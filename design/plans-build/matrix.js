@@ -102,8 +102,11 @@ const RULES = (o) => {
   // any other marker. A tag fails only if it is not clean while a clean spot existed; tags with
   // no clean spot (pin at the screen edge, under a button, or overlapped by a place pin) are counted.
   const judgeTags = (tagEls, ownOf, markerEls, mb, chromeR) => {
-    const out = { bad: [], forced: [] };
+    const out = { bad: [], forced: [], band: [], bandBad: [] };
     const cenOf = el => { const r = el.getBoundingClientRect(); return { x: r.x + r.width / 2 - mb.left, y: r.y + r.height / 2 - mb.top }; };
+    // build (designer): a tag keeps CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND clear of every cluster disc's centre
+    const cluC = [...document.querySelectorAll('#map .leaflet-marker-icon')].filter(e => e.querySelector('circle[fill="var(--figure-deep)"]')).map(cenOf);
+    const inBand = rc => cluC.some(c => Math.hypot(c.x - Math.max(rc.x1, Math.min(c.x, rc.x2)), c.y - Math.max(rc.y1, Math.min(c.y, rc.y2))) < CLUSTER_DISC_R + STOP_TAG_CLUSTER_BAND);
     tagEls.forEach(t => {
       const own = ownOf(t); if (!own.length) return;
       const ownC = own.map(cenOf), others = markerEls.filter(e => !own.includes(e)).map(cenOf);
@@ -111,6 +114,7 @@ const RULES = (o) => {
       const w = t.offsetWidth || 14, h = 14;
       const clean = rc => { const c = { x: (rc.x1 + rc.x2) / 2, y: (rc.y1 + rc.y2) / 2 };
         if (rc.x1 < 2 || rc.y1 < 2 || rc.x2 > mb.width - 2 || rc.y2 > mb.height - 2) return false;
+        if (inBand(rc)) return false;   // next to a cluster's numeral
         if (chromeR.some(o => rc.x1 < o.x2 - 4 && o.x1 + 4 < rc.x2 && rc.y1 < o.y2 - 4 && o.y1 + 4 < rc.y2)) return false;
         if (tagEls.concat([...document.querySelectorAll('.stop-tag')]).some(o => o !== t && getComputedStyle(o).display !== 'none' && (() => { const q = o.getBoundingClientRect(); return rc.x1 < q.right - mb.left && q.left - mb.left < rc.x2 && rc.y1 < q.bottom - mb.top && q.top - mb.top < rc.y2; })())) return false;   // on another tag
         const ownD = Math.min(...ownC.map(p => Math.hypot(p.x - c.x, p.y - c.y)));
@@ -119,7 +123,8 @@ const RULES = (o) => {
         .map(([dx, dy]) => ({ x1: P.x + dx, y1: P.y + dy, x2: P.x + dx + w, y2: P.y + dy + h }));
       const r = t.getBoundingClientRect(), act = { x1: r.left - mb.left, y1: r.top - mb.top, x2: r.right - mb.left, y2: r.bottom - mb.top };
       if (clean(act)) return;
-      if (spots.some(clean)) out.bad.push(t.textContent); else out.forced.push(t.textContent);
+      if (inBand(act) && spots.some(clean)) out.bandBad.push(t.textContent);
+      if (spots.some(clean)) out.bad.push(t.textContent); else { out.forced.push(t.textContent); if (inBand(act)) out.band.push(t.textContent); }
     });
     return out;
   };
@@ -128,6 +133,7 @@ const RULES = (o) => {
     const mb0 = document.getElementById('map').getBoundingClientRect();
     const vtags = tags.filter(t => { const own = elOfN(parse(t.textContent)[0]); return own && inView(cen(own)); });
     const j = judgeTags(vtags, t => parse(t.textContent).map(elOfN).filter(Boolean), all.filter(e => { const c = cen(e); return c.x >= 0 && c.x <= innerWidth && c.y >= mapBox.top && c.y <= cover; }), mb0, planChrome());   // every marker you can see is a neighbour
+    ok(`R6 (build, designer) no stop tag within ${STOP_TAG_CLUSTER_BAND}px of a cluster disc unless all 8 spots were blocked (blocked here: ${j.band.length})`, j.bandBad.length === 0, j.bandBad);
     ok(`R4 every tag is on a clean spot (on screen, clear of the chrome, nearer its own pin than any other marker) whenever one exists${j.forced.length ? ' -- forced (no clean spot): ' + j.forced.join(',') : ''}`, j.bad.length === 0, j.bad);
   }
   const under = [];
@@ -274,6 +280,8 @@ const SLIP = () => {
   await page.setViewportSize({ width: 1400, height: await page.evaluate(() => document.body.scrollHeight) });
   await page.screenshot({ path: path.join(OUT, 'sheet.png'), fullPage: true });
   await b.close();
+  const bandBlocked = Object.values(report).reduce((a, r) => a + r.res.reduce((b, q) => b + (+((q.rule.match(/blocked here: (\d+)/) || [])[1] || 0)), 0), 0);
+  console.log(`tags beside a cluster with all 8 spots blocked: ${bandBlocked}`);
   console.log(`\n${fails ? 'FAIL' : 'PASS'} ${cells.length} cells, ${Object.values(report).reduce((a, r) => a + r.res.length, 0) - fails}/${Object.values(report).reduce((a, r) => a + r.res.length, 0)} assertions`);
   process.exit(fails ? 1 : 0);
 })();

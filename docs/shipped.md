@@ -695,7 +695,9 @@ mode, no DONE, no "Edit stops").
 
 **Panel (identical in both views).** One 61px row: the switch (176px) and the
 plan picker (the open plan's name ⌄; "Pick a plan" before one was ever
-opened; grey in Places, where picking opens the plan in Plans). Then the city
+opened; grey in Places, where picking opens the plan in Plans; with no plans
+it is an empty select, "No plan" in `--ink-2`, regular case, chevron kept,
+whose slip holds only New plan). Then the city
 chips and the 11 category chips exactly as in Places. Both controls speak the
 city chips' language (1px `--hair`, ink text); the switch's ON half is the
 state system's solid navy tile. The picker drops a slip over the chips (no
@@ -721,9 +723,10 @@ just the plan's name (20 characters fit at 390px; an ellipsis after); a tap
 on it scrolls the list back to the stops. After a city or chip change in
 Plans the list scrolls so the rule is at the top (`showPlanRule()`). Empty
 lines: "No places match these filters." / "Every place these filters match is
-in this plan." / "No stops yet. Tap + on a place below." / "No plans yet. A
-plan’s stops show here and on the map." with a New plan button (sign-in first
-if needed); with no plan open the map draws nothing and ⇅ hides
+in this plan." / "No stops yet. Tap + on a place below." / "No plans yet." +
+"A plan’s stops show here and on the map." as two explicit lines (never left
+to text-wrap) with the one New plan button, 1px `--hair` like a city chip
+(sign-in first if needed); with no plan open the map draws nothing and ⇅ hides
 (`body.plan-none`).
 
 **Rows (one left axis, x=30).** Rows stay 56px. A stop row
@@ -739,8 +742,9 @@ district diamond `-1.83px` (a transform, so the sub-pixel shift isn't
 snapped), so rings land where Places names' round capitals land and the
 diamond's tip where A/T land (≤0.5px at 1x and 3x, `ink.js` → `check.js`).
 Places rows below the rule are plain Places rows. × on a stop (`.plan-x`)
-removes it from the plan; + on a place (`.plan-add`, 20px/400) adds it as the
-last stop; both are bare `--ink-2` glyphs in the Places delete ×'s 28px slot
+removes it from the plan; + on a place (`.plan-add`) adds it as the last
+stop: it is the same × glyph, button, font, size and weight, the glyph alone
+turned 45° (`.plan-add-glyph`, designer); both are bare `--ink-2` glyphs in the Places delete ×'s 28px slot
 with a 44×44 hit area, and both fire only on a near-still tap
 (`DELETE_TAP_SLOP`; shape rows got the same slop tracking for +/×). No control
 in Plans deletes a place. A visited stop is simply a Places visited row
@@ -750,11 +754,13 @@ in Plans deletes a place. A visited stop is simply a Places visited row
 Undo" / "Removed <name> · Undo" / **"Moved <name> to stop n · Undo"** (the
 reorder Undo, recommended by UX; v3 had listed it as deferred). The first
 time a plan reaches 2+ stops on a device the add slip reads "Stop n added ·
-hold a number to move" (`triplet.reorderHint`, once). It sits ON the rule,
-covering exactly the caption line, or, when the rule is scrolled out of the
-list, on the list header over the plan's name (the hint may also cover the
-collapse chevron and ⇅, never the filter toggle or locate; letter-spacing
-0.04em so it fits one line at 390px). It rides scroll and panel toggles and
+hold a number to move" (`triplet.reorderHint`, once). One form (designer): a
+full-bleed band. On the rule it covers exactly the caption line, 1px `--hair`
+top and bottom; when the rule is scrolled out of the list the same band fills
+the list header flush (its full 57px, no border or radius) from x=0 to 8px
+before the filter toggle, so filter and locate stay live (letter-spacing drops
+to 0.04em only if the text wouldn't fit one line). Undo sits after a 1px
+`--hair` divider. It rides scroll and panel toggles and
 never covers the map, a chip, a stop row or a +. Undo: add → `removeStop`,
 remove → `restoreStop` (the same row back at its old position), move →
 `reorderStop` back to the old index (same order; the stored position may
@@ -783,11 +789,16 @@ clustered (`mapVisibleLocations()` keeps them out of the grid; in Places
 sync and `moveend`) places each tag on the first free spot of eight (four
 corners, then four sides); a spot is free if it touches no cluster, no other
 stop's pin, no tag, no screen edge and no map chrome (`planChrome()`: zoom
-control, account and + buttons, attribution) and its centre is nearer its
-own pin than any other marker; otherwise the least-bad spot wins (weights:
-screen edge 1000 > on a control 400 > another tag 300 > nearer another
-marker 200 > another stop 100 > a cluster 30 > a place pin 20 > a control's
-4px margin 5). Travel cap: the tag always touches its pin (near edge ≤13px
+control, account and + buttons, attribution), is outside the
+`STOP_TAG_CLUSTER_BAND` (16px) round every cluster disc (`CLUSTER_DISC_R` 11;
+designer: a grey stop numeral never sits next to a cluster's count), and its
+centre is nearer its own pin than any other marker. Weights: screen edge 1000
+> on a control 400 > another tag 300 = a cluster's band 300 > nearer another
+marker 200 > another stop 100 > a place pin 20 > a control's 4px margin 5.
+With no clean spot, the spot farthest from the nearest cluster wins when a
+cluster is that close (screen-edge and on-control spots only if nothing else
+is left), else the least-bad. `matrix.js` R6 asserts it per cell and counts
+the tags that had all 8 spots blocked (as `sweep.js` does). Travel cap: the tag always touches its pin (near edge ≤13px
 from the centre), no leader line. Stops whose pins overlap
 (`STOP_OVERLAP` 22px) share one tag on the lowest-numbered pin in view,
 labelled "1–6" / "2–3" / "1,3". A stop pin's 12px margin is pass-through. A
@@ -811,7 +822,13 @@ Opening and closing the panel re-fit (building ↔ following) while the map is
 where the app last put it (`planMapUnmoved()`); after your own pan, closing
 leaves it alone and opening keeps your zoom and pans the least that lifts
 the stops you had on screen into the strip. After +, if the new stop is
-outside the safe box: re-fit (unmoved map) or pan the least (moved map).
+outside the safe box: re-fit (unmoved map) or pan the least (moved map). A
+plan with no stops yet frames the places the filters match (with none, the
+city) and records the view, so the first + re-fits rather than chasing (UX
+review: before this, seven adds into a new plan left 4 of 7 stops off the
+safe box). ALL CITIES while building zooms out to every city's places
+(still 08b); after closing the panel, following frames every stop (Q1), so
+still 08 shows the Copenhagen stops.
 
 **Other states.** Signed out: everything readable; + / × / drag / keyboard
 moves / New plan / Rename / Delete open the sign-in. Tables missing: the
