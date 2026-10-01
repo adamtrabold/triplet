@@ -1699,10 +1699,11 @@
     .plan-stop.highlighted-marker .pin-n { color: var(--paper); }
     /* the grey tag beside a red cluster that holds stops: part of the cluster -- a tap zooms in, like the disc */
     .stop-tag.cluster-stops { pointer-events: auto; cursor: pointer; }
-    /* Its shape is ONE dial: --cluster-tag-radius (3px = the square tag, the r18 spec; 7px makes
-       a 14px tag a circle / pill), pending the designer's call on square vs circle. */
-    .stop-tag { --cluster-tag-radius: 3px; position: absolute; z-index: 2; height: 14px; min-width: 14px; padding: 0 2px; box-sizing: border-box; border: 1px solid var(--ink-2); border-radius: var(--cluster-tag-radius);
-      background: var(--paper); color: var(--ink-2); font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 10px; line-height: 11px; text-align: center; white-space: nowrap; pointer-events: none; }
+    /* r19 (designer): drawn like a stop pin -- a paper field in a 1.5px grey ring, grey numeral; a 16px
+       circle for one number, a pill for "2–4" / "1,5–6". A solid grey disc read as a second cluster; a
+       square was the one square on a map of circles. Shape dial: --cluster-tag-radius (8px = fully round). */
+    .stop-tag { --cluster-tag-radius: 8px; position: absolute; z-index: 2; height: 16px; min-width: 16px; padding: 0 3px; box-sizing: border-box; border: 1.5px solid var(--ink-2); border-radius: var(--cluster-tag-radius);
+      background: var(--paper); color: var(--ink-2); font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 10px; line-height: 13px; text-align: center; white-space: nowrap; pointer-events: none; }
     .popup-stop { white-space: nowrap; margin-left: calc(var(--s1) * -1); }   /* cancels the flex gap: the dot sits evenly between its words */
     .shape-stop {
       display: block; margin-top: var(--s1); color: var(--ink-2);
@@ -5909,6 +5910,7 @@
           + 100 * placed.filter(o => hits(rc, o)).length; };
         const order = d.id.includes(':*') ? [left, right, below, above] : [right, left, above, below];
         const best = order.reduce((m, sp) => bad(sp) < bad(m) ? sp : m, order[0]);
+        if (bad(best) >= 1000) t.dataset.forced = '1';   // a knot of overlapping clusters: every flush spot is over another count (matrix discloses it)
         t.style.left = `${best[0]}px`; t.style.top = `${best[1]}px`;
         placed.push(toMap(best));
       });

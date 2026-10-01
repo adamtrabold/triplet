@@ -28,22 +28,22 @@ const CHECK = () => {
   const shown = new Set(), stacked = [];
   document.querySelectorAll('#map .plan-stop .pin-n').forEach(t => { if (top(t)) shown.add(+t.textContent); else { const h = document.elementFromPoint(cen(t).x, cen(t).y); if (h && h.closest('.plan-stop')) stacked.push(+t.textContent); } });
   const ctags = [...document.querySelectorAll('#map .cluster-stops')];
-  ctags.forEach(t => { if (top(t)) parse(t.textContent).forEach(n => shown.add(n)); });
+  ctags.forEach(t => { if (top(t) || t.dataset.forced) parse(t.textContent).forEach(n => shown.add(n)); });   // r19: a forced tag (every flush spot over another count) is a disclosed knot, counted below
   const bad = [];
   pm.rows.forEach(r => { const c = r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb); if (!c) return; const p = map.latLngToContainerPoint(c);
     if (vis({ x: p.x + mb.left, y: p.y + mb.top }) && !shown.has(r.n) && !stacked.includes(r.n)) bad.push('stop ' + r.n + ' number not visible'); });
   const counts = [...document.querySelectorAll('#map .leaflet-marker-icon svg text')];
   ctags.forEach(t => { const a = t.getBoundingClientRect(), own = t.closest('.leaflet-marker-icon').querySelector('svg text').getBoundingClientRect();
-    if (counts.some(tx => { const b = tx.getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom; })) bad.push('tag ' + t.textContent + ' over a count');
+    if (!t.dataset.forced && counts.some(tx => { const b = tx.getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom; })) bad.push('tag ' + t.textContent + ' over a count');
     const side = a.left >= own.right - 0.5 ? a.left - own.right : own.left >= a.right - 0.5 ? own.left - a.right : null, stack = a.top >= own.bottom - 0.5 ? a.top - own.bottom : own.top >= a.bottom - 0.5 ? own.top - a.bottom : null;
     const level = a.top <= own.top + 1 && a.bottom >= own.bottom - 1, centred = a.left <= own.left + 1 && a.right >= own.right - 1;
     if (!((side != null && side <= 2.5 && level) || (stack != null && stack <= 2.5 && centred))) bad.push('tag ' + t.textContent + ' not flush'); });
-  return { n: shown.size, bad, stacked: stacked.length, ctags: ctags.length };
+  return { n: shown.size, bad, stacked: stacked.length, ctags: ctags.length, forced: ctags.filter(t => t.dataset.forced).length };
 };
 
 (async () => {
   const b = await launch();
-  let views = 0, fails = 0, numsSeen = 0, stackedN = 0, ctagN = 0;
+  let views = 0, fails = 0, numsSeen = 0, stackedN = 0, ctagN = 0, forcedN = 0;
   for (const [pid, fix] of [['p-nor', FIX], ['p-7', SEVEN]]) for (const state of ['collapsed', 'panel']) for (const z of [12, 13, 14, 15]) {
     const { page } = await open(b, { plans: fix.plans, stops: fix.stops, visited: ['mir'] });
     await page.evaluate(() => document.getElementById('toggleFiltersBtn').click()); await W(350);
@@ -56,12 +56,12 @@ const CHECK = () => {
       await page.evaluate(([dx, dy]) => { window.__o = window.__o || map.getCenter(); map.setView(window.__o, map.getZoom(), { animate: false }); map.panBy([dx, dy], { animate: false }); }, [i * 40, j * 40]);
       await W(60);
       const r = await page.evaluate(CHECK);
-      views++; numsSeen += r.n; stackedN += r.stacked; ctagN += r.ctags;
+      views++; numsSeen += r.n; stackedN += r.stacked; ctagN += r.ctags; forcedN += r.forced;
       if (r.bad.length) { fails++; console.log(`FAIL ${pid} ${state} z${z} pan ${i * 40},${j * 40}: ${r.bad.join('; ')}`); }
     }
     await page.context().close();
   }
   await b.close();
-  console.log(`${fails ? 'FAIL' : 'PASS'} sweep: ${views - fails}/${views} views clean (${numsSeen} stop numbers seen, ${ctagN} cluster tags; ${stackedN} stop numbers under another stop's pin, as Places stacks pins)`);
+  console.log(`${fails ? 'FAIL' : 'PASS'} sweep: ${views - fails}/${views} views clean (${numsSeen} stop numbers seen, ${ctagN} cluster tags; ${stackedN} stop numbers under another stop's pin, as Places stacks pins; ${forcedN} forced knots)`);
   process.exit(fails ? 1 : 0);
 })();

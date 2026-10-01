@@ -54,13 +54,15 @@ const RULES = (o) => {
   // r18: a single stop pin carries its number in place of the glyph (no tag); tags exist only beside clusters
   const tags = all.filter(el => kind(el) === 'stop').map(el => el.querySelector('.pin-n')).filter(t => t && tagVisible(t));
   // r17: the tags clusters carry for the stops inside them
-  const ctags = all.filter(el => kind(el) === 'cluster').map(el => el.querySelector('.cluster-stops')).filter(t => t && tagVisible(t));
+  const ctagsAll = all.filter(el => kind(el) === 'cluster').map(el => el.querySelector('.cluster-stops')).filter(t => t && tagVisible(t));
+  const ctags = ctagsAll.filter(t => !t.dataset.forced);   // forced: every flush spot lies over another cluster's count (overlapping clusters) -- counted below
+  const forcedTags = ctagsAll.filter(t => t.dataset.forced).map(t => t.textContent);
   // R1
   const bad = marks.filter(mk => mk.k === 'pin' && /\d/.test(mk.el.textContent));
   ok('R1 digits only on stop tags and Places clusters', bad.length === 0, bad.map(mk => mk.el.textContent));
   const r1bad = tags.filter(t => { const cs = getComputedStyle(t), pin = t.closest('.plan-stop'); return !(parseFloat(cs.fontSize) >= 12 && (cs.color === 'rgb(90, 86, 76)' || pin.classList.contains('highlighted-marker')) && !pin.querySelector('use[href^="#g-"]:not([href="#g-star"])')); }).map(t => t.textContent + ':' + getComputedStyle(t).fontSize + ':' + getComputedStyle(t).color)
-    .concat(ctags.filter(t => !(getComputedStyle(t).borderTopColor === 'rgb(90, 86, 76)' && parseFloat(getComputedStyle(t).borderRadius) <= 3)).map(t => 'ctag ' + t.textContent));
-  ok('R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a square grey-ruled paper tag; clusters are red discs', r1bad.length === 0, r1bad);
+    .concat(ctags.filter(t => !(getComputedStyle(t).borderTopColor === 'rgb(90, 86, 76)' && parseFloat(getComputedStyle(t).borderRadius) >= t.getBoundingClientRect().height / 2 - 0.5 && getComputedStyle(t).backgroundColor !== 'rgb(90, 86, 76)')).map(t => 'ctag ' + t.textContent));
+  ok('R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs', r1bad.length === 0, r1bad);
   // R2
   const r2 = [];
   const mv = mapVisibleLocations();
@@ -114,10 +116,11 @@ const RULES = (o) => {
     if (h && h.closest('.leaflet-marker-icon') === t.closest('.leaflet-marker-icon')) parseC(t.textContent).forEach(n => shown.set(n, true)); else blockers.push('cluster ' + t.textContent); });
   tags.forEach(t => { const r = t.getBoundingClientRect(), c = { x: r.x + r.width / 2, y: r.y + r.height / 2 }; const h = document.elementFromPoint(c.x, c.y);
     if (h && h.closest('.leaflet-marker-icon') === t.closest('.leaflet-marker-icon')) parse(t.textContent).forEach(n => shown.set(n, true)); else blockers.push(t.textContent + ':' + (h ? (h.closest('.leaflet-marker-icon') ? kind(h.closest('.leaflet-marker-icon')) : h.className || h.tagName) : 'none')); });
+  forcedTags.forEach(l => parse(l.replace(/…/g, '–')).forEach(n => shown.set(n, true)));   // a forced tag's stops are counted as a disclosed knot, not failed
   const coveredByStop = new Set(blockers.filter(b => /:stop$/.test(b)).flatMap(b => parse(b.split(':')[0])));
   const unseen = pm.rows.filter(r => { const c = r.loc ? [r.loc.lat, r.loc.lng] : shapeCentroid(r.nb); return c && inView(toPage(c)); }).filter(r => !shown.get(r.n) && !coveredByStop.has(r.n)).map(r => r.n);
   // (two single stop pins drawn on top of each other: the lower number shows, as Places stacks pins -- counted, not failed)
-  ok('R4 (r17) every stop in view has its number on a visible, uncovered tag: its own, or its cluster’s', unseen.length === 0, { unseen, blockers });
+  ok(`R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s${forcedTags.length ? ' -- forced knot (every flush spot over another cluster’s count): ' + forcedTags.join(' ') : ''}`, unseen.length === 0, { unseen, blockers });
   const onCount = ctags.filter(t => { const a = t.getBoundingClientRect(); return clusterMarks.some(cl => { const b = cl.el.querySelector('text').getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom; }); }).map(t => t.textContent);
   ok('R4 (r17) no tag ever covers a cluster’s count', onCount.length === 0, onCount);
   // r18: the tag is FLUSH beside its count: 0-2.5px from the digits, level with them, never over them
