@@ -5533,6 +5533,11 @@
     }
     function vsXBack(el, g) {               // the X fades back; it is tappable only once it's fully there
       el.classList.remove('vs-xhide');
+      // The guard lives on the ROW, not only the button: a re-render inside
+      // the window (reduced motion's synchronous updateUI() with the not yet
+      // flipped `locations`, a refetch) builds a fresh X, and renderCard()
+      // re-arms it from here (xGuardRearm()).
+      el.__xLiveAt = performance.now() + VISIT_SWIPE.XBACK_MS;
       const x = el.querySelector('.delete-btn');
       if (!x) return;
       x.style.pointerEvents = 'none';           // reduced motion too: it appears at once, but is live only after XBACK_MS
@@ -5781,6 +5786,16 @@
           ${stamp}<button class="delete-btn" aria-label="Delete">&times;</button>
         </div>
       `;
+      xGuardRearm(el);
+    }
+    // vsXBack()'s 120ms "not live yet" guard, carried onto a freshly rendered X.
+    function xGuardRearm(el) {
+      const left = (el.__xLiveAt || 0) - performance.now();
+      if (left <= 0) return;
+      const x = el.querySelector('.delete-btn');
+      if (!x) return;
+      x.style.pointerEvents = 'none';
+      setTimeout(() => { x.style.pointerEvents = ''; }, left);
     }
 
     function syncLocationCards(visible) {
