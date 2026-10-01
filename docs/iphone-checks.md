@@ -187,7 +187,9 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
      where the icon was (selected: filled, white number); zoom out until stops
      join red clusters: the cluster shows a small grey ring (a circle, or a
      pill for "2–4") right beside its count ("2–4"), never on top of the digits; tapping the tag zooms in like
-     the red disc. In daylight at arm's length the tag numerals (10px) and the
+     the red disc. Where clusters crowd, two clusters' stops share one tag
+     ("1–2,4–5"); no tag ever sits on another, and no star or disc covers a
+     tag's numbers. In daylight at arm's length the tag numerals (10px) and the
      caption line above the places ("ADD FROM …", 10px) are readable. Say if the thin
      ring tag reads as part of its cluster, and if a stop's category is hard to tell from its ring colour alone.
   10. **The map's two jobs:** with the panel open the map shows the stops and

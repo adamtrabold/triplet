@@ -836,19 +836,28 @@ runs off the visible map, onto a control, another tag or another cluster's
 count (`clusterStopTags()`). With no clean spot it takes the least-bad one:
 over another cluster's count is worst, then off the map, a control, another
 tag; a tag forced over a count (a knot of overlapping clusters) is marked
-`data-forced` and disclosed by matrix/sweep, not failed. It may cover part of the disc, never a digit; a
-tap on it zooms in like the disc. A stop pin whose centre lies under a
-neighbouring cell's disc joins that cluster's tag (`applyPlanMap()`). Its
-shape is one dial, `--cluster-tag-radius` (8px, fully round). The list is unchanged (owner). At
-`SOLO_MIN_ZOOM` and above nothing clusters, so a list tap always lands on the
-stop's own numbered pin. Two single stop pins drawn on top of each other show
-the lower number (Places' pin stacking; counted by matrix/sweep, not failed).
+`data-forced` and disclosed by matrix/sweep, not failed. **Tags never overlap
+(r20, v3 §15):** a tag whose best spot still lands on another tag, or under
+another tag-bearing disc, merges its numbers into that tag ("1,5" + "2,4" →
+"1–2,4–5"), which is placed again at its new width; a tap on either cluster
+zooms in. **A tag's numerals are always on top:** the tag stacks above its
+cluster's star (`z-index: 3`; the star may tuck under its edge) and a
+tag-bearing cluster draws above plain ones (`Z_PLAN_CLUSTER + 1000`, reset
+every pass). The tag may cover part of the disc, never a digit; a tap on it
+zooms in like the disc. A stop pin whose centre lies under a neighbouring
+cell's disc joins that cluster's tag (`applyPlanMap()`). Its shape is one
+dial, `--cluster-tag-radius` (8px, fully round). The list is unchanged
+(owner). At `SOLO_MIN_ZOOM` and above nothing clusters, so a list tap always
+lands on the stop's own numbered pin. Two single stop pins drawn on top of
+each other show the lower number (Places' pin stacking; disclosed by
+matrix/sweep, not failed).
 **Z ladder (open plan only; Leaflet adds the marker's screen y, so the
-steps are 5000 apart):** selected stop `Z_PLAN_HI_STOP` 35000 > clusters
-`Z_PLAN_CLUSTER` 30000 (+100 starred; as in Places they beat every pin) >
-stop `Z_PLAN_STOP` − n (lower numbers on top) > the tapped place
-`Z_PLAN_PICKED` 15000 > places 0–500. Cluster ids carry the view
-("pcluster:") so switching views recreates them on the right rung.
+steps are 5000 apart):** selected stop `Z_PLAN_HI_STOP` 35000 > a cluster
+carrying a stop tag `Z_PLAN_CLUSTER` + 1000 > other clusters `Z_PLAN_CLUSTER`
+30000 (+100 starred; as in Places they beat every pin) > stop `Z_PLAN_STOP` −
+n (lower numbers on top) > the tapped place `Z_PLAN_PICKED` 15000 > places
+0–500. Cluster ids carry the view ("pcluster:") so switching views recreates
+them on the right rung.
 Superseded (history): r7–r15 drew a stop as its glyph pin plus a free-standing
 grey tag placed on one of eight spots, stops never clustered, and r16 nudged
 discs off stop pins; the owner rejected all three.
@@ -999,21 +1008,23 @@ target, hold-drag 400ms vs scroll / tap / star / visit, long moves, keyboard,
 + / × slop, delete copy, filters); `ink.js` → `frames.js` (48 states, incl. the build's reorder-Undo frame 14b, at 1x and
 3x + crops, `frames.json`) → `check.js` (per-frame truths incl. the x=30 axis
 and the ink edges ≤0.5px); `matrix.js` (the map rules R1–R5, FIT, REOPEN,
-SLIP over z9–z15 × three plans × panel/collapsed); `sweep.js` (392 panned
-views at z14/z15, the tag judgement after every pan). Places regressions:
+SLIP over z9–z15 × three plans × panel/collapsed); `sweep.js` (r20: 980
+panned views at z11–z15: no two tags overlap, each tag's digits on top at 3
+points, every stop in view findable as its numbered pin or in a tag, tags
+flush and never over a count unless forced; stacked pins and forced knots
+disclosed). Places regressions:
 `list-ordering/build/sorttest.js`, `state-system/check.js` + `matrix.js`,
 `gesturediff.js` against origin/main, `trip-location-model/widen-test.js`;
 Impeccable exactly the 3 baseline findings. The row-gesture gate
 (`design/gesture-harness/run-all.sh`) gained `plans.js` (plan rows, 22 cases:
 taps on text and number, star right, visit left from ×, quick and 300ms-rested
 vertical strokes scroll, the 450ms hold lifts and moves, × / + slop, rows 56).
-Results after the review fixes (Chromium; merged with origin/main ff6b218):
-plantest 139/139, griptest 30/30, check 397/397 (49 frames), matrix 56 cells
-611/611 (18 tags beside a cluster with all 8 spots blocked, all in zoomed-out
-knots), sweep 392/392 (21 tag-views with no clean spot, 0 of them beside a
-cluster), Impeccable gate PASSED (static 3/3, runtime 16/16 incl. the plans
-state, 0 new), places-ux 30/30, sorttest 77/77,
-state-system check 11/11 and matrix 66 cells × 3 scales 0 failures,
+Results after r20 (Chromium; merged with origin/main 8c4c102):
+plantest 140/140, griptest 30/30, check 405/405 (49 frames), matrix 56 cells
+611/611, sweep 980/980 (710 tags; 125 disclosed: stacked single pins or
+forced knots), Impeccable gate PASSED (static 3/3, runtime 16/16, plans state
+now in the runtime baseline, owner/operator-approved; 0 new), places-ux 30/30,
+sorttest 77/77, state-system check 11/11 and matrix 66 cells × 3 scales 0 failures,
 gesturediff identical to origin/main (22 outcomes), widen-test 19/19. Gesture
 gate, this build: star "84 + 8 (+ N8-a)" · vtest 91/95 · popup-open 20/20 +
 20/20 · dust 0 frames · rows 56.00px · curve8 10/3 · delete-slop 36/36 ·
