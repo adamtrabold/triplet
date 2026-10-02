@@ -1041,10 +1041,10 @@ Impeccable exactly the 3 baseline findings. The row-gesture gate
 (`design/gesture-harness/run-all.sh`) gained `plans.js` (plan rows, 22 cases:
 taps on text and number, star right, visit left from ×, quick and 300ms-rested
 vertical strokes scroll, the 450ms hold lifts and moves, × / + slop, rows 56).
-Results after r20 (Chromium; merged with origin/main 8c4c102):
-plantest 140/140, griptest 30/30, check 405/405 (49 frames), matrix 56 cells
-611/611, sweep 980/980 (710 tags; 125 disclosed: stacked single pins or
-forced knots), Impeccable gate PASSED (static 3/3, runtime 16/16, plans state
+Results after the final review fixes (Chromium; merged with origin/main 8c4c102):
+plantest 141/141, griptest 30/30, check 405/405 (49 frames), matrix 56 cells
+611/611, sweep 980/980 (710 tags; 177 disclosed: stacked single pins, stop
+pins whose number moved into a tag, forced knots), plan-rows 26/26, Impeccable gate PASSED (static 3/3, runtime 16/16, plans state
 now in the runtime baseline, owner/operator-approved; 0 new), places-ux 30/30,
 sorttest 77/77, state-system check 11/11 and matrix 66 cells × 3 scales 0 failures,
 gesturediff identical to origin/main (22 outcomes), widen-test 19/19. Gesture
