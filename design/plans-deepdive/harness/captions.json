@@ -1,0 +1,17 @@
+[
+ {"title": "A · Plan column on Places", "why": "Places stays the list you build from; each row shows + or its stop number. PLAN is a second list for following.", "frames": [
+  ["A1", "<b>1 Switch</b> · Panel: PLACES | PLAN control, then which plan + adds to."],
+  ["A2", "<b>2 Build</b> · Every place, every filter; tap + to append, tap the number to take it out."],
+  ["A3", "<b>3 Follow</b> · PLAN: only the stops, in order, NEXT in the meta; map shows only the stops."],
+  ["A4", "<b>4 Reorder</b> · Drag the grip (right slot). No edit mode."]]},
+ {"title": "B · The plan is the sheet (pick)", "why": "Open a plan and the sheet is the plan: its stops on top, then everything else in your list with +. One view builds and follows.", "frames": [
+  ["B1", "<b>1 Switch</b> · Panel: PLACES | PLANS control; the Plans side lists plans and New plan."],
+  ["B2", "<b>2 Build</b> · Stops, a rule, then every place from the list with +; map shows everything, stops numbered."],
+  ["B3", "<b>3 Follow</b> · The same sheet: stops first, NEXT in the meta, the rest below the rule."],
+  ["B4", "<b>4 Reorder</b> · Drag the grip; drop below the rule to take a stop out (Undo)."]]},
+ {"title": "C · Plans as saved lists", "why": "Like Google Maps Save: add a place from its popup to any plan. PLANS shows your plans as a list; open one to follow it.", "frames": [
+  ["C1", "<b>1 Switch</b> · PLANS turns the list into your plans; tap one to open it."],
+  ["C2", "<b>2 Build</b> · Tap a row, the popup gains ADD TO PLAN; a slip picks the plan (tick = in it)."],
+  ["C3", "<b>3 Follow</b> · Open plan: its stops in order, ‹ All plans on top; map shows only the stops."],
+  ["C4", "<b>4 Reorder</b> · Drag the grip."]]}
+]

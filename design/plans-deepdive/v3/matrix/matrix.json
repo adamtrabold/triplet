@@ -1,0 +1,2951 @@
+{
+ "nor-collapsed-z9": {
+  "zoom": 9,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (1 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 1
+  }
+ },
+ "nor-collapsed-z10": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 3
+  }
+ },
+ "nor-collapsed-z11": {
+  "zoom": 11,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (6 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 2,
+   "cluster": 6
+  }
+ },
+ "nor-collapsed-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (6 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 13,
+   "cluster": 6
+  }
+ },
+ "nor-collapsed-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 5,
+   "pin": 13,
+   "cluster": 3
+  }
+ },
+ "nor-collapsed-z14": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 6,
+   "pin": 12
+  }
+ },
+ "nor-collapsed-z15": {
+  "zoom": 15,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 6,
+   "pin": 6
+  }
+ },
+ "nor-panel-z9": {
+  "zoom": 9,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 2
+  }
+ },
+ "nor-panel-z10": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "cluster": 2
+  }
+ },
+ "nor-panel-z11": {
+  "zoom": 11,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (4 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s -- forced knot (every flush spot over another cluster’s count): 1–2,4–6",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 3,
+   "cluster": 4
+  }
+ },
+ "nor-panel-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (4 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 6,
+   "cluster": 4
+  }
+ },
+ "nor-panel-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (1 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "pin": 6,
+   "cluster": 1
+  }
+ },
+ "nor-panel-z14": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 4,
+   "stop": 1
+  }
+ },
+ "nor-panel-z15": {
+  "zoom": 15,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1
+  }
+ },
+ "mc-collapsed-z9": {
+  "zoom": 9,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (1 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "cluster": 1
+  }
+ },
+ "mc-collapsed-z10": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "pin": 2,
+   "cluster": 2
+  }
+ },
+ "mc-collapsed-z11": {
+  "zoom": 11,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (5 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "pin": 4,
+   "cluster": 5
+  }
+ },
+ "mc-collapsed-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (8 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 2,
+   "pin": 8,
+   "cluster": 8
+  }
+ },
+ "mc-collapsed-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 2,
+   "pin": 19
+  }
+ },
+ "mc-collapsed-z14": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 2,
+   "pin": 9
+  }
+ },
+ "mc-collapsed-z15": {
+  "zoom": 15,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 3
+  }
+ },
+ "mc-panel-z9": {
+  "zoom": 9,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1
+  }
+ },
+ "mc-panel-z10": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1
+  }
+ },
+ "mc-panel-z11": {
+  "zoom": 11,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "cluster": 2
+  }
+ },
+ "mc-panel-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "pin": 3
+  }
+ },
+ "mc-panel-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "pin": 1
+  }
+ },
+ "mc-panel-z14": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1
+  }
+ },
+ "mc-panel-z15": {
+  "zoom": 15,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1
+  }
+ },
+ "h7-collapsed-z11": {
+  "zoom": 11,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (7 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 7
+  }
+ },
+ "h7-collapsed-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (7 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 9,
+   "stop": 4,
+   "cluster": 7
+  }
+ },
+ "h7-collapsed-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (1 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 7,
+   "pin": 11,
+   "cluster": 1
+  }
+ },
+ "h7-panel-z11": {
+  "zoom": 11,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "cluster": 2,
+   "stop": 1
+  }
+ },
+ "h7-panel-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 3,
+   "pin": 2
+  }
+ },
+ "h7-panel-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 2
+  }
+ },
+ "h7-reorder-z11": {
+  "zoom": 11,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "cluster": 2,
+   "stop": 1
+  }
+ },
+ "h7-reorder-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 3,
+   "pin": 2
+  }
+ },
+ "h7-reorder-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 2
+  }
+ },
+ "nor-fit-panel": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "FIT no two cluster tags overlap",
+    "pass": true
+   },
+   {
+    "rule": "FIT (r12) the default view shows every stop inside the safe box",
+    "pass": true
+   },
+   {
+    "rule": "FIT building: every place the filters match is in the safe map (25, zoom 10)",
+    "pass": true
+   },
+   {
+    "rule": "FIT no stop, place or cluster sits under the zoom control, round buttons or attribution",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 3
+  }
+ },
+ "nor-fit-collapsed": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "FIT no two cluster tags overlap",
+    "pass": true
+   },
+   {
+    "rule": "FIT (r12) the default view shows every stop in the selected city inside the safe box",
+    "pass": true
+   },
+   {
+    "rule": "FIT no stop, place or cluster sits under the zoom control, round buttons or attribution",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 6,
+   "pin": 12
+  }
+ },
+ "mc-fit-panel": {
+  "zoom": 8,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "FIT no two cluster tags overlap",
+    "pass": true
+   },
+   {
+    "rule": "FIT (r12) the default view shows every stop inside the safe box",
+    "pass": true
+   },
+   {
+    "rule": "FIT building: every place the filters match is in the safe map (28, zoom 8)",
+    "pass": true
+   },
+   {
+    "rule": "FIT no stop, place or cluster sits under the zoom control, round buttons or attribution",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "cluster": 2
+  }
+ },
+ "mc-fit-collapsed": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "FIT no two cluster tags overlap",
+    "pass": true
+   },
+   {
+    "rule": "FIT (r12) the default view shows every stop in the selected city inside the safe box",
+    "pass": true
+   },
+   {
+    "rule": "FIT no stop, place or cluster sits under the zoom control, round buttons or attribution",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 2,
+   "pin": 9
+  }
+ },
+ "h7-fit-panel": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "FIT no two cluster tags overlap",
+    "pass": true
+   },
+   {
+    "rule": "FIT (r12) the default view shows every stop inside the safe box",
+    "pass": true
+   },
+   {
+    "rule": "FIT building: every place the filters match is in the safe map (23, zoom 10)",
+    "pass": true
+   },
+   {
+    "rule": "FIT no stop, place or cluster sits under the zoom control, round buttons or attribution",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 3
+  }
+ },
+ "h7-fit-collapsed": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "FIT no two cluster tags overlap",
+    "pass": true
+   },
+   {
+    "rule": "FIT (r12) the default view shows every stop in the selected city inside the safe box",
+    "pass": true
+   },
+   {
+    "rule": "FIT no stop, place or cluster sits under the zoom control, round buttons or attribution",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 7,
+   "pin": 3
+  }
+ },
+ "nor-reopen": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN every stop is in the strip above the panel (the building fit)",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 3
+  }
+ },
+ "nor-reopen-panned": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (5 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN after your own pan: the stops you had on screen (1,2,3,4,5,6) are in the strip above the panel",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 3,
+   "cluster": 5
+  }
+ },
+ "nor-reopen-added": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (24 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN every stop is in the strip above the panel (the building fit)",
+    "pass": true
+   },
+   {
+    "rule": "SLIP (on-rule) covers no tag, no visible map, no chip, no stop row, no + -- just after +, panel open",
+    "pass": true
+   },
+   {
+    "rule": "SLIP (on-rule) covers no tag, no visible map, no chip, no stop row, no + -- after close and reopen",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 3
+  }
+ },
+ "mc-reopen": {
+  "zoom": 8,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN every stop is in the strip above the panel (the building fit)",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "cluster": 2
+  }
+ },
+ "mc-reopen-panned": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (28 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN after your own pan: the stops you had on screen (2,3) are in the strip above the panel",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "pin": 3,
+   "cluster": 2
+  }
+ },
+ "mc-reopen-added": {
+  "zoom": 8,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (27 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN every stop is in the strip above the panel (the building fit)",
+    "pass": true
+   },
+   {
+    "rule": "SLIP (on-rule) covers no tag, no visible map, no chip, no stop row, no + -- just after +, panel open",
+    "pass": true
+   },
+   {
+    "rule": "SLIP (on-rule) covers no tag, no visible map, no chip, no stop row, no + -- after close and reopen",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 1,
+   "cluster": 2
+  }
+ },
+ "h7-reopen": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN every stop is in the strip above the panel (the building fit)",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 3
+  }
+ },
+ "h7-reopen-panned": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (23 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (2 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN after your own pan: the stops you had on screen (1,2,4,5,6,7) are in the strip above the panel",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 4,
+   "pin": 1,
+   "cluster": 2
+  }
+ },
+ "h7-reopen-added": {
+  "zoom": 10,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (22 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (3 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN the panel is open again",
+    "pass": true
+   },
+   {
+    "rule": "REOPEN every stop is in the strip above the panel (the building fit)",
+    "pass": true
+   },
+   {
+    "rule": "SLIP (on-rule) covers no tag, no visible map, no chip, no stop row, no + -- just after +, panel open",
+    "pass": true
+   },
+   {
+    "rule": "SLIP (on-rule) covers no tag, no visible map, no chip, no stop row, no + -- after close and reopen",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "pin": 1,
+   "cluster": 3
+  }
+ },
+ "nor-picked-z12": {
+  "zoom": 12,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (7 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 2,
+   "pin": 9,
+   "cluster": 7
+  }
+ },
+ "nor-picked-z13": {
+  "zoom": 13,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (1 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "R5 the tapped place is Places’ highlighted pin",
+    "pass": true
+   },
+   {
+    "rule": "R5 …drawn under every stop",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 5,
+   "pin": 15,
+   "cluster": 1
+  }
+ },
+ "nor-picked-z14": {
+  "zoom": 14,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "R5 the tapped place is Places’ highlighted pin",
+    "pass": true
+   },
+   {
+    "rule": "R5 …drawn under every stop",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 6,
+   "pin": 9
+  }
+ },
+ "nor-picked-z15": {
+  "zoom": 15,
+  "res": [
+   {
+    "rule": "R1 digits only on stop tags and Places clusters",
+    "pass": true
+   },
+   {
+    "rule": "R1 (r18) a single stop pin shows its number in place of its glyph: grey (--ink-2; paper when selected), ≥12px, no glyph; a cluster’s stop tag is a grey ring on paper (r19: circle for one number, pill for more), never a solid disc; clusters are red discs",
+    "pass": true
+   },
+   {
+    "rule": "R2 (r17) every stop in view is either its own pin at its true location or a member of a Places cluster (stops cluster like any pin)",
+    "pass": true
+   },
+   {
+    "rule": "R3 every place below the rule in view is a Places pin or in a Places cluster (25 rows)",
+    "pass": true
+   },
+   {
+    "rule": "R3 no clusters at or above SOLO_MIN_ZOOM (as in Places)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r16/r17) every Places cluster’s count is on top and ≥60% of its disc is exposed (0 clusters)",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17/r19) every stop in view has its number on a visible, uncovered tag: its own pin, or its cluster’s",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r17) no tag ever covers a cluster’s count",
+    "pass": true
+   },
+   {
+    "rule": "R4 (r18) a cluster’s stop tag sits flush against its count (0–2.5px from the digits: beside them, level, or above/below them, centred; never over them)",
+    "pass": true
+   },
+   {
+    "rule": "R4 stops draw above every place pin",
+    "pass": true
+   },
+   {
+    "rule": "R5 the tapped place is Places’ highlighted pin",
+    "pass": true
+   },
+   {
+    "rule": "R5 …drawn under every stop",
+    "pass": true
+   }
+  ],
+  "counts": {
+   "stop": 3,
+   "pin": 6
+  }
+ }
+}

@@ -1,0 +1,296 @@
+{
+ "1x": {
+  "letters": {
+   "stem": 57.09,
+   "round": 56.83,
+   "point": 56.31
+  },
+  "titleInk": 56.93,
+  "placeTextInk": {
+   "median": 56.91,
+   "min": 56.14,
+   "max": 57.1,
+   "each": [
+    [
+     "Amalienborg",
+     56.21
+    ],
+    [
+     "CHAMOI Vintage Store",
+     56.81
+    ],
+    [
+     "Christiansborg Palace",
+     56.81
+    ],
+    [
+     "da capo vintage",
+     56.69
+    ],
+    [
+     "Designmuseum Danmark",
+     57.09
+    ],
+    [
+     "flacoDesign",
+     56.14
+    ],
+    [
+     "Gågrøn",
+     56.91
+    ],
+    [
+     "Hart Bageri",
+     57.09
+    ],
+    [
+     "Israels Plads",
+     57.1
+    ],
+    [
+     "Jazzhus Montmartre",
+     56.68
+    ],
+    [
+     "Keramiker Inge Vincents",
+     57.09
+    ],
+    [
+     "Kødbyens Fiskebar",
+     57.09
+    ],
+    [
+     "Ladyfingers",
+     57.09
+    ],
+    [
+     "Mother",
+     57.09
+    ],
+    [
+     "Nyhavn",
+     57.09
+    ],
+    [
+     "Ooh Aah Records",
+     56.81
+    ],
+    [
+     "Palmspree",
+     83.09
+    ],
+    [
+     "Ravnsborggade",
+     57.09
+    ],
+    [
+     "Reffen",
+     57.09
+    ],
+    [
+     "Rosenborg Castle",
+     57.09
+    ],
+    [
+     "Sankt Hans Torv to Blågårdsgade walking street",
+     56.83
+    ],
+    [
+     "Second Beat Records",
+     56.83
+    ],
+    [
+     "Superkilen park",
+     56.83
+    ],
+    [
+     "Tivoli Gardens",
+     56.31
+    ],
+    [
+     "Torvehallerne",
+     82.31
+    ]
+   ]
+  },
+  "stopIcons": [
+   {
+    "name": "Mirabelle bakery",
+    "kind": "ring",
+    "iconInk": 56.94
+   },
+   {
+    "name": "Jægersborggade",
+    "kind": "ring",
+    "iconInk": 56.94
+   },
+   {
+    "name": "The Coffee Collective",
+    "kind": "ring",
+    "iconInk": 56.94
+   },
+   {
+    "name": "Assistens Cemetery",
+    "kind": "ring",
+    "iconInk": 56.94
+   },
+   {
+    "name": "Elmegade quarter",
+    "kind": "diamond",
+    "iconInk": 56.37
+   },
+   {
+    "name": "Blågårds Plads (approx.)",
+    "kind": "dashed",
+    "iconInk": 56.98
+   }
+  ]
+ },
+ "3x": {
+  "letters": {
+   "stem": 57.13,
+   "round": 56.69,
+   "point": 56.36
+  },
+  "titleInk": 56.89,
+  "placeTextInk": {
+   "median": 56.79,
+   "min": 56.12,
+   "max": 57.13,
+   "each": [
+    [
+     "Amalienborg",
+     56.12
+    ],
+    [
+     "CHAMOI Vintage Store",
+     56.68
+    ],
+    [
+     "Christiansborg Palace",
+     56.68
+    ],
+    [
+     "da capo vintage",
+     56.62
+    ],
+    [
+     "Designmuseum Danmark",
+     57.13
+    ],
+    [
+     "flacoDesign",
+     56.23
+    ],
+    [
+     "Gågrøn",
+     56.79
+    ],
+    [
+     "Hart Bageri",
+     57.13
+    ],
+    [
+     "Israels Plads",
+     57.13
+    ],
+    [
+     "Jazzhus Montmartre",
+     56.57
+    ],
+    [
+     "Keramiker Inge Vincents",
+     57.13
+    ],
+    [
+     "Kødbyens Fiskebar",
+     57.13
+    ],
+    [
+     "Ladyfingers",
+     57.13
+    ],
+    [
+     "Mother",
+     57.13
+    ],
+    [
+     "Nyhavn",
+     57.13
+    ],
+    [
+     "Ooh Aah Records",
+     56.68
+    ],
+    [
+     "Palmspree",
+     83.13
+    ],
+    [
+     "Ravnsborggade",
+     57.13
+    ],
+    [
+     "Reffen",
+     57.13
+    ],
+    [
+     "Rosenborg Castle",
+     57.13
+    ],
+    [
+     "Sankt Hans Torv to Blågårdsgade walking street",
+     56.69
+    ],
+    [
+     "Second Beat Records",
+     56.69
+    ],
+    [
+     "Superkilen park",
+     56.69
+    ],
+    [
+     "Tivoli Gardens",
+     56.36
+    ],
+    [
+     "Torvehallerne",
+     82.36
+    ]
+   ]
+  },
+  "stopIcons": [
+   {
+    "name": "Mirabelle bakery",
+    "kind": "ring",
+    "iconInk": 56.67
+   },
+   {
+    "name": "Jægersborggade",
+    "kind": "ring",
+    "iconInk": 56.67
+   },
+   {
+    "name": "The Coffee Collective",
+    "kind": "ring",
+    "iconInk": 56.67
+   },
+   {
+    "name": "Assistens Cemetery",
+    "kind": "ring",
+    "iconInk": 56.67
+   },
+   {
+    "name": "Elmegade quarter",
+    "kind": "diamond",
+    "iconInk": 56.27
+   },
+   {
+    "name": "Blågårds Plads (approx.)",
+    "kind": "dashed",
+    "iconInk": 56.82
+   }
+  ]
+ }
+}

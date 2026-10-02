@@ -1,0 +1,72 @@
+{
+ "build (phase 1)": {
+  "next": {
+   "box": "28x28",
+   "font": "14px",
+   "contrast": 12.51,
+   "mass": 730
+  },
+  "stop": {
+   "box": "28x28",
+   "font": "14px",
+   "contrast": 13.65,
+   "mass": 142
+  },
+  "name": {
+   "box": "278x20",
+   "font": "15px",
+   "contrast": 14.69,
+   "mass": 639
+  },
+  "nameCof": {
+   "box": "252x20",
+   "font": "15px",
+   "contrast": 14.69,
+   "mass": 677
+  },
+  "nextVsName": 1.14,
+  "stopVsName": 0.21,
+  "xVsName": null
+ },
+ "r11 grey number (one state)": {
+  "stop": {
+   "box": "28x16",
+   "font": "13px",
+   "contrast": 6.17,
+   "mass": 29
+  },
+  "x": {
+   "box": "28x28",
+   "font": "14px",
+   "contrast": 5.43,
+   "mass": 16
+  },
+  "nameCof": {
+   "box": "212x20",
+   "font": "15px",
+   "contrast": 14.69,
+   "mass": 677
+  },
+  "nextVsName": null,
+  "plus": {
+   "box": "28x28",
+   "font": "20px",
+   "contrast": 6.17,
+   "mass": 28
+  },
+  "plusVsName": 0.06,
+  "plusVsIcon": 0.18,
+  "stopVsName": 0.04,
+  "xVsName": 0.02
+ },
+ "r11 edges": {
+  "placesBadge": 16,
+  "placesMain": 56,
+  "stopBadge": 56,
+  "stopMain": 96,
+  "stopNum": 16,
+  "stopName": 96,
+  "candBadge": 16,
+  "candMain": 56
+ }
+}

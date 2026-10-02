@@ -1,0 +1,11545 @@
+{
+ "01-places": {
+  "view": "places",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Copenhagen list (31)",
+  "titleTruncated": false,
+  "titleCount": 31,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": null,
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 202,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "02-panel-places": {
+  "view": "places",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Copenhagen list (31)",
+  "titleTruncated": false,
+  "titleCount": 31,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": null,
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 202,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 336,
+   "scrollH": 369,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places*",
+    "Plans"
+   ],
+   "cities": [
+    "LA",
+    "Reykjavík",
+    "Copenhagen*",
+    "Malmö",
+    "Stockholm",
+    "All cities"
+   ],
+   "categories": [
+    "restaurant",
+    "cafe",
+    "bar",
+    "attraction",
+    "nature",
+    "shopping",
+    "area",
+    "hotel",
+    "other",
+    "district",
+    "street"
+   ],
+   "plans": [],
+   "firstScreen": [
+    ".seg-wrap",
+    "#cityFilters",
+    "#filters"
+   ],
+   "categoriesTopInPanel": 173
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "03-panel-no-plans": {
+  "view": "plans",
+  "adding": false,
+  "plan": null,
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Plans",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 0,
+  "rowHeights": [],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 0,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": -1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 0,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 12,
+  "expectedMapNums": null,
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": null,
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 107,
+   "scrollH": 107,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "04-create-name": {
+  "view": "plans",
+  "adding": false,
+  "plan": null,
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Plans",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 0,
+  "rowHeights": [],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 0,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": -1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 0,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 12,
+  "expectedMapNums": null,
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": null,
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "act",
+    "w": 69,
+    "h": 44
+   },
+   {
+    "cls": "act primary",
+    "w": 68,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 107,
+   "scrollH": 107,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "CancelCreate"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "05-add-empty": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 0,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": -1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 0,
+  "inPlanRows": 0,
+  "stopCardsInList": 0,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [],
+  "shownMapNums": [],
+  "editPlanOrderOk": true,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "06-add-three": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 3,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 3,
+  "inPlanRows": 3,
+  "stopCardsInList": 3,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "1",
+   "2",
+   "3"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 204,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "07-add-shape": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 5,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 5,
+  "inPlanRows": 5,
+  "stopCardsInList": 5,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 204,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "08-remove-undo": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 5,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 5,
+  "inPlanRows": 5,
+  "stopCardsInList": 5,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "3",
+   "1",
+   "2",
+   "5",
+   "4"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 55,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": true,
+  "undoText": "Removed The Coffee CollectiveUndo",
+  "collapsed": false
+ },
+ "09-follow": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "10-follow-end": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "11-reorder": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "plan",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "11b-reorder-drop": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "plan",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "2",
+   "1",
+   "3",
+   "4",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "12-popup": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": 0,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": true,
+  "popupCat": "area· Stop 2 of 6",
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "13-sort-menu": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "14-edit-plan-order": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "plan",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "15a-places-panel-cafe-off": {
+  "view": "places",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Copenhagen list (28)",
+  "titleTruncated": false,
+  "titleCount": 28,
+  "rows": 28,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 4,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 12,
+  "expectedMapNums": null,
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 202,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 336,
+   "scrollH": 369,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places*",
+    "Plans"
+   ],
+   "cities": [
+    "LA",
+    "Reykjavík",
+    "Copenhagen*",
+    "Malmö",
+    "Stockholm",
+    "All cities"
+   ],
+   "categories": [
+    "restaurant",
+    "cafe (off)",
+    "bar",
+    "attraction",
+    "nature",
+    "shopping",
+    "area",
+    "hotel",
+    "other",
+    "district",
+    "street"
+   ],
+   "plans": [],
+   "firstScreen": [
+    ".seg-wrap",
+    "#cityFilters",
+    "#filters"
+   ],
+   "categoriesTopInPanel": 140
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "15-plans-panel-no-chips": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 12,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 287,
+   "scrollH": 287,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "Nørrebro afternoon6 stops",
+    "Malmö + Copenhagen day3 stops",
+    "Tivoli tonight1 stop",
+    "Last full day before we fly home from Kastrup4 stops",
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "16-plan-menu": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "act primary",
+    "w": 72,
+    "h": 44
+   },
+   {
+    "cls": "act danger",
+    "w": 100,
+    "h": 44
+   },
+   {
+    "cls": "act",
+    "w": 69,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 287,
+   "scrollH": 287,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "RenameDelete planCancel",
+    "Malmö + Copenhagen day3 stops",
+    "Tivoli tonight1 stop",
+    "Last full day before we fly home from Kastrup4 stops",
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "17-rename": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "act",
+    "w": 69,
+    "h": 44
+   },
+   {
+    "cls": "act primary",
+    "w": 53,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 287,
+   "scrollH": 287,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "CancelSave",
+    "Malmö + Copenhagen day3 stops",
+    "Tivoli tonight1 stop",
+    "Last full day before we fly home from Kastrup4 stops",
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "18-delete-confirm": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 287,
+   "scrollH": 287,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "Nørrebro afternoon6 stops",
+    "Malmö + Copenhagen day3 stops",
+    "Tivoli tonight1 stop",
+    "Last full day before we fly home from Kastrup4 stops",
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "19-switch-spanning": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Malmö + Copenhagen day",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Malmö + Copenhagen day",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 3,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 3,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 3,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 9,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3"
+  ],
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 244,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "1",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 287,
+   "scrollH": 287,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "Nørrebro afternoon6 stops",
+    "Malmö + Copenhagen day3 stops",
+    "Tivoli tonight1 stop",
+    "Last full day before we fly home from Kastrup4 stops",
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "20-long-name": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Last full day before we fly home from Kastrup",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Last full day before we fly home from Kastrup",
+  "titleTruncated": true,
+  "titleCount": null,
+  "rows": 4,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 4,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 4,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 13,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 270,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "1",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 287,
+   "scrollH": 287,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "Nørrebro afternoon6 stops",
+    "Malmö + Copenhagen day3 stops",
+    "Tivoli tonight1 stop",
+    "Last full day before we fly home from Kastrup4 stops",
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "21-one-stop": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Tivoli tonight",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Tivoli tonight",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 1,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 1,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 1,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 16,
+  "expectedMapNums": [
+   "1"
+  ],
+  "shownMapNums": [
+   "1"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "1"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 270,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "1",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "22-collapsed": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 784,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   0
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": null,
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": true
+ },
+ "23-signed-out": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": true,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "24-clusters": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 12,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "25-approx-highlight": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": true,
+  "popupCat": "area· Stop 6 of 6",
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "26-rail": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 0,
+   "w": 358,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": false
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 1280,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 16,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "1",
+   "4",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 178,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 443,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 444,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 920,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 920,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 920,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 920,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 920,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 358,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 287,
+   "scrollH": 287,
+   "maxH": "320px",
+   "seg": true,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [],
+   "categories": [],
+   "plans": [
+    "Nørrebro afternoon6 stops",
+    "Malmö + Copenhagen day3 stops",
+    "Tivoli tonight1 stop",
+    "Last full day before we fly home from Kastrup4 stops",
+    "New plan"
+   ],
+   "firstScreen": [
+    ".seg-wrap",
+    "#planLedger"
+   ],
+   "categoriesTopInPanel": 0
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "27-exit-places": {
+  "view": "places",
+  "adding": false,
+  "plan": "Malmö + Copenhagen day",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Copenhagen list (31)",
+  "titleTruncated": false,
+  "titleCount": 31,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 3,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 2,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 9,
+  "expectedMapNums": null,
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 202,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 336,
+   "scrollH": 369,
+   "maxH": "337.6px",
+   "seg": true,
+   "segLabels": [
+    "Places*",
+    "Plans"
+   ],
+   "cities": [
+    "LA",
+    "Reykjavík",
+    "Copenhagen*",
+    "Malmö",
+    "Stockholm",
+    "All cities"
+   ],
+   "categories": [
+    "restaurant",
+    "cafe",
+    "bar",
+    "attraction",
+    "nature",
+    "shopping",
+    "area",
+    "hotel",
+    "other",
+    "district",
+    "street"
+   ],
+   "plans": [],
+   "firstScreen": [
+    ".seg-wrap",
+    "#cityFilters",
+    "#filters"
+   ],
+   "categoriesTopInPanel": 173
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "28-zero-stops": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 0,
+  "rowHeights": [],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 0,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": -1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 0,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": 0,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [],
+  "shownMapNums": [],
+  "editPlanOrderOk": null,
+  "pinNumbers": [],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": null,
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "29-add-collapsed": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 784,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   0
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 3,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 3,
+  "inPlanRows": 3,
+  "stopCardsInList": 3,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "1",
+   "2",
+   "3"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": null,
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": true
+ },
+ "30-add-rail": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 0,
+   "w": 358,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": false
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 3,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 0,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 3,
+  "inPlanRows": 3,
+  "stopCardsInList": 3,
+  "vw": 1280,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 15,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "1",
+   "2",
+   "3"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 172,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "31-shape-popup": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 6,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 6,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": 0,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 16,
+  "expectedMapNums": [
+   "1",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": true,
+  "popupCat": "Elmegade quarter · Stop 5 of 6",
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "33-tile-pressed": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot pressing",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "34-undo-two": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 4,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 4,
+  "inPlanRows": 4,
+  "stopCardsInList": 4,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "2",
+   "1",
+   "4",
+   "3"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 55,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": true,
+  "undoText": "2 removedUndo",
+  "collapsed": false
+ },
+ "35-undo-collapsed": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 784,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   0
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 5,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 5,
+  "inPlanRows": 5,
+  "stopCardsInList": 5,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "3",
+   "1",
+   "2",
+   "5",
+   "4"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": null,
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 55,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": true,
+  "undoText": "Removed The Coffee CollectiveUndo",
+  "collapsed": true
+ },
+ "37-long-names": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 4,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 4,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": -1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 4,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": null,
+  "placesSort": null,
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 13,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "3",
+   "4",
+   "1",
+   "2"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": false,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "36-undo-after-done": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 5,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 5,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 5,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "3",
+   "1",
+   "2",
+   "5",
+   "4"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 55,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": true,
+  "undoText": "Removed The Coffee CollectiveUndo",
+  "collapsed": false
+ },
+ "X1-edit-opens": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "X2-edit-rule": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "X3-remove": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 5,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 5,
+  "inPlanRows": 5,
+  "stopCardsInList": 5,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "3",
+   "1",
+   "2",
+   "5",
+   "4"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 55,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": true,
+  "undoText": "Removed The Coffee CollectiveUndo",
+  "collapsed": false
+ },
+ "X4-reorder": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "Xa-add": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 7,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 1,
+  "instopTiles": 7,
+  "inPlanRows": 7,
+  "stopCardsInList": 7,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "7",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "Xd-done-follow": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 7,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 7,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "X",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 7,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "7",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "Ya-add": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 7,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 7,
+  "inPlanRows": 7,
+  "stopCardsInList": 7,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "7",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "Yb-remove": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 5,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 5,
+  "inPlanRows": 5,
+  "stopCardsInList": 5,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "3",
+   "1",
+   "2",
+   "5",
+   "4"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 55,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": true,
+  "undoText": "Removed The Coffee CollectiveUndo",
+  "collapsed": false
+ },
+ "Yc-sort-menu": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "Yd-reorder": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "plan",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": true,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 170,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot grip",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "Ye-done-follow": {
+  "view": "plans",
+  "adding": false,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 7,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": false
+   },
+   {
+    "id": "sortBtn",
+    "shown": false
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": true
+   }
+  ],
+  "planStops": 7,
+  "planView": true,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 1,
+  "visitedStopsShown": 1,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 1,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": null,
+  "inPlanRows": null,
+  "stopCardsInList": 7,
+  "vw": 390,
+  "doneText": null,
+  "stopOverlapViolations": 0,
+  "doneBg": null,
+  "pinNextShown": 1,
+  "pinNextExpected": 1,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": true,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "7",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [
+   {
+    "t": "2",
+    "fs": "14px",
+    "w": 28
+   }
+  ],
+  "targets": [
+   {
+    "cls": "",
+    "w": 178,
+    "h": 44
+   },
+   {
+    "cls": "",
+    "w": 179,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "more",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 44
+   },
+   {
+    "cls": "pick",
+    "w": 390,
+    "h": 45
+   },
+   {
+    "cls": "add-row",
+    "w": 390,
+    "h": 56
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot passive",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "E1-edit-panel": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": true,
+  "panel": {
+   "h": 308,
+   "scrollH": 308,
+   "maxH": "337.6px",
+   "seg": false,
+   "segLabels": [
+    "Places",
+    "Plans*"
+   ],
+   "cities": [
+    "LA",
+    "Reykjavík",
+    "Copenhagen*",
+    "Malmö",
+    "Stockholm",
+    "All cities"
+   ],
+   "categories": [
+    "restaurant",
+    "cafe",
+    "bar",
+    "attraction",
+    "nature",
+    "shopping",
+    "area",
+    "hotel",
+    "other",
+    "district",
+    "street"
+   ],
+   "plans": [],
+   "firstScreen": [
+    "#cityFilters",
+    "#filters"
+   ],
+   "categoriesTopInPanel": 112
+  },
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ },
+ "32-edit-opens-places-order": {
+  "view": "plans",
+  "adding": true,
+  "plan": "Nørrebro afternoon",
+  "header": {
+   "x": 0,
+   "y": 544,
+   "w": 390,
+   "h": 57
+  },
+  "title": "Nørrebro afternoon",
+  "titleTruncated": false,
+  "titleCount": null,
+  "rows": 31,
+  "rowHeights": [
+   56
+  ],
+  "headerButtons": [
+   {
+    "id": "collapseBtn",
+    "shown": true
+   },
+   {
+    "id": "doneBtn",
+    "shown": true
+   },
+   {
+    "id": "sortBtn",
+    "shown": true
+   },
+   {
+    "id": "toggleFiltersBtn",
+    "shown": true
+   },
+   {
+    "id": "centerMeBtn",
+    "shown": false
+   }
+  ],
+  "planStops": 6,
+  "planView": false,
+  "tileButtonsInPlanView": 0,
+  "chipsOpacity": [
+   1,
+   1
+  ],
+  "stampsInPlanView": 0,
+  "visitedStopsShown": 0,
+  "hollowTiles": 0,
+  "filledTilesInPlanView": 0,
+  "nextExpected": 1,
+  "gripsInPlanView": 0,
+  "popupRemove": 0,
+  "editLayout": "Y",
+  "ruleCount": 0,
+  "instopTiles": 6,
+  "inPlanRows": 6,
+  "stopCardsInList": 6,
+  "vw": 390,
+  "doneText": "Done",
+  "stopOverlapViolations": 0,
+  "doneBg": "rgba(0, 0, 0, 0)",
+  "pinNextShown": 0,
+  "pinNextExpected": null,
+  "filledTilesInEdit": 0,
+  "editSort": "az",
+  "placesSort": "az",
+  "sortModeNow": "az",
+  "firstRowIsEdit": null,
+  "mapZoom": 14,
+  "expectedMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "shownMapNums": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6"
+  ],
+  "editPlanOrderOk": null,
+  "pinNumbers": [
+   "4",
+   "1",
+   "2",
+   "3",
+   "6",
+   "5"
+  ],
+  "mapNumbersOn": true,
+  "clusterPinNumbers": 0,
+  "selectedCityChipBg": "rgb(18, 41, 63)",
+  "nameCol": {
+   "min": 210,
+   "cut": []
+  },
+  "stopTiles": [],
+  "targets": [
+   {
+    "cls": "doneBtn",
+    "w": 50,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   },
+   {
+    "cls": "rowslot",
+    "w": 44,
+    "h": 44
+   }
+  ],
+  "panelOpen": false,
+  "panel": null,
+  "popup": false,
+  "popupCat": null,
+  "clusters": 0,
+  "routeLine": true,
+  "authModal": false,
+  "undo": false,
+  "undoText": "",
+  "collapsed": false
+ }
+}
