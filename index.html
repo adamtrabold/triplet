@@ -2266,7 +2266,7 @@
        (.vs-peel) wears the same shadow. At rest the label sits on a short
        warm contact shadow, so the lighter cream reads as a label laid on the
        filed row, not a smudge in it. */
-    .row-stamp > .stk-base { filter: drop-shadow(0 0.75px 0.9px rgba(107, 74, 40, 0.5)); }
+    .row-stamp > .stk-base { filter: drop-shadow(0 1px 1.8px rgba(138, 106, 68, 0.26)) drop-shadow(0 0 0.35px rgba(138, 106, 68, 0.16)); }   /* paper on paper: wide, faint, warm; no dark core (owner: "Shadow isn't realistic / too intense") */
     .row-stamp.vs-open > .stk-base,
     .row-stamp.vs-peel > .stk-base { filter: drop-shadow(0 3px 2.4px rgba(40, 30, 20, 0.35)); }
     /* The veil: the row's own field, feathered (8px), behind the sticker and
@@ -2403,10 +2403,10 @@
          never gets a zero-height filter box). FAR is the NEAR shadow x1.1
          opacity, x0.8 offset/blur, crease blur x0.7 (README, round 7b). The
          row's flap is clipped to its label (stk-row-clip = the 72x24 box's oval). -->
-    <filter id="stk-shadow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0.5" dy="1.1" stdDeviation="1.1" flood-color="#6b4a28" flood-opacity="0.21"/></filter>
-    <filter id="stk-shadow-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0.5" dy="0.88" stdDeviation="0.88" flood-color="#6b4a28" flood-opacity="0.16"/></filter>
-    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.6" stdDeviation="0.8" flood-color="#6b4a28" flood-opacity="0.62"/></filter>
-    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.5" stdDeviation="0.6" flood-color="#6b4a28" flood-opacity="0.68"/></filter>
+    <filter id="stk-shadow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.4" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.16"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.1"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-shadow-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.0" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.13"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.08"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.24"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.14"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.24"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.14"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="stk-crease" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.9"/></filter>
     <filter id="stk-crease-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.63"/></filter>
     <clipPath id="stk-row-clip"><ellipse cx="36" cy="12" rx="36" ry="11"/></clipPath>
@@ -4298,7 +4298,7 @@
       HI_FACE: '#5A564C',                   // selected: --ink-2, the app's grey-brown metadata ink
       STAR_HALO: 1, STAR_OUT: { near: 1.5, far: 2.5 },   // the star's halo (px, total) and its step out along the shoulder (px)
       PIN_BACK: '#D8CDB8', PIN_BACK_HI: '#E7DFD0',   // the flap's back: one paper step deeper than the cream face (selected: --paper-filed)
-      CREASE: 'rgba(92,62,32,0.16)',        // faint contact crease, 1.5px, blurred (#stk-crease)
+      CREASE: 'rgba(138,106,68,0.10)',        // faint contact crease, 1.5px, blurred (#stk-crease)
       ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#FAF5EA', BACK: '#D8CDB8' },
     };
     // The check: a FILLED path with square ends and corners softened by 1/24,
