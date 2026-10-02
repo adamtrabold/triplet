@@ -1645,7 +1645,7 @@
     .plan-stop .pin-n { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
       font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 13px; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink-2); }
     .plan-stop .pin-n.two { font-size: 12px; letter-spacing: -0.02em; }
-    .plan-stop.is-visited .pin-n { z-index: 1; color: #3A4C5B; }   /* a visited stop's numeral prints over the sticker's flap, in the sticker's ink (STICKER.INK) (planNumberIcon()) */
+    .plan-stop.is-visited .pin-n { z-index: 1; }   /* a visited stop's numeral prints over the sticker's flap, in the one grey number style (planNumberIcon()) */
     .plan-stop.highlighted-marker .pin-n { color: var(--paper); }
     /* the grey tag beside a red cluster that holds stops: part of the cluster -- a tap zooms in, like the disc */
     #map .glyph-clipped .badge-glyph, #map .glyph-clipped .pin-n { display: none; }   /* a pin half under a cluster: ring only -- a place's glyph, or a stop's number already in the cluster's tag (applyPlanMap()) */
