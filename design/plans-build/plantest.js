@@ -445,15 +445,17 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const L = await page.evaluate(() => { const sc = document.querySelector('#planLedger .plan-scroll'), lg = document.getElementById('planLedger'), pn = document.getElementById('filtersPanel');
       const rows = [...sc.children], scR = sc.getBoundingClientRect(), last = rows.find(r => r.getBoundingClientRect().bottom > scR.bottom + 1);
       const nw = lg.querySelector('.plan-new').getBoundingClientRect();
-      return { scroll: sc.scrollHeight > sc.clientHeight, cut: last ? (scR.bottom - last.getBoundingClientRect().top) / last.getBoundingClientRect().height : null, newVisible: nw.bottom <= pn.getBoundingClientRect().bottom && nw.top >= scR.bottom - 1, panelScroll: pn.scrollHeight - pn.clientHeight }; });
-    ok('L6 (UX 4) 11 plans: the plan list scrolls, its last visible row cut in half, New plan pinned below, the panel itself does not scroll', L.scroll && Math.abs(L.cut - 0.5) < 0.05 && L.newVisible && L.panelScroll <= 0, L);
+      return { scroll: sc.scrollHeight > sc.clientHeight, cut: last ? (scR.bottom - last.getBoundingClientRect().top) / last.getBoundingClientRect().height : null, newVisible: nw.bottom <= pn.getBoundingClientRect().bottom && nw.top >= scR.bottom - 1, panelScroll: pn.scrollHeight - pn.clientHeight,
+        cuts: (b => [...pn.querySelectorAll('.city-btn, .filter-btn')].filter(c => getComputedStyle(c).visibility !== 'hidden').map(c => c.getBoundingClientRect()).filter(r => r.top < b && r.bottom > b).length)(lg.getBoundingClientRect().bottom + 2) }; });
+    ok('L6 (UX 4) 11 plans: the plan list scrolls, its last visible row cut in half, New plan pinned below, the panel itself does not scroll, no visible chip cut by its edge', L.scroll && Math.abs(L.cut - 0.5) < 0.05 && L.newVisible && L.panelScroll <= 0 && L.cuts === 0, L);
     await ctx.close(); }
-  for (const n of [0, 1]) {
+  for (const n of [0, 1, 3]) {
     const { ctx, page } = await open(b, { ...base, plans: FIX.plans.slice(0, n), stops: n ? FIX.stops.filter(s => s.plan_id === 'p-nor') : [] });
     await toPlans(page); await openPicker(page);
-    const g = await page.evaluate(() => { const lr = document.getElementById('planLedger').getBoundingClientRect(), b = lr.bottom + 2;
-      return { b, cuts: [...document.querySelectorAll('#filtersPanel .city-btn, #filtersPanel .filter-btn')].map(c => c.getBoundingClientRect()).filter(r => r.top < b && r.bottom > b).length }; });
-    ok(`L7 (UX 4) ${n} plan${n === 1 ? '' : 's'}: the picker's slip ends in a gap between chip rows, never partway through a chip`, g.cuts === 0, g);
+    const g = await page.evaluate(() => { const lg = document.getElementById('planLedger'), lr = lg.getBoundingClientRect(), b = lr.bottom + 2;
+      const content = [...lg.children].reduce((a, c) => a + c.getBoundingClientRect().height, 0) + 2;   // rows + the 1px top and bottom edge
+      return { b, h: lr.height, content, cuts: [...document.querySelectorAll('#filtersPanel .city-btn, #filtersPanel .filter-btn')].filter(c => getComputedStyle(c).visibility !== 'hidden').map(c => c.getBoundingClientRect()).filter(r => r.top < b && r.bottom > b).length }; });
+    ok(`L7 ${n} plan${n === 1 ? '' : 's'}: the picker's slip hugs its rows (no empty band) and no visible chip is cut by its edge`, Math.abs(g.h - g.content) < 0.5 && g.cuts === 0, g);
     await ctx.close(); }
 
   // ---------------------------------------------------------------- writes through the panel

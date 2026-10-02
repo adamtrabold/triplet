@@ -1054,3 +1054,5 @@ plan-rows 22/22 -- the same failures as origin/main (V14 ×2, V15 ×2, curve8
 10 vs ≥11, all pre-existing), so no regression. Stills:
 `design/plans-build/stills/` (the v3 states rendered from the real build at 1x
 and 3x, with crops, and `truths.md`).
+
+**Fix (2026-10-02, owner bug "extra space under the plans dropdown").** The picker's slip hugs its rows: `layoutPlanLedger()` no longer pads it with a `min-height` down to the next chip gap (12–35px of empty band at 0–3 plans); instead any chip it covers or would cut is hidden while it is open (`.under-plan-slip`), incl. the 7+-plans scroll case; scroll cap and pinned New plan unchanged. plantest L6/L7 now assert this.

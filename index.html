@@ -1543,6 +1543,7 @@
     #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: 54px; z-index: 5; box-sizing: border-box;
       background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; box-shadow: 0 2px 0 var(--hair); }
     #planLedger[hidden] { display: none; }
+    #filtersPanel .under-plan-slip { visibility: hidden; }   /* a chip the open slip covers or would cut (layoutPlanLedger) */
     /* 44px ledger rows + a 1px --hair rule: the sort menu's row voice. */
     .plan-opt {
       display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center;
@@ -5574,7 +5575,7 @@
       pick.innerHTML = `<button type="button" class="plan-picker${empty ? ' is-empty' : ''}" data-act="${act}" aria-haspopup="true" aria-expanded="${open}"${act === 'none' ? ' aria-disabled="true"' : ''} aria-label="Plan: ${escapeAttr(label)}">` +
         `<span class="plan-name">${escapeHtml(label)}</span>${act === 'toggle' ? PLAN_CHEV : ''}</button>`;
       ledger.hidden = !open;
-      if (!open) { ledger.innerHTML = ''; return; }
+      if (!open) { ledger.innerHTML = ''; layoutPlanLedger(); return; }
       const form = (lbl, a) => `<div class="plan-opt plan-form"><input type="text" maxlength="${PLAN_NAME_MAX}" enterkeyhint="done" autocomplete="off" aria-label="${lbl}" placeholder="Plan name" value="${escapeAttr(planPanel.draft)}">` +
         `<button type="button" class="plan-act" data-act="cancel">Cancel</button><button type="button" class="plan-act primary" data-act="${a}">${a === 'create' ? 'Create' : 'Save'}</button></div>`;
       ledger.innerHTML = '<div class="plan-scroll">' + plans.map((p, i) => {
@@ -5603,29 +5604,23 @@
     }
     // The picker's slip (UX 4): when its plans don't all fit above the panel's bottom, the plan
     // list scrolls, capped so its last visible row is cut in half (the scroll cue), with New plan
-    // pinned below it. When it does fit, its bottom edge never cuts through a chip: it extends
-    // to the middle of the gap under the chip row it would cross (or over the whole chip block).
+    // pinned below it. The slip hugs its rows; so its bottom edge never cuts through a chip,
+    // any chip it covers or crosses is hidden while it is open (.under-plan-slip).
     function layoutPlanLedger() {
       const panel = document.getElementById('filtersPanel'), ledger = document.getElementById('planLedger');
       const sc = ledger.querySelector('.plan-scroll');
+      panel.querySelectorAll('.under-plan-slip').forEach(c => c.classList.remove('under-plan-slip'));
       if (ledger.hidden || !sc) return;
-      ledger.style.minHeight = ''; sc.style.maxHeight = '';
+      sc.style.maxHeight = '';
       const pr = panel.getBoundingClientRect(), lr = ledger.getBoundingClientRect(), DROP = 2;
       const avail = pr.bottom - lr.top - DROP - 4;
       const row = sc.firstElementChild ? sc.firstElementChild.getBoundingClientRect().height : 45;
       if (lr.height > avail && sc.firstElementChild) {
         const room = avail - (lr.height - sc.getBoundingClientRect().height);
         sc.style.maxHeight = `${(Math.max(1, Math.floor(room / row - 0.5)) + 0.5) * row}px`;
-        return;
       }
-      const chips = [...panel.querySelectorAll('.city-btn, .filter-btn')].map(c => c.getBoundingClientRect()).filter(r => r.height);
-      const bottom = lr.bottom + DROP;
-      const cut = chips.filter(r => r.top < bottom && r.bottom > bottom);
-      if (!cut.length) return;
-      const crossed = Math.max(...cut.map(r => r.bottom)), below = chips.filter(r => r.top >= crossed).map(r => r.top);
-      let target = below.length ? (crossed + Math.min(...below)) / 2 : crossed + 6;
-      if (target > lr.top + avail) target = Math.max(...chips.map(r => r.bottom)) + 6;   // cover the whole chip block
-      ledger.style.minHeight = `${target - DROP - lr.top}px`;
+      const bottom = ledger.getBoundingClientRect().bottom + DROP;
+      panel.querySelectorAll('.city-btn, .filter-btn').forEach(c => { const r = c.getBoundingClientRect(); if (r.height && r.top < bottom) c.classList.add('under-plan-slip'); });
     }
     addEventListener('resize', () => layoutPlanLedger());
     function setPlanPanel(next) { planPanel = { mode: null, draft: '', open: true, ...next }; renderPlanPanel(); }
