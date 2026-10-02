@@ -12,6 +12,13 @@
 //              truncation lands on the press frame" read from the h3 itself; V18 = p7's
 //              press/lift-frame rule OR the star's FLIP rule (flip.js judge); V23 =
 //              text-side writes are transforms (+ the --sg-fade-a var) only.
+//   [sticker]  The visited STICKER (2026-10-02, design/visited-system/; docs/shipped.md "Visited
+//              sticker") replaced the dotted-track stamp and its ink bleed. Cases about the bleed /
+//              the navy ghost re-assert the same intent on the sticker, thresholds unchanged:
+//              V13 the pre-commit cue (hover: lifted, still, monotonic), V14 the same 4px text
+//              clearance measured against the 72x24 oval with the carry's veil (the row field that
+//              covers the name's tail under the sticker -- the role p7's mask wipe had), V17 the
+//              press (1.12 -> 0.97 -> 1), V20b / V22 the un-visit peel (opacity only, ink held).
 // Known failures on origin/main 9a53d71 (real, not harness): see README "Findings".
 // p8's own vtest (113 cases) was never committed; its 18 extra cases are not known.
 // FILE=<index.html> OUT=<json> node visit.js
@@ -111,37 +118,32 @@ function flipJudge(Lg, reduced) {
       const n = await page.evaluate(() => __nav.map(x => x[0])); ok('V11 tap on another row right after a visit stroke navigates', n.length === 1 && n[0] === c.id, n);
       const d = await page.evaluate(() => __nav.length ? __nav[0][1] - __te[__te.length - 1] : null); ok(`V12 tap delay: 0ms added (touchend -> navigate ${d === null ? '-' : d.toFixed(1)}ms)`, d !== null && d < 8, { ms: d });
       await ctx.close(); }
-    // V13 before the commit the ink BLEEDS and the stamp never moves; V14 text never under the stamp's ink
+    // V13 [sticker] before the commit the sticker HOVERS; V14 the name is never seen within 4px of it
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 5);
       await page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card[data-id]')[5]; window.__vf = []; let run = true;
-        const tick = () => { if (!run) return; const s = el.querySelector('.vs-carry'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform), sr = s.getBoundingClientRect(), main = el.querySelector('.row-main'), mr = main.getBoundingClientRect();
-          // [1ec21c2] visible text = the slid h3 / meta glyphs: the text run's right edge, capped by its (ellipsis) box
+        const liftD = rowStickerFold(...ROW_STICKER_POSE.lift).flapD;
+        const tick = () => { if (!run) return; const s = el.querySelector('.vs-carry'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform), sr = s.getBoundingClientRect();
+          // visible text = the slid h3 / meta glyphs, capped by their (ellipsis) box and by the veil's opaque start
           const vr = e => { const rg = document.createRange(); rg.selectNodeContents(e); return Math.min(rg.getBoundingClientRect().right, e.getBoundingClientRect().right); };
-          const textVisRight = Math.max(vr(el.querySelector('h3')), vr(el.querySelector('.row-meta')));
-          // ink's left edge: pressed = the track's ellipse (36 x 16, with the pop's transform); bleeding = the wet halo's reveal (18.2px half-width x its scale)
-          const halo = s.querySelector('.vs-rv-halo'), hs = halo ? new DOMMatrix(getComputedStyle(halo).transform).a : 0;
-          const cx = sr.x + sr.width / 2, hw = s.classList.contains('vs-open') ? 18.2 * hs : Math.sqrt((36 * m.a) ** 2 + (16 * m.c) ** 2);
-          __vf.push({ scale: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI, cx: +cx.toFixed(3), cy: +(sr.y + sr.height / 2).toFixed(3), q: s.__vsQ, coreS: (() => { const rv = s.querySelector('.vs-rv-core'); return rv ? new DOMMatrix(getComputedStyle(rv).transform).a : 0; })(),
-            coreFilter: (() => { const c = s.querySelector('.vs-rv-core .vs-copy'); return c ? getComputedStyle(c).filter : 'none'; })(),
-            haloBlur: (() => { const c = s.querySelector('.vs-rv-halo .vs-copy'); return c ? getComputedStyle(c).filter : ''; })(),
-            coreInk: (() => { const c = s.querySelector('.vs-rv-core .vs-copy'); return c ? getComputedStyle(c).color : ''; })(),
-            op: parseFloat(s.style.opacity || 1), swept: s.classList.contains('vs-open'), gap: (cx - hw) - textVisRight }); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__vstop = () => { run = false; }; });
+          const veil = s.querySelector('.vs-veil'), base = s.querySelector('.stk-base'), sc = Math.hypot(m.a, m.b);
+          const veilOpaque = veil ? veil.getBoundingClientRect().left + 8 * sc : Infinity;
+          const textVisRight = Math.min(Math.max(vr(el.querySelector('h3')), vr(el.querySelector('.row-meta'))), veilOpaque);
+          __vf.push({ scale: sc, rot: Math.atan2(m.b, m.a) * 180 / Math.PI, cx: +(sr.x + sr.width / 2).toFixed(3), cy: +(sr.y + sr.height / 2).toFixed(3), q: s.__vsQ,
+            op: parseFloat(getComputedStyle(s).opacity), swept: s.classList.contains('vs-open'), shadow: getComputedStyle(base).filter, lifted: s.querySelector('.stk-flap').getAttribute('d') === liftD,
+            gap: base.getBoundingClientRect().left - textVisRight }); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__vstop = () => { run = false; }; });
       await L.drag(page, cdp, left(g, 110, 22), { hold: 450 });
-      const f = await page.evaluate(() => { __vstop(); return __vf; }); const tilt = await page.evaluate(id => stampTilt(id), g.id);
-      const pre = f.filter(x => x.swept), cxs = f.map(x => x.cx), cys = f.map(x => x.cy);
-      const still = pre.every(x => Math.abs(x.scale - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01);
-      const vis = pre.filter(x => x.op > 0.01);
-      const cr = await page.evaluate(cols => { const lumRgb = rgb => { const Lx = rgb.map(x => x <= 0.04045 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4)); return 0.2126 * Lx[0] + 0.7152 * Lx[1] + 0.0722 * Lx[2]; };
-        const lum = c => { const cv = document.createElement('canvas').getContext('2d'); cv.fillStyle = '#000'; cv.fillStyle = c; cv.fillRect(0, 0, 1, 1); const px = cv.getImageData(0, 0, 1, 1).data; return lumRgb([px[0] / 255, px[1] / 255, px[2] / 255]); };
-        const bg = lum(getComputedStyle(document.documentElement).getPropertyValue('--paper').trim()); return cols.map(c => { const l = lum(c); return (Math.max(l, bg) + 0.05) / (Math.min(l, bg) + 0.05); }); }, [...new Set(vis.map(x => x.coreInk))]);
-      const soft = vis.every(x => x.coreFilter === 'none' && x.haloBlur === 'blur(1.4px)' && x.coreS * 18.2 < 32);
-      const blotFirst = vis.filter(x => x.q !== undefined && x.q < 0.24).every(x => x.coreS <= 0.1001);
-      let mono = true; for (let i = 1; i < vis.length; i++) if (vis[i].coreS < vis[i - 1].coreS - 1e-4) mono = false;
+      const f = await page.evaluate(() => { __vstop(); return __vf; }); const tilt = await page.evaluate(id => stickerTilt(id), g.id);
+      const pre = f.filter(x => x.swept), vis = pre.filter(x => x.op > 0.01), cxs = f.map(x => x.cx), cys = f.map(x => x.cy);
+      const H = await page.evaluate(() => VISIT_HOVER.SCALE);
+      const tilted = pre.every(x => Math.abs(x.rot - tilt) < 0.01);
+      const scaled = reduced ? pre.every(x => Math.abs(x.scale - 1) < 1e-3) : pre.every(x => x.scale >= H[0] - 1e-3 && x.scale <= H[1] + 1e-3);
+      let mono = true; for (let i = 1; i < pre.length; i++) if (pre[i].scale < pre[i - 1].scale - 1e-4 || pre[i].op < pre[i - 1].op - 1e-4) mono = false;
+      const lifted = vis.every(x => x.lifted && /drop-shadow/.test(x.shadow));
       const drift = Math.max(Math.max(...cxs) - Math.min(...cxs), Math.max(...cys) - Math.min(...cys));
-      ok('V13 before the commit the ink BLEEDS: stamp never moves; the core stays inside the blot until ~18px; core crisp (no filter), halo blur constant 1.4px; the reveal never reaches the ring ends; spread monotonic; pre-commit ink <= 3:1',
-        vis.length >= 5 && still && soft && blotFirst && mono && drift < 0.01 && Math.max(...cr) <= 3.0, { visibleFrames: vis.length, coreScale: [vis[0] && +vis[0].coreS.toFixed(3), vis.length && +vis[vis.length - 1].coreS.toFixed(3)], maxContrast: +Math.max(...cr).toFixed(2), centreDrift: +drift.toFixed(3), still, soft, blotFirst, mono });
+      ok(`V13 [sticker] before the commit the sticker HOVERS in its slot: never moves (drift ${drift.toFixed(3)}), the place's half lean, ${reduced ? 'scale 1' : `scale ${H[0]}..${H[1]}`}, scale + opacity monotonic, lifted (shadow + curled flap) on every visible frame`,
+        vis.length >= 5 && tilted && scaled && mono && lifted && drift < 0.01, { visibleFrames: vis.length, tilted, scaled, mono, lifted, centreDrift: +drift.toFixed(3) });
       const inked = f.filter(x => !x.swept || x.op > 0.01), minGap = inked.length ? Math.min(...inked.map(x => x.gap)) : 99; const worst = inked.find(x => x.gap === minGap);
-      ok(`V14 [1ec21c2] ink never over text: the slid name/meta glyphs stay >= 4px clear of the stamp's ink (bleed halo / pressed track) on every inked frame, incl. the pop peak (min ${minGap.toFixed(2)}px)`, minGap >= 4, { inkedFrames: inked.length, minGap: +minGap.toFixed(2), at: worst && { pressed: !worst.swept, scale: +worst.scale.toFixed(3) } });
+      ok(`V14 [sticker] the name is never seen near the sticker: the slid name/meta glyphs (as the veil leaves them) stay >= 4px clear of the 72x24 oval on every visible frame, incl. the press (min ${minGap.toFixed(2)}px)`, minGap >= 4, { inkedFrames: inked.length, minGap: +minGap.toFixed(2), at: worst && { pressed: !worst.swept, scale: +worst.scale.toFixed(3) } });
       await W(500); await ctx.close(); }
     // V15 (shipped.md, swipe-visit "Press at 56, one frame": "the final truncation lands" on the press frame, "letters never
     //      change on a still frame"): the h3 the eye reads while the finger HOLDS the press (pop done) is already the final
@@ -172,48 +174,42 @@ function flipJudge(Lg, reduced) {
         markersById.get(id).marker.openPopup(); await new Promise(r => setTimeout(r, 300)); document.querySelector('.leaflet-popup .popup-visited').click(); await new Promise(r => setTimeout(r, 1000));
         const el = document.querySelector(`.location-card[data-id="${id}"]`); return { visited: locations.find(l => l.id === id).visited, field: el.classList.contains('is-visited'), stamps: el.querySelectorAll('.row-stamp').length, live: el.classList.contains('vs-live'), held: starHeld.size }; });
       ok('V16 [p8] popup Mark Visited still visits; row field + stamp in sync', r.visited && r.field && r.stamps === 1 && !r.live && !r.held, r); await ctx.close(); }
-    // V17 [p8] the stamp's pop at real timing (reduced: no pop, scale 1 and the tilt on every frame after the press).
-    //      p7 rule at peak 1.2/dip 0.95: >=6 frames >=1.15 (75% of the swell), >=2 frames <=0.97 (60% of the dip).
-    //      Same proportions at p8's 1.10/0.97: >=6 frames >= 1.075, >=2 frames <= 0.982, peak <= 1.10.
+    // V17 [sticker] the press at real timing: pressed down from the hover (<= 1.12x) to 0.97x (>= 2 frames <= 0.985),
+    //      then settles to scale 1 at the place's lean; reduced: no press dip, scale 1 and the lean on every frame after the press.
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
-      const k = await page.evaluate(() => ({ peak: VISIT_POP_PEAK, dip: VISIT_POP[2][2] }));
-      const hi = 1 + 0.75 * (k.peak - 1), lo = 1 - 0.6 * (1 - k.dip);
+      const H = await page.evaluate(() => VISIT_HOVER.SCALE[1]);
       await page.evaluate(() => { window.__f = []; const tick = () => { const s = document.querySelectorAll('#locationsList .location-card[data-id]')[0].querySelector('.row-stamp'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __f.push({ t: performance.now(), sc: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI, sw: s.classList.contains('vs-open') }); } if (__f.length < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
       await L.drag(page, cdp, left(g, 110, 12), { hold: 500 }); await W(200);
-      const f = await page.evaluate(() => __f); const tilt = await page.evaluate(id => stampTilt(id), g.id); const i = f.findIndex(x => !x.sw); const after = f.slice(i);
-      const peak = Math.max(...after.map(x => x.sc)), nearPeak = after.filter(x => x.sc >= hi).length, under = after.filter(x => x.sc <= lo).length, rest = after[after.length - 1];
-      ok(reduced ? 'V17 (reduced) the press appears: no pop, scale 1 and the place\'s tilt on every frame' : `V17 [p8] pop at real timing: ${nearPeak} frames >= ${hi.toFixed(3)}x (>=6), ${under} frames <= ${lo.toFixed(3)} (>=2), peak ${peak.toFixed(4)} <= ${k.peak}, rests at the place's tilt`,
-        reduced ? after.every(x => Math.abs(x.sc - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01) : (nearPeak >= 6 && under >= 2 && peak <= k.peak + 1e-4 && Math.abs(rest.rot - tilt) < 0.01 && Math.abs(rest.sc - 1) < 1e-3),
-        { nearPeak, under, peak: +peak.toFixed(4), restRot: +rest.rot.toFixed(3), tilt, hi, lo });
+      const f = await page.evaluate(() => __f); const tilt = await page.evaluate(id => stickerTilt(id), g.id); const i = f.findIndex(x => !x.sw); const after = f.slice(i);
+      const peak = Math.max(...after.map(x => x.sc)), under = after.filter(x => x.sc <= 0.985).length, rest = after[after.length - 1];
+      ok(reduced ? 'V17 (reduced) the placed sticker appears: no press, scale 1 and the place\'s lean on every frame' : `V17 [sticker] press at real timing: ${under} frames <= 0.985 (>=2), peak ${peak.toFixed(4)} <= ${H} (the hover), rests at scale 1 and the place's lean`,
+        reduced ? after.every(x => Math.abs(x.sc - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01) : (under >= 2 && peak <= H + 1e-4 && Math.abs(rest.rot - tilt) < 0.01 && Math.abs(rest.sc - 1) < 1e-3),
+        { under, peak: +peak.toFixed(4), restRot: +rest.rot.toFixed(3), tilt });
       await ctx.close(); }
     // V20 un-visit: the star's erase pop at the lock (1.12x, no twist); none under reduced motion. V21 cancel: nothing left behind.
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 2); let ringVis;
       await page.evaluate(() => { window.__u = []; const el = document.querySelectorAll('#locationsList .location-card[data-id]')[2]; const tick = () => { const s = el.querySelector('.row-stamp'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __u.push({ sc: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI }); } if (__u.length < 300) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
-      await L.drag(page, cdp, left(g, 40, 6), { onStep: async i => { if (i === 3) ringVis = await page.evaluate(() => getComputedStyle(document.querySelectorAll('#locationsList .location-card[data-id]')[2].querySelector('.row-stamp-ring')).visibility); } }); await W(600);
-      const u = await page.evaluate(() => __u); const tilt = await page.evaluate(id => stampTilt(id), g.id); const s1 = await st(page, g.id);
+      await L.drag(page, cdp, left(g, 40, 6), { onStep: async i => { if (i === 3) ringVis = await page.evaluate(() => { const s = document.querySelectorAll('#locationsList .location-card[data-id]')[2].querySelector('.row-stamp'); return getComputedStyle(s.querySelector('.row-sticker-label')).visibility === 'visible' && parseFloat(getComputedStyle(s).opacity) > 0.5 ? 'visible' : 'hidden'; }); } }); await W(600);
+      const u = await page.evaluate(() => __u); const tilt = await page.evaluate(id => stickerTilt(id), g.id); const s1 = await st(page, g.id);
       const peak = Math.max(...u.map(x => x.sc)), twist = Math.max(...u.map(x => Math.abs(x.rot - tilt)));
       ok(reduced ? 'V20 (reduced) un-visit lift: no pop' : 'V20 un-visit lifts with the star\'s erase pop: peak 1.12x, no twist', reduced ? peak < 1.001 : (Math.abs(peak - 1.12) < 0.01 && twist < 0.01), { peak: +peak.toFixed(4), twist: +twist.toFixed(3) });
-      ok('V20b un-visit: ring + word stay visible while the stamp thins (only the track sweeps out)', ringVis === 'visible', { ring: ringVis });
+      ok('V20b [sticker] un-visit: check + word stay visible while the sticker peels (opacity > 0.5 mid-stroke)', ringVis === 'visible', { label: ringVis });
       ok('V21 un-visit let go at 40px: still visited, stamp back at full ink, track whole, row clean', s1.visited && s1.field && s1.stamps === 1 && !s1.live, s1);
       const g0 = await geo(page, 0); await L.drag(page, cdp, left(g0, 50, 6), { stepMs: SLOW }); await W(600); const s0 = await st(page, g0.id);
       const sw = await page.evaluate(() => document.querySelectorAll('.vs-open').length);
       ok('V21b visit let go at 40px: nothing inked, no stamp or partial track left, X back', !s0.visited && !s0.stamps && !s0.carry && !s0.live && !s0.xhide && sw === 0, { ...s0, sweeps: sw });
       await ctx.close(); }
-    // V22 (P3-N1 + P5-S2) un-visit ghost: starts at the resting ink and only pales (oklch)
+    // V22 [sticker] (P3-N1 intent: the un-visit never shifts the mark's ink) the peel: the sticker starts at full
+    //      opacity (sampled from the resting sticker before the stroke, so the first frame is never missed) and only
+    //      fades (monotonic), its ink (label colour) held on every frame
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 2);
       await page.evaluate(() => { window.__gc = []; const el = document.querySelectorAll('#locationsList .location-card[data-id]')[2]; let run = true;
-        const lin = c => (c /= 255) <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-        const okc = ([r, g2, b]) => { [r, g2, b] = [r, g2, b].map(lin); let l = 0.4122214708 * r + 0.5363325363 * g2 + 0.0514459929 * b, m = 0.2119034982 * r + 0.6806995451 * g2 + 0.1073969566 * b, q = 0.0883024619 * r + 0.2817188376 * g2 + 0.6299787005 * b; [l, m, q] = [l, m, q].map(Math.cbrt);
-          const a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * q, bb = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * q; return { L: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * q, C: Math.hypot(a, bb), h: (Math.atan2(bb, a) * 180 / Math.PI + 360) % 360 }; };
-        const bg = () => getComputedStyle(el).backgroundColor.match(/[\d.]+/g).map(Number);
-        const tick = () => { if (!run) return; const s = el.querySelector('.row-stamp'); if (s && el.classList.contains('vs-live')) { const cs = getComputedStyle(s); const v = cs.color; const n = v.match(/[\d.]+/g).map(Number);
-          let rgb, a; if (v.startsWith('color(srgb')) { rgb = n.slice(0, 3).map(x => x * 255); a = n.length > 3 ? n[3] : 1; } else if (v.startsWith('oklch')) { rgb = null; __gc.push({ L: n[0], C: n[1], h: n[2], op: parseFloat(cs.opacity) }); } else { rgb = n.slice(0, 3); a = n.length > 3 ? n[3] : 1; }
-          if (rgb) { const b0 = bg(), o = parseFloat(cs.opacity) * a; const comp = rgb.map((x, i) => o * x + (1 - o) * b0[i]); const c = okc(comp); __gc.push({ L: c.L, C: c.C, h: c.h, op: parseFloat(cs.opacity) }); } }
+        const tick = () => { if (!run) return; const s = el.querySelector('.row-stamp'); if (s) __gc.push({ op: parseFloat(getComputedStyle(s).opacity), ink: getComputedStyle(s.querySelector('.row-sticker-label')).color });
           requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__gstop2 = () => { run = false; }; });
       await L.drag(page, cdp, left(g, 110, 22)); await W(700); const all = await page.evaluate(() => { __gstop2(); return __gc.filter(x => x.op > 0.01); });
-      let lMono = true; for (let i = 1; i < all.length; i++) if (all[i].L < all[i - 1].L - 1e-3) lMono = false;
-      const minC = all.length ? Math.min(...all.map(x => x.C)) : 0, hues = all.map(x => x.h);
-      ok('V22 (P3-N1 + P5-S2) un-visit ghost starts AT the resting ink (L 0.401) and only pales: L never drops on any frame, chroma never below the rest (>= 0.033), hue held', all.length >= 5 && minC >= 0.033 && lMono && Math.abs(all[0].L - 0.401) < 0.01, { restL: all[0] && +all[0].L.toFixed(3), lastL: all.length && +all[all.length - 1].L.toFixed(3), lMonotonic: lMono, frames: all.length, minChroma: +minC.toFixed(4), hue: [+Math.min(...hues).toFixed(1), +Math.max(...hues).toFixed(1)] });
+      let mono = true; for (let i = 1; i < all.length; i++) if (all[i].op > all[i - 1].op + 1e-3) mono = false;
+      const inks = [...new Set(all.map(x => x.ink))];
+      ok('V22 [sticker] un-visit peel: starts at full opacity and only fades (monotonic), the ink held on every frame', all.length >= 5 && mono && Math.abs(all[0].op - 1) < 1e-3 && inks.length === 1, { frames: all.length, first: all[0] && all[0].op, last: all.length && all[all.length - 1].op, mono, inks });
       await ctx.close(); }
     // V23 (P6-N1) no repaint-driving writes mid-drag: the stamp's subtree sees 0 class changes and only transform/opacity writes;
     //      [1ec21c2] the slid text (h3, meta, badge, printed star, row-main) is written only as transforms (+ --sg-fade-a)
@@ -227,7 +223,7 @@ function flipJudge(Lg, reduced) {
           if (m.attributeName === 'style') { __mo.writes++; const props = [...t.style].filter(k => !/^(transform|opacity)$/.test(k) && !/^--vs-ink-|^--stamp-tilt$/.test(k)); if (props.length) __mo.other.push(props.join(',')); } }));
         mo.observe(list, { subtree: true, attributes: true, attributeOldValue: true, attributeFilter: ['class', 'style'] }); window.__mostop = () => mo.disconnect(); });
       await L.drag(page, cdp, left(g, 60, 20)); await W(500); const m = await page.evaluate(() => { __mostop(); return __mo; });
-      ok('V23 (P6-N1) mid-drag, the bleed only writes transforms and opacities (0 class changes, 0 other style properties); [1ec21c2] the slid text only transforms', m.cls === 0 && m.other.length === 0 && m.writes > 10 && m.textOther.length === 0, { classChanges: m.cls, otherProps: [...new Set(m.other)].slice(0, 5), styleWrites: m.writes, textOther: [...new Set(m.textOther)].slice(0, 5) });
+      ok('V23 (P6-N1) mid-drag, the hovering sticker only writes transforms and opacities (0 class changes, 0 other style properties); [1ec21c2] the slid text only transforms', m.cls === 0 && m.other.length === 0 && m.writes > 10 && m.textOther.length === 0, { classChanges: m.cls, otherProps: [...new Set(m.other)].slice(0, 5), styleWrites: m.writes, textOther: [...new Set(m.textOther)].slice(0, 5) });
       await ctx.close(); }
     // ---- DELETE SAFETY ----
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);

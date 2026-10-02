@@ -51,8 +51,7 @@ const SPECIMEN = () => {
       await shot(page, `rows-shapes-${dsf}x.png`, sb);
       // focus (highlighted) visited row
       await page.evaluate(() => { document.querySelectorAll('#locationsList .location-card[data-id]')[2].classList.add('highlighted'); }); await W(300);
-      const hb = await page.evaluate(() => { const el = document.querySelector('.location-card.highlighted'); el.scrollIntoView({ block: 'center' }); const r = el.getBoundingClientRect(); return { x: 0, y: Math.floor(r.y), width: 390, height: Math.ceil(r.height) }; });
-      await W(300); await shot(page, `row-focus-${dsf}x.png`, hb);
+      await page.locator('.location-card.highlighted').screenshot({ path: path.join(OUT, `row-focus-${dsf}x.png`) });
       await ctx.close(); }
     // --- marker specimen ---
     { const { ctx, page } = await L.openProto(b, { dsf, w: 900, h: 700 });
@@ -62,8 +61,10 @@ const SPECIMEN = () => {
     // --- the real map: NEAR (z15), FAR (z11, clusters with visited members), a visited shape ---
     { const { ctx, page } = await L.openProto(b, { dsf });
       await page.evaluate(() => { document.getElementById('locations').classList.add('collapsed'); }); await W(200);
-      for (const [name, z] of [['map-near-z15', 15], ['map-far-z12', 12], ['map-z11-clusters', 11]]) {
-        await page.evaluate(z => { const l = locations.find(x => x.city === 'reykjavik' && x.visited && !x.starred); map.setView(z >= 15 ? [l.lat, l.lng] : [64.1466, -21.9426], z, { animate: false }); }, z); await W(700);
+      // 75% visited (every place but each 4th), in the page only: is a visited pin obviously not a to-do pin?
+      await page.evaluate(() => { locations = locations.map((l, i) => ({ ...l, visited: i % 4 !== 0 })); updateUI(); }); await W(300);
+      for (const [name, z] of [['map-near-z14-75pct', 14], ['map-far-z12-75pct', 12], ['map-z13-clusters', 13], ['map-z11-clusters', 11]]) {
+        await page.evaluate(z => { map.setView([64.1466, -21.9426], z, { animate: false }); }, z); await W(700);
         await shot(page, `${name}-${dsf}x.png`, { x: 0, y: 0, width: 390, height: 520 });
       }
       // visited shapes: visit the district too, frame both at z16

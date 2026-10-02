@@ -174,9 +174,14 @@ operator makes none of these calls.
 - **Clustering:** `SOLO_MIN_ZOOM` = 14 is shared by the list-click and
   cluster-click paths so a list tap never lands on a clustered pin — never
   duplicate it as a literal. `GLYPH_MIN_ZOOM` = 12 is separate.
-- **Visited stamp:** CSS borders for the ring, never SVG strokes; the dotted
-  track is a static SVG mask whose `pathLength='166.29'`, path and
-  dasharrays change together (see `design/visited-badge/README.md`).
+- **Visited sticker** (replaced the dotted-track stamp; `docs/shipped.md`
+  "Visited sticker"): every visited mark (pin, row, shape, plan stop) is one
+  JS-drawn look: cream face (`STICKER.FACE`), one neutral ink
+  (`STICKER.INK` #3A4C5B, the old stamp's navy 82% over paper), no category
+  colour. Geometry is `stickerFold()`; the `STICKER` / `STICKER_CHECK` /
+  `ROW_STICKER_POSE` constants, the `#stk-*` sprite defs and the CSS
+  `.row-stamp` box (72x24) change together. Visit suite cases V13/V14/V17/
+  V20b/V22 measure this geometry.
 - **Row gestures (Pencil Star right, visit left):** report the star gate as
   **"84 + 8 (+ N8-a)"**, never "84"; visit suite `vtest.js`; plus
   popup-open 20/20, 0 dust-over-text frames, rows 56.00px, curve8 frame
@@ -203,15 +208,11 @@ operator makes none of these calls.
 
 ## Current priorities (full text in `docs/backlog.md`)
 
-Concept work exists for visited pins (owner hasn't picked); popup star
-concept is in progress. Get a decision before building.
+Popup star concept is in progress. Get a decision before building.
 
 - **Popup star alignment** (star looks off when the popup has full
   content; list-row star-only-when-starred is settled). Active concept:
   `design/popup-star-alignment/`; `design/star-alignment/` is history.
-- **Visited pins on the map** — Round 4 (dots outside the rim) scored 9/10
-  in `design/visited-marker/concept/`; owner's last read was skeptical
-  ("not following good design principles") — review with fresh eyes.
 - **Trips vs. cities restructure**: search already widens on a miss. Still
   open: a trip entity and day-trip filing, with no distance setting for
   the user (`design/trip-location-model/`). Adding a place must stay
@@ -221,4 +222,3 @@ concept is in progress. Get a decision before building.
   the plans migration must be applied before anyone can create a plan.
   Spec: `design/plans-deepdive/v3/README.md`; shipped entry "Plans (v3
   build)". Route mapping is on the roadmap.
-- **Ghost VISITED stamp in the popup** — new idea, concept stage.

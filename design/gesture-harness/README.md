@@ -136,6 +136,11 @@ Cases that assert the current spec instead of the r6 one are tagged in their nam
   - V15 checks the documented "final truncation lands on the press frame" through the h3 itself.
   - V18 accepts p7's press/lift-frame rule or the star's FLIP rule.
   - V23 checks that the text-side writes are transforms only.
+- **[sticker]** (2026-10-02, the visited sticker replaced the stamp + bleed; thresholds unchanged):
+  - V13 asserts the pre-commit hover (still, half lean, scale 1–1.12 / 1 reduced, monotonic, lifted shadow + curled flap).
+  - V14 measures the slid glyphs, as the carry's veil leaves them, against the 72x24 oval (the veil plays p7's mask-wipe role). Fixes finding 2.
+  - V17 asserts the press (≥2 frames ≤0.985, peak ≤ the hover's 1.12, rest 1 at the lean).
+  - V20b / V22 assert the un-visit peel (label visible mid-peel; opacity monotonic from the resting sticker, ink held).
 - Slow releases (V3, V4, V21b, and touch's cancels) step at 33ms per 6–8px, so they aren't flicks. The lost harness's awaited sends ran them at about 0.15px/ms. At a true 16ms cadence the same "50px then release" is 0.52px/ms, which is a flick and visits by design.
 
 ### The rest
@@ -176,7 +181,7 @@ Full results: see the report that landed this folder, and re-run for current num
    - The result is exactly 10 frames in 30/30 runs, on the plain row, the highlighted row and the popup.
    - An 11th frame needs the sampling phase to fall in a 1.8ms slack. That is plausible on the setups that recorded 11.
    - The gate keeps the documented ≥11 and **fails** here. Changing it is an owner call.
-2. **vtest V14: on long names the text runs into the stamp's ink**, by up to about 23px, before the press.
+2. **vtest V14: on long names the text runs into the stamp's ink**, by up to about 23px, before the press. **Fixed by the visited sticker** (branch `visited-sticker`: the carry's veil).
    - This came in with `1ec21c2`. The text slides 1:1 (56px at the commit), but the stamp plus the gap to the X is about 76px.
    - p7 hid the tail under the mask wipe.
    - Visible in a still: "…Ce…" over the bleeding "VISITED".
