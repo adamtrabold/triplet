@@ -60,7 +60,7 @@ const planCommon = (f, plan, n) => [
   ['no page errors', !f.errors.length]
 ];
 const panelParity = f => [
-  ['panel: the Places|Plans switch and the plan picker in one row', f.switchVisible && !!f.picker],
+  ['panel: the Places|Plans switch pinned at the panel top, in the same place as in Places; the plan picker under it in Plans only, never in Places', f.switchVisible && (f.view === 'plans' ? !!f.picker : f.picker === null) && (!F['01-places-panel'] || !f.panelOpen || f.vp !== F['01-places-panel'].vp || f.switchBox === F['01-places-panel'].switchBox)],
   ['panel: all 6 city chips (LA … ALL CITIES), exactly one on', f.citiesVisible && eqCities(f) && onCities(f).length === 1],
   ['panel: all 11 category chips, in the Places order', f.catsVisible && eqCats(f)]
 ];
@@ -68,7 +68,7 @@ const T = {
   '01-places-panel': f => [...panelParity(f), ['view Places; switch on Places; no plan row', f.view === 'places' && f.switchOn === 'Places' && f.planRow === null],
     ['Places list is the app as it was: count title, X on every row, no numbers', /^Copenhagen list \(\d+\)$/.test(f.title) && f.rows.every(r => r.action === 'x-delete' && r.num === null)]],
   '02-plans-panel': f => [...panelParity(f), ['r11 no navy lines: the picker and the switch’s off half are 1px --hair (a city chip’s rule); the ON half is the state system’s solid navy tile', f.lines.picker === `1px ${HAIR}` && f.lines.segOff === `1px ${HAIR}` && f.lines.segOn === `1px ${NAVY}`], ['switch on Plans; the picker shows the open plan; no extra row', f.switchOn === 'Plans' && f.picker.text === 'Nørrebro afternoon' && f.planRow === null],
-    ['the Plans panel is EXACTLY as tall as the Places panel (0px difference, measured)', F['01-places-panel'] && f.panelScrollH === F['01-places-panel'].panelScrollH && f.panelH === F['01-places-panel'].panelH],
+    ['the Plans panel is EXACTLY as tall as the Places panel and in the same place (0px difference, measured); the picker row scrolls the chips 44px instead', F['01-places-panel'] && f.panelBox === F['01-places-panel'].panelBox && f.panelH === F['01-places-panel'].panelH && f.panelScrollH === F['01-places-panel'].panelScrollH + 44],
     ...planCommon(f, 'Nørrebro afternoon', 6)],
   '40-places-rows': f => [['Places rows (the reference, unchanged): icon centred on the chevron’s axis (x=30, within 0.5px), text x=56, rules 1px --hair', f.view === 'places' && f.rows.length > 3 && f.rows.every(r => Math.abs(r.badgeCx - f.chevCx) <= 0.5 && r.mainLeft === 56 && r.rowBorder.endsWith(HAIR))]],
   '41-twelve-stops': f => [...planCommon(f, 'Twelve stops', 12), ['r14 two-digit numbers (10, 11, 12) are centred on the same axis as 1-digit ones and the chevron (within 0.5px)', (() => { const two = stops(f).filter(r => r.num.length === 2 && r.onScreen), one = stops(f).filter(r => r.num.length === 1 && r.onScreen); return two.length >= 2 && one.length >= 1 && two.concat(one).every(r => Math.abs(r.numCx - f.chevCx) <= 0.5); })()]],

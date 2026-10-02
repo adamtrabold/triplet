@@ -93,7 +93,7 @@ const FACTS = () => {
     headerH: $('#locationsHeader').getBoundingClientRect().height,
     header: { collapse: vis($('#collapseBtn')), sort: vis($('#sortBtn')), filters: vis($('#toggleFiltersBtn')), locate: vis($('#centerMeBtn')) },
     panelOpen: panel.classList.contains('visible'), panelScrollH: panel.scrollHeight, panelH: panel.clientHeight,
-    switchOn: ($('#listSwitch [aria-checked="true"]') || {}).textContent || null, switchVisible: vis($('#listSwitch')),
+    switchOn: ($('#listSwitch [aria-checked="true"]') || {}).textContent || null, switchVisible: vis($('#listSwitch')), vp: innerWidth + 'x' + innerHeight, switchBox: (b => [b.x, b.y, b.width, b.height].join())($('#listSwitch').getBoundingClientRect()), panelBox: (b => [b.x, b.y, b.width, b.height].join())(panel.getBoundingClientRect()),
     listTop: list.getBoundingClientRect().top, liftedTop: $('.plan-lifted') ? $('.plan-lifted').getBoundingClientRect().top : null,
     pickerBg: $('#planPick .plan-picker') ? getComputedStyle($('#planPick .plan-picker')).backgroundColor : null,
     picker: $('#planPick .plan-picker') ? { text: $('#planPick .plan-picker').textContent.trim(), expanded: $('#planPick .plan-picker').getAttribute('aria-expanded') === 'true', disabled: $('#planPick .plan-picker').getAttribute('aria-disabled') === 'true', w: $('#planPick .plan-picker').getBoundingClientRect().width } : null,
@@ -250,7 +250,7 @@ scene('40-places-rows', {}, async p => { await openPanel(p); await closePanel(p)
       if (dsf === 1) {
         facts[sc.name] = { ...(await page.evaluate(FACTS)), errors, dialogs };
         if (sc.strip) {   // the whole panel, every control, unscrolled
-          const h = await page.evaluate(() => { const pn = document.getElementById('filtersPanel'); pn.style.maxHeight = 'none'; return pn.getBoundingClientRect(); });
+          const h = await page.evaluate(() => { const pn = document.getElementById('filtersPanel'); pn.style.maxHeight = 'none'; pn.style.height = 'auto'; return pn.getBoundingClientRect(); });
           await W(100);
           const r = await page.evaluate(() => { const x = document.getElementById('filtersPanel').getBoundingClientRect(); return { x: 0, y: Math.max(0, x.top), width: innerWidth, height: Math.min(innerHeight - Math.max(0, x.top), x.height) }; });
           await page.screenshot({ path: path.join(OUT, `${sc.name}-panel.png`), clip: r });

@@ -922,6 +922,7 @@
     /* INACTIVE = dashed hairline, quiet glyph, no rule. */
     .filter-btn.inactive {
       border: 1px dashed var(--hair);
+      padding-bottom: calc(var(--s2) + 1px);   /* the 2px rule's height: toggling never moves the panel */
       color: var(--ink-2);
     }
 
@@ -1488,9 +1489,10 @@
 
     /* =====================================================================
        PLANS (design/plans-deepdive/v3/README.md, docs/shipped.md "Plans").
-       Places | Plans is ONE joined switch at the top of the filter panel,
-       sharing its row with the plan picker; the city and category chips
-       below are the same in both views. Places is the app as it was. Plans
+       Places | Plans is ONE joined switch, equal halves, pinned at the top
+       of the filter panel; in Plans only, the plan picker is a second row
+       under it. The city and category chips below are the same in both
+       views and scroll under the pinned rows. Places is the app as it was. Plans
        lists the open plan's stops, Places' group divider with a caption,
        then every place the filters match (+ adds it). No navy lines: the
        switch, picker, plan list, slip and lifted row use the city chips'
@@ -1498,10 +1500,11 @@
        State system: pressed = pale tile, on = navy tile + paper text,
        unavailable = ink-2 text + a reason (the sort menu's Nearest rule).
        ===================================================================== */
-    .seg-wrap { display: flex; align-items: center; gap: var(--s2); padding: var(--s3) var(--gutter); border-bottom: 1px solid var(--hair); }
+    .seg-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s3) var(--gutter); border-bottom: 1px solid var(--hair);
+      position: sticky; top: 0; z-index: 6; background: var(--paper); }   /* pinned: the switch never moves; the chips scroll under it */
     /* One joined track: each half draws its own 1px edge (the shared middle
        rule belongs to the second), so the track has no box of its own. */
-    .seg { display: flex; flex: 0 0 176px; height: 36px; }
+    .seg { display: flex; flex: 1 1 100%; height: 36px; }
     .seg button {
       flex: 1 1 0; position: relative; border: 1px solid var(--hair); margin: 0; padding: 0; background: var(--paper-raised); color: var(--navy); cursor: pointer;
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-size: 12px; line-height: 16px; letter-spacing: 0.08em; font-weight: 700;
@@ -1516,9 +1519,10 @@
     .seg button:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
     .seg button[aria-checked="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--navy), inset 0 0 0 4px var(--paper); }
 
-    /* The plan picker: the open plan's name with a chevron, a city chip's
-       hairline. Grey in Places (picking a plan there opens it in Plans). */
-    #planPick { flex: 1 1 auto; min-width: 0; }
+    /* The plan picker (Plans only): the open plan's name with a chevron, a
+       city chip's hairline, on its own row under the switch. */
+    #planPick { flex: 1 1 100%; min-width: 0; }
+    #filtersPanel:not(.plans-side) #planPick { display: none; }
     .plan-picker {
       position: relative; display: flex; align-items: center; gap: var(--s1); width: 100%; height: 36px; margin: 0; padding: 0 var(--s1) 0 var(--s3);
       border: 1px solid var(--hair); border-radius: 3px; background: var(--paper-raised); color: var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent;
@@ -1527,7 +1531,6 @@
     .plan-picker::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
     .plan-picker .plan-name { flex: 1 1 auto; text-align: left; font-size: 12px; }
     .plan-picker svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
-    #filtersPanel:not(.plans-side) .plan-picker { color: var(--ink-2); }
     /* No plans: an empty select -- "NO PLAN" in the picker's own type, --ink-2, chevron kept. */
     .plan-picker.is-empty .plan-name { color: var(--ink-2); }
     .plan-picker:active { background: var(--state-press); }
@@ -1540,7 +1543,7 @@
     .plan-picker:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
     /* The picker's slip drops over the chips (no layout change): every plan
        with its count and ⋯ (rename / delete that plan), then New plan. */
-    #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: 54px; z-index: 5; box-sizing: border-box;
+    #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(100% - 6px); z-index: 5; box-sizing: border-box;
       background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; box-shadow: 0 2px 0 var(--hair); }
     #planLedger[hidden] { display: none; }
     #filtersPanel .under-plan-slip { visibility: hidden; }   /* a chip the open slip covers or would cut (layoutPlanLedger) */
@@ -1597,10 +1600,11 @@
     .plan-act:first-child { margin-left: calc(var(--s3) * -1); }
     .plan-act:active { background: var(--state-press); }
 
-    /* The switch row added 61px; the panel grows by the 33px it would otherwise
-       scroll, so every chip shows unscrolled in both views (the map above the
-       open panel is 33px shorter). */
-    #filtersPanel { max-height: calc(40vh + 33px); }
+    /* The panel is as tall as Places' content, capped at 40vh + 33px (371px
+       at 390x844), and the SAME height in both views (sizeFiltersPanel()):
+       Plans' picker row makes the chips scroll, never the panel grow, so the
+       switch, the map above and the sheet below never move. */
+    #filtersPanel { max-height: calc(40vh + 33px); overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 
     /* Plans keeps the sort (it orders the places below the rule; stops keep
        plan order) -- except with no plan open, when there is nothing to sort. */
@@ -2586,8 +2590,7 @@
   <div id="filtersPanel">
     <!-- Places | Plans: one joined switch. Places first: it's the default
          and the app as it always was; Plans is a view you step into. -->
-    <div class="seg-wrap"><div class="seg" id="listSwitch" role="radiogroup" aria-label="List"><button type="button" role="radio" data-view="places" aria-checked="true" tabindex="0">Places</button><button type="button" role="radio" data-view="plans" aria-checked="false" tabindex="-1">Plans</button></div><div id="planPick"></div></div>
-    <div id="planLedger" role="group" aria-label="Plans" hidden></div>
+    <div class="seg-wrap"><div class="seg" id="listSwitch" role="radiogroup" aria-label="List"><button type="button" role="radio" data-view="places" aria-checked="true" tabindex="0">Places</button><button type="button" role="radio" data-view="plans" aria-checked="false" tabindex="-1">Plans</button></div><div id="planPick"></div><div id="planLedger" role="group" aria-label="Plans" hidden></div></div>
     <div id="cityFilters"></div>
     <div id="filters"></div>
   </div>
@@ -5561,7 +5564,7 @@
       });
       const pick = document.getElementById('planPick'), ledger = document.getElementById('planLedger');
       const counts = plans.map(p => stopCount(p.id));
-      const open = plansAvailable === true && (!!planPanel.open || planPanel.mode === 'creating');
+      const open = inPlanView() && plansAvailable === true && (!!planPanel.open || planPanel.mode === 'creating');
       const sig = JSON.stringify([listView, plansAvailable, plansOffline, activePlanId, planPanel.mode, open, planPanel.target, plans.map(p => [p.id, p.name]), counts]);
       if (sig === planLedgerSig) return;
       planLedgerSig = sig;
@@ -5572,7 +5575,7 @@
       const label = plansAvailable === false ? 'Not set up yet' : plansOffline ? 'Offline' : plansAvailable === null ? 'Loading…' : cur ? cur.name : plans.length ? 'Pick a plan' : 'No plan';
       const act = plansAvailable !== true ? 'none' : 'toggle';
       const empty = plansAvailable === true && !plans.length;
-      pick.innerHTML = `<button type="button" class="plan-picker${empty ? ' is-empty' : ''}" data-act="${act}" aria-haspopup="true" aria-expanded="${open}"${act === 'none' ? ' aria-disabled="true"' : ''} aria-label="Plan: ${escapeAttr(label)}">` +
+      pick.innerHTML = !inPlanView() ? '' : `<button type="button" class="plan-picker${empty ? ' is-empty' : ''}" data-act="${act}" aria-haspopup="true" aria-expanded="${open}"${act === 'none' ? ' aria-disabled="true"' : ''} aria-label="Plan: ${escapeAttr(label)}">` +
         `<span class="plan-name">${escapeHtml(label)}</span>${act === 'toggle' ? PLAN_CHEV : ''}</button>`;
       ledger.hidden = !open;
       if (!open) { ledger.innerHTML = ''; layoutPlanLedger(); return; }
@@ -5622,7 +5625,16 @@
       const bottom = ledger.getBoundingClientRect().bottom + DROP;
       panel.querySelectorAll('.city-btn, .filter-btn').forEach(c => { const r = c.getBoundingClientRect(); if (r.height && r.top < bottom) c.classList.add('under-plan-slip'); });
     }
-    addEventListener('resize', () => layoutPlanLedger());
+    addEventListener('resize', () => { sizeFiltersPanel(); layoutPlanLedger(); });
+    // The panel keeps Places' height in both views (capped by its max-height); anything
+    // more (Plans' picker row) scrolls inside it.
+    function sizeFiltersPanel() {
+      const pn = document.getElementById('filtersPanel'), pick = document.getElementById('planPick');
+      pn.style.height = '';
+      const extra = pick.offsetHeight ? pick.offsetHeight + parseFloat(getComputedStyle(pick.parentNode).rowGap || 0) : 0;
+      const bw = pn.offsetHeight - pn.clientHeight;   // its top and bottom rules
+      pn.style.height = `${Math.min(parseFloat(getComputedStyle(pn).maxHeight) || Infinity, pn.scrollHeight - extra + bw)}px`;
+    }
     function setPlanPanel(next) { planPanel = { mode: null, draft: '', open: true, ...next }; renderPlanPanel(); }
     async function submitPlanForm() {
       const name = cleanPlanName(planPanel.draft);
@@ -5644,7 +5656,10 @@
       setPlanPanel({ mode: 'creating', focusInput: true });
     }
     function initPlans() {
-      const sw = document.getElementById('listSwitch');
+      const sw = document.getElementById('listSwitch'), fp = document.getElementById('filtersPanel');
+      const ro = new ResizeObserver(() => sizeFiltersPanel());
+      [sw.parentNode, document.getElementById('cityFilters'), document.getElementById('filters')].forEach(e => ro.observe(e));
+      fp.addEventListener('scroll', () => layoutPlanLedger(), { passive: true });   // chips scrolling under the open slip
       sw.addEventListener('click', e => { const b = e.target.closest('[role="radio"]'); if (b) setListView(b.dataset.view); });
       sw.addEventListener('keydown', e => {
         if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;

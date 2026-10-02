@@ -65,19 +65,33 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('P1 default = Places: every row has its delete X, no numbers, no +, no rule, no map tags', s.view === 'places' && !s.nums && !s.tags && !s.adds && !s.rule && s.x === s.rows, s);
     ok('P2 Places header keeps its count and ⇅', /^Copenhagen list \(\d+\)$/.test(await h2(page)) && (await shown(page, '#sortBtn')));
     await openPanel(page);
-    const p = await page.evaluate(() => { const r = [...document.querySelectorAll('#listSwitch [role="radio"]')], pk = document.querySelector('#planPick .plan-picker');
+    const p = await page.evaluate(() => { const r = [...document.querySelectorAll('#listSwitch [role="radio"]')], pk = document.querySelector('#planPick .plan-picker'), pn = document.getElementById('filtersPanel');
       return { group: document.getElementById('listSwitch').getAttribute('role'), labels: r.map(e => e.textContent), checked: r.map(e => e.getAttribute('aria-checked')),
         cities: document.querySelectorAll('#cityFilters .city-btn').length, cats: document.querySelectorAll('#filters .filter-btn').length, ledger: document.getElementById('planLedger').hidden,
-        first: document.getElementById('filtersPanel').firstElementChild.className, pick: pk.textContent.trim(), pickColor: getComputedStyle(pk).color,
-        seg: document.querySelector('.seg').getBoundingClientRect().width, row: document.querySelector('.seg-wrap').getBoundingClientRect().height,
-        scroll: document.getElementById('filtersPanel').scrollHeight - document.getElementById('filtersPanel').clientHeight }; });
+        first: pn.firstElementChild.className, pick: !!pk, pickShown: document.getElementById('planPick').offsetHeight,
+        seg: document.querySelector('.seg').getBoundingClientRect().width, halves: r.map(e => e.getBoundingClientRect().width), row: document.querySelector('.seg-wrap').getBoundingClientRect().height,
+        panelH: pn.getBoundingClientRect().height, scroll: pn.scrollHeight - pn.clientHeight, ob: getComputedStyle(pn).overscrollBehaviorY, oy: getComputedStyle(pn).overflowY }; });
+    const geo = () => page.evaluate(() => { const r = e => { const b = document.querySelector(e).getBoundingClientRect(); return [b.x, b.y, b.width, b.height].map(v => Math.round(v * 100) / 100).join(); };
+      const pn = document.getElementById('filtersPanel'); return { sw: r('#listSwitch'), panel: r('#filtersPanel'), map: r('#map'), sheet: r('#locations'), scroll: pn.scrollHeight - pn.clientHeight }; });
+    const g0 = await geo();
     ok('P3 panel: a radiogroup switch first, "Places" then "Plans", Places checked', p.group === 'radiogroup' && p.labels.join() === 'Places,Plans' && p.checked.join() === 'true,false' && p.first === 'seg-wrap', p);
-    ok('P4 Places side: every chip (6 cities incl. All, 11 categories), the picker in the switch\'s row, grey ("Pick a plan" before one was ever opened)', p.cities === 6 && p.cats === 11 && p.ledger && p.pick === 'Pick a plan' && p.pickColor === INK2 && p.seg === 176 && p.row === 61, p);
-    ok('P5 every chip shows unscrolled (the panel does not scroll)', p.scroll <= 0, p.scroll);
+    ok('P4 Places side: every chip (6 cities incl. All, 11 categories); NO plan picker (no button, no row, no slip); the switch alone on its row, full width, equal halves (177.5px fills; the shared 1px rule is the first half\'s)', p.cities === 6 && p.cats === 11 && p.ledger && !p.pick && p.pickShown === 0 && p.seg === 358 && p.halves[0] - p.halves[1] === 1 && p.row === 61, p);
+    ok('P5 Places: the panel is 371px (40vh + 33px at 844), every chip unscrolled; it scrolls in place (overflow auto, overscroll contained)', Math.abs(p.panelH - 370.59) < 0.5 && p.scroll <= 0 && p.oy === 'auto' && p.ob === 'contain', p);
     const tgt = await page.evaluate(() => [...document.querySelectorAll('#listSwitch button')].map(e => { const r = e.getBoundingClientRect(), a = getComputedStyle(e, '::before'); return r.height + parseFloat(a.top) * -1 + parseFloat(a.bottom) * -1; }));
     ok('P6 switch segments: 36px drawn, ≥44px target', tgt.every(h => h >= 44), tgt);
+    await tap(page, '#listSwitch [data-view="plans"]'); await W(700);
+    const g1 = await geo();
+    const pp = await page.evaluate(() => ({ row: document.querySelector('.seg-wrap').getBoundingClientRect().height, pick: document.getElementById('planPick').getBoundingClientRect().height }));
+    ok('P7 to Plans: the switch, the panel, the map and the sheet do not move (same x/y/w/h); the picker row (36 + 8) scrolls the chips 44px instead of growing the panel', g1.sw === g0.sw && g1.panel === g0.panel && g1.map === g0.map && g1.sheet === g0.sheet && g1.scroll === 44 && pp.row === 105 && pp.pick === 36, { g0, g1, pp });
+    await page.evaluate(() => { document.getElementById('filtersPanel').scrollTop = 999; }); await W(150);
+    const g2 = await geo();
     await pick(page, 'p-tiv');
-    ok('P7 picking a plan from Places opens it in Plans, the panel stays open', (await page.evaluate(() => listView)) === 'plans' && (await h2(page)) === 'Tivoli tonight' && (await panelOpen(page)));
+    const g3 = await geo();
+    await tap(page, '#listSwitch [data-view="places"]'); await W(600);
+    const g4 = await geo();
+    ok('P7b scrolled, picking a plan, back to Places: the switch never moves (pinned at the panel top)', [g2, g3, g4].every(g => g.sw === g0.sw && g.panel === g0.panel && g.map === g0.map && g.sheet === g0.sheet), { g2, g3, g4 });
+    await tap(page, '#listSwitch [data-view="plans"]'); await W(700);
+    ok('P7c the Plans tab reopens the last plan opened on this device; the panel stays open', (await page.evaluate(() => listView)) === 'plans' && (await h2(page)) === 'Tivoli tonight' && (await panelOpen(page)));
     ok('P8 no errors', !errors.length, errors);
     await ctx.close(); }
 
@@ -447,7 +461,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
       const nw = lg.querySelector('.plan-new').getBoundingClientRect();
       return { scroll: sc.scrollHeight > sc.clientHeight, cut: last ? (scR.bottom - last.getBoundingClientRect().top) / last.getBoundingClientRect().height : null, newVisible: nw.bottom <= pn.getBoundingClientRect().bottom && nw.top >= scR.bottom - 1, panelScroll: pn.scrollHeight - pn.clientHeight,
         cuts: (b => [...pn.querySelectorAll('.city-btn, .filter-btn')].filter(c => getComputedStyle(c).visibility !== 'hidden').map(c => c.getBoundingClientRect()).filter(r => r.top < b && r.bottom > b).length)(lg.getBoundingClientRect().bottom + 2) }; });
-    ok('L6 (UX 4) 11 plans: the plan list scrolls, its last visible row cut in half, New plan pinned below, the panel itself does not scroll, no visible chip cut by its edge', L.scroll && Math.abs(L.cut - 0.5) < 0.05 && L.newVisible && L.panelScroll <= 0 && L.cuts === 0, L);
+    ok('L6 (UX 4) 11 plans: the plan list scrolls, its last visible row cut in half, New plan pinned below, the panel scrolls only the picker row\'s 44px (never grows), no visible chip cut by its edge', L.scroll && Math.abs(L.cut - 0.5) < 0.05 && L.newVisible && L.panelScroll === 44 && L.cuts === 0, L);
     await ctx.close(); }
   for (const n of [0, 1, 3]) {
     const { ctx, page } = await open(b, { ...base, plans: FIX.plans.slice(0, n), stops: n ? FIX.stops.filter(s => s.plan_id === 'p-nor') : [] });
