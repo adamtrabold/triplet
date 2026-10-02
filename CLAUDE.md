@@ -16,6 +16,8 @@ This file loads every session: keep it to rules and pointers. Detail goes in:
   cleanup, roadmap).
 - `docs/iphone-checks.md` — checks only the owner can run on a real device.
 - `docs/ux-brief.md` — mandatory brief/checklist for every UX agent.
+- `docs/cd-brief.md` — mandatory brief/checklist for every CD agent.
+- `docs/owner-taste.md` — the owner's stated design-taste rules, verbatim.
 - `design/<feature>/` — design records; `design/inspo/` — visual reference.
 
 When something ships: add its entry to `docs/shipped.md`, close it in
@@ -111,6 +113,9 @@ operator makes none of these calls.
   cross-role conflict, route the question to its owner (interaction → UX,
   brand/identity → CD, visual execution → designer); ask the owner only when
   roles disagree.
+- **CD briefs: paste `docs/cd-brief.md` verbatim plus the owner's quotes;
+  designers read `docs/owner-taste.md` before designing; when the owner
+  states a new taste rule, add it to `docs/owner-taste.md` the same day.**
 - **Ground design briefs in the inspo, not just the code.**
   `design/inspo/project/` is the app's visual language (vintage travel
   labels, matchbooks, national-park posters — source of the paper/ink/
