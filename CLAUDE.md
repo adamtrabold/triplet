@@ -178,7 +178,7 @@ operator makes none of these calls.
   "Visited sticker"): every visited mark (pin, row, shape, plan stop) is one
   JS-drawn look: cream face (`STICKER.FACE`), one neutral ink
   (`STICKER.INK` #3A4C5B, the old stamp's navy 82% over paper), no category
-  colour. Geometry is `stickerFold()`; the `STICKER` / `STICKER_CHECK` /
+  colour, no edge stroke (soft shadow only). Geometry is `stickerFold()`; the `STICKER` / `STICKER_CHECK` /
   `ROW_STICKER_POSE` constants, the `#stk-*` sprite defs and the CSS
   `.row-stamp` box (72x24) change together. Visit suite cases V13/V14/V17/
   V20b/V22 measure this geometry.

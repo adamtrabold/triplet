@@ -2395,8 +2395,8 @@
          row's flap is clipped to its oval (stk-row-clip = the 72x24 box). -->
     <filter id="stk-shadow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0.5" dy="1.1" stdDeviation="1.1" flood-color="#6b4a28" flood-opacity="0.21"/></filter>
     <filter id="stk-shadow-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0.5" dy="0.88" stdDeviation="0.88" flood-color="#6b4a28" flood-opacity="0.231"/></filter>
-    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.5" stdDeviation="0.7" flood-color="#6b4a28" flood-opacity="0.5"/></filter>
-    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.4" stdDeviation="0.55" flood-color="#6b4a28" flood-opacity="0.55"/></filter>
+    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.6" stdDeviation="0.8" flood-color="#6b4a28" flood-opacity="0.62"/></filter>
+    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.5" stdDeviation="0.6" flood-color="#6b4a28" flood-opacity="0.68"/></filter>
     <filter id="stk-crease" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.9"/></filter>
     <filter id="stk-crease-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.63"/></filter>
     <clipPath id="stk-row-clip"><ellipse cx="36" cy="12" rx="36" ry="11"/></clipPath>
@@ -4250,12 +4250,12 @@
     // Colours are .marker-star-halo / .marker-star-ink in the CSS (tokens
     // can't go in SVG presentation attributes). `size` is the seal's px;
     // the star scales with it (12 near / 10 far / +2 hi).
-    function markerStarHtml(size) {
+    function markerStarHtml(size, { halo = 3, out = 0 } = {}) {   // halo: the paper ring's px width; out: px further along the shoulder (stickerStarHtml())
       const s = size >= 24 ? size / 2 : 10;
-      const c = size / 2, r = c - 1;
+      const c = size / 2, r = c - 1 + out;
       const x = c + r * Math.SQRT1_2 - s / 2, y = c - r * Math.SQRT1_2 - s / 2;
       return `<svg class="marker-star" width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:${x}px;top:${y}px;overflow:visible">` +
-        `<use class="marker-star-halo" href="#g-star" stroke-width="${(3 * 24 / s).toFixed(2)}" stroke-linejoin="round"/>` +
+        `<use class="marker-star-halo" href="#g-star" stroke-width="${(halo * 24 / s).toFixed(2)}" stroke-linejoin="round"/>` +
         `<use class="marker-star-ink" href="#g-star"/></svg>`;
     }
 
@@ -4274,7 +4274,7 @@
     // VISITED stamp's ink as it rendered (--navy at 82% over --paper). No
     // category colour on any visited mark. Map pin: cream face + centred
     // check, flap lower-left (opposite the star's shoulder), a soft contact
-    // shadow under the disc (#stk-lift) so cream reads on a cream map. Row:
+    // shadow under the disc (#stk-lift, no stroke) so cream reads on a cream map. Row:
     // the 72x24 cream oval with check + VISITED (rowStickerHtml(), .row-stamp
     // in the CSS). These constants, the #stk-* defs and the stills in
     // design/visited-system/build/ change together.
@@ -4284,10 +4284,10 @@
       FOLD_L: 0.94,                         // at rest the flap lies (almost) flat: reflected x0.94 (1 - k, k 0.06)
       INK: '#3A4C5B',                       // the shipped stamp's ink: color-mix(--navy 82%, transparent) over --paper, flattened
       FACE: '#F2EBDD',                      // cream: --paper (the to-do seal's own field)
-      EDGE: 'rgba(58,76,91,0.3)',           // the die-cut edge: STICKER.INK at 30%, 0.75px
+      HI_FACE: '#5A564C',                   // selected: --ink-2, the app's grey-brown metadata ink
+      STAR_HALO: 1, STAR_OUT: { near: 1.5, far: 2.5 },   // the star's halo (px, total) and its step out along the shoulder (px)
       PIN_BACK: '#D8CDB8', PIN_BACK_HI: '#E7DFD0',   // the flap's back: one paper step deeper than the cream face (selected: --paper-filed)
       CREASE: 'rgba(92,62,32,0.16)',        // faint contact crease, 1.5px, blurred (#stk-crease)
-      DASH_RIM: 1.5,                        // an approximate pin keeps its dashed rim, thinner, inside the fold
       ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#F2EBDD', BACK: '#D8CDB8' },
     };
     // The check: a FILLED path with square ends and corners softened by 1/24,
@@ -4335,30 +4335,31 @@
       return `<line class="stk-crease" x1="${c0[0].toFixed(2)}" y1="${c0[1].toFixed(2)}" x2="${c1[0].toFixed(2)}" y2="${c1[1].toFixed(2)}" stroke="${STICKER.CREASE}" stroke-width="1.5" stroke-linecap="round" filter="url(#stk-crease${far ? '-far' : ''})"/>` +
         `<path class="stk-flap" d="${g.flapD}" fill="${back}" filter="url(#stk-shadow${far ? '-far' : ''})"/>`;
     }
-    // A visited map mark: { size, kind ('circle' | 'dashed' | 'diamond'),
-    // near (the NEAR tier, or selected), hi (selected: neutral face, cream check),
-    // check (false: a plan stop, whose number holds the centre) }. Returns
-    // { base, flap } SVG strings, both size x size at (0,0): the flap is drawn
-    // last so it lies over the face -- and over anything placed between them.
-    function stickerPinParts({ size, kind = 'circle', near, hi = false, check = true }) {
+    // A visited map mark: { size, near (the NEAR tier, or selected), hi
+    // (selected), check (false: a plan stop, whose number holds the centre) }.
+    // Visited means LESS information, so every visited pin is the one round
+    // sticker: no approx dashed rim, no district diamond. A cream face on a
+    // cream map is held apart by a soft contact shadow only (#stk-lift; never
+    // a stroke -- owner: "the dark line on the edge should be a shadow not a
+    // hard line"), as the row sticker. Selected: the face takes --ink-2, the
+    // app's grey-brown metadata ink (a slate disc read as a blue category),
+    // the check turns cream. Returns { base, flap } SVG strings, both
+    // size x size at (0,0): the flap is drawn last so it lies over the face --
+    // and over anything placed between them (a stop's number prints above it).
+    function stickerPinParts({ size, near, hi = false, check = true }) {
       const tier = near || hi ? 'near' : 'far', c = size / 2;
-      const g = stickerFold(kind === 'diamond' ? 'diamond' : 'circle', size, size, c, c, STICKER.PIN_ANG, STICKER.PIN_H[tier], STICKER.FOLD_L);
-      const face = hi ? STICKER.INK : STICKER.FACE, mark = hi ? STICKER.FACE : STICKER.INK;
-      // The die-cut edge: a cream face on a cream map needs one. A soft all-round
-      // contact shadow (#stk-lift) plus a hairline of the neutral ink at 30%,
-      // on the body only (nothing past the fold). Selected: the neutral face is its own edge.
-      let base = `<path class="stk-face" d="${g.bodyD}" fill="${face}"${hi ? '' : ` stroke="${STICKER.EDGE}" stroke-width="0.75"`} filter="url(#stk-lift${tier === 'far' ? '-far' : ''})"/>`;
-      if (kind === 'dashed') {   // the provenance rim, on the body only: nothing past the fold
-        const r = c - STICKER.DASH_RIM / 2, n = g.pts.length;
-        let s0 = 0; while (!(g.proj[s0] > g.d && g.proj[(s0 + 1) % n] <= g.d)) s0 = (s0 + 1) % n;
-        const run = []; for (let i = 1; i <= n; i++) { const k = (s0 + i) % n; if (g.proj[k] > g.d) break; const a = k / n * 2 * Math.PI; run.push([c + r * Math.cos(a), c + r * Math.sin(a)]); }
-        base += `<path d="M${run.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L')}" fill="none" stroke="${mark}" stroke-width="${STICKER.DASH_RIM}" stroke-dasharray="3 3"/>`;
-      }
+      const g = stickerFold('circle', size, size, c, c, STICKER.PIN_ANG, STICKER.PIN_H[tier], STICKER.FOLD_L);
+      const face = hi ? STICKER.HI_FACE : STICKER.FACE, mark = hi ? STICKER.FACE : STICKER.INK;
+      let base = `<path class="stk-face" d="${g.bodyD}" fill="${face}" filter="url(#stk-lift${tier === 'far' ? '-far' : ''})"/>`;
       if (check) { const ck = STICKER_CHECK[tier], o = ((size - ck.px) / 2).toFixed(2);
         base += `<svg class="badge-glyph stk-check" x="${o}" y="${o}" width="${ck.px}" height="${ck.px}" viewBox="0 0 24 24"><path d="${ck.d}" fill="${mark}"/></svg>`; }
       const svg = (cls, inner, abs) => `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="${abs ? 'position:absolute;left:0;top:0;' : 'display:block;'}overflow:visible">${inner}</svg>`;
       return { base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far'), true) };
     }
+    // The map star on a visited sticker: the same star, its paper halo thinned
+    // (a cream face needs no separation ring) and set out along the shoulder,
+    // so it never notches the check (STICKER.STAR_HALO / STAR_OUT, NEAR + FAR).
+    function stickerStarHtml(size) { return markerStarHtml(size, { halo: STICKER.STAR_HALO, out: STICKER.STAR_OUT[size >= 24 ? 'near' : 'far'] }); }
     // The row sticker. pose: rest | lift (hovering pre-commit: flap curled
     // high) | press (the 56px frame) -- the keyframes' fold states, eased
     // between by vsPlace(). [fh, L]; rest keeps the flap's reach at ~5px.
@@ -4394,10 +4395,10 @@
       // is its ordinary Places pin.
       const stop = planMarks().byLoc.get(loc.id);
       if (stop) return planNumberIcon(loc.category, markerKind(loc), ink, stop, MARKER_SIZE_NEAR + (highlighted ? MARKER_HI_DELTA : 0), highlighted, loc.starred, !!loc.visited);
-      // Visited: the sticker (stickerPinParts()) -- the category's wash and a
-      // check, the flap peeled at the lower left. Selected: ink face, paper
+      // Visited: the sticker (stickerPinParts()) -- the cream face and a
+      // check, the flap peeled at the lower left. Selected: --ink-2 face, cream
       // check, the NEAR check at either tier.
-      const sp = loc.visited ? stickerPinParts({ size, kind: markerKind(loc), near: showGlyph, hi: highlighted }) : null;
+      const sp = loc.visited ? stickerPinParts({ size, near: showGlyph, hi: highlighted }) : null;
       const badge = sp ? sp.base + sp.flap : badgeHtml(loc.category, markerKind(loc), size, {
         ink,
         // Highlighted inverts: ink field, paper glyph.
@@ -4410,7 +4411,7 @@
       // target -- pad the invisible click/tap area out to 24px around the
       // small visible badge rather than shrinking the tap target with it.
       const hit = Math.max(size, 24);
-      const star = loc.starred ? markerStarHtml(size) : '';
+      const star = loc.starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
       const html = hit === size
         ? `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div>`
         : `<div style="width:${hit}px;height:${hit}px;display:flex;align-items:center;justify-content:center;">` +
@@ -4996,15 +4997,15 @@
     // (--ink-2, 13px/700; 12px for two digits). Selected: the ring fills with its ink and the
     // numeral turns paper, as a selected Places pin does. The star keeps its corner. No tag.
     // A VISITED stop keeps its number (the plan's identity) and becomes the
-    // sticker: the cream face, rim gone (an approximate pin keeps its dashed
-    // rim), the flap peeled at the lower left over the face -- no check, the
+    // round cream sticker (an approximate pin's dashes and a district's
+    // diamond go: visited is less information), the flap peeled at the lower left over the face -- no check, the
     // number holds the centre and prints over the flap's edge (a two-digit
     // number reaches it): the plan identity is never cut. Selected: ink face,
     // paper numeral, as above.
     function planNumberIcon(category, kind, ink, r, size, highlighted, starred, visited = false) {
-      const sp = visited ? stickerPinParts({ size, kind, near: true, hi: highlighted, check: false }) : null;
+      const sp = visited ? stickerPinParts({ size, near: true, hi: highlighted, check: false }) : null;
       const badge = sp ? sp.base : badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: ink, rim: highlighted ? 2.5 : 2, glyph: false });
-      const star = starred ? markerStarHtml(size) : '';
+      const star = starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
       const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}${visited ? ' is-visited' : ''}" data-n="${r.n}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${sp ? sp.flap : ''}<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>${star}</div>`;
       return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
     }
@@ -5966,7 +5967,7 @@
     // shape stop carries both marks on its numbered diamond, so none here.
     function shapeVisitIcon(nb) {
       const size = MARKER_SIZE_NEAR, hit = 24, o = (hit - size) / 2, sp = stickerPinParts({ size, near: true });
-      const sh = nb.starred ? (size / 2 - 1) * Math.SQRT1_2 : 0;   // markerStarHtml()'s shoulder offset
+      const sh = nb.starred ? (size / 2 - 1 + STICKER.STAR_OUT.near) * Math.SQRT1_2 : 0;   // the shoulder, set out as stickerStarHtml() so the star clears the check
       const html = `<div style="position:relative;width:${hit}px;height:${hit}px;line-height:0;"><div style="position:absolute;left:${o}px;top:${o}px;width:${size}px;height:${size}px;">${sp.base}${sp.flap}</div></div>`;
       return L.divIcon({ html, className: '', iconSize: [hit, hit], iconAnchor: [hit / 2 + sh, hit / 2 - sh] });
     }
