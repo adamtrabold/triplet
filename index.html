@@ -1263,7 +1263,7 @@
        x of the action column is what makes it scannable -- a column of
        stickers down the right edge. Replaces the dotted-track VISITED stamp.
 
-       A flat cream oval 72x24 (--s6 x3 by --s6) carrying the
+       A cream rounded label 72x24 (--s6 x3 by --s6; a stadium) carrying the
        check (8px, stroke 2.1) + VISITED in the meta line's voice (10px
        condensed caps, .08em), --s3 (12px) padding each side -- the
        filter chips' padding; the flap counts as the left padding. The
@@ -4294,6 +4294,7 @@
       FOLD_L: 0.94,                         // at rest the flap lies (almost) flat: reflected x0.94 (1 - k, k 0.06)
       INK: '#3A4C5B',                       // the shipped stamp's ink: color-mix(--navy 82%, transparent) over --paper, flattened
       FACE: '#FAF5EA',                      // cream, one step lighter than the map's and the rows' cream: --paper-raised
+      EDGE: 'rgba(107,74,40,0.22)', EDGE_W: 1,   // owner: "The 1px hard edge to add shadow definition is fine": warm, faint, outer outline only (never the fold)
       HI_FACE: '#5A564C',                   // selected: --ink-2, the app's grey-brown metadata ink
       STAR_HALO: 1, STAR_OUT: { near: 1.5, far: 2.5 },   // the star's halo (px, total) and its step out along the shoulder (px)
       PIN_BACK: '#D8CDB8', PIN_BACK_HI: '#E7DFD0',   // the flap's back: one paper step deeper than the cream face (selected: --paper-filed)
@@ -4338,12 +4339,17 @@
       for (let i = 0; i < pts.length; i++) {
         const [x, y] = pts[i], t = proj[i], j = (i + 1) % pts.length, t2 = proj[j];
         if (t > d) flap.push([x - (t - d) * (1 + L) * ux, y - (t - d) * (1 + L) * uy]); else body.push([x, y]);
-        if ((t - d) * (t2 - d) < 0) { const f = (d - t) / (t2 - t), px = x + (pts[j][0] - x) * f, py = y + (pts[j][1] - y) * f; flap.push([px, py]); body.push([px, py]); chord.push([px, py]); }
+        if ((t - d) * (t2 - d) < 0) { const f = (d - t) / (t2 - t), px = x + (pts[j][0] - x) * f, py = y + (pts[j][1] - y) * f; const cp = [px, py]; flap.push([px, py]); body.push(cp); chord.push(cp); }
       }
       const P = arr => 'M' + arr.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L') + 'Z';
       const fx = flap.reduce((q, [x]) => q + x, 0) / flap.length, fy = flap.reduce((q, [, y]) => q + y, 0) / flap.length;
       flap.sort((p, q) => Math.atan2(p[1] - fy, p[0] - fx) - Math.atan2(q[1] - fy, q[0] - fx));
-      const out = { bodyD: P(body), flapD: P(flap), chord, pts, proj, d };
+      // The outer edge alone (the body's outline WITHOUT the chord): the 1px edge is drawn
+      // here, never along the fold.
+      const isC = p => p === chord[0] || p === chord[1], nb = body.length;
+      const ci = body.findIndex((p, i) => isC(p) && isC(body[(i + 1) % nb])), rot = body.slice(ci + 1).concat(body.slice(0, ci + 1));
+      const edgeD = 'M' + rot.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L');
+      const out = { bodyD: P(body), flapD: P(flap), edgeD, chord, pts, proj, d };
       stickerFolds.set(key, out);
       return out;
     }
@@ -4368,6 +4374,7 @@
       const g = stickerFold('circle', size, size, c, c, STICKER.PIN_ANG, STICKER.PIN_H[tier], STICKER.FOLD_L);
       const face = hi ? STICKER.HI_FACE : STICKER.FACE, mark = hi ? STICKER.FACE : STICKER.INK;
       let base = `<path class="stk-face" d="${g.bodyD}" fill="${face}" filter="url(#stk-lift${tier === 'far' ? '-far' : ''})"/>`;
+      if (!hi) base += `<path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/>`;
       if (check) { const ck = STICKER_CHECK[tier], o = ((size - ck.px) / 2).toFixed(2);
         base += `<svg class="badge-glyph stk-check" x="${o}" y="${o}" width="${ck.px}" height="${ck.px}" viewBox="0 0 24 24"><path d="${ck.d}" fill="${mark}"/></svg>`; }
       const svg = (cls, inner, abs) => `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="${abs ? 'position:absolute;left:0;top:0;' : 'display:block;'}overflow:visible">${inner}</svg>`;
@@ -4392,16 +4399,17 @@
       const R = STICKER.ROW, [fh, L] = ROW_STICKER_POSE[pose], g = rowStickerFold(fh, L), box = `width="${R.W}" height="${R.H}" viewBox="0 0 ${R.W} ${R.H}" aria-hidden="true"`;
       return `<span class="row-stamp${cls}" style="--stamp-tilt:${stickerTilt(id)}deg" aria-hidden="true">` +
         (cls.includes('vs-carry') ? '<span class="vs-veil"></span>' : '') +
-        `<svg class="stk-base" ${box}><path d="${g.bodyD}" fill="${R.FACE}"/></svg>` +
+        `<svg class="stk-base" ${box}><path d="${g.bodyD}" fill="${R.FACE}"/><path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/></svg>` +
         `<span class="row-sticker-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="currentColor"/></svg><span class="row-stamp-word">Visited</span></span>` +
         `<svg class="stk-flap-svg" ${box}><g clip-path="url(#stk-row-clip)">${stickerFlapMarkup(g, R.BACK, false)}</g></svg></span>`;
     }
     // Re-pose a rendered row sticker's flap in place (vsPlace()'s smooth-out).
     function poseRowSticker(st, fh, L) {
-      const g = rowStickerFold(fh, L), f = st.querySelector('.stk-flap'), c = st.querySelector('.stk-crease'), b = st.querySelector('.stk-base > path');
+      const g = rowStickerFold(fh, L), f = st.querySelector('.stk-flap'), c = st.querySelector('.stk-crease'), b = st.querySelector('.stk-base > path:not(.stk-edge)');
       if (!f || !c || !b) return;
       const [c0, c1] = g.chord;
       f.setAttribute('d', g.flapD); b.setAttribute('d', g.bodyD);
+      const e = st.querySelector('.stk-base > .stk-edge'); if (e) e.setAttribute('d', g.edgeD);
       c.setAttribute('x1', c0[0].toFixed(2)); c.setAttribute('y1', c0[1].toFixed(2)); c.setAttribute('x2', c1[0].toFixed(2)); c.setAttribute('y2', c1[1].toFixed(2));
     }
 
