@@ -1,0 +1,28 @@
+{
+ "total": 204,
+ "visitedNow": 21,
+ "no stamp (unvisited row)": {
+  "truncatingOfAll": 2,
+  "truncatingOfTheVisitedNow": 0
+ },
+ "shipped dotted stamp 72x32": {
+  "truncatingOfAll": 16,
+  "truncatingOfTheVisitedNow": 1
+ },
+ "M1 check-only oval 48x24": {
+  "truncatingOfAll": 8,
+  "truncatingOfTheVisitedNow": 0
+ },
+ "M1 word-only oval 64x24": {
+  "truncatingOfAll": 12,
+  "truncatingOfTheVisitedNow": 1
+ },
+ "M1 round 7 check + VISITED 68x24 (11px pad)": {
+  "truncatingOfAll": 15,
+  "truncatingOfTheVisitedNow": 1
+ },
+ "M1 check + VISITED oval 72x24 (12px pad)": {
+  "truncatingOfAll": 16,
+  "truncatingOfTheVisitedNow": 1
+ }
+}

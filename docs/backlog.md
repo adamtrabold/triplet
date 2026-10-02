@@ -24,35 +24,23 @@ pick/redirect before building anything.
   an outline/list-row question, so its variants (reserved-column,
   dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
   are not candidates.
-- **Visited pins have no map treatment** (owner, 2026-09-29, asked
-  directly: "should visited places have a different treatment on the
-  map itself"). **Concept work already produced,
-  through a full UX-check + CD loop, scored 9/10, owner has NOT yet
-  approved or redirected:** `design/visited-marker/concept/README.md`.
-  Path taken: 4 initial options (A dotted rim, B receded field — tested
-  and REJECTED, invisible at marker scale, direct evidence against
-  porting list-row visual rationale unchanged — C checkmark tick,
-  overlap issues, D opacity-only, can't rule out a "still loading"
-  read) → owner reviewed the shipped list-stamp's dotted track live on
-  their phone, found it "unintelligible" at real size, asked for a
-  hybrid of B's receded field + a toned-down dotted rim → 3 dot-density
-  hybrids tested at true 1x (not just 4x blowup), Hybrid 2 (12 dots)
-  picked as the sweet spot → owner said tighten it further toward the
-  real `.row-stamp` grammar (full-strength navy ink, not muted) →
-  Round 3 (dots inside the rim) scored 6/10, rejected — collided with
-  `badgeHtml()`'s glyph, a real legibility blocker not a dial → **Round 4
-  (dots OUTSIDE the rim) scored 9/10, recommended** — sent to the owner
-  as `stampring-truesize-restauranthotel.png`/`-shopping.png` (the risky
-  hue)/`-starred.png` (checked against the existing star shoulder, no
-  collision). Two things explicitly flagged as still open for perfection
-  stage, not assumed fine: real-tile legibility (sandbox can't render
-  live tiles) and whether the outer-ring treatment extends cleanly to
-  cluster badges (the existing "recede only if ALL members visited" rule
-  is separate and untouched). This is concept-stage sign-off only —
-  nothing built. The owner's last read on this whole thread: "these
-  aren't even following good design principles at this point" — treat
-  that as a real signal to look at Round 4 with fresh, skeptical eyes,
-  not to assume it's a done deal.
+- **Visited system: peeled sticker (design APPROVED, NOT built)** (owner,
+  2026-09-29 ask; final check size/shape decisions 2026-10-02). Supersedes
+  the old "Visited pins have no map treatment" thread: Round 4 dots
+  (`design/visited-marker/concept/`) were REJECTED by the owner as visual
+  noise; do not revive. Approved direction, in stills:
+  `design/visited-system/stamp-first/README.md` (final spec at top).
+  Pin = category-wash face + centred check (9px NEAR, 6.2px FAR, selected
+  follows NEAR; lightly-rounded filled check drawn like the category
+  glyphs: square ends, radius ~1/24) + peeled flap bottom-left (about 18%
+  of the pin, soft natural shadow, no hard fold line). List row = wide
+  matte oval 72x24 with check (8px) + the word VISITED (10px condensed
+  caps, .08em tracking), 12px (`--s3`) padding each side, flap counts as
+  left padding. Owner accepted that name truncation gets worse (measured
+  16/204 names truncated vs shipped stamp 16/204 and none 2/204).
+  Build needs: full gesture gate (it replaces the VISITED stamp; vtest /
+  replay cases must be rewritten, V14's 72x32 ring model), the Impeccable
+  gate, and iPhone checks. Nothing built yet.
 - **Trips vs. cities restructure** (owner, 2026-09-23; trimmed
   2026-09-29). *The search bug is fixed:* search widens on a miss (see
   `docs/shipped.md`, "Search widens on a miss"). Owner: "When we expand
@@ -91,16 +79,17 @@ pick/redirect before building anything.
   while following, should the map show every filter match (a, built) or only
   the plan (b)?
 
-- **Ghost the VISITED stamp in the popup** (owner, 2026-09-28; promoted
-  from the old "popup mini-stamp" follow-up). Once a place is marked
-  visited, a ghosted VISITED stamp should appear somewhere in the popup
-  card, so the popup carries the same "been here" mark as the list row.
-  Problem for the team: where it sits (without crowding the p8 layout —
-  title/star, notes, Get Directions button, category + Mark Visited row),
-  how ghosted (it must read as a mark, not a disabled state), whether it
-  reuses the shipped `.row-stamp` geometry/tilt/ink, and whether the
-  popup's Mark Visited toggle animates it (bleed + press / lift, like the
-  row). New idea → concept stage first.
+- **Ghost the VISITED stamp in the popup** - DROPPED (owner, 2026-10-02);
+  superseded by the peeled-sticker system above.
+
+- **Icon pass** (owner, 2026-10-02): "Redraw the check that looks great
+  but we need to do an icon pass on the rest at some other time." The new
+  lightly-rounded filled check (square ends, radius ~1/24) is the
+  reference. Review the category glyphs and other icons (fork, cup,
+  martini, etc., star, chevrons, + and x, the plan/shape marks) for one
+  consistent drawing language (end caps, corner radius, stroke/fill,
+  optical size), later. Concept stage first (designer, UX, CD). Nothing
+  started.
 
 - **Plans follow-ups from the final review** (critics-final 9c5296e,
   `design/impeccable-gate/reviews/2026-10-01-6d3609c2c34d/REPORT.md`; not
