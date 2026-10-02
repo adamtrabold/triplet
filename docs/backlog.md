@@ -79,21 +79,17 @@ pick/redirect before building anything.
     city/trip picking.
   - Discovery: `design/trip-location-model/proposal.md`. Related: Phase 2
     "trip context (dates/closures)".
-- **Day agendas — plan AND follow an ordered route** (owner,
-  2026-09-27). For days where the owner wants a set order: build an
-  agenda for a given day, then use it on the ground. The owner is unsure
-  how deep v1 needs to go to test the idea; the aspirational end state is
-  maps-app-like — paths drawn between stops, reorder stops and see how
-  the route/travel changes. Problem for the team to scope: the smallest
-  v1 that tests plan+follow (e.g. an ordered list per day with
-  prev/next and numbered markers) vs. what needs routing data. Known
-  constraints to weigh: no build step; the sandbox can't reach OSM
-  services (routing would need a provider — check what's reachable from
-  the browser and its usage terms); Get Directions already hands off to
-  Apple Maps per stop (`directionsUrl()`), which may be enough for
-  "follow" in v1. Relates to list ordering, the trip/place location
-  rework, Phase 2 trip dates, and personal priority — sequence the
-  discovery so these don't get designed in isolation.
+- **Plans: apply the migration, then the iPhone checks** (v3 built on
+  branch `plans-v3-build`, see `docs/shipped.md` "Plans (v3 build)").
+  **Blocker:** apply `supabase/migrations/20260929000000_add_plans.sql` to
+  the live project (operator, after review); until then the Plans side says
+  plans aren't available yet and nobody can create one. Then the owner's
+  iPhone pass (`docs/iphone-checks.md`). Open for designer/UX at stage 2:
+  the starred stop's name starts at 122px, not 96px (v3 §7 CD note); the
+  build decisions listed in the shipped entry (reorder Undo copy, stamp at
+  normal ink, chip framing). Owner question still open (v3 §4, owner-12):
+  while following, should the map show every filter match (a, built) or only
+  the plan (b)?
 
 - **Ghost the VISITED stamp in the popup** (owner, 2026-09-28; promoted
   from the old "popup mini-stamp" follow-up). Once a place is marked
@@ -105,6 +101,16 @@ pick/redirect before building anything.
   reuses the shipped `.row-stamp` geometry/tilt/ink, and whether the
   popup's Mark Visited toggle animates it (bleed + press / lift, like the
   row). New idea → concept stage first.
+
+- **Plans follow-ups from the final review** (critics-final 9c5296e,
+  `design/impeccable-gate/reviews/2026-10-01-6d3609c2c34d/REPORT.md`; not
+  now): accessible names for map markers (numbered stop pins "Stop 2:
+  Harpa", tag-bearing clusters "Cluster of 11, stops 1–3"; Places' pins have
+  none either, WCAG 4.1.2); the error banner covers the account / + badges
+  and zoom + for its 6s (check against main: likely existing behaviour);
+  the star knock-out notch (existing Places); paper hex `#F2EBDD` hard-coded
+  in JS-built SVG instead of `var(--paper)`; cluster tag numerals 10px at 1x
+  (CD to judge on device).
 
 ## Data cleanup (neighborhood shapes)
 
@@ -227,3 +233,15 @@ explicitly map those five letters before the generic NFD strip.
   vegetarian, etc.) across both pins and shapes.
 - SRI hashing on the CDN script tags.
 - Nominatim autocomplete-while-typing (currently only fires on submit).
+- **Plans: route mapping.** Draw a plan's route between its stops, in order,
+  on the map (walking route, or straight legs as a first cut), so the order
+  of the journey reads from the map itself. Today the order shows only
+  through the grey stop numbers: list numerals plus map tags, chosen by the
+  owner as the interim "until we can do full mapping". When this ships,
+  reconsider whether the numbers (list and map tags) are still needed or
+  should change. Open questions: routing source (no OSM routing connector in
+  the sandbox; the owner's browser only), cross-city legs, dense knots of
+  stops, and a starting-point marker (the owner floated one).
+- Plans, deferred from v3 §6: add a stop from a place's popup or straight
+  from the add form; share a route to Maps; animate the default fit (the
+  build jumps).

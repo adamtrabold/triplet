@@ -132,3 +132,105 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   a city chip or category chip: the chip goes beige while held; (4) popup Mark
   Visited: a beige tile shows while pressed, then the usual toggle; (5) Add
   form submit while saving looks dim (.4), still legible.
+- iPhone check of Plans (v3 build). **Before the migration is applied (do
+  this first):** (0) open filters, tap PLANS: the picker beside the switch
+  reads NOT SET UP YET and does nothing when tapped, the list says "Plans
+  aren't set up yet.", the city and category chips still work, the map shows
+  the city as Places does (no stop pins), no error banner; tap PLACES: the app is exactly as before. A plan
+  view you left open reopens in Places. **After the migration** (the operator
+  applies it):
+  1. **Panel, both views:** the switch and the picker share one row; every
+     city chip and every category chip shows without scrolling, on PLACES and
+     on PLANS, and the panel is the same height in both. The picker in Places
+     is grey. Tap it: a list of plans drops over the chips (counts, ⋯ on
+     every plan, New plan); the picker turns beige with its arrow up. Say if
+     the map strip above the open panel now feels too short (it lost 33px).
+  2. **No plans yet:** the picker reads "No plan" (grey, like an empty
+     select); the list reads "No plans yet." / "A plan's stops show here and
+     on the map." on two lines with one NEW PLAN button. **New plan:** the
+     keyboard opens on a name field; Create opens the plan; the map frames the
+     city's places; the list says "NO STOPS YET · TAP + ON A PLACE BELOW"
+     above a grey caption line ("ADD FROM COPENHAGEN (n)"), then your places
+     with a grey + (the × turned 45°: say if it reads as a +).
+  3. **+ :** tap + on a place: it becomes stop 1 above the line; on the map
+     its pin shows the grey number 1 where the icon was. Add seven places
+     from different corners of the city: the map keeps every stop in view and
+     never slides away from the first ones. Add a second: the slip (a band over
+     the caption line, or filling the list header if the line is scrolled
+     away; filter and locate stay tappable) reads "STOP 2 ADDED · HOLD A NUMBER TO MOVE"
+     (only once per phone), later "ADDED … AS STOP n" (a long name shortens,
+     the stop number always shows); the slip ends up on the divider line, never
+     over the new stop's name or the next row's + / ×. **Undo** inside 6s
+     takes it back out. A sideways stroke that starts on + adds nothing.
+  4. **Numbers at 1x:** grey numbers left of the icons; the chevron in the
+     header, the numbers and the icons of the places below the line all sit
+     on one vertical line; a stop's icon lines up with the first letter of
+     the place names below (ring to round letters). Say if anything looks
+     off-axis at arm's length.
+  5. **Hold-to-drag vs scroll:** rest a thumb on a number and hold still
+     about half a second: the row lifts onto paper; drag it and drop: the
+     slip reads "MOVED … TO STOP n · UNDO"; Undo puts it back. Then rest on a
+     number and scroll right away (or after a short rest): the list scrolls,
+     nothing lifts. Long move: with the panel open, drag stop 7 to the top
+     edge of the list: the list scrolls under it until stop 1.
+  6. **Long-press callout:** holding a number never brings up text selection,
+     the magnifier or a copy/share menu.
+  7. **Back-swipe from the left edge:** the number's touch area reaches the
+     screen's left edge. In Safari and from the Home Screen app, swipe in
+     from the very left edge over a stop row: say whether iOS goes back, the
+     row's visit swipe runs, or a row lifts (it should never lift without a
+     still hold). Then rest a thumb at the edge on a number (as when holding
+     the phone) and scroll: it should just scroll.
+  8. **× and Undo:** × on a stop removes it (the place stays in Places, below
+     the line with +); the slip says "REMOVED …"; Undo puts it back at the
+     same number. Swipe a stop row right (star) and left from × (visit): both
+     work as in Places and nothing is removed.
+  9. **Map numbers:** each stop on the map is its pin with the grey number
+     where the icon was (selected: filled, white number); zoom out until stops
+     join red clusters: the cluster shows a small grey ring (a circle, or a
+     pill for "2–4") right beside its count ("2–4"), never on top of the digits; tapping the tag zooms in like
+     the red disc. Where clusters crowd, two clusters' stops share one tag
+     ("1–2,4–5"); no tag ever sits on another, and no star or disc covers a
+     tag's numbers. In daylight at arm's length the tag numerals (10px) and the
+     caption line above the places ("ADD FROM …", 10px) are readable. Say if the thin
+     ring tag reads as part of its cluster, and if a stop's category is hard to tell from its ring colour alone.
+  10. **The map's two jobs:** with the panel open the map shows the stops and
+      the places you can add; close the panel: it re-fits to the stops (the
+      selected city's leg on a two-city plan). Pan yourself, then close and
+      reopen the panel: the map stays yours.
+  11. **Filters in Plans:** tap a category chip or a city: the stops all stay,
+      the list jumps so the caption line is at the top, and the caption names
+      the filters; tap the plan's name in the header to get back to the
+      stops. ⇅ sorts only the places below the line ("Sort places not in the
+      plan").
+  12. **Panel on a real phone:** the picker's list over the chips scrolls if
+      long; closing the panel closes it; Rename and Delete from ⋯ work on a
+      plan that isn't open; Delete asks with the phone's own dialog.
+  13. **Places ×** on a place that is a stop asks "It is a stop in “…”; it
+      will leave that plan too."; the plan renumbers 1..n.
+  14. Signed out: everything readable; +, ×, dragging a number to a new place and
+      New plan open the sign-in.
+  15. **UX round:** double-tap + quickly: only one stop is added. Remove two
+      stops within 6s: one slip "REMOVED 2 STOPS"; Undo brings both back in
+      place. Rest a finger on the slip past 6s: it stays; lift: it goes 6s
+      later. Undo is easy to hit without catching the × above or the + below.
+      Adding and removing: the rows around the change slide to open or close
+      the gap (no flash); with Reduce Motion on, instantly. With many plans the
+      picker's list scrolls with a half row showing at the bottom and New
+      plan pinned; with 0 or 1 plans its edge never cuts through a chip.
+      Airplane mode in Plans: the picker reads OFFLINE and the stops stay.
+      VoiceOver: the sliders button reads "Filters and plans", expanded or
+      collapsed; account and locate have names.
+  16. A starred + visited stop with a real long name: the row is the same
+      136px-wide text area as in Places; say if names truncate badly.
+- iPhone check of the owner-approved Places changes (2026-10-01): (1) with the
+  filter panel open, tap a row in the list (Places, and a place in Plans): the
+  panel closes, the map flies, and the popup opens fully visible above the
+  list; reopen the panel: your filters (and plan) are as you left them; the
+  delete × and Plans' + / × never close the panel. (2) Turn every category chip
+  off: the list says "NOTHING MATCHES THESE FILTERS."; pick a city with no
+  places: "NOTHING HERE YET." (3) Airplane mode, then star or visit a place: it
+  flips back and the red band says "COULDN'T SAVE. CHECK YOUR CONNECTION.",
+  gone after about 6s; while offline the navy band "OFFLINE. SHOWING WHAT'S
+  LOADED." appears at the next refresh and goes when you're back online; any
+  band disappears when tapped and sits above the round account / + buttons.

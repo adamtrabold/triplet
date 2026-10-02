@@ -129,9 +129,11 @@ operator makes none of these calls.
   (`district`|`street`), `geometry` (array of `[lat,lng]`, not GeoJSON),
   fetched live from OSM (Nominatim polygon / Overpass way) at add time. No
   `visited` column.
+- `plans` / `plan_stops`: named, ordered stop lists (a stop is a pin OR a
+  shape); read by `fetchPlans()`, fail soft when the tables are missing.
 - `cities`: runtime-extensible registry, merged into (never replacing) the
   static `CITIES` bootstrap in `index.html`, the offline-safe seed.
-- RLS, identical on all three: public `SELECT`; writes restricted to
+- RLS, identical on all of them: public `SELECT`; writes restricted to
   `auth.jwt() ->> 'email' IN ('adamtrabold@gmail.com', 'ericatrabold@gmail.com')`.
 - The add form routes on category alone: `isShapeCategory()` (true for
   `district`/`street`) picks the fields and the target table — no separate
@@ -177,8 +179,10 @@ operator makes none of these calls.
 - **Row gestures (Pencil Star right, visit left):** report the star gate as
   **"84 + 8 (+ N8-a)"**, never "84"; visit suite `vtest.js`; plus
   popup-open 20/20, 0 dust-over-text frames, rows 56.00px, curve8 frame
-  counts. Delete fires only on a near-still tap (`DELETE_TAP_SLOP` 4px).
-  All of it runs with `design/gesture-harness/run-all.sh [index.html]`
+  counts; plan-rows (Plans stop rows: number, 400ms hold, × / +) once
+  Plans is in the page. Delete fires only on a near-still tap
+  (`DELETE_TAP_SLOP` 4px). All of it runs with
+  `design/gesture-harness/run-all.sh [index.html]`
   (Chromium-emulated touch; see its README for limits and known failures).
 - **iOS haptics:** from iOS 26.5 a scripted click gives no haptic, so swipe
   gestures are silent there by platform limit (owner-confirmed); real taps
@@ -211,6 +215,9 @@ concept is in progress. Get a decision before building.
   open: a trip entity and day-trip filing, with no distance setting for
   the user (`design/trip-location-model/`). Adding a place must stay
   low-friction.
-- **Day agendas** — ordered per-day route to plan and follow; scope the
-  smallest v1.
+- **Plans** — v3 (build and follow in one list, shared filters, grey
+  numbers, map tags, Undo slip) is built on `plans-v3-build`, not merged;
+  the plans migration must be applied before anyone can create a plan.
+  Spec: `design/plans-deepdive/v3/README.md`; shipped entry "Plans (v3
+  build)". Route mapping is on the roadmap.
 - **Ghost VISITED stamp in the popup** — new idea, concept stage.

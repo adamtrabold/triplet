@@ -13,7 +13,7 @@ visited-checkbox fix · Get Directions · delete-only list row · popup buttons
 side-by-side · popup category gap · visited passport stamp · visited rows
 recede · pressed row darker · list click opens popup · Pencil Star (rounds
 1–8) · swipe-left visited · sheet reaches bottom edge · popup + replay (p8) ·
-search widens on a miss.
+search widens on a miss · state system · plans (v3 build).
 
 - Marker size/density fix — merged to `main` (`05afef5`). Two-tier sizing
   (`MARKER_SIZE_NEAR`=24/`MARKER_SIZE_FAR`=16, scale-aligned to `--s6`/
@@ -693,3 +693,364 @@ finding was fixed and another introduced.
   a 9px JS-rendered sort-menu label: static green, runtime fails); an
   `impeccable-disable` comment no longer hides findings; offline with a cold
   npm cache and no Chromium both exit 3.
+
+## Plans (v3 build, 2026-10-01; phase 1 folded in)
+
+Owner-approved spec: `design/plans-deepdive/v3/README.md` (on branch `plans-v3`
+until it lands), its checklist `design/ACCEPTANCE-plans.md` (struck lines are
+superseded), frames and owner images beside it. The owner's words that set it
+are quoted at the top of that README; they bind: the same filter panel (city
+chips + category chips) live in both views; no NEXT; one grey number state;
+the number LEFT of the icon, the icon shifted so the Places left-edge ink
+alignment holds; one centre axis at x=30 for chevron / number / Places icons;
+Places clusters and pins exactly as in Places, a stop is a normal pin with a
+neutral square number tag; × on the right as in Places; + grey; numbers stay
+(route mapping deferred); no heavy navy lines. Build record, tests and stills:
+`design/plans-build/`. **Not merged; the plans migration is not applied.**
+
+**Schema.** `supabase/migrations/20260929000000_add_plans.sql`, **not applied
+yet** (the operator applies it after review). `plans(id uuid, name text
+1..80 chars, created_at)`; `plan_stops(id uuid, plan_id → plans ON DELETE
+CASCADE, location_id uuid NULL → locations ON DELETE CASCADE, shape_id bigint
+NULL → neighborhood_shapes ON DELETE CASCADE, position float8, created_at)`,
+`CHECK (num_nonnulls(location_id, shape_id) = 1)`, a place at most once per
+plan (partial unique indexes), RLS identical to the other tables.
+`location_id` is **uuid, not text**: the live `locations.id` is uuid (checked
+through the connector), and a text column can't reference it.
+
+**Model.** Places | Plans is one joined switch (a radiogroup; Places first and
+the default). It changes only what the list shows, and so what the map draws:
+never the city, the chips, the sort, or whether the panel is open. Places is
+the app as it was. Plans is where you both build and follow a plan (no Edit
+mode, no DONE, no "Edit stops").
+
+**Panel (identical in both views).** One 61px row: the switch (176px) and the
+plan picker (the open plan's name ⌄; "Pick a plan" before one was ever
+opened; grey in Places, where picking opens the plan in Plans; with no plans
+it is an empty select, "No plan" in `--ink-2`, regular case, chevron kept,
+whose slip holds only New plan). Then the city
+chips and the 11 category chips exactly as in Places. Both controls speak the
+city chips' language (1px `--hair`, ink text); the switch's ON half is the
+state system's solid navy tile. The picker drops a slip over the chips (no
+layout change; 1px `--hair` + 2px `--hair` drop): every plan with its count
+and ⋯ (Rename / Delete plan… (in `--ink-2`, not the city accent; its confirm() is the guard) / Cancel in the row, for any plan, without opening
+it), then New plan → name → Create / Cancel. Open picker = the pressed tone
+with the chevron up (a named exception to "open = navy": beside the PLANS
+half, navy read as a third segment). Picking closes the slip and keeps the
+panel open. `#filtersPanel` max-height is `calc(40vh + 33px)` in both views so
+every chip shows unscrolled (the map above the open panel is 33px shorter
+than before). Delete plan asks with the phone's own dialog ("Delete “<plan>”?
+Its places stay in your list.").
+
+**The Plans list.** (1) The open plan's stops, all of them, in plan order,
+whatever the filters (the chips choose what you can add; they never hide your
+plan or break its numbering). (2) Places' group divider (the last stop's 1px
+`--hair` + the rule's 1px = 2px) with a one-line caption: "Add from
+<city>[ · cafe, bar | · n categories | · no categories] (n)", n = the rows
+below. (3) Every place and district/street the filters match that is not a
+stop, in the current sort (⇅ is shared with Places and orders only this part;
+its menu caption reads "Sort places not in the plan"), each with +. Header:
+just the plan's name (20 characters fit at 390px; an ellipsis after); a tap
+on it scrolls the list back to the stops. After a city or chip change in
+Plans the list scrolls so the rule is at the top (`showPlanRule()`). Empty
+lines: "No places match these filters." / "Every place these filters match is
+in this plan." / "No stops yet · tap + on a place below" (an empty section: Places'
+condensed bold caps in `--ink-2`, no glyph, no italic; the compass glyph belongs
+to an empty whole list) / "No plans yet." +
+"A plan’s stops show here and on the map." as two explicit lines (never left
+to text-wrap) with the one New plan button, 1px `--hair` like a city chip
+(sign-in first if needed); with no plan open the map draws nothing and ⇅ hides
+(`body.plan-none`).
+
+**Rows (one left axis, x=30).** Rows stay 56px. A stop row
+(`.plan-num-row`, built by `planLead()`) is [number in the 28px glyph
+column][its Places badge in a second glyph column, x=56–84][text at x=96; a
+starred stop keeps Places' star slot, name at 122]. The number (`.row-n`) is
+13px/600 `--ink-2`, tabular, centred on x=30 for 1 and 2 digits, one state
+(paper when the row is highlighted). Its hit area is 44×44, from the screen
+edge to the glyph column's edge; `-webkit-touch-callout: none`, no selection;
+grab cursor. **Optical icon edge:** the stop's badge is moved by its ink, not
+its box: `.row-lead .row-badge { transform: translateX(-1.33px) }`, the
+district diamond `-1.83px` (a transform, so the sub-pixel shift isn't
+snapped), so rings land where Places names' round capitals land and the
+diamond's tip where A/T land (≤0.5px at 1x and 3x, `ink.js` → `check.js`).
+Places rows below the rule are plain Places rows. × on a stop (`.plan-x`)
+removes it from the plan; + on a place (`.plan-add`) adds it as the last
+stop: it is the same × glyph, button, font, size and weight, the glyph alone
+turned 45° (`.plan-add-glyph`, designer); both are bare `--ink-2` glyphs in the Places delete ×'s 28px slot
+with a 44×44 hit area, and both fire only on a near-still tap
+(`DELETE_TAP_SLOP`; shape rows got the same slop tracking for +/×). No control
+in Plans deletes a place. A visited stop is simply a Places visited row
+(filed field + stamp at its normal ink); there is no NEXT anywhere.
+
+**The slip** (`#planSlip`, `PLAN_SLIP_MS` 6000): "Added <name> as stop n ·
+Undo" / "Removed <name> · Undo" / **"Moved <name> to stop n · Undo"** (the
+reorder Undo, recommended by UX; v3 had listed it as deferred). The first
+time a plan reaches 2+ stops on a device the add slip reads "Stop n added ·
+hold a number to move" (`triplet.reorderHint`, once). One form (designer): a
+full-bleed band. On the rule it covers exactly the caption line, 1px `--hair`
+top and bottom; when the rule is scrolled out of the list the same band fills
+the list header flush (its full 57px, no border or radius) from x=0 to 8px
+before the filter toggle, so filter and locate stay live (letter-spacing drops
+to 0.04em only if the text wouldn't fit one line). Undo sits after a 1px
+`--hair` divider. It rides scroll and panel toggles and
+never covers the map, a chip, a stop row or a +. Undo: add → `removeStop`,
+remove → `restoreStop` (the same row back at its old position), move →
+`reorderStop` back to the old index (same order; the stored position may
+differ).
+
+**Reorder.** Hold the number (or the stop's icon) still (`STOP_HOLD_SLOP`
+4px) for `STOP_HOLD_MS` 400ms (UX: clear of a scroll's settle), then drag.
+The lifted row sits on `--paper-raised` with a 1px `--hair` ring and 3px
+`--hair` drop, stays inside the list's box, and the other stops make room.
+Within `STOP_EDGE` 48px of the list's edge the list auto-scrolls (up to 12px
+a frame), so stop 7 reaches stop 1 with the panel open. Until the hold arms,
+a touch on the number belongs to the row (tap flies, vertical stroke
+scrolls, sideways stroke stars/visits): `attachStopDrag()` is registered
+before `attachStarGesture()` and only an armed hold stops the stroke. Mouse:
+the same hold; one window-level pointer pair (`stopMouseDrag`). Keyboard on
+the focused number: ArrowUp/Down one place, Home/End to first/last. Every
+move answers with the "Moved" slip.
+
+**Map (r17/r18, owner; design/plans-deepdive/v3 §12–§13).** Everything is
+Places: pins, red count clusters, `SOLO_MIN_ZOOM`, tap-to-zoom, the
+tapped-place highlight -- and stops cluster exactly like any pin (owner:
+"Stop clusters should function the same as a normal cluster"); the count
+includes them. A district/street stop joins the grid at its centroid
+(`'shape:<id>'` members in `mapVisibleLocations()`; clustered, its own mark
+hides via `clusteredShapeIds`). **A single stop pin shows its number in place
+of the category glyph** (owner: "change the icon to the number like we used
+to do"; `planNumberIcon()`): the same ring in its category ink (dashed for an
+approximate pin, a diamond for a district/street), the same paper field, the
+near size at every zoom; the numeral is `--ink-2`, 13px/700 (12px for two
+digits); selected, the ring fills with its ink and the numeral turns paper.
+No tag beside a single pin. **A red cluster holding stops carries one grey
+ring tag** (r19, designer v3 §14: drawn like a stop pin -- paper field, 1.5px
+`--ink-2` ring, grey 10px/700 numeral; a 16px circle for one number, a pill
+for more; rejected: a solid grey disc read as a second cluster, a square was
+the one square on a map of circles) listing their numbers ("3", "2–4", "1,5–6"; past
+`CLUSTER_TAG_MAX_RUNS` 3 runs "first…last"), flush against the count
+(`CLUSTER_TAG_GAP` 2px from the digits, level): on the right, on the left
+when the cluster's star rides its upper right, then above / below if a side
+runs off the visible map, onto a control, another tag or another cluster's
+count (`clusterStopTags()`). With no clean spot it takes the least-bad one:
+over another cluster's count is worst, then off the map, a control, another
+tag; a tag forced over a count (a knot of overlapping clusters) is marked
+`data-forced` and disclosed by matrix/sweep, not failed. **Tags never overlap
+(r20, v3 §15):** a tag whose best spot still lands on another tag, or under
+another tag-bearing disc, merges its numbers into that tag ("1,5" + "2,4" →
+"1–2,4–5"), which is placed again at its new width; a tap on either cluster
+zooms in. **A tag's numerals are always on top:** the tag stacks above its
+cluster's star (`z-index: 3`; the star may tuck under its edge) and a
+tag-bearing cluster draws above plain ones (`Z_PLAN_CLUSTER + 1000`, reset
+every pass). The tag may cover part of the disc, never a digit; a tap on it
+zooms in like the disc. A stop pin whose centre lies under a neighbouring
+cell's disc joins that cluster's tag (`applyPlanMap()`). Its shape is one
+dial, `--cluster-tag-radius` (8px, fully round). The list is unchanged
+(owner). At `SOLO_MIN_ZOOM` and above nothing clusters, so a list tap always
+lands on the stop's own numbered pin. Two single stop pins drawn on top of
+each other show the lower number (Places' pin stacking; disclosed by
+matrix/sweep, not failed).
+**Z ladder (open plan only; Leaflet adds the marker's screen y, so the
+steps are 5000 apart):** selected stop `Z_PLAN_HI_STOP` 35000 > a cluster
+carrying a stop tag `Z_PLAN_CLUSTER` + 1000 > other clusters `Z_PLAN_CLUSTER`
+30000 (+100 starred; as in Places they beat every pin) > stop `Z_PLAN_STOP` −
+n (lower numbers on top) > the tapped place `Z_PLAN_PICKED` 15000 > places
+0–500. Cluster ids carry the view ("pcluster:") so switching views recreates
+them on the right rung.
+Superseded (history): r7–r15 drew a stop as its glyph pin plus a free-standing
+grey tag placed on one of eight spots, stops never clustered, and r16 nudged
+discs off stop pins; the owner rejected all three.
+
+**Default view** (`frameActivePlan()`, jumps, no fly): framed inside
+`planSafeBox()` (24px in from the sides, 16px below the top controls, 24px
+above the open panel or the attribution). Building (panel open): the stops
+and every place the filters match. Following (panel closed): the stops in the
+selected city chip; with ALL CITIES, or when that city has no stops, every
+stop. A city chip in Plans frames the plan this way instead of the city
+(`setActiveCity()` skips `focusCity()` then); a category chip re-fits too.
+Opening and closing the panel re-fit (building ↔ following) while the map is
+where the app last put it (`planMapUnmoved()`); after your own pan, closing
+leaves it alone and opening keeps your zoom and pans the least that lifts
+the stops you had on screen into the strip. After +, if the new stop is
+outside the safe box: re-fit (unmoved map) or pan the least (moved map). A
+plan with no stops yet frames the places the filters match (with none, the
+city) and records the view, so the first + re-fits rather than chasing (UX
+review: before this, seven adds into a new plan left 4 of 7 stops off the
+safe box). ALL CITIES while building zooms out to every city's places
+(still 08b); after closing the panel, following frames every stop (Q1), so
+still 08 shows the Copenhagen stops.
+
+**Other states.** Signed out: everything readable; + / × / drag / keyboard
+moves / New plan / Rename / Delete open the sign-in. Tables missing: the
+picker reads "Not set up yet" (disabled), the list "Plans aren’t set up yet.",
+no banner, the chips stay live, a stored Plans view starts in Places (only in
+this case), Places is unchanged. Offline (any other read failure,
+`plansOffline`): Plans keeps its view, the picker reads "Offline", the list
+keeps what's loaded ("Offline. Plans load when you’re back online." if
+nothing was); the next good read clears it. With no plan open (none yet, not
+set up, offline) the map frames the selected city exactly as Places does
+(`focusCity()`: ALL CITIES = Places' all-cities fit), no stop pins.
+
+**Owner-approved Places changes (2026-10-01; shipped Places behaviour).**
+(1) A list-row tap (pin or district/street, Places and Plans) closes the
+filter panel first (`closeFiltersPanel({ reframe: false })`, the sliders
+button's close without the Plans re-fit, since the map is about to fly), then
+flies and opens the popup; the panel stays closed with its filters, plan and
+view kept; + / × / the delete X never close it. Every popup's autoPan keeps
+it clear of the list sheet (and the panel, if open) via
+`autoPanPaddingBottomRight` (`pinPopupBottomPad()`). (2) An empty list says
+why (`emptyMatchText()`): "Nothing matches these filters." when the chips hide
+places that exist, "Nothing here yet." for a city with no places (Places, and
+below the divider in Plans). (3) The shared banner (`#error`): never a raw
+message; tap to dismiss; above the floating badges (z 2100); a write that
+fails for want of a connection (fetch TypeError, "Failed to fetch" / Safari
+"Load failed", or `navigator.onLine` false) shows "Couldn’t save. Check your
+connection." for `BANNER_WRITE_MS` 6s (the row has rolled back); an RLS
+refusal shows "Only Adam and Erica can edit places." (plans: "…edit plans.")
+until tapped; any other write failure "Couldn’t save. Try again."
+(`showWriteError()`); a failed read (load or poll) shows the navy info band
+"Offline. Showing what’s loaded." ("Couldn’t load. …" if not a network
+failure) and keeps the list, cleared by the next good read of that source or
+the `online` event, with no view switch (`showReadProblem()`). Gate: the
+gesture harness's `places-ux.js` 30/30, popup-open 20/20 unchanged.
+
+**Final review fixes (critics-final 9c5296e, CD 9/10).** (1, P1) The slip
+waits out `flipPlanList()`'s 150ms slide (`planSliding`: hidden, then
+`placePlanSlip()` on the settled rule): it had been measured mid-slide and left
+on the rule's old place for 6s, over the next row's + after ×, over the new
+stop's name after +. Riding the rule frame by frame was tried and rejected:
+mid-slide every spot near the rule is crossed by a moving row. Pause/6s timer
+unchanged. Gate:
+plan-rows "the Added / Removed slip never covers…", both motion modes, sampled
+at 40/110/260/1000/3000ms. (2) The slip's text is `[before, name, after]`:
+only the place name truncates (`.slip-name`), so "Added Café Lo… as stop 4"
+always shows the number (plan-rows case). (3) The banner is focusable
+(`tabindex=0`, focus ring): Enter / Space on it or Escape anywhere dismisses
+it; no focus trap (plantest B4). (4) The stray "4" beside the "1–2,4" tag in still 41 was
+stop 4's own pin, half under the disc, its number already in the tag. In
+Plans a pin partly under a cluster disc now shows its ring only
+(`.glyph-clipped`, `applyPlanMap()`): a stop pin absorbed into a tag hides its
+number, and a place pin within the disc's reach hides its glyph. Clusters
+stay exactly as in Places; raising pins above clusters would have changed
+them. (5) The banner's keyboard hint is `aria-keyshortcuts`, not hidden
+text: hidden text inside the uppercase banner was a new Impeccable all-caps
+finding.
+
+**UX round (2026-10-01).** + and × ignore taps for `PLAN_ACT_LOCK_MS` 400ms
+after a row action (a double tap never adds or removes twice; the lock is
+dropped if nothing was written, e.g. signed out). Removals while the slip
+still shows merge into one slip, "Removed n stops"; Undo restores them all
+in their old positions; an add or move replaces the slip. Undo is ≥44px wide
+with a 36px tall target on the 26px rule band (taller would reach the × above
+and the + below; the header band is its own height), the `.plan-act` focus
+ring (`inset 0 0 0 2px var(--navy)`); the 6s timer pauses while the slip is
+hovered, focused or pressed and restarts a full 6s on leaving. After + / ×
+(and their Undo) the rows on either side of the change slide 150ms to open or
+close the gap (`flipPlanList()`, `.plan-shift`), the changed row just appears;
+reduced motion: instant. The picker's plan list scrolls when the plans don't
+fit above the panel's bottom, capped so the last visible row is cut in half,
+with New plan pinned below; otherwise its bottom never cuts through a chip
+(`layoutPlanLedger()`). The sliders button is "Filters and plans" (title and
+aria-label) with aria-expanded / aria-controls="filtersPanel"; the account
+and locate buttons got aria-labels (audit P1, WCAG 4.1.2). The add form opens over Plans unchanged; a new
+place that matches appears below the rule with +. Deleting (Places ×) a place
+that is a stop: "Delete <name>?\nIt is a stop in “<plan>”; it will leave that
+plan too." and the plan closes up to 1..n. Collapsed sheet and the ≥900px
+rail work as in Places.
+
+**Data layer** (unchanged from phase 1, plus `restoreStop`): `fetchPlans()`
+(polled with locations), `createPlan`, `renamePlan`, `deletePlan`,
+`addStop(planId, {locationId} | {shapeId})`, `removeStop`, `restoreStop`,
+`reorderStop(stopId, toIndex)`, and the UI wrappers `planRowAct()` /
+`moveStop()` (the slip). Optimistic with per-write rollback (`planWrite()`),
+reads not applied while a write is in flight, the last to settle refetches.
+Client-generated uuids. A reorder writes one row at the midpoint of its new
+neighbours; closer than 1e-9 → the plan renumbers 1..n in one upsert.
+**Fails soft:** any read error → no banner, no throw. Per-device state in
+localStorage inside try/catch (`triplet.listView`, `triplet.activePlan`,
+`triplet.reorderHint`). Plans' own reconciler (`syncPlanCards()`) replaces
+`syncLocationCards()`/`syncShapeCards()` in Plans; an unchanged poll touches
+no DOM. Sign-in copy: "You need to log in to make changes. Anyone can view
+places and plans without logging in."
+
+**Decided in the build (spec silent or contradictory; for designer/UX):**
+the reorder Undo copy "Moved <name> to stop n" and that keyboard moves show
+it too; the prototype's muted VISITED stamp in Plans was dropped (README §3 /
+C6: nothing plan-specific); + / × on district/street rows got the
+near-still-tap slop (Places' shape delete keeps its old behaviour); a
+city chip in Plans frames the plan instead of first flying to the city (the
+prototype's animated `focusCity()` then jump caused frame 08's z9 view by a
+race; the build follows §4: following with ALL CITIES fits every stop);
+`showPlanRule()` lands the rule exactly at the list top (the prototype was
+57px low); the picker reads "Pick a plan" until a plan was ever opened on the
+device (as frame 01). Option (b) "plan-only map while following" (frame 38)
+was not built (README recommends (a), the one Places rule); its frame and
+truth were dropped from the suite.
+
+**Rejected / superseded (history, not commandment).** Phase 1 (built at
+`ba0865c`, never merged): the Plans side hid the chips and ignored the
+filters; an outline number tile in the ×'s slot with one solid navy NEXT
+tile; numbers replaced the pin glyph on the map (only ≥ `GLYPH_MIN_ZOOM`);
+only the plan's stops on the map; "Edit stops" (Coming next) as the first
+row; no ⇅ in Plans; the stamp muted to 55% navy. Owner, on that build: "the
+numbers feel really egregiously attention grabbing … the number/drag control
+should probably be on the left", "I need a filter panel that supports all the
+chips and location menu on both views". Phase 1 learnings kept: the data
+layer, fail-soft, the per-device state, the panel re-fit-if-unmoved rule, and
+Plans' own reconciler. v2's Edit mode (≡ grips, DONE, hidden chips) was
+superseded by building in place. Rounds 2–15 of v3 rejected: digit-free group
+marks, range pills, halos and faint places on the map (owner: "I don't like
+using a different approach for clustered places"); numbers inside the pin
+ring (owner: "color coding is not enough … needs to preserve the icon"); a
+navy + tile, navy rule, navy boxes and a navy NEXT tag (owner round 11:
+"Getting heavy handed with the thick blue lines"); the number after the icon
+(round 13); a left-aligned number column at x=16 (round 14: one centred axis);
+icon boxes aligned at 56 (round 15: aligned by ink). Deferred (v3 §6): add
+from a popup or the add form, sharing a route to Maps, animating the default
+fit, route mapping (backlog roadmap).
+
+**Known and accepted** (v3 §4, §13): at z≥14 stops can sit over candidate
+pins; zoomed out, a plan becomes clusters with grey tags; a stop pin's
+category reads from its ring's colour and shape only (the list and popup
+keep the icon); below z12 a candidate is a bare ring; a visited stop's pin
+looks unvisited on the map (see "Visited pins"); after your own pan,
+reopening the panel can leave a pin under a control.
+
+**Checks (Chromium, stubbed Supabase; scope = the whole diff, since row
+plumbing is touched).** All in `design/plans-build/` (run with
+`VENDOR=<dir with leaflet.js, leaflet.css, archivo.css, *.woff2>`, optionally
+`PAGE=<index.html>` and `OUT=<scratch dir>`; nothing writes into the repo):
+`plantest.js` (v3 suite: fail-soft, Places unchanged, panel parity, the list,
+numbers, map tags + ladder, popups, persistence, poll, add/remove/reorder +
+Undo slip incl. touch and mouse hold-drag and keyboard, shape slop, writes,
+rollback, login gate, default view, star/visit swipes on stop rows, rail,
+collapsed); `griptest.js` (row controls under CDP touch: the number's 44×44
+target, hold-drag 400ms vs scroll / tap / star / visit, long moves, keyboard,
++ / × slop, delete copy, filters); `ink.js` → `frames.js` (48 states, incl. the build's reorder-Undo frame 14b, at 1x and
+3x + crops, `frames.json`) → `check.js` (per-frame truths incl. the x=30 axis
+and the ink edges ≤0.5px); `matrix.js` (the map rules R1–R5, FIT, REOPEN,
+SLIP over z9–z15 × three plans × panel/collapsed); `sweep.js` (r20: 980
+panned views at z11–z15: no two tags overlap, each tag's digits on top at 3
+points, every stop in view findable as its numbered pin or in a tag, tags
+flush and never over a count unless forced; stacked pins and forced knots
+disclosed). Places regressions:
+`list-ordering/build/sorttest.js`, `state-system/check.js` + `matrix.js`,
+`gesturediff.js` against origin/main, `trip-location-model/widen-test.js`;
+Impeccable exactly the 3 baseline findings. The row-gesture gate
+(`design/gesture-harness/run-all.sh`) gained `plans.js` (plan rows, 22 cases:
+taps on text and number, star right, visit left from ×, quick and 300ms-rested
+vertical strokes scroll, the 450ms hold lifts and moves, × / + slop, rows 56).
+Results after the final review fixes (Chromium; merged with origin/main 8c4c102):
+plantest 141/141, griptest 30/30, check 405/405 (49 frames), matrix 56 cells
+611/611, sweep 980/980 (710 tags; 177 disclosed: stacked single pins, stop
+pins whose number moved into a tag, forced knots), plan-rows 26/26, Impeccable gate PASSED (static 3/3, runtime 16/16, plans state
+now in the runtime baseline, owner/operator-approved; 0 new), places-ux 30/30,
+sorttest 77/77, state-system check 11/11 and matrix 66 cells × 3 scales 0 failures,
+gesturediff identical to origin/main (22 outcomes), widen-test 19/19. Gesture
+gate, this build: star "84 + 8 (+ N8-a)" · vtest 91/95 · popup-open 20/20 +
+20/20 · dust 0 frames · rows 56.00px · curve8 10/3 · delete-slop 36/36 ·
+plan-rows 22/22 -- the same failures as origin/main (V14 ×2, V15 ×2, curve8
+10 vs ≥11, all pre-existing), so no regression. Stills:
+`design/plans-build/stills/` (the v3 states rendered from the real build at 1x
+and 3x, with crops, and `truths.md`).
