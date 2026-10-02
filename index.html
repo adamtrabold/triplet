@@ -1263,7 +1263,7 @@
        x of the action column is what makes it scannable -- a column of
        stickers down the right edge. Replaces the dotted-track VISITED stamp.
 
-       A cream rounded label 72x24 (--s6 x3 by --s6; a stadium) carrying the
+       A flat cream oval 72x24 (--s6 x3 by --s6) carrying the
        check (8px, stroke 2.1) + VISITED in the meta line's voice (10px
        condensed caps, .08em), --s3 (12px) padding each side -- the
        filter chips' padding; the flap counts as the left padding. The
@@ -2402,14 +2402,14 @@
          the referencing sticker's own px (userSpaceOnUse, so a straight crease
          never gets a zero-height filter box). FAR is the NEAR shadow x1.1
          opacity, x0.8 offset/blur, crease blur x0.7 (README, round 7b). The
-         row's flap is clipped to its label (stk-row-clip = the 72x24 box's stadium). -->
+         row's flap is clipped to its label (stk-row-clip = the 72x24 box's oval). -->
     <filter id="stk-shadow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0.5" dy="1.1" stdDeviation="1.1" flood-color="#6b4a28" flood-opacity="0.21"/></filter>
     <filter id="stk-shadow-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0.5" dy="0.88" stdDeviation="0.88" flood-color="#6b4a28" flood-opacity="0.16"/></filter>
     <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.6" stdDeviation="0.8" flood-color="#6b4a28" flood-opacity="0.62"/></filter>
     <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feDropShadow dx="0" dy="0.5" stdDeviation="0.6" flood-color="#6b4a28" flood-opacity="0.68"/></filter>
     <filter id="stk-crease" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.9"/></filter>
     <filter id="stk-crease-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.63"/></filter>
-    <clipPath id="stk-row-clip"><rect x="0" y="1" width="72" height="22" rx="11"/></clipPath>
+    <clipPath id="stk-row-clip"><ellipse cx="36" cy="12" rx="36" ry="11"/></clipPath>
   </defs></svg>
 
   <div id="error" role="alert" tabindex="0" title="Tap to dismiss" aria-keyshortcuts="Enter Escape">
@@ -4299,7 +4299,7 @@
       STAR_HALO: 1, STAR_OUT: { near: 1.5, far: 2.5 },   // the star's halo (px, total) and its step out along the shoulder (px)
       PIN_BACK: '#D8CDB8', PIN_BACK_HI: '#E7DFD0',   // the flap's back: one paper step deeper than the cream face (selected: --paper-filed)
       CREASE: 'rgba(92,62,32,0.16)',        // faint contact crease, 1.5px, blurred (#stk-crease)
-      ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 6, FACE: '#FAF5EA', BACK: '#D8CDB8' },
+      ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#FAF5EA', BACK: '#D8CDB8' },
     };
     // The check: a FILLED path with square ends and corners softened by 1/24,
     // like the category glyphs (not a round-capped stroke). One path per size
@@ -4387,14 +4387,14 @@
     // The row sticker. pose: rest | lift (hovering pre-commit: flap curled
     // high) | press (the 56px frame) -- the keyframes' fold states, eased
     // between by vsPlace(). [fh, L]; rest keeps the flap's reach at ~5px.
-    // The label is a stadium (a rounded label, not a lens): its left cap's extent
-    // along the peel is (RX - RY) sin(ANG) + RY.
+    // The approved flat wide OVAL (owner: the rounded-label variant was rejected);
+    // its extent along the peel is the ellipse's support distance.
     const ROW_STICKER_POSE = (() => {
-      const R = { RX: 36, RY: 11, ANG: 50, REACH: 6 }, a = R.ANG * Math.PI / 180;
-      const ext = (R.RX - R.RY) * Math.sin(a) + R.RY;
+      const R = { RX: 36, RY: 11, ANG: 50, REACH: 5 }, a = R.ANG * Math.PI / 180;
+      const ext = Math.sqrt(R.RX * R.RX * Math.sin(a) ** 2 + R.RY * R.RY * Math.cos(a) ** 2);
       return { rest: [1 - R.REACH / ext, 0.94], lift: [0.588, 0.35], press: [0.652, 0.7] };
     })();
-    function rowStickerFold(fh, L) { const R = STICKER.ROW; return stickerFold('pill', R.W, R.H, R.RX, R.RY, R.ANG, fh, L); }
+    function rowStickerFold(fh, L) { const R = STICKER.ROW; return stickerFold('ellipse', R.W, R.H, R.RX, R.RY, R.ANG, fh, L); }
     function rowStickerHtml(id, pose = 'rest', cls = '') {
       const R = STICKER.ROW, [fh, L] = ROW_STICKER_POSE[pose], g = rowStickerFold(fh, L), box = `width="${R.W}" height="${R.H}" viewBox="0 0 ${R.W} ${R.H}" aria-hidden="true"`;
       return `<span class="row-stamp${cls}" style="--stamp-tilt:${stickerTilt(id)}deg" aria-hidden="true">` +
