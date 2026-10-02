@@ -102,6 +102,10 @@ sources are the file where the quote is recorded.
 
 ## Shadows / edges / lines
 
+- **Effects (shadow, gradient, shade) must be restrained:** the owner has
+  called them too harsh/intense three times ("Shadow is too harsh", "Shadow
+  isn't realistic / too intense", "far too intense"); default to subtle and
+  let the owner ask for more.
 - **Natural shadow, not harsh.** "Shadow is too harsh should look more
   natural" (sticker; chat).
 - **Edges are shadows, not hard lines.** "the dark line on the edge should be

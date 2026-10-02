@@ -2266,7 +2266,7 @@
        (.vs-peel) wears the same shadow. At rest the label sits on a short
        warm contact shadow, so the lighter cream reads as a label laid on the
        filed row, not a smudge in it. */
-    .row-stamp > .stk-base { filter: drop-shadow(0 1px 1.8px rgba(138, 106, 68, 0.26)) drop-shadow(0 0 0.35px rgba(138, 106, 68, 0.16)); }   /* paper on paper: wide, faint, warm; no dark core (owner: "Shadow isn't realistic / too intense") */
+    .row-stamp > .stk-base { filter: drop-shadow(0 1px 1.8px rgba(138, 106, 68, 0.10)) drop-shadow(0 0 0.35px rgba(138, 106, 68, 0.06)); }   /* paper on paper: wide, faint, warm; no dark core (owner: "Shadow isn't realistic / too intense") */
     .row-stamp.vs-open > .stk-base,
     .row-stamp.vs-peel > .stk-base { filter: drop-shadow(0 3px 2.4px rgba(40, 30, 20, 0.35)); }
     /* The veil: the row's own field, feathered (8px), behind the sticker and
@@ -2403,10 +2403,10 @@
          never gets a zero-height filter box). FAR is the NEAR shadow x1.1
          opacity, x0.8 offset/blur, crease blur x0.7 (README, round 7b). The
          row's flap is clipped to its label (stk-row-clip = the 72x24 box's oval). -->
-    <filter id="stk-shadow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.4" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.16"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.1"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="stk-shadow-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.0" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.13"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.08"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.24"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.14"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.24"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.14"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-shadow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.4" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.06"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.04"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-shadow-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.0" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.05"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.03"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.09"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.05"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.09"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.05"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="stk-crease" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.9"/></filter>
     <filter id="stk-crease-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.63"/></filter>
     <clipPath id="stk-row-clip"><ellipse cx="36" cy="12" rx="36" ry="11"/></clipPath>
@@ -4294,14 +4294,14 @@
       FOLD_L: 0.94,                         // at rest the flap lies (almost) flat: reflected x0.94 (1 - k, k 0.06)
       INK: '#3A4C5B',                       // the shipped stamp's ink: color-mix(--navy 82%, transparent) over --paper, flattened
       FACE: '#FAF5EA',                      // cream, one step lighter than the map's and the rows' cream: --paper-raised
-      EDGE: 'rgba(107,74,40,0.22)', EDGE_W: 1,   // owner: "The 1px hard edge to add shadow definition is fine": warm, faint, outer outline only (never the fold)
+      EDGE: 'rgba(107,74,40,0.09)', EDGE_W: 1,   // owner: "The 1px hard edge to add shadow definition is fine": warm, faint, outer outline only (never the fold)
       HI_FACE: '#5A564C',                   // selected: --ink-2, the app's grey-brown metadata ink
       STAR_HALO: 1, STAR_OUT: { near: 1.5, far: 2.5 },   // the star's halo (px, total) and its step out along the shoulder (px)
       PIN_BACK: '#D8CDB8', PIN_BACK_HI: '#E7DFD0',   // the flap's back: one paper step deeper than the cream face (selected: --paper-filed)
-      CREASE: 'rgba(138,106,68,0.10)',
+      CREASE: 'rgba(138,106,68,0.04)',
       // The lifted flap shades the sticker's own face just inside the fold, falling away across it
       // (owner: "maybe the flap needs to lay a shadow on the sticker?"): warm, soft, no line.
-      CURL: '#8a6a44', CURL_OP: [0.30, 0.13, 0], CURL_STOPS: [0, 0.45, 1], CURL_FALL: 0.45,        // faint contact crease, 1.5px, blurred (#stk-crease)
+      CURL: '#8a6a44', CURL_OP: [0.11, 0.05, 0], CURL_STOPS: [0, 0.45, 1], CURL_FALL: 0.45,        // faint contact crease, 1.5px, blurred (#stk-crease)
       ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#FAF5EA', BACK: '#D8CDB8' },
     };
     // The check: a FILLED path with square ends and corners softened by 1/24,
@@ -4372,11 +4372,11 @@
     // The flap's back is paper curling, not a flat chip (owner: "maybe the flap should have a
     // gradient instead of just flat color?"): one step deeper at the fold, the back's own tone
     // mid-curl, one step lighter at the tip where it turns to the light. Paper tokens only
-    // (--state-press-filed / the back / --paper-filed; selected: --paper-pressed / back / --paper).
+    // (40% of the way toward --state-press-filed / --paper-filed; selected: --paper-pressed / --paper).
     function stickerFlapDefs(id, g, back) {
       const [mx, my] = g.curl, [, , x2, y2] = g.curl, tip = Math.hypot(x2 - mx, y2 - my), reach = g.reach;
       const f = reach / (tip || 1), tx = mx + (x2 - mx) * f, ty = my + (y2 - my) * f;
-      const [fold, toTip] = back === STICKER.PIN_BACK_HI ? ['#DCD3C3', '#F2EBDD'] : ['#D1C8B7', '#E7DFD0'];
+      const [fold, toTip] = back === STICKER.PIN_BACK_HI ? ['#E3DACB', '#EBE4D5'] : ['#D5CBB8', '#DED4C2'];   // ~40% of a paper step either side of the back
       return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${mx.toFixed(2)}" y1="${my.toFixed(2)}" x2="${tx.toFixed(2)}" y2="${ty.toFixed(2)}">` +
         `<stop offset="0" stop-color="${fold}"/><stop offset="0.45" stop-color="${back}"/><stop offset="1" stop-color="${toTip}"/></linearGradient></defs>`;
     }

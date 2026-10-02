@@ -63,7 +63,9 @@ what's scored differs.
    unless execution proves it unworkable (then back to the owner).
 
 Small, well-specified follow-ups (owner-reported bug, tweak to an approved
-design) skip straight to stage 2.
+design) skip straight to stage 2. Tweak lane: self-review the stills against
+`docs/owner-taste.md` before showing the owner; iterate until you would
+defend them.
 
 ### Roles (owner-set)
 
