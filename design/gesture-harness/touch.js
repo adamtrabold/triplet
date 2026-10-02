@@ -9,6 +9,7 @@
 //   - popup "pencil draw / rub" -> p8 popup: fade + pop once / fade + lift to hollow
 //   - S3's "main" reference -> the same page with the row gesture detached (the
 //     scroller alone), since main now IS the gesture build
+//   - N3 "shape row gives 6px" -> [parity] the stroke stars a shape row (2026-10-02)
 // Also runs N8-a (mouse click on the popup star keeps focus on the button; touch
 // leaves it on body) and reports it separately: it is the "(+ N8-a)".
 // FILE=<index.html> OUT=<json> node touch.js
@@ -174,14 +175,16 @@ const n8 = [];
         await new Promise(r => setTimeout(r, 1200));
         a.unstarred = !locations.find(l => l.id === id).starred; a.hollow = !!document.querySelector('.leaflet-popup .popup-star use[href="#g-star-open"]'); return a; }).catch(e => ({ err: e.message }));
       r('[p8] popup: 1 tap fades + pops the ink once (no pencil, no replay on re-render); unstar fades off to hollow', out.starred && out.play && !out.drawn && !out.replay && out.out && out.unstarred && out.hollow && !errors.length, { out, errors }); await ctx.close(); }
-    // --- N3 shape give
+    // --- N3 [parity] (owner 2026-10-02, "Every category should have the same information and
+    // capabilities"): a shape row no longer just gives 6px -- the stroke stars it as on a pin
+    // row; shapes.js runs the rest of the pin cases on shape rows.
     { const { ctx, page, cdp } = await fresh();
       const has = await page.evaluate(() => document.querySelectorAll('#locationsList .location-card[data-shape-id]').length);
-      if (has) { const q = await page.evaluate(() => { const e = document.querySelector('#locationsList .location-card[data-shape-id]'); const l = document.getElementById('locationsList'); l.scrollTop += e.getBoundingClientRect().top - l.getBoundingClientRect().top - 60; const b = e.getBoundingClientRect(); return { y: b.y + b.height / 2 }; });
-        await W(150); let maxT = 0;
-        await drag(page, cdp, line(170, q.y, 260, q.y, 15), { onStep: async () => { const t = await page.evaluate(() => { const m = document.querySelector('#locationsList .location-card[data-shape-id] .row-main').style.transform; return parseFloat((m || '').slice(11)) || 0; }); maxT = Math.max(maxT, t); } });
-        await W(400); const end = await page.evaluate(() => document.querySelector('#locationsList .location-card[data-shape-id] .row-main').style.transform);
-        r('N3: shape row stroke gives <=6px and springs back', maxT > 0 && maxT <= 6 && !end, { maxT, end }); }
+      if (has) { const q = await page.evaluate(() => { const e = document.querySelector('#locationsList .location-card[data-shape-id]'); const l = document.getElementById('locationsList'); l.scrollTop += e.getBoundingClientRect().top - l.getBoundingClientRect().top - 60; const b = e.getBoundingClientRect(); return { y: b.y + b.height / 2, sid: Number(e.dataset.shapeId) }; });
+        await W(150);
+        await drag(page, cdp, line(170, q.y, 260, q.y, 15)); await W(1300);
+        const end = await page.evaluate(sid => { const e = document.querySelector(`#locationsList .location-card[data-shape-id="${sid}"]`); return { starred: !!neighborhoodShapes.find(n => n.id === sid).starred, printed: !!e.querySelector('.row-star'), tf: e.querySelector('h3').style.transform, nav: __nav.length, live: document.querySelectorAll('.sg-star').length, h: e.getBoundingClientRect().height }; }, q.sid);
+        r('N3 [parity]: a shape row stroke stars it as on a pin row (printed star, no nav, 56px)', end.starred && end.printed && !end.tf && !end.nav && !end.live && end.h === 56, end); }
       else r('N3: shape row present', false, {}); await ctx.close(); }
     // --- N8-a (reported separately): mouse click on the popup star keeps focus on the star button; a touch tap leaves body
     for (const how of ['mouse', 'touch']) { const { ctx, page } = await fresh();

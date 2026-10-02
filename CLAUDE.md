@@ -127,8 +127,9 @@ operator makes none of these calls.
 - `locations`: pins — `city`, `category`, `lat/lng`, `visited`, `starred`.
 - `neighborhood_shapes`: districts/streets — `city`, `type`
   (`district`|`street`), `geometry` (array of `[lat,lng]`, not GeoJSON),
-  fetched live from OSM (Nominatim polygon / Overpass way) at add time. No
-  `visited` column.
+  fetched live from OSM (Nominatim polygon / Overpass way) at add time;
+  `visited`, `starred` like pins (2026-10-02). Shape rows/popups run the pin
+  code via `shapeRowItem()`, keyed `'shape:<id>'` (`rowItem()`/`rowKey()`).
 - `plans` / `plan_stops`: named, ordered stop lists (a stop is a pin OR a
   shape); read by `fetchPlans()`, fail soft when the tables are missing.
 - `cities`: runtime-extensible registry, merged into (never replacing) the

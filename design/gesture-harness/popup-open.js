@@ -53,7 +53,7 @@ const { rec, finish } = recorder('popup-open');
     for (const type of ['district', 'street']) { await home(); await W(150);
       const sid = await page.evaluate(t => neighborhoodShapes.find(n => n.type === t && n.city === activeCity).id, type);
       await tapRow(`.location-card[data-shape-id="${sid}"]`); await W(1800);
-      const s = await page.evaluate(id => { const nb = neighborhoodShapes.find(n => n.id === id); const lay = neighborhoodLayersById.get(id); const t = document.querySelector('.leaflet-popup strong');
+      const s = await page.evaluate(id => { const nb = neighborhoodShapes.find(n => n.id === id); const lay = neighborhoodLayersById.get(id); const t = document.querySelector('.leaflet-popup .popup-title');
         return { z: map.getZoom(), minZoom: neighborhoodMinZoom(nb), title: t && t.textContent, label: nb.label, open: !!(lay && lay.isPopupOpen()) }; }, sid);
       r(`F ${type} row -> its popup at z${s.z} (min ${s.minZoom})`, s.open && s.title === s.label && s.z >= s.minZoom, s); }
     { await page.evaluate(() => { map.closePopup(); map.setView([60, 0], 5, { animate: false }); }); await W(150); const id = ids[7]; await tapRow(`.location-card[data-id="${id}"]`); await W(2500); const s = await pinState(id);

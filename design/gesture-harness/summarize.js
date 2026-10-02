@@ -5,7 +5,7 @@
 const fs = require('fs'), path = require('path');
 const dir = process.argv[2];
 const J = n => { try { return JSON.parse(fs.readFileSync(path.join(dir, n + '.json'), 'utf8')); } catch (e) { return null; } };
-const t = J('touch'), f = J('flip'), v = J('visit'), p = J('popup-open'), d = J('dust'), r = J('rows'), c = J('curve'), x = J('delete'), pl = J('plans'), pu = J('places-ux');
+const t = J('touch'), f = J('flip'), v = J('visit'), p = J('popup-open'), d = J('dust'), r = J('rows'), c = J('curve'), x = J('delete'), pl = J('plans'), pu = J('places-ux'), sh = J('shapes');
 const ok = s => s && s.pass === s.total;
 const parts = [], fails = [];
 const n8 = t && t.n8a ? (t.n8a.pass ? 'N8-a' : `N8-a FAIL ${t.n8a.runs.filter(q => q.pass).length}/${t.n8a.runs.length}`) : 'N8-a ?';
@@ -24,7 +24,8 @@ parts.push(`delete-slop ${x ? x.pass + '/' + x.total : 'missing'}`); if (!ok(x))
 // plan rows (Plans stop rows): reported when run; a page without Plans has nothing to run it on
 if (pl) { parts.push(`plan-rows ${pl.pass}/${pl.total}`); if (!ok(pl)) fails.push('plan-rows'); }
 if (pu) { parts.push(`places-ux ${pu.pass}/${pu.total}`); if (!ok(pu)) fails.push('places-ux'); }
+if (sh) { parts.push(`shape-rows ${sh.pass}/${sh.total}`); if (!ok(sh)) fails.push('shape-rows'); }
 console.log('GATE ' + parts.join(' · '));
 console.log(fails.length ? `GATE FAILED: ${fails.join(', ')}` : 'GATE PASSED');
-for (const s of [t, f, v, p, d, r, c, x, pl, pu].filter(Boolean)) { const bad = s.results.filter(q => !q.pass); if (bad.length) console.log(`  ${s.suite}: ${bad.map(q => `[${q.mode}] ${q.name.slice(0, 110)}`).join('\n  ' + ' '.repeat(s.suite.length + 2))}`); }
+for (const s of [t, f, v, p, d, r, c, x, pl, pu, sh].filter(Boolean)) { const bad = s.results.filter(q => !q.pass); if (bad.length) console.log(`  ${s.suite}: ${bad.map(q => `[${q.mode}] ${q.name.slice(0, 110)}`).join('\n  ' + ' '.repeat(s.suite.length + 2))}`); }
 process.exitCode = fails.length ? 1 : 0;

@@ -19,7 +19,7 @@ design/gesture-harness/run-all.sh [path/to/index.html] [suite ...]
 
 - With no path, it runs this checkout's `index.html`. Any path works, e.g. a
   scratch copy or another worktree's file.
-- With no suite names, it runs all ten: `touch flip visit popup-open dust rows curve delete plans places-ux`.
+- With no suite names, it runs all eleven: `touch flip visit popup-open dust rows curve delete plans places-ux shapes`.
   (`plans` needs a page with Plans; on one without, it errors and the summary leaves it out.)
 - `OUTDIR=dir` keeps each suite's `.log` and `.json`. The default is a temp dir.
 - Single suite: `FILE=path OUT=x.json node design/gesture-harness/<suite>.js`.
@@ -78,8 +78,9 @@ GATE PASSED            (or: GATE FAILED: <suites>, followed by each failing case
 | `rows.js` | **56.00px** is the only height ever seen | "Rows 56.00px throughout". |
 | `curve.js` | row **≥11/3**, popup **≥8/3** | Rounds 7–8 spin-stamp, and `r8-design.md` §1. |
 | `delete.js` | **36/36** | Swipe-left "Delete safety", the UX sweep. |
-| `plans.js` | **22/22**: 11 cases × 2 motion modes | "Plans (v3 build)": on a stop row, tap (text and number) navigates; star right, visit left from ×; a quick or 300ms-rested vertical stroke from the number scrolls; a 450ms hold lifts and moves one place; × removes and + adds only below `DELETE_TAP_SLOP`; rows 56.00px. Its fixture plan is opted in with localStorage `gh.plans`, so the other suites see no plans. |
+| `plans.js` | **32/32**: 16 cases × 2 motion modes | "Plans (v3 build)": on a stop row, tap (text and number) navigates; star right, visit left from ×; a quick or 300ms-rested vertical stroke from the number scrolls; a 450ms hold lifts and moves one place; × removes and + adds only below `DELETE_TAP_SLOP`; rows 56.00px. Its fixture plan is opted in with localStorage `gh.plans`, so the other suites see no plans. Since 2026-10-02: a visited + starred street added as a stop shows the stamp, field and star like a pin stop; a left stroke from its × un-visits it; × removes it. |
 | `places-ux.js` | **30/30**: 15 cases × 2 motion modes | Owner, 2026-10-01 (docs/shipped.md "Plans (v3 build)"): a list-row tap with the filter panel open closes it, then the popup opens on arrival, clear of the sheet (8 rows, plus a district); the delete X never closes it; the banner (offline write, RLS refusal, failed read + `online`); "Nothing matches these filters." |
+| `shapes.js` | **50/50**: 25 cases × 2 motion modes | Owner, 2026-10-02 ("Shape parity"): the pin rows' cases on a district / street row -- star, unstar, cancel, flick, S5, touchcancel; visit, un-visit, cancel; tap (touchend → `focusShape` < 16ms), sloppy tap, vertical scroll; rows 56.00px on every frame; × slop sweep, mouse, keyboard, D7; the pin-layout popup (Get Directions to a point on the shape, star / Mark Visited + row replay, the map star); RLS rollback + banner; the poll; Starred / What's left. `stub.js`: the street is starred + visited, writes patch shapes too. |
 
 Gate line in CLAUDE.md terms: star `"84 + 8 (+ N8-a)"` = touch + flip (+ N8-a);
 `vtest` = visit.
@@ -102,7 +103,7 @@ The cases:
 - S1 swallowed taps ×5, plus mouse.
 - The S3 angle matrix (20–50°), plus sideways-then-up.
 - S2 press delay: none during a stroke, about 100ms on a quick tap's release, about 80ms on a still hold.
-- Popup → row replay ×2, the popup ink, and N3 shape give.
+- Popup → row replay ×2, the popup ink, and N3 **[parity]**: a shape row's stroke stars it (was: 6px of give).
 
 Cases that assert the current spec instead of the r6 one are tagged in their names:
 

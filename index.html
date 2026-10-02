@@ -1714,10 +1714,6 @@
     .stop-tag { --cluster-tag-radius: 8px; position: absolute; z-index: 2; height: 16px; min-width: 16px; padding: 0 3px; box-sizing: border-box; border: 1.5px solid var(--ink-2); border-radius: var(--cluster-tag-radius);
       background: var(--paper); color: var(--ink-2); font-family: var(--font-ui); font-stretch: 85%; font-weight: 700; font-size: 10px; line-height: 13px; text-align: center; white-space: nowrap; pointer-events: none; }
     .popup-stop { white-space: nowrap; margin-left: calc(var(--s1) * -1); }   /* cancels the flex gap: the dot sits evenly between its words */
-    .shape-stop {
-      display: block; margin-top: var(--s1); color: var(--ink-2);
-      font-stretch: 75%; text-transform: uppercase; font-size: 10px; line-height: 12px; letter-spacing: 0.1em; font-weight: 700;
-    }
 
     /* Delete is the row's only action. The visited stamp sits here too,
        but it is decoration (pointer-events:none), so a tap on it falls to
@@ -2779,6 +2775,62 @@
     // (through the add-shape flow below) and never edited in place, so there
     // is no churn here for a full reconciler to protect against.
     const neighborhoodLayersById = new Map();   // id → L.Layer, present only while visible
+    const shapeStarMarkersById = new Map();     // id → L.Marker: a starred shape's map star (syncNeighborhoodLayers)
+
+    // ---- shapes in the row / popup / flag machinery ----------------------------
+    // Owner (2026-10-02): "Every category should have the same information and
+    // capabilities." A district/street row is the same row as a pin's (createCard /
+    // renderCard, the Pencil Star, the visit stamp, the popup), so that machinery
+    // addresses every row by ONE key: a pin's uuid, or 'shape:<id>' for a shape
+    // (shape ids are numbers). A row item is a pin as-is, or a shape dressed as one
+    // (shapeRowItem): name = label, category = type, notes = note, lat/lng = its
+    // centroid (the Nearest distance, as sortShapes() orders it), dir = the point
+    // Get Directions and its map star use (shapeAnchor()).
+    const SHAPE_KEY = 'shape:';
+    const shapeKey = id => SHAPE_KEY + id;
+    const isShapeKey = k => typeof k === 'string' && k.startsWith(SHAPE_KEY);
+    const shapeIdOf = k => Number(String(k).slice(SHAPE_KEY.length));
+    function shapeRowItem(nb) {
+      const c = shapeCentroid(nb) || [0, 0];
+      return { ...nb, id: shapeKey(nb.id), shapeId: nb.id, name: nb.label, category: nb.type, notes: nb.note, address: null,
+        lat: c[0], lng: c[1], dir: shapeAnchor(nb), visited: !!nb.visited, starred: !!nb.starred };
+    }
+    function rowItem(key) {
+      if (isShapeKey(key)) { const nb = neighborhoodShapes.find(n => n.id === shapeIdOf(key)); return nb ? shapeRowItem(nb) : null; }
+      return locations.find(l => l.id === key) || null;
+    }
+    function rowKey(el) {
+      const s = el && el.getAttribute && el.getAttribute('data-shape-id');
+      return s != null ? shapeKey(s) : (el && el.getAttribute ? el.getAttribute('data-id') : null);
+    }
+    function rowEntry(key) { return isShapeKey(key) ? shapeCardsById.get(shapeIdOf(key)) : cardsById.get(key); }
+    // A point ON the shape, for Get Directions and the map star: a street's middle
+    // vertex; a district's vertex centroid when it lies inside the outline, else the
+    // vertex nearest to it (a concave or ring-shaped district).
+    function shapeAnchor(nb) {
+      const g = nb.geometry || [];
+      if (!g.length) return null;
+      if (nb.type === 'street') {
+        // halfway along its length (a 2-vertex street's middle vertex would be an end)
+        const k = Math.cos(g[0][0] * Math.PI / 180), seg = [];
+        let total = 0;
+        for (let i = 1; i < g.length; i++) { const d = Math.hypot(g[i][0] - g[i - 1][0], (g[i][1] - g[i - 1][1]) * k); seg.push(d); total += d; }
+        let left = total / 2;
+        for (let i = 0; i < seg.length; i++) {
+          if (left <= seg[i] && seg[i] > 0) { const t = left / seg[i]; return [g[i][0] + (g[i + 1][0] - g[i][0]) * t, g[i][1] + (g[i + 1][1] - g[i][1]) * t]; }
+          left -= seg[i];
+        }
+        return g[g.length - 1];
+      }
+      const c = shapeCentroid(nb);
+      let inside = false;
+      for (let i = 0, j = g.length - 1; i < g.length; j = i++) {
+        const [yi, xi] = g[i], [yj, xj] = g[j];
+        if ((yi > c[0]) !== (yj > c[0]) && c[1] < (xj - xi) * (c[0] - yi) / (yj - yi) + xi) inside = !inside;
+      }
+      if (inside) return c;
+      return g.reduce((best, p) => Math.hypot(p[0] - c[0], p[1] - c[1]) < Math.hypot(best[0] - c[0], best[1] - c[1]) ? p : best, g[0]);
+    }
 
     // ---- poll state ----------------------------------------------------------
     const POLL_ACTIVE_MS = 10000;
@@ -2938,21 +2990,40 @@
       return fetchLocations();
     }
 
-    // Shapes change far less often than locations (added occasionally, never
-    // edited live) -- a one-time load plus a refetch right after an add is
-    // enough; no 10s poll is needed for this table.
-    async function fetchNeighborhoodShapes() {
+    // Shapes carry visited / starred like pins (2026-10-02), so they are polled
+    // with the pins (pollTick) and the other phone's marks arrive; the same
+    // in-flight guard, the same flagWritesInFlight hold and the same no-op
+    // render on an unchanged payload as doFetchLocations().
+    let shapesFetchPromise = null;
+    let lastShapesDigest = null;
+    async function doFetchNeighborhoodShapes() {
       try {
         const { data, error } = await supabaseClient
           .from('neighborhood_shapes')
-          .select('id,city,type,label,color,note,min_zoom,geometry');
+          .select('id,city,type,label,color,note,min_zoom,geometry,visited,starred');
         if (error) throw error;
-        neighborhoodShapes = data || [];
-        updateUI();   // refreshes the list count/cards too, not just the map layers
+        if (flagWritesInFlight > 0) return;   // see flagWritesInFlight
+        const rows = data || [];
+        const digest = JSON.stringify(rows);
+        neighborhoodShapes = rows;
+        if (digest !== lastShapesDigest) {
+          lastShapesDigest = digest;
+          updateUI();   // refreshes the list count/cards too, not just the map layers
+        }
         hideError('shapes');
       } catch (err) {
         showReadProblem(err, 'shapes');
       }
+    }
+    function fetchNeighborhoodShapes() {
+      if (shapesFetchPromise) return shapesFetchPromise;
+      shapesFetchPromise = doFetchNeighborhoodShapes().finally(() => { shapesFetchPromise = null; });
+      return shapesFetchPromise;
+    }
+    // A read that STARTED after the write (see refetchLocations()).
+    async function refetchNeighborhoodShapes() {
+      if (shapesFetchPromise) { try { await shapesFetchPromise; } catch (e) { /* reported already */ } }
+      return fetchNeighborhoodShapes();
     }
 
     function payloadDigest(rows) {
@@ -3004,7 +3075,7 @@
           .insert([shape]);
 
         if (error) throw error;
-        await fetchNeighborhoodShapes();
+        await refetchNeighborhoodShapes();
         hideError('mutation');
       } catch (err) {
         showWriteError(err, 'places');
@@ -3039,7 +3110,7 @@
           .eq('id', id);
 
         if (error) throw error;
-        await fetchNeighborhoodShapes();
+        await refetchNeighborhoodShapes();
         hideError('mutation');
         cleanupOrphanCities();
       } catch (err) {
@@ -3061,7 +3132,8 @@
       const focused = document.activeElement;
       const refocus = focused && focused.matches && focused.matches('.popup-star, .popup-visited')
         ? `.${focused.classList[0]}[data-id="${CSS.escape(id)}"]` : null;
-      locations = locations.map(l => l.id === id ? { ...l, [field]: value } : l);
+      if (isShapeKey(id)) { const sid = shapeIdOf(id); neighborhoodShapes = neighborhoodShapes.map(n => n.id === sid ? { ...n, [field]: value } : n); }
+      else locations = locations.map(l => l.id === id ? { ...l, [field]: value } : l);
       updateUI();
       if (refocus) {
         const btn = document.querySelector(`.leaflet-popup ${refocus}`);
@@ -3069,19 +3141,22 @@
       }
     }
 
+    // `id` is a row key (rowItem()): a pin's uuid, or 'shape:<id>' for a
+    // district/street, written to neighborhood_shapes the same way.
     async function toggleLocationFlag(id, field) {
       if (!await requireAuth()) return;
-      const loc = locations.find(l => l.id === id);
+      const loc = rowItem(id);
       if (!loc) return;
       const next = !loc[field];
+      const shape = isShapeKey(id);
 
       setLocationFlag(id, field, next);
       flagWritesInFlight++;
       try {
         const { error } = await supabaseClient
-          .from('locations')
+          .from(shape ? 'neighborhood_shapes' : 'locations')
           .update({ [field]: next })
-          .eq('id', id);
+          .eq('id', shape ? shapeIdOf(id) : id);
 
         if (error) throw error;
         hideError('mutation');
@@ -3094,7 +3169,7 @@
       }
       // Only the last write to settle reconciles with the server -- see
       // flagWritesInFlight. One visible change per tap, nothing after.
-      if (flagWritesInFlight === 0) await refetchLocations();
+      if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
     }
 
     // The single Nominatim call site. A city is configured in exactly one place
@@ -3950,6 +4025,7 @@
       // Phase 2 hook: refreshTodayKey() belongs here, so date-dependent
       // rendering rolls over even in a tab that never fires visibilitychange.
       fetchLocations();
+      fetchNeighborhoodShapes();   // visited / starred: the other phone's marks
       fetchPlans();
       startPoll();
     }
@@ -4091,8 +4167,11 @@
     }
 
     // Everything the list card renders.
+    // A shape row (shapeRowItem()) adds what only it shows: its own ink and city.
     function cardSignature(loc) {
-      return [loc.name, loc.address, loc.category, loc.visited, loc.starred, distanceLabel(loc), planMarkKey('loc', loc.id), listView, inPlanView() ? activePlanId : ''].join('|');
+      const sh = loc.shapeId != null;
+      return [loc.name, loc.address, loc.category, loc.visited, loc.starred, distanceLabel(loc), sh ? planMarkKey('shape', loc.shapeId) : planMarkKey('loc', loc.id), listView, inPlanView() ? activePlanId : '']
+        .concat(sh ? [loc.color, loc.city] : []).join('|');
     }
 
     // =========================================================================
@@ -4176,11 +4255,12 @@
 
     // Plain static link, no JS platform detection -- an Apple Maps
     // universal link opens the native app on iOS and degrades to a normal
-    // webpage everywhere else, never a dead click. Pins only: a shape has
-    // no single natural destination point (see neighborhoodShapes'
-    // geometry, an arbitrary point array framed by bounds, not a coordinate).
+    // webpage everywhere else, never a dead click. A district/street has no
+    // single natural destination, so its row item carries one ON the shape
+    // (`dir`, shapeAnchor()).
     function directionsUrl(loc) {
-      return `https://maps.apple.com/?daddr=${loc.lat},${loc.lng}&dirflg=d`;
+      const [lat, lng] = loc.dir || [loc.lat, loc.lng];
+      return `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`;
     }
 
     // An approximate pin records its provenance in the name suffix written by
@@ -4363,8 +4443,9 @@
       if (inkNow) popupInkId = null;
       const rubNow = !loc.starred && popupRubId === loc.id;
       if (rubNow) popupRubId = null;
-      const ink = categoryInk(loc.category);
-      const stopLine = planStopLine('loc', loc.id);   // Plans: "Stop n of m" -- information, never a control
+      const sh = loc.shapeId != null;   // a district/street (shapeRowItem())
+      const ink = sh ? (loc.color || categoryInk(loc.category)) : categoryInk(loc.category);
+      const stopLine = sh ? planStopLine('shape', loc.shapeId) : planStopLine('loc', loc.id);   // Plans: "Stop n of m" -- information, never a control
       return `
         <div style="min-width: 240px;">
           <div class="popup-title-row${loc.address ? '' : ' no-sub'}${loc.notes ? '' : loc.address ? ' addr-end' : ' solo'}">
@@ -4532,12 +4613,16 @@
       else if (mode === 'starred') out.sort(by(l => +!l.starred, l => +!!l.visited));
       return out;
     }
-    // Shapes keep their own block after the pins; they have no visited /
-    // starred / created order, so they read A-Z except in Category (by
-    // type) and Nearest (by centroid).
+    // Shapes keep their own block after the pins, in the same order as the
+    // pins where they have its key: Category (by type), Nearest (by
+    // centroid), What's left and Starred (their own visited / starred,
+    // 2026-10-02). Newest reads A-Z (no created_at is loaded for them).
     function sortShapes(shapes) {
       const out = shapes.slice(), lab = (a, b) => nameCmp(a.label, b.label);
+      const by = (...keys) => (a, b) => { for (const k of keys) { const d = k(a) - k(b); if (d) return d; } return lab(a, b); };
       if (sortMode === 'category') out.sort((a, b) => (categoryRank(a.type) - categoryRank(b.type)) || lab(a, b));
+      else if (sortMode === 'left') out.sort(by(n => +!!n.visited, n => +!n.starred));
+      else if (sortMode === 'starred') out.sort(by(n => +!n.starred, n => +!!n.visited));
       else if (sortMode === 'nearest' && sortFix) {
         const d = nb => { const c = shapeCentroid(nb); return c ? kmFromFix(c[0], c[1]) : Infinity; };
         out.sort((a, b) => (d(a) - d(b)) || lab(a, b));
@@ -4558,13 +4643,16 @@
     // A row gesture (pencil star, visit stamp, or their popup replays) owns
     // its row until it settles: while any is live, rows keep their current
     // order and the re-sort runs when the last one lets go.
-    function heldOrder(visible) {
+    // keyOf: a pin's row key is its id; shapes pass nb => shapeKey(nb.id).
+    function heldOrder(visible, keyOf = x => x.id) {
       if (!starHeld.size) return null;
       sortDeferred = true;
       const list = document.getElementById('locationsList'), pos = new Map();
-      [...list.children].forEach((el, i) => { const id = el.getAttribute && el.getAttribute('data-id'); if (id) pos.set(id, i); });
-      return visible.slice().sort((a, b) => (pos.has(a.id) ? pos.get(a.id) : 1e9) - (pos.has(b.id) ? pos.get(b.id) : 1e9));
+      [...list.children].forEach((el, i) => { const id = rowKey(el); if (id) pos.set(id, i); });
+      const at = x => { const k = keyOf(x); return pos.has(k) ? pos.get(k) : 1e9; };
+      return visible.slice().sort((a, b) => at(a) - at(b));
     }
+    const shapeRowKey = nb => shapeKey(nb.id);
     function afterRowGesture() {
       if (!sortDeferred || starHeld.size) return;
       sortDeferred = false;
@@ -4838,9 +4926,13 @@
       return `<button class="delete-btn plan-add" aria-label="Add ${escapeAttr(label)} to ${escapeAttr(p.name)}"><span class="plan-add-glyph" aria-hidden="true">&times;</span></button>`;
     }
 
-    function shapePopupHtml(nb) {
-      const line = planStopLine('shape', nb.id);
-      return `<strong>${escapeHtml(nb.label)}</strong>${line ? `<span class="shape-stop">${line}</span>` : ''}${nb.note ? `<p>${escapeHtml(nb.note)}</p>` : ''}`;
+    // A district/street's popup IS the pin popup (2026-10-02): star, title, note,
+    // Get Directions (to a point on the shape), the type line with "Stop n of m",
+    // Mark Visited -- built from its row item.
+    function shapePopupHtml(nb) { return buildPopupHtml(shapeRowItem(nb)); }
+    // Everything the shape popup shows (syncNeighborhoodLayers() re-sets it on a change).
+    function shapePopupSignature(nb) {
+      return [nb.label, nb.type, nb.color, nb.note, !!nb.visited, !!nb.starred, planMarkKey('shape', nb.id)].join('|');
     }
 
     // r18 (owner: "change the icon to the number like we used to do ... only on the map"): a stop
@@ -4874,12 +4966,12 @@
           const id = r.nb.id;
           seen.add(id);
           const ink = r.nb.color || categoryInk(r.nb.type);
-          const sig = [r.n, c.join(), ink, r.nb.type].join('|');
+          const sig = [r.n, c.join(), ink, r.nb.type, !!r.nb.starred].join('|');
           const had = planShapeMarkers.get(id);
           if (had && had.sig === sig) return;
           if (had) map.removeLayer(had.marker);
           const marker = L.marker(c, {
-            icon: planNumberIcon(r.nb.type, 'diamond', ink, r, MARKER_SIZE_NEAR, false, false),
+            icon: planNumberIcon(r.nb.type, 'diamond', ink, r, MARKER_SIZE_NEAR, false, !!r.nb.starred),
             zIndexOffset: Z_PLAN_STOP - r.n,
             title: `Stop ${r.n}: ${r.nb.label}`
           }).addTo(map);
@@ -4934,7 +5026,7 @@
       const pm = planMarks();
       const locs = visibleLocations().filter(l => !pm.byLoc.has(l.id));
       const shapes = visibleNeighborhoodShapes().filter(n => !pm.byShape.has(n.id));
-      return { locs: heldOrder(locs) || sortLocations(locs), shapes: sortShapes(shapes) };
+      return { locs: heldOrder(locs) || sortLocations(locs), shapes: heldOrder(shapes, shapeRowKey) || sortShapes(shapes) };
     }
     function othersNoteText() {
       const any = locations.some(l => filters.categories[l.category] && (filters.city === null || l.city === filters.city)) ||
@@ -4997,12 +5089,12 @@
           entry.el.classList.toggle('group-end', !r.stop && sortMode === 'category' && !!(nx && nx.loc) && nx.loc.category !== loc.category);
           want.push(entry.el);
         } else {
-          const nb = r.nb;
+          const nb = r.nb, item = shapeRowItem(nb);
           seenShape.add(nb.id);
           let entry = shapeCardsById.get(nb.id);
-          if (!entry) { entry = { el: createShapeCard(nb), signature: null }; shapeCardsById.set(nb.id, entry); }
-          const signature = shapeCardSignature(nb);
-          if (signature !== entry.signature) { renderShapeCard(entry.el, nb); entry.signature = signature; }
+          if (!entry) { entry = { el: createCard(item), signature: null }; shapeCardsById.set(nb.id, entry); }
+          const signature = cardSignature(item);
+          if (signature !== entry.signature && !starHeld.has(item.id)) { renderCard(entry.el, item); entry.signature = signature; }
           entry.el.classList.toggle('is-stop', !!r.stop);
           want.push(entry.el);
         }
@@ -5718,7 +5810,7 @@
       // Plans orders its own list (syncPlanCards: the stops in plan order, then
       // the other matches in the sort); Places sorts here, as it always has.
       const visible = (() => { const v = visibleLocations(); return planMode ? v : (heldOrder(v) || sortLocations(v)); })();
-      const visibleShapes = planMode ? visibleNeighborhoodShapes() : sortShapes(visibleNeighborhoodShapes());
+      const visibleShapes = (() => { const v = visibleNeighborhoodShapes(); return planMode ? v : (heldOrder(v, shapeRowKey) || sortShapes(v)); })();
       // The header is only a label: whatever the list is. Places: the city
       // list and its count. Plans: just the plan's name (a count cost two
       // characters of fit; Places' "<city> list (N)" still tells them apart).
@@ -5783,8 +5875,39 @@
         : L.polygon(nb.geometry, neighborhoodStyle(nb));
       layer.bindPopup(shapePopupHtml(nb));
       popupPadding(layer.getPopup());
-      layer._planKey = planMarkKey('shape', nb.id);
+      layer._popSig = shapePopupSignature(nb);
       return layer;
+    }
+
+    // A starred district/street carries the pins' map star (markerStarHtml's
+    // glyph: ink on a paper halo, the near size) at shapeAnchor() -- a point on
+    // the shape -- shown exactly while the shape's layer is. A tap opens the
+    // shape's popup. A plan's shape stop has its numbered diamond, which carries
+    // the star itself (planNumberIcon), so it gets none here.
+    const SHAPE_STAR_PX = 12;
+    function shapeStarIcon() {
+      const s = SHAPE_STAR_PX, hit = 24, o = (hit - s) / 2;
+      const html = `<div style="position:relative;width:${hit}px;height:${hit}px;line-height:0;">` +
+        `<svg class="marker-star" width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:${o}px;top:${o}px;overflow:visible">` +
+        `<use class="marker-star-halo" href="#g-star" stroke-width="${(3 * 24 / s).toFixed(2)}" stroke-linejoin="round"/>` +
+        `<use class="marker-star-ink" href="#g-star"/></svg></div>`;
+      return L.divIcon({ html, className: '', iconSize: [hit, hit], iconAnchor: [hit / 2, hit / 2] });
+    }
+    function syncShapeStars(shown) {
+      const want = new Set();
+      shown.forEach(id => {
+        const nb = neighborhoodShapes.find(n => n.id === id);
+        if (!nb || !nb.starred || planMarks().byShape.has(id)) return;
+        const at = shapeAnchor(nb);
+        if (!at) return;
+        want.add(id);
+        const had = shapeStarMarkersById.get(id);
+        if (had) { if (!had.getLatLng().equals(at)) had.setLatLng(at); return; }
+        const m = L.marker(at, { icon: shapeStarIcon(), zIndexOffset: Z_PIN_STARRED, title: `${nb.label}, starred` });
+        m.on('click', () => { const layer = neighborhoodLayersById.get(id); if (layer) layer.openPopup(L.latLng(at)); });
+        shapeStarMarkersById.set(id, m.addTo(map));
+      });
+      shapeStarMarkersById.forEach((m, id) => { if (!want.has(id)) { map.removeLayer(m); shapeStarMarkersById.delete(id); } });
     }
 
     // City + category filtered, no zoom involved -- this is "what matches the
@@ -5826,18 +5949,16 @@
 
       neighborhoodLayersById.forEach((layer, id) => {
         if (shouldShow.has(id)) {
-          // "Stop n of m" follows the plan without rebuilding the layer.
-          const key = planMarkKey('shape', id);
-          if (layer._planKey !== key) {
-            const nb = neighborhoodShapes.find(n => n.id === id);
-            if (nb) layer.setPopupContent(shapePopupHtml(nb));
-            layer._planKey = key;
-          }
+          // The popup follows the shape's marks and "Stop n of m" without rebuilding the layer.
+          const nb = neighborhoodShapes.find(n => n.id === id);
+          const sig = nb ? shapePopupSignature(nb) : layer._popSig;
+          if (nb && layer._popSig !== sig) { layer.setPopupContent(shapePopupHtml(nb)); layer._popSig = sig; }
           return;
         }
         map.removeLayer(layer);
         neighborhoodLayersById.delete(id);
       });
+      syncShapeStars(shouldShow);
     }
 
     // Adds a zoom-gated grid-snap on top of visibleLocations() -- same split
@@ -5988,7 +6109,7 @@
       // Plans: a district/street stop joins the grid at its centroid like a pin ('shape:<id>');
       // clustered, its own mark hides (syncPlanShapeMarkers()). Places: nothing is added.
       const shapeStops = inPlanView() && activePlan() ? planMarks().rows.filter(r => r.nb && shapeCentroid(r.nb))
-        .map(r => { const c = shapeCentroid(r.nb); return { id: 'shape:' + r.nb.id, lat: c[0], lng: c[1], starred: false, planShape: true }; }) : [];
+        .map(r => { const c = shapeCentroid(r.nb); return { id: 'shape:' + r.nb.id, lat: c[0], lng: c[1], starred: !!r.nb.starred, planShape: true }; }) : [];
       const visible = shapeStops.length ? all.concat(shapeStops) : all;
 
       const cellPx = clusterCellPxForZoom(map.getZoom());
@@ -6131,11 +6252,14 @@
       });
     }
 
+    // `loc` is a row item (rowItem()): a pin, or a district/street's
+    // shapeRowItem(), whose row is keyed by data-shape-id (rowKey()).
     function createCard(loc) {
       const el = document.createElement('div');
       el.className = 'location-card';
       el.style.cursor = 'pointer';
-      el.setAttribute('data-id', loc.id);
+      if (loc.shapeId != null) el.setAttribute('data-shape-id', loc.shapeId);
+      else el.setAttribute('data-id', loc.id);
 
       // Listeners are attached once, at creation — not on every render.
       let touchMoved = false;
@@ -6200,26 +6324,26 @@
       el.addEventListener('touchcancel', removeActive);
 
       el.addEventListener('click', (e) => {
-        const id = el.getAttribute('data-id');
-        const current = locations.find(l => l.id === id);
+        const id = rowKey(el), shape = isShapeKey(id);
+        const current = rowItem(id);
 
         // Plans' + / × share the delete ×'s near-still-tap rule.
         const pa = e.target.closest('.plan-add, .plan-x');
         if (pa) {
           if (e.detail !== 0 && xTravel >= DELETE_TAP_SLOP) return;
-          planRowAct(pa.classList.contains('plan-add') ? 'add' : 'remove', { locationId: id }, current ? current.name : '');
+          planRowAct(pa.classList.contains('plan-add') ? 'add' : 'remove', shape ? { shapeId: shapeIdOf(id) } : { locationId: id }, current ? current.name : '');
           return;
         }
         if (e.target.closest('.delete-btn')) {
           if (e.detail !== 0 && xTravel >= DELETE_TAP_SLOP) return;   // a stroke, not a tap: never deletes
-          if (current) confirmDelete(current.id, current.name);
+          if (current) { if (shape) confirmDeleteShape(current.shapeId, current.name); else confirmDelete(current.id, current.name); }
           return;
         }
         if (touchMoved) return;   // the tap was a scroll
         // Owner (2026-10-01): a list-row tap closes the filter panel first (its filters, plan
         // and view stay), so the flight and the popup aren't cut off by it. + / x never do.
         closeFiltersPanel({ reframe: false });
-        highlightMarker(id);
+        if (shape) focusShape(shapeIdOf(id)); else highlightMarker(id);
       });
 
       attachStopDrag(el);   // registered first, so an armed drag can keep the star/visit gesture out
@@ -6478,7 +6602,7 @@
 
       const start = (x, y, target, src) => {
         eatClick = false;
-        if (starHeld.has(el.getAttribute('data-id'))) { g = null; return; }
+        if (starHeld.has(rowKey(el))) { g = null; return; }
         if (src === 'touch' && (x < STAR_SWIPE.EDGE || x > window.innerWidth - STAR_SWIPE.EDGE)) { g = null; return; }
         // A LEFT stroke may start on the X (that's where a right thumb lands,
         // and where the stamp comes from); a right stroke from it may not.
@@ -6590,8 +6714,8 @@
     }
 
     function beginStarDrag(el, g, forward) {
-      const id = el.getAttribute('data-id');
-      const loc = locations.find(l => l.id === id);
+      const id = rowKey(el);
+      const loc = rowItem(id);
       if (!loc) return false;
       // R4-S2: a row still finishing (pen, ink, settle) is fast-forwarded --
       // it jumps to its ink frame and still visibly presses in -- so a quick
@@ -6770,12 +6894,12 @@
     function flipToFinal(el, g, nowStarred, ms, done) {
       const oldH = textLeft(g.h3);
       const oldMeta = g.meta.getBoundingClientRect().left;
-      const loc = locations.find(l => l.id === g.id) || {};
+      const loc = rowItem(g.id) || {};
       const fin = { ...loc, starred: nowStarred };
       const svg = g.svg; svg.remove();
       const dust = [...g.main.querySelectorAll('.sg-crumb')]; dust.forEach(c => c.remove());   // the dust keeps falling
       renderCard(el, fin);
-      const entry = cardsById.get(g.id); if (entry) entry.signature = cardSignature(fin);
+      const entry = rowEntry(g.id); if (entry) entry.signature = cardSignature(fin);
       g.h3 = el.querySelector('h3'); g.meta = el.querySelector('.row-meta'); g.main = el.querySelector('.row-main');
       g.main.appendChild(svg); dust.forEach(c => g.main.appendChild(c));
       const dH = oldH - textLeft(g.h3), dM = oldMeta - g.meta.getBoundingClientRect().left;
@@ -6939,7 +7063,7 @@
     function vsGhostInk(k) { return `color-mix(in oklch, var(--navy) ${(k * 100).toFixed(1)}%, ${VS_GHOST_TINT})`; }
 
     function beginVisitDrag(el, g) {
-      const id = el.getAttribute('data-id'), loc = locations.find(l => l.id === id);
+      const id = rowKey(el), loc = rowItem(id);
       if (!loc) return false;
       starHeld.forEach((h, hid) => { if (hid !== id && h.ff) h.ff(); });     // R4-S2 for any finishing row
       el.classList.remove('active');
@@ -7058,7 +7182,7 @@
     const VS_REPLAY = { VISIT_MS: 240, UNVISIT_MS: 260 };
     function vsReplay(id) {
       if (prefersReducedMotion() || !currentUser) return false;   // signed out: the toggle won't happen, so neither does the stamp
-      const entry = cardsById.get(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
+      const entry = rowEntry(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
       if (!entry || !list || !entry.el.isConnected || (sheet && sheet.classList.contains('collapsed'))) return false;
       const held = starHeld.get(id);
       if (held && held.ff) held.ff();                          // last wins: land the running replay first
@@ -7083,10 +7207,10 @@
     // must see the fresh DOM (the X's fade-back needs the new button).
     function flipVisitToFinal(el, g, nowVisited, ms, mid, done) {
       const oldH = textLeft(g.h3), oldMeta = g.meta.getBoundingClientRect().left;
-      const loc = locations.find(l => l.id === g.id) || {};
+      const loc = rowItem(g.id) || {};
       const fin = { ...loc, visited: nowVisited };
       renderCard(el, fin);
-      const entry = cardsById.get(g.id); if (entry) entry.signature = cardSignature(fin);
+      const entry = rowEntry(g.id); if (entry) entry.signature = cardSignature(fin);
       g.h3 = el.querySelector('h3'); g.meta = el.querySelector('.row-meta'); g.main = el.querySelector('.row-main'); g.st = el.querySelector('.row-stamp');
       g.badge = el.querySelector('.row-badge');
       g.star = el.querySelector('.row-star');
@@ -7138,23 +7262,6 @@
       runTimeline(VISIT_SWIPE.RETURN_MS, t => { if (dead) return; g.raw = r0 * (1 - easeOut(t)); paintVisit(g); }, finish);
     }
 
-    // N3: shape rows have no star -- a stroke gets the same 6px of give.
-    function attachShapeGive(el) {
-      let g = null;
-      el.addEventListener('touchstart', (e) => { const t = e.touches[0]; g = t ? { x0: t.clientX, y0: t.clientY, lock: false } : null; }, { passive: true });
-      el.addEventListener('touchmove', (e) => {
-        if (!g) return; const t = e.touches[0], dx = t.clientX - g.x0, dy = t.clientY - g.y0;
-        if (!g.lock) { if (Math.abs(dy) >= STAR_SWIPE.SCROLL) { g = null; return; } if (Math.abs(dx) < STAR_SWIPE.LOCK || Math.abs(dx) <= 1.5 * Math.abs(dy) || !e.cancelable) return; g.lock = true; }
-        if (e.cancelable) e.preventDefault();
-        const give = Math.sign(dx) * Math.min(STAR_SWIPE.WRONG_MAX, (Math.abs(dx) - STAR_SWIPE.LOCK) * 0.12);
-        const main = el.querySelector('.row-main'); if (main) main.style.transform = `translateX(${give}px)`;
-      }, { passive: false });
-      const end = () => { if (!g || !g.lock) { g = null; return; } g = null; const main = el.querySelector('.row-main'); if (!main) return;
-        const from = parseFloat((main.style.transform || '').slice(11)) || 0;
-        runTimeline(160, t => { main.style.transform = `translateX(${(from * (1 - easeOut(t))).toFixed(2)}px)`; }, () => { main.style.transform = ''; }); };
-      el.addEventListener('touchend', end); el.addEventListener('touchcancel', end);
-    }
-
     // POPUP -> ROW STAR REPLAY (owner: "Star animation should go both ways").
     // Setting OR clearing the star in the popup plays the row's own mark on
     // the place's list row, every time -- vsReplay()'s rules exactly: started
@@ -7178,14 +7285,14 @@
     try { localStorage.removeItem('triplet.pencilStarTaught'); } catch (_) {}   // the old teaching counter: never read again
     function ssReplay(id) {
       if (prefersReducedMotion() || !currentUser) return false;
-      const entry = cardsById.get(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
+      const entry = rowEntry(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
       if (!entry || !list || !entry.el.isConnected || (sheet && sheet.classList.contains('collapsed'))) return false;
       const held = starHeld.get(id);
       if (held && held.ff) held.ff();                          // last wins: land the running replay first
       if (starHeld.has(id)) return false;                      // a live gesture on this row owns it
       const el = entry.el, r = el.getBoundingClientRect(), lr = list.getBoundingClientRect();
       if (r.height === 0 || r.bottom <= lr.top || r.top >= lr.bottom) return false;   // off screen: the state just lands
-      const loc = locations.find(l => l.id === id);
+      const loc = rowItem(id);
       if (!loc) return false;
       el.classList.remove('active');
       const m = mountPencilStar(el, loc);
@@ -7198,9 +7305,9 @@
         releaseStarRow(el, g, true);
         el.querySelectorAll('.sg-crumb').forEach(c => c.remove());
         const park = document.createElement('div'); g.h3 = g.meta = g.main = park;   // a running FLIP's late frames now move nothing
-        const fin = { ...(locations.find(l => l.id === id) || loc), starred: !was };
+        const fin = { ...(rowItem(id) || loc), starred: !was };
         renderCard(el, fin);
-        const e2 = cardsById.get(id); if (e2) e2.signature = cardSignature(fin);
+        const e2 = rowEntry(id); if (e2) e2.signature = cardSignature(fin);
         updateUI();
       };
       const t0 = sgNow();
@@ -7264,16 +7371,19 @@
       // and that signature includes loc.visited.
       el.classList.toggle('is-visited', !!loc.visited);
       el.classList.toggle('is-starred', !!loc.starred);
-      const ink = categoryInk(loc.category);
+      // A district/street (shapeRowItem()): the same row, its badge a DIAMOND in
+      // its own ink -- the shape, not the colour, tells it apart from a pin.
+      const sh = loc.shapeId != null;
+      const ink = sh ? (loc.color || categoryInk(loc.category)) : categoryInk(loc.category);
       const city = loc.city && CITIES[loc.city] ? CITIES[loc.city].label : loc.city;
       const dist = distanceLabel(loc);   // Nearest only: the distance leads the meta
-      const stop = planMarks().byLoc.get(loc.id);   // Plans: the number leads, then the icon; × removes from the plan
+      const stop = sh ? planMarks().byShape.get(loc.shapeId) : planMarks().byLoc.get(loc.id);   // Plans: the number leads, then the icon; × removes from the plan
       el.classList.toggle('plan-num-row', inPlanView() && !!activePlan() && !!stop);
       const stamp = loc.visited
         ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`
         : '';
       el.innerHTML = `
-        ${planLead(stop, loc.category, markerKind(loc), ink, loc.name)}
+        ${planLead(stop, loc.category, sh ? 'diamond' : markerKind(loc), ink, loc.name)}
         <div class="row-main">${loc.starred ? '<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>' : ''}
           <h3>${escapeHtml(loc.name)}</h3>
           <div class="row-meta">${dist ? `<span class="row-dist">${escapeHtml(dist)}</span> &middot; ` : ''}${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
@@ -7330,15 +7440,12 @@
     }
 
     // ---- neighborhood shape list cards ---------------------------------------
-    // Mirrors createCard()/renderCard()/syncLocationCards() for pins, but
-    // shapes have no address/visited state and are framed by bounds, not a
-    // point -- see focusShape(). pinOffset places these cards right after the
-    // pin cards syncLocationCards() just wrote, so the two reconcilers can
-    // share one DOM list without stepping on each other's child indices.
-    function shapeCardSignature(nb) {
-      return [nb.label, nb.type, nb.color, planMarkKey('shape', nb.id), listView, inPlanView() ? activePlanId : ''].join('|');
-    }
-
+    // A shape's row is a pin's row (createCard()/renderCard() on its
+    // shapeRowItem(): every gesture, the stamp, the star, delete safety), with
+    // its own diamond badge and TYPE · CITY meta; framed by bounds, not a point
+    // -- see focusShape(). pinOffset places these cards right after the pin
+    // cards syncLocationCards() just wrote, so the two reconcilers can share
+    // one DOM list without stepping on each other's child indices.
     function focusShape(shapeId) {
       const nb = neighborhoodShapes.find(n => n.id === shapeId);
       if (!nb) return;
@@ -7364,99 +7471,24 @@
         });
     }
 
-    function createShapeCard(nb) {
-      const el = document.createElement('div');
-      el.className = 'location-card';
-      el.style.cursor = 'pointer';
-      el.setAttribute('data-shape-id', nb.id);
-
-      let touchMoved = false;
-      const addActive = (e) => {
-        if (!e.target.closest('.location-actions')) {
-          touchMoved = false;
-          el.classList.add('active');
-        }
-      };
-      const removeActive = () => el.classList.remove('active');
-      const handleTouchMove = () => { touchMoved = true; removeActive(); };
-
-      el.addEventListener('mousedown', addActive);
-      el.addEventListener('touchstart', addActive, { passive: true });
-      el.addEventListener('touchmove', handleTouchMove, { passive: true });
-      el.addEventListener('mouseup', removeActive);
-      el.addEventListener('mouseleave', removeActive);
-      el.addEventListener('touchend', removeActive);
-      el.addEventListener('touchcancel', removeActive);
-
-      // Plans' + / × fire only on a near-still tap (DELETE_TAP_SLOP), as on a pin row.
-      let aDown = null, aTravel = 0;
-      const aStart = (x, y) => { aDown = [x, y]; aTravel = 0; };
-      const aMove = (x, y) => { if (aDown) aTravel = Math.max(aTravel, Math.hypot(x - aDown[0], y - aDown[1])); };
-      el.addEventListener('touchstart', (e) => { const t = e.touches[0]; if (t) aStart(t.clientX, t.clientY); }, { passive: true });
-      el.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) aMove(t.clientX, t.clientY); }, { passive: true });
-      el.addEventListener('touchend', (e) => { const t = e.changedTouches[0]; if (t) aMove(t.clientX, t.clientY); }, { passive: true });
-      el.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') aStart(e.clientX, e.clientY); });
-      el.addEventListener('pointermove', (e) => { if ((e.pointerType === 'mouse' && e.buttons) || e.pointerType === 'touch') aMove(e.clientX, e.clientY); });   // touch too: the out-and-back wiggle (see createCard)
-
-      el.addEventListener('click', (e) => {
-        const id = Number(el.getAttribute('data-shape-id'));
-        const current = neighborhoodShapes.find(n => n.id === id);
-
-        const pa = e.target.closest('.plan-add, .plan-x');
-        if (pa) {
-          if (e.detail !== 0 && aTravel >= DELETE_TAP_SLOP) return;
-          planRowAct(pa.classList.contains('plan-add') ? 'add' : 'remove', { shapeId: id }, current ? current.label : '');
-          return;
-        }
-        if (e.target.closest('.delete-btn')) {
-          if (current) confirmDeleteShape(current.id, current.label);
-          return;
-        }
-        if (touchMoved) return;   // the tap was a scroll
-        closeFiltersPanel({ reframe: false });   // as a pin row (owner, 2026-10-01)
-        focusShape(id);
-      });
-
-      attachStopDrag(el);
-      attachShapeGive(el);
-      return el;
-    }
-
-    // Same ledger row, but the badge is a DIAMOND -- the shape, not the
-    // colour, is what tells a district apart from a pin.
-    function renderShapeCard(el, nb) {
-      const ink = nb.color || categoryInk(nb.type);
-      const city = nb.city && CITIES[nb.city] ? CITIES[nb.city].label : nb.city;
-      const stop = planMarks().byShape.get(nb.id);
-      el.classList.toggle('plan-num-row', inPlanView() && !!activePlan() && !!stop);
-      el.innerHTML = `
-        ${planLead(stop, nb.type, 'diamond', ink, nb.label)}
-        <div class="row-main">
-          <h3>${escapeHtml(nb.label)}</h3>
-          <div class="row-meta">${escapeHtml(nb.type)}${city ? ' &middot; ' + escapeHtml(city) : ''}</div>
-        </div>
-        <div class="location-actions">
-          ${rowActionHtml(stop, nb.label)}
-        </div>
-      `;
-    }
-
     function syncShapeCards(visible, pinOffset) {
       const list = document.getElementById('locationsList');
       const seen = new Set();
 
       visible.forEach((nb, index) => {
         seen.add(nb.id);
+        const item = shapeRowItem(nb);
         let entry = shapeCardsById.get(nb.id);
 
         if (!entry) {
-          entry = { el: createShapeCard(nb), signature: null };
+          entry = { el: createCard(item), signature: null };
           shapeCardsById.set(nb.id, entry);
         }
 
-        const signature = shapeCardSignature(nb);
-        if (signature !== entry.signature) {
-          renderShapeCard(entry.el, nb);
+        const signature = cardSignature(item);
+        // Held while a row gesture owns it, as a pin row (syncLocationCards()).
+        if (signature !== entry.signature && !starHeld.has(item.id)) {
+          renderCard(entry.el, item);
           entry.signature = signature;
         }
 
@@ -7711,9 +7743,9 @@
       btn.querySelector('use').setAttribute('href', on ? '#g-star' : '#g-star-open');
     }
 
+    // Every category stars (2026-10-02): a district/street is added starred too.
     function addFormStarred() {
-      return !isShapeCategory(document.getElementById('categoryInput').value) &&
-        document.getElementById('starInput').getAttribute('aria-pressed') === 'true';
+      return document.getElementById('starInput').getAttribute('aria-pressed') === 'true';
     }
 
     document.getElementById('starInput').addEventListener('click', () => {
@@ -7725,7 +7757,6 @@
       document.getElementById('addressInput').style.display = isShape ? 'none' : '';
       document.getElementById('addressInput').required = !isShape;
       document.getElementById('shapeHint').style.display = isShape ? '' : 'none';
-      document.getElementById('starInputRow').style.display = isShape ? 'none' : '';
       document.getElementById('nameInput').placeholder = isShape
         ? 'Neighborhood/street name to search OSM for (e.g. Nørrebro)'
         : 'Search for a place...';
@@ -7876,9 +7907,6 @@
             lng: point.lng,
             notes: notes ? `${notes}\n\n${tag}` : tag,
             visited: false,
-            // Carried through for when shapes can be starred; today this
-            // is always false -- the toggle is hidden on shape categories,
-            // so an approx pin from a district/street add arrives unstarred.
             starred: addFormStarred()
           });
           closeAddForm();
@@ -7909,7 +7937,8 @@
           label: name,
           color: CATEGORY_COLORS[type],
           note: notes || null,
-          geometry: resolved.cleanedGeometry
+          geometry: resolved.cleanedGeometry,
+          starred: addFormStarred()
         });
         closeAddForm();
       };
@@ -8032,7 +8061,7 @@
     map.getPane('popupPane').addEventListener('click', (e) => {
       const btn = e.target.closest('.popup-visited, .popup-star');
       if (!btn) return;
-      const loc = locations.find(l => l.id === btn.dataset.id);
+      const loc = rowItem(btn.dataset.id);   // a pin, or a district/street ('shape:<id>')
       if (!loc) return;
       // Consume the click. The optimistic toggle re-renders the popup
       // HTML within this same dispatch (after requireAuth()'s microtask),
@@ -8141,6 +8170,7 @@
       } else {
         lastInteractionAt = Date.now();
         fetchLocations();
+        fetchNeighborhoodShapes();
         fetchPlans();
         startPoll();
       }

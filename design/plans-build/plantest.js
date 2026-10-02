@@ -128,7 +128,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('V6 a stop row flies (≥ SOLO_MIN_ZOOM) and opens its popup, which says "Stop 2 of 6"', pop.z >= 14 && /Stop\s2 of 6/.test((pop.cat || '').replace(/ /g, ' ')) && pop.hl, pop);
     ok('V7 the highlighted row\'s number turns paper', (await page.evaluate(() => getComputedStyle(document.querySelector('.location-card.highlighted .row-n')).color)) === 'rgb(242, 235, 221)');
     await tap(page, '.location-card[data-shape-id="9001"] .row-main'); await W(1600);
-    ok('V8 a shape stop row flies and its popup says "Stop 5 of 6"', (await page.evaluate(() => (document.querySelector('.leaflet-popup .shape-stop') || {}).textContent)) === 'Stop 5 of 6');
+    // 2026-10-02 (shape parity): a shape's popup is the pin popup, so its stop line is the pin's .popup-stop in the type line
+    ok('V8 a shape stop row flies and its popup says "Stop 5 of 6"', /Stop\s5 of 6/.test(((await page.evaluate(() => (document.querySelector('.leaflet-popup .popup-cat .popup-stop') || {}).textContent)) || '').replace(/\u00a0/g, ' ')));
     const other = await page.evaluate(() => [...document.querySelectorAll('#locationsList .location-card:not(.is-stop)')].find(e => e.dataset.id).dataset.id);
     await tap(page, `.location-card[data-id="${other}"] .row-main`); await W(1600);
     ok('V9 a place below the rule flies and opens its popup too (no "Stop")', await page.evaluate(id => map.getZoom() >= 14 && !!document.querySelector('.leaflet-popup') && !/Stop \d/.test(document.querySelector('.leaflet-popup').textContent) && document.querySelector(`.location-card[data-id="${id}"]`).classList.contains('highlighted'), other));

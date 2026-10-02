@@ -154,26 +154,16 @@ pick/redirect before building anything.
 - Many `locations.name` values redundantly end in the city already shown
   in `.row-meta` (e.g. "Mother restaurant Copenhagen") — trimming them is
   a data cleanup that would win back truncation room on visited rows.
-- Shape rows (districts/streets) have no visited state, so they always
-  stay forward on `--paper` — late in the trip they'll be the brightest
-  rows and can't be cleared. Known consequence of the visited-row field;
-  don't tint shapes to fake it. Resolved properly only if shapes gain a
-  `visited` column (see the street/district popup item below).
-- Street/district popups lag behind pin popups (owner-reported
-  2026-09-23). `buildNeighborhoodLayer()` binds a bare
-  `<strong>label</strong><p>note</p>` string, while pins get
-  `buildPopupHtml()` (p8 layout): title row with the star, address/notes,
-  the Get Directions text link, then a bottom row of category glyph +
-  label (left) and Mark Visited (right). Gaps to
-  resolve: no category/type header, none of the popup typography classes,
-  no visited toggle, no directions. Visited needs a schema change first —
-  `neighborhood_shapes` has no `visited` column (checked 2026-09-23:
-  id, city, type, label, color, note, min_zoom, geometry, created_at), and
-  the shape list rows (`createShapeCard()`) would need the stamp too.
-  Directions were deliberately excluded for shapes when that feature
-  shipped (no single natural destination point); revisit with a centroid
-  or nearest-point destination, or keep excluded on purpose. Needs a
-  Design/UX/CD pass rather than a straight port.
+- ~~Shape rows have no visited state~~ and ~~street/district popups lag
+  behind pin popups~~ -- **closed 2026-10-02** ("Shape parity" in
+  `docs/shipped.md`; owner: "Every category should have the same
+  information and capabilities"). Open for UX/designer, not blocking:
+  the Get Directions / map-star point on a shape (street: halfway along
+  its length; district: vertex centroid if inside, else the nearest
+  vertex), the star's place on the map (that same point), shapes still
+  sorting as their own block after the pins (Starred / What's left
+  included), and a tapped shape row not taking the highlighted state
+  pins get.
 - Closed filters panel's chips stay focusable: in a Safari tab a
   keyboard/VoiceOver focus there scroll-then-snaps (UX should-fix from the
   sheet round, 2026-09-28). Cosmetic; fix is making the closed panel

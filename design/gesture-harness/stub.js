@@ -1,7 +1,7 @@
 // Supabase stub for the gesture harness: a signed-in owner session and a fixed
 // fixture, the same 21 places (+ a district and a street) in each of the five
 // seed cities, so every suite can address rows by LIST INDEX (A-Z order, the
-// default sort) in any city. Writes (update().eq()) patch the fixture, so the
+// default sort) in any city. Writes (update().eq()) patch the fixture (pins or shapes), so the
 // refetch after a toggle returns the state already on screen, as the real
 // server does. Served in place of the supabase-js CDN script by lib.js.
 (function () {
@@ -44,9 +44,11 @@
         lat: +(la + (r - 1) * 0.0042 + (c % 2) * 0.0011).toFixed(6), lng: +(ln + (c - 3) * 0.0071).toFixed(6),
         notes: i % 3 ? null : 'Fixture note.', visited, starred, city, created_at: new Date(Date.UTC(2026, 8, 1, 0, i)).toISOString() });
     });
-    shapes.push({ id: sid++, city, type: 'district', label: 'Fixture District', color: null, note: null, min_zoom: 15,
+    // Shapes star and visit like pins (2026-10-02): the district is plain (star / visit cases),
+    // the street starred + visited (unstar / un-visit cases).
+    shapes.push({ id: sid++, city, type: 'district', label: 'Fixture District', color: null, note: null, min_zoom: 15, visited: false, starred: false,
       geometry: [[la + 0.010, ln - 0.012], [la + 0.014, ln - 0.012], [la + 0.014, ln - 0.004], [la + 0.010, ln - 0.004]] });
-    shapes.push({ id: sid++, city, type: 'street', label: 'Fixture Street', color: null, note: null, min_zoom: null,
+    shapes.push({ id: sid++, city, type: 'street', label: 'Fixture Street', color: null, note: null, min_zoom: null, visited: true, starred: true,
       geometry: [[la - 0.012, ln + 0.004], [la - 0.0125, ln + 0.012]] });
   }
   window.__ROWS = rows; window.__SHAPES = shapes;
@@ -78,7 +80,7 @@
     const res = () => ({ data: table === 'locations' ? window.__ROWS.map(r => ({ ...r })) : table === 'neighborhood_shapes' ? window.__SHAPES.map(r => ({ ...r })) : [], error: null });
     let patch = null;
     const b = { select() { return b; }, order() { return b; }, in() { return b; }, limit() { return b; }, single() { return b; }, upsert() { return b; },
-      eq(k, v) { if (patch) window.__ROWS.forEach(r => { if (r[k] === v) Object.assign(r, patch); }); return b; },
+      eq(k, v) { if (patch) (table === 'neighborhood_shapes' ? window.__SHAPES : window.__ROWS).forEach(r => { if (r[k] === v) Object.assign(r, patch); }); return b; },
       update(o) { patch = o; return b; }, insert() { return b; }, delete() { return b; },
       then(ok, bad) { return Promise.resolve(res()).then(ok, bad); } };
     return b;

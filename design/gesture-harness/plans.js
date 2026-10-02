@@ -13,6 +13,7 @@
 //   × from its centre: 0/2/3px release removes; 4/6/12/40px never (left, the visit direction)
 //   + from its centre: 0/3px adds; 4/12px never
 //   rows 56.00px, stop rows and Places rows below the rule alike
+//   a visited + starred street as a stop: stamp, field and star as a pin stop; un-visit from its ×; × removes it
 // Fixture: stub.js's one plan (opted in with localStorage gh.plans): Reykjavík rows 0, 5, 1.
 // FILE=<index.html> OUT=<json> node plans.js
 const { launch, openProto, T, drag, line, W, recorder } = require('./lib');
@@ -125,6 +126,26 @@ const STOPS = 'rey00,rey05,rey01';
     await page.evaluate(() => { const b = document.querySelector('#planSlip button'); if (b) b.click(); }); await W(500);
     await page.evaluate(() => { locations.find(x => x.id === 'rey07').name = window.__nm; updateUI(); }); await W(300);
     rec(mode, 'a long name: "Added … as stop 4" truncates the name only; the stop number always shows', /as stop 4$/i.test(tr.text) && / as stop 4/.test(tr.suffix || '') && tr.suffixIn && tr.nameCut && (await order()) === STOPS, tr);
+
+    // a district/street stop (2026-10-02, shapes visit and star like pins): stub.js's Reykjavik street is visited
+    // + starred; added from below the rule, its stop row shows them as a pin stop does; a left stroke from its ×
+    // un-visits it and it stays a stop; × removes it (back to the fixture's three stops)
+    const sid = await page.evaluate(() => neighborhoodShapes.find(n => n.city === activeCity && n.type === 'street').id);
+    const sbox = sel => page.evaluate(([sid, sel]) => { const row = document.querySelector(`#locationsList .location-card[data-shape-id="${sid}"]`), l = document.getElementById('locationsList');
+      const r0 = row.getBoundingClientRect(), lr = l.getBoundingClientRect(); if (r0.top < lr.top || r0.bottom > lr.bottom - 4) l.scrollTop += r0.top - lr.top - 60;
+      const r = row.querySelector(sel).getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, [sid, sel]);
+    const shapeStop = () => page.evaluate(sid => { const e = document.querySelector(`#locationsList .location-card[data-shape-id="${sid}"]`), n = e.querySelector('.row-n'), nb = neighborhoodShapes.find(x => x.id === sid);
+      return { stop: e.classList.contains('is-stop'), n: n && n.textContent, visited: !!nb.visited, field: e.classList.contains('is-visited'), stamp: !!e.querySelector('.row-stamp'), star: !!e.querySelector('.row-star'),
+        sr: e.querySelector('.row-meta .sr-only').textContent, h: e.getBoundingClientRect().height, line: planStopLine('shape', sid), stops: stopsOf('gh-p').length }; }, sid);
+    await reset(); p = await sbox('.plan-add'); await tap(p); await W(800);
+    const ss = await shapeStop();
+    rec(mode, 'a visited + starred street added as stop 4: its stop row shows the stamp, the visited field and the star like a pin stop (56px)', ss.stop && ss.n === '4' && ss.visited && ss.field && ss.stamp && ss.star && /visited/.test(ss.sr) && !/not visited/.test(ss.sr) && ss.h === 56 && ss.line === 'Stop 4 of 4', ss);
+    await reset(); p = await sbox('.plan-x'); await drag(page, cdp, line(p.x, p.y, p.x - 110, p.y, 12)); await W(1600);
+    const su = await shapeStop(); s = await state();
+    rec(mode, 'left stroke from the street stop\'s × un-visits it; it stays stop 4; no navigate', su.stop && su.n === '4' && !su.visited && !su.field && !su.stamp && su.star && su.stops === 4 && !s.nav && !s.del, { su, s });
+    await page.evaluate(sid => setLocationFlag(shapeKey(sid), 'visited', true), sid); await W(300);
+    await reset(); p = await sbox('.plan-x'); await tap(p); await W(800);
+    rec(mode, '× on the street stop removes it (the plan is back to its three stops)', (await order()) === STOPS && (await page.evaluate(() => stopsOf('gh-p').length)) === 3, await order());
 
     const hs = await page.evaluate(() => [...new Set([...document.querySelectorAll('#locationsList .location-card')].map(e => e.getBoundingClientRect().height.toFixed(2)))]);
     rec(mode, 'rows 56.00px (stop rows and the rows below the rule)', hs.length === 1 && hs[0] === '56.00', hs);
