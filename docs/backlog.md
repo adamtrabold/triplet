@@ -72,7 +72,7 @@ pick/redirect before building anything.
   **Blocker:** apply `supabase/migrations/20260929000000_add_plans.sql` to
   the live project (operator, after review); until then the Plans side says
   plans aren't available yet and nobody can create one. Then the owner's
-  iPhone pass (`docs/iphone-checks.md`). Open for designer/UX at stage 2:
+  iPhone pass (`docs/iphone-checks.md`). Open for designer/UX:
   the starred stop's name starts at 122px, not 96px (v3 §7 CD note); the
   build decisions listed in the shipped entry (reorder Undo copy, stamp at
   normal ink, chip framing). Owner question still open (v3 §4, owner-12):

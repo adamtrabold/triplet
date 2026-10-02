@@ -39,31 +39,38 @@ or a load-bearing gate below changes. Don't let any of these go stale.
 - Category filter chips (`CATEGORY_COLORS`) are independent of the
   add-form's category dropdown — changing one never requires the other.
 
-## Team process (owner-set)
+## Team process (owner-set): fast lane by default
 
-Design work runs designer → UX → creative director (CD), coordinated by an
-operator who does no design work. The CD's bar is **9/10 in both stages**;
-what's scored differs.
+Owner: "Fast lane. As little process other than what I've explicitly dictated
+or is necessary." The operator picks the lane, says which in one phrase; the
+owner can override with `tweak:` or `full:`.
 
-1. **Concept stage — quality of concept.** Designer explores a few distinct
-   directions, prototypes the pick only far enough to judge it. UX runs
-   `docs/ux-brief.md` in full and owns the owner's jobs at both stages: job
-   walkthrough, control parity, hierarchy, convention (only pixel-level
-   execution is deferred to stage 2). CD scores the idea (on-brief, intentional, right for this
-   app, better than alternatives); execution flaws are noted, not scored or
-   fixed. At ≥9, show the owner stills/filmstrip + one-line why + a line per
-   rejected alternative, and ask to approve or redirect. (Why two stages:
-   polishing unseen concepts to 9 burned tokens on ideas the owner then
-   rejected.)
-2. **Perfection stage — execution, only after owner approval.** Full loop
-   until CD scores execution ≥9, measured at 3x, ~4x crops and 1x, with
-   real-timing checks for motion; the Impeccable gate and review pass (see
-   the Impeccable bullet below); then integrate,
-   verify, hand back with iPhone checks. The concept isn't relitigated
-   unless execution proves it unworkable (then back to the owner).
+1. **TWEAK (default)** — any visual/copy/spacing/colour/size/shadow change and
+   plain UI bugs. ONE agent (best model, worktree) changes it, re-shoots only
+   the affected stills at 1x/3x and looks at them itself, runs only the checks
+   covering the diff + `design/impeccable-gate/run.sh index.html` (must print
+   `IMPECCABLE GATE PASSED`), shows the owner the stills BEFORE landing a new
+   look, and lands on the owner's "yes" (immediately for a plain bug with no
+   visual change). No CD, no UX, no review loops, no fresh-agent passes.
+2. **FEATURE / NEW LOOK** — a designer produces phone-readable stills; the
+   owner sees them first. After approval ONE builder builds it. ONE combined
+   CD + UX check (parallel; each gets `docs/cd-brief.md` / `docs/ux-brief.md`
+   pasted verbatim plus the owner's quotes) runs ONCE on the finished build,
+   not per round; fixes in one batch; the owner sees final stills if anything
+   visual changed after approval; then land.
+3. **GESTURE / DATA** — row gestures, touch plumbing or the database add the
+   FULL gesture gate (`design/gesture-harness/run-all.sh`) ONCE at the very
+   end (not per round) and, for the DB, applying the migration via the
+   Supabase MCP after the build is green. Baseline numbers in
+   `docs/shipped.md`.
 
-Small, well-specified follow-ups (owner-reported bug, tweak to an approved
-design) skip straight to stage 2.
+**Always:** the owner sees any new visual look before it lands; the Impeccable
+gate passes; images sent to the owner are phone-readable; the operator makes
+no design/UX/brand calls (Roles below); designers read `docs/owner-taste.md`
+and new taste rules go there the same day; the owner's quotes go in briefs
+verbatim; messages to the owner are terse, plain language, one per real event
+(decision needed, thing live, blocker); a plain bug the owner reports is
+verified by one agent before theorizing. Everything else is optional.
 
 ### Roles (owner-set)
 
@@ -76,56 +83,20 @@ operator makes none of these calls.
 
 ### Operator rules
 
-- **Terse.** One message per real event (decision needed, thread finished,
-  blocker). No narration, no re-deriving or restating what's established.
-  Farm research, investigation and verification out to agents — including
-  checking a reported bug is real before theorizing about it.
-- **Never trade correctness for thrift.** Every loop requirement (stages,
-  CD ≥9, UX verification, 3x/4x/1x + real-timing, measured claims,
-  Impeccable gate + review, gates, byte-compare before integrating) applies in
-  full. Savings come from language and orchestration only.
-- **Cheapest setup that does each job well**: strongest model for design/CD
-  judgment and tricky measurement, cheaper ones for mechanical checks.
-  Reuse warm agents rather than spawning fresh ones.
-- **Every agent that touches a tracked file gets `isolation: "worktree"`,
-  unconditionally** — it's one no-build file and shared-checkout races have
-  already happened. Discovery-only (no edits) may run in the primary dir.
-- **The operator does not merge.** A merge agent lands each finished branch
-  on `main`, one at a time: resolves conflicts, re-runs checks the branch
-  didn't cover, confirms intent, runs the Impeccable gate post-merge. The operator
-  picks merge order when branches overlap.
-- **Scope the test gate to the diff.** Keep diffs confined, iterate on fast
-  checks, and run only suites covering touched code
-  (e.g. popup change → popup/replay/haptic cases + popup-open + Impeccable);
-  the full gesture gate (touch suite, flip6, curve8, dust) only when shared
-  row-gesture/touch plumbing changes. Agents report which checks they ran
-  and why that covers the diff.
-- **Prior rationale is history, not commandment.** Past agents' reasoning
-  (here, in `docs/`, in code comments) explains why something is the way it
-  is; it's not an owner constraint unless the owner said so. The goal is
-  "looks right and communicates as intended". In briefs, separate "why it's
-  like this" from "must preserve", defaulting to the former.
-- **Briefs carry the owner's verbatim words, the confirmed constraints (what
-  is settled, what is off the table) and the relevant records** (UX also gets
-  `docs/ux-brief.md` verbatim and the owner's job list; never "verify against
-  the spec"). They never prescribe solutions, reinterpret the owner's words as
-  design decisions, or pre-resolve questions that belong to a role. On a
-  cross-role conflict, route the question to its owner (interaction → UX,
-  brand/identity → CD, visual execution → designer); ask the owner only when
-  roles disagree.
-- **CD briefs: paste `docs/cd-brief.md` verbatim plus the owner's quotes;
-  designers read `docs/owner-taste.md` before designing; when the owner
-  states a new taste rule, add it to `docs/owner-taste.md` the same day.**
-- **Ground design briefs in the inspo, not just the code.**
-  `design/inspo/project/` is the app's visual language (vintage travel
-  labels, matchbooks, national-park posters — source of the paper/ink/
-  figure-deep tokens and stamp/label/ledger-row motifs); feature folders
-  (e.g. `design/inspo/visited-badge/`) hold reference for one mark;
-  `project/` applies even where no feature folder exists.
-- **Bound divergent exploration.** When asking for wildcard ideas, state
-  what's confirmed and off the table vs. what's actually open (the
-  star-alignment round drifted into relocating the star, which the owner
-  had said was fine).
+- **Every agent that touches a tracked file gets `isolation: "worktree"`** —
+  it's one no-build file and shared-checkout races have happened.
+  Discovery-only may run in the primary dir.
+- **Agents land their own work** on `main` (`git push origin HEAD:main`,
+  retry with backoff, resolve conflicts keeping both sides' intent).
+- **Scope the test gate to the diff;** agents report which checks they ran and
+  why that covers the diff.
+- **Prior rationale is history, not commandment** unless the owner said it.
+  In briefs, separate "why it's like this" from "must preserve".
+- **Briefs** carry the owner's verbatim words, confirmed constraints and
+  relevant records; they never prescribe solutions or pre-resolve questions
+  that belong to a role. Ground design briefs in `design/inspo/project/` (the
+  app's visual language) plus any feature folder.
+- When asking for wildcard ideas, state what's settled vs. actually open.
 
 ## Architecture
 
@@ -194,22 +165,21 @@ operator makes none of these calls.
   gestures are silent there by platform limit (owner-confirmed); real taps
   via `hapticTap()` still tick.
 - **Impeccable:** the only way to run it is `design/impeccable-gate/run.sh`
-  (never raw `npx impeccable`). Any UI change runs BOTH:
+  (never raw `npx impeccable`). Any UI change runs:
   `run.sh` (gate: static + rendered states, identity diff vs committed
-  baselines; must print `IMPECCABLE GATE PASSED`) and `run.sh --review`
-  then `--check-review <packet>` (ONE read-only agent runs `critique` +
-  `audit`; open P0/P1 block until designer/UX/CD dispose of them). The other
-  15 commands are opt-in deeper passes on request (`--review --all` or
-  `--commands animate,typeset,...`), not part of the per-change review. Exit 3 = didn't
+  baselines; must print `IMPECCABLE GATE PASSED`). `run.sh --review` then
+  `--check-review <packet>` (critique + audit) and the other commands
+  (`--review --all`, `--commands animate,typeset,...`) are opt-in, on request
+  or alongside a lane-2 check, not per-change. Exit 3 = didn't
   run, never a pass. Baseline changes (`--update`) need owner/operator
   approval. The vendored skill (`/impeccable`, `.agents/skills/impeccable/`)
-  is a critic and a tool: this file, the team process and the owner's brief
+  is a critic and a tool: this file, the lane process and the owner's brief
   override its defaults. Details: `design/impeccable-gate/README.md`.
 
 ## Current priorities (full text in `docs/backlog.md`)
 
 Concept work exists for visited pins (owner hasn't picked); popup star
-concept is in progress. Get a decision before building.
+concept is in progress. Get a decision before building (lane 2).
 
 - **Popup star alignment** (star looks off when the popup has full
   content; list-row star-only-when-starred is settled). Active concept:

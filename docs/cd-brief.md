@@ -62,7 +62,7 @@ owner's no and fail the work first.
 
 ## Output format
 
-1. Score (concept; execution if stage 2), with frame names as evidence.
+1. Score (concept for a new look; execution for a finished build), with frame names as evidence.
 2. Owner-objection prediction (three, in the owner's voice).
 3. Noise count for the busiest view, and any rejected-pattern matches (each
    caps at 6).

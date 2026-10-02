@@ -181,6 +181,10 @@ sources are the file where the quote is recorded.
 - **Don't defend constraints the owner didn't set.** "I don't care if the
   truncation happens sooner also idk why that is a thing yall are fighting so
   hard for" (chat; prior rationale is history).
+- **Fast lane by default.** "Yes do this. Fast lane. As little process other
+  than what I've explicitly dictated or is necessary" (2026-10-02, after:
+  "Jesus Christ why is this process taking so long. How can I reduce the time
+  and agents it takes for these simple things"; CLAUDE.md Team process).
 - **Roles.** "Designer is focused on ui and brand representation, ux on
   overall ux of the app and interactions, cd on overall adherence to project
   and brand goals and presence/identity." (CLAUDE.md).
