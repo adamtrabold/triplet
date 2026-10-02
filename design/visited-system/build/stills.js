@@ -100,7 +100,7 @@ const SPECIMEN = () => {
       await page.evaluate(() => { document.getElementById('locations').classList.add('collapsed'); }); await W(200);
       // 75% visited (every place but each 4th), in the page only: is a visited pin obviously not a to-do pin?
       await page.evaluate(() => { locations = locations.map((l, i) => ({ ...l, visited: i % 4 !== 0 })); updateUI(); }); await W(300);
-      for (const [name, z] of [['map-near-z14-75pct', 14], ['map-far-z12-75pct', 12], ['map-z13-clusters', 13], ['map-z11-clusters', 11]]) {
+      for (const [name, z] of [['map-near-z14-75pct', 14], ['map-z12-near-75pct', 12], ['map-z11-far-75pct', 11], ['map-z13-clusters', 13], ['map-z10-clusters', 10]]) {
         await page.evaluate(z => { map.setView([64.1466, -21.9426], z, { animate: false }); }, z); await W(700);
         await paintBase(page, z < 14); await W(150);
         await shot(page, `${name}-${dsf}x.png`, { x: 0, y: 0, width: 390, height: 520 });
