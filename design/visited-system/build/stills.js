@@ -126,7 +126,7 @@ const SPECIMEN = () => {
       }
       await ctx.close(); }
   }
-  // --- visit swipe keyframes at 3x: 40px hover, the press frame, smooth-out, rest ---
+  // --- visit swipe keyframes at 3x: 1 lifted (40px hover), 2 pressed centre with the flap still up, 3 the flap settling, 4 rest ---
   { const { ctx, page, cdp } = await L.openProto(b, { dsf: 3 });
     const g = await (async () => { await L.rowRect(page, 0); await W(120); return page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card[data-id]')[0]; const r = el.getBoundingClientRect(), x = el.querySelector('.delete-btn').getBoundingClientRect(); return { y: r.y + r.height / 2, xc: x.x + x.width / 2, top: Math.floor(r.y), h: Math.ceil(r.height) }; }); })();
     const clip = { x: 0, y: g.top - 2, width: 390, height: g.h + 4 };
@@ -134,7 +134,13 @@ const SPECIMEN = () => {
     // 50px finger = 40px content (hover), then 66 = 56 (press), then hold
     await L.drag(page, (cdp), L.line(g.xc, g.y, g.xc - 50, g.y, 6), { hold: 0, end: 'touchCancel', onStep: async i => { if (i === 6) { await W(60); frames.push(await page.screenshot({ clip })); } } }).catch(() => {});
     await W(800);
-    await L.drag(page, cdp, L.line(g.xc, g.y, g.xc - 66, g.y, 8), { hold: 700, onStep: async i => { if (i === 8) { frames.push(await page.screenshot({ clip })); await W(70); frames.push(await page.screenshot({ clip })); } } });
+    // the press, on a stepped clock (sgNow, the page's one timeline clock): 35% in (face nearly flat, flap still up),
+    // 65% in (face flat, flap relaxing), then the real clock again for the rest
+    await page.evaluate(() => { window.__real = () => performance.now(); window.__clk = null; sgNow = () => (window.__clk != null ? window.__clk : __real()); });
+    await L.drag(page, cdp, L.line(g.xc, g.y, g.xc - 66, g.y, 8), { hold: 700, onStep: async i => { if (i === 8) {
+      const base = await page.evaluate(() => (window.__clk = __real()));
+      for (const u of [0.35, 0.65]) { await page.evaluate(t => { window.__clk = t; }, base + u * 200); await W(80); frames.push(await page.screenshot({ clip })); }
+      await page.evaluate(() => { window.__clk = null; }); } } });
     await W(900); frames.push(await page.screenshot({ clip }));
     frames.forEach((f, i) => fs.writeFileSync(path.join(OUT, `keyframe-${i + 1}-3x.png`), f));
     await ctx.close(); }

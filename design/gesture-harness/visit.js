@@ -58,8 +58,9 @@ function flipJudge(Lg, reduced) {
 (async () => { const b = await L.launch();
   for (const reduced of [false, true]) { const mode = reduced ? 'reduced' : 'full';
     const ok = (name, cond, info) => rec(mode, name, cond, info);
-    // [sticker] ROW_ANG=50|-50 forces every row sticker to one flap end (left or right peel), so every case runs for each corner.
-    const fresh = async (o = {}) => { const r = await L.openProto(b, { reduced, ...o }); if (process.env.ROW_ANG) await r.page.evaluate(a => { rowStickerAng = () => a; cardsById.forEach(e => { e.signature = null; }); shapeCardsById.forEach(e => { e.signature = null; }); updateUI(); }, +process.env.ROW_ANG); await r.page.evaluate(() => { window.__vib = []; Object.defineProperty(Navigator.prototype, 'vibrate', { configurable: true, value: p => { __vib.push(JSON.stringify(p)); return true; } }); }); return r; };
+    // [sticker] ROW_ANG=50|-50 forces every row sticker to one flap end (left or right peel), ROW_SIZE=0..1 its fold size
+    //   (1 = the largest, 7px), so every case runs for each corner and size.
+    const fresh = async (o = {}) => { const r = await L.openProto(b, { reduced, ...o }); if (process.env.ROW_ANG || process.env.ROW_SIZE) await r.page.evaluate(([a, z]) => { if (!isNaN(a)) rowStickerAng = () => a; if (!isNaN(z)) rowStickerSize = () => z; cardsById.forEach(e => { e.signature = null; }); shapeCardsById.forEach(e => { e.signature = null; }); updateUI(); }, [parseFloat(process.env.ROW_ANG), parseFloat(process.env.ROW_SIZE)]); await r.page.evaluate(() => { window.__vib = []; Object.defineProperty(Navigator.prototype, 'vibrate', { configurable: true, value: p => { __vib.push(JSON.stringify(p)); return true; } }); }); return r; };
     // ---- VISIT CASES ----
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
       await L.drag(page, cdp, left(g, 110, 12)); await W(900); const s = await st(page, g.id);
@@ -175,17 +176,23 @@ function flipJudge(Lg, reduced) {
         markersById.get(id).marker.openPopup(); await new Promise(r => setTimeout(r, 300)); document.querySelector('.leaflet-popup .popup-visited').click(); await new Promise(r => setTimeout(r, 1000));
         const el = document.querySelector(`.location-card[data-id="${id}"]`); return { visited: locations.find(l => l.id === id).visited, field: el.classList.contains('is-visited'), stamps: el.querySelectorAll('.row-stamp').length, live: el.classList.contains('vs-live'), held: starHeld.size }; });
       ok('V16 [p8] popup Mark Visited still visits; row field + stamp in sync', r.visited && r.field && r.stamps === 1 && !r.live && !r.held, r); await ctx.close(); }
-    // V17 [sticker] the press at real timing: pressed down from the hover (<= 1.12x) to 0.97x (>= 2 frames <= 0.985),
-    //      then settles to scale 1 at the place's lean; reduced: no press dip, scale 1 and the lean on every frame after the press.
+    // V17 [sticker] the press at real timing (owner, 2026-10-03: placed down by a thumb on the middle, "the flap edge being
+    //      the last thing"): after the press the face settles from the hover (<= 1.12x) to 1 with no dip below 1 (no bounce),
+    //      the flap reaches its resting fold only AFTER the face is flat (>= 2 frames later), and all of it lands within
+    //      VISIT_PLACE_MS + 2 frames, at scale 1 and the place's lean. Reduced: scale 1, the lean and the resting fold on
+    //      every frame after the press. (Was: a 0.97 press dip, retired with the owner's motion note.)
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
-      const H = await page.evaluate(() => VISIT_HOVER.SCALE[1]);
-      await page.evaluate(() => { window.__f = []; const tick = () => { const s = document.querySelectorAll('#locationsList .location-card[data-id]')[0].querySelector('.row-stamp'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __f.push({ t: performance.now(), sc: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI, sw: s.classList.contains('vs-open') }); } if (__f.length < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
+      const H = await page.evaluate(() => VISIT_HOVER.SCALE[1]), MS = await page.evaluate(() => VISIT_PLACE_MS);
+      await page.evaluate(() => { window.__f = []; const tick = () => { const s = document.querySelectorAll('#locationsList .location-card[data-id]')[0].querySelector('.row-stamp'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform), fl = s.querySelector('.stk-flap');
+        __f.push({ t: performance.now(), sc: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI, sw: s.classList.contains('vs-open'), rest: !!fl && s.dataset.rest !== undefined && fl.getAttribute('d') === rowStickerFold(+s.dataset.rest, 0.94, +s.dataset.ang).flapD }); } if (__f.length < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
       await L.drag(page, cdp, left(g, 110, 12), { hold: 500 }); await W(200);
       const f = await page.evaluate(() => __f); const tilt = await page.evaluate(id => stickerTilt(id), g.id); const i = f.findIndex(x => !x.sw); const after = f.slice(i);
-      const peak = Math.max(...after.map(x => x.sc)), under = after.filter(x => x.sc <= 0.985).length, rest = after[after.length - 1];
-      ok(reduced ? 'V17 (reduced) the placed sticker appears: no press, scale 1 and the place\'s lean on every frame' : `V17 [sticker] press at real timing: ${under} frames <= 0.985 (>=2), peak ${peak.toFixed(4)} <= ${H} (the hover), rests at scale 1 and the place's lean`,
-        reduced ? after.every(x => Math.abs(x.sc - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01) : (under >= 2 && peak <= H + 1e-4 && Math.abs(rest.rot - tilt) < 0.01 && Math.abs(rest.sc - 1) < 1e-3),
-        { under, peak: +peak.toFixed(4), restRot: +rest.rot.toFixed(3), tilt });
+      const peak = Math.max(...after.map(x => x.sc)), minSc = Math.min(...after.map(x => x.sc)), rest = after[after.length - 1];
+      const flat = after.findIndex(x => Math.abs(x.sc - 1) < 1e-3), flapRest = after.findIndex(x => x.rest), dur = flapRest >= 0 ? after[flapRest].t - after[0].t : 1e9;
+      ok(reduced ? 'V17 (reduced) the placed sticker appears: no motion, scale 1, the lean and the resting fold on every frame' : `V17 [sticker] placed by a thumb: face flat at frame ${flat}, flap at rest at frame ${flapRest} (>= 2 later), no dip (min ${minSc.toFixed(4)}), peak ${peak.toFixed(4)} <= ${H}, done in ${dur.toFixed(0)}ms (<= ${MS} + 2 frames), rests at 1 and the lean`,
+        reduced ? after.every(x => Math.abs(x.sc - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01 && x.rest)
+                : (flat >= 0 && flapRest >= flat + 2 && minSc >= 1 - 1e-3 && peak <= H + 1e-4 && dur <= MS + 34 && Math.abs(rest.rot - tilt) < 0.01 && Math.abs(rest.sc - 1) < 1e-3 && rest.rest),
+        { flat, flapRest, minSc: +minSc.toFixed(4), peak: +peak.toFixed(4), dur: Math.round(dur), restRot: +rest.rot.toFixed(3), tilt });
       await ctx.close(); }
     // V20 un-visit: the star's erase pop at the lock (1.12x, no twist); none under reduced motion. V21 cancel: nothing left behind.
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 2); let ringVis;
@@ -221,7 +228,7 @@ function flipJudge(Lg, reduced) {
             const props = [...t.style].filter(k => !/^(transform|--sg-fade-a)$/.test(k) && (was.get(k) || '') !== t.style.getPropertyValue(k).trim()); if (props.length) __mo.textOther.push(props.join(',')); }
           const st = t.closest && t.closest('.vs-carry'); if (!st || !st.classList.contains('vs-open')) return;
           if (m.attributeName === 'class' && t !== st) __mo.cls++;
-          if (m.attributeName === 'style') { __mo.writes++; const props = [...t.style].filter(k => !/^(transform|opacity)$/.test(k) && !/^--vs-ink-|^--stamp-tilt$/.test(k)); if (props.length) __mo.other.push(props.join(',')); } }));
+          if (m.attributeName === 'style') { __mo.writes++; const props = [...t.style].filter(k => !/^(transform|opacity)$/.test(k) && !/^--vs-ink-|^--stamp-tilt$|^--l[xy]$/.test(k));   /* [sticker] --lx/--ly: the screen-space light, set once in the markup, never written mid-drag (it lists every property present on a written element) */ if (props.length) __mo.other.push(props.join(',')); } }));
         mo.observe(list, { subtree: true, attributes: true, attributeOldValue: true, attributeFilter: ['class', 'style'] }); window.__mostop = () => mo.disconnect(); });
       await L.drag(page, cdp, left(g, 60, 20)); await W(500); const m = await page.evaluate(() => { __mostop(); return __mo; });
       ok('V23 (P6-N1) mid-drag, the hovering sticker only writes transforms and opacities (0 class changes, 0 other style properties); [1ec21c2] the slid text only transforms', m.cls === 0 && m.other.length === 0 && m.writes > 10 && m.textOther.length === 0, { classChanges: m.cls, otherProps: [...new Set(m.other)].slice(0, 5), styleWrites: m.writes, textOther: [...new Set(m.textOther)].slice(0, 5) });

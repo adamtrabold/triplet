@@ -2268,9 +2268,11 @@
        (.vs-peel) wears the same shadow. At rest the label sits on a short
        warm contact shadow, so the lighter cream reads as a label laid on the
        filed row, not a smudge in it. */
-    .row-stamp > .stk-base { filter: drop-shadow(0.2px 0.4px 0.4px rgba(107, 74, 40, 0.10)); }   /* the label's thickness: a hairline-tight, faint warm contact shadow down-right (one light, upper left), no halo */
+    .row-stamp > .stk-base { filter: drop-shadow(calc(var(--lx, 0.6) * 0.45px) calc(var(--ly, 0.8) * 0.45px) 0.4px rgba(107, 74, 40, 0.10)); }   /* the label's thickness: a hairline-tight, faint warm contact shadow down-right (one light, upper left), no halo */
     .row-stamp.vs-open > .stk-base,
-    .row-stamp.vs-peel > .stk-base { filter: drop-shadow(0 3px 2.4px rgba(40, 30, 20, 0.35)); }
+    .row-stamp.vs-peel > .stk-base { filter: drop-shadow(calc(var(--lx, 0.6) * 3px) calc(var(--ly, 0.8) * 3px) 2.4px rgba(40, 30, 20, 0.35)); }
+    /* the press: the lifted shadow tightens into the resting one rather than vanishing */
+    .vs-carry > .stk-base { transition: filter 140ms ease-out; }
     /* The veil: the row's own field, feathered (8px), behind the sticker and
        14px to its left, so the sliding name's tail goes UNDER the lifted
        sticker and is never seen within 6px of it (V14). It scales with
@@ -2407,8 +2409,8 @@
          row's flap is clipped to its label (stk-row-clip = the 72x24 box's oval). -->
     <filter id="stk-cast-0" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.25"/></filter><filter id="stk-cast-1" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.70"/></filter><filter id="stk-cast-2" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="1.20"/></filter><filter id="stk-cast-0-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.17"/></filter><filter id="stk-cast-1-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.49"/></filter><filter id="stk-cast-2-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.84"/></filter>
     
-    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.20" dy="0.4" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.15" dy="0.3" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.27" dy="0.36" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.21" dy="0.28" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="stk-crease" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.9"/></filter>
     <filter id="stk-crease-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.63"/></filter>
     <clipPath id="stk-row-clip"><ellipse cx="36" cy="12" rx="36" ry="11"/></clipPath>
@@ -4299,7 +4301,9 @@
       // starred pin never peels at the upper right, where the star rides. The light never moves.
       PIN_CORNERS: [[45, 4], [-45, 3], [135, 2], [-135, 2]],
       ROW_CORNERS: [[50, 3], [-50, 2]],     // the row oval: its left or right end
-      PIN_H: { near: 0.62, far: 0.66 },     // chord at this fraction of the radius: flap ~18% of the diameter NEAR; smaller at FAR, where pins pile
+      PIN_H: { near: 0.62, far: 0.66 },     // chord at this fraction of the radius: flap ~19% of the diameter NEAR; smaller at FAR, where pins pile
+      PIN_H_SPREAD: 0.2,                    // per place, the chord moves +-0.1 around that (owner: "maybe the flap size should be randomized somewhat"): ~14-24% of the diameter
+      ROW_REACH: [4, 7],                    // per place, the row fold reaches 4-7px (approved 5)
       FOLD_L: 0.94,                         // at rest the flap lies (almost) flat: reflected x0.94 (1 - k, k 0.06)
       INK: '#3A4C5B',                       // the shipped stamp's ink: color-mix(--navy 82%, transparent) over --paper, flattened
       FACE: '#FAF5EA',                      // cream, one step lighter than the map's and the rows' cream: --paper-raised
@@ -4329,6 +4333,7 @@
     function stickerHash(id) { let h = 2166136261; for (const ch of String(id)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; }
     function stickerPick(id, corners) { const tot = corners.reduce((a, [, w]) => a + w, 0); let r = stickerHash(id) % tot;
       for (const [a, w] of corners) { if (r < w) return a; r -= w; } return corners[0][0]; }
+    function stickerSize(id) { return id == null ? 0.5 : (stickerHash(String(id) + '#size') % 1000) / 999; }   // 0..1, its own hash: size, corner and lean are independent
     function stickerCorner(id, starred) { return id == null ? STICKER.PIN_ANG : stickerPick(id, starred ? STICKER.PIN_CORNERS.filter(([a]) => a !== -135) : STICKER.PIN_CORNERS); }
     function rowStickerAng(id) { return id == null ? STICKER.ROW.ANG : stickerPick(id, STICKER.ROW_CORNERS); }
     // A sticker is laid, not struck: half the place's stamp lean.
@@ -4381,12 +4386,23 @@
       stickerFolds.set(key, out);
       return out;
     }
-    function stickerCurlDefs(id, g) {
-      // The shade starts where the curl's tip lies on the face (under the flap it is hidden anyway),
-      // so the lighter tip reads against the shadow it casts.
+    // THE LIGHT is one screen-space direction for every sticker (owner: "Light source should have
+    // consistent placement regardless of flap"): STICKER.LIGHT, down-right from an upper-left light.
+    // A sticker drawn inside a rotated box (the row's lean) gets the light counter-rotated into its
+    // own coordinates, so on screen every shadow falls the same way whatever the tilt or corner.
+    function stickerLight(tilt = 0) {
+      const t = tilt * Math.PI / 180, [lx, ly] = STICKER.LIGHT;
+      return [lx * Math.cos(t) + ly * Math.sin(t), -lx * Math.sin(t) + ly * Math.cos(t)];
+    }
+    function stickerCurlDefs(id, g, light = STICKER.LIGHT) {
+      // The shade the curl casts on the face starts where the curl's tip lies (under the flap it is
+      // hidden anyway) and is only as strong as the light pushes the flap's shadow onto the face:
+      // full for a corner the light shines over (upper left), none where the shadow falls off the
+      // sticker (lower left, lower right) -- the cast layers carry it there.
       const [x1, y1, x2, y2] = g.curl.map(v => v.toFixed(2)), t = Math.min(0.9, g.reach / (Math.hypot(g.curl[2] - g.curl[0], g.curl[3] - g.curl[1]) || 1));
+      const f = Math.max(0, -(g.u[0] * light[0] + g.u[1] * light[1]));
       return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">` +
-        STICKER.CURL_STOPS.map((o, i) => `<stop offset="${(t + o * (1 - t)).toFixed(3)}" stop-color="${STICKER.CURL}" stop-opacity="${STICKER.CURL_OP[i]}"/>`).join('') + '</linearGradient></defs>';
+        STICKER.CURL_STOPS.map((o, i) => `<stop offset="${(t + o * (1 - t)).toFixed(3)}" stop-color="${STICKER.CURL}" stop-opacity="${(STICKER.CURL_OP[i] * f).toFixed(3)}"/>`).join('') + '</linearGradient></defs>';
     }
     let stickerCurlUid = 0;
     // The flap's back is paper curling, not a flat chip (owner: "maybe the flap should have a
@@ -4409,15 +4425,15 @@
     // layers (STICKER.CAST: [offset per unit height, blur, opacity]) so the shadow is tight and
     // darkest at the fold and grows wider, softer and lighter toward the tip: a wedge, not a
     // blurred blob. FAR scales offsets and blurs down (x0.7).
-    function stickerCastDs(g, far) {
-      const [m0, m1] = g.chord, mx = (m0[0] + m1[0]) / 2, my = (m0[1] + m1[1]) / 2, [ux, uy] = g.u, [lx, ly] = STICKER.LIGHT, k = far ? 0.7 : 1;
+    function stickerCastDs(g, far, light = STICKER.LIGHT) {
+      const [m0, m1] = g.chord, mx = (m0[0] + m1[0]) / 2, my = (m0[1] + m1[1]) / 2, [ux, uy] = g.u, [lx, ly] = light, k = far ? 0.7 : 1;
       return STICKER.CAST.map(([off]) => 'M' + g.flapPts.map(([x, y]) => {
         const h = Math.max(0, Math.min(1, ((mx - x) * ux + (my - y) * uy) / (g.reach || 1)));   // 0 at the fold, 1 at the tip
         return (x + lx * off * k * h).toFixed(2) + ' ' + (y + ly * off * k * h).toFixed(2);
       }).join('L') + 'Z');
     }
-    function stickerFlapMarkup(g, back, far, gid, hi = false) {   // hi: on the selected pin's dark face the same shadow needs a deeper ink to read
-      const [c0, c1] = g.chord, ds = stickerCastDs(g, far);
+    function stickerFlapMarkup(g, back, far, gid, hi = false, light = STICKER.LIGHT) {   // hi: on the selected pin's dark face the same shadow needs a deeper ink to read
+      const [c0, c1] = g.chord, ds = stickerCastDs(g, far, light);
       return stickerFlapDefs(gid, g, back) +
         STICKER.CAST.map(([, , op], i) => `<path class="stk-cast stk-cast-${i}" d="${ds[i]}" fill="${hi ? STICKER.CAST_INK_HI : STICKER.CAST_INK}" fill-opacity="${hi ? op * 1.6 : op}" filter="url(#stk-cast-${i}${far ? '-far' : ''})"/>`).join('') +
         `<line class="stk-crease" x1="${c0[0].toFixed(2)}" y1="${c0[1].toFixed(2)}" x2="${c1[0].toFixed(2)}" y2="${c1[1].toFixed(2)}" stroke="${STICKER.CREASE}" stroke-width="1.5" stroke-linecap="round" filter="url(#stk-crease${far ? '-far' : ''})"/>` +
@@ -4435,17 +4451,17 @@
     // the check turns cream. Returns { base, flap } SVG strings, both
     // size x size at (0,0): the flap is drawn last so it lies over the face --
     // and over anything placed between them (a stop's number prints above it).
-    function stickerPinParts({ size, near, hi = false, check = true, ang = STICKER.PIN_ANG }) {
-      const tier = near || hi ? 'near' : 'far', c = size / 2;
-      const g = stickerFold('circle', size, size, c, c, ang, STICKER.PIN_H[tier], STICKER.FOLD_L);
+    function stickerPinParts({ size, near, hi = false, check = true, ang = STICKER.PIN_ANG, sz = 0.5 }) {
+      const tier = near || hi ? 'near' : 'far', c = size / 2, fh = +(STICKER.PIN_H[tier] + (0.5 - sz) * STICKER.PIN_H_SPREAD).toFixed(3);
+      const g = stickerFold('circle', size, size, c, c, ang, fh, STICKER.FOLD_L);
       const face = hi ? STICKER.HI_FACE : STICKER.FACE, mark = hi ? STICKER.FACE : STICKER.INK;
-      const cid = `stk-curl-${size}-${tier}-${ang}`;   // same geometry, same gradient: a shared id is safe
+      const cid = `stk-curl-${size}-${tier}-${ang}-${fh}`;   // same geometry, same gradient: a shared id is safe
       let base = stickerCurlDefs(cid, g) + `<path class="stk-face" d="${g.bodyD}" fill="${face}" filter="url(#stk-lift${tier === 'far' ? '-far' : ''})"/><path class="stk-curl" d="${g.bodyD}" fill="url(#${cid})"/>`;
       if (!hi) base += `<path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/>`;
       if (check) { const ck = STICKER_CHECK[tier], o = ((size - ck.px) / 2).toFixed(2);
         base += `<svg class="badge-glyph stk-check" x="${o}" y="${o}" width="${ck.px}" height="${ck.px}" viewBox="0 0 24 24"><path d="${ck.d}" fill="${mark}"/></svg>`; }
       const svg = (cls, inner, abs) => `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="${abs ? 'position:absolute;left:0;top:0;' : 'display:block;'}overflow:visible">${inner}</svg>`;
-      return { base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far', `stk-flapg-${size}-${tier}-${ang}${hi ? '-hi' : ''}`, hi), true) };
+      return { base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far', `stk-flapg-${size}-${tier}-${ang}-${fh}${hi ? '-hi' : ''}`, hi), true) };
     }
     // The map star on a visited sticker: the same star, its paper halo thinned
     // (a cream face needs no separation ring) and set out along the shoulder,
@@ -4461,14 +4477,21 @@
       const ext = Math.sqrt(R.RX * R.RX * Math.sin(a) ** 2 + R.RY * R.RY * Math.cos(a) ** 2);
       return { rest: [1 - R.REACH / ext, 0.94], lift: [0.588, 0.35], press: [0.652, 0.7] };
     })();
+    // A place's resting fold: its own reach (STICKER.ROW_REACH, by stickerSize()) on the oval.
+    function rowStickerRest(id) {
+      const R = STICKER.ROW, a = R.ANG * Math.PI / 180, ext = Math.sqrt(R.RX * R.RX * Math.sin(a) ** 2 + R.RY * R.RY * Math.cos(a) ** 2);
+      const [r0, r1] = STICKER.ROW_REACH, reach = r0 + (r1 - r0) * rowStickerSize(id);
+      return [+(1 - reach / ext).toFixed(4), 0.94];
+    }
+    function rowStickerSize(id) { return stickerSize(id); }
     function rowStickerFold(fh, L, ang = STICKER.ROW.ANG) { const R = STICKER.ROW; return stickerFold('ellipse', R.W, R.H, R.RX, R.RY, ang, fh, L); }
     function rowStickerHtml(id, pose = 'rest', cls = '') {
-      const R = STICKER.ROW, [fh, L] = ROW_STICKER_POSE[pose], ang = rowStickerAng(id), g = rowStickerFold(fh, L, ang), cid = 'stk-curl-row-' + (++stickerCurlUid), box = `width="${R.W}" height="${R.H}" viewBox="0 0 ${R.W} ${R.H}" aria-hidden="true"`;
-      return `<span class="row-stamp${cls}" data-ang="${ang}" style="--stamp-tilt:${stickerTilt(id)}deg" aria-hidden="true">` +
+      const R = STICKER.ROW, rest = rowStickerRest(id), [fh, L] = pose === 'rest' ? rest : ROW_STICKER_POSE[pose], ang = rowStickerAng(id), g = rowStickerFold(fh, L, ang), tilt = stickerTilt(id), light = stickerLight(tilt), cid = 'stk-curl-row-' + (++stickerCurlUid), box = `width="${R.W}" height="${R.H}" viewBox="0 0 ${R.W} ${R.H}" aria-hidden="true"`;
+      return `<span class="row-stamp${cls}" data-ang="${ang}" data-rest="${rest[0]}" data-tilt="${tilt}" style="--stamp-tilt:${tilt}deg;--lx:${light[0].toFixed(3)};--ly:${light[1].toFixed(3)}" aria-hidden="true">` +
         (cls.includes('vs-carry') ? '<span class="vs-veil"></span>' : '') +
-        `<svg class="stk-base" ${box}>${stickerCurlDefs(cid, g)}<path d="${g.bodyD}" fill="${R.FACE}"/><path class="stk-curl" d="${g.bodyD}" fill="url(#${cid})"/><path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/></svg>` +
+        `<svg class="stk-base" ${box}>${stickerCurlDefs(cid, g, light)}<path d="${g.bodyD}" fill="${R.FACE}"/><path class="stk-curl" d="${g.bodyD}" fill="url(#${cid})"/><path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/></svg>` +
         `<span class="row-sticker-label${ang < 0 ? ' flap-right' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="currentColor"/></svg><span class="row-stamp-word">Visited</span></span>` +
-        `<svg class="stk-flap-svg" ${box}><g clip-path="url(#stk-row-clip)">${stickerFlapMarkup(g, R.BACK, false, cid + 'f')}</g></svg></span>`;
+        `<svg class="stk-flap-svg" ${box}><g clip-path="url(#stk-row-clip)">${stickerFlapMarkup(g, R.BACK, false, cid + 'f', false, light)}</g></svg></span>`;
     }
     // Re-pose a rendered row sticker's flap in place (vsPlace()'s smooth-out).
     function poseRowSticker(st, fh, L) {
@@ -4476,14 +4499,14 @@
       if (!f || !c || !b) return;
       const [c0, c1] = g.chord;
       f.setAttribute('d', g.flapD); b.setAttribute('d', g.bodyD);
-      const cds = stickerCastDs(g, false); st.querySelectorAll('.stk-cast').forEach((p, i) => p.setAttribute('d', cds[i]));
+      const light = stickerLight(+(st.dataset.tilt || 0)), cds = stickerCastDs(g, false, light); st.querySelectorAll('.stk-cast').forEach((p, i) => p.setAttribute('d', cds[i]));
       const e = st.querySelector('.stk-base > .stk-edge'); if (e) e.setAttribute('d', g.edgeD);
       const fe = st.querySelector('.stk-flap-edge'); if (fe) fe.setAttribute('d', g.flapEdgeD);
       const cu = st.querySelector('.stk-base > .stk-curl'); if (cu) cu.setAttribute('d', g.bodyD);
       const lg = st.querySelector('.stk-base linearGradient');
-      if (lg) { const t = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg">${stickerCurlDefs('x', g)}</svg>`, 'image/svg+xml').querySelector('linearGradient');
+      if (lg) { const t = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg">${stickerCurlDefs('x', g, light)}</svg>`, 'image/svg+xml').querySelector('linearGradient');
         ['x1', 'y1', 'x2', 'y2'].forEach(k => lg.setAttribute(k, t.getAttribute(k)));
-        [...lg.children].forEach((stp, i) => stp.setAttribute('offset', t.children[i].getAttribute('offset'))); }
+        [...lg.children].forEach((stp, i) => { stp.setAttribute('offset', t.children[i].getAttribute('offset')); stp.setAttribute('stop-opacity', t.children[i].getAttribute('stop-opacity')); }); }
       const fg = st.querySelector('.stk-flap-svg linearGradient');
       if (fg) { const t = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg">${stickerFlapDefs('x', g, STICKER.ROW.BACK)}</svg>`, 'image/svg+xml').querySelector('linearGradient');
         ['x1', 'y1', 'x2', 'y2'].forEach(k => fg.setAttribute(k, t.getAttribute(k))); }
@@ -4502,7 +4525,7 @@
       // Visited: the sticker (stickerPinParts()) -- the cream face and a
       // check, the flap peeled at the lower left. Selected: --ink-2 face, cream
       // check, the NEAR check at either tier.
-      const sp = loc.visited ? stickerPinParts({ size, near: showGlyph, hi: highlighted, ang: stickerCorner(loc.id, loc.starred) }) : null;
+      const sp = loc.visited ? stickerPinParts({ size, near: showGlyph, hi: highlighted, ang: stickerCorner(loc.id, loc.starred), sz: stickerSize(loc.id) }) : null;
       const badge = sp ? sp.base + sp.flap : badgeHtml(loc.category, markerKind(loc), size, {
         ink,
         // Highlighted inverts: ink field, paper glyph.
@@ -5107,7 +5130,7 @@
     // number reaches it): the plan identity is never cut. Selected: ink face,
     // paper numeral, as above.
     function planNumberIcon(category, kind, ink, r, size, highlighted, starred, visited = false) {
-      const sp = visited ? stickerPinParts({ size, near: true, hi: highlighted, check: false, ang: stickerCorner(r.loc ? r.loc.id : (r.nb ? shapeKey(r.nb.id) : null), starred) }) : null;
+      const sp = visited ? stickerPinParts({ size, near: true, hi: highlighted, check: false, ang: stickerCorner(r.loc ? r.loc.id : (r.nb ? shapeKey(r.nb.id) : null), starred), sz: stickerSize(r.loc ? r.loc.id : (r.nb ? shapeKey(r.nb.id) : null)) }) : null;
       const badge = sp ? sp.base : badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: ink, rim: highlighted ? 2.5 : 2, glyph: false });
       const star = starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
       const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}${visited ? ' is-visited stk-pin' : ''}" data-n="${r.n}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${sp ? sp.flap : ''}<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>${star}</div>`;
@@ -6070,7 +6093,7 @@
     // a pin. Below the star in z; a tap opens the shape's popup. A plan's
     // shape stop carries both marks on its numbered diamond, so none here.
     function shapeVisitIcon(nb) {
-      const size = MARKER_SIZE_NEAR, hit = 24, o = (hit - size) / 2, sp = stickerPinParts({ size, near: true, ang: stickerCorner(shapeKey(nb.id), nb.starred) });
+      const size = MARKER_SIZE_NEAR, hit = 24, o = (hit - size) / 2, sp = stickerPinParts({ size, near: true, ang: stickerCorner(shapeKey(nb.id), nb.starred), sz: stickerSize(shapeKey(nb.id)) });
       const sh = nb.starred ? (size / 2 - 1 + STICKER.STAR_OUT.near) * Math.SQRT1_2 : 0;   // the shoulder, set out as stickerStarHtml() so the star clears the check
       const html = `<div style="position:relative;width:${hit}px;height:${hit}px;line-height:0;"><div style="position:absolute;left:${o}px;top:${o}px;width:${size}px;height:${size}px;">${sp.base}${sp.flap}</div></div>`;
       return L.divIcon({ html, className: '', iconSize: [hit, hit], iconAnchor: [hit / 2 + sh, hit / 2 - sh] });
@@ -7169,10 +7192,10 @@
     //     6..21px, then growing 1 -> 1.12x with travel (vsHover()). The
     //     name slides left under it; the carry's veil (the row's own field,
     //     feathered) keeps the name's tail from showing within 6px of it.
-    //   Press (the 56px crossing, in the same event): the sticker is pressed
-    //     down -- 1.12 -> 0.97x, then settles to 1 while the flap eases from
-    //     the press pose down to rest (VISIT_PLACE, ~200ms; the keyframes'
-    //     "smooth-out") -- the shadow drops, the visited field lands on this
+    //   Press (the 56px crossing, in the same event): stuck down by a thumb on
+    //     the middle -- the face settles 1.12 -> 1x and its shadow tightens
+    //     first; the flap is the last thing, relaxing from raised to its rest
+    //     (VISIT_PLACE, 200ms) -- the visited field lands on this
     //     frame, haptic. Backing off 4px below 56 un-presses on that frame
     //     (hysteresis) and the sticker hovers again.
     //   Un-visit: the same stroke on a visited row. At the lock the sticker
@@ -7187,11 +7210,14 @@
     const DELETE_TAP_SLOP = 4;
     // The hover: opacity over the first FADE of the 6..56px cue, then the lift (scale) over the rest.
     const VISIT_HOVER = { FADE: 0.3, SCALE: [1, 1.12] };
-    // The press: [offset, twist (deg, added to the lean), scale, easing into the next].
-    // Pressed down from the hover's 1.12x to 0.97x in the first 30%, then it
-    // settles to 1 while the flap eases to rest. No twist: a sticker is laid.
-    const VISIT_PLACE = [[0, 0, VISIT_HOVER.SCALE[1], [.5, 0, .9, .4]], [0.3, 0, 0.97, [.4, 0, .3, 1]], [1, 0, 1, null]];
-    const VISIT_PLACE_MS = 200;
+    // The press (owner: "it should look like it's being placed down with the flap edge being the
+    // last thing as if someone stuck the sticker down and didn't press down the edge"): a thumb
+    // presses the middle -- the face settles flat from the hover's 1.12x to 1 over the first
+    // FACE of the time (no dip, no bounce) while the lifted shadow tightens (CSS transition) --
+    // and the flap is the LAST thing: it stays raised until FLAP_FROM, then relaxes from the lift
+    // pose to the place's own resting fold by the end. [offset, twist, scale, easing].
+    const VISIT_PLACE = [[0, 0, VISIT_HOVER.SCALE[1], [.25, .8, .35, 1]], [0.5, 0, 1, null]];
+    const VISIT_PLACE_MS = 200, VISIT_PLACE_FLAP = { FROM: 0.3, EASE: [.3, 0, .2, 1] };
     const VISIT_LIFT = [[0, 0, 1, [.2, .9, .3, 1]], [0.35, 0, 1.12, [.5, 0, .4, 1]], [1, 0, 1, null]];   // = STAR_ERASE_POP
     function cubicBezier(x1, y1, x2, y2) {
       const bx = t => ((1 - 3 * x2 + 3 * x1) * t + (3 * x2 - 6 * x1)) * t * t + 3 * x1 * t;
@@ -7222,13 +7248,14 @@
       step();
     }
     function stopVisitPop(g) { g.popId = (g.popId || 0) + 1; g.st.style.transform = `rotate(${g.tilt}deg)`; }
-    // The press (see VISIT_PLACE): scale, and the flap from the press pose to rest.
+    // The press (see VISIT_PLACE): the face settles first, the flap relaxes last.
     function runVisitPlace(g) {
       const st = g.st, t0 = sgNow(), id = (g.popId = (g.popId || 0) + 1);
-      const [f0, l0] = ROW_STICKER_POSE.press, [f1, l1] = ROW_STICKER_POSE.rest, o = VISIT_PLACE[1][0];
+      const [f0, l0] = ROW_STICKER_POSE.lift, f1 = +st.dataset.rest, l1 = 0.94, o = VISIT_PLACE_FLAP.FROM;
+      if (!vsEase.has(VISIT_PLACE_FLAP.EASE)) vsEase.set(VISIT_PLACE_FLAP.EASE, cubicBezier(...VISIT_PLACE_FLAP.EASE));
       const step = () => {
         if (g.popId !== id) return;
-        const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u <= o ? 0 : easeOut((u - o) / (1 - o));
+        const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u <= o ? 0 : vsEase.get(VISIT_PLACE_FLAP.EASE)((u - o) / (1 - o));
         st.style.transform = `scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
         if (u < 1) { poseRowSticker(st, f0 + (f1 - f0) * w, l0 + (l1 - l0) * w); requestAnimationFrame(step); }
         else { st.style.transform = `rotate(${g.tilt}deg)`; poseRowSticker(st, f1, l1); g.popId++; }
@@ -7304,7 +7331,7 @@
             st.classList.remove('vs-open'); st.style.opacity = '';
             el.classList.add('is-visited');                 // field lands INSIDE the press
             g.pressT = sgNow();
-            if (!rm) runVisitPlace(g); else { stopVisitPop(g); poseRowSticker(st, ...ROW_STICKER_POSE.rest); }
+            if (!rm) runVisitPlace(g); else { stopVisitPop(g); poseRowSticker(st, +st.dataset.rest, 0.94); }
             if (!g.replay) starHaptic('ink');
           }
         } else {
@@ -7412,7 +7439,7 @@
         g.popId = (g.popId || 0) + 1;
         if (!commit) {
           if (!g.visited) g.st.remove();
-          else { g.st.classList.remove('vs-open', 'vs-peel'); poseRowSticker(g.st, ...ROW_STICKER_POSE.rest); g.st.style.transform = ''; g.st.style.opacity = ''; g.st.style.display = ''; el.classList.add('is-visited'); }
+          else { g.st.classList.remove('vs-open', 'vs-peel'); poseRowSticker(g.st, +g.st.dataset.rest, 0.94); g.st.style.transform = ''; g.st.style.opacity = ''; g.st.style.display = ''; el.classList.add('is-visited'); }
           vsXBack(el, g); vsCleanup(el, g); updateUI();
           return;
         }
