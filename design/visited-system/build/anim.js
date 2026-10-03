@@ -50,7 +50,7 @@ async function pinScene(b, slow) {
   await page.evaluate(() => document.getElementById('locations').classList.add('collapsed')); await L.W(200);
   const id = await page.evaluate(() => {
     // a to-do place whose sticker peels at the default lower left, mid flap size, at z16 in Reykjavik
-    const c = locations.filter(l => !l.visited && l.city === 'reykjavik' && stickerCorner(l.id, l.starred) === 45);
+    const c = locations.filter(l => !l.visited && l.city === 'reykjavik' && !l.starred && Math.abs(stickerCorner(l.id, l.starred) - 45) < 8);
     const l = c.sort((a, z) => Math.abs(stickerSize(a.id) - 0.5) - Math.abs(stickerSize(z.id) - 0.5))[0];
     map.setView([l.lat, l.lng], 16, { animate: false }); return l.id;
   });
@@ -93,7 +93,7 @@ async function fourScene(b) {
     host.style.cssText = 'position:fixed;left:0;top:0;z-index:99999;width:220px;height:70px;overflow:hidden;isolation:isolate';
     const base = document.createElement('div'); base.style.cssText = 'position:absolute;left:-60px;top:-140px;z-index:-1;filter:' + getComputedStyle(document.querySelector('.leaflet-tile-pane')).filter; base.innerHTML = bg; host.appendChild(base);
     const want = [135, -135, 45, -45], ids = []; const sizes = [0.1, 0.9, 0.5, 0.3];
-    for (const [k, a] of want.entries()) { let best = null; for (let i = 0; i < 6000; i++) { const id = 'four-' + i; if (stickerCorner(id, false) !== a) continue; if (!best || Math.abs(stickerSize(id) - sizes[k]) < Math.abs(stickerSize(best) - sizes[k])) best = id; } ids.push(best); }
+    for (const [k, a] of want.entries()) { let best = null; for (let i = 0; i < 6000; i++) { const id = 'four-' + i; if (Math.abs(((stickerCorner(id, false) - a + 540) % 360) - 180) > 8) continue; if (!best || Math.abs(stickerSize(id) - sizes[k]) < Math.abs(stickerSize(best) - sizes[k])) best = id; } ids.push(best); }
     window.__fourIds = ids;
     ids.forEach((id, i) => { const d = document.createElement('div'); d.className = '__pin'; d.style.cssText = `position:absolute;left:${22 + i * 48}px;top:23px`; d.dataset.id = id;
       d.innerHTML = markerIcon({ id, category: 'restaurant', name: 'x', lat: 0, lng: 0, visited: false }, false).options.html; host.appendChild(d); });
