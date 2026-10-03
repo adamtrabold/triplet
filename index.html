@@ -246,7 +246,7 @@
       --col-glyph:  28px;
       --col-action: 28px;   /* ONE control -- delete is the row's only
                                action. Visited SHOWS here as a
-                               non-interactive stamp (.row-stamp) but is
+                               non-interactive sticker (.row-stamp) but is
                                toggled in the popup (buildPopupHtml()),
                                where directions also lives. */
       --gap:    12px;
@@ -1206,17 +1206,17 @@
     /* DONE -- visited rows recede so what's LEFT reads first. One move:
        the row's field steps down to --paper-filed; every ink stays as it
        is, so the row never reads disabled (name 13.17:1, meta and delete
-       5.53:1, stamp 6.92:1, --hair rule 1.18:1 on the field -- all
-       measured for #E7DFD0).
+       5.53:1, --hair rule 1.18:1 on the field -- all measured for
+       #E7DFD0).
        Two cues, not one redundant one: the field is the ROW-level cue
-       (peripheral vision, mid flick-scroll); the stamp is the POINT-level
+       (peripheral vision, mid flick-scroll); the sticker is the POINT-level
        cue and the non-colour one (WCAG 1.4.1). Keep both.
        Darker, never lighter: a lighter field advances visited rows and
        collides with --paper-raised, the press state.
        Order matters: this sits ABOVE the press rule (same specificity --
        press wins) and the .highlighted block (focus wins). The badge's
        disc goes transparent so it follows whichever field is showing.
-       Shape rows have no visited state and stay on --paper by design. */
+       District/street rows visit exactly like pins (shape parity). */
     .location-card.is-visited { background: var(--paper-filed); }
     /* State system: a press on a filed row steps one more tone down, so the
        press still reads against --paper-filed (the two tans were ~1.1:1). */
@@ -1256,94 +1256,49 @@
 
     .row-main { min-width: 0; }
 
-    /* VISITED STAMP -- a passport arrival stamp in the action column.
-       Only renders when visited: silence is the unvisited state (an
-       always-on hollow marker read as clutter). The fixed x of the action
-       column is what makes it scannable -- a column of stamps down the
-       right edge.
+    /* VISITED STICKER -- a peeled matte sticker in the action column
+       (owner-approved 2026-10-02: design/visited-system/stamp-first/
+       README.md, FINAL spec at the top; docs/shipped.md "Visited sticker").
+       Only renders when visited: silence is the unvisited state. The fixed
+       x of the action column is what makes it scannable -- a column of
+       stickers down the right edge. Replaces the dotted-track VISITED stamp.
 
-       Shape: the solid ring is a plain border-radius:50% CSS border --
-       constant-width by construction; SVG-stroked ovals read as
-       variable-width at this size (design/visited-badge/NOTES.md). The
-       perforated track is NOT a second CSS oval: an ellipse inset from an
-       ellipse is not a parallel curve (the gap pinched and swelled by
-       ~1.6px) and a dotted border leaves a seam at its start. It is a
-       static SVG mask of round dots on a path tuned to the ring's
-       parallel curve -- see --stamp-track below. That doesn't break the
-       ring rule: zero-length round-cap dashes render as discs, not a
-       continuous stroke, so there is no stroke width to vary. Ring 2px =
-       badgeHtml()'s rim; type = .row-meta's voice at .caps tracking,
-       caps centred with text-box.
+       A flat cream oval 72x24 (--s6 x3 by --s6) carrying the
+       check (8px, stroke 2.1) + VISITED in the meta line's voice (10px
+       condensed caps, .08em), --s3 (12px) padding each side -- the
+       filter chips' padding; the flap counts as the left padding. The
+       flap is the sticker's paper-tone back folded over the face at the
+       lower left, under a warm soft shadow and a faint blurred crease:
+       no fold line, no edge stroke, nothing past the fold (clipped to the
+       oval). Drawn by rowStickerHtml() from the same fold geometry as the
+       map pin (stickerFold()). One look for every visited mark (owner,
+       2026-10-02): a cream face (--paper) and the shipped stamp's neutral
+       ink (--navy at 82% over --paper = #3A4C5B, ~7.5:1 on the face), no
+       category colour. Half the place's stampTilt():
+       a sticker is laid, not struck.
 
-       Ink, not a component: navy at 82% (7.48:1 on --paper, 7.94:1
-       pressed) lets the paper tone through, so the place name wins the
-       first read and the stamp wins the scan. No mix-blend-mode: it was
-       visually inert here and forces a stacking context that can soften
-       rotated 10px text on iOS.
-
-       32px tall inside the row's 39px content box -- can never grow the
-       row. No margin-right of its own: the stamp-to-delete gap is now a
-       single var(--s1) (4px), owned entirely by .location-actions's flex
-       gap (owner, 2026-09-28: "closer to the X, it's not interactive" --
-       decorative and pointer-events:none, so this carries no tap-target
-       risk for the stamp itself; the pre-existing note about the
-       delete button's OWN touch-adjustment overrun is unrelated and
-       still tracked separately in CLAUDE.md). Was margin-right: var(--s2)
-       (8px) stacked on the flex gap (12px combined) -- see vs-carry's
-       `right: calc(...)` below, which keyed off this same margin and
-       still resolves correctly now that it's gone. Non-interactive and
-       aria-hidden: the .sr-only span in .row-meta stays the ONE source
-       screen readers get. */
+       24px tall inside the row's 39px content box -- can never grow the
+       row. The sticker-to-delete gap is .location-actions's flex gap
+       (--s1). Non-interactive and aria-hidden: the .sr-only span in
+       .row-meta stays the ONE source screen readers get. The class name
+       .row-stamp is kept so "the visited mark" means one selector. */
     .row-stamp {
       position: relative;
       flex-shrink: 0;
       width: calc(var(--s6) * 3);          /* 72 */
-      height: var(--s8);                   /* 32 */
-      color: var(--navy);                  /* no color-mix() support */
-      color: color-mix(in srgb, var(--navy) 82%, transparent);
-      /* Per-place angle from stampTilt(loc.id), +-2..+-5deg. Rotation
-         is about the centre, so the column's x never moves. */
-      transform: rotate(var(--stamp-tilt, -3deg));
+      height: var(--s6);                   /* 24 */
+      transform: rotate(var(--stamp-tilt, -1.5deg));
       pointer-events: none;
-      /* Perforated track: 84 round dots on a rounded-rect path tuned to
-         the ring's parallel curve (max deviation 0.108px vs 0.307px for a
-         concentric ellipse). Dots are spaced by arc length, starting at
-         top-centre, with no start/end seam. 1x: 32 dashes on the same path.
-         pathLength='166.29' deliberately equals the path's measured
-         length, with both dasharrays in real units (dots 0 1.9797 =
-         166.29/84; 1x 3.118 2.079, offset 1.559 = 166.29/32): engines that
-         honour pathLength get exact spacing, engines that ignore it still
-         get ~correct spacing instead of a solid line. If the path changes,
-         re-measure it with getTotalLength() and update the path, the
-         pathLength and BOTH dasharray values together.
-         Path geometry assumes .row-stamp 72x32 and .row-stamp-ring at
-         inset var(--s1) + 2px border -- change both together. Derivation,
-         radius search and the JS-generated fallback: design/visited-badge/. */
-      --stamp-track: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 32'%3E%3Cpath d='M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z' fill='none' stroke='%23000' stroke-width='1.1' stroke-linecap='round' pathLength='166.29' stroke-dasharray='0 1.9797'/%3E%3C/svg%3E");
-      --stamp-track-1x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 32'%3E%3Cpath d='M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z' fill='none' stroke='%23000' stroke-width='1.25' pathLength='166.29' stroke-dasharray='3.118 2.079' stroke-dashoffset='1.559'/%3E%3C/svg%3E");
     }
-
-    /* The perforated track: currentColor through the dot mask. The
-       fallback is a fully transparent mask -- if the track is ever
-       missing, the stamp loses its dots, never becomes a solid block. */
-    .row-stamp::before {
-      content: '';
+    .row-stamp > svg { position: absolute; left: 0; top: 0; overflow: visible; }
+    .row-sticker-label {
       position: absolute;
       inset: 0;
-      background: currentColor;
-      -webkit-mask: var(--stamp-track, linear-gradient(transparent, transparent)) 0 0 / 100% 100% no-repeat;
-      mask: var(--stamp-track, linear-gradient(transparent, transparent)) 0 0 / 100% 100% no-repeat;
-    }
-
-    .row-stamp-ring {
-      position: absolute;
-      inset: var(--s1);                    /* ring box 64x24 -- see --stamp-track */
-      border: 2px solid currentColor;
-      border-radius: 50%;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding-left: 0.08em;                /* re-centres trailing tracking */
+      gap: 3px;
+      padding: 0 var(--s3);
+      color: #3A4C5B;                      /* STICKER.INK: the shipped stamp's --navy 82% over --paper */
       font-stretch: 75%;
       text-transform: uppercase;
       font-size: 10px;
@@ -1352,22 +1307,14 @@
       font-weight: 700;
       white-space: nowrap;
     }
+    .row-sticker-label > svg { flex: none; display: block; width: 8px; height: 8px; }
+    /* A sticker peeled at its right end: the word steps 2px left so the fold never reaches its last letter. */
+    .row-sticker-label.flap-right { padding: 0 calc(var(--s3) + 2px) 0 calc(var(--s3) - 2px); }
 
     /* Centre the CAPS, not the line box: text-box trims the word to
        cap-height..baseline, so flex centring centres the ink itself.
        Browsers without text-box ignore it and sit ~0.4px high. */
     .row-stamp-word { text-box: trim-both cap alphabetic; }
-
-    /* Rendering fallback, not a second design: at 1 device px per CSS px
-       dots this small rasterise to grey haze that reads as an
-       anti-aliasing fault. Dashes on the same path survive. The
-       -webkit- twin covers Safari on a 1x external display. */
-    @media (max-resolution: 1dppx), (-webkit-max-device-pixel-ratio: 1) {
-      .row-stamp::before {
-        -webkit-mask-image: var(--stamp-track-1x, linear-gradient(transparent, transparent));
-        mask-image: var(--stamp-track-1x, linear-gradient(transparent, transparent));
-      }
-    }
 
     /* An absolute-positioned, zero-size clip -- the standard visually-hidden
        pattern. Screen-reader-only text lives here so sighted and
@@ -1463,12 +1410,8 @@
     .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.65:1 worst (Stockholm) */
     .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
     .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
-    /* Exempt from the stamp's 82% ink, for two reasons. AA: paper at 90%
-       falls to 4.21:1 on Stockholm's --figure-deep, below 4.5 for 10px
-       text; 100% paper is the h3's own pairing (4.79:1 worst city).
-       Emphasis: there is only ever one focus row, so a full-strength
-       stamp there reads as part of the focus state, not inconsistency. */
-    .location-card.highlighted .row-stamp { color: var(--paper); }
+    /* The sticker is an object laid on the row, so it keeps its own matte
+       face and ink on the focus row too (nothing to invert). */
     .location-card.highlighted .row-star { color: var(--paper); }    /* 4.79:1 worst (Stockholm) */
 
     .locations-empty {
@@ -1765,6 +1708,13 @@
     .highlighted-marker {
       animation: markerPulse 1.5s ease-in-out infinite;
     }
+    /* A selected visited sticker pulses in scale only: the pulse's 0.88 dip
+       let roads show through its dark face and flap. */
+    @keyframes markerPulseSolid {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.12); }
+    }
+    .highlighted-marker.stk-pin { animation-name: markerPulseSolid; }
 
     @media (prefers-reduced-motion: reduce) {
       .highlighted-marker { animation: none; }
@@ -2272,9 +2222,9 @@
     .location-card.is-visited.vs-live:not(.highlighted),
     .location-card.is-visited.vs-live:not(.highlighted):active { background: var(--paper-filed); }
 
-    /* VISIT STAMP (swipe LEFT): see attachStarGesture() / paintVisit().
+    /* VISIT STICKER (swipe LEFT): see attachStarGesture() / paintVisit().
        The field changes on the press frame itself -- no 120ms fade -- so
-       ink and field land as ONE event. The name + meta now move as one
+       sticker and field land as ONE event. The name + meta now move as one
        block, the mirror of the Pencil Star's own setSlip() (1:1 with the
        finger); the final truncation lands only at the FLIP
        (flipVisitToFinal(), commit or release), never mid-drag.
@@ -2302,64 +2252,37 @@
        enough; .location-card's overflow:hidden guard (above) covers it at
        full rubber-band travel exactly as it does the badge and text. */
     .location-card.vs-live .location-actions { position: relative; }
-    .vs-carry {                             /* the new stamp: the shipped .row-stamp, out of flow AT its slot */
+    .vs-carry {                             /* the new sticker: the shipped .row-stamp, out of flow AT its slot */
       position: absolute;
-      right: calc(var(--col-action) + var(--s1));   /* = its flow slot: [stamp][4px gap][X], keyed to the X.
-         Used to be col-action + s1 (32) PLUS .row-stamp's own margin-right:
-         s2 (8), which still applies to position:absolute boxes -- 40 total,
-         matching the old margin(8)+gap(4)=12 flow spacing. Now that
-         margin-right is gone, this same 32 IS the whole offset, matching
-         the new gap(4) flow spacing. If the flow gap changes again, update
-         this calc to col-action + <new combined gap>. */
-      top: calc(50% - var(--s4));           /* 32px box centred on the row, as in flow */
+      right: calc(var(--col-action) + var(--s1));   /* = its flow slot: [sticker][4px gap][X], keyed to the X.
+         If the flow gap changes, update this calc to col-action + <new gap>. */
+      top: calc(50% - var(--s3));           /* 24px box centred on the row, as in flow */
     }
-    /* Before the commit the stamp BLEEDS into the paper (owner: "it should
-       look like ink bleeding in"): a CRISP pale core (<= 45% of the pressed
-       ink) revealed from the centre out, with a wet, blurred halo leading it
-       by ~3px and a small dense blot where the stamp first touched. The
-       front is a STATIC paper-fibre edge (--vs-wick: a feTurbulence-displaced
-       feathered ellipse, baked into an SVG image once -- a mask image, never
-       a live filter). The spread is transform: scale() on the mask carrier
-       (.vs-rv) with its content counter-scaled (.vs-cs), so the ink never
-       moves or resizes and a drag frame repaints nothing: no per-frame blur,
-       gradient or filter. At 54px the ends are still soaking; the ring only
-       closes crisp on the press frame, when all of this is removed. */
-    .row-stamp.vs-open::before,
-    .row-stamp.vs-open > .row-stamp-ring { visibility: hidden; }
-    .vs-bleed { position: absolute; inset: 0; pointer-events: none; }
-    .row-stamp:not(.vs-open) > .vs-bleed { display: none; }
-    .vs-rv {
-      position: absolute; inset: 0;
-      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 64'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.6' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='f' x='-15%' y='-25%' width='130%' height='150%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09 .16' numOctaves='3' seed='11' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='7' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/defs%3E%3Cellipse cx='72' cy='32' rx='36.4' ry='26' fill='url(%23g)' filter='url(%23f)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 64'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.6' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='f' x='-15%' y='-25%' width='130%' height='150%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09 .16' numOctaves='3' seed='11' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='7' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/defs%3E%3Cellipse cx='72' cy='32' rx='36.4' ry='26' fill='url(%23g)' filter='url(%23f)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-      will-change: transform;
+    /* Before the commit the sticker HOVERS in its slot (owner-approved
+       keyframes, design/visited-system/stamp-first/sticker-keyframes-3x.png):
+       lifted under a soft shadow with its flap curled high, growing toward
+       1.12x and fading in with travel; at 56 it is pressed down. The shadow
+       and the lifted flap are static markup: a drag frame writes only the
+       carry's transform and opacity (paintVisit()). The un-visit lift
+       (.vs-peel) wears the same shadow. At rest the label sits on a short
+       warm contact shadow, so the lighter cream reads as a label laid on the
+       filed row, not a smudge in it. */
+    .row-stamp > .stk-base { filter: drop-shadow(calc(var(--lx, 0.6) * 0.45px) calc(var(--ly, 0.8) * 0.45px) 0.4px rgba(107, 74, 40, 0.10)); }   /* the label's thickness: a hairline-tight, faint warm contact shadow down-right (one light, upper left), no halo */
+    .row-stamp.vs-open > .stk-base,
+    .row-stamp.vs-peel > .stk-base { filter: drop-shadow(calc(var(--lx, 0.6) * 3px) calc(var(--ly, 0.8) * 3px) 2.4px rgba(40, 30, 20, 0.24)); }   /* lifted: the one light, softened (owner: shadows too intense) */
+    /* the press: the lifted shadow tightens into the resting one rather than vanishing */
+    .vs-carry > .stk-base { transition: filter 140ms ease-out; }
+    /* The veil: the row's own field, feathered (8px), behind the sticker and
+       14px to its left, so the sliding name's tail goes UNDER the lifted
+       sticker and is never seen within 6px of it (V14). It scales with
+       the carry and fades with it (opacity only); its colour follows the
+       field by class (filed on the press frame, the focus row's red). */
+    .vs-veil {
+      position: absolute; left: -14px; right: 0; top: calc(var(--s2) * -1); bottom: calc(var(--s2) * -1);
+      background: linear-gradient(to right, transparent, var(--paper) var(--s2));
     }
-    .vs-cs { position: absolute; inset: 0; will-change: transform; }   /* counter-scale on the compositor too: net scale 1, never re-rastered */
-    .row-stamp.vs-copy { position: absolute; inset: 0; margin: 0; transform: none; }
-    .location-card .row-stamp.vs-copy { color: var(--vs-ink-1); }   /* beats .location-card.highlighted .row-stamp (P5-S1) */
-    .location-card .vs-rv-core .row-stamp.vs-copy.vs-k2 { color: var(--vs-ink-2); }
-    .location-card .vs-rv-core .row-stamp.vs-copy.vs-k3 { color: var(--vs-ink-3); }
-    .vs-rv-core .vs-copy.vs-k2, .vs-rv-core .vs-copy.vs-k3 { opacity: 0; will-change: opacity; }
-    .vs-rv-halo .vs-copy { filter: blur(1.4px); opacity: 0.8; }   /* constant: never animated */
-    .vs-blot {
-      position: absolute; left: 50%; top: 50%;
-      width: var(--s6); height: var(--s3); margin: calc(var(--s3) / -2) 0 0 calc(var(--s6) / -2);
-      border-radius: 50%;
-      background: radial-gradient(closest-side, var(--vs-ink-1), var(--vs-ink-1) 45%, transparent);
-      filter: blur(1px);
-      will-change: opacity;
-    }
-    /* Core strength deepens with travel through three PRE-RENDERED core
-       copies (.vs-k1..3), stacked and crossfaded by opacity -- compositor-
-       only, so the ink deepening never repaints mid-drag (P6-N1). The halo
-       and blot stay at the lightest ink. Normal rows: the stamp's own navy at lower
-       density -- hue 247 and chroma 0.035 held at the pressed stamp's values,
-       only lightness steps (never a brighter, bluer ink). Highlighted rows:
-       paper toward the row's field, capped the same way (P5-S1). Every step
-       <= 3:1 against its field; the pressed stamp is 6.9:1 / 4.8:1. */
-    /* The press frame itself still changes only ink, field and the pop --
-       the text column's own final width/truncation is a FLIP concern now
-       (flipVisitToFinal()), not a mid-drag reservation. */
+    .location-card.is-visited .vs-veil { background: linear-gradient(to right, transparent, var(--paper-filed) var(--s2)); }
+    .location-card.highlighted .vs-veil { background: linear-gradient(to right, transparent, var(--figure-deep) var(--s2)); }
     .location-card.vs-live .delete-btn { transition: opacity 80ms linear; }
     .location-card.vs-xhide .delete-btn { opacity: 0; pointer-events: none; }
     /* S2: touch presses are delayed 80ms (createCard()), so the bare
@@ -2477,6 +2400,19 @@
     <symbol id="g-star" viewBox="0 0 24 24"><path fill="currentColor" stroke-linejoin="round" d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
     <symbol id="g-star-open" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
     <symbol id="g-compass" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/></symbol>
+    <!-- VISITED STICKER (stickerPinSvg() / rowStickerHtml()): the flap's warm
+         soft shadow and the faint contact crease, one definition per tier, in
+         the referencing sticker's own px (userSpaceOnUse, so a straight crease
+         never gets a zero-height filter box). FAR is the NEAR shadow x1.1
+         opacity, x0.8 offset/blur, crease blur x0.7 (README, round 7b). The
+         row's flap is clipped to its label (stk-row-clip = the 72x24 box's oval). -->
+    <filter id="stk-cast-0" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.25"/></filter><filter id="stk-cast-1" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.70"/></filter><filter id="stk-cast-2" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="1.20"/></filter><filter id="stk-cast-0-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.17"/></filter><filter id="stk-cast-1-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.49"/></filter><filter id="stk-cast-2-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.84"/></filter>
+    
+    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.27" dy="0.36" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.21" dy="0.28" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-crease" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.9"/></filter>
+    <filter id="stk-crease-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.63"/></filter>
+    <clipPath id="stk-row-clip"><ellipse cx="36" cy="12" rx="36" ry="11"/></clipPath>
   </defs></svg>
 
   <div id="error" role="alert" tabindex="0" title="Tap to dismiss" aria-keyshortcuts="Enter Escape">
@@ -2776,6 +2712,7 @@
     // is no churn here for a full reconciler to protect against.
     const neighborhoodLayersById = new Map();   // id → L.Layer, present only while visible
     const shapeStarMarkersById = new Map();     // id → L.Marker: a starred shape's map star (syncNeighborhoodLayers)
+    const shapeVisitMarkersById = new Map();    // id → { marker, sig }: a visited shape's sticker (syncShapeStars)
 
     // ---- shapes in the row / popup / flag machinery ----------------------------
     // Owner (2026-10-02): "Every category should have the same information and
@@ -4326,13 +4263,334 @@
     // Colours are .marker-star-halo / .marker-star-ink in the CSS (tokens
     // can't go in SVG presentation attributes). `size` is the seal's px;
     // the star scales with it (12 near / 10 far / +2 hi).
-    function markerStarHtml(size) {
+    function markerStarHtml(size, { halo = 3, out = 0 } = {}) {   // halo: the paper ring's px width; out: px further along the shoulder (stickerStarHtml())
       const s = size >= 24 ? size / 2 : 10;
-      const c = size / 2, r = c - 1;
+      const c = size / 2, r = c - 1 + out;
       const x = c + r * Math.SQRT1_2 - s / 2, y = c - r * Math.SQRT1_2 - s / 2;
       return `<svg class="marker-star" width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:${x}px;top:${y}px;overflow:visible">` +
-        `<use class="marker-star-halo" href="#g-star" stroke-width="${(3 * 24 / s).toFixed(2)}" stroke-linejoin="round"/>` +
+        `<use class="marker-star-halo" href="#g-star" stroke-width="${(halo * 24 / s).toFixed(2)}" stroke-linejoin="round"/>` +
         `<use class="marker-star-ink" href="#g-star"/></svg>`;
+    }
+
+    // ---- VISITED STICKER ------------------------------------------------------
+    // Visited = a sticker laid on the place, one corner peeled (owner-approved
+    // 2026-10-02; design/visited-system/stamp-first/README.md, FINAL spec at
+    // the top; docs/shipped.md "Visited sticker"). ONE fold geometry for every
+    // surface (stickerFold()): the outline is sampled, cut at a chord set back
+    // from the peel side, and the cut piece is reflected back over the face --
+    // the flap, the sticker's paper-tone back (never white) under a warm soft
+    // shadow and a faint blurred crease (#stk-* in the sprite). No fold line,
+    // no edge stroke, no rim or colour past the fold. ONE look for every
+    // visited mark (owner, 2026-10-02: "the color is not really communicating
+    // anything on a visited badge ... cream background with a neutral color"):
+    // a cream face (--paper) and one neutral ink, STICKER.INK = the shipped
+    // VISITED stamp's ink as it rendered (--navy at 82% over --paper). No
+    // category colour on any visited mark. Map pin: cream face + centred
+    // check, flap lower-left (opposite the star's shoulder), a soft contact
+    // shadow under the disc (#stk-lift, no stroke) so cream reads on a cream map. Row:
+    // the 72x24 cream oval with check + VISITED (rowStickerHtml(), .row-stamp
+    // in the CSS). These constants, the #stk-* defs and the stills in
+    // design/visited-system/build/ change together.
+    const STICKER = {
+      PIN_ANG: 45,                          // peel direction: lower-left (0 = down); the default corner
+      // Per-place corner, chosen like the lean (owner: "similar to how the angle is randomized, the flap
+      // placement should also be randomized"): deterministic from the place id (stickerCorner()), so a
+      // sticker keeps its corner across renders, polls, zooms and scrolls. [peel angle, weight]:
+      // lower-left (the approved default) most often, then lower-right, upper-left, upper-right. A
+      // starred pin never peels at the upper right, where the star rides. The light never moves.
+      PIN_CORNERS: [[45, 3], [-45, 3], [135, 2.5], [-135, 2.5]],   // near-even: the picked corner is the CENTRE of the angle
+      PIN_SPREAD: 40,                       // ...and each place's flap angle is that +-20 deg (own hash, continuous, independent of corner/size/lean)
+      STAR_EXCL: 60,                        // a starred pin's flap stays outside -135 +-60 deg (the old exclusion widened) so the star is never covered
+      ROW_CORNERS: [[50, 3], [-50, 2]],     // the row oval: its left or right end
+      ROW_SPREAD: 12,                       // the row flap angle +-6 deg around that (reach at the right end stays capped 4-5px)
+      PIN_H: { near: 0.62, far: 0.66 },     // chord at this fraction of the radius: flap ~19% of the diameter NEAR; smaller at FAR, where pins pile
+      PIN_H_SPREAD: 0.2,                    // per place, the chord moves +-0.1 around that (owner: "maybe the flap size should be randomized somewhat"): ~14-24% of the diameter
+      ROW_REACH: [4, 7],                    // per place, the row fold reaches 4-7px (approved 5)
+      ROW_REACH_R: [4, 5],                  // ...4-5px when it peels at the right end, where a longer fold would lie over VISITED's last letter
+      FOLD_L: 0.94,                         // at rest the flap lies (almost) flat: reflected x0.94 (1 - k, k 0.06)
+      INK: '#3A4C5B',                       // the shipped stamp's ink: color-mix(--navy 82%, transparent) over --paper, flattened
+      FACE: '#FAF5EA',                      // cream, one step lighter than the map's and the rows' cream: --paper-raised
+      EDGE: 'rgba(107,74,40,0.09)', EDGE_W: 1,   // owner: "The 1px hard edge to add shadow definition is fine": warm, faint, outer outline only (never the fold)
+      HI_FACE: '#5A564C',                   // selected: --ink-2, the app's grey-brown metadata ink
+      STAR_HALO: 1, STAR_OUT: { near: 1.5, far: 2.5 },   // the star's halo (px, total) and its step out along the shoulder (px)
+      PIN_BACK: '#D8CDB8', PIN_BACK_HI: '#E7DFD0',   // the flap's back: one paper step deeper than the cream face (selected: --paper-filed)
+      CREASE: 'rgba(138,106,68,0.04)',
+      // The lifted flap shades the sticker's own face just inside the fold, falling away across it
+      // (owner: "maybe the flap needs to lay a shadow on the sticker?"): warm, soft, no line.
+      LIGHT: [0.6, 0.8],                    // one soft light for every sticker, from the upper left: shadows fall down-right
+      // Every lifted point's shadow lands LIGHT x its height x CAST[i][0] away (stickerCastDs()): one light, so the
+      // SHAPE follows the corner -- a flap facing the light (upper left) throws it across its own face, one facing
+      // away (lower right) throws it out past the sticker's edge, side corners between. Heights (px): the roll at
+      // the fold (ROLL x the radius), the bowed band while placing (stickerFold()), the flap rising from the fold
+      // by sqrt(1 - L^2) per px of paper, eased into LIFT_CAP x the radius (a curl rolls, it never stands up).
+      CAST_INK: '#6b4a28', CAST_INK_HI: '#1A1A18', CAST: [[0.24, 0.25, 0.10], [0.62, 0.7, 0.06], [1.05, 1.2, 0.04]],   // [shadow length per px of height, blur (#stk-cast-i), opacity]
+      ROLL: 0.1, LIFT_CAP: 0.25,
+      BOW_L: 0.35, BOW_B: 0.42, BOW_TH: 1.1,   // the bow is full at L 0.35 (the lifted pose), over 0.42 x the radius of paper, up to 63 deg
+      PIN_LIFT: [-0.1, 0.35],                  // a pin placing starts lifted: its chord 0.1 of the radius further in, curled (L) like the row's lift
+      CURL: '#8a6a44', CURL_OP: [0.11, 0.05, 0], CURL_STOPS: [0, 0.45, 1], CURL_FALL: 0.25,        // faint contact crease, 1.5px, blurred (#stk-crease)
+      ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#FAF5EA', BACK: '#D8CDB8' },
+    };
+    // The check: a FILLED path with square ends and corners softened by 1/24,
+    // like the category glyphs (not a round-capped stroke). One path per size
+    // (px, stroke): NEAR 9/2.4 (and the selected pin), FAR 6.2/2.2, row 8/2.1.
+    // Generator: design/visited-system/stamp-first/mockup.html checkD().
+    const STICKER_CHECK = {
+      near: { px: 9, d: 'M0.68 12.09Q-0.03 12.80 0.68 13.51L8.90 21.73Q9.61 22.44 10.28 21.70L23.35 7.32Q24.02 6.58 23.28 5.91L20.02 2.95Q19.28 2.28 18.61 3.02L10.06 12.42Q9.39 13.16 8.68 12.46L5.21 8.98Q4.50 8.27 3.79 8.98Z' },
+      far:  { px: 6.2, d: 'M-0.81 12.09Q-1.52 12.80 -0.81 13.51L8.94 23.26Q9.65 23.97 10.32 23.23L24.84 7.25Q25.51 6.51 24.78 5.84L19.95 1.46Q19.21 0.79 18.54 1.52L10.03 10.89Q9.35 11.63 8.65 10.92L5.21 7.49Q4.50 6.78 3.79 7.49Z' },
+      row:  { px: 8, d: 'M0.75 12.09Q0.05 12.80 0.75 13.51L8.90 21.66Q9.61 22.36 10.28 21.62L23.28 7.33Q23.95 6.59 23.21 5.92L20.03 3.02Q19.29 2.35 18.62 3.09L10.06 12.50Q9.39 13.24 8.68 12.53L5.21 9.05Q4.50 8.35 3.79 9.05Z' },
+    };
+    // A second, independent hash of the place id (stampTilt() takes the first), so the corner and
+    // the lean don't move together.
+    // The pins' contact shadow (#stk-lift, #stk-lift-far) points along the one light too (row: --lx/--ly).
+    [['stk-lift', 0.45], ['stk-lift-far', 0.35]].forEach(([fid, k]) => { const o = document.querySelector(`#${fid} feOffset`); if (o) { o.setAttribute('dx', (STICKER.LIGHT[0] * k).toFixed(3)); o.setAttribute('dy', (STICKER.LIGHT[1] * k).toFixed(3)); } });
+    function stickerHash(id) { let h = 2166136261; for (const ch of String(id)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; }
+    function stickerPick(id, corners) { const tot = corners.reduce((a, [, w]) => a + w, 0); let r = stickerHash(id) % tot;
+      for (const [a, w] of corners) { if (r < w) return a; r -= w; } return corners[0][0]; }
+    function stickerSize(id) { return id == null ? 0.5 : (stickerHash(String(id) + '#size') % 1000) / 999; }   // 0..1, its own hash: size, corner and lean are independent
+    function stickerSpread(id, w) { return id == null ? 0 : ((stickerHash(String(id) + '#ang') % 1000) / 999 - 0.5) * w; }   // -w/2..w/2, its own hash
+    function stickerCorner(id, starred) { if (id == null) return STICKER.PIN_ANG;
+      const c = stickerPick(id, starred ? STICKER.PIN_CORNERS.filter(([a]) => a !== -135) : STICKER.PIN_CORNERS);
+      let a = c + stickerSpread(id, STICKER.PIN_SPREAD);
+      if (starred) { const d = ((a + 135 + 540) % 360) - 180, X = STICKER.STAR_EXCL; if (Math.abs(d) < X) a = -135 + (d < 0 ? -X : X); }   // clamp out of the star's quarter
+      return +(((a + 180) % 360 + 360) % 360 - 180).toFixed(2); }
+    function rowStickerAng(id) { return id == null ? STICKER.ROW.ANG : stickerPick(id, STICKER.ROW_CORNERS) + stickerSpread(id, STICKER.ROW_SPREAD); }
+    // A sticker is laid, not struck: half the place's stamp lean.
+    function stickerTilt(id) { return stampTilt(id) / 2; }
+    // The fold, for an outline ('circle' | 'diamond' in a w x h box, or the row's
+    // ellipse): peel direction `ang` (deg; 0 = down, 45 = lower-left), chord at
+    // `fh` of the outline's extent from the centre, the cut piece reflected
+    // back over it by `L` (1 = flat; less = curled up, foreshortened).
+    // -> { bodyD, flapD, chord: [[x,y],[x,y]], body: points } (cached).
+    const stickerFolds = new Map();
+    function stickerFold(shape, w, h, rx, ry, ang, fh, L) {
+      const key = [shape, w, h, rx, ry, ang, fh.toFixed(4), L.toFixed(4)].join('|');
+      if (stickerFolds.has(key)) return stickerFolds.get(key);
+      const cx = w / 2, cy = h / 2, n = 96, pts = [];
+      if (shape === 'diamond') {
+        const V = [[cx, cy - ry], [cx + rx, cy], [cx, cy + ry], [cx - rx, cy]];
+        for (let e = 0; e < 4; e++) for (let i = 0; i < n / 4; i++) { const [x0, y0] = V[e], [x1, y1] = V[(e + 1) % 4], t = i / (n / 4); pts.push([x0 + (x1 - x0) * t, y0 + (y1 - y0) * t]); }
+      } else if (shape === 'pill') {   // a stadium: a rounded label, ends of radius ry
+        const k = rx - ry, arc = Math.PI * ry, per = 2 * arc + 4 * k;
+        for (let i = 0; i < n; i++) { let t = i / n * per;
+          if (t < arc) { const a = -Math.PI / 2 + t / ry; pts.push([cx + k + ry * Math.cos(a), cy + ry * Math.sin(a)]); continue; } t -= arc;
+          if (t < 2 * k) { pts.push([cx + k - t, cy + ry]); continue; } t -= 2 * k;
+          if (t < arc) { const a = Math.PI / 2 + t / ry; pts.push([cx - k + ry * Math.cos(a), cy + ry * Math.sin(a)]); continue; } t -= arc;
+          pts.push([cx - k + t, cy - ry]); }
+      } else for (let i = 0; i < n; i++) { const a = i / n * 2 * Math.PI; pts.push([cx + rx * Math.cos(a), cy + ry * Math.sin(a)]); }
+      const a = ang * Math.PI / 180, ux = -Math.sin(a), uy = Math.cos(a);
+      const proj = pts.map(([x, y]) => (x - cx) * ux + (y - cy) * uy), d = Math.max(...proj) * fh;
+      // THE BOW (owner: "the content should fold with the sticker as it's placed"): while the flap
+      // is raised (L below rest) the face just inside the fold is not stuck down yet -- the last
+      // BOW_B of paper before the fold rises on an arc (radius R, up to BOW_TH), so it, and anything
+      // printed on it, is foreshortened toward the fold: arc length s -> R sin(s / R) on screen.
+      // At rest (L = FOLD_L) the bow is 0 and the face is flat to the fold.
+      const bow = Math.max(0, Math.min(1, (STICKER.FOLD_L - L) / (STICKER.FOLD_L - STICKER.BOW_L))), th = bow * STICKER.BOW_TH;
+      const B = STICKER.BOW_B * Math.min(rx, ry), db = d - B, R = th > 1e-4 ? B / th : Infinity;
+      const m = t => t <= db || R === Infinity ? t : db + R * Math.sin((t - db) / R);   // source -> screen, along u
+      const hb = t => t <= db || R === Infinity ? 0 : R * (1 - Math.cos((Math.min(t, d) - db) / R));   // the band's height
+      const dv = m(d), Hf = hb(d);
+      const flap = [], body = [], chord = [];
+      for (let i = 0; i < pts.length; i++) {
+        const [x, y] = pts[i], t = proj[i], j = (i + 1) % pts.length, t2 = proj[j];
+        // the flap: the cut piece reflected back over the (moved) fold; [x, y, its paper distance past the fold]
+        if (t > d) { const k = dv - (t - d) * L - t; flap.push([x + k * ux, y + k * uy, t - d]); } else { const k = m(t) - t; body.push([x + k * ux, y + k * uy, hb(t)]); }
+        if ((t - d) * (t2 - d) < 0) { const f = (d - t) / (t2 - t), px = x + (pts[j][0] - x) * f + (dv - d) * ux, py = y + (pts[j][1] - y) * f + (dv - d) * uy; const cp = [px, py, 0]; flap.push(cp); body.push(cp); chord.push(cp); }
+      }
+      const P = arr => 'M' + arr.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L') + 'Z';
+      const fx = flap.reduce((q, [x]) => q + x, 0) / flap.length, fy = flap.reduce((q, [, y]) => q + y, 0) / flap.length;
+      flap.sort((p, q) => Math.atan2(p[1] - fy, p[0] - fx) - Math.atan2(q[1] - fy, q[0] - fx));
+      // The outer edge alone (the body's outline WITHOUT the chord): the 1px edge is drawn
+      // here, never along the fold.
+      const isC = p => p === chord[0] || p === chord[1], nb = body.length;
+      const ci = body.findIndex((p, i) => isC(p) && isC(body[(i + 1) % nb])), rot = body.slice(ci + 1).concat(body.slice(0, ci + 1));
+      const edgeD = 'M' + rot.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L');
+      // The curl's shadow ON the face: a gradient from the fold, inward across the face past the
+      // flap's own reach (where the lifted corner stops shading it). [x1, y1, x2, y2], user space.
+      const ext = Math.max(...proj), mx = (chord[0][0] + chord[1][0]) / 2, my = (chord[0][1] + chord[1][1]) / 2;
+      const fall = (ext - d) * L + STICKER.CURL_FALL * Math.min(rx, ry);
+      const curl = [mx, my, mx - ux * fall, my - uy * fall], reach = (ext - d) * L;
+      const fi = flap.findIndex((p, i) => isC(p) && isC(flap[(i + 1) % flap.length])), fr = flap.slice(fi + 1).concat(flap.slice(0, fi + 1));
+      const flapEdgeD = 'M' + fr.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L');
+      // The bowed band of the face (from where it leaves the surface to the fold), for the cast and its mask.
+      const band = bow > 0 ? rot.filter(([x, y]) => (x - cx) * ux + (y - cy) * uy > db + 1e-6) : [];
+      const out = { bodyD: P(body), flapD: P(flap), flapEdgeD, flapPts: flap, u: [ux, uy], edgeD, chord, curl, reach, pts, proj, d,
+        c: [cx, cy], db, dv, R, th, bow, B, L, Hf, band, bandD: band.length > 2 ? P(band) : '', lift: Math.sqrt(Math.max(0, 1 - L * L)), r: Math.min(rx, ry), m };
+      stickerFolds.set(key, out);
+      return out;
+    }
+    // THE LIGHT is one screen-space direction for every sticker (owner: "Light source should have
+    // consistent placement regardless of flap"): STICKER.LIGHT, down-right from an upper-left light.
+    // A sticker drawn inside a rotated box (the row's lean) gets the light counter-rotated into its
+    // own coordinates, so on screen every shadow falls the same way whatever the tilt or corner.
+    function stickerLight(tilt = 0) {
+      const t = tilt * Math.PI / 180, [lx, ly] = STICKER.LIGHT;
+      return [lx * Math.cos(t) + ly * Math.sin(t), -lx * Math.sin(t) + ly * Math.cos(t)];
+    }
+    function stickerCurlDefs(id, g, light = STICKER.LIGHT) {
+      // The shade the curl casts on the face starts where the curl's tip lies (under the flap it is
+      // hidden anyway) and is only as strong as the light pushes the flap's shadow onto the face:
+      // full for a corner the light shines over (upper left), none where the shadow falls off the
+      // sticker (lower left, lower right) -- the cast layers carry it there.
+      const [x1, y1, x2, y2] = g.curl.map(v => v.toFixed(2)), t = Math.min(0.9, g.reach / (Math.hypot(g.curl[2] - g.curl[0], g.curl[3] - g.curl[1]) || 1));
+      const f = Math.max(0, -(g.u[0] * light[0] + g.u[1] * light[1]));
+      return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">` +
+        STICKER.CURL_STOPS.map((o, i) => `<stop offset="${(t + o * (1 - t)).toFixed(3)}" stop-color="${STICKER.CURL}" stop-opacity="${(STICKER.CURL_OP[i] * f).toFixed(3)}"/>`).join('') + '</linearGradient></defs>';
+    }
+    let stickerCurlUid = 0;
+    // The flap's back is paper curling, not a flat chip (owner: "maybe the flap should have a
+    // gradient instead of just flat color?"): one step deeper at the fold, the back's own tone
+    // mid-curl, one step lighter at the tip where it turns to the light. Paper tokens only
+    // (75% of the way toward --state-press-filed / --paper-filed; selected: --paper-pressed / --paper).
+    // Its free edge (never the fold) carries the same faint warm 1px edge as the sticker (owner:
+    // "maybe the flap edge needs a similar ever so slightly darker 1px stroke").
+    function stickerFlapDefs(id, g, back) {
+      const [mx, my] = g.curl, [, , x2, y2] = g.curl, tip = Math.hypot(x2 - mx, y2 - my), reach = g.reach;
+      const f = reach / (tip || 1), tx = mx + (x2 - mx) * f, ty = my + (y2 - my) * f;
+      const [fold, toTip] = back === STICKER.PIN_BACK_HI ? ['#DFD6C7', '#EFE8DA'] : ['#D3C9B6', '#E4DBCB'];   // ~75% of a paper step either side of the back
+      return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${mx.toFixed(2)}" y1="${my.toFixed(2)}" x2="${tx.toFixed(2)}" y2="${ty.toFixed(2)}">` +
+        `<stop offset="0" stop-color="${fold}"/><stop offset="0.45" stop-color="${back}"/><stop offset="1" stop-color="${toTip}"/></linearGradient></defs>`;
+    }
+    // The flap's CAST shadow, built like a real lifted corner under one soft light from the
+    // upper left (STICKER.LIGHT: shadows fall down and a little right): the flap's own outline
+    // projected onto what lies under it, each point displaced by its HEIGHT above the face --
+    // zero on the fold, where the paper still touches, most at the free tip. Three stacked
+    // layers (STICKER.CAST: [offset per unit height, blur, opacity]) so the shadow is tight and
+    // darkest at the fold and grows wider, softer and lighter toward the tip: a wedge, not a
+    // blurred blob. FAR scales offsets and blurs down (x0.7).
+    function stickerCastDs(g, far, light = STICKER.LIGHT) {
+      const [lx, ly] = light, roll = STICKER.ROLL * g.r, cap = STICKER.LIFT_CAP * g.r;
+      const hFlap = s => g.Hf + roll + cap * Math.tanh(s * g.lift / cap);   // s: px of paper past the fold
+      const area = q => q.reduce((A, [x, y], i) => { const [x2, y2] = q[(i + 1) % q.length]; return A + x * y2 - x2 * y; }, 0);
+      const poly = q => { if (area(q) < 0) q = q.slice().reverse(); return 'M' + q.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L') + 'Z'; };   // one winding: the subpaths union (nonzero)
+      const [c0, c1] = g.chord, h0 = g.Hf + roll;
+      return STICKER.CAST.map(([k]) => {
+        const at = ([x, y], h) => [x + lx * k * h, y + ly * k * h];
+        return { d: poly(g.flapPts.map(p => at(p, hFlap(p[2])))) + poly([c0, c1, at(c1, h0), at(c0, h0)]),   // the flap + the roll along the fold
+                 band: g.band.length > 2 ? poly(g.band.map(p => at(p, p[2]))) : '' };                       // the bowed band (placing)
+      });
+    }
+    function stickerFlapMarkup(g, back, far, gid, hi = false, light = STICKER.LIGHT, clip = '') {   // hi: on the selected pin's dark face the same shadow needs a deeper ink to read
+      const [c0, c1] = g.chord, ds = stickerCastDs(g, far, light);
+      // The bowed band's own cast never darkens the band itself (masked out); the flap, above it, still shades it.
+      const mask = g.bandD ? `<mask id="${gid}m" maskUnits="userSpaceOnUse" x="-40" y="-40" width="160" height="110"><rect x="-40" y="-40" width="160" height="110" fill="#fff"/><path d="${g.bandD}" fill="#000" filter="url(#stk-cast-1)"/></mask>` : '';
+      return stickerFlapDefs(gid, g, back) + mask +
+        STICKER.CAST.map(([, , op], i) => { const a = `fill="${hi ? STICKER.CAST_INK_HI : STICKER.CAST_INK}" fill-opacity="${hi ? op * 1.6 : op}" filter="url(#stk-cast-${i}${far ? '-far' : ''})"`;
+          return `<path class="stk-cast stk-cast-${i}" d="${ds[i].d}" ${a}/>` + (mask ? `<g mask="url(#${gid}m)"><path class="stk-cast-band" d="${ds[i].band}" ${a}/></g>` : ''); }).join('') +
+        (clip ? `<g clip-path="url(#${clip})">` : '') +
+        `<line class="stk-crease" x1="${c0[0].toFixed(2)}" y1="${c0[1].toFixed(2)}" x2="${c1[0].toFixed(2)}" y2="${c1[1].toFixed(2)}" stroke="${STICKER.CREASE}" stroke-width="1.5" stroke-linecap="round" filter="url(#stk-crease${far ? '-far' : ''})"/>` +
+        `<path class="stk-flap" d="${g.flapD}" fill="url(#${gid})"/>` +
+        `<path class="stk-flap-edge" d="${g.flapEdgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round" stroke-linecap="round"/>` +
+        (clip ? '</g>' : '');
+    }
+    // THE PRINT (owner: "the content should 'fold' with the sticker as it's 'placed'"): the check, the
+    // row's VISITED and a stop's number are printed ON the face, so they go where the paper goes. The
+    // flat face shows them as drawn; the bowed band (placing only) shows them foreshortened toward the
+    // fold, as two affine strips approximating R sin(s / R); past the fold the paper is the flap, which
+    // shows its back -- the print is on its underside, so nothing is drawn there. -> [{ poly, mx }]:
+    // the strip in the content's own (pre-transform) coordinates and its matrix (null: flat).
+    function stickerPrint(g) {
+      const [ux, uy] = g.u, [cx, cy] = g.c, vx = uy, vy = -ux, uc = ux * cx + uy * cy;
+      const strip = (t0, t1) => [[t0, -90], [t1, -90], [t1, 90], [t0, 90]].map(([t, w]) => [cx + ux * t + vx * w, cy + uy * t + vy * w]);
+      if (!(g.bow > 0)) return [{ poly: strip(-90, g.d), mx: null }];
+      const parts = [{ poly: strip(-90, g.db), mx: null }], N = 2;
+      for (let i = 0; i < N; i++) {
+        const a0 = g.db + g.B * i / N, a1 = g.db + g.B * (i + 1) / N, K = (g.m(a1) - g.m(a0)) / (a1 - a0) - 1, e = K * (-uc - a0) + g.m(a0) - a0;
+        parts.push({ poly: strip(a0 - 0.3, a1), mx: [1 + K * ux * ux, K * ux * uy, K * ux * uy, 1 + K * uy * uy, e * ux, e * uy] });
+      }
+      return parts;
+    }
+    const stkN = v => +v.toFixed(3);
+    // SVG print: `inner` once per strip, clipped then bent. ids keyed to the geometry (same fold, same clip: shared ids are safe).
+    function stickerPrintSvg(g, inner, id) {
+      return stickerPrint(g).map((p, i) => `<clipPath id="${id}-${i}" clipPathUnits="userSpaceOnUse"><path d="M${p.poly.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L')}Z"/></clipPath>` +
+        (p.mx ? `<g transform="matrix(${p.mx.map(stkN).join(' ')})">` : '') + `<g clip-path="url(#${id}-${i})">${inner}</g>` + (p.mx ? '</g>' : '')).join('');
+    }
+    // HTML print (the row's label, a stop's number): the element itself is the flat strip; a bowed
+    // strip is an aria-hidden clone (.stk-bend) right after it, clipped and bent; none at rest.
+    function stickerPrintCss(g) {
+      return stickerPrint(g).map(p => ({ clip: `polygon(${p.poly.map(([x, y]) => `${x.toFixed(2)}px ${y.toFixed(2)}px`).join(',')})`, tf: p.mx ? `matrix(${p.mx.map(stkN).join(',')})` : '' }));
+    }
+    function stickerPrintHtml(g, open, rest) {   // open: the element's opening tag without its '>'; rest: its content + closing tag
+      return stickerPrintCss(g).map((p, i) => i ? `${open.replace('class="', 'class="stk-bend ')} aria-hidden="true" style="clip-path:${p.clip};transform:${p.tf};transform-origin:0 0">${rest}` : `${open} style="clip-path:${p.clip}">${rest}`).join('');
+    }
+    function stickerPrintDom(el, g) {
+      while (el.nextElementSibling && el.nextElementSibling.classList.contains('stk-bend')) el.nextElementSibling.remove();
+      const ps = stickerPrintCss(g); el.style.clipPath = ps[0].clip;
+      let at = el; ps.slice(1).forEach(p => { const c = el.cloneNode(true); c.classList.add('stk-bend'); c.setAttribute('aria-hidden', 'true'); c.style.clipPath = p.clip; c.style.transform = p.tf; c.style.transformOrigin = '0 0'; at.after(c); at = c; });
+    }
+    // A visited map mark: { size, near (the NEAR tier, or selected), hi
+    // (selected), check (false: a plan stop, whose number holds the centre) }.
+    // Visited means LESS information, so every visited pin is the one round
+    // sticker: no approx dashed rim, no district diamond. A cream face on a
+    // cream map is held apart by a soft contact shadow only (#stk-lift; never
+    // a stroke -- owner: "the dark line on the edge should be a shadow not a
+    // hard line"), as the row sticker. Selected: the face takes --ink-2, the
+    // app's grey-brown metadata ink (a slate disc read as a blue category),
+    // the check turns cream. Returns { base, flap } SVG strings, both
+    // size x size at (0,0): the flap is drawn last so it lies over the face --
+    // and over anything placed between them (a stop's number prints above it).
+    function stickerPinParts({ size, near, hi = false, check = true, ang = STICKER.PIN_ANG, sz = 0.5, pose = null }) {   // pose: [fh delta, L] while placing (placeStickerPin())
+      const tier = near || hi ? 'near' : 'far', c = size / 2, fh0 = +(STICKER.PIN_H[tier] + (0.5 - sz) * STICKER.PIN_H_SPREAD).toFixed(3);
+      const fh = pose ? fh0 + pose[0] : fh0, L = pose ? pose[1] : STICKER.FOLD_L;
+      const g = stickerFold('circle', size, size, c, c, ang, fh, L);
+      const face = hi ? STICKER.HI_FACE : STICKER.FACE, mark = hi ? STICKER.FACE : STICKER.INK;
+      const key = `${size}-${tier}-${ang}-${fh.toFixed(4)}-${L.toFixed(4)}`;
+      const cid = `stk-curl-${key}`;   // same geometry, same gradient: a shared id is safe
+      let base = stickerCurlDefs(cid, g) + `<path class="stk-face" d="${g.bodyD}" fill="${face}" filter="url(#stk-lift${tier === 'far' ? '-far' : ''})"/><path class="stk-curl" d="${g.bodyD}" fill="url(#${cid})"/>`;
+      if (!hi) base += `<path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/>`;
+      if (check) { const ck = STICKER_CHECK[tier], o = ((size - ck.px) / 2).toFixed(2);   // printed on the face: it folds with it (stickerPrintSvg())
+        base += stickerPrintSvg(g, `<svg class="badge-glyph stk-check" x="${o}" y="${o}" width="${ck.px}" height="${ck.px}" viewBox="0 0 24 24"><path d="${ck.d}" fill="${mark}"/></svg>`, `stk-print-${key}`); }
+      const svg = (cls, inner, abs) => `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="${abs ? 'position:absolute;left:0;top:0;' : 'display:block;'}overflow:visible">${inner}</svg>`;
+      return { g, base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far', `stk-flapg-${key}${hi ? '-hi' : ''}`, hi), true) };
+    }
+    // The map star on a visited sticker: the same star, its paper halo thinned
+    // (a cream face needs no separation ring) and set out along the shoulder,
+    // so it never notches the check (STICKER.STAR_HALO / STAR_OUT, NEAR + FAR).
+    function stickerStarHtml(size) { return markerStarHtml(size, { halo: STICKER.STAR_HALO, out: STICKER.STAR_OUT[size >= 24 ? 'near' : 'far'] }); }
+    // The row sticker. pose: rest | lift (hovering pre-commit: flap curled
+    // high) | press (the 56px frame) -- the keyframes' fold states, eased
+    // between by vsPlace(). [fh, L]; rest keeps the flap's reach at ~5px.
+    // The approved flat wide OVAL (owner: the rounded-label variant was rejected);
+    // its extent along the peel is the ellipse's support distance.
+    const ROW_STICKER_POSE = (() => {
+      const R = { RX: 36, RY: 11, ANG: 50, REACH: 5 }, a = R.ANG * Math.PI / 180;
+      const ext = Math.sqrt(R.RX * R.RX * Math.sin(a) ** 2 + R.RY * R.RY * Math.cos(a) ** 2);
+      return { rest: [1 - R.REACH / ext, 0.94], lift: [0.7, 0.35], press: [0.652, 0.7] };
+    })();
+    // A place's resting fold: its own reach (STICKER.ROW_REACH, by stickerSize()) on the oval.
+    function rowStickerRest(id) {
+      const R = STICKER.ROW, a = R.ANG * Math.PI / 180, ext = Math.sqrt(R.RX * R.RX * Math.sin(a) ** 2 + R.RY * R.RY * Math.cos(a) ** 2);
+      const [r0, r1] = rowStickerAng(id) < 0 ? STICKER.ROW_REACH_R : STICKER.ROW_REACH, reach = r0 + (r1 - r0) * rowStickerSize(id);
+      return [+(1 - reach / ext).toFixed(4), 0.94];
+    }
+    function rowStickerSize(id) { return stickerSize(id); }
+    function rowStickerFold(fh, L, ang = STICKER.ROW.ANG) { const R = STICKER.ROW; return stickerFold('ellipse', R.W, R.H, R.RX, R.RY, ang, fh, L); }
+    // The row sticker's two SVGs' insides for a fold (rowStickerHtml(), poseRowSticker()): the flap and the
+    // crease stay inside the oval (#stk-row-clip); its cast does not -- a peel facing away from the light
+    // throws its shadow past the oval's edge onto the row.
+    function rowStickerSvgs(g, light, cid) {
+      const R = STICKER.ROW;
+      return { base: `${stickerCurlDefs(cid, g, light)}<path d="${g.bodyD}" fill="${R.FACE}"/><path class="stk-curl" d="${g.bodyD}" fill="url(#${cid})"/><path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/>`,
+               flap: stickerFlapMarkup(g, R.BACK, false, cid + 'f', false, light, 'stk-row-clip') };
+    }
+    function rowStickerHtml(id, pose = 'rest', cls = '') {
+      const R = STICKER.ROW, rest = rowStickerRest(id), [fh, L] = pose === 'rest' ? rest : ROW_STICKER_POSE[pose], ang = rowStickerAng(id), g = rowStickerFold(fh, L, ang), tilt = stickerTilt(id), light = stickerLight(tilt), cid = 'stk-curl-row-' + (++stickerCurlUid), box = `width="${R.W}" height="${R.H}" viewBox="0 0 ${R.W} ${R.H}" aria-hidden="true"`;
+      const sv = rowStickerSvgs(g, light, cid);
+      return `<span class="row-stamp${cls}" data-ang="${ang}" data-rest="${rest[0]}" data-tilt="${tilt}" data-cid="${cid}" style="--stamp-tilt:${tilt}deg;--lx:${light[0].toFixed(3)};--ly:${light[1].toFixed(3)}" aria-hidden="true">` +
+        (cls.includes('vs-carry') ? '<span class="vs-veil"></span>' : '') +
+        `<svg class="stk-base" ${box}>${sv.base}</svg>` +
+        stickerPrintHtml(g, `<span class="row-sticker-label${ang < 0 ? ' flap-right' : ''}"`, `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="currentColor"/></svg><span class="row-stamp-word">Visited</span></span>`) +
+        `<svg class="stk-flap-svg" ${box}>${sv.flap}</svg></span>`;
+    }
+    // Re-pose a rendered row sticker in place (the hover, the press's smooth-out, the peel): the face,
+    // its shade, the flap, its cast and the print all follow the one fold.
+    function poseRowSticker(st, fh, L) {
+      const b = st.querySelector('.stk-base'), f = st.querySelector('.stk-flap-svg'), lab = st.querySelector('.row-sticker-label:not(.stk-bend)');
+      if (!b || !f || !lab) return;
+      const g = rowStickerFold(fh, L, +(st.dataset.ang || STICKER.ROW.ANG)), cid = st.dataset.cid || ('stk-curl-row-' + (++stickerCurlUid));
+      st.dataset.cid = cid;
+      const sv = rowStickerSvgs(g, stickerLight(+(st.dataset.tilt || 0)), cid);
+      b.innerHTML = sv.base; f.innerHTML = sv.flap; stickerPrintDom(lab, g);
     }
 
     function markerIcon(loc, highlighted) {
@@ -4343,8 +4601,13 @@
       // every zoom, plus its numbered tag (planNumberIcon). Every other place
       // is its ordinary Places pin.
       const stop = planMarks().byLoc.get(loc.id);
-      if (stop) return planNumberIcon(loc.category, markerKind(loc), ink, stop, MARKER_SIZE_NEAR + (highlighted ? MARKER_HI_DELTA : 0), highlighted, loc.starred);
-      const badge = badgeHtml(loc.category, markerKind(loc), size, {
+      if (stop) return planNumberIcon(loc.category, markerKind(loc), ink, stop, MARKER_SIZE_NEAR + (highlighted ? MARKER_HI_DELTA : 0), highlighted, loc.starred, !!loc.visited);
+      // Visited: the sticker (stickerPinParts()) -- the cream face and a
+      // check, the flap peeled at the lower left. Selected: --ink-2 face, cream
+      // check, the NEAR check at either tier.
+      const spo = { size, near: showGlyph, hi: highlighted, ang: stickerCorner(loc.id, loc.starred), sz: stickerSize(loc.id) };
+      const sp = loc.visited ? stickerPinParts(spo) : null;
+      const badge = sp ? sp.base + sp.flap : badgeHtml(loc.category, markerKind(loc), size, {
         ink,
         // Highlighted inverts: ink field, paper glyph.
         fill: highlighted ? ink : '#F2EBDD',
@@ -4356,11 +4619,11 @@
       // target -- pad the invisible click/tap area out to 24px around the
       // small visible badge rather than shrinking the tap target with it.
       const hit = Math.max(size, 24);
-      const star = loc.starred ? markerStarHtml(size) : '';
+      const star = loc.starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
       const html = hit === size
-        ? `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div>`
+        ? `<div class="${highlighted ? 'highlighted-marker' : ''}${sp ? ' stk-pin' : ''}"${sp ? ` data-stk="${[size, +spo.near, +spo.hi, spo.ang, spo.sz].join(',')}"` : ''} style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div>`
         : `<div style="width:${hit}px;height:${hit}px;display:flex;align-items:center;justify-content:center;">` +
-          `<div class="${highlighted ? 'highlighted-marker' : ''}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div></div>`;
+          `<div class="${highlighted ? 'highlighted-marker' : ''}${sp ? ' stk-pin' : ''}"${sp ? ` data-stk="${[size, +spo.near, +spo.hi, spo.ang, spo.sz].join(',')}"` : ''} style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div></div>`;
       return L.divIcon({
         html,
         className: '',
@@ -4941,10 +5204,16 @@
     // paper field, the near size at every zoom; the numeral is the one grey number style
     // (--ink-2, 13px/700; 12px for two digits). Selected: the ring fills with its ink and the
     // numeral turns paper, as a selected Places pin does. The star keeps its corner. No tag.
-    function planNumberIcon(category, kind, ink, r, size, highlighted, starred) {
-      const badge = badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: ink, rim: highlighted ? 2.5 : 2, glyph: false });
-      const star = starred ? markerStarHtml(size) : '';
-      const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}" data-n="${r.n}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>${star}</div>`;
+    // A VISITED stop keeps its number (the plan's identity) and becomes the
+    // round cream sticker (an approximate pin's dashes and a district's
+    // diamond go: visited is less information), the flap peeled over the face -- no check; the
+    // number is printed ON the face like the check (stickerPrintHtml()), so the flap lies over
+    // it and nothing of it shows past the fold. Selected: ink face, paper numeral, as above.
+    function planNumberIcon(category, kind, ink, r, size, highlighted, starred, visited = false) {
+      const sp = visited ? stickerPinParts({ size, near: true, hi: highlighted, check: false, ang: stickerCorner(r.loc ? r.loc.id : (r.nb ? shapeKey(r.nb.id) : null), starred), sz: -0.5 }) : null;   // a small flap (chord at 0.82 of the radius): the number is printed under it and never cut
+      const badge = sp ? sp.base : badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: ink, rim: highlighted ? 2.5 : 2, glyph: false });
+      const star = starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
+      const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}${visited ? ' is-visited stk-pin' : ''}" data-n="${r.n}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${sp ? stickerPrintHtml(sp.g, `<span class="pin-n${r.n > 9 ? ' two' : ''}"`, `${r.n}</span>`) + sp.flap : `<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>`}${star}</div>`;
       return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
     }
 
@@ -4966,12 +5235,12 @@
           const id = r.nb.id;
           seen.add(id);
           const ink = r.nb.color || categoryInk(r.nb.type);
-          const sig = [r.n, c.join(), ink, r.nb.type, !!r.nb.starred].join('|');
+          const sig = [r.n, c.join(), ink, r.nb.type, !!r.nb.starred, !!r.nb.visited].join('|');
           const had = planShapeMarkers.get(id);
           if (had && had.sig === sig) return;
           if (had) map.removeLayer(had.marker);
           const marker = L.marker(c, {
-            icon: planNumberIcon(r.nb.type, 'diamond', ink, r, MARKER_SIZE_NEAR, false, !!r.nb.starred),
+            icon: planNumberIcon(r.nb.type, 'diamond', ink, r, MARKER_SIZE_NEAR, false, !!r.nb.starred, !!r.nb.visited),
             zIndexOffset: Z_PLAN_STOP - r.n,
             title: `Stop ${r.n}: ${r.nb.label}`
           }).addTo(map);
@@ -5893,7 +6162,38 @@
         `<use class="marker-star-ink" href="#g-star"/></svg></div>`;
       return L.divIcon({ html, className: '', iconSize: [hit, hit], iconAnchor: [hit / 2, hit / 2] });
     }
+    // A VISITED district/street carries the pins' visited sticker at the same
+    // point (owner brief 2026-10-02: "the same sticker mark at the label point
+    // where the starred shape's star sits"): the NEAR pin's 24px sticker in the
+    // shape's own colour -- its wash, the 9px check, the flap lower-left (a
+    // shape's layer only draws at close zooms, where pins are NEAR too; at
+    // 16px the star covered most of the check). When the
+    // shape is starred too, the sticker steps down-left so the star (its own
+    // marker, unmoved) rides the sticker's upper-right shoulder, exactly as on
+    // a pin. Below the star in z; a tap opens the shape's popup. A plan's
+    // shape stop carries both marks on its numbered diamond, so none here.
+    function shapeVisitIcon(nb) {
+      const size = MARKER_SIZE_NEAR, hit = 24, o = (hit - size) / 2, sp = stickerPinParts({ size, near: true, ang: stickerCorner(shapeKey(nb.id), nb.starred), sz: stickerSize(shapeKey(nb.id)) });
+      const sh = nb.starred ? (size / 2 - 1 + STICKER.STAR_OUT.near) * Math.SQRT1_2 : 0;   // the shoulder, set out as stickerStarHtml() so the star clears the check
+      const html = `<div style="position:relative;width:${hit}px;height:${hit}px;line-height:0;"><div style="position:absolute;left:${o}px;top:${o}px;width:${size}px;height:${size}px;">${sp.base}${sp.flap}</div></div>`;
+      return L.divIcon({ html, className: '', iconSize: [hit, hit], iconAnchor: [hit / 2 + sh, hit / 2 - sh] });
+    }
     function syncShapeStars(shown) {
+      const vWant = new Set();
+      shown.forEach(id => {
+        const nb = neighborhoodShapes.find(n => n.id === id);
+        if (!nb || !nb.visited || planMarks().byShape.has(id)) return;
+        const at = shapeAnchor(nb);
+        if (!at) return;
+        vWant.add(id);
+        const sig = [at.join ? at.join() : String(at), nb.color, nb.type, !!nb.starred].join('|'), had = shapeVisitMarkersById.get(id);
+        if (had && had.sig === sig) return;
+        if (had) map.removeLayer(had.marker);
+        const m = L.marker(at, { icon: shapeVisitIcon(nb), zIndexOffset: Z_PIN_STARRED - 100, title: `${nb.label}, visited` });
+        m.on('click', () => { const layer = neighborhoodLayersById.get(id); if (layer) layer.openPopup(L.latLng(at)); });
+        shapeVisitMarkersById.set(id, { marker: m.addTo(map), sig });
+      });
+      shapeVisitMarkersById.forEach((e, id) => { if (!vWant.has(id)) { map.removeLayer(e.marker); shapeVisitMarkersById.delete(id); } });
       const want = new Set();
       shown.forEach(id => {
         const nb = neighborhoodShapes.find(n => n.id === id);
@@ -6190,13 +6490,18 @@
     // regardless of Leaflet's default latitude-based z-order.
     // THE stacking ladder -- every marker's z-offset comes from here:
     //   highlighted 1000 > starred cluster 700 > cluster 600
-    //     > starred pin 500 > pin 0
+    //     > starred pin 500 > pin 0 > visited starred pin -500 > visited pin -1000
+    // Visited pins (the sticker) step one Z_PIN_VISITED_DROP below, so every
+    // to-do seal stays on top where pins overlap (what's LEFT reads first;
+    // design/visited-system/stamp-first) and "starred beats plain" still holds
+    // inside each state. Like the 500 step, this holds while the map is under
+    // ~500px tall (Leaflet adds the marker's screen y).
     // Clusters beat every pin: a cluster is a multi-place destination and
     // its count must never be buried under one pin, starred or not.
     // Among equals the starred one wins, so the place the owner cares
     // about is never the one hidden underneath. The selected pin always
     // tops everything.
-    const Z_HIGHLIGHTED = 1000, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500;
+    const Z_HIGHLIGHTED = 1000, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500, Z_PIN_VISITED_DROP = 1000;
     // The Plans ladder (an open plan only; design/plans-deepdive/v3 §4).
     // Leaflet's z-index = the marker's screen y + this offset, so the steps are
     // 5000 apart (more than any screen is tall) or a lower mark further down
@@ -6212,7 +6517,7 @@
         highlighted ? (!cluster && planOpen ? (stop ? Z_PLAN_HI_STOP : Z_PLAN_PICKED) : Z_HIGHLIGHTED)
         : cluster ? (planOpen ? Z_PLAN_CLUSTER + (starred ? 100 : 0) : starred ? Z_CLUSTER_STARRED : Z_CLUSTER)
         : stop ? Z_PLAN_STOP - stop.n
-        : starred ? Z_PIN_STARRED : 0);
+        : (starred ? Z_PIN_STARRED : 0) - (marker.visited ? Z_PIN_VISITED_DROP : 0));
     }
 
     function syncMarkers(visible) {
@@ -6228,6 +6533,7 @@
             icon: markerIcon(loc, loc.id === highlightedId)
           }).addTo(map);
           marker.locationId = loc.id;
+          marker.visited = !!loc.visited;
           bindPinPopup(marker, loc);
           applyMarkerStacking(marker, loc.id === highlightedId, loc.starred);
           markersById.set(loc.id, { marker, signature, loc });
@@ -6240,6 +6546,8 @@
           entry.marker.setLatLng([loc.lat, loc.lng]);
           entry.marker.setIcon(markerIcon(loc, loc.id === highlightedId));
           entry.marker.setPopupContent(buildPopupHtml(loc));
+          if (loc.visited && !entry.marker.visited) placeStickerPin(entry.marker.getElement());   // the sticker is placed, as in the row
+          entry.marker.visited = !!loc.visited;
           applyMarkerStacking(entry.marker, loc.id === highlightedId, loc.starred);
         }
       });
@@ -6953,42 +7261,44 @@
       }, () => releaseStarRow(el, g, true));
     }
 
-    // ---- VISIT STAMP: swipe LEFT -- the stamp STAMPS ---------------------------
+    // ---- VISIT STICKER: swipe LEFT -- the sticker is PLACED ----------------------
     // The mirror of the Pencil Star: a pencil DRAWS over time in the star's
-    // slot (left); a stamp is PRESSED in one instant in its own column (right).
-    // The mark is the shipped .row-stamp -- same box, ring, track, 82% navy and
-    // per-place stampTilt(). Nothing slides (owner, round 3: "it should stamp
-    // with some grow shrink ... maybe the same as the star").
+    // slot (left); a sticker is PLACED in its own column (right). The mark is
+    // the row's own sticker (rowStickerHtml(): the matte oval, check + VISITED,
+    // the flap peeled lower-left, half the place's stamp lean). Owner-approved
+    // motion: design/visited-system/stamp-first/sticker-keyframes-3x.png.
     //   Before the commit (0..56px of content travel, past the 10px lock):
-    //     the stamp never slides. The name's tail feathers out of the slot
-    //     (0..6px), then the ink BLEEDS into the paper in the slot (vsCue,
-    //     6..56px): a dense blot where it touched, then a crisp pale core
-    //     spreading out under a wet fibrous front -- never the whole ring, never full ink.
-    //   Press (the 56px crossing, in the same event): the cue gives way to the
-    //     whole stamp at full strength (ring, track, word), the visited field and the final
-    //     truncation land on this frame, haptic, and VISIT_POP plays: the
-    //     star's STAR_POP -- same timing, offsets and per-segment easings --
-    //     about the place's own tilt, scaled for a 72x32 oval (peak 1.2x, twist
-    //     -12 -> +4 -> -1.5deg; measured clearance below). Backing off 4px
-    //     below 56 un-presses on that frame (hysteresis).
-    //   Un-visit: the same stroke on a visited row. At the lock the stamp
-    //     lifts with the star's erase pop (STAR_ERASE_POP: 1.12x, no twist);
-    //     then it pales toward a light navy tint (full opacity, chroma >= 0.045)
-    //     between 12 and 44px; at 56 it is gone, the field drains, erase haptic.
-    //   Reduced motion: no pop, no lift; the sweep (finger-driven, not motion)
-    //     stays and the press simply appears. Haptics still fire.
-    const VISIT_SWIPE = { PRINT_INK: 0.82, GHOST: 0.3, FADE_LAG: 12, HYST: 4, TAIL_OUT: 6,
+    //     the sticker HOVERS in its slot and never slides: lifted under a soft
+    //     shadow, its flap curled high (the 'lift' pose), fading in over
+    //     6..21px, then growing 1 -> 1.12x with travel (vsHover()). The
+    //     name slides left under it; the carry's veil (the row's own field,
+    //     feathered) keeps the name's tail from showing within 6px of it.
+    //   Press (the 56px crossing, in the same event): stuck down by a thumb on
+    //     the middle -- the face settles 1.12 -> 1x and its shadow tightens
+    //     first; the flap is the last thing, relaxing from raised to its rest
+    //     (VISIT_PLACE, 200ms) -- the visited field lands on this
+    //     frame, haptic. Backing off 4px below 56 un-presses on that frame
+    //     (hysteresis) and the sticker hovers again.
+    //   Un-visit: the same stroke on a visited row. At the lock the sticker
+    //     lifts (STAR_ERASE_POP: 1.12x, no twist) and peels: the shadow comes
+    //     back and the flap curls high; it fades to GHOST between 12 and 44px;
+    //     at 56 it is gone, the field drains, erase haptic.
+    //   Reduced motion: no lift, no grow, no press dip; the sweep (finger-
+    //     driven, not motion) stays and the placed sticker simply appears.
+    //     Haptics still fire.
+    const VISIT_SWIPE = { GHOST: 0.3, FADE_LAG: 12, HYST: 4, TAIL_OUT: 6,
                           RETURN_MS: 180, XBACK_MS: 120 };
     const DELETE_TAP_SLOP = 4;
-    // STAR_POP, about the stamp's tilt: [offset, twist (deg, added to the tilt), scale, easing into the next].
-    // Same timing, offsets and per-segment easings as the star; smaller, because
-    // a 72x32 oval's growth is large in absolute px (owner, live: "Visited pops
-    // too large" at 1.2x). Peak 1.1x, twist -10/+3/-1.2deg, dip 0.97. Still
-    // distinct from the un-visit lift (1.12x, no twist, no dip): the visit pop
-    // twists and dips; the lift only rises, then pales.
-    const VISIT_POP_PEAK = 1.1;
-    const VISIT_POP = [[0, -10, 1, [.2, .9, .3, 1]], [0.34, 3, VISIT_POP_PEAK, [.6, 0, .85, .45]], [0.65, -1.2, 0.97, [.4, 0, .3, 1]], [1, 0, 1, null]];
-    const VISIT_POP_MS = STAR_POP_MS;
+    // The hover: opacity over the first FADE of the 6..56px cue, then the lift (scale) over the rest.
+    const VISIT_HOVER = { FADE: 0.3, SCALE: [1, 1.12] };
+    // The press (owner: "it should look like it's being placed down with the flap edge being the
+    // last thing as if someone stuck the sticker down and didn't press down the edge"): a thumb
+    // presses the middle -- the face settles flat from the hover's 1.12x to 1 over the first
+    // FACE of the time (no dip, no bounce) while the lifted shadow tightens (CSS transition) --
+    // and the flap is the LAST thing: it stays raised until FLAP_FROM, then relaxes from the lift
+    // pose to the place's own resting fold by the end. [offset, twist, scale, easing].
+    const VISIT_PLACE = [[0, 0, VISIT_HOVER.SCALE[1], [.25, .8, .35, 1]], [0.5, 0, 1, null]];
+    const VISIT_PLACE_MS = 200, VISIT_PLACE_FLAP = { FROM: 0.3, EASE: [.3, 0, .2, 1] };
     const VISIT_LIFT = [[0, 0, 1, [.2, .9, .3, 1]], [0.35, 0, 1.12, [.5, 0, .4, 1]], [1, 0, 1, null]];   // = STAR_ERASE_POP
     function cubicBezier(x1, y1, x2, y2) {
       const bx = t => ((1 - 3 * x2 + 3 * x1) * t + (3 * x2 - 6 * x1)) * t * t + 3 * x1 * t;
@@ -7019,48 +7329,55 @@
       step();
     }
     function stopVisitPop(g) { g.popId = (g.popId || 0) + 1; g.st.style.transform = `rotate(${g.tilt}deg)`; }
-    // The pre-commit cue for travel fraction p (0..1): see the CSS.
-    // The bleed (see the CSS): p (0..1) drives only transforms and opacities.
-    const VS_BLEED = { S0: 0.1, S1: 1.55, WAIT: 0.24, LEAD: 0.16, BLOT_OUT: [0.3, 0.7], BLOT_REST: 0.35, RX: 18.2, RY: 13, STEP2: [0.31, 0.39], STEP3: [0.66, 0.74] };
-    // The reveal ellipse is 18.2 x 13 CSS px at scale 1 (aspect 1.4). At S0 the
-    // core is 1.8 x 1.3px -- inside the blot's solid 5.4 x 2.7px -- until
-    // WAIT (content 18px), on every row type. It reaches the ring's top and
-    // bottom (12px) from ~27px; its half-width tops out at ~30px (< the
-    // ring's 32 / the track's 36), so the ends are still soaking at 54px.
-    const VS_INK = ['oklch(0.70 0.035 247)', 'oklch(0.665 0.035 247)', 'oklch(0.632 0.035 247)'];
-    const VS_INK_HI = [34, 42, 50];   // % paper into the highlighted row's field
-    function vsBleedMarkup() {
-      const copy = (k = '') => `<span class="row-stamp vs-copy${k}"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`;
-      return '<span class="vs-bleed" aria-hidden="true">'
-        + '<span class="vs-rv vs-rv-halo"><span class="vs-cs">' + copy() + '<span class="vs-blot"></span></span></span>'
-        + '<span class="vs-rv vs-rv-core"><span class="vs-cs">' + copy() + copy(' vs-k2') + copy(' vs-k3') + '</span></span></span>';
+    // The press (see VISIT_PLACE): the face settles first, the flap relaxes last.
+    function runVisitPlace(g) {
+      const st = g.st, t0 = sgNow(), id = (g.popId = (g.popId || 0) + 1);
+      const [f0, l0] = ROW_STICKER_POSE.lift, f1 = +st.dataset.rest, l1 = 0.94, o = VISIT_PLACE_FLAP.FROM;
+      if (!vsEase.has(VISIT_PLACE_FLAP.EASE)) vsEase.set(VISIT_PLACE_FLAP.EASE, cubicBezier(...VISIT_PLACE_FLAP.EASE));
+      const step = () => {
+        if (g.popId !== id) return;
+        const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u <= o ? 0 : vsEase.get(VISIT_PLACE_FLAP.EASE)((u - o) / (1 - o));
+        st.style.transform = `scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+        if (u < 1) { poseRowSticker(st, f0 + (f1 - f0) * w, l0 + (l1 - l0) * w); requestAnimationFrame(step); }
+        else { st.style.transform = `rotate(${g.tilt}deg)`; poseRowSticker(st, f1, l1); g.popId++; }
+      };
+      step();
     }
-    function vsCue(st, p, k = 1) {
-      const q = Math.max(0, Math.min(1, p)), B = VS_BLEED;
-      const u = Math.max(0, (q - B.WAIT) / (1 - B.WAIT));                  // the blot first: the core waits inside it until ~18px
-      const sc = B.S0 + B.S1 * Math.sqrt(u), sh = sc + B.LEAD;           // capillary: fast, then slowing; the wet halo leads
-      st.__vsQ = q;
-      const key = sc.toFixed(4); if (st.__vsKey === key && st.__vsK === k) return; st.__vsKey = key; st.__vsK = k;
-      const rv = st.querySelectorAll(':scope > .vs-bleed > .vs-rv');
-      if (rv.length === 2) {
-        rv[0].style.transform = `scale(${sh.toFixed(4)})`; rv[0].firstElementChild.style.transform = `scale(${(1 / sh).toFixed(5)})`;
-        rv[1].style.transform = `scale(${sc.toFixed(4)})`; rv[1].firstElementChild.style.transform = `scale(${(1 / sc).toFixed(5)})`;
-        const blot = rv[0].querySelector('.vs-blot'), [b0, b1] = B.BLOT_OUT;
-        blot.style.opacity = (1 - (1 - B.BLOT_REST) * Math.max(0, Math.min(1, (q - b0) / (b1 - b0)))).toFixed(3);
-      }
-      // P6-N1: the ink deepens by crossfading pre-rendered copies (opacity only)
-      const sm = (a, b) => { const t = Math.max(0, Math.min(1, (q - a) / (b - a))); return t * t * (3 - 2 * t); };
-      const w2 = sm(B.STEP2[0], B.STEP2[1]), w3 = sm(B.STEP3[0], B.STEP3[1]);
-      if (rv.length === 2) { const cs = rv[1].firstElementChild.children; cs[1].style.opacity = w2.toFixed(3); cs[2].style.opacity = w3.toFixed(3); }
-      st.style.opacity = k.toFixed(3);
+    // A MAP PIN IS PLACED the same way (owner: "I don't think I see the whole place animation"): when a
+    // pin turns visited it arrives lifted (the hover's 1.12x, its flap curled high = STICKER.PIN_LIFT,
+    // the face bowed into the fold, a soft lifted shadow from the one light) and is pressed by the same
+    // timeline as the row (VISIT_PLACE, VISIT_PLACE_FLAP, VISIT_PLACE_MS): the face settles first, the
+    // flap -- and the print near it -- relax last. Reduced motion: it simply appears.
+    function placeStickerPin(root) {
+      const pin = root && root.querySelector('.stk-pin[data-stk]');
+      if (!pin || prefersReducedMotion()) return;
+      const [size, near, hi, ang, sz] = pin.dataset.stk.split(',').map(Number), o = { size, near: !!near, hi: !!hi, ang, sz };
+      const [df, lL] = STICKER.PIN_LIFT, fr = VISIT_PLACE_FLAP.FROM, [lx, ly] = STICKER.LIGHT, t0 = sgNow(), id = (pin.__stk = (pin.__stk || 0) + 1);
+      if (!vsEase.has(VISIT_PLACE_FLAP.EASE)) vsEase.set(VISIT_PLACE_FLAP.EASE, cubicBezier(...VISIT_PLACE_FLAP.EASE));
+      const step = () => {
+        if (pin.__stk !== id || !pin.isConnected) return;
+        const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u >= 1 ? 1 : u <= fr ? 0 : vsEase.get(VISIT_PLACE_FLAP.EASE)((u - fr) / (1 - fr));
+        const p = stickerPinParts({ ...o, pose: w >= 1 ? null : [df * (1 - w), lL + (STICKER.FOLD_L - lL) * w] });
+        pin.querySelector('.stk-base').outerHTML = p.base; pin.querySelector('.stk-flap-svg').outerHTML = p.flap;
+        const lift = u >= 1 ? 0 : (sc - 1) / (VISIT_HOVER.SCALE[1] - 1);   // 1 lifted .. 0 down, with the face
+        pin.style.transform = lift > 0 ? `scale(${sc.toFixed(4)})` : '';
+        pin.style.filter = lift > 0.002 ? `drop-shadow(${(lx * 2 * lift).toFixed(2)}px ${(ly * 2 * lift).toFixed(2)}px ${(1.6 * lift).toFixed(2)}px rgba(40, 30, 20, ${(0.16 * lift).toFixed(3)}))` : '';
+        if (u < 1) requestAnimationFrame(step);
+      };
+      step();
     }
-    function vsCueClear(st) { st.style.opacity = ''; }
-
-    // P3-N1: the un-visit ghost pales toward a LIGHT NAVY TINT at full opacity
-    // (oklch, hue held), never by alpha over warm paper, which went neutral
-    // grey (chroma 0.016). Chroma stays >= 0.045 on every frame until it's gone.
-    const VS_GHOST_TINT = 'oklch(0.80 0.045 249.2)';
-    function vsGhostInk(k) { return `color-mix(in oklch, var(--navy) ${(k * 100).toFixed(1)}%, ${VS_GHOST_TINT})`; }
+    // The pre-commit hover for cue fraction p (0..1 of 6..56px): only the
+    // carry's transform and opacity (its shadow, veil and lifted flap are static).
+    function vsHover(g, p) {
+      // Reduced motion: no growth, so the opacity carries the progress over the whole cue.
+      const q = Math.max(0, Math.min(1, p)), H = VISIT_HOVER, rm = prefersReducedMotion();
+      // It fades in at scale 1, then lifts toward 1.12x: the X (fading out over
+      // 80ms from the lock) is gone before the grown oval could reach it (V19).
+      const sc = rm ? 1 : H.SCALE[0] + (H.SCALE[1] - H.SCALE[0]) * Math.max(0, (q - H.FADE) / (1 - H.FADE));
+      g.st.__vsQ = q;
+      g.st.style.transform = `scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+      g.st.style.opacity = Math.min(1, rm ? q : q / H.FADE).toFixed(3);
+    }
 
     function beginVisitDrag(el, g) {
       const id = rowKey(el), loc = rowItem(id);
@@ -7072,25 +7389,24 @@
       const badge = el.querySelector('.row-badge');
       const star = el.querySelector('.row-star');
       if (!main || !acts || !h3 || !meta) return false;
-      const tilt = stampTilt(id), visited = !!loc.visited;
+      const tilt = stickerTilt(id), visited = !!loc.visited;
       let st = el.querySelector('.row-stamp');
       if (!visited) {
-        st = document.createElement('span');
-        st.className = 'row-stamp vs-carry vs-open'; st.setAttribute('aria-hidden', 'true');
-        st.style.setProperty('--stamp-tilt', tilt + 'deg');
+        const tmp = document.createElement('span');
+        tmp.innerHTML = rowStickerHtml(id, 'lift', ' vs-carry vs-open');
+        st = tmp.firstElementChild;
         st.style.transform = `rotate(${tilt}deg)`;
-        st.innerHTML = '<span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span>' + vsBleedMarkup();
-        const hl = el.classList.contains('highlighted');
-        const bg = getComputedStyle(el).backgroundColor;
-        (hl ? VS_INK_HI.map(k => `color-mix(in oklch, var(--paper) ${k}%, ${bg})`) : VS_INK).forEach((c, i) => st.style.setProperty(`--vs-ink-${i + 1}`, c));
-        vsCue(st, 0, 0);
+        st.style.opacity = '0';
+      } else if (st) {                              // the sticker peels: shadow back, flap curled high
+        st.classList.add('vs-peel');
+        poseRowSticker(st, ...ROW_STICKER_POSE.lift);
       }
-      const field = getComputedStyle(el).backgroundColor;
+      if (!st) return false;
       el.classList.add('vs-live', 'vs-xhide');
       if (!visited) acts.prepend(st);
-      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, h3, meta, badge, star, tilt, field, hi: el.classList.contains('highlighted'), raw: 0, pressed: false, lifted: false, armed: false });
+      Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, h3, meta, badge, star, tilt, raw: 0, pressed: false, lifted: false, armed: false });
       starHeld.set(id, { ff: null });
-      if (visited && !prefersReducedMotion()) runVisitPop(g, VISIT_LIFT, 240);   // the star's erase pop: lift to rub it out
+      if (visited && !prefersReducedMotion()) runVisitPop(g, VISIT_LIFT, 240);   // the star's erase pop: lift to peel it off
       paintVisit(g);
       return true;
     }
@@ -7115,31 +7431,28 @@
         const wasPressed = g.pressed;
         g.pressed = wasPressed ? r >= C - V.HYST : r >= C;
         if (g.pressed) {
-          if (!wasPressed) {                // the stamp lands: same event, same frame
-            st.classList.remove('vs-open'); vsCueClear(st);
+          if (!wasPressed) {                // the sticker is pressed down: same event, same frame
+            st.classList.remove('vs-open'); st.style.opacity = '';
             el.classList.add('is-visited');                 // field lands INSIDE the press
             g.pressT = sgNow();
-            if (!rm) runVisitPop(g, VISIT_POP, VISIT_POP_MS); else stopVisitPop(g);
+            if (!rm) runVisitPlace(g); else { stopVisitPop(g); poseRowSticker(st, +st.dataset.rest, 0.94); }
             if (!g.replay) starHaptic('ink');
           }
         } else {
-          if (wasPressed) { stopVisitPop(g); st.classList.add('vs-open'); el.classList.remove('is-visited'); }   // un-press frame: old layout back
-          vsCue(st, (r - V.TAIL_OUT) / (C - V.TAIL_OUT), Math.max(0, Math.min(1, (r - V.TAIL_OUT) / V.TAIL_OUT)));
+          if (wasPressed) { stopVisitPop(g); poseRowSticker(st, ...ROW_STICKER_POSE.lift); st.classList.add('vs-open'); el.classList.remove('is-visited'); }   // un-press frame: it hovers again
+          vsHover(g, (r - V.TAIL_OUT) / (C - V.TAIL_OUT));
         }
       } else {
         const wasLifted = g.lifted;
         g.lifted = wasLifted ? r >= C - V.HYST : r >= C;
+        // The peel: from 12px the lifted sticker fades toward GHOST (opacity only,
+        // its ink held); at 56 it is gone.
         const f = Math.max(0, Math.min(1, (r - V.FADE_LAG) / (44 - V.FADE_LAG)));
-        // P3-N1 + P5-S2: the ghost path starts AT the resting ink (82% navy on
-        // this field: L 0.40 / C 0.035) and only pales, in oklch, toward a light
-        // navy tint at full opacity -- lightness never drops, chroma never
-        // falls below the rest's, and until 12px nothing changes at all.
-        if (!g.hi) st.style.color = f <= 0 ? '' : `color-mix(in oklch, color-mix(in srgb, var(--navy) 82%, ${g.field}) ${((1 - f) * 100).toFixed(1)}%, ${VS_GHOST_TINT})`;
-        st.style.opacity = g.lifted ? '0' : g.hi ? (1 - (1 - V.GHOST / V.PRINT_INK) * f).toFixed(3) : '1';   // highlighted row: its paper ink thins
+        st.style.opacity = g.lifted ? '0' : (1 - (1 - V.GHOST) * f).toFixed(3);
         if (g.lifted && !wasLifted) { el.classList.remove('is-visited'); if (!g.replay) starHaptic('erase'); }
         if (!g.lifted && wasLifted) el.classList.add('is-visited');
         // Reduced motion has no sweep to hide the wider truncation under, so it
-        // lands on the lift frame itself (the stamp and field go on that frame).
+        // lands on the lift frame itself (the sticker and field go on that frame).
         if (rm) st.style.display = g.lifted ? 'none' : '';
       }
     }
@@ -7230,7 +7543,7 @@
         g.popId = (g.popId || 0) + 1;
         if (!commit) {
           if (!g.visited) g.st.remove();
-          else { g.st.classList.remove('vs-open'); g.st.style.transform = ''; g.st.style.opacity = ''; g.st.style.color = ''; g.st.style.display = ''; el.classList.add('is-visited'); }
+          else { g.st.classList.remove('vs-open', 'vs-peel'); poseRowSticker(g.st, +g.st.dataset.rest, 0.94); g.st.style.transform = ''; g.st.style.opacity = ''; g.st.style.display = ''; el.classList.add('is-visited'); }
           vsXBack(el, g); vsCleanup(el, g); updateUI();
           return;
         }
@@ -7244,20 +7557,20 @@
       const held = starHeld.get(g.id); if (held) held.ff = () => finish();
       if (commit) {
         if (!g.replay) toggleLocationFlag(g.id, 'visited');      // optimistic; this row's re-render is held -- we lay it out ourselves (a popup replay's caller toggles)
-        if (!g.visited && !g.pressed) {           // a flick: the ring finishes closing, then the stamp lands
+        if (!g.visited && !g.pressed) {           // a flick: the hover finishes, then the sticker is pressed down
           const r0 = g.raw, ms = Math.max(60, (C - r0) / 0.6);
-          runTimeline(ms, t => { if (dead) return; g.raw = r0 + (C - r0) * t; paintVisit(g); }, () => { if (dead) return; g.raw = C; paintVisit(g); setTimeout(finish, prefersReducedMotion() ? 0 : VISIT_POP_MS + 20); });
+          runTimeline(ms, t => { if (dead) return; g.raw = r0 + (C - r0) * t; paintVisit(g); }, () => { if (dead) return; g.raw = C; paintVisit(g); setTimeout(finish, prefersReducedMotion() ? 0 : VISIT_PLACE_MS + 20); });
           return;
         }
-        if (!g.visited) {                          // let the pop land -- the X stays away until it has
-          const left = prefersReducedMotion() ? 0 : Math.max(0, VISIT_POP_MS + 20 - (sgNow() - (g.pressT || 0)));
+        if (!g.visited) {                          // let the press land -- the X stays away until it has
+          const left = prefersReducedMotion() ? 0 : Math.max(0, VISIT_PLACE_MS + 20 - (sgNow() - (g.pressT || 0)));
           setTimeout(finish, left);
           return;
         }
         finish();
         return;
       }
-      // cancel: the cue retracts, no ink (visit), or the stamp re-inks (un-visit)
+      // cancel: the hover fades back out (visit), or the sticker lies back down (un-visit)
       const r0 = g.raw;
       runTimeline(VISIT_SWIPE.RETURN_MS, t => { if (dead) return; g.raw = r0 * (1 - easeOut(t)); paintVisit(g); }, finish);
     }
@@ -7362,7 +7675,7 @@
 
     // A ledger row, not a card: 28px glyph | 1fr content | action cluster.
     // The category ink lives in the glyph; the metadata line reads
-    // CATEGORY · CITY in --ink-2. Visited shows as a stamp at the head of
+    // CATEGORY · CITY in --ink-2. Visited shows as a sticker at the head of
     // the action cluster (see .row-stamp), at a fixed x so the list scans
     // as a column; the .sr-only text in .row-meta is its accessible name.
     function renderCard(el, loc) {
@@ -7379,9 +7692,7 @@
       const dist = distanceLabel(loc);   // Nearest only: the distance leads the meta
       const stop = sh ? planMarks().byShape.get(loc.shapeId) : planMarks().byLoc.get(loc.id);   // Plans: the number leads, then the icon; × removes from the plan
       el.classList.toggle('plan-num-row', inPlanView() && !!activePlan() && !!stop);
-      const stamp = loc.visited
-        ? `<span class="row-stamp" style="--stamp-tilt:${stampTilt(loc.id)}deg" aria-hidden="true"><span class="row-stamp-ring"><span class="row-stamp-word">Visited</span></span></span>`
-        : '';
+      const stamp = loc.visited ? rowStickerHtml(loc.id) : '';
       el.innerHTML = `
         ${planLead(stop, loc.category, sh ? 'diamond' : markerKind(loc), ink, loc.name)}
         <div class="row-main">${loc.starred ? '<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>' : ''}

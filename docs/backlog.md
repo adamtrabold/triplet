@@ -24,7 +24,10 @@ pick/redirect before building anything.
   an outline/list-row question, so its variants (reserved-column,
   dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
   are not candidates.
-- **Visited system: peeled sticker (design APPROVED, NOT built)** (owner,
+- ~~**Visited system: peeled sticker**~~ BUILT 2026-10-02 on branch
+  `visited-sticker` (see `docs/shipped.md` "Visited sticker"), revised the
+  same day to one cream + neutral look; lands once the owner approves the
+  revised stills. Original item, for history: (owner,
   2026-09-29 ask; final check size/shape decisions 2026-10-02). Supersedes
   the old "Visited pins have no map treatment" thread: Round 4 dots
   (`design/visited-marker/concept/`) were REJECTED by the owner as visual

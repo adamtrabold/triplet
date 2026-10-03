@@ -6,6 +6,27 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- iPhone check of the visited sticker's light + fold (branch `visited-sticker-2`): (1) mark a
+  place visited from its popup: the map pin arrives lifted and is pressed down, the flap settling
+  last (~200ms), with no flicker or jump in Safari; (2) during the row swipe's hover the check bends
+  into the curl near the lifted end and relaxes flat as it is pressed; (3) at rest the four corners
+  look lit from one upper-left light (an upper-left peel shades its own face, a lower-right peel
+  throws a faint shadow past its edge) and nothing reads harsh; (4) a visited Plans stop's number is
+  never cut by its flap.
+- iPhone check of the visited sticker (branch `visited-sticker`; cream +
+  neutral look): (1) in daylight the cream sticker with its check reads as
+  "done" and a to-do pin (coloured ring + glyph) is obviously different at
+  NEAR and FAR, with most places visited; (2) the flap (lower-left lifted
+  corner) is visible at FAR (16px) and its soft shadow looks natural on real
+  map tiles, and the cream face's thin edge holds on cream land and white
+  roads; (3) the visit swipe on a row: the sticker hovers lifted, is pressed
+  down at the commit, the flap settles -- smooth, no flicker, the name's
+  tail never shows under the sticker; un-visit peels it off; (4) swipe feel on
+  already-visited rows is unchanged; (5) real long names: truncation with the
+  72px sticker is acceptable; (6) a visited Plans stop keeps its number,
+  legible over the flap; (7) a visited district/street shows the sticker at
+  its anchor, with the star on its shoulder when starred; (8) the selected
+  visited pin (dark neutral with cream check) pulses and reads.
 - iPhone check of the ⇅ list order: (1) ⇅ sits between the title and the
   filters icon, same weight as the sliders; a tap on it never opens filters
   (and vice versa); the longest city title isn't cut. (2) The menu rises

@@ -1,5 +1,11 @@
 # Visited as one system: stamp-first (concept stage)
 
+## Build round 2 (2026-10-03, branch `visited-sticker-2`): one light shapes every shadow; the print folds
+
+Per-corner cast from one light by height, the bowed face + print folding while placing, map pins placed like rows.
+Detail: `docs/shipped.md` "Visited sticker" (Owner, 2026-10-03 round 2). Grid: `../build/stills/light-grid-4x.png`;
+motion: `../build/stills/animation-*.gif`, `filmstrip.png` (`../build/anim.js`).
+
 ## FINAL visual spec (round 7e; owner's check sizes)
 
 Check, centred on the circle's centre (the flap may slightly overlap it): big circle (map pin NEAR, and the selected pin) 9px, stroke 2.4; small circle (map pin FAR) 6.2px, stroke 2.2; wide row sticker 8px, stroke 2.1.

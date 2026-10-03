@@ -102,10 +102,20 @@ sources are the file where the quote is recorded.
 
 ## Shadows / edges / lines
 
+- **Effects (shadow, gradient, shade) must be restrained:** the owner has
+  called them too harsh/intense three times ("Shadow is too harsh", "Shadow
+  isn't realistic / too intense", "far too intense"); default to subtle and
+  let the owner ask for more.
 - **Natural shadow, not harsh.** "Shadow is too harsh should look more
   natural" (sticker; chat).
 - **Edges are shadows, not hard lines.** "the dark line on the edge should be
-  a shadow not a hard line" (sticker; chat).
+  a shadow not a hard line" (sticker; chat). That was about the dark hard
+  line along the peel/fold: a hard dark line on a fold is still not OK.
+- **A 1px hard edge added to give a shadow definition is fine.** "The 1px
+  hard edge to add shadow definition is fine" (visited sticker, 2026-10-02;
+  via the coordinator). Keep it as subtle as it can be while doing the job
+  (the cream sticker uses a warm 1px edge at low alpha on its outer outline
+  only, never along the fold).
 - **Nothing past the shape's edge that makes no physical sense.** "Why would
   there be an outline/color past the peel that makes no sense" (sticker;
   chat).
