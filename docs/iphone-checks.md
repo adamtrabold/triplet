@@ -6,6 +6,13 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- iPhone check of the visited sticker's light + fold (branch `visited-sticker-2`): (1) mark a
+  place visited from its popup: the map pin arrives lifted and is pressed down, the flap settling
+  last (~200ms), with no flicker or jump in Safari; (2) during the row swipe's hover the check bends
+  into the curl near the lifted end and relaxes flat as it is pressed; (3) at rest the four corners
+  look lit from one upper-left light (an upper-left peel shades its own face, a lower-right peel
+  throws a faint shadow past its edge) and nothing reads harsh; (4) a visited Plans stop's number is
+  never cut by its flap.
 - iPhone check of the visited sticker (branch `visited-sticker`; cream +
   neutral look): (1) in daylight the cream sticker with its check reads as
   "done" and a to-do pin (coloured ring + glyph) is obviously different at
