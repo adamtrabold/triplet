@@ -150,9 +150,16 @@ operator makes none of these calls.
 - **Clustering:** `SOLO_MIN_ZOOM` = 14 is shared by the list-click and
   cluster-click paths so a list tap never lands on a clustered pin — never
   duplicate it as a literal. `GLYPH_MIN_ZOOM` = 12 is separate.
-- **Visited stamp:** CSS borders for the ring, never SVG strokes; the dotted
-  track is a static SVG mask whose `pathLength='166.29'`, path and
-  dasharrays change together (see `design/visited-badge/README.md`).
+- **Visited sticker:** one cream sticker (`STICKER.FACE`), one neutral ink
+  #3A4C5B; tilt, flap corner/angle and flap size come from per-place id
+  hashes (`stampTilt`/`stickerCorner`/`stickerSize`); one fixed upper-left
+  light (~53.13deg) for every shadow, whatever the flap; the check is a
+  filled path. Details: `docs/shipped.md`,
+  `design/visited-system/stamp-first/README.md`. Tweak-lane work self-reviews
+  against `docs/owner-taste.md` before handing back.
+- **Animation separation:** visual animations never touch row-gesture code;
+  they're triggered by state change or called after/during the gesture as a
+  separate step.
 - **Row gestures (Pencil Star right, visit left):** report the star gate as
   **"84 + 8 (+ N8-a)"**, never "84"; visit suite `vtest.js`; plus
   popup-open 20/20, 0 dust-over-text frames, rows 56.00px, curve8 frame

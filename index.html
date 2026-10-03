@@ -4326,6 +4326,7 @@
       CAST_INK: '#6b4a28', CAST_INK_HI: '#1A1A18', CAST: [[0.24, 0.25, 0.10], [0.62, 0.7, 0.06], [1.05, 1.2, 0.04]],   // [shadow length per px of height, blur (#stk-cast-i), opacity]
       ROLL: 0.1, LIFT_CAP: 0.25,
       BOW_L: 0.35, BOW_B: 0.42, BOW_TH: 1.1,   // the bow is full at L 0.35 (the lifted pose), over 0.42 x the radius of paper, up to 63 deg
+      PLACE: { M: 2.0, L0: 0.65, TRAVEL: 0.14, ROW_TRAVEL: 3, TRAVEL_END: 0.75 },   // placing: the flap starts M x its rest reach (curl L0) and shrinks to rest; the sticker travels TRAVEL x its size (row: px) from the side opposite the flap toward the flap edge, done by TRAVEL_END of the time
       PIN_LIFT: [-0.1, 0.35],                  // a pin placing starts lifted: its chord 0.1 of the radius further in, curled (L) like the row's lift
       CURL: '#8a6a44', CURL_OP: [0.11, 0.05, 0], CURL_STOPS: [0, 0.45, 1], CURL_FALL: 0.25,        // faint contact crease, 1.5px, blurred (#stk-crease)
       ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#FAF5EA', BACK: '#D8CDB8' },
@@ -4355,6 +4356,12 @@
       return +(((a + 180) % 360 + 360) % 360 - 180).toFixed(2); }
     function rowStickerAng(id) { return id == null ? STICKER.ROW.ANG : stickerPick(id, STICKER.ROW_CORNERS) + stickerSpread(id, STICKER.ROW_SPREAD); }
     // A sticker is laid, not struck: half the place's stamp lean.
+    // Placing travel: offset (px, screen) of a sticker whose flap points `ang` (own coords, turned by `tilt`), at time u of the press.
+    function stickerTravel(ang, tilt, dist, u) {
+      const t = Math.min(1, u / STICKER.PLACE.TRAVEL_END), k = (1 - t) ** 3, a = ang * Math.PI / 180, r = tilt * Math.PI / 180;
+      const ux = -Math.sin(a), uy = Math.cos(a), x = ux * Math.cos(r) - uy * Math.sin(r), y = ux * Math.sin(r) + uy * Math.cos(r);
+      return [-x * dist * k, -y * dist * k];   // starts opposite the flap, ends at rest
+    }
     function stickerTilt(id) { return stampTilt(id) / 2; }
     // The fold, for an outline ('circle' | 'diamond' in a w x h box, or the row's
     // ellipse): peel direction `ang` (deg; 0 = down, 45 = lower-left), chord at
@@ -7332,12 +7339,13 @@
     // The press (see VISIT_PLACE): the face settles first, the flap relaxes last.
     function runVisitPlace(g) {
       const st = g.st, t0 = sgNow(), id = (g.popId = (g.popId || 0) + 1);
-      const [f0, l0] = ROW_STICKER_POSE.lift, f1 = +st.dataset.rest, l1 = 0.94, o = VISIT_PLACE_FLAP.FROM;
+      const P = STICKER.PLACE, f1 = +st.dataset.rest, f0 = Math.max(0.3, 1 - (1 - f1) * P.M), l0 = P.L0, l1 = 0.94, o = VISIT_PLACE_FLAP.FROM, ang = +(st.dataset.ang || STICKER.ROW.ANG);
       if (!vsEase.has(VISIT_PLACE_FLAP.EASE)) vsEase.set(VISIT_PLACE_FLAP.EASE, cubicBezier(...VISIT_PLACE_FLAP.EASE));
       const step = () => {
         if (g.popId !== id) return;
         const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u <= o ? 0 : vsEase.get(VISIT_PLACE_FLAP.EASE)((u - o) / (1 - o));
-        st.style.transform = `scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+        const [tx, ty] = stickerTravel(ang, g.tilt, P.ROW_TRAVEL, u);
+        st.style.transform = `translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
         if (u < 1) { poseRowSticker(st, f0 + (f1 - f0) * w, l0 + (l1 - l0) * w); requestAnimationFrame(step); }
         else { st.style.transform = `rotate(${g.tilt}deg)`; poseRowSticker(st, f1, l1); g.popId++; }
       };
@@ -7352,15 +7360,17 @@
       const pin = root && root.querySelector('.stk-pin[data-stk]');
       if (!pin || prefersReducedMotion()) return;
       const [size, near, hi, ang, sz] = pin.dataset.stk.split(',').map(Number), o = { size, near: !!near, hi: !!hi, ang, sz };
-      const [df, lL] = STICKER.PIN_LIFT, fr = VISIT_PLACE_FLAP.FROM, [lx, ly] = STICKER.LIGHT, t0 = sgNow(), id = (pin.__stk = (pin.__stk || 0) + 1);
+      const reach0 = 1 - (STICKER.PIN_H[near || hi ? 'near' : 'far'] + (0.5 - sz) * STICKER.PIN_H_SPREAD);
+      const P = STICKER.PLACE, lL = P.L0, fr = VISIT_PLACE_FLAP.FROM, [lx, ly] = STICKER.LIGHT, t0 = sgNow(), id = (pin.__stk = (pin.__stk || 0) + 1);
       if (!vsEase.has(VISIT_PLACE_FLAP.EASE)) vsEase.set(VISIT_PLACE_FLAP.EASE, cubicBezier(...VISIT_PLACE_FLAP.EASE));
       const step = () => {
         if (pin.__stk !== id || !pin.isConnected) return;
         const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u >= 1 ? 1 : u <= fr ? 0 : vsEase.get(VISIT_PLACE_FLAP.EASE)((u - fr) / (1 - fr));
-        const p = stickerPinParts({ ...o, pose: w >= 1 ? null : [df * (1 - w), lL + (STICKER.FOLD_L - lL) * w] });
+        const p = stickerPinParts({ ...o, pose: w >= 1 ? null : [-reach0 * (P.M - 1) * (1 - w), lL + (STICKER.FOLD_L - lL) * w] });
         pin.querySelector('.stk-base').outerHTML = p.base; pin.querySelector('.stk-flap-svg').outerHTML = p.flap;
         const lift = u >= 1 ? 0 : (sc - 1) / (VISIT_HOVER.SCALE[1] - 1);   // 1 lifted .. 0 down, with the face
-        pin.style.transform = lift > 0 ? `scale(${sc.toFixed(4)})` : '';
+        const [tx, ty] = stickerTravel(ang, 0, P.TRAVEL * size, u);
+        pin.style.transform = u < 1 ? `translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${sc.toFixed(4)})` : '';
         pin.style.filter = lift > 0.002 ? `drop-shadow(${(lx * 2 * lift).toFixed(2)}px ${(ly * 2 * lift).toFixed(2)}px ${(1.6 * lift).toFixed(2)}px rgba(40, 30, 20, ${(0.16 * lift).toFixed(3)}))` : '';
         if (u < 1) requestAnimationFrame(step);
       };

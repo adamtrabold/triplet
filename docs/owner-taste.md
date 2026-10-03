@@ -175,6 +175,8 @@ sources are the file where the quote is recorded.
 
 ## Process
 
+- **Visual animations never touch row-gesture code;** they're triggered by state change or called after/during the gesture as a separate step (2026-10-03; coordinator-relayed owner rule).
+
 - **Make sense before it reaches the owner.** "We need to make sure shit
   makes sense before bringing it to me" (chat).
 - **The owner sees a look before it is built.** "why did you not clear
