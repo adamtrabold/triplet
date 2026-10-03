@@ -1308,6 +1308,8 @@
       white-space: nowrap;
     }
     .row-sticker-label > svg { flex: none; display: block; width: 8px; height: 8px; }
+    /* A sticker peeled at its right end: the word steps 2px left so the fold never reaches its last letter. */
+    .row-sticker-label.flap-right { padding: 0 calc(var(--s3) + 2px) 0 calc(var(--s3) - 2px); }
 
     /* Centre the CAPS, not the line box: text-box trims the word to
        cap-height..baseline, so flex centring centres the ink itself.
@@ -4289,7 +4291,14 @@
     // in the CSS). These constants, the #stk-* defs and the stills in
     // design/visited-system/build/ change together.
     const STICKER = {
-      PIN_ANG: 45,                          // peel direction: lower-left (0 = down)
+      PIN_ANG: 45,                          // peel direction: lower-left (0 = down); the default corner
+      // Per-place corner, chosen like the lean (owner: "similar to how the angle is randomized, the flap
+      // placement should also be randomized"): deterministic from the place id (stickerCorner()), so a
+      // sticker keeps its corner across renders, polls, zooms and scrolls. [peel angle, weight]:
+      // lower-left (the approved default) most often, then lower-right, upper-left, upper-right. A
+      // starred pin never peels at the upper right, where the star rides. The light never moves.
+      PIN_CORNERS: [[45, 4], [-45, 3], [135, 2], [-135, 2]],
+      ROW_CORNERS: [[50, 3], [-50, 2]],     // the row oval: its left or right end
       PIN_H: { near: 0.62, far: 0.66 },     // chord at this fraction of the radius: flap ~18% of the diameter NEAR; smaller at FAR, where pins pile
       FOLD_L: 0.94,                         // at rest the flap lies (almost) flat: reflected x0.94 (1 - k, k 0.06)
       INK: '#3A4C5B',                       // the shipped stamp's ink: color-mix(--navy 82%, transparent) over --paper, flattened
@@ -4315,6 +4324,13 @@
       far:  { px: 6.2, d: 'M-0.81 12.09Q-1.52 12.80 -0.81 13.51L8.94 23.26Q9.65 23.97 10.32 23.23L24.84 7.25Q25.51 6.51 24.78 5.84L19.95 1.46Q19.21 0.79 18.54 1.52L10.03 10.89Q9.35 11.63 8.65 10.92L5.21 7.49Q4.50 6.78 3.79 7.49Z' },
       row:  { px: 8, d: 'M0.75 12.09Q0.05 12.80 0.75 13.51L8.90 21.66Q9.61 22.36 10.28 21.62L23.28 7.33Q23.95 6.59 23.21 5.92L20.03 3.02Q19.29 2.35 18.62 3.09L10.06 12.50Q9.39 13.24 8.68 12.53L5.21 9.05Q4.50 8.35 3.79 9.05Z' },
     };
+    // A second, independent hash of the place id (stampTilt() takes the first), so the corner and
+    // the lean don't move together.
+    function stickerHash(id) { let h = 2166136261; for (const ch of String(id)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; }
+    function stickerPick(id, corners) { const tot = corners.reduce((a, [, w]) => a + w, 0); let r = stickerHash(id) % tot;
+      for (const [a, w] of corners) { if (r < w) return a; r -= w; } return corners[0][0]; }
+    function stickerCorner(id, starred) { return id == null ? STICKER.PIN_ANG : stickerPick(id, starred ? STICKER.PIN_CORNERS.filter(([a]) => a !== -135) : STICKER.PIN_CORNERS); }
+    function rowStickerAng(id) { return id == null ? STICKER.ROW.ANG : stickerPick(id, STICKER.ROW_CORNERS); }
     // A sticker is laid, not struck: half the place's stamp lean.
     function stickerTilt(id) { return stampTilt(id) / 2; }
     // The fold, for an outline ('circle' | 'diamond' in a w x h box, or the row's
@@ -4344,7 +4360,7 @@
       for (let i = 0; i < pts.length; i++) {
         const [x, y] = pts[i], t = proj[i], j = (i + 1) % pts.length, t2 = proj[j];
         if (t > d) flap.push([x - (t - d) * (1 + L) * ux, y - (t - d) * (1 + L) * uy]); else body.push([x, y]);
-        if ((t - d) * (t2 - d) < 0) { const f = (d - t) / (t2 - t), px = x + (pts[j][0] - x) * f, py = y + (pts[j][1] - y) * f; const cp = [px, py]; flap.push([px, py]); body.push(cp); chord.push(cp); }
+        if ((t - d) * (t2 - d) < 0) { const f = (d - t) / (t2 - t), px = x + (pts[j][0] - x) * f, py = y + (pts[j][1] - y) * f; const cp = [px, py]; flap.push(cp); body.push(cp); chord.push(cp); }
       }
       const P = arr => 'M' + arr.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L') + 'Z';
       const fx = flap.reduce((q, [x]) => q + x, 0) / flap.length, fy = flap.reduce((q, [, y]) => q + y, 0) / flap.length;
@@ -4359,7 +4375,9 @@
       const ext = Math.max(...proj), mx = (chord[0][0] + chord[1][0]) / 2, my = (chord[0][1] + chord[1][1]) / 2;
       const fall = (ext - d) * L + STICKER.CURL_FALL * Math.min(rx, ry);
       const curl = [mx, my, mx - ux * fall, my - uy * fall], reach = (ext - d) * L;
-      const out = { bodyD: P(body), flapD: P(flap), flapPts: flap, u: [ux, uy], edgeD, chord, curl, reach, pts, proj, d };
+      const fi = flap.findIndex((p, i) => isC(p) && isC(flap[(i + 1) % flap.length])), fr = flap.slice(fi + 1).concat(flap.slice(0, fi + 1));
+      const flapEdgeD = 'M' + fr.map(([x, y]) => x.toFixed(2) + ' ' + y.toFixed(2)).join('L');
+      const out = { bodyD: P(body), flapD: P(flap), flapEdgeD, flapPts: flap, u: [ux, uy], edgeD, chord, curl, reach, pts, proj, d };
       stickerFolds.set(key, out);
       return out;
     }
@@ -4374,11 +4392,13 @@
     // The flap's back is paper curling, not a flat chip (owner: "maybe the flap should have a
     // gradient instead of just flat color?"): one step deeper at the fold, the back's own tone
     // mid-curl, one step lighter at the tip where it turns to the light. Paper tokens only
-    // (40% of the way toward --state-press-filed / --paper-filed; selected: --paper-pressed / --paper).
+    // (75% of the way toward --state-press-filed / --paper-filed; selected: --paper-pressed / --paper).
+    // Its free edge (never the fold) carries the same faint warm 1px edge as the sticker (owner:
+    // "maybe the flap edge needs a similar ever so slightly darker 1px stroke").
     function stickerFlapDefs(id, g, back) {
       const [mx, my] = g.curl, [, , x2, y2] = g.curl, tip = Math.hypot(x2 - mx, y2 - my), reach = g.reach;
       const f = reach / (tip || 1), tx = mx + (x2 - mx) * f, ty = my + (y2 - my) * f;
-      const [fold, toTip] = back === STICKER.PIN_BACK_HI ? ['#E3DACB', '#EBE4D5'] : ['#D5CBB8', '#DED4C2'];   // ~40% of a paper step either side of the back
+      const [fold, toTip] = back === STICKER.PIN_BACK_HI ? ['#DFD6C7', '#EFE8DA'] : ['#D3C9B6', '#E4DBCB'];   // ~75% of a paper step either side of the back
       return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${mx.toFixed(2)}" y1="${my.toFixed(2)}" x2="${tx.toFixed(2)}" y2="${ty.toFixed(2)}">` +
         `<stop offset="0" stop-color="${fold}"/><stop offset="0.45" stop-color="${back}"/><stop offset="1" stop-color="${toTip}"/></linearGradient></defs>`;
     }
@@ -4401,7 +4421,8 @@
       return stickerFlapDefs(gid, g, back) +
         STICKER.CAST.map(([, , op], i) => `<path class="stk-cast stk-cast-${i}" d="${ds[i]}" fill="${hi ? STICKER.CAST_INK_HI : STICKER.CAST_INK}" fill-opacity="${hi ? op * 1.6 : op}" filter="url(#stk-cast-${i}${far ? '-far' : ''})"/>`).join('') +
         `<line class="stk-crease" x1="${c0[0].toFixed(2)}" y1="${c0[1].toFixed(2)}" x2="${c1[0].toFixed(2)}" y2="${c1[1].toFixed(2)}" stroke="${STICKER.CREASE}" stroke-width="1.5" stroke-linecap="round" filter="url(#stk-crease${far ? '-far' : ''})"/>` +
-        `<path class="stk-flap" d="${g.flapD}" fill="url(#${gid})"/>`;
+        `<path class="stk-flap" d="${g.flapD}" fill="url(#${gid})"/>` +
+        `<path class="stk-flap-edge" d="${g.flapEdgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round" stroke-linecap="round"/>`;
     }
     // A visited map mark: { size, near (the NEAR tier, or selected), hi
     // (selected), check (false: a plan stop, whose number holds the centre) }.
@@ -4414,17 +4435,17 @@
     // the check turns cream. Returns { base, flap } SVG strings, both
     // size x size at (0,0): the flap is drawn last so it lies over the face --
     // and over anything placed between them (a stop's number prints above it).
-    function stickerPinParts({ size, near, hi = false, check = true }) {
+    function stickerPinParts({ size, near, hi = false, check = true, ang = STICKER.PIN_ANG }) {
       const tier = near || hi ? 'near' : 'far', c = size / 2;
-      const g = stickerFold('circle', size, size, c, c, STICKER.PIN_ANG, STICKER.PIN_H[tier], STICKER.FOLD_L);
+      const g = stickerFold('circle', size, size, c, c, ang, STICKER.PIN_H[tier], STICKER.FOLD_L);
       const face = hi ? STICKER.HI_FACE : STICKER.FACE, mark = hi ? STICKER.FACE : STICKER.INK;
-      const cid = `stk-curl-${size}-${tier}`;   // same geometry, same gradient: a shared id is safe
+      const cid = `stk-curl-${size}-${tier}-${ang}`;   // same geometry, same gradient: a shared id is safe
       let base = stickerCurlDefs(cid, g) + `<path class="stk-face" d="${g.bodyD}" fill="${face}" filter="url(#stk-lift${tier === 'far' ? '-far' : ''})"/><path class="stk-curl" d="${g.bodyD}" fill="url(#${cid})"/>`;
       if (!hi) base += `<path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/>`;
       if (check) { const ck = STICKER_CHECK[tier], o = ((size - ck.px) / 2).toFixed(2);
         base += `<svg class="badge-glyph stk-check" x="${o}" y="${o}" width="${ck.px}" height="${ck.px}" viewBox="0 0 24 24"><path d="${ck.d}" fill="${mark}"/></svg>`; }
       const svg = (cls, inner, abs) => `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="${abs ? 'position:absolute;left:0;top:0;' : 'display:block;'}overflow:visible">${inner}</svg>`;
-      return { base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far', `stk-flapg-${size}-${tier}${hi ? '-hi' : ''}`, hi), true) };
+      return { base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far', `stk-flapg-${size}-${tier}-${ang}${hi ? '-hi' : ''}`, hi), true) };
     }
     // The map star on a visited sticker: the same star, its paper halo thinned
     // (a cream face needs no separation ring) and set out along the shoulder,
@@ -4440,23 +4461,24 @@
       const ext = Math.sqrt(R.RX * R.RX * Math.sin(a) ** 2 + R.RY * R.RY * Math.cos(a) ** 2);
       return { rest: [1 - R.REACH / ext, 0.94], lift: [0.588, 0.35], press: [0.652, 0.7] };
     })();
-    function rowStickerFold(fh, L) { const R = STICKER.ROW; return stickerFold('ellipse', R.W, R.H, R.RX, R.RY, R.ANG, fh, L); }
+    function rowStickerFold(fh, L, ang = STICKER.ROW.ANG) { const R = STICKER.ROW; return stickerFold('ellipse', R.W, R.H, R.RX, R.RY, ang, fh, L); }
     function rowStickerHtml(id, pose = 'rest', cls = '') {
-      const R = STICKER.ROW, [fh, L] = ROW_STICKER_POSE[pose], g = rowStickerFold(fh, L), cid = 'stk-curl-row-' + (++stickerCurlUid), box = `width="${R.W}" height="${R.H}" viewBox="0 0 ${R.W} ${R.H}" aria-hidden="true"`;
-      return `<span class="row-stamp${cls}" style="--stamp-tilt:${stickerTilt(id)}deg" aria-hidden="true">` +
+      const R = STICKER.ROW, [fh, L] = ROW_STICKER_POSE[pose], ang = rowStickerAng(id), g = rowStickerFold(fh, L, ang), cid = 'stk-curl-row-' + (++stickerCurlUid), box = `width="${R.W}" height="${R.H}" viewBox="0 0 ${R.W} ${R.H}" aria-hidden="true"`;
+      return `<span class="row-stamp${cls}" data-ang="${ang}" style="--stamp-tilt:${stickerTilt(id)}deg" aria-hidden="true">` +
         (cls.includes('vs-carry') ? '<span class="vs-veil"></span>' : '') +
         `<svg class="stk-base" ${box}>${stickerCurlDefs(cid, g)}<path d="${g.bodyD}" fill="${R.FACE}"/><path class="stk-curl" d="${g.bodyD}" fill="url(#${cid})"/><path class="stk-edge" d="${g.edgeD}" fill="none" stroke="${STICKER.EDGE}" stroke-width="${STICKER.EDGE_W}" stroke-linejoin="round"/></svg>` +
-        `<span class="row-sticker-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="currentColor"/></svg><span class="row-stamp-word">Visited</span></span>` +
+        `<span class="row-sticker-label${ang < 0 ? ' flap-right' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="currentColor"/></svg><span class="row-stamp-word">Visited</span></span>` +
         `<svg class="stk-flap-svg" ${box}><g clip-path="url(#stk-row-clip)">${stickerFlapMarkup(g, R.BACK, false, cid + 'f')}</g></svg></span>`;
     }
     // Re-pose a rendered row sticker's flap in place (vsPlace()'s smooth-out).
     function poseRowSticker(st, fh, L) {
-      const g = rowStickerFold(fh, L), f = st.querySelector('.stk-flap'), c = st.querySelector('.stk-crease'), b = st.querySelector('.stk-base > path:not(.stk-edge):not(.stk-curl)');
+      const g = rowStickerFold(fh, L, +(st.dataset.ang || STICKER.ROW.ANG)), f = st.querySelector('.stk-flap'), c = st.querySelector('.stk-crease'), b = st.querySelector('.stk-base > path:not(.stk-edge):not(.stk-curl)');
       if (!f || !c || !b) return;
       const [c0, c1] = g.chord;
       f.setAttribute('d', g.flapD); b.setAttribute('d', g.bodyD);
       const cds = stickerCastDs(g, false); st.querySelectorAll('.stk-cast').forEach((p, i) => p.setAttribute('d', cds[i]));
       const e = st.querySelector('.stk-base > .stk-edge'); if (e) e.setAttribute('d', g.edgeD);
+      const fe = st.querySelector('.stk-flap-edge'); if (fe) fe.setAttribute('d', g.flapEdgeD);
       const cu = st.querySelector('.stk-base > .stk-curl'); if (cu) cu.setAttribute('d', g.bodyD);
       const lg = st.querySelector('.stk-base linearGradient');
       if (lg) { const t = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg">${stickerCurlDefs('x', g)}</svg>`, 'image/svg+xml').querySelector('linearGradient');
@@ -4480,7 +4502,7 @@
       // Visited: the sticker (stickerPinParts()) -- the cream face and a
       // check, the flap peeled at the lower left. Selected: --ink-2 face, cream
       // check, the NEAR check at either tier.
-      const sp = loc.visited ? stickerPinParts({ size, near: showGlyph, hi: highlighted }) : null;
+      const sp = loc.visited ? stickerPinParts({ size, near: showGlyph, hi: highlighted, ang: stickerCorner(loc.id, loc.starred) }) : null;
       const badge = sp ? sp.base + sp.flap : badgeHtml(loc.category, markerKind(loc), size, {
         ink,
         // Highlighted inverts: ink field, paper glyph.
@@ -5085,7 +5107,7 @@
     // number reaches it): the plan identity is never cut. Selected: ink face,
     // paper numeral, as above.
     function planNumberIcon(category, kind, ink, r, size, highlighted, starred, visited = false) {
-      const sp = visited ? stickerPinParts({ size, near: true, hi: highlighted, check: false }) : null;
+      const sp = visited ? stickerPinParts({ size, near: true, hi: highlighted, check: false, ang: stickerCorner(r.loc ? r.loc.id : (r.nb ? shapeKey(r.nb.id) : null), starred) }) : null;
       const badge = sp ? sp.base : badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: ink, rim: highlighted ? 2.5 : 2, glyph: false });
       const star = starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
       const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}${visited ? ' is-visited stk-pin' : ''}" data-n="${r.n}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${sp ? sp.flap : ''}<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>${star}</div>`;
@@ -6048,7 +6070,7 @@
     // a pin. Below the star in z; a tap opens the shape's popup. A plan's
     // shape stop carries both marks on its numbered diamond, so none here.
     function shapeVisitIcon(nb) {
-      const size = MARKER_SIZE_NEAR, hit = 24, o = (hit - size) / 2, sp = stickerPinParts({ size, near: true });
+      const size = MARKER_SIZE_NEAR, hit = 24, o = (hit - size) / 2, sp = stickerPinParts({ size, near: true, ang: stickerCorner(shapeKey(nb.id), nb.starred) });
       const sh = nb.starred ? (size / 2 - 1 + STICKER.STAR_OUT.near) * Math.SQRT1_2 : 0;   // the shoulder, set out as stickerStarHtml() so the star clears the check
       const html = `<div style="position:relative;width:${hit}px;height:${hit}px;line-height:0;"><div style="position:absolute;left:${o}px;top:${o}px;width:${size}px;height:${size}px;">${sp.base}${sp.flap}</div></div>`;
       return L.divIcon({ html, className: '', iconSize: [hit, hit], iconAnchor: [hit / 2 + sh, hit / 2 - sh] });

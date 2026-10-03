@@ -58,7 +58,8 @@ function flipJudge(Lg, reduced) {
 (async () => { const b = await L.launch();
   for (const reduced of [false, true]) { const mode = reduced ? 'reduced' : 'full';
     const ok = (name, cond, info) => rec(mode, name, cond, info);
-    const fresh = async (o = {}) => { const r = await L.openProto(b, { reduced, ...o }); await r.page.evaluate(() => { window.__vib = []; Object.defineProperty(Navigator.prototype, 'vibrate', { configurable: true, value: p => { __vib.push(JSON.stringify(p)); return true; } }); }); return r; };
+    // [sticker] ROW_ANG=50|-50 forces every row sticker to one flap end (left or right peel), so every case runs for each corner.
+    const fresh = async (o = {}) => { const r = await L.openProto(b, { reduced, ...o }); if (process.env.ROW_ANG) await r.page.evaluate(a => { rowStickerAng = () => a; cardsById.forEach(e => { e.signature = null; }); shapeCardsById.forEach(e => { e.signature = null; }); updateUI(); }, +process.env.ROW_ANG); await r.page.evaluate(() => { window.__vib = []; Object.defineProperty(Navigator.prototype, 'vibrate', { configurable: true, value: p => { __vib.push(JSON.stringify(p)); return true; } }); }); return r; };
     // ---- VISIT CASES ----
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0);
       await L.drag(page, cdp, left(g, 110, 12)); await W(900); const s = await st(page, g.id);
@@ -121,7 +122,7 @@ function flipJudge(Lg, reduced) {
     // V13 [sticker] before the commit the sticker HOVERS; V14 the name is never seen within 4px of it
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 5);
       await page.evaluate(() => { const el = document.querySelectorAll('#locationsList .location-card[data-id]')[5]; window.__vf = []; let run = true;
-        const liftD = rowStickerFold(...ROW_STICKER_POSE.lift).flapD;
+        const liftD = s => rowStickerFold(...ROW_STICKER_POSE.lift, +s.dataset.ang).flapD;   // [sticker] the carry's own corner
         const tick = () => { if (!run) return; const s = el.querySelector('.vs-carry'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform), sr = s.getBoundingClientRect();
           // visible text = the slid h3 / meta glyphs, capped by their (ellipsis) box and by the veil's opaque start
           const vr = e => { const rg = document.createRange(); rg.selectNodeContents(e); return Math.min(rg.getBoundingClientRect().right, e.getBoundingClientRect().right); };
@@ -129,7 +130,7 @@ function flipJudge(Lg, reduced) {
           const veilOpaque = veil ? veil.getBoundingClientRect().left + 8 * sc : Infinity;
           const textVisRight = Math.min(Math.max(vr(el.querySelector('h3')), vr(el.querySelector('.row-meta'))), veilOpaque);
           __vf.push({ scale: sc, rot: Math.atan2(m.b, m.a) * 180 / Math.PI, cx: +(sr.x + sr.width / 2).toFixed(3), cy: +(sr.y + sr.height / 2).toFixed(3), q: s.__vsQ,
-            op: parseFloat(getComputedStyle(s).opacity), swept: s.classList.contains('vs-open'), shadow: getComputedStyle(base).filter, lifted: s.querySelector('.stk-flap').getAttribute('d') === liftD,
+            op: parseFloat(getComputedStyle(s).opacity), swept: s.classList.contains('vs-open'), shadow: getComputedStyle(base).filter, lifted: s.querySelector('.stk-flap').getAttribute('d') === liftD(s),
             gap: base.getBoundingClientRect().left - textVisRight }); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__vstop = () => { run = false; }; });
       await L.drag(page, cdp, left(g, 110, 22), { hold: 450 });
       const f = await page.evaluate(() => { __vstop(); return __vf; }); const tilt = await page.evaluate(id => stickerTilt(id), g.id);
