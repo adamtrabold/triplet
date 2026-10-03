@@ -1729,11 +1729,11 @@
       filter: sepia(0.3) saturate(0.75) contrast(0.96) hue-rotate(-6deg);
     }
 
-    /* Popups: paper, hard edge, no shadow. */
+    /* Popups: paper, a hairline edge (the dividers' --hair, tip included), no shadow. */
     .leaflet-popup-content-wrapper {
       background: var(--paper);
       color: var(--ink);
-      border: 1px solid var(--ink);
+      border: 1px solid var(--hair);
       border-radius: 2px;
       box-shadow: none;
       /* Inset lives on the painted box itself rather than entirely on the
@@ -1743,7 +1743,7 @@
 
     .leaflet-popup-tip {
       background: var(--paper);
-      border: 1px solid var(--ink);
+      border: 1px solid var(--hair);
       box-shadow: none;
     }
 
@@ -6171,8 +6171,8 @@
     }
     // A VISITED district/street carries the pins' visited sticker at the same
     // point (owner brief 2026-10-02: "the same sticker mark at the label point
-    // where the starred shape's star sits"): the NEAR pin's 24px sticker in the
-    // shape's own colour -- its wash, the 9px check, the flap lower-left (a
+    // where the starred shape's star sits"): the NEAR pin's 24px sticker --
+    // cream, neutral-ink sticker (no category colour, as every visited mark), the 9px check, the flap lower-left (a
     // shape's layer only draws at close zooms, where pins are NEAR too; at
     // 16px the star covered most of the check). When the
     // shape is starred too, the sticker steps down-left so the star (its own
@@ -7304,7 +7304,14 @@
     // FACE of the time (no dip, no bounce) while the lifted shadow tightens (CSS transition) --
     // and the flap is the LAST thing: it stays raised until FLAP_FROM, then relaxes from the lift
     // pose to the place's own resting fold by the end. [offset, twist, scale, easing].
-    const VISIT_PLACE = [[0, 0, VISIT_HOVER.SCALE[1], [.25, .8, .35, 1]], [0.5, 0, 1, null]];
+    // ONE MOTION (owner: "there's a pop between the grow animation and the flap animation... it should be one
+    // fluid randomized animation"): the drag's grow, drift and flap pose ARE the place's start pose, so the press
+    // continues from whatever the sticker is showing (vsPlacePose(), from g.vsCur) and never restarts. Drag:
+    // scale 1 -> 1.12 (the clamp: the place never starts below the grow's max, nor the grow above it), and the
+    // sticker drifts from its slot toward the side opposite its flap, 0 -> ROW_TRAVEL, with the same ramp; its flap
+    // is held at the lift pose (vsRowStartPose()). Press: scale, drift and flap ease to rest from
+    // there, every curve leaving at zero speed so the apex is a turn, not a kink.
+    const VISIT_PLACE_SC = [.4, 0, .2, 1], VISIT_PLACE_TRAVEL = [.35, 0, .15, 1], VISIT_BACK_MS = 140, VISIT_PIN_GROW_MS = 110;
     const VISIT_PLACE_MS = 300, VISIT_PLACE_FLAP = { FROM: 0.3, EASE: [.3, 0, .2, 1] };
     const VISIT_LIFT = [[0, 0, 1, [.2, .9, .3, 1]], [0.35, 0, 1.12, [.5, 0, .4, 1]], [1, 0, 1, null]];   // = STAR_ERASE_POP
     function cubicBezier(x1, y1, x2, y2) {
@@ -7336,57 +7343,79 @@
       step();
     }
     function stopVisitPop(g) { g.popId = (g.popId || 0) + 1; g.st.style.transform = `rotate(${g.tilt}deg)`; }
-    // The press (see VISIT_PLACE): the face settles first, the flap relaxes last.
+    // The place's pose at time u (0..1), from the sticker's current pose `from` {sc, tx, ty, fh, L} to rest (f1, FOLD_L):
+    // the face settles first, the drift lands by TRAVEL_END, the flap -- last -- relaxes from FROM on.
+    function vsEaseGet(e) { if (!vsEase.has(e)) vsEase.set(e, cubicBezier(...e)); return vsEase.get(e); }
+    function vsPlacePose(from, f1, u) {
+      const P = STICKER.PLACE, o = VISIT_PLACE_FLAP.FROM;
+      const sc = from.sc + (1 - from.sc) * vsEaseGet(VISIT_PLACE_SC)(Math.min(1, u / 0.5));
+      const k = 1 - vsEaseGet(VISIT_PLACE_TRAVEL)(Math.min(1, u / P.TRAVEL_END));
+      const w = u >= 1 ? 1 : u <= o ? 0 : vsEaseGet(VISIT_PLACE_FLAP.EASE)((u - o) / (1 - o));
+      return { sc, tx: from.tx * k, ty: from.ty * k, fh: from.fh + (f1 - from.fh) * w, L: from.L + (STICKER.FOLD_L - from.L) * w };
+    }
+    // The row sticker's fold while it hovers AND where the place begins: the lift pose (flap curled high), held.
+    function vsRowStartPose() { return ROW_STICKER_POSE.lift; }
+    // The press: continues from g.vsCur, the pose the last drag frame painted.
     function runVisitPlace(g) {
       const st = g.st, t0 = sgNow(), id = (g.popId = (g.popId || 0) + 1);
-      const P = STICKER.PLACE, f1 = +st.dataset.rest, f0 = Math.max(0.3, 1 - (1 - f1) * P.M), l0 = P.L0, l1 = 0.94, o = VISIT_PLACE_FLAP.FROM, ang = +(st.dataset.ang || STICKER.ROW.ANG);
-      if (!vsEase.has(VISIT_PLACE_FLAP.EASE)) vsEase.set(VISIT_PLACE_FLAP.EASE, cubicBezier(...VISIT_PLACE_FLAP.EASE));
+      const f1 = +st.dataset.rest, [f0, l0] = vsRowStartPose(), c = g.vsCur || { sc: VISIT_HOVER.SCALE[1], tx: 0, ty: 0, fh: f0, L: l0 };
+      const from = { ...c, sc: Math.max(c.sc, 1) }; g.vsBlend = null;
       const step = () => {
         if (g.popId !== id) return;
-        const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u <= o ? 0 : vsEase.get(VISIT_PLACE_FLAP.EASE)((u - o) / (1 - o));
-        const [tx, ty] = stickerTravel(ang, g.tilt, P.ROW_TRAVEL, u);
-        st.style.transform = `translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
-        if (u < 1) { poseRowSticker(st, f0 + (f1 - f0) * w, l0 + (l1 - l0) * w); requestAnimationFrame(step); }
-        else { st.style.transform = `rotate(${g.tilt}deg)`; poseRowSticker(st, f1, l1); g.popId++; }
+        const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), q = vsPlacePose(from, f1, u);
+        g.vsCur = { sc: q.sc, tx: q.tx, ty: q.ty, fh: q.fh, L: q.L };
+        st.style.transform = `translate(${q.tx.toFixed(2)}px, ${q.ty.toFixed(2)}px) scale(${q.sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+        if (u < 1) { poseRowSticker(st, q.fh, q.L); requestAnimationFrame(step); }
+        else { st.style.transform = `rotate(${g.tilt}deg)`; poseRowSticker(st, f1, STICKER.FOLD_L); g.popId++; }
       };
       step();
     }
     // A MAP PIN IS PLACED the same way (owner: "I don't think I see the whole place animation"): when a
-    // pin turns visited it arrives lifted (the hover's 1.12x, its flap curled high = STICKER.PIN_LIFT,
-    // the face bowed into the fold, a soft lifted shadow from the one light) and is pressed by the same
-    // timeline as the row (VISIT_PLACE, VISIT_PLACE_FLAP, VISIT_PLACE_MS): the face settles first, the
-    // flap -- and the print near it -- relax last. Reduced motion: it simply appears.
+    // pin turns visited it GROWS in (VISIT_PIN_GROW_MS: the drag's 1 -> 1.12x, the same drift, the shadow rising,
+    // its flap already curled high: the chord M x further in, curl L0, the face bowed into the fold) and is
+    // pressed from there by the row's own timeline (vsPlacePose(), VISIT_PLACE_FLAP, VISIT_PLACE_MS): the face
+    // settles first, the flap -- and the print near it -- relax last. Reduced motion: it simply appears.
     function placeStickerPin(root) {
       const pin = root && root.querySelector('.stk-pin[data-stk]');
       if (!pin || prefersReducedMotion()) return;
       const [size, near, hi, ang, sz] = pin.dataset.stk.split(',').map(Number), o = { size, near: !!near, hi: !!hi, ang, sz };
       const reach0 = 1 - (STICKER.PIN_H[near || hi ? 'near' : 'far'] + (0.5 - sz) * STICKER.PIN_H_SPREAD);
-      const P = STICKER.PLACE, lL = P.L0, fr = VISIT_PLACE_FLAP.FROM, [lx, ly] = STICKER.LIGHT, t0 = sgNow(), id = (pin.__stk = (pin.__stk || 0) + 1);
-      if (!vsEase.has(VISIT_PLACE_FLAP.EASE)) vsEase.set(VISIT_PLACE_FLAP.EASE, cubicBezier(...VISIT_PLACE_FLAP.EASE));
+      const P = STICKER.PLACE, [lx, ly] = STICKER.LIGHT, t0 = sgNow(), id = (pin.__stk = (pin.__stk || 0) + 1);
+      const [dx, dy] = stickerTravel(ang, 0, P.TRAVEL * size, 0), H1 = VISIT_HOVER.SCALE[1], GROW = VISIT_PIN_GROW_MS, gEase = vsEaseGet([.4, 0, .2, 1]);
       const step = () => {
         if (pin.__stk !== id || !pin.isConnected) return;
-        const u = Math.min(1, (sgNow() - t0) / VISIT_PLACE_MS), [, sc] = keyAt(VISIT_PLACE, u), w = u >= 1 ? 1 : u <= fr ? 0 : vsEase.get(VISIT_PLACE_FLAP.EASE)((u - fr) / (1 - fr));
-        const p = stickerPinParts({ ...o, pose: w >= 1 ? null : [-reach0 * (P.M - 1) * (1 - w), lL + (STICKER.FOLD_L - lL) * w] });
+        const T = sgNow() - t0, grow = T < GROW, u = grow ? 0 : Math.min(1, (T - GROW) / VISIT_PLACE_MS), r = grow ? gEase(T / GROW) : 1;
+        // fh is the chord's delta from the pin's rest (stickerPinParts pose): -reach0 x (M - 1) lifted, 0 at rest
+        const q = vsPlacePose({ sc: 1 + (H1 - 1) * r, tx: dx * r, ty: dy * r, fh: -reach0 * (P.M - 1), L: P.L0 }, 0, u), done = !grow && u >= 1;
+        const p = stickerPinParts({ ...o, pose: done ? null : [q.fh, q.L] });
         pin.querySelector('.stk-base').outerHTML = p.base; pin.querySelector('.stk-flap-svg').outerHTML = p.flap;
-        const lift = u >= 1 ? 0 : (sc - 1) / (VISIT_HOVER.SCALE[1] - 1);   // 1 lifted .. 0 down, with the face
-        const [tx, ty] = stickerTravel(ang, 0, P.TRAVEL * size, u);
-        pin.style.transform = u < 1 ? `translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${sc.toFixed(4)})` : '';
+        const lift = done ? 0 : (q.sc - 1) / (H1 - 1);   // 1 lifted .. 0 down, with the face
+        pin.style.transform = done ? '' : `translate(${q.tx.toFixed(2)}px, ${q.ty.toFixed(2)}px) scale(${q.sc.toFixed(4)})`;
         pin.style.filter = lift > 0.002 ? `drop-shadow(${(lx * 2 * lift).toFixed(2)}px ${(ly * 2 * lift).toFixed(2)}px ${(1.6 * lift).toFixed(2)}px rgba(40, 30, 20, ${(0.16 * lift).toFixed(3)}))` : '';
-        if (u < 1) requestAnimationFrame(step);
+        if (!done) requestAnimationFrame(step);
       };
       step();
     }
-    // The pre-commit hover for cue fraction p (0..1 of 6..56px): only the
-    // carry's transform and opacity (its shadow, veil and lifted flap are static).
+    // The pre-commit hover for cue fraction p (0..1 of 6..56px): the carry's transform and opacity only (its
+    // shadow and veil are static). The sticker's pose is the place's start pose grown to the degree of p
+    // (vsPlacePose() takes over from it at the press), eased in over VISIT_BACK_MS after an un-press.
     function vsHover(g, p) {
       // Reduced motion: no growth, so the opacity carries the progress over the whole cue.
       const q = Math.max(0, Math.min(1, p)), H = VISIT_HOVER, rm = prefersReducedMotion();
       // It fades in at scale 1, then lifts toward 1.12x: the X (fading out over
       // 80ms from the lock) is gone before the grown oval could reach it (V19).
-      const sc = rm ? 1 : H.SCALE[0] + (H.SCALE[1] - H.SCALE[0]) * Math.max(0, (q - H.FADE) / (1 - H.FADE));
-      g.st.__vsQ = q;
-      g.st.style.transform = `scale(${sc.toFixed(4)}) rotate(${g.tilt}deg)`;
-      g.st.style.opacity = Math.min(1, rm ? q : q / H.FADE).toFixed(3);
+      const r = rm ? 0 : Math.max(0, (q - H.FADE) / (1 - H.FADE)), st = g.st, [f0, l0] = vsRowStartPose();
+      const [dx, dy] = stickerTravel(+(st.dataset.ang || STICKER.ROW.ANG), g.tilt, STICKER.PLACE.ROW_TRAVEL, 0);
+      let cur = { sc: H.SCALE[0] + (H.SCALE[1] - H.SCALE[0]) * r, tx: dx * r ** 8, ty: dy * r ** 8, fh: f0, L: l0 };
+      if (g.vsBlend) {                       // un-press: ease from the pose the place had reached to the hover's, no snap
+        const b = g.vsBlend, e = vsEaseGet(VISIT_PLACE_TRAVEL)(Math.min(1, (sgNow() - b.t0) / VISIT_BACK_MS)), m = k => b.from[k] + (cur[k] - b.from[k]) * e;
+        cur = { sc: m('sc'), tx: m('tx'), ty: m('ty'), fh: m('fh'), L: m('L') };
+        if (e < 1) { if (!b.raf) b.raf = requestAnimationFrame(() => { b.raf = 0; if (g.vsBlend === b && !g.pressed && g.state === 'drag') vsHover(g, g.st.__vsQ); }); } else g.vsBlend = null;
+        poseRowSticker(st, cur.fh, cur.L);
+      }
+      g.vsCur = cur; st.__vsQ = q;
+      st.style.transform = `translate(${cur.tx.toFixed(2)}px, ${cur.ty.toFixed(2)}px) scale(${cur.sc.toFixed(4)}) rotate(${g.tilt}deg)`;
+      st.style.opacity = Math.min(1, rm ? q : q / H.FADE).toFixed(3);
     }
 
     function beginVisitDrag(el, g) {
@@ -7449,7 +7478,7 @@
             if (!g.replay) starHaptic('ink');
           }
         } else {
-          if (wasPressed) { stopVisitPop(g); poseRowSticker(st, ...ROW_STICKER_POSE.lift); st.classList.add('vs-open'); el.classList.remove('is-visited'); }   // un-press frame: it hovers again
+          if (wasPressed) { const c = g.vsCur; g.popId = (g.popId || 0) + 1; g.vsBlend = c ? { t0: sgNow(), from: c, raf: 0 } : null; st.classList.add('vs-open'); el.classList.remove('is-visited'); }   // un-press frame: it hovers again
           vsHover(g, (r - V.TAIL_OUT) / (C - V.TAIL_OUT));
         }
       } else {
