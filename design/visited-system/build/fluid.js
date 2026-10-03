@@ -28,7 +28,7 @@ function jumps(fr) { const o = { sc: 0, pos: 0, fh: 0, L: 0 }, at = {}; for (let
     await clock(page); const fr = [], N = Math.round(280 / MS), SEL = '.row-stamp.vs-carry';
     await L.T(cdp, 'touchStart', g.xc, g.y); await stepP(page, MS);
     for (let i = 1; i <= N; i++) { await L.T(cdp, 'touchMove', g.xc - 70 * i / N, g.y); await stepP(page, MS); fr.push(await sample(page, SEL)); }
-    for (let i = 0; i < Math.round(400 / MS); i++) { await stepP(page, MS); fr.push(await sample(page, SEL)); }
+    for (let i = 0; i < Math.round(700 / MS); i++) { await stepP(page, MS); fr.push(await sample(page, SEL)); }
     out.row = { frames: fr.length, ...jumps(fr), trace: fr.filter((f, i) => i % Math.round(20 / MS) === 0).map(f => f && [+f.sc.toFixed(3), +f.x.toFixed(2), +f.y.toFixed(2), +f.fh.toFixed(3), +f.L.toFixed(3)]) };
     await ctx.close(); }
   { // row un-press: travel to 62px, back to 40px (below 52), then forward again
@@ -38,14 +38,14 @@ function jumps(fr) { const o = { sc: 0, pos: 0, fh: 0, L: 0 }, at = {}; for (let
     const path = []; for (let x = 0; x <= 70; x += 1.5) path.push(x); for (let x = 70; x >= 44; x -= 1.5) path.push(x); for (let x = 44; x <= 70; x += 1.5) path.push(x);
     await L.T(cdp, 'touchStart', g.xc, g.y); await stepP(page, MS);
     for (const x of path) { await L.T(cdp, 'touchMove', g.xc - x, g.y); await stepP(page, MS); fr.push(await sample(page, SEL)); }
-    for (let i = 0; i < Math.round(400 / MS); i++) { await stepP(page, MS); fr.push(await sample(page, SEL)); }
+    for (let i = 0; i < Math.round(700 / MS); i++) { await stepP(page, MS); fr.push(await sample(page, SEL)); }
     out.unpress = { frames: fr.length, ...jumps(fr) }; await ctx.close(); }
   { // pin: the app's own visited toggle
     const { ctx, page } = await L.openProto(b, { dsf: 3 }); await page.evaluate(() => document.getElementById('locations').classList.add('collapsed')); await L.W(200);
     const id = await page.evaluate(() => { const l = locations.filter(l => !l.visited && l.city === 'reykjavik' && !l.starred && Math.abs(stickerCorner(l.id, l.starred) - 45) < 8)[0]; map.setView([l.lat, l.lng], 16, { animate: false }); return l.id; });
     await L.W(700); await clock(page);
     await page.evaluate(id => { window.__pid = id; toggleLocationFlag(id, 'visited'); }, id);
-    const fr = []; for (let i = 0; i < Math.round(520 / MS); i++) { fr.push(await sample(page, 'PIN')); await stepP(page, MS); }
+    const fr = []; for (let i = 0; i < Math.round(760 / MS); i++) { fr.push(await sample(page, 'PIN')); await stepP(page, MS); }
     fr.unshift({ ...fr[0], sc: 1, x: 0, y: 0 });   // the to-do badge it replaces
     out.pin = { frames: fr.length, ...jumps(fr), first: fr[0] && [fr[0].sc, fr[0].x, fr[0].y, fr[0].fh, fr[0].L] }; await ctx.close(); }
   console.log(JSON.stringify(out, null, 1)); await b.close();

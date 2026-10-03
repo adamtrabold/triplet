@@ -4326,7 +4326,7 @@
       CAST_INK: '#6b4a28', CAST_INK_HI: '#1A1A18', CAST: [[0.24, 0.25, 0.10], [0.62, 0.7, 0.06], [1.05, 1.2, 0.04]],   // [shadow length per px of height, blur (#stk-cast-i), opacity]
       ROLL: 0.1, LIFT_CAP: 0.25,
       BOW_L: 0.35, BOW_B: 0.42, BOW_TH: 1.1,   // the bow is full at L 0.35 (the lifted pose), over 0.42 x the radius of paper, up to 63 deg
-      PLACE: { M: 2.4, L0: 0.4, TRAVEL: 0.30, ROW_TRAVEL: 7, TRAVEL_END: 0.75 },   // placing: the flap starts M x its rest reach (curl L0) and shrinks to rest; the sticker travels TRAVEL x its size (row: px) from the side opposite the flap toward the flap edge, done by TRAVEL_END of the time
+      PLACE: { M: 2.4, L0: 0.3, TRAVEL: 0.40, ROW_TRAVEL: 9, TRAVEL_END: 0.75 },   // placing: the flap starts M x its rest reach (curl L0) and shrinks to rest; the sticker travels TRAVEL x its size (row: px) from the side opposite the flap toward the flap edge, done by TRAVEL_END of the time
       PIN_LIFT: [-0.1, 0.35],                  // a pin placing starts lifted: its chord 0.1 of the radius further in, curled (L) like the row's lift
       CURL: '#8a6a44', CURL_OP: [0.11, 0.05, 0], CURL_STOPS: [0, 0.45, 1], CURL_FALL: 0.25,        // faint contact crease, 1.5px, blurred (#stk-crease)
       ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#FAF5EA', BACK: '#D8CDB8' },
@@ -4562,7 +4562,7 @@
     const ROW_STICKER_POSE = (() => {
       const R = { RX: 36, RY: 11, ANG: 50, REACH: 5 }, a = R.ANG * Math.PI / 180;
       const ext = Math.sqrt(R.RX * R.RX * Math.sin(a) ** 2 + R.RY * R.RY * Math.cos(a) ** 2);
-      return { rest: [1 - R.REACH / ext, 0.94], lift: [0.7, 0.35], press: [0.652, 0.7] };
+      return { rest: [1 - R.REACH / ext, 0.94], lift: [0.56, 0.3], press: [0.652, 0.7] };
     })();
     // A place's resting fold: its own reach (STICKER.ROW_REACH, by stickerSize()) on the oval.
     function rowStickerRest(id) {
@@ -7283,7 +7283,7 @@
     //   Press (the 56px crossing, in the same event): stuck down by a thumb on
     //     the middle -- the face settles 1.12 -> 1x and its shadow tightens
     //     first; the flap is the last thing, relaxing from raised to its rest
-    //     (VISIT_PLACE, 300ms) -- the visited field lands on this
+    //     (VISIT_PLACE, 460ms) -- the visited field lands on this
     //     frame, haptic. Backing off 4px below 56 un-presses on that frame
     //     (hysteresis) and the sticker hovers again.
     //   Un-visit: the same stroke on a visited row. At the lock the sticker
@@ -7311,8 +7311,8 @@
     // sticker drifts from its slot toward the side opposite its flap, 0 -> ROW_TRAVEL, with the same ramp; its flap
     // is held at the lift pose (vsRowStartPose()). Press: scale, drift and flap ease to rest from
     // there, every curve leaving at zero speed so the apex is a turn, not a kink.
-    const VISIT_PLACE_SC = [.4, 0, .2, 1], VISIT_PLACE_TRAVEL = [.35, 0, .15, 1], VISIT_BACK_MS = 140, VISIT_PIN_GROW_MS = 110;
-    const VISIT_PLACE_MS = 300, VISIT_PLACE_FLAP = { FROM: 0.3, EASE: [.3, 0, .2, 1] };
+    const VISIT_PLACE_SC = [.4, 0, .2, 1], VISIT_PLACE_TRAVEL = [.35, 0, .15, 1], VISIT_BACK_MS = 140, VISIT_PIN_GROW_MS = 140;
+    const VISIT_PLACE_MS = 460, VISIT_PLACE_FLAP = { FROM: 0.3, EASE: [.3, 0, .2, 1] };
     const VISIT_LIFT = [[0, 0, 1, [.2, .9, .3, 1]], [0.35, 0, 1.12, [.5, 0, .4, 1]], [1, 0, 1, null]];   // = STAR_ERASE_POP
     function cubicBezier(x1, y1, x2, y2) {
       const bx = t => ((1 - 3 * x2 + 3 * x1) * t + (3 * x2 - 6 * x1)) * t * t + 3 * x1 * t;
