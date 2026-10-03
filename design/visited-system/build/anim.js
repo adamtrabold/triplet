@@ -8,7 +8,7 @@
 //   animation-row.gif (+ .png APNG)  the row's visit swipe (real touch events): hover, press, settle
 //   animation-row-slow.gif           the same at 0.25x
 //   animation-four.gif               four pins (four corners, flap sizes) placed together
-//   filmstrip.png                    one pin, 10 numbered frames from arrival (0ms) to rest (200ms)
+//   filmstrip.png                    one pin, 10 numbered frames from arrival (0ms) to rest (300ms)
 //   node anim.js        (python3 + Pillow encode the GIFs)
 const L = require('../../gesture-harness/lib');
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
@@ -58,7 +58,7 @@ async function pinScene(b, slow) {
   const c = await page.evaluate(id => { const p = map.latLngToContainerPoint(markersById.get(id).marker.getLatLng()); return [p.x, p.y]; }, id);
   const clip = { x: Math.round(c[0] - 40), y: Math.round(c[1] - 30), width: 80, height: 60 };
   await clock(page);
-  const shots = [], dt = slow ? FRAME / 4 : FRAME, n = Math.ceil(260 / dt);
+  const shots = [], dt = slow ? FRAME / 4 : FRAME, n = Math.ceil(360 / dt);
   shots.push({ png: await page.screenshot({ clip }), ms: 900 });                        // the to-do pin, a pause
   await page.evaluate(id => { toggleLocationFlag(id, 'visited'); }, id);               // the app's own path
   for (let i = 0; i < 6 && !(await page.evaluate(id => !!document.querySelector('.stk-pin'), id)); i++) await L.W(50);
@@ -103,7 +103,7 @@ async function fourScene(b) {
   const clip = await page.evaluate(() => { const r = document.getElementById('__four').getBoundingClientRect(); return { x: 0, y: 0, width: Math.ceil(r.width), height: Math.ceil(r.height) }; });
   const shots = [{ png: await page.screenshot({ clip }), ms: 900 }];
   await page.evaluate(() => document.querySelectorAll('#__four .__pin').forEach(d => { d.innerHTML = markerIcon({ id: d.dataset.id, category: 'restaurant', name: 'x', lat: 0, lng: 0, visited: true }, false).options.html; placeStickerPin(d); }));
-  for (let i = 0; i <= 13; i++) { shots.push({ png: await page.screenshot({ clip }), ms: FRAME }); await step(page, FRAME); }
+  for (let i = 0; i <= 18; i++) { shots.push({ png: await page.screenshot({ clip }), ms: FRAME }); await step(page, FRAME); }
   shots[shots.length - 1].ms = 1400;
   await ctx.close(); return shots;
 }
@@ -112,7 +112,7 @@ async function fourScene(b) {
   const pin = await pinScene(b, false); encode('animation-pin', pin, { apng: true });
   // filmstrip: the press, 10 frames 20ms apart (frame 0 = the pin as it arrives), numbered
   const fdir = path.join(TMP, 'film'); fs.mkdirSync(fdir, { recursive: true });
-  const FT = [0, 20, 40, 60, 80, 100, 120, 140, 160, 200];   // ms after the press began (pin[1] is 0ms)
+  const FT = [0, 40, 80, 120, 160, 200, 220, 240, 260, 300];   // ms after the press began (pin[1] is 0ms)
   FT.forEach((t, i) => fs.writeFileSync(path.join(fdir, `${i}.png`), pin[1 + t / FRAME].png));
   execFileSync('python3', ['-c', `
 import sys, os
@@ -122,7 +122,7 @@ w, h = ims[0].size; pad = 36; S = Image.new('RGB', (w * 5 + 6 * 4, (h + pad) * 2
 try: font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 22)
 except Exception: font = ImageFont.load_default()
 for i, im in enumerate(ims):
-    x = (i % 5) * (w + 6); y = (i // 5) * (h + pad + 6); S.paste(im, (x, y + pad)); dr.text((x + 6, y + 6), f'{i}  ({[0,20,40,60,80,100,120,140,160,200][i]} ms)', fill='#333333', font=font)
+    x = (i % 5) * (w + 6); y = (i // 5) * (h + pad + 6); S.paste(im, (x, y + pad)); dr.text((x + 6, y + 6), f'{i}  ({[0,40,80,120,160,200,220,240,260,300][i]} ms)', fill='#333333', font=font)
 S.save(sys.argv[2])
 `, fdir, path.join(OUT, 'filmstrip.png')]);
   encode('animation-pin-slow', await pinScene(b, true));
