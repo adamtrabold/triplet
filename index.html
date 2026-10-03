@@ -2266,7 +2266,7 @@
        (.vs-peel) wears the same shadow. At rest the label sits on a short
        warm contact shadow, so the lighter cream reads as a label laid on the
        filed row, not a smudge in it. */
-    .row-stamp > .stk-base { filter: drop-shadow(0 1px 1.8px rgba(138, 106, 68, 0.10)) drop-shadow(0 0 0.35px rgba(138, 106, 68, 0.06)); }   /* paper on paper: wide, faint, warm; no dark core (owner: "Shadow isn't realistic / too intense") */
+    .row-stamp > .stk-base { filter: drop-shadow(0.2px 0.4px 0.4px rgba(107, 74, 40, 0.10)); }   /* the label's thickness: a hairline-tight, faint warm contact shadow down-right (one light, upper left), no halo */
     .row-stamp.vs-open > .stk-base,
     .row-stamp.vs-peel > .stk-base { filter: drop-shadow(0 3px 2.4px rgba(40, 30, 20, 0.35)); }
     /* The veil: the row's own field, feathered (8px), behind the sticker and
@@ -2403,10 +2403,10 @@
          never gets a zero-height filter box). FAR is the NEAR shadow x1.1
          opacity, x0.8 offset/blur, crease blur x0.7 (README, round 7b). The
          row's flap is clipped to its label (stk-row-clip = the 72x24 box's oval). -->
-    <filter id="stk-shadow" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.4" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.06"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.04"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="stk-shadow-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.0" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.05"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.03"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="w"/><feOffset in="w" dy="0.9" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.09"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.05"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="w"/><feOffset in="w" dy="0.6" result="wo"/><feFlood flood-color="#8a6a44" flood-opacity="0.09"/><feComposite in2="wo" operator="in" result="ws"/><feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="t"/><feFlood flood-color="#8a6a44" flood-opacity="0.05"/><feComposite in2="t" operator="in" result="ts"/><feMerge><feMergeNode in="ws"/><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-cast-0" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.25"/></filter><filter id="stk-cast-1" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.70"/></filter><filter id="stk-cast-2" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="1.20"/></filter><filter id="stk-cast-0-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.17"/></filter><filter id="stk-cast-1-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.49"/></filter><filter id="stk-cast-2-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.84"/></filter>
+    
+    <filter id="stk-lift" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.20" dy="0.4" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="stk-lift-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur in="SourceAlpha" stdDeviation="0.4" result="t"/><feOffset in="t" dx="0.15" dy="0.3" result="to"/><feFlood flood-color="#6b4a28" flood-opacity="0.1"/><feComposite in2="to" operator="in" result="ts"/><feMerge><feMergeNode in="ts"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="stk-crease" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.9"/></filter>
     <filter id="stk-crease-far" filterUnits="userSpaceOnUse" x="-20" y="-20" width="120" height="72"><feGaussianBlur stdDeviation="0.63"/></filter>
     <clipPath id="stk-row-clip"><ellipse cx="36" cy="12" rx="36" ry="11"/></clipPath>
@@ -4301,7 +4301,9 @@
       CREASE: 'rgba(138,106,68,0.04)',
       // The lifted flap shades the sticker's own face just inside the fold, falling away across it
       // (owner: "maybe the flap needs to lay a shadow on the sticker?"): warm, soft, no line.
-      CURL: '#8a6a44', CURL_OP: [0.11, 0.05, 0], CURL_STOPS: [0, 0.45, 1], CURL_FALL: 0.45,        // faint contact crease, 1.5px, blurred (#stk-crease)
+      LIGHT: [0.6, 0.8],                    // one soft light for every sticker, from the upper left: shadows fall down-right
+      CAST_INK: '#6b4a28', CAST_INK_HI: '#1A1A18', CAST: [[0.5, 0.25, 0.10], [1.3, 0.7, 0.06], [2.2, 1.2, 0.04]],   // [px of offset at the tip, blur (#stk-cast-i), opacity]
+      CURL: '#8a6a44', CURL_OP: [0.11, 0.05, 0], CURL_STOPS: [0, 0.45, 1], CURL_FALL: 0.25,        // faint contact crease, 1.5px, blurred (#stk-crease)
       ROW: { W: 72, H: 24, RX: 36, RY: 11, ANG: 50, REACH: 5, FACE: '#FAF5EA', BACK: '#D8CDB8' },
     };
     // The check: a FILLED path with square ends and corners softened by 1/24,
@@ -4357,7 +4359,7 @@
       const ext = Math.max(...proj), mx = (chord[0][0] + chord[1][0]) / 2, my = (chord[0][1] + chord[1][1]) / 2;
       const fall = (ext - d) * L + STICKER.CURL_FALL * Math.min(rx, ry);
       const curl = [mx, my, mx - ux * fall, my - uy * fall], reach = (ext - d) * L;
-      const out = { bodyD: P(body), flapD: P(flap), edgeD, chord, curl, reach, pts, proj, d };
+      const out = { bodyD: P(body), flapD: P(flap), flapPts: flap, u: [ux, uy], edgeD, chord, curl, reach, pts, proj, d };
       stickerFolds.set(key, out);
       return out;
     }
@@ -4380,10 +4382,26 @@
       return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${mx.toFixed(2)}" y1="${my.toFixed(2)}" x2="${tx.toFixed(2)}" y2="${ty.toFixed(2)}">` +
         `<stop offset="0" stop-color="${fold}"/><stop offset="0.45" stop-color="${back}"/><stop offset="1" stop-color="${toTip}"/></linearGradient></defs>`;
     }
-    function stickerFlapMarkup(g, back, far, gid) {
-      const [c0, c1] = g.chord;
-      return stickerFlapDefs(gid, g, back) + `<line class="stk-crease" x1="${c0[0].toFixed(2)}" y1="${c0[1].toFixed(2)}" x2="${c1[0].toFixed(2)}" y2="${c1[1].toFixed(2)}" stroke="${STICKER.CREASE}" stroke-width="1.5" stroke-linecap="round" filter="url(#stk-crease${far ? '-far' : ''})"/>` +
-        `<path class="stk-flap" d="${g.flapD}" fill="url(#${gid})" filter="url(#stk-shadow${far ? '-far' : ''})"/>`;
+    // The flap's CAST shadow, built like a real lifted corner under one soft light from the
+    // upper left (STICKER.LIGHT: shadows fall down and a little right): the flap's own outline
+    // projected onto what lies under it, each point displaced by its HEIGHT above the face --
+    // zero on the fold, where the paper still touches, most at the free tip. Three stacked
+    // layers (STICKER.CAST: [offset per unit height, blur, opacity]) so the shadow is tight and
+    // darkest at the fold and grows wider, softer and lighter toward the tip: a wedge, not a
+    // blurred blob. FAR scales offsets and blurs down (x0.7).
+    function stickerCastDs(g, far) {
+      const [m0, m1] = g.chord, mx = (m0[0] + m1[0]) / 2, my = (m0[1] + m1[1]) / 2, [ux, uy] = g.u, [lx, ly] = STICKER.LIGHT, k = far ? 0.7 : 1;
+      return STICKER.CAST.map(([off]) => 'M' + g.flapPts.map(([x, y]) => {
+        const h = Math.max(0, Math.min(1, ((mx - x) * ux + (my - y) * uy) / (g.reach || 1)));   // 0 at the fold, 1 at the tip
+        return (x + lx * off * k * h).toFixed(2) + ' ' + (y + ly * off * k * h).toFixed(2);
+      }).join('L') + 'Z');
+    }
+    function stickerFlapMarkup(g, back, far, gid, hi = false) {   // hi: on the selected pin's dark face the same shadow needs a deeper ink to read
+      const [c0, c1] = g.chord, ds = stickerCastDs(g, far);
+      return stickerFlapDefs(gid, g, back) +
+        STICKER.CAST.map(([, , op], i) => `<path class="stk-cast stk-cast-${i}" d="${ds[i]}" fill="${hi ? STICKER.CAST_INK_HI : STICKER.CAST_INK}" fill-opacity="${hi ? op * 1.6 : op}" filter="url(#stk-cast-${i}${far ? '-far' : ''})"/>`).join('') +
+        `<line class="stk-crease" x1="${c0[0].toFixed(2)}" y1="${c0[1].toFixed(2)}" x2="${c1[0].toFixed(2)}" y2="${c1[1].toFixed(2)}" stroke="${STICKER.CREASE}" stroke-width="1.5" stroke-linecap="round" filter="url(#stk-crease${far ? '-far' : ''})"/>` +
+        `<path class="stk-flap" d="${g.flapD}" fill="url(#${gid})"/>`;
     }
     // A visited map mark: { size, near (the NEAR tier, or selected), hi
     // (selected), check (false: a plan stop, whose number holds the centre) }.
@@ -4406,7 +4424,7 @@
       if (check) { const ck = STICKER_CHECK[tier], o = ((size - ck.px) / 2).toFixed(2);
         base += `<svg class="badge-glyph stk-check" x="${o}" y="${o}" width="${ck.px}" height="${ck.px}" viewBox="0 0 24 24"><path d="${ck.d}" fill="${mark}"/></svg>`; }
       const svg = (cls, inner, abs) => `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="${abs ? 'position:absolute;left:0;top:0;' : 'display:block;'}overflow:visible">${inner}</svg>`;
-      return { base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far', `stk-flapg-${size}-${tier}${hi ? '-hi' : ''}`), true) };
+      return { base: svg('stk-base', base, false), flap: svg('stk-flap-svg', stickerFlapMarkup(g, hi ? STICKER.PIN_BACK_HI : STICKER.PIN_BACK, tier === 'far', `stk-flapg-${size}-${tier}${hi ? '-hi' : ''}`, hi), true) };
     }
     // The map star on a visited sticker: the same star, its paper halo thinned
     // (a cream face needs no separation ring) and set out along the shoulder,
@@ -4437,6 +4455,7 @@
       if (!f || !c || !b) return;
       const [c0, c1] = g.chord;
       f.setAttribute('d', g.flapD); b.setAttribute('d', g.bodyD);
+      const cds = stickerCastDs(g, false); st.querySelectorAll('.stk-cast').forEach((p, i) => p.setAttribute('d', cds[i]));
       const e = st.querySelector('.stk-base > .stk-edge'); if (e) e.setAttribute('d', g.edgeD);
       const cu = st.querySelector('.stk-base > .stk-curl'); if (cu) cu.setAttribute('d', g.bodyD);
       const lg = st.querySelector('.stk-base linearGradient');
