@@ -132,6 +132,11 @@ sources are the file where the quote is recorded.
 - **Colour alone is not enough to differentiate.** "color coding is not
   enough" (Plans; `docs/shipped.md`).
 
+- **Visited: stamp on rows, dark sticker with cream check on pins.** "The
+  pin colors are not correct. Correct them but then reverse them I want the
+  checkmark cream and the pin sticker the dark color... the visited sticker
+  is not working so keep the check and text but take the visual style back to
+  the stamp" (2026-10-03; chat). Supersedes the cream-sticker rows/pins above.
 ## Controls / toggles
 
 - **Clear, matching state system.** "why are the active states not matching
