@@ -7376,6 +7376,19 @@
       };
       step();
     }
+    // ONE placement, in the gesture (owner: "grows as they drag, then pops once they release"): the row's
+    // sticker is placed on the press frame, but the pin's visited state only lands at release (data), so
+    // the pin used to pop a second time there. paintVisit() calls this on the press frame (and on the
+    // un-press frame to take it back): the pin turns visited -- placed by the same timeline -- at the
+    // same moment as the row; marker.visited is set so the release's syncMarkers() lands it silently.
+    function previewPinVisit(id, on) {
+      const entry = markersById.get(id);
+      if (!entry || !entry.marker) return;
+      if (on === !!entry.marker.visited) return;
+      entry.marker.setIcon(markerIcon({ ...entry.loc, visited: on }, id === highlightedId));
+      entry.marker.visited = on;
+      if (on) placeStickerPin(entry.marker.getElement());
+    }
     // The pre-commit hover for cue fraction p (0..1 of 6..56px): only the
     // carry's transform and opacity (its shadow, veil and lifted flap are static).
     function vsHover(g, p) {
@@ -7445,11 +7458,12 @@
             st.classList.remove('vs-open'); st.style.opacity = '';
             el.classList.add('is-visited');                 // field lands INSIDE the press
             g.pressT = sgNow();
+            if (!g.replay) previewPinVisit(g.id, true);
             if (!rm) runVisitPlace(g); else { stopVisitPop(g); poseRowSticker(st, +st.dataset.rest, 0.94); }
             if (!g.replay) starHaptic('ink');
           }
         } else {
-          if (wasPressed) { stopVisitPop(g); poseRowSticker(st, ...ROW_STICKER_POSE.lift); st.classList.add('vs-open'); el.classList.remove('is-visited'); }   // un-press frame: it hovers again
+          if (wasPressed) { stopVisitPop(g); poseRowSticker(st, ...ROW_STICKER_POSE.lift); st.classList.add('vs-open'); el.classList.remove('is-visited'); if (!g.replay) previewPinVisit(g.id, false); }   // un-press frame: it hovers again
           vsHover(g, (r - V.TAIL_OUT) / (C - V.TAIL_OUT));
         }
       } else {
