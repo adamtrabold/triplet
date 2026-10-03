@@ -83,7 +83,7 @@ function flipJudge(Lg, reduced) {
     // V7: a pressed impression never moves (overtravel to 150px)
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 0); const rects = [];
       await L.drag(page, cdp, left(g, 150, 18), { hold: 350, onStep: async (i) => { if (i >= 9) rects.push(await page.evaluate(() => { const s = document.querySelector('.vs-carry'); if (!s) return null; const r = s.getBoundingClientRect();
-        return { cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, pressed: !s.classList.contains('vs-open') }; })); } });
+        return { cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, pressed: !s.classList.contains('vs-open') && !/translate/.test(s.style.transform) }; })); } });   // [placed-down] the 200ms place travels 3px by design (V17 covers it); once down it never moves
       await W(700); const pr = rects.filter(r => r && r.pressed); const dx = pr.length ? Math.max(...pr.map(r => r.cx)) - Math.min(...pr.map(r => r.cx)) : 99, dy = pr.length ? Math.max(...pr.map(r => r.cy)) - Math.min(...pr.map(r => r.cy)) : 99;
       ok('V7 pressed impression never moves on overtravel to 150px (centre drift)', pr.length >= 6 && dx < 0.01 && dy < 0.6, { frames: pr.length, dx: +dx.toFixed(3), dy: +dy.toFixed(3) });
       await ctx.close(); }
@@ -130,12 +130,12 @@ function flipJudge(Lg, reduced) {
           const veil = s.querySelector('.vs-veil'), base = s.querySelector('.stk-base'), sc = Math.hypot(m.a, m.b);
           const veilOpaque = veil ? veil.getBoundingClientRect().left + 8 * sc : Infinity;
           const textVisRight = Math.min(Math.max(vr(el.querySelector('h3')), vr(el.querySelector('.row-meta'))), veilOpaque);
-          __vf.push({ scale: sc, rot: Math.atan2(m.b, m.a) * 180 / Math.PI, cx: +(sr.x + sr.width / 2).toFixed(3), cy: +(sr.y + sr.height / 2).toFixed(3), q: s.__vsQ,
+          __vf.push({ placing: /translate/.test(s.style.transform), scale: sc, rot: Math.atan2(m.b, m.a) * 180 / Math.PI, cx: +(sr.x + sr.width / 2).toFixed(3), cy: +(sr.y + sr.height / 2).toFixed(3), q: s.__vsQ,
             op: parseFloat(getComputedStyle(s).opacity), swept: s.classList.contains('vs-open'), shadow: getComputedStyle(base).filter, lifted: s.querySelector('.stk-flap').getAttribute('d') === liftD(s),
             gap: base.getBoundingClientRect().left - textVisRight }); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); window.__vstop = () => { run = false; }; });
       await L.drag(page, cdp, left(g, 110, 22), { hold: 450 });
       const f = await page.evaluate(() => { __vstop(); return __vf; }); const tilt = await page.evaluate(id => stickerTilt(id), g.id);
-      const pre = f.filter(x => x.swept), vis = pre.filter(x => x.op > 0.01), cxs = f.map(x => x.cx), cys = f.map(x => x.cy);
+      const pre = f.filter(x => x.swept), vis = pre.filter(x => x.op > 0.01), cxs = f.filter(x => !x.placing).map(x => x.cx), cys = f.filter(x => !x.placing).map(x => x.cy);   // [placed-down] the place's own 3px travel is V17's, not the hover's
       const H = await page.evaluate(() => VISIT_HOVER.SCALE);
       const tilted = pre.every(x => Math.abs(x.rot - tilt) < 0.01);
       const scaled = reduced ? pre.every(x => Math.abs(x.scale - 1) < 1e-3) : pre.every(x => x.scale >= H[0] - 1e-3 && x.scale <= H[1] + 1e-3);
