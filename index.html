@@ -4298,8 +4298,11 @@
       // sticker keeps its corner across renders, polls, zooms and scrolls. [peel angle, weight]:
       // lower-left (the approved default) most often, then lower-right, upper-left, upper-right. A
       // starred pin never peels at the upper right, where the star rides. The light never moves.
-      PIN_CORNERS: [[45, 4], [-45, 3], [135, 2], [-135, 2]],
+      PIN_CORNERS: [[45, 3], [-45, 3], [135, 2.5], [-135, 2.5]],   // near-even: the picked corner is the CENTRE of the angle
+      PIN_SPREAD: 40,                       // ...and each place's flap angle is that +-20 deg (own hash, continuous, independent of corner/size/lean)
+      STAR_EXCL: 60,                        // a starred pin's flap stays outside -135 +-60 deg (the old exclusion widened) so the star is never covered
       ROW_CORNERS: [[50, 3], [-50, 2]],     // the row oval: its left or right end
+      ROW_SPREAD: 12,                       // the row flap angle +-6 deg around that (reach at the right end stays capped 4-5px)
       PIN_H: { near: 0.62, far: 0.66 },     // chord at this fraction of the radius: flap ~19% of the diameter NEAR; smaller at FAR, where pins pile
       PIN_H_SPREAD: 0.2,                    // per place, the chord moves +-0.1 around that (owner: "maybe the flap size should be randomized somewhat"): ~14-24% of the diameter
       ROW_REACH: [4, 7],                    // per place, the row fold reaches 4-7px (approved 5)
@@ -4344,8 +4347,13 @@
     function stickerPick(id, corners) { const tot = corners.reduce((a, [, w]) => a + w, 0); let r = stickerHash(id) % tot;
       for (const [a, w] of corners) { if (r < w) return a; r -= w; } return corners[0][0]; }
     function stickerSize(id) { return id == null ? 0.5 : (stickerHash(String(id) + '#size') % 1000) / 999; }   // 0..1, its own hash: size, corner and lean are independent
-    function stickerCorner(id, starred) { return id == null ? STICKER.PIN_ANG : stickerPick(id, starred ? STICKER.PIN_CORNERS.filter(([a]) => a !== -135) : STICKER.PIN_CORNERS); }
-    function rowStickerAng(id) { return id == null ? STICKER.ROW.ANG : stickerPick(id, STICKER.ROW_CORNERS); }
+    function stickerSpread(id, w) { return id == null ? 0 : ((stickerHash(String(id) + '#ang') % 1000) / 999 - 0.5) * w; }   // -w/2..w/2, its own hash
+    function stickerCorner(id, starred) { if (id == null) return STICKER.PIN_ANG;
+      const c = stickerPick(id, starred ? STICKER.PIN_CORNERS.filter(([a]) => a !== -135) : STICKER.PIN_CORNERS);
+      let a = c + stickerSpread(id, STICKER.PIN_SPREAD);
+      if (starred) { const d = ((a + 135 + 540) % 360) - 180, X = STICKER.STAR_EXCL; if (Math.abs(d) < X) a = -135 + (d < 0 ? -X : X); }   // clamp out of the star's quarter
+      return +(((a + 180) % 360 + 360) % 360 - 180).toFixed(2); }
+    function rowStickerAng(id) { return id == null ? STICKER.ROW.ANG : stickerPick(id, STICKER.ROW_CORNERS) + stickerSpread(id, STICKER.ROW_SPREAD); }
     // A sticker is laid, not struck: half the place's stamp lean.
     function stickerTilt(id) { return stampTilt(id) / 2; }
     // The fold, for an outline ('circle' | 'diamond' in a w x h box, or the row's
