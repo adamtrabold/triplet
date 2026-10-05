@@ -36,6 +36,10 @@ sources are the file where the quote is recorded.
   stamps, matchbooks, park posters, the trail scrapbook). It still has to
   pass the noise rules above: whimsy that carries meaning (form, type,
   paper/ink, motion), not added decoration.
+- **Bonus: the pin and what it opens are one idea.** "Bonus points but not
+  required if the map pin is conceptually aligned with whatever it "opens
+  up" to" (2026-10-05, popup round 3; chat). A nice-to-have, not a rule.
+  The pin's look is shipped; changing the pin itself is a separate decision.
 
 ## Hierarchy
 
