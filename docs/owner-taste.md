@@ -40,6 +40,9 @@ sources are the file where the quote is recorded.
   required if the map pin is conceptually aligned with whatever it "opens
   up" to" (2026-10-05, popup round 3; chat). A nice-to-have, not a rule.
   The pin's look is shipped; changing the pin itself is a separate decision.
+- **The tag pops out of the pin onto a straight string.** "i think the tag
+  should just pop down "out of" the pin but end with a straight string"
+  (2026-10-05, Hanging Tag v2; chat).
 
 ## Hierarchy
 
@@ -57,6 +60,13 @@ sources are the file where the quote is recorded.
   (2026-10-05, popup; chat, correcting `design/popup-hierarchy/ux-analysis.md`).
   Only the weighting stands; where type sits is open (the "above the name"
   rule above is withdrawn).
+- **Long notes show full length; no flip-over.** "long notes should just
+  show full length - the flip over is meh." (2026-10-05, Hanging Tag v2;
+  chat).
+- **The address can matter at a glance.** "i wonder if the address
+  shouldn't be closer to the place name (as sometimes the address *does*
+  matter at a glance, if something has multiple locations or something)"
+  (2026-10-05, Hanging Tag v2; chat).
 - **Don't show empty states as marks.** "No star unless it's been starred"
   (list row; chat).
 
