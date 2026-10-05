@@ -1,0 +1,231 @@
+{
+ "busiest": {
+  "star": {
+   "mass": 112,
+   "area": 324,
+   "chromaPx": 0
+  },
+  "title": {
+   "mass": 514,
+   "area": 2155,
+   "chromaPx": 0
+  },
+  "addr": {
+   "mass": 1248,
+   "area": 12388,
+   "chromaPx": 0
+  },
+  "notes": {
+   "mass": 1700,
+   "area": 21200,
+   "chromaPx": 0
+  },
+  "dir": {
+   "mass": 180,
+   "area": 1442,
+   "chromaPx": 302
+  },
+  "cat": {
+   "mass": 182,
+   "area": 2182,
+   "chromaPx": 75
+  },
+  "visited": {
+   "mass": 218,
+   "area": 839,
+   "chromaPx": 0
+  }
+ },
+ "typical": {
+  "star": {
+   "mass": 53,
+   "area": 324,
+   "chromaPx": 0
+  },
+  "title": {
+   "mass": 433,
+   "area": 1875,
+   "chromaPx": 0
+  },
+  "addr": {
+   "mass": 1025,
+   "area": 11863,
+   "chromaPx": 0
+  },
+  "notes": {
+   "mass": 1237,
+   "area": 12425,
+   "chromaPx": 0
+  },
+  "dir": {
+   "mass": 179,
+   "area": 1442,
+   "chromaPx": 302
+  },
+  "cat": {
+   "mass": 141,
+   "area": 1716,
+   "chromaPx": 76
+  },
+  "visited": {
+   "mass": 159,
+   "area": 1267,
+   "chromaPx": 0
+  }
+ },
+ "longname": {
+  "star": {
+   "mass": 112,
+   "area": 324,
+   "chromaPx": 0
+  },
+  "title": {
+   "mass": 1366,
+   "area": 9014,
+   "chromaPx": 0
+  },
+  "addr": {
+   "mass": 1235,
+   "area": 11762,
+   "chromaPx": 0
+  },
+  "notes": {
+   "mass": 341,
+   "area": 3044,
+   "chromaPx": 0
+  },
+  "dir": {
+   "mass": 180,
+   "area": 1442,
+   "chromaPx": 302
+  },
+  "cat": {
+   "mass": 141,
+   "area": 1716,
+   "chromaPx": 76
+  },
+  "visited": {
+   "mass": 159,
+   "area": 1267,
+   "chromaPx": 0
+  }
+ },
+ "shortaddr": {
+  "star": {
+   "mass": 53,
+   "area": 324,
+   "chromaPx": 0
+  },
+  "title": {
+   "mass": 592,
+   "area": 2546,
+   "chromaPx": 0
+  },
+  "addr": {
+   "mass": 190,
+   "area": 1501,
+   "chromaPx": 0
+  },
+  "dir": {
+   "mass": 180,
+   "area": 1442,
+   "chromaPx": 303
+  },
+  "cat": {
+   "mass": 172,
+   "area": 1494,
+   "chromaPx": 0
+  },
+  "visited": {
+   "mass": 159,
+   "area": 1267,
+   "chromaPx": 0
+  }
+ },
+ "bare": {
+  "star": {
+   "mass": 53,
+   "area": 324,
+   "chromaPx": 0
+  },
+  "title": {
+   "mass": 167,
+   "area": 714,
+   "chromaPx": 0
+  },
+  "dir": {
+   "mass": 180,
+   "area": 1442,
+   "chromaPx": 303
+  },
+  "cat": {
+   "mass": 141,
+   "area": 1716,
+   "chromaPx": 76
+  },
+  "visited": {
+   "mass": 159,
+   "area": 1267,
+   "chromaPx": 0
+  }
+ },
+ "approx": {
+  "star": {
+   "mass": 53,
+   "area": 324,
+   "chromaPx": 0
+  },
+  "title": {
+   "mass": 605,
+   "area": 2722,
+   "chromaPx": 0
+  },
+  "notes": {
+   "mass": 3112,
+   "area": 31916,
+   "chromaPx": 0
+  },
+  "dir": {
+   "mass": 180,
+   "area": 1442,
+   "chromaPx": 302
+  },
+  "cat": {
+   "mass": 112,
+   "area": 1394,
+   "chromaPx": 52
+  },
+  "visited": {
+   "mass": 159,
+   "area": 1267,
+   "chromaPx": 0
+  }
+ },
+ "shape": {
+  "star": {
+   "mass": 53,
+   "area": 324,
+   "chromaPx": 0
+  },
+  "title": {
+   "mass": 902,
+   "area": 4053,
+   "chromaPx": 0
+  },
+  "dir": {
+   "mass": 180,
+   "area": 1442,
+   "chromaPx": 303
+  },
+  "cat": {
+   "mass": 112,
+   "area": 1394,
+   "chromaPx": 52
+  },
+  "visited": {
+   "mass": 159,
+   "area": 1267,
+   "chromaPx": 0
+  }
+ }
+}
