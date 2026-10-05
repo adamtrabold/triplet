@@ -176,6 +176,10 @@ sources are the file where the quote is recorded.
   panel not the list header." (chat).
 - **Mode-specific controls only in their mode.** "plans picker only in the
   plans view… Is it not confusing the plans/places metaphor?" (chat).
+- **Signed out: actions visible but disabled.** "If you're not logged in
+  actions should be visible but disabled" (2026-10-05, popup actions;
+  chat). Applies to the edit actions (star, visited); Directions needs no
+  sign-in.
 - **Drop steps that aren't needed.** "Next isn't necessary" (Plans round 11;
   chat, `design/plans-deepdive/v3/README.md`).
 - **Simplest marker first.** "Numbers may just be the simplest (until we can
