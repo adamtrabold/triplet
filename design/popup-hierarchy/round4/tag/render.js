@@ -27,27 +27,26 @@ const DATA = {
 // [name, state, opts, caption]
 const J = [
   ['busiest', 'busiest', {}, 'Busiest: VEGA in full (starred, visited: punched stub, plan stop 2)'],
+  ['busiest-stamp', 'busiest', { stub: 'stamp' }, 'Busiest with C. Stamped'],
   ['typical', 'typical', {}, 'Typical note, not visited'],
   ['approx', 'approx', {}, 'Approx pin: the 8-line note in full'],
   ['bare', 'bare', {}, 'Name only'],
-  ['shape', 'shape', {}, 'District'],
-  ['signedout', 'busiest', { so: true }, 'Signed out: Star and the stub disabled, Directions live'],
+  ['shape', 'shape', {}, 'District: the string comes out of its seal'],
+  ['signedout', 'busiest', { so: true }, 'Signed out, visited (A): Star and the stub disabled, Directions live'],
   ['signedout-unvisited', 'typical', { so: true }, 'Signed out, not visited'],
-  ['stub-off', 'typical', { stub: 'off' }, 'Stub, not visited: the stub is the Mark visited button'],
+  ['stub-off', 'typical', { stub: 'off' }, 'Not visited: the stub is the Mark visited button'],
   ['stub-punch', 'typical', { stub: 'punch' }, 'A. Punched: a check-shaped hole through the stub'],
-  ['stub-tear', 'typical', { stub: 'tear' }, 'B. Torn off: the stub is gone, the edge is torn'],
   ['stub-stamp', 'typical', { stub: 'stamp' }, 'C. Stamped: the list’s VISITED stamp on the stub'],
+  ['swap', 'typical', { mode: 'swap' }, 'A tag is open: one tap on another pin swaps to its tag'],
   ['pop0', 'typical', { mode: 'tap' }, '1 Tap the pin'],
-  ['pop1', 'typical', { mode: 'pop1' }, '2 The tag pops out of the pin'],
-  ['pop2', 'typical', { mode: 'pop2' }, '3 Drops past its rest; the string pulls straight'],
-  ['pop3', 'typical', { mode: 'pop3' }, '4 Bounces once'],
-  ['pop4', 'typical', { mode: 'rest' }, '5 Hangs still on a straight string'],
+  ['pop1', 'typical', { mode: 'settle' }, '2 The map pans the pin up and the list lowers'],
+  ['pop2', 'typical', { mode: 'pop1' }, '3 The tag grows out of the pin’s foot'],
+  ['pop3', 'typical', { mode: 'pop2' }, '4 Drops past its rest; the string pulls straight'],
+  ['pop4', 'typical', { mode: 'pop3' }, '5 Bounces once; taps go live'],
+  ['pop5', 'typical', { mode: 'rest' }, '6 Hangs still on a straight string'],
   ['punch1', 'typical', { stub: 'punch', stubm: 'press' }, 'A1 Tap the stub'],
-  ['punch2', 'typical', { stub: 'punch', stubm: 'fly' }, 'A2 Punched: the chad drops out'],
+  ['punch2', 'typical', { stub: 'punch', stubm: 'fly' }, 'A2 Punched: the chad drops out; the pin turns to its visited sticker'],
   ['punch3', 'typical', { stub: 'punch' }, 'A3 Visited'],
-  ['tear1', 'typical', { stub: 'tear', stubm: 'press' }, 'B1 Tap the stub'],
-  ['tear2', 'typical', { stub: 'tear', stubm: 'fly' }, 'B2 It tears off and drops'],
-  ['tear3', 'typical', { stub: 'tear' }, 'B3 Visited: a torn edge'],
   ['stamp1', 'typical', { stub: 'stamp', stubm: 'press' }, 'C1 Tap the stub'],
   ['stamp2', 'typical', { stub: 'stamp', stubm: 'fly' }, 'C2 The stamp comes down'],
   ['stamp3', 'typical', { stub: 'stamp' }, 'C3 Stamped'],
@@ -88,6 +87,7 @@ async function setup(b, state) {
       return { x0, y0, x1, y1 }; }, sels);
     const pad = 20, clip = { x: Math.max(0, box.x0 - pad), y: Math.max(0, box.y0 - pad - 40) };
     clip.width = Math.min(390, box.x1 + pad) - clip.x; clip.height = Math.min(844, box.y1 + pad) - clip.y;
+    if (/^pop/.test(name) || name === 'swap') { clip.x = 0; clip.y = 60; clip.width = 390; clip.height = 560; }   // motion frames: one fixed, true-3x window
     const f = n => path.join(OUT, 'stills', `${name}-${n}`);
     await page.screenshot({ path: f('phone@3x.png') });
     await page.screenshot({ path: f('crop@3x.png'), clip });

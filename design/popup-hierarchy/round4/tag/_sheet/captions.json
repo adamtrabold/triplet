@@ -4,6 +4,10 @@
   "Busiest: VEGA in full (starred, visited: punched stub, plan stop 2)"
  ],
  [
+  "busiest-stamp",
+  "Busiest with C. Stamped"
+ ],
+ [
   "typical",
   "Typical note, not visited"
  ],
@@ -17,11 +21,11 @@
  ],
  [
   "shape",
-  "District"
+  "District: the string comes out of its seal"
  ],
  [
   "signedout",
-  "Signed out: Star and the stub disabled, Directions live"
+  "Signed out, visited (A): Star and the stub disabled, Directions live"
  ],
  [
   "signedout-unvisited",
@@ -29,19 +33,19 @@
  ],
  [
   "stub-off",
-  "Stub, not visited: the stub is the Mark visited button"
+  "Not visited: the stub is the Mark visited button"
  ],
  [
   "stub-punch",
   "A. Punched: a check-shaped hole through the stub"
  ],
  [
-  "stub-tear",
-  "B. Torn off: the stub is gone, the edge is torn"
- ],
- [
   "stub-stamp",
   "C. Stamped: the list’s VISITED stamp on the stub"
+ ],
+ [
+  "swap",
+  "A tag is open: one tap on another pin swaps to its tag"
  ],
  [
   "pop0",
@@ -49,19 +53,23 @@
  ],
  [
   "pop1",
-  "2 The tag pops out of the pin"
+  "2 The map pans the pin up and the list lowers"
  ],
  [
   "pop2",
-  "3 Drops past its rest; the string pulls straight"
+  "3 The tag grows out of the pin’s foot"
  ],
  [
   "pop3",
-  "4 Bounces once"
+  "4 Drops past its rest; the string pulls straight"
  ],
  [
   "pop4",
-  "5 Hangs still on a straight string"
+  "5 Bounces once; taps go live"
+ ],
+ [
+  "pop5",
+  "6 Hangs still on a straight string"
  ],
  [
   "punch1",
@@ -69,23 +77,11 @@
  ],
  [
   "punch2",
-  "A2 Punched: the chad drops out"
+  "A2 Punched: the chad drops out; the pin turns to its visited sticker"
  ],
  [
   "punch3",
   "A3 Visited"
- ],
- [
-  "tear1",
-  "B1 Tap the stub"
- ],
- [
-  "tear2",
-  "B2 It tears off and drops"
- ],
- [
-  "tear3",
-  "B3 Visited: a torn edge"
  ],
  [
   "stamp1",

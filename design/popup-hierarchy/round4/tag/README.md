@@ -47,7 +47,7 @@ first frame, and reduced motion shows the tag at rest with no drop.
     something only a paper tag can do, and it repeats the check from the
     pin's visited sticker and the row stamp, so it's one visited idea with a
     new physical act. Shown in `busiest`.
-  - **B. Torn off** (`stub-tear`; motion `tear1`–`tear3`). The stub tears
+  - **B. Torn off** (dropped after review; no stills kept). The stub tears
     along the perforation and drops away. The visited mark is the tag's torn
     deckle edge, and a ✓ VISITED control joins the button row so you can
     undo it. Most dramatic, but it adds a third button when visited and loses
@@ -72,6 +72,64 @@ show whole. The tension with covering the map is handled like this:
 - Only a tag taller than the space left would scroll inside, with a fade.
   No real row in the data does.
 
+## Fixes after `cd-review.md` and `ux-review.md`
+
+- **B. Torn off is dropped.** Both reviewers killed it on the idea: the
+  control moves. The owner sees **A. Punched** and **C. Stamped** side by
+  side (`busiest` and `busiest-stamp`, plus the `punch*` and `stamp*`
+  strips). The text above describing B is history.
+- **The punch reads as a hole.** It's now 28px. The map shows through, in
+  the tag's own shadow, with a soft shadow along the hole's upper rim and no
+  outline (`stub-punch-crop@3x`: the street lines show through). If it still
+  doesn't read as a hole to the owner at 1x, C goes alone.
+- **Signed-out A looks disabled.** The hole's shadow and the stub dim to
+  the state system's off alpha, as well as the label (`signedout`).
+- **The chad is visible.** It's 30px, a paper check with a drop shadow,
+  falling below the stub (`punch2`).
+- **The pin matches the stub.** In every visited frame the pin is the
+  shipped dark sticker with the cream check (`punch2`, `punch3`,
+  `stub-punch`, `stub-stamp`, `stamp3`). Before the tap it is the
+  unvisited pin.
+- **Fewer circles under the pin.** The eyelet is a neutral paper grommet
+  (`#CFC5B1`), and the header band's type icon is gone. The pin is the only
+  category mark in that column.
+- **Districts.** While a district's tag is open, its own diamond seal (the
+  mark Plans uses for shape stops) sits at the anchor, and the string comes
+  out of it (`shape`). This is a new transient map mark for shapes: an
+  owner decision.
+- **Stamp C is the real component.** It's the same `.row-stamp` DOM as the
+  list rows (ring, dotted track, navy 82%, tilt), not new art.
+- **One stroke for empty controls.** The ○ MARK VISITED ring is now 1.33px,
+  the star outline's weight at 16px.
+- **Address: the owner's short form.** "#1 since there's a directions
+  button". It shows street + number · neighbourhood. The rule is the same
+  as Card File's `shortAddr()`: drop a leading segment that repeats the
+  name, join a bare house number to its street, keep the next segment. It
+  never shows the place name, postcode, municipality or country. VEGA →
+  "Rejsbygade · Humleby"; Aurora → "Fiskislóð 53 · Örfirisey". The only
+  difference from Card File is the separator: "·" here, per the owner's
+  example, and ", " in Card File. They should match; one designer will
+  align. Whether the full string stays reachable by tap is UX's call, so
+  the › is gone from the mock.
+- **Motion order.** Tap (`pop0`), then the map pans and the list lowers
+  with nothing tappable yet (`pop1`), then the tag grows out of the pin's
+  foot (`pop2`), drops (`pop3`) and bounces (`pop4`, taps go live), then
+  rest (`pop5`). Motion crops are a fixed 390×560 window at a true 3x.
+- **Tall tags, the swap rule** (`swap`): a tap on any visible pin opens
+  that pin's tag in one tap, replacing this one. The map stays draggable
+  around the tag. A drag that starts on the tag moves nothing, and a pan
+  doesn't close the tag.
+- **The list while a tag is open.** Opening a tag lowers the list to its
+  header. Closing the tag (× or a map tap) puts the list back at exactly
+  the height and scroll it had; if you had collapsed it yourself, it stays
+  collapsed. Tapping ▼ in the header while a tag is open closes the tag and
+  raises the list, with the place's row still selected and scrolled into
+  view. **For the owner, one line:** "while a tag is open, the list drops to
+  its header."
+- **Stub width.** It's still mostly empty to the right of one control. I
+  left it: it's a single 52px full-width target. Filling it would mean
+  adding information (a visited date isn't stored).
+
 ## Truth list (`docs/ux-brief.md`)
 
 - **J1 identify:** the name in condensed lettering, with the address right
@@ -79,11 +137,12 @@ show whole. The tension with covering the map is handled like this:
 - **J2 decide:** the whole note at 14/20 ink, every length.
 - **J3 Directions, J5 Star:** one tap each, in the button row.
 - **J4 Visited:** one tap on the stub, which is a full-width target about
-  52px tall.
+  52px tall. Undo is a tap on the same stub (A and C).
 - **J6 plan stop:** "STOP 2 OF 3" in the header band.
 - **J7 close:** a 44px × in the header band, plus map tap. Closing restores
   the list sheet.
-- **J8 address:** the line under the name, with the full address on tap.
+- **J8 address:** the short form under the name. Full-string access is
+  UX's call.
 - **J10 from the list:** list tap → fly → the tag pops out of the pin.
 - **Signed out** (`signedout`, `signedout-unvisited`): Star and the stub
   are visible but disabled (state system off alpha). Directions stays live;
@@ -102,8 +161,8 @@ show whole. The tension with covering the map is handled like this:
   `../../round3/concepts.js`.
 
 States: `busiest`, `typical`, `approx`, `bare`, `shape`, `signedout`,
-`signedout-unvisited`, `stub-off` / `stub-punch` / `stub-tear` /
-`stub-stamp`. Motion: `pop0`–`pop4`, `punch1`–`punch3`, `tear1`–`tear3`,
+`signedout-unvisited`, `stub-off` / `stub-punch` /
+`stub-stamp`, `busiest-stamp`, `swap`. Motion: `pop0`–`pop5`, `punch1`–`punch3`,
 `stamp1`–`stamp3`. Pink lines and rings are annotations.
 
 ## Tensions not resolved
@@ -115,9 +174,6 @@ States: `busiest`, `typical`, `approx`, `bare`, `shape`, `signedout`,
 - **Lowering the list while a tag is open** is still my call. The owner
   hasn't ruled on it. It's what keeps the orange selected row from
   outranking the tag.
-- **Torn-off (B)** makes the visited control move into the button row once
-  the stub is gone, which brushes against "controls don't move". Punched (A)
-  and Stamped (C) keep one slot.
 - **The punched hole shows the map through it,** so its contrast depends on
   the tiles under it. Real OSM tiles are unchecked; the basemap here is a
   stand-in.
