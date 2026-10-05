@@ -68,17 +68,19 @@
 
 <h2 style="margin-top:8px">What each piece is for, in order</h2>
 <div class="tiers">
-  <div class="tier t1"><b class="k">Tier 1 · first glance</b><span><b>Name</b>, <b>type</b> (icon + word), <b>your marks</b> (starred, visited) as state</span></div>
-  <div class="tier t2"><b class="k">Tier 2 · deciding / doing it now</b><span><b>Notes</b> (why you saved it), <b>Get Directions</b>, <b>Mark Visited</b>, <b>Stop n of m</b> in Plans</span></div>
+  <div class="tier t1"><b class="k">Tier 1 · first glance</b><span><b>Name</b>, <b>notes</b> (why you saved it), <b>your marks</b> (starred, visited) as state; <b>type</b> at the bottom of tier 1</span></div>
+  <div class="tier t2"><b class="k">Tier 2 · doing it now</b><span><b>Get Directions</b>, <b>Mark Visited</b>, <b>Stop n of m</b> in Plans; type if it doesn't fit tier 1</span></div>
   <div class="tier t3"><b class="k">Tier 3 · sometimes</b><span>Star button (planning; rows can swipe too), close, the neighbourhood part of the address</span></div>
   <div class="tier t4"><b class="k">Tier 4 · only when asked</b><span>Full address (postcode, county, country), the "approximate placement" note</span></div>
 </div>
 
+<p class="muted" style="margin-top:8px">Updated with your correction: "Type is actually tier 2 imo — or bottom of tier 1. Notes are tier 1". Type still goes above the name, just lighter. <s>Was: tier 1 name + type + marks; notes in tier 2.</s></p>
+
 <h2>The 5 biggest mismatches</h2>
 <ol class="mis">
   <li><b>The address is the heaviest thing and the least needed.</b> Your addresses are full OSM strings (avg 103 characters, 135 of 202 over 90) so they take 3 lines. It carries 2.4x the ink of the name.</li>
-  <li><b>Your notes are styled as fine print.</b> They're the only place your reasons appear in the whole app, yet they're small grey italic, under the address, up to 8 lines, with line breaks lost.</li>
-  <li><b>Type is at the bottom</b>, ~235px below the name in a full popup. You asked for it above the name. The popup icon is also still bare while the pin and row show it in a ring.</li>
+  <li><b>Your notes are tier 1 but styled as fine print.</b> They're the only place your reasons appear in the whole app, yet they're small grey italic, under the address, with line breaks lost.</li>
+  <li><b>Type is at the bottom</b>, ~235px below the name in a full popup. You asked for it above the name; it should sit there but read lighter than the name and notes. The popup icon is also still bare while the pin and row show it in a ring.</li>
   <li><b>Spacing follows invisible tap boxes, not the 4px scale.</b> Gaps you can see: 3, 10, 25, 37, 42px. A name-only popup is 162px tall and about 70% empty.</li>
   <li><b>Five controls in four corners.</b> Star top-left, × top-right, Directions middle-left, Visited bottom-right. Directions is the only coloured thing, so it shouts; Mark Visited (the trip's other key action) is the quietest.</li>
 </ol>
@@ -117,9 +119,9 @@
 <div class="scroll"><table class="wide">
 <tr><th>Piece</th><th>Purpose</th><th>Must be in first view?</th><th>If it moves, you lose</th></tr>
 <tr><td><b>Name</b></td><td>Confirms the right place</td><td>Yes</td><td>Everything</td></tr>
-<tr><td><b>Type</b></td><td>What kind of place / approx / district / street</td><td>Yes, above the name (your ask)</td><td>Partly shown by the pin under the tip</td></tr>
+<tr><td><b>Type</b></td><td>What kind of place / approx / district / street</td><td>Yes, above the name, lighter than name and notes</td><td>Partly shown by the pin under the tip</td></tr>
 <tr><td><b>Starred / Visited state</b></td><td>"I care" / "been there"</td><td>Yes, as state</td><td>The pin shows visited too</td></tr>
-<tr><td><b>Notes</b></td><td>Why you saved it, tips, dates</td><td>At least the start; full text ≤1 tap away</td><td>The only place notes exist in the app</td></tr>
+<tr><td><b>Notes</b></td><td>Why you saved it, tips, dates</td><td>Yes, readable with no tap for typical notes (~3 lines); only very long ones fold, full text ≤1 tap. <s>Was: just the start.</s></td><td>The only place notes exist in the app</td></tr>
 <tr><td><b>Get Directions</b></td><td>Hand off to Maps on the trip</td><td>Yes, one tap</td><td>Time on the street</td></tr>
 <tr><td><b>Mark Visited</b></td><td>Record a visit from the map</td><td>Yes, one tap</td><td>The map's only (and VoiceOver's only) visit path</td></tr>
 <tr><td>Star button</td><td>Star from the map</td><td>One tap away is enough</td><td>Rows can swipe; VoiceOver can't</td></tr>
@@ -132,11 +134,11 @@
 <p class="muted">"Ink" = how much darkness each piece puts on screen, measured on the renders.</p>
 <div class="scroll"><table>
 <tr><th>VEGA popup</th><th class="num">Ink</th><th>Should be</th></tr>
-<tr><td>Notes</td><td class="num hl">1,700</td><td>Tier 2</td></tr>
+<tr><td>Notes</td><td class="num hl">1,700</td><td>Tier 1 (right weight, wrong style and place)</td></tr>
 <tr><td>Address</td><td class="num hl">1,248</td><td>Tier 4</td></tr>
 <tr><td>Name</td><td class="num">514</td><td>Tier 1</td></tr>
 <tr><td>Visited</td><td class="num">218</td><td>Tier 1 (state) / 2 (action)</td></tr>
-<tr><td>Type</td><td class="num">182</td><td>Tier 1</td></tr>
+<tr><td>Type</td><td class="num">182</td><td>Bottom of tier 1 / tier 2</td></tr>
 <tr><td>Directions (only colour)</td><td class="num">180</td><td>Tier 2</td></tr>
 <tr><td>Star</td><td class="num">112</td><td>Tier 1 state / 3 button</td></tr>
 </table></div>
@@ -160,7 +162,7 @@
   <li>List tap → map flies → place opens, the same for pins, districts, streets and approx pins (same content for every kind).</li>
   <li>A 44px close plus tap-the-map to close.</li>
   <li>The glance layer never covers the whole map.</li>
-  <li>Full notes ≤1 tap away; full address reachable.</li>
+  <li>Typical notes readable at first glance, no tap; only very long ones fold (full text ≤1 tap). Full address reachable.</li>
   <li>Anything outside the popup (tab, side or bottom sheet) must not fight the list sheet, its swipes, Safari's edge back-swipe, or change filters / scroll / selection.</li>
   <li>No marks for empty data ("no star unless starred" for marks; how the off-star <i>button</i> reads is the designer's call).</li>
 </ol></div>

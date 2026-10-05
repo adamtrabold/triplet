@@ -21,14 +21,27 @@ should already exist - if not create it".
 
 ## 0. Thirty-second version
 
-**Intended hierarchy** (my call, from the jobs below):
+**Intended hierarchy** (owner-corrected 2026-10-05: "Type is actually tier 2
+imo — or bottom of tier 1. Notes are tier 1"):
 
 | Tier | Read when | Content |
 |---|---|---|
-| 1 | first glance | **Name**, **type** (category glyph + word; approx/district/street kind), **your marks** (starred, visited) as state |
-| 2 | deciding / acting now | **Notes** (why you saved it), **Get Directions**, **Mark Visited**, **Stop n of m** (Plans only) |
+| 1 | first glance | **Name**, **notes** (why you saved it), **your marks** (starred, visited) as state; **type** at the bottom of tier 1 |
+| 2 | acting now | **Type** if it doesn't fit tier 1 (owner: "tier 2 ... or bottom of tier 1"), **Get Directions**, **Mark Visited**, **Stop n of m** (Plans only) |
 | 3 | sometimes | **Star toggle** (planning; rows can also swipe), **close**, neighbourhood part of the address |
 | 4 | on demand | **Full address** (postcode, municipality, county, country), approx-placement provenance |
+
+Superseded (my first tiering): T1 name + type + marks; T2 notes + Directions + Mark Visited + Stop n of m.
+"type should go back above the name" is **not withdrawn**: type keeps its
+place above the name, it just carries less weight than the name and notes.
+
+**What the correction changes downstream** (details in sections 4, 5, 7):
+notes move from "at least the start, full text one tap away" to **readable at
+first glance with no tap** for typical notes; M2 becomes the biggest mismatch
+(tier-1 content at the quietest weight); type keeps its position ask but its
+weight should sit below name and notes; the glance layer is now bigger, so
+"don't cover the map" (C7) and "show the note" pull against each other and
+the design loop must resolve that, not trim the note.
 
 **Biggest mismatches** (evidence in section 5):
 
@@ -136,10 +149,10 @@ is lost if it leaves the popup's first view (tab, sheet, second layer).
 | Element | Purpose (job) | When needed | Frequency (I) | Must be in the popup's first view? | If it moves, you lose |
 |---|---|---|---|---|---|
 | Name | J1, confirms the right pin | glance | every open | **Yes** | identity; every other line depends on it |
-| Type | J1, kind of place; kind of geometry (approx/district/street) | glance | every open | **Yes**, owner wants it above the name | partly duplicated by the pin glyph under the tip, so the popup copy can be light, not absent |
+| Type | J1, kind of place; kind of geometry (approx/district/street) | glance, but secondary (owner: "tier 2 ... or bottom of tier 1") | every open | **Yes**, above the name (not withdrawn), lighter than name and notes | partly duplicated by the pin glyph under the tip, so the popup copy can be light, not absent |
 | Starred (state) | J2, "I care about this" | glance | every open | state yes; the hollow "off" mark is a control, not information | — |
 | Visited (state) | J2, "been there" | glance on trip | every open on trip | state yes | the pin sticker also shows it |
-| Notes | J2, why I saved it, tips, times | deciding | most opens (75% have one) | at least its start; full text can be one step away | the only place notes exist in the app; hiding all of it removes the reason to open the popup |
+| Notes | J2, why I saved it, tips, times | first glance (owner: tier 1) | most opens (75% have one) | **Yes, readable with no tap** for typical notes (p90 = 109 chars, about 3 lines at 300px); only the long tail (max 357 chars, 8 lines) may fold, full text ≤1 tap. *Was: "at least its start; full text one step away" (superseded).* | the only place notes exist in the app; hiding them removes the reason to open the popup |
 | Get Directions | J3 | acting, on trip | high on trip, ~0 at home | **Yes**, one tap | the only route-out; a second tap on the street costs real time |
 | Mark Visited | J4 | right after a visit | once per place | **Yes**, one tap (the map's only visit path; the a11y path) | swipe exists only in the list |
 | Star toggle | J5 | planning | low on trip | reachable in one tap from the popup (it's the map's and VoiceOver's only star path) | row swipe exists; the control can be quieter than the state |
@@ -167,20 +180,26 @@ filled black star, a solid shape at the leading edge; (4) the name, darkest
 but one short line; (5) the navy Visited dot; (6) the type glyph; (7) the 10px
 caps words; (8) ×.
 
-Intended: name + type → your marks → notes → actions → address.
+Intended (owner-corrected): name + notes + your marks → type (above the name in
+position, lighter in weight) → actions → address. *Was: name + type → marks →
+notes → actions → address (superseded).*
 
 Mismatches:
 
 - **M1 Address outweighs the name** 2.4x (busiest), 2.4x (typical). Tier 4
   content holding tier-1 weight and position (directly under the name).
-- **M2 Notes are the biggest block yet the weakest style.** Italic grey reads
+- **M2 Notes are tier 1 (owner) yet the weakest style.** Italic grey reads
   as "fine print", but it's the owner's own research and appears nowhere else.
+  With notes in tier 1 this is now the biggest mismatch: the problem is the
+  note's *style and position* (under a 3-line address), not its size.
   Paragraph breaks are dropped (the approx note's provenance runs on from the
   shop list).
 - **M3 Type is last.** Owner: "type should go back above the name". Name→type
   distance: 1 line in the list row, ~235px in the busiest popup. The popup
   glyph is a bare 20px glyph; the pin and row show it in a ring (owner: "icon
-  is treated differently ... why?" — still true).
+  is treated differently ... why?" — still true). With type at "tier 2 ... or
+  bottom of tier 1", the position ask stands but the weight should be below
+  name and notes: this is a placement fix, not a promotion.
 - **M4 Action weight is inverted for the trip.** Directions is the only
   coloured element; Mark Visited and the star are grey/outline 10px. The
   trip's two key actions (go, mark) read at very different volumes. The
@@ -238,9 +257,12 @@ Must preserve (shipped, owner-confirmed or rule):
    information and capabilities").
 6. Dismiss: an explicit close ≥44px plus map-tap-to-close.
 7. No full-screen takeover of the map for the glance tier: the glance must
-   leave the neighbouring map visible.
-8. Notes must stay fully readable somewhere reachable in ≤1 tap; the full
-   address must stay reachable (geocode audit).
+   leave the neighbouring map visible. With notes now in the glance tier this
+   pulls against C8; the loop resolves it by layout, not by hiding the note.
+8. Notes are tier 1: a typical note (p90 = 109 chars) is readable at first
+   glance with **no tap**; only the long tail may fold, with the full text
+   ≤1 tap away. The full address must stay reachable (geocode audit).
+   *Was: "notes fully readable somewhere reachable in ≤1 tap" (superseded).*
 9. Content that leaves the popup (tab, side sheet, bottom sheet) must not
    collide with the list sheet, its gestures, or Safari's edge back-swipe
    (24px edges), and must not change the list's filters/scroll/selection.
@@ -290,6 +312,20 @@ State findings (probed, `statecheck.js`):
 - Notes lose line breaks (`white-space` normal).
 - `hours` column is unused (0 rows): don't design for it yet.
 - Directions is driving mode (`dirflg=d`).
+
+## 11. Effect of the owner's correction on the Round 1 review
+
+`round1/ux-review.md` judged note peeks against the old "start visible, full
+text ≤1 tap" bar. Under notes = tier 1:
+- **2 Folded Note:** the 1-line peek now fails J2 at first glance (was
+  friction). Round 2 needs a peek that shows a typical note whole (~3 lines at
+  300px), folding only the long tail.
+- **6 Map Label + Dock / H1:** the 2-line dock peek is short of typical notes;
+  same fix. The note must sit in the glance layer, not only on raise.
+- **3 Place Sheet / H2:** the 3-line peek meets the bar for ~90% of notes.
+- **1 Quiet Fix / 8:** full note always shown: meets it.
+- Type: the eyebrow placement in all concepts still fits (above the name,
+  quiet); no ruling changes.
 
 ## Not verified
 

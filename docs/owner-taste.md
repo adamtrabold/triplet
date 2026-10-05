@@ -36,6 +36,11 @@ sources are the file where the quote is recorded.
   hierarchy is starting to struggle" (popup; chat).
 - **Type goes above the name.** "type should go back above the name"
   (popup; chat).
+- **In the popup, notes are tier 1; type is tier 2 or the bottom of tier 1.**
+  "Type is actually tier 2 imo — or bottom of tier 1. Notes are tier 1"
+  (2026-10-05, popup; chat, correcting `design/popup-hierarchy/ux-analysis.md`).
+  This re-weights type; it does not withdraw "type should go back above the
+  name".
 - **Don't show empty states as marks.** "No star unless it's been starred"
   (list row; chat).
 
