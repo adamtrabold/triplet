@@ -101,6 +101,9 @@ operator makes none of these calls.
 ## Architecture
 
 - `locations`: pins — `city`, `category`, `lat/lng`, `visited`, `starred`.
+- `locations.address_details` (raw Nominatim `address` jsonb) / `short_address`
+  ("street number · area", `deriveShortAddress()`, duplicated in
+  `tools/short-address-backfill.html`): written at add time; not shown yet.
 - `neighborhood_shapes`: districts/streets — `city`, `type`
   (`district`|`street`), `geometry` (array of `[lat,lng]`, not GeoJSON),
   fetched live from OSM (Nominatim polygon / Overpass way) at add time;

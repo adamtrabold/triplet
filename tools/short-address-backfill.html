@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triplet — Short Address Backfill</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; color: #222; background: #fff; }
+  h1 { font-size: 1.3rem; }
+  p.desc { color: #555; line-height: 1.5; font-size: 0.92rem; }
+  button { background: #A8C5DD; border: none; padding: 0.7rem 1.2rem; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; margin: 0 0.4rem 0.5rem 0; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  input[type=email], input[type=password] { padding: 0.5rem; font-size: 1rem; margin: 0 0.4rem 0.5rem 0; width: 14rem; max-width: 100%; }
+  #status, #progress { margin: 0.6rem 0; font-weight: 600; }
+  .err { color: #B04A2A; }
+  .ok { color: #4a7c3f; }
+  .row { display: flex; gap: 0.6rem; align-items: flex-start; border-top: 1px solid #e6e6e6; padding: 0.6rem 0; }
+  .row input { margin-top: 0.25rem; width: 1.1rem; height: 1.1rem; flex: none; }
+  .row .body { min-width: 0; }
+  .row .name { font-weight: 600; }
+  .row .meta { color: #888; font-size: 0.75rem; }
+  .row .full { color: #666; font-size: 0.82rem; overflow-wrap: anywhere; }
+  .row .short { font-size: 0.95rem; margin: 0.15rem 0; }
+  .row .short::before { content: "→ "; color: #888; }
+  .row.none .short { color: #B04A2A; }
+  .row.written { opacity: 0.45; }
+  #bar { position: sticky; top: 0; background: #fff; padding: 0.5rem 0 0.2rem; z-index: 2; border-bottom: 1px solid #ddd; }
+</style>
+</head>
+<body>
+<h1>Triplet — Short Address Backfill</h1>
+<p class="desc">
+  Gives every saved place a short address (“street number · area”, e.g. <em>Jægersborggade 57 · Nørrebro</em>)
+  for the redesigned popup. For each place with no stored address details it asks OpenStreetMap (Nominatim) once,
+  at most one request a second: first a search for the place's saved address (kept only if it lands within
+  250&nbsp;m of the pin), otherwise a reverse lookup at the pin. Nothing is written until you press
+  <strong>Write</strong>, and only places still missing details are written. Lookups are remembered in this
+  browser, so you can close the page and come back: it picks up where it stopped.
+</p>
+
+<div id="auth">
+  <div id="authStatus">Checking sign-in…</div>
+  <form id="signin" style="display:none; margin-top:0.5rem;">
+    <input type="email" id="email" placeholder="Email" autocomplete="username" required>
+    <input type="password" id="password" placeholder="Password" autocomplete="current-password" required>
+    <button type="submit">Sign in</button>
+  </form>
+</div>
+
+<div id="bar">
+  <button id="loadBtn" disabled>1. Load places</button>
+  <button id="lookupBtn" disabled>2. Look up</button>
+  <button id="stopBtn" disabled>Pause</button>
+  <button id="writeBtn" disabled>3. Write checked</button>
+  <div id="progress"></div>
+</div>
+<div id="status"></div>
+<div id="rows"></div>
+
+<script>
+// Same project + publishable key as index.html. Served from the same GitHub
+// Pages origin, so a session signed in on the app is reused here.
+const SUPABASE_URL = 'https://jgvckilmltimabfdvaly.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_TiO_hACvlsn4mfFazsHTlg_i9BnzCfr';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ---------------------------------------------------------------------------
+// DUPLICATED PORT of index.html's short-address rules (no build step): keep
+// SHORT_ADDR_*, shortAddrWords() and deriveShortAddress() identical to the
+// copy in index.html ("---- short address" block). Rules: docs/shipped.md
+// "Short address".
+// ---------------------------------------------------------------------------
+const SHORT_ADDR_ROAD_KEYS = ['road', 'pedestrian', 'square', 'footway', 'path', 'cycleway', 'place'];
+const SHORT_ADDR_AREA_KEYS = ['suburb', 'borough', 'city_district', 'quarter', 'neighbourhood', 'district',
+                              'village', 'town', 'hamlet', 'city', 'municipality'];
+const SHORT_ADDR_ADMIN_RE = /stadsdelsområde|stadsdel\b|bydel\b|municipality|kommun|county|\bregion\b/i;
+const SHORT_ADDR_NUMBER_FIRST = new Set(['us', 'ca', 'gb', 'ie', 'au', 'nz', 'fr', 'lu']);
+
+function shortAddrWords(s) {
+  return ' ' + String(s || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ').trim() + ' ';
+}
+
+function deriveShortAddress(details, placeName) {
+  if (!details || typeof details !== 'object') return '';
+  const nameWords = shortAddrWords(placeName);
+  const inName = part => nameWords.trim() !== '' && nameWords.includes(shortAddrWords(part));
+  const roadKey = SHORT_ADDR_ROAD_KEYS.find(k => details[k]);
+  const road = roadKey ? String(details[roadKey]).trim() : '';
+  let street = '';
+  if (road && !inName(road)) {
+    const num = details.house_number ? String(details.house_number).trim() : '';
+    street = !num ? road
+      : SHORT_ADDR_NUMBER_FIRST.has(String(details.country_code || '').toLowerCase()) ? `${num} ${road}` : `${road} ${num}`;
+  }
+  let area = '';
+  for (const k of SHORT_ADDR_AREA_KEYS) {
+    const v = details[k] ? String(details[k]).trim() : '';
+    if (!v || SHORT_ADDR_ADMIN_RE.test(v) || inName(v)) continue;
+    if (road && shortAddrWords(v) === shortAddrWords(road)) continue;
+    area = v;
+    break;
+  }
+  return [street, area].filter(Boolean).join(' · ');
+}
+// ---- end of duplicated port ------------------------------------------------
+
+// The approx-pin suffix is not part of the place's name for name-dedup.
+const placeName = r => String(r.name || '').replace(/\s*\(approx\.\)\s*$/i, '');
+
+// ---- Nominatim: <= 1 request/second ----------------------------------------
+// Browsers cannot set User-Agent; the request carries this page's origin as
+// its Referer (the policy's other accepted identification).
+const SPACING_MS = 1100;
+const NEAR_M = 250;
+let lastReqAt = 0;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function nominatimGet(path, params) {
+  const wait = lastReqAt + SPACING_MS - Date.now();
+  if (wait > 0) await sleep(wait);
+  lastReqAt = Date.now();
+  const res = await fetch(`https://nominatim.openstreetmap.org/${path}?${new URLSearchParams(params)}`,
+    { referrerPolicy: 'strict-origin-when-cross-origin', signal: AbortSignal.timeout(15000) });
+  if (res.status === 429) throw new Error('rate limited (HTTP 429): pause and try again later');
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+function distM(a, b) {
+  const R = 6371000, rad = Math.PI / 180;
+  const dLat = (b[0] - a[0]) * rad, dLng = (b[1] - a[1]) * rad;
+  const s = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * rad) * Math.cos(b[0] * rad) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+// -> { details, source, note } ; details null when both lookups found nothing.
+async function lookup(row) {
+  const pin = [Number(row.lat), Number(row.lng)];
+  if (row.address) {
+    const hits = await nominatimGet('search', { format: 'jsonv2', q: row.address, limit: '1', addressdetails: '1' });
+    if (hits && hits[0] && hits[0].address) {
+      const d = distM(pin, [parseFloat(hits[0].lat), parseFloat(hits[0].lon)]);
+      if (d <= NEAR_M) return { details: hits[0].address, source: 'search', note: `${Math.round(d)} m from pin` };
+    }
+  }
+  const rev = await nominatimGet('reverse', { format: 'jsonv2', lat: String(pin[0]), lon: String(pin[1]), zoom: '18', addressdetails: '1' });
+  if (rev && rev.address) return { details: rev.address, source: 'reverse', note: rev.display_name || '' };
+  return { details: null, source: 'none', note: 'no result' };
+}
+
+// ---- resumable cache (this browser only) -------------------------------------
+const CACHE_KEY = 'triplet.shortAddressBackfill.v1';
+function readCache() { try { return JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch (e) { return {}; } }
+function writeCache(c) { try { localStorage.setItem(CACHE_KEY, JSON.stringify(c)); } catch (e) { /* private mode: no resume */ } }
+let cache = readCache();
+
+// ---- UI ------------------------------------------------------------------------
+const $ = id => document.getElementById(id);
+let rows = [];
+let stopRequested = false;
+let signedIn = false;
+
+function setStatus(text, cls) { $('status').textContent = text; $('status').className = cls || ''; }
+
+function renderRows() {
+  const box = $('rows');
+  box.textContent = '';
+  rows.forEach(r => {
+    const hit = cache[r.id];
+    const short = hit && hit.details ? deriveShortAddress(hit.details, placeName(r)) : '';
+    const el = document.createElement('label');
+    el.className = 'row' + (hit && !hit.details ? ' none' : '') + (r._written ? ' written' : '');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.dataset.id = r.id;
+    cb.checked = !!(hit && hit.details) && !r._written;
+    cb.disabled = !(hit && hit.details) || !!r._written;
+    const body = document.createElement('div');
+    body.className = 'body';
+    const add = (cls, text) => { const d = document.createElement('div'); d.className = cls; d.textContent = text; body.appendChild(d); };
+    add('name', r.name);
+    add('full', r.address || '(no saved address)');
+    add('short', !hit ? 'not looked up yet' : !hit.details ? 'nothing found: left as is' : (short || '(nothing short to show: saved as empty)'));
+    add('meta', `${r.city} · ${hit ? `${hit.source}${hit.note ? ' · ' + hit.note : ''}` : 'pending'}${r._written ? ' · written' : ''}`);
+    el.appendChild(cb);
+    el.appendChild(body);
+    box.appendChild(el);
+  });
+  const looked = rows.filter(r => cache[r.id]).length;
+  $('progress').textContent = rows.length ? `${looked} / ${rows.length} looked up` : '';
+  $('writeBtn').disabled = !signedIn || !rows.some(r => cache[r.id] && cache[r.id].details && !r._written);
+  $('lookupBtn').disabled = !rows.length || looked === rows.length;
+}
+
+async function refreshAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  const email = session && session.user && session.user.email;
+  signedIn = !!email;
+  $('authStatus').textContent = email ? `Signed in as ${email}.` : 'Not signed in. Sign in with your Triplet account to write.';
+  $('signin').style.display = email ? 'none' : 'block';
+  $('loadBtn').disabled = false;
+  renderRows();
+}
+
+$('signin').onsubmit = async (e) => {
+  e.preventDefault();
+  const { error } = await sb.auth.signInWithPassword({ email: $('email').value, password: $('password').value });
+  if (error) setStatus(error.message, 'err');
+  else { setStatus(''); await refreshAuth(); }
+};
+
+$('loadBtn').onclick = async () => {
+  setStatus('Loading…');
+  const { data, error } = await sb.from('locations')
+    .select('id,name,address,lat,lng,city')
+    .is('address_details', null)
+    .order('city').order('name');
+  if (error) {
+    const missing = /address_details/.test(error.message || '');
+    setStatus(missing ? 'The short-address migration has not been applied to the database yet.' : `Could not load: ${error.message}`, 'err');
+    return;
+  }
+  rows = data || [];
+  setStatus(rows.length ? `${rows.length} places have no address details yet.` : 'Every place already has address details. Nothing to do.', rows.length ? '' : 'ok');
+  renderRows();
+};
+
+$('lookupBtn').onclick = async () => {
+  stopRequested = false;
+  $('lookupBtn').disabled = true;
+  $('loadBtn').disabled = true;
+  $('stopBtn').disabled = false;
+  for (const r of rows) {
+    if (stopRequested) break;
+    if (cache[r.id]) continue;
+    $('progress').textContent = `Looking up ${r.name}…`;
+    try {
+      cache[r.id] = await lookup(r);
+      writeCache(cache);
+    } catch (err) {
+      setStatus(`Stopped at ${r.name}: ${err.message}. Press Look up to continue.`, 'err');
+      break;
+    }
+    renderRows();
+  }
+  $('stopBtn').disabled = true;
+  $('loadBtn').disabled = false;
+  renderRows();
+};
+
+$('stopBtn').onclick = () => { stopRequested = true; $('stopBtn').disabled = true; };
+
+$('writeBtn').onclick = async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { setStatus('Sign in first.', 'err'); return; }
+  const ids = [...document.querySelectorAll('#rows input[type=checkbox]:checked')].map(cb => cb.dataset.id);
+  if (!ids.length) { setStatus('Nothing checked.'); return; }
+  $('writeBtn').disabled = true;
+  let ok = 0, skipped = 0;
+  const failures = [];
+  for (const id of ids) {
+    const r = rows.find(x => x.id === id);
+    const hit = cache[id];
+    const short = deriveShortAddress(hit.details, placeName(r)) || null;
+    // .is('address_details', null): never overwrite details written since load.
+    const { data, error } = await sb.from('locations')
+      .update({ address_details: hit.details, short_address: short })
+      .eq('id', id).is('address_details', null)
+      .select('id');
+    if (error) failures.push(`${r.name}: ${error.message}`);
+    else if (!data || !data.length) skipped++;   // already filled, or RLS refused (not an owner account)
+    else { ok++; r._written = true; }
+  }
+  setStatus(`Wrote ${ok}.` + (skipped ? ` ${skipped} not changed (already filled, or this account can't write).` : '') +
+    (failures.length ? ` Failed: ${failures.join('; ')}` : ''), failures.length || skipped ? 'err' : 'ok');
+  renderRows();
+};
+
+refreshAuth();
+</script>
+</body>
+</html>

@@ -3073,13 +3073,49 @@
       showInfo(isNetworkError(err) ? 'Offline. Showing what’s loaded.' : 'Couldn’t load. Showing what’s loaded.', source);
     }
 
+    // The short-address columns (address_details, short_address; migration
+    // 20261005000000_add_short_address.sql) may not exist yet: index.html
+    // deploys on push, possibly before the migration runs. PostgREST then
+    // refuses the whole insert (PGRST204 "Could not find the '...' column"),
+    // so addLocation() retries once without them and stops sending them for
+    // the rest of the session. Nothing reads them yet (popup redesign).
+    const SHORT_ADDRESS_COLUMNS = ['address_details', 'short_address'];
+    let shortAddressColumnsMissing = false;
+
+    function isMissingShortAddressColumn(error) {
+      if (!error) return false;
+      const text = `${error.code || ''} ${error.message || ''} ${error.details || ''}`;
+      return (error.code === 'PGRST204' || error.code === '42703' || /column/i.test(text))
+        && SHORT_ADDRESS_COLUMNS.some(c => text.includes(c));
+    }
+
+    function withoutShortAddress(loc) {
+      const rest = { ...loc };
+      SHORT_ADDRESS_COLUMNS.forEach(c => delete rest[c]);
+      return rest;
+    }
+
+    // The fields addLocation() stores for a Nominatim `address` object; {} when
+    // there are none, so a caller can always spread it into the row.
+    function shortAddressFields(details, placeName) {
+      if (!details || typeof details !== 'object' || !Object.keys(details).length) return {};
+      return { address_details: details, short_address: deriveShortAddress(details, placeName) || null };
+    }
+
     async function addLocation(loc) {
       if (!await requireAuth()) return;
 
       try {
-        const { error } = await supabaseClient
+        const hasShort = SHORT_ADDRESS_COLUMNS.some(c => c in loc);
+        let { error } = await supabaseClient
           .from('locations')
-          .insert([loc]);
+          .insert([shortAddressColumnsMissing ? withoutShortAddress(loc) : loc]);
+
+        if (error && hasShort && !shortAddressColumnsMissing && isMissingShortAddressColumn(error)) {
+          shortAddressColumnsMissing = true;
+          console.warn('locations short-address columns missing; saved without them.', error.message);
+          ({ error } = await supabaseClient.from('locations').insert([withoutShortAddress(loc)]));
+        }
 
         if (error) throw error;
         await refetchLocations();
@@ -3225,6 +3261,64 @@
       return response.json();
     }
 
+    // ---- short address ---------------------------------------------------------
+    // Owner (2026-10-05), choosing a stored short form over trimming the full
+    // string: "#1 since there's a directions button". Why it matters:
+    // "sometimes the address *does* matter at a glance, if something has
+    // multiple locations or something". So: "street + number · area", enough to
+    // tell WHICH branch / WHERE, never a postal address (Directions navigates).
+    // Input is a Nominatim `address` object (addressdetails=1); it is stored
+    // raw in locations.address_details so the rules below can be re-run later.
+    // DUPLICATED PORT (no build step): tools/short-address-backfill.html has a
+    // verbatim copy of SHORT_ADDR_* and deriveShortAddress() -- change both.
+    // Rules (docs/shipped.md "Short address"):
+    //   street: the first road-level key; house_number joins it ("Laugavegur 12";
+    //     number first in SHORT_ADDR_NUMBER_FIRST countries: "4800 Hollywood
+    //     Blvd"). Dropped when the place's own name already contains the road
+    //     (a street pin, "Davidshallsgatan 10 Malmö").
+    //   area: the first of SHORT_ADDR_AREA_KEYS that is not an administrative
+    //     unit ("Norra innerstadens stadsdelsområde", "Malmö kommun"), not the
+    //     road, and not contained in the place's name. suburb comes first: it is
+    //     the level people know (Vesterbro, Södermalm, Möllevången); the finer
+    //     neighbourhood/quarter names (Humleby, Den Gule By) are the fallback.
+    //     Settlement keys come last, so a place outside a city still says where
+    //     (Reykjanesbær).
+    //   The POI's own name key (amenity, shop, tourism...) is never read.
+    // Returns '' when nothing useful is left (stored as NULL).
+    const SHORT_ADDR_ROAD_KEYS = ['road', 'pedestrian', 'square', 'footway', 'path', 'cycleway', 'place'];
+    const SHORT_ADDR_AREA_KEYS = ['suburb', 'borough', 'city_district', 'quarter', 'neighbourhood', 'district',
+                                  'village', 'town', 'hamlet', 'city', 'municipality'];
+    const SHORT_ADDR_ADMIN_RE = /stadsdelsområde|stadsdel\b|bydel\b|municipality|kommun|county|\bregion\b/i;
+    const SHORT_ADDR_NUMBER_FIRST = new Set(['us', 'ca', 'gb', 'ie', 'au', 'nz', 'fr', 'lu']);
+
+    function shortAddrWords(s) {
+      return ' ' + String(s || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+        .replace(/[^\p{L}\p{N}]+/gu, ' ').trim() + ' ';
+    }
+
+    function deriveShortAddress(details, placeName) {
+      if (!details || typeof details !== 'object') return '';
+      const nameWords = shortAddrWords(placeName);
+      const inName = part => nameWords.trim() !== '' && nameWords.includes(shortAddrWords(part));
+      const roadKey = SHORT_ADDR_ROAD_KEYS.find(k => details[k]);
+      const road = roadKey ? String(details[roadKey]).trim() : '';
+      let street = '';
+      if (road && !inName(road)) {
+        const num = details.house_number ? String(details.house_number).trim() : '';
+        street = !num ? road
+          : SHORT_ADDR_NUMBER_FIRST.has(String(details.country_code || '').toLowerCase()) ? `${num} ${road}` : `${road} ${num}`;
+      }
+      let area = '';
+      for (const k of SHORT_ADDR_AREA_KEYS) {
+        const v = details[k] ? String(details[k]).trim() : '';
+        if (!v || SHORT_ADDR_ADMIN_RE.test(v) || inName(v)) continue;
+        if (road && shortAddrWords(v) === shortAddrWords(road)) continue;
+        area = v;
+        break;
+      }
+      return [street, area].filter(Boolean).join(' · ');
+    }
+
     // ---- widen on miss --------------------------------------------------------
     // A trip's places aren't all in the current city (day trips, other towns,
     // another country), but the scoped search above can never return them:
@@ -3325,9 +3419,10 @@
     // separate concern -- not attempted here.
     async function findApproximatePoint(name, cfg) {
       try {
-        const data = await nominatimWithFallback(name, cfg, { limit: 1, timeout: 8000 });
+        const data = await nominatimWithFallback(name, cfg, { limit: 1, addressdetails: true, timeout: 8000 });
         if (data && data.length) {
-          return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon), tier: 'point search' };
+          // addressDetails feeds the short address (Overpass tier has none).
+          return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon), tier: 'point search', addressDetails: data[0].address || null };
         }
       } catch (err) { /* fall through to the Overpass node attempt */ }
 
@@ -3425,7 +3520,7 @@
     // Coordinates already returned by the autocomplete, so the submit handler
     // does not have to re-geocode a string that IS a Nominatim display_name.
     // Keyed by the address text, so any manual edit invalidates it naturally.
-    let selectedPlace = null;   // { address, lat, lng }
+    let selectedPlace = null;   // { address, lat, lng, addressDetails }
 
     // Select an address from autocomplete
     function selectAddress(item) {
@@ -3444,13 +3539,13 @@
 
       const lat = parseFloat(item.getAttribute('data-lat'));
       const lng = parseFloat(item.getAttribute('data-lon'));
+      let addressDetails = null;
+      try { addressDetails = JSON.parse(item.getAttribute('data-address-details') || 'null'); } catch (e) { /* ignore */ }
       selectedPlace = (isFinite(lat) && isFinite(lng))
-        ? { address: displayName, lat, lng }
+        ? { address: displayName, lat, lng, addressDetails }
         : null;
 
       if (selectedPlace) {
-        let addressDetails = null;
-        try { addressDetails = JSON.parse(item.getAttribute('data-address-details') || 'null'); } catch (e) { /* ignore */ }
         maybeDetectCity(lat, lng, addressDetails);
       }
 
@@ -8310,7 +8405,8 @@
             lng: point.lng,
             notes: notes ? `${notes}\n\n${tag}` : tag,
             visited: false,
-            starred: addFormStarred()
+            starred: addFormStarred(),
+            ...shortAddressFields(point.addressDetails, name)   // point-search tier only
           });
           closeAddForm();
         };
@@ -8376,7 +8472,7 @@
       // full Nominatim display_name is a wasted (and worse) round trip.
       const alreadySelected = selectedPlace && selectedPlace.address === address;
       const coords = alreadySelected
-        ? { lat: selectedPlace.lat, lng: selectedPlace.lng }
+        ? { lat: selectedPlace.lat, lng: selectedPlace.lng, addressDetails: selectedPlace.addressDetails }
         : await geocode(address);
 
       if (!coords) {
@@ -8414,7 +8510,8 @@
         lng: coords.lng,
         notes: notes || null,
         visited: false,
-        starred: addFormStarred()
+        starred: addFormStarred(),
+        ...shortAddressFields(coords.addressDetails, name)
       });
 
       closeAddForm();

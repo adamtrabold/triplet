@@ -24,6 +24,14 @@ pick/redirect before building anything.
   an outline/list-row question, so its variants (reserved-column,
   dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
   are not candidates.
+- **Short address in the popup** (owner, 2026-10-05: "#1 since there's a
+  directions button"). The data shipped 2026-10-05 (`locations.short_address`,
+  `docs/shipped.md` "Short address"); showing it lands WITH the popup
+  redesign, not before: the current popup still prints the full `address`.
+  The redesign adds `short_address` to `doFetchLocations()`'s select (fail
+  soft is no longer needed: the columns are live) and decides the fallback
+  for rows the backfill could not fill (NULL). Owner still has to run
+  `tools/short-address-backfill.html` (`docs/iphone-checks.md`).
 - ~~**Visited system: peeled sticker**~~ BUILT 2026-10-02 on branch
   `visited-sticker` (see `docs/shipped.md` "Visited sticker"), revised the
   same day to one cream + neutral look; lands once the owner approves the
