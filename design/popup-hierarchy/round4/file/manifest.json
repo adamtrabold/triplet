@@ -1,0 +1,247 @@
+[
+ {
+  "variant": "up",
+  "name": "f1",
+  "caption": "1 The list is the file. Tap VEGA (stop 2)"
+ },
+ {
+  "variant": "up",
+  "name": "f2",
+  "caption": "2 Pulled"
+ },
+ {
+  "variant": "up",
+  "name": "f3",
+  "caption": "3 Nearly there"
+ },
+ {
+  "variant": "up",
+  "name": "busiest",
+  "caption": "Busiest: VEGA (Plans stop 2; starred, visited; 5-line note; long OSM address)"
+ },
+ {
+  "variant": "up",
+  "name": "f4",
+  "caption": "4 Put back"
+ },
+ {
+  "variant": "up",
+  "name": "f5",
+  "caption": "5 Back in the file: the list as left"
+ },
+ {
+  "variant": "up",
+  "name": "typical",
+  "caption": "Typical note: Aurora (not visited)"
+ },
+ {
+  "variant": "up",
+  "name": "typvis",
+  "caption": "Same place, visited"
+ },
+ {
+  "variant": "up",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note, in full"
+ },
+ {
+  "variant": "up",
+  "name": "bare",
+  "caption": "Name only: Perlan"
+ },
+ {
+  "variant": "up",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "variant": "up",
+  "name": "plans",
+  "caption": "Plans: stop 1 of 3 (long name, starred)"
+ },
+ {
+  "variant": "up",
+  "name": "v1",
+  "caption": "Visited moment 1: tap Mark visited"
+ },
+ {
+  "variant": "up",
+  "name": "v2",
+  "caption": "Visited moment 2"
+ },
+ {
+  "variant": "up",
+  "name": "signedout",
+  "caption": "Signed out (visited): Star and Visited disabled, Directions live"
+ },
+ {
+  "variant": "up",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited"
+ },
+ {
+  "variant": "rolo",
+  "name": "f1",
+  "caption": "1 The list is the file. Tap VEGA (stop 2)"
+ },
+ {
+  "variant": "rolo",
+  "name": "f2",
+  "caption": "2 Pulled"
+ },
+ {
+  "variant": "rolo",
+  "name": "f3",
+  "caption": "3 Nearly there"
+ },
+ {
+  "variant": "rolo",
+  "name": "busiest",
+  "caption": "Busiest: VEGA (Plans stop 2; starred, visited; 5-line note; long OSM address)"
+ },
+ {
+  "variant": "rolo",
+  "name": "f4",
+  "caption": "4 Put back"
+ },
+ {
+  "variant": "rolo",
+  "name": "f5",
+  "caption": "5 Back in the file: the list as left"
+ },
+ {
+  "variant": "rolo",
+  "name": "typical",
+  "caption": "Typical note: Aurora (not visited)"
+ },
+ {
+  "variant": "rolo",
+  "name": "typvis",
+  "caption": "Same place, visited"
+ },
+ {
+  "variant": "rolo",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note, in full"
+ },
+ {
+  "variant": "rolo",
+  "name": "bare",
+  "caption": "Name only: Perlan"
+ },
+ {
+  "variant": "rolo",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "variant": "rolo",
+  "name": "plans",
+  "caption": "Plans: stop 1 of 3 (long name, starred)"
+ },
+ {
+  "variant": "rolo",
+  "name": "v1",
+  "caption": "Visited moment 1: tap Mark visited"
+ },
+ {
+  "variant": "rolo",
+  "name": "v2",
+  "caption": "Visited moment 2"
+ },
+ {
+  "variant": "rolo",
+  "name": "signedout",
+  "caption": "Signed out (visited): Star and Visited disabled, Directions live"
+ },
+ {
+  "variant": "rolo",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited"
+ },
+ {
+  "variant": "out",
+  "name": "f1",
+  "caption": "1 The list is the file. Tap VEGA (stop 2)"
+ },
+ {
+  "variant": "out",
+  "name": "f2",
+  "caption": "2 Pulled"
+ },
+ {
+  "variant": "out",
+  "name": "f3",
+  "caption": "3 Nearly there"
+ },
+ {
+  "variant": "out",
+  "name": "busiest",
+  "caption": "Busiest: VEGA (Plans stop 2; starred, visited; 5-line note; long OSM address)"
+ },
+ {
+  "variant": "out",
+  "name": "f4",
+  "caption": "4 Put back"
+ },
+ {
+  "variant": "out",
+  "name": "f5",
+  "caption": "5 Back in the file: the list as left"
+ },
+ {
+  "variant": "out",
+  "name": "typical",
+  "caption": "Typical note: Aurora (not visited)"
+ },
+ {
+  "variant": "out",
+  "name": "typvis",
+  "caption": "Same place, visited"
+ },
+ {
+  "variant": "out",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note, in full"
+ },
+ {
+  "variant": "out",
+  "name": "bare",
+  "caption": "Name only: Perlan"
+ },
+ {
+  "variant": "out",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "variant": "out",
+  "name": "plans",
+  "caption": "Plans: stop 1 of 3 (long name, starred)"
+ },
+ {
+  "variant": "out",
+  "name": "v1",
+  "caption": "Visited moment 1: tap Mark visited"
+ },
+ {
+  "variant": "out",
+  "name": "v2",
+  "caption": "Visited moment 2"
+ },
+ {
+  "variant": "out",
+  "name": "signedout",
+  "caption": "Signed out (visited): Star and Visited disabled, Directions live"
+ },
+ {
+  "variant": "out",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited"
+ },
+ {
+  "variant": "up",
+  "name": "addr",
+  "caption": "Tap the address: the full OSM address in place"
+ }
+]

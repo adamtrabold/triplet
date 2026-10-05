@@ -40,6 +40,9 @@ sources are the file where the quote is recorded.
   required if the map pin is conceptually aligned with whatever it "opens
   up" to" (2026-10-05, popup round 3; chat). A nice-to-have, not a rule.
   The pin's look is shipped; changing the pin itself is a separate decision.
+- **No typewriter face; use the app's own type.** "the typewriter font is
+  unnecessary." (2026-10-05, on the round-3 Card File popup concept; chat).
+  Character comes from form and paper, not a costume typeface.
 
 ## Hierarchy
 
