@@ -1,85 +1,5 @@
 [
  {
-  "variant": "up",
-  "name": "f1",
-  "caption": "1 The list is the file. Tap VEGA (stop 2)"
- },
- {
-  "variant": "up",
-  "name": "f2",
-  "caption": "2 Pulled"
- },
- {
-  "variant": "up",
-  "name": "f3",
-  "caption": "3 Nearly there"
- },
- {
-  "variant": "up",
-  "name": "busiest",
-  "caption": "Busiest: VEGA (Plans stop 2; starred, visited; 5-line note; long OSM address)"
- },
- {
-  "variant": "up",
-  "name": "f4",
-  "caption": "4 Put back"
- },
- {
-  "variant": "up",
-  "name": "f5",
-  "caption": "5 Back in the file: the list as left"
- },
- {
-  "variant": "up",
-  "name": "typical",
-  "caption": "Typical note: Aurora (not visited)"
- },
- {
-  "variant": "up",
-  "name": "typvis",
-  "caption": "Same place, visited"
- },
- {
-  "variant": "up",
-  "name": "approx",
-  "caption": "Approx pin, 8-line note, in full"
- },
- {
-  "variant": "up",
-  "name": "bare",
-  "caption": "Name only: Perlan"
- },
- {
-  "variant": "up",
-  "name": "shape",
-  "caption": "District: Grandi"
- },
- {
-  "variant": "up",
-  "name": "plans",
-  "caption": "Plans: stop 1 of 3 (long name, starred)"
- },
- {
-  "variant": "up",
-  "name": "v1",
-  "caption": "Visited moment 1: tap Mark visited"
- },
- {
-  "variant": "up",
-  "name": "v2",
-  "caption": "Visited moment 2"
- },
- {
-  "variant": "up",
-  "name": "signedout",
-  "caption": "Signed out (visited): Star and Visited disabled, Directions live"
- },
- {
-  "variant": "up",
-  "name": "signedout-unvisited",
-  "caption": "Signed out, not visited"
- },
- {
   "variant": "rolo",
   "name": "f1",
   "caption": "1 The list is the file. Tap VEGA (stop 2)"
@@ -158,6 +78,16 @@
   "variant": "rolo",
   "name": "signedout-unvisited",
   "caption": "Signed out, not visited"
+ },
+ {
+  "variant": "rolo",
+  "name": "swap",
+  "caption": "Swap: one tap on stop 3 while VEGA is out"
+ },
+ {
+  "variant": "rolo",
+  "name": "stop3",
+  "caption": "After the swap: stop 3 open (fixture row)"
  },
  {
   "variant": "out",
@@ -240,8 +170,18 @@
   "caption": "Signed out, not visited"
  },
  {
-  "variant": "up",
-  "name": "addr",
-  "caption": "Tap the address: the full OSM address in place"
+  "variant": "out",
+  "name": "swap",
+  "caption": "Swap: one tap on stop 3 while VEGA is out"
+ },
+ {
+  "variant": "out",
+  "name": "stop3",
+  "caption": "After the swap: stop 3 open (fixture row)"
+ },
+ {
+  "variant": "rolo",
+  "name": "hits",
+  "caption": "The edge behind the card is a 44px target"
  }
 ]

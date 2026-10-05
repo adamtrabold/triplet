@@ -29,16 +29,18 @@ const DATA = {
     starred: false, visited: false }, 16],
   bare: ['rey12', { name: 'Perlan', category: 'attraction', address: null, notes: null, starred: false, visited: false }, 16],
   plans: ['rey00', MUSEUM, 16],
+  stop3: ['rey01', {}, 16],   // fixture row (Brauð & Co: starred, visited, no note): the card a swap lands on
 };
-const PLAN_STATES = ['busiest', 'plans'];
+const PLAN_STATES = ['busiest', 'plans', 'stop3'];
 const LABEL = {
   busiest: 'Busiest: VEGA (Plans stop 2; starred, visited; 5-line note; long OSM address)',
   typical: 'Typical note: Aurora (not visited)', typvis: 'Same place, visited',
   approx: 'Approx pin, 8-line note, in full', bare: 'Name only: Perlan', shape: 'District: Grandi',
   plans: 'Plans: stop 1 of 3 (long name, starred)', signedout: 'Signed out (visited): Star and Visited disabled, Directions live',
   'signedout-unvisited': 'Signed out, not visited',
+  stop3: 'After the swap: stop 3 open (fixture row)',
 };
-const V = ['up', 'rolo', 'out'];
+const V = ['rolo', 'out'];   // Stand-Up (up/) not carried after the reviews; its stills stay as history
 const J = [];   // [variant, state, mode, out-name, caption]
 for (const v of V) {
   J.push([v, 'busiest', 'file', 'f1', '1 The list is the file. Tap VEGA (stop 2)'],
@@ -48,8 +50,9 @@ for (const v of V) {
   for (const s of ['typical', 'typvis', 'approx', 'bare', 'shape', 'plans']) J.push([v, s, 'peek', s, LABEL[s]]);
   J.push([v, 'typical', 'vm1', 'v1', 'Visited moment 1: tap Mark visited'], [v, 'typical', 'vm2', 'v2', 'Visited moment 2']);
   J.push([v, 'busiest', 'signedout', 'signedout', LABEL.signedout], [v, 'typical', 'signedout', 'signedout-unvisited', LABEL['signedout-unvisited']]);
+  J.push([v, 'busiest', 'swap', 'swap', 'Swap: one tap on stop 3 while VEGA is out'], [v, 'stop3', 'peek', 'stop3', LABEL.stop3]);
 }
-J.push(['up', 'busiest', 'addr', 'addr', 'Tap the address: the full OSM address in place']);
+J.push(['rolo', 'busiest', 'hits', 'hits', 'The edge behind the card is a 44px target']);
 
 async function setup(b, state) {
   const plan = PLAN_STATES.includes(state);
@@ -61,7 +64,8 @@ async function setup(b, state) {
     await page.evaluate(() => { const s = neighborhoodShapes.find(x => x.city === 'reykjavik' && x.type === 'district'); map.setView(shapeAnchor(s), 16, { animate: false }); });
   } else {
     const [id, data, z] = DATA[state];
-    await page.evaluate(async ([id, d]) => { const r = window.__ROWS.find(x => x.id === id); Object.assign(r, d); await refetchLocations(); window.__placeId = id; }, [id, data]);
+    // in Plans, stop 2 is always the real VEGA row
+    await page.evaluate(async ([id, d, plan, vega]) => { if (plan) Object.assign(window.__ROWS.find(x => x.id === 'rey05'), vega); const r = window.__ROWS.find(x => x.id === id); Object.assign(r, d); await refetchLocations(); window.__placeId = id; }, [id, data, plan, VEGA]);
     await W(300);
     await page.evaluate(([id, z]) => { const l = locations.find(x => x.id === id); map.setView([l.lat, l.lng], z, { animate: false }); }, [id, z]);
   }
