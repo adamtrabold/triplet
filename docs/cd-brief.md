@@ -59,6 +59,10 @@ owner's no and fail the work first.
    concept and the execution separately: a polished execution of a noisy
    idea is still a failing concept. Cite evidence (frame names) for the
    score and give a numbered fix list.
+   **Concept rounds (owner, 2026-10-05):** "we're trying to rate concepts
+   here not execution — tell cd don't kill if the mock was bad kill if the
+   idea was bad." Kill on the idea, never the mock; mock flaws become fix
+   notes.
 
 ## Output format
 

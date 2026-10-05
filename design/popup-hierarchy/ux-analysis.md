@@ -12,7 +12,9 @@ content inside of the popup ... things dont *have* to all be contained in the
 popup, they could be outside, or attached to the side via a tab, etc."
 
 Earlier owner words in play: "so much information all visual hierarchy is
-starting to struggle"; "type should go back above the name"; "icon is treated
+starting to struggle"; ~~"type should go back above the name"~~ (withdrawn
+2026-10-05: "Don't pay attention to old feedback ignore it. The type thing I
+mean."); "icon is treated
 differently for category in the pop up than on the map — why?"; "No star unless
 it's been starred. What I need to fix is the alignment of the star in the pop
 up - it looks weird when all the content is in it."; "Spacing between things is
@@ -32,14 +34,15 @@ imo — or bottom of tier 1. Notes are tier 1"):
 | 4 | on demand | **Full address** (postcode, municipality, county, country), approx-placement provenance |
 
 Superseded (my first tiering): T1 name + type + marks; T2 notes + Directions + Mark Visited + Stop n of m.
-"type should go back above the name" is **not withdrawn**: type keeps its
-place above the name, it just carries less weight than the name and notes.
+Type **placement is open**: the owner withdrew "type should go back above the
+name" (2026-10-05: "Don't pay attention to old feedback ignore it. The type
+thing I mean."). Only the tier weighting stands: type reads below name and notes.
 
 **What the correction changes downstream** (details in sections 4, 5, 7):
 notes move from "at least the start, full text one tap away" to **readable at
 first glance with no tap** for typical notes; M2 becomes the biggest mismatch
-(tier-1 content at the quietest weight); type keeps its position ask but its
-weight should sit below name and notes; the glance layer is now bigger, so
+(tier-1 content at the quietest weight); type's weight sits below name and
+notes, and where it sits is open; the glance layer is now bigger, so
 "don't cover the map" (C7) and "show the note" pull against each other and
 the design loop must resolve that, not trim the note.
 
@@ -52,9 +55,10 @@ the design loop must resolve that, not trim the note.
 2. **Your notes are the only place your reasons appear anywhere in the app,
    and they're styled as the quietest text** (12px italic grey, under the
    address, up to 8 lines, line breaks lost).
-3. **Type sits at the bottom, ~235px below the name** in a full popup, against
-   "type should go back above the name"; and the popup glyph is still bare
-   while the map pin and list row wear it in a ring.
+3. **Type is far from the name** (~235px below it in a full popup), so the
+   name and its kind don't read together; and the popup glyph is still bare
+   while the map pin and list row wear it in a ring. (Placement is open; the
+   "above the name" rule was withdrawn 2026-10-05.)
 4. **Spacing is set by invisible 44px tap boxes, not the 4px scale.** Visible
    gaps are 3 / 10 / 25 / 37 / 42px. A name-only popup is 162px tall; about
    70% of it is empty.
@@ -69,7 +73,7 @@ No job list was supplied; all are inferred from the owner's words and the
 code, marked (I) where inferred.
 
 - **J1 Identify** a pin I tapped on the map: what is it, what kind of place.
-  Owner: "type should go back above the name". (I, plus quote)
+  (I)
 - **J2 Decide** whether to go now: recall why I saved it (notes), whether I
   starred it, whether I've been. (I)
 - **J3 Go there**: hand off to Apple Maps. (I; shipped "Get Directions")
@@ -149,7 +153,7 @@ is lost if it leaves the popup's first view (tab, sheet, second layer).
 | Element | Purpose (job) | When needed | Frequency (I) | Must be in the popup's first view? | If it moves, you lose |
 |---|---|---|---|---|---|
 | Name | J1, confirms the right pin | glance | every open | **Yes** | identity; every other line depends on it |
-| Type | J1, kind of place; kind of geometry (approx/district/street) | glance, but secondary (owner: "tier 2 ... or bottom of tier 1") | every open | **Yes**, above the name (not withdrawn), lighter than name and notes | partly duplicated by the pin glyph under the tip, so the popup copy can be light, not absent |
+| Type | J1, kind of place; kind of geometry (approx/district/street) | glance, but secondary (owner: "tier 2 ... or bottom of tier 1") | every open | **Yes**, lighter than name and notes; placement open | partly duplicated by the pin glyph under the tip, so the popup copy can be light, not absent |
 | Starred (state) | J2, "I care about this" | glance | every open | state yes; the hollow "off" mark is a control, not information | — |
 | Visited (state) | J2, "been there" | glance on trip | every open on trip | state yes | the pin sticker also shows it |
 | Notes | J2, why I saved it, tips, times | first glance (owner: tier 1) | most opens (75% have one) | **Yes, readable with no tap** for typical notes (p90 = 109 chars, about 3 lines at 300px); only the long tail (max 357 chars, 8 lines) may fold, full text ≤1 tap. *Was: "at least its start; full text one step away" (superseded).* | the only place notes exist in the app; hiding them removes the reason to open the popup |
@@ -180,8 +184,8 @@ filled black star, a solid shape at the leading edge; (4) the name, darkest
 but one short line; (5) the navy Visited dot; (6) the type glyph; (7) the 10px
 caps words; (8) ×.
 
-Intended (owner-corrected): name + notes + your marks → type (above the name in
-position, lighter in weight) → actions → address. *Was: name + type → marks →
+Intended (owner-corrected): name + notes + your marks → type (lighter in
+weight; placement open) → actions → address. *Was: name + type → marks →
 notes → actions → address (superseded).*
 
 Mismatches:
@@ -194,12 +198,12 @@ Mismatches:
   note's *style and position* (under a 3-line address), not its size.
   Paragraph breaks are dropped (the approx note's provenance runs on from the
   shop list).
-- **M3 Type is last.** Owner: "type should go back above the name". Name→type
+- **M3 Type is last.** Name→type
   distance: 1 line in the list row, ~235px in the busiest popup. The popup
   glyph is a bare 20px glyph; the pin and row show it in a ring (owner: "icon
   is treated differently ... why?" — still true). With type at "tier 2 ... or
-  bottom of tier 1", the position ask stands but the weight should be below
-  name and notes: this is a placement fix, not a promotion.
+  bottom of tier 1", its weight should be below name and notes; where it
+  sits is open (the "above the name" rule was withdrawn 2026-10-05).
 - **M4 Action weight is inverted for the trip.** Directions is the only
   coloured element; Mark Visited and the star are grey/outline 10px. The
   trip's two key actions (go, mark) read at very different volumes. The
@@ -271,8 +275,9 @@ Must preserve (shipped, owner-confirmed or rule):
     reads).
 
 Open, belongs to the loop (not decided here): what the glance layer is vs the
-detail layer; whether type sits above the name (owner asked: treat as a
-requirement unless the owner withdraws it); whether address shortens to a
+detail layer; where type sits (open: the "above the name" rule was withdrawn
+2026-10-05); whether the place's info may replace the list (owner: "Replacing
+list with info is a fine thing to explore"); whether address shortens to a
 locality; whether Stop n of m stays in the popup.
 
 ## 8. Control parity and state
@@ -313,7 +318,7 @@ State findings (probed, `statecheck.js`):
 - `hours` column is unused (0 rows): don't design for it yet.
 - Directions is driving mode (`dirflg=d`).
 
-## 11. Effect of the owner's correction on the Round 1 review
+## 11. Effect of the owner's corrections on the Round 1 review
 
 `round1/ux-review.md` judged note peeks against the old "start visible, full
 text ≤1 tap" bar. Under notes = tier 1:
@@ -324,8 +329,18 @@ text ≤1 tap" bar. Under notes = tier 1:
   same fix. The note must sit in the glance layer, not only on raise.
 - **3 Place Sheet / H2:** the 3-line peek meets the bar for ~90% of notes.
 - **1 Quiet Fix / 8:** full note always shown: meets it.
-- Type: the eyebrow placement in all concepts still fits (above the name,
-  quiet); no ruling changes.
+- Type: placement is open (owner withdrew "type should go back above the
+  name", 2026-10-05: "Don't pay attention to old feedback ignore it. The type
+  thing I mean."). The eyebrow is one option, not a requirement; the only
+  rule is its weight sits below name and notes. Concept 4's "type below the
+  name" is no longer a conflict.
+- Losing the list: the owner says "Replacing list with info is a fine thing to
+  explore". Concept 3 / H2 replacing the list is no longer an owner question
+  or a concern in itself; the C9 contract (restore the list exactly as left
+  on close) still applies as a build requirement.
+- Concepts are rated on the idea, not the mock (owner, 2026-10-05: "we're
+  trying to rate concepts here not execution"): mock flaws in the review are
+  fix notes, not kill reasons.
 
 ## Not verified
 
