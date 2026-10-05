@@ -40,6 +40,9 @@ sources are the file where the quote is recorded.
   required if the map pin is conceptually aligned with whatever it "opens
   up" to" (2026-10-05, popup round 3; chat). A nice-to-have, not a rule.
   The pin's look is shipped; changing the pin itself is a separate decision.
+- **No typewriter face; use the app's own type.** "the typewriter font is
+  unnecessary." (2026-10-05, on the round-3 Card File popup concept; chat).
+  Character comes from form and paper, not a costume typeface.
 - **The tag pops out of the pin onto a straight string.** "i think the tag
   should just pop down "out of" the pin but end with a straight string"
   (2026-10-05, Hanging Tag v2; chat).
