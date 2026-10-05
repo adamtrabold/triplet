@@ -32,17 +32,21 @@ const LABEL = { busiest: 'Busiest: VEGA', typical: 'Typical note: Aurora', appro
 // [concept, state, mode, out-name, caption]
 const J = [];
 const dense = c => STATES.forEach(s => J.push([c, s, 'peek', s, LABEL[s]]));
-const so = c => J.push([c, 'busiest', 'signedout', 'signedout', 'Signed out: Star and Visited disabled, Directions live']);
+const so = c => J.push([c, 'busiest', 'signedout', 'signedout', 'Signed out, visited: Star and Visited disabled, Directions live']);
 dense('label'); J.push(['label', 'longname', 'peek', 'longname', LABEL.longname]);
 J.push(['label', 'busiest', 'f1', 'f1', '1 Tap the pin'], ['label', 'busiest', 'f2', 'f2', '2 The label rises; the pin’s seal lifts off'], ['label', 'busiest', 'f3', 'f3', '3 The seal lands as the label’s emblem'], ['label', 'busiest', 'closed', 'f4', '4 × : the list comes back as left']); so('label');
-dense('tag'); J.push(['tag', 'approx', 'back', 'approx-back', 'Approx, turned over: the whole note']);
-J.push(['tag', 'typical', 'f1', 'f1', '1 Tap the pin'], ['tag', 'typical', 'f2', 'f2', '2 The tag drops and swings'], ['tag', 'typical', 'f3', 'f3', '3 Swings back'], ['tag', 'typical', 'peek', 'f4', '4 Settled; now it takes taps'], ['tag', 'approx', 'f-flip', 'f5', 'Turn over: the tag turns on its string']); so('tag');
+J.push(['label', 'busiest', 'postmark', 'postmark', 'Option: visited as a postmark struck on the band']);
+dense('tag'); J.push(['tag', 'busiest', 'back', 'busiest-back', 'Busiest, turned over: whole note + buttons'], ['tag', 'approx', 'back', 'approx-back', 'Approx, turned over: whole note + buttons']);
+J.push(['tag', 'typical', 'f1', 'f1', '1 Tap the pin'], ['tag', 'typical', 'f2', 'f2', '2 Drops and swings (300ms); taps already live where they settle'], ['tag', 'typical', 'f3', 'f3', '3 Swings back'], ['tag', 'typical', 'peek', 'f4', '4 Settled'], ['tag', 'approx', 'f-flip', 'f5', 'Turn over: the tag turns on its string']); so('tag');
 dense('file');
 J.push(['file', 'busiest', 'f1', 'f1', '1 Plans list, tap VEGA (stop 2)'], ['file', 'busiest', 'f2', 'f2', '2 Its card is pulled up out of the file'], ['file', 'busiest', 'f3', 'f3', '3 It stands in its own slot'], ['file', 'busiest', 'closed', 'f4', '4 Put back: the list as left']);
 dense('stamp');
 J.push(['stamp', 'typical', 'f1', 'f1', '1 Not visited: a ghost frame. Tap Mark Visited'], ['stamp', 'typical', 'f2', 'f2', '2 The stamp comes down'], ['stamp', 'typical', 'f3', 'f3', '3 Lands, ink bleeds in'], ['stamp', 'typical', 'f4', 'f4', '4 Settled']); so('stamp');
 dense('post'); J.push(['post', 'longname', 'peek', 'longname', LABEL.longname]);
-J.push(['post', 'busiest', 'f1', 'f1', '1 Tap the pin'], ['post', 'busiest', 'f2', 'f2', '2 The pin’s seal flies to the stamp corner'], ['post', 'typical', 'f3', 'f3', '3 Mark Visited: the postmark is struck']); so('post');
+J.push(['post', 'busiest', 'f1', 'f1', '1 Tap the pin'], ['post', 'busiest', 'f2', 'f2', '2 The pin’s seal flies to the stamp corner'],
+  ['post', 'typical', 'pm1', 'f3', '3 Tap Mark visited (dashed: the target)'], ['post', 'typical', 'pm2', 'f4', '4 The postmark comes down'], ['post', 'typical', 'pm3', 'f5', '5 Lands, ink bleeds in'], ['post', 'typical', 'pm4', 'f6', '6 Settled']);
+so('post'); J.push(['post', 'typical', 'signedout', 'signedout-unvisited', 'Signed out, not visited: Star and Mark visited disabled']);
+J.push(['label', 'typical', 'signedout', 'signedout-unvisited', 'Signed out, not visited'], ['tag', 'typical', 'signedout', 'signedout-unvisited', 'Signed out, not visited']);
 // Pinned Note (the pin as the pushpin of a note scrap) was drafted and cut: see README.
 
 async function setup(b, state) {

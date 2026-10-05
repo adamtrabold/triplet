@@ -52,7 +52,12 @@
  {
   "concept": "label",
   "name": "signedout",
-  "caption": "Signed out: Star and Visited disabled, Directions live"
+  "caption": "Signed out, visited: Star and Visited disabled, Directions live"
+ },
+ {
+  "concept": "label",
+  "name": "postmark",
+  "caption": "Option: visited as a postmark struck on the band"
  },
  {
   "concept": "tag",
@@ -81,8 +86,13 @@
  },
  {
   "concept": "tag",
+  "name": "busiest-back",
+  "caption": "Busiest, turned over: whole note + buttons"
+ },
+ {
+  "concept": "tag",
   "name": "approx-back",
-  "caption": "Approx, turned over: the whole note"
+  "caption": "Approx, turned over: whole note + buttons"
  },
  {
   "concept": "tag",
@@ -92,7 +102,7 @@
  {
   "concept": "tag",
   "name": "f2",
-  "caption": "2 The tag drops and swings"
+  "caption": "2 Drops and swings (300ms); taps already live where they settle"
  },
  {
   "concept": "tag",
@@ -102,7 +112,7 @@
  {
   "concept": "tag",
   "name": "f4",
-  "caption": "4 Settled; now it takes taps"
+  "caption": "4 Settled"
  },
  {
   "concept": "tag",
@@ -112,7 +122,7 @@
  {
   "concept": "tag",
   "name": "signedout",
-  "caption": "Signed out: Star and Visited disabled, Directions live"
+  "caption": "Signed out, visited: Star and Visited disabled, Directions live"
  },
  {
   "concept": "file",
@@ -252,11 +262,41 @@
  {
   "concept": "post",
   "name": "f3",
-  "caption": "3 Mark Visited: the postmark is struck"
+  "caption": "3 Tap Mark visited (dashed: the target)"
+ },
+ {
+  "concept": "post",
+  "name": "f4",
+  "caption": "4 The postmark comes down"
+ },
+ {
+  "concept": "post",
+  "name": "f5",
+  "caption": "5 Lands, ink bleeds in"
+ },
+ {
+  "concept": "post",
+  "name": "f6",
+  "caption": "6 Settled"
  },
  {
   "concept": "post",
   "name": "signedout",
-  "caption": "Signed out: Star and Visited disabled, Directions live"
+  "caption": "Signed out, visited: Star and Visited disabled, Directions live"
+ },
+ {
+  "concept": "post",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited: Star and Mark visited disabled"
+ },
+ {
+  "concept": "label",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited"
+ },
+ {
+  "concept": "tag",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited"
  }
 ]

@@ -365,3 +365,69 @@ paper. The list is away while a place is open.
 - Motion is frames, not animation; timings are not designed yet.
 - The typewriter face is a local stand-in.
 - Signed-out renders only dim controls; sign-in flows are unchanged.
+
+---
+
+## Finalist fixes (after `ux-review.md` and `cd-review.md`)
+
+The CD's finalists are Postcard, Luggage Label and Hanging Tag. Passport Stamp
+and Card File were killed on the idea and are left as they were (their stills
+above are unchanged). The owner's page is `../finalists/index.html` ("Popup
+Finalists"), built by `../finalists/build.js` from this folder's renders.
+
+**Both sheet concepts (Postcard, Luggage Label): the sheet sizes to its
+content.** It is at most 300px and stays anchored to the bottom, so the
+buttons keep one y for every place and a short place gets a short card
+instead of empty paper or a big orange field. The cost is that the map's
+bottom edge moves from place to place. The map grows to meet the sheet, and
+the OSM credit sits on the sheet's top edge.
+
+**Postcard**
+- The postage stamp now reads at 1x: white stamp paper with a scalloped
+  perforated edge and a soft shadow, a field tinted with the category ink,
+  and the pin's seal at 40px.
+- Name-only places: the card shrinks (`bare`), so there's no gap.
+- Signed out, not visited: rendered (`signedout-unvisited`).
+- The "‹ list" back link is gone, replaced by a 44px × at the top right, so
+  nothing invites the iOS edge back-swipe.
+- The address now flows across the ruled lines as one string (3 lines,
+  "…"), instead of comma pieces. The full address is a tap away.
+- The CD hybrid: Mark Visited strikes the postmark with Passport Stamp's
+  motion (`f3`→`f6`: tap, comes down big and faint, lands with a shrink and
+  an ink bleed, settles). The dashed box in `f3` is the target: the stamp
+  and Mark visited, never the address lines.
+
+**Luggage Label**
+- The band hugs the lettering. Perlan is a ~90px band, not ~230px.
+- Long names stay in label lettering: condensed caps shrink to fit 2 lines
+  (minimum 18px). The 49-character Swedish museum name fits at about 20px.
+- "(approx.)" is out of the band. The meta line reads "DISTRICT · APPROX.
+  PLACEMENT".
+- The seal is centred on the lockup in every state.
+- Optional hybrid (`postmark`): when visited, the row stamp in paper ink is
+  struck across the band's die-cut foot and becomes the Visited control; the
+  button row drops to Directions + Star.
+
+**Hanging Tag**
+- The busiest note shows 4 lines, then TURN OVER ↻.
+- Both top corners are chamfered symmetrically about the eyelet (28px).
+- The orange selected row: **while a tag is open, the list lowers to its
+  header** using the app's own collapsed state, and closing restores it. The
+  row is still selected (pin and row select together), it's just off
+  screen. The tag gets the whole map, and nothing outranks it. The cost is
+  that the list changes position while a tag is open. UX should confirm
+  that this counts as sheet state, not lost list state.
+- The back carries the buttons and the ×, and the note scrolls with a fade
+  at its foot. Acting after a long note is one tap (`busiest-back`,
+  `approx-back`).
+- Swing: 6°, then −2°, then settled, 300ms in total. The hit targets sit at
+  their settled positions from the first frame, drawn as dashed boxes in
+  `f2`. Reduced motion has no swing.
+
+**Not fixed / still open**
+- UX build-time checks (Safari toolbar inset, swapping pins while open, a
+  drag inside a card never panning the map) can't be shown in stills.
+- What a tap on a disabled Star or Visited does when signed out is the
+  owner's call. UX suggests it opens sign-in.
+- Card File's 44px tab and the Stamp's band target rule: those concepts were
+  cut, so they weren't reworked.
