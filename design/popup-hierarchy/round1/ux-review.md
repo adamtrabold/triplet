@@ -1,5 +1,15 @@
 # Round 1: UX review of the 8 popup concepts
 
+> **Owner corrections, 2026-10-05 (supersede parts of this review):**
+> "Type is actually tier 2 imo — or bottom of tier 1. Notes are tier 1";
+> "Don't pay attention to old feedback ignore it. The type thing I mean."
+> (type-above-name withdrawn); "we're trying to rate concepts here not
+> execution ... Replacing list with info is a fine thing to explore."
+> So: type placement is open (Concept 4's type-below-name is not a
+> conflict); replacing the list (3 / H2) is not a concern or owner question
+> in itself; mock flaws are fix notes, not kill reasons. Note-peek bar
+> raised: see `../ux-analysis.md` §11.
+
 UX agent, 2026-10-05, on the designer's `f3a0e58`. Brief: `docs/ux-brief.md`
 (verbatim in the task). The jobs J1–J10 and constraints C1–C10 are from
 `../ux-analysis.md`. I judged from the 1x phone stills (busiest first, then
@@ -293,7 +303,7 @@ can be done in one tap or less from the opened place.
   stays highlighted underneath (from 4).
   - Why: the biggest targets and the clearest map, without the moving
     action strip or the height growth.
-  - Owner question to surface: is losing the list while a place is open OK?
+  - ~~Owner question: is losing the list OK?~~ Owner: "Replacing list with info is a fine thing to explore."
 - **Into whichever wins:** the U2 single-selection rule (from 4) and the
   one-line address + "Full address ›" (from 7, truncation only).
 

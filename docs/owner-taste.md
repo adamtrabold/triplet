@@ -34,13 +34,15 @@ sources are the file where the quote is recorded.
   the x" (Plans stop numbers; chat, `design/ACCEPTANCE-plans.md`).
 - **Busy views must keep their hierarchy.** "so much information all visual
   hierarchy is starting to struggle" (popup; chat).
-- **Type goes above the name.** "type should go back above the name"
-  (popup; chat).
+- ~~**Type goes above the name.** "type should go back above the name"
+  (popup; chat).~~ **WITHDRAWN 2026-10-05:** "Don't pay attention to old
+  feedback ignore it. The type thing I mean." (chat). Type placement in the
+  popup is open; see the re-tier entry below.
 - **In the popup, notes are tier 1; type is tier 2 or the bottom of tier 1.**
   "Type is actually tier 2 imo — or bottom of tier 1. Notes are tier 1"
   (2026-10-05, popup; chat, correcting `design/popup-hierarchy/ux-analysis.md`).
-  This re-weights type; it does not withdraw "type should go back above the
-  name".
+  Only the weighting stands; where type sits is open (the "above the name"
+  rule above is withdrawn).
 - **Don't show empty states as marks.** "No star unless it's been starred"
   (list row; chat).
 
