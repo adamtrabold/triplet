@@ -1,0 +1,102 @@
+[
+ [
+  "busiest",
+  "Busiest: VEGA in full (starred, visited: punched stub, plan stop 2)"
+ ],
+ [
+  "typical",
+  "Typical note, not visited"
+ ],
+ [
+  "approx",
+  "Approx pin: the 8-line note in full"
+ ],
+ [
+  "bare",
+  "Name only"
+ ],
+ [
+  "shape",
+  "District"
+ ],
+ [
+  "signedout",
+  "Signed out: Star and the stub disabled, Directions live"
+ ],
+ [
+  "signedout-unvisited",
+  "Signed out, not visited"
+ ],
+ [
+  "stub-off",
+  "Stub, not visited: the stub is the Mark visited button"
+ ],
+ [
+  "stub-punch",
+  "A. Punched: a check-shaped hole through the stub"
+ ],
+ [
+  "stub-tear",
+  "B. Torn off: the stub is gone, the edge is torn"
+ ],
+ [
+  "stub-stamp",
+  "C. Stamped: the list’s VISITED stamp on the stub"
+ ],
+ [
+  "pop0",
+  "1 Tap the pin"
+ ],
+ [
+  "pop1",
+  "2 The tag pops out of the pin"
+ ],
+ [
+  "pop2",
+  "3 Drops past its rest; the string pulls straight"
+ ],
+ [
+  "pop3",
+  "4 Bounces once"
+ ],
+ [
+  "pop4",
+  "5 Hangs still on a straight string"
+ ],
+ [
+  "punch1",
+  "A1 Tap the stub"
+ ],
+ [
+  "punch2",
+  "A2 Punched: the chad drops out"
+ ],
+ [
+  "punch3",
+  "A3 Visited"
+ ],
+ [
+  "tear1",
+  "B1 Tap the stub"
+ ],
+ [
+  "tear2",
+  "B2 It tears off and drops"
+ ],
+ [
+  "tear3",
+  "B3 Visited: a torn edge"
+ ],
+ [
+  "stamp1",
+  "C1 Tap the stub"
+ ],
+ [
+  "stamp2",
+  "C2 The stamp comes down"
+ ],
+ [
+  "stamp3",
+  "C3 Stamped"
+ ]
+]
