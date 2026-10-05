@@ -27,6 +27,16 @@ sources are the file where the quote is recorded.
 - **Don't let a design read as "not following good design principles"**
   (visited pins, Round 4; CLAUDE.md).
 
+## Character
+
+- **Whimsy, not average.** "Have them check this against the inspo /
+  product philosophy…I like whimsy and these all seem kinda average. The
+  most exciting ideas as far as whimsy have been cut" (2026-10-05, popup
+  round 2; chat). Character is wanted, drawn from the inspo (labels,
+  stamps, matchbooks, park posters, the trail scrapbook). It still has to
+  pass the noise rules above: whimsy that carries meaning (form, type,
+  paper/ink, motion), not added decoration.
+
 ## Hierarchy
 
 - **Secondary marks never outrank content.** "the numbers feel really
@@ -152,6 +162,8 @@ sources are the file where the quote is recorded.
   (Plans/Places; chat).
 - **Reuse existing control styles.** "the same text button not a new button
   style" (Get Directions; `design/swipe-visit/p8-design.md`).
+- **Copy: "Directions" is fine.** "Directions is fine" (2026-10-05, popup
+  action label, replacing "Get Directions"; chat).
 - **Grip/number leads, by convention.** "number/drag control should probably
   be on the left to follow normal convention" (Plans; chat,
   `design/ACCEPTANCE-plans.md`).
