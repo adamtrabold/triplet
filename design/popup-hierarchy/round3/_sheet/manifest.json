@@ -1,0 +1,302 @@
+[
+ {
+  "concept": "label",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "label",
+  "name": "typical",
+  "caption": "Typical note: Aurora"
+ },
+ {
+  "concept": "label",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "label",
+  "name": "bare",
+  "caption": "Bare: Perlan (name only)"
+ },
+ {
+  "concept": "label",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "concept": "label",
+  "name": "longname",
+  "caption": "Long name"
+ },
+ {
+  "concept": "label",
+  "name": "f1",
+  "caption": "1 Tap the pin"
+ },
+ {
+  "concept": "label",
+  "name": "f2",
+  "caption": "2 The label rises; the pin’s seal lifts off"
+ },
+ {
+  "concept": "label",
+  "name": "f3",
+  "caption": "3 The seal lands as the label’s emblem"
+ },
+ {
+  "concept": "label",
+  "name": "f4",
+  "caption": "4 × : the list comes back as left"
+ },
+ {
+  "concept": "label",
+  "name": "signedout",
+  "caption": "Signed out, visited: Star and Visited disabled, Directions live"
+ },
+ {
+  "concept": "label",
+  "name": "postmark",
+  "caption": "Option: visited as a postmark struck on the band"
+ },
+ {
+  "concept": "tag",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "tag",
+  "name": "typical",
+  "caption": "Typical note: Aurora"
+ },
+ {
+  "concept": "tag",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "tag",
+  "name": "bare",
+  "caption": "Bare: Perlan (name only)"
+ },
+ {
+  "concept": "tag",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "concept": "tag",
+  "name": "busiest-back",
+  "caption": "Busiest, turned over: whole note + buttons"
+ },
+ {
+  "concept": "tag",
+  "name": "approx-back",
+  "caption": "Approx, turned over: whole note + buttons"
+ },
+ {
+  "concept": "tag",
+  "name": "f1",
+  "caption": "1 Tap the pin"
+ },
+ {
+  "concept": "tag",
+  "name": "f2",
+  "caption": "2 Drops and swings (300ms); taps already live where they settle"
+ },
+ {
+  "concept": "tag",
+  "name": "f3",
+  "caption": "3 Swings back"
+ },
+ {
+  "concept": "tag",
+  "name": "f4",
+  "caption": "4 Settled"
+ },
+ {
+  "concept": "tag",
+  "name": "f5",
+  "caption": "Turn over: the tag turns on its string"
+ },
+ {
+  "concept": "tag",
+  "name": "signedout",
+  "caption": "Signed out, visited: Star and Visited disabled, Directions live"
+ },
+ {
+  "concept": "file",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "file",
+  "name": "typical",
+  "caption": "Typical note: Aurora"
+ },
+ {
+  "concept": "file",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "file",
+  "name": "bare",
+  "caption": "Bare: Perlan (name only)"
+ },
+ {
+  "concept": "file",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "concept": "file",
+  "name": "f1",
+  "caption": "1 Plans list, tap VEGA (stop 2)"
+ },
+ {
+  "concept": "file",
+  "name": "f2",
+  "caption": "2 Its card is pulled up out of the file"
+ },
+ {
+  "concept": "file",
+  "name": "f3",
+  "caption": "3 It stands in its own slot"
+ },
+ {
+  "concept": "file",
+  "name": "f4",
+  "caption": "4 Put back: the list as left"
+ },
+ {
+  "concept": "stamp",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "stamp",
+  "name": "typical",
+  "caption": "Typical note: Aurora"
+ },
+ {
+  "concept": "stamp",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "stamp",
+  "name": "bare",
+  "caption": "Bare: Perlan (name only)"
+ },
+ {
+  "concept": "stamp",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "concept": "stamp",
+  "name": "f1",
+  "caption": "1 Not visited: a ghost frame. Tap Mark Visited"
+ },
+ {
+  "concept": "stamp",
+  "name": "f2",
+  "caption": "2 The stamp comes down"
+ },
+ {
+  "concept": "stamp",
+  "name": "f3",
+  "caption": "3 Lands, ink bleeds in"
+ },
+ {
+  "concept": "stamp",
+  "name": "f4",
+  "caption": "4 Settled"
+ },
+ {
+  "concept": "stamp",
+  "name": "signedout",
+  "caption": "Signed out: Star and Visited disabled, Directions live"
+ },
+ {
+  "concept": "post",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "post",
+  "name": "typical",
+  "caption": "Typical note: Aurora"
+ },
+ {
+  "concept": "post",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "post",
+  "name": "bare",
+  "caption": "Bare: Perlan (name only)"
+ },
+ {
+  "concept": "post",
+  "name": "shape",
+  "caption": "District: Grandi"
+ },
+ {
+  "concept": "post",
+  "name": "longname",
+  "caption": "Long name"
+ },
+ {
+  "concept": "post",
+  "name": "f1",
+  "caption": "1 Tap the pin"
+ },
+ {
+  "concept": "post",
+  "name": "f2",
+  "caption": "2 The pin’s seal flies to the stamp corner"
+ },
+ {
+  "concept": "post",
+  "name": "f3",
+  "caption": "3 Tap Mark visited (dashed: the target)"
+ },
+ {
+  "concept": "post",
+  "name": "f4",
+  "caption": "4 The postmark comes down"
+ },
+ {
+  "concept": "post",
+  "name": "f5",
+  "caption": "5 Lands, ink bleeds in"
+ },
+ {
+  "concept": "post",
+  "name": "f6",
+  "caption": "6 Settled"
+ },
+ {
+  "concept": "post",
+  "name": "signedout",
+  "caption": "Signed out, visited: Star and Visited disabled, Directions live"
+ },
+ {
+  "concept": "post",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited: Star and Mark visited disabled"
+ },
+ {
+  "concept": "label",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited"
+ },
+ {
+  "concept": "tag",
+  "name": "signedout-unvisited",
+  "caption": "Signed out, not visited"
+ }
+]

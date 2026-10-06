@@ -27,6 +27,34 @@ sources are the file where the quote is recorded.
 - **Don't let a design read as "not following good design principles"**
   (visited pins, Round 4; CLAUDE.md).
 
+## Character
+
+- **Whimsy, not average.** "Have them check this against the inspo /
+  product philosophy…I like whimsy and these all seem kinda average. The
+  most exciting ideas as far as whimsy have been cut" (2026-10-05, popup
+  round 2; chat). Character is wanted, drawn from the inspo (labels,
+  stamps, matchbooks, park posters, the trail scrapbook). It still has to
+  pass the noise rules above: whimsy that carries meaning (form, type,
+  paper/ink, motion), not added decoration.
+- **Bonus: the pin and what it opens are one idea.** "Bonus points but not
+  required if the map pin is conceptually aligned with whatever it "opens
+  up" to" (2026-10-05, popup round 3; chat). A nice-to-have, not a rule.
+  The pin's look is shipped; changing the pin itself is a separate decision.
+- **No typewriter face; use the app's own type.** "the typewriter font is
+  unnecessary." (2026-10-05, on the round-3 Card File popup concept; chat).
+  Character comes from form and paper, not a costume typeface.
+- **The tag's stub is a claim check, not a Visited-only area.** "the whole
+  area down there being just for visited makes no sense. thinking of that
+  area kind of like a claim check maybe the directions button gets put there
+  centered? or maybe it's a segmented area with multiple buttons? here are
+  some more reference shots." (2026-10-06, Hanging Tag v3; chat; references
+  in `design/inspo/luggage-tags/`).
+- **Type not in the tag's header band.** "i don't like the new palcement of
+  category type." (2026-10-06, Hanging Tag v2; chat).
+- **The tag pops out of the pin onto a straight string.** "i think the tag
+  should just pop down "out of" the pin but end with a straight string"
+  (2026-10-05, Hanging Tag v2; chat).
+
 ## Hierarchy
 
 - **Secondary marks never outrank content.** "the numbers feel really
@@ -34,8 +62,22 @@ sources are the file where the quote is recorded.
   the x" (Plans stop numbers; chat, `design/ACCEPTANCE-plans.md`).
 - **Busy views must keep their hierarchy.** "so much information all visual
   hierarchy is starting to struggle" (popup; chat).
-- **Type goes above the name.** "type should go back above the name"
-  (popup; chat).
+- ~~**Type goes above the name.** "type should go back above the name"
+  (popup; chat).~~ **WITHDRAWN 2026-10-05:** "Don't pay attention to old
+  feedback ignore it. The type thing I mean." (chat). Type placement in the
+  popup is open; see the re-tier entry below.
+- **In the popup, notes are tier 1; type is tier 2 or the bottom of tier 1.**
+  "Type is actually tier 2 imo — or bottom of tier 1. Notes are tier 1"
+  (2026-10-05, popup; chat, correcting `design/popup-hierarchy/ux-analysis.md`).
+  Only the weighting stands; where type sits is open (the "above the name"
+  rule above is withdrawn).
+- **Long notes show full length; no flip-over.** "long notes should just
+  show full length - the flip over is meh." (2026-10-05, Hanging Tag v2;
+  chat).
+- **The address can matter at a glance.** "i wonder if the address
+  shouldn't be closer to the place name (as sometimes the address *does*
+  matter at a glance, if something has multiple locations or something)"
+  (2026-10-05, Hanging Tag v2; chat).
 - **Don't show empty states as marks.** "No star unless it's been starred"
   (list row; chat).
 
@@ -145,6 +187,8 @@ sources are the file where the quote is recorded.
   (Plans/Places; chat).
 - **Reuse existing control styles.** "the same text button not a new button
   style" (Get Directions; `design/swipe-visit/p8-design.md`).
+- **Copy: "Directions" is fine.** "Directions is fine" (2026-10-05, popup
+  action label, replacing "Get Directions"; chat).
 - **Grip/number leads, by convention.** "number/drag control should probably
   be on the left to follow normal convention" (Plans; chat,
   `design/ACCEPTANCE-plans.md`).
@@ -153,6 +197,10 @@ sources are the file where the quote is recorded.
   panel not the list header." (chat).
 - **Mode-specific controls only in their mode.** "plans picker only in the
   plans view… Is it not confusing the plans/places metaphor?" (chat).
+- **Signed out: actions visible but disabled.** "If you're not logged in
+  actions should be visible but disabled" (2026-10-05, popup actions;
+  chat). Applies to the edit actions (star, visited); Directions needs no
+  sign-in.
 - **Drop steps that aren't needed.** "Next isn't necessary" (Plans round 11;
   chat, `design/plans-deepdive/v3/README.md`).
 - **Simplest marker first.** "Numbers may just be the simplest (until we can

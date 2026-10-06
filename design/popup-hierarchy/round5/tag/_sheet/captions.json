@@ -1,0 +1,74 @@
+[
+ [
+  "seg-busiest",
+  "Segmented stub: busiest (VEGA)"
+ ],
+ [
+  "seg-typical",
+  "Segmented stub: typical, not visited"
+ ],
+ [
+  "seg-approx",
+  "Segmented stub: 8-line note in full"
+ ],
+ [
+  "seg-bare",
+  "Segmented stub: name only"
+ ],
+ [
+  "seg-shape",
+  "Segmented stub: district"
+ ],
+ [
+  "seg-signedout",
+  "Segmented stub: signed out"
+ ],
+ [
+  "seg-v1",
+  "Segmented stub: 1 tap Visited"
+ ],
+ [
+  "seg-v2",
+  "Segmented stub: 2 the visited moment"
+ ],
+ [
+  "seg-v3",
+  "Segmented stub: 3 visited"
+ ],
+ [
+  "claim-busiest",
+  "Claim check: busiest (VEGA)"
+ ],
+ [
+  "claim-typical",
+  "Claim check: typical, not visited"
+ ],
+ [
+  "claim-approx",
+  "Claim check: 8-line note in full"
+ ],
+ [
+  "claim-bare",
+  "Claim check: name only"
+ ],
+ [
+  "claim-shape",
+  "Claim check: district"
+ ],
+ [
+  "claim-signedout",
+  "Claim check: signed out"
+ ],
+ [
+  "claim-v1",
+  "Claim check: 1 tap Visited"
+ ],
+ [
+  "claim-v2",
+  "Claim check: 2 the visited moment"
+ ],
+ [
+  "claim-v3",
+  "Claim check: 3 visited"
+ ]
+]

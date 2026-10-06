@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popup Hierarchy Analysis</title>
+<style>
+  :root {
+    --bg: #F2EBDD; --card: #FAF5EA; --ink: #1A1A18; --ink-2: #5A564C; --hair: #D8CEBA;
+    --accent: #A8400C; --navy: #12293F; --t1: #12293F; --t2: #3E5A74; --t3: #8A8270; --t4: #B4AB98;
+    --bad: #A8400C; --ok: #3C6E47;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17191C; --card: #212429; --ink: #ECE6DA; --ink-2: #ABA494; --hair: #353941;
+      --accent: #F08A55; --navy: #9FC0E0; --t1: #9FC0E0; --t2: #7A9AB8; --t3: #8A8473; --t4: #5E5A50;
+      --bad: #F08A55; --ok: #7DB88A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17191C; --card: #212429; --ink: #ECE6DA; --ink-2: #ABA494; --hair: #353941;
+    --accent: #F08A55; --navy: #9FC0E0; --t1: #9FC0E0; --t2: #7A9AB8; --t3: #8A8473; --t4: #5E5A50;
+    --bad: #F08A55; --ok: #7DB88A;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 24px; line-height: 1.2; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 36px 0 10px; }
+  h3 { font-size: 16px; margin: 20px 0 6px; }
+  p, li { color: var(--ink); }
+  .sub { color: var(--ink-2); font-size: 14px; margin: 0 0 20px; }
+  .tiers { display: grid; gap: 8px; margin: 12px 0 0; }
+  .tier { background: var(--card); border: 1px solid var(--hair); border-left: 6px solid var(--tc); border-radius: 6px; padding: 10px 12px; }
+  .tier b.k { color: var(--tc); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; display: block; }
+  .tier span { display: block; font-size: 15px; }
+  .t1 { --tc: var(--t1); } .t2 { --tc: var(--t2); } .t3 { --tc: var(--t3); } .t4 { --tc: var(--t4); }
+  ol.mis { padding-left: 22px; margin: 8px 0 0; }
+  ol.mis li { margin: 0 0 10px; }
+  ol.mis b { color: var(--bad); }
+  figure { margin: 16px 0; }
+  figure img { display: block; width: 100%; height: auto; border: 1px solid var(--hair); border-radius: 6px; background: #F2EBDD; }
+  figcaption { font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+  .pair { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media (min-width: 560px) { .pair { grid-template-columns: 1fr 1fr; } }
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 8px 0; border: 1px solid var(--hair); border-radius: 6px; background: var(--card); }
+  table { border-collapse: collapse; font-size: 14px; width: 100%; min-width: 0; }
+  th, td { text-align: left; vertical-align: top; padding: 7px 9px; border-bottom: 1px solid var(--hair); }
+  th { font-size: 12px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
+  tr:last-child td { border-bottom: none; }
+  .wide { min-width: 0; font-size: 13px; }
+  .wide th, .wide td { padding: 6px 7px; }
+  .num { font-variant-numeric: tabular-nums; text-align: right; }
+  .hl { color: var(--bad); font-weight: 700; }
+  .pass { color: var(--ok); font-weight: 700; white-space: nowrap; }
+  .q { border-left: 3px solid var(--hair); padding: 2px 0 2px 10px; color: var(--ink-2); font-style: italic; margin: 8px 0; }
+  .card { background: var(--card); border: 1px solid var(--hair); border-radius: 6px; padding: 12px 14px; }
+  .card ul, .card ol { margin: 4px 0 0; padding-left: 20px; }
+  .muted { color: var(--ink-2); font-size: 14px; }
+  code { font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Popup hierarchy analysis</h1>
+<p class="sub">UX agent · 2026-10-05 · current build (main a3c7579) · real data from your trip</p>
+
+<h2 style="margin-top:8px">What each piece is for, in order</h2>
+<div class="tiers">
+  <div class="tier t1"><b class="k">Tier 1 · first glance</b><span><b>Name</b>, <b>notes</b> (why you saved it), <b>your marks</b> (starred, visited) as state; <b>type</b> at the bottom of tier 1</span></div>
+  <div class="tier t2"><b class="k">Tier 2 · doing it now</b><span><b>Get Directions</b>, <b>Mark Visited</b>, <b>Stop n of m</b> in Plans; type if it doesn't fit tier 1</span></div>
+  <div class="tier t3"><b class="k">Tier 3 · sometimes</b><span>Star button (planning; rows can swipe too), close, the neighbourhood part of the address</span></div>
+  <div class="tier t4"><b class="k">Tier 4 · only when asked</b><span>Full address (postcode, county, country), the "approximate placement" note</span></div>
+</div>
+
+<p class="muted" style="margin-top:8px">Updated with your correction: "Type is actually tier 2 imo — or bottom of tier 1. Notes are tier 1". Type reads lighter than name and notes; where it sits is open (you withdrew "type should go back above the name"). <s>Was: tier 1 name + type + marks; notes in tier 2.</s></p>
+
+<h2>The 5 biggest mismatches</h2>
+<ol class="mis">
+  <li><b>The address is the heaviest thing and the least needed.</b> Your addresses are full OSM strings (avg 103 characters, 135 of 202 over 90) so they take 3 lines. It carries 2.4x the ink of the name.</li>
+  <li><b>Your notes are tier 1 but styled as fine print.</b> They're the only place your reasons appear in the whole app, yet they're small grey italic, under the address, with line breaks lost.</li>
+  <li><b>Type is at the bottom</b>, ~235px below the name in a full popup. Where it goes is open now; it should read lighter than the name and notes. The popup icon is also still bare while the pin and row show it in a ring.</li>
+  <li><b>Spacing follows invisible tap boxes, not the 4px scale.</b> Gaps you can see: 3, 10, 25, 37, 42px. A name-only popup is 162px tall and about 70% empty.</li>
+  <li><b>Five controls in four corners.</b> Star top-left, × top-right, Directions middle-left, Visited bottom-right. Directions is the only coloured thing, so it shouts; Mark Visited (the trip's other key action) is the quietest.</li>
+</ol>
+
+<figure>
+  <img src="{{popup-busiest@3x}}" alt="Current popup for VEGA Copenhagen: star, name, 3-line address, 5-line italic note, Get Directions, then BAR · STOP 2 OF 3 and VISITED at the bottom">
+  <figcaption>Busiest real place today (VEGA Copenhagen, starred, visited, plan stop). Address + notes dominate; type and Visited sit at the very bottom.</figcaption>
+</figure>
+<div class="pair">
+  <figure>
+    <img src="{{popup-bare@3x}}" alt="Current bare popup for Perlan: one line of name, large empty gaps, Get Directions, ATTRACTION and MARK VISITED">
+    <figcaption>Bare place (name only): 162px tall, mostly air.</figcaption>
+  </figure>
+  <figure>
+    <img src="{{phone-busiest@1x}}" alt="Whole phone screen with the busiest popup covering the top half of the map above the plan list">
+    <figcaption>On the phone: the full popup covers 84% of the width and half the visible map.</figcaption>
+  </figure>
+</div>
+
+<h2>Your jobs: can you do them today?</h2>
+<p class="muted">Inferred from your words and the code. No job is blocked; the problems are weight and order.</p>
+<div class="scroll"><table class="wide">
+<tr><th>Job</th><th>Result</th><th>What gets in the way</th></tr>
+<tr><td>Identify a pin you tapped</td><td class="pass">PASS</td><td>Type is the last line.</td></tr>
+<tr><td>Decide whether to go (why you saved it)</td><td class="pass">PASS</td><td>Notes start after 3 address lines; long notes lose their breaks.</td></tr>
+<tr><td>Go there (Directions)</td><td class="pass">PASS</td><td>One tap. Always opens Apple Maps in <i>driving</i> mode.</td></tr>
+<tr><td>Mark visited</td><td class="pass">PASS</td><td>Smallest, greyest words in the popup.</td></tr>
+<tr><td>Star / unstar</td><td class="pass">PASS</td><td>—</td></tr>
+<tr><td>Follow a plan (which stop)</td><td class="pass">PASS</td><td>"Stop 2 of 3" is tacked onto the type at the bottom. You can't add a map pin to a plan from here (backlog).</td></tr>
+<tr><td>Get back to the map</td><td class="pass">PASS</td><td>× is a 24px target (everything else is 44). Popup hides neighbouring pins.</td></tr>
+<tr><td>Check the address</td><td class="pass">PASS</td><td>Always fully shown, wanted or not.</td></tr>
+<tr><td>Signed-out viewer reads it</td><td class="pass">PASS</td><td>Sees Star and Mark Visited as buttons; tapping asks them to sign in.</td></tr>
+</table></div>
+
+<h2>Each piece: purpose and whether it must stay in the popup</h2>
+<div class="scroll"><table class="wide">
+<tr><th>Piece</th><th>Purpose</th><th>Must be in first view?</th><th>If it moves, you lose</th></tr>
+<tr><td><b>Name</b></td><td>Confirms the right place</td><td>Yes</td><td>Everything</td></tr>
+<tr><td><b>Type</b></td><td>What kind of place / approx / district / street</td><td>Yes, lighter than name and notes; placement open</td><td>Partly shown by the pin under the tip</td></tr>
+<tr><td><b>Starred / Visited state</b></td><td>"I care" / "been there"</td><td>Yes, as state</td><td>The pin shows visited too</td></tr>
+<tr><td><b>Notes</b></td><td>Why you saved it, tips, dates</td><td>Yes, readable with no tap for typical notes (~3 lines); only very long ones fold, full text ≤1 tap. <s>Was: just the start.</s></td><td>The only place notes exist in the app</td></tr>
+<tr><td><b>Get Directions</b></td><td>Hand off to Maps on the trip</td><td>Yes, one tap</td><td>Time on the street</td></tr>
+<tr><td><b>Mark Visited</b></td><td>Record a visit from the map</td><td>Yes, one tap</td><td>The map's only (and VoiceOver's only) visit path</td></tr>
+<tr><td>Star button</td><td>Star from the map</td><td>One tap away is enough</td><td>Rows can swipe; VoiceOver can't</td></tr>
+<tr><td>Stop n of m</td><td>Where this is in a plan</td><td>No</td><td>Little: the pin number and row show it</td></tr>
+<tr><td>Full address</td><td>Taxi, or checking a bad geocode</td><td>No, but reachable</td><td>The only in-app way to spot a wrong location</td></tr>
+<tr><td>Close ×</td><td>Leave</td><td>Yes (or another dismiss)</td><td>Map tap also closes</td></tr>
+</table></div>
+
+<h2>Weight today vs what it should be</h2>
+<p class="muted">"Ink" = how much darkness each piece puts on screen, measured on the renders.</p>
+<div class="scroll"><table>
+<tr><th>VEGA popup</th><th class="num">Ink</th><th>Should be</th></tr>
+<tr><td>Notes</td><td class="num hl">1,700</td><td>Tier 1 (right weight, wrong style and place)</td></tr>
+<tr><td>Address</td><td class="num hl">1,248</td><td>Tier 4</td></tr>
+<tr><td>Name</td><td class="num">514</td><td>Tier 1</td></tr>
+<tr><td>Visited</td><td class="num">218</td><td>Tier 1 (state) / 2 (action)</td></tr>
+<tr><td>Type</td><td class="num">182</td><td>Bottom of tier 1 / tier 2</td></tr>
+<tr><td>Directions (only colour)</td><td class="num">180</td><td>Tier 2</td></tr>
+<tr><td>Star</td><td class="num">112</td><td>Tier 1 state / 3 button</td></tr>
+</table></div>
+
+<h2>Spacing</h2>
+<div class="card">
+<p style="margin-top:0">A system already exists: <b>4 / 8 / 12 / 16 / 24 / 32 / 48px</b>, plus a 28px icon column that rows, the header and forms all share. The popup ignores both:</p>
+<ul>
+  <li>Visible gaps: name→address <b>3</b>, address→notes <b>10</b>, notes→Directions <b>25</b>, Directions→type <b>37</b>, name→Directions <b>42</b> (bare). Cause: the CSS spaces the 44px tap boxes, not the words.</li>
+  <li>Tight inside blocks, huge between them, so it reads as three islands.</li>
+  <li>Two left edges (star/icon column ~13px, words at 36 vs name at 38), neither on the app's 28px column.</li>
+</ul>
+</div>
+
+<h2>Rules any new design must keep</h2>
+<div class="card"><ol style="margin-top:0">
+  <li>Get Directions and Mark Visited: <b>one tap</b> from the open place, 44px targets, 8px between targets.</li>
+  <li>Star reachable in one tap from the place (VoiceOver's only path); every star/visit target keeps the haptic tap label.</li>
+  <li>Toggling never closes the place or moves the map; the list row replays.</li>
+  <li>The tapped pin stays visible and clearly linked; top controls stay clear.</li>
+  <li>List tap → map flies → place opens, the same for pins, districts, streets and approx pins (same content for every kind).</li>
+  <li>A 44px close plus tap-the-map to close.</li>
+  <li>The glance layer never covers the whole map.</li>
+  <li>Typical notes readable at first glance, no tap; only very long ones fold (full text ≤1 tap). Full address reachable.</li>
+  <li>Anything outside the popup (tab, side or bottom sheet) must not fight the list sheet, its swipes, Safari's edge back-swipe, or change filters / scroll / selection.</li>
+  <li>No marks for empty data ("no star unless starred" for marks; how the off-star <i>button</i> reads is the designer's call).</li>
+</ol></div>
+
+<h2>Other things I found</h2>
+<div class="card"><ul style="margin-top:0">
+  <li><b>Tapping a pin on the map doesn't select it</b> (no highlighted pin or row); tapping it in the list does. Same place, two states.</li>
+  <li><b>Closing the popup keeps the selection</b> highlighted.</li>
+  <li>Directions is always driving mode (walking trip).</li>
+  <li>"(approx.)" appears in the name and again as a sentence in the notes.</li>
+  <li>The popup's VISITED dot is a third visited look, next to the row stamp and the pin sticker.</li>
+</ul></div>
+
+<h2>More renders</h2>
+<figure><img src="{{popup-longname@3x}}" alt="Popup with a two-line name; the star floats beside the address block"><figcaption>Two-line name + address: the star centres on the whole block and floats beside the address.</figcaption></figure>
+<figure><img src="{{popup-approx@3x}}" alt="Approximate pin popup with an eight-line italic note"><figcaption>Approx pin: 8-line note, paragraph break lost ("homewares) Approximate placement").</figcaption></figure>
+<figure><img src="{{popup-shape@3x}}" alt="District popup with name, Get Directions, DISTRICT and MARK VISITED"><figcaption>District (Grandi): no address ever, same gaps as the bare place.</figcaption></figure>
+
+<p class="muted">Not checked: Safari/iPhone, real map tiles, VoiceOver order. Chromium renders at 390px with your real text patched into test rows. Full write-up: <code>design/popup-hierarchy/ux-analysis.md</code>.</p>
+</main>
+</body>
+</html>

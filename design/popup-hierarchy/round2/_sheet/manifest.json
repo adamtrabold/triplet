@@ -1,0 +1,232 @@
+[
+ {
+  "concept": "fold",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "fold",
+  "name": "typical",
+  "caption": "Typical: Aurora (3-line note)"
+ },
+ {
+  "concept": "fold",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "fold",
+  "name": "longname",
+  "caption": "2-line name"
+ },
+ {
+  "concept": "fold",
+  "name": "addronly",
+  "caption": "Address, no note"
+ },
+ {
+  "concept": "fold",
+  "name": "bare",
+  "caption": "Bare: Perlan"
+ },
+ {
+  "concept": "fold",
+  "name": "shape",
+  "caption": "District"
+ },
+ {
+  "concept": "fold",
+  "name": "busiest-open",
+  "caption": "Busiest, unfolded"
+ },
+ {
+  "concept": "fold",
+  "name": "approx-open",
+  "caption": "Approx, unfolded (scrolls inside)"
+ },
+ {
+  "concept": "fold",
+  "name": "f1-peek",
+  "caption": "1 Peek"
+ },
+ {
+  "concept": "fold",
+  "name": "f2-mid",
+  "caption": "2 Unfolding"
+ },
+ {
+  "concept": "fold",
+  "name": "f3-open",
+  "caption": "3 Open"
+ },
+ {
+  "concept": "fold",
+  "name": "f4-high",
+  "caption": "4 Pin high on the map: caps, scrolls"
+ },
+ {
+  "concept": "sheet",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "sheet",
+  "name": "typical",
+  "caption": "Typical: Aurora (3-line note)"
+ },
+ {
+  "concept": "sheet",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "sheet",
+  "name": "longname",
+  "caption": "2-line name"
+ },
+ {
+  "concept": "sheet",
+  "name": "addronly",
+  "caption": "Address, no note"
+ },
+ {
+  "concept": "sheet",
+  "name": "bare",
+  "caption": "Bare: Perlan"
+ },
+ {
+  "concept": "sheet",
+  "name": "shape",
+  "caption": "District"
+ },
+ {
+  "concept": "sheet",
+  "name": "f1-list",
+  "caption": "1 Plans list, tap VEGA"
+ },
+ {
+  "concept": "sheet",
+  "name": "f2-open",
+  "caption": "2 Map flies, sheet opens"
+ },
+ {
+  "concept": "sheet",
+  "name": "f3-read",
+  "caption": "3 A long note scrolls inside; the buttons stay"
+ },
+ {
+  "concept": "sheet",
+  "name": "f4-closed",
+  "caption": "4 × : the list as left"
+ },
+ {
+  "concept": "sheet",
+  "name": "signedout",
+  "caption": "Owner question: signed-out viewer sees Get Directions only"
+ },
+ {
+  "concept": "sheet",
+  "name": "copy-directions",
+  "caption": "Owner question: “Directions” instead of “Get Directions”"
+ },
+ {
+  "concept": "dock",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "dock",
+  "name": "typical",
+  "caption": "Typical: Aurora (3-line note)"
+ },
+ {
+  "concept": "dock",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "dock",
+  "name": "longname",
+  "caption": "2-line name"
+ },
+ {
+  "concept": "dock",
+  "name": "addronly",
+  "caption": "Address, no note"
+ },
+ {
+  "concept": "dock",
+  "name": "bare",
+  "caption": "Bare: Perlan"
+ },
+ {
+  "concept": "dock",
+  "name": "shape",
+  "caption": "District"
+ },
+ {
+  "concept": "dock",
+  "name": "busiest-open",
+  "caption": "Busiest, raised"
+ },
+ {
+  "concept": "dock",
+  "name": "approx-open",
+  "caption": "Approx, raised (scrolls inside)"
+ },
+ {
+  "concept": "pin",
+  "name": "busiest",
+  "caption": "Busiest: VEGA"
+ },
+ {
+  "concept": "pin",
+  "name": "typical",
+  "caption": "Typical: Aurora (3-line note)"
+ },
+ {
+  "concept": "pin",
+  "name": "approx",
+  "caption": "Approx pin, 8-line note"
+ },
+ {
+  "concept": "pin",
+  "name": "longname",
+  "caption": "2-line name"
+ },
+ {
+  "concept": "pin",
+  "name": "addronly",
+  "caption": "Address, no note"
+ },
+ {
+  "concept": "pin",
+  "name": "bare",
+  "caption": "Bare: Perlan"
+ },
+ {
+  "concept": "pin",
+  "name": "shape",
+  "caption": "District"
+ },
+ {
+  "concept": "pin",
+  "name": "f1-list",
+  "caption": "1 Plans list, tap the pin"
+ },
+ {
+  "concept": "pin",
+  "name": "f2-pinned",
+  "caption": "2 Row lifts into the card"
+ },
+ {
+  "concept": "pin",
+  "name": "f3-open",
+  "caption": "3 More: the card takes the sheet"
+ },
+ {
+  "concept": "pin",
+  "name": "f4-closed",
+  "caption": "4 × : the row drops back"
+ }
+]
