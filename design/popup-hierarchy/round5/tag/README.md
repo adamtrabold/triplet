@@ -98,3 +98,33 @@ in both variants.
 - `stills/{seg,claim}-{busiest,typical,approx,bare,shape,signedout,v1,v2,v3}-{phone@1x,crop@3x}.png`
 - `tag3.js` draws the tag; `render.js [name ...]` re-renders.
 - Chromium only, with a stand-in basemap.
+
+---
+
+## Fixes after `ux-review.md` and `cd-review.md`
+
+- **Punch.** Now a flat cut-out: the map shows through, with only a faint
+  soft 1px inner edge and no bevel or drop shadow. It's 17px, the same size
+  as the other icons. The chad is the hole's own shape in flat paper. At 1x
+  it is quiet, and the navy VISITED word carries the state. Its contrast
+  depends on the real tiles under it, which are unchecked (the basemap is a
+  stand-in).
+- **Icon sizes**, matched by drawn ink: compass at 20px (its ring draws
+  small), star at 18px, check at 17px.
+- **Unvisited** is an outline check, drawn like the outline star, instead of
+  the bare ring.
+- **The type value is tier 2:** weight 500, `--ink-2`.
+- **Directions in Segmented** gets a larger glyph and 11px type. It's the
+  only coloured segment.
+- **Claim check kept, without the grid.** No ruled cells and no ☐. Type sits
+  on the same quiet line as in Segmented, with Star and Visited as two
+  ordinary controls under it. Directions stays the centred claim check, and
+  Visited gets the same punch. TYPE reads as data, not a control. The copy
+  pairs are the app's own: Star / Starred and Mark visited / Visited, with
+  no verb-to-"YES" flip. VoiceOver names are "Directions", "Star /
+  Starred" and "Mark visited / Visited"; with no label/value split left,
+  each reads as one control.
+- **Worst case** (`*-worst`): starred, visited, plan stop, the 8-line approx
+  note, signed out. The punched hole fades when signed out.
+- **The owner page** is `../index.html` ("Hanging Tag v3"), built by
+  `../build.js`.

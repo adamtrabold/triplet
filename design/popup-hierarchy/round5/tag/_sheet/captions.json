@@ -4,6 +4,10 @@
   "Segmented stub: busiest (VEGA)"
  ],
  [
+  "seg-worst",
+  "Segmented stub: worst case (starred, visited, plan stop, 8-line approx note, signed out)"
+ ],
+ [
   "seg-typical",
   "Segmented stub: typical, not visited"
  ],
@@ -38,6 +42,10 @@
  [
   "claim-busiest",
   "Claim check: busiest (VEGA)"
+ ],
+ [
+  "claim-worst",
+  "Claim check: worst case (starred, visited, plan stop, 8-line approx note, signed out)"
  ],
  [
   "claim-typical",

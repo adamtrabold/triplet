@@ -21,12 +21,16 @@ const DATA = {
   approx: ['rey15', { name: 'Værnedamsvej (approx.)', category: 'district', address: null,
     notes: "Copenhagen's most charming market street; Granola (retro coffee lounge/backyard café), Le Gourmand (French deli/cheese & charcuterie), Helges Ost (cheesemonger), Falernum (natural wine bar with tapas), Café Viggo (French bistro), Dora (design/vintage homewares)\n\nApproximate placement -- OSM has no boundary/way for this district; resolved via point search.",
     starred: false, visited: false }, 16],
+  worst: ['rey05', { name: 'Værnedamsvej (approx.)', category: 'district', address: null,
+    notes: "Copenhagen's most charming market street; Granola (retro coffee lounge/backyard café), Le Gourmand (French deli/cheese & charcuterie), Helges Ost (cheesemonger), Falernum (natural wine bar with tapas), Café Viggo (French bistro), Dora (design/vintage homewares)\n\nApproximate placement -- OSM has no boundary/way for this district; resolved via point search.",
+    starred: true, visited: true }, 16],
   bare: ['rey13', { name: 'Perlan', category: 'attraction', address: null, notes: null, starred: false, visited: false }, 16],
 };
 
 // [name, state, opts, caption]
 const J = [
   ['seg-busiest', 'busiest', { variant: 'seg' }, 'Segmented stub: busiest (VEGA)'],
+  ['seg-worst', 'worst', { variant: 'seg', so: true }, 'Segmented stub: worst case (starred, visited, plan stop, 8-line approx note, signed out)'],
   ['seg-typical', 'typical', { variant: 'seg' }, 'Segmented stub: typical, not visited'],
   ['seg-approx', 'approx', { variant: 'seg' }, 'Segmented stub: 8-line note in full'],
   ['seg-bare', 'bare', { variant: 'seg' }, 'Segmented stub: name only'],
@@ -36,6 +40,7 @@ const J = [
   ['seg-v2', 'typical', { variant: 'seg', vis: true, step: 'fly' }, 'Segmented stub: 2 the visited moment'],
   ['seg-v3', 'typical', { variant: 'seg', vis: true }, 'Segmented stub: 3 visited'],
   ['claim-busiest', 'busiest', { variant: 'claim' }, 'Claim check: busiest (VEGA)'],
+  ['claim-worst', 'worst', { variant: 'claim', so: true }, 'Claim check: worst case (starred, visited, plan stop, 8-line approx note, signed out)'],
   ['claim-typical', 'typical', { variant: 'claim' }, 'Claim check: typical, not visited'],
   ['claim-approx', 'approx', { variant: 'claim' }, 'Claim check: 8-line note in full'],
   ['claim-bare', 'bare', { variant: 'claim' }, 'Claim check: name only'],
@@ -47,7 +52,7 @@ const J = [
 ];
 
 async function setup(b, state) {
-  const plan = state === 'busiest';
+  const plan = state === 'busiest' || state === 'worst';
   const { ctx, page, errors } = await openProto(b, { dsf: 3, reduced: true, storage: plan ? { 'gh.plans': '1', 'triplet.reorderHint': '1' } : {} });
   if (plan) { await page.waitForFunction(() => typeof plans !== 'undefined' && plans.length === 1, null, { timeout: 10000 }); await page.evaluate(() => setListView('plans')); await W(600); }
   if (state === 'shape') {
