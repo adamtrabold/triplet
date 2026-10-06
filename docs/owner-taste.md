@@ -43,6 +43,14 @@ sources are the file where the quote is recorded.
 - **No typewriter face; use the app's own type.** "the typewriter font is
   unnecessary." (2026-10-05, on the round-3 Card File popup concept; chat).
   Character comes from form and paper, not a costume typeface.
+- **The tag's stub is a claim check, not a Visited-only area.** "the whole
+  area down there being just for visited makes no sense. thinking of that
+  area kind of like a claim check maybe the directions button gets put there
+  centered? or maybe it's a segmented area with multiple buttons? here are
+  some more reference shots." (2026-10-06, Hanging Tag v3; chat; references
+  in `design/inspo/luggage-tags/`).
+- **Type not in the tag's header band.** "i don't like the new palcement of
+  category type." (2026-10-06, Hanging Tag v2; chat).
 - **The tag pops out of the pin onto a straight string.** "i think the tag
   should just pop down "out of" the pin but end with a straight string"
   (2026-10-05, Hanging Tag v2; chat).
