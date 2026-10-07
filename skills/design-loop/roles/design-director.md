@@ -44,3 +44,5 @@ document for the approved concept (execution phase).
 2. The likely owner objections.
 3. For anything under 9: numbered fixes, or for a concept, why it can't get
    to 9 and should be replaced.
+4. From the second round on: what keeps blocking a 9 across rounds, and
+   why you think it keeps happening.

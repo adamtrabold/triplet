@@ -84,7 +84,8 @@ UI, and nothing is built until a concept is approved.
    interaction, how it fits the product — not finished UI.
 2. The design director rates each concept 1–10.
 3. Concepts under 9 go back: improve them or replace them with new ones.
-   The team keeps iterating until at least one concept scores 9 or more.
+   The team keeps iterating until at least one concept scores 9 or more,
+   or the team is stuck (below).
 4. The owner sees only the concepts that scored 9+, each with its score and
    the design director's reasoning. The owner approves one, or sends the
    team back.
@@ -105,7 +106,8 @@ UI, and nothing is built until a concept is approved.
    document. At the same time, the product designer (UX focus) walks every
    job on the build.
 4. Under 9, or any job that can't be completed: fixes in one batch, then
-   re-rate. Repeat until it scores 9+ with every job passing.
+   re-rate. Repeat until it scores 9+ with every job passing, or the team
+   is stuck (below).
 5. The owner sees the finished work and approves it; then it lands under
    the project's rules.
 
@@ -120,6 +122,31 @@ execution of a weak concept is still a weak concept.
 You enforce this. Before anything goes to the owner, check it has a design
 director score of 9 or more from a fresh review; if it doesn't, it goes back
 to the team, not to the owner.
+
+## When the team is stuck
+
+If the team is struggling, stop iterating and bring the owner in to
+collaborate. Struggling means either of:
+
+- three rounds without a 9, or
+- two rounds in a row where the best score doesn't go up.
+
+There's usually a reason the team is stuck: the goal is unclear, two
+constraints conflict, information is missing, or the idea can't work as
+framed. Find it before going to the owner. Ask the design director and the
+designers what keeps blocking a 9 and why.
+
+Then send the owner a short note:
+
+1. Where it stands: rounds run, best score, and the design director's
+   recurring objection.
+2. Why the team thinks it's stuck.
+3. The specific questions the owner can answer, or the decision they can
+   make, to unblock it.
+
+This is a request for help, not a review: don't present sub-9 work as a
+candidate for approval. If a picture helps explain a question, include it,
+clearly labelled as not ready.
 
 ## Always
 
