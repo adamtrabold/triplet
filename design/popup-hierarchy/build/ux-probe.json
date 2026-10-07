@@ -1,0 +1,565 @@
+{
+ "A0 before": {
+  "open": false,
+  "title": null,
+  "hl": null,
+  "zoom": 11,
+  "lower": "0",
+  "listTop": 544,
+  "scroll": 0,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "A1 pin list-tap": {
+  "open": true,
+  "title": "Harpa Concert Hall and Conference Centre",
+  "hl": "rey05",
+  "zoom": 14,
+  "lower": "0px",
+  "listTop": 544,
+  "scroll": 220,
+  "focus": "tag",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "A1 rects": {
+  "tag": [
+   37,
+   142,
+   316,
+   194
+  ],
+  "segs": [
+   [
+    37,
+    276,
+    105,
+    60
+   ],
+   [
+    142,
+    276,
+    105,
+    60
+   ],
+   [
+    248,
+    276,
+    105,
+    60
+   ]
+  ],
+  "taps": [
+   [
+    142,
+    276,
+    105,
+    60
+   ],
+   [
+    248,
+    276,
+    105,
+    60
+   ]
+  ],
+  "x": [
+   309,
+   176,
+   44,
+   44
+  ],
+  "slipBtn": null,
+  "mapBottom": 544,
+  "tagFootGap": 208
+ },
+ "A2 swap target": null,
+ "A3 star tap": {
+  "before": [
+   37,
+   142,
+   316,
+   194
+  ],
+  "after": [
+   37,
+   142,
+   316,
+   194
+  ],
+  "segsBefore": [
+   [
+    37,
+    276,
+    105,
+    60
+   ],
+   [
+    142,
+    276,
+    105,
+    60
+   ],
+   [
+    248,
+    276,
+    105,
+    60
+   ]
+  ],
+  "segsAfter": [
+   [
+    37,
+    276,
+    105,
+    60
+   ],
+   [
+    142,
+    276,
+    105,
+    60
+   ],
+   [
+    248,
+    276,
+    105,
+    60
+   ]
+  ],
+  "s": {
+   "open": true,
+   "title": "Harpa Concert Hall and Conference Centre",
+   "hl": "rey05",
+   "zoom": 14,
+   "lower": "0px",
+   "listTop": 544,
+   "scroll": 220,
+   "focus": "BODY",
+   "wait": false,
+   "scrolls": false,
+   "dot": false,
+   "slip": "",
+   "auth": false
+  }
+ },
+ "A3 visited tap": {
+  "after": [
+   37,
+   142,
+   316,
+   194
+  ],
+  "segsAfter": [
+   [
+    37,
+    276,
+    105,
+    60
+   ],
+   [
+    142,
+    276,
+    105,
+    60
+   ],
+   [
+    248,
+    276,
+    105,
+    60
+   ]
+  ],
+  "s": {
+   "open": true,
+   "title": "Harpa Concert Hall and Conference Centre",
+   "hl": "rey05",
+   "zoom": 14,
+   "lower": "0px",
+   "listTop": 544,
+   "scroll": 220,
+   "focus": "BODY",
+   "wait": false,
+   "scrolls": false,
+   "dot": false,
+   "slip": "",
+   "auth": false
+  }
+ },
+ "A4 drag on tag: map moved?": {
+  "moved": false,
+  "open": true
+ },
+ "A5 after x": {
+  "open": false,
+  "title": null,
+  "hl": "rey05",
+  "zoom": 14,
+  "lower": "0px",
+  "listTop": 544,
+  "scroll": 220,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "A6 district": {
+  "open": true,
+  "title": "Fixture District",
+  "hl": "rey05",
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 544,
+  "scroll": 1061,
+  "focus": "tag",
+  "wait": false,
+  "scrolls": false,
+  "dot": true,
+  "slip": "",
+  "auth": false
+ },
+ "A6 approx": {
+  "open": true,
+  "title": "Værnedamsvej (approx.)",
+  "hl": "rey15",
+  "zoom": 15,
+  "lower": "28px",
+  "listTop": 572,
+  "scroll": 892,
+  "focus": "tag",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "A6 street": {
+  "open": true,
+  "title": "Fixture Street",
+  "hl": "rey15",
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 544,
+  "scroll": 1061,
+  "focus": "tag is-starred is-visited",
+  "wait": false,
+  "scrolls": false,
+  "dot": true,
+  "slip": "",
+  "auth": false
+ },
+ "A7 on-screen arrival open ms": 243,
+ "A8 map container bottom vs list top": {
+  "map": 544,
+  "list": 544
+ },
+ "A9 Esc": {
+  "open": true,
+  "title": "Bæjarins Beztu",
+  "hl": "rey00",
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 544,
+  "scroll": 0,
+  "focus": "tag",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "A10 label sizes": [
+  [
+   "tag-lab",
+   "8px",
+   "700",
+   "rgb(90, 86, 76)",
+   "Type"
+  ],
+  [
+   "tag-val popup-cat",
+   "11px",
+   "500",
+   "rgb(90, 86, 76)",
+   "restaurant"
+  ],
+  [
+   "tag-seg popup-directions",
+   "10px",
+   "700",
+   "rgb(26, 26, 24)",
+   "Directions"
+  ],
+  [
+   "tag-seg popup-star",
+   "10px",
+   "700",
+   "rgb(26, 26, 24)",
+   "Star"
+  ],
+  [
+   "tag-seg popup-visited",
+   "10px",
+   "700",
+   "rgb(26, 26, 24)",
+   "Mark visited"
+  ]
+ ],
+ "A errors": [],
+ "B0 before (scroll 300)": {
+  "open": false,
+  "title": null,
+  "hl": null,
+  "zoom": 11,
+  "lower": "0",
+  "listTop": 364,
+  "scroll": 300,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "B1 tallest via pin": {
+  "open": true,
+  "title": "Værnedamsvej (approx.)",
+  "hl": null,
+  "zoom": 15,
+  "lower": "184px",
+  "listTop": 548,
+  "scroll": 300,
+  "focus": "tag",
+  "wait": false,
+  "scrolls": true,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "B1 rects": {
+  "tag": [
+   37,
+   138,
+   316,
+   378
+  ],
+  "segs": [
+   [
+    37,
+    456,
+    105,
+    60
+   ],
+   [
+    142,
+    456,
+    105,
+    60
+   ],
+   [
+    248,
+    456,
+    105,
+    60
+   ]
+  ],
+  "taps": [
+   [
+    142,
+    456,
+    105,
+    60
+   ],
+   [
+    248,
+    456,
+    105,
+    60
+   ]
+  ],
+  "x": [
+   309,
+   172,
+   44,
+   44
+  ],
+  "slipBtn": null,
+  "mapBottom": 548,
+  "tagFootGap": 32
+ },
+ "B1 list visible px": 116,
+ "B2 after close": {
+  "open": false,
+  "title": null,
+  "hl": null,
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 364,
+  "scroll": 300,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "B3 visible row tap": {
+  "open": true,
+  "title": "Hlemmur Mathöll",
+  "hl": "rey06",
+  "zoom": 15,
+  "lower": "8px",
+  "listTop": 372,
+  "scroll": 300,
+  "focus": "tag",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "B3 after close (scroll was 300)": {
+  "open": false,
+  "title": null,
+  "hl": "rey06",
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 364,
+  "scroll": 300,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "B4 collapsed before": {
+  "open": false,
+  "title": null,
+  "hl": "rey06",
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 604,
+  "scroll": 0,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "B4 tag with collapsed list": {
+  "open": true,
+  "title": "Kaffi Vínyl",
+  "hl": "rey06",
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 604,
+  "scroll": 0,
+  "focus": "tag",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false
+ },
+ "B4 after close": {
+  "open": false,
+  "title": null,
+  "hl": "rey06",
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 604,
+  "scroll": 0,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": false,
+  "collapsed": true
+ },
+ "B errors": [],
+ "C1 signed-out names": [
+  [
+   "Directions",
+   null
+  ],
+  [
+   "Star, sign in to use",
+   "true"
+  ],
+  [
+   "Mark visited, sign in to use",
+   "true"
+  ]
+ ],
+ "C2 slip after greyed star tap": {
+  "s": {
+   "open": true,
+   "title": "Kaffi Vínyl",
+   "hl": null,
+   "zoom": 15,
+   "lower": "0px",
+   "listTop": 544,
+   "scroll": 0,
+   "focus": "BODY",
+   "wait": false,
+   "scrolls": false,
+   "dot": false,
+   "slip": "Sign in to star and mark visitedSign in",
+   "auth": false
+  },
+  "tagBefore": [
+   37,
+   138,
+   316,
+   166
+  ],
+  "tagAfter": [
+   37,
+   138,
+   316,
+   166
+  ],
+  "slipBtn": [
+   285,
+   311,
+   68,
+   42
+  ],
+  "slipRole": [
+   "status",
+   "polite"
+  ]
+ },
+ "C4 SIGN IN tapped": {
+  "open": true,
+  "title": "Kaffi Vínyl",
+  "hl": null,
+  "zoom": 15,
+  "lower": "0px",
+  "listTop": 544,
+  "scroll": 0,
+  "focus": "BODY",
+  "wait": false,
+  "scrolls": false,
+  "dot": false,
+  "slip": "",
+  "auth": true
+ },
+ "C5 directions": [
+  "https://maps.apple.com/?daddr=64.1466,-21.9639&dirflg=d",
+  null
+ ],
+ "C errors": []
+}
