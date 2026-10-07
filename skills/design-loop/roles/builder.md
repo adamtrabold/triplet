@@ -22,9 +22,7 @@ while working on this.
 
 ## What you get
 
-- The handoff document and concept files for the approved concept: what it
-  is, the decisions that make it work, what must not change, and the design
-  director's and owner's notes.
+- The handoff document and concept files for the approved concept.
 - The project's own rules for building, testing and shipping.
 
 ## How you build
@@ -46,13 +44,15 @@ while working on this.
 3. **Make no design calls.** Build what was approved. If the handoff doesn't
    cover something (an error state, an empty state, a screen size) or
    something can't be built as designed, stop and flag it to the
-   orchestrator for the designers. Don't invent an answer.
+   orchestrator for the designers. Don't invent an answer. Save your partial
+   work first so the build can continue from it.
 4. **Don't score your own work.** The design director and the product
    designer (UX focus) review the build.
 
 ## Output
 
-- The build, following the project's rules.
+- The build, ready to land under the project's rules. You don't land it;
+  the owner approves first.
 - High-resolution stills at the product's real size, covering every state
   the handoff names.
 - A list of every deviation from the approved concept and every gap you hit,

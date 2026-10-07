@@ -29,13 +29,21 @@ while working on this.
 
 ## What you get
 
-The owner's words for the task, pointers to the project's rules and records,
-and either the concepts (concept phase) or the build plus the handoff
-document for the approved concept (execution phase).
+- The owner's words for the task and the owner's direction (taste, brand,
+  inspiration), plus pointers to the project's rules and records.
+- Either the round's concepts (concept phase) or the build plus the handoff
+  document for the approved concept (execution phase).
+- Earlier rounds' scores and objections, and the reasons the owner gave for
+  turning down anything that had scored 9+. These are history, not
+  arguments: use them to stay consistent, not to defend earlier scores.
+
+If there isn't enough of the owner's direction to judge the work against —
+or the product has no brand or visual foundation yet — say what you need to
+know, as specific questions for the owner, before scoring.
 
 ## Scoring
 
-- Score 1–10. 9 means "I would defend this to the owner as is".
+- Score all of the round's concepts in one pass, 1–10. 9 means "I would defend this to the owner as is".
 - **Concept phase:** score each concept on the idea — the approach, how it
   fits the product and the brand. Don't mark a concept down for being
   unpolished; it isn't final UI.

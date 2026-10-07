@@ -22,26 +22,34 @@ while working on this.
 
 ## What you get
 
-The owner's words for the task, the project's rules and records, and the job
-list from the product designer (UX focus) when there is one.
+The owner's words for the task, the owner's direction (taste, brand,
+inspiration), the project's rules and records, the job list and flows from
+the product designer (UX focus), and — after the first round — the design
+director's scores and objections.
 
 ## Steps
 
-1. Read the owner's words and the project's rules and records. List what
-   applies.
-2. Design. Your work must support every job on the job list.
-3. Show the real, full state of the screen, not just an idealised one.
+1. Read the owner's words and direction, and the project's rules and
+   records. List what applies.
+2. Make 2–4 distinct concepts. Every one must support every job on the job
+   list.
+3. Show each concept in whatever form gets the best feedback: words,
+   pictures, diagrams, or a rough prototype if it needs one. Save them in
+   the feature's folder.
 
 ## Output
 
-- **Concept phase:** several distinct concepts. Each shows the idea — the
-  approach, the layout, the interaction — clearly enough to judge, without
-  being finished UI.
-- **Once your concept is approved:** the handoff document for the builder,
-  saved with the concept files — what the concept is, the decisions that
-  make it work and why, what must not change, every state it needs
-  (including empty, error and different sizes), and the design director's
-  and owner's notes. The builder can't ask you questions; write it so it
-  doesn't need to.
-- For either: which jobs each one supports and which project rules it meets,
-  and anything you're unsure about, named plainly as an open question.
+- **Concept phase:** the concepts, each clear enough to judge as an idea
+  without being finished UI, with which jobs it supports and which project
+  rules it meets.
+- **Once your concept is approved:** the handoff document, saved with the
+  concept files. It covers:
+  - what the concept is;
+  - the decisions that make it work, and why;
+  - what must not change;
+  - every state it needs, including empty, error and different sizes;
+  - the design director's and the owner's notes.
+
+  The builder can't ask you questions; write it so it doesn't need to.
+- For either: anything you're unsure about, named plainly as an open
+  question.
