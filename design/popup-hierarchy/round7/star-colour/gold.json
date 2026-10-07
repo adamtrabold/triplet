@@ -6,13 +6,19 @@
   "paper-filed (visited row / filed tag)": 1.36,
   "paper-pressed": 1.22
  },
- "star keyline (--ink) contrast on papers": {
-  "paper": 14.69,
-  "paper-raised (tag, map halo face)": 16.03,
-  "paper-filed (visited row / filed tag)": 13.17,
-  "paper-pressed": 11.74
+ "star keyline (amber #8A5A0E) contrast on papers": {
+  "paper": 4.99,
+  "paper-raised (tag, map halo face)": 5.44,
+  "paper-filed (visited row / filed tag)": 4.47,
+  "paper-pressed": 3.99
  },
- "gold fill vs its ink keyline": 9.66,
+ "gold fill vs its amber keyline": 3.28,
+ "restaurant wine vs Copenhagen fd / street / old pink star / claret": [
+  17.2,
+  15.3,
+  16.6,
+  13.5
+ ],
  "star vs categories BEFORE (nearest)": [
   [
    18.8,
@@ -108,18 +114,18 @@
    "nature–other"
   ],
   [
-   16.4,
-   "area–hotel"
+   15.3,
+   "restaurant–street"
   ]
  ],
  "changed categories, contrast on --paper": {
-  "restaurant": 6.5,
+  "restaurant": 8.3,
   "attraction": 4.59
  },
  "changed categories vs city --figure-deep (nearest)": {
   "restaurant": [
-   25.3,
-   "copenhagen"
+   17.1,
+   "la"
   ],
   "attraction": [
    26.3,
@@ -127,7 +133,7 @@
   ]
  },
  "after": {
-  "restaurant": "#972068",
+  "restaurant": "#7A2436",
   "cafe": "#6E4C22",
   "bar": "#3D5A7A",
   "attraction": "#547326",

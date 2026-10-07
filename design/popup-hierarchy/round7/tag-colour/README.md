@@ -144,3 +144,15 @@ Same tag, star gold `#F2B807` with an ink keyline, categories recoloured.
   circle is dropped.
 - **Signed out** (`g-none-segp-signedout`, `g-band-signedout`): the paper
   and field keep the state; only the controls dim.
+
+### After the CD gold check
+
+- **Segment, navy star** (the CD's lead): the pencil circle is now navy
+  (85%) on the gold field. When signed out, the gold field fades to the off
+  alpha (0.4) along with the control.
+- **Band**, kept as an equal option because the owner said "The band is
+  cool". It's now a **thin 10px gold stripe** along the top edge. The eyelet
+  stays on paper, so the name outranks it. Starred signals: stripe, star,
+  pencil circle (3).
+- The owner page shows band and segment side by side, at busiest, starred
+  and signed out.

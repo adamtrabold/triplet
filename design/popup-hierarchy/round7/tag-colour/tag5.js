@@ -136,17 +136,17 @@
       + `<g mask="url(#w4m)"><path d="${d}" fill="${paper}" filter="url(#kshadow)"/><path d="${d}" fill="none" stroke="rgba(107,74,40,.22)" stroke-width="1"/>`
       + (press ? (() => { const segPaper = paperMode === 'whole' ? statePaper : paper; const pc = segPaper.includes('starred') ? 'var(--paper-starred-press)' : segPaper.includes('filed') ? 'var(--state-press-filed)' : 'var(--state-press)'; return `<rect x="${third}" y="${stubY}" width="${third}" height="${h - stubY}" fill="${pc}"/>`; })() : '')
       + (paperMode === 'stub' ? `<path d="${stubPath}" fill="${statePaper}"/>` : '')
-      + (segFill && st ? `<rect x="${third}" y="${stubY}" width="${third}" height="${h - stubY}" fill="var(--star)"/>` : '')
-      + (paperMode === 'band' && st ? `<path d="M${c},0 H${w - c} L${w},${c} V40 H0 V${c} Z" fill="var(--star)"/>` : '')
+      + (segFill && st ? `<rect x="${third}" y="${stubY}" width="${third}" height="${h - stubY}" fill="var(--star)" opacity="${so ? 0.4 : 1}"/>` : '')
+      + (paperMode === 'band' && st ? `<path d="M${c},0 H${w - c} L${w - 3},3 V3 L${w - 6},6 H6 L3,3 Z" fill="none"/><path d="M${c},0 H${w - c} L${w - 10},10 H10 Z" fill="var(--star)"/>` : '')
       + ''
-      + `<path d="M138,6 H178 L182,10 V30 L178,34 H138 L134,30 V10 Z" fill="${paperMode === 'band' && st ? 'color-mix(in srgb, var(--star) 70%, var(--ink))' : screened ? 'var(--paper-pressed)' : 'var(--paper)'}"/></g>`
+      + `<path d="M138,6 H178 L182,10 V30 L178,34 H138 L134,30 V10 Z" fill="${screened ? 'var(--paper-pressed)' : 'var(--paper)'}"/></g>`
       + `<line x1="10" x2="${w - 10}" y1="${stubY}" y2="${stubY}" stroke="${color === 'cat' ? 'rgba(250,245,234,.6)' : 'var(--hair)'}" stroke-width="1.5" stroke-dasharray="4 3"/>`
       + `<circle cx="158" cy="18" r="8.5" fill="none" stroke="var(--hair)" stroke-width="3.5"/>`
       + (color === 'star' && P.starred ? (() => { const cx = third * 1.5, cy = stubY + 31, rx = 40, ry = 19;
           // a hand-drawn loop: starts at the upper right, goes round once, overshoots and lifts (graphite = --ink at pencil weight)
           const pt = (a, k) => [cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k];
           let d = ''; for (let i = 0; i <= 44; i++) { const a = -0.55 - i * (2 * Math.PI + 0.75) / 44; const k = 1 + 0.08 * Math.sin(i / 3.1) + 0.05 * Math.sin(i / 1.7) - 0.10 * (i / 44); let [x, y] = pt(a, k); const rt = -0.12, dx = x - cx, dy = y - cy; x = cx + dx * Math.cos(rt) - dy * Math.sin(rt); y = cy + dx * Math.sin(rt) + dy * Math.cos(rt); d += (i ? ' L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
-          return `<path d="${d}" fill="none" stroke="var(--ink)" stroke-opacity=".6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>`; })() : '');
+          return `<path d="${d}" fill="none" stroke="${segFill ? 'var(--navy)' : 'var(--ink)'}" stroke-opacity="${segFill ? '.85' : '.6'}" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>`; })() : '');
     if (visit === 'hold' && step === 'mid') {   // the hold ring fills around the segment's check
       const sx = third * 2.5, sy = stubY + 22, r = 15, L = 2 * Math.PI * r;
       svg += `<circle cx="${sx}" cy="${sy}" r="${r}" fill="none" stroke="${color === 'cat' ? 'rgba(250,245,234,.35)' : 'var(--hair)'}" stroke-width="2.5"/><circle cx="${sx}" cy="${sy}" r="${r}" fill="none" stroke="${color === 'cat' ? 'var(--paper)' : NAVY}" stroke-width="2.5" stroke-dasharray="${L * 0.62} ${L}" transform="rotate(-90 ${sx} ${sy})"/>`;

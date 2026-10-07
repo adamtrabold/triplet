@@ -4,16 +4,16 @@
 const path = require('path'), fs = require('fs'), { execFileSync } = require('child_process');
 const { launch, openProto, W, drag, line, rowRect } = require('../../../gesture-harness/lib');
 const OUT = __dirname;
-const GOLD = '#F2B807', NEWCAT = { restaurant: '#972068', attraction: '#547326' };
+const GOLD = '#F2B807', AMBER = '#8A5A0E', NEWCAT = { restaurant: '#7A2436', attraction: '#547326' };
 const BASE = fs.readFileSync(path.join(__dirname, '../../round1/concepts.js'), 'utf8').match(/  function basemap\(\) \{[\s\S]*?\n  \}\n/)[0];
 const HELPERS = fs.readFileSync(path.join(__dirname, '../../round3/concepts.js'), 'utf8').replace('/*BASEMAP*/', () => BASE)
   .replace('  window.K = {', '  window.K2 = { esc, ic, rowStamp, seal, typeWord, meta, dirBtn, starBtn, acts0: acts, addr1, select, pinScreen, movePinTo, anno, tapAt, bg, SHADOW, growMap, basemap, place };\n  window.K = {');
 const CSS = `:root { --star: ${GOLD}; }
-  .row-star, .sg-star .sg-ink, .marker-star-ink { color: var(--star) !important; stroke: var(--ink); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
-  .row-star use { stroke: var(--ink); stroke-width: 1.5px; }
+  .row-star, .sg-star .sg-ink, .marker-star-ink { color: var(--star) !important; stroke: ${AMBER}; stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
+  .row-star use { stroke: ${AMBER}; stroke-width: 1.5px; }
   .location-card.highlighted .row-star { color: var(--paper) !important; stroke: none; }`;
 const STAR = ['00', '01', '02', '03', '05', '06', '08', '10', '12', '15'], VIS = ['01', '02', '04', '05', '12', '15'];
-const C = { reykjavik: [64.1466, -21.9426], stockholm: [59.3293, 18.0686] };
+const C = { reykjavik: [64.1466, -21.9426], stockholm: [59.3293, 18.0686], malmo: [55.6050, 13.0038] };
 
 async function prep(b, city, recolour) {
   const pre = city.slice(0, 3);
@@ -21,7 +21,7 @@ async function prep(b, city, recolour) {
   await r.page.evaluate(async ([pre, S, V, NC, rec]) => {
     if (rec) Object.assign(CATEGORY_COLORS, NC);
     window.__ROWS.forEach(x => { if (x.city.startsWith(pre)) { const n = x.id.slice(3); x.starred = S.includes(n); x.visited = V.includes(n); } });
-    await refetchLocations(); }, [pre, STAR, VIS, NEWCAT, recolour]);
+    await refetchLocations(); markersById.forEach(m => m.marker.setIcon(markerIcon(m.loc, false))); }, [pre, STAR, VIS, NEWCAT, recolour]);
   await r.page.addScriptTag({ content: HELPERS }); await r.page.evaluate(() => { K.css(); K2.basemap(); });
   await r.page.addStyleTag({ content: CSS });
   await W(500); return r;
@@ -51,6 +51,10 @@ async function shot(page, name) {
     if (rec) { await page.evaluate(c => map.setView(c, 11, { animate: false }), C.reykjavik); await W(900); await shot(page, `${tag}-map-far`); }
     await ctx.close();
   }
+  // Malmö: the gold star beside Malmö's ochre --figure (the add / account buttons' glyphs, top right)
+  { const { ctx, page } = await prep(b, 'malmo', true);
+    await page.evaluate(c => { document.getElementById('locations').classList.add('collapsed'); map.setView(c, 14, { animate: false }); }, C.malmo); await W(800);
+    await shot(page, 'gold-malmo-map'); await ctx.close(); }
   // the Pencil Star gesture: the ink lands gold
   { const { ctx, page } = await prep(b, 'reykjavik', true);
     const cdp = await ctx.newCDPSession(page); const rr = await rowRect(page, 4); const y = rr.y + rr.h / 2; let done = false;

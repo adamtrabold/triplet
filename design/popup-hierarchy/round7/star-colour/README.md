@@ -188,3 +188,19 @@ The highlighted row still shows a `--paper` star (the reversal rule).
 - `gold-gesture`.
 - `gold-oldcats-*`: gold with today's categories, for the before.
 - Render: `render-gold.js`.
+
+### After the CD gold check (`../cd-gold-check.md`)
+
+- **Keyline:** the star's outline is now dark amber `#8A5A0E` (Malmö's
+  `--figure-deep`, an existing token), not `--ink`. Outline contrast is
+  3.99:1 on pressed paper, 4.47 on filed, 4.99 on paper and 5.44 on raised.
+  Gold against its keyline is 3.28:1.
+- **Restaurant:** wine `#7A2436` replaces claret `#972068`, which read as
+  pink. Contrast is 8.30:1 on paper.
+  - ΔE2000: Copenhagen `--figure-deep` 17.2, LA 17.1, street 15.3, the old
+    pink star 16.6, claret 13.5.
+  - Closest category pairs after: bar–area 9.9 (unchanged), then
+    restaurant–street 15.3.
+  - **Two greens:** moss attraction and spruce nature, flagged for the
+    owner.
+- **Malmö pair** is rendered (`gold-malmo-map`).

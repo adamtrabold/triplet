@@ -1,0 +1,14 @@
+star #F2B807
+star fill contrast (fill only) {'paper': 1.52, 'paper-raised (tag, map halo face)': 1.66, 'paper-filed (visited row / filed tag)': 1.36, 'paper-pressed': 1.22}
+star keyline (amber #8A5A0E) contrast on papers {'paper': 4.99, 'paper-raised (tag, map halo face)': 5.44, 'paper-filed (visited row / filed tag)': 4.47, 'paper-pressed': 3.99}
+gold fill vs its amber keyline 3.28
+restaurant wine vs Copenhagen fd / street / old pink star / claret [17.2, 15.3, 16.6, 13.5]
+star vs categories BEFORE (nearest) [(18.8, 'attraction'), (36.3, 'restaurant'), (42.5, 'cafe'), (44.8, 'district')]
+star vs categories AFTER (nearest) [(38.1, 'attraction'), (42.5, 'cafe'), (44.8, 'district'), (49.0, 'other')]
+star vs city --figure-deep (cluster / selected) {'reykjavik': 41.4, 'copenhagen': 46.4, 'malmo': 33.0, 'stockholm': 33.8, 'la': 46.2}
+star vs city --figure {'reykjavik': 27.6, 'copenhagen': 35.9, 'malmo': 7.5, 'stockholm': 16.0, 'la': 36.5}
+star vs visited ink / navy {'visited stamp / sticker ink': 60.3, 'navy': 73.4, 'ink (today’s star)': 69.6}
+category pairs BEFORE (closest 5) [(9.9, 'bar–area'), (13.2, 'cafe–street'), (14.5, 'area–other'), (15.2, 'nature–other'), (15.8, 'restaurant–cafe')]
+category pairs AFTER (closest 5) [(9.9, 'bar–area'), (13.2, 'cafe–street'), (14.5, 'area–other'), (15.2, 'nature–other'), (15.3, 'restaurant–street')]
+changed categories, contrast on --paper {'restaurant': 8.3, 'attraction': 4.59}
+changed categories vs city --figure-deep (nearest) {'restaurant': (17.1, 'la'), 'attraction': (26.3, 'malmo')}
