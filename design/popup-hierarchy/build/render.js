@@ -15,6 +15,10 @@ const variant = (style = 'band', keyline = false) => {
   const src = fs.readFileSync(FILE, 'utf8');
   let out = src.replace(/const TAG_STAR_STYLE = '[a-z]+';/, `const TAG_STAR_STYLE = '${style}';`).replace(/const TAG_REVERSED_STAR_KEYLINE = (true|false);/, `const TAG_REVERSED_STAR_KEYLINE = ${keyline};`);
   if (!/const TAG_STAR_STYLE = '[a-z]+';/.test(src)) throw new Error('dial not found');
+  // stills-only hook: window.__STOP overrides the plan line (the long "Stop 12 of 14" case)
+  const STOP_SRC = 'return r ? `Stop ${r.n} of ${r.m}` : \'\';';
+  if (!out.includes(STOP_SRC)) throw new Error('planStopLine not found');
+  out = out.replace(STOP_SRC, 'return r ? (window.__STOP || `Stop ${r.n} of ${r.m}`) : \'\';');
   const f = path.join(os.tmpdir(), `tag-${style}-${keyline}.html`); fs.writeFileSync(f, out); return f;
 };
 
@@ -30,6 +34,8 @@ const PLACES = {
   approx: { name: 'Værnedamsvej (approx.)', category: 'district', short_address: null,
     notes: "Copenhagen's most charming market street; Granola (retro coffee lounge/backyard café), Le Gourmand (French deli/cheese & charcuterie), Helges Ost (cheesemonger), Falernum (natural wine bar with tapas), Café Viggo (French bistro), Dora (design/vintage homewares)\n\nApproximate placement -- OSM has no boundary/way for this district; resolved via point search." },
   perlan: { name: 'Perlan', category: 'attraction', short_address: null, notes: null },
+  baejarins: { name: 'Bæjarins Beztu', category: 'restaurant', short_address: 'Tryggvagata 1 · Miðborg',
+    notes: 'The hot-dog stand. Order "eina með öllu" (one with everything). Open late; queue moves fast.' },
 };
 
 // [name, { city, place, id, starred, visited, style, keyline, signedOut, slip, plan, kind, frames }]
@@ -70,6 +76,19 @@ for (const [city, pre] of [['reykjavik', 'rey'], ['copenhagen', 'cop']]) {
 }
 J.push(['final/stockholm/list', { group: 'final', city: 'stockholm', list: true }]);
 
+// Type line: RUBBER STAMP build (branch type-stamp; design/popup-hierarchy/type-line/ round 2, D, both
+// stamped), written to design/popup-hierarchy/type-line/stills/build/.
+{
+  const F = (name, o) => J.push([`typestamp/${name}`, { group: 'typestamp', city: 'reykjavik', ...o }]);
+  F('busiest-vega', { place: 'vega', id: 'rey01', starred: true, visited: true, plan: true, select: true });
+  F('typical', { place: 'aurora', id: 'rey07', starred: false, visited: false });
+  F('district', { shape: 'district', label: 'Grandi (Old Harbour district)' });
+  F('long-narrow-240', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: 'Stop 12 of 14', w: 256 });
+  F('long-narrow-288', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: 'Stop 12 of 14', w: 320 });
+  F('long-316', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: 'Stop 12 of 14' });
+  F('signedout', { place: 'aurora', id: 'rey07', starred: true, visited: false, signedOut: true });
+}
+
 // Follow-ups (2026-10-07, Impeccable C1/C3/A2/A6; docs/shipped.md "Hanging Tag + orange star"), written to
 // design/popup-hierarchy/followups/stills/: no pencil circle, wrapped stub labels on the 240px tag (a 256px
 // screen) vs the normal 316px one, a map-tapped pin's row scrolled into view, keyboard focus on the tag.
@@ -94,6 +113,7 @@ async function setup(b, o) {
   const storage = o.plan ? { 'gh.plans': '1', 'triplet.reorderHint': '1' } : {};
   const { ctx, page, errors } = await openProto(b, { dsf: 3, reduced: !o.motion, city: o.city || 'reykjavik', file, storage, w: o.w || 390, h: o.h || 844 });
   await page.evaluate(BASEMAP);
+  if (o.stop) await page.evaluate(s => { window.__STOP = s; }, o.stop);
   if (o.plan) { await page.waitForFunction(() => typeof plans !== 'undefined' && plans.length === 1, null, { timeout: 10000 }); await page.evaluate(() => setListView('plans')); await W(600); }
   return { ctx, page, errors };
 }
@@ -152,7 +172,8 @@ async function frames(page, name, times, start) {
 async function shoot(page, name, { full = false } = {}) {
   await page.evaluate(() => document.fonts.ready);
   const box = await page.evaluate(() => { const c = document.querySelector('.leaflet-popup.tag-popup'); if (!c) return null; const r = c.getBoundingClientRect(); const s = c.querySelector('.tag-slip'); const b = s && s.textContent ? s.getBoundingClientRect().bottom : r.bottom; return { x0: r.left, y0: r.top, x1: r.right, y1: b }; });
-  const f = n => name.startsWith('followups/') ? path.join(__dirname, '../followups/stills', `${name.slice(10)}-${n}`) : path.join(OUT, `${name}-${n}`);
+  const f = n => name.startsWith('followups/') ? path.join(__dirname, '../followups/stills', `${name.slice(10)}-${n}`)
+    : name.startsWith('typestamp/') ? path.join(__dirname, '../type-line/stills/build', `${name.slice(10)}-${n}`) : path.join(OUT, `${name}-${n}`);
   fs.mkdirSync(path.dirname(f('x')), { recursive: true });
   await page.screenshot({ path: f('phone@3x.png') });
   const vp = page.viewportSize();

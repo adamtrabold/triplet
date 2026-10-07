@@ -39,6 +39,11 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   bottom toolbar; the OSM credit stays visible; (10) the short address shows
   under the name once the backfill has run (`tools/short-address-backfill.html`);
   rows the backfill could not fill show no address line.
+- iPhone check of the stamped type line (branch `type-stamp`, once landed):
+  TYPE and PLAN entries look rubber-stamped (grainy, slightly crooked, one
+  end fainter) in Safari, readable at arm's length, "BAR" included; the
+  angle stays the same when you star the place; on an SE the long
+  RESTAURANT + "Stop 12 of 14" stays on one line.
 - iPhone check of the Hanging Tag follow-ups (branch `tag-followups`, 2026-10-07):
   (1) a starred tag shows the orange band and the orange star + STARRED, no
   pencil circle; (2) with the list where you left it, tap a pin on the MAP

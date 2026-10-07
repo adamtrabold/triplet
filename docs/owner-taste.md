@@ -185,6 +185,10 @@ sources are the file where the quote is recorded.
 
 ## Color
 
+- **The tag's field entries are rubber-stamped, numbers too.** "Rubber
+  stamp is great it should also be the numbers in # of #" (2026-10-07,
+  type-line round 2: picked D Rubber stamp, with the plan's "Stop n of m"
+  stamped as well as the type; chat). Whimsy through paper and ink.
 - **Stars are coloured.** "Not sure on the circle we can keep for now. Stars
   should be colored imo" (2026-10-07; chat). Reverses the team's "black
   stars everywhere" ruling (Pencil Star rounds 4–6, `docs/shipped.md`): one
