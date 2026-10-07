@@ -479,8 +479,8 @@
       top: 0;
       left: 0;
       right: 0;
-      height: calc(100vh - 300px - var(--chrome-bottom));
-      height: calc(100lvh - 300px - var(--chrome-bottom));
+      height: calc(100vh - 300px - var(--chrome-bottom) + var(--sheet-lower, 0px));
+      height: calc(100lvh - 300px - var(--chrome-bottom) + var(--sheet-lower, 0px));   /* --sheet-lower: an open tag lowered the sheet (setSheetLower()) */
       overflow: hidden;
       /* `height` is a layout property and is deliberately NOT transitioned:
          animating it would relayout (and re-tile) the Leaflet canvas every
@@ -630,7 +630,7 @@
     }
 
     #addForm .form-star svg { width: var(--s4); height: var(--s4); flex-shrink: 0; }
-    #addForm .form-star[aria-pressed="true"] svg { color: var(--figure); stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
+    #addForm .form-star[aria-pressed="true"] svg { color: var(--star); stroke: var(--star-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
     /* State system: pressed = the pale tile (was a .85 shrink). */
     #addForm .form-star { isolation: isolate; }
     #addForm .form-star::before { content: ''; position: absolute; inset: 8px -6px; z-index: -1; border-radius: 3px; }
@@ -956,7 +956,7 @@
       height: calc(300px + var(--chrome-bottom));
       background: var(--paper);
       z-index: 1000;
-      transform: translateY(0);
+      transform: translateY(var(--sheet-lower, 0px));
       transition: transform 0.3s ease;
       will-change: transform;
       display: flex;
@@ -1430,8 +1430,8 @@
          keyline -- the keyline carries the mark (>= 4.79:1 paper, >= 4.0:1 pressed, all five
          cities); --figure alone is 1.9-2.7:1. Was black ink (Pencil Star rounds 4-6). Selected
          (navy) row: --figure alone, 4.58:1 (LA) .. 6.63:1 (Malmo) on --navy. */
-      color: var(--figure);
-      stroke: var(--figure-deep);
+      color: var(--star);
+      stroke: var(--star-deep);
       stroke-width: 1.5px;
       paint-order: stroke;
       stroke-linejoin: round;
@@ -1478,7 +1478,7 @@
        Emphasis: there is only ever one focus row, so a full-strength
        stamp there reads as part of the focus state, not inconsistency. */
     .location-card.highlighted .row-stamp { color: var(--paper); }
-    .location-card.highlighted .row-star { color: var(--figure); stroke: none; }    /* 4.58:1 worst (LA) on --navy */
+    .location-card.highlighted .row-star { color: var(--star); stroke: none; }    /* 4.58:1 worst (LA) on --navy */
 
     .locations-empty {
       color: var(--ink-2);
@@ -1765,7 +1765,7 @@
     /* Map star (markerStarHtml()): paper halo under an ink star. */
     .marker-star-halo { color: var(--paper); stroke: var(--paper); }
     /* The star is the city's action orange with a --figure-deep keyline (owner 2026-10-07), on its paper halo. */
-    .marker-star-ink  { color: var(--figure); stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
+    .marker-star-ink  { color: var(--star); stroke: var(--star-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
 
     @keyframes markerPulse {
       0%   { transform: scale(1);    opacity: 1; }
@@ -1828,14 +1828,20 @@
        they follow the die-cut, hole included.
        ===================================================================== */
     :root {
-      /* Print texture (owner 2026-10-07: "the color flood needs some texture (and the stamp too?"):
-         a flood printed on tag stock -- soft paper-tone ink starvation (low frequency) plus a fine
-         paper speckle. Static (no animation); one tile, ~1 KB, no image files. */
-      --tex-flood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='m' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 .9 0 -.38'/%3E%3C/filter%3E%3Cfilter id='s' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 1.6 0 -.98'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23m)'/%3E%3Crect width='180' height='180' filter='url(%23s)'/%3E%3C/svg%3E");
+      /* Print texture (owner 2026-10-07: "the color flood needs some texture (and the stamp too?";
+         then "texture looks like clouds on the orange, should look like paper and be somewhat
+         subtler"): the paper's tooth showing through the ink -- a fine grain plus short horizontal
+         fibres, paper-tone, small-scale only (no low-frequency blotches), max ~.2 alpha. Static
+         (no animation); one ~1 KB tile, no image files, same in every city. */
+      /* THE STAR / BAND colour: one token, so the colour is a one-line change (owner: "still not
+         sure on color"). Today the city's action orange and its deep keyline. */
+      --star: var(--figure);
+      --star-deep: var(--figure-deep);
+      --tex-flood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='t' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 1.3 0 -.79'/%3E%3C/filter%3E%3Cfilter id='f' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.07 .95' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 1.2 0 -.76'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23t)'/%3E%3Crect width='160' height='160' filter='url(%23f)'/%3E%3C/svg%3E");
       /* The filed (visited) stock: the same speckle, darker and fainter -- an older page. */
       --tex-stock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='s' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .27 0 0 .8 0 -.46'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23s)'/%3E%3C/svg%3E");
-      /* The stamp's ink: an alpha mask with ink-starved specks (rubber on paper). */
-      --tex-stamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -6.5 0 5.4'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23n)'/%3E%3C/svg%3E");
+      /* The stamp's ink: the same fine tooth as an alpha mask -- ink missing where the paper's grain stands proud. */
+      --tex-stamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='1' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -6 0 4.65'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23n)'/%3E%3C/svg%3E");
     }
     .leaflet-popup.tag-popup { margin: 0; --tag-w: 316px; --tag-drop: 32px; }
     .tag-popup .leaflet-popup-tip-container { display: none; }
@@ -1871,7 +1877,7 @@
     /* Starred, BAND treatment (TAG_STAR_STYLE 'band' | 'both'): the city's action orange printed across
        the top of the stock. It is inside the clipped stock, so it follows the die-cut: both chamfers
        and the eyelet hole (owner: "the orange bar is not matching the shape of the tag"). */
-    .tag-band { position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: 36px; background-color: var(--figure); background-image: var(--tex-flood); pointer-events: none; }
+    .tag-band { position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: 36px; background-color: var(--star); background-image: var(--tex-flood); pointer-events: none; }
     /* The eyelet's paper patch stays on the band: a reinforcement patch on coloured stock, as on the references. */
 
     .tag-x { all: unset; position: absolute; z-index: 4; top: 34px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
@@ -1915,18 +1921,20 @@
        (owner 2026-10-07: "can we try the orange so it's consistent with other action buttons that
        are either navy or orange?"). --figure alone is 1.9-2.7:1 on paper; the keyline carries the
        mark (>= 4.79:1 on paper, >= 4.0:1 on pressed paper, all five cities). */
-    .tag-seg.popup-star .tag-star { color: var(--figure); stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
+    .tag-seg.popup-star .tag-star { color: var(--star); stroke: var(--star-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
     .tag-seg.popup-star .tag-star.is-open { color: var(--ink); stroke: none; }
+    /* Band only: the band carries the colour; the Star segment is round 6's plain stub (filled black star). */
+    .tag:not(.star-seg) .popup-star .tag-star { color: var(--ink); stroke: none; }
     /* Starred, SEGMENT treatment (TAG_STAR_STYLE 'segment' | 'both', the default): the Star segment is
        printed solid action orange, the star reversed out of it (paper), the word in navy
        (owner: "the orange background for starred, but reveresed star (text stays navy)"). */
     .tag.star-seg.is-starred .tag-slot.star { border-left-color: transparent; }
     .tag.star-seg.is-starred .tag-slot.star + .tag-slot { border-left-color: transparent; }
-    .tag.star-seg.is-starred .popup-star { background-color: var(--figure); background-image: var(--tex-flood); color: var(--navy); }
+    .tag.star-seg.is-starred .popup-star { background-color: var(--star); background-image: var(--tex-flood); color: var(--navy); }
     .tag.star-seg.is-starred .popup-star .tag-star { color: var(--paper-raised); stroke: none; }
     /* Dial (TAG_REVERSED_STAR_KEYLINE): a --figure-deep hairline on the reversed star -- the paper
        star is 1.9-2.7:1 on --figure; its keyline is >= 4.5:1 against the star. Off by default. */
-    .tag.star-seg.star-keyline.is-starred .popup-star .tag-star { stroke: var(--figure-deep); stroke-width: 1.5px; }
+    .tag.star-seg.star-keyline.is-starred .popup-star .tag-star { stroke: var(--star-deep); stroke-width: 1.5px; }
     .tag.star-seg.is-starred .popup-star::before { inset: 0; }
     .tag.star-seg.is-starred .popup-star:active::before, .tag.star-seg.is-starred .tag-slot:has(> .popup-star-tap:active) .popup-star::before { background: rgba(18, 41, 63, .16); }
     /* The pencil circle round STARRED (owner: "Not sure on the circle we can keep for now"): a loose
@@ -1936,20 +1944,21 @@
     .tag.star-seg .tag-pencil path { stroke: var(--navy); stroke-opacity: .85; }
 
     /* VISITED: the list's own stamp lands ON the Visited segment, a little larger than in the row
-       (owner: "could probably be a bit larger in the tag"), inked through a speckle mask. */
+       (owner: "could probably be a bit larger in the tag", then "visited is too big now": 1.1x, 79x35),
+       inked through the paper-tooth mask. */
     .tag-seg.popup-visited.visited { padding-top: 0; }
-    .tag-seg.popup-visited .row-stamp { --tag-stamp-scale: 1.25; transform: rotate(var(--stamp-tilt, -3deg)) scale(var(--tag-stamp-scale));
+    .tag-seg.popup-visited .row-stamp { --tag-stamp-scale: 1.1; transform: rotate(var(--stamp-tilt, -3deg)) scale(var(--tag-stamp-scale));
       -webkit-mask: var(--tex-stamp) 0 0 / 90px 90px; mask: var(--tex-stamp) 0 0 / 90px 90px; }
     .tag-seg.popup-visited .row-stamp.tag-stamp-in { animation: tagStampIn 420ms linear both; }
     .tag-stamp-out { position: absolute; left: 50%; top: 50%; margin: -16px 0 0 -36px; pointer-events: none; animation: tagStampOut 220ms ease-out forwards; }
     @keyframes tagStampIn {
       0%   { transform: rotate(-14deg) scale(2.3); opacity: 0; filter: blur(.6px); animation-timing-function: cubic-bezier(.3, 0, .8, .4); }
       30%  { opacity: .35; }
-      62%  { transform: rotate(calc(var(--stamp-tilt, -3deg) - 1deg)) scale(1.12); opacity: 1; filter: blur(0); animation-timing-function: cubic-bezier(.2, .8, .3, 1); }
-      82%  { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.31); }
-      100% { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.25); opacity: 1; }
+      62%  { transform: rotate(calc(var(--stamp-tilt, -3deg) - 1deg)) scale(1); opacity: 1; filter: blur(0); animation-timing-function: cubic-bezier(.2, .8, .3, 1); }
+      82%  { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.15); }
+      100% { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.1); opacity: 1; }
     }
-    @keyframes tagStampOut { to { opacity: 0; transform: rotate(var(--stamp-tilt, -3deg)) scale(1.4); } }
+    @keyframes tagStampOut { to { opacity: 0; transform: rotate(var(--stamp-tilt, -3deg)) scale(1.25); } }
 
     /* Signed out: Directions stays live; Star and Visited are visibly off (the state system's off
        alpha, the orange field included) but stay focusable -- a tap offers sign-in (the slip). */
@@ -2300,7 +2309,7 @@
        crossbar) from sitting on the type's baseline and reading as a letter. */
     .sg-star .sg-pencil { color: var(--ink-2); fill: currentColor;
                       transform-box: fill-box; transform-origin: 50% 55%; transform: rotate(-12deg); }
-    .sg-star .sg-ink { color: var(--figure); fill: currentColor; stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; opacity: 0;
+    .sg-star .sg-ink { color: var(--star); fill: currentColor; stroke: var(--star-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; opacity: 0;
                    transform-box: fill-box; transform-origin: 50% 55%; }
     .sg-spread { opacity: 0; transform-box: fill-box; transform-origin: 50% 55%; }
     .sg-smudge, .sg-ghost { fill: var(--ink-2); }
@@ -2320,7 +2329,7 @@
       background: var(--ink-2); pointer-events: none;
     }
     .location-card.highlighted .sg-pencil { color: var(--paper); }
-    .location-card.highlighted .sg-ink { color: var(--figure); stroke: none; }   /* the landed ink is the row's orange star */
+    .location-card.highlighted .sg-ink { color: var(--star); stroke: none; }   /* the landed ink is the row's orange star */
     .location-card.highlighted .sg-smudge,
     .location-card.highlighted .sg-ghost { fill: var(--paper); }
     .location-card.highlighted .sg-crumb { background: var(--paper); }
@@ -4756,13 +4765,15 @@
     // hangs it BELOW its anchor and takes over the pan (tagOpened()).
     // =========================================================================
     // OPEN (owner to pick, 2026-10-07): the tag's starred treatment.
-    //   'segment' -- the Star segment printed solid action orange, the star
-    //                reversed (paper), STARRED in navy. DEFAULT.
-    //   'band'    -- an orange band printed across the top of the tag stock,
-    //                clipped to its die-cut (chamfers + eyelet); the star is
-    //                the app's orange star.
+    //   'band'    -- DEFAULT (owner: "let's do band still not sure on color"):
+    //                an orange band printed across the top of the tag stock,
+    //                clipped to its die-cut (chamfers + eyelet); the Star
+    //                segment is the plain stub of round 6 -- the filled black
+    //                star and the pencil circle.
+    //   'segment' -- the Star segment printed solid orange, the star
+    //                reversed (paper), STARRED in navy.
     //   'both'    -- band + segment.
-    const TAG_STAR_STYLE = 'segment';
+    const TAG_STAR_STYLE = 'band';
     // Dial: a --figure-deep hairline on the reversed (paper) star. The paper
     // star on --figure is only 1.9-2.7:1; the hairline is >= 4.5:1 against
     // it. Off = the look the owner asked for. Measured per city in shipped.md.
@@ -4771,7 +4782,9 @@
     const TAG_HANG = 44;           // pin centre -> tag top (the string runs on to the eyelet, 18px in)
     const TAG_POP_MS = 280;        // the pop-out (CSS tagPop)
     const TAG_PAN_MS = 250;        // pan to the open position
-    const TAG_SHEET_MS = 300;      // #locations' transform transition (the list dropping to its header)
+    const TAG_SHEET_MS = 300;      // #locations' transform transition (the list lowering for a tall tag)
+    const TAG_SHEET_GAP = 32;      // DIAL: map left clear between the tag's foot and the list (--s8)
+    const TAG_LIST_MIN = 116;      // the list never lowers past its header (60) + one row (56); a taller tag scrolls inside
     const tagWidth = () => Math.max(240, Math.min(TAG_W_MAX, window.innerWidth - 32));
 
     // The pencil loop round STARRED (round 6): a hand-drawn ellipse that goes
@@ -8138,8 +8151,11 @@
     };
 
     document.getElementById('collapseBtn').onclick = () => {
-      // A tag is open: ▼ closes it and raises the list, the place's row scrolled into view.
-      if (typeof tagOpenNow === 'function' && tagOpenNow()) { if (tagSession) tagSession.forceExpand = true; map.closePopup(); return; }
+      // A tag is open: ▼ / ▲ is the user's own choice and the tag stays open.
+      // The tag's lowering is dropped first; raised again, the sheet re-fits
+      // the open tag; a list collapsed here stays collapsed after the tag closes.
+      const tagUp = typeof tagOpenNow === 'function' && tagOpenNow();
+      if (tagUp) setSheetLower(0);
       const locations = document.getElementById('locations');
       const collapseBtn = document.getElementById('collapseBtn');
       const mapElement = document.getElementById('map');
@@ -8154,6 +8170,7 @@
       // The map meets the sheet's top edge; the geometry lives in CSS
       // (#mainContent / #mainContent.sheet-collapsed).
       mainContent.classList.toggle('sheet-collapsed', locations.classList.contains('collapsed'));
+      if (tagUp && !locations.classList.contains('collapsed')) setSheetLower(tagSheetNeed(map._popup));
 
       // Force Leaflet to redraw map after resize
       setTimeout(() => {
@@ -8607,14 +8624,17 @@
     });
 
     // ---- the tag's open / close choreography --------------------------------
-    // Open (UX r4 §4-5): the list drops to its header (owner: "Let's try it
-    // idk yet"), the map pans the pin to just under the top controls, then the
-    // tag pops out of the pin; its taps go live once the pan and the drop are
-    // done. Close (x, a map tap, Esc): the list comes back to exactly the
-    // height and scroll it had -- if you had collapsed it yourself, it stays
-    // collapsed. A tap on another pin swaps tags in one tap (the list stays
-    // down). The header's ▼ while a tag is open closes the tag and raises the
-    // list with the place's row (still selected) scrolled into view.
+    // Open: the map pans the pin to just under the top controls, the list
+    // sheet LOWERS only as far as the whole tag needs, with TAG_SHEET_GAP of
+    // map below it (owner 2026-10-07: "i dont like closing the list when a tag
+    // is open now -- it should just adjust height if it needs to (with a good
+    // amount of padding below the tag."); if the tag already fits, the list
+    // doesn't move. Never below TAG_LIST_MIN of list (its header + one row):
+    // a taller tag scrolls inside instead. Then the tag pops out of the pin;
+    // its taps go live once the pan and the lowering are done. Close (x, a
+    // map tap, Esc): the list returns to exactly the height and scroll it
+    // had. A list you collapsed yourself stays collapsed. A tap on another
+    // pin swaps tags in one tap (the list re-fits to the new tag).
     let tagSession = null, tagRestoreTimer = 0, tagLiveTimer = 0, tagPopTimer = 0, tagDot = null, tagSlipOn = false;
     const tagOpenNow = () => !!(map._popup && map.hasLayer(map._popup) && isTagPopup(map._popup));
     window.addEventListener('click', (e) => {
@@ -8636,27 +8656,36 @@
       document.querySelectorAll('.tag-slip').forEach(s => { s.textContent = ''; });
     }
     function tagFit(popup) {
-      // Only a tag taller than the map below its pin scrolls inside (with a fade); no real row does.
+      // Only a tag taller than the map can give it (after the list has lowered as far as it may) scrolls inside, with a fade.
       const c = popup.getElement(), inn = c && c.querySelector('.tag-in');
       if (!inn) return;
       inn.style.maxHeight = ''; inn.classList.remove('scrolls');
       const mapR = map.getContainer().getBoundingClientRect(), r = c.getBoundingClientRect();
-      const over = r.bottom - (mapR.bottom - 24);   // 24: the OSM credit stays clear
+      const over = r.bottom + tagSlipRoom() - (mapR.bottom - TAG_SHEET_GAP);
       if (over > 0 && !c.classList.contains('tag-wait')) { inn.style.maxHeight = Math.max(120, inn.offsetHeight - over) + 'px'; inn.classList.add('scrolls'); }
     }
+    const tagSlipRoom = () => currentUser ? 0 : 50;   // signed out: room for the 44px sign-in slip + its 6px gap
     TagPopup.include({ _adjustPan() { if (this._map && this._container && !this._container.classList.contains('tag-wait')) tagFit(this); } });
-    function setSheetCollapsed(on) {
-      const locations = document.getElementById('locations');
-      if (locations.classList.contains('collapsed') === on) return;
-      locations.classList.toggle('collapsed', on);
-      document.getElementById('collapseBtn').classList.toggle('collapsed', on);
-      document.getElementById('map').classList.toggle('expanded', on);
-      document.getElementById('filtersPanel').classList.toggle('collapsed-mode', on);
-      document.getElementById('mainContent').classList.toggle('sheet-collapsed', on);
-      // The map's height snaps (it is never transitioned); keep its top-left
-      // fixed so the pin under the tag doesn't jump.
+    // The sheet lowered by `px` (0 = where it was): --sheet-lower moves #locations
+    // down and lengthens #mainContent by the same amount, so the map meets the
+    // sheet's new top edge. The map's height snaps; its top-left stays fixed.
+    function setSheetLower(px) {
+      const v = Math.max(0, Math.round(px)) + 'px';
+      if (document.documentElement.style.getPropertyValue('--sheet-lower') === v) return;
+      document.documentElement.style.setProperty('--sheet-lower', v);
       map.invalidateSize({ pan: false });
       if (typeof placePlanSlip === 'function') placePlanSlip();
+    }
+    function sheetIsCollapsed() { return document.getElementById('locations').classList.contains('collapsed'); }
+    // How far the sheet must lower for this tag (pin at its open position).
+    function tagSheetNeed(popup) {
+      if (railQuery.matches || sheetIsCollapsed()) return 0;
+      const c = popup.getElement(), cur = parseFloat(document.documentElement.style.getPropertyValue('--sheet-lower')) || 0;
+      const inn = c.querySelector('.tag-in'); if (inn) { inn.style.maxHeight = ''; inn.classList.remove('scrolls'); }   // measure the whole tag
+      const mapH = map.getSize().y - cur;   // the map's height with the sheet where the user left it
+      const bottom = pinPopupTopPad() + 2 * tagPinRadius(popup) + c.offsetHeight + tagSlipRoom();
+      const sheetH = document.getElementById('locations').getBoundingClientRect().height;
+      return Math.min(Math.max(0, bottom + TAG_SHEET_GAP - mapH), Math.max(0, sheetH - TAG_LIST_MIN));
     }
     function showTagDot(popup) {
       const src = popup._source;
@@ -8671,16 +8700,16 @@
       hideTagSlip();
       if (tagDot) { map.removeLayer(tagDot); tagDot = null; }
       const c = popup.getElement(), list = document.getElementById('locationsList');
-      if (!tagSession) tagSession = { sheetWasCollapsed: document.getElementById('locations').classList.contains('collapsed'), scroll: list.scrollTop, byTag: false, focus: document.activeElement };
+      if (!tagSession) tagSession = { scroll: list.scrollTop, focus: document.activeElement };
       const reduced = prefersReducedMotion();
       c.classList.remove('tag-pop'); c.classList.add('tag-wait');
       if (!currentUser && !c.querySelector(':scope > .tag-slip')) {   // the live region exists before it speaks
         const s = document.createElement('div'); s.className = 'tag-slip'; s.setAttribute('role', 'status'); s.setAttribute('aria-live', 'polite'); c.appendChild(s);
       }
       let wait = 0;
-      if (!railQuery.matches && !document.getElementById('locations').classList.contains('collapsed')) {
-        setSheetCollapsed(true); tagSession.byTag = true; wait = reduced ? 0 : TAG_SHEET_MS;
-      }
+      const before = parseFloat(document.documentElement.style.getPropertyValue('--sheet-lower')) || 0, need = tagSheetNeed(popup);
+      setSheetLower(need);
+      if (Math.abs(need - before) > 1 && !reduced) wait = TAG_SHEET_MS;
       showTagDot(popup);
       const size = map.getSize(), p = map.latLngToContainerPoint(popup.getLatLng());
       const d = p.subtract(L.point(size.x / 2, pinPopupTopPad() + tagPinRadius(popup)));
@@ -8706,13 +8735,10 @@
       tagRestoreTimer = setTimeout(() => {   // a swap opens the next tag in this same dispatch: then nothing is restored
         if (tagOpenNow()) return;
         const s = tagSession; tagSession = null;
+        setSheetLower(0);
         if (!s) return;
         const list = document.getElementById('locationsList');
-        if (s.forceExpand || (s.byTag && !s.sheetWasCollapsed)) {
-          setSheetCollapsed(false);
-          if (s.forceExpand && highlightedId) { const en = rowEntry(highlightedId); if (en && en.el) en.el.scrollIntoView({ block: 'nearest' }); }
-          else list.scrollTop = s.scroll;
-        }
+        if (!sheetIsCollapsed()) list.scrollTop = s.scroll;
         const a = document.activeElement;   // VoiceOver: back out to where focus was
         if (s.focus && s.focus.isConnected && s.focus !== document.body && (!a || a === document.body)) s.focus.focus({ preventScroll: true });
       }, 0);
