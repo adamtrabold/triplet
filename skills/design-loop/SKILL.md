@@ -102,6 +102,10 @@ would defend this to the owner as is". **The owner never sees anything that
 scored under 9.** Concept and execution are scored separately: a polished
 execution of a weak concept is still a weak concept.
 
+You enforce this. Before anything goes to the owner, check it has a design
+director score of 9 or more from a fresh review; if it doesn't, it goes back
+to the team, not to the owner.
+
 ## Always
 
 - The owner approves a concept before anything is built, and sees any new
