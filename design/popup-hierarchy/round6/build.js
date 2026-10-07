@@ -50,7 +50,7 @@ const html = `<!doctype html>
   <h1>Hanging Tag v4</h1>
   <p class="lede">Your notes on the segmented stub, applied. Pinch to zoom.</p>
   <ul class="notes">
-    <li><b>Colour:</b> Directions is plain ink now. Starred gets the colour: its stub segment is printed in the city’s accent, a light second ink, like the coloured fields on your tags. The star itself stays the same black star as on the pin and in the list.</li>
+    <li><b>Colour:</b> Directions is plain ink now. Starred gets the colour, from the brand palette: its segment becomes the app’s navy “on” tile, the same rule every on/off control uses. No city orange in the tag, since orange already means “selected” and map clusters, and stars are black everywhere.</li>
     <li><b>Visited:</b> one tap. The VISITED stamp comes down and lands on the stub, and the tag’s paper screens back to the tone of a visited row. The text stays full strength. Tap the stamp to undo.</li>
     <li><b>Signed out:</b> Directions works. Tapping a greyed Star or Visited shows a sign-in slip under the tag.</li>
     <li><b>List drops to its header</b> while a tag is open, for you to judge live.</li>
@@ -60,11 +60,10 @@ const html = `<!doctype html>
   <h2>Marking visited</h2>
   ${fig(path.join(D, 'tag/filmstrip.png'), 'The stamp grows as it comes down, then shrinks as it lands on the stub', 1060, 74)}
   <h2>Other places</h2>
-  ${grid([[P('star-typical'), 'Typical note, not visited'], [P('star-bare'), 'Name only'], [P('star-signedout'), 'Signed out'], [P('star-signin'), 'Signed out: tap Star, the sign-in slip'], [P('star-resto'), 'A starred restaurant: the starred field next to an orange pin'], [P('two-busiest'), 'Quieter option: only the star turns orange, no printed field']])}
+  ${grid([[P('star-typical'), 'Typical note, not visited'], [P('star-bare'), 'Name only'], [P('star-signedout'), 'Signed out'], [P('star-signin'), 'Signed out: tap Star, the sign-in slip'], [P('star-resto'), 'A starred restaurant: no clash with the orange pin'], [P('two-busiest'), 'Quieter option: no colour, just the filled black star']])}
   <h2>Decisions for you</h2>
   <ol class="dec">
-    <li>Starred colour: the printed field (main stills) or the quieter orange star (last still)?</li>
-    <li>Should “starred” have one colour everywhere (tag, pin and list)? Today the pin and the list use a black star.</li>
+    <li>Starred: the navy “on” tile (main stills) or no colour at all (last still)?</li>
   </ol>
   <footer>The map is a stand-in drawing. Rendered in Chrome, not checked on iPhone. Details: design/popup-hierarchy/round6/tag/README.md.</footer>
 </main>

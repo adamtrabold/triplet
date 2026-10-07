@@ -166,6 +166,11 @@ sources are the file where the quote is recorded.
 
 ## Color
 
+- **Use the brand palette consistently and meaningfully.** "Keep in mind the
+  brand color palette.. we should be using best practices around how to
+  apply consistently and meaningfully (the designer and cd should know
+  this)" (2026-10-07, Hanging Tag colour; chat). Every colour comes from the
+  existing tokens and keeps the meaning it has elsewhere in the app.
 - **Colour with personality, on the thing that matters.** "Segmented stub is
   awesome. I now wonder about the color application in there — should we
   give that more personality? Directions feels unnecessarily orange and like

@@ -118,24 +118,48 @@ stamp and filed paper the list already uses for visited.
 is **A + Visited 1**. C + 1 is the one quiet alternate, shown once
 (`two-busiest`, `two-typical`).
 
-**The colour conflict.** UX's points: the black star on the pin and in the
-list, and `--figure-deep` already meaning "selected". How I resolved it:
-- The starred field is now a **light second-ink print** of the city accent
-  (`--figure` at 30%, multiplied), not a solid `--figure-deep` block, so it
-  can't read as the solid "selected" fill.
-- The **star and its word stay the app's black ink**, so "starred" is the
-  same black star on the pin, in the list and on the tag. The tint is a
-  printed field on the tag's stub, the way the references colour a field.
-- The dashed dividers and the perforation notches run through it, so it
-  reads as printed on the stub.
-- The name still leads at 1x (`star-busiest`).
-- **For the owner:** should "starred" have one colour everywhere? That's a
-  separate decision, flagged on the page.
+**The colour conflict, superseded by the owner's palette note (2026-10-07):**
+"Keep in mind the brand color palette.. we should be using best practices
+around how to apply consistently and meaningfully". The first fix (a 30%
+`--figure` print) gave the city accent a new meaning, "starred". The app
+had already ruled that out: stars are black `--ink` everywhere, and
+`--figure-deep` was dropped from the star because it "merged with/clashed
+against orange category rings" (`docs/shipped.md`, Pencil Star rounds 4–6).
+`--figure-deep` also already means "cluster" on the map and "selected" on a
+row. So **the tag uses no city accent at all.** Starred uses the state
+system's existing **ON** rule (`design/state-system/`: "on / open /
+selected = `--state-on-bg` tile + `--state-on-fg` glyph"): a navy tile, inset
+by `--state-tile-inset`, with the paper star and STARRED. Starring is an on
+toggle, so this is the app's own grammar, and it's the brand's navy (the
+frame). The star stays the app's one star shape; only its tile says "on".
+The dashed dividers and notches stay visible around the inset tile, and the
+name still leads at 1x. Alternate C is now **no colour**: the filled black
+star only.
+
+### Colour map (tag) vs meaning elsewhere
+
+| Colour (token) | In the tag | Elsewhere in the app | Same meaning? |
+|---|---|---|---|
+| `--paper-raised` | tag stock | raised surfaces: chips, fields, the sticker face, the plan slip | yes |
+| `--paper-filed` | the tag's paper once visited (screen-back) | a visited list row's field | yes |
+| `--ink` | name, note, Directions, Star, the unstarred star | body text; the star on the pin and in the list | yes |
+| `--ink-2` | address, TYPE / PLAN, × | metadata and category labels | yes |
+| `--hair` | perforation, dividers, grommet edge | 1px rules, dashed borders | yes |
+| `--state-on-bg` (navy) + `--state-on-fg` | the starred segment's tile | every ON / open / selected control tile | yes, starred is an on toggle |
+| stamp navy 82% | the VISITED stamp on the stub | the row stamp; `STICKER.INK` on pins | yes |
+| `--navy` (sign-in slip text) | slip copy | the `#planSlip` text | yes |
+| `--figure`, `--figure-deep` | **not used** | buttons and accents, selected row, cluster | n/a |
+
+No new hex values. The eyelet patch `#EDE4D3` / grommet `#CFC5B1` from
+round 5 are paper steps between `--paper` and `--hair`. Nothing in the app
+changes meaning, so there's no app-wide decision. **Owner question,
+optional:** does "starred" want a colour of its own app-wide? Today it's
+black everywhere, and the tag keeps it that way.
 
 **Restaurant case** (`star-resto`): a starred Bæjarins Beztu under the
-Reykjavík accent, the closest pair (#A8400C against restaurant #AC5019).
-The light field reads as a pale tint next to the strong orange pin, so
-they don't merge.
+Reykjavík palette, where the accent #A8400C is closest to restaurant
+#AC5019. With no accent in the tag there's no clash: the navy ON tile sits
+under the orange pin.
 
 **One VISITED on the tag.** The stamp now lands **on the Visited segment
 of the stub** (a stamped claim stub, as on the references). The stamp is

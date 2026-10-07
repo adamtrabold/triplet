@@ -39,15 +39,14 @@
   .W-ochk { width: 17px; height: 17px; display: block; flex: none; }
   .W-seg.vis.on { color: ${NAVY}; }
   /* colour: starred */
-  .c-star .W-seg.star.on { color: var(--ink); }   /* the printed field is drawn in the tag's SVG, under the dividers and notches */
+  .c-star .W-seg.star.on { color: var(--state-on-fg); }   /* the state system's ON tile (navy, paper glyph), inset --state-tile-inset; drawn in the SVG */
   /* colour: category stub */
   .c-cat .W-stub { color: var(--paper); }
   .c-cat .W-seg { color: var(--paper); }
   .c-cat .W-seg + .W-seg { border-left: 1px dashed rgba(250,245,234,.45); }
   .c-cat .W-seg.vis.on { color: var(--paper); }
   /* colour: two-ink */
-  .c-two .W-seg.star.on { color: var(--figure-deep); }
-  .c-two .W-seg.star.on .k-ic { color: var(--figure); }
+  .c-two .W-seg.star.on { color: var(--ink); }   /* no colour: the app's black star, filled */
   /* screen-back: the tag goes to the filed paper of a visited row; the stamp sits on top */
   .W-seg .row-stamp { display: block; }
   .W-stampover { position: absolute; z-index: 3; pointer-events: none; }
@@ -120,7 +119,7 @@
       + `<clipPath id="w4h"><path d="${CHECK}" transform="${checkT}"/></clipPath></defs>`
       + (punched ? `<g clip-path="url(#w4h)"><path d="${CHECK}" transform="${checkT}" fill="none" stroke="#1A1A18" stroke-opacity=".34" stroke-width="1.8" filter="url(#w4soft)"/></g>` : '')
       + `<g mask="url(#w4m)"><path d="${d}" fill="${paper}" filter="url(#kshadow)"/>`
-      + (color === 'star' && P.starred ? `<rect x="${third}" y="${stubY}" width="${third}" height="${h - stubY}" fill="var(--figure)" fill-opacity=".30" style="mix-blend-mode:multiply"/>` : '')
+      + (color === 'star' && P.starred ? `<rect x="${third + 4}" y="${stubY + 5}" width="${third - 8}" height="${h - stubY - 9}" rx="2" fill="var(--state-on-bg)"/>` : '')
       + `<path d="M138,6 H178 L182,10 V30 L178,34 H138 L134,30 V10 Z" fill="${screened ? '#DDD3C1' : '#EDE4D3'}"/></g>`
       + `<line x1="10" x2="${w - 10}" y1="${stubY}" y2="${stubY}" stroke="${color === 'cat' ? 'rgba(250,245,234,.6)' : 'var(--hair)'}" stroke-width="1.5" stroke-dasharray="4 3"/>`
       + `<circle cx="158" cy="18" r="8.5" fill="none" stroke="#CFC5B1" stroke-width="3.5"/>`;
