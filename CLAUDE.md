@@ -196,6 +196,11 @@ operator makes none of these calls.
 Concept work exists for visited pins (owner hasn't picked); popup star
 concept is in progress. Get a decision before building (lane 2).
 
+- **Popup redesign (Hanging Tag)** — in progress in
+  `design/popup-hierarchy/`; owner-approved direction: segmented stub;
+  star colour moving to the action orange. Not built yet.
+- **Icon system full revision** (owner, 2026-10-07) — next after the popup
+  redesign and star colour; lane 2. Quote and pointers in `docs/backlog.md`.
 - **Popup star alignment** (star looks off when the popup has full
   content; list-row star-only-when-starred is settled). Active concept:
   `design/popup-star-alignment/`; `design/star-alignment/` is history.
