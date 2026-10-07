@@ -18,9 +18,10 @@ This file loads every session: keep it to rules and pointers. Detail goes in:
 - `docs/ux-brief.md` — mandatory brief/checklist for every UX agent.
 - `docs/cd-brief.md` — mandatory brief/checklist for every CD agent.
 - `docs/owner-taste.md` — the owner's stated design-taste rules, verbatim.
-- `skills/design-loop/` — source of the owner's portable design-loop skill
-  (orchestrator, lanes, role briefs), uploaded to claude.ai so it reaches
-  sessions in other repos. Re-upload after editing it.
+- `skills/design-buds/` — source of the owner's portable team skill
+  (orchestrator, roles, build/tweak/design-loop ways of working), uploaded
+  to claude.ai so it reaches sessions in other repos. Re-upload after
+  editing it.
 - `design/<feature>/` — design records; `design/inspo/` — visual reference.
 
 When something ships: add its entry to `docs/shipped.md`, close it in
