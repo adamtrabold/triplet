@@ -1,16 +1,18 @@
-# Shape pin: a map pin for districts and streets (round 6)
+# Shape pin: a map pin for districts and streets (round 6, after review)
 
-Designer, 2026-10-07. These are concept stills only. `index.html` is untouched, and the Hanging Tag
-is round 5's claim-check tag, unchanged (its owner is another designer).
+Designer, 2026-10-07. These are concept stills only, and `index.html` is untouched. The tag is round 6's
+Hanging Tag v4 (`../tag/tag4.js`), unchanged except that a street's type word reads "Street". Another
+designer owns the tag.
+
+- **Owner page:** `../shape-pins.html` ("District & Street Pins"), built by `build.js`.
+- **Reviews:** `ux-review.md` and `cd-review.md`. Every fix they asked for is listed under "Fixes after
+  review" below.
 
 ## The ask (owner, verbatim)
 
 "Districts and streets need a map pin type."
 
-Context: this answered "OK for a district to show a small diamond?", asked about the stand-in diamond
-in `../../round5/tag/stills/*-shape-*`.
-
-Other owner words applied here:
+This was the answer to "OK for a district to show a small diamond?". Other owner words applied:
 
 - "Bonus points but not required if the map pin is conceptually aligned with whatever it "opens up" to"
 - "Same category icon treatment on map and popup"
@@ -19,226 +21,156 @@ Other owner words applied here:
 - "I like whimsy and these all seem kinda average"
 - "Dots add an insane amount of visual noise absolutely not"
 - "Keep in mind the brand color palette.. we should be using best practices around how to apply
-  consistently and meaningfully" (2026-10-07; see the colour map below)
+  consistently and meaningfully"
+- "Stars should be colored imo" (2026-10-07). The star colour is being settled app-wide in
+  `round7/star-colour/`. **The stars here stay black for now and will follow that decision.**
 
-## What every variant shares
+## Variants (two; the tie-on tag was killed)
 
-- **Settled:** the tag hangs from the pin on a straight string. The pin stays on the map while the
-  tag is open, and the string starts at the pin's tie point.
-- **One pin per shape.** It replaces the shipped interim marks: the shape's own map star
-  (`shapeStarIcon`), its visited sticker (`shapeVisitIcon`) and a plan stop's numbered diamond
-  (`planNumberIcon(..., 'diamond')`). The pin carries all of those states itself.
-- **Where it sits:**
-  - A district sits at its **label point**: the interior point farthest from every edge (a pole of
-    inaccessibility, `labelPoint()` in `pins.js`). A concave or C-shaped district never puts its pin
-    outside itself, which the centroid can.
-  - A street sits **halfway along its length**, which is the shipped `shapeAnchor()` for streets. This
-    is also where Directions points.
-- **Zooms:** the pin shows exactly while its shape's layer does (`mapVisibleNeighborhoodShapes()`, the
-  shape's `min_zoom`, default city zoom + 3). The shape and its pin are one thing on the map. The list
-  is not affected: it still shows every shape that matches the filters.
-- **Clustering:**
-  - Places: with the default min zoom, shapes first draw at 14 (Reykjavík, Stockholm, LA) or 15
-    (Copenhagen, Malmö). That is at or above `SOLO_MIN_ZOOM` (14), so a shape pin never meets a
-    cluster.
-  - A shape with a hand-set `min_zoom` below 14 clusters like any pin, at its label point: it is
-    counted in the disc, and its own pin hides. This is the rule plan shape stops already follow
-    (owner: "One clustering behaviour").
-  - Plans: unchanged from the shipped rule. A shape stop draws at any zoom and clusters at its point.
-- **Size:** shapes draw only at or above `GLYPH_MIN_ZOOM` (12), so there is no FAR tier. Every
-  variant has one NEAR size, about 24px of ink, and the selected size adds the usual +8px.
-  - Each pin's tap target is 24px or more.
-  - A tap on the pin or on the shape opens the same tag.
-- **Stacking:** the pins' own ladder (`Z_HIGHLIGHTED` > `Z_PIN_STARRED` > 0; plan stops at
-  `Z_PLAN_STOP - n`). Within the same rung, Leaflet's usual south-over-north order applies.
-- **Signed out:** the pins look the same. A pin carries no control. In the tag, Star and Mark visited
-  go to the state system's off alpha, and Directions stays live (round 5's `*-signedout`).
+### Trail blaze (`blaze-*`)
 
-## Colour map (every colour the pins use)
+The pin is the list's own diamond badge, the trail blaze nailed to a tree. The inspo is the Pacific
+Crest Trail diamond in `design/inspo/project/yosemite-trail-scrapbook-collage.jpg`; the crop is
+`stills/inspo-pct-blaze.jpg`.
 
-Every colour below is already a token or constant. None is new.
+**States:**
 
-| Colour | Token / constant | Where on the pin | What it means (as everywhere else) |
+- **Unvisited:** a 28px diamond with a `--paper` field, a 2px category rim and a 17px glyph.
+- **Starred:** the map star sits on the upper-right edge.
+- **Visited:** the dark sticker (`STICKER.INK`), cut as a diamond, with a cream check and one vertex
+  peeled. It peels left when starred, and never at the bottom tip, where the string ties.
+- **Open:** 36px and filled with the category ink. The string starts at the bottom tip.
+- **Plan stop:** the grey number replaces the glyph.
+
+**Strength:** it is the same mark in the list and on the map, and its pin point is its centre.
+
+**Weak spot:** it can read as "the diamond again" (kinda average). A diamond that opens a tag is not
+one idea.
+
+### Staked pennant (`pennant-*`)
+
+A swallowtail pennant on a staff, planted at the shape's point: you stake your claim on an area, like a
+park pennant or a surveyor's flag.
+
+**States:**
+
+- **Unvisited:** a 25×18 paper flag with a 1.6px category rim, a 15px glyph, a 30px staff in `--ink-2`,
+  and a faint foot shadow.
+- **Starred:** the star sits at the fly corner.
+- **Visited:** the flag fills with `STICKER.INK` and carries a cream check. There is no peel, because a
+  flag is not a sticker.
+- **Open:** 1.3× and filled with the category ink. There is no foot shadow; the staff runs on into the
+  string.
+- **Plan stop:** the number sits on the flag.
+
+**Strength:** it is the clearest "area, not a place" silhouette at 1x, and the clearest visited state.
+
+**Weak spot:** the flag sits up and right of the true point.
+
+### Tie-on tag (killed by the CD)
+
+When it is open, two tags hang on one string. Every pin would also carry an eyelet dot. The code and
+stills are removed; the idea is in the git history (`2ff1910`).
+
+## Rules for both variants
+
+- **Point:** one point per shape, shared by the pin, Directions and the old map star.
+  - A district uses its label point: the interior point farthest from the edges (`labelPoint()`).
+  - A street uses its midpoint along its length.
+  - Today `shapeAnchor()` (vertex centroid) drives Directions; it would become the label point.
+- **Zoom:** the pin shows exactly while its outline does (`mapVisibleNeighborhoodShapes()`). With the
+  default min zoom (14 or 15, never below `SOLO_MIN_ZOOM`), a shape pin never meets a cluster in Places.
+  A hand-set lower min zoom clusters like a pin, at its point. Plans keeps its shipped shape-stop
+  clustering.
+- **One mark:** the pin carries star, visited and the plan number. It replaces `shapeStarIcon`,
+  `shapeVisitIcon` and the numbered stop diamond.
+- **Stacking:** shape pins sit under every place pin (`SHAPE_DROP` −3000). Among shape pins, the pin
+  ladder still applies (starred above, visited below). The exceptions are a selected shape pin
+  (`Z_HIGHLIGHTED`) and a plan stop (`Z_PLAN_STOP − n`). The reasoning: a shape is the larger, vaguer
+  thing, and its outline is tappable too. `*-busy-z14-crop` shows a restaurant pin over the visited
+  Hlemmur pin.
+- **Tap area:** 44px, centred on the pin's visual body (the blaze's centre, the pennant's flag), not on
+  its point. Where it overlaps a place pin's area, the nearer visual centre wins, as between place pins.
+  The rings are drawn in `*-hit`.
+- **Opening:**
+  - A list tap goes through `focusShape()`, and a tap on the outline opens the tag directly.
+  - Either way, the map first pans, if needed, so the pin and the tag's drop space (the pin's point
+    plus about 44px of string and the tag's height below it) are on screen. Then the tag opens.
+  - This matters for a long street whose midpoint is off-screen, and for a big district framed by its
+    bounds.
+- **Signed out:** the pins look the same; a pin carries no control.
+- **Size:** shapes draw only at zoom ≥ `GLYPH_MIN_ZOOM`, so there is one size, plus the usual +8px or
+  1.3× when open.
+
+## App-wide options (the owner decides; not silent)
+
+The variant stills are shot with **both options on**, and the page says so.
+
+- `opt-shipped`: today. Grey outlines, the 6px dotted street line, and the dotted `#g-street` glyph.
+- `opt-a`: **coloured outlines.** Each outline is in its category ink, with stroke opacity 0.9 → 0.6;
+  weights, dashes and the 0.12 fill are unchanged.
+- `opt-b`: **dot-free street.**
+  - The street line becomes 3px solid, replacing the 6px `'2 8'` round-cap dots.
+  - `#g-street` becomes a solid curved road stroke, in the list as well as the pin.
+- `opt-ab`: both options together.
+
+The pins always use the solid road glyph (`#g-street-road`). The dotted glyph reads as specks at pin
+size (CD).
+
+## Colour map (only existing tokens)
+
+| Colour | Token | Where | Meaning |
 |---|---|---|---|
-| Teal `#328177` | `CATEGORY_COLORS.district` | rim + glyph of a district pin; fill when open | the category. It is the same ink as the district's list badge and filter chip. |
-| Deep rust `#5E2C17` | `CATEGORY_COLORS.street` | rim + glyph of a street pin; fill when open | the category, as above |
-| Oat `#F2EBDD` | `--paper` (the seals' `badge-field`) | the pin's field; the glyph when open | the paper every unvisited seal is printed on |
-| Category ink fill + paper glyph | (the inversion `markerIcon()` uses for a highlighted pin) | open / selected | **selected**. It is exactly the shipped selected place pin: the ink fills, the glyph reverses to paper, +8px, the usual pulse. |
-| Slate `#3A4C5B` | `STICKER.INK` | visited face (diamond sticker, round sticker, coloured-in pennant) | **visited**. It is the one neutral of every visited mark, and the category colour goes, as on every visited pin. |
-| Cream `#FAF5EA` | `STICKER.FACE` / `STICKER.HI_RING` | visited check, a visited stop's number, the selected ring | printed on the visited sticker, as on pins |
-| Black `#1A1A18` | `--ink` (`.marker-star-ink`), on a `--paper` halo | the star | **starred**, as on every map mark. It is never `--figure-deep`, which means "cluster" on the map. |
-| Grey-brown `#5A564C` | `--ink-2` | a plan stop's number; the pennant's staff | the one secondary-number grey. The staff is neutral structure in the same grey the shipped shape outlines use by default. |
-| `--ink` at 16-22% | `#1A1A18` alpha | the tie-on tag's and pennant's contact shadow | no meaning, just depth, restrained (owner: "Shadow is too harsh") |
+| Teal `#328177` / rust `#5E2C17` | `CATEGORY_COLORS.district` / `.street` | rim + glyph; fill when open; outlines (option A) | the category, as the list badge and chip |
+| Oat `#F2EBDD` | `--paper` | the pin's field; the glyph when open | the paper the unvisited seals are printed on |
+| Category fill + paper glyph | `markerIcon()`'s highlighted inversion | open | selected, exactly as a place pin |
+| Slate `#3A4C5B` | `STICKER.INK` | visited face / flag | visited: the one neutral; the category colour drops |
+| Cream `#FAF5EA` | `STICKER.FACE` / `HI_RING` | visited check, a visited stop's number, selected ring | printed on the visited mark |
+| Black `#1A1A18` on a `--paper` halo | `--ink` (`.marker-star-*`) | the star | starred (pending the app-wide star colour) |
+| Grey-brown `#5A564C` | `--ink-2` | plan-stop number; pennant staff | secondary numbers; neutral structure |
+| `--ink` at 16-22% | | contact shadows | depth only, kept restrained |
 
-What the pins never use:
+`--figure`, `--figure-deep` and `--navy` never appear on a pin. On the map, `--figure-deep` means
+"cluster". The CD notes that street rust and café brown are close at 1x, so silhouette has to carry that
+difference.
 
-- `--figure` / `--figure-deep` (the city accent). On the map it already means "cluster", and in the
-  tag it means the Directions action.
-- `--navy` (the frame, and the "on" state of controls).
-- Any colour per state other than the ones above.
+## Fixes after review
 
-**Note on "orange = selected":** I found no orange selected state for map marks in the shipped code.
-A selected pin inverts to its own category ink (`markerIcon()`), and `--figure-deep` (orange in
-Reykjavík) is the cluster. So the shape pins follow the code. If the owner means a new rule, it
-applies to place pins and shape pins alike, and that is a system decision, not this pin's.
-
-**Observation (not changed here):** the shipped shape layer draws in `--ink-2` grey unless the row
-has its own `color`, while the pin and the list badge use the category ink. So a teal district pin
-sits inside a grey dashed outline. That reads fine (outline = structure, pin = identity), but the CD
-may want the outline in the category ink at its existing 0.9 / 0.12 alphas.
-
----
-
-## Variant A: Trail blaze (`blaze-*`)
-
-**Idea.** The list already marks a shape with a diamond badge (`row-badge[data-kind="diamond"]`), so
-the map pin is that same diamond seal: a paper field, a category-ink rim and the district or street
-glyph. It is the trail blaze nailed to a tree, as in the Pacific Crest Trail diamond in the
-Yosemite scrapbook. A blaze is literally how a trail or a territory is marked on the ground. Round
-pin = a place; diamond = an area or a route. This answers "same icon treatment on map and popup/list"
-most directly.
-
-**Inspo.** `design/inspo/project/yosemite-trail-scrapbook-collage.jpg` (the PCT diamond),
-`national-park-posters.jpg` (flat ink on paper).
-
-**States** (`blaze-states`):
-
-- **Unvisited:** a 26px diamond, `--paper` field, 2px category rim, a 13px glyph.
-- **Starred:** the map star on the upper-right edge.
-- **Visited:** the shipped dark sticker cut as a diamond (`stickerFold('diamond')`, which the app
-  already supports). It has the cream check and one vertex peeled (left, right or top, from the shape
-  id; never the bottom tip, where the string ties).
-  - The shipped rule said "visited = the one round sticker, no district diamond". That is prior
-    rationale, not an owner quote. Keeping the diamond keeps "this is an area" readable after a visit.
-  - The diamond still loses its colour and glyph, so visited remains "reduction of information".
-- **Visited + starred:** the peel goes to the left, clear of the star.
-- **Open:** inverted, 34px, and the string starts at its bottom tip.
-- **Plan stop:** the number replaces the glyph in grey. This is the shipped numbered diamond, now
-  also the Places pin.
-
-**Truth list** (`docs/ux-brief.md`):
-
-- *J identify / navigate:* the pin taps open the tag, so tapping a shape needs no aiming at a
-  dashed line.
-- *Control parity:* star, visit and plan state all show on one mark, as on a place pin.
-- *Hierarchy:* same size and weight as a place seal. It never outranks the pins.
-- *Convention:* the diamond-for-area grammar is the app's own (list, plans list).
-
-**Weaknesses.**
-
-- It is the most "system" and least surprising of the three, so it risks the owner's "kinda average".
-- At 26px the diamond's inner field is small, so the district glyph (a dashed square) is about 9px
-  of ink.
-- At 1x the street's dotted-curve glyph is faint.
-
-## Variant B: Tie-on tag (`tie-*`)
-
-**Idea.** The pin is the Hanging Tag in miniature: the tag's own silhouette (top corners clipped), a
-punched eyelet, and the glyph. It hangs from its eyelet at the shape's point and swings a few
-degrees per shape (from the id hash, like the stamps' lean).
-
-- Tap it and the full tag drops out of it on the string.
-- Open, the little tag hangs plumb.
-- This is the strongest version of "the pin and what it opens are one idea", and it is literal
-  luggage-tag whimsy.
-
-Places stay round seals; only areas and routes are tagged.
-
-**Inspo.** `design/inspo/luggage-tags/` (tag die-cut, eyelet), `5.webp` (the reinforced eyelet), and
-the tag in `../../round5/tag/`.
-
-**States** (`tie-states`):
-
-- **Unvisited:** 20×26 tag, `--paper` field, 2px category rim, the eyelet punched through (the map
-  shows through), a 13px glyph.
-- **Starred:** the star on the upper-right clipped corner.
-- **Visited:** the shipped round dark sticker (17px) is stuck on the little tag over its glyph, as
-  hotel labels were stuck on cases. The glyph is covered and the rim stays.
-- **Open:** inverted, 1.3×, plumb. The string ties at the eyelet and runs behind it to the big tag.
-- **Plan stop:** the number replaces the glyph. On a visited stop, the number is on the sticker.
-
-**Truth list:**
-
-- *Identify:* the tag shape says "this opens a tag".
-- *Hierarchy:* it is about the same ink area as a seal.
-- *Parity:* all marks on one pin.
-- *Convention:* the pin hangs below its point. The point is the eyelet, so the tag body sits about
-  20px south of the true label point.
-
-**Weaknesses.**
-
-- Open, two tags hang on one string (the small one above the big one). Some will read that as
-  redundant.
-- The visited state keeps the rim, so it removes less information than A or C.
-- The hanging offset means the tag body covers the map just south of the point, where it overlaps
-  pins more often than a centred mark (see the `tie-plan` crop).
-- The tilt is a little more motion-like noise on a busy map.
-
-## Variant C: Staked pennant (`pennant-*`)
-
-**Idea.** A small swallowtail pennant on a staff, planted at the shape's point: you stake a claim
-on an area, like a surveyor's flag or a park pennant. The staff's foot is the exact point, and the
-flag carries the glyph.
-
-- Visited = the flag is coloured in (`STICKER.INK`, cream check): you've planted your flag.
-- It is the only variant whose silhouette is not a seal at all. It reads as "a territory, not a
-  shop" even at a glance.
-
-**Inspo.** Park pennants and trail flags from the park posters / scrapbook ephemera
-(`design/inspo/project/`). The swallowtail cut matches the tag's clipped corners.
-
-**States** (`pennant-states`):
-
-- **Unvisited:** a 21×15 paper flag, 1.6px category rim, a 11.5px glyph, and a 27px staff in
-  `--ink-2` with a faint contact shadow at its foot.
-- **Starred:** the star at the flag's fly corner.
-- **Visited:** the flag filled `STICKER.INK` with a cream check. There is no peel, because a flag
-  isn't a sticker.
-- **Open:** the flag inverts at 1.3×. The string ties at the staff's foot, so the staff and the
-  string read as one line down to the tag.
-- **Plan stop:** the number on the flag.
-
-**Truth list:**
-
-- *Identify:* this is the most distinct silhouette from place seals.
-- *Hierarchy:* the flag is smaller than a seal. The staff adds height but very little ink.
-- *Parity:* all marks on one pin.
-- *Convention:* a flag's foot is a familiar "here" marker on maps.
-
-**Weaknesses.**
-
-- The glyph is small (11.5px in a 15px flag). At 1x the street's dotted curve is barely legible.
-- The flag sits above and right of its point, so the tap target is offset from the true point.
-- Visited has no peel, so it breaks the "visited = sticker" family that pins and rows share. Only the
-  colour and the check carry it.
-- Open, the long staff plus string can read as one tall pole.
-
----
+- The tie-on tag is dropped.
+- Glyphs are bigger: blaze 28px / 17px glyph, pennant +20% / 15px glyph. Each is about the ink of a
+  place seal's glyph.
+- The pennant has no foot-shadow smudge when open; the shadow shows only at the foot when standing.
+- The visited diamond's peel is bigger (chord at 0.5), so it reads at 1x.
+- Stacking, tap area, the opening pan and the one-point rule are specified above, and the hit-area
+  rings are drawn in `*-hit`.
+- The visited crops centre on the visited Miðborg pin beside visited place stickers.
+- `busy-z16` adds the old town's places (about 14 on screen).
+- Options A and B are shown before and after.
 
 ## Stills
 
-All stills are in `stills/` at 1x full phone (`*-phone@1x.png`) and 3x crop (`*-crop@3x.png`);
-`_sheet/` has jpgs for an owner page.
+- `stills/` holds the 1x phone stills (`*-phone@1x.png`) and the 3x crops (`*-crop@3x.png`).
+- `_sheet/` holds jpgs for the page.
 
 | Name | What |
 |---|---|
-| `{v}-busy-z14` | busy Places map at zoom 14, where Reykjavík's shapes first draw: about 25 pins, 3 districts, 2 streets (one visited, one starred) |
-| `{v}-busy-z16` | the same scene at 16 (a district fills the screen; its pin at the label point) |
-| `{v}-district` | Grandi open: round 5's claim-check tag hanging from the new pin |
-| `{v}-street` | Laugavegur open |
-| `{v}-visited` | visited and starred shapes among visited and starred place pins |
-| `{v}-states` | the states board: district / street / shipped place pin / plan stop × unvisited, starred, visited, visited + starred, open; the signed-out note |
-| `{v}-plan` | Plans: a district and a street as stops 2 and 4 among place stops |
+| `{v}-busy-z14`, `{v}-busy-z16` | the busiest map, where shapes first draw; the old town at 16 |
+| `{v}-district`, `{v}-street` | open, the tag hanging from the pin |
+| `{v}-visited` | visited and starred shapes among visited and starred places |
+| `{v}-states` | the states board |
+| `{v}-plan` | Plans: a district and a street as stops 2 and 4 |
+| `{v}-hit` | 44px hit areas |
+| `opt-shipped`, `opt-a`, `opt-b`, `opt-ab` | the app-wide options (shown with Blaze, in Plans so the list's street glyph shows) |
+| `inspo-pct-blaze.jpg` | Blaze's inspo crop |
 
-`{v}` is `blaze`, `tie` or `pennant`.
+## How to re-render
 
-## Files
+```
+node design/popup-hierarchy/round6/shape-pin/render.js [name|variant|scene ...]
+node design/popup-hierarchy/round6/shape-pin/build.js
+```
 
-- `pins.js`: the three pin builders, the label point, and the states board. It is page-side.
-- `render.js`: renders the stills. Run it with `node design/popup-hierarchy/round6/shape-pin/render.js [name|variant|scene ...]`.
-  - It drives the real app (unmodified) in the gesture harness (`design/gesture-harness/lib.js`).
-  - It uses round 3's helpers and stand-in basemap, plus round 5's `tag3.js`. The only patch to
-    `tag3.js` is "Street" for a street's type word.
+Run the renders a few at a time; one 26-still run exhausted the container's memory.
 
-Limits: Chromium only, with a stand-in basemap; the scene is a synthetic Reykjavík with made-up
-shapes.
+These are Chromium stills on a stand-in basemap with a synthetic Reykjavík scene. Real hit testing and
+the overlap rate on real data are unverified.

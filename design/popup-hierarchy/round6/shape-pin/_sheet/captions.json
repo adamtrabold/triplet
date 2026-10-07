@@ -5,7 +5,7 @@
  ],
  [
   "blaze-busy-z16",
-  "Busy map at zoom 16"
+  "Busy map at zoom 16, the old town"
  ],
  [
   "blaze-district",
@@ -28,32 +28,8 @@
   "Plans: a district and a street as stops 2 and 4"
  ],
  [
-  "tie-busy-z14",
-  "Busy map at zoom 14 (where Reykjavík's shapes first draw)"
- ],
- [
-  "tie-busy-z16",
-  "Busy map at zoom 16"
- ],
- [
-  "tie-district",
-  "District open: its tag hangs from the pin"
- ],
- [
-  "tie-street",
-  "Street open: its tag hangs from the pin"
- ],
- [
-  "tie-states",
-  "States: unvisited, starred, visited, visited + starred, open; plan stop"
- ],
- [
-  "tie-visited",
-  "In context: visited and starred shapes among visited pins"
- ],
- [
-  "tie-plan",
-  "Plans: a district and a street as stops 2 and 4"
+  "blaze-hit",
+  "44px hit areas over each visual body (shape pins in their ink, place pins grey)"
  ],
  [
   "pennant-busy-z14",
@@ -61,7 +37,7 @@
  ],
  [
   "pennant-busy-z16",
-  "Busy map at zoom 16"
+  "Busy map at zoom 16, the old town"
  ],
  [
   "pennant-district",
@@ -82,5 +58,25 @@
  [
   "pennant-plan",
   "Plans: a district and a street as stops 2 and 4"
+ ],
+ [
+  "pennant-hit",
+  "44px hit areas over each visual body (shape pins in their ink, place pins grey)"
+ ],
+ [
+  "opt-shipped",
+  "Today (shipped): grey outlines, the 6px dotted street line and dotted street glyph"
+ ],
+ [
+  "opt-a",
+  "Option A: each outline in its category ink at 0.6 (district teal, street rust)"
+ ],
+ [
+  "opt-b",
+  "Option B: the street as a 3px solid line and a solid road glyph (list and pin), no dots"
+ ],
+ [
+  "opt-ab",
+  "A + B together (what the variant stills show)"
  ]
 ]
