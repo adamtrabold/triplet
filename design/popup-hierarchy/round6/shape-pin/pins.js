@@ -1,20 +1,19 @@
-// Shape pins (round 6): a map pin type for districts and streets. Page-side; injected into the real
-// app (index.html, unmodified) after round 3's helpers (K2) and round 5's tag (TAG3).
-// Three variants:
+// Shape pins (round 6, after the UX + CD reviews): a map pin type for districts and streets. Page-side;
+// injected into the real app (index.html, unmodified) after round 3's helpers (K2) and round 6's tag (TAG4).
+// Two variants (the tie-on tag was killed in review: two tags on one string, an eyelet dot on every pin):
 //   blaze   — TRAIL BLAZE: the list's own shape badge (a diamond) as a pin, the trail-marker diamond
 //             nailed to a tree (Pacific Crest Trail blaze, design/inspo/project/yosemite-trail-scrapbook).
 //             Visited: the same dark sticker, cut as a diamond, one vertex peeled.
-//   tie     — TIE-ON TAG: the pin is a miniature of the Hanging Tag it opens (the tag's clipped-corner
-//             silhouette, a punched eyelet), hung at the shape's point and swinging a few degrees.
-//             Visited: the round dark sticker is stuck on the little tag, as hotel labels were on cases.
 //   pennant — STAKED PENNANT: a small swallowtail pennant planted in the district / on the street
 //             (park pennants, surveyor's flags). Visited: the pennant is coloured in, cream check.
+// Owner options (app-wide, shown before/after, never silently): opts({ color }) draws every shape outline in
+// its category ink at 0.6; opts({ road }) makes the street line and the #g-street glyph a solid road, no dots.
 (() => {
   const PAPER = '#F2EBDD';
   const inkOf = nb => nb.color || categoryInk(nb.type);
   const key = nb => shapeKey(nb.id);
   const hash = s => { let h = 2166136261; for (const ch of String(s)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
-  const glyph = (cat, x, y, s, color) => `<svg x="${(x - s / 2).toFixed(2)}" y="${(y - s / 2).toFixed(2)}" width="${s}" height="${s}" viewBox="0 0 24 24" style="color:${color}"><use href="#g-${cat}"/></svg>`;
+  const glyph = (cat, x, y, s, color) => `<svg x="${(x - s / 2).toFixed(2)}" y="${(y - s / 2).toFixed(2)}" width="${s}" height="${s}" viewBox="0 0 24 24" style="color:${color}"><use href="#g-${cat === 'street' ? 'street-road' : cat}"/></svg>`;
   const num = (n, x, y, size, color) => `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" style="font-family:var(--font-ui);font-stretch:85%;font-weight:700;font-size:${size}px;font-variant-numeric:tabular-nums" fill="${color}">${n}</text>`;
   const check = (x, y, s, color) => `<svg x="${(x - s / 2).toFixed(2)}" y="${(y - s / 2).toFixed(2)}" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="${STICKER_CHECK.near.d}" fill="${color}"/></svg>`;
   // the map star (markerStarHtml's glyph and halo) centred at x, y
@@ -27,7 +26,7 @@
   // one VERTEX peeled (left, right or top; never the bottom tip, where a tag's string ties).
   function diamondSticker(S, k, hi, n, starred) {
     const angs = starred ? [90] : [90, -90, 180], ang = angs[hash(k + '#v') % angs.length] + ((hash(k + '#a') % 21) - 10);   // a starred one peels at the left, clear of the star
-    const fh = 0.6 + (0.5 - stickerSize(k)) * 0.16;
+    const fh = 0.5 + (0.5 - stickerSize(k)) * 0.12;   // a peel big enough to read at 1x
     const g = stickerFold('diamond', S, S, S / 2 - 1, S / 2 - 1, ang, fh, STICKER.FOLD_L);
     const id = 'spd' + (uid++), c = S / 2;
     let base = stickerCurlDefs(id + 'c', g) + `<path d="${g.bodyD}" fill="${STICKER.INK}" filter="url(#stk-lift)"/><path d="${g.bodyD}" fill="url(#${id}c)"/>`;
@@ -36,62 +35,40 @@
     return base + stickerFlapMarkup(g, STICKER.PIN_BACK, false, id + 'f', hi);
   }
   function blaze(nb, o) {
-    const S = o.hi ? 34 : 26, c = S / 2, ink = inkOf(nb), rim = o.hi ? 2.5 : 2, h = rim / 2;
+    const S = o.hi ? 36 : 28, c = S / 2, ink = inkOf(nb), rim = o.hi ? 2.5 : 2, h = rim / 2;
     let svg;
     if (o.visited) svg = diamondSticker(S, key(nb), o.hi, o.n, o.starred);
     else {
       const fill = o.hi ? ink : PAPER, mark = o.hi ? PAPER : ink;
       svg = `<polygon points="${c},${h} ${S - h},${c} ${c},${S - h} ${h},${c}" fill="${fill}" stroke="${ink}" stroke-width="${rim}" stroke-linejoin="round"/>` +
-        (o.n ? num(o.n, c, c + 0.5, 12, o.hi ? PAPER : 'var(--ink-2)') : glyph(nb.type, c, c, o.hi ? 17 : 13, mark));
+        (o.n ? num(o.n, c, c + 0.5, 13, o.hi ? PAPER : 'var(--ink-2)') : glyph(nb.type, c, c, o.hi ? 21 : 17, mark));
     }
     // star on the upper-right edge's midpoint, a step out
     const st = o.starred ? star(c + c * 0.5 + 2, c - c * 0.5 - 2, o.hi ? 14 : 12) : '';
-    return { w: S, h: S, ax: c, ay: c, tie: [c, S - 1], html: `<svg width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" style="display:block;overflow:visible">${svg}</svg>${st}` };
-  }
-
-  // ---------------------------------------------------------------- B  TIE-ON TAG
-  // The Hanging Tag's own silhouette in miniature (corners clipped at the top, the eyelet punched through),
-  // hung from its eyelet at the shape's point. A per-shape swing of a few degrees, like the stamps' lean.
-  function tie(nb, o) {
-    const k = o.hi ? 1.3 : 1, W = 20 * k, H = 26 * k, cc = 5.5 * k, ex = W / 2, ey = 6 * k, er = 2.1 * k;
-    const ink = inkOf(nb), rim = o.hi ? 2.5 : 2, h = rim / 2, id = 'spt' + (uid++);
-    const swing = o.hi ? 0 : ((hash(key(nb) + '#sw') % 13) - 6) * 1.1;   // -6.6 .. +6.6 deg; open, it hangs plumb above its tag
-    const d = `M${cc},${h} H${W - cc} L${W - h},${cc} V${H - h} H${h} V${cc} Z`;
-    const fill = o.hi ? ink : PAPER, mark = o.hi ? PAPER : ink, gy = ey + (H - ey) / 2 + 1.5 * k;
-    let svg = `<defs><mask id="${id}m"><rect x="-4" y="-4" width="${W + 8}" height="${H + 8}" fill="#fff"/><circle cx="${ex}" cy="${ey}" r="${er}" fill="#000"/></mask>` +
-      `<filter id="${id}s" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx=".4" dy=".8" stdDeviation=".7" flood-color="#1A1A18" flood-opacity=".16"/></filter></defs>` +
-      `<g mask="url(#${id}m)" filter="url(#${id}s)"><path d="${d}" fill="${fill}" stroke="${ink}" stroke-width="${rim}" stroke-linejoin="round"/></g>`;
-    let extra = '';
-    if (o.visited) {   // the shipped round sticker, stuck on the little tag over its glyph
-      const ss = o.hi ? 22 : 17, sp = stickerPinParts({ size: ss, near: true, hi: o.hi, check: !o.n, ang: stickerCorner(key(nb), o.starred), sz: stickerSize(key(nb)) });
-      extra = `<div style="position:absolute;left:${(ex - ss / 2).toFixed(2)}px;top:${(gy - ss / 2).toFixed(2)}px;width:${ss}px;height:${ss}px">${sp.base}${o.n ? `<svg style="position:absolute;left:0;top:0" width="${ss}" height="${ss}">${num(o.n, ss / 2, ss / 2 + 0.5, 11, STICKER.FACE)}</svg>` : ''}${sp.flap}</div>`;
-    } else svg += o.n ? num(o.n, ex, gy + 0.5, o.hi ? 15 : 12, o.hi ? PAPER : 'var(--ink-2)') : glyph(nb.type, ex, gy, o.hi ? 16 : 13, mark);
-    const st = o.starred ? star(W - 1, cc - 2.5, o.hi ? 14 : 12) : '';
-    return { w: W, h: H, ax: ex, ay: ey, tie: [ex, ey], swing,
-      html: `<div style="position:absolute;left:0;top:0;width:${W}px;height:${H}px;transform:rotate(${swing}deg);transform-origin:${ex}px ${ey}px"><svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">${svg}</svg>${extra}${st}</div>` };
+    return { w: S, h: S, ax: c, ay: c, tie: [c, S - 1], body: [c, c], html: `<svg width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" style="display:block;overflow:visible">${svg}</svg>${st}` };
   }
 
   // ---------------------------------------------------------------- C  STAKED PENNANT
   // A swallowtail pennant on a short staff, planted at the shape's point (the staff's foot is the point).
   function pennant(nb, o) {
-    const k = o.hi ? 1.3 : 1, P = 27 * k, fw = 21 * k, fhh = 15 * k, notch = 4.5 * k, ink = inkOf(nb), rim = o.hi ? 2 : 1.6;
+    const k = o.hi ? 1.3 : 1, P = 30 * k, fw = 25 * k, fhh = 18 * k, notch = 5.4 * k, ink = inkOf(nb), rim = o.hi ? 2 : 1.6;
     const id = 'spp' + (uid++), x0 = 1.5, W = x0 + fw + 2, H = P + 2;
     const vis = o.visited, fill = vis ? STICKER.INK : (o.hi ? ink : PAPER), edge = vis ? STICKER.INK : ink;
     const d = `M${x0},${rim / 2} H${x0 + fw} L${x0 + fw - notch},${fhh / 2} L${x0 + fw},${fhh} H${x0} Z`;
     const gx = x0 + (fw - notch) / 2 + 0.5, gy = fhh / 2;
     let svg = `<defs><filter id="${id}s" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx=".4" dy=".8" stdDeviation=".6" flood-color="#1A1A18" flood-opacity=".16"/></filter>` +
       `<filter id="${id}b"><feGaussianBlur stdDeviation=".8"/></filter></defs>` +
-      `<ellipse cx="${x0 + 1}" cy="${P}" rx="${2.6 * k}" ry="${1 * k}" fill="#1A1A18" fill-opacity=".22" filter="url(#${id}b)"/>` +
+      (o.hi ? '' : `<ellipse cx="${x0 + 1}" cy="${P}" rx="2.6" ry="1" fill="#1A1A18" fill-opacity=".22" filter="url(#${id}b)"/>`) +   // open, the staff runs on into the string: no foot shadow
       `<line x1="${x0}" y1="${P}" x2="${x0}" y2="0" stroke="#5A564C" stroke-width="${1.6 * k}" stroke-linecap="round"/>` +
       `<path d="${d}" fill="${fill}" stroke="${edge}" stroke-width="${rim}" stroke-linejoin="round" filter="url(#${id}s)"/>`;
-    if (vis) svg += o.n ? num(o.n, gx, gy + 0.5, o.hi ? 13 : 11, STICKER.FACE) : check(gx, gy, o.hi ? 11 : 9, STICKER.FACE);
-    else svg += o.n ? num(o.n, gx, gy + 0.5, o.hi ? 13 : 11, o.hi ? PAPER : 'var(--ink-2)') : glyph(nb.type, gx, gy, o.hi ? 14 : 11.5, o.hi ? PAPER : ink);
+    if (vis) svg += o.n ? num(o.n, gx, gy + 0.5, o.hi ? 15 : 13, STICKER.FACE) : check(gx, gy, o.hi ? 12 : 10, STICKER.FACE);
+    else svg += o.n ? num(o.n, gx, gy + 0.5, o.hi ? 15 : 13, o.hi ? PAPER : 'var(--ink-2)') : glyph(nb.type, gx, gy, o.hi ? 19 : 15, o.hi ? PAPER : ink);
     if (o.hi && vis) svg += `<path d="M${x0 + 2.2},${2.2} H${x0 + fw - 2.6} L${x0 + fw - notch - 2},${fhh / 2} L${x0 + fw - 2.6},${fhh - 2.2} H${x0 + 2.2} Z" fill="none" stroke="${STICKER.HI_RING}" stroke-width="1.2" stroke-linejoin="round"/>`;
     const st = o.starred ? star(x0 + fw + 1, 0, o.hi ? 14 : 12) : '';
-    return { w: W, h: H, ax: x0, ay: P, tie: [x0, P], html: `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">${svg}</svg>${st}` };
+    return { w: W, h: H, ax: x0, ay: P, tie: [x0, P], body: [x0 + fw / 2, fhh / 2], html: `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">${svg}</svg>${st}` };
   }
 
-  const V = { blaze, tie, pennant };
+  const V = { blaze, pennant };
 
   // The district's label point: the interior point farthest from its edges (a pole of inaccessibility),
   // so a concave or C-shaped district never puts its pin outside itself. A street: halfway along it.
@@ -123,6 +100,7 @@
     window.syncShapeStars = () => {}; window.syncPlanShapeMarkers = () => {};
   }
 
+  const SHAPE_DROP = -3000;   // a shape pin yields to every place pin (the vaguer, bigger thing; its outline is tappable too)
   const pins = new Map();
   // Place a pin for every shape whose layer is on the map. opts: { sel: shape id }
   function sync(variant, { sel = null } = {}) {
@@ -134,7 +112,7 @@
       const p = V[variant](nb, { hi: id === sel, starred: !!nb.starred, visited: !!nb.visited, n: r ? r.n : 0 });
       const at = shapeAnchor(nb);
       const icon = L.divIcon({ className: '', html: `<div class="sp-pin" data-shape="${id}" style="position:relative;width:${p.w}px;height:${p.h}px;line-height:0">${p.html}</div>`, iconSize: [p.w, p.h], iconAnchor: [p.ax, p.ay] });
-      const m = L.marker(at, { icon, zIndexOffset: id === sel ? Z_HIGHLIGHTED : r ? Z_PLAN_STOP - r.n : nb.starred ? Z_PIN_STARRED : 0,   /* the pins' own ladder */ keyboard: false }).addTo(map);
+      const m = L.marker(at, { icon, zIndexOffset: id === sel ? Z_HIGHLIGHTED : r ? Z_PLAN_STOP - r.n : SHAPE_DROP + (nb.starred ? Z_PIN_STARRED : 0) - (nb.visited ? Z_PIN_VISITED_DROP : 0),   /* under every place pin; the pins' own ladder among shapes */ keyboard: false }).addTo(map);
       m._sp = p; pins.set(id, m);
     });
   }
@@ -152,7 +130,7 @@
     const D = { id: 9001, type: 'district', color: null }, S = { id: 9002, type: 'street', color: null };
     const el = document.createElement('div'); el.className = 'sp-board';
     const cw = 56;
-    let h = `<div class="sp-bh">${{ blaze: 'Trail blaze', tie: 'Tie-on tag', pennant: 'Staked pennant' }[variant]}: states</div><div class="sp-grid">`;
+    let h = `<div class="sp-bh">${{ blaze: 'Trail blaze', pennant: 'Staked pennant' }[variant]}: states</div><div class="sp-grid">`;
     h += `<div></div>` + cols.map(([t]) => `<div class="sp-ch">${t}</div>`).join('');
     const rows = [['District', D], ['Street', S], ['Place (shipped)', null], ['Plan stop', D]];
     rows.forEach(([lab, nb], ri) => {
@@ -168,8 +146,8 @@
           pin = { w: sz, h: sz, ax: sz / 2, ay: sz / 2, html: badge + stH };
         } else pin = V[variant](ri === 3 ? { ...nb, id: 9003 } : nb, { ...o, n: ri === 3 ? 2 : 0 });
         const ctx = nb ? (nb.type === 'street'
-          ? `<svg class="sp-ctx" width="${cw}" height="70"><path d="M-4 50 C 14 44, 38 28, 62 18" fill="none" stroke="${categoryInk('street')}" stroke-opacity=".9" stroke-width="6" stroke-dasharray="2 8" stroke-linecap="round"/></svg>`
-          : `<svg class="sp-ctx" width="${cw}" height="70"><path d="M5 8 L52 4 L53 62 L4 66 Z" fill="${categoryInk('district')}" fill-opacity=".12" stroke="${categoryInk('district')}" stroke-opacity=".9" stroke-width="2.5" stroke-dasharray="6 4"/></svg>`) : '';
+          ? `<svg class="sp-ctx" width="${cw}" height="70"><path d="M-4 50 C 14 44, 38 28, 62 18" fill="none" stroke="${categoryInk('street')}" stroke-opacity=".6" stroke-width="3" stroke-linecap="round"/></svg>`
+          : `<svg class="sp-ctx" width="${cw}" height="70"><path d="M5 8 L52 4 L53 62 L4 66 Z" fill="${categoryInk('district')}" fill-opacity=".12" stroke="${categoryInk('district')}" stroke-opacity=".6" stroke-width="2.5" stroke-dasharray="6 4"/></svg>`) : '';
         const px = cw / 2, py = pin.ay > pin.h * 0.7 ? 54 : (nb && nb.type === 'street' ? 35 : 38);   // a pennant stands on its foot
         h += `<div class="sp-cell"><div class="sp-clip">${ctx}</div><div style="position:absolute;left:${px - pin.ax}px;top:${py - pin.ay}px;width:${pin.w}px;height:${pin.h}px;line-height:0;z-index:1">${pin.html}</div>${o.hi && nb ? `<svg class="sp-ctx" width="${cw}" height="70" style="z-index:0"><line x1="${px - pin.ax + (pin.tie ? pin.tie[0] : 0)}" y1="${py - pin.ay + (pin.tie ? pin.tie[1] : 0)}" x2="${px - pin.ax + (pin.tie ? pin.tie[0] : 0)}" y2="70" stroke="#7A6A55" stroke-width="1.5"/></svg>` : ''}</div>`;
       });
@@ -191,7 +169,37 @@
   .sp-clip { position: absolute; inset: 0; overflow: hidden; border-radius: 3px; }
   .sp-note { margin: 12px 4px 0; font-size: 12px; line-height: 16px; color: var(--ink-2); }
   `;
-  function css() { if (!document.getElementById('sp-css')) { const s = document.createElement('style'); s.id = 'sp-css'; s.textContent = CSS; document.head.appendChild(s); } }
+  function css() { sprite(); if (!document.getElementById('sp-css')) { const s = document.createElement('style'); s.id = 'sp-css'; s.textContent = CSS; document.head.appendChild(s); } }
 
-  window.SP = { V, sync, tiePoint, labelPoint, quietShipped, board, css, pins };
+  // ---------------------------------------------------------------- owner options (app-wide)
+  const style0 = window.neighborhoodStyle;
+  function opts({ color = false, road = false } = {}) {
+    window.neighborhoodStyle = nb => {
+      const st = style0(nb), ink = nb.color || categoryInk(nb.type);
+      if (color) { st.color = ink; st.opacity = 0.6; }
+      if (road && nb.type === 'street') { st.weight = 3; delete st.dashArray; }
+      return st;
+    };
+    if (road) { const g = document.getElementById('g-street'); if (g) g.innerHTML = ROAD; }
+    neighborhoodLayersById.forEach(l => map.removeLayer(l)); neighborhoodLayersById.clear(); syncNeighborhoodLayers();
+  }
+  const ROAD = '<path fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M3 18C7 6 17 18 21 6"/>';
+  function sprite() {
+    const g = document.getElementById('g-street'); if (!g || document.getElementById('g-street-road')) return;
+    const r = g.cloneNode(false); r.id = 'g-street-road'; r.innerHTML = ROAD; g.parentNode.appendChild(r);
+  }
+  // 44px hit areas over each pin's visual body (shape pins in their ink, place pins in grey)
+  function hits() {
+    const L0 = document.createElement('div'); L0.className = 'sp-hits';
+    const mr = document.getElementById('map').getBoundingClientRect();
+    let h = '';
+    markersById.forEach(e => { if (!e.marker._icon) return; const r = e.marker._icon.getBoundingClientRect(); h += `<circle cx="${r.left + r.width / 2}" cy="${r.top + r.height / 2}" r="22" fill="#5A564C" fill-opacity=".06" stroke="#5A564C" stroke-opacity=".5" stroke-width="1"/>`; });
+    pins.forEach((m, id) => { const p = m._sp, r = m._icon.getBoundingClientRect(), nb = neighborhoodShapes.find(n => n.id === id);
+      h += `<circle cx="${r.left + p.body[0]}" cy="${r.top + p.body[1]}" r="22" fill="${inkOf(nb)}" fill-opacity=".10" stroke="${inkOf(nb)}" stroke-width="1.5"/>`; });
+    L0.innerHTML = `<svg width="390" height="844">${h}</svg>`;
+    Object.assign(L0.style, { position: 'absolute', left: 0, top: 0, zIndex: 650, pointerEvents: 'none', clipPath: `inset(${mr.top}px 0 ${844 - mr.bottom}px 0)` });
+    document.body.appendChild(L0);
+  }
+
+  window.SP = { V, sync, tiePoint, labelPoint, quietShipped, board, css, pins, opts, sprite, hits };
 })();
