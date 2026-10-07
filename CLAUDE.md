@@ -199,6 +199,9 @@ concept is in progress. Get a decision before building (lane 2).
 - **Popup redesign (Hanging Tag)** — in progress in
   `design/popup-hierarchy/`; owner-approved direction: segmented stub;
   star colour moving to the action orange. Not built yet.
+- **Brand colour tokens: one system** (owner, 2026-10-07) — own pass right
+  after the popup lands; lane 1, zero visual change. Every colour a named
+  brand token, no per-city colours. Full text in `docs/backlog.md`.
 - **Icon system full revision** (owner, 2026-10-07) — next after the popup
   redesign and star colour; lane 2. Quote and pointers in `docs/backlog.md`.
 - **Popup star alignment** (star looks off when the popup has full
