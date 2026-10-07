@@ -25,7 +25,8 @@ list from the product designer (UX focus) when there is one.
 
 ## Output
 
-- Stills the owner can read on a phone.
+- High-resolution stills at the product's real size, whatever the product
+  is.
 - A truth list per frame: which jobs it supports and which project rules it
   meets.
 - Anything you're unsure about, named plainly as an open question for the

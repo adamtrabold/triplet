@@ -57,15 +57,14 @@ instead of doing it.
 1. **TWEAK (default)** — any visual/copy/spacing/colour/size/shadow change
    and plain UI bugs. ONE agent (best model, isolated worktree if the
    environment has them) makes the change, re-shoots only the affected
-   stills and looks at them itself, runs only the
-   checks covering the diff plus the project's UI quality gate if it has
-   one, self-reviews against the project's rules, shows the owner the stills
+   stills and looks at them itself, runs only the checks covering the diff
+   plus the project's UI quality gate if it has one, self-reviews against the project's rules, shows the owner the stills
    BEFORE landing a new look, and lands on the owner's "yes" (immediately
    for a plain bug with no visual change). No design director, no UX check,
    no review loops.
 2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces
-   phone-readable stills, with the product designer (UX focus) when the interaction
-   is new; the owner sees them first. After approval ONE builder builds it.
+   high-resolution stills, with the product designer (UX focus) when the
+   interaction is new; the owner sees them first. After approval ONE builder builds it.
    ONE combined design-director + UX check (in parallel, each with its brief
    verbatim plus the owner's words for the task) runs ONCE on the finished
    build, not per round; fixes go in one batch; the owner sees final stills if
@@ -78,8 +77,9 @@ instead of doing it.
 
 - The owner sees any new visual look before it is built or lands.
 - The project's quality gate passes.
-- Images sent to the owner are phone-readable: crop to the thing, at a
-  resolution readable on a phone.
+- Images sent to the owner are high resolution and shown at the product's
+  real size, whatever the product is (phone, tablet, desktop, web, print),
+  cropped to the thing being reviewed.
 - The owner's words for the task go into briefs verbatim.
 - A plain bug the owner reports is verified by one agent before anyone
   theorizes.
