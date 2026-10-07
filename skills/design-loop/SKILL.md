@@ -57,7 +57,7 @@ instead of doing it.
 1. **TWEAK (default)** — any visual/copy/spacing/colour/size/shadow change
    and plain UI bugs. ONE agent (best model, isolated worktree if the
    environment has them) makes the change, re-shoots only the affected
-   stills at 1x and a zoomed crop and looks at them itself, runs only the
+   stills and looks at them itself, runs only the
    checks covering the diff plus the project's UI quality gate if it has
    one, self-reviews against the project's rules, shows the owner the stills
    BEFORE landing a new look, and lands on the owner's "yes" (immediately
@@ -109,9 +109,7 @@ instead of doing it.
 
 ## Why it's set up this way
 
-- The design-director and UX checks are strict because spec-matching let bad
-  work through: a concept the design director scored 9/10 was rejected
-  outright by the owner for visual noise, and a design passed UX while a core
-  job couldn't be completed.
+- The design-director and UX checks exist because checking work only
+  against the spec let bad work reach the owner.
 - The lanes are deliberately light because running full process on small
   changes cost too much time and too many agents.
