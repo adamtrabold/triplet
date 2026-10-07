@@ -1,0 +1,50 @@
+[
+ [
+  "star-busiest",
+  "A, busiest (VEGA): starred field printed, visited stamped on the stub, paper filed"
+ ],
+ [
+  "two-busiest",
+  "C (quiet alternate), busiest"
+ ],
+ [
+  "star-typical",
+  "A, typical, not visited"
+ ],
+ [
+  "two-typical",
+  "C, typical"
+ ],
+ [
+  "star-bare",
+  "A, name only"
+ ],
+ [
+  "star-resto",
+  "A, a starred restaurant (Reykjavík accent next to the restaurant pin)"
+ ],
+ [
+  "star-signedout",
+  "Signed out"
+ ],
+ [
+  "star-signin",
+  "Signed out: tap a greyed control, the sign-in slip"
+ ],
+ [
+  "st-1",
+  "1 Tap Mark visited"
+ ],
+ [
+  "st-2",
+  "2 The stamp comes down (big, faint)"
+ ],
+ [
+  "st-3",
+  "3 Lands on the stub (a shrink); the paper turns filed"
+ ],
+ [
+  "st-4",
+  "4 Settled: one VISITED, on the stub"
+ ]
+]
