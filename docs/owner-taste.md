@@ -230,6 +230,16 @@ sources are the file where the quote is recorded.
   (2026-10-07; chat). The per-city palette is gone; the star (everywhere,
   the tag's Star segment included) and the tag's band are brand orange.
 
+- **The tag's paper never changes.** "i dont like that the tag background
+  color changes. it shoudl be that same light cream always." (2026-10-07,
+  Hanging Tag; chat). Supersedes the round-6 visited screen-back; visited is
+  the stamp alone.
+- **Scroll fades go dark: a shadow, not a fade to paper.** "also the gradient
+  is not working on the list header now with the blue selected state. the
+  gradient should go dark anyways not light." (2026-10-07; chat).
+- **Star cutouts follow the star.** "also the starred clusters-- the star
+  cutout is a square not a star shape" (2026-10-07; chat).
+
 - **Colour must communicate, or go neutral.** "The color is not really
   communicating anything on a visited badge… Let's make all the visited
   badges that cream background with a neutral color" (chat).

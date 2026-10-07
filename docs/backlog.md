@@ -161,7 +161,7 @@ pick/redirect before building anything.
   open"; the name column jumps left on unstarred rows; two greens (moss
   attraction, spruce nature); (7) at 390x664 the compressed list's top
   scroll fade (`#locationsList.scrolling`) softens the selected row's top
-  edge.
+  edge -- superseded 2026-10-07: the fade is now a header shadow.
 
 - Impeccable gate follow-ups (`design/impeccable-gate/`): (1) 13 runtime
   baseline identities are "pre-existing, unreviewed" (10px category·city

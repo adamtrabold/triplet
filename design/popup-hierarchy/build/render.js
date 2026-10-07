@@ -64,6 +64,7 @@ for (const [city, pre] of [['reykjavik', 'rey'], ['copenhagen', 'cop']]) {
   F('visited-motion', { place: 'aurora', id: pre + '07', starred: true, visited: false, motion: 'visit' });
   F('pop-out', { place: 'aurora', id: pre + '07', starred: true, visited: false, motion: 'pop' });
   F('list', { list: true });
+  F('list-scrolled', { list: true, scrolled: true });
   F('map-z14', { map: 14 });
   F('map-z11', { map: 11 });
 }
@@ -96,6 +97,8 @@ async function listShot(page, o, name) {
   await page.evaluate(async ([pre, S, V]) => { window.__ROWS.forEach(x => { if (x.city.startsWith(pre)) { const n = x.id.slice(3); x.starred = S.includes(n); x.visited = V.includes(n); } }); await refetchLocations(); }, [pre, STAR, VIS]);
   await W(300);
   await page.evaluate(pre => { document.getElementById('locations').style.height = '600px'; document.getElementById('mainContent').style.height = '244px'; map.invalidateSize({ pan: false }); setHighlighted(pre + '03'); }, pre);
+  if (o.scrolled) await page.evaluate(pre => { const l = document.getElementById('locationsList'), r = document.querySelector(`.location-card[data-id="${pre}03"]`);
+    l.scrollTop += r.getBoundingClientRect().top - l.getBoundingClientRect().top + 24; l.dispatchEvent(new Event('scroll')); }, pre);   // the navy row half under the header
   await W(500); await shoot(page, name, { full: true });
 }
 async function mapShot(page, o, name) {

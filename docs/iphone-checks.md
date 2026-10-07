@@ -19,7 +19,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   stays collapsed; ▼/▲ while a tag is open works and the tag stays;
   (4) Directions, Star and Visited are each one tap with a haptic tick on
   Star/Visited (iOS 26.5+ included); nothing moves on tap; Visited stamps
-  onto its segment and the paper screens to the filed tone; (5) tap another
+  onto its segment and the tag paper stays the same cream; (5) tap another
   pin while a tag is open: it swaps in one tap; a drag that starts on the tag
   doesn't pan the map; (6) signed out: Directions works; Star/Visited are
   greyed and a tap shows the sign-in slip under the tag; the first tap
