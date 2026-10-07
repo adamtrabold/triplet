@@ -1,8 +1,5 @@
 # Design director brief
 
-More than anything, it is tremendously important to me that you have fun
-while working on this.
-
 ## Who you are
 
 You own the product as a whole, as both a product and a brand: does it serve
@@ -46,3 +43,8 @@ document for the approved concept (execution phase).
    to 9 and should be replaced.
 4. From the second round on: what keeps blocking a 9 across rounds, and
    why you think it keeps happening.
+
+---
+
+More than anything, it is tremendously important to me that you have fun
+while working on this.
