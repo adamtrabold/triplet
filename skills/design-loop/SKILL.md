@@ -99,20 +99,26 @@ UI, and nothing is built until a concept is approved.
 
 1. The product designer (UX focus) writes the user's jobs and the flows to a
    file first.
-2. The product designer (UI focus) makes 2–4 distinct concepts against that
-   file. A concept shows the idea — the approach, how it fits the product
-   and the brand — in whatever form gets the best feedback: words,
-   pictures, diagrams, or a rough prototype if it needs one. Not finished
-   UI.
-3. One design director scores all of the round's concepts in a single pass,
-   1–10.
-4. Concepts under 9 go back: improve them or replace them with new ones.
+2. **Creative directions.** The phase design director and the product
+   designers propose 2–3 creative directions — the big idea behind a
+   concept: a metaphor, a philosophy, a reference point (for example,
+   location details styled after a luggage hang tag) — drawing on the
+   owner's inspiration and direction.
+3. The product designer (UI focus) makes 2–4 distinct concepts that bring
+   those directions to life against the job list. A concept shows the idea
+   — the approach, how it fits the product and the brand — in whatever form
+   gets the best feedback: words, pictures, diagrams, or a rough prototype
+   if it needs one. Not finished UI.
+4. The phase design director scores all of the round's concepts in a single
+   pass, 1–10.
+5. Concepts under 9 go back: improve them or replace them with new ones.
    The team keeps iterating until at least one concept scores 9 or more,
    or the team is stuck (below).
-5. The owner sees only the concepts that scored 9+, each with its score and
-   the design director's reasoning. The owner approves one, or sends the
+6. A fresh gate design director scores the 9+ concepts (see Quality bar).
+   The owner sees only the concepts that pass the gate, each with its score
+   and the gate director's reasoning. The owner approves one, or sends the
    team back.
-6. The product designer (UI focus) writes the **handoff document** for the
+7. The product designer (UI focus) writes the **handoff document** for the
    approved concept (what it covers: `roles/product-designer-ui.md`); the
    product designer (UX focus) checks its jobs and flows. The builder can't
    see this conversation; the handoff is everything it knows.
@@ -126,14 +132,14 @@ The work here is the real thing, built in the product.
    changes the concept itself goes back to the design director and the
    owner. A builder that stops on a gap saves its partial work so the build
    continues from it.
-3. The design director scores the execution 1–10 against the handoff
+3. The phase design director scores the execution 1–10 against the handoff
    document. At the same time, the product designer (UX focus) walks every
    job on the build.
 4. Under 9, or any job that can't be completed: the builder makes the fixes
    in one batch, then it's scored again. Repeat until it scores 9+ with
    every job passing, or the team is stuck (below).
-5. The owner sees the finished work; on the owner's "yes", it lands under
-   the project's rules.
+5. A fresh gate design director scores it. At 9+, the owner sees the
+   finished work; on the owner's "yes", it lands under the project's rules.
 
 ## Quality bar
 
@@ -143,14 +149,26 @@ would defend this to the owner as is". **The owner never sees anything that
 scored under 9.** Concept and execution are scored separately: a polished
 execution of a weak concept is still a weak concept.
 
+There are two kinds of design director:
+
+- **Phase director** — one director stays with a phase, scores its rounds
+  and keeps its own scoring history, so scores are consistent from round to
+  round. It sees the work, never the designers' arguments for it. In the
+  concept phase it may also propose creative directions and work with the
+  designers on them.
+- **Gate director** — a fresh director that never saw the work develop and
+  isn't told who proposed what. It scores anything the phase director rated
+  9+ before it reaches the owner. Only a 9+ from the gate director goes to
+  the owner; if the gate scores under 9, the work goes back to the team with
+  the gate's objections.
+
 You enforce this:
 
-- Before anything goes to the owner, check it has a design director score of
+- Before anything goes to the owner, check it has a gate director score of
   9 or more; if it doesn't, it goes back to the team, not to the owner.
 - Score again only after the work has really changed. Keep every score;
   never discard one to get a better one.
-- Save each round's scores and objections in the feature's folder, and give
-  them to the next design director.
+- Save each round's scores and objections in the feature's folder.
 - When the owner turns down something that scored 9+, record why in the
   feature's folder and give it to every design director after that. It's
   the best signal of what a 9 means to the owner.
@@ -211,12 +229,18 @@ clearly labelled as not ready.
   open.
 - **Keep your own context for coordinating.** Pass agents file paths, not
   file contents, and don't read work in depth yourself.
-- **Fresh agents for fresh work.** Start a new agent for each new phase
-  rather than continuing one with a long history; the handoff document
-  carries what matters.
-- **Independence:** a fresh design director for every scoring; nobody
-  scores their own work or their own idea, and the builder never reviews
-  its own build.
+- **Keep agents while they're on the same work; hand off when context gets
+  heavy.** Designers stay through the concept rounds, the phase director
+  through its phase, the builder through its fix rounds. Start fresh at a
+  new phase, for the gate, or when an agent's history gets long (many
+  rounds, lots of files read, or it starts losing track). Before it's
+  replaced, the agent writes a **handoff note** to the feature's folder:
+  where things stand, the decisions so far and why, the scores and
+  objections so far, open questions, and what comes next. The fresh agent
+  starts from that note and is as good as the note — make it thorough.
+- **Independence:** nobody scores their own work, and the builder never
+  reviews its own build. The gate director is always fresh and never scores
+  an idea it proposed.
 
 ## Why it's set up this way
 

@@ -42,3 +42,10 @@ saw, and where) before anything else, then other findings, then nits.
 When designing: the job list and the flows, saved to the feature's folder
 for the UI-focus designer. Once a concept is approved, check the handoff
 document's jobs and flows.
+
+## If you're replaced
+
+If your history gets long across rounds, the orchestrator will start a fresh
+designer. Before that, write a thorough handoff note to the feature's folder:
+where things stand, decisions so far and why, the director's objections,
+open questions, and what comes next.

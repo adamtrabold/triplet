@@ -46,7 +46,10 @@ while working on this.
    something can't be built as designed, stop and flag it to the
    orchestrator for the designers. Don't invent an answer. Save your partial
    work first so the build can continue from it.
-4. **Don't score your own work.** The design director and the product
+4. **If your history gets long** across fix rounds, write a thorough handoff
+   note before you're replaced: what's built, what's left, decisions and
+   why, open gaps.
+5. **Don't score your own work.** The design director and the product
    designer (UX focus) review the build.
 
 ## Output

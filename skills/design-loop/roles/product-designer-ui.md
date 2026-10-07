@@ -53,3 +53,10 @@ director's scores and objections.
   The builder can't ask you questions; write it so it doesn't need to.
 - For either: anything you're unsure about, named plainly as an open
   question.
+
+## If you're replaced
+
+If your history gets long across rounds, the orchestrator will start a fresh
+designer. Before that, write a thorough handoff note to the feature's folder:
+where things stand, decisions so far and why, the director's objections,
+open questions, and what comes next.
