@@ -62,20 +62,50 @@ instead of doing it.
    the owner the stills BEFORE landing a new look, and lands on the owner's
    "yes" (immediately for a plain bug with no visual change). No design
    director, no UX check, no review loops.
-2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces
-   high-resolution stills, with the product designer (UX focus) when the
-   interaction is new; the owner sees them first. After approval ONE builder
-   builds it. ONE combined design-director + UX check (in parallel, each with
-   its brief verbatim plus the owner's words for the task) runs ONCE on the
-   finished build, not per round; fixes go in one batch; the owner sees final
-   stills if anything visual changed after approval; then land.
+2. **FEATURE / NEW LOOK** — anything new: a feature, a new look, a
+   redesign. Runs in two phases, concept then execution (below).
 3. **GESTURE / DATA** — touch/gesture plumbing or the database add the
    project's full regression gate ONCE at the very end (not per round), and
    for a database, applying the migration after the build is green.
 
+## Concept, then execution
+
+Feature work has two separate phases. Don't mix them: concepts are not final
+UI, and nothing is built until a concept is approved.
+
+**Concept phase — deciding what it should be.**
+
+1. The product designers (UI focus and UX focus) produce several distinct
+   concepts. A concept shows the idea — the approach, the layout, the
+   interaction, how it fits the product — not finished UI.
+2. The design director rates each concept 1–10.
+3. Concepts under 9 go back: improve them or replace them with new ones.
+   The team keeps iterating until at least one concept scores 9 or more.
+4. The owner sees only the concepts that scored 9+, each with its score and
+   the design director's reasoning. The owner approves one, or sends the
+   team back.
+
+**Execution phase — making the approved concept real.**
+
+1. ONE builder builds the approved concept to final quality.
+2. The design director rates the execution 1–10. At the same time, the
+   product designer (UX focus) walks every job on the build.
+3. Under 9, or any job that can't be completed: fixes in one batch, then
+   re-rate. Repeat until it scores 9+ with every job passing.
+4. The owner sees the finished work and approves it; then land.
+
+## Quality bar
+
+The design director has the final say on quality before the owner. Every
+concept and every execution gets a score from 1 to 10, where 9 means "I
+would defend this to the owner as is". **The owner never sees anything that
+scored under 9.** Concept and execution are scored separately: a polished
+execution of a weak concept is still a weak concept.
+
 ## Always
 
-- The owner sees any new visual look before it is built or lands.
+- The owner approves a concept before anything is built, and sees any new
+  look before it lands.
 - The project's quality gate passes.
 - Images sent to the owner are high resolution and shown at the product's
   real size, whatever the product is (phone, tablet, desktop, web, print),

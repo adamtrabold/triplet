@@ -20,14 +20,15 @@ list from the product designer (UX focus) when there is one.
 
 1. Read the owner's words and the project's rules and records. List what
    applies.
-2. Design. Your frames must support every job on the job list.
+2. Design. Your work must support every job on the job list.
 3. Show the real, full state of the screen, not just an idealised one.
 
 ## Output
 
-- High-resolution stills at the product's real size, whatever the product
-  is.
-- A truth list per frame: which jobs it supports and which project rules it
-  meets.
-- Anything you're unsure about, named plainly as an open question for the
-  owner.
+- **Concept phase:** several distinct concepts. Each shows the idea — the
+  approach, the layout, the interaction — clearly enough to judge, without
+  being finished UI.
+- **Execution phase:** high-resolution stills of the final design at the
+  product's real size, whatever the product is.
+- For either: which jobs each one supports and which project rules it meets,
+  and anything you're unsure about, named plainly as an open question.
