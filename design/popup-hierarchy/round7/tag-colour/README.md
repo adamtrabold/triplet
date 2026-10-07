@@ -123,3 +123,24 @@ is unchecked.
 
 The owner page is `../index.html` ("Star Colour & Tag Paper"), built by
 `../build.js`.
+
+---
+
+## Gold: band and segment variants (`g-*`)
+
+Same tag, star gold `#F2B807` with an ink keyline, categories recoloured.
+
+- **`g-band-*` (the owner's liked band):** a gold printed header. Starred
+  signals: band, star and pencil circle, 3.
+- **`g-none-segp-*`, cream star on a gold segment:** **fails.**
+  Cream/paper on gold is 1.52–1.66:1, so STARRED disappears. Shown so the
+  owner sees why.
+- **`g-none-segn-*`, navy star on a gold segment:** navy on gold is
+  **8.22:1** and reads clearly. It's a printed gold field like the
+  references, not a "selected tab" (the field is gold, not the navy
+  state-on tile). Starred signals: segment, star and pencil circle, 3.
+- **`g-band-segp-*`, segment plus band:** 4 signals with the circle, over
+  the limit. With navy it would be band, segment and star (3) only if the
+  circle is dropped.
+- **Signed out** (`g-none-segp-signedout`, `g-band-signedout`): the paper
+  and field keep the state; only the controls dim.

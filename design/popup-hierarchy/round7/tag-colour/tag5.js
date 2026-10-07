@@ -41,7 +41,12 @@
   /* colour: starred */
   .c-star .W-seg.star.on { color: var(--ink); }
   .W-seg.star.on { color: var(--ink); }
-  .W-seg.star.on .k-ic { color: var(--star); }   /* pink = the glyph only; the word stays ink (fewer starred signals) */   /* star ON = the filled black glyph (state-system exception 2); the pencilled ring is drawn in the SVG */
+  .W-seg.star.on .k-ic { color: var(--star); }
+  .segfill-paper .W-seg.star.on, .segfill-paper .W-seg.star.on .k-ic { color: var(--paper); }
+  .segfill-navy .W-seg.star.on, .segfill-navy .W-seg.star.on .k-ic { color: var(--navy); }
+  .segfill-paper .W-seg.star, .segfill-navy .W-seg.star { border-left-color: transparent; }
+  .segfill-paper .W-seg.star + .W-seg, .segfill-navy .W-seg.star + .W-seg { border-left-color: transparent; }
+  .k-so.k-so .segfill-paper .W-seg.star.on .k-ic, .k-so.k-so .segfill-navy .W-seg.star.on .k-ic { color: inherit; }   /* pink = the glyph only; the word stays ink (fewer starred signals) */   /* star ON = the filled black glyph (state-system exception 2); the pencilled ring is drawn in the SVG */
   /* colour: category stub */
   .c-cat .W-stub { color: var(--paper); }
   .c-cat .W-seg { color: var(--paper); }
@@ -82,7 +87,7 @@
   const typeWord = P => P.shape ? (P.shape.type === 'street' ? 'Street' : 'District') : (/\(approx\.\)/i.test(P.name) ? `${P.category} · approx.` : P.category);
 
   // step: '' | press | mid | land  (visited motion)   signin: true shows the sign-in offer after a tap on a greyed control
-  window.TAG5 = (P, { press = false, paperMode = 'whole', color = 'star', visit = 'screen', vis: visO, step = '', so = false, signin = false } = {}) => {
+  window.TAG5 = (P, { segFill = '', press = false, paperMode = 'whole', color = 'star', visit = 'screen', vis: visO, step = '', so = false, signin = false } = {}) => {
     if (!document.getElementById('w4-css')) { const s = document.createElement('style'); s.id = 'w4-css'; s.textContent = CSS; document.head.appendChild(s); }
     if (so) document.body.classList.add('k-so');
     select(P);
@@ -98,7 +103,7 @@
       k.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="var(--paper)"/><circle cx="7" cy="7" r="4" fill="${P.ink}"/></svg>`;
       k.style.left = (s.x - 7) + 'px'; k.style.top = (s.y - 7) + 'px'; document.body.appendChild(k); }
     const addr = shortAddr(P);
-    const t = document.createElement('div'); t.className = `k W c-${color}${paperMode === 'band' && P.starred ? ' band-on' : ''}`;
+    const t = document.createElement('div'); t.className = `k W ${segFill && P.starred ? 'segfill-' + segFill : ''} c-${color}${paperMode === 'band' && P.starred ? ' band-on' : ''}`;
     const landed = vis && step !== 'mid';
     const visLabel = landed ? rowStamp(P.id, -6) : (step === 'mid' ? '<span style="height:32px"></span>' : ochk() + 'Mark visited');
     t.innerHTML = `<div class="W-head"><span class="k-x">×</span></div><div class="W-in"><div class="W-name">${esc(P.name)}</div>${addr ? `<div class="W-addr">${esc(addr)}</div>` : ''}${P.notes ? `<div class="k-notes">${esc(P.notes)}</div>` : ''}
@@ -115,7 +120,7 @@
     const notches = `M0,${stubY - 5} a5,5 0 0,1 0,10 Z M${w},${stubY - 5} a5,5 0 0,0 0,10 Z`;
     const st = !!P.starred, vv = screened;
     const statePaper = st ? 'var(--paper-starred)' : vv ? 'var(--paper-filed)' : 'var(--paper-raised)';   // starred wins the paper; visited is also the stamp
-    const paper = paperMode === 'whole' ? statePaper : paperMode === 'band' ? (vv ? 'var(--paper-filed)' : 'var(--paper-raised)') : 'var(--paper-raised)';
+    const paper = paperMode === 'whole' ? statePaper : (paperMode === 'band' || paperMode === 'none') ? (vv ? 'var(--paper-filed)' : 'var(--paper-raised)') : 'var(--paper-raised)';
     const tr = t.getBoundingClientRect(); const phEl = t.querySelector('.ph');
     const punched = visit === 'punch' && vis && phEl;
     const pz = 17, sc = pz / 24;
@@ -131,6 +136,7 @@
       + `<g mask="url(#w4m)"><path d="${d}" fill="${paper}" filter="url(#kshadow)"/><path d="${d}" fill="none" stroke="rgba(107,74,40,.22)" stroke-width="1"/>`
       + (press ? (() => { const segPaper = paperMode === 'whole' ? statePaper : paper; const pc = segPaper.includes('starred') ? 'var(--paper-starred-press)' : segPaper.includes('filed') ? 'var(--state-press-filed)' : 'var(--state-press)'; return `<rect x="${third}" y="${stubY}" width="${third}" height="${h - stubY}" fill="${pc}"/>`; })() : '')
       + (paperMode === 'stub' ? `<path d="${stubPath}" fill="${statePaper}"/>` : '')
+      + (segFill && st ? `<rect x="${third}" y="${stubY}" width="${third}" height="${h - stubY}" fill="var(--star)"/>` : '')
       + (paperMode === 'band' && st ? `<path d="M${c},0 H${w - c} L${w},${c} V40 H0 V${c} Z" fill="var(--star)"/>` : '')
       + ''
       + `<path d="M138,6 H178 L182,10 V30 L178,34 H138 L134,30 V10 Z" fill="${paperMode === 'band' && st ? 'color-mix(in srgb, var(--star) 70%, var(--ink))' : screened ? 'var(--paper-pressed)' : 'var(--paper)'}"/></g>`

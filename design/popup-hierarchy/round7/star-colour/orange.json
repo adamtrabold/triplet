@@ -1,0 +1,120 @@
+{
+ "O1 per-city accent: reykjavik #A8400C": {
+  "contrast_min_paper": 4.16,
+  "nearest": [
+   [
+    "own city --figure-deep (cluster/selected)",
+    0.0
+   ],
+   [
+    "restaurant",
+    4.5
+   ],
+   [
+    "la --figure-deep",
+    8.1
+   ]
+  ],
+  "segment: paper star on it": 5.2,
+  "segment: navy star on it": 2.41
+ },
+ "O1 per-city accent: copenhagen #B23A2C": {
+  "contrast_min_paper": 4.0,
+  "nearest": [
+   [
+    "own city --figure-deep (cluster/selected)",
+    0.0
+   ],
+   [
+    "la --figure-deep",
+    1.1
+   ],
+   [
+    "reykjavik --figure-deep",
+    9.0
+   ]
+  ],
+  "segment: paper star on it": 5.01,
+  "segment: navy star on it": 2.5
+ },
+ "O1 per-city accent: malmo #8A5A0E": {
+  "contrast_min_paper": 3.99,
+  "nearest": [
+   [
+    "own city --figure-deep (cluster/selected)",
+    0.0
+   ],
+   [
+    "stockholm --figure-deep",
+    5.9
+   ],
+   [
+    "cafe",
+    8.7
+   ]
+  ],
+  "segment: paper star on it": 4.99,
+  "segment: navy star on it": 2.51
+ },
+ "O1 per-city accent: stockholm #995610": {
+  "contrast_min_paper": 3.83,
+  "nearest": [
+   [
+    "own city --figure-deep (cluster/selected)",
+    0.0
+   ],
+   [
+    "malmo --figure-deep",
+    5.9
+   ],
+   [
+    "restaurant",
+    7.1
+   ]
+  ],
+  "segment: paper star on it": 4.79,
+  "segment: navy star on it": 2.61
+ },
+ "O1 per-city accent: la #AE3A29": {
+  "contrast_min_paper": 4.12,
+  "nearest": [
+   [
+    "own city --figure-deep (cluster/selected)",
+    0.0
+   ],
+   [
+    "copenhagen --figure-deep",
+    1.1
+   ],
+   [
+    "reykjavik --figure-deep",
+    8.1
+   ]
+  ],
+  "segment: paper star on it": 5.15,
+  "segment: navy star on it": 2.43
+ },
+ "O2 fixed amber #B85C00": {
+  "contrast_min_paper": 3.1,
+  "nearest": [
+   [
+    "restaurant",
+    6.6
+   ],
+   [
+    "stockholm --figure-deep",
+    7.2
+   ],
+   [
+    "reykjavik --figure-deep",
+    10.7
+   ],
+   [
+    "malmo --figure-deep",
+    11.9
+   ]
+  ],
+  "segment: paper star on it": 3.87,
+  "segment: navy star on it": 3.23
+ }
+}

@@ -109,3 +109,82 @@ For each option (`magenta-*`, `leaf-*`, `ink-*`), busiest first:
   and visited, long names, one selected row). The lists are Reykjavík and
   Malmö. No city has a cool accent; Malmö's ochre is the least orange.
 - Stills: `pink-*`, `plum-*`, `ink-*` (today).
+
+---
+
+## Gold star + recoloured categories (owner, 2026-10-07)
+
+Owner, verbatim:
+- "Not sold on pink what about the orange?"
+- "We can change the color of the category types that clash. Orange/yellow
+  makes more sense to use on a star"
+- "The band is cool did we try the segment background? Star could be
+  reverse (white/cream) or navy on the orange"
+
+### Why not the city orange (`orange.py` → `orange.json`)
+
+The per-city `--figure-deep` *is* the cluster disc and the selected row
+(ΔE 0). It also sits close to other colours:
+- **Reykjavík** (#A8400C): 4.5 from restaurant.
+- **Copenhagen and LA** (#B23A2C / #AE3A29): 1.1 from each other.
+- **Stockholm and Malmö** (#995610 / #8A5A0E): 5.9 from each other, and
+  Stockholm is 7.1 from restaurant.
+
+A fixed amber (#B85C00) is still 6.6 from restaurant and only 3.10:1 on
+paper.
+
+**Orange can only mean "starred" if clusters and the selected row stop
+being orange.** That's a bigger change than moving two categories, so it
+isn't proposed.
+
+### The star: gold `#F2B807` (`gold.py` → `gold.json`)
+
+The yellow ink of the reference tags. Gold is light (1.22–1.66:1 on the
+papers), so the mark is a **gold fill inside a 1px `--ink` keyline**. The
+keyline carries the contrast: 11.74–16.03:1 on every paper (WCAG 1.4.11),
+and gold against its keyline is 9.66:1. Colour is never the only cue,
+since the star's shape and outline read alone.
+
+ΔE2000 from the star:
+
+| Against | Before | After |
+|---|---|---|
+| Nearest category | attraction 18.8 | attraction (moss) 38.1 |
+| Cluster / selected, every city | 33.0–46.4 | same |
+| Visited ink | 60.3 | same |
+| Navy | 73.4 | same |
+
+The **one close pair is Malmö's `--figure`** (#E0A22E, ΔE 7.5), the
+ochre on that city's add/account buttons. Those are a different object
+(a button, not a mark). **Owner option:** accept it, or nudge Malmö's
+`--figure` warmer. The second is the smallest change if wanted.
+
+### Category changes
+
+| Category | Before | After | Why | Contrast on paper / filed |
+|---|---|---|---|---|
+| restaurant | #AC5019 burnt orange | **#972068 claret (Bryce pink)** | the orange family now belongs to the star and the city accent; claret is the farthest free hue from every colour in use | 6.50 / 5.83 |
+| attraction | #A68018 gold | **#547326 moss (park-poster foliage)** | gold is now the star (ΔE was 18.8) | 4.59 / 4.11 |
+| cafe, street, the rest | unchanged | unchanged | ≥42 from the star | n/a |
+
+Closest category pairs:
+- **Before:** bar–area 9.9, cafe–street 13.2, area–other 14.5,
+  nature–other 15.2, restaurant–cafe 15.8.
+- **After:** bar–area 9.9, cafe–street 13.2, area–other 14.5,
+  nature–other 15.2, area–hotel 16.4.
+
+The new colours make no pair closer than before; bar–area was already the
+closest. Against the city accents, restaurant is 25.3 from Copenhagen's and
+attraction 26.3 from Malmö's.
+
+The highlighted row still shows a `--paper` star (the reversal rule).
+
+### Stills
+
+- `gold-list-reykjavik`, `gold-list-stockholm`: busiest, full height.
+- `gold-map-near`: zoom 14.
+- `gold-map-far`: real clusters at zoom 11, gold star on each cluster's
+  halo.
+- `gold-gesture`.
+- `gold-oldcats-*`: gold with today's categories, for the before.
+- Render: `render-gold.js`.

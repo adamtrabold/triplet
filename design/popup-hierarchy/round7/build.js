@@ -1,11 +1,15 @@
-// Builds index.html ("Star Colour & Tag Paper") for the owner from round7/star-colour and round7/tag-colour renders.
-//   node design/popup-hierarchy/round7/build.js
+// Builds index.html ("Star Colour & Tag Paper") for the owner: leads with the gold star + recoloured categories.
+//   node design/popup-hierarchy/round7/star-colour/render-gold.js && node design/popup-hierarchy/round7/tag-colour/render.js && node design/popup-hierarchy/round7/build.js
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
 const D = __dirname;
 const b64 = (file, w, q) => `data:image/jpeg;base64,${execFileSync('convert', [path.join(D, file), '-resize', `${w}x>`, '-quality', String(q), 'jpg:-']).toString('base64')}`;
 const S = n => `star-colour/stills/${n}-phone@1x.png`, T = n => `tag-colour/stills/${n}-phone@1x.png`, TC = n => `tag-colour/stills/${n}-crop@3x.png`;
 const fig = (file, cap, w = 560, q = 66) => `<figure><img src="${b64(file, w, q)}" alt="${cap}" loading="lazy"><figcaption>${cap}</figcaption></figure>`;
 const grid = items => `<div class="grid">${items.map(([f, c, w]) => fig(f, c, w)).join('')}</div>`;
+const CATS = [['restaurant', '#AC5019', '#972068'], ['attraction', '#A68018', '#547326'], ['cafe', '#6E4C22', '#6E4C22'], ['bar', '#3D5A7A', '#3D5A7A'], ['nature', '#1E3A2B', '#1E3A2B'], ['shopping', '#8A7AA8', '#8A7AA8'],
+  ['area', '#2B3F52', '#2B3F52'], ['hotel', '#2E2433', '#2E2433'], ['other', '#4F5450', '#4F5450'], ['district', '#328177', '#328177'], ['street', '#5E2C17', '#5E2C17']];
+const sw = c => `<span class="sw" style="background:${c}"></span>`;
+const table = `<table class="cats"><tr><th></th><th>Before</th><th>After</th></tr>${CATS.map(([n, a, b]) => `<tr${a !== b ? ' class="ch"' : ''}><td>${n}</td><td>${sw(a)}${a}</td><td>${sw(b)}${b}</td></tr>`).join('')}<tr class="ch"><td><b>star</b></td><td>${sw('#1A1A18')}black</td><td>${sw('#F2B807')}#F2B807 gold</td></tr></table>`;
 
 const html = `<!doctype html>
 <html lang="en">
@@ -27,7 +31,11 @@ const html = `<!doctype html>
   h2 { font-size: 20px; line-height: 26px; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--hair); }
   .lede, p.t { margin-top: 8px; font-size: 15px; line-height: 22px; }
   .lede { color: var(--ink-2); }
-  .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 4px; }
+  .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; border: 1px solid rgba(0,0,0,.15); }
+  table.cats { margin-top: 12px; border-collapse: collapse; width: 100%; font-size: 14px; line-height: 20px; }
+  table.cats th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); padding: 4px 6px; }
+  table.cats td { padding: 4px 6px; border-top: 1px solid var(--hair); white-space: nowrap; }
+  table.cats tr.ch td { font-weight: 600; }
   figure { margin-top: 12px; }
   figure img { display: block; width: 100%; height: auto; border: 1px solid var(--hair); border-radius: 4px; background: var(--surface); }
   figcaption { margin-top: 6px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
@@ -40,31 +48,32 @@ const html = `<!doctype html>
 <body>
 <main>
   <h1>Star Colour &amp; Tag Paper</h1>
-  <p class="lede">Stars get one colour everywhere, the pink ink of your reference tags. The tag can carry it too. Pinch to zoom.</p>
+  <p class="lede">The gold star, with the two clashing categories recoloured. Pinch to zoom.</p>
 
-  <h2>1. Recommended: pink star everywhere</h2>
-  <p class="t"><span class="sw" style="background:#C0306E"></span><b>Pink ink #C0306E</b> means “starred” and nothing else. It’s kept away from every category colour and every city’s orange. On the map it always sits on a paper halo, so it reads even without colour. On a selected (orange) row the star turns paper, as it does today.</p>
-  ${grid([[S('pink-list-reykjavik'), 'List (Reykjavík)', 600], [S('pink-map-far'), 'Map, zoomed out: starred clusters', 600], [S('pink-map-near'), 'Map: starred pins beside orange ones', 600], [T('band-busiest'), 'The tag (band version)', 600]])}
+  <h2>1. Gold star everywhere</h2>
+  <p class="t">${sw('#F2B807')}<b>Gold #F2B807</b>, the yellow ink of your tags, with a thin black outline so it reads on any paper. It means “starred” and nothing else. It sits well clear of the orange clusters and selected rows in every city. On a selected (orange) row the star turns paper, as today.</p>
+  ${grid([[S('gold-list-reykjavik'), 'List, Reykjavík', 600], [S('gold-list-stockholm'), 'List, Stockholm', 600], [S('gold-map-near'), 'Map, zoom 14', 600], [S('gold-map-far'), 'Map, zoom 11: starred clusters', 600]])}
 
-  <h2>2. Tag paper: band or whole tag?</h2>
-  <p class="t"><b>Band:</b> a starred tag gets a pink printed header, like the airline tags. <b>Whole:</b> a starred tag is printed on rose stock. Either way, visited turns the paper to the visited row’s tone and stamps the stub.</p>
-  ${grid([[T('band-starred'), 'Band: starred'], [T('whole-starred'), 'Whole: starred'], [T('band-both'), 'Band: starred + visited'], [T('whole-both'), 'Whole: starred + visited'], [T('band-visited'), 'Band: visited'], [T('whole-visited'), 'Whole: visited'], [T('band-signedout'), 'Band: signed out (greyed, no pink on controls)'], [T('whole-signedout'), 'Whole: signed out']])}
-  <h2>Districts and streets</h2>
-  <p class="t">No pin. While the tag is open, a small dot in the middle of the area is what it hangs from.</p>
-  ${grid([[T('band-shape'), 'District open'], [T('band-street'), 'Street open']])}
+  <h2>2. Categories that clash, recoloured</h2>
+  <p class="t">Restaurant (orange) and attraction (gold) collided with a gold star. Restaurant becomes claret, attraction becomes moss green. Everything else stays. No two categories end up closer than before.</p>
+  ${table}
+  ${grid([[S('gold-oldcats-map-near'), 'Before: today’s colours', 600], [S('gold-map-near'), 'After', 600]])}
+  <p class="t">One close pair left: Malmö’s button ochre is near the gold. It’s on buttons, not marks; we can leave it or warm Malmö slightly.</p>
 
-  <h2>3. Which pink?</h2>
-  ${grid([[S('pink-list-malmo'), 'Pink ink #C0306E (recommended)', 600], [S('plum-list-malmo'), 'Plum #A3266F: reads purple next to shopping', 600]])}
+  <h2>3. The tag in gold</h2>
+  ${grid([[T('g-band-busiest'), 'Band (you liked this)'], [T('g-none-segn-busiest'), 'Gold segment, navy star'], [T('g-none-segp-busiest'), 'Gold segment, cream star: too faint'], [T('g-band-starred'), 'Band, starred']])}
+  ${grid([[T('g-none-segn-starred'), 'Gold segment, navy star: starred'], [T('g-none-segn-signedout'), 'Gold segment, signed out']])}
 
-  <h2>4. Today, for comparison</h2>
-  ${grid([[S('ink-list-reykjavik'), 'Black stars (today)', 600], [S('ink-map-near'), 'Black stars on the map', 600]])}
+  <h2>Earlier option</h2>
+  <p class="t">Pink star (#C0306E), see the round 7 folder. Set aside for gold. The city orange can’t be the star: it already means map clusters and the selected row.</p>
 
   <h2>Decisions for you</h2>
   <ol class="dec">
-    <li>Star colour: pink ink #C0306E or plum #A3266F?</li>
-    <li>Tag paper: band or whole tag?</li>
+    <li>Gold star #F2B807 with restaurant → claret and attraction → moss: yes?</li>
+    <li>Tag: gold band, or gold segment with a navy star?</li>
+    <li>Malmö’s ochre buttons next to the gold: leave, or warm them slightly?</li>
   </ol>
-  <footer>The map is a stand-in drawing; real tiles may sit darker or lighter under the tag. Rendered in Chrome, not checked on iPhone. Details: design/popup-hierarchy/round7/.</footer>
+  <footer>The map is a stand-in drawing. Rendered in Chrome, not checked on iPhone. Details: design/popup-hierarchy/round7/star-colour/README.md and tag-colour/README.md.</footer>
 </main>
 </body>
 </html>

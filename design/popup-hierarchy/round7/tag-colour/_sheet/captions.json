@@ -1,5 +1,57 @@
 [
  [
+  "g-none-segn-signedout",
+  "Gold segment, navy star: signed out"
+ ],
+ [
+  "g-band-busiest",
+  "Gold band: busiest"
+ ],
+ [
+  "g-band-starred",
+  "Gold band: starred"
+ ],
+ [
+  "g-whole-busiest",
+  "Gold whole: busiest"
+ ],
+ [
+  "g-whole-starred",
+  "Gold whole: starred"
+ ],
+ [
+  "g-none-segp-busiest",
+  "Gold segment, cream star: busiest"
+ ],
+ [
+  "g-none-segp-starred",
+  "Gold segment, cream star: starred"
+ ],
+ [
+  "g-none-segn-busiest",
+  "Gold segment, navy star: busiest"
+ ],
+ [
+  "g-none-segn-starred",
+  "Gold segment, navy star: starred"
+ ],
+ [
+  "g-band-segp-busiest",
+  "Gold segment + band, cream star: busiest"
+ ],
+ [
+  "g-band-segp-starred",
+  "Gold segment + band, cream star: starred"
+ ],
+ [
+  "g-none-segp-signedout",
+  "Gold segment, cream star: signed out"
+ ],
+ [
+  "g-band-signedout",
+  "Gold band: signed out"
+ ],
+ [
   "band-shape",
   "District open: the tag hangs from a dot at its middle"
  ],

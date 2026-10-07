@@ -179,6 +179,14 @@ sources are the file where the quote is recorded.
   stars everywhere" ruling (Pencil Star rounds 4–6, `docs/shipped.md`): one
   starred colour, used the same way on the pin, list row, tag and add form.
   The tag's pencil circle is kept for now, provisionally.
+- **Star colour: orange/yellow, and recolour the categories that clash.**
+  "Not sold on pink what about the orange?"; "We can change the color of the
+  category types that clash. Orange/yellow makes more sense to use on a star"
+  (2026-10-07, star colour; chat). The star family is gold/amber; categories
+  that collide with it move.
+- **Tag band liked; try the segment.** "The band is cool did we try the
+  segment background? Star could be reverse (white/cream) or navy on the
+  orange" (2026-10-07, Hanging Tag stub; chat).
 - **Tag paper colour may carry state.** "I'm also wondering if we couldn't
   play with the background color of some or all of the tag in any or all
   states as part of the approach to some or all of the actions. Looking at
