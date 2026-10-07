@@ -206,8 +206,8 @@ operator makes none of these calls.
 
 ## Current priorities (full text in `docs/backlog.md`)
 
-Concept work exists for visited pins (owner hasn't picked); popup star
-concept is in progress. Get a decision before building (lane 2).
+Concept work exists for visited pins (owner hasn't picked). Get a decision
+before building (lane 2).
 
 - **Popup redesign (Hanging Tag) + orange star** — LANDED 2026-10-07
   (owner: "ok i think we're good enough to go to build"). Spec:
@@ -216,11 +216,11 @@ concept is in progress. Get a decision before building (lane 2).
   star / tag top all the way"). Next: the owner runs the short-address
   backfill (0/202 rows filled; no tag shows an address until then) --
   top of `docs/iphone-checks.md`.
+- **Brand colour tokens: one system** (owner, 2026-10-07) — own pass right
+  after the popup lands; lane 1, zero visual change. Every colour a named
+  brand token (per-city colours already gone with the tag: `--brand-orange`). Full text in `docs/backlog.md`.
 - **Icon system full revision** (owner, 2026-10-07) — next after the popup
   redesign and star colour; lane 2. Quote and pointers in `docs/backlog.md`.
-- **Popup star alignment** (star looks off when the popup has full
-  content; list-row star-only-when-starred is settled). Active concept:
-  `design/popup-star-alignment/`; `design/star-alignment/` is history.
 - **Visited pins on the map** — Round 4 (dots outside the rim) scored 9/10
   in `design/visited-marker/concept/`; owner's last read was skeptical
   ("not following good design principles") — review with fresh eyes.

@@ -10,6 +10,51 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
+- **Brand colour tokens: one system** (owner, 2026-10-07, verbatim:
+  "how are our colors defined in the app -- it should be clear from a
+  systems perspective that all colors are brand level color tokens" ;
+  "'reykjavik orange' should not be a thing -- it should be our brand
+  orange. it's used on the account and + icon also" ; "cities shouldn't
+  have their own color -- did we build a programmatic way to assign that
+  as cities are created? i dont think we did." ; and on doing it as its own
+  pass right after the popup build lands: "yes that sounds good").
+  Lane 1 (tweak): no visual change. Sequencing: its own pass right after the
+  popup redesign (Hanging Tag, building on branch `popup-hanging-tag`)
+  lands, and before the icon system revision below, which leans on the same
+  mark colours.
+  Current state (`index.html` on main, 2026-10-07):
+  - Already CSS custom properties on `:root` (lines 189-235): `--paper`,
+    `--paper-raised`, `--paper-pressed`, `--paper-filed`, `--paper-warm`,
+    `--ink`, `--ink-2`, `--navy`, `--hair`, the state tokens
+    (`--state-press`, `--state-on-bg`, `--state-on-fg`, `--state-on-press`,
+    `--state-press-filed`, `--state-off-alpha`), and `--figure` /
+    `--figure-deep`.
+  - Not tokens:
+    - `CATEGORY_COLORS` (line 2706): a JS object of 11 hex values.
+    - `CITY_PALETTES` (line 2727) + `DEFAULT_PALETTE` /
+      `applyCityPalette()`: per-city `--figure`/`--figure-deep`, rewritten
+      at runtime; runtime-added cities inherit the Reykjavik pair. The
+      `reykjavik` entry duplicates the `:root` values as raw hex. The popup
+      build removes these and keeps one brand orange.
+    - `STICKER` (line 4475) / `STICKER_CHECK` (line 4519): `INK` #3A4C5B,
+      cream `FACE` / `HI_RING` / `ROW.FACE` (all #FAF5EA, i.e.
+      `--paper-raised` as raw hex), flap back (`PIN_BACK`, `PIN_BACK_FOLD`,
+      `PIN_BACK_TIP`, `ROW.BACK`), `CAST_INK` #1A2630 (also hard-coded in
+      the `#stk-lift` / `#stk-lift-far` SVG filters, lines 2497-2498),
+      `CURL`, and rgba `EDGE` / `CREASE`.
+    - Literal hex in code that duplicates a token (12 sites, excluding the
+      STICKER ones above): `#F2EBDD` (= `--paper`) at lines 4406, 4755,
+      4756, 5356, 6603, 6604; `#5A564C` (= `--ink-2`) as the shape line
+      fallback colour at 6279-6280; the Leaflet container background
+      `#F2EFE9` at line 506 (no token).
+    - Shapes can also carry a per-row `color` from the database
+      (`nb.color`, preferred over the category ink).
+  Goal: every colour is defined once as a named brand-level token, and
+  everything else reads from it. Category colours, sticker inks and the
+  star (`--star` / `--star-deep`, added on the popup branch) become tokens;
+  JS reads them via `getComputedStyle` or one shared map built from them.
+  Zero visual change, proven by the Impeccable identity diff and
+  before/after stills.
 - **Icon system full revision** (owner, 2026-10-07, verbatim:
   "also i want the next priority to be fixing our icon system -- they're too noisy, the approacah we're using the checked items are stronger visually than the open ones. the icon system needs more clarity... i need a full rev. so note that"). Lane 2 (feature / new look). Sequencing: next after
   the popup redesign (Hanging Tag) and the star colour, both in progress in
