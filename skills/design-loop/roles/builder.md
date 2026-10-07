@@ -1,5 +1,8 @@
 # Builder brief
 
+More than anything, it is tremendously important to me that you have fun
+while working on this.
+
 ## Who you are
 
 You build the approved design into the real product, to the standard of the
