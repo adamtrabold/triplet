@@ -9,7 +9,8 @@ const grid = items => `<div class="grid">${items.map(([f, c, w]) => fig(f, c, w)
 const CATS = [['restaurant', '#AC5019', '#7A2436'], ['attraction', '#A68018', '#547326'], ['cafe', '#6E4C22', '#6E4C22'], ['bar', '#3D5A7A', '#3D5A7A'], ['nature', '#1E3A2B', '#1E3A2B'], ['shopping', '#8A7AA8', '#8A7AA8'],
   ['area', '#2B3F52', '#2B3F52'], ['hotel', '#2E2433', '#2E2433'], ['other', '#4F5450', '#4F5450'], ['district', '#328177', '#328177'], ['street', '#5E2C17', '#5E2C17']];
 const sw = c => `<span class="sw" style="background:${c}"></span>`;
-const table0 = `<table class="cats"><tr><th></th><th>Before</th><th>After</th></tr>${CATS.map(([n, a, b]) => `<tr${a !== b ? ' class="ch"' : ''}><td>${n}</td><td>${sw(a)}${a}</td><td>${sw(b)}${b}</td></tr>`).join('')}<tr class="ch"><td><b>star</b></td><td>${sw('#1A1A18')}black</td><td>${sw('#F2B807')}#F2B807 gold</td></tr></table>`;
+const table0 = `<table class="cats"><tr><th></th><th>Before</th><th>After</th></tr>${CATS.map(([n, a, b]) => `<tr${a !== b ? ' class="ch"' : ''}><td>${n}</td><td>${sw(a)}${a}</td><td>${sw(b)}${b}</td></tr>`).join('')}<tr class="ch"><td><b>star</b></td><td>${sw('#1A1A18')}black</td><td>--figure (per city)</td></tr></table>
+<table class="cats"><tr><th>Star by city</th><th>--figure</th><th>outline --figure-deep</th></tr>${[['Reykjavík', '#EE7434', '#A8400C'], ['Copenhagen', '#E2705C', '#B23A2C'], ['Malmö', '#E0A22E', '#8A5A0E'], ['Stockholm', '#D98A2B', '#995610'], ['LA', '#E8674F', '#AE3A29']].map(([c, f, d]) => `<tr><td>${c}</td><td>${sw(f)}${f}</td><td>${sw(d)}${d}</td></tr>`).join('')}</table>`;
 
 const table = table0;
 const html = `<!doctype html>
@@ -54,7 +55,7 @@ const html = `<!doctype html>
   <h2>1. Orange star, same as the action buttons</h2>
   <p class="t">The star uses the action orange of the add and account buttons, with a thin darker-orange outline so it reads on paper. Restaurant becomes wine red and attraction moss green, since their old orange and gold sat too close to it.</p>
   ${grid([[S('orange-copenhagen-list'), 'List, Copenhagen (a starred row selected)', 600], [S('orange-stockholm-list'), 'List, Stockholm', 600], [S('orange-copenhagen-map-near'), 'Map, zoom 14', 600], [S('orange-stockholm-map-far'), 'Map, zoom 11: clusters', 600]])}
-  ${table.replace('#F2B807 gold', 'action orange').replace("sw('#F2B807')", "sw('#EE7434')")}
+  ${table}
 
   <h2>2. What still clashes</h2>
   <p class="t">Orange already means “selected row” and “cluster”. With a paper halo the star still reads, but the meaning overlaps. Three ways to handle it, your pick:</p>
@@ -65,7 +66,7 @@ const html = `<!doctype html>
   ${grid([[T('f-band-busiest'), 'Band'], [T('f-segn-busiest'), 'Segment, navy star'], [T('f-band-signedout'), 'Band: signed out'], [T('f-segn-signedout'), 'Segment: signed out']])}
 
   <h2>Set aside</h2>
-  <p class="t">Pink star (#C0306E) and a claret restaurant (#972068), both set aside: they read as pink. The city orange can’t be the star: it already means map clusters and the selected row.</p>
+  <p class="t">Gold star (#F2B807): set aside, too loud (your call). Pink star (#C0306E) and claret restaurant (#972068): set aside, they read as pink.</p>
 
   <h2>Decisions for you</h2>
   <ol class="dec">
