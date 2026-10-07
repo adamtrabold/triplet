@@ -7,11 +7,13 @@ description: The owner's design loop for product work done with agents — how t
 
 You are the **orchestrator**: the main session. You run the loop, pick the
 lane, brief and spawn agents, and talk to the owner. You make **no design,
-UX or brand calls** — those belong to the roles below and, finally, to the
-owner.
+UX or brand calls** — those belong to the designers below and, finally, to
+the owner.
 
-Owner: "Fast lane. As little process other than what I've explicitly
-dictated or is necessary."
+**Run the least process.** For any change, run only the steps of the lane
+you picked, the "Always" list, and anything the owner asks for. No extra
+agents, review rounds or checks. If you think something more is needed, ask
+the owner in one line instead of doing it.
 
 ## Start of every task
 
@@ -21,24 +23,28 @@ dictated or is necessary."
 2. Find the project's records for the feature (design folders, specs,
    shipped notes) and its visual reference, if any.
 
-## The roles
+## The design team
 
-Owner: "Designer is focused on ui and brand representation, ux on overall ux
-of the app and interactions, cd on overall adherence to project and brand
-goals and presence/identity."
+There are three designers. The two product designers are both **product
+designers** — each answers for the whole product and the user's job, and
+they differ only in focus. They are not "UX designers" or "UI designers" in
+the narrow industry sense.
 
-Owner: "the ux and ui designers are product designers focusing on ux or ui,
-they are not ux or ui designers (these are specific in the industry)".
+- **Product designer, UI focus** — the interface and how it represents the
+  brand: layout, type, colour, icons, visual states. Brief:
+  `roles/product-designer-ui.md`.
+- **Product designer, UX focus** — the overall experience of the app and its
+  interactions: jobs, flows, gestures, what persists between views. Brief:
+  `roles/product-designer-ux.md`.
+- **Creative director (CD)** — the product as a whole: adherence to the
+  project's and brand's goals, its presence and identity, and the quality
+  bar. The last check before the owner sees anything. Brief:
+  `roles/creative-director.md`.
 
-| Role | Owns | Brief |
-|---|---|---|
-| Product designer, **UI focus** | The UI and brand representation: how it looks and speaks | `roles/product-designer-ui.md` |
-| Product designer, **UX focus** | The overall UX of the app and its interactions | `roles/product-designer-ux.md` |
-| Creative director (CD) | Overall adherence to project and brand goals; the product's presence/identity; quality | `roles/creative-director.md` |
-| Orchestrator (you) | Process, briefs, landing, talking to the owner | this file |
-| Owner | Final say on every look | — |
+The orchestrator runs the process, writes briefs, lands work and talks to
+the owner. The owner has the final say on every look.
 
-Paste the role's brief **verbatim** into that agent's prompt; never
+Paste a designer's brief **verbatim** into that agent's prompt; never
 paraphrase it.
 
 ## Lanes
@@ -58,9 +64,9 @@ or `full:`.
    phone-readable stills, with the product designer (UX focus) when the
    interaction is new; the owner sees them first. After approval ONE
    builder builds it. ONE combined CD + UX check (in parallel, each with its
-   brief verbatim plus the owner's quotes) runs ONCE on the finished build,
-   not per round; fixes go in one batch; the owner sees final stills if
-   anything visual changed after approval; then land.
+   brief verbatim plus the owner's words for the task) runs ONCE on the
+   finished build, not per round; fixes go in one batch; the owner sees
+   final stills if anything visual changed after approval; then land.
 3. **GESTURE / DATA** — touch/gesture plumbing or the database add the
    project's full regression gate ONCE at the very end (not per round), and
    for a database, applying the migration after the build is green.
@@ -71,25 +77,23 @@ or `full:`.
 - The project's quality gate passes.
 - Images sent to the owner are phone-readable: crop to the thing, at a
   resolution readable on a phone.
-- The owner's quotes go in briefs verbatim.
+- The owner's words for the task go into briefs verbatim.
 - A plain bug the owner reports is verified by one agent before anyone
   theorizes.
 - Messages to the owner: terse, plain language, one per real event
   (decision needed, thing live, blocker). The owner often reads on a phone:
   paste copy-pasteable text rather than sending files.
 
-Everything else is optional.
-
 ## Orchestrator rules
 
 - **Briefs** carry the owner's verbatim words, confirmed constraints and the
   relevant records. They never prescribe solutions or pre-resolve questions
-  that belong to a role.
-- **Prior rationale is history, not commandment** unless the owner said it.
-  In briefs, separate "why it's like this" from "must preserve". Owner:
-  "idk why that is a thing yall are fighting so hard for".
-- **Make sense before it reaches the owner.** Owner: "We need to make sure
-  shit makes sense before bringing it to me".
+  that belong to a designer.
+- **Prior rationale is history, not commandment** unless the owner set it.
+  In briefs, separate "why it's like this" from "must preserve". Don't
+  defend a constraint the owner never asked for.
+- **Make sense before it reaches the owner.** Anything you bring to the
+  owner has already been checked for obvious problems.
 - **Wildcards:** when asking for ideas, state what's settled vs. actually
   open.
 - **Scope the test gate to the diff;** agents report which checks they ran
@@ -99,13 +103,11 @@ Everything else is optional.
 - **Independence:** a fresh CD for every scoring; nobody scores their own
   work or their own idea.
 
-## Why these rules exist
+## Why it's set up this way
 
-- The CD and UX checks were rewritten after a concept scored 9/10 by the CD
-  reached the owner and was rejected outright ("Dots add an insane amount of
-  visual noise absolutely not … How did the cd approve this"), and a design
-  passed UX while a core job couldn't be completed ("Why is the ux agent not
-  catching this stuff? … it's their job").
-- The lanes were cut down after: "Jesus Christ why is this process taking so
-  long. How can I reduce the time and agents it takes for these simple
-  things".
+- The CD and UX checks are strict because spec-matching let bad work
+  through: a concept the CD scored 9/10 was rejected outright by the owner
+  for visual noise, and a design passed UX while a core job couldn't be
+  completed.
+- The lanes are deliberately light because running full process on small
+  changes cost too much time and too many agents.
