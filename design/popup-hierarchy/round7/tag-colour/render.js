@@ -33,6 +33,12 @@ const DATA = {
 
 // [name, state, opts, caption]
 const J = [
+  ['f-band-busiest', 'busiest', { paperMode: 'band', star: 'var(--figure)' }, 'Orange band: busiest'],
+  ['f-band-starred', 'typ-s', { paperMode: 'band', star: 'var(--figure)' }, 'Orange band: starred'],
+  ['f-band-signedout', 'typ-s', { paperMode: 'band', star: 'var(--figure)', so: true }, 'Orange band: signed out'],
+  ['f-segn-busiest', 'busiest', { paperMode: 'none', star: 'var(--figure)', segFill: 'navy' }, 'Orange segment, navy star: busiest'],
+  ['f-segn-starred', 'typ-s', { paperMode: 'none', star: 'var(--figure)', segFill: 'navy' }, 'Orange segment, navy star: starred'],
+  ['f-segn-signedout', 'typ-s', { paperMode: 'none', star: 'var(--figure)', segFill: 'navy', so: true }, 'Orange segment: signed out'],
   ['g-none-segn-signedout', 'typ-s', { paperMode: 'none', star: '#F2B807', segFill: 'navy', so: true }, 'Gold segment, navy star: signed out'],
   ['g-band-busiest', 'busiest', { paperMode: 'band', star: '#F2B807' }, 'Gold band: busiest'],
   ['g-band-starred', 'typ-s', { paperMode: 'band', star: '#F2B807' }, 'Gold band: starred'],
@@ -95,7 +101,7 @@ async function setup(b, state) {
     const { ctx, page, errors } = await setup(b, state);
     await page.addScriptTag({ content: HELPERS }); await page.addScriptTag({ content: TAG });
     let sels;
-    try { sels = await page.evaluate(([st, o]) => { K.css(); K2.basemap(); const sty = document.createElement('style'); sty.textContent = ':root{--star:#C0306E;--paper-starred:color-mix(in srgb,var(--star) 22%,var(--paper-raised));--paper-starred-press:color-mix(in srgb,var(--star) 34%,var(--paper-raised))} .row-star,.marker-star-ink{color:var(--star)!important}'; document.head.appendChild(sty); window.__anno = true; if (o.star) { const z = document.createElement('style'); z.textContent = `:root{--star:${o.star}} .W-seg.star.on .k-ic, .marker-star-ink { stroke: #8A5A0E; stroke-width: 1.5px; paint-order: stroke; } .marker-star-ink{color:var(--star)!important}`; document.head.appendChild(z); Object.assign(CATEGORY_COLORS, { restaurant: '#7A2436', attraction: '#547326' }); markersById.forEach(m => m.marker.setIcon(markerIcon(m.loc, false))); } let P = K2.place(st === 'street' ? 'shape' : st); if (st === 'street') { const s = neighborhoodShapes.find(x => x.city === 'reykjavik' && x.type === 'street'); P = { ...shapeRowItem(s), shape: s, ink: s.color || categoryInk('street'), kind: 'diamond', category: 'street', stop: '' }; } return TAG5(P, o); }, [state, opts]); }
+    try { sels = await page.evaluate(([st, o]) => { K.css(); K2.basemap(); const sty = document.createElement('style'); sty.textContent = ':root{--star:#C0306E;--paper-starred:color-mix(in srgb,var(--star) 22%,var(--paper-raised));--paper-starred-press:color-mix(in srgb,var(--star) 34%,var(--paper-raised))} .row-star,.marker-star-ink{color:var(--star)!important}'; document.head.appendChild(sty); window.__anno = true; if (o.star) { const z = document.createElement('style'); z.textContent = `:root{--star:${o.star}} .W-seg.star.on .k-ic, .marker-star-ink { stroke: ${o.star === 'var(--figure)' ? 'var(--figure-deep)' : '#8A5A0E'}; stroke-width: 1.5px; paint-order: stroke; } .marker-star-ink{color:var(--star)!important}`; document.head.appendChild(z); Object.assign(CATEGORY_COLORS, { restaurant: '#7A2436', attraction: '#547326' }); markersById.forEach(m => m.marker.setIcon(markerIcon(m.loc, false))); } let P = K2.place(st === 'street' ? 'shape' : st); if (st === 'street') { const s = neighborhoodShapes.find(x => x.city === 'reykjavik' && x.type === 'street'); P = { ...shapeRowItem(s), shape: s, ink: s.color || categoryInk('street'), kind: 'diamond', category: 'street', stop: '' }; } return TAG5(P, o); }, [state, opts]); }
     catch (e) { console.log('FAIL', name, e.message); await ctx.close(); continue; }
     await page.evaluate(() => document.fonts.ready); await W(500);
     const box = await page.evaluate((sels) => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;

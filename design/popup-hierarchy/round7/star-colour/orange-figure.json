@@ -1,0 +1,122 @@
+{
+ "reykjavik": {
+  "star --figure": "#EE7434",
+  "keyline --figure-deep": "#A8400C",
+  "star fill on paper/raised/filed": [
+   2.46,
+   2.69,
+   2.21
+  ],
+  "keyline on paper/raised/filed/pressed": [
+   5.2,
+   5.67,
+   4.66,
+   4.16
+  ],
+  "navy star on orange segment": 5.08,
+  "paper star on orange segment": 2.46,
+  "ΔE star vs cluster disc / selected row (--figure-deep)": 21.1,
+  "ΔE star vs old restaurant #AC5019": 17.1,
+  "ΔE star vs wine #7A2436": 39.4,
+  "ΔE star vs old attraction gold #A68018": 23.7,
+  "ΔE star vs moss #547326": 46.6,
+  "ΔE star vs street #5E2C17": 37.1,
+  "ΔE star vs cafe #6E4C22": 31.6
+ },
+ "copenhagen": {
+  "star --figure": "#E2705C",
+  "keyline --figure-deep": "#B23A2C",
+  "star fill on paper/raised/filed": [
+   2.64,
+   2.88,
+   2.37
+  ],
+  "keyline on paper/raised/filed/pressed": [
+   5.01,
+   5.46,
+   4.49,
+   4.0
+  ],
+  "navy star on orange segment": 4.74,
+  "paper star on orange segment": 2.64,
+  "ΔE star vs cluster disc / selected row (--figure-deep)": 18.1,
+  "ΔE star vs old restaurant #AC5019": 18.4,
+  "ΔE star vs wine #7A2436": 32.2,
+  "ΔE star vs old attraction gold #A68018": 30.0,
+  "ΔE star vs moss #547326": 49.4,
+  "ΔE star vs street #5E2C17": 34.0,
+  "ΔE star vs cafe #6E4C22": 31.4
+ },
+ "malmo": {
+  "star --figure": "#E0A22E",
+  "keyline --figure-deep": "#8A5A0E",
+  "star fill on paper/raised/filed": [
+   1.89,
+   2.06,
+   1.69
+  ],
+  "keyline on paper/raised/filed/pressed": [
+   4.99,
+   5.44,
+   4.47,
+   3.99
+  ],
+  "navy star on orange segment": 6.63,
+  "paper star on orange segment": 1.89,
+  "ΔE star vs cluster disc / selected row (--figure-deep)": 26.9,
+  "ΔE star vs old restaurant #AC5019": 29.0,
+  "ΔE star vs wine #7A2436": 55.8,
+  "ΔE star vs old attraction gold #A68018": 13.6,
+  "ΔE star vs moss #547326": 35.4,
+  "ΔE star vs street #5E2C17": 49.6,
+  "ΔE star vs cafe #6E4C22": 36.5
+ },
+ "stockholm": {
+  "star --figure": "#D98A2B",
+  "keyline --figure-deep": "#995610",
+  "star fill on paper/raised/filed": [
+   2.32,
+   2.53,
+   2.08
+  ],
+  "keyline on paper/raised/filed/pressed": [
+   4.79,
+   5.23,
+   4.3,
+   3.83
+  ],
+  "navy star on orange segment": 5.39,
+  "paper star on orange segment": 2.32,
+  "ΔE star vs cluster disc / selected row (--figure-deep)": 20.5,
+  "ΔE star vs old restaurant #AC5019": 21.1,
+  "ΔE star vs wine #7A2436": 46.3,
+  "ΔE star vs old attraction gold #A68018": 13.3,
+  "ΔE star vs moss #547326": 36.9,
+  "ΔE star vs street #5E2C17": 40.2,
+  "ΔE star vs cafe #6E4C22": 30.8
+ },
+ "la": {
+  "star --figure": "#E8674F",
+  "keyline --figure-deep": "#AE3A29",
+  "star fill on paper/raised/filed": [
+   2.73,
+   2.98,
+   2.45
+  ],
+  "keyline on paper/raised/filed/pressed": [
+   5.15,
+   5.62,
+   4.62,
+   4.12
+  ],
+  "navy star on orange segment": 4.58,
+  "paper star on orange segment": 2.73,
+  "ΔE star vs cluster disc / selected row (--figure-deep)": 17.9,
+  "ΔE star vs old restaurant #AC5019": 17.4,
+  "ΔE star vs wine #7A2436": 31.9,
+  "ΔE star vs old attraction gold #A68018": 30.5,
+  "ΔE star vs moss #547326": 50.8,
+  "ΔE star vs street #5E2C17": 33.4,
+  "ΔE star vs cafe #6E4C22": 31.2
+ }
+}

@@ -156,3 +156,12 @@ Same tag, star gold `#F2B807` with an ink keyline, categories recoloured.
   pencil circle (3).
 - The owner page shows band and segment side by side, at busiest, starred
   and signed out.
+
+### Orange (`f-*`)
+
+- **Star:** `--figure`, keyline `--figure-deep`.
+- **Band:** a thin orange stripe.
+- **Segment:** an orange field with a **navy star**. Navy on `--figure` is
+  4.58–6.63:1. Cream is 1.9–2.7:1, so it's not used.
+- **Pencil circle:** navy on the segment.
+- **Signed out:** the field fades.

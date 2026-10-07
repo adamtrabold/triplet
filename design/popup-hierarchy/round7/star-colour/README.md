@@ -204,3 +204,47 @@ The highlighted row still shows a `--paper` star (the reversal rule).
   - **Two greens:** moss attraction and spruce nature, flagged for the
     owner.
 - **Malmö pair** is rendered (`gold-malmo-map`).
+
+---
+
+## Action orange (owner, 2026-10-07): "i dont like the gold too loud-- can we try the orange so it's consistent with other action buttons that are either navy or orange?"
+
+**The token.** The action buttons (`#floatingAddBtn`, `#accountBtn`) are
+navy with a `--figure` glyph, so the star is **`--figure`**, the per-city
+action orange. Its keyline is the same city's **`--figure-deep`**. Gold is
+set aside: too loud.
+
+**Contrast** (`orange-figure.json`).
+- `--figure` alone is 1.9–2.7:1 on paper, so the keyline carries the mark.
+- The `--figure-deep` keyline is ≥4.79:1 on paper in every city.
+
+**Categories.**
+- **Restaurant stays wine `#7A2436`.** The old burnt orange sits 17–29
+  ΔE2000 from the star, and only 17.1 in Reykjavík.
+- **Attraction stays moss `#547326`.** Old gold is **13.3 (Stockholm) and
+  13.6 (Malmö)** from the star, too close to bring back. In the red-orange
+  cities (Copenhagen, LA) gold would be 30+, but one rule for every city is
+  simpler.
+
+**Conflicts that remain** (shown honestly):
+- **Selected row:** a starred row that is also selected is orange on orange.
+  The star reverses to paper, so it stays readable, but "orange" now means
+  both selected and starred.
+- **Clusters:** the cluster disc is `--figure-deep`, ΔE 18–27 from the
+  star. That's the same family; the paper halo keeps the star readable on
+  the disc.
+- **Stockholm** is the worst case: its ochre star is close to its own brown
+  cluster disc.
+
+**Smallest fixes, as owner options (none applied):**
+1. **Keep the halo** (as now): the star is always on a paper halo and has a
+   distinct shape. No change to clusters or rows.
+2. **Navy clusters** (`*-fix-navyCluster-*`): clusters move to navy, the
+   other action colour. Orange then means "act on / starred", and the map
+   separates cleanly.
+3. **Navy selected row** (`*-fix-navyRow-list`): the selected row turns
+   navy, so a starred selected row is a paper star on navy.
+
+**Stills.** `orange-{copenhagen,stockholm}-list` (busiest, full height, a
+starred restaurant selected), `-map-near` (zoom 14) and `-map-far` (zoom
+11, clusters), plus the fix variants. Rendered with `render-orange.js`.

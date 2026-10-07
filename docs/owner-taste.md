@@ -184,6 +184,10 @@ sources are the file where the quote is recorded.
   category types that clash. Orange/yellow makes more sense to use on a star"
   (2026-10-07, star colour; chat). The star family is gold/amber; categories
   that collide with it move.
+- **The star is the action orange.** "i dont like the gold too loud-- can
+  we try the orange so it's consistent with other action buttons that are
+  either navy or orange?" (2026-10-07, star colour; chat). Action colours
+  are navy or orange (`--figure`); the star joins them. Gold is out.
 - **Tag band liked; try the segment.** "The band is cool did we try the
   segment background? Star could be reverse (white/cream) or navy on the
   orange" (2026-10-07, Hanging Tag stub; chat).

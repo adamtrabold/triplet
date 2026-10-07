@@ -1,5 +1,29 @@
 [
  [
+  "f-band-busiest",
+  "Orange band: busiest"
+ ],
+ [
+  "f-band-starred",
+  "Orange band: starred"
+ ],
+ [
+  "f-band-signedout",
+  "Orange band: signed out"
+ ],
+ [
+  "f-segn-busiest",
+  "Orange segment, navy star: busiest"
+ ],
+ [
+  "f-segn-starred",
+  "Orange segment, navy star: starred"
+ ],
+ [
+  "f-segn-signedout",
+  "Orange segment: signed out"
+ ],
+ [
   "g-none-segn-signedout",
   "Gold segment, navy star: signed out"
  ],

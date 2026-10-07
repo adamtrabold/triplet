@@ -9,8 +9,9 @@ const grid = items => `<div class="grid">${items.map(([f, c, w]) => fig(f, c, w)
 const CATS = [['restaurant', '#AC5019', '#7A2436'], ['attraction', '#A68018', '#547326'], ['cafe', '#6E4C22', '#6E4C22'], ['bar', '#3D5A7A', '#3D5A7A'], ['nature', '#1E3A2B', '#1E3A2B'], ['shopping', '#8A7AA8', '#8A7AA8'],
   ['area', '#2B3F52', '#2B3F52'], ['hotel', '#2E2433', '#2E2433'], ['other', '#4F5450', '#4F5450'], ['district', '#328177', '#328177'], ['street', '#5E2C17', '#5E2C17']];
 const sw = c => `<span class="sw" style="background:${c}"></span>`;
-const table = `<table class="cats"><tr><th></th><th>Before</th><th>After</th></tr>${CATS.map(([n, a, b]) => `<tr${a !== b ? ' class="ch"' : ''}><td>${n}</td><td>${sw(a)}${a}</td><td>${sw(b)}${b}</td></tr>`).join('')}<tr class="ch"><td><b>star</b></td><td>${sw('#1A1A18')}black</td><td>${sw('#F2B807')}#F2B807 gold</td></tr></table>`;
+const table0 = `<table class="cats"><tr><th></th><th>Before</th><th>After</th></tr>${CATS.map(([n, a, b]) => `<tr${a !== b ? ' class="ch"' : ''}><td>${n}</td><td>${sw(a)}${a}</td><td>${sw(b)}${b}</td></tr>`).join('')}<tr class="ch"><td><b>star</b></td><td>${sw('#1A1A18')}black</td><td>${sw('#F2B807')}#F2B807 gold</td></tr></table>`;
 
+const table = table0;
 const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -48,31 +49,29 @@ const html = `<!doctype html>
 <body>
 <main>
   <h1>Star Colour &amp; Tag Paper</h1>
-  <p class="lede">The gold star, with the two clashing categories recoloured. Pinch to zoom.</p>
+  <p class="lede">The star in the action orange, with the two clashing categories recoloured. Pinch to zoom.</p>
 
-  <h2>1. Gold star everywhere</h2>
-  <p class="t">${sw('#F2B807')}<b>Gold #F2B807</b>, the yellow ink of your tags, with a thin dark-amber outline (from the app’s own palette) so it reads on any paper. It means “starred” and nothing else. It sits well clear of the orange clusters and selected rows in every city. On a selected (orange) row the star turns paper, as today.</p>
-  ${grid([[S('gold-list-reykjavik'), 'List, Reykjavík', 600], [S('gold-list-stockholm'), 'List, Stockholm', 600], [S('gold-map-near'), 'Map, zoom 14', 600], [S('gold-map-far'), 'Map, zoom 11: starred clusters', 600]])}
+  <h2>1. Orange star, same as the action buttons</h2>
+  <p class="t">The star uses the action orange of the add and account buttons, with a thin darker-orange outline so it reads on paper. Restaurant becomes wine red and attraction moss green, since their old orange and gold sat too close to it.</p>
+  ${grid([[S('orange-copenhagen-list'), 'List, Copenhagen (a starred row selected)', 600], [S('orange-stockholm-list'), 'List, Stockholm', 600], [S('orange-copenhagen-map-near'), 'Map, zoom 14', 600], [S('orange-stockholm-map-far'), 'Map, zoom 11: clusters', 600]])}
+  ${table.replace('#F2B807 gold', 'action orange').replace("sw('#F2B807')", "sw('#EE7434')")}
 
-  <h2>2. Categories that clash, recoloured</h2>
-  <p class="t">Restaurant (orange) and attraction (gold) collided with a gold star. Restaurant becomes wine red, attraction becomes moss green. Everything else stays. No two categories end up closer than before. Note: attraction’s moss joins nature’s spruce, so there are two greens (light and dark).</p>
-  ${table}
-  ${grid([[S('gold-oldcats-map-near'), 'Before: today’s colours', 600], [S('gold-map-near'), 'After', 600]])}
-  <p class="t">One close pair left: in Malmö the two round buttons (top right) use an ochre near the gold. They’re buttons, not marks. Leave it, or warm Malmö slightly?</p>
-  ${grid([[S('gold-malmo-map'), 'Malmö: gold stars next to the ochre buttons', 600]])}
+  <h2>2. What still clashes</h2>
+  <p class="t">Orange already means “selected row” and “cluster”. With a paper halo the star still reads, but the meaning overlaps. Three ways to handle it, your pick:</p>
+  <ol class="dec"><li><b>Leave it:</b> halo and shape do the separating (stills above).</li><li><b>Navy clusters:</b> clusters turn navy.</li><li><b>Navy selected row:</b> the selected row turns navy.</li></ol>
+  ${grid([[S('orange-stockholm-fix-navyCluster-map-far'), 'Option: navy clusters', 600], [S('orange-stockholm-fix-navyRow-list'), 'Option: navy selected row', 600]])}
 
-  <h2>3. The tag in gold</h2>
-  <p class="t">Two equal options. <b>Band:</b> a thin gold stripe along the tag’s top edge, so the name still leads. <b>Segment:</b> the Starred box of the stub is printed gold, with a navy star. (A cream star on gold was too faint to read.)</p>
-  ${grid([[T('g-band-busiest'), 'Band'], [T('g-none-segn-busiest'), 'Segment, navy star'], [T('g-band-starred'), 'Band: starred'], [T('g-none-segn-starred'), 'Segment: starred'], [T('g-band-signedout'), 'Band: signed out'], [T('g-none-segn-signedout'), 'Segment: signed out (gold fades)']])}
+  <h2>3. The tag in orange</h2>
+  ${grid([[T('f-band-busiest'), 'Band'], [T('f-segn-busiest'), 'Segment, navy star'], [T('f-band-signedout'), 'Band: signed out'], [T('f-segn-signedout'), 'Segment: signed out']])}
 
-  <h2>Earlier option</h2>
+  <h2>Set aside</h2>
   <p class="t">Pink star (#C0306E) and a claret restaurant (#972068), both set aside: they read as pink. The city orange can’t be the star: it already means map clusters and the selected row.</p>
 
   <h2>Decisions for you</h2>
   <ol class="dec">
-    <li>Gold star #F2B807 with restaurant → wine and attraction → moss: yes?</li>
-    <li>Tag: thin gold band, or gold segment with a navy star?</li>
-    <li>Malmö’s ochre buttons next to the gold: leave, or warm them slightly?</li>
+    <li>Orange star with restaurant → wine and attraction → moss: yes?</li>
+    <li>Selected row and clusters: leave, navy clusters, or navy selected row?</li>
+    <li>Tag: thin orange band, or orange segment with a navy star?</li>
   </ol>
   <footer>The map is a stand-in drawing. Rendered in Chrome, not checked on iPhone. Details: design/popup-hierarchy/round7/star-colour/README.md and tag-colour/README.md.</footer>
 </main>
