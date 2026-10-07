@@ -18,7 +18,10 @@ pick/redirect before building anything.
   have their own color -- did we build a programmatic way to assign that
   as cities are created? i dont think we did." ; and on doing it as its own
   pass right after the popup build lands: "yes that sounds good").
-  Lane 1 (tweak): no visual change. Sequencing: its own pass right after the
+  Already done with the Hanging Tag (2026-10-07): the per-city palette is
+  removed and the accent is `--brand-orange` / `--brand-orange-deep` (read via
+  `--figure`, `--figure-deep`, `--star`); the rest of the palette is still
+  to be named. Lane 1 (tweak): no visual change. Sequencing: its own pass right after the
   popup redesign (Hanging Tag, building on branch `popup-hanging-tag`)
   lands, and before the icon system revision below, which leans on the same
   mark colours.
