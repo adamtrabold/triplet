@@ -18,10 +18,6 @@ This file loads every session: keep it to rules and pointers. Detail goes in:
 - `docs/ux-brief.md` — mandatory brief/checklist for every UX agent.
 - `docs/cd-brief.md` — mandatory brief/checklist for every CD agent.
 - `docs/owner-taste.md` — the owner's stated design-taste rules, verbatim.
-- `skills/design-buds/` — source of the owner's portable team skill
-  (orchestrator, roles, build/tweak/design-loop ways of working), uploaded
-  to claude.ai so it reaches sessions in other repos. Re-upload after
-  editing it.
 - `design/<feature>/` — design records; `design/inspo/` — visual reference.
 
 When something ships: add its entry to `docs/shipped.md`, close it in
@@ -80,9 +76,7 @@ verified by one agent before theorizing. Everything else is optional.
 
 Owner: "Designer is focused on ui and brand representation, ux on overall ux
 of the app and interactions, cd on overall adherence to project and brand
-goals and presence/identity." Also: "the ux and ui designers are product
-designers focusing on ux or ui, they are not ux or ui designers (these are
-specific in the industry)". Designer = UI and brand representation. UX =
+goals and presence/identity." Designer = UI and brand representation. UX =
 the app's overall UX and interactions (`docs/ux-brief.md`). CD = overall
 adherence to project and brand goals and the app's presence/identity. The
 operator makes none of these calls.
