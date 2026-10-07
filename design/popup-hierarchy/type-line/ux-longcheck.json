@@ -1,0 +1,226 @@
+{
+ "shipped": {
+  "fieldsH": 26,
+  "fieldsW": 284,
+  "wrapped": false,
+  "fs": [
+   [
+    53,
+    226,
+    100,
+    14
+   ],
+   [
+    177,
+    226,
+    104,
+    14
+   ]
+  ],
+  "vals": [
+   {
+    "text": "restaurant",
+    "clipped": false,
+    "fs": "11px"
+   },
+   {
+    "text": "Stop 12 of 14",
+    "clipped": false,
+    "fs": "11px"
+   }
+  ],
+  "tagH": 174
+ },
+ "ledger": {
+  "fieldsH": 28,
+  "fieldsW": 284,
+  "wrapped": false,
+  "fs": [
+   [
+    53,
+    226,
+    107,
+    16
+   ],
+   [
+    184,
+    226,
+    108,
+    16
+   ]
+  ],
+  "vals": [
+   {
+    "text": "restaurant",
+    "clipped": false,
+    "fs": "13px"
+   },
+   {
+    "text": "Stop 12 of 14",
+    "clipped": false,
+    "fs": "13px"
+   }
+  ],
+  "tagH": 176
+ },
+ "stack": {
+  "fieldsH": 46,
+  "fieldsW": 284,
+  "wrapped": false,
+  "fs": [
+   [
+    53,
+    226,
+    84,
+    34
+   ],
+   [
+    169,
+    226,
+    85,
+    34
+   ]
+  ],
+  "vals": [
+   {
+    "text": "restaurant",
+    "clipped": false,
+    "fs": "17px"
+   },
+   {
+    "text": "Stop 12 of 14",
+    "clipped": false,
+    "fs": "17px"
+   }
+  ],
+  "tagH": 194
+ },
+ "blank": {
+  "fieldsH": 32,
+  "fieldsW": 284,
+  "wrapped": false,
+  "fs": [
+   [
+    53,
+    226,
+    134,
+    20
+   ],
+   [
+    203,
+    226,
+    134,
+    20
+   ]
+  ],
+  "vals": [
+   {
+    "text": "restaurant",
+    "clipped": false,
+    "fs": "14px"
+   },
+   {
+    "text": "Stop 12 of 14",
+    "clipped": false,
+    "fs": "14px"
+   }
+  ],
+  "tagH": 180
+ },
+ "stamp": {
+  "fieldsH": 32,
+  "fieldsW": 284,
+  "wrapped": false,
+  "fs": [
+   [
+    53,
+    226,
+    124,
+    20
+   ],
+   [
+    201,
+    226,
+    127,
+    20
+   ]
+  ],
+  "vals": [
+   {
+    "text": "restaurant",
+    "clipped": false,
+    "fs": "17px"
+   },
+   {
+    "text": "Stop 12 of 14",
+    "clipped": false,
+    "fs": "17px"
+   }
+  ],
+  "tagH": 180
+ },
+ "code": {
+  "fieldsH": 64,
+  "fieldsW": 284,
+  "wrapped": true,
+  "fs": [
+   [
+    53,
+    222,
+    140,
+    26
+   ],
+   [
+    53,
+    252,
+    140,
+    26
+   ]
+  ],
+  "vals": [
+   {
+    "text": "restaurant",
+    "clipped": false,
+    "fs": "22px"
+   },
+   {
+    "text": "Stop 12 of 14",
+    "clipped": false,
+    "fs": "22px"
+   }
+  ],
+  "tagH": 208
+ },
+ "margin": {
+  "fieldsH": 24,
+  "fieldsW": 284,
+  "wrapped": false,
+  "fs": [
+   [
+    53,
+    230,
+    104,
+    16
+   ],
+   [
+    232,
+    230,
+    105,
+    16
+   ]
+  ],
+  "vals": [
+   {
+    "text": "restaurant",
+    "clipped": false,
+    "fs": "12px"
+   },
+   {
+    "text": "Stop 12 of 14",
+    "clipped": false,
+    "fs": "12px"
+   }
+  ],
+  "tagH": 176
+ }
+}
