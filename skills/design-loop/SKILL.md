@@ -54,21 +54,21 @@ below, and anything the owner asks for. No extra agents, review rounds or
 checks. If you think something more is needed, ask the owner in one line
 instead of doing it.
 
-1. **TWEAK (default)** — any visual/copy/spacing/colour/size/shadow change
-   and plain UI bugs. ONE agent (best model, isolated worktree if the
-   environment has them) makes the change, re-shoots only the affected
-   stills and looks at them itself, runs only the checks covering the diff
-   plus the project's UI quality gate if it has one, self-reviews against the project's rules, shows the owner the stills
-   BEFORE landing a new look, and lands on the owner's "yes" (immediately
-   for a plain bug with no visual change). No design director, no UX check,
-   no review loops.
+1. **TWEAK (default)** — any visual/copy/spacing/colour/size/shadow change and
+   plain UI bugs. ONE agent (best model, isolated worktree if the environment
+   has them) makes the change, re-shoots only the affected stills and looks at
+   them itself, runs only the checks covering the diff plus the project's UI
+   quality gate if it has one, self-reviews against the project's rules, shows
+   the owner the stills BEFORE landing a new look, and lands on the owner's
+   "yes" (immediately for a plain bug with no visual change). No design
+   director, no UX check, no review loops.
 2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces
    high-resolution stills, with the product designer (UX focus) when the
-   interaction is new; the owner sees them first. After approval ONE builder builds it.
-   ONE combined design-director + UX check (in parallel, each with its brief
-   verbatim plus the owner's words for the task) runs ONCE on the finished
-   build, not per round; fixes go in one batch; the owner sees final stills if
-   anything visual changed after approval; then land.
+   interaction is new; the owner sees them first. After approval ONE builder
+   builds it. ONE combined design-director + UX check (in parallel, each with
+   its brief verbatim plus the owner's words for the task) runs ONCE on the
+   finished build, not per round; fixes go in one batch; the owner sees final
+   stills if anything visual changed after approval; then land.
 3. **GESTURE / DATA** — touch/gesture plumbing or the database add the
    project's full regression gate ONCE at the very end (not per round), and
    for a database, applying the migration after the build is green.
