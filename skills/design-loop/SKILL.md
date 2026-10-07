@@ -59,11 +59,13 @@ checks. If you think something more is needed, ask the owner in one line
 instead of doing it.
 
 1. **TWEAK (default)** — a small visual, copy, spacing, colour or size
-   change, or a plain UI bug. ONE builder makes the change, looks at stills
-   of what changed, shows the owner those stills before landing anything
-   that changes how the product looks, and lands on the owner's "yes"
-   (immediately for a plain bug with no visual change). No design director,
-   no UX check, no review loops.
+   change, or a plain UI bug. Just the owner and ONE builder: the builder
+   makes the change, looks at stills of what changed, shows the owner those
+   stills before landing anything that changes how the product looks, and
+   lands on the owner's "yes" (immediately for a plain bug with no visual
+   change). No designers and no design director unless the owner asks for
+   their eyes on it; then only the role the owner asked for reviews it and
+   reports back.
 2. **FEATURE** — anything new: a feature, a new look, a redesign. Runs in
    two phases, concept then execution (below).
 
