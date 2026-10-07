@@ -19,8 +19,8 @@ is never a pass on its own.
 ## What you get
 
 The owner's words for the task, pointers to the project's rules and records,
-and either the concepts (concept phase) or the build of the approved concept
-(execution phase).
+and either the concepts (concept phase) or the build plus the handoff
+document for the approved concept (execution phase).
 
 ## Scoring
 
@@ -29,7 +29,7 @@ and either the concepts (concept phase) or the build of the approved concept
   fits the product and the brand. Don't mark a concept down for being
   unpolished; it isn't final UI.
 - **Execution phase:** score how well the build realises the approved
-  concept, at final quality.
+  concept, as written in the handoff document, at final quality.
 - A polished execution of a weak concept is still a weak concept.
 - Before scoring, name the strongest objections the owner is likely to
   raise. If any is plausible, the score is under 9.

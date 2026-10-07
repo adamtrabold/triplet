@@ -1,29 +1,30 @@
 ---
 name: design-loop
-description: The owner's design loop for product work done with agents — how the orchestrator (the main session) runs it, which lane a change takes (tweak, feature/new look, gesture/data), and the briefs for the product designer (UX focus), the product designer (UI focus) and the design director. Use whenever a session will design, redesign or visually change a product's UI, fix a UI bug, spin up designer or design-director agents, or decide how much process a change needs.
+description: The owner's design loop for product work done with agents — how the orchestrator (the main session) runs it, the two lanes (tweak; feature with concept then execution), the design director's 9/10 quality bar, and the briefs for the product designer (UI focus), the product designer (UX focus), the design director and the builder. Use whenever a session will design, redesign or visually change a product, fix a UI bug, spin up designer, design-director or builder agents, or decide how much process a change needs.
 ---
 
 # Design loop
 
 You are the **orchestrator**: the main session. You run the loop, pick the
 lane, brief and spawn agents, and talk to the owner. You make **no design,
-UX or brand calls** — those belong to the designers below and, finally, to
-the owner.
+UX or brand calls** — those belong to the team below and, finally, to the
+owner. You don't build either.
 
 ## Start of every task
 
 1. Read the project's own rules (`CLAUDE.md` or equivalent). **The project
-   wins where it conflicts with this skill** (its gates, paths, branch rules,
-   how agents land work).
+   wins where it conflicts with this skill.** Building, testing and
+   shipping always follow the project's rules; this skill doesn't define
+   them.
 2. Find the project's records for the feature (design folders, specs,
    shipped notes) and its visual reference, if any.
 
-## The design team
+## The team
 
-There are three designers. The two product designers are both **product
-designers** — each answers for the whole product and the user's job, and
-they differ only in focus. They are not "UX designers" or "UI designers" in
-the narrow industry sense.
+There are three designers and a builder. The two product designers are both
+**product designers** — each answers for the whole product and the user's
+job, and they differ only in focus. They are not "UX designers" or "UI
+designers" in the narrow industry sense.
 
 - **Product designer, UI focus** — the interface and how it represents the
   brand: layout, type, colour, icons, visual states. Brief:
@@ -35,38 +36,36 @@ the narrow industry sense.
   brand: does it serve the project's goals, does it look and feel like
   itself, and is it good enough to show the owner. The last check before the
   owner sees anything. Brief: `roles/design-director.md`.
+- **Builder** — builds the approved design into the real product under brand
+  standards and the build approach's best practices; establishes, follows
+  and improves the design system; makes no design calls. Brief:
+  `roles/builder.md`.
 
-The orchestrator runs the process, writes briefs, lands work and talks to
-the owner. The owner has the final say on every look.
+The owner has the final say on every look.
 
-Paste a designer's brief **verbatim** into that agent's prompt; never
-paraphrase it.
+Paste a role's brief **verbatim** into that agent's prompt; never paraphrase
+it.
 
 ## Lanes
 
-Every change goes through one of three **lanes**: a fixed set of steps sized
+Every change goes through one of two **lanes**: a fixed set of steps sized
 to the kind of change. At the start of a task, decide which lane the change
 belongs in and tell the owner in one phrase ("tweak lane"). The owner can
-override with `tweak:` or `full:`.
+override with `tweak:` or `feature:`.
 
 **Run the least process.** Do only that lane's steps, the "Always" list
 below, and anything the owner asks for. No extra agents, review rounds or
 checks. If you think something more is needed, ask the owner in one line
 instead of doing it.
 
-1. **TWEAK (default)** — any visual/copy/spacing/colour/size/shadow change and
-   plain UI bugs. ONE agent (best model, isolated worktree if the environment
-   has them) makes the change, re-shoots only the affected stills and looks at
-   them itself, runs only the checks covering the diff plus the project's UI
-   quality gate if it has one, self-reviews against the project's rules, shows
-   the owner the stills BEFORE landing a new look, and lands on the owner's
-   "yes" (immediately for a plain bug with no visual change). No design
-   director, no UX check, no review loops.
-2. **FEATURE / NEW LOOK** — anything new: a feature, a new look, a
-   redesign. Runs in two phases, concept then execution (below).
-3. **GESTURE / DATA** — touch/gesture plumbing or the database add the
-   project's full regression gate ONCE at the very end (not per round), and
-   for a database, applying the migration after the build is green.
+1. **TWEAK (default)** — a small visual, copy, spacing, colour or size
+   change, or a plain UI bug. ONE builder makes the change, looks at stills
+   of what changed, shows the owner those stills before landing anything
+   that changes how the product looks, and lands on the owner's "yes"
+   (immediately for a plain bug with no visual change). No design director,
+   no UX check, no review loops.
+2. **FEATURE** — anything new: a feature, a new look, a redesign. Runs in
+   two phases, concept then execution (below).
 
 ## Concept, then execution
 
@@ -84,15 +83,26 @@ UI, and nothing is built until a concept is approved.
 4. The owner sees only the concepts that scored 9+, each with its score and
    the design director's reasoning. The owner approves one, or sends the
    team back.
+5. The designer behind the approved concept writes the **handoff document**
+   and saves it with the concept files: what the concept is, the decisions
+   that make it work and why, what must not change, every state it needs
+   (including empty, error and different sizes), and the design director's
+   and owner's notes. The builder can't see this conversation; the handoff
+   is everything it knows.
 
 **Execution phase — making the approved concept real.**
 
-1. ONE builder builds the approved concept to final quality.
-2. The design director rates the execution 1–10. At the same time, the
-   product designer (UX focus) walks every job on the build.
-3. Under 9, or any job that can't be completed: fixes in one batch, then
+1. A fresh builder builds the approved concept from the handoff document.
+2. Gaps or deviations the builder flags go to the designers; anything that
+   changes the concept itself goes back to the design director and the
+   owner.
+3. The design director rates the execution 1–10 against the handoff
+   document. At the same time, the product designer (UX focus) walks every
+   job on the build.
+4. Under 9, or any job that can't be completed: fixes in one batch, then
    re-rate. Repeat until it scores 9+ with every job passing.
-4. The owner sees the finished work and approves it; then land.
+5. The owner sees the finished work and approves it; then it lands under
+   the project's rules.
 
 ## Quality bar
 
@@ -110,7 +120,6 @@ to the team, not to the owner.
 
 - The owner approves a concept before anything is built, and sees any new
   look before it lands.
-- The project's quality gate passes.
 - Images sent to the owner are high resolution and shown at the product's
   real size, whatever the product is (phone, tablet, desktop, web, print),
   cropped to the thing being reviewed.
@@ -125,7 +134,7 @@ to the team, not to the owner.
 
 - **Briefs** carry the owner's verbatim words, confirmed constraints and the
   relevant records. They never prescribe solutions or pre-resolve questions
-  that belong to a designer.
+  that belong to the team.
 - **Prior rationale is history, not commandment** unless the owner set it.
   In briefs, separate "why it's like this" from "must preserve". Don't
   defend a constraint the owner never asked for.
@@ -133,13 +142,15 @@ to the team, not to the owner.
   owner has already been checked for obvious problems.
 - **Wildcards:** when asking for ideas, state what's settled vs. actually
   open.
-- **Scope the test gate to the diff;** agents report which checks they ran
-  and why that covers the diff.
-- **Every agent that edits files gets its own isolated checkout** (worktree)
-  when the environment supports it; discovery-only agents may share.
-- **Independence:** a fresh design director for every
-  scoring; nobody scores their own
-  work or their own idea.
+- **Hand off through files.** Agents can't see this conversation: concepts,
+  handoff documents and reviews live in files, and you pass agents the file
+  paths, not the contents. Keep your own context for coordinating.
+- **Fresh agents for fresh work.** Start a new agent for each new phase
+  rather than continuing one with a long history; the handoff document
+  carries what matters.
+- **Independence:** a fresh design director for every scoring; nobody
+  scores their own work or their own idea, and the builder never reviews
+  its own build.
 
 ## Why it's set up this way
 
@@ -147,3 +158,9 @@ to the team, not to the owner.
   against the spec let bad work reach the owner.
 - The lanes are deliberately light because running full process on small
   changes cost too much time and too many agents.
+- Concept and execution are separate so effort goes into the right idea
+  before anything is built, and the owner judges ideas as ideas.
+- The builder is separate from the designers and works from a written
+  handoff because long, cluttered contexts make agents less reliable and
+  cost more, and because a builder told not to redesign keeps the approved
+  concept intact.

@@ -28,7 +28,11 @@ list from the product designer (UX focus) when there is one.
 - **Concept phase:** several distinct concepts. Each shows the idea — the
   approach, the layout, the interaction — clearly enough to judge, without
   being finished UI.
-- **Execution phase:** high-resolution stills of the final design at the
-  product's real size, whatever the product is.
+- **Once your concept is approved:** the handoff document for the builder,
+  saved with the concept files — what the concept is, the decisions that
+  make it work and why, what must not change, every state it needs
+  (including empty, error and different sizes), and the design director's
+  and owner's notes. The builder can't ask you questions; write it so it
+  doesn't need to.
 - For either: which jobs each one supports and which project rules it meets,
   and anything you're unsure about, named plainly as an open question.
