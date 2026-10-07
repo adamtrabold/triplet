@@ -1,0 +1,86 @@
+[
+ [
+  "blaze-busy-z14",
+  "Busy map at zoom 14 (where Reykjavík's shapes first draw)"
+ ],
+ [
+  "blaze-busy-z16",
+  "Busy map at zoom 16"
+ ],
+ [
+  "blaze-district",
+  "District open: its tag hangs from the pin"
+ ],
+ [
+  "blaze-street",
+  "Street open: its tag hangs from the pin"
+ ],
+ [
+  "blaze-states",
+  "States: unvisited, starred, visited, visited + starred, open; plan stop"
+ ],
+ [
+  "blaze-visited",
+  "In context: visited and starred shapes among visited pins"
+ ],
+ [
+  "blaze-plan",
+  "Plans: a district and a street as stops 2 and 4"
+ ],
+ [
+  "tie-busy-z14",
+  "Busy map at zoom 14 (where Reykjavík's shapes first draw)"
+ ],
+ [
+  "tie-busy-z16",
+  "Busy map at zoom 16"
+ ],
+ [
+  "tie-district",
+  "District open: its tag hangs from the pin"
+ ],
+ [
+  "tie-street",
+  "Street open: its tag hangs from the pin"
+ ],
+ [
+  "tie-states",
+  "States: unvisited, starred, visited, visited + starred, open; plan stop"
+ ],
+ [
+  "tie-visited",
+  "In context: visited and starred shapes among visited pins"
+ ],
+ [
+  "tie-plan",
+  "Plans: a district and a street as stops 2 and 4"
+ ],
+ [
+  "pennant-busy-z14",
+  "Busy map at zoom 14 (where Reykjavík's shapes first draw)"
+ ],
+ [
+  "pennant-busy-z16",
+  "Busy map at zoom 16"
+ ],
+ [
+  "pennant-district",
+  "District open: its tag hangs from the pin"
+ ],
+ [
+  "pennant-street",
+  "Street open: its tag hangs from the pin"
+ ],
+ [
+  "pennant-states",
+  "States: unvisited, starred, visited, visited + starred, open; plan stop"
+ ],
+ [
+  "pennant-visited",
+  "In context: visited and starred shapes among visited pins"
+ ],
+ [
+  "pennant-plan",
+  "Plans: a district and a street as stops 2 and 4"
+ ]
+]
