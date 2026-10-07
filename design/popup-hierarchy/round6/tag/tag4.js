@@ -39,7 +39,7 @@
   .W-ochk { width: 17px; height: 17px; display: block; flex: none; }
   .W-seg.vis.on { color: ${NAVY}; }
   /* colour: starred */
-  .c-star .W-seg.star.on { color: var(--state-on-fg); }   /* the state system's ON tile (navy, paper glyph), inset --state-tile-inset; drawn in the SVG */
+  .c-star .W-seg.star.on { color: var(--ink); }   /* star ON = the filled black glyph (state-system exception 2); the pencilled ring is drawn in the SVG */
   /* colour: category stub */
   .c-cat .W-stub { color: var(--paper); }
   .c-cat .W-seg { color: var(--paper); }
@@ -119,10 +119,15 @@
       + `<clipPath id="w4h"><path d="${CHECK}" transform="${checkT}"/></clipPath></defs>`
       + (punched ? `<g clip-path="url(#w4h)"><path d="${CHECK}" transform="${checkT}" fill="none" stroke="#1A1A18" stroke-opacity=".34" stroke-width="1.8" filter="url(#w4soft)"/></g>` : '')
       + `<g mask="url(#w4m)"><path d="${d}" fill="${paper}" filter="url(#kshadow)"/>`
-      + (color === 'star' && P.starred ? `<rect x="${third + 4}" y="${stubY + 5}" width="${third - 8}" height="${h - stubY - 9}" rx="2" fill="var(--state-on-bg)"/>` : '')
-      + `<path d="M138,6 H178 L182,10 V30 L178,34 H138 L134,30 V10 Z" fill="${screened ? '#DDD3C1' : '#EDE4D3'}"/></g>`
+      + ''
+      + `<path d="M138,6 H178 L182,10 V30 L178,34 H138 L134,30 V10 Z" fill="${screened ? 'var(--paper-pressed)' : 'var(--paper)'}"/></g>`
       + `<line x1="10" x2="${w - 10}" y1="${stubY}" y2="${stubY}" stroke="${color === 'cat' ? 'rgba(250,245,234,.6)' : 'var(--hair)'}" stroke-width="1.5" stroke-dasharray="4 3"/>`
-      + `<circle cx="158" cy="18" r="8.5" fill="none" stroke="#CFC5B1" stroke-width="3.5"/>`;
+      + `<circle cx="158" cy="18" r="8.5" fill="none" stroke="var(--hair)" stroke-width="3.5"/>`
+      + (color === 'star' && P.starred ? (() => { const cx = third * 1.5, cy = stubY + 31, rx = 40, ry = 19;
+          // a hand-drawn loop: starts at the upper right, goes round once, overshoots and lifts (graphite = --ink at pencil weight)
+          const pt = (a, k) => [cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k];
+          let d = ''; for (let i = 0; i <= 44; i++) { const a = -0.55 - i * (2 * Math.PI + 0.75) / 44; const k = 1 + 0.08 * Math.sin(i / 3.1) + 0.05 * Math.sin(i / 1.7) - 0.10 * (i / 44); let [x, y] = pt(a, k); const rt = -0.12, dx = x - cx, dy = y - cy; x = cx + dx * Math.cos(rt) - dy * Math.sin(rt); y = cy + dx * Math.sin(rt) + dy * Math.cos(rt); d += (i ? ' L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
+          return `<path d="${d}" fill="none" stroke="var(--ink)" stroke-opacity=".6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>`; })() : '');
     if (visit === 'hold' && step === 'mid') {   // the hold ring fills around the segment's check
       const sx = third * 2.5, sy = stubY + 22, r = 15, L = 2 * Math.PI * r;
       svg += `<circle cx="${sx}" cy="${sy}" r="${r}" fill="none" stroke="${color === 'cat' ? 'rgba(250,245,234,.35)' : 'var(--hair)'}" stroke-width="2.5"/><circle cx="${sx}" cy="${sy}" r="${r}" fill="none" stroke="${color === 'cat' ? 'var(--paper)' : NAVY}" stroke-width="2.5" stroke-dasharray="${L * 0.62} ${L}" transform="rotate(-90 ${sx} ${sy})"/>`;
@@ -131,7 +136,7 @@
     t.querySelectorAll(':scope > div').forEach(x => { x.style.position = 'relative'; x.style.zIndex = 1; });
     t.querySelector('.W-stampover') && (t.querySelector('.W-stampover').style.position = 'absolute');
     const str = document.createElement('div'); str.className = 'k-layer'; Object.assign(str.style, { left: 0, top: 0, width: '390px', height: '844px', zIndex: 1101 });
-    str.innerHTML = `<svg width="390" height="844"><line x1="${s.x}" y1="${s.y + 13}" x2="${s.x}" y2="${restTop + 10}" stroke="#7A6A55" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+    str.innerHTML = `<svg width="390" height="844"><line x1="${s.x}" y1="${s.y + 13}" x2="${s.x}" y2="${restTop + 10}" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round"/></svg>`;
     document.body.appendChild(str);
 
     const vseg = t.querySelector('.W-seg.vis'), r = vseg.getBoundingClientRect();
