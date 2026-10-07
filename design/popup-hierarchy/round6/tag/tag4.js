@@ -39,8 +39,7 @@
   .W-ochk { width: 17px; height: 17px; display: block; flex: none; }
   .W-seg.vis.on { color: ${NAVY}; }
   /* colour: starred */
-  .c-star .W-seg.star.on { background: var(--figure-deep); color: var(--paper); }
-  .c-star .W-seg.star.on + .W-seg, .c-star .W-seg.star.on { border-left-color: transparent; }
+  .c-star .W-seg.star.on { color: var(--ink); }   /* the printed field is drawn in the tag's SVG, under the dividers and notches */
   /* colour: category stub */
   .c-cat .W-stub { color: var(--paper); }
   .c-cat .W-seg { color: var(--paper); }
@@ -50,13 +49,16 @@
   .c-two .W-seg.star.on { color: var(--figure-deep); }
   .c-two .W-seg.star.on .k-ic { color: var(--figure); }
   /* screen-back: the tag goes to the filed paper of a visited row; the stamp sits on top */
-  .W-stampover { position: absolute; z-index: 3; right: 22px; bottom: 70px; }
-  .W-stampover .row-stamp { display: block; transform: rotate(-8deg) scale(1.35); }
+  .W-seg .row-stamp { display: block; }
+  .W-stampover { position: absolute; z-index: 3; pointer-events: none; }
+  .W-stampover .row-stamp { display: block; }
   .W-hold { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -24px 0 0 -20px; }
   .W-hint { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 8px; letter-spacing: .14em; color: var(--ink-2); }
-  .W-signin { position: absolute; left: 12px; right: 12px; z-index: 1104; background: var(--navy); color: var(--paper); border-radius: 3px; padding: 10px 12px; display: flex; align-items: center; gap: 12px;
-              font-size: 13px; line-height: 18px; box-shadow: 0 2px 8px rgba(26,26,24,.18); }
-  .W-signin b { margin-left: auto; font-stretch: 75%; text-transform: uppercase; font-size: 11px; letter-spacing: .1em; color: var(--figure); min-height: 24px; display: flex; align-items: center; }
+  .W-signin { position: absolute; z-index: 1104; width: 316px; height: 44px; display: flex; align-items: center; box-sizing: border-box; padding: 0 0 0 var(--s4);
+              background: var(--paper-raised); border: 0 solid var(--hair); border-width: 1px 0; color: var(--navy);
+              font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: .08em; }
+  .W-signin span { flex: 1; }
+  .W-signin b { align-self: stretch; min-width: 44px; display: flex; align-items: center; padding: 0 var(--s4) 0 var(--s3); border-left: 1px solid var(--hair); text-decoration: underline; text-underline-offset: 3px; font-weight: 700; }
   .W-knot, .W-chad { position: absolute; z-index: 1103; pointer-events: none; line-height: 0; }
   .k-so .W-seg.star, .k-so .W-seg.vis { opacity: var(--state-off-alpha); }
   `;
@@ -84,27 +86,27 @@
     select(P);
     document.getElementById('locations').classList.add('collapsed'); growMap(60);
     movePinTo(P, 195, 112);
-    const vis = (visO === undefined ? !!P.visited : visO) && step !== 'press' && step !== 'mid';
-    pinVisited(P, vis);
+    const vis = (visO === undefined ? !!P.visited : visO) && step !== 'press';
+    pinVisited(P, vis && step !== 'mid');
     const s = pinScreen(P);
     if (P.shape) { const k = document.createElement('div'); k.className = 'W-knot'; k.innerHTML = badgeHtml('district', 'diamond', 28, { ink: P.ink, fill: '#F2EBDD', mark: P.ink, rim: 2 }); k.style.left = (s.x - 14) + 'px'; k.style.top = (s.y - 14) + 'px'; document.body.appendChild(k); }
     const addr = shortAddr(P);
     const t = document.createElement('div'); t.className = `k W c-${color}`;
-    const visLabel = vis ? (visit === 'punch' ? '<span class="ph"></span>Visited' : fchk() + 'Visited') : ochk() + (visit === 'hold' ? 'Hold: visited' : 'Mark visited');
+    const landed = vis && step !== 'mid';
+    const visLabel = landed ? rowStamp(P.id, -6) : (step === 'mid' ? '<span style="height:32px"></span>' : ochk() + 'Mark visited');
     t.innerHTML = `<div class="W-head"><span class="k-x">×</span></div><div class="W-in"><div class="W-name">${esc(P.name)}</div>${addr ? `<div class="W-addr">${esc(addr)}</div>` : ''}${P.notes ? `<div class="k-notes">${esc(P.notes)}</div>` : ''}
       <div class="W-fline"><div class="f"><span class="W-lab">Type</span><span class="W-val">${esc(typeWord(P))}</span></div>${P.stop ? `<div class="f"><span class="W-lab">Plan</span><span class="W-val">${esc(P.stop)}</span></div>` : ''}</div></div>
       <div class="W-stub"><div class="W-seg dir">${ic('compass')}Directions</div><div class="W-seg star ${P.starred ? 'on' : ''}">${ic(P.starred ? 'star' : 'star-open')}${P.starred ? 'Starred' : 'Star'}</div>
-      <div class="W-seg vis ${vis ? 'on' : ''}">${visLabel}</div></div>`;
+      <div class="W-seg vis ${landed ? 'on' : ''}" role="button" aria-pressed="${landed}" aria-label="${landed ? 'Visited' : 'Mark visited'}">${visLabel}</div></div>`;
     document.body.appendChild(t);
-    const screened = visit === 'screen' && vis;
-    if (screened || (visit === 'screen' && step === 'land')) { const o = document.createElement('div'); o.className = 'W-stampover'; o.innerHTML = rowStamp(P.id, -8); t.appendChild(o); }
+    const screened = landed;
     const restTop = s.y + 44;
     t.style.left = (s.x - 158) + 'px'; t.style.top = restTop + 'px';
     const w = 316, h = t.getBoundingClientRect().height, c = 28, stubY = h - 60;
     const d = `M${c},0 H${w - c} L${w},${c} V${h} H0 V${c} Z`;
     const hole = `M158,18 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0 Z`;
     const notches = `M0,${stubY - 5} a5,5 0 0,1 0,10 Z M${w},${stubY - 5} a5,5 0 0,0 0,10 Z`;
-    const paper = screened ? '#E7DFD0' : 'var(--paper-raised)';   // --paper-filed: the visited row's paper
+    const paper = screened ? '#E7DFD0' : 'var(--paper-raised)';   // --paper-filed: the visited row's paper (text untouched)
     const tr = t.getBoundingClientRect(); const phEl = t.querySelector('.ph');
     const punched = visit === 'punch' && vis && phEl;
     const pz = 17, sc = pz / 24;
@@ -118,7 +120,7 @@
       + `<clipPath id="w4h"><path d="${CHECK}" transform="${checkT}"/></clipPath></defs>`
       + (punched ? `<g clip-path="url(#w4h)"><path d="${CHECK}" transform="${checkT}" fill="none" stroke="#1A1A18" stroke-opacity=".34" stroke-width="1.8" filter="url(#w4soft)"/></g>` : '')
       + `<g mask="url(#w4m)"><path d="${d}" fill="${paper}" filter="url(#kshadow)"/>`
-      + (color === 'cat' ? `<path d="${stubPath}" fill="${P.ink}"/>` : '')
+      + (color === 'star' && P.starred ? `<rect x="${third}" y="${stubY}" width="${third}" height="${h - stubY}" fill="var(--figure)" fill-opacity=".30" style="mix-blend-mode:multiply"/>` : '')
       + `<path d="M138,6 H178 L182,10 V30 L178,34 H138 L134,30 V10 Z" fill="${screened ? '#DDD3C1' : '#EDE4D3'}"/></g>`
       + `<line x1="10" x2="${w - 10}" y1="${stubY}" y2="${stubY}" stroke="${color === 'cat' ? 'rgba(250,245,234,.6)' : 'var(--hair)'}" stroke-width="1.5" stroke-dasharray="4 3"/>`
       + `<circle cx="158" cy="18" r="8.5" fill="none" stroke="#CFC5B1" stroke-width="3.5"/>`;
@@ -135,20 +137,22 @@
 
     const vseg = t.querySelector('.W-seg.vis'), r = vseg.getBoundingClientRect();
     if (step === 'press') tapAt(r.left + r.width / 2, r.top + r.height / 2 - 4);
-    if (step === 'press' && visit === 'hold') anno(tr.bottom + 30, 'press and hold the Visited segment');
-    if (step === 'mid' && visit === 'hold') { anno(tr.bottom + 30, 'holding: the ring fills (~450ms); let go early and nothing happens'); }
-    if (step === 'mid' && visit === 'screen') {   // the stamp coming down over the tag, big and faint
-      const o = document.createElement('div'); o.className = 'W-stampover'; o.innerHTML = rowStamp(P.id, -8); t.appendChild(o);
-      const st = o.querySelector('.row-stamp'); st.style.transform = 'rotate(-14deg) scale(2.3)'; st.style.opacity = '.3'; st.style.filter = 'blur(.6px)';
-      anno(tr.bottom + 30, 'the stamp comes down over the tag (grow, faint)');
+    
+
+    const seg = t.querySelector('.W-seg.vis').getBoundingClientRect();
+    if (step === 'mid') {   // the stamp comes down over the Visited segment, big and faint
+      const o = document.createElement('div'); o.className = 'W-stampover'; o.innerHTML = rowStamp(P.id, -6);
+      document.body.appendChild(o); o.style.zIndex = 1105;
+      Object.assign(o.style, { left: (seg.left + seg.width / 2 - 36) + 'px', top: (seg.top + seg.height / 2 - 18) + 'px' });
+      const st = o.querySelector('.row-stamp'); st.style.transform = `rotate(-12deg) scale(${window.__mid || 2})`; st.style.opacity = String(window.__midOp || .3); st.style.filter = 'blur(.5px)';
     }
-    if (step === 'land' && visit === 'screen') { const st = t.querySelector('.W-stampover .row-stamp'); st.style.transform = 'rotate(-8deg) scale(1.28)'; anno(tr.bottom + 30, 'lands with a shrink; the paper turns to the filed tone of a visited row'); }
-    if (step === 'land' && visit === 'hold') anno(tr.bottom + 30, 'the ring completes: the segment inks VISITED, the pin turns to its sticker');
-    if (step === 'mid' && visit === 'punch') { tapAt(r.left + r.width / 2, r.top + r.height / 2 - 4); }
+    if (step === 'land') { const st = t.querySelector('.W-seg.vis .row-stamp'); st.style.transform = 'rotate(-6deg) scale(.9)'; }
+
     if (signin) {   // a tap on a greyed control: a sign-in slip slides out under the stub (it does not move the tag)
       const sl = document.createElement('div'); sl.className = 'k W-signin';
-      sl.innerHTML = `<span>Sign in to star places and mark them visited.</span><b>Sign in</b>`;
-      document.body.appendChild(sl); sl.style.top = (tr.bottom + 10) + 'px';
+      sl.setAttribute('role', 'status'); sl.setAttribute('aria-live', 'polite');
+      sl.innerHTML = `<span>Sign in to star and mark visited</span><b>Sign in</b>`;
+      document.body.appendChild(sl); sl.style.top = (tr.bottom + 6) + 'px'; sl.style.left = tr.left + 'px';
       const st = t.querySelector('.W-seg.star').getBoundingClientRect(); tapAt(st.left + st.width / 2, st.top + st.height / 2 - 4);
     }
     return ['.W', '.W-knot', '.W-signin'];

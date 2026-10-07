@@ -1,43 +1,27 @@
 [
  [
   "star-busiest",
-  "Colour A, Starred carries the colour: busiest (VEGA)"
- ],
- [
-  "star-typical",
-  "Colour A, Starred carries the colour: typical"
- ],
- [
-  "star-bare",
-  "Colour A, Starred carries the colour: name only"
- ],
- [
-  "cat-busiest",
-  "Colour B, stub in the pin’s colour: busiest (VEGA)"
- ],
- [
-  "cat-typical",
-  "Colour B, stub in the pin’s colour: typical"
- ],
- [
-  "cat-bare",
-  "Colour B, stub in the pin’s colour: name only"
+  "A, busiest (VEGA): starred field printed, visited stamped on the stub, paper filed"
  ],
  [
   "two-busiest",
-  "Colour C, two-ink: busiest (VEGA)"
+  "C (quiet alternate), busiest"
+ ],
+ [
+  "star-typical",
+  "A, typical, not visited"
  ],
  [
   "two-typical",
-  "Colour C, two-ink: typical"
+  "C, typical"
  ],
  [
-  "two-bare",
-  "Colour C, two-ink: name only"
+  "star-bare",
+  "A, name only"
  ],
  [
-  "star-shape",
-  "District (diamond = placeholder for the coming shape pin)"
+  "star-resto",
+  "A, a starred restaurant (Reykjavík accent next to the restaurant pin)"
  ],
  [
   "star-signedout",
@@ -45,54 +29,22 @@
  ],
  [
   "star-signin",
-  "Signed out: tap a greyed control, a sign-in slip appears"
+  "Signed out: tap a greyed control, the sign-in slip"
  ],
  [
-  "screen-1",
-  "1 Screen-back + stamp: tap"
+  "st-1",
+  "1 Tap Mark visited"
  ],
  [
-  "screen-2",
-  "1 Screen-back + stamp: motion"
+  "st-2",
+  "2 The stamp comes down (big, faint)"
  ],
  [
-  "screen-3",
-  "1 Screen-back + stamp: lands"
+  "st-3",
+  "3 Lands on the stub (a shrink); the paper turns filed"
  ],
  [
-  "screen-busiest",
-  "1 Screen-back + stamp: busiest, visited"
- ],
- [
-  "hold-1",
-  "2 Press and hold: tap"
- ],
- [
-  "hold-2",
-  "2 Press and hold: motion"
- ],
- [
-  "hold-3",
-  "2 Press and hold: lands"
- ],
- [
-  "hold-busiest",
-  "2 Press and hold: busiest, visited"
- ],
- [
-  "punch-1",
-  "3 Punch (v3 baseline): tap"
- ],
- [
-  "punch-2",
-  "3 Punch (v3 baseline): motion"
- ],
- [
-  "punch-3",
-  "3 Punch (v3 baseline): lands"
- ],
- [
-  "punch-busiest",
-  "3 Punch (v3 baseline): busiest, visited"
+  "st-4",
+  "4 Settled: one VISITED, on the stub"
  ]
 ]

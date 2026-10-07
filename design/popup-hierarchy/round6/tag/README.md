@@ -109,3 +109,61 @@ stamp and filed paper the list already uses for visited.
 - Each still has a `phone@1x` and a `crop@3x` version.
 - `tag4.js` draws the tag; `render.js [name ...]` re-renders.
 - Chromium only, with a stand-in basemap. Pink marks are annotations.
+
+---
+
+## Fixes after `ux-review.md` and `cd-review.md`
+
+**Dropped:** colour B, press-and-hold (2) and the punch (3). The proposal
+is **A + Visited 1**. C + 1 is the one quiet alternate, shown once
+(`two-busiest`, `two-typical`).
+
+**The colour conflict.** UX's points: the black star on the pin and in the
+list, and `--figure-deep` already meaning "selected". How I resolved it:
+- The starred field is now a **light second-ink print** of the city accent
+  (`--figure` at 30%, multiplied), not a solid `--figure-deep` block, so it
+  can't read as the solid "selected" fill.
+- The **star and its word stay the app's black ink**, so "starred" is the
+  same black star on the pin, in the list and on the tag. The tint is a
+  printed field on the tag's stub, the way the references colour a field.
+- The dashed dividers and the perforation notches run through it, so it
+  reads as printed on the stub.
+- The name still leads at 1x (`star-busiest`).
+- **For the owner:** should "starred" have one colour everywhere? That's a
+  separate decision, flagged on the page.
+
+**Restaurant case** (`star-resto`): a starred Bæjarins Beztu under the
+Reykjavík accent, the closest pair (#A8400C against restaurant #AC5019).
+The light field reads as a pale tint next to the strong orange pin, so
+they don't merge.
+
+**One VISITED on the tag.** The stamp now lands **on the Visited segment
+of the stub** (a stamped claim stub, as on the references). The stamp is
+the segment's content and its undo control (`aria-pressed`, label
+"Visited"). There's no separate ✓ word and no stamp floating over the body,
+so it has a reserved spot that never touches the note or the TYPE/PLAN line.
+The pin's sticker is the map's own mark on another surface, as everywhere
+in the app.
+
+**Screen-back** is the paper only, turning `--paper-filed` (#E7DFD0, the
+visited row's paper). Text stays at full contrast. The step is visible at
+1x (`star-busiest`, `st-3`, `st-4`). It's paper tone, not opacity, so it
+can't look like signed-out dimming.
+
+**Sign-in slip** (`star-signin`), rebuilt in the `#planSlip` language:
+paper-raised, 1px hair top and bottom, navy condensed caps, and an
+underlined SIGN IN after a hair divider (a 44px target). It sits at the
+tag's width, just under the stub, and the tag doesn't move. Behaviour
+contract:
+- The first tap outside only dismisses the slip; it doesn't close the tag
+  or reach the map.
+- Greyed controls stay focusable with `aria-disabled="true"`, labelled for
+  example "Star, sign in to use".
+- The slip is `role="status"`, so VoiceOver announces it.
+- After signing in you come back to the same tag, still open.
+
+**Stamp motion** is now a phone-readable filmstrip, `filmstrip.png`, built
+by `../build.js` from `st-1`…`st-4`: tap, then the stamp comes down big and
+faint, then lands with a shrink, then settles.
+
+The owner page is `../index.html` ("Hanging Tag v4").
