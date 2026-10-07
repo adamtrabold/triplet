@@ -63,13 +63,13 @@ instead of doing it.
    BEFORE landing a new look, and lands on the owner's "yes" (immediately
    for a plain bug with no visual change). No design director, no UX check,
    no review loops.
-2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces
-   phone-readable stills, with the product designer (UX focus) when the
-   interaction is new; the owner sees them first. After approval ONE
-   builder builds it. ONE combined design-director + UX check (in parallel,
-   each with its brief verbatim plus the owner's words for the task) runs
-   ONCE on the finished build, not per round; fixes go in one batch; the owner sees
-   final stills if anything visual changed after approval; then land.
+2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces phone-
+   readable stills, with the product designer (UX focus) when the interaction
+   is new; the owner sees them first. After approval ONE builder builds it.
+   ONE combined design-director + UX check (in parallel, each with its brief
+   verbatim plus the owner's words for the task) runs ONCE on the finished
+   build, not per round; fixes go in one batch; the owner sees final stills if
+   anything visual changed after approval; then land.
 3. **GESTURE / DATA** — touch/gesture plumbing or the database add the
    project's full regression gate ONCE at the very end (not per round), and
    for a database, applying the migration after the build is green.
@@ -109,9 +109,9 @@ instead of doing it.
 
 ## Why it's set up this way
 
-- The design-director and UX checks are strict because spec-matching let bad work
-  through: a concept the design director scored 9/10 was rejected outright by the owner
-  for visual noise, and a design passed UX while a core job couldn't be
-  completed.
+- The design-director and UX checks are strict because spec-matching let bad
+  work through: a concept the design director scored 9/10 was rejected
+  outright by the owner for visual noise, and a design passed UX while a core
+  job couldn't be completed.
 - The lanes are deliberately light because running full process on small
   changes cost too much time and too many agents.
