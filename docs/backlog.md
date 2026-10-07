@@ -52,6 +52,13 @@ pick/redirect before building anything.
       `#F2EFE9` at line 506 (no token).
     - Shapes can also carry a per-row `color` from the database
       (`nb.color`, preferred over the category ink).
+  Added by the Hanging Tag follow-ups (`tag-followups`, Impeccable A5):
+  `--ink-rgb` (26, 26, 24 -- `--ink` as channels, for `rgba()` shadows that
+  must work without `color-mix()`; derive one from the other in this pass),
+  `--warm-edge-rgb` (107, 74, 40 -- the same brown as `STICKER.EDGE` in JS),
+  and the role tokens `--tag-edge`, `--tag-shadow-contact`,
+  `--tag-shadow-lift`, `--scroll-shadow` (list header + tag stub) built from
+  them.
   Goal: every colour is defined once as a named brand-level token, and
   everything else reads from it. Category colours, sticker inks and the
   star (`--star` / `--star-deep`, added on the popup branch) become tokens;
@@ -197,9 +204,9 @@ pick/redirect before building anything.
   starred treatment is the band (owner: "tag top all the way"; `TAG_STAR_STYLE`
   keeps segment / both); (2) the reversed paper star of the segment option is
   2.69:1 on brand orange -- `TAG_REVERSED_STAR_KEYLINE` lifts its edge to
-  5.67:1 if it is ever picked; (3) the pencil circle is the owner's
-  provisional keep; with it, starred shows 4 times (pin star, band, orange
-  star, circle; CD); (4) no edit
+  5.67:1 if it is ever picked; (3) ~~the pencil circle is the owner's
+  provisional keep~~ DONE on `tag-followups` (owner: "yes let's drop the
+  pencil"): removed; (4) no edit
   path from the tag (none exists anywhere); (5) the full address is no longer
   reachable in-app (geocode audit, ux-analysis J8) -- UX to decide whether the
   short line should expand (UX: acceptable as a rule once the short address
@@ -209,9 +216,18 @@ pick/redirect before building anything.
   open"; the name column jumps left on unstarred rows; two greens (moss
   attraction, spruce nature); (7) at 390x664 the compressed list's top
   scroll fade (`#locationsList.scrolling`) softens the selected row's top
-  edge -- superseded 2026-10-07: the fade is now a header shadow.; (8) Impeccable critique C3: when the list isn't lowered, a map-tapped
-  pin's navy row may sit scrolled out of view (only a compressed list scrolls
-  it in) -- UX to decide whether to scroll it into view (nearest) every time.
+  edge -- superseded 2026-10-07: the fade is now a header shadow.; (8) ~~Impeccable critique C3: when the list isn't lowered, a map-tapped
+  pin's navy row may sit scrolled out of view~~ DONE on `tag-followups`
+  (owner: "yes"): a map tap scrolls the row fully into view (nearest).
+  Also on that branch (Impeccable A2-A6, owner-approved): keyboard-only
+  focus look on the tag, Directions' "Opens in Maps" description, the list
+  header shadow without `:has()`, tag shadow tokens, stub labels that wrap
+  cleanly at 240px; and a pre-existing bug fixed: tags narrower than 316px
+  were centred off their pin. Open from that review: C4 (TYPE/PLAN line, in
+  the design loop), C5 (icon revision), C6 (no change, the greens are
+  ΔE 24). Not tokenised yet: the star segment's press tint
+  `rgba(18, 41, 63, .16)` (navy 16%; only drawn in the unused 'segment'
+  style).
 
 - Impeccable gate follow-ups (`design/impeccable-gate/`): (1) 13 runtime
   baseline identities are "pre-existing, unreviewed" (10px category·city

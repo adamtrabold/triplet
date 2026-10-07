@@ -110,6 +110,11 @@ sources are the file where the quote is recorded.
   wide enough to maintain standard padding" (visited sticker; chat).
 - **Decorative marks sit tight to neighbours.** "closer to the X, it's not
   interactive" (visited stamp vs delete X; `design/state-system/sheet.html`).
+- **Let labels wrap, and make the wrap look intended.** "i dont think that
+  stop wrap is the right call, make wrap work." (2026-10-07, the tag stub's
+  labels at narrow widths, Impeccable A6; chat). Don't force one line;
+  a two-line label is centred, balanced, at the same line height, and the
+  marks beside it stay aligned.
 - **Controls don't move or grow.** "I don't want it to grow height/for the
   button to change physical location after click and it's getting very tall"
   (Plans/Places toggle: it stays put; the panel is fixed height and scrolls;
@@ -181,7 +186,9 @@ sources are the file where the quote is recorded.
   should be colored imo" (2026-10-07; chat). Reverses the team's "black
   stars everywhere" ruling (Pencil Star rounds 4–6, `docs/shipped.md`): one
   starred colour, used the same way on the pin, list row, tag and add form.
-  The tag's pencil circle is kept for now, provisionally.
+  The tag's pencil circle was kept for now, provisionally -- then dropped:
+  "yes let's drop the pencil i was going to do that anyways." (2026-10-07,
+  on Impeccable C1 "starred shown 4 times"; chat).
 - **Star colour: orange/yellow, and recolour the categories that clash.**
   "Not sold on pink what about the orange?"; "We can change the color of the
   category types that clash. Orange/yellow makes more sense to use on a star"

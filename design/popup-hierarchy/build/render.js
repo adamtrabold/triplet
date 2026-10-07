@@ -70,19 +70,45 @@ for (const [city, pre] of [['reykjavik', 'rey'], ['copenhagen', 'cop']]) {
 }
 J.push(['final/stockholm/list', { group: 'final', city: 'stockholm', list: true }]);
 
+// Follow-ups (2026-10-07, Impeccable C1/C3/A2/A6; docs/shipped.md "Hanging Tag + orange star"), written to
+// design/popup-hierarchy/followups/stills/: no pencil circle, wrapped stub labels on the 240px tag (a 256px
+// screen) vs the normal 316px one, a map-tapped pin's row scrolled into view, keyboard focus on the tag.
+{
+  const F = (name, o) => J.push([`followups/${name}`, { group: 'followups', city: 'reykjavik', ...o }]);
+  F('busiest-vega', { place: 'vega', id: 'rey01', starred: true, visited: true, plan: true, select: true });
+  F('starred', { place: 'aurora', id: 'rey07', starred: true, visited: false });
+  F('narrow-240-starred', { place: 'aurora', id: 'rey07', starred: true, visited: false, w: 256 });
+  F('narrow-240-both', { place: 'aurora', id: 'rey07', starred: true, visited: true, w: 256 });
+  F('narrow-240-plain', { place: 'aurora', id: 'rey07', starred: false, visited: false, w: 256 });
+  F('normal-316-starred', { place: 'aurora', id: 'rey07', starred: true, visited: false });
+  F('maptap-row-in-view', { id: 'late', maptap: true });
+  F('maptap-row-in-view-664', { id: 'late', maptap: true, h: 664 });
+  F('keyboard-focus', { place: 'aurora', id: 'rey07', starred: false, visited: false, kbd: true });
+  F('keyboard-focus-starred', { place: 'aurora', id: 'rey07', starred: true, visited: false, kbd: true });
+}
+
 async function setup(b, o) {
   const file = variant(o.style || 'band', !!o.keyline);
   const storage = o.plan ? { 'gh.plans': '1', 'triplet.reorderHint': '1' } : {};
-  const { ctx, page, errors } = await openProto(b, { dsf: 3, reduced: !o.motion, city: o.city || 'reykjavik', file, storage, h: o.h || 844 });
+  const { ctx, page, errors } = await openProto(b, { dsf: 3, reduced: !o.motion, city: o.city || 'reykjavik', file, storage, w: o.w || 390, h: o.h || 844 });
   await page.evaluate(BASEMAP);
   if (o.plan) { await page.waitForFunction(() => typeof plans !== 'undefined' && plans.length === 1, null, { timeout: 10000 }); await page.evaluate(() => setListView('plans')); await W(600); }
   return { ctx, page, errors };
 }
 
 async function openTag(page, o) {
-  await page.evaluate(async ([id, d]) => { const r = window.__ROWS.find(x => x.id === id); Object.assign(r, d); await refetchLocations(); }, [o.id, { ...PLACES[o.place], starred: o.starred, visited: o.visited }]);
+  if (o.place) await page.evaluate(async ([id, d]) => { const r = window.__ROWS.find(x => x.id === id); Object.assign(r, d); await refetchLocations(); }, [o.id, { ...PLACES[o.place], starred: o.starred, visited: o.visited }]);
   await W(200);
   if (o.signedOut) await page.evaluate(() => { currentUser = null; updateAuthUI(); });
+  // Modality: a real open follows a finger tap, so the tag's programmatic focus is NOT :focus-visible;
+  // a scripted open with no input at all would be (Chromium), and would show the keyboard-focus look.
+  if (o.kbd) await page.keyboard.press('Tab');   // keyboard: the tag's focus on open is :focus-visible
+  else await page.touchscreen.tap(2, 300);       // the map's left edge: nothing there to hit
+  if (o.maptap) {   // a finger tap on the pin ON THE MAP, the list scrolled to its top (the row starts out of view)
+    const q = await page.evaluate(id => { document.getElementById('locationsList').scrollTop = 0; if (id === 'late') id = __rowIds()[__rowIds().length - 3]; const l = locations.find(x => x.id === id); map.setView([l.lat, l.lng], 16, { animate: false }); syncMarkerGlyphZoom();
+      const p = map.latLngToContainerPoint([l.lat, l.lng]), r = map.getContainer().getBoundingClientRect(); return { x: r.left + p.x, y: r.top + p.y }; }, o.id);
+    await W(400); await page.touchscreen.tap(q.x, q.y); await W(900); return;
+  }
   await page.evaluate(([id, sel, no]) => { const l = locations.find(x => x.id === id); map.setView([l.lat, l.lng], 16, { animate: false }); if (sel) setHighlighted(id); syncMarkerGlyphZoom(); if (!no) markersById.get(id).marker.openPopup(); }, [o.id, !!o.select, !!o.noOpen]);
   await W(700);
   if (o.noOpen) return;
@@ -124,12 +150,13 @@ async function frames(page, name, times, start) {
 async function shoot(page, name, { full = false } = {}) {
   await page.evaluate(() => document.fonts.ready);
   const box = await page.evaluate(() => { const c = document.querySelector('.leaflet-popup.tag-popup'); if (!c) return null; const r = c.getBoundingClientRect(); const s = c.querySelector('.tag-slip'); const b = s && s.textContent ? s.getBoundingClientRect().bottom : r.bottom; return { x0: r.left, y0: r.top, x1: r.right, y1: b }; });
-  const f = n => path.join(OUT, `${name}-${n}`);
+  const f = n => name.startsWith('followups/') ? path.join(__dirname, '../followups/stills', `${name.slice(10)}-${n}`) : path.join(OUT, `${name}-${n}`);
   fs.mkdirSync(path.dirname(f('x')), { recursive: true });
   await page.screenshot({ path: f('phone@3x.png') });
-  execFileSync('convert', [f('phone@3x.png'), '-filter', 'Box', '-resize', '390x844', f('phone@1x.png')]);
-  fs.unlinkSync(f('phone@3x.png'));
-  if (box && !full) { const clip = { x: Math.max(0, box.x0 - 16), y: Math.max(0, box.y0 - 30) }; clip.width = Math.min(390, box.x1 + 16) - clip.x; clip.height = Math.min(844, box.y1 + 16) - clip.y;
+  const vp = page.viewportSize();
+  execFileSync('convert', [f('phone@3x.png'), '-filter', 'Box', '-resize', `${vp.width}x${vp.height}`, f('phone@1x.png')]);
+  if (!name.startsWith('followups/') || !full) fs.unlinkSync(f('phone@3x.png'));   // follow-ups keep the full 3x of their whole-phone shots
+  if (box && !full) { const clip = { x: Math.max(0, box.x0 - 16), y: Math.max(0, box.y0 - 30) }; clip.width = Math.min(vp.width, box.x1 + 16) - clip.x; clip.height = Math.min(vp.height, box.y1 + 16) - clip.y;
     await page.screenshot({ path: f('crop@3x.png'), clip }); }
 }
 
@@ -156,7 +183,7 @@ async function shoot(page, name, { full = false } = {}) {
         await page.evaluate(() => { clearTimeout(tagPopTimer); document.getAnimations().forEach(a => a.pause()); });   // hold the pop where it is; frames() scrubs it
         await frames(page, name, [20, 60, 120, 165, 230, 280]);
       }
-      else { await openTag(page, o); await shoot(page, name, { full: !!o.phone }); }
+      else { await openTag(page, o); await shoot(page, name, { full: !!o.phone || !!o.maptap }); }
     }
     catch (e) { console.log('FAIL', name, e.message); }
     console.log(name, errors.length ? errors : '');

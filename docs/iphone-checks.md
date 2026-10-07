@@ -39,6 +39,22 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   bottom toolbar; the OSM credit stays visible; (10) the short address shows
   under the name once the backfill has run (`tools/short-address-backfill.html`);
   rows the backfill could not fill show no address line.
+- iPhone check of the Hanging Tag follow-ups (branch `tag-followups`, 2026-10-07):
+  (1) a starred tag shows the orange band and the orange star + STARRED, no
+  pencil circle; (2) with the list where you left it, tap a pin on the MAP
+  whose row is scrolled out of sight: the list scrolls just enough to show
+  its navy row in full (above Safari's bottom toolbar), the tag and map
+  don't jump, and closing the tag puts the list back where it was; tapping
+  a ROW never scrolls the list; (3) touch and VoiceOver: opening a tag shows
+  no new mark on the eyelet or string (they stay grey/cream); with a
+  keyboard (iPad or a Bluetooth keyboard: Tab to a pin, Enter) the eyelet
+  ring and string turn navy while the tag itself has focus; (4) VoiceOver on
+  Directions reads "Directions, link" then "Opens in Maps"; (5) the list
+  header's soft shadow appears once the list is scrolled (no :has() needed
+  now); (6) on the narrowest phone you have (iPhone SE 320pt: tag 288px) the
+  tag hangs centred under its pin (it sat 14px left before) and the stub's
+  labels stay on one line; at 240px (Chromium only, screens under 272pt)
+  MARK VISITED takes two centred lines with all three icons level.
 - iPhone check of the visited sticker's light + fold (branch `visited-sticker-2`): (1) mark a
   place visited from its popup: the map pin arrives lifted and is pressed down, the flap settling
   last (~200ms), with no flicker or jump in Safari; (2) during the row swipe's hover the check bends

@@ -208,6 +208,9 @@
                                     12.14:1 on --navy (the selected row) */
       --navy:         #12293F;   /* the frame, the cold north -- 12.51:1     */
       --ink:          #1A1A18;   /* body text -- 14.69:1 on --paper          */
+      --ink-rgb:      26, 26, 24; /* --ink as channels, ONLY for ink-at-alpha shadows (rgba(var(--ink-rgb), a)),
+                                    which work in every Safari, unlike color-mix() (16.2+). Keep in step
+                                    with --ink (brand-token pass, docs/backlog.md: derive one from the other). */
       --ink-2:        #5A564C;   /* metadata + EVERY category label -- 6.17:1 */
       --hair:         #D8CEBA;   /* 1px rules, dashed borders               */
       --paper-filed:  #E7DFD0;   /* visited-row field: --paper one
@@ -994,10 +997,12 @@
     #locationsHeader { position: relative; z-index: 2; }
     #locationsHeader::after {
       content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 10px; margin-top: 1px;
-      background: linear-gradient(to bottom, color-mix(in srgb, var(--ink) 14%, transparent), transparent);
+      background: linear-gradient(to bottom, var(--scroll-shadow), transparent);
       opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
     }
-    #locations:has(#locationsList.scrolling) #locationsHeader::after { opacity: 1; }
+    /* Shown via a class the list's scroll listener sets on #locations (.list-scrolled), not :has()
+       (Impeccable A4): works in every Safari, and the colour is rgba(), not color-mix(), for the same reason. */
+    #locations.list-scrolled #locationsHeader::after { opacity: 1; }
     #locations.collapsed #locationsHeader::after { opacity: 0; }
 
     /* Lets the last row scroll fully clear of the toolbar/home indicator. */
@@ -1845,6 +1850,17 @@
          star / tag top all the way imo"). One token, so a colour change stays a one-line edit. */
       --star: var(--figure);
       --star-deep: var(--figure-deep);
+      /* The tag's shadow colours (Impeccable A5: they were raw rgba). Shadows are the ink at low alpha,
+         restrained (owner-taste: "Shadow is too harsh should look more natural"); the edge is the
+         owner-approved 1px warm edge ("The 1px hard edge to add shadow definition is fine"), the
+         sticker edge's warm brown (STICKER.EDGE, rgba(107,74,40,.09)), here at 50% because a
+         .5px drop-shadow blur thins it to a hairline. rgba(var(--*-rgb)) rather than color-mix() so
+         they also work in older Safari. Values unchanged. */
+      --warm-edge-rgb: 107, 74, 40;    /* #6B4A28: the warm paper-edge brown (also STICKER.EDGE in JS; brand-token pass to share it) */
+      --tag-edge: rgba(var(--warm-edge-rgb), .5);
+      --tag-shadow-contact: rgba(var(--ink-rgb), .10);   /* 1px down, 1px blur: where the tag meets the map */
+      --tag-shadow-lift: rgba(var(--ink-rgb), .08);      /* 4px down, 6px blur: the tag hanging just off it */
+      --scroll-shadow: rgba(var(--ink-rgb), .14);        /* a scroll edge's shadow (list header, tag stub): ink 14% -> 0 over 10px */
       --tex-flood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='t' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 1.3 0 -.79'/%3E%3C/filter%3E%3Cfilter id='f' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.07 .95' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 1.2 0 -.76'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23t)'/%3E%3Crect width='160' height='160' filter='url(%23f)'/%3E%3C/svg%3E");
       /* The stamp's ink: the same fine tooth as an alpha mask -- ink missing where the paper's grain stands proud. */
       --tex-stamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='1' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -6 0 4.65'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -1864,7 +1880,7 @@
     /* The shadow + 1px warm edge live on their own static layer (a blank copy of the die-cut), so
        nothing animating inside the tag (the star's pop, the stamp) re-renders a filter. */
     .tag-shadow { position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      filter: drop-shadow(0 0 .5px rgba(107, 74, 40, .5)) drop-shadow(0 1px 1px rgba(26, 26, 24, .10)) drop-shadow(0 4px 6px rgba(26, 26, 24, .08)); }
+      filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)) drop-shadow(0 4px 6px var(--tag-shadow-lift)); }
     .tag-shape { position: absolute; inset: 0; background: var(--paper-raised); }
     .tag-stock { position: relative; z-index: 1; background-color: var(--paper-raised); color: var(--ink); }
     .tag-stock, .tag-shape {
@@ -1892,6 +1908,14 @@
        (a solid paper patch read as a blank box, CD). */
     .tag.tag .tag-band ~ .tag-patch { background: color-mix(in srgb, var(--paper) 28%, transparent); }
     .tag.tag .tag-band ~ .tag-patch::after { border-color: color-mix(in srgb, var(--paper) 65%, transparent); }
+    /* Keyboard focus on the tag itself (Impeccable A2; it takes focus on open): the tag is "held" --
+       its grommet and string go navy. No ring or box round the tag (owner-taste: "No heavy rules or
+       boxes"). Keyboard only, so a touch open or VoiceOver shows nothing new; the inner controls
+       keep their own inset navy ring. Not plain :focus-visible: the tag is focused BY SCRIPT once
+       the pan ends, and Chromium matches :focus-visible on that after a touch tap on a list row
+       (measured). .kbd-open is set at open only when the last input was a key (tagKeyInput). */
+    .tag.tag.kbd-open:focus .tag-patch::after { border-color: var(--navy); }
+    .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
     .tag-x { all: unset; position: absolute; z-index: 4; top: 40px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
@@ -1905,7 +1929,7 @@
     /* ...and the stub casts the same soft ink shadow up onto the note scrolling under it (the list
        header's rule, owner: "the gradient should go dark anyways not light"). */
     .tag-in.scrolls + .tag-stub::after { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 10px; pointer-events: none;
-      background: linear-gradient(to top, color-mix(in srgb, var(--ink) 14%, transparent), transparent); }
+      background: linear-gradient(to top, var(--scroll-shadow), transparent); }
     .tag-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); padding-right: 32px; overflow-wrap: anywhere; margin: 0; }
     .tag-addr { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
     .tag-notes { margin-top: var(--s2); font-size: 14px; line-height: 20px; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
@@ -1922,8 +1946,20 @@
     .tag-slot + .tag-slot::before { content: ''; position: absolute; z-index: 6; left: 0; top: 0; bottom: 0; border-left: 1px dashed var(--hair); pointer-events: none; }
     .tag-seg { all: unset; box-sizing: border-box; position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding-top: 4px;
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: .08em; color: var(--ink);
-      cursor: pointer; -webkit-tap-highlight-color: transparent; text-decoration: none; isolation: isolate; }
+      cursor: pointer; -webkit-tap-highlight-color: transparent; text-decoration: none; isolation: isolate;
+      padding-left: var(--s1); padding-right: var(--s1); text-align: center; text-wrap: balance; }
     .leaflet-container a.tag-seg { color: var(--ink); }
+    /* Narrow tags (Impeccable A6; owner: "make wrap work"): below a 256px stub a label may take two
+       lines ("MARK / VISITED" at the 240px minimum). Every segment then sets its icon from the TOP at
+       one shared offset, so the three icons stay on one line and the labels' first lines share a
+       baseline whether a label wraps or not; a second line simply runs down into the room left
+       below (12px line height, as one line). Decided by width, not by which label wraps, so
+       starring or marking visited never moves the other segments. The stub stays 60px. */
+    .tag-stub { container-type: inline-size; }
+    @container (max-width: 255.98px) {
+      .tag-seg { justify-content: flex-start; padding-top: 8px; gap: 4px; }
+      .tag-seg.popup-visited.visited { justify-content: center; padding-top: 0; }
+    }
     /* One 20px icon box per segment, so the three labels share one baseline; each glyph is sized
        inside it by its viewBox to the same optical size (compass ring ~17px, star and check ~18.5px,
        all ~1.5-1.9px strokes) -- CD: "the check is visibly lighter and smaller". */
@@ -1953,11 +1989,8 @@
     .tag.star-seg.star-keyline.is-starred .popup-star .tag-star { stroke: var(--star-deep); stroke-width: 1.5px; }
     .tag.star-seg.is-starred .popup-star::before { inset: 0; }
     .tag.star-seg.is-starred .popup-star:active::before, .tag.star-seg.is-starred .tag-slot:has(> .popup-star-tap:active) .popup-star::before { background: rgba(18, 41, 63, .16); }
-    /* The pencil circle round STARRED (owner: "Not sure on the circle we can keep for now"): a loose
-       graphite loop, --ink at pencil weight; navy on the orange segment. */
-    .tag-seg > svg.tag-pencil { position: absolute; left: 50%; top: 50%; width: 92px; height: 44px; margin: -20px 0 0 -46px; pointer-events: none; z-index: 1; overflow: visible; }
-    .tag-pencil path { fill: none; stroke: var(--ink); stroke-opacity: .6; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
-    .tag.star-seg .tag-pencil path { stroke: var(--navy); stroke-opacity: .85; }
+    /* No pencil circle round STARRED (owner 2026-10-07, Impeccable C1 "starred shown 4 times": "yes
+       let's drop the pencil i was going to do that anyways"). */
 
     /* VISITED: the list's own stamp lands ON the Visited segment, a little larger than in the row
        (owner: "could probably be a bit larger in the tag", then "visited is too big now": 1.1x, 79x35),
@@ -4758,8 +4791,8 @@
     //   'band'    -- DEFAULT (owner: "let's do band still not sure on color"):
     //                an orange band printed across the top of the tag stock,
     //                clipped to its die-cut (chamfers + eyelet); the Star
-    //                segment is the plain stub of round 6 -- the filled black
-    //                star and the pencil circle.
+    //                segment shows the one orange star + STARRED (the
+    //                pencil circle is gone: owner, Impeccable C1).
     //   'segment' -- the Star segment printed solid orange, the star
     //                reversed (paper), STARRED in navy.
     //   'both'    -- band + segment.
@@ -4776,18 +4809,6 @@
     const TAG_SHEET_GAP = 48;      // DIAL: map left clear between the tag's foot and the list (--s12; CD: ">= 48")
     const TAG_LIST_MIN = 144;      // the list never lowers past its header (60) + one row (56) + half the next (28), so it reads as scrollable (owner); a taller tag scrolls inside
     const tagWidth = () => Math.max(240, Math.min(TAG_W_MAX, window.innerWidth - 32));
-
-    // The pencil loop round STARRED (round 6): a hand-drawn ellipse that goes
-    // round once, overshoots and lifts; one fixed path (92 x 44 box).
-    const TAG_PENCIL_D = (() => {
-      const cx = 46, cy = 22, rx = 40, ry = 19, rt = -0.12; let d = '';
-      for (let i = 0; i <= 44; i++) {
-        const a = -0.55 - i * (2 * Math.PI + 0.75) / 44, k = 1 + 0.08 * Math.sin(i / 3.1) + 0.05 * Math.sin(i / 1.7) - 0.10 * (i / 44);
-        const dx = Math.cos(a) * rx * k, dy = Math.sin(a) * ry * k;
-        d += (i ? 'L' : 'M') + (cx + dx * Math.cos(rt) - dy * Math.sin(rt)).toFixed(1) + ',' + (cy + dx * Math.sin(rt) + dy * Math.cos(rt)).toFixed(1);
-      }
-      return d;
-    })();
 
     // The short address under the name (owner: "#1 since there's a
     // directions button"): the stored short_address, else derived from the
@@ -4816,6 +4837,7 @@
       const off = !currentUser;
       const seg = TAG_STAR_STYLE !== 'band', band = TAG_STAR_STYLE !== 'segment' && loc.starred;
       const id = escapeAttr(loc.id);
+      const dirHint = escapeAttr('tag-dir-hint-' + loc.id);   // Directions' description (Impeccable A3): it leaves the app for Apple Maps; nothing visible
       const cls = ['tag', loc.starred ? 'is-starred' : '', loc.visited ? 'is-visited' : '', off ? 'is-off' : '', seg ? 'star-seg' : '', TAG_REVERSED_STAR_KEYLINE ? 'star-keyline' : ''].filter(Boolean).join(' ');
       const starSvg = inkNow || rubNow
         ? `<svg class="sgp tag-star tag-star-anim ${inkNow ? 'sgp-in' : 'sgp-out'}" viewBox="-1 -1 26 26" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>`
@@ -4842,9 +4864,8 @@
         + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val popup-cat">${escapeHtml(loc.category)}</span></span>`
         + (stopLine ? `<span class="tag-f"><span class="tag-lab">Plan</span><span class="tag-val">${escapeHtml(stopLine)}</span></span>` : '') + '</div></div>'
         + '<div class="tag-stub">'
-        + `<span class="tag-slot dir"><a class="tag-seg popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener"><svg viewBox="1.5 1.5 21 21" aria-hidden="true"><use href="#g-compass"/></svg>Directions</a></span>`
+        + `<span class="tag-slot dir"><a class="tag-seg popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-describedby="${dirHint}"><svg viewBox="1.5 1.5 21 21" aria-hidden="true"><use href="#g-compass"/></svg>Directions</a><span class="sr-only" id="${dirHint}">Opens in Maps</span></span>`
         + `<span class="tag-slot star"><button type="button" class="tag-seg popup-star${loc.starred ? ' starred' : ''}" data-id="${id}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="${starName}"${off ? ' aria-disabled="true"' : ''}>`
-        + (loc.starred ? `<svg class="tag-pencil" viewBox="0 0 92 44" aria-hidden="true"><path d="${TAG_PENCIL_D}"/></svg>` : '')
         + `${starSvg}<span aria-hidden="true">${loc.starred ? 'Starred' : 'Star'}</span></button><label class="popup-star-tap" for="starHapticSwitch" aria-hidden="true"></label></span>`
         + `<span class="tag-slot vis"><button type="button" class="tag-seg popup-visited${loc.visited ? ' visited' : ''}" data-id="${id}" aria-pressed="${loc.visited ? 'true' : 'false'}" aria-label="${visName}"${off ? ' aria-disabled="true"' : ''}>${visInner}</button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>`
         + '</div></div></div><span class="tag-string" aria-hidden="true"></span></div>';
@@ -4856,6 +4877,14 @@
     // No autopan: tagOpened() pans to the open position itself.
     const TagPopup = L.Popup.extend({
       options: { className: 'tag-popup', closeButton: false, autoPan: false, keepInView: false, minWidth: TAG_W_MAX, maxWidth: TAG_W_MAX },
+      // The tag's width goes on BEFORE Leaflet lays it out and measures it (onAdd -> update()). Set
+      // later (on 'add'), a tag narrower than 316 was centred by the 316px measure, (316 - w)/2 left
+      // of its pin, and tagOpened() measured its height at the wrong width.
+      onAdd(map) {
+        if (!this._container) this._initLayout();
+        this._container.style.setProperty('--tag-w', this.options.maxWidth + 'px');
+        return L.Popup.prototype.onAdd.call(this, map);
+      },
       _updatePosition() {
         if (!this._map) return;
         const pos = this._map.latLngToLayerPoint(this._latlng), anchor = L.point(this._getAnchor());
@@ -4873,7 +4902,7 @@
     function newTagPopup() {
       const w = tagWidth();
       const p = new TagPopup({ minWidth: w, maxWidth: w });
-      p.on('add', () => { const c = p.getElement(); if (c) { c.style.setProperty('--tag-w', w + 'px'); c.style.setProperty('--tag-drop', (TAG_HANG - tagPinRadius(p)) + 'px'); } });
+      p.on('add', () => { const c = p.getElement(); if (c) c.style.setProperty('--tag-drop', (TAG_HANG - tagPinRadius(p)) + 'px'); });   // --tag-w: TagPopup.onAdd()
       return p;
     }
     const isTagPopup = p => p instanceof TagPopup;
@@ -8636,6 +8665,12 @@
     // had. A list you collapsed yourself stays collapsed. A tap on another
     // pin swaps tags in one tap (the list re-fits to the new tag).
     let tagSession = null, tagRestoreTimer = 0, tagLiveTimer = 0, tagPopTimer = 0, tagDot = null, tagSlipOn = false;
+    // Was the last input a key? (The tag's keyboard-focus look, Impeccable A2.) Any finger, pointer or
+    // real click resets it; a click from Enter/Space (detail 0) doesn't. VoiceOver moves without keys.
+    let tagKeyInput = false;
+    document.addEventListener('keydown', e => { if (!e.metaKey && !e.ctrlKey && !e.altKey) tagKeyInput = true; }, true);
+    ['pointerdown', 'touchstart', 'mousedown'].forEach(t => document.addEventListener(t, () => { tagKeyInput = false; }, { capture: true, passive: true }));
+    document.addEventListener('click', e => { if (e.detail) tagKeyInput = false; }, true);
     const tagOpenNow = () => !!(map._popup && map.hasLayer(map._popup) && isTagPopup(map._popup));
     window.addEventListener('click', (e) => {
       // The slip's first outside tap only dismisses it: it never closes the tag or reaches the map.
@@ -8704,8 +8739,9 @@
       // Selection follows the tag (UX): a pin opened from the map selects its pin and row exactly
       // as a list tap does; a district/street (no selectable row) clears it -- a navy row never
       // names a different place than the open tag.
-      const src = popup._source;
-      setHighlighted(src && src.locationId != null ? src.locationId : null);
+      const src = popup._source, selId = src && src.locationId != null ? src.locationId : null;
+      const fromMap = selId != null && highlightedId !== selId;   // a list tap selects its row before the tag opens (highlightMarker())
+      setHighlighted(selId);
       const reduced = prefersReducedMotion();
       c.classList.remove('tag-pop'); c.classList.add('tag-wait');
       if (!currentUser && !c.querySelector(':scope > .tag-slip')) {   // the live region exists before it speaks
@@ -8720,6 +8756,18 @@
       if (need > 0 && highlightedId) {
         const en = rowEntry(highlightedId);
         if (en && en.el && en.el.isConnected) list.scrollTop += en.el.getBoundingClientRect().top - list.getBoundingClientRect().top;
+      } else if (fromMap && !sheetIsCollapsed()) {
+        // List where it was (not lowered): a pin tapped on the MAP scrolls the list just enough that
+        // its navy row is fully in view (Impeccable C3, owner: "yes"). The tag and the map don't
+        // move; close restores the list's scroll (tagSession).
+        const en = rowEntry(selId);
+        if (en && en.el && en.el.isConnected && list.clientHeight > 0 && list.contains(en.el)) {
+          const lr = list.getBoundingClientRect(), r = en.el.getBoundingClientRect();
+          const under = listSpacer.offsetHeight;   // the sheet runs under the toolbar / home indicator (--sheet-under)
+          const top = lr.top, bottom = lr.bottom - under;
+          if (r.top < top || r.height > bottom - top) list.scrollTop += r.top - top;
+          else if (r.bottom > bottom) list.scrollTop += r.bottom - bottom;
+        }
       }
       showTagDot(popup);
       const size = map.getSize(), p = map.latLngToContainerPoint(popup.getLatLng());
@@ -8733,7 +8781,8 @@
         c.classList.remove('tag-wait');
         tagFit(popup);
         if (!reduced) { c.classList.add('tag-pop'); tagPopTimer = setTimeout(() => c.classList.remove('tag-pop'), TAG_POP_MS + 40); }
-        const t = c.querySelector('.tag'); if (t) t.focus({ preventScroll: true });   // VoiceOver: into the tag
+        const t = c.querySelector('.tag');
+        if (t) { t.classList.toggle('kbd-open', tagKeyInput); t.focus({ preventScroll: true }); }   // VoiceOver: into the tag; .kbd-open: the keyboard-only focus look (A2)
       };
       if (wait) tagLiveTimer = setTimeout(live, wait); else live();
     }
@@ -8789,11 +8838,9 @@
     // renderer, where it used to leak one listener per poll tick.
     const locationsListEl = document.getElementById('locationsList');
     locationsListEl.addEventListener('scroll', () => {
-      if (locationsListEl.scrollTop > 0) {
-        locationsListEl.classList.add('scrolling');
-      } else {
-        locationsListEl.classList.remove('scrolling');
-      }
+      const on = locationsListEl.scrollTop > 0;
+      locationsListEl.classList.toggle('scrolling', on);
+      document.getElementById('locations').classList.toggle('list-scrolled', on);   // the header's scroll shadow (no :has())
     }, { passive: true });
 
     // Persistent tail elements of the list, owned by syncLocationCards().
