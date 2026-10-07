@@ -63,8 +63,8 @@ instead of doing it.
    BEFORE landing a new look, and lands on the owner's "yes" (immediately
    for a plain bug with no visual change). No design director, no UX check,
    no review loops.
-2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces phone-
-   readable stills, with the product designer (UX focus) when the interaction
+2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces
+   phone-readable stills, with the product designer (UX focus) when the interaction
    is new; the owner sees them first. After approval ONE builder builds it.
    ONE combined design-director + UX check (in parallel, each with its brief
    verbatim plus the owner's words for the task) runs ONCE on the finished
