@@ -166,6 +166,12 @@ sources are the file where the quote is recorded.
 
 ## Color
 
+- **Colour with personality, on the thing that matters.** "Segmented stub is
+  awesome. I now wonder about the color application in there — should we
+  give that more personality? Directions feels unnecessarily orange and like
+  maybe a color focus would be better on starred." (2026-10-07, Hanging Tag
+  stub; chat).
+
 - **Colour must communicate, or go neutral.** "The color is not really
   communicating anything on a visited badge… Let's make all the visited
   badges that cream background with a neutral color" (chat).
@@ -197,6 +203,12 @@ sources are the file where the quote is recorded.
   panel not the list header." (chat).
 - **Mode-specific controls only in their mode.** "plans picker only in the
   plans view… Is it not confusing the plans/places metaphor?" (chat).
+- **Signed out: Directions stays tappable; greyed-out controls offer
+  sign-in.** "Direction stays tappable, tapping greyed out should offer sign
+  in." (2026-10-07, popup; chat). Also on the Visited moment: "when visited
+  is tapped should we screen it back with the visited stamp on top? Or use
+  another action method to trigger the stamp that makes more sense?"
+  (open, 2026-10-07).
 - **Signed out: actions visible but disabled.** "If you're not logged in
   actions should be visible but disabled" (2026-10-05, popup actions;
   chat). Applies to the edit actions (star, visited); Directions needs no
