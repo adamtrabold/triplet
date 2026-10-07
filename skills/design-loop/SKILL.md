@@ -1,6 +1,6 @@
 ---
 name: design-loop
-description: The owner's design loop for product work done with agents — how the orchestrator (the main session) runs it, which lane a change takes (tweak, feature/new look, gesture/data), and the briefs for the product designer (UX focus), the product designer (UI focus) and the creative director. Use whenever a session will design, redesign or visually change a product's UI, fix a UI bug, spin up designer/UX/CD agents, or decide how much process a change needs.
+description: The owner's design loop for product work done with agents — how the orchestrator (the main session) runs it, which lane a change takes (tweak, feature/new look, gesture/data), and the briefs for the product designer (UX focus), the product designer (UI focus) and the design director. Use whenever a session will design, redesign or visually change a product's UI, fix a UI bug, spin up designer or design-director agents, or decide how much process a change needs.
 ---
 
 # Design loop
@@ -31,10 +31,10 @@ the narrow industry sense.
 - **Product designer, UX focus** — the overall experience of the app and its
   interactions: jobs, flows, gestures, what persists between views. Brief:
   `roles/product-designer-ux.md`.
-- **Creative director (CD)** — the product as a whole: adherence to the
-  project's and brand's goals, its presence and identity, and the quality
-  bar. The last check before the owner sees anything. Brief:
-  `roles/creative-director.md`.
+- **Design director** — the product as a whole, as both a product and a
+  brand: does it serve the project's goals, does it look and feel like
+  itself, and is it good enough to show the owner. The last check before the
+  owner sees anything. Brief: `roles/design-director.md`.
 
 The orchestrator runs the process, writes briefs, lands work and talks to
 the owner. The owner has the final say on every look.
@@ -61,13 +61,14 @@ instead of doing it.
    checks covering the diff plus the project's UI quality gate if it has
    one, self-reviews against the project's rules, shows the owner the stills
    BEFORE landing a new look, and lands on the owner's "yes" (immediately
-   for a plain bug with no visual change). No CD, no UX, no review loops.
+   for a plain bug with no visual change). No design director, no UX check,
+   no review loops.
 2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces
    phone-readable stills, with the product designer (UX focus) when the
    interaction is new; the owner sees them first. After approval ONE
-   builder builds it. ONE combined CD + UX check (in parallel, each with its
-   brief verbatim plus the owner's words for the task) runs ONCE on the
-   finished build, not per round; fixes go in one batch; the owner sees
+   builder builds it. ONE combined design-director + UX check (in parallel,
+   each with its brief verbatim plus the owner's words for the task) runs
+   ONCE on the finished build, not per round; fixes go in one batch; the owner sees
    final stills if anything visual changed after approval; then land.
 3. **GESTURE / DATA** — touch/gesture plumbing or the database add the
    project's full regression gate ONCE at the very end (not per round), and
@@ -102,13 +103,14 @@ instead of doing it.
   and why that covers the diff.
 - **Every agent that edits files gets its own isolated checkout** (worktree)
   when the environment supports it; discovery-only agents may share.
-- **Independence:** a fresh CD for every scoring; nobody scores their own
+- **Independence:** a fresh design director for every
+  scoring; nobody scores their own
   work or their own idea.
 
 ## Why it's set up this way
 
-- The CD and UX checks are strict because spec-matching let bad work
-  through: a concept the CD scored 9/10 was rejected outright by the owner
+- The design-director and UX checks are strict because spec-matching let bad work
+  through: a concept the design director scored 9/10 was rejected outright by the owner
   for visual noise, and a design passed UX while a core job couldn't be
   completed.
 - The lanes are deliberately light because running full process on small
