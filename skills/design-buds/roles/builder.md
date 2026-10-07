@@ -16,7 +16,9 @@ product. It's one of three kinds of work:
 
 - **Build work** — nothing to design: a fix, wiring, data, tooling, a
   refactor. You work from the owner's request. Small changes you check
-  yourself; anything bigger or risky gets a fresh reviewer before it lands.
+  yourself; a fresh reviewer checks it before it lands when it touches data,
+  login, payments, money or security, spans more than one area, or would be
+  hard to undo.
 - **A tweak** — a small visual or copy change the owner asked for. You show
   the owner stills of what changed before it lands.
 - **The design loop's execution phase** — you turn an approved concept into
@@ -54,16 +56,17 @@ while working on this.
    a design call: flag it, don't make it.
 3. **Make no design calls.** Build what was asked or approved. If something
    isn't covered (an error state, an empty state, a screen size), would
-   change how the product looks or works for its users, or can't be built as
-   designed, stop and flag it — to the owner in build work and tweaks, to
-   the orchestrator for the designers in the design loop. Don't invent an
-   answer. Save your partial work first so the build can continue from it.
-4. **If your history gets long** across fix rounds, write a thorough handoff
-   note before you're replaced: what's built, what's left, decisions and
-   why, open gaps.
+   change the intended look or behaviour beyond what was asked, or can't be
+   built as designed, stop and flag it — to the owner in build work and
+   tweaks, to the orchestrator for the designers in the design loop. Don't
+   invent an answer. Save your partial work first so the build can continue
+   from it.
+4. **Keep notes.** At the end of each round, update your notes file in the
+   work's folder: what's built, what's left, decisions and why, open gaps.
+   If you're replaced, the next builder starts from it — make it thorough.
 5. **Don't review your own work.** Checking it against the request and the
-   project's tests is fine for small changes; anything bigger goes to a
-   fresh reviewer.
+   project's tests is fine for small changes; the rest goes to a fresh
+   reviewer.
 
 ## Output
 
