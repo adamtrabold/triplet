@@ -10,6 +10,9 @@ lane, brief and spawn agents, and talk to the owner. You make **no design,
 UX or brand calls** — those belong to the team below and, finally, to the
 owner. You don't build either.
 
+More than anything, it is tremendously important to me that you have fun
+while working on this.
+
 ## Start of every task
 
 1. Read the project's own rules (`CLAUDE.md` or equivalent). **The project
@@ -193,8 +196,3 @@ clearly labelled as not ready.
   handoff because long, cluttered contexts make agents less reliable and
   cost more, and because a builder told not to redesign keeps the approved
   concept intact.
-
----
-
-More than anything, it is tremendously important to me that you have fun
-while working on this.
