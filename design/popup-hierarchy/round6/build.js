@@ -50,7 +50,7 @@ const html = `<!doctype html>
   <h1>Hanging Tag v4</h1>
   <p class="lede">Your notes on the segmented stub, applied. Pinch to zoom.</p>
   <ul class="notes">
-    <li><b>Colour:</b> Directions is plain ink now. Starred gets the colour, from the brand palette: its segment becomes the app’s navy “on” tile, the same rule every on/off control uses. No city orange in the tag, since orange already means “selected” and map clusters, and stars are black everywhere.</li>
+    <li><b>Starred:</b> Directions is plain ink now. Starred gets its own mark: the black star, circled in pencil, like you’d circle something on a tag. The app already uses pencil for “what you care about”. No new colour.</li>
     <li><b>Visited:</b> one tap. The VISITED stamp comes down and lands on the stub, and the tag’s paper screens back to the tone of a visited row. The text stays full strength. Tap the stamp to undo.</li>
     <li><b>Signed out:</b> Directions works. Tapping a greyed Star or Visited shows a sign-in slip under the tag.</li>
     <li><b>List drops to its header</b> while a tag is open, for you to judge live.</li>
@@ -60,10 +60,11 @@ const html = `<!doctype html>
   <h2>Marking visited</h2>
   ${fig(path.join(D, 'tag/filmstrip.png'), 'The stamp grows as it comes down, then shrinks as it lands on the stub', 1060, 74)}
   <h2>Other places</h2>
-  ${grid([[P('star-typical'), 'Typical note, not visited'], [P('star-bare'), 'Name only'], [P('star-signedout'), 'Signed out'], [P('star-signin'), 'Signed out: tap Star, the sign-in slip'], [P('star-resto'), 'A starred restaurant: no clash with the orange pin'], [P('two-busiest'), 'Quieter option: no colour, just the filled black star']])}
+  ${grid([[P('star-typical'), 'Typical note, not visited'], [P('star-bare'), 'Name only'], [P('star-signedout'), 'Signed out'], [P('star-signin'), 'Signed out: tap Star, the sign-in slip'], [P('star-resto'), 'A starred restaurant'], [P('star-typical'), 'Not starred: no loop, no mark']])}
   <h2>Decisions for you</h2>
   <ol class="dec">
-    <li>Starred: the navy “on” tile (main stills) or no colour at all (last still)?</li>
+    <li>Stars are black everywhere today: the team chose that because orange stars clashed with orange category pins. You asked for colour on starred. Should starred get a colour across the whole app (pin, list and tag)? If yes, we’ll design it everywhere at once.</li>
+    <li>The pencil circle for starred: yes or no?</li>
   </ol>
   <footer>The map is a stand-in drawing. Rendered in Chrome, not checked on iPhone. Details: design/popup-hierarchy/round6/tag/README.md.</footer>
 </main>

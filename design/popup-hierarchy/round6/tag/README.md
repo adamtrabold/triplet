@@ -118,48 +118,51 @@ stamp and filed paper the list already uses for visited.
 is **A + Visited 1**. C + 1 is the one quiet alternate, shown once
 (`two-busiest`, `two-typical`).
 
-**The colour conflict, superseded by the owner's palette note (2026-10-07):**
-"Keep in mind the brand color palette.. we should be using best practices
-around how to apply consistently and meaningfully". The first fix (a 30%
-`--figure` print) gave the city accent a new meaning, "starred". The app
-had already ruled that out: stars are black `--ink` everywhere, and
-`--figure-deep` was dropped from the star because it "merged with/clashed
-against orange category rings" (`docs/shipped.md`, Pencil Star rounds 4–6).
-`--figure-deep` also already means "cluster" on the map and "selected" on a
-row. So **the tag uses no city accent at all.** Starred uses the state
-system's existing **ON** rule (`design/state-system/`: "on / open /
-selected = `--state-on-bg` tile + `--state-on-fg` glyph"): a navy tile, inset
-by `--state-tile-inset`, with the paper star and STARRED. Starring is an on
-toggle, so this is the app's own grammar, and it's the brand's navy (the
-frame). The star stays the app's one star shape; only its tile says "on".
-The dashed dividers and notches stay visible around the inset tile, and the
-name still leads at 1x. Alternate C is now **no colour**: the filled black
-star only.
+**Starred, final (after `cd-check.md`).** The navy tile is gone. It copied the
+`.seg[aria-checked]` "selected option" look, it was the heaviest mass on the
+tag, and it made navy mean both starred and visited. My earlier claim that it
+was "the rule every on/off control uses" was wrong: the state system's named
+exception 2 says star and visited "on" is a filled glyph with no tile.
+
+Starred now follows the state system (the filled black star) and gets a mark
+of its own from the app's grammar: **printed = the guide's facts, stamped =
+where you've been, pencilled = what you care about.** It's a loose
+hand-drawn pencil loop around STARRED, the way you'd circle something on a
+tag; the references have handwriting in their fields. It's drawn in `--ink`
+at pencil weight (1.2px, 60%), loose and tilted so it never reads as the stamp's oval, with no tile and no colour, so it stays well
+under the name. Visited stays the stamp on its segment, so each state has
+its own mark.
+
+**The colour question, plainly, for the owner:** stars are black everywhere
+in the app because the team ruled the orange accent clashed with orange
+category rings (Pencil Star rounds 4–6). That was a team ruling, not the
+owner's words. The owner has asked for "a color focus … on starred". Should
+starred have a colour app-wide, on the pin, list and tag together? Until the
+owner says yes, the tag keeps starred black and gets its personality from
+the pencil mark instead.
 
 ### Colour map (tag) vs meaning elsewhere
 
 | Colour (token) | In the tag | Elsewhere in the app | Same meaning? |
 |---|---|---|---|
-| `--paper-raised` | tag stock | raised surfaces: chips, fields, the sticker face, the plan slip | yes |
-| `--paper-filed` | the tag's paper once visited (screen-back) | a visited list row's field | yes |
-| `--ink` | name, note, Directions, Star, the unstarred star | body text; the star on the pin and in the list | yes |
-| `--ink-2` | address, TYPE / PLAN, × | metadata and category labels | yes |
-| `--hair` | perforation, dividers, grommet edge | 1px rules, dashed borders | yes |
-| `--state-on-bg` (navy) + `--state-on-fg` | the starred segment's tile | every ON / open / selected control tile | yes, starred is an on toggle |
-| stamp navy 82% | the VISITED stamp on the stub | the row stamp; `STICKER.INK` on pins | yes |
-| `--navy` (sign-in slip text) | slip copy | the `#planSlip` text | yes |
-| `--figure`, `--figure-deep` | **not used** | buttons and accents, selected row, cluster | n/a |
+| `--paper-raised` | tag stock | raised surfaces: chips, fields, sticker face, plan slip | yes |
+| `--paper-filed` | the tag's paper once visited | a visited list row's field | yes |
+| `--paper` | the eyelet's reinforcement patch | the base ground | yes (a paper step) |
+| `--paper-pressed` | the patch once the tag is filed | the pressed row (one step down) | a paper step only; no "pressed" meaning implied |
+| `--ink` | name, note, Directions, Star, the filled star, the pencil loop | body text; the black star on pin and list; the Pencil Star graphite | yes |
+| `--ink-2` | address, TYPE/PLAN, ×, the string | metadata and labels | yes (a quiet line) |
+| `--hair` | perforation, dividers, grommet | 1px rules, dashed borders | yes |
+| `.row-stamp` ink, `color-mix(--navy 82%)` | the VISITED stamp on the stub | the list row stamp | yes. Pins use `STICKER.INK` #3A4C5B, the same ink flattened |
+| `--navy` | sign-in slip text | `#planSlip` text | yes |
+| `--figure`, `--figure-deep` | not used | accent buttons, selected row, cluster | n/a |
 
-No new hex values. The eyelet patch `#EDE4D3` / grommet `#CFC5B1` from
-round 5 are paper steps between `--paper` and `--hair`. Nothing in the app
-changes meaning, so there's no app-wide decision. **Owner question,
-optional:** does "starred" want a colour of its own app-wide? Today it's
-black everywhere, and the tag keeps it that way.
+**Off-token hex values: none left.** The patch, the grommet, the screened
+patch and the string now use `--paper`, `--hair`, `--paper-pressed` and
+`--ink-2`. The only literals left are `#fff`/`#000` in SVG masks.
 
 **Restaurant case** (`star-resto`): a starred Bæjarins Beztu under the
 Reykjavík palette, where the accent #A8400C is closest to restaurant
-#AC5019. With no accent in the tag there's no clash: the navy ON tile sits
-under the orange pin.
+#AC5019. With no accent in the tag there's no clash.
 
 **One VISITED on the tag.** The stamp now lands **on the Visited segment
 of the stub** (a stamped claim stub, as on the references). The stamp is
