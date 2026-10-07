@@ -81,6 +81,8 @@ J.push(['final/stockholm/list', { group: 'final', city: 'stockholm', list: true 
   F('narrow-240-both', { place: 'aurora', id: 'rey07', starred: true, visited: true, w: 256 });
   F('narrow-240-plain', { place: 'aurora', id: 'rey07', starred: false, visited: false, w: 256 });
   F('normal-316-starred', { place: 'aurora', id: 'rey07', starred: true, visited: false });
+  F('normal-316-both', { place: 'aurora', id: 'rey07', starred: true, visited: true });
+  F('se-288-both', { place: 'aurora', id: 'rey07', starred: true, visited: true, w: 320 });
   F('maptap-row-in-view', { id: 'late', maptap: true });
   F('maptap-row-in-view-664', { id: 'late', maptap: true, h: 664 });
   F('keyboard-focus', { place: 'aurora', id: 'rey07', starred: false, visited: false, kbd: true });

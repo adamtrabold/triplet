@@ -2000,14 +2000,21 @@
       -webkit-mask: var(--tex-stamp) 0 0 / 90px 90px; mask: var(--tex-stamp) 0 0 / 90px 90px; }
     .tag-seg.popup-visited .row-stamp.tag-stamp-in { animation: tagStampIn 420ms linear both; }
     .tag-stamp-out { position: absolute; left: 50%; top: 50%; margin: -16px 0 0 -36px; pointer-events: none; animation: tagStampOut 220ms ease-out forwards; }
+    /* Smaller tags, smaller stamp (owner 2026-10-07: "visited should get smaller on smaller screens"):
+       stepped by the stub's width so it always sits inside its segment with clear margin.
+       316 (every iPhone but SE-size): 1.1x, unchanged. 256-299 (SE 320 -> 288 tag): 1.0x, 72x32.
+       < 256 (the 240 minimum): 0.85x, 61x27, ~9px clear each side of an 80px segment. The motion
+       below is written relative to the resting scale, so it is the same stamp, only smaller. */
+    @container (max-width: 299.98px) { .tag-seg.popup-visited .row-stamp { --tag-stamp-scale: 1; } }
+    @container (max-width: 255.98px) { .tag-seg.popup-visited .row-stamp { --tag-stamp-scale: .85; } }
     @keyframes tagStampIn {
-      0%   { transform: rotate(-14deg) scale(2.3); opacity: 0; filter: blur(.6px); animation-timing-function: cubic-bezier(.3, 0, .8, .4); }
+      0%   { transform: rotate(-14deg) scale(calc(var(--tag-stamp-scale, 1.1) * 2.0909)); opacity: 0; filter: blur(.6px); animation-timing-function: cubic-bezier(.3, 0, .8, .4); }
       30%  { opacity: .35; }
-      62%  { transform: rotate(calc(var(--stamp-tilt, -3deg) - 1deg)) scale(1); opacity: 1; filter: blur(0); animation-timing-function: cubic-bezier(.2, .8, .3, 1); }
-      82%  { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.15); }
-      100% { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.1); opacity: 1; }
+      62%  { transform: rotate(calc(var(--stamp-tilt, -3deg) - 1deg)) scale(calc(var(--tag-stamp-scale, 1.1) * .9091)); opacity: 1; filter: blur(0); animation-timing-function: cubic-bezier(.2, .8, .3, 1); }
+      82%  { transform: rotate(var(--stamp-tilt, -3deg)) scale(calc(var(--tag-stamp-scale, 1.1) * 1.0455)); }
+      100% { transform: rotate(var(--stamp-tilt, -3deg)) scale(var(--tag-stamp-scale, 1.1)); opacity: 1; }
     }
-    @keyframes tagStampOut { to { opacity: 0; transform: rotate(var(--stamp-tilt, -3deg)) scale(1.25); } }
+    @keyframes tagStampOut { to { opacity: 0; transform: rotate(var(--stamp-tilt, -3deg)) scale(calc(var(--tag-stamp-scale, 1.1) * 1.1364)); } }
 
     /* Signed out: Directions stays live; Star and Visited are visibly off (the state system's off
        alpha, the orange field included) but stay focusable -- a tap offers sign-in (the slip). */

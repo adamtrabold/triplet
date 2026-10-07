@@ -115,6 +115,9 @@ sources are the file where the quote is recorded.
   labels at narrow widths, Impeccable A6; chat). Don't force one line;
   a two-line label is centred, balanced, at the same line height, and the
   marks beside it stay aligned.
+- **Marks scale down with the space they sit in.** "Yes but visited should
+  get smaller on smaller screens" (2026-10-07, the tag's VISITED stamp on
+  the 240px tag; chat).
 - **Controls don't move or grow.** "I don't want it to grow height/for the
   button to change physical location after click and it's getting very tall"
   (Plans/Places toggle: it stays put; the panel is fixed height and scrolls;
