@@ -15,6 +15,14 @@ sources are the file where the quote is recorded.
 - **No dots/decoration that adds noise.** "Dots add an insane amount of
   visual noise absolutely not" (visited-pin dots concept, CD-scored 9/10;
   chat).
+  - **Exception: the shape anchor dot.** "Dot or something in the middle is
+    fine" (2026-10-07, what an open district/street tag hangs from; chat).
+    A small mark at the district's label point or the street's midpoint,
+    shown only while its tag is open.
+- **Districts and streets need no map pin.** "I guess the district and
+  streets are fine with just the area box nevermind" (2026-10-07; chat).
+  Supersedes "Districts and streets need a map pin type" (same day); the
+  shape-pin work is shelved.
 - **No second row of text.** Rejected because "two rows of text it reduces
   clarity" (sort control; chat).
 - **No extra header height.** Rejected for the sort control (chat). The

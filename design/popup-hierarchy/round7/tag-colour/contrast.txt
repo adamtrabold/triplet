@@ -1,5 +1,5 @@
---paper-raised #FAF5EA: --ink 16.03, --ink-2 6.73, --star 6.30, stamp ink (#3A4C5B) 8.17, Directions (--ink) 16.03
---paper-filed #E7DFD0: --ink 13.17, --ink-2 5.53, --star 5.18, stamp ink (#3A4C5B) 6.71, Directions (--ink) 13.17
---paper-starred (12% star on raised) #F0DCDB: --ink 13.25, --ink-2 5.56, --star 5.21, stamp ink (#3A4C5B) 6.75, Directions (--ink) 13.25
---paper-starred-filed (12% star on filed) #DFC9C4: --ink 11.03, --ink-2 4.63, --star 4.34, stamp ink (#3A4C5B) 5.62, Directions (--ink) 11.03
-band --star #A3266F: --paper text 5.78, --paper-raised 6.30
+--paper-raised #FAF5EA: --ink 16.03, --ink-2 6.73, --star 4.97, stamp ink (#3A4C5B) 8.17, Directions (--ink) 16.03
+--paper-filed #E7DFD0: --ink 13.17, --ink-2 5.53, --star 4.08, stamp ink (#3A4C5B) 6.71, Directions (--ink) 13.17
+--paper-starred (22% star on raised) #EDCACF: --ink 11.58, --ink-2 4.86, --star 3.59, stamp ink (#3A4C5B) 5.90, Directions (--ink) 11.58
+--paper-starred-press (34%) #E6B2C0: --ink 9.54, --ink-2 4.00, --star 2.96, stamp ink (#3A4C5B) 4.86, Directions (--ink) 9.54
+band --star #C0306E: --paper text 4.55, --paper-raised 4.97

@@ -4,7 +4,7 @@
 const path = require('path'), fs = require('fs'), { execFileSync } = require('child_process');
 const { launch, openProto, W, drag, line, rowRect } = require('../../../gesture-harness/lib');
 const OUT = __dirname;
-const OPTS = { ink: ['#1A1A18', 'Today: black ink'], magenta: ['#A3266F', 'A Red-pencil magenta'], leaf: ['#4E7A0E', 'B Leaf green'] };
+const OPTS = { ink: ['#1A1A18', 'Today: black ink'], pink: ['#C0306E', 'Pink ink (lead)'], plum: ['#A3266F', 'Plum magenta'] };
 const BASE = fs.readFileSync(path.join(__dirname, '../../round1/concepts.js'), 'utf8').match(/  function basemap\(\) \{[\s\S]*?\n  \}\n/)[0];
 const HELPERS = fs.readFileSync(path.join(__dirname, '../../round3/concepts.js'), 'utf8').replace('/*BASEMAP*/', () => BASE)
   .replace('  window.K = {', '  window.K2 = { esc, ic, rowStamp, seal, typeWord, meta, dirBtn, starBtn, acts0: acts, addr1, select, pinScreen, movePinTo, anno, tapAt, bg, SHADOW, growMap, basemap, place };\n  window.K = {');
@@ -14,7 +14,7 @@ const css = c => `:root { --star: ${c}; }
   .location-card.highlighted .row-star { color: var(--paper) !important; }   /* reversed block: everything paper, as today */
   .c-star .W-seg.star.on { color: var(--star) !important; }`;
 // starred: restaurants (orange) and a visited cafe; visited: several
-const STAR = ['00', '03', '06', '01', '02', '10', '12'], VIS = ['01', '02', '12', '04'];
+const STAR = ['00', '01', '02', '03', '05', '06', '08', '10', '12', '15'], VIS = ['01', '02', '04', '05', '12', '15'];
 
 async function prep(b, city, { plan = false } = {}) {
   const pre = city.slice(0, 3);
@@ -39,11 +39,12 @@ async function shot(page, name, clip) {
   for (const [key, [hex]] of Object.entries(OPTS)) {
     if (only.length && !only.includes(key)) continue;
     // 1 the list, two orange-accent cities (Reykjavík, Copenhagen), one starred row highlighted
-    for (const city of ['reykjavik', 'copenhagen']) {
+    for (const city of ['reykjavik', 'malmo']) {
       const { ctx, page } = await prep(b, city);
       await page.addStyleTag({ content: css(hex) });
-      await page.evaluate(pre => { try { setHighlighted(pre + '03'); } catch (e) {} }, city.slice(0, 3)); await W(400);
-      await shot(page, `${key}-list-${city}`, { x: 0, y: 520, width: 390, height: 324 });
+      await page.addStyleTag({ content: '#locations { height: 700px !important; }' });
+      await page.evaluate(pre => { try { setHighlighted(pre + '03'); } catch (e) {} document.getElementById('locationsList').scrollTop = 0; }, city.slice(0, 3)); await W(500);
+      await shot(page, `${key}-list-${city}`, { x: 0, y: 140, width: 390, height: 704 });
       await ctx.close();
     }
     // 2 the map: starred pins beside orange restaurant pins, and clusters (zoom out one step)
@@ -51,7 +52,7 @@ async function shot(page, name, clip) {
       await page.addStyleTag({ content: css(hex) });
       await page.evaluate(() => { document.getElementById('locations').classList.add('collapsed'); map.setView([64.1466, -21.9426], 14, { animate: false }); }); await W(700);
       await shot(page, `${key}-map-near`, { x: 0, y: 120, width: 390, height: 420 });
-      await page.evaluate(() => map.setView([64.1466, -21.9426], 12, { animate: false })); await W(700);
+      await page.evaluate(() => map.setView([64.1466, -21.9426], 11, { animate: false })); await W(900);
       await shot(page, `${key}-map-far`, { x: 0, y: 120, width: 390, height: 420 });
       await ctx.close(); }
     // 3 the tag (round 6 design, pencil circle kept): VEGA busiest

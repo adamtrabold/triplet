@@ -33,31 +33,33 @@ const DATA = {
 
 // [name, state, opts, caption]
 const J = [
-  ['stub-busiest', 'busiest', { paperMode: 'stub' }, '1 The stub carries the state: busiest (starred + visited)'],
-  ['stub-typical', 'typical', { paperMode: 'stub' }, '1 The stub carries the state: typical (neither)'],
-  ['stub-visited', 'typ-v', { paperMode: 'stub' }, '1 The stub carries the state: visited'],
-  ['stub-starred', 'typ-s', { paperMode: 'stub' }, '1 The stub carries the state: starred'],
-  ['stub-both', 'typ-sv', { paperMode: 'stub' }, '1 The stub carries the state: starred + visited'],
-  ['stub-signedout', 'typ-s', { paperMode: 'stub', so: true }, '1 The stub carries the state: signed out (starred)'],
-  ['whole-busiest', 'busiest', { paperMode: 'whole' }, '2 The whole tag carries the state: busiest (starred + visited)'],
-  ['whole-typical', 'typical', { paperMode: 'whole' }, '2 The whole tag carries the state: typical (neither)'],
-  ['whole-visited', 'typ-v', { paperMode: 'whole' }, '2 The whole tag carries the state: visited'],
-  ['whole-starred', 'typ-s', { paperMode: 'whole' }, '2 The whole tag carries the state: starred'],
-  ['whole-both', 'typ-sv', { paperMode: 'whole' }, '2 The whole tag carries the state: starred + visited'],
-  ['whole-signedout', 'typ-s', { paperMode: 'whole', so: true }, '2 The whole tag carries the state: signed out (starred)'],
-  ['band-busiest', 'busiest', { paperMode: 'band' }, '3 A coloured band for starred: busiest (starred + visited)'],
-  ['band-typical', 'typical', { paperMode: 'band' }, '3 A coloured band for starred: typical (neither)'],
-  ['band-visited', 'typ-v', { paperMode: 'band' }, '3 A coloured band for starred: visited'],
-  ['band-starred', 'typ-s', { paperMode: 'band' }, '3 A coloured band for starred: starred'],
-  ['band-both', 'typ-sv', { paperMode: 'band' }, '3 A coloured band for starred: starred + visited'],
-  ['band-signedout', 'typ-s', { paperMode: 'band', so: true }, '3 A coloured band for starred: signed out (starred)'],
+  ['band-shape', 'shape', { paperMode: 'band' }, 'District open: the tag hangs from a dot at its middle'],
+  ['band-street', 'street', { paperMode: 'band' }, 'Street open: the tag hangs from a dot at its midpoint'],
+  ['band-busiest', 'busiest', { paperMode: 'band' }, 'Band: busiest (starred + visited)'],
+  ['band-typical', 'typical', { paperMode: 'band' }, 'Band: neither'],
+  ['band-visited', 'typ-v', { paperMode: 'band' }, 'Band: visited'],
+  ['band-starred', 'typ-s', { paperMode: 'band' }, 'Band: starred'],
+  ['band-both', 'typ-sv', { paperMode: 'band' }, 'Band: starred + visited'],
+  ['band-signedout', 'typ-s', { paperMode: 'band', so: true }, 'Band: signed out (starred)'],
+  ['band-pressed', 'typ-s', { paperMode: 'band', press: true }, 'Band: Star segment pressed'],
+  ['whole-busiest', 'busiest', { paperMode: 'whole' }, 'Whole tag: busiest (starred + visited)'],
+  ['whole-typical', 'typical', { paperMode: 'whole' }, 'Whole tag: neither'],
+  ['whole-visited', 'typ-v', { paperMode: 'whole' }, 'Whole tag: visited'],
+  ['whole-starred', 'typ-s', { paperMode: 'whole' }, 'Whole tag: starred'],
+  ['whole-both', 'typ-sv', { paperMode: 'whole' }, 'Whole tag: starred + visited'],
+  ['whole-signedout', 'typ-s', { paperMode: 'whole', so: true }, 'Whole tag: signed out (starred)'],
+  ['whole-pressed', 'typ-s', { paperMode: 'whole', press: true }, 'Whole tag: Star segment pressed'],
 ];
 
 async function setup(b, state) {
   const plan = state === 'busiest' || state === 'worst';
   const { ctx, page, errors } = await openProto(b, { dsf: 3, reduced: true, storage: plan ? { 'gh.plans': '1', 'triplet.reorderHint': '1' } : {} });
   if (plan) { await page.waitForFunction(() => typeof plans !== 'undefined' && plans.length === 1, null, { timeout: 10000 }); await page.evaluate(() => setListView('plans')); await W(600); }
-  if (state === 'shape') {
+  if (state === 'street') {
+    await page.evaluate(async () => { const s = window.__SHAPES.find(x => x.city === 'reykjavik' && x.type === 'street'); s.label = 'Laugavegur'; s.visited = false; s.starred = false; await refetchNeighborhoodShapes(); });
+    await W(300);
+    await page.evaluate(() => { const s = neighborhoodShapes.find(x => x.city === 'reykjavik' && x.type === 'street'); map.setView(shapeAnchor(s), 16, { animate: false }); });
+  } else   if (state === 'shape') {
     await page.evaluate(async () => { const s = window.__SHAPES.find(x => x.city === 'reykjavik' && x.type === 'district'); s.label = 'Grandi (Old Harbour creative district)'; await refetchNeighborhoodShapes(); });
     await W(300);
     await page.evaluate(() => { const s = neighborhoodShapes.find(x => x.city === 'reykjavik' && x.type === 'district'); map.setView(shapeAnchor(s), 16, { animate: false }); });
@@ -80,7 +82,7 @@ async function setup(b, state) {
     const { ctx, page, errors } = await setup(b, state);
     await page.addScriptTag({ content: HELPERS }); await page.addScriptTag({ content: TAG });
     let sels;
-    try { sels = await page.evaluate(([st, o]) => { K.css(); K2.basemap(); const sty = document.createElement('style'); sty.textContent = ':root{--star:#A3266F;--paper-starred:color-mix(in srgb,var(--star) 12%,var(--paper-raised));--paper-starred-filed:color-mix(in srgb,var(--star) 12%,var(--paper-filed))} .row-star,.marker-star-ink{color:var(--star)!important}'; document.head.appendChild(sty); window.__anno = true; const P = K2.place(st); return TAG5(P, o); }, [state, opts]); }
+    try { sels = await page.evaluate(([st, o]) => { K.css(); K2.basemap(); const sty = document.createElement('style'); sty.textContent = ':root{--star:#C0306E;--paper-starred:color-mix(in srgb,var(--star) 22%,var(--paper-raised));--paper-starred-press:color-mix(in srgb,var(--star) 34%,var(--paper-raised))} .row-star,.marker-star-ink{color:var(--star)!important}'; document.head.appendChild(sty); window.__anno = true; let P = K2.place(st === 'street' ? 'shape' : st); if (st === 'street') { const s = neighborhoodShapes.find(x => x.city === 'reykjavik' && x.type === 'street'); P = { ...shapeRowItem(s), shape: s, ink: s.color || categoryInk('street'), kind: 'diamond', category: 'street', stop: '' }; } return TAG5(P, o); }, [state, opts]); }
     catch (e) { console.log('FAIL', name, e.message); await ctx.close(); continue; }
     await page.evaluate(() => document.fonts.ready); await W(500);
     const box = await page.evaluate((sels) => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;

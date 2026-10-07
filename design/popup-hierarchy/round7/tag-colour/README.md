@@ -72,3 +72,54 @@ out). The pin star uses `--star` throughout. `render.js` re-renders;
 - Visited never uses `--star`, and starred never uses navy or filed paper.
 - The city accent isn't in the tag at all.
 - The pencil circle stays, provisionally, in `--ink` graphite.
+
+---
+
+## After the UX and CD reviews
+
+**Stub is dropped.** Band and Whole are shown side by side, like for like:
+the same stub, dividers and pencil circle. The star is now pink ink
+`#C0306E`.
+
+**Band**
+- At most 3 starred signals on the tag: the band, the pink star glyph and
+  the provisional pencil circle. The STARRED word is ink now.
+- The × has moved off the band, onto the name row in every option, so it
+  never sits on a state colour.
+
+**Whole**
+- It's now a real rose stock: `--paper-starred` is 22% star on
+  `--paper-raised` (#EDCACF).
+- When a place is starred and visited, **starred wins the paper** and
+  visited shows as the stamp, so there's no muddy blush-on-filed.
+- Contrast on rose: `--ink` 11.58:1, `--ink-2` 4.86:1, star glyph 3.59:1.
+
+**Pressed** (`*-pressed`)
+- On raised paper a pressed segment uses `--state-press`, on filed paper
+  `--state-press-filed`, and on rose a new `--paper-starred-press` (34%
+  star, #E6B2C0; ink 9.54:1).
+- The pink glyph on that press is 2.96:1. It's transient and the shape
+  carries the state, so this is flagged rather than fixed.
+
+**Signed out**
+- The dimmed Star keeps its filled star in grey ink at the off alpha, with
+  no pink on a disabled control.
+- VoiceOver reads "Starred, sign in to change".
+- The paper still shows the state.
+
+**Figure/ground:** every tag carries the owner-approved 1px warm edge
+(`STICKER.EDGE`, rgba(107,74,40,.22)) on its outline, plus the restrained
+shadow, so filed paper still stands off the tan basemap. On real tiles this
+is unchecked.
+
+**Districts and streets** (`band-shape`, `band-street`)
+- No pin (owner). While the tag is open, a small dot sits at the area's
+  middle: the district's label point, or the street's midpoint. The string
+  hangs from it.
+- The dot is 8px in the shape's own ink on a 2px `--paper` ring, the same
+  halo rule as the map star.
+- The owner OK'd this dot: "Dot or something in the middle is fine". It's
+  recorded in `docs/owner-taste.md` as an exception to the no-dots rule.
+
+The owner page is `../index.html` ("Star Colour & Tag Paper"), built by
+`../build.js`.

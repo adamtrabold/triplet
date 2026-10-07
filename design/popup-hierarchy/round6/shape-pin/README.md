@@ -1,3 +1,5 @@
+> **Shelved (2026-10-07).** Owner: "I guess the district and streets are fine with just the area box nevermind". No pin for shapes; an open tag hangs from a small dot at the area's middle (round 7).
+
 # Shape pin: a map pin for districts and streets (round 6, after review)
 
 Designer, 2026-10-07. These are concept stills only, and `index.html` is untouched. The tag is round 6's

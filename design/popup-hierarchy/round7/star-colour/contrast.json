@@ -1,5 +1,59 @@
 {
- "A magenta (lead)": {
+ "Pink ink (lead)": {
+  "hex": "#C0306E",
+  "contrast": {
+   "paper": 4.55,
+   "paper-raised (tag, map halo face)": 4.97,
+   "paper-filed (visited row / filed tag)": 4.08,
+   "paper-pressed": 3.64,
+   "reykjavik highlighted row (--figure-deep)": 1.14,
+   "copenhagen highlighted row (--figure-deep)": 1.1,
+   "malmo highlighted row (--figure-deep)": 1.1,
+   "stockholm highlighted row (--figure-deep)": 1.05,
+   "la highlighted row (--figure-deep)": 1.13
+  },
+  "deltaE2000": {
+   "restaurant": 31.0,
+   "cafe": 36.6,
+   "bar": 37.0,
+   "attraction": 50.5,
+   "nature": 52.5,
+   "shopping": 24.5,
+   "area": 37.5,
+   "hotel": 31.4,
+   "other": 33.6,
+   "district": 46.7,
+   "street": 29.7,
+   "reykjavik --figure": 35.8,
+   "copenhagen --figure": 25.1,
+   "malmo --figure": 53.5,
+   "stockholm --figure": 45.5,
+   "la --figure": 25.8,
+   "reykjavik --figure-deep (cluster/selected)": 29.5,
+   "copenhagen --figure-deep (cluster/selected)": 20.4,
+   "malmo --figure-deep (cluster/selected)": 41.2,
+   "stockholm --figure-deep (cluster/selected)": 36.7,
+   "la --figure-deep (cluster/selected)": 21.3,
+   "visited stamp / sticker ink": 35.3,
+   "navy": 40.6,
+   "ink (today’s star)": 38.7
+  },
+  "nearest": [
+   [
+    "copenhagen --figure-deep (cluster/selected)",
+    20.4
+   ],
+   [
+    "la --figure-deep (cluster/selected)",
+    21.3
+   ],
+   [
+    "shopping",
+    24.5
+   ]
+  ]
+ },
+ "Plum magenta (round 7 A)": {
   "hex": "#A3266F",
   "contrast": {
    "paper": 5.78,
@@ -53,7 +107,7 @@
    ]
   ]
  },
- "B leaf green": {
+ "rejected: leaf green": {
   "hex": "#4E7A0E",
   "contrast": {
    "paper": 4.3,

@@ -88,3 +88,24 @@ For each option (`magenta-*`, `leaf-*`, `ink-*`), busiest first:
 - Changing the star colour is app-wide (lane 2): the list, map, gesture and
   add form all change together, and the Impeccable baselines will need the
   owner's approval to update.
+
+---
+
+## After the UX and CD reviews (`../ux-review.md`, `../cd-review.md`)
+
+- **Leaf green is dropped.** Plum `#A3266F` read purple next to the shopping
+  lavender, so there's one rosier step: **pink ink `#C0306E`** (the lead),
+  framed as the pink ink of the reference tags (Braniff, Bryce), not a
+  "red pencil". Graphite stays the pencil sketch.
+  - Nearest app colours (ΔE2000): Copenhagen `--figure-deep` 20.4, LA 21.3,
+    shopping 24.5. That holds the CD's ≥ ~20.
+  - Contrast: 3.64:1 on `--paper-pressed`, 4.97:1 on `--paper-raised`.
+  - Plum is shown once beside it.
+- **Paper halo on every map star:** kept everywhere (pins, clusters, visited
+  stickers), so colour is never the only cue. The `map-far` stills are now
+  real clusters at zoom 11, with starred clusters wearing the star on their
+  halo.
+- **Busiest list:** a full-height sheet (12 or more rows, mostly starred
+  and visited, long names, one selected row). The lists are Reykjavík and
+  Malmö. No city has a cool accent; Malmö's ochre is the least orange.
+- Stills: `pink-*`, `plum-*`, `ink-*` (today).

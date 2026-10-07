@@ -2,7 +2,7 @@
 to every category colour, every city's --figure / --figure-deep, visited navy and cluster. Writes contrast.json.
    python3 design/popup-hierarchy/round7/star-colour/contrast.py"""
 import json, math, os
-CAND = {'A magenta (lead)': '#A3266F', 'B leaf green': '#4E7A0E', 'rejected: carmine': '#B4233C', 'rejected: ultramarine': '#3B3FA6'}
+CAND = {'Pink ink (lead)': '#C0306E', 'Plum magenta (round 7 A)': '#A3266F', 'rejected: leaf green': '#4E7A0E', 'rejected: carmine': '#B4233C', 'rejected: ultramarine': '#3B3FA6'}
 GROUNDS = {'paper': '#F2EBDD', 'paper-raised (tag, map halo face)': '#FAF5EA', 'paper-filed (visited row / filed tag)': '#E7DFD0', 'paper-pressed': '#DCD3C3'}
 CATS = {'restaurant': '#AC5019', 'cafe': '#6E4C22', 'bar': '#3D5A7A', 'attraction': '#A68018', 'nature': '#1E3A2B', 'shopping': '#8A7AA8',
         'area': '#2B3F52', 'hotel': '#2E2433', 'other': '#4F5450', 'district': '#328177', 'street': '#5E2C17'}
