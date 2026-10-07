@@ -3,11 +3,11 @@
   "flags": "--json --no-config --no-inline-ignores --no-design-system",
   "note": "Accepted runtime (URL-mode, 390x844, stub fixture) findings, as a set across UI states. Changes need owner/operator approval.",
   "states": {
-    "list": 45,
-    "popup": 49,
-    "sort": 45,
-    "add": 45,
-    "plans": 45
+    "list": 47,
+    "popup": 48,
+    "sort": 47,
+    "add": 47,
+    "plans": 47
   },
   "findings": [
     {
@@ -56,16 +56,6 @@
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"Get Directions\" (below 11px floor)",
-      "states": "popup",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
-    },
-    {
-      "id": "undersized-ui-text | 10px functional text \"Mark Visited\" (below 11px floor)",
-      "states": "popup",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
-    },
-    {
       "id": "undersized-ui-text | 10px functional text \"nature · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
@@ -73,11 +63,6 @@
     {
       "id": "undersized-ui-text | 10px functional text \"restaurant · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
-    },
-    {
-      "id": "undersized-ui-text | 10px functional text \"restaurant\" (below 11px floor)",
-      "states": "popup",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
     },
     {

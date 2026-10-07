@@ -6,7 +6,11 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- iPhone check of the Hanging Tag + orange star (branch `popup-hanging-tag`):
+- **FIRST: run the short-address backfill** (`tools/short-address-backfill.html`,
+  in your browser, signed in). Until it runs, no tag shows an address line
+  (0/202 places have `short_address`/`address_details`); the tag lays out
+  cleanly without it. Afterwards, check a few tags show "street number · area".
+- iPhone check of the Hanging Tag + orange star (landed 2026-10-07):
   (1) tap a pin: the map pans it under the top controls and the tag pops out
   of the pin on a straight string with one bounce, smooth in Safari; with
   Reduce Motion on, it is simply there; (2) tap a list row: the map flies,

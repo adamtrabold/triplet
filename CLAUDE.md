@@ -209,12 +209,13 @@ operator makes none of these calls.
 Concept work exists for visited pins (owner hasn't picked); popup star
 concept is in progress. Get a decision before building (lane 2).
 
-- **Popup redesign (Hanging Tag) + orange star** — BUILT on branch
-  `popup-hanging-tag` (not merged; owner sees final stills first). Spec:
+- **Popup redesign (Hanging Tag) + orange star** — LANDED 2026-10-07
+  (owner: "ok i think we're good enough to go to build"). Spec:
   `docs/shipped.md` "Hanging Tag + orange star". Open owner calls: the
   starred treatment (`TAG_STAR_STYLE`, band by default; owner: "orange for
-  star / tag top all the way"). Lands after the owner runs the short-address
-  backfill (0/202 rows filled; no tag shows an address until then).
+  star / tag top all the way"). Next: the owner runs the short-address
+  backfill (0/202 rows filled; no tag shows an address until then) --
+  top of `docs/iphone-checks.md`.
 - **Icon system full revision** (owner, 2026-10-07) — next after the popup
   redesign and star colour; lane 2. Quote and pointers in `docs/backlog.md`.
 - **Popup star alignment** (star looks off when the popup has full

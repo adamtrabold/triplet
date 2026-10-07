@@ -4821,8 +4821,10 @@
         ? `<svg class="sgp tag-star tag-star-anim ${inkNow ? 'sgp-in' : 'sgp-out'}" viewBox="-1 -1 26 26" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>`
         : `<svg class="tag-star${loc.starred ? '' : ' is-open'}" viewBox="-1 -1 26 26" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`;
       // Signed out: still focusable buttons (aria-disabled, never disabled) whose names say why.
-      const starName = off ? `${loc.starred ? 'Starred' : 'Star'}, sign in to use` : 'Star';
-      const visName = off ? `${loc.visited ? 'Visited' : 'Mark visited'}, sign in to use` : (loc.visited ? 'Visited' : 'Mark visited');
+      // One constant name per toggle; aria-pressed carries the state (Impeccable audit: a name that
+      // flips "Mark visited" -> "Visited" on top of aria-pressed announced the state twice).
+      const starName = off ? 'Star, sign in to use' : 'Star';
+      const visName = off ? 'Visited, sign in to use' : 'Visited';
       const tilt = stampTilt(loc.id);
       const stamp = `<span class="row-stamp${stampNow ? ' tag-stamp-in' : ''}" style="--stamp-tilt:${tilt}deg" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>`;
       const visInner = loc.visited ? stamp

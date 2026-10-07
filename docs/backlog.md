@@ -161,7 +161,9 @@ pick/redirect before building anything.
   open"; the name column jumps left on unstarred rows; two greens (moss
   attraction, spruce nature); (7) at 390x664 the compressed list's top
   scroll fade (`#locationsList.scrolling`) softens the selected row's top
-  edge -- superseded 2026-10-07: the fade is now a header shadow.
+  edge -- superseded 2026-10-07: the fade is now a header shadow.; (8) Impeccable critique C3: when the list isn't lowered, a map-tapped
+  pin's navy row may sit scrolled out of view (only a compressed list scrolls
+  it in) -- UX to decide whether to scroll it into view (nearest) every time.
 
 - Impeccable gate follow-ups (`design/impeccable-gate/`): (1) 13 runtime
   baseline identities are "pre-existing, unreviewed" (10px category·city

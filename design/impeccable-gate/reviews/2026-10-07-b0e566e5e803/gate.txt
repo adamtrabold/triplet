@@ -1,0 +1,3 @@
+IMPECCABLE static ok: 3/3 baseline findings, 0 new, 0 missing  (index.html)
+IMPECCABLE runtime ok: 13/13 baseline findings, 0 new, 0 missing  (states: list 47, popup 48, sort 47, add 47, plans 47)
+IMPECCABLE GATE PASSED
