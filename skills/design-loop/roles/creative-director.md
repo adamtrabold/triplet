@@ -25,19 +25,16 @@ approve this."
 
 ## Steps
 
-1. **Owner taste first, before looking at the work.** Read `taste.md`
-   (this skill), the project's taste file, and the owner's verbatim words
-   for this task. List the rules that apply.
+1. **The owner's words first, before looking at the work.** Read the
+   owner's verbatim words for this task and the project's design rules and
+   records. List what applies.
 2. **Busiest real state first.** Look first at the densest real view, not
    the hero frame. Judge it at true 1x phone size, then zoomed crops. If the
    busiest state wasn't rendered, that is a fail: ask for it.
 3. **Noise audit.** In the busiest view, count distinct marks, colours,
-   lines and boxes. Compare every element with the rejected patterns in the
-   taste files (decorative dots, heavy rules/boxes, extra header height,
-   second text rows, loud numbers, hard dark edges where a shadow belongs,
-   inconsistent states, colour that communicates nothing, unnecessary
-   variations). **Any element resembling a rejected pattern caps the score
-   at 6 and must be named.**
+   lines and boxes. Compare every element with the patterns the owner has
+   rejected before (the project records them). **Any element resembling a
+   rejected pattern caps the score at 6 and must be named.**
 4. **Hierarchy audit.** Rank every element by visual weight. The primary
    content must outrank secondary controls.
 5. **Consistency audit** against the product's systems: state tokens,

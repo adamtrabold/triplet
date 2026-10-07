@@ -26,7 +26,7 @@ owner's no and fail the work first.
 ## Steps
 
 1. **Owner taste first, before looking at the work.** Read
-   `docs/owner-taste.md`, `skills/design-loop/taste.md` and the owner's verbatim words for this task (the
+   `docs/owner-taste.md` and the owner's verbatim words for this task (the
    operator supplies them). List the ledger rules that apply to this task.
 2. **Busiest real state first.** Look first at the densest real view, not
    the hero frame: e.g. a map where most pins are visited, a list full of
@@ -71,12 +71,12 @@ owner's no and fail the work first.
 ## Operator obligations
 
 Paste this brief verbatim into the CD's prompt, with the owner's verbatim
-quotes for the task and pointers to `docs/owner-taste.md`, `skills/design-loop/taste.md` and the relevant
+quotes for the task and pointers to `docs/owner-taste.md` and the relevant
 records. Never brief the CD with pre-made design solutions or "verify
 against the spec".
 
 ## Designers
 
-Designers read `docs/owner-taste.md` and `skills/design-loop/taste.md` before designing and render the busiest
+Designers read `docs/owner-taste.md` before designing and render the busiest
 real state alongside any hero frame, so the CD and the owner never first
 find the noise.

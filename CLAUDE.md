@@ -17,11 +17,10 @@ This file loads every session: keep it to rules and pointers. Detail goes in:
 - `docs/iphone-checks.md` — checks only the owner can run on a real device.
 - `docs/ux-brief.md` — mandatory brief/checklist for every UX agent.
 - `docs/cd-brief.md` — mandatory brief/checklist for every CD agent.
-- `docs/owner-taste.md` — the owner's Triplet-only taste rules, verbatim;
-  general taste rules live in `skills/design-loop/taste.md` (read both).
+- `docs/owner-taste.md` — the owner's stated design-taste rules, verbatim.
 - `skills/design-loop/` — source of the owner's portable design-loop skill
-  (orchestrator, lanes, role briefs, general taste), uploaded to claude.ai so
-  it reaches sessions in other repos. Re-upload after editing it.
+  (orchestrator, lanes, role briefs), uploaded to claude.ai so it reaches
+  sessions in other repos. Re-upload after editing it.
 - `design/<feature>/` — design records; `design/inspo/` — visual reference.
 
 When something ships: add its entry to `docs/shipped.md`, close it in
@@ -71,8 +70,7 @@ owner can override with `tweak:` or `full:`.
 **Always:** the owner sees any new visual look before it lands; the Impeccable
 gate passes; images sent to the owner are phone-readable; the operator makes
 no design/UX/brand calls (Roles below); designers read `docs/owner-taste.md`
-and `skills/design-loop/taste.md`, and new taste rules go in one of them the
-same day (general vs. Triplet-only); the owner's quotes go in briefs
+and new taste rules go there the same day; the owner's quotes go in briefs
 verbatim; messages to the owner are terse, plain language, one per real event
 (decision needed, thing live, blocker); a plain bug the owner reports is
 verified by one agent before theorizing. Everything else is optional.
@@ -171,8 +169,7 @@ operator makes none of these calls.
   upper-left light, the check a filled path. Details: `docs/shipped.md`
   (2026-10-03 "Stamp returns to rows"),
   `design/visited-system/stamp-first/README.md`. Tweak-lane work
-  self-reviews against `docs/owner-taste.md` + `skills/design-loop/taste.md`
-  before handing back.
+  self-reviews against `docs/owner-taste.md` before handing back.
 - **Animation separation:** visual animations never touch row-gesture code;
   they're triggered by state change or called after/during the gesture as a
   separate step.

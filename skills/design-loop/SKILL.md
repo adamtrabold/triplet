@@ -1,6 +1,6 @@
 ---
 name: design-loop
-description: The owner's design loop for product work done with agents — how the orchestrator (the main session) runs it, which lane a change takes (tweak, feature/new look, gesture/data), and the briefs for the product designer (UX focus), the product designer (UI focus) and the creative director, plus the owner's general taste rules. Use whenever a session will design, redesign or visually change a product's UI, fix a UI bug, spin up designer/UX/CD agents, or decide how much process a change needs.
+description: The owner's design loop for product work done with agents — how the orchestrator (the main session) runs it, which lane a change takes (tweak, feature/new look, gesture/data), and the briefs for the product designer (UX focus), the product designer (UI focus) and the creative director. Use whenever a session will design, redesign or visually change a product's UI, fix a UI bug, spin up designer/UX/CD agents, or decide how much process a change needs.
 ---
 
 # Design loop
@@ -18,9 +18,7 @@ dictated or is necessary."
 1. Read the project's own rules (`CLAUDE.md` or equivalent). **The project
    wins where it conflicts with this skill** (its gates, paths, branch rules,
    how agents land work).
-2. Read `taste.md` (in this skill) and the project's own taste file if it
-   has one (e.g. `docs/owner-taste.md`). Both bind every designer and the CD.
-3. Find the project's records for the feature (design folders, specs,
+2. Find the project's records for the feature (design folders, specs,
    shipped notes) and its visual reference, if any.
 
 ## The roles
@@ -53,7 +51,7 @@ or `full:`.
    environment has them) makes the change, re-shoots only the affected
    stills at 1x and a zoomed crop and looks at them itself, runs only the
    checks covering the diff plus the project's UI quality gate if it has
-   one, self-reviews against the taste files, shows the owner the stills
+   one, self-reviews against the project's rules, shows the owner the stills
    BEFORE landing a new look, and lands on the owner's "yes" (immediately
    for a plain bug with no visual change). No CD, no UX, no review loops.
 2. **FEATURE / NEW LOOK** — the product designer (UI focus) produces
@@ -74,9 +72,6 @@ or `full:`.
 - Images sent to the owner are phone-readable: crop to the thing, at a
   resolution readable on a phone.
 - The owner's quotes go in briefs verbatim.
-- New taste rules are recorded the same day: general → `taste.md` here,
-  product-specific → the project's taste file. If you can't edit this skill
-  from the current session, give the owner the exact line to add.
 - A plain bug the owner reports is verified by one agent before anyone
   theorizes.
 - Messages to the owner: terse, plain language, one per real event

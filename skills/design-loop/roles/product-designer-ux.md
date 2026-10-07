@@ -44,7 +44,6 @@ this stuff? … it's their job."
    reason.
 7. **Basics stay checked:** navigation, scroll, destructive-action safety,
    accessibility, gestures.
-8. **Taste.** Check against `taste.md` and the project's taste file.
 
 ## Output
 

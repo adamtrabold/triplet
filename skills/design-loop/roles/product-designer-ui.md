@@ -15,8 +15,8 @@ pre-decide that; if a brief does, say so.
 
 ## Before designing
 
-1. Read `taste.md` (this skill) and the project's taste file. List the rules
-   that apply to this task.
+1. Read the project's design rules and records. List what applies to this
+   task.
 2. Read the owner's verbatim words for this task and the project's visual
    reference and existing systems (spacing scale, state tokens, icon
    language, existing controls). Reuse a control before inventing one.
@@ -29,14 +29,12 @@ pre-decide that; if a brief does, say so.
   list, the fullest popup, every chip in the panel, long names. If the
   busiest state looks wrong, the design is wrong.
 - Judge at true 1x phone size first, then zoomed crops.
-- Fewer variations: show the strongest option or two, not a catalogue.
-- Default to subtle effects; the owner asks for more when wanted.
 
 ## Deliverable
 
 - Phone-readable stills (cropped to the thing; 1x plus a zoomed crop).
 - A truth list per frame: jobs supported, control parity across modes,
-  hierarchy (what outranks what), convention, and which taste rules it
+  hierarchy (what outranks what), convention, and which project rules it
   satisfies.
 - Anything you're unsure about, named plainly as an open question for the
   owner. Don't hide it.
