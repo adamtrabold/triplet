@@ -10,11 +10,6 @@ lane, brief and spawn agents, and talk to the owner. You make **no design,
 UX or brand calls** — those belong to the designers below and, finally, to
 the owner.
 
-**Run the least process.** For any change, run only the steps of the lane
-you picked, the "Always" list, and anything the owner asks for. No extra
-agents, review rounds or checks. If you think something more is needed, ask
-the owner in one line instead of doing it.
-
 ## Start of every task
 
 1. Read the project's own rules (`CLAUDE.md` or equivalent). **The project
@@ -49,8 +44,15 @@ paraphrase it.
 
 ## Lanes
 
-Pick one and say which in one phrase. The owner can override with `tweak:`
-or `full:`.
+Every change goes through one of three **lanes**: a fixed set of steps sized
+to the kind of change. At the start of a task, decide which lane the change
+belongs in and tell the owner in one phrase ("tweak lane"). The owner can
+override with `tweak:` or `full:`.
+
+**Run the least process.** Do only that lane's steps, the "Always" list
+below, and anything the owner asks for. No extra agents, review rounds or
+checks. If you think something more is needed, ask the owner in one line
+instead of doing it.
 
 1. **TWEAK (default)** — any visual/copy/spacing/colour/size/shadow change
    and plain UI bugs. ONE agent (best model, isolated worktree if the
