@@ -10,6 +10,16 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
+- **Icon system full revision** (owner, 2026-10-07, verbatim:
+  "also i want the next priority to be fixing our icon system -- they're too noisy, the approacah we're using the checked items are stronger visually than the open ones. the icon system needs more clarity... i need a full rev. so note that"). Lane 2 (feature / new look). Sequencing: next after
+  the popup redesign (Hanging Tag) and the star colour, both in progress in
+  `design/popup-hierarchy/`. Related prior owner quotes in
+  `docs/owner-taste.md`: Icons / marks ("Same icon drawing language
+  everywhere": "Checkmark was only supposed to be lightly rounded like the
+  rest of the icons" ; "we need to do an icon pass on the rest at some other
+  time") and Alignment / spacing ("Spacing between things is insane and
+  icons don't fill the same visual space"). Scope, approach and solutions
+  are open; they belong to the designer/CD/UX roles.
 - **Popup star alignment with full content** (owner, 2026-09-29,
   verbatim: "I was never debating outline or not that was decided forever
   ago. No star unless it's been starred. What I need to fix is the
