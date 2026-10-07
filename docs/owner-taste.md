@@ -209,6 +209,19 @@ sources are the file where the quote is recorded.
   maybe a color focus would be better on starred." (2026-10-07, Hanging Tag
   stub; chat).
 
+- **Colour floods need texture -- paper, not clouds.** "also i feel like
+  the color flood needs some texture (and the stamp too?... could probably
+  be a bit larger in the tag?)"; then "texture looks like clouds on the
+  orange, should look like paper and be somewhat subtler. visited is too big
+  now." (2026-10-07, Hanging Tag build; chat). Fine paper tooth/fibre, no
+  large soft blotches; a modest stamp bump at most.
+- **Tag starred treatment: the band, for now.** "on the tag, let's try the
+  orange background for starred, but reveresed star (text stays navy)"; then
+  "i like the orange band across the top of the tag too -- i want to see both
+  (though note that the orange bar is not matching the shape of the tag)";
+  then "let's do band still not sure on color" (2026-10-07; chat). A printed
+  band follows the tag's die-cut. The colour itself is still open.
+
 - **Colour must communicate, or go neutral.** "The color is not really
   communicating anything on a visited badge… Let's make all the visited
   badges that cream background with a neutral color" (chat).
@@ -262,6 +275,11 @@ sources are the file where the quote is recorded.
 
 - **A list shows everything that matches the active filters** (CLAUDE.md).
 - **Clicking any list item navigates the map to it** (CLAUDE.md).
+- **An open tag adjusts the list, it doesn't close it.** "i dont like
+  closing the list when a tag is open now -- it should just adjust height if
+  it needs to (with a good amount of padding below the tag." (2026-10-07,
+  Hanging Tag build; chat). Supersedes the round-4 "list drops to its
+  header" trial ("Let's try it idk yet").
 - **Don't mix two lists in one view.** "as far as plans vs places just
   separating them in the same view is confusing" (chat).
 - **The header names the current list.** "The header should show whatever

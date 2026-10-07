@@ -6,6 +6,33 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- iPhone check of the Hanging Tag + orange star (branch `popup-hanging-tag`):
+  (1) tap a pin: the map pans it under the top controls and the tag pops out
+  of the pin on a straight string with one bounce, smooth in Safari; with
+  Reduce Motion on, it is simply there; (2) tap a list row: the map flies,
+  then the tag opens on arrival (pins, a district, a street, an approx pin);
+  a district/street hangs from a small dot in its middle and Directions goes
+  to that dot; (3) a long note (Værnedamsvej) shows in full; the list lowers
+  only as far as the tag needs, with clear map below it, and comes back to
+  the same height and scroll on close (x, map tap); a list you collapsed
+  stays collapsed; ▼/▲ while a tag is open works and the tag stays;
+  (4) Directions, Star and Visited are each one tap with a haptic tick on
+  Star/Visited (iOS 26.5+ included); nothing moves on tap; Visited stamps
+  onto its segment and the paper screens to the filed tone; (5) tap another
+  pin while a tag is open: it swaps in one tap; a drag that starts on the tag
+  doesn't pan the map; (6) signed out: Directions works; Star/Visited are
+  greyed and a tap shows the sign-in slip under the tag; the first tap
+  elsewhere only dismisses the slip; SIGN IN opens the sign-in sheet and you
+  come back to the same tag, now live; (7) VoiceOver: focus moves into the
+  tag on open and back on close; greyed controls read "Star, sign in to
+  use"; the slip is announced; (8) the orange band and the paper texture
+  look printed on real map tiles in daylight, in every city (Malmö's ochre
+  is the lightest); the orange star with its keyline reads on rows, pins,
+  clusters and the add form; the selected row is navy with an orange star;
+  (9) the tag's edges stay clear of Safari's 24px back-swipe edge and the
+  bottom toolbar; the OSM credit stays visible; (10) the short address shows
+  under the name once the backfill has run (`tools/short-address-backfill.html`);
+  rows the backfill could not fill show no address line.
 - iPhone check of the visited sticker's light + fold (branch `visited-sticker-2`): (1) mark a
   place visited from its popup: the map pin arrives lifted and is pressed down, the flap settling
   last (~200ms), with no flicker or jump in Safari; (2) during the row swipe's hover the check bends

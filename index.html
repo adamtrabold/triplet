@@ -1854,9 +1854,14 @@
     /* The string: a straight line from the pin's foot to the eyelet's centre. */
     .tag-string { position: absolute; z-index: 3; left: 50%; top: 0; width: 1.5px; margin-left: -0.75px; height: calc(var(--tag-drop) + 18px);
       background: var(--ink-2); border-radius: 1px; pointer-events: none; transform-origin: 50% 0; }
-    .tag-body { position: relative;
+    .tag-body { position: relative; }
+    /* The shadow + 1px warm edge live on their own static layer (a blank copy of the die-cut), so
+       nothing animating inside the tag (the star's pop, the stamp) re-renders a filter. */
+    .tag-shadow { position: absolute; inset: 0; z-index: 0; pointer-events: none;
       filter: drop-shadow(0 0 .5px rgba(107, 74, 40, .5)) drop-shadow(0 1px 1px rgba(26, 26, 24, .10)) drop-shadow(0 4px 6px rgba(26, 26, 24, .08)); }
-    .tag-stock { position: relative; background-color: var(--paper-raised); color: var(--ink);
+    .tag-shape { position: absolute; inset: 0; background: var(--paper-raised); }
+    .tag-stock { position: relative; z-index: 1; background-color: var(--paper-raised); color: var(--ink); }
+    .tag-stock, .tag-shape {
       clip-path: polygon(28px 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%, 0 28px);
       -webkit-mask: radial-gradient(circle 5px at 50% 18px, transparent 4.5px, #000 5px),
                     radial-gradient(circle 5px at 0 calc(100% - 60px), transparent 4.5px, #000 5px),
@@ -1865,8 +1870,8 @@
       mask: radial-gradient(circle 5px at 50% 18px, transparent 4.5px, #000 5px),
             radial-gradient(circle 5px at 0 calc(100% - 60px), transparent 4.5px, #000 5px),
             radial-gradient(circle 5px at 100% calc(100% - 60px), transparent 4.5px, #000 5px);
-      mask-composite: intersect;
-      transition: background-color 240ms ease; }
+      mask-composite: intersect; }
+    .tag-stock { transition: background-color 240ms ease; }
     /* Visited: the stock screens back to the filed tone of a visited row (paper only -- text keeps its contrast). */
     .tag.is-visited .tag-stock { background-color: var(--paper-filed); background-image: var(--tex-stock); }
     /* The eyelet's reinforcement patch (a paper step) and its grommet. */
@@ -1901,7 +1906,8 @@
     .tag-stub { position: relative; z-index: 2; height: 60px; display: grid; grid-template-columns: 1fr 1fr 1fr; }
     .tag-stub::before { content: ''; position: absolute; z-index: 3; left: 10px; right: 10px; top: -0.75px; height: 0; border-top: 1.5px dashed var(--hair); pointer-events: none; }
     .tag-slot { position: relative; display: flex; min-width: 0; }
-    .tag-slot + .tag-slot { border-left: 1px dashed var(--hair); }
+    /* the dashed divider is drawn, not a border (the segment's whole box stays its target) */
+    .tag-slot + .tag-slot::before { content: ''; position: absolute; z-index: 6; left: 0; top: 0; bottom: 0; border-left: 1px dashed var(--hair); pointer-events: none; }
     .tag-seg { all: unset; box-sizing: border-box; position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding-top: 4px;
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 10px; line-height: 12px; letter-spacing: .1em; color: var(--ink);
       cursor: pointer; -webkit-tap-highlight-color: transparent; text-decoration: none; isolation: isolate; }
@@ -1928,8 +1934,7 @@
     /* Starred, SEGMENT treatment (TAG_STAR_STYLE 'segment' | 'both', the default): the Star segment is
        printed solid action orange, the star reversed out of it (paper), the word in navy
        (owner: "the orange background for starred, but reveresed star (text stays navy)"). */
-    .tag.star-seg.is-starred .tag-slot.star { border-left-color: transparent; }
-    .tag.star-seg.is-starred .tag-slot.star + .tag-slot { border-left-color: transparent; }
+    .tag.star-seg.is-starred .tag-slot.star::before, .tag.star-seg.is-starred .tag-slot.star + .tag-slot::before { display: none; }
     .tag.star-seg.is-starred .popup-star { background-color: var(--star); background-image: var(--tex-flood); color: var(--navy); }
     .tag.star-seg.is-starred .popup-star .tag-star { color: var(--paper-raised); stroke: none; }
     /* Dial (TAG_REVERSED_STAR_KEYLINE): a --figure-deep hairline on the reversed star -- the paper
@@ -4840,7 +4845,7 @@
           + (unstampNow ? `<span class="row-stamp tag-stamp-out" style="--stamp-tilt:${tilt}deg" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
       const x = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
       return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
-        + `<div class="tag-body"><div class="tag-stock">`
+        + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span><div class="tag-stock">`
         + (band ? '<span class="tag-band" aria-hidden="true"></span>' : '')
         + '<span class="tag-patch" aria-hidden="true"></span>'
         + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
@@ -4943,10 +4948,14 @@
       map.closePopup();
 
       const target = L.latLng(center);
+      // Arrived = at the zoom and the place is on screen (clear of the top
+      // controls and a 24px edge). It needn't be centred: the tag pans it to
+      // its open position itself (tagOpened()), so a place already in view
+      // opens at once instead of flying to the centre first.
       const arrived = () => {
         if (map.getZoom() < zoom - 0.01) return false;
-        const p = map.latLngToContainerPoint(target);
-        return p.distanceTo(map.getSize().divideBy(2)) <= 2;
+        const p = map.latLngToContainerPoint(target), sz = map.getSize();
+        return p.x >= 24 && p.x <= sz.x - 24 && p.y >= pinPopupTopPad() && p.y <= sz.y - 24;
       };
       const container = map.getContainer();
       const cancel = () => {

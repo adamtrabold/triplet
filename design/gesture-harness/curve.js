@@ -3,7 +3,7 @@
 // measured in-page per rAF at 60Hz in real time: frames at >= 1.3x and frames at
 // <= 0.97 from the ink landing to rest, plus the peak and the rest state.
 //   row (plain), row (highlighted): real CDP star strokes (0.6px/ms, 100px)
-//   popup: a click on the popup star (CSS @keyframes sgpPress)
+//   popup: a click on the popup star (CSS @keyframes sgpPress), 700ms after the tag opens (its pan + pop-out, ~550ms, are done)
 // Rule (r8): row >= 11 frames >= 1.3x and >= 3 <= 0.97; popup >= 8 and >= 3.
 // Frame-phase jitter: docs/shipped.md swipe-visit gates accept "row 11 frames >= 1.3x
 // in 9/10 runs (main also shows an occasional 10)". Gate: per kind, >= 9 of RUNS runs
@@ -39,7 +39,7 @@ function measure(f) {
         f = await page.evaluate(() => __cstop());
       } else {
         await page.evaluate(async () => { const id = __rowIds()[0]; const loc = locations.find(l => l.id === id); map.setView([loc.lat, loc.lng], 16, { animate: false }); await new Promise(r => setTimeout(r, 100)); updateUI();
-          markersById.get(id).marker.openPopup(); await new Promise(r => setTimeout(r, 400)); });
+          markersById.get(id).marker.openPopup(); await new Promise(r => setTimeout(r, 700)); });
         await page.evaluate(() => { window.__cstop = __curve(() => document.querySelector('.leaflet-popup .sgp-in .sg-ink')); document.querySelector('.leaflet-popup .popup-star').click(); });
         await W(900); f = await page.evaluate(() => __cstop());
       }

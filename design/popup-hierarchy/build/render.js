@@ -145,8 +145,9 @@ async function shoot(page, name, { full = false } = {}) {
         await shoot(page, `${name}-0-tap`, { full: true });
         await page.evaluate(id => { markersById.get(id).marker.openPopup(); }, o.id);
         await W(120); await shoot(page, `${name}-1-pan`, { full: true });
-        await page.waitForFunction(() => document.querySelector('.tag-popup.tag-pop'), null, { timeout: 3000 });
-        await frames(page, name, [0, 60, 120, 165, 230, 280]);
+        await page.waitForFunction(() => document.querySelector('.tag-popup.tag-pop'), null, { timeout: 3000, polling: 'raf' });
+        await page.evaluate(() => { clearTimeout(tagPopTimer); document.getAnimations().forEach(a => a.pause()); });   // hold the pop where it is; frames() scrubs it
+        await frames(page, name, [20, 60, 120, 165, 230, 280]);
       }
       else { await openTag(page, o); await shoot(page, name, { full: !!o.phone }); }
     }

@@ -189,7 +189,7 @@ const n8 = [];
     // --- N8-a (reported separately): mouse click on the popup star keeps focus on the star button; a touch tap leaves body
     for (const how of ['mouse', 'touch']) { const { ctx, page } = await fresh();
       const c = await page.evaluate(async () => { const id = __rowIds()[0]; const loc = locations.find(l => l.id === id); map.setView([loc.lat, loc.lng], 16, { animate: false }); await new Promise(r => setTimeout(r, 100)); updateUI();
-        markersById.get(id).marker.openPopup(); await new Promise(r => setTimeout(r, 400)); const b = document.querySelector('.leaflet-popup .popup-star-tap').getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2, id }; });
+        markersById.get(id).marker.openPopup(); await new Promise(r => setTimeout(r, 700)); const b = document.querySelector('.leaflet-popup .popup-star-tap').getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2, id }; });
       if (how === 'mouse') await page.mouse.click(c.x, c.y); else await page.touchscreen.tap(c.x, c.y);
       await W(500);
       const f = await page.evaluate(id => ({ starred: !!locations.find(l => l.id === id).starred, active: document.activeElement === document.body ? 'body' : (document.activeElement.className || document.activeElement.tagName), isStar: !!(document.activeElement.matches && document.activeElement.matches('.leaflet-popup .popup-star')) }), c.id);

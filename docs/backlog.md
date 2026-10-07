@@ -20,7 +20,11 @@ pick/redirect before building anything.
   time") and Alignment / spacing ("Spacing between things is insane and
   icons don't fill the same visual space"). Scope, approach and solutions
   are open; they belong to the designer/CD/UX roles.
-- **Popup star alignment with full content** (owner, 2026-09-29,
+- ~~**Popup star alignment with full content**~~ CLOSED by the Hanging Tag
+  (built 2026-10-07 on `popup-hanging-tag`, `docs/shipped.md` "Hanging Tag +
+  orange star"): the star is no longer beside the title; it is a fixed
+  segment of the claim stub, so it can't float against long content.
+  Original item, for history: (owner, 2026-09-29,
   verbatim: "I was never debating outline or not that was decided forever
   ago. No star unless it's been starred. What I need to fix is the
   alignment of the star in the pop up - it looks weird when all the content
@@ -34,7 +38,10 @@ pick/redirect before building anything.
   an outline/list-row question, so its variants (reserved-column,
   dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
   are not candidates.
-- **Short address in the popup** (owner, 2026-10-05: "#1 since there's a
+- ~~**Short address in the popup**~~ BUILT 2026-10-07 with the Hanging Tag
+  (`tagAddress()`: `short_address`, else derived from `address_details`,
+  else omitted -- never the full string). Still open: the owner runs
+  `tools/short-address-backfill.html`. Original item: (owner, 2026-10-05: "#1 since there's a
   directions button"). The data shipped 2026-10-05 (`locations.short_address`,
   `docs/shipped.md` "Short address"); showing it lands WITH the popup
   redesign, not before: the current popup still prints the full `address`.
@@ -134,6 +141,16 @@ pick/redirect before building anything.
   still the last resort.
 
 ## Known minor bugs / follow-ups
+
+- Hanging Tag follow-ups (2026-10-07, `docs/shipped.md` "Hanging Tag +
+  orange star"): (1) owner picks the starred treatment (`TAG_STAR_STYLE`:
+  band default, segment, both) and the star/band colour (`--star`); (2) the
+  reversed paper star on the orange segment is 2.06-2.98:1 (under 3:1) --
+  `TAG_REVERSED_STAR_KEYLINE` lifts its edge to >= 5.2:1 if the segment is
+  picked; (3) the pencil circle is the owner's provisional keep; (4) no edit
+  path from the tag (none exists anywhere); (5) the full address is no longer
+  reachable in-app (geocode audit, ux-analysis J8) -- UX to decide whether the
+  short line should expand.
 
 - Impeccable gate follow-ups (`design/impeccable-gate/`): (1) 13 runtime
   baseline identities are "pre-existing, unreviewed" (10px category·city

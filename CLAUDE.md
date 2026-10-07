@@ -32,7 +32,8 @@ or a load-bearing gate below changes. Don't let any of these go stale.
   `mapVisibleNeighborhoodShapes()` (adds zoom; feeds only
   `syncNeighborhoodLayers()`). A new listable thing gets the same split.
 - **Clicking any list item navigates the map to it** — pan and zoom in far
-  enough to see it, from any zoom, and open its popup on arrival. Pins:
+  enough to see it, from any zoom, and open its popup (the Hanging Tag) on
+  arrival. Pins:
   `focusMap()`/`highlightMarker()`; shapes: `focusShape()`
   (`flyToBounds()`); both via `openPopupOnArrival()`. A new list item type
   needs the same behavior.
@@ -164,7 +165,15 @@ operator makes none of these calls.
   upper-left light, the check a filled path. Details: `docs/shipped.md`
   (2026-10-03 "Stamp returns to rows"),
   `design/visited-system/stamp-first/README.md`. Tweak-lane work
-  self-reviews against `docs/owner-taste.md` before handing back.
+  self-reviews against `docs/owner-taste.md` before handing back. The
+  place popup is the **Hanging Tag** (`TagPopup`, `buildPopupHtml()`): its
+  Visited segment carries the same `.row-stamp` at 1.1x.
+- **Star and selection colours** (2026-10-07): every star (row, map, cluster,
+  tag, add form, the Pencil Star's landed ink) is `--star` with a
+  `--star-deep` keyline, today the city's `--figure` / `--figure-deep` (one
+  token: the colour is a one-line change); the map star keeps its paper halo.
+  The **selected row is navy** (`--navy`), its star `--star` with no keyline.
+  Restaurant is wine `#7A2436`, attraction moss `#547326`.
 - **Animation separation:** visual animations never touch row-gesture code;
   they're triggered by state change or called after/during the gesture as a
   separate step.
@@ -196,9 +205,11 @@ operator makes none of these calls.
 Concept work exists for visited pins (owner hasn't picked); popup star
 concept is in progress. Get a decision before building (lane 2).
 
-- **Popup redesign (Hanging Tag)** — in progress in
-  `design/popup-hierarchy/`; owner-approved direction: segmented stub;
-  star colour moving to the action orange. Not built yet.
+- **Popup redesign (Hanging Tag) + orange star** — BUILT on branch
+  `popup-hanging-tag` (not merged; owner sees final stills first). Spec:
+  `docs/shipped.md` "Hanging Tag + orange star". Open owner calls: the
+  starred treatment (`TAG_STAR_STYLE`, band by default) and the star/band
+  colour (`--star`, the city's `--figure` for now).
 - **Icon system full revision** (owner, 2026-10-07) — next after the popup
   redesign and star colour; lane 2. Quote and pointers in `docs/backlog.md`.
 - **Popup star alignment** (star looks off when the popup has full
