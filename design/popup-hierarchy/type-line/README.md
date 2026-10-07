@@ -2,6 +2,111 @@
 
 Designer, 2026-10-07. Concept stills only. `index.html` is untouched.
 
+## Round 2: A and D, after `ux-review.md` and `cd-review.md`
+
+Both reviews kept **A Ledger** and **D Rubber stamp**; those two go to the
+owner. **B Field stack** is held in reserve (not shown). C, E and F are
+dropped; their round-1 sections below are history. Owner page:
+`index.html` ("Tag Type Line"), built by `build.js`.
+
+CSS: `variants-r2.js`. Re-render with `render-r2.js` (writes `stills/r2/`).
+D's contrast is measured by `contrast.js` (writes `contrast.json`).
+
+### Changes from round 1
+
+- **One printed label for both.** The label is the tags' printed caps:
+  11px, 500 weight, tracked .12em, `--ink-2`. It reads as print, not as a
+  control.
+- **A: the value no longer copies the stub labels** (CD 8). Round 1's value
+  was ink, bold, tracked condensed caps, the same style as
+  DIRECTIONS / STARRED. Now the entry is written in:
+  - sentence case, regular width, 13px medium `--ink` ("Bar",
+    "Stop 3 of 3");
+  - the category is capitalised;
+  - label and value share a baseline (CD 9; `ledger/busiest-crop@3x`).
+- **D: smaller, and readable as a stamp at 1x** (CD 1, 2).
+  - The type value is now 14px condensed bold caps in `--ink-2`, down from
+    17px. Against the note (14px regular `--ink`, 5 lines), the note clearly
+    wins.
+  - What makes it read as a stamp at 1x:
+    - the tooth mask (`--tex-stamp`) at a coarser 170px tile;
+    - a density falloff across the word, with one end pressed harder;
+    - a 0.6px ink spread and a faint 0.6px second impression;
+    - the word lifted 1.5px off the printed baseline;
+    - a visible tilt.
+  - See `stamp/{typical,district,long}-phone@1x`: ATTRACTION, DISTRICT and
+    RESTAURANT read stamped at 1x. "BAR", three letters, is the weakest
+    case.
+- **D: the plan number stays quiet** (CD 3, UX). In D the PLAN value is
+  printed, not stamped (A's entry), so "Stop 3 of 3" is plain 13px text.
+  The both-stamped option is shot as `stampboth` (CD: "show both"), and the
+  owner page shows it as an aside.
+- **D: fixed per-place tilt** (CD 4, UX).
+  - `typeTilt(id)` takes the angle from an id hash, a different hash from
+    `stampTilt`, over ±3 / ±4.5°.
+  - It never equals or mirrors the VISITED stamp's angle: it stays at least
+    1° away from both ±`stampTilt(id)`.
+  - The angle is the same on every render; a star tap re-renders with the
+    same angle.
+  - Mock: the function is injected into the scratch copy, and the two
+    value spans carry `--type-tilt` / `--plan-tilt`.
+- **D: contrast measured** (CD 5, UX). Method:
+  - Each stamped value is shot as rendered, then again with the mask and
+    spread off.
+  - Pixels that are solid ink in the unmasked shot are the glyph core.
+    The table reports their colour in the textured shot, against the tag
+    paper.
+
+  | | flat `--ink-2` | textured mean | median | lightest 10% |
+  |---|---|---|---|---|
+  | 1x, BAR | 6.59 | **5.12** | 5.66 | 3.63 |
+  | 1x, RESTAURANT | 6.59 | **4.99** | 5.51 | 3.63 |
+  | 3x, BAR | 6.69 | **5.19** | 5.68 | 3.73 |
+  | 3x, RESTAURANT | 6.69 | **5.01** | 5.51 | 3.67 |
+
+  - The stroke as read (mean) is 5.0–5.2:1, which clears 4.5:1, as does
+    the median.
+  - The lightest tenth of the grain falls to about 3.6:1. Those are the
+    paper-tooth specks, by design; they are not whole strokes.
+  - In `stampboth` the 1x "Stop 3 of 3" has a lightest 10% of 2.71. That's
+    a short word on the faded end of the falloff.
+  - Full numbers are in `contrast.json`.
+- **Wording** (UX 2): always the plan's own "Stop n of m". It is never caps
+  in the A/D-main values and never a fraction.
+- **Long and narrow** (CD 6). "Restaurant" with "Stop 12 of 14", in the
+  Plans view (`long`), and on the 288px tag of a 320px phone
+  (`long-narrow`). Both variants hold one line. D's column gap went from 24
+  to 16 (`--s4`) so that D fits at 320px; at 24 the PLAN field wrapped to a
+  second row.
+- **Second stamp next to VISITED** (CD 7). `busiest` has VEGA visited, so
+  the type stamp and the VISITED stamp sit in one frame. The owner page asks
+  the question directly.
+
+### Round-2 stills
+
+- `stills/r2/{ledger,stamp,stampboth}/{busiest,typical,district,long,long-narrow,signedout}-{phone@1x,crop@3x,line@3x}.png`.
+  `line@3x` is the field line with the stub below it, for the owner page.
+- `long` / `long-narrow`:
+  - The place is Bæjarins Beztu (fixture `rey00`, restaurant), visited, in
+    the Plans view.
+  - Its address and note are stand-in text.
+  - The plan line is forced to "Stop 12 of 14" through a stills-only hook
+    in the scratch copy (`window.__STOP`).
+
+### Still open / not verified
+
+- Chromium only. Safari's `mask-composite` and `color-mix()` in
+  text-shadow are unchecked; the round-1 stamp texture already ships the
+  same mask.
+- Signed out leaves the field line undimmed, same as shipped. It is
+  information, not a control.
+- The CD should judge whether "BAR" (3 letters) reads as stamped enough at
+  1x.
+
+---
+
+## Round 1
+
 ## The ask
 
 Impeccable review C4 (`design/impeccable-gate/reviews/2026-10-07-b0e566e5e803/REPORT.md`)
@@ -55,7 +160,7 @@ stop 3 of 3" in every variant.
 - **Stamped entry** (5.webp: the purple rubber-stamped "MADERA, CALIF." in the
   From blank). The entry is a different process from the print: inked, a
   little crooked, and textured.
-- **Small label, big code** (2.webp: the Aloha stubs "TO KAUAI", Japan Air
+- **Small label, big code** (2.jpg: the Aloha stubs "TO KAUAI", Japan Air
   Lines "TO TOKYO"). The label is a whisper beside a huge condensed word.
 - **Printer's marks in the margins** (5.webp: "S-3943 ORIGINAL CHECK",
   "Series 28"). Small type in the corners of the stock, apart from the
@@ -170,7 +275,7 @@ States:
   condensed value (22px, 62% width, 700). Both are in `--ink-2`, so size
   carries the field while the tier-2 colour keeps it under the name (26px
   `--ink`) and the note.
-- **Inspo.** The Aloha "TO KAUAI" stubs and JAL "TO TOKYO" (2.webp). Every
+- **Inspo.** The Aloha "TO KAUAI" stubs and JAL "TO TOKYO" (2.jpg). Every
   tag's three-letter destination code.
 - **Truth list.**
   - The most "luggage tag" read at 1x and the strongest character.
