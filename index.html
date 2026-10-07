@@ -630,7 +630,7 @@
     }
 
     #addForm .form-star svg { width: var(--s4); height: var(--s4); flex-shrink: 0; }
-    #addForm .form-star[aria-pressed="true"] svg { color: var(--ink); }
+    #addForm .form-star[aria-pressed="true"] svg { color: var(--figure); stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
     /* State system: pressed = the pale tile (was a .85 shrink). */
     #addForm .form-star { isolation: isolate; }
     #addForm .form-star::before { content: ''; position: absolute; inset: 8px -6px; z-index: -1; border-radius: 3px; }
@@ -1425,11 +1425,16 @@
       width: 18px;
       height: 18px;
       margin-top: -9px;
-      color: var(--ink);                   /* Round 5: printed in BLACK INK, as Baedeker printed it and as
-                                              the map star already is -- a --figure-deep star beside the
-                                              category ring read as a second badge (Stockholm) or clashed
-                                              (Copenhagen). 14.69:1 paper, 13.17 filed, 11.74 pressed;
-                                              highlighted row: --paper (below), 4.79:1 worst. */
+      /* 2026-10-07 (owner: "can we try the orange so it's consistent with other action buttons that
+         are either navy or orange?"): the city's action orange, --figure, with a --figure-deep
+         keyline -- the keyline carries the mark (>= 4.79:1 paper, >= 4.0:1 pressed, all five
+         cities); --figure alone is 1.9-2.7:1. Was black ink (Pencil Star rounds 4-6). Selected
+         (navy) row: --figure alone, 4.58:1 (LA) .. 6.63:1 (Malmo) on --navy. */
+      color: var(--figure);
+      stroke: var(--figure-deep);
+      stroke-width: 1.5px;
+      paint-order: stroke;
+      stroke-linejoin: round;
     }
 
     /* Category labels are ALWAYS --ink-2, never the category ink: 11 inks
@@ -1455,22 +1460,25 @@
        padding and the gutter lives INSIDE the row, the field already
        spans edge to edge while the content stays on the spine. This is the
        only element permitted to break the 16px gutter. */
+    /* 2026-10-07 (owner: "let's try it with orange star and selected row being navy"): the
+       selected row is NAVY, the app's other action colour -- orange now means "starred", so a
+       starred selected row is an orange star on navy, not orange on orange. */
     .location-card.highlighted {
-      background: var(--figure-deep);
-      border-bottom-color: var(--figure-deep);
+      background: var(--navy);
+      border-bottom-color: var(--navy);
     }
 
-    .location-card.highlighted h3 { color: var(--paper); }          /* 5.20:1 */
-    .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 4.65:1 worst (Stockholm) */
+    .location-card.highlighted h3 { color: var(--paper); }          /* 12.51:1 */
+    .location-card.highlighted .row-meta { color: var(--paper-warm); } /* 12.1:1 */
     .location-card.highlighted .row-badge { color: var(--paper); --badge-field: transparent; }
     .location-card.highlighted .delete-btn { color: var(--paper); border-color: var(--paper); }
     /* Exempt from the stamp's 82% ink, for two reasons. AA: paper at 90%
-       falls to 4.21:1 on Stockholm's --figure-deep, below 4.5 for 10px
-       text; 100% paper is the h3's own pairing (4.79:1 worst city).
+       fell to 4.21:1 on the old orange row (Stockholm), below 4.5 for 10px
+       text; 100% paper is the h3's own pairing (12.51:1 on navy).
        Emphasis: there is only ever one focus row, so a full-strength
        stamp there reads as part of the focus state, not inconsistency. */
     .location-card.highlighted .row-stamp { color: var(--paper); }
-    .location-card.highlighted .row-star { color: var(--paper); }    /* 4.79:1 worst (Stockholm) */
+    .location-card.highlighted .row-star { color: var(--figure); stroke: none; }    /* 4.58:1 worst (LA) on --navy */
 
     .locations-empty {
       color: var(--ink-2);
@@ -1756,7 +1764,8 @@
 
     /* Map star (markerStarHtml()): paper halo under an ink star. */
     .marker-star-halo { color: var(--paper); stroke: var(--paper); }
-    .marker-star-ink  { color: var(--ink); }
+    /* The star is the city's action orange with a --figure-deep keyline (owner 2026-10-07), on its paper halo. */
+    .marker-star-ink  { color: var(--figure); stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
 
     @keyframes markerPulse {
       0%   { transform: scale(1);    opacity: 1; }
@@ -1788,302 +1797,202 @@
       filter: sepia(0.3) saturate(0.75) contrast(0.96) hue-rotate(-6deg);
     }
 
-    /* Popups: paper, a hairline edge (the dividers' --hair, tip included), no shadow. */
+    /* Plain Leaflet popups (only "You are here" now): paper, a hairline edge. */
     .leaflet-popup-content-wrapper {
       background: var(--paper);
       color: var(--ink);
       border: 1px solid var(--hair);
       border-radius: 2px;
       box-shadow: none;
-      /* Inset lives on the painted box itself rather than entirely on the
-         child's margin, so the text is never flush against the border. */
       padding: var(--s1);
     }
-
-    .leaflet-popup-tip {
-      background: var(--paper);
-      border: 1px solid var(--hair);
-      box-shadow: none;
-    }
-
+    .leaflet-popup-tip { background: var(--paper); border: 1px solid var(--hair); box-shadow: none; }
     .leaflet-popup-content { margin: var(--s2); font-family: var(--font-ui); }
     .leaflet-popup-close-button { color: var(--ink-2) !important; }
-    /* pressed = the pale tile, inset 3px so the popup's 1px ink border stays unbroken */
-    .leaflet-container a.leaflet-popup-close-button { isolation: isolate; }
-    .leaflet-container a.leaflet-popup-close-button::before { content: ''; position: absolute; inset: 3px; z-index: -1; border-radius: 3px; }
-    .leaflet-container a.leaflet-popup-close-button:active::before { background: var(--state-press); }
+    .popup-title { font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink); }
 
-    .popup-head {
-      display: flex;
-      align-items: center;
-      gap: var(--s2);
-      margin-bottom: var(--s1);
+    /* =====================================================================
+       HANGING TAG (design/popup-hierarchy/ round 4-7; docs/shipped.md
+       "Hanging Tag + orange star"). A place's popup is a luggage tag that
+       pops out of its pin onto a straight string: name, short address,
+       the whole note, a TYPE / PLAN field line, then a perforated claim
+       stub of three equal segments (Directions | Star | Visited).
+       Built on a Leaflet popup (TagPopup) so every list -> fly -> open
+       path is unchanged; TagPopup hangs it BELOW the anchor.
+         --tag-w      316, or the screen less two 16px gutters
+         --tag-drop   pin foot -> tag top (set per open: 44 - pin radius)
+         stub         60px, the 3 segments are its whole height (>= 44)
+       The tag's stock is clipped (28px chamfers) and masked (the 10px
+       eyelet hole, the two 5px stub notches); its shadow and the
+       owner-approved 1px warm edge are drop-shadows on .tag-body, so
+       they follow the die-cut, hole included.
+       ===================================================================== */
+    :root {
+      /* Print texture (owner 2026-10-07: "the color flood needs some texture (and the stamp too?"):
+         a flood printed on tag stock -- soft paper-tone ink starvation (low frequency) plus a fine
+         paper speckle. Static (no animation); one tile, ~1 KB, no image files. */
+      --tex-flood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='m' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 .9 0 -.38'/%3E%3C/filter%3E%3Cfilter id='s' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .92 0 0 1.6 0 -.98'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23m)'/%3E%3Crect width='180' height='180' filter='url(%23s)'/%3E%3C/svg%3E");
+      /* The filed (visited) stock: the same speckle, darker and fainter -- an older page. */
+      --tex-stock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='s' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .27 0 0 .8 0 -.46'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23s)'/%3E%3C/svg%3E");
+      /* The stamp's ink: an alpha mask with ink-starved specks (rubber on paper). */
+      --tex-stamp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -6.5 0 5.4'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23n)'/%3E%3C/svg%3E");
     }
+    .leaflet-popup.tag-popup { margin: 0; --tag-w: 316px; --tag-drop: 32px; }
+    .tag-popup .leaflet-popup-tip-container { display: none; }
+    .tag-popup .leaflet-popup-content-wrapper { background: none; border: 0; border-radius: 0; padding: 0; box-shadow: none; color: var(--ink); }
+    .tag-popup .leaflet-popup-content { margin: 0; width: var(--tag-w) !important; font-family: var(--font-ui); font-size: 14px; line-height: 20px; }
+    /* Taps go live only once the pan and the list collapse have finished (UX r4 §5). */
+    .tag-popup.tag-wait { visibility: hidden; pointer-events: none; }
 
-    .popup-title {
-      font-size: 15px;
-      line-height: 20px;
-      font-weight: 600;
-      color: var(--ink);
-    }
+    .tag { position: relative; padding-top: var(--tag-drop); outline: none; text-align: left; -webkit-font-smoothing: antialiased; }
+    /* The string: a straight line from the pin's foot to the eyelet's centre. */
+    .tag-string { position: absolute; z-index: 3; left: 50%; top: 0; width: 1.5px; margin-left: -0.75px; height: calc(var(--tag-drop) + 18px);
+      background: var(--ink-2); border-radius: 1px; pointer-events: none; transform-origin: 50% 0; }
+    .tag-body { position: relative;
+      filter: drop-shadow(0 0 .5px rgba(107, 74, 40, .5)) drop-shadow(0 1px 1px rgba(26, 26, 24, .10)) drop-shadow(0 4px 6px rgba(26, 26, 24, .08)); }
+    .tag-stock { position: relative; background-color: var(--paper-raised); color: var(--ink);
+      clip-path: polygon(28px 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%, 0 28px);
+      -webkit-mask: radial-gradient(circle 5px at 50% 18px, transparent 4.5px, #000 5px),
+                    radial-gradient(circle 5px at 0 calc(100% - 60px), transparent 4.5px, #000 5px),
+                    radial-gradient(circle 5px at 100% calc(100% - 60px), transparent 4.5px, #000 5px);
+      -webkit-mask-composite: source-in, source-in;
+      mask: radial-gradient(circle 5px at 50% 18px, transparent 4.5px, #000 5px),
+            radial-gradient(circle 5px at 0 calc(100% - 60px), transparent 4.5px, #000 5px),
+            radial-gradient(circle 5px at 100% calc(100% - 60px), transparent 4.5px, #000 5px);
+      mask-composite: intersect;
+      transition: background-color 240ms ease; }
+    /* Visited: the stock screens back to the filed tone of a visited row (paper only -- text keeps its contrast). */
+    .tag.is-visited .tag-stock { background-color: var(--paper-filed); background-image: var(--tex-stock); }
+    /* The eyelet's reinforcement patch (a paper step) and its grommet. */
+    .tag-patch { position: absolute; z-index: 1; left: 50%; top: 6px; width: 48px; height: 28px; margin-left: -24px; background: var(--paper);
+      clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px); pointer-events: none; }
+    .tag-patch::after { content: ''; position: absolute; left: 50%; top: 50%; width: 17px; height: 17px; margin: -8.5px 0 0 -8.5px; border-radius: 50%; box-sizing: border-box; border: 3.5px solid var(--hair); }
+    .tag.is-visited .tag-patch { background: var(--paper-pressed); }
+    /* Starred, BAND treatment (TAG_STAR_STYLE 'band' | 'both'): the city's action orange printed across
+       the top of the stock. It is inside the clipped stock, so it follows the die-cut: both chamfers
+       and the eyelet hole (owner: "the orange bar is not matching the shape of the tag"). */
+    .tag-band { position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: 36px; background-color: var(--figure); background-image: var(--tex-flood); pointer-events: none; }
+    /* The eyelet's paper patch stays on the band: a reinforcement patch on coloured stock, as on the references. */
 
-    /* buildPopupHtml() used to print the category as plain colorless text,
-       which made the popup the ONE surface communicating category by
-       nothing at all. It now carries the glyph, like every other surface. */
-    .popup-cat {
-      display: flex;
-      align-items: center;
-      /* --s1, not --s2 -- at this row's 20px glyph size (vs. the filter
-         chips' 12px using the same glyphHtml(), same --s2 gap, and
-         looking fine) each symbol's own internal padding scales up
-         enough to read as extra space stacked on top of the flat gap. */
-      gap: var(--s1);
-      font-stretch: 75%;
-      text-transform: uppercase;
-      font-size: 10px;
-      line-height: 12px;
-      letter-spacing: 0.1em;
-      font-weight: 700;
-      color: var(--ink-2);
-      min-width: 0;                        /* bottom row, left: yields to Mark Visited, never wraps it */
-    }
+    .tag-x { all: unset; position: absolute; z-index: 4; top: 34px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
+    .tag-x svg { width: 14px; height: 14px; display: block; }
+    .tag-x::before { content: ''; position: absolute; inset: 8px; z-index: -1; border-radius: 3px; }
+    .tag-x:active::before { background: var(--state-press); }
+    .tag-x:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
 
-    .popup-cat svg { width: 20px; height: 20px; display: block; flex-shrink: 0; }
+    .tag-in { position: relative; z-index: 2; padding: 40px var(--s4) 0; }
+    .tag-in.scrolls { overflow-y: auto; overscroll-behavior: contain; -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent); }
+    .tag-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); padding-right: 32px; overflow-wrap: anywhere; margin: 0; }
+    .tag-addr { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+    .tag-notes { margin-top: var(--s2); font-size: 14px; line-height: 20px; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
+    .tag-fields { display: flex; flex-wrap: wrap; column-gap: var(--s6); row-gap: var(--s1); margin-top: var(--s3); padding-bottom: var(--s3); }
+    .tag-f { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+    .tag-lab { font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 8px; line-height: 10px; letter-spacing: .14em; color: var(--ink-2); }
+    .tag-val { font-stretch: 75%; text-transform: uppercase; font-weight: 500; font-size: 11px; line-height: 14px; letter-spacing: .08em; color: var(--ink-2); white-space: nowrap; }
 
-    /* The star is the ENTRY's mark, as in the list row (P1, round 4): 18px,
-       in its own slot at the head of the text column, centred across the
-       title and the line under it (the address); the text column indents
-       26px (18 + --s2) -- the list's starred-row indent. It is always there
-       (hollow = not starred), so every popup's text starts at 26px.
-       - No address: centred on the title alone (a 2-line title included) --
-         the notes can run several lines, and centring on them would sink
-         the star below the name it marks.
-       - Title wraps (with an address): centred across the whole heading
-         block, as the list centres across its whole text column.
-       Off: hollow --ink-2 star (6.17:1 on --paper). On: filled --ink. */
-    .popup-title-row {
-      display: grid;
-      grid-template-columns: 18px auto;    /* auto, not 1fr: a 1fr track has no max-content size, so
-                                              Leaflet's auto width would stop at the 240 floor and long
-                                              names would wrap to 3 lines instead of widening to 300 */
-      column-gap: var(--s2);
-    }
-    .popup-title-row > :not(.popup-star-slot) { grid-column: 2; }
-    .popup-title-row > .popup-title { grid-row: 1; }
-    .popup-title-row > .popup-addr  { grid-row: 2; }
-    .popup-title-row > .popup-notes { grid-row: 3; }
-    .popup-star-slot {
-      grid-column: 1;
-      grid-row: 1 / span 2;              /* title + address; row 2 is empty (0px) with no address */
-      align-self: center;
-      position: relative;                  /* anchors .popup-star-tap (no z-index: no new stacking context) */
-      width: 18px;
-      height: 18px;
-    }
+    /* The claim stub: perforated, three equal whole-segment targets (>= 88px wide, 60px tall). */
+    .tag-stub { position: relative; z-index: 2; height: 60px; display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .tag-stub::before { content: ''; position: absolute; z-index: 3; left: 10px; right: 10px; top: -0.75px; height: 0; border-top: 1.5px dashed var(--hair); pointer-events: none; }
+    .tag-slot { position: relative; display: flex; min-width: 0; }
+    .tag-slot + .tag-slot { border-left: 1px dashed var(--hair); }
+    .tag-seg { all: unset; box-sizing: border-box; position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding-top: 4px;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 10px; line-height: 12px; letter-spacing: .1em; color: var(--ink);
+      cursor: pointer; -webkit-tap-highlight-color: transparent; text-decoration: none; isolation: isolate; }
+    .leaflet-container a.tag-seg { color: var(--ink); }
+    .tag-seg > svg { width: 18px; height: 18px; display: block; flex: none; overflow: visible; }
+    .tag-seg.popup-directions > svg { width: 20px; height: 20px; }
+    .tag-seg .tag-ochk { width: 17px; height: 17px; }
+    /* pressed = the state system's pale tile, inset 4px inside the segment */
+    .tag-seg::before { content: ''; position: absolute; inset: var(--state-tile-inset); z-index: -1; border-radius: 3px; }
+    .tag-seg:active::before, .tag-slot:has(> .popup-star-tap:active) .tag-seg::before, .tag-slot:has(> .popup-visited-tap:active) .tag-seg::before { background: var(--state-press); }
+    .tag.is-visited .tag-seg:active::before, .tag.is-visited .tag-slot:has(> label:active) .tag-seg::before { background: var(--state-press-filed); }
+    .tag-seg:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    /* the finger's tap target (hapticTap()): exactly the segment, one layer above it */
+    .tag-slot > .popup-star-tap, .tag-slot > .popup-visited-tap { position: absolute; inset: 0; z-index: 5; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
-    .popup-star {
-      position: relative;
-      /* Above the category glyph: leaflet.css gives every svg in the map
-         pane z-index:200, which takes effect on a flex-item svg like
-         .popup-cat's, and would otherwise eat the top of this hit area. */
-      z-index: 201;
-      width: 18px;                         /* = .row-star */
-      height: 18px;
-      padding: 0;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      color: var(--ink-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      -webkit-tap-highlight-color: transparent;
-    }
+    /* THE STAR: each city's action orange (--figure) with a --figure-deep keyline, everywhere
+       (owner 2026-10-07: "can we try the orange so it's consistent with other action buttons that
+       are either navy or orange?"). --figure alone is 1.9-2.7:1 on paper; the keyline carries the
+       mark (>= 4.79:1 on paper, >= 4.0:1 on pressed paper, all five cities). */
+    .tag-seg.popup-star .tag-star { color: var(--figure); stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; }
+    .tag-seg.popup-star .tag-star.is-open { color: var(--ink); stroke: none; }
+    /* Starred, SEGMENT treatment (TAG_STAR_STYLE 'segment' | 'both', the default): the Star segment is
+       printed solid action orange, the star reversed out of it (paper), the word in navy
+       (owner: "the orange background for starred, but reveresed star (text stays navy)"). */
+    .tag.star-seg.is-starred .tag-slot.star { border-left-color: transparent; }
+    .tag.star-seg.is-starred .tag-slot.star + .tag-slot { border-left-color: transparent; }
+    .tag.star-seg.is-starred .popup-star { background-color: var(--figure); background-image: var(--tex-flood); color: var(--navy); }
+    .tag.star-seg.is-starred .popup-star .tag-star { color: var(--paper-raised); stroke: none; }
+    /* Dial (TAG_REVERSED_STAR_KEYLINE): a --figure-deep hairline on the reversed star -- the paper
+       star is 1.9-2.7:1 on --figure; its keyline is >= 4.5:1 against the star. Off by default. */
+    .tag.star-seg.star-keyline.is-starred .popup-star .tag-star { stroke: var(--figure-deep); stroke-width: 1.5px; }
+    .tag.star-seg.is-starred .popup-star::before { inset: 0; }
+    .tag.star-seg.is-starred .popup-star:active::before, .tag.star-seg.is-starred .tag-slot:has(> .popup-star-tap:active) .popup-star::before { background: rgba(18, 41, 63, .16); }
+    /* The pencil circle round STARRED (owner: "Not sure on the circle we can keep for now"): a loose
+       graphite loop, --ink at pencil weight; navy on the orange segment. */
+    .tag-seg > svg.tag-pencil { position: absolute; left: 50%; top: 50%; width: 92px; height: 44px; margin: -20px 0 0 -46px; pointer-events: none; z-index: 1; overflow: visible; }
+    .tag-pencil path { fill: none; stroke: var(--ink); stroke-opacity: .6; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+    .tag.star-seg .tag-pencil path { stroke: var(--navy); stroke-opacity: .85; }
 
-    /* 44 x 44 hit area without moving layout: 18x18 box + 13px all round.
-       No address: the star sits 1px from the top of the text (centred on a
-       one-line title), so the target reaches 9px up and 17px down -- its
-       top stays 5px inside the popup's top edge, never on the map above. The next control, Get Directions, keeps an 8px DEAD
-       BAND below the target in every case (see .popup-directions' margins
-       below). 13px left keeps it inside the popup border; clear of the
-       close button. Accepted side effect: the first ~13px of the title also
-       toggles the star (titles aren't interactive otherwise). */
-    .popup-star::after,
-    .popup-star-tap {
-      content: '';
-      position: absolute;
-      inset: -13px;
+    /* VISITED: the list's own stamp lands ON the Visited segment, a little larger than in the row
+       (owner: "could probably be a bit larger in the tag"), inked through a speckle mask. */
+    .tag-seg.popup-visited.visited { padding-top: 0; }
+    .tag-seg.popup-visited .row-stamp { --tag-stamp-scale: 1.25; transform: rotate(var(--stamp-tilt, -3deg)) scale(var(--tag-stamp-scale));
+      -webkit-mask: var(--tex-stamp) 0 0 / 90px 90px; mask: var(--tex-stamp) 0 0 / 90px 90px; }
+    .tag-seg.popup-visited .row-stamp.tag-stamp-in { animation: tagStampIn 420ms linear both; }
+    .tag-stamp-out { position: absolute; left: 50%; top: 50%; margin: -16px 0 0 -36px; pointer-events: none; animation: tagStampOut 220ms ease-out forwards; }
+    @keyframes tagStampIn {
+      0%   { transform: rotate(-14deg) scale(2.3); opacity: 0; filter: blur(.6px); animation-timing-function: cubic-bezier(.3, 0, .8, .4); }
+      30%  { opacity: .35; }
+      62%  { transform: rotate(calc(var(--stamp-tilt, -3deg) - 1deg)) scale(1.12); opacity: 1; filter: blur(0); animation-timing-function: cubic-bezier(.2, .8, .3, 1); }
+      82%  { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.31); }
+      100% { transform: rotate(var(--stamp-tilt, -3deg)) scale(1.25); opacity: 1; }
     }
-    .no-sub > .popup-star-slot .popup-star::after,
-    .no-sub > .popup-star-slot .popup-star-tap { inset: -9px -13px -17px; }
+    @keyframes tagStampOut { to { opacity: 0; transform: rotate(var(--stamp-tilt, -3deg)) scale(1.4); } }
 
-    .popup-star svg { width: 18px; height: 18px; display: block; }
-    .popup-star.starred { color: var(--ink); }
-    /* State system: pressed = the pale tile, same as Mark Visited (the ink /
-       rub animation lives on the svg's children and is untouched). */
-    .popup-star::before {
-      content: '';
-      position: absolute;
-      inset: calc(-1 * var(--state-tile-inset));
-      z-index: -1;
-      border-radius: 3px;              /* one radius everywhere: 3px */
-    }
-    .popup-star:active::before,
-    .popup-star-slot:has(> .popup-star-tap:active) .popup-star::before { background: var(--state-press); }
-    /* Round 8 (owner): the finger's tap target. EXACTLY .popup-star::after's
-       44x44 box (same inset rule, above), one layer above it,
-       so the dead band to Mark Visited and z-index:201 are unchanged. It is a
-       label for the hidden haptic switch: a real tap on it ticks on iOS
-       (26.5+ too). aria-hidden -- the button is what assistive tech gets. */
-    .popup-star-tap {
-      z-index: 202;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .popup-addr  { font-size: 12px; line-height: 16px; color: var(--ink-2); }
-    .popup-notes { font-size: 12px; line-height: 16px; color: var(--ink-2); font-style: italic; margin-top: var(--s2); }
+    /* Signed out: Directions stays live; Star and Visited are visibly off (the state system's off
+       alpha, the orange field included) but stay focusable -- a tap offers sign-in (the slip). */
+    .tag.is-off .popup-star, .tag.is-off .popup-visited { opacity: var(--state-off-alpha); }
+    .tag.is-off .popup-star .tag-star:not(.is-open) { color: var(--ink); stroke: none; }
+    .tag.is-off.star-seg.is-starred .popup-star .tag-star { color: var(--paper-raised); }
 
-    /* A <button>, not a static status div -- the popup is the only place
-       visited can be toggled now that the list row is delete-only. A real
-       checkbox affordance (the bordered circle .visit-btn used to show),
-       not just a color swap on plain text -- text alone was visually
-       identical to the old read-only status line, giving no sign it's now
-       tappable. Padding grows the touch target well past the bare 12px
-       line-height. The visited state uses --navy, not --figure-deep: on a
-       restaurant popup the deep figure would sit ~40px from a
-       restaurant-ink glyph they collide with in all five cities. Navy is
-       2.71:1 away in value from every category ink. */
-    /* 44px tall target: 12px line + 2 x --s4. The ring is centred on
-       the popup's 20px icon column (3px each side of the 14px ring) and
-       the gap is --s1, so "MARK VISITED" starts at 24px -- the same x as
-       the category word and the title above it. */
-    .popup-visited {
-      display: flex;
-      align-items: center;
-      gap: var(--s1);
-      flex-shrink: 0;
-      text-align: right;
-      padding: var(--s4) 0;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      font-family: var(--font-ui);
-      font-stretch: 75%;
-      text-transform: uppercase;
-      font-size: 10px;
-      line-height: 12px;
-      letter-spacing: 0.1em;
-      font-weight: 700;
-      color: var(--ink-2);
-    }
+    /* The sign-in slip: #planSlip's language, the tag's width, just under the stub. */
+    .tag-slip { position: absolute; z-index: 5; left: 0; right: 0; top: calc(100% + 6px); height: 44px; display: flex; align-items: center; box-sizing: border-box; padding: 0 0 0 var(--s4);
+      background: var(--paper-raised); border: 0 solid var(--hair); border-width: 1px 0; color: var(--navy);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: .08em; }
+    .tag-slip:empty { display: none; }
+    .tag-slip span { flex: 1; min-width: 0; }
+    .tag-slip button { all: unset; box-sizing: border-box; align-self: stretch; min-width: 44px; display: flex; align-items: center; padding: 0 var(--s4) 0 var(--s3); border-left: 1px solid var(--hair);
+      text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+    .tag-slip button:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
 
-    /* Pressed tile: a ::before sized to the words + ring with an equal
-       6px inset on every side (the 44px button box is only the tap target). */
-    .popup-visited { position: relative; isolation: isolate; }
-    .popup-visited::before {
-      content: '';
-      position: absolute;
-      inset: calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset));
-      z-index: -1;
-      border-radius: 3px;
+    /* The pop-out: grows out of the pin's foot, drops ~14px past rest so the string pulls taut,
+       one bounce, still. ~280ms. Reduced motion: no pop, the tag is simply there. */
+    .tag-popup.tag-pop .tag-body, .tag-popup.tag-pop .tag-slip { animation: tagPop 280ms linear both; transform-origin: 50% 0; }
+    .tag-popup.tag-pop .tag-string { animation: tagString 280ms linear both; }
+    @keyframes tagPop {
+      0%   { transform: translateY(calc(-1 * var(--tag-drop))) scale(.18); opacity: 0; animation-timing-function: cubic-bezier(.3, .6, .5, 1); }
+      12%  { opacity: 1; }
+      58%  { transform: translateY(14px) scale(1); animation-timing-function: cubic-bezier(.4, 0, .4, 1); }
+      82%  { transform: translateY(-3px) scale(1); animation-timing-function: cubic-bezier(.4, 0, .6, 1); }
+      100% { transform: none; opacity: 1; }
     }
-    .popup-visited:active::before,
-    .popup-visited-slot:has(> .popup-visited-tap:active) .popup-visited::before { background: var(--state-press); }
-    /* The finger's tap target for Mark Visited (owner: "the haptics should
-       also be everywhere logical"): the popup star's real-tap label, exactly
-       over the button's 44px box, one layer above it. A real tap on it is a
-       trusted label click on the hidden haptic switch -- one tick at tap time,
-       iOS 26.5+ included -- and the click is forwarded to the button one task
-       later (hapticTap()). aria-hidden: the button is what assistive tech gets. */
-    .popup-visited-slot { position: relative; display: flex; flex-shrink: 0; }
-    .popup-visited-tap {
-      position: absolute;
-      inset: 0;
-      z-index: 202;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+    @keyframes tagString {
+      0%   { transform: scaleY(0); animation-timing-function: cubic-bezier(.3, .6, .5, 1); }
+      58%  { transform: scaleY(1.3); animation-timing-function: cubic-bezier(.4, 0, .4, 1); }
+      82%  { transform: scaleY(.95); }
+      100% { transform: none; }
     }
-
-    /* Hollow "tap to fill" ring at the SAME weight and ink as the hollow
-       star above it (.popup-star, 2/24 of 16px = 1.33px, --ink-2) so the
-       column reads as one family of controls. Was 1px --hair (1.3:1),
-       under the 3:1 non-text bar. --ink-2: 6.17:1 on --paper.
-       An inset box-shadow, not a border: Chromium floors a 1.33px
-       border to 1px (measured), while a shadow spread keeps the
-       fraction -- 4 device px at 3x, the star's exact stroke. */
-    .popup-visited-check {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      margin: 0 0 0 3px;                   /* the circle sits at the popup's trailing edge */
-      flex-shrink: 0;
-      border-radius: 50%;
-      box-shadow: inset 0 0 0 1.33px var(--ink-2);
+    @media (prefers-reduced-motion: reduce) {
+      .tag-popup.tag-pop .tag-body, .tag-popup.tag-pop .tag-slip, .tag-popup.tag-pop .tag-string { animation: none; }
+      .tag-seg.popup-visited .row-stamp.tag-stamp-in, .tag-stamp-out { animation: none; }
+      .tag-stamp-out { display: none; }
+      .tag-stock { transition: none; }
     }
-
-    .popup-visited.visited {
-      color: var(--navy);
-    }
-
-    .popup-visited.visited .popup-visited-check {
-      background: var(--navy);
-      box-shadow: none;
-    }
-
-    /* Get Directions: the shipped text button (owner: "the same text button,
-       not a new button style") -- compass + condensed caps in --figure-deep,
-       44px target (12px line + 2 x --s4) -- on its own line under the
-       address/notes. Content-width, so only the words are the link. The
-       compass sits on the 20px icon column (3px each side, as the Mark
-       Visited ring used to), so "GET DIRECTIONS" starts at 24px -- the x of
-       the category word below it. */
-    .popup-directions {
-      display: flex;
-      align-items: center;
-      gap: var(--s1);
-      width: fit-content;
-      padding: var(--s4) 0;
-      margin-top: var(--s2);
-      font-stretch: 75%;
-      text-transform: uppercase;
-      font-size: 10px;
-      line-height: 12px;
-      letter-spacing: 0.1em;
-      font-weight: 700;
-      color: var(--figure-deep);
-      text-decoration: none;
-    }
-    /* The 8px dead band to the star's target, where the text is short:
-       address only -- target ends 4px below the text: 4 + 8 = 12;
-       title only -- target ends 16px below it: 16 + 8 = 24. With notes the
-       text already clears it (--s2). */
-    .popup-title-row.addr-end + .popup-directions { margin-top: var(--s3); }   /* 12 */
-    .popup-title-row.solo + .popup-directions { margin-top: var(--s6); }       /* 24 */
-
-    /* leaflet.css's `.leaflet-container a { color: #0078A8 }` (0,1,1)
-       outranks .popup-directions (0,1,0) -- Directions shipped Leaflet
-       blue. This restates the intended colour at (0,2,1). */
-    .leaflet-container a.popup-directions { color: var(--figure-deep); }
-
-    .popup-directions svg { width: 14px; height: 14px; margin: 0 3px; flex-shrink: 0; }
-    /* Pressed = the pale tile, same 6px inset as Mark Visited. */
-    .popup-directions { position: relative; isolation: isolate; }
-    .popup-directions::before { content: ''; position: absolute; inset: calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset)) calc(16px - var(--state-tile-inset)) calc(-1 * var(--state-tile-inset)); z-index: -1; border-radius: 3px; }   /* left edge = the star tile's (the compass keeps its 3px icon margin, so 7px clear on that side) */
-    .popup-directions:active::before { background: var(--state-press); }
-
-    /* Bottom row (owner): the category (non-interactive) on the left, Mark
-       Visited on the right with its circle at the trailing edge.
-       margin-top --s3 keeps an 8px dead band between Get Directions' 44px
-       target and Mark Visited's (both are their own boxes). margin-bottom -8px hands
-       the button's 16px bottom padding back to Leaflet's 8px content margin. */
-    .popup-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--s3);
-      margin-top: var(--s2);
-      margin-bottom: calc(-1 * var(--s2));
-    }
+    /* The shape anchor dot (owner: "Dot or something in the middle is fine"): shown only while a
+       district's / street's tag is open, at shapeAnchor() -- the Directions point. */
+    .tag-dot { pointer-events: none; }
 
     /* Auth Modal */
     #authModal {
@@ -2391,7 +2300,7 @@
        crossbar) from sitting on the type's baseline and reading as a letter. */
     .sg-star .sg-pencil { color: var(--ink-2); fill: currentColor;
                       transform-box: fill-box; transform-origin: 50% 55%; transform: rotate(-12deg); }
-    .sg-star .sg-ink { color: var(--ink); fill: currentColor; opacity: 0;
+    .sg-star .sg-ink { color: var(--figure); fill: currentColor; stroke: var(--figure-deep); stroke-width: 1.5px; paint-order: stroke; stroke-linejoin: round; opacity: 0;
                    transform-box: fill-box; transform-origin: 50% 55%; }
     .sg-spread { opacity: 0; transform-box: fill-box; transform-origin: 50% 55%; }
     .sg-smudge, .sg-ghost { fill: var(--ink-2); }
@@ -2410,8 +2319,8 @@
       position: absolute; width: 1.5px; height: 1.5px; border-radius: 1px;
       background: var(--ink-2); pointer-events: none;
     }
-    .location-card.highlighted .sg-pencil,
-    .location-card.highlighted .sg-ink { color: var(--paper); }
+    .location-card.highlighted .sg-pencil { color: var(--paper); }
+    .location-card.highlighted .sg-ink { color: var(--figure); stroke: none; }   /* the landed ink is the row's orange star */
     .location-card.highlighted .sg-smudge,
     .location-card.highlighted .sg-ghost { fill: var(--paper); }
     .location-card.highlighted .sg-crumb { background: var(--paper); }
@@ -2432,7 +2341,8 @@
     .popup-star .sgp-in .sgp-fill { animation: sgpOn 100ms linear backwards; }
     .popup-star .sgp-in .sgp-hollow { animation: sgpOff 1ms linear 100ms forwards; }
     .popup-star .sgp-out .sg-ink { animation: sgpLift 240ms linear; }
-    .popup-star .sgp-out .sgp-fill { color: var(--ink); animation: sgpOff 240ms cubic-bezier(.4,0,.6,1) forwards; }   /* the ink that fades is the ink that was there (the button is already --ink-2) */
+    .popup-star .sgp-out .sgp-fill { animation: sgpOff 240ms cubic-bezier(.4,0,.6,1) forwards; }   /* the ink that fades is the orange that was there (.tag-star-anim) */
+    .popup-star .tag-star-anim .sgp-hollow { color: var(--ink); stroke: none; }
     @keyframes sgpOff    { to { opacity: 0; } }
     @keyframes sgpOn     { from { opacity: 0; } to { opacity: 1; } }
     @keyframes sgpPress  { 0% { transform: rotate(-20deg) scale(1); animation-timing-function: cubic-bezier(.2,.9,.3,1); } 34% { transform: rotate(6deg) scale(1.4); animation-timing-function: cubic-bezier(.6,0,.85,.45); } 65% { transform: rotate(-2deg) scale(0.95); animation-timing-function: cubic-bezier(.4,0,.3,1); } 100% { transform: rotate(0deg) scale(1); } }
@@ -2689,6 +2599,13 @@
     // available on this paper is 17.70:1, so n <= 9 -- and with the 3:1
     // floor the span is 5.90:1, so n <= 6.
     //
+    // 2026-10-07: restaurant (-> wine #7A2436) and attraction (-> moss
+    // #547326) were re-inked when the star became the city's orange; they
+    // were checked by CIEDE2000 against every ink and accent instead
+    // (design/popup-hierarchy/round7/star-colour/: no category pair closer
+    // than before; nearest new pair restaurant/street 15.3). The pair counts
+    // and margins in this block predate that and were not re-run.
+    //
     // Tightest margins -- do not nudge these without re-running the checks:
     //   nature/area     hue 61.4deg   (+1.4)
     //   area/other      value 1.403   (+0.003; ΔS 0.281 is a second channel)
@@ -2696,18 +2613,15 @@
     //   other/bar       ΔS 0.303      (+0.053) -- `other` cannot be greyer
     //   cafe/restaurant value 1.440
     //
-    // `restaurant` and --figure-deep are deliberately adjacent (they collide
-    // on all three channels in all five cities). They are kept apart in
-    // SPACE, not in colour: the highlighted row reverses its glyph to
-    // --paper, the delete control sits >=244px away across the content
-    // column, form controls never render category ink, and the popup's
-    // visited marker is --navy rather than --figure-deep.
+    // The star (--figure, keyline --figure-deep) is the orange family now;
+    // no category sits in it (restaurant ΔE >= 32, attraction >= 35 from the
+    // star in every city; orange-figure.json).
     // =========================================================================
     const CATEGORY_COLORS = {
-      restaurant: '#AC5019',   // Bryce burnt orange   4.52:1  H  22.4  S .746
+      restaurant: '#7A2436',   // wine (2026-10-07; was burnt orange #AC5019 -- orange is the star now) 8.30:1
       cafe:       '#6E4C22',   // Zion olive-brown     6.51:1  H  33.2  S .528
       bar:        '#3D5A7A',   // McKinley blue        6.02:1  H 211.5  S .333
-      attraction: '#A68018',   // Zion gold            3.09:1  H  43.9  S .747
+      attraction: '#547326',   // moss, park-poster foliage (2026-10-07; was gold #A68018, too close to the star) 4.59:1
       nature:     '#1E3A2B',   // Yellowstone spruce  10.44:1  H 147.9  S .318
       shopping:   '#8A7AA8',   // Bryce lavender       3.26:1  H 260.9  S .209
       area:       '#2B3F52',   // Zion slate           9.15:1  H 209.2  S .312
@@ -2889,6 +2803,7 @@
       const accountBtn = document.getElementById('accountBtn');
       const dropdownUserEmail = document.getElementById('dropdownUserEmail');
 
+      if (typeof refreshTags === 'function' && map) refreshTags();
       if (currentUser) {
         dropdownUserEmail.textContent = currentUser.email;
         accountBtn.classList.add('show');
@@ -2978,10 +2893,16 @@
     // on an unselected column.
     async function doFetchLocations() {
       try {
-        const { data, error } = await supabaseClient
-          .from('locations')
-          .select('id,name,address,category,lat,lng,notes,visited,starred,city')
-          .order('created_at', { ascending: false });
+        // The tag's short address (short_address, else address_details) --
+        // columns that may not exist yet: a missing-column error retries
+        // without them for the rest of the session (shortAddressColumnsMissing).
+        const base = 'id,name,address,category,lat,lng,notes,visited,starred,city';
+        const read = cols => supabaseClient.from('locations').select(cols).order('created_at', { ascending: false });
+        let { data, error } = await read(shortAddressColumnsMissing ? base : base + ',short_address,address_details');
+        if (error && !shortAddressColumnsMissing && isMissingShortAddressColumn(error)) {
+          shortAddressColumnsMissing = true;
+          ({ data, error } = await read(base));
+        }
 
         if (error) throw error;
         if (flagWritesInFlight > 0) return;   // see flagWritesInFlight
@@ -3078,7 +2999,8 @@
     // deploys on push, possibly before the migration runs. PostgREST then
     // refuses the whole insert (PGRST204 "Could not find the '...' column"),
     // so addLocation() retries once without them and stops sending them for
-    // the rest of the session. Nothing reads them yet (popup redesign).
+    // the rest of the session; the read (doFetchLocations()) does the same.
+    // The tag shows short_address (tagAddress()).
     const SHORT_ADDRESS_COLUMNS = ['address_details', 'short_address'];
     let shortAddressColumnsMissing = false;
 
@@ -4281,7 +4203,7 @@
     // the signature can force the refresh.
     function markerSignature(loc) {
       return [loc.name, loc.address, loc.category, loc.lat, loc.lng,
-              loc.notes, loc.visited, loc.city, loc.starred].join('|');
+              loc.notes, loc.visited, loc.city, loc.starred, loc.short_address || ''].join('|');
     }
 
     // Everything the list card renders.
@@ -4436,11 +4358,10 @@
 
     // The list's Baedeker star, riding a map seal's upper-right shoulder
     // (45deg on the rim). A marker has no name to lead, so the star goes
-    // on the seal. INK on the map, not --figure-deep as in the list and
-    // popup: on the map --figure-deep already means "cluster" (the disc)
-    // and is ~1.1:1 from the restaurant seal, so the star would fuse into
-    // both. --ink is 14.69:1 on its --paper halo and dark against every
-    // seal and disc. Shape is the identity across surfaces; colour adapts.
+    // on the seal. The one star colour everywhere (2026-10-07): the city's
+    // --figure with a --figure-deep keyline, always on its --paper halo, so
+    // it holds apart from the --figure-deep cluster disc (ΔE2000 18-27) and
+    // colour is never the only cue (UX r7 must-fix 1).
     // Colours are .marker-star-halo / .marker-star-ink in the CSS (tokens
     // can't go in SVG presentation attributes). `size` is the seal's px;
     // the star scales with it (12 near / 10 far / +2 hi).
@@ -4800,18 +4721,12 @@
       });
     }
 
-    // Category sits above the title so the title and its notes/address chunk
-    // together as one visual group, category read first as context.
     let popupInkId = null;   // popup star just set: fade + pop ONCE (consumed on first render)
-    // A pin's popup autopans clear of the TOP CONTROLS (UX S1). The star is
-    // the popup's top-left item and the "+" sits over its top-right, so the
-    // default 5px would pin a tall popup under the zoom control, the add
-    // button and, in a Home Screen launch, the status bar. The top padding
-    // is read from where those controls actually are (their bottom edge,
-    // which already includes env(safe-area-inset-top)) + --s2, each time a
-    // popup pans -- a getter on the popup's own options, which Leaflet
-    // re-reads in _adjustPan(). Fallback 84 = the zoom control's 74 + 10.
-    // Sides and bottom keep Leaflet's 5px.
+    // A tag opens with its pin just under the TOP CONTROLS (UX S1): the zoom
+    // control, the add button and, in a Home Screen launch, the status bar.
+    // Read from where those controls actually are (their bottom edge, which
+    // already includes env(safe-area-inset-top)) + --s2, at each open.
+    // Fallback 84 = the zoom control's 74 + 10.
     const POPUP_PAN_GAP = 8;
     function pinPopupTopPad() {
       try {
@@ -4824,8 +4739,7 @@
         return Math.round(y ? y + POPUP_PAN_GAP : 84);
       } catch (_) { return 84; }
     }
-    // ... and clear of the list sheet (and the filter panel, if open) along the bottom: the
-    // popup's autoPan keeps it above whatever covers the map's lower edge.
+    // ... and clear of the list sheet (and the filter panel, if open) along the bottom.
     function pinPopupBottomPad() {
       try {
         const mr = map.getContainer().getBoundingClientRect(), pn = document.getElementById('filtersPanel');
@@ -4834,38 +4748,139 @@
         return Math.max(5, Math.round(mr.bottom - Math.min(...tops) + POPUP_PAN_GAP));
       } catch (_) { return 5; }
     }
-    function popupPadding(popup) {
-      Object.defineProperty(popup.options, 'autoPanPaddingTopLeft', { get: () => L.point(5, pinPopupTopPad()), configurable: true });
-      Object.defineProperty(popup.options, 'autoPanPaddingBottomRight', { get: () => L.point(5, pinPopupBottomPad()), configurable: true });
-    }
-    function bindPinPopup(marker, loc) {
-      marker.bindPopup(buildPopupHtml(loc));
-      popupPadding(marker.getPopup());
+    // =========================================================================
+    // HANGING TAG -- the place popup (docs/shipped.md "Hanging Tag + orange
+    // star"; design/popup-hierarchy/ rounds 4-7). A Leaflet popup, so every
+    // open path (pin tap, list tap -> openPopupOnArrival(), shapes) and every
+    // re-render (setPopupContent on toggle / poll) is unchanged; TagPopup only
+    // hangs it BELOW its anchor and takes over the pan (tagOpened()).
+    // =========================================================================
+    // OPEN (owner to pick, 2026-10-07): the tag's starred treatment.
+    //   'segment' -- the Star segment printed solid action orange, the star
+    //                reversed (paper), STARRED in navy. DEFAULT.
+    //   'band'    -- an orange band printed across the top of the tag stock,
+    //                clipped to its die-cut (chamfers + eyelet); the star is
+    //                the app's orange star.
+    //   'both'    -- band + segment.
+    const TAG_STAR_STYLE = 'segment';
+    // Dial: a --figure-deep hairline on the reversed (paper) star. The paper
+    // star on --figure is only 1.9-2.7:1; the hairline is >= 4.5:1 against
+    // it. Off = the look the owner asked for. Measured per city in shipped.md.
+    const TAG_REVERSED_STAR_KEYLINE = false;
+    const TAG_W_MAX = 316;         // the tag's width; never wider than the screen less 2 x 16px
+    const TAG_HANG = 44;           // pin centre -> tag top (the string runs on to the eyelet, 18px in)
+    const TAG_POP_MS = 280;        // the pop-out (CSS tagPop)
+    const TAG_PAN_MS = 250;        // pan to the open position
+    const TAG_SHEET_MS = 300;      // #locations' transform transition (the list dropping to its header)
+    const tagWidth = () => Math.max(240, Math.min(TAG_W_MAX, window.innerWidth - 32));
+
+    // The pencil loop round STARRED (round 6): a hand-drawn ellipse that goes
+    // round once, overshoots and lifts; one fixed path (92 x 44 box).
+    const TAG_PENCIL_D = (() => {
+      const cx = 46, cy = 22, rx = 40, ry = 19, rt = -0.12; let d = '';
+      for (let i = 0; i <= 44; i++) {
+        const a = -0.55 - i * (2 * Math.PI + 0.75) / 44, k = 1 + 0.08 * Math.sin(i / 3.1) + 0.05 * Math.sin(i / 1.7) - 0.10 * (i / 44);
+        const dx = Math.cos(a) * rx * k, dy = Math.sin(a) * ry * k;
+        d += (i ? 'L' : 'M') + (cx + dx * Math.cos(rt) - dy * Math.sin(rt)).toFixed(1) + ',' + (cy + dx * Math.sin(rt) + dy * Math.cos(rt)).toFixed(1);
+      }
+      return d;
+    })();
+
+    // The short address under the name (owner: "#1 since there's a
+    // directions button"): the stored short_address, else derived from the
+    // stored Nominatim details, else nothing -- never the full string cut.
+    function tagAddress(loc) {
+      if (loc.shapeId != null) return '';
+      if (loc.short_address) return String(loc.short_address);
+      if (loc.address_details) return deriveShortAddress(loc.address_details, loc.name);
+      return '';
     }
 
+    let popupStampId = null;     // Visited just set from the tag: the stamp comes down ONCE
+    let popupUnstampId = null;   // ... just cleared: the stamp lifts off ONCE
     function buildPopupHtml(loc) {
       const inkNow = !!loc.starred && popupInkId === loc.id;
       if (inkNow) popupInkId = null;
       const rubNow = !loc.starred && popupRubId === loc.id;
       if (rubNow) popupRubId = null;
+      const stampNow = !!loc.visited && popupStampId === loc.id;
+      if (stampNow) popupStampId = null;
+      const unstampNow = !loc.visited && popupUnstampId === loc.id;
+      if (unstampNow) popupUnstampId = null;
       const sh = loc.shapeId != null;   // a district/street (shapeRowItem())
-      const ink = sh ? (loc.color || categoryInk(loc.category)) : categoryInk(loc.category);
       const stopLine = sh ? planStopLine('shape', loc.shapeId) : planStopLine('loc', loc.id);   // Plans: "Stop n of m" -- information, never a control
-      return `
-        <div style="min-width: 240px;">
-          <div class="popup-title-row${loc.address ? '' : ' no-sub'}${loc.notes ? '' : loc.address ? ' addr-end' : ' solo'}">
-            <span class="popup-star-slot"><button type="button" class="popup-star ${loc.starred ? 'starred' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="Star">${inkNow || rubNow ? `<svg class="sgp ${inkNow ? 'sgp-in' : 'sgp-out'}" viewBox="0 0 24 24" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>` : `<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`}</button><label class="popup-star-tap" for="starHapticSwitch" aria-hidden="true"></label></span>
-            <div class="popup-title">${escapeHtml(loc.name)}</div>
-            ${loc.address ? `<div class="popup-addr">${escapeHtml(loc.address)}</div>` : ''}
-            ${loc.notes ? `<div class="popup-notes">${escapeHtml(loc.notes)}</div>` : ''}
-          </div>
-          <a class="popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-label="Get directions"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Get Directions</a>
-          <div class="popup-actions">
-            <div class="popup-cat"><span style="color:${ink};display:flex">${glyphHtml(loc.category, 20)}</span>${escapeHtml(loc.category)}${stopLine ? `<span class="popup-stop">&nbsp;&middot;&nbsp;${stopLine}</span>` : ''}</div>
-            <span class="popup-visited-slot"><button type="button" class="popup-visited ${loc.visited ? 'visited' : ''}" data-id="${escapeAttr(loc.id)}" aria-pressed="${loc.visited ? 'true' : 'false'}">${loc.visited ? 'Visited' : 'Mark Visited'}<span class="popup-visited-check" aria-hidden="true"></span></button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>
-          </div>
-        </div>
-      `;
+      const addr = tagAddress(loc);
+      const off = !currentUser;
+      const seg = TAG_STAR_STYLE !== 'band', band = TAG_STAR_STYLE !== 'segment' && loc.starred;
+      const id = escapeAttr(loc.id);
+      const cls = ['tag', loc.starred ? 'is-starred' : '', loc.visited ? 'is-visited' : '', off ? 'is-off' : '', seg ? 'star-seg' : '', TAG_REVERSED_STAR_KEYLINE ? 'star-keyline' : ''].filter(Boolean).join(' ');
+      const starSvg = inkNow || rubNow
+        ? `<svg class="sgp tag-star tag-star-anim ${inkNow ? 'sgp-in' : 'sgp-out'}" viewBox="0 0 24 24" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>`
+        : `<svg class="tag-star${loc.starred ? '' : ' is-open'}" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`;
+      // Signed out: still focusable buttons (aria-disabled, never disabled) whose names say why.
+      const starName = off ? `${loc.starred ? 'Starred' : 'Star'}, sign in to use` : 'Star';
+      const visName = off ? `${loc.visited ? 'Visited' : 'Mark visited'}, sign in to use` : (loc.visited ? 'Visited' : 'Mark visited');
+      const tilt = stampTilt(loc.id);
+      const stamp = `<span class="row-stamp${stampNow ? ' tag-stamp-in' : ''}" style="--stamp-tilt:${tilt}deg" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>`;
+      const visInner = loc.visited ? stamp
+        : `<svg class="tag-ochk" viewBox="-1 -1 26 26" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>Mark visited`
+          + (unstampNow ? `<span class="row-stamp tag-stamp-out" style="--stamp-tilt:${tilt}deg" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
+      const x = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
+      return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
+        + `<div class="tag-body"><div class="tag-stock">`
+        + (band ? '<span class="tag-band" aria-hidden="true"></span>' : '')
+        + '<span class="tag-patch" aria-hidden="true"></span>'
+        + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
+        + `<div class="tag-in"><h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
+        + (addr ? `<div class="tag-addr">${escapeHtml(addr)}</div>` : '')
+        + (loc.notes ? `<div class="tag-notes">${escapeHtml(loc.notes)}</div>` : '')
+        + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val popup-cat">${escapeHtml(loc.category)}</span></span>`
+        + (stopLine ? `<span class="tag-f"><span class="tag-lab">Plan</span><span class="tag-val">${escapeHtml(stopLine)}</span></span>` : '') + '</div></div>'
+        + '<div class="tag-stub">'
+        + `<span class="tag-slot dir"><a class="tag-seg popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#g-compass"/></svg>Directions</a></span>`
+        + `<span class="tag-slot star"><button type="button" class="tag-seg popup-star${loc.starred ? ' starred' : ''}" data-id="${id}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="${starName}"${off ? ' aria-disabled="true"' : ''}>`
+        + (loc.starred ? `<svg class="tag-pencil" viewBox="0 0 92 44" aria-hidden="true"><path d="${TAG_PENCIL_D}"/></svg>` : '')
+        + `${starSvg}<span aria-hidden="true">${loc.starred ? 'Starred' : 'Star'}</span></button><label class="popup-star-tap" for="starHapticSwitch" aria-hidden="true"></label></span>`
+        + `<span class="tag-slot vis"><button type="button" class="tag-seg popup-visited${loc.visited ? ' visited' : ''}" data-id="${id}" aria-pressed="${loc.visited ? 'true' : 'false'}" aria-label="${visName}"${off ? ' aria-disabled="true"' : ''}>${visInner}</button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>`
+        + '</div></div></div><span class="tag-string" aria-hidden="true"></span></div>';
+    }
+
+    // The popup that hangs: its container's TOP sits at the anchor (+ the pin's
+    // radius, via --tag-drop inside), centred on it -- Leaflet's own popup sits
+    // its BOTTOM there. Zoom animation is Leaflet's (it only moves the anchor).
+    // No autopan: tagOpened() pans to the open position itself.
+    const TagPopup = L.Popup.extend({
+      options: { className: 'tag-popup', closeButton: false, autoPan: false, keepInView: false, minWidth: TAG_W_MAX, maxWidth: TAG_W_MAX },
+      _updatePosition() {
+        if (!this._map) return;
+        const pos = this._map.latLngToLayerPoint(this._latlng), anchor = L.point(this._getAnchor());
+        let off = L.point(0, 0);
+        if (this._zoomAnimated) L.DomUtil.setPosition(this._container, pos.add(anchor));
+        else off = pos.add(anchor);
+        this._containerBottom = 0;
+        this._containerLeft = -Math.round(this._containerWidth / 2) + off.x;
+        this._container.style.left = this._containerLeft + 'px';
+        this._container.style.top = (off.y + tagPinRadius(this)) + 'px';
+        this._container.style.bottom = 'auto';
+      },
+      _adjustPan() {}
+    });
+    function newTagPopup() {
+      const w = tagWidth();
+      const p = new TagPopup({ minWidth: w, maxWidth: w });
+      p.on('add', () => { const c = p.getElement(); if (c) { c.style.setProperty('--tag-w', w + 'px'); c.style.setProperty('--tag-drop', (TAG_HANG - tagPinRadius(p)) + 'px'); } });
+      return p;
+    }
+    const isTagPopup = p => p instanceof TagPopup;
+    // The visible radius of what the string hangs from: the pin (24px; 32 when
+    // it is the selected pin), or a shape's anchor dot.
+    function tagPinRadius(popup) {
+      const src = popup && popup._source;
+      if (src && src.locationId != null) return src.locationId === highlightedId ? 16 : 12;
+      return 6;
+    }
+    function bindPinPopup(marker, loc) {
+      marker.bindPopup(newTagPopup().setContent(buildPopupHtml(loc)));
     }
 
     // The single writer of highlight state. Highlight lives here, not on the
@@ -6284,8 +6299,11 @@
       const layer = nb.type === 'street'
         ? L.polyline(nb.geometry, neighborhoodStyle(nb))
         : L.polygon(nb.geometry, neighborhoodStyle(nb));
-      layer.bindPopup(shapePopupHtml(nb));
-      popupPadding(layer.getPopup());
+      layer.bindPopup(newTagPopup().setContent(shapePopupHtml(nb)));
+      // A shape's tag always hangs from its anchor dot (shapeAnchor(): the
+      // Directions point), wherever on the outline or line it was tapped.
+      const open = layer.openPopup;
+      layer.openPopup = function () { const cur = neighborhoodShapes.find(n => n.id === nb.id) || nb, at = shapeAnchor(cur); return open.call(this, at ? L.latLng(at) : undefined); };
       layer._popSig = shapePopupSignature(nb);
       return layer;
     }
@@ -8120,6 +8138,8 @@
     };
 
     document.getElementById('collapseBtn').onclick = () => {
+      // A tag is open: ▼ closes it and raises the list, the place's row scrolled into view.
+      if (typeof tagOpenNow === 'function' && tagOpenNow()) { if (tagSession) tagSession.forceExpand = true; map.closePopup(); return; }
       const locations = document.getElementById('locations');
       const collapseBtn = document.getElementById('collapseBtn');
       const mapElement = document.getElementById('map');
@@ -8559,6 +8579,8 @@
     // never double-bind the way a per-popup listener would risk.
     starHapticSwitch();   // the popup star's tap label points at it from the first popup
     map.getPane('popupPane').addEventListener('click', (e) => {
+      if (e.target.closest('.tag-x')) { e.stopPropagation(); map.closePopup(); return; }
+      if (e.target.closest('.tag-slip button')) { e.stopPropagation(); hideTagSlip(); showAuthModal(); return; }
       const btn = e.target.closest('.popup-visited, .popup-star');
       if (!btn) return;
       const loc = rowItem(btn.dataset.id);   // a pin, or a district/street ('shape:<id>')
@@ -8570,14 +8592,140 @@
       // popup's click-disable flag, treat it as a map click, and CLOSE the
       // popup (measured in Playwright before this line existed).
       e.stopPropagation();
+      // Signed out (owner: "tapping greyed out should offer sign in"): the
+      // greyed control offers the sign-in slip; nothing toggles, nothing moves.
+      if (btn.getAttribute('aria-disabled') === 'true') { showTagSlip(); return; }
       const isStar = btn.classList.contains('popup-star');
       // No tick here: a finger's tap already ticked on touch (hapticTap());
       // keyboard / VoiceOver activation gets none -- their own feedback stands.
       if (isStar && !loc.starred) popupInkId = loc.id;
       if (isStar && loc.starred) popupRubId = loc.id;
+      if (!isStar && !loc.visited) popupStampId = loc.id;
+      if (!isStar && loc.visited) popupUnstampId = loc.id;
       if (isStar) ssReplay(loc.id); else vsReplay(loc.id);  // before the toggle, so the row is held and plays from its old state
       toggleLocationFlag(loc.id, isStar ? 'starred' : 'visited');
     });
+
+    // ---- the tag's open / close choreography --------------------------------
+    // Open (UX r4 §4-5): the list drops to its header (owner: "Let's try it
+    // idk yet"), the map pans the pin to just under the top controls, then the
+    // tag pops out of the pin; its taps go live once the pan and the drop are
+    // done. Close (x, a map tap, Esc): the list comes back to exactly the
+    // height and scroll it had -- if you had collapsed it yourself, it stays
+    // collapsed. A tap on another pin swaps tags in one tap (the list stays
+    // down). The header's ▼ while a tag is open closes the tag and raises the
+    // list with the place's row (still selected) scrolled into view.
+    let tagSession = null, tagRestoreTimer = 0, tagLiveTimer = 0, tagPopTimer = 0, tagDot = null, tagSlipOn = false;
+    const tagOpenNow = () => !!(map._popup && map.hasLayer(map._popup) && isTagPopup(map._popup));
+    window.addEventListener('click', (e) => {
+      // The slip's first outside tap only dismisses it: it never closes the tag or reaches the map.
+      if (!tagSlipOn) return;
+      const t = e.target, inTag = t.closest && t.closest('.tag-popup');
+      if (!inTag) { e.stopImmediatePropagation(); e.preventDefault(); hideTagSlip(); return; }
+      if (!t.closest('.tag-slip') && !(t.closest('.popup-star, .popup-visited') && t.closest('[aria-disabled="true"]'))) hideTagSlip();
+    }, true);
+    function showTagSlip() {
+      const p = tagOpenNow() && map._popup, c = p && p.getElement();
+      const s = c && c.querySelector(':scope > .tag-slip');
+      if (!s) return;
+      if (!s.firstChild) s.innerHTML = '<span>Sign in to star and mark visited</span><button type="button">Sign in</button>';
+      tagSlipOn = true;
+    }
+    function hideTagSlip() {
+      tagSlipOn = false;
+      document.querySelectorAll('.tag-slip').forEach(s => { s.textContent = ''; });
+    }
+    function tagFit(popup) {
+      // Only a tag taller than the map below its pin scrolls inside (with a fade); no real row does.
+      const c = popup.getElement(), inn = c && c.querySelector('.tag-in');
+      if (!inn) return;
+      inn.style.maxHeight = ''; inn.classList.remove('scrolls');
+      const mapR = map.getContainer().getBoundingClientRect(), r = c.getBoundingClientRect();
+      const over = r.bottom - (mapR.bottom - 24);   // 24: the OSM credit stays clear
+      if (over > 0 && !c.classList.contains('tag-wait')) { inn.style.maxHeight = Math.max(120, inn.offsetHeight - over) + 'px'; inn.classList.add('scrolls'); }
+    }
+    TagPopup.include({ _adjustPan() { if (this._map && this._container && !this._container.classList.contains('tag-wait')) tagFit(this); } });
+    function setSheetCollapsed(on) {
+      const locations = document.getElementById('locations');
+      if (locations.classList.contains('collapsed') === on) return;
+      locations.classList.toggle('collapsed', on);
+      document.getElementById('collapseBtn').classList.toggle('collapsed', on);
+      document.getElementById('map').classList.toggle('expanded', on);
+      document.getElementById('filtersPanel').classList.toggle('collapsed-mode', on);
+      document.getElementById('mainContent').classList.toggle('sheet-collapsed', on);
+      // The map's height snaps (it is never transitioned); keep its top-left
+      // fixed so the pin under the tag doesn't jump.
+      map.invalidateSize({ pan: false });
+      if (typeof placePlanSlip === 'function') placePlanSlip();
+    }
+    function showTagDot(popup) {
+      const src = popup._source;
+      if (!src || src.locationId != null || !src.options) return;
+      const ink = src.options.color || '#5A564C';
+      tagDot = L.marker(popup.getLatLng(), { interactive: false, keyboard: false, zIndexOffset: Z_PIN_STARRED - 200,
+        icon: L.divIcon({ className: 'tag-dot', iconSize: [14, 14], iconAnchor: [7, 7],
+          html: `<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="var(--paper)"/><circle cx="7" cy="7" r="4" fill="${escapeAttr(ink)}"/></svg>` }) }).addTo(map);
+    }
+    function tagOpened(popup) {
+      clearTimeout(tagRestoreTimer); clearTimeout(tagLiveTimer); clearTimeout(tagPopTimer);
+      hideTagSlip();
+      if (tagDot) { map.removeLayer(tagDot); tagDot = null; }
+      const c = popup.getElement(), list = document.getElementById('locationsList');
+      if (!tagSession) tagSession = { sheetWasCollapsed: document.getElementById('locations').classList.contains('collapsed'), scroll: list.scrollTop, byTag: false, focus: document.activeElement };
+      const reduced = prefersReducedMotion();
+      c.classList.remove('tag-pop'); c.classList.add('tag-wait');
+      if (!currentUser && !c.querySelector(':scope > .tag-slip')) {   // the live region exists before it speaks
+        const s = document.createElement('div'); s.className = 'tag-slip'; s.setAttribute('role', 'status'); s.setAttribute('aria-live', 'polite'); c.appendChild(s);
+      }
+      let wait = 0;
+      if (!railQuery.matches && !document.getElementById('locations').classList.contains('collapsed')) {
+        setSheetCollapsed(true); tagSession.byTag = true; wait = reduced ? 0 : TAG_SHEET_MS;
+      }
+      showTagDot(popup);
+      const size = map.getSize(), p = map.latLngToContainerPoint(popup.getLatLng());
+      const d = p.subtract(L.point(size.x / 2, pinPopupTopPad() + tagPinRadius(popup)));
+      if (Math.abs(d.x) > 1 || Math.abs(d.y) > 1) {
+        map.panBy(d, { animate: !reduced, duration: TAG_PAN_MS / 1000, easeLinearity: 0.35 });
+        if (!reduced) wait = Math.max(wait, TAG_PAN_MS + 20);
+      }
+      const live = () => {
+        if (map._popup !== popup || !map.hasLayer(popup)) return;
+        c.classList.remove('tag-wait');
+        tagFit(popup);
+        if (!reduced) { c.classList.add('tag-pop'); tagPopTimer = setTimeout(() => c.classList.remove('tag-pop'), TAG_POP_MS + 40); }
+        const t = c.querySelector('.tag'); if (t) t.focus({ preventScroll: true });   // VoiceOver: into the tag
+      };
+      if (wait) tagLiveTimer = setTimeout(live, wait); else live();
+    }
+    function tagClosed(popup) {
+      clearTimeout(tagLiveTimer); clearTimeout(tagPopTimer);
+      hideTagSlip();
+      const c = popup.getElement(); if (c) c.classList.remove('tag-wait', 'tag-pop');
+      if (tagDot) { map.removeLayer(tagDot); tagDot = null; }
+      clearTimeout(tagRestoreTimer);
+      tagRestoreTimer = setTimeout(() => {   // a swap opens the next tag in this same dispatch: then nothing is restored
+        if (tagOpenNow()) return;
+        const s = tagSession; tagSession = null;
+        if (!s) return;
+        const list = document.getElementById('locationsList');
+        if (s.forceExpand || (s.byTag && !s.sheetWasCollapsed)) {
+          setSheetCollapsed(false);
+          if (s.forceExpand && highlightedId) { const en = rowEntry(highlightedId); if (en && en.el) en.el.scrollIntoView({ block: 'nearest' }); }
+          else list.scrollTop = s.scroll;
+        }
+        const a = document.activeElement;   // VoiceOver: back out to where focus was
+        if (s.focus && s.focus.isConnected && s.focus !== document.body && (!a || a === document.body)) s.focus.focus({ preventScroll: true });
+      }, 0);
+    }
+    map.on('popupopen', e => { if (isTagPopup(e.popup)) tagOpened(e.popup); });
+    map.on('popupclose', e => { if (isTagPopup(e.popup)) tagClosed(e.popup); });
+    // Signing in or out re-renders every tag (live vs greyed controls); the open one stays open.
+    function refreshTags() {
+      if (!map) return;
+      markersById.forEach(en => { en.marker.setPopupContent(buildPopupHtml(en.loc)); });
+      neighborhoodLayersById.forEach((layer, id) => { const nb = neighborhoodShapes.find(n => n.id === id); if (nb) layer.setPopupContent(shapePopupHtml(nb)); });
+      if (currentUser) { hideTagSlip(); document.querySelectorAll('.tag-popup > .tag-slip').forEach(s => s.remove()); }
+    }
 
     // Initialize auth and set up auth state listener
     supabaseClient.auth.onAuthStateChange((event, session) => {
