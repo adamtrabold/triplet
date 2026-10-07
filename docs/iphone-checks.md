@@ -13,7 +13,8 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   then the tag opens on arrival (pins, a district, a street, an approx pin);
   a district/street hangs from a small dot in its middle and Directions goes
   to that dot; (3) a long note (Værnedamsvej) shows in full; the list lowers
-  only as far as the tag needs, with clear map below it, and comes back to
+  only as far as the tag needs, with clear map below it (never past its
+  header, one row and half the next, the full row being this place's), and comes back to
   the same height and scroll on close (x, map tap); a list you collapsed
   stays collapsed; ▼/▲ while a tag is open works and the tag stays;
   (4) Directions, Star and Visited are each one tap with a haptic tick on
@@ -25,10 +26,11 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   elsewhere only dismisses the slip; SIGN IN opens the sign-in sheet and you
   come back to the same tag, now live; (7) VoiceOver: focus moves into the
   tag on open and back on close; greyed controls read "Star, sign in to
-  use"; the slip is announced; (8) the orange band and the paper texture
-  look printed on real map tiles in daylight, in every city (Malmö's ochre
-  is the lightest); the orange star with its keyline reads on rows, pins,
-  clusters and the add form; the selected row is navy with an orange star;
+  use"; the slip is announced; (8) the brand-orange band and the paper
+  texture look printed on real map tiles in daylight, the same orange in
+  every city; the orange star with its keyline reads on rows, pins,
+  clusters (set off the disc) and the add form; the selected row is navy
+  with an orange star, and a pin tapped on the map selects its row;
   (9) the tag's edges stay clear of Safari's 24px back-swipe edge and the
   bottom toolbar; the OSM credit stays visible; (10) the short address shows
   under the name once the backfill has run (`tools/short-address-backfill.html`);

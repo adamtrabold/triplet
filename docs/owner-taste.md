@@ -222,6 +222,14 @@ sources are the file where the quote is recorded.
   then "let's do band still not sure on color" (2026-10-07; chat). A printed
   band follows the tag's die-cut. The colour itself is still open.
 
+- **One brand orange; cities have no colour of their own.** "cities
+  shouldn't have their own color -- did we build a programmatic way to
+  assign that as cities are created? i dont think we did. orange for star /
+  tag top all the way imo." ; "'reykjavik orange' should not be a thing --
+  it should be our brand orange. it's used on the account and + icon also"
+  (2026-10-07; chat). The per-city palette is gone; the star (everywhere,
+  the tag's Star segment included) and the tag's band are brand orange.
+
 - **Colour must communicate, or go neutral.** "The color is not really
   communicating anything on a visited badge… Let's make all the visited
   badges that cream background with a neutral color" (chat).
@@ -275,6 +283,12 @@ sources are the file where the quote is recorded.
 
 - **A list shows everything that matches the active filters** (CLAUDE.md).
 - **Clicking any list item navigates the map to it** (CLAUDE.md).
+- **Room above the tag's name; a compressed list still shows it scrolls.**
+  "there is not enough padding above the location name in the tag. if the
+  tag is so tall it forces a lot of list compression, we should show the
+  list header, one list item, half second list item to show that it's
+  scrollable. the list item in view should be the one selected"
+  (2026-10-07, Hanging Tag build; chat).
 - **An open tag adjusts the list, it doesn't close it.** "i dont like
   closing the list when a tag is open now -- it should just adjust height if
   it needs to (with a good amount of padding below the tag." (2026-10-07,

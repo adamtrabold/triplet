@@ -143,14 +143,25 @@ pick/redirect before building anything.
 ## Known minor bugs / follow-ups
 
 - Hanging Tag follow-ups (2026-10-07, `docs/shipped.md` "Hanging Tag +
-  orange star"): (1) owner picks the starred treatment (`TAG_STAR_STYLE`:
-  band default, segment, both) and the star/band colour (`--star`); (2) the
-  reversed paper star on the orange segment is 2.06-2.98:1 (under 3:1) --
-  `TAG_REVERSED_STAR_KEYLINE` lifts its edge to >= 5.2:1 if the segment is
-  picked; (3) the pencil circle is the owner's provisional keep; (4) no edit
+  orange star"): (0) BLOCKER for landing: 0/202 live rows have
+  `short_address`/`address_details` -- the owner runs
+  `tools/short-address-backfill.html`, then a read-only count; (1) the
+  starred treatment is the band (owner: "tag top all the way"; `TAG_STAR_STYLE`
+  keeps segment / both); (2) the reversed paper star of the segment option is
+  2.69:1 on brand orange -- `TAG_REVERSED_STAR_KEYLINE` lifts its edge to
+  5.67:1 if it is ever picked; (3) the pencil circle is the owner's
+  provisional keep; with it, starred shows 4 times (pin star, band, orange
+  star, circle; CD); (4) no edit
   path from the tag (none exists anywhere); (5) the full address is no longer
   reachable in-app (geocode audit, ux-analysis J8) -- UX to decide whether the
-  short line should expand.
+  short line should expand (UX: acceptable as a rule once the short address
+  exists -- Directions opens Apple Maps at the pin, which shows the street);
+  (6) for the icon revision (CD): filled star, pencil circle, double-ring
+  stamp and orange-starred dark stickers deepen "checked stronger than
+  open"; the name column jumps left on unstarred rows; two greens (moss
+  attraction, spruce nature); (7) at 390x664 the compressed list's top
+  scroll fade (`#locationsList.scrolling`) softens the selected row's top
+  edge.
 
 - Impeccable gate follow-ups (`design/impeccable-gate/`): (1) 13 runtime
   baseline identities are "pre-existing, unreviewed" (10px category·city

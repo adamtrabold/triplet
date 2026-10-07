@@ -49,21 +49,25 @@ J.push(['early2/tallest-approx-844', { group: 'early2', place: 'approx', id: 're
 J.push(['early2/tallest-approx-664', { group: 'early2', place: 'approx', id: 'rey15', starred: true, visited: true, phone: true, h: 664 }]);
 
 // Final set (the build brief): one row per state.
-const F = (name, o) => J.push([`final/${name}`, { group: 'final', city: 'reykjavik', ...o }]);
-F('busiest-vega', { place: 'vega', id: 'rey01', starred: true, visited: true, plan: true, select: true });
-F('typical', { place: 'aurora', id: 'rey07', starred: false, visited: false });
-F('long-note-approx', { place: 'approx', id: 'rey15', starred: false, visited: false });
-F('name-only', { place: 'perlan', id: 'rey13', starred: false, visited: false });
-F('district-open', { shape: 'district', label: 'Grandi (Old Harbour district)' });
-F('street-open', { shape: 'street', label: 'Laugavegur' });
-F('signedout', { place: 'aurora', id: 'rey07', starred: true, visited: false, signedOut: true });
-F('signedout-slip', { place: 'aurora', id: 'rey07', starred: true, visited: false, signedOut: true, slip: true });
-F('visited-motion', { place: 'aurora', id: 'rey07', starred: true, visited: false, motion: 'visit' });
-F('pop-out', { place: 'aurora', id: 'rey07', starred: true, visited: false, motion: 'pop' });
-F('list-copenhagen', { city: 'copenhagen', list: true });
-F('list-stockholm', { city: 'stockholm', list: true });
-F('map-z14', { map: 14 });
-F('map-z11', { map: 11 });
+// Shot twice, Reykjavík and Copenhagen: with one brand orange the two must be identical in colour.
+for (const [city, pre] of [['reykjavik', 'rey'], ['copenhagen', 'cop']]) {
+  const F = (name, o) => J.push([`final/${city}/${name}`, { group: 'final', city, ...o }]);
+  F('busiest-vega', { place: 'vega', id: pre + '01', starred: true, visited: true, plan: city === 'reykjavik', select: true });
+  F('typical', { place: 'aurora', id: pre + '07', starred: false, visited: false });
+  F('long-note-approx', { place: 'approx', id: pre + '15', starred: false, visited: false, phone: true });
+  F('long-note-approx-664', { place: 'approx', id: pre + '15', starred: true, visited: true, phone: true, h: 664, select: true });
+  F('name-only', { place: 'perlan', id: pre + '13', starred: false, visited: false });
+  F('district-open', { shape: 'district', label: 'Grandi (Old Harbour district)' });
+  F('street-open', { shape: 'street', label: 'Laugavegur' });
+  F('signedout', { place: 'aurora', id: pre + '07', starred: true, visited: false, signedOut: true });
+  F('signedout-slip', { place: 'aurora', id: pre + '07', starred: true, visited: false, signedOut: true, slip: true });
+  F('visited-motion', { place: 'aurora', id: pre + '07', starred: true, visited: false, motion: 'visit' });
+  F('pop-out', { place: 'aurora', id: pre + '07', starred: true, visited: false, motion: 'pop' });
+  F('list', { list: true });
+  F('map-z14', { map: 14 });
+  F('map-z11', { map: 11 });
+}
+J.push(['final/stockholm/list', { group: 'final', city: 'stockholm', list: true }]);
 
 async function setup(b, o) {
   const file = variant(o.style || 'band', !!o.keyline);
@@ -95,15 +99,15 @@ async function listShot(page, o, name) {
   await W(500); await shoot(page, name, { full: true });
 }
 async function mapShot(page, o, name) {
-  await page.evaluate(async ([S, V]) => { window.__ROWS.forEach(x => { if (x.city === 'reykjavik') { const n = x.id.slice(3); x.starred = S.includes(n); x.visited = V.includes(n); } }); await refetchLocations(); }, [STAR, VIS]);
+  const c = o.city; await page.evaluate(async ([S, V, c]) => { window.__ROWS.forEach(x => { if (x.city === c) { const n = x.id.slice(3); x.starred = S.includes(n); x.visited = V.includes(n); } }); await refetchLocations(); }, [STAR, VIS, c]);
   await W(300);
-  await page.evaluate(z => { const c = CITIES.reykjavik; map.setView(c.center, z, { animate: false }); }, o.map);
+  await page.evaluate(([z, c]) => { const k = CITIES[c]; map.setView(k.center, z, { animate: false }); }, [o.map, o.city]);
   await W(800); await shoot(page, name, { full: true });
 }
 async function shapeShot(page, o, name) {
-  await page.evaluate(async ([t, label]) => { const s = window.__SHAPES.find(x => x.city === 'reykjavik' && x.type === t); s.label = label; s.starred = false; s.visited = false; await refetchNeighborhoodShapes(); }, [o.shape, o.label]);
+  await page.evaluate(async ([t, label, c]) => { const s = window.__SHAPES.find(x => x.city === c && x.type === t); s.label = label; s.starred = false; s.visited = false; await refetchNeighborhoodShapes(); }, [o.shape, o.label, o.city]);
   await W(300);
-  await page.evaluate(t => { const s = neighborhoodShapes.find(x => x.city === 'reykjavik' && x.type === t); map.setView(shapeAnchor(s), 16, { animate: false }); syncNeighborhoodLayers(); neighborhoodLayersById.get(s.id).openPopup(); }, o.shape);
+  await page.evaluate(([t, c]) => { const s = neighborhoodShapes.find(x => x.city === c && x.type === t); map.setView(shapeAnchor(s), 16, { animate: false }); syncNeighborhoodLayers(); neighborhoodLayersById.get(s.id).openPopup(); }, [o.shape, o.city]);
   await W(800); await shoot(page, name);
 }
 // Motion frames: the real CSS animations, paused at exact times (Web Animations API).

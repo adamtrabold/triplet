@@ -168,11 +168,15 @@ operator makes none of these calls.
   self-reviews against `docs/owner-taste.md` before handing back. The
   place popup is the **Hanging Tag** (`TagPopup`, `buildPopupHtml()`): its
   Visited segment carries the same `.row-stamp` at 1.1x.
-- **Star and selection colours** (2026-10-07): every star (row, map, cluster,
-  tag, add form, the Pencil Star's landed ink) is `--star` with a
-  `--star-deep` keyline, today the city's `--figure` / `--figure-deep` (one
-  token: the colour is a one-line change); the map star keeps its paper halo.
-  The **selected row is navy** (`--navy`), its star `--star` with no keyline.
+- **Brand orange, star and selection colours** (2026-10-07): ONE accent, the
+  **brand orange** `--brand-orange` #EE7434 / `--brand-orange-deep` #A8400C
+  (read through `--figure`/`--figure-deep`/`--star`): account and + buttons,
+  star, tag band, clusters, submit. Cities have no colour of their own (the
+  per-city palette is gone; don't reintroduce one). Every star (row, map,
+  cluster, tag, add form, the Pencil Star's landed ink) is `--star` with a
+  `--star-deep` keyline on its paper halo on the map. The **selected row is
+  navy** (`--navy`), its star `--star` with no keyline; selection follows the
+  open tag (pin tap selects, close clears).
   Restaurant is wine `#7A2436`, attraction moss `#547326`.
 - **Animation separation:** visual animations never touch row-gesture code;
   they're triggered by state change or called after/during the gesture as a
@@ -208,8 +212,9 @@ concept is in progress. Get a decision before building (lane 2).
 - **Popup redesign (Hanging Tag) + orange star** — BUILT on branch
   `popup-hanging-tag` (not merged; owner sees final stills first). Spec:
   `docs/shipped.md` "Hanging Tag + orange star". Open owner calls: the
-  starred treatment (`TAG_STAR_STYLE`, band by default) and the star/band
-  colour (`--star`, the city's `--figure` for now).
+  starred treatment (`TAG_STAR_STYLE`, band by default; owner: "orange for
+  star / tag top all the way"). Lands after the owner runs the short-address
+  backfill (0/202 rows filled; no tag shows an address until then).
 - **Icon system full revision** (owner, 2026-10-07) — next after the popup
   redesign and star colour; lane 2. Quote and pointers in `docs/backlog.md`.
 - **Popup star alignment** (star looks off when the popup has full
