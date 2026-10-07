@@ -166,6 +166,15 @@ sources are the file where the quote is recorded.
 
 ## Color
 
+- **Stars are coloured.** "Not sure on the circle we can keep for now. Stars
+  should be colored imo" (2026-10-07; chat). Reverses the team's "black
+  stars everywhere" ruling (Pencil Star rounds 4–6, `docs/shipped.md`): one
+  starred colour, used the same way on the pin, list row, tag and add form.
+  The tag's pencil circle is kept for now, provisionally.
+- **Tag paper colour may carry state.** "I'm also wondering if we couldn't
+  play with the background color of some or all of the tag in any or all
+  states as part of the approach to some or all of the actions. Looking at
+  the inspo" (2026-10-07, Hanging Tag; chat; `design/inspo/luggage-tags/`).
 - **Use the brand palette consistently and meaningfully.** "Keep in mind the
   brand color palette.. we should be using best practices around how to
   apply consistently and meaningfully (the designer and cd should know

@@ -1,0 +1,74 @@
+[
+ [
+  "stub-busiest",
+  "1 The stub carries the state: busiest (starred + visited)"
+ ],
+ [
+  "stub-typical",
+  "1 The stub carries the state: typical (neither)"
+ ],
+ [
+  "stub-visited",
+  "1 The stub carries the state: visited"
+ ],
+ [
+  "stub-starred",
+  "1 The stub carries the state: starred"
+ ],
+ [
+  "stub-both",
+  "1 The stub carries the state: starred + visited"
+ ],
+ [
+  "stub-signedout",
+  "1 The stub carries the state: signed out (starred)"
+ ],
+ [
+  "whole-busiest",
+  "2 The whole tag carries the state: busiest (starred + visited)"
+ ],
+ [
+  "whole-typical",
+  "2 The whole tag carries the state: typical (neither)"
+ ],
+ [
+  "whole-visited",
+  "2 The whole tag carries the state: visited"
+ ],
+ [
+  "whole-starred",
+  "2 The whole tag carries the state: starred"
+ ],
+ [
+  "whole-both",
+  "2 The whole tag carries the state: starred + visited"
+ ],
+ [
+  "whole-signedout",
+  "2 The whole tag carries the state: signed out (starred)"
+ ],
+ [
+  "band-busiest",
+  "3 A coloured band for starred: busiest (starred + visited)"
+ ],
+ [
+  "band-typical",
+  "3 A coloured band for starred: typical (neither)"
+ ],
+ [
+  "band-visited",
+  "3 A coloured band for starred: visited"
+ ],
+ [
+  "band-starred",
+  "3 A coloured band for starred: starred"
+ ],
+ [
+  "band-both",
+  "3 A coloured band for starred: starred + visited"
+ ],
+ [
+  "band-signedout",
+  "3 A coloured band for starred: signed out (starred)"
+ ]
+]
