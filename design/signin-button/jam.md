@@ -288,3 +288,142 @@ outline).
 NEXT: design director — four sketch-backed findings narrow A to one
 workable size/type spec, and the open calls (motion in scope, the signed-in
 initial, the register sheet) are steering calls, not design ones.
+
+## Turn 3: design director
+
+Read: owner's three quotes and `owner.md`, `context.md`, `docs/owner-taste.md`
+(all), the rejected still, the inspo (`project/`, the Savoy label and park
+posters especially), the arc sketch sheet, turns 1 and 2.
+
+Randomness drawn this turn (`SystemRandom`): fields **theatre box office,
+railway ticketing**; Oblique Strategy **"Remove specifics and convert to
+ambiguities"**; constraint **"no text in the resting state"**. What they gave
+is at the end (one kill, one keeper).
+
+### The reading we're building on (say it once so nobody drifts)
+
+"It should just have a sign in button" + "a secondary style for that button"
++ the person-with-arc idea: **the badge in the corner is the sign-in button.**
+One control, one tap, no dropdown while signed out. Turn 1's structure (one
+slot, two states, `+` never moves) is adopted. We are not asking the owner to
+confirm this reading; the concepts show it and he reacts to pictures. If a
+concept needs a menu, it has to earn it.
+
+### Where the sketches are right, and where I'm pushing back
+
+1. **Keep the 50px die, shrink the person, 8px arc type.** Agreed; it's the
+   only version on the sheet that reads at 1x, and it gets "controls don't
+   move or grow" for free. A1+ is the working base for A.
+2. **"Secondary = the same die, paper face, navy ink."** Agreed as the
+   grammar, and it is shared by every concept, not a concept of its own
+   (turn 1's C folds in here). Orange stays the signed-in state only.
+3. **Kill the ±2° seeded tilt.** This is the most important steer of the turn.
+   A round navy-ink mark on paper with caps on an arc, slightly rotated, *is
+   a rubber stamp*, and the app's navy rubber stamp already means VISITED.
+   Owner, verbatim: "only the clerk's entries are stamped; the form's own
+   words are printed." A sign-in button is the form's own words. It's
+   **printed**: crisp, upright, untextured, no tilt, no dotted ring, no 82%
+   ink. Whatever is done to the edge, it must not drift toward `.row-stamp`.
+   (Visual: put the A1+ badge next to a real `.row-stamp` at 1x in the next
+   sheet and prove they don't read as siblings.)
+4. **The scalloped navy keyline is the noisiest thing on the sheet.** At 1x
+   A1+ is ~150px of wiggling navy line around a small mark; next to the
+   `+`, the sign-in badge has *more* edge activity than the primary. That
+   breaks "secondary marks never outrank content" from the other direction:
+   quiet in fill, loud in outline. Explore, on the same sheet: (a) a thinner
+   keyline (≤1 unit) in navy at reduced weight, (b) no keyline, the paper die
+   defined only by the 1px warm edge + the shadow the `+` already has (owner:
+   "the 1px hard edge to add shadow definition is fine"), on both the cream
+   map and a dark-tile map. My bet is (b) or something near it, but it's
+   visual's call; I'll score what the pictures show.
+5. **Glyph and arc are one drawing.** The 10px person and 8px caps must share
+   one stroke weight and the "lightly rounded" icon language. The owner is
+   about to do a full icon revision ("too noisy"); a new person glyph that
+   looks like a different hand is the first thing he'll see. Draw the person
+   as the existing account glyph scaled, then check the stroke reads at 1x;
+   if it doesn't, a solid silhouette is allowed, but only if it still reads
+   as the same person as the signed-in badge.
+6. **The patch band (A3+) stays dead for A's resting state.** Half navy ≈ as
+   heavy as `+`.
+
+### Concepts going into the build pass: two, differing in kind
+
+The owner asked for "some concepts" and also said "fewer variations". Two
+strong ones beat five siblings.
+
+- **A. The arc badge (owner's, must ship as a concept).** A1+ plus the
+  steers above. Built to final-looking quality at 1x and 3x, beside the
+  real `+` on the real map.
+- **B. The printed label (the conventional benchmark, and it may win).** Not
+  a badge at all: a small die-cut paper label to the left of the `+`, the
+  height of the `+` or less, reading **Sign in** in the app's printed
+  label type with the small person leading. Think the hotel labels' little
+  secondary banners, not a web pill. Why it's here: it's the answer a good
+  designer gives when the words matter most, and it's the honest test of
+  whether the arc is whimsy that carries meaning or whimsy that costs
+  legibility. Constraints: its right edge sits where the badge's does, it
+  grows *leftward* only, `+` never moves; the swap to the round signed-in
+  badge is a shape change, so B must show that change as a stamp-style
+  state change, not a morph or a slide.
+
+Not going forward as concepts: the register sheet, the patch band, the
+playground strip, origami/tag variants, the text roundel (all as killed in
+turns 1–2).
+
+### Scope this round (decided)
+
+- **In:** resting look; pressed; focus-visible; signed-in at rest (today's
+  orange die, unchanged) beside it so the pair reads as one state system; 320px
+  and 390px widths; cream map and a dark-tile map. **The tap's outcome as a
+  flow (turn 1's F1b: the existing sign-in modal opens over the playground;
+  cancel keeps everything; success then goes to the real app).** F1b is the
+  structure for both concepts. Builder-feasibility is a later question; if
+  F1b turns out impossible we fall back to F1a and it doesn't change the look.
+- **In, as a 3–4 frame storyboard only (not built motion):** the state change
+  out→in. Note where it actually plays: in the playground a successful
+  sign-in leaves for the real app, so the visitor never sees the badge flip
+  in place. It plays **on arrival** in the real app (paper die loads, then is
+  struck orange) and, if the owner says yes to Q1 below, in place in the
+  normal app. The Strike (turn 2) is the right family, but reuse the
+  star/visited stamp grow-shrink timing; don't invent a new curve. The out
+  direction is the owner's approved dry-up by thickness, reversed in role
+  (orange dries off, the printed arc appears). Storyboard both directions,
+  since the owner wants motion "both ways".
+- **Out this round:** the register-styled sign-in sheet (bigger than a
+  button, and the owner asked for a button); a playground notice; F1c
+  ("you're already signed in on this device"); restyling the existing modal.
+- **Parked, not proposed:** the friend's initial (A / E) on the signed-in
+  badge. Good idea, and it would make the generic person mean "nobody yet",
+  but it changes a shipped control the owner didn't raise. It goes in the
+  owner message only as a one-line "later?" if he's otherwise happy.
+
+### What the random draws gave
+- **Theatre box office / railway ticketing:** a ticket you punch to get in.
+  Killed: it would be a third paper object (tag, stamp/sticker, now ticket)
+  and punch holes are a new mark language right before an icon revision.
+- **"Remove specifics" + "no text at rest":** the inverted concept (a bare
+  hollow person, words only on press) fails J1 and the owner's own "sign in"
+  on the circle, so it's dead as a concept. What survives is a rule: **the
+  signed-out person must be generic and faceless**, the least specific mark in
+  the app. Specificity (orange, a name, an initial) is what signing in earns.
+  That's the one-line story for both concepts: *blank paper until you're
+  someone.*
+
+### Questions for the owner (genuinely his; orchestrator to batch with the concepts, not send now)
+1. When you're signed out of the **real** app (new phone, cleared Safari),
+   should the same sign-in button sit in that corner? Today there's nothing
+   there until you try to edit.
+2. Should the playground tell visitors their changes aren't saved (one line
+   somewhere), or is that unnecessary for the people you share with?
+
+### Owner objections I'm already expecting (for the scoring pass)
+- A: "the letters are too small / I can't read it" on his phone at 1x.
+- A: "it looks like the visited stamp" (why the tilt is killed).
+- Both: "why is sign-in louder than +" if the keyline stays heavy.
+- B: "that's just a button" if it lacks the label character.
+- Both: a visitor seeing SIGN IN they can't use; the modal copy must handle
+  that gracefully, it's part of the flow frames.
+
+NEXT: product designer (visual focus) — the steers (no tilt/printed not
+stamped, keyline weight, one drawing language, concept B's label) are all
+visual, and need a new sheet before systems maps the flow frames onto them.
