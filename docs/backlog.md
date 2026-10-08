@@ -223,8 +223,11 @@ pick/redirect before building anything.
   focus look on the tag, Directions' "Opens in Maps" description, the list
   header shadow without `:has()`, tag shadow tokens, stub labels that wrap
   cleanly at 240px; and a pre-existing bug fixed: tags narrower than 316px
-  were centred off their pin. Open from that review: C4 (TYPE/PLAN line, in
-  the design loop), C5 (icon revision), C6 (no change, the greens are
+  were centred off their pin. Open from that review: C4 (TYPE/PLAN line:
+  ~~open~~ DONE 2026-10-08: D Rubber stamp, numbers-only plan stamp,
+  randomized ink -- LANDED from `type-stamp` (owner approved the stills in
+  `design/popup-hierarchy/type-line/stills/build/`; shipped.md "Type line:
+  Rubber stamp"), C5 (icon revision), C6 (no change, the greens are
   ΔE 24). Not tokenised yet: the star segment's press tint
   `rgba(18, 41, 63, .16)` (navy 16%; only drawn in the unused 'segment'
   style).

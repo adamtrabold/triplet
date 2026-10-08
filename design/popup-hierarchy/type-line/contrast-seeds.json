@@ -1,0 +1,373 @@
+{
+ "build dsf1 rey00 restaurant type \"restaurant\"": {
+  "corePx": 212,
+  "flat": 6.6,
+  "mean": 5.17,
+  "p10": 4.09,
+  "median": 5.53
+ },
+ "build dsf1 rey00 restaurant plan \"12\"": {
+  "corePx": 26,
+  "flat": 6.45,
+  "mean": 5.79,
+  "p10": 5.09,
+  "median": 5.7
+ },
+ "build dsf1 rey00 restaurant plan \"14\"": {
+  "corePx": 23,
+  "flat": 6.61,
+  "mean": 5.81,
+  "p10": 4.96,
+  "median": 6.06
+ },
+ "build dsf1 rey01 bar type \"bar\"": {
+  "corePx": 72,
+  "flat": 6.56,
+  "mean": 5.56,
+  "p10": 4.55,
+  "median": 5.77
+ },
+ "build dsf1 rey01 bar plan \"3\"": {
+  "corePx": 15,
+  "flat": 6.46,
+  "mean": 5.13,
+  "p10": 2.71,
+  "median": 5.77
+ },
+ "build dsf1 rey02 restaurant type \"restaurant\"": {
+  "corePx": 204,
+  "flat": 6.6,
+  "mean": 4.97,
+  "p10": 3.29,
+  "median": 5.27
+ },
+ "build dsf1 rey02 restaurant plan \"12\"": {
+  "corePx": 26,
+  "flat": 6.45,
+  "mean": 5.81,
+  "p10": 4.96,
+  "median": 6.13
+ },
+ "build dsf1 rey02 restaurant plan \"14\"": {
+  "corePx": 23,
+  "flat": 6.62,
+  "mean": 5.56,
+  "p10": 4.89,
+  "median": 5.6
+ },
+ "build dsf1 rey03 bar type \"bar\"": {
+  "corePx": 71,
+  "flat": 6.62,
+  "mean": 5.16,
+  "p10": 3.21,
+  "median": 5.59
+ },
+ "build dsf1 rey03 bar plan \"3\"": {
+  "corePx": 15,
+  "flat": 6.53,
+  "mean": 5.81,
+  "p10": 5.31,
+  "median": 5.7
+ },
+ "build dsf1 rey04 restaurant type \"restaurant\"": {
+  "corePx": 212,
+  "flat": 6.6,
+  "mean": 4.99,
+  "p10": 3.61,
+  "median": 5.41
+ },
+ "build dsf1 rey04 restaurant plan \"12\"": {
+  "corePx": 26,
+  "flat": 6.45,
+  "mean": 5.64,
+  "p10": 4.96,
+  "median": 5.59
+ },
+ "build dsf1 rey04 restaurant plan \"14\"": {
+  "corePx": 23,
+  "flat": 6.61,
+  "mean": 5.2,
+  "p10": 4.89,
+  "median": 5.66
+ },
+ "build dsf1 rey05 bar type \"bar\"": {
+  "corePx": 71,
+  "flat": 6.57,
+  "mean": 5.61,
+  "p10": 4.4,
+  "median": 5.77
+ },
+ "build dsf1 rey05 bar plan \"3\"": {
+  "corePx": 16,
+  "flat": 6.52,
+  "mean": 5.82,
+  "p10": 5.33,
+  "median": 5.95
+ },
+ "build dsf1 rey06 restaurant type \"restaurant\"": {
+  "corePx": 199,
+  "flat": 6.56,
+  "mean": 5.43,
+  "p10": 4.27,
+  "median": 5.68
+ },
+ "build dsf1 rey06 restaurant plan \"12\"": {
+  "corePx": 26,
+  "flat": 6.48,
+  "mean": 5.28,
+  "p10": 4.56,
+  "median": 5.43
+ },
+ "build dsf1 rey06 restaurant plan \"14\"": {
+  "corePx": 24,
+  "flat": 6.56,
+  "mean": 4.95,
+  "p10": 3.13,
+  "median": 5.37
+ },
+ "build dsf1 rey07 bar type \"bar\"": {
+  "corePx": 71,
+  "flat": 6.55,
+  "mean": 4.76,
+  "p10": 2.65,
+  "median": 5.43
+ },
+ "build dsf1 rey07 bar plan \"3\"": {
+  "corePx": 16,
+  "flat": 6.55,
+  "mean": 5.38,
+  "p10": 3.89,
+  "median": 5.59
+ },
+ "build dsf1 rey08 restaurant type \"restaurant\"": {
+  "corePx": 207,
+  "flat": 6.61,
+  "mean": 5.39,
+  "p10": 4.11,
+  "median": 5.59
+ },
+ "build dsf1 rey08 restaurant plan \"12\"": {
+  "corePx": 25,
+  "flat": 6.61,
+  "mean": 5.61,
+  "p10": 4.94,
+  "median": 5.41
+ },
+ "build dsf1 rey08 restaurant plan \"14\"": {
+  "corePx": 25,
+  "flat": 6.57,
+  "mean": 5.62,
+  "p10": 4.94,
+  "median": 5.4
+ },
+ "build dsf1 rey09 bar type \"bar\"": {
+  "corePx": 72,
+  "flat": 6.6,
+  "mean": 5.68,
+  "p10": 4.5,
+  "median": 5.88
+ },
+ "build dsf1 rey09 bar plan \"3\"": {
+  "corePx": 13,
+  "flat": 6.63,
+  "mean": 5.87,
+  "p10": 5.32,
+  "median": 6.06
+ },
+ "build dsf1 rey10 restaurant type \"restaurant\"": {
+  "corePx": 207,
+  "flat": 6.62,
+  "mean": 5.04,
+  "p10": 3.88,
+  "median": 5.41
+ },
+ "build dsf1 rey10 restaurant plan \"12\"": {
+  "corePx": 26,
+  "flat": 6.53,
+  "mean": 4.71,
+  "p10": 2.39,
+  "median": 5.43
+ },
+ "build dsf1 rey10 restaurant plan \"14\"": {
+  "corePx": 26,
+  "flat": 6.51,
+  "mean": 4.94,
+  "p10": 2.93,
+  "median": 5.25
+ },
+ "build dsf1 rey11 bar type \"bar\"": {
+  "corePx": 71,
+  "flat": 6.57,
+  "mean": 5.07,
+  "p10": 3.57,
+  "median": 5.51
+ },
+ "build dsf1 rey11 bar plan \"3\"": {
+  "corePx": 15,
+  "flat": 6.46,
+  "mean": 5.2,
+  "p10": 5.19,
+  "median": 5.49
+ },
+ "build dsf1 rey12 restaurant type \"restaurant\"": {
+  "corePx": 195,
+  "flat": 6.58,
+  "mean": 5,
+  "p10": 3.99,
+  "median": 5.27
+ },
+ "build dsf1 rey12 restaurant plan \"12\"": {
+  "corePx": 25,
+  "flat": 6.52,
+  "mean": 4.97,
+  "p10": 3.33,
+  "median": 5.41
+ },
+ "build dsf1 rey12 restaurant plan \"14\"": {
+  "corePx": 27,
+  "flat": 6.51,
+  "mean": 5.71,
+  "p10": 4.87,
+  "median": 5.53
+ },
+ "build dsf1 rey13 bar type \"bar\"": {
+  "corePx": 71,
+  "flat": 6.62,
+  "mean": 5.59,
+  "p10": 4.53,
+  "median": 5.79
+ },
+ "build dsf1 rey13 bar plan \"3\"": {
+  "corePx": 15,
+  "flat": 6.53,
+  "mean": 5.7,
+  "p10": 5.25,
+  "median": 5.53
+ },
+ "build dsf1 rey14 restaurant type \"restaurant\"": {
+  "corePx": 197,
+  "flat": 6.6,
+  "mean": 4.94,
+  "p10": 3.89,
+  "median": 5.49
+ },
+ "build dsf1 rey14 restaurant plan \"12\"": {
+  "corePx": 25,
+  "flat": 6.53,
+  "mean": 5.5,
+  "p10": 4.75,
+  "median": 5.43
+ },
+ "build dsf1 rey14 restaurant plan \"14\"": {
+  "corePx": 26,
+  "flat": 6.47,
+  "mean": 5.57,
+  "p10": 4.82,
+  "median": 5.51
+ },
+ "build dsf1 rey15 bar type \"bar\"": {
+  "corePx": 79,
+  "flat": 6.61,
+  "mean": 5.01,
+  "p10": 3.47,
+  "median": 5.51
+ },
+ "build dsf1 rey15 bar plan \"3\"": {
+  "corePx": 15,
+  "flat": 6.58,
+  "mean": 5.67,
+  "p10": 5.31,
+  "median": 5.88
+ },
+ "build dsf1 rey16 restaurant type \"restaurant\"": {
+  "corePx": 209,
+  "flat": 6.59,
+  "mean": 5.04,
+  "p10": 3.78,
+  "median": 5.51
+ },
+ "build dsf1 rey16 restaurant plan \"12\"": {
+  "corePx": 26,
+  "flat": 6.5,
+  "mean": 5.44,
+  "p10": 4.85,
+  "median": 5.95
+ },
+ "build dsf1 rey16 restaurant plan \"14\"": {
+  "corePx": 24,
+  "flat": 6.56,
+  "mean": 5.49,
+  "p10": 4.94,
+  "median": 5.53
+ },
+ "build dsf1 rey17 bar type \"bar\"": {
+  "corePx": 75,
+  "flat": 6.63,
+  "mean": 5.33,
+  "p10": 4.29,
+  "median": 5.59
+ },
+ "build dsf1 rey17 bar plan \"3\"": {
+  "corePx": 16,
+  "flat": 6.54,
+  "mean": 5.14,
+  "p10": 5.09,
+  "median": 5.95
+ },
+ "build dsf1 rey18 restaurant type \"restaurant\"": {
+  "corePx": 204,
+  "flat": 6.59,
+  "mean": 5.16,
+  "p10": 4.03,
+  "median": 5.53
+ },
+ "build dsf1 rey18 restaurant plan \"12\"": {
+  "corePx": 26,
+  "flat": 6.55,
+  "mean": 5.39,
+  "p10": 4.86,
+  "median": 5.4
+ },
+ "build dsf1 rey18 restaurant plan \"14\"": {
+  "corePx": 23,
+  "flat": 6.62,
+  "mean": 5.17,
+  "p10": 4.11,
+  "median": 5.43
+ },
+ "build dsf1 rey19 bar type \"bar\"": {
+  "corePx": 72,
+  "flat": 6.56,
+  "mean": 5.51,
+  "p10": 4.5,
+  "median": 5.7
+ },
+ "build dsf1 rey19 bar plan \"3\"": {
+  "corePx": 15,
+  "flat": 6.46,
+  "mean": 5.69,
+  "p10": 5.19,
+  "median": 5.49
+ },
+ "build dsf1 rey20 restaurant type \"restaurant\"": {
+  "corePx": 211,
+  "flat": 6.61,
+  "mean": 5.13,
+  "p10": 4.11,
+  "median": 5.51
+ },
+ "build dsf1 rey20 restaurant plan \"12\"": {
+  "corePx": 27,
+  "flat": 6.53,
+  "mean": 5.59,
+  "p10": 4.75,
+  "median": 5.86
+ },
+ "build dsf1 rey20 restaurant plan \"14\"": {
+  "corePx": 26,
+  "flat": 6.5,
+  "mean": 5.69,
+  "p10": 4.88,
+  "median": 5.6
+ }
+}

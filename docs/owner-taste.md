@@ -185,6 +185,26 @@ sources are the file where the quote is recorded.
 
 ## Color
 
+- **The tag's field entries are rubber-stamped, numbers too.** "Rubber
+  stamp is great it should also be the numbers in # of #" (2026-10-07,
+  type-line round 2: picked D Rubber stamp, with the plan's "Stop n of m"
+  stamped as well as the type; chat). Whimsy through paper and ink.
+  Clarified: **only the clerk's entries are stamped; the form's own words
+  are printed.** "The stamp for the stop should only have the numbers
+  stamped, as I said. The other content would be consistent in a printed
+  tag" (2026-10-08, on the type-stamp build; chat): printed STOP, stamped
+  3, printed OF, stamped 3.
+- **Ink is never identical twice.** "yes but angle and texture (on all
+  textured items) should be randomized" (2026-10-08, approving the stamped
+  type line; chat). On seeding it per place and per item, so nothing jumps
+  on a re-render: "yes that logic makes sense" (2026-10-08; chat).
+- **State changes animate wherever they come from.** "when i have a tag
+  open that is unvisited, if i mark it visited in the list, the animation
+  on the tag marking it visited should still run (right now the state just
+  changes)" (2026-10-08; chat).
+- **Small marks line up exactly.** "Also the alignment of the string hole
+  and accoutrements is off" (2026-10-08, the tag's eyelet, on a phone
+  screenshot; chat). The string, hole, grommet and patch share one centre.
 - **Stars are coloured.** "Not sure on the circle we can keep for now. Stars
   should be colored imo" (2026-10-07; chat). Reverses the team's "black
   stars everywhere" ruling (Pencil Star rounds 4–6, `docs/shipped.md`): one
