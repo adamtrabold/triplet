@@ -160,3 +160,131 @@ trailhead register box, and the trail scrapbook is in `design/inspo/project/`.
   the normal signed-out app): in or out?
 
 NEXT: product designer (visual focus) — the open core is what "secondary" and the ring-lettered U arc look like at 50px, and whether A, B, C and D hold up visually before the director steers.
+
+## Turn 2: product designer (visual focus)
+
+Read: owner's three quotes, `context.md`, `docs/owner-taste.md` (all), the
+rejected still, the inspo (`project/`: hotel labels, park posters,
+matchbooks), the `#accountBtn` CSS, turn 1 above.
+
+Randomness drawn this turn (`SystemRandom`): fields **letterpress, coin
+minting, bookbinding**; Oblique Strategies **"Work at a different speed"**,
+**"What would your closest friend do?"**; constraint **"text only, no
+glyph"**.
+
+### Sketches (real size, then enlarged)
+`concepts/sketches/arc-badges.html` → `arc-badges-3x.png` (1170 wide,
+phone-readable; re-render with `node concepts/sketches/shoot.js <html> <png>`).
+Every badge uses the app's real 50-unit scallop die and sits beside the real
+navy `+`. Round 1 (top half) = first guesses; Round 2 = corrected.
+
+What the sketches settled (facts, not taste):
+- **The U arc reads at 50px, but only if the person shrinks.** With the
+  person at today's size, the arc type is forced down to 6.6px and it reads
+  as a smudge at 1x. With the person at ~10px (0.4 of the 24-unit glyph)
+  sitting high, SIGN IN fits at **8px**, Archivo 700, 75% width, baseline
+  r≈15.6 inside the scallop's valleys, and reads at real size. 9px also
+  fits but crowds the rim. I now read the owner's "maybe smaller?" as *the
+  icon* gets smaller, not the button: a 42px die (A2+) drops the type to
+  ~6.7px and fails. **Keep the 50px die; shrink the glyph.** (Bonus: the
+  button doesn't move or change size, so "controls don't move or grow" is
+  free, and it shares the `+` badge's centre line.)
+- **Baseline must clear the scallop valleys** (≈r 20 minus keyline). At
+  r 17.4 the letters touch the rim; 15.6 is the working radius.
+- **Dashed "vacant" person (D) dies at 1x** — the dashes turn to grit at
+  10px. Killed as a glyph treatment. "Signed out" has to come from the
+  badge, not from a broken-up person.
+- **Blind/unstruck impression (A5, from coin minting / letterpress)** is
+  lovely as an object and unreadable as a control (fails J1; "colour must
+  communicate"). Killed as a resting state; kept as an *idea* for motion
+  (below).
+- **Text-only roundel (C, the forced constraint)**: SIGN IN running the
+  whole ring puts half the words upside down across the top; reads as a
+  seal, not a button, and drops the owner's person. Killed. What survives
+  of the constraint: the words carry the meaning, the glyph is now the
+  minor partner.
+- **Patch band (A3+)**, the park-patch roundel with the lower U filled navy
+  and SIGN IN reversed out: very legible and very "park patch" at 1x, but
+  it's half navy, so it reads nearly as heavy as `+` (fails "secondary").
+  The flat cut where the band meets the paper also fights the scallop.
+  Keep only as the bold alternate if the director wants one.
+- **Orange ink (A4+)** reads as a faded version of the signed-in badge:
+  same colour, different state. Orange means "you / the action" here
+  (account, star, +). Weak; I'd keep orange for the signed-in state only.
+
+### What "secondary" is in this brand (answering turn 1's question)
+Primary controls are **solid dies**: navy `+`, orange account. The
+secondary version is **the same die cut from paper, printed in navy ink**:
+`--paper-raised` face, navy keyline on the scallop, navy glyph and arc.
+That's the grammar the app already uses for the row stamp (navy ink on
+paper), so it isn't a new style, it's the existing print language at a
+lower volume. Against the `+` it's clearly the quieter of the pair (less
+ink area), and it can't be mistaken for the signed-in badge (no orange).
+Keyline weight is still open: 1.4 units looks right at 1x but may need to
+come down toward the `+`'s visual weight on device.
+
+### Directions (mine, differ in kind)
+1. **A, the ring-lettered paper die (owner's).** As above: paper face,
+   navy keyline, ~10px person high, SIGN IN 8px on the U. Best
+   current version: `A1+` in the sketch. Small whimsy that carries
+   meaning, from the owner's own rule "ink is never identical twice": the
+   arc gets a ±2° seeded tilt per device, the way the row stamp gets
+   `stampTilt`, so it looks printed, not typeset. (Very small; drop if
+   it reads as a bug.)
+2. **The Strike (coin minting × turn 1's C, state as motion).** "Work at a
+   different speed": the badge sits still and quiet until the state
+   changes, then does one fast, physical thing. Sign-in success = the
+   blank is *struck*: a quick press (scale ~0.92, very short), orange ink
+   floods the die from the centre (the app's ink-bleed language), the arc
+   letters dry up and the person grows back to full size. Logout runs the
+   owner's approved **dry-up by thickness** in reverse: the orange dries
+   back to paper and SIGN IN prints in. Same vocabulary as Visited: ink
+   in = on, dry up = off. This is how I'd satisfy "state changes animate
+   wherever they come from" without inventing a new motion style. A coin
+   *flip* (rotateY to an orange obverse) was the obvious version: rejected,
+   it's a slide/turn, and the owner said "stamp, don't draw or slide".
+3. **The friend's version (Oblique: "what would your closest friend
+   do?").** A friend greets you by name. Two people sign in to this app,
+   so the *signed-in* die could carry the initial (A / E) instead of the
+   generic person, and the signed-out die is the generic person + SIGN IN.
+   Then the generic person literally means "nobody yet". It touches the
+   signed-in badge, so it's a scope question for the director, not a
+   proposal for this round.
+4. **Trail register (turn 1's B), relocated.** "PLEASE SIGN IN" does not
+   fit the U at a readable size (14 characters needs ~6px). The register
+   idea belongs in what the tap opens: the sign-in sheet styled as a
+   register page (ruled NAME / PASSWORD lines, the app's printed labels,
+   no typewriter face). The button stays A. Bigger scope; flag only.
+5. **Playground strip (turn 1's D)**: visually I'm against a strip
+   (owner: no extra header height, no second row of text). If J6 matters,
+   the cheaper place for it is one printed line in the sign-in sheet, or
+   in the share link's preview, not on the map's chrome.
+
+Killed this turn: dashed person, blind emboss as a resting state,
+text-only roundel, orange-ink paper die, 42px die, coin flip, a bookbinding
+ribbon tail (collides with the tag's string), the ex-libris "this trip
+belongs to ___" plate (a second row of text).
+
+### States the concepts must draw (for the next pass)
+Rest; pressed (paper → `--paper-pressed`, ink stays navy; mirrors how
+filled buttons step); focus-visible ring; signed-out → in (the Strike);
+signed-in → out (dry-up); signed in at rest (today's orange die) with its
+dropdown; 320px-wide phone (the die doesn't shrink, so the arc survives;
+needs a check that nothing else in the top bar collides); dark map tiles
+(paper die stays legible: it carries its own face, unlike a transparent
+outline).
+
+### Open questions
+- Director: is the Strike (motion) in scope this round, or only the resting
+  look? It's what makes A feel like part of the app rather than a sticker.
+- Director: the friend's initial on the signed-in badge: in or parked?
+- Keyline weight and whether the person is outline (as today) or a solid
+  silhouette at 10px; I need a device-real check, my 3x render is
+  Chromium.
+- Does the paper die read as a *button* on a pale map? The 1px offset
+  shadow carries it in the sketch; the owner has said "the 1px hard edge
+  to add shadow definition is fine".
+
+NEXT: design director — four sketch-backed findings narrow A to one
+workable size/type spec, and the open calls (motion in scope, the signed-in
+initial, the register sheet) are steering calls, not design ones.
