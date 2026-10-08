@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>A fallback</title>
+<link rel="stylesheet" href="page.css"><script src="lib.js"></script></head><body><div id="o"></div><script>
+// TEAM ONLY (director turn 6): A's fallback if the owner says the 8px arc is too small. Not for the owner's sheet.
+function A(fs, ps, py, r, ls){ let s = die(C.raised,'none') + person(25, py, ps, C.navy, {sw:1.4}) + arcText(r,'SIGN IN',C.navy,fs,ls); return s; }
+const spec = [[8,.42,17.6,15.6,.5,'Spec: 8px, person ×0.42'],[8.5,.38,17.2,15.7,.4,'Fallback: 8.5px, person ×0.38'],[9,.36,17,15.8,.35,'Limit: 9px, ×0.36']];
+let h = '<h1>A: arc size fallback (team only)</h1><div class="grid">';
+for (const [fs,ps,py,r,ls,t] of spec) h += `<div>${svg(50, A(fs,ps,py,r,ls))}<div class="cap">${t}</div></div>`;
+h += '</div><div class="grid">';
+for (const [fs,ps,py,r,ls] of spec) h += `<div>${svg(104, A(fs,ps,py,r,ls))}</div>`;
+document.getElementById('o').innerHTML = h + '</div>';
+</script></body></html>

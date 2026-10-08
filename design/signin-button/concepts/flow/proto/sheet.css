@@ -1,0 +1,15 @@
+@font-face{font-family:'Archivo';font-weight:400 700;font-stretch:62% 125%;src:url(../../../../gesture-harness/vendor/k3kQo8UDI-1M0wlSfdnoLg.woff2) format('woff2');}
+*{box-sizing:border-box} body{margin:0;background:#F2EBDD;font-family:Archivo,sans-serif;color:#1A1A18;width:390px}
+h1{font:700 18px/22px Archivo;font-stretch:75%;letter-spacing:.06em;text-transform:uppercase;margin:0;padding:20px 16px 4px;color:#12293F}
+h2{font:700 13px/16px Archivo;font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;margin:0;padding:18px 16px 6px;color:#12293F}
+p{font-size:13px;line-height:18px;color:#3d3a33;margin:0;padding:0 16px 8px}
+.img{display:block;margin:0 0 4px}
+.cap{font-size:12px;line-height:15px;color:#5A564C;padding:2px 16px 10px}
+.frames{display:flex;flex-wrap:wrap;gap:6px;padding:4px 16px 4px}
+.frames>div{display:flex;flex-direction:column;align-items:center}
+.frames img{display:block;border-radius:2px}
+.frames .t{font-size:11px;line-height:14px;color:#5A564C;text-align:center;margin-top:3px;}
+.big{display:flex;gap:16px;padding:6px 16px 6px;align-items:flex-start}
+.big>div{display:flex;flex-direction:column;align-items:center;width:104px}
+.big .t{font-size:12px;line-height:15px;color:#5A564C;text-align:center;margin-top:6px}
+.q{background:#FAF5EA;margin:6px 16px;padding:10px 12px;border-left:3px solid #12293F;font-size:13px;line-height:18px}

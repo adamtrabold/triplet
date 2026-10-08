@@ -1,5 +1,20 @@
 # Visual designer notes: sign-in button
 
+## Where things stand (concept phase, sheets built)
+- Jam closed (director turn 6). Built three sheets from patched copies of index.html:
+  `concepts/A-arc-badge/sheet-3x.png`, `concepts/B-label/sheet-3x.png`, `concepts/flow/sheet-3x.png`,
+  each folder with `looks-and-feels.md`. Tools in `concepts/flow/proto/` (patch.js, render.js,
+  make-sheets.js, sheet.css). Team-only A fallback: `concepts/A-arc-badge/team-fallback-3x.png`.
+- **Correction found while rendering the real app:** the signed-in account badge at rest is NAVY with an
+  ORANGE person (orange only with its menu open). The team assumed orange. Strike is now navy ink
+  (covers the navy arc; the person reverses to orange inside the ink); dry-up dries navy. jobs.md job 5
+  says "orange badge" and needs fixing (systems).
+- Reshapes: B right edge at right:78 (aligns with the badge's visible scallop); sheet errors moved under
+  the password field; playground line uses text-wrap: balance; build note: kill #accountBtn's background
+  transition for the state swap (it flashed a navy square).
+- Next: director scores A vs B on the sheets; then the handoff's looks-and-feels part for the winner.
+
+
 ## Where things stand (after jam pass 2, turn 4)
 - Pass 2 sheets: `../concepts/sketches/pass2-look-3x.png`, `pass2-motion-3x.png` (html + shared `lib.js`/`page.css`; real VISITED crop `rowstamp-crop-3x.png`).
 - Director (turn 3) steered: two concepts, A arc badge + B printed label; printed not stamped (tilt killed); rim too loud; one drawing hand; motion as storyboard only; register sheet / playground notice / F1c out; signed-in initial parked.
