@@ -46,7 +46,7 @@ async function tight(page, file, withHead) {
   const c = await page.locator('#authModalContent').boundingBox(), e = await page.locator('#authEmailInput').boundingBox(),
     k = await page.locator('#cancelAuthBtn').boundingBox(), hd = await page.locator('#authModalHead').boundingBox();
   const pw = await page.locator('#authPasswordInput').boundingBox(), l = await page.locator('#loginBtn').boundingBox();
-  const top = withHead ? hd.y : pw.y - 12, bot = withHead ? k.y + k.height + 14 : l.y + l.height + 12;
+  const top = withHead ? hd.y : (file.includes('real') ? e.y - 14 : pw.y - 12), bot = (withHead || file.includes('real')) ? k.y + k.height + 14 : l.y + l.height + 4;
   return shot(page, file, { x: c.x, y: top, width: c.width, height: bot - top });
 }
 (async () => {
@@ -93,16 +93,16 @@ async function tight(page, file, withHead) {
   // ---- shared flow (shown with A) ----
   { const out = `${CON}/flow/shots`; const { ctx, page } = await open(b, 'A');
     await page.locator('#locationsList .location-card[data-id]').nth(4).click(); await page.waitForTimeout(1600);
-    await page.screenshot({ path: `${out}/play-tag-open.png` });
+    await page.screenshot({ path: `${out}/play-tag-open.png`, clip: { x: 0, y: 0, width: 390, height: 560 } });
     for (const st of ['open', 'busy', 'wrong', 'offline']) {
       await page.evaluate(st => SB.sheet('play', st), st); await page.waitForTimeout(150);
-      if (st === 'open') await page.screenshot({ path: `${out}/play-sheet-full.png` });
+      if (st === 'open') await page.screenshot({ path: `${out}/play-sheet-full.png`, clip: { x: 0, y: 0, width: 390, height: 560 } });
       const bb = await page.locator('#authModalContent').boundingBox();
       if (st === 'open') await shot(page, `${out}/sheet-${st}.png`, { x: 0, y: bb.y - 12, width: 390, height: bb.height + 24 });
       else await tight(page, `${out}/sheet-${st}.png`);
     }
     for (const st of ['open']) { await page.evaluate(() => SB.sheet('real', 'open')); await page.waitForTimeout(100);
-      await tight(page, `${out}/sheet-real.png`, true); }
+      await tight(page, `${out}/sheet-real.png`, false); }
     await ctx.close(); }
   await b.close(); console.log('done');
 })();

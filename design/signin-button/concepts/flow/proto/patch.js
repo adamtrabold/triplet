@@ -90,10 +90,10 @@ window.SB.sheet = function (mode = 'play', state = 'open') {
   const login = document.getElementById('loginBtn'), cancel = document.getElementById('cancelAuthBtn'), err = document.getElementById('authError');
   const email = document.getElementById('authEmailInput'), pw = document.getElementById('authPasswordInput');
   cancel.textContent = mode === 'play' ? 'Keep playing' : 'Cancel';
-  login.textContent = 'Sign in'; login.disabled = false; login.classList.remove('sb-busy'); email.value = ''; pw.value = '';
+  login.textContent = 'Sign in'; login.disabled = false; login.style.background = ''; login.style.color = ''; email.value = ''; pw.value = '';
   pw.after(err); err.style.margin = '-12px 0 16px'; line.style.textWrap = 'balance'; email.readOnly = pw.readOnly = false; err.style.display = 'none';
   m.classList.add('show');
-  if (state === 'busy') { email.value = 'you@example.com'; pw.value = 'xxxxxxxxxx'; login.textContent = 'Signing in…'; login.disabled = true; login.classList.add('sb-busy'); email.readOnly = pw.readOnly = true; }
+  if (state === 'busy') { email.value = 'you@example.com'; pw.value = 'xxxxxxxxxx'; login.textContent = 'Signing in…'; login.disabled = true; login.style.background = 'color-mix(in srgb, var(--figure) 50%, var(--paper))'; login.style.color = 'var(--ink-2)'; email.readOnly = pw.readOnly = true; }
   if (state === 'wrong') { email.value = 'you@example.com'; pw.value = ''; err.textContent = 'That email and password don’t match.'; err.style.display = 'block'; }
   if (state === 'offline') { email.value = 'you@example.com'; pw.value = 'xxxxxxxxxx'; err.textContent = 'Can’t reach the sign-in server. Check your connection.'; err.style.display = 'block'; }
 };

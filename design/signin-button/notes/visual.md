@@ -12,7 +12,14 @@
 - Reshapes: B right edge at right:78 (aligns with the badge's visible scallop); sheet errors moved under
   the password field; playground line uses text-wrap: balance; build note: kill #accountBtn's background
   transition for the state swap (it flashed a navy square).
-- Next: director scores A vs B on the sheets; then the handoff's looks-and-feels part for the winner.
+- Director scored A 9 (READY), B 7 (held back). Presentation fixes done (no redesign): flow sheet cut
+  10041 -> 6516px tall (sign-in sheet once at full size; busy / both errors / Q1 real-app sheet as tight
+  crops of fields+buttons; frame 1 cropped to the map part; 'works the same with B' dropped; arrival strip
+  and both questions kept); sheet A intro adds "Signed in, it's inked into your usual navy badge.";
+  sign-in/out frames on the final sheets are navy (the pass2-motion jam sketch still shows orange; it's
+  superseded, not used). Busy button now a flat 50% orange/paper mix with ink-2 text (opacity left an
+  inner box artifact).
+- Next: owner sees sheet A + flow sheet; if approved, write the handoff's looks-and-feels part for A.
 
 
 ## Where things stand (after jam pass 2, turn 4)
