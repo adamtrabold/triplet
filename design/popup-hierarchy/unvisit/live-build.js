@@ -12,8 +12,8 @@ const path = require('path'), fs = require('fs'), { execFileSync } = require('ch
 const { launch, openProto, W, FILE } = require('../../gesture-harness/lib');
 const OPT = require('./options');
 const D = __dirname, KEYS = [
-  ['dry2', 'Dry up B, from two directions (new)', 'The ink draws in from the edges as before, and at the same time clears outward from the centre. The two meet and the last thin ring pales away. 560 ms.'],
-  ['dryB', 'Dry up B, as you saw it', 'For comparison: the ink draws back toward the middle. 560 ms.']];
+  ['dry3', 'Dry up by thickness (new)', 'Every piece dries from its own edges toward its middle: the dotted edge goes almost at once, the letters next, the ring and the check last, and the thick parts stay dark longest. 560 ms.'],
+  ['dry2', 'Dry up B, from two directions (last round)', 'For comparison: edges in and centre out across the whole stamp. 560 ms.']];
 
 // ---- a small CSS splitter: top-level blocks with brace matching (comments stripped first) ----
 function blocks(css) {
@@ -128,7 +128,7 @@ footer { margin-top: 48px; font-size: 13px; line-height: 20px; color: var(--pg-i
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">${cap.sym}</svg>
 <main>
   <h1>Un-visit: Dry up Blot</h1>
-  <p class="lede">Tap the VISITED stamp to un-visit and watch it leave. Tap again to stamp it back. These are the tag's real stubs. The new two-direction version first, then B as you saw it.</p>
+  <p class="lede">Tap the VISITED stamp to un-visit and watch it leave. Tap again to stamp it back. These are the tag's real stubs. The new thickness version first, then last round's two-direction B.</p>
   <div class="pair">
 ${KEYS.map(([k, t, d]) => `    <section class="opt" id="opt-${k}" aria-label="${t}">
       <h2>${t}</h2>
@@ -146,6 +146,7 @@ ${KEYS.map(([k, t, d]) => `    <section class="opt" id="opt-${k}" aria-label="${
   <footer>Built from the app's own stub markup and styles; only the un-visit animation differs. With reduced motion turned on, both become a quick crossfade.</footer>
 </main>
 <script>
+${OPT.DRY3_FN}
 (function () {
   var IDS = []; for (var q = 0; q < 21; q++) IDS.push('rey' + (q < 10 ? '0' : '') + q);
   var place = 7;
@@ -158,6 +159,7 @@ ${KEYS.map(([k, t, d]) => `    <section class="opt" id="opt-${k}" aria-label="${
     var btn = sec.querySelector('.popup-visited');
     var visited = btn.getAttribute('aria-pressed') === 'true';
     var nb = swap(sec, visited ? OUT : IN);
+    if (visited && sec.id === 'opt-dry3') uvDry3(nb.querySelector('.tag-stamp-out'));
     sec.querySelector('.hint').textContent = visited ? 'Tap Mark visited to stamp it back' : 'Tap Visited';
   }
   document.querySelectorAll('.opt').forEach(function (sec) {

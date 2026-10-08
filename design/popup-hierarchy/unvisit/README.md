@@ -1,5 +1,103 @@
 # Un-visit transition (tag, Visited segment)
 
+## Round 7: dry up by thickness
+
+The owner, verbatim (2026-10-08):
+
+> "i like this but the thicker areas should stay darker longer -- and im
+> realizing it isnt that the center of the whole thing should dry up faster
+> it's that the individual edges of every piece should dry up / blur towards
+> the center at a speed based on how thick they are."
+
+**Live page:** `live.html` (title kept), built by `live-build.js`.
+- It shows the new version (`dry3`) next to round 6's two-direction B
+  (`dry2`), each with "Play again".
+- The filmstrips sit below.
+
+Code: `options.js` key `dry3`, plus `DRY3_FN` / `DRY3_JS`. Stills:
+`stills/r2/dry3-*`. Pixel colour check: `greycheck.js` → `greycheck.json`.
+
+### How thickness sets the timing
+
+Each piece dries from its own edges toward its own centreline, with no
+global centre front and no radial draw-in.
+
+- **The filter.** The leaving copy gets an SVG filter.
+  - Its ink alpha is blurred (`feGaussianBlur`, σ 0 → 0.9px, eased in over
+    the first 35%).
+  - A blurred pixel's alpha is a local thickness measure. It is high on the
+    centreline of a thick stroke, and low near any edge and everywhere in a
+    thin stroke.
+- **Two rising thresholds** on that value (`feComponentTransfer` alpha ramps,
+  slope 5, so a thinning stroke fades softly rather than shreds):
+  - **Shell:** above `thr`, drawn in the light-navy tint. That's the dried
+    edge.
+  - **Core:** above `thr + .12`, the original navy ink. Thick cores
+    therefore stay full navy until late.
+- **The result.** As `thr` rises from 0.28 to 0.66, every piece's edges
+  soften and retreat toward its centreline. A piece vanishes when the
+  threshold passes its own peak, which depends only on its width. Nothing
+  is scheduled per piece; the order falls out of the geometry:
+  1. the dotted track's 1.1px dots, gone by about 100ms;
+  2. the letters, about 1.5px, thinning and paling 160–300ms;
+  3. the 2px ring, which stays navy longest;
+  4. the filled check, about 2.6px, which lingers last (it's a faint core
+     at 400–440ms).
+
+  Everything is cleared by the clock's own fade at 80–86%. Words:
+  490–560ms.
+
+### The curve, and why the threshold doesn't use B's curve directly
+
+- B's `cubic-bezier(.87,0,.13,1)` drives the whole move: the copy's own CSS
+  clock and the 560ms.
+- On the threshold itself, B's curve spends almost all of its change in about
+  60ms in the middle. Every piece's peak got crossed inside those few frames,
+  so thin and thick vanished together and the thickness ordering couldn't
+  be seen. I tested this.
+- So the threshold rides a gentler in-out, `cubic-bezier(.6,0,.4,1)`. The
+  pieces then separate across about 100–440ms while the overall feel keeps
+  B's slow start and soft landing.
+- 560ms is kept: the thickest piece fits inside it.
+
+### Measured, stamp scales 1.1 / 1.0 / 0.85
+
+- **No crossing frame.** The stamp is gone before "MARK VISITED" inks in.
+- **Inside the segment** by 10.2 / 11.1 / 8.7px.
+- **Re-tap unchanged:** 0 leftovers, the stamp-in plays, `aria-pressed` is
+  "true".
+- **Reduced motion:** no filter; the 160ms crossfade.
+- **Colour** (`greycheck.js`). The ink colour is now drawn by the filter, not
+  CSS, so this is pixel-based: ink pixels with oklch chroma below 0.02.
+  - The resting stamp: 18% (its grain and antialiasing).
+  - dry3 at its worst frame: 33% (280ms).
+  - dry2: up to 56%.
+
+  The tint shell holds the light navy; the grey pixels are soft-edge blends
+  over cream.
+- **Live page:** no horizontal scroll at 390px and 0 script errors in
+  Chromium.
+
+### Bug fixed (coordinator)
+
+In `dry2` the end `-webkit-mask-size` was 50% while `mask-size` was 75%. Both
+are now 75%.
+
+### Weaknesses
+
+- **Letters thin unevenly.** The thinnest letters (I, S) go before the
+  others, so VISITED briefly reads with gaps ("V IS TED", 200–280ms). That's
+  the rule working, but it's the closest this gets to "breaking up".
+- **Font-dependent.** Thickness comes from the rendered strokes. Without
+  Archivo (if the web font fails), the letters are thinner and go sooner.
+- **WebKit unchecked.** `filter: url()` with `feGaussianBlur` and an
+  attribute-animated `feComponentTransfer` on an HTML element is Chromium
+  only. Rebuilding the filter attributes every frame (rAF) costs about one
+  small blur per frame on a 79×35 element.
+- **The row:** it follows the picked tag option (proposal; UX confirms).
+
+---
+
 ## Round 6: Dry up B, from two directions, thickest last
 
 The owner, verbatim (2026-10-08), on the round-5 blot:

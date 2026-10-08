@@ -275,7 +275,7 @@ module.exports = {
       animation: uvDry2 560ms linear forwards, uvDry2Pale 560ms linear forwards; }
     @keyframes uvDry2 {
       0%     { --uvi: -42%; -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%, 100% 100%; mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%, 100% 100%; animation-timing-function: cubic-bezier(.87, 0, .13, 1); }
-      85.7%, 100% { --uvi: 40%; -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 50% 50%, 100% 100%; mask-size: var(--ts, 90px) var(--ts, 90px), 75% 75%, 100% 100%; }
+      85.7%, 100% { --uvi: 40%; -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 75% 75%, 100% 100%; mask-size: var(--ts, 90px) var(--ts, 90px), 75% 75%, 100% 100%; }
     }
     /* THICKEST DRIES SLOWEST (owner: "the thickest things should dry up slowest"): the thinnest marks
        go first, the heaviest last, inside the same curve and 560ms.
@@ -294,6 +294,29 @@ module.exports = {
     @keyframes uvDry2Check { 0%, 40% { stroke-width: 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 85.7%, 100% { stroke-width: 4.5; } }
     @media (prefers-reduced-motion: reduce) { ${SEL}::before, ${SEL} .row-stamp-ring, ${SEL} .row-stamp-word, ${SEL} .row-stamp-check path { animation: none !important; } }
     ${PALE('uvDry2Pale', 9, 60, 85.7)}
+    ${REST(560, 87.5)} ${REDUCED}` },
+
+  // ===== ROUND 7 (owner: "i like this but the thicker areas should stay darker longer -- and im
+  // realizing it isnt that the center of the whole thing should dry up faster it's that the individual
+  // edges of every piece should dry up / blur towards the center at a speed based on how thick they
+  // are."). DRY UP BY THICKNESS. No global centre front, no radial draw-in. DRY3_JS gives the leaving
+  // copy an SVG filter: its ink's alpha is blurred (feGaussianBlur, sigma 0 -> 0.9px), so each pixel's
+  // blurred alpha measures how deep inside its own stroke it sits -- high in the middle of a thick
+  // stroke, low near any edge and everywhere in a thin one. Two rising thresholds on that value
+  // (feComponentTransfer alpha ramps, slope 5 -- soft, so a thinning stroke fades rather than shreds):
+  //   - the INK shell (anything above thr): drawn in the light-navy tint -- the dried, pale edge;
+  //   - the DARK core (above thr + .12): the original navy ink.
+  // As thr rises (0.30 -> 0.78 on B's cubic-bezier(.87,0,.13,1) over 0-480ms) every piece's edges
+  // soften and retreat toward its own centreline at a rate set by its thickness; the core keeps full
+  // navy until the threshold reaches it, then that piece is only pale shell, then gone. Order falls
+  // out of the geometry: track dots (1.1px) first, letters (~1.5px) next, the 2px ring, the check
+  // (~2.6px, filled) last -- its pale core outlives the threshold and lingers through the curve's
+  // slow tail until the clock's own fade (80-86%). Clock: this copy's CSS animation (uvDry3Clock);
+  // words 490-560. 560ms kept: B's curve puts most change in 170-310ms, and the tail is where the
+  // thickest piece lingers, so no extra length is needed.
+  dry3: { ms: 560, dry3: true, css: `
+    ${SEL} { transform: rotate(${TILT}) scale(${S}); animation: uvDry3Clock 560ms linear forwards; }
+    @keyframes uvDry3Clock { 0%, 80.4% { opacity: 1; } 85.7%, 100% { opacity: 0; } }
     ${REST(560, 87.5)} ${REDUCED}` },
 };
 module.exports.TINT = TINT;
@@ -412,4 +435,41 @@ uvDefsEl();
 (function () { new MutationObserver(function () {
   var s = document.querySelector('.tag-popup .tag-stamp-out'); if (!s || s.__uvBlot) return;
   var b = s.closest('.popup-visited'); uvBlot(s, b && b.getAttribute('data-id'));
+}).observe(document.documentElement, { childList: true, subtree: true }); })();</script>`;
+
+// DRY3 (round 7): the thickness filter, driven from the copy's own CSS clock (pause/seek = stills).
+module.exports.DRY3_FN = `
+var UV3N = 0, UV3D = null;
+function uv3Defs() { if (UV3D) return UV3D; var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('width', '0'); s.setAttribute('height', '0'); s.setAttribute('aria-hidden', 'true'); s.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden'; (document.body || document.documentElement).appendChild(s); UV3D = s; return s; }
+function uv3Bez(x1, y1, x2, y2) { return function (x) { var lo = 0, hi = 1, t = x; for (var i = 0; i < 30; i++) { t = (lo + hi) / 2; var u = 1 - t, bx = 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t; if (bx < x) lo = t; else hi = t; } var v = 1 - t; return 3 * v * v * t * y1 + 3 * v * t * t * y2 + t * t * t; }; }
+var UV3E = uv3Bez(.87, 0, .13, 1), UV3T = uv3Bez(.6, 0, .4, 1);
+function uvDry3(stamp) {
+  if (!stamp || stamp.__uv3 || matchMedia('(prefers-reduced-motion: reduce)').matches) return; stamp.__uv3 = 1;
+  var id = 'uvdry3-' + (++UV3N), NS = 'http://www.w3.org/2000/svg', f = document.createElementNS(NS, 'filter');
+  f.setAttribute('id', id); f.setAttribute('x', '-10%'); f.setAttribute('y', '-20%'); f.setAttribute('width', '120%'); f.setAttribute('height', '140%'); f.setAttribute('color-interpolation-filters', 'sRGB');
+  f.innerHTML = '<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.22 0" result="a"/>'
+    + '<feGaussianBlur in="a" class="bl" stdDeviation="0" result="b"/>'
+    + '<feComponentTransfer in="b" result="ml"><feFuncA class="tl" type="linear" slope="5" intercept="-1.5"/></feComponentTransfer>'
+    + '<feComponentTransfer in="b" result="md"><feFuncA class="td" type="linear" slope="5" intercept="-2.1"/></feComponentTransfer>'
+    + '<feFlood flood-color="#A8C1DA" result="tint"/>'
+    + '<feComposite in="tint" in2="ml" operator="in" result="light"/>'
+    + '<feComposite in="SourceGraphic" in2="md" operator="in" result="dark"/>'
+    + '<feMerge><feMergeNode in="light"/><feMergeNode in="dark"/></feMerge>';
+  uv3Defs().appendChild(f);
+  var bl = f.querySelector('.bl'), tl = f.querySelector('.tl'), td = f.querySelector('.td');
+  var set = function (p) {
+    p = Math.min(1, Math.max(0, p));
+    var q = Math.min(1, p / 0.35), sig = 0.9 * q * q * (3 - 2 * q);          // edges soften first
+    var thr = 0.28 + 0.38 * UV3T(p);                                          // then retreat by thickness
+    bl.setAttribute('stdDeviation', sig.toFixed(3));
+    tl.setAttribute('intercept', (-5 * thr).toFixed(3)); td.setAttribute('intercept', (-5 * (thr + 0.12)).toFixed(3));
+  };
+  set(0); stamp.style.filter = 'url(#' + id + ')';
+  var clock = function () { return stamp.getAnimations().filter(function (a) { return a.animationName && a.animationName.indexOf('uvDry3Clock') === 0; })[0]; };
+  var tick = function () { if (!stamp.isConnected) { f.remove(); return; } var a = clock(); if (a && a.currentTime !== null) set(a.currentTime / 480); requestAnimationFrame(tick); };
+  tick();
+}`;
+module.exports.DRY3_JS = `<script>${module.exports.DRY3_FN}
+(function () { new MutationObserver(function () {
+  var s = document.querySelector('.tag-popup .tag-stamp-out'); if (!s || s.__uv3) return; uvDry3(s);
 }).observe(document.documentElement, { childList: true, subtree: true }); })();</script>`;

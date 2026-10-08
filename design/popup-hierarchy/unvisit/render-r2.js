@@ -26,16 +26,17 @@ const TIMES = {
   dryA: [0, 100, 200, 300, 360, 410, 450, 490, 580],
   dryB: [0, 100, 180, 240, 300, 360, 420, 480, 580],
   erase: [0, 80, 160, 240, 320, 400, 480, 560, 620, 740],
+  dry3: [0, 100, 160, 200, 240, 280, 320, 360, 400, 440, 480, 580],
   dry2: [0, 120, 180, 220, 250, 280, 320, 360, 420, 480, 580],
   blot: [0, 120, 180, 220, 250, 280, 320, 360, 420, 480, 580],
 };
-const KEY1X = { shipped: [0, 90, 200, 260], lift: [84, 210, 280, 380], dry: [84, 200, 280, 380], strike: [130, 240, 310, 400], erase: [160, 320, 480, 740], dryA: [200, 360, 450, 580], dryB: [180, 300, 420, 580], blot: [200, 260, 320, 580], dry2: [220, 280, 360, 580] };
+const KEY1X = { shipped: [0, 90, 200, 260], lift: [84, 210, 280, 380], dry: [84, 200, 280, 380], strike: [130, 240, 310, 400], erase: [160, 320, 480, 740], dryA: [200, 360, 450, 580], dryB: [180, 300, 420, 580], blot: [200, 260, 320, 580], dry2: [220, 280, 360, 580], dry3: [200, 280, 360, 580] };
 const SCALES = [['', 390], ['-s100', 320], ['-s085', 272]];
 
 const copyFor = key => {
   const src = fs.readFileSync(FILE, 'utf8'), css = OPT[key].css;
   const f = path.join(os.tmpdir(), `unvisit2-${key}.html`);
-  fs.writeFileSync(f, css ? src.replace('</head>', `<style id="unvisit-option">${css}</style>\n${OPT[key].strokes ? OPT.ERASE_JS : ''}${OPT[key].blot ? OPT.BLOT_JS : ''}${OPT.SYNC_JS}\n</head>`) : src);
+  fs.writeFileSync(f, css ? src.replace('</head>', `<style id="unvisit-option">${css}</style>\n${OPT[key].strokes ? OPT.ERASE_JS : ''}${OPT[key].blot ? OPT.BLOT_JS : ''}${OPT[key].dry3 ? OPT.DRY3_JS : ''}${OPT.SYNC_JS}\n</head>`) : src);
   return f;
 };
 
