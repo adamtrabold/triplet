@@ -20,10 +20,10 @@ pick/redirect before building anything.
   reads/writes hit an in-memory copy; the real client has no stored
   session, so RLS refuses any stray write. Verified headless (stub): edits
   stick through polls, zero writes reach the server, reload is fresh,
-  normal URL unchanged. **Open (design, lane 2):** nothing tells a visitor
-  they're in a playground or that changes aren't saved; the account menu
-  just reads "Playground" and Sign out drops to signed-out (the sign-in
-  modal then accepts anything). Also open: share-preview/title for the
+  normal URL unchanged. Account menu (owner: "it should just have a sign
+  in button"): the menu holds only Sign in, which opens the real app at
+  `?signin` -- the sign-in modal opens once and the param is dropped. Also
+  open: share-preview/title for the
   link; playground shares localStorage prefs (city, sort, list view,
   active plan) with the real app on the same device.
 

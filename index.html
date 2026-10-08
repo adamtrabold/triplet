@@ -2985,7 +2985,13 @@
       const dropdownUserEmail = document.getElementById('dropdownUserEmail');
 
       if (typeof refreshTags === 'function' && map) refreshTags();
-      if (currentUser) {
+      if (PLAYGROUND) {
+        // The playground's account menu is just a Sign in button (owner):
+        // it leaves for the real app with the sign-in modal open.
+        dropdownUserEmail.hidden = true;
+        document.getElementById('dropdownLogoutBtn').textContent = 'Sign in';
+        accountBtn.classList.add('show');
+      } else if (currentUser) {
         dropdownUserEmail.textContent = currentUser.email;
         accountBtn.classList.add('show');
       } else {
@@ -3047,6 +3053,7 @@
     }
 
     async function logout() {
+      if (PLAYGROUND) { location.href = location.pathname + '?signin'; return; }
       await supabaseClient.auth.signOut();
       currentUser = null;
       hideAccountDropdown();
@@ -9091,8 +9098,13 @@
       }
     });
 
-    // Check auth on page load
-    checkAuth();
+    // Check auth on page load; ?signin (the playground's Sign in) opens the
+    // sign-in modal once, then drops the param from the address bar.
+    checkAuth().then(signedIn => {
+      if (PLAYGROUND || !new URLSearchParams(location.search).has('signin')) return;
+      history.replaceState(null, '', location.pathname + location.hash);
+      if (!signedIn) showAuthModal();
+    });
 
     // The list's scroll gradient listener is attached ONCE, here — not inside a
     // renderer, where it used to leak one listener per poll tick.
