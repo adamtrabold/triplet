@@ -17,6 +17,13 @@
   a copy of index.html via signin-test.js. Then the director scores; then my
   job-coverage check on each 9+ concept against jobs.md.
 
+## Correction (coordinator, after turn 6)
+- The signed-in account badge AT REST is navy with an orange person; it is
+  orange only while its dropdown is open (`.active`). jobs.md and all three
+  how-it-works files are corrected: the strike floods NAVY and the person's
+  ink turns orange; the dry-up dries navy. Turn 4's storyboards drew it orange
+  and need redrawing (visual's sheets).
+
 ## Director rulings in turn 6 (now settled)
 - A: no rim; printed not stamped; 1.4px outline person. B: hotel-label banner
   with a notched tail, 28px drawn, 44px hit box, text size capped.

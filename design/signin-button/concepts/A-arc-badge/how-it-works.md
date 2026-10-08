@@ -8,7 +8,8 @@ The signed-in badge's own scalloped shape, cut from paper and printed in
 navy: a small person high in the circle, **SIGN IN** on a U-shaped arc
 under it. No rim, no tilt, no texture (printed, not stamped). It is one
 object in both states: signed out = paper with navy print, signed in =
-orange with the full-size person.
+navy with the full-size orange person (today's account badge; orange
+only while its menu is open).
 
 Visual spec (from turn 4, for the sheet): 50px die, `--paper-raised` face,
 warm 1px edge, the `+`'s 1px shadow; the person = the account glyph ×0.42,
@@ -22,8 +23,8 @@ warm 1px edge, the `+`'s 1px shadow; the person = the account glyph ×0.42,
 | Pressed | face → `--paper-pressed`, ink stays navy | on touch-down; sliding off cancels |
 | Focus-visible | 2px navy outline ~3px out, following the scallop | keyboard only; records, not on the owner's sheet |
 | Sheet open | rest look (it's under the scrim) | it doesn't stay "active", because there is no dropdown |
-| Signed in | today's orange badge, unchanged | same spot |
-| Signed in, dropdown open | today's `.active` inverse, unchanged | |
+| Signed in | today's account badge (navy face, orange person), unchanged | same spot |
+| Signed in, dropdown open | today's `.active` inverse (orange face, navy person), unchanged | |
 | Auth not yet known | nothing painted | flow rule |
 | 320px | identical; the badge doesn't shrink | the corner has zoom on the left and two badges on the right; no collisions |
 | Dark tiles | paper badge holds itself up | no change |
@@ -33,8 +34,9 @@ warm 1px edge, the `+`'s 1px shadow; the person = the account glyph ×0.42,
 ## Motion (one object changing ink)
 - **Out → in, the strike:** about 380ms. `STAR_POP`'s offsets and easing,
   scale only (no rotation), peak ~1.12 (the badges are 8px apart).
-  Orange floods from the centre on the press, the arc is overprinted away,
-  and the person grows ×0.42 → ×1 and recentres.
+  Navy floods from the centre on the press, the arc is overprinted away,
+  and the person grows ×0.42 → ×1, recentres, and its ink turns from navy
+  to orange (as the flood passes under it).
   Frames: 0 paper · ~60 ink lands · ~130 peak · ~250 dip · 380 signed in.
 - **In → out, the dry-up** (caption it "if sign-in also lives in the real
   app (recommended)"): the approved un-visit dry-up by thickness, using the

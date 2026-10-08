@@ -13,12 +13,12 @@ say so.
 1. **Find sign-in without opening anything.** The words "sign in" are on
    the button itself, one tap away, with no menu first.
 2. **Tell at a glance that you're signed out.** Signed out looks different
-   from the orange signed-in badge.
+   from the signed-in account badge (navy with an orange person).
 3. **Sign in from the playground and end up in the real trip, signed in.**
 4. **Keep it quiet.** The sign-in button is secondary: it never looks louder
    than the + button, on a light or dark map.
-5. **Signed in, the account badge is where sign-in was.** It's the same orange
-   badge as today, with the same menu (email, and Logout, renamed Sign out), and nothing moves.
+5. **Signed in, the account badge is where sign-in was.** It's the same navy
+   badge with the orange person as today (it turns orange only while its menu is open), with the same menu (email, and Logout, renamed Sign out), and nothing moves.
 6. **A visitor who taps it isn't stuck or punished.** *(inferred)* They
    read why they can't sign in, tap Keep playing, and lose nothing.
 7. **Nothing you were doing is lost by surprise.** *(inferred)* Backing out
@@ -40,7 +40,7 @@ say so.
    sign in. Your changes here won't be kept."* Then email, password, and
    **Sign in** / **Keep playing**.
 4. Tap Sign in. The button reads "Signing in…" and can't be tapped twice.
-5. If it works, the real trip opens and the button turns into your orange
+5. If it works, the real trip opens and the button turns into your navy account
    badge with a short stamp animation, so you see it change.
    - Wrong email or password: *"That email and password don't match."*
      You stay in the sheet, the email is kept and the password cleared.
@@ -50,7 +50,7 @@ say so.
 **Back out**: Keep playing, tap outside the sheet, or Esc. The sheet closes
 and nothing is lost.
 
-**Sign out (real trip)**: account badge, then Sign out. The orange dries away
+**Sign out (real trip)**: account badge, then Sign out. The navy dries away
 and the sign-in button is left in its place. *(That's if Q1 is yes.)*
 
 **Edit while signed out (real trip)**: the same as today, but it says "sign
@@ -67,7 +67,7 @@ in", not "log in".
 
 ## Notes for whoever builds it (not for the owner to judge)
 - The corner stays empty until the app knows whether you're signed in, so
-  the sign-in button never flashes before your orange badge on load.
+  the sign-in button never flashes before your account badge on load.
 - The arrival animation plays once, only right after a playground sign-in.
   It doesn't play on a reload or under Reduce Motion, and never when the
   sign-in didn't actually stick.

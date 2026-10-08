@@ -8,7 +8,8 @@ whichever of the two it is.
 - **One slot, two states**, top right, left of `+` (`#accountBtn`'s place).
   - **Signed out**: the control. One tap opens the sign-in sheet. There is
     no dropdown.
-  - **Signed in**: today's orange account badge, with its dropdown (email,
+  - **Signed in**: today's account badge (navy face, orange
+    person; it inverts to orange only while the dropdown is open), with its dropdown (email,
     Logout). Unchanged.
 - **Where the signed-out state shows:** in the playground always (it is
   never signed in). In the real app when signed out, **if the owner says
@@ -77,7 +78,7 @@ succeed (only two accounts exist).
 - **Sign in from the control:** the same sheet (no line), success **in
   place**: no navigation, the strike plays right away (no 250ms hold; the eye
   is already there).
-- **Sign out:** orange badge → dropdown → Sign out → the dropdown closes →
+- **Sign out:** account badge → dropdown (badge shows orange) → Sign out → the dropdown closes →
   **the dry-up** (per concept) → the control.
 - **Q1 no:** sign-in only comes from edit attempts (today), and sign-out
   dries the badge to an **empty slot** (the same motion, nothing under it).
