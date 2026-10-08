@@ -1,5 +1,80 @@
 # Un-visit transition (tag, Visited segment)
 
+## Round 6: Dry up B, from two directions, thickest last
+
+The owner, verbatim (2026-10-08), on the round-5 blot:
+
+> "yeah this reads as it breaking up, not as it drying up. i liked the dry
+> up b i just think it needed to dry up from two directions"
+
+and then:
+
+> "the thickest things should dry up slowest"
+
+The blot (round 5) is dropped. This is B's own mechanism again.
+
+**Live page:** `live.html` (title unchanged), built by `live-build.js`.
+- It shows the new two-direction B and the original B side by side, each
+  with "Play again".
+- The blot's "New place" is gone because nothing here is seeded.
+- The filmstrips sit below.
+
+CSS: `options.js` key `dry2`, CSS only. Stills: `stills/r2/dry2-*`
+(390 / 320 / 272 phones and the 1x tag).
+
+### What it does (560ms, no pop, B's `cubic-bezier(.87,0,.13,1)`)
+
+- **Outer front: B exactly.** A soft radial mask draws in from the edges,
+  sized 210% → 75% of the stamp.
+- **Inner front, new.** A soft radial area grows out from the centre on the
+  same curve, at the same time. The `--uvi` stop runs from -42% to 40%; it's
+  a registered `@property <percentage>`, so it animates smoothly.
+  - It thins the centre to 30% ink rather than clearing it, so it never
+    cuts through the word.
+  - The two fronts meet in a soft band.
+- **Thickest dries slowest.** Within the same curve, thin marks go first and
+  heavy marks last:
+  1. The dotted outer track (1.1px dots) fades 9–45% (50–250ms).
+  2. The ring's 2px stroke fades 30–72% (170–400ms).
+  3. The bold word and the filled check erode last, 40–86% (225–480ms). A
+     paper-coloured stroke grows on their outlines (the word's text-stroke
+     0 → 1.3px; the check's path stroke 0 → 1.5px). That thins each glyph
+     evenly from its edges, so thin parts go first, while the pale and the
+     fronts finish them.
+- **Paling:** the ink pales to the light-navy tint over 50–336ms and is gone
+  by 480ms. Words: 490–560ms.
+- **No cropped "VISITE"** at any frame, at any of the three sizes. The word
+  thins and pales whole.
+- **Soft and smooth:** no noise, no seeds, no ragged edges.
+
+### Measured (`r2-frames.json`, `sync.js`), stamp scales 1.1 / 1.0 / 0.85
+
+- **No crossing frame.** The stamp is gone before "MARK VISITED" inks in.
+- **Light navy, never grey.** Chroma stays ≥ 0.045.
+- **Inside the segment** by 10.2 / 11.1 / 8.7px.
+- **Re-tap unchanged.** Tapping again leaves 0 leftover copies, the
+  stamp-in plays, and `aria-pressed` is "true".
+- **Reduced motion.** The 160ms crossfade only; the track, ring, word and
+  check animations are off.
+- **Live page:** no horizontal scroll at 390px and 0 script errors in
+  Chromium. Play again replays both.
+
+### Weaknesses
+
+- **The inner front is subtle.** It shows mostly as a paler middle to the
+  word (180–250ms), not as a visible clear hole. That's because, per
+  "thickest dries slowest", it is not allowed to cut the bold letters. If
+  the owner wants the centre to visibly clear, the trade-off is a word that
+  breaks in the middle.
+- **Uses `@property`, `-webkit-text-stroke` and an animated SVG `stroke`.**
+  These are fine in Chromium. WebKit is unchecked, though all three are
+  supported on iOS 16.4+.
+- **The row:** per round 4, it follows the picked tag option. With this,
+  the row's stamp gets the same layers at its own size. This is a
+  proposal; UX confirms it.
+
+---
+
 ## Round 5: Dry up as a blot (owner pick)
 
 The owner, verbatim (2026-10-08): "i like dry up B but it should dry up

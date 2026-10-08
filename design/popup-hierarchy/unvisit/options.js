@@ -244,6 +244,57 @@ module.exports = {
     ${SEL} { transform: rotate(${TILT}) scale(${S}); animation: uvBlotPale 560ms linear forwards; }
     ${PALE('uvBlotPale', 10, 62, 80.4)}
     ${REST(560, 82.1)} ${REDUCED}` },
+
+  // ===== ROUND 6 (owner, on the blot: "yeah this reads as it breaking up, not as it drying up. i
+  // liked the dry up b i just think it needed to dry up from two directions"). DRY UP B, TWO
+  // DIRECTIONS: B exactly (the soft radial mask drawing in from the edges, the pale, the curve, 560ms)
+  // plus a second soft front: a clear area grows OUT from the centre on the same curve at the same
+  // time. They meet; the last ink is a thin soft ring that pales away. No noise, no seeds.
+  //   outer front: B's layer -- radial-gradient(#000 50%, transparent 100%) sized 210% -> 75%
+  //   inner front: radial-gradient(30% ink var(--uvi), #000 var(--uvi) + 42%) over the stamp's box,
+  //                --uvi -42% -> 40% (a registered <percentage>, so it animates smoothly). It thins the
+  //                centre to 30% rather than clearing it, so the bold word -- the thickest ink -- is not
+  //                cut through: it erodes and pales last (round 6b, "the thickest things should dry
+  //                up slowest").
+  //   both 0-480ms on cubic-bezier(.87,0,.13,1); ink pales to the tint 50-310ms (it is pale before
+  //   the fronts reach the word, so the word thins and pales -- never a crisp cropped "VISITE"),
+  //   gone by 480; words 490-560.
+  dry2: { ms: 560, css: `
+    @property --uvi { syntax: '<percentage>'; inherits: false; initial-value: -42%; }
+    ${SEL} {
+      --uvi: -42%;
+      -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px),
+        radial-gradient(closest-side, #000 50%, transparent 100%) 50% 50% / 210% 210% no-repeat,
+        radial-gradient(closest-side, rgba(0, 0, 0, .3) var(--uvi), #000 calc(var(--uvi) + 42%)) 50% 50% / 100% 100% no-repeat;
+      -webkit-mask-composite: source-in, source-in;
+      mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px),
+        radial-gradient(closest-side, #000 50%, transparent 100%) 50% 50% / 210% 210% no-repeat,
+        radial-gradient(closest-side, rgba(0, 0, 0, .3) var(--uvi), #000 calc(var(--uvi) + 42%)) 50% 50% / 100% 100% no-repeat;
+      mask-composite: intersect, intersect;
+      transform: rotate(${TILT}) scale(${S});
+      animation: uvDry2 560ms linear forwards, uvDry2Pale 560ms linear forwards; }
+    @keyframes uvDry2 {
+      0%     { --uvi: -42%; -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%, 100% 100%; mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%, 100% 100%; animation-timing-function: cubic-bezier(.87, 0, .13, 1); }
+      85.7%, 100% { --uvi: 40%; -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 50% 50%, 100% 100%; mask-size: var(--ts, 90px) var(--ts, 90px), 75% 75%, 100% 100%; }
+    }
+    /* THICKEST DRIES SLOWEST (owner: "the thickest things should dry up slowest"): the thinnest marks
+       go first, the heaviest last, inside the same curve and 560ms.
+       1. the dotted outer track (1.1px dots): fades 9-45%;
+       2. the ring's 2px stroke: fades 30-72%;
+       3. the bold word and the filled check: they erode, not crop -- a paper-coloured stroke grows on
+          their outlines (text-stroke 0 -> 1.3px; the check's path stroke 0 -> 4.5 units = 1.5px), which
+          eats thin parts of each glyph first, while the two soft fronts and the pale finish them by 85.7%. */
+    ${SEL}::before { animation: uvDry2Track 560ms linear forwards; }
+    @keyframes uvDry2Track { 0%, 9% { opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 45%, 100% { opacity: 0; } }
+    ${SEL} .row-stamp-ring { animation: uvDry2Ring 560ms linear forwards; }
+    @keyframes uvDry2Ring { 0%, 30% { border-color: currentColor; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 72%, 100% { border-color: transparent; } }
+    ${SEL} .row-stamp-word { -webkit-text-stroke: 0 var(--paper-raised); animation: uvDry2Word 560ms linear forwards; }
+    @keyframes uvDry2Word { 0%, 40% { -webkit-text-stroke-width: 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 85.7%, 100% { -webkit-text-stroke-width: 1.3px; } }
+    ${SEL} .row-stamp-check path { stroke: var(--paper-raised); stroke-width: 0; stroke-linejoin: round; animation: uvDry2Check 560ms linear forwards; }
+    @keyframes uvDry2Check { 0%, 40% { stroke-width: 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 85.7%, 100% { stroke-width: 4.5; } }
+    @media (prefers-reduced-motion: reduce) { ${SEL}::before, ${SEL} .row-stamp-ring, ${SEL} .row-stamp-word, ${SEL} .row-stamp-check path { animation: none !important; } }
+    ${PALE('uvDry2Pale', 9, 60, 85.7)}
+    ${REST(560, 87.5)} ${REDUCED}` },
 };
 module.exports.TINT = TINT;
 

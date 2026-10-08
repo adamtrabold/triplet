@@ -12,7 +12,7 @@ const path = require('path'), fs = require('fs'), { execFileSync } = require('ch
 const { launch, openProto, W, FILE } = require('../../gesture-harness/lib');
 const OPT = require('./options');
 const D = __dirname, KEYS = [
-  ['blot', 'Dry up: the blot (new)', 'Dries like a real blot: the edges dry inward while holes open from the centre, and the last ink goes in uneven patches. Same weight and timing as B. 560 ms.'],
+  ['dry2', 'Dry up B, from two directions (new)', 'The ink draws in from the edges as before, and at the same time clears outward from the centre. The two meet and the last thin ring pales away. 560 ms.'],
   ['dryB', 'Dry up B, as you saw it', 'For comparison: the ink draws back toward the middle. 560 ms.']];
 
 // ---- a small CSS splitter: top-level blocks with brace matching (comments stripped first) ----
@@ -42,7 +42,7 @@ function scope(css, key) {
   const names = [...css.matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1]);
   for (const n of new Set(names)) css = css.replace(new RegExp(`\\b${n}\\b`, 'g'), `${n}_${key}`);
   const walk = c => blocks(c).map(b => {
-    if (b.head.startsWith('@keyframes')) return `${b.head}{${b.body}}`;
+    if (b.head.startsWith('@keyframes') || b.head.startsWith('@property')) return `${b.head}{${b.body}}`;
     if (b.head.startsWith('@')) return `${b.head}{${walk(b.body)}}`;
     return `${b.head.split(',').map(s => `#opt-${key} ${s.trim()}`).join(', ')}{${b.body}}`;
   }).join('\n');
@@ -128,14 +128,14 @@ footer { margin-top: 48px; font-size: 13px; line-height: 20px; color: var(--pg-i
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">${cap.sym}</svg>
 <main>
   <h1>Un-visit: Dry up Blot</h1>
-  <p class="lede">Tap the VISITED stamp to un-visit and watch it leave. Tap again to stamp it back. These are the tag's real stubs. The new blot first, then B as you saw it. “New place” shows how the blot's pattern changes from place to place.</p>
+  <p class="lede">Tap the VISITED stamp to un-visit and watch it leave. Tap again to stamp it back. These are the tag's real stubs. The new two-direction version first, then B as you saw it.</p>
   <div class="pair">
 ${KEYS.map(([k, t, d]) => `    <section class="opt" id="opt-${k}" aria-label="${t}">
       <h2>${t}</h2>
       <p class="t">${d}</p>
       <div class="stage">${stubFor(k)}</div>
       <p class="hint">Tap Visited</p>
-      <div class="ctl"><button type="button" class="replay" data-k="${k}">Play again</button><button type="button" class="reseed">New place</button></div><p class="hint seedlab">Place 8 of 21${OPT[k].blot ? '' : ' (B looks the same at every place)'}</p>
+      <div class="ctl"><button type="button" class="replay" data-k="${k}">Play again</button></div>
     </section>`).join('\n')}
   </div>
 
@@ -146,8 +146,6 @@ ${KEYS.map(([k, t, d]) => `    <section class="opt" id="opt-${k}" aria-label="${
   <footer>Built from the app's own stub markup and styles; only the un-visit animation differs. With reduced motion turned on, both become a quick crossfade.</footer>
 </main>
 <script>
-${OPT.BLOT_FN}
-uvDefsEl();
 (function () {
   var IDS = []; for (var q = 0; q < 21; q++) IDS.push('rey' + (q < 10 ? '0' : '') + q);
   var place = 7;
@@ -160,7 +158,6 @@ uvDefsEl();
     var btn = sec.querySelector('.popup-visited');
     var visited = btn.getAttribute('aria-pressed') === 'true';
     var nb = swap(sec, visited ? OUT : IN);
-    if (visited && sec.id === 'opt-blot') uvBlot(nb.querySelector('.tag-stamp-out'), IDS[place]);
     sec.querySelector('.hint').textContent = visited ? 'Tap Mark visited to stamp it back' : 'Tap Visited';
   }
   document.querySelectorAll('.opt').forEach(function (sec) {
@@ -171,7 +168,7 @@ uvDefsEl();
       else toggle(sec);
     }
     sec.querySelector('.replay').addEventListener('click', play);
-    var rs = sec.querySelector('.reseed');
+    var rs = null;
     if (rs) rs.addEventListener('click', function () { place = (place + 1) % IDS.length; var lab = sec.querySelector('.seedlab'); lab.textContent = 'Place ' + (place + 1) + ' of ' + IDS.length + (sec.id === 'opt-blot' ? '' : ' (B looks the same at every place)'); play(); });
   });
 })();
