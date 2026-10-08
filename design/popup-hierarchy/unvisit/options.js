@@ -229,6 +229,21 @@ module.exports = {
     }
     @media (prefers-reduced-motion: reduce) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { display: none; } }
     ${REST(720, 90.3)} ${REDUCED}` },
+
+  // ===== ROUND 5 (owner picked Dry up B: "i like dry up B but it should dry up from the center and
+  // edges inward like a real blot with that weight"). BLOT: B's weight and curve, a blot's shape.
+  // 560ms. A real blot dries where the ink is thinnest: its outer edge retreats inward AND holes open
+  // from the centre and spread outward, so the last ink sits in irregular patches between the two.
+  // Driven by BLOT_JS: an SVG filter on the leaving copy thresholds two fields -- (centre-ness + noise)
+  // for the edge front and (edge-ness + other noise) for the hole front -- with fractal noise seeded
+  // per place (uvSeed(id, 'blot:*')), so both fronts are ragged and grain-driven, never two circles;
+  // the paper tooth (--tex-stamp mask) still applies on top. Both fronts advance on B's
+  // cubic-bezier(.87,0,.13,1) over 0-460ms (the last patches go ~360-420ms); ink pales to the tint
+  // 56-350ms (so the patches are pale before the word breaks up), gone by 450; words 460-560. The word breaks up into blot patches (never a straight crop) while it is already pale.
+  blot: { ms: 560, blot: true, css: `
+    ${SEL} { transform: rotate(${TILT}) scale(${S}); animation: uvBlotPale 560ms linear forwards; }
+    ${PALE('uvBlotPale', 10, 62, 80.4)}
+    ${REST(560, 82.1)} ${REDUCED}` },
 };
 module.exports.TINT = TINT;
 
@@ -280,4 +295,70 @@ module.exports.ERASE_JS = `<script>${module.exports.STROKES_FN}
 (function () { new MutationObserver(function () {
   var s = document.querySelector('.tag-popup .tag-stamp-out'); if (!s || s.__uvStrokes) return;
   var b = s.closest('.popup-visited'); uvStrokes(s, b && b.getAttribute('data-id'));
+}).observe(document.documentElement, { childList: true, subtree: true }); })();</script>`;
+
+// BLOT (round 5). uvBlot(stamp, id): gives the leaving copy its own SVG filter and drives the two
+// drying fronts from the copy's own CSS animation clock (uvBlotPale), so pausing / seeking that
+// animation (stills) or playing it (live) moves the fronts exactly. Field values, per pixel:
+//   rad  = 1 at the stamp's centre .. 0 at its ellipse edge (a radial gradient, feImage)
+//   edge front:  rad       + 0.6*n1  > t   -> ink stays      (the rim dries inward)
+//   hole front:  (1 - rad) + 0.6*n2  > t   -> ink stays      (holes open from the centre)
+// n1, n2 contrast-stretched x3.2; t runs 0.02 -> 0.92 on cubic-bezier(.87,0,.13,1) over the first 460ms; ink = both, so the last ink
+// is the ragged ring of patches between the fronts. n1, n2: fractal noise (3 octaves, ~11px blotches
+// with fine grain), seeds from uvSeed(id, 'blot:1' / 'blot:2'). Reduced motion: no filter (the CSS
+// crossfade). In the build: the same filter, generated with the leaving copy in buildPopupHtml().
+module.exports.BLOT_FN = `
+function uvSeed(id, item) { var h = 2166136261; var s = String(id) + '#' + item; for (var i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619); h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995); h ^= h >>> 15; return (h >>> 0) / 4294967296; }
+var UV_RAD = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient><rect width="100" height="100" fill="url(#g)"/></svg>');
+var uvBlotN = 0, uvDefs = null;
+function uvDefsEl() {
+  if (uvDefs) return uvDefs;
+  var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('width', '0'); s.setAttribute('height', '0'); s.setAttribute('aria-hidden', 'true');
+  s.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+  (document.body || document.documentElement).appendChild(s); uvDefs = s;
+  var warm = new Image(); warm.src = UV_RAD;   // decode the radial field once, before the first un-visit
+  return s;
+}
+function uvBez(x1, y1, x2, y2) {
+  return function (x) { var lo = 0, hi = 1, t = x; for (var i = 0; i < 30; i++) { t = (lo + hi) / 2; var u = 1 - t, bx = 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t; if (bx < x) lo = t; else hi = t; }
+    var v = 1 - t; return 3 * v * v * t * y1 + 3 * v * t * t * y2 + t * t * t; };
+}
+var UV_EASE = uvBez(.87, 0, .13, 1);
+function uvBlot(stamp, id) {
+  if (!stamp || stamp.__uvBlot || matchMedia('(prefers-reduced-motion: reduce)').matches) return; stamp.__uvBlot = 1;
+  var n = ++uvBlotN, fid = 'uvblot' + n, NS = 'http://www.w3.org/2000/svg', s1 = 1 + Math.floor(uvSeed(id, 'blot:1') * 900), s2 = 1 + Math.floor(uvSeed(id, 'blot:2') * 900);
+  var f = document.createElementNS(NS, 'filter');
+  f.setAttribute('id', fid); f.setAttribute('x', '0'); f.setAttribute('y', '0'); f.setAttribute('width', '1'); f.setAttribute('height', '1'); f.setAttribute('color-interpolation-filters', 'sRGB');
+  f.innerHTML = '<feImage href="' + UV_RAD + '" preserveAspectRatio="none" result="rad"/>'
+    + '<feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="3" seed="' + s1 + '" result="n1r"/>'
+    + '<feColorMatrix in="n1r" type="matrix" values="3.2 0 0 0 -1.1  3.2 0 0 0 -1.1  3.2 0 0 0 -1.1  0 0 0 0 1" result="n1"/>'
+    + '<feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="3" seed="' + s2 + '" result="n2r"/>'
+    + '<feColorMatrix in="n2r" type="matrix" values="3.2 0 0 0 -1.1  3.2 0 0 0 -1.1  3.2 0 0 0 -1.1  0 0 0 0 1" result="n2"/>'
+    + '<feComposite in="rad" in2="n1" operator="arithmetic" k1="0" k2="1" k3="0.6" k4="0.0" result="ov"/>'
+    + '<feComposite in="rad" in2="n2" operator="arithmetic" k1="0" k2="-1" k3="0.6" k4="1" result="iv"/>'
+    + '<feColorMatrix in="ov" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="oa"/>'
+    + '<feColorMatrix in="iv" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="ia"/>'
+    + '<feComponentTransfer in="oa" result="om"><feFuncA class="fo" type="linear" slope="14" intercept="0"/></feComponentTransfer>'
+    + '<feComponentTransfer in="ia" result="im"><feFuncA class="fi" type="linear" slope="14" intercept="0"/></feComponentTransfer>'
+    + '<feComposite in="om" in2="im" operator="in" result="m"/>'
+    + '<feComposite in="SourceGraphic" in2="m" operator="in"/>';
+  uvDefsEl().appendChild(f);
+  var fo = f.querySelector('.fo'), fi = f.querySelector('.fi');
+  // thresholds on rad + .6*n (n: the noise contrast-stretched x3.2 so the fronts are ragged, not circles)
+  var set = function (p) { var t = 0.02 + 0.9 * UV_EASE(Math.min(1, Math.max(0, p))); /* the threshold: 0.02 (all ink) -> 0.92 (the last, thickest patches linger in the curve's slow tail) */ var ic = (-14 * t).toFixed(3); fo.setAttribute('intercept', ic); fi.setAttribute('intercept', ic); };
+  set(0);
+  stamp.style.filter = 'url(#' + fid + ')';
+  var clock = function () { return stamp.getAnimations().filter(function (a) { return a.animationName && a.animationName.indexOf('uvBlotPale') === 0; })[0]; };
+  var tick = function () {
+    if (!stamp.isConnected) { f.remove(); return; }
+    var a = clock(); if (a && a.currentTime !== null) set(a.currentTime / 460);
+    requestAnimationFrame(tick);
+  };
+  tick();
+}`;
+module.exports.BLOT_JS = `<script>${module.exports.BLOT_FN}
+uvDefsEl();
+(function () { new MutationObserver(function () {
+  var s = document.querySelector('.tag-popup .tag-stamp-out'); if (!s || s.__uvBlot) return;
+  var b = s.closest('.popup-visited'); uvBlot(s, b && b.getAttribute('data-id'));
 }).observe(document.documentElement, { childList: true, subtree: true }); })();</script>`;

@@ -8,7 +8,7 @@
 const path = require('path'), fs = require('fs'), os = require('os');
 const { launch, openProto, W, FILE } = require('../../gesture-harness/lib');
 const OPT = require('./options');
-const copyFor = key => { const f = path.join(os.tmpdir(), `unvisit-sync-${key}.html`); fs.writeFileSync(f, fs.readFileSync(FILE, 'utf8').replace('</head>', `<style>${OPT[key].css}</style>\n${OPT[key].strokes ? OPT.ERASE_JS : ''}${process.env.NOSYNC ? '' : OPT.SYNC_JS}\n</head>`)); return f; };
+const copyFor = key => { const f = path.join(os.tmpdir(), `unvisit-sync-${key}.html`); fs.writeFileSync(f, fs.readFileSync(FILE, 'utf8').replace('</head>', `<style>${OPT[key].css}</style>\n${OPT[key].strokes ? OPT.ERASE_JS : ''}${OPT[key].blot ? OPT.BLOT_JS : ''}${process.env.NOSYNC ? '' : OPT.SYNC_JS}\n</head>`)); return f; };
 
 async function open(b, key) {
   const { ctx, page } = await openProto(b, { dsf: 1, file: copyFor(key) });

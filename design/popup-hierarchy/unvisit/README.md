@@ -1,5 +1,85 @@
 # Un-visit transition (tag, Visited segment)
 
+## Round 5: Dry up as a blot (owner pick)
+
+The owner, verbatim (2026-10-08): "i like dry up B but it should dry up
+from the center and edges inward like a real blot with that weight"
+
+**Live page:** `live.html`, "Un-visit: Dry up Blot", built by
+`live-build.js`.
+- It shows only the new blot and B as the owner saw it, for comparison.
+- Each has "Play again" and "New place". New place steps through the 21
+  fixture places; B is not seeded, so it looks the same at every place.
+- The filmstrips sit below.
+
+CSS and JS: `options.js` key `blot`, plus `BLOT_FN` / `BLOT_JS`. Stills:
+`stills/r2/blot-*` (390 / 320 / 272 phones and the 1x tag).
+
+### What it does (560ms, no pop)
+
+- **A real blot dries where the ink is thinnest.** Two fronts advance at
+  once:
+  - the outer edge retreats inward;
+  - holes open from the centre and spread outward.
+
+  The last ink sits in irregular patches between the two.
+- **How it's built:** an SVG filter on the leaving copy thresholds two
+  fields. `rad` runs from 1 at the stamp's centre to 0 at its ellipse edge.
+  - The edge front keeps ink where `rad + .6*n1 > t`.
+  - The hole front keeps ink where `(1 - rad) + .6*n2 > t`.
+  - n1 and n2 are fractal noise (3 octaves, blotches of about 11px with fine
+    grain), contrast-stretched so both fronts are ragged, never two circles.
+  - The paper-tooth mask still applies on top.
+- **Seeded per place:** the noise seeds come from `uvSeed(id, 'blot:1'/'blot:2')`,
+  which is the app's `seedRand()` verbatim. The same place always dries the
+  same way; places differ.
+- **B's weight is kept:**
+  - `t` runs from 0.02 (all ink) to 0.92 on B's
+    `cubic-bezier(.87,0,.13,1)` over 0–460ms. It's nearly still at first,
+    breaks up fast through the middle (about 180–280ms), and the last,
+    thickest patches linger in the curve's slow tail (about 280–420ms).
+  - The ink pales to the light-navy tint from 56ms to 350ms and is gone by
+    450ms. Words: 460–560ms.
+- **No half-cut "VISITE":**
+  - Holes open in the middle of the word while the rim retreats, so the word
+    breaks up irregularly ("VI:ITED") and never as a straight crop.
+  - It's already pale when it breaks up.
+  - Checked frame by frame at all three stamp sizes.
+- **The clock:** the fronts are driven from the copy's own CSS clock (the
+  pale animation). Pausing or seeking that animation for stills, or playing
+  it live, moves them exactly. Nothing else times it.
+
+### Measured (`r2-frames.json`, `sync.js`), stamp scales 1.1 / 1.0 / 0.85
+
+- **No crossing frame.** The stamp is gone before "MARK VISITED" inks in.
+- **Light navy, never grey.** Chroma stays ≥ 0.045.
+- **Inside the segment** by 10.2 / 11.1 / 8.7px.
+- **Re-tap unchanged.** Tapping again leaves 0 leftover copies, the
+  stamp-in plays, and `aria-pressed` is "true".
+- **Reduced motion.** No filter; the same 160ms crossfade.
+- **Live page:** no horizontal scroll at 390px and 0 script errors in
+  Chromium. New place gives a different pattern.
+
+### Build note / weaknesses
+
+- **Build:** the filter is made with the leaving copy in `buildPopupHtml()`
+  and keyed on `loc.id`. The fronts are driven from the copy's animation
+  clock by one rAF loop, which stops when the copy is removed.
+- **Weight:** its strongest moment is about 100ms in the middle of the
+  curve, by design (B's weight). On a phone, at real speed, it may read as
+  "breaks up, then dust". The live page is the place to judge that.
+- **Two filter features:**
+  - `feImage` with a data-URI radial field. It's warmed once at load; if it
+    hasn't decoded by the first un-visit, that frame would drop the field.
+  - `feTurbulence` on an HTML element.
+
+  WebKit/iPhone is unchecked for both. Chromium only.
+- **The row:** per round 4, it follows the picked tag option. With the blot,
+  the row's stamp would use the same filter and seeds at its own size. This
+  is a proposal; UX confirms it.
+
+---
+
 ## Round 4: no pop; two Dry up curves; erratic Erase
 
 Two owner quotes, verbatim, on `live.html` (2026-10-08). These go into
