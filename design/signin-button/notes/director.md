@@ -1,7 +1,11 @@
 # Director notes: sign-in button
 
 ## Status
-Jam CLOSED (jam.md turn 6, 2026-10-08). No scores yet. Next: systems writes jobs.md, visual builds 2 concept sheets + 1 shared flow sheet.
+Concept round 1 SCORED (scores.md, 2026-10-08). READY: A. A = 9, B = 7
+(held back, not shown; the ready alternative if the owner rejects the arc
+idea). Presentation fixes before sending A: shorten the flow sheet, one
+clause on sheet A's intro, owner-message lines. Not a re-score unless
+the sheets change in substance.
 
 ## Owner's words that set the bar
 - "it should just have a sign in button"
@@ -83,3 +87,19 @@ the existing icons; motion storyboard in the app's stamp/dry-up vocabulary.
 ## Next
 systems writes jobs.md; visual builds the sheets; I steer after each pair
 of their turns, then READY and score.
+
+## Concept round 1 (after the first pair of designer turns)
+- Navy correction ACCEPTED (verified in index.html: #accountBtn navy at rest,
+  --figure only on .active). Signed in = navy die + orange person. The
+  strike lands navy; navy over the navy arc = real overprint.
+- Logout -> Sign out ACCEPTED (copy, follows the sign-in-everywhere ruling;
+  tell the owner as a fact).
+- Build note: on sign out, drop .active with no transition, then dry from navy.
+- Scores: A 9 (owner's idea, one object, quieter than +, the app's own
+  motion vocabulary; risk = 8px arc, judged readable at real size, fallback
+  ready). B 7: two objects/two footprints breaks the state system; can't
+  reach 9 without becoming A. Held back, offered in one line.
+- Likely objection found: the flow sheet is too long (~10k px, the sign-in
+  sheet 4x). Must be cut before sending.
+- What would block a 9 next time: if the owner finds the arc too small ->
+  8.5px fallback (team-fallback-3x.png), not a bigger die.
