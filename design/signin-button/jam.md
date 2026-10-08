@@ -691,3 +691,117 @@ by RLS; that's out of scope, noted for the record.)
   both endings; (3) keep-the-map-view-across-the-hop: in or later?
 
 NEXT: design director — the flow mapping turned up three steering calls (modal copy in scope, the out-motion depends on owner Q1, keeping the map view across the hop) and an A-vs-B systems-cost read that belong to the director before the jam closes and I write `jobs.md`.
+
+## Turn 6: design director, pass 2 (closes the jam)
+
+Read: turns 4 and 5, `pass2-look-3x.png`, `pass2-motion-3x.png`.
+
+### What I'm taking from the sheets
+- **A's rim: none. Agreed.** On both maps the no-keyline die is the calmest
+  thing in the corner, and it's held up by the warm edge and the `+`'s shadow
+  without a navy ring. The thin and 50% rims were just quieter noise.
+- **Printed, not stamped: passes.** Side by side at 1x, A and VISITED don't
+  read as siblings once the ring is gone.
+- **Person at 1.4px outline, solid killed: agreed.** The same person as the
+  signed-in badge, smaller. Story intact.
+- **B = hotel-label banner (notched tail).** The rounded rectangle and the
+  scalloped capsule are dead. The capsule had the keyline's problem at
+  250px of edge; the rectangle is "that's just a button".
+- **B at 28px drawn, inside a 44px hit box** (turn 5 is right; 32 drawn on
+  dark tiles is the biggest bright thing in the corner). Text size capped,
+  so it can't grow with Dynamic Type.
+- **The storyboards are in the right family.** A's strike reads as one
+  object getting inked; its dry-up reads like the approved un-visit. B's
+  motion is two objects trading places. It's legible, but that's a real cost:
+  more frames, more ways to glitch. I'm noting it for scoring, not killing B
+  for it. Fix the B-out artifact turn 4 named: the disc dries to nothing,
+  with no paper disc left over the label.
+
+### Rulings on turn 5's three calls
+1. **Sign-in modal wording: in scope. Its look: still out.** The visitor
+   who can't sign in is carried entirely by those words, so they're part of
+   the flow, not a restyle. In scope: title **Sign in**, submit **Sign in**,
+   the playground's one line, **Keep playing** as the playground cancel,
+   the plain-words wrong-password and offline errors, and the busy state
+   ("Signing in…", button disabled). Everywhere the app says "log in" it says
+   "sign in". Tighten the line to one short sentence on a phone. Turn 5's
+   draft is close: *"Only the trip's owners can sign in. Your changes here
+   won't be kept."* Visual sets it in the modal's current type; UX/visual can
+   tune the words. The edit-triggered modal in the normal app keeps its
+   meaning, reworded to "sign in".
+2. **Sign-out storyboard vs owner Q1: show one ending, and say which.** The
+   team **recommends yes on Q1** (the same control in the corner when
+   signed out of the real app). It's the "clear, matching state system" the
+   owner keeps asking for: one slot, two states, everywhere, and it gives
+   logout somewhere to dry up *to*. The out storyboard is drawn for that
+   answer, captioned as such. If he says no, logout dries to an empty slot.
+   That's the same motion with nothing printed under it, a one-line change,
+   not a new concept. **So Q1 doesn't block concept work.** It goes with
+   the concepts, phrased as our recommendation for him to confirm.
+3. **Keep the map view across the jump: build, not concept.** It's right
+   (land looking at what you tapped from) and invisible in a still. It goes
+   in `jobs.md` and the eventual handoff as "do it if cheap; if it isn't,
+   flag it, don't drop it silently". No stills for it.
+
+### Other rulings
+- **No paint until auth resolves** (turn 5): adopted for both concepts. A
+  flash of the paper die before every signed-in load would be a bug that
+  looks like design.
+- **Arrival strike:** the ~250ms hold after first paint, the one-shot marker
+  cleared with `replaceState`, no strike under reduced motion, and never
+  striking into a state that isn't true: all adopted as written.
+- **The double-submit busy state:** in (it's part of the wording ruling).
+- **A's fallback (8.5px arc, person ×0.38):** render it for *us*, so round
+  two is fast if the owner says "too small". **Don't** put it on the owner's
+  sheet ("fewer variations").
+- **The signed-in badge and its dropdown:** unchanged in both concepts. The
+  initial (A/E) stays parked.
+- **Owner questions that block concept work: none.** Q1 (with our
+  recommendation) and Q2 (tell visitors changes aren't kept?) go with the
+  concepts. Turn 5's modal line half-answers Q2 already. Ask Q2 as "is the
+  line in the sign-in sheet enough, or do you want something on the map?"
+  so he's reacting to something real.
+
+### What the concept phase produces
+Two concepts, **A arc badge** and **B hotel-label banner**, each on its own
+phone-readable sheet (1170 wide, 3x, real-size crops first, enlargements
+second), plus **one shared flow sheet** (the flow is identical for both;
+don't draw it twice).
+
+Per concept sheet, at final-looking fidelity for the control (exact spec,
+real tokens, real `+`, real map):
+1. The top of the real app at 390px: map, zoom, the control beside `+`.
+   Cream tiles and dark tiles. Render the actual page with the concept
+   applied to a copy of `index.html` via `signin-test.js`, not a redrawn
+   mock, so what the owner sees is what gets built.
+2. The control enlarged, next to the signed-in orange badge (the pair as
+   one state system), with pressed under it. Focus-visible is for our
+   records only, not the owner's sheet.
+3. 320px, one frame.
+4. The motion as stills: out→in (the arrival strike) and in→out (dry-up,
+   captioned "if sign-in also lives in the real app (recommended)"). Five
+   frames each at most, with timings in the captions.
+
+Shared flow sheet, real app rendering with the new words:
+the playground with the modal open over a tag (title, one line, Keep
+playing / Sign in); the busy state; the wrong-password error; the arrival in
+the real app, signed-out paint → struck. Four or five frames.
+
+Owner-facing text on the sheets: plain, short, no team jargon ("F1b",
+"J4", "die" mean nothing to him; say "badge", "label", "sign-in sheet").
+
+Not produced: any variant of A or B beyond the one spec each; the register
+sheet; a map notice; the map-view hop.
+
+### For the scoring round (so nobody's surprised)
+I'll score A and B against the objections I listed in turn 3, which still
+stand: A's 8px arc at 1x on a phone (the deciding one), stamp
+resemblance (now cleared), loud vs `+` (A cleared; B on dark tiles open),
+B "just a button" (the banner helps), and the visitor who can't use it (now
+carried by the wording). B also has to show its two-object motion doesn't
+glitch.
+
+NEXT: product designer (systems focus) — the jam is closed; write `jobs.md`
+from turns 1–6 (jobs, the flow, the modal words, the build-only notes like
+the map view and no-paint-until-auth) so the visual designer builds the
+three sheets against an agreed list.
