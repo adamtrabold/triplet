@@ -1,16 +1,24 @@
-// Builds index.html ("Un-visit Transition") for the owner: four filmstrips, today's for comparison,
-// reduced motion, then the one decision.
-//   node design/popup-hierarchy/unvisit/render.js && node design/popup-hierarchy/unvisit/build.js
+// Builds index.html ("Un-visit Transition", round 2) for the owner: today first, then Lift off (lead),
+// Dry up (UX's alternate), Strike through (CD's alternate), reduced motion, the decision.
+//   node design/popup-hierarchy/unvisit/render-r2.js && node design/popup-hierarchy/unvisit/build.js
+// (Round 1's page builder: build-r1.js.)
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
-const D = __dirname;
-const b64 = (file, w, q) => `data:image/jpeg;base64,${execFileSync('convert', [path.join(D, file), '-resize', `${w}x>`, '-quality', String(q), 'jpg:-']).toString('base64')}`;
-const fig = (file, cap) => `<figure><img src="${b64(file, 900, 74)}" alt="${cap}" loading="lazy"><figcaption>${cap}</figcaption></figure>`;
-const OPTS = [
-  ['lift', '1. Lift off', 'The stamp-in, played backwards. The stamp gives the same small lift the star does when you unstar it, then rises off the paper along the path it came down (turning back, growing, softening) and is gone. 340 ms.'],
-  ['dry', '2. Dry up', 'The ink bleed of the list swipe, reversed. After the same small lift, the ink shrinks back from the ring’s ends toward its centre through the paper’s grain, paling as it goes. 380 ms.'],
-  ['rub', '3. Rub out', 'The Pencil Star’s erase. After the small lift, the stamp is rubbed out in three back-and-forth strokes, left to right, and a few eraser crumbs are swept into the corner. 400 ms.'],
-  ['strike', '4. Strike through', 'How a clerk cancels a stamp: one pencil stroke is drawn through it, then stamp and stroke fade together. No lift. 380 ms.'],
-];
+const D = __dirname, R = 'stills/r2/';
+const jpg = (file, w, q) => `data:image/jpeg;base64,${execFileSync('convert', [path.join(D, file), '-resize', `${w}x>`, '-quality', String(q), 'jpg:-']).toString('base64')}`;
+const png = file => `data:image/png;base64,${fs.readFileSync(path.join(D, file)).toString('base64')}`;
+const fig = (file, cap, w = 900) => `<figure><img src="${jpg(file, w, 74)}" alt="${cap}" loading="lazy"><figcaption>${cap}</figcaption></figure>`;
+// the whole tag at TRUE 1x: shown at its own pixel size, scrolled sideways inside its frame
+const one = (file, cap) => { const [w, h] = execFileSync('identify', ['-format', '%w %h', path.join(D, file)]).toString().split(' ').map(Number);
+  return `<figure><div class="scroll"><img class="native" src="${png(file)}" width="${w}" height="${h}" alt="${cap}"></div><figcaption>${cap} Swipe sideways.</figcaption></figure>`; };
+const narrow = k => `<div class="grid">${fig(`${R}${k}-strip-s100.png`, 'Small phone (stamp 1.0)', 640)}${fig(`${R}${k}-strip-s085.png`, 'Smallest tag (stamp 0.85)', 640)}</div>`;
+const section = (k, title, who, what) => `
+  <h2>${title}</h2>
+  <p class="who">${who}</p>
+  <p class="t">${what}</p>
+  ${fig(`${R}${k}-strip.png`, `${title}: frames from the real tag, top to bottom`)}
+  ${one(`${R}${k}-tag1x.png`, 'The whole tag at true phone size.')}
+  ${narrow(k)}`;
+
 const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -29,11 +37,15 @@ const html = `<!doctype html>
   main { max-width: 760px; margin: 0 auto; }
   h1 { font-size: 26px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; }
   h2 { font-size: 20px; line-height: 26px; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--hair); }
-  .lede, p.t { margin-top: 8px; font-size: 15px; line-height: 22px; }
-  .lede { color: var(--ink-2); }
+  .lede, p.t, p.who { margin-top: 8px; font-size: 15px; line-height: 22px; }
+  .lede, p.who { color: var(--ink-2); }
+  p.who { font-style: italic; }
   figure { margin-top: 12px; min-width: 0; }
   figure img { display: block; width: 100%; height: auto; border: 1px solid var(--hair); border-radius: 4px; background: var(--surface); }
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--hair); border-radius: 4px; background: var(--surface); }
+  .scroll img.native { width: auto; max-width: none; border: 0; border-radius: 0; }
   figcaption { margin-top: 6px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
   ol.dec { margin: 8px 0 0 20px; }
   ol.dec li { margin-top: 8px; }
   footer { margin-top: 48px; font-size: 13px; line-height: 20px; color: var(--ink-2); }
@@ -42,26 +54,29 @@ const html = `<!doctype html>
 <body>
 <main>
   <h1>Un-visit Transition</h1>
-  <p class="lede">Four ways for the VISITED stamp to leave when you tap Visited again on the tag. Each strip runs top to bottom, from before the tap to the resting “Mark visited”. Pinch to zoom.</p>
-${OPTS.map(([k, t, d]) => `
-  <h2>${t}</h2>
-  <p class="t">${d}</p>
-  ${fig(`stills/${k}-strip.png`, `${t}: frames from the real tag`)}`).join('')}
+  <p class="lede">How the VISITED stamp should leave when you tap Visited again on the tag. Today first, then three options. In all three the stamp lifts with the same small pop as the list row, at the same moment, pales to a light navy and is fully gone before “Mark visited” comes back. Pinch to zoom.</p>
 
-  <h2>For comparison: today</h2>
-  <p class="t">The stamp fades and grows a little over 220 ms, with “Mark visited” already showing underneath from the first frame.</p>
-  ${fig('stills/shipped-strip.png', 'Today: frames from the real tag')}
+  <h2>Today</h2>
+  <p class="t">The stamp fades and grows a little over 220 ms while “Mark visited” already shows underneath, so the two overlap the whole time.</p>
+  ${fig(`${R}shipped-strip.png`, 'Today: frames from the real tag, top to bottom')}
+  ${one(`${R}shipped-tag1x.png`, 'The whole tag at true phone size.')}
+${section('lift', 'Lift off (lead)', 'Backed by both reviewers: the stamp-in answered, the same motion in reverse.',
+  'The stamp pops up with the row, holds for a beat as if picked up, then tilts back and lifts away, paling as it goes. It stays inside its box. 360 ms.')}
+${section('dry', 'Dry up', 'UX’s pick: it tells the same story as the list row, where the stamp pales away.',
+  'After the same pop, the ink draws back toward the middle of the stamp and pales until it’s gone. The quietest of the three. 360 ms.')}
+${section('strike', 'Strike through', 'The CD’s pick: you correct the record in pencil, the way a clerk would.',
+  'A light pencil stroke is drawn through VISITED during the pop, then the struck stamp pales away. 380 ms.')}
 
-  <h2>Reduced motion (all four)</h2>
-  <p class="t">With reduced motion turned on, every option becomes the same plain 160 ms crossfade: no lift, no movement.</p>
-  ${fig('stills/reduced-strip.png', 'Reduced motion: crossfade')}
+  <h2>Reduced motion (all three)</h2>
+  <p class="t">With reduced motion turned on: no pop or movement. The stamp pales and goes, then “Mark visited” comes in. 160 ms.</p>
+  ${fig(`${R}reduced-strip.png`, 'Reduced motion')}
 
   <h2>Decision</h2>
   <ol class="dec">
-    <li>Which one? (1 Lift off, 2 Dry up, 3 Rub out, 4 Strike through)</li>
+    <li>Which one? (Lift off, Dry up or Strike through)</li>
   </ol>
 
-  <footer>Concept frames from the real app with only the un-visit animation changed (Chromium; stand-in map). The other two segments never move. Records: design/popup-hierarchy/unvisit/README.md.</footer>
+  <footer>Frames from the real app with only the un-visit animation changed (Chromium; stand-in map). The other two segments never move. Records: design/popup-hierarchy/unvisit/README.md.</footer>
 </main>
 </body>
 </html>

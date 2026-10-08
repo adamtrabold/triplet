@@ -6,7 +6,7 @@
 //   node design/popup-hierarchy/unvisit/render.js [option ...]
 const path = require('path'), fs = require('fs'), os = require('os'), { execFileSync } = require('child_process');
 const { launch, openProto, W, FILE } = require('../../gesture-harness/lib');
-const OPT = require('./options');
+const OPT = require('./options-r1');
 const OUT = path.join(__dirname, 'stills');
 const BASE = fs.readFileSync(path.join(__dirname, '../round1/concepts.js'), 'utf8').match(/  function basemap\(\) \{[\s\S]*?\n  \}\n/)[0];
 const BASEMAP = `(() => { const st = document.createElement('style'); st.textContent = '.k-base{position:absolute;inset:0;z-index:0;pointer-events:none;filter:sepia(.3) saturate(.75) contrast(.96) hue-rotate(-6deg)}.k-base svg{width:100%;height:100%;display:block}.leaflet-tile-pane{opacity:0}'; document.head.appendChild(st);
