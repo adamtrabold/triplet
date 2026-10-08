@@ -1,19 +1,38 @@
 # Systems designer notes: sign-in button
 
-## Where things stand (after jam pass 2, my turn 5)
-- jam.md has: turn 1 (me: jobs J1 to J9, structure, flows, directions), turn 2
-  (visual: arc sketches, "secondary = paper die, navy ink"), turn 3
-  (director: the badge IS the sign-in, no signed-out dropdown, F1b adopted,
-  two concepts A arc badge + B printed label, scope), turn 4 (visual pass
-  2: A has no rim, 1.4px outline person, 8px arc on r15.6; B is a hotel-label
-  banner with a notched tail, 32px tall; storyboards), turn 5 (me: flows and
-  states mapped onto A and B, jam-level job coverage).
-- Sheets: concepts/sketches/arc-badges-3x.png, pass2-look-3x.png,
-  pass2-motion-3x.png.
-- No jobs.md yet: write it when the jam closes (jobs J1 to J9 + flows from
-  turn 5 sections 2 and 3).
+## Where things stand (jam closed by the director's turn 6; concept phase started)
+- `jobs.md` is written: jobs 1 to 9 (6 to 9 inferred), the flows, Q1 (with
+  the team's "yes" recommendation) and Q2, and builder notes. Short and
+  plain, for the owner's phone.
+- Concepts started, systems half written:
+  - `concepts/flow/how-it-works.md`: shared structure, the sheet's words
+    table, the playground flow, arrival, failure states, the visitor, the
+    real-app flow under Q1 yes/no, builder questions.
+  - `concepts/A-arc-badge/how-it-works.md`: spec, states table, the strike
+    and dry-up (DRY constants: 540ms, not turn 4's "~450").
+  - `concepts/B-label/how-it-works.md`: 28px drawn in a 44px hit box, right
+    edge at right:74px, grows leftward; states; the two-object motion and the
+    shared-clock glitch risk.
+- Next: the visual designer renders the three sheets (A, B, shared flow) from
+  a copy of index.html via signin-test.js. Then the director scores; then my
+  job-coverage check on each 9+ concept against jobs.md.
 
-## Decided (by the director, or agreed)
+## Director rulings in turn 6 (now settled)
+- A: no rim; printed not stamped; 1.4px outline person. B: hotel-label banner
+  with a notched tail, 28px drawn, 44px hit box, text size capped.
+- The sheet's words are in scope (not its look): title/submit "Sign in", the
+  playground line "Only the trip's owners can sign in. Your changes here won't
+  be kept.", "Keep playing", the plain errors, the busy state, log in → sign
+  in everywhere.
+- Q1 doesn't block: the out-storyboard is drawn for "yes" and captioned.
+- Map view across the hop: build note, not concept ("flag it, don't drop it").
+- No paint until auth resolves; the arrival strike rules: all adopted.
+- A's fallback (8.5px, ×0.38) is rendered for the team only.
+- I also renamed Logout → Sign out (follows "sign in everywhere"); the
+  director may object.
+
+## Earlier record (pass 2)
+### Decided before turn 6
 - One slot, two states; `+` never moves; no dropdown while signed out.
 - Secondary = the same die cut from paper, navy print, no orange; printed, not
   stamped (no tilt, no texture); A has no rim (warm 1px edge + the `+`'s 1px
