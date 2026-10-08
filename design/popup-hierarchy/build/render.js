@@ -15,10 +15,10 @@ const variant = (style = 'band', keyline = false) => {
   const src = fs.readFileSync(FILE, 'utf8');
   let out = src.replace(/const TAG_STAR_STYLE = '[a-z]+';/, `const TAG_STAR_STYLE = '${style}';`).replace(/const TAG_REVERSED_STAR_KEYLINE = (true|false);/, `const TAG_REVERSED_STAR_KEYLINE = ${keyline};`);
   if (!/const TAG_STAR_STYLE = '[a-z]+';/.test(src)) throw new Error('dial not found');
-  // stills-only hook: window.__STOP overrides the plan line (the long "Stop 12 of 14" case)
-  const STOP_SRC = 'return r ? `Stop ${r.n} of ${r.m}` : \'\';';
-  if (!out.includes(STOP_SRC)) throw new Error('planStopLine not found');
-  out = out.replace(STOP_SRC, 'return r ? (window.__STOP || `Stop ${r.n} of ${r.m}`) : \'\';');
+  // stills-only hook: window.__STOP = { n, m } overrides the plan's stop numbers (the long "Stop 12 of 14" case)
+  const STOP_SRC = 'function planMark(kind, id) { const pm = planMarks(); return (kind === \'loc\' ? pm.byLoc : pm.byShape).get(id) || null; }';
+  if (!out.includes(STOP_SRC)) throw new Error('planMark not found');
+  out = out.replace(STOP_SRC, 'function planMark(kind, id) { const pm = planMarks(); const r = (kind === \'loc\' ? pm.byLoc : pm.byShape).get(id) || null; return r && window.__STOP ? { ...r, ...window.__STOP } : r; }');
   const f = path.join(os.tmpdir(), `tag-${style}-${keyline}.html`); fs.writeFileSync(f, out); return f;
 };
 
@@ -83,9 +83,9 @@ J.push(['final/stockholm/list', { group: 'final', city: 'stockholm', list: true 
   F('busiest-vega', { place: 'vega', id: 'rey01', starred: true, visited: true, plan: true, select: true });
   F('typical', { place: 'aurora', id: 'rey07', starred: false, visited: false });
   F('district', { shape: 'district', label: 'Grandi (Old Harbour district)' });
-  F('long-narrow-240', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: 'Stop 12 of 14', w: 256 });
-  F('long-narrow-288', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: 'Stop 12 of 14', w: 320 });
-  F('long-316', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: 'Stop 12 of 14' });
+  F('long-narrow-240', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: { n: 12, m: 14 }, w: 256 });
+  F('long-narrow-288', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: { n: 12, m: 14 }, w: 320 });
+  F('long-316', { place: 'baejarins', id: 'rey00', starred: false, visited: true, plan: true, select: true, stop: { n: 12, m: 14 } });
   F('signedout', { place: 'aurora', id: 'rey07', starred: true, visited: false, signedOut: true });
 }
 

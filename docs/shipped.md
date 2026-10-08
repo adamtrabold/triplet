@@ -1175,6 +1175,19 @@ Impeccable C4 (TYPE / PLAN label and value both 11px, differing only by weight).
 - Stills (`build/render.js typestamp` -> `design/popup-hierarchy/type-line/stills/build/`): `busiest-vega` (visited: both stamps in one frame), `typical`, `district`, `long-316`, `long-narrow-288`, `long-narrow-240`, `signedout` (the field line is not dimmed: information, not a control). `render.js` gained a stills-only `window.__STOP` hook (scratch copy) for the long plan line.
 - Gates: Impeccable `IMPECCABLE GATE PASSED` (static 3/3, runtime 13/13, 0 new identities, 0 missing). Tag suites: popup-open 20/20 + 20/20 · shape-rows 50/50 · curve8 row 10-11/3, highlighted 10/3, popup 10/3 (row/highlighted pre-existing) · vtest 91/95 (V14 x2, V15 x2 as main; a first run also failed V22, the row un-visit ghost colour -- not touched here; it passed on re-run, a flake).
 - Not verified: Safari (`mask-composite: intersect` with two layers; the stamp texture already ships a one-layer mask), iPhone at arm's length for the 3-letter "BAR".
+- **Round 2: only the numbers are stamped (2026-10-08).** Superseding the PLAN parts above.
+  - Owner, on the phone: "The stamp for the stop should only have the numbers stamped, as I said. The other content would be consistent in a printed tag". The first build had stamped the whole "Stop 3 of 3", which was a brief error.
+  - PLAN now prints STOP and OF in the label's exact style: 11px, 500, caps, .12em, `--ink-2` (`.tag-plan`).
+  - Only the two numbers are stamped, using `.tag-stamp`, the shared stamp class TYPE now uses too.
+  - Each number is its own impression at its own per-place angle (`typeTilt(id, 1)`, `typeTilt(id, 2)`). The second sits on another patch of the tooth (mask offset 41/17).
+  - The markup still reads "Stop 3 of 3" as text, so VoiceOver is unchanged.
+  - The tag builds from `planMark()` directly; `planStopLine()` stays because the plans harness reads it.
+- Round 2 contrast: every stamped entry, with the printed words hidden while measuring (`contrast-build.js`). Mean / lightest 10%:
+  - 1x: "3" 5.72 / 5.25 and 5.79 / 5.25; "12" 4.78 / 2.26; "14" 5.02 / 3.52; BAR 5.12; RESTAURANT 4.99.
+  - 3x: 5.01–5.55.
+  - All are at least 4.5:1.
+- Round 2 long case: one line at 316. At 288 and 240, PLAN wraps as a whole field to a second row, with the entries aligned under each other; the printed caps are wider than round 1's stamped sentence case. All seven stills are re-shot in `type-line/stills/build/`.
+- Round 2 gates: Impeccable PASSED (0 new); popup-open 20/20 + 20/20; shape-rows 50/50; plan-rows 32/32; curve8 row 10/3 and highlighted 10/3 (pre-existing), popup 10/3; vtest 91/95 (as main).
 
 ## Eyelet on one axis (2026-10-08; bug fix, landed from `eyelet-fix`)
 
