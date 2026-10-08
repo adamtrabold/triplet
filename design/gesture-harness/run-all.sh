@@ -2,12 +2,12 @@
 # Row-gesture gate: runs every suite against one index.html and prints the gate
 # summary line (CLAUDE.md format). Usage:
 #   design/gesture-harness/run-all.sh [path/to/index.html] [suite ...]
-# Default file: this checkout's index.html. Default suites: all eleven (plans: the Plans stop rows; places-ux: the owner's 2026-10-01 Places changes; shapes: the pin rows' cases on district/street rows).
+# Default file: this checkout's index.html. Default suites: all twelve (tagsync: an open tag stamps when visited changes elsewhere; plans: the Plans stop rows; places-ux: the owner's 2026-10-01 Places changes; shapes: the pin rows' cases on district/street rows).
 # OUTDIR (default: a fresh temp dir) keeps each suite's log + json.
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 FILE="$(realpath "${1:-$HERE/../../index.html}")"; shift || true
-SUITES=("$@"); [ ${#SUITES[@]} -eq 0 ] && SUITES=(touch flip visit popup-open dust rows curve delete plans places-ux shapes)
+SUITES=("$@"); [ ${#SUITES[@]} -eq 0 ] && SUITES=(touch flip visit popup-open dust rows curve delete plans places-ux shapes tagsync)
 OUTDIR="${OUTDIR:-$(mktemp -d -t gesture-gate.XXXXXX)}"; mkdir -p "$OUTDIR"
 export PLAYWRIGHT_BROWSERS_PATH="${PLAYWRIGHT_BROWSERS_PATH:-/opt/pw-browsers}"
 echo "gesture gate: $FILE ($(md5sum "$FILE" | cut -c1-12)) -> $OUTDIR"

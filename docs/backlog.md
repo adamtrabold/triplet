@@ -224,8 +224,8 @@ pick/redirect before building anything.
   header shadow without `:has()`, tag shadow tokens, stub labels that wrap
   cleanly at 240px; and a pre-existing bug fixed: tags narrower than 316px
   were centred off their pin. Open from that review: C4 (TYPE/PLAN line:
-  owner picked D Rubber stamp with the plan stamped too -- BUILT on
-  `type-stamp`, not landed, awaiting the owner's look at
+  ~~open~~ DONE 2026-10-08: D Rubber stamp, numbers-only plan stamp,
+  randomized ink -- LANDED from `type-stamp` (owner approved the stills in
   `design/popup-hierarchy/type-line/stills/build/`; shipped.md "Type line:
   Rubber stamp"), C5 (icon revision), C6 (no change, the greens are
   ΔE 24). Not tokenised yet: the star segment's press tint

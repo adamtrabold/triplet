@@ -39,17 +39,21 @@ function hooked() {
   const SRC = "function planMark(kind, id) { const pm = planMarks(); return (kind === 'loc' ? pm.byLoc : pm.byShape).get(id) || null; }";
   const src = fs.readFileSync(FILE, 'utf8'); if (!src.includes(SRC)) throw new Error('planMark not found');
   const f = path.join(os.tmpdir(), 'contrast-build.html');
-  fs.writeFileSync(f, src.replace(SRC, "function planMark(kind, id) { const pm = planMarks(); const r = (kind === 'loc' ? pm.byLoc : pm.byShape).get(id) || null; return r && window.__STOP ? { ...r, ...window.__STOP } : r; }"));
+  fs.writeFileSync(f, src.replace(SRC, "function planMark(kind, id) { const pm = planMarks(); const r = (kind === 'loc' ? pm.byLoc : pm.byShape).get(id) || null; return window.__STOP ? { ...(r || {}), ...window.__STOP } : r; }"));
   return f;
 }
 (async () => {
   const b = await launch(); const out = {};
-  for (const key of ['build']) for (const dsf of [1, 3]) {
+  // SEEDS=1: the randomized ink (seedRand per place + item) -- every fixture place at 1x, each with a
+  // stamped TYPE and two stamped plan numbers, to find the WORST seed (contrast-seeds.json).
+  const SEEDS = !!process.env.SEEDS;
+  for (const key of ['build']) for (const dsf of SEEDS ? [1] : [1, 3]) {
     const { ctx, page } = await openProto(b, { dsf, reduced: true, file: hooked(), storage: { 'gh.plans': '1', 'triplet.reorderHint': '1' } });
     await page.waitForFunction(() => typeof plans !== 'undefined' && plans.length === 1, null, { timeout: 10000 });
-    await page.evaluate(() => setListView('plans')); await W(500);
-    for (const [cat, id] of [['bar', 'rey01'], ['restaurant', 'rey00']]) {
-      await page.evaluate(s => { window.__STOP = s; }, cat === 'restaurant' ? { n: 12, m: 14 } : null);
+    if (!SEEDS) { await page.evaluate(() => setListView('plans')); await W(500); }
+    const cases = SEEDS ? (await page.evaluate(() => __rowIds().filter(id => !String(id).startsWith('shape:')))).map((id, i) => [i % 2 ? 'bar' : 'restaurant', id]) : [['bar', 'rey01'], ['restaurant', 'rey00']];
+    for (const [cat, id] of cases) {
+      await page.evaluate(s => { window.__STOP = s; }, cat === 'restaurant' ? { n: 12, m: 14 } : SEEDS ? { n: 3, m: 3 } : null);
       await page.evaluate(async ([id, cat]) => { const r = window.__ROWS.find(x => x.id === id); r.category = cat; await refetchLocations(); }, [id, cat]);
       await page.evaluate(id => { const l = locations.find(x => x.id === id); map.setView([l.lat, l.lng], 16, { animate: false }); markersById.get(id).marker.openPopup(); }, id);
       await W(800); await page.evaluate(() => document.fonts.ready);
@@ -68,7 +72,7 @@ function hooked() {
         for (let p = 0; p < B.length; p += 4) { const px = [B[p], B[p + 1], B[p + 2]]; if (cr(px, paper) >= 5.5) { flat.push(px); core.push([A[p], A[p + 1], A[p + 2]]); } }
         const mean = a => [0, 1, 2].map(k => a.reduce((s, x) => s + x[k], 0) / a.length);
         const crs = core.map(px => cr(px, paper)).sort((x, y) => x - y);
-        const label = `${key} dsf${dsf} ${cat} ${i ? 'plan' : 'type'} "${text}"`;
+        const label = `${key} dsf${dsf} ${SEEDS ? id + ' ' : ''}${cat} ${i ? 'plan' : 'type'} "${text}"`;
         out[label] = { corePx: core.length, flat: +cr(mean(flat), paper).toFixed(2), mean: +cr(mean(core), paper).toFixed(2), p10: +crs[Math.floor(crs.length * .1)].toFixed(2), median: +crs[Math.floor(crs.length * .5)].toFixed(2) };
         console.log(label.padEnd(34), JSON.stringify(out[label]));
       }
@@ -76,6 +80,8 @@ function hooked() {
     }
     await ctx.close();
   }
-  fs.writeFileSync(path.join(__dirname, 'contrast-build.json'), JSON.stringify(out, null, 1));
+  const worst = Object.entries(out).sort((a, b) => a[1].mean - b[1].mean)[0];
+  console.log('WORST mean', worst[0], JSON.stringify(worst[1]));
+  fs.writeFileSync(path.join(__dirname, SEEDS ? 'contrast-seeds.json' : 'contrast-build.json'), JSON.stringify(out, null, 1));
   await b.close();
 })();

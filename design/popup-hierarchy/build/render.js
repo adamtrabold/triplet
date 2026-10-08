@@ -18,7 +18,7 @@ const variant = (style = 'band', keyline = false) => {
   // stills-only hook: window.__STOP = { n, m } overrides the plan's stop numbers (the long "Stop 12 of 14" case)
   const STOP_SRC = 'function planMark(kind, id) { const pm = planMarks(); return (kind === \'loc\' ? pm.byLoc : pm.byShape).get(id) || null; }';
   if (!out.includes(STOP_SRC)) throw new Error('planMark not found');
-  out = out.replace(STOP_SRC, 'function planMark(kind, id) { const pm = planMarks(); const r = (kind === \'loc\' ? pm.byLoc : pm.byShape).get(id) || null; return r && window.__STOP ? { ...r, ...window.__STOP } : r; }');
+  out = out.replace(STOP_SRC, 'function planMark(kind, id) { const pm = planMarks(); const r = (kind === \'loc\' ? pm.byLoc : pm.byShape).get(id) || null; const S = window.__STOP; return S && (r || S.id === id) ? { ...(r || {}), n: S.n, m: S.m } : r; }');
   const f = path.join(os.tmpdir(), `tag-${style}-${keyline}.html`); fs.writeFileSync(f, out); return f;
 };
 
@@ -89,6 +89,17 @@ J.push(['final/stockholm/list', { group: 'final', city: 'stockholm', list: true 
   F('signedout', { place: 'aurora', id: 'rey07', starred: true, visited: false, signedOut: true });
 }
 
+// Randomized ink (owner 2026-10-08: "yes but angle and texture (on all textured items) should be
+// randomized"), written to design/popup-hierarchy/randomized/stills/: six real places, each starred,
+// visited and on a plan (stop 3 of 3), so every inked item shows -- band grain, TYPE stamp, both
+// numbers, the VISITED stamp; then a busy list for the rows' stamp angles. The strip is built after.
+{
+  const F = (name, o) => J.push([`randomized/${name}`, { group: 'randomized', city: 'reykjavik', ...o }]);
+  for (const n of ['02', '05', '08', '10', '15', '19']) F(`tag-rey${n}`, { id: 'rey' + n, flags: true, starred: true, visited: true, stop: { n: 3, m: 3, id: 'rey' + n } });
+  F('busiest-vega', { place: 'vega', id: 'rey01', starred: true, visited: true, plan: true, select: true });
+  F('list', { list: true });
+}
+
 // Follow-ups (2026-10-07, Impeccable C1/C3/A2/A6; docs/shipped.md "Hanging Tag + orange star"), written to
 // design/popup-hierarchy/followups/stills/: no pencil circle, wrapped stub labels on the 240px tag (a 256px
 // screen) vs the normal 316px one, a map-tapped pin's row scrolled into view, keyboard focus on the tag.
@@ -119,7 +130,7 @@ async function setup(b, o) {
 }
 
 async function openTag(page, o) {
-  if (o.place) await page.evaluate(async ([id, d]) => { const r = window.__ROWS.find(x => x.id === id); Object.assign(r, d); await refetchLocations(); }, [o.id, { ...PLACES[o.place], starred: o.starred, visited: o.visited }]);
+  if (o.place || o.flags) await page.evaluate(async ([id, d]) => { const r = window.__ROWS.find(x => x.id === id); Object.assign(r, d); await refetchLocations(); }, [o.id, { ...PLACES[o.place], starred: o.starred, visited: o.visited }]);
   await W(200);
   if (o.signedOut) await page.evaluate(() => { currentUser = null; updateAuthUI(); });
   // Modality: a real open follows a finger tap, so the tag's programmatic focus is NOT :focus-visible;
@@ -173,7 +184,8 @@ async function shoot(page, name, { full = false } = {}) {
   await page.evaluate(() => document.fonts.ready);
   const box = await page.evaluate(() => { const c = document.querySelector('.leaflet-popup.tag-popup'); if (!c) return null; const r = c.getBoundingClientRect(); const s = c.querySelector('.tag-slip'); const b = s && s.textContent ? s.getBoundingClientRect().bottom : r.bottom; return { x0: r.left, y0: r.top, x1: r.right, y1: b }; });
   const f = n => name.startsWith('followups/') ? path.join(__dirname, '../followups/stills', `${name.slice(10)}-${n}`)
-    : name.startsWith('typestamp/') ? path.join(__dirname, '../type-line/stills/build', `${name.slice(10)}-${n}`) : path.join(OUT, `${name}-${n}`);
+    : name.startsWith('typestamp/') ? path.join(__dirname, '../type-line/stills/build', `${name.slice(10)}-${n}`)
+    : name.startsWith('randomized/') ? path.join(__dirname, '../randomized/stills', `${name.slice(11)}-${n}`) : path.join(OUT, `${name}-${n}`);
   fs.mkdirSync(path.dirname(f('x')), { recursive: true });
   await page.screenshot({ path: f('phone@3x.png') });
   const vp = page.viewportSize();

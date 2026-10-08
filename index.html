@@ -1912,7 +1912,7 @@
     /* Starred, BAND treatment (TAG_STAR_STYLE 'band' | 'both'): the city's action orange printed across
        the top of the stock. It is inside the clipped stock, so it follows the die-cut: both chamfers
        and the eyelet hole (owner: "the orange bar is not matching the shape of the tag"). */
-    .tag-band { position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: 36px; background-color: var(--star); background-image: var(--tex-flood); pointer-events: none; }
+    .tag-band { position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: 36px; background-color: var(--star); background-image: var(--tex-flood); background-position: var(--tx, 0) var(--ty, 0); background-size: var(--ts, 160px) var(--ts, 160px); pointer-events: none; }
     /* On the band the eyelet's patch is a thin paper wash, so the band shows through round the eyelet
        (a solid paper patch read as a blank box, CD). */
     .tag.tag .tag-band ~ .tag-patch { --patch-paper: color-mix(in srgb, var(--paper) 28%, transparent); --grommet: color-mix(in srgb, var(--paper) 65%, transparent); }
@@ -1966,16 +1966,15 @@
     .tag-stamp { display: inline-block; font-stretch: 75%; text-transform: none; font-weight: 700; font-size: 14px; line-height: 16px; letter-spacing: .02em; color: var(--ink-2); white-space: nowrap;
       padding: 3px 5px; margin: -3px -5px; transform: translateY(-1.5px) rotate(var(--tilt, -4.5deg)); transform-origin: 50% 60%;
       text-shadow: 0 0 .6px currentColor, .6px .3px 0 rgba(var(--ink-2-rgb), .3);
-      -webkit-mask: var(--tex-stamp) 7px 3px / 170px 170px, linear-gradient(98deg, #000 35%, rgba(0, 0, 0, .74) 100%);
+      -webkit-mask: var(--tex-stamp) var(--tx, 7px) var(--ty, 3px) / var(--ts, 170px) var(--ts, 170px), linear-gradient(var(--fd, 98deg), #000 35%, rgba(0, 0, 0, .74) 100%);
       -webkit-mask-composite: source-in;
-      mask: var(--tex-stamp) 7px 3px / 170px 170px, linear-gradient(98deg, #000 35%, rgba(0, 0, 0, .74) 100%);
+      mask: var(--tex-stamp) var(--tx, 7px) var(--ty, 3px) / var(--ts, 170px) var(--ts, 170px), linear-gradient(var(--fd, 98deg), #000 35%, rgba(0, 0, 0, .74) 100%);
       mask-composite: intersect; }
     .tag-stamp.popup-cat { text-transform: uppercase; letter-spacing: .09em; }
     /* PLAN's numbers: stamped between printed words, so the stamp's 5px of mask room is only half
        given back -- the numbers keep a printed word space either side (the label's tracking). The
        second number is a second impression: its own angle and another patch of the tooth. */
     .tag-plan .tag-stamp { margin: -3px -2px; letter-spacing: .01em; }
-    .tag-plan .tag-stamp ~ .tag-stamp { -webkit-mask-position: 41px 17px, 0 0; mask-position: 41px 17px, 0 0; }
 
     /* The claim stub: perforated, three equal whole-segment targets (>= 88px wide, 60px tall). */
     .tag-stub { position: relative; z-index: 2; height: 60px; display: grid; grid-template-columns: 1fr 1fr 1fr; }
@@ -2036,7 +2035,7 @@
        inked through the paper-tooth mask. */
     .tag-seg.popup-visited.visited { padding-top: 0; }
     .tag-seg.popup-visited .row-stamp { --tag-stamp-scale: 1.1; transform: rotate(var(--stamp-tilt, -3deg)) scale(var(--tag-stamp-scale));
-      -webkit-mask: var(--tex-stamp) 0 0 / 90px 90px; mask: var(--tex-stamp) 0 0 / 90px 90px; }
+      -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px); mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px); }
     .tag-seg.popup-visited .row-stamp.tag-stamp-in { animation: tagStampIn 420ms linear both; }
     .tag-stamp-out { position: absolute; left: 50%; top: 50%; margin: -16px 0 0 -36px; pointer-events: none; animation: tagStampOut 220ms ease-out forwards; }
     /* Smaller tags, smaller stamp (owner 2026-10-07: "visited should get smaller on smaller screens"):
@@ -3198,7 +3197,16 @@
         ? `.${focused.classList[0]}[data-id="${CSS.escape(id)}"]` : null;
       if (isShapeKey(id)) { const sid = shapeIdOf(id); neighborhoodShapes = neighborhoodShapes.map(n => n.id === sid ? { ...n, [field]: value } : n); }
       else locations = locations.map(l => l.id === id ? { ...l, [field]: value } : l);
+      // Visited changed ANYWHERE (a row swipe, the tag, a rollback) while this place's tag is open:
+      // the tag stamps (or lifts) once, as if pressed there (owner 2026-10-08: "when i have a tag
+      // open that is unvisited, if i mark it visited in the list, the animation on the tag marking it
+      // visited should still run"). Driven by the state change, never by the row's gesture code
+      // (CLAUDE.md, animation separation). A tag tap has already set the same flag -- no double.
+      // The flag is consumed by the re-render below and cleared after it, so the poll or a later
+      // re-render never replays it. Reduced motion: the CSS drops both animations.
+      if (field === 'visited' && openTagKey() === id) { if (value) popupStampId = id; else popupUnstampId = id; }
       updateUI();
+      if (field === 'visited') { popupStampId = null; popupUnstampId = null; }
       if (refocus) {
         const btn = document.querySelector(`.leaflet-popup ${refocus}`);
         if (btn) btn.focus({ preventScroll: true });
@@ -4542,7 +4550,7 @@
       const ux = -Math.sin(a), uy = Math.cos(a), x = ux * Math.cos(r) - uy * Math.sin(r), y = ux * Math.sin(r) + uy * Math.cos(r);
       return [-x * dist * k, -y * dist * k];   // starts opposite the flap, ends at rest
     }
-    function stickerTilt(id) { return stampTilt(id) / 2; }
+    function stickerTilt(id) { return stickerLean(id); }
     // The fold, for an outline ('circle' | 'diamond' in a w x h box, or the row's
     // ellipse): peel direction `ang` (deg; 0 = down, 45 = lower-left), chord at
     // `fh` of the outline's extent from the centre, the cut piece reflected
@@ -4896,21 +4904,22 @@
       const starName = off ? 'Star, sign in to use' : 'Star';
       const visName = off ? 'Visited, sign in to use' : 'Visited';
       const tilt = stampTilt(loc.id);
-      const stamp = `<span class="row-stamp${stampNow ? ' tag-stamp-in' : ''}" style="--stamp-tilt:${tilt}deg" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>`;
+      const tex = texVars(loc.id, 'visited-tag', 90, .12);
+      const stamp = `<span class="row-stamp${stampNow ? ' tag-stamp-in' : ''}" style="--stamp-tilt:${tilt}deg;${tex}" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>`;
       const visInner = loc.visited ? stamp
         : `<svg class="tag-ochk" viewBox="-1.5 -1.5 27 27" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="none" stroke="currentColor" stroke-width="2.05" stroke-linejoin="round"/></svg>Mark visited`
-          + (unstampNow ? `<span class="row-stamp tag-stamp-out" style="--stamp-tilt:${tilt}deg" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
+          + (unstampNow ? `<span class="row-stamp tag-stamp-out" style="--stamp-tilt:${tilt}deg;${tex}" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
       const x = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
       return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
         + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span><div class="tag-stock">`
-        + (band ? '<span class="tag-band" aria-hidden="true"></span>' : '')
+        + (band ? `<span class="tag-band" style="${texVars(loc.id, 'band', 160, .06)}" aria-hidden="true"></span>` : '')
         + '<span class="tag-patch" aria-hidden="true"></span>'
         + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
         + `<div class="tag-in"><h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
         + (addr ? `<div class="tag-addr">${escapeHtml(addr)}</div>` : '')
         + (loc.notes ? `<div class="tag-notes">${escapeHtml(loc.notes)}</div>` : '')
-        + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val tag-stamp popup-cat" style="--tilt:${typeTilt(loc.id)}deg">${escapeHtml(loc.category)}</span></span>`
-        + (stop ? `<span class="tag-f"><span class="tag-lab">Plan</span><span class="tag-val tag-plan">Stop <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 1)}deg">${stop.n}</span> of <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 2)}deg">${stop.m}</span></span></span>` : '') + '</div></div>'
+        + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val tag-stamp popup-cat" style="--tilt:${typeTilt(loc.id)}deg;${texVars(loc.id, 'type', 170, .1)}">${escapeHtml(loc.category)}</span></span>`
+        + (stop ? `<span class="tag-f"><span class="tag-lab">Plan</span><span class="tag-val tag-plan">Stop <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 1)}deg;${texVars(loc.id, 'n', 170, .1)}">${stop.n}</span> of <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 2)}deg;${texVars(loc.id, 'm', 170, .1)}">${stop.m}</span></span></span>` : '') + '</div></div>'
         + '<div class="tag-stub">'
         + `<span class="tag-slot dir"><a class="tag-seg popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-describedby="${dirHint}"><svg viewBox="1.5 1.5 21 21" aria-hidden="true"><use href="#g-compass"/></svg>Directions</a><span class="sr-only" id="${dirHint}">Opens in Maps</span></span>`
         + `<span class="tag-slot star"><button type="button" class="tag-seg popup-star${loc.starred ? ' starred' : ''}" data-id="${id}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="${starName}"${off ? ' aria-disabled="true"' : ''}>`
@@ -7947,38 +7956,49 @@
     // The check printed in the stamp's ring, before the word (owner: keep the check and the text). The same filled check
     // as the pins' (STICKER_CHECK.row), in the ring's own ink.
     function stampCheckSvg() { return `<svg class="row-stamp-check" viewBox="0 0 24 24" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="currentColor"/></svg>`; }
-    // Deterministic per-place stamp angle: one of six hand-stamped leans,
-    // BOTH ways (positive = left side higher), never near level:
-    // +-2, +-3.5, +-5deg. Same place -> same angle on every render (never
-    // Math.random, which would re-roll on each re-render).
-    // Six separated buckets, not a fine ramp: two different leans always
-    // differ by >= 1.5deg (a 0.25deg one-way ramp read as "all the same"),
-    // and nothing under 2deg, which reads as straight/unstamped. Measured:
-    // at 5deg the 10px caps are as crisp at 1x as the old -3.5deg cap, and
-    // the rotated box (74.5 x 38.2) stays >= 10.7px clear of the delete X
-    // and >= 8.4px inside the row. For a fixed angle instead, drop this
-    // helper and the inline --stamp-tilt below; the CSS default (-3deg)
-    // takes over.
-    const STAMP_TILTS = [-5, -3.5, -2, 2, 3.5, 5];
-    function stampTilt(id) {
-      let h = 0;
-      for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) | 0;
-      return STAMP_TILTS[Math.abs(h) % STAMP_TILTS.length];
+    // RANDOMIZED, SEEDED PER PLACE AND PER ITEM (owner 2026-10-08: "yes but angle and texture (on
+    // all textured items) should be randomized"; then, on seeding rather than re-rolling: "yes that
+    // logic makes sense"). Every stamp's angle and every inked item's texture patch is drawn from
+    // seedRand(place id, item): it looks random -- no two places, and no two items on one tag,
+    // share an angle or a patch -- but it is the same on every render, so nothing jumps when a tag
+    // re-renders (star tap, the 10s poll) or a row refreshes (UX: no wobble). Never Math.random.
+    // If the owner wants a fresh roll per render instead, this is the one place to change.
+    function seedRand(id, item) {   // 0..1, a murmur-style mix of an FNV-1a hash of `id#item`
+      let h = 2166136261;
+      for (const ch of String(id) + '#' + item) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+      h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995); h ^= h >>> 15;
+      return (h >>> 0) / 4294967296;
     }
-    // The tag's stamped TYPE / PLAN entries (type-line round 2, D): a fixed per-place angle from a
-    // different hash than stampTilt (salt 1 for PLAN), so a re-render (star tap, poll) never
-    // wobbles; never equal to or the mirror of this place's VISITED angle (>= 1deg apart both
-    // ways), so the stamps never read as a matched pair.
-    const TYPE_TILTS = [-4.5, -3, 3, 4.5];
+    // A lean in +-[min, max] deg, either way, seeded.
+    const seededLean = (id, item, min, max) => (seedRand(id, item + ':s') < 0.5 ? -1 : 1) * +(min + (max - min) * seedRand(id, item + ':m')).toFixed(2);
+    // The VISITED stamp's angle (rows and the tag; the visit gesture's replay reads it too): any lean
+    // in +-[2, 5]deg -- the old six-bucket envelope (+-2 / 3.5 / 5), now continuous. Nothing under
+    // 2deg (it reads as straight/unstamped); at 5deg the rotated row stamp (74.5 x 38.2) stays
+    // >= 10.7px clear of the delete X and >= 8.4px inside the row (measured with the buckets).
+    function stampTilt(id) { return seededLean(id, 'visited', 2, 5); }
+    // The map stickers keep their own lean (half of the old bucketed stamp lean): they are not
+    // inked, so the randomization doesn't reach them, and pins stay exactly as shipped.
+    const STICKER_TILTS = [-5, -3.5, -2, 2, 3.5, 5];
+    function stickerLean(id) { let h = 0; for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) | 0; return STICKER_TILTS[Math.abs(h) % STICKER_TILTS.length] / 2; }
+    // The tag's stamped TYPE / PLAN entries: any lean in +-[3, 4.5]deg (round 2's range), seeded per
+    // item ('type', 'n', 'm'), resampled until it is >= 1deg from this place's VISITED angle and from
+    // its mirror, so no two stamps on one tag read as a matched pair.
     function typeTilt(id, salt) {
-      let h = 7 + (salt || 0);
-      for (const ch of String(id)) h = (h * 37 + ch.charCodeAt(0)) | 0;
-      const s = stampTilt(id);
-      for (let k = 0; k < TYPE_TILTS.length; k++) {
-        const t = TYPE_TILTS[(Math.abs(h) + k) % TYPE_TILTS.length];
-        if (Math.abs(t - s) >= 1 && Math.abs(t + s) >= 1) return t;
+      const item = ['type', 'n', 'm'][salt || 0] || 'x' + salt, v = stampTilt(id);
+      for (let k = 0; k < 8; k++) {
+        const t = seededLean(id, item + k, 3, 4.5);
+        if (Math.abs(t - v) >= 1 && Math.abs(t + v) >= 1) return t;
       }
-      return TYPE_TILTS[0];
+      return Math.abs(v) >= 4 ? 3 : 4.5;   // never reached in practice (8 seeded tries); still >= 1deg from v and -v
+    }
+    // An inked item's own patch of its texture tile: an offset anywhere in the tile and a size within
+    // +-spread of the base, seeded per place and item. Returned as inline custom properties
+    // (--tx, --ty, --ts) that the item's mask / background reads.
+    function texVars(id, item, base, spread) {
+      const x = (seedRand(id, item + ':x') * base).toFixed(1), y = (seedRand(id, item + ':y') * base).toFixed(1);
+      const sz = (base * (1 - spread + 2 * spread * seedRand(id, item + ':z'))).toFixed(1);
+      const fd = ((seedRand(id, item + ':f') < 0.5 ? 98 : 278) + (seedRand(id, item + ':g') - 0.5) * 16).toFixed(1);   // stamps: which end was pressed harder, and the falloff's slant
+      return `--tx:${x}px;--ty:${y}px;--ts:${sz}px;--fd:${fd}deg`;
     }
 
     // A ledger row, not a card: 28px glyph | 1fr content | action cluster.
@@ -8735,6 +8755,15 @@
     ['pointerdown', 'touchstart', 'mousedown'].forEach(t => document.addEventListener(t, () => { tagKeyInput = false; }, { capture: true, passive: true }));
     document.addEventListener('click', e => { if (e.detail) tagKeyInput = false; }, true);
     const tagOpenNow = () => !!(map._popup && map.hasLayer(map._popup) && isTagPopup(map._popup));
+    // The row key (rowItem()) of the place whose tag is open, or null.
+    function openTagKey() {
+      if (!tagOpenNow()) return null;
+      const src = map._popup._source;
+      if (!src) return null;
+      if (src.locationId != null) return src.locationId;
+      for (const [sid, layer] of neighborhoodLayersById) if (layer === src) return shapeKey(sid);
+      return null;
+    }
     window.addEventListener('click', (e) => {
       // The slip's first outside tap only dismisses it: it never closes the tag or reaches the map.
       if (!tagSlipOn) return;
