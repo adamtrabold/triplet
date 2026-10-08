@@ -23,15 +23,17 @@ const TIMES = {
   lift: [0, 84, 130, 210, 280, 320, 380],
   dry: [0, 84, 160, 240, 280, 320, 380],
   strike: [0, 60, 130, 200, 300, 340, 400],
-  erase: [0, 84, 150, 210, 260, 300, 330, 400],
+  dryA: [0, 100, 200, 300, 360, 410, 450, 490, 580],
+  dryB: [0, 100, 180, 240, 300, 360, 420, 480, 580],
+  erase: [0, 80, 160, 240, 320, 400, 480, 560, 620, 740],
 };
-const KEY1X = { shipped: [0, 90, 200, 260], lift: [84, 210, 280, 380], dry: [84, 200, 280, 380], strike: [130, 240, 310, 400], erase: [100, 210, 290, 400] };
+const KEY1X = { shipped: [0, 90, 200, 260], lift: [84, 210, 280, 380], dry: [84, 200, 280, 380], strike: [130, 240, 310, 400], erase: [160, 320, 480, 740], dryA: [200, 360, 450, 580], dryB: [180, 300, 420, 580] };
 const SCALES = [['', 390], ['-s100', 320], ['-s085', 272]];
 
 const copyFor = key => {
   const src = fs.readFileSync(FILE, 'utf8'), css = OPT[key].css;
   const f = path.join(os.tmpdir(), `unvisit2-${key}.html`);
-  fs.writeFileSync(f, css ? src.replace('</head>', `<style id="unvisit-option">${css}</style>\n${OPT.SYNC_JS}\n</head>`) : src);
+  fs.writeFileSync(f, css ? src.replace('</head>', `<style id="unvisit-option">${css}</style>\n${OPT[key].strokes ? OPT.ERASE_JS : ''}${OPT.SYNC_JS}\n</head>`) : src);
   return f;
 };
 

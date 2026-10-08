@@ -1,5 +1,128 @@
 # Un-visit transition (tag, Visited segment)
 
+## Round 4: no pop; two Dry up curves; erratic Erase
+
+Two owner quotes, verbatim, on `live.html` (2026-10-08). These go into
+`docs/owner-taste.md` when this lands.
+
+> "i dont think either should pop after clicking unvisited -- that's
+> muddying my feedback. but i'd also like to see a more dramatic easing curve
+> on the "dry up" (but maybe it takes slightly longer?) and erase to be more
+> erratic -- like randomized strokes brushing it away... it should take some
+> work"
+
+> "im looking at the tag not the row --- the row should do whatevers logical"
+
+**Live page:** `live.html` ("Un-visit: Dry up vs Erase"), built by
+`live-build.js`.
+- It shows three of the tag's real stubs: Dry up A, Dry up B and Erase.
+- Each has "Play again". Erase also has "New place", which steps to the
+  next of the 21 fixture places, so you see a different seeded stroke
+  pattern.
+- Filmstrips sit below.
+- No horizontal scroll at 390px. Measured in Chromium: 0 script errors, and
+  reduced motion gives the crossfade with no strokes.
+
+CSS: `options.js` keys `dryA`, `dryB`, `erase`. The round-3 Erase is kept
+as `erase_r3`. Strokes: `options.js` `STROKES_FN` / `ERASE_JS`. Stills:
+`stills/r2/{dryA,dryB,erase}-*` (390 / 320 / 272 phones and the 1x tag).
+
+### Changes
+
+- **No pop on un-visit** in any of the three. The stamp starts leaving on
+  the first frame at its resting size.
+- **Dry up A, "hold, then rush" (560ms):**
+  - It holds at full ink for 200ms; the dry edge only creeps.
+  - Then the ink rushes back into the centre on a hard ease-in,
+    `cubic-bezier(.55,0,.85,.3)`, paling as it goes. It's gone 470–500ms.
+  - Words: 510–560ms.
+  - Why 560: the held beat has to read as held, not as lag (200ms), and
+    the rush needs about 280ms to read as acceleration rather than a jump.
+- **Dry up B, "sharp in-out" (560ms):**
+  - One draw-back on a steep `cubic-bezier(.87,0,.13,1)`: almost still for
+    the first ~150ms, most of the travel in the middle ~150ms, then a
+    glide to its end.
+  - It pales from 120ms and is gone 440–480ms.
+  - Words: 490–560ms.
+  - Why 560: a steep in-out spends about two thirds of its time near its
+    ends, so the travel needs about 480ms for the fast middle to show.
+- **Erase, erratic (720ms):**
+  - 5–8 strokes, seeded per place. `uvSeed` is the app's `seedRand()`
+    verbatim, keyed `erase:*` on the place id: the same on every play,
+    different between places, and never `Math.random`.
+  - Each stroke is a ragged swath of the tag's own paper (`--paper-raised`,
+    through the paper tooth, so it leaves grit). Each has its own:
+    - angle (±40°), length (30–64px), thickness (8–16px) and speed
+      (70–150ms);
+    - direction and easing;
+    - place in a seeded shuffled order, with uneven, overlapping gaps.
+  - The stamp clears in patches over 20–560ms, so you see it take several
+    goes. The leftover ink pales to the tint from 340ms and is gone
+    560–600ms. Words: 650–720ms.
+  - Why 720: 6–7 strokes at a real scrubbing rate (8–11 a second) is about
+    550ms of visible effort, plus the pale-out and the words. That's 1.7x
+    the 420ms stamp-in, because undoing should take work.
+  - Paper over ink is the same as ink removed, because the tag's paper
+    never changes colour (owner rule). The strokes are clipped to the
+    stamp's own box (`overflow: hidden`), so nothing reaches the dividers.
+  - Crumbs of the rubbed-off ink, in the tint, drop into the segment's
+    empty lower-right corner (245–560ms) and are gone before the words
+    start.
+  - **Build note:** strokes are generated with the leaving copy in
+    `buildPopupHtml()`, keyed on `loc.id`. The mock injects them with an
+    observer.
+
+### Measured (`r2-frames.json`, `sync.js`), all three, at stamp scales 1.1 / 1.0 / 0.85
+
+- **No crossing frame.** The stamp is gone before "MARK VISITED" inks in.
+- **Light navy, never grey.** Chroma stays ≥ 0.045 on every visible
+  frame.
+- **Inside the segment** by at least 8.7px at every stamp size.
+- **Re-tap unchanged.** Tap, then tap again at 150ms:
+  - 0 leftover leaving copies;
+  - the stamp-in plays;
+  - `aria-pressed` is "true".
+- **Reduced motion.** The same 160ms crossfade: no strokes, no crumbs, no
+  mask motion.
+
+### The row (owner: "the row should do whatevers logical")
+
+- **What I'd do:** the row's un-visit (`vsReplay` and the swipe) follows
+  whichever tag option is picked, and drops its 1.12x erase pop. The pop was
+  only ever the shared "lifted to be removed" cue. With the tag now leaving
+  straight away, a row that still pops would be the one place the stamp
+  says something different.
+- **For the swipe:** the finger-driven pale stays; only the pop at the
+  lock goes.
+- **For the popup replay:**
+  - If Dry up wins: the row's stamp draws back to its centre on the same
+    curve.
+  - If Erase wins: the row uses the same seeded strokes (same id, same
+    pattern), scaled to the 72x32 stamp.
+- **Status:** a proposal, not applied. UX confirms it when the chosen option
+  is reviewed.
+- **Until then:** the tag (no pop) and the row (pop) differ for the first
+  ~84ms. The two only play together when the tag is open and the row is on
+  screen.
+
+### Weaknesses
+
+- **Dry up B:**
+  - Through its fast middle the soft edge shows a partial word for 2–3
+    frames ("VISITE", `dryB` 360–420ms). It is pale by then, but it's
+    there.
+  - A has no cropped frame because it pales before it shrinks.
+- **Erase:**
+  - The check glyph often goes last, which depends on the seed. Strokes are
+    stratified across the stamp's width, but a pattern can leave a corner
+    for the pale to finish.
+  - The crumbs weren't run through the dust detector; they are kept out by
+    placement and timing.
+- **Chromium only.** WebKit is unchecked for: WAAPI `clip-path` on masked
+  spans, and `mask-size` animation.
+
+---
+
 ## Round 3: Dry up vs Erase (owner pick)
 
 The owner, verbatim: "dry up is the best -- what about erase? i'd like to see

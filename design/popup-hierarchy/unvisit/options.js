@@ -126,7 +126,7 @@ module.exports = {
   //              the stamp's trailing end into the segment's empty lower-right corner and fade; they
   //              are gone before the words start, so they never sit over text
   //   310-380ms  the check + words ink in
-  erase: { ms: 380, css: `
+  erase_r3: { ms: 380, css: `
     ${SEL} {
       -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), linear-gradient(100deg, transparent 0 38%, #000 62% 100%) 100% 0 / 250% 100% no-repeat;
       -webkit-mask-composite: source-in;
@@ -154,6 +154,81 @@ module.exports = {
     }
     @media (prefers-reduced-motion: reduce) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { display: none; } }
     ${POP} ${REST(380, 81.6)} ${REDUCED}` },
+
+  // ===== ROUND 4 (owner, 2026-10-08, on live.html: "i dont think either should pop after clicking
+  // unvisited -- that's muddying my feedback. but i'd also like to see a more dramatic easing curve on
+  // the "dry up" (but maybe it takes slightly longer?) and erase to be more erratic -- like randomized
+  // strokes brushing it away... it should take some work"). No pop in any of these.
+
+  // DRY UP A -- "held, then rush". 520ms. The ink holds (only a slow 200 -> 185% creep of the dry edge
+  // and the first paling) for 150ms, then rushes back to the centre on a hard ease-in
+  // (cubic-bezier(.7,0,.84,0)), vanishing as the rush ends (420-460ms); words 470-520.
+  // Why 520: the held beat (150ms) has to read as a held breath, and the rush needs ~300ms to be
+  // seen as acceleration rather than a jump; plus the words. ~1.25x the 420ms stamp-in.
+  dryA: { ms: 560, css: `
+    ${SEL} {
+      -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), radial-gradient(closest-side, #000 50%, transparent 100%) 50% 50% / 210% 210% no-repeat;
+      -webkit-mask-composite: source-in;
+      mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), radial-gradient(closest-side, #000 50%, transparent 100%) 50% 50% / 210% 210% no-repeat;
+      mask-composite: intersect;
+      transform: rotate(${TILT}) scale(${S});
+      animation: uvDryA 560ms linear forwards, uvDryAPale 560ms linear forwards; }
+    @keyframes uvDryA {
+      0%     { -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%; mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%; animation-timing-function: linear; }
+      35.7%  { -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 196% 196%; mask-size: var(--ts, 90px) var(--ts, 90px), 196% 196%; animation-timing-function: cubic-bezier(.55, 0, .85, .3); }
+      85.7%, 100% { -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 40% 40%; mask-size: var(--ts, 90px) var(--ts, 90px), 40% 40%; }
+    }
+    ${PALE('uvDryAPale', 35.7, 83.9, 89.3)}
+    ${REST(560, 91)} ${REDUCED}` },
+
+  // DRY UP B -- "sharp in-out". 560ms. One continuous draw-back on a steep ease-in-out
+  // (cubic-bezier(.87,0,.13,1)): it barely moves for the first ~150ms, crosses most of the distance
+  // in the middle ~150ms, then glides to its end -- both the acceleration and the braking show.
+  // Why 560: a steep in-out spends ~2/3 of its time near its ends, so it needs ~480ms of travel for
+  // the fast middle to read; plus the words.
+  dryB: { ms: 560, css: `
+    ${SEL} {
+      -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), radial-gradient(closest-side, #000 50%, transparent 100%) 50% 50% / 210% 210% no-repeat;
+      -webkit-mask-composite: source-in;
+      mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), radial-gradient(closest-side, #000 50%, transparent 100%) 50% 50% / 210% 210% no-repeat;
+      mask-composite: intersect;
+      transform: rotate(${TILT}) scale(${S});
+      animation: uvDryB 560ms linear forwards, uvDryBPale 560ms linear forwards; }
+    @keyframes uvDryB {
+      0%     { -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%; mask-size: var(--ts, 90px) var(--ts, 90px), 210% 210%; animation-timing-function: cubic-bezier(.87, 0, .13, 1); }
+      85.7%, 100% { -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 50% 50%; mask-size: var(--ts, 90px) var(--ts, 90px), 50% 50%; }
+    }
+    ${PALE('uvDryBPale', 21.4, 78.6, 85.7)}
+    ${REST(560, 87.5)} ${REDUCED}` },
+
+  // ERASE -- "randomized strokes brushing it away... it should take some work". 720ms.
+  // 5-8 eraser strokes (ERASE_JS, seeded per place: seedRand(id, 'erase:...')), each a ragged swath of
+  // paper (the tag's own --paper-raised, through the paper tooth so it leaves grit) drawn across the
+  // stamp at its own angle (+-40deg), length, thickness and speed, in either direction, in a shuffled
+  // order with uneven gaps: the stamp clears in patches over 20-560ms. Meanwhile the leftover ink
+  // pales to the tint (from 340ms), gone 560-600ms; words 650-720. Crumbs of rubbed-off ink (in the
+  // tint) drop into the segment's empty lower-right corner (245-560ms), gone before the words.
+  // Why 720: 6-7 strokes at a real scrubbing rate (~8-11 a second, each 70-150ms, overlapping) is
+  // ~550ms of visible effort; the rest is the pale-out and the words. 1.7x the 420ms stamp-in:
+  // undoing it takes work, as asked. Strokes are paper over ink, identical to ink removed because the
+  // tag's paper never changes colour (owner rule); they are clipped to the stamp's own box.
+  erase: { ms: 720, strokes: true, css: `
+    ${SEL} { overflow: hidden; transform: rotate(${TILT}) scale(${S}); animation: uvErasePale 720ms linear forwards; }
+    ${SEL} .uv-stroke { position: absolute; left: 50%; top: 50%; background: var(--paper-raised); pointer-events: none; z-index: 3;
+      -webkit-mask: var(--tex-stamp) 0 0 / 46px 46px; mask: var(--tex-stamp) 0 0 / 46px 46px; }
+    ${PALE('uvErasePale', 47, 77.8, 83.3)}
+    .tag-seg.popup-visited:has(> .tag-stamp-out)::after { content: ''; position: absolute; z-index: 2; left: calc(50% + 24px); top: calc(50% + 13px); width: 1.5px; height: 1.5px; border-radius: 1px;
+      background: ${TINT}; box-shadow: 3px 1.5px 0 ${TINT}, -2.5px 3px 0 .2px ${TINT}, 4.5px 4px 0 ${TINT}, 7px 1px 0 ${TINT}; pointer-events: none;
+      animation: uvCrumbs 720ms linear both; }
+    @container (max-width: 299.98px) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { left: calc(50% + 21px); } }
+    @container (max-width: 255.98px) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { left: calc(50% + 17px); top: calc(50% + 11px); } }
+    @keyframes uvCrumbs {
+      0%, 34% { opacity: 0; transform: translate(0, 0); }
+      38%  { opacity: 1; transform: translate(0, 0); animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
+      78%, 100% { opacity: 0; transform: translate(8px, 6px); }
+    }
+    @media (prefers-reduced-motion: reduce) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { display: none; } }
+    ${REST(720, 90.3)} ${REDUCED}` },
 };
 module.exports.TINT = TINT;
 
@@ -173,3 +248,36 @@ module.exports.SYNC_JS = `<script>(function () {
       .forEach(function (a) { a.startTime = tap; });
   }).observe(document.documentElement, { childList: true, subtree: true });
 })();</script>`;
+
+// ERASE strokes (round 4): the seeded stroke pattern. uvSeed is the app's seedRand() verbatim
+// (FNV-1a + murmur mix), so a place always gets the same pattern and places differ. In the build
+// this is generated with the leaving copy in buildPopupHtml(), keyed on loc.id. Reduced motion: none.
+module.exports.STROKES_FN = `
+function uvSeed(id, item) { var h = 2166136261; var s = String(id) + '#' + item; for (var i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619); h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995); h ^= h >>> 15; return (h >>> 0) / 4294967296; }
+function uvStrokes(stamp, id) {
+  if (!stamp || stamp.__uvStrokes || matchMedia('(prefers-reduced-motion: reduce)').matches) return; stamp.__uvStrokes = 1;
+  var r = function (k) { return uvSeed(id, 'erase:' + k); };
+  var n = 5 + Math.floor(r('n') * 4), order = [], i;
+  for (i = 0; i < n; i++) order.push(i);
+  for (i = n - 1; i > 0; i--) { var j = Math.floor(r('p' + i) * (i + 1)), t0 = order[i]; order[i] = order[j]; order[j] = t0; }
+  var raw = [], t = 0;
+  for (i = 0; i < n; i++) { var dur = 70 + 80 * r(i + 'd'); raw.push({ s: t, d: dur }); t += dur * (0.55 + 0.35 * r(i + 'o')) + 10 + 50 * r(i + 'g'); }
+  var end = raw[n - 1].s + raw[n - 1].d, k = 540 / end;
+  var EASE = ['cubic-bezier(.3,0,.2,1)', 'cubic-bezier(.6,0,.4,1)', 'cubic-bezier(.2,.6,.3,1)', 'cubic-bezier(.5,.1,.9,.6)'];
+  for (i = 0; i < n; i++) {
+    var slot = order[i], cx = -26 + 52 * (slot + 0.2 + 0.6 * r(i + 'x')) / n, cy = (r(i + 'y') - 0.5) * 14;
+    var L = 30 + 34 * r(i + 'L'), H = 8 + 8 * r(i + 'H'), a = (r(i + 'a') - 0.5) * 80, fwd = r(i + 'r') < 0.5;
+    var mx = (r(i + 'm') * 46).toFixed(0), my = (r(i + 'q') * 46).toFixed(0);
+    var el = document.createElement('span'); el.className = 'uv-stroke';
+    el.style.cssText = 'width:' + L.toFixed(1) + 'px;height:' + H.toFixed(1) + 'px;margin:' + (-H / 2).toFixed(1) + 'px 0 0 ' + (-L / 2).toFixed(1) + 'px;border-radius:' + (H / 2).toFixed(1) + 'px / ' + (H / 3).toFixed(1) + 'px;'
+      + 'transform:translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px) rotate(' + a.toFixed(1) + 'deg);-webkit-mask-position:' + mx + 'px ' + my + 'px;mask-position:' + mx + 'px ' + my + 'px';
+    stamp.appendChild(el);
+    el.animate([{ clipPath: fwd ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)' }, { clipPath: 'inset(0 0 0 0)' }],
+      { duration: raw[i].d * k, delay: 20 + raw[i].s * k, easing: EASE[Math.floor(r(i + 'e') * 4)], fill: 'both' });
+  }
+}`;
+module.exports.ERASE_JS = `<script>${module.exports.STROKES_FN}
+(function () { new MutationObserver(function () {
+  var s = document.querySelector('.tag-popup .tag-stamp-out'); if (!s || s.__uvStrokes) return;
+  var b = s.closest('.popup-visited'); uvStrokes(s, b && b.getAttribute('data-id'));
+}).observe(document.documentElement, { childList: true, subtree: true }); })();</script>`;

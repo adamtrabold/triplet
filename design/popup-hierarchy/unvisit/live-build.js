@@ -11,8 +11,10 @@
 const path = require('path'), fs = require('fs'), { execFileSync } = require('child_process');
 const { launch, openProto, W, FILE } = require('../../gesture-harness/lib');
 const OPT = require('./options');
-const D = __dirname, KEYS = [['dry', 'Dry up', 'The ink draws back to the middle of the stamp and pales away.'],
-  ['erase', 'Erase', 'An ink eraser rubs the stamp out in three gritty passes; a few crumbs fall into the corner.']];
+const D = __dirname, KEYS = [
+  ['dryA', 'Dry up A: hold, then rush', 'The ink holds for a beat, then rushes back into the middle of the stamp and is gone. 560 ms.'],
+  ['dryB', 'Dry up B: sharp in and out', 'The ink starts slowly, races through the middle, then slows to a stop as it disappears. 560 ms.'],
+  ['erase', 'Erase', 'An eraser scrubs it away in 5 to 8 uneven strokes, in a different pattern for every place. 720 ms.']];
 
 // ---- a small CSS splitter: top-level blocks with brace matching (comments stripped first) ----
 function blocks(css) {
@@ -103,8 +105,7 @@ h1 { font-size: 26px; line-height: 32px; font-weight: 700; letter-spacing: -0.01
 h2 { font-size: 20px; line-height: 26px; margin: 0; }
 .lede, p.t { margin: 8px 0 0; font-size: 15px; line-height: 22px; }
 .lede { color: var(--pg-ink-2); }
-.pair { display: grid; grid-template-columns: 1fr; gap: 28px; margin-top: 24px; }
-@media (min-width: 720px) { .pair { grid-template-columns: 1fr 1fr; } }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 28px; margin-top: 24px; }
 .opt { min-width: 0; }
 /* the stub on the tag's paper: always the app's light cream (the tag never changes colour) */
 .stage { margin-top: 12px; display: flex; justify-content: center; }
@@ -113,13 +114,14 @@ h2 { font-size: 20px; line-height: 26px; margin: 0; }
   filter: drop-shadow(0 0 .5px rgba(107, 74, 40, .5)) drop-shadow(0 1px 1px rgba(26, 26, 24, .10)) drop-shadow(0 4px 6px rgba(26, 26, 24, .08)); }
 .stage .tag-slot.dir, .stage .tag-slot.star { pointer-events: none; }
 .hint { margin-top: 8px; font-size: 13px; line-height: 18px; color: var(--pg-ink-2); text-align: center; }
-button.replay { all: unset; display: block; margin: 10px auto 0; font-size: 14px; line-height: 20px; color: var(--pg-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 10px 12px; }
-button.replay:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ctl { display: flex; justify-content: center; gap: 8px; margin-top: 6px; }
+button.replay, button.reseed { all: unset; display: block; font-size: 14px; line-height: 20px; color: var(--pg-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 10px 12px; }
+button.replay:focus-visible, button.reseed:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 h3 { font-size: 17px; line-height: 24px; margin: 40px 0 0; padding-top: 20px; border-top: 1px solid var(--pg-hair); }
 figure { margin: 12px 0 0; min-width: 0; }
 figure img { display: block; width: 100%; height: auto; border: 1px solid var(--pg-hair); border-radius: 4px; background: var(--pg-surface); }
 figcaption { margin-top: 6px; font-size: 13px; line-height: 18px; color: var(--pg-ink-2); }
-.strips { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.strips { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 0 12px; }
 footer { margin-top: 48px; font-size: 13px; line-height: 20px; color: var(--pg-ink-2); }
 </style>
 </head>
@@ -127,25 +129,28 @@ footer { margin-top: 48px; font-size: 13px; line-height: 20px; color: var(--pg-i
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">${cap.sym}</svg>
 <main>
   <h1>Un-visit: Dry up vs Erase</h1>
-  <p class="lede">Tap the VISITED stamp to un-visit and watch it leave. Tap again to stamp it back. These are the tag's real stubs.</p>
+  <p class="lede">Tap the VISITED stamp to un-visit and watch it leave. Tap again to stamp it back. These are the tag's real stubs. No pop any more: the stamp starts leaving straight away.</p>
   <div class="pair">
 ${KEYS.map(([k, t, d]) => `    <section class="opt" id="opt-${k}" aria-label="${t}">
       <h2>${t}</h2>
       <p class="t">${d}</p>
       <div class="stage">${stubFor(k)}</div>
       <p class="hint">Tap Visited</p>
-      <button type="button" class="replay" data-k="${k}">Play it again</button>
+      <div class="ctl"><button type="button" class="replay" data-k="${k}">Play again</button>${OPT[k].strokes ? '<button type="button" class="reseed">New place</button>' : ''}</div>${OPT[k].strokes ? '<p class="hint seedlab">Place 8 of 21</p>' : ''}
     </section>`).join('\n')}
   </div>
 
   <h3>Frame by frame</h3>
-  <p class="t">The same two, slowed down: before the tap at the top, the resting “Mark visited” at the bottom.</p>
+  <p class="t">The same three, slowed down: before the tap at the top, the resting “Mark visited” at the bottom.</p>
   <div class="strips">${KEYS.map(([k, t]) => `<figure><img src="${jpg(`stills/r2/${k}-strip.png`, 640, 76)}" alt="${t}, frame by frame"><figcaption>${t}</figcaption></figure>`).join('')}</div>
 
-  <footer>Built from the app's own stub markup and styles; only the un-visit animation differs. With reduced motion turned on, both become a quick crossfade.</footer>
+  <footer>Built from the app's own stub markup and styles; only the un-visit animation differs. With reduced motion turned on, all three become a quick crossfade.</footer>
 </main>
 <script>
+${OPT.STROKES_FN}
 (function () {
+  var IDS = []; for (var q = 0; q < 21; q++) IDS.push('rey' + (q < 10 ? '0' : '') + q);
+  var place = 7;
   var OUT = ${JSON.stringify(cap.btnOut)}, IN = ${JSON.stringify(cap.btnIn)};
   function swap(sec, html) {
     var btn = sec.querySelector('.popup-visited'); var t = document.createElement('div'); t.innerHTML = html;
@@ -154,16 +159,20 @@ ${KEYS.map(([k, t, d]) => `    <section class="opt" id="opt-${k}" aria-label="${
   function toggle(sec) {
     var btn = sec.querySelector('.popup-visited');
     var visited = btn.getAttribute('aria-pressed') === 'true';
-    swap(sec, visited ? OUT : IN);
+    var nb = swap(sec, visited ? OUT : IN);
+    if (visited && sec.id === 'opt-erase') uvStrokes(nb.querySelector('.tag-stamp-out'), IDS[place]);
     sec.querySelector('.hint').textContent = visited ? 'Tap Mark visited to stamp it back' : 'Tap Visited';
   }
   document.querySelectorAll('.opt').forEach(function (sec) {
     sec.querySelector('.tag-slot.vis').addEventListener('click', function (e) { e.preventDefault(); toggle(sec); });
-    sec.querySelector('.replay').addEventListener('click', function () {
+    function play() {
       var btn = sec.querySelector('.popup-visited');
       if (btn.getAttribute('aria-pressed') !== 'true') { swap(sec, IN); setTimeout(function () { toggle(sec); }, 520); }
       else toggle(sec);
-    });
+    }
+    sec.querySelector('.replay').addEventListener('click', play);
+    var rs = sec.querySelector('.reseed');
+    if (rs) rs.addEventListener('click', function () { place = (place + 1) % IDS.length; sec.querySelector('.seedlab').textContent = 'Place ' + (place + 1) + ' of ' + IDS.length; play(); });
   });
 })();
 </script>
