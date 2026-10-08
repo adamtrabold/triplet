@@ -1896,25 +1896,32 @@
     /* The stock is the same light cream in every state (owner 2026-10-07: "i dont like that the tag
        background color changes. it shoudl be that same light cream always"): visited is the stamp
        on its segment alone; only a press tile flashes inside it. */
-    /* The eyelet's reinforcement patch (a paper step) and its grommet. */
-    .tag-patch { position: absolute; z-index: 1; left: 50%; top: 6px; width: 48px; height: 28px; margin-left: -24px; background: var(--paper);
+    /* The eyelet's reinforcement patch (a paper step) and its grommet. ONE AXIS (owner 2026-10-08: "the
+       alignment of the string hole and accoutrements is off"): the hole (the stock's mask, 50% 18px),
+       the patch, the grommet and the string's end all centre on the tag's x = the pin's x, at 18px.
+       The patch is 4..32px: centred on the hole and 4px clear of the 36px band top and bottom (it
+       was 6..34, centred 2px BELOW the hole). The grommet is a radial gradient on the patch, not a
+       17px box: a box centred at a half pixel (24 - 8.5) is painted snapped a half pixel right and
+       down (measured +0.5, +0.5 in Chromium), and the hole then cut it into a crescent. The
+       gradient's ring is 5..8.5px (the hole's radius out to the old 17px ring), soft .5px edges. */
+    .tag-patch { position: absolute; z-index: 1; left: 50%; top: 4px; width: 48px; height: 28px; margin-left: -24px;
+      --grommet: var(--hair); --patch-paper: var(--paper);
+      background: radial-gradient(circle at 50% 50%, transparent 4.5px, var(--grommet) 5px, var(--grommet) 8.25px, transparent 8.75px), var(--patch-paper);
       clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px); pointer-events: none; }
-    .tag-patch::after { content: ''; position: absolute; left: 50%; top: 50%; width: 17px; height: 17px; margin: -8.5px 0 0 -8.5px; border-radius: 50%; box-sizing: border-box; border: 3.5px solid var(--hair); }
     /* Starred, BAND treatment (TAG_STAR_STYLE 'band' | 'both'): the city's action orange printed across
        the top of the stock. It is inside the clipped stock, so it follows the die-cut: both chamfers
        and the eyelet hole (owner: "the orange bar is not matching the shape of the tag"). */
     .tag-band { position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: 36px; background-color: var(--star); background-image: var(--tex-flood); pointer-events: none; }
     /* On the band the eyelet's patch is a thin paper wash, so the band shows through round the eyelet
        (a solid paper patch read as a blank box, CD). */
-    .tag.tag .tag-band ~ .tag-patch { background: color-mix(in srgb, var(--paper) 28%, transparent); }
-    .tag.tag .tag-band ~ .tag-patch::after { border-color: color-mix(in srgb, var(--paper) 65%, transparent); }
+    .tag.tag .tag-band ~ .tag-patch { --patch-paper: color-mix(in srgb, var(--paper) 28%, transparent); --grommet: color-mix(in srgb, var(--paper) 65%, transparent); }
     /* Keyboard focus on the tag itself (Impeccable A2; it takes focus on open): the tag is "held" --
        its grommet and string go navy. No ring or box round the tag (owner-taste: "No heavy rules or
        boxes"). Keyboard only, so a touch open or VoiceOver shows nothing new; the inner controls
        keep their own inset navy ring. Not plain :focus-visible: the tag is focused BY SCRIPT once
        the pan ends, and Chromium matches :focus-visible on that after a touch tap on a list row
        (measured). .kbd-open is set at open only when the last input was a key (tagKeyInput). */
-    .tag.tag.kbd-open:focus .tag-patch::after { border-color: var(--navy); }
+    .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
     .tag-x { all: unset; position: absolute; z-index: 4; top: 40px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
@@ -4815,7 +4822,9 @@
     const TAG_SHEET_MS = 300;      // #locations' transform transition (the list lowering for a tall tag)
     const TAG_SHEET_GAP = 48;      // DIAL: map left clear between the tag's foot and the list (--s12; CD: ">= 48")
     const TAG_LIST_MIN = 144;      // the list never lowers past its header (60) + one row (56) + half the next (28), so it reads as scrollable (owner); a taller tag scrolls inside
-    const tagWidth = () => Math.max(240, Math.min(TAG_W_MAX, window.innerWidth - 32));
+    // Always an even number of px, so the tag's centre (the hole, the patch, the string) sits on a whole
+    // pixel and on the pin's x exactly (TagPopup centres it with round(w / 2)).
+    const tagWidth = () => 2 * Math.floor(Math.max(240, Math.min(TAG_W_MAX, window.innerWidth - 32)) / 2);
 
     // The short address under the name (owner: "#1 since there's a
     // directions button"): the stored short_address, else derived from the
