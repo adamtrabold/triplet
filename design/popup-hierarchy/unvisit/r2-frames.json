@@ -7,8 +7,8 @@
     "opacity": 1,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.274,
      0.05,
@@ -22,10 +22,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.717679,
-    "overL": -10.5,
-    "overR": -10.5,
-    "overT": -9.2,
-    "overB": -9.2,
+    "overL": -10.6,
+    "overR": -10.6,
+    "overT": -9.4,
+    "overB": -9.4,
     "oklch": [
      0.274,
      0.05,
@@ -39,10 +39,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.418268,
-    "overL": -8.8,
-    "overR": -8.8,
-    "overT": -8.4,
-    "overB": -8.4,
+    "overL": -8.9,
+    "overR": -8.9,
+    "overT": -8.6,
+    "overB": -8.6,
     "oklch": [
      0.274,
      0.05,
@@ -56,10 +56,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.181964,
-    "overL": -7.5,
-    "overR": -7.5,
-    "overT": -7.8,
-    "overB": -7.8,
+    "overL": -7.6,
+    "overR": -7.6,
+    "overT": -7.9,
+    "overB": -7.9,
     "oklch": [
      0.274,
      0.05,
@@ -73,10 +73,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.0141958,
-    "overL": -6.6,
-    "overR": -6.6,
-    "overT": -7.3,
-    "overB": -7.3,
+    "overL": -6.7,
+    "overR": -6.7,
+    "overT": -7.5,
+    "overB": -7.5,
     "oklch": [
      0.274,
      0.05,
@@ -90,10 +90,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0,
-    "overL": -6.5,
-    "overR": -6.5,
-    "overT": -7.3,
-    "overB": -7.3,
+    "overL": -6.6,
+    "overR": -6.6,
+    "overT": -7.4,
+    "overB": -7.4,
     "oklch": [
      0.274,
      0.05,
@@ -111,8 +111,8 @@
     "opacity": 1,
     "overL": -11.1,
     "overR": -11.1,
-    "overT": -11.8,
-    "overB": -11.8,
+    "overT": -12,
+    "overB": -12,
     "oklch": [
      0.274,
      0.05,
@@ -128,8 +128,8 @@
     "opacity": 0.717679,
     "overL": -9.7,
     "overR": -9.7,
-    "overT": -11.1,
-    "overB": -11.1,
+    "overT": -11.3,
+    "overB": -11.3,
     "oklch": [
      0.274,
      0.05,
@@ -145,8 +145,8 @@
     "opacity": 0.418268,
     "overL": -8.2,
     "overR": -8.2,
-    "overT": -10.4,
-    "overB": -10.4,
+    "overT": -10.5,
+    "overB": -10.5,
     "oklch": [
      0.274,
      0.05,
@@ -162,8 +162,8 @@
     "opacity": 0.181964,
     "overL": -7,
     "overR": -7,
-    "overT": -9.8,
-    "overB": -9.8,
+    "overT": -9.9,
+    "overB": -9.9,
     "oklch": [
      0.274,
      0.05,
@@ -177,10 +177,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.0141958,
-    "overL": -6.1,
-    "overR": -6.1,
-    "overT": -9.4,
-    "overB": -9.4,
+    "overL": -6.2,
+    "overR": -6.2,
+    "overT": -9.5,
+    "overB": -9.5,
     "oklch": [
      0.274,
      0.05,
@@ -196,8 +196,8 @@
     "opacity": 0,
     "overL": -6.1,
     "overR": -6.1,
-    "overT": -9.4,
-    "overB": -9.4,
+    "overT": -9.5,
+    "overB": -9.5,
     "oklch": [
      0.274,
      0.05,
@@ -213,10 +213,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 1,
-    "overL": -8.6,
-    "overR": -8.6,
-    "overT": -14.6,
-    "overB": -14.6,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
     "oklch": [
      0.274,
      0.05,
@@ -230,10 +230,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.717679,
-    "overL": -7.4,
-    "overR": -7.4,
-    "overT": -14,
-    "overB": -14,
+    "overL": -7.5,
+    "overR": -7.5,
+    "overT": -14.1,
+    "overB": -14.1,
     "oklch": [
      0.274,
      0.05,
@@ -247,10 +247,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.418268,
-    "overL": -6.1,
-    "overR": -6.1,
-    "overT": -13.3,
-    "overB": -13.3,
+    "overL": -6.2,
+    "overR": -6.2,
+    "overT": -13.4,
+    "overB": -13.4,
     "oklch": [
      0.274,
      0.05,
@@ -264,10 +264,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.181964,
-    "overL": -5.1,
-    "overR": -5.1,
-    "overT": -12.8,
-    "overB": -12.8,
+    "overL": -5.2,
+    "overR": -5.2,
+    "overT": -13,
+    "overB": -13,
     "oklch": [
      0.274,
      0.05,
@@ -281,10 +281,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0.0141958,
-    "overL": -4.4,
-    "overR": -4.4,
-    "overT": -12.5,
-    "overB": -12.5,
+    "overL": -4.5,
+    "overR": -4.5,
+    "overT": -12.6,
+    "overB": -12.6,
     "oklch": [
      0.274,
      0.05,
@@ -298,10 +298,10 @@
    "stamp": {
     "color": "color(srgb 0.0705882 0.160784 0.247059 / 0.82)",
     "opacity": 0,
-    "overL": -4.3,
-    "overR": -4.3,
-    "overT": -12.5,
-    "overB": -12.5,
+    "overL": -4.4,
+    "overR": -4.4,
+    "overT": -12.6,
+    "overB": -12.6,
     "oklch": [
      0.274,
      0.05,
@@ -682,8 +682,8 @@
     "opacity": 1,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.274,
      0.05,
@@ -697,10 +697,10 @@
    "stamp": {
     "color": "oklab(0.40352 -0.0174127 -0.0458263 / 0.858014)",
     "opacity": 1,
-    "overL": -7.2,
-    "overR": -7.2,
-    "overT": -7.6,
-    "overB": -7.6,
+    "overL": -7.3,
+    "overR": -7.3,
+    "overT": -7.8,
+    "overB": -7.8,
     "oklch": [
      0.404,
      0.049,
@@ -714,10 +714,10 @@
    "stamp": {
     "color": "oklab(0.600356 -0.0167013 -0.0439601 / 0.923082)",
     "opacity": 1,
-    "overL": -9.9,
-    "overR": -9.9,
-    "overT": -8.9,
-    "overB": -8.9,
+    "overL": -10,
+    "overR": -10,
+    "overT": -9.1,
+    "overB": -9.1,
     "oklch": [
      0.6,
      0.047,
@@ -733,8 +733,8 @@
     "opacity": 1,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.78,
      0.045,
@@ -750,8 +750,8 @@
     "opacity": 0.245245,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.8,
      0.045,
@@ -767,8 +767,8 @@
     "opacity": 0,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.8,
      0.045,
@@ -784,8 +784,8 @@
     "opacity": 0,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.8,
      0.045,
@@ -803,8 +803,8 @@
     "opacity": 1,
     "overL": -11.1,
     "overR": -11.1,
-    "overT": -11.8,
-    "overB": -11.8,
+    "overT": -12,
+    "overB": -12,
     "oklch": [
      0.274,
      0.05,
@@ -820,8 +820,8 @@
     "opacity": 1,
     "overL": -6.7,
     "overR": -6.7,
-    "overT": -9.7,
-    "overB": -9.7,
+    "overT": -9.8,
+    "overB": -9.8,
     "oklch": [
      0.404,
      0.049,
@@ -835,10 +835,10 @@
    "stamp": {
     "color": "oklab(0.600356 -0.0167013 -0.0439601 / 0.923082)",
     "opacity": 1,
-    "overL": -9.1,
-    "overR": -9.1,
-    "overT": -10.9,
-    "overB": -10.9,
+    "overL": -9.2,
+    "overR": -9.2,
+    "overT": -11,
+    "overB": -11,
     "oklch": [
      0.6,
      0.047,
@@ -854,8 +854,8 @@
     "opacity": 1,
     "overL": -11.1,
     "overR": -11.1,
-    "overT": -11.8,
-    "overB": -11.8,
+    "overT": -12,
+    "overB": -12,
     "oklch": [
      0.78,
      0.045,
@@ -871,8 +871,8 @@
     "opacity": 0.245245,
     "overL": -11.1,
     "overR": -11.1,
-    "overT": -11.8,
-    "overB": -11.8,
+    "overT": -12,
+    "overB": -12,
     "oklch": [
      0.8,
      0.045,
@@ -888,8 +888,8 @@
     "opacity": 0,
     "overL": -11.1,
     "overR": -11.1,
-    "overT": -11.8,
-    "overB": -11.8,
+    "overT": -12,
+    "overB": -12,
     "oklch": [
      0.8,
      0.045,
@@ -905,8 +905,8 @@
     "opacity": 0,
     "overL": -11.1,
     "overR": -11.1,
-    "overT": -11.8,
-    "overB": -11.8,
+    "overT": -12,
+    "overB": -12,
     "oklch": [
      0.8,
      0.045,
@@ -922,10 +922,10 @@
    "stamp": {
     "color": "oklab(0.27407 -0.0178805 -0.0470537 / 0.82)",
     "opacity": 1,
-    "overL": -8.6,
-    "overR": -8.6,
-    "overT": -14.6,
-    "overB": -14.6,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
     "oklch": [
      0.274,
      0.05,
@@ -941,8 +941,8 @@
     "opacity": 1,
     "overL": -4.9,
     "overR": -4.9,
-    "overT": -12.7,
-    "overB": -12.7,
+    "overT": -12.8,
+    "overB": -12.8,
     "oklch": [
      0.404,
      0.049,
@@ -956,10 +956,10 @@
    "stamp": {
     "color": "oklab(0.600356 -0.0167013 -0.0439601 / 0.923082)",
     "opacity": 1,
-    "overL": -6.9,
-    "overR": -6.9,
-    "overT": -13.7,
-    "overB": -13.7,
+    "overL": -7,
+    "overR": -7,
+    "overT": -13.8,
+    "overB": -13.8,
     "oklch": [
      0.6,
      0.047,
@@ -973,10 +973,10 @@
    "stamp": {
     "color": "oklab(0.779644 -0.0160534 -0.0422602 / 0.991575)",
     "opacity": 1,
-    "overL": -8.6,
-    "overR": -8.6,
-    "overT": -14.6,
-    "overB": -14.6,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
     "oklch": [
      0.78,
      0.045,
@@ -990,10 +990,10 @@
    "stamp": {
     "color": "oklab(0.8 -0.0159798 -0.0420672)",
     "opacity": 0.245245,
-    "overL": -8.6,
-    "overR": -8.6,
-    "overT": -14.6,
-    "overB": -14.6,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
     "oklch": [
      0.8,
      0.045,
@@ -1007,10 +1007,10 @@
    "stamp": {
     "color": "oklab(0.8 -0.0159798 -0.0420672)",
     "opacity": 0,
-    "overL": -8.6,
-    "overR": -8.6,
-    "overT": -14.6,
-    "overB": -14.6,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
     "oklch": [
      0.8,
      0.045,
@@ -1024,10 +1024,10 @@
    "stamp": {
     "color": "oklab(0.8 -0.0159798 -0.0420672)",
     "opacity": 0,
-    "overL": -8.6,
-    "overR": -8.6,
-    "overT": -14.6,
-    "overB": -14.6,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
     "oklch": [
      0.8,
      0.045,
@@ -1408,8 +1408,8 @@
     "opacity": 1,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.274,
      0.05,
@@ -1425,8 +1425,8 @@
     "opacity": 1,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.67,
      0.046,
@@ -1442,8 +1442,8 @@
     "opacity": 0,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.8,
      0.045,
@@ -1459,8 +1459,8 @@
     "opacity": 0,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
     "oklch": [
      0.8,
      0.045,
@@ -1476,8 +1476,422 @@
     "opacity": 0,
     "overL": -12.1,
     "overR": -12.1,
-    "overT": -10,
-    "overB": -10,
+    "overT": -10.2,
+    "overB": -10.2,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 1
+  }
+ },
+ "erase": {
+  "0": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.27407 -0.0178805 -0.0470537 / 0.82)",
+    "opacity": 1,
+    "overL": -12.1,
+    "overR": -12.1,
+    "overT": -10.2,
+    "overB": -10.2,
+    "oklch": [
+     0.274,
+     0.05,
+     249.193
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "84": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.402299 -0.0174171 -0.0458379 / 0.857639)",
+    "opacity": 1,
+    "overL": -7.3,
+    "overR": -7.3,
+    "overT": -7.8,
+    "overB": -7.8,
+    "oklch": [
+     0.402,
+     0.049,
+     249.195
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "150": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.574475 -0.0167949 -0.0442054 / 0.913969)",
+    "opacity": 1,
+    "overL": -9.3,
+    "overR": -9.3,
+    "overT": -8.8,
+    "overB": -8.8,
+    "oklch": [
+     0.574,
+     0.047,
+     249.197
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "210": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.713559 -0.0162922 -0.0428867 / 0.965178)",
+    "opacity": 1,
+    "overL": -11.9,
+    "overR": -11.9,
+    "overT": -10.1,
+    "overB": -10.1,
+    "oklch": [
+     0.714,
+     0.046,
+     249.199
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "260": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0.813765,
+    "overL": -12.1,
+    "overR": -12.1,
+    "overT": -10.2,
+    "overB": -10.2,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "300": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0.00404858,
+    "overL": -12.1,
+    "overR": -12.1,
+    "overT": -10.2,
+    "overB": -10.2,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "330": {
+   "words": "rgba(26, 26, 24, 0.286)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0,
+    "overL": -12.1,
+    "overR": -12.1,
+    "overT": -10.2,
+    "overB": -10.2,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0.286
+  },
+  "400": {
+   "words": "rgb(26, 26, 24)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0,
+    "overL": -12.1,
+    "overR": -12.1,
+    "overT": -10.2,
+    "overB": -10.2,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 1
+  }
+ },
+ "erase-s100": {
+  "0": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.27407 -0.0178805 -0.0470537 / 0.82)",
+    "opacity": 1,
+    "overL": -11.1,
+    "overR": -11.1,
+    "overT": -12,
+    "overB": -12,
+    "oklch": [
+     0.274,
+     0.05,
+     249.193
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "84": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.402299 -0.0174171 -0.0458379 / 0.857639)",
+    "opacity": 1,
+    "overL": -6.7,
+    "overR": -6.7,
+    "overT": -9.8,
+    "overB": -9.8,
+    "oklch": [
+     0.402,
+     0.049,
+     249.195
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "150": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.574475 -0.0167949 -0.0442054 / 0.913969)",
+    "opacity": 1,
+    "overL": -8.5,
+    "overR": -8.5,
+    "overT": -10.7,
+    "overB": -10.7,
+    "oklch": [
+     0.574,
+     0.047,
+     249.197
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "210": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.713559 -0.0162922 -0.0428867 / 0.965178)",
+    "opacity": 1,
+    "overL": -11,
+    "overR": -11,
+    "overT": -11.9,
+    "overB": -11.9,
+    "oklch": [
+     0.714,
+     0.046,
+     249.199
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "260": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0.813765,
+    "overL": -11.1,
+    "overR": -11.1,
+    "overT": -12,
+    "overB": -12,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "300": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0.00404858,
+    "overL": -11.1,
+    "overR": -11.1,
+    "overT": -12,
+    "overB": -12,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "330": {
+   "words": "rgba(26, 26, 24, 0.286)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0,
+    "overL": -11.1,
+    "overR": -11.1,
+    "overT": -12,
+    "overB": -12,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0.286
+  },
+  "400": {
+   "words": "rgb(26, 26, 24)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0,
+    "overL": -11.1,
+    "overR": -11.1,
+    "overT": -12,
+    "overB": -12,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 1
+  }
+ },
+ "erase-s085": {
+  "0": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.27407 -0.0178805 -0.0470537 / 0.82)",
+    "opacity": 1,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
+    "oklch": [
+     0.274,
+     0.05,
+     249.193
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "84": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.402299 -0.0174171 -0.0458379 / 0.857639)",
+    "opacity": 1,
+    "overL": -4.9,
+    "overR": -4.9,
+    "overT": -12.8,
+    "overB": -12.8,
+    "oklch": [
+     0.402,
+     0.049,
+     249.195
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "150": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.574475 -0.0167949 -0.0442054 / 0.913969)",
+    "opacity": 1,
+    "overL": -6.5,
+    "overR": -6.5,
+    "overT": -13.6,
+    "overB": -13.6,
+    "oklch": [
+     0.574,
+     0.047,
+     249.197
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "210": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.713559 -0.0162922 -0.0428867 / 0.965178)",
+    "opacity": 1,
+    "overL": -8.5,
+    "overR": -8.5,
+    "overT": -14.6,
+    "overB": -14.6,
+    "oklch": [
+     0.714,
+     0.046,
+     249.199
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "260": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0.813765,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "300": {
+   "words": "rgba(0, 0, 0, 0)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0.00404858,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0
+  },
+  "330": {
+   "words": "rgba(26, 26, 24, 0.286)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
+    "oklch": [
+     0.8,
+     0.045,
+     249.2
+    ]
+   },
+   "wordsAlpha": 0.286
+  },
+  "400": {
+   "words": "rgb(26, 26, 24)",
+   "stamp": {
+    "color": "oklab(0.8 -0.0159798 -0.0420672)",
+    "opacity": 0,
+    "overL": -8.7,
+    "overR": -8.7,
+    "overT": -14.7,
+    "overB": -14.7,
     "oklch": [
      0.8,
      0.045,

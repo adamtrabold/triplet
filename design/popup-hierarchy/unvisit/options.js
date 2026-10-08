@@ -79,14 +79,14 @@ module.exports = {
   //   300-360ms  the check + words ink in
   dry: { ms: 360, css: `
     ${SEL} {
-      -webkit-mask: var(--tex-stamp) 0 0 / 90px 90px, radial-gradient(closest-side, #000 55%, transparent 100%) 50% 50% / 200% 200% no-repeat;
+      -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), radial-gradient(closest-side, #000 55%, transparent 100%) 50% 50% / 200% 200% no-repeat;
       -webkit-mask-composite: source-in;
-      mask: var(--tex-stamp) 0 0 / 90px 90px, radial-gradient(closest-side, #000 55%, transparent 100%) 50% 50% / 200% 200% no-repeat;
+      mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), radial-gradient(closest-side, #000 55%, transparent 100%) 50% 50% / 200% 200% no-repeat;
       mask-composite: intersect;
       animation: uvPop 240ms linear forwards, uvDry 360ms linear forwards, uvDryPale 360ms linear forwards; }
     @keyframes uvDry {
-      0%, 16.7% { -webkit-mask-size: 90px 90px, 200% 200%; mask-size: 90px 90px, 200% 200%; animation-timing-function: cubic-bezier(.35, 0, .65, 1); }
-      80.5%, 100% { -webkit-mask-size: 90px 90px, 70% 70%; mask-size: 90px 90px, 70% 70%; }
+      0%, 16.7% { -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 200% 200%; mask-size: var(--ts, 90px) var(--ts, 90px), 200% 200%; animation-timing-function: cubic-bezier(.35, 0, .65, 1); }
+      80.5%, 100% { -webkit-mask-size: var(--ts, 90px) var(--ts, 90px), 70% 70%; mask-size: var(--ts, 90px) var(--ts, 90px), 70% 70%; }
     }
     ${PALE('uvDryPale', 11, 69.4, 80.5)}
     ${POP} ${REST(360, 83.3)} ${REDUCED}` },
@@ -113,6 +113,47 @@ module.exports = {
     }
     ${PALE('uvStrikePale', 39.5, 73.7, 84.2)}
     ${POP} ${REST(380, 84.2)} ${REDUCED}` },
+
+  // 4. ERASE (owner, 2026-10-08: "dry up is the best -- what about erase? i'd like to see both of
+  // those"). Round 1's Rub out, rebuilt with the round-2 rules, and recast as an INK eraser: the
+  // gritty, abrasive kind that takes ink off paper by wearing the surface -- so it is still the
+  // stamp's own world (ink on paper), not the pencil's rub. 380ms.
+  //   0-240ms    the erase pop (exactly the row's)
+  //   40-300ms   three abrasive passes, left to right, each reaching further; the worn edge is the
+  //              paper tooth itself (the ramp runs through --tex-stamp, so it breaks up into grit,
+  //              not a soft wipe); meanwhile the ink pales to the tint; gone 250-300ms
+  //   115-290ms  a few eraser crumbs -- the rubbed-off ink, so in the TINT, not graphite -- drop from
+  //              the stamp's trailing end into the segment's empty lower-right corner and fade; they
+  //              are gone before the words start, so they never sit over text
+  //   310-380ms  the check + words ink in
+  erase: { ms: 380, css: `
+    ${SEL} {
+      -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), linear-gradient(100deg, transparent 0 38%, #000 62% 100%) 100% 0 / 250% 100% no-repeat;
+      -webkit-mask-composite: source-in;
+      mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px), linear-gradient(100deg, transparent 0 38%, #000 62% 100%) 100% 0 / 250% 100% no-repeat;
+      mask-composite: intersect;
+      animation: uvPop 240ms linear forwards, uvErase 380ms linear forwards, uvErasePale 380ms linear forwards; }
+    @keyframes uvErase {
+      0%, 10.5% { -webkit-mask-position: var(--tx, 0) var(--ty, 0), 100% 0; mask-position: var(--tx, 0) var(--ty, 0), 100% 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); }
+      26%  { -webkit-mask-position: var(--tx, 0) var(--ty, 0), 70% 0; mask-position: var(--tx, 0) var(--ty, 0), 70% 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); }
+      37%  { -webkit-mask-position: var(--tx, 0) var(--ty, 0), 84% 0; mask-position: var(--tx, 0) var(--ty, 0), 84% 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); }
+      55%  { -webkit-mask-position: var(--tx, 0) var(--ty, 0), 46% 0; mask-position: var(--tx, 0) var(--ty, 0), 46% 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); }
+      66%  { -webkit-mask-position: var(--tx, 0) var(--ty, 0), 58% 0; mask-position: var(--tx, 0) var(--ty, 0), 58% 0; animation-timing-function: cubic-bezier(.4, 0, .6, 1); }
+      79%, 100% { -webkit-mask-position: var(--tx, 0) var(--ty, 0), 0% 0; mask-position: var(--tx, 0) var(--ty, 0), 0% 0; }
+    }
+    ${PALE('uvErasePale', 10.5, 66, 79)}
+    .tag-seg.popup-visited:has(> .tag-stamp-out)::after { content: ''; position: absolute; z-index: 2; left: calc(50% + 24px); top: calc(50% + 13px); width: 1.5px; height: 1.5px; border-radius: 1px;
+      background: ${TINT}; box-shadow: 3px 1.5px 0 ${TINT}, -2.5px 3px 0 .2px ${TINT}, 4.5px 4px 0 ${TINT}; pointer-events: none;
+      animation: uvCrumbs 380ms linear both; }
+    @container (max-width: 299.98px) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { left: calc(50% + 21px); } }
+    @container (max-width: 255.98px) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { left: calc(50% + 17px); top: calc(50% + 11px); } }
+    @keyframes uvCrumbs {
+      0%, 30% { opacity: 0; transform: translate(0, 0); }
+      34%  { opacity: 1; transform: translate(0, 0); animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
+      76%, 100% { opacity: 0; transform: translate(8px, 6px); }
+    }
+    @media (prefers-reduced-motion: reduce) { .tag-seg.popup-visited:has(> .tag-stamp-out)::after { display: none; } }
+    ${POP} ${REST(380, 81.6)} ${REDUCED}` },
 };
 module.exports.TINT = TINT;
 

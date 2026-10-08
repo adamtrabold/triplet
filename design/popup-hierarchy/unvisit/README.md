@@ -1,5 +1,69 @@
 # Un-visit transition (tag, Visited segment)
 
+## Round 3: Dry up vs Erase (owner pick)
+
+The owner, verbatim: "dry up is the best -- what about erase? i'd like to see
+both of those". Erase is round 1's option 3, Rub out. Both reviewers killed
+it, for two reasons: pencil verbs on an ink stamp, and dust near text. It
+is rebuilt here with every round-2 rule and shown fairly next to Dry up.
+
+**Live owner page:** `live.html`, "Un-visit: Dry up vs Erase", built by
+`live-build.js`.
+- Two of the tag's real stubs, one per option. Tap Visited to un-visit;
+  tap again to re-stamp with the shipped stamp-in. "Play it again" replays.
+- The markup is captured from the real page. The CSS is the app's own
+  rules, extracted from `index.html` by selector, plus each option scoped
+  to its own stub.
+- The only external file is Google Fonts (Archivo), as in the app.
+- Reduced motion is respected; both become the 160ms crossfade.
+- The filmstrips sit below as a fallback.
+- No horizontal scroll at 390px (measured). The stubs stack on a phone and
+  sit side by side from 720px. Two 316px stubs can't sit side by side at
+  390px without breaking the stub.
+
+### Erase, rebuilt (`options.js` `erase`), 380ms
+
+- **The ink eraser.** The gritty, abrasive kind that takes ink off by
+  wearing the paper's surface. The worn edge of each pass runs through the
+  paper tooth (`--tex-stamp`, offset per place like the stamp), so it breaks
+  up into grit, not a soft wipe.
+- **Grammar, in one line:** an ink eraser abrades the paper the ink sits in,
+  so the stamp stays in its own world of ink on paper. The pencil keeps the
+  soft rub, the graphite and the star.
+- **Timing:**
+  - 0–240ms: the row's erase pop, same frame (measured: first moving frame
+    0/0 in `sync.json`).
+  - 40–300ms: three passes, left to right, each reaching further.
+  - Meanwhile it pales to the row's light-navy tint at full opacity; gone
+    250–300ms.
+  - 310–380ms: the check and words ink in.
+- **Crumbs:**
+  - Three or four 1.5px specks of the rubbed-off ink, in the tint, not
+    graphite.
+  - They drop 8px into the segment's empty lower-right corner (115–290ms)
+    and are gone before the words start, so they never sit over text.
+  - Their start point steps in with the stamp at 1.0 / 0.85.
+  - Off under reduced motion.
+- **Measured** (`r2-frames.json`):
+  - No crossing frame at any stamp size.
+  - Chroma ≥ 0.045 on every visible frame.
+  - The stamp stays inside its segment by 7.3 / 6.7 / 4.9px at 1.1 / 1.0
+    / 0.85.
+  - Re-tap unchanged: 0 leftover copies, stamp-in plays, `aria-pressed`
+    is "true".
+- **Weaknesses:**
+  - At real speed the three passes are quick (each 40–70ms). On a phone it
+    may read as one wipe with grit rather than as rubbing. The live page is
+    there to judge that.
+  - The reviewers' grammar objection stands as their call. The ink eraser
+    is my answer to it, not a ruling.
+  - The crumbs weren't run through the dust detector. They are kept out of
+    the label's box by placement and timing only.
+
+Files: `live.html`, `live-build.js`, `stills/r2/erase-*`.
+
+---
+
 ## Round 2: Lift off (lead), Dry up, Strike through, after `ux-review.md` and `cd-review.md`
 
 Both reviews keep **1 Lift off** and kill **3 Rub out**. They split on the

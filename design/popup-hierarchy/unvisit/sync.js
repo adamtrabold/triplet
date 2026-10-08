@@ -25,7 +25,7 @@ async function open(b, key) {
 
 (async () => {
   const b = await launch(); const out = {};
-  for (const key of ['lift', 'dry', 'strike']) {
+  for (const key of (process.env.KEYS || 'lift,dry,strike,erase').split(',')) {
     let { ctx, page } = await open(b, key);
     const onScreen = await page.evaluate(() => { const el = document.querySelector('.location-card[data-id="rey07"]'), l = document.getElementById('locationsList'); if (!el) return false; const r = el.getBoundingClientRect(), lr = l.getBoundingClientRect(); return r.bottom > lr.top && r.top < lr.bottom; });
     const frames = await page.evaluate(() => new Promise(res => {
