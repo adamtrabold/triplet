@@ -7,7 +7,7 @@ const frames = (list, w, h, s = 1) => `<div class="frames">${list.map(([f, t]) =
 function sheet(c) {
   const A = c === 'A', dir = A ? 'A-arc-badge' : 'B-label';
   let h = head(A ? 'Sign-in A' : 'Sign-in B', c);
-  h += A ? `<h1>A · Sign-in badge</h1><p>Your idea: a small signed-out person with SIGN IN curving under it. Same badge shape as +, but plain paper with navy print, so it stays quieter than +. One tap opens the sign-in sheet; no menu.</p>`
+  h += A ? `<h1>A · Sign-in badge</h1><p>Your idea: a small signed-out person with SIGN IN curving under it. Same badge shape as +, but plain paper with navy print, so it stays quieter than +. One tap opens the sign-in sheet; no menu. Signed in, it’s inked into your usual navy badge.</p>`
          : `<h1>B · Sign-in label</h1><p>A small paper label, like the little banners on old hotel labels, reading SIGN IN. Plain paper with navy print, so it stays quieter than +. One tap opens the sign-in sheet; no menu.</p>`;
   h += `<h2>Real size</h2>` + img(`shots/top-cream-390.png`, 390, 96) + `<div class="cap">On the map.</div>`;
   h += img(`shots/top-dark-390.png`, 390, 96) + `<div class="cap">Over water and park, where the map is darkest.</div>`;
@@ -37,11 +37,11 @@ const SBX = {
 sheet('A'); sheet('B');
 // flow sheet
 let h = head('Sign-in flow', 'A').replace(/\.\.\/flow\//g, '');
-h += `<h1>Signing in, both concepts</h1><p>Shown with A; it works the same with B. Only the words in the sign-in sheet change; its look stays as it is today.</p>`;
+h += `<h1>Signing in, both concepts</h1><p>Only the words in the sign-in sheet change; its look stays as it is today.</p>`;
 h += `<h2>1 · Tap Sign in in the playground</h2><p>The sheet opens over whatever you were looking at. Nothing behind it changes.</p>`;
 h += `<div style="display:flex;gap:8px;padding:0 16px"><img src="shots/play-tag-open.png" width="175" height="379"><img src="shots/play-sheet-full.png" width="175" height="379"></div>`;
 h += `<div class="cap">Left: a place open in the playground. Right: after tapping Sign in.</div>`;
-const card = (f, cap) => { const { h: hh } = require('child_process').execSync(`python3 -c "from PIL import Image;i=Image.open('${CON}/flow/shots/${f}');print(i.size[1])"`).toString().trim() ? { h: +require('child_process').execSync(`python3 -c "from PIL import Image;i=Image.open('${CON}/flow/shots/${f}');print(i.size[1])"`).toString().trim() } : {}; return img(`shots/${f}`, 390, Math.round(hh / 3)) + `<div class="cap">${cap}</div>`; };
+const card = (f, cap) => { const { h: hh } = require('child_process').execSync(`python3 -c "from PIL import Image;i=Image.open('${CON}/flow/shots/${f}');print(i.size[1])"`).toString().trim() ? { h: +require('child_process').execSync(`python3 -c "from PIL import Image;i=Image.open('${CON}/flow/shots/${f}');print(i.size[1])"`).toString().trim() } : {}; const full = f === 'sheet-open.png'; const ww = full ? 390 : 358; const w3 = +require('child_process').execSync(`python3 -c "from PIL import Image;print(Image.open('${CON}/flow/shots/${f}').size[0])"`).toString().trim(); return `<img class="img" src="shots/${f}" width="${ww}" height="${Math.round(hh * ww / w3)}" style="${full ? '' : 'margin-left:16px'}">` + (cap ? `<div class="cap">${cap}</div>` : ''); };
 h += `<h2>2 · The sheet</h2>` + card('sheet-open.png', 'Visitors read why they can’t sign in, tap Keep playing, and lose nothing. Tapping outside the sheet does the same.');
 h += `<h2>3 · While it checks</h2>` + card('sheet-busy.png', 'The button says Signing in… and can’t be tapped twice.');
 h += `<h2>4 · If something’s wrong</h2>` + card('sheet-wrong.png', 'Wrong password: your email stays, the password clears. You’re still in the playground.') + card('sheet-offline.png', 'No connection: nothing is lost; the playground keeps working.');

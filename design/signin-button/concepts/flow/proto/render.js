@@ -41,6 +41,14 @@ async function open(b, c, { w = 390, h = 844, base = 'cream' } = {}) {
   return { ctx, page, errs };
 }
 const shot = (page, file, clip) => page.screenshot({ path: file, clip });
+// tight crop: the fields and buttons only (from the sheet's head when withHead)
+async function tight(page, file, withHead) {
+  const c = await page.locator('#authModalContent').boundingBox(), e = await page.locator('#authEmailInput').boundingBox(),
+    k = await page.locator('#cancelAuthBtn').boundingBox(), hd = await page.locator('#authModalHead').boundingBox();
+  const pw = await page.locator('#authPasswordInput').boundingBox(), l = await page.locator('#loginBtn').boundingBox();
+  const top = withHead ? hd.y : pw.y - 12, bot = withHead ? k.y + k.height + 14 : l.y + l.height + 12;
+  return shot(page, file, { x: c.x, y: top, width: c.width, height: bot - top });
+}
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${d}/chrome-linux/chrome` });
   for (const [c, dir] of [['A', 'A-arc-badge'], ['B', 'B-label']]) {
@@ -90,10 +98,11 @@ const shot = (page, file, clip) => page.screenshot({ path: file, clip });
       await page.evaluate(st => SB.sheet('play', st), st); await page.waitForTimeout(150);
       if (st === 'open') await page.screenshot({ path: `${out}/play-sheet-full.png` });
       const bb = await page.locator('#authModalContent').boundingBox();
-      await shot(page, `${out}/sheet-${st}.png`, { x: 0, y: bb.y - 12, width: 390, height: bb.height + 24 });
+      if (st === 'open') await shot(page, `${out}/sheet-${st}.png`, { x: 0, y: bb.y - 12, width: 390, height: bb.height + 24 });
+      else await tight(page, `${out}/sheet-${st}.png`);
     }
     for (const st of ['open']) { await page.evaluate(() => SB.sheet('real', 'open')); await page.waitForTimeout(100);
-      const bb = await page.locator('#authModalContent').boundingBox(); await shot(page, `${out}/sheet-real.png`, { x: 0, y: bb.y - 12, width: 390, height: bb.height + 24 }); }
+      await tight(page, `${out}/sheet-real.png`, true); }
     await ctx.close(); }
   await b.close(); console.log('done');
 })();

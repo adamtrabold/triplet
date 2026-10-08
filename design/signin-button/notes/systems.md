@@ -17,6 +17,16 @@
   a copy of index.html via signin-test.js. Then the director scores; then my
   job-coverage check on each 9+ concept against jobs.md.
 
+## Concept round 1 result
+- Director: A = 9, B = 7 (held back, not shown; the ready alternative if the
+  owner rejects the arc idea). The flow sheet gets cut to about half before sending.
+- My coverage check on A: `concepts/A-arc-badge/jobs-coverage.md`: all 9 jobs
+  and 4 flows are supported, with 5 nits (Sign out never shown, the empty-field
+  error isn't on the sheet, the flow title mentions B, password focus, job 5's
+  wording). Job 8 (map view) is a build note only; the handoff must carry it.
+- Next for me: after the owner approves, write the "How it works" section of
+  handoff.md and check it against jobs.md.
+
 ## Correction (coordinator, after turn 6)
 - The signed-in account badge AT REST is navy with an orange person; it is
   orange only while its dropdown is open (`.active`). jobs.md and all three
