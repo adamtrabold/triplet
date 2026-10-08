@@ -522,3 +522,172 @@ orange die, unchanged.
 NEXT: product designer (systems focus) — the look of both concepts is now
 pinned enough to map the flow frames (F1b modal over the playground,
 cancel, success → arrival strike, the visitor who can't sign in) onto A and B.
+
+## Turn 5: product designer (systems focus), pass 2
+
+Read: turns 2 to 4, `pass2-look-3x.png`, `pass2-motion-3x.png`, and the code as it
+is now on this branch: `#authModal` markup (~l.2545), its scrim (~l.2119),
+`checkAuth()`/`updateAuthUI()` (~l.2976), the playground `logout()` hop
+(~l.3056), the `?signin` handler (~l.9101), and the modal handlers (~l.8472:
+Login, Cancel, tap on the scrim closes, Enter in the password field submits).
+
+Adopted from the director's turn: the badge in the corner *is* the sign-in;
+no dropdown while signed out; F1b is the structure; the out→in strike plays
+on arrival. Below, every state is mapped onto A (arc badge) and B (printed
+label). Most of the flow is shared, so it comes first; then the places where
+A and B differ. **Bold** = something the sketches or the current code don't
+handle yet.
+
+### 1. The control at rest and under the finger (shared unless noted)
+
+| State | A, arc badge | B, printed label |
+|---|---|---|
+| Rest | 50px paper die left of `+`, same centre line | label 32 (or 28) tall, right edge at the die's, grows leftward |
+| **Hit area** | 50×50, fine | **32px tall is under the 44px floor.** The button box must be 44 tall with the label drawn centred inside, otherwise it's a miss-prone strip on a phone. The extra height is transparent, so the look doesn't change. |
+| Pressed | face → `--paper-pressed` on touch-down; ink stays navy | same |
+| Press, then slide off | no action, face returns (standard button cancel) | same |
+| Focus-visible | 2px navy outline ~3px out, keyboard only | same; follows the notch |
+| Accessible name | `aria-label="Sign in"`, arc `aria-hidden` | the text is real text, no extra label needed |
+| While a tag / add form / plan panel is open | control stays put and live; the modal opens over everything (scrim z 3000 > chrome 2000) | same |
+| Before auth resolves (normal app) | **render nothing in the slot until `checkAuth()` returns** (today's behaviour). Otherwise every cold load of a signed-in app would flash the paper die and then strike or snap to orange. | same, and it matters more: B would flash a label and then swap shape |
+
+### 2. The flow: playground tap → modal → outcome (shared)
+
+```
+[badge/label] --tap--> modal over the playground (map, open tag, filters, edits all intact)
+   |-- Cancel / tap the scrim / Esc --> modal closes, focus back on the control, nothing lost
+   |-- submit --> "Signing in…" (button disabled, fields locked)
+          |-- success --> leave for the real app (?arrived) --> strike on arrival
+          |-- wrong email/password --> inline error, stay in the modal, still in the playground
+          |-- can't reach the server --> inline error, stay, the playground keeps working
+```
+
+**Modal copy (the current copy is wrong in this flow).** Today it says *"Login
+Required. You need to log in to make changes. Anyone can view…"* In the
+playground that's false (visitors *can* make changes) and it isn't
+"required" (they chose to tap). It also says Login while the control says
+SIGN IN. Restyling the modal is out of scope; its **words** aren't, because they
+are the flow. Proposal for when it's opened from the control (the wording is
+for visual/director to tune):
+
+- Title: **Sign in** (not "Login Required"). The submit button reads **Sign in**.
+- Playground body, one line: *"For the trip's owners. Signing in opens the
+  real trip; nothing you changed here is kept."* That one line answers the
+  visitor who can't sign in, and J6/J7 (that changes here aren't kept), with
+  no new chrome on the map. It's not the playground notice the director
+  ruled out; it's only seen by someone who asked.
+- Playground cancel button: **Keep playing** (the visitor's real exit, said
+  as what it does). Normal app: Cancel.
+- The edit-triggered modal (someone signed out tries to edit in the normal
+  app) keeps today's "you need to sign in to make changes" meaning, but says
+  "sign in", not "log in".
+
+**Success → arrival (the part the storyboard needs a plumbing note for).**
+1. In the playground, sign-in has to go through a client that saves the
+   session (the playground's own client has `persistSession: false`). That
+   question is for the builder; if it can't be done, fall back to F1a (hop
+   first, the modal opens in the real app), which looks the same.
+2. Navigate to the real app with a one-shot marker (`?arrived`, or a
+   sessionStorage flag). **Keep the map view across the hop** if it's cheap
+   (centre/zoom, and the open tag if there is one): the owner tapped Sign in
+   while looking at something, and should land looking at it.
+3. The real app loads, `checkAuth()` resolves signed in, and the control
+   first paints **in its signed-out look** (A: paper die; B: label). It
+   holds for a beat (~250ms after the map's first paint, so the eye has
+   landed), then the strike plays. Then drop the marker
+   (`history.replaceState`), so a reload or Back never replays it.
+4. `prefers-reduced-motion`: no strike; it paints signed-in directly.
+5. If the marker is present but the session isn't (the sign-in expired
+   during the hop, or storage is blocked in a private tab): paint
+   signed-out, no strike, open the sign-in modal once. Never strike into
+   a state that isn't true.
+
+**Wrong password.** Inline error under the fields in plain words (*"That
+email and password don't match."*, not Supabase's raw "Invalid login
+credentials"). The email is kept, the password is cleared and focused.
+The control behind doesn't change. **There is no busy state today**, so a
+double tap on Login sends twice; the submit should disable while it's
+waiting.
+
+**Offline / server unreachable.** *"Can't reach the sign-in server. Check
+your connection."* The modal stays open and the playground underneath keeps
+working off its in-memory copy. (If the device was offline from the start
+the playground never loaded, so that case belongs to the app's existing
+load error, not here.)
+
+**The visitor who can't sign in.** Taps it because it's there. Reads the one
+line, taps Keep playing, and has lost nothing. If they type something anyway,
+they get the wrong-password error. Only the two owners have accounts, so
+there's no case where a stranger succeeds. (If a third Supabase account ever
+existed, it would arrive in the real app "signed in" with every write refused
+by RLS; that's out of scope, noted for the record.)
+
+### 3. The normal app (all of this hangs on owner Q1)
+
+- **If Q1 = yes (the control shows when signed out in the real app):** tap →
+  the same modal (normal copy) → success **in place**, no hop → strike in
+  place. Logout from the dropdown → the dropdown closes first, then the
+  dry-up → the paper die/label. Both directions are visible, which is what
+  the owner's "both ways" asks for.
+- **If Q1 = no (today: nothing in the slot when signed out):** the in-place
+  strike never happens, and **logout has nowhere to dry up to**. A's
+  storyboard ends on a paper die that wouldn't exist; it would have to dry to
+  *nothing*, which is the same "the die must dry to nothing" rule turn 4
+  found for B. Director: the out storyboard in `pass2-motion` is only true
+  if Q1 is yes. The owner's answer to Q1 decides which out-motion we show
+  him, so it's worth asking with the concepts, not after.
+
+### 4. Sizes and conditions
+
+| Condition | A | B |
+|---|---|---|
+| 390px | fits; 8px arc is the known legibility risk | fits |
+| 320px | same 50px die; corner layout unchanged (zoom left, two dies right); nothing collides | label left edge ~x154, clear of the zoom control |
+| iOS larger text | arc is fixed SVG text and won't grow, which is fine since the aria name covers it | **label text would grow leftward with Dynamic Type; cap it** (the control's size is fixed; "controls don't move or grow") |
+| Landscape / short viewport | unchanged; the modal scrolls if the keyboard covers it (existing modal behaviour, worth one check with the keyboard up) | same |
+| Dark tiles | paper die holds itself up | biggest bright shape in the corner; the dominance risk turn 4 named |
+| Standalone (home screen) | uses `--chrome-top-inset` like today | same |
+
+### 5. Where A and B actually differ, systems-wise
+
+- **One object vs two.** A changes ink on one object in both directions. B
+  swaps a label for a disc, so it needs two objects in the DOM (or one that
+  changes shape), its out-motion has to dry the disc to nothing while the
+  label prints in, and the on-arrival paint has to start from the label.
+  More states, more ways to glitch (a half-drawn label under a half-dried
+  disc). Systems cost: A is lower.
+- **The signed-in dropdown.** It hangs at `right: 74px`, `top: 74px` under
+  the round die. With A the signed-in and signed-out controls share one
+  footprint; with B the signed-out footprint is wider, but the dropdown only
+  exists signed in, so it's unaffected. Neutral.
+- **Legibility vs J1.** B wins outright: 12.5px words. A's 8px arc is the
+  job risk. If the owner reads it on his phone, J1 passes; if not, the
+  fallback turn 4 named (8.5px, person ×0.38) is the move, and I'd want it
+  pre-rendered so the second round is fast.
+- **J4 (doesn't out-shout `+`).** A passes on the sheet (less ink than `+`).
+  B passes on cream; on dark tiles it's the open risk.
+
+### Job coverage so far (jam-level, not the formal 9+ check)
+
+| Job | A | B |
+|---|---|---|
+| J1 find it, see it's sign-in | yes, if 8px reads on device | yes |
+| J2 looks signed out | yes (paper vs orange) | yes (label vs disc) |
+| J3 playground → real app signed in | F1b + arrival, shared | same |
+| J4 secondary to `+` | yes | cream yes; dark tiles at risk |
+| J5 signed-in control in the same place | yes, same footprint | yes, the die sits at the label's right end |
+| J6 know it's a playground | partial: only through the modal line | same |
+| J7 don't lose work by surprise | yes: Cancel/Keep playing loses nothing; the line warns before success | same |
+| J8 sign in from the normal app | waits on Q1 | waits on Q1 |
+| J9 comfortable tap | yes (50px) | **only with the 44px hit box** |
+
+### For the next turn
+- Visual: the modal copy lines above, in your type, once. B's 44px hit
+  box is invisible, so no new drawing, but check that the label still
+  centres on the `+`'s centre line inside it.
+- Director: (1) do the modal words come into scope with the flow (I think
+  they have to: the visitor-who-can't case is carried entirely by them);
+  (2) send the out-motion storyboard to the owner only after Q1, or show
+  both endings; (3) keep-the-map-view-across-the-hop: in or later?
+
+NEXT: design director — the flow mapping turned up three steering calls (modal copy in scope, the out-motion depends on owner Q1, keeping the map view across the hop) and an A-vs-B systems-cost read that belong to the director before the jam closes and I write `jobs.md`.
