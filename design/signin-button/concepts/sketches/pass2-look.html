@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Sign-in pass 2 look</title>
+<link rel="stylesheet" href="page.css"><script src="lib.js"></script></head><body><div id="o"></div><script>
+let h = '';
+h += `<h1>A · Edge: how loud is the rim?</h1><p>Real size, real + beside it. Same badge, four edges. Top: cream map. Bottom: dark tiles.</p>`;
+const rims = [['heavy','1.4 navy keyline (pass 1)'],['thin','0.8 navy keyline'],['hair','0.7 navy at 50%'],['none','no keyline: warm 1px edge + the +’s 1px shadow']];
+for (const [r, t] of rims) h += strip(390, 'cream', badgeA({ rim: r }), { cap: t });
+h += `<div class="sep"></div>`;
+for (const [r, t] of rims) h += strip(390, 'dark', badgeA({ rim: r }), { cap: t });
+
+h += `<h1>A · Printed, not stamped</h1><p>Left: the real VISITED row stamp (cropped from the app, 1x). Right: A, no keyline, upright, flat ink, no texture.</p>`;
+h += `<div class="grid" style="background:#F2EBDD"><div><img src="rowstamp-crop-3x.png" style="width:80px"><div class="cap">VISITED stamp</div></div><div>${badgeA({rim:'none'})}<div class="cap">A, edge: none</div></div><div>${badgeA({rim:'thin'})}<div class="cap">A, edge: thin</div></div><div>${signedIn()}<div class="cap">signed in</div></div></div>`;
+h += `<div class="grid"><div><img src="rowstamp-crop-3x.png" style="width:176px"></div><div>${badgeA({rim:'none',size:110})}</div></div>`;
+
+h += `<h1>A · One drawing hand</h1><p>Person stroke matched to the 8px caps’ stem (~1.15px). Compared with the signed-in badge’s person (2px at 24).</p><div class="grid">`;
+const gl = [[{sw:1.15},'outline 1.15'],[{sw:1.4},'outline 1.4'],[{solid:true,ps:.4},'solid'],[{sw:.8},'outline 0.8 (pass 1)']];
+for (const [o, t] of gl) h += `<div>${badgeA({rim:'none', ...o})}<div class="cap">${t}</div></div>`;
+h += `<div>${signedIn()}<div class="cap">signed in</div></div></div><div class="grid">`;
+for (const [o, t] of gl.slice(0,3)) h += `<div>${badgeA({rim:'none', size:104, ...o})}</div>`;
+h += `</div>`;
+
+h += `<h1>B · The printed label</h1><p>Right edge where the badge’s is; grows leftward only; + never moves. 32px tall (the +’s scallop is ~42). 12.5px caps, person matched.</p>`;
+const bs = [['rect','paper label, square-ish corners'],['scallop','scalloped die, same lobe pitch as the badges'],['flag','hotel-label banner, notched tail']];
+for (const [s, t] of bs) h += strip(390, 'cream', labelB({ shape: s }), { cap: t });
+h += `<div class="sep"></div>`;
+for (const [s, t] of bs) h += strip(390, 'dark', labelB({ shape: s }), { cap: t });
+h += `<h2>B at 320px wide</h2>` + strip(320, 'cream', labelB({ shape: 'scallop' }));
+
+h += `<h1>States, both concepts</h1><p>Rest · pressed (paper → --paper-pressed, ink stays) · focus-visible · signed in (today’s badge, unchanged).</p><div class="grid">`;
+h += `<div>${badgeA({rim:'none'})}<div class="cap">rest</div></div><div>${badgeA({rim:'none',face:C.pressed})}<div class="cap">pressed</div></div><div>${badgeA({rim:'none',focus:true})}<div class="cap">focus</div></div><div>${signedIn()}<div class="cap">signed in</div></div></div><div class="grid">`;
+h += `<div>${labelB({shape:'scallop'})}<div class="cap">rest</div></div><div>${labelB({shape:'scallop',face:C.pressed})}<div class="cap">pressed</div></div><div>${labelB({shape:'scallop',focus:true})}<div class="cap">focus</div></div><div>${signedIn()}<div class="cap">signed in</div></div></div>`;
+document.getElementById('o').innerHTML = h;
+</script></body></html>

@@ -1,0 +1,54 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Sign-in pass 2 motion</title>
+<link rel="stylesheet" href="page.css"><script src="lib.js"></script>
+<style>.sb{display:flex;gap:5px;padding:6px 16px 4px;align-items:flex-end}.sb>div{width:64px;display:flex;flex-direction:column;align-items:center}
+.fr{width:64px;height:76px;display:flex;align-items:center;justify-content:center;background:#EDE6D6;border-radius:2px;overflow:visible}
+.wide .fr{width:84px}</style></head><body><div id="o"></div><script>
+const CLIP = () => { const id = 'k' + (uid++); return [id, `<defs><clipPath id="${id}"><polygon points="${SCALLOP}"/></clipPath></defs>`]; };
+// ink arriving from the centre (struck): radius r, rough edge
+function inkBlot(r, op = 1) { const [id, d] = CLIP(); let pts = []; for (let i = 0; i < 48; i++) { const a = i / 48 * 2 * Math.PI, rr = r * (1 + .06 * Math.sin(i * 7.3) + .04 * Math.sin(i * 3.1)); pts.push(`${(25 + rr * Math.cos(a)).toFixed(2)},${(25 + rr * Math.sin(a)).toFixed(2)}`); } return d + `<polygon clip-path="url(#${id})" points="${pts.join(' ')}" fill="${C.orange}" opacity="${op}"/>`; }
+// orange drying from the thin edges (lobes) inward: an inset scallop-ish blot
+function drying(k) { // k 0..1 dried
+  const [id, d] = CLIP(); let pts = []; for (let i = 0; i < 64; i++) { const a = i / 64 * 2 * Math.PI; const lobe = .5 + .5 * Math.cos(a * 16); const rr = Math.max(0, 21 - k * 22 - lobe * k * 5 + 1.2 * Math.sin(i * 5.7) * k); pts.push(`${(25 + rr * Math.cos(a)).toFixed(2)},${(25 + rr * Math.sin(a)).toFixed(2)}`); }
+  return d + `<polygon clip-path="url(#${id})" points="${pts.join(' ')}" fill="${C.orange}" opacity="${1 - k * .35}"/>`; }
+function frameA(o) { // o: scale, ink(r), textOp, personScale, dry
+  const ps = o.ps ?? .42, py = 17.6 + (25 - 17.6) * ((ps - .42) / (.95 - .42));
+  let inner = die(C.raised, 'none');
+  if (o.ink) inner += inkBlot(o.ink);
+  if (o.dry !== undefined) inner += drying(o.dry);
+  inner += person(25, py, ps, C.navy, { sw: 1.15 + (1.9 - 1.15) * ((ps - .42) / .53) });
+  inner += `<g opacity="${o.textOp ?? 1}">` + arcText(15.6, 'SIGN IN', C.navy, 8, .5) + `</g>`;
+  return `<div style="transform:scale(${o.s || 1})">${svg(50, inner)}</div>`;
+}
+function sb(title, note, frames) {
+  let h = `<h2>${title}</h2><p>${note}</p><div class="sb">`;
+  for (const [f, cap] of frames) h += `<div><div class="fr">${f}</div><div class="cap">${cap}</div></div>`;
+  return h + '</div>';
+}
+let h = `<h1>Storyboards (stills, not built motion)</h1><p>Where it plays: in the playground a good sign-in leaves for the real app, so the visitor never sees it in place. It plays on <b>arrival</b> in the real app: the paper die loads, then is struck. (And in place in the normal app, if the owner wants sign-in there.)</p>`;
+h += sb('A · signed out → in: the strike', 'STAR_POP’s grow-shrink curve (380ms), scale only, no spin; peak capped ~1.12 so it never touches the +. Orange ink lands from the centre on the press; the printed arc is overprinted away; the person grows to its signed-in size.', [
+  [frameA({}), '0 · paper'],
+  [frameA({ s: 1.08, ink: 9, textOp: .8, ps: .55 }), '~60ms · ink lands'],
+  [frameA({ s: 1.12, ink: 17, textOp: .25, ps: .8 }), '~130 · peak'],
+  [frameA({ s: .97, ink: 24, textOp: 0, ps: .95 }), '~250 · dip'],
+  [signedIn(), '380 · signed in']]);
+h += sb('A · signed in → out: dry up', 'The approved un-visit dry-up by thickness, ~450ms with the final snap: thin lobes dry first, the thick centre last. No pop. The printed arc and small person are underneath all along; they’re revealed, not animated.', [
+  [signedIn(), '0 · signed in'],
+  [frameA({ dry: .25, textOp: .35, ps: .8 }), '~150 · lobes dry'],
+  [frameA({ dry: .55, textOp: .7, ps: .6 }), '~300'],
+  [frameA({ dry: .85, textOp: .95, ps: .45 }), '~420 · snap'],
+  [frameA({}), '450 · paper']]);
+// B
+function frameB(o) {
+  const lab = `<div style="opacity:${o.lab ?? 1};position:absolute;right:0;top:9px">${labelB({ shape: o.shape || 'flag', w: 92 })}</div>`;
+  const die_ = o.die ? `<div style="position:absolute;right:0;top:0;transform:scale(${o.die})">${o.dry !== undefined ? frameA({ dry: o.dry, textOp: 0, ps: .95 }) : signedIn()}</div>` : '';
+  return `<div style="position:relative;width:92px;height:50px">${lab}${die_}</div>`;
+}
+h += `<h2>B · signed out → in</h2><p>A shape change shown as a stamp, not a morph or slide: the label’s print dries off while the round die is struck down over its right end (same curve as A).</p><div class="sb" style="flex-wrap:wrap">`;
+for (const [f, cap] of [[frameB({}), '0 · label'], [frameB({ lab: .55, die: 1.12 }), '~130 · die strikes'], [frameB({ lab: .1, die: .97 }), '~250'], [frameB({ lab: 0, die: 1 }), '380 · signed in']])
+  h += `<div style="width:170px"><div class="fr" style="width:170px">${f}</div><div class="cap">${cap}</div></div>`;
+h += `</div><h2>B · signed in → out</h2><p>The die dries up in place (same as A) and the label is printed back in beneath it.</p><div class="sb" style="flex-wrap:wrap">`;
+for (const [f, cap] of [[frameB({ lab: 0, die: 1 }), '0 · signed in'], [frameB({ lab: .3, die: 1, dry: .4 }), '~200'], [frameB({ lab: .8, die: 1, dry: .8 }), '~400'], [frameB({}), '450 · label']])
+  h += `<div style="width:170px"><div class="fr" style="width:170px">${f}</div><div class="cap">${cap}</div></div>`;
+h += '</div>';
+document.getElementById('o').innerHTML = h;
+</script></body></html>

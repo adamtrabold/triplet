@@ -1,6 +1,11 @@
 # Visual designer notes: sign-in button
 
-## Where things stand (after jam turn 2)
+## Where things stand (after jam pass 2, turn 4)
+- Pass 2 sheets: `../concepts/sketches/pass2-look-3x.png`, `pass2-motion-3x.png` (html + shared `lib.js`/`page.css`; real VISITED crop `rowstamp-crop-3x.png`).
+- Director (turn 3) steered: two concepts, A arc badge + B printed label; printed not stamped (tilt killed); rim too loud; one drawing hand; motion as storyboard only; register sheet / playground notice / F1c out; signed-in initial parked.
+- My pass-2 calls: A rim = none (warm 1px edge + `+`'s 1px shadow); A person outline 1.4px (solid killed); B = hotel-label banner with notched left tail (rect killed, scallop capsule alternate); B maybe 28px tall vs `+` dominance; A motion = Strike (STAR_POP scale only, peak ~1.12) in, dry-up out; B motion = two-object swap (weaker).
+
+## Earlier (after jam turn 2)
 - Jam turn 2 written in `../jam.md`. Sketches in `../concepts/sketches/`:
   `arc-badges.html` (SVG generator; real 50-unit scallop from index.html's
   mask), `arc-badges-3x.png` (1170 wide), `shoot.js` (renders any sketch at
@@ -19,7 +24,7 @@
   40.6,25`). Sketch `A1+`.
 - Motion: "the Strike" — sign-in = press + orange ink bleeds in + arc dries
   up + person grows; logout = dry-up-by-thickness back to paper. No flip.
-- Optional whimsy: ±2° seeded arc tilt per device (stampTilt analogue).
+- ~~±2° seeded arc tilt~~ KILLED by director (reads as the VISITED rubber stamp; sign-in is the form's own printed words).
 
 ## Killed (with reasons in jam turn 2)
 Dashed person (grit at 1x), blind emboss resting state (illegible), text
@@ -29,7 +34,8 @@ ribbon tail (string collision), ex-libris plate (second row of text).
 Patch band A3+ kept only as a bold alternate (too heavy vs `+`).
 
 ## Director objections
-- None yet.
+- Turn 3: tilt = stamp (killed); keyline the noisiest thing (fixed: no rim); glyph + arc must be one hand (fixed: 1.4px outline); patch band dead.
+- Expected owner objections (director): A letters too small; looks like the visited stamp; sign-in louder than +; B 'just a button'.
 
 ## Open questions
 - Motion in scope this round?
@@ -39,6 +45,7 @@ Patch band A3+ kept only as a bold alternate (too heavy vs `+`).
 - Register-sheet sign-in form: scope?
 
 ## Next
+- Systems maps flow frames onto A and B; then concept build pass (final-looking stills at 1x/3x in the real app, copied index.html in `../concepts/`).
 - After the director steers: build the chosen concept's states (rest,
   pressed, focus, strike, dry-up, signed-in + dropdown, 320px, in the real
   app via a copied index.html in `../concepts/`), stills at 1x/3x.

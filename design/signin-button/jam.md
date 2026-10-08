@@ -427,3 +427,98 @@ turns 1–2).
 NEXT: product designer (visual focus) — the steers (no tilt/printed not
 stamped, keyline weight, one drawing language, concept B's label) are all
 visual, and need a new sheet before systems maps the flow frames onto them.
+
+## Turn 4: product designer (visual focus), pass 2
+
+Steers taken from turn 3: printed not stamped (no tilt), the rim's
+loudness, one drawing hand, concept B the printed label, the storyboard.
+New sheets in `concepts/sketches/` (390 wide, 3x):
+- `pass2-look-3x.png`: A edge study on a cream and a dark-tile map; A next
+  to the real VISITED stamp (cropped from the app); glyph weights; B in
+  three shapes on both maps and at 320px; states for both.
+- `pass2-motion-3x.png`: storyboards out→in and in→out for A and B.
+- Shared drawing code: `lib.js` (badge, label, map strip), `page.css`.
+
+### A, the arc badge: what the sheet decides
+- **Rim: none.** The navy keyline at any weight (1.4, 0.8, 0.7 at 50%) is
+  ~150px of wiggling line, and it's the busiest thing in the corner. The
+  thin and 50% versions are only quieter versions of the same noise. With
+  **no keyline**, the paper die is held by the warm 1px edge
+  (`rgba(107,74,40,.22)`, the sticker's approved edge) plus the same 1px
+  offset shadow the `+` already has. That reads as a cut paper label on the
+  cream map, and on dark tiles it reads clearly with no line at all. Turn
+  3's bet (b) is right.
+- **Printed, not stamped: it passes once the rim is gone.** Next to the
+  real VISITED stamp at 1x they don't read as siblings. The stamp is
+  an oval ring with a dotted track, slightly faded navy, tilted; A is a
+  scalloped paper die, upright, flat full-strength navy print, no ring. The
+  stamp-like part was the keyline (a ring of navy around caps); removing it
+  also removed the family resemblance. No tilt, no texture, no 82% ink.
+- **One drawing hand: an outline at 1.4px.** It's the account glyph scaled to
+  0.42. At 1.4px rendered its stroke matches the 8px caps' stem; 1.15 looks
+  a touch lighter than the letters, and 0.8 (pass 1) clearly so. The solid
+  silhouette reads as a different person from the signed-in badge's
+  outline person, so I'm killing it. Same person, smaller and lighter: that
+  is the "blank paper until you're someone" story.
+- Spec as it stands: 50px die, `--paper-raised` face, warm 1px edge, the
+  `+`'s 1px shadow; person = account glyph ×0.42 at (25, 17.6), 1.4px
+  stroke; SIGN IN Archivo 700 75% 8px, letter-spacing 0.5, on the U arc
+  r 15.6; all navy, full strength.
+
+### B, the printed label: three shapes, one killed
+All three are 32px tall with the right edge where the badge's is, growing
+leftward; `+` never moves. 12.5px label caps with a 12px person at the same
+1.6px stroke.
+- **Rounded rectangle: kill.** It's a web button with paper colour; it
+  invites exactly "that's just a button".
+- **Hotel-label banner (notched tail on the left): my pick for B.** One
+  notch, calm straight edges, the most "label" of the three; the notch
+  points away from `+`, so the label reads as attached to that corner.
+  Hotel labels' small banners are the inspo for it.
+- **Scalloped capsule** (same lobe pitch as the dies): family with the
+  badges, but ~250px of wiggling edge; the same objection as the keyline,
+  softer. Keep as B's alternate only if the director wants the family tie.
+- 320px: fine; the label ends far from the zoom control.
+- **Honest trade-off:** B's 12.5px caps are far easier to read than A's
+  8px arc; that's the whole case for B. Against it: on dark tiles B is the
+  biggest bright shape in the corner (92×32 of paper vs the `+`'s ~42 navy
+  disc), so it risks outranking `+`. It's a candidate to shrink to 28px tall
+  if it goes forward.
+
+### States (both)
+Pressed: face → `--paper-pressed`, ink stays navy (the sheet shows it
+reads). Focus-visible: a 2px navy outline following the die/label at ~3px
+out; it's heavy, but only shown on keyboard focus. Signed in: today's
+orange die, unchanged.
+
+### Storyboards (stills, not motion)
+- **A in: the Strike.** STAR_POP's grow-shrink (380ms), scale only, no
+  spin, peak capped ~1.12 (1.4 would touch `+`; 8px gap between the dies).
+  Orange ink lands from the centre on the press, the printed arc is
+  overprinted away, the person grows from ×0.42 to its signed-in size. One
+  object changing its ink: it reads naturally.
+- **A out: dry up by thickness** (the approved un-visit curve, ~450ms with
+  the snap): thin lobes dry first, the centre last; the printed arc and the
+  small person are underneath and simply revealed. No pop.
+- **B in:** the label's print dries off while the round die is struck down
+  over its right end. **B out:** the die dries up and the label prints back
+  in beneath. Note: in my B-out frames the drying die leaves a paper disc
+  over the label; that's a sketch artifact. In B the die must dry to
+  *nothing*, because there's no paper die under it. Even fixed, B's motion
+  is two objects swapping where A's is one object changing state. Point
+  for A, for whoever scores.
+- Where it plays (turn 3, agreed): on arrival in the real app after a
+  playground sign-in; in place in the normal app only if the owner says yes
+  to Q1.
+
+### Open questions
+- A's 8px arc on the owner's phone is still the expected objection. If he
+  says "too small", the next move is 8.5px with the person at ×0.38, not a
+  bigger die.
+- B's height: 32 vs 28 (vs `+` dominance on dark tiles).
+- Chromium-only renders; the 1.4px stroke and the warm edge want a phone
+  look before the owner sees them.
+
+NEXT: product designer (systems focus) — the look of both concepts is now
+pinned enough to map the flow frames (F1b modal over the playground,
+cancel, success → arrival strike, the visitor who can't sign in) onto A and B.
