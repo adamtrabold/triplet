@@ -2692,7 +2692,87 @@
 
     // Initialize Supabase client with auth support
     const { createClient } = supabase;
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+    // PLAYGROUND (?play): a shareable copy anyone can poke at. Each table is
+    // read once from the real database, then every read and write runs
+    // against that in-memory copy -- nothing is ever written back, and a
+    // reload starts fresh (owner: fresh copy, not saved per visitor). The
+    // real client is built WITHOUT the stored session, so even a stray write
+    // would go out anonymous and RLS would refuse it.
+    const PLAYGROUND = new URLSearchParams(location.search).has('play');
+    const supabaseClient = PLAYGROUND
+      ? createPlaygroundClient(createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false, autoRefreshToken: false } }))
+      : createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Mimics the slice of supabase-js the app uses: from(t).select/insert/
+    // update/upsert/delete with order/eq/in, awaited for { data, error };
+    // auth answers as a signed-in guest so every control works.
+    function createPlaygroundClient(real) {
+      const tables = {};   // name -> Promise<{ rows } | { error }>
+      const load = name => tables[name] || (tables[name] = real.from(name).select('*')
+        .then(({ data, error }) => error ? (delete tables[name], { error }) : { rows: data || [] }));
+      const clone = v => JSON.parse(JSON.stringify(v));
+      const newId = rows => rows.length && rows.every(r => typeof r.id === 'number')
+        ? Math.max(...rows.map(r => r.id)) + 1
+        : (crypto.randomUUID ? crypto.randomUUID() : 'pg-' + Date.now() + '-' + Math.random().toString(16).slice(2));
+      const pick = (row, cols) => {
+        if (!cols || cols.trim() === '*') return row;
+        const out = {};
+        cols.split(',').map(c => c.trim()).filter(Boolean).forEach(c => { out[c] = c in row ? row[c] : null; });
+        return out;
+      };
+      function query(name) {
+        const q = { op: 'select', cols: '*', payload: null, filters: [], order: null };
+        const matches = r => q.filters.every(f => f(r));
+        async function run() {
+          const t = await load(name);
+          if (t.error) return { data: null, error: t.error };
+          const rows = t.rows;
+          const now = new Date().toISOString();
+          if (q.op === 'select') {
+            let out = rows.filter(matches);
+            if (q.order) {
+              const { col, asc } = q.order;
+              out = out.slice().sort((a, b) => (a[col] < b[col] ? -1 : a[col] > b[col] ? 1 : 0) * (asc ? 1 : -1));
+            }
+            return { data: clone(out.map(r => pick(r, q.cols))), error: null };
+          }
+          if (q.op === 'insert' || q.op === 'upsert') {
+            clone(q.payload).forEach(row => {
+              const i = q.op === 'upsert' && row.id != null ? rows.findIndex(r => r.id === row.id) : -1;
+              if (i >= 0) { Object.assign(rows[i], row); return; }
+              rows.push({ created_at: now, ...row, id: row.id != null ? row.id : newId(rows) });
+            });
+          } else if (q.op === 'update') {
+            rows.filter(matches).forEach(r => Object.assign(r, clone(q.payload)));
+          } else if (q.op === 'delete') {
+            t.rows = rows.filter(r => !matches(r));
+          }
+          return { data: null, error: null };
+        }
+        const api = {
+          select(cols) { q.cols = cols || '*'; return api; },
+          insert(rows) { q.op = 'insert'; q.payload = rows; return api; },
+          upsert(rows) { q.op = 'upsert'; q.payload = Array.isArray(rows) ? rows : [rows]; return api; },
+          update(patch) { q.op = 'update'; q.payload = patch; return api; },
+          delete() { q.op = 'delete'; return api; },
+          eq(col, v) { q.filters.push(r => r[col] === v); return api; },
+          in(col, vs) { q.filters.push(r => vs.includes(r[col])); return api; },
+          order(col, opts) { q.order = { col, asc: !opts || opts.ascending !== false }; return api; },
+          then(res, rej) { return run().then(res, rej); }
+        };
+        return api;
+      }
+      const guest = { id: 'playground', email: 'Playground' };
+      return {
+        from: query,
+        auth: {
+          getSession: async () => ({ data: { session: { user: guest } }, error: null }),
+          signInWithPassword: async () => ({ data: { user: guest }, error: null }),
+          signOut: async () => ({ error: null }),
+          onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } })
+        }
+      };
+    }
 
     let currentUser = null;
 

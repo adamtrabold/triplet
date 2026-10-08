@@ -10,6 +10,23 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
+- **Playground (`?play`)** (owner, 2026-10-08, verbatim: "id like to have a
+  "playground" version of this so that when i share it people can play
+  with it non-destructively. it could be separate, or it could be faked
+  until login, idk"). Owner picked: a separate link (`…/?play`), visitors
+  start from the real trip, a reload starts fresh (nothing kept per
+  visitor). **Plumbing built** on `claude/elegant-galileo-1c5ntm`, not on
+  `main`: `createPlaygroundClient()` reads each table once, then all
+  reads/writes hit an in-memory copy; the real client has no stored
+  session, so RLS refuses any stray write. Verified headless (stub): edits
+  stick through polls, zero writes reach the server, reload is fresh,
+  normal URL unchanged. **Open (design, lane 2):** nothing tells a visitor
+  they're in a playground or that changes aren't saved; the account menu
+  just reads "Playground" and Sign out drops to signed-out (the sign-in
+  modal then accepts anything). Also open: share-preview/title for the
+  link; playground shares localStorage prefs (city, sort, list view,
+  active plan) with the real app on the same device.
+
 - **Brand colour tokens: one system** (owner, 2026-10-07, verbatim:
   "how are our colors defined in the app -- it should be clear from a
   systems perspective that all colors are brand level color tokens" ;
