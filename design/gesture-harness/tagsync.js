@@ -5,7 +5,7 @@
 //   A  a real row swipe (visit) -> the open tag stamps ONCE (one tagStampIn start; reduced: none,
 //      the stamp simply there)
 //   B  a refetch + re-render afterwards never replays it (0 new starts, no .tag-stamp-in left)
-//   C  a row swipe back (un-visit) -> the tag lifts the stamp ONCE (.tag-stamp-out; reduced: none)
+//   C  a row swipe back (un-visit) -> the tag dries the stamp up ONCE (.tag-stamp-out, dryClock; reduced: none)
 //   D  Visited tapped ON the tag -> exactly one tagStampIn (no double from the state-change path)
 //   E  a district: visited set from the list path -> its open tag stamps once
 //   F  an unrelated place visited from its row -> the open tag does NOT animate
@@ -28,7 +28,7 @@ async function geo(page, id) {
     const r = (name, pass, detail) => rec(mode, name, pass, detail);
     const { ctx, page, cdp, errors } = await openProto(b, { reduced, h: 900 });
     await page.evaluate(() => { window.__ins = 0; window.__outs = 0;
-      document.addEventListener('animationstart', e => { if (e.animationName === 'tagStampIn') __ins++; if (e.animationName === 'tagStampOut') __outs++; }, true); });
+      document.addEventListener('animationstart', e => { if (e.animationName === 'tagStampIn') __ins++; if (e.animationName === 'dryClock' || e.animationName === 'tagStampOut') __outs++; /* the un-visit: dryClock (the dry up); tagStampOut before it */ }, true); });
     const open = id => page.evaluate(async id => { const l = locations.find(x => x.id === id); map.setView([l.lat, l.lng], 16, { animate: false }); syncMarkerGlyphZoom(); markersById.get(l.id).marker.openPopup(); await new Promise(r => setTimeout(r, 900)); }, id);
     const tag = () => page.evaluate(() => { const t = document.querySelector('.tag-popup .tag'); const s = t && t.querySelector('.popup-visited .row-stamp:not(.tag-stamp-out)');
       return { open: !!t, name: t && t.getAttribute('aria-label'), stamp: !!s, stampIn: !!(s && s.classList.contains('tag-stamp-in')), out: !!(t && t.querySelector('.tag-stamp-out')), ins: __ins, outs: __outs }; });

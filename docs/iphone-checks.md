@@ -49,6 +49,19 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   differ from tag to tag and between the stamps on one tag, but each
   place's look never changes when you reopen it, star it, or wait for the
   refresh; visited stamps in the list lean by different amounts.
+- **iPhone check of the un-visit "dry up" (landed 2026-10-08) -- SAFARI IS
+  UNVERIFIED for this one:** it is an SVG filter (`filter: url(#dry-n)`
+  with `feGaussianBlur` + per-frame `feComponentTransfer`) on an HTML
+  element, checked only in Chromium. On the phone: un-visit a place from
+  its tag -- the VISITED stamp dries from its edges inward, thin dots and
+  letters first, the ring and the check last, then clears crisply (no
+  pop, no grey smear), and MARK VISITED inks in after it; tap Visited
+  again mid-way -- it re-stamps cleanly; same at the SE width. In the list,
+  un-visit from the tag with the row on screen -- the row's stamp dries the
+  same way, then the row settles; a swipe to un-visit has no pop at the
+  lock, just the pale under your finger. If Safari shows the stamp
+  vanishing at once, or a box, the filter isn't running -- report it.
+  Reduce Motion: a quick 160ms fade.
 - iPhone check: with a tag open on an unvisited place, swipe its row in the
   list to mark it visited -- the tag stamps VISITED with its animation
   (once; not again after the refresh); swipe back -- the stamp lifts off.

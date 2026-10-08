@@ -1220,3 +1220,30 @@ Inventory of textured / angled items and what each now gets:
 Stills: `design/popup-hierarchy/randomized/stills/` -- `strip-tags.png` (six real places side by side, each starred + visited + "Stop 3 of 3": band grain, TYPE, numbers and VISITED all vary), the six `tag-rey*` crops, `busiest-vega`, `list-phone@1x` (row stamp angles). `render.js randomized`.
 
 Gates (final code): Impeccable `IMPECCABLE GATE PASSED` (static 3/3, runtime 13/13, 0 new, 0 missing; no `--update`). Full gesture gate: star "84 + 8 (+ N8-a)" · vtest 91/95 (V14 x2, V15 x2, as main) · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, <=127ms) · rows 56.00px · curve8 row 10/3, highlighted 10/3, popup 10/3 (row/highlighted pre-existing) · delete-slop 36/36 · plan-rows 32/32 · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12 -- `GATE FAILED: vtest, curve8` on exactly main's pre-existing cases.
+
+## Un-visit: dry up by thickness (2026-10-08; landed from `unvisit-dry`)
+
+Owner: "yes yes yes i want just a taaaad more snap on the final dry up" (approving round 7 of `design/popup-hierarchy/unvisit/`, `options.js` `dry3` / `DRY3_FN`; the whole thread is in `docs/owner-taste.md`). Rows: "im looking at the tag not the row --- the row should do whatevers logical" -> Round 4's proposal: the row follows the tag's look and drops its pop.
+
+**The tag.** On un-visit the leaving copy (`.tag-stamp-out`, now also `.dry-out`) stays at its resting tilt and size -- **no pop** (the 220ms `tagStampOut` grow is gone) -- and dries up. `.dry-out` runs the `dryClock` CSS animation (540ms; the copy clears at 430-450ms); its `animationstart` attaches `dryUp()`'s SVG filter, which reads that clock every frame (pause/seek = exact stills):
+- the ink's alpha (x1.22) is blurred (sigma 0 -> 0.9px over the first 35%), so a pixel's blurred alpha measures how deep inside its own stroke it is;
+- shell = above `thr` (slope-5 ramp), drawn in the new token `--ghost-tint` #A8C1DA (= `VS_GHOST_TINT` oklch(0.80 0.045 249.2) in sRGB, for the feFlood; the mock's literal); core = above `thr + .12`, the ink itself;
+- `thr` = 0.28 + 0.38 x `cubic-bezier(.6,0,.4,1)`(t / 480) -- round 7 exactly -- **plus the snap**.
+- The segment's own MARK VISITED waits (`.uv-leaving`, `dryRest`: transparent to 87%, inks in 470-540ms). No crossing frame.
+- **What changed for the snap** (everything before 370ms is round 7 exactly): from 370ms the threshold gets an extra, accelerating push, `+0.30 x k^2` with k = 0 -> 1 over 370-450ms (`DRY.SNAP_*`). In round 7 the threshold had flattened by then (0.66), so the ring and the check's thick cores lingered as a faint core through the curve's soft tail (400-440ms) and were then faded off by the copy's opacity (450-480ms). Now those last cores dry through to nothing in ~80ms -- the check is the last speck at ~420ms -- and the copy's own clear is 20ms (430-450, was 30ms at 450-480). Words: 470-540 (was 490-560). Total 540ms (was 560).
+- Reduced motion: no `dryClock` (so no filter): `dryFadeRm` 160ms -- pale to `--ghost-tint` by 56ms, gone by 80, words ink in 80-160ms.
+- Cleanup: the filter element and the inline `filter` are removed when the clock finishes, or as soon as the copy leaves the DOM (re-tap, re-render). Measured: 0 filters left after finish at all three sizes, 0 after a re-tap.
+- Re-tap at 150ms: the copy is gone, the stamp-in plays, `aria-pressed` "true" (measured).
+- Three sizes (1.1 / 1.0 / 0.85 at 390 / 320 / 256): the filter works in the element's own pixels, so it scales with the stamp (filmstrips).
+- Fires on every un-visit path: the tag tap and, since the tag-sync fix, a visited change from the list (`setLocationFlag()` -> `popupUnstampId`). `tagsync` C counts `dryClock` now (12/12).
+- A highlighted (navy) row's stamp is paper ink: there the shell is the stamp's own ink at 45% instead of the tint.
+
+**The row.** The un-visit erase pop (VISIT_LIFT 1.12x at the lock, in `beginVisitDrag()`) is removed: the swipe keeps only its finger-driven pale, then the lift at 56px. The popup -> row replay (`vsReplay()`, un-visit) no longer runs the paint timeline: it gives the row's stamp `.dry-out` -- the same clock and filter, at the row's 72x32 size, a separate visual step outside the gesture's painting -- and at 450ms (the copy clear) lifts and settles the row exactly as before (field drains, FLIP). Harness: `visit.js` V20 asserted the old pop (1.12x); it now asserts no pop (scale stays 1, no twist) -- an owner-ordered behaviour change, the only assertion changed.
+
+**Grey check.** `unvisit/greycheck-build.js` (greycheck.js's rule against a FIXED paper reference, `--paper-raised`; the original read the paper from the first pixel and its region included map past the stub). On the build frames the largest grey-pixel count during the un-visit is at or below the resting stamp's own (1450 grey px at 0ms of 5992 -- grain antialiasing) at every frame; mid-dry (280-320ms) and the snap tail (360-420ms) the remaining pixels are soft tint blends over cream, as in round 7's mock (dry3 at 280ms: 1437 grey of 2148 by the same rule; build at 300ms: 1083 of 1151). The snap ends that tail ~40ms sooner.
+
+Stills: `design/popup-hierarchy/unvisit/stills/build/` -- `tag-390-film.png`, `tag-320-film.png`, `tag-256-film.png` (the Visited segment at 0-540ms) and `row-film.png`; frames for the grey check in `stills/r2/build390|320|256/`. `unvisit/build-film.js`.
+
+Gates: Impeccable `IMPECCABLE GATE PASSED` (0 new). Full gesture gate: star "84 + 8 (+ N8-a)" · vtest 91/95 (V14 x2, V15 x2, as main; V20 rewritten as above) · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, <=126ms) · rows 56.00px · curve8 row 10/3, highlighted 10/3, popup 10/3 · delete-slop 36/36 · plan-rows 32/32 · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12 -- failures identical to main's.
+
+Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-updated SVG filter (`feGaussianBlur`, `feComponentTransfer`) on an HTML element is Chromium-checked only (`docs/iphone-checks.md`); the per-frame cost on device (one small blur on a 79x35 element).

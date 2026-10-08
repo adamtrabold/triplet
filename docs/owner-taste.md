@@ -202,6 +202,30 @@ sources are the file where the quote is recorded.
   open that is unvisited, if i mark it visited in the list, the animation
   on the tag marking it visited should still run (right now the state just
   changes)" (2026-10-08; chat).
+- **Un-visit dries up; it never just disappears, never pops.** The thread,
+  verbatim, in order (2026-10-08, chat; `design/popup-hierarchy/unvisit/README.md`):
+  - "we also need to iterate on the unvisited transition -- what's the
+    best way for that to go away? just disappearing feels like kind of a
+    letdown"
+  - "dry up is the best -- what about erase? i'd like to see both of those"
+  - "i dont think either should pop after clicking unvisited -- that's
+    muddying my feedback. but i'd also like to see a more dramatic easing
+    curve on the "dry up" (but maybe it takes slightly longer?) and erase to
+    be more erratic -- like randomized strokes brushing it away... it should
+    take some work"
+  - "im looking at the tag not the row --- the row should do whatevers
+    logical"
+  - "i like dry up B but it should dry up from the center and edges inward
+    like a real blot with that weight"
+  - "yeah this reads as it breaking up, not as it drying up. i liked the dry
+    up b i just think it needed to dry up from two directions"
+  - "the thickest things should dry up slowest"
+  - "i like this but the thicker areas should stay darker longer -- and im
+    realizing it isnt that the center of the whole thing should dry up
+    faster it's that the individual edges of every piece should dry up /
+    blur towards the center at a speed based on how thick they are."
+  - "yes yes yes i want just a taaaad more snap on the final dry up"
+    (approving round 7, "dry up by thickness")
 - **Small marks line up exactly.** "Also the alignment of the string hole
   and accoutrements is off" (2026-10-08, the tag's eyelet, on a phone
   screenshot; chat). The string, hole, grommet and patch share one centre.

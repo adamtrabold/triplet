@@ -186,13 +186,13 @@ function flipJudge(Lg, reduced) {
         reduced ? after.every(x => Math.abs(x.sc - 1) < 1e-3 && Math.abs(x.rot - tilt) < 0.01) : (nearPeak >= 6 && under >= 2 && peak <= k.peak + 1e-4 && Math.abs(rest.rot - tilt) < 0.01 && Math.abs(rest.sc - 1) < 1e-3),
         { nearPeak, under, peak: +peak.toFixed(4), restRot: +rest.rot.toFixed(3), tilt, hi, lo });
       await ctx.close(); }
-    // V20 un-visit: the star's erase pop at the lock (1.12x, no twist); none under reduced motion. V21 cancel: nothing left behind.
+    // V20 un-visit: NO pop at the lock, in either mode (owner 2026-10-08, the un-visit dry up: "i dont think either should pop after clicking unvisited -- that's muddying my feedback"; the row follows -- it was the star's 1.12x erase pop until then); the tilt holds. V21 cancel: nothing left behind.
     { const { ctx, page, cdp } = await fresh(); const g = await geo(page, 2); let ringVis;
       await page.evaluate(() => { window.__u = []; const el = document.querySelectorAll('#locationsList .location-card[data-id]')[2]; const tick = () => { const s = el.querySelector('.row-stamp'); if (s) { const m = new DOMMatrix(getComputedStyle(s).transform); __u.push({ sc: Math.hypot(m.a, m.b), rot: Math.atan2(m.b, m.a) * 180 / Math.PI }); } if (__u.length < 300) requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
       await L.drag(page, cdp, left(g, 40, 6), { onStep: async i => { if (i === 3) ringVis = await page.evaluate(() => getComputedStyle(document.querySelectorAll('#locationsList .location-card[data-id]')[2].querySelector('.row-stamp-ring')).visibility); } }); await W(600);
       const u = await page.evaluate(() => __u); const tilt = await page.evaluate(id => stampTilt(id), g.id); const s1 = await st(page, g.id);
       const peak = Math.max(...u.map(x => x.sc)), twist = Math.max(...u.map(x => Math.abs(x.rot - tilt)));
-      ok(reduced ? 'V20 (reduced) un-visit lift: no pop' : 'V20 un-visit lifts with the star\'s erase pop: peak 1.12x, no twist', reduced ? peak < 1.001 : (Math.abs(peak - 1.12) < 0.01 && twist < 0.01), { peak: +peak.toFixed(4), twist: +twist.toFixed(3) });
+      ok(reduced ? 'V20 (reduced) un-visit lift: no pop' : 'V20 un-visit: no pop (scale stays 1), no twist', peak < 1.001 && twist < 0.01, { peak: +peak.toFixed(4), twist: +twist.toFixed(3) });
       ok('V20b un-visit: ring + word stay visible while the stamp thins (only the track sweeps out)', ringVis === 'visible', { ring: ringVis });
       ok('V21 un-visit let go at 40px: still visited, stamp back at full ink, track whole, row clean', s1.visited && s1.field && s1.stamps === 1 && !s1.live, s1);
       const g0 = await geo(page, 0); await L.drag(page, cdp, left(g0, 50, 6), { stepMs: SLOW }); await W(600); const s0 = await st(page, g0.id);

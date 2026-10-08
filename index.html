@@ -209,6 +209,8 @@
       --navy:         #12293F;   /* the frame, the cold north -- 12.51:1     */
       --ink:          #1A1A18;   /* body text -- 14.69:1 on --paper          */
       --ink-2-rgb:    90, 86, 76; /* --ink-2 as channels: the stamped field line's faint second impression */
+      --ghost-tint:   #A8C1DA;   /* the un-visit's light navy: VS_GHOST_TINT oklch(0.80 0.045 249.2) in sRGB, for
+                                    places that can't take oklch (the dry-up filter's feFlood). Pale, never grey. */
       --ink-rgb:      26, 26, 24; /* --ink as channels, ONLY for ink-at-alpha shadows (rgba(var(--ink-rgb), a)),
                                     which work in every Safari, unlike color-mix() (16.2+). Keep in step
                                     with --ink (brand-token pass, docs/backlog.md: derive one from the other). */
@@ -2037,7 +2039,18 @@
     .tag-seg.popup-visited .row-stamp { --tag-stamp-scale: 1.1; transform: rotate(var(--stamp-tilt, -3deg)) scale(var(--tag-stamp-scale));
       -webkit-mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px); mask: var(--tex-stamp) var(--tx, 0) var(--ty, 0) / var(--ts, 90px) var(--ts, 90px); }
     .tag-seg.popup-visited .row-stamp.tag-stamp-in { animation: tagStampIn 420ms linear both; }
-    .tag-stamp-out { position: absolute; left: 50%; top: 50%; margin: -16px 0 0 -36px; pointer-events: none; animation: tagStampOut 220ms ease-out forwards; }
+    /* UN-VISIT: DRY UP BY THICKNESS (design/popup-hierarchy/unvisit/ round 7, owner 2026-10-08: "yes yes
+       yes i want just a taaaad more snap on the final dry up"). The leaving copy stays at its resting
+       tilt and size (no pop: "i dont think either should pop after clicking unvisited") while
+       dryUp() (script) gives it an SVG filter that dries every piece from its own edges toward its
+       centreline at a speed set by its thickness: track dots, then letters, then the ring, the check
+       last. .dry-out is the clock the filter reads (DRY.MS); the copy itself clears at 430-450ms and
+       the segment's own words ink in only after (470-540ms) -- never a crossing frame. */
+    .tag-stamp-out { position: absolute; left: 50%; top: 50%; margin: -16px 0 0 -36px; pointer-events: none; }
+    .dry-out { animation: dryClock 540ms linear forwards; }
+    @keyframes dryClock { 0%, 79.6% { opacity: 1; } 83.3%, 100% { opacity: 0; } }
+    .tag-seg.popup-visited.uv-leaving { animation: dryRest 540ms linear both; }
+    @keyframes dryRest { 0%, 87% { color: transparent; } 100% { color: var(--ink); } }
     /* Smaller tags, smaller stamp (owner 2026-10-07: "visited should get smaller on smaller screens"):
        stepped by the stub's width so it always sits inside its segment with clear margin.
        316 (every iPhone but SE-size): 1.1x, unchanged. 256-299 (SE 320 -> 288 tag): 1.0x, 72x32.
@@ -2052,7 +2065,6 @@
       82%  { transform: rotate(var(--stamp-tilt, -3deg)) scale(calc(var(--tag-stamp-scale, 1.1) * 1.0455)); }
       100% { transform: rotate(var(--stamp-tilt, -3deg)) scale(var(--tag-stamp-scale, 1.1)); opacity: 1; }
     }
-    @keyframes tagStampOut { to { opacity: 0; transform: rotate(var(--stamp-tilt, -3deg)) scale(calc(var(--tag-stamp-scale, 1.1) * 1.1364)); } }
 
     /* Signed out: Directions stays live; Star and Visited are visibly off (the state system's off
        alpha, the orange field included) but stay focusable -- a tap offers sign-in (the slip). */
@@ -2089,8 +2101,15 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .tag-popup.tag-pop .tag-body, .tag-popup.tag-pop .tag-slip, .tag-popup.tag-pop .tag-string { animation: none; }
-      .tag-seg.popup-visited .row-stamp.tag-stamp-in, .tag-stamp-out { animation: none; }
-      .tag-stamp-out { display: none; }
+      .tag-seg.popup-visited .row-stamp.tag-stamp-in { animation: none; }
+      /* un-visit, reduced: the 160ms crossfade -- the stamp pales to the ghost tint and goes (0-80ms),
+         then the words ink in (80-160ms); no filter (dryUp() never starts: no dryClock runs) */
+      .tag-stamp-out.dry-out { animation: dryFadeRm 160ms linear forwards; }
+      .tag-seg.popup-visited.uv-leaving { animation: dryRestRm 160ms linear both; }
+    }
+    @keyframes dryFadeRm { 0% { color: color-mix(in srgb, var(--navy) 82%, transparent); } 35% { color: var(--ghost-tint); opacity: 1; } 50%, 100% { color: var(--ghost-tint); opacity: 0; } }
+    @keyframes dryRestRm { 0%, 50% { color: transparent; } 100% { color: var(--ink); } }
+    @media (prefers-reduced-motion: reduce) {
     }
     /* The shape anchor dot (owner: "Dot or something in the middle is fine"): shown only while a
        district's / street's tag is open, at shapeAnchor() -- the Directions point. */
@@ -4876,6 +4895,67 @@
       return '';
     }
 
+    // ---- UN-VISIT: DRY UP BY THICKNESS -------------------------------------------
+    // design/popup-hierarchy/unvisit/ round 7 (options.js dry3 / DRY3_FN), owner: "yes yes yes i want
+    // just a taaaad more snap on the final dry up". Any element given .dry-out (the tag's leaving
+    // copy; the row's stamp in the popup->row replay) runs the dryClock CSS animation; its start
+    // attaches this filter, which reads that clock every frame, so pausing / seeking the animation
+    // (stills) moves the dry exactly. The filter:
+    //   a = the ink's alpha x1.22 (clipped), blurred by sigma 0 -> 0.9px over the first 35% (each
+    //       pixel's blurred alpha = how deep inside its own stroke it sits);
+    //   shell = a above thr (slope-5 ramp: soft, never shredded), drawn in --ghost-tint;
+    //   core  = a above thr + .12, the ink itself -- thick cores stay navy until late.
+    // thr rises 0.28 -> 0.66 on cubic-bezier(.6,0,.4,1) over DRY.THR_MS: every piece's edges retreat
+    // to its centreline; it goes when thr passes its own peak (track dots ~100ms, letters 160-300,
+    // ring, then the check). THE SNAP (owner's tweak): from DRY.SNAP_FROM the threshold gets a
+    // late, accelerating push (+DRY.SNAP_GAIN by DRY.SNAP_TO, quadratic), so the last thick cores --
+    // ring and check -- dry through in ~80ms instead of lingering in the curve's soft tail and
+    // being faded off; the copy's own clear is 20ms (430-450ms, was 450-480) and the whole is 540ms
+    // (was 560). Everything before 370ms is round 7 exactly. Reduced motion: no dryClock runs (the
+    // 160ms crossfade instead), so no filter. Cleaned up when the clock finishes or the copy goes.
+    const DRY = { MS: 540, THR_MS: 480, SNAP_FROM: 370, SNAP_TO: 450, SNAP_GAIN: 0.3 };
+    const dryEaseThr = cubicBezier(.6, 0, .4, 1);
+    let dryN = 0, dryDefs = null;
+    function dryUp(el) {
+      if (!el || el.__dry || !el.isConnected) return; el.__dry = 1;
+      const NS = 'http://www.w3.org/2000/svg';
+      if (!dryDefs) { dryDefs = document.createElementNS(NS, 'svg'); dryDefs.setAttribute('width', '0'); dryDefs.setAttribute('height', '0'); dryDefs.setAttribute('aria-hidden', 'true'); dryDefs.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden'; document.body.appendChild(dryDefs); }
+      const fid = 'dry-' + (++dryN), f = document.createElementNS(NS, 'filter');
+      const tint = getComputedStyle(document.documentElement).getPropertyValue('--ghost-tint').trim() || '#A8C1DA';
+      // a highlighted (navy) row's stamp is paper ink: its dried shell is that ink, thinned
+      const hi = !!el.closest('.location-card.highlighted');
+      f.setAttribute('id', fid); f.setAttribute('x', '-10%'); f.setAttribute('y', '-20%'); f.setAttribute('width', '120%'); f.setAttribute('height', '140%'); f.setAttribute('color-interpolation-filters', 'sRGB');
+      f.innerHTML = '<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.22 0" result="a"/>'
+        + '<feGaussianBlur in="a" stdDeviation="0" result="b"/>'
+        + '<feComponentTransfer in="b" result="ml"><feFuncA type="linear" slope="5" intercept="-1.4"/></feComponentTransfer>'
+        + '<feComponentTransfer in="b" result="md"><feFuncA type="linear" slope="5" intercept="-2"/></feComponentTransfer>'
+        + (hi ? '<feComposite in="SourceGraphic" in2="ml" operator="in" result="l0"/><feColorMatrix in="l0" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .45 0" result="light"/>'
+              : `<feFlood flood-color="${tint}" result="tint"/><feComposite in="tint" in2="ml" operator="in" result="light"/>`)
+        + '<feComposite in="SourceGraphic" in2="md" operator="in" result="dark"/>'
+        + '<feMerge><feMergeNode in="light"/><feMergeNode in="dark"/></feMerge>';
+      dryDefs.appendChild(f);
+      const bl = f.querySelector('feGaussianBlur'), [tl, td] = f.querySelectorAll('feFuncA');
+      const set = t => {
+        const p = Math.min(1, Math.max(0, t / DRY.THR_MS));
+        const q = Math.min(1, p / 0.35), sig = 0.9 * q * q * (3 - 2 * q);                      // edges soften first
+        const k = Math.min(1, Math.max(0, (t - DRY.SNAP_FROM) / (DRY.SNAP_TO - DRY.SNAP_FROM)));
+        const thr = 0.28 + 0.38 * dryEaseThr(p) + DRY.SNAP_GAIN * k * k;                         // then retreat by thickness; the snap
+        bl.setAttribute('stdDeviation', sig.toFixed(3));
+        tl.setAttribute('intercept', (-5 * thr).toFixed(3)); td.setAttribute('intercept', (-5 * (thr + 0.12)).toFixed(3));
+      };
+      const done = () => { f.remove(); if (el.style.filter.indexOf(fid) >= 0) el.style.filter = ''; el.__dry = 0; };
+      set(0); el.style.filter = `url(#${fid})`;
+      const clock = () => el.getAnimations().find(a => a.animationName === 'dryClock');
+      const tick = () => {
+        const a = clock();
+        if (!el.isConnected || !a || a.playState === 'finished') { done(); return; }
+        if (a.currentTime !== null) set(a.currentTime);
+        requestAnimationFrame(tick);
+      };
+      tick();
+    }
+    document.addEventListener('animationstart', e => { if (e.animationName === 'dryClock') dryUp(e.target); }, true);
+
     let popupStampId = null;     // Visited just set from the tag: the stamp comes down ONCE
     let popupUnstampId = null;   // ... just cleared: the stamp lifts off ONCE
     function buildPopupHtml(loc) {
@@ -4908,7 +4988,7 @@
       const stamp = `<span class="row-stamp${stampNow ? ' tag-stamp-in' : ''}" style="--stamp-tilt:${tilt}deg;${tex}" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>`;
       const visInner = loc.visited ? stamp
         : `<svg class="tag-ochk" viewBox="-1.5 -1.5 27 27" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="none" stroke="currentColor" stroke-width="2.05" stroke-linejoin="round"/></svg>Mark visited`
-          + (unstampNow ? `<span class="row-stamp tag-stamp-out" style="--stamp-tilt:${tilt}deg;${tex}" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
+          + (unstampNow ? `<span class="row-stamp tag-stamp-out dry-out" style="--stamp-tilt:${tilt}deg;${tex}" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
       const x = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
       return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
         + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span><div class="tag-stock">`
@@ -4924,7 +5004,7 @@
         + `<span class="tag-slot dir"><a class="tag-seg popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-describedby="${dirHint}"><svg viewBox="1.5 1.5 21 21" aria-hidden="true"><use href="#g-compass"/></svg>Directions</a><span class="sr-only" id="${dirHint}">Opens in Maps</span></span>`
         + `<span class="tag-slot star"><button type="button" class="tag-seg popup-star${loc.starred ? ' starred' : ''}" data-id="${id}" aria-pressed="${loc.starred ? 'true' : 'false'}" aria-label="${starName}"${off ? ' aria-disabled="true"' : ''}>`
         + `${starSvg}<span aria-hidden="true">${loc.starred ? 'Starred' : 'Star'}</span></button><label class="popup-star-tap" for="starHapticSwitch" aria-hidden="true"></label></span>`
-        + `<span class="tag-slot vis"><button type="button" class="tag-seg popup-visited${loc.visited ? ' visited' : ''}" data-id="${id}" aria-pressed="${loc.visited ? 'true' : 'false'}" aria-label="${visName}"${off ? ' aria-disabled="true"' : ''}>${visInner}</button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>`
+        + `<span class="tag-slot vis"><button type="button" class="tag-seg popup-visited${loc.visited ? ' visited' : ''}${unstampNow ? ' uv-leaving' : ''}" data-id="${id}" aria-pressed="${loc.visited ? 'true' : 'false'}" aria-label="${visName}"${off ? ' aria-disabled="true"' : ''}>${visInner}</button><label class="popup-visited-tap" for="starHapticSwitch" aria-hidden="true"></label></span>`
         + '</div></div></div><span class="tag-string" aria-hidden="true"></span></div>';
     }
 
@@ -7702,7 +7782,9 @@
       if (!visited) acts.prepend(st);
       Object.assign(g, { state: 'drag', visit: true, id, el, visited, st, main, h3, meta, badge, star, tilt, field, hi: el.classList.contains('highlighted'), raw: 0, pressed: false, lifted: false, armed: false });
       starHeld.set(id, { ff: null });
-      if (visited && !prefersReducedMotion()) runVisitPop(g, VISIT_LIFT, 240);   // the star's erase pop: lift to rub it out
+      // (No erase pop on un-visit any more -- owner on the tag: "i dont think either should pop after
+      // clicking unvisited -- that's muddying my feedback"; the row follows: "the row should do
+      // whatevers logical". The swipe keeps its finger-driven pale; VISIT_LIFT stays for reference.)
       paintVisit(g);
       return true;
     }
@@ -7791,7 +7873,7 @@
     // here: the popup tap already ticked (hapticTap()). Rapid toggles: the running replay is
     // finished at once (its final state lands), then the next one starts from
     // there -- last wins, no half states.
-    const VS_REPLAY = { VISIT_MS: 240, UNVISIT_MS: 260 };
+    const VS_REPLAY = { VISIT_MS: 240 };   // un-visit: the dry up (DRY.MS), see below
     function vsReplay(id) {
       if (prefersReducedMotion() || !currentUser) return false;   // signed out: the toggle won't happen, so neither does the stamp
       const entry = rowEntry(id), list = document.getElementById('locationsList'), sheet = document.getElementById('locations');
@@ -7807,7 +7889,13 @@
       let pressed = false;
       const toPress = () => { if (pressed) return; pressed = true; g.raw = C; paintVisit(g); settleVisitDrag(el, g, true); };
       starHeld.get(id).ff = () => { toPress(); const h = starHeld.get(id); if (h && h.ff) h.ff(); };
-      runTimeline(g.visited ? VS_REPLAY.UNVISIT_MS : VS_REPLAY.VISIT_MS, t => { if (pressed) return; g.raw = C * t; paintVisit(g); }, toPress);
+      if (g.visited) {
+        // Un-visit: the row's stamp dries up exactly as the tag's does, at its own size (.dry-out:
+        // the CSS clock -> dryUp(), a separate visual step, never inside the gesture's painting),
+        // and when the copy has cleared the row lifts (field drains) and settles.
+        g.st.classList.add('dry-out');
+        setTimeout(toPress, DRY.MS * 0.833);
+      } else runTimeline(VS_REPLAY.VISIT_MS, t => { if (pressed) return; g.raw = C * t; paintVisit(g); }, toPress);
       return true;
     }
 
