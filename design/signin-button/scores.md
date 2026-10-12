@@ -233,3 +233,83 @@ notes one at a time and pushed the crowding to the rim. Round 2b balanced
 rim, figure and words together, by measured ink. If this 9 is turned down
 too, that's two in a row: stop and ask the owner what "good" looks like
 here (a reference badge he likes), rather than tuning again.
+
+## Concept A, round 2c: lifted to the optical centre (director, 2026-10-12)
+
+Owner on 2b (verbatim): "i like this badge but it feels weighted low so
+maybe everything should be up some / visually centered. this could allow
+for more space betwen the icon and sign in -- look at the inspo for
+guidance". Liked, with a refinement; not counted as a rejection.
+
+Based on: `round2/sheet-2c-3x.png` (all sections),
+`shots/2c/v6-*`/`v7-*`, zoomed side by side with 2b's `v2-cream-plus`,
+`shots/2c/in-*`/`out-*`, README "Round 2c" (measured ink table), and
+`badge2.js` V[6]/V[7].
+
+**Did the work really change?** Yes, on exactly his note. In 2b the ink's
+box centre was at 29.9 (of 50) and its centroid at 30.8, about 5px low,
+with 12px of empty paper above and 2.2px below. Now:
+- the ink box centre is at 24.9 (a hair above centre, the usual optical
+  centre), with room above/below of 5.4/5.6 on B and 5.8/6.0 on A;
+- the person-to-words gap went from 5.6 to 8.8 (B) or 8.0 (A);
+- the minimum ink-to-rim distance went from 2.25 to 4.2-4.5.
+
+The inspo reading is right: the passport roundels and the matchbook seals
+centre the emblem and the curved words as one block. Sizes, tracking,
+hair space and weight are unchanged from what he liked. Zoomed at real
+size, B reads as a centred seal, and the words have air on both sides.
+
+Likely owner objections:
+1. "Why two? They look the same." At real size A and B are separated by
+   0.4px moves. I can only tell them apart zoomed. This goes against
+   "fewer variations" and invites a non-decision. **Likely** if both are
+   shown.
+2. "The words don't follow the circle any more." The arc's centre is now
+   3.4 above the die's (B), so the text-to-rim gap is a bit wider at
+   6 o'clock than at the ends. At real size it still reads as a U around
+   the shape. Possible, low.
+3. Motion: the sign-in person (centre 18.4) has to travel ~6.6px down to
+   the signed-in person's centre (25) while growing. His rule is "stamp,
+   don't slide". In the frames the travel happens under the landing blot
+   (0.06 -> 0.13s; the blot is centred on the person), so it reads as part
+   of the pop, not a slide. Possible, low. It's a build watch item.
+4. Words too small on the phone: same as 2b; he's seen 2b and didn't
+   raise it. Not likely.
+
+### A (v6): **8**
+A good centring, but it gives less of the extra air between the person
+and the words that he asked for. It isn't wrong; it's redundant next to B.
+
+### B (v7, designer's pick): **9**
+His note answered literally and optically: the group centred by its ink,
+more room between the person and the words, and nothing else he liked
+changed. I'd defend it as is.
+
+### Show one or two? **One: B.**
+Two near-identical settings is the "this many variations" trap, and the
+difference doesn't survive at real size. The choice between them is a
+craft call that belongs to the team, not a decision for him.
+
+### Before the owner sees it (presentation only, not a re-score)
+1. Cut A from the sheet: drop the "Two lifts, close to each other" pair
+   and the A column of every real-size row. Lead with B large, keep the
+   1x "Before: the one you saw" thumbnail beside it (it's the most useful
+   thing on the sheet), then the B real-size rows and B's motion strip.
+2. Retitle "We'd pick B" as plain "Lifted so it sits centred, with more
+   room between the person and the words" (no letters, since only one
+   option is shown).
+3. Owner message: one line. Q1/Q2 are still open, so re-ask briefly only
+   if the orchestrator hasn't already.
+
+Build watch (handoff, not the owner): the person's move from 18.4 to 25 on
+sign-in must stay under the ink (the blot centred on the person, as
+rendered). Reverse it on the dry-up. `ay`/`cy` are the spec; arc
+centring via `SB.centerArcs()` runs about the arc's own centre.
+
+### Across rounds
+- Round 1 failed on craft, not idea.
+- Round 2 tuned one note at a time and pushed the crowding to the rim.
+- 2b fixed the spacing but kept geometric centring, so the group sat low.
+
+The lesson running through all three: on a badge with type at one side,
+centre the whole group by its ink, and judge at real size. 2c does that.

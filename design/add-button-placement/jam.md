@@ -786,3 +786,144 @@ existing tokens), and the drop-vs-hold question has a visual answer plus an
 honest flag on the owner's "controls don't move" rule. It needs steering:
 is it ready to become the concept, and do the 320 drop order and the
 moving-× question go to the owner?
+
+---
+
+## Turn 6 -- design director (closes the jam)
+
+Looked at: `stub-stress/` (all of it, `tag-3x`, `safearea-3x`,
+`filtersform-3x`, `narrow-3x`, `oneband-3x`) and `sketches/pass2/`
+(`rest390`, `states`, `width-study`, `form-664-A-vs-B`). Still no scores --
+concepts get scored when they exist.
+
+### The concept: one, the claim-check stub
+
+**The claim-check stub is the concept. Nothing else goes forward.** The
+tab, the seal and the postage stamp are dead, and so is "One band" (agreed
+with systems: it costs the title and buys calm the stub already buys). The
+owner sees **today vs. the stub**, not a menu of placements ("I don't think
+we need this many variations").
+
+What pass 2 settled, and I'm keeping as the concept's spec:
+- **60px stub**, centred on the rows' × axis at every width, icon gaps at
+  `--s1`. Seen in `rest390-3x.png`: the + and the rows' × now share one
+  column on purpose. Good.
+- **The tag stub's perforation, 4px inside the orange.** Right call over the
+  seam. My worry, for the concept stills: at 3x it reads, but it's a light
+  hairline on a bright field, and it is the *only* thing that makes this a
+  claim check rather than an orange toolbar button. Check it at 1x on a
+  phone-size crop. If it disappears, raise its contrast within the tag's
+  own ink family, don't add marks.
+- **The four-state table** (rest orange / pressed orange-deep + paper glyph
+  / open navy ON tile + paper × / pressed-while-open keeps the tile). It
+  plugs the stub into the header's existing state system instead of
+  inventing one. `states-3x.png` reads as one system next to the open
+  filters tile. Approved as the concept's states.
+- **"One ON tile in the band at a time"**, and opening the form closes
+  filters/sort. Approved; it also fixes the pre-existing form-behind-panel
+  bug.
+
+### Rulings on what's open
+
+1. **List drops to its band while the form is open, so the × rides 240px
+   down: this is the owner's call, not mine.** The visual designer is right,
+   and my turn-3 reading doesn't cover it: the owner's words are "I don't
+   want ... the button to change physical location after click", and this
+   is the button changing location after a click. I'm withdrawing the
+   reading as a ruling. The team's recommendation stays **A (drop)**: B is
+   visibly broken at 664 (Search scrolled away, Add pinned over Address),
+   the motion is the sheet's own collapse, nothing moves when the list is
+   already collapsed, and it fixes the hidden-Add bug on the phone in
+   Safari. Concept stills show A, and the question rides with the concept
+   (below). **It doesn't block concept work.** If the owner says "never
+   move", that reopens the form's placement and we come back to it; nobody
+   pre-builds a fallback.
+   - "Always drop, even at 844" -- agreed: one behaviour.
+   - The + turning to × *during* the ride -- agreed, as one gesture.
+2. **Count vs city name at 320: decided, not an owner question.** The
+   owner's rules already settle it: "the header should show whatever the
+   list is", and secondary marks never outrank content. The name is the
+   content and the count is secondary. Drop order: **" list" → the count →
+   then the name ellipsizes.** COPENHA… at 320, COPENHAGEN (112) at 390.
+   The same order applies to plan names in the Plans view. The
+   "…  (112)" gap nit is a builder fix.
+3. **× colour: paper**, the header's ON glyph. Decided. An orange × on navy
+   would re-twin the stub with the account badge.
+4. **Tag open, then +** (systems' flow 4): builder detail, not the owner's.
+   Rule: cancel puts everything back as it was, including the open tag
+   (job 4). What happens after Add rides on owner Q2.
+5. **CD flags.**
+   - *Two oranges on screen (starred tag band + stub)*: consistent. The
+     owner made one brand orange for the star, the tag band and the +
+     ("orange for star / tag top all the way"; "it's used on the account
+     and + icon also"). In `tag-3x.png` the tag clearly wins. Pass.
+   - *Account badge open = orange field, which is the stub's rest look*: a
+     real seam. The account's "orange when open" predates the header's
+     navy-ON system and now contradicts it. **Not ours to fix:** it belongs
+     to the sign-in crew's state work, or the brand-token pass
+     (`docs/backlog.md`). Orchestrator: pass it to them. Low risk in the
+     meantime, because the two sit at opposite ends of the screen and the +
+     is no longer the account's twin. Doesn't block.
+   - *Pressed = orange-deep + paper glyph*: matches ADD LOCATION's press.
+     Pass.
+
+### What the concept phase produces
+
+**One concept, "Claim-check stub", at concept fidelity: real-app renders**
+(a copy of index.html, stub data, real copy, no mock-ups), 3x, 1170 wide,
+each still a full phone screen readable on a phone. Plus a one-page
+overview sheet that puts today and the stub side by side.
+
+For the owner (five stills, no more):
+1. **Rest, list up, 390x844**: today | stub.
+2. **Adding, at 390x664** (the Safari-tab height the bug lives at): the form
+   open, the list dropped to its band, × in the band, ADD LOCATION just
+   above it. Plus a **3-frame strip** of the tap (+ at rest → mid-ride,
+   glyph turning → × at the bottom), so he can see exactly what "the button
+   moves" means before he answers.
+3. **A tag open + navy selected row + stub** (`tag-3x` setup).
+4. **States close-up**: rest / pressed / open, beside the open filters tile.
+5. **320 wide, Copenhagen**: the drop order working.
+
+Appendix, for me and the CD (not sent to the owner unless he asks):
+collapsed + 34px safe area, filters open → tap + (panel closes), signed
+out, playground, desktop rail. Systems turns flows 1-8 from turn 4 into
+`jobs.md`, updated for these rulings.
+
+Optional, and only if it's cheap: a tappable copy the owner can open on his
+phone to feel the reach. Stills come first.
+
+Split: the visual designer renders owner stills 1-5 and the sheet. The
+systems designer writes `jobs.md`, renders the appendix, and checks the
+stills against the flows. I steer after their first pair of turns, then
+score.
+
+### Owner questions, batched (orchestrator: send *with* the concept stills; none block concept work)
+
+1. **(Decision, with still 2.)** "When you tap +, the list slides down out
+   of the way and the + (now ×) rides down with it to the bottom edge, so
+   the whole form and its Add button fit above it. That also fixes Add being
+   hidden behind the list in Safari today. OK, or should the button never
+   move?"
+2. "After you add a place, should the map fly to it and open its tag?
+   (We'd say yes.)"
+3. (Optional, later ideas, no frames) "Interested later in: hold + to add
+   where you're standing; long-press the map to add there; the add form as a
+   blank luggage tag that becomes the new place's tag?"
+
+Telling, not asking: the form's fields stay as they are, and the header
+drops the word "LIST" before the count, and the count before the city
+name, when space is tight. My turn-3 Q1 (form scope) and Q4 (rule
+reading) are folded into Q1 above.
+
+### Cross-crew (orchestrator)
+
+- The account badge stands alone at top-right. The sign-in crew should shoot
+  their corner without + beside it.
+- The account-open orange-field seam (CD flag above) goes to them or to the
+  brand-token pass.
+
+NEXT: product designer (visual focus) -- render owner stills 1-5 and the
+overview sheet for the one concept, at 3x from a copy of index.html, with
+the rulings above (drop order, paper ×, perforation checked at 1x);
+systems follows with jobs.md and the appendix frames.

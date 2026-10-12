@@ -1,7 +1,8 @@
 # Director notes -- + placement
 
 ## Status
-Jam pass 1, my turn 3 done (2026-10-12). No scores yet.
+Jam CLOSED with my turn 6 (2026-10-12). Concept phase next. No scores yet.
+Turn 3 = pass-1 steer; turn 6 = rulings + concept-phase spec.
 
 ## Owner direction I'm judging against
 - Task (verbatim): "im also thinking about + placement — it should probably
@@ -78,7 +79,64 @@ Sign-in crew should re-shoot the top-right without + beside their badge.
 ## What keeps blocking a 9
 N/A yet (no rounds scored).
 
-## Next
-Systems stress-tests the stub against the six checks + one "one band"
-frame; then visual takes stub form/perforation/states. I steer after that
-pair of turns.
+## Next (superseded by turn 6 below)
+See turn 6.
+
+---
+
+## Turn 6 (jam pass 2, closing) -- 2026-10-12
+
+### Evidence seen
+stub-stress/ (systems turn 4: 5/6 checks pass; 320 failed at 68px; two
+pre-existing bugs: Add covered by the list below ~790px tall, form opens
+behind the filters panel -- both logged in docs/backlog.md by orchestrator).
+sketches/pass2/ (visual turn 5: 60px stub on the × axis, perforation 4px
+inside the orange, four-state table, form A (drop) vs B (scroll) at 664).
+
+### Decided
+- ONE concept: claim-check stub. Tab, seal, stamp, One band all dead.
+  Owner sees today vs stub only.
+- Spec kept: 60px, × axis, icon gaps --s1, tag perforation inside the
+  orange, states rest orange+navy / pressed orange-deep+paper / open navy ON
+  tile+paper × / pressed-open keeps tile. "One ON tile in the band"; opening
+  the form closes filters/sort.
+- Title drop order: " list" -> count -> name ellipsizes (owner rules: the
+  header names the list; secondary never outranks content). Same for plan
+  names.
+- × colour: paper.
+- Tag open then +: cancel restores everything incl. the tag; after-Add
+  behaviour rides on owner Q2.
+- CD flags: two oranges = pass (one brand orange, owner-set). Account-open
+  orange field vs the stub's rest = a real seam, sent to the sign-in crew /
+  brand-token pass, not blocking.
+
+### Withdrawn
+My turn-3 reading that "controls don't move" covers the stub riding the
+sheet on the opening tap. Visual showed the × moves 240px *because of the
+tap* (list drops). That is literally the owner's sentence -> owner's call.
+Team recommends A (drop).
+
+### Concept phase deliverables
+Real-app renders, 3x 1170 wide, full phone screens; overview sheet.
+Owner stills: (1) rest list up, today | stub; (2) adding at 390x664 with
+the list dropped + 3-frame ride strip; (3) tag + navy row + stub; (4)
+states close-up beside the filters ON tile; (5) 320 Copenhagen.
+Appendix (me/CD only): collapsed + safe area, filters -> +, signed out,
+playground, desktop. Systems writes jobs.md from turn-4 flows.
+Optional: tappable copy.
+
+### Owner questions (send with the concept; none block)
+1. List drops and + (as ×) rides to the bottom when the form opens; also
+   fixes hidden Add. OK or never move?
+2. Fly to the new place and open its tag after Add? (rec. yes)
+3. Optional later ideas: hold + for here; long-press map; form as a blank
+   tag.
+(Old Q1 form scope -> told, not asked: fields unchanged. Old Q4 -> folded
+into Q1.)
+
+### Risks I'll score against
+- "Just an orange rectangle / average": the claim-check reading rests on the
+  perforation alone. Must survive at 1x on a phone. Fix by contrast within
+  the tag's ink family, never by added marks.
+- If the owner says "never move" on Q1, form placement reopens.
+- Header crowding with --s1 gaps: watch the trio's optical spacing.

@@ -1,5 +1,16 @@
 # Director notes: sign-in button
 
+## Status (2026-10-12, round 2c)
+The owner liked 2b with a refinement ("weighted low ... visually
+centered ... more space between the icon and sign in -- look at the
+inspo"). Not a rejection.
+
+2c SCORED: A (v6) = 8, B (v7) = **9**. Show the owner B only (cut A from
+`sheet-2c-3x.png`, keep the 1x "before" thumbnail, drop the letter
+labels). Then READY.
+
+Build watch: the person travels 18.4 -> 25 on sign-in, under the ink only.
+
 ## Status (2026-10-12, after re-look)
 Round 2b SCORED: variant 2 after fixes = **9**. READY: A round 2,
 `concepts/A-arc-badge/round2/sheet-3x.png` alone. The flow sheet is
@@ -195,3 +206,28 @@ Residual risk: 6px type on a real iPhone (Safari variable-font 700,
 textPath centring via `SB.centerArcs()`), which the owner checks.
 Builder notes for later: call `centerArcs()` after fonts are ready, or
 hard-code the measured rotation; V[2] in `round2/badge2.js` is the spec.
+
+## Round 2c (2026-10-12)
+Owner on 2b: liked, but "weighted low ... everything should be up some /
+visually centered ... more space betwen the icon and sign in -- look at
+the inspo". Counted as a refinement, not a rejection (one rejection of a 9
+so far: round 1).
+
+Measured (README ink table):
+- 2b's ink box centre was 29.9 and its centroid 30.8, i.e. low.
+- 2c: B is centred on its box at 24.9, room top/bottom 5.4/5.6, person to
+  words 8.8 (was 5.6), minimum ink-to-rim 4.2. A gives similar centring
+  with only 8.0 of air.
+- The arc is no longer concentric with the die (ay 21.6 vs 25), but it
+  still reads as a U at real size.
+
+Scores: A 8, B 9. Show one (B); A vs B is invisible at real size, and
+showing both invites "too many variations".
+
+Lesson for this badge: centre the person-plus-words group by its ink, not
+the person by geometry. A bottom-only arc pulls the weight down. Judge it
+on the zoomed real-size crops.
+
+Spec for the build: V[7] in `round2/badge2.js` (ps .68, sw 1.45, fs 6, ls
+1.3, r 16.6, fw 700, cy 18.4, ay 21.6, hair space). The blot and the dry-up
+are centred on the person.
