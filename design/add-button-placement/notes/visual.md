@@ -1,5 +1,36 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-12, concept phase (supersedes "Next" below)
+- Jam closed (director turn 6): ONE concept, the claim-check stub. Tab, seal,
+  stamp, one-band all dead. Rulings: list drops while the form is open
+  (owner decides, Q1, stills show it); title drop order " list" -> count ->
+  city ellipsis (decided, also for plan names); x paper; one ON tile in the
+  band at a time; perforation must read at 1x.
+- Rendered the five owner stills + overview into `concepts/stub/`
+  (`render.js` for the raw stills, `compose.js` for the pair / strip / states
+  / overview). Spec and motion in `concepts/stub/looks-and-feels.md`.
+  Systems owns `how-it-works.md`, `appendix/`, `jobs.md` (consistent with
+  mine: checked states, 60px, rotation).
+- Perforation 1x check: --hair on orange is 1.87:1, faint at 1x
+  (`perf-1x-hair.png`). Raised to --paper (2.46:1, `perf-1x-paper.png`),
+  the paper showing through the holes. No marks added.
+- Motion settled: the + -> x turn + field crossfade run 0.3s ease, the
+  sheet's own collapse timing (was 150ms in the jam; changed so the turn
+  spans the ride as one gesture). List already down: same turn in place.
+- Stills use Reykjavik (the real trip) except still 5 (Copenhagen).
+  REYKJAVIK LIST (23) fits at 390; COPENHAGEN (23) drops "list" at 390;
+  COPENHA... at 320.
+- Real-app behaviours verified in render: Add hit-tests as ADD LOCATION at
+  390x664 with the drop (stub y 604, Add y 450-494).
+- Jobs check (jobs.md 1-6): 1 reach (stills 1/3, appendix collapsed and
+  filters), 2 primary (still 1), 3 finish near thumb at 664 (still 2),
+  4 cancel restores (motion spec: exact reverse), 5 never over pins/tag/
+  names/x (stub lives in the header; still 3), 6 signed out looks identical
+  (appendix). Covered.
+- Next: director/CD scoring of the concept; answer the builder later in
+  handoff.md "How it looks and feels". Optional tappable copy for the owner
+  only if the director asks.
+
 ## Where things stand (2026-10-12, after jam pass 2 = my turn 5)
 - Turn 2 (pass 1): four directions sketched (`concepts/sketches/`).
 - Director turn 3: **stub leads**; tab killed (reads as a sheet pull-handle,
