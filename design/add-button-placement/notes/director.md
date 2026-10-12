@@ -200,3 +200,71 @@ never added marks.
 
 Next: owner reply. On approval: handoff.md; I check it against owner.md
 before the build.
+
+---
+
+## Handover + concept round 3 opened (new director) -- 2026-10-12
+
+### What happened
+The owner saw the stub (9) as the only concept and replied: "i want more
+than one concept." So reading "fewer variations" as "show one" was wrong for
+concepts. He wants real alternatives. The stub stays in the set; he did not
+reject it. Q1-Q3 are still unanswered. Lesson for scoring this round: the
+set is now part of the product. A 9 means "a real choice he'd want to have",
+not just "a defensible one".
+
+### My read of the stub, with fresh eyes (no re-score; the work didn't change)
+It still holds at 9 as a design. Two things I'd now name that the old notes
+underplayed:
+- **It's right-thumb only.** Two people edit this app. A right-edge target
+  assumes one hand.
+- **It rides the sheet** (Q1). "Never moves" is the alternative the owner
+  should be able to *see*, not only answer in words.
+Both gaps shaped the new set.
+
+### Steer (jam turn 7): two new concepts + one keep/kill frame
+- **B. Striker strip:** a full-width strip fixed to the screen's bottom
+  edge, with words, that never moves. The same strip starts and submits the
+  add (it becomes the form's submit). It's handedness-free. Risks: permanent
+  height ("no extra header height" spirit), "generic CTA bar / average", the
+  iOS inset and Safari toolbar, stacking with the collapsed header. Upside to
+  verify: it might ride above the keyboard via `visualViewport`.
+- **C. Pencilled pin:** + is a blank pin on the map. The add happens on the
+  map, and the form becomes a blank Hanging Tag on the placed pin, so it
+  ends where you look afterwards (covers Q2). This is bigger scope (it
+  changes the form), and the owner must see that labelled. Risks: reads as
+  just another pin; collapses into the seal/FAB; OSM credit and tag gap;
+  shape categories; tap count vs today.
+- **D. Eyelet:** a centred grommet on the sheet's top edge. One frame only.
+  It must answer the drag-handle misread (the reason the tab died) or it
+  gets killed in one line.
+- Draws used (real RNG): Abandon normal instruments; Remove specifics;
+  Repetition is a form of change; sailing/rigging, surveying, bookbinding;
+  "appears only when needed", "lives on the map".
+- Rejected before drawing: a bottom-centre FAB, my own first idea. It's the
+  stock answer, and it covers rows.
+
+### Order
+Systems first (structural frames and measurements for B and C, kill with
+evidence if they can't work). Visual next (owner fidelity, plus the D frame).
+Then I steer and score. The owner set for each new concept mirrors the
+stub's 1-5, plus what's unique to it (B keyboard frame; C the finished
+inked pin + tag).
+
+### Scoring bar for B and C (objections I'll hold them to)
+- B: the row count at 664 today vs stub vs strip; not a checkout button; the
+  inset and Safari toolbar look intended; keyboard behaviour shown honestly.
+- C: reads as "add" at 1x at rest; not a badge; the tag-as-form keeps every
+  field and every category; no more taps than today; the credit stays on the
+  map.
+
+### Open
+- If only one new concept reaches 9, the owner gets the stub plus that one,
+  with a line on why the other died.
+- Cross-crew: B and C both leave the top-right to the account badge, so no
+  change for the sign-in crew so far.
+
+### What keeps blocking a 9
+Across rounds 1-2 (stub): reach for the *finish* (Add) and motion glitches,
+both fixed. New this round: the set itself was blocked by our "show one"
+reading. Not a design flaw; a misread of the owner, now corrected.

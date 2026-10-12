@@ -927,3 +927,205 @@ NEXT: product designer (visual focus) -- render owner stills 1-5 and the
 overview sheet for the one concept, at 3x from a copy of index.html, with
 the rulings above (drop order, paper ×, perforation checked at 1x);
 systems follows with jobs.md and the appendix frames.
+
+---
+
+## Turn 7 -- design director: new concepts
+
+I'm taking over from the previous director. I started from its notes, and
+I've looked again at the six stills the owner saw. The owner's reply,
+verbatim: **"i want more than one concept."** We misread his "fewer
+variations": he wants real alternatives to choose between. **The stub stays
+in the set** (he didn't reject it, and Q1-Q3 are unanswered). This turn
+opens a second concept round: **two new concepts, plus one quick frame to
+keep or kill**. Each must differ from the stub *in kind*.
+
+### What the stub is, so we know what "different in kind" means
+
+The stub answers three questions one way:
+- **Home:** the list header (the sheet). It rides the sheet.
+- **Prominent by:** being the only filled thing in a row of outline icons.
+  It has no words; it's a glyph.
+- **The add happens in:** the existing form, which opens above the band.
+
+So a new concept has to answer at least two of those three differently. A
+re-coloured, re-sized or re-shaped stub doesn't count, and neither does
+the stub moved to the header's left end.
+
+### Draws (real RNG this turn)
+
+Oblique: **"Abandon normal instruments"**, **"Remove specifics and convert
+to ambiguities"**, **"Repetition is a form of change"**. Fields:
+**sailing/rigging**, **surveying**, **bookbinding**. Twists: **"it appears
+only when needed"**, **"it lives on the map, not the chrome"**.
+
+What they gave me (I threw away my first idea, a bottom-centre FAB, before
+drawing):
+- *Lives on the map + surveying:* a surveyor doesn't fill in a form and then
+  find the point. They drive a **stake** into the ground and write it up
+  there. In this app the thing you make when you add is **a pin**. So the
+  most honest + is the thing it creates (cf. the ledger's bonus: "the pin
+  and what it opens are one idea").
+- *Abandon normal instruments:* the + glyph is a normal instrument. What if
+  the control is a **line you write on**, or **the pin itself**, rather than
+  a + icon?
+- *Bookbinding / rigging:* a book's sewn edge, a cleat on a gunwale. Both are
+  **fixed parts of the frame** that the moving parts are made fast to. That
+  is the opposite of the stub, which rides the moving part.
+- *Repetition is a form of change:* the add starts and ends on the same
+  object. The stub already gets this half-way (orange start, orange ADD
+  LOCATION). One concept can take it all the way: **the control you tap to
+  start is the control you tap to finish**.
+
+### The set, after this round (up to four things for the owner, each a real choice)
+
+| | Home | Prominent by | Where the add happens | Moves? |
+|---|---|---|---|---|
+| **Stub** (have) | the list header, rides the sheet | the one filled field among outline icons | today's form, anchored to the band | rides the sheet (owner Q1) |
+| **B. Striker strip** (new) | **the screen's bottom edge, fixed** | **words and full width** | the form rises from the strip; **the strip becomes its own submit** | **never** |
+| **C. Pencilled pin** (new) | **on the map** | **it is a pin, the thing you make** | **on the map**: you place a pin and its tag is the form | rides the map edge |
+| D. Eyelet (one frame, keep/kill) | centre of the sheet's top edge | centred, the grommet the list hangs from | today's form | rides the sheet |
+
+That gives the owner real choices: **a button in the band vs. a fixed strip
+vs. adding on the map**, and "rides the sheet" vs. "never moves" as a visible
+choice rather than only a question.
+
+### B. Striker strip: settled vs. open
+
+The name comes from the matchbook in the inspo: the striker is the strip
+along a matchbook's bottom edge, the one part of it that's for *doing*
+something. That's a reference, not a texture. **No striker grit**: the
+ledger says no noise, and paper not clouds.
+
+**Settled (this is the concept; don't trade it away):**
+- A full-width strip **fixed to the screen's bottom edge**, below the list,
+  in every state (list up, collapsed, a tag open, Plans, filters open). It
+  **never moves**. This is the concept that answers "should the button never
+  move?" with yes, and it doesn't depend on Q1.
+- It **says what it does** in words (exact copy is the visual's call). It
+  isn't an icon-only button. Prominence comes from width plus words, at the
+  edge both thumbs can find with eyes closed. It's also **handedness-free**:
+  two people use this app, and the stub serves a right thumb.
+- **The same strip starts and finishes the add.** Tap it, the form rises
+  from it, and the strip is now the form's submit. You tap the same place
+  twice. (Repetition.)
+- The account badge keeps the top-right corner alone, as with the stub.
+
+**Open (the designers' calls, and I won't pre-resolve them):** colour and
+height (orange field vs paper with orange words; whether it reads as a
+generic CTA bar), where the close/cancel lives, how the strip and the
+collapsed header band sit together without reading as two stacked toolbars,
+how the form rises, and whether the list header loses anything.
+
+**What I'll hold it to (likely owner objections):**
+1. **"Extra height."** The strip is permanent chrome, and the owner has said
+   "no extra header height". It isn't the header, but it costs list or map
+   space all the time. Show the cost honestly at 390x664 (Safari tab): how
+   many rows are visible today vs. with the stub vs. with the strip.
+2. **"Average / a generic app CTA bar."** A full-width orange button at the
+   bottom is the most stock answer there is. It only earns its place if it
+   looks like Triplet's paper and ink, not like a checkout button.
+3. **iOS:** the home-indicator inset (the strip must clear it, and its
+   padding must look intended), and Safari's own bottom toolbar right
+   underneath it in a tab. Show both.
+4. **Keyboard:** check whether a fixed strip can ride above the iOS keyboard
+   (`visualViewport`). If it can, submit is reachable *while typing*, which
+   no other concept manages. If it can't, say so; don't fake it.
+
+### C. Pencilled pin: settled vs. open
+
+**Settled:**
+- **+ lives on the map, as a pin.** It's a blank, not-yet-placed pin (the
+  app's printed / stamped / **pencilled** grammar), resting at the map's
+  lower edge in the thumb's reach. It is *not* a badge (that was the seal,
+  killed as "the stock FAB in a costume"). The object you tap is the object
+  you make.
+- **Adding happens on the map.** Tap the pin and it goes to work: you find
+  the place (search, then the map goes there), the pencilled pin stands on
+  it, and the details you'd type into today's form are on **a blank Hanging
+  Tag hanging from that pin**. Add inks the pin and the tag in place. The
+  add ends exactly where the owner looks for places afterwards, so it covers
+  owner Q2 by construction.
+- This is the "form as a blank tag" idea that the jam parked for later. **I'm
+  bringing it back as a full concept**, because "more than one concept"
+  means he gets to see the bold one rather than read one line about it. It
+  **changes the form**. The owner must see that labelled plainly as bigger
+  scope (one line on the stills), not hidden.
+
+**Open:** where exactly the blank pin rests (map bottom-right above the seam
+vs. elsewhere at thumb height), what it looks like at rest so it reads as
+"add" and not as another place, where search and the keyboard go (the tag
+can't host a keyboard-height search at the top of the screen; the thumb
+band probably holds the search line), how cancel works, and what the list
+does meanwhile.
+
+**What I'll hold it to:**
+1. **"It's another pin, I don't get that it's add."** It has to read as add
+   at rest, at 1x, with no tooltip, using the app's own pencilled marks and
+   not a new badge.
+2. **"That's the FAB again."** If it ends up as a round thing floating at
+   the bottom-right with a + on it, it's dead.
+3. **Collisions:** the OSM credit (it moves, but it must stay on the map),
+   the 48px tag-sheet gap, pins at the map's bottom edge, and desktop.
+4. **Cost of the tag-as-form:** City, Category, Address, Notes and Star all
+   still have a home. Districts and streets (shape categories) still work
+   ("same capabilities for every category"). No typewriter costume; it's
+   the tag's own type.
+5. **Low friction:** an add must not take more taps than today. Count them.
+
+### D. Eyelet (one frame from the visual designer, keep or kill; not a concept unless it earns it)
+
++ as the **grommet** at the centre of the sheet's top edge: the list hangs
+from it the way the tag hangs from its eyelet. It's centred, so either
+thumb can reach it. **It was killed before in the shape of the index tab**,
+because an object on a sheet's top edge reads as the drag handle. It comes
+back only if one frame answers that misread *and* the tag gap. If it
+doesn't, kill it in one line. No owner question.
+
+### Same bar as the stub (each new concept, before I score)
+
+- Real-app renders from **a copy of index.html in its own folder**
+  (`concepts/strip/`, `concepts/pin/`, `concepts/eyelet/`). Stub data,
+  real copy, 3x, 1170 wide, a full phone screen, phone-readable. Separate
+  stills, no sheets.
+- The owner set mirrors the stub's, so he can compare like for like:
+  **(1) rest, list up, 390x844, today | concept; (2) the add, start to
+  finish, as a strip of 3, at 390x664; (3) a tag open + navy selected row +
+  the concept; (4) states; (5) 320 Copenhagen.** Plus whatever is unique to
+  the concept: the strip's keyboard frame; the pin's finished add (inked
+  pin + its tag).
+- The appendix (me only): the director's six checks from turn 3 (34px safe
+  area collapsed, filters open, 320, tag + row, signed out and playground,
+  desktop rail).
+- Each concept gets a `how-it-works.md` and a `looks-and-feels.md`, like the
+  stub. jobs.md stays one file; systems adds the flows that differ per
+  concept.
+- The stub's stills are not re-rendered unless we change it. The owner has
+  already seen them.
+
+### Rules for this round
+
+- **Differ in kind.** If B or C drifts back toward "a button in the
+  header", I'll stop it at the next steer.
+- **Kill early, in writing.** If a concept can't answer its first objection
+  in one frame, say so and stop. Better that than polishing it to an 8.
+- Only 9s go to the owner. If only one new concept reaches 9, he gets the
+  stub plus that one, and I'll tell the orchestrator why the other died.
+- The sign-in crew: B and C keep the top-right corner as the stub does, so
+  nothing changes for them. Flag it if that turns out not to be true.
+
+### Who goes first
+
+**Systems goes first**: rough structural frames (not polished) from copies
+of index.html for **B** (height budget at 844/664/320, safe area, Safari
+toolbar, collapsed header + strip stacking, keyboard / `visualViewport`,
+the strip-as-submit flow, cancel) and **C** (where the blank pin rests and
+what it collides with, the place-then-tag flow, tap count vs. today, shape
+categories, desktop), with measurements. Either one may come back "dead,
+because..." with evidence. **Visual follows** with the look of both at
+owner fidelity, plus the one eyelet frame. I'll steer after that pair.
+
+NEXT: product designer (systems focus) -- B and C are both structural bets
+(fixed chrome height and the keyboard for B; a map-side home and the
+tag-as-form flow for C). Measure whether each can work in the real app
+before visual spends time on how it looks.
