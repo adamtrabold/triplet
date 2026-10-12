@@ -1,6 +1,21 @@
 # Visual designer notes -- + placement
 
-## UPDATE 2026-10-12, concept phase (supersedes "Next" below)
+## UPDATE 2026-10-12, after the director's score of 8 (fixes 1 + 2 applied)
+- Fix 1, form anchored to the band: `#controls.show` absolute, bottom 0 of
+  #mainContent (which ends at the band), grows upward, z 900 (over map,
+  under sheet). Top padding --s6; the 2px navy rule moves to the top edge;
+  the attribution rides up to the form's top edge (body.adding
+  .leaflet-bottom{bottom:var(--form-h)}). Measured: 664 form top y140
+  (badge ends y66, 74px clear), Add 536-580, x 604. 844 Add 716-760, x 784,
+  map above (empty here because the pins sit under the form; flagged).
+- Fix 2, no blended field: colour transitions removed; the field/glyph
+  colour switches (press = deep orange; release = navy), and only the glyph
+  rotation animates (0.3s). Strip middle frame re-shot: clean navy.
+- New still `2-adding-844-3x.png`; strip, overview and captions
+  recomposed. looks-and-feels.md updated (form section, motion).
+- Fix 3 (send stills, not the sheet) is the orchestrator's.
+
+## Earlier: concept phase
 - Jam closed (director turn 6): ONE concept, the claim-check stub. Tab, seal,
   stamp, one-band all dead. Rulings: list drops while the form is open
   (owner decides, Q1, stills show it); title drop order " list" -> count ->

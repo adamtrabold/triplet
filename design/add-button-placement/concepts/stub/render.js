@@ -18,7 +18,7 @@ const STUB_CSS = (rideMs) => `
   #sortBtn,#toggleFiltersBtn{margin-right:calc(var(--s1) - var(--gap))}   /* icon gaps 12 -> 4 */
   #nb{position:absolute;right:0;top:0;bottom:-1px;width:60px;border:0;padding:0;margin:0;cursor:pointer;
       background:var(--brand-orange);color:var(--navy);display:flex;align-items:center;justify-content:center;
-      -webkit-tap-highlight-color:transparent;transition:background ${rideMs}ms ease,color ${rideMs}ms ease}
+      -webkit-tap-highlight-color:transparent}   /* field + glyph colour SWITCH, never fade: no orange/navy blend in any frame (director fix 2) */
   /* the Hanging Tag stub's perforation: 1.5px dashed, 10px end insets, var(--s1) inside the orange */
   #nb::before{content:'';position:absolute;left:var(--s1);top:10px;bottom:10px;border-left:1.5px dashed ${PERF};pointer-events:none}
   #nb svg{transition:transform ${rideMs}ms ease}
@@ -26,6 +26,11 @@ const STUB_CSS = (rideMs) => `
   #nb.open{background:var(--state-on-bg);color:var(--state-on-fg)}
   #nb.open svg{transform:rotate(45deg)}                         /* + turns into x: one glyph */
   #nb.open.press{background:var(--state-on-bg);color:var(--state-on-fg)}   /* press on open keeps the tile */
+  /* the form is anchored to the band while open (director fix 1): bottom on the band, grows upward, map above.
+     z 900 = above the map panes, under the sheet (1000), so the dropping sheet uncovers it. Fields unchanged. */
+  #controls.show{position:absolute;left:0;right:0;top:auto;bottom:0;z-index:900;max-height:100%;overflow:auto;
+     padding-top:var(--s6);border-bottom:0;border-top:2px solid var(--navy)}
+  body.adding .leaflet-bottom{bottom:var(--form-h,0px)}
   /* title gives way: " list" -> count -> the name ellipsizes */
   #locationsHeader h2.fit{display:flex;min-width:0}
   #locationsHeader h2.fit .n{overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto;white-space:nowrap}
@@ -51,6 +56,9 @@ function inject(rideMs) {
     const on = fab.classList.contains('active');
     if (on === nb.classList.contains('open')) return;
     nb.classList.toggle('open', on); nb.setAttribute('aria-label', on ? 'Close' : 'Add a place');
+    // OSM attribution stays on the visible map: it moves up to sit on the form's top edge while the form is open
+    document.body.classList.toggle('adding', on);
+    if (on) requestAnimationFrame(() => document.body.style.setProperty('--form-h', document.getElementById('controls').offsetHeight + 'px'));
     if (on && !collapsed()) { dropped = true; document.getElementById('collapseBtn').click(); }     // the list drops to its band
     if (!on && dropped) { dropped = false; if (collapsed()) document.getElementById('collapseBtn').click(); }   // and comes back
   })
@@ -108,7 +116,14 @@ const JOBS = {
       await page.click('#nb'); await page.waitForTimeout(800);
       const hit = await page.evaluate(() => { const r = document.getElementById('submitBtn').getBoundingClientRect(); const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return e && e.id; });
       console.log('still2 add hit:', hit, 'nb', JSON.stringify(await box(page, '#nb')), 'submit', JSON.stringify(await box(page, '#submitBtn')));
-      await shot(page, '2-adding-664-3x.png'); await ctx.close(); }
+      await shot(page, '2-adding-664-3x.png');
+      console.log('664 form top', JSON.stringify(await box(page, '#controls')), 'acct', JSON.stringify(await box(page, '#accountBtn')));
+      await ctx.close(); }
+    { const { ctx, page } = await open(b, [390, 844]);
+      await page.click('#nb'); await page.waitForTimeout(800);
+      console.log('844 submit', JSON.stringify(await box(page, '#submitBtn')), 'nb', JSON.stringify(await box(page, '#nb')), 'form', JSON.stringify(await box(page, '#controls')),
+        'hit', await page.evaluate(() => { const r = document.getElementById('submitBtn').getBoundingClientRect(); const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return e && e.id; }));
+      await shot(page, '2-adding-844-3x.png'); await ctx.close(); }
     // strip: slow the ride 10x so the middle frame is deterministic
     const { ctx, page } = await open(b, [390, 664], { rideMs: 3000 });
     await page.addStyleTag({ content: '#locations{transition:transform 3s ease!important}' });

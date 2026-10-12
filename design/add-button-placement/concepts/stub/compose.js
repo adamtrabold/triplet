@@ -15,9 +15,9 @@ const pages = {
   '2-tap-strip-3x.png': { w: 1170, body: `
      <div class="cap">1 · Tap +</div><div class="sub">Phone in Safari (390×664). The list is up.</div>
      <div style="height:1092px;overflow:hidden">${img('2-strip-a-rest-3x.png', 'width:1170px;margin-top:-900px')}</div>
-     <div class="cap">2 · The list slides down</div><div class="sub">The + rides down with it and turns into ×. The form opens above.</div>
+     <div class="cap">2 · The list slides down</div><div class="sub">The + switches to a navy × (no fade) and turns as it rides down; the form is uncovered above.</div>
      <div style="height:1092px;overflow:hidden">${img('2-strip-b-mid-3x.png', 'width:1170px;margin-top:-900px')}</div>
-     <div class="cap">3 · Adding</div><div class="sub">× at the bottom edge; ADD LOCATION just above it. Tap × and the list comes back up.</div>
+     <div class="cap">3 · Adding</div><div class="sub">The form sits on the band: × at the bottom edge, ADD LOCATION just above it, the map above. Tap × and the list comes back up.</div>
      <div style="height:1092px;overflow:hidden">${img('2-strip-c-open-3x.png', 'width:1170px;margin-top:-900px')}</div>` },
   '4-states-3x.png': { w: 1170, body: `
      <div class="cap">Rest</div><div class="sub">Brand orange, navy + (same as ADD LOCATION)</div>${img('4-state-rest-3x.png', 'width:1170px')}
@@ -43,7 +43,7 @@ const pages = {
       ${t('2-adding-664-3x.png', '2 · Adding (Safari, 390×664)', 'List drops to its band; × at the bottom, Add above')}${t('3-tag-open-3x.png', '3 · Tag open + selected row', 'The tag stays the loudest thing')}</div>
     <div class="row" style="margin-top:20px">${t('2-strip-a-rest-3x.png', '2 · Tap strip: rest', '')}${t('2-strip-b-mid-3x.png', 'Mid-ride', '+ turning to ×')}${t('2-strip-c-open-3x.png', 'Open', '× at the bottom edge')}
       ${t('5-320-copenhagen-3x.png', '5 · 320 wide, Copenhagen', 'Title gives way: LIST, then count, then …', 480)}</div>
-    <div class="row" style="margin-top:20px">${t('4-states-3x.png', '4 · States', 'Rest / pressed / open / filters open', 1200)}</div></div>`;
+    <div class="row" style="margin-top:20px">${t('2-adding-844-3x.png', '2b · Adding (Home Screen, 390×844)', 'Form sits on the band; Add just above the ×; map above')}${t('4-states-3x.png', '4 · States', 'Rest / pressed / open / filters open', 1200)}</div></div>`;
   await shoot('overview-sheet.png', 2500, body);
   fs.unlinkSync(`${D}/.compose.html`);
   await b.close();
