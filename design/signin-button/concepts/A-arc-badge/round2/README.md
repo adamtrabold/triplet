@@ -58,3 +58,39 @@ shots (`shots/v1-*`, `v3-*`) stay on disk for the record.
 - Flow sheet (`../../flow/sheet.html` + `proto/make-sheets.js`): the title is now "Signing in" (was "Signing in,
   both concepts"), and frame 5 uses `A-arc-badge/round2/shots/in-0|130|380.png`. Re-shot `flow/sheet-3x.png`.
 - Measure again with `node measure.js 2` (uses `measure.html`).
+
+## Round 2c: lifted to the optical centre (owner on 2b)
+Owner (verbatim): "i like this badge but it feels weighted low so maybe everything should be up some / visually
+centered. this could allow for more space betwen the icon and sign in -- look at the inspo for guidance"
+
+Sheet: `sheet-2c-3x.png` (from `sheet-2c.html`). Stills: `shots/2c/` (v6 = A, v7 = B, motion = B). Render with
+`OUT=shots/2c VS=6,7 V=7 node render2.js`. The 2b sheet and shots are untouched.
+
+**Inspo drawn on**
+- `inspo/visited-badge/passport-stamps-grid.jpg`, mainly the GREAT BRITAIN / LONDON roundel and the DUBLIN
+  oval. The emblem and the curved words are balanced as one block, with even margin all round. Nothing sits
+  on the rim, and the curved line follows the rim at a steady distance.
+- `inspo/project/matchbooks-collage-1.jpg`: the Little Washington seal (top left) and Ralph's "ENJOY A CUP OF"
+  arc. The curved type gets clear air from the emblem. Emblem and text read as two parts with breathing room
+  between them, not packed together.
+- What I took: centre the **group** (person + SIGN IN) by its ink, not the person by geometry. A bottom-only
+  arc drags the visual weight down, so the emblem has to rise above centre to balance it.
+  I also opened the person-to-words gap.
+
+**How:** the person and the arc move up independently. The arc's own centre (`ay`) moves up, so it's no
+longer concentric with the die. Its clearance from the rim only grows, most at 6 o'clock. Sizes, tracking,
+hair space and weight 700 are unchanged from 2b. The ink blot and the dry-up are now centred on the person,
+so at 0.06s the reversed figure is whole, not cut. With `cy` 25, as in 2b, the blot is identical to before.
+
+**Measured** (ink-only render at 10x, `node ink.js <v> && python3 ink.py <v>`; 50-unit box, centre 25)
+| | person centre cy | arc centre ay | ink top / bottom | ink bbox centre | ink centroid | room top / bottom (to valley r 18.81) | min ink-to-rim | person-to-caps gap |
+|---|---|---|---|---|---|---|---|---|
+| 2b (owner saw) | 25.0 | 25.0 | 18.2 / 41.6 | 29.9 | 30.8 | 12.0 / 2.2 | 2.25 | 5.6 |
+| A (v6) | 18.8 | 21.2 | 12.0 / 37.8 | 24.9 | 25.7 | 5.8 / 6.0 | 4.46 | 8.0 |
+| **B (v7, pick)** | 18.4 | 21.6 | 11.6 / 38.2 | 24.9 | 25.7 | 5.4 / 5.6 | 4.22 | 8.8 |
+- The gap is measured from the person's lowest ink (cy + 6.85) to the cap tops at 6 o'clock (ay + 12.49).
+- End letters stay at ±53.8° about the arc's own centre.
+- Both lifts put the ink box at 24.9, a hair above the true centre, which is the usual optical centre. The ink
+  centroid sits 0.7 lower because the words spread wide at the foot.
+- A and B are close: B moves the person up 0.4 and the words down 0.4, so it trades even margins for more air
+  between the two. That air is the owner's ask, so B is the pick.

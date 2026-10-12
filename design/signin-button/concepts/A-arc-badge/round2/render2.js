@@ -1,7 +1,7 @@
 // Round 2 stills from a PATCHED COPY of index.html (real file only read). node render2.js
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs');
-const ROOT = '/home/user/la-trip-map', H = ROOT + '/design/gesture-harness', HERE = __dirname, OUT = HERE + '/shots';
+const ROOT = '/home/user/la-trip-map', H = ROOT + '/design/gesture-harness', HERE = __dirname, OUT = HERE + '/' + (process.env.OUT || 'shots'); fs.mkdirSync(OUT, { recursive: true });
 const { BASEMAP } = require(ROOT + '/design/visited-system/build/basemap.js');
 const d = fs.readdirSync('/opt/pw-browsers').filter(x => /^chromium-\d+$/.test(x)).sort().pop();
 const PATCH = fs.readFileSync(HERE + '/../../flow/proto/patch.js', 'utf8'), B2 = fs.readFileSync(HERE + '/badge2.js', 'utf8');
@@ -39,7 +39,7 @@ const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120))
   const WIDE = { x: 230, y: 0, width: 160, height: 80 };          // corner with + : badge + plus
   for (const base of ['cream', 'dark']) {
     const { ctx, page, errs } = await open(b, { base });
-    for (const v of [1, 2, 3]) {
+    for (const v of (process.env.VS || '1,2,3').split(',').map(Number)) {
       await set(page, `document.getElementById('floatingAddBtn').style.display='';const a=document.getElementById('accountBtn');a.style.right='';SB.renderControl('A',SB.badgeA({v:${v}}));SB.centerArcs();`);
       await page.screenshot({ path: `${OUT}/v${v}-${base}-plus.png`, clip: WIDE });
       await set(page, `document.getElementById('floatingAddBtn').style.display='none';document.getElementById('accountBtn').style.right='16px'`);
@@ -47,8 +47,8 @@ const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120))
     }
     if (base === 'cream') {
       // full-width real-size strip for the recommended variant, + and alone
-      await set(page, `document.getElementById('floatingAddBtn').style.display='';const a=document.getElementById('accountBtn');a.style.right='';SB.renderControl('A',SB.badgeA({v:2}));SB.centerArcs();`);
-      await page.screenshot({ path: `${OUT}/top-v2-390.png`, clip: { x: 0, y: 0, width: 390, height: 84 } });
+      await set(page, `document.getElementById('floatingAddBtn').style.display='';const a=document.getElementById('accountBtn');a.style.right='';SB.renderControl('A',SB.badgeA({v:${MV}}));SB.centerArcs();`);
+      await page.screenshot({ path: `${OUT}/top-v${MV}-390.png`, clip: { x: 0, y: 0, width: 390, height: 84 } });
       // motion, recommended variant (v2), same timings as round 1
       const clip = { x: 244, y: 4, width: 86, height: 82 };
       const IN = [['0', '{}', 1], ['60', '{ink:9,t:.15}', 1.06], ['130', '{ink:19.5,t:.55}', 1.12], ['250', '{ink:24,t:.9}', .97], ['380', 'SI', 1]];
@@ -66,7 +66,7 @@ const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120))
     await ctx.close();
   }
   { const { ctx, page } = await open(b, { w: 320, h: 700 });
-    await set(page, `SB.renderControl('A',SB.badgeA({v:2}));SB.centerArcs()`);
-    await page.screenshot({ path: `${OUT}/top-v2-320.png`, clip: { x: 0, y: 0, width: 320, height: 84 } }); await ctx.close(); }
+    await set(page, `SB.renderControl('A',SB.badgeA({v:${MV}}));SB.centerArcs()`);
+    await page.screenshot({ path: `${OUT}/top-v${MV}-320.png`, clip: { x: 0, y: 0, width: 320, height: 84 } }); await ctx.close(); }
   await b.close(); console.log('done');
 })();

@@ -36,7 +36,8 @@
    582
   ],
   "h2scroll": 130,
-  "tight": false,
+  "nat": 174.171875,
+  "tight": true,
   "header": [
    0,
    544,
@@ -70,7 +71,8 @@
    582
   ],
   "h2scroll": 154,
-  "tight": false,
+  "nat": 174.171875,
+  "tight": true,
   "header": [
    0,
    544,
@@ -104,7 +106,8 @@
    378
   ],
   "h2scroll": 84,
-  "tight": false,
+  "nat": 174.171875,
+  "tight": true,
   "header": [
    0,
    340,
@@ -138,7 +141,8 @@
    405
   ],
   "h2scroll": 139,
-  "tight": false,
+  "nat": 174.171875,
+  "tight": true,
   "header": [
    0,
    367,
@@ -535,7 +539,7 @@
    374,
    518
   ],
-  "hit": "form-star-tap",
+  "hit": "submitBtn",
   "nb2": [
    330,
    544,

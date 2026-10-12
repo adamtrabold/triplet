@@ -632,3 +632,157 @@ fails 320px on width. The two systems fixes (list drops while the form is
 open; opening the form closes the filters panel) need a visual answer, and
 so do the stub's width, its open state and the × colour against the state
 system.
+
+---
+
+## Turn 5 -- product designer (visual focus), pass 2
+
+Everything here was rendered headless at 3x. Script:
+`concepts/sketches/pass2/render.js` (`ONLY=<prefix> node render.js`;
+measurements go to `measure*.json`). Stills are in
+`concepts/sketches/pass2/`. The real index.html is untouched.
+
+### 1. The stub, resized to the system: 60px, centred on the rows' × column
+
+- **Width: 60px**, the Hanging Tag stub's own height (60px). Not 56 or 68.
+  At 390 the stub spans x 330-390, so its centre is **x 360, exactly the
+  rows' × centre** (`.delete-btn` x 346-374, measured). This holds at every
+  width, because both are anchored to the right edge: at 320 the stub runs
+  260-320 and the × 276-304, so both centre on 290. The + glyph sits on the
+  same axis, so the shared column is intended, not accidental.
+- **Icon spacing:** the three 32px tiles go from `--gap` (12px) to
+  **`--s1` (4px)**, and the stub sits `--s1` from the locate tile. The
+  glyphs are 18-20px inside 32px tiles, so their own inset leaves about 14px
+  of air between glyphs. Visually the trio still reads as evenly spaced. Tap
+  targets stay 32px. The press/open tiles (3px radius) no longer touch,
+  which I checked in `states-3x.png`. Result: the title gets **154px at 390**
+  (was 118 in the turn-2 sketch, 186 today).
+- **Intended truncation:** the drop order is "list", then the city
+  ellipsizes; the count never truncates. (This is a structure change: the
+  title becomes three spans: name / " list" / count. The copy itself is
+  unchanged.)
+  - 390: **COPENHAGEN (112)**, full name (`width-study-3x.png`, row 2;
+    row 1 is today, with no stub).
+  - 375: **COPENHAG… (112)**.
+  - 320: **COP… (112)**, which is still poor. Proposal for the director:
+    add the count to the drop order before the name ellipsizes, i.e.
+    "list" → count → ellipsis, which gives **COPENHA…** at 320. The header
+    names the list, so the name matters more than the count. This is a
+    copy-behaviour call, so I'm flagging it and not deciding it.
+  - Known nit: when the name ellipsizes, a sliver of space can sit between
+    "…" and "(112)". That comes from ellipsis glyph rounding, and a builder
+    can trim it (e.g. measure-and-clip instead of a flex basis).
+- `LA LIST (23)` and every short city show in full, as today. "LIST" only
+  goes when it doesn't fit.
+
+### 2. The perforation: the tag stub's exactly, placed so it reads
+
+- I copied the tag stub's perforation exactly: **1.5px dashed `var(--hair)`,
+  inset 10px from both ends** (`.tag-stub::before`). Same weight, same dash,
+  same ink. Nothing else is added: no notches, texture or shadow.
+- Placement matters more than spec. **On the seam** (half on paper, half on
+  orange) it read as a render glitch: hair-on-paper vanishes and a broken
+  edge is left (tested at offsets -0.75 and 0). **4px (`--s1`) inside the
+  orange**, the same hair dashes read as punched holes with paper showing
+  through, which is what a perforation on a printed stub looks like. The
+  colour runs a few px past the perforation, as print does. That's the
+  version in every pass-2 still.
+- On the navy open state the same hair dashes still read as holes, so the
+  perforation never changes between states.
+
+### 3. States: one system with the header and the form (`states-3x.png`)
+
+Top row: rest, pressed. Middle row: open, plus the filters tile open beside
+a resting stub. Bottom: the account badge closed and open, for comparison.
+
+| State | Field | Glyph | Where it comes from |
+|---|---|---|---|
+| Rest | `--brand-orange` | navy + | the primary action: same as ADD LOCATION at rest |
+| Pressed | `--brand-orange-deep` | paper + | ADD LOCATION's own press (`#submitBtn:active`) |
+| Open | `--state-on-bg` (navy) | **paper ×** | the header's ON tile, the same as filters/sort open |
+| Pressed while open | navy (keeps the tile) | paper × | the header rule "a press on an open button keeps the tile" |
+
+- **× colour: paper, not orange.** The open stub is the header's ON state,
+  and the ON glyph is `--state-on-fg` (paper). Next to an open filters tile
+  it then reads as the same system. An orange × on navy would be the
+  account badge's *rest* look, which re-twins the two controls I'm trying
+  to split, and it would say "action available" rather than "this is open".
+- **+ to × is one glyph turning.** The + rotates 45° into the × (same
+  strokes, same 2.75 weight) while the field crossfades orange to navy,
+  over 150ms. It reads as the same control changing state in place, not as
+  a swap. It is not a pop and not a grow (ledger: "controls don't move or
+  grow").
+- **For the CD:** the account badge *open* is an orange field with a navy
+  glyph, which is the stub's *rest* colouring. They differ in shape
+  (scalloped circle vs stub), sit at opposite ends of the screen, and are
+  never both "live" in a way that confuses: the menu is open, or the add
+  is ready. But it's a seam in the colour system. Account-badge states
+  belong to the sign-in crew's area, so this is flagged, not touched.
+
+### 4. Systems' two proposals: my visual answer
+
+**(a) List drops to its band while the form is open:** I back it. One
+correction, though: it does move the control. Compare the two frames in
+`form-664-A-vs-B-3x.png` (390x664, the Safari tab):
+
+- **A (drop), left:** the whole form is visible: City, Category, Search,
+  Address, Notes, Star, ADD LOCATION. Add sits just above the band and the
+  × is in the band. This is a calm, complete screen: "you're adding now".
+- **B (band holds, form scrolls above it with Add pinned), right:** at 664
+  the form gets 364px. Search is scrolled out of view (the field you need
+  first), Add sits pinned over Address, and the list rows stay on screen
+  doing nothing. It looks broken, and it's worse the shorter the screen.
+  B is dead visually.
+- **But A moves the stub**: on the tap that opens the form, the × travels
+  240px down with the band (from y 364 to 604 at 664; measured `nb2` in
+  `measure.json`). That is literally "the button changes physical
+  location after click", the owner's own words. Systems' turn 4 said the
+  stub "never moves on the tap that opens the form"; with the drop, it
+  does. I still prefer A, for three reasons:
+  - It's honest. The *sheet* moves, using the collapse motion it already
+    has, and the stub rides it like sort/filter/locate do.
+  - Only in the list-up state does anything move. Collapsed, nothing moves.
+  - The × lands at the bottom of the screen, the most reachable spot there
+    is.
+  But this has to go to the owner as a plain question, not under the
+  director's reading of the rule. Suggested wording: "When you tap +, the
+  list slides down out of the way and the + (now ×) rides down with it to
+  the bottom edge. OK, or should the button never move?"
+- Motion: the existing collapse transform and timing, with no new curve.
+  The + to × turn (above) happens during the ride, so it reads as one
+  gesture: the control turns as it goes. Close plays the reverse. Always
+  drop, even at 844 where the form would fit: one behaviour, not a
+  sometimes-moving button.
+
+**(b) Opening the form closes filters/sort:** yes. The visual rule I'd
+state is **"one ON tile in the band at a time."** In the same beat the
+filters panel retracts into the band (with the drop), the filters tile goes
+back to outline, and the stub goes navy. The band never shows two navy
+tiles, and the open thing is always the one you just touched. The sort menu
+just closes, as it does today when the filters panel opens.
+
+### 5. Re: the director's checks, visually
+
+- Check 4 (tag + navy row + stub): seen in systems' `tag-3x.png`. The tag
+  wins on size and height. The two oranges (tag band = starred, stub = add)
+  are 1,000px apart at 3x. The ledger already makes the star the action
+  orange, so they're one family. The CD should confirm.
+- Signed out: the stub looks identical (the ledger's "visible, tapping
+  offers sign-in"). No greyed version, because + is the one control that
+  *should* invite a tap.
+
+### Open questions (new this pass)
+
+- Director/owner: does the drop order add the count ("list" → count →
+  ellipsis) so 320 shows COPENHA… rather than COP… (112)?
+- Owner (via orchestrator): does the + riding down with the list when the
+  form opens break "controls don't move"? See the wording above.
+- CD: account-open (orange field) vs stub-rest (orange field). Flag for the
+  sign-in crew's state work.
+
+NEXT: design director -- the stub now has a spec-grade look
+(60px on the × axis, the tag's perforation, a four-state table tied to
+existing tokens), and the drop-vs-hold question has a visual answer plus an
+honest flag on the owner's "controls don't move" rule. It needs steering:
+is it ready to become the concept, and do the 320 drop order and the
+moving-× question go to the owner?

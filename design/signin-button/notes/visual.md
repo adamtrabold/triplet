@@ -1,5 +1,18 @@
 # Visual designer notes: sign-in button
 
+## Round 2c (owner on 2b: "feels weighted low ... everything up some / visually centered ... more space betwen the icon and sign in -- look at the inspo")
+- Inspo: passport-stamps-grid (LONDON roundel, DUBLIN oval: emblem + curved words as one block, even margins)
+  and matchbooks-collage-1 (Little Washington seal, Ralph's arc: air between emblem and arc type).
+- Group centred by ink: person cy 25 -> 18.4, arc centre ay 25 -> 21.6 (arc no longer concentric; rim clearance
+  2.25 -> 4.22). Ink bbox centre 29.9 -> 24.9; gap person-to-caps 5.6 -> 8.8; room top/bottom 5.4/5.6.
+  Sheet shows A (v6: 18.8/21.2) and B (v7: 18.4/21.6, pick). `sheet-2c-3x.png`, `shots/2c/`.
+- Strike blot and dry-up are now centred on the person's current centre (no cut figure at 0.06s). This is a
+  no-op for cy 25.
+- Tools: `ink.html/ink.js/ink.py` (ink balance and rim clearance), `measure.*` (gaps/angles), `lift.html` (sketch).
+- Flow sheet frame 5 still points at the 2b frames (`round2/shots/in-*`). After the owner picks A/B, re-point it
+  to `round2/shots/2c/in-*` and re-shoot.
+- Next: owner picks A/B (or approves B); then the handoff's looks-and-feels, with values from the README table.
+
 ## Round 2b (director scored 2 = 8, 1/3 = 7; fixes applied to 2 only, files overwritten in place)
 - V[2] now: person x0.68 at true centre (25,25), stroke 1.45; text 6px Archivo 700, 100% width, tracking 1.3px
   (0.22em), hair space between words, baseline r 16.6.

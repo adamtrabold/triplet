@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Sign-in A round 2c</title>
+<link rel="stylesheet" href="../../flow/proto/sheet.css">
+<style>
+.pair{display:flex;gap:8px;padding:6px 16px 2px}.pair>div{width:175px;display:flex;flex-direction:column;align-items:center}
+.lab{font:700 12px/15px Archivo;font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;color:#12293F;text-align:center;margin-top:6px}
+.t{font-size:12px;line-height:15px;color:#5A564C;text-align:center;margin-top:3px}
+.row2{display:flex;gap:8px;padding:2px 16px}.row2>div{width:160px}.row2 img{display:block;border-radius:2px}
+.rl{font-size:12px;line-height:15px;color:#5A564C;padding:8px 16px 4px}
+.pick{background:#FAF5EA;margin:8px 16px 0;padding:10px 12px;border-left:3px solid #12293F;font-size:13px;line-height:18px}
+.before{display:flex;align-items:center;gap:12px;padding:4px 16px 0}.before .t{text-align:left;margin:0}
+</style>
+<script>window.__CONCEPT='A'</script><script src="../../flow/proto/patch.js"></script><script src="badge2.js"></script></head><body>
+<h1>A · Sign-in badge, lifted</h1>
+<p>Your note: it felt weighted low. The person and SIGN IN now move up together as one group, so it sits visually centred in the badge, with more room between them. Sizes and spacing are as you liked them.</p>
+<div class="before" id="before"></div>
+<h2>Two lifts, close to each other</h2>
+<div class="pair" id="pair"></div>
+<div class="pick"><b>We'd pick B.</b> It gives the person and the words the most room while still sitting centred.</div>
+<h2>Real size</h2>
+<div class="rl">Next to +</div>
+<div class="row2"><div><img src="shots/2c/v6-cream-plus.png" width="160" height="80"><div class="t">A</div></div><div><img src="shots/2c/v7-cream-plus.png" width="160" height="80"><div class="t">B</div></div></div>
+<div class="rl">Over water and park, where the map is darkest</div>
+<div class="row2"><div><img src="shots/2c/v6-dark-plus.png" width="160" height="80"><div class="t">A</div></div><div><img src="shots/2c/v7-dark-plus.png" width="160" height="80"><div class="t">B</div></div></div>
+<div class="rl">On its own in the corner, if + moves elsewhere</div>
+<div class="row2"><div><img src="shots/2c/v6-cream-alone.png" width="160" height="80"><div class="t">A</div></div><div><img src="shots/2c/v7-cream-alone.png" width="160" height="80"><div class="t">B</div></div></div>
+<h2>Signing in and out, with B</h2>
+<p>Unchanged: navy ink lands over the words and the person settles into your usual badge; signing out, the ink dries away.</p>
+<div class="frames">
+<div style="width:65px"><img src="shots/2c/in-0.png" width="65" height="62"><div class="t">Arrive</div></div>
+<div style="width:65px"><img src="shots/2c/in-60.png" width="65" height="62"><div class="t">0.06s</div></div>
+<div style="width:65px"><img src="shots/2c/in-130.png" width="65" height="62"><div class="t">0.13s</div></div>
+<div style="width:65px"><img src="shots/2c/in-250.png" width="65" height="62"><div class="t">0.25s</div></div>
+<div style="width:65px"><img src="shots/2c/in-380.png" width="65" height="62"><div class="t">Signed in</div></div>
+</div>
+<div class="frames">
+<div style="width:65px"><img src="shots/2c/out-0.png" width="65" height="62"><div class="t">Signed in</div></div>
+<div style="width:65px"><img src="shots/2c/out-150.png" width="65" height="62"><div class="t">0.15s</div></div>
+<div style="width:65px"><img src="shots/2c/out-300.png" width="65" height="62"><div class="t">0.3s</div></div>
+<div style="width:65px"><img src="shots/2c/out-450.png" width="65" height="62"><div class="t">0.45s</div></div>
+<div style="width:65px"><img src="shots/2c/out-540.png" width="65" height="62"><div class="t">Signed out</div></div>
+</div>
+<div style="height:16px"></div>
+<script>
+before.innerHTML = `${SB.badgeA({ v: 2, size: 60 })}<div class="t">Before: the one you saw.</div>`;
+pair.innerHTML = `<div>${SB.badgeA({ v: 6, size: 140 })}<div class="lab">A · Lifted</div></div><div>${SB.badgeA({ v: 7, size: 140 })}<div class="lab">B · Lifted, more room</div></div>`;
+document.fonts.ready.then(() => SB.centerArcs());
+</script></body></html>

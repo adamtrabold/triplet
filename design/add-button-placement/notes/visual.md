@@ -1,65 +1,73 @@
 # Visual designer notes -- + placement
 
-## Where things stand (2026-10-12, after jam turn 2)
-- Jam turn 2 written in `jam.md` (after systems' turn 1). Jam only: no
-  scores, no concepts, no jobs.md yet.
-- Four quick sketches rendered headless at 3x (390x844 @3x = 1170 wide),
-  rest + collapsed: `concepts/sketches/{seal,tab,stamp,stub}-{rest,collapsed}-3x.png`.
-  Script `concepts/sketches/render-sketches.js` (injects CSS + one element
-  into an in-memory copy of index.html; `ONLY=<name>` renders one). The real
-  index.html is untouched; nothing committed.
-- In all sketches + is hidden from the top corner, the account badge moves
-  to `right: var(--s4)` alone, and + lives on the list sheet.
+## Where things stand (2026-10-12, after jam pass 2 = my turn 5)
+- Turn 2 (pass 1): four directions sketched (`concepts/sketches/`).
+- Director turn 3: **stub leads**; tab killed (reads as a sheet pull-handle,
+  plus attribution/tag-gap/rail costs); stamp killed; seal = "least change"
+  baseline frame only. Six checks set.
+- Systems turn 4: stress test (`concepts/stub-stress/`): stub passes safe
+  area, filters visible, tag hierarchy, signed out/playground, desktop rail;
+  fails 320 on width. Found a pre-existing bug: below ~790px tall the list
+  sheet covers ADD LOCATION. Proposed: list drops to its band while the form
+  is open; opening the form closes filters/sort. One-band wildcard dropped.
+- My turn 5 (pass 2): spec-grade stub look. Stills + script in
+  `concepts/sketches/pass2/` (`render.js`, `ONLY=<prefix>`; `measure*.json`).
+  Key sheets: `width-study-3x.png`, `states-3x.png`,
+  `form-664-A-vs-B-3x.png`.
 
-## Directions and my read
-1. **Stub (lead)** -- full-height brand-orange tear-off stub at the right end
-   of the list header, to the screen edge, dashed perforation (the Hanging
-   Tag's stub grammar), navy +. Edge-bound eyes-closed target; prominent by
-   being the only filled block in the band; no extra height; works on the
-   desktop rail. Costs: ~68px header width (320px truncation), loudness next
-   to navy selected row (dial: paper field + orange glyph), column above
-   the rows' delete x.
-2. **Tab (live)** -- orange index-card tab growing out of the sheet's top
-   edge at right (76x36). Zero header width. Costs: over Leaflet
-   attribution, into the tag's 48px gap, nowhere to grow on desktop rail;
-   tab->card transition would move the control.
-3. **Seal (baseline)** -- today's badge, orange, straddling the edge. Stock
-   FAB in a costume; over attribution.
-4. **Postage stamp (proposed kill)** -- collides with the rubber VISITED
-   stamp metaphor; "ADD" is a second text line; too many effects.
-- Not sketched: watch crown half off the right edge (new shape, reads as bug).
-- Tried and dropped: claim-check notches on the stub -- the top notch reads
-  as a dot on the map (ledger: no dots).
+## The stub as it stands (my spec)
+- 60px wide (= tag stub height), full header height, flush right, to the
+  screen edge. Centre x = rows' x centre at every width (390: 360; 320: 290).
+- Icons: three 32px tiles at --s1 (4px) gaps, --s1 to the stub. Title room
+  at 390: 154px (today 186; turn-2 sketch 118).
+- Title = spans name / " list" / count; drop order "list" first, then name
+  ellipsizes; count never truncates. 390: COPENHAGEN (112). 375:
+  COPENHAG... (112). 320: COP... (112) -- proposed: drop count before
+  ellipsizing the name (-> COPENHA...). Nit: sliver gap after the ellipsis.
+- Perforation: the tag stub's exact rule (1.5px dashed var(--hair), 10px end
+  insets), placed var(--s1) INSIDE the orange -- on the seam it read as a
+  glitch; inside, it reads as punched holes. Same on navy. No notches (dots),
+  no texture, no shadow.
+- States: rest orange/navy + (= ADD LOCATION); pressed orange-deep/paper +
+  (= submit press); open navy/paper x (= header ON tile, --state-on-bg/fg);
+  pressed-open keeps the tile. + rotates 45deg into x with field crossfade,
+  150ms; no pop, no grow.
 
-## Decisions so far (mine, provisional) and why
-- + stops being the account badge's twin: different shape and fill, so it's
-  primary by structure. Account keeps the scalloped badge and the top corner.
-- Big by footprint (edge-bound), not by scaling the glyph; glyph stroke
-  stays in the icon language (2.5-2.75).
-- Open state for an orange-at-rest +: swap ends of today's system (navy
-  field, orange x), x stays where + was; press = one tone deeper, glyph to
-  paper (existing press state). Motion lives on the form, not the button.
+## Decisions so far and why
+- x is paper, not orange: matches the header's ON system; orange-on-navy is
+  the account badge's rest look and would re-twin the controls.
+- Form open: back systems' "drop" (A). Hold-and-scroll (B) at 664 hides
+  Search and pins Add over Address -- looks broken. Always drop (one
+  behaviour). Existing collapse motion; the +->x turn rides with it.
+- BUT A moves the x 240px on the tap (list-up state) -- literally the
+  owner's "button changes physical location after click". Must go to the
+  owner as a plain question (wording in jam turn 5), not under the
+  director's reading.
+- "One ON tile in the band at a time": opening the form retracts the
+  filters panel and un-tiles filters in the same beat.
 
-## Director objections
-- None yet (no steering round).
+## Director objections (turn 3) and status
+- "Reads as an orange toolbar slab, not a stub" -> answered with the tag's
+  perforation placed inside the orange, 60px on the x axis. Director to
+  judge.
+- Tab: accepted the kill (no answer to the pull-handle misread).
+- Wants rest/pressed/open side by side with the account badge -> done
+  (`states-3x.png`).
 
 ## Open questions
-- Is the form's origin (rising from the band) in scope? Stub is strongest
-  if yes.
-- Does the Leaflet attribution move (tab/seal collide)?
-- Orange-field-at-rest vs today's "orange field = open": CD should see it.
-- Sign-in crew: their badge was drawn left of +; now alone top-right
-  (orchestrator to tell them). Likely helps their "never louder than +".
-- Stub field: orange vs paper-with-orange-glyph (only if the orange block
-  reads too loud; avoid offering both by default -- "fewer variations").
+- Director/owner: add count to the drop order at narrow widths?
+- Owner: OK that the x rides down with the list when the form opens?
+- CD: account-open (orange field) = stub-rest colouring; sign-in crew's area.
+- CD: two oranges with a starred tag open (star vs add) -- one family per
+  the ledger, confirm.
 
 ## Randomness used
-Oblique: "Disconnect from desire", "Consider transitions". Fields: postal
-service, clockmaking. Twists: "it is half hidden", "it must work with eyes
-closed".
+Pass 1: Oblique "Disconnect from desire", "Consider transitions"; fields
+postal service, clockmaking; twists "half hidden", "eyes closed". Pass 2:
+none new (refinement pass).
 
 ## Next
-Systems stress-tests stub and tab against the ten flows (filters panel over
-the header, tag gap, 320px, desktop rail, keyboard). Then director steers.
-My next pass: stub at 320px and with a navy selected row, the open (x)
-state, the form rising from the band; tab with attribution moved.
+Director steers: is the stub ready to become the concept, and which
+questions go to the owner. Then concepts with systems: full frames (rest,
+collapsed, tag open, form open via drop, filters->form, signed out, 320,
+desktop) at 3x, plus the seal baseline frame for comparison.
