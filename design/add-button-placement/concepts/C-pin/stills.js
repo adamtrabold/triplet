@@ -2,7 +2,7 @@
 // Renders this folder's index.html copy (systems' structure) + visual.inc.html (the look), injected in memory.
 // Neither the real index.html nor systems' files are touched. Reykjavík, stub data, 3x, 1170 wide.
 // Run: node stills.js   (ONLY=<name-prefix>)   then: node ../compose-stills.js B
-const L = require('../lib-render.js'); const fs = require('fs'); const path = require('path');
+const L = require('../lib-render.js'); const chromeCheck = require('../chrome-check.js'); const fs = require('fs'); const path = require('path');
 const COPY = path.join(__dirname, 'index.html'), OUT = path.join(__dirname, 'stills');
 const LOOK = fs.readFileSync(path.join(__dirname, 'visual.inc.html'), 'utf8');
 fs.mkdirSync(OUT, { recursive: true });
@@ -49,6 +49,8 @@ const S = {
   'pending-filters-664': { vp: [390, 664], run: async p => { await p.click('#toggleFiltersBtn'); await p.waitForTimeout(700); } },
   'st-pin-rest':    { vp: [390, 844], crop: '#pencilPin' },
   'st-pin-pressed': { vp: [390, 844], crop: '#pencilPin', run: p => p.evaluate(() => { const s = document.createElement('style'); s.textContent = '#pencilPin .mini-tag-face{fill:var(--brand-orange-deep)}#pencilPin .mini-tag-word{fill:var(--paper)}'; document.head.appendChild(s); }) },
+  'size-s1':        { vp: [390, 844], patch: h => h.replace('</head>', '<style>#pencilPin{--pin-s:1!important}</style></head>') },
+  'size-s125':      { vp: [390, 844] },
   'st-pin-1x':      { vp: [390, 844], dsf: 1, crop: '#pencilPin' },
 };
 (async () => {
@@ -59,7 +61,7 @@ const S = {
     if (s.run) await s.run(page);
     await page.waitForTimeout(300);
     const m = { pin: await L.box(page, '#pencilPin'), bar: await L.box(page, '#pinBar'), blank: await L.box(page, '#blankTag'), submit: await L.box(page, '#submitBtn'), submitHit: await L.hit(page, '#submitBtn'), starHit: await L.hit(page, '#starInput'), catHit: await L.hit(page, '#categoryInput'), after: await page.evaluate(() => window.__cAfter || null),
-      form: await L.box(page, '#controls'), rows: await L.rowsVisible(page), tag: await L.box(page, '.tag-popup'), header: await L.box(page, '#locationsHeader'), errs };
+      form: await L.box(page, '#controls'), rows: await L.rowsVisible(page), tag: await L.box(page, '.tag-popup'), header: await L.box(page, '#locationsHeader'), errs, clash: await chromeCheck(page) };
     out[name] = m; console.log(name, JSON.stringify(m));
     const clip = s.crop ? await page.evaluate(q => { const r = document.querySelector(q).getBoundingClientRect(); return { x: Math.max(0, r.left - 150), y: r.top - 70, width: Math.min(innerWidth - Math.max(0, r.left - 150), 240), height: r.height + 110 }; }, s.crop) : undefined;
     await page.screenshot({ path: `${OUT}/${name}-${s.desk || s.dsf === 1 ? 1 : 3}x.png`, ...(clip ? { clip } : {}) });

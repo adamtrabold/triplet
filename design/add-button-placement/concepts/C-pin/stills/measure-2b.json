@@ -1,0 +1,35 @@
+{
+ "2b-search-664": {
+  "pin": [
+   324,
+   512,
+   376,
+   578
+  ],
+  "bar": [
+   0,
+   271,
+   390,
+   328
+  ],
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   604,
+   390,
+   661
+  ],
+  "errs": [],
+  "clash": [
+   "badgexresults"
+  ]
+ }
+}

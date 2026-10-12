@@ -1,0 +1,36 @@
+{
+ "2d-done-844": {
+  "pin": [
+   324,
+   452,
+   376,
+   518
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": {
+   "city": "reykjavik",
+   "row": true
+  },
+  "form": "hidden",
+  "rows": 4,
+  "tag": [
+   37,
+   114,
+   353,
+   338
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "errs": [],
+  "clash": []
+ }
+}

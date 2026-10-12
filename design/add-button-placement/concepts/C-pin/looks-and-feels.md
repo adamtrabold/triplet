@@ -17,7 +17,8 @@ form. Its fields move onto a tag on the map.
 | 1 | `1-rest-today-vs-C-3x.png` (raw `stills/1-rest-C-3x.png`) | Rest, list up, 390x844: today next to C |
 | 2 | `2-add-strip-3x.png` (raw `stills/2a-tap-664`, `2b-search-664`, `2c-placed-664`) | The add at 390x664 (Safari): tap the blank pin, search (keyboard drawn), then the pin stands on the place with the blank tag |
 | 2d | `2d-done-3x.png` (raw `stills/2d-done-844-3x.png`) | Added: the real pin and its real tag, row selected (844) |
-| 3 | `stills/3-tag-open-3x.png` | Starred tag open, navy selected row, blank pin (844: clears) |
+| 3 | `3-tag-open-3x.png` | Starred tag open, navy selected row. **The blank pin steps aside** ("close the tag to add") |
+| 4b | `4b-size-3x.png` | Size study: today's 50px badge vs the pin with a 44px and a 55px tag; the 55px one is chosen |
 | 4 | `4-states-3x.png` | Blank pin at rest and pressed, at real 1x size, starring the blank tag (prints the band), District |
 | 5 | `stills/5-320-copenhagen-3x.png`, `stills/5b-320-placed-3x.png` | 320 wide: rest, and the blank tag (fits without scrolling) |
 | -- | `stills/7-collapsed-homescreen-3x.png`, `stills/2c-placed-844-3x.png`, `stills/desktop-*.png` | List down; adding at 844; desktop (appendix) |
@@ -31,9 +32,18 @@ The look is `visual.inc.html`, layered on systems' `concept.inc.html`.
 - **Shape:** the app's own pin + Hanging Tag silhouette, in miniature. A 22px
   **pencilled ring** (2px navy, dashed 3.4/2.6 on `--paper-raised`) is a pin
   that hasn't been placed. A 1.5px `--ink-2` **straight string** runs down to
-  a **44x31 die-cut tag**: the tag's chamfered top corners, a paper eyelet
+  a die-cut tag: the tag's chamfered top corners, a paper eyelet
   hole, `--brand-orange`. The tag says **+ ADD** in navy (Archivo 75% width,
-  700, 12px, .06em). Box 52x66 at the map's lower right, above the OSM credit.
+  700, .06em). At the map's lower right, above the OSM credit.
+- **Size (director fix 4, `4b-size-3x.png`):** one knob, `--pin-s`. The
+  study shows `1` (tag 44x31, 12px words, box 52x66) and `1.25` (tag 55x39,
+  **15px words**, ring 27px, box **65x83 = the tap area**, well over 44x44)
+  next to today's 50px navy badge. **Chosen: 1.25.** Its orange tag
+  (55x39) is about as big as today's badge, and with words and colour it's
+  louder, so "more prominent" is met. It's still a pin + tag, not a disc.
+  The cost is a 65x83 dead zone at the map's lower right (pins under it at
+  street zoom pan free). At the default view of all 5 cities no pin sits
+  there (systems' check, same corner).
 - **Why it reads as add:** it says so ("it says its own name": a real draw,
   and the director's objection 1). The words do the work, so no tooltip is
   needed. 1x check: `stills/st-pin-1x-1x.png`, "+ ADD" crisp at real size.
@@ -54,7 +64,13 @@ The look is `visual.inc.html`, layered on systems' `concept.inc.html`.
   on the 56px spine. The field is the band: no input box and no orange focus
   ring; the caret and the keyboard show it's live. × is at the right end
   (cancel, the one cancel in this flow).
-- Results are the app's existing dropdown, growing upward (unchanged).
+- **Results (director fix 2):** one full-width paper sheet rising from the
+  band, rows 14/20 `--ink` with `--hair` rules, a soft 4px ink shadow upward.
+  Its height is capped at the space between the band and the lower of the
+  zoom control and the account badge, less `--s2` (`--res-max`, recomputed
+  as the keyboard moves). It never covers the top chrome. At 664 with the
+  keyboard up that's **3 results, and the 4th scrolls** (systems measured 4
+  before the cap).
 
 ## The blank tag (the form), in the tag's own type
 
@@ -129,7 +145,30 @@ bleeding in". Everything reuses existing motion except the pin's ink-in.
 - The blank tag is 270px tall at 390 (systems' rough one was 364), so it
   hangs lower and the map shows more.
 
-## On the two 664 failures (director's ruling; my visual view only)
+## Director's rulings, applied (turn 10)
+
+- **(b) The blank pin steps aside whenever a place's tag is open, at every
+  height,** and while the filters are open. A 150ms opacity fade with no
+  slide: it doesn't move, it just isn't there. Shown in `3-tag-open-3x.png`
+  and `2d-done-3x.png`, with the plain-cost line on still 1: "With a tag or
+  the filters open, close them to add."
+- **Still 1 also says:** "Bigger change: the add form becomes a tag on the
+  map."
+- **After Add, the new row is fully in view** (fix 3): a list tap on a row
+  that isn't fully visible scrolls it in first (`2d-done-844`).
+- **iOS zoom (ruling 4):** each pencilled entry is printed over a transparent
+  native select at 16px. Notes and the search line are 16px. No viewport
+  zoom lock. Builder detail and iPhone check.
+- **Draft on cancel (ruling 5):** kept in memory. Systems' part; the look is
+  unchanged.
+- **Chrome check:** every frame is checked by script
+  (`concepts/chrome-check.js` via `stills.js`, `clash` in
+  `stills/measure.json`). Badge, zoom and credit against the bar, results,
+  blank tag, tag and pin: all owner frames are clean. The only flagged frame
+  is `pending-filters-664`: today's own filters panel over the zoom control,
+  not this concept's.
+
+## On the two 664 failures (history: my view before the ruling)
 
 - **Tag open:** the blank pin carries its own little tag, so with a real tag
   open there are **two tags on screen**, and the small one sits on the real

@@ -84,6 +84,16 @@ The look is `visual.inc.html`, layered on systems' `concept.inc.html` in memory.
 - Today's ADD LOCATION button is hidden: the strip is the submit.
 - Keyboard up (still 6): the strip sits on the keyboard (y 452-508 at 844) and
   the form scrolls above it. ADD stays reachable while you type a note.
+- **The form's top stops below the account badge, with the OSM credit's row
+  kept clear between them** (director fix 6). Systems' cap was the badge's
+  bottom + 8px, but the credit rides on the form's top edge and landed on the
+  badge. The cap is now 26px lower (the credit's 18px + `--s2`). Keyboard up:
+  form y 147-452, credit y 129-147, badge bottom y 113. Short screens or
+  keyboard up: the form scrolls inside itself.
+- **Chrome check:** every frame is checked by script
+  (`concepts/chrome-check.js`, run by `stills.js`, written to `clash` in
+  `stills/measure.json`) for overlaps of the badge, zoom and credit with the
+  form, strip, tag and results. All B frames are clean.
 
 ## Feel / motion
 

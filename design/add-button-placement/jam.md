@@ -1382,3 +1382,25 @@ pin steps aside while a tag is open in every still incl. `2d-done`, search
 frame clean of the top chrome, new row fully in view, a prominence/size
 study of the pin, the plain-cost captions). Systems follows to update C's
 how-it-works for rulings 2-5.
+
+---
+
+## Turn 11 -- product designer (visual focus): round-3 fixes
+
+- **B fix 6:** the form stops below the account badge, with the OSM credit's
+  row kept clear between them (keyboard up: form y 147, credit y 129-147,
+  badge bottom y 113). `6-keyboard` is re-shot.
+- **C fixes 1-5:**
+  1. The blank pin steps aside whenever a tag (or the filters panel) is
+     open: `3-tag-open`, `2d-done`.
+  2. The search results are a full-width paper sheet capped below the zoom
+     control and the badge: 3 results at 664 with the keyboard up.
+  3. The new row is fully in view after Add.
+  4. Size study `4b-size-3x.png`: chosen tag 55px wide, 15px words, tap area
+     65x83.
+  5. Still 1 carries both plain-cost lines.
+- **Chrome check, now a script:** `concepts/chrome-check.js` runs on every
+  frame (`clash` in each `stills/measure.json`). All owner frames are clean.
+
+NEXT: design director -- re-score C (and check B's 6-keyboard); if C is a 9,
+the owner gets stub + B + C in one message.

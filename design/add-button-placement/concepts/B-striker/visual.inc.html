@@ -38,6 +38,10 @@
   #locations.collapsed #locationsHeader { border-bottom-color: transparent !important; }
   /* the risen form: today's 2px navy top rule (as the stub's form); no cast shadow */
   #controls.show { box-shadow: none; padding-bottom: var(--s3); }
+  /* director fix 6: the form's top stops below the account badge WITH the OSM credit's row reserved between
+     them (systems' cap = badge bottom + 8; the credit rides on the form's top edge, so it needs its own 18px
+     + --s2 clear of the badge). Short screens / keyboard up: the form scrolls inside itself. */
+  #controls.show { max-height: calc(var(--form-max, 70vh) - 26px); }
 </style>
 <script id="conceptBlookjs">
 (function () {

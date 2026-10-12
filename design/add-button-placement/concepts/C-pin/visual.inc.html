@@ -6,8 +6,13 @@
 <style id="conceptClook">
   /* ---- 1. THE BLANK PIN at rest: a pencilled (dashed) pin with a small luggage tag hanging from it that
      says ADD. The app's own pin + Hanging Tag silhouette, unfilled, so it reads as "a place not made yet". ---- */
-  #pencilPin { width: 52px; height: 66px; right: 14px; bottom: 26px; }
-  #pencilPin svg { width: 52px; height: 66px; filter: none; overflow: visible; }
+  /* --pin-s: the size step (1 = tag 44 wide; the prominence study, director fix 4). The hit area is the whole
+     box: 52x66 at 1, 65x83 at 1.25 -- both over 44x44. */
+  #pencilPin { --pin-s: 1.25; width: calc(52px * var(--pin-s)); height: calc(66px * var(--pin-s)); right: 14px; bottom: 26px; transition: opacity .15s ease, visibility 0s; }
+  #pencilPin svg { width: 100%; height: 100%; filter: none; overflow: visible; }
+  /* ruling (b): one tag at a time -- the blank pin steps aside whenever a place's tag is open, at every height
+     (a 150ms fade, no slide: it doesn't move, it isn't there). Filters open: it isn't there either. */
+  body:has(.leaflet-popup.tag-popup) #pencilPin, body:has(#filtersPanel.visible) #pencilPin { opacity: 0; visibility: hidden; transition: opacity .15s ease, visibility 0s .15s; }
   #pencilPin .mini-tag { filter: drop-shadow(0 0 .5px rgba(107, 74, 40, .5)) drop-shadow(0 1px 1px rgba(26, 26, 24, .12)) drop-shadow(0 3px 4px rgba(26, 26, 24, .10)); }
   #pencilPin:active .mini-tag-face { fill: var(--brand-orange-deep); }
   #pencilPin:active .mini-tag-word { fill: var(--paper); }
@@ -16,8 +21,15 @@
   #pinBar { border-top: 0; background: var(--paper); box-shadow: 0 -1px 0 var(--hair); }
   #pinBar .pin-glyph { left: 17px; top: 16px; }
   #pinBar #nameInput::placeholder { color: var(--ink-2); }
+  /* results (director fix 2): one paper sheet rising from the band, full width, hair rules between rows, never
+     over the zoom control or the account badge -- its height is capped at the space below them (--res-max). */
+  #pinBar #addressInputWrapper { position: static; }
+  #pinBar #addressAutocomplete { left: 0; right: 0; bottom: 100%; top: auto; width: auto; margin: 0; border: 0; border-top: 1px solid var(--hair); border-radius: 0;
+    background: var(--paper); box-shadow: 0 -4px 6px rgba(26, 26, 24, .06); max-height: var(--res-max, 50vh); overflow-y: auto; }
+  #pinBar #addressAutocomplete .autocomplete-item { padding: 10px var(--gutter) 10px 56px; font-size: 14px; line-height: 20px; border-bottom: 1px solid var(--hair); color: var(--ink); background: transparent; }
   #pinBar #nameInput:focus, #pinBar #nameInput:focus-visible { outline: none; box-shadow: none; border: 0; }   /* the band is the field; the caret and the keyboard say it's live */
 
+  @media (min-width: 900px) { body.pinadd .leaflet-bottom { bottom: 57px; } }   /* desktop: the search bar overlays the map's foot; the credit sits on it */
   /* ---- 3. THE PENCILLED MARKER where you picked: the same dashed ring, standing on the spot ---- */
   .pencil-marker svg { display: none; }
   .pencil-marker::after { content: ''; position: absolute; left: 8px; top: 35px; width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%;
@@ -95,6 +107,24 @@
   // the tag's own words: TYPE (not "Category"), NOTES as a write-in line
   const cl = form.querySelector('label[for="categoryInput"]'); if (cl) cl.textContent = 'Type';
   $('notesInput').placeholder = 'Add a note';
+  // results cap: the space between the band's top and the lower of the zoom control / account badge, less --s2
+  const bar = $('pinBar'), ac = $('addressAutocomplete');
+  function capResults() {
+    const top = Math.max(...['.leaflet-control-zoom', '#accountBtn'].map(q => { const e = document.querySelector(q); return e ? e.getBoundingClientRect().bottom : 0; })) + 8;
+    const v = Math.max(96, Math.round(bar.getBoundingClientRect().top - top)) + 'px';
+    if (document.documentElement.style.getPropertyValue('--res-max') !== v) document.documentElement.style.setProperty('--res-max', v);   // no observer loop
+  }
+  new MutationObserver(capResults).observe(ac, { attributes: true, attributeFilter: ['class'], childList: true });
+  new MutationObserver(capResults).observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });   // --kb changes
+  addEventListener('resize', capResults);
+  // after Add the new row is selected by a scripted tap: bring it fully into view first, as a real list tap would
+  // find it (director fix 3). Only rows not fully visible move; a row you can see and tap never jumps.
+  $('locationsList').addEventListener('click', e => {
+    const c = e.target.closest('.location-card'); if (!c) return;
+    const l = $('locationsList'), lr = l.getBoundingClientRect(), r = c.getBoundingClientRect();
+    const under = (document.querySelector('.location-list-spacer') || {}).offsetHeight || 0, bottom = lr.bottom - under;
+    if (r.top < lr.top) l.scrollTop += r.top - lr.top; else if (r.bottom > bottom) l.scrollTop += r.bottom - bottom;
+  }, true);
   // starring prints the tag's band, as the real tag does
   new MutationObserver(() => tag.classList.toggle('is-starred', $('starInput').getAttribute('aria-pressed') === 'true'))
     .observe($('starInput'), { attributes: true, attributeFilter: ['aria-pressed'] });

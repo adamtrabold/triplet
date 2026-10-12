@@ -1,0 +1,28 @@
+{
+ "6-keyboard-notes": {
+  "strip": [
+   0,
+   452,
+   390,
+   508
+  ],
+  "look": "ready",
+  "label": "Add Hallgrímskirkja",
+  "form": [
+   0,
+   147,
+   390,
+   452
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "errs": [],
+  "clash": []
+ }
+}

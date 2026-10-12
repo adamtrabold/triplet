@@ -1,0 +1,43 @@
+{
+ "desktop-placed": {
+  "pin": [
+   1201,
+   692,
+   1266,
+   774
+  ],
+  "bar": [
+   0,
+   743,
+   1280,
+   800
+  ],
+  "blank": [
+   662,
+   526,
+   978,
+   766
+  ],
+  "submit": [
+   767,
+   706,
+   978,
+   766
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 13,
+  "tag": null,
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "errs": [],
+  "clash": []
+ }
+}

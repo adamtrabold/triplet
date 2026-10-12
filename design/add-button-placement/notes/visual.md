@@ -1,5 +1,28 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-12, round 3 fixes (after director turn 10: B 9 pending, C 8, D killed)
+- B fix 6 done: `#controls.show` max-height = --form-max - 26px (the credit's
+  row reserved between badge and form). 6-keyboard: form y147, credit
+  129-147, badge bottom 113; form scrolled to the CATEGORY boundary.
+- C fixes: (1) the pin steps aside (150ms fade) whenever a .tag-popup or the
+  filters panel is open (body:has). (2) Results = a full-width paper sheet
+  capped by --res-max below the zoom/badge: 3 results at 664 + keyboard.
+  (3) a capture click on #locationsList scrolls a not-fully-visible row in
+  before the app selects it, so the new row after Add is fully in view.
+  (4) Size knob --pin-s; study `4b-size-3x.png`; CHOSEN 1.25 (tag 55x39,
+  15px words, tap area 65x83). (5) Still 1 carries the two plain-cost lines;
+  new composed `3-tag-open-3x.png` with "close the tag to add".
+- Desktop: the credit lifts above the bottom search bar while adding.
+- NEW: `concepts/chrome-check.js`, run by both stills.js, writes `clash`
+  into stills/measure.json (badge/zoom/credit/pin vs form/strip/tag/results/
+  bar/filters). All owner frames are clean; the only flag is
+  pending-filters-664 (today's own filters panel over zoom). Use it on every
+  new frame type before sending: the director's recurring blocker.
+- Rulings recorded in C's looks-and-feels: 16px overlay selects/notes/search
+  (no zoom lock), draft kept on cancel (systems).
+- Next: director re-scores C; if 9, owner gets stub + B + C in one message.
+  Then handoff "How it looks and feels" for whichever the owner picks.
+
 ## UPDATE 2026-10-12, turn 9 (new visual designer): B and C at owner fidelity, D frame
 Taking over from the previous visual designer. Context: the owner said "i want
 more than one concept"; the stub stays in the set; director turn 7 opened B

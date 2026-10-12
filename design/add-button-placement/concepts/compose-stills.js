@@ -9,6 +9,8 @@ const STUB = path.join(__dirname, 'stub');
 const img = (f, style = '') => `<img src="file://${f.startsWith('/') ? f : S + '/' + f}" style="display:block;${style}">`;
 // a band of a 3x full-screen frame: y0..y1 in CSS px of the phone
 const band = (f, y0, y1, w = 1170) => `<div style="height:${(y1 - y0) * 3 * w / 1170}px;overflow:hidden">${img(f, `width:${w}px;margin-top:${-y0 * 3 * w / 1170}px`)}</div>`;
+// a close-up: css box x,y,w,h of a 3x frame, drawn at 3x
+const crop = (f, x, y, w, h) => `<div style="width:${w * 3}px;height:${h * 3}px;overflow:hidden;flex:none">${img(f, `width:1170px;margin:${-y * 3}px 0 0 ${-x * 3}px`)}</div>`;
 const cap = (t, sub) => `<div class="cap">${t}</div>${sub ? `<div class="sub">${sub}</div>` : ''}`;
 const CSS = `body{margin:0;background:#E9E2D3;font-family:'DejaVu Sans Condensed','Arial Narrow',sans-serif;color:#12293F}
  .cap{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:44px;padding:28px 36px 18px}
@@ -34,12 +36,23 @@ const pages = which === 'B' ? {
 } : {
   '1-rest-today-vs-C-3x.png': { w: 2370, body: `<div class="row">
      <div class="col">${cap('Today')}${img(STUB + '/1-rest-today-3x.png', 'width:1170px')}</div>
-     <div class="col">${cap('C · Pencilled pin')}${img('1-rest-C-3x.png', 'width:1170px')}</div></div>` },
+     <div class="col">${cap('C · Pencilled pin')}${img('1-rest-C-3x.png', 'width:1170px')}</div></div>
+     <div class="sub" style="padding-top:24px">Bigger change: the add form becomes a tag on the map.</div>
+     <div class="sub">With a tag or the filters open, close them to add.</div>` },
   '2-add-strip-3x.png': { w: 1170, body: `
-     ${cap('1 · Tap the blank pin', 'Phone in Safari (390×664). A pencilled pin with a tag that says ADD, at the map’s lower right.')}${band('2a-tap-664-3x.png', 230, 560)}
-     ${cap('2 · Search', 'The list drops and its band becomes the search line, keyboard up. Results grow upward. (Keyboard drawn.)')}${band('2b-search-664-3x.png', 40, 340)}
+     ${cap('1 · Tap the blank pin', 'Phone in Safari (390×664). A pencilled pin with a tag that says + ADD, at the map’s lower right.')}${band('2a-tap-664-3x.png', 220, 560)}
+     ${cap('2 · Search', 'The list drops and its band becomes the search line, keyboard up. Results rise from it, never over the zoom or your account button. (Keyboard drawn.)')}${band('2b-search-664-3x.png', 0, 340)}
      ${cap('3 · The pin stands on the place', 'The map goes there, and the form is a blank tag hanging from the pencilled pin. ADD LOCATION is on the tag’s stub, near your thumb.')}${band('2c-placed-664-3x.png', 250, 664)}<div class="gap"></div>` },
-  '2d-done-3x.png': { w: 1170, body: `${cap('4 · Added', 'The pencilled pin is inked: the new place’s real pin and its real tag open, its row selected. (390×844)')}${img('2d-done-844-3x.png', 'width:1170px')}` },
+  '2d-done-3x.png': { w: 1170, body: `${cap('4 · Added', 'The pencilled pin is inked: the new place’s real pin and its real tag open, its row selected and in view. While the tag is open the + ADD pin steps aside. (390×844)')}${img('2d-done-844-3x.png', 'width:1170px')}` },
+  '3-tag-open-3x.png': { w: 1170, body: `${cap('3 · A place’s tag open', 'One tag at a time: the + ADD pin steps aside while a tag is open. Close the tag to add.')}${img('3-tag-open-3x.png', 'width:1170px')}` },
+  '4b-size-3x.png': { w: 1170, body: `
+     ${cap('How big', 'Today’s + (top corner) next to the pin at two sizes, all at real phone scale')}
+     <div class="row" style="gap:0;padding:0 0 0 0">
+       <div class="col">${crop(STUB + '/1-rest-today-3x.png', 264, 0, 130, 100)}<div class="sub" style="padding:12px 20px">Today: 50px navy badge</div></div>
+       <div class="col">${crop('size-s1-3x.png', 264, 422, 130, 100)}<div class="sub" style="padding:12px 20px">Pin, tag 44px wide</div></div>
+       <div class="col">${crop('size-s125-3x.png', 264, 422, 130, 100)}<div class="sub" style="padding:12px 20px"><b>Chosen:</b> tag 55px wide</div></div></div>
+     ${cap('On the whole screen', 'Left: tag 44px wide. Right: 55px, the one we’d build. Tap area 65×83.')}
+     <div class="row" style="gap:20px">${img('size-s1-3x.png', 'width:575px')}${img('size-s125-3x.png', 'width:575px')}</div><div class="gap"></div>` },
   '4-states-3x.png': { w: 1170, body: `
      <div class="row" style="gap:0;align-items:flex-start">
        <div class="col" style="width:585px">${cap('Rest')}${img('st-pin-rest-3x.png', 'width:585px')}</div>

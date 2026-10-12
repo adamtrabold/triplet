@@ -2,7 +2,7 @@
 // Renders this folder's index.html copy (systems' structure) + visual.inc.html (the look), injected in memory.
 // Neither the real index.html nor systems' files are touched. Reykjavík, stub data, 3x, 1170 wide.
 // Run: node stills.js   (ONLY=<name-prefix>)   then: node ../compose-stills.js B
-const L = require('../lib-render.js'); const fs = require('fs'); const path = require('path');
+const L = require('../lib-render.js'); const chromeCheck = require('../chrome-check.js'); const fs = require('fs'); const path = require('path');
 const COPY = path.join(__dirname, 'index.html'), OUT = path.join(__dirname, 'stills');
 const LOOK = fs.readFileSync(path.join(__dirname, 'visual.inc.html'), 'utf8');
 fs.mkdirSync(OUT, { recursive: true });
@@ -40,7 +40,7 @@ const S = {
   '5-320-copenhagen': { vp: [320, 568], city: 'copenhagen' },
   '6-keyboard-notes': { vp: [390, 844], inset: true, q: '?play', run: async p => { await tapStrip(p); await pick(p);
       await p.focus('#notesInput'); await p.fill('#notesInput', 'Go up the tower at golden hour'); await fakeKb(p, 336);
-      await p.evaluate(() => { const c = document.getElementById('controls'), n = document.getElementById('notesInput'); c.scrollTop = n.offsetTop - 140; }); await p.waitForTimeout(300); } },
+      await p.evaluate(() => { const c = document.getElementById('controls'), n = document.getElementById('notesInput'); const g = document.getElementById('categoryInput').closest('.field-group'); c.scrollTop = g.offsetTop - 16; window.__sc = [c.scrollTop, c.scrollHeight, c.clientHeight, g.offsetTop]; }); await p.waitForTimeout(300); } },
   '7-collapsed-homescreen': { vp: [390, 844], inset: true, run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(700); } },
   '8-safari-tab':    { vp: [390, 764], patch: TAB, run: fakeToolbar },
   '9-filters-then-add': { vp: [390, 844], q: '?play', run: async p => { await p.click('#toggleFiltersBtn'); await p.waitForTimeout(600); await tapStrip(p); } },
@@ -61,7 +61,7 @@ const S = {
     if (s.run) await s.run(page);
     await page.waitForTimeout(300);
     const m = { strip: await L.box(page, '#strip'), look: await page.evaluate(() => document.getElementById('strip').dataset.look), label: await page.evaluate(() => document.querySelector('#strip .go').textContent),
-      form: await L.box(page, '#controls'), rows: await L.rowsVisible(page), tag: await L.box(page, '.tag-popup'), header: await L.box(page, '#locationsHeader'), errs };
+      form: await L.box(page, '#controls'), rows: await L.rowsVisible(page), tag: await L.box(page, '.tag-popup'), header: await L.box(page, '#locationsHeader'), errs, clash: await chromeCheck(page) };
     out[name] = m; console.log(name, JSON.stringify(m));
     const clip = s.crop ? await page.evaluate(() => { const r = document.getElementById('strip').getBoundingClientRect(); return { x: 0, y: r.top - 70, width: innerWidth, height: r.height + 70 }; }) : undefined;
     await page.screenshot({ path: `${OUT}/${name}-${s.desk ? 1 : 3}x.png`, ...(clip ? { clip } : {}) });
