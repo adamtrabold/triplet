@@ -1,6 +1,14 @@
 # Director notes: sign-in button
 
-## Status
+## Status (2026-10-12, new director)
+Round 2 of A SCORED: 1 = 7, 2 = 8, 3 = 7. Nothing goes to the owner yet.
+Next: the designer applies fixes 1-4 (scores.md, "Concept A, round 2") to
+variant 2 only; I re-look at the re-shot real-size crops (cream + plus,
+water alone, 390 top bar). If the fixes land, that's a 9, with no full new
+round. The owner turned down round 1 (my predecessor's 9) as "ugly", which
+counts as rejection 1 of a 9.
+
+## Status (history)
 Concept round 1 SCORED (scores.md, 2026-10-08). READY: A. A = 9, B = 7
 (held back, not shown; the ready alternative if the owner rejects the arc
 idea). Presentation fixes before sending A: shorten the flow sheet, one
@@ -103,3 +111,61 @@ of their turns, then READY and score.
   sheet 4x). Must be cut before sending.
 - What would block a 9 next time: if the owner finds the arc too small ->
   8.5px fallback (team-fallback-3x.png), not a bigger die.
+
+
+## Round 2 of A (new director, 2026-10-12)
+Took over. The predecessor's notes are history; its round-1 9 was turned down:
+"on the right track but it's ugly. icon should be centered... maybe too
+small? text should be smaller and probably tracked out some because it's
+crowding".
+
+What that rejection teaches (my reading): this owner judges concept stills
+as near-final craft at real size. For a one-object 50px control the
+typesetting IS the concept. Score real-size crops, zoomed, with measured
+gaps, not the idea alone.
+
+Round 2 scores: 1 = 7, 2 = 8 (designer's pick, and mine), 3 = 7.
+The work really changed: centred person, bigger, 6px normal-width tracked
+words, the arc lean fixed. Every note was answered.
+
+Why 2 isn't a 9 yet (measured in badge2.js + the SCALLOP points in
+flow/proto/patch.js):
+- Scallop inner valleys are at r 18.8, outer peaks at r 21.2. 2's text
+  baseline is at r 18.0, so the caps' feet sit 0.8px off the valleys
+  (3: 0.5px). Shoulders to cap tops is ~7px. The crowding moved from
+  letter-letter to text-rim. Likely objection, his word was "crowding".
+- 1.8px tracking at 6px = 0.3em, plus a full word space, gives a word gap
+  ~3x the letter gap, a wide U, S/N tipped steeply, and the I in "IN"
+  reads like a slash at 1x.
+- 3 near-identical variants at real size goes against "fewer variations".
+- The up-close row blows the 1px warm edge + shadow up into a tan outline.
+
+Fixes sent: baseline to r ~16.5-17 (>= 2px clear of the valleys), figure
+nudged up 0.5-1px optically only if needed; tracking ~0.2-0.23em (1.2-1.4px)
+and a word gap ~2x the letter gap; ends inside ~±60° of 6 o'clock; try 700
+weight if the I still reads as a slash; present 2 alone and large, with 1/3
+as a small aside or dropped; scale the edge in the up-close; don't re-send
+the flow sheet. When it next goes out, frame 5 points at round2 shots and
+the title "both concepts" is changed.
+
+Watch on the re-look:
+- Rim clearance >= 2px at the valleys, measured; words optically mid-band.
+- The end letters' angle; "SIGN IN" reads as one phrase at 1x.
+- The figure still reads centred (owner's note). Any nudge stays <= 1px.
+- Still quieter than + on cream and water; still clearly not the navy
+  signed-in badge; still not a stamp (no tilt, no ring).
+- Motion frames re-rendered from the final setting (out 0.45s frame is a
+  bit muddy, orange person half under the navy, but it's transient; fine).
+
+What keeps blocking a 9 (across rounds): fixes made one note at a time in
+a fixed 50px space. Rim, figure and words compete; solving one pushes the
+crowding into the next gap. The fix is to balance all three together,
+optically, and to judge at real size.
+
+Rejection count: 1 (round-1 A). A second 9 turned down in a row would
+trigger the orchestrator's ask-the-owner step. Be hard on the re-look.
+
+Still unanswered by the owner: Q1 (same button signed out in the real
+app), Q2 (playground notice), B held back, the Logout -> Sign out rename.
++ may move (separate crew); the badge already stands alone ("on its own"
+row), so keep that row.

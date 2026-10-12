@@ -83,3 +83,100 @@ The owner message says so in one line.
 First scoring round; nothing repeated yet. Watch: if the owner pushes
 back on size, it's the arc type, and the next move is the 8.5px fallback,
 not a bigger badge.
+
+## Concept A, round 2 (director, taking over; 2026-10-12)
+
+Owner on round 1 (scored 9 here, turned down): "on the right track but
+it's ugly. icon should be centered... maybe too small? text should be
+smaller and probably tracked out some because it's crowding"
+
+Based on: `A-arc-badge/round2/sheet-3x.png` (all sections),
+`round2/shots/v{1,2,3}-cream-plus`, `v*-dark-*`, `v*-cream-alone`,
+`top-v2-390`, `signedin-plus`, `in-*`/`out-*`; compared with round 1's
+`sheet-3x.png` and `shots/top-*-390`. Zoomed the 3x real-size crops to
+check letter spacing and the text-to-rim margin.
+
+**Did the work really change?** Yes, in substance, and every owner note is
+answered: person is dead centre (was high at y 17.6), bigger (x0.42 ->
+x0.68 for 2), SIGN IN smaller (8 -> 6px), normal width, tracked out, and
+the round-1 off-centre arc is fixed. The badge no longer reads "icon up
+top, label stuck to the bottom"; it reads as one seal.
+
+Strongest likely owner objections:
+1. **"Now the words are crowding the edge."** The crowding moved from
+   letter-to-letter to text-to-rim. Measured: the scallop's inner
+   valleys are at r 18.8 and 2's baseline is at r 18.0 (3: 18.3), so the
+   caps' feet are 0.8px (0.5px) off the valleys, minus the edge stroke.
+   Meanwhile there's ~7px between the shoulders and the cap tops. The
+   words sit on the rim and leave a gap above them. Given that "crowding" was his word, I rate this **likely** on 2
+   and 3, less so on 1.
+2. **"SIGN  IN" splits in two, and IN tips over.** Tracking 1.8 + a full
+   word space gives a word gap about 3x the letter gap. The tracking also
+   widens the U, so S and N sit at roughly 45-50° and the thin I in "IN"
+   reads as a slash at 1x. **Possible.**
+3. **"Why three? They look the same."** At real size 1/2/3 are hard to
+   tell apart ("I don't think we need this many variations").
+   **Possible**, and it's presentation.
+4. Up-close row: at that blow-up the warm edge + contact shadow reads as
+   a thick tan outline ("edges are shadows, not hard lines"). It's a
+   rendering-scale artefact, since the real-size crops are fine, but he
+   judges what he's shown. **Possible.**
+5. "Person too small" again: answered on 2 and 3. Not likely.
+
+### 1 · Small change: **7**
+Most legible words (6.5px/700), but the person is still the smallest
+thing in the corner next to +, which half-repeats "maybe too small?". The
+word gap and tilted end letters (objection 2) are there too. It doesn't
+lead anywhere 2 can't go.
+
+### 2 · Balanced (designer's pick): **8**
+The right setting and a real improvement: a centred figure, quiet paper,
+airy type, still clearly quieter than + and clearly not the navy signed-in
+badge, and it stands on its own if + moves. It's under 9 only on
+typesetting craft, which is exactly what the owner turned round 1 down for.
+The words sit too close to the rim and break into two chunks (objections
+1 and 2). That's likely enough that I wouldn't defend it as is.
+
+### 3 · Big person: **7**
+Best figure, but the 5.5px words get very small, its shoulders nearly
+touch G-N at the centre, and the tracking pushes S and N furthest round
+the U. That's three elements competing in a 50px die.
+
+### Fixes for 2 (numbered; then a quick real-size re-look, not a full round)
+1. **Give the words air from the rim.** Pull the baseline in from r 18.0
+   to about r 16.5-17 so the caps' feet clear the scallop valleys (r 18.8)
+   by about 2px or more, and let the shoulder-to-caps gap shrink to match.
+   If the shoulders then crowd the caps, nudge the figure up by about
+   0.5-1px. That's optical centring by the rendered ink (his own rule),
+   not a return to round 1's high icon. Judge it on the 3x render.
+2. **Track out *some*, not a lot, and close the word gap.** 1.8px at 6px
+   is 0.3em; "tracked out some" reads more like 0.2-0.23em (about
+   1.2-1.4px). Then cut the space between SIGN and IN (a narrower space or
+   a negative dx) so the word gap is about 2x the letter gap, not 3x. Both
+   narrow the U, so S and N tilt less, which matters more once fix 1
+   shrinks the radius. Aim for the end letters inside about ±60° of
+   6 o'clock, measured.
+3. **Check the I.** If "IN" still reads as "/N" at 1x after fix 2, try
+   weight 700 at 6px. Don't change the font.
+4. **Presentation:** lead with 2 alone, large, with "we'd pick this"
+   above the fold. Show 1 and 3 as one small "other balances we tried"
+   line, or drop them; the owner asked for fewer variations. In the
+   up-close row, scale the edge/shadow down with the blow-up (or show
+   2x, not ~5x) so it doesn't read as an outline. Keep the real-size map
+   crops (they're the honest view) and the "on its own" row.
+5. Don't re-send the flow sheet. When 2 is fixed, point its frame 5 at
+   `round2/shots/in-*` and change its title ("both concepts") before it
+   goes anywhere again.
+
+If fixes 1-3 land as described, 2 is a 9. I'll confirm on the re-shot
+real-size crops (cream + plus, water alone, 390 top bar), not on the
+up-close row.
+
+### Across rounds: what blocked a 9
+Round 1 was scored on the idea; the owner judged the craft at real size
+and called it ugly. This owner reads concept stills as near-final, so for
+a one-object control like this the typesetting is the concept. Round 2
+answered each note literally, one at a time (centre it, shrink, track
+out). In a 50px die, rim, figure and words share one fixed space: fixing
+one note pushed the crowding somewhere else (letters to rim, figure to
+words on 3). The fix is to balance all three together, optically.
