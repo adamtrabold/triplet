@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Sign-in A round 2</title>
+<link rel="stylesheet" href="../../flow/proto/sheet.css">
+<style>
+.row3{display:flex;gap:8px;padding:2px 16px 2px}.row3>div{width:114px;display:flex;flex-direction:column;align-items:center}
+.row3 img{display:block;border-radius:2px}.row3 .t{font-size:11px;line-height:14px;color:#5A564C;text-align:center;margin-top:3px}
+.lab{font:700 12px/15px Archivo;font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;color:#12293F;text-align:center;margin-top:6px}
+.sub{font-size:11px;line-height:14px;color:#5A564C;text-align:center}
+.rl{font-size:12px;line-height:15px;color:#5A564C;padding:8px 16px 2px}
+.pick{background:#FAF5EA;margin:8px 16px 0;padding:10px 12px;border-left:3px solid #12293F;font-size:13px;line-height:18px}
+</style>
+<script>window.__CONCEPT='A'</script><script src="../../flow/proto/patch.js"></script><script src="badge2.js"></script></head><body>
+<h1>A · Sign-in badge, round 2</h1>
+<p>Your notes, applied: the person is centred and bigger, and SIGN IN is smaller and spaced out so it stops crowding. Three settings of the same badge, so you can pick the balance.</p>
+<h2>Up close</h2>
+<div class="big" id="big"></div>
+<h2>Real size</h2>
+<div class="rl">Next to +, on the map</div>
+<div class="row3"><div><img src="shots/c-v1-cream-plus.png" width="114" height="80"></div><div><img src="shots/c-v2-cream-plus.png" width="114" height="80"></div><div><img src="shots/c-v3-cream-plus.png" width="114" height="80"></div></div>
+<div class="rl">Over water and park, where the map is darkest</div>
+<div class="row3"><div><img src="shots/c-v1-dark-plus.png" width="114" height="80"></div><div><img src="shots/c-v2-dark-plus.png" width="114" height="80"></div><div><img src="shots/c-v3-dark-plus.png" width="114" height="80"></div></div>
+<div class="rl">On its own in the corner (if + moves elsewhere)</div>
+<div class="row3"><div><img src="shots/c-v1-cream-alone.png" width="114" height="80"></div><div><img src="shots/c-v2-cream-alone.png" width="114" height="80"></div><div><img src="shots/c-v3-cream-alone.png" width="114" height="80"></div></div>
+<div class="row3"><div><img src="shots/c-v1-dark-alone.png" width="114" height="80"><div class="t">1</div></div><div><img src="shots/c-v2-dark-alone.png" width="114" height="80"><div class="t">2</div></div><div><img src="shots/c-v3-dark-alone.png" width="114" height="80"><div class="t">3</div></div></div>
+<div class="pick"><b>We'd pick 2.</b> The person reads first and sits dead centre; the words wrap under it with room to breathe and still read on the map. 3's words get very small at real size.</div>
+<h2>Signing in and out, with 2</h2>
+<p>Same as before: navy ink lands and covers the words, and the person grows into your usual badge. Signing out, the ink dries away and the badge is left.</p>
+<div class="frames">
+<div style="width:65px"><img src="shots/in-0.png" width="65" height="62"><div class="t">Arrive</div></div>
+<div style="width:65px"><img src="shots/in-60.png" width="65" height="62"><div class="t">0.06s</div></div>
+<div style="width:65px"><img src="shots/in-130.png" width="65" height="62"><div class="t">0.13s</div></div>
+<div style="width:65px"><img src="shots/in-250.png" width="65" height="62"><div class="t">0.25s</div></div>
+<div style="width:65px"><img src="shots/in-380.png" width="65" height="62"><div class="t">Signed in</div></div>
+</div>
+<div class="frames">
+<div style="width:65px"><img src="shots/out-0.png" width="65" height="62"><div class="t">Signed in</div></div>
+<div style="width:65px"><img src="shots/out-150.png" width="65" height="62"><div class="t">0.15s</div></div>
+<div style="width:65px"><img src="shots/out-300.png" width="65" height="62"><div class="t">0.3s</div></div>
+<div style="width:65px"><img src="shots/out-450.png" width="65" height="62"><div class="t">0.45s</div></div>
+<div style="width:65px"><img src="shots/out-540.png" width="65" height="62"><div class="t">Signed out</div></div>
+</div>
+<div style="height:16px"></div>
+<script>
+const L = { 1: ['Small change', 'person a bit bigger'], 2: ['Balanced', 'person bigger, words spaced'], 3: ['Big person', 'smallest words'] };
+for (const v of [1, 2, 3]) big.innerHTML += `<div>${SB.badgeA({ v, size: 104 })}<div class="lab">${v} · ${L[v][0]}</div><div class="sub">${L[v][1]}</div></div>`;
+document.fonts.ready.then(() => SB.centerArcs());
+</script></body></html>

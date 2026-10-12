@@ -1,5 +1,22 @@
 # Visual designer notes: sign-in button
 
+## Where things stand (round 2 of concept A, 2026-10-12; new visual designer took over)
+- Owner turned A down (rejection 1 of a 9): "on the right track but it's ugly. icon should be centered...
+  maybe too small? text should be smaller and probably tracked out some because it's crowding".
+- Round 2 in `concepts/A-arc-badge/round2/`: `sheet-3x.png` (3 variants up close + real size next to +,
+  over water, and alone in the corner; motion strip for variant 2), `README.md` (what changed + table),
+  `badge2.js` (variant-aware `SB.badgeA({v})` + `SB.centerArcs()`), `render2.js`, `sheet.html`, `sketch.html`.
+- Changes: person centred at (25,25) by glyph bbox and bigger (x0.58/0.68/0.76); text 6.5/6/5.5px at 100% width
+  with 1.3/1.8/2.3px tracking on r 17.6/18/18.3. My pick: **2 (Balanced)**.
+- Found a round-1 bug: the arc text leaned off-centre (Chromium textPath + middle anchor + letter-spacing).
+  Fixed by measuring glyph angles and rotating the arc group (`SB.centerArcs`). Probably part of "ugly".
+- Condensed 75% at small size was the crowding; tracked caps at small sizes want normal width.
+- Badge shown alone in the corner (+ may move, separate crew); it holds up on its own.
+- Motion unchanged in kind; person now only grows/thickens (no travel). Flow sheet frame 5 still uses round-1
+  frames: re-point to `round2/shots/in-*` after the pick (README says how).
+- Next: director picks a variant (or asks for a tweak); then owner sees the sheet; then the looks-and-feels
+  part of handoff.md.
+
 ## Where things stand (concept phase, sheets built)
 - Jam closed (director turn 6). Built three sheets from patched copies of index.html:
   `concepts/A-arc-badge/sheet-3x.png`, `concepts/B-label/sheet-3x.png`, `concepts/flow/sheet-3x.png`,

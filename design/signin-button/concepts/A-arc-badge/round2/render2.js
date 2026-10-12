@@ -32,6 +32,7 @@ async function open(b, { w = 390, h = 844, base = 'cream' } = {}) {
   await page.evaluate(() => { const st = document.createElement('style'); st.textContent = '#accountBtn{transition:none!important}'; document.head.appendChild(st); }); 
   return { ctx, page, errs };
 }
+const MV = +(process.env.V || 2);   // motion frames drawn with this variant: V=3 node render2.js
 const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120));
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${d}/chrome-linux/chrome` });
@@ -50,12 +51,12 @@ const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120))
       await page.screenshot({ path: `${OUT}/top-v2-390.png`, clip: { x: 0, y: 0, width: 390, height: 84 } });
       // motion, recommended variant (v2), same timings as round 1
       const clip = { x: 244, y: 4, width: 86, height: 82 };
-      const IN = [['0', '{}', 1], ['60', '{ink:9,t:.15}', 1.06], ['130', '{ink:17,t:.55}', 1.12], ['250', '{ink:24,t:.9}', .97], ['380', 'SI', 1]];
+      const IN = [['0', '{}', 1], ['60', '{ink:9,t:.15}', 1.06], ['130', '{ink:19.5,t:.55}', 1.12], ['250', '{ink:24,t:.9}', .97], ['380', 'SI', 1]];
       const OUTF = [['0', 'SI', 1], ['150', '{dry:.25,t:.8}', 1], ['300', '{dry:.55,t:.5}', 1], ['450', '{dry:.85,t:.15}', 1], ['540', '{}', 1]];
       for (const [name, list] of [['in', IN], ['out', OUTF]]) for (const [t, spec, sc] of list) {
         await set(page, `(()=>{const b=document.getElementById('accountBtn');b.style.cssText='';
           if ('${spec}'==='SI'){SB.renderSignedIn();return;}
-          const o=(${spec});o.v=2;SB.renderControl('A',SB.badgeA(o));SB.centerArcs();b.style.transform='scale(${sc})';})()`);
+          const o=(${spec});o.v=${MV};SB.renderControl('A',SB.badgeA(o));SB.centerArcs();b.style.transform='scale(${sc})';})()`);
         await page.screenshot({ path: `${OUT}/${name}-${t}.png`, clip });
       }
       await set(page, `(()=>{const b=document.getElementById('accountBtn');b.style.cssText='';SB.renderSignedIn();})()`);
