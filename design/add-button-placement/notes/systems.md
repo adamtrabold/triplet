@@ -100,3 +100,44 @@ here?"
 Next: visual designer answers width/320, open state, x colour, the list-drop
 motion; then the director. After the jam: write jobs.md from turns 1-4 (the
 flows draft is in jam turn 4).
+
+---
+
+## Concept phase (2026-10-12) -- after director turn 6
+
+Jam closed with one concept: the claim-check stub. Rulings:
+- The list drops to its band while the form is open. The stub (×) rides
+  down. Recommended, but it's owner Q1.
+- Always drop, even at 844.
+- Title drop order: " list" → count → name ellipsizes.
+- Paper ×.
+- Tag-open cancel restores everything.
+- Two oranges pass.
+- The account-open seam goes to the sign-in crew / brand-token pass.
+
+Written:
+- `jobs.md`: 6 jobs (2 stated, 4 inferred), flows, and the owner questions
+  in the director's wording.
+- `concepts/stub/how-it-works.md`: structure, states, flows 1-9, sizes,
+  edge/error states, builder notes, coverage table (all 6 jobs supported).
+- `concepts/stub/appendix/`: 9 frames plus `measure.json` and
+  `render-appendix.js`, i.e. safe_rest, safe_form, filters_before,
+  filters_after, signedout_rest, signedout_tap, play_tap, desktop_rest,
+  desktop_form, and a cancel check (`play_cancel`). All pass. The stub is
+  wired to the real add flow with the drop + restore + one-ON-tile logic.
+
+Findings in the appendix:
+- With the drop, Add sits at y ~470 (the form's own position), not just
+  above the band. At 844 there's a map strip between them. Fine; noted in
+  sizes.
+- Signed-out tap: no drop, no ON tile. Correct, since nothing opened.
+
+Open:
+- Owner Q1 (does the button ride down at all).
+- Director: confirm "opening filters/sort while the form is open closes the
+  form" (keeps one ON tile).
+- Escape-closes-form is new behaviour; small, flagged in the spec.
+
+Next: check the visual designer's owner stills against the flows in
+jobs.md once they land (the director split it this way). Then the director
+scores.

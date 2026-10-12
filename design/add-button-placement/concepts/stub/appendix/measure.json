@@ -1,0 +1,209 @@
+{
+ "safe_rest": {
+  "nbBefore": [
+   330,
+   750,
+   390,
+   807
+  ],
+  "nb": [
+   330,
+   750,
+   390,
+   807
+  ],
+  "errs": []
+ },
+ "safe_form": {
+  "nbBefore": [
+   330,
+   750,
+   390,
+   807
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "onTiles": [
+   "nb"
+  ],
+  "submit": [
+   56,
+   497,
+   374,
+   541
+  ],
+  "submitHit": "submitBtn",
+  "searchHit": "nameInput",
+  "nb": [
+   330,
+   750,
+   390,
+   807
+  ],
+  "errs": []
+ },
+ "filters_before": {
+  "nbBefore": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "filters_after": {
+  "nbBefore": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "onTiles": [
+   "nb"
+  ],
+  "submit": [
+   56,
+   450,
+   374,
+   494
+  ],
+  "submitHit": "submitBtn",
+  "searchHit": "nameInput",
+  "nb": [
+   330,
+   784,
+   390,
+   841
+  ],
+  "errs": []
+ },
+ "signedout_rest": {
+  "nbBefore": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "signedout_tap": {
+  "nbBefore": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "formOpen": false,
+  "authModal": true,
+  "panelOpen": false,
+  "onTiles": [],
+  "submit": "hidden",
+  "submitHit": null,
+  "searchHit": null,
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "play_tap": {
+  "nbBefore": [
+   330,
+   364,
+   390,
+   421
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "onTiles": [
+   "nb"
+  ],
+  "submit": [
+   56,
+   450,
+   374,
+   494
+  ],
+  "submitHit": "submitBtn",
+  "searchHit": "nameInput",
+  "nb": [
+   330,
+   604,
+   390,
+   661
+  ],
+  "errs": []
+ },
+ "play_cancel": {
+  "listCollapsed": false,
+  "nb": [
+   330,
+   364,
+   390,
+   421
+  ]
+ },
+ "desktop_rest": {
+  "nbBefore": [
+   298,
+   0,
+   358,
+   57
+  ],
+  "nb": [
+   298,
+   0,
+   358,
+   57
+  ],
+  "errs": []
+ },
+ "desktop_form": {
+  "nbBefore": [
+   298,
+   0,
+   358,
+   57
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "onTiles": [
+   "nb"
+  ],
+  "submit": [
+   416,
+   450,
+   1264,
+   494
+  ],
+  "submitHit": "submitBtn",
+  "searchHit": "nameInput",
+  "nb": [
+   298,
+   0,
+   358,
+   57
+  ],
+  "errs": []
+ }
+}
