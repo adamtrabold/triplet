@@ -1299,3 +1299,86 @@ the title. The tag gap is fine at 844, but that doesn't save it.
 NEXT: design director -- score B and C as drawn, rule on C's two 664 failures
 (my visual vote: (b) for tag-open; "close filters to add"), and decide which
 of B/C join the stub for the owner.
+
+---
+
+## Turn 10 -- design director: rulings, scores, READY
+
+I looked at all of these at phone size:
+- B: `1-rest-today-vs-B`, `2-add-strip`, `4-states`, `6-keyboard`,
+  `7-collapsed`, `8-safari-tab`, `stills/3-tag-open`
+- C: `1-rest-today-vs-C`, `2-add-strip`, `2d-done`, `4-states`,
+  `stills/pending-tag-664`
+- D: `D-eyelet-rest`
+- both `how-it-works.md` and both `looks-and-feels.md`
+
+The scores are in `scores.md`, round 3.
+
+### Rulings on what's open
+
+1. **D (eyelet): killed.** At phone size it reads as a docked FAB or a drag
+   knob, and it sits on the OSM credit. That's the misread it had to answer,
+   and it doesn't answer it. No owner question.
+2. **C, tag open at 664: (b). The blank pin steps aside whenever a tag is
+   open, at every height.** (Not only at 664: "the same place every time"
+   means it doesn't come and go by screen size.)
+   - It's the visual designer's argument, and I agree: one tag at a time. A
+     blank pin carries its own tag, and two tags on screen fight.
+   - (a) is out. It changes the shipped tag-sheet gap for every tag in the
+     app to protect one control, and it costs a list row against the owner's
+     "show the list header, one item, half a second item".
+   - (c) is out. A control that moves left when something else opens is
+     exactly the owner's "controls don't move".
+   - The cost is real, and the owner hears it plainly on C's stills: "with a
+     place's tag open, close it to add". That includes `2d-done`: once the
+     new place's tag opens, the blank pin isn't there.
+3. **C, filters open: "close filters to add". Accepted, at every height.**
+   Same reasoning: one rule, not a 664 special case.
+4. **C, iOS 16px zoom: no zoom, and no viewport hack.** Don't use
+   `maximum-scale` / `user-scalable=no`. That breaks pinch-zoom for people
+   who need it, and this is a map app. Approved:
+   - Each pencilled entry keeps its printed look over a transparent native
+     `<select>` at 16px (the overlay visual proposed).
+   - Notes and the search line are 16px.
+   - That is one step above the real tag's notes. The blank tag isn't the
+     real tag, so this is fine.
+   - It goes on the iPhone-check list. It's a builder detail, not an owner
+     question.
+5. **C, the draft on cancel: keep it, in memory.** The pin is put back, but
+   search text, the picked place, type, notes and star come back on the next
+   tap. No marker stays on the map. The stub and B keep the draft, so C
+   matches (job 4).
+6. **B: the form's top stops below the account badge.** In `6-keyboard` the
+   badge sits on the OSM credit and on the form's top rule. With the keyboard
+   up (or on a short screen) the form scrolls inside itself and never runs
+   under the badge. The credit sits clear of the badge.
+7. **Small fixes that apply to every concept** (systems' turn 8: search
+   autofocus on open, and switching to the new place's city after Add) are
+   noted for the build of whichever concept wins. They don't change any
+   concept. The city switch sits with the logged bug in `docs/backlog.md`.
+
+### Scores (one pass; details in scores.md)
+
+- **Stub: 9, standing.** Not re-scored; its work didn't change.
+- **B. Striker strip: 9.** READY, once fix 6 is re-shot (a mechanical fix;
+  I check the still before it goes).
+- **C. Pencilled pin: 8.** One fix round, then I re-score. It's the bold
+  option, the flow is the best of the set, and it's the only concept that
+  ends on the place. What holds it under 9 is mostly finish in the owner
+  stills, plus one prominence question (scores.md).
+
+### What goes to the owner
+
+Hold the send until C's re-score (one short round), so the owner gets one
+message with every alternative. If C doesn't reach 9 in that round, send the
+stub and B, plus one line on why C stopped.
+
+READY: claim-check stub (already seen), B. Striker strip (after fix 6).
+C pending one fix round.
+
+NEXT: product designer (visual focus) -- re-shoot B `6-keyboard` with the
+form clear of the badge, and C's fix list in scores.md round 3 (the blank
+pin steps aside while a tag is open in every still incl. `2d-done`, search
+frame clean of the top chrome, new row fully in view, a prominence/size
+study of the pin, the plain-cost captions). Systems follows to update C's
+how-it-works for rulings 2-5.

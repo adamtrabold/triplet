@@ -153,3 +153,158 @@ Don't send: `overview-sheet.png` (not phone-readable), `2-adding-664-3x.png`
 (already covered by the strip's last frame), or the appendix.
 Questions: `jobs.md` 1-3 verbatim, plus its "Just so you know" line. Q1 is
 the only one that decides the concept.
+
+## Concept round 3 -- the set: stub, B, C (new director, 2026-10-12)
+
+Context: the owner said "i want more than one concept." I scored the new
+concepts in one pass against the same bar as the stub. One extra question
+for each: is it a *real choice* he'd want to have?
+
+### Claim-check stub: 9, standing
+I didn't re-score it; the work hasn't changed. Its two honest costs are
+now answered elsewhere in the set:
+- It rides the sheet (Q1); B is the "never moves" option.
+- It's right-thumb only; B is handedness-free.
+
+### B. Striker strip: 9 / 10. READY after one re-shoot
+
+Looked at: `1-rest-today-vs-B`, `2-add-strip`, `4-states`, `6-keyboard`,
+`7-collapsed`, `8-safari-tab`, `stills/3-tag-open`, how-it-works,
+looks-and-feels.
+
+What earns it:
+- It's the most prominent and the most reachable answer: words, full
+  width, the bottom edge, either thumb.
+- It never moves, so it answers Q1 by existing.
+- The same strip starts and finishes the add. The blank `ADD ______` is a
+  printed form waiting for an entry, not a greyed button. It's the app's
+  grammar, and it's the best idea in this round.
+- ADD stays reachable while typing (`6-keyboard`); no other concept manages
+  that.
+- The list never moves, and an open tag stays visible while adding.
+- It does all this with the tag's own perforation and paper tooth, no new
+  vocabulary.
+- It's the deliberate "conventional at its best" member of the set, and I
+  don't mark it down for being conventional.
+
+Likely owner objections:
+1. **"It takes space / it's a big orange bar"**:
+   - 56px all the time.
+   - 150px of bottom chrome with the list down from the Home Screen.
+   - Three stacked bars in a Safari tab.
+   - In `3-tag-open` it's the largest orange area on screen.
+   - The stills show it honestly (`7`, `8`). The owner asked for "more
+     prominent", and B is the far end of that range on purpose. Possible,
+     not likely enough to hold it under 9, because the set gives him the
+     quieter stub and C right beside it.
+2. **"Average / a checkout bar"**: the paper tooth and perforation carry
+   it, just. Possible.
+3. **Fix-blocking (likely, if sent as-is):** in `6-keyboard`, the account
+   badge sits on the OSM credit and on the form's top rule. It looks broken.
+
+Fixes:
+1. With the keyboard up or on a short screen, the form's top stops below
+   the account badge; the form scrolls inside. The credit sits clear of the
+   badge. Re-shoot `6-keyboard`. I check it before sending.
+   (Not B's: the Address field's long raw address is today's form,
+   unchanged.)
+
+**Owner stills for B** (in this order):
+1. `1-rest-today-vs-B-3x.png`
+2. `2-add-strip-3x.png`
+3. `6-keyboard-3x.png` (re-shot)
+4. `7-collapsed-3x.png`
+5. `8-safari-tab-3x.png`
+6. `stills/3-tag-open-3x.png`
+
+Not sent: `4-states` (the strip still already shows rest → blank → ready),
+the 320 still (B leaves the header as it is today), and desktop/filters
+(appendix).
+
+Caption line for the owner: "Never moves; costs 56px of screen all the
+time."
+
+### C. Pencilled pin: 8 / 10. One fix round, then re-score
+
+Looked at: `1-rest-today-vs-C`, `2-add-strip`, `2d-done`, `4-states`
+(incl. 1x), `stills/pending-tag-664`, how-it-works, looks-and-feels.
+
+What earns the 8:
+- It's the most *Triplet* idea anyone has had on this task. The thing you
+  tap is a blank pin with a tag that says + ADD. You place it, and the form
+  is a blank Hanging Tag that inks into the real one: the owner's "pin and
+  what it opens are one idea" bonus, all the way through.
+- It has the best search (results grow up above the keyboard), the fewest
+  taps (3 against 4, with autofocus), and it ends on the place with its row
+  selected, which answers Q2 by construction.
+- Shapes work, starring prints the band, and the herbarium blank tag is
+  lovely.
+- The blank pin reads as "add" at 1x.
+
+Likely owner objections:
+1. **"The + disappears when a tag is open / when filters are open."** With
+   rulings (b) and "close filters to add", that's the honest cost of a home
+   on the map. It's told, not hidden. It's the concept's trade, and the
+   stills must say it in one line.
+2. **"It's smaller than today's +."** The tag is 44x31, against today's 50px
+   badge. Orange and words make it louder than the navy badge, but the owner
+   said "more prominent". **Likely as drawn.**
+3. **"That search frame is a mess"** (`2-add-strip` frame 2): the results
+   box overlaps the zoom control and cuts the account badge in half at the
+   top. **Likely.**
+4. **"Why is there still an ADD pin next to my new place?"** (`2d-done`):
+   the blank pin shows beside the new tag. That breaks ruling (b), and the
+   new selected row is half below the fold. **Likely.**
+5. "That's a big build": true. It changes the form. Told plainly.
+
+Fixes:
+1. Apply ruling (b) everywhere: the blank pin is hidden whenever a tag is
+   open, including `2d-done`. Re-shoot `3-tag-open` to show it (with a
+   caption: "close the tag to add").
+2. Search frame: the results must never overlap the top chrome. Either cap
+   the results' height below the zoom and badge, or hide the top chrome
+   while searching. It's the designers' call, but the frame must be clean.
+3. After Add, scroll the new row fully into view (as a list tap does).
+   Re-shoot `2d-done`.
+4. **Prominence study:**
+   - Show the blank pin at today's size, and one step larger (e.g. a 52-56px
+     wide tag), next to today's badge.
+   - Make the hit area at least 44x44 and document it.
+   - Pick the size that reads as the main action on still 1 without
+     covering pins. It must stay a pin + tag, not a disc.
+5. Captions on C's owner stills, one line each:
+   - "Bigger change: the add form becomes a tag on the map."
+   - "With a tag or the filters open, close them to add."
+6. Systems: update how-it-works for rulings 2-5 (b, filters, 16px overlay,
+   draft kept).
+
+Can it reach 9? Yes, as the bold option, if fixes 1-4 land and objection 1
+reads as a fair trade next to the stub and B. If the size study can't make
+it read as more prominent than today without covering the map, it stops at
+8 and doesn't go.
+
+Planned owner stills for C (after fixes):
+1. `1-rest-today-vs-C`
+2. `2-add-strip`
+3. `2d-done`
+4. `3-tag-open` (pin stepped aside)
+5. `4-states`, the top half (rest/pressed/1x) + starred band
+
+### D. Eyelet: killed
+It reads as a docked FAB or a drag knob, and it covers the OSM credit.
+
+### What keeps blocking a 9 (across rounds)
+- **Owner-still finish:** collisions with the top-right chrome (B's
+  keyboard frame, C's search frame) and leftovers in end states. Each round
+  the new frame types (keyboard, search, done) are the ones that haven't
+  been checked against the corner badge. Fix at the source: every new state
+  frame gets checked against the badge, the credit and the zoom before it
+  reaches me.
+- **Map-side homes run out of room at 664.** That's structural, not
+  cosmetic. It's why the jam killed the tab and the seal, and it's why C
+  must lose + in two states. It won't go away with polish; it can only be
+  traded openly.
+
+### Did the work change?
+B and C are new this round; D is new and killed. The stub didn't change, so
+its score stands.

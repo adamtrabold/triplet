@@ -268,3 +268,67 @@ inked pin + tag).
 Across rounds 1-2 (stub): reach for the *finish* (Add) and motion glitches,
 both fixed. New this round: the set itself was blocked by our "show one"
 reading. Not a design flaw; a misread of the owner, now corrected.
+
+---
+
+## Concept round 3 scored (jam turn 10) -- 2026-10-12
+
+Evidence: jam turns 8 (systems) and 9 (visual). B and C stills at phone
+size, the D frame, how-it-works and looks-and-feels for both.
+
+### Scores
+- **Stub: 9, standing.** Not re-scored; its work is unchanged.
+- **B. Striker strip: 9.** READY after one re-shoot: in `6-keyboard` the
+  account badge sits on the OSM credit and the form's top rule, so the form
+  top must stop below the badge. I check the still before it goes.
+  - Best idea of the round: the strip's blank `ADD ______` state, filled by
+    the pick.
+  - Accepted costs: 56px all the time, 150px collapsed from the Home Screen,
+    three bars in a Safari tab, the biggest orange on screen next to an open
+    tag. "More prominent" was the ask, and B is the far end on purpose.
+- **C. Pencilled pin: 8.** One fix round:
+  1. The pin steps aside whenever a tag is open (incl. the done frame).
+  2. The search frame stays clear of the zoom and the badge.
+  3. The new row is fully in view after Add.
+  4. A prominence/size study: the tag is 44x31, smaller than today's 50px
+     badge.
+  5. Plain-cost captions.
+  6. Systems updates how-it-works.
+  It can reach 9 as the bold option. It stops at 8 if it can't read as more
+  prominent than today.
+- **D. Eyelet: killed** (docked-FAB / drag-knob read, covers the credit).
+
+### Rulings
+- C, tag open: **(b)**, the pin steps aside at every height. (a) changes the
+  shipped tag gap app-wide; (c) is a control that moves.
+- C, filters open: **"close filters to add"**, at every height.
+- C, iOS zoom: no viewport hack. A transparent native select at 16px over the
+  printed entry; notes and search at 16px; on the iPhone-check list.
+- C, cancel: **keep the draft in memory** (matches the stub and B; job 4).
+- B: the form never runs under the account badge; it scrolls inside.
+- Autofocus on open and switching to the new place's city after Add go to
+  whichever concept wins the build (the city bug is in backlog).
+
+### Owner send
+Hold until C's re-score so it's one message. Then:
+- the stub (already seen),
+- B: `1-rest-today-vs-B`, `2-add-strip`, `6-keyboard` (re-shot),
+  `7-collapsed`, `8-safari-tab`, `stills/3-tag-open`,
+- C if it reaches 9: `1-rest-today-vs-C`, `2-add-strip`, `2d-done`,
+  `3-tag-open`, top of `4-states`,
+- one caption line of cost per concept, plus jobs.md Q1-3 (Q1 now pairs
+  naturally: stub rides vs B never moves).
+If C fails, send the stub and B with one line on why C stopped.
+
+### What keeps blocking a 9
+1. Finish in the new frame types: keyboard, search and done states collide
+   with the top-right chrome or leave leftovers. I've asked for every new
+   state frame to be checked against the badge, credit and zoom before it
+   reaches me.
+2. Map-side homes run out of room at 664. That's structural; it can only be
+   traded openly, never polished away.
+
+### Next
+Visual: re-shoot B `6-keyboard` and do C fixes 1-5. Systems: C
+how-it-works for the rulings. Then I re-score C (and check B's still), and
+the orchestrator sends.
