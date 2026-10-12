@@ -1,0 +1,412 @@
+{
+ "1-rest-B": {
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "errs": []
+ },
+ "2a-tap-664": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "2b-blank-664": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "blank",
+  "label": "Pick a place first",
+  "form": [
+   0,
+   204,
+   390,
+   608
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "2c-ready-664": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "ready",
+  "label": "Add Hallgrímskirkja",
+  "form": [
+   0,
+   204,
+   390,
+   608
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "2d-done-664": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "3-tag-open": {
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "errs": []
+ },
+ "3b-tag-form": {
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "look": "ready",
+  "label": "Add Hallgrímskirkja",
+  "form": [
+   0,
+   384,
+   390,
+   788
+  ],
+  "rows": 4,
+  "tag": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "errs": []
+ },
+ "5-320-copenhagen": {
+  "strip": [
+   0,
+   512,
+   320,
+   568
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   212,
+   320,
+   269
+  ],
+  "errs": []
+ },
+ "6-keyboard-notes": {
+  "strip": [
+   0,
+   452,
+   390,
+   508
+  ],
+  "look": "ready",
+  "label": "Add Hallgrímskirkja",
+  "form": [
+   0,
+   121,
+   390,
+   452
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "errs": []
+ },
+ "7-collapsed-homescreen": {
+  "strip": [
+   0,
+   754,
+   390,
+   844
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   694,
+   390,
+   751
+  ],
+  "errs": []
+ },
+ "8-safari-tab": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "9-filters-then-add": {
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "look": "blank",
+  "label": "Pick a place first",
+  "form": [
+   0,
+   384,
+   390,
+   788
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "errs": []
+ },
+ "desktop-rest": {
+  "strip": [
+   0,
+   744,
+   360,
+   800
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 12,
+  "tag": null,
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "errs": []
+ },
+ "st-rest": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "st-pressed": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "rest",
+  "label": "Add a place",
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "st-blank": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "blank",
+  "label": "Pick a place first",
+  "form": [
+   0,
+   204,
+   390,
+   608
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "st-ready": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "ready",
+  "label": "Add Hallgrímskirkja",
+  "form": [
+   0,
+   204,
+   390,
+   608
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ },
+ "st-adding": {
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "look": "adding",
+  "label": "Adding...",
+  "form": [
+   0,
+   204,
+   390,
+   608
+  ],
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "errs": []
+ }
+}

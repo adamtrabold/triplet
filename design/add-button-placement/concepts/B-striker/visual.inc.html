@@ -1,0 +1,55 @@
+<!-- ===== CONCEPT B: STRIKER STRIP -- the LOOK (visual designer, turn 9) =====
+     Layered on top of systems' concept.inc.html (structure + wiring), injected in memory by stills.js into
+     this folder's index.html copy. Nothing here changes behaviour except reading the strip's label to
+     pick its look (data-look on #strip). Spec: looks-and-feels.md. -->
+<style id="conceptBlook">
+  /* ONE strip, the list's tear-off. No navy rule on top: the seam is the tag stub's perforation
+     (1.5px dashed, 10px end insets, --s1 inside the field), the only seam between band/list and strip. */
+  #strip { border-top: 0; background: var(--paper); }
+  #strip:not(.open) { background-color: var(--brand-orange); }
+  #strip button { position: relative; font-size: 15px; line-height: 20px; letter-spacing: .08em; font-stretch: 75%; }
+  /* one continuous perforation across the whole strip (paper dashes on the orange field, hair on paper), as the tag stub's */
+  #strip::before { content: ''; position: absolute; z-index: 2; left: 10px; right: 10px; top: var(--s1); border-top: 1.5px dashed var(--paper); pointer-events: none; }
+  #strip.open::before { border-top-color: var(--hair); }
+  #strip[data-look="ready"] .go::before, #strip[data-look="adding"] .go::before { content: ''; position: absolute; z-index: 3; left: 0; right: 10px; top: var(--s1); border-top: 1.5px dashed var(--paper); pointer-events: none; }
+  #strip[data-look="adding"] .go::before { border-top-color: color-mix(in srgb, var(--paper) 55%, transparent); }
+  /* the field: brand orange through the app's paper tooth (the tag band's --tex-flood), so it reads printed, not plastic */
+  #strip .go { background-color: var(--brand-orange); background-image: var(--tex-flood); background-size: 160px 160px; color: var(--navy); gap: 10px; }
+  #strip .go svg { width: 18px; height: 18px; flex: none; }
+  #strip .go:active, #strip .go.press { background-color: var(--brand-orange-deep); color: var(--paper); }
+  /* x: a paper segment, like the tag stub's own segments; hair perforation on paper */
+  #strip .x { background: var(--paper); border-right: 0; }
+  #strip[data-look="blank"] .x::after { content: ''; position: absolute; right: 0; top: 10px; bottom: 10px; border-right: 1px dashed var(--hair); pointer-events: none; }
+  #strip .x:active { background: var(--state-press); }
+  #strip .x svg { width: 20px; height: 20px; }
+
+  /* BLANK (open, nothing picked): not greyed. The strip turns to paper -- the form's own paper, so form +
+     strip read as one tag with its stub -- and prints ADD followed by a write-in blank. Picking a place
+     fills the blank and floods the field orange. */
+  #strip.open[data-look="blank"] .go[aria-disabled], #strip.open[data-look="blank"] .go[aria-disabled]:active { background: var(--paper); color: var(--navy); cursor: default; justify-content: flex-start; padding-left: var(--s4); }
+  #strip[data-look="blank"] .go span { display: none; }
+  #strip[data-look="blank"] .go::after { content: 'Add'; order: -1; }
+  #strip[data-look="blank"] .go .blank { display: block; flex: 1; max-width: 190px; height: 0; margin-top: 12px; border-bottom: 1.5px solid var(--ink-2); opacity: .55; }
+  #strip .go .blank { display: none; }
+  /* ADDING...: the pressed tone holds while it files */
+  #strip.open[data-look="adding"] .go[aria-disabled], #strip.open[data-look="adding"] .go[aria-disabled]:active { background-image: var(--tex-flood); background-size: 160px 160px; background-color: var(--brand-orange-deep); color: var(--paper); }
+
+  /* collapsed band sits straight on the strip: one object (band + its stub), one seam */
+  #locations.collapsed #locationsHeader { border-bottom-color: transparent !important; }
+  /* the risen form: today's 2px navy top rule (as the stub's form); no cast shadow */
+  #controls.show { box-shadow: none; padding-bottom: var(--s3); }
+</style>
+<script id="conceptBlookjs">
+(function () {
+  const strip = document.getElementById('strip'), go = strip.querySelector('.go');
+  function look() {
+    const t = go.textContent.trim().toLowerCase(), open = strip.classList.contains('open');
+    const v = !open ? 'rest' : /^adding/.test(t) ? 'adding' : go.getAttribute('aria-disabled') === 'true' ? 'blank' : 'ready';
+    if (strip.dataset.look !== v) strip.dataset.look = v;
+    if (v === 'blank' && !go.querySelector('.blank')) { const b = document.createElement('i'); b.className = 'blank'; go.appendChild(b); }
+  }
+  new MutationObserver(look).observe(go, { childList: true, subtree: true, characterData: true, attributes: true });
+  new MutationObserver(look).observe(strip, { attributes: true, attributeFilter: ['class'] });
+  look();
+})();
+</script>

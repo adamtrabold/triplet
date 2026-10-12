@@ -1,0 +1,623 @@
+{
+ "1-rest-C": {
+  "pin": [
+   324,
+   452,
+   376,
+   518
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "2a-tap-664": {
+  "pin": [
+   324,
+   272,
+   376,
+   338
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "errs": []
+ },
+ "2b-search-664": {
+  "pin": [
+   324,
+   512,
+   376,
+   578
+  ],
+  "bar": [
+   0,
+   271,
+   390,
+   328
+  ],
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   604,
+   390,
+   661
+  ],
+  "errs": []
+ },
+ "2c-placed-664": {
+  "pin": [
+   324,
+   512,
+   376,
+   578
+  ],
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "blank": [
+   37,
+   330,
+   353,
+   570
+  ],
+  "submit": [
+   142,
+   510,
+   353,
+   570
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   604,
+   390,
+   661
+  ],
+  "errs": []
+ },
+ "2d-done-664": {
+  "pin": [
+   324,
+   298,
+   376,
+   364
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": {
+   "city": "reykjavik",
+   "row": true
+  },
+  "form": "hidden",
+  "rows": 3,
+  "tag": [
+   37,
+   114,
+   353,
+   338
+  ],
+  "header": [
+   0,
+   390,
+   390,
+   447
+  ],
+  "errs": []
+ },
+ "2c-placed-844": {
+  "pin": [
+   324,
+   692,
+   376,
+   758
+  ],
+  "bar": [
+   0,
+   787,
+   390,
+   844
+  ],
+  "blank": [
+   37,
+   510,
+   353,
+   750
+  ],
+  "submit": [
+   142,
+   690,
+   353,
+   750
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   784,
+   390,
+   841
+  ],
+  "errs": []
+ },
+ "2d-done-844": {
+  "pin": [
+   324,
+   452,
+   376,
+   518
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": {
+   "city": "reykjavik",
+   "row": true
+  },
+  "form": "hidden",
+  "rows": 4,
+  "tag": [
+   37,
+   114,
+   353,
+   338
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "3-tag-open": {
+  "pin": [
+   324,
+   452,
+   376,
+   518
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "5-320-copenhagen": {
+  "pin": [
+   254,
+   176,
+   306,
+   242
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   268,
+   320,
+   325
+  ],
+  "errs": []
+ },
+ "5b-320-placed": {
+  "pin": [
+   254,
+   416,
+   306,
+   482
+  ],
+  "bar": [
+   0,
+   511,
+   320,
+   568
+  ],
+  "blank": [
+   16,
+   204,
+   304,
+   474
+  ],
+  "submit": [
+   112,
+   414,
+   304,
+   474
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   508,
+   320,
+   565
+  ],
+  "errs": []
+ },
+ "6a-starred-664": {
+  "pin": [
+   324,
+   512,
+   376,
+   578
+  ],
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "blank": [
+   37,
+   330,
+   353,
+   570
+  ],
+  "submit": [
+   142,
+   510,
+   353,
+   570
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   604,
+   390,
+   661
+  ],
+  "errs": []
+ },
+ "6b-district-664": {
+  "pin": [
+   324,
+   512,
+   376,
+   578
+  ],
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "blank": [
+   37,
+   256,
+   353,
+   570
+  ],
+  "submit": [
+   142,
+   510,
+   353,
+   570
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   604,
+   390,
+   661
+  ],
+  "errs": []
+ },
+ "7-collapsed-homescreen": {
+  "pin": [
+   324,
+   658,
+   376,
+   724
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   750,
+   390,
+   807
+  ],
+  "errs": []
+ },
+ "desktop-rest": {
+  "pin": [
+   1214,
+   708,
+   1266,
+   774
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 13,
+  "tag": null,
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "errs": []
+ },
+ "desktop-placed": {
+  "pin": [
+   1214,
+   708,
+   1266,
+   774
+  ],
+  "bar": [
+   0,
+   743,
+   1280,
+   800
+  ],
+  "blank": [
+   662,
+   526,
+   978,
+   766
+  ],
+  "submit": [
+   767,
+   706,
+   978,
+   766
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 13,
+  "tag": null,
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "errs": []
+ },
+ "pending-tag-664": {
+  "pin": [
+   324,
+   306,
+   376,
+   372
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 3,
+  "tag": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "header": [
+   0,
+   398,
+   390,
+   455
+  ],
+  "errs": []
+ },
+ "pending-filters-664": {
+  "pin": [
+   324,
+   -23,
+   376,
+   43
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "errs": []
+ },
+ "st-pin-rest": {
+  "pin": [
+   324,
+   452,
+   376,
+   518
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "st-pin-pressed": {
+  "pin": [
+   324,
+   452,
+   376,
+   518
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ },
+ "st-pin-1x": {
+  "pin": [
+   324,
+   452,
+   376,
+   518
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "errs": []
+ }
+}

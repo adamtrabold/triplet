@@ -1,5 +1,66 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-12, turn 9 (new visual designer): B and C at owner fidelity, D frame
+Taking over from the previous visual designer. Context: the owner said "i want
+more than one concept"; the stub stays in the set; director turn 7 opened B
+(striker strip), C (pencilled pin), D (eyelet, one frame). Systems turn 8
+prototyped B and C (structure, wiring, measurements). Owner answers to Q1-Q3
+come only after a concept is approved.
+
+### How the files fit
+- Each concept folder: systems' `concept.inc.html` + `render.js` (rough
+  frames/), `index.html` = copy of the real file + concept.inc. MY look is
+  `visual.inc.html`, injected in memory by my `stills.js` (at the LAST
+  `</body>`: systems' comment contains a `</body>` string). Raw stills in
+  `stills/`; captioned owner stills at the folder root via
+  `concepts/compose-stills.js B|C`. If systems re-runs render.js the copy is
+  rebuilt; my stills still layer on top.
+- D: `concepts/D-eyelet/render.js` builds its own copy; one frame + verdict.
+
+### B decisions (looks-and-feels.md)
+- Orange field through `--tex-flood` (the band's paper tooth) = printed stock,
+  not a checkout bar. 15px button type, + 18px. 56px = a row's height; orange
+  runs under the home bar.
+- No navy top rule: ONE perforation (tag stub rule, paper on orange, hair on
+  paper), continuous across x and field. Collapsed: band loses its bottom
+  rule and sits on the strip = one ticket.
+- Inactive = paper (the form's paper) + navy "ADD" + write-in blank; ready =
+  orange "ADD <NAME>"; adding = deep orange + paper words; x = paper segment
+  at the left, hair divider only when both paper.
+- Form keeps the 2px navy top rule; systems' cast shadow removed.
+- Motion: form slides out of / back into the strip, 0.3s ease; colours
+  switch, never blend.
+
+### C decisions (looks-and-feels.md)
+- Blank pin = dashed ring + straight string + 44x31 orange die-cut tag
+  printed "+ ADD" (12px). Reads at 1x. Killed systems' teardrop.
+- Search line = band paper, ring glyph, no input box/focus ring.
+- Placed marker = the dashed ring (CSS on systems' .pencil-marker).
+- Blank tag = real tag structure (.tag-shadow/.tag-stock/.tag-patch/.tag-in/
+  .tag-stub) wrapped round systems' h3/.addr/#addForm; CITY/TYPE pencilled
+  entries on dashed rules (field-sizing: content; Chromium only); notes as a
+  write-in line; stub = STAR | ADD LOCATION (2fr, orange tooth). Star prints
+  the band. "Category" label shown as "Type". 270px tall at 390.
+- Motion: tag pops down out of the ring (tag-pop/tagString 280ms); Add inks
+  the ring into the real pin (stamp ink-bleed), stamps TYPE, swaps the stub.
+
+### D
+Killed: docked-FAB / drag-knob read, covers OSM credit, crowds the title.
+
+### Open
+- Director: score B/C; rule on C 664 failures (my visual vote (b) pin steps
+  aside under an open tag; close filters to add).
+- B: does "ADD ____" read as pick-first? Fallback copy noted.
+- C: iOS <16px focus zoom on pencilled selects/notes (overlay / 16px);
+  new row may land half below fold after Add (systems).
+- B keyboard riding: iPhone check.
+- After the director's pick: owner set = stub + whichever of B/C reach 9;
+  then the handoff "How it looks and feels" for the approved one.
+
+---
+
+## Previous designer's notes (history)
+
 ## UPDATE 2026-10-12, after the director's score of 8 (fixes 1 + 2 applied)
 - Fix 1, form anchored to the band: `#controls.show` absolute, bottom 0 of
   #mainContent (which ends at the band), grows upward, z 900 (over map,

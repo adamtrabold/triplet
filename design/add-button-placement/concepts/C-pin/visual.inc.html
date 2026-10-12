@@ -1,0 +1,102 @@
+<!-- ===== CONCEPT C: PENCILLED PIN -- the LOOK (visual designer, turn 9) =====
+     Layered on top of systems' concept.inc.html (structure + wiring), injected in memory by stills.js into this
+     folder's index.html copy. It re-dresses systems' elements; it moves #starInputRow and #submitBtn into the
+     blank tag's stub (the add form is a div and submit is an onclick, so behaviour is unchanged).
+     Spec: looks-and-feels.md. -->
+<style id="conceptClook">
+  /* ---- 1. THE BLANK PIN at rest: a pencilled (dashed) pin with a small luggage tag hanging from it that
+     says ADD. The app's own pin + Hanging Tag silhouette, unfilled, so it reads as "a place not made yet". ---- */
+  #pencilPin { width: 52px; height: 66px; right: 14px; bottom: 26px; }
+  #pencilPin svg { width: 52px; height: 66px; filter: none; overflow: visible; }
+  #pencilPin .mini-tag { filter: drop-shadow(0 0 .5px rgba(107, 74, 40, .5)) drop-shadow(0 1px 1px rgba(26, 26, 24, .12)) drop-shadow(0 3px 4px rgba(26, 26, 24, .10)); }
+  #pencilPin:active .mini-tag-face { fill: var(--brand-orange-deep); }
+  #pencilPin:active .mini-tag-word { fill: var(--paper); }
+
+  /* ---- 2. THE SEARCH LINE (the band while adding): the band's own paper, no new rule ---- */
+  #pinBar { border-top: 0; background: var(--paper); box-shadow: 0 -1px 0 var(--hair); }
+  #pinBar .pin-glyph { left: 17px; top: 16px; }
+  #pinBar #nameInput::placeholder { color: var(--ink-2); }
+  #pinBar #nameInput:focus, #pinBar #nameInput:focus-visible { outline: none; box-shadow: none; border: 0; }   /* the band is the field; the caret and the keyboard say it's live */
+
+  /* ---- 3. THE PENCILLED MARKER where you picked: the same dashed ring, standing on the spot ---- */
+  .pencil-marker svg { display: none; }
+  .pencil-marker::after { content: ''; position: absolute; left: 8px; top: 35px; width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%;
+    border: 2px dashed var(--navy); background: var(--paper-raised); box-shadow: 0 0 0 2px rgba(250, 245, 234, .6); }
+
+  /* ---- 4. THE BLANK TAG = the form: the Hanging Tag's own die-cut, eyelet, string, type and stub ---- */
+  #blankTag { padding: 0; border: 0; background: none; box-shadow: none; border-radius: 0; overflow: visible; display: none; flex-direction: column; font-family: var(--font-ui); font-size: 14px; line-height: 20px; }
+  body.pinadd.placed #blankTag { display: flex; }
+  #blankTag::before { display: none; }
+  #blankTag > .tag { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; padding-top: 0; }
+  #blankTag .tag-string { top: -14px; height: 32px; }   /* from the pencilled ring's foot to the eyelet's centre, 18px in */
+  #blankTag .tag-body { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  #blankTag .tag-stock { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  #blankTag .tag-in { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-bottom: var(--s3); }
+  #blankTag .tag-band { display: none; }
+  #blankTag .tag.is-starred .tag-band { display: block; }
+  #blankTag h3 { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); margin: 0; padding-right: 8px; overflow-wrap: anywhere; font-family: var(--font-ui); }
+  #blankTag .addr { margin: 2px 0 0; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+  /* the field line: printed labels (the tag's), PENCILLED entries -- the tag's stamped type before the stamp:
+     same condensed caps, graphite (--ink-2), on a dashed write-in rule, with a caret. They stamp on Add. */
+  #blankTag #addForm { display: flex; flex-wrap: wrap; column-gap: var(--s4); row-gap: var(--s2); margin-top: var(--s3); align-items: baseline; }
+  #blankTag #addForm .field-group { display: flex; align-items: baseline; gap: var(--s2); margin: 0; min-width: 0; }
+  #blankTag #addForm .field-label { font-stretch: 75%; text-transform: uppercase; font-weight: 500; font-size: 11px; line-height: 16px; letter-spacing: .12em; color: var(--ink-2); margin: 0; padding: 0; }
+  #blankTag #addForm select { -webkit-appearance: none; appearance: none; font-family: var(--font-ui); font-stretch: 75%; font-weight: 700; font-size: 14px; line-height: 20px; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--ink-2); background: transparent; border: 0; border-bottom: 1.5px dashed color-mix(in srgb, var(--ink-2) 55%, transparent); border-radius: 0;
+    padding: 0 16px 1px 0; margin: 0; height: auto; width: auto; field-sizing: content; max-width: 268px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235A564C' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 2px center; }
+  #blankTag #addForm #notesInput { flex: 1 0 100%; order: 9; font-family: var(--font-ui); font-size: 14px; line-height: 20px; color: var(--ink); background: transparent; border: 0;
+    border-bottom: 1.5px dashed color-mix(in srgb, var(--ink-2) 40%, transparent); border-radius: 0; padding: 2px 0 3px; margin: var(--s1) 0 0; min-height: 0; height: 26px; resize: none; }
+  #blankTag #addForm #notesInput::placeholder { color: var(--ink-2); opacity: .8; }
+  #blankTag #shapeHint { flex: 1 0 100%; order: 10; margin: var(--s1) 0 0; font-size: 12px; line-height: 16px; color: var(--ink-2); }
+  #blankTag #addForm .new-city-confirm { flex: 1 0 100%; order: 11; }
+  /* the stub: STAR (the tag's own segment) | ADD LOCATION (two segments wide, the brand-orange flood through the paper tooth) */
+  #blankTag .tag-stub { flex: none; grid-template-columns: 1fr 2fr; }
+  #blankTag .tag-slot.add::before { display: none; }
+  #blankTag #starInputRow { position: relative; display: flex; flex: 1; margin: 0; padding: 0; }
+  #blankTag #starInput { all: unset; box-sizing: border-box; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding-top: 4px;
+    font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: .08em; color: var(--ink); cursor: pointer; }
+  #blankTag #starInput svg { width: 20px; height: 20px; display: block; }
+  #blankTag #starInput[aria-pressed="true"] svg { color: var(--star); fill: var(--star); }
+  #blankTag #submitBtn { position: static; box-shadow: none; margin: 0; width: 100%; height: 100%; border: 0; border-radius: 0; padding: 0 var(--s2); cursor: pointer;
+    font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; -webkit-tap-highlight-color: transparent;
+    background-color: var(--brand-orange); background-image: var(--tex-flood); background-size: 160px 160px; color: var(--navy);
+    font-size: 15px; line-height: 20px; letter-spacing: .08em; }
+  #blankTag #submitBtn:active { background-color: var(--brand-orange-deep); color: var(--paper); }
+  #blankTag #submitBtn:disabled { opacity: 1; background-color: var(--brand-orange-deep); color: var(--paper); }
+  /* the perforation runs over the orange in paper (the stub's rule, raised for 1x like the claim-check stub's) */
+  #blankTag .tag-slot.add::after { content: ''; position: absolute; z-index: 4; left: 0; right: 10px; top: -0.75px; border-top: 1.5px dashed var(--paper); pointer-events: none; }
+</style>
+<script id="conceptClookjs">
+(function () {
+  const $ = id => document.getElementById(id);
+  // 1. the blank pin: pencilled ring + string + a mini die-cut tag that says + ADD
+  $('pencilPin').innerHTML = `<svg viewBox="0 0 52 66" aria-hidden="true">
+    <circle cx="26" cy="13" r="11" fill="var(--paper-raised)" stroke="var(--navy)" stroke-width="2" stroke-dasharray="3.4 2.6"/>
+    <line x1="26" y1="24" x2="26" y2="39" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round"/>
+    <g class="mini-tag"><path class="mini-tag-face" d="M12 33 H40 L48 41 V64 H4 V41 Z" fill="var(--brand-orange)"/>
+      <circle cx="26" cy="39" r="2.4" fill="var(--paper)"/></g>
+    <text class="mini-tag-word" x="26" y="58" text-anchor="middle" fill="var(--navy)" style="font-family:var(--font-ui);font-stretch:75%;font-weight:700;font-size:12px;letter-spacing:.06em">+ ADD</text></svg>`;
+  // 2. the search line's glyph: the same pencilled ring
+  const g = document.querySelector('#pinBar .pin-glyph');
+  if (g) g.outerHTML = '<svg class="pin-glyph" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="var(--navy)" stroke-width="2" stroke-dasharray="3.4 2.6"/></svg>';
+  // 4. the blank tag: the Hanging Tag's own structure around systems' content
+  const bt = $('blankTag'), h3 = bt.querySelector('h3'), addr = bt.querySelector('.addr'), form = $('addForm');
+  const tag = document.createElement('div'); tag.className = 'tag';
+  tag.innerHTML = '<span class="tag-string" aria-hidden="true"></span><div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span>'
+    + '<div class="tag-stock"><span class="tag-band" aria-hidden="true"></span><span class="tag-patch" aria-hidden="true"></span><div class="tag-in"></div>'
+    + '<div class="tag-stub"><span class="tag-slot star"></span><span class="tag-slot add"></span></div></div></div>';
+  bt.appendChild(tag);
+  const tin = tag.querySelector('.tag-in');
+  tin.append(h3, addr, form);
+  tag.querySelector('.tag-slot.star').appendChild($('starInputRow'));
+  tag.querySelector('.tag-slot.add').appendChild($('submitBtn'));
+  // the tag's own words: TYPE (not "Category"), NOTES as a write-in line
+  const cl = form.querySelector('label[for="categoryInput"]'); if (cl) cl.textContent = 'Type';
+  $('notesInput').placeholder = 'Add a note';
+  // starring prints the tag's band, as the real tag does
+  new MutationObserver(() => tag.classList.toggle('is-starred', $('starInput').getAttribute('aria-pressed') === 'true'))
+    .observe($('starInput'), { attributes: true, attributeFilter: ['aria-pressed'] });
+})();
+</script>

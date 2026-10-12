@@ -1236,3 +1236,66 @@ enough to draw at owner fidelity (B: strip look, the collapsed band + strip
 stacking, an inactive state that isn't greyed-out web; C: a blank pin that
 reads as "add" at 1x, and the blank tag in the tag's own type). Plus the
 eyelet frame. Then the director rules on C's two 664 failures.
+
+---
+
+## Turn 9 -- product designer (visual focus): B and C at owner fidelity, D frame
+
+I'm taking over from the previous visual designer and started from its notes.
+B and C are drawn at owner fidelity from each folder's `index.html` copy (the
+look is `visual.inc.html`, layered on systems' prototype in memory; their
+files are untouched). Stills are at 3x, 1170 wide, mirroring the stub's set,
+and each concept has a `looks-and-feels.md`. I looked at every still at
+phone size.
+
+Draws (real RNG): B: **"Only one element of each kind"** / laundry tickets /
+"works with eyes closed". C: **"Work at a different speed"** / herbarium
+sheets / **"it says its own name"**. D: "Fill every beat" / tide tables
+(gave nothing; D dies on its own).
+
+### B. Striker strip: drawn, reshaped
+- **One seam, not a rule.** The 2px navy top rule is gone. The strip's only
+  edge is the tag stub's perforation, in paper on orange. The strip is the
+  list's tear-off, and with the list down the band sits straight on it as
+  **one ticket (header + stub)**, not two toolbars (`7-collapsed`).
+- **Printed, not plastic:** the orange carries the tag band's paper tooth
+  (`--tex-flood`). That's my answer to "generic checkout bar": judge it on
+  still 1.
+- **The inactive state is a printed blank, not grey.** Open with nothing
+  picked, the strip turns to the form's own paper and prints `ADD ______` in
+  full navy (form + strip = one tag and its stub). Picking fills the blank,
+  `ADD HALLGRÍMSKIRKJA`, and floods it orange. The paper-to-orange switch says
+  "ready".
+- Keyboard frame (`6-keyboard`): ADD on the keyboard while typing a note.
+  Safari-tab frame (`8`): the honest height cost. No look removes 56px.
+
+### C. Pencilled pin: drawn, reshaped
+- **The blank pin says its own name:** a pencilled (dashed) ring, a straight
+  string, and a small die-cut tag in brand orange printed **+ ADD**. It reads
+  as add at 1x (`stills/st-pin-1x`). It isn't a disc, so it isn't the FAB.
+  It's our pin and our tag. **I killed the dashed teardrop:** that isn't this
+  app's pin, and it reads as a generic "drop location" tool.
+- **The blank tag is the Hanging Tag itself** (die-cut, eyelet, string, stub,
+  type). It's a herbarium label: printed captions, entries pencilled on
+  dashed write-in rules (`CITY REYKJAVÍK ⌄ TYPE ATTRACTION ⌄`, "Add a note").
+  **The stub is STAR | ADD LOCATION.** Starring prints the band, as on the
+  real tag.
+- **Add = inking:** the ring inks into the real category pin, TYPE is
+  stamped, and the stub becomes DIRECTIONS | STAR | VISITED. Existing motion
+  throughout (the tag's pop on a straight string, the stamp's ink-bleed).
+  It's 270px tall at 390, against systems' 364.
+- **664 failures:** drawn in the new look as `stills/pending-*` (not for the
+  owner). My visual read on the tag-open case: the blank pin carries a tag, so
+  with a real tag open there are two tags on screen. That argues for **(b),
+  the blank pin steps aside while a tag is open**. It's the director's call.
+- Flag: iOS zooms into 14px fields on focus (pencilled selects, notes); it
+  needs an overlay/16px decision and an iPhone check.
+
+### D. Eyelet: kill
+One frame (`concepts/D-eyelet/`). Centred on the sheet's top edge it reads
+as Material's docked FAB or a drag knob, covers the OSM credit, and crowds
+the title. The tag gap is fine at 844, but that doesn't save it.
+
+NEXT: design director -- score B and C as drawn, rule on C's two 664 failures
+(my visual vote: (b) for tag-open; "close filters to add"), and decide which
+of B/C join the stub for the owner.
