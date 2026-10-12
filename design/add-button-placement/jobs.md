@@ -30,7 +30,8 @@ prominent + reachable on the phone"
 **Add a place**
 1. Tap + at the right end of the list header.
 2. The list slides down to its bottom bar and the + (now ×) rides down with
-   it. The add form fills the screen above.
+   it. The add form sits right on that bar, with ADD LOCATION just above
+   the ×, and the map shows above the form.
 3. Search, pick, then tap ADD LOCATION.
 4. The form closes and the list comes back where it was.
    *(See question 2: the map could also go to the new place.)*

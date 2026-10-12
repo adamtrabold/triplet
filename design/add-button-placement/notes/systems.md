@@ -141,3 +141,14 @@ Open:
 Next: check the visual designer's owner stills against the flows in
 jobs.md once they land (the director split it this way). Then the director
 scores.
+
+## After the director's score of 8 (scores.md)
+Fix 1 is rendered by visual: the form is anchored to the band (Add y 716-760
+at 844, y 536-580 at 664, directly above the ×) and the OSM credit rides to
+the form's top. Fix 2: a clean field switch, only the rotation animates.
+Spec sizes, states/motion, coverage and jobs.md step 2 are updated.
+Rulings recorded:
+- Filters/sort while the form is open close it. The draft survives
+  (verified: the toggle only hides the form; closeAddForm() clears it and
+  runs after a successful Add), so the "disabled" fallback isn't needed.
+- Escape approved as a desktop nicety.

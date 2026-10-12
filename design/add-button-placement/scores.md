@@ -89,3 +89,67 @@ Looked at: `concepts/stub/` owner stills 1-5 (`1-rest-today-vs-stub`,
 
 ### Did the work change since my last look?
 First score; n/a.
+
+## Concept round 2 -- claim-check stub (director, 2026-10-12)
+
+**Score: 9 / 10. READY: claim-check stub goes to the owner.**
+
+Looked at: `2-adding-844-3x.png` (new), `2-adding-664-3x.png`,
+`2-tap-strip-3x.png`, `looks-and-feels.md` (updated). Stills 1, 3, 4, 5 are
+unchanged since round 1.
+
+### Did the work change? Yes, both blocking fixes landed
+
+1. **The form is anchored to the band.** At 844, ADD LOCATION is at y
+   716-760, directly above the × at y 784. The gap is gone and Add is in the
+   thumb band, so job 3 now holds at both phone heights. At 664 the form
+   fills the space with Search, Add and × all visible. The account badge
+   clears the form's top edge at 664 (~80px of map between them).
+2. **No blend.** The strip's middle frame shows a clean navy × mid-ride,
+   with no grey. It reads as one control changing state as it travels.
+
+### Rulings
+
+- **Unasked change: the OSM credit rides to the form's top edge.**
+  Approved. It stays visible on the map, which is the only hard rule, and
+  sitting on the form's edge reads as on purpose.
+- **Flag: the map above the open form shows no pins at 844. Re-fit? No.**
+  - Re-fitting moves the user's map on open, and then again on cancel to
+    restore it. That's two camera jumps for a glance, and it fights job 4
+    ("add without losing your place").
+  - The strip above the form is context, not a working view. In the real
+    app it shows map tiles; it's only blank paper in our renders because
+    tiles don't load headless. So it reads as map, not as emptiness.
+  - If the owner says yes to Q2, Add then flies to the new pin anyway.
+    That's the moment the map should move, not on open.
+  - Orchestrator: caption still 2b with one line: "Map tiles don't load in
+    our renders; on your phone the strip above the form shows the map."
+
+### Likely owner objections (remaining)
+
+- "The button moves": Q1 asks it directly, with the strip as evidence. It
+  is the one decision that could send the concept back. That's his call,
+  not a flaw I'm hiding.
+- "It's just an orange rectangle": possible. I'd defend it as is: it's
+  simple, it's the tag's stub, and it's ADD LOCATION's orange. No marks
+  added.
+- Neither is likely enough, as a *design* objection, to hold the score
+  under 9.
+
+### Stills for the owner (send these, separately, in this order)
+
+All are in `concepts/stub/`:
+
+1. `1-rest-today-vs-stub-3x.png`: today vs the stub, at rest.
+2. `2-tap-strip-3x.png`: tap + → the list slides down → adding (390x664,
+   Safari). **Q1 goes with this one.**
+3. `2-adding-844-3x.png`: adding at full height, with the one-line tiles
+   caption.
+4. `3-tag-open-3x.png`: a tag open, the selected row and the stub.
+5. `4-states-3x.png`: rest / pressed / open / filters open.
+6. `5-320-copenhagen-3x.png`: a small phone, a long city name.
+
+Don't send: `overview-sheet.png` (not phone-readable), `2-adding-664-3x.png`
+(already covered by the strip's last frame), or the appendix.
+Questions: `jobs.md` 1-3 verbatim, plus its "Just so you know" line. Q1 is
+the only one that decides the concept.

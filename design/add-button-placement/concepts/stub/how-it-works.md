@@ -40,13 +40,20 @@ flows are in `../../jobs.md`. Appendix renders: `appendix/` (script
 | Playground | identical to rest | adds, as signed in |
 | Busy (submit in flight) | stays open; ADD LOCATION shows its own busy text as today | the stub isn't a second spinner |
 
-- **One ON tile in the band at a time.** Opening the form closes the
-  filters panel (its tile returns to outline) and the sort menu, in the
-  same beat. Opening filters or sort while the form is open: the form stays
-  open and the panel/menu opens over the list as today. *(Open, builder:
-  the simplest consistent rule is that opening filters/sort closes the form
-  the same way. I'd adopt that so the band never shows two ON tiles. It
-  wants a confirm from the director.)*
+- **One ON tile in the band at a time** (director, scores.md). Opening the
+  form closes the filters panel (its tile returns to outline) and the sort
+  menu in the same beat. **Opening filters or sort while the form is open
+  closes the form**, because the draft survives: today's ×/+ toggle only
+  hides the form (`#controls`/`#addForm` lose `.show`). The fields are
+  cleared only by `closeAddForm()`, which runs after a successful Add. The
+  next tap on + reopens the form with the draft. The builder must close it
+  through the toggle path, never `closeAddForm()`. *Ruling's fallback:* if
+  the draft would be lost, filters and sort are disabled while the form is
+  open instead. Either way, the band never shows two ON tiles.
+- **Motion:** the + to × change is a **clean switch** of the field (no
+  orange/navy blend at any frame: rest orange → press orange-deep → navy
+  the moment the ride starts). Only the glyph's 45° rotation animates
+  (0.3s, on the collapse timing). Close plays the reverse.
 - The perforation never changes between states.
 - Accessibility: `aria-label` "Add a place" at rest and "Close add form"
   when open, `aria-expanded` true/false. The tap target is the whole
@@ -57,8 +64,9 @@ flows are in `../../jobs.md`. Appendix renders: `appendix/` (script
 1. **Add, list up.** Tap the stub. If filters or sort are open, they close.
    The form opens (`requireAuth` first, as today). **The list drops to its
    collapsed band** with the existing collapse transform and timing. The
-   stub rides down with it, its + turning to × during the ride (one
-   gesture). The form fills the screen above the band. Search, pick, ADD
+   stub rides down with it. Its field switches to navy as the ride starts and
+   its + rotates into × during the ride (one gesture). The form sits on the
+   band (ADD LOCATION directly above the ×), with the map above it. Search, pick, ADD
    LOCATION. On success the form closes and the list comes back to its
    previous position (up). *Then (owner Q2, recommended):* fly to the new
    pin, open its tag, select its row.
@@ -90,22 +98,29 @@ flows are in `../../jobs.md`. Appendix renders: `appendix/` (script
 8. **Playground (`?play`).** Tap the stub and the form opens, with the drop.
    At 664 (Safari tab) Add is at y 450-494 and hit-tests as Add
    (`appendix/play_tap`).
-9. **Escape / back** *(new; today Escape does nothing to the form)*. Escape closes the form like the ×, when no field menu
+9. **Escape / back** *(new; today Escape does nothing to the form; approved by the director as a desktop nicety, not owner-facing)*. Escape closes the form like the ×, when no field menu
    is open. iOS back-swipe is untouched (the stub is not edge-armed).
 
 ## Sizes
 
+**Fix 1 (director): the form is anchored to the band.** While the form is
+open, its bottom edge sits on the band, ADD LOCATION sits directly above
+the ×, and the form grows upward. The map shows above it in whatever height
+is left, and the OSM credit rides to the form's top edge.
+
 | Viewport | Stub (rest) | Form open: stub (×) | ADD LOCATION | Add reachable |
 |---|---|---|---|---|
-| 390x844 (Home Screen) | y 544-601 | y 784-841 | y 450-494 | yes |
-| 390x844 + 34px inset, collapsed | y 750-807 | y 750-807 (no move) | y 497-541 | yes |
-| 390x664 (Safari tab) | y 364-421 | y 604-661 | y 450-494 | yes (**today: covered by the list**) |
-| 375x667 / 320x640 | right-edge anchored, same | same | same | yes (the form is above the band) |
-| 1280x800 rail | x 298-358, y 0-57 | no move | in the map column | yes |
+| 390x844 (Home Screen) | y 544-601 | y 784-841 | **y 716-760** | yes, directly above × |
+| 390x664 (Safari tab) | y 364-421 | y 604-661 | **y 536-580** | yes (**today: covered by the list**) |
+| 390x844 + 34px inset, list collapsed | y 750-807 | y 750-807 (no move) | directly above the band (same rule) | yes |
+| 375x667 / 320x640 | right-edge anchored, same | the band | directly above the band | yes |
+| 1280x800 rail | x 298-358, y 0-57 | no move | in the map column, as today | yes |
 
-- With the drop, Add sits where the form puts it (y ~470), not "just above
-  the band". At 844 there's a strip of map between the form and the band.
-  That's fine (it's where the new pin will appear) and needs no fill.
+- Add and × are now one thumb reach apart at every phone height.
+- Short screens: if the form is taller than the space above the band, the
+  form's top scrolls under the top edge. Add stays on the band. The visual
+  designer checks the account badge against the form's top at 664.
+
 - **Keyboard up** (typing in Search): the keyboard covers the band and Add
   on every phone, as it does today. Picking a result or tapping Done drops
   the keyboard, and Add is in reach again. Out of scope (form scope = no
@@ -151,11 +166,9 @@ flows are in `../../jobs.md`. Appendix renders: `appendix/` (script
 |---|---|---|
 | 1 Thumb reach in every state | yes | the stub is in the band list up (y 544), collapsed (y 750-784), with a tag open (rides `--sheet-lower`), in Plans, with filters open (`filters_before`), and on the rail |
 | 2 Reads as the main action | yes | the only filled field in the band; no longer the account's twin |
-| 3 Finish near the thumb | yes | × always in the band; Add at y ~470 and never covered at 664 or 667 (today covered) |
+| 3 Finish near the thumb | yes | the form is anchored to the band: ADD LOCATION directly above the × (y 716-760 at 844, y 536-580 at 664; today covered at 664) |
 | 4 Don't lose my place | yes | flows 2 and 5: the pre-open state is restored, `play_cancel` verified |
 | 5 Never in the way | yes | the stub is in the header, not over pins, the tag, names or row ×; the map's top-right is freer |
 | 6 Signed out / playground | yes | flows 7 and 8, `signedout_tap`, `play_tap` |
 
-Open items: the owner's Q1 (does the button ride down at all), and the
-director's confirm on "opening filters/sort while the form is open closes
-the form".
+Open items: the owner's Q1 (does the button ride down at all).

@@ -1,10 +1,9 @@
 # Director notes -- + placement
 
 ## Status
-Concept round 1 scored 8/10 (2026-10-12), see scores.md. Not READY: one fix
-round (form anchored to the band + 844 still; no muddy crossfade; send
-separate stills), then re-score. Jam closed at turn 6.
-Turn 3 = pass-1 steer; turn 6 = rulings + concept-phase spec.
+Concept round 2 scored 9/10 (2026-10-12): READY. Claim-check stub goes to
+the owner with stills 1, strip, 2b(844), 3, 4, 5 and jobs.md Q1-3. Waiting
+on the owner. See scores.md round 2.
 
 ## Owner direction I'm judging against
 - Task (verbatim): "im also thinking about + placement — it should probably
@@ -176,3 +175,28 @@ orchestrator sends stills 1-5 (+844) with jobs.md questions 1-3.
 Watch on re-score: the account badge vs the form's top at 664 once the form
 is bottom-anchored; whether the map above the form at 844 reads as on
 purpose.
+
+---
+
+## Concept round 2 -- 2026-10-12 -- claim-check stub: 9/10, READY
+
+Changed: the form is anchored to the band (844: Add y 716-760, x y 784; 664:
+fills the space, account badge clear); the strip's mid frame is a clean navy
+x (no blend); OSM credit rides the form's top edge (unasked; approved).
+Flag ruled: no map re-fit on open (two camera jumps, fights job 4; the
+blank strip is headless no-tiles; Q2's fly-to is the moment to move the
+map). Caption 2b about the tiles.
+
+Owner set: 1-rest-today-vs-stub, 2-tap-strip (+Q1), 2-adding-844,
+3-tag-open, 4-states, 5-320-copenhagen; jobs.md Q1-3 + "just so you know".
+Not sent: overview sheet, 2-adding-664, appendix.
+
+Remaining risks: Q1 "never move" would reopen the form placement (then:
+form anchored to the band but the band stays up? It would need rethinking,
+not a pre-built fallback). "Orange rectangle / average": defend; if the
+owner says it's ugly (cf. sign-in crew's "on the right track but it's
+ugly"), the dials are the stub's width, the perforation and the + weight,
+never added marks.
+
+Next: owner reply. On approval: handoff.md; I check it against owner.md
+before the build.
