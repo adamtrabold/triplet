@@ -180,3 +180,56 @@ answered each note literally, one at a time (centre it, shrink, track
 out). In a 50px die, rim, figure and words share one fixed space: fixing
 one note pushed the crowding somewhere else (letters to rim, figure to
 words on 3). The fix is to balance all three together, optically.
+
+## Concept A, round 2b re-look: variant 2 after fixes (director, 2026-10-12)
+
+Based on: re-shot `round2/sheet-3x.png` (hero 3x, pressed/signed-in,
+top-of-screen strip, 1:1 crops next to + / water / alone, in/out strips),
+`round2/shots/top-v2-390.png` and `v2-cream-plus.png` zoomed, the README
+"Round 2b" values, `badge2.js` V[2], and `flow/sheet-3x.png` (title, frame 5).
+
+**Did the work really change?** Yes, and on exactly the measured problems:
+- baseline r 18.0 -> 16.6, so the letters now clear the valleys by 2.2px;
+- tracking 1.8 -> 1.3px (0.22em) with a hair space between the words, so
+  the word gap is 1.85x the letter gap (was ~3x);
+- the end letters sit at ±53.8° (target 60);
+- weight 700, so the I holds at 1x;
+- 5.6px between the shoulders and the cap tops;
+- the person is still at true centre, with no nudge needed.
+
+At real size it now reads as one phrase, "SIGN IN", sitting in the middle
+of the band between figure and rim. Nothing touches anything. The hero no
+longer shows a tan outline. Only 2 is shown.
+
+Likely owner objections:
+1. "Still ugly / crowding": the three causes I measured are gone. Not
+   likely.
+2. "Too small to read on my phone": 6px caps are what he asked for
+   ("smaller"), and they read in the 1:1 crops. Chromium only, so the
+   iPhone is unverified. Possible, not likely.
+3. "Icon not centred": it's at true centre and reads centred. Not likely.
+4. "Too many variations": gone, only one is shown. Not likely.
+5. Louder than +, reads as a stamp, or confused with the signed-in badge:
+   no on all three. It's quieter paper with no tilt and no ring, and the
+   navy/orange state is unchanged.
+
+### 2 (fixed): **9**
+I would defend this to the owner as is. It's his idea, every note is
+answered and measured, it's one object with one footprint in both states,
+and it stands alone if + moves.
+
+### Before the owner sees it (presentation only; not a re-score)
+- Send `concepts/A-arc-badge/round2/sheet-3x.png` alone. Don't re-send the
+  flow sheet. It's correct now (title "Signing in", frame 5 uses the
+  round-2 stills), but it's unchanged otherwise and still ~6,500px. Offer
+  it in one line only if he wants to see the sign-in steps again.
+- The owner message (one, terse) should say the 6px words are judged on
+  Chromium renders and he's the iPhone check. It should also re-ask Q1/Q2
+  briefly, since they're still unanswered.
+
+### Across rounds
+Round 1 was scored on the idea and failed on craft. Round 2 answered the
+notes one at a time and pushed the crowding to the rim. Round 2b balanced
+rim, figure and words together, by measured ink. If this 9 is turned down
+too, that's two in a row: stop and ask the owner what "good" looks like
+here (a reference badge he likes), rather than tuning again.

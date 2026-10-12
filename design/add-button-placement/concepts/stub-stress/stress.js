@@ -58,6 +58,7 @@ const scenarios = {
     await page.goto('https://triplet.test/index.html' + (s.q || ''));
     await page.waitForFunction(() => document.querySelectorAll('#locationsList .location-card[data-id]').length > 5);
     await page.evaluate(() => document.fonts.ready);
+    if (await page.evaluate(() => document.getElementById('authModal').classList.contains('show'))) { await page.click('#cancelAuthBtn'); await page.waitForTimeout(300); }
     await page.evaluate(({ css, plus, x, oneband, obcss }) => {
       const st = document.createElement('style'); st.textContent = css + (oneband ? obcss : ''); document.head.appendChild(st);
       const nb = document.createElement('button'); nb.id = 'nb'; nb.setAttribute('aria-label', 'Add a place'); nb.innerHTML = plus;

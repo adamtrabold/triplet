@@ -1,6 +1,14 @@
 # Director notes: sign-in button
 
-## Status (2026-10-12, new director)
+## Status (2026-10-12, after re-look)
+Round 2b SCORED: variant 2 after fixes = **9**. READY: A round 2,
+`concepts/A-arc-badge/round2/sheet-3x.png` alone. The flow sheet is
+fixed but isn't re-sent (offered in one line). Owner message: one
+terse note that the 6px words are Chromium-judged and he's the iPhone
+check, plus Q1/Q2 re-asked. If he turns this down too, that's two 9s in a
+row: ask him for a reference badge he likes before tuning again.
+
+## Status (2026-10-12, new director, before fixes)
 Round 2 of A SCORED: 1 = 7, 2 = 8, 3 = 7. Nothing goes to the owner yet.
 Next: the designer applies fixes 1-4 (scores.md, "Concept A, round 2") to
 variant 2 only; I re-look at the re-shot real-size crops (cream + plus,
@@ -169,3 +177,21 @@ Still unanswered by the owner: Q1 (same button signed out in the real
 app), Q2 (playground notice), B held back, the Logout -> Sign out rename.
 + may move (separate crew); the badge already stands alone ("on its own"
 row), so keep that row.
+
+## Round 2b re-look (2026-10-12)
+Verified on the re-shot real-size crops (zoomed) plus the README values:
+- baseline r 16.6, 2.2px clear of the valleys (r 18.81);
+- 1.3px tracking (0.22em) with a hair space, word gap 1.85x the letter gap;
+- end letters at ±53.8°;
+- weight 700, cap tops at r 12.49, so 5.6px to the shoulders;
+- the person at true centre (no nudge needed);
+- the edge in the enlargements scaled to 1 CSS px.
+
+Only 2 is on the sheet. The flow sheet's title is fixed and its frame 5
+uses `round2/shots/in-*`.
+
+Score: 9. I looked for remaining objections and found none likely.
+Residual risk: 6px type on a real iPhone (Safari variable-font 700,
+textPath centring via `SB.centerArcs()`), which the owner checks.
+Builder notes for later: call `centerArcs()` after fonts are ready, or
+hard-code the measured rotation; V[2] in `round2/badge2.js` is the spec.
