@@ -1,5 +1,8 @@
 # Visual designer notes: sign-in button
 
+## Round 2c presentation (director: B/v7 = 9, A/v6 = 8; show B only)
+- `sheet-2c-3x.png` re-shot to the same path (1170x2808). A is cut everywhere. The sheet leads with a small 'Before' badge next to B at 3x and a plain line with no letters, then B's real-size crops two across (next to +, over water, alone on cream and on water), then the in/out strips. v6 stays in code and shots for the record.
+
 ## Round 2c (owner on 2b: "feels weighted low ... everything up some / visually centered ... more space betwen the icon and sign in -- look at the inspo")
 - Inspo: passport-stamps-grid (LONDON roundel, DUBLIN oval: emblem + curved words as one block, even margins)
   and matchbooks-collage-1 (Little Washington seal, Ralph's arc: air between emblem and arc type).
