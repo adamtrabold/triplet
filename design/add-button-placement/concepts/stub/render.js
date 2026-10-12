@@ -45,12 +45,15 @@ function inject(rideMs) {
       const fp = document.getElementById('filtersPanel'); if (fp && fp.classList.contains('visible')) document.getElementById('toggleFiltersBtn').click();
       if (!document.getElementById('sortMenu').hidden) document.getElementById('sortScrim').click();
     }
-    fab.click();
-    const nowOpen = fab.classList.contains('active');
-    if (nowOpen && !collapsed()) { dropped = true; document.getElementById('collapseBtn').click(); }   // the list drops to its band
-    if (!nowOpen && dropped) { dropped = false; if (collapsed()) document.getElementById('collapseBtn').click(); }
+    fab.click();   // the app's own add (async: auth first), so the drop follows its state below
   });
-  new MutationObserver(() => { nb.classList.toggle('open', fab.classList.contains('active')); nb.setAttribute('aria-label', fab.classList.contains('active') ? 'Close' : 'Add a place'); })
+  new MutationObserver(() => {
+    const on = fab.classList.contains('active');
+    if (on === nb.classList.contains('open')) return;
+    nb.classList.toggle('open', on); nb.setAttribute('aria-label', on ? 'Close' : 'Add a place');
+    if (on && !collapsed()) { dropped = true; document.getElementById('collapseBtn').click(); }     // the list drops to its band
+    if (!on && dropped) { dropped = false; if (collapsed()) document.getElementById('collapseBtn').click(); }   // and comes back
+  })
     .observe(fab, { attributes: true, attributeFilter: ['class'] });
   window.fitTitle = () => {
     const h2 = document.querySelector('#locationsHeader h2');
