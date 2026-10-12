@@ -12,3 +12,8 @@ On the first build (still: `current-rejected-menu-3x.png` -- the account badge o
 > no that button does not look good — we need a secondary style for that button that is for signing in -- lets get some concepts. one i'd like explored is a verson where there is a signed out person themed icon, maybe smaller? but with "sign in" in the circle following a circular path under it (like a U shape around the circular shape)
 
 Process: owner chose the design-buds loop (designers + director, only 9s reach the owner).
+
+2026-10-12, on concept A (scored 9 by the director; sheets concepts/A-arc-badge/sheet-3x.png + concepts/flow/sheet-3x.png):
+> on the right track but it's ugly. icon should be centered... maybe too small? text should be smaller and probably tracked out some because it's crowding
+
+Rejection 1 of a 9 (counts toward "two 9s turned down in a row"). Q1, Q2, label version, Sign out rename: not answered yet.
