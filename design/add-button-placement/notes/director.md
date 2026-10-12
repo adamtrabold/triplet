@@ -1,7 +1,9 @@
 # Director notes -- + placement
 
 ## Status
-Jam CLOSED with my turn 6 (2026-10-12). Concept phase next. No scores yet.
+Concept round 1 scored 8/10 (2026-10-12), see scores.md. Not READY: one fix
+round (form anchored to the band + 844 still; no muddy crossfade; send
+separate stills), then re-score. Jam closed at turn 6.
 Turn 3 = pass-1 steer; turn 6 = rulings + concept-phase spec.
 
 ## Owner direction I'm judging against
@@ -140,3 +142,37 @@ into Q1.)
   the tag's ink family, never by added marks.
 - If the owner says "never move" on Q1, form placement reopens.
 - Header crowding with --s1 gaps: watch the trio's optical spacing.
+
+---
+
+## Concept round 1 -- 2026-10-12 -- claim-check stub: 8/10
+
+Evidence: concepts/stub/ stills 1-5, strip, overview sheet, perf-1x,
+appendix (filters_after is the form at 844), how-it-works.md,
+looks-and-feels.md, jobs.md.
+
+Designer changes since jam: perforation raised to --paper for 1x (approved);
++ to x turn 0.3s on collapse timing; Reykjavik data; jobs.md written in
+plain language with my batched Qs.
+
+Blocking a 9 (likely owner objections):
+1. At 390x844 the form sits at the top with ~290px of blank map, then the
+   band; Add at y 450-494 is mid-screen, not in the thumb band. Fix: anchor
+   the form's bottom to the band, form grows upward, map shows above. That is
+   position not fields, so within scope. Add an 844 version of still 2.
+2. Mid-ride strip frame shows a muddy grey (orange-navy crossfade). Fix: no
+   blended field; clean switch or wipe.
+3. (process) Overview sheet not phone-readable; send separate stills.
+Not blocking: "the button moves" (asked as owner Q1); "orange rectangle /
+average" (defensible under "simple"; watch it).
+
+Rulings this round: filters/sort while the form is open closes the form
+only if the draft survives; otherwise filters/sort are disabled while the
+form is open. Escape-closes-form approved. Perforation on --paper approved.
+
+Next: visual fixes 1-2 (re-render still 2 at 664 + 844, the strip);
+systems updates sizes table/jobs wording; I re-score. If 9+: READY, and the
+orchestrator sends stills 1-5 (+844) with jobs.md questions 1-3.
+Watch on re-score: the account badge vs the form's top at 664 once the form
+is bottom-anchored; whether the map above the form at 844 reads as on
+purpose.
