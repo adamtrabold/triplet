@@ -1,0 +1,32 @@
+const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const fs = require('fs'); const H = '/home/user/la-trip-map/design/gesture-harness'; const OUT = process.env.OUT;
+const d = fs.readdirSync('/opt/pw-browsers').filter(x => /^chromium-\d+$/.test(x)).sort().pop();
+(async () => {
+  const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${d}/chrome-linux/chrome` });
+  const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, hasTouch: true, isMobile: true });
+  const page = await ctx.newPage(); const errs = []; page.on('pageerror', e => errs.push(e.message));
+  const html = fs.readFileSync('/home/user/la-trip-map/index.html', 'utf8');
+  await page.route('**/*', r => { const u = r.request().url();
+    if (u.startsWith('https://triplet.test/')) return r.fulfill({ contentType: 'text/html', body: html });
+    if (u.includes('leaflet.js')) return r.fulfill({ contentType: 'application/javascript', body: fs.readFileSync(H + '/vendor/leaflet.js') });
+    if (u.includes('leaflet.css')) return r.fulfill({ contentType: 'text/css', body: fs.readFileSync(H + '/vendor/leaflet.css') });
+    if (u.includes('supabase')) return r.fulfill({ contentType: 'application/javascript', body: fs.readFileSync(H + '/stub.js', 'utf8') });
+    if (u.includes('fonts.googleapis.com')) return r.fulfill({ contentType: 'text/css', body: fs.readFileSync(H + '/vendor/archivo.css') });
+    if (u.includes('fonts.gstatic.com')) { const f = H + '/vendor/' + u.split('/').pop(); return fs.existsSync(f) ? r.fulfill({ contentType: 'font/woff2', body: fs.readFileSync(f) }) : r.fulfill({ status: 404, body: '' }); }
+    return r.fulfill({ status: 404, body: '' }); });
+  await page.goto('https://triplet.test/index.html');
+  await page.waitForFunction(() => document.querySelectorAll('#locationsList .location-card[data-id]').length > 5);
+  await page.evaluate(() => document.fonts.ready); await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/rest.png` });
+  const r = await page.evaluate(() => ['floatingAddBtn','accountBtn','centerMeBtn','toggleFiltersBtn','sortBtn','locationsHeader'].map(id => { const e=document.getElementById(id).getBoundingClientRect(); return id+': '+[e.left,e.top,e.width,e.height].map(Math.round).join(','); }).concat([JSON.stringify(document.querySelector('.leaflet-control-zoom').getBoundingClientRect())]));
+  console.log(r.join('\n'));
+  await page.click('#floatingAddBtn'); await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/addform.png` });
+  await page.screenshot({ path: `${OUT}/addform-full.png`, fullPage: true });
+  await page.click('#floatingAddBtn'); await page.waitForTimeout(400);
+  await page.click('#locationsList .location-card[data-id]'); await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/tag.png` });
+  await page.click('#collapseBtn').catch(()=>{}); await page.waitForTimeout(600);
+  await page.screenshot({ path: `${OUT}/collapsed.png` });
+  console.log('errors', errs); await b.close();
+})();
