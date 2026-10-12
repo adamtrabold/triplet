@@ -169,3 +169,136 @@ NEXT: product designer (visual focus) -- the structural options are laid
 out; the next useful move is how a primary + looks once it's attached to
 the sheet/header rather than twinned with the account badge, and whether
 A/B can look on purpose.
+
+---
+
+## Turn 2 -- product designer (visual focus)
+
+### What applies (from the ledger and records)
+
+- "Simple, simple, simple"; no dots/decoration that adds noise; no second
+  row of text; no extra header height; the header text is the city name,
+  not a control.
+- Whimsy that carries meaning through **form and paper**, not added marks;
+  the inspo's grammar is labels, tags, claim stubs, matchbooks, park posters.
+- Action colours are navy or brand orange; one accent; colour on the thing
+  that matters. Effects restrained (registration offset, not blur).
+- Controls don't move or grow. Reuse existing control styles. A clear,
+  matching state system.
+- Today's state system: these badges are navy at rest and **invert to an
+  orange field when open** (`.active`). Any + that is orange at rest needs a
+  new open state -- flag, not a blocker.
+
+### Random draws (real RNG)
+
+Oblique: **"Disconnect from desire"**, **"Consider transitions"**. Fields:
+**postal service**, **clockmaking**. Twists: **"it is half hidden"**,
+**"it must work with eyes closed"**.
+
+- *Disconnect from desire:* the desire is "make + bigger and oranger". Turn
+  it off and prominence has to come from **being the only one of its kind**
+  -- the only filled shape in the low band, the only thing touching the
+  screen edge. Size stays near today's.
+- *Eyes closed:* the thumb finds a screen **edge** without looking (Fitts:
+  an edge-bound target is effectively infinite in one direction). A + that
+  runs to the right edge of the screen beats a + floating 16px in from it.
+- *Half hidden:* a + that is partly *of* the sheet -- tucked into it or
+  growing out of it -- reads as attached on purpose, not floated on top.
+- *Postal:* an envelope's stamp goes top-right; a seal sits on the flap.
+  *Clockmaking:* a watch crown sticks out of the case edge, under the thumb.
+
+### Sketches (headless, 3x; injected into an in-memory copy of index.html)
+
+All four put + on the list sheet (systems' A/B), and the account badge alone
+top-right. Script: `concepts/sketches/render-sketches.js`
+(`ONLY=<name> node render-sketches.js`); stills
+`concepts/sketches/<name>-{rest,collapsed}-3x.png`.
+
+1. **Seal** (`seal-*`) -- today's scalloped badge, 62px, orange field, navy
+   +, straddling the sheet's top edge at right. The most continuous with
+   the current brand. *But:* it is still a floating badge, just moved; it
+   lands on the Leaflet attribution; it's the stock FAB in a costume. I'd
+   keep it only as the "least change" baseline.
+2. **Index tab** (`tab-*`) -- a brand-orange file-card tab growing up out of
+   the sheet's top edge at right (76x36, soft die-cut shoulders), navy +
+   printed on it. Half hidden: its base *is* the sheet. Takes **zero header
+   width** (sort/filter/locate untouched, good at 320px) and moves only
+   because its surface moves. Reads like a real divider tab; whimsy by form.
+   *Costs:* sits over the attribution (attribution has to move left or into
+   the sheet); pokes 36px into the tag's 48px bottom gap; on the desktop rail
+   the sheet's top edge is the screen top, so the tab has nowhere to grow.
+3. **Postage stamp** (`stamp-*`) -- perforated paper stamp, orange field, +
+   and a tiny "ADD", tilted -4deg, in the "envelope's" top-right corner.
+   Most whimsical. *I'd kill it:* a postage stamp next to the rubber
+   VISITED stamp muddies the app's one stamp metaphor; "ADD" is a second
+   line of text; perforations + tilt + shadow is three effects for one
+   button.
+4. **Claim-check stub** (`stub-*`) -- the list header is a ticket, and + is
+   its **tear-off stub**: a full-height brand-orange block at the header's
+   right end, running to the screen edge, separated from the header by the
+   same dashed perforation the Hanging Tag's stub uses, navy +. My lead:
+   - **Eyes-closed target**: bottom-right of the band, bound to the screen
+     edge, 68x57 -- the biggest, easiest tap in the app, without growing.
+   - **Prominent by being the only one of its kind**: the only filled block
+     in the band; three outline icons beside it stay utility.
+   - **One idea with the tag**: the tag's stub is where its actions live
+     (owner: "thinking of that area kind of like a claim check"); the list's
+     stub is where *its* action lives. Same grammar, two surfaces.
+   - **No extra header height**, no new shape vocabulary, no shadow.
+   - Works list up, collapsed (it becomes a dock corner), Plans (the header
+     names the plan; the stub stays), and on the desktop rail (it's in the
+     header, not hanging off an edge).
+   - *Costs:* eats ~68px of header width (the title truncates sooner at
+     320px; icons shift left); a big orange block bottom-right is loud next
+     to a navy selected row -- worth a quieter paper-field version with an
+     orange + as the dial, if the director wants it; and its column sits
+     directly above the rows' delete × column (fine -- it's in the header,
+     not over rows -- but the eye links them; check).
+   - Tried claim-check notches at the perforation: on the map side the top
+     notch reads as a **dot**. Dropped (ledger: no dots).
+
+Considered, not sketched: a **watch crown** (a half-disc poking out of the
+right screen edge at the sheet line) -- great eyes-closed target, but a new
+shape the app has nowhere else, and half-off-screen reads as a bug.
+
+### Transitions ("consider transitions")
+
+- **Tab -> card.** Tap the tab and a fresh blank index card is pulled up out
+  of the list by it -- the card *is* the add form, the tab on its top edge
+  now carries ×. Lovely, and literal; but the tab travels with the card,
+  which is exactly "controls don't move". Name to the owner, don't assume.
+- **Stub -> torn off.** Tap the stub: it stays put and inverts (navy field,
+  orange × -- today's rest look, so the state system just swaps ends), while
+  the form rises from the header like a new tag. The control never moves;
+  the close is where the open was (systems' flow 7). No tear animation -- a
+  quick press (one tone deeper, glyph to paper, the existing press state)
+  is enough; motion goes on the form, not the button.
+- **Landing on what you added** (systems' idea): the new pin's tag pops out
+  of the pin as usual, and the new row takes the navy selection. The stub
+  is the start, the tag is the end -- both claim checks.
+
+### What a primary + looks like once it isn't the account badge's twin
+
+- **Shape**: no longer the scalloped badge (that shape stays the account's
+  -- the sign-in crew's paper badge then owns the top corner alone, which
+  helps their job 4 "never louder than +": + isn't next to it any more).
+- **Fill**: + becomes the band's only orange *field*. Account stays navy.
+- **Size**: big by footprint (edge-bound), not by scaling the glyph; glyph
+  stays the app's 2.5-2.75 stroke so it matches the icon language.
+
+### Open questions
+
+- Director: is the **form's origin** in scope? The stub's case is strongest
+  if the form rises from it; if the form stays at the top, the tab and stub
+  still beat today, but the close moves.
+- Director: does the **attribution** move (tab/seal both collide with it)?
+- Orange field at rest vs orange-field-means-open in today's state system --
+  my answer is "swap ends", but the CD should see it.
+- Sign-in crew: their badge was drawn left of +; with + gone from the
+  corner it stands alone at top-right. Orchestrator to tell them.
+
+NEXT: product designer (systems focus) -- stub and tab are my two live
+directions (seal as baseline, stamp proposed killed); the next useful move
+is stress-testing them against the ten flows (filters panel over the
+header, tag gap, 320px header width, desktop rail) before the director
+steers.
