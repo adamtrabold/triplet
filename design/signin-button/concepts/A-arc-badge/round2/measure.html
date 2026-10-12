@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../flow/proto/sheet.css"></head><body>
+<script>window.__CONCEPT='A'</script><script src="../../flow/proto/patch.js"></script><script src="badge2.js"></script>
+<div id="b"></div><canvas id="c" width="4000" height="1000"></canvas>
+<script>
+window.measure = async (vk) => {
+  await document.fonts.load('700 6px Archivo'); await document.fonts.ready;
+  const v = SB.V[vk]; b.innerHTML = SB.badgeA({ v: vk }); SB.centerArcs(b);
+  const g = b.querySelector('g.sb-arc'), ang = SB.arcAngles(g), t = g.querySelector('text');
+  // ink gaps on a straight line, 100x
+  const k = 100, x = c.getContext('2d'); x.clearRect(0, 0, 4000, 1000);
+  x.font = `${v.fw} ${v.fs * k}px Archivo`; x.fontStretch = 'normal'; x.letterSpacing = v.ls * k + 'px'; x.fillStyle = '#000';
+  x.fillText('SIGN' + (v.ws || ' ') + 'IN', 50, 700);
+  const d = x.getImageData(0, 0, 4000, 1000).data, col = []; for (let i = 0; i < 4000; i++) { let on = 0; for (let j = 0; j < 1000; j += 2) if (d[(j * 4000 + i) * 4 + 3] > 100) { on = 1; break; } col.push(on); }
+  const runs = []; let s = -1; col.forEach((on, i) => { if (on && s < 0) s = i; if (!on && s >= 0) { runs.push([s, i]); s = -1; } });
+  const gaps = runs.slice(1).map((r, i) => +((r[0] - runs[i][1]) / k).toFixed(2));
+  // cap height: ink rows of 'I'
+  let top = 1000, bot = 0; for (let j = 0; j < 1000; j++) for (let i = runs[1][0]; i < runs[1][1]; i++) if (d[(j * 4000 + i) * 4 + 3] > 100) { top = Math.min(top, j); bot = Math.max(bot, j); }
+  return { v, ang, gaps, capH: +((bot - top) / k).toFixed(2), capTopR: +(v.r - (bot - top) / k).toFixed(2),
+    personBottomR: +((v.cy + 9 * v.ps + v.sw / 2) - 25).toFixed(2), personTopY: +(v.cy - 9 * v.ps - v.sw / 2).toFixed(2), valleyClear: +(18.81 - v.r).toFixed(2) };
+};
+</script></body></html>

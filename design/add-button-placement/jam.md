@@ -302,3 +302,185 @@ directions (seal as baseline, stamp proposed killed); the next useful move
 is stress-testing them against the ten flows (filters panel over the
 header, tag gap, 320px header width, desktop rail) before the director
 steers.
+
+---
+
+## Turn 3 -- design director
+
+Read: context, owner.md, the taste ledger in full, `design/inspo/project/`,
+`current/` stills, both turns, all eight sketches at 3x, and the sign-in
+crew's owner.md. No scoring yet; this is steering.
+
+### My random draws (real RNG)
+
+Oblique: **"The inconsistency principle."** Fields: **cartography (map
+margins)**, **camping gear**.
+
+- *Inconsistency principle:* the header today is a perfectly consistent
+  row of outline icons. The cheapest honest way to say "this one is the
+  point of the app" is to break that consistency **exactly once** -- one
+  filled thing among outlines. That's the visual designer's "only one of
+  its kind", and it argues against making + merely bigger or oranger
+  *in the same shape*.
+- *Map margins:* a printed map has a neatline (the frame) and a margin
+  where the title, legend and the publisher's working marks live. In this
+  app the list header *is* the margin: it carries the title ("LA LIST")
+  and the tools. A + that belongs to the margin reads as part of the
+  document; a + floating over the map reads as UI laid on top of it. That
+  is the real case for attaching + to the header, better than "it's low".
+- *Camping gear:* the useful bit is the pull-cord / ripcord -- the one
+  bright tab on a dun-coloured pack, there so you find it by feel. Same
+  answer as "eyes closed": edge-bound, bright, unmistakable. It also warns
+  me off the tab: on a sheet, a tab on the top edge reads as *the thing you
+  pull to move the sheet*, not "add".
+
+### Where the directions stand (my steer, not scores)
+
+1. **Claim-check stub -- the lead. Take it all the way.** It answers both
+   halves of the owner's sentence by structure: *prominent* (the one filled
+   field, edge-bound, inconsistent on purpose) and *reachable* (the thumb
+   band, in every state, at the screen edge). It costs no header height,
+   leaves the attribution and the tag gap alone, survives the desktop rail,
+   and it rhymes with two things the owner already approved: the tag's stub
+   ("thinking of that area kind of like a claim check") and the form's own
+   **ADD LOCATION** button, which is already an orange field with navy caps.
+   The add starts and finishes on the same orange. That last point is the
+   strongest systems argument we have -- lead with it.
+   What it isn't yet: a *stub*. At 3x it reads as an orange toolbar slab
+   with a faint dashed line. Push (visual designer):
+   - The perforation has to be the tag stub's perforation exactly (same
+     dash, same weight, same ink) or the rhyme doesn't land. Nothing else
+     added -- no notches (they read as dots, agreed), no texture the tag's
+     stub doesn't have, no shadow.
+   - Its width vs. the 32px icons: is 68px the right footprint, or does a
+     stub want to be squarer/narrower? Size it to the header's spacing
+     system, and align the + optically with the rows' × column below it
+     (they share an axis whether we like it or not -- make it intended).
+   - The open state (below) and the press state.
+2. **Index tab -- I'd kill it** unless the visual designer can answer one
+   objection: a tab on a bottom sheet's top edge is the platform grammar for
+   "pull me to move this sheet". People will drag it. On top of that it
+   sits on the attribution, eats the tag's 48px gap, and has no home on the
+   desktop rail. Three structural costs plus a misread; the stub has none of
+   them. If you disagree, bring the misread answer, not a prettier tab.
+3. **Seal -- baseline only.** It's the stock FAB in our costume, moved. Keep
+   one frame of it as the "least change" reference when the owner compares;
+   it is not a concept going forward. The owner has said "these all seem
+   kinda average" before; I won't send him a moved badge as an option.
+4. **Postage stamp -- killed.** Agree with all three reasons; the stamp
+   metaphor belongs to VISITED.
+
+"Fewer variations" (ledger) -- I'd rather the owner sees **one strong
+answer plus the baseline** than three placements. If a second concept goes
+forward it must differ *in kind*, not be a re-styled stub. Wildcard worth
+**one quick frame** from systems, then keep or drop: **"One band"** -- the
+map carries no chrome at all; every control lives in the header margin
+(+ as the stub, and the question of where the account goes). It's the
+cartography reading taken to its end. It almost certainly collides with the
+sign-in crew's badge, so it's a sketch to learn from, not a proposal -- and
+if it's better, that's a question for the owner and the orchestrator, not
+something we decide around the other crew.
+
+### Calls on the open questions
+
+- **Is where the form opens in scope?** Partly. *In scope:* where the close
+  (×) lives once + has moved, and how the form appears from the stub --
+  because "reachable" is the owner's word and a close that jumps to the top
+  breaks "controls don't move". *Out of scope unless the owner opts in:*
+  redesigning the form (field order, a bottom sheet, the form as a blank
+  tag). Note what `current/addform.png` already shows: the form opens
+  *above* the header and its ADD LOCATION lands right above the header
+  (y ~470 vs header 544). With the stub turning to × in place, **Close and
+  Add are both in the thumb band with the form unchanged.** Designers:
+  verify that in a render before proposing any form move; if it holds, the
+  form stays put. Search being third field down is a real reach problem,
+  but it's a form problem -- owner question 1.
+  *Stretch idea, for the owner, not for this round:* the form as a **blank
+  Hanging Tag** you fill in, which on Add becomes the new pin's tag (the
+  owner's own "the pin and what it opens are one idea"). Lovely, and a
+  separate project. One line in the questions, no frames.
+- **Gesture shortcuts** (hold + for "here", long-press the map): out of
+  this round. They're accelerators next to a visible +, they don't answer
+  "more prominent", and the long-press-map one is a gesture on a surface
+  that already has pan/zoom/tap meanings. Owner question 3, as later ideas.
+- **Land on what you added** (fly to the new pin, open its tag, select its
+  row): good UX and consistent with the app's list-tap rule, but it's a
+  behaviour change the owner hasn't asked for. Owner question 2, with our
+  recommendation yes. Concepts may show it as the end frame, labelled.
+- **Leaflet attribution:** non-negotiable that it stays visible on the map
+  (OSM licence); its position is a design detail. The stub doesn't touch it,
+  which is another point for the stub. No concept hides it.
+- **"Controls don't move or grow":** the owner's words were about a control
+  changing place *after you click it*. A stub in the header moves only when
+  its surface moves, exactly like sort/filters/locate do today -- and it
+  never moves as a result of tapping it (+ becomes × in place). I read that
+  as within the rule. The tab-pulls-out-a-card transition (tab travels with
+  the form) is outside it; dropped. I'll put the reading to the owner as a
+  one-line confirm, not an open question.
+- **Orange at rest vs orange-means-open:** I don't accept "orange field =
+  open" as *the* system -- it's the account badge's toggle state. The other
+  orange field in the app is the **primary action** (ADD LOCATION). So:
+  orange field = the primary action, at rest; that's already true in the
+  form. The open state of the stub must then be distinct without relying on
+  colour alone (ledger: "colour alone is not enough"): + turns × in place,
+  and the field changes. "Swap ends" (navy field, orange ×) is the visual
+  designer's to prove -- show me rest / pressed / open side by side with the
+  account badge closed and open in the same frame, so the owner sees one
+  state system, not two.
+
+### Checks every stub frame must pass before I score
+
+1. **iPhone safe area, list collapsed.** The stub sits in the bottom-right
+   corner -- right on the home-indicator swipe zone. Show it at 390x844
+   with a 34px bottom inset; the stub must sit above the inset, not run
+   into it, or swipes home will catch it (and vice versa).
+2. **Filters panel open** -- does the panel cover the stub, sit beside it,
+   or does tapping + close the panel? Show it.
+3. **320px with the longest real city name and a long plan name** -- the
+   title truncates sooner; that's acceptable ("I don't care if the
+   truncation happens sooner") but it must look intended.
+4. **A tag open + the navy selected row + the stub**, at once: three strong
+   marks in the lower half (orange band if starred, navy row, orange
+   stub). Hierarchy must hold: the tag is content and wins.
+5. **Signed out** (tap → sign in) and **playground** (`?play`, tap → add),
+   with the sign-in crew's badge alone at top-right in the same frame.
+6. **Desktop rail** (>= 900px): one frame.
+
+### Likely owner objections I'm already holding the stub to
+
+- "It's just a big orange rectangle" / "kinda average" -- the stub has to
+  read as a *claim-check stub* at phone size, by form and perforation only.
+- "Too loud next to the selected row" -- check 4.
+- "Why did the + and the account split up?" -- the answer is the one-line
+  rationale above (the + is the action, the account is a setting); keep it
+  that short.
+
+### Questions for the owner (orchestrator to batch; not blockers)
+
+1. Is the add **form** itself part of this (e.g. putting Search first, or
+   reshaping it), or only the button and where its close sits? Our default:
+   button + close only; the form stays as it is.
+2. After you add a place, should the map **fly to it and open its tag**?
+   (We'd recommend yes.)
+3. Later ideas, not for now: **hold + to add where you're standing**;
+   **long-press the map to add there**; the add form as a **blank Hanging
+   Tag** that becomes the new pin's tag. Interested in any of these as
+   separate pieces of work?
+4. Confirm: a control that rides along when the list sheet moves (like the
+   sort icon does today) is fine under "controls don't move or grow" -- the
+   rule is about a control jumping after you tap it?
+
+### Cross-crew flag (orchestrator)
+
+With the stub, the account badge (and the sign-in crew's paper badge) owns
+the top-right alone. That helps their job ("never louder than +": + is no
+longer beside it), but their stills were drawn with + to the left. They
+should re-shoot the corner without +. If the "one band" wildcard survives,
+it affects them directly -- I'd raise it with them before anyone draws more
+than a frame.
+
+NEXT: product designer (systems focus) -- stress-test the stub against the
+six checks above (safe area collapsed, filters panel, 320px, tag + selected
+row, signed out/playground, desktop rail) and verify the "close and Add are
+already in the thumb band" claim in a real render; plus one quick frame of
+the "one band" wildcard to keep or drop.
