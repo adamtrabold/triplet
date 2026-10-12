@@ -17,3 +17,8 @@ Process: owner chose the design-buds loop (designers + director, only 9s reach t
 > on the right track but it's ugly. icon should be centered... maybe too small? text should be smaller and probably tracked out some because it's crowding
 
 Rejection 1 of a 9 (counts toward "two 9s turned down in a row"). Q1, Q2, label version, Sign out rename: not answered yet.
+
+2026-10-12, on round 2b (variant 2, director 9; concepts/A-arc-badge/round2/sheet-3x.png):
+> i like this badge but it feels weighted low so maybe everything should be up some / visually centered. this could allow for more space betwen the icon and sign in -- look at the inspo for guidance
+
+Read as: liked, with a refinement (not counted as a second rejection). Q1, Q2 and box strokes still unanswered.
