@@ -58,3 +58,45 @@ visible until needed" (rejected: contradicts "more prominent").
 Visual designer's turn (how a primary + looks once attached to the
 sheet/header). Then director steering. My next pass: react, narrow the
 structure options, start drafting jobs.md flows per state.
+
+---
+
+## Pass 2 (2026-10-12) -- stub stress test
+
+Director leads with the claim-check stub (visual's sketch: 68px orange field
+at the list header's right end, dashed perforation, navy +; open = navy
+field, orange x). Tab killed, seal = baseline only, stamp killed. Form
+redesign, gesture shortcuts and landing on the new place are out of scope
+or owner questions. One band was a one-frame wildcard.
+
+Script `concepts/stub-stress/stress.js`, stills alongside it.
+
+Results:
+- Close+Add claim: holds at 390x844. **Below ~790px tall (Safari tab 664,
+  SE 667) the list sheet covers ADD LOCATION.** This is pre-existing
+  (`today-form664-3x.png`). My fix: the list drops to its band while the
+  form is open and returns on close/cancel. Not yet agreed.
+- Check 1, safe area collapsed: PASS (stub 38px above the screen bottom
+  with a 34px inset).
+- Check 2, filters: stub PASS. Pre-existing blocker: with the panel open,
+  the form opens behind it. Rule: opening the form closes the filters
+  panel and the sort menu.
+- Check 3, 320px: FAIL ("COP..."). At 390 "Copenhagen List (112)" gets 118
+  of 174px. Dials: stub 56px, tighter icon spacing.
+- Check 4, tag + navy row + stub: PASS. CD to judge two orange fields
+  (starred band and stub).
+- Check 5, signed out / playground: PASS.
+- Check 6, desktop: PASS.
+- State system: open stub = navy field = the system's ON tile, so it needs
+  no exception. The ON glyph should be paper, not orange (visual's call).
+- One band: dropped. Kept the learning: a chrome-free map is calmer; the
+  band holds 3 utilities + the stub, not 4.
+
+Open: does the list drop while the form is open (vs. the form scrolling)?
+Tag open + tap + (tag stays selected and re-opens on cancel?). Owner
+question added: "Add is hidden behind the list in Safari today; fix it
+here?"
+
+Next: visual designer answers width/320, open state, x colour, the list-drop
+motion; then the director. After the jam: write jobs.md from turns 1-4 (the
+flows draft is in jam turn 4).

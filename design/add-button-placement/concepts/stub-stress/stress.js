@@ -35,6 +35,9 @@ const scenarios = {
   play:      { vp: [390, 844], q: '?play', act: 'tapstub' },
   // 6 desktop rail
   desktop:   { vp: [1280, 800], dsf: 1, act: 'none' },
+  filtersform: { vp: [390, 844], act: 'filtersform' },
+  title375:  { vp: [375, 667], act: 'narrow' },
+  title390:  { vp: [390, 844], act: 'narrow' },
   // wildcard
   oneband:   { vp: [390, 844], act: 'oneband' },
 };
@@ -80,9 +83,10 @@ const scenarios = {
     }
     if (s.act === 'collapse') { await page.click('#collapseBtn'); await page.waitForTimeout(700); }
     if (s.act === 'filters') { await page.click('#toggleFiltersBtn'); await page.waitForTimeout(600); m.panel = await box('#filtersPanel'); }
+    if (s.act === 'filtersform') { await page.click('#toggleFiltersBtn'); await page.waitForTimeout(500); await page.click('#nb'); await page.waitForTimeout(600); m.panelOpen = await page.evaluate(() => document.getElementById('filtersPanel').classList.contains('visible')); m.panel = await box('#filtersPanel'); m.submit = await box('#submitBtn'); m.submitHit = await page.evaluate(() => { const r = document.getElementById('submitBtn').getBoundingClientRect(); const e = document.elementFromPoint(r.left + r.width/2, r.top + r.height/2); return e && (e.id || e.className); }); }
     if (s.act === 'narrow') { await page.evaluate(() => { document.querySelector('#locationsHeader h2').textContent = 'Copenhagen List (112)'; }); await page.waitForTimeout(200); }
     if (s.act === 'tag') { const cards = await page.$$('#locationsList .location-card[data-id]'); await cards[1].click(); await page.waitForTimeout(1600); m.tag = await box('.leaflet-popup'); }
-    m.nb = await box('#nb'); m.header = await box('#locationsHeader'); m.vp = s.vp; m.errs = errs;
+    m.titleW = await page.evaluate(() => { const h = document.querySelector('#locationsHeader h2'); return [Math.round(h.getBoundingClientRect().width), h.scrollWidth]; }); m.nb = await box('#nb'); m.header = await box('#locationsHeader'); m.vp = s.vp; m.errs = errs;
     console.log(name, JSON.stringify(m));
     await page.screenshot({ path: `${OUT}/${name}-${s.dsf || 3}x.png` });
     await ctx.close();

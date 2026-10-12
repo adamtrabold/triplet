@@ -201,6 +201,18 @@ pick/redirect before building anything.
   in JS-built SVG instead of `var(--paper)`; cluster tag numerals 10px at 1x
   (CD to judge on device).
 
+- **Add form's ADD LOCATION hidden behind the list on shorter screens**
+  (found 2026-10-12 by the + placement crew, Chromium only). Below ~790px
+  viewport height (Safari tab with toolbars, 390x664; SE 375x667) the list
+  sheet covers ADD LOCATION, so a tap on Add lands on a list row. Repro:
+  open the add form at 390x664 -- `design/add-button-placement/concepts/stub-stress/today-form664-3x.png`.
+  Being folded into the + placement work (proposal: the list drops to its
+  header band while the form is open).
+- **Add form opens behind the open filters panel** (same source): with the
+  filters panel open, tapping + opens the form behind it and a tap on Add
+  hits a filter chip. Repro: open filters, tap +. Proposal in the + work:
+  opening the form closes filters and the sort menu.
+
 ## Data cleanup (neighborhood shapes)
 
 - `copenhagen-nyboder` (Nyboder) and `stockholm-gamla-stan` (Gamla Stan)

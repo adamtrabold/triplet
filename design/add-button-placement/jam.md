@@ -484,3 +484,151 @@ six checks above (safe area collapsed, filters panel, 320px, tag + selected
 row, signed out/playground, desktop rail) and verify the "close and Add are
 already in the thumb band" claim in a real render; plus one quick frame of
 the "one band" wildcard to keep or drop.
+
+---
+
+## Turn 4 -- product designer (systems focus), pass 2
+
+Stress test of the claim-check stub, using the visual designer's turn-2
+sketch as it stands (68px orange field, dashed perforation, navy +). Its open
+state is "swap ends" (navy field, orange ×). The stub is wired to the real
+add button, so the form, auth and playground paths are the app's own code.
+Script: `concepts/stub-stress/stress.js` (`ONLY=<scenario> node stress.js`).
+Stills are at 3x (`desktop-1x.png` is 1x) in the same folder. Measurements
+are CSS px at the named viewport.
+
+### The claim: "Close and Add are both in the thumb band, form unchanged"
+
+**It holds at full height and fails in a Safari tab.**
+
+| Viewport | Add (y) | List sheet top | What a tap on Add hits | Still |
+|---|---|---|---|---|
+| 390x844 (Home Screen) | 450-494 | 544 | **Add** | `form844-3x.png` |
+| 390x740 | 450-494 | 440 | the list (covered) | -- |
+| 390x664 (Safari tab, toolbars showing) | 450-494 | 364 | **a list row** | `form664-3x.png` |
+| 375x667 (SE-size) | 450-494 | 367 | **a list row** | `form667se-3x.png` |
+
+- The × is in the band at every height. At 844 the stub's × (y 544-600) and
+  Add (y 450-494) are 50px apart: both are thumb taps. That part is real.
+- Below about 790px tall, **the list sheet covers ADD LOCATION**. The form
+  sits in the page flow and the sheet sits on top of it. You have to scroll
+  the page (it does scroll: Add comes up to y 294) or collapse the list.
+  **This is not caused by the stub.** Today's app does exactly the same
+  (`today-form664-3x.png`, same hit test on the unchanged page). It's a
+  pre-existing bug on the phone in a Safari tab, and it lands on the exact
+  job the owner named ("reachable on the phone").
+- So the director's "the form stays put" is true for **where** the form is,
+  but not for **how it shares the screen with the list**. Proposal, and it
+  stays within the director's scope (no change to the form's fields): **while
+  the form is open, the list sheet drops to its header band** (the collapsed
+  position the app already has), so the form gets the whole screen above
+  the band. Add then sits just above the band at any height, and the stub (×)
+  stays in the band. Closing the form puts the sheet back where it was
+  (job 4: don't lose my place). The stub never moves on the tap that opens
+  the form. It only rides along when the band settles, the same reading the
+  director gave "controls don't move".
+  - Open question for the visual designer and the director: is the list
+    dropping on open acceptable motion, or should the form simply scroll
+    above the sheet? I prefer the drop: it's one existing state, and it says
+    "you're adding now". The owner has said an open *tag* adjusts the list
+    and doesn't close it; this is the form, not a tag, but name it to him.
+- The keyboard is a separate matter, and it existed before. While you type
+  in Search, the keyboard covers Add on every concept, today included. Once
+  you pick a result and the keyboard drops, Add is low again. Not in scope.
+
+### The director's six checks
+
+| # | Check | Result | Evidence |
+|---|---|---|---|
+| 1 | Safe area, list collapsed (34px bottom inset, Home Screen emulated) | **PASS** | The band is at y 750-806 and the stub sits inside it, with 38px of paper between the stub and the screen bottom. It stays clear of the home-indicator swipe strip. `safearea-3x.png` |
+| 2 | Filters panel open | **Stub PASS, flow BLOCKER (pre-existing)** | The panel opens above the band and the stub stays visible and tappable (`filters-3x.png`). But tapping + with the panel open puts the form *behind* the panel: the tap on Add hits a filter chip (`filtersform-3x.png`). Today's + does the same. **Rule I'm adding: opening the form closes the filters panel** (and the sort menu). The code already has "one overlay at a time" for panel vs sort menu, so this extends it. |
+| 3 | 320px, longest city / long title | **FAIL as sketched** | At 320 the title gets about 40px and reads "COP…" (`narrow-3x.png`). The header names the list (ledger: "the header should show whatever the list is"), and "COP…" names nothing. At 390, "Copenhagen List (112)" needs 174px and gets 118 (`title390`), so it truncates even on the owner's phone. Today, without the stub, it gets about 186 and fits. Truncating sooner is acceptable; truncating to nothing is not. Dials for the visual designer: a narrower stub (56px = one row height = 12px back), and tightening the three icons' spacing (their gaps are generous). Leave the copy alone, since the header text is the city name. |
+| 4 | Tag open + navy selected row + stub | **PASS (hierarchy)**, with one note | `tag-3x.png` (starred place: orange band on the tag, navy row, orange stub). The tag is clearly the biggest, highest thing, so it wins. Note: that makes two orange fields on screen, the tag's starred band and the stub. They're far apart and say different things (starred / add). The CD should judge whether orange means "star" or "action" here. The ledger already makes the star the action orange, so I think it's consistent, but it's the CD's call. |
+| 5 | Signed out / playground | **PASS** | Signed out: tap the stub and the sign-in sheet opens over everything (`signedout-3x.png`; it still says "Login Required", which the sign-in crew is renaming). Playground (`?play`): tap and the form opens, and Add is hittable at 844 (`play-3x.png`). In the signed-out real trip the top-right corner is empty today, which is the sign-in crew's Q1 (a sign-in badge there or not). Nothing collides either way. |
+| 6 | Desktop rail (1280x800) | **PASS** | The stub sits at the rail header's right end (x 290-358, y 0-56), aligned with the rows' × column, with the map completely clear (`desktop-1x.png`). It works without a single desktop-only rule. |
+
+### State-system observation (for the visual designer and the CD)
+
+With the filters panel open, the filters icon becomes a **navy tile**, so the
+band has two filled things: the orange stub and the navy filters tile.
+With the form open, the stub's "swap ends" open state is *also* a navy field.
+That is good news, not a clash. The app's state system already says **ON /
+open = navy tile** (`--state-on-bg`), so a navy open stub obeys the system,
+not an exception to it. Today's floating badges needed a named exception
+("navy can't reverse to navy"); the stub doesn't. One catch: the system's ON
+glyph is **paper** (`--state-on-fg`), not orange, so the open stub's × should
+probably be paper to match the filters tile next to it. That's the visual
+designer's call; I'm only reporting what the system says.
+
+### Wildcard: "One band" (learning frame only)
+
+`oneband-3x.png`: zoom gone (pinch zoom covers it on the phone), the account
+as a fourth outline icon in the header, the stub at the end, no chrome on
+the map at all.
+
+- **Learned (keep):** a map with nothing in its top corners is noticeably
+  calmer, and pins up there stop disappearing under badges. Today's account
+  badge sits on a pin in `tag-3x.png`. This is evidence for the stub
+  direction: every control removed from the map is a gain.
+- **Learned (drop):** the band holds three utilities plus the stub, not
+  four. With the account added, even "LA LIST (23)" truncates at 390 (74px
+  of title). The account also reads as one more tool, when it's a setting.
+  Desktop would still need zoom.
+- **Verdict: drop as a concept.** It costs the title, collides head-on with
+  the sign-in crew's corner, and buys calm the stub already mostly buys. No
+  owner question.
+
+### Flows, updated for the stub (draft for jobs.md)
+
+1. **Add (rest)**: tap the stub. It turns × in place, the list drops to its
+   band, and the form fills the screen above it. Search, pick, then Add
+   (just above the band). The form closes, the list returns, and
+   *(recommended, owner Q2)* the map flies to the new pin, opens its tag and
+   selects its row.
+2. **Cancel**: tap × (same spot). The list returns to where it was, with
+   scroll, selection and any open tag unchanged.
+3. **List collapsed**: the stub is in the bottom band. Same flow, nothing
+   moves.
+4. **Tag open**: tap the stub and the form opens. Does the tag close or
+   stay? **Open question.** I'd keep the tag's pin selected and re-open its
+   tag on cancel, since today the form covers the map and the tag is out of
+   sight anyway. A builder detail, to confirm.
+5. **Filters panel or sort menu open**: tapping + closes it, then opens the
+   form (new rule; fixes the pre-existing blocker).
+6. **Plans view**: the stub adds a *place*, as today, not a plan stop. The
+   header names the plan, and long plan names get the same truncation as
+   check 3.
+7. **Signed out**: tap and the sign-in sheet opens; the stub looks the same
+   as signed in ("visible, tapping offers sign-in", per the ledger).
+   **Playground**: tap and the form opens.
+8. **Desktop rail**: the stub is at the rail header's right end. The form
+   opens as today.
+
+### Builder-facing facts so far (not for the owner)
+
+- `pinPopupTopPad()` (~4927) loses + from the top controls, and that's fine:
+  the account badge is at the same height, so the tag-open top pad doesn't
+  change.
+- `planChrome()`/`planSafeBox()` (~6718) only count chrome over the map. The
+  stub sits inside the sheet, so it adds nothing to plan fits.
+  `TAG_SHEET_GAP` is untouched (the stub doesn't poke above the sheet).
+- The stub is in `#locationsHeader`, so it rides `--sheet-lower` and the
+  collapse transform for free.
+
+### Questions this pass adds
+
+- For the director and the visual designer: **does the list drop to its band
+  while the form is open?** It's my fix for Add being covered below 790px.
+  Alternative: the form scrolls.
+- For the visual designer: what stub width and icon spacing leave
+  "Copenhagen List (112)" readable at 390, and something better than "COP…"
+  at 320?
+- For the owner (orchestrator to batch), plain language: "On your phone in
+  Safari, the Add button in the add form is hidden behind the list today.
+  We'd fix that as part of this. OK?"
+
+NEXT: product designer (visual focus) -- the stub passes 4 of 6 checks and
+fails 320px on width. The two systems fixes (list drops while the form is
+open; opening the form closes the filters panel) need a visual answer, and
+so do the stub's width, its open state and the × colour against the state
+system.
