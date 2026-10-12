@@ -1129,3 +1129,110 @@ NEXT: product designer (systems focus) -- B and C are both structural bets
 (fixed chrome height and the keyboard for B; a map-side home and the
 tag-as-form flow for C). Measure whether each can work in the real app
 before visual spends time on how it looks.
+
+---
+
+## Turn 8 -- product designer (systems focus): B and C measured in the real app
+
+I'm taking over from the previous systems designer. Both concepts are
+prototyped in copies of `index.html` (`concepts/B-striker/`,
+`concepts/C-pin/`, each with `render.js`, `frames/`, `measure.json` and
+`how-it-works.md`; shared harness `concepts/lib-render.js`). Each copy is wired
+to the app's own add code, and **both complete a real add end to end**. The
+frames are rough on purpose: they settle structure, not the look.
+
+Draw (real RNG): Oblique **"Reverse"**; field **air-traffic flight strips**.
+What they gave me:
+- **For B:** a flight strip is written while it's pending, then racked into
+  the board. That's a possible motion for the visual designer: on Add, the
+  strip "files" a new row up into the list.
+- **For C, reversed:** a pin that stays fixed while the map pans under it
+  (the ride-hail "set pickup" pin). That would give "add where I stand" and
+  fine placement for free. It's a variant to note, not part of the concept.
+
+### B. Striker strip: alive. Structure holds; the risk is taste and height.
+- The strip is fixed at the bottom in every state, above Safari's toolbar,
+  and holds the inset. Either thumb reaches it, and it sits in the same spot
+  every time.
+- **Strip-as-submit works:**
+  - rest: "+ ADD A PLACE"
+  - open: a paper field reading "PICK A PLACE FIRST" (inactive, which also
+    guards against a double tap)
+  - picked: "ADD HALLGRÍMSKIRKJA"
+  - the app's submit then adds it (`done_664`).
+- × is a 56px square at the strip's left end, using today's toggle, so the
+  draft survives (`cancel_664`).
+- The form rises from the strip over the list, and **the list never moves**.
+  At 844 an open tag stays visible above the form.
+- **Keyboard: yes, by script.** `visualViewport` puts the strip and form
+  right on the keyboard (strip y 452-508 at 844, 4 results visible). That
+  means ADD is reachable while typing Notes, and only B can do that. It's a
+  Chromium emulation, so it's an iPhone check before anyone promises it.
+  Worst case (664 + keyboard): only 2.5 results fit.
+- **Cost, honestly:**
+  - With the list up at 664, the map goes from 364 to 308 (-15%) if the map
+    pays, or the list drops from 4 rows to 3 if the list pays.
+  - Collapsed from the Home Screen, the bottom chrome goes from 94px to
+    150px: two stacked bars (band and strip).
+  - In a Safari tab, it's three stacked bars counting Safari's own toolbar.
+  - The stub and C pay none of this.
+- Coverage: all 6 jobs pass. Job 1 is the strongest in the set.
+
+### C. Pencilled pin: alive, best flow, two structural failures at 664
+- **Placement:** the blank dashed pin rests at the map's lower right, above
+  the OSM credit, and rides the sheet edge.
+- **Starting an add:** tap it, the list drops, and the band becomes the
+  search line (autofocused). Results grow upward, so 4 are visible above the
+  keyboard even at 664, the best of the set.
+- **Picking a place:** the map flies there, a pencilled marker stands on the
+  spot, and **a blank tag (the form) hangs low**, so ADD LOCATION lands at
+  y 515-559 at 664 and y 695-739 at 844. At 320 the tag scrolls and Add
+  stays sticky.
+- **After Add:** that place's real tag opens and its row is selected. I
+  found that if the place is in another city, the list must switch to it,
+  or the new row is filtered out. Today that same case silently hides the
+  new place. So Q2 is answered by construction.
+- **Taps: 3** (pin, pick, Add) against today's 4, but only with autofocus.
+  That needs an iPhone check, and B and the stub could have autofocus too.
+- Shapes still work: the category on the tag re-hangs it, and the shape
+  fetch runs on Add.
+- No real pins sit under the blank pin at the default view in any of the 5
+  cities.
+- **FAIL 1, tag open at 664:**
+  - The tag lowers the sheet, so the pin (y 312-376) covers the tag's
+    VISITED segment (the tag foot is at y 346).
+  - At 844 it clears.
+  - Fix options for the director:
+    - (a) `TAG_SHEET_GAP` goes from 48 to 96 on phones, costing a list row
+      with a tag open.
+    - (b) The pin hides under a tag, so you close the tag to add.
+    - (c) The pin moves left while a tag is open.
+- **FAIL 2, filters open at 664:** the panel leaves no map, and the pin would
+  land at y -21. The honest rule is "close filters to add". At 844 it rides
+  the panel's top and passes.
+- **Smaller costs:**
+  - Cancel drops the draft. B and the stub keep it.
+  - Cancel must also restore the map view, since C moves the map.
+  - "Bigger scope (the form changes)" must be stated to the owner.
+- Coverage:
+  - Job 1 is partial and job 5 fails at 664 with a tag open, until the
+    director picks a fix.
+  - Job 2 (reads as add at 1x) is the visual designer's to prove.
+
+### For the director
+- **Taste vs. structure:** B is structurally the safest of the set. Its open
+  questions are taste: chrome height and "generic CTA bar".
+- **Flow vs. reach:** C has the best flow, but its home gives way at 664 in
+  two states. It needs your ruling on the tag-open fix and on "close filters
+  to add" before it can reach 9.
+- **Small things that would help all three concepts:**
+  - search autofocus on open
+  - switching to the new place's city after Add
+- **Sign-in crew:** B and C both keep the top-right corner as it is. Nothing
+  changes for them.
+
+NEXT: product designer (visual focus) -- B and C are structurally sound
+enough to draw at owner fidelity (B: strip look, the collapsed band + strip
+stacking, an inactive state that isn't greyed-out web; C: a blank pin that
+reads as "add" at 1x, and the blank tag in the tag's own type). Plus the
+eyelet frame. Then the director rules on C's two 664 failures.

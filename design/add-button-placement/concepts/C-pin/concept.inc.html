@@ -1,0 +1,123 @@
+<!-- ===== CONCEPT C: PENCILLED PIN (structural prototype, systems pass; the look is rough, the visual designer's call) =====
+     Injected before </body> of a COPY of index.html by render.js. Reuses the app's own add machinery: requireAuth(),
+     the #nameInput search + selectAddress(), the #addForm fields (moved into the blank tag) and #submitBtn's handler. -->
+<style id="conceptC">
+  #floatingAddBtn { display: none !important; }
+  #accountBtn { right: var(--s4) !important; }
+  /* the blank pin rests at the map's lower-right, above the OSM credit, and rides the sheet edge (it lives in #mainContent) */
+  #pencilPin { position: absolute; right: 12px; bottom: 22px; width: 52px; height: 64px; z-index: 800; border: 0; padding: 0; background: none; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; }
+  #pencilPin svg { width: 52px; height: 64px; display: block; filter: drop-shadow(0 1px 1px rgba(30,40,50,.25)); }
+  body.pinadd #pencilPin, body.tag-open-c #pencilPin.hide-under-tag { visibility: hidden; }
+  /* adding: the search line sits ON the dropped band (the band's own slot); results grow upward over the map */
+  #pinBar { position: fixed; left: 0; right: 0; bottom: var(--sheet-under); transform: translateY(calc(-1 * var(--kb, 0px))); height: 57px; z-index: 1600; display: none; background: var(--paper);
+    border-top: 2px solid var(--navy); box-sizing: border-box; align-items: center; padding-left: 56px; }
+  body.pinadd #pinBar { display: flex; }
+  #pinBar #addressInputWrapper { flex: 1; min-width: 0; }
+  #pinBar #nameInput { margin: 0; border: 0; padding: 0; height: 40px; font-size: 16px; background: transparent; width: 100%; font-family: var(--font-ui); }
+  #pinBar #addressAutocomplete { top: auto; bottom: calc(100% + 10px); border-top: 1px solid var(--navy); border-bottom: none; max-height: 50vh; }
+  #pinBar .pin-x { width: 57px; height: 55px; flex: none; border: 0; background: var(--paper); color: var(--navy); display: flex; align-items: center; justify-content: center; }
+  #pinBar .pin-glyph { position: absolute; left: 16px; top: 15px; color: var(--navy); }
+  /* the blank Hanging Tag = the form, hanging from the pencilled pin */
+  #blankTag { position: absolute; z-index: 850; background: var(--paper-raised, #FBF8F1); border: 1.5px dashed var(--navy); border-radius: 4px;
+    box-shadow: 0 6px 18px rgba(30,40,50,.18); padding: 26px 16px 12px; box-sizing: border-box; overflow-y: auto; overscroll-behavior: contain; display: none; }
+  body.pinadd.placed #blankTag { display: block; }
+  #blankTag::before { content: ''; position: absolute; left: 50%; top: 9px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; border: 1.5px solid var(--navy); }
+  #blankTag h3 { margin: 0 0 2px; font: 700 20px/24px var(--font-ui); font-stretch: 75%; color: var(--navy); }
+  #blankTag .addr { font-size: 12px; line-height: 16px; color: var(--ink-2); margin-bottom: 12px; }
+  #blankTag #addForm { display: block; }
+  #blankTag #addForm .field-group { margin-bottom: 0; }
+  #blankTag #addForm input, #blankTag #addForm select, #blankTag #addForm textarea { margin-bottom: var(--s3); background: transparent; }
+  #blankTag #addressInput { display: none !important; }
+  #blankTag #submitBtn { margin-top: 0; position: sticky; bottom: -12px; z-index: 2; box-shadow: 0 0 0 12px var(--paper-raised, #FBF8F1); }   /* Add never scrolls out of the tag */
+  #controls { display: none !important; }
+  body.pinadd .leaflet-control-attribution { visibility: visible; }
+  .pencil-marker svg { overflow: visible; }
+</style>
+<script id="conceptCjs">
+(function () {
+  const $ = id => document.getElementById(id), root = document.documentElement;
+  const PIN = (glyph) => `<svg viewBox="0 0 52 64" aria-hidden="true"><path d="M26 61 C26 61 6 38 6 24 A20 20 0 0 1 46 24 C46 38 26 61 26 61 Z" fill="var(--paper)" stroke="var(--navy)" stroke-width="2" stroke-dasharray="4 3"/>${glyph}</svg>`;
+  const PLUS = '<g stroke="var(--brand-orange-deep)" stroke-width="3" stroke-linecap="round"><line x1="26" y1="15" x2="26" y2="33"/><line x1="17" y1="24" x2="35" y2="24"/></g>';
+  const X = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" aria-hidden="true"><line x1="6.5" y1="6.5" x2="17.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="6.5" y2="17.5"/></svg>';
+  const pin = document.createElement('button'); pin.id = 'pencilPin'; pin.setAttribute('aria-label', 'Add a place'); pin.innerHTML = PIN(PLUS);
+  $('mainContent').appendChild(pin);
+  const bar = document.createElement('div'); bar.id = 'pinBar';
+  bar.innerHTML = `<svg class="pin-glyph" width="22" height="26" viewBox="0 0 52 64"><path d="M26 61 C26 61 6 38 6 24 A20 20 0 0 1 46 24 C46 38 26 61 26 61 Z" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="7 5"/></svg><button type="button" class="pin-x" aria-label="Cancel adding">${X}</button>`;
+  document.body.appendChild(bar); bar.insertBefore($('addressInputWrapper'), bar.querySelector('.pin-x'));
+  $('nameInput').placeholder = 'Where? Search for a place…';
+  const tag = document.createElement('div'); tag.id = 'blankTag'; tag.innerHTML = '<h3></h3><div class="addr"></div>';
+  $('mainContent').appendChild(tag); tag.appendChild($('addForm'));
+  let marker = null, saved = null;
+  const loc = $('locations');
+
+  async function start() {
+    if (!await requireAuth()) return;            // signed out: the sign-in sheet, nothing moves
+    if ($('filtersPanel').classList.contains('visible')) $('toggleFiltersBtn').click();
+    saved = { collapsed: loc.classList.contains('collapsed'), center: map.getCenter(), zoom: map.getZoom(), tag: openTagKey() };
+    if (tagOpenNow()) map.closePopup();
+    syncAddFormCity();
+    document.body.classList.add('pinadd');
+    if (!saved.collapsed && innerWidth < 900) $('collapseBtn').click();       // the map gets the room; the band hosts the search
+    $('nameInput').focus();                                                    // keyboard straight up (iOS: needs the tap's gesture -- iPhone check)
+  }
+  pin.addEventListener('click', start);
+
+  function place(lat, lng) {
+    const icon = L.divIcon({ className: 'pencil-marker', html: PIN(''), iconSize: [40, 49], iconAnchor: [20, 47] });
+    if (marker) marker.remove(); marker = L.marker([lat, lng], { icon, interactive: false }).addTo(map);
+    tag.querySelector('h3').textContent = $('nameInput').value;
+    const a = $('addressInput').value.split(',').slice(1, 3).join(',').trim(); tag.querySelector('.addr').textContent = a;
+    document.body.classList.add('placed');
+    layout(lat, lng);
+  }
+  // hang the tag so its FOOT (and Add) sits just above the band, in the thumb zone; the pin goes wherever that puts it
+  function layout(lat, lng) {
+    const mc = $('mainContent').getBoundingClientRect(), W = Math.min(316, innerWidth - 32), mapH = map.getSize().y;
+    tag.style.width = W + 'px'; tag.style.maxHeight = ''; tag.style.left = Math.round(map.getSize().x / 2 - W / 2) + 'px';
+    const H = tag.scrollHeight, footY = mapH - 16, topPad = pinPopupTopPad() + 49;   // the pin's head must clear the top controls
+    let pinY = footY - H - 44; if (pinY < topPad) { pinY = topPad; tag.style.maxHeight = (footY - pinY - 44) + 'px'; }
+    tag.style.top = (pinY + 44 - 18) + 'px';   // the string: 44 from the pin's point to the tag's top, eyelet 18 in (TAG_HANG)
+    map.setView([lat, lng], Math.max(map.getZoom(), 16), { animate: false });
+    map.panBy([0, Math.round(mapH / 2 - pinY)], { animate: false });
+    window.__cMeasure = { tagH: H, pinY, footY, mapH };
+  }
+  // the tag's height changes with the category (a district/street hides Address, shows the hint): re-hang it
+  $('categoryInput').addEventListener('change', () => { if (document.body.classList.contains('placed') && marker) { const ll = marker.getLatLng(); requestAnimationFrame(() => layout(ll.lat, ll.lng)); } });
+  // the filters panel covers the map's lower edge: the blank pin rides on the panel's top instead (job 1)
+  new MutationObserver(() => { const fp = $('filtersPanel'); pin.style.bottom = fp.classList.contains('visible') ? (Math.round(fp.getBoundingClientRect().height) + 22) + 'px' : '';
+  }).observe($('filtersPanel'), { attributes: true, attributeFilter: ['class'] });
+  $('addressAutocomplete').addEventListener('click', e => { const it = e.target.closest('.autocomplete-item'); if (!it) return;
+    setTimeout(() => { $('nameInput').blur(); window.__fakeVV = null; root.style.setProperty('--kb', '0px'); place(+it.dataset.lat, +it.dataset.lon); }, 0); });
+
+  function end(restoreView) {
+    document.body.classList.remove('pinadd', 'placed'); if (marker) { marker.remove(); marker = null; }
+    if (!saved) return;
+    if (!saved.collapsed && loc.classList.contains('collapsed')) $('collapseBtn').click();
+    if (restoreView) map.setView(saved.center, saved.zoom, { animate: false });
+    const s = saved; saved = null; return s;
+  }
+  bar.querySelector('.pin-x').addEventListener('click', () => {
+    // cancel: everything as it was (list, map view, the tag that was open). The draft is dropped (the pin is put back).
+    const s = end(true); closeAddForm();
+    if (s && s.tag != null) { const card = document.querySelector(`#locationsList .location-card[data-id="${s.tag}"]`); if (card) card.click(); }
+  });
+  // Add: the app's own submit; on success (closeAddForm ran) the pin is inked = the new place's real tag opens (owner Q2 by construction)
+  const before = () => locations.map(l => l.id);
+  let ids = null; $('submitBtn').addEventListener('click', () => { ids = before(); }, true);
+  new MutationObserver(() => {
+    if (!document.body.classList.contains('placed') || !ids) return;
+    if ($('submitBtn').disabled || $('nameInput').value) return;       // still in flight / failed
+    const fresh = locations.find(l => !ids.includes(l.id)); ids = null; end(false);
+    // the add ends ON the new place: if its city isn't the one showing, the list switches to it (else the new row is filtered out)
+    if (fresh) setTimeout(() => { let c = document.querySelector(`#locationsList .location-card[data-id="${fresh.id}"]`);
+      if (!c && !isAllCities() && fresh.city !== citySelection) { setActiveCity(fresh.city); c = document.querySelector(`#locationsList .location-card[data-id="${fresh.id}"]`); }
+      window.__cAfter = { city: fresh.city, row: !!c }; if (c) c.click(); }, 350);
+  }).observe($('submitBtn'), { attributes: true, childList: true, characterData: true, subtree: true });
+  // keyboard: the search line rides above it (visualViewport), results keep growing upward from it
+  function kb() { const VV = window.__fakeVV || window.visualViewport; if (!VV) return;
+    root.style.setProperty('--kb', Math.max(0, Math.round(innerHeight - VV.height - VV.offsetTop - (parseFloat(getComputedStyle(bar).bottom) || 0))) + 'px'); }
+  window.__conceptKb = kb; if (window.visualViewport) { visualViewport.addEventListener('resize', kb); visualViewport.addEventListener('scroll', kb); }
+  addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('pinadd')) bar.querySelector('.pin-x').click(); });
+})();
+</script>

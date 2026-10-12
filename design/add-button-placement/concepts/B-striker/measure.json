@@ -1,0 +1,1098 @@
+{
+ "today_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   364
+  ],
+  "sheet": [
+   0,
+   364,
+   390,
+   664
+  ],
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "strip": null,
+  "attr": [
+   139,
+   347,
+   390,
+   364
+  ],
+  "errs": []
+ },
+ "rest_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   488
+  ],
+  "sheet": [
+   0,
+   488,
+   390,
+   788
+  ],
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "attr": [
+   139,
+   471,
+   390,
+   488
+  ],
+  "errs": []
+ },
+ "rest_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   308
+  ],
+  "sheet": [
+   0,
+   308,
+   390,
+   608
+  ],
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "attr": [
+   139,
+   291,
+   390,
+   308
+  ],
+  "errs": []
+ },
+ "collapsed_safe": {
+  "rows": 0,
+  "map": [
+   0,
+   0,
+   390,
+   694
+  ],
+  "sheet": [
+   0,
+   694,
+   390,
+   994
+  ],
+  "header": [
+   0,
+   694,
+   390,
+   751
+  ],
+  "strip": [
+   0,
+   754,
+   390,
+   844
+  ],
+  "attr": [
+   139,
+   677,
+   390,
+   694
+  ],
+  "errs": []
+ },
+ "tab_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   308
+  ],
+  "sheet": [
+   0,
+   308,
+   390,
+   608
+  ],
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "attr": [
+   139,
+   291,
+   390,
+   308
+  ],
+  "errs": []
+ },
+ "open_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   308
+  ],
+  "sheet": [
+   0,
+   308,
+   390,
+   608
+  ],
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "attr": [
+   139,
+   291,
+   390,
+   308
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   208,
+   390,
+   608
+  ],
+  "stripOpen": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "stripLabel": "Pick a place first",
+  "stripDisabled": "true",
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   370,
+   374,
+   399
+  ],
+  "searchHit": "self",
+  "results": "hidden",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   139,
+   191,
+   390,
+   208
+  ],
+  "errs": []
+ },
+ "cancel_664": {
+  "formOpen": false,
+  "label": "Add a place",
+  "rows": 4,
+  "reopenedDraft": "Hallgrímskirkja",
+  "reopenLabel": "Add Hallgrímskirkja"
+ },
+ "results_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   308
+  ],
+  "sheet": [
+   0,
+   308,
+   390,
+   608
+  ],
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "attr": [
+   139,
+   291,
+   390,
+   308
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   208,
+   390,
+   608
+  ],
+  "stripOpen": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "stripLabel": "Pick a place first",
+  "stripDisabled": "true",
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   359,
+   374,
+   388
+  ],
+  "searchHit": "self",
+  "results": [
+   56,
+   412,
+   374,
+   608
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   139,
+   191,
+   390,
+   208
+  ],
+  "errs": []
+ },
+ "picked_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   308
+  ],
+  "sheet": [
+   0,
+   308,
+   390,
+   608
+  ],
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "attr": [
+   139,
+   291,
+   390,
+   308
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   208,
+   390,
+   608
+  ],
+  "stripOpen": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "stripLabel": "Add Hallgrímskirkja",
+  "stripDisabled": null,
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   370,
+   374,
+   399
+  ],
+  "searchHit": "self",
+  "results": "hidden",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   139,
+   191,
+   390,
+   208
+  ],
+  "errs": []
+ },
+ "done_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   308
+  ],
+  "sheet": [
+   0,
+   308,
+   390,
+   608
+  ],
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "attr": [
+   139,
+   291,
+   390,
+   308
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   208,
+   390,
+   608
+  ],
+  "stripOpen": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "stripLabel": "Add Hallgrímskirkja",
+  "stripDisabled": null,
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   370,
+   374,
+   399
+  ],
+  "searchHit": "self",
+  "results": "hidden",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   139,
+   191,
+   390,
+   208
+  ],
+  "added": 1,
+  "formAfter": false,
+  "stripLabelAfter": "Add a place",
+  "errs": []
+ },
+ "kb_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   454
+  ],
+  "sheet": [
+   0,
+   454,
+   390,
+   754
+  ],
+  "header": [
+   0,
+   454,
+   390,
+   511
+  ],
+  "strip": [
+   0,
+   754,
+   390,
+   844
+  ],
+  "attr": [
+   139,
+   437,
+   390,
+   454
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   121,
+   390,
+   452
+  ],
+  "stripOpen": [
+   0,
+   452,
+   390,
+   508
+  ],
+  "stripLabel": "Pick a place first",
+  "stripDisabled": "true",
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   203,
+   374,
+   232
+  ],
+  "searchHit": "self",
+  "results": [
+   56,
+   256,
+   374,
+   452
+  ],
+  "acct": [
+   324,
+   63,
+   374,
+   113
+  ],
+  "tag": null,
+  "attrOpen": [
+   139,
+   104,
+   390,
+   121
+  ],
+  "errs": []
+ },
+ "kb_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   308
+  ],
+  "sheet": [
+   0,
+   308,
+   390,
+   608
+  ],
+  "header": [
+   0,
+   308,
+   390,
+   365
+  ],
+  "strip": [
+   0,
+   608,
+   390,
+   664
+  ],
+  "attr": [
+   139,
+   291,
+   390,
+   308
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   74,
+   390,
+   272
+  ],
+  "stripOpen": [
+   0,
+   272,
+   390,
+   328
+  ],
+  "stripLabel": "Pick a place first",
+  "stripDisabled": "true",
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   88,
+   374,
+   117
+  ],
+  "searchHit": "self",
+  "results": [
+   56,
+   141,
+   374,
+   337
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   139,
+   57,
+   390,
+   74
+  ],
+  "errs": []
+ },
+ "tag_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   488
+  ],
+  "sheet": [
+   0,
+   488,
+   390,
+   788
+  ],
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "attr": [
+   139,
+   471,
+   390,
+   488
+  ],
+  "errs": []
+ },
+ "tagform_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   488
+  ],
+  "sheet": [
+   0,
+   488,
+   390,
+   788
+  ],
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "attr": [
+   139,
+   471,
+   390,
+   488
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   388,
+   390,
+   788
+  ],
+  "stripOpen": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "stripLabel": "Pick a place first",
+  "stripDisabled": "true",
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   550,
+   374,
+   579
+  ],
+  "searchHit": "self",
+  "results": "hidden",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "tag": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "attrOpen": [
+   139,
+   371,
+   390,
+   388
+  ],
+  "errs": []
+ },
+ "filters_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   488
+  ],
+  "sheet": [
+   0,
+   488,
+   390,
+   788
+  ],
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "attr": [
+   139,
+   471,
+   390,
+   488
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   388,
+   390,
+   788
+  ],
+  "stripOpen": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "stripLabel": "Pick a place first",
+  "stripDisabled": "true",
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   550,
+   374,
+   579
+  ],
+  "searchHit": "self",
+  "results": "hidden",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   139,
+   371,
+   390,
+   388
+  ],
+  "errs": []
+ },
+ "cph_320": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   320,
+   212
+  ],
+  "sheet": [
+   0,
+   212,
+   320,
+   512
+  ],
+  "header": [
+   0,
+   212,
+   320,
+   269
+  ],
+  "strip": [
+   0,
+   512,
+   320,
+   568
+  ],
+  "attr": [
+   69,
+   195,
+   320,
+   212
+  ],
+  "errs": []
+ },
+ "cph_320_open": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   320,
+   212
+  ],
+  "sheet": [
+   0,
+   212,
+   320,
+   512
+  ],
+  "header": [
+   0,
+   212,
+   320,
+   269
+  ],
+  "strip": [
+   0,
+   512,
+   320,
+   568
+  ],
+  "attr": [
+   69,
+   195,
+   320,
+   212
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   112,
+   320,
+   512
+  ],
+  "stripOpen": [
+   0,
+   512,
+   320,
+   568
+  ],
+  "stripLabel": "Add Hallgrímskirkja",
+  "stripDisabled": null,
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   56,
+   274,
+   304,
+   303
+  ],
+  "searchHit": "self",
+  "results": "hidden",
+  "acct": [
+   254,
+   16,
+   304,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   69,
+   95,
+   320,
+   112
+  ],
+  "errs": []
+ },
+ "signedout_tap": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   488
+  ],
+  "sheet": [
+   0,
+   488,
+   390,
+   788
+  ],
+  "header": [
+   0,
+   488,
+   390,
+   545
+  ],
+  "strip": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "attr": [
+   139,
+   471,
+   390,
+   488
+  ],
+  "formOpen": false,
+  "authModal": true,
+  "panelOpen": false,
+  "form": "hidden",
+  "stripOpen": [
+   0,
+   788,
+   390,
+   844
+  ],
+  "stripLabel": "Add a place",
+  "stripDisabled": null,
+  "goHit": "authModal",
+  "xHit": null,
+  "search": "hidden",
+  "searchHit": null,
+  "results": "hidden",
+  "acct": "hidden",
+  "tag": null,
+  "attrOpen": [
+   139,
+   471,
+   390,
+   488
+  ],
+  "errs": []
+ },
+ "desktop_rest": {
+  "rows": 12,
+  "map": [
+   360,
+   0,
+   1280,
+   800
+  ],
+  "sheet": [
+   0,
+   0,
+   360,
+   744
+  ],
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "strip": [
+   0,
+   744,
+   360,
+   800
+  ],
+  "attr": [
+   1029,
+   783,
+   1280,
+   800
+  ],
+  "errs": []
+ },
+ "desktop_open": {
+  "rows": 12,
+  "map": [
+   360,
+   0,
+   1280,
+   800
+  ],
+  "sheet": [
+   0,
+   0,
+   360,
+   744
+  ],
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "strip": [
+   0,
+   744,
+   360,
+   800
+  ],
+  "attr": [
+   1029,
+   783,
+   1280,
+   800
+  ],
+  "formOpen": true,
+  "authModal": false,
+  "panelOpen": false,
+  "form": [
+   0,
+   344,
+   360,
+   744
+  ],
+  "stripOpen": [
+   0,
+   744,
+   360,
+   800
+  ],
+  "stripLabel": "Add Hallgrímskirkja",
+  "stripDisabled": null,
+  "goHit": "self",
+  "xHit": "self",
+  "search": [
+   16,
+   506,
+   344,
+   535
+  ],
+  "searchHit": "self",
+  "results": "hidden",
+  "acct": [
+   1214,
+   16,
+   1264,
+   66
+  ],
+  "tag": null,
+  "attrOpen": [
+   1029,
+   327,
+   1280,
+   344
+  ],
+  "errs": []
+ }
+}

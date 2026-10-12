@@ -152,3 +152,75 @@ Rulings recorded:
   (verified: the toggle only hides the form; closeAddForm() clears it and
   runs after a successful Add), so the "disabled" fallback isn't needed.
 - Escape approved as a desktop nicety.
+
+---
+
+## Concept round 2 (2026-10-12): B striker strip + C pencilled pin (new systems designer, jam turn 8)
+
+The owner said "i want more than one concept". The director's turn 7 asked for
+B (striker strip) and C (pencilled pin), with D (eyelet) as visual's one
+frame. The stub stays in the set. Q1-Q3 go out with the next concept set; the
+owner won't answer them until he approves a concept.
+
+Built:
+- `concepts/lib-render.js`: a shared harness. It serves a copy of the page with
+  the Supabase stub; `inset` emulates the Home Screen (34/47px), and it
+  includes `rowsVisible()` and `hit()`.
+- `concepts/B-striker/`: `concept.inc.html` (CSS+JS injected into the copy
+  `index.html`), `render.js`, `frames/`, `measure.json`, `how-it-works.md`.
+- `concepts/C-pin/`: the same layout.
+- Both are wired to the app's own add code. Nominatim is blocked, so search
+  results are stand-ins put into the app's own dropdown via `selectAddress()`.
+  The keyboard is a faked `visualViewport` plus a drawn 336pt block. The
+  Safari tab is `--chrome-bottom:100px` plus a drawn toolbar at 390x764.
+
+B findings:
+- Alive. All 6 jobs pass.
+- The strip is fixed in every state. It reads "PICK A PLACE FIRST" (inactive)
+  until a place is picked, then "ADD <NAME>".
+- × at the left end keeps the draft. The list never moves.
+- The `visualViewport` keyboard ride works in emulation; that needs an iPhone
+  check.
+- Cost:
+  - With the list up at 664, the map goes 364 → 308 (prototyped as B2), or
+    the list drops 4 → 3 rows (B1).
+  - Collapsed from the Home Screen, the bottom chrome goes 94 → 150.
+  - In a tab, three bars stack (band, strip, Safari's toolbar).
+
+C findings:
+- Alive. Best flow:
+  - 3 taps with autofocus
+  - 4 search results above the keyboard at 664
+  - Add at y 515-559 at 664
+  - the add ends on the place's real tag
+- The list must switch to the new place's city after Add.
+- FAIL with a tag open at 664: the pin covers the VISITED segment. Fixes:
+  (a) a gap of 96 (costs a row), (b) hide the pin under a tag, (c) move it
+  left.
+- FAIL with filters open at 664: there's no map, so the rule would be
+  "close filters to add".
+- Cancel drops the draft and must restore the map view.
+
+Decisions so far (mine, the director can overrule):
+- B2 rather than B1 for the prototype, because it keeps 4 rows; the numbers
+  for both are in the spec.
+- C's search line takes the band's slot, and its results grow upward.
+- C's blank tag hangs low (foot 16px above the band) so Add is in the thumb
+  zone, and its Add is sticky.
+
+Open questions:
+- Director: C's tag-open fix (a/b/c); "close filters to add" for C at 664;
+  whether C keeps the draft on cancel.
+- Director/visual: can B's collapsed band and strip merge without breaking
+  "never changes"?
+- Is autofocus on open part of every concept? If yes, the tap counts tie at
+  3.
+- Switching city after Add: applies to all concepts. It's arguably a bug
+  today, so raise it with the orchestrator.
+- iPhone checks to queue if B or C is chosen: `visualViewport` riding (lag,
+  focus scroll), autofocus after `requireAuth()`.
+
+Next: visual draws B and C at owner fidelity plus the eyelet frame; then the
+director steers and scores. My next pass: answer the director's rulings,
+update `jobs.md` with the per-concept flows once concepts reach 9, and run the
+coverage check before the owner sees anything.

@@ -1,0 +1,1096 @@
+{
+ "rest_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   544
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "pin": [
+   326,
+   458,
+   378,
+   522
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "tagBefore": null,
+  "errs": []
+ },
+ "rest_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   364
+  ],
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "pin": [
+   326,
+   278,
+   378,
+   342
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   347,
+   390,
+   364
+  ],
+  "tagBefore": null,
+  "errs": []
+ },
+ "collapsed_safe": {
+  "rows": 0,
+  "map": [
+   0,
+   0,
+   390,
+   750
+  ],
+  "header": [
+   0,
+   750,
+   390,
+   807
+  ],
+  "pin": [
+   326,
+   664,
+   378,
+   728
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   733,
+   390,
+   750
+  ],
+  "tagBefore": null,
+  "errs": []
+ },
+ "tag_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   544
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "pin": [
+   326,
+   458,
+   378,
+   522
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "tagBefore": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "tagKey": "la01",
+  "errs": []
+ },
+ "tag_664": {
+  "rows": 3,
+  "map": [
+   0,
+   0,
+   390,
+   398
+  ],
+  "header": [
+   0,
+   398,
+   390,
+   455
+  ],
+  "pin": [
+   326,
+   312,
+   378,
+   376
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   381,
+   390,
+   398
+  ],
+  "tagBefore": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "tagKey": "la01",
+  "errs": []
+ },
+ "filters_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   544
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "pin": [
+   326,
+   87,
+   378,
+   151
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "tagBefore": null,
+  "errs": []
+ },
+ "filters_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   364
+  ],
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "pin": [
+   326,
+   -21,
+   378,
+   43
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   347,
+   390,
+   364
+  ],
+  "tagBefore": null,
+  "errs": []
+ },
+ "cph_320": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   320,
+   268
+  ],
+  "header": [
+   0,
+   268,
+   320,
+   325
+  ],
+  "pin": [
+   256,
+   182,
+   308,
+   246
+  ],
+  "pinHit": "self",
+  "attr": [
+   69,
+   251,
+   320,
+   268
+  ],
+  "tagBefore": null,
+  "errs": []
+ },
+ "search_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   364
+  ],
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "pin": [
+   326,
+   278,
+   378,
+   342
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   347,
+   390,
+   364
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "xHit": "self",
+  "barKb": [
+   0,
+   271,
+   390,
+   328
+  ],
+  "results": [
+   56,
+   59,
+   333,
+   271
+  ],
+  "errs": []
+ },
+ "search_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   544
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "pin": [
+   326,
+   458,
+   378,
+   522
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   753,
+   390,
+   810
+  ],
+  "xHit": "self",
+  "barKb": [
+   0,
+   451,
+   390,
+   508
+  ],
+  "results": [
+   56,
+   239,
+   333,
+   451
+  ],
+  "errs": []
+ },
+ "placed_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   544
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "pin": [
+   326,
+   458,
+   378,
+   522
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   787,
+   390,
+   844
+  ],
+  "xHit": "self",
+  "c": {
+   "tagH": 364,
+   "pinY": 360,
+   "footY": 768,
+   "mapH": 784
+  },
+  "tag": [
+   37,
+   386,
+   353,
+   752
+  ],
+  "submit": [
+   54,
+   695,
+   336,
+   739
+  ],
+  "submitHit": "self",
+  "category": [
+   54,
+   543,
+   336,
+   567
+  ],
+  "categoryHit": "self",
+  "notesHit": "self",
+  "marker": [
+   175,
+   313,
+   215,
+   362
+  ],
+  "barAfterPick": [
+   0,
+   787,
+   390,
+   844
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "errs": []
+ },
+ "placed_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   364
+  ],
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "pin": [
+   326,
+   278,
+   378,
+   342
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   347,
+   390,
+   364
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "xHit": "self",
+  "c": {
+   "tagH": 364,
+   "pinY": 180,
+   "footY": 588,
+   "mapH": 604
+  },
+  "tag": [
+   37,
+   206,
+   353,
+   572
+  ],
+  "submit": [
+   54,
+   515,
+   336,
+   559
+  ],
+  "submitHit": "self",
+  "category": [
+   54,
+   363,
+   336,
+   387
+  ],
+  "categoryHit": "self",
+  "notesHit": "self",
+  "marker": [
+   175,
+   133,
+   215,
+   182
+  ],
+  "barAfterPick": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "errs": []
+ },
+ "placed_320": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   320,
+   268
+  ],
+  "header": [
+   0,
+   268,
+   320,
+   325
+  ],
+  "pin": [
+   256,
+   182,
+   308,
+   246
+  ],
+  "pinHit": "self",
+  "attr": [
+   69,
+   251,
+   320,
+   268
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   511,
+   320,
+   568
+  ],
+  "xHit": "self",
+  "c": {
+   "tagH": 364,
+   "pinY": 131,
+   "footY": 492,
+   "mapH": 508
+  },
+  "tag": [
+   16,
+   157,
+   304,
+   474
+  ],
+  "submit": [
+   33,
+   429,
+   287,
+   473
+  ],
+  "submitHit": "self",
+  "category": [
+   33,
+   314,
+   287,
+   338
+  ],
+  "categoryHit": "self",
+  "notesHit": "self",
+  "marker": [
+   140,
+   84,
+   180,
+   133
+  ],
+  "barAfterPick": [
+   0,
+   511,
+   320,
+   568
+  ],
+  "acct": [
+   254,
+   16,
+   304,
+   66
+  ],
+  "errs": []
+ },
+ "shape_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   364
+  ],
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "pin": [
+   326,
+   278,
+   378,
+   342
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   347,
+   390,
+   364
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "xHit": "self",
+  "c": {
+   "tagH": 404,
+   "pinY": 140,
+   "footY": 588,
+   "mapH": 604
+  },
+  "tag": [
+   37,
+   166,
+   353,
+   572
+  ],
+  "submit": [
+   54,
+   515,
+   336,
+   559
+  ],
+  "submitHit": "self",
+  "category": [
+   54,
+   323,
+   336,
+   347
+  ],
+  "categoryHit": "self",
+  "notesHit": "self",
+  "marker": [
+   175,
+   93,
+   215,
+   142
+  ],
+  "barAfterPick": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "errs": []
+ },
+ "done_664": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   364
+  ],
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "pin": [
+   326,
+   278,
+   378,
+   342
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   347,
+   390,
+   364
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "xHit": "self",
+  "c": {
+   "tagH": 364,
+   "pinY": 180,
+   "footY": 588,
+   "mapH": 604
+  },
+  "tag": [
+   37,
+   206,
+   353,
+   572
+  ],
+  "submit": [
+   54,
+   515,
+   336,
+   559
+  ],
+  "submitHit": "self",
+  "category": [
+   54,
+   363,
+   336,
+   387
+  ],
+  "categoryHit": "self",
+  "notesHit": "self",
+  "marker": [
+   175,
+   133,
+   215,
+   182
+  ],
+  "barAfterPick": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "added": 1,
+  "addingAfter": false,
+  "cAfter": {
+   "city": "reykjavik",
+   "row": true
+  },
+  "tagAfter": [
+   37,
+   114,
+   353,
+   338
+  ],
+  "tagAfterName": "Hallgrímskirkja",
+  "listCollapsedAfter": false,
+  "errs": []
+ },
+ "canceltag_844": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   544
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "pin": [
+   326,
+   458,
+   378,
+   522
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "tagBefore": [
+   37,
+   114,
+   353,
+   346
+  ],
+  "tagKey": "la01",
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   787,
+   390,
+   844
+  ],
+  "xHit": "self",
+  "c": {
+   "tagH": 364,
+   "pinY": 360,
+   "footY": 768,
+   "mapH": 784
+  },
+  "tag": [
+   37,
+   386,
+   353,
+   752
+  ],
+  "submit": [
+   54,
+   695,
+   336,
+   739
+  ],
+  "submitHit": "self",
+  "category": [
+   54,
+   543,
+   336,
+   567
+  ],
+  "categoryHit": "self",
+  "notesHit": "self",
+  "marker": [
+   175,
+   313,
+   215,
+   362
+  ],
+  "barAfterPick": [
+   0,
+   787,
+   390,
+   844
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "afterCancel": {
+   "adding": false,
+   "tagKey": "la01",
+   "listCollapsed": false,
+   "view": [
+    34.02819311545256,
+    -118.25786590576173,
+    14
+   ],
+   "viewBefore": [
+    34.03672867489511,
+    -118.25786590576173,
+    14
+   ],
+   "nameDraft": ""
+  },
+  "errs": []
+ },
+ "signedout_tap": {
+  "rows": 4,
+  "map": [
+   0,
+   0,
+   390,
+   544
+  ],
+  "header": [
+   0,
+   544,
+   390,
+   601
+  ],
+  "pin": [
+   326,
+   458,
+   378,
+   522
+  ],
+  "pinHit": "self",
+  "attr": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "tagBefore": null,
+  "authModal": true,
+  "adding": false,
+  "focused": "pencilPin",
+  "bar": "hidden",
+  "xHit": null,
+  "errs": []
+ },
+ "desktop_rest": {
+  "rows": 13,
+  "map": [
+   360,
+   0,
+   1280,
+   800
+  ],
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "pin": [
+   1216,
+   714,
+   1268,
+   778
+  ],
+  "pinHit": "self",
+  "attr": [
+   1029,
+   783,
+   1280,
+   800
+  ],
+  "tagBefore": null,
+  "errs": []
+ },
+ "desktop_placed": {
+  "rows": 13,
+  "map": [
+   360,
+   0,
+   1280,
+   800
+  ],
+  "header": [
+   0,
+   0,
+   358,
+   57
+  ],
+  "pin": [
+   1216,
+   714,
+   1268,
+   778
+  ],
+  "pinHit": "self",
+  "attr": [
+   1029,
+   783,
+   1280,
+   800
+  ],
+  "tagBefore": null,
+  "authModal": false,
+  "adding": true,
+  "focused": "nameInput",
+  "bar": [
+   0,
+   743,
+   1280,
+   800
+  ],
+  "xHit": "self",
+  "c": {
+   "tagH": 364,
+   "pinY": 376,
+   "footY": 784,
+   "mapH": 800
+  },
+  "tag": [
+   662,
+   402,
+   978,
+   768
+  ],
+  "submit": [
+   679,
+   711,
+   961,
+   755
+  ],
+  "submitHit": "self",
+  "category": [
+   679,
+   559,
+   961,
+   583
+  ],
+  "categoryHit": "self",
+  "notesHit": "self",
+  "marker": [
+   800,
+   329,
+   840,
+   378
+  ],
+  "barAfterPick": [
+   0,
+   743,
+   1280,
+   800
+  ],
+  "acct": [
+   1214,
+   16,
+   1264,
+   66
+  ],
+  "errs": []
+ },
+ "collisions": {
+  "la": {
+   "under": 0,
+   "total": 6
+  },
+  "la_collapsed": {
+   "under": 0,
+   "total": 3
+  },
+  "reykjavik": {
+   "under": 0,
+   "total": 6
+  },
+  "reykjavik_collapsed": {
+   "under": 0,
+   "total": 6
+  },
+  "copenhagen": {
+   "under": 0,
+   "total": 4
+  },
+  "copenhagen_collapsed": {
+   "under": 0,
+   "total": 6
+  },
+  "malmo": {
+   "under": 0,
+   "total": 6
+  },
+  "malmo_collapsed": {
+   "under": 0,
+   "total": 6
+  },
+  "stockholm": {
+   "under": 0,
+   "total": 6
+  },
+  "stockholm_collapsed": {
+   "under": 0,
+   "total": 4
+  }
+ }
+}

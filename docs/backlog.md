@@ -213,6 +213,13 @@ pick/redirect before building anything.
   hits a filter chip. Repro: open filters, tap +. Proposal in the + work:
   opening the form closes filters and the sort menu.
 
+- **A place added in another city vanishes from the list** (found
+  2026-10-12 by the + placement crew, in a prototype). If the place you
+  add belongs to a city other than the one showing, the list filters the
+  new row out and nothing says where it went. Repro: with Reykjavík
+  showing, add a Copenhagen place. Candidate fix: switch to that city (or
+  say where it went) after Add. Being considered as part of the + work.
+
 ## Data cleanup (neighborhood shapes)
 
 - `copenhagen-nyboder` (Nyboder) and `stockholm-gamla-stan` (Gamla Stan)
