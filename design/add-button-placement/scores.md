@@ -308,3 +308,105 @@ It reads as a docked FAB or a drag knob, and it covers the OSM credit.
 ### Did the work change?
 B and C are new this round; D is new and killed. The stub didn't change, so
 its score stands.
+
+## Concept round 4 -- re-score C, check B (director, 2026-10-12)
+
+Looked at: B `6-keyboard-3x.png` (re-shot); C `1-rest-today-vs-C`,
+`2-add-strip`, `2d-done`, `3-tag-open`, `4b-size` (all new);
+`chrome-check.js` results in both `stills/measure.json`.
+
+### B. Striker strip: 9, confirmed. Fix 1 landed
+In `6-keyboard`, the form's top rule sits below the credit row, and the
+credit sits clear below the account badge. Nothing overlaps. The chrome
+check is clean on every B frame. READY.
+
+### C. Pencilled pin: 9 / 10. READY
+
+Did the work change? Yes, all five fixes landed:
+1. **The pin steps aside whenever a tag is open.** `3-tag-open` shows one tag
+   and no + ADD pin, captioned "Close the tag to add". `2d-done` shows the
+   new place's inked pin and tag, with no blank pin beside them.
+2. **The search frame is clean.** The results are a full-width paper sheet
+   that stops below the zoom and the badge, with 3 results at 664.
+3. **The new row is in view after Add**, selected navy at the foot of the
+   list in `2d-done`. Systems should check one nit at build time: the row
+   above the header is clipped mid-row.
+4. **Size:** the tag is now 55px wide, with 15px words and a 65x83 tap
+   area.
+   - In `4b-size` and still 1 it reads as louder than today's 50px navy
+     badge: orange, words, and a bigger footprint including the ring and
+     string.
+   - It's still a pin and a tag, not a disc.
+   - It doesn't cover a pin at the default view.
+   - That answers "more prominent".
+5. **The cost lines are on still 1:** "Bigger change: the add form becomes
+   a tag on the map" and "With a tag or the filters open, close them to
+   add."
+
+Likely owner objections, and why they don't hold it under 9:
+- **"The + disappears when a tag is open."** It's real, and the owner hears
+  it on two stills. It's C's trade for adding on the map and ending on the
+  place, and the stub and B sit beside it with no such cost. That's a choice
+  to put to him, not a flaw I'm hiding.
+- **"That's a big change to the form."** Also told plainly. A bolder option
+  is what "i want more than one concept" asked for.
+- I don't see a likely objection about finish: every frame passes the chrome
+  check.
+
+Build-time notes (not owner-facing):
+- `desktop-placed` flags the search bar crossing the OSM credit on the
+  desktop rail. That's a desktop-only frame, so it's a builder fix: the
+  credit lifts above the bar.
+- The iOS 16px overlay selects are an iPhone check.
+- The keyboard behaviour of the search line is an iPhone check.
+
+### The set for the owner (one message)
+
+Order: stub, B, C, so he goes from least to most change. One cost line each.
+Then jobs.md Q1-3. Q1 (does the button ride down?) is the stub's question;
+B is the "never moves" answer.
+
+**Claim-check stub** (`concepts/stub/`; he has seen these, so resend as a
+reminder):
+1. `1-rest-today-vs-stub-3x.png`
+2. `2-tap-strip-3x.png`
+3. `2-adding-844-3x.png`
+4. `3-tag-open-3x.png`
+
+Cost line: "+ rides down with the list when the form opens (question 1)."
+(`4-states` and `5-320-copenhagen` aren't resent; he has them.)
+
+**B. Striker strip** (`concepts/B-striker/`):
+1. `1-rest-today-vs-B-3x.png`
+2. `2-add-strip-3x.png`
+3. `6-keyboard-3x.png`
+4. `7-collapsed-3x.png`
+5. `8-safari-tab-3x.png`
+6. `stills/3-tag-open-3x.png`
+
+Cost line: "Never moves; costs 56px of screen all the time."
+
+**C. Pencilled pin** (`concepts/C-pin/`):
+1. `1-rest-today-vs-C-3x.png` (the cost lines are on it)
+2. `2-add-strip-3x.png`
+3. `2d-done-3x.png`
+4. `3-tag-open-3x.png`
+5. `4-states-3x.png`
+
+Cost line: "Bigger change: the add form becomes a tag on the map; with a
+tag or the filters open, close them to add."
+(Not sent: `4b-size`, which was my check, plus the pending frames and the
+appendix.)
+
+**Not sent:** D (killed), overview sheets, appendix frames, pending
+frames.
+
+### What kept blocking a 9 (closing note)
+- Finish in the new state frames. It's now caught at source by
+  `chrome-check.js`.
+- The map-side home's 664 squeeze. It's traded openly in C's captions, not
+  polished away.
+
+### Did the work change?
+B: yes (fix 1), and the score is confirmed, not raised. C: yes (fixes 1-5),
+so 8 → 9.

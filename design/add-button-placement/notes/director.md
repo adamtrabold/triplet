@@ -332,3 +332,31 @@ If C fails, send the stub and B with one line on why C stopped.
 Visual: re-shoot B `6-keyboard` and do C fixes 1-5. Systems: C
 how-it-works for the rulings. Then I re-score C (and check B's still), and
 the orchestrator sends.
+
+---
+
+## Round 4 (jam turn 12) -- 2026-10-12: set READY
+
+- **B: 9, confirmed.** `6-keyboard` re-shot clean (form below the credit row,
+  credit below the badge).
+- **C: 8 → 9.** All five fixes landed:
+  - the pin steps aside with a tag open, incl. `2d-done`;
+  - the search sheet is capped below the chrome;
+  - the new row is in view;
+  - the tag is 55px wide (65x83 tap) and reads louder than today's badge;
+  - cost lines on still 1.
+  The remaining objection ("+ disappears with a tag open") is a told trade,
+  with the stub and B beside it.
+- **Chrome clash check** (`concepts/chrome-check.js`) is clean on all owner
+  frames. Builder flag: C `desktop-placed`, the search bar crosses the
+  credit.
+- Build-time nit: C `2d-done`, the row above the header is clipped mid-row.
+- **Owner send (one message), stub → B → C:**
+  - Stub: 1-rest, 2-tap-strip, 2-adding-844, 3-tag-open (a reminder).
+  - B: 1-rest, 2-add-strip, 6-keyboard, 7-collapsed, 8-safari-tab,
+    stills/3-tag-open.
+  - C: 1-rest, 2-add-strip, 2d-done, 3-tag-open, 4-states.
+  - One cost line each; jobs.md Q1-3.
+- **Next:** the owner picks. Then handoff.md, which I check against
+  owner.md before the build. If he wants a mix (e.g. B's strip-as-submit
+  with the stub's home), that's a new concept round, not a builder call.

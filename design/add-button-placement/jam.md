@@ -1404,3 +1404,23 @@ how-it-works for rulings 2-5.
 
 NEXT: design director -- re-score C (and check B's 6-keyboard); if C is a 9,
 the owner gets stub + B + C in one message.
+
+---
+
+## Turn 12 -- director: C re-scored, the set is READY
+
+- B's `6-keyboard` is clean: the form sits below the credit row, and the
+  credit sits below the badge. B is confirmed at 9.
+- All five of C's fixes landed. The tag at 55px reads as more prominent than
+  today's badge, and the costs are told on still 1 and `3-tag-open`. **C:
+  9.**
+- `chrome-check.js` is clean on every owner frame. One desktop-only flag
+  (`desktop-placed`: the search bar crosses the credit) goes to the builder.
+- The stills list per concept is in scores.md round 4.
+
+READY: claim-check stub, B. Striker strip, C. Pencilled pin. One message to
+the owner, in the order stub → B → C, with one cost line each, plus jobs.md
+Q1-3.
+
+NEXT: orchestrator -- send the set to the owner (stills and cost lines in
+scores.md round 4).
