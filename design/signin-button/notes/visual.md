@@ -1,5 +1,14 @@
 # Visual designer notes: sign-in button
 
+## Round 2b (director scored 2 = 8, 1/3 = 7; fixes applied to 2 only, files overwritten in place)
+- V[2] now: person x0.68 at true centre (25,25), stroke 1.45; text 6px Archivo 700, 100% width, tracking 1.3px
+  (0.22em), hair space between words, baseline r 16.6.
+- Measured: valleys r 18.81 -> 2.2px clearance; ink gaps 2.01/2.06/2.16/[N-I 3.88]/2.21 -> word gap 1.85x;
+  end letters ±53.8° from 6 o'clock; cap tops r 12.49 vs figure ink r 6.85 (5.6px air, no nudge needed).
+- Enlargements: edge/shadow kept at 1 CSS px. Sheet leads with 2 alone; 1 and 3 dropped from the sheet.
+- Flow sheet re-titled "Signing in", frame 5 points at round2 frames; re-shot.
+- Next: director's quick real-size re-look; then the owner; then handoff looks-and-feels.
+
 ## Where things stand (round 2 of concept A, 2026-10-12; new visual designer took over)
 - Owner turned A down (rejection 1 of a 9): "on the right track but it's ugly. icon should be centered...
   maybe too small? text should be smaller and probably tracked out some because it's crowding".

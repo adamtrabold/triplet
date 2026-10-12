@@ -25,7 +25,8 @@ function arc(r, fs, ls, fw, st, op = 1, ws = ' ') {
   const id = 'sbR' + (uid++), half = Math.PI * r / 2 + ls / 2;
   return `<g class="sb-arc" opacity="${op}"><defs><path id="${id}" d="M${25 - r},25 A${r},${r} 0 0 0 ${25 + r},25"/></defs><text font-family="Archivo" font-weight="${fw}" font-stretch="${st}" font-size="${fs}" letter-spacing="${ls}" fill="${C.navy}"><textPath href="#${id}" startOffset="${half.toFixed(2)}" text-anchor="middle" data-r="${r}">SIGN${ws}IN</textPath></text></g>`;
 }
-const shadowEdge = (face) => `<polygon points="${SCALLOP}" fill="rgba(0,0,0,.22)" transform="translate(0,1)"/><polygon points="${SCALLOP}" style="fill:${face}" stroke="${C.edge}" stroke-width="1" stroke-linejoin="round"/>`;
+// k = blow-up factor for enlargements: edge and contact shadow stay 1 CSS px, as on the map
+const shadowEdge = (face, k = 1) => `<polygon points="${SCALLOP}" fill="rgba(0,0,0,.22)" transform="translate(0,${1 / k})"/><polygon points="${SCALLOP}" style="fill:${face}" stroke="${C.edge}" stroke-width="${1 / k}" stroke-linejoin="round"/>`;
 function blotPts(r) { const p = []; for (let i = 0; i < 48; i++) { const a = i / 48 * 2 * Math.PI, rr = r * (1 + .06 * Math.sin(i * 7.3) + .04 * Math.sin(i * 3.1)); p.push(`${(25 + rr * Math.cos(a)).toFixed(2)},${(25 + rr * Math.sin(a)).toFixed(2)}`); } return p.join(' '); }
 function dryPts(k) { const R = 21.5 * Math.pow(1 - k, .8), p = []; for (let i = 0; i < 64; i++) { const a = i / 64 * 2 * Math.PI, lobe = .5 + .5 * Math.cos(a * 16), rr = Math.max(0, R * (1 - .16 * lobe * Math.min(1, k * 2)) + .5 * Math.sin(i * 5.7) * k); p.push(`${(25 + rr * Math.cos(a)).toFixed(2)},${(25 + rr * Math.sin(a)).toFixed(2)}`); } return p.join(' '); }
 function inkLayer(pts, inner, op = 1) {
@@ -38,7 +39,7 @@ const wrap = (inner, size = 50) => `<svg width="${size}" height="${size}" viewBo
 SB.badgeA = function (o = {}) {
   const v = V[o.v || window.__V || 2];
   const t = o.t ?? 0, ps = v.ps + (1 - v.ps) * t, cy = v.cy + (25 - v.cy) * t, sw = v.sw + (2 - v.sw) * t;
-  let s = shadowEdge(o.face || FACE) + arc(v.r, v.fs, v.ls, v.fw, v.st, o.textOp ?? 1, v.ws) + person(25, cy, ps, C.navy, sw);
+  let s = shadowEdge(o.face || FACE, o.size ? o.size / 50 : 1) + arc(v.r, v.fs, v.ls, v.fw, v.st, o.textOp ?? 1, v.ws) + person(25, cy, ps, C.navy, sw);
   const pts = o.ink ? blotPts(o.ink) : o.dry !== undefined ? dryPts(o.dry) : null;
   if (pts) s += inkLayer(pts, person(25, cy, ps, C.orange, sw), o.dry !== undefined ? 1 - o.dry * .25 : 1);
   return wrap(s, o.size);

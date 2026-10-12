@@ -37,7 +37,7 @@ const SBX = {
 sheet('A'); sheet('B');
 // flow sheet
 let h = head('Sign-in flow', 'A').replace(/\.\.\/flow\//g, '');
-h += `<h1>Signing in, both concepts</h1><p>Only the words in the sign-in sheet change; its look stays as it is today.</p>`;
+h += `<h1>Signing in</h1><p>Only the words in the sign-in sheet change; its look stays as it is today.</p>`;
 h += `<h2>1 · Tap Sign in in the playground</h2><p>The sheet opens over whatever you were looking at. Nothing behind it changes.</p>`;
 h += `<div style="display:flex;gap:8px;padding:0 16px"><img src="shots/play-tag-open.png" width="175" height="251"><img src="shots/play-sheet-full.png" width="175" height="251"></div>`;
 h += `<div class="cap">Left: a place open in the playground. Right: after tapping Sign in.</div>`;
@@ -46,7 +46,7 @@ h += `<h2>2 · The sheet</h2>` + card('sheet-open.png', 'Visitors read why they 
 h += `<h2>3 · While it checks</h2>` + card('sheet-busy.png', 'The button says Signing in… and can’t be tapped twice.');
 h += `<h2>4 · If something’s wrong</h2>` + card('sheet-wrong.png', '') + card('sheet-offline.png', 'Your email stays; nothing is lost, and you’re still in the playground.');
 h += `<h2>5 · You arrive in the real trip</h2><p>The badge you tapped is there for a beat, then it’s inked into your account badge. This only plays right after signing in, not on every visit.</p>`;
-h += frames([['../A-arc-badge/shots/in-0.png', 'Arrive'], ['../A-arc-badge/shots/in-130.png', 'Inked'], ['../A-arc-badge/shots/in-380.png', 'Signed in']], 86, 82, 1);
+h += frames([['../A-arc-badge/round2/shots/in-0.png', 'Arrive'], ['../A-arc-badge/round2/shots/in-130.png', 'Inked'], ['../A-arc-badge/round2/shots/in-380.png', 'Signed in']], 86, 82, 1);
 h += `<h2>Two questions for you</h2><div class="q"><b>1.</b> When you’re signed out of the real trip (new phone, cleared Safari), should this same sign-in button sit in the corner? Today nothing is there until you try to edit. <b>We recommend yes.</b> Then the sheet looks like this, without the playground line:</div>`;
 h += card('sheet-real.png', '');
 h += `<div class="q"><b>2.</b> Is the line in the sign-in sheet enough to tell visitors their changes aren’t kept, or do you want something on the map too?</div><div style="height:16px"></div></body></html>`;

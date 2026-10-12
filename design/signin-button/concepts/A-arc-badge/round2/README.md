@@ -38,3 +38,23 @@ variant is picked, point it at `round2/shots/in-*.png` (render with that `V`) an
 ## Open
 - 5.5-6px caps at real size: the owner asked for smaller; Chromium renders read, iPhone unverified.
 - Weight 650 vs 700 at 6px: Safari's variable-font rendering of 650 is unchecked.
+
+## Round 2b: director's fixes to variant 2 (scores.md, round 2 entry; 2 scored 8)
+Variant 2 was overwritten in place (`badge2.js` V[2]); every v2 still, the motion frames, `sheet-3x.png` and the
+flow sheet were re-rendered over the same filenames. Variants 1 and 3 are dropped from the sheet. Their values and
+shots (`shots/v1-*`, `v3-*`) stay on disk for the record.
+- Arc baseline r 18.0 -> **16.6**. Scallop valleys measured at r 18.81, so the letters' feet clear them by **2.2px**
+  (1.7px to the inner side of the 1px edge stroke).
+- Tracking 1.8 -> **1.3px (0.22em)**. Word space -> **hair space U+200A**. Measured ink gaps (canvas, 100x):
+  S-I 2.01, I-G 2.06, G-N 2.16, **N-I 3.88**, I-N 2.21. So the word gap is **1.85x** the mean letter gap (2.11).
+- End letters (glyph start/end positions, after centring): **±53.8°** from 6 o'clock (target ≤60).
+- Weight 650 -> **700** so the I holds at 1x. Cap height 4.11px. Cap tops at r 12.49, figure's lowest ink at
+  r 6.85, which leaves ~5.6px between shoulders and caps. That's no crowding, so the person stays at true centre
+  (25,25; `cy` 25). No optical nudge was needed.
+- Enlargements draw the edge and contact shadow at 1 CSS px (`badgeA({size})` divides by the blow-up), so the
+  hero doesn't get a tan outline.
+- Sheet: leads with "We'd pick this one" and 2 at 3x (150px). Below it: pressed + signed in at 72px, the full
+  top-of-screen strip, and 1:1 crops next to +, over water, and on its own (cream, water). Then the in/out strips.
+- Flow sheet (`../../flow/sheet.html` + `proto/make-sheets.js`): the title is now "Signing in" (was "Signing in,
+  both concepts"), and frame 5 uses `A-arc-badge/round2/shots/in-0|130|380.png`. Re-shot `flow/sheet-3x.png`.
+- Measure again with `node measure.js 2` (uses `measure.html`).
