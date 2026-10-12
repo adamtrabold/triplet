@@ -224,3 +224,17 @@ Next: visual draws B and C at owner fidelity plus the eyelet frame; then the
 director steers and scores. My next pass: answer the director's rulings,
 update `jobs.md` with the per-concept flows once concepts reach 9, and run the
 coverage check before the owner sees anything.
+
+## After director turn 10 (rulings + scores)
+- Killed: D. Scores: stub 9, B 9 (READY after fix 6), C 8 (one visual fix round).
+- Applied to C's how-it-works:
+  - the blank pin steps aside whenever a tag is open (every height);
+  - close filters to add (every height);
+  - iOS 16px: transparent native selects over printed entries, Notes/search at 16px, no viewport hack;
+  - cancel keeps the draft in memory, with no marker left;
+  - the new row scrolls fully into view after Add.
+- Coverage: jobs 1 and 5 now "yes, with the ruled exceptions"; job 4 is yes.
+- Applied to B's how-it-works: fix 6. The form's top stops below the account badge with the keyboard up or on short screens, scrolls inside itself, and the credit sits clear of the badge.
+- My prototypes still clear C's draft on cancel and show the old pin-under-tag; the visual designer's stills carry the rulings. I didn't re-render.
+- Autofocus and the city switch after Add are noted for whichever concept builds (the backlog has the bug).
+- Next: re-check coverage when C's re-score lands; then the owner set goes out (stub, B, C if 9) with Q1-Q3.

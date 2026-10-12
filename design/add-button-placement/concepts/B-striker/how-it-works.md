@@ -67,6 +67,7 @@ closes the form.
   sits with its bottom on the strip, grows upward, and covers the list. **The
   list doesn't move**, so on cancel there's nothing to restore: scroll,
   selection and an open tag are untouched.
+- **The form's top stops below the account badge** (director ruling 6), in every case: keyboard up, short screen or tall form. It scrolls inside itself, Search stays at its top, and the OSM credit rides on the form's top edge clear of the badge. Cap: `visualViewport.height - strip - (badge bottom + 8)`.
 - Its height is capped so it never goes under the account badge. Measured:
   the form is 400px, at y 208-608 at 664 and y 388-788 at 844.
 - At 844, **an open tag stays visible above the form** (`tagform_844`: tag
@@ -91,6 +92,7 @@ results drop into the form's own scroll.
 - `kb_664` (worst case: a 664 layout with the keyboard on top): strip
   y 272-328, Search y 88. Only about 2.5 results are visible above the strip
   (y 141-272).
+- *(Ruling 6)* With the keyboard up, the form's top is under the account badge. In `kb_844` the form starts at y 121, below the badge's y 113 (Home Screen inset). The form scrolls inside itself, and the credit sits on the form's top rule, clear of the badge. The visual designer re-shoots `6-keyboard` to show it.
 - **This is a Chromium emulation.** I faked `visualViewport` and drew the
   keyboard. Real iOS behaviour is unverified: the strip lags during the
   keyboard's slide-in (`visualViewport` fires after it), and Safari may
