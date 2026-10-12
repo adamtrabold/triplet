@@ -35,12 +35,12 @@ const V = {
       <g transform="translate(13 15)"><path d="M14 4 V24 M4 14 H24" stroke="#12293F" stroke-width="3.2" stroke-linecap="round"/></g>
       <text x="27" y="51" text-anchor="middle" font-family="Archivo, sans-serif" font-stretch="75%" font-weight="700" font-size="7" letter-spacing="1" fill="#12293F">ADD</text></svg>`,
   },
-  // 4. Claim-check stub: the header row is a ticket; + is its tear-off stub, perforated like the tag's stub.
+  // 4. Claim-check stub: the header row is a ticket; + is its tear-off stub, perforated like the tag's stub. (Notches tried and dropped: on the map side the top notch reads as a dot.)
   stub: {
     css: `#locationsHeader{padding-right:84px}
       #nb{position:absolute;right:0;top:0;bottom:0;width:68px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center}
       #nb::before{content:'';position:absolute;left:0;top:6px;bottom:6px;border-left:1.5px dashed rgba(18,41,63,.55)}
-      #nb::after{content:'';position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:transparent}`,
+      `,
     html: PLUS('#12293F', 2.75, 24),
   },
 };
@@ -48,7 +48,7 @@ const V = {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${d}/chrome-linux/chrome` });
   const html = fs.readFileSync('/home/user/la-trip-map/index.html', 'utf8');
   const sealMask = (html.match(/mask-image: (url\("data:image\/svg\+xml,[^)]*\))/) || [])[1];
-  for (const [name, v] of Object.entries(V)) {
+  for (const [name, v] of Object.entries(V).filter(([n])=>!process.env.ONLY||n===process.env.ONLY)) {
     const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
     const page = await ctx.newPage();
     await page.route('**/*', r => { const u = r.request().url();
