@@ -2148,3 +2148,99 @@ an object reads as at 1x (ticket to a place, our own map pin, + ranked above
 account), which is UI and brand; bring C's real-pin rebuild, A's place
 routes, the Float's hierarchy dials and one D frame, each at 1x beside the
 account badge, before systems measures the new footprints.
+
+---
+
+## Turn 21 -- product designer (visual focus): round 6 (new visual designer)
+
+I took over from `notes/visual.md`. Draws (real RNG): Oblique **"Emphasize
+differences"**, **"Remove specifics and convert to ambiguities"**; fields
+**botanical specimen labels**, **beekeeping**; twist **"it is the first
+thing printed"**. "Emphasize differences" drove the Float. The specimen
+label (a pin goes through the label) became D's pinned cut, which died.
+
+**One view for everything.** Every round-6 frame is the same zoomed view
+of Reykjavík (zoom 14 over the stub's places), so 17 real map pins are in
+shot beside every concept and the account badge is in every still 1 and
+every 1x crop. The 1x window is the phone's right 240px, from the account
+badge down into the list header (x150–390, y0–610). Next to it is a
+**squint test**: the same crop, blurred.
+
+### Float: + outranks the account on three axes
+Each dial was rendered alone first (`R6-F3-dials-3x.png`):
+- **Orange alone** looks *lighter* than the navy account badge at 1x.
+- **Bigger alone** (60px) still reads as a pair.
+- **Orange + 60px** wins the squint test outright.
+- **Edge:** the pick is a **postage-stamp edge** (24 fine lobes), still the
+  badge family's wavy cut but a different kind. 10 round lobes read as a
+  flower or a gear (settings), so out.
+- **The pick:** orange stock (the band's tooth), navy + at 3px, 60px,
+  stamp edge.
+  - Scaled about the scallop's lower-right ink corner, so the ink stays 20
+    from the side and the list.
+  - Pressed: deep orange, paper +.
+  - Open: R17's navy with a paper ×.
+- **The one account frame** (`R6-F4`, flagged): the account badge at 40px.
+  Our read is that it isn't needed. Flag to the orchestrator only if the
+  director disagrees.
+- **Seam (flag, not fixed):** the account badge's *open* state is an
+  orange field too. The clusters are deep orange discs, so "the only
+  orange object" is true at street zoom but not at city zoom.
+
+### A: five routes, two kept as readings, two killed (`R6-A3`)
+- **Admission (pick).** The tear line moves inside the stock (15px), with
+  half-round notches on it at top and bottom: a rail or museum ticket, and
+  the Hanging Tag stub's own notch. It reads "a ticket" at 1x.
+- **Tag cut.** The Hanging Tag's chamfers and eyelet, turned on its side.
+  It reads "a place's tag", the only route that says place without an
+  added mark, but it stops being a ticket. It's the director's call.
+- **Killed:**
+  - round punch: our pin is a disc, so its punch is a **dot**;
+  - pin-teardrop punch: a water drop, and not our pin.
+- **Honest line:** A is a ticket for adding. Rail conventions make "ticket"
+  land; they don't say "place".
+
+### C: rebuilt on the app's own pin (`R6-C3`)
+- **How it's drawn.** The pin is drawn by `badgeHtml()`, the function that
+  draws every map pin, with a `#g-add` + in the glyph slot.
+  - The tag is the Hanging Tag in miniature: die-cut, orange band on the
+    tooth, eyelet wash patch and grommet, cream stock, the tag's shadow,
+    and the straight string to the eyelet on one axis.
+- **Tried:** solid 24, dashed 24 (the app's existing "(approx.)" kind),
+  orange-deep dashed, + on the tag (with an empty pin), and the selected
+  pin.
+- **The pick is the selected pin with a bigger tag.** That's the map's
+  exact "pin with its tag open" grammar: a 32px filled navy disc with a
+  paper +, and a 72x56 tag (object 72x94, 16 from the side, 20 above the
+  list).
+- **Why the others lost:**
+  - The 24px pins read as pins but rank below the account badge.
+  - A + on the tag empties the pin into the 5b ring again.
+- **Risk:** in the squint test C is level with the account badge rather
+  than clearly above it. It ranks by colour and position, not by mass.
+
+### D: floated ticket, one rough frame: **kill**
+- **Bare ticket (72x44 at the Float's corner):** it reads as "A moved to
+  the corner" (kill rule 1).
+- **Pinned with our pin:** two marks, and the empty pin reads as a
+  placeholder (kill rule 2).
+- It does outrank the account badge.
+
+### Checks
+- `chrome-check` plus the + object against the credit, tag, zoom, account,
+  submit, sheet and pins: **clean on every frame** (`*/r6/measure.json`).
+- Captions were checked against the measurements.
+- **What each object reads as at 1x** (object first, then its marks):
+  - **Float:** an orange stamp-edged badge, ranked above the account. The
+    + is navy, the edge is perforated.
+  - **A:** a ticket at the end of the header. Its marks: the notches on
+    the tear line, the + on the stock.
+  - **C:** a pin with its tag open. The pin is a selected pin with a + in
+    it; the tag is the place tag, blank.
+  - **D:** a ticket on the map.
+
+NEXT: product designer (systems focus) -- measure the new footprints: the
+Float's 60px stamp badge (`TAG_SHEET_GAP`, credit, 320, 664, collapsed
+with the inset); C's 72x94 pin-and-tag slot; whether the tag-cut A route
+changes anything structurally. Then the director scores Float, A, C (D
+recommended killed) in one pass.

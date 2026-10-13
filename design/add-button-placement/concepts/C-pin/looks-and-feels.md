@@ -294,3 +294,47 @@ bleeding in". Everything reuses existing motion except the pin's ink-in.
   needs the overlay above.
 - The new row after Add can land half below the fold (`2d-done-844`). Systems
   should scroll it fully in view, as a list tap does.
+
+## Round 6: the app's own pin, the real tag (visual designer, turn 21)
+
+Owner on 5b: "the pin doesnt look like a pin and therefore the tag doesnt
+read as a tag (or a button for that matter)." Layer: `visual-r6.inc.html`
+(after visual + visual-r5).
+
+- **The pin is drawn by the app's own `badgeHtml()`**, the function that
+  draws every map pin, with a `#g-add` glyph in the icon set's language
+  (stroke 3.6, round caps, in the 24 box).
+- **Pick: the selected-pin grammar.** On the map, a pin whose tag is open
+  is the 32px filled disc (`MARKER_SIZE_NEAR_HI`, rim 2.5, ink field, paper
+  glyph). Here the ink is navy and the glyph a paper +.
+  - One +, in the icon slot.
+- **The tag is the Hanging Tag in miniature,** at 72x56:
+  - the die-cut with 13px chamfers;
+  - the orange band (`--star` on `--tex-flood`), 22px;
+  - the eyelet hole (r3.2 at y11);
+  - the paper-wash patch with its grommet, centred on the hole;
+  - cream stock (`--paper-raised`), blank;
+  - the tag's own 3-layer restrained shadow.
+- **The string:** a straight 1.5px `--ink-2` line from the pin's foot to
+  the eyelet's centre, on one axis.
+- **Placement:** the object is 72x94, 16px from the side, its foot 20px
+  above the list. The credit sits at bottom-left without "Leaflet |".
+- **Pressed:** the band goes deep orange and the stock goes `--paper`.
+- **Tried and dropped** (`R6-C3`):
+  - solid or dashed 24px pins with + (they read as pins but rank below the
+    account badge);
+  - deep-orange dashed;
+  - + on the tag (the pin goes back to an empty ring, the 5b failure).
+  - The dashed kind is the app's existing "(approx.)" pin, kept in reserve
+    for the *placed-but-unsaved* marker.
+- **Risk:** in the squint test (`R6-C2`) the pin and tag sit level with the
+  account badge rather than clearly above it.
+- **Not yet redrawn to the new pin:** the placed marker, the search glyph
+  and the form-tag (round 5 still uses the graphite ring).
+
+Stills:
+- `R6-C1-vs-account-3x.png`
+- `R6-C2-1x.png`
+- `R6-C3-pins-3x.png`
+
+Raw frames: `r6/`.

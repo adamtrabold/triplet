@@ -1,5 +1,72 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-13, round 6 (turn 21; new visual designer): Float ranks, A routes, C real pin, D killed
+Owner on 5b (verbatim in owner.md): ticket "disconnected" from place; C's
+"pin doesnt look like a pin"; the Float is "the same weight and heirarchy
+as account". Director turn 20 asked for the Float's hierarchy dials, A's
+place routes, C rebuilt on the app's own pin, and one D frame. All of them
+at 1x beside the account badge.
+
+### Files (all new; nothing older edited except the docs)
+- `concepts/r6-stills.js`: renders every round-6 frame into
+  `E-float/r6/`, `stub/r6/`, `C-pin/r6/`, `D-floated-ticket/r6/` (3x + 1x,
+  `measure.json` with clash lists). `ONLY=a,b` takes comma prefixes.
+  - **Every frame is the same zoomed view** (setView 64.1471,-21.9426 z14):
+    17 real pins are in shot and the account badge is always in frame.
+- `concepts/compose-r6.js`: the owner stills.
+  - Float: `E-float/R6-F1..F5`.
+  - A: `stub/R6-A1..A3`.
+  - C: `C-pin/R6-C1..C3`.
+  - D: `D-floated-ticket/R6-D1`.
+  - The 1x window is x150–390, y0–610 (account down to the list header),
+    shown at 2x pixelated, with a blurred copy beside it (the squint test).
+- Layers:
+  - Float: `E-float/r6.inc.html` (dials `data-ff/fs/fc/acct`).
+  - A: `stub/r6.inc.html` (routes on `data-a`; an SVG mask sized live).
+  - C: `C-pin/visual-r6.inc.html` (`data-c6`, `data-ct="big"`).
+  - D: `D-floated-ticket/d.inc.html` (`data-d`).
+
+### Decisions and why
+- **Float pick:** orange stock + navy 3px +, 60px (scale 1.2 about the
+  lower-right ink corner), postage-stamp edge (24 lobes, depth 1.7).
+  - Orange alone looks lighter than navy, and size alone still reads as a
+    pair; together they win the squint test.
+  - 10-lobe "rosette" reads as a flower or a gear.
+  - The account frame (40px) isn't needed.
+- **A pick: admission.** The tear line is 15px in, with half-round notches
+  r6 on it.
+  - Tag cut (chamfers + eyelet) is the only route that says place, but it
+    isn't a ticket; offered to the director.
+  - Punches killed (round = a dot; teardrop = a water drop, not our pin).
+- **C pick: hi + big tag.**
+  - The pin: `badgeHtml('add','circle',32,{ink navy, fill navy, mark
+    cream, rim 2.5})`, which is the selected-pin grammar.
+  - The tag: 72x56, band 22, chamfer 13, eyelet r3.2 at 11.
+  - The object is 72x94.
+  - **Gotcha:** concept.inc's `#pencilPin svg {52x64}` sizes every nested
+    svg, so visual-r6 resets the pin, glyph and + svg sizes.
+  - **Gotcha:** an SVG `<symbol>` inserted as HTML text loses its viewBox,
+    so use DOMParser.
+- **D: kill.** It reads as "A moved to the corner", and the pinned cut needs
+  two marks.
+
+### Open
+- The Float's seam: the account's open state is also an orange field
+  (sign-in crew / brand-token pass). Clusters are deep orange, so "the only
+  orange object" holds only at street zoom.
+- C ranks level with the account in the squint test (colour and position,
+  not mass). If the director wants more, the next dial is the tag (80x62)
+  or the pin's field in brand orange (but that risks reading as a cluster).
+- C's placed marker, search glyph and form-tag haven't been re-drawn to the
+  new pin yet (round 5 still uses the graphite ring). Needed if C goes
+  forward.
+- A tag-cut vs admission: the director's call.
+- Owner Q1/Q2 still wait for an approved concept.
+
+### Next
+Systems measures the Float's 60px footprint and C's 72x94 slot; then the
+director scores all of them in one pass.
+
 ## UPDATE 2026-10-13, turn 18: the director's turn-17 fixes (scores: Float 9, A 9, C 8)
 - C: the dashed ring read as a loading spinner at 1x, so it's now an EMPTY
   PIN (solid 2px --ink-2 ring on paper), `data-ring="graphite"` in

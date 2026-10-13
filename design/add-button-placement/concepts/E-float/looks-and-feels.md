@@ -82,3 +82,41 @@ is edited.
 - (Closed: two oranges with the form open. The director ruled the badge
   stays navy; see above.)
 - The OSM credit at bottom-left sits under the zoom's column and reads fine.
+
+## Round 6: + outranks the account (visual designer, turn 21)
+
+Owner on 5b: "prominence is the problem on the badge... its the same weight
+and heirarchy as account, which it shouldnt be." The badge stays in the
+family; it now differs from the account on three axes.
+
+- **Field:** brand orange (`--brand-orange`) on the band's paper tooth
+  (`--tex-flood`, 160px, offset -23 -71), with a **navy + at 3px**.
+  - Pressed: `--brand-orange-deep`, paper +.
+  - Open (form): R17 unchanged, navy with a paper ×, so ADD LOCATION stays
+    the one orange button.
+- **Size:** 60px box (scale 1.2) about the scallop's lower-right ink
+  corner. The ink stays 20px from the side and from the list; the footprint
+  grows up and left. Measured box: 315,469 – 375,529 at 390x844.
+- **Edge:** a postage-stamp cut, 24 fine lobes (depth 1.7px), instead of
+  the account's 14-lobe scallop. It's still a wavy-edged badge, but a
+  different kind.
+  - 10 deep round lobes were rejected: a flower or a gear.
+- **Account badge:** untouched. The one labelled frame with it at 40px
+  (`R6-F4`) shows it isn't needed.
+- **Squint test** (`R6-F2`): the orange 60px badge is clearly first and the
+  account second. Navy 60px stays a pair; orange 50px looks lighter than
+  the account.
+- **Seams to flag:**
+  - The account's own open state is an orange field (sign-in crew /
+    brand-token pass).
+  - Clusters are deep orange discs at city zoom.
+
+Stills:
+- `R6-F1-vs-account-3x.png`: the 5b twin beside the round-6 pick.
+- `R6-F2-1x.png`: 1x + squint.
+- `R6-F3-dials-3x.png`: each dial alone, then combined.
+- `R6-F4-account-step-3x.png`: the flag frame.
+- `R6-F5-states-3x.png`: pressed, tag open, adding.
+
+Raw frames: `r6/` (`measure.json`, all clash-clean). Layer:
+`r6.inc.html`, rendered by `../r6-stills.js`.

@@ -194,3 +194,38 @@ The appendix (`appendix/`) is systems'.
 
 - Account badge *open* = orange field with navy glyph, which is the stub's
   rest colouring. This goes to the sign-in crew or the brand-token pass.
+
+## Round 6: a ticket to a place (visual designer, turn 21)
+
+Owner on 5b: "the claim check feels fairly disconnected to the idea of a
+location, but maybe as a 'ticket' it works if i think of it that way."
+Routes are in `r6.inc.html` (`data-a`). Each die-cut is an SVG mask on #nb,
+sized to the stub's live box.
+
+- **Admission (pick):** the tear line moves inside the stock, 15px from
+  the left edge: a 1.5px paper dash, opacity .9, 10px end insets. Two
+  **half-round notches (r6)** sit ON the tear line, one at the top edge and
+  one at the bottom (a rail or museum ticket; also the Hanging Tag stub's
+  own notch).
+  - The 15px left of the line is the torn-off stub.
+  - The + is shifted 7px right so it centres on the ticket proper.
+  - Corners are square. Everything else is unchanged from round 5: orange
+    tooth stock, navy + 28px at 3px, the states.
+  - At 1x it reads as "a ticket".
+- **Tag cut (offered):** the Hanging Tag's die-cut on its side: 14px
+  chamfers at the left end and an eyelet hole (r3.6) 9.5px in. It reads as
+  "a place's tag", the only route that says place without an added mark,
+  but it is no longer a ticket.
+- **Killed:**
+  - round punch (our pin is a disc, so its punch is a dot);
+  - teardrop punch (a water drop at 1x, and not our pin).
+- **Honest line:** A is a ticket for adding. Rail conventions make
+  "ticket" land; place only shows through the tag cut.
+- **Cost:** unchanged (the list title is 32px shorter).
+
+Stills:
+- `R6-A1-vs-account-3x.png`
+- `R6-A2-1x.png`
+- `R6-A3-routes-3x.png`
+
+Raw frames: `r6/`.

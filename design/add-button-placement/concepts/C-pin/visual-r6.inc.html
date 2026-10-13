@@ -14,22 +14,35 @@
        hi       the selected-pin grammar (32px, ink field, paper glyph), navy; the tag blank
        tagplus  dashed pin with no glyph; the + printed on the tag's stock -->
 <style id="conceptCr6">
-  html[data-c6] #pencilPin { --tw: 58px; --th: 46px; width: var(--tw); height: calc(24px + 10px + var(--th)); right: 16px; bottom: 20px; }
+  html[data-c6] #pencilPin { --tw: 64px; --th: 50px; width: var(--tw); height: calc(24px + 10px + var(--th)); right: 16px; bottom: 20px; }
   html[data-c6="hi"] #pencilPin { height: calc(32px + 6px + var(--th)); }
+  /* data-ct="big": the tag one step up (72x56, band 22) -- prominence from the tag's mass, the pin stays map size */
+  html[data-ct="big"] #pencilPin { --tw: 72px; --th: 56px; }
+  html[data-ct="big"] #pencilPin .c6-band { height: 22px; }
+  html[data-ct="big"] #pencilPin .c6-patch { top: 4px; }
+  html[data-ct="big"] #pencilPin .c6-tag { clip-path: polygon(13px 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 0 100%, 0 13px);
+    -webkit-mask: radial-gradient(circle 3.2px at 50% 11px, transparent 2.8px, #000 3.2px); mask: radial-gradient(circle 3.2px at 50% 11px, transparent 2.8px, #000 3.2px); }
+  html[data-ct="big"][data-c6="hi"] #pencilPin .c6-string { height: 19px; }
   html[data-c6] #pencilPin .c6-pin { left: 50%; top: 0; transform: translateX(-50%); line-height: 0; z-index: 4;
     filter: drop-shadow(0 1px 1px rgba(30,40,50,.18)); }
   html[data-c6] #pencilPin .c6-string { z-index: 3; left: calc(50% - .75px); top: 22px; width: 1.5px; height: 22px; background: var(--ink-2); border-radius: 1px; }
-  html[data-c6="hi"] #pencilPin .c6-string { top: 30px; height: 16px; }
+  html[data-c6="hi"] #pencilPin .c6-string { top: 30px; height: 18px; }
   html[data-c6] #pencilPin .c6-tagw { left: 0; right: 0; bottom: 0; height: var(--th);
     filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)) drop-shadow(0 3px 4px var(--tag-shadow-lift)); }
   html[data-c6] #pencilPin .c6-tag { position: absolute; inset: 0; background: var(--paper-raised); overflow: hidden;
     clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%, 0 11px);
-    -webkit-mask: radial-gradient(circle 3px at 50% 9px, transparent 2.6px, #000 3px); mask: radial-gradient(circle 3px at 50% 9px, transparent 2.6px, #000 3px); }
-  html[data-c6] #pencilPin .c6-band { position: absolute; left: 0; right: 0; top: 0; height: 18px; background-color: var(--star); background-image: var(--tex-flood); background-size: 160px 160px; background-position: -61px -23px; }
-  html[data-c6] #pencilPin .c6-patch { position: absolute; left: calc(50% - 11px); top: 2px; width: 22px; height: 14px;
+    -webkit-mask: radial-gradient(circle 3px at 50% 10px, transparent 2.6px, #000 3px); mask: radial-gradient(circle 3px at 50% 10px, transparent 2.6px, #000 3px); }
+  html[data-c6] #pencilPin .c6-band { position: absolute; left: 0; right: 0; top: 0; height: 20px; background-color: var(--star); background-image: var(--tex-flood); background-size: 160px 160px; background-position: -61px -23px; }
+  html[data-c6] #pencilPin .c6-patch { position: absolute; left: calc(50% - 12px); top: 3px; width: 24px; height: 14px;
     background: radial-gradient(circle at 50% 50%, transparent 2.6px, color-mix(in srgb, var(--paper) 65%, transparent) 3px, color-mix(in srgb, var(--paper) 65%, transparent) 4.6px, transparent 5px), color-mix(in srgb, var(--paper) 28%, transparent);
     clip-path: polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px); }
-  html[data-c6] #pencilPin .c6-plus { position: absolute; left: 0; right: 0; top: 18px; bottom: 0; display: flex; align-items: center; justify-content: center; color: var(--navy); }
+  html[data-c6] #pencilPin .c6-plus { position: absolute; left: 0; right: 0; top: 20px; bottom: 0; display: flex; align-items: center; justify-content: center; color: var(--navy); }
+  /* concept.inc's '#pencilPin svg { 52x64 }' (systems' old teardrop) would size every svg inside: give each its own size */
+  html[data-c6] #pencilPin .c6-pin > svg { width: 24px; height: 24px; filter: none; }
+  html[data-c6="hi"] #pencilPin .c6-pin > svg { width: 32px; height: 32px; }
+  html[data-c6] #pencilPin .c6-pin svg svg { width: 18px; height: 18px; filter: none; }
+  html[data-c6="hi"] #pencilPin .c6-pin svg svg { width: 23px; height: 23px; }
+  html[data-c6] #pencilPin .c6-plus svg { width: 26px; height: 26px; filter: none; }
   html[data-c6] #pencilPin.press .c6-band { background-color: var(--brand-orange-deep); }
   html[data-c6] #pencilPin.press .c6-tag { background: var(--paper); }
 </style>
@@ -38,14 +51,16 @@
   const root = document.documentElement, v = root.dataset.c6, pin = document.getElementById('pencilPin');
   if (!v || !pin) return;
   const sprite = document.querySelector('symbol#g-cafe').parentNode;
-  if (!document.getElementById('g-add')) sprite.insertAdjacentHTML('beforeend', '<symbol id="g-add" viewBox="0 0 24 24"><path d="M12 4.5v15M4.5 12h15" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></symbol>');
+  // the sprite's + (parsed as SVG: inserted as HTML text its viewBox is lost and the glyph draws off-centre)
+  if (!document.getElementById('g-add')) { const d = new DOMParser().parseFromString('<svg xmlns="http://www.w3.org/2000/svg"><symbol id="g-add" viewBox="0 0 24 24"><path d="M12 4.5v15M4.5 12h15" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></symbol></svg>', 'image/svg+xml');
+    sprite.appendChild(document.importNode(d.documentElement.firstChild, true)); }
   const NAVY = '#12293F', CREAM = '#F2EBDD', DEEP = '#A8400C';
   const pinSvg = v === 'hi' ? badgeHtml('add', 'circle', 32, { ink: NAVY, fill: NAVY, mark: CREAM, rim: 2.5 })
     : v === 'solid' ? badgeHtml('add', 'circle', 24, { ink: NAVY, fill: CREAM, mark: NAVY, rim: 2 })
     : v === 'orange' ? badgeHtml('add', 'dashed', 24, { ink: DEEP, fill: CREAM, mark: DEEP, rim: 2 })
     : v === 'tagplus' ? badgeHtml('add', 'dashed', 24, { ink: NAVY, fill: CREAM, rim: 2, glyph: false })
     : badgeHtml('add', 'dashed', 24, { ink: NAVY, fill: CREAM, mark: NAVY, rim: 2 });
-  const plus = v === 'tagplus' ? '<span class="c6-plus"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span>' : '';
+  const plus = v === 'tagplus' ? '<span class="c6-plus"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg></span>' : '';
   pin.innerHTML = `<span class="c6-pin">${pinSvg}</span><span class="c6-string"></span><span class="c6-tagw"><span class="c6-tag"><span class="c6-band"></span><span class="c6-patch"></span>${plus}</span></span>`;
 })();
 </script>

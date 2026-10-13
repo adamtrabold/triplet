@@ -29,17 +29,19 @@ both('f-orange', { k: 'F', a: 'data-ff="orange" data-fs="1" data-fc="same"' });
 both('f-navy-big', { k: 'F', a: 'data-ff="navy" data-fs="1.2" data-fc="same"' });
 both('f-navy-big-rosette', { k: 'F', a: 'data-ff="navy" data-fs="1.2" data-fc="rosette"' });
 both('f-orange-big', { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="same"' });
-both('f-orange-big-rosette', { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="rosette"' });
+both('f-orange-big-rosette', { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="seal"' });
 both('f-orange-big-seal', { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="seal"' });
-both('f-acct-small', { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="rosette" data-acct="small"' });
-F['f-pick-pressed'] = { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="rosette"', run: press('#floatingAddBtn') };
-F['f-pick-tag'] = { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="rosette"', run: openStarred, noZoom: true };
-F['f-pick-form'] = { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="rosette"', q: '?play', run: async p => { await p.click('#floatingAddBtn'); await p.waitForTimeout(1000); } };
+both('f-acct-small', { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="seal" data-acct="small"' });
+F['f-pick-pressed'] = { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="seal"', run: press('#floatingAddBtn') };
+F['f-pick-tag'] = { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="seal"', run: openStarred, noZoom: true };
+F['f-pick-form'] = { k: 'F', a: 'data-ff="orange" data-fs="1.2" data-fc="seal"', q: '?play', run: async p => { await p.click('#floatingAddBtn'); await p.waitForTimeout(1000); } };
 // ---- A: routes to "a ticket to a place" ----
 for (const v of ['ticket', 'admit', 'tagcut', 'punchdisc', 'punchdrop']) both('a-' + v, { k: 'A', a: `data-a="${v}"` });
 F['a-admit-pressed'] = { k: 'A', a: 'data-a="admit"', run: press('#nb') };
 // ---- C: the app's own pin ----
 for (const v of ['dashed', 'solid', 'orange', 'hi', 'tagplus']) both('c-' + v, { k: 'C', a: `data-c6="${v}"` });
+both('c-hi-big', { k: 'C', a: 'data-c6="hi" data-ct="big"' });
+both('c-solid-big', { k: 'C', a: 'data-c6="solid" data-ct="big"' });
 F['c-dashed-pressed'] = { k: 'C', a: 'data-c6="dashed"', run: press('#pencilPin') };
 // ---- D: one rough frame (two cuts of it, to kill or keep) ----
 both('d-bare', { k: 'D', a: 'data-d="bare"' });
