@@ -27,7 +27,7 @@ const inj = (h, incs, attrs) => { const i = h.lastIndexOf('</body>'); return (h.
 const floatHtml = () => inj(floatBase, [eInc, R17, rd('E-float/r6.inc.html')], PICK);
 const cHtml = a => inj(real, [rd('C-pin/concept.inc.html'), rd('C-pin/visual.inc.html'), rd('C-pin/visual-r5.inc.html'), rd('C-pin/visual-r6.inc.html')],
   `data-c="ring" data-ring="graphite" ${/data-c6=/.test(a) ? '' : 'data-c6="hi"'} ${a}`);
-const CPICK = 'data-ct="xl" data-te="edge" data-al="ink" data-c6="hio"';   // round 6b pick: the selected pin in the action orange
+const CPICK = 'data-ct="xl" data-te="edge" data-al="ink" data-c6="hio" data-band="none"';   // round 6b pick: the selected pin in the action orange
 const CNAVY = 'data-ct="xl" data-te="edge" data-al="ink"';
 // ---- C's add flow helpers (from C-pin/stills.js) ----
 const PICKED = { lat: 64.1417, lon: -21.9266, name: 'Hallgrímskirkja, Hallgrímstorg 1, Miðborg, Reykjavík, 101, Iceland',
