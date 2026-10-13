@@ -254,3 +254,17 @@ rendered:
 - iPhone checks, if this builds: the badge riding with the sheet's transform
   (no lag), the left-edge back swipe (left corner only), and the 320 credit
   next to the badge.
+
+## Round 5: coverage beside A and C (systems, jam turn 16)
+
+| Job | E Float (pick) | A ticket | C ring |
+|---|---|---|---|
+| 1 Reach | yes, except filters open | **yes, no exceptions** | yes, except filters open and tag open |
+| 2 Main action | yes by position, the look unchanged | yes | yes |
+| 3 Finish near the thumb | yes (Add on the ×'s line) | yes (Add above the ×) | yes (Add sticky in the blank tag) |
+| 4 Don't lose my place | yes | yes | yes |
+| 5 Never in the way | yes, **needs `TAG_SHEET_GAP` 78** + the credit move | yes; costs the title 32px | yes (steps aside under a tag); credit moved |
+| 6 Signed out / playground | yes | yes | yes |
+
+Shared, Float and C: at 320 the moved credit touches the corner control
+(2.9px / 3.2px). Dropping the "Leaflet |" prefix fixes both.

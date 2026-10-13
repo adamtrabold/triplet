@@ -1,0 +1,741 @@
+{
+ "C": {
+  "rest_844": {
+   "visible": true,
+   "box": [
+    314,
+    440,
+    374,
+    524
+   ],
+   "tag": [
+    314,
+    476,
+    374,
+    524
+   ],
+   "ringTop": 440,
+   "footToSheet": 20,
+   "sheetTop": 544,
+   "hitTag": "self",
+   "credit": [
+    0,
+    527,
+    251,
+    544
+   ],
+   "creditGap": [
+    62.9,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    366
+   ],
+   "acctGap": [
+    -50,
+    374
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "rest_664": {
+   "visible": true,
+   "box": [
+    314,
+    260,
+    374,
+    344
+   ],
+   "tag": [
+    314,
+    296,
+    374,
+    344
+   ],
+   "ringTop": 260,
+   "footToSheet": 20,
+   "sheetTop": 364,
+   "hitTag": "self",
+   "credit": [
+    0,
+    347,
+    251,
+    364
+   ],
+   "creditGap": [
+    62.9,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    186
+   ],
+   "acctGap": [
+    -50,
+    194
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "collapsed_safe": {
+   "visible": true,
+   "box": [
+    314,
+    646,
+    374,
+    730
+   ],
+   "tag": [
+    314,
+    682,
+    374,
+    730
+   ],
+   "ringTop": 646,
+   "footToSheet": 20,
+   "sheetTop": 750,
+   "hitTag": "self",
+   "credit": [
+    0,
+    733,
+    251,
+    750
+   ],
+   "creditGap": [
+    62.9,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    525
+   ],
+   "acctGap": [
+    -50,
+    533
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "cph_320": {
+   "visible": true,
+   "box": [
+    244,
+    164,
+    304,
+    248
+   ],
+   "tag": [
+    244,
+    200,
+    304,
+    248
+   ],
+   "ringTop": 164,
+   "footToSheet": 20,
+   "sheetTop": 268,
+   "hitTag": "self",
+   "credit": [
+    0,
+    251,
+    251,
+    268
+   ],
+   "creditGap": [
+    -7.1,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    200,
+    90
+   ],
+   "acctGap": [
+    -50,
+    98
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "se_375": {
+   "visible": true,
+   "box": [
+    299,
+    263,
+    359,
+    347
+   ],
+   "tag": [
+    299,
+    299,
+    359,
+    347
+   ],
+   "ringTop": 263,
+   "footToSheet": 20,
+   "sheetTop": 367,
+   "hitTag": "self",
+   "credit": [
+    0,
+    350,
+    251,
+    367
+   ],
+   "creditGap": [
+    47.9,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    255,
+    189
+   ],
+   "acctGap": [
+    -50,
+    197
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "tag_844": {
+   "visible": false,
+   "box": [
+    314,
+    440,
+    374,
+    524
+   ],
+   "tag": [
+    314,
+    476,
+    374,
+    524
+   ],
+   "ringTop": 440,
+   "footToSheet": 20,
+   "sheetTop": 544,
+   "hitTag": "map",
+   "credit": [
+    0,
+    527,
+    251,
+    544
+   ],
+   "creditGap": [
+    62.9,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": [
+    37,
+    142,
+    353,
+    346
+   ],
+   "overTag": false,
+   "tagFootToSheet": 198,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    366
+   ],
+   "acctGap": [
+    -50,
+    374
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "tag_664": {
+   "visible": false,
+   "box": [
+    314,
+    294,
+    374,
+    378
+   ],
+   "tag": [
+    314,
+    330,
+    374,
+    378
+   ],
+   "ringTop": 294,
+   "footToSheet": 20,
+   "sheetTop": 398,
+   "hitTag": "map",
+   "credit": [
+    0,
+    381,
+    251,
+    398
+   ],
+   "creditGap": [
+    62.9,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": [
+    37,
+    142,
+    353,
+    346
+   ],
+   "overTag": true,
+   "tagFootToSheet": 52,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    220
+   ],
+   "acctGap": [
+    -50,
+    228
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "tag_closed_664": {
+   "visible": true,
+   "box": [
+    314,
+    260,
+    374,
+    344
+   ],
+   "tag": [
+    314,
+    296,
+    374,
+    344
+   ],
+   "ringTop": 260,
+   "footToSheet": 20,
+   "sheetTop": 364,
+   "hitTag": "self",
+   "credit": [
+    0,
+    347,
+    251,
+    364
+   ],
+   "creditGap": [
+    62.9,
+    3.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": null,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    186
+   ],
+   "acctGap": [
+    -50,
+    194
+   ],
+   "chrome": [],
+   "errs": []
+  },
+  "filters_844": {
+   "visible": false,
+   "box": [
+    314,
+    67,
+    374,
+    151
+   ],
+   "tag": [
+    314,
+    103,
+    374,
+    151
+   ],
+   "ringTop": 67,
+   "footToSheet": 393,
+   "sheetTop": 544,
+   "hitTag": "map",
+   "credit": [
+    0,
+    527,
+    251,
+    544
+   ],
+   "creditGap": [
+    62.9,
+    376.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": false,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    -7
+   ],
+   "acctGap": [
+    -50,
+    1
+   ],
+   "chrome": [
+    "creditxfilters"
+   ],
+   "errs": []
+  },
+  "filters_664": {
+   "visible": false,
+   "box": [
+    314,
+    -41,
+    374,
+    43
+   ],
+   "tag": [
+    314,
+    -5,
+    374,
+    43
+   ],
+   "ringTop": -41,
+   "footToSheet": 321,
+   "sheetTop": 364,
+   "hitTag": "accountBtn",
+   "credit": [
+    0,
+    347,
+    251,
+    364
+   ],
+   "creditGap": [
+    62.9,
+    304.2
+   ],
+   "overCredit": false,
+   "tagBox": null,
+   "overTag": null,
+   "tagFootToSheet": null,
+   "overPanel": false,
+   "pinsUnder": 0,
+   "zoomGap": [
+    270,
+    -33
+   ],
+   "acctGap": [
+    -50,
+    -27
+   ],
+   "chrome": [
+    "filtersxzoom",
+    "creditxfilters"
+   ],
+   "errs": []
+  },
+  "pins": {
+   "la": 0,
+   "la_collapsed": 0,
+   "reykjavik": 0,
+   "reykjavik_collapsed": 0,
+   "copenhagen": 0,
+   "copenhagen_collapsed": 0,
+   "malmo": 0,
+   "malmo_collapsed": 0,
+   "stockholm": 0,
+   "stockholm_collapsed": 0
+  }
+ },
+ "A": {
+  "320x568": {
+   "today:la": {
+    "w": 116,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:reykjavik": {
+    "w": 116,
+    "full": "Reykjavík list (23)",
+    "shown": "Reykjavík list (23)",
+    "ellipsized": true,
+    "cls": ""
+   },
+   "today:copenhagen": {
+    "w": 116,
+    "full": "Copenhagen list (23)",
+    "shown": "Copenhagen list (23)",
+    "ellipsized": true,
+    "cls": ""
+   },
+   "today:malmo": {
+    "w": 116,
+    "full": "Malmö list (23)",
+    "shown": "Malmö list (23)",
+    "ellipsized": true,
+    "cls": ""
+   },
+   "today:stockholm": {
+    "w": 116,
+    "full": "Stockholm list (23)",
+    "shown": "Stockholm list (23)",
+    "ellipsized": true,
+    "cls": ""
+   },
+   "today:all": {
+    "w": 116,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "A:la": {
+    "w": 84,
+    "full": "LA list (23)",
+    "shown": "LA (23)",
+    "ellipsized": false,
+    "cls": "fit no-w"
+   },
+   "A:reykjavik": {
+    "w": 84,
+    "full": "Reykjavík list (23)",
+    "shown": "Reykjavík",
+    "ellipsized": false,
+    "cls": "fit no-w no-c"
+   },
+   "A:copenhagen": {
+    "w": 84,
+    "full": "Copenhagen list (23)",
+    "shown": "Copenhagen",
+    "ellipsized": true,
+    "cls": "fit no-w no-c"
+   },
+   "A:malmo": {
+    "w": 84,
+    "full": "Malmö list (23)",
+    "shown": "Malmö",
+    "ellipsized": false,
+    "cls": "fit no-w no-c"
+   },
+   "A:stockholm": {
+    "w": 84,
+    "full": "Stockholm list (23)",
+    "shown": "Stockholm",
+    "ellipsized": true,
+    "cls": "fit no-w no-c"
+   },
+   "A:all": {
+    "w": 84,
+    "full": "LA list (23)",
+    "shown": "LA (23)",
+    "ellipsized": false,
+    "cls": "fit no-w"
+   }
+  },
+  "375x667": {
+   "today:la": {
+    "w": 171,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:reykjavik": {
+    "w": 171,
+    "full": "Reykjavík list (23)",
+    "shown": "Reykjavík list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:copenhagen": {
+    "w": 171,
+    "full": "Copenhagen list (23)",
+    "shown": "Copenhagen list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:malmo": {
+    "w": 171,
+    "full": "Malmö list (23)",
+    "shown": "Malmö list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:stockholm": {
+    "w": 171,
+    "full": "Stockholm list (23)",
+    "shown": "Stockholm list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:all": {
+    "w": 171,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "A:la": {
+    "w": 139,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": "fit"
+   },
+   "A:reykjavik": {
+    "w": 139,
+    "full": "Reykjavík list (23)",
+    "shown": "Reykjavík (23)",
+    "ellipsized": false,
+    "cls": "fit no-w"
+   },
+   "A:copenhagen": {
+    "w": 139,
+    "full": "Copenhagen list (23)",
+    "shown": "Copenhagen (23)",
+    "ellipsized": false,
+    "cls": "fit no-w"
+   },
+   "A:malmo": {
+    "w": 139,
+    "full": "Malmö list (23)",
+    "shown": "Malmö list (23)",
+    "ellipsized": false,
+    "cls": "fit"
+   },
+   "A:stockholm": {
+    "w": 139,
+    "full": "Stockholm list (23)",
+    "shown": "Stockholm (23)",
+    "ellipsized": false,
+    "cls": "fit no-w"
+   },
+   "A:all": {
+    "w": 139,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": "fit"
+   }
+  },
+  "390x844": {
+   "today:la": {
+    "w": 186,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:reykjavik": {
+    "w": 186,
+    "full": "Reykjavík list (23)",
+    "shown": "Reykjavík list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:copenhagen": {
+    "w": 186,
+    "full": "Copenhagen list (23)",
+    "shown": "Copenhagen list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:malmo": {
+    "w": 186,
+    "full": "Malmö list (23)",
+    "shown": "Malmö list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:stockholm": {
+    "w": 186,
+    "full": "Stockholm list (23)",
+    "shown": "Stockholm list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "today:all": {
+    "w": 186,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": ""
+   },
+   "A:la": {
+    "w": 154,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": "fit"
+   },
+   "A:reykjavik": {
+    "w": 154,
+    "full": "Reykjavík list (23)",
+    "shown": "Reykjavík list (23)",
+    "ellipsized": false,
+    "cls": "fit"
+   },
+   "A:copenhagen": {
+    "w": 154,
+    "full": "Copenhagen list (23)",
+    "shown": "Copenhagen (23)",
+    "ellipsized": false,
+    "cls": "fit no-w"
+   },
+   "A:malmo": {
+    "w": 154,
+    "full": "Malmö list (23)",
+    "shown": "Malmö list (23)",
+    "ellipsized": false,
+    "cls": "fit"
+   },
+   "A:stockholm": {
+    "w": 154,
+    "full": "Stockholm list (23)",
+    "shown": "Stockholm (23)",
+    "ellipsized": false,
+    "cls": "fit no-w"
+   },
+   "A:all": {
+    "w": 154,
+    "full": "LA list (23)",
+    "shown": "LA list (23)",
+    "ellipsized": false,
+    "cls": "fit"
+   }
+  }
+ }
+}

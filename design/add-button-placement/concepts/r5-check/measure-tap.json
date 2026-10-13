@@ -1,0 +1,47 @@
+{
+ "C_play": {
+  "adding": true,
+  "auth": false,
+  "focus": "nameInput"
+ },
+ "C_signin": {
+  "adding": false,
+  "auth": true,
+  "focus": "pencilPin"
+ },
+ "C_play_320": {
+  "adding": true,
+  "auth": false,
+  "focus": "nameInput"
+ },
+ "A_320": {
+  "nb": [
+   260,
+   508,
+   320,
+   565
+  ],
+  "submit": [
+   56,
+   440,
+   304,
+   484
+  ],
+  "submitHit": "self"
+ },
+ "A_375": {
+  "nb": [
+   315,
+   607,
+   375,
+   664
+  ],
+  "submit": [
+   56,
+   539,
+   359,
+   583
+  ],
+  "submitHit": "self"
+ }
+}

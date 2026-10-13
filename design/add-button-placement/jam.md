@@ -1747,3 +1747,51 @@ carries one cost line. Shared composer: `concepts/compose-r5.js`.
 NEXT: product designer (systems focus) -- a structural check of C's new
 footprint (60x84 at the Float's corner, the credit moved) before the
 director scores the round-5 set in one pass.
+
+## Turn 16 -- product designer (systems focus): structural check of C's footprint, A's title, coverage for all three
+
+Script and numbers: `concepts/r5-check/` (`check.js`, `tap.js`,
+`measure*.json`, `frames/`). Results are in each concept's
+`how-it-works.md`.
+
+**C ring (60x84, right 16, foot 20 above the edge): structurally sound.**
+- Clean at 844, 664, 375 and collapsed with the 34px inset (band 750, pin to
+  730). No pins under it in any city.
+- It steps aside under a tag and under the filters panel, so it never
+  collides there.
+- Because it hides, **C keeps `TAG_SHEET_GAP` at 48.** The Float needs 78.
+- The one tight spot is **320:** the moved credit runs 7px under the tag's
+  column, 3.2px below its foot. It doesn't overlap, but it touches. Dropping
+  the "Leaflet |" prefix fixes it, as it does for the Float (2.9px).
+- The add flow still works on the new pin: `?play` focuses search at
+  390/320; signed out opens sign-in.
+
+**A ticket: the title pays 32px at every width** (60px stub, minus 28 won
+back by tighter icon spacing).
+- 375: " list" drops in 3 of 5 cities.
+- 320: the count drops too, and COPENHA… and STOCKHO… still ellipsize, as
+  today's 320 header already does for four cities.
+- Add and × at 320 and 375 are fine.
+- Cost line: "the list title gets 32px shorter: 'list' goes first, and at
+  320 the count too."
+
+**Jobs, supported or not:**
+
+| Job | E Float | A ticket | C ring |
+|---|---|---|---|
+| 1 Reach | yes, except filters open | yes, no exceptions | yes, except filters open and tag open |
+| 2 Main action | yes (position; look unchanged) | yes | yes |
+| 3 Finish near the thumb | yes | yes | yes |
+| 4 Don't lose my place | yes | yes | yes |
+| 5 Never in the way | yes, with `TAG_SHEET_GAP` 78 | yes (costs the title) | yes |
+| 6 Signed out / playground | yes | yes | yes |
+
+There are no blockers, and no job goes unsupported in any of the three. Job
+1's exceptions are the only differences in coverage. The Float's tag-gap and
+credit rulings, and C's tag/filters exceptions, still need the director to
+confirm them.
+
+NEXT: design director -- the set is structurally checked and every job is
+covered (exceptions named). Score A, C and the baseline in one pass, and rule
+on the Float's `TAG_SHEET_GAP` 78, its filters "under", ride vs stay, and
+the 320 credit fix.

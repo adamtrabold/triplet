@@ -283,3 +283,19 @@ Open:
 Next: the structural sanity check on visual's pushed C (it sits in the same
 slot, so the tag gap, filters and credit apply), then the coverage check of
 the round-5 set before the owner sees it.
+
+## Turn 16 (2026-10-13): structural check of round-5 A and C
+- Visual's turn 15 kept my Float pick (r-gutter-20) and pushed A ("ticket")
+  and C ("ring", 60x84 at the Float's corner).
+- `concepts/r5-check/` has `check.js` (C footprint, A title), `tap.js`
+  (flows), measure files and frames.
+- C: sound. It hides under tag and filters, so `TAG_SHEET_GAP` stays 48. At
+  320 the credit touches the tag's foot (3.2px); the "Leaflet |" prefix drop
+  fixes it. Flows verified on the new pin.
+- A: the title is 32px shorter at every width (84/139/154 vs 116/171/186).
+  At 320 the count drops and COPENHA… still ellipsizes. Plans names aren't
+  measured (no plans in the stub).
+- Coverage: no unsupported job in any concept. Job-1 exceptions: Float
+  (filters), C (filters and tag), A none.
+- Next: the director scores. Then the final coverage check on whatever goes
+  to the owner.

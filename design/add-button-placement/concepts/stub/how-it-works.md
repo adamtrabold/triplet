@@ -172,3 +172,55 @@ is left, and the OSM credit rides to the form's top edge.
 | 6 Signed out / playground | yes | flows 7 and 8, `signedout_tap`, `play_tap` |
 
 Open items: the owner's Q1 (does the button ride down at all).
+
+---
+
+## Round 5 systems check: the "ticket" and its title cost (jam turn 16)
+
+The structure is unchanged from round 3/4 (a 60px stub at the header's right
+end, the drop on open, one ON tile). Only the look changed. Measured with
+`r5.inc.html` injected into the real index.html in memory.
+
+Script: `../r5-check/check.js` and `tap.js`. Numbers:
+`../r5-check/measure.json` (key `A`) and `measure-tap.json`. 1x title
+crops: `../r5-check/frames/A-title-*.png`.
+
+**Title cost.** Today vs the ticket, header title width. All five cities;
+stub data, so the count is (23).
+
+| Width | Today | Ticket | What the ticket shows |
+|---|---|---|---|
+| 320 | 116px. Reykjavík, Copenhagen, Malmö and Stockholm already ellipsize ("…LIST (23)" cut) | **84px (−32)** | LA (23); Reykjavík; Malmö (both " list" and the count drop); **Copenhagen and Stockholm still ellipsize ("COPENHA…")** |
+| 375 | 171px, everything in full | **139px (−32)** | " list" drops for Reykjavík, Copenhagen and Stockholm; LA and Malmö in full; no ellipsis |
+| 390 | 186px, in full | **154px (−32)** | " list" drops for Copenhagen and Stockholm |
+
+- The stub costs 60px, and the tighter icon spacing wins back 28, so the net
+  is 32px at every width.
+- At 320 the title loses its count in 4 of 5 cities. Two of them still cut
+  the name, which today's header also does.
+- Real counts go to 3 digits (Copenhagen 112), so the count drops sooner
+  than shown here.
+- Long plan names (Plans view) aren't measured: the stub data has no plans.
+  The same drop order applies.
+- **One cost line for the owner:** "the list title gets 32px shorter: 'list'
+  goes first, and at 320 the count too."
+
+**Other checks:**
+- In `?play` the form opens with the drop.
+  - 320x568: Add y 440–484, × y 508–565.
+  - 375x667: Add y 539–583, × y 607–664.
+  - Add hit-tests as itself at both.
+- The visual designer's frames (`r5/measure.json`) are `chrome-check` clean:
+  rest, open, tag, collapsed, 320.
+
+**Job coverage (round 5): all six supported, no exceptions.**
+1. Reach: yes in every state. Filters open: tapping it closes them. Tag open:
+   it opens the form and cancel restores the tag.
+2. Reads as the main action: yes (orange, the + printed heavier, in the
+   thumb band).
+3. Finish near the thumb: yes (Add directly above the ×).
+4. Don't lose my place: yes (cancel restores the list, its scroll and the
+   tag).
+5. Never in the way: yes (it lives in the header, off the map). Its cost is
+   the title, above.
+6. Signed out / playground: yes (round 3/4 appendix).

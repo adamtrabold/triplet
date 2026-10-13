@@ -118,3 +118,45 @@ How the prototype is built: `index.html` here is a **copy** of the real file, wi
 | 6 Signed out / playground | yes | `signedout_tap`, `done_664` |
 
 **Verdict (after the turn-10 rulings): structurally sound. The director scored it 8 in round 3; the remaining fixes are for the visual designer (scores.md).** *Earlier verdict, kept for history:* alive, but not a 9 as it stands. The flow is the strongest of the set. It's the fewest taps, the best search with the keyboard up, and the add ends on the place. But its home, the map's lower edge, is exactly where the tag and the filters panel want room at 664. It reaches 9 only if the director accepts one of the tag-open fixes, plus "close filters to add". Both cost the job-1 promise a little.
+
+---
+
+## Round 5 systems check: the "ring" footprint (jam turn 16)
+
+The visual designer's round-5 resting pin is an 18px dashed ring, a string,
+and a 60x48 orange tag printed with a +. It's checked here in this folder's
+copy with `visual.inc.html` and `visual-r5.inc.html` injected.
+
+Script: `../r5-check/check.js` and `tap.js`. Numbers:
+`../r5-check/measure.json` and `measure-tap.json`. Frames:
+`../r5-check/frames/C-*`.
+
+**Footprint.** 60x84, right 16, with the tag's foot 20px above the sheet
+edge. It rides the sheet. The credit moves to bottom-left, as on the Float.
+
+| State | Box (x1,y1,x2,y2) | Finding |
+|---|---|---|
+| 390x844, list up | 314,440,374,524 | Clean. The credit is 62.9px away. Hit-tests as itself |
+| 390x664 | 314,260,374,344 | Clean |
+| 375x667 | 299,263,359,347 | Clean. The credit is 47.9px away |
+| 320x568, Copenhagen | 244,164,304,248 | **Tight:** the credit (0–251) runs 7px under the tag's column, 3.2px below its foot. No overlap, but they touch visually. The fix is the same as the Float's: drop the "Leaflet \|" prefix (about 70px) |
+| Collapsed, 34px inset | 314,646,374,730 | The band starts at y 750. Safe area clear |
+| Tag open (starred), 844 and 664 | hidden | It steps aside (ruled). The tag would overlap the pin's slot at 664 (tag x 37–353, foot 52px above the sheet), but the pin is hidden, so **`TAG_SHEET_GAP` stays 48** (the Float needs 78). Close the tag and it's back (`tag_closed_664`, hit-tests as itself) |
+| Filters open, 844 and 664 | hidden | "Close filters to add" (ruled). Nothing peeks out over the zoom or account row |
+| Pins under it | 0 in all 5 cities, list up and collapsed | Sparse stub data. The 84px height is 34px more map than the Float's |
+
+- `chrome-check` is clean everywhere. Its only flags are the pre-existing
+  credit-under-filters and the filters panel vs zoom at 664.
+- Add flow: tap in `?play` gives `pinadd` with the search focused, at 390 and
+  320. Signed out (`?signin`) opens the sign-in sheet and nothing opens.
+
+**Job coverage (round 5):**
+
+| Job | C ring |
+|---|---|
+| 1 Reach | **Yes, with two exceptions:** tag open (close the tag first) and filters open (close filters first) |
+| 2 Reads as the main action | Yes. It's alone in its corner, and the + is the loudest mark (the visual designer's road-sign test) |
+| 3 Finish near the thumb | Yes (round 3/4: Add sticky in the blank tag, the search line on the band) |
+| 4 Don't lose my place | Yes (cancel keeps the draft and restores the view, as ruled in round 4) |
+| 5 Never in the way | Yes. It steps aside under a tag, the credit moves, and no pins sit under it. At 320 the credit touches the tag's foot (see the fix above) |
+| 6 Signed out / playground | Yes (verified on the round-5 pin) |
