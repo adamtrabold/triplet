@@ -1,0 +1,28 @@
+{
+ "2a-tap-664": {
+  "pin": [
+   314,
+   260,
+   374,
+   344
+  ],
+  "bar": "hidden",
+  "blank": "hidden",
+  "submit": "hidden",
+  "submitHit": null,
+  "starHit": null,
+  "catHit": null,
+  "after": null,
+  "form": "hidden",
+  "rows": 4,
+  "tag": null,
+  "header": [
+   0,
+   364,
+   390,
+   421
+  ],
+  "errs": [],
+  "clash": []
+ }
+}

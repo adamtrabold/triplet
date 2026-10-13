@@ -1,0 +1,52 @@
+{
+ "study-ring-1x": {
+  "pin": [
+   314,
+   440,
+   374,
+   524
+  ],
+  "pinHit": "self",
+  "tag": [
+   314,
+   476,
+   374,
+   524
+  ],
+  "sheetTop": 544,
+  "credit": [
+   0,
+   527,
+   186,
+   544
+  ],
+  "pinsUnder": 0,
+  "errs": [],
+  "clash": []
+ },
+ "study-ring-3x": {
+  "pin": [
+   314,
+   440,
+   374,
+   524
+  ],
+  "pinHit": "self",
+  "tag": [
+   314,
+   476,
+   374,
+   524
+  ],
+  "sheetTop": 544,
+  "credit": [
+   0,
+   527,
+   186,
+   544
+  ],
+  "pinsUnder": 0,
+  "errs": [],
+  "clash": []
+ }
+}

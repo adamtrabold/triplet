@@ -31,6 +31,17 @@ Re-render: `node stills.js` (`ONLY=<prefix>`), then `node ../compose-r5.js`.
 19.9, ride, credit move, filters under, tag gap clear). Nothing of systems'
 is edited.
 
+## Director turn 17 rulings, applied (re-shot E1–E8)
+
+- **Form open: the badge stays navy, and only its + turns into a paper ×**
+  (`#floatingAddBtn.active`: navy field, `--paper` glyph; open + pressed:
+  `--state-on-press`). ADD LOCATION is the one orange button (E5). This
+  changes today's inverted-orange ON state for the Float only. It's in
+  `stills.js` (`R17`), layered on systems' prototype.
+- **The credit drops "Leaflet |"** at every width: "© OpenStreetMap
+  contributors", at bottom-left (0–186 at every width). At 320 it now ends
+  68px short of the badge (it was 2.9px).
+
 ## The alignment (my call): systems' pick holds
 
 - **Right corner, box 16px from the side and 16px above the list's top
@@ -57,8 +68,8 @@ is edited.
 ## States and motion (unchanged from today, placed low)
 
 - Rest: navy scallop, orange +. Pressed: `--state-on-press` with a paper +.
-  Open: orange field with a navy × (today's inverted ON). Open + pressed:
-  deep orange with a paper ×. All today's CSS.
+  Open: **navy field, paper ×** (director ruling 5; today's is orange with a
+  navy ×). Open + pressed: `--state-on-press`, paper ×.
 - **Riding:** the badge moves with the sheet's own transform (0.3s ease), so
   it's never a separate motion. List up → collapsed, a tag lowering the
   sheet, and tap-to-add all use the same ride.
@@ -68,13 +79,6 @@ is edited.
 
 ## Open (visual)
 
-- **Two oranges with the form open** (E5): the × in today's ON state (orange
-  scallop) sits right beside ADD LOCATION (orange bar). ADD wins by size, so
-  it's readable, but they compete. Kept as today because the brief says
-  "the existing badge, unchanged". If this option is chosen, I'd want the
-  open × to follow the header's ON-tile rule (navy field, paper ×), so only
-  Add is orange. That's a change to the badge's look, so it's the owner's
-  call.
-- The OSM credit at bottom-left sits under the zoom's column. It reads fine;
-  at 320 it ends 3px from the badge (systems: drop Leaflet's "Leaflet |"
-  prefix to win about 70px).
+- (Closed: two oranges with the form open. The director ruled the badge
+  stays navy; see above.)
+- The OSM credit at bottom-left sits under the zoom's column and reads fine.

@@ -6,7 +6,14 @@ const L = require('../lib-render.js'); const chromeCheck = require('../chrome-ch
 const COPY = path.join(__dirname, 'index.html'), OUT = path.join(__dirname, 'stills');
 fs.mkdirSync(OUT, { recursive: true });
 const V = { r: 'data-corner="r" data-align="gutter" data-gap="19.9"', l: 'data-corner="l" data-align="gutter" data-gap="19.9"' };
-const cfg = (corner, form) => h => h.replace('<html lang="en"', `<html lang="en" ${V[corner]} data-form="${form || 'ride'}" data-credit="move" data-filters="under" data-taggap="clear"`);
+// Director turn 17 rulings, layered on systems' prototype (visual): (4) the credit drops Leaflet's "Leaflet |" prefix at every
+// width; (5) while the form is open the badge stays NAVY and only its glyph turns into a PAPER x -- ADD LOCATION is the one orange.
+const R17 = `<style id="floatR17">
+  #floatingAddBtn.active { background: var(--navy); color: var(--paper); }            /* open: navy field, paper x (the header's ON-glyph colour) */
+  #floatingAddBtn.active:active { background: var(--state-on-press); color: var(--paper); }   /* open + pressed: the badge's own press step */
+</style><script>(function () { const t = setInterval(() => { try { if (map && map.attributionControl) { map.attributionControl.setPrefix(false); clearInterval(t); } } catch (e) {} }, 50); })();</script>`;
+const cfg = (corner, form) => h => { const i = h.lastIndexOf('</body>'); h = h.slice(0, i) + R17 + '\n' + h.slice(i);
+  return h.replace('<html lang="en"', `<html lang="en" ${V[corner]} data-form="${form || 'ride'}" data-credit="move" data-filters="under" data-taggap="clear"`); };
 const openStarred = async page => {
   const id = await page.evaluate(() => { const l = locations.find(l => l.starred && l.visited && document.querySelector(`#locationsList .location-card[data-id="${l.id}"]`)) || locations.find(l => l.starred && document.querySelector(`#locationsList .location-card[data-id="${l.id}"]`)); return l && l.id; });
   await page.click(`#locationsList .location-card[data-id="${id}"]`); await page.waitForTimeout(1900); };

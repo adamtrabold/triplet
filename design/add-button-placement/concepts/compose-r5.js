@@ -26,9 +26,9 @@ const pages = {
   'E-float/E2-right-list-up-3x.png': `${cap('Right corner, list up', '16px in from the side and 16px above the list, so its edge sits 20px from both.')}${img(BASE, 'width:1170px')}`,
   'E-float/E3-right-list-down-3x.png': `${cap('List down (Home Screen)', 'It rides the list’s edge down, the same 20px above it.')}${img(E + 'collapsed-r-3x.png', 'width:1170px')}`,
   'E-float/E4-right-tag-open-3x.png': `${cap('A place’s tag open', 'The tag hangs clear of the badge; nothing moves.')}${img(E + 'tag-r-3x.png', 'width:1170px')}`,
-  'E-float/E5-right-adding-3x.png': `${cap('Tap +', 'The list slides down and the badge rides down with it, turning into ×. ADD LOCATION sits on the same line, beside it.')}${img(E + 'form-r-3x.png', 'width:1170px')}
+  'E-float/E5-right-adding-3x.png': `${cap('Tap +', 'The list slides down and the badge rides down with it. It stays navy; only its + turns into ×. ADD LOCATION, the one orange button, sits on the same line beside it.')}${img(E + 'form-r-3x.png', 'width:1170px')}
      <div class="cost"><b>Cost:</b> + moves down on tap (and back on cancel). With the filters open, close them first.</div>`,
-  'E-float/E6-right-320-3x.png': `${cap('Smallest phone (320 wide)', 'Copenhagen. The map credit moves to the left corner.')}${img(E + 'cph320-r-3x.png', 'width:960px;margin:0 105px')}<div class="gap"></div>`,
+  'E-float/E6-right-320-3x.png': `${cap('Smallest phone (320 wide)', 'Copenhagen. The map credit moves to the left corner, shortened to “© OpenStreetMap contributors”.')}${img(E + 'cph320-r-3x.png', 'width:960px;margin:0 105px')}<div class="gap"></div>`,
   'E-float/E7-right-664-3x.png': `${cap('In a Safari tab (390×664)', 'Same rule, lower on the screen.')}${img(E + 'rest664-r-3x.png', 'width:1170px')}`,
   'E-float/E8-alignment-3x.png': `${cap('How it lines up (3x close-up)', 'Red: the badge’s scalloped edge. Blue: the top of the list.')}
      <div style="height:330px;overflow:hidden;border-bottom:6px solid #E9E2D3">${img(E + 'axes-r-3x.png', 'width:1170px;margin-top:0')}</div>
@@ -37,7 +37,7 @@ const pages = {
   // ---- A. Claim-check stub, pushed ----
   'stub/A1-vs-float-3x.png': `${cap('A · Claim-check stub', 'Beside the floated badge (our pick for that option).')}
      ${pair(BASE, 'Floated badge', A + 'rest-3x.png', 'A · the stub')}
-     <div class="cost"><b>Cost:</b> the list’s title gets 60px less room, so long city names shorten sooner.</div>`,
+     <div class="cost"><b>Cost:</b> The list title gets 32px shorter: ‘list’ drops first, and at 320 the count too.</div>`,
   'stub/A2-close-up-1x.png': `${cap('At real size (1x)', 'Pixel for pixel as a phone without a Retina screen draws it, enlarged without smoothing.')}
      <div class="row">${one(E + 'crop1x-r-1x.png', 'Floated badge')}${one(A + 'study-ticket-1x.png', 'A · the stub')}</div><div class="gap"></div>`,
   'stub/A3-rest-3x.png': `${cap('A · the stub, list up', 'A ticket stub at the end of the list header: notched like the tag’s own stub, on the tag band’s paper, a bolder +.')}${img(A + 'rest-3x.png', 'width:1170px')}`,
@@ -48,12 +48,12 @@ const pages = {
   'stub/A7-list-down-3x.png': `${cap('List down (Home Screen)', '')}${img(A + 'collapsed-3x.png', 'width:1170px')}`,
   'stub/A8-320-3x.png': `${cap('Smallest phone (320 wide)', 'The title drops “list” and the count, then shortens the name.')}${img(A + 'cph320-3x.png', 'width:960px;margin:0 105px')}<div class="gap"></div>`,
   // ---- C. Pencilled pin, pushed ----
-  'C-pin/C1-vs-float-3x.png': `${cap('C · Pencilled pin', 'Beside the floated badge (our pick for that option).')}
-     ${pair(BASE, 'Floated badge', P + 'rest-3x.png', 'C · the pin')}
+  'C-pin/C1-vs-float-3x.png': `${cap('C · Blank pin', 'Beside the floated badge (our pick for that option).')}
+     ${pair(BASE, 'Floated badge', P + 'rest-3x.png', 'C · blank pin')}
      <div class="cost"><b>Cost:</b> the add form becomes a tag on the map, and with a tag or the filters open, you close them to add.</div>`,
   'C-pin/C2-close-up-1x.png': `${cap('At real size (1x)', 'Pixel for pixel as a phone without a Retina screen draws it, enlarged without smoothing.')}
-     <div class="row">${one(E + 'crop1x-r-1x.png', 'Floated badge')}${one(P + 'study-ring-1x.png', 'C · the pin')}</div><div class="gap"></div>`,
-  'C-pin/C3-rest-3x.png': `${cap('C · the pin, list up', 'A pin not placed yet (pencilled), with its tag printed with a +. No words.')}${img(P + 'rest-3x.png', 'width:1170px')}`,
+     <div class="row">${one(E + 'crop1x-r-1x.png', 'Floated badge')}${one(P + 'study-ring-1x.png', 'C · blank pin')}</div><div class="gap"></div>`,
+  'C-pin/C3-rest-3x.png': `${cap('C · the blank pin, list up', 'An empty pin (not placed yet) with its tag printed with a +. No words.')}${img(P + 'rest-3x.png', 'width:1170px')}`,
   'C-pin/C4-pressed-3x.png': `${cap('Rest and pressed (3x)', '')}<div class="row" style="padding:0 30px 30px">${img(P + 'rest-3x.png', 'width:1170px;margin:-1260px 0 0 -690px;clip-path:inset(1260px 0 0 690px)')}</div>`,
   'C-pin/C5-tag-open-3x.png': `${cap('A place’s tag open', 'One tag at a time: the pin steps aside. Close the tag to add.')}${img(P + 'tag-3x.png', 'width:1170px')}`,
   'C-pin/C6-list-down-3x.png': `${cap('List down (Home Screen)', '')}${img(P + 'collapsed-3x.png', 'width:1170px')}`,

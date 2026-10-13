@@ -1,5 +1,26 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-13, turn 18: the director's turn-17 fixes (scores: Float 9, A 9, C 8)
+- C: the dashed ring read as a loading spinner at 1x, so it's now an EMPTY
+  PIN (solid 2px --ink-2 ring on paper), `data-ring="graphite"` in
+  `C-pin/visual-r5.inc.html`; study `C-pin/r5/ring-*`. The same ring is on
+  the placed marker. The search glyph is ring + string (a lone ring read as
+  a radio button). `C-pin/stills.js` now layers visual-r5 (so the old stills
+  re-render with the current pin); `compose-stills.js` takes `ONLY=`.
+  Still title is "C · Blank pin".
+- Credit "Leaflet |" dropped for Float and C (set with the `map` binding:
+  `window.map` is the #map DIV, a trap that cost a re-render).
+- Float: open = navy field + paper x (`R17` in `E-float/stills.js`), so ADD
+  LOCATION is the one orange BUTTON (the account glyph is orange too). All of
+  E1–E8 re-shot.
+- A1 cost line = systems' measured 32px line.
+- New standing checks before every handover: (1) a 1x "what does each mark
+  read as" pass, (2) every caption against measure.json. Both done for this
+  set.
+- Next: the director re-checks and releases Float, A, C to the owner in one
+  message.
+
+
 ## UPDATE 2026-10-13, round 5 (turn 15; new visual designer): baseline stills, A and C pushed
 Context: the owner turned the A/B/C set down as concepts ("normal feedback",
 not a rejection; owner.md). Director turn 13: show the **baseline Float**

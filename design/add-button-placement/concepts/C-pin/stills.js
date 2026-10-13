@@ -6,7 +6,9 @@ const L = require('../lib-render.js'); const chromeCheck = require('../chrome-ch
 const COPY = path.join(__dirname, 'index.html'), OUT = path.join(__dirname, 'stills');
 const LOOK = fs.readFileSync(path.join(__dirname, 'visual.inc.html'), 'utf8');
 fs.mkdirSync(OUT, { recursive: true });
-const withLook = extra => h => { const i = h.lastIndexOf('</body>'); h = h.slice(0, i) + LOOK + '\n' + h.slice(i); return extra ? extra(h) : h; };
+// round 5 (director turn 17): the current resting pin (visual-r5: no words, empty graphite ring) and the credit without "Leaflet |"
+const R5 = fs.readFileSync(path.join(__dirname, 'visual-r5.inc.html'), 'utf8');
+const withLook = extra => h => { const i = h.lastIndexOf('</body>'); h = h.slice(0, i) + LOOK + '\n' + R5 + '\n' + h.slice(i); h = h.replace('<html lang="en"', '<html lang="en" data-c="ring" data-ring="graphite"'); return extra ? extra(h) : h; };
 const TAB = h => h.replace('</head>', '<style>:root{--chrome-bottom:100px!important}</style></head>');
 const PICK = { lat: 64.1417, lon: -21.9266, name: 'Hallgrímskirkja, Hallgrímstorg 1, Miðborg, Reykjavík, 101, Iceland',
   ad: { tourism: 'attraction', house_number: '1', road: 'Hallgrímstorg', suburb: 'Miðborg', city: 'Reykjavík', postcode: '101', country: 'Iceland', country_code: 'is' } };

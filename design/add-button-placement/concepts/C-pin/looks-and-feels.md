@@ -2,6 +2,26 @@
 
 ## Round 5 (2026-10-13): it must read as a plus button
 
+### Round 5 fix (director turn 17): the empty pin, not a dashed ring
+- At 1x the 18px **dashed ring read as a loading spinner** (the dashes as
+  dots). It's now an **empty pin**: the map pin's own ring with nothing in
+  it, drawn **solid**, 2px `--ink-2` (graphite: not inked yet; real pins are
+  ringed in their category colour) on `--paper-raised`. Variant
+  `data-ring="graphite"` (`visual-r5.inc.html`). Study:
+  `r5/ring-{dashed,graphite,navy,hollow}-1x.png` / `-3x.png`. Navy competed
+  with the + and hollow lost the head against the map, so graphite it is.
+  The ring stays because the bare tag read as a price label.
+- The same empty pin replaces the dashed ring everywhere it appeared: **the
+  placed marker** on the map (24px, `.pencil-marker`) and **the search
+  line's glyph**. A lone ring beside the search field read as a **radio
+  button**, so the glyph is the ring on a short string (a pushpin) instead.
+- The OSM credit drops Leaflet's "Leaflet |" prefix (director ruling 4):
+  "© OpenStreetMap contributors", at bottom-left.
+- Re-shot: `C1`–`C7` and `2-add-strip-3x.png` (its frame 1 now shows the
+  current pin, and its captions say "empty pin").
+- The concept's still title is now **"C · Blank pin"**, since nothing is
+  pencilled any more (it matches the strip's "Tap the blank pin").
+
 Owner: "The tag is novel but it doesn't read like a plus button." He liked
 the idea; it failed on recognition. The small tag said "+ ADD" in 12-15px
 words, which reads as a label, not a button. Round 5 changes **only the
@@ -42,8 +62,8 @@ words come second or not at all.
   tag's own restrained shadow (0.5px warm edge, 1px contact, 3px lift). It's
   about the badge's area, louder through colour, and wider than tall like
   the real tag, so it doesn't read as a round button.
-- **The pin:** an 18px pencilled ring (2px dashed navy on `--paper-raised`).
-  Cartography, a draw: what isn't built yet is drawn dashed. It hangs on
+- **The pin:** an 18px empty pin ring (2px solid `--ink-2` on `--paper-raised`;
+  it was dashed navy until the turn-17 fix above). It hangs on
   the real tag's straight 1.5px `--ink-2` string, which ends at the eyelet's
   centre.
 - **Three parts, questioned** ("simple simple simple"): the ring and string
@@ -75,9 +95,7 @@ to add."
   corner): the same slot as round 3, now with the credit moved. The frames
   are clean, but systems should confirm the `TAG_SHEET_GAP` interplay at 664
   (the pin steps aside whenever a tag is open, so it should be moot).
-- The dashed ring at 1x reads as dashes, not dots (C2), but it's the
-  smallest part. If the director reads it as noise, the next step is a solid
-  thin ring (the pin as an empty outline), not removing it.
+- (Closed by the fix above: the dashed ring read as a spinner; it's solid now.)
 
 ---
 

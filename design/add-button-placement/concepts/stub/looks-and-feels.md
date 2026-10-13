@@ -70,8 +70,10 @@ At 1x beside the floated badge (A2), the stub is the louder, more particular
 object: a cut orange ticket with a heavy +. It still says "add" before
 anything else, because the + is the biggest mark in the header. Whether it
 beats the badge on the owner's "more interesting" is his call. I think it
-clears "boring" without decoration. The cost line on A1: "the list's title
-gets 60px less room, so long city names shorten sooner."
+clears "boring" without decoration. The cost line on A1 is systems'
+measured one (turn 16; my first draft said 60px, the stub's width, but the
+tighter icon spacing wins 28 back): "The list title gets 32px shorter:
+'list' drops first, and at 320 the count too."
 
 ### Open (round 5)
 

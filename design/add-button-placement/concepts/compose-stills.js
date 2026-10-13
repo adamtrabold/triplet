@@ -40,9 +40,9 @@ const pages = which === 'B' ? {
      <div class="sub" style="padding-top:24px">Bigger change: the add form becomes a tag on the map.</div>
      <div class="sub">With a tag or the filters open, close them to add.</div>` },
   '2-add-strip-3x.png': { w: 1170, body: `
-     ${cap('1 · Tap the blank pin', 'Phone in Safari (390×664). A pencilled pin with a tag that says + ADD, at the map’s lower right.')}${band('2a-tap-664-3x.png', 220, 560)}
+     ${cap('1 · Tap the blank pin', 'Phone in Safari (390×664). The + tag hanging from an empty pin, at the map’s lower right.')}${band('2a-tap-664-3x.png', 220, 560)}
      ${cap('2 · Search', 'The list drops and its band becomes the search line, keyboard up. Results rise from it, never over the zoom or your account button. (Keyboard drawn.)')}${band('2b-search-664-3x.png', 0, 340)}
-     ${cap('3 · The pin stands on the place', 'The map goes there, and the form is a blank tag hanging from the pencilled pin. ADD LOCATION is on the tag’s stub, near your thumb.')}${band('2c-placed-664-3x.png', 250, 664)}<div class="gap"></div>` },
+     ${cap('3 · The pin stands on the place', 'The map goes there, and the form is a blank tag hanging from the empty pin. ADD LOCATION is on the tag’s stub, near your thumb.')}${band('2c-placed-664-3x.png', 250, 664)}<div class="gap"></div>` },
   '2d-done-3x.png': { w: 1170, body: `${cap('4 · Added', 'The pencilled pin is inked: the new place’s real pin and its real tag open, its row selected and in view. While the tag is open the + ADD pin steps aside. (390×844)')}${img('2d-done-844-3x.png', 'width:1170px')}` },
   '3-tag-open-3x.png': { w: 1170, body: `${cap('3 · A place’s tag open', 'One tag at a time: the + ADD pin steps aside while a tag is open. Close the tag to add.')}${img('3-tag-open-3x.png', 'width:1170px')}` },
   '4b-size-3x.png': { w: 1170, body: `
@@ -63,7 +63,7 @@ const pages = which === 'B' ? {
 };
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${dd}/chrome-linux/chrome`, args: ['--allow-file-access-from-files'] });
-  for (const [n, p] of Object.entries(pages)) {
+  for (const [n, p] of Object.entries(pages).filter(([n]) => !process.env.ONLY || n.startsWith(process.env.ONLY))) {
     const pg = await b.newPage({ viewport: { width: p.w, height: 400 }, deviceScaleFactor: 1 });
     const tmp = path.join(D, '.compose.html');
     fs.writeFileSync(tmp, `<!doctype html><meta charset=utf-8><style>${CSS}</style><body>${p.body}</body>`);

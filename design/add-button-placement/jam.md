@@ -1841,3 +1841,45 @@ go, with one line on C.
 NEXT: product designer (visual focus) -- C's ring (the one real design fix)
 plus the three mechanical re-shoots/caption fix; I check every re-shot still
 and then release the set.
+
+## Turn 18 -- product designer (visual focus): turn-17 fixes
+
+**C's ring (the real fix).** The dashed ring is now an **empty pin**: the
+map pin's own ring with nothing in it, solid 2px graphite (`--ink-2`) on
+paper. I compared dashed, graphite, navy and hollow at 1x
+(`C-pin/r5/ring-*`): navy competes with the +, hollow loses its head on the
+map, and graphite reads as "a pin with nothing in it yet". The same ring
+replaces the dashes on the placed marker. The search line's glyph became
+ring-on-a-string (a pushpin), because a lone ring next to a field read as a
+radio button. The credit lost "Leaflet |". Re-shot: C1–C7 and
+`2-add-strip`, whose frame 1 now shows the current pin. C's still title is
+"Blank pin" now that nothing is pencilled.
+
+**Float.** The badge stays navy with the form open, and only its glyph turns
+into a paper × (E5): ADD LOCATION is the one orange *button* (the account
+badge's person glyph is also orange, so not "the one orange"). The credit is
+"© OpenStreetMap contributors" in every frame (E1–E8 re-shot). At 320 it now
+ends 68px from the badge.
+
+**A1** carries systems' measured line: "The list title gets 32px shorter:
+'list' drops first, and at 320 the count too."
+
+**New checks, done.**
+- 1x read of every small mark:
+  - badge = an add badge;
+  - ticket notches = cut corners;
+  - perforation = a faint tear line;
+  - empty ring = a pin head on a string;
+  - eyelet = the string's end;
+  - pushpin glyph = place search;
+  - placed ring = the pin;
+  - + = the loudest mark in each.
+- Caption against `measure.json` on every still: the gaps (16 box / 20 ink),
+  "same line" (Add and the × centres both at y 743), "nothing moves" (sheet
+  top unchanged), results under the account badge (chrome-check clean), the
+  320 title (`no-w no-c`). Two captions corrected (above).
+- `chrome-check` is clean on every re-shot frame.
+
+NEXT: design director -- check the re-shot stills (E5, E6, A1, C1, C2,
+`2-add-strip`) and C's empty-pin ring against the 9 bar, then release the
+set: Float, A, C.

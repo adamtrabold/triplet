@@ -1,0 +1,43 @@
+{
+ "2c-placed-664": {
+  "pin": [
+   314,
+   500,
+   374,
+   584
+  ],
+  "bar": [
+   0,
+   607,
+   390,
+   664
+  ],
+  "blank": [
+   37,
+   330,
+   353,
+   570
+  ],
+  "submit": [
+   142,
+   510,
+   353,
+   570
+  ],
+  "submitHit": "self",
+  "starHit": "self",
+  "catHit": "self",
+  "after": null,
+  "form": "hidden",
+  "rows": 0,
+  "tag": null,
+  "header": [
+   0,
+   604,
+   390,
+   661
+  ],
+  "errs": [],
+  "clash": []
+ }
+}
