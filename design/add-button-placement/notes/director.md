@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 5b" at the bottom -- set released pending one C re-shoot)
+## Status (current: see "Round 5b" at the bottom -- set RELEASED, waiting on the owner)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -572,3 +572,5 @@ release the set (or Float and A, plus a line on C).
   concept round.
 - **What blocked a 9 this time:** small-mark reads at 1x and frame/ruling
   drift. Both are now in the visual seat's handover checks.
+
+- 2026-10-13: C `2-add-strip` re-shot and checked. **The set is released** (Float → A → C, per scores.md round 5b). Waiting on the owner's pick.

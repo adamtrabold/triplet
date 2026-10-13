@@ -696,3 +696,5 @@ it. Don't send C with the stale frame.
 - C: yes (the ring), 8 → 9.
 - Float: E5 and E6 changed; its 9 is confirmed, not raised.
 - A: a caption fix; its 9 is confirmed.
+
+**Update (2026-10-13):** C `2-add-strip` re-shot. Frames 1 and 3 show the shortened credit; frame 2 has the results sheet over the map, as before. Checked: **RELEASED.** The full set goes as listed above.
