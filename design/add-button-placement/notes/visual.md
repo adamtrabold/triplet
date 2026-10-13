@@ -1,5 +1,37 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-13, round 6b (after director turn 23: Float 9, A 9, C 8, D killed)
+- **C rank fix.** The pick is now:
+  - an orange-filled selected pin (32px, navy +);
+  - a tag at 84x66 with the real tag's 1px warm edge (.38) and shadow;
+  - the right edge on the account's ink line (right 19.9px).
+  - Dials and squint: `C-pin/R6-C4`. The navy disc stayed a pair with the
+    account; the edge is what keeps the cream from melting into the map.
+- **C flow redrawn:**
+  - the placed marker is the orange disc with a navy +;
+  - the search glyph is the same pin;
+  - stills `R6-C5` (tag open), `R6-C6` (tap, search, placed) and `R6-C7`
+    (added: the + becomes the place's own filled pin).
+  - The done frame needed the playground session (signed in, the stub's
+    Add doesn't complete).
+- **Float:**
+  - `R6-F5` re-cropped;
+  - new full screens `R6-F6` (tag open at 664, 3 rows), `R6-F7` (adding at
+    844) and `R6-F8` (320 with a tag, 1½ rows);
+  - captions say "a finer cut of the badge's edge" (never "postage
+    stamp").
+- **Script:** `concepts/r6b-stills.js` builds copies of today's main with
+  systems' r6-check patches (`TAG_SHEET_GAP` 88 box, scale-aware Add,
+  prefix dropped) and writes `r6/measure-r6b.json`. Everything is
+  clash-clean.
+- **Gotcha:** the page's tap target for C is `#pencilPin .c6-tagw`. The
+  box centre can land on a bare corner (systems' hit-test note).
+- **Open (flag to the director):**
+  - the orange band on the miniature means "starred" on a real tag;
+  - the orange disc vs the deep-orange clusters;
+  - C's new 84x104 footprint needs systems' re-measure;
+  - the squint margin is clear, but smaller than the Float's.
+
 ## UPDATE 2026-10-13, round 6 (turn 21; new visual designer): Float ranks, A routes, C real pin, D killed
 Owner on 5b (verbatim in owner.md): ticket "disconnected" from place; C's
 "pin doesnt look like a pin"; the Float is "the same weight and heirarchy

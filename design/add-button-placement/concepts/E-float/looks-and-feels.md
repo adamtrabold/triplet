@@ -97,9 +97,10 @@ family; it now differs from the account on three axes.
 - **Size:** 60px box (scale 1.2) about the scallop's lower-right ink
   corner. The ink stays 20px from the side and from the list; the footprint
   grows up and left. Measured box: 315,469 – 375,529 at 390x844.
-- **Edge:** a postage-stamp cut, 24 fine lobes (depth 1.7px), instead of
-  the account's 14-lobe scallop. It's still a wavy-edged badge, but a
-  different kind.
+- **Edge:** a finer cut of the badge's edge, 24 fine lobes (depth 1.7px),
+  instead of the account's 14-lobe scallop. It's still a wavy-edged badge,
+  but a different kind. (Captions never call it a "postage stamp":
+  stamps are VISITED's language, director ruling 5.)
   - 10 deep round lobes were rejected: a flower or a gear.
 - **Account badge:** untouched. The one labelled frame with it at 40px
   (`R6-F4`) shows it isn't needed.
@@ -120,3 +121,18 @@ Stills:
 
 Raw frames: `r6/` (`measure.json`, all clash-clean). Layer:
 `r6.inc.html`, rendered by `../r6-stills.js`.
+
+### Round 6b (director turn 23): re-crops and full screens
+- `R6-F5-states-3x.png`, re-cropped:
+  - pressed;
+  - a tag open, with the tag's foot clear above the +;
+  - adding, with ADD LOCATION's label and the × on one line.
+- New full screens, built on today's main with systems' patches
+  (`../r6b-stills.js`: `TAG_SHEET_GAP` 88 via `data-taggap="box"`, the
+  scale-aware Add via `data-fix="rect"`, "Leaflet |" dropped):
+  - `R6-F6-tag-open-664-3x.png`: 3 rows;
+  - `R6-F7-adding-844-3x.png`: Add 56–302.8, × 314.8–374.8, both centred
+    on y 738.8;
+  - `R6-F8-320-tag-3x.png`: Copenhagen, 1 row whole plus about half the
+    next.
+- All clash-clean. Measurements in `r6/measure-r6b.json`.

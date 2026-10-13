@@ -25,20 +25,25 @@ const CSS = `body{margin:0;background:#E9E2D3;font-family:'DejaVu Sans Condensed
  .row{display:flex;gap:20px;align-items:flex-start} .col{flex:none} .gap{height:24px} .kill{color:#A8400C}`;
 const pages = {
   // ---------------- FLOAT ----------------
-  'E-float/R6-F1-vs-account-3x.png': `${cap('Float · + outranks account', 'Round 5b on the left. Now the + is orange, one size bigger (60px against the account’s 50) and cut with a finer, postage-stamp edge.')}
+  'E-float/R6-F1-vs-account-3x.png': `${cap('Float · + outranks account', 'Round 5b on the left. Now the + is orange, one size bigger (60px against the account’s 50), with a finer cut of the badge’s edge.')}
      ${pair(E + 'f-today-3x.png', 'Round 5b: the twin', E + 'f-orange-big-seal-3x.png', 'Round 6: + first, account second')}
      <div class="cost"><b>Cost:</b> the badge is 10px wider and taller, and grows up and left from the same corner (still 20px from the side and the list). The account badge isn’t touched.</div>`,
   'E-float/R6-F2-1x.png': `${cap('At real size (1x)', 'The right edge of the phone, from the account badge down to the list. Right: the same, blurred. The + should still come first.')}
      ${oneX(E + 'f-orange-big-seal-1x.png', 'Float')}<div class="gap"></div>`,
-  'E-float/R6-F3-dials-3x.png': `${cap('Three dials, one at a time', 'Colour, size and edge. Each one alone still leaves a pair. Together they don’t.')}
+  'E-float/R6-F3-dials-3x.png': `${cap('Three dials, one at a time', 'Colour, size and the cut of the edge. Each one alone still leaves a pair. Together they don’t.')}
      <div class="row" style="padding:0 30px;gap:24px">${strip(E + 'f-today-3x.png', 'Today')}${strip(E + 'f-orange-3x.png', 'Orange only')}${strip(E + 'f-navy-big-3x.png', 'Bigger only')}${strip(E + 'f-orange-big-3x.png', 'Orange + bigger')}</div>
-     <div class="row" style="padding:0 30px;gap:24px">${strip(E + 'f-orange-big-seal-3x.png', 'Pick: + stamp edge')}${strip(E + 'f-orange-big-rosette-3x.png', '<span class="kill">Flower: out</span>')}${strip(E + 'f-navy-big-rosette-3x.png', '<span class="kill">Navy: a pair</span>')}</div>
-     <div class="cost"><b>Pick:</b> orange, 60px, postage edge. Orange alone looks lighter than the navy account badge, and bigger alone still reads as a pair. Big lobes read as a flower or a gear (settings).</div>`,
+     <div class="row" style="padding:0 30px;gap:24px">${strip(E + 'f-orange-big-seal-3x.png', 'Pick: finer cut')}${strip(E + 'f-orange-big-rosette-3x.png', '<span class="kill">Flower: out</span>')}${strip(E + 'f-navy-big-rosette-3x.png', '<span class="kill">Navy: a pair</span>')}</div>
+     <div class="cost"><b>Pick:</b> orange, 60px, a finer cut of the badge’s edge. Orange alone looks lighter than the navy account badge, and bigger alone still reads as a pair. Big lobes read as a flower or a gear (settings).</div>`,
   'E-float/R6-F4-account-step-3x.png': `${cap('Flag: the one frame that touches the account badge', 'Not ours to design (the sign-in crew owns it). Shown only to see if it’s needed: the account badge one step smaller (40px), nothing else changed.')}
      ${pair(E + 'f-orange-big-seal-3x.png', 'Account as it is', E + 'f-acct-small-3x.png', 'Account at 40px')}
      <div class="cost"><b>Our read:</b> not needed. The + already ranks first with the account unchanged.</div>`,
   'E-float/R6-F5-states-3x.png': `${cap('Pressed, a tag open, adding', 'Pressed: deep orange with a paper +, like ADD LOCATION. Adding: the badge goes navy with a paper ×, so ADD LOCATION stays the one orange button.')}
-     <div class="row" style="padding:0 30px;gap:24px">${col('Pressed', crop(E + 'f-pick-pressed-3x.png', 230, 400, 390, 560, 2), 320)}${col('Tag open', crop(E + 'f-pick-tag-3x.png', 230, 400, 390, 560, 2), 320)}${col('Adding', crop(E + 'f-pick-form-3x.png', 230, 690, 390, 790, 2), 320)}</div><div class="gap"></div>`,
+     <div class="row" style="padding:0 30px;gap:30px">${col('Pressed', crop(E + 'f-pick-pressed-3x.png', 250, 420, 390, 560, 3), 420)}${col('A tag open: its foot clears the +', crop(E + 'f-tag844-3x.png', 150, 290, 390, 550, 2.6), 624)}</div>
+     <div class="row" style="padding:0 30px">${col('Adding: ADD LOCATION and the × on one line', crop(E + 'f-form844-3x.png', 40, 696, 390, 782, 3.1), 1085)}</div><div class="gap"></div>`,
+  'E-float/R6-F6-tag-open-664-3x.png': `${cap('A place’s tag open, in a Safari tab (390×664)', 'The list sits a little lower so the tag clears the bigger +. You still see 3 rows, the same as today.')}${img(E + 'f-tag664-3x.png', 'width:1170px')}`,
+  'E-float/R6-F7-adding-844-3x.png': `${cap('Tap +', 'The list slides down and the + rides down with it, turning into a navy ×. ADD LOCATION sits on the same line, 12px short of it.')}${img(E + 'f-form844-3x.png', 'width:1170px')}
+     <div class="cost"><b>Cost:</b> + rides down with the list when you tap it (and back on cancel); with the filters open, close them first.</div>`,
+  'E-float/R6-F8-320-tag-3x.png': `${cap('Smallest phone (320 wide), a tag open', 'Copenhagen. The selected row shows whole, with about half of the next one. The map credit is just “© OpenStreetMap contributors”, at the left.')}${img(E + 'f-tag320-3x.png', 'width:960px;margin:0 105px')}<div class="gap"></div>`,
   // ---------------- A ----------------
   'stub/R6-A1-vs-account-3x.png': `${cap('A · Admission ticket', 'Round 5b on the left. Now the tear line is inside the ticket, with a half-round notch at each end, like a rail or museum ticket and the tag’s own stub.')}
      ${pair(A + 'a-ticket-3x.png', 'Round 5b: coat check', A + 'a-admit-3x.png', 'Round 6: admission ticket')}
@@ -50,15 +55,25 @@ const pages = {
      <div class="row" style="padding:0 30px;gap:12px">${['ticket', 'admit', 'tagcut', 'punchdisc', 'punchdrop'].map(v => col('', crop1(A + `a-${v}-1x.png`, 318, 536, 390, 608, 2.85), 205)).join('')}</div>
      <div class="cost"><b>Admission:</b> reads as a ticket. <b>Tag cut:</b> reads as a place’s tag, but stops being a ticket. <span class="kill"><b>Round punch:</b> a dot (our pin is round, so its punch is a dot). <b>Pin punch:</b> a water drop, and not our pin.</span> So A is a ticket for adding. Only the tag cut says “place” without an extra mark.</div>`,
   // ---------------- C ----------------
-  'C-pin/R6-C1-vs-account-3x.png': `${cap('C · Pin and tag', 'The pin is the map’s own selected pin (the one whose tag is open), with a + where the category icon goes. Its tag is the place tag, blank, in miniature.')}
-     ${pair(P5 + 'rest-3x.png', 'Round 5b', P + 'c-hi-big-3x.png', 'Round 6, among real pins')}
-     <div class="cost"><b>Cost:</b> the form becomes a tag on the map; with a tag or the filters open, you close them to add. The pin and its tag stand 94px tall in the corner, 16px from the side and 20px above the list.</div>`,
-  'C-pin/R6-C2-1x.png': `${cap('At real size (1x)', 'Account badge at the top, real pins between them. Right: blurred.')}
-     ${oneX(P + 'c-hi-big-1x.png', 'C')}<div class="gap"></div>`,
+  'C-pin/R6-C1-vs-account-3x.png': `${cap('C · Pin and tag', 'The pin is the map’s own selected pin (a pin with its tag open), filled with the action orange, with a + where the category icon goes. Its tag is the place tag, blank, edged like the real tag so it stands off the map.')}
+     ${pair(P5 + 'rest-3x.png', 'Round 5b', P + 'c-xl-edge-orange-3x.png', 'Round 6, among real pins')}
+     <div class="cost"><b>Cost:</b> the form becomes a tag on the map; with a tag or the filters open, you close them to add. The pin and tag take 84×104 in the corner: the tag’s right edge on the account badge’s line, its foot 20px above the list.</div>`,
+  'C-pin/R6-C2-1x.png': `${cap('At real size (1x)', 'Account badge at the top, real pins between them. Right: blurred. The pin and tag carry more weight than the account badge.')}
+     ${oneX(P + 'c-xl-edge-orange-1x.png', 'C')}<div class="gap"></div>`,
   'C-pin/R6-C3-pins-3x.png': `${cap('C · which pin, where the + goes', 'Every pin is drawn by the app’s own pin code, at map size, beside the real ones.')}
-     <div class="row" style="padding:0 30px;gap:14px">${[['solid', 'Pin with +'], ['dashed', 'Dashed (“approx.”)'], ['tagplus', '+ on the tag'], ['hi', 'Selected pin'], ['hi-big', 'Selected, bigger tag (pick)']].map(([v, t]) => col(t, crop(P + `c-${v}-3x.png`, 262, 360, 390, 535, 1.6), 205)).join('')}</div>
-     <div class="row" style="padding:0 30px;gap:14px">${['solid', 'dashed', 'tagplus', 'hi', 'hi-big'].map(v => col('', crop1(P + `c-${v}-1x.png`, 262, 360, 390, 535, 1.6), 205)).join('')}</div>
-     <div class="cost"><b>Pick: the selected pin, bigger tag.</b> On the map, a pin with its tag open looks just like this (a filled disc). The smaller pins read as pins but rank below the account badge. A + on the tag makes the pin an empty ring again (the 5b problem).</div>`,
+     <div class="row" style="padding:0 30px;gap:14px">${[['solid', 'Pin with +'], ['dashed', 'Dashed (“approx.”)'], ['tagplus', '+ on the tag'], ['hi', 'Selected pin'], ['xl-edge-orange', 'Pick']].map(([v, t]) => col(t, crop(P + `c-${v}-3x.png`, 262, 360, 390, 535, 1.6), 205)).join('')}</div>
+     <div class="row" style="padding:0 30px;gap:14px">${['solid', 'dashed', 'tagplus', 'hi', 'xl-edge-orange'].map(v => col('', crop1(P + `c-${v}-1x.png`, 262, 360, 390, 535, 1.6), 205)).join('')}</div>
+     <div class="cost"><b>Pick: the selected pin</b> (the filled disc a pin becomes when its tag is open), in orange, with a bigger tag. The smaller pins read as pins but rank below the account badge. A + on the tag turns the pin back into an empty ring (the 5b problem).</div>`,
+  'C-pin/R6-C4-rank-3x.png': `${cap('C · making it outrank the account', 'The tag one size up; the real tag’s own edge and shadow so its cream stands off the cream map; the pin filled with the action orange. Below: blurred.')}
+     <div class="row" style="padding:0 30px;gap:14px">${[['hi-big', 'Round 6'], ['xl', 'Bigger tag'], ['xl-edge', '+ its edge'], ['xl-edge-orange', '+ orange (pick)']].map(([v, t]) => col(t, crop(P + `c-${v}-3x.png`, 150, 0, 390, 560, 1.07), 257)).join('')}</div>
+     <div class="row" style="padding:0 30px;gap:14px">${['hi-big', 'xl', 'xl-edge', 'xl-edge-orange'].map(v => col('', crop1(P + `c-${v}-1x.png`, 150, 0, 390, 560, 1.07, true), 257)).join('')}</div>
+     <div class="cost"><b>Pick:</b> the tag at 84×66 with the tag’s 1px warm edge, and the pin in orange. Without the edge the blank cream melts into the map. A navy pin is a second navy disc beside the account badge, so they still read as a pair.</div>`,
+  'C-pin/R6-C5-tag-open-3x.png': `${cap('A place’s tag open', 'One tag at a time: the + pin steps aside while a tag is open. Close the tag to add.')}${img(P + 'c-tag844-3x.png', 'width:1170px')}`,
+  'C-pin/R6-C6-add-strip-3x.png': `${cap('1 · Tap the pin', 'Phone in Safari (390×664), the city view, account badge at the top.')}${crop(P + 'c-2a-tap-664-3x.png', 0, 0, 390, 380, 3)}
+     ${cap('2 · Search', 'The list drops and its band becomes the search line, with the same pin as its mark. (Keyboard drawn.)')}${crop(P + 'c-2b-search-664-3x.png', 0, 0, 390, 340, 3)}
+     ${cap('3 · The pin stands on the place', 'The pin you tapped now stands on the spot, and the form is its tag. ADD LOCATION is on the tag’s stub.')}${crop(P + 'c-2c-placed-664-3x.png', 0, 230, 390, 664, 3)}
+     <div class="gap"></div>`,
+  'C-pin/R6-C7-added-3x.png': `${cap('4 · Added', 'The + becomes the place’s own icon: the same filled pin, now in its category colour, with its tag open and its row selected. (390×844)')}${img(P + 'c-2d-done-844-3x.png', 'width:1170px')}`,
   // ---------------- D ----------------
   'D-floated-ticket/R6-D1-floated-ticket-3x.png': `${cap('D · Floated ticket (rough, one frame)', 'A’s admission ticket, loose in the Float’s corner. Right: pinned to the map with our pin.')}
      <div class="row" style="padding:0 30px;gap:20px">${col('Floated ticket', crop(D + 'd-bare-3x.png', 150, 0, 390, 610, 1.15), 276)}${col('Pinned', crop(D + 'd-pinned-3x.png', 230, 420, 390, 540, 2.5), 400)}${col('1x', crop1(D + 'd-bare-1x.png', 230, 420, 390, 540, 2.5), 400)}</div>

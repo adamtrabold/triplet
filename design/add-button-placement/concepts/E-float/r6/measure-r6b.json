@@ -1,0 +1,154 @@
+{
+ "f-tag664": {
+  "obj": [
+   314.8,
+   362.8,
+   374.8,
+   422.8
+  ],
+  "disc": null,
+  "miniTag": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "acctInkRight": 370.1,
+  "tagGap": 88,
+  "tag": [
+   37,
+   142,
+   353,
+   346
+  ],
+  "sheetTop": 438,
+  "credit": [
+   0,
+   421.2,
+   186.1,
+   438
+  ],
+  "creditText": "© OpenStreetMap contributors",
+  "submit": "hidden",
+  "blank": null,
+  "marker": null,
+  "rows": 3,
+  "errs": [],
+  "clash": []
+ },
+ "f-form844": {
+  "obj": [
+   314.8,
+   708.8,
+   374.8,
+   768.8
+  ],
+  "disc": null,
+  "miniTag": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "acctInkRight": 370.1,
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 784,
+  "credit": [
+   0,
+   308.2,
+   186.1,
+   325
+  ],
+  "creditText": "© OpenStreetMap contributors",
+  "submit": [
+   56,
+   716.8,
+   302.8,
+   760.8
+  ],
+  "blank": null,
+  "marker": null,
+  "rows": 21,
+  "errs": [],
+  "clash": []
+ },
+ "f-tag320": {
+  "obj": [
+   244.8,
+   348.8,
+   304.8,
+   408.8
+  ],
+  "disc": null,
+  "miniTag": null,
+  "acct": [
+   254,
+   16,
+   304,
+   66
+  ],
+  "acctInkRight": 300.1,
+  "tagGap": 88,
+  "tag": [
+   16,
+   142,
+   304,
+   334
+  ],
+  "sheetTop": 424,
+  "credit": [
+   0,
+   407.2,
+   186.1,
+   424
+  ],
+  "creditText": "© OpenStreetMap contributors",
+  "submit": "hidden",
+  "blank": null,
+  "marker": null,
+  "rows": 1,
+  "errs": [],
+  "clash": []
+ },
+ "f-tag844": {
+  "obj": [
+   314.8,
+   468.8,
+   374.8,
+   528.8
+  ],
+  "disc": null,
+  "miniTag": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "acctInkRight": 370.1,
+  "tagGap": 88,
+  "tag": [
+   37,
+   142,
+   353,
+   346
+  ],
+  "sheetTop": 544,
+  "credit": [
+   0,
+   527.2,
+   186.1,
+   544
+  ],
+  "creditText": "© OpenStreetMap contributors",
+  "submit": "hidden",
+  "blank": null,
+  "marker": null,
+  "rows": 4,
+  "errs": [],
+  "clash": []
+ }
+}

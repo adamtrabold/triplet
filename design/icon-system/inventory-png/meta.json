@@ -100,8 +100,8 @@
   "h": 32
  },
  "pins-selected": {
-  "w": 420,
-  "h": 40
+  "w": 340,
+  "h": 78
  },
  "pins-approx": {
   "w": 332,
@@ -198,6 +198,10 @@
  "g-compass": {
   "w": 22,
   "h": 22
+ },
+ "empty-compass": {
+  "w": 34,
+  "h": 34
  },
  "ctl-account": {
   "w": 56,
@@ -374,5 +378,17 @@
  "row-lead": {
   "w": 72,
   "h": 32
+ },
+ "pencil-star": {
+  "w": 24,
+  "h": 24
+ },
+ "pencil-star-drawing": {
+  "w": 24,
+  "h": 24
+ },
+ "pencil-star-row": {
+  "w": 390,
+  "h": 56
  }
 }

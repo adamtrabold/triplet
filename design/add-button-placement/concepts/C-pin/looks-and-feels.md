@@ -338,3 +338,42 @@ Stills:
 - `R6-C3-pins-3x.png`
 
 Raw frames: `r6/`.
+
+### Round 6b (director turn 23): C must outrank the account (pick changed)
+- **Pin:** the selected-pin grammar (32px filled disc, rim 2.5, the glyph
+  23px), filled with the **action orange** (`--brand-orange`) with a
+  **navy +** (`data-c6="hio"`).
+  - The navy disc was a second navy disc beside the account badge: they
+    still read as a pair in the squint test.
+  - Pressed: the disc goes deep orange with a paper +; the band goes deep
+    orange; the stock goes `--paper`.
+- **Tag:** 84x66 (`data-ct="xl"`): band 26, chamfer 15, eyelet r3.4 at
+  y14, patch 28x16. The stock stays cream and blank; there's one +.
+- **Standing off the map** (`data-te="edge"`): the real tag's own contact
+  and lift shadow (0 1px 1px / 0 4px 6px), plus the owner-approved 1px
+  warm edge (`--warm-edge-rgb` at .38). The edge layer is masked at the
+  eyelet, so the hole shows the map.
+  - Without the edge, the blank cream melts into the cream map.
+- **Alignment** (`data-al="ink"`): `right: 19.9px`, so the tag's right
+  edge sits on the account badge's ink line (370.1 = 370.1, measured).
+- **Footprint:** 84x104 (box 286.1,420 – 370.1,524 at 844), foot 20 above
+  the list. Systems should re-measure (it was 72x94).
+- **The flow, in the same grammar:**
+  - The placed marker is the same orange 32px disc with a navy +, centred
+    on the picked point.
+  - The search line's glyph is the same pin on a string stub.
+  - After Add, the + becomes the place's own selected pin (filled with its
+    category ink) with its real tag open. The continuity is exact.
+- **Stills:**
+  - `R6-C1` (re-shot), `R6-C2` (re-shot), `R6-C3` (pick column updated);
+  - `R6-C4-rank-3x.png` (each dial, with the squint row);
+  - `R6-C5-tag-open-3x.png`;
+  - `R6-C6-add-strip-3x.png` (tap, search, placed);
+  - `R6-C7-added-3x.png`.
+- **Seams (flag):**
+  - On a real tag an orange band means "starred" (TAG_STAR_STYLE band).
+    The miniature's band is the action orange, and the form-tag it opens
+    carries no band.
+  - An orange-filled disc is close in kind to the deep-orange cluster
+    discs at city zoom. Clusters have a paper count and a paper ring;
+    this has a navy +.
