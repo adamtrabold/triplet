@@ -308,3 +308,7 @@ shipping it.
   the 21:17 render. **Both fixes are still pending** (the "D1 Trail blaze"
   label is still in A's crop; C's list in the B pair still shows the
   struck word). Don't send `considered-3x` until they're done.
+- Canvas v15: both considered-image fixes landed and I checked them at 1x
+  ("A · Blaze" label; C's half has the stamp kept, so the lists match).
+  `considered-3x` is cleared to send. The Round 3 send list in scores.md
+  is final.
