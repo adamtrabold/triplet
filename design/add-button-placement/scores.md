@@ -998,3 +998,6 @@ Never send C with the banded tag.
 - C: yes, 8 → 9 (conditional on the mechanical re-shoot).
 - Float: frames only; 9 confirmed, not raised.
 - A: unchanged; 9 stands.
+
+## Orchestrator, 2026-10-13
+C re-shot without the band (visual): + no longer clearly ahead of account in the squint test, so C stays 8 and is not sent (per round 6b ruling: "If C's re-shoot ... fails: send Float and A now"). Float and A sent.

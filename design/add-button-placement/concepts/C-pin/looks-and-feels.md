@@ -377,3 +377,13 @@ Raw frames: `r6/`.
   - An orange-filled disc is close in kind to the deep-orange cluster
     discs at city zoom. Clusters have a paper count and a paper ring;
     this has a navy +.
+
+### Round 6b re-shoot (director turn 24)
+- **Band dropped from the resting tag** (`data-band="none"`): a band means
+  starred, and this tag is unstarred.
+  - The patch is the unbanded tag's own (solid `--paper`, `--hair`
+    grommet).
+  - The pick is now: orange selected pin (navy +), with a cream 84x66 tag,
+    1px warm edge, the tag's shadow, and no band.
+- **Squint test:** level with the account badge, not clearly above it (see
+  `R6-C2`, `R6-C4`).

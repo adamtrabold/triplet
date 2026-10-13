@@ -1,5 +1,27 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-13, round 6b re-shoot (director turn 24: C 9 conditional on dropping the band)
+- **The change:** C's resting tag has no band (`data-band="none"`).
+  - Reason: on a real tag a band means starred, and this blank tag is
+    unstarred cream.
+  - The eyelet patch is the unbanded tag's own (solid paper, `--hair`
+    grommet). The orange stays on the pin.
+- **Re-shot:** `R6-C1`, `R6-C2`, `R6-C4` (pick column), `R6-C6` frame 1
+  (`R6-C3`'s pick column follows the same frame). Clash-clean.
+- **Squint test, plainly: the + no longer clearly comes before the account
+  badge.**
+  - Blurred, the 50px navy account badge is the darker, bigger mass. The
+    32px orange disc is about level with it, and the cream tag nearly
+    vanishes.
+  - The band was carrying the rank. Captions now say so (C2 makes no claim;
+    C4 says "about level").
+  - Levers left, each with a cost:
+    - a pin bigger than the map's 32px selected size (breaks "same size as
+      the pins around it");
+    - a stronger tag edge or shadow (the owner's restraint rule).
+- **New standing check:** any part borrowed from a real component keeps
+  that component's meaning in the state shown.
+
 ## UPDATE 2026-10-13, round 6b (after director turn 23: Float 9, A 9, C 8, D killed)
 - **C rank fix.** The pick is now:
   - an orange-filled selected pin (32px, navy +);
