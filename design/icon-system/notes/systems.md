@@ -1,5 +1,39 @@
 # Systems designer notes: icon system
 
+## Update 2026-10-13 (concept phase, how-it-works written)
+
+- Jam closed (director pass 2 rulings): **A Blaze killed**; B Second run, C
+  Shell off, D Sticker re-weighted go forward. Grammar commitments kept
+  (one 2px stroke, two checks, rim star as a mask cut-out, no keyline/halo).
+  **Selection replaces the rim** (navy ring becomes the rim, same size, never
+  a second outline). Clusters shown orange and ink (owner Q6). My cluster rule
+  was accepted. Owner Qs 1-7 go with the first scored concepts.
+- Wrote `concepts/b|c|d/how-it-works.md`: legend, full state matrix, the
+  3 storyboard flows, the jobs table with proof frames and risks, and the
+  index.html touchpoints.
+- Systems calls made in them (director may overrule):
+  - **Far selected pin shows the 12px glyph** (selection replaces the rim,
+    so otherwise a far selected pin has no category). A far pin *can* be
+    selected: `markerIcon()` computes far size + `MARKER_HI_DELTA`.
+    Resolves my old open question; under the ruling `MARKER_HI_DELTA` -> 0.
+  - **B's reprint = one target lightness for all 11 inks** (not one mix %),
+    glyph >= 3:1 on paper, never opacity.
+  - **D-main has a DOUBLE in the glyph slot** (category vs check) and spends
+    size on state. Stated openly; D-alt (cream glyph) clears the glyph one.
+  - **You-are-here stays** a navy target (different form from the selection
+    ring); risk vs C's far dot in bar/area ink noted.
+  - Un-visit: C = the inked glyph dries up (no reversal needed). B = no ink to
+    dry on the pin, so a reverse pull timed to the stamp's snap (new motion).
+    D = the sticker peels off (must not read as a pop).
+- Touchpoint fact: there's **no `rowStampHtml()`**. The stamp markup is
+  inline in `renderCard()` ~8198, `buildPopupHtml()` 5074/5077 and the visit
+  drag 7811/7860. Any row-stamp change (Q2 b) touches gesture code, so it
+  needs the full gesture gate (lane 3). Keeping the stamp doesn't.
+- Local checkout now includes the playground (main merged in).
+
+Next: check visual's grammar sheet 2 against the legends, then each concept's
+frames against jobs.md (pass/fail per job) before the director scores.
+
 ## Where things stand (2026-10-13, end of jam pass 2)
 
 - Jam pass 1 (jobs, diagnosis, families, state model, D1–D6) and pass 2 (the
