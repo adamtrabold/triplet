@@ -1247,3 +1247,24 @@ Stills: `design/popup-hierarchy/unvisit/stills/build/` -- `tag-390-film.png`, `t
 Gates: Impeccable `IMPECCABLE GATE PASSED` (0 new). Full gesture gate: star "84 + 8 (+ N8-a)" · vtest 91/95 (V14 x2, V15 x2, as main; V20 rewritten as above) · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, <=126ms) · rows 56.00px · curve8 row 10/3, highlighted 10/3, popup 10/3 · delete-slop 36/36 · plan-rows 32/32 · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12 -- failures identical to main's.
 
 Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-updated SVG filter (`feGaussianBlur`, `feComponentTransfer`) on an HTML element is Chromium-checked only (`docs/iphone-checks.md`); the per-frame cost on device (one small blur on a 79x35 element).
+
+- **Playground (`?play`)** — landed 2026-10-13. Owner: "id like to have a
+  "playground" version of this so that when i share it people can play with
+  it non-destructively"; picks: a separate link, visitors start from the
+  real trip, a reload starts fresh. `index.html?play` swaps
+  `supabaseClient` for `createPlaygroundClient()`: each table is read once
+  (`select('*')`) from the real database, then every read and write runs on
+  an in-memory copy (the supabase-js slice the app uses: select / insert /
+  update / upsert / delete with order / eq / in), so polls never revert a
+  visitor's edits and nothing is written back. The real client inside it is
+  built with `persistSession: false`, so even a stray write goes out
+  anonymous and RLS refuses it. Auth answers as a signed-in guest, so every
+  control works. The account menu holds only Sign in, which goes to the
+  real app at `?signin` (opens the sign-in modal once, then drops the
+  param). Verified headless against the gesture-harness stub: star / visit /
+  delete / add / shape visit / create plan all stick through a poll, zero
+  writes reach the real client, a reload is fresh, the normal URL is
+  unchanged; Impeccable gate passed. Not yet checked against the live
+  database or on an iPhone. Landed with the sign-in look the owner rejected
+  ("lets push it with shitty sign in and we'll adjust"); its redesign is in
+  `design/signin-button/`.

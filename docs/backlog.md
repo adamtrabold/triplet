@@ -10,6 +10,15 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
+- **Playground (`?play`)** -- LANDED 2026-10-13 (spec: `docs/shipped.md`
+  "Playground"). Owner, on landing with the old menu: "lets push it with
+  shitty sign in and we'll adjust i want to share it with someone". Open:
+  the playground's sign-in control is the boxed SIGN IN dropdown the owner
+  rejected; its replacement is the arc sign-in badge in
+  `design/signin-button/` (round 2c, director 9, awaiting the owner). Also
+  open: share-preview/title for the link; the playground shares
+  localStorage prefs (city, sort, list view, active plan) with the real app
+  on the same device.
 - **Brand colour tokens: one system** (owner, 2026-10-07, verbatim:
   "how are our colors defined in the app -- it should be clear from a
   systems perspective that all colors are brand level color tokens" ;
@@ -183,6 +192,25 @@ pick/redirect before building anything.
   the star knock-out notch (existing Places); paper hex `#F2EBDD` hard-coded
   in JS-built SVG instead of `var(--paper)`; cluster tag numerals 10px at 1x
   (CD to judge on device).
+
+- **Add form's ADD LOCATION hidden behind the list on shorter screens**
+  (found 2026-10-12 by the + placement crew, Chromium only). Below ~790px
+  viewport height (Safari tab with toolbars, 390x664; SE 375x667) the list
+  sheet covers ADD LOCATION, so a tap on Add lands on a list row. Repro:
+  open the add form at 390x664 -- `design/add-button-placement/concepts/stub-stress/today-form664-3x.png`.
+  Being folded into the + placement work (proposal: the list drops to its
+  header band while the form is open).
+- **Add form opens behind the open filters panel** (same source): with the
+  filters panel open, tapping + opens the form behind it and a tap on Add
+  hits a filter chip. Repro: open filters, tap +. Proposal in the + work:
+  opening the form closes filters and the sort menu.
+
+- **A place added in another city vanishes from the list** (found
+  2026-10-12 by the + placement crew, in a prototype). If the place you
+  add belongs to a city other than the one showing, the list filters the
+  new row out and nothing says where it went. Repro: with Reykjavík
+  showing, add a Copenhagen place. Candidate fix: switch to that city (or
+  say where it went) after Add. Being considered as part of the + work.
 
 ## Data cleanup (neighborhood shapes)
 
