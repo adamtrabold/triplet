@@ -131,7 +131,7 @@ add('C',64,'Shape visited sticker','shape-visit',strip({cat:'district'}),'');
 // ---------- build sheets ----------
 const med=0.221;
 const meas={"restaurant":[.185,.161,.216],"cafe":[.352,.337,.235],"bar":[.215,.221,.219],"attraction":[.181,.219,.222],"nature":[.182,.227,.221],"shopping":[.424,.319,.225],"area":[.278,.309,.221],"hotel":[.258,.258,.222],"other":[.135,.204,.223],"district":[.156,.219,.22],"street":[.067,.200,.22]};
-let s0=`<div id="s0"><div class="sheet"><h1>Icon grammar · sheet 2</h1><span class="draft">DRAFT · NOT REVIEWED</span>
+let s0=`<div id="s0"><div class="sheet"><h1>Icon grammar · sheet 2</h1><span class="draft">FOR REVIEW</span>
 <p class="sub">Every inventory entry (74): TODAY (rendered from index.html) above NEW, real size. Director's rulings applied: one stroke, two checks (Inked check upright), rim star with a true cut-out, selection replaces the rim, clusters both ways and never darker than a pin, district redrawn, seals glyph-only.</p>
 <h2>Rules</h2><table class="t">
 <tr><td>Grid</td><td>24 box, 20 live area, corners r&asymp;1</td></tr>
@@ -152,7 +152,7 @@ groups.forEach(([g,t,sub],gi)=>{
   const items=E.filter(e=>e.g===g);
   // split long groups into sheets of ~14 cards
   for(let i=0,part=1;i<items.length;i+=14,part++){
-    html+=`<div id="s${gi+1}${String.fromCharCode(96+part)}"><div class="sheet"><h1>${t}${items.length>14?` (${part})`:''}</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">${sub}</p>`;
+    html+=`<div id="s${gi+1}${String.fromCharCode(96+part)}"><div class="sheet"><h1>${t}${items.length>14?` (${part})`:''}</h1><span class="draft">FOR REVIEW</span><p class="sub">${sub}</p>`;
     items.slice(i,i+14).forEach(e=>{html+=`<div class="card"><div class="nm"><span>${e.no}. ${e.name}</span><i>${e.png}</i></div><div class="pair"><span class="k">TODAY</span><span class="v">${today(e.png)}</span><span class="k">NEW</span><span class="v">${e.nw}</span></div>${e.note?`<div class="note">${e.note}</div>`:''}</div>`});
     html+='</div></div>';
   }

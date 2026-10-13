@@ -263,3 +263,102 @@ into a value concept: fade too far and it reads "disabled", hold colour
 and it reads "loud". The way out is lightness without extra chroma, with
 the "not disabled" signal carried by form (misregistration, full rim), not
 colour.
+
+## Round 3, 2026-10-13: B re-scored. Final send.
+
+Frames: `b/set/b-gate` (re-run), `b-near-B-{halfway,lastDay}` + squint,
+`b-list-B-stamp`; systems §7 for B and C.
+
+### B · Second run: **8** (was 7). The work changed; the fixes landed. This is its ceiling.
+
+Fixed:
+- No pink: restaurant is a dusty wine, and every warm ink stays in its
+  family.
+- No chroma boost.
+- The lastDay map is now quieter than today at 1x: muted rings, with the
+  dark open starred places reading first.
+- The gate holds (ΔE 16–29 vs the 40% look).
+- Other/hotel/nature vs the off chip (ΔE 8–11) is accepted: they're never
+  side by side and differ in shape.
+
+The reason it stops at 8 isn't craft, it's what B is. **Its only
+open-vs-done signal is value.** The 0.8px misregistration doesn't read at
+1x, and making it visible would break "centre the mark in its container".
+The owner's own rules make this a likely objection:
+- "Visited vs pin are not differentiated nearly enough".
+- "Colour coding is not enough".
+- "Colour alone is not enough to differentiate".
+
+On the halfway map, attraction and nature open vs visited take a second
+look. And any form signal added to rescue it turns B into C. There are no
+further fixes, because the concept is at its limit. A well-made value
+concept that the owner's rules predict he'll reject.
+
+### Send decision
+
+I won't pass B under 9, so **one concept goes to the owner as a concept:
+C (9), with the shared grammar (9).** B isn't hidden. It goes as the
+first entry of "considered", with its lastDay frame at 1x beside C's and the
+reason in one line, so he sees both routes and can overrule. A and D follow
+in the same image. That answers "i want more than one concept" honestly:
+four routes were built and tested, one cleared the bar, and he can pick
+any of the others back up.
+
+**For the orchestrator:** if you judge that the owner must get two
+concepts as concepts, that's an override of my bar, and it's yours to make.
+In that case send B labelled "director 8: value-only difference" and don't
+present it as a 9.
+
+### Canvas relabel (visual)
+
+- Grammar rows + C rows: "draft · not reviewed" → **"for review"**.
+- B rows: → **"considered · director 8 (value-only difference)"**.
+- A / D rows (if any): **"considered"**.
+- Rebuild `concepts/dropped-3x` as **"considered"**:
+  1. B: `b-near-B-lastDay` at 1x beside `c-near-C-lastDay`, line: "Fades
+     visited places. The difference is value only, which your 'colour
+     alone is not enough' rule may reject."
+  2. A: as is.
+  3. D: as is.
+
+### Final send list (one message, phone-readable 3x stills, in order)
+
+1. Canvas link (https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW), one
+   line: "every icon in the app, today beside new".
+2. **Headline:** `c/set/c-near-today-lastDay-3x` + `c-near-C-lastDay-3x`.
+3. `c-near-C-halfway-3x`, `c-far-C-ink-halfway-3x`.
+4. `c-list-C-struck-3x` (+ `c-list-C-stamp-3x` for Q2).
+5. `c-tag-C-2-3x`, `c-peel-3x`, `c-sb-dry-3x`.
+6. `grammar/g2-s0-3x`.
+7. The rebuilt `considered-3x` (B, A, D).
+8. The questions below.
+
+### Owner questions (final; after he approves a concept)
+
+1. **Peel:** a visited pin has no peel at rest; the ring comes off like a
+   sticker as it changes. From the tag the pin just inks and tilts. OK?
+2. **List:** the lighter "✓ VISITED" word, or keep the big stamp?
+3. **Visited + starred:** full-size star, or one step smaller?
+4. **Leaflet zoom +/−:** restyle (shown), or remove (pinch + locate)?
+5. **Clusters:** brand orange or ink?
+6. **Small ask:** one phone screenshot of the live map around
+   Hallgrímskirkja at zoom 14–15, for a real-tile check.
+
+(The B-only ink question drops out unless he picks B.)
+
+### Build notes carried to the handoff (not for the owner)
+
+- C's struck-word row changes the row stamp markup → lane 3, the full
+  gesture gate (systems).
+- A row stamp swap also touches `buildPopupHtml()` and the visit drag
+  markup.
+- Selected pins no longer grow (`MARKER_HI_DELTA` → 0); the pulse stays.
+
+### What blocked a 9, across rounds
+
+1. Secondary marks became the noise each time the visited pin was fixed
+   (clusters, selection, approx dashes, starred specks, the list stamp).
+2. Metaphors were moved onto objects that can't do them (the peel on a
+   line).
+3. A value-only concept can't satisfy an owner who has said three times
+   that colour alone doesn't differentiate.

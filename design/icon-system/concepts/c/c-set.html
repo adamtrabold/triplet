@@ -30,7 +30,7 @@ TM.install();
 const {INK,C,use,pin,phone,row,tag,stampHtml,basemap}=TM;
 const w=document.getElementById('w');
 const add=(id,html)=>{const d=document.createElement('div');d.id=id;d.innerHTML=html;w.appendChild(d);};
-const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">${sub}</p>${inner}</div>`;
+const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">FOR REVIEW</span><p class="sub">${sub}</p>${inner}</div>`;
 const P=id=>FX.places.find(p=>p.id===id);
 
 // 1. edge check: the visited disc on every surface, real size

@@ -33,7 +33,7 @@ TM.install();
 const {INK,INKB,C,use,pin,phone,row,tag,stampHtml}=TM;
 const w=document.getElementById('w');
 const add=(id,html)=>{const d=document.createElement('div');d.id=id;d.innerHTML=html;w.appendChild(d);};
-const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">${sub}</p>${inner}</div>`;
+const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">CONSIDERED · DIRECTOR 8 (VALUE-ONLY DIFFERENCE)</span><p class="sub">${sub}</p>${inner}</div>`;
 const P=id=>FX.places.find(p=>p.id===id);
 const hexrgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
 const over=(h,bg,a)=>'#'+hexrgb(h).map((v,i)=>Math.round(v*a+hexrgb(bg)[i]*(1-a)).toString(16).padStart(2,'0')).join('');

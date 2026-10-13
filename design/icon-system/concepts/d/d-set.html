@@ -19,7 +19,7 @@ TM.install();
 const {INK,C,pin,phone}=TM;
 const w=document.getElementById('w');
 const add=(id,html)=>{const d=document.createElement('div');d.id=id;d.innerHTML=html;w.appendChild(d);};
-const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">${sub}</p>${inner}</div>`;
+const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">CONSIDERED</span><p class="sub">${sub}</p>${inner}</div>`;
 const q=new URLSearchParams(location.search); const DS=+(q.get('d')||16);
 const strip=(bg,seed)=>`<div class="strip" style="background:${bg}">`+[['open 24',pin('D',{cat:'cafe'})],...[12,14,16,18,20].map(d=>[d+'px',pin('D',{cat:'cafe',visited:1,dSize:d,seed})])].map(([l,s])=>`<div class="cell">${s}<span class="cap">${l}</span></div>`).join('')+'</div>';
 const today=`<div class="strip" style="background:#F2EFE9"><div class="cell">${pin('today',{cat:'cafe'})}<span class="cap">today open</span></div><div class="cell">${pin('today',{cat:'cafe',visited:1})}<span class="cap">today sticker (24)</span></div><div class="cell">${pin('D',{cat:'cafe',visited:1,dSize:16,seed:3,glyphFace:1})}<span class="cap">16, cream glyph (Q5)</span></div><div class="cell">${pin('D',{cat:'cafe',visited:1,dSize:16,seed:3,starred:1})}<span class="cap">16 + star</span></div></div>`;

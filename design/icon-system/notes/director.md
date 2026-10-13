@@ -277,3 +277,25 @@ shipping it.
   (Q6 is B-only: darken three inks).
 - **Pattern:** a value concept is trapped between "disabled" and "loud".
   Lightness without extra chroma, with "not disabled" carried by form.
+
+## Round 3 (2026-10-13): final send
+
+- **B 8, its ceiling.** The fixes landed: dusty wine, no chroma boost, the
+  lastDay map is quieter than today, the gate holds, ΔE 8–11 vs the chip is
+  accepted. But its only open-vs-done signal is value. The 0.8px
+  misregistration doesn't read at 1x and can't grow (owner: centre the
+  mark). The owner's rules ("not differentiated nearly enough", "colour
+  coding is not enough") predict rejection. No fix exists that doesn't turn
+  it into C.
+- **Send: C (9) + grammar (9) as the concept.** B goes first in a
+  "considered" image (lastDay beside C, one-line reason), with A and D.
+  I told the orchestrator that sending B as a concept would override my
+  bar, and that's their call; if they do, it's labelled "director 8".
+- **Canvas:** visual relabels grammar + C "for review", B "considered ·
+  director 8", rebuilds dropped-3x as considered-3x with B first.
+- **Final owner questions:** peel/tag-ink, list word vs stamp, visited★
+  star size, Leaflet zoom, cluster colour, real-tile screenshot ask.
+- **Handoff notes:** the struck-word row is lane 3 (full gesture gate);
+  selected pins stop growing.
+- **Next, if he approves C:** check that handoff.md matches his approval
+  and his notes, then score the build against it.
