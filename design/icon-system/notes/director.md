@@ -230,3 +230,25 @@ Seen: grammar sheet 2; C / C′ near moments + POI check; B/C/D how-it-works
   7 real-tile screenshot ask. The old Q5 (sticker glyph) is retired with D.
 - **Next:** visual does the C fixes and the considered image; I re-score C,
   then confirm the send list.
+
+## Ruling: second concept (2026-10-13)
+
+The owner won't answer questions until he approves a concept ("not going
+to give them until i approve a concept") and wants more than one. Ruled:
+**develop B with shopping, district and attraction darkened a step, shown
+as its cost (today vs B ink, applied app-wide).** His "We can change the
+color of the category types that clash" justifies proposing it, not
+shipping it.
+
+- Why B: it's a different kind from C (value vs form) and the most literal
+  answer to his words. Every other kind is spent (A fill, D size, relief,
+  punch, dog-ear), and D's good half already lives in C.
+- Conditions:
+  1. the gate re-run with all 11 distinguishable at 1x, including the
+     rows near the 40% look;
+  2. inks ≥3:1 on paper and navy, hue kept;
+  3. the full frame set like C, with the reverse pull drawn beside the
+     dry-up;
+  4. a cost strip.
+- Q6 is retired. The send waits for B ≥9 or B dropped with reasons.
+- Order: C fixes 1–3, then B's gate re-run, then the B set.

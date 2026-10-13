@@ -1305,3 +1305,43 @@ NEXT: product designer (visual focus) — C fixes 1–3 (far/halfway frame
 with the silhouette, the peel as a reinforcement-ring sticker, the
 struck-word list as C's row) plus the "considered and dropped" image;
 systems updates C's jobs check for the new frames. Then I re-score C.
+
+## Director ruling: the second concept, 2026-10-13
+
+**Develop B (Second run) with three category inks darkened a step, shown
+as its cost.** The owner's "We can change the color of the category types
+that clash" is enough to *propose* a recolour in a concept. It isn't
+enough to ship one, so the new inks are labelled as B's cost on every
+frame (today's ink beside B's ink), and they apply app-wide (chips, rows,
+pins), not only to visited.
+
+Why B and not something new: it differs from C in kind (value vs form),
+and it's the most literal answer to his words ("checked items are
+stronger… than the open ones" → done gets weaker). A conventional answer
+he'd expect to see belongs beside the unexpected one. Every other kind
+has been tested and lost: fill (A), size (D), relief, punch, dog-ear.
+D's good half (a paper sticker that keeps the glyph) is already inside C.
+
+Conditions (B dies again if any fail):
+1. **Gate re-run, all 11 at 1x:** open vs reprint vs 40% "unavailable" vs
+   off chip, every column distinguishable. Darkening fixes shopping,
+   district and attraction. The rows that sat near the 40% look
+   (restaurant, bar, nature, area, hotel) need their own answer
+   (misregistration, value target, or both). The visual designer
+   chooses; the gate decides.
+2. Each darkened ink still meets the brand rule (it keeps its hue and its
+   meaning) and passes ≥3:1 on paper and on the navy selected row.
+3. **The same frame set as C:** near day0/halfway/lastDay + squints,
+   mid/halfway, far/halfway + far/lastDay, list (stamp kept, which is B's
+   voice rescue), tag, three storyboards **including the reverse pull for
+   un-visit drawn beside the shipped dry-up.**
+4. A small "B's cost" strip: the three inks, today vs B, in a chip, a row
+   badge and a pin.
+
+Q6 is retired. Its answer is now shown in the concept. Sequence: visual
+finishes C's fixes 1–3 first, then B. I score B on the same basis as C, and
+the send waits until both are ≥9 or B is dropped with reasons.
+
+NEXT: product designer (visual focus) — after C's fixes 1–3, B with the
+three darkened inks: the gate re-run first (it decides B's fate), then
+the full frame set.
