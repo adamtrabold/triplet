@@ -1,5 +1,20 @@
 # Systems designer notes: icon system
 
+## Update 2026-10-13 (canvas v12 re-check)
+
+- **C: all 10 jobs PASS, no blockers** (far/halfway proves J2 far; the
+  gummed-ring peel `c-peel` proves J10 off-selection; the struck row is
+  quieter). Its struck row touches the row-stamp markup and visit-drag code,
+  so it needs the full gesture gate; listed in C §6a.
+- **B: no blockers now.** The gate passes except "other" visited vs the off
+  chip (ΔE 8, colour only), a nit since they're on different surfaces in
+  different forms. J1 is weak: the halfway and lastDay squints look alike
+  because done recedes by value only. The reverse pull is new motion. Cost:
+  three app-wide category inks (owner call), touchpoints in B §6a
+  (CATEGORY_COLORS, chips, the shape colour saved at add time,
+  tools/neighborhood-shapes.html, CLAUDE.md's moss hex).
+- D unchanged: J1/J8 blockers at 18px; honest-cost option.
+
 ## Update 2026-10-13 (jobs check on canvas v11 frames)
 
 - **C (C′): every job PASS except far open-vs-done UNPROVEN.** The far

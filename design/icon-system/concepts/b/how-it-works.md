@@ -178,25 +178,47 @@ at its first score.
 - Line icons: `rowActionHtml()` 5602, collapse ▼, plan +, header icons,
   Leaflet zoom (Q4), you-are-here (~4297).
 
+### 6a. The darker inks: what they touch (added 2026-10-13)
+
+shopping #8A7AA8 → **#665783**, district #328177 → **#146A60**, attraction
+#547326 → **#436215** (`b-cost-1x`). These are app-wide, so not only B's pins:
+- `CATEGORY_COLORS` (index.html ~2818–2829; comments with contrast ratios
+  at 2822/2824/2828 to update) → `categoryInk()` 4483 → every badge, pin,
+  plan pin and shape anchor.
+- Filter chips: `--chip-ink` from `CATEGORY_COLORS` (~8352), chip CSS
+  ~922–940 (the active chip's ink underline).
+- The add form's district/street outline colour (~8760,
+  `color: CATEGORY_COLORS[type]`) → the colour saved on new shapes
+  (`nb.color`, read by `neighborhoodStyle()` 6553). **Existing shapes keep
+  their stored colour** unless a data update re-inks them (DB, lane 3 + a
+  Supabase migration if wanted).
+- The duplicated port in `tools/neighborhood-shapes.html` (no build step) has
+  its own copy of the colours.
+- The new visited (reprint) inks: one derived token per category (11 new
+  tokens), via the brand-token pass.
+- Docs: CLAUDE.md names "attraction moss `#547326`" (line ~180), and
+  `docs/shipped.md` records the ratios. Both change when this lands.
+
 ## 7. Jobs check (pass/fail with proof frames)
 
-Checked 2026-10-13 on `set/` (canvas v11). B has no tag or storyboard frames
-of its own. The tag is shared, so C's tag frames apply.
+Re-checked 2026-10-13 on canvas v12 (`set/`), after the rebuild: shopping,
+district and attraction darkened one step, reprint at L* 54 with its
+chroma raised (×1.35, min 22), a paper mix, never opacity.
 
 | Job | Verdict | Evidence |
 |---|---|---|
-| 1 See what's left | **PASS for dark inks, BLOCKER for 3 categories** | `set/b-near-B-lastDay-squint-3x`: the dark blots are gone and the visited pins are a pale haze, but they keep the pin's form (ring + glyph), so at 1x (`b-near-B-lastDay-1x`) they still read as pins. Open shopping, attraction and district don't step forward at all (J2) |
-| 2 Open vs done | **BLOCKER** | `set/b-gate-1x`: open → visited lightness is shopping L*54 → 56, district 49 → 56, attraction 45 → 56: indistinguishable at 1x. And the reprint vs the 40% "unavailable" look are close for several rows (restaurant, bar, nature, area, hotel), which breaks the guard. The fix is darkening those open inks (the brand-token pass), and that's an owner call, outside this concept. Far: value only (no frame) |
+| 1 See what's left | **PASS, weak** | `b-near-B-lastDay-1x`: the open★ 14, 20 and 10 are the darkest pins. But the squints (`b-near-B-halfway-squint-3x` vs `-lastDay-squint-3x`) are nearly identical: the visited reprints keep the pin's form and colour, so halfway and lastDay read alike. Done steps back by value only. C steps back further (compare `../c/set/c-near-C-lastDay-squint-3x`) |
+| 2 Open vs done | **PASS** (one nit) | `b-gate-1x` re-run: every category's visited vs the 40% look ΔE ≥ 18, and vs the off chip ≥ 20, **except "other" visited vs the off chip, ΔE 8 on colour alone**. Not a job failure: the chip lives in the filter panel as a bare glyph in a dashed chip, never beside a ringed map pin. Far: `b-far-B-ink-halfway-1x`: the open 27 (dark ring + star) vs the visited reprint rings, distinct |
 | 3 No noise | **PASS** | no added elements |
-| 4 One family | **PASS** (shared) | `gx-line18`, `gx-axis-overlay` |
-| 5 / 6 | **PASS** | canvas v11; one of three |
+| 4 One family | **PASS** (shared) | `gx-*` |
+| 5 / 6 | **PASS** | canvas v12; one of three |
 | 7 Category kept | **PASS** | glyph + hue in every state (`b-gate-1x`) |
-| 8 Find starred | **PASS** | `b-near-B-lastDay-1x`: 14, 20 and 10 are the darkest pins |
-| 9 Buttons vs labels | **PASS** (shared tag) | `../c/set/c-tag-C-8` (+ `-off`) |
-| 10 See it land | **UNPROVEN** | the reverse pull is specified (§3) but not drawn; it's new motion and needs frames beside the shipped dry-up |
+| 8 Find starred | **PASS** | `b-near-B-lastDay-1x` |
+| 9 Buttons vs labels | **PASS** | `b-tag-B-8` |
+| 10 See it land | **PASS (new motion)** | `b-sb-tag`, `b-sb-row`, `b-sb-dry`: the pin holds while the stamp dries, then the reverse pull runs inside the snap (370–450) and the glyph slips back into register. The owner hasn't approved this motion yet; it's shown beside the shipped dry-up as required |
 
-**Verdict: B fails its own gate** (director: "If any two can't be told
-apart, B dies there"): for shopping, district and attraction, open and
-visited can't be told apart, and visited sits close to the 40% look. Unless
-the owner wants the brand-token darkening, B goes as "considered and
-dropped" with the gate strip as the reason.
+**B's cost** (`b-cost-1x`): three category inks change **app-wide**, so it's an
+owner call on brand colour (it also overlaps the brand-token pass).
+
+No blockers left. B's weakness for the director's score is J1: done
+recedes less than in C.

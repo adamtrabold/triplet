@@ -173,24 +173,51 @@ open segments.
   (`.plan-add-glyph`), header icons, sort/plan checks (16 → 18), Leaflet
   zoom (Q4), you-are-here (~4297).
 
+### 6a. The struck "✓ VISITED" row (Q2 b): what it touches (added 2026-10-13)
+
+The struck word replaces the row's oval stamp, so it changes **row-gesture
+visuals → lane 3: the full gesture gate** (`design/gesture-harness/run-all.sh`)
+once at the end.
+- `renderCard()` 8183 → the inline `.row-stamp` markup at ~8198 (Places
+  **and** Plans stop rows; both render here). Keep the class name
+  `.row-stamp`: every suite's "the visited mark" selector uses it.
+- The visit drag paints the stamp itself: `beginVisitDrag()` 7843 (the
+  `st.innerHTML` stamp at ~7860), the `.vs-copy` copies at ~7811,
+  `paintVisit()` 7889, `settleVisitDrag()` 8009, `flipVisitToFinal()` 7994,
+  `runVisitPop()` 7789 (`VISIT_POP`). These are all gesture code. The
+  animation-separation rule means the new mark's look changes there, while
+  its motion stays a separate step.
+- `vsReplay()` 7963 (popup → row) and the row's `.dry-out` dry-up
+  (`dryUp()` 5005 works by thickness on any ink, so the struck word dries
+  thin strike first, letters next, the check last).
+- CSS `.row-stamp*` (~1316–1390: ring, the dotted-track mask with
+  `pathLength='166.29'`, the 72x32 box) and the selected-row paper ink
+  (~1496).
+- Harness: `visit.js` cases that measure the 72x32 stamp (V13 hover, V14
+  clearance, V17 press, V20b mid-peel word, V22) need their geometry
+  updated: an owner-ordered behaviour change, thresholds unchanged.
+- **Unchanged:** the tag keeps the big inked stamp (`buildPopupHtml()`
+  5074/5077), so that markup isn't touched.
+- Docs: CLAUDE.md's "Visited stamp / pin sticker" gate text and
+  `docs/shipped.md` change when this lands.
+
 ## 7. Jobs check (pass/fail with proof frames)
 
-Checked 2026-10-13 on visual's full C′ set (`set/`, canvas v11) and the shared
-grammar frames (`../grammar/gx-*`). Frames are 1x unless named.
+Re-checked 2026-10-13 on canvas v12 (`set/`), after visual's fixes: the
+far/halfway frame with the 8px silhouette, the gummed reinforcement-ring
+peel, and the struck "✓ VISITED" list row.
 
 | Job | Verdict | Evidence |
 |---|---|---|
-| 1 See what's left | **PASS** | `set/c-near-C-{day0,halfway,lastDay}-squint-3x`: day 0 is as calm as today; at lastDay the open 14 (on the trunk road), 20 and 10 (approx) are the darkest map marks after the out-of-scope seals; today's lastDay is a field of dark blots (`c-near-today-lastDay-squint-3x`) |
-| 2 Open vs done | **PASS near · UNPROVEN far** | near: rim vs no rim, `c-near-C-lastDay-1x`. Far: `c-far-C-ink-lastDay` has **no open far pin** (all 3 solo far pins, 4/26/27, are visited at lastDay), so open vs done at far isn't shown. Needs **far/halfway**, where 27 Grótta (★) is open |
-| 3 No noise | **PASS** | visited★ = coin + star (2 elements); selected = one navy outline (`c-tag-C-2`). Note: visited★ stars at full orange read as specks next to the open★ rim stars at lastDay (Q3) |
-| 4 One family | **PASS** (shared) | `gx-line18`: the sort menu rows stay 40px and the ledger 45px, nothing grows; `gx-axis-overlay`: the left column's ink centres sit within 0.67px of the axis horizontally |
-| 5 Side by side | **PASS** | canvas v11 rows "C · …" beside TODAY, labelled draft |
-| 6 Choose | **PASS** | B / C / D are three kinds |
-| 7 Category kept | **PASS** (with the far silhouette) | near and rows keep the glyph (`c-near-C-lastDay-1x`, `c-list-C-*`). OSM POIs (orange-brown cup and fork) have no disc, and C′'s coins read as ours. Far: the 7–8px silhouette keeps the glyph (`c-far-C-ink-lastDay`, `c-far-detail`); the 5px dot is colour only, so **the silhouette is the one to send** (visual agrees) |
-| 8 Find starred | **PASS with a note** | the 3 open★ are found first at lastDay. Visited★ orange stars compete a little (J3 note, Q3) |
-| 9 Buttons vs labels | **PASS** | `c-tag-C-8`: Star / MARK VISITED are Line icons at full ink; `c-tag-C-8-off` is the 40% look beside it and reads clearly different |
-| 10 See it land | **PASS** | `c-sb-tag` (stamp + glyph inks and tilts; no peel on a selected pin, see §3), `c-sb-row` (rim peels after the gesture), `c-sb-dry` (dry by thickness, printed glyph returns) |
+| 1 See what's left | **PASS** | `set/c-near-C-{day0,halfway,lastDay}-squint-3x`: at lastDay the open 14, 20 and 10 are the darkest map marks after the out-of-scope seals; today's lastDay is dark blots |
+| 2 Open vs done | **PASS** (near + far) | near: rim vs no rim (`c-near-C-lastDay-1x`). Far: `c-far-C-ink-halfway-3x`: the open 27 Grótta is a dark ring + star, the visited 4 and 26 are paper coins with the 8px silhouette, plainly different |
+| 3 No noise | **PASS** | visited★ = coin + star; selected = one navy outline (`c-tag-C-2`). The list gets quieter with the struck word (`c-list-C-struck`: the 72px oval goes, a small "✓ VISITED" stays) |
+| 4 One family | **PASS** (shared) | `gx-line18` (no row grows), `gx-axis-overlay` |
+| 5 / 6 | **PASS** | canvas v12, beside TODAY; one of three |
+| 7 Category kept | **PASS** | glyph in every state; far = 8px silhouette (`c-far-detail`, `c-far-C-ink-halfway`); the disc separates ours from OSM POIs |
+| 8 Find starred | **PASS** | open★ found first at lastDay. Q3 is shown both ways (`c-q3-full` / `c-q3-small`) for the visited★ star weight |
+| 9 Buttons vs labels | **PASS** | `c-tag-C-8` + `-off` (the 40% look reads clearly different) |
+| 10 See it land | **PASS** | `c-peel` (the ring lifts from one seeded side with the shipped flap curl, comes off whole and falls; legible at 1x on tile), `c-sb-row`, `c-sb-tag` (selected pin: ink + tilt, no peel, §3), `c-sb-dry` |
 
-Nits: the visited bare glyph in rows sits 1.67px low against the axis
-(`gx-axis-overlay`, vertical), where open badges are at +0.83, so nudge it
-up ~0.8px. The far frame wants a halfway twin (J2).
+No blockers. Remaining nit: re-measure the visited row glyph's vertical
+offset (was +1.67px) with the struck row in place.
