@@ -1,5 +1,21 @@
 # Visual designer notes: icon system
 
+## Where things stand (2026-10-13, final labels, canvas v14)
+
+Director round 3: grammar 9, C 9, B 8 (value-only difference; its ceiling).
+Canvas relabelled: grammar + C rows "for review"; B rows "considered ·
+director 8 (value-only difference)"; D and the dropped board "considered".
+Labels are changed both on the boards and inside the stills (the sheet
+sources now print FOR REVIEW / CONSIDERED; re-rendered and re-uploaded).
+`concepts/considered-{3x,1x}.png` replaces dropped-*: B first (b lastDay
+beside C lastDay, "Fades visited places. The difference is value only,
+which your 'colour alone is not enough' rule may reject."), then A and D as
+before. PIL composites (gx-line18, gx-axis-overlay, c-q3, considered) are
+rebuilt by scratchpad/composites.py (not committed).
+
+---
+
+
 ## Where things stand (2026-10-13, B round 2)
 
 Director round 2: C = 9 (don't relabel; the send waits for B), B = 7.

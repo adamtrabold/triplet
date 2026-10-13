@@ -299,3 +299,8 @@ shipping it.
   selected pins stop growing.
 - **Next, if he approves C:** check that handoff.md matches his approval
   and his notes, then score the build against it.
+- 2026-10-13: visual relabelled the canvas (v14) and built
+  `concepts/considered-3x.png` (dropped-* deleted). I asked for two fixes
+  before it's sent: (1) remove the stray "D1 Trail blaze" label from A's
+  crop; (2) show C's list with the stamp kept in the B-vs-C pair, so only
+  one variable differs.
