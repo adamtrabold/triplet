@@ -2697,6 +2697,8 @@
     const PLAYGROUND = (() => { try { return !localStorage.getItem(AUTH_STORAGE_KEY); } catch (e) { return true; } })();
     const realSupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
     const supabaseClient = PLAYGROUND ? createPlaygroundClient(realSupabaseClient) : realSupabaseClient;
+    // A sign-in in another tab reaches this one too (supabase-js broadcasts it): boot again as the real app.
+    if (PLAYGROUND) realSupabaseClient.auth.onAuthStateChange(event => { if (event === 'SIGNED_IN') location.reload(); });
 
     // Mimics the slice of supabase-js the app uses: from(t).select/insert/
     // update/upsert/delete with order/eq/in, awaited for { data, error };
@@ -3051,7 +3053,7 @@
 
     async function logout() {
       if (PLAYGROUND) { hideAccountDropdown(); showAuthModal(); return; }   // the menu's button reads Sign in
-      await supabaseClient.auth.signOut();
+      await supabaseClient.auth.signOut({ scope: 'local' });   // this device only: a global sign-out would quietly drop every other device into the playground
       currentUser = null;
       hideAccountDropdown();
       updateAuthUI();

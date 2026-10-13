@@ -1906,3 +1906,245 @@ If C's re-shoot is late, Float and A go first.
 NEXT: product designer (visual focus) -- re-shoot C `2-add-strip` frame 3
 with the credit ruling; then orchestrator sends Float → A → C per scores.md
 round 5b.
+
+---
+
+## Turn 20 -- design director (new director): round 6 steer
+
+I'm taking over from `notes/director.md`. I re-read owner.md, context,
+jobs.md, scores.md, every jam turn and the three concepts' docs, and looked
+at the round-5b owner stills again, 1x crops first: E1, E8, A1, A2, C1, C2,
+C5.
+
+### The owner on round 5b (verbatim, 2026-10-13)
+
+> im not sold on any of the directions yet. i like them all for different
+> reasons. the claim check feels fairly disconnected to the idea of a
+> location, but maybe as a "ticket" it works if i think of it that way. my
+> problem with the tag one is that the pin doesnt look like a pin and
+> therefore the tag doesnt read as a tag (or a button for that matter).
+> prominence is the problem on the badge... its the same weight and
+> heirarchy as account, which it shouldnt be.
+
+This is normal concept feedback, not a rejection. He likes all three. Each
+note names **one** failure, and each one can be fixed. All three stay in
+the set.
+
+### What his notes have in common
+
+Each note is about **what the object is, read at a glance**: a ticket for
+*what*, a pin that isn't our pin, a badge that is the account's twin.
+That's the same lesson as round 5 ("he reads the pixels, not the idea"),
+one level up. Last round we fixed whether + reads as add. This round, the
+**object carrying the +** has to read as the right thing, and rank above
+the account.
+
+Our own stills made two of these misses. Looking at them again:
+- **E8 drew the Float's failure as its strength.** "Same vertical line as
+  the account badge" plus the same shape, size and colour means **a pair**.
+  We sold the pair; he read "same hierarchy". The alignment is fine; the
+  sameness isn't.
+- **C2: our "pin" is an 18px graphite ring on a stick.** At 1x it reads as
+  a lollipop, a keyring or a balloon. The real pins in C5 are round
+  category discs with a coloured ring and an icon (and visited ones are the
+  dark sticker). Nothing in C's object looks like them, so the tag hangs
+  from nothing he recognises.
+
+### Draws (real RNG)
+
+Oblique: **"Look at the order in which you do things"**, **"Change
+instrument roles"**, **"Make a sudden, destructive unpredictable action;
+incorporate"**. Fields: **railway ticketing**, **coat check**, **air
+traffic control**. Twists: **"it is the only thing that is not navy"**,
+**"it is torn"**.
+
+- *Order of things / railway ticketing* (for A): a coat-check ticket is
+  about a thing you left behind. A **rail or admission ticket is always a
+  ticket to somewhere**: Reykjavík → Höfn, one entry to a museum or a
+  park. That's the location link he's missing, and it's the ticket reading
+  he offered us ("maybe as a 'ticket' it works"). The conductor's clipper
+  is a die-cut hole in a shape. A ticket punched with *our pin's
+  silhouette* would carry place through form (a hole, like the tag's
+  eyelet), not through a printed mark. That's an idea to test, not an
+  instruction.
+- *Change instrument roles / "the only thing that is not navy"* (for
+  Float): today + and account are both navy badges with orange glyphs. Swap
+  one role and + becomes **the only filled orange object on the map**, with
+  the account staying navy. Hierarchy then comes from kind and colour, not
+  only from size.
+- *Destructive action, incorporate* (for C): throw away C's hand-drawn pin.
+  **Incorporate the app's real pin**, the one that is already on the map.
+- *Coat check* came up again. It's what A already is, and it's the reading
+  he called "disconnected", so I'm noting it and dropping it.
+- *Air traffic control:* the useful part is that one thing gets cleared
+  first. Primary ranks by being different in kind, not only by being
+  louder. Same lesson as the Float.
+
+### A. Ticket: make the ticket reading land, and connect it to place
+
+**He gave the opening himself:** "maybe as a 'ticket' it works if i think
+of it that way". Our job is to make him think of it that way at 1x,
+without a caption.
+
+**Settled:** the home (the header's right end, the thumb band, no header
+height), the + as the sign, the die-cut notches, the paper tooth, the
+states and the flow.
+
+**Open (visual's call):** how the object says "a ticket **to a place**".
+Routes to try (try at least two and kill fast):
+- **Rail or admission ticket conventions instead of coat check:**
+  proportion, the stub's tear side, how the edge is cut.
+- **A punched hole in the pin's silhouette** (conductor's clipper), cut
+  through the stock so the map or paper shows through.
+  - Risk: at 1x a small hole reads as a **dot** (he said "absolutely not"
+    to dots).
+  - It has to be big enough to read as a pin shape, or it dies.
+- **Continuity with the Hanging Tag's stub,** so the header's ticket and
+  the place's tag read as one claim system: the ticket you hold, the tag
+  you get.
+  - This only counts if you can see it at rest. A caption doesn't count.
+
+**Hard lines:**
+- No second line of text.
+- No city code printed on it: that's a label competing with the +.
+- The + stays the loudest mark.
+- If "location" only shows up through added marks, A stays a ticket for
+  adding and we tell him so honestly, rather than decorating it.
+
+**Bar:** at 1x beside the others, he'd say "a ticket" before "an orange
+block", and it still says add first.
+
+### C. Pin: it must look like this app's own map pin
+
+**Settled:**
+- C's idea: the add form becomes a tag on the map, and the object you tap
+  is the object you make.
+- The rules: close a tag or the filters to add; the pin steps aside under
+  a tag; the credit ruling; one + (road-sign test).
+
+**The fix: the pin is our map pin, drawn the way the map draws it.**
+- Same disc, same ring weight, same size as the pins around it, with the
+  "nothing placed yet" state shown inside that grammar.
+- Compare it with the real pins in the same frame: C5's café, restaurant
+  and park discs, and the visited sticker.
+- The tag hangs from it the way the Hanging Tag hangs from a pin: popping
+  out of the pin onto a straight string (owner rule), and ending in the
+  tag's own band and eyelet patch. Right now it's an orange chamfered block
+  that reads as a price label.
+
+**Open (visual's call):**
+- **Where the + lives:** in the pin's disc (where the category icon goes),
+  on the tag, or split. One + only.
+- **Whether the tag is the real tag in miniature** (cream body, orange
+  band) or an orange tag. It has to read as a tag *and* as a button: he
+  said both.
+- **Size:** the real pin at map size may be too small to carry "primary".
+  Show it honestly at 1x beside the account badge.
+
+**Risk:** a real-looking pin can read as a place you can tap to see its
+tag. I think that's close to the right affordance (you tap it and a tag
+appears), but check whether it reads as *a place called "+"*.
+
+**Bar:** at 1x he'd say "a pin with a tag" without being told, and it
+ranks above the account badge.
+
+### Float: + outranks the account
+
+**Settled:**
+- The home: right corner, riding the sheet's edge.
+- The rulings: ride on form open, filters "under", `TAG_SHEET_GAP` 78 or
+  whatever the new footprint needs, and the credit.
+- It's still Triplet's own badge family. It must not become the stock
+  FAB, and it must not be "way too much ui".
+
+**Reopened by his note:**
+- Last round's "a size step is not in scope" came from our reading of "the
+  existing badge". His note now outranks that reading. He wants + above
+  account in **weight and hierarchy**.
+
+**Open (visual, then systems for the footprint):** break the twinship on
+more than one axis. These are dials, not instructions:
+- **Field:** orange field with a navy +, so it's the only filled orange
+  object on screen.
+  - Seam: the account badge's *open* state is an orange field. Flag it,
+    don't fix it here (that's the sign-in crew's and the brand-token
+    pass's).
+- **Size:** a step up, measured against the account badge at 1x.
+- **Silhouette:** same family, a different cut, so the pair stops reading
+  as a pair.
+- **The line:** keep the shared right ink line only if it still reads as
+  "placed", not as "twins".
+- Any shadow stays restrained (he's called shadows too harsh three times).
+
+**Not ours to design:** a quieter account badge. That belongs to the
+sign-in crew. If the team thinks + can only win by making the account
+recede, show one labelled frame and flag it to the orchestrator.
+
+**Bar:** blur the 1x crop and + is clearly first, account clearly second,
+and it's still the badge he asked to see.
+
+### A combined concept? Yes, one, at sketch fidelity, kill fast
+
+He likes them for different reasons:
+- the Float: the standard home, reach, simplicity;
+- A: it reads as add;
+- C: novel, and tied to place.
+
+A merge is worth one frame only if it **differs in kind** from all three
+and carries something from each. My candidate:
+
+**D. Floated ticket:**
+- A's ticket, freed from the header: no title cost.
+- At the Float's corner, where his own instinct put +.
+- Carrying place the C way: the punched pin hole, or the pin it hangs from.
+
+It's a loose object in the map corner, not part of the header (unlike A),
+not a badge (unlike the Float), and not a tag with a form-as-tag flow
+(unlike C).
+
+**Kill rules (say so in one line, and we drop it):**
+- it reads as "A moved to the corner";
+- it needs two marks to say "place";
+- it loses the + at 1x.
+
+The owner gets at most four things: Float, A, C, and D only if it scores 9
+on its own. Never a merge in place of one of his three.
+
+### Same bar as round 5, plus one change
+
+- **Unchanged:**
+  - 1x crop first, the same 240x240 window;
+  - real-app renders at 3x;
+  - `chrome-check` clean;
+  - one cost line;
+  - frames checked against the current rulings;
+  - captions checked against the measurements;
+  - a 1x "what does each mark read as" pass.
+- **New:**
+  - every still 1 and every 1x crop shows **the account badge in the same
+    frame**, because hierarchy against it is now judged on every concept;
+  - the "what it reads as" pass names the *object* first ("a ticket", "a
+    map pin", "the add badge, ranked above account"), then the marks.
+
+### Who goes first
+
+1. **Visual first.** All three notes are about how an object reads, so this
+   is UI and brand. Bring:
+   - C's real-pin rebuild;
+   - A's place link (at least two routes, kills named);
+   - the Float's hierarchy dials;
+   - D as one frame.
+
+   Each at the 1x crop beside the account badge. Rough is fine for D.
+2. **Systems second:**
+   - the footprint of whatever the Float and D become (tag gap, credit,
+     320, 664, collapsed with the inset);
+   - whether C's real-pin size changes its slot.
+
+Then I steer once and score all four in one pass.
+
+NEXT: product designer (visual focus) -- every note this round is about what
+an object reads as at 1x (ticket to a place, our own map pin, + ranked above
+account), which is UI and brand; bring C's real-pin rebuild, A's place
+routes, the Float's hierarchy dials and one D frame, each at 1x beside the
+account badge, before systems measures the new footprints.

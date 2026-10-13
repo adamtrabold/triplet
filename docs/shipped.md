@@ -1268,3 +1268,30 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   database or on an iPhone. Landed with the sign-in look the owner rejected
   ("lets push it with shitty sign in and we'll adjust"); its redesign is in
   `design/signin-button/`.
+
+- **Playground becomes the signed-out app** — 2026-10-13, supersedes the
+  `?play` / `?signin` parts of the entry above. Owner: "play shouldn't live
+  at its own url -- it should be the experience pre-sign in". The mode is
+  fixed at boot from supabase-js's stored session (`AUTH_STORAGE_KEY`, its
+  default `sb-<project-ref>-auth-token`): no key → playground
+  (`createPlaygroundClient(realSupabaseClient)`), key → the real app. In the
+  playground the account menu's only button, Sign in, opens the sign-in
+  modal; `signInWithPassword` goes to the real client and success reloads
+  into the real app. A `SIGNED_IN` broadcast from another tab reloads a
+  playground tab too. In the real app, `SIGNED_OUT` (Logout or a refresh
+  token rejected) reloads into the playground, once (no loop: the key is
+  gone first). Logout signs out this device only (`scope: 'local'`), so it
+  never drops the other devices into the playground. `?play` is ignored.
+  The gesture-harness stub stores a session key so its signed-in fixture
+  boots in real mode. Checks: Impeccable gate; popup-open, rows, delete,
+  places-ux; `design/signin-button/mode-test.js`; a fresh reviewer ran the
+  real supabase-js 2.39.3 (no write from the playground reached
+  `/rest/v1`; no reload loop in 10 scenarios). Known gap (owner's call):
+  nothing in the playground says changes aren't kept.
+- **Desktop list title in the caret's spot** — 2026-10-13. Owner: "on
+  desktop it removes the caret to collapse the list since it's a sidebar ...
+  in that case the city name should shift over"; then "title is not aligned
+  with icons in reality or visually". In the ≥900px rail the blank
+  `#locationsHeader::before` spacer is gone; the title gets `margin-left:
+  2px` so the L's stem ink sits 1px inside the row icons' ring ink
+  (Chromium: 19 vs 18), the round edge's overshoot. Phone unchanged.

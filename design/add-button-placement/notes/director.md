@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 5b" at the bottom -- set RELEASED, waiting on the owner)
+## Status (current: see "Round 6 opened" at the bottom -- steer written, visual goes first)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -574,3 +574,106 @@ release the set (or Float and A, plus a line on C).
   drift. Both are now in the visual seat's handover checks.
 
 - 2026-10-13: C `2-add-strip` re-shot and checked. **The set is released** (Float → A → C, per scores.md round 5b). Waiting on the owner's pick.
+
+---
+
+## Round 6 opened (new director) -- 2026-10-13
+
+### Owner on round 5b (verbatim)
+"im not sold on any of the directions yet. i like them all for different
+reasons. the claim check feels fairly disconnected to the idea of a
+location, but maybe as a "ticket" it works if i think of it that way. my
+problem with the tag one is that the pin doesnt look like a pin and
+therefore the tag doesnt read as a tag (or a button for that matter).
+prominence is the problem on the badge... its the same weight and
+heirarchy as account, which it shouldnt be."
+This is feedback, not a rejection. He likes all three, and all three stay.
+
+### My read, with fresh eyes (no re-score; the work hasn't changed)
+- **Common thread:** every note is about what the **object** carrying the +
+  reads as at a glance (a ticket for what? not our pin; the account's
+  twin). Round 5 fixed "+ reads as add". Round 6 has to fix "the object
+  reads as the right thing and ranks above account".
+- **We sold the Float's failure as its strength.** E8 presents "same line
+  as account" next to the same shape, size and colour, which reads as a
+  pair. The alignment is fine; the sameness isn't.
+- **C2's "pin" is a graphite ring on a stick** (lollipop/keyring). The real
+  pins (C5) are round category discs with a coloured ring and an icon, or
+  the dark visited sticker. Round 5b's 9 for C was mine to own: I checked
+  "not a spinner" and never asked "is this our pin?".
+
+### Steer (jam turn 20)
+- **A:**
+  - make the "ticket" reading land and tie it to place;
+  - routes: rail/admission ticket conventions (a ticket is always *to
+    somewhere*), a conductor's punch in the pin's silhouette (dot risk at
+    1x), continuity with the Hanging Tag's stub;
+  - no second text line, no city code, + loudest;
+  - if place needs added marks, tell him honestly instead.
+- **C:**
+  - the pin is the app's own map pin (disc, ring weight, size as the
+    map's), shown "unplaced" within that grammar;
+  - the tag hangs Hanging-Tag style (pops out onto a straight string, band
+    and eyelet patch);
+  - open: where the one + lives (disc vs tag), miniature real tag vs orange
+    tag, size vs primacy;
+  - risk: reads as a place called "+".
+- **Float:**
+  - outrank the account on more than one axis: field (orange, the only
+    filled orange thing), a size step (now in scope; his note beats our
+    "existing badge" reading), silhouette within the family, whether to
+    keep the shared line;
+  - shadow restrained, not the stock FAB, not "too much ui";
+  - a quieter account is the sign-in crew's: one labelled frame and a
+    flag at most.
+  - Seam to flag: the account's open state = orange field.
+- **D, the combined concept:** worth one sketch frame.
+  - "Floated ticket": A's ticket at the Float's corner (no title cost),
+    carrying place the C way (the pin punch or the pin it hangs from).
+  - Kill if it reads as "A moved", needs two marks for place, or loses
+    the + at 1x.
+  - The owner sees at most four; D goes only at 9, never in place of one
+    of his three.
+- **New bar:**
+  - every still 1 and every 1x crop includes the account badge;
+  - the "reads as" pass names the object first, then the marks.
+- **Draws (real RNG):** Look at the order in which you do things; Change
+  instrument roles; Destructive action, incorporate; railway ticketing,
+  coat check (dropped: it's A's current reading), air traffic control;
+  "only thing not navy", "it is torn".
+
+### Likely owner objections I'll hold round 6 to
+- **A:** "still a coat check with a hole in it"; "the hole is a dot";
+  "now it's decorated".
+- **C:** "now it looks like one of my places"; "too small to be the main
+  button"; "the tag still looks like a price tag".
+- **Float:** "now it's just a big orange FAB" / "too much ui"; "the two
+  oranges fight" (with the account's open state); "it doesn't look like
+  our badge any more".
+- **D:** "that's just A moved"; "pick one".
+
+### What keeps blocking a 9 (across rounds)
+- **Rounds 1-4:** the finish in state frames, and the squeeze at 664.
+- **Round 5:** small marks read wrong at 1x.
+- **Round 5b:** **object identity and rank at 1x.** We checked marks
+  ("not a spinner") but never the object ("is it our pin?", "is it ranked
+  above account?").
+- **Why it keeps happening:** we score against the last note's fix and
+  stop there. He reads the whole object fresh every time.
+- **Fix in process:**
+  - name the object first in the 1x pass;
+  - put the account badge in every comparison frame.
+
+### Did the work change?
+No new work yet, so no re-scores. The 5b 9s are history; round 6 is scored
+fresh.
+
+### Next
+- Visual: C's real-pin rebuild, A's place routes, the Float's hierarchy
+  dials, D as one frame.
+- Systems: the footprints (Float size/field, D, C's pin size): tag gap,
+  credit, 320, 664, collapsed with the inset.
+- Me: one steer, then score all of it in one pass.
+- Cross-crew (orchestrator): the Float's hierarchy may need the account
+  badge to recede, and the account's open state = orange field. Both touch
+  the sign-in crew.
