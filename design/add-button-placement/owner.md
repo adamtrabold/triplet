@@ -22,3 +22,8 @@ Set of 9s turned down = rejection 1 (a set counts as one). New direction: push A
 > These are concepts so it’s normal for me to have feedback
 
 So: feedback on concepts is normal iteration, not a rejection. Do not count it toward the "two 9s turned down" stuck rule, and do not frame it as a rejection to the owner.
+
+2026-10-13, on round 5b (Float, A ticket, C blank pin; all director 9):
+> im not sold on any of the directions yet. i like them all for different reasons. the claim check feels fairly disconnected to the idea of a location, but maybe as a "ticket" it works if i think of it that way. my problem with the tag one is that the pin doesnt look like a pin and therefore the tag doesnt read as a tag (or a button for that matter). prominence is the problem on the badge... its the same weight and heirarchy as account, which it shouldnt be.
+
+Feedback (normal iteration, not a rejection). Likes all three for different reasons.
