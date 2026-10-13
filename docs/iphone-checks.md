@@ -10,6 +10,11 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   in your browser, signed in). Until it runs, no tag shows an address line
   (0/202 places have `short_address`/`address_details`); the tag lays out
   cleanly without it. Afterwards, check a few tags show "street number · area".
+- **Playground (`?play`, landed 2026-10-13):** open `…/?play` on your phone
+  (signed in or not): your real places load; star, visit, delete and add
+  one; reload and check they're all back to normal; open the normal link
+  and confirm none of it reached the real trip. Then tap the account badge →
+  Sign in: the real app opens with the sign-in box.
 - iPhone check of the Hanging Tag + orange star (landed 2026-10-07):
   (1) tap a pin: the map pans it under the top controls and the tag pops out
   of the pin on a straight string with one bounce, smooth in Safari; with
