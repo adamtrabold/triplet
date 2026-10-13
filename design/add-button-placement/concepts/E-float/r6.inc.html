@@ -1,0 +1,36 @@
+<!-- ===== FLOAT, ROUND 6 (visual designer): + outranks the account badge on more than one axis =====
+     Layered AFTER systems' concept.inc.html and stills.js's R17 by ../r6-stills.js (in memory; nothing on disk changes).
+     Dials on <html>, set per frame:
+       data-ff  = navy | orange         field. orange: brand orange stock (the band's paper tooth), navy + -- the only
+                                        filled orange object on the map at rest (clusters are DEEP orange with a paper count)
+       data-fs  = 1 | 1.2 | 1.28        size step, scaled about the scallop's lower-right INK corner, so the ink keeps
+                                        systems' 20/20 inset from the side and the list (the footprint grows up and left)
+       data-fc  = same | rosette | seal silhouette. same: today's 14-lobe scallop (the account's twin). rosette: 10 round
+                                        lobes with sharp valleys (a scalloped label edge, as the inspo's hotel labels). seal: 24 fine lobes (a postage / notary edge)
+       data-acct = small                THE ONE FRAME THAT TOUCHES THE ACCOUNT BADGE (flagged, not ours to design): the
+                                        account badge one size step down (40px), nothing else changed
+     Open (form) state keeps R17: navy field, paper x. Pressed: deep orange, paper + (ADD LOCATION's own press). -->
+<style id="floatR6">
+  #floatingAddBtn { transform-origin: calc(100% - 3.9px) calc(100% - 3.9px); }
+  html[data-fs="1.2"] #floatingAddBtn { transform: scale(1.2); }
+  html[data-fs="1.28"] #floatingAddBtn { transform: scale(1.28); }
+  html[data-ff="orange"] #floatingAddBtn:not(.active) { background-color: var(--brand-orange); background-image: var(--tex-flood); background-size: 160px 160px; background-position: -23px -71px; color: var(--navy); }
+  html[data-ff="orange"] #floatingAddBtn:not(.active).press { background-color: var(--brand-orange-deep); color: var(--paper); }
+  html[data-ff="navy"] #floatingAddBtn:not(.active).press { background: var(--state-on-press); color: var(--paper); }
+  /* the + itself: one weight step heavier on the orange stock (navy on orange needs the stroke to hold at 1x) */
+  html[data-ff="orange"] #floatingAddBtn svg { stroke-width: 3; }
+  html[data-acct="small"] #accountBtn { transform: scale(.8); transform-origin: calc(100% - 3.9px) 3.9px; }
+</style>
+<script id="floatR6js">
+(function () {
+  const root = document.documentElement, fab = document.getElementById('floatingAddBtn');
+  // a scalloped circle in the badge's 50 box: N lobes, depth A (px), outer radius R (ink 3.9..46.1 -> R 21.1)
+  const scallop = (N, A, R = 21.1, cusp = false) => { const p = []; for (let i = 0; i < 360; i++) { const t = i / 360 * 2 * Math.PI, r = cusp ? R - A * (1 - Math.abs(Math.cos(N * t / 2))) : R - A * (1 - Math.cos(N * t)) / 2;
+      p.push(`${(25 + r * Math.sin(t)).toFixed(2)},${(25 - r * Math.cos(t)).toFixed(2)}`); }
+    return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><polygon fill='white' points='${p.join(' ')}'/></svg>`)}")`; };
+  const cut = root.dataset.fc;
+  const m = cut === 'rosette' ? scallop(10, 3.2, 21.1, true) : cut === 'seal' ? scallop(24, 1.7) : null;
+  if (m) { fab.style.webkitMaskImage = m; fab.style.maskImage = m; }
+  fab.addEventListener('pointerdown', () => fab.classList.add('press')); ['pointerup', 'pointercancel', 'pointerleave'].forEach(e => fab.addEventListener(e, () => fab.classList.remove('press')));
+})();
+</script>

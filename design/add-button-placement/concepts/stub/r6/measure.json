@@ -1,0 +1,299 @@
+{
+ "a-admit": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-admit-1x": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-tagcut": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-tagcut-1x": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-admit-pressed": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-ticket": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-ticket-1x": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-punchdisc": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-punchdisc-1x": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-punchdrop": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ },
+ "a-punchdrop-1x": {
+  "obj": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   139,
+   527,
+   390,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "title": "fit | Reykjavík list (23)",
+  "errs": [],
+  "clash": []
+ }
+}

@@ -1,0 +1,33 @@
+<!-- ===== D. FLOATED TICKET, ROUND 6 (visual designer; ONE rough frame, kill-fast) =====
+     A's admission ticket, freed from the header, as the Float's object at the Float's corner. Layered on the Float's
+     prototype (E-float/index.html copy + concept.inc.html + R17) by ../r6-stills.js, in memory. It IS #floatingAddBtn
+     (so it rides the sheet, opens the form, signs in) with a ticket's die-cut instead of the scallop.
+     Variants on <html data-d="...">:
+       bare     the ticket alone: 72x44, the tear line 16px in with its two half-round notches, orange tooth, navy +
+       pinned   the same ticket pinned to the map through its stub by the app's own map pin (badgeHtml, 24px, dashed =
+                "not exactly placed"; empty disc) -- the botanical-specimen label: the pin goes through the label -->
+<style id="dR6">
+  html[data-d] #floatingAddBtn { width: 72px !important; height: 44px !important; transform: translate(-26px, 2px); overflow: visible;
+    background-color: var(--brand-orange); background-image: var(--tex-flood); background-size: 160px 160px; background-position: -23px -71px; color: var(--navy); box-shadow: none; }
+  html[data-d] #floatingAddBtn:not(.active) { filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)); }
+  html[data-d] #floatingAddBtn.active { background: var(--navy); color: var(--paper); }
+  html[data-d] #floatingAddBtn svg { width: 26px; height: 26px; margin-left: 16px; stroke-width: 3; }
+  html[data-d] #floatingAddBtn::before { content: ''; position: absolute; left: 15.25px; top: 8px; bottom: 8px; border-left: 1.5px dashed var(--paper); opacity: .9; }
+  #dPin { position: fixed; z-index: 2001; pointer-events: none; line-height: 0; filter: drop-shadow(0 1px 1px rgba(30,40,50,.25)); }
+</style>
+<script id="dR6js">
+(function () {
+  const root = document.documentElement, v = root.dataset.d, fab = document.getElementById('floatingAddBtn');
+  if (!v) return;
+  const w = 72, h = 44, x = 16, r = 6;
+  const p = `M0 0H${x - r}A${r} ${r} 0 0 0 ${x + r} 0H${w}V${h}H${x + r}A${r} ${r} 0 0 0 ${x - r} ${h}H0Z`;
+  const m = `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${w} ${h}'><path fill='white' d='${p}'/></svg>`)}")`;
+  fab.style.webkitMaskImage = m; fab.style.maskImage = m;
+  if (v === 'pinned') {
+    const pin = document.createElement('div'); pin.id = 'dPin';
+    pin.innerHTML = badgeHtml('other', 'dashed', 24, { ink: '#12293F', fill: '#F2EBDD', rim: 2, glyph: false }); document.body.appendChild(pin);
+    const t = setInterval(() => { const b = fab.getBoundingClientRect(); pin.style.left = (b.left - 4) + 'px'; pin.style.top = (b.top - 10) + 'px';
+      pin.style.visibility = getComputedStyle(fab).visibility; }, 30);
+  }
+})();
+</script>

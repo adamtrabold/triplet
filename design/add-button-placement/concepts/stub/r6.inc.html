@@ -1,0 +1,38 @@
+<!-- ===== A. TICKET, ROUND 6 (visual designer): "a ticket TO A PLACE" routes =====
+     Layered AFTER r5.inc.html by ../r6-stills.js (in memory, into the real index.html's text; nothing on disk changes).
+     Routes on <html data-a="...">, each a die-cut drawn as an SVG mask on #nb (sized to the stub's live box):
+       ticket      round 5b (reference): coat-check bites at the two torn-side corners + a perforation 6px in
+       admit       ADMISSION / RAIL ticket: the tear line moved INSIDE the stock (x 15), with the two half-round
+                   notches ON it (top and bottom edge) -- the ticket's own silhouette, the Hanging Tag stub's own notches;
+                   a 15px torn-off stub left of the line, the + on the ticket proper
+       tagcut      the Hanging Tag's die-cut turned on its side: the tag's two chamfers at the left end + its eyelet hole
+       punchdisc   ticket + a conductor's punch in OUR pin's silhouette (the app's pin is a round disc), 9px
+       punchdrop   ticket + a punch in the generic map-pin teardrop (not our pin; for the comparison) -->
+<style id="stubR6">
+  html[data-a="admit"] #nb, html[data-a="tagcut"] #nb, html[data-a="punchdisc"] #nb, html[data-a="punchdrop"] #nb {
+    -webkit-mask: var(--a6-mask) 0 0 / 100% 100% no-repeat; mask: var(--a6-mask) 0 0 / 100% 100% no-repeat; }
+  html[data-a="admit"] #nb::before { content: ''; position: absolute; left: 14.25px; top: 10px; bottom: 10px; border-left: 1.5px dashed var(--paper); pointer-events: none; opacity: .9; }
+  html[data-a="punchdisc"] #nb::before, html[data-a="punchdrop"] #nb::before { content: ''; position: absolute; left: 6px; top: 14px; bottom: 14px; border-left: 1.5px dashed var(--paper); pointer-events: none; opacity: .9; }
+</style>
+<script id="stubR6js">
+(function () {
+  const root = document.documentElement, v = root.dataset.a, nb = document.getElementById('nb');
+  if (!nb || !['admit', 'tagcut', 'punchdisc', 'punchdrop'].includes(v)) return;
+  const svg = d => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${d.w} ${d.h}' width='${d.w}' height='${d.h}' preserveAspectRatio='none'><path fill='white' fill-rule='evenodd' d='${d.p}'/></svg>`)}")`;
+  const circ = (cx, cy, r) => `M${cx - r} ${cy}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0Z`;
+  function draw() {
+    const w = nb.offsetWidth, h = nb.offsetHeight; if (!w) return;
+    let p, plusX = 0;
+    const bites = `M10 0H${w}V${h}H10A10 10 0 0 0 0 ${h - 10}V10A10 10 0 0 0 10 0Z`;   // r5 ticket: concave 10px corners
+    if (v === 'admit') { const x = 15, r = 6;
+      p = `M0 0H${x - r}A${r} ${r} 0 0 0 ${x + r} 0H${w}V${h}H${x + r}A${r} ${r} 0 0 0 ${x - r} ${h}H0Z`; plusX = 7; }
+    if (v === 'tagcut') { const c = 14;
+      p = `M${c} 0H${w}V${h}H${c}L0 ${h - c}V${c}Z` + circ(9.5, h / 2, 3.6); plusX = 6; }
+    if (v === 'punchdisc') { p = bites + circ(48, 12.5, 4.5); plusX = 4; }
+    if (v === 'punchdrop') { p = bites + `M48 20.5C48 20.5 43.6 15.6 43.6 12.6A4.4 4.4 0 0 1 52.4 12.6C52.4 15.6 48 20.5 48 20.5Z`; plusX = 4; }
+    root.style.setProperty('--a6-mask', svg({ w, h, p }));
+    nb.querySelector('svg').style.marginLeft = plusX + 'px';
+  }
+  draw(); addEventListener('resize', draw); setTimeout(draw, 300); setTimeout(draw, 1200);
+})();
+</script>

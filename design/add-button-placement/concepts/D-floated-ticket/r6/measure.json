@@ -1,0 +1,106 @@
+{
+ "d-pinned": {
+  "obj": [
+   298,
+   480,
+   370,
+   524
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   0,
+   527,
+   186,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "errs": [],
+  "clash": []
+ },
+ "d-pinned-1x": {
+  "obj": [
+   298,
+   480,
+   370,
+   524
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   0,
+   527,
+   186,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "errs": [],
+  "clash": []
+ },
+ "d-bare": {
+  "obj": [
+   298,
+   480,
+   370,
+   524
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   0,
+   527,
+   186,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "errs": [],
+  "clash": []
+ },
+ "d-bare-1x": {
+  "obj": [
+   298,
+   480,
+   370,
+   524
+  ],
+  "objHit": "self",
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   0,
+   527,
+   186,
+   544
+  ],
+  "sheetTop": 544,
+  "submit": "hidden",
+  "pinsInView": 17,
+  "errs": [],
+  "clash": []
+ }
+}
