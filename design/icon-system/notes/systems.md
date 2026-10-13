@@ -1,5 +1,26 @@
 # Systems designer notes: icon system
 
+## Update 2026-10-13 (jobs check on canvas v11 frames)
+
+- **C (C′): every job PASS except far open-vs-done UNPROVEN.** The far
+  lastDay frame has no open far pin, so far/halfway (27 open★) is needed.
+  Send the far silhouette, not the dot. Nit: the row's visited glyph sits
+  1.67px low.
+- **C tag-peel finding folded into §3:** a selected pin's rim is navy, so a
+  visit from the tag inks + tilts the glyph and doesn't peel. The peel plays on
+  unselected pins (row swipes when that row's tag isn't open, Plans). No
+  deferred peel on tag close (it would make selection look like a state).
+  Open for the director: is "ink + tilt only" on the selected pin enough?
+- **B: BLOCKER on J2/J1.** The gate shows shopping/district/attraction open ≈
+  visited (L* 54/49/45 → 56) and the reprint close to the 40% look on several
+  rows. The fix is darkening the open inks (brand-token pass = owner call).
+  J10 unproven (the reverse pull isn't drawn). Recommend B → "considered and
+  dropped" unless the owner wants the token change.
+- **D: `S` = 18. BLOCKERs on J1/J8** (the stickers still win the lastDay
+  squint) and J7 for D-main (D-alt passes). J10 unproven. Goes to the owner
+  as the honest-cost option, per the director.
+- Tables are in §7 of each `concepts/<b|c|d>/how-it-works.md`.
+
 ## Update 2026-10-13 (after the director's concept steer 1)
 
 - **C is now C′** (rim off, paper disc kept with a warm 1px outer edge, glyph

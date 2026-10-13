@@ -135,5 +135,23 @@ Smallest diff of the three:
 
 ## 7. Jobs check (pass/fail with proof frames)
 
-*Pending visual's D size strip and the lastDay squint at `S`. Filled in once
-the frames land.*
+Checked 2026-10-13 on `set/` (canvas v11). Size from the strip: **`S` =
+18px** (`set/d-size-1x`: at 12–14 the flap reads as a notch, at 16 it's
+marginal, at 18 it reads as a peel on land, road and park).
+
+| Job | Verdict | Evidence |
+|---|---|---|
+| 1 See what's left | **BLOCKER** | `set/d-near-D-lastDay-squint-3x`: the 24 dark stickers at 18px are still the first thing the eye hits; the 3 open★ (10, 14, 20) are not. D's premise test fails, as the director predicted |
+| 2 Open vs done | **PASS** | very distinct: form, size and colour (`d-near-D-lastDay-1x`) |
+| 3 No noise | **PASS, weak** | star = 1 element, but each visited pin carries sticker + check + flap + shadow at rest. That's the declared cost of keeping the peel |
+| 4 One family | **PASS** (shared) | `gx-*`. The sticker is the one non-grammar mark left |
+| 5 / 6 | **PASS** | canvas v11; one of three |
+| 7 Category kept | **BLOCKER (D-main) · PASS (D-alt)** | `d-near-D-lastDay-1x`: every visited pin is the same check, so the category is gone on the map. D-alt (`d-size`, "16, cream glyph (Q5)") keeps it |
+| 8 Find starred | **BLOCKER** | same frame as J1: the open★ pins aren't found first among the stickers |
+| 9 Buttons vs labels | **PASS** (shared tag) | `../c/set/c-tag-C-8` (+ `-off`) |
+| 10 See it land | **UNPROVEN** | no D storyboards. The placing motion is shipped, but the un-visit peel on the pin is new and not drawn |
+
+**Verdict:** D fails J1 and J8 at 18px, which is its own premise. Per the
+director it still goes to the owner, as the honest "keep what you chose,
+here's what it costs" option: show the lastDay squint beside C's, and
+D-alt for J7.

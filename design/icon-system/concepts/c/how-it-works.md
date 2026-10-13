@@ -69,21 +69,35 @@ the paper discs sit *under* open pins in the real overlaps (3/5, 2/24).
 ## 3. Flows (5 beats each)
 
 **Visit from the tag** (Kaffibarinn, open, selected; its pin visible above
-the tag):
-1. Rest: Visited segment = Line check + VISITED label, full ink; pin = navy
+the tag). *Updated from visual's storyboard `set/c-sb-tag-*`.*
+
+**Finding: from the tag the rim peel can't show.** A pin with its tag open
+is always selected, so its rim is the **navy selection ring**, not the
+category rim, and there's no printed rim to peel. "Selection replaces the
+rim" and "the visit peels the rim" meet on the same ring, and selection
+wins. So from the tag:
+1. Rest: Visited segment = Line check + MARK VISITED, full ink; pin = navy
    rim, upright glyph.
-2. Tap (`hapticTap()`).
-3. Impact: the tag's stamp comes down (`tagStampIn`, 420ms, shipped). In
-   the same frames the pin's **rim peels off**. The selected pin's rim is
-   navy, so the navy ring lifts from one seeded corner (`stickerCorner()`'s
-   hash) as a thin curling strip, then fades. The paper disc stays put.
-4. Settle: the glyph turns from 0° to its seeded tilt with a small ink
-   bleed (the stamp's ink language at glyph size). Then the navy selection
-   rim prints back (it's selection, not shell). If that double-handling reads
-   fussy in frames, the alternative is: **while selected, the navy rim
-   stays and only the glyph tilts and inks**. Visual picks by looking; both
-   are legal.
-5. Rest done.
+2. Tap (`hapticTap()`): segment press.
+3. Impact: the tag's stamp comes down (`tagStampIn`, 420ms, shipped). It's
+   the moment, and it's the big surface. The pin's glyph **takes the ink**
+   (Printed → Inked texture) in the same frames.
+4. Settle: the glyph turns to its seeded tilt (±6°) with a small bleed.
+   The navy rim stays (it's selection).
+5. Rest done: navy rim, paper disc, inked tilted glyph.
+   On **tag close** the selection ring simply goes (as today's deselect does)
+   and the visited coin is left. No deferred peel: a peel on close would
+   make selection look like a visited state (one channel, one meaning).
+
+The peel is still in the concept. It plays **wherever the pin isn't
+selected**: after a row swipe on any row whose tag isn't open (below),
+and in Plans. A swipe on the selected (navy) row behaves like the tag: ink +
+tilt, no peel. That covers the owner's "state changes
+animate wherever they come from": the tag animates the stamp + glyph, and
+the unselected pin animates the peel. Open question for the director: is
+"tilt + ink only" on the selected pin enough of a pin change, given that
+the tag stamp beside it carries the moment? My read is yes, because J10 is
+met by the tag. The pin's change is legible once the tag closes.
 
 **Visit from a row swipe** (left, on Café Loki):
 1–4. The shipped gesture, untouched (`beginVisitDrag()` / `paintVisit()` /
@@ -99,8 +113,8 @@ if the pin is on screen, the pin's rim peels off (from `syncMarkers()`, as
   tines, cup handle; the thick body last), in the same `--ghost-tint` shell
   → core language, filter at glyph size.
 - 370–450ms: the snap; the last cores go.
-- From ~300ms, under the drying ink, the **upright Printed glyph and the
-  category rim print back in** (opacity 0 → 1 by 450ms; no pop, no scale).
+- From ~300ms, under the drying ink, the **upright Printed glyph** (and,
+  if the pin isn't selected, the category rim) **print back in** (opacity 0 → 1 by 450ms; no pop, no scale).
 - 470–540ms: the tag's MARK VISITED words ink in (shipped). The pin is at
   rest open.
 
@@ -161,19 +175,22 @@ open segments.
 
 ## 7. Jobs check (pass/fail with proof frames)
 
-**Provisional (2026-10-13)**, from the frames that exist: C′ near halfway and
-lastDay *before* the edge fix (`near-Cpad-*`, `sq-near-Cpad-*`), and day0
-(`near-C-day0`; with nothing visited it's identical for C′). The final check
-runs on visual's full C′ set.
+Checked 2026-10-13 on visual's full C′ set (`set/`, canvas v11) and the shared
+grammar frames (`../grammar/gx-*`). Frames are 1x unless named.
 
 | Job | Verdict | Evidence |
 |---|---|---|
-| 1 See what's left | **PASS (provisional)** | `sq-near-Cpad-lastDay-squint-3x`: the dark blot field of `sq-near-today-lastDay` is gone; the open rings (14 on the trunk road, 20, 10's approx rim) are the strongest map marks after the out-of-scope seals. Halfway the same |
-| 2 Open vs done | pending | needs the far frame (rim vs dot-on-disc at 16px) and a grayscale copy |
-| 3 No noise | pending | needs the edge fix; the visited★ stars (full orange, 12 o'clock) are the loudest small marks at lastDay, see J8 |
-| 4 One family | pending | 18px context crops |
-| 7 Category kept | pending | redo `c-poi-check` with the disc + edge |
-| 8 Find starred | **PASS with a note** | the 3 open starred pins are found first at lastDay, but the visited★ orange stars read as small orange specks of equal hue. Q3 ("does visited still show its star?") matters more in C than I expected; show lastDay with visited★ stars at the visited weight (Inked, smaller) |
-| 9, 10 | pending | tag frame + 40% swatch; storyboards |
-| 5, 6 | n/a until the canvas rows | |
+| 1 See what's left | **PASS** | `set/c-near-C-{day0,halfway,lastDay}-squint-3x`: day 0 is as calm as today; at lastDay the open 14 (on the trunk road), 20 and 10 (approx) are the darkest map marks after the out-of-scope seals; today's lastDay is a field of dark blots (`c-near-today-lastDay-squint-3x`) |
+| 2 Open vs done | **PASS near · UNPROVEN far** | near: rim vs no rim, `c-near-C-lastDay-1x`. Far: `c-far-C-ink-lastDay` has **no open far pin** (all 3 solo far pins, 4/26/27, are visited at lastDay), so open vs done at far isn't shown. Needs **far/halfway**, where 27 Grótta (★) is open |
+| 3 No noise | **PASS** | visited★ = coin + star (2 elements); selected = one navy outline (`c-tag-C-2`). Note: visited★ stars at full orange read as specks next to the open★ rim stars at lastDay (Q3) |
+| 4 One family | **PASS** (shared) | `gx-line18`: the sort menu rows stay 40px and the ledger 45px, nothing grows; `gx-axis-overlay`: the left column's ink centres sit within 0.67px of the axis horizontally |
+| 5 Side by side | **PASS** | canvas v11 rows "C · …" beside TODAY, labelled draft |
+| 6 Choose | **PASS** | B / C / D are three kinds |
+| 7 Category kept | **PASS** (with the far silhouette) | near and rows keep the glyph (`c-near-C-lastDay-1x`, `c-list-C-*`). OSM POIs (orange-brown cup and fork) have no disc, and C′'s coins read as ours. Far: the 7–8px silhouette keeps the glyph (`c-far-C-ink-lastDay`, `c-far-detail`); the 5px dot is colour only, so **the silhouette is the one to send** (visual agrees) |
+| 8 Find starred | **PASS with a note** | the 3 open★ are found first at lastDay. Visited★ orange stars compete a little (J3 note, Q3) |
+| 9 Buttons vs labels | **PASS** | `c-tag-C-8`: Star / MARK VISITED are Line icons at full ink; `c-tag-C-8-off` is the 40% look beside it and reads clearly different |
+| 10 See it land | **PASS** | `c-sb-tag` (stamp + glyph inks and tilts; no peel on a selected pin, see §3), `c-sb-row` (rim peels after the gesture), `c-sb-dry` (dry by thickness, printed glyph returns) |
 
+Nits: the visited bare glyph in rows sits 1.67px low against the axis
+(`gx-axis-overlay`, vertical), where open badges are at +0.83, so nudge it
+up ~0.8px. The far frame wants a halfway twin (J2).

@@ -180,6 +180,23 @@ at its first score.
 
 ## 7. Jobs check (pass/fail with proof frames)
 
-*Pending visual's B frames: near halfway + lastDay and the gate strip (all 11
-reprint inks + the 40% swatch + the inactive chip at 1x). Filled in once they
-land.*
+Checked 2026-10-13 on `set/` (canvas v11). B has no tag or storyboard frames
+of its own. The tag is shared, so C's tag frames apply.
+
+| Job | Verdict | Evidence |
+|---|---|---|
+| 1 See what's left | **PASS for dark inks, BLOCKER for 3 categories** | `set/b-near-B-lastDay-squint-3x`: the dark blots are gone and the visited pins are a pale haze, but they keep the pin's form (ring + glyph), so at 1x (`b-near-B-lastDay-1x`) they still read as pins. Open shopping, attraction and district don't step forward at all (J2) |
+| 2 Open vs done | **BLOCKER** | `set/b-gate-1x`: open → visited lightness is shopping L*54 → 56, district 49 → 56, attraction 45 → 56: indistinguishable at 1x. And the reprint vs the 40% "unavailable" look are close for several rows (restaurant, bar, nature, area, hotel), which breaks the guard. The fix is darkening those open inks (the brand-token pass), and that's an owner call, outside this concept. Far: value only (no frame) |
+| 3 No noise | **PASS** | no added elements |
+| 4 One family | **PASS** (shared) | `gx-line18`, `gx-axis-overlay` |
+| 5 / 6 | **PASS** | canvas v11; one of three |
+| 7 Category kept | **PASS** | glyph + hue in every state (`b-gate-1x`) |
+| 8 Find starred | **PASS** | `b-near-B-lastDay-1x`: 14, 20 and 10 are the darkest pins |
+| 9 Buttons vs labels | **PASS** (shared tag) | `../c/set/c-tag-C-8` (+ `-off`) |
+| 10 See it land | **UNPROVEN** | the reverse pull is specified (§3) but not drawn; it's new motion and needs frames beside the shipped dry-up |
+
+**Verdict: B fails its own gate** (director: "If any two can't be told
+apart, B dies there"): for shopping, district and attraction, open and
+visited can't be told apart, and visited sits close to the 40% look. Unless
+the owner wants the brand-token darkening, B goes as "considered and
+dropped" with the gate strip as the reason.
