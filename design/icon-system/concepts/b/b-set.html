@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset="utf-8">
-<!-- Concept B (second run): gate strip + near maps. Draft, not reviewed. -->
+<!-- Concept B (second run), steer 3: darkened inks, gate re-run, full frame set. Draft, not reviewed. -->
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
 <style>
   body{margin:0;background:#ddd;font-family:Archivo,Arial,sans-serif;color:#1A1A18}
@@ -13,20 +13,89 @@
   th{font-size:8px;letter-spacing:.05em;color:#5A564C;font-weight:700}
   td.l{text-align:left}
   .t{background:#F2EFE9}
+  .frames{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 8px}
+  .fr{background:#FAF5EA;border:1px solid #D8CEBA;border-radius:3px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .fr .n{align-self:flex-start;font-size:10px;font-weight:700;color:#12293F}
+  .fr .c{font-size:9.5px;color:#5A564C;text-align:center;line-height:1.3}
+  .tilebg{background:#F2EFE9;width:100%;height:64px;display:flex;align-items:center;justify-content:center;border-radius:2px}
+  .seg{width:110px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:#FAF5EA;border:1px dashed #D8CEBA}
+  .lbl{font:700 11px/1 Archivo;letter-spacing:.1em}
+  .chip{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:.1em;padding:6px 7px 5px;border-bottom:2px solid currentColor;background:#FAF5EA}
 </style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <filter id="sdry1"><feMorphology operator="erode" radius=".28"/></filter>
+  <filter id="sdry2"><feMorphology operator="erode" radius=".6"/></filter>
+</defs></svg>
 <div class="wrap" id="w"></div>
 <script src="../lib/fixture-data.js"></script><script src="../lib/marks.js"></script>
 <script>
 TM.install();
-const {INK,C,use,pin,phone}=TM;
+const {INK,INKB,C,use,pin,phone,row,tag,stampHtml}=TM;
 const w=document.getElementById('w');
 const add=(id,html)=>{const d=document.createElement('div');d.id=id;d.innerHTML=html;w.appendChild(d);};
 const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">${sub}</p>${inner}</div>`;
-const L=h=>TM.hex2lab(h)[0].toFixed(0);
-let rows=Object.keys(INK).map(c=>{const k=INK[c],r=TM.reprint(k);
- return `<tr><td class="l">${c}</td><td class="t">${pin('B',{cat:c})}</td><td class="t">${pin('B',{cat:c,visited:1})}</td><td class="t"><span style="opacity:.4;display:inline-block">${pin('B',{cat:c})}</span></td><td class="t" style="background:#FAF5EA">${use('n-'+c,12,'#8C8678')}</td><td>${L(k)} → ${L(r)}</td><td>${TM.contrast(r,C.paper).toFixed(1)}</td></tr>`}).join('');
-add('gate',sheet('B · the 1x gate','Every category\'s reprint ink at one lightness (L* 56, the lightest that keeps ≥ 3:1 on paper), hue kept, a paper mix, never opacity. Beside it: the same open pin at the app\'s 40% "unavailable" look, and the inactive filter chip\'s grey glyph. Real size. If any two columns can\'t be told apart, B dies here.',
- `<table><tr><th class="l">category</th><th>open</th><th>visited<br>(reprint)</th><th>40%<br>unavailable</th><th>chip<br>off</th><th>L* open → visited</th><th>on paper</th></tr>${rows}</table>`));
-for(const m of ['halfway','lastDay']){ add('near-today-'+m,phone('today',m,FX,{})); add('near-B-'+m,phone('B',m,FX,{})); }
+const P=id=>FX.places.find(p=>p.id===id);
+const hexrgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
+const over=(h,bg,a)=>'#'+hexrgb(h).map((v,i)=>Math.round(v*a+hexrgb(bg)[i]*(1-a)).toString(16).padStart(2,'0')).join('');
+const dE=(a,b)=>{const x=TM.hex2lab(a),y=TM.hex2lab(b);return Math.hypot(x[0]-y[0],x[1]-y[1],x[2]-y[2]);};
+const DARK=['shopping','district','attraction'];
+// 1. gate
+(()=>{let rows=Object.keys(INK).map(c=>{const k=INKB[c],r=TM.reprintB(k,c),f=over(k,'#F2EFE9',.4);
+ const mark=DARK.includes(c)?'<b style="color:#A8400C">*</b>':'';
+ return `<tr><td class="l">${c}${mark}</td><td class="t">${pin('B',{cat:c})}</td><td class="t">${pin('B',{cat:c,visited:1})}</td><td class="t"><span style="opacity:.4;display:inline-block">${pin('B',{cat:c})}</span></td><td style="background:#FAF5EA">${use('n-'+c,12,'#8C8678')}</td><td>${TM.hex2lab(k)[0].toFixed(0)}→${TM.hex2lab(r)[0].toFixed(0)}</td><td>${dE(r,f).toFixed(0)}</td><td>${dE(r,'#8C8678').toFixed(0)}</td></tr>`}).join('');
+ add('gate',sheet('B · the 1x gate, re-run','Open inks with shopping, district and attraction darkened one step (*). Visited = reprint at L* 54 with its chroma kept up (×1.35, min 22) so it never reads as the 40% wash, which loses colour. Paper mix, never opacity. Real size. ΔE = colour difference (CIE76; 10+ is clearly different side by side).',
+ `<table><tr><th class="l">category</th><th>open</th><th>visited</th><th>40%<br>unavail.</th><th>chip<br>off</th><th>L* open→<br>visited</th><th>ΔE vs<br>40%</th><th>ΔE vs<br>chip</th></tr>${rows}</table>`));})();
+// 2. cost strip
+(()=>{const cell=(c,ink,lbl)=>`<div style="display:flex;flex-direction:column;gap:6px;align-items:center;padding:8px 6px;background:#FAF5EA;border:1px solid #D8CEBA"><span class="chip" style="color:${ink}">${use('n-'+c,12,ink)}<span style="color:#1A1A18">${c.toUpperCase()}</span></span><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#F2EBDD" stroke="${ink}" stroke-width="2"/>${TM.gIn('n-'+c,16,ink)}</svg><span style="background:#F2EFE9;padding:3px">${lbl==='B'?pin('B',{cat:c}):pin('C',{cat:c})}</span><span style="font-size:9px;color:#5A564C">${lbl} ${ink}</span></div>`;
+ const h=DARK.map(c=>`<div style="display:flex;gap:6px;align-items:stretch;margin:0 10px 8px"><div style="width:62px;font-size:10.5px;font-weight:700;align-self:center">${c}</div>${cell(c,INK[c],'today')}${cell(c,INKB[c],'B')}<div style="font-size:9.5px;color:#5A564C;align-self:center;width:70px">on paper ${TM.contrast(INK[c],C.paper).toFixed(1)} → ${TM.contrast(INKB[c],C.paper).toFixed(1)}:1</div></div>`).join('');
+ add('cost',sheet('B · its cost: three inks one step darker','B needs shopping, district and attraction darker so their visited reprint can step back. Today beside B in a filter chip, a row badge and a pin. Hue kept; the new inks would apply app-wide.',h+`<p class="sub">On the navy selected row the badge is printed in paper (reversed), so no category ink ever sits on navy: today\'s inks score 1.0–2.3:1 on navy, the darkened ones 2.1–2.3:1, all unchanged by B.</p>`));})();
+// 3. near / mid / far
+for(const m of ['day0','halfway','lastDay']){ add('near-today-'+m,phone('today',m,FX,{})); add('near-B-'+m,phone('B',m,FX,{})); }
+add('mid-B-orange-halfway',phone('B','halfway',FX,{frame:'mid',clusterStyle:'orange'}));
+add('mid-B-ink-halfway',phone('B','halfway',FX,{frame:'mid',clusterStyle:'ink'}));
+add('far-B-ink-halfway',phone('B','halfway',FX,{frame:'far',clusterStyle:'ink'}));
+add('far-B-ink-lastDay',phone('B','lastDay',FX,{frame:'far',clusterStyle:'ink'}));
+// 4. list
+function listSheet(model,stamp,title){
+  const vis=new Set(FX.moments.halfway); const ids=[1,2,3,8,22];
+  let r=ids.map(id=>{const p=P(id);return row(model,p,{visited:vis.has(id),starred:p.starred},{selected:id===2,stamp});}).join('');
+  const plan=FX.plan.stops.map((id,i)=>{const p=P(id);let h=row(model,p,{visited:vis.has(id),starred:p.starred},{stamp});return h.replace('<div style="width:28px;','<div style="width:14px;flex:none;text-align:center;font:600 15px/1 Archivo;color:#8C8678">'+(i+1)+'</div><div style="width:28px;');}).join('');
+  const hdr=t=>`<div style="height:44px;display:flex;align-items:center;padding:0 18px;background:#F0E7D8;border-top:1px solid #D8CEBA;font:700 14px/1 Archivo;font-stretch:87.5%;letter-spacing:.1em;color:#12293F">${t}</div>`;
+  return sheet(title,'Halfway. Bæjarins (★ done), Brauð &amp; Co (★ done, selected), Café Loki (done), Kaffibarinn (open), Skólavörðustígur (approx, open); then "Saturday".',hdr('REYKJAVÍK LIST')+r+hdr('SATURDAY · 6 STOPS')+plan);
+}
+add('list-B-stamp',listSheet('B',undefined,'B · list: reprinted badge, your stamp kept'));
+add('list-B-struck',listSheet('B','struck','B · list, struck word (Q2 alternative)'));
+// 5. tag
+function tagSheet(id,title){const p=P(id),v=new Set(FX.moments.halfway).has(id);return sheet(title,(v?'Starred and visited.':'Open place.')+' The pin hangs above its tag.',`<div style="background:#F2EFE9;padding:10px 45px 16px">${tag(p,{starred:p.starred,visited:v,pin:pin('B',{cat:p.category,visited:v,starred:p.starred,selected:1,seed:id})})}</div>`);}
+add('tag-B-2',tagSheet(2,'B · tag: Brauð &amp; Co'));
+add('tag-B-8',tagSheet(8,'B · tag: Kaffibarinn'));
+// 6. storyboards: the pull (a sweep edge 20° off vertical, 3px soft)
+function pull(frac,dir,cat='bar',misreg=false,sel=true){
+  const k=INKB[cat], t=TM.reprintB(k,cat), id='pm'+Math.random().toString(36).slice(2,7);
+  const g=(col,off)=>`<g transform="translate(12 12)${off?' translate(.8 .6)':''} scale(${16/24}) translate(-12 -12)" style="color:${col}"><use href="#n-${cat}"/></g>`;
+  const rim=sel?`<circle cx="12" cy="12" r="10.75" fill="none" stroke="#12293F" stroke-width="2.5"/>`:'';
+  const full=`<circle cx="12" cy="12" r="10.75" fill="#F2EBDD" stroke="${sel?'#12293F':k}" stroke-width="${sel?2.5:2}"/>${g(k,false)}`;
+  const rep=`<circle cx="12" cy="12" r="10.75" fill="#F2EBDD" stroke="${sel?'#12293F':t}" stroke-width="${sel?2.5:1.6}"/>${g(t,misreg)}`;
+  // mask: reprint where the sweep has passed. dir 'lr': passed = left of edge; 'rl': passed = right of edge.
+  const x=dir==='lr'?-2+frac*28:26-frac*28, s=dir==='lr'?1:-1;
+  const m=`<mask id="${id}" maskUnits="userSpaceOnUse" x="-4" y="-4" width="32" height="32"><linearGradient id="${id}g" gradientUnits="userSpaceOnUse" x1="${x-1.5}" y1="0" x2="${x+1.5}" y2="0" gradientTransform="rotate(20 ${x} 12)"><stop offset="0" stop-color="${s>0?'#fff':'#000'}"/><stop offset="1" stop-color="${s>0?'#000':'#fff'}"/></linearGradient><rect x="-4" y="-4" width="32" height="32" fill="url(#${id}g)"/></mask>`;
+  // for the visit (lr) the passed side shows the reprint; for un-visit (rl) the passed side shows full value
+  const under=dir==='lr'?full:rep, overL=dir==='lr'?rep:full;
+  return `<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible"><defs>${m}</defs>${under}<g mask="url(#${id})">${overL}</g></svg>`;
+}
+const big=s=>`<div style="transform:scale(2);transform-origin:center;margin:12px 0">${s}</div>`;
+const pinRow=s=>`<div class="tilebg">${big(s)}</div>`;
+const segOpen=(press)=>`<div class="seg" style="${press?'background:#E6DDCB':''}">${use('l-check',20,'#1A1A18')}<span class="lbl">MARK VISITED</span></div>`;
+const segStamp=(css='')=>`<div class="seg"><span style="${css}">${stampHtml(1.05)}</span></div>`;
+const frame=(n,html,c)=>`<div class="fr"><span class="n">${n}</span>${html}<span class="c">${c}</span></div>`;
+add('sb-tag',sheet('B · storyboard: visit from the tag','Kaffibarinn, selected. The stamp comes down (tagStampIn, 420ms); the pin gets a second pull of the screen: a sweep left to right, 120–320ms, leaving the reprint value; then the glyph slips 0.8px out of register (320–360ms). Pin 2x above its tag segment (1x).',
+ `<div class="frames">${frame('0 · rest, open',pinRow(pull(0,'lr'))+segOpen(),'Navy rim = selected.')}${frame('120 · tap; stamp coming down',pinRow(pull(0,'lr'))+segStamp('display:inline-block;transform:scale(1.18);opacity:.6'),'The pull is about to start.')}${frame('220 · the pull, halfway',pinRow(pull(.5,'lr'))+segStamp('display:inline-block;transform:scale(1.06)'),'Behind the edge: the reprint value.')}${frame('320 · pulled',pinRow(pull(1,'lr'))+segStamp(),'Reprint value, still in register.')}${frame('360 · rest, done',pinRow(pull(1,'lr',undefined,true))+segStamp(),'The glyph slips 0.8px out of register: the second run.')}</div>`));
+const r3o=row('B',P(3),{visited:false},{}), r3d=row('B',P(3),{visited:true},{});
+const rowFr=(n,html,c)=>`<div style="margin:0 8px 8px;background:#FAF5EA;border:1px solid #D8CEBA;border-radius:3px;padding:6px 0"><div style="font-size:10px;font-weight:700;color:#12293F;padding:0 8px 4px">${n}</div>${html}<div style="font-size:9.5px;color:#5A564C;padding:4px 8px 0">${c}</div></div>`;
+const badgeAt=(h,svg)=>h.replace(/<div style="width:28px;display:flex;justify-content:center;flex:none">[\s\S]*?<\/svg><\/div>/,'<div style="width:28px;display:flex;justify-content:center;flex:none">'+svg+'</div>');
+add('sb-row',sheet('B · storyboard: visit from a row swipe','Café Loki. The shipped swipe-left with its stamp, untouched. After the gesture, as a separate step: the badge gets the pull (200ms + 40ms register), then the pin, if it is on screen.',
+ rowFr('1 · rest, open',r3o,'Full-value badge.')+rowFr('2 · past 56px: stamp (shipped)',`<div style="overflow:hidden"><div style="transform:translateX(-56px)">${r3d.replace(/<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2"[\s\S]*?<\/svg>/,'<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#F2EBDD" stroke="'+INKB.cafe+'" stroke-width="2"/>'+TM.gIn('n-cafe',16,INKB.cafe)+'</svg>')}</div></div>`,'Ink bleeds in, haptic.')+rowFr('3 · released; the badge is pulled',badgeAt(r3d,pull(.5,'lr','cafe',false,false)),'Separate step, on the state change.')+rowFr('4 · rest, done; then the pin',`<div style="display:flex;align-items:center"><div style="flex:1;min-width:0;overflow:hidden"><div style="width:374px">${r3d}</div></div><div style="width:110px;flex:none;height:56px;background:#F2EFE9;display:flex;align-items:center;justify-content:space-around"><span style="transform:scale(1.5)">${pull(.5,'lr','cafe',false,false)}</span><span style="transform:scale(1.5)">${pin('B',{cat:'cafe',visited:1})}</span></div></div>`,'Reprinted badge + your stamp. The pin gets the same pull.')));
+add('sb-dry',sheet('B · storyboard: un-visit, the reverse pull beside the dry-up','Kaffibarinn, done, selected. Times are the tag\'s dryClock. The stamp dries up by thickness (shipped, untouched). The pin holds still, then plays the pull in reverse (right to left) inside the stamp\'s snap (370–450ms), then slips back into register. New motion: shown so the owner sees both moving together.',
+ `<div class="frames">${frame('0 · rest, done',pinRow(pull(1,'lr','bar',true))+segStamp(),'Reprint, out of register.')}${frame('250 · stamp drying',pinRow(pull(1,'lr','bar',true))+segStamp('display:inline-block;filter:url(#sdry1)'),'Thin parts go first. The pin holds still.')}${frame('410 · the snap',pinRow(pull(.5,'rl','bar',true))+segStamp('display:inline-block;filter:url(#sdry2);opacity:.6'),'Reverse pull, right to left, eased in with the snap.')}${frame('450 · stamp gone',pinRow(pull(1,'rl','bar',true))+`<div class="seg"></div>`,'Pin at full value, still out of register.')}${frame('490–540 · rest, open',pinRow(pull(0,'lr'))+segOpen(),'Glyph slips back into register; MARK VISITED inks in.')}</div>`));
 document.fonts.ready.then(()=>setTimeout(()=>document.title='ready',300));
 </script></body></html>

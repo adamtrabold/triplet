@@ -90,6 +90,11 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
   function hex2lab(h) { const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(h.substr(i, 2), 16))); const X = (r * .4124 + g * .3576 + b * .1805) / .95047, Y = r * .2126 + g * .7152 + b * .0722, Z = (r * .0193 + g * .1192 + b * .9505) / 1.08883; const f = t => t > .008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116; return [116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z))]; }
   function lab2rgb(L, a, b) { const fy = (L + 16) / 116, fx = fy + a / 500, fz = fy - b / 200; const fi = t => t * t * t > .008856 ? t * t * t : (t - 16 / 116) / 7.787; const X = fi(fx) * .95047, Y = fi(fy), Z = fi(fz) * 1.08883; const r = X * 3.2406 - Y * 1.5372 - Z * .4986, g = -X * .9689 + Y * 1.8758 + Z * .0415, bb = X * .0557 - Y * .2040 + Z * 1.0570; return [r, g, bb]; }
   function lch2hex(L, C, H) { let lo = 0, hi = C; const inG = c => lab2rgb(L, c * Math.cos(H), c * Math.sin(H)).every(v => v >= -.001 && v <= 1.001); if (inG(C)) lo = C; else { for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; inG(m) ? lo = m : hi = m; } } const [r, g, b] = lab2rgb(L, lo * Math.cos(H), lo * Math.sin(H)); return '#' + [r, g, b].map(v => gam(v).toString(16).padStart(2, '0')).join(''); }
+  // B (steer 3): three open inks darkened one step (hue kept), app-wide in B only; reprint at
+  // L* 54 with chroma kept up (x1.35, min 22; 'other' stays a grey) so a reprint never reads as
+  // the 40% wash, which loses chroma.
+  const INKB = Object.assign({}, INK, { shopping: '#665783', district: '#146a60', attraction: '#436215' });
+  function reprintB(h, cat) { const [l, a, b] = hex2lab(h), c = Math.hypot(a, b); const grey = cat === 'other'; return lch2hex(Math.max(l, 54), grey ? c : Math.max(c * 1.35, 22), Math.atan2(b, a)); }
   const REPRINT_L = 56;   // B: visited lightness (L*). Paper is ~93. 56 is the lightest that keeps >= 3:1 on paper.
   function reprint(h, L = REPRINT_L) { const [l, a, b] = hex2lab(h); return lch2hex(Math.max(l, L), Math.hypot(a, b), Math.atan2(b, a)); }
   function relLum(h) { const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(h.substr(i, 2), 16))); return .2126 * r + .7152 * g + .0722 * b; }
@@ -109,7 +114,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
 
   // ---------- pins ----------
   function pin(model, o) {
-    const cat = o.cat, k = INK[cat], far = (o.size || 24) < 20, size = o.size || 24;
+    const cat = o.cat, k = (model === 'B' ? INKB : INK)[cat], far = (o.size || 24) < 20, size = o.size || 24;
     const v = !!o.visited, st = !!o.starred, sel = !!o.selected;
     let defs = '', body = '', top = '', S = size, box = 24;
     if (model === 'today') {
@@ -142,7 +147,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
       else body = disc + (o.num ? `<g transform="rotate(${tilt} 12 12)">${numTxt(o.num)}</g>` : gIn('n-' + cat, 16, k, ` rotate(${tilt})`));
       if (st) star = rimStar(12, 1.4, far ? 11 : (o.vStar || 9), C.or, 1.3);
     } else if (model === 'B' && v) {
-      const t = reprint(k), offs = far ? '' : ' translate(.8 .6)';
+      const t = reprintB(k, cat), offs = far ? '' : ' translate(.8 .6)';
       body = shell(sel ? C.navy : t, sel ? rimW : (far ? 2.4 : 1.6), C.paper, dash) + (far ? '' : (o.num ? numTxt(o.num, mix(C.ink2, C.paper, .45), .8) : gIn('n-' + cat, 16, t, offs)));
       if (st) star = rimStar(12, 1.2, far ? 12 : 9.5, reprint(C.or, 72));
     } else if (model === 'D' && v) {
@@ -255,7 +260,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     return `<span style="display:inline-flex;align-items:center;justify-content:center;gap:4px;width:${66 * scale}px;height:${28 * scale}px;border:2px solid ${col};border-radius:50%;outline:1.5px dotted ${col};outline-offset:2px;color:${col};font:700 ${10 * scale}px/1 Archivo,Arial;letter-spacing:.08em;transform:rotate(-3deg)">${use('i-check', 8 * scale, col)}VISITED</span>`;
   }
   function row(model, p, st, opts = {}) {
-    const k = INK[p.category], v = st.visited, s = st.starred, sel = opts.selected;
+    const k = (model === 'B' ? INKB : INK)[p.category], v = st.visited, s = st.starred, sel = opts.selected;
     const bg = sel ? C.navy : (v ? '#E9E1D2' : '#F3EADB');
     const fg = sel ? C.paper : C.ink, fg2 = sel ? 'rgba(242,235,221,.75)' : C.ink2;
     let badge;
@@ -267,7 +272,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
       const tilt = tiltOf(p.id);
       badge = `<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">${gIn('n-' + p.category, 17, sel ? C.paper : k, ` translate(0 -0.8) rotate(${tilt})`)}</svg>`;
     } else if (model === 'B' && v) {
-      const t = reprint(k);
+      const t = sel ? mix(C.paper, C.navy, .38) : reprintB(k, p.category);
       badge = `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2" fill="${C.paper}" stroke="${t}" stroke-width="1.6"/>${gIn('n-' + p.category, 16, t, ' translate(.8 .6)')}</svg>`;
     } else {
       badge = shapeCat ? `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 1.6L22.4 12L12 22.4L1.6 12Z" fill="${C.paper}" stroke="${sel ? C.paper : k}" stroke-width="2" stroke-linejoin="round"/>${gIn('n-' + p.category, 11, k)}</svg>`
@@ -346,5 +351,5 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
         <div style="display:flex">${seg(tComp + lbl('DIRECTIONS'))}<div style="border-left:1.5px dashed ${C.hair}"></div>${starSeg}<div style="border-left:1.5px dashed ${C.hair}"></div>${visSeg}</div>
       </div></div>`;
   }
-  window.TM = { tag, CHECK_I, reprint, contrast, hex2lab, sticker, EDGE, INK, C, STAR, install, use, gIn, mix, hash, pin, cluster, basemap, phone, row, seal, stampHtml, rimStar, TODAY_G, NEW_G, LINE, TILT };
+  window.TM = { INKB, reprintB, lch2hex, tag, CHECK_I, reprint, contrast, hex2lab, sticker, EDGE, INK, C, STAR, install, use, gIn, mix, hash, pin, cluster, basemap, phone, row, seal, stampHtml, rimStar, TODAY_G, NEW_G, LINE, TILT };
 })();

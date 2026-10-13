@@ -1,5 +1,56 @@
 # Visual designer notes: icon system
 
+## Where things stand (2026-10-13, after steer 2 + the B ruling)
+
+Round 1 scores: grammar 9, C 8, B 5 (then revived by the director with
+three darker inks), D 4 (evidence only). Canvas version 12; all boards still
+"DRAFT · NOT REVIEWED" (relabel "for review" only after the director
+confirms 9).
+
+C fixes done (`concepts/c/c-set.html` -> `c/set/`):
+1. Far halfway frames (today / C ink / C orange) with the 8px silhouette;
+   the dot frame is gone from the set and the send.
+2. Peel redrawn as a gummed reinforcement ring (`ringPeel()` in
+   c-set.html): the flap = an annulus segment reflected across its chord,
+   cream gummed underside, soft shadow; stages rest / lifts / folds back /
+   off-and-falling / done. `c-peel-*` + `c-sb-row-*` re-shot.
+3. C rows = the lighter struck "✓ VISITED" word (solid #4E5D6C, rule
+   #9AA3AC, slight seeded tilt; no alpha, so never the 40% look);
+   `c-list-C-struck` is C, `c-list-C-stamp` the Q2 alternative. Near/mid/far
+   phones use the struck word too. Note: the word replacing the stamp
+   touches the row stamp markup -> gesture gate (said on the board).
+4. Row visited glyph nudged up 0.8px (lib row()).
+5. Q3 crop `c-q3-*` (visited star 9px vs 7px, lastDay).
+6. `concepts/dropped-*`: A and D with one reason each (B removed: it's back).
+
+B (director's ruling: second concept, darker inks shown as its cost):
+- INKB: shopping #665783, district #146a60, attraction #436215 (hue
+  kept; 5.4 / 5.4 / 5.9 : 1 on paper). Attraction moss #547326 is named in
+  CLAUDE.md as a brand colour, so B changes a named colour (flagged).
+- reprintB(): L* 54, chroma x1.35 (min 22), 'other' stays grey. The fix for
+  "near the 40% look": the 40% wash loses chroma, the reprint keeps it.
+- Gate re-run passes: visited vs 40% dE 18-45, vs chip-off 20-53; one
+  exception, 'other' vs chip-off dE 8 (both grey; they differ by form and
+  place). Open -> visited is now >= 14 L* everywhere.
+- On navy: badges are reversed to paper, so no ink sits on navy (all inks,
+  today's included, are 1.0-2.3:1 on navy).
+- Full frame set in `concepts/b/b-set.html` -> `b/set/`: gate, cost strip,
+  near x3 + squints, mid orange/ink, far halfway/lastDay, list (stamp kept
+  = B's row; struck = Q2), tag x2, storyboards (pull from the tag, row,
+  un-visit reverse pull beside the dry-up on the dryClock timings).
+- Watch: boosted-chroma reprints (pink restaurant, teal district) are the
+  loudest visited marks on lastDay. Still below open pins, but they're what
+  the director will look at.
+
+## Next
+
+Director re-scores C (and scores B). After a 9: relabel C + grammar rows
+"for review". Open for me: grammar sheet 3 folding in steer 1 (approx 3
+segments, C labels), if wanted.
+
+---
+
+
 ## Where things stand (2026-10-13, after concept steer 1)
 
 Director steer 1 (jam.md "Concept steer 1"): C-prime became "C" (rim off,

@@ -43,15 +43,19 @@ const P=id=>FX.places.find(p=>p.id===id);
 })();
 
 // 2. near moments
-for(const m of ['day0','halfway','lastDay']){ add('near-today-'+m,phone('today',m,FX,{})); add('near-C-'+m,phone('C',m,FX,{})); }
+for(const m of ['day0','halfway','lastDay']){ add('near-today-'+m,phone('today',m,FX,{})); add('near-C-'+m,phone('C',m,FX,{stamp:'struck'})); }
 // 3. mid halfway (clusters orange vs ink), far lastDay (silhouette vs dot)
 add('mid-today-halfway',phone('today','halfway',FX,{frame:'mid'}));
-add('mid-C-orange-halfway',phone('C','halfway',FX,{frame:'mid',clusterStyle:'orange'}));
-add('mid-C-ink-halfway',phone('C','halfway',FX,{frame:'mid',clusterStyle:'ink'}));
+add('mid-C-orange-halfway',phone('C','halfway',FX,{frame:'mid',clusterStyle:'orange',stamp:'struck'}));
+add('mid-C-ink-halfway',phone('C','halfway',FX,{frame:'mid',clusterStyle:'ink',stamp:'struck'}));
 add('far-today-lastDay',phone('today','lastDay',FX,{frame:'far'}));
-add('far-C-orange-lastDay',phone('C','lastDay',FX,{frame:'far',clusterStyle:'orange'}));
-add('far-C-ink-lastDay',phone('C','lastDay',FX,{frame:'far',clusterStyle:'ink'}));
-add('far-C-ink-dot-lastDay',phone('C','lastDay',FX,{frame:'far',clusterStyle:'ink',farDot:true}));
+add('far-C-orange-lastDay',phone('C','lastDay',FX,{frame:'far',clusterStyle:'orange',stamp:'struck'}));
+add('far-C-ink-lastDay',phone('C','lastDay',FX,{frame:'far',clusterStyle:'ink',stamp:'struck'}));
+add('far-today-halfway',phone('today','halfway',FX,{frame:'far'}));
+add('far-C-ink-halfway',phone('C','halfway',FX,{frame:'far',clusterStyle:'ink',stamp:'struck'}));
+add('far-C-orange-halfway',phone('C','halfway',FX,{frame:'far',clusterStyle:'orange',stamp:'struck'}));
+add('q3-full',phone('C','lastDay',FX,{stamp:'struck'}));
+add('q3-small',phone('C','lastDay',FX,{stamp:'struck',vStar:7}));
 // far detail: silhouette vs dot vs you-are-here, real size
 add('far-detail',sheet('C · far zoom: silhouette vs dot','16px far pins at 1x. Visited = the paper disc with a 8px tilted silhouette (main) or a 5px dot (alternative; the owner said "dots… absolutely not"). Beside you-are-here and an open far pin.',
  `<div style="display:flex;gap:14px;align-items:flex-end;padding:6px 12px;background:#F2EFE9;margin:0 10px">${[['open','',pin('C',{cat:'bar',size:16})],['visited','silhouette',pin('C',{cat:'bar',size:16,visited:1,seed:9})],['visited','dot',pin('C',{cat:'bar',size:16,visited:1,seed:9,farDot:1})],['visited★','silhouette',pin('C',{cat:'area',size:16,visited:1,seed:4,starred:1})],['you are here','',`<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="#12293F"/><circle cx="8" cy="8" r="4.5" fill="none" stroke="#F2EBDD" stroke-width="2"/></svg>`]].map(([a,b,s])=>`<div style="display:flex;flex-direction:column;align-items:center;gap:4px">${s}<span style="font-size:8.5px;color:#5A564C;text-align:center">${a}<br>${b}</span></div>`).join('')}</div>`));
@@ -65,8 +69,8 @@ function listSheet(model,stamp,title){
   return sheet(title,'Halfway. Rows: Bæjarins (★ done), Brauð &amp; Co (★ done, selected), Café Loki (done), Kaffibarinn (open), Skólavörðustígur (approx street, open). Then the Plans list "Saturday".',hdr('REYKJAVÍK LIST')+r+hdr('SATURDAY · 6 STOPS')+plan);
 }
 add('list-today',listSheet('today',undefined,'List · today'));
-add('list-C-stamp',listSheet('C',undefined,'C · list, stamp kept'));
-add('list-C-struck',listSheet('C','struck','C · list, struck word (Q2)'));
+add('list-C-struck',listSheet('C','struck','C · list: the struck word'));
+add('list-C-stamp',listSheet('C',undefined,'C · list, stamp kept (Q2 alternative)'));
 
 // 5. tag: Brauð & Co (★ done) and Kaffibarinn (open), today vs C, + 40% swatch
 function tagSheet(model,id,title,extra=''){
@@ -79,6 +83,36 @@ add('tag-C-2',tagSheet('C',2,'C · tag: Brauð &amp; Co'));
 add('tag-today-8',tagSheet('today',8,'Tag · today: Kaffibarinn'));
 add('tag-C-8',tagSheet('C',8,'C · tag: Kaffibarinn',' Open segments are Line icons at full ink.'));
 add('tag-C-8-off',sheet('C · open segments vs 40% unavailable','The open Star and Mark visited segments (top) beside the same segments at the app\'s 40% "unavailable" look (bottom). They must never be confused.',`<div style="padding:0 45px 8px">${tag(P(8),{today:false})}</div><div style="padding:0 45px">${tag(P(8),{today:false,segOff:true})}</div>`));
+
+
+// ---- the peel as a gummed reinforcement ring (steer 2, fix 2) ----
+// The printed rim is a paper donut stuck on the pin. It lifts from one seeded side with the
+// shipped flap curl (the lifted part folds back over itself, gummed underside up, a soft
+// shadow under the lift), then comes off whole and falls away.
+function annulus(a0,a1,ro,ri,n=28){const pts=[];for(let i=0;i<=n;i++){const a=(a0+(a1-a0)*i/n)*Math.PI/180;pts.push([12+ro*Math.cos(a),12+ro*Math.sin(a)]);}for(let i=n;i>=0;i--){const a=(a0+(a1-a0)*i/n)*Math.PI/180;pts.push([12+ri*Math.cos(a),12+ri*Math.sin(a)]);}return pts;}
+function reflect(pts,A,B){const dx=B[0]-A[0],dy=B[1]-A[1],L=dx*dx+dy*dy;return pts.map(([x,y])=>{const t=((x-A[0])*dx+(y-A[1])*dy)/L;const px=A[0]+t*dx,py=A[1]+t*dy;return [2*px-x,2*py-y];});}
+const poly=pts=>'M'+pts.map(p=>p[0].toFixed(2)+' '+p[1].toFixed(2)).join('L')+'Z';
+function ringPeel(stage,cat,seed,size=24){
+  const k=INK[cat], id='rp'+Math.random().toString(36).slice(2,7), base=150+Math.round(TM.hash(seed+5)*60);
+  const ro=11,ri=9;
+  const disc=`<circle cx="12" cy="12" r="10.9" fill="#F2EBDD" stroke="${TM.EDGE}" stroke-width="1"/>`;
+  const glyph=(rot=0)=>`<g transform="translate(12 12) rotate(${rot}) scale(${16/24}) translate(-12 -12)" style="color:${k}"><use href="#n-${cat}"/></g>`;
+  const defs=`<defs><filter id="${id}" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx=".4" dy=".9" stdDeviation=".7" flood-color="#000" flood-opacity=".28"/></filter></defs>`;
+  let b='';
+  if(stage===0) b=disc+`<path d="${poly(annulus(0,360,ro,ri,60))}" fill="${k}" fill-rule="evenodd"/>`+glyph();
+  else if(stage===1||stage===2){
+    const span=stage===1?70:150, a0=base-span/2, a1=base+span/2;
+    const rest=annulus(a1,a0+360,ro,ri,48);
+    const flapSrc=annulus(a0,a1,ro+.6,ri-.6,24);
+    const A=[12+ro*Math.cos(a0*Math.PI/180),12+ro*Math.sin(a0*Math.PI/180)],B=[12+ro*Math.cos(a1*Math.PI/180),12+ro*Math.sin(a1*Math.PI/180)];
+    const flap=reflect(flapSrc,A,B);
+    b=disc+glyph()+`<path d="${poly(rest)}" fill="${k}"/>`+`<g filter="url(#${id})"><path d="${poly(flap)}" fill="#EDE3CC" stroke="${k}" stroke-width=".5" stroke-linejoin="round"/></g>`;
+  } else if(stage===3){
+    b=disc+glyph(TM.hash(seed)*6-3)+`<g filter="url(#${id})" transform="translate(5.5 -5) rotate(-18 12 12) scale(1.1) translate(-1.1 -1.1)" opacity=".92"><path d="${poly(annulus(0,360,ro,ri-.6,60))}" fill="${k}" fill-rule="evenodd"/><path d="${poly(annulus(base-40,base+40,ro,ri-.6,20))}" fill="#EDE3CC"/></g>`;
+  } else b='';
+  if(stage===4) return pin('C',{cat,visited:1,seed});
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" overflow="visible">${defs}${b}</svg>`;
+}
 
 // 6. storyboards
 const tilt=TM.hash(8)*12-6;
@@ -107,13 +141,15 @@ const rowAt=(id,st,tx=0,extra='')=>{let h=row('C',P(id),st,{});return `<div styl
 const rowFr=(n,html,c)=>`<div style="margin:0 8px 8px;background:#FAF5EA;border:1px solid #D8CEBA;border-radius:3px;padding:6px 0 6px"><div style="font-size:10px;font-weight:700;color:#12293F;padding:0 8px 4px">${n}</div>${html}<div style="font-size:9.5px;color:#5A564C;padding:4px 8px 0">${c}</div></div>`;
 const peelBadge=()=>`<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible"><path d="M4.2 18.6A10 10 0 1 1 17.8 20.1" fill="none" stroke="${INK.cafe}" stroke-width="2" stroke-linecap="round"/><path d="M17.8 20.1Q15 25.5 9.2 24.6Q12.6 22.8 13.4 21.6" fill="#E9E1D2" stroke="${INK.cafe}" stroke-width="1.4"/><g transform="translate(12 12) scale(.708) translate(-12 -12)" style="color:${INK.cafe}"><use href="#n-cafe"/></g></svg>`;
 const peelPin=()=>`<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible"><circle cx="12" cy="12" r="10.9" fill="#F2EBDD" stroke="${TM.EDGE}" stroke-width="1"/><path d="M4.2 18.6A10 10 0 1 1 17.8 20.1" fill="none" stroke="${INK.cafe}" stroke-width="2" stroke-linecap="round"/><path d="M17.8 20.1Q15 25.5 9.2 24.6Q12.6 22.8 13.4 21.6" fill="#E9E1D2" stroke="${INK.cafe}" stroke-width="1.4"/><g transform="translate(12 12) scale(.667) translate(-12 -12)" style="color:${INK.cafe}"><use href="#n-cafe"/></g></svg>`;
-const r3open=row('C',P(3),{visited:false},{}), r3done=row('C',P(3),{visited:true},{});
+const r3open=row('C',P(3),{visited:false},{}), r3done=row('C',P(3),{visited:true},{stamp:'struck'});
 add('sb-row',sheet('C · storyboard: visit from a row swipe','Café Loki. Beats 1 to 3 are the shipped swipe-left with its stamp, untouched (gesture code is not touched). After the gesture, as a separate step: the badge\'s rim peels off, then the pin\'s.',
  rowFr('1 · rest, open',r3open,'Ringed badge.')+
  rowFr('2 · swipe left (shipped)',`<div style="overflow:hidden">${`<div style="transform:translateX(-38px)">${r3open}</div>`}</div>`,'The stamp is about to come down (shipped hover).')+
- rowFr('3 · past 56px: stamp (shipped)',`<div style="overflow:hidden"><div style="transform:translateX(-56px)">${r3done.replace(/<span style="display:inline-flex;align-items:center;justify-content:center;gap:4px;width:66px/,'<span style="transform:scale(1.15);display:inline-flex;align-items:center;justify-content:center;gap:4px;width:66px')}</div></div>`,'Ink bleeds in, haptic.')+
- rowFr('4 · released; badge rim peels (separate step)',r3done.replace(/<div style="width:28px;display:flex;justify-content:center;flex:none">[\s\S]*?<\/svg><\/div>/,'<div style="width:28px;display:flex;justify-content:center;flex:none">'+peelBadge()+'</div>'),'Animation runs after the gesture, on the state change.')+
- rowFr('5 · rest, done; then the pin peels (on the map)',`<div style="display:flex;align-items:center"><div style="flex:1;min-width:0;overflow:hidden"><div style="width:374px">${r3done}</div></div><div style="width:130px;flex:none;height:56px;background:#F2EFE9;display:flex;align-items:center;justify-content:space-around"><span style="transform:scale(1.6)">${peelPin()}</span><span style="font-size:12px;color:#5A564C">→</span><span style="transform:scale(1.6)">${pin('C',{cat:'cafe',visited:1,seed:3})}</span></div></div>`,'Row: bare tilted glyph (paper on paper would be invisible). Map (1.6x): the printed rim peels off its paper disc, the glyph tilts.')));
+ rowFr('3 · past 56px: VISITED lands (shipped stamp motion)',`<div style="overflow:hidden"><div style="transform:translateX(-56px)">${r3done.replace(/<span style="display:inline-flex;align-items:center;justify-content:center;gap:4px;width:66px/,'<span style="transform:scale(1.15);display:inline-flex;align-items:center;justify-content:center;gap:4px;width:66px')}</div></div>`,'The lighter struck word lands with the shipped stamp motion and haptic. (Q2: swapping the big stamp for the word touches the row stamp markup, so the gesture gate runs.)')+
+ rowFr('4 · released; badge rim peels (separate step)',r3done.replace(/<div style="width:28px;display:flex;justify-content:center;flex:none">[\s\S]*?<\/svg><\/div>/,'<div style="width:28px;display:flex;justify-content:center;flex:none">'+ringPeel(2,'cafe',3)+'</div>'),'After the gesture, on the state change: the badge\'s printed ring lifts from one side, gummed side up (a sticker, not a line).')+
+ rowFr('5 · rest, done; then the pin peels (on the map)',`<div style="display:flex;align-items:center"><div style="flex:1;min-width:0;overflow:hidden"><div style="width:374px">${r3done}</div></div><div style="width:150px;flex:none;height:56px;background:#F2EFE9;display:flex;align-items:center;justify-content:space-around"><span style="transform:scale(1.6)">${ringPeel(2,'cafe',3)}</span><span style="transform:scale(1.6)">${ringPeel(3,'cafe',3)}</span><span style="transform:scale(1.6)">${pin('C',{cat:'cafe',visited:1,seed:3})}</span></div></div>`,'Row: the struck word; bare tilted glyph. Map (1.6x): the printed ring lifts like a reinforcement sticker, comes off whole, the glyph tilts.')));
+add('peel',sheet('C · the peel: a reinforcement ring comes off','The printed rim is a gummed paper ring (the donut that patches an eyelet, like the tag\'s grommet patch). It lifts from one seeded side with the shipped flap curl, gummed side up, then comes off whole and falls away. Top: 3x. Bottom: real size, on the stand-in tile.',
+ `<div style="display:flex;justify-content:space-around;padding:6px 6px 0">${[0,1,2,3,4].map(st=>`<div style="display:flex;flex-direction:column;align-items:center;gap:22px;width:72px"><div style="transform:scale(3);margin:26px 0">${ringPeel(st,'cafe',3)}</div><span style="font-size:9.5px;color:#5A564C;text-align:center">${['1 · rest, open','2 · one side lifts','3 · folds back','4 · off, falling','5 · rest, done'][st]}</span></div>`).join('')}</div><div style="display:flex;justify-content:space-around;margin:10px 8px 0;padding:10px 0;background:#F2EFE9">${[0,1,2,3,4].map(st=>ringPeel(st,'cafe',3)).join('')}</div><div style="display:flex;justify-content:space-around;margin:4px 8px 0;padding:10px 0;background:#FCD6A4">${[0,1,2,3,4].map(st=>ringPeel(st,'restaurant',11)).join('')}</div>`));
 // un-visit dry-up
 add('sb-dry',sheet('C · storyboard: un-visit dries up','Kaffibarinn, done, selected. The shipped dry-up by thickness, untouched: thin parts go first, the thickest last, then the final snap. In C the done state is your ink, so the pin\'s inked glyph dries the same way while the printed rim and upright glyph come back underneath. No reversed motion needed.',
  `<div class="frames">${frame('1 · rest, done',pinRow('done')+segStamp(),'Inked glyph on the paper disc.')}${frame('2 · tap the stamp',pinRow('done')+segStamp('display:inline-block;transform:scale(.97);opacity:.95'),'Press.')}${frame('3 · drying (thin parts first)',pinRow('dry1')+segStamp('display:inline-block;filter:url(#sdry1)'),'Stamp and glyph lose their thin strokes; the printed glyph shows through.')}${frame('4 · final snap',pinRow('dry2')+segStamp('display:inline-block;filter:url(#sdry2);opacity:.7'),'Thickest parts last; the rim and printed glyph are back.')}${frame('5 · rest, open',pinRow('open')+segOpen(),'The printed pin; Line check.')}</div>`));
