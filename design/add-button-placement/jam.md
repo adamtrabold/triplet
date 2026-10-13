@@ -2244,3 +2244,86 @@ Float's 60px stamp badge (`TAG_SHEET_GAP`, credit, 320, 664, collapsed
 with the inset); C's 72x94 pin-and-tag slot; whether the tag-cut A route
 changes anything structurally. Then the director scores Float, A, C (D
 recommended killed) in one pass.
+
+---
+
+## Turn 22 -- product designer (systems focus): round-6 footprints
+
+I took over from `notes/systems.md`. Everything is measured on fresh copies
+of **today's main**, where signed out = the playground:
+- scripts: `concepts/r6-check/` (`check.js`, `tag-rows.js`, `a-check.js`);
+- numbers in its `measure*.json`;
+- frames in `frames/`.
+
+`chrome-check` is clean everywhere except the pre-existing filters flags.
+Pins under either object: 0 in all 5 cities, list up and collapsed.
+
+**Float (60px stamp badge, box 314.8,468.8 – 374.8,528.8 at 844).**
+- The ink keeps 19.9 / 19.9 and the shared 370.1 line with the account
+  badge. Collapsed with the 34px inset: 15.2px above the band.
+- **`TAG_SHEET_GAP` 78 no longer clears.** At 664 the tag's foot is 6.8px
+  from the badge's box. **88** (box top 75.2 above the edge + 12) gives
+  16.8.
+  - Cost: 664 and 375x667 keep 3 rows, the same as today.
+  - **320x568 keeps 1 row, against today's 2.** 78 cost the same; it wasn't
+    measured in round 5.
+- **At 320 the "Leaflet |" prefix now overlaps the badge by 6.3px.**
+  Dropping it is now required (C needs it too).
+- **Ride form:** concept.inc's Add maths assumes 50px. As coded, Add stops
+  2.8px from the × and sits 4.2px low. Read the rendered box and it's back
+  to 12px short and centred (Add 56–302.8).
+- **Builder:** draw it at 60, not `scale(1.2)`.
+
+**C (72x94 slot, 302,430 – 374,524).**
+- No structural change. The slot still steps aside under a tag, and that's
+  load-bearing: at 664 its disc would sit on the tag's VISITED segment.
+  `TAG_SHEET_GAP` stays 48; showing it under a tag would need 126.
+- Costs:
+  - the dead zone is +34% (3.2% of the map at 844);
+  - the box's bare corners beside the disc tap + (builder: hit-test the
+    parts only);
+  - the tag's right edge is 3.9px off the account badge's ink line
+    (visual).
+- One good fit: real selection follows the open tag, and C hides under
+  any tag. So C's selected pin never shares the screen with a real one.
+
+**A's tag cut: same box, same title, same flows.** Its structural cost is
+the promise:
+- it moves A into C's object (a tag) while delivering a form panel, so A
+  and C stop differing in kind;
+- in the sort/filter row a tag shape reads as "tags" (a filter).
+
+Admission keeps A distinct. That's the director's call.
+
+**D: systems agrees with the kill.** Structurally it *is* the Float (same
+element and rulings; `TAG_SHEET_GAP` would be 76). It takes A's look and
+the Float's costs, and loses A's one structural strength: no job-1
+exception.
+
+**Job 6 now reads against the playground** (`jobs.md` updated). Signed out,
++ adds in every concept (verified on the Float, A and C). Only a stale
+stored session still asks you to sign in, and then nothing moves.
+- The account badge is now **always on screen** (it says "Sign in" in the
+  playground), so "+ outranks account" holds in every state, not just
+  signed in.
+- Draw (real RNG): *"What would your closest friend do?"* A friend opening
+  a shared link lands in the playground. The first thing they'll try is +,
+  and "Sign in" is the one door they shouldn't need. The hierarchy matters
+  most there.
+
+**Coverage, round 6:**
+
+| Job | Float | A (admission / tag cut) | C |
+|---|---|---|---|
+| 1 Reach | yes, except filters open | yes, no exceptions | yes, except tag open and filters open |
+| 2 Main action | look + position (director's squint test) | yes | **open:** visual's squint test has it level with account |
+| 3 Finish near the thumb | yes, with the scale-aware Add | yes | yes |
+| 4 Don't lose my place | yes (verified: tag `rey10` reopens) | yes | yes |
+| 5 Never in the way | yes, with **`TAG_SHEET_GAP` 88** + the prefix drop | yes; the title costs 32px | yes (it steps aside); prefix drop |
+| 6 Signed out (playground) | yes | yes | yes |
+
+No concept has an unsupported job.
+
+NEXT: design director -- the footprints are measured and nothing blocks a
+score. Rule on `TAG_SHEET_GAP` 88 (and the 320 one-row cost), on admission
+vs tag cut, and on D's kill. Then score Float, A and C in one pass.

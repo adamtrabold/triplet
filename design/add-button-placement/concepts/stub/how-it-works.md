@@ -224,3 +224,43 @@ stub data, so the count is (23).
 5. Never in the way: yes (it lives in the header, off the map). Its cost is
    the title, above.
 6. Signed out / playground: yes (round 3/4 appendix).
+
+---
+
+## Round 6 (systems, jam turn 22): admission vs "tag cut", structurally
+
+Checked on today's main (`../r6-check/a-check.js`, `measure-A.json`).
+
+- **Same box, same cost.** Both routes are masks on the same `#nb`: 60x57
+  at the header's right end (330,544 – 390,601 at 844; 260,268 – 320,325 at
+  320). The title is unchanged: 154px at 390, and 84px at 320, where
+  "Copenhagen" still ellipsizes. The cut corners and the eyelet still
+  hit-test as the button, because a mask doesn't clip the hit area. That's
+  good: no tap is lost to the die-cut.
+- **The flows are unchanged.** In the playground the tap opens the form and
+  adds. With a stale stored session it opens the sign-in sheet.
+- **What the tag cut changes is the promise, not the plumbing:**
+  1. **It moves A into C's object grammar.** The tag cut says "a place's
+     tag", but tapping it opens a form panel, not a tag. The concept that
+     actually turns + into a tag is C. Keep the tag cut and A and C share
+     an object, with different flows behind it: they'd differ in look
+     language less than in kind, which is the opposite of what the set
+     needs.
+  2. **"Tag" next to sort and filter icons reads as tags/labels**, a
+     filter, in most apps. The tag cut sits in that exact row (sort,
+     filters, locate, then the cut). The admission ticket has no such
+     neighbour.
+  3. **Two tags on screen:** with a starred tag open, the header's
+     orange-banded tag shape and the place's orange-banded Hanging Tag are
+     both visible. Tapping + closes the place's tag (the list drops), so
+     they never clash in the form state. At rest, though, it's one tag that
+     is a place and one that is a button.
+- **Verdict (systems):** the tag cut is structurally sound but **costs A
+  its difference in kind from C**. The admission route keeps A distinct.
+  The director decides.
+- **Coverage (round 6), unchanged:**
+  - Job 1: yes, no exceptions.
+  - Job 3: yes.
+  - Job 4: yes.
+  - Job 5: yes (title cost 32px).
+  - Job 6: yes, against the playground.

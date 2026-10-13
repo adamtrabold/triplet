@@ -160,3 +160,76 @@ edge. It rides the sheet. The credit moves to bottom-left, as on the Float.
 | 4 Don't lose my place | Yes (cancel keeps the draft and restores the view, as ruled in round 4) |
 | 5 Never in the way | Yes. It steps aside under a tag, the credit moves, and no pins sit under it. At 320 the credit touches the tag's foot (see the fix above) |
 | 6 Signed out / playground | Yes (verified on the round-5 pin) |
+
+---
+
+## Round 6 (systems, jam turn 22): the 72x94 slot (selected pin + mini Hanging Tag)
+
+The visual pick (jam turn 21) is `data-c6="hi" data-ct="big"`:
+- the app's own `badgeHtml()` pin in the selected-pin grammar: 32px, navy
+  field, paper +;
+- a straight string;
+- a 72x56 Hanging Tag in miniature;
+- the whole object 72x94, right 16, the tag's foot 20 above the list.
+
+It's measured on a fresh copy of **today's main** (signed out = the
+playground), with `concept.inc.html` and the visual's three layers in
+memory.
+- Script: `../r6-check/check.js`
+- Numbers: `../r6-check/measure.json` (`C`)
+- Frames: `../r6-check/frames/C-*`
+
+`chrome-check` is clean except for the pre-existing flags with the filters
+open.
+
+| State | Object box | Finding |
+|---|---|---|
+| 390x844, list up | **302,430 – 374,524** | Disc 322–354 × 430–462 (axis x 338). Tag 302–374 × 468–524. Disc and tag both hit-test as the button. The credit is 115.9px clear |
+| 390x664 | 302,250 – 374,344 | Clean. 4 rows |
+| 375x667 | 287,253 – 359,347 | Clean |
+| 320x568, Copenhagen | 232,154 – 304,248 | The credit (prefix dropped by `visual-r5`, 0–186) is 45.9px clear. **With the prefix (0–251) it would run under the tag's column**, so the prefix drop is required, as on the Float. 88px below the account badge |
+| Collapsed, 34px inset | 302,636 – 374,730 | The band starts at 750. Clear |
+| Tag open, 844 and 664 | hidden | The step-aside rule is **load-bearing**: at 664 the hidden slot's disc lands on the tag's VISITED segment (the hit at the disc centre is `popup-visited-tap`). Hidden, `TAG_SHEET_GAP` stays **48**. Showing C under a tag would need 94 + 20 + 12 = **126** |
+| Tag closed (664) | back, hit-tests as itself | |
+| Filters open (664) | hidden | The prototype's old MutationObserver still moves the hidden slot to y −51 (invisible). **Builder: just hide it, don't ride the panel** |
+| Playground tap (390, 320) | `pinadd`, search focused | It adds as signed in. The account menu reads "Sign in" |
+| Stale stored session | sign-in sheet, nothing opens | |
+| Desktop 1280x800 | 1192,686 – 1264,780 | |
+| Pins under it | 0 in all 5 cities, list up and collapsed | |
+
+### Does the bigger slot change anything structurally? No, with three notes
+
+1. **Dead zone:** 72x94 = 6,768 px², against the round-5 ring's 60x84
+   (5,040, +34%) and the Float's 60x60 (3,600). That's 3.2% of the map at
+   844.
+2. **Hit area:** the button is the whole box, so the bare map either side
+   of the disc (two strips of about 20x38) taps +. Builder: hit-test only
+   the disc, the string and the tag (`pointer-events` on the parts, none on
+   the box).
+3. **Right line:** the tag's die-cut has no ink inset, so its right edge
+   (374) sits 3.9px outside the account badge's ink line (370.1). That only
+   matters if the shared line is wanted. It's the visual designer's call.
+
+### The selected-pin grammar fits the app's state model
+
+- The real selected pin (32px, `MARKER_SIZE_NEAR_HI`) exists only while its
+  tag is open: selection follows the open tag, and closing clears it.
+- C hides whenever a tag is open.
+
+So C's selected pin and a real selected pin **never share the screen**.
+There is only ever one "pin with its tag open" on the map: either a place,
+or +. After an Add, the new place's real tag opens and C stays hidden, so
+the hand-off reads as + *becoming* the place. It doesn't settle the "a
+place called +?" risk (that's how it reads at 1x), but structurally nothing
+contradicts it.
+
+### Coverage (round 6)
+
+Unchanged from round 5:
+- Job 1: yes, except with the tag open or the filters open.
+- Jobs 3 and 4: yes.
+- Job 5: yes (it steps aside; prefix drop).
+- Job 6: yes, against the playground.
+
+Job 2 is the open one: the visual designer's own squint test has C level
+with the account badge.

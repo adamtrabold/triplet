@@ -21,9 +21,12 @@ prominent + reachable on the phone"
    them.
 5. **+ never gets in the way of your trip.** *(inferred)* It never sits on a
    pin, a tag, a place's name or a row's delete ×.
-6. **It makes sense signed out and in the playground.** *(inferred)* Signed
-   out, tapping + asks you to sign in. In the playground (`?play`), it just
-   adds.
+6. **It makes sense signed out.** *(inferred; updated 2026-10-13 for the
+   playground, which is now the signed-out app)* Signed out you're in the
+   playground: tapping + adds exactly as it does signed in (nothing is kept
+   after a reload), and the account button stays on screen as the way to
+   sign in. Only a stored sign-in that has gone stale still asks you to
+   sign in, and then nothing else moves.
 
 ## Flows
 
@@ -48,8 +51,8 @@ on the same place.
 
 **Plans**: + adds a place, as it does today.
 
-**Signed out**: tap + and the sign-in sheet opens. **Playground**: tap + and
-the form opens.
+**Signed out (the playground)**: tap + and the form opens, as signed in.
+If a stored sign-in has gone stale, the sign-in sheet opens instead.
 
 **Computer (wide screen)**: + sits at the right end of the list's header in
 the side panel.

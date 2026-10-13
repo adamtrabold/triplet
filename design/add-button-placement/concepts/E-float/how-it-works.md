@@ -268,3 +268,106 @@ rendered:
 
 Shared, Float and C: at 320 the moved credit touches the corner control
 (2.9px / 3.2px). Dropping the "Leaflet |" prefix fixes both.
+
+---
+
+## Round 6 (systems, jam turn 22): the 60px stamp badge's footprint
+
+The visual pick (jam turn 21): orange stock, navy + at 3px, a 24-lobe stamp
+edge, 60px, scaled about the scallop's lower-right ink corner. It's measured
+on a fresh copy of **today's main** (signed out = the playground), with this
+folder's `concept.inc.html`, R17 and `r6.inc.html` layered in memory.
+
+- Script: `../r6-check/check.js`, `tag-rows.js`
+- Numbers: `../r6-check/measure.json` (`F`), `measure-tagrows.json`
+- Frames: `../r6-check/frames/F-*`
+
+`chrome-check` is clean on every frame. The only flags are the
+pre-existing ones with the filters open.
+
+### Footprint across states (box x1,y1,x2,y2)
+
+| State | Box | Finding |
+|---|---|---|
+| 390x844, list up | **314.8,468.8 – 374.8,528.8** | Ink 319.5–370.1 × 473.5–524.1. The ink stays **19.9 from the side and 19.9 above the list**, and the right ink line is still shared with the account badge (370.1). The box overhangs the 16px gutter by 0.8px; the ink doesn't. Hit-tests as itself. 4 rows |
+| 390x664 | 314.8,288.8 – 374.8,348.8 | 4 rows. 222.8px below the account badge |
+| 375x667 | 299.8,291.8 – 359.8,351.8 | Clean |
+| 320x568, Copenhagen | 244.8,192.8 – 304.8,252.8 | **Credit:** without the "Leaflet \|" prefix (0–186) it's 58.7px clear. **With the prefix (0–251) it now overlaps the badge by 6.3px** (`cph_320_prefix`). Round 5's 2.9px "touch" became an overlap: the prefix drop is now **required**, not a builder option |
+| Collapsed, 34px inset | 314.8,674.8 – 374.8,734.8 | The band starts at 750: 15.2px box / 19.9px ink clear. Safe area clear |
+| Desktop 1280x800 | 1204.8,724.8 – 1264.8,784.8 | The map column's bottom-right |
+| Pins under it | 0 in all 5 cities, list up and collapsed | The dead zone is 60x60, against 50x50 in round 5 (+44%). That's 1.7% of the map at 844 |
+
+### `TAG_SHEET_GAP`: 78 no longer clears, so it's 88
+
+The badge's box top now sits 75.2px above the list edge (it was 66), so
+round 5's 78 no longer gives 12px of clearance.
+
+| Gap | 664: tag foot → badge box | 664: sheet lowers | Rows, tag open (664 / 375x667 / 320x568 / 844) |
+|---|---|---|---|
+| 48 (today, no Float) | (collides) | 34 | 3 / 3 / **2** / 4 |
+| 78 (round 5) | **6.8px** (about 11 to the ink); under the 12 rule | 64 | 3 / 3 / 1 / 4 |
+| **88 (proposed)** | **16.8px** | 74 | 3 / 3 / **1** / 4 |
+
+- **Rule:** the gap is the badge's rendered box top above the list edge,
+  plus 12. Read it from the box, not from a constant. With the pick that's
+  `ceil(75.2 + 12)` = 88.
+- **Cost:**
+  - At 844, nothing (the tag's foot is 198px clear).
+  - At 664 and 375x667, the list lowers 40px more than today and keeps 3
+    rows.
+  - **At 320x568 the list keeps 1 row, against today's 2.** The lowering is
+    capped at 156 there, so 78 cost the same in round 5; that just wasn't
+    measured then.
+  - The longest-notes tag behaves the same (`tagtall_664`).
+
+### Form open (ride): Add has to read the badge's real box
+
+- The badge (×: R17's navy and paper ×, also at 60) rides to 314.8,708.8 –
+  374.8,768.8 at 844 and 314.8,528.8 – 374.8,588.8 at 664.
+- From collapsed, nothing moves (Add 682.8–726.8 with the inset).
+- **As coded for 50px,** ADD LOCATION stops **2.8px** from the × (not 12),
+  and its centre sits 4.2px below the ×'s centre (`form_844`/`form_664`).
+- **Scale-aware** (`formfix_*`, reading the rendered box):
+  - Add runs 56–302.8, y 716.8–760.8 at 844 and y 536.8–580.8 at 664.
+  - It sits 12px short of the ×, and the centres are equal.
+  - Add loses 9.2px of width (256 → 246.8). At 320 it's 56–232.8, sticky,
+    and hit-tests as Add.
+- Tag open → + → cancel still restores everything: tag `rey10` reopens, the
+  list is up, and the badge is back at 468.8.
+
+### Filters, Plans, playground, signed out
+
+- **Filters open:** the badge stays under the panel (the centre hit-tests
+  as the panel), so it's still "close filters to add". Unchanged.
+- **Plans:** `planChrome()`/`planSafeBox()` read the rendered box, so a 60px
+  badge is guarded with no change.
+- **Playground (today's signed-out app):** + opens the form and adds, as
+  signed in. The account badge is **always on screen** now (its menu reads
+  "Sign in"), where before it disappeared when signed out. So the hierarchy
+  problem the owner named applies in every state, the playground included.
+- **Stale stored session** (the only state left where `requireAuth()`
+  asks): the sign-in sheet opens, nothing moves, and the badge doesn't go
+  ON (`stale_tap`).
+
+### Builder notes (round 6)
+
+- Draw the badge at 60px. Don't use `transform: scale(1.2)` (the
+  prototype's), so the edge isn't a scaled raster on iOS and layout code
+  sees the real box.
+- `TAG_SHEET_GAP` comes from the badge's box (88 with the pick).
+- The ride form's Add stop and centre line come from the badge's rendered
+  box.
+- At every width, use `attributionControl.setPrefix(false)` (required below
+  about 330px wide).
+
+### Coverage (round 6)
+
+Unchanged from round 5:
+- Job 1: yes, except with the filters open.
+- Job 3: yes, with the scale-aware Add.
+- Job 4: yes.
+- Job 5: yes, with `TAG_SHEET_GAP` **88** and the prefix drop.
+- Job 6: yes, against the playground.
+
+Job 2 is now carried by look as well as position (orange, 60, stamp edge).
+The squint test is the director's.

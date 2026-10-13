@@ -299,3 +299,76 @@ the round-5 set before the owner sees it.
   (filters), C (filters and tag), A none.
 - Next: the director scores. Then the final coverage check on whatever goes
   to the owner.
+
+---
+
+## Round 6 (2026-10-13): new systems designer, jam turn 22: footprints
+
+I took over from these notes. Context change: the playground landed on main.
+Signed out = the playground (no `?play` URL; it's the mode when there's no
+stored supabase session). The account badge is always shown there, with the
+menu reading "Sign in". `requireAuth()` only asks when a stored session is
+stale.
+
+Built: `concepts/r6-check/`
+- `check.js`: Float and C copies of **today's main**, built in memory, with
+  the round-6 includes.
+  - Modes: signed in (the stub's token); `play` (the token removed via
+    `js`); `stale` (`?signin`).
+  - Patches only in the check:
+    - `data-taggap="<n>|box"` pins `TAG_SHEET_GAP`;
+    - `data-fix="rect"` makes the ride form's Add maths read the rendered
+      box.
+  - The scratch `.F.html`/`.C.html` files are deleted after the run.
+- `tag-rows.js`: rows with a tag open, gap 48/78/88 at
+  320/375/664/844.
+- `a-check.js`: A's admission vs tag cut (box, title, hit area at the cut
+  corner and the eyelet, playground and stale taps).
+- Outputs: `measure.json`, `measure-tagrows.json`, `measure-A.json` and
+  `frames/` (3x; desktop 1x).
+
+Findings:
+- **Float, 60px:**
+  - Box 314.8,468.8 – 374.8,528.8. Ink 19.9/19.9 kept, the 370.1 line
+    kept.
+  - **`TAG_SHEET_GAP` 78 → 88** (6.8 → 16.8px clear at 664). It keeps 3
+    rows at 664 and 375. **At 320 it's 1 row vs today's 2**; 78 cost the
+    same.
+  - **The prefix drop is required** (an overlap of 6.3 at 320 with the
+    prefix).
+  - The ride form's Add maths must be scale-aware (else 2.8px from the ×,
+    4.2 low).
+  - Draw it at 60, not `scale()`.
+- **C, 72x94:**
+  - Box 302,430 – 374,524. Nothing structural changes; the step-aside
+    under a tag is load-bearing (the slot sits on VISITED at 664).
+  - Dead zone +34%. The bare box corners tap + (builder: parts-only hit).
+  - The tag's right edge is 3.9 off the account's ink line.
+  - Selection follows the open tag and C hides under tags, so there's
+    never a real selected pin and C's selected pin together.
+- **A's tag cut:** same box, title and flows. Its structural cost is that
+  it makes A a tag (C's object) while opening a form panel; plus "tag" in
+  the sort/filter row reads as a tags filter. Admission keeps A distinct.
+- **D:** structurally the Float (gap would be 76). It loses A's
+  no-exception job 1. I agree with the kill.
+- **Job 6** was rewritten in `jobs.md` against the playground. It's
+  verified on Float, A and C.
+- Each concept's `how-it-works.md` has a "Round 6" section. D got a short
+  `how-it-works.md`.
+
+Decisions (mine; the director can overrule):
+- 88 rather than 78 (12px clearance kept as the rule; derive it from the
+  box).
+- Prefix drop at every width.
+- Admission over tag cut on structural grounds; the look is visual's.
+
+Open:
+- Director: 88 and its 320 cost (1 row with a tag open); tag cut vs
+  admission; D's kill; scores.
+- Visual: C's right edge vs the account ink line; whether the Float's
+  shared ink line still reads "placed" at 60 vs 50.
+- iPhone, if the Float builds: a 60px masked stamp edge renders crisp; it
+  rides in step with the sheet.
+
+Next: the director scores Float, A and C. Then the final coverage check on
+whatever goes to the owner. All three currently have no unsupported job.
