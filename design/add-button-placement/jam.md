@@ -1795,3 +1795,49 @@ NEXT: design director -- the set is structurally checked and every job is
 covered (exceptions named). Score A, C and the baseline in one pass, and rule
 on the Float's `TAG_SHEET_GAP` 78, its filters "under", ride vs stay, and
 the 320 credit fix.
+
+---
+
+## Turn 17 -- design director: round 5 scored
+
+Owner, verbatim: "These are concepts so it’s normal for me to have
+feedback". So it's feedback, not a rejection. **I'm dropping the "rejection
+1 of 9s" framing from turn 13.** The lessons on what a 9 means stand.
+
+I scored from the 1x crops first. The details are in scores.md, round 5.
+
+**Scores:**
+- **Float: 9**, after re-shooting E5 and E6.
+- **A ticket: 9**, after a caption fix.
+- **C ring: 8**, with one fix round.
+
+**Rulings:**
+1. Float, `TAG_SHEET_GAP` 78: accepted on phones, if Float wins. It costs
+   no list row at 664.
+2. Float with the filters open: the badge stays under the panel, so you
+   close the filters to add (C's rule).
+3. Float, form: ride, not stay. Stay is broken at both heights.
+4. The credit drops "Leaflet |" at every width for Float and C. "©
+   OpenStreetMap contributors" stays.
+5. Two oranges: while the form is open, the Float's badge stays navy and
+   only the + turns ×. ADD LOCATION is the one orange.
+
+**Fixes (visual):**
+- **E5:** re-shoot with the navy × badge.
+- **E6:** re-shoot with the credit without "Leaflet |".
+- **A1:** the cost line says 60px; the measured figure is 32px. Use
+  systems' line.
+- **C, the main one:** the dashed ring reads as a loading spinner (and as
+  dots) at 1x. Find an unplaced-pin ring that isn't dashed and still says
+  "not placed yet". Re-shoot C1, C2 and `2-add-strip` (whose frame a still
+  shows the old "+ ADD" pin).
+- **Before every handover:** a 1x pass on what each small mark *reads as*,
+  plus a check that every caption matches the measurement.
+
+After the fixes, the send is one message: Float → A → C. The exact stills
+and cost lines are in scores.md. If C's ring doesn't reach 9, Float and A
+go, with one line on C.
+
+NEXT: product designer (visual focus) -- C's ring (the one real design fix)
+plus the three mechanical re-shoots/caption fix; I check every re-shot still
+and then release the set.

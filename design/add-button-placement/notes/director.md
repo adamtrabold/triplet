@@ -1,10 +1,11 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 5" at the bottom)
-2026-10-13: the owner turned down the set of three 9s (stub, B, C) =
-REJECTION 1 of 9s. A second rejection in a row means bringing him in to
-collaborate, not a third solo round. Round 5 steer is jam turn 13; it's
-waiting on systems (baseline E-float). The older status lines below are
+## Status (current: see "Round 5 scored" at the bottom)
+2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
+A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
+then I check the re-shot stills and release one send (Float, A, C). The
+owner said his notes on round 4 were normal concept feedback, so the
+"rejection count" framing is dropped. The older status lines below are
 history.
 
 ## Owner direction I'm judging against
@@ -376,8 +377,9 @@ the list — but nothing else has proved its weight yet. See if the team can
 push their concepts based on my feedback and also show me the best alignment
 with the existing badge"
 
-**Rejection 1 of 9s.** If round 5's set is turned down too, stop and ask the
-orchestrator to bring the owner in to collaborate.
+~~Rejection 1 of 9s.~~ DROPPED: the owner said "These are concepts so it’s
+normal for me to have feedback". Treat his notes as feedback, not a
+rejection count.
 
 ### What a 9 means to him (learned; score against this from now on)
 1. **Near-final craft at real size.** He reads the pixels of the still, not
@@ -466,3 +468,82 @@ turned them down); round 5 is scored fresh.
 - Me: one steer after that pair, then score everything in one pass.
 - If a pushed concept can't reach 9, the owner gets the baseline plus
   whatever does, with one line per drop.
+
+---
+
+## Round 5 scored -- 2026-10-13
+
+Owner (verbatim): "These are concepts so it’s normal for me to have
+feedback". So there's no rejection count; his notes are feedback. The
+lessons on what a 9 means stand.
+
+Evidence, 1x crops first: A2 and C2 (one shared window with the floated
+badge); E1, E4, E5, E6, E8; A1, A4; C1, C3; jam turns 14-16 (systems'
+measurements, the `r5-check` coverage table).
+
+### Scores
+- **Float, right corner, ink 20/20 (`r-gutter-20`): 9.**
+  - E8's alignment is exact: one ink vertical with the account badge, the
+    same 20px above the list. E4 is clean with gap 78.
+  - Re-shoots before the send: E5 (navy × badge, so it isn't two oranges
+    side by side) and E6 (credit without "Leaflet |"; today about 3px from
+    the badge).
+- **A ticket: 9.**
+  - The tag stub's concave notches give it a ticket silhouette you can see
+    at 1x. The paper tooth works, and the + is bolder. It's no longer
+    "boring" beside the badge, and it got there with form and paper, no
+    marks added.
+  - Fix: A1's caption says 60px, but the measured cost is 32px.
+  - Dial if he asks: the + weight (3px vs the icons' ~2.5px).
+- **C ring: 8.**
+  - The + is now the sign, so his note is answered.
+  - Blocker: the 18px dashed ring reads as a loading spinner, and the
+    dashes read as dots at 1x. Find a non-dashed "unplaced" ring. Keep the
+    ring itself (the bare tag read as a price label).
+  - Also: `2-add-strip` still shows the old "+ ADD" pin; re-shoot it.
+
+### Rulings
+1. **`TAG_SHEET_GAP` 78**, on phones, if Float wins. It costs no row at 664
+   (that's what separates it from C's 96, which I rejected in round 3).
+2. **Float, filters open:** the badge stays under, so close the filters to
+   add.
+3. **Float, form:** ride (stay is broken).
+4. **Credit:** drop "Leaflet |" at every width for Float and C. Keep the
+   OSM credit verbatim.
+5. **Two oranges:** the Float's open badge stays navy and only the glyph
+   turns. ADD LOCATION is the one orange. A "just so you know" line, not a
+   question.
+
+### The send (exact list in scores.md round 5)
+- **Float:** E1, E8, E3, E4, E5*, E6*, E7.
+- **A:** A1*, A2, A4, A5, A6.
+- **C** (if it reaches 9): C1*, C2*, 2-add-strip*, C5.
+- (* = re-shot or fixed.)
+- Cost lines:
+  - Float: "+ rides down with the list when you tap it (and back on
+    cancel); with the filters open, close them first."
+  - A: "The list title gets 32px shorter: 'list' drops first, and at 320
+    the count too."
+  - C: "The add form becomes a tag on the map; with a tag or the filters
+    open, close them to add."
+- Plus the B-dropped line, the Float's navy-× line, and jobs.md Q2/Q3. Q1
+  is answered by picking.
+
+### What keeps blocking a 9
+- **Round 5's misses are small-mark reads at 1x:** the spinner ring, the
+  credit about 3px from the badge, a caption number that didn't match the
+  measurement.
+- `chrome-check.js` catches collisions, but nothing checks what a mark
+  *reads as*, or whether a caption matches the measurement. I've asked
+  visual for a 1x "what does it read as" pass plus a caption-vs-measure
+  check before every handover.
+
+### Likely owner objections on the send
+- A: "still an orange block" (I'd defend the silhouette), or "the + is too
+  heavy" (a dial).
+- Float: "it moves on tap" (told).
+- C: whether the new ring reads as "unplaced". That's the open risk.
+
+### Next
+Visual does the fixes. I check every re-shot still against its 1x crop and
+release the set (or Float and A, plus a line on C).
