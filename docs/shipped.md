@@ -1288,10 +1288,3 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   real supabase-js 2.39.3 (no write from the playground reached
   `/rest/v1`; no reload loop in 10 scenarios). Known gap (owner's call):
   nothing in the playground says changes aren't kept.
-- **Desktop list title in the caret's spot** — 2026-10-13. Owner: "on
-  desktop it removes the caret to collapse the list since it's a sidebar ...
-  in that case the city name should shift over"; then "title is not aligned
-  with icons in reality or visually". In the ≥900px rail the blank
-  `#locationsHeader::before` spacer is gone; the title gets `margin-left:
-  2px` so the L's stem ink sits 1px inside the row icons' ring ink
-  (Chromium: 19 vs 18), the round edge's overshoot. Phone unchanged.
