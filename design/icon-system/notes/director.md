@@ -169,3 +169,35 @@ weight problem reappears in the marks around it. Watch every board for
 Visual: grammar sheet 2, then C's three trip moments first. Systems:
 legends and matrix template. My first steer comes after their next pair of
 turns, then scoring.
+
+## Concept steer 1 (2026-10-13), after the first pair of designer turns
+
+Seen: grammar sheet 2; C / C′ near moments + POI check; B/C/D how-it-works
+(prose only for B and D). Still no scores.
+
+- **C bare is dropped.** It's a near-twin of OSM's café icon at 1x, and on
+  lastDay the visited glyphs read as map content. **C′ (rim off, paper disc
+  kept, inked tilted glyph) is now "C".** It has the best lastDay squint so
+  far (the 3 open starred places found first). Texture fix: one consistent
+  warm 1px low-alpha outer edge, so the coin reads the same on land, road,
+  park and water. It must not read as a ring at 1x. Tilt stays ±6°. No
+  third lever.
+- **16 → 18 Line step accepted** (ladder 14 / 18 / 20 / 24), on condition
+  that no row or menu grows (context crops required).
+- **D's size is set by the peel:** the smallest of a 14/16/18/20 strip where
+  the flap reads as a peel at 1x. Then the lastDay squint. If the stickers
+  still win the eye, D goes to the owner as the honest "cost of keeping it"
+  option. The declared DOUBLEs stay visible. No peel at far zoom.
+- **B:** first gate = 11 reprint inks + the 40% swatch + the inactive chip
+  at 1x, all distinguishable. The reverse pull for un-visit is new motion,
+  shown beside the dry-up.
+- **Grammar notes:** the approx dashed rim is the loudest open pin. Try
+  2–3 long segments and show both. Confirm the row column's centre axis by
+  measured overlay.
+- **What keeps threatening a 9:** secondary marks taking weight
+  (approx dashes now; earlier the clusters and the double-outline
+  selection). The pattern: fix the visited mark, and the next-heaviest
+  modifier becomes the noise.
+- **Next:** visual draws the C′ full set, B's gate strip and D's size strip;
+  systems writes the C′ legend and B's reverse-pull spec. After that pair
+  comes READY, and I score B, C, D in one pass.

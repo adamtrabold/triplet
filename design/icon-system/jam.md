@@ -1169,3 +1169,113 @@ NEXT: product designer (visual focus) — grammar sheet 2 with the rulings
 applied (mask-cut rim star, selection-replaces rim, district redraw,
 glyph-only seals, area measurements), then C's day0/halfway/lastDay on the
 fixture first. Systems fills the legends and the matrix template alongside.
+
+## Concept steer 1: design director, 2026-10-13
+
+Looked at: grammar sheet 2 (`concepts/grammar/g2-s0`, `-s2a`), C's near
+moments today / C / C′ (`concepts/c/near-*`, at 1x and 3x),
+`c-poi-check-3x.png`, and the B / C / D `how-it-works.md`. No scores yet.
+B and D have no drawings yet, and I won't score a concept on prose.
+
+### 1. C vs C′: C′ goes forward, and becomes "C"
+
+The POI check settles it. At 1x, C's bare brown cup sits a few millimetres
+from the stand-in's orange-brown OSM café cup, and they're the same object.
+On lastDay (`near-C-lastDay-3x`) the 24 visited glyphs stop reading as
+"places I've been" and start reading as **map content**. That's J7's
+identity turning into OSM's, and it's the exact risk we named. Tilt didn't
+save it. C bare is dropped.
+
+C′ (rim off, paper disc kept) keeps the idea's *kind*: the printed shell
+comes off, your inked glyph stays on the paper it was printed on. A form
+change, not a value change, so it's still distinct from B. The disc is
+also what OSM never draws. So: **C = rim off, paper kept, inked tilted
+glyph.** On lastDay the three open starred places (10, 14, 20) are the
+first thing the eye finds. J1 holds, and it's the best squint of anything
+so far.
+
+The texture cost, and the fix: on the light land colour the paper disc
+nearly vanishes, while on roads, parks and water it shows as a coin. So
+one visited place looks different from the next depending on what's under
+it (patchy). Give the disc **one consistent edge**: the owner-approved
+"1px hard edge to add shadow definition", warm, low alpha, outer outline
+only (the shipped cream-sticker rule). Make it as subtle as it can be
+while the coin reads the same on land, road, park and water. No shadow
+beyond that ("restrained"). Not a rim: if it reads as a ring at 1x, it's
+too strong.
+
+Keep the tilt at ±6°. lastDay doesn't read messy. Don't spend time on ±3°.
+
+No third lever (a die-cut contour halo, etc.): it re-adds the halo we just
+took off the star, and "fewer variations".
+
+### 2. The 16 → 18 Line step: accepted
+
+Sheet 2 shows the 16s don't read heavier, so my condition didn't trigger.
+But a ladder with one step fewer (14 in-row × / +, 18 menus, 20 header/tag,
+24 seals) is a real systems win for J4. One condition: **no row or menu
+grows.** Show the sort menu and the Plans ledger at 18, same row heights
+as today, in context crops ("Controls don't move or grow").
+
+### 3. D's size: set by the peel, not by a number
+
+At 12px the peel reads as a notch, and the owner has already called a
+notch "stupid". A notch is worse than no change. D exists to keep what he
+chose, so the peel has to read as a peel. Ruling:
+
+1. Visual draws a **size strip: 14 / 16 / 18 / 20px** stickers at 1x on the
+   stand-in basemap, beside an open 24px pin. D's size is the **smallest
+   one where the flap still reads as a peel at 1x**.
+2. At that size, with the face one value step lighter, D goes into the
+   lastDay squint. If the eye still lands on stickers before the 3 open
+   starred pins, D has failed its own premise. It still goes to the owner,
+   but as the honest "keep what you chose, here's what it costs" option, and
+   I'll score it on that basis. Far zoom: no peel, below the size where it
+   can read.
+3. Systems' DOUBLE count for D (glyph slot, size spent on state) stands as
+   D's declared cost. Don't hide it, and don't redesign D to dodge it.
+   D-alt (cream category glyph, Q5) stays a matrix alternative only.
+
+### 4. B
+
+Accepted as specified: per-category visited ink at one target lightness, a
+paper mix and never opacity, ≥3:1 on paper, 0.8px misregistration. The
+reverse pull for un-visit is **new motion** the owner hasn't approved. That's
+fine for a concept, but the storyboard must show it beside the shipped
+dry-up so he sees both moving together. B's first gate: all 11 reprint inks
+**and** the 40% swatch **and** the inactive filter chip side by side at 1x.
+If any two can't be told apart, B dies there.
+
+### 5. Things I noticed on the boards (for the next pass)
+
+- **The approx pin** (dashed rim, plus star in the fixture) is now the
+  loudest open pin on the halfway and lastDay maps. Dashes on a 24px rim
+  are busy ("dots … absolutely not" territory). Visual: try a quieter
+  "approximate" tell in the grammar (e.g. a broken rim of 2–3 long
+  segments instead of many dashes) and show both. It's a grammar fix, not a
+  concept variable.
+- **Row column in C**: the 15px visited glyph and the 24px ringed badge
+  share the left column. Check that they sit on one centred axis by
+  rendered ink (it looks right at 3x; confirm with a measured overlay).
+- The account/+ seals are the heaviest marks on every frame, but they're
+  outside our scope. The CONTAINER = PLACEHOLDER labels are right. No
+  action.
+
+### 6. Next pair of turns, then I call READY
+
+- **Visual:** C (C′) at full set: near day0 / halfway / lastDay with
+  the edge fix, mid/halfway, far/lastDay (dot vs 7–8px silhouette), list,
+  tag, three storyboards. **B** near halfway + lastDay + the 11-ink/40%/chip
+  gate strip. **D** the size strip, then near lastDay at the chosen size.
+  The 18px context crops. The approx tell. Everything on the canvas,
+  labelled draft.
+- **Systems:** rewrite C's legend/matrix for C′ (disc kept, edge, rows =
+  bare glyph since paper-on-paper is invisible; say so). Update D for
+  the size ruling. Spec B's reverse pull frame by frame against `DRY`
+  timings. Then check all three against `jobs.md` with proof frames.
+
+After that pair I end building with READY and score B, C and D in one pass.
+
+NEXT: product designer (visual focus) — C′ full set with the edge fix,
+then B's gate strip and D's size strip; systems follows with the C′ legend
+and B's reverse-pull spec.
