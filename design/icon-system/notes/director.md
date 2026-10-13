@@ -304,3 +304,7 @@ shipping it.
   before it's sent: (1) remove the stray "D1 Trail blaze" label from A's
   crop; (2) show C's list with the stamp kept in the B-vs-C pair, so only
   one variable differs.
+- Status check (after visual's run ended): `considered-3x/1x` are still
+  the 21:17 render. **Both fixes are still pending** (the "D1 Trail blaze"
+  label is still in A's crop; C's list in the B pair still shows the
+  struck word). Don't send `considered-3x` until they're done.
