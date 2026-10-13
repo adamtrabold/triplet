@@ -78,13 +78,55 @@ out of register (one small, visible jolt; the "flaw" is the moment).
 untouched. 5: **after** the gesture, as a separate step, the row badge gets
 the pull, then the pin (if on screen) on the state change in `syncMarkers()`.
 
-**Un-visit:** in B the done pin has *less* ink than open, so on the pin
-there's nothing to dry. Said plainly: **the dry-up lives on the tag's and
-row's stamp** (shipped `dryUp()`, untouched). The pin plays the **pull in
-reverse** (the pass sweeps back, the glyph slips back into register, full
-value returns), timed to the stamp's final snap (`DRY.SNAP_FROM`..`SNAP_TO`),
-so the two read as one event. This is the one place B adds motion the owner
-hasn't approved yet. Show it as frames.
+**Un-visit (reverse pull), frame by frame against the shipped dry-up.**
+In B the done pin has *less* ink than open, so on the pin there's nothing to
+dry. **The dry-up stays on the stamp** (shipped `dryUp()` + `.dry-out`,
+`DRY = { MS 540, THR_MS 480, SNAP_FROM 370, SNAP_TO 450, SNAP_GAIN 0.3 }`,
+untouched). The pin plays the **pull in reverse**, timed so that it happens
+*inside the stamp's snap*, and the two read as one event: the stamp's last
+cores go at the moment the pin returns to full value. This is new motion the
+owner hasn't approved, so it's shown beside the shipped dry-up, moving
+together (director).
+
+Pull geometry: a straight sweep edge, 20° off vertical, with a 3px soft
+edge (a moving mask), crossing the pin's full 24px. Behind the edge is the
+target value, ahead of it the old one. The visit pull runs left → right, and
+the reverse pull **right → left** (the screen goes back the way it came).
+
+| t (ms, the tag's `dryClock`) | Tag stamp (shipped) | Pin (B) |
+|---|---|---|
+| 0 | dry starts (blur ramps 0 → 0.9px over the first 35%) | rest done: reprint value, glyph +0.8px out of register. **Holds still** while the stamp dries; the eye belongs to the tag |
+| ~100 | track dots gone | holds |
+| 160–300 | letters dry | holds |
+| 300–370 | ring and check cores remain | holds (no anticipation: the owner rejected pops) |
+| **370** | `SNAP_FROM`: the accelerating push begins | **reverse pull starts** at the pin's right edge, eased `cubic-bezier(.55,0,1,.45)` (ease-in, matching the snap's k² acceleration) |
+| ~410 | the check is the last speck (~420) | the sweep edge at the pin's centre: left half reprint, right half full value |
+| **430–450** | the copy clears (20ms) | **450 = `SNAP_TO`: the pull completes**, the pin at full value. The glyph is still out of register |
+| 450–490 | segment waits (`.uv-leaving`) | **the glyph slips back into register** (0.8px up-left, 40ms, ease-out): the "flaw" undone, the last pin beat |
+| 470–540 | MARK VISITED words ink in | rest open by 490 |
+| 540 | clock ends; filter removed | — |
+
+Five storyboard stills: **0** (rest done) · **250** (mid-dry; pin unchanged) ·
+**410** (snap; pin half-pulled) · **450** (stamp gone; pin full value, still
+misregistered) · **540** (rest open, both).
+
+Other paths:
+- **Row swipe un-visit** (finger-driven; no `dryClock` on the row in the
+  gesture): after the gesture, as a separate step, the pin plays the pull
+  alone with the same shape: 80ms sweep (the snap's length) + 40ms
+  register = 120ms.
+- **Popup → row replay** (`vsReplay()`, the row stamp gets `.dry-out`): the
+  row's badge runs the same 370–490 pull as the pin, on the same clock. At
+  450 the shipped row lift/settle runs as before.
+- **Pin off screen:** nothing plays; the pin is at rest when it's next drawn.
+- **Reduced motion:** with no filter and the stamp's `dryFadeRm` (pale by
+  56ms, gone by 80, words 80–160), the pin steps to full value and into
+  register at **80ms**, with no sweep.
+
+**Visit (forward pull), for symmetry:** the tag's `tagStampIn` (420ms). The
+pin's pull runs **left → right from 120 to 320ms** (ease-out, while the stamp
+comes down), then the glyph slips 0.8px out of register at 320–360 (one
+small jolt). Row swipe: after the gesture, the same 200 + 40ms.
 
 Reduced motion: values change in one step; the stamp's shipped 160ms
 crossfade.
@@ -135,3 +177,9 @@ at its first score.
 - `buildPopupHtml()` 5047: Line star / Line check open segments.
 - Line icons: `rowActionHtml()` 5602, collapse ▼, plan +, header icons,
   Leaflet zoom (Q4), you-are-here (~4297).
+
+## 7. Jobs check (pass/fail with proof frames)
+
+*Pending visual's B frames: near halfway + lastDay and the gate strip (all 11
+reprint inks + the 40% swatch + the inactive chip at 1x). Filled in once they
+land.*

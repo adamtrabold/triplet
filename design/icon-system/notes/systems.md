@@ -1,5 +1,34 @@
 # Systems designer notes: icon system
 
+## Update 2026-10-13 (after the director's concept steer 1)
+
+- **C is now C′** (rim off, paper disc kept with a warm 1px outer edge, glyph
+  Inked + tilted ±6°; bare C dropped: OSM POI confusion). Rewrote
+  `concepts/c/how-it-works.md`: legend (rim = state; disc = "a place"; edge =
+  structure, and a DOUBLE if it reads as a ring), full matrix (far = disc +
+  dot vs a 7–8px silhouette; selected = navy rim back on the disc; plan
+  shape stops go round like the shipped sticker; **rows drop the disc**
+  because paper on paper is invisible, and keep the bare tilted glyph on one
+  centred axis), flows (rim peels; un-visit = ink dries on the shipped `DRY`
+  clock with the printed rim and glyph returning from 300ms).
+  - Flag to visual: `lib/marks.js` has `TILT = 4`; the director's ruling is ±6.
+  - Alternative left open for visual: while selected, keep the navy rim and
+    only tilt/ink the glyph (no peel + reprint of the selection ring).
+- **D**: size `S` = the smallest of 14/16/18/20 where the peel reads at 1x
+  (no 12px); no peel at far; the DOUBLEs stay as D's declared cost. If the
+  lastDay squint at `S` still lands on stickers, D goes as the honest cost
+  option.
+- **B**: reverse pull specced frame by frame against `DRY` (pin holds 0–370;
+  pull right→left 370–450 inside the snap, ease-in; glyph back into register
+  450–490; reduced motion steps at 80ms; row swipe = 80 + 40ms standalone;
+  forward pull 120–320 + jolt 320–360).
+- **Line ladder accepted:** 14 in-row × / +, 18 menus, 20 header/tag, 24
+  seals; no row or menu grows.
+- **Jobs check:** only C has frames. Provisional: J1 PASS, J8 PASS with a
+  note (visited★ full-orange stars compete as specks at lastDay, so Q3 matters).
+  The rest are pending visual's full C′ set, B's gate strip + near frames and
+  D's size strip + lastDay. §7 of each how-it-works holds the table.
+
 ## Update 2026-10-13 (concept phase, how-it-works written)
 
 - Jam closed (director pass 2 rulings): **A Blaze killed**; B Second run, C

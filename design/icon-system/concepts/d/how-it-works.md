@@ -2,8 +2,19 @@
 
 **Idea:** keep what the owner chose (the dark sticker, cream check, the
 peel, the placing motion) and fix only its **weight**: the sticker becomes
-**smaller than an open pin (~12px near)** and its face goes **one value step
-lighter** (still "the dark colour"). The resting peel stays here only, by
+**smaller than an open pin** and its face goes **one value step lighter**
+(still "the dark colour").
+
+**Size ruling (director, concept steer 1):** the size is set by the peel, not
+by a number. At 12px the peel reads as a notch, and the owner called a notch
+"stupid". Visual draws a strip of **14 / 16 / 18 / 20px** stickers at 1x on
+the stand-in basemap beside an open 24px pin. **D's near size `S` = the
+smallest one where the flap still reads as a peel at 1x.** At `S`, with the
+lighter face, D goes into the lastDay squint. If the eye still lands on the
+stickers before the 3 open starred pins (10, 14, 20), D has failed its own
+premise. It still goes to the owner, as the honest "keep what you chose,
+here's what it costs" option. Below `S` (far zoom) there's **no peel**: a plain
+small disc. The resting peel stays here only, by
 design (owner Q1 shown, not argued). Alternative shown only inside D's
 matrix: the **cream category glyph instead of the check** (Q5), which also
 fixes J7.
@@ -16,7 +27,7 @@ cluster rule, the tag (§4). Fixture: `../fixture/fixture.json`.
 
 | Channel | Means in D | Notes |
 |---|---|---|
-| **Size + form (small round sticker vs 24px ringed pin)** | **open vs visited** | size is spent on state *on the map only for this mark*. See the DOUBLE note below |
+| **Size + form (sticker `S` px vs the 24px ringed pin)** | **open vs visited** | size is spent on state as well as zoom: a declared DOUBLE (below). If `S` comes out at 20, the size difference is small and form carries it |
 | Value of the sticker face | visited (one step lighter than #3A4C5B) | |
 | Shell line style | approx (dashed), open only | visited drops it (shipped "visited = less information") |
 | Size (otherwise) | zoom (24 / 16) | `MARKER_HI_DELTA` → 0 |
@@ -29,14 +40,14 @@ cluster rule, the tag (§4). Fixture: `../fixture/fixture.json`.
 | Tilt | visited (shipped `stickerLean()` / corner hash) | |
 | Motion | visit = placed (shipped `placeStickerPin()`); un-visit: §3; selected = pulse | |
 
-**Honest DOUBLE count:** D-main carries one (the glyph slot) and spends size
+**Honest DOUBLE count (director: D's declared cost; don't redesign D to dodge it):** D-main carries one (the glyph slot) and spends size
 on state as well as zoom (a small sticker vs a full pin). That's D's cost for
 keeping the shipped idea, and the legend shows it rather than hiding it.
 D-alt clears the glyph slot DOUBLE; the size one stays.
 
-**Cluster:** drawn open if any member is open. All-visited = a small
-sticker-style disc **at the lighter face**, with a cream count, **≤ 18px**,
-never darker than an open pin. This is D's hardest cell: a dark disc at
+**Cluster:** drawn open if any member is open. All-visited = a
+sticker-style disc **at the lighter face**, with a cream count, at `S` (no
+peel below `S`), never darker than an open pin. This is D's hardest cell: a dark disc at
 cluster size is the original complaint moved to clusters. If it can't meet
 "never darker", an all-visited D cluster uses the open cluster style at the
 lighter value. Star only for an open starred member.
@@ -45,10 +56,10 @@ lighter value. Star only for an open starred member.
 
 | Surface | open | open★ | visited | visited★ |
 |---|---|---|---|---|
-| **Pin near** | 24 ring + glyph (redrawn) | + rim star | **sticker ~12px**, lighter face, cream check (D-alt: cream glyph), peel at the seeded corner, shipped shadows (restrained) | + star 8px, cut-out (mask) where it overlaps the sticker; no halo |
+| **Pin near** | 24 ring + glyph (redrawn) | + rim star | **sticker at `S` (14–20, from the strip)**, lighter face, cream check (D-alt: cream glyph), peel at the seeded corner, shipped shadows (restrained) | + star 8px, cut-out (mask) where it overlaps the sticker; no halo |
 | **Pin near, selected** | navy rim, glyph category ink, pulse | + star | sticker face → **navy** (selection replaces the face colour; no ring added), cream check/glyph, scale pulse (`markerPulseSolid`) | + star |
-| **Pin far (16)** | ring | + rim star | sticker ~9px, check 5px (or no check: test) | + star 6px |
-| **Pin far, selected** | navy ring + 12px glyph | + star | navy-face sticker 12px | + star |
+| **Pin far (16)** | ring | + rim star | **no peel** (below the size where it reads): a plain disc in the lighter face, ~10px, a cream check if it still reads at 1x, otherwise none | + star 6px |
+| **Pin far, selected** | navy ring + 12px glyph | + star | navy-face disc, no peel | + star |
 | **Approx** | dashed rim | + star | sticker (dashes drop) | + star |
 | **Plan stop** | ring + numeral | + star | small sticker, cream numeral (shipped: visited stop keeps its number) | + star |
 | **Plan shape stop** | diamond + numeral | + star | small round sticker + numeral | + star |
@@ -59,7 +70,7 @@ lighter value. Star only for an open starred member.
 | **Row, selected (navy)** | paper-ink badge | star | paper stamp (shipped) | star |
 | **Filter chip** | inactive greyed glyph beside the 40% swatch | | | |
 
-Z-order: keep `Z_PIN_VISITED_DROP`. A 12px sticker sits under neighbouring
+Z-order: keep `Z_PIN_VISITED_DROP`. A sticker at `S` sits under neighbouring
 24px pins in the real overlaps (fixture 3/5, 2/24), which helps J1.
 
 ## 3. Flows
@@ -67,7 +78,7 @@ Z-order: keep `Z_PIN_VISITED_DROP`. A 12px sticker sits under neighbouring
 **Visit from the tag:** 1 rest open (navy-rim selected pin). 2 tap.
 3 impact: the tag stamp comes down (shipped) **and** the sticker is placed on
 the pin (shipped `placeStickerPin()`: grow 1.12x, travel toward the flap,
-flap edge last, 460ms), at the new small size. The open pin under it
+flap edge last, 460ms), at `S`. The open pin under it
 **fades out** as the sticker lands (the sticker replaces the pin, as today).
 4 settle. 5 rest done (navy-face sticker, selected).
 
@@ -93,9 +104,9 @@ segment; the 40% swatch beside the open segments.
 
 | Job | How | Proof frame | Risk |
 |---|---|---|---|
-| 1 See what's left | visited is half the size of an open pin and lighter | squint lastDay (the hard one for D) | dark + compact still pulls the eye (director, visual s4) |
+| 1 See what's left | visited is smaller than an open pin (`S` < 24) and lighter | size strip at 1x, then the squint at lastDay (D's premise test) | dark + compact still pulls the eye. If so, D goes to the owner as the honest cost option |
 | 2 Open vs done | form + size + colour: very distinct | matrix | — |
-| 3 No noise | star 1 element; but a resting peel + shadow = detail at rest | matrix at 1x | peel/shadow at 12px reads as a smudge (visual's 24px finding) |
+| 3 No noise | star 1 element; a resting peel + shadow = detail at rest | size strip at 1x | `S` is chosen exactly so the peel reads as a peel, not a notch |
 | 4 One family | grammar board | sheet 2 | the sticker is the one non-grammar mark left |
 | 5 / 6 | canvas; one of three | | |
 | 7 Category kept | **D-main fails on the map** (check replaces the glyph); D-alt passes | matrix both | owner's continuity rule ("visited icon changes to a checkmark") vs "preserve the category icon": Q5 |
@@ -106,7 +117,7 @@ segment; the 40% swatch beside the open segments.
 ## 6. What it would touch in index.html
 
 Smallest diff of the three:
-- `STICKER` (4587) size/face constants (`PIN_*`, face ink), `STICKER_CHECK`
+- `STICKER` (4587) size/face constants (sticker size decoupled from `MARKER_SIZE_NEAR`; a no-peel far variant) (`PIN_*`, face ink), `STICKER_CHECK`
   near/far sizes (4631); `stickerPinParts()` 4832 size; D-alt: the glyph
   instead of the check in `stickerPrint()` (4791) / `stickerPinParts()`.
 - `markerIcon()` 4850: sticker size decoupled from the pin size; selected
@@ -121,3 +132,8 @@ Smallest diff of the three:
   gate**. (a) touches nothing.
 - `buildPopupHtml()` 5047: Line star / Line check.
 - Line icons as in B/C.
+
+## 7. Jobs check (pass/fail with proof frames)
+
+*Pending visual's D size strip and the lastDay squint at `S`. Filled in once
+the frames land.*

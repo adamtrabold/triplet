@@ -14,6 +14,7 @@
 window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.84, "bar": 1, "attraction": 1.005, "nature": 0.987, "shopping": 0.84, "area": 0.846, "hotel": 0.926, "other": 1.041, "district": 1.005, "street": 1.051}; // measured by measure.html -> opt-measure.json (2026-10-13)
 (function () {
   const INK = { restaurant: '#7A2436', cafe: '#6E4C22', bar: '#3D5A7A', attraction: '#547326', nature: '#1E3A2B', shopping: '#8A7AA8', area: '#2B3F52', hotel: '#2E2433', other: '#4F5450', district: '#328177', street: '#5E2C17' };
+  const EDGE = 'rgba(112,84,46,.34)';   // C: the disc's warm 1px edge
   const C = { paper: '#F2EBDD', raised: '#FAF5EA', hair: '#D8CEBA', ink: '#1A1A18', ink2: '#5A564C', navy: '#12293F', or: '#EE7434', ord: '#A8400C', stk: '#3A4C5B', stkD: '#52636F', cream: '#F4ECD8', tile: '#F2EFE9' };
   const STAR = 'M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z';
   const CHECK_I = 'M0.75 12.09Q0.05 12.80 0.75 13.51L8.90 21.66Q9.61 22.36 10.28 21.62L23.28 7.33Q23.95 6.59 23.21 5.92L20.03 3.02Q19.29 2.35 18.62 3.09L10.06 12.50Q9.39 13.24 8.68 12.53L5.21 9.05Q4.50 8.35 3.79 9.05Z';
@@ -65,6 +66,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     star: `<path stroke-linejoin="round" transform="translate(12 12) scale(.86) translate(-12 -12.4)" d="${STAR}"/>`
   };
 
+  const APPROX = () => window.TM_APPROX || 'long';   // 'long' = 3 long segments (steer 1), 'dash' = sheet-2 dashes
   let uidN = 0; const uid = p => p + (uidN++);
   function install() {
     if (document.getElementById('tm-sprite')) return;
@@ -81,8 +83,19 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
   // glyph placed inside a 24 box at size g (24-unit coords)
   const gIn = (id, g, color, extraT = '') => `<g transform="translate(12 12)${extraT} scale(${g / 24}) translate(-12 -12)" style="color:${color}"><use href="#${id}"/></g>`;
   function mix(a, b, t) { const p = h => [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16)); const A = p(a), B = p(b); return '#' + A.map((v, i) => Math.round(v * (1 - t) + B[i] * t).toString(16).padStart(2, '0')).join(''); }
+  // CIELAB (D65) helpers, for B's reprint inks: every category's visited ink
+  // goes to ONE target lightness, hue kept, chroma clamped into sRGB.
+  const lin = c => { c /= 255; return c <= .04045 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); };
+  const gam = c => { c = c <= .0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - .055; return Math.round(Math.max(0, Math.min(1, c)) * 255); };
+  function hex2lab(h) { const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(h.substr(i, 2), 16))); const X = (r * .4124 + g * .3576 + b * .1805) / .95047, Y = r * .2126 + g * .7152 + b * .0722, Z = (r * .0193 + g * .1192 + b * .9505) / 1.08883; const f = t => t > .008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116; return [116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z))]; }
+  function lab2rgb(L, a, b) { const fy = (L + 16) / 116, fx = fy + a / 500, fz = fy - b / 200; const fi = t => t * t * t > .008856 ? t * t * t : (t - 16 / 116) / 7.787; const X = fi(fx) * .95047, Y = fi(fy), Z = fi(fz) * 1.08883; const r = X * 3.2406 - Y * 1.5372 - Z * .4986, g = -X * .9689 + Y * 1.8758 + Z * .0415, bb = X * .0557 - Y * .2040 + Z * 1.0570; return [r, g, bb]; }
+  function lch2hex(L, C, H) { let lo = 0, hi = C; const inG = c => lab2rgb(L, c * Math.cos(H), c * Math.sin(H)).every(v => v >= -.001 && v <= 1.001); if (inG(C)) lo = C; else { for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; inG(m) ? lo = m : hi = m; } } const [r, g, b] = lab2rgb(L, lo * Math.cos(H), lo * Math.sin(H)); return '#' + [r, g, b].map(v => gam(v).toString(16).padStart(2, '0')).join(''); }
+  const REPRINT_L = 62;   // B: visited lightness (L*). Paper is ~93.
+  function reprint(h, L = REPRINT_L) { const [l, a, b] = hex2lab(h); return lch2hex(Math.max(l, L), Math.hypot(a, b), Math.atan2(b, a)); }
+  function relLum(h) { const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(h.substr(i, 2), 16))); return .2126 * r + .7152 * g + .0722 * b; }
+  function contrast(a, b) { const x = relLum(a), y = relLum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); }
   function hash(n) { let x = (n * 2654435761) >>> 0; x ^= x >>> 15; x = Math.imul(x, 2246822519) >>> 0; x ^= x >>> 13; return (x >>> 0) / 4294967295; }
-  const TILT = 4; // C: seeded tilt range, degrees (director: may need to come down from 6)
+  const TILT = 6; // C: seeded tilt range, degrees (director: may need to come down from 6)
   const tiltOf = seed => ((hash(seed || 1) * 2 - 1) * TILT).toFixed(2);
 
   // star with a TRUE cut-out: returns {mask, star}. cx,cy,size in 24-units.
@@ -117,32 +130,26 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     const rimCol = sel ? C.navy : k;
     const rimW = sel ? (far ? 3.4 : 2.5) : sw;
     const shell = (col, w, fill = C.paper, dash = '') => `<circle cx="12" cy="12" r="${11 - w / 2}" fill="${fill}" stroke="${col}" stroke-width="${w}" ${dash}/>`;
-    const dash = o.approx ? 'stroke-dasharray="3.2 2.6"' : '';
+    const dash = o.approx ? (APPROX() === 'dash' ? 'stroke-dasharray="3.2 2.6"' : `stroke-dasharray="${(2 * Math.PI * (11 - sw / 2) / 3 - (far ? 4.2 : 3.4)).toFixed(2)} ${far ? 4.2 : 3.4}" stroke-dashoffset="${(far ? -2 : -1.2)}"`) : '';
     let star = null;
     if (model === 'C' && v) {
-      // Shell off: the guide's shell is gone; the glyph stays, inked by you.
+      // C (was C-prime): the printed RIM comes off; the paper disc stays with one warm
+      // 1px low-alpha outer edge (shadow definition, not a ring); your glyph is inked on it, tilted.
       const tilt = tiltOf(o.seed);
-      if (far) {
-        // far: a solid 6px silhouette mark (o.farDot -> the 5px dot alternative)
-        body = o.farDot ? `<circle cx="12" cy="12" r="${5 * 24 / size * .6}" fill="${k}"/>` : gIn('n-' + cat, 13.5, k, ` rotate(${tilt})`);
-        if (sel) body = shell(C.navy, rimW, 'none') + body;
-      } else {
-        const glyph = gIn('n-' + cat, 17, C.paper, ` rotate(${tilt})`).replace('<use ', '<use stroke="#F2EBDD" stroke-width="3.2" stroke-linejoin="round" ') + gIn('n-' + cat, 17, k, ` rotate(${tilt})`);
-        body = (sel ? shell(C.navy, rimW, o.pad ? C.paper : 'none') : (o.pad ? `<circle cx="12" cy="12" r="10.6" fill="${C.paper}" stroke="${mix(C.paper,'#000000',.12)}" stroke-width=".6"/>` : '')) + glyph;
-      }
-      if (st) star = rimStar(far ? 17 : 18.6, far ? 5.5 : 4.6, far ? 10 : 8.4, C.or, 1.3);
+      const edge = `stroke="${EDGE}" stroke-width="${far ? 1.5 : 1}"`;
+      const disc = `<circle cx="12" cy="12" r="${far ? 10.6 : 10.9}" fill="${C.paper}" ${sel ? `stroke="${C.navy}" stroke-width="${rimW}"` : edge}/>`;
+      if (far) body = disc + (o.farDot ? `<circle cx="12" cy="12" r="3.9" fill="${k}"/>` : gIn('n-' + cat, 12.5, k, ` rotate(${tilt})`));
+      else body = disc + (o.num ? `<g transform="rotate(${tilt} 12 12)">${numTxt(o.num)}</g>` : gIn('n-' + cat, 16, k, ` rotate(${tilt})`));
+      if (st) star = rimStar(12, 1.4, far ? 11 : 9, C.or, 1.3);
     } else if (model === 'B' && v) {
-      const t = mix(k, C.paper, .52), offs = far ? '' : ' translate(.8 .6)';
+      const t = reprint(k), offs = far ? '' : ' translate(.8 .6)';
       body = shell(sel ? C.navy : t, sel ? rimW : (far ? 2.4 : 1.6), C.paper, dash) + (far ? '' : (o.num ? numTxt(o.num, mix(C.ink2, C.paper, .45), .8) : gIn('n-' + cat, 16, t, offs)));
-      if (st) star = rimStar(12, 1.2, far ? 12 : 9.5, mix(C.or, C.paper, .4));
+      if (st) star = rimStar(12, 1.2, far ? 12 : 9.5, reprint(C.or, 72));
     } else if (model === 'D' && v) {
-      // sticker, re-weighted: ~12px at near, one value step lighter face, peel kept
-      const f = uid('f'); defs += `<filter id="${f}" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx=".25" dy=".5" stdDeviation=".45" flood-color="#000" flood-opacity=".26"/></filter>`;
-      const sc = far ? .62 : .52, tilt = ((hash(o.seed || 1) * 2 - 1) * 8).toFixed(1);
-      const face = o.glyphFace ? gIn('n-' + cat, 11, C.cream) : gIn('i-check', 9, C.cream);
-      body = `<g transform="translate(12 12) rotate(${tilt}) scale(${sc}) translate(-12 -12)"><g filter="url(#${f})"><path d="M12 1a11 11 0 1 1-10.2 6.9L8.5 4A11 11 0 0 1 12 1z" fill="${C.stkD}"/><path d="M1.8 7.9L8.5 4 3.2 3.6z" fill="#7c8b96"/></g>${far ? '' : face}</g>`;
-      if (sel) body = shell(C.navy, rimW, 'none') + body;
-      if (st) star = rimStar(far ? 16.5 : 16.2, far ? 6.5 : 6.8, far ? 10 : 8, C.or, 1.2);
+      // sticker, re-weighted: o.dSize px (near), face one value step lighter, the peel kept
+      body = sticker(o, far, size);
+      if (sel) body = body.replace(new RegExp(C.stkD, 'g'), C.navy);
+      if (st) { const dp = (o.dSize || 16) / size * 24; star = rimStar(12 + dp * .3, 12 - dp * .5, far ? 10 : 8, C.or, 1.2); }
     } else {
       // open (all concepts), or selected
       body = shell(rimCol, rimW, C.paper, sel ? '' : dash) + (far ? '' : (o.num ? numTxt(o.num) : gIn('n-' + cat, 16, k)));
@@ -150,6 +157,22 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     }
     if (star) { defs += star.mask; body = `<g mask="url(#${star.id})">${body}</g>` + star.star; }
     return svgWrap(S, defs, body);
+  }
+  // D's sticker: a round sticker with a real peel (flap curled back showing its pale underside,
+  // a soft contact shadow under the lifted edge). o.dSize = sticker diameter in CSS px.
+  function sticker(o, far, size) {
+    const d = far ? Math.min(o.dSize || 16, 11) : (o.dSize || 16), sc = d / 22, k = uid('sk');
+    const tilt = ((hash(o.seed || 1) * 2 - 1) * 8).toFixed(1), corner = Math.floor(hash((o.seed || 1) + 99) * 4) * 90 + 200;
+    const face = o.glyphFace ? gIn('n-' + o.cat, 11.5, C.cream) : gIn('i-check', 9.5, C.cream);
+    // geometry in a 24 box, radius 11; the flap cuts a chord near the lower-left and folds over it
+    const showFace = !(far || d < 13);
+    return `<g transform="translate(12 12) scale(${(sc * 24 / size * (size / 24)).toFixed(3)}) rotate(${corner + +tilt}) translate(-12 -12)">
+      <defs><filter id="${k}f" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx=".3" dy=".6" stdDeviation=".55" flood-color="#000" flood-opacity=".24"/></filter>
+      <clipPath id="${k}c"><path d="M-2 -2H26V26H-2Z M3.2 18.6L9.8 22.4L-2 26Z"/></clipPath></defs>
+      <g filter="url(#${k}f)"><path d="M12 1A11 11 0 0 1 22.9 12A11 11 0 0 1 10.2 22.85L3.1 18.45A11 11 0 0 1 12 1Z" fill="${C.stkD}"/></g>
+      <path d="M3.1 18.45L10.2 22.85Q8.6 16.6 3.1 18.45Z" fill="#C9CFD4"/>
+      <path d="M3.1 18.45Q8.6 16.6 10.2 22.85" fill="none" stroke="rgba(0,0,0,.18)" stroke-width=".5"/>
+      <g transform="rotate(${-(corner + +tilt)} 12 12)">${showFace ? face : ''}</g></g>`;
   }
   const numTxt = (n, col = C.ink2, op = 1) => `<text x="12" y="16.4" text-anchor="middle" font-size="${n > 9 ? 10.5 : 12.5}" font-weight="700" fill="${col}" opacity="${op}" font-family="Archivo,Arial">${n}</text>`;
   const svgWrap = (S, defs, body) => `<svg width="${S}" height="${S}" viewBox="0 0 24 24" overflow="visible" style="overflow:visible;display:block"><defs>${defs}</defs>${body}</svg>`;
@@ -280,5 +303,5 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
       <div style="position:absolute;left:0;top:${MH}px;width:${W}px">${header}${rows}</div></div>`;
   }
 
-  window.TM = { INK, C, STAR, install, use, gIn, mix, hash, pin, cluster, basemap, phone, row, seal, stampHtml, rimStar, TODAY_G, NEW_G, LINE, TILT };
+  window.TM = { reprint, contrast, hex2lab, sticker, EDGE, INK, C, STAR, install, use, gIn, mix, hash, pin, cluster, basemap, phone, row, seal, stampHtml, rimStar, TODAY_G, NEW_G, LINE, TILT };
 })();
