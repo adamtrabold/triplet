@@ -10,15 +10,17 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
-- **Playground (`?play`)** -- LANDED 2026-10-13 (spec: `docs/shipped.md`
-  "Playground"). Owner, on landing with the old menu: "lets push it with
-  shitty sign in and we'll adjust i want to share it with someone". Open:
-  the playground's sign-in control is the boxed SIGN IN dropdown the owner
-  rejected; its replacement is the arc sign-in badge in
-  `design/signin-button/` (round 2c, director 9, awaiting the owner). Also
-  open: share-preview/title for the link; the playground shares
-  localStorage prefs (city, sort, list view, active plan) with the real app
-  on the same device.
+- **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
+  made the signed-out experience (owner: "play shouldn't live at its own url
+  -- it should be the experience pre-sign in"); spec: `docs/shipped.md`
+  "Playground". Open: (1) the sign-in control is still the boxed SIGN IN
+  dropdown the owner rejected; its replacement is the arc sign-in badge in
+  `design/signin-button/` (round 2c, director 9, awaiting the owner); (2)
+  nothing in the playground says changes aren't kept, so a signed-out owner
+  (e.g. a Safari tab whose storage was cleared after ~7 days) can edit
+  thinking it saved -- owner's call whether it needs a cue; (3) the sign-in
+  modal copy ("You need to log in to make changes…") is wrong in the
+  playground; (4) share-preview/title for the link.
 - **Brand colour tokens: one system** (owner, 2026-10-07, verbatim:
   "how are our colors defined in the app -- it should be clear from a
   systems perspective that all colors are brand level color tokens" ;
@@ -224,6 +226,16 @@ pick/redirect before building anything.
   still the last resort.
 
 ## Known minor bugs / follow-ups
+
+- Auth follow-ups found reviewing "playground = signed-out app" (2026-10-13,
+  commit `1b52211`): (1) fixed in the same change: `logout()` now
+  signs out this device only (`scope: 'local'`). (2) `logout()` ignores `signOut()`'s error: if
+  it is offline, the account button disappears, the stored session stays,
+  and the next load is signed in again. (3) If storage is blocked
+  (supabase-js falls back to memory), a sign-in reloads straight back into
+  the playground. (4) `design/signin-button/jobs.md` still has the "Edit
+  while signed out (real trip)" flow and `context.md` still says
+  `index.html?play`; neither exists any more.
 
 - Hanging Tag follow-ups (2026-10-07, `docs/shipped.md` "Hanging Tag +
   orange star"): (0) BLOCKER for landing: 0/202 live rows have

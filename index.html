@@ -2692,16 +2692,20 @@
 
     // Initialize Supabase client with auth support
     const { createClient } = supabase;
-    // PLAYGROUND (?play): a shareable copy anyone can poke at. Each table is
-    // read once from the real database, then every read and write runs
-    // against that in-memory copy -- nothing is ever written back, and a
-    // reload starts fresh (owner: fresh copy, not saved per visitor). The
-    // real client is built WITHOUT the stored session, so even a stray write
-    // would go out anonymous and RLS would refuse it.
-    const PLAYGROUND = new URLSearchParams(location.search).has('play');
-    const supabaseClient = PLAYGROUND
-      ? createPlaygroundClient(createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false, autoRefreshToken: false } }))
-      : createClient(SUPABASE_URL, SUPABASE_KEY);
+    // PLAYGROUND: signed out, the app is a playground (owner: "play
+    // shouldn't live at its own url -- it should be the experience pre-sign
+    // in"). Each table is read once from the real database, then every read
+    // and write runs against that in-memory copy -- nothing is ever written
+    // back, and a reload starts fresh. Signed out there is no session, so a
+    // stray write would go out anonymous and RLS would refuse it. The mode is
+    // fixed at boot from supabase-js's stored session (its default storage
+    // key); signing in or out reloads into the other mode.
+    const AUTH_STORAGE_KEY = 'sb-' + new URL(SUPABASE_URL).hostname.split('.')[0] + '-auth-token';
+    const PLAYGROUND = (() => { try { return !localStorage.getItem(AUTH_STORAGE_KEY); } catch (e) { return true; } })();
+    const realSupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabaseClient = PLAYGROUND ? createPlaygroundClient(realSupabaseClient) : realSupabaseClient;
+    // A sign-in in another tab reaches this one too (supabase-js broadcasts it): boot again as the real app.
+    if (PLAYGROUND) realSupabaseClient.auth.onAuthStateChange(event => { if (event === 'SIGNED_IN') location.reload(); });
 
     // Mimics the slice of supabase-js the app uses: from(t).select/insert/
     // update/upsert/delete with order/eq/in, awaited for { data, error };
@@ -2767,7 +2771,7 @@
         from: query,
         auth: {
           getSession: async () => ({ data: { session: { user: guest } }, error: null }),
-          signInWithPassword: async () => ({ data: { user: guest }, error: null }),
+          signInWithPassword: creds => real.auth.signInWithPassword(creds),   // the real sign-in; login() then reloads into the real app
           signOut: async () => ({ error: null }),
           onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } })
         }
@@ -2987,7 +2991,7 @@
       if (typeof refreshTags === 'function' && map) refreshTags();
       if (PLAYGROUND) {
         // The playground's account menu is just a Sign in button (owner):
-        // it leaves for the real app with the sign-in modal open.
+        // it opens the sign-in modal; a good sign-in reloads into the real app.
         dropdownUserEmail.hidden = true;
         document.getElementById('dropdownLogoutBtn').textContent = 'Sign in';
         accountBtn.classList.add('show');
@@ -3045,6 +3049,8 @@
       if (error) {
         authError.textContent = error.message;
         authError.style.display = 'block';
+      } else if (PLAYGROUND) {
+        location.reload();   // the session is stored now: boot again as the real app
       } else {
         currentUser = data.user;
         updateAuthUI();
@@ -3053,8 +3059,8 @@
     }
 
     async function logout() {
-      if (PLAYGROUND) { location.href = location.pathname + '?signin'; return; }
-      await supabaseClient.auth.signOut();
+      if (PLAYGROUND) { hideAccountDropdown(); showAuthModal(); return; }   // the menu's button reads Sign in
+      await supabaseClient.auth.signOut({ scope: 'local' });   // this device only: a global sign-out would quietly drop every other device into the playground
       currentUser = null;
       hideAccountDropdown();
       updateAuthUI();
@@ -9089,6 +9095,9 @@
 
     // Initialize auth and set up auth state listener
     supabaseClient.auth.onAuthStateChange((event, session) => {
+      // Signed out (Logout, or a session that could no longer refresh):
+      // boot again as the playground.
+      if (!PLAYGROUND && event === 'SIGNED_OUT') { location.reload(); return; }
       currentUser = session?.user || null;
       updateAuthUI();
 
@@ -9098,13 +9107,8 @@
       }
     });
 
-    // Check auth on page load; ?signin (the playground's Sign in) opens the
-    // sign-in modal once, then drops the param from the address bar.
-    checkAuth().then(signedIn => {
-      if (PLAYGROUND || !new URLSearchParams(location.search).has('signin')) return;
-      history.replaceState(null, '', location.pathname + location.hash);
-      if (!signedIn) showAuthModal();
-    });
+    // Check auth on page load
+    checkAuth();
 
     // The list's scroll gradient listener is attached ONCE, here — not inside a
     // renderer, where it used to leak one listener per poll tick.
