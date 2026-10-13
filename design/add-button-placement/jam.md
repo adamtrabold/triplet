@@ -1424,3 +1424,222 @@ Q1-3.
 
 NEXT: orchestrator -- send the set to the owner (stills and cost lines in
 scores.md round 4).
+
+---
+
+## Turn 13 -- design director (new director): round 5 steer after the owner turned the set down
+
+I'm taking over. I started from `notes/director.md` (history, not argument)
+and re-read owner.md, context, jobs.md, scores.md, every jam turn, all three
+concepts' docs and the three rest stills the owner judged.
+
+### The owner's reply (verbatim, 2026-10-13)
+
+> The tag is novel but it doesn’t read like a plus button. The plus in the
+> list header looks like an add button but is boring. The full width button
+> at the bottom is way too much ui. I don’t want to just knee jerk to the
+> standard — just floating the existing badge at either the left or right
+> corner above the list — but nothing else has proved its weight yet. See if
+> the team can push their concepts based on my feedback and also show me the
+> best alignment with the existing badge
+
+**This is rejection 1 of a set of 9s.** If the next set is turned down too,
+we stop and bring the owner in to work with us. No third solo round.
+
+### What his note tells us a 9 means to him (and what we got wrong)
+
+1. **He judges stills as near-final craft at real size, not as ideas.** We
+   scored "the idea" and he read the pixels. A 9 from now on means: it reads
+   right at 1x on a phone in about one second, before any caption.
+2. **"+" must be recognisable as a plus button.** C told you what it was in
+   small words on a tag. To him that reads as a label, not a button. The +
+   glyph is the sign, and words don't stand in for it.
+3. **UI weight is a cost he feels straight away.** B's 56px orange bar got
+   "way too much ui" on sight. "More prominent" never meant "bigger by
+   area".
+4. **Correct but plain loses as well.** A was read right ("looks like an add
+   button") and still lost on "boring". Whimsy has to show at rest, through
+   form, paper and ink. A perforation he can't see at 1x doesn't count.
+5. **The baseline is the bar.** "Nothing else has proved its weight yet":
+   every concept now has to beat *the existing badge, floated low*, not
+   today's top-corner badge. Our stills compared each concept with today,
+   which was the wrong comparison. In round 5, every owner still puts the
+   concept beside the baseline.
+
+Why we missed it: four rounds, each director 9, scored against our own
+objections ("generic CTA bar", "the FAB in a costume") and never against
+the simplest real alternative shown beside it. The seal was killed in turn 3
+as "the stock FAB in a costume", so the owner never got to compare it. He
+just asked for it himself.
+
+### Draws (real RNG)
+
+Oblique: **"Use an old idea"**, **"Go slowly all the way round the
+outside"**. Fields: **road signs**, **field notebooks**. Twist: **"it
+changes only when touched"**.
+
+- *Use an old idea:* the old idea is the badge, and the owner just asked to
+  see it. It is also a parts bin. The scallop and the navy-and-orange pairing
+  are already "Triplet's +".
+- *Road signs:* the symbol carries the meaning and the words come second. A
+  road sign is recognised by its shape and glyph from a distance. That is
+  C's fix and the test for every concept: blur the still, and "+" should
+  still read.
+- *Go slowly all the way round the outside:* for the baseline, walk every
+  edge the badge touches: the sheet's top edge, the OSM credit, the tag's
+  48px gap, the zoom, the safe area, the rows' × and icon columns.
+- *Changes only when touched:* a warning for A. A tear-off on tap won't fix
+  "boring", because he judged it at rest. The rest state has to carry the
+  character. Motion is extra.
+- *Field notebooks:* nothing for this round. Noted and dropped.
+
+### The round-5 set (at most four things for the owner, each a real choice)
+
+#### Baseline: Float, the existing badge just above the list (new, required)
+
+This is not a strawman. It's the owner's own option, so it gets our best
+work.
+
+**Settled:**
+- Today's badge, **unchanged in look**: 50px navy scallop, orange +, its
+  states as today.
+- It sits at the bottom-left or bottom-right corner of the map, just above
+  the list sheet's top edge, and rides that edge (list up, collapsed, a tag
+  lowering it).
+- The account badge stays alone at top-right.
+- A size step is **not** in scope. He said "the existing badge". If the team
+  thinks a size change is the only way it works, show it as a second frame
+  and say why. Never make it the pick.
+
+**Open (the designers' calls):**
+- **Alignment.** What it aligns to horizontally:
+  - the screen gutter (`--s4`, today's top-right inset, mirrored);
+  - the rows' column below it (right corner: the × axis, x 360 at 390;
+    left corner: the category-icon axis, the owner's "one left channel" and
+    "one centred axis for left-column items");
+  - or something better.
+- **Vertical gap above the sheet edge**, measured from the ink, not the box
+  (owner: "align optically, by the rendered ink"). Its relation to the
+  header's own spacing.
+- **What gives way:**
+  - the OSM credit at bottom-right (it must stay on the map);
+  - the tag's 48px gap with a tag open;
+  - pins under it.
+- **Form open:**
+  - where the form goes;
+  - whether + turns × in place;
+  - whether the sheet drops, which is the old Q1 (the badge riding the
+    sheet is the owner's "controls don't move" question again; show it
+    honestly).
+- **Left vs right:** what each corner costs and gives. Right is the
+  right-thumb reach and sits on the credit. Left is the left-thumb reach
+  and sits under the zoom's column. Two people use this app.
+
+**Owner stills:**
+- both corners at rest (390x844, list up), side by side, with the team's
+  alignment pick in each;
+- then the picked corner across list up, list collapsed (34px inset), tag
+  open (starred, navy row), form open, 320 Copenhagen and 390x664;
+- one close-up of the alignment at 3x with the axes drawn (only on that
+  one frame);
+- a one-line pick and why.
+
+#### A. Claim-check stub, pushed: keep "obviously add", lose "boring"
+
+He accepted the read: it "looks like an add button". Keep the home (the
+header's right end, thumb band, no header height) and the + glyph. What
+failed is that at rest it's an orange rectangle. The claim-check idea lives
+in a perforation he can't see at phone size.
+
+**Push:**
+- Character has to show at rest, at 1x, through **form, paper and ink**,
+  never through added marks (no dots, no notches that read as dots, no
+  second line of text).
+- Dials, not instructions:
+  - the stub's silhouette (a real die-cut edge, so it reads as a torn or
+    cut ticket and not a slab);
+  - the paper tooth on the flood (he liked texture on the tag band: "paper,
+    not clouds");
+  - how the + itself is printed or stamped (stamps are only for the clerk's
+    entries, so be careful: the + is printed);
+  - whether something from the badge (scallop, navy-and-orange) belongs on
+    it ("use an old idea").
+- Keep any effect restrained.
+
+**Bar:** at 1x beside the baseline, he'd say "that's more interesting than
+the badge", and it still reads as add before anything else. If it only gets
+there with a caption, it isn't there.
+
+#### C. Pencilled pin, pushed: it must read as a plus button
+
+He liked the idea ("novel"). It failed on recognition.
+
+**Push:**
+- **The + is the sign.** At a glance it reads as a + button, with the
+  pin-and-tag form carrying it, not a small tag that says "+ ADD".
+- Take the road-sign test seriously:
+  - the + glyph at least at today's badge glyph weight and size;
+  - words optional or gone;
+  - the shape simple enough that it doesn't read as a price label.
+- The dashed ring with its string is three parts for one button. Question
+  every part ("simple simple simple").
+- It must still be our pin and our tag, never a disc (that's the baseline's
+  lane now, so C has to differ from it in kind).
+
+**Unchanged and still told plainly:**
+- the add form becomes a tag on the map;
+- "close the tag to add".
+
+#### B. Striker strip: ruled out
+
+- **Reason:** what made B different in kind was **full width plus words
+  plus never moving**.
+- Shrink it to a "much smaller" bottom-fixed control and you get a fixed
+  bottom-corner button. That's the baseline without the badge's identity,
+  or a second stub. Neither is a new choice.
+- Kept at full width, it's the weight he just rejected.
+- One line for the owner: "We dropped the bottom bar: smaller, it turns
+  into the floated badge."
+
+**Donor parts** (any surviving concept may use them, no owner question):
+- the strip-as-submit idea: the blank `ADD ______` filled by the pick;
+- the keyboard riding (`visualViewport`).
+
+### Same bar for every round-5 owner still
+
+- Real-app renders from each folder's copy of `index.html`, 3x, 1170 wide,
+  full phone screen, phone-readable. **Plus a 1x crop of the + area for each
+  concept.** I score from the 1x crop first.
+- **Every still 1 is concept vs the baseline (picked corner),** not vs today.
+  Today goes in one reference frame only.
+- `chrome-check.js` clean on every owner frame.
+- One plain cost line per concept, no more.
+- No sheets.
+
+### Who goes first
+
+1. **Systems first: the baseline's structure.**
+   - Prototype both corners in `concepts/E-float/` (copy of `index.html`).
+   - Render the six states for each corner.
+   - Measure the alignment candidates against the real axes: × column,
+     category-icon column, gutter, ink edges.
+   - Measure the collisions: credit, tag gap, pins, safe area, form-open
+     behaviour, 320 and 664.
+   - Bring rough frames and numbers, not a pick on looks.
+   - Also: a structural sanity check on any C change that moves its footprint
+     (credit, tag gap).
+2. **Visual second:**
+   - A pushed and C pushed, at owner fidelity, each with its 1x crop and
+     still 1 beside the baseline;
+   - the baseline's alignment pick and its owner stills at final craft. The
+     look is today's badge, so this is alignment and optical spacing only.
+
+Then I steer once and score all of it in one pass. Kill early in writing:
+if A can't stop being "boring" without decoration, or C can't read as a +
+without becoming a disc, say so in your turn. A smaller honest set beats
+a padded one.
+
+NEXT: product designer (systems focus) -- the baseline is the bar every
+concept is now judged against, and its best alignment is mostly
+measurement: both corners, six states, real axes and collisions in
+`concepts/E-float/` before visual polishes it and pushes A and C.

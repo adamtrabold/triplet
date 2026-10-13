@@ -1,9 +1,11 @@
 # Director notes -- + placement
 
-## Status
-Concept round 2 scored 9/10 (2026-10-12): READY. Claim-check stub goes to
-the owner with stills 1, strip, 2b(844), 3, 4, 5 and jobs.md Q1-3. Waiting
-on the owner. See scores.md round 2.
+## Status (current: see "Round 5" at the bottom)
+2026-10-13: the owner turned down the set of three 9s (stub, B, C) =
+REJECTION 1 of 9s. A second rejection in a row means bringing him in to
+collaborate, not a third solo round. Round 5 steer is jam turn 13; it's
+waiting on systems (baseline E-float). The older status lines below are
+history.
 
 ## Owner direction I'm judging against
 - Task (verbatim): "im also thinking about + placement — it should probably
@@ -360,3 +362,107 @@ the orchestrator sends.
 - **Next:** the owner picks. Then handoff.md, which I check against
   owner.md before the build. If he wants a mix (e.g. B's strip-as-submit
   with the stub's home), that's a new concept round, not a builder call.
+
+---
+
+## Round 5 opened (new director) -- 2026-10-13: owner turned down the set
+
+### Owner (verbatim)
+"The tag is novel but it doesn’t read like a plus button. The plus in the
+list header looks like an add button but is boring. The full width button at
+the bottom is way too much ui. I don’t want to just knee jerk to the standard
+— just floating the existing badge at either the left or right corner above
+the list — but nothing else has proved its weight yet. See if the team can
+push their concepts based on my feedback and also show me the best alignment
+with the existing badge"
+
+**Rejection 1 of 9s.** If round 5's set is turned down too, stop and ask the
+orchestrator to bring the owner in to collaborate.
+
+### What a 9 means to him (learned; score against this from now on)
+1. **Near-final craft at real size.** He reads the pixels of the still, not
+   the idea behind it. A 9 reads right at 1x on a phone in about a second,
+   with no caption. I score the 1x crop first.
+2. **"+" recognisability is non-negotiable.** Words on a tag ("+ ADD") read
+   as a label, not a button. The glyph is the sign (road-sign test: blur it,
+   and it still says +).
+3. **Restraint in UI weight.** Prominence by area got "way too much ui" on
+   sight. "More prominent" never meant bigger.
+4. **Correct but plain loses.** Reading right isn't enough. Character must
+   show at rest, through form, paper and ink. A perforation that vanishes at
+   1x doesn't count as character.
+5. **The baseline is the bar.** Concepts must beat the existing badge
+   floated low, shown beside it. Our stills compared each concept with
+   today, which was the wrong comparison.
+
+### Why four directors' 9s failed (root cause)
+We scored against our own objections and killed the simplest real
+alternative early (the seal, turn 3: "stock FAB in a costume"), so the owner
+never saw the comparison that mattered. He asked for it himself. From now on,
+every set carries the simplest credible baseline, and each concept is shown
+beside it.
+
+### Round 5 set (jam turn 13)
+- **Baseline: Float** (`concepts/E-float/`, new). Today's badge, unchanged
+  in look, at bottom-left and bottom-right just above the sheet, riding its
+  edge.
+  - Alignment is the variable: gutter vs the × axis (right) vs the
+    category-icon axis (left, "one left channel"), with the vertical gap
+    measured by ink.
+  - Owner stills:
+    - both corners side by side at rest;
+    - the picked corner across: list up, collapsed (34px inset), tag open,
+      form open, 320, 664;
+    - one 3x alignment close-up with the axes drawn;
+    - a pick line.
+  - Size step: not in scope (only as a labelled extra frame, never the
+    pick).
+- **A, stub pushed.** Keep the home and the + glyph. Fix "boring" at rest
+  through silhouette, die-cut, paper tooth and how the + is printed, maybe
+  borrowing from the badge ("use an old idea"). No added marks.
+- **C, pin pushed.** The + is the sign: at least today's badge glyph weight;
+  words optional or gone; question the ring + string + tag parts. Still our
+  pin and tag, never a disc. The "form becomes a tag" and "close the tag to
+  add" costs are still told plainly.
+- **B: ruled out.** Smaller, it becomes the floated badge or a second stub;
+  at full width it's the weight he rejected. Owner line: "We dropped the
+  bottom bar: smaller, it turns into the floated badge."
+  - Donor parts: ADD ______ strip-as-submit, `visualViewport` keyboard
+    riding.
+- **Bar for every owner still:** concept vs baseline (not vs today), a 1x
+  crop of the + area, chrome-check clean, one cost line.
+
+### Draws used
+Use an old idea; Go slowly all the way round the outside; road signs; field
+notebooks (dropped); "it changes only when touched" (rest must carry the
+character, motion is extra).
+
+### Likely owner objections I'll hold round 5 to
+- A: "still just an orange box" or "now it's decorated". The line between
+  character and decoration is form/paper/ink vs added marks.
+- C: "still doesn't read as a plus", or "now it's just a round button" (a
+  disc collapses into the baseline).
+- Baseline: "why does it ride the list / cover the credit / sit in the tag
+  gap"; misaligned by a few px at 1x (he checks small alignments: "Small
+  marks line up exactly").
+- The set: "these all look the same now". A, C and the baseline must still
+  differ in kind (header stub / map pin / floating badge).
+
+### What keeps blocking a 9 (across rounds)
+- Rounds 1-4: finish in new state frames (fixed at source by
+  chrome-check.js), and the 664 squeeze on map-side homes (traded openly).
+- New, and the real one: **our 9 was not his 9.** We judged ideas against
+  our own objections. He judges real-size craft against the simplest
+  alternative. Fixed in process: baseline in every set, 1x crop scored
+  first, concept beside the baseline.
+
+### Did the work change?
+No new work yet. No re-scores. Prior 9s are void as predictions (the owner
+turned them down); round 5 is scored fresh.
+
+### Next
+- Systems: baseline structure in `concepts/E-float/`.
+- Visual: A and C pushes plus the baseline's alignment pick and stills.
+- Me: one steer after that pair, then score everything in one pass.
+- If a pushed concept can't reach 9, the owner gets the baseline plus
+  whatever does, with one line per drop.
