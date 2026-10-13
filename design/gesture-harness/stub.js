@@ -86,6 +86,9 @@
     return b;
   };
   const session = { user: { email: 'adamtrabold@gmail.com' } };
+  // The app picks real vs playground mode from supabase-js's stored session
+  // at boot (signed out = playground), so the signed-in fixture stores one.
+  try { localStorage.setItem('sb-jgvckilmltimabfdvaly-auth-token', '{}'); } catch (e) {}
   window.supabase = { createClient() { return {
     from: q,
     auth: { getSession: async () => ({ data: { session } }), onAuthStateChange(cb) { setTimeout(() => cb('INITIAL_SESSION', session), 0); return { data: { subscription: { unsubscribe() {} } } }; },

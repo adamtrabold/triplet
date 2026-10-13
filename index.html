@@ -2251,23 +2251,16 @@
       #locations.collapsed { transform: none; }
       #locations.collapsed #locationsList { display: block; }
       #collapseBtn { display: none; }
-      /* collapseBtn (the header's alignment spacer, see its rule above) is
-         gone in the rail, so stand in with a blank spacer of the same
-         width -- otherwise the title would sit flush at the gutter instead
-         of 56px, out of line with every row's name. */
-      #locationsHeader::before {
-        content: '';
-        display: block;
-        width: var(--col-glyph);
-        flex-shrink: 0;
-      }
-      /* The 360px rail is 30px narrower than a phone, and the sort button
+      /* No caret in the rail, so the title moves over to the gutter where
+         the caret was (owner, 2026-10-13: "in that case the city name should
+         shift over") rather than holding a blank spacer for it.
+         The 360px rail is 30px narrower than a phone, and the sort button
          made the icon row four wide: the icons pack at 4px (mouse targets,
-         no thumb) so "Copenhagen list (38)" still fits untruncated. The
-         spine holds: spacer 28 + 4 gap + 8 margin = the title at 56px. */
+         no thumb). */
       #locationsHeader { gap: var(--s1); }
-      #locationsHeader::before { margin-right: var(--s2); }
-      #locationsHeader h2 { margin-right: var(--s1); }
+      /* The title's L stem sits 1px inside the row icons' ring: a round
+         edge overshoots a straight one, so this is what reads as aligned. */
+      #locationsHeader h2 { margin-right: var(--s1); margin-left: 2px; }
       #mainContent { left: 360px; bottom: 0 !important; height: auto !important; }
       /* The panel slides up from the viewport bottom once the sheet is a
          full-height rail -- there is no bottom sheet left to sit above. */
@@ -2692,16 +2685,18 @@
 
     // Initialize Supabase client with auth support
     const { createClient } = supabase;
-    // PLAYGROUND (?play): a shareable copy anyone can poke at. Each table is
-    // read once from the real database, then every read and write runs
-    // against that in-memory copy -- nothing is ever written back, and a
-    // reload starts fresh (owner: fresh copy, not saved per visitor). The
-    // real client is built WITHOUT the stored session, so even a stray write
-    // would go out anonymous and RLS would refuse it.
-    const PLAYGROUND = new URLSearchParams(location.search).has('play');
-    const supabaseClient = PLAYGROUND
-      ? createPlaygroundClient(createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false, autoRefreshToken: false } }))
-      : createClient(SUPABASE_URL, SUPABASE_KEY);
+    // PLAYGROUND: signed out, the app is a playground (owner: "play
+    // shouldn't live at its own url -- it should be the experience pre-sign
+    // in"). Each table is read once from the real database, then every read
+    // and write runs against that in-memory copy -- nothing is ever written
+    // back, and a reload starts fresh. Signed out there is no session, so a
+    // stray write would go out anonymous and RLS would refuse it. The mode is
+    // fixed at boot from supabase-js's stored session (its default storage
+    // key); signing in or out reloads into the other mode.
+    const AUTH_STORAGE_KEY = 'sb-' + new URL(SUPABASE_URL).hostname.split('.')[0] + '-auth-token';
+    const PLAYGROUND = (() => { try { return !localStorage.getItem(AUTH_STORAGE_KEY); } catch (e) { return true; } })();
+    const realSupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabaseClient = PLAYGROUND ? createPlaygroundClient(realSupabaseClient) : realSupabaseClient;
 
     // Mimics the slice of supabase-js the app uses: from(t).select/insert/
     // update/upsert/delete with order/eq/in, awaited for { data, error };
@@ -2767,7 +2762,7 @@
         from: query,
         auth: {
           getSession: async () => ({ data: { session: { user: guest } }, error: null }),
-          signInWithPassword: async () => ({ data: { user: guest }, error: null }),
+          signInWithPassword: creds => real.auth.signInWithPassword(creds),   // the real sign-in; login() then reloads into the real app
           signOut: async () => ({ error: null }),
           onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } })
         }
@@ -2987,7 +2982,7 @@
       if (typeof refreshTags === 'function' && map) refreshTags();
       if (PLAYGROUND) {
         // The playground's account menu is just a Sign in button (owner):
-        // it leaves for the real app with the sign-in modal open.
+        // it opens the sign-in modal; a good sign-in reloads into the real app.
         dropdownUserEmail.hidden = true;
         document.getElementById('dropdownLogoutBtn').textContent = 'Sign in';
         accountBtn.classList.add('show');
@@ -3045,6 +3040,8 @@
       if (error) {
         authError.textContent = error.message;
         authError.style.display = 'block';
+      } else if (PLAYGROUND) {
+        location.reload();   // the session is stored now: boot again as the real app
       } else {
         currentUser = data.user;
         updateAuthUI();
@@ -3053,7 +3050,7 @@
     }
 
     async function logout() {
-      if (PLAYGROUND) { location.href = location.pathname + '?signin'; return; }
+      if (PLAYGROUND) { hideAccountDropdown(); showAuthModal(); return; }   // the menu's button reads Sign in
       await supabaseClient.auth.signOut();
       currentUser = null;
       hideAccountDropdown();
@@ -9089,6 +9086,9 @@
 
     // Initialize auth and set up auth state listener
     supabaseClient.auth.onAuthStateChange((event, session) => {
+      // Signed out (Logout, or a session that could no longer refresh):
+      // boot again as the playground.
+      if (!PLAYGROUND && event === 'SIGNED_OUT') { location.reload(); return; }
       currentUser = session?.user || null;
       updateAuthUI();
 
@@ -9098,13 +9098,8 @@
       }
     });
 
-    // Check auth on page load; ?signin (the playground's Sign in) opens the
-    // sign-in modal once, then drops the param from the address bar.
-    checkAuth().then(signedIn => {
-      if (PLAYGROUND || !new URLSearchParams(location.search).has('signin')) return;
-      history.replaceState(null, '', location.pathname + location.hash);
-      if (!signedIn) showAuthModal();
-    });
+    // Check auth on page load
+    checkAuth();
 
     // The list's scroll gradient listener is attached ONCE, here — not inside a
     // renderer, where it used to leak one listener per poll tick.
