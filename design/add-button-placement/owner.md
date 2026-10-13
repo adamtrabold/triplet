@@ -17,3 +17,8 @@ Read as: no answers to the open questions until a concept is approved. Questions
 > The tag is novel but it doesn’t read like a plus button. The plus in the list header looks like an add button but is boring. The full width button at the bottom is way too much ui. I don’t want to just knee jerk to the standard — just floating the existing badge at either the left or right corner above the list — but nothing else has proved its weight yet. See if the team can push their concepts based on my feedback and also show me the best alignment with the existing badge
 
 Set of 9s turned down = rejection 1 (a set counts as one). New direction: push A/B/C on his notes, AND show the baseline: today's scalloped badge floated at the left or right corner just above the list, at its best alignment.
+
+2026-10-13, owner:
+> These are concepts so it’s normal for me to have feedback
+
+So: feedback on concepts is normal iteration, not a rejection. Do not count it toward the "two 9s turned down" stuck rule, and do not frame it as a rejection to the owner.

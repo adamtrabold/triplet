@@ -22,3 +22,8 @@ Rejection 1 of a 9 (counts toward "two 9s turned down in a row"). Q1, Q2, label 
 > i like this badge but it feels weighted low so maybe everything should be up some / visually centered. this could allow for more space betwen the icon and sign in -- look at the inspo for guidance
 
 Read as: liked, with a refinement (not counted as a second rejection). Q1, Q2 and box strokes still unanswered.
+
+2026-10-13, owner:
+> These are concepts so it’s normal for me to have feedback
+
+So: feedback on concepts is normal iteration, not a rejection. Do not count it toward the "two 9s turned down" stuck rule, and do not frame it as a rejection to the owner.
