@@ -238,3 +238,48 @@ coverage check before the owner sees anything.
 - My prototypes still clear C's draft on cancel and show the old pin-under-tag; the visual designer's stills carry the rulings. I didn't re-render.
 - Autofocus and the city switch after Add are noted for whichever concept builds (the backlog has the bug).
 - Next: re-check coverage when C's re-score lands; then the owner set goes out (stub, B, C if 9) with Q1-Q3.
+
+---
+
+## Round 5 (2026-10-13): new systems designer, baseline E "Float" (jam turn 14)
+
+The owner turned down the A/B/C set (rejection 1 of a set). Director turn 13:
+show the baseline, which is today's badge floated at a bottom corner riding
+the sheet edge; push A and C; B ruled out. I went first, on the baseline's
+structure.
+
+Built: `concepts/E-float/`
+- `concept.inc.html`: positioning, ride form, credit, tag gap and filters
+  modes, all via `<html>` data-attributes.
+- `render.js`: copies `index.html`, drops `#floatingAddBtn` from
+  `pinPopupTopPad`, and makes `TAG_SHEET_GAP` a `let`.
+- `frames/<variant>/`, `measure.json`, `sum.js` (summary), `probe.js`
+  (today's axes).
+- `how-it-works.md`.
+
+Decisions (mine; the director can overrule):
+- Pick: right corner, gutter (box 16), box gap 16 / ink 19.9
+  (`r-gutter-20`). Second: the same at the left (`l-gutter-20`).
+- Form: ride (the list drops, × on the band, Add on the ×'s line, sticky at
+  320). Stay fails.
+- Filters: under (close filters to add). Riding the panel fails.
+- `TAG_SHEET_GAP` 78 while floated.
+- Right corner: credit to bottom-left.
+- Account badge to `right: var(--s4)`.
+
+Key numbers: see `how-it-works.md` tables. Today's axes are:
+- left ring ink 19.0, axis 30;
+- locate ink right 367.2, × axis 360;
+- the account badge's ink right 370.1;
+- the scallop's ink inset 3.9.
+
+Open:
+- director: ride vs stay; the filters exception;
+- visual: the ink-gap dial, two oranges side by side with the form open;
+- owner: Erica's hand;
+- iPhone: riding in step with the sheet, the back swipe on the left, the 320
+  credit.
+
+Next: the structural sanity check on visual's pushed C (it sits in the same
+slot, so the tag gap, filters and credit apply), then the coverage check of
+the round-5 set before the owner sees it.

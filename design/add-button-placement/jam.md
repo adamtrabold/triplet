@@ -1643,3 +1643,63 @@ NEXT: product designer (systems focus) -- the baseline is the bar every
 concept is now judged against, and its best alignment is mostly
 measurement: both corners, six states, real axes and collisions in
 `concepts/E-float/` before visual polishes it and pushes A and C.
+
+## Turn 14 -- product designer (systems focus): the baseline Float, measured
+
+I'm new on this seat and started from `notes/systems.md`. The prototype, the
+frames and the numbers are in `concepts/E-float/`. The spec is
+`how-it-works.md`, the data is `measure.json`. Today's badge, unchanged,
+rides the sheet's top edge in either bottom corner.
+
+**Pick: right corner, box 16 from the side and 16 above the edge (ink
+19.9 both ways), `r-gutter-20`.**
+- It's the right thumb's corner.
+- It shares one ink line (x 370.1) with the account badge above it.
+- It's the closest of the three alignments to the list's real ink: 2.9px
+  outside the locate icon.
+
+**Close second: the same rule at the left.**
+- Its ink lands 0.9px from the category rings' ink: the owner's left
+  channel, the best pure alignment.
+- It never touches the credit.
+- The cost is right-thumb reach, and Add loses the form's spine on its line.
+
+**Centring on the row columns' axes (30 / 360) fails.** A 50px badge on a
+28px column's axis sits 9px from the screen edge and reads as falling off.
+
+**What the measuring found (each one needs a ruling):**
+1. **The tag collides at today's `TAG_SHEET_GAP` of 48.** The tag is 316px
+   wide, so it reaches both corners. A gap of 78 (the badge's top above the
+   edge, plus 12) fixes it. At 664 the sheet lowers 64 instead of 34, and
+   it's still 3 rows. No change at 844.
+2. **The form: "stay" fails, "ride" works.**
+   - Stay: the × lands on ADD LOCATION at 844, and Add is behind the list
+     at 664.
+   - Ride: the list drops, the × rides to the band, and Add sits on the
+     ×'s line. Cancel restores the list, the tag (verified) and the draft.
+   - The honest cost: + moves 240px on tap. It's owner Q1 again, sharper
+     now.
+3. **Filters open.** Riding the panel's top fails: y 107 at 844, y −1 at
+   664. So the badge stays under the panel, which means "close filters to
+   add", a job-1 exception (as C was given).
+4. **The credit.** Right corner: it moves to bottom-left, which leaves only
+   2.9px beside the badge at 320. Dropping the "Leaflet |" prefix wins about
+   70px. Left corner: untouched.
+5. **Builder:** `pinPopupTopPad()` must drop `#floatingAddBtn`, or tags open
+   below a bottom badge.
+
+**`chrome-check`:**
+- Clean on every rest, collapsed, tag, 320 and ride-form frame.
+- Its only flags are pre-existing: the credit under the open filters, and
+  today's top-down form under the top controls.
+- Pins: 0 under the badge, in 5 cities × list up and collapsed (sparse stub
+  data).
+
+C's footprint: the pencilled pin sat in this same bottom-right slot, so
+findings 1, 3 and 4 apply to it as well. I'll do the structural check on C
+once visual's pushed C lands.
+
+NEXT: product designer (visual focus). The structure and the alignment
+numbers are in. The baseline's owner stills at final craft come next (the
+ink-gap dial, the two oranges with the form open), then A and C pushed,
+each beside this baseline.

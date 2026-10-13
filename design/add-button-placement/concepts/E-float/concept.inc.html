@@ -1,0 +1,112 @@
+<!-- ===== BASELINE E: FLOAT (systems prototype, round 5) =====
+     Today's #floatingAddBtn, UNCHANGED in look, floated to a bottom corner of the map just above the list sheet,
+     riding the sheet's top edge (list up / collapsed / lowered by a tag / the filters panel's top while it is open).
+     Injected before </body> of a COPY of index.html by render.js. Config on <html>:
+       data-corner = l | r            which bottom corner
+       data-align  = gutter | axis | ink
+                     gutter: the box 16px (--s4) from the screen edge (today's top-right inset, mirrored)
+                     axis:   the badge's centre on the row column below it (left: the category-icon axis x 30;
+                             right: the rows' x axis, x W-30)
+                     ink:    the scallop's INK edge 16px from the screen edge (box 12.1px)
+       data-gap    = the INK gap (px) between the scallop's lowest point and the sheet edge
+       data-form   = stay | ride
+                     stay: today's form from the top; the list doesn't move; the badge turns x in place
+                     ride: the list drops to its band; the badge rides down with it; the form sits on the band,
+                           ADD LOCATION on the same line as the x, beside it
+       data-filters = ride | under    ride: with the filters panel open the badge rides the PANEL's top; under: it stays at the
+                                      sheet edge, under the panel (hidden), so filters must close first
+       data-taggap = clear | 48       clear: TAG_SHEET_GAP grows to clear the badge (its box top above the edge + 12);
+                                      48: today's gap (the badge and a long tag collide)
+       data-credit = move | lift      (right corner only) move: the OSM credit goes to bottom-left;
+                                      lift: the credit stays bottom-right and the badge stacks above it
+     Prototype positioning is JS (a 30ms sync); a build would do it in CSS off --sheet-lower / .collapsed. -->
+<style id="conceptE">
+  #floatingAddBtn { top: auto; right: auto; left: 0; }   /* left/top set by syncFloat() */
+  #accountBtn { right: var(--s4); }  #accountDropdown { right: var(--s4); }   /* the account badge alone at top-right, today's + slot */
+  html[data-form="ride"] body.float-open #controls { position: absolute; left: 0; right: 0; bottom: 0; padding-top: var(--s6);
+    padding-bottom: var(--float-pb, 15px); max-height: 100%; overflow-y: auto; box-sizing: border-box; border-bottom: 0; border-top: 2px solid var(--navy); }
+  html[data-filters="under"] body.float-under #floatingAddBtn { z-index: 998; }   /* under the open panel (z 999) */
+  html[data-form="ride"] body.float-open #controls { max-height: calc(100% - 74px - 12px - var(--chrome-top-inset)); }   /* never under the zoom / account row: it scrolls */
+  html[data-form="ride"] body.float-open #addForm button#submitBtn { width: calc(100% - var(--float-ml, 0px) - var(--float-mr, 0px)); display: block; margin-left: var(--float-ml, 0); margin-right: var(--float-mr, 0);
+    position: sticky; bottom: 0; z-index: 2; box-shadow: 0 var(--s3) 0 var(--s3) var(--paper); }   /* a form taller than the room scrolls; Add never scrolls away from the x */
+  html[data-form="ride"] body.float-open.credit-off .leaflet-control-attribution { visibility: hidden; }   /* no map strip left: never half-covered (as body.sort-open) */
+</style>
+<script id="conceptEjs">
+(function () {
+  const $ = id => document.getElementById(id), root = document.documentElement;
+  const cfg = () => ({ corner: root.dataset.corner || 'r', align: root.dataset.align || 'gutter', gap: +(root.dataset.gap || 16),
+    form: root.dataset.form || 'ride', credit: root.dataset.credit || 'move' });
+  const INK = 3.9;            // the scallop polygon's ink runs 3.90..46.10 of the 50px box (both axes)
+  const fab = $('floatingAddBtn'), loc = $('locations'), panel = $('filtersPanel');
+  window.__floatEdge = () => {   // the sheet edge the badge rides: the sheet's top, or the open filters panel's top
+    const c = cfg(); let edge;
+    if ((typeof railQuery !== 'undefined' && railQuery.matches)) edge = map.getContainer().getBoundingClientRect().bottom;
+    else { edge = loc.getBoundingClientRect().top;
+      if (panel.classList.contains('visible') && (root.dataset.filters || 'under') === 'ride') edge = Math.min(edge, panel.getBoundingClientRect().top); }
+    return edge;
+  };
+  function xLeft(c, W, x0) {
+    if (c.align === 'gutter') return c.corner === 'l' ? x0 + 16 : x0 + W - 16 - 50;
+    if (c.align === 'ink') return c.corner === 'l' ? x0 + 16 - INK : x0 + W - 16 + INK - 50;
+    return c.corner === 'l' ? x0 + 30 - 25 : x0 + W - 30 - 25;   // axis
+  }
+  function liftForCredit(c) {
+    if (c.corner !== 'r' || c.credit !== 'lift') return 0;
+    const a = document.querySelector('.leaflet-control-attribution'); return a ? a.getBoundingClientRect().height : 0;
+  }
+  let creditDone = '';
+  function syncFloat() {
+    if (typeof map === 'undefined' || !map) return;
+    const c = cfg();
+    const want = c.corner === 'r' && c.credit === 'move' ? 'bottomleft' : 'bottomright';
+    if (creditDone !== want && map.attributionControl) { map.attributionControl.setPosition(want); creditDone = want; }
+    const rail = (typeof railQuery !== 'undefined' && railQuery.matches);
+    const mr = map.getContainer().getBoundingClientRect();
+    const W = rail ? mr.width : innerWidth, x0 = rail ? mr.left : 0;
+    const top = __floatEdge() - liftForCredit(c) - c.gap + INK - 50;
+    document.body.classList.toggle('float-under', panel.classList.contains('visible'));
+    if (typeof TAG_SHEET_GAP !== 'undefined') TAG_SHEET_GAP = (root.dataset.taggap || 'clear') === 'clear' ? Math.ceil(c.gap - INK + 50 + liftForCredit(c) + 12) : 48;
+    // the OSM credit rides the form's top while the form sits on the band (it must stay on the map)
+    const lb = document.querySelector('.leaflet-bottom.leaflet-' + (want === 'bottomleft' ? 'left' : 'right'));
+    const riding = c.form === 'ride' && document.body.classList.contains('float-open');
+    if (lb) lb.style.marginBottom = riding ? $('controls').offsetHeight + 'px' : '';
+    // the credit needs a map strip above the form, below the zoom / account row (74 + 12) -- else it steps out
+    document.body.classList.toggle('credit-off', riding && (map.getContainer().getBoundingClientRect().bottom - $('controls').offsetHeight) < 74 + 12 + 17 + parseFloat(getComputedStyle(root).getPropertyValue('--chrome-top-inset') || 0));
+    fab.style.left = xLeft(c, W, x0).toFixed(2) + 'px';
+    fab.style.top = top.toFixed(2) + 'px';
+    if (c.form === 'ride' && document.body.classList.contains('float-open')) {
+      // ADD LOCATION shares the x's line: its centre on the badge's centre, and it stops 12px short of the badge
+      const H = 44, edge = __floatEdge(), bc = top + 25;
+      root.style.setProperty('--float-pb', Math.max(0, edge - bc - H / 2).toFixed(2) + 'px');
+      const fl = parseFloat(fab.style.left), padL = 56, padR = 16;
+      if (c.corner === 'r') { root.style.setProperty('--float-mr', Math.max(0, (innerWidth - fl) + 12 - padR) + 'px'); root.style.setProperty('--float-ml', '0px'); }
+      else { root.style.setProperty('--float-ml', Math.max(0, fl + 50 + 12 - padL) + 'px'); root.style.setProperty('--float-mr', '0px'); }
+    }
+  }
+  setInterval(syncFloat, 30); window.__syncFloat = syncFloat;
+  // Form open / close (rides the existing toggle; the draft survives cancel as today)
+  let restore = null;
+  const orig = fab.onclick;
+  fab.onclick = async () => {
+    const c = cfg(), opening = !fab.classList.contains('active');
+    if (opening) {   // one overlay at a time
+      if (panel.classList.contains('visible')) $('toggleFiltersBtn').click();
+    }
+    await orig();
+    const open = fab.classList.contains('active');
+    if (open && !restore) {
+      restore = { collapsed: loc.classList.contains('collapsed'), tag: (typeof openTagKey === 'function') ? openTagKey() : null };
+      document.body.classList.add('float-open');
+      if (c.form === 'ride') { if (restore.tag != null) map.closePopup(); if (!restore.collapsed && !((typeof railQuery !== 'undefined' && railQuery.matches))) $('collapseBtn').click(); }
+    } else if (!open && restore) {
+      document.body.classList.remove('float-open');
+      if (c.form === 'ride' && !restore.collapsed && loc.classList.contains('collapsed')) $('collapseBtn').click();
+      if (c.form === 'ride' && restore.tag != null && typeof markersById !== 'undefined') {   // cancel puts the tag back on the same place
+        const id = restore.tag; setTimeout(() => { const row = document.querySelector(`#locationsList .location-card[data-id="${id}"]`); if (row) row.click();   /* the list's own navigate-and-open path */ }, 420);
+      }
+      restore = null;
+    }
+    syncFloat();
+  };
+})();
+</script>
