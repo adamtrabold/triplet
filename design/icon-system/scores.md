@@ -155,3 +155,111 @@ first (Q6).
    category types that clash"). This one blocks B only.
 7. **Small ask:** one phone screenshot of the live map around
    Hallgrímskirkja at zoom 14–15, so we can check on real tiles.
+
+## Round 2 (concepts), 2026-10-13: C re-scored, B (with darker inks) scored
+
+Frames looked at (3x, judged at 1x reading size):
+- **C:** `c/set/c-far-C-ink-halfway`, `c-peel`, `c-sb-row`, `c-list-C-struck`,
+  `c-q3`, `c-near-C-lastDay-squint`; `concepts/dropped-3x`.
+- **B:** `b/set/b-gate` (re-run), `b-cost`, `b-near-B-lastDay` + squint,
+  `b-far-B-ink-halfway`, `b-sb-dry`.
+
+The systems jobs checks weren't yet updated when I scored, so I judged
+straight from the frames.
+
+### C · Shell off: **9** (was 8). The work changed; fixes 1–3 landed.
+
+- **Far/halfway:** the open 27 Grótta is a dark ring with its rim star, and
+  the visited places are paper coins with a 7–8px silhouette. Open vs done
+  reads at far zoom. The dot is gone.
+- **The peel (`c-peel`, `c-sb-row` 4–5)** is now an object: a gummed
+  reinforcement ring lifts gummed-side-up from one side, comes off whole and
+  falls. It reads at 1x on land and on a primary road. It's the owner's
+  peel, moved to the moment, on something that can physically peel.
+- **The list** with the struck word: done rows no longer carry the
+  heaviest mark. The stamp version stays as the Q2 alternative.
+- **Q3 strip:** both readable. Default full, the smaller one offered.
+
+Likely owner objections, and why none sinks it: "where's my peel at rest"
+is Q1, asked plainly, with the peel visible in motion. Tilt reading as
+"random" is his own "ink is never identical twice", applied. I'd defend it
+as is.
+
+### B · Second run (three inks darkened): **7**
+
+What changed: the gate passes (ΔE ≥18 vs the 40% look on every row; the
+three darkened inks now step back), the cost is shown honestly (`b-cost`),
+and the reverse pull is drawn beside the dry-up and reads as one event.
+**On "other" visited vs the off chip, ΔE 8: accepted.** They never sit
+together (the chip lives only in the filter panel), and they differ by
+shape (ringed pin vs bare glyph). Not a blocker.
+
+Why it isn't 9: the chroma boost that got it past the 40% gate made the
+visited pins **brighter, not quieter**.
+- On `b-near-B-lastDay` at 1x the map is a confetti of pastel rings.
+- **Restaurant visited reads pink.** The owner already turned down pink
+  ("Not sold on pink"), and wine is a named brand ink. Every colour has to
+  keep its meaning.
+- B also keeps all 27 rings plus glyphs on screen, so it answers "checked
+  stronger than open" but not "too noisy". The squint finds the open
+  starred places, but less cleanly than C's.
+
+Likely owner objections: "why is restaurant pink?"; "it's still busy";
+"the faded ones look washed/disabled" (now less likely, at the cost of the
+first two).
+
+Fixes:
+1. **Cap the reprint chroma at the open ink's own chroma** (no boost).
+   Lightness alone steps back. Re-run the gate. If a row then falls
+   back toward the 40% look, keep it apart with the misregistration and
+   a full-ink rim (glyph reprinted, rim kept), not with more colour.
+2. **Hold hue on the warm inks.** Restaurant's reprint stays a dusty wine
+   (hue locked, chroma reduced), never pink. Check street and cafe the same
+   way.
+3. Re-shoot `b-near-B-{halfway,lastDay}` + squints and the list after 1–2.
+
+B rises to 9 if, after 1–2, the lastDay map reads *quieter* than today at
+1x, with no pin changing hue family.
+
+### Send rule
+
+Both concepts go in **one message** once B reaches 9 (owner: "i want more
+than one concept"). If B's next round doesn't reach 9, I'll say so and why,
+and the orchestrator decides between sending C alone (with B's frames as
+"considered", plus the honest reason) and one more round. **I won't pass B
+below 9.**
+
+Send list (when both are 9; phone-readable 3x, in this order):
+1. Canvas link, one line: every icon, today beside new; grammar row, C
+   rows, B rows.
+2. **The headline:** last day of a trip: today / C / B
+   (`c-near-today-lastDay`, `c-near-C-lastDay`, `b-near-B-lastDay` after
+   the fixes).
+3. C: `c-near-C-halfway`, `c-far-C-ink-halfway`, `c-list-C-struck`,
+   `c-tag-C-2`, `c-peel`, `c-sb-dry`.
+4. B: `b-near-B-halfway`, `b-far-B-ink-halfway`, the B list (stamp kept),
+   `b-cost`, `b-sb-dry`.
+5. Grammar: `g2-s0` (rules + the optical-area numbers).
+6. `concepts/dropped-3x` (A and D, one reason each).
+7. The questions below.
+
+### Owner questions (final batch; he answers after approving a concept)
+
+1. **Peel (C):** at rest a visited pin has no peel; the ring comes off like
+   a sticker as it changes. From the tag the pin just inks and tilts. OK?
+2. **List:** the lighter "✓ VISITED" word, or keep the big stamp?
+3. **Visited + starred:** full-size star, or one step smaller?
+4. **Leaflet zoom +/−:** restyle (shown), or remove (pinch + locate)?
+5. **Clusters:** brand orange or ink?
+6. **(B only)** OK to darken shopping, district and attraction one step
+   app-wide? (Attraction moss is a named brand ink.)
+7. **Small ask:** one phone screenshot of the live map around
+   Hallgrímskirkja at zoom 14–15, for a real-tile check.
+
+### What blocked a 9 this round
+
+C cleared once its metaphor got physics (the peel). B hit the trap built
+into a value concept: fade too far and it reads "disabled", hold colour
+and it reads "loud". The way out is lightness without extra chroma, with
+the "not disabled" signal carried by form (misregistration, full rim), not
+colour.

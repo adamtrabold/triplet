@@ -252,3 +252,28 @@ shipping it.
   4. a cost strip.
 - Q6 is retired. The send waits for B ≥9 or B dropped with reasons.
 - Order: C fixes 1–3, then B's gate re-run, then the B set.
+
+## Round 2 scores (2026-10-13)
+
+- **C 9** (from 8). Fixes landed:
+  - far/halfway shows open ring vs coin + silhouette;
+  - the peel is now a reinforcement-ring sticker (reads at 1x);
+  - the struck-word list.
+
+  Ready to send.
+- **B 7** (darker inks). Gate passes (40% ΔE ≥18 on all rows). "other"
+  vs the off chip at ΔE 8 is accepted (never together, different shape).
+  But the chroma boost made visited **brighter**: confetti at lastDay,
+  restaurant reprint reads **pink** (owner: "Not sold on pink"; wine is a
+  named ink), and it doesn't reduce noise. Fixes:
+  1. cap the reprint chroma at the open ink's chroma; keep "not disabled"
+     via misregistration + a full rim;
+  2. hue lock (restaurant = dusty wine);
+  3. re-shoot near halfway/lastDay + list.
+- **Send rule:** both concepts in one message when B is 9. If B misses next
+  round, the orchestrator chooses: C alone + B as "considered", or one more
+  round. I won't pass B under 9.
+- The send list and the final 7-question batch are in scores.md Round 2
+  (Q6 is B-only: darken three inks).
+- **Pattern:** a value concept is trapped between "disabled" and "loud".
+  Lightness without extra chroma, with "not disabled" carried by form.
