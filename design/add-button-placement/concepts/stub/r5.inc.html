@@ -1,0 +1,108 @@
+<!-- ===== A. CLAIM-CHECK STUB, ROUND 5 (visual designer): pushed so it isn't "boring" at rest =====
+     Injected in memory (before the last </body>) into the REAL index.html's text by r5-stills.js; the file itself is
+     never touched. Structure and wiring are the round-3 stub's (render.js inject()), unchanged: the stub is a button
+     at the right end of the list header that drives the app's own #floatingAddBtn (auth, form, playground).
+     Variant on <html data-a="...">: ticket (THE PICK) | wave | postage | seal | r3 (the round-3 look, for reference).
+     Spec: looks-and-feels.md, "Round 5". -->
+<style id="stubR5">
+  #floatingAddBtn { display: none !important; }
+  #accountBtn { right: var(--s4) !important; }
+  #locationsHeader { padding-right: calc(60px + var(--s1)); }
+  #sortBtn, #toggleFiltersBtn { margin-right: calc(var(--s1) - var(--gap)); }
+  #nb { position: absolute; right: 0; top: 0; bottom: -1px; width: 60px; border: 0; padding: 0; margin: 0; cursor: pointer;
+    background-color: var(--brand-orange); color: var(--navy); display: flex; align-items: center; justify-content: center;
+    -webkit-tap-highlight-color: transparent; }
+  #nb svg { transition: transform .3s ease; display: block; }
+  #nb.press { background-color: var(--brand-orange-deep); color: var(--paper); }
+  #nb.open { background-color: var(--state-on-bg); color: var(--state-on-fg); }
+  #nb.open svg { transform: rotate(45deg); }
+  #nb.open.press { background-color: var(--state-on-bg); color: var(--state-on-fg); }
+  #controls.show { position: absolute; left: 0; right: 0; top: auto; bottom: 0; z-index: 900; max-height: 100%; overflow: auto;
+    padding-top: var(--s6); border-bottom: 0; border-top: 2px solid var(--navy); }
+  body.adding .leaflet-bottom { bottom: var(--form-h, 0px); }
+  #locationsHeader h2.fit { display: flex; min-width: 0; }
+  #locationsHeader h2.fit .n { overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; white-space: nowrap; }
+  #locationsHeader h2.fit .w, #locationsHeader h2.fit .c { flex: none; white-space: pre; }
+  #locationsHeader h2.fit.no-w .w { display: none; } #locationsHeader h2.fit.no-c .c { display: none; }
+
+  /* ---- round 3 look (reference): flat orange, a paper dashed rule 4px inside ---- */
+  html[data-a="r3"] #nb::before { content: ''; position: absolute; left: var(--s1); top: 10px; bottom: 10px; border-left: 1.5px dashed var(--paper); pointer-events: none; }
+
+  /* ---- round 5, shared: printed stock + a heavier printed + ---- */
+  /* Paper: the tag band's own tooth (--tex-flood), so the orange is ink on stock, not a flat UI fill. */
+  html:not([data-a="r3"]) #nb { background-image: var(--tex-flood); background-size: 160px 160px; background-position: -37px -11px; }
+  /* The +: printed navy, 28px at 3px stroke (today's badge: 22px at ~2.3px; round 3: 24px at 2.75px). Crisp: it is the
+     printer's mark on the ticket, not a clerk's stamp, so no stamp texture. */
+
+  /* ---- wave (tried, dropped: reads as pinking shears): the tear edge is the badge's own scallop, cut into the stock ---- */
+  /* The stub's left edge is a torn perforation: the same wavy line that edges today's + badge (and the filter divider),
+     straightened out. 8px period, 3px deep, so it reads at 1x as a cut edge, not as dots. The header's paper shows in
+     the troughs. Nothing is drawn: it's the silhouette. */
+  html[data-a="wave"] #nb { -webkit-mask: var(--wave) left top / 4px 8px repeat-y, linear-gradient(#000, #000) 3.5px 0 / calc(100% - 3.5px) 100% no-repeat;
+    mask: var(--wave) left top / 4px 8px repeat-y, linear-gradient(#000, #000) 3.5px 0 / calc(100% - 3.5px) 100% no-repeat; width: 62px; }
+
+  /* ---- ticket (THE PICK): coat-check corners = the Hanging Tag stub's own notches (concave die-cut bites at the two torn-side corners) + the dashed rule ---- */
+  html[data-a="ticket"] #nb { -webkit-mask: radial-gradient(circle 10px at 0 0, transparent 9.5px, #000 10px), radial-gradient(circle 10px at 0 100%, transparent 9.5px, #000 10px);
+    -webkit-mask-composite: source-in; mask: radial-gradient(circle 10px at 0 0, transparent 9.5px, #000 10px), radial-gradient(circle 10px at 0 100%, transparent 9.5px, #000 10px); mask-composite: intersect; }
+  html[data-a="ticket"] #nb::before { content: ''; position: absolute; left: 6px; top: 14px; bottom: 14px; border-left: 1.5px dashed var(--paper); pointer-events: none; opacity: .9; }
+
+  /* ---- seal: the ticket, with today's badge printed on it (navy scallop, orange +) instead of a bare + ---- */
+  html[data-a="seal"] #nb { -webkit-mask: radial-gradient(circle 10px at 0 0, transparent 9.5px, #000 10px), radial-gradient(circle 10px at 0 100%, transparent 9.5px, #000 10px);
+    -webkit-mask-composite: source-in; mask: radial-gradient(circle 10px at 0 0, transparent 9.5px, #000 10px), radial-gradient(circle 10px at 0 100%, transparent 9.5px, #000 10px); mask-composite: intersect; }
+  html[data-a="seal"] #nb::before { content: ''; position: absolute; left: 6px; top: 14px; bottom: 14px; border-left: 1.5px dashed var(--paper); pointer-events: none; opacity: .9; }
+  html[data-a="seal"] #nb .seal { width: 38px; height: 38px; margin-left: 4px; background: var(--navy); color: var(--brand-orange); display: flex; align-items: center; justify-content: center;
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+  html[data-a="seal"] #nb.press .seal { color: var(--paper); }
+
+  /* ---- postage: perforated on the three free edges (bites), like a stamp torn from a sheet ---- */
+  html[data-a="postage"] #nb { top: 5px; bottom: 4px; right: 4px; width: 56px;
+    -webkit-mask: radial-gradient(circle at 0 50%, transparent 2.4px, #000 2.9px) 0 0 / 100% 8px repeat-y, radial-gradient(circle at 50% 0, transparent 2.4px, #000 2.9px) 0 0 / 8px 100% repeat-x,
+      radial-gradient(circle at 50% 100%, transparent 2.4px, #000 2.9px) 0 0 / 8px 100% repeat-x, radial-gradient(circle at 100% 50%, transparent 2.4px, #000 2.9px) 0 0 / 100% 8px repeat-y;
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+    mask: radial-gradient(circle at 0 50%, transparent 2.4px, #000 2.9px) 0 0 / 100% 8px repeat-y, radial-gradient(circle at 50% 0, transparent 2.4px, #000 2.9px) 0 0 / 8px 100% repeat-x,
+      radial-gradient(circle at 50% 100%, transparent 2.4px, #000 2.9px) 0 0 / 8px 100% repeat-x, radial-gradient(circle at 100% 50%, transparent 2.4px, #000 2.9px) 0 0 / 100% 8px repeat-y; }
+</style>
+<script id="stubR5js">
+(function () {
+  const $ = id => document.getElementById(id), root = document.documentElement, v = root.dataset.a || 'ticket';
+  // the badge's scallop as a straight edge: one period of its wave (8px tall), lobe out to x 0, trough at x 3.5
+  const pts = []; for (let i = 0; i <= 16; i++) { const y = i / 2, x = 1.75 - 1.75 * Math.cos(2 * Math.PI * y / 8); pts.push(`${x.toFixed(3)} ${y}`); }
+  const wave = `<svg xmlns='http://www.w3.org/2000/svg' width='4' height='8' viewBox='0 0 4 8'><path d='M4 0 L${pts.join(' L')} L4 8 Z' fill='black'/></svg>`;
+  root.style.setProperty('--wave', `url("data:image/svg+xml,${encodeURIComponent(wave)}")`);
+  const big = v !== 'r3';
+  const PLUS = big ? '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="14" y1="4.5" x2="14" y2="23.5"/><line x1="4.5" y1="14" x2="23.5" y2="14"/></svg>'
+    : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  const fab = $('floatingAddBtn');
+  const nb = document.createElement('button'); nb.id = 'nb'; nb.setAttribute('aria-label', 'Add a place'); nb.innerHTML = PLUS;
+  $('locationsHeader').appendChild(nb);
+  if (v === 'seal') { const cs = getComputedStyle(fab), m = cs.webkitMaskImage || cs.maskImage; nb.innerHTML = '<span class="seal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>';
+    const sp = nb.querySelector('.seal'); sp.style.webkitMaskImage = m; sp.style.maskImage = m; }
+  if (v === 'ticket') nb.querySelector('svg').style.marginLeft = '4px';   // the + centred on the stock right of the perforation
+  if (v === 'wave') nb.querySelector('svg').style.marginLeft = '2px';   // centre the + on the stock, not on the box (the wave eats 3.5px... optically ~2px)
+  let dropped = false;
+  const collapsed = () => $('locations').classList.contains('collapsed');
+  nb.addEventListener('pointerdown', () => nb.classList.add('press')); ['pointerup', 'pointercancel', 'pointerleave'].forEach(e => nb.addEventListener(e, () => nb.classList.remove('press')));
+  nb.addEventListener('click', () => {
+    if (!fab.classList.contains('active')) {
+      const fp = $('filtersPanel'); if (fp && fp.classList.contains('visible')) $('toggleFiltersBtn').click();
+      if ($('sortMenu') && !$('sortMenu').hidden) $('sortScrim').click();
+    }
+    fab.click();
+  });
+  new MutationObserver(() => {
+    const on = fab.classList.contains('active'); if (on === nb.classList.contains('open')) return;
+    nb.classList.toggle('open', on); nb.setAttribute('aria-label', on ? 'Close' : 'Add a place');
+    document.body.classList.toggle('adding', on);
+    if (on) requestAnimationFrame(() => document.body.style.setProperty('--form-h', $('controls').offsetHeight + 'px'));
+    if (on && !collapsed()) { dropped = true; $('collapseBtn').click(); }
+    if (!on && dropped) { dropped = false; if (collapsed()) $('collapseBtn').click(); }
+  }).observe(fab, { attributes: true, attributeFilter: ['class'] });
+  window.fitTitle = () => {
+    const h2 = document.querySelector('#locationsHeader h2'); const t = h2.textContent.match(/^(.*?)( list)( \(\d+\))$/i); if (!t) return;
+    h2.className = 'fit'; h2.innerHTML = '<span class="n"></span><span class="w"></span><span class="c"></span>';
+    h2.querySelector('.n').textContent = t[1]; h2.querySelector('.w').textContent = t[2]; h2.querySelector('.c').textContent = ' ' + t[3].trim();
+    const nat = () => [...h2.children].filter(c => getComputedStyle(c).display !== 'none').reduce((a, c) => { const k = c.cloneNode(true); k.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;display:inline'; h2.appendChild(k); const w = k.getBoundingClientRect().width; k.remove(); return a + w; }, 0);
+    if (nat() > h2.clientWidth + 0.5) h2.classList.add('no-w'); if (nat() > h2.clientWidth + 0.5) h2.classList.add('no-c');
+  };
+})();
+</script>

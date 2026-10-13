@@ -1,5 +1,62 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-13, round 5 (turn 15; new visual designer): baseline stills, A and C pushed
+Context: the owner turned the A/B/C set down as concepts ("normal feedback",
+not a rejection; owner.md). Director turn 13: show the **baseline Float**
+(today's badge floated low) at its best alignment; push A (stop being
+boring at rest, no added marks) and C (read as a + button, + glyph at least
+the badge's weight, words optional, never a disc). B is ruled out. Every
+concept still 1 sits **beside the baseline**, plus a 1x crop of the + area,
+chrome-check clean, one cost line.
+
+### Files
+- `concepts/compose-r5.js`: composes ALL round-5 owner stills (1170 wide).
+  Run after the three stills scripts.
+- Baseline: `E-float/stills.js` (my renders of systems' prototype in
+  Reykjavík; only the `<html>` config is set) -> `E-float/stills/`. Owner
+  stills `E-float/E1..E8`. Spec: `E-float/looks-and-feels.md` (new).
+- A: `stub/r5.inc.html` (the round-3 stub structure + the round-5 look;
+  variants `ticket` (pick) / `wave` / `postage` / `seal` / `r3` on
+  `<html data-a>`), `stub/r5-stills.js` (injects into the REAL index.html's
+  text in memory) -> `stub/r5/`. Owner stills `stub/A1..A8`.
+- C: `C-pin/visual-r5.inc.html` (layered after `visual.inc.html`; redraws
+  only the resting pin; variants `ring` (pick) / `bare` / `big` on
+  `<html data-c>`), `C-pin/stills-r5.js` -> `C-pin/r5/`. Owner stills
+  `C-pin/C1..C7`.
+- The 1x crops use ONE window (x150 y400 240x240 at 390x844) in all three.
+
+### Decisions and why
+- Baseline: keep systems' pick r-gutter-20 (ink 20 from the side and from the
+  list; one ink line with the account badge). The 12 gap reads as sitting on
+  the list; 16 matches nothing. Left is the close second (ink on the row
+  icons' channel).
+- A = `ticket`: concave 10px bites at the torn-side corners = the Hanging
+  Tag stub's own notches; the perforation runs between them; `--tex-flood`
+  paper; + 28px box, 19px arms, 3px stroke, navy, 4px optical shift right.
+  Dropped: wave (pinking shears), postage (a stamp on the header), seal
+  (two marks, the badge in costume).
+- C = `ring`: no words; 60x48 die-cut orange tag (12px chamfers, punched
+  eyelet, tooth, the tag's restrained shadow), navy + 26px box (18.7px arms,
+  3.1px stroke), the straight string to an 18px pencilled ring. bare = a price
+  label, dropped. Placed at the Float's exact corner (right 16, foot 20 above
+  the list), credit to bottom-left.
+
+### Open
+- Float E5: two oranges (today's orange ON × next to ADD LOCATION). If Float
+  wins, propose the open × as navy/paper (header ON rule): the owner's call.
+- A: the open navy stock carries the tooth, unlike the flat ON tiles (the
+  brand-token pass).
+- C: systems' structural check of the new footprint; if the dashed ring
+  reads as noise, try a thin solid ring before removing it.
+- Owner questions (Q1 the ride, Q2 fly to new place) still wait for an
+  approved concept.
+
+### Next
+Systems checks C's footprint; the director scores the round-5 set (Float,
+A, C) in one pass from the 1x crops first. Then the owner gets: E1 + E8
+(+E5), A1 + A2, C1 + C2, each one message's worth.
+
+
 ## UPDATE 2026-10-12, round 3 fixes (after director turn 10: B 9 pending, C 8, D killed)
 - B fix 6 done: `#controls.show` max-height = --form-max - 26px (the credit's
   row reserved between badge and form). 6-keyboard: form y147, credit

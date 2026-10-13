@@ -1,0 +1,46 @@
+<!-- ===== C. PENCILLED PIN, ROUND 5 (visual designer): the blank pin must read as a + button =====
+     Layered AFTER visual.inc.html (the round-3 look of the search line, blank tag and form is unchanged) by stills-r5.js.
+     Only the resting blank pin is redrawn: the words go, the + is the sign. Built from HTML parts, not SVG, so the tag
+     can carry the band's paper tooth (--tex-flood) and the Hanging Tag's own die-cut and eyelet.
+     Variant on <html data-c="...">: ring (THE PICK: pencilled ring + straight string + tag printed with +) | bare (tag +
+     eyelet + a cut string end, no ring) | big (the pick at 1.15).
+     Placement matches the baseline Float's pick: right edge 16px in, foot ~20px of ink above the list; the OSM credit
+     moves to the bottom left (as the Float). Spec: looks-and-feels.md, "Round 5". -->
+<style id="conceptCr5">
+  #pencilPin { --k: 1; width: calc(60px * var(--k)); height: calc(84px * var(--k)); right: 16px; bottom: 20px; }
+  html[data-c="big"] #pencilPin { --k: 1.15; }
+  html[data-c="bare"] #pencilPin { height: calc(64px * var(--k)); }
+  #pencilPin > * { position: absolute; display: block; pointer-events: none; }
+  /* the pin not yet made: a pencilled ring (cartography: what isn't built yet is drawn dashed) */
+  #pencilPin .r5-ring { left: calc(50% - 9px * var(--k)); top: 0; width: calc(18px * var(--k)); height: calc(18px * var(--k)); box-sizing: border-box; border-radius: 50%;
+    border: calc(2px * var(--k)) dashed var(--navy); background: var(--paper-raised); }
+  /* the straight string, from the ring's foot to the eyelet's centre (the tag's own string: 1.5px --ink-2) */
+  #pencilPin .r5-string { z-index: 3; left: calc(50% - .75px); top: calc(18px * var(--k)); width: 1.5px; height: calc(27px * var(--k)); background: var(--ink-2); border-radius: 1px; }
+  html[data-c="bare"] #pencilPin .r5-ring { display: none; }
+  html[data-c="bare"] #pencilPin .r5-string { top: 0; height: calc(25px * var(--k)); }
+  /* the tag: the Hanging Tag's die-cut (chamfered top corners) and eyelet hole, brand orange on the band's paper tooth;
+     its shadow is the tag's own (0.5px warm edge, 1px contact, a small lift), restrained */
+  #pencilPin .r5-tagw { left: 0; right: 0; bottom: 0; height: calc(48px * var(--k));
+    filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)) drop-shadow(0 3px 4px var(--tag-shadow-lift)); }
+  #pencilPin .r5-tag { position: absolute; inset: 0; background-color: var(--brand-orange); background-image: var(--tex-flood); background-size: 160px 160px; background-position: -61px -23px;
+    color: var(--navy); display: flex; align-items: center; justify-content: center; padding-top: calc(10px * var(--k)); box-sizing: border-box;
+    clip-path: polygon(calc(12px * var(--k)) 0, calc(100% - 12px * var(--k)) 0, 100% calc(12px * var(--k)), 100% 100%, 0 100%, 0 calc(12px * var(--k)));
+    -webkit-mask: radial-gradient(circle calc(3px * var(--k)) at 50% calc(9px * var(--k)), transparent calc(2.6px * var(--k)), #000 calc(3px * var(--k)));
+    mask: radial-gradient(circle calc(3px * var(--k)) at 50% calc(9px * var(--k)), transparent calc(2.6px * var(--k)), #000 calc(3px * var(--k))); }
+  /* the + : the sign. 26px box, 18.7px arms at 3.1px stroke (today's badge glyph: 12.8px at 2.3px), navy on orange */
+  #pencilPin .r5-tag svg { width: calc(26px * var(--k)); height: calc(26px * var(--k)); display: block; }
+  #pencilPin:active .r5-tag { background-color: var(--brand-orange-deep); color: var(--paper); }
+  #pencilPin.press .r5-tag { background-color: var(--brand-orange-deep); color: var(--paper); }
+  /* the old mini tag svg (round 3) is replaced */
+  #pencilPin > svg { display: none; }
+</style>
+<script id="conceptCr5js">
+(function () {
+  const pin = document.getElementById('pencilPin'); if (!pin) return;
+  pin.innerHTML = '<span class="r5-ring"></span><span class="r5-string"></span><span class="r5-tagw"><span class="r5-tag">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.9" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="3.35" x2="12" y2="20.65"/><line x1="3.35" y1="12" x2="20.65" y2="12"/></svg></span></span>';
+  // the OSM credit leaves the bottom-right for the pin, as with the floated badge
+  const go = () => { if (typeof map !== 'undefined' && map && map.attributionControl) map.attributionControl.setPosition('bottomleft'); else setTimeout(go, 50); };
+  go();
+})();
+</script>

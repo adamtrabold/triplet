@@ -1,5 +1,89 @@
 # C. Pencilled pin: how it looks and feels (visual designer)
 
+## Round 5 (2026-10-13): it must read as a plus button
+
+Owner: "The tag is novel but it doesn't read like a plus button." He liked
+the idea; it failed on recognition. The small tag said "+ ADD" in 12-15px
+words, which reads as a label, not a button. Round 5 changes **only the
+resting blank pin**. The search line, the blank tag (the form), the inking
+and every behaviour are as in round 3 below, still told plainly: the add form
+becomes a tag on the map, and you close a tag or the filters to add.
+
+### Owner stills (3x, 1170 wide; this folder's `index.html` copy + `visual.inc.html` + `visual-r5.inc.html`; Reykjavík)
+
+| # | File | What it shows |
+|---|---|---|
+| C1 | `C1-vs-float-3x.png` | Rest, beside the **floated badge** (the baseline pick), plus the cost line |
+| C2 | `C2-close-up-1x.png` | The + area at 1x (the same 240x240 window as the baseline's), drawn pixel for pixel |
+| C3 | `C3-rest-3x.png` | Full screen, list up |
+| C4 | `C4-pressed-3x.png` | Rest and pressed, close up |
+| C5 | `C5-tag-open-3x.png` | A starred tag open: the pin steps aside (one tag at a time) |
+| C6 | `C6-list-down-3x.png` | List collapsed, Home Screen |
+| C7 | `C7-320-3x.png` | 320 wide, Copenhagen |
+
+The add flow itself (search, the blank tag, Add) is unchanged. Its round-3
+stills (`2-add-strip-3x.png`, `2d-done-3x.png`, `4-states-3x.png`) still
+show it. Raw: `r5/*.png`, `r5/measure.json` (`clash` from `chrome-check.js`:
+**clean on every frame**; 0 pins under it at the default view). Re-render:
+`node stills-r5.js` (`ONLY=`, `C=` for the study), then
+`node ../compose-r5.js`.
+
+### The blank pin, round 5 (variant `ring`, the pick)
+
+The road-sign test (a draw this round): the symbol carries the meaning, and
+words come second or not at all.
+
+- **The + is the sign.** It's printed navy on the tag, 26px box, 18.7px arms
+  at a 3.1px stroke, round caps. That's heavier than today's badge glyph
+  (12.8px at about 2.3px). **No words.**
+- **The tag:** the Hanging Tag's own die-cut, 60x48: chamfered top corners
+  (12px) and an eyelet hole punched through the stock (paper shows through).
+  It's brand orange on the band's paper tooth (`--tex-flood`), with the
+  tag's own restrained shadow (0.5px warm edge, 1px contact, 3px lift). It's
+  about the badge's area, louder through colour, and wider than tall like
+  the real tag, so it doesn't read as a round button.
+- **The pin:** an 18px pencilled ring (2px dashed navy on `--paper-raised`).
+  Cartography, a draw: what isn't built yet is drawn dashed. It hangs on
+  the real tag's straight 1.5px `--ink-2` string, which ends at the eyelet's
+  centre.
+- **Three parts, questioned** ("simple simple simple"): the ring and string
+  stay because without them it's an orange tag on a cut string, which reads
+  as **a price label** (variant `bare`, dropped). The ring is what makes it
+  a pin on a map and "our pin and tag", and its dashes say "not placed yet".
+  The ring went down from 27px to 18px and the words went, so the + is the
+  loudest thing.
+- **Placement = the baseline's:** right edge on the gutter (x 374), the tag's
+  foot 20px above the list (the floated badge's ink gap), and the OSM credit
+  moved to bottom-left, as with the floated badge. So C1 compares like for
+  like. The tap area is the whole 60x84 box.
+- **Pressed:** the tag goes `--brand-orange-deep` with a paper + (as ADD
+  LOCATION). An instant tone step.
+- `big` (the same at 1.15) was rendered for prominence. It isn't needed:
+  the tag at 1 already outweighs the badge at 1x.
+
+### Bar check
+
+At 1x (C2) it reads as **a + on an orange tag hanging from a pin**. The +
+is the first thing you see, and nothing says "price" or "label". It stays
+our pin and tag and is never a disc. The cost line on C1: "the add form
+becomes a tag on the map, and with a tag or the filters open, you close them
+to add."
+
+### Open (round 5)
+
+- Systems' structural check on the new footprint (60x84 at the baseline's
+  corner): the same slot as round 3, now with the credit moved. The frames
+  are clean, but systems should confirm the `TAG_SHEET_GAP` interplay at 664
+  (the pin steps aside whenever a tag is open, so it should be moot).
+- The dashed ring at 1x reads as dashes, not dots (C2), but it's the
+  smallest part. If the director reads it as noise, the next step is a solid
+  thin ring (the pin as an empty outline), not removing it.
+
+---
+
+## Round 3 (history)
+
+
 + leaves the corner and becomes **a blank place on the map**: a pencilled pin
 with a small luggage tag hanging from it that says **+ ADD**. Tap it, find the
 place, and the pin stands on the spot with **a blank Hanging Tag, the form**,

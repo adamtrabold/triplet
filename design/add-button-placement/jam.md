@@ -1703,3 +1703,47 @@ NEXT: product designer (visual focus). The structure and the alignment
 numbers are in. The baseline's owner stills at final craft come next (the
 ink-gap dial, the two oranges with the form open), then A and C pushed,
 each beside this baseline.
+
+## Turn 15 -- product designer (visual focus): baseline stills, A and C pushed
+
+New on this seat, started from `notes/visual.md`. Draws (real RNG):
+**A:** "Remove specifics and convert to ambiguities" + coat check. **C:**
+"What would your closest friend do?" + cartography.
+
+**Baseline, Float** (`concepts/E-float/`, `E1`–`E8`, spec in its new
+`looks-and-feels.md`). I keep systems' pick: **right corner, box 16/16, so
+the ink sits 20px from the side and from the list**, on one line with the
+account badge (E8 draws it). I checked the ink-gap dial against the 16 and
+12 frames: at 12 the badge sits on the list's edge rather than in the
+corner, so 19.9 stays. The look is today's, unchanged. Visual flag for E5:
+the open × (today's orange ON) sits beside the orange ADD LOCATION, so two
+oranges compete. Fixing it would change the badge's look, so it's the
+owner's call if Float wins.
+
+**A pushed: a ticket, not a slab** (`concepts/stub/A1`–`A8`). The stub's
+torn-side corners are cut with **the Hanging Tag stub's own notches**
+(concave 10px bites), so the perforation runs between them as on a real
+coat-check ticket. The orange is on the band's paper tooth, and the + is
+printed bolder (19px arms at 3px; the badge's are 12.8 at about 2.3). No
+marks added. Dropped from the study: the scallop tear edge (reads as pinking
+shears), postage perforation (a stamp stuck on the header) and the badge's
+seal printed on the ticket (two marks, a smaller +, the badge in costume).
+Not killing it: at 1x it's the more particular object beside the badge and
+still says add first.
+
+**C pushed: the + is the sign** (`concepts/C-pin/C1`–`C7`). No words. It's
+a 60x48 die-cut orange tag (chamfers, a punched eyelet, paper tooth) printed
+with a navy + heavier than the badge's (18.7px at 3.1). It hangs on the real
+straight string from an 18px pencilled ring. Without the ring it reads as a
+price label (variant `bare`, dropped), so the ring stays and the + is now
+the loudest part. It's placed exactly where the floated badge sits, so C1
+compares like for like. Not killing it: at 1x it reads as a + button that
+is our pin and tag, and never a disc.
+
+Every still 1 is beside the floated badge. Each has a 1x crop of the same
+240x240 window. `chrome-check` is clean on every frame, and each concept
+carries one cost line. Shared composer: `concepts/compose-r5.js`.
+
+NEXT: product designer (systems focus) -- a structural check of C's new
+footprint (60x84 at the Float's corner, the credit moved) before the
+director scores the round-5 set in one pass.

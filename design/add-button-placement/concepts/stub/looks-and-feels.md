@@ -1,5 +1,91 @@
 # Claim-check stub: how it looks and feels (visual designer)
 
+## Round 5 (2026-10-13): pushed so it isn't "boring" at rest
+
+Owner: "The plus in the list header looks like an add button but is boring."
+He read it right ("looks like an add button"); the failure was the rest
+state: a flat orange rectangle, with the claim-check idea living in a dashed
+rule he can't see at phone size. The home, the + and every behaviour below
+are unchanged. Only the look at rest changes, through **the outline, the
+paper and how the + is printed**. No marks are added.
+
+### Owner stills (3x, 1170 wide; real app, real `index.html` read in memory + `r5.inc.html`; Reykjavík)
+
+| # | File | What it shows |
+|---|---|---|
+| A1 | `A1-vs-float-3x.png` | Rest, beside the **floated badge** (the baseline pick), plus the cost line |
+| A2 | `A2-close-up-1x.png` | The + area at 1x (the same 240x240 window as the baseline's), drawn pixel for pixel |
+| A3 | `A3-rest-3x.png` | Full screen, list up |
+| A4 | `A4-states-3x.png` | Rest / pressed / open, the header band only |
+| A5 | `A5-adding-3x.png` | Form open (the drop; same flow as round 3) |
+| A6 | `A6-tag-open-3x.png` | Starred tag open, navy row |
+| A7 | `A7-list-down-3x.png` | List collapsed, Home Screen |
+| A8 | `A8-320-3x.png` | 320 wide: COPENHA… |
+
+Raw: `r5/*.png`, `r5/measure.json` (`clash` from `chrome-check.js`: **clean
+on every frame**). Re-render: `node r5-stills.js` (`ONLY=`, `A=` for the
+variant study), then `node ../compose-r5.js`.
+
+### What changed (variant `ticket`, the pick)
+
+- **Outline: a die-cut ticket, not a slab.** The stub's two corners on its
+  torn side (left, top and bottom) are cut with concave quarter-round bites,
+  10px radius. These are **the Hanging Tag stub's own notches** (the tag cuts
+  5px half-rounds at both ends of its stub's perforation). On the stub they
+  sit at the ends of its perforation, so it reads at 1x as a coat-check
+  ticket torn off the band. Coat check was a real draw this round. The map
+  and the header's paper show through the bites. No new colour, nothing
+  drawn.
+- **The perforation** keeps the tag's rule (1.5px dashed, paper ink on the
+  orange), now 6px in and 14px short of each end, so it runs between the two
+  bites like a real tear line.
+- **Paper:** the orange is printed on the tag band's own paper tooth
+  (`--tex-flood`, 160px tile), the owner-approved "paper, not clouds". The
+  open (navy) and pressed (deep orange) stock carry the same tooth, because
+  it's the same ticket.
+- **The + is printed bolder:** navy, 28px box, 19px arms at a 3px stroke,
+  round caps (the app's lightly rounded icon language). Today's badge: 12.8px
+  at about 2.3px. Round 3: 14px at 2.75px. It's crisp, a printer's mark and
+  not a clerk's stamp (stamps are for the clerk's entries only), and it's
+  centred on the stock to the right of the perforation (4px optical shift).
+- Width (60), place (the header's right end, flush to the screen edge),
+  states, motion and form are as in round 3 below.
+
+### Tried and dropped (the study: `r5/study-*-1x.png` / `-3x.png`)
+
+- **wave**: the tear edge cut as the badge's own scallop, straightened (8px
+  period, 3.5px deep). It reads at 1x, but as **pinking shears** (fabric),
+  not a torn ticket.
+- **postage**: perforated bites on all four edges, inset in the band. It
+  reads as **a stamp stuck on the header**: more decoration, less "add", and
+  stamps are already the visited mark's language.
+- **seal** (draw: "use an old idea"): the ticket with today's navy scallop
+  printed on it, an orange + inside. It ties to the badge, but it's **two
+  marks for one button**, the + shrinks to 20px orange-on-navy, and it
+  reads as "the badge in costume". Simple simple simple: dropped.
+
+### Bar check
+
+At 1x beside the floated badge (A2), the stub is the louder, more particular
+object: a cut orange ticket with a heavy +. It still says "add" before
+anything else, because the + is the biggest mark in the header. Whether it
+beats the badge on the owner's "more interesting" is his call. I think it
+clears "boring" without decoration. The cost line on A1: "the list's title
+gets 60px less room, so long city names shorten sooner."
+
+### Open (round 5)
+
+- The open state's navy stock carries the paper tooth, unlike the header's
+  other ON tiles (flat navy). I kept it because it's the same ticket; the
+  brand-token pass may want ON tiles to stay flat.
+- 320: the title loses "list" and the count, then shortens (COPENHA…), as in
+  round 3.
+
+---
+
+## Round 3 (history)
+
+
 One concept. The + leaves the top-right corner, where it was the account
 badge's twin, and becomes the **tear-off stub at the right end of the list
 header**. The header is the band that's always under your thumb, list up or

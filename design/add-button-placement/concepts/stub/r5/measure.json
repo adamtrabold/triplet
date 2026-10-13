@@ -1,0 +1,119 @@
+{
+ "study-ticket-1x": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ },
+ "study-ticket-3x": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ },
+ "rest": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ },
+ "pressed": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ },
+ "open-844": {
+  "nb": [
+   330,
+   784,
+   390,
+   841
+  ],
+  "nbHit": "self",
+  "submit": [
+   56,
+   716,
+   374,
+   760
+  ],
+  "submitHit": "self",
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ },
+ "cph320": {
+  "nb": [
+   260,
+   268,
+   320,
+   325
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit no-w no-c | Copenhagen list (23)"
+ },
+ "tag": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ },
+ "collapsed": {
+  "nb": [
+   330,
+   750,
+   390,
+   807
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ }
+}

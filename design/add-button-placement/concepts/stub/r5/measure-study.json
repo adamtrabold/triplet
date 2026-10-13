@@ -1,0 +1,30 @@
+{
+ "study-ticket-1x": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ },
+ "study-ticket-3x": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "nbHit": "self",
+  "submit": "hidden",
+  "submitHit": null,
+  "errs": [],
+  "clash": [],
+  "title": "fit | Reykjavík list (23)"
+ }
+}
