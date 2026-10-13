@@ -140,7 +140,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
       const disc = `<circle cx="12" cy="12" r="${far ? 10.6 : 10.9}" fill="${C.paper}" ${sel ? `stroke="${C.navy}" stroke-width="${rimW}"` : edge}/>`;
       if (far) body = disc + (o.farDot ? `<circle cx="12" cy="12" r="3.9" fill="${k}"/>` : gIn('n-' + cat, 12.5, k, ` rotate(${tilt})`));
       else body = disc + (o.num ? `<g transform="rotate(${tilt} 12 12)">${numTxt(o.num)}</g>` : gIn('n-' + cat, 16, k, ` rotate(${tilt})`));
-      if (st) star = rimStar(12, 1.4, far ? 11 : 9, C.or, 1.3);
+      if (st) star = rimStar(12, 1.4, far ? 11 : (o.vStar || 9), C.or, 1.3);
     } else if (model === 'B' && v) {
       const t = reprint(k), offs = far ? '' : ' translate(.8 .6)';
       body = shell(sel ? C.navy : t, sel ? rimW : (far ? 2.4 : 1.6), C.paper, dash) + (far ? '' : (o.num ? numTxt(o.num, mix(C.ink2, C.paper, .45), .8) : gIn('n-' + cat, 16, t, offs)));
@@ -265,7 +265,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
         : `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="${sel ? C.navy : C.paper}" stroke="${sel ? C.paper : k}" stroke-width="2"/>${gIn('o-' + p.category, 18, sel ? C.paper : k)}</svg>`;
     } else if (model === 'C' && v && !shapeCat) {
       const tilt = tiltOf(p.id);
-      badge = `<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">${gIn('n-' + p.category, 17, sel ? C.paper : k, ` rotate(${tilt})`)}</svg>`;
+      badge = `<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">${gIn('n-' + p.category, 17, sel ? C.paper : k, ` translate(0 -0.8) rotate(${tilt})`)}</svg>`;
     } else if (model === 'B' && v) {
       const t = reprint(k);
       badge = `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2" fill="${C.paper}" stroke="${t}" stroke-width="1.6"/>${gIn('n-' + p.category, 16, t, ' translate(.8 .6)')}</svg>`;
@@ -276,7 +276,8 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     const star = s ? (model === 'today' ? `<svg width="18" height="18" viewBox="0 0 24 24" style="flex:none"><path d="${STAR}" fill="${C.or}" stroke="${sel ? 'none' : C.ord}" stroke-width="1.6" stroke-linejoin="round"/></svg>` : use('i-star', 17, C.or, 'flex:none')) : '';
     const meta = (p.category === 'attraction' ? 'ATTRACTION' : p.category.toUpperCase()) + ' · REYKJAVÍK';
     const x = model === 'today' ? `<span style="font:400 15px/1 Arial;color:${fg2}">×</span>` : use('l-x', 14, fg2);
-    const stampW = v ? (opts.stamp === 'struck' ? `<span style="font:700 10px/1 Archivo,Arial;letter-spacing:.1em;color:rgba(18,41,63,.6);border-bottom:1.5px solid rgba(18,41,63,.45);padding-bottom:2px;transform:rotate(-3deg);display:inline-flex;gap:3px;align-items:center">${use('i-check', 8, 'rgba(18,41,63,.6)')}VISITED</span>` : stampHtml(1, sel)) : '';
+    const sc = sel ? 'rgba(242,235,221,.92)' : '#4E5D6C', sr = sel ? 'rgba(242,235,221,.6)' : '#9AA3AC';
+    const stampW = v ? (opts.stamp === 'struck' ? `<span style="font:700 10.5px/1 Archivo,Arial;letter-spacing:.1em;color:${sc};border-bottom:1.5px solid ${sr};padding-bottom:2px;transform:rotate(${(-2 + (hash(p.id) * 2 - 1) * 1.5).toFixed(1)}deg);display:inline-flex;gap:3px;align-items:center">${use('i-check', 8.5, sc)}VISITED</span>` : stampHtml(1, sel)) : '';
     return `<div style="height:56px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:0 14px 0 12px;background:${bg};border-top:1px solid ${C.hair}">
       <div style="width:28px;display:flex;justify-content:center;flex:none">${badge}</div>
       <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:6px;font:600 17px/1.15 Archivo,Arial;color:${fg};white-space:nowrap;overflow:hidden">${star}<span style="overflow:hidden;text-overflow:ellipsis">${p.label}</span></div>
@@ -292,7 +293,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     const ordered = places.slice().sort((a, b) => (vis.has(b.id) - vis.has(a.id)) || ((a.starred && !vis.has(a.id)) - (b.starred && !vis.has(b.id))) || (a.pos[frame][1] - b.pos[frame][1]));
     for (const p of ordered) {
       const [x, y] = p.pos[frame];
-      const svg = pin(model, { cat: p.category, size: psize, visited: vis.has(p.id), starred: p.starred, approx: p.approx, seed: p.id, selected: opts.selected === p.id, farDot: opts.farDot, dSize: opts.dSize });
+      const svg = pin(model, { cat: p.category, size: psize, visited: vis.has(p.id), starred: p.starred, approx: p.approx, seed: p.id, selected: opts.selected === p.id, farDot: opts.farDot, dSize: opts.dSize, vStar: opts.vStar });
       pins += `<div style="position:absolute;left:${x}px;top:${y}px;transform:translate(-50%,-50%)">${svg}</div>`;
     }
     for (const cl of (fx.clusters[frame] || [])) {
