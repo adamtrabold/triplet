@@ -2377,3 +2377,31 @@ Float and A go, with a line on C.
 NEXT: product designer (visual focus) -- C's rank fix (the one design
 question left) plus the Float's re-crops and new full screens; then I check
 every frame and release the send.
+
+---
+
+## Turn 24 -- design director: C re-scored, flags ruled, final send
+
+The details and the final send list are in scores.md, "Concept round 6b".
+
+- **The orange band on C's rest tag: drop it.** On a real tag the band
+  means *starred* (`.tag-band` prints only when `loc.starred`), and the
+  blank tag C opens into is unstarred (C6 frame 3). The tapped object has
+  to be the object you get. The orange stays on the pin.
+- **Orange disc vs the clusters: accepted.** A different shade (brand vs
+  deep), a navy + against paper numbers, a hanging tag, always in the
+  corner. C6 frame 1 shows both at city zoom, and they read apart. It's
+  also the map's own selected-pin grammar (filled with its ink) in the
+  action colour, and C7 resolves it into the place's colour.
+- **C: 8 → 9.** It's our pin, the tag reads as a tag, and + clearly
+  outranks the account in the squint test (the orange pin did that).
+  **One mechanical re-shoot:** C1, C2, C4's pick and C6 frame 1 with the
+  tag unbanded. I check that the squint still puts + first before C goes.
+- **Float frames F5–F8: clean.** The captions are fixed. 9 confirmed.
+- **Final send:** Float (F1, F2, F3, F5, F6, F7, F8) → A (A1, A2, A3) → C
+  (C1*, C2*, C6*, C5, C7). Plus one cost line each, the D line, the
+  tag-gap "just so you know", and Q2/Q3.
+
+NEXT: product designer (visual focus) -- re-shoot C's rest tag without the
+starred band (C1, C2, C4 pick, C6 frame 1); I check the 1x squint, then the
+orchestrator sends Float → A → C.

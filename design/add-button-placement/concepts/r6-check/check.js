@@ -29,7 +29,8 @@ const inj = (h, incs, attrs) => { const i = h.lastIndexOf('</body>'); return (h.
 const floatHtml = (extra = '', prefix = false) => inj(floatBase, [eInc, prefix ? '' : R17, rd('E-float/r6.inc.html')], `${PICK} ${extra}`);
 // ---- C copy: C-pin/render.js's copy (main + concept.inc) + the visual's three layers, the round-6 pick (selected pin, big tag) ----
 const cHtml = () => inj(real, [rd('C-pin/concept.inc.html'), rd('C-pin/visual.inc.html'), rd('C-pin/visual-r5.inc.html'), rd('C-pin/visual-r6.inc.html')],
-  'data-c="ring" data-ring="graphite" data-c6="hi" data-ct="big"');
+  'data-c="ring" data-ring="graphite" ' + (process.env.CATTR || 'data-c6="hi" data-ct="big"'));
+const CKEY = process.env.CKEY || 'C';   // round 6b: CKEY=C6b CATTR='data-c6="hio" data-ct="xl" data-te="edge" data-al="ink"'
 // modes: signed in (the stub's stored session), playground (no stored session: today's signed-out app), stale (a stored session
 // that no longer answers: the only state left where requireAuth() opens the sign-in sheet)
 const PLAYGROUND_JS = "try { localStorage.removeItem('sb-jgvckilmltimabfdvaly-auth-token'); } catch (e) {}";
@@ -58,7 +59,7 @@ const measure = (page, sel) => page.evaluate(([sel, HELP]) => { eval(HELP);
     selectedPins: document.querySelectorAll('.leaflet-marker-icon.selected, .leaflet-marker-icon .selected').length };
   if (sel === '#floatingAddBtn' && o) { const I = 3.9 * (o.width / 50); out.ink = [o.left + I, o.top + I, o.right - I, o.bottom - I].map(v => +v.toFixed(1)); out.inkGapToSheet = +(sheet.top - (o.bottom - I)).toFixed(1); out.inkFromRight = +(innerWidth - (o.right - I)).toFixed(1); }
   if (sel === '#pencilPin' && raw) { const disc = raw.querySelector('.c6-pin svg'), tg = raw.querySelector('.c6-tagw'); out.disc = bx(disc && disc.getBoundingClientRect()); out.miniTag = bx(tg && tg.getBoundingClientRect());
-    out.hitDisc = centreHit(disc && disc.getBoundingClientRect()); out.hitMiniTag = centreHit(tg && tg.getBoundingClientRect()); out.footToSheet = tg ? Math.round(sheet.top - tg.getBoundingClientRect().bottom) : null; }
+    out.hitDisc = centreHit(disc && disc.getBoundingClientRect()); if (o) { const e = document.elementFromPoint(o.left + 3, o.top + 3); out.hitBareCorner = e ? (raw.contains(e) ? 'self' : (e.id || String(e.className).slice(0, 30))) : null; } out.hitMiniTag = centreHit(tg && tg.getBoundingClientRect()); out.footToSheet = tg ? Math.round(sheet.top - tg.getBoundingClientRect().bottom) : null; }
   return out; }, [sel, HELP]);
 const starTag = async p => { const id = await p.evaluate(() => (locations.find(l => l.starred && document.querySelector(`#locationsList .location-card[data-id="${l.id}"]`)) || {}).id); await p.click(`#locationsList .location-card[data-id="${id}"]`); await p.waitForTimeout(1900); };
 const tallTag = async p => { const id = await p.evaluate(() => (locations.filter(l => document.querySelector(`#locationsList .location-card[data-id="${l.id}"]`)).sort((a, b) => (b.notes || '').length - (a.notes || '').length)[0] || {}).id); await p.click(`#locationsList .location-card[data-id="${id}"]`); await p.waitForTimeout(1900); };
@@ -101,28 +102,28 @@ const run = async (b, kind, n, s) => {
   const m = { before: await measure(page, sel), rows: await L.rowsVisible(page) };
   if (s.tap) { await page.click(sel); await page.waitForTimeout(1100); m.after = await measure(page, sel); }
   m.chrome = await chromeCheck(page); m.errs = errs;
-  await page.screenshot({ path: path.join(OUT, `${kind}-${n}-${s.desk ? 1 : 3}x.png`) });
+  await page.screenshot({ path: path.join(OUT, `${kind === 'C' ? CKEY : kind}-${n}-${s.desk ? 1 : 3}x.png`) });
   if (s.cancel) { await page.click(sel); await page.waitForTimeout(1300);
     m.afterCancel = { obj: await measure(page, sel), collapsed: await page.evaluate(() => document.getElementById('locations').classList.contains('collapsed')), tagKey: await page.evaluate(() => openTagKey()) }; }
   await ctx.close(); return m;
 };
 (async () => {
   const b = await L.launch(); const f = path.join(__dirname, 'measure.json');
-  const out = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : {}; out.F = out.F || {}; out.C = out.C || {};
+  const out = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : {}; out.F = out.F || {}; out[CKEY] = out[CKEY] || {};
   const only = process.env.ONLY;
   if (!only || only === 'F') for (const [n, s] of Object.entries(FS)) { out.F[n] = await run(b, 'F', n, s); console.log('F', n, JSON.stringify(out.F[n])); }
-  if (!only || only === 'C') for (const [n, s] of Object.entries(CS)) { out.C[n] = await run(b, 'C', n, s); console.log('C', n, JSON.stringify(out.C[n])); }
-  if (!only || only === 'P') for (const kind of ['F', 'C']) {   // pins under the resting object: 5 cities x list up / collapsed, default view and street zoom 14
+  if (!only || only === 'C') for (const [n, s] of Object.entries(CS)) { out[CKEY][n] = await run(b, 'C', n, s); console.log(CKEY, n, JSON.stringify(out[CKEY][n])); }
+  if (!only || only === 'P') for (const kind of (only === 'P' && process.env.CKEY ? ['C'] : ['F', 'C'])) {   // pins under the resting object: 5 cities x list up / collapsed, default view and street zoom 14
     const sel = kind === 'F' ? '#floatingAddBtn' : '#pencilPin', html = path.join(__dirname, `.${kind}.html`); fs.writeFileSync(html, kind === 'F' ? floatHtml() : cHtml());
-    out[kind].pins = {};
+    const K = kind === 'C' ? CKEY : kind; out[K].pins = {};
     for (const city of ['la', 'reykjavik', 'copenhagen', 'malmo', 'stockholm']) for (const col of [false, true]) {
       const { ctx, page } = await L.open(b, { html, vp: [390, 844], dsf: 1 });
       await page.evaluate(c => setActiveCity(c), city); await page.waitForTimeout(900);
       if (col) { await page.click('#collapseBtn'); await page.waitForTimeout(700); }
-      const m = await measure(page, sel); out[kind].pins[city + (col ? '_collapsed' : '')] = { under: m.pinsUnder, total: await page.evaluate(() => document.querySelectorAll('.leaflet-marker-icon').length) };
+      const m = await measure(page, sel); out[K].pins[city + (col ? '_collapsed' : '')] = { under: m.pinsUnder, total: await page.evaluate(() => document.querySelectorAll('.leaflet-marker-icon').length) };
       await ctx.close();
     }
-    console.log(kind, 'pins', JSON.stringify(out[kind].pins));
+    console.log(K, 'pins', JSON.stringify(out[K].pins));
   }
   for (const k of ['F', 'C']) { const h = path.join(__dirname, `.${k}.html`); if (fs.existsSync(h)) fs.unlinkSync(h); }
   fs.writeFileSync(f, JSON.stringify(out, null, 1)); await b.close();

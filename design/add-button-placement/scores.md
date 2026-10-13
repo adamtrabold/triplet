@@ -871,3 +871,130 @@ Yes, all three:
 - C: rebuilt on the real pin.
 
 These scores are fresh, not raised from 5b.
+
+---
+
+## Concept round 6b -- C re-scored, Float frames checked, final send (director, 2026-10-13)
+
+Looked at:
+- C: `R6-C2-1x` first, then `R6-C4-rank`, `R6-C1`, `R6-C5`, `R6-C6`,
+  `R6-C7`.
+- Float: `R6-F5` (re-cropped), `R6-F6`, `R6-F7`, `R6-F8`.
+- Code check: in `index.html` (~4865) a highlighted pin is the badge
+  filled with its own ink and a paper glyph, and `.tag-band` is printed
+  only when `loc.starred`.
+
+### Flag 1: the miniature's orange band means "starred". Ruling: drop the band at rest.
+- On a real tag the band appears **only** on a starred place (`TAG_STAR_STYLE`
+  'band'). The owner's rule is that every colour "keeps the meaning it has
+  elsewhere in the app".
+- C contradicts itself as drawn: the rest tag has the band, but the blank
+  tag it opens into (C6 frame 3) is unstarred cream, and its STAR prints
+  the band.
+- C's whole idea is "the object you tap is the object you get". So the
+  rest tag must be the unstarred blank tag: cream stock, chamfers, the
+  eyelet patch and grommet on paper, the real tag's warm edge and shadow.
+- The orange stays on the pin (the action), not on the tag.
+
+### Flag 2: an orange disc is close to the deep-orange clusters. Ruling: accepted, no change.
+- Clusters are `--brand-orange-deep` discs with paper numbers, and they sit
+  among the pins.
+- The + pin is a brand-orange disc with a navy +, it hangs a tag on a
+  string, and it's always in the corner.
+- In C6 frame 1 both are on screen at city zoom, and they read as different
+  things at a glance.
+- The orange disc is also exactly the map's selected-pin grammar (a
+  highlighted pin is filled with its own ink, paper glyph) with orange as
+  its ink, and C7 resolves it into the place's own colour. That's
+  coherent.
+- Rank: in the squint test (C2, C4) C now clearly comes before the account
+  badge. The orange pin did that, not the band.
+
+### C: 8 → 9, after one bandless re-shoot that I check
+- **Did it change?** Yes:
+  - an orange pin;
+  - the tag at 84x66 with the real tag's edge and shadow;
+  - the right edge on the account's line (C1 caption, measured).
+- **Every round-6 note is answered:**
+  - it's our pin;
+  - the tag reads as a tag;
+  - + outranks the account.
+- **The flow frames read in the same grammar:**
+  - C5: the pin steps aside under a real tag;
+  - C6: the search line's glyph is the same pin, and the blank tag is the
+    form;
+  - C7: the + pin becomes the place's own filled pin.
+- **Re-shoot (the band ruling):** C1, C2, C4's pick column and C6 frame 1,
+  with the rest tag unbanded.
+  - I check that the 1x squint still puts + first.
+  - If it doesn't, C goes back for one more round; the band does not come
+    back. In that case send Float and A, with a line on C.
+- **Likely owner objection:** "it's a big object in the corner" (84x104).
+  It's told in the cost line. I'd defend it: it's the concept, and it
+  hides under any tag.
+- Builder note stands: hit-test the parts only.
+
+### Float frames: checked, clean
+- **R6-F5:** pressed, the tag's foot clearing the +, and ADD LOCATION and
+  the × on one line, all legible now.
+- **R6-F6 (664, gap 88):** 3 rows, the tag clears the badge, the credit is
+  shortened.
+- **R6-F7 (844, adding):** the navy ×, ADD LOCATION on its line, the list
+  band below, the cost line on the frame.
+- **R6-F8 (320, tag open):** the selected row is whole, about half the next
+  row shows, and the credit is "© OpenStreetMap contributors".
+- Captions now say "finer cut", not "postage stamp" (checked F1 and F3).
+  **Float stays 9.**
+
+### FINAL SEND (one message, in this order; supersedes round 6's list)
+
+**1. Float: today's badge, floated low and promoted** (`concepts/E-float/`):
+1. `R6-F1-vs-account-3x.png`
+2. `R6-F2-1x.png`
+3. `R6-F3-dials-3x.png`
+4. `R6-F5-states-3x.png`
+5. `R6-F6-tag-open-664-3x.png`
+6. `R6-F7-adding-844-3x.png`
+7. `R6-F8-320-tag-3x.png`
+
+Cost line: "+ rides down with the list when you tap it (and back on
+cancel); with the filters open, close them first."
+Just so you know: "With a tag open the list sits a little lower to clear
+the bigger +: still 3 rows on your phone, 1½ on the smallest."
+
+**2. A: admission ticket** (`concepts/stub/`):
+1. `R6-A1-vs-account-3x.png`
+2. `R6-A2-1x.png`
+3. `R6-A3-routes-3x.png`
+
+Cost line: "The list title gets 32px shorter ('list' drops first, at 320 the
+count too). It's a ticket for adding; we couldn't make it say 'place'
+without adding a mark."
+
+**3. C: pin and tag** (`concepts/C-pin/`), **after the bandless re-shoot
+passes my check:**
+1. `R6-C1-vs-account-3x.png` (re-shot)
+2. `R6-C2-1x.png` (re-shot)
+3. `R6-C6-add-strip-3x.png` (frame 1 re-shot)
+4. `R6-C5-tag-open-3x.png`
+5. `R6-C7-added-3x.png`
+
+Cost line: "The add form becomes a tag on the map; with a tag or the
+filters open, close them to add."
+
+**Also in the message:**
+- "We tried a fourth, your ticket loose in the corner. It just read as the
+  ticket moved, so we dropped it."
+- jobs.md Q2 (fly to the new place after Add? C does it by design) and Q3.
+
+**Not sent:** `R6-F4` (account step, not needed), `R6-C3`, `R6-C4`, `D1`,
+the `r6/` studies, the `r6-check` frames, and every 5b still.
+
+**If C's re-shoot is held up or fails:** send Float and A now, and C after
+it, or with the line "the pin reads as a pin now, but it isn't ready yet".
+Never send C with the banded tag.
+
+### Did the work change?
+- C: yes, 8 → 9 (conditional on the mechanical re-shoot).
+- Float: frames only; 9 confirmed, not raised.
+- A: unchanged; 9 stands.

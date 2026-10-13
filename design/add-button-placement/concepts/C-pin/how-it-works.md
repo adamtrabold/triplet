@@ -233,3 +233,53 @@ Unchanged from round 5:
 
 Job 2 is the open one: the visual designer's own squint test has C level
 with the account badge.
+
+### Round 6b re-measure (after the director's score): the 84x104 slot
+
+The visual pick is now `data-c6="hio" data-ct="xl" data-te="edge"
+data-al="ink"`:
+- an orange 32px selected-pin disc with a navy +;
+- an 84x66 tag with the real tag's shadow and a 1px warm edge;
+- the right edge on the account badge's ink line.
+
+Re-run: `CKEY=C6b CATTR='data-c6="hio" data-ct="xl" data-te="edge" data-al="ink"' ONLY=C node ../r6-check/check.js`
+(then `ONLY=P` for pins). Numbers are in `../r6-check/measure.json` under
+`C6b`, frames in `../r6-check/frames/C6b-*`. They match the visual
+designer's `r6/measure-r6b.json`.
+
+| State | Object box | Finding |
+|---|---|---|
+| 390x844, list up | **286.1,420 – 370.1,524** | Disc 312.1–344.1 × 420–452. Tag 286.1–370.1 × 458–524. The foot is 20 above the list. The right edge is now **on the account badge's ink line (370.1)**, which settles round 6's note 3. The credit is 100px clear |
+| 390x664 | 286.1,240 – 370.1,344 | Clean, 4 rows |
+| 375x667 | 271.1,243 – 355.1,347 | Clean |
+| 320x568, Copenhagen | 216.1,144 – 300.1,248 | The credit (prefix dropped, 0–186) is **30px** clear (45.9 before). With the prefix (0–251) it runs 35px under the tag's column, 3.2px below its foot. **The prefix drop stays required.** 78px below the account badge |
+| Collapsed, 34px inset | 286.1,626 – 370.1,730 | The band starts at 750. Clear |
+| Tag open, 844 and 664 | hidden | Still load-bearing: at 664 **both** the disc and the tag slot land on the tag's VISITED segment. `TAG_SHEET_GAP` stays **48**. Showing C under a tag would need 104 + 20 + 12 = **136** |
+| Tag closed / filters | back, hit-tests as itself / hidden | The prototype's old filters ride still moves the hidden slot off-screen (y −61). Builder: just hide it |
+| Playground tap (390, 320) | `pinadd`, search focused | Adds |
+| Stale stored session | sign-in sheet, nothing opens | |
+| Desktop 1280x800 | 1176.1,676 – 1260.1,780 | |
+| Pins under it | 0 in all 5 cities, list up and collapsed | |
+
+- **Dead zone:** 84x104 = 8,736 px². That's 4.1% of the map at 844: +29%
+  on the 72x94 slot and 2.4x the Float's 60x60.
+- **Tap target:** it works everywhere (disc, tag and box all hit-test as
+  the button). But the bare map beside the disc now taps + over two
+  26x38px strips (corner hit = `self`). Builder: make only the disc, string
+  and tag tappable.
+- **New, small:** an orange disc is now the map's only orange *pin*, but
+  clusters are deep-orange discs too. At city zoom a cluster near the
+  corner can read as its sibling. This one is the visual designer's and
+  the director's call; it's the same seam the Float's orange has.
+- **Nothing structural changes.** The step-aside, the filters rule,
+  `TAG_SHEET_GAP` 48, the prefix drop and the flows all hold.
+
+**Coverage (6b):**
+- Job 1: yes, except with a tag open or the filters open.
+- Job 3: yes.
+- Job 4: yes.
+- Job 5: yes (it steps aside; prefix drop).
+- Job 6: yes, against the playground.
+- Job 2: the director's squint test on the orange disc and the bigger tag.
+
+No job is unsupported.

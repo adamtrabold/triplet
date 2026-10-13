@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 6 scored" at the bottom -- Float 9, A 9, C 8; waiting on C fix + Float re-shoots)
+## Status (current: see "Round 6b" at the bottom -- Float 9, A 9, C 9 pending a bandless re-shoot I check; final send in scores.md round 6b)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -760,3 +760,64 @@ Yes, all three, so these are fresh scores.
 ### Next
 Visual: C's rank fix plus the Float's re-crops and full screens. Then I
 check every frame and release the send (or Float + A with a line on C).
+
+---
+
+## Round 6b -- 2026-10-13: C re-scored, flags ruled, final send
+
+### Evidence
+- C: R6-C2 (1x/squint) first, then C4 (rank dials), C1, C5, C6, C7.
+- Float: F5 (re-cropped), F6, F7, F8.
+- Code: in `index.html` (~4865) a highlighted pin is the badge filled
+  with its own ink and a paper glyph; `.tag-band` prints only when
+  `loc.starred`.
+
+### Rulings
+- **The band on C's rest tag: dropped.**
+  - It means "starred" on every real tag (owner rule: colours keep their
+    meaning).
+  - C opens into an unstarred cream tag, and its STAR prints the band.
+  - C's idea is "the object you tap is the object you get".
+  - The orange lives on the pin. If the unbanded tag loses the rank test,
+    C goes back for a round; the band never returns.
+- **Orange disc vs the deep-orange clusters: accepted.** Different shade,
+  a navy + against paper numbers, a hanging tag, always in the corner. It
+  reads apart at city zoom (C6 frame 1). It's the selected-pin grammar
+  (filled with its ink) in the action colour, and C7 resolves it into the
+  place's colour.
+
+### Scores
+- **C: 8 → 9**, conditional on a mechanical re-shoot (C1, C2, C4 pick,
+  C6 frame 1, unbanded) that I check at 1x and in the squint test.
+- **Float:** frames F5–F8 checked clean; captions fixed ("finer cut").
+  9 confirmed.
+- **A:** unchanged, 9.
+
+### Final send (scores.md round 6b)
+- Float: F1, F2, F3, F5, F6, F7, F8.
+- A: A1, A2, A3.
+- C: C1*, C2*, C6*, C5, C7.
+- Plus: one cost line each, the D line, the tag-gap "just so you know",
+  Q2/Q3.
+- If the C re-shoot is late or fails: send Float and A, then C later or a
+  line on it. Never send the banded tag.
+
+### Likely owner objections on the send
+- Float: "the standard FAB now" (it's his own option, kept in our badge
+  family).
+- A: "still not about a place" (told honestly in his own ticket terms).
+- C: "a big object in the corner" (84x104; told in the cost line; it hides
+  under any tag).
+
+### What kept blocking a 9 this round
+- Rank against the account. The Float fixed it with three axes together;
+  C fixed it with the orange pin.
+- Meaning drift on a borrowed part (the starred band reused for mass).
+- New handover check for visual: **any part borrowed from a real component
+  keeps that component's meaning in the state it's shown in.**
+
+### Next
+- Visual: the bandless re-shoot.
+- Me: check it, then release.
+- Orchestrator: sends Float → A → C. On his pick: handoff.md, which I check
+  against owner.md before the build.

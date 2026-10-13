@@ -372,3 +372,26 @@ Open:
 
 Next: the director scores Float, A and C. Then the final coverage check on
 whatever goes to the owner. All three currently have no unsupported job.
+
+## Round 6b (coordinator request): C re-measured at 84x104
+The visual pick is hio/xl/edge/ink:
+- box 286.1,420 – 370.1,524;
+- the right edge on the account ink line (370.1; note 3 resolved);
+- the foot 20 above the list.
+
+All clean: 664, 375, collapsed inset, desktop, 0 pins, playground adds,
+stale session asks.
+
+Still required or still holding:
+- 320: the credit is 30px clear without the prefix; the prefix drop stays
+  required.
+- The step-aside under a tag is still load-bearing (it would need a gap of
+  136 to show); `TAG_SHEET_GAP` stays 48.
+
+Costs:
+- the dead zone is 4.1% of the map (+29%);
+- the bare strips beside the disc (26x38 each) tap +;
+- the orange disc vs the deep-orange clusters at city zoom (visual's call).
+
+`check.js` now takes `CKEY`/`CATTR` and has a corner-hit probe. The
+section is in C's how-it-works.
