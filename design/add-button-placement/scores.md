@@ -698,3 +698,176 @@ it. Don't send C with the stale frame.
 - A: a caption fix; its 9 is confirmed.
 
 **Update (2026-10-13):** C `2-add-strip` re-shot. Frames 1 and 3 show the shortened credit; frame 2 has the results sheet over the map, as before. Checked: **RELEASED.** The full set goes as listed above.
+
+---
+
+## Concept round 6 -- director, 2026-10-13
+
+Looked at, 1x crops and squint tests first: `E-float/R6-F2-1x`,
+`stub/R6-A2-1x`, `C-pin/R6-C2-1x`. Then `R6-F1`, `R6-F3`, `R6-F5`;
+`R6-A1`, `R6-A3`; `R6-C1`, `R6-C3`; `D-floated-ticket/R6-D1`;
+`r6-check/frames/F-tag_320`; `r6-check/measure-tagrows.json`; jam turns 21
+and 22.
+
+### Rulings
+1. **`TAG_SHEET_GAP` 88 on phones, for the Float: accepted.**
+   - At 664 and 375x667 it still keeps 3 rows, the same as today.
+   - At 320x568 it keeps 1 row against today's 2. In `F-tag_320` the
+     selected row is whole and about 31px of the 56px next row shows. That
+     meets the owner's floor ("the list header, one list item, half second
+     list item... the one selected").
+   - Draw it at 60px, not with `scale()` (systems' builder note).
+2. **A: admission, not the tag cut.**
+   - At 1x the tag cut's eyelet reads as a dot.
+   - It turns A into C's object (a tag), so the set loses a difference in
+     kind.
+   - In the sort/filter row a tag shape reads as "tags".
+   - The tag cut stays visible only as a route in `R6-A3`, with its verdict.
+3. **D: killed** (visual and systems agree). The bare version reads as "A
+   moved to the corner"; the pinned version needs two marks and an empty
+   pin. One line to the owner.
+4. **The "Leaflet |" prefix is dropped for the Float and C** at every width
+   (already ruled). At 320 it's now required: the prefix overlaps the 60px
+   badge by 6.3px. A keeps the credit as is.
+5. **Captions:** stop calling the Float's edge a "postage-stamp edge".
+   - Stamps are the VISITED mark's language, and the postage stamp was
+     killed for exactly that in turn 2.
+   - At 1x it reads as a finer cut of the badge's own edge, so say that:
+     "a finer cut of the badge's edge".
+   - The look doesn't change; only the words that plant the wrong idea.
+6. **The account step-down (`R6-F4`): not needed, and not flagged** to the
+   sign-in crew. + wins without it.
+   - Still flag to the orchestrator: the account's open state is an orange
+     field, the seam for the brand-token pass.
+
+### Likely owner objections, named before scoring
+- **Float:**
+  - "now it's the standard FAB": he asked to see this option, and the
+    badge family's edge and the paper tooth keep it ours;
+  - "too big or too loud": 60 against 50, so prominent, but not a slab;
+  - two oranges with the clusters at city zoom: the clusters are small,
+    deep orange and numbered, so low risk.
+
+  None is likely to block.
+- **A:**
+  - "still not about a place": we answer that honestly in his own terms (a
+    ticket for adding);
+  - "it looks the same as last time": the change is the notch position.
+    It's visible at 3x and at 1x, but small.
+
+  Possible, not likely: he set the ticket condition himself.
+- **C:** "the + still isn't ranked above the account". This is **likely**.
+  - In the squint test the navy disc is level with the navy account badge.
+  - The cream tag body disappears into the cream map, so the object's mass
+    is lost.
+  - He made this exact note about the badge this round.
+
+### Scores
+- **Float: 9.**
+  - At 1x and blurred, + is clearly first and account clearly second, on
+    three axes (orange, 60px, a finer cut).
+  - `R6-F3` shows why each axis alone fails: an honest dial study.
+  - The ink is still 20/20, on the account's line. The rule is kept and
+    the twin is gone.
+  - It's still Triplet's badge, so it answers his note directly.
+- **A, admission ticket: 9.**
+  - At 1x it reads "ticket" before "orange block": a tear line inside the
+    stock, half-round notches at its ends (the tag stub's own notch).
+  - The place link was tried five ways and answered honestly (`R6-A3`): a
+    punch reads as a dot or a water drop; the tag cut becomes C.
+  - He said "maybe as a 'ticket' it works if i think of it that way". This
+    is the strongest version of that ticket, with no added marks. Whether
+    he reads it that way is his call, and it's a real choice he likes.
+- **C, pin and tag: 8.**
+  - The big step is real: it's now the map's own selected pin with its
+    tag open, drawn by `badgeHtml()`, among 17 real pins. "A pin with a
+    tag" reads without a caption, so his note on the pin is answered.
+  - It fails the rank test against the account (the likely objection
+    above).
+
+### C fixes (one round, visual)
+1. **Rank:** C must clear the squint test above the account badge without
+   leaving the pin and tag grammar. The mass is lost where the cream tag
+   body melts into the map.
+   - Dials to try (visual's call):
+     - the tag's scale;
+     - how the tag's stock separates from the map within its own
+       restrained edge and shadow (the owner's rules on effects apply);
+     - the disc's size, within what the map does for a selected pin.
+   - No orange-flooded tag body (that's the 5b price label), and no second
+     +.
+2. **Alignment:** the tag's right edge sits 3.9px off the account badge's
+   ink line. Put it exactly on the line ("Small marks line up exactly").
+3. **Re-shoot the flow in the new pin:** the 5b `2-add-strip` and `C5`
+   still show the old graphite ring, as the rest pin and as the placed
+   marker. Bring a tag-open frame (the pin steps aside) and the add strip,
+   with the placed marker drawn in the same grammar.
+4. Builder note, not a still: hit-test the disc, string and tag only, not
+   the 72x94 box's bare corners.
+
+### Float re-shoots before the send (mechanical)
+- `R6-F5`:
+  - the "Adding" crop cuts off the ADD LOCATION label; re-crop so the
+    label and the × both show;
+  - the "Tag open" crop shows no tag; re-crop to show the tag's foot above
+    the badge.
+- Full phone screens at the 60px badge (from `r6-check` frames, at owner
+  fidelity):
+  - tag open at 390x664 with gap 88;
+  - adding at 844 (ride, scale-aware Add);
+  - 320 Copenhagen with a tag open (`F-tag_320`).
+
+  The 5b E3–E7 show the old navy badge, so they don't go.
+- Captions per ruling 5.
+
+### Send (one message, when C's round is back; order Float → A → C)
+
+**Float** (`concepts/E-float/`):
+1. `R6-F1-vs-account-3x.png`
+2. `R6-F2-1x.png`
+3. `R6-F3-dials-3x.png`
+4. `R6-F5-states-3x.png` (re-cropped)
+5. new: tag open at 664
+6. new: adding at 844
+7. new: 320 with a tag open
+
+Cost line: "+ rides down with the list when you tap it (and back on
+cancel); with the filters open, close them first."
+Just so you know: "With a tag open the list sits a little lower to clear
+the bigger +: still 3 rows on your phone, 1½ on the smallest."
+
+**A** (`concepts/stub/`):
+1. `R6-A1-vs-account-3x.png`
+2. `R6-A2-1x.png`
+3. `R6-A3-routes-3x.png`
+
+Cost line: "The list title gets 32px shorter ('list' drops first, at 320 the
+count too). It's a ticket for adding; we couldn't make it say 'place'
+without adding a mark."
+Flows are unchanged from last round; don't resend the coat-check frames.
+
+**C** (`concepts/C-pin/`), only if it reaches 9:
+1. `R6-C1` (re-shot)
+2. `R6-C2` (re-shot)
+3. `R6-C3`
+4. the new tag-open frame
+5. the new add strip
+
+Cost line: "The add form becomes a tag on the map; with a tag or the
+filters open, close them to add."
+
+**Also in the message:**
+- one line: "We tried a fourth, your ticket loose in the corner. It just
+  read as the ticket moved, so we dropped it."
+- jobs.md Q2/Q3 (still open).
+
+**If C misses after its one round,** send Float and A, with one line on C
+("the pin reads as a pin now, but it doesn't yet outrank the account").
+
+### Did the work change?
+Yes, all three:
+- Float: a new field, size and cut.
+- A: a new cut.
+- C: rebuilt on the real pin.
+
+These scores are fresh, not raised from 5b.

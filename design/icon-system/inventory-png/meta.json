@@ -1,0 +1,378 @@
+{
+ "cat-restaurant": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-restaurant-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-cafe": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-cafe-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-bar": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-bar-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-attraction": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-attraction-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-nature": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-nature-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-shopping": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-shopping-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-area": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-area-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-hotel": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-hotel-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-other": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-other-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-district": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-district-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "cat-street": {
+  "w": 22,
+  "h": 22
+ },
+ "cat-street-sizes": {
+  "w": 75,
+  "h": 29
+ },
+ "badges-row": {
+  "w": 336,
+  "h": 36
+ },
+ "pins-near": {
+  "w": 332,
+  "h": 32
+ },
+ "pins-far": {
+  "w": 332,
+  "h": 32
+ },
+ "pins-selected": {
+  "w": 420,
+  "h": 40
+ },
+ "pins-approx": {
+  "w": 332,
+  "h": 32
+ },
+ "pin-star-near": {
+  "w": 40,
+  "h": 40
+ },
+ "pin-star-far": {
+  "w": 40,
+  "h": 40
+ },
+ "pin-star-selected": {
+  "w": 48,
+  "h": 48
+ },
+ "sticker-near": {
+  "w": 40,
+  "h": 40
+ },
+ "sticker-far": {
+  "w": 40,
+  "h": 40
+ },
+ "sticker-selected": {
+  "w": 48,
+  "h": 48
+ },
+ "sticker-starred": {
+  "w": 40,
+  "h": 40
+ },
+ "sticker-corners": {
+  "w": 200,
+  "h": 40
+ },
+ "plan-pin": {
+  "w": 40,
+  "h": 40
+ },
+ "plan-pin-selected": {
+  "w": 48,
+  "h": 48
+ },
+ "plan-pin-visited": {
+  "w": 40,
+  "h": 40
+ },
+ "plan-pin-shape": {
+  "w": 40,
+  "h": 40
+ },
+ "cluster": {
+  "w": 70,
+  "h": 38
+ },
+ "cluster-starred": {
+  "w": 38,
+  "h": 38
+ },
+ "shape-star": {
+  "w": 32,
+  "h": 32
+ },
+ "shape-visit": {
+  "w": 36,
+  "h": 36
+ },
+ "tag-dot": {
+  "w": 26,
+  "h": 26
+ },
+ "you-are-here": {
+  "w": 28,
+  "h": 28
+ },
+ "map-star-sizes": {
+  "w": 104,
+  "h": 48
+ },
+ "sticker-checks": {
+  "w": 55.19,
+  "h": 21
+ },
+ "g-star": {
+  "w": 22,
+  "h": 22
+ },
+ "g-star-open": {
+  "w": 22,
+  "h": 22
+ },
+ "g-compass": {
+  "w": 22,
+  "h": 22
+ },
+ "ctl-account": {
+  "w": 56,
+  "h": 56
+ },
+ "ctl-add": {
+  "w": 56,
+  "h": 56
+ },
+ "ctl-collapse": {
+  "w": 32,
+  "h": 32
+ },
+ "ctl-sort": {
+  "w": 22,
+  "h": 22
+ },
+ "ctl-filters": {
+  "w": 22,
+  "h": 22
+ },
+ "ctl-locate": {
+  "w": 24,
+  "h": 24
+ },
+ "ctl-zoom": {
+  "w": 40,
+  "h": 70
+ },
+ "ctl-attrib-flag": {
+  "w": 16,
+  "h": 12
+ },
+ "ctl-delete": {
+  "w": 28,
+  "h": 28
+ },
+ "row-star": {
+  "w": 22,
+  "h": 22
+ },
+ "row-stamp": {
+  "w": 81.72,
+  "h": 44.08
+ },
+ "row-stamp-check": {
+  "w": 10.45,
+  "h": 10.45
+ },
+ "row-badge-real": {
+  "w": 28,
+  "h": 28
+ },
+ "chip-active": {
+  "w": 121.02,
+  "h": 39
+ },
+ "chip-glyph": {
+  "w": 14,
+  "h": 14
+ },
+ "chip-inactive": {
+  "w": 72.08,
+  "h": 39
+ },
+ "sort-check": {
+  "w": 20,
+  "h": 20
+ },
+ "ctl-add-open": {
+  "w": 56,
+  "h": 56
+ },
+ "form-star": {
+  "w": 322,
+  "h": 48
+ },
+ "form-star-svg": {
+  "w": 18,
+  "h": 18
+ },
+ "form-star-on": {
+  "w": 322,
+  "h": 48
+ },
+ "tag-x": {
+  "w": 18,
+  "h": 18
+ },
+ "tag-x-btn": {
+  "w": 44,
+  "h": 44
+ },
+ "tag-directions": {
+  "w": 24,
+  "h": 24
+ },
+ "tag-star-starred": {
+  "w": 105.33,
+  "h": 60
+ },
+ "tag-star-starred-svg": {
+  "w": 24,
+  "h": 24
+ },
+ "tag-stamp": {
+  "w": 105.34,
+  "h": 60
+ },
+ "row-star-selected": {
+  "w": 22,
+  "h": 22
+ },
+ "row-stamp-selected": {
+  "w": 81.72,
+  "h": 44.08
+ },
+ "row-badge-selected": {
+  "w": 28,
+  "h": 28
+ },
+ "pin-live-selected": {
+  "w": 44,
+  "h": 44
+ },
+ "tag-star-open": {
+  "w": 105.33,
+  "h": 60
+ },
+ "tag-star-open-svg": {
+  "w": 24,
+  "h": 24
+ },
+ "tag-mark-visited": {
+  "w": 105.34,
+  "h": 60
+ },
+ "tag-ochk": {
+  "w": 24,
+  "h": 24
+ },
+ "plan-chev": {
+  "w": 20,
+  "h": 20
+ },
+ "plan-check": {
+  "w": 20,
+  "h": 20
+ },
+ "plan-plus": {
+  "w": 20,
+  "h": 20
+ },
+ "plan-more": {
+  "w": 22,
+  "h": 22
+ },
+ "plan-more-btn": {
+  "w": 44,
+  "h": 44
+ },
+ "plan-x": {
+  "w": 28,
+  "h": 28
+ },
+ "plan-add": {
+  "w": 28,
+  "h": 28
+ },
+ "row-n": {
+  "w": 32,
+  "h": 20
+ },
+ "row-lead": {
+  "w": 72,
+  "h": 32
+ }
+}

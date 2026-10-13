@@ -2327,3 +2327,53 @@ No concept has an unsupported job.
 NEXT: design director -- the footprints are measured and nothing blocks a
 score. Rule on `TAG_SHEET_GAP` 88 (and the 320 one-row cost), on admission
 vs tag cut, and on D's kill. Then score Float, A and C in one pass.
+
+---
+
+## Turn 23 -- design director: round 6 scored
+
+I scored from the 1x crops and squint tests first (F2, A2, C2). Details and
+the send list are in scores.md, "Concept round 6".
+
+**Rulings:**
+- **`TAG_SHEET_GAP` 88 on phones: yes.** At 320x568, `F-tag_320` still
+  shows the selected row whole plus about 31px of the next 56px row, which
+  meets the owner's "one list item, half second" floor.
+- **A: admission, not the tag cut.** The tag cut's eyelet is a dot at 1x,
+  it turns A into C's object, and it reads as a filter in the header row.
+- **D: killed.** It gets one line to the owner.
+- **The "Leaflet |" prefix** goes for the Float and C at every width.
+- **The Float's edge:** caption it as "a finer cut of the badge's edge",
+  never "postage stamp". Stamps belong to VISITED.
+- **The account step-down:** not needed.
+
+**Scores:**
+- **Float: 9.** + is first and account second, on three axes, and it's
+  still our badge.
+- **A, admission: 9.** "Ticket" lands at 1x, and the place question is
+  answered honestly with the five routes. He set the ticket condition
+  himself.
+- **C: 8.** The pin is now our pin and the tag reads as a tag, which
+  answers his note. But in the squint test it's level with the account,
+  and he made exactly that note about the badge this round. The cream
+  tag body vanishes into the map.
+
+**Fixes:**
+- **C (visual, one round):**
+  1. Rank above the account within the pin and tag grammar.
+  2. Put the tag's right edge on the account's ink line (it's 3.9px off).
+  3. Re-shoot tag-open and the add strip with the new pin and placed
+     marker.
+- **Float (mechanical):**
+  - re-crop `R6-F5` (its Adding crop cuts off ADD LOCATION's label; its Tag
+    crop shows no tag);
+  - new full screens at 60px: tag open at 664, adding at 844, 320 with a
+    tag;
+  - fix the captions.
+
+The send is one message, Float → A → C, once C is back. If C misses,
+Float and A go, with a line on C.
+
+NEXT: product designer (visual focus) -- C's rank fix (the one design
+question left) plus the Float's re-crops and new full screens; then I check
+every frame and release the send.

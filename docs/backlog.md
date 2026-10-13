@@ -227,6 +227,12 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- Colour clash for the brand-token pass (found 2026-10-13 by the + placement
+  crew): the account badge's OPEN state is an orange field with a navy glyph,
+  the same colours as the + concepts' resting orange (Float badge, ticket).
+  If a + concept with an orange rest lands, the account's open state needs
+  another treatment. Belongs to the "Brand colour tokens: one system" pass.
+
 - Auth follow-ups found reviewing "playground = signed-out app" (2026-10-13,
   commit `1b52211`): (1) fixed in the same change: `logout()` now
   signs out this device only (`scope: 'local'`). (2) `logout()` ignores `signOut()`'s error: if

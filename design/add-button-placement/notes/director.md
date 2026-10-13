@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 6 opened" at the bottom -- steer written, visual goes first)
+## Status (current: see "Round 6 scored" at the bottom -- Float 9, A 9, C 8; waiting on C fix + Float re-shoots)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -677,3 +677,86 @@ fresh.
 - Cross-crew (orchestrator): the Float's hierarchy may need the account
   badge to recede, and the account's open state = orange field. Both touch
   the sign-in crew.
+
+---
+
+## Round 6 scored -- 2026-10-13 (jam turn 23, scores.md "Concept round 6")
+
+Evidence, 1x and squint first: R6-F2, R6-A2, R6-C2; then F1, F3, F5, A1,
+A3, C1, C3, D1, `r6-check/frames/F-tag_320`, `measure-tagrows.json`; jam
+turns 21-22.
+
+### Scores
+- **Float: 9.** Orange, 60px, a finer cut of the badge edge: + first and
+  account second at 1x and blurred. Ink 20/20 on the account's line; the
+  twin is gone.
+- **A, admission ticket: 9.** It reads as a ticket at 1x. The place link was
+  tried five ways and answered honestly ("a ticket for adding"), in his own
+  terms.
+- **C, selected pin + mini Hanging Tag: 8.** It is our pin now (drawn by
+  badgeHtml) and the tag reads as a tag. In the squint test it is level
+  with the account, because the cream tag body vanishes into the cream map.
+  He made exactly that note about the badge, so the objection is likely.
+- **D: killed.**
+
+### Rulings
+1. `TAG_SHEET_GAP` 88 on phones for the Float. At 320x568: 1 whole row +
+   31/56 of the next, which meets his "one item, half second" floor.
+2. A: admission over the tag cut (the eyelet reads as a dot; it turns A
+   into C; it reads as "tags" in the filter row).
+3. D killed, one line to the owner.
+4. "Leaflet |" dropped for the Float and C at every width (required at
+   320).
+5. Never caption the Float's edge as "postage stamp" (stamps = VISITED);
+   call it "a finer cut of the badge's edge".
+6. The account step-down (R6-F4) is not needed and not flagged. The
+   account's orange open-state seam does go to the orchestrator for the
+   brand-token pass.
+
+### Open fixes
+- **C (visual):**
+  - rank above the account within the grammar (tag scale, the stock's
+    separation from the map with restrained effects, disc size within the
+    map's selected pin; no orange-flooded body, no second +);
+  - the tag's right edge on the account's ink line (3.9px off);
+  - re-shoot tag-open and the add strip with the new pin and placed marker;
+  - builder: hit-test the parts only.
+- **Float (mechanical):**
+  - re-crop R6-F5 (Adding cuts off the ADD LOCATION label; Tag shows no
+    tag);
+  - new full screens at 60px: tag open at 664, adding at 844, 320 with a
+    tag;
+  - caption fix.
+
+### Send (exact list in scores.md round 6)
+- Float: F1, F2, F3, F5*, plus three new full screens.
+- A: A1, A2, A3.
+- C if 9: C1*, C2*, C3, plus the new tag-open and add strip.
+- Plus: the D line, a "just so you know" on the tag gap, Q2/Q3.
+- If C misses, Float and A go, with a line on C.
+
+### Likely owner objections on the send
+- Float: "the standard FAB now" (defend: it's his own option, our badge
+  family); "too loud".
+- A: "still not about a place" (told honestly); "looks the same as last
+  time" (a small change at 1x).
+- C: rank, until fixed.
+
+### What keeps blocking a 9
+- Rank against the account, now that object identity is fixed. The Float
+  solved it with three axes together. C hasn't: its grammar (a navy
+  selected disc) is the account's colour and mass. This keeps happening
+  because each fix targets the last note, and the next weakness only
+  shows in a direct comparison. That's why the account badge goes in every
+  frame from now on.
+- Also mechanical, again: crops that cut off what they claim to show (F5),
+  and frames from the earlier look still on the send list. Visual's
+  handover check should include "every send frame shows the current look
+  of every concept in it".
+
+### Did the work change?
+Yes, all three, so these are fresh scores.
+
+### Next
+Visual: C's rank fix plus the Float's re-crops and full screens. Then I
+check every frame and release the send (or Float + A with a line on C).
