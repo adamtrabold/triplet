@@ -201,3 +201,32 @@ Seen: grammar sheet 2; C / C′ near moments + POI check; B/C/D how-it-works
 - **Next:** visual draws the C′ full set, B's gate strip and D's size strip;
   systems writes the C′ legend and B's reverse-pull spec. After that pair
   comes READY, and I score B, C, D in one pass.
+
+## Round 1 scores (2026-10-13), READY called
+
+- **Grammar 9.** **C 8.** **B 5** (dropped; the gate fails on
+  shopping/district/attraction; revivable via Q6, darker inks). **D 4**
+  (fails J1/J8 at 18px, the size where the peel reads; kept as one evidence
+  frame). A was killed in the jam. Full text in `scores.md`.
+- **C fixes to reach 9:**
+  1. far/halfway frame with the 7–8px silhouette (drop the dot);
+  2. the peel redrawn as a reinforcement-ring sticker lifting, not a 2px
+     line unspooling (`c-sb-row` frames 4–5 read as ribbon);
+  3. C's list = the struck word, with the stamp as the Q2 alternative.
+
+  Then housekeeping: the row glyph +0.8px, the Q3 star-size crop, and
+  canvas labels changed to "for review".
+- **C's selected pin from the tag:** ink + tilt accepted (no rim to peel
+  under navy selection). Said plainly in Q1.
+- **Packet risk:** the owner said "i want more than one concept". The send
+  is one concept + a "considered and dropped" image (A, B, D, one reason
+  each). I flagged it to the orchestrator; the only real second concept is
+  B with darkened inks (needs Q6).
+- **Blocking pattern (written up in scores.md):** secondary marks become the
+  noise once the primary is fixed, and metaphors get moved onto objects
+  that can't physically do them (the peel on a line).
+- **Owner batch now:** 1 peel / tag-ink, 2 list word vs stamp, 3 visited★
+  star size, 4 Leaflet zoom, 5 cluster colour, 6 revive B (darker inks),
+  7 real-tile screenshot ask. The old Q5 (sticker glyph) is retired with D.
+- **Next:** visual does the C fixes and the considered image; I re-score C,
+  then confirm the send list.

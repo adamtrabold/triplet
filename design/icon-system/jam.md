@@ -1279,3 +1279,29 @@ After that pair I end building with READY and score B, C and D in one pass.
 NEXT: product designer (visual focus) — C′ full set with the edge fix,
 then B's gate strip and D's size strip; systems follows with the C′ legend
 and B's reverse-pull spec.
+
+## Concept steer 2: design director, 2026-10-13: READY
+
+- **B: considered and dropped.** It fails its own 1x gate on three
+  categories. Revivable only by the owner's yes on darkening three inks
+  (Q6).
+- **C's selected pin: ink + tilt from the tag is accepted.** Selection
+  replaces the rim, so from the tag there's no category rim to peel. The tag's
+  stamp is the event, and the pin inking and tilting under it satisfies
+  "State changes animate wherever they come from". The peel shows on row
+  swipes, Plans, and any unselected pin. It goes to the owner in Q1, said
+  plainly.
+- **C's far/halfway frame: yes, before the send, not before scoring.** I've
+  scored now. The frame is fix 1 in `scores.md`, together with the peel
+  redraw (a reinforcement-ring sticker, not an unspooling line) and the
+  struck-word list as C's row.
+- **D: kept only as evidence** (one lastDay squint beside C's).
+
+READY: C (Shell off: rim off, paper kept, inked tilted glyph) + the shared
+grammar. Scores, fixes, the send list and the owner questions are in
+`scores.md`, Round 1.
+
+NEXT: product designer (visual focus) — C fixes 1–3 (far/halfway frame
+with the silhouette, the peel as a reinforcement-ring sticker, the
+struck-word list as C's row) plus the "considered and dropped" image;
+systems updates C's jobs check for the new frames. Then I re-score C.
