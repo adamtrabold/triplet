@@ -399,3 +399,250 @@ C Shell off, + V4 Small sticker) and a proposed three-voice grammar, with
 real-size sketches. Needs steering on which go to concepts and whether
 "pins speak in big channels; whimsy lives in motion and on the tag" is a
 rule we put to the owner.
+
+## Pass 1: design director, 2026-10-13
+
+Read: owner.md, inventory.md + the inventory PNGs and context screens
+(map near, tag starred + visited), both sketch sheets, docs/owner-taste.md
+in full, design/inspo (README, park posters), the shipped "Pencil Star",
+"Stamp returns to rows" and star-colour entries. Real random draw (Python
+`SystemRandom`): fields **weather-map symbols** and **hobo signs**; Oblique
+Strategy **"Honor thy error as a hidden intention"**.
+
+### 1. What the owner is actually asking for (my read, to steer by)
+
+Two complaints and one review method, not one:
+
+1. **Inverted hierarchy.** "the checked items are stronger visually than the
+   open ones". This is about *state weight*, mostly on the map. In
+   `ctx-map-near.png` the two dark stickers are the first thing the eye hits,
+   above any place still to do.
+2. **Noise / no family.** "too noisy… needs more clarity… full rev", plus his
+   older "icons don't fill the same visual space" and "lightly rounded like
+   the rest". This is about the *drawing language* across all ~74 marks: six
+   stroke weights, three checks, two ×s, text-character icons, Leaflet's
+   white Lucida box, a star wearing a keyline *and* a halo.
+3. **"every icon in the app up next to each other."** He'll judge it as a
+   *set*, on the canvas, today beside the proposal. So a concept that only
+   fixes the visited pin hasn't answered him.
+
+So every concept has **two layers**: a *state model* (how open, starred,
+visited and selected relate) and a *grammar* (how every icon is drawn).
+Concepts should **differ in the state model** and **share one grammar**.
+That keeps the comparison readable (one variable at a time) and respects
+"Fewer variations". The grammar is still fully shown and judged, just once.
+
+### 2. The draw, applied seriously
+
+- **Weather maps** put hundreds of symbols on one map and stay readable
+  because of one discipline: **each variable gets exactly one visual
+  channel, and the legend never reuses a channel.** Cloud cover = how full the
+  station circle is; wind = the barb; temperature = a number in a fixed
+  slot. That is the systems "one state, one mark" rule, and visual's "four
+  channels survive at 24px" finding, from a field that has solved it for
+  a century. So here's the rule I want every concept to state on its
+  canvas as a **legend**: *channel → meaning*. Fill/hollow, value,
+  shell/no shell, size, colour hue: each is spent on exactly one thing.
+  Today, size is spent on both *selected* and *zoom*, dark fill on both
+  *visited* and *selected*, and orange on star *and* clusters. That double
+  spending is the noise. A concept that can't fill in its legend without a
+  channel appearing twice isn't done.
+- **Hobo signs** were marks left by travellers who'd been there, for the next
+  traveller: a few scratched strokes, no decoration, readable at a glance.
+  The lesson is about *voice*: the "been here" mark should look **left by
+  the traveller**, not printed by the guide. That's already the shipped
+  grammar ("printed = the guide's facts, stamped = where you've been,
+  pencilled = what you care about"). It argues against any visited
+  treatment that reads as the *system* graying things out (V2's risk), and
+  for one that reads as *you* acting on the place. Killed on the spot: a
+  scratched slash across the pin. At 24px a slash over a ring is the
+  universal "no / prohibited" sign.
+- **"Honor thy error as a hidden intention."** The error: done things are
+  loud. What's the intention hidden in it? *Done things want to be
+  celebrated.* That's real, and the owner liked it: the peel, the ink
+  bleed, the dry-up. So celebration belongs to **the moment** (the
+  transition) and **the big surfaces** (tag, row), not to the **resting
+  map**, which is a to-do list. This is visual's rule, reached from the
+  other side, and it's why I back it (with a sharper wording, §3).
+
+### 3. Steering the open threads
+
+**Visual's rule "pins use only the big differences; whimsy goes to motion
+and the tag."** I back it, reworded so it's a rule the owner can check in a
+second: **"At rest, a pin says one thing per channel. The character lives
+in how it changes and in the tag."** It isn't "no whimsy on pins". A
+whole-pin change of form (a shell that falls away, a blaze) *is* character.
+What's ruled out is *small detail at rest* (fold, punch, relief, texture,
+peel flap). It is a shift from the sticker era, and he chose the peel by
+name ("A peel is a peel"), so **it goes to the owner as a question, shown,
+not argued**: concept D keeps the resting peel, the others move it into the
+transition. He decides by looking.
+
+**The three-voice grammar.** Yes, and it's not new: it's the shipped
+printed / stamped / pencilled grammar grown to cover every icon. I'd name
+the voices by *who made the mark*, because that tells the user what kind of
+thing it is:
+
+| Voice | Who made it | Members | Drawn as |
+|---|---|---|---|
+| **Printed** | the guide | 11 category glyphs, plan numbers, cluster count | flat solid silhouettes, one corner radius, matched optical area |
+| **Inked by you** | the traveller | visited (stamp), star (pencilled in, lands as printed orange) | the stamp/pencil language already shipped; the only voice allowed tilt and texture |
+| **Line** | the tool | every control: sort, filters, locate, collapse, × , +, check, chevron, more, compass, account, zoom | one stroke per size step, round caps and joins, one ×, one +, one check, no text characters |
+
+Two consequences the visual designer owns but should show explicitly:
+the **sort/plan check** is a Line check and the **visited check** is an
+Inked check. Two checks with two jobs, drawn so the difference is
+obviously intended. And the **tag's open Star/Visited segments are
+controls**, so their open state is Line-voiced and their done state is
+Inked. That's the "same object, two inkings" idea (V5) and I want it in
+every concept. One caution on V5's *ghost stamp* for open Visited: a dotted,
+uninked stamp can read as **disabled**, and "actions visible but disabled"
+is exactly how the signed-out tag looks. Open must invite the tap at full
+ink. Draw the open segment and the signed-out segment side by side and
+prove they differ.
+
+**Is the shipped visited look in scope to replace, or only its weight?**
+In scope. "full rev" plus a complaint that names the checked items
+directly. But it was approved after many rounds, so the set **must include
+a concept that keeps it and fixes only weight** (D below). That's not a
+token gesture: it may honestly be the best answer, and I won't mark it down
+for being conventional. The **row stamp** is a separate question. The
+complaint reads as mostly the map, but a 72px VISITED stamp is the widest
+mark in a row. Concepts show the row both ways (stamp kept vs. the
+concept's row) and the owner says which (question 2).
+
+**Selected.** Today selected *inverts* to category-ink fill, which spends
+"dark fill" twice (visited also = dark). In every concept, **selection is
+navy**: the selected row is already navy, so one selection colour across
+surfaces is the brand rule ("keeps the meaning it has elsewhere"). Size
+bump + navy ring, or navy field. The visual designer picks; navy is fixed.
+
+**Star.** The rim star (one element, no halo, no keyline) is the right
+move toward "one state, one mark". Two risks to test, not argue: at 16px
+far zoom the star breaking the rim may read as a *bite* (the notch the
+owner called stupid), and orange without any halo on busy OSM tiles
+(orange roads!). Main roads on OSM are orange/yellow. Test it on a real tile
+crop with an orange road under it.
+
+**Visited + starred.** One slot is right for the resting map. Whether a
+visited place still shows its star at all is the owner's call (question 3).
+Until he answers, concepts keep the star on visited places at the visited
+weight (the star steps back with its place).
+
+**District / street.** Rows, chips and approx pins only (he said "no map
+pin" for shapes). They're identity, so they join the Printed voice as
+solids that keep their *idea*: a parcel with a knocked-out dashed edge, a
+road ribbon. Dashes at 12px are the noisiest marks in the set. Designer's
+call, not the owner's. Show today beside it and he'll react.
+
+**"other".** Redraw. A dot collides with the anchor dot and you-are-here,
+and it's the lightest glyph in the set. Designer's call.
+
+**Leaflet zoom +/−.** It's the loudest *foreign* object on the map (white
+box, grey border, Lucida). Concepts redraw it in the Line voice on paper.
+Whether to remove it altogether (pinch exists; the locate button exists)
+is the owner's call (question 4). Not blocking. The attribution flag
+stays: it's licence text, not ours to restyle.
+
+**Clusters.** Orange disc = the brand accent spent on "many places here",
+next to an orange star. That's double spending again. Not a blocker, but
+every concept's legend must say what a cluster is and show a starred
+cluster at real size.
+
+### 4. The concept set (four, differing in the state model; one shared grammar)
+
+| | Concept | Open | Visited | Where the character lives |
+|---|---|---|---|---|
+| **A** | **Blaze** (systems D1) | solid category disc, paper glyph | hollow ring + glyph (today's open pin) | the map empties as you travel. The visit lands as the paint lifting off. |
+| **B** | **Second run** (V2) | today's ring + glyph | the same pin reprinted at low value, slight misregistration | print craft. The visit lands as a second pass of the screen. |
+| **C** | **Shell off** (V3) | today's ring + glyph | ring + paper gone; glyph inked straight on the map | the peel moves into the transition: the shell peels away like sticker backing; un-visit dries it back. |
+| **D** | **Sticker, re-weighted** (V4) | today's ring + glyph, redrawn | the shipped dark sticker + peel + check, smaller and lighter than an open pin | keeps what he chose. Fixes weight only. |
+
+Why these four: A changes **fill logic**, B changes **value**, C changes
+**form**, D changes **size/weight inside the shipped idea**. Four kinds,
+one each, which is the weather-map rule applied to our own concept set.
+
+My strongest objections now, so the designers solve them in the concept
+and not after a score:
+
+- **A Blaze:** the hollow ring is the universal *unchecked* sign (empty box,
+  open circle). Visited = hollow may read *backwards* in a second. And
+  today's open pin literally becomes tomorrow's visited pin, so two users with
+  muscle memory get flipped. Also a day-0 trip is a field of solid discs:
+  "too noisy" again. To survive, visited must say *done* positively, not
+  just "less", and day 0 must be calm. If it can't, kill it at the steer.
+- **B Second run:** "disabled". The misregistration has to read as
+  *printed twice* at 24px on a phone in one second, or it's a grey-out. Also
+  check that it doesn't read as the "visited = same thing, less" the owner
+  rejected as "not differentiated nearly enough".
+- **C Shell off:** a bare glyph on OSM tiles may read as an *OSM POI icon*
+  (OSM draws its own small glyphs for cafés and restaurants). That's the
+  biggest risk, and only a real tile crop answers it. In rows, the bare glyph is
+  heavier than the ring, so rows may need their own half.
+- **D Sticker:** the dark mass is still the darkest mark on the map even at
+  14px, and the check still erases the category (taste rule "Preserve the
+  category icon"). It has to prove smaller is enough. The sticker's face
+  *colour* is in scope (not only its size); the check vs. a cream glyph is
+  question 5.
+
+### 5. What each concept delivers (fidelity)
+
+Real size, phone-readable (1170px-wide 3x stills, plus 1x), **today beside
+proposal** on every frame, and on the shared canvas
+https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW as new artboards beside
+the inventory (don't edit the inventory boards).
+
+1. **Shared grammar board (once, owned by visual, systems checks it):**
+   every one of the 74 inventory entries redrawn, each next to its
+   today version, grouped by voice; the stroke/size ladder; optical-area
+   check of the 11 glyphs at 12/18/23px (same visual space, J4).
+2. **Per concept:**
+   - **Legend** (channel → meaning), showing no channel used twice.
+   - **State matrix**: open / starred / visited / starred + visited × rest /
+     selected / far zoom / approx / plan-numbered, at real sizes.
+   - **The trip in three moments, full phone map screen, ~25 pins:** day 0
+     (nothing visited), halfway, last day (90% visited). The hierarchy has
+     to hold at all three. Day 0 is where A dies or lives, the last day is
+     where D does.
+   - **On a real OSM tile crop**, with an orange road under a starred pin
+     and an OSM POI near a pin. If the sandbox can't reach tiles, say so on
+     the board and use the closest honest substitute. Don't present the
+     fake tile as real.
+   - **List**: 4 rows (2 visited, 1 starred to-do, 1 plain), plus the navy
+     selected row, row stamp kept vs. changed.
+   - **Tag**: the stub in open, done and signed-out states, side by side.
+   - **The transition**: a 4–6 frame storyboard of visit-lands and
+     un-visit-dries-up (the dry-up must stay "by thickness"). Stills only at
+     this stage, no build.
+3. **Not in scope:** the + / account badges' containers and placement
+   (their crews). We supply their glyphs in the Line voice and nothing else.
+
+### 6. For the owner, batched (none block concept work: each is shown both ways)
+
+1. **Pins at rest:** "a pin says one thing per channel; the character is in
+   how it changes and in the tag". OK to move the resting peel into the
+   transition? (Shown: D keeps it; A/B/C don't.)
+2. **Rows:** is the VISITED stamp in the list part of "too strong", or is it
+   just the map? (Shown: stamp kept vs. each concept's row.)
+3. **Visited + starred:** once you've been, do you still need to see it was
+   starred? (Default shown: yes, at the visited weight.)
+4. **Leaflet zoom +/−:** restyle it into our icons, or remove it (pinch +
+   locate)? (Shown: restyled.)
+5. **Sticker check:** if the sticker stays (D), may its check become the
+   cream category glyph, so the place keeps its identity? (Shown: both.)
+
+I'd send these *with* the concepts, not ahead of them. He answers faster
+looking at frames, and "make sure shit makes sense before bringing it to
+me" argues for one message.
+
+### 7. Next
+
+Concept building starts on the shared grammar and A–D. First steer after the
+designers' next pair of turns. I'll decide on a kill (most likely A, if
+day 0 is noisy or visited reads "unchecked") at that steer, not now. I
+haven't seen A's three trip moments yet.
+
+NEXT: product designer (systems focus) — turn the steer into the build
+plan: the legend template, the state matrix and the three-trip-moment
+fixture (~25 places, one real tile crop), so both designers draw A–D
+against the same frames.
