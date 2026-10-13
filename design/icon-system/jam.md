@@ -214,3 +214,188 @@ NEXT: product designer (visual focus): the state model and the six directions
 need your read on look and feel, especially the D5 fork (filled identity vs
 line actions) and whether D1/D2/D3 can be drawn at 16px on OSM tiles without
 breaking the noise rules.
+
+## Pass 1: product designer (visual focus), 2026-10-13
+
+Read: owner.md, inventory.md, the inventory PNGs and all 10 context
+screens, CLAUDE.md, docs/owner-taste.md, design/inspo (README, park
+posters, labels, passport stamps), the systems turn above. Real random draw
+(Python RNG): fields **railway ticket punching** and **screen printing**;
+Oblique Strategy **"Emphasize the flaws"**; constraint **"all icons share one
+silhouette"**.
+
+Two sketches, rendered headless at 3x, phone-readable (sketches, not
+concepts):
+
+- `concepts/sketches/pin-states-3x.png`: every direction × open / open★ /
+  visited / visited★ / selected, at **real size** (24 near, 16 far) on an
+  OSM-like tile, then the same half-done trip (5 visited, 4 to do) drawn six
+  ways. Source `pin-states.html`.
+- `concepts/sketches/row-states-3x.png`: four list rows (2 visited, 2 to do)
+  drawn four ways. Source `row-states.html`.
+
+### 1. What the real-size test taught me (the one finding that matters)
+
+At 24px on tiles, **only four visual channels survive**: fill vs hollow,
+value (full ink vs tint), whether there's a shell or not, and size.
+Everything finer (a fold, a punched hole, relief, a peel on a resting
+mark, texture) turns into a smudge or reads as a rendering glitch. So the
+systems principle "done differs in kind, not weight" is right, but at pin
+size "kind" has to be one of those four big channels. The small-detail
+whimsy has to live somewhere else: in the **transition** (motion), in the
+**tag** (big, 240px), and in the **row** (the stamp has room).
+
+That gives us a clean split I want to propose as a visual rule:
+**pins speak in big channels; whimsy lives in motion and on the tag.**
+
+### 2. Verdicts on the systems directions (looked at real size, not argued)
+
+- **D1 Trail blaze: KEEP, strongest hierarchy in the sketch.** The half-done
+  map reads instantly: the solid discs are what's left, and the visited
+  rings (which are simply today's open pin) step back but stay legible with
+  their glyph. Also the most poster-like (WPA park posters are flat solid
+  colour shapes). Risks I can see: (a) the light inks go weak as solid
+  fields: lavender shopping and teal district discs lose authority next to
+  wine and forest, so the category inks need a value pass if this goes
+  ahead; (b) a fresh trip is a field of solid discs, so test 40+ pins before
+  falling for it; (c) selected can't be "inverted" any more. In the sketch
+  I tried a paper halo and it looks pale. Selected wants size plus a
+  **navy keyline ring**, the same navy as the selected row, which is one
+  selection colour on both surfaces.
+- **D2 Blind emboss: DROP.** At near zoom it reads as a missing or disabled
+  pin. At far zoom it's a blank paper disc with no information. Relief
+  can't survive OSM tiles, and adding contrast to save it breaks the
+  restrained-shadow rule.
+- **D3 Dog-ear: DROP for pins.** At 24px the fold is a smudge on the lower
+  left, and it reads as a notch. The owner already said "a notch looks
+  stupid". The *idea* (the place itself is marked, not covered) survives in
+  V3 below. A dog-ear might work on the 240px tag's corner, but that's tag
+  work, not the icon system.
+- **D4 One slot: KEEP as a rule.** And here's the visual version of it, the
+  **rim star**: the star sits *on* the pin's rim at 12 o'clock, breaking the
+  ring, with no halo and no keyline. That's one element instead of three
+  (star + keyline + halo). In the sketch it reads at near zoom and holds at
+  far. It also answers "all icons share one silhouette": the star becomes
+  part of the token's outline instead of a second object stuck beside it.
+- **D5 3x3 grammar: KEEP; my read on the fork is below (§4).**
+- **D6 Ledger tick: merge.** "Visited = smaller, never darker" is right, but
+  shrinking alone fights selection, which also uses size. Its quiet-row half
+  lives on in V3's struck word.
+
+### 3. My directions (from the draw)
+
+**V1 · Conductor's punch** *(ticket punching)*: visited = a hole punched
+through the pin, so the map shows through. It removes ink, keeps the glyph,
+and is on-brand (claim checks, tickets). **TESTED, DROP:** at 24px the hole
+reads as a bite or a broken ring, which is the notch problem again. I'm
+keeping it on record so nobody re-proposes it for pins. As *motion* it's
+alive: a visit could land with a one-frame "punch" before the resting state.
+
+**V2 · Second run** *(screen printing)*: visited = the same pin printed
+again at roughly half strength, a screen-print tint of its own category ink.
+Same shell, same glyph, same colour family, but lower value. It's the most
+literal answer to the owner ("checked items are stronger than the open
+ones"): done is now visibly *weaker*. In the half-done map it's very calm,
+and the to-do pins plus the starred ones own the eye. Rows: the badge and
+the VISITED stamp drop to the same tint, so the row's heaviest mark is gone.
+**Risk to name plainly:** tint reads "disabled" / "unavailable" to some eyes,
+and "Visited must be clearly different" may want more than a value change.
+"Emphasize the flaws" is the fix: the second run is **slightly
+misregistered** (glyph offset ~0.75px from the ring, a print flaw), so it
+reads as *re-printed*, not *greyed out*. I need to sketch that at real size
+before I trust it.
+
+**V3 · Shell off** *("all icons share one silhouette", inverted)*: the
+shell (ring + paper) means "a place still in play". Visited = the shell
+falls away and **only the category glyph stays, inked straight onto the
+map** (with a hairline paper knock-out so it stays legible on tiles). Far
+zoom: a small solid dot of the category ink. It's a change in *form* (no
+container), it keeps identity (J7), and it carries less ink than an open pin
+on the map. In the half-done sketch it's the most distinctive of all:
+visited places read as "already absorbed into the map". **And it gives the
+peel the owner chose a home:** on visit, the ring + paper *peel off* the
+glyph like a sticker backing and fall away. The peel stops being a resting
+decoration and becomes the moment. Un-visit: the ring dries back in (same
+dry-up language, reversed). Caveat from the row sketch: **in rows a bare
+glyph is heavier than a ringed one** (the filled glyph is bigger than the
+ring's thin line), so in rows Shell off needs the glyph at a smaller size or
+in tint, and the VISITED stamp becomes a light struck word rather than a
+ringed seal. Rows and map may want different halves of a concept.
+
+**V4 · Small sticker (the keep-what-he-chose pole)**: keep the shipped dark
+sticker, cream check and peel, but make it **physically smaller than an open
+pin** (about 14px at near zoom, 10px far), so its dark mass is no longer
+bigger than the to-do pin's ring + glyph. This is the honest "fix the
+weight, keep the idea" option the systems turn asked for. Not sketched yet.
+My worry is that the check still erases the category (J7). A cream glyph
+instead of the check would fix that but breaks his continuity rule ("visited
+icon changes to a checkmark in the sticker"), so that's an owner call.
+
+**V5 · Ghost stamp for the tag's open state** *(ties to the backlog idea
+"Ghost VISITED stamp in the popup")*: today the tag's open Visited segment
+is a stroked check and the done one is a stamp, two different languages
+(systems §1). Open = the stamp's **empty dotted track and ring, uninked**
+(a blank stamp box waiting for the clerk). Done = the same stamp, inked.
+The star segment gets the same treatment: open = the star outline in **orange
+line**, done = orange fill. Same object, two inkings. This is J9/J10 solved
+by drawing, not colour, and it fits the claim-check grammar the owner
+picked for the stub.
+
+Dropped fast: tear-off half-badge for rows (same problem as the punch at
+24px); misregistration as the *open* state (too noisy, the owner's first
+complaint); halftone dots for visited (dots: "absolutely not").
+
+### 4. The D5 fork (filled glyph vs line control): my read
+
+**Three voices, each with one job, in one hand:**
+
+| Voice | Who | How it's drawn | Why |
+|---|---|---|---|
+| **Printed** (solid) | identity: 11 category glyphs, the star | flat silhouettes, one corner radius (~1px at 24, "lightly rounded"), matched optical area | Solids hold at 12px on tiles, and line glyphs inside a 2px ring = two outlines = noise. WPA posters and hotel labels are flat printed shapes. |
+| **Drawn** (line) | controls: sort, filters, locate, collapse, ×, +, check, chevron, more, compass, account | ONE stroke per size step (2 at 20–24, 1.75 at 16), round caps + round joins, one ×, one +, one check, no text-character icons | Line = "you can do something here" (J9). |
+| **Stamped** (textured, tilted, seeded) | state that's been *recorded*: VISITED, the tag's type, plan numbers on the tag | the stamp language already shipped | The only voice allowed texture and tilt, so texture itself means "this was marked". |
+
+So the check splits cleanly: the **drawn check** (sort/plan "current") is a
+control mark, and the **stamped check** lives only inside VISITED. That's
+two checks with two jobs, not three. District and street are the fork's hard
+case. Their dashed strokes are the noisiest glyphs in the set
+(`pins-near.png`) and the only line-drawn identities. I'd redraw them as
+solids (district = a solid square with corner ticks knocked out; street = a
+solid ribbon) so line means "control" without exception. Open question
+whether the owner wants them to keep mirroring the map outlines.
+
+"other" as a lone dot: agree it has to go (it clashes with the anchor dot,
+you-are-here, and V3's far-zoom dot). A small solid pin-flag or asterisk.
+
+### 5. What I think the concepts become (for the director to steer, not decided)
+
+Three that differ in kind, each with rim star + one slot + the three-voice
+grammar underneath:
+
+- **A · Blaze**: open loud (solid), visited = hollow ring. The map empties as
+  you travel.
+- **B · Second run**: open as today, visited = misregistered half-strength
+  reprint. Quietest; the closest to "same app, fixed".
+- **C · Shell off**: open as today, visited = bare inked glyph; the peel
+  moves into the transition.
+- (+ V4 Small sticker as the keep-what-he-chose pole, if the director wants
+  a fourth.)
+
+### 6. Open questions
+
+1. Does the owner accept that pins carry no fine detail (whimsy moves to
+   motion + tag)? That's a rule shift from the sticker era.
+2. Does "visited = weaker" (V2) read as "disabled" to him? Only he can
+   answer. Show it, don't argue it.
+3. Category ink values: D1 needs a value pass on lavender/teal. Is that in
+   scope (it touches the brand colour-tokens pass)?
+4. District/street glyphs: solid redraw, or keep the dashed mirror of the
+   map outline?
+5. V4: is the check in the sticker sacred, or may the category glyph replace
+   it?
+
+NEXT: design director: four live directions (A Blaze, B Second run,
+C Shell off, + V4 Small sticker) and a proposed three-voice grammar, with
+real-size sketches. Needs steering on which go to concepts and whether
+"pins speak in big channels; whimsy lives in motion and on the tag" is a
+rule we put to the owner.
