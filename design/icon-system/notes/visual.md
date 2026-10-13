@@ -1,6 +1,18 @@
 # Visual designer notes: icon system
 
-## Where things stand (2026-10-13, end of jam pass 1)
+## Where things stand (2026-10-13, end of jam pass 2)
+
+- Pass 2 written in `jam.md`. Grammar sheet 1 (rough) in
+  `concepts/grammar/`: `grammar-board.html` -> `grammar-3x-s0..s4.png`
+  (rules / Printed / Line / Inked / concept-dependent visited). All 74
+  entries, TODAY from inventory-png at real size above NEW. Rendered with a
+  playwright script in the scratchpad that screenshots each <section> at DSF 3.
+- Coordinator context: signed out = playground, the tag has no signed-out
+  state, and 40% opacity is the one 'unavailable' look (nothing open or
+  visited may look like it). The director's three voices: Printed / Inked
+  by you / Line.
+
+### Pass 1 (kept for history)
 
 - Jam turn written in `jam.md` ("Pass 1: product designer (visual focus)").
   No concepts, no scoring yet.
@@ -53,9 +65,23 @@ lives in motion and on the tag.
 A Blaze · B Second run · C Shell off (+ V4 Small sticker optional), all on
 rim star + one slot + three-voice grammar.
 
-## Director objections
+## Director objections (pass 1 steer) and my answers (pass 2)
 
-None yet (first round).
+- A Blaze: hollow = unchecked; day 0 noisy. + mine: un-visit would have to
+  "fill back in" (no dry-up subject). -> I recommend killing A; draw day 0
+  first to show it.
+- B Second run: reads disabled; guide's voice, not the traveller's. -> tint
+  = mix with paper, never opacity; visible misregistration; shown beside
+  the 40% swatch. Still the weakest on voice.
+- C Shell off: may read as an OSM POI; rows heavier. -> visited glyph in the
+  Inked voice (seeded tilt +-6 deg, category ink, hairline paper knock-out);
+  rows at 15px tilted, no ring. Motion: shell peels off on visit; un-visit =
+  glyph dries up by thickness (shipped motion intact). MY PICK.
+- D Sticker: still darkest; check erases category. -> (a) ~12px + one step
+  lighter face, (b) cream category glyph instead of check (owner Q5).
+- V5 ghost stamp as open state: dropped (reads disabled). Open = Line, full
+  ink; the ghost is only storyboard frame 1.
+
 
 ## Open questions
 
@@ -65,7 +91,26 @@ None yet (first round).
 4. District/street: solid redraw or keep the dashed mirror?
 5. V4: may the category glyph replace the sticker's check?
 
-## Next
+## Grammar commitments (sheet 1)
+
+24 grid, 20 live area, r~1. Line stroke 2 (2.5 on the 50px seals), round
+caps/joins, one x / + / chevron / Line check, at most one solid point per
+Line icon, no text glyphs. Inked check = the shipped filled check with a
+lean (VISITED marks only). One star, no keyline; the rim star on the map.
+Shell = place, rim = Line stroke; selected = navy ring at the same 24px.
+Glyph redraws: fork, cup, other = flag, district = parcel (looks like a
+hex nut at 12 -> redo), street = ribbon, area = hatched plot. Cluster =
+stacked shells in ink, not orange (OWNER Q: CLAUDE.md lists clusters as
+orange).
+
+## Next (pass 2 onward)
+
+1. Grammar sheet 2: optical-area pixel count, district redo, cluster on the
+   stand-in basemap, 40% swatch beside open controls and visited marks.
+2. Day 0 / halfway / last day on the fixture: C, then D, then B; A day 0 only.
+3. C storyboard (peel-off; dry-up), 5 frames each, tag + pin.
+
+## Next (pass 1, superseded)
 
 Director steers. Then concepts with systems: sketch V2's misregistration
 and V4 at real size; test D1 with 40+ pins; draw the three-voice grammar on

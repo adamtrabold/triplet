@@ -834,3 +834,139 @@ NEXT: product designer (visual focus): draw the shared grammar board first
 (everything else depends on it), then A–D in the state matrix against
 `concepts/fixture/fixture.json`. I'll fill in each concept's legend and
 "how it works" as your matrices land.
+
+## Pass 2: product designer (visual focus), 2026-10-13: reshaping A–D + grammar sheet 1
+
+Read since pass 1: the director's pass 1, the systems build plan, `jobs.md`,
+and the coordinator's note. **Signed out = playground. The tag has no
+signed-out state. 40% opacity is the app's one "unavailable" look, and
+nothing open or visited may look like it.**
+
+### 1. Shared grammar board, rough sheet 1 (`concepts/grammar/`)
+
+`grammar-board.html` → `grammar-3x-s0.png` (rules), `-s1` Printed, `-s2`
+Line, `-s3` Inked, `-s4` the visited marks that depend on the concept. All
+**74 inventory entries**, each with **TODAY** (the inventory's own render
+from index.html, at real size) above **NEW** (drawn by hand). It's rough: the
+glyph shapes are first drafts, and the 50px seals are drawn as plain circles
+(their containers belong to the sign-in and + crews).
+
+What the sheet commits to, for the team to push on:
+
+- **Grid** 24, live area 20, corners r≈1 ("lightly rounded").
+- **Line**: stroke 2 everywhere from 14 to 24px (2.5 only on the 50px
+  seals), round caps and joins always. **One ×, one +, one chevron, one Line
+  check.** A Line icon may carry at most one solid point (locate centre,
+  compass needle; the more-dots *are* points). **No text characters left**:
+  ▼ is now the chevron, `&times;` is now the ×, the rotated × is now the +,
+  and Leaflet's Lucida +/− are Line icons on paper.
+- **Two checks, two jobs:** the **Line check** (sort/plan "current", and the
+  tag's *open* Visited button) and the **Inked check** (the shipped filled
+  check with a slight lean, used only inside VISITED marks). Same rounded
+  hand, different voice: weight, lean and fill.
+- **One star**, orange, **no keyline anywhere**. On the map it's the **rim
+  star** (one element, with a gap cut in the rim in the tile colour). The
+  open star is a Line control in full ink.
+- **Shell = a place.** The rim is the Line stroke (2px). **Selected = a navy
+  ring at the same 24px.** Size now means zoom only, and dark fill no longer
+  means both visited and selected (two DOUBLEs off the legend at once).
+- **Printed glyphs redrawn**: fork tines opened up, the cup handle knocked
+  out, **other = a trail flag** (no more dot clash), **district = a solid
+  parcel with a knocked-out dashed boundary**, **street = a solid ribbon with
+  a knocked-out dashed centre line**, **area = a solid plot with two hatch
+  knock-outs**.
+- **Cluster proposal**: a stack of two shells with a printed count, in ink
+  instead of brand orange. Orange is then spent on star + action glyphs
+  only. The star appears on a cluster only for an *open* starred member
+  (systems rule). ⚠ CLAUDE.md lists clusters among the brand-orange uses,
+  so this is an **owner question**, not ours to settle.
+
+Weak spots I can already see on the sheet: the new district reads a bit like
+a hex nut at 12px (next draft: a looser polygon or a corner-tick parcel). The
+stacked cluster at "23" is heavy. The inactive filter chip's grey glyph has
+to be checked against the 40% swatch. The optical-area check of the 11
+glyphs at 12/18/23 isn't measured yet (it needs a pixel-coverage count,
+next sheet). Plan pins still swap the glyph for the number, which goes
+against "preserve the icon". Flagged, not solved.
+
+### 2. The four concepts, reshaped on the director's objections
+
+**A · Blaze.** The objections hold, and the motion makes it worse. (1)
+Hollow = "unchecked" everywhere in UI. (2) A day-0 trip is a field of solid
+discs. (3) New: **the shipped un-visit is a dry-up of ink, and in A the
+done state has *less* ink than open**, so un-visit would have to "fill back
+in", a motion the owner never approved and the opposite of the one he
+iterated seven rounds on. The only reshape I believe in is **A′: open =
+solid at 20px, visited = 24px ring**, so day 0 is calmer, but that spends
+size on state and gives the legend a DOUBLE (size = zoom *and* state). So
+**I'd kill A at the steer** unless the day-0 frame surprises us. I'll draw
+day 0 first so the kill is shown, not argued.
+
+**B · Second run.** Reshaped against the 40% rule: the tint is a **mix with
+paper, never opacity** (the map doesn't show through, and it's
+hue-faithful), plus a **visible misregistration** (glyph offset ~0.8px
+down-right of its ring). The board puts it beside the 40% swatch. But the
+director's hobo-sign point lands hard here: the reprint is the **guide's**
+voice, not the traveller's. Done should be *your* mark. B is the most
+"same app, fixed" option and I'll draw it honestly, but on the voice test
+it's the weakest.
+
+**C · Shell off: my pick to push, reshaped twice.**
+1. **It's the only concept where visited literally becomes the traveller's
+   mark.** The guide's printed shell comes off, and what's left is the glyph
+   in the **Inked voice**: category ink, **seeded tilt (±6°)**, slight ink
+   texture. That's the director's hobo sign, on the map.
+2. **Against the OSM-POI risk:** OSM's own POI icons are small (14px),
+   grey-brown, upright and untextured. C's glyph is 15–16px, in our category
+   ink, tilted, with a hairline paper knock-out. Tilt plus colour is the
+   tell, and the systems stand-in basemap (with OSM-style POIs placed near
+   pins 2, 8 and 6) is where we prove it.
+3. **Rows fixed:** in pass 1 the row's bare glyph was 20px, so it came out
+   heavier than the ring. At **15px (the in-shell size) and tilted**, with no
+   ring, it's lighter than an open badge. The VISITED stamp in the row
+   becomes the struck word or stays (owner Q2, shown both ways).
+4. **Motion keeps the owner's vocabulary exactly:** visit = the printed
+   shell **peels off** like sticker backing (the peel he chose moves into
+   the moment) and the glyph settles with its ink tilt. **Un-visit = the
+   inked glyph dries up by thickness** (the approved motion, untouched) and
+   the printed shell comes back underneath. That's the only concept where
+   the dry-up still has ink to dry.
+5. **Far zoom:** a 5px category-ink dot. Not the "decorative dots" the
+   owner banned: it *is* the pin, and an open far pin is a ring, so
+   ring vs dot = to-do vs done. I'll test it against you-are-here and the
+   anchor dot (which only shows with an open shape tag).
+
+**D · Sticker, re-weighted.** On the sheet (s4) the sticker at 60% (~14px)
+next to an open 24px pin is about equal in visual mass, not lighter. It's
+dark *and* compact, so it still pulls on the last-day frame. Two levers,
+both to be shown: **(a)** size down to ~12px **and** the face from #3A4C5B to
+a lighter ink (still "the dark colour", his rule, but one step lighter
+in value), or **(b)** the cream **category glyph** replacing the check (owner
+Q5), which fixes J7 too. The resting peel stays here only, by design. That's
+the director's Q1, shown not argued.
+
+### 3. The tag (all concepts)
+
+**Open = Line in full ink, done = Inked**, so the open Star segment is the
+Line star and the open Visited segment is the Line check. That drops my
+pass-1 "ghost stamp" as a resting open state: the director is right that an
+uninked dotted stamp reads disabled, and with no signed-out state the
+segment never needs a third look. The ghost survives only as **frame 1 of
+the visit storyboard** (the stamp's track appearing as the stamp comes
+down). The big inked VISITED stamp stays on the tag in every concept, since
+that's where the celebration lives.
+
+### 4. What I'm drawing next (in order)
+
+1. Grammar sheet 2: optical-area count of the 11 glyphs, district redraw,
+   cluster at real size on the stand-in basemap, the 40% swatch beside every
+   open control and every visited mark.
+2. **Day 0 / halfway / last day** on the systems fixture for **C first**,
+   then D, then B, and A's day 0 only (to show the kill, or be surprised).
+3. C's storyboard: peel-off and dry-up, 5 frames each, on tag + pin.
+
+NEXT: design director: the grammar sheet needs a keep/push on its five
+commitments (one stroke, two checks, rim star, navy-ring selection at the
+same size, de-oranged cluster → owner Q), and a call on killing A now vs.
+after its day-0 frame. Systems: please check the sheet against the legend
+template; the selection and cluster choices change two DOUBLE rows.
