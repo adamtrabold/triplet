@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#ddd}.wrap{display:flex;flex-wrap:wrap;gap:20px;padding:20px}</style></head><body>
+<div class="wrap" id="w"></div>
+<script src="../lib/fixture-data.js"></script><script src="../lib/marks.js"></script>
+<script>
+TM.install();
+const w=document.getElementById('w');
+const q=new URLSearchParams(location.search); const model=q.get('model')||'C';
+const add=(id,html)=>{const d=document.createElement('div'); d.id=id; d.innerHTML=html; w.appendChild(d);};
+for(const m of ['day0','halfway','lastDay']){
+  for(const md of ['today',model]) add(md+'-'+m, TM.phone(md,m,FX,{}));
+}
+if(model==='C'){ add('Cpad-halfway', TM.phone('C','halfway',FX,{pad:true})); add('Cpad-lastDay', TM.phone('C','lastDay',FX,{pad:true})); }
+document.fonts.ready.then(()=>document.title='ready');
+</script></body></html>

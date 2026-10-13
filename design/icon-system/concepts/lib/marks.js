@@ -11,6 +11,7 @@
    TM.cluster(style, o)    style: 'today' | 'orange' | 'ink'
    TM.basemap(frame)       stand-in OSM-Carto basemap for the fixture frames
    TM.phone(model, moment, fixture, opts)   a full 390x844 screen (string) */
+window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.84, "bar": 1, "attraction": 1.005, "nature": 0.987, "shopping": 0.84, "area": 0.846, "hotel": 0.926, "other": 1.041, "district": 1.005, "street": 1.051}; // measured by measure.html -> opt-measure.json (2026-10-13)
 (function () {
   const INK = { restaurant: '#7A2436', cafe: '#6E4C22', bar: '#3D5A7A', attraction: '#547326', nature: '#1E3A2B', shopping: '#8A7AA8', area: '#2B3F52', hotel: '#2E2433', other: '#4F5450', district: '#328177', street: '#5E2C17' };
   const C = { paper: '#F2EBDD', raised: '#FAF5EA', hair: '#D8CEBA', ink: '#1A1A18', ink2: '#5A564C', navy: '#12293F', or: '#EE7434', ord: '#A8400C', stk: '#3A4C5B', stkD: '#52636F', cream: '#F4ECD8', tile: '#F2EFE9' };
@@ -19,7 +20,7 @@
   // Optical-area normalisation of the NEW glyphs (measured on grammar sheet 2:
   // ink coverage of the 24 box; each glyph scaled about its centre toward the
   // set's median coverage, clamped). Filled by measure step; 1 = unscaled.
-  const OPT = window.TM_OPT || { restaurant: 1, cafe: 1, bar: 1, attraction: 1, nature: 1, shopping: 1, area: 1, hotel: 1, other: 1, district: 1, street: 1 };
+  const OPT = window.TM_OPT || window.TM_OPT_DEFAULT || { restaurant: 1, cafe: 1, bar: 1, attraction: 1, nature: 1, shopping: 1, area: 1, hotel: 1, other: 1, district: 1, street: 1 };
 
   const TODAY_G = {
     restaurant: '<path fill="currentColor" d="M6 2h2v7h1V2h2v7h1V2h2v8a3 3 0 0 1-2 2.83V22h-4v-9.17A3 3 0 0 1 6 10V2z"/>',
@@ -42,7 +43,7 @@
     attraction: '<path stroke="currentColor" stroke-width="1" stroke-linejoin="round" d="M12 3l3.1 5.4v9.8H8.9V8.4Z"/><rect x="5.8" y="19" width="12.4" height="2.4" rx="1"/>',
     nature: '<path stroke="currentColor" stroke-width="1" stroke-linejoin="round" d="M12 2.8l4 5.6h-2.3l3 4.8h-2.4l3.4 5.4H6.3l3.4-5.4H7.3l3-4.8H8Z"/><rect x="10.9" y="17.5" width="2.2" height="4" rx=".8"/>',
     shopping: '<path d="M8.6 8.6V6.6a3.4 3.4 0 0 1 6.8 0v2h-1.9v-2a1.5 1.5 0 0 0-3 0v2Z"/><path stroke="currentColor" stroke-width="1" stroke-linejoin="round" d="M5.4 8.6h13.2l-1.2 11.6H6.6Z"/>',
-    area: '<path fill-rule="evenodd" d="M5.6 4.5h12.8a1.6 1.6 0 0 1 1.6 1.6v11.8a1.6 1.6 0 0 1-1.6 1.6H5.6A1.6 1.6 0 0 1 4 17.9V6.1a1.6 1.6 0 0 1 1.6-1.6ZM7.2 17.4l5.3-11.2h1.9L9.1 17.4ZM12 17.4l4.9-10.3v3.6l-3 6.7Z"/>',
+    area: '<path fill-rule="evenodd" d="M5.6 4.5h12.8a1.6 1.6 0 0 1 1.6 1.6v11.8a1.6 1.6 0 0 1-1.6 1.6H5.6A1.6 1.6 0 0 1 4 17.9V6.1a1.6 1.6 0 0 1 1.6-1.6ZM5.6 14.6L10.2 6.1h2.3L5.6 18.2ZM9.4 17.9L15.6 6.1h2.3L11.7 17.9ZM14.8 17.9L18.4 11.1v3.9l-1.5 2.9Z"/>',
     hotel: '<path stroke="currentColor" stroke-width="1" stroke-linejoin="round" d="M3.4 6.6h2.4v6.8h8.6a4.6 4.6 0 0 1 4.6 4.6v2.4h-2.4v-1.8H5.8v1.8H3.4Z"/><circle cx="9.3" cy="10" r="2.3"/>',
     other: '<rect x="6.4" y="3" width="2.3" height="18.4" rx="1.1"/><path stroke="currentColor" stroke-width="1" stroke-linejoin="round" d="M8.6 4.4h9.4l-2.6 3.9 2.6 3.9H8.6Z"/>',
     // district: four corner brackets (a surveyed parcel), drawn as solid L shapes
@@ -70,7 +71,7 @@
     let s = '<svg id="tm-sprite" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>';
     for (const k in TODAY_G) s += `<symbol id="o-${k}" viewBox="0 0 24 24">${TODAY_G[k]}</symbol>`;
     for (const k in NEW_G) { const f = OPT[k] || 1; s += `<symbol id="n-${k}" viewBox="0 0 24 24"><g fill="currentColor" transform="translate(12 12) scale(${f}) translate(-12 -12)">${NEW_G[k]}</g></symbol>`; s += `<symbol id="n0-${k}" viewBox="0 0 24 24"><g fill="currentColor">${NEW_G[k]}</g></symbol>`; }
-    for (const k in LINE) s += `<symbol id="l-${k}" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="var(--sw,2)" stroke-linecap="round" stroke-linejoin="round">${LINE[k]}</g></symbol>`;
+    for (const k in LINE) s += `<symbol id="l-${k}" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" stroke-linecap="round" stroke-linejoin="round">${LINE[k]}</g></symbol>`;
     s += `<symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="${STAR}"/></symbol>`;
     s += `<symbol id="i-check" viewBox="0 0 24 24"><path fill="currentColor" d="${CHECK_I}"/></symbol>`;
     s += '</defs></svg>';
@@ -127,12 +128,12 @@
         if (sel) body = shell(C.navy, rimW, 'none') + body;
       } else {
         const glyph = gIn('n-' + cat, 17, C.paper, ` rotate(${tilt})`).replace('<use ', '<use stroke="#F2EBDD" stroke-width="3.2" stroke-linejoin="round" ') + gIn('n-' + cat, 17, k, ` rotate(${tilt})`);
-        body = (sel ? shell(C.navy, rimW, 'none') : '') + glyph;
+        body = (sel ? shell(C.navy, rimW, o.pad ? C.paper : 'none') : (o.pad ? `<circle cx="12" cy="12" r="10.6" fill="${C.paper}" stroke="${mix(C.paper,'#000000',.12)}" stroke-width=".6"/>` : '')) + glyph;
       }
       if (st) star = rimStar(far ? 17 : 18.6, far ? 5.5 : 4.6, far ? 10 : 8.4, C.or, 1.3);
     } else if (model === 'B' && v) {
       const t = mix(k, C.paper, .52), offs = far ? '' : ' translate(.8 .6)';
-      body = shell(sel ? C.navy : t, sel ? rimW : (far ? 2.4 : 1.6), C.paper, dash) + (far ? '' : (o.num ? numTxt(o.num, mix(C.ink2, C.paper, .45), .8) : gIn('n-' + cat, 15, t, offs)));
+      body = shell(sel ? C.navy : t, sel ? rimW : (far ? 2.4 : 1.6), C.paper, dash) + (far ? '' : (o.num ? numTxt(o.num, mix(C.ink2, C.paper, .45), .8) : gIn('n-' + cat, 16, t, offs)));
       if (st) star = rimStar(12, 1.2, far ? 12 : 9.5, mix(C.or, C.paper, .4));
     } else if (model === 'D' && v) {
       // sticker, re-weighted: ~12px at near, one value step lighter face, peel kept
@@ -144,7 +145,7 @@
       if (st) star = rimStar(far ? 16.5 : 16.2, far ? 6.5 : 6.8, far ? 10 : 8, C.or, 1.2);
     } else {
       // open (all concepts), or selected
-      body = shell(rimCol, rimW, C.paper, sel ? '' : dash) + (far ? '' : (o.num ? numTxt(o.num) : gIn('n-' + cat, 15, k)));
+      body = shell(rimCol, rimW, C.paper, sel ? '' : dash) + (far ? '' : (o.num ? numTxt(o.num) : gIn('n-' + cat, 16, k)));
       if (st) star = rimStar(12, 1.2, far ? 12 : 10, C.or);
     }
     if (star) { defs += star.mask; body = `<g mask="url(#${star.id})">${body}</g>` + star.star; }
@@ -228,13 +229,13 @@
         : `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="${sel ? C.navy : C.paper}" stroke="${sel ? C.paper : k}" stroke-width="2"/>${gIn('o-' + p.category, 18, sel ? C.paper : k)}</svg>`;
     } else if (model === 'C' && v && !shapeCat) {
       const tilt = tiltOf(p.id);
-      badge = `<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">${gIn('n-' + p.category, 15.5, sel ? C.paper : k, ` rotate(${tilt})`)}</svg>`;
+      badge = `<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">${gIn('n-' + p.category, 17, sel ? C.paper : k, ` rotate(${tilt})`)}</svg>`;
     } else if (model === 'B' && v) {
       const t = mix(k, C.paper, .52);
-      badge = `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2" fill="${C.paper}" stroke="${t}" stroke-width="1.6"/>${gIn('n-' + p.category, 15, t, ' translate(.8 .6)')}</svg>`;
+      badge = `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2" fill="${C.paper}" stroke="${t}" stroke-width="1.6"/>${gIn('n-' + p.category, 16, t, ' translate(.8 .6)')}</svg>`;
     } else {
       badge = shapeCat ? `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 1.6L22.4 12L12 22.4L1.6 12Z" fill="${C.paper}" stroke="${sel ? C.paper : k}" stroke-width="2" stroke-linejoin="round"/>${gIn('n-' + p.category, 11, k)}</svg>`
-        : `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="${sel ? C.navy : C.paper}" stroke="${sel ? C.paper : k}" stroke-width="2"/>${gIn('n-' + p.category, 15, sel ? C.paper : k)}</svg>`;
+        : `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="${sel ? C.navy : C.paper}" stroke="${sel ? C.paper : k}" stroke-width="2"/>${gIn('n-' + p.category, 16, sel ? C.paper : k)}</svg>`;
     }
     const star = s ? (model === 'today' ? `<svg width="18" height="18" viewBox="0 0 24 24" style="flex:none"><path d="${STAR}" fill="${C.or}" stroke="${sel ? 'none' : C.ord}" stroke-width="1.6" stroke-linejoin="round"/></svg>` : use('i-star', 17, C.or, 'flex:none')) : '';
     const meta = (p.category === 'attraction' ? 'ATTRACTION' : p.category.toUpperCase()) + ' · REYKJAVÍK';
@@ -255,7 +256,7 @@
     const ordered = places.slice().sort((a, b) => (vis.has(b.id) - vis.has(a.id)) || (a.starred - b.starred) || (a.pos.near[1] - b.pos.near[1]));
     for (const p of ordered) {
       const [x, y] = p.pos.near;
-      const svg = pin(model, { cat: p.category, size: 24, visited: vis.has(p.id), starred: p.starred, approx: p.approx, seed: p.id, selected: opts.selected === p.id });
+      const svg = pin(model, { cat: p.category, size: 24, visited: vis.has(p.id), starred: p.starred, approx: p.approx, seed: p.id, selected: opts.selected === p.id, pad: opts.pad });
       pins += `<div style="position:absolute;left:${x}px;top:${y}px;transform:translate(-50%,-50%)">${svg}</div>`;
     }
     const today = model === 'today';
@@ -271,7 +272,7 @@
       ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${ink}" stroke-width="2"><path d="M7 4v15M17 20V5"/><path d="M3 8l4-4 4 4z" fill="${ink}"/><path d="M13 16l4 4 4-4z" fill="${ink}"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${ink}" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/><circle cx="9" cy="6" r="2" fill="${ink}"/><circle cx="15" cy="12" r="2" fill="${ink}"/><circle cx="7" cy="18" r="2" fill="${ink}"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${ink}" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/></svg>`
       : `${use('l-sort', 20, ink)}${use('l-filters', 20, ink)}${use('l-locate', 20, ink)}`;
     const collapse = today ? `<span style="font:400 14px/1 Arial;color:${ink}">▼</span>` : use('l-chev', 20, ink);
-    const header = `<div style="height:58px;display:flex;align-items:center;gap:14px;padding:0 16px 0 18px;background:#F0E7D8;border-top:1px solid ${C.hair}">${collapse}<span style="flex:1;font:700 16px/1 Archivo,Arial;letter-spacing:.12em;color:${ink};padding-left:6px">REYKJAVÍK LIST (27)</span><span style="display:flex;gap:22px;align-items:center">${hdrIcons}</span></div>`;
+    const header = `<div style="height:58px;display:flex;align-items:center;gap:14px;padding:0 16px 0 18px;background:#F0E7D8;border-top:1px solid ${C.hair}">${collapse}<span style="flex:1;font:700 16px/1 Archivo,Arial;font-stretch:87.5%;letter-spacing:.1em;color:${ink};padding-left:6px;white-space:nowrap">REYKJAVÍK LIST (27)</span><span style="display:flex;gap:22px;align-items:center">${hdrIcons}</span></div>`;
     const rowIds = opts.rows || [1, 2, 3, 8, 14];
     const rows = rowIds.map(id => { const p = fx.places.find(q => q.id === id); return row(model, p, { visited: vis.has(id), starred: p.starred }, { selected: opts.selected === id, stamp: opts.stamp }); }).join('');
     return `<div class="phone" style="position:relative;width:${W}px;height:844px;overflow:hidden;background:${C.paper};font-family:Archivo,Arial">

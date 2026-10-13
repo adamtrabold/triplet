@@ -1,5 +1,63 @@
 # Visual designer notes: icon system
 
+## Where things stand (2026-10-13, concept phase, report 1)
+
+Jam closed. Director's rulings (jam.md "Pass 2: design director: rulings"):
+A killed (thumbnail under "considered and dropped"); B, C, D go forward;
+one stroke KEEP; two checks KEEP (Inked check upright, carrier tilts);
+rim star KEEP with a TRUE cut-out (mask); selection REPLACES the rim;
+clusters shown orange AND ink, never darker than an open pin (owner Q6);
+district redrawn; seals glyph-only placeholders; plan numbers kept.
+
+Built so far:
+- `concepts/lib/marks.js`: shared drawing lib (today + new glyphs, Line,
+  Inked, pins for today/B/C/D, clusters, stand-in basemap, phone screen,
+  rows). `lib/measure.html` -> `lib/opt-measure.json` (optical-area
+  factors, hardcoded as TM_OPT_DEFAULT). `lib/fixture-data.js` is
+  generated from systems' `fixture/fixture.json`; regenerate if it changes.
+- Grammar sheet 2: `concepts/grammar/grammar-board-2.html` ->
+  `g2-s0..s4a-{3x,1x}.png`. All 74 entries, rulings applied, optical-area
+  table (today 6.3x spread -> new 1.09x), stroke check (16s don't read
+  heavier, they read small; proposed move to 18, director's call), 40%
+  swatch beside every open control and the off chip.
+- C near moments: `concepts/c/near-moments.html?model=C` ->
+  `near-{today,C,Cpad}-{day0,halfway,lastDay}-{3x,1x}.png`, squint blurs
+  `sq-near-*-squint-3x.png`, `c-poi-check-{3x,1x}.png`.
+- Canvas (version 10): boards IconGrammar2 (x5400,y0) and C_near_day0 /
+  C_near_halfway / C_near_lastDay / C_poi_check (row y4400). B row
+  reserved at y~2200, D at y~6400, Dropped after. Every board labelled
+  "DRAFT · NOT REVIEWED". Canvas folder copy:
+  scratchpad/iconcanvas/project (re-read canvas.json before every publish).
+- Render scripts (scratchpad, not committed): shootel.js (screenshots each
+  `.wrap > div[id]` child at DSF 3 and 1), meas.js.
+
+## Findings to steer on
+
+1. C squint: halfway and lastDay pass J1/J8. On lastDay the 3 starred
+   to-dos are found first. Day 0 is identical to today except for the
+   grammar.
+2. C's OSM look-alike risk is REAL: the visited café glyph and OSM's café
+   POI are near twins at phone size; a 4 deg tilt doesn't separate them.
+   C-prime (rim off, paper pad kept) does, at the cost of some texture
+   (pads) on lastDay. Director's choice: C or C-prime as C's resting state
+   (or more tilt or ink texture, untested).
+3. Visited stars stay orange and still pull a little on lastDay (owner Q3).
+4. D at ~12px: the peel reads as a notch ("A peel is a peel"); D probably
+   needs ~14px minimum or a bigger flap.
+5. C selected visited vs selected open look alike (navy rim, glyph);
+   the tag tells them apart, but note it.
+6. In-shell glyph went 15 -> 16 after looking at phone size (15 read small).
+
+## Next
+
+B, C, D per the director's list: legend (systems), state matrix, mid/far
+frames (clusters orange vs ink), list (stamp kept vs concept row), tag
+(Brauð & Co / Kaffibarinn), storyboards. Then the D near moments and B near
+moments. Dropped board for A.
+
+---
+
+
 ## Where things stand (2026-10-13, end of jam pass 2)
 
 - Pass 2 written in `jam.md`. Grammar sheet 1 (rough) in

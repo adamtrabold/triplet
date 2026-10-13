@@ -1,0 +1,165 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Icon system: shared grammar board, SHEET 2 (director's rulings applied).
+     TODAY = the inventory's renders of index.html (../../inventory-png), real size.
+     NEW = drawn with ../lib/marks.js at real size. Draft, not reviewed. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F2EBDD;--raised:#FAF5EA;--hair:#D8CEBA;--ink:#1A1A18;--ink2:#5A564C;--navy:#12293F;--or:#EE7434}
+  *{box-sizing:border-box}
+  body{margin:0;background:#ddd;font-family:Archivo,Arial,sans-serif;color:var(--ink)}
+  .wrap{display:flex;flex-wrap:wrap;gap:20px;padding:20px;align-items:flex-start}
+  .sheet{width:390px;background:var(--paper);padding-bottom:14px}
+  h1{font-size:16px;margin:0;padding:14px 12px 2px;letter-spacing:.06em;text-transform:uppercase}
+  h2{font-size:13.5px;margin:14px 12px 2px;letter-spacing:.08em;text-transform:uppercase}
+  .draft{display:inline-block;margin:6px 12px 0;font-size:9.5px;font-weight:700;letter-spacing:.1em;color:#A8400C;border:1px solid #A8400C;padding:2px 5px}
+  p.sub{font-size:11px;margin:4px 12px 8px;color:var(--ink2);line-height:1.38}
+  .card{margin:0 8px 6px;background:var(--raised);border:1px solid var(--hair);border-radius:3px;padding:6px 8px 7px}
+  .nm{font-size:11.5px;font-weight:700;display:flex;justify-content:space-between;gap:6px}
+  .nm i{font-style:normal;font-weight:400;color:var(--ink2);font-size:9.5px}
+  .pair{display:grid;grid-template-columns:38px 1fr;align-items:center;row-gap:5px;margin-top:5px}
+  .k{font-size:8.5px;font-weight:700;letter-spacing:.08em;color:var(--ink2)}
+  .v{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:20px}
+  .note{font-size:10px;color:var(--ink2);margin-top:4px;line-height:1.35}
+  .tile{background:#F2EFE9;padding:4px 6px;border-radius:2px;display:inline-flex;gap:10px;align-items:center}
+  .road{background:#FCD6A4}
+  .navyb{background:var(--navy);padding:4px 7px;border-radius:2px;display:inline-flex;gap:8px;align-items:center}
+  .cell{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+  .lbl{font-size:8.5px;color:var(--ink2);text-align:center;white-space:nowrap}
+  .off{opacity:.4}
+  .sw{display:inline-flex;align-items:center;gap:4px;border:1px dashed #b9ad97;padding:2px 4px;border-radius:2px}
+  .sw b{font-size:7.5px;font-weight:700;letter-spacing:.05em;color:var(--ink2)}
+  table.t{border-collapse:collapse;margin:2px 12px 6px;font-size:10.5px;width:366px}
+  table.t td,table.t th{border-bottom:1px solid var(--hair);padding:3px 3px;text-align:left;vertical-align:middle}
+  table.t th{font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+  table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.1em;padding:6px 8px 5px;border-bottom:2px solid var(--ink)}
+  .chip.offc{border:1px dashed var(--hair);color:var(--ink2)}
+  .ph{font-size:8px;color:#A8400C;font-weight:700;letter-spacing:.05em}
+</style></head><body>
+<div class="wrap" id="w"></div>
+<script src="../lib/marks.js"></script>
+<script>
+TM.install();
+const {INK,C,use,pin,cluster,stampHtml,seal}=TM;
+const CATS=Object.keys(INK);
+const OPT=window.TM_OPT_DEFAULT;
+const today=png=>`<img src="../../inventory-png/${png}.png" data-real>`;
+const swatch=html=>`<span class="sw"><span class="off">${html}</span><b>40% = UNAVAILABLE</b></span>`;
+const cell=(html,l)=>`<span class="cell">${html}<span class="lbl">${l}</span></span>`;
+const E=[]; const add=(g,no,name,png,nw,note)=>E.push({g,no,name,png,nw,note});
+const P=(o)=>pin('C',o); // open / selected / starred are shared across B, C, D
+
+// ---------- 1 PRINTED ----------
+const glyphNotes={restaurant:'Tines opened up so they survive 12px.',cafe:'Handle hole knocked out.',area:'Solid plot, three hatch knock-outs (was a frame).',other:'A trail flag, not a dot: no clash with the tag anchor dot or you-are-here.',district:'REDRAWN (sheet 1 read as a hex nut): four corner brackets around a solid lot, a surveyed parcel.',street:'Solid road ribbon, dashed centre line knocked out (was 3 dots).'};
+CATS.forEach((c,i)=>add('P',i+1,'g-'+c,'cat-'+c,`${use('n-'+c,12,INK[c])} ${use('n-'+c,18,INK[c])} ${use('n-'+c,23,INK[c])}`,glyphNotes[c]||'Same idea; corners r~1; area matched (table above).'));
+add('P',12,'Row badge, all 11','badges-row',`<span style="display:inline-flex;gap:3px">${CATS.map(c=>TM.row?badge(c):'').join('')}</span>`,'Rim = the Line stroke (2px). District/street keep the diamond shell.');
+function badge(c){const k=INK[c];return (c==='district'||c==='street')?`<svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 1.6L22.4 12L12 22.4L1.6 12Z" fill="${C.paper}" stroke="${k}" stroke-width="2" stroke-linejoin="round"/>${TM.gIn('n-'+c,11,k)}</svg>`:`<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="${C.paper}" stroke="${k}" stroke-width="2"/>${TM.gIn('n-'+c,16,k)}</svg>`}
+add('P',13,'Map pin, near (all 11)','pins-near',`<span class="tile">${CATS.slice(0,9).map(c=>P({cat:c})).join('')}</span>`,'District/street have no map pin except as approx (owner: "fine with just the area box").');
+add('P',14,'Map pin, far (all 11)','pins-far',`<span class="tile">${CATS.slice(0,9).map(c=>P({cat:c,size:16})).join('')}</span>`,'');
+add('P',15,'Map pin, selected (all 11)','pins-selected',`<span class="tile">${['restaurant','cafe','nature','shopping','hotel'].map(c=>P({cat:c,selected:1})).join('')}</span>`,'RULING APPLIED: selection REPLACES the rim (navy), same 24px, glyph keeps its category ink. One outline, never two. The pulse stays the motion.');
+add('P',16,'Map pin, approximate (all 11)','pins-approx',`<span class="tile">${['district','street','cafe'].map(c=>P({cat:c,approx:1})).join('')} ${P({cat:'district',approx:1,selected:1})}</span>`,'Dashed shell = approx, its only meaning. Selected approx: solid navy rim.');
+add('P',57,'Plan stop pin','plan-pin',`<span class="tile">${P({cat:'cafe',num:3})} ${P({cat:'restaurant',num:12})}</span>`,'Shipped Plans grammar kept (number in place of the glyph); Printed numeral.');
+add('P',58,'Plan stop pin, selected','plan-pin-selected',`<span class="tile">${P({cat:'cafe',num:3,selected:1})}</span>`,'Navy rim replaces the category rim.');
+add('P',60,'Plan shape stop (diamond)','plan-pin-shape',`<span class="tile"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 1.6L22.4 12L12 22.4L1.6 12Z" fill="${C.paper}" stroke="${INK.district}" stroke-width="2" stroke-linejoin="round"/><text x="12" y="15.8" text-anchor="middle" font-size="10" font-weight="700" fill="${C.ink2}" font-family="Archivo">12</text></svg></span>`,'');
+add('P',61,'Cluster','cluster',`<span class="tile">${cell(P({cat:'cafe'}),'open pin')}${cell(cluster('orange',{n:7}),'orange')}${cell(cluster('ink',{n:7}),'ink')}${cell(cluster('orange',{n:23}),'orange')}${cell(cluster('ink',{n:23,allVisited:1}),'all done')}</span>`,'RULING: shown both ways (owner Q6). Paper shell + one offset hairline ("more than one"), never darker than an open pin. An all-visited cluster recedes like a visited pin.');
+add('P',62,'Cluster, starred','cluster-starred',`<span class="tile">${cell(cluster('orange',{n:7,openStar:1}),'orange')}${cell(cluster('ink',{n:7,openStar:1}),'ink')}</span><span class="tile road">${cell(cluster('ink',{n:7,openStar:1}),'on road')}</span>`,'Star (true cut-out) only for an OPEN starred member (systems rule, accepted).');
+add('P',71,'Stop number','row-n',`<span style="font:600 15px Archivo;color:#5A564C">3</span>`,'Type, not an icon.');
+add('P',65,'Tag anchor dot','tag-dot',`<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="${C.paper}"/><circle cx="7" cy="7" r="4" fill="${C.ink}"/></svg>`,'Unchanged (owner OK\'d).');
+add('P',66,'You are here','you-are-here',`<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="${C.navy}"/><circle cx="8" cy="8" r="4.5" fill="none" stroke="${C.paper}" stroke-width="2"/></svg>`,'Unchanged. Navy disc (you) vs navy ring (selected): systems makes the legend call.');
+add('P',72,'Filter chip glyph','chip-glyph',CATS.map(c=>use('n-'+c,12,INK[c])).join(' '),'');
+add('P',73,'Filter chip, active','chip-active',`<span class="chip">${use('n-restaurant',12,INK.restaurant)}RESTAURANT</span>`,'');
+add('P',74,'Filter chip, inactive','chip-inactive',`<span class="chip offc">${use('n-cafe',12,'#8C8678')}CAFE</span> ${swatch(`<span class="chip">${use('n-cafe',12,INK.cafe)}CAFE</span>`)}`,'"Off" is a dashed hairline + grey glyph at full opacity: a different drawing from the 40% unavailable look, not a dimmer one.');
+
+// ---------- 2 LINE ----------
+const L=(id,px,col=C.navy,st='')=>use('l-'+id,px,col,st);
+add('L',17,'Account (person)','ctl-account',`${seal(50,C.navy,L('account',24,C.or))} <span class="ph">CONTAINER = PLACEHOLDER<br>(sign-in crew)</span>`,'Glyph only.');
+add('L',18,'Add (+)','ctl-add',`${seal(50,C.navy,L('plus',24,C.or,'--sw:2.5'))} <span class="ph">CONTAINER = PLACEHOLDER<br>(+ crew)</span>`,'The ONE +, 2.5 on the 50px seal.');
+add('L',19,'Add, open (x)','ctl-add-open',`${seal(50,C.or,L('x',24,C.navy,'--sw:2.5'))} <span class="ph">CONTAINER = PLACEHOLDER</span>`,'The ONE x.');
+add('L',20,'Sort (up/down arrows)','ctl-sort',`${L('sort',20)} ${swatch(L('sort',20))}`,'Line heads; no filled triangles.');
+add('L',21,'Filters (sliders)','ctl-filters',`${L('filters',20)} ${swatch(L('filters',20))}`,'Hollow knobs.');
+add('L',22,'Locate (crosshair)','ctl-locate',`${L('locate',20)} ${swatch(L('locate',20))}`,'One solid point allowed.');
+add('L',23,'Close tag (x)','tag-x',`${L('x',16,C.ink)} ${swatch(L('x',16,C.ink))}`,'');
+add('L',24,'Directions (g-compass)','tag-directions',`${L('compass',20,C.ink)} ${swatch(L('compass',20,C.ink))}`,'Needle = the one solid point.');
+add('L',25,'Empty list (g-compass)','empty-compass',L('compass',28,C.hair),'Decorative, --hair.');
+add('L',26,'Sort menu check','sort-check',`${L('check',18)} ${swatch(L('check',18))}`,'The ONE Line check. Moved up to 18 (see stroke check above).');
+add('L',27,'Plan check','plan-check',L('check',18),'Same Line check, 18.');
+add('L',28,'New plan (+)','plan-plus',L('plus',18),'The ONE +, 18.');
+add('L',29,'Plan more (three dots)','plan-more',`${L('more',20)} ${swatch(L('more',20))}`,'');
+add('L',30,'Plan picker chevron','plan-chev',L('chev',18),'The ONE chevron, 18.');
+add('L',67,'Collapse (▼)','ctl-collapse',L('chev',20),'Text ▼ gone: the chevron (rotates when collapsed).');
+add('L',68,'Delete (×)','ctl-delete',`${L('x',14,C.ink2)} ${swatch(L('x',14,C.ink2))}`,'Text &times; gone.');
+add('L',69,'Remove from plan (×)','plan-x',L('x',14,C.ink2),'');
+add('L',70,'Add to plan (+)','plan-add',L('plus',14,C.ink2),'The ONE + (not a rotated x).');
+add('L',31,'Leaflet zoom + / -','ctl-zoom',`<span style="display:inline-flex;flex-direction:column;border:1px solid ${C.hair};border-radius:4px;background:${C.raised}"><span style="height:32px;width:34px;display:flex;align-items:center;justify-content:center">${L('plus',18)}</span><span style="height:1px;background:${C.hair}"></span><span style="height:32px;display:flex;align-items:center;justify-content:center">${L('minus',18)}</span></span>`,'Restyled into Line on paper (or removed: owner Q4).');
+add('L',32,'Leaflet attribution flag','ctl-attrib-flag','<span class="note">unchanged: licence text, not ours</span>','');
+add('L',34,'g-star-open (symbol)','g-star-open',`${L('star',20,C.ink)} ${swatch(L('star',20,C.ink))}`,'Open star = a Line control in full ink.');
+add('L',38,'Tag star, open','tag-star-open-svg',`${L('star',20,C.ink)} ${swatch(L('star',20,C.ink))}`,'Open invites the tap at full ink; never the 40% look.');
+add('L',39,'Add-form star (open)','form-star-svg',L('star',18,C.ink),'Up to 18.');
+add('L',45,'Mark visited check (outline)','tag-ochk',`${L('check',20,C.ink)} ${swatch(L('check',20,C.ink))}`,'Open Visited = the ONE Line check, full ink.');
+
+// ---------- 3 INKED ----------
+const I=(id,px,col)=>use('i-'+id,px,col);
+add('I',33,'g-star (symbol)','g-star',I('star',20,C.or),'The ONE star. No keyline, no halo, anywhere.');
+add('I',35,'Row star','row-star',I('star',17,C.or),'Keyline dropped.');
+add('I',36,'Row star, selected row','row-star-selected',`<span class="navyb">${I('star',17,C.or)}</span>`,'');
+add('I',37,'Tag star, starred','tag-star-starred-svg',I('star',20,C.or),'Same star; done = Inked.');
+add('I',40,'Pencil Star, drawing','pencil-star-drawing','<span class="note">unchanged (motion)</span>','');
+add('I',41,'Pencil Star, ink landed','pencil-star',I('star',17,C.or),'Lands as the one star.');
+add('I',44,'Stamp check','row-stamp-check',`${I('check',9,'rgba(18,41,63,.82)')} ${stampHtml(1)}`,'RULING APPLIED: the Inked check is drawn UPRIGHT; the stamp (its carrier) takes the seeded per-place tilt.');
+add('I',47,'Sticker checks near / far / row','sticker-checks',`<span style="background:${C.stkD};padding:3px 6px;border-radius:2px;display:inline-flex;gap:6px">${I('check',9,C.cream)}${I('check',6.5,C.cream)}</span>`,'Same Inked check; lives on only in D (face one step lighter, #52636F).');
+add('I',42,'Visited stamp','row-stamp',stampHtml(1),'Grammar unchanged; weight per concept.');
+add('I',43,'Visited stamp, selected row','row-stamp-selected',`<span class="navyb">${stampHtml(1,true)}</span>`,'');
+add('I',46,'Visited segment, stamped','tag-stamp',stampHtml(1.1),'The tag keeps the big stamp in every concept.');
+add('I',48,'Map star sizes','map-star-sizes',`<span class="tile">${P({cat:'cafe',size:16,starred:1})}${P({cat:'cafe',starred:1})}${P({cat:'cafe',starred:1,selected:1})}</span><span class="tile road">${P({cat:'cafe',size:16,starred:1})}${P({cat:'cafe',starred:1})}</span>`,'RULING APPLIED: rim star = one element with a TRUE cut-out (mask), so whatever is under the pin shows through: tile, or the orange primary road (right).');
+add('I',49,'Starred pin, near','pin-star-near',`<span class="tile">${P({cat:'shopping',starred:1})}</span><span class="tile road">${P({cat:'shopping',starred:1})}</span>`,'');
+add('I',50,'Starred pin, far','pin-star-far',`<span class="tile">${P({cat:'shopping',starred:1,size:16})}</span><span class="tile road">${P({cat:'shopping',starred:1,size:16})}</span>`,'Test (b): far pin over the primary road.');
+add('I',51,'Starred pin, selected','pin-star-selected',`<span class="tile">${P({cat:'shopping',starred:1,selected:1})}</span><span class="tile road">${P({cat:'shopping',starred:1,selected:1})}</span>`,'');
+add('I',63,'Shape star','shape-star',`<span class="tile" style="background:#cfe5e1">${I('star',12,C.or)}</span>`,'On the district fill; test on tiles in the concepts.');
+
+// ---------- 4 CONCEPT-DEPENDENT (visited) ----------
+const V=(m,o)=>pin(m,Object.assign({cat:'cafe',visited:1,seed:7},o));
+const strip=(o)=>`<span class="tile">${cell(V('B',o),'B')}${cell(V('C',o),'C')}${cell(V('C',Object.assign({pad:1},o)),'C′')}${cell(V('D',o),'D')}</span>`;
+add('C',52,'Visited sticker, near','sticker-near',strip({}),'B second run (paper-mix tint + misregistration) / C shell off (inked glyph, seeded tilt) / C′ rim off, paper pad kept / D sticker ~12px, face one step lighter.');
+add('C',53,'Visited sticker, far','sticker-far',strip({size:16})+` <span class="tile">${cell(V('C',{size:16,farDot:1}),'C dot')}</span>`,'C far: a 7px solid silhouette (main) vs the 5px dot (alternative, owner\'s "dots" objection).');
+add('C',54,'Visited sticker, selected','sticker-selected',strip({selected:1}),'Selection replaces: the navy rim IS the outline. No second ring.');
+add('C',55,'Visited + starred sticker','sticker-starred',strip({starred:1}),'Star kept at the visited weight (default until owner Q3).');
+add('C',56,'Sticker flap per place','sticker-corners',`<span class="tile">${[3,8,11,19,24].map(s=>V('D',{seed:s})).join('')}</span>`,'D only: the resting peel, carrier tilt seeded per place.');
+add('C',59,'Plan stop pin, visited','plan-pin-visited',`<span class="tile">${cell(pin('B',{cat:'cafe',visited:1,num:3}),'B')}${cell(P({cat:'cafe',num:3}),'C/D: tbd')}</span>`,'B shown; C and D plan numbers come with their matrices.');
+add('C',64,'Shape visited sticker','shape-visit',strip({cat:'district'}),'');
+
+// ---------- build sheets ----------
+const med=0.221;
+const meas={"restaurant":[.185,.161,.216],"cafe":[.352,.337,.235],"bar":[.215,.221,.219],"attraction":[.181,.219,.222],"nature":[.182,.227,.221],"shopping":[.424,.319,.225],"area":[.278,.309,.221],"hotel":[.258,.258,.222],"other":[.135,.204,.223],"district":[.156,.219,.22],"street":[.067,.200,.22]};
+let s0=`<div id="s0"><div class="sheet"><h1>Icon grammar · sheet 2</h1><span class="draft">DRAFT · NOT REVIEWED</span>
+<p class="sub">Every inventory entry (74): TODAY (rendered from index.html) above NEW, real size. Director's rulings applied: one stroke, two checks (Inked check upright), rim star with a true cut-out, selection replaces the rim, clusters both ways and never darker than a pin, district redrawn, seals glyph-only.</p>
+<h2>Rules</h2><table class="t">
+<tr><td>Grid</td><td>24 box, 20 live area, corners r&asymp;1</td></tr>
+<tr><td>Line</td><td>stroke 2 from 14 to 24px (2.5 on the 50px seals); round caps + joins. One &times; ${use('l-x',14)}, one + ${use('l-plus',14)}, one chevron ${use('l-chev',14)}, one Line check ${use('l-check',14)}; at most one solid point.</td></tr>
+<tr><td>Inked</td><td>one star ${use('i-star',13,C.or)} (orange, no keyline); one Inked check ${use('i-check',11,'rgba(18,41,63,.82)')} (upright; its carrier tilts)</td></tr>
+<tr><td>Shell</td><td>= a place; rim = the Line stroke; selected = the rim turns navy</td></tr>
+<tr><td>Text as icon</td><td>none (&#9660; &times; rotated &times; Lucida +/&minus; all gone)</td></tr></table>
+<h2>Stroke check (ruling 1)</h2><p class="sub">Checked at phone size: the 16px icons don't read heavier than the 20s beside them; they read small and a touch dense (2px is 12.5% of a 16 box vs 10% of a 20). Proposed: move them up to 18 anyway, same 2px, so the ladder has one step less. Director's call.</p>
+<div class="card"><div class="pair"><span class="k">WAS 16</span><span class="v">${use('l-check',16,C.navy)}${use('l-plus',16,C.navy)}${use('l-chev',16,C.navy)} <span class="lbl">beside</span> ${use('l-sort',20,C.navy)}${use('l-filters',20,C.navy)}</span><span class="k">NOW 18</span><span class="v">${use('l-check',18,C.navy)}${use('l-plus',18,C.navy)}${use('l-chev',18,C.navy)} <span class="lbl">beside</span> ${use('l-sort',20,C.navy)}${use('l-filters',20,C.navy)}</span></div><div class="note">Ladder: 14 (in-row &times;/+), 18 (menus, ledger, add form), 20 (header, tag), 24 (seals). Every step 2px.</div></div>
+<h2>Optical area (11 glyphs)</h2><p class="sub">Ink coverage of the 24 box, measured from rendered pixels (lib/measure.html). Today spans 0.07&ndash;0.42 (a 6&times; spread: "icons don't fill the same visual space"). NEW is drawn, then scaled about its centre toward the median (${med}); same result at 12/18/23px.</p>
+<table class="t"><tr><th>glyph</th><th></th><th>today</th><th>new drawn</th><th>scale</th><th>new final</th></tr>
+${CATS.map(c=>`<tr><td>${c}</td><td>${use('o-'+c,14,INK[c])} ${use('n-'+c,14,INK[c])}</td><td class="n">${meas[c][0].toFixed(3)}</td><td class="n">${meas[c][1].toFixed(3)}</td><td class="n">&times;${OPT[c]}</td><td class="n"><b>${meas[c][2].toFixed(3)}</b></td></tr>`).join('')}
+<tr><td><b>spread</b></td><td></td><td class="n">6.3&times;</td><td class="n">2.1&times;</td><td></td><td class="n"><b>1.09&times;</b></td></tr></table>
+<p class="sub">Coverage is a first-order proxy for optical size; the eye still gets the last word on the concept stills.</p></div></div>`;
+const groups=[['P','1 · Printed','the guide: who the place is'],['L','2 · Line','the tool: things you tap. Each open control sits beside the 40% unavailable look.'],['I','3 · Inked by you','what you marked'],['C','4 · Visited marks','these depend on the concept: B, C, C′, D']];
+let html=s0;
+groups.forEach(([g,t,sub],gi)=>{
+  const items=E.filter(e=>e.g===g);
+  // split long groups into sheets of ~14 cards
+  for(let i=0,part=1;i<items.length;i+=14,part++){
+    html+=`<div id="s${gi+1}${String.fromCharCode(96+part)}"><div class="sheet"><h1>${t}${items.length>14?` (${part})`:''}</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">${sub}</p>`;
+    items.slice(i,i+14).forEach(e=>{html+=`<div class="card"><div class="nm"><span>${e.no}. ${e.name}</span><i>${e.png}</i></div><div class="pair"><span class="k">TODAY</span><span class="v">${today(e.png)}</span><span class="k">NEW</span><span class="v">${e.nw}</span></div>${e.note?`<div class="note">${e.note}</div>`:''}</div>`});
+    html+='</div></div>';
+  }
+});
+document.getElementById('w').innerHTML=html;
+let pending=0;
+document.querySelectorAll('img[data-real]').forEach(im=>{pending++;const f=()=>{const w=im.naturalWidth/12;im.style.width=Math.min(w,320)+'px';if(--pending===0)done();};im.complete?f():(im.onload=f,im.onerror=f);});
+function done(){document.fonts.ready.then(()=>document.title='ready');}
+window.__count=E.length;
+</script></body></html>
