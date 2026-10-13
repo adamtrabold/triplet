@@ -1883,3 +1883,26 @@ ends 68px from the badge.
 NEXT: design director -- check the re-shot stills (E5, E6, A1, C1, C2,
 `2-add-strip`) and C's empty-pin ring against the 9 bar, then release the
 set: Float, A, C.
+
+---
+
+## Turn 19 -- design director: re-shots checked, set released
+
+- **Float: 9, confirmed.** E5's paper × on the navy badge is better than my
+  orange-× ruling: it's the header's ON glyph, the same open state as A's
+  stub. Accepted. E6's credit is 68px clear of the badge.
+- **A: 9, confirmed.** The caption is fixed. A keeps "Leaflet |" on its own
+  side, which is correct (ruling 4 is for Float and C only).
+- **C. Blank pin: 8 → 9.** At 1x the empty graphite pin head reads as a pin
+  on a string, not a spinner, and the + stays the loudest mark. The
+  pushpin search glyph is the right call.
+  - **One mechanical re-shoot:** `2-add-strip` frame 3 still carries
+    "Leaflet |" (ruling 4).
+  - Add a frame-vs-rulings check to the handover checks.
+
+The final send list, in order, with cost lines, is in scores.md "round 5b".
+If C's re-shoot is late, Float and A go first.
+
+NEXT: product designer (visual focus) -- re-shoot C `2-add-strip` frame 3
+with the credit ruling; then orchestrator sends Float → A → C per scores.md
+round 5b.

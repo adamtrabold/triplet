@@ -601,3 +601,98 @@ floated badge."
 Questions with the send (unchanged, none blocking): jobs.md Q2 (fly to the
 new place after Add) and Q3 (later ideas). Q1 is now answered by picking:
 Float and A ride, and C's form is on the map.
+
+## Concept round 5b -- re-shots checked, C re-scored (director, 2026-10-13)
+
+Looked at: `C-pin/C2-close-up-1x` (first), `C1-vs-float`, `C5-tag-open`,
+`2-add-strip`; `E-float/E5`, `E6`; `stub/A1` (caption and credit crops),
+`A2` (credit crop); jam turn 18.
+
+### Float: 9, confirmed
+- **E5:** the badge stays navy and the glyph turns into a **paper ×**. My
+  ruling said an orange ×, but paper is the header's ON glyph, the same as
+  A's open stub, so the two concepts now share one open state. That's
+  better than my call; I accept it.
+  - ADD LOCATION is the one orange button on the line. The caption says
+    "the one orange button", which is accurate: the account's person glyph
+    is orange too.
+- **E6:** the credit is "© OpenStreetMap contributors" at bottom-left,
+  68px clear of the badge at 320.
+
+### A ticket: 9, confirmed
+- A1's cost line now reads the measured 32px.
+- A1 and A2 still show "Leaflet |" on A's side. That's correct: ruling 4
+  applies to Float and C only, because A leaves the credit alone. The two
+  sides of the comparison differ on purpose. Not a fix.
+
+### C. Blank pin: 8 → 9, after one mechanical re-shoot
+- **Did it change?** Yes. The dashed ring is now an **empty pin head**, a
+  solid 2px graphite ring.
+- **At 1x (C2)** it reads as a pin head on a string with a + tag hanging
+  from it, not as a spinner, and there are no dots. The + is still the
+  loudest mark, and it reads as a + button that is our pin and tag.
+- **The search glyph is a pushpin** (ring on a string). That's the right
+  call: a lone ring beside a field reads as a radio button.
+- **C5:** the pin steps aside, "close the tag to add", with the credit
+  fixed.
+- **`2-add-strip`:** frame 1 now shows the current pin.
+- **Remaining objection:** "The tag is bigger and louder than the badge."
+  It reads as more prominent, which was the original ask, so I'd defend it.
+- **Re-shoot before it goes:** `2-add-strip` frame 3 (the placed tag at
+  664) still shows "Leaflet | © OpenStreetMap contributors", against ruling
+  4 (C, every width). It's mechanical, and I check it before release.
+  Visual's caption check reads captions against measurements but didn't
+  catch a ruling-vs-frame mismatch. So add a check: every frame against the
+  current rulings.
+
+### FINAL SEND (one message, in this order; supersedes the round-5 list)
+
+**1. Float, today's badge floated low** (`concepts/E-float/`):
+1. `E1-left-or-right-3x.png`
+2. `E8-alignment-3x.png`
+3. `E3-right-list-down-3x.png`
+4. `E4-right-tag-open-3x.png`
+5. `E5-right-adding-3x.png`
+6. `E6-right-320-3x.png`
+7. `E7-right-664-3x.png`
+
+Cost line: "+ rides down with the list when you tap it (and back on
+cancel); with the filters open, close them first."
+Just so you know: "While the form is open the badge stays navy and its +
+turns into a cream ×, so ADD LOCATION is the one orange button."
+
+**2. A. Claim-check stub, now a ticket** (`concepts/stub/`):
+1. `A1-vs-float-3x.png`
+2. `A2-close-up-1x.png`
+3. `A4-states-3x.png`
+4. `A5-adding-3x.png`
+5. `A6-tag-open-3x.png`
+
+Cost line: "The list title gets 32px shorter: 'list' drops first, and at
+320 the count too."
+
+**3. C. Blank pin** (`concepts/C-pin/`):
+1. `C1-vs-float-3x.png`
+2. `C2-close-up-1x.png`
+3. `2-add-strip-3x.png` (**after the frame-3 credit re-shoot**)
+4. `C5-tag-open-3x.png`
+
+Cost line: "The add form becomes a tag on the map; with a tag or the
+filters open, close them to add."
+
+**Also in the message:**
+- One line: "We dropped the bottom bar: smaller, it turns into the floated
+  badge."
+- jobs.md Q2 (fly to the new place after Add?) and Q3 (later ideas).
+  Picking a concept answers Q1.
+
+**Not sent:** E2; A3, A7, A8; C3, C4, C6, C7; the `r5/` studies and the
+appendix.
+
+If the `2-add-strip` re-shoot is held up, send Float and A now and C with
+it. Don't send C with the stale frame.
+
+### Did the work change?
+- C: yes (the ring), 8 → 9.
+- Float: E5 and E6 changed; its 9 is confirmed, not raised.
+- A: a caption fix; its 9 is confirmed.

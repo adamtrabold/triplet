@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 5 scored" at the bottom)
+## Status (current: see "Round 5b" at the bottom -- set released pending one C re-shoot)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -547,3 +547,28 @@ measurements, the `r5-check` coverage table).
 ### Next
 Visual does the fixes. I check every re-shot still against its 1x crop and
 release the set (or Float and A, plus a line on C).
+
+---
+
+## Round 5b -- 2026-10-13: re-shots checked, set released
+
+- **Float 9:** confirmed (E5, E6).
+- **A 9:** confirmed (caption fixed).
+- **C, Blank pin: 8 → 9.** The ring is now an empty graphite pin head; at
+  1x it reads as a pin on a string, not a spinner.
+- **Accepted a deviation from my ruling 5:** the Float's open glyph is a
+  paper ×, not an orange one. It's the header's ON glyph, and the same open
+  state as A, so the two concepts share one open state.
+- **One mechanical re-shoot before C goes:** `2-add-strip` frame 3 still
+  shows "Leaflet |". The new handover check is every frame against the
+  current rulings, not only captions against measurements.
+- **Final send list:** scores.md "round 5b". Float (E1, E8, E3, E4, E5,
+  E6, E7) → A (A1, A2, A4, A5, A6) → C (C1, C2, 2-add-strip, C5). Plus
+  one cost line each, the B-dropped line, the Float navy-× "just so you
+  know", and Q2/Q3.
+- **Status:** waiting on the C re-shoot, then the owner's pick. On a pick,
+  handoff.md, which I check against owner.md.
+- If he wants a mix (e.g. A's ticket at the Float's corner), that's a new
+  concept round.
+- **What blocked a 9 this time:** small-mark reads at 1x and frame/ruling
+  drift. Both are now in the visual seat's handover checks.
