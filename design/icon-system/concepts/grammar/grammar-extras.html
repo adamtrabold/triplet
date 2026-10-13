@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- Grammar extras after steer 1: 18px Line step in context, approx tell, left-column axis. Draft. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#ddd;font-family:Archivo,Arial,sans-serif;color:#1A1A18}
+  .wrap{display:flex;flex-wrap:wrap;gap:20px;padding:20px;align-items:flex-start}
+  .sheet{width:390px;background:#F2EBDD;padding-bottom:12px}
+  .sheet h1{font-size:15px;margin:0;padding:12px 12px 2px;letter-spacing:.06em;text-transform:uppercase}
+  .draft{display:inline-block;margin:4px 12px 0;font-size:9px;font-weight:700;letter-spacing:.1em;color:#A8400C;border:1px solid #A8400C;padding:2px 5px}
+  .sub{font-size:10.5px;margin:4px 12px 8px;color:#5A564C;line-height:1.38}
+  .menu{width:200px;background:#FAF5EA;border:1px solid #12293F;border-radius:2px;box-shadow:2px 2px 0 #12293F}
+  .cap{height:24px;display:flex;align-items:center;padding:0 12px 0 36px;border-bottom:1px solid #12293F;font:700 10px/12px Archivo;font-stretch:75%;letter-spacing:.12em;color:#5A564C}
+  .opt{display:grid;grid-template-columns:18px 1fr;align-items:center;column-gap:6px;height:40px;padding:0 12px 0 10px;border-bottom:1px solid #D8CEBA;font:700 13px/16px Archivo;font-stretch:75%;letter-spacing:.05em;color:#12293F;box-sizing:border-box}
+  .opt:last-child{border-bottom:none}
+  .ledger{width:358px;background:#FAF5EA;border:1px solid #D8CEBA}
+  .lrow{display:grid;grid-template-columns:18px 1fr auto 44px;align-items:center;column-gap:6px;height:45px;padding-left:10px;border-bottom:1px solid #D8CEBA;box-sizing:border-box;font:700 13px/16px Archivo;font-stretch:75%;letter-spacing:.05em;color:#12293F}
+  .lrow:last-child{border-bottom:none}
+  .cnt{font:700 11px Archivo;font-stretch:75%;letter-spacing:.08em;color:#5A564C}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:0 10px}
+  .cell{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;background:#F2EFE9}
+  .lbl{font-size:8.5px;color:#5A564C;text-align:center}
+</style></head><body>
+<div class="wrap" id="w"></div>
+<script src="../lib/fixture-data.js"></script><script src="../lib/marks.js"></script>
+<script>
+TM.install();
+const {INK,C,use,pin,row}=TM;
+const w=document.getElementById('w');
+const add=(id,html)=>{const d=document.createElement('div');d.id=id;d.innerHTML=html;w.appendChild(d);};
+const L=(id,px,col='#12293F')=>use('l-'+id,px,col);
+// sort menu, new, same 40px rows
+add('sort-new',`<div class="menu"><div class="cap">SORT BY</div>${['A–Z','CATEGORY','NEAREST','WHAT’S LEFT','STARRED','NEWEST'].map((t,i)=>`<div class="opt"><span>${i===0?L('check',18):''}</span><span>${t}</span></div>`).join('')}</div>`);
+add('ledger-new',`<div class="ledger"><div class="lrow"><span>${L('check',18)}</span><span>GATE PLAN</span><span class="cnt">3 STOPS</span><span style="display:flex;justify-content:center">${L('more',20)}</span></div><div class="lrow"><span>${L('plus',18)}</span><span style="color:#5A564C">NEW PLAN</span><span></span><span></span></div></div>`);
+// approx tell, both ways
+function approxGrid(mode){ window.TM_APPROX=mode; const cells=[['near',{cat:'restaurant',approx:1}],['near ★',{cat:'restaurant',approx:1,starred:1}],['far',{cat:'restaurant',approx:1,size:16}],['district',{cat:'district',approx:1}],['street',{cat:'street',approx:1}]]; const h=cells.map(([l,o])=>`<div class="cell">${pin('C',o)}<span class="lbl">${l}</span></div>`).join(''); const ref=`<div class="cell">${pin('C',{cat:'restaurant'})}<span class="lbl">plain open</span></div>`; return h; }
+const dashRow=approxGrid('dash'), longRow=approxGrid('long'); window.TM_APPROX='long';
+add('approx',`<div class="sheet"><h1>Approximate pin: the tell</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">Steer 1: the dashed rim is the loudest open pin on the maps. Top: sheet 2's dashes. Bottom: a rim broken into 3 long segments: quieter, still clearly "not exact". Real size, stand-in tile. The 3-segment version is what the B, C and D maps now use.</p><div style="padding:0 12px 3px;font-size:10px;font-weight:700">DASHES (sheet 2)</div><div class="grid">${dashRow}</div><div style="padding:8px 12px 3px;font-size:10px;font-weight:700">3 LONG SEGMENTS (proposed)</div><div class="grid">${longRow}</div><div style="display:flex;gap:10px;align-items:center;padding:10px 12px 0"><span class="lbl">plain open pin, for reference</span><span style="background:#F2EFE9;padding:4px">${pin('C',{cat:'restaurant'})}</span></div></div>`);
+// left column axis: a list mixing every left-column mark (measured afterwards)
+const P=id=>FX.places.find(p=>p.id===id);
+const rowsC=[[8,{visited:false}],[3,{visited:true}],[2,{visited:true,starred:true}],[22,{visited:false}],[13,{visited:true}],[19,{visited:true}],[21,{visited:false}]].map(([id,st])=>row('C',P(id),Object.assign({starred:P(id).starred},st),{})).join('');
+const plan=[5,3,12].map((id,i)=>row('C',P(id),{visited:[3,5].includes(id),starred:P(id).starred},{}).replace('<div style="width:28px;','<div style="width:14px;flex:none;text-align:center;font:600 15px/1 Archivo;color:#8C8678">'+(i+1)+'</div><div style="width:28px;')).join('');
+add('axis',`<div class="sheet" style="padding-bottom:0"><div style="width:390px">${rowsC}</div></div>`);
+add('axis-plan',`<div class="sheet" style="padding-bottom:0"><div style="width:390px">${plan}</div></div>`);
+document.fonts.ready.then(()=>setTimeout(()=>document.title='ready',300));
+</script></body></html>

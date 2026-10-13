@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- Concept B (second run): gate strip + near maps. Draft, not reviewed. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#ddd;font-family:Archivo,Arial,sans-serif;color:#1A1A18}
+  .wrap{display:flex;flex-wrap:wrap;gap:20px;padding:20px;align-items:flex-start}
+  .sheet{width:390px;background:#F2EBDD;padding-bottom:12px}
+  .sheet h1{font-size:15px;margin:0;padding:12px 12px 2px;letter-spacing:.06em;text-transform:uppercase}
+  .draft{display:inline-block;margin:4px 12px 0;font-size:9px;font-weight:700;letter-spacing:.1em;color:#A8400C;border:1px solid #A8400C;padding:2px 5px}
+  .sub{font-size:10.5px;margin:4px 12px 8px;color:#5A564C;line-height:1.38}
+  table{border-collapse:collapse;margin:0 8px;width:374px;font-size:9.5px}
+  td,th{padding:3px 2px;border-bottom:1px solid #D8CEBA;text-align:center;vertical-align:middle}
+  th{font-size:8px;letter-spacing:.05em;color:#5A564C;font-weight:700}
+  td.l{text-align:left}
+  .t{background:#F2EFE9}
+</style></head><body>
+<div class="wrap" id="w"></div>
+<script src="../lib/fixture-data.js"></script><script src="../lib/marks.js"></script>
+<script>
+TM.install();
+const {INK,C,use,pin,phone}=TM;
+const w=document.getElementById('w');
+const add=(id,html)=>{const d=document.createElement('div');d.id=id;d.innerHTML=html;w.appendChild(d);};
+const sheet=(t,sub,inner)=>`<div class="sheet"><h1>${t}</h1><span class="draft">DRAFT · NOT REVIEWED</span><p class="sub">${sub}</p>${inner}</div>`;
+const L=h=>TM.hex2lab(h)[0].toFixed(0);
+let rows=Object.keys(INK).map(c=>{const k=INK[c],r=TM.reprint(k);
+ return `<tr><td class="l">${c}</td><td class="t">${pin('B',{cat:c})}</td><td class="t">${pin('B',{cat:c,visited:1})}</td><td class="t"><span style="opacity:.4;display:inline-block">${pin('B',{cat:c})}</span></td><td class="t" style="background:#FAF5EA">${use('n-'+c,12,'#8C8678')}</td><td>${L(k)} → ${L(r)}</td><td>${TM.contrast(r,C.paper).toFixed(1)}</td></tr>`}).join('');
+add('gate',sheet('B · the 1x gate','Every category\'s reprint ink at one lightness (L* 56, the lightest that keeps ≥ 3:1 on paper), hue kept, a paper mix, never opacity. Beside it: the same open pin at the app\'s 40% "unavailable" look, and the inactive filter chip\'s grey glyph. Real size. If any two columns can\'t be told apart, B dies here.',
+ `<table><tr><th class="l">category</th><th>open</th><th>visited<br>(reprint)</th><th>40%<br>unavailable</th><th>chip<br>off</th><th>L* open → visited</th><th>on paper</th></tr>${rows}</table>`));
+for(const m of ['halfway','lastDay']){ add('near-today-'+m,phone('today',m,FX,{})); add('near-B-'+m,phone('B',m,FX,{})); }
+document.fonts.ready.then(()=>setTimeout(()=>document.title='ready',300));
+</script></body></html>

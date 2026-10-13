@@ -14,7 +14,7 @@
 window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.84, "bar": 1, "attraction": 1.005, "nature": 0.987, "shopping": 0.84, "area": 0.846, "hotel": 0.926, "other": 1.041, "district": 1.005, "street": 1.051}; // measured by measure.html -> opt-measure.json (2026-10-13)
 (function () {
   const INK = { restaurant: '#7A2436', cafe: '#6E4C22', bar: '#3D5A7A', attraction: '#547326', nature: '#1E3A2B', shopping: '#8A7AA8', area: '#2B3F52', hotel: '#2E2433', other: '#4F5450', district: '#328177', street: '#5E2C17' };
-  const EDGE = 'rgba(112,84,46,.34)';   // C: the disc's warm 1px edge
+  const EDGE = 'rgba(112,84,46,.22)';   // C: the disc's warm 1px edge
   const C = { paper: '#F2EBDD', raised: '#FAF5EA', hair: '#D8CEBA', ink: '#1A1A18', ink2: '#5A564C', navy: '#12293F', or: '#EE7434', ord: '#A8400C', stk: '#3A4C5B', stkD: '#52636F', cream: '#F4ECD8', tile: '#F2EFE9' };
   const STAR = 'M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z';
   const CHECK_I = 'M0.75 12.09Q0.05 12.80 0.75 13.51L8.90 21.66Q9.61 22.36 10.28 21.62L23.28 7.33Q23.95 6.59 23.21 5.92L20.03 3.02Q19.29 2.35 18.62 3.09L10.06 12.50Q9.39 13.24 8.68 12.53L5.21 9.05Q4.50 8.35 3.79 9.05Z';
@@ -90,7 +90,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
   function hex2lab(h) { const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(h.substr(i, 2), 16))); const X = (r * .4124 + g * .3576 + b * .1805) / .95047, Y = r * .2126 + g * .7152 + b * .0722, Z = (r * .0193 + g * .1192 + b * .9505) / 1.08883; const f = t => t > .008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116; return [116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z))]; }
   function lab2rgb(L, a, b) { const fy = (L + 16) / 116, fx = fy + a / 500, fz = fy - b / 200; const fi = t => t * t * t > .008856 ? t * t * t : (t - 16 / 116) / 7.787; const X = fi(fx) * .95047, Y = fi(fy), Z = fi(fz) * 1.08883; const r = X * 3.2406 - Y * 1.5372 - Z * .4986, g = -X * .9689 + Y * 1.8758 + Z * .0415, bb = X * .0557 - Y * .2040 + Z * 1.0570; return [r, g, bb]; }
   function lch2hex(L, C, H) { let lo = 0, hi = C; const inG = c => lab2rgb(L, c * Math.cos(H), c * Math.sin(H)).every(v => v >= -.001 && v <= 1.001); if (inG(C)) lo = C; else { for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; inG(m) ? lo = m : hi = m; } } const [r, g, b] = lab2rgb(L, lo * Math.cos(H), lo * Math.sin(H)); return '#' + [r, g, b].map(v => gam(v).toString(16).padStart(2, '0')).join(''); }
-  const REPRINT_L = 62;   // B: visited lightness (L*). Paper is ~93.
+  const REPRINT_L = 56;   // B: visited lightness (L*). Paper is ~93. 56 is the lightest that keeps >= 3:1 on paper.
   function reprint(h, L = REPRINT_L) { const [l, a, b] = hex2lab(h); return lch2hex(Math.max(l, L), Math.hypot(a, b), Math.atan2(b, a)); }
   function relLum(h) { const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(h.substr(i, 2), 16))); return .2126 * r + .7152 * g + .0722 * b; }
   function contrast(a, b) { const x = relLum(a), y = relLum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); }
@@ -162,71 +162,84 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
   // a soft contact shadow under the lifted edge). o.dSize = sticker diameter in CSS px.
   function sticker(o, far, size) {
     const d = far ? Math.min(o.dSize || 16, 11) : (o.dSize || 16), sc = d / 22, k = uid('sk');
-    const tilt = ((hash(o.seed || 1) * 2 - 1) * 8).toFixed(1), corner = Math.floor(hash((o.seed || 1) + 99) * 4) * 90 + 200;
+    const tilt = ((hash(o.seed || 1) * 2 - 1) * 8).toFixed(1), corner = [0, 90, 180, 270][Math.floor(hash((o.seed || 1) + 99) * 4)] + 180;
     const face = o.glyphFace ? gIn('n-' + o.cat, 11.5, C.cream) : gIn('i-check', 9.5, C.cream);
     // geometry in a 24 box, radius 11; the flap cuts a chord near the lower-left and folds over it
     const showFace = !(far || d < 13);
-    return `<g transform="translate(12 12) scale(${(sc * 24 / size * (size / 24)).toFixed(3)}) rotate(${corner + +tilt}) translate(-12 -12)">
+    return `<g transform="translate(12 12) scale(${(d * 24 / (size * 22)).toFixed(3)}) rotate(${corner + +tilt}) translate(-12 -12)">
       <defs><filter id="${k}f" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx=".3" dy=".6" stdDeviation=".55" flood-color="#000" flood-opacity=".24"/></filter>
       <clipPath id="${k}c"><path d="M-2 -2H26V26H-2Z M3.2 18.6L9.8 22.4L-2 26Z"/></clipPath></defs>
-      <g filter="url(#${k}f)"><path d="M12 1A11 11 0 0 1 22.9 12A11 11 0 0 1 10.2 22.85L3.1 18.45A11 11 0 0 1 12 1Z" fill="${C.stkD}"/></g>
-      <path d="M3.1 18.45L10.2 22.85Q8.6 16.6 3.1 18.45Z" fill="#C9CFD4"/>
-      <path d="M3.1 18.45Q8.6 16.6 10.2 22.85" fill="none" stroke="rgba(0,0,0,.18)" stroke-width=".5"/>
+      <g filter="url(#${k}f)"><path d="M12 1a11 11 0 1 1-10.2 6.9L8.5 4A11 11 0 0 1 12 1z" fill="${C.stkD}"/><path d="M1.8 7.9L8.5 4 3.4 3.2Z" fill="#8E9DA9"/></g>
+      <path d="M1.8 7.9L8.5 4" fill="none" stroke="rgba(0,0,0,.16)" stroke-width=".5"/>
       <g transform="rotate(${-(corner + +tilt)} 12 12)">${showFace ? face : ''}</g></g>`;
   }
   const numTxt = (n, col = C.ink2, op = 1) => `<text x="12" y="16.4" text-anchor="middle" font-size="${n > 9 ? 10.5 : 12.5}" font-weight="700" fill="${col}" opacity="${op}" font-family="Archivo,Arial">${n}</text>`;
   const svgWrap = (S, defs, body) => `<svg width="${S}" height="${S}" viewBox="0 0 24 24" overflow="visible" style="overflow:visible;display:block"><defs>${defs}</defs>${body}</svg>`;
 
   // ---------- clusters ----------
+  // style: 'today' | 'orange' | 'ink'; o: {n, openStar, allVisited, model}
   function cluster(style, o) {
     const n = o.n, w = n > 9 ? 24 : 22;
     let b;
+    const txtEl = (col, op = 1) => `<text x="12" y="15.7" text-anchor="middle" font-size="10.5" font-weight="700" fill="${col}" opacity="${op}" font-family="Archivo,Arial">${n}</text>`;
     if (style === 'today') b = `<circle cx="12" cy="12" r="11" fill="${C.ord}" stroke="${C.paper}" stroke-width="2"/><text x="12" y="15.6" text-anchor="middle" font-size="10" font-weight="700" fill="${C.paper}" font-family="Archivo,Arial">${n}</text>`;
+    else if (o.allVisited && o.model === 'C') b = `<circle cx="14.4" cy="9.6" r="9.2" fill="${C.paper}" stroke="${EDGE}" stroke-width="1"/><circle cx="12" cy="12" r="10.9" fill="${C.paper}" stroke="${EDGE}" stroke-width="1"/><g transform="rotate(${tiltOf(n * 7)} 12 12)">${txtEl(C.ink2)}</g>`;
+    else if (o.allVisited && o.model === 'D') { const kk = uid('cd'); b = `<g transform="translate(12 12) scale(.72) translate(-12 -12)"><circle cx="12" cy="12" r="11" fill="${C.stkD}"/></g>${txtEl(C.cream)}`; }
     else {
       const col = style === 'orange' ? C.or : C.ink2, txt = style === 'orange' ? C.ord : C.ink;
-      const recede = o.allVisited ? .5 : 0;
-      const rc = mix(col, C.paper, recede), tc = mix(txt, C.paper, recede);
-      b = `<circle cx="14.6" cy="9.4" r="9" fill="${C.paper}" stroke="${mix(rc, C.paper, .35)}" stroke-width="1.2"/><circle cx="12" cy="12" r="10" fill="${C.paper}" stroke="${rc}" stroke-width="2"/><text x="12" y="15.7" text-anchor="middle" font-size="10.5" font-weight="700" fill="${tc}" font-family="Archivo,Arial">${n}</text>`;
+      const rc = o.allVisited ? reprint(col, 70) : col, tc = o.allVisited ? reprint(txt, 62) : txt;
+      b = `<circle cx="14.6" cy="9.4" r="9" fill="${C.paper}" stroke="${mix(rc, C.paper, .35)}" stroke-width="1.2"/><circle cx="12" cy="12" r="10" fill="${C.paper}" stroke="${rc}" stroke-width="2"/>${txtEl(tc)}`;
     }
     let defs = '';
-    if (o.openStar) { const s = rimStar(style === 'today' ? 20 : 12, style === 'today' ? 3 : 1.2, 10, C.or); if (style === 'today') { b += `<g transform="translate(15 -3) scale(.45)"><path d="${STAR}" fill="${C.or}" stroke="${C.paper}" stroke-width="5" paint-order="stroke"/></g>`; } else { defs = s.mask; b = `<g mask="url(#${s.id})">${b}</g>${s.star}`; } }
+    if (o.openStar) { if (style === 'today') b += `<g transform="translate(15 -3) scale(.45)"><path d="${STAR}" fill="${C.or}" stroke="${C.paper}" stroke-width="5" paint-order="stroke"/></g>`; else { const s2 = rimStar(12, 1.2, 10, C.or); defs = s2.mask; b = `<g mask="url(#${s2.id})">${b}</g>${s2.star}`; } }
+    else if (o.anyStar && style === 'today') b += `<g transform="translate(15 -3) scale(.45)"><path d="${STAR}" fill="${C.or}" stroke="${C.paper}" stroke-width="5" paint-order="stroke"/></g>`;
     return svgWrap(w, defs, b);
   }
 
-  // ---------- stand-in basemap (OSM-Carto colours) for the near frame ----------
-  function basemap(w = 390, h = 545) {
+  // ---------- stand-in basemap (OSM-Carto colours), one world in near-frame px ----------
+  const FRAMES = { near: { s: 1, ax: 195, ay: 272.5 }, mid: { s: .5, ax: 254, ay: 287 }, far: { s: .125, ax: 236, ay: 269.5 } };
+  function basemap(w = 390, h = 545, frame = 'near') {
+    const F = FRAMES[frame], S = F.s, rw = Math.pow(S, -.5);
     let r = 7; const rnd = () => { r = (r * 16807) % 2147483647; return r / 2147483647; };
-    let s = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="position:absolute;left:0;top:0"><rect width="${w}" height="${h}" fill="#F2EFE9"/>`;
-    // building blocks
-    for (let i = 0; i < 230; i++) { const x = rnd() * w, y = 110 + rnd() * (h - 110), bw = 7 + rnd() * 16, bh = 6 + rnd() * 12; s += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" fill="#D9D0C9" stroke="#C4B6AB" stroke-width=".5" transform="rotate(${(rnd() * 16 - 8).toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`; }
-    // park (Hljómskálagarður) + small green
+    let s = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="position:absolute;left:0;top:0"><rect width="${w}" height="${h}" fill="#F2EFE9"/><g transform="translate(${F.ax} ${F.ay}) scale(${S}) translate(-195 -272.5)">`;
+    const coastN = [[-1150, 200], [-1000, -260], [-880, -330], [-780, -220], [-650, -60], [-420, 40], [-160, 50], [-70, -45], [95, -45], [112, 129], [150, 126], [192, 142], [222, 164], [262, 190], [300, 216], [332, 212], [390, 206], [600, 236], [900, 280], [1300, 300], [1700, 250], [2400, 200], [4000, 260]];
+    const coastY = x => { for (let i = 1; i < coastN.length; i++) { const [x0, y0] = coastN[i - 1], [x1, y1] = coastN[i]; if (x >= x0 && x <= x1) return y0 + (y1 - y0) * (x - x0) / (x1 - x0); } return 9999; };
+    // buildings (dense near the centre, none at far zoom)
+    if (S >= .5) { const X0 = S === 1 ? -20 : -420, X1 = S === 1 ? 410 : 820, Y0 = -60, Y1 = S === 1 ? 560 : 860; const N = S === 1 ? 260 : 1400;
+      for (let i = 0; i < N; i++) { const x = X0 + rnd() * (X1 - X0), y = Y0 + rnd() * (Y1 - Y0), bw = 7 + rnd() * 16, bh = 6 + rnd() * 12; if (y < coastY(x) + 6) continue; s += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" fill="#D9D0C9" stroke="#C4B6AB" stroke-width=".5" transform="rotate(${(rnd() * 16 - 8).toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`; } }
+    // parks + pond
     s += `<path d="M22 372 L128 380 L140 470 L36 484 Z" fill="#C8FACC" stroke="#B4E2B8" stroke-width=".8"/><path d="M300 120 L340 150 L320 175 L292 150Z" fill="#C8FACC"/><path d="M330 410 L384 404 L388 470 L338 476Z" fill="#CDEBB0"/>`;
-    // pond (Tjörnin)
+    s += `<path d="M520 520 L700 500 L720 640 L540 660Z" fill="#C8FACC"/><path d="M-300 700 L-80 690 L-60 900 L-320 880Z" fill="#CDEBB0"/><path d="M900 700 L1250 650 L1300 1000 L950 1050Z" fill="#C8FACC"/><path d="M-900 500 L-700 480 L-650 640 L-880 650Z" fill="#CDEBB0"/>`;
     s += `<ellipse cx="54" cy="322" rx="26" ry="44" fill="#AAD3DF" transform="rotate(8 54 322)"/>`;
-    // roads: residential grid (white with casing)
-    const road = (d, wdt, fill, casing) => `<path d="${d}" fill="none" stroke="${casing}" stroke-width="${wdt + 1.6}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${fill}" stroke-width="${wdt}" stroke-linecap="round" stroke-linejoin="round"/>`;
-    const res = ['M120 240 L360 210', 'M140 330 L390 300', 'M150 250 L176 420', 'M200 250 L222 420', 'M262 240 L290 470', 'M320 230 L350 420', 'M0 260 L130 250', 'M0 360 L150 350', 'M60 140 L90 260', 'M150 380 L390 360', 'M0 500 L390 520', 'M180 460 L250 545', 'M330 300 L390 400'];
-    res.forEach(d => s += road(d, 4, '#FFFFFF', '#D6CFC2'));
-    s += road('M150 292 L390 266', 5.5, '#F7FABF', '#C9CC9A');            // Laugavegur (secondary)
-    s += road('M196 300 L258 386', 5.5, '#F7FABF', '#C9CC9A');            // Skólavörðustígur
-    s += road('M128 196 L112 334', 5.5, '#F7FABF', '#C9CC9A');            // Lækjargata
-    s += road('M0 196 L210 205 L390 236', 7.5, '#FCD6A4', '#D9A46A');     // primary, under pin 1
-    s += road('M0 404 L200 425 L390 452', 8.5, '#F9B29C', '#D98A72');     // trunk (Hringbraut), under pin 14
-    // sea (drawn after roads so the coast is clean)
-    s += `<path d="M0 0 H390 V206 L332 212 L300 216 L262 190 L222 164 L192 142 L150 126 L112 129 L84 98 L44 86 L0 92 Z" fill="#AAD3DF"/>`;
-    s += `<rect x="30" y="66" width="6" height="34" fill="#E8E2D8"/><rect x="58" y="60" width="5" height="40" fill="#E8E2D8"/><rect x="98" y="88" width="30" height="5" fill="#E8E2D8"/>`;
-    // OSM-style POI icons (brown/grey, upright, ~14px): near pins 2, 8, 6
-    const poi = (x, y, kind) => {
-      const col = kind === 'museum' ? '#734A08' : '#C77400';
-      const g = kind === 'cup' ? `<path d="M3 4h7v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z M10 5h1.2a1.6 1.6 0 0 1 0 3.2H10" fill="${col}" stroke="${col}" stroke-width=".8"/><rect x="2.5" y="12" width="9" height="1.2" fill="${col}"/>`
-        : kind === 'fork' ? `<path d="M4 2v5a1.6 1.6 0 0 0 1.2 1.5V13h1.4V8.5A1.6 1.6 0 0 0 7.8 7V2h-.9v4H6.4V2h-.8v4h-.6V2Z M9.5 2c1.6 0 2.4 2.2 2.4 4.8H10.6V13H9.4Z" fill="${col}"/>`
-        : `<path d="M7 1.5L13 5H1Z M2 6h10v.9H2Z M2.6 7.6h1.3v4H2.6Z M6.35 7.6h1.3v4H6.35Z M10.1 7.6h1.3v4h-1.3Z M1.5 12.2h11v1.2h-11Z" fill="${col}"/>`;
-      return `<g transform="translate(${x} ${y})">${g}</g>`;
-    };
-    s += poi(256, 318, 'cup') + poi(196, 286, 'fork') + poi(200, 160, 'museum') + poi(150, 236, 'cup') + poi(300, 370, 'fork');
-    // labels
-    const lab = (x, y, t, rot = 0, it = false, col = '#6B6B6B') => `<text x="${x}" y="${y}" font-size="8.5" fill="${col}" font-family="Arial" ${it ? 'font-style="italic"' : ''} transform="rotate(${rot} ${x} ${y})" stroke="#F2EFE9" stroke-width="2.4" paint-order="stroke">${t}</text>`;
-    s += lab(300, 262, 'Laugavegur', -6) + lab(214, 344, 'Skólavörðustígur', 54) + lab(18, 202, 'Mýrargata', 2) + lab(250, 444, 'Hringbraut', 7) + lab(120, 60, 'Faxaflói', 0, true, '#4A7FA0') + lab(36, 330, 'Tjörnin', 0, true, '#4A7FA0');
+    const road = (d, wdt, fill, casing) => `<path d="${d}" fill="none" stroke="${casing}" stroke-width="${(wdt + 1.6) * rw}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${fill}" stroke-width="${wdt * rw}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    if (S >= .5) {
+      const res = ['M120 240 L360 210', 'M140 330 L390 300', 'M150 250 L176 420', 'M200 250 L222 420', 'M262 240 L290 470', 'M320 230 L350 420', 'M0 260 L130 250', 'M0 360 L150 350', 'M60 140 L90 260', 'M150 380 L390 360', 'M0 500 L390 520', 'M180 460 L250 545', 'M330 300 L390 400'];
+      if (S < 1) res.push('M-400 300 L0 260', 'M-380 420 L0 400', 'M-300 200 L-260 640', 'M400 300 L800 340', 'M420 420 L800 470', 'M500 260 L560 700', 'M650 280 L700 720', 'M-200 560 L400 600', 'M0 640 L800 700', 'M-150 150 L-120 600');
+      res.forEach(d => s += road(d, 4, '#FFFFFF', '#D6CFC2'));
+      s += road('M150 292 L390 266', 5.5, '#F7FABF', '#C9CC9A') + road('M196 300 L258 386', 5.5, '#F7FABF', '#C9CC9A') + road('M128 196 L112 334', 5.5, '#F7FABF', '#C9CC9A');
+    }
+    s += road('M390 266 L700 250 L1100 240', 5.5, '#F7FABF', '#C9CC9A') + road('M-500 330 L0 300 L150 292', 5.5, '#F7FABF', '#C9CC9A');
+    s += road('M-700 190 L0 196 L210 205 L390 236 L900 300 L1700 330', 7.5, '#FCD6A4', '#D9A46A');
+    s += road('M-900 380 L0 404 L200 425 L390 452 L900 520 L1700 560 L2600 600', 8.5, '#F9B29C', '#D98A72');
+    s += road('M1300 300 L1340 900 L1400 1600', 8.5, '#F9B29C', '#D98A72') + road('M600 450 L560 1400', 7.5, '#FCD6A4', '#D9A46A');
+    // sea north + west + south (Skerjafjörður)
+    s += `<path d="M-4000 -4000 H5000 V260 ${coastN.slice().reverse().map(p => 'L' + p[0] + ' ' + p[1]).join(' ')} L-1150 200 L-1100 900 L-1200 1300 L-4000 1300 Z" fill="#AAD3DF"/>`;
+    s += `<path d="M-4000 1000 L-1000 960 L-400 1050 L200 1120 L700 1250 L1300 1500 L2000 1520 L5000 1400 V5000 H-4000 Z" fill="#AAD3DF"/>`;
+    s += '</g>';
+    if (frame === 'near') {
+      const poi = (x, y, kind) => {
+        const col = kind === 'museum' ? '#734A08' : '#C77400';
+        const g = kind === 'cup' ? `<path d="M3 4h7v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z M10 5h1.2a1.6 1.6 0 0 1 0 3.2H10" fill="${col}" stroke="${col}" stroke-width=".8"/><rect x="2.5" y="12" width="9" height="1.2" fill="${col}"/>`
+          : kind === 'fork' ? `<path d="M4 2v5a1.6 1.6 0 0 0 1.2 1.5V13h1.4V8.5A1.6 1.6 0 0 0 7.8 7V2h-.9v4H6.4V2h-.8v4h-.6V2Z M9.5 2c1.6 0 2.4 2.2 2.4 4.8H10.6V13H9.4Z" fill="${col}"/>`
+          : `<path d="M7 1.5L13 5H1Z M2 6h10v.9H2Z M2.6 7.6h1.3v4H2.6Z M6.35 7.6h1.3v4H6.35Z M10.1 7.6h1.3v4h-1.3Z M1.5 12.2h11v1.2h-11Z" fill="${col}"/>`;
+        return `<g transform="translate(${x} ${y})">${g}</g>`;
+      };
+      s += poi(256, 318, 'cup') + poi(196, 286, 'fork') + poi(200, 160, 'museum') + poi(150, 236, 'cup') + poi(300, 370, 'fork');
+    }
+    const lab = (x, y, t, rot = 0, it = false, col = '#6B6B6B', fs = 8.5) => `<text x="${x}" y="${y}" font-size="${fs}" fill="${col}" font-family="Arial" ${it ? 'font-style="italic"' : ''} transform="rotate(${rot} ${x} ${y})" stroke="#F2EFE9" stroke-width="2.4" paint-order="stroke">${t}</text>`;
+    if (frame === 'near') s += lab(300, 262, 'Laugavegur', -6) + lab(214, 344, 'Skólavörðustígur', 54) + lab(18, 202, 'Mýrargata', 2) + lab(250, 444, 'Hringbraut', 7) + lab(120, 60, 'Faxaflói', 0, true, '#4A7FA0') + lab(36, 330, 'Tjörnin', 0, true, '#4A7FA0');
+    else if (frame === 'mid') s += lab(250, 120, 'Faxaflói', 0, true, '#4A7FA0') + lab(280, 470, 'Hringbraut', 6) + lab(60, 330, 'Vesturbær', 0, false, '#555', 9);
+    else s += lab(150, 120, 'Faxaflói', 0, true, '#4A7FA0', 10) + lab(200, 300, 'REYKJAVÍK', 0, false, '#444', 10) + lab(120, 420, 'Skerjafjörður', 0, true, '#4A7FA0', 9);
     s += `<g><rect x="6" y="${h - 22}" width="174" height="15" fill="rgba(255,255,255,.82)"/><text x="11" y="${h - 11}" font-size="9" font-weight="700" fill="#A8400C" font-family="Arial">STAND-IN BASEMAP, NOT REAL OSM TILES</text></g>`;
     return s + '</svg>';
   }
@@ -254,7 +267,7 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
       const tilt = tiltOf(p.id);
       badge = `<svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">${gIn('n-' + p.category, 17, sel ? C.paper : k, ` rotate(${tilt})`)}</svg>`;
     } else if (model === 'B' && v) {
-      const t = mix(k, C.paper, .52);
+      const t = reprint(k);
       badge = `<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2" fill="${C.paper}" stroke="${t}" stroke-width="1.6"/>${gIn('n-' + p.category, 16, t, ' translate(.8 .6)')}</svg>`;
     } else {
       badge = shapeCat ? `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 1.6L22.4 12L12 22.4L1.6 12Z" fill="${C.paper}" stroke="${sel ? C.paper : k}" stroke-width="2" stroke-linejoin="round"/>${gIn('n-' + p.category, 11, k)}</svg>`
@@ -274,13 +287,19 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     const vis = new Set(fx.moments[moment]);
     const W = 390, MH = 545;
     let pins = '';
-    const places = fx.places.filter(p => p.pos.near);
-    // draw order: visited first (under), then open; starred last
-    const ordered = places.slice().sort((a, b) => (vis.has(b.id) - vis.has(a.id)) || (a.starred - b.starred) || (a.pos.near[1] - b.pos.near[1]));
+    const frame = opts.frame || 'near', psize = frame === 'far' ? 16 : 24;
+    const places = fx.places.filter(p => p.pos[frame] && !p.pos[frame + 'Clustered']);
+    const ordered = places.slice().sort((a, b) => (vis.has(b.id) - vis.has(a.id)) || ((a.starred && !vis.has(a.id)) - (b.starred && !vis.has(b.id))) || (a.pos[frame][1] - b.pos[frame][1]));
     for (const p of ordered) {
-      const [x, y] = p.pos.near;
-      const svg = pin(model, { cat: p.category, size: 24, visited: vis.has(p.id), starred: p.starred, approx: p.approx, seed: p.id, selected: opts.selected === p.id, pad: opts.pad });
+      const [x, y] = p.pos[frame];
+      const svg = pin(model, { cat: p.category, size: psize, visited: vis.has(p.id), starred: p.starred, approx: p.approx, seed: p.id, selected: opts.selected === p.id, farDot: opts.farDot, dSize: opts.dSize });
       pins += `<div style="position:absolute;left:${x}px;top:${y}px;transform:translate(-50%,-50%)">${svg}</div>`;
+    }
+    for (const cl of (fx.clusters[frame] || [])) {
+      const mem = cl.members.map(id => fx.places.find(q => q.id === id));
+      const allV = mem.every(m => vis.has(m.id)), openStar = mem.some(m => m.starred && !vis.has(m.id)), anyStar = mem.some(m => m.starred);
+      const style = model === 'today' ? 'today' : (opts.clusterStyle || 'orange');
+      pins += `<div style="position:absolute;left:${cl.pos[0]}px;top:${cl.pos[1]}px;transform:translate(-50%,-50%)">${cluster(style, { n: cl.members.length, allVisited: allV, openStar, anyStar, model })}</div>`;
     }
     const today = model === 'today';
     const zoom = today
@@ -297,11 +316,34 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
     const collapse = today ? `<span style="font:400 14px/1 Arial;color:${ink}">▼</span>` : use('l-chev', 20, ink);
     const header = `<div style="height:58px;display:flex;align-items:center;gap:14px;padding:0 16px 0 18px;background:#F0E7D8;border-top:1px solid ${C.hair}">${collapse}<span style="flex:1;font:700 16px/1 Archivo,Arial;font-stretch:87.5%;letter-spacing:.1em;color:${ink};padding-left:6px;white-space:nowrap">REYKJAVÍK LIST (27)</span><span style="display:flex;gap:22px;align-items:center">${hdrIcons}</span></div>`;
     const rowIds = opts.rows || [1, 2, 3, 8, 14];
-    const rows = rowIds.map(id => { const p = fx.places.find(q => q.id === id); return row(model, p, { visited: vis.has(id), starred: p.starred }, { selected: opts.selected === id, stamp: opts.stamp }); }).join('');
+    const rows = rowIds.map(id => { const p = fx.places.find(q => q.id === id); return row(model, p, { visited: vis.has(id), starred: p.starred }, { selected: opts.selected === id, stamp: opts.stamp, rowModel: opts.rowModel }); }).join('');
     return `<div class="phone" style="position:relative;width:${W}px;height:844px;overflow:hidden;background:${C.paper};font-family:Archivo,Arial">
-      <div style="position:absolute;left:0;top:0;width:${W}px;height:${MH}px;overflow:hidden">${basemap(W, MH)}${pins}${zoom}${seals}${attrib}</div>
+      <div style="position:absolute;left:0;top:0;width:${W}px;height:${MH}px;overflow:hidden">${basemap(W, MH, frame)}${pins}${zoom}${seals}${attrib}</div>
       <div style="position:absolute;left:0;top:${MH}px;width:${W}px">${header}${rows}</div></div>`;
   }
 
-  window.TM = { reprint, contrast, hex2lab, sticker, EDGE, INK, C, STAR, install, use, gIn, mix, hash, pin, cluster, basemap, phone, row, seal, stampHtml, rimStar, TODAY_G, NEW_G, LINE, TILT };
+  // ---------- Hanging Tag (simplified mock, for state comparison only) ----------
+  // o: {starred, visited, pin: svg string, today: bool, segOff: bool (40% swatch), press: 'star'|'visited', stampStyle: css}
+  function tag(p, o) {
+    const W = 300, ink = C.ink, today = o.today;
+    const band = o.starred ? C.or : '#EFE8DA';
+    const lbl = t => `<span style="font:700 12px/1.15 Archivo,Arial;letter-spacing:.1em;color:${ink};text-align:center">${t}</span>`;
+    const tStarOpen = today ? `<svg width="20" height="20" viewBox="0 0 24 24"><path d="${STAR}" fill="none" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/></svg>` : use('l-star', 20, ink);
+    const tCheck = today ? `<svg width="20" height="20" viewBox="0 0 24 24"><path d="${CHECK_I}" fill="none" stroke="${ink}" stroke-width="2.05" stroke-linejoin="round" transform="translate(2.4 2.4) scale(.8)"/></svg>` : use('l-check', 20, ink);
+    const tComp = use(today ? 'l-compass' : 'l-compass', 20, ink);
+    const seg = (inner, key) => `<div style="flex:1;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;${key && o.press === key ? 'background:#E6DDCB;' : ''}${key && o.segOff ? 'opacity:.4;' : ''}">${inner}</div>`;
+    const starSeg = o.starred ? seg(use('i-star', 20, C.or) + lbl('STARRED'), 'star') : seg(tStarOpen + lbl('STAR'), 'star');
+    const visSeg = o.visited ? seg(`<span style="${o.stampStyle || ''}">${stampHtml(1.05)}</span>`, 'visited') : seg(tCheck + lbl('MARK VISITED'), 'visited');
+    const x = today ? `<svg width="14" height="14" viewBox="0 0 24 24"><path d="M5 5L19 19M19 5L5 19" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/></svg>` : use('l-x', 16, ink);
+    return `<div style="position:relative;width:${W}px;padding-top:${o.pin ? 64 : 0}px">
+      ${o.pin ? `<div style="position:absolute;left:${W / 2}px;top:12px;transform:translate(-50%,-50%)">${o.pin}</div><div style="position:absolute;left:${W / 2 - .75}px;top:24px;width:1.5px;height:66px;background:#4a4a44"></div>` : ''}
+      <div style="position:relative;background:${C.raised};box-shadow:0 1px 3px rgba(0,0,0,.18);clip-path:polygon(16% 0,84% 0,100% 18px,100% 100%,0 100%,0 18px)">
+        <div style="height:38px;background:${band};display:flex;align-items:center;justify-content:center"><span style="width:44px;height:26px;background:rgba(255,255,255,.22);border-radius:3px;display:flex;align-items:center;justify-content:center"><span style="width:12px;height:12px;border-radius:50%;background:${C.paper};box-shadow:inset 0 0 0 2px rgba(0,0,0,.12)"></span></span></div>
+        <div style="padding:14px 18px 10px;display:flex;gap:8px"><div style="flex:1;font:700 27px/1.05 Archivo,Arial;font-stretch:62.5%;color:${ink}">${p.label}</div><div style="padding-top:4px">${x}</div></div>
+        <div style="padding:0 18px 14px;display:flex;align-items:baseline;gap:12px"><span style="font:400 11px/1 Archivo,Arial;letter-spacing:.14em;color:${C.ink2}">TYPE</span><span style="font:800 15px/1 Archivo,Arial;letter-spacing:.06em;color:#5f5a52;transform:rotate(-1.5deg);display:inline-block;opacity:.85">${p.category.toUpperCase()}</span></div>
+        <div style="border-top:1.5px dashed ${C.hair};margin:0 10px"></div>
+        <div style="display:flex">${seg(tComp + lbl('DIRECTIONS'))}<div style="border-left:1.5px dashed ${C.hair}"></div>${starSeg}<div style="border-left:1.5px dashed ${C.hair}"></div>${visSeg}</div>
+      </div></div>`;
+  }
+  window.TM = { tag, CHECK_I, reprint, contrast, hex2lab, sticker, EDGE, INK, C, STAR, install, use, gIn, mix, hash, pin, cluster, basemap, phone, row, seal, stampHtml, rimStar, TODAY_G, NEW_G, LINE, TILT };
 })();

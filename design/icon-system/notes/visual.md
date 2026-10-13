@@ -1,5 +1,66 @@
 # Visual designer notes: icon system
 
+## Where things stand (2026-10-13, after concept steer 1)
+
+Director steer 1 (jam.md "Concept steer 1"): C-prime became "C" (rim off,
+paper disc kept, warm 1px low-alpha edge, inked tilted glyph, tilt +-6);
+16->18 Line step accepted if nothing grows; D's size set by the peel; B gate
+= 11 reprint inks vs 40% vs chip-off; approx tell to be quieter; measure the
+row column axis.
+
+Built (all draft, all on the canvas, version 11):
+- lib v2 (`concepts/lib/marks.js`): C = disc + EDGE rgba(112,84,46,.22)
+  (first try .34 read as a ring at 3x); TILT 6; B reprint() = CIELAB, every
+  category to L* 56 (lightest with >= 3:1 on paper), hue kept, chroma
+  clamped; D sticker() with the shipped flap geometry, face #52636F, flap
+  underside #8E9DA9, size via o.dSize; approx = 3 long segments
+  (window.TM_APPROX = 'dash' for the old look); world basemap for
+  near/mid/far frames (FRAMES transform; coast covers Grandi and Grótta);
+  phone(..., {frame, clusterStyle, farDot, dSize}); cluster per model;
+  tag() mock.
+- C full set: `concepts/c/c-set.html` -> `concepts/c/set/c-*` (edge
+  check, near x3 + squints, mid halfway orange/ink, far lastDay
+  orange/ink/dot + detail, list today / stamp kept / struck word + Plans,
+  tag x4 + 40% board, storyboards tag / row / dry).
+- B: `concepts/b/b-set.html` -> `b/set/` (gate strip, near halfway/lastDay + squints).
+- D: `concepts/d/d-set.html?d=18` -> `d/set/` (size strip, near lastDay/halfway at 18 + squint).
+- Grammar extras: `concepts/grammar/grammar-extras.html` -> `gx-*`; composite
+  `gx-line18-*`, `gx-axis-overlay-*` made with PIL in Python (scratchpad script).
+- Canvas rows: Grammar y0 (sheet 2 + GrammarExtras), B y2400, C y4400
+  (near x3, edge, mid/far, list, tag, storyboards, POI check moved to the
+  end, retitled as why C bare was dropped), D y7000, Dropped (A) y9200.
+
+## Findings
+
+1. C: passes the squint at halfway and lastDay; the disc edge reads as a
+   coin edge, not a ring, after lowering the alpha. No OSM look-alike.
+2. C storyboard finding: from the tag the pin is always selected (navy
+   rim), so the peel of the printed rim can't show there; it shows from a
+   row swipe and when the pin isn't selected. Director/systems: accept, or
+   find a tag-side moment for the peel.
+3. B gate: reprint vs 40% vs chip-off are told apart. But open vs done
+   FAILS for shopping (L* 54 -> 56), and is weak for district (49) and
+   attraction (45). B needs those open inks darkened first (brand-token
+   pass), or it fails J2 for three categories.
+4. D: 14 notch, 16 borderline, 18 = the smallest real peel. At 18 the
+   lastDay squint still lands on stickers first. Fails its own premise; goes
+   to the owner as the "cost of keeping it" option.
+5. 18px Line step: sort rows stay 40, ledger rows 45; nothing grows.
+6. Left column: every mark's ink centre is within 0.7px of the column
+   centre horizontally; the cup sits 0.8px low (its saucer).
+7. Approx: 3 long segments are quieter than the dashes; now on every map.
+8. Grammar sheet 2's board still shows C-prime labels and approx dashes
+   (history); sheet 3 should fold in steer 1 if the director wants it.
+
+## Next
+
+Systems' C legend/matrix and B reverse-pull spec; director's READY and
+scoring. Open for me: B reverse-pull storyboard (once systems specs it),
+D storyboards (place, peel-off), B/D list + tag boards, grammar sheet 3.
+
+---
+
+
 ## Where things stand (2026-10-13, concept phase, report 1)
 
 Jam closed. Director's rulings (jam.md "Pass 2: design director: rulings"):
