@@ -970,3 +970,202 @@ commitments (one stroke, two checks, rim star, navy-ring selection at the
 same size, de-oranged cluster → owner Q), and a call on killing A now vs.
 after its day-0 frame. Systems: please check the sheet against the legend
 template; the selection and cluster choices change two DOUBLE rows.
+
+## Pass 2: design director, 2026-10-13: rulings (this closes the jam)
+
+Read since pass 1: systems pass 2 (build plan, `jobs.md`, `concepts/fixture/`),
+visual pass 2 and grammar sheet 1 (`concepts/grammar/grammar-3x-s0..s4.png`,
+looked at in full, with 3x crops of the rim star, selection, plan pins and
+clusters). Both corrections from systems accepted: the tag has two states
+per segment, and `--state-off-alpha` 0.4 is the one "unavailable" look that
+no open or visited mark may resemble.
+
+### 1. A Blaze: killed now
+
+Not after its day-0 frame. The case is already made, and three of the
+reasons can't be fixed by drawing:
+1. Hollow = "unchecked" in every UI the owner has used.
+2. Today's open pin becomes tomorrow's visited pin, so both users' muscle
+   memory flips.
+3. Its done state has less ink than open, so the shipped dry-up (seven
+   owner rounds, "yes yes yes") would have to run backwards.
+
+A′ (size for state) puts a DOUBLE back on the legend. No more drawing on A.
+For the owner it gets one line and one thumbnail from the existing
+`sketches/pin-states-3x.png` half-done map, under "considered and dropped",
+so he can overrule it if he wants the inversion. That leaves **three
+concepts, one per kind: B value, C form, D weight inside the shipped
+idea.** That's still more than one, and still not "this many variations".
+
+### 2. The five grammar commitments
+
+1. **One stroke weight (2px, 14–24; 2.5 on the 50px seals; round caps and
+   joins): KEEP.** Condition: on sheet 2, check optically that the
+   16px Line icons (sort/plan check, plan +, chevron) don't read heavier
+   than the 20–24px ones beside them in the same view. If they do, they move
+   *up* to the 18–20 step. They don't get a thinner stroke.
+2. **Two checks, two jobs (Line check / Inked check): KEEP.** One
+   correction: the Inked check's lean isn't drawn into the glyph. It takes
+   the stamp's own seeded tilt ("angle and texture … should be randomized",
+   seeded per place). Draw the check upright and let its carrier tilt it.
+3. **Rim star (one element, no keyline, no halo): KEEP, provisional on two
+   tests.**
+   - (a) **The gap can't be "painted tile colour"**: real tiles vary under
+     every pin. It has to be a true cut-out (a mask), so whatever is under
+     the pin shows through. Redraw it that way before it goes on the
+     stand-in basemap.
+   - (b) The 16px far pin over a primary road (#FCD6A4) and the selected
+     pin. On sheet 1 the far rim star reads as a sparkle, not a bite.
+     Good, but it's small. If it fails over the orange road, the fix is a
+     thin *cut-out* gap around the star (shape-following, per "star
+     cutouts follow the star"), never a keyline.
+4. **Navy-ring selection at the same size: PUSH.** Right principle (size =
+   zoom only, dark fill no longer double-spent), wrong drawing. On sheet 1
+   (#51, #54, #58) the navy ring sits *outside* the category ring, so the
+   selected pin wears **two outlines**, which is the noise the owner named.
+   The rule should be **selection replaces, never adds**: the navy ring
+   *becomes* the rim (the glyph keeps its category ink, so J7 holds), and
+   the shipped selected pulse stays as the motion channel. Two follow-ons
+   for the legend:
+   - **You-are-here** is a navy disc, so navy = selection *and* "you". Either
+     it's acceptable because one is a ring and the other a dot (say so in
+     the legend), or you-are-here moves. Systems' call, made explicitly.
+   - The tag's string hangs from the selected pin, so the pin needs no extra
+     findability.
+5. **De-oranged ink cluster: OWNER QUESTION (Q6), show both, only in the
+   cluster cells.** Shipped rule (CLAUDE.md 2026-10-07) lists clusters
+   among the brand-orange uses, so it's not ours. A hard constraint either
+   way: **a cluster is never darker than an open pin.** The stacked
+   near-black shells on sheet 1 ("23") are the heaviest marks on the sheet,
+   and clusters are what the owner sees first at boot. That would be the
+   original complaint, moved to clusters. Systems' cluster rule (star only
+   for an open starred member, weight follows "any open member", an
+   all-visited cluster recedes) is **accepted** for all three concepts.
+
+Smaller rulings from the sheet:
+- **Plan stop pins**: the number-in-place-of-glyph is shipped Plans grammar
+  (the owner chose "numbers may just be the simplest"). It's out of scope as
+  a concept variable. Redraw it in the grammar (Printed numeral, navy
+  selection, visited per concept) and nothing more.
+- **District**: agree it reads as a hex nut at 12px. Redraw it.
+- **Account / + glyphs**: glyphs only; the containers on the sheet are
+  placeholders. Label them that way on the canvas so the owner doesn't
+  review another crew's badge here.
+- **Inactive filter chip**: it is the one place a deliberately greyed glyph
+  is correct ("off", not "unavailable"). Show it beside the 40% swatch and
+  make sure it can't be confused with it.
+
+### 3. Steer on the three concepts
+
+- **B Second run.** The paper-mix tint (not opacity) and the
+  misregistration stand. Its weak spot is voice: the reprint is the guide's,
+  not yours. The rescue I'd look for is that **the row and the tag keep the
+  inked stamp**, so the place still carries your mark where there's room.
+  Then the map's reprint reads as "the guide's copy of it, done". If B can't
+  pass the 40% swatch test at 1x on a phone, it dies at the first score.
+- **C Shell off (inked, tilted glyph): visual's pick, and the strongest
+  idea in the set.** I'm holding it hardest because I helped shape it. Risks
+  to prove on the fixture, not argue:
+  1. **lastDay**: 24 tilted glyphs could read as *scattered/messy* rather
+     than *done*. Tilt range ±6° may need to come down. Show it at lastDay
+     first.
+  2. **The far 5px dot**: the owner has said "Dots add an insane amount of
+     visual noise absolutely not". It's a different case (it is the pin, and
+     a ring vs. a dot is meaningful), but expect the objection. Show the dot
+     next to a 7–8px solid glyph silhouette as the alternative, at real
+     size, so he can choose.
+  3. **OSM POI confusion** on the stand-in basemap, with the POIs placed
+     next to pins 2, 8 and 6.
+  4. **Rows**: the 15px tilted glyph without a ring, beside an open ringed
+     badge, in the same column. It must align on the column's centre axis
+     ("one centred axis for left-column items").
+- **D Sticker, re-weighted.** One main version: smaller (~12px) **plus**
+  one value step lighter on the face (still "the dark colour"). The cream
+  category glyph instead of the check (Q5) is shown only in D's matrix as
+  the alternative, not as a second D. It must pass the lastDay frame: the
+  3 starred to-dos found first.
+
+### 4. What the concept phase builds, and at what fidelity
+
+**Fidelity: near-final craft at real size.** That's how the owner reads
+concept stills: drawn as SVG at the sizes they render, 1x looked at on a phone,
+not rough sketches. Rough sheet 1 was right for the jam. Sheet 2 is
+the standard from here.
+
+Built against `concepts/fixture/` (27 places, near/mid/far frames, stand-in
+basemap labelled "stand-in basemap, not real OSM tiles"), in this order:
+
+1. **Shared grammar board, sheet 2** (visual; systems checks): all 74
+   entries, TODAY above NEW. The rulings above applied: mask-cut rim star,
+   selection-replaces rim, redrawn district, glyph-only seals, the 40%
+   swatch beside every open control and every off chip. The optical-area
+   measurement of the 11 glyphs at 12/18/23 (pixel coverage, numbers on
+   the board).
+2. **Per concept, B, C, D**, each one section:
+   - legend (systems' template, with today filled in first; no DOUBLE left)
+   - state matrix (systems §4)
+   - **near frame at day0 / halfway / lastDay**, full phone (map + list
+     header + 3 rows), today beside it, with a one-line squint verdict each
+   - mid/halfway and far/lastDay (clusters: orange vs ink only in the
+     cluster cells)
+   - list (the five fixture rows + Plans "Saturday"), row stamp kept vs.
+     the concept's row
+   - tag: Brauð & Co (★ done) and Kaffibarinn (open)
+   - storyboards: visit lands from the tag, visit lands from a row swipe
+     (pin follows as a separate step), un-visit dries up (5 frames each,
+     with what "dries up" means in that concept stated plainly)
+3. **Dropped**: A Blaze, one thumbnail + one line.
+
+**Stills:** every frame as a 3x PNG 1170px wide (phone-readable) plus 1x,
+in `concepts/<b|c|d>/` and `concepts/grammar/`.
+
+**On the shared canvas** (https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW):
+- The inventory artboards stay untouched as the baseline.
+- New artboards are added beside them, one row per section, in this
+  order: Grammar → B → C → D → Dropped.
+- Each artboard is titled "<section> · <frame>" and has the TODAY version
+  beside it, so the owner can scroll the row and compare.
+- One designer publishes (visual, who owns the drawing). It's read
+  back before every publish so nobody overwrites the other's boards.
+- **Nothing on the canvas is pointed out to the owner until I've scored it
+  9+.** He can open the canvas any time, so every new board carries a small
+  "draft · not reviewed" label until then.
+
+### 5. Owner questions, batched (none block concept work; each is shown both ways; send WITH the concepts)
+
+1. **Pins at rest:** "a pin says one thing per channel; character lives in
+   how it changes and in the tag". OK to move the resting peel into the
+   transition? (D keeps it; B and C don't.)
+2. **Rows:** is the list's VISITED stamp part of "too strong", or only the
+   map?
+3. **Visited + starred:** once you've been, still show the star? (Default:
+   yes, at the visited weight.)
+4. **Leaflet zoom +/−:** restyle into our icons, or remove (pinch +
+   locate)?
+5. **Sticker (if D):** may its check become the cream category glyph?
+6. **Clusters:** keep brand orange, or ink, so orange means only star +
+   actions? (The shipped colour rule names clusters, so this one is yours.)
+7. **Small ask, not a question:** one phone screenshot of the live map
+   around Hallgrímskirkja at zoom 14–15. It lets us check the marks on real
+   tiles (the sandbox can't load them).
+
+No blockers. Q6 is the closest, since it touches a shipped colour rule, but
+showing both in the cluster cells keeps concept work moving. `jobs.md` has
+already gone to him. These go in one message with the first scored
+concepts, not before ("make sure shit makes sense before bringing it to
+me").
+
+### 6. Owner objections I'll be scoring against
+
+- **C:** the far dot ("dots… absolutely not"), and a tilted lastDay reading
+  messy.
+- **B:** "looks disabled" / "not differentiated nearly enough".
+- **D:** "that's barely different", and the dark sticker still pulling the
+  eye.
+- **All:** the rim star too small to find, a cluster heavier than the pins,
+  and two outlines on a selected pin.
+
+NEXT: product designer (visual focus) — grammar sheet 2 with the rulings
+applied (mask-cut rim star, selection-replaces rim, district redraw,
+glyph-only seals, area measurements), then C's day0/halfway/lastDay on the
+fixture first. Systems fills the legends and the matrix template alongside.
