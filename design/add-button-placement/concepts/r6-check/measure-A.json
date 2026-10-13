@@ -1,0 +1,154 @@
+{
+ "admit@390:play": {
+  "box": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "title": "Reykjavík list (23)",
+  "titleW": 154,
+  "ell": false,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": true,
+   "auth": false,
+   "acct": "Sign in"
+  }
+ },
+ "admit@390:stale": {
+  "box": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "title": "Reykjavík list (23)",
+  "titleW": 154,
+  "ell": false,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": false,
+   "auth": true,
+   "acct": "Logout"
+  }
+ },
+ "admit@320:play": {
+  "box": [
+   260,
+   268,
+   320,
+   325
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 84,
+  "ell": true,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": true,
+   "auth": false,
+   "acct": "Sign in"
+  }
+ },
+ "admit@320:stale": {
+  "box": [
+   260,
+   268,
+   320,
+   325
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 84,
+  "ell": true,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": false,
+   "auth": true,
+   "acct": "Logout"
+  }
+ },
+ "tagcut@390:play": {
+  "box": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "title": "Reykjavík list (23)",
+  "titleW": 154,
+  "ell": false,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": true,
+   "auth": false,
+   "acct": "Sign in"
+  }
+ },
+ "tagcut@390:stale": {
+  "box": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "title": "Reykjavík list (23)",
+  "titleW": 154,
+  "ell": false,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": false,
+   "auth": true,
+   "acct": "Logout"
+  }
+ },
+ "tagcut@320:play": {
+  "box": [
+   260,
+   268,
+   320,
+   325
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 84,
+  "ell": true,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": true,
+   "auth": false,
+   "acct": "Sign in"
+  }
+ },
+ "tagcut@320:stale": {
+  "box": [
+   260,
+   268,
+   320,
+   325
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 84,
+  "ell": true,
+  "hitCutCorner": "self",
+  "hitEyelet": "self",
+  "hitCentre": "self",
+  "after": {
+   "form": false,
+   "auth": true,
+   "acct": "Logout"
+  }
+ }
+}
