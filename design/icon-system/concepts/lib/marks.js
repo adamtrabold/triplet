@@ -94,7 +94,9 @@ window.TM_OPT_DEFAULT = window.TM_OPT_DEFAULT || {"restaurant": 1.16, "cafe": 0.
   // L* 54 with chroma kept up (x1.35, min 22; 'other' stays a grey) so a reprint never reads as
   // the 40% wash, which loses chroma.
   const INKB = Object.assign({}, INK, { shopping: '#665783', district: '#146a60', attraction: '#436215' });
-  function reprintB(h, cat) { const [l, a, b] = hex2lab(h), c = Math.hypot(a, b); const grey = cat === 'other'; return lch2hex(Math.max(l, 54), grey ? c : Math.max(c * 1.35, 22), Math.atan2(b, a)); }
+  // B round 2: the reprint is a straight PAPER MIX (sRGB, toward --paper) down to L* 50. A paper mix never adds colour
+  // (chroma stays at or under the open ink's), and the warm paper keeps warm inks dusty, never pink.
+  function reprintB(h, cat) { const pr = [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16)), pp = [242, 235, 221]; const at = t => '#' + pr.map((v, i) => Math.round(v * (1 - t) + pp[i] * t).toString(16).padStart(2, '0')).join(''); let lo = 0, hi = 1; for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; hex2lab(at(m))[0] < 50 ? lo = m : hi = m; } return at((lo + hi) / 2); }
   const REPRINT_L = 56;   // B: visited lightness (L*). Paper is ~93. 56 is the lightest that keeps >= 3:1 on paper.
   function reprint(h, L = REPRINT_L) { const [l, a, b] = hex2lab(h); return lch2hex(Math.max(l, L), Math.hypot(a, b), Math.atan2(b, a)); }
   function relLum(h) { const [r, g, b] = [1, 3, 5].map(i => lin(parseInt(h.substr(i, 2), 16))); return .2126 * r + .7152 * g + .0722 * b; }

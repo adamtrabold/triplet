@@ -1,5 +1,21 @@
 # Visual designer notes: icon system
 
+## Where things stand (2026-10-13, B round 2)
+
+Director round 2: C = 9 (don't relabel; the send waits for B), B = 7.
+B fixes done: reprintB() is now a straight sRGB paper mix down to L* 50
+(no chroma boost; chroma can only fall, and the warm paper keeps warm inks
+dusty: restaurant #A2666E dusty wine, not pink; street and cafe dusty
+browns). Visited vs 40% is dE 16-29 everywhere, so no full-ink rim or extra
+offset was needed (the 0.8px misregistration stays). Open -> visited is
+10-34 L*; shopping and district (40 -> 50) are the smallest steps. Re-shot:
+gate, near day0/halfway/lastDay + squints, mid, far, list, tag,
+storyboards. Canvas v13 (B boards repointed; layout unchanged). B's
+last-day map at 1x is quieter than today and no pin changes colour family.
+
+---
+
+
 ## Where things stand (2026-10-13, after steer 2 + the B ruling)
 
 Round 1 scores: grammar 9, C 8, B 5 (then revived by the director with
