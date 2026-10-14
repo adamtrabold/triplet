@@ -437,3 +437,34 @@ Open:
 
 Next: the director rules. Then visual shoots the stills. Then the coverage
 check on what goes to the owner.
+
+---
+
+## Pass A (2026-10-14), jam turn 30: new systems designer; blank pin + blank-tag form
+Owner revived C as ONE package with the add form redesigned as a blank tag
+you fill out; keep Float and A open (round 7 is with him, unanswered).
+
+Done: jam turn 30 (under "Pass A" heading). No jobs.md change yet, no stills.
+- New jobs J7-J16 (+ J17 visited-while-adding, J18 edit-after-add as scope
+  questions). Jobs 1-6 stand for the + itself.
+- Facts: today's form order (City, Category, Search, Address, Notes, Star,
+  Add) disagrees with the tag's (name, address, TYPE, notes, stub); the
+  blank tag follows the tag's. No edit-after-add exists in the code (only
+  star/visited toggles). C's R6 flow has no tag during search — the gap vs.
+  "filling out a blank tag".
+- Structures: P1 hang-then-write (tag docks, name line = search, results
+  on the tag); P2 ring it where it stands (drag pin / long-press map,
+  reverse lookup names; gesture lane); P3 no Add button (pick creates,
+  pencilled real tag + Undo; inversion; owner-scope); P4 visible kept
+  draft on the resting tag (add-on).
+- Pairing: the form is trigger-agnostic; propose "one blank-tag form,
+  three triggers" (C, A, Float). A + blank tag may be the best pairing
+  (A keeps the no-exception job 1).
+- Randomness: bird-ringing, ski lift ticket; Oblique "Look at the order in
+  which you do things"; twist "nothing is typed".
+
+Open (director): P1 vs C's band search; P2 in or later; P3 frame or
+question; J17/J18 shown in a still or asked; whether C's resting tag
+still fights "reads like a plus button".
+Next: visual designer's turn; then director steer; then measure P1's
+result count at 664 with keyboard, and the docked-tag heights.
