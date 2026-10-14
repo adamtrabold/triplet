@@ -1330,3 +1330,18 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   rows, places-ux (full harness: only the known visit/curve failures, same
   as main). Still open: re-judge beside the new + once it exists; iPhone
   checks (6px caps, arc centring, warm edge).
+
+- **Impeccable 4.1.0 → 4.5.2** — 2026-10-14. Owner: "update the project for
+  me", then "yes but if the warning doesnt matter lets drop it from the ones
+  we've written manually too". Vendored skill refreshed from tag
+  `skill-v4.5.2` (engine 0.1.5 → 0.1.14); gate pin `VER` in `gate.mjs`,
+  `VENDOR.txt` and the README bumped together. The new detector dropped 5
+  baseline findings with no change to `index.html` (upstream rewrote
+  `clipped-overflow-container`, which now skips page-holding containers,
+  and `all-caps-body`, which now needs 80+ characters): static `#mainContent`
+  and `body` clips, runtime all-caps, `#mainContent` and Leaflet-container
+  clips. Owner approved `run.sh --update`; baselines now static 1, runtime
+  10; gate passes. Hand-written notes: the all-caps note is pruned (longest
+  uppercase run is 30 characters, all labels); the add-form place-suggestion
+  clip was checked in a render and is a REAL bug, now in `docs/backlog.md`
+  with repro steps.
