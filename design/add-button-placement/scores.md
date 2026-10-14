@@ -1885,3 +1885,30 @@ Evidence: C2, R5, C0, C4.
 ### Did the work change?
 Yes, all new: A is cut, C is simplified (eight ways), Float carries the
 new form, and the form is revised to his notes.
+
+### Round 10c -- #7's width ruled; caption corrected (2026-10-14)
+- **Width: 84** (84 × 44).
+  - At 104, #7 is 4x the account and 3x the Float. C0 shows it: next to
+    the Float it's simply *bigger*, so his "final call" would be about
+    size as well as shape. That's rank bought by mass, the pattern he
+    has rejected every time.
+  - At 84 it's 2.0x the Float, its street-zoom coverage equals the
+    Float's (12-16%), and 44 tall is the tap target with no invisible
+    padding.
+  - 78 would need padding and gains little.
+- **#7 at 84 holds at 9**, judged on the re-shot look. The same ink and
+  near-equal footprint make the C0 comparison pure shape.
+- **Watch, not a fix:** in C5 the orange button sits under a starred tag
+  (orange band). At 84 the collision shrinks, and the + keeps it a
+  control.
+- **Cost line corrected (my draft was wrong):** "Either one is hidden
+  while the filters are open: one extra tap to close them first. With a
+  place's tag open it stays tappable; adding closes that tag, and
+  cancelling brings it back."
+- **Re-shoot at 84:** C0 (also fix its caption: "both step aside the
+  same way" → "both open the same blank tag; both hide only while the
+  filters are open"), C1, C2, C3, C4, C5, C6.
+  - R1/R4 stay as they are: they show the variants at the study size,
+    and the colour is the point.
+- The release follows my check of those re-shoots. The send list is
+  unchanged from round 10.

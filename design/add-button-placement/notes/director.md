@@ -1411,3 +1411,9 @@ Check the 2 re-shoots → release. On his pick: handoff.md vs owner.md.
 
 ### Next
 Check the re-shoots → release.
+- 2026-10-14 (10c): #7 width = 84. 104 = 4x the account / 3x the Float,
+  which is mass again, and makes C0 about size. 84 = 2x the Float, the
+  same coverage, 44 tall. Corrected cost line: neither button steps
+  aside with a tag open; only the filters hide them. Re-shoot C0 (plus
+  its caption) and C1-C6 at 84, then check and release the round-10 send
+  list.
