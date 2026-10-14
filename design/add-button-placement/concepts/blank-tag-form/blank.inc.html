@@ -1,0 +1,226 @@
+<!-- ===== THE BLANK TAG (visual designer, concepts turn 1, 2026-10-14) =====
+     Layered into a COPY of index.html in memory by ./stills.js. Never edit the real index.html.
+     Owner: "I actually want to come back to the blank pin version of the add button — I also want to rev the add modal
+     to be more like filling out a blank tag…I feel like together that could be a cool package."
+     Built from the REAL tag's DOM (a real popup is opened, then rewritten in place, or cloned into the dock), so the
+     die-cut, eyelet, string, shadow, stub and stamp are the shipped ones. New parts only:
+       pencil  = your entries before ADD: graphite (--ink-2 toward paper), the paper's tooth (--tex-stamp) showing through
+       print   = the form's own words + the search offers: the tag's own label print / the app's row type
+       ADD     = navy flood in Directions' slot (inactive: printed ADD + NAME IT FIRST)
+       the lifted pin (P) and the 32px blank pin (docked / hanging)
+     API (window.__BT): restP(opts), capture(), dock(state), hang(state), kb(show) -->
+<style id="btCss">
+  :root { --pencil: color-mix(in srgb, var(--ink-2) 86%, var(--paper)); }
+  #floatingAddBtn { display: none !important; }
+  html[data-k] #accountBtn { right: var(--s4) !important; }
+
+  /* ---- P: the lifted pin (52 with its halo; string 22; ground point 20 above the list) ---- */
+  #lp { position: fixed; z-index: 1500; left: 17.9px; width: 52px; height: 78px; pointer-events: auto; -webkit-tap-highlight-color: transparent; }
+  #lp svg { display: block; overflow: visible; }
+  #lp .lp-disc { filter: drop-shadow(0 5px 4px rgba(var(--ink-rgb), .10)); }
+  #lp.press .lp-face { fill: var(--brand-orange-deep); }
+  #lp.press .lp-plus { stroke: var(--paper); }
+  #lp.gone { display: none; }
+
+  /* ---- the 32px blank pin (docked + hanging): the selected pin's size, orange face, navy + ---- */
+  .bt-pin { position: fixed; z-index: 1600; width: 36px; height: 36px; margin: -18px 0 0 -18px; pointer-events: none; }
+  .bt-pin.lifted .bt-shadow { display: block; }
+  .bt-pin svg { position: relative; z-index: 1; }
+  .bt-pin.lifted svg { filter: drop-shadow(0 5px 4px rgba(var(--ink-rgb), .12)); }
+  .bt-pin .bt-ground { position: absolute; left: 11px; top: 41px; width: 14px; height: 4.4px; border-radius: 50%; background: rgba(31,47,74,.16); }
+
+  /* ---- the docked tag: fixed to the visual viewport, string from the pin's foot ---- */
+  #btDock { position: fixed; z-index: 1550; left: 0; top: 0; }
+  body:has(#btDock) .leaflet-control-attribution { visibility: hidden; }
+  #btDock .leaflet-popup { position: absolute; margin: 0; transform: none !important; bottom: auto !important; }
+
+  /* ---- blank-mode contents ---- */
+  .tag.is-blank .tag-in { padding-top: 36px; }
+  .tag.is-blank.is-starred .tag-in { padding-top: var(--s12); }
+  .bt-line { position: relative; border-bottom: 1px solid var(--hair); margin-right: 30px; }
+  .bt-notes.bt-line { margin-right: 0; }
+  .bt-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; min-height: 28px; padding-right: 32px; margin: 0; overflow-wrap: anywhere; }
+  /* graphite: the paper's tooth shows through faintly (min 62% coverage), never the stamp's broken ink */
+  .bt-pencil { color: var(--pencil);
+    -webkit-mask: var(--tex-stamp) 3px 5px / 120px 120px, linear-gradient(rgba(0,0,0,.62), rgba(0,0,0,.62)); -webkit-mask-composite: source-over;
+    mask: var(--tex-stamp) 3px 5px / 120px 120px, linear-gradient(rgba(0,0,0,.62), rgba(0,0,0,.62)); mask-composite: add; }
+  .bt-caret { display: inline-block; width: 1.5px; height: 24px; background: var(--pencil); vertical-align: -3px; margin-left: 2px; }
+  .bt-cap { display: block; margin-top: 3px; font-stretch: 75%; text-transform: uppercase; font-weight: 500; font-size: 11px; line-height: 14px; letter-spacing: .12em; color: var(--ink-2); }
+  .bt-addr { margin-top: 2px; font-size: 13px; line-height: 18px; }
+  .bt-chev { display: inline-block; width: 6px; height: 6px; margin-left: 6px; vertical-align: 2px; border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; transform: rotate(45deg) translate(-1px, -1px); opacity: .8; }
+  .bt-notes { margin-top: var(--s3); height: 24px; }
+  .bt-notes .bt-cap { position: absolute; left: 0; bottom: 4px; margin: 0; }
+  .bt-fields { display: flex; align-items: baseline; gap: var(--s2); margin-top: var(--s3); padding-bottom: var(--s3); }
+  .bt-type { font-stretch: 75%; font-weight: 700; font-size: 14px; line-height: 16px; letter-spacing: .09em; text-transform: uppercase; }
+  .bt-hint { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+  /* the search offers: PRINTED on the tag (not pencil), 48px rows, hairlines, no slip edge */
+  .bt-res { margin: var(--s2) calc(-1 * var(--s4)) 0; padding: 0 var(--s4); }
+  .bt-r { height: 48px; box-sizing: border-box; border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+  .bt-r b { font-size: 14px; line-height: 18px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bt-r span { font-size: 11px; line-height: 15px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bt-msg { padding: 14px 0; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+  /* the question slot (new city / which city / errors): printed, with stub-style answers */
+  .bt-q { margin: 0 calc(-1 * var(--s4)); padding: var(--s3) var(--s4) 0; border-top: 1.5px dashed var(--hair); }
+  .bt-q p { margin: 0 0 var(--s2); font-size: 13px; line-height: 18px; color: var(--ink); }
+  .bt-q p b { font-stretch: 75%; text-transform: uppercase; letter-spacing: .1em; font-size: 11px; font-weight: 700; color: var(--ink-2); margin-right: 6px; }
+  .bt-ans { display: grid; grid-template-columns: 1fr 1fr; margin: 0 calc(-1 * var(--s4)); height: 48px; border-top: 1px dashed var(--hair); }
+  .bt-ans span { display: flex; align-items: center; justify-content: center; font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; letter-spacing: .08em; color: var(--ink); }
+  .bt-ans span + span { border-left: 1px dashed var(--hair); }
+  .bt-err { margin: 0 0 var(--s3); font-size: 13px; line-height: 18px; color: var(--ink); }
+  .bt-err::before { content: 'Couldn’t save'; font-stretch: 75%; text-transform: uppercase; letter-spacing: .1em; font-size: 11px; font-weight: 700; color: var(--ink-2); margin-right: 6px; }
+
+  /* ADD, in Directions' slot */
+  .tag-seg.bt-add { background: var(--navy); color: var(--paper); }
+  .leaflet-container a.tag-seg.bt-add, .tag-seg.bt-add { color: var(--paper); }
+  .tag-seg.bt-add svg { width: 18px; height: 18px; }
+  .tag-seg.bt-add.off { background: none; color: var(--ink-2); }
+  .tag-seg.bt-add.off small { display: block; font-size: 9px; line-height: 11px; letter-spacing: .08em; font-weight: 500; margin-top: 2px; }
+  .tag-seg.bt-add.busy { background: color-mix(in srgb, var(--navy) 82%, var(--paper)); }
+  /* the slot's left notch edge: the flood is clipped by the stock (die-cut), so nothing to do */
+
+  /* the ink-over, mid-frame (a still of the motion: the name inking, TYPE's stamp landing) */
+  .bt-inking .bt-name { color: color-mix(in srgb, var(--ink) 70%, var(--pencil)); -webkit-mask: none; mask: none; }
+  .bt-inking .tag-stamp { transform: translateY(-1.5px) rotate(var(--tilt, -4.5deg)) scale(1.18); opacity: .85; }
+
+  /* ---- the keyboard (a drawing of iOS's, for the stills) ---- */
+  #btKb { position: fixed; z-index: 3000; left: 0; right: 0; bottom: 0; background: #D2D5DB; padding: 8px 3px 0; box-sizing: border-box; font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; }
+  #btKb .kr { display: flex; justify-content: center; gap: 6px; margin-bottom: 11px; }
+  #btKb .k { height: 42px; flex: 0 0 calc((100% - 60px) / 10); border-radius: 5px; background: #fff; box-shadow: 0 1px 0 #898A8D; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #000; }
+  #btKb .k.g { background: #ABB0BA; flex-basis: calc((100% - 60px) / 10 * 1.35); font-size: 15px; }
+  #btKb .k.sp { flex: 1 1 auto; font-size: 15px; }
+  #btKb .k.go { background: #0A84FF; color: #fff; flex-basis: 88px; font-size: 15px; }
+  #btKb .acc { height: 44px; margin: -8px -3px 8px; background: #CDD0D6; border-bottom: 1px solid #BFC2C8; display: flex; align-items: center; justify-content: flex-end; padding-right: 16px; font-size: 16px; color: #0A84FF; font-weight: 600; }
+</style>
+<script id="btJs">
+(function () {
+  const PLUS = (c, sw, a) => `<path class="lp-plus" d="M${c - a} ${c}H${c + a}M${c} ${c - a}V${c + a}" stroke="var(--navy)" stroke-width="${sw}" stroke-linecap="round"/>`;
+  // the blank pin: paper halo, orange face, deep-orange rim, navy + ; D = face diameter
+  const pinSvg = (D, halo = 2) => { const W = D + 2 * halo, c = W / 2, a = D * 0.22, sw = Math.max(2.4, D * 0.07);
+    return `<svg width="${W}" height="${W}" viewBox="0 0 ${W} ${W}" aria-hidden="true"><circle cx="${c}" cy="${c}" r="${c}" fill="var(--paper)"/>`
+      + `<circle class="lp-face" cx="${c}" cy="${c}" r="${D / 2 - 0.75}" fill="var(--brand-orange)" stroke="var(--brand-orange-deep)" stroke-width="1.5"/>${PLUS(c, sw, a)}</svg>`; };
+  const BT = window.__BT = {};
+  BT.pinSvg = pinSvg;
+
+  // ---------------- P: the lifted pin at rest ----------------
+  BT.restP = function () {
+    let el = document.getElementById('lp');
+    if (!el) { el = document.createElement('button'); el.id = 'lp'; el.setAttribute('aria-label', 'Add a place');
+      el.style.cssText += ';border:0;padding:0;background:none;';
+      const D = 48, H = 2, W = D + 2 * H, c = W / 2, STR = 22, a = D * 0.22, sw = 3.4;
+      el.innerHTML = `<svg width="${W}" height="${W + STR + 4}">`
+        + `<ellipse cx="${c}" cy="${W + STR}" rx="6" ry="1.9" fill="rgba(31,47,74,.15)"/>`
+        + `<path d="M${c - 1.1} ${W - 3}L${c + 1.1} ${W - 3}L${c + 0.3} ${W + STR}L${c - 0.3} ${W + STR}Z" fill="var(--navy)"/>`
+        + `<g class="lp-disc"><circle cx="${c}" cy="${c}" r="${c}" fill="var(--paper)"/><circle class="lp-face" cx="${c}" cy="${c}" r="${D / 2 - 0.75}" fill="var(--brand-orange)" stroke="var(--brand-orange-deep)" stroke-width="1.5"/>${PLUS(c, sw, a)}</g></svg>`;
+      document.body.appendChild(el); }
+    const place = () => { const S = document.getElementById('locations').getBoundingClientRect().top; el.style.top = (S - 20 - 74) + 'px'; };
+    place(); clearInterval(BT._lpT); BT._lpT = setInterval(place, 60);
+    return el;
+  };
+
+  // ---------------- the template: a real open tag, cloned ----------------
+  BT.capture = function () {
+    const p = document.querySelector('.leaflet-popup.tag-popup'); if (!p) return false;
+    BT.tpl = p.cloneNode(true); return true;
+  };
+
+  // ---------------- contents ----------------
+  const NAME = 'Hallgrímskirkja', ADDR = 'Hallgrímstorg 1', CITY = 'Reykjavík';
+  const RESULTS = [['Hallgrímskirkja', 'Church · Hallgrímstorg 1, Reykjavík'], ['Hallgrímstorg', 'Square · Miðborg, Reykjavík'],
+    ['Hallgrímskirkja (bus stop)', 'Eiríksgata, Reykjavík'], ['Hallgrímur Pétursson statue', 'Skólavörðuholt, Reykjavík'], ['Hallgrímskirkja tower lift', 'Hallgrímstorg 1, Reykjavík']];
+  const plusIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>';
+  function inner(s) {
+    const st = s.state;
+    const nm = s.name !== undefined ? s.name : NAME;
+    if (st === 'blank' || st === 'typing' || st === 'nores') {
+      const txt = st === 'blank' ? '' : (s.text || 'Hallgr');
+      let below = '';
+      if (st === 'typing') below = `<div class="bt-res">${(s.results || RESULTS).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}</div>`;
+      if (st === 'nores') below = `<div class="bt-res"><div class="bt-msg">No places called that — try another name.</div></div>`;
+      return `<div class="bt-line"><h2 class="bt-name bt-pencil">${txt}<span class="bt-caret"></span></h2></div><span class="bt-cap">Name</span>${below}`;
+    }
+    // picked and later
+    const shape = st === 'shape';
+    const type = s.type || (shape ? 'district' : 'attraction');
+    const typeHtml = s.inked ? `<span class="tag-val tag-stamp popup-cat" style="--tilt:-3.5deg;margin-left:0">${type}</span>`
+      : `<span class="bt-type bt-pencil">${type}<span class="bt-chev"></span></span>`;
+    let q = '';
+    if (st === 'newcity') q = `<div class="bt-q"><p><b>New city?</b>Lisbon isn’t one of your cities yet.</p><div class="bt-ans"><span>Add Lisbon</span><span>Pick from my list</span></div></div>`;
+    if (st === 'whichcity') q = `<div class="bt-q"><p><b>Which city?</b>Most of this district is outside Reykjavík.</p><div class="bt-ans"><span>New city</span><span>Kópavogur</span></div></div>`;
+    if (st === 'failed') q = `<div class="bt-err">— try again. Nothing is lost.</div>`;
+    const addr = shape ? `<div class="bt-hint">Traced from OpenStreetMap when you add it</div>`
+      : `<div class="bt-addr bt-pencil">${s.addr || ADDR} · ${s.city || CITY}<span class="bt-chev"></span></div>`;
+    return `<h2 class="bt-name ${s.inked ? '' : 'bt-pencil'}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nm}</h2>${addr}`
+      + `<div class="bt-notes bt-line">${s.notes ? `<span class="bt-pencil" style="font-size:14px">${s.notes}</span>` : '<span class="bt-cap">Notes</span>'}</div>`
+      + `<div class="bt-fields"><span class="tag-lab">Type</span>${typeHtml}</div>${q}`;
+  }
+  function stubify(tag, s) {
+    const dir = tag.querySelector('.tag-slot.dir');
+    const ready = !['blank', 'typing', 'nores', 'newcity'].includes(s.state);
+    const label = s.state === 'newcity' ? 'Answer above' : 'Name it first';
+    if (dir) dir.innerHTML = s.inked ? dir.innerHTML
+      : ready ? `<span class="tag-seg bt-add${s.busy ? ' busy' : ''}">${plusIcon}${s.busy ? 'Adding…' : 'Add'}</span>`
+      : `<span class="tag-seg bt-add off">Add<small>${label}</small></span>`;
+    if (s.state === 'whichcity') tag.querySelector('.tag-stub').style.display = 'none';
+  }
+  function makeBlank(tag, s) {
+    tag.classList.add('is-blank'); tag.classList.remove('is-visited');
+    if (!s.starred) { tag.classList.remove('is-starred'); const b = tag.querySelector('.tag-band'); if (b) b.remove(); }
+    if (s.inking) tag.classList.add('bt-inking');
+    const tin = tag.querySelector('.tag-in'); tin.innerHTML = inner(s);
+    // star + visited segments: the real ones, set to the draft's state
+    const star = tag.querySelector('.popup-star');
+    if (star && !s.starred) { star.classList.remove('starred'); star.querySelector('span').textContent = 'Star'; const u = star.querySelector('use'); if (u) u.setAttribute('href', '#g-star-open'); const sv = star.querySelector('svg'); if (sv) sv.classList.add('is-open'); }
+    if (s.starred && !tag.querySelector('.tag-band')) { tag.classList.add('is-starred'); const st = tag.querySelector('.tag-stock'); st.insertAdjacentHTML('afterbegin', '<span class="tag-band" aria-hidden="true"></span>');
+      if (star) { star.classList.add('starred'); star.querySelector('span').textContent = 'Starred'; const u = star.querySelector('use'); if (u) u.setAttribute('href', '#g-star'); const sv = star.querySelector('svg'); if (sv) sv.classList.remove('is-open'); } }
+    if (s.visited) { const v = tag.querySelector('.popup-visited'); if (v) { v.classList.add('visited'); v.innerHTML = `<span class="row-stamp" style="--stamp-tilt:-6deg" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>`; } }
+    if (!s.visitedKeep && !s.visited) { const v = tag.querySelector('.popup-visited'); if (v && v.classList.contains('visited')) v.classList.remove('visited'); }
+    stubify(tag, s);
+  }
+
+  // ---------------- docked (keyboard up) ----------------
+  BT.dock = function (s) {
+    BT.undock();
+    const W = innerWidth, tw = Math.min(316, W - 32), left = (W - tw) / 2, pinTop = s.pinTop || 14, tagTop = s.tagTop || 74;
+    const wrap = document.createElement('div'); wrap.id = 'btDock';
+    const p = BT.tpl.cloneNode(true); p.removeAttribute('style'); p.style.left = left + 'px'; p.style.top = (pinTop + 32) + 'px';
+    p.style.setProperty('--tag-w', tw + 'px'); p.style.setProperty('--tag-drop', (tagTop - pinTop - 32) + 'px');
+    p.classList.remove('tag-wait');
+    wrap.appendChild(p); document.body.appendChild(wrap);
+    makeBlank(p.querySelector('.tag'), s);
+    // the tag runs on behind the keyboard: let it be as tall as it wants
+    const pin = document.createElement('div'); pin.className = 'bt-pin'; pin.id = 'btPin'; pin.innerHTML = pinSvg(32);
+    pin.style.left = (W / 2) + 'px'; pin.style.top = (pinTop + 16) + 'px'; document.body.appendChild(pin);
+    return { tag: p.querySelector('.tag-body').getBoundingClientRect().toJSON() };
+  };
+  BT.undock = function () { ['btDock', 'btPin'].forEach(i => { const e = document.getElementById(i); if (e) e.remove(); }); };
+
+  // ---------------- hanging (after a pick): rewrite the OPEN real tag in place, swap its pin ----------------
+  BT.hang = function (s) {
+    const tag = document.querySelector('.leaflet-popup.tag-popup .tag'); if (!tag) return 'no tag';
+    if (s.inked !== 'done') makeBlank(tag, s);
+    // the selected marker -> the blank pin (lifted for a shape: it never lands)
+    const sel = document.querySelector('.leaflet-marker-icon .highlighted-marker');
+    const icon = sel && sel.closest('.leaflet-marker-icon');
+    if (!s.inked && icon) {
+      const r = icon.getBoundingClientRect(); icon.style.visibility = 'hidden';
+      const pin = document.createElement('div'); pin.className = 'bt-pin'; pin.id = 'btPin';
+      const lift = s.state === 'shape';
+      pin.innerHTML = pinSvg(32);
+      if (lift) { pin.classList.add('lifted'); pin.insertAdjacentHTML('afterbegin', '<span class="bt-ground"></span>'); }
+      pin.style.left = (r.left + r.width / 2) + 'px'; pin.style.top = (r.top + r.height / 2 - (lift ? 8 : 0)) + 'px';
+      document.body.appendChild(pin);
+    }
+    return 'ok';
+  };
+
+  // ---------------- keyboard ----------------
+  BT.kb = function (on, h) {
+    let k = document.getElementById('btKb'); if (!on) { if (k) k.remove(); return; }
+    if (!k) { k = document.createElement('div'); k.id = 'btKb'; document.body.appendChild(k); }
+    k.style.height = (h || 336) + 'px';
+    const row = (keys, cls = '') => `<div class="kr">${keys.split('').map(c => `<span class="k ${cls}">${c}</span>`).join('')}</div>`;
+    k.innerHTML = `<div class="acc">Done</div>` + row('qwertyuiop') + row('asdfghjkl') + `<div class="kr"><span class="k g">⇧</span>${'zxcvbnm'.split('').map(c => `<span class="k">${c}</span>`).join('')}<span class="k g">⌫</span></div>`
+      + `<div class="kr"><span class="k g" style="flex-basis:88px">123</span><span class="k sp">space</span><span class="k go">search</span></div>`;
+  };
+})();
+</script>
