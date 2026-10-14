@@ -1105,3 +1105,145 @@ stills.
 
 ### Did the work change?
 Yes, both (corner; shape). Fresh scores, 9 and 9.
+
+## Concept round 8 -- director, 2026-10-14 (blank pin + blank-tag form: P, A, Float frame)
+
+### Evidence
+- At phone size first:
+  - T0-T8;
+  - P1, P2, P3-tap, P4-P6;
+  - A1, A2, A3-tap, A4, A5.
+- Then the two changes at the top of `blank-tag-form/how-it-works.md`.
+
+### Turn-36 fixes: checked
+1. **Pencil:** fixed. T0 proves it at 1x: cool graphite with visible
+   grain, clearly not the warm faded grey of a signed-out control. T3
+   and T8 now read as writing.
+2. **The whole blank tag:** fixed (T2 left, P3-tap, A3-tap).
+3. **Two-panel journeys:** fixed (P3-tap, A3-tap).
+4. **T2 crop:** fixed.
+5. **P2 needle:** fixed. 2px, the ground shadow visible at 1x; the FAB
+   beside it has neither.
+
+### Likely owner objections, named first
+1. **"Why is there so much empty space on the tag?"** (T3, T8 picked,
+   T5 before). LIKELY.
+   - Once picked, the tag runs about 1.6x the real tag's height, with
+     uneven bands: name→address 140, address→NOTES 137 (empty),
+     NOTES→TYPE 188 (3x px).
+   - That's his own "Spacing between things is insane … A measured
+     spacing system should already exist".
+   - With systems' no-shrink at ADD, the real tag keeps that height
+     while it's open, so the "after" is a bloated real tag.
+2. **P: "a FAB with a stick" / "bigger than every other pin".** POSSIBLE,
+   not likely. At 1x (P2) the needle and ground contact make it a pin
+   being placed, and the FAB beside it shows the difference. He revived
+   this object himself.
+3. **P: the orange pin near the orange clusters (P5, P3-tap rest).**
+   POSSIBLE. It's lighter, larger, with a + and a needle.
+4. **A: "+ on the right; I said left is easier."** POSSIBLE. A1's cost
+   line says it in his words.
+5. **"ADD isn't orange."** POSSIBLE. The T3 caption answers it in one
+   line.
+6. **A3-tap / A5: the account badge sitting on a map pin.** Real app
+   behaviour, but a stranger reads it as a slip. LIKELY to draw a
+   comment that's not about the concept.
+
+### Scores
+- **P · Blank pin: 8.**
+  - The idea is a 9: one object from + to place, and the pin and what it
+    opens are one idea (his "bonus points").
+  - Objection 1 is likely, and it sits on the shared form every frame
+    after the pick shows. The T5 "after" also doesn't match the spec.
+- **A · Header tag: 8.**
+  - Same reason (the shared form).
+  - Otherwise it's at 9: the only no-exception trigger (A4), and the tag
+    pulls up out of a tag.
+- **Float frame (A5):** fine as a frame; the badge-on-pin crop is fix 4.
+
+### Fixes (one batch; then I re-score from the re-shot stills only)
+1. **One measured rhythm on the blank tag (visual, systems checks the
+   numbers).**
+   - Every line sits on one interval from the spacing system: name,
+     address·city, NOTES, TYPE.
+   - Captions follow one rule: under-captions only while the line is
+     empty; TYPE keeps its inline caption, as on the real tag.
+   - Picked height = the real tag's height + only the NOTES writing line.
+     No empty band.
+   - Re-shoot T3, T4, T6, T7, T8 (picked), and the T5 "before".
+2. **ADD → the real tag without moving the stub (director's ruling on
+   systems' change 5).**
+   - Keep systems' rule: DIRECTIONS stays under your thumb (owner: "I
+     don't want … the button to change physical location after click").
+   - But the tag becomes the real tag *now*, not on the next open. On
+     ADD, the tag reaches the real tag's height by its top edge coming
+     down, and the map pans by the same amount: the pin and eyelet come
+     down with it, the string stays `TAG_HANG`, and the stub doesn't move.
+   - If systems finds the pan fights the popup in Leaflet, fall back to
+     their no-shrink, but then the empty paper must be gone by fix 1 (the
+     only extra height is the NOTES line).
+3. **T5 = two panels: before | after ADD** (inked, stamped TYPE, the pin
+   in its category, DIRECTIONS in place, the stub not moved). Drop the
+   third "closed, row selected" panel: P4 and A4 already show that state.
+   Two panels is the phone-readable size.
+4. **Re-crop A3-tap (rest) and A5 (right)** to a pan where nothing sits
+   under the account badge. Same zoom, different centre.
+5. **Results start: 89 on screens ≥ 600 tall, 72 below** (systems
+   offered it). The NAME caption stays while typing where it fits.
+   Re-shoot only T8's typing panel at the spec value, and check that it
+   shows ≥ 3 rows.
+
+Not changing: P's size and needle, the orange-vs-clusters read, A on the
+right, navy ADD.
+
+### Send list, prepared (goes once fixes 1-5 are re-shot and I re-score 9)
+One message, P → A → shared tag → Float.
+
+1. **P (blank pin):**
+   - P1 rest vs today;
+   - P2 pin or button (1x);
+   - P3-tap;
+   - P4 tag open (the cost);
+   - P5 small phone, list down.
+2. **A (header tag):**
+   - A1 rest vs today (cost: title 32px shorter, + on the right);
+   - A2 1x;
+   - A3-tap;
+   - A4 tag open (no extra step).
+3. **The blank tag (shared):**
+   - T0 pencil vs greyed;
+   - T2 just tapped / no results;
+   - T1 typing;
+   - T3 picked;
+   - T4 starred, visited, note;
+   - T5 ADD inks;
+   - T6 district;
+   - T7 questions / couldn't save;
+   - T8 320.
+4. **Float:** A5, the same tag from the badge.
+
+**Held back:** P6 (pressed + "also tried" pocket) only if he asks, since
+the pocket's one line goes in P's caption. Also held: raw/, pass-a-check/,
+sketches.
+
+**Cost lines:**
+- **P:** "One extra tap to add while a place's tag or the filters are
+  open."
+- **A:** "The list title is 32px shorter; the + is on the right."
+- **The tag:** "TYPE is a guess from OpenStreetMap (or your last type)
+  in pencil; tap to change. It can't be tested here; it's an iPhone
+  check."
+
+**Owner questions (with the send):**
+1. While adding, mark it visited too?
+2. Fix a place after adding by opening its tag in pencil again?
+3. Skip ADD: picking a result saves the place, with Undo?
+4. Later, place a pin by dragging it onto the map or holding the map?
+5. Just so you know: on the tag, ADD is navy, because orange on a tag
+   means starred.
+6. Just so you know: the blank pin needs one extra tap while a tag or
+   the filters are open; the header tag doesn't.
+
+### Did the work change?
+- Yes, since turn 36: pencil, blank state, journeys, crops, needle.
+- This is the first score for round 8.

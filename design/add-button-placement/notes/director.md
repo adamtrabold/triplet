@@ -1132,3 +1132,41 @@ journey strip; then I pick the resting object in jobs.md.
 
 ### Next
 Visual's fix turn, then I score round 8 in scores.md ("Concept round 8").
+
+---
+
+## Concept round 8 scored -- 2026-10-14 (scores.md "Concept round 8")
+
+### Scores
+- **P: 8. A: 8.**
+  - Both ideas are 9s.
+  - They're held by the shared form's picked state: the tag is about
+    1.6x the real height with uneven empty bands. That's his "spacing
+    between things is insane", so it's likely.
+  - T5 doesn't match the no-shrink spec.
+
+### Turn-36 fixes
+All five are landed. T0 proves pencil ≠ greyed.
+
+### Fixes sent
+1. One measured rhythm. Picked height = the real tag + the NOTES line.
+   Captions: under-captions only while empty; TYPE inline.
+2. ADD: the tag reaches the real height by its top coming down while the
+   map pans by the same amount. The stub never moves, and it's the real
+   tag at once. If Leaflet fights it, fall back to no-shrink plus fix 1.
+3. T5 two panels (before | after ADD).
+4. Re-crop A3-tap rest and A5 right (badge over a pin).
+5. Results start 89 at ≥600 tall, 72 below; re-shoot T8 typing.
+
+### Send list
+Prepared in scores.md. P6 is held back.
+
+### Likely objections
+- Spacing (being fixed).
+- FAB with a stick.
+- Orange vs clusters.
+- A on the right.
+- ADD not orange.
+
+### Next
+Re-shot stills only → re-score → release the send.
