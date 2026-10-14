@@ -1295,3 +1295,39 @@ Visual draws the tweaks + stub + audit; systems measures; then I steer.
 ### Next
 Visual on C fixes 1-4 and the form re-shoots; systems re-measures C.
 Then I re-score.
+
+---
+
+## Round 9b scored -- 2026-10-14
+
+### Scores
+- **C: 8.** A sideways blank tag pinned through its eyelet by an
+  empty orange ring, with the + beside it.
+  - It's the best-looking resting object yet. Rank from form: 1.23x.
+  - But at 1x it reads "O+" (blood type), and the ring reads as an
+    eyelet, not a pin.
+- **A: 9.** The form re-shoots are clean.
+
+### Insight
+In this app a pin = a ring + a glyph. Every glyph-less blank pin has
+read as something else (ball, eyelet, O). The + should BE the pin's
+glyph; the tag stays blank.
+
+### Fix
+- Keep the sideways tag; put the + on the pin as its glyph; leave the
+  tag blank.
+- Test at 1x:
+  - names "pin + tag";
+  - no word/symbol misreads;
+  - ≥ 1.2x;
+  - no bigger.
+- Re-shoot C1, C3, C4, C5 rest, C7, C8; C2 = this round's pick as the
+  also-tried.
+
+### Rulings
+- Raise C 6px off the credit.
+- Tap areas clipped to their row.
+- Coverage as a cost line.
+
+### Next
+C re-shoot → re-score (C only) → the send with A.

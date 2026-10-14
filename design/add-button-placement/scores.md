@@ -1521,3 +1521,88 @@ badge first; rank second; metrics last.
 
 ### Did the work change?
 Yes, all new: the C object, the fallback model, stub answers, T9.
+
+## Concept round 9b -- director, 2026-10-14 (C redrawn: a sideways blank tag pinned through its eyelet; the form re-shot)
+
+### Real-size look first
+- Evidence: C1 (1x), C3 rest vs today, C2 also-tried, C8 pressed, C5
+  tap.
+- Then the form: T7 re-shot, with the credit visible and 40px chip rows.
+
+**C at 1x:**
+- **The best-looking resting object this crew has made.**
+  - One clear silhouette.
+  - The tag reads as a luggage tag at once: the pointed end, the
+    perforated stub and the notches all survive.
+  - The + is the strongest ink.
+  - No block, nothing inflated.
+  - It sits beside the real pins and the account badge without
+    shouting. "Rank from form" worked: 1.23x / 1.15x.
+- **But two things it says at 1x aren't what it means:**
+  1. **"O+".** An empty ring followed by a + on a label reads as the
+     blood type at phone size (C3 right, C1). It's a real word, and it
+     arrives before "pin". LIKELY to be the owner's first reaction.
+  2. **The pin reads as the tag's eyelet,** an orange grommet, not one
+     of the app's pins pushed through it.
+     - It's flat, printed on the paper, with no glyph. The app's pins
+       are recognised by their glyph, and a blank pin has none.
+     - This is the third round in a row a glyph-less pin has read as
+       something else (a ball in R9, an eyelet now; P's disc before
+       that). It's his R5b "the pin doesnt look like a pin" again.
+     - LIKELY.
+
+### Likely owner objections, named first
+1. "It says O+." (LIKELY)
+2. "That's a ring/eyelet, not a pin." (LIKELY)
+3. "Covers places at street zoom" (7-26%; it's the cost line).
+   POSSIBLE.
+4. The button tag lies sideways and the form tag hangs upright.
+   POSSIBLE; the C5 motion answers it (it comes off the pin and rises).
+
+### Scores
+- **C · Pin+tag: 8 (from 7).**
+  - The silhouette, the tag and the rank are solved.
+  - The pin's identity, and the "O+" it makes with the +, are not. One
+    focused fix.
+- **A · Header tag: 9.** The form's re-shoots are clean: the credit is
+  visible in T7, the chip rows are 40, and the answers sit in the stub.
+  It waits for C.
+
+### Rulings on systems' items
+- **Raise C 6px off the credit:** yes.
+- **Tap areas clipped to their own row:** yes. That closes the ×/NOTES
+  overlap.
+- **Coverage 7-26%:** cost line, in plain words: "At street zoom it
+  sometimes sits on a place; pan the map to uncover it."
+
+### Fix (one; then I re-score from the C stills only)
+**The pin is the glyph's job.**
+- A blank pin has no identity in this app; its glyph is what makes a pin
+  a pin. So the direction to test first:
+  - keep the pick's sideways tag exactly (silhouette, size, rank);
+  - put the **+ on the pin as its glyph** (the app pin's ring/face +
+    glyph grammar, in the action orange);
+  - leave the tag blank.
+- That's one +, it kills "O+", and the pin reads as one of the app's
+  pins with the tag being the blank you'll fill. It's also the
+  arrangement he asked to revisit (R6), on the tag that now works.
+  Systems' also-tried number (1.26x) says rank survives.
+- If visual has something that beats it at 1x, show it, but the test
+  is fixed:
+  - (a) a stranger at 1x names a pin and a tag;
+  - (b) nothing on it reads as a word or a symbol (O+, ♀);
+  - (c) it beats the account (≥ 1.2x);
+  - (d) the footprint is no bigger.
+- Re-shoot C1, C3, C4, C5 (rest), C7, C8. C2 becomes "also tried" = this
+  round's ring + "+" pick.
+
+### What keeps blocking a 9 (updated)
+- Rank by mass is solved this round: rank came from form.
+- **What's left is the pin's identity at small size.** Every glyph-less
+  "blank" pin has read as something else (a FAB/ball, an eyelet, an
+  O). In this app a pin is a ring *plus a glyph*. "Blank" has to mean
+  "no type yet", with the + as the glyph, not "no mark".
+
+### Did the work change?
+- Yes. C is a new object; the form is re-shot.
+- C goes 7 → 8 on real change. A stays 9.
