@@ -13,13 +13,10 @@ pick/redirect before building anything.
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
   -- it should be the experience pre-sign in"); spec: `docs/shipped.md`
-  "Playground". Open: (1) the sign-in badge (round 2e, owner: "Sign in is
-  great") is BUILT on `claude/elegant-galileo-1c5ntm` (2026-10-14, notes:
-  `design/signin-button/notes/builder.md`), awaiting the CD + UX check and
-  the owner's final stills; it also fixes the sheet copy (old item 3); (2)
-  nothing in the playground says changes aren't kept, so a signed-out owner
-  (e.g. a Safari tab whose storage was cleared after ~7 days) can edit
-  thinking it saved -- owner's call whether it needs a cue (handoff Q2);
+  "Playground". Open: (1) the sign-in badge LANDED 2026-10-14 (spec:
+  `docs/shipped.md` "Sign-in badge"); (2) the playground cue: the owner
+  replied "Yep" to "is the sheet's one line enough, or something on the map
+  too?" -- read as the line is enough, no map cue; reopen if he says otherwise;
   (4) share-preview/title for the link.
 - **Brand colour tokens: one system** (owner, 2026-10-07, verbatim:
   "how are our colors defined in the app -- it should be clear from a
@@ -244,6 +241,13 @@ pick/redirect before building anything.
   `scope=local`, expired session) passed 7/7 -- worth committing one.
   Status: (1), (2) and (3) fixed in build round 2 (2026-10-14; `signin-test.js`
   cases 9, 9b and 9c fail on `ba473f8` and pass now). (4) stays open.
+
+- Sign-in hop view restore, plan view only (reviewer, 2026-10-14):
+  `restoreHopView()` keeps the saved zoom when no listed place is within one
+  cluster cell, but in plan view district/street stops also join the
+  cluster grid and aren't counted, so a pin next to one may cluster after
+  the restore and its tag silently doesn't reopen. Fix: count plan-stop
+  shape centroids in the neighbour check.
 
 - Sign-in badge build follow-ups (2026-10-14): (1) the 50-unit scallop
   polygon now lives three times -- `#floatingAddBtn`/`#accountBtn`'s CSS
