@@ -9,12 +9,13 @@ def R(a):
     if a0<=a<=a1: return r0+(r1-r0)*(a-a0)/(a1-a0)
   return pol[-1][1]
 for v in sys.argv[1].split(','):
+  NAVY = int(v) < 8
   im=Image.open(f'/tmp/claude-0/-home-user-la-trip-map/04f8fb34-0476-5960-add5-8bd3d6d8820e/scratchpad/ink-{v}.png').convert('RGB'); W=im.size[0]; k=W/50; px=im.load()
   ys=[];xs=[];clear=99;rows={}
   for y in range(W):
     for x in range(W):
       r,g,b=px[x,y]
-      if r<120 and g<120 and b<140 and abs(r-18)+abs(g-41)+abs(b-63)<150:
+      if ((r<120 and g<120 and b<140 and abs(r-18)+abs(g-41)+abs(b-63)<150) if NAVY else (abs(r-238)+abs(g-116)+abs(b-52)<120)):
         X,Y=x/k,y/k; ys.append(Y); xs.append(X); rows.setdefault(y,0); rows[y]+=1
         a=math.atan2(Y-25,X-25); clear=min(clear,R(a)-math.hypot(X-25,Y-25))
   # split person vs text: person = ink near centre column above text; find the largest empty band

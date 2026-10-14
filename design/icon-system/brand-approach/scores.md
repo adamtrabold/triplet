@@ -180,3 +180,137 @@ concept".
 3. "Is anything else fixed besides Visited: the pins' round shell and rim,
    the scalloped account and + buttons, the category colours?" (Default:
    all fixed. The filled star stays as shipped in every direction.)
+
+---
+
+## Round 2: v4 cards (2026-10-14)
+
+Judged on `concepts/sketches/v4-card-brand.png` and `v4-card-0..5.png`
+at phone width, starting with card 4 (side by side).
+
+**Result: READY after one short fix pass.** That's a verbatim copy change on
+the brand card and three small fixes on Timetable Sorts. I check only those
+two cards, plus card 4, before anything is sent. Cut Paper moves to the
+dropped strip.
+
+### Card 4 first: how far apart they are now
+
+- **Timetable** reads differently at a glance in every context (strip, row,
+  tag, map). That held from round 1.
+- **Field Guide** now reads as "Today, as one printed family". The cream
+  inlays show at 18px in the strip and in the row badge (steam, fork slots,
+  olive), and the new street road works. In the tag stub it's still
+  near-Today. The card says so honestly ("the evolutionary option").
+- **Cut Paper:** its category strip is now its own (flares, bites, S-cut,
+  ribbon). In the row, tag stub and map it still sits on top of Field
+  Guide: both are filled glyphs in the same badge, and Directions and the
+  off star are near-identical. That's the round-1 test, and it fails.
+
+### Likely owner objections
+
+1. Field Guide: "that's what we have." Answered on the card and in card 4,
+   so it's his informed choice, not a surprise.
+2. Timetable: "outline icons look like every app". Stated on the card. Also
+   new this round: **a square-headed account person and a compass in a
+   rounded square**. The "squarish ring" trait reads as a gimmick, not as
+   type (Archivo's own O is round), and a compass is round by meaning. In
+   the tag stub the off star is also visibly smaller than the fixed check
+   beside it.
+3. Brand card: **"Everything the app shows is printed … Only your own marks,
+   like Visited, look applied by hand"** contradicts his own rule. The
+   tag's type and stop numbers are *stamped*, because they're the clerk's
+   entries ("only the clerk's entries are stamped; the form's own words are
+   printed"). He coined that rule, so he'll catch it.
+
+### Scores
+
+**Brand card: 8, and 9 with this verbatim change.** It's clear, plain, and
+quick to judge against: the right yardstick. Replace the "The app prints.
+You stamp." sentence with:
+> "The form is printed: clean, flat, the same every time. What's filled in
+> about a place is stamped, like the type and stop number on the tag, and
+> your own marks, like Visited."
+
+Keep the heading. The example box stays (CAFE · REYKJAVÍK printed vs the
+VISITED stamp), but relabel the printed example as the form's own word: use
+"TYPE" printed beside it, not the stamped value. If that crowds the box,
+show only the VISITED stamp beside a printed "TYPE" label. **No other
+change.**
+
+**Card 1, Field Guide: 9.** That's up from 7, and the work really changed:
+inlays on all 11 places, a new street, tools tied to the check, and honest
+framing. As the conservative pole (the conventional answer, possibly the
+best one) I'd defend it to the owner as is. The risk he may call it average
+is stated on the card. He chooses it knowingly or not at all.
+
+**Card 3, Timetable Sorts: 8.** It held at 8. The rounding fixed the
+corner-rule break and the tag-stub family, but it brought in two new
+problems. Three fixes, then it's a 9:
+1. Round things stay round: the account head and the directions compass go
+   back to circles. Keep the type trait in the proportion and cut (the stem
+   weight, × and + proportioned to the caps, the cup's squarish bowl), not
+   in squaring circles.
+2. In the tag stub, size the off star to sit with the fixed check (same
+   optical height).
+3. District: use the outline block cut by two streets (the shared bar from
+   turn 6), not the irregular polygon.
+
+**Card 2, Cut Paper: 7, ruled DROPPED.** It improved (the cut is now in the
+silhouette and the dotted star is gone), but in the row, tag and map it
+can't be told from Field Guide. Showing it would give him two directions
+that look like one. On card 5, add its 11-category strip at 18px (its best
+evidence) and one line: "Its own shapes, but in rows, the tag and the map it
+looks like Field Guide." He can bring it back.
+
+**Card 4, side by side: keep.** Remove the Cut Paper section, so it's Today,
+Field Guide and Timetable.
+
+**Card 5, dropped: keep.** Add Cut Paper (above) and its dotted star.
+
+**Card 0, Today: reference, not scored.**
+
+### What kept blocking a 9 across rounds, and why
+
+- Round 1: the tools converged (my "no whimsy for tools" default became
+  "no identity"). Fixed this round.
+- Rounds 1 and 2: **a trait added to make a direction distinct turns into a
+  gimmick or a contradiction** (Cut Paper's lean, Timetable's mitres, then
+  its square rings). That comes from pushing for difference from the
+  outside. The owner's test is meaning: "whimsy that carries meaning, not
+  added decoration". Each trait must have a reason in the thing it draws.
+- Card copy has to match the owner's own rules word for word (brand card,
+  printed vs stamped). He wrote those rules and checks against them.
+
+### Did the work change?
+
+Yes, substantially. Field Guide's rise from 7 to 9 is earned. Timetable
+stays at 8 because it changed but gained new objections. Cut Paper moved
+from 6 to 7 but is dropped on the side-by-side test.
+
+### Send list (after the fix pass and my check of the brand card, card 3
+and card 4)
+
+In this order, as images at phone width (no canvas):
+1. `v4-card-brand.png`: the brand in plain words.
+2. `v4-card-0-today.png`: reference.
+3. `v4-card-1-field-guide.png`
+4. `v4-card-3-timetable-sorts.png`
+5. `v4-card-4-side-by-side.png` (Today, FG, TS)
+6. `v4-card-5-dropped.png` (Cut Paper included)
+
+`jobs.md` has already gone to him.
+
+### Owner questions (one batch, sent with the cards; none blocking)
+
+1. "On Oct 7 you wrote 'the checked items are stronger visually than the
+   open ones.' Is that still something you want addressed in this work? If
+   so, is it that the open ones look too weak, or that the checked ones look
+   too loud? Visited stays as it is either way."
+2. "Does 'Visited should not change' include the outline check on the tag
+   you tap to mark a place visited?" (We've kept it as is.)
+3. "Is anything else fixed besides Visited: the pins' round shell and rim,
+   the scalloped account and + buttons, the category colours?" (We've kept
+   them all.)
+
+And the decision itself: "Which direction, or which mix, should the team
+take into the grid and drawing phase?"
