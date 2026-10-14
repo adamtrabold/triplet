@@ -2255,23 +2255,16 @@
       #locations.collapsed { transform: none; }
       #locations.collapsed #locationsList { display: block; }
       #collapseBtn { display: none; }
-      /* collapseBtn (the header's alignment spacer, see its rule above) is
-         gone in the rail, so stand in with a blank spacer of the same
-         width -- otherwise the title would sit flush at the gutter instead
-         of 56px, out of line with every row's name. */
-      #locationsHeader::before {
-        content: '';
-        display: block;
-        width: var(--col-glyph);
-        flex-shrink: 0;
-      }
-      /* The 360px rail is 30px narrower than a phone, and the sort button
+      /* No caret in the rail, so the title moves over to the gutter where
+         the caret was (owner, 2026-10-13: "in that case the city name should
+         shift over") rather than holding a blank spacer for it.
+         The 360px rail is 30px narrower than a phone, and the sort button
          made the icon row four wide: the icons pack at 4px (mouse targets,
-         no thumb) so "Copenhagen list (38)" still fits untruncated. The
-         spine holds: spacer 28 + 4 gap + 8 margin = the title at 56px. */
+         no thumb). */
       #locationsHeader { gap: var(--s1); }
-      #locationsHeader::before { margin-right: var(--s2); }
-      #locationsHeader h2 { margin-right: var(--s1); }
+      /* The title's L stem sits 1px inside the row icons' ring: a round
+         edge overshoots a straight one, so this is what reads as aligned. */
+      #locationsHeader h2 { margin-right: var(--s1); margin-left: 2px; }
       #mainContent { left: 360px; bottom: 0 !important; height: auto !important; }
       /* The panel slides up from the viewport bottom once the sheet is a
          full-height rail -- there is no bottom sheet left to sit above. */

@@ -1297,3 +1297,13 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   the popup already did). `#authModalContent` keeps `2px solid var(--navy)`
   because it has a navy header band. Rule recorded in `docs/owner-taste.md`
   "Box strokes follow the box's header". Impeccable gate passed.
+
+- **Desktop list title takes the caret's spot** — 2026-10-14. Owner: "it
+  seems that on desktop it removes the caret to collapse the list since it's
+  a sidebar ... in that case the city name should shift over", then "title is
+  not aligned with icons in reality or visually"; shipped on "List title is
+  good to ship". In the `min-width: 900px` rail the blank
+  `#locationsHeader::before` spacer is gone; `#locationsHeader h2` gets
+  `margin-left: 2px`, putting the title's L stem (x=19) 1px inside the row
+  icons' ring (x=18), since a round edge overshoots a straight one. Phone
+  layout unchanged. Impeccable gate passed.
