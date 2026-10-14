@@ -32,3 +32,8 @@ So: feedback on concepts is normal iteration, not a rejection. Do not count it t
 > Person is too high and let’s take it to the blue and orange style again since the plus is changing
 
 Direction: (1) the person sits too high now — bring it down (between 2b and 2c); (2) return to the navy-and-orange style (navy badge, orange marks, like today's account badge) instead of the paper badge, because the + is becoming orange.
+
+2026-10-14, on round 2d (navy + orange, director 9):
+> The sign in badge looks good now but I forgot it was orange and blue when signed in so let’s do white and blue signed out
+
+Direction: 2d is approved apart from colour. Signed in stays navy + orange; signed out becomes white and blue so the two states differ.
