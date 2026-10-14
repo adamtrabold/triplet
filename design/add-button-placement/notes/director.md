@@ -1202,3 +1202,55 @@ The final list (19 stills, P → A → T → Float), the cost lines and the
 - 2026-10-14: round 8b re-shoots checked; send released (P 9, A 9). Next: owner's pick -> check handoff.md vs owner.md.
 - 2026-10-14: send held -- demo TYPE NATURE for a pool was an accident; mapped leisure=swimming_pool/sports_centre -> Attraction; re-shoot T3,T4,T5,T8,A5.
 - 2026-10-14: ATTRACTION re-shoots + P5 re-centre checked; 19-still send released unchanged.
+
+---
+
+## Round 9 steer -- jam turn 38 (2026-10-14)
+
+### Owner on round 8b
+- "Blank pin looks ugly"; wants the pin+tag as the button "with tweaks".
+- On the form: "buttons aren't reading like buttons" (new-city area).
+- Worried that pinned filling makes the map move. "If too complicated:
+  tag filled out, pin placed after creation."
+
+### What a 9 means (lesson)
+- P passed every metric and was still ugly to him.
+- Rank by inflating a mark is not a 9. It has to look at home beside
+  the app's pins and badge FIRST, and then win rank.
+
+### Rulings
+- **Fallback filling model.** The map is still while writing; one flight
+  on ADD, where the pin drops into the eyelet. Job 8 = words before, map
+  on ADD. The "show me" control is out.
+- **The pin waits at the button's spot (ii).** The eyelet is empty while
+  filling. Rule 1 is superseded during filling. A gets the same ending.
+- **Question answers in the stub.** The primary gets ADD's navy; ANSWER
+  ABOVE goes.
+- **Tappables audit** across the whole blank tag; no new button style.
+- **P is dropped.**
+
+### Pin+tag tweaks
+- An app-size pin, ≤ 40.
+- Rank from the tag, not an inflated disc.
+- A tag that reads as the Hanging Tag at 1x (V1's lesson, now
+  required).
+- One +.
+- Cream tag, orange pin.
+- Bottom-left.
+- ≥ 1.2x the account.
+
+### Concepts
+- C (pin+tag) and A, with one shared form.
+- Float as one frame.
+
+### Watch
+- C: "box with a hat", "doesn't read as +", "same weight as account",
+  "ugly".
+- The form: answers/buttons readability.
+- "Where's the map?" now that it's still while filling.
+
+### Owner questions
+The same six (Q6 reworded for the pin+tag).
+
+### Next
+Visual draws the tweaks + stub + audit; systems measures; then I steer.

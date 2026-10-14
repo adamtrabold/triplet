@@ -4125,3 +4125,139 @@ specifically the add city one. That whole area sort of disappears."
 NEXT: design director — rule pinned vs fallback (with the job 8 change),
 the pin's wait (i vs ii), and whether the answers go in the stub; then
 visual draws the pin+tag button with the rank tweak.
+
+## Turn 38 -- design director: round 9 steer (pin+tag button, the fallback filling model, answers that read as buttons)
+
+Owner, verbatim (2026-10-14, on round 8b): see turn 37. The round count
+restarts.
+
+**What "Blank pin looks ugly" tells me about a 9.** I scored P a 9 on
+evidence that a squint metric and a FAB comparison answered. They did,
+and it was still ugly to him. **Rank solved by inflating a mark is not
+a 9**, however the numbers come out. The object has to look at home
+beside the app's own pins and badge first, and win rank second. I'm
+scoring on that from now on, and it's in my notes.
+
+### Rulings
+
+1. **Filling model: the owner's fallback.**
+   - Systems' count settles it: 5 map moves in a plain add, 7-9 with a
+     question or a district. That's "too complicated" by the owner's own
+     bar.
+   - The tag is a card in the screen's frame: docked on the keyboard
+     while you type, on the list's band when it's down. **The map stays
+     still while you write.**
+   - **On ADD, one flight:** the place comes to the tag's hanging point
+     and the pin drops into the eyelet. That's the moment he liked ("the
+     tag being pinned"), kept as the payoff instead of a process.
+   - **Job 8 becomes "the words say where before ADD; the map shows it on
+     ADD".**
+   - **(b), the on-demand "show me", is out.** It's a second tap target
+     on the address line that already corrects the city: one more
+     control for a case the result row's address and the "New city?"
+     question already cover. A wrong pick is fixed after the fact
+     (owner question 2 stands).
+2. **The pin's wait: (ii).**
+   - Tapping the button takes the blank tag off the pin. The tag rises to
+     the dock, and the pin stays at the button's spot (hidden while the
+     tag or keyboard covers that corner).
+   - **While you fill, the eyelet is empty.** On ADD the pin goes in.
+   - That's the owner's "the pin placed after creation", word for word.
+     **Turn 32's rule 1 is superseded during filling;** the owner's words
+     outrank my rule.
+   - A gets the identical ADD moment: its tag also fills with an empty
+     eyelet and is pinned on ADD. **One form, one ending, two triggers.**
+3. **The question's answers go in the stub: yes.**
+   - While a question is up, the stub's segments *are* the answers
+     (ADD LISBON, which gets ADD's ready navy treatment, | PICK FROM MY
+     LIST as a plain tappable segment). The sentence prints just above
+     the perforation.
+   - "ANSWER ABOVE" goes. The stub returns to ADD | STAR | VISITED once
+     it's answered.
+   - Shapes' "which city": NEW CITY | the runner-up.
+4. **His wider note: "some of the buttons aren't reading like buttons."**
+   - He named the new-city area, but "some" is plural. **Visual audits
+     every tappable thing on the blank tag at phone size:**
+     - the TYPE pencil + ⌄;
+     - the city ⌄;
+     - the NOTES line;
+     - ×;
+     - STAR / MARK VISITED;
+     - the answers.
+   - Anything a stranger wouldn't tap gets the stub's segment treatment
+     or a clearer affordance from the shipped tag's vocabulary. No new
+     button style ("the same text button not a new button style").
+5. **P (lifted pin) is dropped.** He called it ugly. It isn't shown as an
+   alternative.
+
+### The pin+tag button ("with tweaks"): direction for visual
+
+His three past objections to this object, in order:
+- R4: the tag "doesn't read like a plus button";
+- R5b: "the pin doesnt look like a pin and therefore the tag doesnt read
+  as a tag (or a button)";
+- R5b, on the badge: "prominence … same weight and heirarchy as
+  account".
+
+Today R6b's 32 disc is 0.86x the account (systems).
+
+The tweaks must answer all three without the P mistake:
+- **The pin is the app's own pin, at the app's pin size.** At most 40
+  (systems: 1.20x), not inflated past what a selected pin could be. If
+  32 can't carry rank, the rank comes from the *tag*, not from a bigger
+  disc.
+- **The tag reads as the Hanging Tag at 1x.** Its die-cut, eyelet
+  patch, stub perforation and side notches are drawn so they survive at
+  its size (turn 31's V1 study). I dropped V1 in turn 32 because a
+  shrunk tag fails; the owner is now asking for exactly this object, so
+  the job is to make it *not* fail. A slightly larger tag is fine; a box
+  with a hat is not.
+- **One +, and the whole object reads as one button.** Where the + sits
+  (the pin's face, where the glyph goes, or printed big on the tag where
+  you'll write) is visual's call. Show the pick, plus at most one "also
+  tried" panel.
+- **Colour, rule 2:** orange off the paper (the pin face). The tag stays
+  cream, with no band: orange paper means starred.
+- **It has to look good beside the real pins and the account badge,
+  before any squint number.** Then systems measures it: it must beat the
+  account (≥ 1.2x) and clear the real pins (320 Stockholm is the known
+  hit).
+- **Position:** bottom-left, as he asked for the badge.
+- **Exceptions:** step aside under a tag, close filters, as before. A
+  stays the exception-free one.
+
+### Concept set for round 9
+
+Two concepts, still "more than one":
+1. **C · Pin+tag.** The button (with the tweaks), then the shared form.
+2. **A · Header tag.** Unchanged trigger, then the shared form.
+
+**The shared form:**
+- the fallback model;
+- an empty eyelet while filling;
+- pinned on ADD;
+- answers in the stub;
+- everything tappable reads as tappable.
+
+Float stays one frame. The round-8b form stills carry over wherever the
+model didn't change: typing, pencil, district (minus the hanging pin),
+320.
+
+**Re-draw what changed:**
+- the picked tag on the band, with the map still and the eyelet empty;
+- ADD's flight + pin-in, as a before/after;
+- the new-city stub;
+- the tappables audit;
+- C's rest vs today;
+- C at 1x vs the account and the real pins;
+- C's tap (the tag comes off the pin).
+
+### Owner questions (unchanged; send with the concepts)
+
+The same six as round 8b. Q6 is reworded: "the pin+tag needs one extra
+tap while a place's tag or the filters are open; the header tag doesn't."
+
+NEXT: product designer (visual focus) -- draw the pin+tag button tweaks
+(app-size pin, a tag that reads as the Hanging Tag at 1x, one +) beside
+today's pins and the account, plus the new-city stub and the tappables
+audit, so systems can measure rank and footprint on the real render.
