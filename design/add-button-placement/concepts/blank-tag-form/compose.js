@@ -61,9 +61,9 @@ const pages = {
   // ================= THE BLANK TAG (both) =================
   [T + 'T0-pencil-vs-greyed-1x.png']: `${cap('Pencil, not greyed out (real size, 1x)', 'Each strip is a real 1x screen, blown up 3× so you can see the pixels. Pencil should read as writing, not as something switched off.')}
      <div style="padding:0 30px">
-     ${lab('1 · Pencil: what you’ve written, before ADD')}${crop1(f('cmp-pencil-1x'), 45, 295, 345, 338, 3.7)}
-     ${lab('2 · Inked: the same name once added')}${crop1(f('cmp-ink-1x'), 45, 184, 345, 226, 3.7)}
-     ${lab('3 · Greyed out: signed-out Star and Visited (disabled)')}${crop1(f('cmp-off-1x'), 45, 260, 345, 316, 3.7)}
+     ${lab('1 · Pencil: what you’ve written, before ADD')}${crop1(f('cmp-pencil-1x'), 45, 383, 345, 426, 3.7)}
+     ${lab('2 · Inked: the same name once added')}${crop1(f('cmp-ink-1x'), 45, 184, 345, 222, 3.7)}
+     ${lab('3 · Greyed out: signed-out Star and Visited (disabled)')}${crop1(f('cmp-off-1x'), 45, 280, 345, 336, 3.7)}
      ${lab('4 · Printed: ADD before there’s a name')}${crop1(f('cmp-blank-1x'), 45, 332, 345, 388, 3.7)}
      </div>${note('Pencil is a cool, dark graphite with grain you can see and a slight sheen; greyed out is the warm ink faded. Printed words are small caps; pencil keeps the face it will have in ink.')}`,
   [T + 'T1-typing-3x.png']: `${cap('The blank tag: type the name', 'The name line is the search. What you type is pencil. The results print over the tag’s lower lines; a half row shows there are more. The tag and its stub (ADD) don’t move; the stub is under the keyboard for now.')}${full(f('f-typing664'))}<div class="gap"></div>`,
@@ -71,11 +71,11 @@ const pages = {
      ${pair(f('f-blank664'), 'Blank', f('f-nores664'), 'No results', 664)}<div class="gap"></div>`,
   [T + 'T3-picked-3x.png']: `${cap('Picked: check it, then ADD', 'The pin lands on the place and the tag hangs from it, filled in in pencil on its printed lines: address and city, NOTES to write on, TYPE guessed (tap to change). ADD is navy: on a tag, orange means starred.')}${full(f('f-picked664'))}<div class="gap"></div>`,
   [T + 'T4-starred-visited-3x.png']: `${cap('Starred, visited and a note, while adding', 'STAR prints the orange band, exactly as on a starred place’s tag. VISITED stamps, as on the real tag. The note is pencil until you add.')}${full(f('f-starred664'))}<div class="gap"></div>`,
-  [T + 'T5-ink-over-3x.png']: `${cap('ADD: the pencil inks', 'Left to right: before, the moment of ADD (the name inks, TYPE is stamped, the pin takes the place’s icon), and after: the place’s own tag, its row selected in the list.')}
-     <div class="row" style="padding:0 15px;gap:12px">${[['f-picked664', 'Before'], ['f-inking664', 'ADD'], ['f-done664', 'After']].map(([n, t]) => col(t, crop(f(n), 0, 0, 390, 664, 370 / 390, 390, 'border:1px solid #cfc4ae'), 372)).join('')}</div><div class="gap"></div>`,
+  [T + 'T5-ink-over-3x.png']: `${cap('ADD: the blank tag becomes the place’s tag', 'The pencil inks, TYPE is stamped, the pin takes the place’s icon, and the printed lines go: it’s the real tag at once. Its top comes down (the map moves with it), so ADD’s spot, now DIRECTIONS, stays under your thumb.')}
+     ${pair(f('f-picked664'), 'Before: tap ADD', f('f-after664'), 'After: the place’s own tag', 664)}<div class="gap"></div>`,
   [T + 'T6-district-3x.png']: `${cap('A district or a street', 'Same tag, same ADD. A district isn’t a point, so the pin stays held above it; on ADD it fades as the outline draws in and the tag hangs from the area’s centre dot.')}${full(f('f-shape664'))}<div class="gap"></div>`,
   [T + 'T7-questions-3x.png']: `${cap('When the app needs an answer', 'Left: a place outside your cities: the tag asks, with two answers, and ADD waits. Right: the save failed: the tag stays as it was, nothing lost.')}
-     <div class="row" style="gap:20px">${col('New city', crop(f('f-newcity664'), 0, 160, 390, 586, 575 / 390), 575)}${col('Couldn’t save', crop(f('f-failed664'), 0, 176, 390, 584, 575 / 390), 575)}</div><div class="gap"></div>`,
+     ${pair(f('f-newcity664'), 'New city', f('f-failed664'), 'Couldn’t save', 664)}<div class="gap"></div>`,
   [T + 'T8-320-3x.png']: `${cap('Smallest phone (320 × 568)', 'Typing: three results above the keyboard. Picked: the whole tag and ADD in view.')}
      <div class="row" style="gap:20px">${col('Typing', crop(f('f-typing320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('Picked', crop(f('f-picked320'), 0, 0, 320, 568, 575 / 320, 320), 575)}</div><div class="gap"></div>`,
 };

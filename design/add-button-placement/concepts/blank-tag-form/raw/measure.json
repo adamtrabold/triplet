@@ -245,6 +245,7 @@
   "clash": []
  },
  "p-rest664": {
+  "acctPins": 0,
   "lp": [
    17.9,
    270,
@@ -321,6 +322,7 @@
   "clash": []
  },
  "f-blank664": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -353,6 +355,7 @@
   "clash": []
  },
  "f-typing664": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -385,6 +388,7 @@
   "clash": []
  },
  "f-nores664": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -417,6 +421,7 @@
   "clash": []
  },
  "f-picked664": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -433,172 +438,7 @@
   ],
   "tag": [
    37,
-   262,
-   353,
-   578
-  ],
-  "add": [
-   37,
-   518,
-   142.3,
-   578
-  ],
-  "pin": [
-   177,
-   200,
-   213,
-   236
-  ],
-  "sheetTop": 604,
-  "errs": [],
-  "clash": []
- },
- "f-starred664": {
-  "lp": null,
-  "nb": null,
-  "acct": [
-   324,
-   16,
-   374,
-   66
-  ],
-  "credit": [
-   138.9,
-   587.2,
-   390,
-   604
-  ],
-  "tag": [
-   37,
-   262,
-   353,
-   578
-  ],
-  "add": [
-   37,
-   518,
-   142.3,
-   578
-  ],
-  "pin": [
-   177,
-   200,
-   213,
-   236
-  ],
-  "sheetTop": 604,
-  "errs": [],
-  "clash": []
- },
- "f-inking664": {
-  "lp": null,
-  "nb": null,
-  "acct": [
-   324,
-   16,
-   374,
-   66
-  ],
-  "credit": [
-   138.9,
-   587.2,
-   390,
-   604
-  ],
-  "tag": [
-   37,
-   262,
-   353,
-   578
-  ],
-  "add": null,
-  "pin": null,
-  "sheetTop": 604,
-  "errs": [],
-  "clash": []
- },
- "f-done664": {
-  "lp": null,
-  "nb": null,
-  "acct": [
-   324,
-   16,
-   374,
-   66
-  ],
-  "credit": [
-   138.9,
-   353.2,
-   390,
-   370
-  ],
-  "tag": [
-   37,
-   142,
-   353,
-   318
-  ],
-  "add": null,
-  "pin": null,
-  "sheetTop": 370,
-  "errs": [],
-  "clash": []
- },
- "f-shape664": {
-  "lp": null,
-  "nb": null,
-  "acct": [
-   324,
-   16,
-   374,
-   66
-  ],
-  "credit": [
-   138.9,
-   587.2,
-   390,
-   604
-  ],
-  "tag": [
-   37,
-   262,
-   353,
-   578
-  ],
-  "add": [
-   37,
-   518,
-   142.3,
-   578
-  ],
-  "pin": [
-   177,
-   192,
-   213,
-   228
-  ],
-  "sheetTop": 604,
-  "errs": [],
-  "clash": []
- },
- "f-newcity664": {
-  "lp": null,
-  "nb": null,
-  "acct": [
-   324,
-   16,
-   374,
-   66
-  ],
-  "credit": [
-   138.9,
-   587.2,
-   390,
-   604
-  ],
-  "tag": [
-   37,
-   230,
+   340,
    353,
    588
   ],
@@ -610,15 +450,16 @@
   ],
   "pin": [
    177,
-   168,
+   278,
    213,
-   204
+   314
   ],
   "sheetTop": 604,
   "errs": [],
   "clash": []
  },
- "f-failed664": {
+ "f-starred664": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -635,27 +476,198 @@
   ],
   "tag": [
    37,
-   262,
+   340,
    353,
-   578
+   588
   ],
   "add": [
    37,
-   518,
+   528,
    142.3,
-   578
+   588
   ],
   "pin": [
    177,
-   200,
+   278,
    213,
-   236
+   314
+  ],
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "f-inking664": {
+  "acctPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   340,
+   353,
+   588
+  ],
+  "add": null,
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "f-done664": {
+  "acctPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   373.2,
+   390,
+   390
+  ],
+  "tag": [
+   37,
+   142,
+   353,
+   338
+  ],
+  "add": null,
+  "pin": null,
+  "sheetTop": 390,
+  "errs": [],
+  "clash": []
+ },
+ "f-shape664": {
+  "acctPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   340,
+   353,
+   588
+  ],
+  "add": [
+   37,
+   528,
+   142.3,
+   588
+  ],
+  "pin": [
+   177,
+   270,
+   213,
+   306
+  ],
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "f-newcity664": {
+  "acctPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   241,
+   353,
+   588
+  ],
+  "add": [
+   37,
+   528,
+   142.3,
+   588
+  ],
+  "pin": [
+   177,
+   179,
+   213,
+   215
+  ],
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "f-failed664": {
+  "acctPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   298,
+   353,
+   588
+  ],
+  "add": [
+   37,
+   528,
+   142.3,
+   588
+  ],
+  "pin": [
+   177,
+   236,
+   213,
+   272
   ],
   "sheetTop": 604,
   "errs": [],
   "clash": []
  },
  "f-typing320": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -688,6 +700,7 @@
   "clash": []
  },
  "f-picked320": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -704,7 +717,7 @@
   ],
   "tag": [
    16,
-   176,
+   244,
    304,
    492
   ],
@@ -716,15 +729,16 @@
   ],
   "pin": [
    142,
-   114,
+   182,
    178,
-   150
+   218
   ],
   "sheetTop": 508,
   "errs": [],
   "clash": []
  },
  "f-typing844": {
+  "acctPins": 1,
   "lp": null,
   "nb": null,
   "acct": [
@@ -757,6 +771,7 @@
   "clash": []
  },
  "a-rest": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
@@ -784,6 +799,7 @@
   "clash": []
  },
  "a-rest-1x": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
@@ -811,6 +827,7 @@
   "clash": []
  },
  "a-tag664": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
@@ -843,6 +860,7 @@
   "clash": []
  },
  "a-picked664": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
@@ -864,27 +882,28 @@
   ],
   "tag": [
    37,
-   262,
+   340,
    353,
-   578
+   588
   ],
   "add": [
    37,
-   518,
+   528,
    142.3,
-   578
+   588
   ],
   "pin": [
    177,
-   200,
+   278,
    213,
-   236
+   314
   ],
   "sheetTop": 604,
   "errs": [],
   "clash": []
  },
  "a-rest664": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
@@ -912,6 +931,7 @@
   "clash": []
  },
  "a-rest320": {
+  "acctPins": 1,
   "lp": null,
   "nb": [
    260,
@@ -939,6 +959,7 @@
   "clash": []
  },
  "a-typing664": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
@@ -976,6 +997,7 @@
   "clash": []
  },
  "fl-rest664": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -998,6 +1020,7 @@
   "clash": []
  },
  "fl-picked664": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1014,7 +1037,7 @@
   ],
   "tag": [
    37,
-   196,
+   264,
    353,
    512
   ],
@@ -1026,21 +1049,22 @@
   ],
   "pin": [
    177,
-   134,
+   202,
    213,
-   170
+   238
   ],
   "sheetTop": 604,
   "errs": [],
   "clash": []
  },
  "a-done664": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
-   370,
    390,
-   427
+   390,
+   447
   ],
   "acct": [
    324,
@@ -1050,23 +1074,24 @@
   ],
   "credit": [
    138.9,
-   353.2,
+   373.2,
    390,
-   370
+   390
   ],
   "tag": [
    37,
    142,
    353,
-   318
+   338
   ],
   "add": null,
   "pin": null,
-  "sheetTop": 370,
+  "sheetTop": 390,
   "errs": [],
   "clash": []
  },
  "a-inking664": {
+  "acctPins": 0,
   "lp": null,
   "nb": [
    330,
@@ -1088,9 +1113,9 @@
   ],
   "tag": [
    37,
-   262,
+   340,
    353,
-   578
+   588
   ],
   "add": null,
   "pin": null,
@@ -1099,6 +1124,7 @@
   "clash": []
  },
  "f-blank844": {
+  "acctPins": 1,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1131,6 +1157,7 @@
   "clash": []
  },
  "cmp-pencil-1x": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1147,27 +1174,28 @@
   ],
   "tag": [
    37,
-   262,
+   340,
    353,
-   578
+   588
   ],
   "add": [
    37,
-   518,
+   528,
    142.3,
-   578
+   588
   ],
   "pin": [
    177,
-   200,
+   278,
    213,
-   236
+   314
   ],
   "sheetTop": 604,
   "errs": [],
   "clash": []
  },
  "cmp-ink-1x": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1178,23 +1206,24 @@
   ],
   "credit": [
    138.9,
-   353.2,
+   373.2,
    390,
-   370
+   390
   ],
   "tag": [
    37,
    142,
    353,
-   318
+   338
   ],
   "add": null,
   "pin": null,
-  "sheetTop": 370,
+  "sheetTop": 390,
   "errs": [],
   "clash": []
  },
  "cmp-off-1x": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1205,23 +1234,24 @@
   ],
   "credit": [
    138.9,
-   353.2,
+   373.2,
    390,
-   370
+   390
   ],
   "tag": [
    37,
    142,
    353,
-   318
+   338
   ],
   "add": null,
   "pin": null,
-  "sheetTop": 370,
+  "sheetTop": 390,
   "errs": [],
   "clash": []
  },
  "cmp-blank-1x": {
+  "acctPins": 1,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1254,6 +1284,7 @@
   "clash": []
  },
  "cmp-pencil": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1270,27 +1301,28 @@
   ],
   "tag": [
    37,
-   262,
+   340,
    353,
-   578
+   588
   ],
   "add": [
    37,
-   518,
+   528,
    142.3,
-   578
+   588
   ],
   "pin": [
    177,
-   200,
+   278,
    213,
-   236
+   314
   ],
   "sheetTop": 604,
   "errs": [],
   "clash": []
  },
  "cmp-off": {
+  "acctPins": 0,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1301,23 +1333,24 @@
   ],
   "credit": [
    138.9,
-   353.2,
+   373.2,
    390,
-   370
+   390
   ],
   "tag": [
    37,
    142,
    353,
-   318
+   338
   ],
   "add": null,
   "pin": null,
-  "sheetTop": 370,
+  "sheetTop": 390,
   "errs": [],
   "clash": []
  },
  "cmp-blank": {
+  "acctPins": 1,
   "lp": null,
   "nb": null,
   "acct": [
@@ -1346,6 +1379,67 @@
    48
   ],
   "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "f-after664": {
+  "acctPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   392,
+   353,
+   588
+  ],
+  "add": null,
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "a-after664": {
+  "acctPins": 0,
+  "lp": null,
+  "nb": [
+   330,
+   604,
+   390,
+   661
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   392,
+   353,
+   588
+  ],
+  "add": null,
+  "pin": null,
+  "sheetTop": 604,
   "errs": [],
   "clash": []
  }

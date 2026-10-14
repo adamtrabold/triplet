@@ -1,5 +1,18 @@
 # The blank-tag form: how it looks and feels (shared by P, A and the Float frame)
 
+## Round 8b (visual, after the round-8 score). This overrides the round-8 section below where they differ.
+
+- **One rhythm:** each line is a 32px row with the rule at its foot.
+  - The entries sit on their rules in their inked faces: name 26/28, address 13/18, note 14/20, TYPE 14 caps.
+  - An empty line's caption prints on its own line, small caps `--ink-2`, and the entry replaces it. Only NAME, while docked, keeps its caption under the rule, in its own 16px band.
+  - The picked tag is 248 (the real tag with an address is 196, plus the NOTES row). There's no empty band (T3, T4, T6, T7).
+- **ADD (T5, two panels):**
+  - The pencil inks, TYPE is stamped, the pin turns to the place's icon, and the rules and captions go.
+  - The tag tightens to the real tag by its top edge coming down, with the map moving with it, so the stub (ADD → DIRECTIONS) never moves. One 300ms ease for the shrink and the pan together.
+  - The list stays at its band until you close the tag.
+- **Demo place:** now Sundhöllin, the pool on Barónsstígur. At these pans nothing sits under the account badge in any frame the owner gets.
+- **320 typing:** results start at 72 and NAME's caption is hidden; 3 rows and a peek (T8).
+
 ## Round 8 changes (visual, after director turn 36). These override anything below that disagrees.
 
 - **Graphite, not grey (fix 1; `T0-pencil-vs-greyed-1x`).**

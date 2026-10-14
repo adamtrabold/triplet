@@ -36,18 +36,29 @@
 
   /* ---- blank-mode contents: a RULED blank tag (turn 37). Every line is there from the first frame, at a fixed
      pitch, and the stub sits where it will be: .tag-in is at least 256 tall, so the tag is 316 with its stub. ---- */
-  .tag.is-blank .tag-in { padding-top: 36px; padding-bottom: 18px; min-height: 256px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
-  .tag.is-blank .tag-in > .bt-q, .tag.is-blank .tag-in > .bt-err { margin-top: 10px !important; }
-  .tag.is-blank.is-starred .tag-in { padding-top: var(--s12); }
-  .bt-f { position: relative; }
-  .bt-rule { position: relative; border-bottom: 1px solid var(--hair); }
+  /* ONE RHYTHM (round 8, director fix 1): every line of the blank tag is one 32px row (--s8), the rule at the row's
+     foot; an entry sits on its rule; a caption prints UNDER its rule only while the line is empty (into the next row's
+     empty head, so it adds no height); TYPE keeps its inline caption, as on the real tag. Hanging (picked): the real
+     tag's 48 top, 12 foot -> 48 + 4 x 32 + 12 = 188 + the 60 stub = 248 (the real tag + only the NOTES line).
+     Docked (keyboard up): 36 top, at least 256 so the stub sits behind the keyboard and never moves while typing. */
+  .tag.is-blank .tag-in { padding-top: var(--s12); padding-bottom: var(--s3); box-sizing: border-box; }
+  .tag.is-blank.docked .tag-in { padding-top: 36px; min-height: 256px; }
+  .tag.is-blank .tag-in > .bt-q, .tag.is-blank .tag-in > .bt-err { margin-top: var(--s3) !important; }
+  .bt-f { position: relative; height: var(--s8); box-sizing: border-box; display: flex; align-items: flex-end; }
+  .bt-rule { position: relative; flex: 1; min-width: 0; border-bottom: 1px solid var(--hair); }
   .bt-f.name .bt-rule { margin-right: 30px; }
+  /* an empty line's caption prints ON the line (a form's field label), and the entry replaces it; only NAME, while
+     you type on a tall screen, keeps its caption UNDER the rule (director round 8, fix 5) */
+  .bt-f > .bt-cap { position: absolute; left: 0; bottom: 4px; margin: 0; line-height: 12px; }
+  .bt-f.name.typing > .bt-cap { bottom: auto; top: calc(100% + 3px); }
+  .bt-f.name.typing { margin-bottom: 16px; }   /* docked: NAME's under-caption gets its own band, then the 32 rhythm resumes */
   .bt-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; min-height: 28px; padding-right: 32px; margin: 0; overflow-wrap: anywhere; }
   .bt-addr { font-size: 13px; line-height: 18px; min-height: 18px; }
   .bt-note { font-size: 14px; line-height: 20px; min-height: 20px; }
   .bt-cap { display: block; margin-top: 3px; font-stretch: 75%; text-transform: uppercase; font-weight: 500; font-size: 11px; line-height: 14px; letter-spacing: .12em; color: var(--ink-2); }
-  .bt-f.type { display: flex; align-items: baseline; gap: var(--s2); }
-  .bt-f.type .bt-rule { flex: 0 0 150px; min-height: 18px; }
+  .bt-f.type { gap: var(--s2); align-items: flex-end; padding-bottom: 2px; }
+  .bt-f.type .tag-lab { line-height: 18px; }
+  .bt-f.type .bt-rule { flex: 0 0 150px; min-height: 18px; display: flex; align-items: flex-end; }
   .bt-type { font-stretch: 75%; font-weight: 700; font-size: 14px; line-height: 16px; letter-spacing: .09em; text-transform: uppercase; }
   .bt-hint { font-size: 13px; line-height: 18px; color: var(--ink-2); }
   /* GRAPHITE (turn 37, director fix 1: "pencil reads as greyed out"): a cool, dark graphite with a faint sheen
@@ -61,6 +72,9 @@
   .bt-caret { display: inline-block; width: 1.5px; height: 24px; background: var(--graphite); vertical-align: -3px; margin-left: 2px; }
   .bt-chev { display: inline-block; width: 6px; height: 6px; margin-left: 6px; vertical-align: 2px; border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; transform: rotate(45deg) translate(-1px, -1px); opacity: .8; }
   /* typing: the offers print over the lower lines; the tag's outline and stub don't move */
+  .tag.short .bt-f.name > .bt-cap { display: none; }
+  .tag.short .bt-res { top: 72px; }
+  .tag-in.has-res > .bt-f:not(.name) { visibility: hidden; }
   .bt-res { position: absolute; z-index: 2; left: 0; right: 0; top: 89px; bottom: 0; padding: 0 var(--s4); background: var(--paper-raised); overflow: hidden; }
   /* the search offers: PRINTED on the tag (not pencil), 48px rows, hairlines, no slip edge */
   .bt-r { height: 48px; box-sizing: border-box; border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
@@ -132,19 +146,19 @@
   };
 
   // ---------------- contents ----------------
-  const NAME = 'Hallgrímskirkja', ADDR = 'Hallgrímstorg 1', CITY = 'Reykjavík';
-  const RESULTS = [['Hallgrímskirkja', 'Church · Hallgrímstorg 1, Reykjavík'], ['Hallgrímstorg', 'Square · Miðborg, Reykjavík'],
-    ['Hallgrímskirkja (bus stop)', 'Eiríksgata, Reykjavík'], ['Hallgrímur Pétursson statue', 'Skólavörðuholt, Reykjavík'], ['Hallgrímskirkja tower lift', 'Hallgrímstorg 1, Reykjavík']];
+  const NAME = 'Sundhöllin', ADDR = 'Barónsstígur 45a', CITY = 'Reykjavík';
+  const RESULTS = [['Sundhöllin', 'Swimming pool · Barónsstígur 45a, Reykjavík'], ['Sundlaug Vesturbæjar', 'Swimming pool · Hofsvallagata, Reykjavík'],
+    ['Sundlaugin í Laugardal', 'Swimming pool · Sundlaugavegur 30, Reykjavík'], ['Sundahöfn', 'Harbour · Laugarnes, Reykjavík'], ['Sundagarðar', 'Street · Laugardalur, Reykjavík']];
   const plusIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>';
   function inner(s) {
     const st = s.state;
     const nm = s.name !== undefined ? s.name : NAME;
     const pre = ['blank', 'typing', 'nores'].includes(st), shape = st === 'shape';
-    const type = s.type || (shape ? 'district' : 'attraction');
+    const type = s.type || (shape ? 'district' : 'nature');
     const pen = s.inked ? '' : 'bt-pencil';
     // NAME
-    const nameTxt = pre ? (st === 'blank' ? '' : (s.text || 'Hallgr')) + '<span class="bt-caret"></span>' : nm;
-    let h = `<div class="bt-f name"><div class="bt-rule"><h2 class="bt-name ${pre ? 'bt-pencil' : pen}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nameTxt}</h2></div>${pre ? '<span class="bt-cap">Name</span>' : ''}</div>`;
+    const nameTxt = pre ? (st === 'blank' ? '' : (s.text || 'Sund')) + '<span class="bt-caret"></span>' : nm;
+    let h = `<div class="bt-f name${pre ? ' typing' : ''}"><div class="bt-rule"><h2 class="bt-name ${pre ? 'bt-pencil' : pen}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nameTxt}</h2></div>${pre ? '<span class="bt-cap">Name</span>' : ''}</div>`;
     // ADDRESS . CITY (a printed hint for a shape)
     h += shape ? `<div class="bt-f"><div class="bt-rule"><div class="bt-hint">Traced from OpenStreetMap when you add it</div></div></div>`
       : `<div class="bt-f"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR} · ${s.city || CITY}<span class="bt-chev"></span>`}</div></div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
@@ -187,7 +201,7 @@
     tag.classList.add('is-blank'); tag.classList.remove('is-visited');
     if (!s.starred) { tag.classList.remove('is-starred'); const b = tag.querySelector('.tag-band'); if (b) b.remove(); }
     if (s.inking) tag.classList.add('bt-inking');
-    const tin = tag.querySelector('.tag-in'); tin.innerHTML = inner(s); grain(tin);
+    const tin = tag.querySelector('.tag-in'); tin.innerHTML = inner(s); grain(tin); tin.classList.toggle('has-res', s.state === 'typing' || s.state === 'nores');
     // star + visited segments: the real ones, set to the draft's state
     const star = tag.querySelector('.popup-star');
     if (star && !s.starred) { star.classList.remove('starred'); star.querySelector('span').textContent = 'Star'; const u = star.querySelector('use'); if (u) u.setAttribute('href', '#g-star-open'); const sv = star.querySelector('svg'); if (sv) sv.classList.add('is-open'); }
@@ -207,7 +221,8 @@
     p.style.setProperty('--tag-w', tw + 'px'); p.style.setProperty('--tag-drop', (tagTop - pinTop - 32) + 'px');
     p.classList.remove('tag-wait');
     wrap.appendChild(p); document.body.appendChild(wrap);
-    makeBlank(p.querySelector('.tag'), s);
+    const tg = p.querySelector('.tag'); tg.classList.add('docked'); if (innerHeight < 600) tg.classList.add('short');
+    makeBlank(tg, s);
     // the tag runs on behind the keyboard: let it be as tall as it wants
     const pin = document.createElement('div'); pin.className = 'bt-pin'; pin.id = 'btPin'; pin.innerHTML = pinSvg(32);
     pin.style.left = (W / 2) + 'px'; pin.style.top = (pinTop + 16) + 'px'; document.body.appendChild(pin);
@@ -221,7 +236,7 @@
     if (s.inked !== 'done') makeBlank(tag, s);
     // the taller blank tag must still clear the list (the real tag-fit does this by panning): pan the map up if needed
     const tb = tag.querySelector('.tag-body').getBoundingClientRect(), S = document.getElementById('locations').getBoundingClientRect().top;
-    const ov = Math.ceil(tb.bottom - (s.clear || S - 16)); if (ov > 0) map.panBy([0, ov], { animate: false });
+    const ov = Math.round(tb.bottom - (s.clear || S - 16)); if (ov) map.panBy([0, ov], { animate: false });
     // the selected marker -> the blank pin (lifted for a shape: it never lands)
     const sel = document.querySelector('.leaflet-marker-icon .highlighted-marker');
     const icon = sel && sel.closest('.leaflet-marker-icon');
@@ -237,6 +252,11 @@
     return 'ok';
   };
 
+  // after ADD: the REAL tag, its foot (stub) where the blank tag's was (the top edge came down; the map panned with it)
+  BT.alignReal = function (limit) {
+    const tb = document.querySelector('.leaflet-popup.tag-popup .tag-body').getBoundingClientRect(), S = document.getElementById('locations').getBoundingClientRect().top;
+    const ov = Math.round(tb.bottom - (limit || S - 16)); if (ov) map.panBy([0, ov], { animate: false }); return ov;
+  };
   // ---------------- keyboard ----------------
   BT.kb = function (on, h) {
     let k = document.getElementById('btKb'); if (!on) { if (k) k.remove(); return; }

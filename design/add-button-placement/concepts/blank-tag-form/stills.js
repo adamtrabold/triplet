@@ -14,10 +14,11 @@ const HTML = {
   F: inj(real, [BT, PREFIX], 'data-k="F"'),
 };
 // ---------- helpers ----------
-const zoomIn = p => p.evaluate(() => map.setView([64.1471, -21.9426], 14, { animate: false }));
+const zoomIn = (p, c) => p.evaluate(c => map.setView(c || [64.1471, -21.9426], 14, { animate: false }), c);
 const rowId = (p, name) => p.evaluate(n => locations.find(l => l.name === n && l.city === 'reykjavik').id, name);
 async function openPlace(p, name, collapse) {
   const id = await rowId(p, name);
+  await p.evaluate(id => { const l = locations.find(l => l.id === id); if (l && l.name === 'Sundhöllin') l.short_address = 'Barónsstígur 45a · Reykjavík'; }, id);
   await p.click(`#locationsList .location-card[data-id="${id}"]`); await p.waitForTimeout(1900);
   if (collapse) { await p.click('#collapseBtn'); await p.waitForTimeout(1200); }
 }
@@ -25,8 +26,8 @@ const restP = p => p.evaluate(() => __BT.restP());
 const hideP = p => p.evaluate(() => { const e = document.getElementById('lp'); if (e) e.classList.add('gone'); });
 // capture a real tag as the template, then close it (the blank tag is built from the shipped DOM)
 async function template(p) { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => { __BT.capture(); map.closePopup(); }); await p.waitForTimeout(700); }
-async function dock(p, s, kbH) { await template(p); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
-async function hang(p, s, place = 'Hallgrímskirkja') { await openPlace(p, place, true); await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
+async function dock(p, s, kbH) { await template(p); await zoomIn(p, s.centre || [64.1440, -21.9426]); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
+async function hang(p, s, place = 'Sundhöllin') { await openPlace(p, place, true); await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
 const floatBadge = (p, open) => p.evaluate(open => {   // the Float frame: R7's badge (60px, orange, account's scalloped die) at bottom-left
   const a = document.getElementById('accountBtn'), m = getComputedStyle(a).webkitMaskImage || getComputedStyle(a).maskImage;
   let f = document.getElementById('fb'); if (!f) { f = document.createElement('div'); f.id = 'fb'; document.body.appendChild(f); }
@@ -72,19 +73,20 @@ F['f-blank664'] = { k: 'P', vp: V664, zoom: true, run: p => dock(p, { state: 'bl
 F['f-typing664'] = { k: 'P', vp: V664, zoom: true, run: p => dock(p, { state: 'typing' }) };
 F['f-nores664'] = { k: 'P', vp: V664, zoom: true, run: p => dock(p, { state: 'nores', text: 'Hallgrimz' }) };
 F['f-picked664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked' }) };
-F['f-starred664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked', starred: true, visited: true, notes: 'Go up the tower at sunset' }) };
+F['f-starred664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked', starred: true, visited: true, notes: 'Bring a towel; locals swim at 7am' }) };
 F['f-inking664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked', inked: 'mid', inking: true }) };
-F['f-done664'] = { k: 'P', vp: V664, run: p => openPlace(p, 'Hallgrímskirkja') };
+F['f-done664'] = { k: 'P', vp: V664, run: p => openPlace(p, 'Sundhöllin') };
+F['f-after664'] = { k: 'P', vp: V664, run: async p => { await openPlace(p, 'Sundhöllin', true); await p.evaluate(() => __BT.alignReal()); await p.waitForTimeout(300); } };
 F['f-shape664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'shape', name: 'Skólavörðuholt', type: 'district' }, 'Tjörnin pond') };
 F['f-newcity664'] = { k: 'P', vp: V664, run: async p => { await hang(p, { state: 'newcity', name: 'Time Out Market', addr: 'Av. 24 de Julho 49', city: 'Lisbon', type: 'restaurant' }); await blankAll(p); } };
 F['f-failed664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'failed' }) };
-F['f-typing320'] = { k: 'P', vp: V320, zoom: true, run: p => dock(p, { state: 'typing' }, 260) };
+F['f-typing320'] = { k: 'P', vp: V320, zoom: true, centre: [64.1440, -21.9426], run: p => dock(p, { state: 'typing', centre: [64.1500, -21.9480] }, 260) };
 F['f-picked320'] = { k: 'P', vp: V320, run: p => hang(p, { state: 'picked' }) };
-F['f-typing844'] = { k: 'P', inset: true, zoom: true, run: p => dock(p, { state: 'typing', pinTop: 61, tagTop: 121 }) };
+F['f-typing844'] = { k: 'P', inset: true, zoom: true, centre: [64.1440, -21.9426], run: p => dock(p, { state: 'typing', pinTop: 61, tagTop: 121 }) };
 // the pencil comparison (director turn 36, fix 1), at 1x
 F['cmp-pencil-1x'] = { k: 'P', vp: V664, dsf: 1, run: p => hang(p, { state: 'picked' }) };
-F['cmp-ink-1x'] = { k: 'P', vp: V664, dsf: 1, run: p => openPlace(p, 'Hallgrímskirkja') };
-F['cmp-off-1x'] = { k: 'P', vp: V664, dsf: 1, run: async p => { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => document.querySelector('.tag-popup .tag').classList.add('is-off')); } };
+F['cmp-ink-1x'] = { k: 'P', vp: V664, dsf: 1, run: p => openPlace(p, 'Sundhöllin') };
+F['cmp-off-1x'] = { k: 'P', vp: V664, dsf: 1, run: async p => { await openPlace(p, 'Sundhöllin'); await p.evaluate(() => document.querySelector('.tag-popup .tag').classList.add('is-off')); } };
 F['cmp-blank-1x'] = { k: 'P', dsf: 1, zoom: true, run: p => dock(p, { state: 'blank' }) };
 F['cmp-pencil'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked' }) };
 F['cmp-off'] = { ...F['cmp-off-1x'], dsf: 3 };
@@ -93,9 +95,10 @@ F['cmp-blank'] = { ...F['cmp-blank-1x'], dsf: 3 };
 both('a-rest', { k: 'A', zoom: true });
 F['a-tag664'] = { k: 'A', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
 F['a-picked664'] = { k: 'A', vp: V664, run: async p => { await hang(p, { state: 'picked' }); await nbOpen(p); } };
-F['a-done664'] = { k: 'A', vp: V664, run: p => openPlace(p, 'Hallgrímskirkja') };
+F['a-done664'] = { k: 'A', vp: V664, run: p => openPlace(p, 'Sundhöllin') };
 F['a-inking664'] = { k: 'A', vp: V664, run: async p => { await hang(p, { state: 'picked', inked: 'mid', inking: true }); await nbOpen(p); } };
-F['a-rest664'] = { k: 'A', vp: V664, zoom: true };
+F['a-rest664'] = { k: 'A', vp: V664, zoom: true, centre: [64.1440, -21.9426] };
+F['a-after664'] = { k: 'A', vp: V664, run: async p => { await openPlace(p, 'Sundhöllin', true); await p.evaluate(() => __BT.alignReal()); await nbOpen(p); await p.evaluate(() => document.getElementById('nb').classList.remove('open')); await p.waitForTimeout(300); } };
 F['a-rest320'] = { k: 'A', vp: V320, zoom: true };
 F['a-typing664'] = { k: 'A', vp: V664, zoom: true, run: async p => { await nbOpen(p); await dock(p, { state: 'typing' }); } };
 // Float frame
@@ -109,11 +112,13 @@ F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state:
     const { ctx, page, errs } = await L.open(b, { html, vp: s.vp || [390, 844], dsf: s.dsf, inset: s.inset });
     await page.evaluate(() => setActiveCity('reykjavik')); await page.waitForTimeout(900);
     if (s.k === 'A') await page.evaluate(() => window.fitTitle && window.fitTitle());
-    if (s.zoom) { await zoomIn(page); await page.waitForTimeout(900); }
+    if (s.zoom) { await zoomIn(page, s.centre); await page.waitForTimeout(900); }
     if (s.run) await s.run(page);
     await page.waitForTimeout(500);
     const m = await page.evaluate(() => { const bx = q => { const e = document.querySelector(q); if (!e) return null; const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden') return 'hidden'; const r = e.getBoundingClientRect(); return r.width ? [r.left, r.top, r.right, r.bottom].map(v => +v.toFixed(1)) : 'hidden'; };
-      return { lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
+      const A = document.getElementById('accountBtn').getBoundingClientRect();
+      const acctPins = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return getComputedStyle(m).visibility !== 'hidden' && r.right > A.left - 4 && r.left < A.right + 4 && r.bottom > A.top - 4 && r.top < A.bottom + 4; }).length;
+      return { acctPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
     m.errs = errs; m.clash = await chromeCheck(page);
     meas[name] = m; console.log(name, JSON.stringify(m));
     await page.screenshot({ path: path.join(C, 'raw', `${name.replace(/-1x$/, '')}-${s.dsf === 1 ? 1 : 3}x.png`) });

@@ -1,5 +1,27 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 8b (director scored P 8 / A 8; five fixes)
+- **Fix 1, one rhythm:** 32px rows (`.bt-f`), the rule at the foot.
+  - Empty-line captions print ON the line. Only NAME, docked, has an
+    under-caption with a 16px band.
+  - Picked = 248 tall (real 196 + NOTES).
+  - Docked keeps min 256 (the stub behind the keyboard).
+- **Fix 2:** `__BT.alignReal()` pans the real tag so its foot equals the
+  blank's (588 at 664). The `f-after664` frame shows it.
+  - The list stays at the band until close: written into the
+    how-it-works top box for systems.
+- **Fix 3:** T5 is two panels (before | after).
+- **Fix 4:** the demo place switched to Sundhöllin (`short_address`
+  injected).
+  - Every docked frame resets the view to [64.1440, -21.9426] z14;
+    320 typing uses [64.1500, -21.9480].
+  - `acctPins` in measure.json counts pins under the account badge:
+    0 in every frame the owner gets.
+- **Fix 5:** `.tag.short` (innerHeight < 600) gives results at 72 and
+  no NAME caption.
+- **Next:** systems checks the numbers, then the director re-scores
+  from the re-shot stills.
+
 ## UPDATE 2026-10-14, round 8 fixes (director turn 36)
 - **Fix 1, pencil = graphite.** Graphite #3F454E with a #6A717C sheen
   (background-clip text), plus streak grain seeded per entry
