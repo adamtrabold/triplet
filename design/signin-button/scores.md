@@ -428,3 +428,62 @@ system", and the sign-in moment can be seen again. I'd defend it as is.
 Build watch: the 0.13s blot overshoot and fringe (the README suggests
 r 21). The side-by-side check with the new orange + before the build
 still stands. Spec: V[14].
+
+## Build, round 1 (director, 2026-10-14, dad6cb4)
+
+Based on (3x, zoomed): `build/signed-out-rest`, `signed-out-pressed`,
+`signed-out-focus`, `signed-in-focus`, `signed-out-screen`,
+`320-signed-out`, `desktop-signed-out` (1x), the arrival-* and signout-*
+strips (badge cropped and laid side by side), `sheet-rest`, `sheet-busy`,
+`sheet-error-wrong`, `sheet-error-offline`, `signed-in-dropdown`,
+`signing-out`; `notes/builder.md`; `handoff.md`.
+
+**The badge itself: on spec.** The die, edge, shadow, navy person and arc
+match sheet 2e at 3x. The arc is centred, pressed is #DCD3C3 with no move,
+and the badge sits level with + at 390, 320 and desktop. The focus ring
+follows the scallop in both states and clears + (the gap holds). The
+Strike reads as one object changing ink: the 130ms frame leaves the
+bottom-tip sliver the handoff specifies, with no halo. The dry-up goes
+tips first, the words come back underneath, the end frame equals rest,
+and there's no pop. Busy, Sign out and Signing out… all read right.
+
+Likely owner objections:
+1. **The sheet jumps when an error appears.** The error line is added
+   below Keep playing and the centred sheet grows, so the fields and
+   buttons shift up about 14px (rest vs wrong-password stills). That
+   breaks "controls don't move or grow", and the error also sits far from
+   the field it's about. Likely enough to matter.
+2. **The sheet's line wraps to an orphan:** "...won't / be kept." Small,
+   but visible in every sheet still he'll see.
+3. Stills on a blank map (the sandbox has no tiles). This is
+   presentation, not the build: say so in one line, or crop to the
+   corner.
+4. The dropdown still caught the badge mid-press (dim orange, grey
+   person). It's today's look, but it reads as a new colour. Re-shoot it
+   released.
+
+### Build round 1: **8**
+The badge is a 9 already. The sheet the build took over has one real
+craft fault (the jump) that he'd likely feel on a wrong password.
+
+Fixes (one batch, no re-design):
+1. Reserve the error line's space so nothing moves when it appears (for
+   example a fixed one-line min-height, or the error shown in a slot
+   under Password; UX's placement call, but nothing may move). Re-shoot
+   rest/wrong/offline.
+2. `text-wrap: pretty` (or balance) on `#authModalLine` so "be kept."
+   doesn't sit alone.
+3. Re-shoot `signed-in-dropdown` with the pointer released.
+
+The builder's three focus calls (Password after other errors; focus back
+to whatever opened the sheet; Enter in Email doesn't submit) are all
+build-level and change nothing in the concept. Optional for UX: Enter in
+Email could move to Password (iOS "next"), which is still not a submit.
+
+Stills for the owner (after the fixes): one composed sheet with
+`signed-out-rest` + `signed-out-pressed` (corner crops), the arrival strip
+(hold, 60, 130, 250, end) and the sign-out strip (0, 150, 300, 450, end),
+`signed-out-focus` + `signed-in-focus` (the new ring, flagged as new),
+`sheet-rest`, `sheet-busy`, `sheet-error-wrong`, and `signed-in-dropdown`
+(Sign out). Add a one-line note that the map is blank only in our test
+setup.
