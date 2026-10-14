@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 7 opened" at the bottom -- Float to the LEFT corner + A as the Hanging Tag cut; C parked; systems first)
+## Status (current: see "Round 7 rulings" at the bottom -- systems measured; visual shooting both owner sets; then I score)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -898,3 +898,41 @@ Id like to see that mocked"
   check.
 - Visual: the owner stills for both, with the A tag mock as the main work.
 - Me: score both in one pass, 1x first.
+
+---
+
+## Round 7 rulings -- 2026-10-14 (jam turn 27, after systems' turn 26)
+
+### Systems found
+- The Float at bottom-left at 60px works: ink 19.9/19.9, 0.9px from the
+  rings, gap 88 holds, 0 pins under it.
+- The credit goes back to bottom-right; "Leaflet |" fits at 390 and 375
+  and overlaps at 320.
+- The zoom is 395px above, never touching.
+- A's tag cut: same box; the chamfers open space beside locate; the eyelet
+  is 19.5px from locate's crosshair (dot / fourth-icon risk).
+
+### Rulings
+1. **Form line: A, Add beside the ×.**
+   - Rejected B: the × alone, Add 64px higher, no map at 664.
+   - Exactness: Add's left edge = the ×'s ink + 12 (the right corner's
+     gap), and its right edge on the fields' line (374).
+2. **Prefix:** keep "Leaflet |" at a map width of 338px or more; drop it
+   below. The OSM text always stays verbatim.
+3. **× centre 15px off the band's ▲: no change.** The badge aligns by
+   its ink edge to the left channel, and moving it on open = moves on tap.
+   Visual's 1x pass confirms; if it reads as a slip, it comes back to me.
+4. **A's eyelet: visual's call** (keep it as a real punched hole with its
+   patch, or drop it if the chamfers alone say "tag"), shown in the 1x
+   crop.
+
+### Likely objections I'll score against
+- "Add doesn't line up with the fields" (the form line). Defend: it's an
+  action row.
+- "× and ▲ don't line up."
+- The two +s on the left.
+- A: dot, filter, starred-orange, fights the open tag.
+
+### Next
+Visual shoots both owner sets; I score both in one pass, 1x and squint
+first.

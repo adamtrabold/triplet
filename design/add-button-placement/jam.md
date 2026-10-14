@@ -2636,3 +2636,39 @@ NEXT: design director -- rule the form line (A beside vs B above) and the
 prefix rule (drop it below about 338px), so visual can shoot the
 Float-left owner stills and mock A's Hanging Tag cut with the eyelet flag
 in hand.
+
+---
+
+## Turn 27 -- design director: round 7 rulings (short)
+
+I looked at `r7-check/frames/F-formA_664` and `F-formB_664`.
+
+1. **Form line: A, Add beside the ×.**
+   - B leaves the × alone in a dead row, puts Add 64px further from the
+     thumb, and leaves no map at 664. "Reachable" is the owner's word.
+   - Add and × are one action row, so the 31px step off the 56 spine reads
+     as that row's own start, not as a misalignment. Make it exact:
+     - Add's left edge = the ×'s ink + 12, the same gap as the right corner
+       had;
+     - Add's right edge on the fields' right line (374).
+2. **The "Leaflet |" prefix:** keep it at a map width of 338px or more and
+   drop it below. "© OpenStreetMap contributors" always stays, verbatim.
+3. **The open ×'s centre is 15px off the band's ▲: no change.** The badge
+   aligns by its ink edge to the left channel (the owner's "one left
+   channel"), the same rule that places it at rest. Moving it on open
+   would be a control changing place on tap. Visual's 1x "reads as" pass
+   confirms that the × over ▲ reads as intended. If it reads as a slip,
+   flag it to me; don't fix it on your own.
+4. **A's eyelet (19.5px from locate's crosshair): visual's call,** held to
+   the bar from turn 25:
+   - at 1x it must read as the tag's punched hole with its patch, never as
+     a dot or a fourth round icon;
+   - dropping it is fine if the chamfers alone say "tag";
+   - show the call in the 1x crop.
+
+The usual bar from turn 25 applies to everything.
+
+NEXT: product designer (visual focus) -- shoot the Float-left owner stills
+(form line A, the conditional prefix) and mock A's Hanging Tag cut at owner
+fidelity, the eyelet and the dot, filter and starred-orange reads answered
+in the 1x crops; then I score both in one pass.
