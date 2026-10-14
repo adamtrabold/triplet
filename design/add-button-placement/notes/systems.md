@@ -477,3 +477,33 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Docked at 664 + keyboard 336: the account foot binds the tag top at 74; pin y 14-46; name 122-150; slip 158-320 = 162px. Today's rows are 56-57 → 2.9. Floor 3 needs the stub behind the keyboard AND (rows ≤ 52 OR name pad 36). 320: 142px → needs ≤ 47 rows. 844 HS: 5 rows.
 - Unsettled list (turn 33 §4): fresh blank vs step-aside; job-1 exceptions; what a shape inks into; TYPE pre-fill source; CITY folded into address; autofocus; VISITED in the insert; desktop; cancel with a pick.
 - Next: after visual turn 34 / director 35, write jobs.md (package jobs J7-J16 + flows), then the coverage per concept.
+
+## Concepts start (2026-10-14), after director turn 35
+- **The lifted-pin squint, re-run on a real render** (`pass-a-check/lifted.js` + `lifted-squint.py`; real 202 pins, Reykjavík, 390x844 @1x; the same on 320x568). Mass vs the account at σ4 / σ8:
+  - disc 44: 1.18 / 1.15;
+  - **disc 48 (the pick): 1.40 / 1.37**;
+  - disc 52: 1.64 / 1.61;
+  - stock FAB 56: 1.92 / 1.91.
+  - This confirms the director's estimate of 1.39 / 1.35.
+  - The lifted box at 844 is 17.9,450 – 69.9,528. Real pins: 0 under / 0 near. At 320 it touches the credit by 0.9px, so the prefix drop is needed (the Float's rule).
+- **The 320 rows:** with the name 36 below the top and a 260 keyboard there's 154px, so 48px rows give 3.2. 46px rows aren't needed.
+- **`jobs.md` rewritten:**
+  - the + jobs are 1-5, the blank-tag jobs 6-16;
+  - scope questions: visited while adding, edit after adding;
+  - the old file is in `notes/jobs-pre-pass-a.md`;
+  - the flows: P, A, Float frame, exceptions, cancel, re-search, shapes, new city, errors, signed out, Plans, desktop, sizes.
+- **Concept folders:**
+  - `concepts/blank-tag-form/how-it-works.md`: shared structure, the states table, pre-fill, the docked numbers, cancel and draft, after ADD, builder notes;
+  - `concepts/P-blank-pin/how-it-works.md`;
+  - `concepts/A-header-tag/how-it-works.md`, with the Float frame at the end.
+- **Decisions of mine** (the director can overrule):
+  - P's hit area is the disc plus a 44 column (no bare corners);
+  - P hides under a tag at every height (the same everywhere);
+  - A with a tag open closes it, and cancel restores it;
+  - the not-ready ADD wording while a question is open ("ANSWER ABOVE") is a placeholder for visual;
+  - the TYPE fallback is Other.
+- **Open:**
+  - A on the band's left end (the owner's reach note);
+  - desktop not measured;
+  - the iPhone checks: focus in the gesture, `visualViewport` docking, the TYPE mapping (Nominatim).
+- **Next:** visual builds P and A stills on these specs, then I run the coverage check per concept on the stills/prototype.
