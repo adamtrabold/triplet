@@ -1386,3 +1386,17 @@ P and A go 8 → 9 on the re-shot stills.
 - Scores stand: P 9, A 9.
 - The send is released as listed under "FINAL SEND" in round 8b, with
   19 stills, the three cost lines and the six owner questions.
+
+### Send held for one fix: Sundhöllin's TYPE (2026-10-14)
+- "NATURE" for a swimming pool is an accident of the demo. It isn't
+  what the spec's mapping would produce, and in the hero stills it reads
+  as a bad guess.
+- **Ruling:** the builder table maps OSM `leisure=swimming_pool` (and
+  `sports_centre`) to **Attraction**.
+- **Visual:** re-shoot every still showing Sundhöllin's TYPE or its
+  landed pin as ATTRACTION:
+  - T3, T4, T5 (both panels; the "after" pin becomes the attraction pin);
+  - T8 picked;
+  - A5;
+  - plus any other frame that shows it.
+- No re-score. I check the re-shoots, then the send goes as listed.
