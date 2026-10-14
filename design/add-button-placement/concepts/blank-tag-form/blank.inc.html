@@ -89,6 +89,14 @@
   .bt-ask b { font-stretch: 75%; text-transform: uppercase; letter-spacing: .1em; font-size: 11px; font-weight: 700; color: var(--ink-2); margin-right: 6px; }
   .tag-stub.bt-two { grid-template-columns: 1fr 1fr; }
   .tag-seg.bt-alt { color: var(--ink); }
+  /* round 10: the pick-your-pin strip; the wash (unpinned); centred placement */
+  .bt-f.type.r10 { min-height: 28px; align-items: flex-end; gap: var(--s2); }
+  .bt-f.type.r10 .bt-type { font-size: 14px; }
+  .bt-cats { display: flex; gap: 12px; margin: 8px calc(-1 * var(--s4)) 4px; padding: 4px var(--s4); overflow: hidden; white-space: nowrap;
+    -webkit-mask: linear-gradient(90deg, #000 85%, transparent); mask: linear-gradient(90deg, #000 85%, transparent); }
+  .bt-cat { flex: none; width: 32px; height: 32px; line-height: 0; border-radius: 50%; }
+  .bt-cat.on { box-shadow: 0 0 0 3px var(--paper-raised), 0 0 0 4.5px var(--navy); }
+  #btWash { position: absolute; inset: 0; z-index: 650; background: color-mix(in srgb, var(--paper) 78%, transparent); pointer-events: none; }
   /* the search offers: PRINTED on the tag (not pencil), 48px rows, hairlines, no slip edge */
   .bt-r { height: 48px; box-sizing: border-box; border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
   .bt-r b { font-size: 14px; line-height: 18px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -175,13 +183,14 @@
     let h = `<div class="bt-f name${pre ? ' typing' : ''}"><div class="bt-rule"><h2 class="bt-name ${pre ? 'bt-pencil' : pen}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nameTxt}</h2></div>${pre ? '<span class="bt-cap">Name</span>' : ''}</div>`;
     // ADDRESS . CITY (a printed hint for a shape)
     h += shape ? `<div class="bt-f"><div class="bt-rule"><div class="bt-hint">Traced from OpenStreetMap when you add it</div></div></div>`
-      : `<div class="bt-f addr"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR}`}</div>${pre || s.inked || s.state === 'newcity' ? '' : chip(null, s.city || CITY)}</div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
+      : `<div class="bt-f addr"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR}${s.r10 && s.state !== 'newcity' ? ' · ' + (s.city || CITY) : ''}`}</div>${pre || s.inked || s.state === 'newcity' ? '' : s.r10 ? '' : chip(null, s.city || CITY)}</div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
     // NOTES (above TYPE: the real tag's order)
     h += `<div class="bt-f"><div class="bt-rule"><div class="bt-note ${pen}">${s.notes || ''}</div></div>${s.notes ? '' : '<span class="bt-cap">Notes</span>'}</div>`;
     // TYPE
     const typeHtml = pre ? '' : s.inked ? `<span class="tag-val tag-stamp popup-cat" style="--tilt:-3.5deg">${type}</span>`
       : chip(type, type);
-    h += `<div class="bt-f type"><span class="tag-lab">Type</span><div class="bt-rule">${typeHtml}</div></div>`;
+    if (s.r10 && !pre && !s.inked) h += `<div class="bt-f type r10"><span class="tag-lab">Type</span><span class="bt-type bt-pencil">${type}</span></div>${pinStrip(type)}`;
+    else h += `<div class="bt-f type"><span class="tag-lab">Type</span><div class="bt-rule">${typeHtml}</div></div>`;
     if (st === 'typing') h += `<div class="bt-res">${(s.results || RESULTS).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}</div>`;
     if (st === 'nores') h += `<div class="bt-res"><div class="bt-msg">No places called that — try another name.</div></div>`;
     if (st === 'newcity') h += `<div class="bt-ask"><b>New city?</b>Lisbon isn’t one of your cities yet.</div>`;
@@ -193,6 +202,13 @@
   function chip(cat, label) {
     const ink = cat && typeof CATEGORY_COLORS !== 'undefined' ? CATEGORY_COLORS[cat] : '';
     return `<span class="filter-btn bt-chip"${ink ? ` style="--chip-ink:${ink}"` : ''}>${cat ? `<svg class="chip-glyph" viewBox="0 0 24 24"><use href="#g-${cat}"/></svg>` : ''}<span class="bt-pencil">${label}</span><svg class="bt-chip-chev" viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+  }
+  // round 10: TYPE = pick your pin. The app's own pins in a row (its ring grammar, 32), the guess first and selected
+  // (the selected grammar: filled, paper glyph); the row scrolls sideways, a part pin at the edge says there are more.
+  function pinStrip(sel) {
+    const cats = Object.keys(CATEGORY_COLORS).filter(c => c !== sel); cats.unshift(sel);
+    return `<div class="bt-cats">${cats.map(c => { const on = c === sel, ink = CATEGORY_COLORS[c];
+      return `<span class="bt-cat${on ? ' on' : ''}">${badgeHtml(c, 'circle', 32, { ink, fill: on ? ink : '#F2EBDD', mark: on ? '#F2EBDD' : ink, rim: on ? 2.5 : 2 })}</span>`; }).join('')}</div>`;
   }
   // pencil grain: short streaks at a writing angle, one seed per entry
   function pencilMask(seed) {
@@ -242,6 +258,7 @@
     p.style.setProperty('--tag-w', tw + 'px'); p.style.setProperty('--tag-drop', (tagTop - pinTop - 32) + 'px');
     p.classList.remove('tag-wait');
     wrap.appendChild(p); document.body.appendChild(wrap);
+    if (s.wash) BT.wash(true);
     const tg = p.querySelector('.tag'); tg.classList.add('docked'); if (innerHeight < 600) tg.classList.add('short');
     makeBlank(tg, s);
     // the tag runs on behind the keyboard: let it be as tall as it wants
@@ -262,7 +279,10 @@
     p.querySelector('.tag-string').style.display = 'none';
     wrap.appendChild(p); document.body.appendChild(wrap);
     makeBlank(p.querySelector('.tag'), s);
-    const b = p.querySelector('.tag-body').getBoundingClientRect(); p.style.top = (Math.min(s.clear || 1e9, footLimit()) - b.height) + 'px';
+    const b = p.querySelector('.tag-body').getBoundingClientRect();
+    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit()); p.style.top = Math.round(top0 + (bot - top0 - b.height) / 2) + 'px'; }
+    else p.style.top = (Math.min(s.clear || 1e9, footLimit()) - b.height) + 'px';
+    if (s.wash) BT.wash(true);
     return p.querySelector('.tag-body').getBoundingClientRect().toJSON();
   };
   // every tappable on the tag, for the audit still
@@ -270,6 +290,8 @@
     const q = sel => [...document.querySelectorAll('#btDock ' + sel)].map(e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.right, r.bottom].map(Math.round); });
     return { x: q('.tag-x'), chips: q('.bt-chip'), notes: q('.bt-f:has(.bt-note) .bt-rule'), segs: q('.tag-stub .tag-seg') };
   };
+  function openTop() { const a = document.getElementById('accountBtn').getBoundingClientRect(); return Math.round(a.bottom + 8); }
+  BT.wash = function (on) { let w = document.getElementById('btWash'); if (!on) { if (w) w.remove(); return; } if (!w) { w = document.createElement('div'); w.id = 'btWash'; map.getContainer().appendChild(w); } };
   BT.undock = function () { ['btDock', 'btPin'].forEach(i => { const e = document.getElementById(i); if (e) e.remove(); }); };
 
   // ---------------- hanging (after a pick): rewrite the OPEN real tag in place, swap its pin ----------------
@@ -278,7 +300,12 @@
     if (s.inked !== 'done') makeBlank(tag, s);
     // the taller blank tag must still clear the list (the real tag-fit does this by panning): pan the map up if needed
     const tb = tag.querySelector('.tag-body').getBoundingClientRect(), S = document.getElementById('locations').getBoundingClientRect().top;
-    const ov = Math.round(tb.bottom - Math.min(s.clear || 1e9, footLimit())); if (ov) map.panBy([0, ov], { animate: false });
+    let ov;
+    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit()), gh = tb.height + 76;   // pin 32 + TAG_HANG 44 above the tag
+      ov = Math.round(tb.top - (top0 + (bot - top0 - gh) / 2 + 76)); }
+    else ov = Math.round(tb.bottom - Math.min(s.clear || 1e9, footLimit()));
+    if (ov) map.panBy([0, ov], { animate: false });
+    if (s.realPin) return 'ok';
     // the selected marker -> the blank pin (lifted for a shape: it never lands)
     const sel = document.querySelector('.leaflet-marker-icon .highlighted-marker');
     const icon = sel && sel.closest('.leaflet-marker-icon');

@@ -566,3 +566,11 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Mass 1.24 / 1.19 (σ4 / σ8): **σ8 is 0.01 short of 1.2**. The 124-wide dial gives 1.15 / 1.11 (worse). Next dial: glyph stroke 6 (unmeasured).
 - Credit clearance 6.2 at every width (fixed). 320 list up: Malmö 4, Stockholm 6. z14 odds unchanged (19 / 22 / 26 / 7%).
 - C spec updated (round 9c section); jobs hold; job 2 is at the bar.
+
+## Round 10 (2026-10-14), turn 39: A cut; C = tag as the button (no pin); the Float to be completed
+- The tag button: a loose (unpinned) tag; tap = it grows into the form (parts map one-to-one, the + becomes the NAME line); ADD pins it (one flight, as round 9).
+- Footprint (`r10-check/`): 88x44 → 0 pins at the opening fit; z14 13/13/16/3% (Float 12/13/16/3). 104x52 → 15/16/19/4; touches the credit at 375 (0). 120x56 overlaps the credit. **Cap about 96 wide.**
+- Tag-open gap: a small tag fits with TAG_SHEET_GAP = top + 12 (84 for 52 tall), the Float's 88 rule → **proposal: both stay tappable with a tag open**; filters stay an exception for both.
+- Float on the real render: 1.34/1.33 vs the account; 0 pins; z14 12/13/16/3%. To be complete: hide while adding (ADD at the same 521-581 as C), the hand-off frame, and stills parity.
+- **Gap I introduced:** the blank tag dropped the City-first field that scoped the search; the search scopes to the map's city with a hard country filter and widens only on zero results. Fix: a "Search everywhere" last row. jobs.md new job 5 ("+ is for the whole trip"); jobs renumbered; A removed; old version in `notes/jobs-r9c.md`.
+- Beyond the notes: an Undo slip after ADD (scope question); the two options now differ only at rest and on tap.

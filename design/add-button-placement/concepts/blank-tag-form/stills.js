@@ -155,6 +155,16 @@ for (const v of TV) both('t10-' + v.replace(/:/g, '-'), { k: 'T:' + v, zoom: tru
 F['t10-none'] = { k: 'T:paper', zoom: true, centre: CREST, dsf: 1, run: p => p.evaluate(() => document.getElementById('tb').classList.add('gone')) };
 F['t10-noacct'] = { k: 'T:paper', zoom: true, centre: CREST, dsf: 1, run: p => p.evaluate(() => { document.getElementById('tb').classList.add('gone'); document.getElementById('accountBtn').style.visibility = 'hidden'; }) };
 
+// ================= ROUND 10 form: unpinned (washed map) while there's no address; pinned (map at the place, the
+// type's pin above the tag) once there is; centred in the open area; TYPE = pick your pin; city plain pencil =================
+const R10 = { r10: true };
+F['r10-f-typing664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'typing', wash: true }); await cGone(p); } };
+F['r10-f-blankcard664'] = { k: 'C', vp: V664, run: async p => { await card(p, { state: 'blank', ...R10, centre: true, wash: true }); } };
+F['r10-f-pinned664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-pinned-starred664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, starred: true, visited: true, notes: NOTE2 }); await cGone(p); } };
+F['r10-f-pinned844'] = { k: 'C', inset: true, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-pinned320'] = { k: 'C', vp: V320, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {

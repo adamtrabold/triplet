@@ -4261,3 +4261,196 @@ NEXT: product designer (visual focus) -- draw the pin+tag button tweaks
 (app-size pin, a tag that reads as the Hanging Tag at 1x, one +) beside
 today's pins and the account, plus the new-city stub and the tappables
 audit, so systems can measure rank and footprint on the real render.
+
+## Turn 39 -- product designer (systems focus): round 10, the tag as the button; making the Float complete; + is global
+
+Owner, verbatim (2026-10-14, on 9c): "…we're going to cut the header tag.
+it isn't working and conflates that bar with list actions and global
+actions (e.g. i could be adding to any city not just the one showing). i
+am liking the badge version and the tag where the + is inside of it. the
+badge one seems fairly complete if we go that way but i still want to
+push the other one to make a final call. i think the tag itself needs to
+be simplified … just the tag with the + in it, the dotted line, and the
+"claim check" end. then the + would not need to be in any container, so
+the tag itself becomes the button. explore that - don't assume a color
+for the tag … don't only respond to my specific notes."
+
+New measures are in `concepts/r10-check/`:
+- `float.js`: the Float's squint, on the real render;
+- `tag-footprints.json`: candidate tag sizes against the real 202 pins
+  and the credit, plus z14 odds.
+
+The looks are visual's (`C-tag-r10/`).
+
+### 1. The tag as the button (no pin at rest): how it works
+
+**What it is, structurally:** a loose tag, not yet pinned to anything.
+That gives the whole package one sentence:
+- **the button is an unpinned tag;**
+- **you fill it in;**
+- **ADD pins it to the place.**
+
+The pin finally has one job and one moment. The ending is unchanged from
+round 9: one flight, the place's pin into the eyelet.
+
+- **Tap target:**
+  - the tag's whole silhouette box, padded to at least 44 high if it's
+    drawn smaller;
+  - the + is ink on the tag, not a separate control;
+  - no bare corners matter, because the box is nearly all tag.
+- **Pressed:** the tag's own pressed state (one step on its fill, the
+  shared grammar). The + doesn't move. The colour is visual's open
+  question.
+- **Hand-off:**
+  - Tap → the small tag *is* the form. It grows (and turns upright, if
+    it's drawn lying across) into the docked blank tag.
+  - The button tag's chamfered end becomes the form's top, and its
+    dotted line and claim-check end become the form's perforation and
+    stub. Every part maps one-to-one, so nothing new appears and nothing
+    vanishes.
+  - The + becomes the empty NAME line (where you'll write). That is the
+    one part that transforms.
+- **Eyelet:**
+  - the owner's list (tag, +, dotted line, claim-check end) has no hole;
+  - if the button has none, the form's eyelet appears with the empty
+    patch as it grows;
+  - if it has a small one, it's the same hole, empty.
+  - Either works structurally; it's visual's call. ADD's pin-in needs the
+    eyelet on the form only.
+- **Cancel:** the docked tag shrinks back into the button. The draft is
+  kept. Whether a kept draft shows on the button (a pencil line instead
+  of an empty tag) is parked; the director ruled no draft at rest in
+  turn 32. I'd re-open it only if the owner asks.
+
+**Footprint: the smaller tag fixes C's two costs.** Candidate sizes,
+bottom-left, ink 19.9, foot 20 above the list (or 6 above the credit
+where they meet):
+
+| Size | Pins under, opening fit (40 scenes) | z14 odds: Copenhagen / Stockholm / Malmö / LA | Credit, horizontal clearance at 390 / 375 / 320 (no prefix) |
+|---|---|---|---|
+| **88 × 44** | 0 everywhere | **13 / 13 / 16 / 3%** | 31 / 16 / 26 |
+| **104 × 52** | 0 everywhere | 15 / 16 / 19 / 4% | 15 / 0 / 10 |
+| 120 × 56 | 320 Stockholm 1 | 17 / 18 / 21 / 5% | overlaps (−1 / −16 / −6), so the foot rises to 6 above the credit |
+| 60 × 84, upright | 0 | 15 / 15 / 20 / 4% | 59 / 44 / 23 |
+| Float 60 × 60 (ref) | 0 | 12 / 13 / 16 / 3% | 64 / 49 / 28 |
+| C 9c 144 × 75 (ref) | 320: Malmö 4, Stockholm 6 | 21 / 22 / 28 / 7% | overlaps |
+
+- **At ≤ 104 wide the tag button's footprint is Float-class:** no real pin
+  at any opening view, and street-zoom odds within 1-4 points of the
+  Float.
+- **Up to 104 it stays left of the credit at 390 and 320; at 375 it just
+  touches (0).** So **I'd cap it at about 96 wide** (8+ clear everywhere),
+  or let the foot rule handle 375.
+- **The tag-open exception can go.** A small tag (52 high, top 72 above
+  the list) fits under an open tag with `TAG_SHEET_GAP` 84 (20 + 52 +
+  12), the Float's own rule (88 for 60). That costs the same list row
+  (at 320, 1 row with a tag open instead of 2; 664 keeps 3). C hid under
+  tags only because the 9c object was 75-133 tall (gap 107-165).
+  **Proposal:** both options stay tappable with a tag open, with the gap
+  derived from the object (top + 12). Tapping closes the tag; cancel
+  reopens it. The filters exception stays for both, because the panel
+  covers that corner.
+- **Rank:**
+  - I can't measure it until visual picks a colour. The bar stays ≥ 1.2x
+    the account (judged on the look first).
+  - For scale: the Float is 1.34 / 1.33, and 9c's 144-wide tag with a
+    40px pin was 1.24 / 1.19.
+  - A small tag with no pin gets all its mass from the tag's fill and the
+    +. That's why the colour question is real: a cream tag on a cream map
+    will be near 0.5, and a filled tag can clear it.
+  - I'll measure whatever visual picks.
+
+### 2. The Float: what it needs to be "complete" under the shared form
+
+It is nearly there. The gaps are hand-off and parity, not a redesign:
+1. **Its state while adding.** Round 9's frame kept the badge visible as
+   an open navy ×, which forced the card's foot up to 512, so ADD sat at
+   452-512 instead of 521-581.
+   - **Proposal: the badge hides while you add,** like C. The tag's × is
+     the one cancel.
+   - ADD then sits in exactly the same spot for both options (521-581 at
+     664), so the owner compares the buttons, not two different forms.
+2. **The hand-off motion:** the tag rises out of the badge (visual). One
+   frame each: rest → docked.
+3. **Tag open:** gap 88, already ruled in round 7. It stays tappable.
+4. **Filters:** close to add (both).
+5. **Numbers (on the real render now):**
+   - squint **1.34 / 1.33** the account;
+   - box 15.2,464 – 75.2,524 at 844;
+   - 0 real pins at the opening fit;
+   - z14 odds 12 / 13 / 16 / 3%;
+   - the credit clear by 64 at 390, and 28 at 320 with the prefix
+     dropped.
+6. **Stills it lacks to match C's set:** tap → dock, the card with the
+   map still, ADD (before / after), a tag open (still tappable), 320,
+   and pressed. The form stills (T0-T9) are shared, unchanged.
+7. **Job 3 is the one place it's weaker than C:** the badge hands you a
+   tag rather than being one. That's the honest trade for the owner.
+
+### 3. + is global (the owner's reason for cutting A) and the form
+
+- **The rule** (jobs.md job 5, new): + is a trip-wide action. It never
+  lives in the list's bar and never assumes the list's city, filters or
+  plan. Both remaining options pass the first half by placement.
+- **The form doesn't fully support "any city" today. I found a gap, and I
+  introduced it.** Today's form puts City *first*, and that city scopes
+  the search (`userOverrodeCity`). The blank tag moved CITY after the
+  pick, so before you search there's no way to say "in Copenhagen".
+  - The search scopes to the city the *map* is showing:
+    `detectCityContext()`, a hard country filter.
+  - It widens only when that returns **zero** results
+    (`nominatimWithFallback`).
+  - So from Reykjavík, "Tivoli" finds an Icelandic Tivoli, if there is
+    one, before it ever looks in Copenhagen.
+- **Fix (structural; the look is visual's):** the results' last line is
+  always **"Search everywhere"**, a printed tappable row.
+  - It re-runs the same text with the city scope dropped:
+    `widenedSearchConfig`, the viewbox as a soft hint only.
+  - The pick's city is detected as today (`maybeDetectCity`), with the
+    new-city question if it's outside your trip.
+  - That's one tap to any city, and no setting before you type: the
+    default stays the city you're looking at, which is right most of the
+    time ("don't make the user pick settings the app can infer").
+  - **Alternative:** a scope chip on the NAME line ("in REYKJAVÍK ⌄").
+    That's one more control on the tag, and the owner just asked to
+    simplify, so I lean to the row.
+- **After ADD** the list switches to the place's city (already job 15).
+  In Plans, + adds a place, not a stop (already a flow).
+
+### 4. Beyond the owner's notes
+
+- **The two options now differ only at rest and on tap.** Same corner,
+  same exceptions (if the gap proposal holds), same form, same ADD spot,
+  same ending. That makes his final call a clean comparison of two
+  buttons. I'd say so on the send.
+- **An Undo slip after ADD.** With the map still until ADD, a wrong pick
+  is first *seen* at ADD. Plans v3 has an Undo slip. One "Undo" on the
+  inked tag's moment (about 5s) is cheaper than his "fix it after"
+  question, and it covers the commonest mistake. Worth a director look,
+  as a scope question.
+- **Desktop:** the button sits at the map column's bottom-left; there's
+  no keyboard dock, and the tag sits low in the map column. Unmeasured;
+  it's the same for both options.
+- **Rejected:** showing the kept draft on the button (noise at rest;
+  turn 32).
+
+### What changed in jobs.md
+
+- A is removed.
+- New **job 5:** "+ is for the whole trip" (the owner's words). The
+  blank-tag jobs renumber to 7-18.
+- Job 1: the exceptions are now the same for both (filters only; a tag
+  open stays tappable), as proposed.
+- Flows:
+  - C is the tag as the button;
+  - the Float is a full flow (it hides while adding);
+  - "Search everywhere" goes on the results.
+- The previous version is in `notes/jobs-r9c.md`.
+
+NEXT: design director — rule on:
+- the tag-open gap rule (both options stay tappable);
+- the Float hiding while adding (ADD in the same spot for both);
+- "Search everywhere" as the last result row;
+- capping the tag at about 96 wide.
+
+Then visual's round-10 tag looks get measured for rank.

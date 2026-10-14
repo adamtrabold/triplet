@@ -1,5 +1,7 @@
 # The blank-tag form: how it works (shared by P, A and the Float frame)
 
+> **Round 10 (systems, 2026-10-14): + is global; the search must reach any city.** The blank tag lost today's form's first field (City, which scopes the search via `userOverrodeCity`). The search now scopes to the map's city (`detectCityContext()`, a hard country filter) and widens only on zero results (`nominatimWithFallback`). **Fix:** the results' last line is always a printed tappable **"Search everywhere"**. It re-runs the text with `widenedSearchConfig(cfg)` (the viewbox as a soft hint), or no scope, and the pick's city is detected as today. The trigger hides while adding, for both C and the Float (proposed). The card's foot is then 6 above the credit, with ADD at 521-581 at 664, for both.
+
 > **Round 9b, checked by systems (2026-10-14).** Visual's `raw/measure.json` of 13:20.
 > - **The credit is fixed:** visible in every card state (587-604 at 664, 491-508 at 320). Flag 1 below is closed.
 > - **Rows that hold a control are 40 tall** (address · city, TYPE); NOTES stays 32. The card at 664 is now **317-581 (264)**, ADD unchanged at 521-581, and the hanging point moves to (195, 273). At 320 it's 221-485; new city 285-581; failed 275-581; Float 248-512.
