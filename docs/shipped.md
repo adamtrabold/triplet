@@ -1288,3 +1288,12 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   real supabase-js 2.39.3 (no write from the playground reached
   `/rest/v1`; no reload loop in 10 scenarios). Known gap (owner's call):
   nothing in the playground says changes aren't kept.
+
+- **Box edges: menus take the divider line** — 2026-10-14. Owner: "Keep
+  edges. Others are fine except for sign in let’s keep that blue with the new
+  logic which should be documented in the design system that if the box has
+  a blue bg header it can have the darker stroke". `#accountDropdown` goes
+  from `2px solid var(--navy)` to `1px solid var(--hair)` (the divider, as
+  the popup already did). `#authModalContent` keeps `2px solid var(--navy)`
+  because it has a navy header band. Rule recorded in `docs/owner-taste.md`
+  "Box strokes follow the box's header". Impeccable gate passed.
