@@ -197,7 +197,24 @@ const state = page => page.evaluate(() => ({ pg: PLAYGROUND, badge: accountBadge
     await new Promise(r => setTimeout(r, 1500));
     return { id, tag: openTagKey(), zoom: map.getZoom() };
   });
-  check('restore: a pin clustered at the saved zoom still reopens (stepped in to SOLO_MIN_ZOOM)', s.tag === s.id && s.zoom >= 14, s);
+  check('restore: a pin with a neighbour within a cluster cell at the saved zoom reopens, stepped in to SOLO_MIN_ZOOM', s.tag === s.id && s.zoom >= 14, s);
+  // 9d. ... and a pin that is on its own at zoom 13 keeps zoom 13 (land on the same spot)
+  s = await page.evaluate(async () => {
+    map.closePopup();
+    let pick = null;
+    // a pin with no other listed place within one cluster cell at zoom 13 (so no pan can cluster it)
+    const cell = clusterCellPxForZoom(13), P = l => map.project([l.lat, l.lng], 13);
+    for (const loc of visibleLocations()) {
+      const p = P(loc);
+      if (!visibleLocations().some(o => o.id !== loc.id && Math.abs(P(o).x - p.x) < cell && Math.abs(P(o).y - p.y) < cell)) { pick = loc; break; }
+    }
+    if (!pick) return { none: true };
+    map.setView([0, 0], 3, { animate: false });
+    restoreHopView({ lat: pick.lat, lng: pick.lng, zoom: 13, tag: pick.id, at: null });
+    await new Promise(r => setTimeout(r, 1500));
+    return { id: pick.id, tag: openTagKey(), zoom: map.getZoom() };
+  });
+  check('restore: a pin solo at zoom 13 keeps zoom 13 and its tag opens', !s.none && s.tag === s.id && s.zoom === 13, s);
   await page.close();
 
   // 10. Keyboard focus ring follows the scallop, both states

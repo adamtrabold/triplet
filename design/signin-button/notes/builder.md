@@ -1,5 +1,26 @@
 # Builder notes: sign-in badge
 
+## Round 3 (2026-10-14): director 9, jobs pass, review PASS -- one fix, no visual change
+- **`restoreHopView()` keeps the saved zoom for a solo pin** (jobs checker:
+  round 2 raised any zoom under 14 to 14, so you didn't land on the same
+  spot). It steps in to SOLO_MIN_ZOOM only when the pin could cluster.
+  - "Solo" means no other listed place within one cluster cell
+    (`clusterCellPxForZoom()`) on either axis. It is NOT
+    `mapVisibleLocations().solo`, because the cluster grid is pixel-aligned:
+    la04 at zoom 11 was solo in the restored view, then the tag's own pan
+    moved the grid and clustered it, which removed the marker and closed the
+    tag (seen in a probe). Places within a cell of each other can share a cell
+    after some pan; places farther apart never can.
+  - Plan view's shape stops (which join the grid) aren't counted: a pin next
+    to a shape stop could still cluster there. Rare; not handled.
+- New signin-test case: a pin with no neighbour within a cell at zoom 13 keeps
+  zoom 13 and its tag opens. Case 9c (a pin with a neighbour) still steps in
+  to 14.
+- **Reviewer nit:** `#authError` `min-height: 16px` is now `1lh`. Every still
+  re-shot is pixel-identical to round 2 (image diff, all files).
+- Checks: signin-test 42/42; Impeccable gate passed; gesture places-ux 30/30
+  and popup-open 20/20 + 20/20.
+
 ## Round 2 (2026-10-14): director 8 / jobs 9/9 / review BLOCKED -> fixed in one batch
 - **BLOCKER fixed (in-place sign-in, flow 4):** `login()`'s real-mode branch
   now sets a `hold` before ending busy, so `updateAuthUI()` (and the
@@ -9,7 +30,7 @@
   the recorded state stayed put). Before this the last Strike frame stayed as
   the badge's content and hid the orange open look.
 - **Sheet no longer jumps on an error:** `#authError` always keeps one line
-  (16px) of room, in today's colour and place (moved from its inline style to
+  (`1lh`, 16px) of room, in today's colour and place (moved from its inline style to
   `#authModalContent #authError`). Rest, wrong-password and offline line up
   pixel for pixel above the error line (checked by image diff). A message
   longer than one line (the storage one, anything at 320px) still grows it.
