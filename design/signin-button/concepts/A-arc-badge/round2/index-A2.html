@@ -435,7 +435,10 @@
       top: calc(74px + var(--chrome-top-inset));
       right: 74px;
       background: var(--paper);
-      border: 2px solid var(--navy);
+      /* Box edges: a plain paper box takes the dividers' 1px --hair (owner,
+         2026-10-14). A box with a navy header band keeps the 2px navy
+         stroke -- see #authModalContent and docs/owner-taste.md. */
+      border: 1px solid var(--hair);
       border-radius: 2px;
       padding: var(--s4);
       z-index: 2000;
@@ -2142,6 +2145,7 @@
 
     #authModalContent {
       background: var(--paper);
+      /* Navy header band, so it keeps the 2px navy stroke (owner rule, see #accountDropdown). */
       border: 2px solid var(--navy);
       border-radius: 2px;
       max-width: 400px;
@@ -9291,7 +9295,7 @@ window.SB.sheet = function (mode = 'play', state = 'open') {
 // window.__V picks the variant ('1' | '2' | '3'); badgeA({v}) overrides per call.
 (function () {
 const SB = window.SB, SCALLOP = SB.SCALLOP;
-const C = { navy:'#12293F', orange:'#EE7434', edge:'rgba(107,74,40,.22)' };
+const C = { navy:'#12293F', orange:'#EE7434', paper:'#F2EBDD', pressed:'#DCD3C3', edge:'rgba(107,74,40,.22)' };
 const BODY = 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2';
 const FACE = 'var(--sb-face, #FAF5EA)';
 // the variants the director chooses between
@@ -9313,6 +9317,10 @@ const V = {
   10: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 20.8, ay: 22.8, ws: '\u200A', nv: 1 },
   11: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 25, ay: 25, ws: '\u200A', nv: 1 },   // 2b position, navy (comparison only)
   12: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 18.4, ay: 21.6, ws: '\u200A', nv: 1 }, // 2c position, navy (comparison only)
+  // 2e: owner on 2d 'I forgot it was orange and blue when signed in so let's do white and blue signed out', then
+  // 'I mean the style it was before I said to change it to orange and blue' = 2c's colours (paper die --paper-raised,
+  // warm 1px edge + 1px shadow, NAVY person + arc) on 2d's approved geometry (v9). Signed in stays navy + orange.
+  14: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 21.6, ay: 23.2, ws: '\u200A' },
   3: { ps: .76, sw: 1.5, fs: 5.5, ls: 2.3, r: 18.3, fw: 650, st: '100%', cy: 25 },
 };
 SB.V = V;
@@ -9341,8 +9349,9 @@ SB.badgeA = function (o = {}) {
   const v = V[o.v || window.__V || 2];
   const t = o.t ?? 0, ps = v.ps + (1 - v.ps) * t, cy = v.cy + (25 - v.cy) * t, sw = v.sw + (2 - v.sw) * t;
   // navy style: plain navy die like today's account badge (no edge/shadow; pressed = --state-on-press, paper ink)
-  const nv = v.nv, pr = o.pressed, inkC = nv ? (pr ? '#F2EBDD' : C.orange) : C.navy;
-  let s = (nv ? `<polygon points="${SCALLOP}" fill="${pr ? '#2A4F73' : C.navy}"/>` : shadowEdge(o.face || FACE, o.size ? o.size / 50 : 1))
+  // paper die pressed = --paper-pressed face (as the app's #accountBtn.signin:active --sb-face), navy ink kept.
+  const nv = v.nv, pr = o.pressed, inkC = nv ? (pr ? C.paper : C.orange) : C.navy;
+  let s = (nv ? `<polygon points="${SCALLOP}" fill="${pr ? '#2A4F73' : C.navy}"/>` : shadowEdge(o.face || (pr ? C.pressed : FACE), o.size ? o.size / 50 : 1))
     + arc(v.r, v.fs, v.ls, v.fw, v.st, o.textOp ?? 1, v.ws, v.ay ?? 25, inkC) + person(25, cy, ps, inkC, sw);
   const pts = o.ink ? blotPts(o.ink, cy) : o.dry !== undefined ? dryPts(o.dry, cy) : null;
   if (pts) s += inkLayer(pts, person(25, cy, ps, C.orange, sw), o.dry !== undefined ? 1 - o.dry * .25 : 1);

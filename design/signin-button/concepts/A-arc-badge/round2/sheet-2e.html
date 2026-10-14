@@ -1,0 +1,43 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Sign-in A round 2e</title>
+<link rel="stylesheet" href="../../flow/proto/sheet.css">
+<style>
+.pair{display:flex;gap:8px;padding:6px 16px 2px}.pair>div{width:175px;display:flex;flex-direction:column;align-items:center}
+.lab{font:700 12px/15px Archivo;font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;color:#12293F;text-align:center;margin-top:6px}
+.t{font-size:12px;line-height:15px;color:#5A564C;text-align:center;margin-top:3px}
+.row2{display:flex;gap:8px;padding:2px 16px}.row2>div{width:160px}.row2 img{display:block;border-radius:2px}
+.rl{font-size:12px;line-height:15px;color:#5A564C;padding:8px 16px 4px}
+.pick{background:#FAF5EA;margin:8px 16px 0;padding:10px 12px;border-left:3px solid #12293F;font-size:13px;line-height:18px}
+.trio{display:flex;justify-content:center;gap:28px;padding:6px 16px 4px}.trio>div{display:flex;flex-direction:column;align-items:center}
+.cmp{display:flex;align-items:flex-end;justify-content:center;gap:28px;padding:10px 16px 4px}.cmp>div{display:flex;flex-direction:column;align-items:center}
+</style>
+<script>window.__CONCEPT='A'</script><script src="../../flow/proto/patch.js"></script><script src="badge2.js"></script></head><body>
+<h1>A · Sign-in badge, paper</h1>
+<p>Your note: signed out goes back to the paper-and-navy style you had before, so it no longer looks like signed in. Everything else is as you approved: the person's height, the type and the spacing.</p>
+<div class="cmp" id="cmp"></div>
+<div class="trio" id="trio"></div>
+<h2>Real size</h2>
+<img class="img" src="shots/2e/top-v14-390.png" width="390" height="84"><div class="cap">Signed out, at the top of the screen. Shown on its own in the corner, since + is changing.</div>
+<div class="row2"><div><img src="shots/2e/v14-cream-alone.png" width="160" height="80"><div class="rl" style="padding:3px 0 8px">Signed out</div></div><div><img src="shots/2e/signedin-plus.png" width="160" height="80"><div class="rl" style="padding:3px 0 8px">Signed in (unchanged)</div></div></div>
+<div class="row2"><div><img src="shots/2e/v14-dark-alone.png" width="160" height="80"><div class="rl" style="padding:3px 0 8px">Signed out, over water and park, where the map is darkest</div></div></div>
+<h2>Signing in and out</h2>
+<p>Signing in, navy ink floods the paper badge from the person outward, the person turns orange and grows, and you land on your usual badge. Signing out, the ink dries back to paper from the edges in.</p>
+<div class="frames">
+<div style="width:65px"><img src="shots/2e/in-0.png" width="65" height="62"><div class="t">Tap</div></div>
+<div style="width:65px"><img src="shots/2e/in-60.png" width="65" height="62"><div class="t">0.06s</div></div>
+<div style="width:65px"><img src="shots/2e/in-130.png" width="65" height="62"><div class="t">0.13s</div></div>
+<div style="width:65px"><img src="shots/2e/in-250.png" width="65" height="62"><div class="t">0.25s</div></div>
+<div style="width:65px"><img src="shots/2e/in-380.png" width="65" height="62"><div class="t">Signed in</div></div>
+</div>
+<div class="frames">
+<div style="width:65px"><img src="shots/2e/out-0.png" width="65" height="62"><div class="t">Signed in</div></div>
+<div style="width:65px"><img src="shots/2e/out-150.png" width="65" height="62"><div class="t">0.15s</div></div>
+<div style="width:65px"><img src="shots/2e/out-300.png" width="65" height="62"><div class="t">0.3s</div></div>
+<div style="width:65px"><img src="shots/2e/out-450.png" width="65" height="62"><div class="t">0.45s</div></div>
+<div style="width:65px"><img src="shots/2e/out-540.png" width="65" height="62"><div class="t">Signed out</div></div>
+</div>
+<div style="height:16px"></div>
+<script>
+cmp.innerHTML = `<div>${SB.badgeA({ v: 14, size: 150 })}<div class="t">Signed out, 3× real size</div></div><div>${SB.signedIn(150)}<div class="t">Signed in, 3× (unchanged)</div></div>`;
+trio.innerHTML = `<div>${SB.badgeA({ v: 14, size: 72, pressed: 1 })}<div class="t">Pressed</div></div><div>${SB.badgeA({ v: 9, size: 60 })}<div class="t">Before: navy (2d)</div></div>`;
+document.fonts.ready.then(() => SB.centerArcs());
+</script></body></html>

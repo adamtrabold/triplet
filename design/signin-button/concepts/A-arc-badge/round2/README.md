@@ -116,3 +116,26 @@ because + is changing and the + crew owns where it goes.
   The signed-in badge is unchanged.
 - **For the director:** signed out and signed in now differ only by the arc and the person's size (job 2: "tell at
   a glance"). The orange words are the whole signal.
+
+## Round 2e: paper signed out, navy signed in (owner on 2d)
+Owner (verbatim): "The sign in badge looks good now but I forgot it was orange and blue when signed in so let’s do white and blue signed out", then "I mean the style it was before I said to change it to orange and blue".
+
+Sheet: `sheet-2e-3x.png` (1170 wide) and `sheet-2e-1x.png`, from `sheet-2e.html`. Stills are in `shots/2e/`. To
+re-render: `OUT=shots/2e VS=14 V=14 SOLO=1 node render2.js`, then `node ../../sketches/shoot.js sheet-2e.html sheet-2e-3x.png`.
+- **Spec: V[14]** in `badge2.js`. It is V[9]'s geometry exactly (ps .68, sw 1.45, fs 6, ls 1.3, r 16.6, weight 700,
+  hair space, person cy 21.6, arc ay 23.2) with 2c's colours: a `--paper-raised` #FAF5EA die, a warm 1px edge
+  (rgba(107,74,40,.22)) and the + button's 1px contact shadow. The person and SIGN IN are `--navy` #12293F. No `nv` flag.
+- **Pressed:** the face goes to `--paper-pressed` #DCD3C3 and the ink stays navy. That's the app's pressed-in rule
+  for paper (the patch's `#accountBtn.signin:active { --sb-face: #DCD3C3 }`). `badgeA({pressed:1})` now draws this
+  for paper dies.
+- **Signed in:** unchanged (navy die, orange person at ×1, stroke 2).
+- **Height:** kept at 2d's (between 2b and 2c), as approved. It was judged on navy. On paper it still sits between
+  2b's low and 2c's high, which is what he asked for in 2d. The geometry is identical to V[9], so the 2d ink numbers
+  apply.
+- **Sign-in moment:** this is the original Strike again, and it can be seen again. Navy ink floods the paper die from
+  the person outward. Inside the ink the person turns orange and grows to ×1, and the words go under the ink. With the
+  pop, it lands on the signed-in badge. Signing out, the navy dries back to paper from the rim inward and the navy
+  words return. The two states now differ by die colour, mark colour, words and person size, so job 2 ("tell at a
+  glance") is fully met. 2d's risk (the same colours in both states) is gone.
+- **Watch (motion):** at 0.13s the blot (r 19.5, scale 1.12) leaves a thin paper fringe at the scallop tips. It reads
+  as ink that hasn't reached the edge yet. If it looks like a halo on the device, raise the 0.13s blot to r 21.

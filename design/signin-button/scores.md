@@ -378,3 +378,53 @@ Build watch (handoff): the strike is invisible on navy, so the cover
 timing carries the moment. Keep the pop (STAR_POP feel) and the
 person-outward cover; under Reduce Motion, the words simply go.
 Spec: V[9] in `round2/badge2.js` (`nv: 1`).
+
+## Concept A, round 2e: paper signed out on 2d's geometry (director, 2026-10-14)
+
+Owner on 2d (verbatim): "The sign in badge looks good now but I forgot it
+was orange and blue when signed in so let’s do white and blue signed out",
+then "I mean the style it was before I said to change it to orange and
+blue". 2d's geometry is approved; only the signed-out colours change.
+
+Based on: `round2/sheet-2e-3x.png` (all sections), compared with
+`sheet-2c-3x.png` and `sheet-2d-3x.png`; `shots/2e/top-v14-390`,
+`v14-cream-alone`, `in-130`; README "Round 2e"; V[14] in `badge2.js`.
+
+**Did the work really change?** Yes, exactly the one thing asked:
+- Colours are 2c's, checked side by side: `--paper-raised` die, warm 1px
+  edge, the +'s contact shadow, navy person and SIGN IN.
+- Geometry is V[9]'s, value for value (ps .68, sw 1.45, fs 6, ls 1.3,
+  r 16.6, 700, hair space, cy 21.6, ay 23.2).
+- Pressed is the app's paper pressed-in face (#DCD3C3), navy ink kept.
+- Signed in is unchanged. The Strike is visible again: navy floods the
+  paper.
+- Q1 is moot: the signed-out app is the playground, so this badge shows
+  whenever you're signed out.
+
+Likely owner objections:
+1. "Now the person sits a bit low." The height was tuned on navy, and on
+   paper the optical centre sits a little higher. At 3x it reads settled,
+   with the group just under centre, and at real size it's fine.
+   Possible, low. Don't pre-empt it by re-lifting: he approved this
+   geometry.
+2. "The paper badge disappears on the cream map." In the real-size crops
+   it holds by its edge and shadow, like 2c, which he saw. Not likely.
+3. The motion's 0.13s frame: the navy blot overshoots the die, with a
+   paper fringe at the bottom. It's a one-frame transient and was the
+   same in 2c. A build watch, not an owner issue.
+
+### 2e (v14): **9**
+His note is answered exactly, and nothing he approved moved. The two states
+now differ in die, ink, words and size, which suits "clear, matching state
+system", and the sign-in moment can be seen again. I'd defend it as is.
+
+### Before the owner sees it (presentation only, optional)
+1. Put the "Pressed" and "Before: navy (2d)" captions on one baseline.
+   They sit at different heights now. Small; send it as is if fixing it
+   costs a re-shoot round.
+2. Owner message, one line: "Paper signed out, on the shape you approved.
+   Signed in unchanged."
+
+Build watch: the 0.13s blot overshoot and fringe (the README suggests
+r 21). The side-by-side check with the new orange + before the build
+still stands. Spec: V[14].

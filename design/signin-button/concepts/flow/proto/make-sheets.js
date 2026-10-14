@@ -46,7 +46,7 @@ h += `<h2>2 · The sheet</h2>` + card('sheet-open.png', 'Visitors read why they 
 h += `<h2>3 · While it checks</h2>` + card('sheet-busy.png', 'The button says Signing in… and can’t be tapped twice.');
 h += `<h2>4 · If something’s wrong</h2>` + card('sheet-wrong.png', '') + card('sheet-offline.png', 'Your email stays; nothing is lost, and you’re still in the playground.');
 h += `<h2>5 · You arrive in the real trip</h2><p>The badge you tapped is there for a beat, then it’s inked into your account badge. This only plays right after signing in, not on every visit.</p>`;
-h += frames([['../A-arc-badge/round2/shots/in-0.png', 'Arrive'], ['../A-arc-badge/round2/shots/in-130.png', 'Inked'], ['../A-arc-badge/round2/shots/in-380.png', 'Signed in']], 86, 82, 1);
+h += frames([['../A-arc-badge/round2/shots/2e/in-0.png', 'Arrive'], ['../A-arc-badge/round2/shots/2e/in-130.png', 'Inked'], ['../A-arc-badge/round2/shots/2e/in-380.png', 'Signed in']], 86, 82, 1);
 h += `<h2>Two questions for you</h2><div class="q"><b>1.</b> When you’re signed out of the real trip (new phone, cleared Safari), should this same sign-in button sit in the corner? Today nothing is there until you try to edit. <b>We recommend yes.</b> Then the sheet looks like this, without the playground line:</div>`;
 h += card('sheet-real.png', '');
 h += `<div class="q"><b>2.</b> Is the line in the sign-in sheet enough to tell visitors their changes aren’t kept, or do you want something on the map too?</div><div style="height:16px"></div></body></html>`;

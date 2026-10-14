@@ -265,3 +265,29 @@ concepts is iteration and never counts toward the stuck rule.
   unanswered.
 
 Score: 9. Spec: V[9] (`nv: 1`) in `round2/badge2.js`.
+
+## Round 2e (2026-10-14)
+Owner on 2d: approved the geometry; "let's do white and blue signed
+out" ... "the style it was before I said to change it to orange and
+blue". So 2c's colours on V[9]'s geometry = V[14].
+
+Verified against the 2c and 2d sheets: the colours match 2c, the geometry
+matches V[9], and pressed is paper pressed-in (#DCD3C3). Signed in is
+unchanged. The Strike is visible again, so my 2d motion worry is gone.
+
+Q1 is MOOT now: the signed-out app is the playground, so the badge shows
+whenever you're signed out. Q2 (the playground notice) is still open.
+
+Score: 9. Ready, with an optional caption nit: the Pressed and Before
+captions sit on different baselines.
+Likely objection (low): on paper the 2d height may read a hair low, since
+the optical centre on paper sits higher than on navy (see the 2d lesson).
+Don't re-lift pre-emptively; he approved the geometry.
+Build watch: the 0.13s blot overshoots the die with a paper fringe. The
+side-by-side with the new orange + before the build still stands (the
+badge must stay the quieter of the two, which paper makes easier).
+
+What keeps blocking a 9 across rounds: nothing now. In rounds 2c-2e the
+owner steered by eye (a height bracket, colour by state), and each note
+was answered in one move. Next: the owner sees 2e, then the badge side by
+side with the new +, then the build.
