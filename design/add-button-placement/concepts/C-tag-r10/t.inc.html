@@ -43,7 +43,7 @@
       // a claim-check tag lying across: the left end die-cut (two chamfers), the claim-check end on the right
       w = W; h = Math.round(W * .52); const CH = Math.round(h * .3), STUB = Math.round(W * .24), sx = w - STUB;
       const path = `M${CH} 0H${w}V${h}H${CH}L0 ${h - CH}V${CH}Z`;
-      const stock = pr ? 'var(--paper)' : { paper: C.paper, navy: C.navy, orange: C.orange, twoend: C.paper, stubplus: C.paper, punch: C.navy, punchor: C.orange }[v];
+      const stock = pr ? (v === 'orange' || v === 'punchor' ? 'var(--brand-orange-deep)' : 'var(--paper)') : { paper: C.paper, navy: C.navy, orange: C.orange, twoend: C.paper, stubplus: C.paper, punch: C.navy, punchor: C.orange }[v];
       const perf = { navy: 'rgba(242,235,221,.7)', orange: 'rgba(18,41,63,.55)', punch: 'rgba(242,235,221,.7)', punchor: 'rgba(18,41,63,.55)' }[v] || C.hair;
       const pc = { paper: C.ink, navy: C.cream, orange: C.ink, twoend: C.ink, stubplus: C.cream }[v];
       const bx = (CH * .6 + sx) / 2, by = h / 2, A = Math.round(h * .27), SW = Math.max(4.5, h * .1);

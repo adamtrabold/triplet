@@ -93,8 +93,10 @@
   /* round 10: the pick-your-pin strip; the wash (unpinned); centred placement */
   .bt-f.type.r10 { min-height: 28px; align-items: flex-end; gap: var(--s2); }
   .bt-f.type.r10 .bt-type { font-size: 14px; }
-  .bt-cats { display: flex; gap: 12px; margin: 8px calc(-1 * var(--s4)) 4px; padding: 4px var(--s4); overflow: hidden; white-space: nowrap;
-    -webkit-mask: linear-gradient(90deg, #000 85%, transparent); mask: linear-gradient(90deg, #000 85%, transparent); }
+  /* the row scrolls: the gap is set so the 7th pin is cut at its middle by the tag's edge (a deliberate half-pin, the
+     owner's "half second list item"), with a soft fade over the last 40px */
+  .bt-cats { display: flex; gap: 15px; margin: 8px calc(-1 * var(--s4)) 4px; padding: 4px var(--s4); overflow: hidden; white-space: nowrap;
+    -webkit-mask: linear-gradient(90deg, #000 calc(100% - 40px), rgba(0,0,0,.25) 100%); mask: linear-gradient(90deg, #000 calc(100% - 40px), rgba(0,0,0,.25) 100%); }
   .bt-cat { flex: none; width: 32px; height: 32px; line-height: 0; border-radius: 50%; }
   .bt-cat.on { box-shadow: 0 0 0 3px var(--paper-raised), 0 0 0 4.5px var(--navy); }
   #btWash { position: absolute; inset: 0; z-index: 650; background: color-mix(in srgb, var(--paper) 78%, transparent); pointer-events: none; }

@@ -1,5 +1,19 @@
 # C · The tag is the button (round 10): how it looks and feels
 
+## Round 10c: the pick is #7 (the whole tag in brand orange, navy +); #2 is the runner-up
+
+The director moved the pick to #7. I agree on the reasons: one shape, one colour, one mark; the colour on the thing you tap; orange already means add on the old + badge. **One thing to say plainly, not a disagreement:** #7 is heavy.
+- My rough measure puts it at about 3.5× the account badge, and the Float at about 1.2-1.3× on the same scale. It is roughly 2.5-3× the Float's weight.
+- An orange tag carries about twice the orange area of the 60px badge (104 × 54 vs a scalloped 60).
+- So the owner's call is shape *and* weight, not purely shape.
+- The dial if he finds it loud: narrower.
+  - 84 wide is about 2.3×.
+  - 78 wide is about 2.0×, measured in `raw/t10-orange-84` / `-78`.
+  - Matching the Float's area exactly would need about 64 wide, too small for the tag to read as a tag.
+  - I'd keep 104 for the send and offer 84 if he says "too much".
+- **Pressed:** the whole stock goes `--brand-orange-deep`, with the + navy.
+- **Re-shot:** C0, C1, C2, C3, C4, C6, C7 (frames `c10-*`, `TC = 'T:orange'`). R1 is re-captioned: "Also explored", #7 "The pick", #2 "Runner-up". R4's right panel is marked the pick.
+
 ## Round 10b (visual): C #2 as a complete option
 
 The full still set, matching the Float's, is in this folder:

@@ -1,5 +1,17 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 10c (director: Float 9, form 9, C → pick #7)
+- **C's pick is #7** (`TC = 'T:orange'`), re-shot C0-C4, C6, C7.
+  - Pressed = deep orange stock.
+  - Flagged in the concept file: about 3.5× the account vs the Float's
+    about 1.3×. Dials: 84 wide ≈ 2.3×, 78 ≈ 2.0×.
+- **R1 re-captioned** "Also explored", with #7 the pick and #2 the
+  runner-up.
+- **Form:**
+  - `.bt-cats` gap 15, so the half-pin falls at the edge, with a fade.
+  - Pinned frames use `hang(... z1: 2)` (+2 zoom on the place; `ZD`
+    env overrides) to keep the street line and the account's pin out.
+
 ## UPDATE 2026-10-14, round 10b (systems measured C #2 at 1.37/1.31; the Float made complete)
 - **Form:** the card is fixed (TYPE row from blank, 48 top, blank card at
   the pinned spot). No caret when unfocused. While typing: offers from

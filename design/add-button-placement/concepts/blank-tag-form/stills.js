@@ -36,7 +36,9 @@ const hideP = p => p.evaluate(() => { const e = document.getElementById('lp'); i
 // capture a real tag as the template, then close it (the blank tag is built from the shipped DOM)
 async function template(p) { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => { __BT.capture(); map.closePopup(); }); await p.waitForTimeout(700); }
 async function dock(p, s, kbH) { await template(p); await p.click('#collapseBtn'); await p.waitForTimeout(900); await zoomIn(p, s.centre || (process.env.DC ? JSON.parse(process.env.DC) : [64.1440, -21.9400])); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
-async function hang(p, s, place = 'Sundhöllin') { await openPlace(p, place, true); await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
+async function hang(p, s, place = 'Sundhöllin') { await openPlace(p, place, true);
+  if (s.z1) { const dz = +(process.env.ZD || 0) || (s.z1 === true ? 1 : s.z1);
+    await p.evaluate(([n, dz]) => { const l = locations.find(l => l.name === n && l.city === 'reykjavik'); map.setView([l.lat, l.lng], map.getZoom() + dz, { animate: false }); }, [place, dz]); await p.waitForTimeout(700); } await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
 const floatBadge = (p, open) => p.evaluate(open => {   // open: true = navy x (r9); 'press' = deep orange, paper +   // the Float frame: R7's badge (60px, orange, account's scalloped die) at bottom-left
   const a = document.getElementById('accountBtn'), m = getComputedStyle(a).webkitMaskImage || getComputedStyle(a).maskImage;
   let f = document.getElementById('fb'); if (!f) { f = document.createElement('div'); f.id = 'fb'; document.body.appendChild(f); }
@@ -160,23 +162,23 @@ F['t10-noacct'] = { k: 'T:paper', zoom: true, centre: CREST, dsf: 1, run: p => p
 const R10 = { r10: true };
 F['r10-f-typing664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'typing', wash: true }); await cGone(p); } };
 F['r10-f-blankcard664'] = { k: 'C', vp: V664, run: async p => { await card(p, { state: 'blank', ...R10, centre: true, wash: true }); } };
-F['r10-f-pinned664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-pinned664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, z1: 2 }); await cGone(p); } };
 F['r10-f-pinned-starred664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, starred: true, visited: true, notes: NOTE2 }); await cGone(p); } };
 F['r10-f-pinned844'] = { k: 'C', inset: true, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
 F['r10-f-typing320'] = { k: 'C', vp: V320, run: async p => { await dock(p, { state: 'typing', wash: true, centre: [64.1500, -21.9480] }, 260); await cGone(p); } };
-F['r10-f-pinned320'] = { k: 'C', vp: V320, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-pinned320'] = { k: 'C', vp: V320, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, z1: 2 }); await cGone(p); } };
 
 // ================= ROUND 10b: one fixed card height; the city cue; C (#2) and the Float as two complete options =================
 const NOTE1 = 'Bring a towel';
 F['r10-f-typing664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'typing', wash: true, r10: true }); await cGone(p); } };
 F['r10-f-blankcard664'] = { k: 'C', vp: V664, run: async p => { await card(p, { state: 'blank', ...R10, centre: true, wash: true }); } };
-F['r10-f-pinned664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
-F['r10-f-pinned-starred664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, starred: true, visited: true, notes: NOTE1 }); await cGone(p); } };
-F['r10-f-city664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'cityopen', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-pinned664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, z1: 2 }); await cGone(p); } };
+F['r10-f-pinned-starred664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, z1: 2, starred: true, visited: true, notes: NOTE1 }); await cGone(p); } };
+F['r10-f-city664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'cityopen', ...R10, centre: true, realPin: true, z1: 2 }); await cGone(p); } };
 F['r10-f-typing320'] = { k: 'C', vp: V320, run: async p => { await dock(p, { state: 'typing', wash: true, r10: true, centre: [64.1500, -21.9480] }, 260); await cGone(p); } };
 const tGone = p => p.evaluate(() => { const e = document.getElementById('tb'); if (e) e.classList.add('gone'); });
 const fGone = p => p.evaluate(() => { const e = document.getElementById('fb'); if (e) e.style.display = 'none'; });
-const TC = 'T:twoend';
+const TC = 'T:orange';
 both('c10-rest', { k: TC, zoom: true, centre: CREST });
 F['c10-pressed'] = { k: TC, zoom: true, centre: CREST, run: async p => { await p.evaluate(() => { document.getElementById('tb').classList.add('press'); __T.draw(); }); } };
 F['c10-rest664'] = { k: TC, vp: V664 };

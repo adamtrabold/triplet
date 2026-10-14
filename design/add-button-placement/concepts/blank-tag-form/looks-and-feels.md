@@ -1,5 +1,9 @@
 # The blank-tag form: how it looks and feels (shared by C and Float)
 
+## Round 10c (visual)
+- **The TYPE row ends in a deliberate half-pin:** a 15px gap puts the 7th pin's middle on the tag's edge at 316, with a soft fade over the last 40px (to 25%). That's the owner's "half second list item" cue for a row that scrolls.
+- **Pinned frames** (F2, F3, F4, F5) are shot two zoom levels in on the place, so the dotted street line by a sticker and the pin under the account badge are out of frame.
+
 ## Round 10b (visual, after systems' 10b reconcile)
 
 - **One card height from the first frame.**
