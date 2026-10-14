@@ -1375,3 +1375,14 @@ Yes:
 - the results rule.
 
 P and A go 8 → 9 on the re-shot stills.
+
+### Round 8b re-shoots checked -- SEND RELEASED (2026-10-14)
+- Checked at phone size: T4, T5, A3-tap.
+  - The tag's foot is clear of the credit in T4 and T5.
+  - T4's note wraps to two lines, as it should.
+  - A3-tap's eyelet is clear (a sliver of a pin behind the tag's top
+    edge is acceptable).
+- Coverage check passed (`concepts/coverage-r8.md`).
+- Scores stand: P 9, A 9.
+- The send is released as listed under "FINAL SEND" in round 8b, with
+  19 stills, the three cost lines and the six owner questions.
