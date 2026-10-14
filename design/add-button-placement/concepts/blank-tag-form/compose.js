@@ -94,9 +94,9 @@ const pages = {
   // ================= C · PIN+TAG (round 9b) =================
   [CP + 'C1-real-size-3x.png']: `${cap('C · a blank tag pinned to the map, at real size', 'This is how it looks on your phone (1x, each pixel as you’d see it), with the app’s own pins and the account badge. One of the app’s pins, its icon a +, pushed through the eyelet of a blank luggage tag with two lines to write on.')}
      ${crop1(f('r9-c-rest-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
-  [CP + 'C2-also-tried-3x.png']: `${cap('Also tried: an empty pin, the + printed on the tag', 'Left: the pick; right: last round’s version, both at real size. With the + beside an empty ring, the pair can read as “O+”, and the ring as the tag’s eyelet.')}
-     <div class="row" style="gap:30px">${col('Pick', crop1(f('r9-c-rest-1x'), 0, 392, 190, 525, 3), 570)}${col('Also tried', crop1(f('r9-c-alt-1x'), 0, 392, 190, 525, 3), 570)}</div>
-     ${note('The + is the pin’s icon, where every pin shows what kind of place it is: this one is a place still to add. The tag stays blank, ruled like the form it opens.')}`,
+  [CP + 'C2-also-tried-3x.png']: `${cap('Also tried: the tag hanging below the pin', 'The arrangement you asked to revisit: the same pin with its +, a blank tag hanging from it on its string. Left: the pick; right: this one, both at real size.')}
+     <div class="row" style="gap:30px">${col('Pick', crop1(f('r9-c-rest-1x'), 0, 382, 190, 525, 3), 570)}${col('Also tried', crop1(f('r9-c-alt-1x'), 0, 382, 190, 525, 3), 570)}</div>
+     ${note('Why the tag lies flat: hanging, a tag this small reads as a box with a hat, and the pin and tag stand twice as tall over the map.')}`,
   [CP + 'C3-rest-vs-today-3x.png']: `${cap('C beside today', 'Bottom-left, by your thumb; the account badge is alone at the top.')}
      ${pair(f('r9-today'), 'Today', f('r9-c-rest'), 'C', 640)}<div class="gap"></div>`,
   [CP + 'C4-squint-1x.png']: `${cap('The squint test', 'The same screen blurred: the + should come before the account badge.')}

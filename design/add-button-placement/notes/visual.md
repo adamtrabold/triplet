@@ -1,5 +1,15 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 9c re-shoots (C 9, A 9)
+- **C7:** the map moved in both panels.
+  - 320 uses [64.1400, -21.9250].
+  - List down uses [64.1500, -21.9450].
+  - No street outline or sticker sits by the button now.
+- **C2:** the "also tried" is the hanging arrangement (+ on the pin,
+  blank tag below; `hang:fillplus:none:0:100:40:4:heavy`), with the
+  line on why the tag lies flat.
+  - Crop y 382-525 at 1x ×3, chosen pixel-exact to clear a sticker above.
+
 ## UPDATE 2026-10-14, round 9c (director 9b: C 8, A 9)
 - **C:** the + moved onto the pin as its glyph (filled orange 40, navy
   +, heavier glyph `data-cg=heavy`). The tag is blank with two ruled

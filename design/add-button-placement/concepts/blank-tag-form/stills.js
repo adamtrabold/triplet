@@ -124,13 +124,13 @@ async function card(p, s, o = {}) { await template(p); await p.click('#collapseB
 const NOTE2 = 'Bring a towel. Locals swim at 7am; the outdoor hot tubs are the best part';
 both('r9-today', { k: 'today', zoom: true, centre: CREST });
 both('r9-c-rest', { k: 'C', zoom: true, centre: CREST });
-both('r9-c-alt', { k: 'C:side:ring:tag:4:144:40:4', zoom: true, centre: CREST });
+both('r9-c-alt', { k: 'C:hang:fillplus:none:0:100:40:4:heavy', zoom: true, centre: CREST });
 F['r9-c-pressed'] = { k: 'C', zoom: true, centre: CREST, run: p => p.evaluate(() => document.getElementById('cp').classList.add('press')) };
 F['r9-c-rest664'] = { k: 'C', vp: V664 };   // the city view (the app's opening fit)
 F['r9-c-tapped664'] = { k: 'C', vp: V664, zoom: true, centre: CREST, run: async p => { await dock(p, { state: 'typing' }); await cGone(p); } };
 F['r9-c-tag664'] = { k: 'C', vp: V664, run: async p => { await openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur'); await cGone(p); } };
-F['r9-c-rest320'] = { k: 'C', vp: V320, zoom: true, centre: [64.1360, -21.9426] };
-F['r9-c-collapsed'] = { k: 'C', inset: true, zoom: true, centre: CREST, run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); } };
+F['r9-c-rest320'] = { k: 'C', vp: V320, zoom: true, centre: process.env.C3 ? JSON.parse(process.env.C3) : [64.1400, -21.9250] };
+F['r9-c-collapsed'] = { k: 'C', inset: true, zoom: true, centre: process.env.CL ? JSON.parse(process.env.CL) : [64.1500, -21.9450], run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); } };
 F['r9-f-blank664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'blank' }); await cGone(p); } };
 F['r9-f-typing664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'typing' }); await cGone(p); } };
 F['r9-f-nores664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'nores', text: 'Sundhx' }); await cGone(p); } };
