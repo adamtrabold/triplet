@@ -4454,3 +4454,129 @@ NEXT: design director — rule on:
 - capping the tag at about 96 wide.
 
 Then visual's round-10 tag looks get measured for rank.
+
+### 5. Folded in: the owner's second note this round (verbatim in owner.md)
+
+> re: the tag being filled out — i think it's too low on the screen. the
+> content should feel visually weighted center in the open area, and the
+> pin should probably get placed above it as the places are determined.
+> i like the idea of it not being pinned, then as it's being filled out
+> the background changes and it looks pinned once there's an address. the
+> dropdowns are very awkward. … i do think editing a place is a future
+> update for sure. and if someone adds something, for now it should not
+> save until they click "add" … i may just be looking something up.
+> holding a spot on the map … i could see this in the future …
+
+and: "i want to be clear even though i said centered i meant *visually
+centered... im not sure if mathematical center will feel like that."
+
+**Settled by his answers:**
+- edit after adding: later;
+- nothing saves without an ADD-type tap (picking never saves; P3 is
+  closed);
+- hold to place: later (real maps).
+- Visited while adding is still unanswered.
+
+**How "pinned once there's an address" squares with turn 37, said
+plainly: it works, and it costs one more map move than round 9 (two
+instead of one).** Turn 37's five-to-nine moves came from the tag being
+*fixed to the map*, so everything that moved or grew the tag dragged the
+map with it. The owner's version keeps the tag fixed to the *screen*
+(visually centred), and the map comes to it **once, at the pick**. That
+holds if three rules hold:
+
+1. **The tag never moves the map after the pick.** When the keyboard
+   comes up for NOTES, the tag lifts off its pin to the dock and drops
+   back under it on Done. The pin stays put on the place, the string
+   hides while the tag is lifted, and the map doesn't move. A tag going
+   up with the keyboard is ordinary phone behaviour; the place doesn't
+   move.
+2. **The tag never changes size while you fill it in.** Starring doesn't
+   change the height: the picked card already has the real tag's 48 top
+   that the band uses (the "+12 when starred" was only the docked 36 top).
+   The question, the TYPE and city choices, and the save-failed line all
+   print *inside* the tag's lower area, over NOTES and TYPE, the way the
+   results do. **This replaces round 9's "the question grows the tag from
+   the top"**: with the pin above the tag, growing from the top would move
+   the pin, which means the map.
+3. **ADD's settle is the second, small move.** The tag tightens to the
+   real tag (264 → 196) by its top coming down, which moves the pin and
+   so the map: a 68px pan in sync with the shrink (8b's mechanism, which
+   the director has already accepted). Alternatively, keep the size until
+   the tag closes, with no move at all.
+
+**Map moves per add:**
+
+| Model | Map moves |
+|---|---|
+| Pinned to the map (rounds 7-8) | 5-9 |
+| Round 9 fallback | 1, at ADD |
+| **This** | **1 at the pick (the moment it "looks pinned") + the ADD settle (68px, or 0 if the tag keeps its size)** |
+| Re-search | one more flight; it's your own action |
+
+His model also brings back job 9's "see where before ADD", which round 9
+had given up. I recommend it, with the three rules.
+
+**Visually centred, in numbers.** I'm using the optical centre at about
+45% of the open area from its top. This is a starting point; visual judges
+it on the phone (his words). The open area runs from the account badge's
+foot to the list's band. The card is 264, the pin and string are 60 above
+it, and the pin is on the tag's axis.
+
+| Viewport | Open area | Card (optical) | Pin | ADD | Card (mathematical, for comparison) |
+|---|---|---|---|---|---|
+| 390x664 | 66-604 | **176-440** | 116-148 | **380-440** (57-66% down) | 203-467 |
+| 320x568 | 66-508 | 133-397 | 73-105 | 337-397 | 155-419 |
+| 844 Home Screen | 113-784 | 283-547 | 223-255 | 487-547 | 316-580 |
+
+- **The pin clears the account badge and zoom at every size** (x 179-211
+  at 390).
+- **At 664 the NOTES row (about 296-328) ends right at the keyboard's top
+  (328).** Rule 1 lifts the tag anyway; at the visual centre it barely
+  needs to.
+- **ADD rises from 521-581 to about 380-440 at 664.** That's still thumb
+  reach on a 6.1" phone, but it's the trade for "too low on the screen":
+  the owner's own call, now made. Two consequences:
+  - The Float hiding while adding matters less (the card is far above
+    the badge).
+  - **The trigger no longer needs to hide while adding.** At 664 the
+    Float badge (464-524 with the list up; it rides to the band while
+    adding) and C's tag never meet the card. I'd still hide it: one
+    cancel, the ×.
+
+**Replacing the dropdowns** (structure; the look is visual's): **one
+pattern for every choice on the tag.** Tapping TYPE or the city prints the
+choices in the tag's lower area, the same area and the same printed rows
+the search results use. Tap one and it pencils in; the area closes. There
+are no native pickers and no popovers.
+- **TYPE:** 11 choices (9 kinds plus District and Street). The area
+  under NAME is about 124 × 284 at the card's fixed size. It holds a 4 ×
+  3 grid of about 71 × 40 cells (glyph plus a short word), or it scrolls
+  with a half row showing, as the results do.
+- **City:** your cities (5 today), plus "New city…" as the last row,
+  which uses the same new-city answer as a pick outside the trip.
+- **Hit areas:** each choice is a full row or cell, at least 40 high (no
+  chip-in-a-row overlaps; T9's issue goes away).
+- **Search everywhere** (section 3) is the same pattern: the last
+  printed row.
+
+jobs.md is updated:
+- job 7 (nothing saved before ADD);
+- job 9 (pinned at the pick; the map still afterwards);
+- job 13 (visually centred);
+- job 14;
+- job 15 (the district is framed at the pick);
+- job 18 (no dropdowns);
+- the "Later, not now" list;
+- the flows.
+
+NEXT (replaces the one above): design director — rule on:
+- the three rules for "pinned at the pick" (the tag lifts for the
+  keyboard without moving the map; the tag never changes size; ADD's
+  settle or no settle);
+- the choice pattern replacing the dropdowns;
+- both triggers staying tappable with a tag open;
+- "Search everywhere";
+- the 96 cap.
+
+Then visual draws round 10 at the optical-centre numbers.

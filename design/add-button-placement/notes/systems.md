@@ -574,3 +574,8 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Float on the real render: 1.34/1.33 vs the account; 0 pins; z14 12/13/16/3%. To be complete: hide while adding (ADD at the same 521-581 as C), the hand-off frame, and stills parity.
 - **Gap I introduced:** the blank tag dropped the City-first field that scoped the search; the search scopes to the map's city with a hard country filter and widens only on zero results. Fix: a "Search everywhere" last row. jobs.md new job 5 ("+ is for the whole trip"); jobs renumbered; A removed; old version in `notes/jobs-r9c.md`.
 - Beyond the notes: an Undo slip after ADD (scope question); the two options now differ only at rest and on tap.
+- Owner note 2 (same round): visually centred, not too low; pinned once there's an address; dropdowns awkward; edit = future; nothing saved without ADD; hold-to-place = future. Then: "visually centered", not mathematical.
+- My answer (turn 39 §5): the tag is fixed to the SCREEN and pinned at the PICK (one flight). Three rules: (1) the keyboard lifts the tag off its pin (the map doesn't move); (2) the tag never changes size (choices, questions and errors print in its lower area); (3) ADD's settle is a 68px pan, or none. Map moves: 1-2 vs 5-9.
+- Optical centre at about 45% of the open area: 664 card 176-440, pin 116-148, ADD 380-440; 320 card 133-397; 844 HS card 283-547.
+- Dropdowns → one choice pattern: choices print in the lower area (TYPE: 4x3 grid of about 71x40 or scrolling rows; city: your cities + "New city…").
+- jobs.md updated (jobs 7, 9, 13, 14, 15, 18; "Later, not now"; flows).

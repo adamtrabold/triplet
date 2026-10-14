@@ -9972,7 +9972,7 @@
     wrap.appendChild(p); document.body.appendChild(wrap);
     makeBlank(p.querySelector('.tag'), s);
     const b = p.querySelector('.tag-body').getBoundingClientRect();
-    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit()); p.style.top = Math.round(top0 + (bot - top0 - b.height) / 2) + 'px'; }
+    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit()); p.style.top = Math.round(top0 + OPTICAL * (bot - top0) - b.height / 2) + 'px'; }
     else p.style.top = (Math.min(s.clear || 1e9, footLimit()) - b.height) + 'px';
     if (s.wash) BT.wash(true);
     return p.querySelector('.tag-body').getBoundingClientRect().toJSON();
@@ -9982,6 +9982,7 @@
     const q = sel => [...document.querySelectorAll('#btDock ' + sel)].map(e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.right, r.bottom].map(Math.round); });
     return { x: q('.tag-x'), chips: q('.bt-chip'), notes: q('.bt-f:has(.bt-note) .bt-rule'), segs: q('.tag-stub .tag-seg') };
   };
+  const OPTICAL = 0.45;   // the optical centre of the open area: a touch above the mathematical middle
   function openTop() { const a = document.getElementById('accountBtn').getBoundingClientRect(); return Math.round(a.bottom + 8); }
   BT.wash = function (on) { let w = document.getElementById('btWash'); if (!on) { if (w) w.remove(); return; } if (!w) { w = document.createElement('div'); w.id = 'btWash'; map.getContainer().appendChild(w); } };
   BT.undock = function () { ['btDock', 'btPin'].forEach(i => { const e = document.getElementById(i); if (e) e.remove(); }); };
@@ -9993,8 +9994,12 @@
     // the taller blank tag must still clear the list (the real tag-fit does this by panning): pan the map up if needed
     const tb = tag.querySelector('.tag-body').getBoundingClientRect(), S = document.getElementById('locations').getBoundingClientRect().top;
     let ov;
-    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit()), gh = tb.height + 76;   // pin 32 + TAG_HANG 44 above the tag
-      ov = Math.round(tb.top - (top0 + (bot - top0 - gh) / 2 + 76)); }
+    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit());
+      // VISUALLY centred (owner: "i meant *visually centered"): the tag's own centre (the heavy part; the pin and string
+      // above it are light) sits at the optical centre of the open area, a little above the middle (OPTICAL = .45),
+      // never so high that the pin (76 above the tag) leaves the open area
+      const want = Math.max(top0 + 76 + 4, Math.round(top0 + OPTICAL * (bot - top0) - tb.height / 2));
+      ov = Math.round(tb.top - want); }
     else ov = Math.round(tb.bottom - Math.min(s.clear || 1e9, footLimit()));
     if (ov) map.panBy([0, ov], { animate: false });
     if (s.realPin) return 'ok';

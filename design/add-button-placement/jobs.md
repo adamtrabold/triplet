@@ -61,15 +61,26 @@ Your words:
    - Everything else is already filled in, in pencil (address, city, and
      the type where it can be guessed).
    - You touch a line only to correct it.
+   - **Nothing is saved until you tap ADD.** Picking a result never saves
+     ("i may just be looking something up").
 8. **Search right on the tag.** *(inferred)* The name line is the search.
    Results print on the tag under it, at least 3 with the keyboard up on
    a 664-tall Safari screen, and they scroll.
-9. **Know where it goes; see it on ADD.** *(inferred; changed in round 9:
-   you were worried the map would move under the tag as you fill it, so
-   it doesn't)* Before ADD, the words say where: each result's address,
-   the tag's "address · city", and "New city?" when it's outside your
-   trip. The map stays still while you write. On ADD the map makes one
-   move to the place, and the pin goes into the tag's eyelet.
+9. **See it get pinned as soon as the place is known.** (Your words: "i
+   like the idea of it not being pinned, then as it's being filled out the
+   background changes and it looks pinned once there's an address.")
+   - Before you pick, the tag is loose: nothing above it, the map quiet
+     behind it.
+   - When you pick, the map makes **one** move to bring the place under
+     the tag, and the pin appears above it on its string. It now looks
+     pinned.
+   - After that the map **doesn't move again while you write** (that was
+     your worry: "the map will have to move underneath as it gets filled
+     out"). Typing a note lifts the tag up to the keyboard and it drops
+     back under its pin. Changes and questions happen inside the tag
+     without changing its size.
+   - Picking again (re-search) is the one other move: the pin goes to the
+     new place.
 10. **Say what kind of place it is.** Type is pre-filled in pencil and can
    be changed with one tap. *(inferred: the source of the guess is OpenStreetMap's
    own kind for the place, else the type you used last.)*
@@ -79,21 +90,28 @@ Your words:
 12. **See exactly what you'll get.** *(inferred)* The filled-out blank tag
     has the real tag's layout and order. When it's starred it shows the
     band.
-13. **Finish near your thumb.** *(inferred)* ADD is on the tag's stub,
-    low on the screen at every phone height, including Safari with its
-    toolbars showing.
+13. **The tag sits where you look, and ADD is still in reach.** (Your
+    words: "i think it's too low on the screen. the content should feel
+    visually weighted center in the open area, and the pin should
+    probably get placed above it.")
+    - With the keyboard down, the tag is **visually** centred in the open
+      map area, between the top controls and the list's band. That's
+      not the mathematical centre ("i meant *visually centered…"); it's
+      a little above it, judged by eye on the phone.
+    - ADD, on the tag's stub, lands a little below the middle of the
+      screen (about 60-70% of the way down), still in thumb reach.
 14. **Watch the blank become the place.** *(inferred)*
-    - ADD inks the tag: your pencil turns to ink and the type is stamped.
-      The map brings the place to the tag, the pin drops into the eyelet
-      with the place's kind and glyph, and the place's own tag is open.
+    - ADD inks the tag: your pencil turns to ink and the type is stamped,
+      and the pin above it takes the place's kind and glyph. The place's
+      own tag is open, right where you were looking.
     - The list switches to the place's city if it needs to. It stays down
       while the new tag is open, and when you close the tag it comes back
       up with the new row in view.
     - When you close the tag, a fresh blank + is waiting.
 15. **Districts and streets go through the same tag.** *(inferred: "Every
     category should have the same information and capabilities")* Same
-    tag, same ADD. On ADD the map frames the outline as it draws in and
-    the tag hangs from the area's centre dot. If OpenStreetMap has no outline, the app saves an
+    tag, same ADD. When you pick, the map frames the area with its centre
+    dot above the tag. On ADD the outline draws in. If OpenStreetMap has no outline, the app saves an
     approximate pin, as today.
 16. **Never lose what you wrote.** *(inferred)*
     - Cancel puts everything back as it was: the list, its scroll, the
@@ -107,18 +125,29 @@ Your words:
     answers are buttons that look like buttons** ("some of the buttons
     aren't reading like buttons — specifically the add city one"). They
     sit in the stub, where ADD is.
-18. **Everything you can tap looks tappable.** (Your words, round 8b.) The
-    city and the type look like the app's filter chips, NOTES is a
-    write-on line, × is the tag's own, and the stub's segments are the
-    tag's own segments. No new button style.
+18. **Everything you can tap looks tappable, and nothing is awkward to
+    use.** (Your words: "some of the buttons aren't reading like buttons";
+    "the dropdowns are very awkward".)
+    - There are no dropdowns. Tapping TYPE or the city shows the choices
+      right on the tag, where the search results print; tap one and it
+      pencils in.
+    - NOTES is a write-on line, × is the tag's own, and the stub's
+      segments are the tag's own segments. No new button style.
 
 ## Scope questions (jobs the owner should confirm, not blockers)
 
 - **Mark it visited while adding.** You often add the place you're
   standing in. The blank tag's stub carries VISITED, as the real stub
-  does.
-- **Fix a place after adding it** by opening its tag in pencil again.
-  Today only star and visited can be changed after adding.
+  does. (Not answered yet.)
+
+## Later, not now (your answers)
+
+- **Editing a place after adding it:** "a future update for sure".
+- **Saving by picking a result (no ADD):** no. "it should not save until
+  they click … add".
+- **Holding the map to place a pin:** later, "once we make this an iphone
+  app and integrate real maps", when there's a business under your
+  finger to save.
 
 ## The blank tag (shared by C and the Float)
 
@@ -130,14 +159,23 @@ The blank tag is built from the real tag's parts and keeps their order:
 - **NOTES**;
 - **TYPE** (pencil).
 
-The tag is a card in the screen's frame, not on the map: docked on the
-keyboard while you type, then sitting on the list's band. The map behind
-it doesn't move until ADD. The tag is whole and blank from the first
-moment, every line printed and empty. It doesn't change size while you fill it in; results print over
-its lower lines while you type.
 - the stub: **ADD | STAR | VISITED**.
 
+Where it sits:
+- **Keyboard up:** the tag is docked on the keyboard.
+- **Keyboard down:** the tag is visually centred in the open map area
+  (a little above the mathematical centre). Before a pick it's loose.
+  After a pick its pin stands above it on the place.
+
+How it holds still:
+- The tag is whole and blank from the first moment, every line printed
+  and empty. It never changes size while you fill it in.
+- The tag's lower area (under NAME) is where things print: search
+  results, the TYPE and city choices, and the new-city question. Each
+  covers the lower lines while it's up.
+
 How the parts behave:
+- **Eyelet:** empty until you pick; then the pin's string runs into it.
 - **Close:** the tag's own × at its top right is cancel.
 - **Three inks, one meaning each:**
   - print is the form's own words and the search results;
@@ -167,16 +205,18 @@ How the parts behave:
    "Search everywhere" is always the last line. The stub sits behind the
    keyboard.
 4. **Pick:**
-   - The keyboard drops and the tag settles onto the list's band (the
-     list went down when you tapped).
-   - Everything is filled in, in pencil, with ADD (navy) under your
-     thumb. **The map doesn't move.**
-5. **Correct anything** (type, city, notes, star, visited). Then tap ADD.
+   - The keyboard drops. The tag settles to the visual centre of the open
+     map area (the list went down when you tapped).
+   - The map makes its one move: the place comes to the spot above the
+     tag, and the pin appears there on its string. The tag is pinned.
+   - Everything is filled in, in pencil, with ADD (navy) on the stub.
+5. **Correct anything** (type, city, notes, star, visited). The choices
+   print on the tag. Typing a note lifts the tag up to the keyboard, and
+   it drops back under its pin when you're done. The map doesn't move.
+   Then tap ADD. Nothing is saved before this.
 6. **ADD:**
-   - The map makes one move: the place comes to the tag, and its pin goes
-     into the eyelet. The tag is now pinned to the place.
    - The name inks and TYPE is stamped (VISITED already stamped when you
-     set it).
+     set it). The pin takes the place's icon.
    - The tag tightens to the real tag's size from the top. ADD becomes
      DIRECTIONS in the very same spot under your thumb.
    - The place's tag stays open, and the list stays down (on the place's
@@ -222,9 +262,9 @@ and a new pick rewrites the lines. The map still doesn't move.
 1. Type and pick as usual, then set TYPE to District or Street.
 2. The address · city line goes away and a one-line hint prints instead
    ("traced from OpenStreetMap").
-3. On ADD the app fetches the outline (the tag shows it's working). The
-   map's one move frames the outline as it draws in, and the tag hangs
-   from the area's centre dot.
+3. On the pick the map's one move frames the area, with its centre dot
+   above the tag. On ADD the app fetches the outline (the tag shows it's
+   working), and the outline draws in.
 4. **No outline in OpenStreetMap:** the app finds an approximate spot and
    the pin goes in there as a "(approx.)" place, as today. If it finds
    nothing at all, the tag says so and keeps everything.
