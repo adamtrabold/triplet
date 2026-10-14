@@ -184,6 +184,9 @@
          about a colored status bar, so they keep the unconditional inset
          and are left alone. */
       --chrome-top-inset: 0px;
+      /* The account slot's x (left of +): #accountBtn, its focus ring #accountFocus and
+         #accountDropdown all read this one value, so they can never drift apart. */
+      --account-slot-right: 74px;
 
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
@@ -397,11 +400,49 @@
     }
 
     #accountBtn {
-      right: 74px;
+      right: var(--account-slot-right);
       display: none;
     }
 
     #accountBtn.show { display: flex; }
+    #accountBtn:focus-visible { outline: none; }   /* the ring is #accountFocus: the mask would clip one drawn here */
+    /* A state swap (signed out <-> signed in) happens in one frame: with the 150ms
+       background transition live, a translucent navy square would flash while the
+       mask comes off (setAccountBadge()). */
+    #accountBtn.swap { transition: none; }
+
+    /* SIGNED OUT: the sign-in badge (design/signin-button/handoff.md, concept A V[14]).
+       The button paints nothing itself -- no navy field, no mask, no registration
+       shadow; the whole badge (contact shadow, paper die with its warm edge, SIGN IN on
+       a U, the person) is one inline SVG (signinBadgeSvg()). Pressed = the die goes to
+       --paper-pressed, ink unchanged: pressed in, not lit up. Hover: the pointer only. */
+    #accountBtn.signin,
+    #accountBtn.signin:active {
+      background: transparent;
+      -webkit-mask-image: none;
+      mask-image: none;
+      box-shadow: none;
+    }
+    #accountBtn.signin:active { --sb-face: var(--paper-pressed); }
+    #accountBtn.signin svg { display: block; overflow: visible; }
+
+    /* Keyboard focus, both states: a navy ring with a paper halo either side (the
+       app's double ring, .seg button:focus-visible) following the scallop at 1.16x. */
+    #accountFocus {
+      position: fixed;
+      top: calc(var(--s4) + var(--chrome-top-inset));
+      right: var(--account-slot-right);
+      width: 50px;
+      height: 50px;
+      pointer-events: none;
+      z-index: 2001;
+      display: none;
+    }
+    #accountBtn.show:focus-visible + #accountFocus { display: block; }
+    #accountFocus svg { display: block; overflow: visible; }
+    #accountFocus polygon { fill: none; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+    #accountFocus .ring-halo { stroke: var(--paper); stroke-width: 4px; }
+    #accountFocus .ring-ink { stroke: var(--navy); stroke-width: 2px; }
 
     #floatingAddBtn:active,
     #accountBtn:active {
@@ -433,7 +474,7 @@
       position: fixed;
       /* Hangs off #accountBtn -- same --chrome-top-inset reasoning. */
       top: calc(74px + var(--chrome-top-inset));
-      right: 74px;
+      right: var(--account-slot-right);
       background: var(--paper);
       /* Box edges: a plain paper box takes the dividers' 1px --hair (owner,
          2026-10-14). A box with a navy header band keeps the 2px navy
@@ -481,6 +522,10 @@
       background: var(--paper-raised);
     }
     #accountDropdown button:active { background: var(--state-press); }
+    /* "Signing out..." while signOut() runs: the app's one unavailable/loading rule. */
+    #accountDropdown button:disabled,
+    #accountDropdown button:disabled:hover,
+    #accountDropdown button:disabled:active { opacity: var(--state-off-alpha); cursor: default; background: transparent; }
 
     #mainContent {
       /* Stays FIXED (Safari tints its tab status bar from the top fixed
@@ -1864,6 +1909,11 @@
          they also work in older Safari. Values unchanged. */
       --warm-edge-rgb: 107, 74, 40;    /* #6B4A28: the warm paper-edge brown (also STICKER.EDGE in JS; brand-token pass to share it) */
       --tag-edge: rgba(var(--warm-edge-rgb), .5);
+      /* The sign-in badge's paper die (signinBadgeSvg()): the sticker's warm edge at .22 as a
+         shadow edge (not a keyline), on a 1px contact shadow -- the minimum lift for paper on a
+         cream map (design/signin-button/handoff.md). */
+      --badge-edge: rgba(var(--warm-edge-rgb), .22);
+      --badge-contact: rgba(0, 0, 0, .22);
       --tag-shadow-contact: rgba(var(--ink-rgb), .10);   /* 1px down, 1px blur: where the tag meets the map */
       --tag-shadow-lift: rgba(var(--ink-rgb), .08);      /* 4px down, 6px blur: the tag hanging just off it */
       --scroll-shadow: rgba(var(--ink-rgb), .14);        /* a scroll edge's shadow (list header, tag stub): ink 14% -> 0 over 10px */
@@ -2230,6 +2280,15 @@
       background: var(--paper-raised);
     }
 
+    /* Busy ("Signing in..."): the app's one unavailable/loading rule (--state-off-alpha,
+       as the add form's #submitBtn:disabled) on both buttons; the orange stays orange,
+       faded. The fields stay full size and readable (what an error keeps must look
+       kept): --ink-2, no caret, no focus underline (the focused one is blurred). */
+    #authModalContent button:disabled { opacity: var(--state-off-alpha); color: var(--ink); cursor: default; }
+    #authModalContent button.secondary:disabled:hover { background: transparent; }
+    #authModalContent.busy input { color: var(--ink-2); caret-color: transparent; }
+    #authModalLine[hidden] { display: none; }
+
     /* Auth Status Indicator - Hidden, using account button instead */
     #authStatus {
       display: none !important;
@@ -2536,35 +2595,46 @@
   <div id="authStatus">
     <span class="status-dot"></span>
     <span id="authUserEmail"></span>
-    <button id="logoutBtn">Logout</button>
+    <button id="logoutBtn">Sign out</button>
   </div>
 
+  <!-- The sign-in sheet: one markup, three forms (showAuthModal(origin)); the words are set there. -->
   <div id="authModal">
-    <div id="authModalContent">
+    <div id="authModalContent" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
       <div id="authModalHead">
-        <h2>Login Required</h2>
+        <h2 id="authModalTitle">Sign in</h2>
       </div>
       <div id="authModalBody">
-        <p>You need to log in to make changes. Anyone can view places and plans without logging in.</p>
+        <p id="authModalLine">You need to sign in to make changes. Anyone can view places and plans.</p>
         <input type="email" id="authEmailInput" placeholder="Email" autocomplete="email">
         <input type="password" id="authPasswordInput" placeholder="Password" autocomplete="current-password">
-        <button id="loginBtn">Login</button>
+        <button id="loginBtn">Sign in</button>
         <button id="cancelAuthBtn" class="secondary">Cancel</button>
-        <p id="authError" style="color: var(--figure-deep); margin-top: 1rem; display: none;"></p>
+        <p id="authError" role="status" aria-live="polite" style="color: var(--figure-deep); margin-top: 1rem; display: none;"></p>
       </div>
     </div>
   </div>
 
-  <button id="accountBtn" aria-label="Account">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <!-- One slot, two states (design/signin-button/handoff.md): signed out the sign-in badge,
+       signed in the account badge. setAccountBadge() owns its content, classes and name; it stays
+       hidden (no .show) while a stored session is still being confirmed. -->
+  <button id="accountBtn" aria-label="Account" aria-haspopup="true" aria-expanded="false">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
       <circle cx="12" cy="7" r="4"></circle>
     </svg>
   </button>
+  <!-- Its keyboard focus ring: a sibling (the button's mask would clip a ring drawn on it), shown
+       by #accountBtn:focus-visible + #accountFocus. Must stay directly after #accountBtn. -->
+  <div id="accountFocus" aria-hidden="true">
+    <svg width="50" height="50" viewBox="0 0 50 50"><g transform="translate(25 25) scale(1.16) translate(-25 -25)">
+      <polygon class="ring-halo"/><polygon class="ring-ink"/>
+    </g></svg>
+  </div>
 
   <div id="accountDropdown">
     <div class="user-email" id="dropdownUserEmail"></div>
-    <button id="dropdownLogoutBtn">Logout</button>
+    <button id="dropdownLogoutBtn">Sign out</button>
   </div>
 
   <!-- A stroked SVG, not a text character: `line-height: 0` on a 1.75rem "+"
@@ -2702,7 +2772,9 @@
     const realSupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
     const supabaseClient = PLAYGROUND ? createPlaygroundClient(realSupabaseClient) : realSupabaseClient;
     // A sign-in in another tab reaches this one too (supabase-js broadcasts it): boot again as the real app.
-    if (PLAYGROUND) realSupabaseClient.auth.onAuthStateChange(event => { if (event === 'SIGNED_IN') location.reload(); });
+    // This tab's own sign-in (login() in flight) reloads itself, after writing the hop marker; and
+    // with no session stored (storage blocked) a reload would only boot the playground again.
+    if (PLAYGROUND) realSupabaseClient.auth.onAuthStateChange(event => { if (event === 'SIGNED_IN' && !loginInFlight && sessionStored()) location.reload(); });
 
     // Mimics the slice of supabase-js the app uses: from(t).select/insert/
     // update/upsert/delete with order/eq/in, awaited for { data, error };
@@ -2973,6 +3045,277 @@
     let planMarksCache = null;
     let planPanel = { mode: null, draft: '' };   // mode: null | 'creating' | 'acting' | 'renaming'
 
+    // =========================================================================
+    // ACCOUNT BADGE + SIGN-IN (design/signin-button/handoff.md, approved by the
+    // owner 2026-10-14: "Sign in is great"). One button (#accountBtn), one slot,
+    // two states:
+    //   signed out (the playground, or a real-mode session that didn't hold): the
+    //     sign-in badge -- paper die, navy person, SIGN IN on a U (concept A
+    //     V[14]); a tap opens the sign-in sheet directly, no dropdown;
+    //   signed in: today's account badge and its dropdown (email, Sign out).
+    // Real mode paints nothing until checkAuth() confirms the stored session (an
+    // empty corner for a frame is honest; a wrong badge isn't); the playground
+    // knows it's signed out synchronously and paints at boot.
+    // Motion, triggered by the auth state only (never from gesture code):
+    //   the Strike (navy ink lands from the person outward, the person turns
+    //     orange and grows; STAR_POP's clock and easings, scale only) plays on
+    //     the first boot after a playground sign-in (the hop marker said 'in'),
+    //     or in place after a real-mode sign-in;
+    //   the dry-up (the ink dries back off the paper, tips first; DRY's clock
+    //     and snap) plays right after Sign out succeeds, before the reload.
+    // Neither plays under Reduce Motion: the state swaps in one frame.
+    // =========================================================================
+    // The 50-unit scallop: the same polygon as the floating buttons' CSS mask (#floatingAddBtn,
+    // #accountBtn). The mask is CSS and can't read this; change both together.
+    const SCALLOP_PTS = '45.00,25.00 45.71,25.93 46.10,26.90 46.00,27.84 45.40,28.70 44.50,29.45 43.57,30.13 42.89,30.81 42.61,31.61 42.71,32.57 43.02,33.68 43.26,34.83 43.19,35.87 42.68,36.67 41.77,37.19 40.64,37.47 39.51,37.68 38.60,38.00 38.00,38.60 37.68,39.51 37.47,40.64 37.19,41.77 36.67,42.68 35.87,43.19 34.83,43.26 33.68,43.02 32.57,42.71 31.61,42.61 30.81,42.89 30.13,43.57 29.45,44.50 28.70,45.40 27.84,46.00 26.90,46.10 25.93,45.71 25.00,45.00 24.14,44.25 23.31,43.74 22.47,43.64 21.56,43.96 20.55,44.50 19.48,44.99 18.45,45.15 17.55,44.84 16.85,44.07 16.32,43.02 15.87,41.96 15.35,41.15 14.64,40.70 13.68,40.59 12.53,40.64 11.36,40.61 10.36,40.32 9.68,39.64 9.39,38.64 9.36,37.47 9.41,36.32 9.30,35.36 8.85,34.65 8.04,34.13 6.98,33.68 5.93,33.15 5.16,32.45 4.85,31.55 5.01,30.52 5.50,29.45 6.04,28.44 6.36,27.53 6.26,26.69 5.75,25.86 5.00,25.00 4.29,24.07 3.90,23.10 4.00,22.16 4.60,21.30 5.50,20.55 6.43,19.87 7.11,19.19 7.39,18.39 7.29,17.43 6.98,16.32 6.74,15.17 6.81,14.13 7.32,13.33 8.23,12.81 9.36,12.53 10.49,12.32 11.40,12.00 12.00,11.40 12.32,10.49 12.53,9.36 12.81,8.23 13.33,7.32 14.13,6.81 15.17,6.74 16.32,6.98 17.43,7.29 18.39,7.39 19.19,7.11 19.87,6.43 20.55,5.50 21.30,4.60 22.16,4.00 23.10,3.90 24.07,4.29 25.00,5.00 25.86,5.75 26.69,6.26 27.53,6.36 28.44,6.04 29.45,5.50 30.52,5.01 31.55,4.85 32.45,5.16 33.15,5.93 33.68,6.98 34.13,8.04 34.65,8.85 35.36,9.30 36.32,9.41 37.47,9.36 38.64,9.39 39.64,9.68 40.32,10.36 40.61,11.36 40.64,12.53 40.59,13.68 40.70,14.64 41.15,15.35 41.96,15.87 43.02,16.32 44.07,16.85 44.84,17.55 45.15,18.45 44.99,19.48 44.50,20.55 43.96,21.56 43.64,22.47 43.74,23.31 44.25,24.14';
+    const BADGE_PERSON = 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2';   // lucide user (the account glyph) + circle (12,7) r 4
+    const ACCOUNT_GLYPH = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="' + BADGE_PERSON + '"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    // V[14] (concepts/A-arc-badge/round2/badge2.js), in the 50x50 viewBox (1:1 with CSS px):
+    //   PS / SW / CY: the person's scale (x0.68 of the 24-unit glyph), on-screen stroke (px) and
+    //     centre y; at t = 1 it is the signed-in glyph (x1, 2px, centred);
+    //   R / AY: the U's radius and centre y (deliberately not the die's centre: the approved height);
+    //   FS / LS: SIGN IN's caps (Archivo 700, 100% width) and tracking;
+    //   ARC_ROT: Chromium's measured centring of the textPath (centreSigninArc() re-measures it).
+    const SIGNIN_BADGE = { PS: 0.68, SW: 1.45, CY: 21.6, R: 16.6, AY: 23.2, FS: 6, LS: 1.3, ARC_ROT: 2.91 };
+    // The Strike's scale: STAR_POP's offsets and per-segment easings with the rotations removed and the
+    // peak 1.12, not 1.4 (a 50px badge at 1.4 would cover + and the map's top edge).
+    const STRIKE_SCALE = [1, 1.12, 0.97, 1];
+    // The Strike's ink, interpolated linearly: [ms, blot radius, person t]; the last key is STAR_POP_MS.
+    // r 21 at 130ms (not the stills' 19.5): a sliver of paper is left only at the bottom tips.
+    const STRIKE_INK = [[0, 0, 0], [60, 9, 0.15], [130, 21, 0.55], [250, 24, 0.9], [null, 24, 1]];
+    const ARRIVAL = { BEAT_MS: 250, CAP_MS: 3000 };   // the beat after the boot load; skip the Strike if it isn't settled by then
+    const ACCOUNT_BTN_FADE_MS = 150;                  // #accountBtn's background transition (CSS): the dry-up waits for it
+    const SIGNIN_TIMEOUT_MS = 15000;                  // no answer by then = can't reach the server
+    const AUTH_HOP_KEY = 'triplet.authHop';           // sessionStorage: the one-shot hop marker { dir: 'in'|'out', view }
+    const SIGNIN_ERR = {
+      EMPTY: 'Enter your email and password.',
+      WRONG: 'That email and password don’t match.',
+      OFFLINE: 'Can’t reach the sign-in server. Check your connection.',
+      TOO_MANY: 'Too many tries. Wait a minute, then try again.',
+      STORAGE: 'This browser isn’t letting Triplet keep you signed in. Allow website data for this page, then try again.',
+      OTHER: 'Sign-in didn’t work. Try again.'
+    };
+    const SHEET_LINE = {
+      play: 'Only the trip’s owners can sign in. Your changes here won’t be kept.',
+      badge: '',
+      edit: 'You need to sign in to make changes. Anyone can view places and plans.'
+    };
+
+    let accountBadge = 'hidden';   // 'hidden' | 'signin' | 'account': what the slot shows
+    let badgeMotion = null;        // { kind: 'hold'|'strike'|'dry', anim, raf, timer } while the arrival or the dry-up runs
+    let loginInFlight = false;     // a sign-in request is out (the sheet is busy)
+    let signOutInFlight = false;   // this tab started a sign-out: its SIGNED_OUT waits for the dry-up
+    let authReturnFocus = null;    // where focus goes when the sheet closes
+    let signinArcRot = SIGNIN_BADGE.ARC_ROT, signinArcMeasured = false, fontsReadyForArc = false;
+    let bootLoaded;
+    const bootLoadDone = new Promise(r => { bootLoaded = r; });   // the boot load has resolved and the list has rendered
+    // The hop marker, read AND removed at boot: a reload, Back or a second tab never sees it.
+    const authHop = (() => {
+      try { const v = sessionStorage.getItem(AUTH_HOP_KEY); sessionStorage.removeItem(AUTH_HOP_KEY); return v ? JSON.parse(v) : null; }
+      catch (e) { return null; }
+    })();
+    // The Strike plays only when the marker said 'in', the mode is real and a user is confirmed.
+    let arrivalPending = !!(authHop && authHop.dir === 'in' && !PLAYGROUND);
+
+    const accountBtnEl = () => document.getElementById('accountBtn');
+
+    // ---- the drawing (ported from badge2.js: person, arc, blotPts, dryPts, inkLayer) ----
+    let badgeUid = 0;
+    // t: 0 = the sign-in person, 1 = the signed-in person (size, centre and stroke interpolate)
+    function badgePerson(t, inkVar) {
+      const B = SIGNIN_BADGE, s = B.PS + (1 - B.PS) * t, cy = B.CY + (25 - B.CY) * t, sw = B.SW + (2 - B.SW) * t;
+      return `<g transform="translate(${(25 - 12 * s).toFixed(3)},${(cy - 12 * s).toFixed(3)}) scale(${s.toFixed(4)})" fill="none" style="stroke:var(${inkVar})" stroke-width="${(sw / s).toFixed(4)}" stroke-linecap="round" stroke-linejoin="round"><path d="${BADGE_PERSON}"/><circle cx="12" cy="7" r="4"/></g>`;
+    }
+    // SIGN IN on a U under the person; startOffset compensates the trailing letter-space, and the
+    // group is rotated about the U's centre so the first and last letters sit symmetric about 6 o'clock.
+    function signinArc() {
+      const B = SIGNIN_BADGE, id = 'sbR' + (++badgeUid), half = Math.PI * B.R / 2 + B.LS / 2;
+      return `<g class="sb-arc" transform="rotate(${signinArcRot.toFixed(2)} 25 ${B.AY})"><defs><path id="${id}" d="M${25 - B.R},${B.AY} A${B.R},${B.R} 0 0 0 ${25 + B.R},${B.AY}"/></defs>`
+        + `<text font-family="Archivo" font-weight="700" font-stretch="100%" font-size="${B.FS}" letter-spacing="${B.LS}" style="fill:var(--navy)"><textPath href="#${id}" startOffset="${half.toFixed(2)}" text-anchor="middle">SIGN IN</textPath></text></g>`;
+    }
+    // The Strike's ink: a wobbly blot of radius r round the person's centre (48 points, +-10%).
+    function badgeBlotPts(r, oy) {
+      const p = [];
+      for (let i = 0; i < 48; i++) { const a = i / 48 * 2 * Math.PI, rr = r * (1 + 0.06 * Math.sin(i * 7.3) + 0.04 * Math.sin(i * 3.1)); p.push(`${(25 + rr * Math.cos(a)).toFixed(2)},${(oy + rr * Math.sin(a)).toFixed(2)}`); }
+      return p.join(' ');
+    }
+    // The dry-up's ink at dry amount k (0 = the whole die, 1 = gone): 16 lobes dry between the scallop's tips first.
+    function badgeDryPts(k, oy) {
+      const R = (21.5 + (25 - oy) * 0.6) * Math.pow(1 - k, 0.8), p = [];
+      for (let i = 0; i < 64; i++) { const a = i / 64 * 2 * Math.PI, lobe = 0.5 + 0.5 * Math.cos(a * 16), rr = Math.max(0, R * (1 - 0.16 * lobe * Math.min(1, k * 2)) + 0.5 * Math.sin(i * 5.7) * k); p.push(`${(25 + rr * Math.cos(a)).toFixed(2)},${(oy + rr * Math.sin(a)).toFixed(2)}`); }
+      return p.join(' ');
+    }
+    // Navy ink clipped to the die, with the person reversed to orange inside it.
+    function badgeInkLayer(pts, inner, op) {
+      const cid = 'sbK' + (++badgeUid), iid = 'sbI' + (++badgeUid);
+      return `<defs><clipPath id="${cid}"><polygon points="${SCALLOP_PTS}"/></clipPath><clipPath id="${iid}"><polygon points="${pts}"/></clipPath></defs>`
+        + `<g clip-path="url(#${cid})" opacity="${op}"><polygon points="${pts}" style="fill:var(--navy)"/><g clip-path="url(#${iid})">${inner}</g></g>`;
+    }
+    // The sign-in badge, bottom to top: contact shadow, paper die with its warm edge (--sb-face: pressed),
+    // SIGN IN, the person; then, mid-Strike (blot) or mid-dry-up (dry), the ink layer.
+    function signinBadgeSvg(o = {}) {
+      const t = o.t || 0, cy = SIGNIN_BADGE.CY + (25 - SIGNIN_BADGE.CY) * t;
+      let s = `<polygon points="${SCALLOP_PTS}" style="fill:var(--badge-contact)" transform="translate(0,1)"/>`
+        + `<polygon points="${SCALLOP_PTS}" style="fill:var(--sb-face, var(--paper-raised));stroke:var(--badge-edge)" stroke-width="1" stroke-linejoin="round"/>`
+        + signinArc() + badgePerson(t, '--navy');
+      const pts = o.blot ? badgeBlotPts(o.blot, cy) : o.dry != null ? badgeDryPts(o.dry, cy) : null;
+      if (pts) s += badgeInkLayer(pts, badgePerson(t, '--brand-orange'), o.dry != null ? 1 - 0.25 * o.dry : 1);
+      return `<svg width="50" height="50" viewBox="0 0 50 50" aria-hidden="true" focusable="false">${s}</svg>`;
+    }
+    // Chromium sets textPath glyphs off-centre: measure the real ink once (after the font loads, on a
+    // painted badge) and rotate the U so SIGN IN's ends sit symmetric about 6 o'clock.
+    function centreSigninArc() {
+      if (signinArcMeasured || !fontsReadyForArc || accountBadge !== 'signin') return;
+      const g = accountBtnEl().querySelector('g.sb-arc'), t = g && g.querySelector('text');
+      try {
+        const n = t ? t.getNumberOfChars() : 0;
+        if (!n || !accountBtnEl().getClientRects().length) return;
+        const ay = SIGNIN_BADGE.AY, ang = p => (Math.atan2(p.y - ay, p.x - 25) * 180 / Math.PI + 360) % 360;
+        const mid = (ang(t.getStartPositionOfChar(0)) + ang(t.getEndPositionOfChar(n - 1))) / 2;   // the bottom is 90deg
+        if (!isFinite(mid)) return;
+        signinArcRot = 90 - mid; signinArcMeasured = true;
+        g.setAttribute('transform', `rotate(${signinArcRot.toFixed(2)} 25 ${ay})`);
+      } catch (e) { /* keep ARC_ROT */ }
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fontsReadyForArc = true; centreSigninArc(); });
+    else fontsReadyForArc = true;
+
+    // ---- the slot's state ----
+    // Content, look and name change in the same frame, with the transition off (no navy flash
+    // while the mask comes off). The name swaps only here: at the end of the Strike or the dry-up.
+    function setAccountBadge(state) {
+      const b = accountBtnEl();
+      if (state === accountBadge) return;
+      b.classList.add('swap');
+      b.classList.toggle('show', state !== 'hidden');
+      b.classList.toggle('signin', state === 'signin');
+      if (state === 'signin') {
+        b.innerHTML = signinBadgeSvg();
+        b.setAttribute('aria-label', 'Sign in'); b.setAttribute('aria-haspopup', 'dialog'); b.removeAttribute('aria-expanded');
+      } else if (state === 'account') {
+        b.innerHTML = ACCOUNT_GLYPH;
+        b.setAttribute('aria-label', 'Account'); b.setAttribute('aria-haspopup', 'true');
+        b.setAttribute('aria-expanded', String(document.getElementById('accountDropdown').classList.contains('show')));
+      }
+      accountBadge = state;
+      void b.offsetWidth;   // commit the swap's paint with the transition off
+      requestAnimationFrame(() => requestAnimationFrame(() => b.classList.remove('swap')));
+      centreSigninArc();
+    }
+    // Stop whatever the badge is playing (no state change).
+    function stopBadgeMotion() {
+      const m = badgeMotion; if (!m) return;
+      badgeMotion = null;
+      clearTimeout(m.timer); cancelAnimationFrame(m.raf);
+      if (m.anim) m.anim.cancel();
+    }
+
+    // ---- the Strike: signing in ----
+    function strikeAt(ms) {
+      const K = STRIKE_INK, at = i => K[i][0] == null ? STAR_POP_MS : K[i][0];
+      for (let i = 1; i < K.length; i++) {
+        if (ms <= at(i)) { const f = (ms - at(i - 1)) / (at(i) - at(i - 1)); return { r: K[i - 1][1] + (K[i][1] - K[i - 1][1]) * f, t: K[i - 1][2] + (K[i][2] - K[i - 1][2]) * f }; }
+      }
+      return { r: K[K.length - 1][1], t: 1 };
+    }
+    // From the sign-in badge (already painted) to the account badge; one clock (the scale animation's
+    // currentTime) drives the ink. Reduce Motion: the swap alone.
+    function playStrike() {
+      stopBadgeMotion();
+      if (prefersReducedMotion()) { setAccountBadge('account'); return; }
+      const b = accountBtnEl(), m = badgeMotion = { kind: 'strike' };
+      m.anim = b.animate(STAR_POP.map((k, i) => Object.assign({ transform: `scale(${STRIKE_SCALE[i]})`, offset: k.offset }, k.easing ? { easing: k.easing } : {})),
+        { duration: STAR_POP_MS, easing: 'linear' });
+      const tick = () => {
+        if (badgeMotion !== m) return;
+        const ms = m.anim.currentTime == null ? 0 : m.anim.currentTime;
+        if (m.anim.playState === 'finished' || ms >= STAR_POP_MS) { stopBadgeMotion(); setAccountBadge('account'); return; }
+        const { r, t } = strikeAt(ms);
+        b.innerHTML = signinBadgeSvg({ t, blot: r });
+        m.raf = requestAnimationFrame(tick);
+      };
+      tick();
+    }
+    // Arrival (flow 1): the sign-in badge holds -- the badge you tapped is the one you find -- until
+    // the boot load has rendered plus a beat, then the Strike. Not settled within CAP_MS of the
+    // badge first painting: straight to signed in (a late animation reads as a glitch).
+    function startArrival() {
+      if (prefersReducedMotion()) { setAccountBadge('account'); return; }
+      setAccountBadge('signin');
+      const m = badgeMotion = { kind: 'hold' };
+      m.timer = setTimeout(finishArrival, ARRIVAL.CAP_MS);
+      bootLoadDone.then(() => setTimeout(() => { if (badgeMotion === m) playStrike(); }, ARRIVAL.BEAT_MS));
+    }
+    // A tap during the hold or the Strike (it means "account", and it's true), or the cap: one frame.
+    function finishArrival() {
+      if (!badgeMotion || badgeMotion.kind === 'dry') return;
+      stopBadgeMotion();
+      setAccountBadge('account');
+    }
+
+    // ---- the dry-up: signing out ----
+    function playDryUp(done) {
+      stopBadgeMotion();
+      const b = accountBtnEl(), m = badgeMotion = { kind: 'dry' };
+      // The first frame: the signed-out drawing under a full ink layer (k = 0) -- nothing visibly changes.
+      b.classList.add('swap', 'signin');
+      b.innerHTML = signinBadgeSvg({ t: 1, dry: 0 });
+      m.anim = b.animate(null, { duration: DRY.MS });   // the clock
+      const tick = () => {
+        if (badgeMotion !== m) return;
+        const ms = m.anim.currentTime == null ? 0 : m.anim.currentTime;
+        if (m.anim.playState === 'finished' || ms >= DRY.MS) {
+          stopBadgeMotion();
+          accountBadge = 'account';   // force the swap: label, popup role and the plain badge together
+          setAccountBadge('signin');
+          done(); return;
+        }
+        const s = Math.min(1, Math.max(0, (ms - DRY.SNAP_FROM) / (DRY.MS - DRY.SNAP_FROM)));
+        const k = (1 - DRY.SNAP_GAIN) * dryEaseThr(Math.min(1, ms / DRY.THR_MS)) + DRY.SNAP_GAIN * s * s;
+        b.innerHTML = signinBadgeSvg({ t: 1 - k, dry: k });
+        m.raf = requestAnimationFrame(tick);
+      };
+      tick();
+    }
+    // The dropdown's close (orange -> navy, today's 150ms) finishes first: a dry-up that started on a
+    // half-orange face would jump colour on its first frame.
+    function afterBadgeSettles(fn) {
+      const b = accountBtnEl(); let done = false, timer = 0;
+      const go = () => { if (done) return; done = true; b.removeEventListener('transitionend', onEnd); clearTimeout(timer); fn(); };
+      const onEnd = e => { if (e.target === b && e.propertyName === 'background-color') go(); };
+      b.addEventListener('transitionend', onEnd);
+      timer = setTimeout(go, ACCOUNT_BTN_FADE_MS);
+    }
+
+    // ---- land where you were (job 8): the hop marker carries the view both ways ----
+    function writeAuthHop(dir) {
+      try {
+        let view = null;
+        if (map) {
+          const c = map.getCenter(), p = tagOpenNow() ? map._popup.getLatLng() : null;
+          view = { lat: c.lat, lng: c.lng, zoom: map.getZoom(), tag: openTagKey(), at: p ? [p.lat, p.lng] : null };
+        }
+        sessionStorage.setItem(AUTH_HOP_KEY, JSON.stringify({ dir, view }));
+      } catch (e) { /* no marker: no Strike, the default view */ }
+    }
+    function clearAuthHop() { try { sessionStorage.removeItem(AUTH_HOP_KEY); } catch (e) {} }
+    // After the boot load: the view without animation, then the tag through the normal open path.
+    // A place that doesn't exist in this mode's data (added in the playground) just isn't reopened.
+    function restoreHopView(view) {
+      if (!view || !map || !isFinite(view.lat) || !isFinite(view.lng) || !isFinite(view.zoom)) return;
+      map.setView([view.lat, view.lng], view.zoom, { animate: false });
+      syncMarkerGlyphZoom();
+      syncNeighborhoodLayers();
+      if (view.tag == null || !rowItem(view.tag)) return;
+      if (isShapeKey(view.tag)) {
+        const layer = neighborhoodLayersById.get(shapeIdOf(view.tag));
+        if (layer) layer.openPopup(view.at ? L.latLng(view.at) : undefined);
+      } else {
+        const en = markersById.get(view.tag);
+        if (en && en.marker) en.marker.openPopup();
+      }
+    }
+
     // Auth functions
     async function checkAuth() {
       const { data: { session } } = await supabaseClient.auth.getSession();
@@ -2982,90 +3325,189 @@
     }
 
     function updateAuthUI() {
-      const accountBtn = document.getElementById('accountBtn');
       const dropdownUserEmail = document.getElementById('dropdownUserEmail');
 
       if (typeof refreshTags === 'function' && map) refreshTags();
-      if (PLAYGROUND) {
-        // The playground's account menu is just a Sign in button (owner):
-        // it opens the sign-in modal; a good sign-in reloads into the real app.
-        dropdownUserEmail.hidden = true;
-        document.getElementById('dropdownLogoutBtn').textContent = 'Sign in';
-        accountBtn.classList.add('show');
-      } else if (currentUser) {
-        dropdownUserEmail.textContent = currentUser.email;
-        accountBtn.classList.add('show');
-      } else {
-        accountBtn.classList.remove('show');
+      // Signed out shows the sign-in badge, everywhere: the playground (its guest user is only
+      // there so every control works), or real mode with no user. No dropdown while signed out.
+      if (PLAYGROUND || !currentUser) {
+        dropdownUserEmail.textContent = '';
         hideAccountDropdown();
+        if (!badgeMotion) setAccountBadge('signin');
+        return;
       }
+      dropdownUserEmail.textContent = currentUser.email;
+      if (loginInFlight || badgeMotion) return;   // the in-place sign-in / the arrival ends on the account badge itself
+      if (arrivalPending) { arrivalPending = false; startArrival(); return; }
+      setAccountBadge('account');
+    }
+
+    function setAccountExpanded(open) {
+      const b = accountBtnEl();
+      if (accountBadge === 'account') b.setAttribute('aria-expanded', String(open));
     }
 
     function toggleAccountDropdown() {
       const dropdown = document.getElementById('accountDropdown');
-      const accountBtn = document.getElementById('accountBtn');
-      dropdown.classList.toggle('show');
-      accountBtn.classList.toggle('active');
+      const open = !dropdown.classList.contains('show');
+      dropdown.classList.toggle('show', open);
+      accountBtnEl().classList.toggle('active', open);
+      setAccountExpanded(open);
     }
 
     function hideAccountDropdown() {
       const dropdown = document.getElementById('accountDropdown');
-      const accountBtn = document.getElementById('accountBtn');
       dropdown.classList.remove('show');
-      accountBtn.classList.remove('active');
+      accountBtnEl().classList.remove('active');
+      setAccountExpanded(false);
     }
 
-    async function showAuthModal() {
+    // The badge: signed out it opens the sheet; signed in, the dropdown. A tap during the arrival
+    // finishes it at once and acts as the account badge; during sign-out it's ignored.
+    function onAccountBtnClick() {
+      if (signOutInFlight || (badgeMotion && badgeMotion.kind === 'dry')) return;
+      if (badgeMotion) { finishArrival(); toggleAccountDropdown(); return; }
+      if (accountBadge === 'signin') { showAuthModal(PLAYGROUND ? 'play' : 'badge'); return; }
+      toggleAccountDropdown();
+    }
+
+    // ---- the sign-in sheet ----
+    // origin: 'play' (the playground's badge), 'badge' (real mode's badge: no line), 'edit' (an
+    // edit or the tag's slip while signed out). Only its words change; its look is today's.
+    function showAuthModal(origin = 'edit') {
+      if (PLAYGROUND) origin = 'play';
+      const line = document.getElementById('authModalLine');
+      line.textContent = origin in SHEET_LINE ? SHEET_LINE[origin] : SHEET_LINE.edit;
+      line.hidden = !line.textContent;
+      document.getElementById('cancelAuthBtn').textContent = origin === 'play' ? 'Keep playing' : 'Cancel';
+      authReturnFocus = origin === 'edit' ? document.activeElement : accountBtnEl();
+      hideAuthError();
       document.getElementById('authModal').classList.add('show');
-      document.getElementById('authError').style.display = 'none';
+      document.getElementById('authEmailInput').focus();   // iOS can offer saved passwords
     }
 
+    // Back out: Cancel / Keep playing, the scrim, or Esc -- never while a request is out (a success
+    // reloads anyway, so offering to back out then would be a lie). The fields are cleared; focus
+    // goes back where it came from.
     function hideAuthModal() {
-      document.getElementById('authModal').classList.remove('show');
+      if (loginInFlight) return;
+      const modal = document.getElementById('authModal');
+      const wasOpen = modal.classList.contains('show');
+      modal.classList.remove('show');
       document.getElementById('authEmailInput').value = '';
       document.getElementById('authPasswordInput').value = '';
-      document.getElementById('authError').style.display = 'none';
+      hideAuthError();
+      const f = authReturnFocus; authReturnFocus = null;
+      if (wasOpen && f && f.isConnected && f !== document.body && typeof f.focus === 'function') f.focus({ preventScroll: true });
     }
 
+    function showAuthError(msg) {
+      const e = document.getElementById('authError');
+      e.textContent = msg; e.style.display = 'block';
+    }
+    function hideAuthError() {
+      const e = document.getElementById('authError');
+      e.textContent = ''; e.style.display = 'none';
+    }
+
+    // Busy: "Signing in...", both buttons off, the fields read-only (the focused one blurred, so its
+    // focus underline goes); ending busy returns everything to rest in one frame.
+    function setSignInBusy(on) {
+      loginInFlight = on;
+      const btn = document.getElementById('loginBtn'), email = document.getElementById('authEmailInput'), pw = document.getElementById('authPasswordInput');
+      document.getElementById('authModalContent').classList.toggle('busy', on);
+      btn.disabled = on; document.getElementById('cancelAuthBtn').disabled = on;
+      btn.textContent = on ? 'Signing in…' : 'Sign in';
+      email.readOnly = pw.readOnly = on;
+      if (on && (document.activeElement === email || document.activeElement === pw)) document.activeElement.blur();
+    }
+
+    // Plain words, never the raw server message.
+    function signInErrorText(res) {
+      if (res.timedOut) return SIGNIN_ERR.OFFLINE;
+      const e = res.error || {}, msg = String(e.message || ''), st = e.status;
+      if (st === 429 || e.code === 'over_request_rate_limit' || /rate limit|too many/i.test(msg)) return SIGNIN_ERR.TOO_MANY;
+      if (e.code === 'invalid_credentials' || /invalid login credentials/i.test(msg)) return SIGNIN_ERR.WRONG;
+      if (e.name === 'AuthRetryableFetchError' || e instanceof TypeError || st === 0 || /failed to fetch|network|load failed/i.test(msg)) return SIGNIN_ERR.OFFLINE;
+      return SIGNIN_ERR.OTHER;
+    }
+    function sessionStored() { try { return !!localStorage.getItem(AUTH_STORAGE_KEY); } catch (e) { return false; } }
+
     async function login() {
-      const email = document.getElementById('authEmailInput').value;
-      const password = document.getElementById('authPasswordInput').value;
-      const authError = document.getElementById('authError');
+      if (loginInFlight) return;   // a double tap submits once
+      const emailEl = document.getElementById('authEmailInput'), pwEl = document.getElementById('authPasswordInput');
+      const email = emailEl.value, password = pwEl.value;
 
       if (!email || !password) {
-        authError.textContent = 'Please enter email and password';
-        authError.style.display = 'block';
+        showAuthError(SIGNIN_ERR.EMPTY);
+        (email ? pwEl : emailEl).focus();
         return;
       }
 
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
+      hideAuthError();
+      setSignInBusy(true);
+      // The marker goes down BEFORE the request: the playground's own SIGNED_IN listener can reload
+      // before this continues (it skips while loginInFlight, but a late answer after the timeout
+      // still reloads -- then with no marker, so no Strike).
+      if (PLAYGROUND) writeAuthHop('in');
+      let res;
+      try {
+        res = await Promise.race([
+          supabaseClient.auth.signInWithPassword({ email, password }),
+          new Promise(r => setTimeout(() => r({ timedOut: true }), SIGNIN_TIMEOUT_MS))
+        ]);
+      } catch (e) { res = { error: e }; }
+      res = res || { error: {} };
 
-      if (error) {
-        authError.textContent = error.message;
-        authError.style.display = 'block';
-      } else if (PLAYGROUND) {
-        location.reload();   // the session is stored now: boot again as the real app
-      } else {
-        currentUser = data.user;
-        updateAuthUI();
-        hideAuthModal();
+      let msg = res.timedOut || res.error ? signInErrorText(res) : null;
+      // Signed in, but the browser won't keep the session: a reload would boot into the playground
+      // again and look like nothing happened (a silent loop). Say so instead.
+      if (!msg && !sessionStored()) msg = SIGNIN_ERR.STORAGE;
+      if (msg) {
+        clearAuthHop();
+        setSignInBusy(false);
+        showAuthError(msg);
+        if (msg === SIGNIN_ERR.WRONG) pwEl.value = '';   // the email is kept: a mistyped password costs one field
+        pwEl.focus();
+        return;
       }
+      if (PLAYGROUND) { location.reload(); return; }   // the session is stored: boot again as the real app (busy until then)
+
+      // Real mode, signed out (rare): success happens in place, and the Strike plays at once.
+      setSignInBusy(false);
+      currentUser = res.data && res.data.user || currentUser;
+      hideAuthModal();
+      updateAuthUI();          // the email, the tags; the badge stays the sign-in badge for the Strike
+      playStrike();
     }
 
+    // Sign out (this device only: a global sign-out would quietly drop every other device into the
+    // playground). The dropdown stays open, "Signing out...", until the call returns; on success it
+    // closes, the badge settles to navy, the ink dries off, and the page reloads into the playground.
     async function logout() {
-      if (PLAYGROUND) { hideAccountDropdown(); showAuthModal(); return; }   // the menu's button reads Sign in
-      await supabaseClient.auth.signOut({ scope: 'local' });   // this device only: a global sign-out would quietly drop every other device into the playground
+      if (PLAYGROUND || signOutInFlight) return;   // signed out there is no dropdown
+      const item = document.getElementById('dropdownLogoutBtn');
+      signOutInFlight = true;
+      item.disabled = true; item.textContent = 'Signing out…';
+      let error = null;
+      try { ({ error } = await supabaseClient.auth.signOut({ scope: 'local' })); } catch (e) { error = e; }
+      if (error) {
+        signOutInFlight = false;
+        item.disabled = false; item.textContent = 'Sign out';
+        showError('Couldn’t sign out. Try again.', 'signout');
+        return;
+      }
+      item.disabled = false; item.textContent = 'Sign out';
       currentUser = null;
       hideAccountDropdown();
-      updateAuthUI();
+      writeAuthHop('out');
+      if (prefersReducedMotion()) { setAccountBadge('signin'); location.reload(); return; }
+      afterBadgeSettles(() => playDryUp(() => location.reload()));
     }
 
     async function requireAuth() {
       if (!currentUser) {
-        await showAuthModal();
+        await showAuthModal('edit');
         return false;
       }
       return true;
@@ -8475,22 +8917,38 @@
     document.getElementById('loginBtn').onclick = login;
     document.getElementById('logoutBtn').onclick = logout;
     document.getElementById('cancelAuthBtn').onclick = hideAuthModal;
-    document.getElementById('accountBtn').onclick = toggleAccountDropdown;
+    document.getElementById('accountBtn').onclick = onAccountBtnClick;
     document.getElementById('dropdownLogoutBtn').onclick = logout;
+    // The focus ring follows the scallop: the same polygon, drawn twice (paper halo, navy ring).
+    document.querySelectorAll('#accountFocus polygon').forEach(p => p.setAttribute('points', SCALLOP_PTS));
 
-    // Close auth modal when clicking outside
+    // Close auth modal when clicking outside (hideAuthModal() ignores it while busy)
     document.getElementById('authModal').onclick = (e) => {
       if (e.target.id === 'authModal') {
         hideAuthModal();
       }
     };
 
-    // Close account dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-      const accountBtn = document.getElementById('accountBtn');
-      const accountDropdown = document.getElementById('accountDropdown');
+    // The sheet is a dialog: Esc backs out (not while busy), and Tab stays inside it.
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('authModal');
+      if (!modal.classList.contains('show')) return;
+      if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); hideAuthModal(); return; }   // the open tag stays open behind it
+      if (e.key !== 'Tab') return;
+      const els = [...document.querySelectorAll('#authModalContent input, #authModalContent button')].filter(el => !el.disabled && el.getClientRects().length);
+      if (!els.length) { e.preventDefault(); return; }
+      const first = els[0], last = els[els.length - 1], a = document.activeElement;
+      if (!modal.contains(a)) { e.preventDefault(); (e.shiftKey ? last : first).focus(); }
+      else if (e.shiftKey && a === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && a === last) { e.preventDefault(); first.focus(); }
+    });
 
-      if (!accountBtn.contains(e.target) && !accountDropdown.contains(e.target)) {
+    // Close account dropdown when clicking outside -- not while "Signing out..." is up. The path is
+    // taken at dispatch: a tap that finishes the arrival replaces the badge's content under it.
+    document.addEventListener('click', (e) => {
+      if (signOutInFlight) return;
+      const path = e.composedPath();
+      if (!path.includes(document.getElementById('accountBtn')) && !path.includes(document.getElementById('accountDropdown'))) {
         hideAccountDropdown();
       }
     });
@@ -9092,18 +9550,23 @@
 
     // Initialize auth and set up auth state listener
     supabaseClient.auth.onAuthStateChange((event, session) => {
-      // Signed out (Logout, or a session that could no longer refresh):
-      // boot again as the playground.
-      if (!PLAYGROUND && event === 'SIGNED_OUT') { location.reload(); return; }
+      // Signed out (a session that could no longer refresh, or another tab signing out):
+      // boot again as the playground at once. A sign-out this tab started (logout()) waits
+      // for its dry-up and reloads itself.
+      if (!PLAYGROUND && event === 'SIGNED_OUT') { if (!signOutInFlight) location.reload(); return; }
       currentUser = session?.user || null;
       updateAuthUI();
 
-      // If user just signed in and auth modal is open, close it
-      if (event === 'SIGNED_IN' && document.getElementById('authModal').classList.contains('show')) {
+      // Signed in elsewhere (another tab) while the sheet is open: close it. This tab's own
+      // sign-in (loginInFlight) closes it itself, with the Strike.
+      if (event === 'SIGNED_IN' && !loginInFlight && document.getElementById('authModal').classList.contains('show')) {
         hideAuthModal();
       }
     });
 
+    // Signed out is known synchronously in the playground: the sign-in badge is there from the
+    // first paint. Real mode waits for checkAuth() to confirm the stored session.
+    if (PLAYGROUND) setAccountBadge('signin');
     // Check auth on page load
     checkAuth();
 
@@ -9142,7 +9605,12 @@
     setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false });
 
     Promise.all([fetchLocations(), fetchNeighborhoodShapes(), fetchCities(), fetchPlans()])
-      .then(() => { if (inPlanView()) frameActivePlan(); cleanupOrphanCities(); });
+      .then(() => {
+        if (inPlanView()) frameActivePlan(); cleanupOrphanCities();
+        // Just hopped (signed in or out): land where you were -- the view, and the open tag.
+        if (authHop) { try { restoreHopView(authHop.view); } catch (e) { /* the default view stands */ } }
+      })
+      .finally(() => bootLoaded());   // the arrival's hold waits for this (then a beat), capped at ARRIVAL.CAP_MS
     startPoll();
 
     // The bottom sheet becomes a left rail at >=900px (see the media query).
