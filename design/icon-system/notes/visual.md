@@ -1,5 +1,20 @@
 # Visual designer notes: icon system
 
+## Where things stand (2026-10-14): concept work stopped
+
+Owner: "What the fuck is all of this stuff on the canvas all I want is every
+icon side by side". The canvas (v16) now holds ONE board, Main.dc.html
+"Every icon in the app today (74)": the 74 inventory renders
+(inventory-png, from index.html, no new drawings) in one wrapping grid, all
+at 4x real size, each with only its inventory name underneath. Every other
+board (inventory groups, grammar, B, C, D, considered) was removed from the
+canvas. Their files stay in the repo (concepts/, inventory-png/) and in the
+canvas version history (v15 and earlier). Board 1440 x 4110; at phone width
+the icons show at about real size and the names need a zoom.
+
+---
+
+
 ## Where things stand (2026-10-13, final labels, canvas v14)
 
 Director round 3: grammar 9, C 9, B 8 (value-only difference; its ceiling).
