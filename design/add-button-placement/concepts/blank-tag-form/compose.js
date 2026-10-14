@@ -127,6 +127,8 @@ const pages = {
   [T + 'R10-F3-pinned-starred-3x.png']: `${cap('Starred, visited and a note', 'The orange band prints into the tag’s top on star (the tag doesn’t grow); VISITED stamps; the note is pencil until you add.')}${full(f('r10-f-pinned-starred664'))}<div class="gap"></div>`,
   [T + 'R10-F4-320-3x.png']: `${cap('Smallest phone (320 × 568)', 'Typing (not pinned yet), then pinned.')}
      <div class="row" style="gap:20px">${col('Typing', crop(f('r10-f-typing320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('Pinned', crop(f('r10-f-pinned320'), 0, 0, 320, 568, 575 / 320, 320), 575)}</div><div class="gap"></div>`,
+  [T + 'R10-F6-add-3x.png']: `${cap('ADD', 'Left: filled in and pinned. Right: after ADD it’s the place’s own tag: the pencil inks, TYPE is stamped, and ADD becomes DIRECTIONS in the same spot under your thumb. The tag tightens from the top, so the map shifts just that little; nothing flies.')}
+     ${pair(f('r10-f-pinned664'), 'Before: tap ADD', f('r10-f-after664'), 'After: the place’s own tag', 664)}<div class="gap"></div>`,
   [T + 'R10-F5-city-3x.png']: `${cap('The city: a word you can tap', 'The city is just part of the address, with a fine underline to say it can be tapped. Tap it and your cities print on the tag; pick one. The pin doesn’t move: a city is where the place is filed, not where it is.')}
      ${pair(f('r10-f-pinned664'), 'The city word', f('r10-f-city664'), 'Tapped: your cities', 664)}<div class="gap"></div>`,
   [R10 + 'C0-two-options-3x.png']: `${cap('Two options for +', 'Left: the badge (Float). Right: the tag is the button (C). Both bottom-left, both open the same blank tag; both hide only while the filters are open.')}

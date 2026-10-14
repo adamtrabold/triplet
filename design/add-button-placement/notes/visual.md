@@ -1,5 +1,13 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 10c re-shoot at 84 + the ADD still
+- **C #7 is 84 × 44** (`TC = 'T:orange:84'`). C0-C7 re-shot.
+  - C0's caption now says "both hide only while the filters are open".
+  - C3 shows systems' measure (2.65× the account, 2.0× the Float).
+- **New `blank-tag-form/R10-F6-add-3x.png`:** pinned card | the place's
+  real tag (`r10-f-after664`: +2 zoom, `alignReal(458)`). Both stubs sit
+  at 398-458, so the tag tightens by its top with a small pan; no fly.
+
 ## UPDATE 2026-10-14, round 10c (director: Float 9, form 9, C → pick #7)
 - **C's pick is #7** (`TC = 'T:orange'`), re-shot C0-C4, C6, C7.
   - Pressed = deep orange stock.

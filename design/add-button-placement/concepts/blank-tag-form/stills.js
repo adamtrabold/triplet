@@ -197,6 +197,12 @@ F['f10-tag664'] = { k: 'F', vp: V664, run: async p => { await openPlace(p, 'Brau
 F['f10-rest320'] = { k: 'F', vp: V320, zoom: true, centre: [64.1400, -21.9250], run: p => floatBadge(p, false) };
 F['f10-collapsed'] = { k: 'F', inset: true, zoom: true, centre: [64.1500, -21.9450], run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); await floatBadge(p, false); } };
 
+// round 10 ADD moment: the place's real tag, its stub where the pinned card's was (foot 458 at 664): the tag tightens by
+// its top and the map pans that little with it (no fly). Same +2 zoom as the pinned frames.
+F['r10-f-after664'] = { k: 'C', vp: V664, run: async p => { await openPlace(p, 'Sundhöllin', true); await cGone(p);
+  await p.evaluate(() => { const l = locations.find(l => l.name === 'Sundhöllin' && l.city === 'reykjavik'); map.setView([l.lat, l.lng], map.getZoom() + 2, { animate: false }); }); await p.waitForTimeout(700);
+  await p.evaluate(() => __BT.alignReal(458)); await p.waitForTimeout(300); } };
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {

@@ -6359,5 +6359,36 @@
   "sheetTop": 544,
   "errs": [],
   "clash": []
+ },
+ "r10-f-after664": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   262,
+   353,
+   458
+  ],
+  "add": null,
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
  }
 }
