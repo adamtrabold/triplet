@@ -1307,3 +1307,26 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   `margin-left: 2px`, putting the title's L stem (x=19) 1px inside the row
   icons' ring (x=18), since a round edge overshoots a straight one. Phone
   layout unchanged. Impeccable gate passed.
+
+- **Sign-in badge** — 2026-10-14. Owner: "it should just have a sign in
+  button"; "one i'd like explored is a verson where there is a signed out
+  person themed icon, maybe smaller? but with "sign in" in the circle
+  following a circular path under it (like a U shape around the circular
+  shape)"; approved round 2e with "Sign in is great"; landed on "Yep".
+  Signed out (the playground): a paper scalloped badge (`--paper-raised`,
+  `--badge-edge`/`--badge-contact`) with a navy person and SIGN IN on a U arc
+  (6px Archivo 700, tracking 1.3); one tap opens the sign-in sheet. Signed
+  in: today's navy/orange account badge; Logout is now "Sign out" and "log
+  in" is "sign in" everywhere. The Strike (navy ink floods the paper, person
+  turns orange, `STAR_POP` timing) plays on arrival after the sign-in reload;
+  the dry-up (`DRY` timing) plays after Sign out. Neither plays under Reduce
+  Motion. New scalloped keyboard focus ring `#accountFocus` on both states.
+  Sheet: busy state, plain-words errors, a reserved error line (nothing
+  moves), storage-blocked message, Esc/Tab trap. Map view and open tag carry
+  across sign-in and sign-out. Spec: `design/signin-button/handoff.md`;
+  builder notes `notes/builder.md`. Gates: director 9 (build round 2), jobs
+  9/9, review PASS (real supabase-js 2.39.3 probe 7/7), Impeccable gate
+  passed, `signin-test.js` 42/42, mode/play tests, gesture popup-open,
+  rows, places-ux (full harness: only the known visit/curve failures, same
+  as main). Still open: re-judge beside the new + once it exists; iPhone
+  checks (6px caps, arc centring, warm edge).

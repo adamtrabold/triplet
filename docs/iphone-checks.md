@@ -13,9 +13,23 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 - **Playground = signed out (2026-10-13):** in a private Safari tab (signed
   out), open the app: your real places load; star, visit, delete and add
   one; reload and check they're all back to normal; check in your signed-in
-  app that none of it reached the real trip. Then account badge → Sign in →
-  sign in: the page reloads into the real trip, signed in. Logout: it
-  reloads into the playground, and your other devices stay signed in.
+  app that none of it reached the real trip. Then tap the SIGN IN badge and
+  sign in: the page reloads into the real trip, signed in. Account badge →
+  Sign out: it reloads into the playground, and your other devices stay
+  signed in.
+- **Sign-in badge (built 2026-10-14; check once it lands):** signed out, the
+  corner shows the paper SIGN IN badge: (1) the tiny SIGN IN caps read
+  cleanly in Safari and the word sits centred under the person (its tilt is
+  measured in Chromium; tell us if it leans); the warm 1px edge looks like
+  paper, not a line; (2) one tap opens the sheet (no menu), Email focused
+  and Safari offers your saved password; Keep playing / a tap outside
+  closes it with nothing lost; (3) sign in: the page reloads into the real
+  trip at the same spot (and the same tag open), and about a quarter second
+  after the list appears the badge floods navy and becomes your account
+  badge -- once; a plain reload never replays it; (4) Sign out: the menu
+  says "Signing out…", closes, the navy dries off the badge, then the
+  playground loads at the same spot; (5) with Reduce Motion on, neither
+  animation plays.
 - iPhone check of the Hanging Tag + orange star (landed 2026-10-07):
   (1) tap a pin: the map pans it under the top controls and the tag pops out
   of the pin on a straight string with one bounce, smooth in Safari; with

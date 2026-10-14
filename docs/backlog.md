@@ -13,14 +13,11 @@ pick/redirect before building anything.
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
   -- it should be the experience pre-sign in"); spec: `docs/shipped.md`
-  "Playground". Open: (1) the sign-in control is still the boxed SIGN IN
-  dropdown the owner rejected; its replacement is the arc sign-in badge in
-  `design/signin-button/` (round 2c, director 9, awaiting the owner); (2)
-  nothing in the playground says changes aren't kept, so a signed-out owner
-  (e.g. a Safari tab whose storage was cleared after ~7 days) can edit
-  thinking it saved -- owner's call whether it needs a cue; (3) the sign-in
-  modal copy ("You need to log in to make changes…") is wrong in the
-  playground; (4) share-preview/title for the link.
+  "Playground". Open: (1) the sign-in badge LANDED 2026-10-14 (spec:
+  `docs/shipped.md` "Sign-in badge"); (2) the playground cue: the owner
+  replied "Yep" to "is the sheet's one line enough, or something on the map
+  too?" -- read as the line is enough, no map cue; reopen if he says otherwise;
+  (4) share-preview/title for the link.
 - **Brand colour tokens: one system** (owner, 2026-10-07, verbatim:
   "how are our colors defined in the app -- it should be clear from a
   systems perspective that all colors are brand level color tokens" ;
@@ -227,13 +224,53 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- Sign-in badge review findings (reviewer, 2026-10-14, build `ba473f8`):
+  (1) BLOCKER, in-place sign-in (flow 4, signed-out real mode): `login()`
+  ends busy, then `updateAuthUI()` swaps the slot to 'account' BEFORE
+  `playStrike()`, so the Strike runs on the navy masked button, the label
+  turns "Account" at the start, and the end's `setAccountBadge('account')` is
+  a no-op: the last Strike frame stays as the badge's content for good, which
+  hides the dropdown's orange `.active` look under navy ink (a tap
+  mid-Strike freezes that frame). `signin-test.js` case 9 only checks
+  `accountBadge`, not the content. (2) `docs/iphone-checks.md`'s older
+  Playground entry still says "account badge -> Sign in" and "Logout". (3)
+  `restoreHopView()` reopens a pin with `marker.openPopup()`, not the normal
+  open path; a pin clustered at the restored zoom won't reopen. (4) No
+  committed check runs the real supabase-js (all stubs); the reviewer's
+  probe against the real 2.39.3 UMD (playground writes, hop, storage blocked,
+  `scope=local`, expired session) passed 7/7 -- worth committing one.
+  Status: (1), (2) and (3) fixed in build round 2 (2026-10-14; `signin-test.js`
+  cases 9, 9b and 9c fail on `ba473f8` and pass now). (4) stays open.
+
+- Sign-in hop view restore, plan view only (reviewer, 2026-10-14):
+  `restoreHopView()` keeps the saved zoom when no listed place is within one
+  cluster cell, but in plan view district/street stops also join the
+  cluster grid and aren't counted, so a pin next to one may cluster after
+  the restore and its tag silently doesn't reopen. Fix: count plan-stop
+  shape centroids in the neighbour check.
+
+- Sign-in badge build follow-ups (2026-10-14): (1) the 50-unit scallop
+  polygon now lives three times -- `#floatingAddBtn`/`#accountBtn`'s CSS
+  mask (`-webkit-mask-image` and `mask-image`) and JS `SCALLOP_PTS` (the
+  sign-in badge, its ink clip and `#accountFocus`). Why: CSS can't read a JS
+  constant; a later pass could set the mask from `SCALLOP_PTS` at boot or
+  move both to one inline SVG `<symbol>`. (2) The automated gates only see
+  the signed-in app: the gesture harness stub and the Impeccable runtime
+  layer store a session, so neither renders the paper badge or the
+  playground. Why: a regression in the signed-out corner (popups clearing
+  the paper badge, its contrast findings) goes unseen; `design/signin-button/
+  signin-test.js` covers its behaviour, not its paint. (3)
+  `design/signin-button/play-test.js` was stale since the playground became
+  the signed-out app (its `?play` loads stored a session, so it tested real
+  mode); fixed in the build to load signed out.
+
 - Auth follow-ups found reviewing "playground = signed-out app" (2026-10-13,
   commit `1b52211`): (1) fixed in the same change: `logout()` now
-  signs out this device only (`scope: 'local'`). (2) `logout()` ignores `signOut()`'s error: if
-  it is offline, the account button disappears, the stored session stays,
-  and the next load is signed in again. (3) If storage is blocked
-  (supabase-js falls back to memory), a sign-in reloads straight back into
-  the playground. (4) `design/signin-button/jobs.md` still has the "Edit
+  signs out this device only (`scope: 'local'`). (2) and (3) fixed by the
+  sign-in badge build (2026-10-14, on `claude/elegant-galileo-1c5ntm`): a
+  sign-out error keeps you signed in with "Couldn't sign out. Try again.";
+  a blocked-storage sign-in says so instead of reloading into the
+  playground. (4) `design/signin-button/jobs.md` still has the "Edit
   while signed out (real trip)" flow and `context.md` still says
   `index.html?play`; neither exists any more.
 

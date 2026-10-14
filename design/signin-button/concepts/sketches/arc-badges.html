@@ -1,0 +1,95 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<title>Sign-in badge sketches</title>
+<style>
+@font-face{font-family:'Archivo';font-weight:400 700;font-stretch:62% 125%;
+  src:url(../../../gesture-harness/vendor/k3kQo8UDI-1M0wlSfdnoLg.woff2) format('woff2');}
+:root{--paper:#F2EBDD;--paper-raised:#FAF5EA;--navy:#12293F;--ink:#1A1A18;--ink-2:#5A564C;--hair:#D8CEBA;
+  --orange:#EE7434;--orange-deep:#A8400C;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:Archivo,sans-serif;color:var(--ink);width:390px}
+.map{background:#EDE6D6;background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:6px 6px}
+h1{font:700 13px/16px Archivo;font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;margin:0;padding:16px 16px 4px;color:var(--navy)}
+p.note{font-size:11px;line-height:14px;color:var(--ink-2);margin:0;padding:0 16px 10px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--hair)}
+.row .pair{display:flex;align-items:center;gap:24px;width:124px;justify-content:flex-end}
+.row .lab{font-size:11px;line-height:14px;color:var(--ink-2);flex:1}
+.row .lab b{color:var(--ink);font-stretch:75%;letter-spacing:.06em;text-transform:uppercase;font-size:12px;display:block}
+.slot{width:50px;height:50px;display:flex;align-items:center;justify-content:center}
+svg{display:block;overflow:visible}
+.big{display:flex;flex-wrap:wrap;gap:10px;padding:12px 16px}
+.big .slot{width:110px;height:110px}
+</style></head><body>
+<div id="out"></div>
+<script>
+const SCALLOP = "45.00,25.00 45.71,25.93 46.10,26.90 46.00,27.84 45.40,28.70 44.50,29.45 43.57,30.13 42.89,30.81 42.61,31.61 42.71,32.57 43.02,33.68 43.26,34.83 43.19,35.87 42.68,36.67 41.77,37.19 40.64,37.47 39.51,37.68 38.60,38.00 38.00,38.60 37.68,39.51 37.47,40.64 37.19,41.77 36.67,42.68 35.87,43.19 34.83,43.26 33.68,43.02 32.57,42.71 31.61,42.61 30.81,42.89 30.13,43.57 29.45,44.50 28.70,45.40 27.84,46.00 26.90,46.10 25.93,45.71 25.00,45.00 24.14,44.25 23.31,43.74 22.47,43.64 21.56,43.96 20.55,44.50 19.48,44.99 18.45,45.15 17.55,44.84 16.85,44.07 16.32,43.02 15.87,41.96 15.35,41.15 14.64,40.70 13.68,40.59 12.53,40.64 11.36,40.61 10.36,40.32 9.68,39.64 9.39,38.64 9.36,37.47 9.41,36.32 9.30,35.36 8.85,34.65 8.04,34.13 6.98,33.68 5.93,33.15 5.16,32.45 4.85,31.55 5.01,30.52 5.50,29.45 6.04,28.44 6.36,27.53 6.26,26.69 5.75,25.86 5.00,25.00 4.29,24.07 3.90,23.10 4.00,22.16 4.60,21.30 5.50,20.55 6.43,19.87 7.11,19.19 7.39,18.39 7.29,17.43 6.98,16.32 6.74,15.17 6.81,14.13 7.32,13.33 8.23,12.81 9.36,12.53 10.49,12.32 11.40,12.00 12.00,11.40 12.32,10.49 12.53,9.36 12.81,8.23 13.33,7.32 14.13,6.81 15.17,6.74 16.32,6.98 17.43,7.29 18.39,7.39 19.19,7.11 19.87,6.43 20.55,5.50 21.30,4.60 22.16,4.00 23.10,3.90 24.07,4.29 25.00,5.00 25.86,5.75 26.69,6.26 27.53,6.36 28.44,6.04 29.45,5.50 30.52,5.01 31.55,4.85 32.45,5.16 33.15,5.93 33.68,6.98 34.13,8.04 34.65,8.85 35.36,9.30 36.32,9.41 37.47,9.36 38.64,9.39 39.64,9.68 40.32,10.36 40.61,11.36 40.64,12.53 40.59,13.68 40.70,14.64 41.15,15.35 41.96,15.87 43.02,16.32 44.07,16.85 44.84,17.55 45.15,18.45 44.99,19.48 44.50,20.55 43.96,21.56 43.64,22.47 43.74,23.31 44.25,24.14";
+const P = 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2';   // lucide user body (the app's glyph)
+const ARC = (r) => `M${25-r},25 A${r},${r} 0 0 0 ${25+r},25`; // U arc, text upright, tops inward
+let uid = 0;
+// person: x,y centre of the glyph box, s scale (24-unit glyph), style
+function person(cx, cy, s, ink, mode){
+  const t = `translate(${cx-12*s},${cy-11*s}) scale(${s})`;
+  const sw = 2;
+  if (mode==='dashed') return `<g transform="${t}" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="2.2 2.6"><path d="${P}"/><circle cx="12" cy="7" r="4"/></g>`;
+  if (mode==='blind') return `<g transform="${t}" fill="none" stroke-width="${sw}" stroke-linecap="round"><g stroke="#FFFFFF" opacity=".9" transform="translate(.5,.6)"><path d="${P}"/><circle cx="12" cy="7" r="4"/></g><g stroke="${ink}"><path d="${P}"/><circle cx="12" cy="7" r="4"/></g></g>`;
+  if (mode==='none') return '';
+  return `<g transform="${t}" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"><path d="${P}"/><circle cx="12" cy="7" r="4"/></g>`;
+}
+function arcText(r, txt, ink, fs, ls, opts={}){
+  const id = 'a'+(uid++);
+  const path = opts.full
+    ? `M25,${25+r} A${r},${r} 0 1 1 25.01,${25+r}`   // full circle starting at the bottom
+    : ARC(r);
+  return `<defs><path id="${id}" d="${path}"/></defs>
+  <text font-family="Archivo" font-weight="700" font-stretch="75%" font-size="${fs}" letter-spacing="${ls}" fill="${ink}" ${opts.stroke?`stroke="${opts.stroke}" stroke-width=".6" paint-order="stroke"`:''}>
+   <textPath href="#${id}" startOffset="${opts.full?'0%':'50%'}" text-anchor="${opts.full?'start':'middle'}">${txt}</textPath></text>`;
+}
+function badge(o){
+  const size = o.size||50;
+  const face = o.face||'var(--paper-raised)';
+  const parts = [];
+  // print-registration offset shadow like the real buttons: 1px down, low alpha
+  parts.push(`<polygon points="${SCALLOP}" fill="rgba(0,0,0,.22)" transform="translate(0,1)"/>`);
+  parts.push(`<polygon points="${SCALLOP}" fill="${face}" ${o.rim?`stroke="${o.rim}" stroke-width="${o.rimW||1.4}" stroke-linejoin="round"`:''}/>`);
+  if (o.band){ // lower U band: annulus segment, reversed letters
+    const R1=o.bandR1||19.2, R0=o.bandR0||11.6, cid='c'+(uid++);
+    parts.push(`<defs><clipPath id="${cid}"><polygon points="${SCALLOP}"/></clipPath></defs><path clip-path="url(#${cid})" d="M${25-R1},${o.bandY||25} A${R1},${R1} 0 0 0 ${25+R1},${o.bandY||25} L${25+R0},${o.bandY||25} A${R0},${R0} 0 0 1 ${25-R0},${o.bandY||25} Z" fill="${o.band}"/>`);
+  }
+  if (o.innerRing) parts.push(`<circle cx="25" cy="25" r="${o.innerRing}" fill="none" stroke="${o.ink}" stroke-width=".8" ${o.ringDash?`stroke-dasharray="${o.ringDash}"`:''}/>`);
+  parts.push(person(25, o.py||19.2, o.ps||0.5, o.glyphInk||o.ink, o.pmode));
+  if (o.txt) parts.push(arcText(o.r||17.4, o.txt, o.txtInk||o.ink, o.fs||6.6, o.ls||0.55, o));
+  return `<svg width="${size}" height="${size}" viewBox="0 0 50 50" aria-hidden="true">${parts.join('')}</svg>`;
+}
+const PLUS = `<svg width="50" height="50" viewBox="0 0 50 50"><polygon points="${SCALLOP}" fill="rgba(0,0,0,.22)" transform="translate(0,1)"/><polygon points="${SCALLOP}" fill="#12293F"/><path d="M25 17v16M17 25h16" stroke="#EE7434" stroke-width="2.6" stroke-linecap="round"/></svg>`;
+const SIGNED_IN = badge({face:'var(--orange)', ink:'#12293F', ps:.95, py:24.5});
+
+const V = [
+ ['Signed in (today)', 'reference: filled orange, navy person', SIGNED_IN],
+ ['A1 Paper + keyline', 'owner arc. Unprinted paper, navy keyline + ink', badge({rim:'#12293F', ink:'#12293F', txt:'SIGN IN'})],
+ ['A2 Smaller (42)', 'A1 drawn at 42px; hit area stays 50', badge({size:42, rim:'#12293F', ink:'#12293F', txt:'SIGN IN', fs:7})],
+ ['A3 Patch band', 'navy U band, letters reversed out (park patch)', badge({rim:'#12293F', ink:'#12293F', band:'#12293F', txt:'SIGN IN', txtInk:'#FAF5EA', r:13.6, fs:6.4, ls:.5, py:16.4, ps:.42})],
+ ['A4 Orange ink', 'paper face, brand-orange-deep keyline + ink', badge({rim:'#A8400C', ink:'#A8400C', txt:'SIGN IN'})],
+ ['A5 Unstruck blank', 'no ink: blind impression (coin planchet)', badge({ink:'#B3A68C', pmode:'blind', txt:'SIGN IN', stroke:null, face:'#F6F0E3'})],
+ ['C Text roundel', 'SIGN IN all round, empty dotted centre', badge({rim:'#12293F', ink:'#12293F', pmode:'none', txt:'SIGN IN · SIGN IN · ', full:true, r:15.2, fs:6.2, ls:.62, innerRing:7.5, ringDash:'.9 1.5'})],
+ ['D Vacant person', 'dashed person (ID-photo placeholder) + arc', badge({rim:'#12293F', ink:'#12293F', pmode:'dashed', txt:'SIGN IN'})],
+];
+const V2 = [
+ ['A1+ Paper, 8px type', 'small person high, SIGN IN 8px on r=15.6', badge({rim:'#12293F', ink:'#12293F', txt:'SIGN IN', r:15.6, fs:8, ls:.5, py:17.6, ps:.4})],
+ ['A1+ 9px type', 'pushing it: person 0.36, type 9px', badge({rim:'#12293F', ink:'#12293F', txt:'SIGN IN', r:15.8, fs:9, ls:.35, py:17, ps:.36})],
+ ['A3+ Patch band', 'band clipped to the die, letters reversed, baseline near rim', badge({rim:'#12293F', ink:'#12293F', band:'#12293F', bandR1:20, bandR0:9.4, bandY:23.4, txt:'SIGN IN', txtInk:'#FAF5EA', r:16.4, fs:7.6, ls:.45, py:15.4, ps:.36})],
+ ['A4+ Orange ink, 8px', 'A1+ in brand-orange-deep', badge({rim:'#A8400C', ink:'#A8400C', txt:'SIGN IN', r:15.6, fs:8, ls:.5, py:17.6, ps:.4})],
+ ['D+ Vacant person, 8px', 'dashed person over 8px arc', badge({rim:'#12293F', ink:'#12293F', pmode:'dashed', txt:'SIGN IN', r:15.6, fs:8, ls:.5, py:17.6, ps:.42})],
+ ['A2+ 42px drawn', 'A1+ at 42px; type falls to ~6.7px', badge({size:42, rim:'#12293F', ink:'#12293F', txt:'SIGN IN', r:15.6, fs:8, ls:.5, py:17.6, ps:.4})],
+];
+let h = `<h1>Sign-in badge: arc sketches at real size</h1><p class="note">Each beside the real + badge (50px). Archivo 700, 75% width, on a U arc, tops toward the centre.</p>`;
+h += '<div class="map">';
+for (const [t, d, svg] of V) h += `<div class="row"><div class="pair"><div class="slot">${svg}</div><div class="slot">${PLUS}</div></div><div class="lab"><b>${t}</b>${d}</div></div>`;
+h += '</div><h1>Round 2: type first, person smaller</h1><p class="note">Owner: "signed out person themed icon, maybe smaller?" Read as: the PERSON gets smaller so SIGN IN can be bigger. Type 8px vs 6.6px above.</p><div class="map">';
+for (const [t, d, svg] of V2) h += `<div class="row"><div class="pair"><div class="slot">${svg}</div><div class="slot">${PLUS}</div></div><div class="lab"><b>${t}</b>${d}</div></div>`;
+h += '</div><h1>Round 2, 2.2x</h1><div class="big">';
+for (const [t, d, svg] of V2) h += `<div class="slot">${svg.replace(/width="\d+" height="\d+"/, 'width="104" height="104"')}</div>`;
+h += '</div><h1>Round 1, 2.2x (detail only)</h1><div class="big">';
+for (const [t, d, svg] of V.slice(1)) h += `<div class="slot">${svg.replace(/width="\d+" height="\d+"/, 'width="104" height="104"')}</div>`;
+h += '</div>';
+document.getElementById('out').innerHTML = h;
+</script></body></html>

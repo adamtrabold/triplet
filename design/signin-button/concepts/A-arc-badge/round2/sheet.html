@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Sign-in A round 2</title>
+<link rel="stylesheet" href="../../flow/proto/sheet.css">
+<style>
+.hero{display:flex;flex-direction:column;align-items:center;padding:10px 16px 4px}
+.trio{display:flex;justify-content:center;gap:28px;padding:6px 16px 4px}.trio>div{display:flex;flex-direction:column;align-items:center}
+.t{font-size:12px;line-height:15px;color:#5A564C;text-align:center;margin-top:5px}
+.row2{display:flex;gap:8px;padding:2px 16px}.row2>div{width:160px}.row2 img{display:block;border-radius:2px}
+.rl{font-size:12px;line-height:15px;color:#5A564C;padding:3px 0 8px}
+.pick{background:#FAF5EA;margin:4px 16px 0;padding:10px 12px;border-left:3px solid #12293F;font-size:13px;line-height:18px}
+</style>
+<script>window.__CONCEPT='A'</script><script src="../../flow/proto/patch.js"></script><script src="badge2.js"></script></head><body>
+<h1>A · Sign-in badge, round 2</h1>
+<p>Your notes, applied: the person is centred and bigger; SIGN IN is smaller, spaced out a little, and has room from the edge so nothing crowds.</p>
+<div class="pick"><b>We'd pick this one.</b></div>
+<div class="hero" id="hero"></div>
+<div class="trio" id="trio"></div>
+<h2>Real size</h2>
+<img class="img" src="shots/top-v2-390.png" width="390" height="84"><div class="cap">The top of the screen, as on your phone.</div>
+<div class="row2"><div><img src="shots/v2-cream-plus.png" width="160" height="80"><div class="rl">Next to +</div></div><div><img src="shots/v2-dark-plus.png" width="160" height="80"><div class="rl">Over water and park, where the map is darkest</div></div></div>
+<div class="row2"><div><img src="shots/v2-cream-alone.png" width="160" height="80"><div class="rl">On its own in the corner, if + moves elsewhere</div></div><div><img src="shots/v2-dark-alone.png" width="160" height="80"><div class="rl">On its own, over water</div></div></div>
+<h2>Signing in and out</h2>
+<p>Navy ink lands and covers the words, and the person grows into your usual badge. Signing out, the ink dries away and the sign-in badge is left.</p>
+<div class="frames">
+<div style="width:65px"><img src="shots/in-0.png" width="65" height="62"><div class="t">Arrive</div></div>
+<div style="width:65px"><img src="shots/in-60.png" width="65" height="62"><div class="t">0.06s</div></div>
+<div style="width:65px"><img src="shots/in-130.png" width="65" height="62"><div class="t">0.13s</div></div>
+<div style="width:65px"><img src="shots/in-250.png" width="65" height="62"><div class="t">0.25s</div></div>
+<div style="width:65px"><img src="shots/in-380.png" width="65" height="62"><div class="t">Signed in</div></div>
+</div>
+<div class="frames">
+<div style="width:65px"><img src="shots/out-0.png" width="65" height="62"><div class="t">Signed in</div></div>
+<div style="width:65px"><img src="shots/out-150.png" width="65" height="62"><div class="t">0.15s</div></div>
+<div style="width:65px"><img src="shots/out-300.png" width="65" height="62"><div class="t">0.3s</div></div>
+<div style="width:65px"><img src="shots/out-450.png" width="65" height="62"><div class="t">0.45s</div></div>
+<div style="width:65px"><img src="shots/out-540.png" width="65" height="62"><div class="t">Signed out</div></div>
+</div>
+<div style="height:16px"></div>
+<script>
+hero.innerHTML = `${SB.badgeA({ v: 2, size: 150 })}<div class="t">Sign in, 3× real size</div>`;
+trio.innerHTML = `<div>${SB.badgeA({ v: 2, size: 72, face: '#DCD3C3' })}<div class="t">Pressed</div></div><div>${SB.signedIn(72)}<div class="t">Signed in (unchanged)</div></div>`;
+document.fonts.ready.then(() => SB.centerArcs());
+</script></body></html>
