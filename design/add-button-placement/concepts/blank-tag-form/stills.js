@@ -66,7 +66,7 @@ F['p-collapsed'] = { k: 'P', inset: true, run: async p => { await p.click('#coll
 F['p-tag664'] = { k: 'P', vp: V664, run: async p => { await restP(p); await openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur'); await hideP(p); } };
 
 F['p-rest664'] = { k: 'P', vp: V664, run: restP };
-F['p-rest320'] = { k: 'P', vp: V320, zoom: true, run: restP };
+F['p-rest320'] = { k: 'P', vp: V320, zoom: true, centre: process.env.PC ? JSON.parse(process.env.PC) : [64.1420, -21.9380], run: restP };
 F['p-v3'] = { k: 'P', zoom: true, run: v3 };
 // THE FORM (on P's page: identical for every trigger but the trigger's own cancel)
 F['f-blank664'] = { k: 'P', vp: V664, zoom: true, run: p => dock(p, { state: 'blank' }) };
@@ -109,7 +109,9 @@ F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state:
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {
     const html = path.join(C, `.st-${s.k}.html`); fs.writeFileSync(html, HTML[s.k]);
-    const { ctx, page, errs } = await L.open(b, { html, vp: s.vp || [390, 844], dsf: s.dsf, inset: s.inset });
+    // the demo place: a pool, which OSM's leisure=swimming_pool maps to ATTRACTION (director, mapping table)
+    const JS = `;window.__ROWS.forEach(r => { if (r.name === 'Sundhöllin') { r.category = 'attraction'; r.short_address = 'Barónsstígur 45a · Reykjavík'; } });`;
+    const { ctx, page, errs } = await L.open(b, { html, vp: s.vp || [390, 844], dsf: s.dsf, inset: s.inset, js: JS });
     await page.evaluate(() => setActiveCity('reykjavik')); await page.waitForTimeout(900);
     if (s.k === 'A') await page.evaluate(() => window.fitTitle && window.fitTitle());
     if (s.zoom) { await zoomIn(page, s.centre); await page.waitForTimeout(900); }
@@ -121,7 +123,8 @@ F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state:
       const eye = document.querySelector('#btDock .tag-patch'); let eyePin = null;
       if (eye) { const e = eye.getBoundingClientRect(), cx = (e.left + e.right) / 2, cy = e.top + 14;
         eyePin = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return cx > r.left - 7 && cx < r.right + 7 && cy > r.top - 7 && cy < r.bottom + 7; }).length; }
-      return { acctPins, eyePin, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
+      const LP = document.getElementById('lp'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
+      return { acctPins, eyePin, lpPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
     m.errs = errs; m.clash = await chromeCheck(page);
     meas[name] = m; console.log(name, JSON.stringify(m));
     await page.screenshot({ path: path.join(C, 'raw', `${name.replace(/-1x$/, '')}-${s.dsf === 1 ? 1 : 3}x.png`) });

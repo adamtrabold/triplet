@@ -95,6 +95,7 @@ The parts, in the real tag's order:
   - It's untestable in the sandbox (Nominatim is blocked), so it goes on
     the iPhone checks.
   - If nothing maps and there's no last-used type, it's **Other**.
+  - **Mapping rows ruled so far** (director, 2026-10-14): OSM `leisure=swimming_pool`, `leisure=sports_centre` (and `leisure=water_park`) → **Attraction**. The rest of the table is the builder's, and every row is an iPhone check (Nominatim).
 - **Address:** from the pick, as today.
 
 ## Numbers (phone, keyboard up, docked)

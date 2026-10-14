@@ -155,7 +155,7 @@
     const st = s.state;
     const nm = s.name !== undefined ? s.name : NAME;
     const pre = ['blank', 'typing', 'nores'].includes(st), shape = st === 'shape';
-    const type = s.type || (shape ? 'district' : 'nature');
+    const type = s.type || (shape ? 'district' : 'attraction');
     const pen = s.inked ? '' : 'bt-pencil';
     // NAME
     const nameTxt = pre ? (st === 'blank' ? '' : (s.text || 'Sund')) + '<span class="bt-caret"></span>' : nm;

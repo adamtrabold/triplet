@@ -1,5 +1,16 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, the TYPE fix before the send
+- The demo place Sundhöllin (a pool) is now ATTRACTION everywhere: the
+  blank's default type, and the real row via `window.__ROWS` injected in
+  `stills.js` (it was the fixture's "nature").
+  - The director's mapping row (pools and sports centres → Attraction)
+    is in how-it-works' pre-fill section.
+- Re-rendered every frame and recomposed all 20 stills (all at 1170).
+- P5's 320 panel had a pin under the account badge AND one under the
+  lifted pin. Its view is now [64.1420, -21.9380]. measure.json has
+  `lpPins` too.
+
 ## UPDATE 2026-10-14, round 8b re-shoots (P 9, A 9; director's three mechanical fixes)
 - **The hanging tag's foot = the map credit's top − 6** (`footLimit()`
   in `blank.inc.html`; Float still min'd with its badge, 512).
