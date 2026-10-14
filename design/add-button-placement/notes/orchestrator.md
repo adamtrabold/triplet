@@ -22,3 +22,10 @@
 - Rounds 9 (C 7, A 9), 9b (C 8, A 9), 9c (C 9, A 9). Filling model = owner's fallback (map still, pin drops in on ADD).
 - Orchestrator pre-send checks caught a stale C4 caption (fixed to systems' 1.24x/1.19x).
 - Sent 22 stills: C3, C1, C4, C2, C5, C6, C7; A1-A4; T2, T1, T3, T9, T7, T4, T5, T6, T8, T0; A5. C8 held back.
+
+## 2026-10-14 — round 10 sent
+- Owner (owner.md): A cut; push C (tag is the button, simplified, colour open); form: visual centre, unpinned->pinned, no dropdowns; answers (edit future, no save without ADD, hold-to-place future).
+- Round 10: Float 9, form 9, C #2 8 -> director picked #7 (orange tag, navy +) at 84px (2.65x account / 2.0x Float), 9. Coverage r10: all 18 jobs on both.
+- Orchestrator pre-send checks: director's cost line (wrong "steps aside") corrected via systems; R1 stale weights fixed.
+- Sent 23 stills (C0, C1-C6, R1-R4, F1-F6, R10-F1/F2/F5/F3/F6/F4). Open Q: visited while adding.
+- Backlog: edit-a-place, tap-a-map-business (future).
