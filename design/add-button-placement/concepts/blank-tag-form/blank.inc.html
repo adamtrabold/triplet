@@ -49,6 +49,7 @@
   .bt-f.name .bt-rule { margin-right: 30px; }
   /* an empty line's caption prints ON the line (a form's field label), and the entry replaces it; only NAME, while
      you type on a tall screen, keeps its caption UNDER the rule (director round 8, fix 5) */
+  .bt-f:has(.bt-note) { padding-top: var(--s2); }   /* a note that wraps grows its row, with the same head room */
   .bt-f > .bt-cap { position: absolute; left: 0; bottom: 4px; margin: 0; line-height: 12px; }
   .bt-f.name.typing > .bt-cap { bottom: auto; top: calc(100% + 3px); }
   .bt-f.name.typing { margin-bottom: 16px; }   /* docked: NAME's under-caption gets its own band, then the 32 rhythm resumes */

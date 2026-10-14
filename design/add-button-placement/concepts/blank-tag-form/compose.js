@@ -61,7 +61,7 @@ const pages = {
   // ================= THE BLANK TAG (both) =================
   [T + 'T0-pencil-vs-greyed-1x.png']: `${cap('Pencil, not greyed out (real size, 1x)', 'Each strip is a real 1x screen, blown up 3× so you can see the pixels. Pencil should read as writing, not as something switched off.')}
      <div style="padding:0 30px">
-     ${lab('1 · Pencil: what you’ve written, before ADD')}${crop1(f('cmp-pencil-1x'), 45, 383, 345, 426, 3.7)}
+     ${lab('1 · Pencil: what you’ve written, before ADD')}${crop1(f('cmp-pencil-1x'), 45, 376, 345, 419, 3.7)}
      ${lab('2 · Inked: the same name once added')}${crop1(f('cmp-ink-1x'), 45, 184, 345, 222, 3.7)}
      ${lab('3 · Greyed out: signed-out Star and Visited (disabled)')}${crop1(f('cmp-off-1x'), 45, 280, 345, 336, 3.7)}
      ${lab('4 · Printed: ADD before there’s a name')}${crop1(f('cmp-blank-1x'), 45, 332, 345, 388, 3.7)}

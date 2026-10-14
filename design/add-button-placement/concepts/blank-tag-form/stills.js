@@ -26,7 +26,7 @@ const restP = p => p.evaluate(() => __BT.restP());
 const hideP = p => p.evaluate(() => { const e = document.getElementById('lp'); if (e) e.classList.add('gone'); });
 // capture a real tag as the template, then close it (the blank tag is built from the shipped DOM)
 async function template(p) { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => { __BT.capture(); map.closePopup(); }); await p.waitForTimeout(700); }
-async function dock(p, s, kbH) { await template(p); await zoomIn(p, s.centre || [64.1440, -21.9426]); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
+async function dock(p, s, kbH) { await template(p); await zoomIn(p, s.centre || (process.env.DC ? JSON.parse(process.env.DC) : [64.1440, -21.9400])); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
 async function hang(p, s, place = 'Sundhöllin') { await openPlace(p, place, true); await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
 const floatBadge = (p, open) => p.evaluate(open => {   // the Float frame: R7's badge (60px, orange, account's scalloped die) at bottom-left
   const a = document.getElementById('accountBtn'), m = getComputedStyle(a).webkitMaskImage || getComputedStyle(a).maskImage;
