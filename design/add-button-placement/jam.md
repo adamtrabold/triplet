@@ -3834,3 +3834,88 @@ NEXT: product designer (systems focus) -- write `jobs.md` for the two
 packages and the shared blank-tag form, including the cost lines, the
 shape and confirm flows, and desktop, and re-run the lifted-pin squint
 on a real render, so the designers build concepts to settled jobs.
+
+## Turn 36 -- design director: concept round 8, steer after the first pair (not READY yet)
+
+Looked at every still at phone size first: P1-P6, A1-A5, T1-T8, plus
+`raw/p-rest664`. Then the concept files, for visual's changes only.
+
+**The package works.**
+- One object the whole way: rule 1 holds in every frame I checked.
+- Orange is the trigger, navy is ADD, the band is the star (rule 2).
+- T3, T4 and T6 already look like the real tag.
+- A4 makes A's trade plain.
+
+I'm not scoring yet: four things would cost a 9, and all four are fixable
+in one pass. One more visual turn, then I score.
+
+### Fixes (one batch)
+
+1. **Pencil reads as "greyed out", not pencil (T1, T3, T4, T6, T8).**
+   - At phone size the graphite name and TYPE are flat grey. In this
+     app, grey already means disabled: signed-out controls are greyed
+     and offer sign-in.
+   - This is the core of "filling out a blank tag". If the pencil
+     doesn't read, the idea collapses into a form with placeholder text.
+   - Make it graphite: the tooth/grain visible at 1x, a slightly cooler
+     and slightly glossier grey than `--ink-2`, and the texture seeded
+     per entry ("ink is never identical twice" covers pencil too). Keep
+     the face and size; no handwriting font.
+   - Prove it in one 1x frame. Put a pencilled name next to:
+     - a signed-out greyed control;
+     - the printed inactive ADD;
+     - the inked name.
+   - If it still says "disabled", it fails.
+2. **Blank = a whole blank tag (T2).**
+   - Right after the tap, the tag is a one-line card: NAME, then the
+     stub. The owner's picture is a blank tag you fill out, so the first
+     frame shows the full blank tag: NAME, the address line, NOTES and
+     TYPE, all printed and empty.
+   - The stub sits where it will be (at 664 that's behind the keyboard
+     while typing, which matches T1). This also stops the stub jumping
+     down as results arrive ("controls don't move").
+   - How results print over the lower lines while you type is visual's
+     call. The tag's outline and stub don't move.
+3. **The journeys aren't phone-readable (P3, A3).**
+   - Five panels at about 230px each put the tag text at about 6px on
+     a phone.
+   - Panels 3-5 are the same in P and A, and T5 already shows them at a
+     readable size. So P3 and A3 become **two panels each**: rest, then
+     tapped (docked, typing).
+   - The shared "pick → ADD → after" is T3 and T5. Don't add stills.
+4. **A crop sliver (T2).** A dotted cluster/sticker fragment runs along
+   the bottom edge of both panels. Re-crop.
+5. **P's needle has to carry "pin" at 1x (P2).**
+   - It's the only thing that separates P from the stock FAB, and at
+     1.6px it nearly goes in the blur.
+   - Make it a 2px navy needle, the same length, with ground contact
+     you can see at 1x (firmer, still quieter than the halo).
+   - Re-shoot P2 only for this.
+
+### Visual's changes to my rulings: all accepted
+
+- **NOTES above TYPE:** right. It's the real tag's order (name, notes,
+  type). I listed it wrong in turn 32.
+- **VISITED not re-stamped at ADD:** right. A stamp lands when you
+  stamp it.
+- **Grey caption labels:** fine where they match the real tag's TYPE
+  caption. Captions aren't entries (fix 1 is about entries).
+- **Credit hidden while docked:** only while the keyboard is up, when
+  it's covered anyway. Picked, questions and failed states show it, as
+  T3 and T7 do.
+- **Eyelet hole showing map:** keep it. It's the shipped tag's hole;
+  changing it for the blank tag would make the blank not the real tag.
+- **P vs clusters at city zoom (P5, raw/p-rest664):** it holds.
+  Lighter, larger, a + not a number, and the needle. I'm keeping it as a
+  likely owner objection, not a fix.
+
+### Not changing
+
+- A's + stays on the right. A1's cost line says so in his words.
+- Float stays one frame (A5). It's good as is.
+
+### Owner questions (unchanged from turn 35) go with the send.
+
+NEXT: product designer (visual focus) -- fixes 1-5: pencil that reads as
+pencil at 1x (with the comparison frame), the full blank tag, P3/A3 cut
+to two panels, the T2 re-crop, P2's needle. Then I score round 8.

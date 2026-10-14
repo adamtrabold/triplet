@@ -1090,3 +1090,45 @@ journey strip; then I pick the resting object in jobs.md.
 ### Next
 - Systems writes `jobs.md` and re-runs the squint.
 - The designers build P and A; I steer after every pair of turns.
+
+---
+
+## Concept round 8 -- first pair reviewed (jam turn 36), not scored yet
+
+### Seen
+- P1-P6, A1-A5, T1-T8 and raw/p-rest664, at phone size first.
+
+### Verdict
+- The package works:
+  - one object all the way; rule 1 holds in every frame;
+  - rule 2 holds;
+  - T3, T4 and T6 look like the real tag.
+- Not scored: four fixable blockers would cost a 9.
+
+### Fixes sent
+1. Pencil reads as disabled grey. It needs graphite tooth at 1x, plus a
+   comparison frame (pencil vs greyed control vs inactive ADD vs ink).
+2. Blank state = the full blank tag (all lines empty, stub fixed), not a
+   one-line card.
+3. P3 and A3 aren't phone-readable (5 panels at about 230px). Cut each to
+   two panels; T3 and T5 cover the rest.
+4. T2 crop sliver at the bottom.
+5. P2's needle: 2px, with ground contact visible at 1x.
+
+### Accepted from visual
+- NOTES above TYPE (the real tag's order).
+- No re-stamp of VISITED at ADD.
+- Grey captions.
+- Credit hidden only with the keyboard up.
+- See-through eyelet (it's the shipped tag's).
+- P vs clusters holds; kept as an owner objection.
+
+### Likely objections (for scoring)
+- P: "FAB with a stick"; orange pin vs clusters; "bigger than other
+  pins".
+- A: + on the right (he asked for left); "doesn't read as +".
+- The form: "why is it greyed out" (fix 1); ADD not orange; a guessed
+  type wrong.
+
+### Next
+Visual's fix turn, then I score round 8 in scores.md ("Concept round 8").
