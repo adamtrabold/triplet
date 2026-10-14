@@ -1,0 +1,7580 @@
+{
+ "V2-40": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 722,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 722,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 722,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 722,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 722,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 482,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 542,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 542,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 542,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 542,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 542,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 302,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 545,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 545,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 545,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 545,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 545,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 305,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 446,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 446,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 446,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 446,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 446,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 206,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V2-48": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 714,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 714,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 714,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 714,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 714,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 474,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 534,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 534,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 534,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 534,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 534,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 294,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 537,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 537,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 537,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 537,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 537,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 297,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 438,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 438,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 438,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 438,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 438,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 198,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V2-56": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 706,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 706,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 706,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 706,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 706,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 466,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 526,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 526,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 526,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 526,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 526,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 286,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 529,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 529,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 529,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 529,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 529,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 289,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 430,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 430,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 430,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 430,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 430,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 190,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V3-120-44": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 680,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 680,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 680,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 680,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 680,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 500,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 500,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 500,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 500,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 500,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 0,
+   "near": 2,
+   "credit": true,
+   "top": 164,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V3-120-64": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 660,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 660,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 660,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 660,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 660,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 480,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 480,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 480,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 480,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 480,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 0,
+   "near": 3,
+   "credit": true,
+   "top": 144,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V3-160-44": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 440,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 260,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 263,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 1,
+   "near": 2,
+   "credit": true,
+   "top": 164,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 4,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 2,
+   "near": 1,
+   "credit": true,
+   "top": 164,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V3-160-64": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 420,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 240,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": false,
+   "top": 243,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 4,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 4,
+   "near": 1,
+   "credit": true,
+   "top": 144,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 2,
+   "near": 2,
+   "credit": true,
+   "top": 144,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V3-full-44": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 1,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 680,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 440,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 1,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 2,
+   "near": 2,
+   "credit": true,
+   "top": 260,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 2,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 500,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 260,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 1,
+   "near": 1,
+   "credit": true,
+   "top": 260,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 1,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 2,
+   "near": 1,
+   "credit": true,
+   "top": 263,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 2,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 503,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 263,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 1,
+   "near": 1,
+   "credit": true,
+   "top": 263,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 0,
+   "near": 1,
+   "credit": true,
+   "top": 164,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 3,
+   "near": 1,
+   "credit": true,
+   "top": 164,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 6,
+   "near": 1,
+   "credit": true,
+   "top": 164,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 404,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 6,
+   "near": 0,
+   "credit": true,
+   "top": 164,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ },
+ "V3-full-64": {
+  "390x844|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 16,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|copenhagen|collapsed": {
+   "under": 1,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 36,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|malmo|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 15,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 15,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 12,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 11,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|stockholm|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 17,
+   "sheet": 544,
+   "creditBox": [
+    138.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 660,
+   "markers": 19,
+   "sheet": 784,
+   "creditBox": [
+    138.9,
+    767.2,
+    390,
+    784
+   ]
+  },
+  "390x844|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 29,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 1,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 3,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x844|stockholm|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 420,
+   "markers": 25,
+   "sheet": 544,
+   "creditBox": [
+    203.9,
+    527.2,
+    390,
+    544
+   ]
+  },
+  "390x664|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|copenhagen|collapsed": {
+   "under": 1,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 35,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 15,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 15,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|malmo|up": {
+   "under": 4,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 14,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 14,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 11,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 12,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|stockholm|up": {
+   "under": 1,
+   "near": 2,
+   "credit": true,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    138.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 480,
+   "markers": 17,
+   "sheet": 604,
+   "creditBox": [
+    138.9,
+    587.2,
+    390,
+    604
+   ]
+  },
+  "390x664|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 17,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 1,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 3,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "390x664|stockholm|up|noprefix": {
+   "under": 2,
+   "near": 0,
+   "credit": true,
+   "top": 240,
+   "markers": 21,
+   "sheet": 364,
+   "creditBox": [
+    203.9,
+    347.2,
+    390,
+    364
+   ]
+  },
+  "375x667|copenhagen|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|copenhagen|collapsed": {
+   "under": 1,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 32,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|la|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 14,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 12,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|malmo|up": {
+   "under": 3,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 13,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 13,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|reykjavik|up": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 10,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 11,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|stockholm|up": {
+   "under": 1,
+   "near": 1,
+   "credit": true,
+   "top": 243,
+   "markers": 15,
+   "sheet": 367,
+   "creditBox": [
+    123.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 483,
+   "markers": 16,
+   "sheet": 607,
+   "creditBox": [
+    123.9,
+    590.2,
+    375,
+    607
+   ]
+  },
+  "375x667|copenhagen|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 16,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|la|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|malmo|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 1,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 2,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "375x667|stockholm|up|noprefix": {
+   "under": 2,
+   "near": 0,
+   "credit": true,
+   "top": 243,
+   "markers": 21,
+   "sheet": 367,
+   "creditBox": [
+    188.9,
+    350.2,
+    375,
+    367
+   ]
+  },
+  "320x568|copenhagen|up": {
+   "under": 5,
+   "near": 12,
+   "credit": true,
+   "top": 144,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|copenhagen|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 32,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|la|up": {
+   "under": 1,
+   "near": 1,
+   "credit": true,
+   "top": 144,
+   "markers": 13,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|malmo|up": {
+   "under": 6,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 12,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 12,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|reykjavik|up": {
+   "under": 1,
+   "near": 1,
+   "credit": true,
+   "top": 144,
+   "markers": 11,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 10,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|stockholm|up": {
+   "under": 7,
+   "near": 2,
+   "credit": true,
+   "top": 144,
+   "markers": 18,
+   "sheet": 268,
+   "creditBox": [
+    68.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|collapsed": {
+   "under": 0,
+   "near": 0,
+   "credit": true,
+   "top": 384,
+   "markers": 14,
+   "sheet": 508,
+   "creditBox": [
+    68.9,
+    491.2,
+    320,
+    508
+   ]
+  },
+  "320x568|copenhagen|up|noprefix": {
+   "under": 5,
+   "near": 12,
+   "credit": true,
+   "top": 144,
+   "markers": 17,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|la|up|noprefix": {
+   "under": 1,
+   "near": 1,
+   "credit": true,
+   "top": 144,
+   "markers": 2,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|malmo|up|noprefix": {
+   "under": 1,
+   "near": 0,
+   "credit": true,
+   "top": 144,
+   "markers": 1,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|reykjavik|up|noprefix": {
+   "under": 0,
+   "near": 1,
+   "credit": true,
+   "top": 144,
+   "markers": 3,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  },
+  "320x568|stockholm|up|noprefix": {
+   "under": 9,
+   "near": 2,
+   "credit": true,
+   "top": 144,
+   "markers": 21,
+   "sheet": 268,
+   "creditBox": [
+    133.9,
+    251.2,
+    320,
+    268
+   ]
+  }
+ }
+}
