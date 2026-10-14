@@ -1359,3 +1359,55 @@ The cost lines and six questions are in scores.md 9c.
 ### Next
 Check the 2 re-shoots → release. On his pick: handoff.md vs owner.md.
 - 2026-10-14: C2/C7 re-shoots checked; 22-still round-9c send released unchanged.
+
+---
+
+## Round 10 scored -- 2026-10-14 (scores.md "Concept round 10")
+
+### Owner on round 9c
+- **Cut A:** it conflates the list bar with a global action; adding can
+  be to any city. A 9 turned down.
+  - Lesson: score placement against the action's scope (job 5).
+- **Float:** "fairly complete".
+- **C:** simplify. The tag with a + (no container), the dotted line, the
+  claim-check end; colour open, "explore".
+- **The form:**
+  - visually centred;
+  - unpinned until there's an address, then pinned with the pin above;
+  - the dropdowns are awkward.
+- **Answers:**
+  - edit = future;
+  - no save without ADD;
+  - hold-to-place = future;
+  - visited-while-adding still open.
+
+### Scores
+- **Float 9.**
+- **C 8 as picked (#2,** cream with an orange end): the colour is on the
+  part that does nothing. **It goes to 9 with #7** (an orange tag, navy
+  +): simplest, the tag is the button, the same ink as Float, so the
+  call is pure shape.
+- **The form 9:**
+  - the TYPE pin row replaces the dropdown;
+  - the city is a tappable word;
+  - wash/unwash;
+  - visually centred.
+
+### Fixes
+1. #7 as the pick; re-shoot C0-C4, C6, C7.
+2. R1-R4 as "also explored" (R1 re-captioned: #7 the pick, #2 the
+   runner-up).
+3. Re-pan the form's F2/F5 off the dotted line; the TYPE row's cut as a
+   deliberate half-pin.
+
+### Send
+22 stills: C0 → C1-C6 → R1-R4 → F1-F6 → R10-F1, F2, F5, F3, F4.
+- Cost lines as in scores.md.
+- One open question: visited-while-adding.
+
+### Pattern
+- Weight added where meaning isn't (mass, then colour on the empty end).
+- Plus scope: A was global-in-local.
+
+### Next
+Check the re-shoots → release.

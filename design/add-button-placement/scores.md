@@ -1733,3 +1733,155 @@ Yes: the + moved onto the pin, and the tag is blank and ruled. C goes
   the zoom control at 320, which is real app behaviour and acceptable.
 - The 22-still send stands exactly as listed in round 9c, with its cost
   lines and six owner questions.
+
+## Concept round 10 -- director, 2026-10-14 (the final call: Float vs C; the form, revised)
+
+### Signal from the turned-down 9 (A, cut)
+"It conflates that bar with list actions and global actions (e.g. i
+could be adding to any city not just the one showing)."
+- I scored A's *look* and its exception-free reach, and missed its
+  *scope*: a global action placed in local chrome.
+- Job 5 ("+ is for the whole trip") now says that, and I score
+  placement against scope from here on.
+
+### Real-size look first
+**C, the team's pick (#2: cream tag, navy +, orange claim-check end).**
+Evidence: C2, R5, C0, C4.
+- At 1x it reads as a tag and as a button. The tear-off story in C4
+  (the orange end tears off and the tag becomes your form) is charming.
+- **But the colour is on the part that does nothing.**
+  - The orange slab is the empty end, and the + sits on quiet cream.
+  - That's his own "colour with personality on the thing that matters…
+    Directions feels unnecessarily orange".
+  - And it's two colour fields plus a mark, where he asked to *simplify*.
+- **R4 right (#7: the whole tag in the action orange, navy +)** is the
+  simpler, stronger object.
+  - One shape, one colour, one mark. The tag *is* the button, as he
+    said.
+  - It reads as a control at once, and it uses exactly the Float's ink
+    (orange, navy +).
+  - So his final call becomes purely about shape, badge vs tag, which is
+    the fairest comparison we can give him.
+  - My earlier rule "orange paper = starred" is mine, not his, and is
+    about place tags on the map. A button isn't one; his old orange +
+    badge already established orange = add.
+- **Float.** Evidence: C0 left, F4. As complete as he said: orange
+  scalloped badge, navy +, bottom-left. It now opens the same blank tag.
+
+**The form.** Evidence: R10-F1, F2, F5.
+- Unpinned: the map is washed back and the tag is a card in the visual
+  middle, with every line there from the start.
+- Pinned once there's an address: the wash lifts, and the place's own
+  pin stands above on its string.
+- TYPE is a row of the app's own pins: tap one and that's your pin.
+  That's the right answer to "dropdowns very awkward": no dropdown at
+  all, and the choice *is* the outcome.
+- City is a tappable word whose list prints on the tag.
+- "Search everywhere" serves job 5.
+- Nothing saves without ADD.
+- It answers every note he gave.
+
+### Likely owner objections
+1. **C as picked: "why is the end orange and not the button?"**
+   LIKELY. Fixed by making #7 the pick.
+2. **Float vs C "look the same weight".** POSSIBLE. That's the choice
+   he's making; C0 shows it.
+3. **The form: the TYPE row's last pin clipped at the tag's edge**
+   (F2, F5). POSSIBLE.
+   - It's a scroll row (9 types), so the cut must read as "more this
+     way", not an error.
+   - Keep a clear half-pin with a soft fade, as his "half second list
+     item" rule.
+4. **The dotted street-shape line by a sticker at the bottom right**
+   (F2, F5). Clutter in a hero frame. LIKELY to catch his eye. Re-pan.
+
+### Scores
+- **Float: 9.**
+- **C: 8 as picked (#2). It goes to 9 on one swap:** #7 becomes the
+  pick, and #2 leads the "also explored".
+- **The form: 9** after the re-pan of F2/F5 (mechanical).
+
+### Fixes (re-shoot; I check, then release)
+1. **C's pick = #7 (orange tag, navy +, the tag as the button).**
+   - Re-shoot C0, C1, C2, C3, C4 (rest and the tear-off), C6 and C7
+     with it.
+   - The tear-off in C4 still works: the claim-check end is the part
+     that comes away.
+   - Systems re-measures rank and coverage.
+2. **"Also explored" = R1 (the eight ways at real size) + R2 + R3 + R4,**
+   so he sees colour wasn't assumed ("don't assume a color… explore").
+   - Re-caption R1 with #7 marked "the pick" and #2 marked "the
+     runner-up (the claim-check end in orange)".
+   - No other changes.
+3. **The form:**
+   - re-pan R10-F2 and F5 off the dotted line;
+   - make the TYPE row's cut a deliberate half-pin with a fade.
+
+### Send (after fixes 1-3 are checked), in this order
+**The choice**
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/C0-two-options-3x.png
+
+**C · the tag is the button**
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/C1-rest-vs-today-3x.png
+3. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/C2-real-size-3x.png
+4. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/C3-squint-1x.png
+5. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/C4-tap-3x.png
+6. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/C5-tag-open-3x.png
+7. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/C6-sizes-3x.png
+
+**C · also explored (colour)**
+8. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/R1-eight-ways-real-size-3x.png
+9. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/R2-paper-and-two-end-3x.png
+10. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/R3-ticket-and-punch-3x.png
+11. /home/user/triplet/design/add-button-placement/concepts/C-tag-r10/R4-solid-tags-3x.png
+
+**Float · the badge**
+12. /home/user/triplet/design/add-button-placement/concepts/E-float/F1-rest-vs-today-3x.png
+13. /home/user/triplet/design/add-button-placement/concepts/E-float/F2-real-size-3x.png
+14. /home/user/triplet/design/add-button-placement/concepts/E-float/F3-squint-1x.png
+15. /home/user/triplet/design/add-button-placement/concepts/E-float/F4-tap-3x.png
+16. /home/user/triplet/design/add-button-placement/concepts/E-float/F5-tag-open-3x.png
+17. /home/user/triplet/design/add-button-placement/concepts/E-float/F6-sizes-3x.png
+
+**The form (both)**
+18. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/R10-F1-unpinned-3x.png
+19. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/R10-F2-pinned-3x.png
+20. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/R10-F5-city-3x.png
+21. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/R10-F3-pinned-starred-3x.png
+22. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/R10-F4-320-3x.png
+
+**Held back:**
+- C7 and F7 (pressed);
+- R5 (it duplicates C2 once #7 is the pick);
+- E1-E8 (round 7);
+- r10-check/.
+
+**Cost lines:**
+- **C and Float:** "Either one steps aside while a place's tag or the
+  filters are open: one extra tap to add then."
+- **C:** "Zoomed in to street level it can sit on a place; move the map
+  to uncover it." (Systems re-measures it for #7.)
+- **The form:** "TYPE is guessed (from OpenStreetMap, or your last type)
+  and shown as the pin you'd get; tap another pin to change it. Only
+  your iPhone can check the guesses."
+
+**Open question, with the send:**
+- When you add a place, do you want to be able to mark it visited at
+  the same time?
+
+**Recorded from his answers (not asked again):**
+- edit-after-add is a future update;
+- nothing saves without an explicit ADD;
+- hold-to-place is future, with real maps.
+
+### What keeps blocking a 9 (updated)
+- **Mass:** solved (R9b).
+- **Pin identity:** solved (R9c). Now moot: no pin on the button.
+- **Scope:** new. A failed on what the action *is* (global vs local).
+- **This round:** colour put on the part that doesn't matter. It's the
+  same root as the mass problem: weight added to win the squint
+  instead of putting the emphasis where the meaning is.
+
+### Did the work change?
+Yes, all new: A is cut, C is simplified (eight ways), Float carries the
+new form, and the form is revised to his notes.
