@@ -1,0 +1,33 @@
+<!-- ===== A, ROUND 7 (visual designer): the Hanging Tag's cut in the list header =====
+     Owner: "The tag shape in the list header is also interesting — not everything in these places is a ticketed thing so the
+     tag ties better to the view state. Id like to see that mocked". Layered AFTER r5.inc.html (+ r6.inc.html) by
+     ../r7-stills.js, in memory. Route on <html data-a="tag7">; the eyelet is a dial on <html data-eye="...">:
+       none   (THE PICK) the tag's die-cut alone: both chamfers at the left end, 14px, like the tag's top turned on its side
+       hole   the tag's punched hole (r3.6, 9.5px in), as round 6's tagcut: reads as a dot / a fourth round icon at 1x
+       patch  the hole on its reinforcement patch (the real tag's paper wash + grommet ring), 13x22
+     Everything else is A's: 60px box, flush right, full header height, orange on the band's tooth, navy + 28px at 3px,
+     pressed deep orange + paper +, open = the header's navy ON tile with a paper x. -->
+<style id="stubR7">
+  html[data-a="tag7"] #nb { -webkit-mask: var(--a7-mask) 0 0 / 100% 100% no-repeat; mask: var(--a7-mask) 0 0 / 100% 100% no-repeat; }
+  html[data-a="tag7"] #nb .a7-patch { position: absolute; left: 3px; top: calc(50% - 11px); width: 13px; height: 22px; pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, transparent 3.6px, color-mix(in srgb, var(--paper) 65%, transparent) 4px, color-mix(in srgb, var(--paper) 65%, transparent) 5.6px, transparent 6px), color-mix(in srgb, var(--paper) 28%, transparent);
+    clip-path: polygon(2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px); }
+  html[data-a="tag7"] #nb.open .a7-patch { background: radial-gradient(circle at 50% 50%, transparent 3.6px, color-mix(in srgb, var(--paper) 40%, transparent) 4px, color-mix(in srgb, var(--paper) 40%, transparent) 5.6px, transparent 6px), color-mix(in srgb, var(--paper) 14%, transparent); }
+</style>
+<script id="stubR7js">
+(function () {
+  const root = document.documentElement, nb = document.getElementById('nb');
+  if (!nb || root.dataset.a !== 'tag7') return;
+  const eye = root.dataset.eye || 'none';
+  if (eye === 'patch') { const p = document.createElement('span'); p.className = 'a7-patch'; nb.appendChild(p); }
+  const svg = d => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${d.w} ${d.h}' width='${d.w}' height='${d.h}' preserveAspectRatio='none'><path fill='white' fill-rule='evenodd' d='${d.p}'/></svg>`)}")`;
+  const circ = (cx, cy, r) => `M${cx - r} ${cy}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0Z`;
+  function draw() {
+    const w = nb.offsetWidth, h = nb.offsetHeight; if (!w) return; const c = 14;
+    const p = `M${c} 0H${w}V${h}H${c}L0 ${h - c}V${c}Z` + (eye === 'none' ? '' : circ(9.5, h / 2, 3.6));
+    root.style.setProperty('--a7-mask', svg({ w, h, p }));
+    nb.querySelector('svg').style.marginLeft = (eye === 'none' ? 5 : 8) + 'px';   // the + centred on the stock right of the cut (optically)
+  }
+  draw(); addEventListener('resize', draw); setTimeout(draw, 300); setTimeout(draw, 1200);
+})();
+</script>

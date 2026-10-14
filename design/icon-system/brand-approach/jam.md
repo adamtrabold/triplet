@@ -476,3 +476,203 @@ NEXT: design director: four attitudes are on the table (B, C' Cut paper,
 F Same die, G Specimen & key, with A as the governing law). Please steer
 which go to the owner, and whether Q1 should be asked before or alongside
 them.
+
+---
+
+## Turn 3: design director
+
+Read: `owner.md`, `docs/owner-taste.md` (all), the inspo README plus the
+Savoy label, the Yosemite scrapbook, matchbooks 1 and the park posters,
+CLAUDE.md, `inventory.md` and the starred + visited tag context screen,
+turns 1 and 2, and `attitudes-3x.png`. No scoring this turn.
+
+Real draws (python `secrets`). Oblique Strategies: **"Is there something
+missing?"** and **"Only one element of each kind"**. Borrowed fields:
+**railway timetable typography** and **museum specimen labels**. All four
+got used below.
+
+### 1. The premise, set straight
+
+Two things in turns 1 and 2 rest on the 2026-10-07 backlog quote ("the
+checked items are stronger visually than the open ones"): turn 1's
+must-answer **"On/off parity: how 'off' stays as strong as 'on'"**, and
+turn 2's Q1. The owner has since said "I never told you what I wanted
+changed". That quote is his, but it is not this phase's brief. So:
+
+- **Parity isn't a requirement.** Item 5 on turn 1's list becomes "**On/off
+  stance**: what this attitude does with an off state, and why." Each
+  direction states its stance as a *consequence* of its attitude. None
+  of them is built to fix a complaint we were never given.
+- **Nothing gets judged by "does it fix noise".** Each gets judged by
+  "does this look and feel like Triplet". The owner's standing taste rules
+  (simple, no added decoration, secondary marks never outrank content, one
+  drawing language, restrained effects) still apply. They're rules,
+  not this task's problem statement.
+
+### 2. The ethos: agreed, with one line added
+
+I'm adopting turn 2's line and adding what the brand is **not**, because
+the "not" is what separates the directions from costume:
+
+> **Printed with care, marked by hand, kept like a souvenir.**
+> *Vintage in method, not in costume:* few inks, cut shapes, printed vs
+> stamped. No faux distress, no retro typeface, no mascots.
+
+That last clause is the owner's own ("the typewriter font is unnecessary";
+"texture looks like clouds"). The inspo agrees: every piece is loud in
+its name and picture, and its furniture (the Savoy luggage pictograms, the
+parks' bison roundel, the NPS arrowhead) is small, single-ink and quiet.
+**Icons are the furniture. The place name is the hero.** I'm making that the
+shared premise. All three directions below accept it. They differ in what
+an icon *is*.
+
+### 3. Push and decide on the directions
+
+- **A Printed & Stamped: a law, stated once over everything.** Agreed with
+  turn 2. One correction: the star doesn't need an owner question. The
+  shipped Pencil Star is already the answer: drawn by hand, it "lands as the
+  printed orange star". The star sits on the seam between the hand and the
+  press, and that's correct. Q2 is dropped (see §6).
+- **F Same Die: dropped as a direction, kept as a phase-2 grid seed.** Its
+  insight, "derive bar weight and corner from the fixed visited check", is
+  the right way to *start a grid* for whichever direction wins. It's a
+  method, not an attitude: it doesn't say what the brand feels like. The
+  sketch also shows it's the heaviest row. It goes on the "dropped" strip,
+  so the owner can overrule.
+- **B Spot-Colour Pictogram: merged into Cut Paper.** B and C' are built the
+  same way (flat cut silhouette, no outlines). C' adds the character the
+  owner asked for ("whimsy, not average"). B on its own is the solid
+  version of an average set, and the sketch shows its tools turning into
+  barcodes. It goes on the dropped strip.
+- **D Badge, E Code, C linocut: kills confirmed** (turn 2's reasons). They
+  go on the dropped strip, one line each.
+- **G Specimen & Key: forward, renamed "Field Guide".** The specimen-label
+  draw pushes it further. A museum label is printed small and plain *next
+  to* the treasure, so the key never competes. It must show **one
+  construction grammar** in two weights, or it breaks "same icon drawing
+  language everywhere". The cut-detail rule has to be "one meaningful cut
+  per place glyph, never two" (*only one element of each kind*). The steam
+  on the cup is about the limit.
+- **C' Cut Paper: forward.** It's the whimsy direction and the most "ours".
+  It has to solve its off state *without colour* (it failed the 1-bit test).
+  The "hole in a paper patch" idea adds a container, so try that last.
+  First try the same cut as an *outline of the scissor path* in the same
+  ink: the knife line before the piece is lifted. The asymmetry is drawn
+  once into each master, never randomised (the "ink is never identical
+  twice" rule is for textured ink, and Cut Paper has no texture).
+- **NEW H Timetable Sorts: forward.** From the railway-timetable draw. Old
+  Bradshaw and Nordic rail and ferry timetables carry their symbols *as
+  characters of the typeface*: a cup for the buffet car, crossed knife and
+  fork, an anchor for the ferry connection. They're cut at the type's
+  weight, set in line and printed in the text ink. Here **every icon is a
+  sort in Triplet's own type**: places, tools and the star all share the
+  caps labels' stroke, sit on the cap height and use the text's ink or the
+  category ink. The whimsy is the typographer's wit (a knife-and-fork sort
+  that's clearly *cut*, not drawn in a vector app), not decoration. It
+  fits "mark size matches text weight", "same drawing language" and the
+  printed voice, and it takes back the one useful thing in E (luggage tags
+  are typographic objects) without replacing the icon with a letter. It's
+  *opposite in kind* to Field Guide. Field Guide has two registers, loud
+  places and quiet tools. Timetable has one register, and everything is
+  type. *Risk:* it's the closest of the three to "a consistent line set",
+  the average answer. It only passes if the sorts read as *cut for this
+  face*, with Archivo's proportions, terminals and stress. A generic
+  2px-rounded set re-coloured doesn't pass. On map tiles a type-weight
+  glyph is the thinnest option, so its pins need proving at near size.
+
+**Going forward: three directions, different in kind**, each with A stated
+over it:
+
+| | What an icon *is* | Where the character lives | Off-state stance (consequence) |
+|---|---|---|---|
+| **Field Guide** | Places are specimens, tools are the key | One meaningful cut per place glyph | Off is a key mark: quieter by design |
+| **Cut Paper** | A shape cut from the sheet | The asymmetry of the scissor path | Off is the cut line before the piece is lifted |
+| **Timetable Sorts** | A character of the app's typeface | Typographic wit in the cut | On and off are two sorts of one weight |
+
+Three, not four: "I don't think we need this many variations" and "i want
+more than one concept" together mean a few that each count.
+
+### 4. "Is there something missing?": yes, three tests the sketch skips
+
+1. **The map.** Category glyphs live on OSM tiles in a 24px pin with an 18px
+   glyph, and that's where most of the icons are seen. The sketch only shows
+   rows. Every card gets a **map crop at 1x**: two near pins, a selected pin
+   and one cluster on real-looking tiles.
+2. **Reversal.** The selected row is navy and the selected pin is inverted
+   (a paper glyph on an ink field). Every direction has to survive being
+   reversed. Show the selected row in each card's row crop.
+3. **The tag stub.** Directions, Star and Visited, side by side with the real
+   stamp. That's the one place a tool icon, the star and visited share a
+   single line. Turn 2 proposed it, and it's now required.
+
+Also: the sketch's **district glyphs are the weakest drawings on the board**.
+Spot's reads as a medical badge and Cut Paper's as a guitar pick. District
+and street are today's outliers, and the owner will look straight at them.
+Each card's district has to be a credible attempt, because the owner judges
+stills as near-final craft even when they're labelled "sketch".
+
+### 5. How each is shown (adopting turn 2's card, with changes)
+
+One phone-width card per direction, all the same layout, **Today first**:
+
+1. Name, plus one sentence of attitude in plain words (no field jargon:
+   "places are drawn with care, tools are quiet like the small print").
+2. The stress set at 24px: cafe, restaurant, district, star off, star on,
+   filters, close, add, directions.
+3. Row crop at 1x and 3x, including the selected (navy) row, beside the
+   real stamp.
+4. The tag-stub crop.
+5. The map crop.
+6. A 12px strip and the 1-bit strip.
+7. Three lines: what it says about the brand, what it risks, and what he'd
+   be choosing.
+
+Then a **dropped strip**: F Same Die, B Spot pictogram, D Badge, E Code
+and C linocut, each with one tiny sample and one line on why it was
+dropped, so he can overrule. A stack of cards, not a canvas ("all I want is
+every icon side by side" was about clutter: keep it plain).
+
+### 6. The visual designer's three owner questions
+
+- **Q1 (checked vs open): reframed, non-blocking.** It can't assume the
+  2026-10-07 quote is the scope. Asked as a question, alongside the cards,
+  not before them.
+- **Q2 (is the star printed or applied?): dropped.** The shipped Pencil
+  Star answers it (drawn by hand, lands as print). That's our call to
+  record, not his to make.
+- **Q3 (where whimsy lives): dropped as a question, made a default.** That
+  call belongs to the design roles. The default is that whimsy lives in the
+  place glyphs and the user's own marks, and tools carry none. It's stated
+  on the board, and he can overrule it.
+
+### 7. Owner questions (one batch, with the cards; none blocks concept work)
+
+1. "On Oct 7 you wrote 'the checked items are stronger visually than the
+   open ones.' Is that still something you want addressed? If so, is it
+   that the open ones look too weak, or that the checked ones look too
+   loud? (Visited stays as it is either way.)"
+2. "Is anything else fixed besides Visited: the pin's round shell and
+   rim, the scalloped account and + buttons, the category colours, the
+   star's shape?" (It sets phase 2's scope. Each card shows the shells
+   unchanged.)
+3. "Should Leaflet's map zoom +/− and the text × and ▼ be redrawn into the
+   set?" (Phase 2 scope. Turn 1 assumed yes.)
+
+Tooling (the SVG tool or MCP) is a phase-2 question. It's noted, not asked
+now.
+
+### 8. Notes for the next turns
+
+- The three cards are sketches of an attitude, but they're *crafted*: the
+  owner reads a still at real size as near-final.
+- Field Guide: show both registers in one grammar (the same corner, terminal
+  and construction), so the "two languages" objection is answered on the
+  board, not in prose.
+- Timetable Sorts: set a line of real caps-label type in the card, with the
+  sorts inline, so you can see they're cut for that face.
+- Cut Paper: the knife-line off state, then the 1-bit test.
+
+NEXT: product designer (visual focus): sketch Timetable Sorts as a new
+card, rework Cut Paper's off state and every district glyph, and add the
+map, reversal and tag-stub crops to all three plus Today. Retire the Spot
+and Same Die cards to the dropped strip.
