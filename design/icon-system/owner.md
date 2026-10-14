@@ -14,3 +14,14 @@ Standing: feedback on concepts is normal iteration, not a rejection ("These are 
 > Visited should not change. Also I never told you what I wanted changed so what were these agents off doing
 
 Orchestrator's error: the crew was briefed from the 2026-10-07 backlog quote as if it were this request's scope, and the loop ran on to concepts instead of stopping after the inventory to ask the owner what to change. Constraint: the visited treatment stays as it is. Work paused until the owner says what he wants changed.
+
+2026-10-14:
+> What the fuck is all of this stuff on the canvas all I want is every icon side by side
+
+> First off I want the team to think of brand approach to icons conceptually — eg what is the attitude and ethos of the brand and what visual and stylistic approaches may support or detract from that.
+>
+> After I approve a direction or directions there, the team will research best practices for icon design and develop a shared grid system to iterate on drawing the icons. These should be svgs and if it’s better to mcp or connect to a different tool for this they can let me know.
+>
+> All of this should follow my standard design buds guidance
+
+Scope now: phase 1 = brand approach to icons (conceptual directions) in `brand-approach/`. Phase 2 (after owner approval) = research best practices + shared grid system + SVG drawing; tool recommendation. The earlier visited-state concept work (concepts/b|c|d, grammar boards) is superseded and not part of this. Constraint: visited does not change.
