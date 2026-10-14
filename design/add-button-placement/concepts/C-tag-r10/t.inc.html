@@ -27,7 +27,7 @@
   function footY() { const S = document.getElementById('locations').getBoundingClientRect().top, c = document.querySelector('.leaflet-control-attribution');
     const r = c && c.getBoundingClientRect(); return Math.min(S - 20, r && r.height ? Math.floor(r.top) - 6 : 1e9); }
   function draw() {
-    const v = R.dataset.tv || 'paper', W = +(R.dataset.tw || 104), tilt = +(R.dataset.tilt || 0);
+    const v = R.dataset.tv || 'paper', W = +(R.dataset.tw || 104), tilt = +(R.dataset.tilt || 0), pr = document.getElementById('tb').classList.contains('press');
     let svg, w, h;
     const plus = (cx, cy, a, sw, col) => `<path d="M${cx - a} ${cy}H${cx + a}M${cx} ${cy - a}V${cy + a}" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>`;
     if (v === 'apptag') {
@@ -43,11 +43,11 @@
       // a claim-check tag lying across: the left end die-cut (two chamfers), the claim-check end on the right
       w = W; h = Math.round(W * .52); const CH = Math.round(h * .3), STUB = Math.round(W * .24), sx = w - STUB;
       const path = `M${CH} 0H${w}V${h}H${CH}L0 ${h - CH}V${CH}Z`;
-      const stock = { paper: C.paper, navy: C.navy, orange: C.orange, twoend: C.paper, stubplus: C.paper, punch: C.navy, punchor: C.orange }[v];
+      const stock = pr ? 'var(--paper)' : { paper: C.paper, navy: C.navy, orange: C.orange, twoend: C.paper, stubplus: C.paper, punch: C.navy, punchor: C.orange }[v];
       const perf = { navy: 'rgba(242,235,221,.7)', orange: 'rgba(18,41,63,.55)', punch: 'rgba(242,235,221,.7)', punchor: 'rgba(18,41,63,.55)' }[v] || C.hair;
       const pc = { paper: C.ink, navy: C.cream, orange: C.ink, twoend: C.ink, stubplus: C.cream }[v];
       const bx = (CH * .6 + sx) / 2, by = h / 2, A = Math.round(h * .27), SW = Math.max(4.5, h * .1);
-      const endFill = v === 'twoend' ? `<rect x="${sx}" y="0" width="${STUB}" height="${h}" fill="${C.orange}"/>` : v === 'stubplus' ? `<rect x="${sx}" y="0" width="${STUB}" height="${h}" fill="${C.navy}"/>` : '';
+      const endFill = v === 'twoend' ? `<rect x="${sx}" y="0" width="${STUB}" height="${h}" fill="${pr ? 'var(--brand-orange-deep)' : C.orange}"/>` : v === 'stubplus' ? `<rect x="${sx}" y="0" width="${STUB}" height="${h}" fill="${C.navy}"/>` : '';
       const thePlus = v === 'stubplus' ? plus(sx + STUB / 2, by, Math.round(STUB * .3), 4, C.cream) : (v === 'punch' || v === 'punchor') ? '' : plus(bx, by, A, SW, pc);
       const punch = (v === 'punch' || v === 'punchor') ? `<path d="M${bx - A} ${by}H${bx + A}M${bx} ${by - A}V${by + A}" stroke="black" stroke-width="${SW + 1}" stroke-linecap="round"/>` : '';
       svg = `<defs><mask id="tm"><path d="${path}" fill="white"/><circle cx="${sx}" cy="0" r="3.5" fill="black"/><circle cx="${sx}" cy="${h}" r="3.5" fill="black"/>${punch}</mask></defs>

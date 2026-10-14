@@ -1,5 +1,18 @@
 # The blank-tag form: how it looks and feels (shared by C and Float)
 
+## Round 10b (visual, after systems' 10b reconcile)
+
+- **One card height from the first frame.**
+  - The TYPE caption and the pin row are there from blank (no pin selected).
+  - The pinned card keeps the real tag's 48 top, so the starred band prints into existing space.
+  - The blank card sits at the pinned spot, with room kept for the pin, so nothing moves on the pick.
+  - Card 154-458 at 664, ADD 398-458. A wrapping note still grows its row (the owner's "long notes show full length"). T4/F3 now use a one-line note.
+- **No caret unless the keyboard is up** (an unfocused field has none).
+- **Typing:** NAME's caption goes once there's text, and the offers start at 72. That gives three results plus a printed **SEARCH EVERYWHERE** row (globe glyph, small caps navy) above the keyboard at 664 (systems' "+ is global").
+- **The city's tap cue:** a fine underline under the city word only (1px `--ink-2` at 55%, 1px offset), the web's own "this is tappable" cue. It isn't a chip and has no chevron, which the owner found awkward.
+  - Tapped, your cities print as 40px rows in the tag's lower area (✓ on the current one, "New city…" last). The pin doesn't move (R10-F5).
+- **Stills:** R10-F1 (unpinned: typing | keyboard down), F2 pinned, F3 starred, F4 320, F5 city.
+
 ## Round 10 (owner: "too low on the screen … visually weighted center … not pinned, then as it's being filled out the background changes and it looks pinned once there's an address … the dropdowns are very awkward"; then "i meant *visually centered")
 
 Frames `r10-*`; stills `R10-F1`-`F4`.

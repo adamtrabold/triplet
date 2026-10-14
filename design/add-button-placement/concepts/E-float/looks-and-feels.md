@@ -1,5 +1,16 @@
 # Baseline E, "Float": how it looks and feels (visual designer, round 5)
 
+## Round 10b (visual): the Float as a finished option
+
+Stills F1-F7 (same set as C): rest vs today, real size, squint (systems' 1.34 / 1.33), tap, tag open, 320 + list down, pressed.
+
+- **The badge:** round 7's 60px orange scallop with a navy + (the account's own die), bottom-left, ink 15.2, foot 20 above the list.
+- **Pressed:** deep orange with a paper +.
+- **While adding the badge is gone** (systems' turn 39): the tag's × is the one cancel, so ADD sits where it does for C. The navy-× open state of round 7/9 is retired.
+- **A place's tag open:** it stays tappable (`TAG_SHEET_GAP` 88). The list sits lower.
+- **The same blank tag and washed map** as C (F4). The only differences between the two options are at rest and on the tap.
+
+
 The owner's own option: "just floating the existing badge at either the left or
 right corner above the list ... show me the best alignment with the existing
 badge". The look is **today's badge, unchanged**: a 50px navy scallop, an

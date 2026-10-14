@@ -52,7 +52,8 @@
   .bt-f:has(.bt-note) { padding-top: var(--s2); }   /* a note that wraps grows its row, with the same head room */
   .bt-f > .bt-cap { position: absolute; left: 0; bottom: 4px; margin: 0; line-height: 12px; }
   .bt-f.name.typing > .bt-cap { bottom: auto; top: calc(100% + 3px); }
-  .bt-f.name.typing { margin-bottom: 16px; }   /* docked: NAME's under-caption gets its own band, then the 32 rhythm resumes */
+  .tag.docked .bt-f.name.typing { margin-bottom: 16px; }
+  .tag:not(.docked) .bt-f.name.typing > .bt-cap { top: auto; bottom: 4px; }   /* docked: NAME's under-caption gets its own band, then the 32 rhythm resumes */
   .bt-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; min-height: 28px; padding-right: 32px; margin: 0; overflow-wrap: anywhere; }
   .bt-addr { font-size: 13px; line-height: 18px; min-height: 18px; }
   .bt-note { font-size: 14px; line-height: 20px; min-height: 20px; }
@@ -97,6 +98,17 @@
   .bt-cat { flex: none; width: 32px; height: 32px; line-height: 0; border-radius: 50%; }
   .bt-cat.on { box-shadow: 0 0 0 3px var(--paper-raised), 0 0 0 4.5px var(--navy); }
   #btWash { position: absolute; inset: 0; z-index: 650; background: color-mix(in srgb, var(--paper) 78%, transparent); pointer-events: none; }
+  /* round 10b: the city's quiet tap cue; the city list; "Search everywhere" */
+  .bt-city { border-bottom: 1px solid color-mix(in srgb, var(--ink-2) 55%, transparent); padding-bottom: 1px; }
+  .bt-res.city { top: 122px; }
+  /* typing (r10): the line has text, so NAME's caption goes and the offers start at 72: three rows and Search everywhere above the keyboard */
+  .tag.r10t .bt-f.name > .bt-cap { display: none; }
+  .tag.r10t.docked .bt-f.name.typing { margin-bottom: 0; }
+  .tag.r10t .bt-res { top: 72px; }
+  .bt-r.bt-rc { height: 40px; flex-direction: row; align-items: center; justify-content: space-between; }
+  .bt-r.bt-rc.on::after { content: ''; width: 12px; height: 7px; border-left: 2.2px solid var(--navy); border-bottom: 2.2px solid var(--navy); transform: rotate(-45deg) translate(1px, -2px); }
+  .bt-every { height: 36px; display: flex; align-items: center; gap: 8px; font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: .08em; color: var(--navy); }
+  .bt-every svg { width: 16px; height: 16px; }
   /* the search offers: PRINTED on the tag (not pencil), 48px rows, hairlines, no slip edge */
   .bt-r { height: 48px; box-sizing: border-box; border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
   .bt-r b { font-size: 14px; line-height: 18px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -183,15 +195,16 @@
     let h = `<div class="bt-f name${pre ? ' typing' : ''}"><div class="bt-rule"><h2 class="bt-name ${pre ? 'bt-pencil' : pen}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nameTxt}</h2></div>${pre ? '<span class="bt-cap">Name</span>' : ''}</div>`;
     // ADDRESS . CITY (a printed hint for a shape)
     h += shape ? `<div class="bt-f"><div class="bt-rule"><div class="bt-hint">Traced from OpenStreetMap when you add it</div></div></div>`
-      : `<div class="bt-f addr"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR}${s.r10 && s.state !== 'newcity' ? ' · ' + (s.city || CITY) : ''}`}</div>${pre || s.inked || s.state === 'newcity' ? '' : s.r10 ? '' : chip(null, s.city || CITY)}</div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
+      : `<div class="bt-f addr"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR}${s.r10 && s.state !== 'newcity' ? ` · <span class="bt-city">${s.city || CITY}</span>` : ''}`}</div>${pre || s.inked || s.state === 'newcity' ? '' : s.r10 ? '' : chip(null, s.city || CITY)}</div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
     // NOTES (above TYPE: the real tag's order)
     h += `<div class="bt-f"><div class="bt-rule"><div class="bt-note ${pen}">${s.notes || ''}</div></div>${s.notes ? '' : '<span class="bt-cap">Notes</span>'}</div>`;
     // TYPE
     const typeHtml = pre ? '' : s.inked ? `<span class="tag-val tag-stamp popup-cat" style="--tilt:-3.5deg">${type}</span>`
       : chip(type, type);
-    if (s.r10 && !pre && !s.inked) h += `<div class="bt-f type r10"><span class="tag-lab">Type</span><span class="bt-type bt-pencil">${type}</span></div>${pinStrip(type)}`;
+    if (s.r10 && !s.inked) h += `<div class="bt-f type r10"><span class="tag-lab">Type</span><span class="bt-type bt-pencil">${pre ? '' : type}</span></div>${pinStrip(pre ? null : type)}`;
     else h += `<div class="bt-f type"><span class="tag-lab">Type</span><div class="bt-rule">${typeHtml}</div></div>`;
-    if (st === 'typing') h += `<div class="bt-res">${(s.results || RESULTS).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}</div>`;
+    if (st === 'typing') h += `<div class="bt-res">${(s.results || RESULTS).slice(0, s.r10 ? 3 : 9).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}${s.r10 ? `<div class="bt-every"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12H20.5M12 3.5C9 7 9 17 12 20.5M12 3.5C15 7 15 17 12 20.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Search everywhere</div>` : ''}</div>`;
+    if (st === 'cityopen') h += `<div class="bt-res city">${['Reykjavík', 'Copenhagen', 'Malmö', 'Stockholm', 'Los Angeles'].map(c => `<div class="bt-r bt-rc${c === 'Reykjavík' ? ' on' : ''}"><b>${c}</b></div>`).join('')}<div class="bt-r bt-rc"><b style="color:var(--ink-2)">New city…</b></div></div>`;
     if (st === 'nores') h += `<div class="bt-res"><div class="bt-msg">No places called that — try another name.</div></div>`;
     if (st === 'newcity') h += `<div class="bt-ask"><b>New city?</b>Lisbon isn’t one of your cities yet.</div>`;
     if (st === 'whichcity') h += `<div class="bt-ask"><b>Which city?</b>Most of this district is outside Reykjavík.</div>`;
@@ -206,7 +219,7 @@
   // round 10: TYPE = pick your pin. The app's own pins in a row (its ring grammar, 32), the guess first and selected
   // (the selected grammar: filled, paper glyph); the row scrolls sideways, a part pin at the edge says there are more.
   function pinStrip(sel) {
-    const cats = Object.keys(CATEGORY_COLORS).filter(c => c !== sel); cats.unshift(sel);
+    const cats = Object.keys(CATEGORY_COLORS).filter(c => c !== sel); if (sel) cats.unshift(sel);
     return `<div class="bt-cats">${cats.map(c => { const on = c === sel, ink = CATEGORY_COLORS[c];
       return `<span class="bt-cat${on ? ' on' : ''}">${badgeHtml(c, 'circle', 32, { ink, fill: on ? ink : '#F2EBDD', mark: on ? '#F2EBDD' : ink, rim: on ? 2.5 : 2 })}</span>`; }).join('')}</div>`;
   }
@@ -238,7 +251,9 @@
     tag.classList.add('is-blank'); tag.classList.remove('is-visited');
     if (!s.starred) { tag.classList.remove('is-starred'); const b = tag.querySelector('.tag-band'); if (b) b.remove(); }
     if (s.inking) tag.classList.add('bt-inking');
-    const tin = tag.querySelector('.tag-in'); tin.innerHTML = inner(s); grain(tin); tin.classList.toggle('has-res', s.state === 'typing' || s.state === 'nores');
+    tag.classList.toggle('r10t', !!s.r10 && (s.state === 'typing' || s.state === 'nores'));
+    const tin = tag.querySelector('.tag-in'); tin.innerHTML = inner(s);
+    if (!tag.classList.contains('docked')) tin.querySelectorAll('.bt-caret').forEach(c => c.remove()); grain(tin); tin.classList.toggle('has-res', s.state === 'typing' || s.state === 'nores');
     // star + visited segments: the real ones, set to the draft's state
     const star = tag.querySelector('.popup-star');
     if (star && !s.starred) { star.classList.remove('starred'); star.querySelector('span').textContent = 'Star'; const u = star.querySelector('use'); if (u) u.setAttribute('href', '#g-star-open'); const sv = star.querySelector('svg'); if (sv) sv.classList.add('is-open'); }
@@ -280,7 +295,7 @@
     wrap.appendChild(p); document.body.appendChild(wrap);
     makeBlank(p.querySelector('.tag'), s);
     const b = p.querySelector('.tag-body').getBoundingClientRect();
-    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit()); p.style.top = Math.round(top0 + OPTICAL * (bot - top0) - b.height / 2) + 'px'; }
+    if (s.centre) { const top0 = openTop(), bot = Math.min(s.clear || 1e9, footLimit()); p.style.top = Math.max(top0 + 76 + 4, Math.round(top0 + OPTICAL * (bot - top0) - b.height / 2)) + 'px'; }   // the same spot as pinned: room is kept for the pin
     else p.style.top = (Math.min(s.clear || 1e9, footLimit()) - b.height) + 'px';
     if (s.wash) BT.wash(true);
     return p.querySelector('.tag-body').getBoundingClientRect().toJSON();

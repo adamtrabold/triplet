@@ -1,5 +1,22 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 10b (systems measured C #2 at 1.37/1.31; the Float made complete)
+- **Form:** the card is fixed (TYPE row from blank, 48 top, blank card at
+  the pinned spot). No caret when unfocused. While typing: offers from
+  72 + "Search everywhere" (`.bt-every`). City: `.bt-city` underline +
+  the `cityopen` state.
+- **Frames:**
+  - `r10-*` (re-shot);
+  - `c10-*` (page `T:twoend`, gap 86);
+  - `f10-*` (page F, gap 88; `floatBadge(p, 'press')`).
+  - Prefix 380.
+- **Stills:**
+  - `C-tag-r10/C0-C7` (C0 = the two options side by side);
+  - `E-float/F1-F7`;
+  - `blank-tag-form/R10-F1-F5`.
+- **Next:** the director scores C vs Float; then the send for the owner's
+  final call.
+
 ## UPDATE 2026-10-14, round 10 (owner cut A; push C as tag-is-button; the form centred, unpinned → pinned)
 - **C:** `concepts/C-tag-r10/t.inc.html` has 8 variants (`data-tv`). The
   pick is #2, `twoend`: paper, an orange claim-check end, a navy +.

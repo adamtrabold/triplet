@@ -34,7 +34,7 @@ const CSS = `body{margin:0;background:#E9E2D3;font-family:'DejaVu Sans Condensed
  .num{display:inline-block;width:34px;height:34px;border-radius:50%;background:#12293F;color:#F2EBDD;text-align:center;line-height:34px;font-size:22px;margin-right:8px}
  .cost{font-size:33px;padding:22px 30px 30px;line-height:1.3} .cost b{color:#A8400C}
  .row{display:flex;align-items:flex-start} .col{flex:none} .gap{height:24px}`;
-const R10 = CON + '/C-tag-r10/', P = CON + '/P-blank-pin/', A = CON + '/A-header-tag/', T = C + '/', CP = CON + '/C-pintag/';
+const R10 = CON + '/C-tag-r10/', EF = CON + '/E-float/', P = CON + '/P-blank-pin/', A = CON + '/A-header-tag/', T = C + '/', CP = CON + '/C-pintag/';
 const pages = {
   // ================= P · BLANK PIN =================
   [P + 'P1-rest-vs-today-3x.png']: `${cap('P · the blank pin', 'The + is a place’s pin, held above the map, not yet placed: the app’s own round pin in the action orange, on a short needle with its shadow on the ground. Bottom-left, by your thumb. The account badge is alone at the top.')}
@@ -121,12 +121,44 @@ const pages = {
      ${pair(f('t10-navy'), 'Navy', f('t10-orange'), 'Orange', 640)}<div class="gap"></div>`,
   [R10 + 'R5-real-size-full-3x.png']: `${cap('The claim-check one on the whole screen, at real size', 'With the app’s own pins and the account badge, as your phone shows it.')}
      $${crop1(f('t10-twoend-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
-  [T + 'R10-F1-unpinned-3x.png']: `${cap('Filling it in: not pinned yet', 'Until there’s an address the map is washed back: the tag is a card on paper, not on a place. Left: typing the name. Right: the keyboard down, the tag in the visual middle of the open area.')}
+  [T + 'R10-F1-unpinned-3x.png']: `${cap('Filling it in: not pinned yet', 'Until there’s an address the map is washed back: the tag is a card on paper, not on a place. Left: typing (the last row searches every city). Right: the keyboard down; the tag sits in the visual middle of the open space, every line there from the start, so it never changes size as you fill it in.')}
      ${pair(f('r10-f-typing664'), 'Typing', f('r10-f-blankcard664'), 'Keyboard down', 664)}<div class="gap"></div>`,
-  [T + 'R10-F2-pinned-3x.png']: `${cap('An address: now it looks pinned', 'Pick a result: the wash lifts, the map is the place, and its pin stands above the tag on its string. TYPE is a row of the app’s own pins: tap one and that’s the pin you get (the guess is first, filled). The city is just part of the address. Nothing is saved until ADD.')}${full(f('r10-f-pinned664'))}<div class="gap"></div>`,
-  [T + 'R10-F3-pinned-starred-3x.png']: `${cap('Starred, visited and a note', 'The band prints on star; VISITED stamps; a long note shows in full.')}${full(f('r10-f-pinned-starred664'))}<div class="gap"></div>`,
+  [T + 'R10-F2-pinned-3x.png']: `${cap('An address: now it looks pinned', 'Pick a result: the wash lifts, the map is the place, and its pin stands above the tag on its string. TYPE is a row of the app’s own pins: tap one and that’s the pin you get. Nothing is saved until ADD.')}${full(f('r10-f-pinned664'))}<div class="gap"></div>`,
+  [T + 'R10-F3-pinned-starred-3x.png']: `${cap('Starred, visited and a note', 'The orange band prints into the tag’s top on star (the tag doesn’t grow); VISITED stamps; the note is pencil until you add.')}${full(f('r10-f-pinned-starred664'))}<div class="gap"></div>`,
   [T + 'R10-F4-320-3x.png']: `${cap('Smallest phone (320 × 568)', 'Typing (not pinned yet), then pinned.')}
      <div class="row" style="gap:20px">${col('Typing', crop(f('r10-f-typing320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('Pinned', crop(f('r10-f-pinned320'), 0, 0, 320, 568, 575 / 320, 320), 575)}</div><div class="gap"></div>`,
+  [T + 'R10-F5-city-3x.png']: `${cap('The city: a word you can tap', 'The city is just part of the address, with a fine underline to say it can be tapped. Tap it and your cities print on the tag; pick one. The pin doesn’t move: a city is where the place is filed, not where it is.')}
+     ${pair(f('r10-f-pinned664'), 'The city word', f('r10-f-city664'), 'Tapped: your cities', 664)}<div class="gap"></div>`,
+  [R10 + 'C0-two-options-3x.png']: `${cap('Two options for +', 'Left: the badge (Float). Right: the tag is the button (C). Both bottom-left, both open the same blank tag, both step aside the same way.')}
+     ${pair(f('f10-rest'), 'Float · the badge', f('c10-rest'), 'C · the tag', 640)}<div class="gap"></div>`,
+  [R10 + 'C1-rest-vs-today-3x.png']: `${cap('C · the tag is the button', 'The + is a blank luggage tag: a + on cream paper, the dotted line, and the claim-check end in the action orange. Bottom-left by your thumb; the account badge alone at the top.')}
+     ${pair(f('r9-today'), 'Today', f('c10-rest'), 'C', 640)}<div class="gap"></div>`,
+  [R10 + 'C2-real-size-3x.png']: `${cap('C at real size', 'As your phone shows it (1x, each pixel as you’d see it), with the app’s own pins and the account badge.')}
+     ${crop1(f('c10-rest-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
+  [R10 + 'C3-squint-1x.png']: `${cap('The squint test', 'The same screen blurred: the + should come before the account badge.')}
+     <div class="row" style="padding:0 30px;gap:18px">${col('1x', crop1(f('c10-rest-1x'), 0, 0, 390, 544, 1.4), 546)}${col('Blurred', crop1(f('c10-rest-1x'), 0, 0, 390, 544, 1.4, true), 546)}</div>
+     ${note('Measured: 1.37× the account badge’s weight with a light blur, 1.31× with a heavier one. No block added: the + and the orange claim-check end carry it.')}`,
+  [R10 + 'C4-tap-3x.png']: `${cap('Tap it (Safari, 390×664)', 'The claim-check end tears off and the tag rises above the keyboard as the blank form; the map behind is washed back until there’s an address. The button is gone while you add: the tag’s × is the one cancel.')}
+     ${pair(f('c10-rest664'), 'At rest', f('c10-tapped664'), 'Tapped: type the name', 664)}<div class="gap"></div>`,
+  [R10 + 'C5-tag-open-3x.png']: `${cap('A place’s tag open', 'It stays where it is and can be tapped: adding closes the place’s tag, and cancelling brings it back. The list sits a little lower to make room.')}${full(f('c10-tag664'))}<div class="gap"></div>`,
+  [R10 + 'C6-sizes-3x.png']: `${cap('Small phone, list down', 'Left: 320 wide. Right: list down on the Home Screen app: it rides the list’s edge.')}
+     <div class="row" style="gap:20px">${col('320 × 568', crop(f('c10-rest320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('List down', crop(f('c10-collapsed'), 0, 300, 390, 844, 575 / 390), 575)}</div><div class="gap"></div>`,
+  [R10 + 'C7-pressed-3x.png']: `${cap('Pressed', 'The claim-check end goes deep orange and the paper one step down: the pressed look of every orange action.')}
+     <div class="row" style="gap:20px">${col('Rest', crop(f('c10-rest'), 0, 425, 140, 525, 575 / 140), 575)}${col('Pressed', crop(f('c10-pressed'), 0, 425, 140, 525, 575 / 140), 575)}</div><div class="gap"></div>`,
+  [EF + 'F1-rest-vs-today-3x.png']: `${cap('Float · the badge', 'Today’s scalloped badge, in orange and bigger, at the bottom-left by your thumb; the account badge alone at the top.')}
+     ${pair(f('r9-today'), 'Today', f('f10-rest'), 'Float', 640)}<div class="gap"></div>`,
+  [EF + 'F2-real-size-3x.png']: `${cap('Float at real size', 'As your phone shows it (1x, each pixel as you’d see it), with the app’s own pins and the account badge.')}
+     ${crop1(f('f10-rest-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
+  [EF + 'F3-squint-1x.png']: `${cap('The squint test', 'The same screen blurred: the + should come before the account badge.')}
+     <div class="row" style="padding:0 30px;gap:18px">${col('1x', crop1(f('f10-rest-1x'), 0, 0, 390, 544, 1.4), 546)}${col('Blurred', crop1(f('f10-rest-1x'), 0, 0, 390, 544, 1.4, true), 546)}</div>
+     ${note('Measured: 1.34× the account badge’s weight with a light blur, 1.33× with a heavier one.')}`,
+  [EF + 'F4-tap-3x.png']: `${cap('Tap it (Safari, 390×664)', 'The same blank form rises above the keyboard; the map behind is washed back until there’s an address. The badge is gone while you add: the tag’s × is the one cancel.')}
+     ${pair(f('f10-rest664'), 'At rest', f('f10-tapped664'), 'Tapped: type the name', 664)}<div class="gap"></div>`,
+  [EF + 'F5-tag-open-3x.png']: `${cap('A place’s tag open', 'It stays where it is and can be tapped: adding closes the place’s tag, and cancelling brings it back. The list sits a little lower to make room.')}${full(f('f10-tag664'))}<div class="gap"></div>`,
+  [EF + 'F6-sizes-3x.png']: `${cap('Small phone, list down', 'Left: 320 wide. Right: list down on the Home Screen app: it rides the list’s edge.')}
+     <div class="row" style="gap:20px">${col('320 × 568', crop(f('f10-rest320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('List down', crop(f('f10-collapsed'), 0, 300, 390, 844, 575 / 390), 575)}</div><div class="gap"></div>`,
+  [EF + 'F7-pressed-3x.png']: `${cap('Pressed', 'Deep orange with a paper +: the pressed look of every orange action.')}
+     <div class="row" style="gap:20px">${col('Rest', crop(f('f10-rest'), 0, 425, 140, 525, 575 / 140), 575)}${col('Pressed', crop(f('f10-pressed'), 0, 425, 140, 525, 575 / 140), 575)}</div><div class="gap"></div>`,
 };
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${dd}/chrome-linux/chrome`, args: ['--allow-file-access-from-files'] });

@@ -6,12 +6,12 @@ const C = __dirname, CON = path.dirname(C), real = fs.readFileSync('/home/user/t
 const BT = fs.readFileSync(path.join(C, 'blank.inc.html'), 'utf8');
 const inj = (h, incs, attrs) => { const i = h.lastIndexOf('</body>'); return (h.slice(0, i) + incs.join('\n') + '\n' + h.slice(i)).replace('<html lang="en"', `<html lang="en" ${attrs}`); };
 // the credit's "Leaflet |" prefix drops below a 338px map (the Float's rule; P needs it at 320)
-const PREFIX = `<script>(function () { const t = setInterval(() => { try { if (map && map.attributionControl) { if (map.getSize().x < 338) map.attributionControl.setPrefix(false); clearInterval(t); } } catch (e) {} }, 50); })();</script>`;
+const PREFIX = `<script>(function () { const t = setInterval(() => { try { if (map && map.attributionControl) { if (map.getSize().x < 380) map.attributionControl.setPrefix(false); clearInterval(t); } } catch (e) {} }, 50); })();</script>`;
 const HTML = {
   today: real,
   P: inj(real, [BT, PREFIX], 'data-k="P"'),
   A: inj(real, [rd('stub/r5.inc.html'), rd('stub/r6.inc.html'), rd('stub/r7.inc.html'), BT], 'data-k="A" data-a="tag7" data-eye="none"'),
-  F: inj(real, [BT, PREFIX], 'data-k="F"'),
+  F: inj(real.replace('const TAG_SHEET_GAP = 48;', 'const TAG_SHEET_GAP = 88;'), [BT, PREFIX], 'data-k="F"'),
 };
 // C (pin+tag button, round 9): k = 'C' (the pick) or 'C:<pin>:<stub>:<plus>' for the variants
 const CINC = fs.readFileSync(path.join(CON, 'C-pintag/c.inc.html'), 'utf8');
@@ -19,7 +19,7 @@ const CPICK = (process.env.CPICK || 'side:fillplus:rules:0:144:40:4:heavy').spli
 const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
 // C keys: 'C' (the pick) or 'C:<form>:<pin>:<plus>:<ps>:<w>:<pd>'
 const TINC = fs.readFileSync(path.join(CON, 'C-tag-r10/t.inc.html'), 'utf8');
-const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt] = k.split(':'); return inj(real, [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"`); }
+const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt] = k.split(':'); return inj(real.replace('const TAG_SHEET_GAP = 48;', 'const TAG_SHEET_GAP = 86;'), [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"`); }
   if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw, cg] = k === 'C' ? CPICK : k.split(':').slice(1);
   return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}" data-cg="${cg || ''}"`); };
 // ---------- helpers ----------
@@ -37,11 +37,11 @@ const hideP = p => p.evaluate(() => { const e = document.getElementById('lp'); i
 async function template(p) { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => { __BT.capture(); map.closePopup(); }); await p.waitForTimeout(700); }
 async function dock(p, s, kbH) { await template(p); await p.click('#collapseBtn'); await p.waitForTimeout(900); await zoomIn(p, s.centre || (process.env.DC ? JSON.parse(process.env.DC) : [64.1440, -21.9400])); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
 async function hang(p, s, place = 'Sundhöllin') { await openPlace(p, place, true); await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
-const floatBadge = (p, open) => p.evaluate(open => {   // the Float frame: R7's badge (60px, orange, account's scalloped die) at bottom-left
+const floatBadge = (p, open) => p.evaluate(open => {   // open: true = navy x (r9); 'press' = deep orange, paper +   // the Float frame: R7's badge (60px, orange, account's scalloped die) at bottom-left
   const a = document.getElementById('accountBtn'), m = getComputedStyle(a).webkitMaskImage || getComputedStyle(a).maskImage;
   let f = document.getElementById('fb'); if (!f) { f = document.createElement('div'); f.id = 'fb'; document.body.appendChild(f); }
-  f.style.cssText = `position:fixed;z-index:1500;left:15.2px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:${open ? 'var(--navy)' : 'var(--brand-orange)'};-webkit-mask-image:${m};-webkit-mask-size:100% 100%;mask-image:${m};mask-size:100% 100%`;
-  f.innerHTML = `<svg width="30" height="30" viewBox="0 0 24 24" style="transform:rotate(${open ? 45 : 0}deg)"><path d="M12 5V19M5 12H19" stroke="${open ? 'var(--paper)' : 'var(--navy)'}" stroke-width="3" stroke-linecap="round"/></svg>`;
+  f.style.cssText = `position:fixed;z-index:1500;left:15.2px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:${open === 'press' ? 'var(--brand-orange-deep)' : open ? 'var(--navy)' : 'var(--brand-orange)'};-webkit-mask-image:${m};-webkit-mask-size:100% 100%;mask-image:${m};mask-size:100% 100%`;
+  f.innerHTML = `<svg width="30" height="30" viewBox="0 0 24 24" style="transform:rotate(${open === true ? 45 : 0}deg)"><path d="M12 5V19M5 12H19" stroke="${open ? 'var(--paper)' : 'var(--navy)'}" stroke-width="3" stroke-linecap="round"/></svg>`;
   const S = document.getElementById('locations').getBoundingClientRect().top; f.style.top = (S - 20 - 60) + 'px';
 }, open);
 const fab = p => p.evaluate(() => {   // a stock Material FAB at P's place, for the kill test
@@ -166,6 +166,35 @@ F['r10-f-pinned844'] = { k: 'C', inset: true, run: async p => { await hang(p, { 
 F['r10-f-typing320'] = { k: 'C', vp: V320, run: async p => { await dock(p, { state: 'typing', wash: true, centre: [64.1500, -21.9480] }, 260); await cGone(p); } };
 F['r10-f-pinned320'] = { k: 'C', vp: V320, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
 
+// ================= ROUND 10b: one fixed card height; the city cue; C (#2) and the Float as two complete options =================
+const NOTE1 = 'Bring a towel';
+F['r10-f-typing664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'typing', wash: true, r10: true }); await cGone(p); } };
+F['r10-f-blankcard664'] = { k: 'C', vp: V664, run: async p => { await card(p, { state: 'blank', ...R10, centre: true, wash: true }); } };
+F['r10-f-pinned664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-pinned-starred664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, starred: true, visited: true, notes: NOTE1 }); await cGone(p); } };
+F['r10-f-city664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'cityopen', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-typing320'] = { k: 'C', vp: V320, run: async p => { await dock(p, { state: 'typing', wash: true, r10: true, centre: [64.1500, -21.9480] }, 260); await cGone(p); } };
+const tGone = p => p.evaluate(() => { const e = document.getElementById('tb'); if (e) e.classList.add('gone'); });
+const fGone = p => p.evaluate(() => { const e = document.getElementById('fb'); if (e) e.style.display = 'none'; });
+const TC = 'T:twoend';
+both('c10-rest', { k: TC, zoom: true, centre: CREST });
+F['c10-pressed'] = { k: TC, zoom: true, centre: CREST, run: async p => { await p.evaluate(() => { document.getElementById('tb').classList.add('press'); __T.draw(); }); } };
+F['c10-rest664'] = { k: TC, vp: V664 };
+F['c10-tapped664'] = { k: TC, vp: V664, run: async p => { await dock(p, { state: 'typing', wash: true, r10: true }); await tGone(p); } };
+F['c10-tag664'] = { k: TC, vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
+F['c10-rest320'] = { k: TC, vp: V320, zoom: true, centre: [64.1400, -21.9250] };
+F['c10-rest375'] = { k: TC, vp: [375, 667], zoom: true, centre: CREST };
+F['c10-collapsed'] = { k: TC, inset: true, zoom: true, centre: [64.1500, -21.9450], run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); } };
+F['c10-none-1x'] = { k: TC, zoom: true, centre: CREST, dsf: 1, run: tGone };
+F['c10-noacct-1x'] = { k: TC, zoom: true, centre: CREST, dsf: 1, run: async p => { await tGone(p); await p.evaluate(() => document.getElementById('accountBtn').style.visibility = 'hidden'); } };
+both('f10-rest', { k: 'F', zoom: true, centre: CREST, run: p => floatBadge(p, false) });
+F['f10-pressed'] = { k: 'F', zoom: true, centre: CREST, run: p => floatBadge(p, 'press') };
+F['f10-rest664'] = { k: 'F', vp: V664, run: p => floatBadge(p, false) };
+F['f10-tapped664'] = { k: 'F', vp: V664, run: async p => { await dock(p, { state: 'typing', wash: true, r10: true }); } };
+F['f10-tag664'] = { k: 'F', vp: V664, run: async p => { await openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur'); await floatBadge(p, false); } };
+F['f10-rest320'] = { k: 'F', vp: V320, zoom: true, centre: [64.1400, -21.9250], run: p => floatBadge(p, false) };
+F['f10-collapsed'] = { k: 'F', inset: true, zoom: true, centre: [64.1500, -21.9450], run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); await floatBadge(p, false); } };
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {
@@ -184,7 +213,7 @@ F['r10-f-pinned320'] = { k: 'C', vp: V320, run: async p => { await hang(p, { sta
       const eye = document.querySelector('#btDock .tag-patch'); let eyePin = null;
       if (eye) { const e = eye.getBoundingClientRect(), cx = (e.left + e.right) / 2, cy = e.top + 14;
         eyePin = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return cx > r.left - 7 && cx < r.right + 7 && cy > r.top - 7 && cy < r.bottom + 7; }).length; }
-      const LP = document.getElementById('lp') || document.getElementById('cp') || document.getElementById('tb'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
+      const LP = document.getElementById('lp') || document.getElementById('cp') || document.getElementById('tb') || document.getElementById('fb'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
       const taps = window.__BT && __BT.taps && document.getElementById('btDock') ? __BT.taps() : null;
       return { taps, acctPins, eyePin, lpPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
     m.errs = errs; m.clash = await chromeCheck(page);

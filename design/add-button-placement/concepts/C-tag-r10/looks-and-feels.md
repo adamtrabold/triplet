@@ -1,5 +1,24 @@
 # C · The tag is the button (round 10): how it looks and feels
 
+## Round 10b (visual): C #2 as a complete option
+
+The full still set, matching the Float's, is in this folder:
+- C0: the two options side by side;
+- C1: rest vs today;
+- C2: real size;
+- C3: squint (systems' 1.37 / 1.31);
+- C4: tap (rest → docked, washed map);
+- C5: a place's tag open (C stays, gap 86);
+- C6: 320 + list down;
+- C7: pressed.
+
+The R1-R5 exploration stays as the record.
+
+- **Pressed:** the claim-check end goes `--brand-orange-deep` and the paper `--paper`.
+- **While adding:** the button is gone; the tag's × is the one cancel.
+- **The credit prefix** drops below a 380px map (systems).
+
+
 Visual, 2026-10-14. Owner (on round 9c): "i think the tag itself needs to be simplified … just the tag with the + in it, the dotted line, and the "claim check" end. then the + would not need to be in any container, so the tag itself becomes the button. explore that - don't assume a color for the tag … don't only respond to my specific notes." The header tag (A) is cut. Float is "fairly complete".
 
 Prototype: `t.inc.html` (dial `data-tv`; the variants are listed in its header), layered by `../blank-tag-form/stills.js` (page key `T:<variant>[:w[:tilt]]`, frames `t10-*`). Stills come from `../blank-tag-form/compose.js`.

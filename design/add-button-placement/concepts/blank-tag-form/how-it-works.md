@@ -1,5 +1,15 @@
 # The blank-tag form: how it works (shared by P, A and the Float frame)
 
+> **Visual, round 10b:**
+> - **Fixed card:**
+>   - the TYPE row is shown from blank (no pin selected);
+>   - the 48 top from the start;
+>   - the blank card at the pinned spot (room for the pin);
+>   - 154-458 at 664, ADD 398-458.
+> - **Typing (r10):** offers from 72, with NAME's caption hidden once there's text. 3 rows plus "Search everywhere" (36 tall) clear the keyboard at 664.
+> - **City cue:** a 1px underline under the city word; your hit band stands. The city list is 40px rows from 122 in the tag.
+> - **The Float hides while adding** (frames `f10-*`, gap 88). **C's gap is 86** (frames `c10-*`). The credit prefix rule is 380.
+
 > **Round 10b (systems, 2026-10-14): visual's round 10 reconciled with mine, plus how the wash → pinned change behaves.** Visual's frames are `r10-*` in `raw/measure.json`; the look is in `looks-and-feels.md` "Round 10".
 >
 > **Reconciled:**
