@@ -57,6 +57,7 @@ stills the owner approved, motion included).
 | **Arrival** | real mode, first boot right after a playground sign-in | the sign-in badge → the Strike → the signed-in badge | see Flows. A tap during it finishes it at once, then acts as the account badge |
 | **Signed in, rest** | real mode, user known | today's account badge | tap → dropdown |
 | Signed in, dropdown open | | today's `.active` look | tap the badge or outside → closes |
+| Signing out | `signOut()` in flight | the dropdown stays open, item "Signing out…" (disabled), badge in its open look | ignored until it returns |
 | **Departure** | right after Sign out succeeds | the signed-in badge → the dry-up → the sign-in badge, then the reload | taps ignored (≤540ms) |
 
 Accessible names:
@@ -141,7 +142,9 @@ Behaviour (applies to all three forms):
      skip the Strike and paint signed-in: a late animation reads as a glitch,
      not a confirmation.
    - A tap on the badge during the hold or the Strike jumps to signed-in and
-     opens the dropdown (the tap means "account", and it's true).
+     opens the dropdown (the tap means "account", and it's true). The jump
+     stops the Strike's clock and uses the look section's one-frame state
+     swap (transition off). The 3s skip uses the same swap.
 6. The Strike plays **only** when all of these hold: the marker said `in`,
    the mode is real, and a user is confirmed. It never plays on a plain
    reload, on a cold start, in a tab that reloaded because another tab signed
@@ -158,12 +161,15 @@ succeed, because only two accounts exist.
 
 **3. Sign out (the real app)**
 1. Tap the badge → the dropdown (the badge turns orange) → **Sign out**.
-2. The dropdown closes and the badge goes back to navy. The item reads
-   "Signing out…" for the moment `signOut({ scope: 'local' })` takes. On an
-   error, show the app's error banner "Couldn't sign out. Try again." and stay
-   signed in.
-3. Success → write the hop marker `{ dir: 'out', view }` → play **the
-   dry-up** in place (540ms, the `DRY` constants): the navy dries away and the
+2. While `signOut({ scope: 'local' })` runs, the dropdown **stays open**, its
+   item reads "Signing out…" and is disabled, and the badge stays in its open
+   look. Taps elsewhere don't close it until the call returns. On an error,
+   the item goes back to "Sign out", the dropdown stays open, and the app's
+   error banner shows "Couldn't sign out. Try again." You stay signed in.
+3. Success → the dropdown closes and the badge drops `.active` (back to navy
+   rest; today's 150ms transition is fine here) → write the hop marker
+   `{ dir: 'out', view }` → play **the dry-up** in place, starting from the
+   navy rest look (540ms, the `DRY` constants): the navy dries away and the
    sign-in badge is left → reload into the playground. Under Reduce Motion,
    swap to the sign-in badge and reload, with no dry-up.
    **Builder:** the `SIGNED_OUT` listener reloads at once today. When this tab
@@ -472,6 +478,49 @@ sign out (flow 3), and edit while signed out in the real app (flow 4 and the
 sheet's third column) are all covered. One correction: `jobs.md`'s sign-out
 line says "(That's if Q1 is yes.)". Q1 is now answered by the product, and
 signing out lands in the playground.
+
+## Handoff check (systems, 2026-10-14)
+
+I read both halves against each other and against `jobs.md`. Every state in
+How it works has a look, and nothing in the look contradicts the flows:
+- signed-out rest, pressed, hover and focus
+- sheet open
+- arrival (the signed-out look, then the Strike)
+- signed in and its dropdown
+- departure (the dry-up from navy rest, then the reload)
+- Reduce Motion
+- sizes
+
+Auth-unknown needs no look, because the button stays hidden. The same goes
+for `#accountFocus`.
+
+I fixed two gaps in my part:
+1. **Sign out:** the "Signing out…" item had nowhere to show, because the
+   dropdown was closing first. It now stays open while the call runs and
+   closes on success, before the dry-up. I added a row for it to the
+   states table.
+2. **Arrival:** the tap-to-finish and the 3s skip now name the look's
+   one-frame swap.
+
+Notes on the visual part (no edits made there):
+1. **Sheet states have no look.** The busy primary ("Signing in…", disabled),
+   the read-only fields and the disabled "Signing out…" menu item have no
+   look specified. The error line can reuse `#authError` as it is. The
+   sheet's look is "unchanged", but these states are new, so they need one
+   line each (for example, how disabled reads on the orange primary).
+2. **Strike start on arrival.** The first frame is "the signed-out badge",
+   which matches. Say explicitly that the hold paints the full V[14] in real
+   mode, with `#accountBtn`'s mask off, until the Strike starts.
+3. **Dry-up start.** It begins from the navy rest look, after `.active` has
+   come off with today's 150ms transition. "Transition off" applies from the
+   first dry-up frame, not to the close. Confirm this sequencing reads well:
+   orange to navy, then the dry.
+4. **The 130ms blot is r 21, not the 19.5 in the stills.** That's a
+   deliberate change from what the owner approved. It's small, and it's
+   flagged there. It falls under the director's build watch, not an owner
+   question.
+
+Result: **PASS**, once the visual designer adds note 1 (and ideally 2 and 3).
 
 ## Open questions
 - **Q2 (owner, still unanswered):** is the one line in the sign-in sheet
