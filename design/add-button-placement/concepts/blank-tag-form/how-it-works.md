@@ -1,9 +1,21 @@
 # The blank-tag form: how it works (shared by P, A and the Float frame)
 
-> **Round 8, visual's changes folded in by systems (2026-10-14).** Followed: 1 (a fixed blank tag, 316 with the stub, from the first frame; the stub never moves while you type), 2 (results overlay the lower lines), 3 (the taller hanging tag, ADD y 518-578 at 664), 4 (Float pan target 512), and NOTES before TYPE.
-> Two changes, said plainly:
-> - **(2) The results start under the name rule, not at 89.** At 664, starting at 89 gives 157px, or 3.3 rows of 48, which is fine. At 320x568, with a 260 keyboard, it gives 137px, or **2.85 rows, under the floor of 3**. Starting the results panel right under the NAME rule (72 below the tag's top, covering the NAME caption while you type, since the typed text is its own label) gives 3.6 at 664 and 3.2 at 320. Visual may keep 89 at 664 and above, and use 72 only on short screens; one rule everywhere is simpler.
-> - **(5) The tag does not shrink while it's open.** On ADD the rules and captions fade, but the paper keeps its height until the tag closes. The real tag's height applies from the next opening. Shrinking a tag that hangs from its top moves the stub up 60-100px: the ADD you just tapped (now DIRECTIONS) changes place under your thumb. That breaks the owner's "I don't want … the button to change physical location after click". If visual prefers the shrink, it's the director's call, with that quote beside it.
+> **Round 8b, checked and folded in by systems (2026-10-14).** This replaces the round-8 note. Visual's numbers are in `looks-and-feels.md` "Round 8b" and `blank.inc.html`.
+>
+> **Followed (numbers checked):**
+> - **The picked tag is 248** (48 top + 4 x 32 rows + 12 foot + the 60 stub), the real tag plus the NOTES row only.
+> - **ADD → DIRECTIONS at y 528-588 at 664, and it never moves.** On ADD the tag tightens to the real tag by its *top* coming down while the map pans down by the same amount. The stub's foot is the pin's y + `TAG_HANG` + the height, so the stub stays put when the pin moves +Δ and the height shrinks by Δ.
+>   - At 664 the picked tag runs 340-588, with the pin at 280-312.
+>   - The foot is 16 above the list's band (604).
+>   - The director's fallback (no shrink, no empty paper) is only needed if Leaflet's `panBy` can't track the 300ms CSS shrink. That goes on the iPhone checks: the stub must not jitter.
+> - **The list stays at its band until the new tag closes.** This is the cost of a stub that doesn't move. If the list rose to fit the tag, the tag would have to move up. Two owner rules meet here: "controls don't move" against "an open tag adjusts the list, it doesn't close it". I think it's acceptable because the add put the list down and nothing *closes* it. It still goes on the director's objection list.
+> - Results start at 89 on tall screens and at 72 on short ones, where NAME's caption also hides. The lines under the results hide.
+>
+> **One change, said plainly:**
+> - **The 89/72 switch should go by room, not `innerHeight < 600`.** The rule: start at 89 when the space below it, down to the keyboard, holds 3 rows (152px); otherwise start at 72. It gives the same answer on every screen measured: 664 → 89, 3.3 rows; 667 → 89, 3.3; 844 Home Screen → 89, 3.5; 568 → 72, 3.2. It also catches screens just over 600 that fail by height: a 375x629 mini Safari tab with a 336 keyboard leaves only 2.5 rows at 89. That one is under 3 even at 72 (2.9), so it's an iPhone check, and the keyboard height there is unverified.
+>
+> **Found (for visual / the builder):**
+> - `.bt-f` is a **fixed** 32px row, so a long name (the real tag wraps names) or a long note (owner: "long notes should just show full length") overflows its row. Rows should be `min-height: 32px` and grow. The 32 rhythm applies to single lines, and the shrink-by-the-top on ADD still keeps the stub put.
 
 Systems, concept turn 1 (2026-10-14). The rulings are from jam turns 30-35;
 the jobs are numbered as in `../../jobs.md`. The look belongs to visual
@@ -106,10 +118,10 @@ The results start 72 below the tag's top. With visual's 89 it would be 3.3 at 66
 - The floor of 3 holds everywhere with 48px rows. **46px rows aren't
   needed** at 320 under these assumptions (the director asked).
 - **After a pick** (visual's round 8 numbers, checked against the band):
-  - the hanging tag is 316 tall (about 338-358 with a question; +12 when starred);
+  - the hanging tag is 248 tall (round 8b; more with a question, a long name or long notes, the row growing; +12 when starred);
   - the map pans so the tag's foot clears the list's band by 16;
-  - **at 664: ADD at y 518-578, the tag's top 262, the pin 202-234**;
-  - **at 320x568:** the tag's top is about 176 and the pin about 116-148. The worst case (question + starred, about 370) puts the tag's top at about 122 and the pin at about 62-94. The pin's x is 144-176 and the account badge's is 254-304, so it's clear. **It fits with no inner scroll;** the tag scrolls inside only below about 540 tall (landscape).
+  - **at 664 (round 8b): the tag is 248, at 340-588; ADD at y 528-588; the pin at 280-312**;
+  - **at 320x568** (round 8 numbers at 316, so 8b is roomier): the tag's top is about 176 and the pin about 116-148. The worst case (question + starred, about 370) puts the tag's top at about 122 and the pin at about 62-94. The pin's x is 144-176 and the account badge's is 254-304, so it's clear. **It fits with no inner scroll;** the tag scrolls inside only below about 540 tall (landscape).
   - **Float frame:** the pan target for the tag's foot is 512 at 664, to clear the open badge (× at 524-584). That puts ADD at about 452-512, still in the thumb zone.
 
 ## Cancel and draft
@@ -131,13 +143,12 @@ The results start 72 below the tag's top. With visual's 89 it would be 3.3 at 66
 
 ## After ADD
 
-1. The ink-over.
-2. If the place's city isn't the active one, the list switches to it.
-3. The row is selected and scrolled fully into view.
-4. The list comes back up.
-5. The place's tag stays open (it is now that tag).
-6. The draft is cleared.
-7. The trigger comes back to rest:
+1. The ink-over. The tag tightens to the real tag by its top while the map pans the same amount, so the stub (now DIRECTIONS) doesn't move.
+2. If the place's city isn't the active one, the list switches to it (still at its band).
+3. The place's tag stays open (it is now that tag). The list **stays at its band until the tag closes** (round 8b).
+4. When it closes, the list comes back up with the new row scrolled fully into view. It isn't selected, because selection follows the open tag and close clears it (the shipped rule).
+5. The draft is cleared.
+6. The trigger comes back to rest:
    - P: the fresh lifted pin appears when this tag closes;
    - A: + on the header;
    - Float: the badge's +.

@@ -69,8 +69,9 @@ Your words:
     - ADD inks the tag: your pencil turns to ink and the type is stamped.
       The pin takes the place's kind and glyph, and the place's own tag
       is open.
-    - The list switches to the place's city if it needs to, and the new
-      row is selected and in view.
+    - The list switches to the place's city if it needs to. It stays down
+      while the new tag is open, and when you close the tag it comes back
+      up with the new row in view.
     - When you close the tag, a fresh blank + is waiting.
 14. **Districts and streets go through the same tag.** *(inferred: "Every
     category should have the same information and capabilities")* Same
@@ -148,11 +149,13 @@ How the parts behave:
 6. **Ink-over:**
    - The name inks and TYPE is stamped. VISITED already stamped when you
      set it.
-   - ADD becomes DIRECTIONS in the same spot (the tag doesn't shrink
-     under your thumb), and the pin becomes the place's own pin.
-   - The list comes back up, on the place's city, with its row selected
-     and in view. The place's tag stays open.
-7. **Close the tag:** the fresh lifted pin is at bottom-left.
+   - The tag tightens to the real tag's size from the top, with the map
+     moving with it. ADD becomes DIRECTIONS in the very same spot under
+     your thumb, and the pin becomes the place's own pin.
+   - The place's tag stays open, and the list stays down (on the place's
+     city).
+7. **Close the tag:** the list comes back up with the new row in view,
+   and the fresh lifted pin is at bottom-left.
 
 ### Add a place: A, the header tag (phone)
 

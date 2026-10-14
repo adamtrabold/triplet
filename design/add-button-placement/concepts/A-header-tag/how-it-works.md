@@ -48,8 +48,9 @@ round-7 measures are `../stub/` (`looks-and-feels.md` "Round 7",
    - type, then pick: the keyboard drops, the list drops to its band with
      the × still on it, the map flies, the pin lands and the tag hangs;
    - ADD, then the ink-over;
-   - the list comes back on the place's city with the row in view, and
-     the header tag is + again.
+   - the header tag is + again, on the band. The list stays at its band
+     while the new tag is open, and comes up with the row in view when it
+     closes.
 2. **Cancel:** the tag's × or the band's ×. The tag goes back down into
    the cut, and everything is restored; the draft is kept.
 3. **A tag is open:** tap the header tag → the open tag closes and the
@@ -63,10 +64,10 @@ round-7 measures are `../stub/` (`looks-and-feels.md` "Round 7",
 - A uses the shared form unchanged:
   - the fixed 316 blank tag;
   - results over its lower lines from under the NAME rule;
-  - ADD at y 518-578 at 664 after the pick, with the list on its band
+  - ADD at y 528-588 at 664 after the pick (round 8b), with the list on its band
     and A's × on it.
 - The × on the band (at 664, y about 604-664, at the right) and ADD
-  (518-578) are 26px or more apart vertically, so there's no mis-tap
+  (528-588) are 16px apart vertically (round 8b), so there's no mis-tap
   overlap.
 
 ## Collisions (job 4)

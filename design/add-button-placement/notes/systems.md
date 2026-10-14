@@ -515,3 +515,18 @@ result count at 664 with keyboard, and the docked-tag heights.
   - the tag does NOT shrink on ADD while it's open (the stub, i.e. the ADD just tapped, would move up 60-100px, against "I don't want … the button to change physical location after click"). The rules fade; the height holds until close. Director's call if visual disagrees.
 - `jobs.md`: the blank-tag order (NOTES before TYPE), the fixed whole blank tag, the ink-over wording, 844 sizes (about 4 results plus the visible stub).
 - Re-check: all jobs hold on P and A (P keeps its 2 job-1 exceptions). A: the band's × (about 604-661) is 26px below ADD (578).
+
+## Round 8b fold-in (2026-10-14)
+- Followed (checked):
+  - the picked tag is 248 (48 + 4x32 + 12 + 60);
+  - ADD/DIRECTIONS fixed at 528-588 at 664: the tag's top comes down while the map pans by the same Δ, so the foot = pinY + TAG_HANG + h is constant. The tag is at 340-588, the pin at 280-312, and the foot 16 above the band;
+  - the list stays at its band until the tag closes;
+  - results at 89 or 72, the NAME caption docking, the lines under the results hidden.
+- Changed: the 89/72 switch goes by room (3 rows = 152px below the start), not `innerHeight < 600`. It's the same on every measured screen. The 375x629 mini tab is under 3 either way (2.5 / 2.9): an iPhone check, keyboard height unverified.
+- Found:
+  - `.bt-f` has a fixed `height: 32px`, so long names and notes overflow. Use `min-height`.
+  - The rule clash for the director: "controls don't move" vs "an open tag adjusts the list, it doesn't close it" (the list held at the band).
+  - After close, the row is in view but not selected (selection follows the tag). jobs.md 13 was reworded.
+- The iPhone check: `panBy` in sync with the 300ms CSS shrink (no stub jitter); the director's fallback exists.
+- A: the band's × is now 16px under ADD (588 vs 604). Still distinct.
+- All jobs hold on P and A, except the long-name/notes overflow (a builder/visual fix).

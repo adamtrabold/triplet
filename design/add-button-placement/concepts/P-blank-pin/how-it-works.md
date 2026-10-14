@@ -74,11 +74,12 @@ Systems, concept turn 1 (2026-10-14). P is the trigger. The form is
    - pick: the keyboard drops, the list drops to its band, the map flies,
      the pin **lands** on the spot and the tag hangs from it with
      everything in pencil;
-   - ADD (y 518-578 at 664, round 8);
+   - ADD (y 528-588 at 664, round 8b; it stays there as DIRECTIONS);
    - ink-over;
-   - the list comes back on the place's city with the row in view, and
-     the place's tag is open;
-   - close it: the fresh lifted pin is at bottom-left.
+   - the place's tag is open, with the list still at its band (on the
+     place's city);
+   - close it: the list comes up with the row in view, and the fresh
+     lifted pin is at bottom-left.
 2. **Cancel:** the tag's × → the tag goes back up its string, the pin
    drops back to rest, and everything is restored; the draft is kept.
 3. **A tag is open:** close it (×, a map tap or Esc), and then flow 1.
@@ -133,3 +134,21 @@ re-checked jobs 1-16:
   open (form spec, top note).
 - **Job 1:** P's two exceptions are unchanged.
 - Everything else is unchanged.
+
+## Round 8b re-check (systems)
+
+The changes: the picked tag is 248, ADD is fixed at 528-588 through the
+top shrink plus a pan, the list stays at its band until the tag closes,
+and the results start at 89 or 72 by room. I re-checked every job:
+- **7 (≥ 3 results):** holds: 3.3 at 664 and 667, 3.5 at 844 Home Screen,
+  3.2 at 320. The 375x629 mini tab is an iPhone check.
+- **11 (exactly what you'll get):** holds, and it's stronger: the tag is
+  the real tag on ADD, not on the next open.
+- **12 (finish near the thumb):** holds, at 528-588.
+- **13 (watch it become the place):** holds, with new wording: the row
+  shows in view when the tag closes. It isn't selected; that's the shipped
+  rule.
+- **15 (never lose what you wrote):** holds.
+- **6 / 11 with a long name or long notes:** **fails as built**, because
+  the rows are a fixed 32px. The fix is `min-height`.
+- **1:** P's exceptions are unchanged.
