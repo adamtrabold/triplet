@@ -395,3 +395,45 @@ Costs:
 
 `check.js` now takes `CKEY`/`CATTR` and has a corner-hit probe. The
 section is in C's how-it-works.
+
+---
+
+## Round 7 (2026-10-14), jam turn 26: Float at the left at 60, A's tag cut
+The owner liked the orange 60px Float and wants it on the left. A becomes
+the Hanging Tag cut. C is parked.
+
+Built `concepts/r7-check/`:
+- `float-left.js`: derived from `r6-check/check.js`.
+  - Corner l, transform-origin at the lower-left ink.
+  - R17's style is now separate from the prefix-drop script (`noprefix`).
+  - `data-formline="beside|above"` patches the ride form.
+  - Extra measures: inkFromLeft, centreX, zoom box, form box, map strip,
+    Add vs × gaps.
+- `a-tag.js`: the tag cut vs admission. Title, chamfer and eyelet hits,
+  locate icon gap, at 320/375/390.
+
+Findings:
+- Box 15.2,468.8 – 75.2,528.8.
+- Ink 19.9 from the side and the list, 0.9 off the rings' ink. Align ink,
+  not glyph.
+- Credit bottom-right: the prefix fits at 375 and wider, overlaps 6.3 at
+  320. Rule: drop it below about 338.
+- 88 is confirmed (664: 16.8 clear, 3 rows; 320: 13.8, 1 row).
+- Zoom: 7.9 off the ink line, far above.
+- Form A (beside, 87.2–374, off the spine) vs B (above, 56–374 on the
+  spine, +64px up, the map strip gone at 664). C and D rejected.
+- Desktop: 375.2,724.8.
+- Cancel, filters, playground, stale and collapsed states verified.
+- Back-swipe: an iPhone check (Safari tab).
+- A tag cut: same box and title cost. Chamfers open space next to locate.
+  The eyelet is about 19.5px from locate's round icon (the dot / "fourth
+  icon" risk).
+
+Decisions (mine): ink-edge alignment; the conditional prefix rule.
+Open:
+- Director: form line A vs B; the prefix rule.
+- Visual: the zoom "+" vs the badge "+" at 1x; the open × vs the ▲ axis;
+  the eyelet.
+
+Next: the director rules. Then visual shoots the stills. Then the coverage
+check on what goes to the owner.

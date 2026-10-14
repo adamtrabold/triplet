@@ -2571,3 +2571,68 @@ mirror that isn't free (alignment at 60px, the credit going back to the
 right, the form line losing its spine, the zoom column, the usual states);
 measure it and bring the form-line options before visual shoots the owner
 stills and mocks A's Hanging Tag cut.
+
+---
+
+## Turn 26 -- product designer (systems focus): Float at the left, measured; A's tag cut checked
+
+Measured on today's main:
+- scripts: `concepts/r7-check/` (`float-left.js`, `a-tag.js`);
+- numbers in `measure.json` and `measure-A.json`;
+- frames in `frames/`.
+
+`chrome-check` is clean apart from the pre-existing filters flags. 0 pins
+under the badge in all 5 cities, list up and collapsed.
+
+**Float, bottom-left at 60** (box 15.2,468.8 – 75.2,528.8 at 844):
+- **Alignment.** Align the ink edge, not the glyph. The ink sits 19.9 from
+  the side and the list, 0.9px from the category rings' ink: the "one left
+  channel" holds at 60. Centring the + on the ring axis (30) puts the box
+  flush with the screen edge.
+- **The credit goes back to bottom-right.** "Leaflet |" fits at 390
+  (63.7px clear) and 375 (48.7). **At 320 it overlaps by 6.3**, so: drop
+  the prefix below about 338px of map width, keep it above.
+- **`TAG_SHEET_GAP` 88 is confirmed.** 664: 16.8px clear, 3 rows. 320:
+  13.8px clear, 1 row (today 2). These are the right corner's numbers
+  exactly.
+- **Zoom on the same side:** 7.9px off the badge's ink line and 395px
+  above it at 844. They never touch. Whether two "+" on the left read as
+  one family is for visual's 1x.
+- **Form line: two honest options**, both with the × riding down at the
+  left:
+  - **A, beside:** Add 87.2–374 on the ×'s line. It's 286.8 wide, but it
+    leaves the 56 spine by 31.2px.
+  - **B, above:** Add 56–374 on the spine, 12 above the ×, with the × alone
+    below. It's 64px further from the thumb and costs 64px of map (none
+    left at 664).
+  - Rejected: moving the × right on open (the button changes place on
+    tap), and shrinking the × (a 28px target).
+  - Both break no job. The open ×'s centre (45.2) is 15px off the band's ▲
+    axis below it. That's for visual if "small marks line up" decides it.
+- **States:** collapsed with the inset (15.2 clear of the band), tag →
+  form → cancel (`rey10` reopens), filters "under", the playground adds, a
+  stale session asks.
+- **Desktop:** the map column's bottom-left at 375.2,724.8, 15.2px from the
+  rail.
+- **iPhone list:** the back-swipe edge (Safari tab only: the box starts at
+  15.2).
+
+**A, the Hanging Tag cut** (the same box as A):
+- The title costs 32px, as before (COPENHA… at 320).
+- The cut corners and the eyelet tap as +, and locate keeps its own edge.
+- The chamfers *open* space beside locate (24px at the corners, 10 at
+  mid-height), so the cut doesn't crowd it at 320.
+- The flag: the eyelet hole is about 19.5px from locate's round crosshair.
+  That's the strongest pull toward "a fourth round icon" and "a dot".
+  Moving or dropping it is visual's call.
+
+**Coverage:**
+- Float-left: job 1 yes except with the filters open; jobs 3 to 6 yes
+  (job 5 with 88 and the conditional prefix).
+- A: all six as before.
+- Nothing is unsupported.
+
+NEXT: design director -- rule the form line (A beside vs B above) and the
+prefix rule (drop it below about 338px), so visual can shoot the
+Float-left owner stills and mock A's Hanging Tag cut with the eyelet flag
+in hand.

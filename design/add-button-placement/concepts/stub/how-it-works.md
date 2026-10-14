@@ -264,3 +264,46 @@ Checked on today's main (`../r6-check/a-check.js`, `measure-A.json`).
   - Job 4: yes.
   - Job 5: yes (title cost 32px).
   - Job 6: yes, against the playground.
+
+---
+
+## Round 7 (systems, jam turn 26): the Hanging Tag cut in the header, quick check
+
+The owner wants the tag cut mocked ("the tag ties better to the view
+state"). This is checked on today's main with the round-6 `data-a="tagcut"`
+mask (`../r7-check/a-tag.js`, `measure-A.json`, frames
+`../r7-check/frames/A-*`). Visual's round-7 mock may change the cut; the
+box is settled.
+
+| Width | Box | Title (Copenhagen list (23)) | Locate icon → cut edge |
+|---|---|---|---|
+| 320 | 260,268 – 320,325 | 84px, **"COPENHA…" ellipsized** | 10px at mid-height, 24px at the chamfered corners |
+| 375 | 315,367 – 375,424 | 139px, fits | 10 / 24 |
+| 390 | 330,544 – 390,601 | 154px, fits | 10 / 24 |
+
+- **The title cost is unchanged:** 32px shorter than today at every width,
+  the same as the admission ticket. The box is identical.
+- **Hit area:** the chamfer corners and the eyelet hit-test as the button
+  (a mask doesn't clip hits), and the locate button's own edge still
+  hit-tests as locate. No tap is lost or stolen.
+- **The locate icon at 320:** the header icons don't compress, so the gap
+  is the same at every width. **The chamfers *open* the space next to
+  locate** (24px at the corners vs 10 for a square edge), so the cut side
+  doesn't crowd it.
+- **The one structural flag is the eyelet.** It sits 9.5px in from the cut
+  edge, which puts the hole's centre about 19.5px from locate's 20px icon.
+  Locate is itself a round crosshair, so a round hole right beside it is
+  the strongest pull toward reading the tag as "a fourth round icon" (the
+  director's objection 2), as well as the dot (objection 1). Moving the
+  eyelet away from locate, or dropping it, helps both. That's visual's
+  call.
+- **The flows are unchanged:**
+  - the playground adds;
+  - a stale session asks you to sign in;
+  - cancel restores the view.
+- **Coverage, unchanged:**
+  - Job 1: yes, no exceptions.
+  - Job 3: yes.
+  - Job 4: yes.
+  - Job 5: yes (the title costs 32px).
+  - Job 6: yes.

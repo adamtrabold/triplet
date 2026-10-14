@@ -371,3 +371,159 @@ Unchanged from round 5:
 
 Job 2 is now carried by look as well as position (orange, 60, stamp edge).
 The squint test is the director's.
+
+---
+
+## Round 7 (systems, jam turn 26): the 60px orange Float at the bottom-LEFT
+
+The owner wants it on the left ("easier for me to reach"). The look is
+round 6's: orange stock, navy +, stamp edge, 60px. It's scaled about the
+**lower-left** ink corner, so the ink stays 19.9 from the side and from the
+list. Measured on today's main.
+- Script: `../r7-check/float-left.js`
+- Numbers: `../r7-check/measure.json`
+- Frames: `../r7-check/frames/F-*`
+
+Rulings carried over: ride on open, filters "under", `TAG_SHEET_GAP` from
+the box, navy open state with a paper ×.
+
+`chrome-check` is clean on every frame. The only flags are the
+pre-existing ones with the filters open.
+
+### Alignment
+
+| Line | x |
+|---|---|
+| Badge box / **ink left** / centre (+ glyph) | 15.2 – 75.2 / **19.9** / 45.2 |
+| Category-ring ink (rows) | 19.0 – 41.0, axis 30 |
+| Collapse ▼/▲ glyph | axis 30 |
+| Zoom control (top-left) | box 10 – 44, buttons 12 – 42, axis 27 |
+| Form fields' spine | 56 |
+
+- **The ring channel holds:** the badge's ink is 0.9px from the rings'
+  ink, the same as at 50px. **Align the ink edge, not the glyph.**
+  Centring the + on the ring axis (30) puts the box at 0–60, flush against
+  the screen edge, with ink 4.7px from it. That's the round-5 "falls off"
+  failure again.
+- **The zoom control on the same side:**
+  - Zoom's left edge is 12 and the badge's ink is 19.9 (7.9px apart).
+  - The axes are 27 vs 45.2.
+  - It sits 395px above the badge at 844, 215 at 664 and 119 at 320.
+  - They're on no shared line, and far apart vertically, but both are "+"
+    on the left edge. Whether they read as one control family at 1x is
+    visual's to show. Structurally they never touch.
+
+### Positions (box x1,y1,x2,y2)
+
+| State | Box | Finding |
+|---|---|---|
+| 390x844, list up | **15.2,468.8 – 75.2,528.8** | 4 rows. Hit-tests as itself. 0 pins under it in all 5 cities (list up and collapsed) |
+| 390x664 | 15.2,288.8 – 75.2,348.8 | 4 rows |
+| 375x667 | 15.2,291.8 – 75.2,351.8 | |
+| Collapsed, 34px inset | 15.2,674.8 – 75.2,734.8 | The band starts at 750: 15.2 box / 19.9 ink clear |
+| 320x568, Copenhagen | 15.2,192.8 – 75.2,252.8 | See the credit below |
+| Desktop 1280x800 | 375.2,724.8 – 435.2,784.8 | The map column's bottom-left, 15.2px from the rail's edge (the column starts at 360). Zoom is above it at 370–404. The credit is at the column's bottom-right |
+
+### OSM credit: back at Leaflet's default bottom-right
+
+| Width | With "Leaflet \|" (credit width 251) | Without (186) |
+|---|---|---|
+| 390 | **63.7px clear** | — |
+| 375 | **48.7px clear** | — |
+| 320 | **overlaps the badge by 6.3px** | 58.7px clear |
+
+**The prefix fits, and stays, at 375 and wider.** It has to drop below
+about 338px wide (badge right 75.2 + 251 + 12). The rule:
+`setPrefix(false)` when the map is narrower than 338. A simpler rule is to
+always drop it, but ruling 4 says keep it where it fits.
+
+### `TAG_SHEET_GAP` 88: confirmed at the left
+
+The tag spans 37–353 at 390 and 16–304 at 320, so it covers both corners.
+
+| State | Tag foot → badge box | Sheet lowers | Rows |
+|---|---|---|---|
+| Tag open, 844 | 122.8 | 0 | 4 |
+| Tag open, 664 | **16.8** | 74 | 3 (today 3) |
+| Longest-notes tag, 664 | 16.8 | 74 | 3 |
+| Tag open, 320x568 | **13.8** | 156 (cap) | **1 (today 2)** |
+
+These are the right corner's numbers exactly. 88 holds.
+
+### Form line: ADD LOCATION with the × at the left. Options for the director
+
+The badge rides down and turns × at 15.2–75.2. That box crosses the
+fields' 56 spine, so Add can't keep both its spine and the ×'s line. The
+×'s position and the ride are the same in every option.
+
+| | **A. Beside** (Add on the ×'s line, right of it) | **B. Above** (Add on the spine, the × alone below it) |
+|---|---|---|
+| 844 | × 708.8–768.8; **Add 87.2–374 × 716.8–760.8**, centred on the ×, 12px right of it | × 708.8–768.8; **Add 56–374 × 652.8–696.8**, 12px above the × |
+| 664 | Add 87.2–374 × 536.8–580.8 | Add 56–374 × 472.8–516.8 |
+| 320x568 | Add 87.2–304 × 440.8–484.8 (sticky, hit = Add) | Add 56–304 × 376.8–420.8 (hit = Add) |
+| Width | 286.8 (wider than the right corner's 246.8) | 318 (the full spine, as today) |
+| Spine | **breaks:** Add starts 31.2px right of the 56 spine. Its right edge (374) matches the fields | **holds:** Add lines up exactly with every field (56–374) |
+| Map strip above the form | 844: 251 / 664: 71 / 320: 12 | 844: **187** / 664: **12** (the credit steps out) / 320: 12 |
+| Thumb | Add stays on the band line, the lowest it can be | Add is **64px higher**. The × stays on the band line |
+| Pairing | Add and × on one line: "do / undo" side by side | The × reads as its own control under the form |
+
+- **Neither breaks a job.** A costs the spine; B costs 64px of map (all
+  of it at 664) and puts Add 64px further from the thumb.
+- **Rejected:**
+  - **C. Move the × to the right end while open.** It would mean the
+    button changes place on tap, which is owner taste ("I don't want ...
+    the button to change physical location after click").
+  - **D. Shrink the open ×** to clear the spine. The badge would have to
+    end at about 44: a 28px × (under the 44px tap minimum), which is still
+    its own size change.
+- **Note for visual:**
+  - In both options the open ×'s centre (45.2) sits 15px off the band's
+    ▲ axis (30) directly below it. "Small marks line up exactly" applies
+    there too.
+  - At rest the same is true of the ring axis. The ink edge is what lines
+    up (above).
+
+### Other states
+
+- **Tag open → + → cancel:** tag `rey10` reopens, the list is up, and the
+  badge is back at 468.8.
+- **Filters open:** the badge is under the panel (the hit at its centre is
+  a filter chip). "Close filters to add" is unchanged.
+- **Playground:** + adds (the account menu reads "Sign in").
+- **Stale session:** the sign-in sheet opens and nothing moves.
+- **Collapsed:** + opens the form with nothing moving. Option A's Add is
+  682.8–726.8.
+
+### iPhone checks to list (not solved here)
+
+- **The back-swipe edge.** The badge's box starts 15.2px from the left
+  edge (ink 19.9). In a Safari tab an edge swipe goes back. Check that a
+  tap on the badge's left third never starts a back navigation, and that a
+  back swipe starting at x < 15 doesn't press the badge. The Home Screen
+  app has no back swipe, so this is a Safari-tab check only.
+- A 60px masked stamp edge renders crisp at the left.
+- It rides in step with the sheet.
+
+### Builder notes (round 7)
+
+- `transform-origin` (or the drawn box) anchors at the lower-left ink.
+- The credit stays at Leaflet's default `bottomright` (drop
+  `setPosition('bottomleft')`).
+- `setPrefix(false)` only below about 338px of map width.
+- The form line follows the director's A/B ruling. For A, Add's left is
+  the badge's rendered right + 12, centred on its rendered centre. For B,
+  Add is full spine and the form's bottom padding is the badge's box top
+  above the edge + 12.
+
+### Coverage (round 7)
+
+| Job | Float, left |
+|---|---|
+| 1 Reach | yes (his hand, his side), except with the filters open |
+| 2 Main action | look as round 6, with the account at the opposite corner and no shared line. The squint test is visual's and the director's |
+| 3 Finish near the thumb | yes in both options. A keeps Add on the band line; B puts it 64px higher |
+| 4 Don't lose my place | yes (cancel verified) |
+| 5 Never in the way | yes, with `TAG_SHEET_GAP` 88 and the prefix dropped below 338px |
+| 6 Signed out (playground) | yes |
+
+No job is unsupported.
