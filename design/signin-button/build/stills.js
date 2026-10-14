@@ -61,7 +61,7 @@ const CROP = w => ({ x: w - 190, y: 0, width: 190, height: 96 });   // the top-r
     await page.waitForFunction(() => !badgeMotion && accountBadge === 'account'); await frame();
     await shot(page, 'arrival-end-signed-in', CROP(390));
     await shot(page, 'signed-in-screen');
-    await page.click('#accountBtn'); await frame();
+    await page.click('#accountBtn'); await page.mouse.move(100, 500); await page.waitForTimeout(300);   // released, hover off, the 150ms open transition done
     await shot(page, 'signed-in-dropdown', { x: 390 - 340, y: 0, width: 340, height: 230 });
     await page.evaluate(() => { window.__signoutDelay = 1500; });
     await page.click('#dropdownLogoutBtn'); await frame();
@@ -90,7 +90,7 @@ const CROP = w => ({ x: w - 190, y: 0, width: 190, height: 96 });   // the top-r
         page = await open(w, h, signedIn);
         await shot(page, `${name}-${signedIn ? 'signed-in' : 'signed-out'}`);
         if (!signedIn && name === '320') { await page.click('#accountBtn'); await frame(); await shot(page, '320-sheet'); }
-        if (signedIn && name === '320') { await page.click('#accountBtn'); await frame(); await shot(page, '320-dropdown'); }
+        if (signedIn && name === '320') { await page.click('#accountBtn'); await page.mouse.move(100, 500); await page.waitForTimeout(300); await shot(page, '320-dropdown'); }
         await page.context().close();
       }
     }

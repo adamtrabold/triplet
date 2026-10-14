@@ -13,9 +13,10 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 - **Playground = signed out (2026-10-13):** in a private Safari tab (signed
   out), open the app: your real places load; star, visit, delete and add
   one; reload and check they're all back to normal; check in your signed-in
-  app that none of it reached the real trip. Then account badge → Sign in →
-  sign in: the page reloads into the real trip, signed in. Logout: it
-  reloads into the playground, and your other devices stay signed in.
+  app that none of it reached the real trip. Then tap the SIGN IN badge and
+  sign in: the page reloads into the real trip, signed in. Account badge →
+  Sign out: it reloads into the playground, and your other devices stay
+  signed in.
 - **Sign-in badge (built 2026-10-14; check once it lands):** signed out, the
   corner shows the paper SIGN IN badge: (1) the tiny SIGN IN caps read
   cleanly in Safari and the word sits centred under the person (its tilt is

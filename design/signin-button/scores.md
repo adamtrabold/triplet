@@ -487,3 +487,44 @@ Stills for the owner (after the fixes): one composed sheet with
 `sheet-rest`, `sheet-busy`, `sheet-error-wrong`, and `signed-in-dropdown`
 (Sign out). Add a one-line note that the map is blank only in our test
 setup.
+
+## Build, round 2 (director, 2026-10-14, 149da59)
+
+Based on: `build/owner-sheet-3x.png` (all sections), the re-shot
+`sheet-rest`/`sheet-busy`/`sheet-error-wrong`/`sheet-error-offline` 3x
+laid side by side, `signed-in-dropdown-3x`, and builder.md round 2.
+
+**Did it change?** Yes, all three fixes landed, plus the reviewer's
+blocker:
+1. The jump is gone. Across rest, busy, wrong and offline, the header,
+   line, fields and both buttons sit on identical pixels. The error drops
+   into reserved room under Keep playing.
+2. The line now breaks at the sentence: "Only the trip's owners can sign
+   in. / Your changes here won't be kept." **Deviation `balance` instead
+   of `pretty`: accepted.** It's the better result (one sentence per line),
+   it works in today's Safari, and it's one short line, so balance's
+   costs don't apply.
+3. The dropdown is re-shot released: the true `.active` orange with a navy
+   person.
+- Flow 4 (sign in in place) now holds the paper badge until the Strike,
+  and the hop restore reopens clustered pins. Both are behaviour, to spec.
+
+Likely owner objections:
+1. The sheet at rest has an empty band at the bottom (the reserved error
+   room). Possible, low: it reads as the sheet's bottom margin, and it's
+   the price of nothing moving, which is his own rule.
+2. The sheet crops at half size are small on a phone. He can pinch, and
+   the sheet's look didn't change, only its words. Low.
+3. The new focus ring: flagged on the sheet as new and keyboard-only.
+   Low.
+
+### Build round 2: **9**
+The badge, both motions, the sheet's states and the menu all realise
+handoff.md, and the one craft fault from round 1 is fixed cleanly. I'd
+defend it as is.
+
+Owner sheet `build/owner-sheet-3x.png`: **ready to send as is.** Message:
+one line ("Built. Here's every state; the map's only blank in our test
+setup."), plus the iPhone checks (6px arc in Safari, arc centring, the
+warm edge) and Q2 if it's still open. The side-by-side with the new + is
+still pending on the + team.

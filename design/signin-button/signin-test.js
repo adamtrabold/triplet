@@ -161,7 +161,43 @@ const state = page => page.evaluate(() => ({ pg: PLAYGROUND, badge: accountBadge
   await page.waitForTimeout(1200);
   s = await state(page);
   check('in place: no reload, sheet closed, the Strike, Account', s.badge === 'account' && s.rec.ink > 5 && await page.evaluate(() => !authModal.classList.contains('show') && currentUser && currentUser.email === 'adamtrabold@gmail.com'), { ink: s.rec.ink });
+  // What the slot actually shows (not just the recorded state): the account glyph, no Strike frame left.
+  const look = p => p.evaluate(() => { const svg = accountBtn.querySelector('svg'), cs = getComputedStyle(accountBtn);
+    return { glyph: !!svg && svg.getAttribute('viewBox') === '0 0 24 24' && !!svg.querySelector('circle'), clip: !!accountBtn.querySelector('clipPath'),
+      signinCls: accountBtn.classList.contains('signin'), mask: (cs.maskImage || cs.webkitMaskImage) !== 'none', bg: cs.backgroundColor, label: accountBtn.getAttribute('aria-label'),
+      transform: cs.transform }; });
+  const isAccount = l => l.glyph && !l.clip && !l.signinCls && l.mask && l.label === 'Account';
+  let lk = await look(page);
+  check('in place: the slot shows the account badge (glyph, no ink frame, mask on)', isAccount(lk) && lk.bg === 'rgb(18, 41, 63)', lk);
+  await page.click('#accountBtn'); await page.waitForTimeout(250);
+  lk = await look(page);
+  check('in place: the dropdown opens with the orange open look', isAccount(lk) && lk.bg === 'rgb(238, 116, 52)' && await page.evaluate(() => accountDropdown.classList.contains('show') && accountBtn.getAttribute('aria-expanded') === 'true'), lk);
   check('no page errors', !page.__errs.length, page.__errs);
+  await page.close();
+
+  // 9b. A tap during the in-place Strike: signed in at once, the account badge, the dropdown open.
+  page = await newPage({}, `localStorage.setItem('${L.KEY}','{}'); window.__expired = true;`);
+  await page.goto(URL); await L.ready(page);
+  await page.click('#accountBtn');
+  await page.fill('#authEmailInput', 'a@b.c'); await page.fill('#authPasswordInput', 'pw'); await page.click('#loginBtn');
+  await page.waitForFunction(() => badgeMotion && badgeMotion.kind === 'strike' && badgeMotion.anim.currentTime > 60, null, { polling: 'raf', timeout: 5000 });
+  await page.evaluate(() => accountBtn.click());
+  await page.waitForTimeout(250);
+  lk = await look(page);
+  check('tap during the in-place Strike: account badge, orange, dropdown open, no scale left', isAccount(lk) && lk.bg === 'rgb(238, 116, 52)' && lk.transform === 'none' && await page.evaluate(() => !badgeMotion && accountDropdown.classList.contains('show')), lk);
+  check('no page errors (9b)', !page.__errs.length, page.__errs);
+  await page.close();
+
+  // 9c. The hop view restores a tag whose pin is clustered at the saved zoom (the normal open path steps in)
+  page = await newPage({}, `localStorage.setItem('${L.KEY}','{}')`);
+  await page.goto(URL); await L.ready(page);
+  s = await page.evaluate(async () => {
+    const id = document.querySelectorAll('#locationsList .location-card[data-id]')[4].getAttribute('data-id'), loc = locations.find(l => l.id === id);
+    restoreHopView({ lat: loc.lat, lng: loc.lng, zoom: 11, tag: id, at: null });
+    await new Promise(r => setTimeout(r, 1500));
+    return { id, tag: openTagKey(), zoom: map.getZoom() };
+  });
+  check('restore: a pin clustered at the saved zoom still reopens (stepped in to SOLO_MIN_ZOOM)', s.tag === s.id && s.zoom >= 14, s);
   await page.close();
 
   // 10. Keyboard focus ring follows the scallop, both states
