@@ -1,5 +1,48 @@
 # The blank-tag form: how it works (shared by P, A and the Float frame)
 
+> **Round 10b (systems, 2026-10-14): visual's round 10 reconciled with mine, plus how the wash → pinned change behaves.** Visual's frames are `r10-*` in `raw/measure.json`; the look is in `looks-and-feels.md` "Round 10".
+>
+> **Reconciled:**
+> - **TYPE: I follow visual's row of the app's pins, not my in-tag choice list.** It does more with less: choosing the type is choosing the pin you'll get, and the pin above the tag changes with it.
+>   - Hit areas: pins are 32 on a 40 pitch in a 40 strip, so each cell is 40 × 40, with no row overlaps.
+>   - The row scrolls sideways: 11 pins need 440 and 284 are visible, with a part pin at the edge.
+>   - The caption plus the picked name in pencil keeps the word beside the icon ("colour alone is not enough").
+> - **City: I follow the plain pencil look, not "it isn't a control".** If the city can't be tapped, a misfiled city can't be fixed until edit exists, which is "a future update". The pick's city is a guess (`maybeDetectCity`: the nearest city within 75 km), and Copenhagen and Malmö sit 28 km apart.
+>   - So: **the city word is tappable, with no chrome.** Its hit area is the address line's row band, right half, 40 high.
+>   - A tap prints your cities as rows in the tag's lower area (the same rows the search results use), plus "New city…" last. Tap one and it pencils in; the area closes.
+>   - The pin doesn't move: a city is a filing, not a location.
+>   - Re-picking the result (visual's lean) wouldn't change a detected city. A long-press can't be found.
+>   - If the director wants zero visible affordance, this is the one place job 18 bends, said plainly.
+> - **Width: I follow 104** and withdraw my 96 cap. The fix is the credit prefix dropping below a 380px map, not 338 (see `../C-tag-r10/how-it-works.md`).
+> - **The wash: it fits my three rules and improves them.** The pick's map move happens *under* the wash, so nobody sees the map move at all. See the behaviour below.
+>
+> **Two fixes the round-10 frames need (rule 2: the card never changes size while you fill it in):**
+> 1. **Blank → pinned grows the card by 24 at 664** (162-442 to 154-458), **so ADD moves 16px down** (382-442 → 398-458). The TYPE strip (40) should be there, empty, from the blank state, so the card is one height from the first frame.
+> 2. **Starring grows it by 17** (154-458 → 154-475), **so ADD moves 17px.** The band should print into the card's existing top space. The real tag keeps its 48 top whether or not it's starred, so the pinned card should use 48 from the start.
+>
+> With both fixed the card is one height (about 304 at 664). Measured at visual's placement it's 154-458, pin 94-126, ADD 398-458. **NOTES (about 274-306) is above the keyboard's top (328) at 664 and at 320**, so rule 1's lift rarely triggers.
+>
+> **The behaviour: the tag is pinned exactly when it has a picked place.**
+>
+> | Moment | Wash | Map | Tag | Pin |
+> |---|---|---|---|---|
+> | Tap + | on (`--paper` 78% over the map panes; the credit and controls above it) | **saves its view**; the list drops to its band | docked, eyelet empty | none |
+> | Typing, blank card (keyboard down, no pick) | on | still | visually centred | none |
+> | **Pick** | **stays on while the map jumps** (`setView`, no animation) so the place sits at the hanging point (x centre, tag top − 44) at zoom max(current, 16); then it lifts (200ms) | **the one move, hidden** | settles to its pinned spot (the same height) | **stands** on the string with the type's pin (a 12px settle) |
+> | TYPE change | — | still | — | changes glyph/colour in place |
+> | City correction | — | still | the address line's pencil changes | doesn't move |
+> | NOTES (keyboard up) | — | still | lifts to the dock only if NOTES would be covered (rare; see above), then returns | stays on the place; the string hides while lifted |
+> | Edit NAME (re-search) | **back on at the first changed character**: the address is void | still | docked | **removed** |
+> | New pick | as Pick | jump, hidden | — | stands |
+> | New city? (the pick is outside the trip) | as Pick (the jump may cross countries, hidden) | — | the question in the stub | stands |
+> | District / street | as Pick; the hanging point gets the area's centre **dot**, not a pin (shapes have no pin) | jump, hidden | — | the dot on the string |
+> | **ADD** | — | the tag tightens to the real tag by its top (about 304 → 196): **a 108px pan in step** (8b's mechanism), or no shrink until close. Shapes: the outline draws, and the map may zoom out to frame it (visible, one move) | ink-over; ADD → DIRECTIONS in place | gets its icon (shapes: the outline appears) |
+> | Cancel | on (120ms) | **jumps back to the saved view under the wash**; the wash goes with the tag | leaves | removed |
+>
+> - **Visible map moves per add: none before ADD.** One at ADD: the 108px settle, or none if the tag keeps its size; plus a zoom-out for some shapes. That's the strongest answer yet to "the map will have to move underneath … which will make it all confusing".
+> - **The `visualViewport` docking and the hidden jump are iPhone checks:** the wash must be painted before the jump.
+> - **Nothing is saved before ADD:** a pick only moves the view, and cancel restores it.
+
 > **Round 10 (systems, 2026-10-14): + is global; the search must reach any city.** The blank tag lost today's form's first field (City, which scopes the search via `userOverrodeCity`). The search now scopes to the map's city (`detectCityContext()`, a hard country filter) and widens only on zero results (`nominatimWithFallback`). **Fix:** the results' last line is always a printed tappable **"Search everywhere"**. It re-runs the text with `widenedSearchConfig(cfg)` (the viewbox as a soft hint), or no scope, and the pick's city is detected as today. The trigger hides while adding, for both C and the Float (proposed). The card's foot is then 6 above the credit, with ADD at 521-581 at 664, for both.
 
 > **Round 9b, checked by systems (2026-10-14).** Visual's `raw/measure.json` of 13:20.

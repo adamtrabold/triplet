@@ -579,3 +579,10 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Optical centre at about 45% of the open area: 664 card 176-440, pin 116-148, ADD 380-440; 320 card 133-397; 844 HS card 283-547.
 - Dropdowns → one choice pattern: choices print in the lower area (TYPE: 4x3 grid of about 71x40 or scrolling rows; city: your cities + "New city…").
 - jobs.md updated (jobs 7, 9, 13, 14, 15, 18; "Later, not now"; flows).
+
+## Round 10b (2026-10-14): reconciled with visual's round 10
+- C #2 (twoend 104x54) on the real render: **1.37 / 1.31** (≥ 1.2 both). #5 punched orange 3.85 (flood); #1 paper 0.41. Pins: 320 Stockholm 1 (list up) only; z14 16/16/20/4%. Credit: 9 at 390, 4 at 320, **touching at 375** → drop the prefix below a 380 map (was 338). Withdrew my 96 cap. TAG_SHEET_GAP 86 → stays tappable with a tag open.
+- Followed visual: the TYPE pin row (40x40 cells, scrolls), the 104 width, the wash. Didn't follow "city isn't a control": the city word is tappable with no chrome; the choices print as rows in the lower area (a misfiled city otherwise can't be fixed; edit is future).
+- Found in r10 frames: the card grows blank → pinned (+24, ADD moves 16) and when starred (+17). Fix: the TYPE strip is present from blank; the 48 top always.
+- Wash → pinned behaviour table in the form spec (Round 10b): the pick's jump is hidden under the wash → **0 visible map moves before ADD**; editing NAME re-voids the pin; cancel jumps back under the wash; ADD settle 108px pan (or no shrink).
+- Files: `C-tag-r10/how-it-works.md` (new), `r10-check/t-check.js` + `mass.py`, the form spec Round 10b note.
