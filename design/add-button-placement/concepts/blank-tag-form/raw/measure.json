@@ -1505,5 +1505,1866 @@
   "sheetTop": 604,
   "errs": [],
   "clash": []
+ },
+ "cv-fill-cream-tag": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-cream-tag-1x": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-navy-tag": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-navy-tag-1x": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-ring-cream-tag": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-ring-cream-tag-1x": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-cream-pin": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-cream-pin-1x": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-none": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-noacct": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": "hidden",
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-third-tag": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-third-tag-1x": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 2,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-cream-tag-big": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-cream-tag-big-1x": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-third-tag-big": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "cv-fill-third-tag-big-1x": {
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 1,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-today": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": null,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   266,
+   16,
+   316,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-today-1x": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": null,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   266,
+   16,
+   316,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-rest": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-rest-1x": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-alt": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-alt-1x": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-pressed": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 544,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-rest664": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   347.2,
+   390,
+   364
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 364,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-tapped664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     114,
+     353,
+     158
+    ]
+   ],
+   "chips": [],
+   "notes": [
+    [
+     53,
+     201,
+     337,
+     222
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     330,
+     142,
+     390
+    ],
+    [
+     142,
+     330,
+     248,
+     390
+    ],
+    [
+     248,
+     330,
+     353,
+     390
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   74,
+   353,
+   390
+  ],
+  "add": [
+   37,
+   330,
+   142.3,
+   390
+  ],
+  "pin": null,
+  "sheetTop": 364,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-tag664": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   381.2,
+   390,
+   398
+  ],
+  "tag": [
+   37,
+   142,
+   353,
+   346
+  ],
+  "add": null,
+  "pin": null,
+  "sheetTop": 398,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-rest320": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   254,
+   16,
+   304,
+   66
+  ],
+  "credit": [
+   133.9,
+   251.2,
+   320,
+   268
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 268,
+  "errs": [],
+  "clash": []
+ },
+ "r9-c-collapsed": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   733.2,
+   390,
+   750
+  ],
+  "tag": null,
+  "add": null,
+  "pin": null,
+  "sheetTop": 750,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-blank664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     114,
+     353,
+     158
+    ]
+   ],
+   "chips": [],
+   "notes": [
+    [
+     53,
+     201,
+     337,
+     222
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     330,
+     142,
+     390
+    ],
+    [
+     142,
+     330,
+     248,
+     390
+    ],
+    [
+     248,
+     330,
+     353,
+     390
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   74,
+   353,
+   390
+  ],
+  "add": [
+   37,
+   330,
+   142.3,
+   390
+  ],
+  "pin": null,
+  "sheetTop": 364,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-typing664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     114,
+     353,
+     158
+    ]
+   ],
+   "chips": [],
+   "notes": [
+    [
+     53,
+     201,
+     337,
+     222
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     330,
+     142,
+     390
+    ],
+    [
+     142,
+     330,
+     248,
+     390
+    ],
+    [
+     248,
+     330,
+     353,
+     390
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   74,
+   353,
+   390
+  ],
+  "add": [
+   37,
+   330,
+   142.3,
+   390
+  ],
+  "pin": null,
+  "sheetTop": 364,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-nores664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     114,
+     353,
+     158
+    ]
+   ],
+   "chips": [],
+   "notes": [
+    [
+     53,
+     201,
+     337,
+     222
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     330,
+     142,
+     390
+    ],
+    [
+     142,
+     330,
+     248,
+     390
+    ],
+    [
+     248,
+     330,
+     353,
+     390
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   74,
+   353,
+   390
+  ],
+  "add": [
+   37,
+   330,
+   142.3,
+   390
+  ],
+  "pin": null,
+  "sheetTop": 364,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-card664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     373,
+     353,
+     417
+    ]
+   ],
+   "chips": [
+    [
+     234,
+     416,
+     337,
+     441
+    ],
+    [
+     89,
+     478,
+     218,
+     503
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     456,
+     337,
+     477
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     521,
+     142,
+     581
+    ],
+    [
+     142,
+     521,
+     248,
+     581
+    ],
+    [
+     248,
+     521,
+     353,
+     581
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   333,
+   353,
+   581
+  ],
+  "add": [
+   37,
+   521,
+   142.3,
+   581
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-starred664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     356,
+     353,
+     400
+    ]
+   ],
+   "chips": [
+    [
+     234,
+     399,
+     337,
+     424
+    ],
+    [
+     89,
+     478,
+     218,
+     503
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     436,
+     337,
+     477
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     521,
+     142,
+     581
+    ],
+    [
+     142,
+     521,
+     248,
+     581
+    ],
+    [
+     248,
+     521,
+     353,
+     581
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   316,
+   353,
+   581
+  ],
+  "add": [
+   37,
+   521,
+   142.3,
+   581
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-shape664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     373,
+     353,
+     417
+    ]
+   ],
+   "chips": [
+    [
+     89,
+     478,
+     198,
+     503
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     456,
+     337,
+     477
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     521,
+     142,
+     581
+    ],
+    [
+     142,
+     521,
+     248,
+     581
+    ],
+    [
+     248,
+     521,
+     353,
+     581
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   333,
+   353,
+   581
+  ],
+  "add": [
+   37,
+   521,
+   142.3,
+   581
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-newcity664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     341,
+     353,
+     385
+    ]
+   ],
+   "chips": [
+    [
+     89,
+     446,
+     221,
+     471
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     424,
+     337,
+     445
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     521,
+     195,
+     581
+    ],
+    [
+     195,
+     521,
+     353,
+     581
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   301,
+   353,
+   581
+  ],
+  "add": [
+   37,
+   521,
+   195,
+   581
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-failed664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     331,
+     353,
+     375
+    ]
+   ],
+   "chips": [
+    [
+     234,
+     374,
+     337,
+     399
+    ],
+    [
+     89,
+     436,
+     218,
+     461
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     414,
+     337,
+     435
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     521,
+     142,
+     581
+    ],
+    [
+     142,
+     521,
+     248,
+     581
+    ],
+    [
+     248,
+     521,
+     353,
+     581
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   291,
+   353,
+   581
+  ],
+  "add": [
+   37,
+   521,
+   142.3,
+   581
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-after664": {
+  "taps": null,
+  "acctPins": 0,
+  "eyePin": null,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": [
+   138.9,
+   587.2,
+   390,
+   604
+  ],
+  "tag": [
+   37,
+   385,
+   353,
+   581
+  ],
+  "add": null,
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-typing320": {
+  "taps": {
+   "x": [
+    [
+     260,
+     114,
+     304,
+     158
+    ]
+   ],
+   "chips": [],
+   "notes": [
+    [
+     32,
+     201,
+     288,
+     222
+    ]
+   ],
+   "segs": [
+    [
+     16,
+     330,
+     112,
+     390
+    ],
+    [
+     112,
+     330,
+     208,
+     390
+    ],
+    [
+     208,
+     330,
+     304,
+     390
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   254,
+   16,
+   304,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   16,
+   74,
+   304,
+   390
+  ],
+  "add": [
+   16,
+   330,
+   112,
+   390
+  ],
+  "pin": null,
+  "sheetTop": 268,
+  "errs": [],
+  "clash": []
+ },
+ "r9-f-card320": {
+  "taps": {
+   "x": [
+    [
+     260,
+     277,
+     304,
+     321
+    ]
+   ],
+   "chips": [
+    [
+     185,
+     320,
+     288,
+     345
+    ],
+    [
+     68,
+     382,
+     197,
+     407
+    ]
+   ],
+   "notes": [
+    [
+     32,
+     360,
+     288,
+     381
+    ]
+   ],
+   "segs": [
+    [
+     16,
+     425,
+     112,
+     485
+    ],
+    [
+     112,
+     425,
+     208,
+     485
+    ],
+    [
+     208,
+     425,
+     304,
+     485
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   254,
+   16,
+   304,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   16,
+   237,
+   304,
+   485
+  ],
+  "add": [
+   16,
+   425,
+   112,
+   485
+  ],
+  "pin": null,
+  "sheetTop": 508,
+  "errs": [],
+  "clash": []
+ },
+ "r9-cmp-pencil-1x": {
+  "taps": {
+   "x": [
+    [
+     309,
+     373,
+     353,
+     417
+    ]
+   ],
+   "chips": [
+    [
+     234,
+     416,
+     337,
+     441
+    ],
+    [
+     89,
+     478,
+     218,
+     503
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     456,
+     337,
+     477
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     521,
+     142,
+     581
+    ],
+    [
+     142,
+     521,
+     248,
+     581
+    ],
+    [
+     248,
+     521,
+     353,
+     581
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": 0,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   333,
+   353,
+   581
+  ],
+  "add": [
+   37,
+   521,
+   142.3,
+   581
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-a-typing664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     114,
+     353,
+     158
+    ]
+   ],
+   "chips": [],
+   "notes": [
+    [
+     53,
+     201,
+     337,
+     222
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     330,
+     142,
+     390
+    ],
+    [
+     142,
+     330,
+     248,
+     390
+    ],
+    [
+     248,
+     330,
+     353,
+     390
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": null,
+  "lp": null,
+  "nb": [
+   330,
+   364,
+   390,
+   421
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   74,
+   353,
+   390
+  ],
+  "add": [
+   37,
+   330,
+   142.3,
+   390
+  ],
+  "pin": null,
+  "sheetTop": 364,
+  "errs": [],
+  "clash": []
+ },
+ "r9-a-card664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     373,
+     353,
+     417
+    ]
+   ],
+   "chips": [
+    [
+     234,
+     416,
+     337,
+     441
+    ],
+    [
+     89,
+     478,
+     218,
+     503
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     456,
+     337,
+     477
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     521,
+     142,
+     581
+    ],
+    [
+     142,
+     521,
+     248,
+     581
+    ],
+    [
+     248,
+     521,
+     353,
+     581
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": null,
+  "lp": null,
+  "nb": [
+   330,
+   604,
+   390,
+   661
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   333,
+   353,
+   581
+  ],
+  "add": [
+   37,
+   521,
+   142.3,
+   581
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
+ },
+ "r9-fl-card664": {
+  "taps": {
+   "x": [
+    [
+     309,
+     304,
+     353,
+     348
+    ]
+   ],
+   "chips": [
+    [
+     234,
+     347,
+     337,
+     372
+    ],
+    [
+     89,
+     409,
+     218,
+     434
+    ]
+   ],
+   "notes": [
+    [
+     53,
+     387,
+     337,
+     408
+    ]
+   ],
+   "segs": [
+    [
+     37,
+     452,
+     142,
+     512
+    ],
+    [
+     142,
+     452,
+     248,
+     512
+    ],
+    [
+     248,
+     452,
+     353,
+     512
+    ]
+   ]
+  },
+  "acctPins": 0,
+  "eyePin": 0,
+  "lpPins": null,
+  "lp": null,
+  "nb": null,
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "credit": "hidden",
+  "tag": [
+   37,
+   264,
+   353,
+   512
+  ],
+  "add": [
+   37,
+   452,
+   142.3,
+   512
+  ],
+  "pin": null,
+  "sheetTop": 604,
+  "errs": [],
+  "clash": []
  }
 }

@@ -13,6 +13,12 @@ const HTML = {
   A: inj(real, [rd('stub/r5.inc.html'), rd('stub/r6.inc.html'), rd('stub/r7.inc.html'), BT], 'data-k="A" data-a="tag7" data-eye="none"'),
   F: inj(real, [BT, PREFIX], 'data-k="F"'),
 };
+// C (pin+tag button, round 9): k = 'C' (the pick) or 'C:<pin>:<stub>:<plus>' for the variants
+const CINC = fs.readFileSync(path.join(CON, 'C-pintag/c.inc.html'), 'utf8');
+const CPICK = ['fill', 'third', 'tag'];
+const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
+const htmlFor = k => { if (!k.startsWith('C')) return HTML[k]; const [pin, stub, plus, ps] = k === 'C' ? CPICK : k.split(':').slice(1);
+  return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cpin="${pin}" data-cstub="${stub}" data-cplus="${plus}" data-cps="${ps || ''}"`); };
 // ---------- helpers ----------
 const zoomIn = (p, c) => p.evaluate(c => map.setView(c || [64.1471, -21.9426], 14, { animate: false }), c);
 const rowId = (p, name) => p.evaluate(n => locations.find(l => l.name === n && l.city === 'reykjavik').id, name);
@@ -91,6 +97,10 @@ F['cmp-blank-1x'] = { k: 'P', dsf: 1, zoom: true, run: p => dock(p, { state: 'bl
 F['cmp-pencil'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked' }) };
 F['cmp-off'] = { ...F['cmp-off-1x'], dsf: 3 };
 F['cmp-blank'] = { ...F['cmp-blank-1x'], dsf: 3 };
+// C variants at rest (z14, the account in frame) and 1x, for the look and the squint
+for (const v of ['fill:cream:tag', 'fill:navy:tag', 'ring:cream:tag', 'fill:cream:pin', 'fill:third:tag', 'fill:cream:tag:big', 'fill:third:tag:big']) both('cv-' + v.replace(/:/g, '-'), { k: 'C:' + v, zoom: true, centre: CREST });
+F['cv-none'] = { k: 'C', zoom: true, dsf: 1, run: p => p.evaluate(() => document.getElementById('cp').classList.add('gone')) };
+F['cv-noacct'] = { k: 'C', zoom: true, dsf: 1, run: p => p.evaluate(() => { document.getElementById('cp').classList.add('gone'); document.getElementById('accountBtn').style.visibility = 'hidden'; }) };
 // A
 both('a-rest', { k: 'A', zoom: true });
 F['a-tag664'] = { k: 'A', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
@@ -105,10 +115,41 @@ F['a-typing664'] = { k: 'A', vp: V664, zoom: true, run: async p => { await nbOpe
 F['fl-rest664'] = { k: 'F', vp: V664, run: p => floatBadge(p, false) };
 F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state: 'picked', clear: 512 }); await floatBadge(p, true); } };
 
+// ================= ROUND 9 (director turn 38): C pin+tag, the filled tag as a CARD (map still, eyelet empty), pin on ADD =================
+const cGone = p => p.evaluate(() => { const e = document.getElementById('cp'); if (e) e.classList.add('gone'); });
+async function card(p, s, o = {}) { await template(p); await p.click('#collapseBtn'); await p.waitForTimeout(900); await cGone(p);
+  if (o.badge) await floatBadge(p, true);
+  await zoomIn(p, o.centre || CREST); await p.waitForTimeout(600); await p.evaluate(s => __BT.card(s), s); await p.waitForTimeout(300); }
+const NOTE2 = 'Bring a towel. Locals swim at 7am; the outdoor hot tubs are the best part';
+both('r9-today', { k: 'today', zoom: true, centre: CREST });
+both('r9-c-rest', { k: 'C', zoom: true, centre: CREST });
+both('r9-c-alt', { k: 'C:fill:cream:tag', zoom: true, centre: CREST });
+F['r9-c-pressed'] = { k: 'C', zoom: true, centre: CREST, run: p => p.evaluate(() => document.getElementById('cp').classList.add('press')) };
+F['r9-c-rest664'] = { k: 'C', vp: V664 };   // the city view (the app's opening fit)
+F['r9-c-tapped664'] = { k: 'C', vp: V664, zoom: true, centre: CREST, run: async p => { await dock(p, { state: 'typing' }); await cGone(p); } };
+F['r9-c-tag664'] = { k: 'C', vp: V664, run: async p => { await openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur'); await cGone(p); } };
+F['r9-c-rest320'] = { k: 'C', vp: V320, zoom: true, centre: [64.1360, -21.9426] };
+F['r9-c-collapsed'] = { k: 'C', inset: true, zoom: true, centre: CREST, run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); } };
+F['r9-f-blank664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'blank' }); await cGone(p); } };
+F['r9-f-typing664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'typing' }); await cGone(p); } };
+F['r9-f-nores664'] = { k: 'C', vp: V664, run: async p => { await dock(p, { state: 'nores', text: 'Sundhx' }); await cGone(p); } };
+F['r9-f-card664'] = { k: 'C', vp: V664, run: p => card(p, { state: 'picked' }) };
+F['r9-f-starred664'] = { k: 'C', vp: V664, run: p => card(p, { state: 'picked', starred: true, visited: true, notes: NOTE2 }) };
+F['r9-f-shape664'] = { k: 'C', vp: V664, run: p => card(p, { state: 'shape', name: 'Skólavörðuholt', type: 'district' }) };
+F['r9-f-newcity664'] = { k: 'C', vp: V664, run: p => card(p, { state: 'newcity', name: 'Time Out Market', addr: 'Av. 24 de Julho 49', type: 'restaurant' }) };
+F['r9-f-failed664'] = { k: 'C', vp: V664, run: p => card(p, { state: 'failed' }) };
+F['r9-f-after664'] = { k: 'C', vp: V664, run: async p => { await openPlace(p, 'Sundhöllin', true); await cGone(p); await p.evaluate(() => __BT.alignReal()); await p.waitForTimeout(300); } };
+F['r9-f-typing320'] = { k: 'C', vp: V320, run: async p => { await dock(p, { state: 'typing', centre: [64.1500, -21.9480] }, 260); await cGone(p); } };
+F['r9-f-card320'] = { k: 'C', vp: V320, run: p => card(p, { state: 'picked' }, { centre: [64.1420, -21.9380] }) };
+F['r9-cmp-pencil-1x'] = { k: 'C', vp: V664, dsf: 1, run: p => card(p, { state: 'picked' }) };
+F['r9-a-typing664'] = { k: 'A', vp: V664, run: async p => { await nbOpen(p); await dock(p, { state: 'typing' }); } };
+F['r9-a-card664'] = { k: 'A', vp: V664, run: async p => { await card(p, { state: 'picked' }); await nbOpen(p); } };
+F['r9-fl-card664'] = { k: 'F', vp: V664, run: p => card(p, { state: 'picked', clear: 512 }, { badge: true }) };
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {
-    const html = path.join(C, `.st-${s.k}.html`); fs.writeFileSync(html, HTML[s.k]);
+    const html = path.join(C, `.st-${s.k.replace(/:/g, '_')}.html`); fs.writeFileSync(html, htmlFor(s.k));
     // the demo place: a pool, which OSM's leisure=swimming_pool maps to ATTRACTION (director, mapping table)
     const JS = `;window.__ROWS.forEach(r => { if (r.name === 'Sundhöllin') { r.category = 'attraction'; r.short_address = 'Barónsstígur 45a · Reykjavík'; } });`;
     const { ctx, page, errs } = await L.open(b, { html, vp: s.vp || [390, 844], dsf: s.dsf, inset: s.inset, js: JS });
@@ -123,8 +164,9 @@ F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state:
       const eye = document.querySelector('#btDock .tag-patch'); let eyePin = null;
       if (eye) { const e = eye.getBoundingClientRect(), cx = (e.left + e.right) / 2, cy = e.top + 14;
         eyePin = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return cx > r.left - 7 && cx < r.right + 7 && cy > r.top - 7 && cy < r.bottom + 7; }).length; }
-      const LP = document.getElementById('lp'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
-      return { acctPins, eyePin, lpPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
+      const LP = document.getElementById('lp') || document.getElementById('cp'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
+      const taps = window.__BT && __BT.taps && document.getElementById('btDock') ? __BT.taps() : null;
+      return { taps, acctPins, eyePin, lpPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
     m.errs = errs; m.clash = await chromeCheck(page);
     meas[name] = m; console.log(name, JSON.stringify(m));
     await page.screenshot({ path: path.join(C, 'raw', `${name.replace(/-1x$/, '')}-${s.dsf === 1 ? 1 : 3}x.png`) });

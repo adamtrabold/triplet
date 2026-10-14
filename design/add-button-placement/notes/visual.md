@@ -1,5 +1,33 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 9 (owner: "Blank pin looks ugly…"; director turn 38)
+- **P is dropped.** C (pin+tag) and A carry the shared form; Float is one
+  frame.
+- **C's look:** `concepts/C-pintag/c.inc.html`. The pick:
+  - a 32 orange blank pin;
+  - a 100×84 tag with real die-cut details;
+  - a navy + on the body;
+  - a mini stub with ADD's navy first segment.
+  - Rough mass is 1.44× the account; without the navy it's 0.86.
+  - Variants are in `raw/cv-*`.
+- **Form:**
+  - `__BT.card()`: the filled tag as a card with its foot at
+    credit − 6, the map still, the string hidden, the eyelet empty.
+  - `dock()` has no pin by default.
+  - Chips are `.filter-btn` for city and TYPE.
+  - Questions: `.bt-ask` above the stub, answers in a two-segment stub.
+  - `__BT.taps()` gives the boxes for the T9 audit.
+- **Frames:** `r9-*` in `stills.js` (page C, `CREST` [64.1460, -21.9380]).
+  - C at 664 and the 320 rest use the city view / [64.1360, -21.9426]
+    to keep pins out from under the object (it's big).
+- **Stills:**
+  - `C-pintag/C1-C6`;
+  - `blank-tag-form/T0-T9` (all re-shot; T9 is new);
+  - `A-header-tag/A3`, `A5` re-shot.
+  - P stills are left on disk, not for sending.
+- **Next:** systems measures C's rank and footprint on the real render.
+  Then the director scores.
+
 ## UPDATE 2026-10-14, the TYPE fix before the send
 - The demo place Sundhöllin (a pool) is now ATTRACTION everywhere: the
   blank's default type, and the real row via `window.__ROWS` injected in

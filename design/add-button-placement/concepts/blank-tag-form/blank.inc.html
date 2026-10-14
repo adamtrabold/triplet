@@ -77,6 +77,16 @@
   .tag.short .bt-res { top: 72px; }
   .tag-in.has-res > .bt-f:not(.name) { visibility: hidden; }
   .bt-res { position: absolute; z-index: 2; left: 0; right: 0; top: 89px; bottom: 0; padding: 0 var(--s4); background: var(--paper-raised); overflow: hidden; }
+  /* round 9: tap-to-change entries are the app's filter chip; questions print above the stub; answers ARE the stub */
+  .bt-f.addr .bt-rule { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s2); }
+  .bt-chip.filter-btn { padding: 3px var(--s2); gap: 6px; font-size: 13px; line-height: 16px; letter-spacing: .06em; cursor: pointer; margin-bottom: 3px; white-space: nowrap; }
+  .bt-chip .bt-pencil { font-weight: 700; }
+  .bt-chip .bt-chip-chev { width: 12px; height: 12px; color: var(--ink-2); flex: none; }
+  .bt-f.type .bt-rule { border-bottom-color: transparent; }
+  .bt-ask { margin-top: var(--s3); padding-bottom: 2px; font-size: 13px; line-height: 18px; color: var(--ink); }
+  .bt-ask b { font-stretch: 75%; text-transform: uppercase; letter-spacing: .1em; font-size: 11px; font-weight: 700; color: var(--ink-2); margin-right: 6px; }
+  .tag-stub.bt-two { grid-template-columns: 1fr 1fr; }
+  .tag-seg.bt-alt { color: var(--ink); }
   /* the search offers: PRINTED on the tag (not pencil), 48px rows, hairlines, no slip edge */
   .bt-r { height: 48px; box-sizing: border-box; border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
   .bt-r b { font-size: 14px; line-height: 18px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -150,6 +160,7 @@
   const NAME = 'Sundhöllin', ADDR = 'Barónsstígur 45a', CITY = 'Reykjavík';
   const RESULTS = [['Sundhöllin', 'Swimming pool · Barónsstígur 45a, Reykjavík'], ['Sundlaug Vesturbæjar', 'Swimming pool · Hofsvallagata, Reykjavík'],
     ['Sundlaugin í Laugardal', 'Swimming pool · Sundlaugavegur 30, Reykjavík'], ['Sundahöfn', 'Harbour · Laugarnes, Reykjavík'], ['Sundagarðar', 'Street · Laugardalur, Reykjavík']];
+  const listIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path d="M8 7H19M8 12H19M8 17H19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/><circle cx="4.5" cy="7" r="1.3" fill="currentColor"/><circle cx="4.5" cy="12" r="1.3" fill="currentColor"/><circle cx="4.5" cy="17" r="1.3" fill="currentColor"/></svg>';
   const plusIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>';
   function inner(s) {
     const st = s.state;
@@ -162,19 +173,24 @@
     let h = `<div class="bt-f name${pre ? ' typing' : ''}"><div class="bt-rule"><h2 class="bt-name ${pre ? 'bt-pencil' : pen}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nameTxt}</h2></div>${pre ? '<span class="bt-cap">Name</span>' : ''}</div>`;
     // ADDRESS . CITY (a printed hint for a shape)
     h += shape ? `<div class="bt-f"><div class="bt-rule"><div class="bt-hint">Traced from OpenStreetMap when you add it</div></div></div>`
-      : `<div class="bt-f"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR} · ${s.city || CITY}<span class="bt-chev"></span>`}</div></div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
+      : `<div class="bt-f addr"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR}`}</div>${pre || s.inked || s.state === 'newcity' ? '' : chip(null, s.city || CITY)}</div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
     // NOTES (above TYPE: the real tag's order)
     h += `<div class="bt-f"><div class="bt-rule"><div class="bt-note ${pen}">${s.notes || ''}</div></div>${s.notes ? '' : '<span class="bt-cap">Notes</span>'}</div>`;
     // TYPE
     const typeHtml = pre ? '' : s.inked ? `<span class="tag-val tag-stamp popup-cat" style="--tilt:-3.5deg">${type}</span>`
-      : `<span class="bt-type bt-pencil">${type}<span class="bt-chev"></span></span>`;
+      : chip(type, type);
     h += `<div class="bt-f type"><span class="tag-lab">Type</span><div class="bt-rule">${typeHtml}</div></div>`;
     if (st === 'typing') h += `<div class="bt-res">${(s.results || RESULTS).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}</div>`;
     if (st === 'nores') h += `<div class="bt-res"><div class="bt-msg">No places called that — try another name.</div></div>`;
-    if (st === 'newcity') h += `<div class="bt-q" style="margin-top:14px"><p><b>New city?</b>Lisbon isn’t one of your cities yet.</p><div class="bt-ans"><span>Add Lisbon</span><span>Pick from my list</span></div></div>`;
-    if (st === 'whichcity') h += `<div class="bt-q" style="margin-top:14px"><p><b>Which city?</b>Most of this district is outside Reykjavík.</p><div class="bt-ans"><span>New city</span><span>Kópavogur</span></div></div>`;
+    if (st === 'newcity') h += `<div class="bt-ask"><b>New city?</b>Lisbon isn’t one of your cities yet.</div>`;
+    if (st === 'whichcity') h += `<div class="bt-ask"><b>Which city?</b>Most of this district is outside Reykjavík.</div>`;
     if (st === 'failed') h += `<div class="bt-err" style="margin-top:14px">— try again. Nothing is lost.</div>`;
     return h;
+  }
+  // a tap-to-change entry = the app's own filter chip (.filter-btn): the category glyph and its ink rule, the entry in pencil, a chevron
+  function chip(cat, label) {
+    const ink = cat && typeof CATEGORY_COLORS !== 'undefined' ? CATEGORY_COLORS[cat] : '';
+    return `<span class="filter-btn bt-chip"${ink ? ` style="--chip-ink:${ink}"` : ''}>${cat ? `<svg class="chip-glyph" viewBox="0 0 24 24"><use href="#g-${cat}"/></svg>` : ''}<span class="bt-pencil">${label}</span><svg class="bt-chip-chev" viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
   }
   // pencil grain: short streaks at a writing angle, one seed per entry
   function pencilMask(seed) {
@@ -196,7 +212,9 @@
     if (dir) dir.innerHTML = s.inked ? dir.innerHTML
       : ready ? `<span class="tag-seg bt-add${s.busy ? ' busy' : ''}">${plusIcon}${s.busy ? 'Adding…' : 'Add'}</span>`
       : `<span class="tag-seg bt-add off">Add<small>${label}</small></span>`;
-    if (s.state === 'whichcity') tag.querySelector('.tag-stub').style.display = 'none';
+    const ans = s.state === 'newcity' ? ['Add Lisbon', 'Pick from my list'] : s.state === 'whichcity' ? ['New city', 'Kópavogur'] : null;
+    if (ans) { const st = tag.querySelector('.tag-stub'); st.classList.add('bt-two');
+      st.innerHTML = `<span class="tag-slot"><span class="tag-seg bt-add">${plusIcon}${ans[0]}</span></span><span class="tag-slot"><span class="tag-seg bt-alt">${listIcon}${ans[1]}</span></span>`; }
   }
   function makeBlank(tag, s) {
     tag.classList.add('is-blank'); tag.classList.remove('is-visited');
@@ -225,9 +243,30 @@
     const tg = p.querySelector('.tag'); tg.classList.add('docked'); if (innerHeight < 600) tg.classList.add('short');
     makeBlank(tg, s);
     // the tag runs on behind the keyboard: let it be as tall as it wants
-    const pin = document.createElement('div'); pin.className = 'bt-pin'; pin.id = 'btPin'; pin.innerHTML = pinSvg(32);
-    pin.style.left = (W / 2) + 'px'; pin.style.top = (pinTop + 16) + 'px'; document.body.appendChild(pin);
+    // round 9 (director turn 38, the pin waits): no pin on the docked tag; the string goes, the eyelet is empty
+    if (s.pin) { const pin = document.createElement('div'); pin.className = 'bt-pin'; pin.id = 'btPin'; pin.innerHTML = pinSvg(32);
+      pin.style.left = (W / 2) + 'px'; pin.style.top = (pinTop + 16) + 'px'; document.body.appendChild(pin); }
+    else p.querySelector('.tag-string').style.display = 'none';
     return { tag: p.querySelector('.tag-body').getBoundingClientRect().toJSON() };
+  };
+  // round 9: the filled tag is a CARD in the screen's frame (keyboard down): on the list's band, its foot 6 above the
+  // credit, the map still, no pin, the eyelet empty. The pin goes in on ADD (one flight).
+  BT.card = function (s) {
+    BT.undock();
+    const W = innerWidth, tw = Math.min(316, W - 32), left = (W - tw) / 2;
+    const wrap = document.createElement('div'); wrap.id = 'btDock';
+    const p = BT.tpl.cloneNode(true); p.removeAttribute('style'); p.style.left = left + 'px'; p.style.top = '0px';
+    p.style.setProperty('--tag-w', tw + 'px'); p.style.setProperty('--tag-drop', '0px'); p.classList.remove('tag-wait');
+    p.querySelector('.tag-string').style.display = 'none';
+    wrap.appendChild(p); document.body.appendChild(wrap);
+    makeBlank(p.querySelector('.tag'), s);
+    const b = p.querySelector('.tag-body').getBoundingClientRect(); p.style.top = (Math.min(s.clear || 1e9, footLimit()) - b.height) + 'px';
+    return p.querySelector('.tag-body').getBoundingClientRect().toJSON();
+  };
+  // every tappable on the tag, for the audit still
+  BT.taps = function () {
+    const q = sel => [...document.querySelectorAll('#btDock ' + sel)].map(e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.right, r.bottom].map(Math.round); });
+    return { x: q('.tag-x'), chips: q('.bt-chip'), notes: q('.bt-f:has(.bt-note) .bt-rule'), segs: q('.tag-stub .tag-seg') };
   };
   BT.undock = function () { ['btDock', 'btPin'].forEach(i => { const e = document.getElementById(i); if (e) e.remove(); }); };
 

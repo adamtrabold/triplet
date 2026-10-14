@@ -1,0 +1,57 @@
+<!-- ===== C · PIN+TAG BUTTON, round 9 (visual designer, 2026-10-14) =====
+     Owner (on round 8b): "Blank pin looks ugly. I wanted to explore the version where the pin+tag was the button and see
+     if that could work with tweaks." Director turn 38: the pin at the app's own pin size; the tag reads as the Hanging
+     Tag at 1x (die-cut, eyelet patch, stub perforation, side notches); ONE +; orange off the paper, the tag cream.
+     Layered into a copy of index.html by ../blank-tag-form/stills.js. Variant dials on <html>:
+       data-cpin = fill (orange face, deep-orange rim: the selected-pin grammar, blank: no glyph) | ring (cream face, orange ring)
+       data-cstub = cream (the stub printed, perforation only) | navy (the stub's first segment = ADD's navy flood, full width)
+       data-cstub = third: the stub in three segments, the first ADD's navy flood (the form's stub in miniature)
+       data-cps = big: the + at 34 / 5.5 instead of 28 / 4.5
+       data-cplus = tag (a navy + printed on the tag, where you'll write) | pin (the + on the pin's face, where the glyph goes)
+     The object: pin 32 (+2 halo) / string 1.5 (the real .tag-string ink) 14 / tag 100 x 84 (62 body + 22 stub),
+     chamfers 20, patch 26 x 15 with its grommet, perforation 1.5 dashed --hair, notches r3.5. Bottom-left: the tag's
+     left edge on the 19.9 ink line, its foot 20 above the list. -->
+<style id="cCss">
+  #cp { position: fixed; z-index: 1500; left: 19.9px; width: 100px; height: 125px; border: 0; padding: 0; background: none; -webkit-tap-highlight-color: transparent; }
+  #cp svg { display: block; overflow: visible; }
+  #cp .cp-tag { filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)) drop-shadow(0 4px 6px var(--tag-shadow-lift)); }
+  #cp.press .cp-paper { fill: var(--paper); }
+  #cp.press .cp-face { fill: var(--brand-orange-deep); }
+  #cp.gone { display: none; }
+</style>
+<script id="cJs">
+(function () {
+  const R = document.documentElement;
+  const W = 100, TH = 84, BODY = 62, CH = 20, PIN = 32, HALO = 2, STR = 14;
+  function draw() {
+    const pinMode = R.dataset.cpin || 'fill', stub = R.dataset.cstub || 'cream', plusOn = R.dataset.cplus || 'tag';
+    const pw = PIN + 2 * HALO, pc = W / 2, py = pw / 2, eyeY = pw + STR, top = eyeY - 9;   // the eyelet's centre is 9 below the tag's top
+    const tagPath = `M${CH} ${top}H${W - CH}L${W} ${top + CH}V${top + TH}H0V${top + CH}Z`;
+    const notch = (x) => `<circle cx="${x}" cy="${top + BODY}" r="3.5" fill="black"/>`;
+    const face = pinMode === 'fill'
+      ? `<circle cx="${pc}" cy="${py}" r="${pw / 2}" fill="var(--paper)"/><circle class="cp-face" cx="${pc}" cy="${py}" r="${PIN / 2 - 1.25}" fill="var(--brand-orange)" stroke="var(--brand-orange-deep)" stroke-width="2.5"/>`
+      : `<circle cx="${pc}" cy="${py}" r="${pw / 2}" fill="var(--paper)"/><circle class="cp-face" cx="${pc}" cy="${py}" r="${PIN / 2 - 1.25}" fill="#F2EBDD" stroke="var(--brand-orange)" stroke-width="2.5"/>`;
+    const pinPlus = plusOn === 'pin' ? `<path d="M${pc - 7} ${py}H${pc + 7}M${pc} ${py - 7}V${py + 7}" stroke="${pinMode === 'fill' ? 'var(--navy)' : 'var(--brand-orange-deep)'}" stroke-width="3" stroke-linecap="round"/>` : '';
+    const by = top + 33, A = R.dataset.cps === 'big' ? 17 : 14, SW = R.dataset.cps === 'big' ? 5.5 : 4.5;   // the + on the tag: centred in the body under the patch
+    const tagPlus = plusOn === 'tag' ? `<path d="M${pc - A} ${by}H${pc + A}M${pc} ${by - A}V${by + A}" stroke="var(--navy)" stroke-width="${SW}" stroke-linecap="round"/>` : '';
+    const seg = W / 3;
+    const stubFill = stub === 'navy' ? `<rect x="0" y="${top + BODY}" width="${W}" height="${TH - BODY}" fill="var(--navy)"/>`
+      : stub === 'third' ? `<rect x="0" y="${top + BODY}" width="${seg}" height="${TH - BODY}" fill="var(--navy)"/><line x1="${2 * seg}" y1="${top + BODY + 3}" x2="${2 * seg}" y2="${top + TH - 3}" stroke="var(--hair)" stroke-width="1" stroke-dasharray="3 2"/><line x1="${seg}" y1="${top + BODY}" x2="${W - 6}" y2="${top + BODY}" stroke="var(--hair)" stroke-width="1.5" stroke-dasharray="4 3"/>` : '';
+    const el = document.getElementById('cp');
+    el.innerHTML = `<svg width="${W}" height="${top + TH}" viewBox="0 0 ${W} ${top + TH}" aria-hidden="true">
+      <defs><mask id="cpm"><path d="${tagPath}" fill="white"/><circle cx="${pc}" cy="${eyeY}" r="2.6" fill="black"/>${notch(0)}${notch(W)}</mask></defs>
+      <g class="cp-tag"><g mask="url(#cpm)"><path class="cp-paper" d="${tagPath}" fill="var(--paper-raised)"/>${stubFill}
+        <rect x="${pc - 13}" y="${top + 1.5}" width="26" height="15" rx="2.5" fill="var(--paper)"/>
+        <circle cx="${pc}" cy="${eyeY}" r="4.4" fill="none" stroke="var(--hair)" stroke-width="2.4"/>
+        ${stub !== 'cream' ? '' : `<line x1="6" y1="${top + BODY}" x2="${W - 6}" y2="${top + BODY}" stroke="var(--hair)" stroke-width="1.5" stroke-dasharray="4 3"/>`}
+        ${tagPlus}</g></g>
+      <rect x="${pc - .75}" y="${pw - 2}" width="1.5" height="${eyeY - pw + 2}" fill="var(--ink-2)"/>
+      ${face}${pinPlus}</svg>`;
+    el.style.height = (top + TH) + 'px';
+    const S = document.getElementById('locations').getBoundingClientRect().top; el.style.top = (S - 20 - (top + TH)) + 'px';
+  }
+  function mount() { if (!document.getElementById('cp')) { const b = document.createElement('button'); b.id = 'cp'; b.setAttribute('aria-label', 'Add a place'); document.body.appendChild(b); } draw(); }
+  window.__C = { mount, draw };
+  if (R.dataset.k === 'C') { mount(); setInterval(() => { const el = document.getElementById('cp'); if (el && !el.classList.contains('gone')) { const S = document.getElementById('locations').getBoundingClientRect().top; el.style.top = (S - 20 - el.offsetHeight) + 'px'; } }, 60); }
+})();
+</script>

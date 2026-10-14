@@ -1,4 +1,32 @@
-# The blank-tag form: how it looks and feels (shared by P, A and the Float frame)
+# The blank-tag form: how it looks and feels (shared by C, A and the Float frame)
+
+## Round 9 (director turn 38). This overrides everything below where they differ.
+
+- **The filled tag is a card in the screen's frame; the map stays still.**
+  - Docked above the keyboard while you type (T1, T2), and on the list's band once the keyboard drops (T3). Its foot is 6 above the map credit (581 at 664, 485 at 320) and ADD is under the thumb.
+  - There's no pin and no string while you fill it in. **The eyelet is empty**: the hole and patch are shown, the string is gone.
+  - The map behind is whatever you were looking at, not moved.
+- **ADD is the one map move (T5).** The map flies so the place lands at the tag's hanging point (the pin's spot above the eyelet). The pin drops in on the string, the pencil inks, TYPE is stamped, and the tag tightens to the real tag by its top while the stub stays put (round 8b).
+  - Motion: the flight (the existing fly duration), then the pin drops 12px into place with the tag-pop's settle, then the ink-over.
+- **Districts (T6):** same card; on ADD the map frames the outline and the tag hangs from the centre dot.
+- **Questions: the answers ARE the stub (T7).**
+  - The question prints just above the perforation: printed caps lead-in plus one sentence, 13/18.
+  - The stub becomes two segments in the real segment style:
+    - **ADD LISBON** (ADD's navy flood, cream + icon);
+    - **PICK FROM MY LIST** (an ink segment with a list icon, the same build as STAR / MARK VISITED).
+  - "ANSWER ABOVE" is gone. After the answer, the stub returns to ADD | STAR | VISITED.
+  - Shapes' "which city": NEW CITY | the runner-up.
+- **The tappables audit (T9).** Every tappable uses a control the app already has:
+  1. **×**: the tag's own.
+  2. **City** and 4. **TYPE**: **the filter chip** (`.filter-btn`): hair outline, 3px corners, caps.
+     - The entry is in pencil, followed by a ⌄.
+     - TYPE carries the category glyph and its ink rule, so it previews the pin.
+     - The chip is 25px tall; its hit area should be padded to 44 (builder).
+  3. **NOTES**: a write-on line with its caption. The whole 32px row is the target.
+  5. **ADD**: the navy segment. 6. **STAR** / 7. **MARK VISITED**: the shipped segments.
+  - The pencil chevron after a bare word is gone: it didn't read as a control.
+- **The demo place's TYPE is ATTRACTION** (director's mapping row for pools and sports centres).
+
 
 ## Round 8b (visual, after the round-8 score). This overrides the round-8 section below where they differ.
 
