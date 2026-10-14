@@ -50,7 +50,7 @@ const pages = {
      <div class="row" style="padding:0 30px;gap:16px">${['a7-none', 'a7-hole', 'a7-patch'].map(v => col('', crop1(A7 + v + '-1x.png', 270, 534, 390, 608, 2.95), 354)).join('')}</div>
      <div class="cost"><b>No hole:</b> the two cut corners already say “tag”. <span class="kill"><b>Hole:</b> a dot beside the locate icon. <b>Hole + patch:</b> a little switch knob, a fourth control.</span></div>`,
   'stub/R7-A4-states-3x.png': `${cap('Rest, pressed, open', 'Pressed: deep orange, paper +, like ADD LOCATION. Open: the header’s navy “on” colour, the + turned into ×.')}
-     ${cap('Rest', '')}${band3(A7 + 'a7-none-3x.png', 540, 604)}${cap('Pressed', '')}${band3(A7 + 'a7-pressed-3x.png', 540, 604)}${cap('Open', '')}${band3(A7 + 'a7-open844-3x.png', 780, 844)}<div class="gap"></div>`,
+     ${cap('Rest', '')}${band3(A7 + 'a7-none-3x.png', 544, 604)}${cap('Pressed', '')}${band3(A7 + 'a7-pressed-3x.png', 544, 604)}${cap('Open', '')}${band3(A7 + 'a7-open844-3x.png', 784, 844)}<div class="gap"></div>`,
   'stub/R7-A5-tag-open-3x.png': `${cap('A place’s tag open', 'The same cut as the tag above it: the tag you add with, and the tags your places open into. The place’s tag stays the main thing. Right: a starred place (its band is orange too; the + keeps the header tag reading as add).')}
      ${pair(A7 + 'a7-tag-plain-3x.png', 'A place', A7 + 'a7-tag-starred-3x.png', 'A starred place')}<div class="gap"></div>`,
   'stub/R7-A6-adding-3x.png': `${cap('Tap +', 'The list drops and the tag rides down with it as a navy ×. ADD LOCATION sits just above.')}${img(A7 + 'a7-open844-3x.png', 'width:1170px')}`,
