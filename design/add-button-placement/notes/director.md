@@ -1090,3 +1090,83 @@ journey strip; then I pick the resting object in jobs.md.
 ### Next
 - Systems writes `jobs.md` and re-runs the squint.
 - The designers build P and A; I steer after every pair of turns.
+
+---
+
+## Concept round 8 -- first pair reviewed (jam turn 36), not scored yet
+
+### Seen
+- P1-P6, A1-A5, T1-T8 and raw/p-rest664, at phone size first.
+
+### Verdict
+- The package works:
+  - one object all the way; rule 1 holds in every frame;
+  - rule 2 holds;
+  - T3, T4 and T6 look like the real tag.
+- Not scored: four fixable blockers would cost a 9.
+
+### Fixes sent
+1. Pencil reads as disabled grey. It needs graphite tooth at 1x, plus a
+   comparison frame (pencil vs greyed control vs inactive ADD vs ink).
+2. Blank state = the full blank tag (all lines empty, stub fixed), not a
+   one-line card.
+3. P3 and A3 aren't phone-readable (5 panels at about 230px). Cut each to
+   two panels; T3 and T5 cover the rest.
+4. T2 crop sliver at the bottom.
+5. P2's needle: 2px, with ground contact visible at 1x.
+
+### Accepted from visual
+- NOTES above TYPE (the real tag's order).
+- No re-stamp of VISITED at ADD.
+- Grey captions.
+- Credit hidden only with the keyboard up.
+- See-through eyelet (it's the shipped tag's).
+- P vs clusters holds; kept as an owner objection.
+
+### Likely objections (for scoring)
+- P: "FAB with a stick"; orange pin vs clusters; "bigger than other
+  pins".
+- A: + on the right (he asked for left); "doesn't read as +".
+- The form: "why is it greyed out" (fix 1); ADD not orange; a guessed
+  type wrong.
+
+### Next
+Visual's fix turn, then I score round 8 in scores.md ("Concept round 8").
+
+---
+
+## Concept round 8 scored -- 2026-10-14 (scores.md "Concept round 8")
+
+### Scores
+- **P: 8. A: 8.**
+  - Both ideas are 9s.
+  - They're held by the shared form's picked state: the tag is about
+    1.6x the real height with uneven empty bands. That's his "spacing
+    between things is insane", so it's likely.
+  - T5 doesn't match the no-shrink spec.
+
+### Turn-36 fixes
+All five are landed. T0 proves pencil ≠ greyed.
+
+### Fixes sent
+1. One measured rhythm. Picked height = the real tag + the NOTES line.
+   Captions: under-captions only while empty; TYPE inline.
+2. ADD: the tag reaches the real height by its top coming down while the
+   map pans by the same amount. The stub never moves, and it's the real
+   tag at once. If Leaflet fights it, fall back to no-shrink plus fix 1.
+3. T5 two panels (before | after ADD).
+4. Re-crop A3-tap rest and A5 right (badge over a pin).
+5. Results start 89 at ≥600 tall, 72 below; re-shoot T8 typing.
+
+### Send list
+Prepared in scores.md. P6 is held back.
+
+### Likely objections
+- Spacing (being fixed).
+- FAB with a stick.
+- Orange vs clusters.
+- A on the right.
+- ADD not orange.
+
+### Next
+Re-shot stills only → re-score → release the send.

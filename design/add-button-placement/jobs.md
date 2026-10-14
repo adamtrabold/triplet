@@ -103,8 +103,12 @@ The blank tag is built from the real tag's parts and keeps their order:
 - **NAME** (the search line);
 - **address · city** (pencil; tap the city to correct it; not shown for
   a district or street);
-- **TYPE** (pencil);
 - **NOTES**;
+- **TYPE** (pencil).
+
+The tag is whole and blank from the first moment, every line printed and
+empty. It doesn't change size while you fill it in; results print over
+its lower lines while you type.
 - the stub: **ADD | STAR | VISITED**.
 
 How the parts behave:
@@ -142,8 +146,10 @@ How the parts behave:
    - ADD (navy) is on the stub, low on the screen.
 5. **Correct anything** (type, city, notes, star, visited). Then tap ADD.
 6. **Ink-over:**
-   - The name inks, TYPE is stamped, then VISITED if you set it.
-   - ADD becomes DIRECTIONS and the pin becomes the place's own pin.
+   - The name inks and TYPE is stamped. VISITED already stamped when you
+     set it.
+   - ADD becomes DIRECTIONS in the same spot (the tag doesn't shrink
+     under your thumb), and the pin becomes the place's own pin.
    - The list comes back up, on the place's city, with its row selected
      and in view. The place's tag stays open.
 7. **Close the tag:** the fresh lifted pin is at bottom-left.
@@ -246,7 +252,7 @@ separate step.
 
 ### Sizes
 
-- **844 (Home Screen):** 6 results show while typing.
+- **844 (Home Screen):** about 4 results show while typing, and the stub (ADD, not ready yet) shows below them.
 - **664 (Safari):** 3 and a half results (48px rows).
 - **320:** 3 results.
 - **Rotated or very short screens:** the tag scrolls inside itself and

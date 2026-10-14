@@ -1,5 +1,69 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 8 fixes (director turn 36)
+- **Fix 1, pencil = graphite.** Graphite #3F454E with a #6A717C sheen
+  (background-clip text), plus streak grain seeded per entry
+  (`pencilMask()`, 50% floor).
+  - Proof: `blank-tag-form/T0-pencil-vs-greyed-1x.png` (raw `cmp-*`
+    frames).
+- **Fix 2, a whole ruled blank tag.** `.tag-in` is at least 256, flex
+  `space-between`, gap 10. The stub is fixed (behind the keyboard at
+  664).
+  - Results are an opaque overlay from 89px.
+  - The hanging tag is 316. `__BT.hang` pans the map to clear the list
+    (`s.clear` sets the limit, e.g. the Float badge).
+- **Fix 3:** `P3-tap` and `A3-tap` are two panels; the old journey PNGs
+  are deleted.
+- **Fix 4:** T2 is whole frames; T7 and T0 are re-cropped (watch the
+  pins cut at crop tops).
+- **Fix 5:** the needle is 2px with a 5px point; the ground is 14×4.4
+  at 28%.
+- **Systems looped in:** a box at the top of
+  `blank-tag-form/how-it-works.md` (fixed height, overlay, ADD now at
+  518-578 at 664, the Float pan 512, rules fading on ADD).
+- **Next:** the director scores round 8.
+
+## UPDATE 2026-10-14, concepts turn 1 (after director turn 35 and systems' concept turn)
+- **Packages:**
+  - P (lifted pin) and A (header tag) share one blank-tag form; Float is
+    one frame. V3 is dropped (shown once as "also tried").
+- **Prototype:** `concepts/blank-tag-form/blank.inc.html` plus
+  `stills.js` (raw frames in `blank-tag-form/raw/`, `ONLY=` prefixes)
+  plus `compose.js` (owner stills).
+  - The blank tag is the REAL tag: open a place's tag, then
+    `__BT.capture()` / `dock()` / `hang()` rewrite its contents. The
+    keyboard is drawn (`__BT.kb`).
+  - Pages: today / P / A (stub r5+r6+r7 layers) / F (the Float badge
+    drawn with the account's scalloped mask).
+- **Stills:**
+  - `P-blank-pin/P1-P6`, `A-header-tag/A1-A5`, `blank-tag-form/T1-T8`;
+  - one `looks-and-feels.md` per folder.
+- **Decisions this turn:**
+  - The needle is a tapered navy wedge, 2.2 → 0.6, 22 long, ground
+    ellipse 12×3.8 at 15%. It's tapered so it doesn't read as a
+    lollipop.
+  - Captions use `--ink-2` label print (the real tag's), not navy.
+    Pencil = `--ink-2` 86% over paper, with a tooth mask on a 62% floor.
+    The name inks to `--ink`.
+  - NOTES comes before TYPE (the real tag's order). This pushes against
+    systems' table.
+  - The VISITED stamp is not re-stamped at ADD (it landed when tapped).
+    This amends the director's item 7.
+  - ADD has a cream + glyph over the label, like the other segments.
+  - The credit is hidden while docked (it peeked past the tag at 320).
+- **1x read:**
+  - Not a FAB at 1x.
+  - Blurred, the needle vanishes, so rank comes from the disc
+    (1.40x).
+  - The orange face near the deep-orange clusters at city zoom is
+    flagged.
+- **Gotchas:**
+  - Rest frames at 664 use the city view: at z14 the lifted pin sat on
+    a sticker.
+  - The ink-over frame for A must be shot on A's page (the band ×).
+- **Next:** the director scores; systems checks coverage. Then the
+  handoff.
+
 ## UPDATE 2026-10-14, jam turn 34 (pass 2, last jam pass)
 - **Director (turn 32):** V1 dropped. V2 and V3 forward, bottom-left; ADD
   is navy; A stays orange. **Rule 1:** the pin is always above the tag on
