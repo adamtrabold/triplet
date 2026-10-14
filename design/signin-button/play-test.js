@@ -1,6 +1,10 @@
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs');
-const H = '/home/user/la-trip-map/design/gesture-harness';
+const H = require('path').resolve(__dirname, '../gesture-harness');
+// The playground is the signed-out app: '?play' loads use the stub WITHOUT its stored session (as mode-test.js);
+// '' loads keep it (signed in, real mode).
+const STUB_OUT = require('fs').readFileSync(H + '/stub.js', 'utf8').replace(/try \{ localStorage\.setItem\('sb-[^']+', '\{\}'\); \} catch \(e\) \{\}/, '');
+let signedOut = true;
 const fsdir = require('fs').readdirSync('/opt/pw-browsers').filter(x => /^chromium-\d+$/.test(x)).sort().pop();
 const WRAP = `;(function(){const cc=window.supabase.createClient;window.__realWrites=[];window.__realOpts=[];
 window.supabase.createClient=function(u,k,o){window.__realOpts.push(o||null);const c=cc.apply(this,arguments);const f=c.from.bind(c);
@@ -9,14 +13,14 @@ c.from=t=>{const b=f(t);['insert','update','upsert','delete'].forEach(m=>{const 
   const browser = await chromium.launch({ executablePath: `/opt/pw-browsers/${fsdir}/chrome-linux/chrome` });
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await ctx.newPage(); const errs = []; page.on('pageerror', e => errs.push(e.message));
-  const html = fs.readFileSync(process.env.FILE || '/home/user/la-trip-map/index.html', 'utf8');
+  const html = fs.readFileSync(process.env.FILE || require('path').resolve(__dirname, '../../index.html'), 'utf8');
   await page.route('**/*', r => { const u = r.request().url();
     if (u.startsWith('https://triplet.test/')) return r.fulfill({ contentType: 'text/html', body: html });
     if (u.includes('leaflet.js')) return r.fulfill({ contentType: 'application/javascript', body: fs.readFileSync(H + '/vendor/leaflet.js') });
     if (u.includes('leaflet.css')) return r.fulfill({ contentType: 'text/css', body: fs.readFileSync(H + '/vendor/leaflet.css') });
-    if (u.includes('supabase')) return r.fulfill({ contentType: 'application/javascript', body: fs.readFileSync(H + '/stub.js', 'utf8') + WRAP });
+    if (u.includes('supabase')) return r.fulfill({ contentType: 'application/javascript', body: (signedOut ? STUB_OUT : fs.readFileSync(H + '/stub.js', 'utf8')) + WRAP });
     return r.fulfill({ status: 404, body: '' }); });
-  const load = async q => { await page.goto('https://triplet.test/index.html' + q); await page.waitForFunction(() => document.querySelectorAll('#locationsList .location-card[data-id]').length > 5, null, { timeout: 15000 }); await new Promise(r => setTimeout(r, 400)); };
+  const load = async q => { signedOut = q === '?play'; await page.goto('https://triplet.test/index.html' + q); await page.waitForFunction(() => document.querySelectorAll('#locationsList .location-card[data-id]').length > 5, null, { timeout: 15000 }); await new Promise(r => setTimeout(r, 400)); };
   await load('?play');
   const r = await page.evaluate(async () => {
     const out = {}; out.user = currentUser && currentUser.email; out.opts = __realOpts;

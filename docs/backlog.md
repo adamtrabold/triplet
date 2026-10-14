@@ -13,14 +13,14 @@ pick/redirect before building anything.
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
   -- it should be the experience pre-sign in"); spec: `docs/shipped.md`
-  "Playground". Open: (1) the sign-in control is still the boxed SIGN IN
-  dropdown the owner rejected; its replacement is the arc sign-in badge in
-  `design/signin-button/` (round 2c, director 9, awaiting the owner); (2)
+  "Playground". Open: (1) the sign-in badge (round 2e, owner: "Sign in is
+  great") is BUILT on `claude/elegant-galileo-1c5ntm` (2026-10-14, notes:
+  `design/signin-button/notes/builder.md`), awaiting the CD + UX check and
+  the owner's final stills; it also fixes the sheet copy (old item 3); (2)
   nothing in the playground says changes aren't kept, so a signed-out owner
   (e.g. a Safari tab whose storage was cleared after ~7 days) can edit
-  thinking it saved -- owner's call whether it needs a cue; (3) the sign-in
-  modal copy ("You need to log in to make changes…") is wrong in the
-  playground; (4) share-preview/title for the link.
+  thinking it saved -- owner's call whether it needs a cue (handoff Q2);
+  (4) share-preview/title for the link.
 - **Brand colour tokens: one system** (owner, 2026-10-07, verbatim:
   "how are our colors defined in the app -- it should be clear from a
   systems perspective that all colors are brand level color tokens" ;
@@ -227,13 +227,28 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- Sign-in badge build follow-ups (2026-10-14): (1) the 50-unit scallop
+  polygon now lives three times -- `#floatingAddBtn`/`#accountBtn`'s CSS
+  mask (`-webkit-mask-image` and `mask-image`) and JS `SCALLOP_PTS` (the
+  sign-in badge, its ink clip and `#accountFocus`). Why: CSS can't read a JS
+  constant; a later pass could set the mask from `SCALLOP_PTS` at boot or
+  move both to one inline SVG `<symbol>`. (2) The automated gates only see
+  the signed-in app: the gesture harness stub and the Impeccable runtime
+  layer store a session, so neither renders the paper badge or the
+  playground. Why: a regression in the signed-out corner (popups clearing
+  the paper badge, its contrast findings) goes unseen; `design/signin-button/
+  signin-test.js` covers its behaviour, not its paint. (3)
+  `design/signin-button/play-test.js` was stale since the playground became
+  the signed-out app (its `?play` loads stored a session, so it tested real
+  mode); fixed in the build to load signed out.
+
 - Auth follow-ups found reviewing "playground = signed-out app" (2026-10-13,
   commit `1b52211`): (1) fixed in the same change: `logout()` now
-  signs out this device only (`scope: 'local'`). (2) `logout()` ignores `signOut()`'s error: if
-  it is offline, the account button disappears, the stored session stays,
-  and the next load is signed in again. (3) If storage is blocked
-  (supabase-js falls back to memory), a sign-in reloads straight back into
-  the playground. (4) `design/signin-button/jobs.md` still has the "Edit
+  signs out this device only (`scope: 'local'`). (2) and (3) fixed by the
+  sign-in badge build (2026-10-14, on `claude/elegant-galileo-1c5ntm`): a
+  sign-out error keeps you signed in with "Couldn't sign out. Try again.";
+  a blocked-storage sign-in says so instead of reloading into the
+  playground. (4) `design/signin-button/jobs.md` still has the "Edit
   while signed out (real trip)" flow and `context.md` still says
   `index.html?play`; neither exists any more.
 
