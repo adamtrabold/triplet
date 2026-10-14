@@ -19,7 +19,7 @@ body{margin:0;background:#E4DCCB;color:var(--ink);font-family:Archivo,Arial,sans
 .cell svg{width:24px;height:24px;display:block}
 .cell span{font-size:8px;letter-spacing:.04em;color:var(--ink2);text-align:center;line-height:1.1;text-transform:uppercase}
 .cell.fixed span{color:var(--ord);font-weight:700}
-.strip{display:flex;align-items:center;gap:8px;min-height:26px;flex-wrap:wrap}
+.strip{display:flex;align-items:center;gap:6px;min-height:26px;flex-wrap:wrap}
 .strip .lab{font-size:8.5px;letter-spacing:.08em;color:var(--ink2);flex:0 0 100%;text-transform:uppercase;font-weight:700;margin:4px 0 -2px}
 .strip svg{display:block;flex:none}
 .copy{filter:url(#thr)}
@@ -231,7 +231,7 @@ const pin=(d,c,x,y,o={})=>`<div class="pin${o.approx?' approx':''}" style="left:
 const spin=(d,c,x,y)=>`<div class="pin sel" style="left:${x}px;top:${y}px;background:${INK[c]}">${svg(d,c,'var(--paper)',23,'--ko:'+INK[c])}</div>`;
 const mapCrop=(d,h=170)=>`<div class="map bleed" style="height:${h}px">${tiles(h)}
  ${pin(d,'restaurant',36,20)}${pin(d,'bar',150,62)}${spin(d,'cafe',226,14)}${pin(d,'nature',318,82,{star:1})}${pin(d,'hotel',58,h-58)}
- <div class="clu" style="left:16px;top:${h-96}px">4</div>
+ <div class="clu" style="left:16px;top:${Math.round(h*.4)}px">4</div>
  <img class="stk" src="ref-sticker-near.png" style="left:248px;top:${h-62}px" alt=""><span class="maplab" style="left:282px;top:${h-40}px">VISITED · FIXED</span>
  ${pin(d,'district',180,h-56,{approx:1})}<span class="maplab" style="left:146px;top:${h-14}px">DISTRICT (APPROX. PIN)</span></div>`;
 const header=(d)=>`<div class="bleed"><div class="maptop"><div class="zoom"><div>${svg(d,'zin','#000',18)}</div><div>${svg(d,'zout','#000',18)}</div></div>
@@ -282,12 +282,12 @@ const card=c=>`<div class="card"><div class="no">${c.no} · sketch of an attitud
  <div class="sec">Filter chips: active and inactive</div>${chips(c.d)}
  ${c.verdict?`<div class="verdict">${c.verdict}</div>`:''}
 </div>`;
-const sbs=()=>`<div class="card sbs"><div class="no">Card 4 · side by side</div><h2>What's different?</h2><p class="att">The same row, tag strip, map and categories, once per direction. Pins and badges are 18px glyphs, so the directions differ least there; the tools and the tag strip show it most.</p>
+const sbs=()=>`<div class="card sbs"><div class="no">Card 4 · side by side</div><h2>What's different?</h2><p class="att">The same row, tag strip, map and categories, once per direction. Honest read: in a row and on the map, Field Guide and Cut Paper differ from Today only in one detail per glyph (steam, a tilt, a cut street). Timetable Sorts is the only one that looks different at a glance (outlined places). The differences are bigger in the tools and the district and street icons.</p>
  ${[['T','Today'],['F','Field Guide'],['C','Cut Paper'],['S','Timetable Sorts']].map(([d,n])=>`<h3>${n}</h3>
  <div class="strip">${CAT.map(c=>svg(d,c,INK[c],18)).join('')}</div>
  <div class="bleed" style="margin-top:6px"><div class="row v"><div class="badge" style="border-color:${INK.cafe}">${svg(d,'cafe',INK.cafe,18,'--ko:var(--paper)')}</div><div class="nm">Café Loki<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp.png" alt="">${rowX(d,'var(--ink2)')}</div></div>
  <div class="stubwrap bleed" style="padding:0"><div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staroff',N,20)}STAR</div><div class="seg"><span class="fx">FIXED</span>${MV(N,20)}MARK<br>VISITED</div></div></div>
- ${mapCrop(d,120)}`).join('')}</div>`;
+ ${mapCrop(d,150)}`).join('')}</div>`;
 let scp='';for(let i=0;i<=72;i++){const a=i/72*2*Math.PI,r=10.6+0.9*Math.cos(a*12);scp+=(i?'L':'M')+(12+r*Math.cos(a)).toFixed(2)+' '+(12+r*Math.sin(a)).toFixed(2)}
 const drop=`<div class="card"><div class="no">Card 5</div><h2>Dropped: say if you want any back</h2>
  <div class="drow"><svg viewBox="0 0 24 24" style="color:${INK.cafe}"><path fill="none" stroke="currentColor" stroke-width="3" d="M4.5 5.5h10.5v5.5a4 4 0 0 1-4 4H8.5a4 4 0 0 1-4-4z"/><path fill="none" stroke="currentColor" stroke-width="3" d="M16 7.5h2.2l1.8 1.8v1.4l-1.8 1.8H16"/><path fill="currentColor" d="M2.5 18.8h15l-1.6 2.4H4.1z"/></svg><div><b>Same Die</b>Drawn with the visited check’s bar. The heaviest option; kept as the starting point for the drawing grid, not as a look.</div></div>

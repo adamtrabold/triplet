@@ -1061,3 +1061,113 @@ NEXT: product designer (visual focus) — build the six stills in §3 (four
 direction cards with full coverage, real-size and 1-bit strips and both tag
 states, plus the side-by-side card and the dropped card), applying the
 rulings in §2. Then I score all of them in one pass.
+
+---
+
+## Turn 7: product designer (visual focus): the six stills (built per turn 6 §3)
+
+Stills, each 390 CSS px wide at 3x (1170 px), one PNG per card, in
+`concepts/sketches/`. The source is `attitudes-v3.html` (Archivo from Google
+Fonts):
+
+- `v3-card-0-today.png`
+- `v3-card-1-field-guide.png`
+- `v3-card-2-cut-paper.png`
+- `v3-card-3-timetable-sorts.png`
+- `v3-card-4-side-by-side.png`
+- `v3-card-5-dropped.png`
+
+Each direction card shows:
+
+- **Every icon at 24px**, labelled: 11 categories plus street; star off and
+  on; the mark-visited check labelled FIXED; 18 control slots (account, add,
+  add-open, sort, filters, locate, tag close, directions, check, plan +,
+  more, chevron, collapse, row delete, plan add, plan remove, zoom + and
+  zoom −).
+- **Real-size strips:** categories at chip 12, pin 18 and selected 23; tools
+  at their inventory sizes; then the same set in **1-bit**.
+- **Context crops:**
+  - the map strip with Leaflet zoom and the scalloped account and +
+    buttons, plus the list header;
+  - plain, visited and selected-navy starred rows;
+  - the tag stub unvisited (with mark visited FIXED) and starred plus
+    visited (with the stamp FIXED);
+  - the map with near pins of 6 categories, one selected, one starred, a
+    cluster, the real visited sticker (FIXED), a district outline and the
+    district's approximate pin;
+  - filter chips, active and inactive.
+
+The visited images are the real PNGs from `inventory-png/`, unchanged.
+
+**Rulings applied**
+- **Field Guide:** tools are navy, never grey, and quiet by weight only (1.8
+  round). Grey stays "off" (the inactive chip). The buttons keep their
+  loudness and only the glyph changes. At 1.8 the account and + glyphs in
+  the 50px scallop look slightly lighter than Today's but not timid, so no
+  button-size rule is needed yet. Places keep one detail each.
+- **Timetable:** it gets typeface cues now: flat cut ends, mitred corners,
+  squarish curves, and **ink-trap gaps** wherever strokes meet (cup and
+  handle, fork stem, stem and base on the bar and obelisk, the bag handle,
+  the locate ticks). It also gets **optical masters**: 2.9 at 12px, 2.35 at
+  18 and 2.0 at 24. The chip glyphs stay readable and don't go grey. "Other"
+  is a squarish bullet. "More" is three squarish periods. The proof line
+  stays.
+- **Cut Paper:** tools are thinner strips (about 1.7) than the place pieces,
+  and the row × is quiet (smaller, ink-2). The off star is dotted
+  cut-here, with a **solid knife-line inset** labelled fallback, plus the
+  line "only in the tag and add form: rows and the map never show an
+  unstarred star". The place pieces now carry a fixed 3–5° lean (cafe,
+  restaurant, bar, attraction, shopping, hotel) so the hand shows at row
+  size.
+- **District:** in every direction it is now **a block cut by streets**
+  (Cut Paper's v2 idea, which turn 6 set as the bar). Each direction draws
+  it its own way:
+  - Field Guide: a solid block with two cream streets.
+  - Cut Paper: an off-true block with two street gaps.
+  - Timetable: an outline block with two street strokes.
+- **Street (new everywhere):** each direction gets its own street icon:
+  - Field Guide: a road in perspective with a cream centre line.
+  - Cut Paper: a winding cut ribbon with a cream centre line.
+  - Timetable: two converging road edges and a dashed centre, like a type
+    sort.
+- **The star on starred map pins** is each direction's own star. Today and
+  Field Guide use the shipped star with the keyline. Cut Paper and
+  Timetable use their own star with a paper halo and no keyline (that's
+  sketch-level).
+
+**Looked at, at phone size: what's actually different (the top risk)**
+- **Honest finding, said on card 4:** in a row and on the map, **Field Guide
+  and Cut Paper differ from Today only by one detail per glyph** (steam, a
+  lean, cut streets). At 18px the place glyphs are still filled
+  silhouettes. **Timetable is the only direction that reads differently at
+  a glance** (outlined places), and it holds up on the map better than
+  expected. That's because of the 2.35 cut at 18px, and because the pin's
+  rim and the glyph now share a weight.
+- In all three, the real difference is in the **district and street icons,
+  the tools, and the tag stub**. Field Guide is the closest to Today in
+  feel, and also the calmest.
+- **Cut Paper's tag stub:** the dotted star sits among the dashed dividers
+  and the dotted stamp ring. They don't buzz, but at 20px the dotted star is
+  the faintest mark in the stub and reads as "missing" more than as "cut
+  here". That's a mild strike against dotted, and the card says so through
+  the fallback inset. My read: the solid knife line is the better shipping
+  answer.
+- The **thinner Cut Paper tools** make its account glyph in the scallop the
+  most timid of the three. Its tools are now hard to tell from Field
+  Guide's.
+- **Timetable risks**, as named on its card: tools are close to a standard
+  line set, and the character lives in the places, the proof line and the
+  traps. On the map it's the lightest, but it passes.
+
+**Not built (named)**
+- Optical masters exist for Timetable only; the others are scaled.
+- Cut Paper and Timetable stars on map pins have no `--star-deep` keyline.
+- The Pencil Star and the cluster cutout aren't redrawn (cost noted in
+  owner Q3).
+- Leaflet's real Lucida glyphs render in the fallback font in Chromium, as
+  they do in the inventory.
+
+NEXT: design director: score the six stills in one pass (cards 0–5 at
+`concepts/sketches/v3-card-*.png`). The point I most want judged is card 4:
+is "Field Guide and Cut Paper are near-Today in rows" a reason to push them
+further, or an honest result to show the owner as it is?

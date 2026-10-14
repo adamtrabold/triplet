@@ -1,6 +1,49 @@
 # Notes: product designer (visual focus)
 
-## Where things stand (2026-10-14, after jam turn 4 = pass 2)
+## Where things stand (2026-10-14, after jam turn 7: six stills built)
+
+The jam is closed (director turn 6). I built the six stills per §3 in
+`../concepts/sketches/attitudes-v3.html`. They render to `v3-card-0-today`,
+`v3-card-1-field-guide`, `v3-card-2-cut-paper`, `v3-card-3-timetable-sorts`,
+`v3-card-4-side-by-side` and `v3-card-5-dropped` (.png, 1170 wide, 3x).
+
+How to re-render: playwright from `npm root -g`. The scratchpad script
+`cards3.js` loads the page, waits for `document.fonts.ready` plus 1.5s, then
+takes an element screenshot of each `.card` at DSF 3. The real visited PNGs
+are `ref-row-stamp`, `ref-row-stamp-selected`, `ref-tag-stamp` and
+`ref-sticker-near`. The map land colour is #E8E4DA, so the sticker PNG's
+background blends in.
+
+Builder-relevant structure: `G[dir][name]` holds the inner SVG markup for
+every glyph (dirs T, F, C, S). Knockouts use `var(--ko)`, so selected pins
+and rows can invert them. Timetable strokes use `var(--sw)`, set per size by
+`swFor()`: 12px = 2.9, 18px = 2.35, 24px = 2.
+
+Turn-6 rulings, as applied:
+- Field Guide: tools are navy at 1.8 round (never grey). Buttons keep their
+  loudness; at 1.8 the glyph isn't timid.
+- Timetable: ink traps, squarish curves, flat ends, mitred corners, and the
+  optical masters. It's the only direction that looks different at a
+  glance in rows and on the map.
+- Cut Paper: tools are about 1.7 strips; the row × is quiet; the off star
+  is dotted with a solid fallback inset; places get a fixed 3–5° lean.
+- District = a block cut by streets in every direction. Street = FG a
+  perspective road, CP a winding ribbon, TS converging edges with a dashed
+  centre.
+- Mark-visited check: FIXED, unchanged, on every card.
+
+Findings:
+- In rows and on the map, Field Guide and Cut Paper are near-Today: one
+  detail per glyph. Card 4 says so.
+- The dotted star is the faintest mark in its stub; I'd ship the solid
+  fallback.
+- Cut Paper's account glyph in the scallop looks timid, and its tools
+  converge with Field Guide's.
+
+Open for the director: push FG and CP further at 18px, or show them as
+they are.
+
+## Earlier (after jam turn 4 = pass 2)
 
 Pass 2 is done. Board: `../concepts/sketches/attitudes-v2.html`, with one
 PNG per card (`v2-card-0-today` … `v2-card-4-dropped`) plus
@@ -97,6 +140,11 @@ sketch's districts were weak ("medical badge", "guitar pick"). The
 sketch was missing the map, the reversal and the tag stub. Same Die is a
 method, not an attitude. Q2 (is the star printed or applied?) was answered
 by the Pencil Star. Q3 (whimsy for places only) is now a team default.
+Turn 6: the three directions look near-identical in rows and on the map
+(the top risk). District was still weak and street was missing. No grey
+tools in FG. Buttons keep their loudness. Timetable needs its typeface cues
+and a 12px cut now. Cut Paper's tools should be lighter and its row ×
+quiet. Mark visited is treated as FIXED.
 
 ## Open questions (owner's calls)
 
