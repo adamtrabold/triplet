@@ -39,3 +39,12 @@ Direction: (1) Float — orange and bigger is liked; try it in the LEFT corner (
 > I actually want to come back to the blank pin version of the add button — I also want to rev the add modal to be more like filling out a blank tag…I feel like together that could be a cool package.
 
 Direction: revive C (blank pin) together with the add form as a blank Hanging Tag you fill out — one package. Not started; the owner is moving the project to a new agent.
+
+2026-10-14, on round 8b (P blank pin 9, A header tag 9, shared blank-tag form; 19 stills):
+> Blank pin looks ugly. I wanted to explore the version where the pin+tag was the button and see if that could work with tweaks.
+>
+> Also i like the hang tag but some of the buttons aren’t reading like buttons — specifically the add city one. That whole area sort of disappears.
+>
+> And I like the tag being pinned as you fill it out but I’m worried in order for it to make sense the map will have to move underneath as it gets filled out — which will make it all confusing. Have the agents reason about this and if it’s too complicated just have the tag be what’s filled out and the pin placed after creation.
+
+Feedback (owner: feedback on concepts is normal iteration). New direction: (1) the resting + = the pin + tag together as the button (C's earlier version), pushed with tweaks — not the lifted orange disc; (2) the hanging blank tag is liked, but some buttons don't read as buttons, esp. the new-city ("ADD LISBON / PICK FROM MY LIST") area, which "sort of disappears"; (3) the team reasons whether pinning the tag while filling makes the map move underneath confusingly; if too complicated: the tag alone is filled out, the pin is placed after creation. Round count restarts. Not answered: the six questions, round 7, A (header tag) as such.
