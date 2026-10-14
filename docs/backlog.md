@@ -309,15 +309,27 @@ pick/redirect before building anything.
   `rgba(18, 41, 63, .16)` (navy 16%; only drawn in the unused 'segment'
   style).
 
-- Impeccable gate follow-ups (`design/impeccable-gate/`): (1) 13 runtime
-  baseline identities are "pre-existing, unreviewed" (10px category·city
-  row meta, 10px popup "Get Directions"/"Mark Visited"/category, all-caps
-  row meta): CD/owner to accept each with a reason or fix it. (2) The first
+- Impeccable gate follow-ups (`design/impeccable-gate/`): (1) the runtime
+  baseline identities still marked "pre-existing, unreviewed" (10px
+  category·city row meta, 10px popup "Get Directions"/"Mark Visited"/category):
+  CD/owner to accept each with a reason or fix it. (2) The first
   full `--review` (17 critic commands) on `main` hasn't been run. (3) No
   PRODUCT.md/DESIGN.md: `/impeccable init` / `document` are owner decisions
   (they'd also feed the skill's context). (4) The design hook is not
-  installed (harness config: owner decision). (5) #mainContent clip: check
-  the add-form autocomplete dropdown isn't clipped (static baseline reason).
+  installed (harness config: owner decision).
+
+- **Bug (confirmed 2026-10-14): the add form's place suggestions are cut off
+  on phones.** `#addressAutocomplete` (absolute, `max-height: 300px`) hangs
+  below the Name field but `#mainContent` is `overflow: hidden` and ends at
+  the sheet's top edge, so the list's bottom is cut where the sheet starts.
+  Repro (Chromium, gesture-harness stub, Nominatim faked with 10 results):
+  390x844, tap +, type "Kaffi" -> list spans y 269-569, `#mainContent` ends
+  at 544, the last 25px are hidden; 390x664 (shorter phone / toolbars
+  showing) -> `#mainContent` ends at 364, only ~1.6 of 10 suggestions show.
+  The list still scrolls internally, so every item is reachable, but most of
+  the box is hidden on short screens. Desktop (1280x800) is not cut.
+  Impeccable 4.5.2 no longer reports this clip (its rule now skips page-shell
+  containers), so nothing in the gate tracks it any more.
 
 - State system shipped (see `docs/shipped.md`). Left open: floating
   add/account buttons' pressed fill is the off-token literal `#1B3A57`; map

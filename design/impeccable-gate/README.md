@@ -2,8 +2,8 @@
 
 One command, run identically by every agent, for every part of
 [Impeccable](https://github.com/pbakaus/impeccable) that can run here.
-Pinned to `impeccable@4.1.0` (engine 0.1.5) and the matching skill, vendored at
-`.agents/skills/impeccable/` (tag `cli-v4.1.0`, Apache-2.0, see its `VENDOR.txt`).
+Pinned to `impeccable@4.5.2` (engine 0.1.14) and the matching skill, vendored at
+`.agents/skills/impeccable/` (tag `skill-v4.5.2`, Apache-2.0, see its `VENDOR.txt`).
 
 ```sh
 design/impeccable-gate/run.sh [path/to/index.html]           # --gate (default): deterministic, must pass
@@ -21,7 +21,7 @@ no Chromium was found, or a UI state could not be reached.
 
 | Impeccable part | Runs here? | How | Blocks merge |
 |---|---|---|---|
-| `detect`, file mode (static HTML/CSS) | yes | `--gate`; `npx -y --offline impeccable@4.1.0 detect --json --no-config --no-inline-ignores --no-design-system`, registry fetch if not cached | any identity added or missing vs `baseline.json` |
+| `detect`, file mode (static HTML/CSS) | yes | `--gate`; `npx -y --offline impeccable@4.5.2 detect --json --no-config --no-inline-ignores --no-design-system`, registry fetch if not cached | any identity added or missing vs `baseline.json` |
 | `detect`, URL mode (rendered DOM) | yes | `--gate`; app served on loopback with the gesture-harness stub, 390x844, one scan per state: list, popup, sort, add, plans (n/a on builds without it) | any identity added or missing vs `runtime-baseline.json` |
 | skill `context` (deterministic) | yes | `--review`; vendored launcher with the npm engine via `IMPECCABLE_BIN` | no (its output goes in the packet) |
 | critic commands: `critique`, `audit` (default pair, the skill's Evaluate commands) | yes, ONE agent | `--review` writes `reviews/<date>-<sha>/BRIEF.md` + `REPORT.md`; the agent follows `reference/<command>.md` read-only | `--check-review`: a listed section not done, a stale sha, or a P0/P1 without a designer/UX/CD disposition |
@@ -74,7 +74,7 @@ regression to the same identity is caught again.
 ## Hermetic and offline
 
 Telemetry off (`IMPECCABLE_NO_TELEMETRY=1`, `DO_NOT_TRACK=1`); `IMPECCABLE_BIN` is
-cleared for the detector so the shim always runs 4.1.0's engine. The npm cache is
+cleared for the detector so the shim always runs 4.5.2's engine. The npm cache is
 tried first (`--offline`), the registry only if the package isn't cached; with
 neither the gate exits 3 with a message. The runtime layer serves everything from
 loopback (stub, vendored Leaflet and Archivo) and gives Chromium a dead proxy, so
