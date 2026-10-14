@@ -1,5 +1,28 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 8 fixes (director turn 36)
+- **Fix 1, pencil = graphite.** Graphite #3F454E with a #6A717C sheen
+  (background-clip text), plus streak grain seeded per entry
+  (`pencilMask()`, 50% floor).
+  - Proof: `blank-tag-form/T0-pencil-vs-greyed-1x.png` (raw `cmp-*`
+    frames).
+- **Fix 2, a whole ruled blank tag.** `.tag-in` is at least 256, flex
+  `space-between`, gap 10. The stub is fixed (behind the keyboard at
+  664).
+  - Results are an opaque overlay from 89px.
+  - The hanging tag is 316. `__BT.hang` pans the map to clear the list
+    (`s.clear` sets the limit, e.g. the Float badge).
+- **Fix 3:** `P3-tap` and `A3-tap` are two panels; the old journey PNGs
+  are deleted.
+- **Fix 4:** T2 is whole frames; T7 and T0 are re-cropped (watch the
+  pins cut at crop tops).
+- **Fix 5:** the needle is 2px with a 5px point; the ground is 14×4.4
+  at 28%.
+- **Systems looped in:** a box at the top of
+  `blank-tag-form/how-it-works.md` (fixed height, overlay, ADD now at
+  518-578 at 664, the Float pan 512, rules fading on ADD).
+- **Next:** the director scores round 8.
+
 ## UPDATE 2026-10-14, concepts turn 1 (after director turn 35 and systems' concept turn)
 - **Packages:**
   - P (lifted pin) and A (header tag) share one blank-tag form; Float is

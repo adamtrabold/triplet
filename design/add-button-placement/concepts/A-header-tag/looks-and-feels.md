@@ -2,7 +2,7 @@
 
 Visual, concepts turn 1 (2026-10-14). The trigger's look is round 7's, unchanged (`../stub/looks-and-feels.md` "Round 7", `../stub/r7.inc.html`, tag7, no eyelet). The form's look is in `../blank-tag-form/looks-and-feels.md`.
 
-Stills (3x, 1170 wide): `A1-rest-vs-today`, `A2-1x`, `A3-journey`, `A4-tag-open` (no exception), `A5-float-frame` (the same form from round 7's badge). Form stills: `../blank-tag-form/T1`-`T8`.
+Stills (3x, 1170 wide): `A1-rest-vs-today`, `A2-1x`, `A3-tap` (two panels, round 8), `A4-tag-open` (no exception), `A5-float-frame` (the same form from round 7's badge). Form stills: `../blank-tag-form/T1`-`T8`.
 
 ## What's new for A in this package
 

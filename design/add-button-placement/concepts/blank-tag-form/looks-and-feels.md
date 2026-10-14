@@ -1,5 +1,25 @@
 # The blank-tag form: how it looks and feels (shared by P, A and the Float frame)
 
+## Round 8 changes (visual, after director turn 36). These override anything below that disagrees.
+
+- **Graphite, not grey (fix 1; `T0-pencil-vs-greyed-1x`).**
+  - Pencil entries are a cool, dark graphite: `--graphite` #3F454E with `--graphite-hi` #6A717C as a faint sheen (a 172° gradient through `background-clip: text`).
+  - The grain is visible at 1x: short streaks at a writing angle (fractal noise 0.05 × 0.95, rotated -28°) used as a mask over a 50% floor. It's seeded per entry (`pencilMask(seed)`), so no two entries share a grain.
+  - The face and size are the inked entry's. The caret and the chevrons are graphite too.
+  - Why it doesn't read as disabled: disabled in this app is the warm ink faded (signed-out Star and Visited, `--state-off-alpha`). Graphite is darker, cooler and textured.
+  - Printed inactive ADD stays `--ink-2` small caps: that is print, and its meaning ("not yet") is right.
+  - T0 puts the four side by side at 1x, blown up 3×.
+- **A whole blank tag from the first frame (fix 2; `T2`, `T1`).**
+  - The blank tag is a ruled tag: NAME, ADDRESS · CITY, NOTES and TYPE are printed rules with small-caps captions under them. The rules are spread evenly down the tag (flex `space-between`, 10px minimum gap).
+  - `.tag-in` is at least 256 tall, so the tag is 316 with its stub, and **the stub sits where it will stay.** At 664 docked it is behind the keyboard (330-390).
+  - While typing, the offers print over the lower lines: an opaque paper panel from 89px down to the stub, 48px rows. The tag's outline and stub don't move.
+  - After a pick, the same ruled tag hangs on the place with the entries in pencil on their rules. The NAME and ADDRESS captions drop once those lines are written; NOTES keeps its caption while it's empty.
+  - On ADD the rules and captions lift (a 200ms fade) as the tag tightens to the real tag. The real tag has no rules, and the blank must become exactly it.
+- **Journeys cut to two panels** (fix 3). `P3-tap` and `A3-tap` show rest and tapped, at 575 each. Pick → ADD → after is T3 + T5.
+- **Crops (fix 4).** T2 is now two whole phone frames. T7 and T0 are re-cropped clean.
+- **The Float frame (A5)** now shows the tag clearing the badge: with the taller tag, the badge's navy × needs the map panned so the tag's foot is 12 above it. This is a Float cost, noted for systems.
+
+
 Visual, concepts turn 1 (2026-10-14). The structure is in `how-it-works.md`; this file covers the look and the motion. Prototype: `blank.inc.html` is layered into a copy of today's main by `stills.js`. Run `node stills.js`, then `node compose.js`. The raw frames are in `raw/` and the owner stills are `T1`-`T8`.
 
 The idea: the add form IS a place's tag, before it's real. The prototype doesn't draw a new tag. It opens the shipped tag and rewrites its contents, so the die-cut, eyelet, string, shadow, 1px warm edge, stub notches and stamps are exactly what you'll get (J11).

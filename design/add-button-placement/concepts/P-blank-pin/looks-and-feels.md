@@ -16,7 +16,8 @@ Form stills: `../blank-tag-form/T1`-`T8`.
 - **Disc:** a 48 face in `--brand-orange`, a 1.5 `--brand-orange-deep` rim and a 2px `--paper` halo (52 overall).
   - The navy + is 0.22 × D from the centre (21px arms) at a 3.4 stroke, with round caps.
   - The disc casts one soft lift shadow (0 5px 4px, ink 10%), the "held above the map" cue. It's the only shadow.
-- **Needle, not string:** a navy wedge tapering from 2.2px at the disc to 0.6px at the point, 22px long.
+- **Round 8 (director fix 5):** the needle is now 2px navy for its whole length, with a 5px point at the tip. The ground ellipse is 14×4.4 at 28%: you can see it at 1x, and it's still quieter than the halo (`P2`). The journey still is now `P3-tap` (two panels).
+- **Needle, not string (round 7 numbers below; superseded by the line above):** a navy wedge tapering from 2.2px at the disc to 0.6px at the point, 22px long.
   - It tapers so it reads as a pin's point going in, not a lollipop stick (a stick is even and blunt). This was changed from the turn-34 sketch's even 1.6px line after looking at it at 3x.
 - **Ground point:** a 12×3.8 ellipse at 15% `rgba(31,47,74)` at the needle's tip. It's quieter than the halo, as the director asked.
 - **Place:**

@@ -57,6 +57,7 @@ const both = (n, s) => { F[n] = s; F[n + '-1x'] = { ...s, dsf: 1 }; };
 const V664 = [390, 664], V320 = [320, 568];
 // P: rest beside today; the 1x kill test; pressed; collapsed; tag open (exception); 320; V3
 both('today-rest', { k: 'today', zoom: true });
+F['f-blank844'] = { k: 'P', zoom: true, run: p => dock(p, { state: 'blank' }) };
 both('p-rest', { k: 'P', zoom: true, run: restP });
 both('p-fab', { k: 'P', zoom: true, run: fab });
 F['p-pressed'] = { k: 'P', zoom: true, run: async p => { await restP(p); await press(p); } };
@@ -80,6 +81,14 @@ F['f-failed664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'failed' }) };
 F['f-typing320'] = { k: 'P', vp: V320, zoom: true, run: p => dock(p, { state: 'typing' }, 260) };
 F['f-picked320'] = { k: 'P', vp: V320, run: p => hang(p, { state: 'picked' }) };
 F['f-typing844'] = { k: 'P', inset: true, zoom: true, run: p => dock(p, { state: 'typing', pinTop: 61, tagTop: 121 }) };
+// the pencil comparison (director turn 36, fix 1), at 1x
+F['cmp-pencil-1x'] = { k: 'P', vp: V664, dsf: 1, run: p => hang(p, { state: 'picked' }) };
+F['cmp-ink-1x'] = { k: 'P', vp: V664, dsf: 1, run: p => openPlace(p, 'Hallgrímskirkja') };
+F['cmp-off-1x'] = { k: 'P', vp: V664, dsf: 1, run: async p => { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => document.querySelector('.tag-popup .tag').classList.add('is-off')); } };
+F['cmp-blank-1x'] = { k: 'P', dsf: 1, zoom: true, run: p => dock(p, { state: 'blank' }) };
+F['cmp-pencil'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked' }) };
+F['cmp-off'] = { ...F['cmp-off-1x'], dsf: 3 };
+F['cmp-blank'] = { ...F['cmp-blank-1x'], dsf: 3 };
 // A
 both('a-rest', { k: 'A', zoom: true });
 F['a-tag664'] = { k: 'A', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
@@ -91,7 +100,7 @@ F['a-rest320'] = { k: 'A', vp: V320, zoom: true };
 F['a-typing664'] = { k: 'A', vp: V664, zoom: true, run: async p => { await nbOpen(p); await dock(p, { state: 'typing' }); } };
 // Float frame
 F['fl-rest664'] = { k: 'F', vp: V664, run: p => floatBadge(p, false) };
-F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state: 'picked' }); await floatBadge(p, true); } };
+F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state: 'picked', clear: 512 }); await floatBadge(p, true); } };
 
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });

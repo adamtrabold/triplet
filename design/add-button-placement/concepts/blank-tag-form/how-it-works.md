@@ -1,5 +1,13 @@
 # The blank-tag form: how it works (shared by P, A and the Float frame)
 
+> **Visual, round 8 (2026-10-14): changes that touch how it works. Systems, please check them and fold them in.**
+> 1. **The blank tag has a fixed minimum height.** It is a ruled tag of NAME, ADDRESS · CITY, NOTES and TYPE (in the real tag's order: notes before type), `.tag-in` at least 256, so 316 with the stub, from the first frame (director fix 2). The stub never moves while you type. At 664 docked it's at y 330-390, behind the keyboard; the 844 Home Screen puts it at 377-437.
+> 2. **Results overlay the lower lines.** They're an opaque panel inside the tag from 89px to the stub, 48px rows, giving 3 and a half rows at 664 (unchanged from your numbers).
+> 3. **The hanging tag is taller.** It's 316 (more with a question: about 338-358), not about 220. At 664 that puts ADD at y 518-578, with the map panned so the tag's foot clears the list by 16. At 320 the map pans and the tag's top lands at about 176. Please re-check the fit and the tag-fit pan.
+> 4. **Float only:** the tag's foot must clear the open badge (× at 524-584 at 664), so the pan target is 512. This is the same `TAG_SHEET_GAP`-style cost round 7 had.
+> 5. **On ADD the rules and captions fade** as the tag tightens to the real tag's height. Nothing else changes in the flow.
+
+
 Systems, concept turn 1 (2026-10-14). The rulings are from jam turns 30-35;
 the jobs are numbered as in `../../jobs.md`. The look belongs to visual
 (turns 31 and 34). Numbers come from `../pass-a-check/` unless marked

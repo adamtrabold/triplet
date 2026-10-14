@@ -34,27 +34,35 @@
   body:has(#btDock) .leaflet-control-attribution { visibility: hidden; }
   #btDock .leaflet-popup { position: absolute; margin: 0; transform: none !important; bottom: auto !important; }
 
-  /* ---- blank-mode contents ---- */
-  .tag.is-blank .tag-in { padding-top: 36px; }
+  /* ---- blank-mode contents: a RULED blank tag (turn 37). Every line is there from the first frame, at a fixed
+     pitch, and the stub sits where it will be: .tag-in is at least 256 tall, so the tag is 316 with its stub. ---- */
+  .tag.is-blank .tag-in { padding-top: 36px; padding-bottom: 18px; min-height: 256px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+  .tag.is-blank .tag-in > .bt-q, .tag.is-blank .tag-in > .bt-err { margin-top: 10px !important; }
   .tag.is-blank.is-starred .tag-in { padding-top: var(--s12); }
-  .bt-line { position: relative; border-bottom: 1px solid var(--hair); margin-right: 30px; }
-  .bt-notes.bt-line { margin-right: 0; }
+  .bt-f { position: relative; }
+  .bt-rule { position: relative; border-bottom: 1px solid var(--hair); }
+  .bt-f.name .bt-rule { margin-right: 30px; }
   .bt-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; min-height: 28px; padding-right: 32px; margin: 0; overflow-wrap: anywhere; }
-  /* graphite: the paper's tooth shows through faintly (min 62% coverage), never the stamp's broken ink */
-  .bt-pencil { color: var(--pencil);
-    -webkit-mask: var(--tex-stamp) 3px 5px / 120px 120px, linear-gradient(rgba(0,0,0,.62), rgba(0,0,0,.62)); -webkit-mask-composite: source-over;
-    mask: var(--tex-stamp) 3px 5px / 120px 120px, linear-gradient(rgba(0,0,0,.62), rgba(0,0,0,.62)); mask-composite: add; }
-  .bt-caret { display: inline-block; width: 1.5px; height: 24px; background: var(--pencil); vertical-align: -3px; margin-left: 2px; }
+  .bt-addr { font-size: 13px; line-height: 18px; min-height: 18px; }
+  .bt-note { font-size: 14px; line-height: 20px; min-height: 20px; }
   .bt-cap { display: block; margin-top: 3px; font-stretch: 75%; text-transform: uppercase; font-weight: 500; font-size: 11px; line-height: 14px; letter-spacing: .12em; color: var(--ink-2); }
-  .bt-addr { margin-top: 2px; font-size: 13px; line-height: 18px; }
-  .bt-chev { display: inline-block; width: 6px; height: 6px; margin-left: 6px; vertical-align: 2px; border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; transform: rotate(45deg) translate(-1px, -1px); opacity: .8; }
-  .bt-notes { margin-top: var(--s3); height: 24px; }
-  .bt-notes .bt-cap { position: absolute; left: 0; bottom: 4px; margin: 0; }
-  .bt-fields { display: flex; align-items: baseline; gap: var(--s2); margin-top: var(--s3); padding-bottom: var(--s3); }
+  .bt-f.type { display: flex; align-items: baseline; gap: var(--s2); }
+  .bt-f.type .bt-rule { flex: 0 0 150px; min-height: 18px; }
   .bt-type { font-stretch: 75%; font-weight: 700; font-size: 14px; line-height: 16px; letter-spacing: .09em; text-transform: uppercase; }
-  .bt-hint { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+  .bt-hint { font-size: 13px; line-height: 18px; color: var(--ink-2); }
+  /* GRAPHITE (turn 37, director fix 1: "pencil reads as greyed out"): a cool, dark graphite with a faint sheen
+     (background-clip: text), and pencil grain you can see at 1x -- short streaks at a writing angle, seeded per entry
+     (pencilMask(), "ink is never identical twice" covers pencil too). Darker than --ink-2 and cool where disabled
+     controls are warm and faded. Same face and size as the entry will have in ink. */
+  :root { --graphite: #3F454E; --graphite-hi: #6A717C; }
+  .bt-pencil { color: var(--graphite); background: linear-gradient(172deg, var(--graphite) 0%, var(--graphite-hi) 38%, var(--graphite) 62%, #4B515A 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .bt-pencil .bt-chev { -webkit-text-fill-color: initial; color: var(--graphite); }
+  .bt-caret { display: inline-block; width: 1.5px; height: 24px; background: var(--graphite); vertical-align: -3px; margin-left: 2px; }
+  .bt-chev { display: inline-block; width: 6px; height: 6px; margin-left: 6px; vertical-align: 2px; border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor; transform: rotate(45deg) translate(-1px, -1px); opacity: .8; }
+  /* typing: the offers print over the lower lines; the tag's outline and stub don't move */
+  .bt-res { position: absolute; z-index: 2; left: 0; right: 0; top: 89px; bottom: 0; padding: 0 var(--s4); background: var(--paper-raised); overflow: hidden; }
   /* the search offers: PRINTED on the tag (not pencil), 48px rows, hairlines, no slip edge */
-  .bt-res { margin: var(--s2) calc(-1 * var(--s4)) 0; padding: 0 var(--s4); }
   .bt-r { height: 48px; box-sizing: border-box; border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
   .bt-r b { font-size: 14px; line-height: 18px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .bt-r span { font-size: 11px; line-height: 15px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -108,8 +116,8 @@
       el.style.cssText += ';border:0;padding:0;background:none;';
       const D = 48, H = 2, W = D + 2 * H, c = W / 2, STR = 22, a = D * 0.22, sw = 3.4;
       el.innerHTML = `<svg width="${W}" height="${W + STR + 4}">`
-        + `<ellipse cx="${c}" cy="${W + STR}" rx="6" ry="1.9" fill="rgba(31,47,74,.15)"/>`
-        + `<path d="M${c - 1.1} ${W - 3}L${c + 1.1} ${W - 3}L${c + 0.3} ${W + STR}L${c - 0.3} ${W + STR}Z" fill="var(--navy)"/>`
+        + `<ellipse cx="${c}" cy="${W + STR}" rx="7" ry="2.2" fill="rgba(31,47,74,.28)"/>`
+        + `<path d="M${c - 1} ${W - 3}L${c + 1} ${W - 3}L${c + 1} ${W + STR - 5}L${c} ${W + STR}L${c - 1} ${W + STR - 5}Z" fill="var(--navy)"/>`
         + `<g class="lp-disc"><circle cx="${c}" cy="${c}" r="${c}" fill="var(--paper)"/><circle class="lp-face" cx="${c}" cy="${c}" r="${D / 2 - 0.75}" fill="var(--brand-orange)" stroke="var(--brand-orange-deep)" stroke-width="1.5"/>${PLUS(c, sw, a)}</g></svg>`;
       document.body.appendChild(el); }
     const place = () => { const S = document.getElementById('locations').getBoundingClientRect().top; el.style.top = (S - 20 - 74) + 'px'; };
@@ -131,28 +139,41 @@
   function inner(s) {
     const st = s.state;
     const nm = s.name !== undefined ? s.name : NAME;
-    if (st === 'blank' || st === 'typing' || st === 'nores') {
-      const txt = st === 'blank' ? '' : (s.text || 'Hallgr');
-      let below = '';
-      if (st === 'typing') below = `<div class="bt-res">${(s.results || RESULTS).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}</div>`;
-      if (st === 'nores') below = `<div class="bt-res"><div class="bt-msg">No places called that — try another name.</div></div>`;
-      return `<div class="bt-line"><h2 class="bt-name bt-pencil">${txt}<span class="bt-caret"></span></h2></div><span class="bt-cap">Name</span>${below}`;
-    }
-    // picked and later
-    const shape = st === 'shape';
+    const pre = ['blank', 'typing', 'nores'].includes(st), shape = st === 'shape';
     const type = s.type || (shape ? 'district' : 'attraction');
-    const typeHtml = s.inked ? `<span class="tag-val tag-stamp popup-cat" style="--tilt:-3.5deg;margin-left:0">${type}</span>`
+    const pen = s.inked ? '' : 'bt-pencil';
+    // NAME
+    const nameTxt = pre ? (st === 'blank' ? '' : (s.text || 'Hallgr')) + '<span class="bt-caret"></span>' : nm;
+    let h = `<div class="bt-f name"><div class="bt-rule"><h2 class="bt-name ${pre ? 'bt-pencil' : pen}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nameTxt}</h2></div>${pre ? '<span class="bt-cap">Name</span>' : ''}</div>`;
+    // ADDRESS . CITY (a printed hint for a shape)
+    h += shape ? `<div class="bt-f"><div class="bt-rule"><div class="bt-hint">Traced from OpenStreetMap when you add it</div></div></div>`
+      : `<div class="bt-f"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR} · ${s.city || CITY}<span class="bt-chev"></span>`}</div></div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
+    // NOTES (above TYPE: the real tag's order)
+    h += `<div class="bt-f"><div class="bt-rule"><div class="bt-note ${pen}">${s.notes || ''}</div></div>${s.notes ? '' : '<span class="bt-cap">Notes</span>'}</div>`;
+    // TYPE
+    const typeHtml = pre ? '' : s.inked ? `<span class="tag-val tag-stamp popup-cat" style="--tilt:-3.5deg">${type}</span>`
       : `<span class="bt-type bt-pencil">${type}<span class="bt-chev"></span></span>`;
-    let q = '';
-    if (st === 'newcity') q = `<div class="bt-q"><p><b>New city?</b>Lisbon isn’t one of your cities yet.</p><div class="bt-ans"><span>Add Lisbon</span><span>Pick from my list</span></div></div>`;
-    if (st === 'whichcity') q = `<div class="bt-q"><p><b>Which city?</b>Most of this district is outside Reykjavík.</p><div class="bt-ans"><span>New city</span><span>Kópavogur</span></div></div>`;
-    if (st === 'failed') q = `<div class="bt-err">— try again. Nothing is lost.</div>`;
-    const addr = shape ? `<div class="bt-hint">Traced from OpenStreetMap when you add it</div>`
-      : `<div class="bt-addr bt-pencil">${s.addr || ADDR} · ${s.city || CITY}<span class="bt-chev"></span></div>`;
-    return `<h2 class="bt-name ${s.inked ? '' : 'bt-pencil'}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nm}</h2>${addr}`
-      + `<div class="bt-notes bt-line">${s.notes ? `<span class="bt-pencil" style="font-size:14px">${s.notes}</span>` : '<span class="bt-cap">Notes</span>'}</div>`
-      + `<div class="bt-fields"><span class="tag-lab">Type</span>${typeHtml}</div>${q}`;
+    h += `<div class="bt-f type"><span class="tag-lab">Type</span><div class="bt-rule">${typeHtml}</div></div>`;
+    if (st === 'typing') h += `<div class="bt-res">${(s.results || RESULTS).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}</div>`;
+    if (st === 'nores') h += `<div class="bt-res"><div class="bt-msg">No places called that — try another name.</div></div>`;
+    if (st === 'newcity') h += `<div class="bt-q" style="margin-top:14px"><p><b>New city?</b>Lisbon isn’t one of your cities yet.</p><div class="bt-ans"><span>Add Lisbon</span><span>Pick from my list</span></div></div>`;
+    if (st === 'whichcity') h += `<div class="bt-q" style="margin-top:14px"><p><b>Which city?</b>Most of this district is outside Reykjavík.</p><div class="bt-ans"><span>New city</span><span>Kópavogur</span></div></div>`;
+    if (st === 'failed') h += `<div class="bt-err" style="margin-top:14px">— try again. Nothing is lost.</div>`;
+    return h;
   }
+  // pencil grain: short streaks at a writing angle, one seed per entry
+  function pencilMask(seed) {
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='p' x='0' y='0' width='1' height='1'><feTurbulence type='fractalNoise' baseFrequency='0.05 0.95' numOctaves='2' seed='${seed}'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.2 0 0 0 1.95'/></filter><g transform='rotate(-28 60 60)'><rect x='-80' y='-80' width='280' height='280' filter='url(#p)'/></g></svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  }
+  function grain(root) {
+    let i = 0;
+    root.querySelectorAll('.bt-pencil').forEach(el => { const seed = 7 + (i++ * 13) + (el.textContent.length * 3) % 11, m = pencilMask(seed);
+      const pos = `${(seed * 7) % 60}px ${(seed * 3) % 40}px`;
+      el.style.webkitMask = `${m} ${pos} / 120px 120px, linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5))`; el.style.webkitMaskComposite = 'source-over';
+      el.style.mask = `${m} ${pos} / 120px 120px, linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5))`; el.style.maskComposite = 'add'; });
+  }
+  BT.grain = grain;
   function stubify(tag, s) {
     const dir = tag.querySelector('.tag-slot.dir');
     const ready = !['blank', 'typing', 'nores', 'newcity'].includes(s.state);
@@ -166,7 +187,7 @@
     tag.classList.add('is-blank'); tag.classList.remove('is-visited');
     if (!s.starred) { tag.classList.remove('is-starred'); const b = tag.querySelector('.tag-band'); if (b) b.remove(); }
     if (s.inking) tag.classList.add('bt-inking');
-    const tin = tag.querySelector('.tag-in'); tin.innerHTML = inner(s);
+    const tin = tag.querySelector('.tag-in'); tin.innerHTML = inner(s); grain(tin);
     // star + visited segments: the real ones, set to the draft's state
     const star = tag.querySelector('.popup-star');
     if (star && !s.starred) { star.classList.remove('starred'); star.querySelector('span').textContent = 'Star'; const u = star.querySelector('use'); if (u) u.setAttribute('href', '#g-star-open'); const sv = star.querySelector('svg'); if (sv) sv.classList.add('is-open'); }
@@ -198,6 +219,9 @@
   BT.hang = function (s) {
     const tag = document.querySelector('.leaflet-popup.tag-popup .tag'); if (!tag) return 'no tag';
     if (s.inked !== 'done') makeBlank(tag, s);
+    // the taller blank tag must still clear the list (the real tag-fit does this by panning): pan the map up if needed
+    const tb = tag.querySelector('.tag-body').getBoundingClientRect(), S = document.getElementById('locations').getBoundingClientRect().top;
+    const ov = Math.ceil(tb.bottom - (s.clear || S - 16)); if (ov > 0) map.panBy([0, ov], { animate: false });
     // the selected marker -> the blank pin (lifted for a shape: it never lands)
     const sel = document.querySelector('.leaflet-marker-icon .highlighted-marker');
     const icon = sel && sel.closest('.leaflet-marker-icon');
