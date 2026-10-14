@@ -1912,3 +1912,16 @@ new form, and the form is revised to his notes.
     and the colour is the point.
 - The release follows my check of those re-shoots. The send list is
   unchanged from round 10.
+
+### Round 10c re-shoots checked -- SEND RELEASED (2026-10-14)
+- **C0-C6 at 84:**
+  - C0's caption is correct.
+  - Next to the Float it's the same ink at a near-equal size, so the
+    choice is pure shape.
+  - C5's button sits clear under the starred tag.
+- **R10-F6** (ADD before/after) is clean. The stub holds its place and
+  nothing flies.
+- **Scores stand:** Float 9, C (#7 at 84) 9, the form 9.
+- **The send is 23 stills,** in round 10's order, with R10-F6 placed
+  after R10-F3 and before R10-F4. It carries the round-10c cost lines
+  and the one open question (visited-while-adding).

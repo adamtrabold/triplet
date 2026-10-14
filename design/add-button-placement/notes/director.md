@@ -1417,3 +1417,4 @@ Check the re-shoots → release.
   aside with a tag open; only the filters hide them. Re-shoot C0 (plus
   its caption) and C1-C6 at 84, then check and release the round-10 send
   list.
+- 2026-10-14: round 10c re-shoots checked; 23-still send released (R10-F6 added after R10-F3).
