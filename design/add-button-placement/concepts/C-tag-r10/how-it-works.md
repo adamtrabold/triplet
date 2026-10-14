@@ -1,5 +1,50 @@
 # C · The tag is the button (round 10): how it works
 
+## Round 10c (systems): the director's pick #7 (the whole tag in brand orange, navy +)
+
+Measured on the real 202 pins with visual's layers (`../r10-check/`, `TAG=t7-`):
+
+| #7 width | Tag (drawn) | vs the account, σ4 / σ8 | vs the Float (1.34) | Street zoom: Copenhagen / Stockholm / Malmö / LA |
+|---|---|---|---|---|
+| **104** | 104 × 54 | **4.06 / 4.07** | **3.0×** | 16 / 16 / 20 / 4% |
+| 84 | 84 × 44 | 2.65 / 2.64 | 2.0× | 12 / 13 / 16 / 3% |
+| 78 | 78 × 41 | 2.28 / 2.27 | 1.7× | 11 / 12 / 14 / 3% |
+| (#2, cream with an orange end, 104) | | 1.37 / 1.31 | 1.0× | 16 / 16 / 20 / 4% |
+
+- **#7 at 104 is 4x the account and 3x the Float.** Visual's rough 3.5x
+  was low.
+- **The numbers alone say it's past "main action" into "loudest thing on
+  the screen".** That's the director's to judge on the look (he picked it
+  knowing that); the "rank by flood" pattern is noted in scores.md.
+- **84 halves the excess** (2.0x the Float) and drops street-zoom
+  coverage to Float level (12-16%). **At 78 the tag is 41 tall, under 44,
+  so its hit area must be padded to 44** (invisible padding above it).
+  At 84 it's 44.
+- **Opening fit (104):** 0 pins except 320 Stockholm, list up: 1. The
+  credit is clear (9 / 4), and at 375 it needs the prefix drop below 380,
+  as with #2.
+- **Pressed (#7):** the stock goes deep orange (visual), and the + stays
+  navy.
+
+**Tag open: the rule is "stays tappable", not "steps aside".**
+- **The director's draft cost line ("Either one steps aside while a
+  place's tag or the filters are open") is wrong for both options.**
+- The Float's `TAG_SHEET_GAP` 88 was ruled in round 7: it stays tappable
+  with a tag open.
+- C at 54 tall needs 86 (20 + 54 + 12); at 84 wide, 76; at 78, 73. It
+  stays tappable the same way, and visual's C5 already draws it ("C
+  stays, gap 86").
+- The cost is the same as the Float's: at 320, 1 list row with a tag open
+  instead of 2; 664 keeps 3.
+- **The filters are the only exception for both** (the panel covers the
+  bottom-left corner).
+- **Correct line:** "Either one is hidden while the filters are open: one
+  extra tap to close them first. With a place's tag open it stays
+  tappable; adding closes that tag, and cancelling brings it back."
+
+---
+
+
 Systems, 2026-10-14. The look is visual's (`looks-and-feels.md`,
 `t.inc.html`). The form is `../blank-tag-form/how-it-works.md` (its
 "Round 10b" note). Measured on the **real 202 pins** with visual's own
