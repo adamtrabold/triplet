@@ -345,3 +345,17 @@ The builder's focus calls 1-3: build-level, no concept change.
 Owner stills list: in scores.md "Build, round 1".
 Re-look: rest vs wrong vs offline sheet stills must line up pixel for
 pixel on the fields and buttons.
+
+## Build round 2 (2026-10-14, 149da59)
+Score: 9. Fixes verified: the sheet's fields and buttons are pixel-
+identical across rest, busy, wrong and offline (the error has reserved
+room); the line breaks at the sentence via `text-wrap: balance`
+(deviation from my `pretty`, ACCEPTED: better break, works in Safari
+<26); the dropdown is re-shot released. The reviewer's blocker (flow 4
+in-place Strike) and the hop restore through openPopupOnArrival are
+fixed.
+The owner sheet `build/owner-sheet-3x.png` is ready as is. Low risks: an
+empty band at the bottom of the sheet at rest (the reserved error room);
+sheet crops small on a phone.
+Still open after landing: the badge next to the new + (the + team), the
+iPhone checks, Q2.
