@@ -18,7 +18,9 @@ const CINC = fs.readFileSync(path.join(CON, 'C-pintag/c.inc.html'), 'utf8');
 const CPICK = (process.env.CPICK || 'side:fillplus:rules:0:144:40:4:heavy').split(':');
 const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
 // C keys: 'C' (the pick) or 'C:<form>:<pin>:<plus>:<ps>:<w>:<pd>'
-const htmlFor = k => { if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw, cg] = k === 'C' ? CPICK : k.split(':').slice(1);
+const TINC = fs.readFileSync(path.join(CON, 'C-tag-r10/t.inc.html'), 'utf8');
+const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt] = k.split(':'); return inj(real, [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"`); }
+  if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw, cg] = k === 'C' ? CPICK : k.split(':').slice(1);
   return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}" data-cg="${cg || ''}"`); };
 // ---------- helpers ----------
 const zoomIn = (p, c) => p.evaluate(c => map.setView(c || [64.1471, -21.9426], 14, { animate: false }), c);
@@ -147,6 +149,12 @@ F['r9-a-typing664'] = { k: 'A', vp: V664, run: async p => { await nbOpen(p); awa
 F['r9-a-card664'] = { k: 'A', vp: V664, run: async p => { await card(p, { state: 'picked' }); await nbOpen(p); } };
 F['r9-fl-card664'] = { k: 'F', vp: V664, run: p => card(p, { state: 'picked', clear: 512 }, { badge: true }) };
 
+// ================= ROUND 10: the tag is the button (C-tag-r10) =================
+const TV = (process.env.TV || 'paper,navy,orange,twoend,stubplus,apptag,punch,punchor').split(',');
+for (const v of TV) both('t10-' + v.replace(/:/g, '-'), { k: 'T:' + v, zoom: true, centre: CREST });
+F['t10-none'] = { k: 'T:paper', zoom: true, centre: CREST, dsf: 1, run: p => p.evaluate(() => document.getElementById('tb').classList.add('gone')) };
+F['t10-noacct'] = { k: 'T:paper', zoom: true, centre: CREST, dsf: 1, run: p => p.evaluate(() => { document.getElementById('tb').classList.add('gone'); document.getElementById('accountBtn').style.visibility = 'hidden'; }) };
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {
@@ -165,7 +173,7 @@ F['r9-fl-card664'] = { k: 'F', vp: V664, run: p => card(p, { state: 'picked', cl
       const eye = document.querySelector('#btDock .tag-patch'); let eyePin = null;
       if (eye) { const e = eye.getBoundingClientRect(), cx = (e.left + e.right) / 2, cy = e.top + 14;
         eyePin = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return cx > r.left - 7 && cx < r.right + 7 && cy > r.top - 7 && cy < r.bottom + 7; }).length; }
-      const LP = document.getElementById('lp') || document.getElementById('cp'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
+      const LP = document.getElementById('lp') || document.getElementById('cp') || document.getElementById('tb'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
       const taps = window.__BT && __BT.taps && document.getElementById('btDock') ? __BT.taps() : null;
       return { taps, acctPins, eyePin, lpPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
     m.errs = errs; m.clash = await chromeCheck(page);

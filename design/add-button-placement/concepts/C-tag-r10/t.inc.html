@@ -1,0 +1,67 @@
+<!-- ===== C · THE TAG IS THE BUTTON, round 10 (visual designer, 2026-10-14) =====
+     Owner (on round 9c): "i think the tag itself needs to be simplified. i think we could get away by making the tag
+     smaller by removing the horizontal lines, so there's just the tag with the + in it, the dotted line, and the "claim
+     check" end. then the + would not need to be in any container, so the tag itself becomes the button. explore that -
+     don't assume a color for the tag, i think there are many approaches that could work so explore."
+     No pin. Layered into a copy of index.html by ../blank-tag-form/stills.js (page key 'T:<variant>[:<w>]').
+     Variants (data-tv):
+       paper      the shipped tag's paper (--paper-raised), its edge + shadow; a navy + ; --hair perforation
+       navy       navy stock (the frame colour, the account's family); a paper + ; paper perforation
+       orange     brand-orange stock; a navy + ; navy perforation (NB on a tag orange = starred: shown, flagged)
+       twoend     paper body + navy +, the claim-check END in brand orange (the part you tear off is the action colour)
+       stubplus   paper body left blank, the + on a navy claim-check end (you take the stub: "take a ticket")
+       apptag     the app's own Hanging Tag shape in miniature: chamfers on top, the eyelet, the stub along the bottom
+       punch      navy stock, the + PUNCHED through it (a claim-check punch): the map shows through the +
+       punchor    the same, brand-orange stock
+     data-tilt = deg (the tag dropped at a slight angle) -->
+<style id="tCss">
+  #tb { position: fixed; z-index: 1500; left: 19.9px; border: 0; padding: 0; background: none; -webkit-tap-highlight-color: transparent; }
+  #tb svg { display: block; overflow: visible; }
+  #tb .tb-shadow { filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)) drop-shadow(0 4px 6px var(--tag-shadow-lift)); }
+  #tb.gone { display: none; }
+</style>
+<script id="tJs">
+(function () {
+  const R = document.documentElement; if (R.dataset.k !== 'T') return;
+  const C = { paper: 'var(--paper-raised)', navy: 'var(--navy)', orange: 'var(--brand-orange)', hair: 'var(--hair)', ink: 'var(--navy)', cream: 'var(--paper)' };
+  function footY() { const S = document.getElementById('locations').getBoundingClientRect().top, c = document.querySelector('.leaflet-control-attribution');
+    const r = c && c.getBoundingClientRect(); return Math.min(S - 20, r && r.height ? Math.floor(r.top) - 6 : 1e9); }
+  function draw() {
+    const v = R.dataset.tv || 'paper', W = +(R.dataset.tw || 104), tilt = +(R.dataset.tilt || 0);
+    let svg, w, h;
+    const plus = (cx, cy, a, sw, col) => `<path d="M${cx - a} ${cy}H${cx + a}M${cx} ${cy - a}V${cy + a}" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    if (v === 'apptag') {
+      // the app's own tag in miniature: chamfered top corners, the eyelet hole on its patch, a stub along the bottom
+      w = W; h = Math.round(W * .74); const CH = Math.round(W * .17), ST = Math.round(h * .3), by = h - ST;
+      const path = `M${CH} 0H${w - CH}L${w} ${CH}V${h}H0V${CH}Z`;
+      svg = `<defs><mask id="tm"><path d="${path}" fill="white"/><circle cx="${w / 2}" cy="9" r="2.6" fill="black"/><circle cx="0" cy="${by}" r="3.5" fill="black"/><circle cx="${w}" cy="${by}" r="3.5" fill="black"/></mask></defs>
+        <g class="tb-shadow"><g mask="url(#tm)"><path d="${path}" fill="${C.paper}"/><rect x="${w / 2 - 12}" y="2" width="24" height="14" rx="2.5" fill="var(--paper)"/>
+        <circle cx="${w / 2}" cy="9" r="4.2" fill="none" stroke="var(--hair)" stroke-width="2.2"/>
+        <line x1="6" y1="${by}" x2="${w - 6}" y2="${by}" stroke="var(--hair)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        ${plus(w / 2, (18 + by) / 2 + 1, 13, 5, C.ink)}</g></g>`;
+    } else {
+      // a claim-check tag lying across: the left end die-cut (two chamfers), the claim-check end on the right
+      w = W; h = Math.round(W * .52); const CH = Math.round(h * .3), STUB = Math.round(W * .24), sx = w - STUB;
+      const path = `M${CH} 0H${w}V${h}H${CH}L0 ${h - CH}V${CH}Z`;
+      const stock = { paper: C.paper, navy: C.navy, orange: C.orange, twoend: C.paper, stubplus: C.paper, punch: C.navy, punchor: C.orange }[v];
+      const perf = { navy: 'rgba(242,235,221,.7)', orange: 'rgba(18,41,63,.55)', punch: 'rgba(242,235,221,.7)', punchor: 'rgba(18,41,63,.55)' }[v] || C.hair;
+      const pc = { paper: C.ink, navy: C.cream, orange: C.ink, twoend: C.ink, stubplus: C.cream }[v];
+      const bx = (CH * .6 + sx) / 2, by = h / 2, A = Math.round(h * .27), SW = Math.max(4.5, h * .1);
+      const endFill = v === 'twoend' ? `<rect x="${sx}" y="0" width="${STUB}" height="${h}" fill="${C.orange}"/>` : v === 'stubplus' ? `<rect x="${sx}" y="0" width="${STUB}" height="${h}" fill="${C.navy}"/>` : '';
+      const thePlus = v === 'stubplus' ? plus(sx + STUB / 2, by, Math.round(STUB * .3), 4, C.cream) : (v === 'punch' || v === 'punchor') ? '' : plus(bx, by, A, SW, pc);
+      const punch = (v === 'punch' || v === 'punchor') ? `<path d="M${bx - A} ${by}H${bx + A}M${bx} ${by - A}V${by + A}" stroke="black" stroke-width="${SW + 1}" stroke-linecap="round"/>` : '';
+      svg = `<defs><mask id="tm"><path d="${path}" fill="white"/><circle cx="${sx}" cy="0" r="3.5" fill="black"/><circle cx="${sx}" cy="${h}" r="3.5" fill="black"/>${punch}</mask></defs>
+        <g class="tb-shadow"><g mask="url(#tm)"><path d="${path}" fill="${stock}"/>${endFill}
+        <line x1="${sx}" y1="6" x2="${sx}" y2="${h - 6}" stroke="${perf}" stroke-width="1.5" stroke-dasharray="4 3"/>${thePlus}</g></g>`;
+    }
+    const el = document.getElementById('tb'); const pad = 6;
+    el.style.width = (w + pad) + 'px'; el.style.height = (h + pad) + 'px';
+    el.innerHTML = `<svg width="${w + pad}" height="${h + pad}" viewBox="0 0 ${w + pad} ${h + pad}" aria-hidden="true"><g transform="translate(0 ${pad / 2}) rotate(${tilt} ${w / 2} ${h / 2})">${svg}</g></svg>`;
+    el.style.top = (footY() - h - pad / 2) + 'px';
+  }
+  function mount() { if (!document.getElementById('tb')) { const b = document.createElement('button'); b.id = 'tb'; b.setAttribute('aria-label', 'Add a place'); document.body.appendChild(b); } draw(); }
+  window.__T = { mount, draw };
+  addEventListener('load', () => { mount(); setInterval(() => { const el = document.getElementById('tb'); if (el && !el.classList.contains('gone')) draw(); }, 200); });
+  if (document.readyState !== 'loading') setTimeout(mount, 0);
+})();
+</script>

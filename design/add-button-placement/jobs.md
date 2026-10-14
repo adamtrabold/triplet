@@ -1,9 +1,10 @@
 # Adding a place: jobs and flows
 
 What the design has to let you do, for the + and for the add form, which
-becomes a blank tag you fill out. This covers both concepts (C, the pin+tag
-button; A, the header tag) and the Float frame (round 9). If anything here is wrong or
-missing, say so. *(inferred)* marks a job we worked out rather than heard
+becomes a blank tag you fill out. This covers the two options left for
+your final call (round 10): **C, the tag as the button** and **the
+Float**, the orange badge at bottom-left. Both open the same blank tag.
+The header tag (A) is cut. If anything here is wrong or missing, say so. *(inferred)* marks a job we worked out rather than heard
 from you.
 
 Your words:
@@ -13,7 +14,11 @@ Your words:
   button — I also want to rev the add modal to be more like filling out a
   blank tag…I feel like together that could be a cool package."
 
-(Earlier version, for the + only: `notes/jobs-pre-pass-a.md`.)
+- (round 10, cutting the header tag) "it isn't working and conflates that
+  bar with list actions and global actions (e.g. i could be adding to any
+  city not just the one showing)"
+
+(Earlier versions: `notes/jobs-pre-pass-a.md`, `notes/jobs-r9c.md`.)
 
 ## Jobs: the + (where you start)
 
@@ -21,54 +26,63 @@ Your words:
    for you ("maybe the plus should be on the left? Easier for me to
    reach"). It should work whether the list is up or down, in Plans, and
    with a place's tag open or the filters open.
-   - C can't be tapped while a tag or the filters are open (one extra tap
-     to close them). A and the Float can (the Float only with a tag
-     open).
-   - That is a cost line on C, not a hidden exception.
+   - With the filters open, neither option can be tapped: the panel
+     covers that corner, so you close the filters first (one extra tap).
+   - With a place's tag open, both stay tappable: the list leaves room
+     for them. That costs a list row on small screens (320 shows 1 row
+     with a tag open, not 2). Tapping closes the tag, and cancel brings it
+     back.
 2. **See + straight away as the main thing you do here.** It ranks above
    the account button, not beside it ("same weight and heirarchy as
-   account, which it shouldn't be"). It reads as "add", and C reads as a
-   pin with its tag ("the pin doesnt look like a pin…").
+   account, which it shouldn't be"). It reads as "add". C reads as a tag
+   that is itself the button ("the tag itself becomes the button").
 3. **Know what you're about to fill out.** *(inferred)* What you tap
    already belongs to the tag you'll write on. C's tag *is* the tag you'll
-   fill (it comes off its pin); A is a tag's cut end.
+   fill; the Float's badge hands it to you.
 4. **+ never gets in your way.** *(inferred)* It never sits on a pin, an
    open tag, a place's name, a row's delete ×, or the map credit.
-5. **It works signed out.** *(inferred)* Signed out you're in the
+5. **+ is for the whole trip, not the list you're looking at.** (Your
+   words: "i could be adding to any city not just the one showing".)
+   - + never lives in the list's own bar, and it never takes the list's
+     city, filters or plan as given.
+   - The search starts in the city you're looking at, and in one tap
+     reaches any of your cities or anywhere.
+   - After ADD the list switches to the place's city.
+6. **It works signed out.** *(inferred)* Signed out you're in the
    playground: + adds exactly as it does signed in, and nothing is kept
    after a reload. Only a stored sign-in that has gone stale asks you to
    sign in, and then nothing else moves.
 
 ## Jobs: the blank tag (how you finish)
 
-6. **Write the name, and the app does the rest.** *(inferred from "filling
+7. **Write the name, and the app does the rest.** *(inferred from "filling
    out a blank tag")* The least you do is: tap +, type, pick a result,
    ADD.
    - Everything else is already filled in, in pencil (address, city, and
      the type where it can be guessed).
    - You touch a line only to correct it.
-7. **Search right on the tag.** *(inferred)* The name line is the search.
+8. **Search right on the tag.** *(inferred)* The name line is the search.
    Results print on the tag under it, at least 3 with the keyboard up on
    a 664-tall Safari screen, and they scroll.
-8. **Know where it goes; see it on ADD.** *(inferred; changed in round 9:
+9. **Know where it goes; see it on ADD.** *(inferred; changed in round 9:
    you were worried the map would move under the tag as you fill it, so
    it doesn't)* Before ADD, the words say where: each result's address,
    the tag's "address · city", and "New city?" when it's outside your
    trip. The map stays still while you write. On ADD the map makes one
    move to the place, and the pin goes into the tag's eyelet.
-9. **Say what kind of place it is.** Type is pre-filled in pencil and can
+10. **Say what kind of place it is.** Type is pre-filled in pencil and can
    be changed with one tap. *(inferred: the source of the guess is OpenStreetMap's
    own kind for the place, else the type you used last.)*
-10. **Star it and note why, while adding.** STAR on the tag prints the
+11. **Star it and note why, while adding.** STAR on the tag prints the
     orange band, exactly as on a starred tag. NOTES is a line on the tag.
     *(inferred from today's form)*
-11. **See exactly what you'll get.** *(inferred)* The filled-out blank tag
+12. **See exactly what you'll get.** *(inferred)* The filled-out blank tag
     has the real tag's layout and order. When it's starred it shows the
     band.
-12. **Finish near your thumb.** *(inferred)* ADD is on the tag's stub,
+13. **Finish near your thumb.** *(inferred)* ADD is on the tag's stub,
     low on the screen at every phone height, including Safari with its
     toolbars showing.
-13. **Watch the blank become the place.** *(inferred)*
+14. **Watch the blank become the place.** *(inferred)*
     - ADD inks the tag: your pencil turns to ink and the type is stamped.
       The map brings the place to the tag, the pin drops into the eyelet
       with the place's kind and glyph, and the place's own tag is open.
@@ -76,24 +90,24 @@ Your words:
       while the new tag is open, and when you close the tag it comes back
       up with the new row in view.
     - When you close the tag, a fresh blank + is waiting.
-14. **Districts and streets go through the same tag.** *(inferred: "Every
+15. **Districts and streets go through the same tag.** *(inferred: "Every
     category should have the same information and capabilities")* Same
     tag, same ADD. On ADD the map frames the outline as it draws in and
     the tag hangs from the area's centre dot. If OpenStreetMap has no outline, the app saves an
     approximate pin, as today.
-15. **Never lose what you wrote.** *(inferred)*
+16. **Never lose what you wrote.** *(inferred)*
     - Cancel puts everything back as it was: the list, its scroll, the
       map view, and any tag that was open.
     - What you'd written is kept for the next time you tap +.
     - A failed save keeps the tag, and nothing you entered is lost.
-16. **Get a straight answer when something's unclear or fails.**
+17. **Get a straight answer when something's unclear or fails.**
     *(inferred)* No results, a slow search, a place outside your cities,
     a district that straddles two cities, a save that fails: each one is
     said on the tag, in its own words, with what to do next. **The
     answers are buttons that look like buttons** ("some of the buttons
     aren't reading like buttons — specifically the add city one"). They
     sit in the stub, where ADD is.
-17. **Everything you can tap looks tappable.** (Your words, round 8b.) The
+18. **Everything you can tap looks tappable.** (Your words, round 8b.) The
     city and the type look like the app's filter chips, NOTES is a
     write-on line, × is the tag's own, and the stub's segments are the
     tag's own segments. No new button style.
@@ -106,7 +120,7 @@ Your words:
 - **Fix a place after adding it** by opening its tag in pencil again.
   Today only star and visited can be changed after adding.
 
-## The blank tag (shared by C, A and the Float)
+## The blank tag (shared by C and the Float)
 
 The blank tag is built from the real tag's parts and keeps their order:
 - the eyelet, **empty while you fill it in** (the pin goes in on ADD);
@@ -137,20 +151,21 @@ How the parts behave:
 
 ## Flows
 
-### Add a place: C, the pin+tag (phone)
+### Add a place: C, the tag as the button (phone)
 
-1. **Rest:** at bottom-left, an orange pin with a small cream tag hanging
-   from it, a + printed on the tag.
+1. **Rest:** at bottom-left, a small tag with a + in it, its dotted line
+   and its claim-check end. There's no pin: it isn't pinned to anything
+   yet. (Its look is still being explored.)
 2. **Tap it:**
-   - If the filters are open, it isn't there; close them first (see
-     Exceptions).
-   - The tag comes off the pin and grows into the blank tag, docked on
-     the keyboard. The pin stays behind (covered by now). The eyelet is
-     empty.
+   - If a place's tag is open, it closes (cancel brings it back).
+   - The small tag grows into the blank tag, docked on the keyboard. Its
+     eyelet is empty.
    - The keyboard comes up on NAME. If iPhone won't raise it, it's one
      tap on the name line.
 3. **Type:** results print under the name, scroll, and show a half row
-   to say so. The stub sits behind the keyboard.
+   to say so. They come from the city you're looking at first;
+   "Search everywhere" is always the last line. The stub sits behind the
+   keyboard.
 4. **Pick:**
    - The keyboard drops and the tag settles onto the list's band (the
      list went down when you tapped).
@@ -158,8 +173,8 @@ How the parts behave:
      thumb. **The map doesn't move.**
 5. **Correct anything** (type, city, notes, star, visited). Then tap ADD.
 6. **ADD:**
-   - The map makes one move: the place comes to the tag, and the pin
-     drops into the eyelet.
+   - The map makes one move: the place comes to the tag, and its pin goes
+     into the eyelet. The tag is now pinned to the place.
    - The name inks and TYPE is stamped (VISITED already stamped when you
      set it).
    - The tag tightens to the real tag's size from the top. ADD becomes
@@ -167,38 +182,29 @@ How the parts behave:
    - The place's tag stays open, and the list stays down (on the place's
      city).
 7. **Close the tag:** the list comes back up with the new row in view,
-   and the fresh pin+tag is at bottom-left.
+   and a fresh blank tag is at bottom-left.
 
-### Add a place: A, the header tag (phone)
+### Add a place: the Float (phone)
 
-The orange tag cut at the right end of the list's header.
+The orange badge with a navy + at bottom-left.
 
-1. **Tap the header tag:**
-   - If the filters are open, they close.
-   - If a place's tag is open, it closes, and it comes back if you
-     cancel.
-   - The cut turns to its open state (navy, ×) and the blank tag pulls up
-     out of it into the dock above the keyboard, its eyelet empty.
-2. **Steps 3-6 are as in C.** The list's band stays at the bottom with
-   the header tag's × on it, and that × is a second cancel, where + was.
-3. **After ADD the header tag is + again.**
+1. **Tap it:** the blank tag rises out of the badge into the dock. The
+   badge hides while you add (the tag's × is the cancel), so ADD sits in
+   exactly the same place as with C.
+2. **Steps 3-7 are as in C.** After ADD, the badge is back when the new
+   tag closes.
 
-### The Float frame
+### Exceptions (both)
 
-The same blank tag, rising from the orange badge at bottom-left.
-Otherwise as in A.
-
-### Exceptions (C only)
-
-- **A place's tag is open:** C isn't shown. Close the
-  tag (×, a tap on the map) and it's back. At 844 and up there's room,
-  but it stays hidden so it's the same everywhere.
-- **The filters are open:** C is under them. Close the filters to add.
+- **The filters are open:** the + is under them. Close the filters to
+  add (one extra tap).
+- **A place's tag is open:** the + stays tappable (the list leaves it
+  room). Tapping closes the tag, and cancel reopens it.
 
 ### Cancel
 
-- Use the tag's × (or A's × on the band, or Esc on a computer). The tag
-  goes back the way it came.
+- Use the tag's × (or Esc on a computer). The tag goes back the way it
+  came.
 - The list, its scroll, the map view and any tag that was open come back
   exactly.
 - What you wrote is kept: tap + again and the tag returns filled in (on
@@ -257,8 +263,7 @@ separate step.
 
 ### Computer (wide screen)
 
-- C stands at the map column's bottom-left. A sits at the right end of
-  the list panel's header.
+- C or the Float stands at the map column's bottom-left.
 - There's no keyboard: the blank tag sits low in the map column, with the
   results on the tag. On ADD the map brings the place to it, as on the
   phone.
