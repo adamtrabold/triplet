@@ -5900,7 +5900,7 @@
   "taps": null,
   "acctPins": 1,
   "eyePin": null,
-  "lpPins": 1,
+  "lpPins": 0,
   "lp": null,
   "nb": null,
   "acct": [

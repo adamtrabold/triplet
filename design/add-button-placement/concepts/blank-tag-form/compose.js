@@ -129,7 +129,7 @@ const pages = {
      <div class="row" style="gap:20px">${col('Typing', crop(f('r10-f-typing320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('Pinned', crop(f('r10-f-pinned320'), 0, 0, 320, 568, 575 / 320, 320), 575)}</div><div class="gap"></div>`,
   [T + 'R10-F5-city-3x.png']: `${cap('The city: a word you can tap', 'The city is just part of the address, with a fine underline to say it can be tapped. Tap it and your cities print on the tag; pick one. The pin doesn’t move: a city is where the place is filed, not where it is.')}
      ${pair(f('r10-f-pinned664'), 'The city word', f('r10-f-city664'), 'Tapped: your cities', 664)}<div class="gap"></div>`,
-  [R10 + 'C0-two-options-3x.png']: `${cap('Two options for +', 'Left: the badge (Float). Right: the tag is the button (C). Both bottom-left, both open the same blank tag, both step aside the same way.')}
+  [R10 + 'C0-two-options-3x.png']: `${cap('Two options for +', 'Left: the badge (Float). Right: the tag is the button (C). Both bottom-left, both open the same blank tag; both hide only while the filters are open.')}
      ${pair(f('f10-rest'), 'Float · the badge', f('c10-rest'), 'C · the tag', 640)}<div class="gap"></div>`,
   [R10 + 'C1-rest-vs-today-3x.png']: `${cap('C · the tag is the button', 'The + is a luggage tag in the action orange: a navy +, the dotted line and the claim-check end. One shape, one colour, one mark. Bottom-left by your thumb; the account badge alone at the top.')}
      ${pair(f('r9-today'), 'Today', f('c10-rest'), 'C', 640)}<div class="gap"></div>`,
@@ -137,7 +137,7 @@ const pages = {
      ${crop1(f('c10-rest-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
   [R10 + 'C3-squint-1x.png']: `${cap('The squint test', 'The same screen blurred: the + should come before the account badge.')}
      <div class="row" style="padding:0 30px;gap:18px">${col('1x', crop1(f('c10-rest-1x'), 0, 0, 390, 544, 1.4), 546)}${col('Blurred', crop1(f('c10-rest-1x'), 0, 0, 390, 544, 1.4, true), 546)}</div>
-     ${note('Rough measure (systems re-measures): about 3.5× the account badge’s weight when blurred. It is heavier than the badge (about 1.3×): an orange tag carries more orange than the badge does.')}`,
+     ${note('Measured: 2.65× the account badge’s weight, and 2.0× the Float badge’s.')}`,
   [R10 + 'C4-tap-3x.png']: `${cap('Tap it (Safari, 390×664)', 'The claim-check end tears off and the tag rises above the keyboard as the blank form; the map behind is washed back until there’s an address. The button is gone while you add: the tag’s × is the one cancel.')}
      ${pair(f('c10-rest664'), 'At rest', f('c10-tapped664'), 'Tapped: type the name', 664)}<div class="gap"></div>`,
   [R10 + 'C5-tag-open-3x.png']: `${cap('A place’s tag open', 'It stays where it is and can be tapped: adding closes the place’s tag, and cancelling brings it back. The list sits a little lower to make room.')}${full(f('c10-tag664'))}<div class="gap"></div>`,

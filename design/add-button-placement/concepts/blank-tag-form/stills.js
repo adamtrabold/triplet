@@ -178,7 +178,7 @@ F['r10-f-city664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state
 F['r10-f-typing320'] = { k: 'C', vp: V320, run: async p => { await dock(p, { state: 'typing', wash: true, r10: true, centre: [64.1500, -21.9480] }, 260); await cGone(p); } };
 const tGone = p => p.evaluate(() => { const e = document.getElementById('tb'); if (e) e.classList.add('gone'); });
 const fGone = p => p.evaluate(() => { const e = document.getElementById('fb'); if (e) e.style.display = 'none'; });
-const TC = 'T:orange';
+const TC = 'T:orange:84';   // director round 10c: 84 x 44
 both('c10-rest', { k: TC, zoom: true, centre: CREST });
 F['c10-pressed'] = { k: TC, zoom: true, centre: CREST, run: async p => { await p.evaluate(() => { document.getElementById('tb').classList.add('press'); __T.draw(); }); } };
 F['c10-rest664'] = { k: TC, vp: V664 };
