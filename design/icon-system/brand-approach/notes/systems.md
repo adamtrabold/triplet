@@ -1,6 +1,17 @@
 # Notes: product designer (systems focus)
 
-## Where things stand (2026-10-14, after jam turn 5 / pass 2)
+## Where things stand (2026-10-14, after jam turn 8 / coverage check)
+
+Turn 8: coverage of the v3 cards is in `../coverage.md`. Jobs 3–7 pass on all
+three. BLOCKER: jobs 1–2 (the brand ethos plus supports/detracts) are on no
+still. Proposed fix: a "The brand, in plain words" card before card 0. The
+turn-5 items are all resolved. The star-shape cost is mostly moot, because
+all three keep the shipped filled star. New: Timetable's mitred star-off
+clashes with the fixed round mark-visited check in the tag stub; Field
+Guide's and Cut Paper's tools have converged. Nit: no district/street row in
+its diamond shell.
+
+## Earlier state (after turn 5)
 
 Phase 1: brand approach to icons. Turns 1 to 5 are in `../jam.md`.
 `../jobs.md` is written (short, for the owner's phone). The visual

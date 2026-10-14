@@ -1171,3 +1171,37 @@ NEXT: design director: score the six stills in one pass (cards 0–5 at
 `concepts/sketches/v3-card-*.png`). The point I most want judged is card 4:
 is "Field Guide and Cut Paper are near-Today in rows" a reason to push them
 further, or an honest result to show the owner as it is?
+
+---
+
+## Turn 8: product designer (systems focus): coverage check on the v3 cards
+
+Full table in `coverage.md`. In short:
+
+- **Jobs 3 to 7 pass on all three directions.** Rows (including the selected
+  one), the tag in both states, the map, the 12/18/23 strips and the 1-bit
+  strip, all 11 categories plus street, the dropped card, and the real
+  Visited marks labelled FIXED.
+- **Blocker: jobs 1 and 2 aren't on any still.** The owner's first ask was
+  the brand's attitude and what supports or works against it. The cards
+  show three *directions*, each with its own attitude, but the shared ethos
+  ("printed with care, marked by hand, kept like a souvenir", printed vs
+  stamped) and the supports/detracts list exist only in this jam. Fix: one
+  card before card 0, "The brand, in plain words", with the ethos line, the
+  printed/stamped rule, and supports vs works-against in about ten short
+  lines. Its content is for the visual designer and director to set. Turn 1
+  §4, turn 2 §4 and turn 3 §2 already have it.
+- **Turn-5 structural items:** all resolved at sketch level. The star-shape
+  cost is mostly moot: all three keep the shipped filled star, so the
+  Pencil Star and the cluster cutout don't change. Only the off star
+  differs, and it lives outside the gesture code.
+- **New:**
+  1. In Timetable's tag stub, its mitred star-off sits next to the fixed,
+     round-jointed mark-visited check. That's two grammars in one strip.
+  2. Field Guide's and Cut Paper's tools have converged. Their difference
+     in kind is now only in the place glyphs.
+- **Nit:** no district/street row in its diamond shell on any card.
+
+NEXT: design director — score with the jobs 1–2 blocker in hand, and
+decide whether "The brand, in plain words" card is added before the owner
+sees anything.
