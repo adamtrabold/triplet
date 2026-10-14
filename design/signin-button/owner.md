@@ -27,3 +27,8 @@ Read as: liked, with a refinement (not counted as a second rejection). Q1, Q2 an
 > These are concepts so it’s normal for me to have feedback
 
 So: feedback on concepts is normal iteration, not a rejection. Do not count it toward the "two 9s turned down" stuck rule, and do not frame it as a rejection to the owner.
+
+2026-10-14, on round 2c (lifted badge, director 9):
+> Person is too high and let’s take it to the blue and orange style again since the plus is changing
+
+Direction: (1) the person sits too high now — bring it down (between 2b and 2c); (2) return to the navy-and-orange style (navy badge, orange marks, like today's account badge) instead of the paper badge, because the + is becoming orange.
