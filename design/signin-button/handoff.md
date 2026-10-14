@@ -12,7 +12,9 @@ combined CD + UX check).
 - Signed out, this badge sits in the account badge's corner. So Q1 is
   answered by the product: the badge shows whenever you're signed out.
 - Signed out = V[14] in `concepts/A-arc-badge/round2/badge2.js`. Signed in =
-  today's account badge, unchanged.
+  today's account badge, unchanged except that it gains the shared
+  scalloped focus ring (keyboard only; a new look the owner sees in the
+  final stills).
 
 **Sources:** `owner.md` (the owner's words), `jobs.md` (jobs 1 to 9, the
 flows), `scores.md` (rounds 2d and 2e), `concepts/A-arc-badge/round2/README.md`
@@ -57,6 +59,7 @@ stills the owner approved, motion included).
 | **Arrival** | real mode, first boot right after a playground sign-in | the sign-in badge → the Strike → the signed-in badge | see Flows. A tap during it finishes it at once, then acts as the account badge |
 | **Signed in, rest** | real mode, user known | today's account badge | tap → dropdown |
 | Signed in, dropdown open | | today's `.active` look | tap the badge or outside → closes |
+| Signing out | `signOut()` in flight | the dropdown stays open, item "Signing out…" (disabled), badge in its open look | ignored until it returns |
 | **Departure** | right after Sign out succeeds | the signed-in badge → the dry-up → the sign-in badge, then the reload | taps ignored (≤540ms) |
 
 Accessible names:
@@ -141,7 +144,9 @@ Behaviour (applies to all three forms):
      skip the Strike and paint signed-in: a late animation reads as a glitch,
      not a confirmation.
    - A tap on the badge during the hold or the Strike jumps to signed-in and
-     opens the dropdown (the tap means "account", and it's true).
+     opens the dropdown (the tap means "account", and it's true). The jump
+     stops the Strike's clock and uses the look section's one-frame state
+     swap (transition off). The 3s skip uses the same swap.
 6. The Strike plays **only** when all of these hold: the marker said `in`,
    the mode is real, and a user is confirmed. It never plays on a plain
    reload, on a cold start, in a tab that reloaded because another tab signed
@@ -158,12 +163,15 @@ succeed, because only two accounts exist.
 
 **3. Sign out (the real app)**
 1. Tap the badge → the dropdown (the badge turns orange) → **Sign out**.
-2. The dropdown closes and the badge goes back to navy. The item reads
-   "Signing out…" for the moment `signOut({ scope: 'local' })` takes. On an
-   error, show the app's error banner "Couldn't sign out. Try again." and stay
-   signed in.
-3. Success → write the hop marker `{ dir: 'out', view }` → play **the
-   dry-up** in place (540ms, the `DRY` constants): the navy dries away and the
+2. While `signOut({ scope: 'local' })` runs, the dropdown **stays open**, its
+   item reads "Signing out…" and is disabled, and the badge stays in its open
+   look. Taps elsewhere don't close it until the call returns. On an error,
+   the item goes back to "Sign out", the dropdown stays open, and the app's
+   error banner shows "Couldn't sign out. Try again." You stay signed in.
+3. Success → the dropdown closes and the badge drops `.active` (back to navy
+   rest; today's 150ms transition is fine here) → write the hop marker
+   `{ dir: 'out', view }` → play **the dry-up** in place, starting from the
+   navy rest look (540ms, the `DRY` constants): the navy dries away and the
    sign-in badge is left → reload into the playground. Under Reduce Motion,
    swap to the sign-in badge and reload, with no dry-up.
    **Builder:** the `SIGNED_OUT` listener reloads at once today. When this tab
@@ -197,7 +205,10 @@ and one `sessionStorage` key.
 - **The Strike:** 380ms, `STAR_POP`'s offsets and easings, scale only (no
   rotation), peak about 1.12. It is **one object changing ink**: it doesn't
   cross-fade between two buttons. It plays only in arrival (flow 1) and in the
-  in-place sign-in (flow 4).
+  in-place sign-in (flow 4). **Trigger:** not on the tap. The approved
+  sheet's motion row is labelled "Tap", but in the build the Strike plays
+  when the real app arrives after the reload (flow 1). The owner is told
+  this as a fact.
 - **The dry-up:** 540ms with the snap, the `DRY` constants. It plays only in
   departure (flow 3). No pop.
 - **Reduce Motion:** neither plays. The state swaps instantly, and the timing
@@ -302,6 +313,26 @@ ring is its own element, drawn the same way in both states:
 ### Sheet open
 The badge rests unchanged under the scrim. No open or active look in the signed-out state.
 
+### The sheet while busy (new state; the sheet's look is otherwise unchanged)
+It uses the app's one rule for unavailable or loading (`--state-off-alpha`), the same as the add form's
+`#submitBtn:disabled`. There's no new disabled look.
+- **Primary, "Signing in…":** `opacity: var(--state-off-alpha); color: var(--ink); cursor: default`. The
+  orange stays orange, just faded. No spinner, no pulse: the words carry it, and it's short.
+  This supersedes the round-1 flow sheet's flat 50% orange/paper mix, which was a one-off disabled look.
+- **Secondary (Keep playing / Cancel):** the same `--state-off-alpha` and `cursor: default`. While busy it does
+  nothing, so it mustn't look tappable. Its hover look is off while busy.
+- **Fields (read-only):** the values stay full size and readable, in `color: var(--ink-2)`. The underline stays
+  1px `--hair`, `caret-color: transparent`, and the focused field is blurred so the 2px `--figure-deep` focus
+  underline goes away. Not faded: on an error the email (or both fields) comes back as it was, so it should
+  never look erased.
+- **Ending busy (an error):** everything returns to rest in one frame. The error line is today's `#authError`,
+  unchanged.
+
+### "Signing out…" in the dropdown (new state)
+`#dropdownLogoutBtn` while the call runs: text `Signing out…`, `opacity: var(--state-off-alpha);
+cursor: default`, no hover or press background. The email line above it stays as it is. The badge stays in its
+open orange look (`.active`) until the dropdown closes.
+
 ### Signed in (all states)
 Today's `#accountBtn`, untouched: navy die (mask on), `--figure` person at 24px with stroke 2, today's `:active`,
 `.active` and `.active:active`.
@@ -316,6 +347,12 @@ It's one object changing ink: navy ink lands on the paper badge from the person 
 under it (navy on navy, so there's no fade), and inside the ink the person turns orange and grows into the
 signed-in badge.
 
+- **Before it starts (the arrival hold, real mode):** the slot shows the full signed-out badge exactly as at rest
+  (V[14]): `#accountBtn`'s mask off, background transparent, no box-shadow, with the paper badge drawn by the SVG.
+  It's the same paint as the playground's signed-out state, so the badge you tapped is the one you find. It holds
+  like that, static, through the wait and the ~250ms beat. The Strike's first frame is identical to it, so the
+  start is seamless. The tap-to-finish and the 3s skip go straight to the signed-in button in one frame
+  (transition off).
 - **Clock:** `STAR_POP_MS` (380ms). Drive everything below from one animation's `currentTime` (rAF), the way
   `dryUp()` does.
 - **Scale (the whole button, `transform-origin: 50% 50%`):** STAR_POP's offsets and per-segment easings, scale
@@ -349,6 +386,13 @@ The same object in reverse, with no pop: the navy ink dries back off the paper f
 thinnest first and centre last. The person shrinks and turns navy as the ink leaves it, and the navy words are
 revealed (they were there under the ink all along), not animated.
 
+- **Sequence (confirmed, it reads well):** on success the dropdown closes and `.active` comes off. The badge
+  goes from open orange back to navy rest through today's 150ms transition, untouched. That's the familiar
+  "menu closed" beat. **Then** the dry-up starts from the navy rest look. Start it on the transition's end
+  (`transitionend` on `background-color`, with a 150ms fallback timer), never before: a dry-up that starts on a
+  half-orange face would jump colour on its first frame. "Transition off" applies from the dry-up's first frame
+  on, not to the close. In total it's about 690ms from the tap's success to the reload: the orange settles, then
+  the ink dries.
 - **Clock:** `DRY.MS` (540ms). The first frame replaces the signed-in button with the signed-out drawing plus a
   full ink layer (k = 0), transition off, so nothing visibly changes at the start.
 - **Dry amount k(ms)**, using the app's `DRY` constants and `dryEaseThr` (no new curve):
@@ -448,6 +492,11 @@ Neither plays. Swap straight to the end state in one frame (transition off): no 
   soften the edge and then fade.
 - **The focus ring follows the scallop.** A square ring round a die-cut badge is the "hard line that makes no
   physical sense" the owner has turned down before. The double ring is the app's existing focus language.
+- **Busy states use the app's existing disabled rule** (`--state-off-alpha`, as on the add form's submit),
+  not a new one. That's the owner's "clear, matching state system". The fields stay readable, because what's
+  kept on an error must look kept.
+- **Orange to navy, then the dry.** Two beats, each one the user already knows: the menu closing, then the ink
+  leaving. Overlapping them would make one muddy colour change and break the owner's ask for motion you can see.
 - **r 21 at 0.13s.** It's the stills' fringe watch, settled by rendering 19.5, 21 and 22.5 on water at 2.2×:
   21 keeps the ink's travel without a halo.
 
@@ -472,6 +521,49 @@ sign out (flow 3), and edit while signed out in the real app (flow 4 and the
 sheet's third column) are all covered. One correction: `jobs.md`'s sign-out
 line says "(That's if Q1 is yes.)". Q1 is now answered by the product, and
 signing out lands in the playground.
+
+## Handoff check (systems, 2026-10-14)
+
+I read both halves against each other and against `jobs.md`. Every state in
+How it works has a look, and nothing in the look contradicts the flows:
+- signed-out rest, pressed, hover and focus
+- sheet open
+- arrival (the signed-out look, then the Strike)
+- signed in and its dropdown
+- departure (the dry-up from navy rest, then the reload)
+- Reduce Motion
+- sizes
+
+Auth-unknown needs no look, because the button stays hidden. The same goes
+for `#accountFocus`.
+
+I fixed two gaps in my part:
+1. **Sign out:** the "Signing out…" item had nowhere to show, because the
+   dropdown was closing first. It now stays open while the call runs and
+   closes on success, before the dry-up. I added a row for it to the
+   states table.
+2. **Arrival:** the tap-to-finish and the 3s skip now name the look's
+   one-frame swap.
+
+Notes on the visual part (no edits made there):
+1. **Sheet states have no look.** The busy primary ("Signing in…", disabled),
+   the read-only fields and the disabled "Signing out…" menu item have no
+   look specified. The error line can reuse `#authError` as it is. The
+   sheet's look is "unchanged", but these states are new, so they need one
+   line each (for example, how disabled reads on the orange primary).
+2. **Strike start on arrival.** The first frame is "the signed-out badge",
+   which matches. Say explicitly that the hold paints the full V[14] in real
+   mode, with `#accountBtn`'s mask off, until the Strike starts.
+3. **Dry-up start.** It begins from the navy rest look, after `.active` has
+   come off with today's 150ms transition. "Transition off" applies from the
+   first dry-up frame, not to the close. Confirm this sequencing reads well:
+   orange to navy, then the dry.
+4. **The 130ms blot is r 21, not the 19.5 in the stills.** That's a
+   deliberate change from what the owner approved. It's small, and it's
+   flagged there. It falls under the director's build watch, not an owner
+   question.
+
+Result: **PASS**, once the visual designer adds note 1 (and ideally 2 and 3).
 
 ## Open questions
 - **Q2 (owner, still unanswered):** is the one line in the sign-in sheet

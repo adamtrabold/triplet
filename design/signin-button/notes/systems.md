@@ -51,6 +51,16 @@
 - jobs.md's sign-out line still says "(That's if Q1 is yes.)": stale; noted in
   the handoff's jobs check, jobs.md not edited.
 
+## Handoff check (after visual's 9b35e4c)
+- Two halves agree. Fixed in my part: sign-out keeps the dropdown open with
+  "Signing out…" until signOut returns (row added); tap-to-finish/3s skip use
+  visual's one-frame swap.
+- Notes to visual (in handoff "Handoff check"): 1 busy/disabled looks for the
+  sheet primary, read-only fields, "Signing out…" item (needed); 2 say the
+  arrival hold paints V[14] mask-off in real mode; 3 dry-up starts after
+  .active's 150ms close; 4 r21 blot differs from approved stills (build watch).
+- Verdict: PASS pending visual note 1.
+
 ## Director objections
 - None to the handoff yet.
 

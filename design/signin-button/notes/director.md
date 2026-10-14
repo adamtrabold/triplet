@@ -291,3 +291,40 @@ What keeps blocking a 9 across rounds: nothing now. In rounds 2c-2e the
 owner steered by eye (a height bracket, colour by state), and each note
 was answered in one move. Next: the owner sees 2e, then the badge side by
 side with the new +, then the build.
+
+## Handoff check (2026-10-14, after "Sign in is great")
+Read `handoff.md` (9b35e4c) against owner.md and the approved
+`sheet-2e-3x.png`. The look matches V[14] value for value (paper die,
+warm edge, the +'s shadow, navy person and arc, pressed #DCD3C3, signed in
+untouched). There's no drift in what he approved. Post-approval team
+decisions he hasn't seen:
+
+Within the concept, tell him as facts (one terse message, no decision):
+1. The Strike plays when the real app arrives after the reload (a ~250ms
+   hold after the list renders, a 3s cap), not on the tap. His sheet's
+   motion row is labelled "Tap", so say it in a line.
+2. Logout -> Sign out, and Login -> Sign in everywhere. Copy that follows
+   his "sign in button". Still never confirmed; a fact, not a question.
+3. The busy sheet locks Keep playing, Esc and the scrim while signing in.
+   This changes the round-1 flow sheet he saw (Keep playing stayed live).
+   It's behaviour, and the reasoning is sound (success reloads anyway).
+4. Land where you were: map view and open tag carried across the reload,
+   both ways. Job 8; cheap; no visible UI.
+5. 0.13s blot r 19.5 -> 21 (my build watch). A one-frame motion detail;
+   show it in the final stills only if the build check re-shoots motion.
+
+Needs the owner's eyes (stills), per "the owner sees any new visual look":
+6. The focus ring: a new scalloped double ring (paper 4px under navy 2px,
+   scale 1.16), also on the SIGNED-IN badge, so "signed in unchanged" isn't
+   strictly true. Keyboard-only, but it's a new look. Include one still in
+   the final build stills. Also check it against the + 8px away: at 1.16
+   the ring reaches ~6px out.
+7. The badge next to the new orange +, and its x if + moves (74 vs 16).
+   The handoff makes it the + team's call with visual; it still has to go
+   to the owner as a still before either lands.
+8. Q2 (the playground line, its exact words) is still open. Ask with the
+   facts message; it doesn't block the build.
+
+Handoff text fixes: in "Settled", say that signed in gains the shared
+focus ring; in the motion section, note the Strike's trigger vs the
+sheet's "Tap" label.
