@@ -1411,3 +1411,113 @@ P and A go 8 → 9 on the re-shot stills.
 - The 19-still send stands exactly as listed in round 8b (same files,
   same order), with the same cost lines and the same six owner
   questions.
+
+## Concept round 9 -- director, 2026-10-14 (C pin+tag button; A header tag; shared form with the fallback model)
+
+### Evidence
+- At phone size first:
+  - C1, C2 (1x + blurred), C3, C6 (pressed);
+  - T5, T7, T9;
+  - A3/A5 as re-shot.
+- Then `C-pintag/how-it-works.md` for coverage, and systems' questions.
+
+### The standard I'm scoring against
+On round 8b he said "Blank pin looks ugly" about a 9 that passed every
+metric. So: it looks at home beside the app's pins and the account
+badge first; rank second; metrics last.
+
+### Likely owner objections, named first
+1. **C: "what's the dark block?"** LIKELY.
+   - The navy ADD slot on the button's stub carries the rank: 1.4x with
+     it, 0.85x without.
+   - At 1x (C1, C2) it's an unlabelled navy rectangle at the tag's
+     corner. It's a fragment of the form's ready-ADD state, borrowed
+     without its label, so it reads as noise ("no dots/decoration that
+     adds noise").
+   - It's rank bought by accretion again, P's mistake in a different
+     form.
+2. **C: "the pin doesn't look like a pin."** LIKELY, and his R5b words.
+   - The app's pins are a coloured ring with a glyph on paper; the
+     selected one is filled *with its glyph*.
+   - A solid orange disc with nothing in it, beside 15 real pins in C1,
+     reads as a ball or a dot on a stick.
+   - "Blank" has to read as an *empty pin*, not as no pin.
+3. **C: "busy" / "ugly".** POSSIBLE. Four parts at 1x: ball, string, tag
+   with a +, block.
+4. **C covers a place in about 1 street view in 4** (twice the Float).
+   POSSIBLE. It's honest in the cost line.
+5. **The form:** none likely now.
+   - T9 is the answer to "buttons aren't reading like buttons": city and
+     TYPE are the filter chips, ADD is navy, and STAR/VISITED are the
+     real segments.
+   - T7's answers in the stub read as the next action.
+   - The map still while filling, then one flight on ADD (T5): it reads.
+
+### Scores
+- **C · Pin+tag: 7.**
+  - The *idea* is right and is his.
+  - The tag now reads as a tag at 1x (chamfers, eyelet, notches,
+    perforation survive), and the + on the tag answers R4.
+  - But objections 1 and 2 are likely, and both are about the resting
+    object, the one thing the round is for.
+- **A · Header tag: 9 on the concept**, with the shared form now
+  fixed in look. It's held only by the two spec bugs below (mechanical,
+  they change stills). A doesn't go alone: he asked for C, so they go
+  together.
+- **Float frame (A5):** fine.
+
+### Rulings on systems' questions
+1. **Control rows:**
+   - The chip rows (address·city, TYPE) are 40px, and the NOTES row
+     stays 32.
+   - Tap areas never overlap and are never clipped below 40.
+   - The look barely changes (+16 on the tag).
+2. **C's coverage, 1 in 4 street views:** accepted as a cost line in
+   plain words. It's one more reason the button must not get bigger to
+   find rank.
+3. **Credit hidden whenever the tag is up: a bug.**
+   - OpenStreetMap credit stays visible in every state. The tag's foot
+     clears it, as in 8b.
+   - Re-shoot every frame where it's missing (T5 before, T7 both, and
+     any other).
+4. **Chip hit areas overlapping × / NOTES:** fixed by ruling 1.
+
+### Fixes (one batch)
+1. **C: rank from the object's form, not an added block.**
+   - Drop the navy slot from the button's stub.
+   - Find the 1.2x in what the object already is: the +'s weight and
+     size, the tag's proportion within today's footprint (no bigger, see
+     coverage), the pin.
+   - Systems re-measures.
+2. **C: the pin must read as one of the app's pins at 1x.**
+   - Use the app's pin grammar (the ring/face/glyph family), in the
+     action orange, so a stranger looking at C1 says "that's a pin".
+   - "Blank" = an empty pin, not a dot.
+   - One + on the whole object (pin or tag: visual's call).
+3. **C: show the R6 arrangement as the one "also tried"** (the + on the
+   pin, blank tag), with today's tag. It's literally the version he asked
+   to revisit, so he should see it beside the pick.
+4. **Every C frame at 1x beside the real pins and the account badge,
+   before any squint.** The first question I'll ask is "does it look at
+   home?"
+5. **Form spec bugs:** rulings 1 and 3. Re-shoot T5 (before), T7, T9,
+   and any frame missing the credit.
+
+### What keeps blocking a 9 across rounds (R4 → R9)
+- The resting + has to do three things at once:
+  - read as what it is (pin / tag / badge);
+  - read as a button;
+  - outrank the account.
+- Every time one fails, we've rescued it by *adding mass*: a bigger disc
+  (P), an orange flood (R5b), a navy block (R9).
+- Mass wins the squint and costs the look or the meaning, and he
+  rejects it each time ("same weight", "ugly", "doesn't look like a
+  pin").
+- **Why it keeps happening:** the squint test is the one thing we can
+  measure, so we optimise it. Rank has to come from a *clear
+  silhouette* instead: one object, recognisable at 1x, with its one +
+  as the strongest ink.
+- I'll score the 1x look before I open a squint number.
+
+### Did the work change?
+Yes, all new: the C object, the fallback model, stub answers, T9.

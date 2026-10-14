@@ -1254,3 +1254,44 @@ The same six (Q6 reworded for the pin+tag).
 
 ### Next
 Visual draws the tweaks + stub + audit; systems measures; then I steer.
+
+---
+
+## Concept round 9 scored -- 2026-10-14 (scores.md "Concept round 9")
+
+### Scores
+- **C pin+tag: 7.**
+  - The navy ADD slot on the button's stub is the rank (1.4x vs 0.85x
+    without). At 1x it's an unlabelled dark block: noise, accretion
+    again.
+  - The empty orange disc reads as a ball, not the app's pin (his R5b
+    words).
+- **A: 9 on the concept.** Held only by the form spec bugs; it goes with
+  C, not alone.
+- **The form:** T9 (chips = filter chips, navy ADD, real segments) and
+  T7 (answers in the stub) answer "buttons not reading". The map still +
+  one flight works.
+
+### Rulings
+- Chip rows 40 / NOTES 32, no overlapping tap areas.
+- The credit is always visible (a bug).
+- 1-in-4 coverage is a cost line, so the button can't grow.
+
+### Fixes
+1. C's rank from form, not a block.
+2. The pin reads as the app's pin (ring/face/glyph family, orange,
+   empty).
+3. The R6 arrangement (+ on the pin, blank tag) as the one also-tried.
+4. Every C frame at 1x beside the pins and the account.
+5. Re-shoot T5/T7/T9 for the credit and rows.
+
+### Pattern (R4-R9)
+- We rescue rank by adding mass (big disc, orange flood, navy block); he
+  rejects it each time.
+- Rank must come from a clear 1x silhouette with the + as the strongest
+  ink.
+- I score the 1x look before the squint number.
+
+### Next
+Visual on C fixes 1-4 and the form re-shoots; systems re-measures C.
+Then I re-score.
