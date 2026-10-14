@@ -507,3 +507,11 @@ result count at 664 with keyboard, and the docked-tag heights.
   - desktop not measured;
   - the iPhone checks: focus in the gesture, `visualViewport` docking, the TYPE mapping (Nominatim).
 - **Next:** visual builds P and A stills on these specs, then I run the coverage check per concept on the stills/prototype.
+
+## Round 8 fold-in (2026-10-14), after director turn 36 + visual's changes
+- Followed: the fixed 316 blank tag (stub 330-390 docked at 664, behind the keyboard; visible at 844 Home Screen, 377-437); results overlay the lower lines; the hanging tag 316 / ADD 518-578 at 664 (320: tag top about 176, worst case about 122, fits with no scroll; pin clear of the account); the Float pan target 512 (ADD about 452-512); NOTES before TYPE; VISITED not re-stamped at ADD; P's needle is 2px.
+- Changed, said plainly in the form spec's top note:
+  - results start under the NAME rule (72), not 89: at 320, 89 gives 2.85 rows (< 3); 72 gives 3.2, and 3.6 at 664;
+  - the tag does NOT shrink on ADD while it's open (the stub, i.e. the ADD just tapped, would move up 60-100px, against "I don't want … the button to change physical location after click"). The rules fade; the height holds until close. Director's call if visual disagrees.
+- `jobs.md`: the blank-tag order (NOTES before TYPE), the fixed whole blank tag, the ink-over wording, 844 sizes (about 4 results plus the visible stub).
+- Re-check: all jobs hold on P and A (P keeps its 2 job-1 exceptions). A: the band's × (about 604-661) is 26px below ADD (578).

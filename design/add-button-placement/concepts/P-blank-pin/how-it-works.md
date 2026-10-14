@@ -9,7 +9,7 @@ Systems, concept turn 1 (2026-10-14). P is the trigger. The form is
 - **The lifted pin** stands at the **bottom-left** of the map:
   - a 48 orange disc with a 2px paper halo (52 overall), a deep-orange
     rim and a navy +;
-  - a 1.6px navy straight string, about 22px, to a ground point with a
+  - a 2px navy needle (round 8, director fix 5; was 1.6px), about 22px, to a ground point with a
     soft ground shadow.
   - It's the app's own round pin, held above the map. The look is
     visual's, from turns 34-35.
@@ -74,7 +74,7 @@ Systems, concept turn 1 (2026-10-14). P is the trigger. The form is
    - pick: the keyboard drops, the list drops to its band, the map flies,
      the pin **lands** on the spot and the tag hangs from it with
      everything in pencil;
-   - ADD (y 515-559 at 664);
+   - ADD (y 518-578 at 664, round 8);
    - ink-over;
    - the list comes back on the place's city with the row in view, and
      the place's tag is open;
@@ -118,3 +118,18 @@ Systems, concept turn 1 (2026-10-14). P is the trigger. The form is
   timing.
 - Not measured yet: desktop; the docked pin's x at 375 and 320 against
   the account badge after it moves right.
+
+## Round 8 re-check (systems)
+
+The shared form changed (the fixed 316 blank tag, results over its lower
+lines, the taller hanging tag, ADD at 518-578, no shrink on ADD). I
+re-checked jobs 1-16:
+- **Job 7 (≥ 3 results):** holds, with results starting under the NAME
+  rule: 3.6 at 664, 3.2 at 320. Starting at 89 it fails at 320 (2.85).
+- **Job 12 (finish near the thumb):** holds. ADD is at 518-578 at 664; at
+  320 the tag fits with no inner scroll.
+- **Job 13 (watch it become the place):** holds. It holds without the
+  "controls don't move" break only if the tag keeps its height while
+  open (form spec, top note).
+- **Job 1:** P's two exceptions are unchanged.
+- Everything else is unchanged.

@@ -58,6 +58,17 @@ round-7 measures are `../stub/` (`looks-and-feels.md` "Round 7",
    opens. No extra tap.
 5. **District / street:** as in the form spec.
 
+## Round 8 (visual's changes, folded in)
+
+- A uses the shared form unchanged:
+  - the fixed 316 blank tag;
+  - results over its lower lines from under the NAME rule;
+  - ADD at y 518-578 at 664 after the pick, with the list on its band
+    and A's × on it.
+- The × on the band (at 664, y about 604-664, at the right) and ADD
+  (518-578) are 26px or more apart vertically, so there's no mis-tap
+  overlap.
+
 ## Collisions (job 4)
 
 - A lives in the band, not on the map, so there's 0 map dead zone and no
@@ -106,4 +117,7 @@ round-7 measures are `../stub/` (`looks-and-feels.md` "Round 7",
   - filters open: close them to add (round 7);
   - tag open: `TAG_SHEET_GAP` is 88, so it stays tappable; the tag closes
     on tap.
+- **Round 8:** after a pick, the hanging tag's foot pans to 512 at 664,
+  to clear the open badge (× at 524-584). That puts ADD at about 452-512.
+  It's the same kind of cost as round 7's gap of 88.
 - Otherwise as A.
