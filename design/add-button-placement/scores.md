@@ -1606,3 +1606,122 @@ Yes, all new: the C object, the fallback model, stub answers, T9.
 ### Did the work change?
 - Yes. C is a new object; the form is re-shot.
 - C goes 7 → 8 on real change. A stays 9.
+
+## Concept round 9c -- director, 2026-10-14 (C: the + as the pin's glyph, a blank ruled tag)
+
+### Real-size look first
+Evidence: C1, C3, C4, C8, C2, C6, C7.
+- At 1x (C1, C3), a stranger names it:
+  - an orange pin with a +, pushed through the end of a blank luggage
+    tag with two lines to write on.
+- "O+" is gone, and so is the eyelet misread.
+- The pin is one of the app's pins in the action orange: the selected
+  pin's filled face, with the + where every pin's icon goes. It means "a
+  place still to add".
+- One silhouette, one +, nothing added to carry rank. Pressed (C8)
+  follows the orange-action grammar.
+- It looks at home beside the real pins and the account badge. That's
+  the bar he set with "ugly", and it clears it.
+
+### Systems' question
+**Accept 1.19x at σ8 (1.24x at σ4).** No 6px stroke.
+- A heavier + inside a 40 disc starts to look crude, and I don't trade
+  the look for the metric (the round-8b lesson).
+- It's a different object, bigger and at a different place from the
+  account, so it doesn't share the account's weight-and-hierarchy row
+  as the old badge did.
+
+### Likely owner objections
+1. "Why sideways? I meant the pin with the tag hanging." POSSIBLE.
+   - C2 must answer it, so C2 is re-shot (below) to show the R6 hanging
+     arrangement beside the pick.
+2. "It sits on places at street zoom." POSSIBLE. It's the cost line.
+3. "The pin is bigger than other pins" (40 vs 32). UNLIKELY at 1x.
+4. A: "+ on the right." POSSIBLE. It's the cost line.
+- None is likely.
+
+### Scores
+- **C · Pin+tag: 9 (from 8).** The pin's identity is fixed by its
+  glyph, and the misreads are gone.
+- **A · Header tag: 9** (unchanged).
+
+### Re-shoots before the send (mechanical; I check them, no re-score)
+1. **C7:** re-pan both panels. A dotted street-shape line through a
+   visited sticker runs right beside the button, which reads as clutter
+   next to the thing being judged.
+2. **C2 "also tried":** show the pick beside **the R6 arrangement he
+   asked about** (the + on the pin, the blank tag hanging below it, at
+   real size), with the reason in one line:
+   - at that size a hanging tag reads as a box with a hat, and stands
+     twice as tall over the map;
+   - lying flat, it reads as a tag.
+   - The "O+" panel isn't needed.
+
+### FINAL SEND (after re-shoots 1-2 are checked), in this order
+
+**C · the pin and its blank tag**
+1. /home/user/triplet/design/add-button-placement/concepts/C-pintag/C3-rest-vs-today-3x.png
+2. /home/user/triplet/design/add-button-placement/concepts/C-pintag/C1-real-size-3x.png
+3. /home/user/triplet/design/add-button-placement/concepts/C-pintag/C4-squint-1x.png
+4. /home/user/triplet/design/add-button-placement/concepts/C-pintag/C2-also-tried-3x.png
+5. /home/user/triplet/design/add-button-placement/concepts/C-pintag/C5-tap-3x.png
+6. /home/user/triplet/design/add-button-placement/concepts/C-pintag/C6-tag-open-3x.png
+7. /home/user/triplet/design/add-button-placement/concepts/C-pintag/C7-sizes-3x.png
+
+**A · the header tag**
+8. /home/user/triplet/design/add-button-placement/concepts/A-header-tag/A1-rest-vs-today-3x.png
+9. /home/user/triplet/design/add-button-placement/concepts/A-header-tag/A2-1x-3x.png
+10. /home/user/triplet/design/add-button-placement/concepts/A-header-tag/A3-tap-3x.png
+11. /home/user/triplet/design/add-button-placement/concepts/A-header-tag/A4-tag-open-3x.png
+
+**The blank tag you fill (both)**
+12. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T2-blank-and-no-results-3x.png
+13. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T1-typing-3x.png
+14. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T3-picked-3x.png
+15. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T9-tappables-3x.png
+16. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T7-questions-3x.png
+17. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T4-starred-visited-3x.png
+18. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T5-ink-over-3x.png
+19. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T6-district-3x.png
+20. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T8-320-3x.png
+21. /home/user/triplet/design/add-button-placement/concepts/blank-tag-form/T0-pencil-vs-greyed-1x.png
+
+**Float (the same tag from the badge)**
+22. /home/user/triplet/design/add-button-placement/concepts/A-header-tag/A5-float-frame-3x.png
+
+**Held back:** C8 (pressed), r9-check/, raw/.
+
+**Cost lines:**
+- **C:** "One extra tap to add while a place's tag or the filters are
+  open. Zoomed in to street level it can sit on a place; move the map
+  to uncover it."
+- **A:** "The list title is 32px shorter, and the + is on the right."
+- **The tag:**
+  - "TYPE is filled in as a guess (from OpenStreetMap, or your last
+    type), in pencil; tap to change it. Only your iPhone can check the
+    guesses."
+  - "After you add, the list stays down until you close the new tag, so
+    the button you just tapped doesn't move."
+
+**Owner questions:**
+1. When you add a place, do you want to be able to mark it visited at
+   the same time?
+2. Should you be able to fix a place later by opening its tag back up in
+   pencil?
+3. Should picking a search result save the place straight away (with
+   Undo), with no ADD tap?
+4. Later on, would you want to place a pin by dragging it onto the map,
+   or by holding a spot on the map?
+5. Just so you know: on the tag, ADD is navy, because orange on a tag
+   already means starred.
+6. Just so you know: the pin-and-tag button needs one extra tap while a
+   place's tag or the filters are open; the header tag doesn't.
+
+### What blocked a 9, and what unblocked it
+- **Rank by mass:** R4-R9. Solved in 9b by form.
+- **The pin's identity:** R9-9b. Solved in 9c by the glyph: in this app
+  a pin is a ring/face plus a glyph.
+
+### Did the work change?
+Yes: the + moved onto the pin, and the tag is blank and ruled. C goes
+8 → 9.

@@ -1331,3 +1331,30 @@ glyph; the tag stays blank.
 
 ### Next
 C re-shoot → re-score (C only) → the send with A.
+
+---
+
+## Round 9c scored -- 2026-10-14
+
+### Scores
+- **C: 9.** The + as the pin's glyph; a blank ruled sideways tag.
+  - At 1x it reads as a pin through a blank tag.
+  - The O+ and eyelet misreads are gone.
+  - 1.24x/1.19x accepted; no heavier stroke (look over metric).
+- **A: 9.**
+
+### Re-shoots before the send
+- C7: re-pan off the dotted street line.
+- C2: the also-tried becomes the R6 hanging arrangement he asked about.
+
+### Send
+22 stills: C (C3, C1, C4, C2, C5, C6, C7) → A (A1-A4) → the form (T2,
+T1, T3, T9, T7, T4, T5, T6, T8, T0) → Float (A5). C8 is held back.
+The cost lines and six questions are in scores.md 9c.
+
+### Watch
+- C: "why sideways" (C2 answers); coverage at street zoom.
+- A: + on the right.
+
+### Next
+Check the 2 re-shoots → release. On his pick: handoff.md vs owner.md.
