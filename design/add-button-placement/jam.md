@@ -2758,3 +2758,204 @@ line each, two "just so you know" lines and Q2.
 
 NEXT: product designer (visual focus) -- re-crop R7-A4 below the credit
 strip; I check it, then the orchestrator sends Float → A.
+
+---
+
+# Pass A — new direction: blank pin + blank-tag form (2026-10-14)
+
+## Turn 30 -- product designer (systems focus): the package, jobs first
+
+New systems designer. Jobs were written from the owner's words before I
+opened jobs.md, C's files or the form code; then checked against them.
+
+Owner, verbatim: "I actually want to come back to the blank pin version of
+the add button — I also want to rev the add modal to be more like filling
+out a blank tag…I feel like together that could be a cool package."
+Plus (to the orchestrator): keep every direction open; this is the newest
+idea, not the only one.
+
+### Jobs (new scope: the + AND the form)
+
+Jobs 1-6 in `jobs.md` stand for the + itself. New, for the package:
+
+- **J7 Know what tapping + will give you.** The blank pin + blank tag at
+  rest is a preview of the thing you're about to fill out; the tap "takes
+  the blank tag". This is what makes the owner's two objections ("doesn't
+  read like a plus button", "the pin doesnt look like a pin … the tag
+  doesnt read as a tag (or a button)") answerable: the resting object
+  earns its shape because the form IS that shape.
+- **J8 Name the place** (search; the name line is the first thing you
+  write on the tag).
+- **J9 Put it in the right spot** — see where it will land before you
+  commit.
+- **J10 Say what kind of place it is** (TYPE), without a modal-looking
+  dropdown.
+- **J11 Star it and note why while adding** (STAR = the band, notes =
+  the tag's notes line). *(inferred from today's form)*
+- **J12 See exactly what you'll get.** The filled tag looks like the real
+  tag will: same layout, same order, band if starred. *(inferred: "filling
+  out a blank tag")*
+- **J13 Districts and streets go through the same tag.** *(inferred:
+  "Every category should have the same information and capabilities")*
+- **J14 Don't be asked what the app can infer.** City (and, where OSM
+  says, type) is pre-filled; you only touch it to correct it. *(inferred
+  from "User should not have to select distance" / the taste ledger's
+  "don't make the user pick settings the app can infer")*
+- **J15 Watch the blank become the place.** Add ends on the real pin with
+  its real tag open, in the list's right city. *(inferred; C already
+  does this, and it fixes today's silent vanish into another city)*
+- **J16 Recover:** no results, OSM shape missing ("(approx.)"), city
+  ambiguous (shape-city / new-city confirm), save failed — all inside the
+  tag, nothing lost. *(inferred)*
+- **J17 (scope question, not a blocker) Mark it visited while adding** —
+  you often add the place you're standing in. Today's form can't. The
+  real tag's stub has VISITED; a blank tag's stub could too.
+- **J18 (scope question) Fix a tag after adding.** Today nothing but
+  star/visited is editable after Add (only `.update({[field]: next})`
+  toggles exist). If the form is a tag, "edit" is the same tag with its
+  entries pencilled again — the redesign gets edit nearly for free.
+
+### Facts that shape it (from the code and C's record)
+
+- Today's form order is City, Category, (shape hint / confirms), Search,
+  Address, Notes, Star, Add. The real tag's order is band, eyelet, name,
+  address, stamped TYPE, notes, stub. **The two orders disagree; the
+  blank tag must follow the tag's**, which puts search (= name) first and
+  City last — City demoted to a pre-filled entry is J14 anyway.
+- Shapes never take city from the form (`resolveShapeCity()`), so on a
+  District/Street tag the CITY entry is printed "auto" or absent.
+- `selectAddress()` already gives name, address, lat/lng and
+  addressDetails; that is everything the blank tag's top half needs.
+- C's last flow (R6-C6): tap pin → the list's band becomes a search
+  line → pick → the pin stands on the spot and the blank tag hangs from it
+  → ADD LOCATION on the stub. Its gap against the new ask: **for the whole
+  search step there is no tag** — you fill out a search bar, then a tag.
+  "Filling out a blank tag" starts one step too late.
+
+### Random draws (real RNG)
+
+Fields: **bird-ringing** (you catch the bird, ring it where it is, write
+the log) and **ski lift ticket** (a blank card clipped to you, validated
+by a punch). Oblique: **"Look at the order in which you do things."**
+Twist: **"nothing is typed."**
+
+### Structures — four that differ in kind
+
+**P1. Hang-then-write (C's flow, the tag moved earlier).** Tap the
+blank pin; the blank tag it carries comes off it and grows to full size,
+docked just above the keyboard / list band. Its name line is the search
+field, autofocused, with results dropping as pencilled lines *on the tag*
+under the name (results grow downward inside the tag, not over the map).
+Pick → the map flies there, the blank pin stands on the spot and the tag
+re-hangs from it on its string, rest of the fields now in reach. One
+object the whole way: blank pin + blank tag at rest → blank tag in hand →
+tag hanging on the place → real tag. Cost: the docked tag + keyboard at
+664 leaves room for ~2-3 result lines (C's band gave 4); measure. Search
+and tag share one surface, so "re-search" = tap the name line.
+
+**P2. Ring it where it stands (order flipped: place before name;
+"nothing is typed").** The blank pin is *placed*, not pressed: drag it
+off its stand onto the map (or long-press the map), release, and the tag
+hangs there with the name line offering **what's here** — the nearest
+named places from a reverse lookup, as pencilled choices — plus "write a
+name" as the fallback. Tap (no drag) falls back to P1. This is the
+bird-ringer's order: the thing is located first, identified second. It
+serves the on-the-trip moment ("this café, here") with zero typing;
+search stays for planning from home. Costs: touch plumbing on the map
+(gesture lane, full gate); drag needs a discoverable affordance (the tap
+must still work alone); reverse lookup is Nominatim, untestable in the
+sandbox; J17 (visited) pairs naturally with it.
+
+**P3. No Add button: the pick IS the add (inversion).** Picking a result
+creates the place at once, with type pre-filled from OSM's class where it
+maps, city auto. What opens is the place's **real tag with its entries
+still pencilled** (editable) and an Undo slip (Plans v3 already has one).
+Stamp the entries — or just close the tag — and it's done. The form
+disappears as a concept: there is only the tag, in pencil or in ink.
+This is the one that gives J18 (edit later) as the same mechanism. Costs:
+an accidental pick creates a row (Undo must be obvious and the
+two-person shared DB means Erica can see it for those seconds); the
+shape-city / new-city confirms interrupt *after* creation; shapes need
+their OSM fetch before anything can be created, so District/Street keep
+an explicit commit. Owner-scope question for sure; worth showing as a
+frame because it differs in kind.
+
+**P4. Lift ticket: the blank tag lives on the + and is written in two
+sittings.** The blank tag rests on the + (as C's 6b), and a half-filled
+draft *stays on it* — name pencilled on the little tag — when you cancel
+or get interrupted. The resting + then shows "you've a tag in progress"
+by its own content, not a badge or dot. Tap → resume. Already ruled for
+C: cancel keeps the draft; this just makes the kept draft visible.
+Small, and it's an add-on to P1/P2, not a direction of its own; it fails
+"no dots/noise" only if the pencilled name reads as decoration — visual's
+call.
+
+### The blank tag itself (shared by every structure)
+
+- **Order = the real tag's order.** Eyelet · NAME (write-in, = search) ·
+  address (filled by the pick, printed small) · TYPE (pencilled entry;
+  pre-filled when OSM's class maps, else the last-used or "Other";
+  tapping opens a choice) · CITY (pre-filled, quiet, tap to correct;
+  absent for shapes) · Notes (write-in line) · stub.
+- **Stub = the real stub's segments, blank.** STAR (prints the band, as
+  on the real tag) · ADD. Optional third segment VISITED (J17) — then the
+  blank tag's stub matches the real stub one-for-one and every borrowed
+  mark keeps its meaning. Scope question for the owner.
+- **Pencil → ink is the state system.** Printed captions; your entries
+  pencilled until Add; on Add the entries are stamped (the owner's
+  "clerk's entries are stamped") — that stamp IS the confirmation (J15),
+  and it's an existing motion family ("stamp with some grow shrink").
+- **States to design:** blank (nothing picked — only NAME is live; the
+  rest printed but unwritable, ADD inactive and saying why, e.g. "NAME IT
+  FIRST"); searching (results on the tag / no results / search failed);
+  picked; District/Street (address line becomes the hint; CITY absent;
+  ADD reads "TRACE IT"?); confirms (new city, which city) rendered as a
+  printed question on the tag with two stub-style answers; saving; failed
+  (tag stays, error in pencil-red? — no new colour: ink-2 note);
+  approximate fallback (the inked tag says "(approx.)" as today);
+  signed-out playground (adds as signed in); stale session (sign-in
+  sheet, nothing moves); 320 (tag scrolls inside, stub fixed); desktop
+  (tag hangs in the map column).
+- **Size discipline:** the real tag at 390 is ~232 tall; with fields C
+  measured 364 (404 for shapes). Every field earns its line — CITY folding
+  into the address line ("Hallgrímstorg 1 · Reykjavík ⌄") would save one.
+
+### Does the blank-tag form pair with the other directions? Yes — it is
+### trigger-agnostic. Build it as one surface with an entry point.
+
+- **With C (blank pin):** the strongest metaphor: the pin and what it
+  opens are one idea (the owner's own "bonus points"). Weakness stays the
+  map-edge home: steps aside under a tag, close filters to add (ruled).
+- **With A (tag cut in the list header):** arguably *as* strong: A is
+  already a tag. Tap the header tag and it pulls up into the full blank
+  tag (P1 docking) — and A keeps its no-exception job 1 (works with a tag
+  open and filters open), which C can't. On pick, the tag flies to hang
+  from the new point. This may be the best pairing; it deserves a frame.
+- **With Float (orange badge, bottom-left):** works, metaphor looser — a
+  stamp-shaped badge opening a tag. A reading that holds: the badge is
+  the clerk's stamp; the tag is what it stamps. The tag would rise from
+  the left corner (thumb side), which suits the form's thumb reach.
+- So the owner could be shown: **one blank-tag form, three triggers**,
+  instead of three unrelated packages. That keeps all directions open
+  and makes the comparison fair (the form isn't a C-only bonus).
+
+### Tensions to rule (director)
+
+1. P1 (results on the tag) vs C's band search (results over the map):
+   result count with the keyboard up vs. one surface throughout.
+2. Is P2 (drag/long-press, gesture lane) in this package or a later
+   accelerator? (It was parked in turn 1 as an owner question.)
+3. Is P3 (no Add button) shown as a concept frame, or held as an owner
+   question? It changes the DB story (Undo on a shared table).
+4. Visited segment on the blank stub (J17) and edit-after-add (J18): show
+   as options or ask after a concept is approved ("not going to give them
+   until i approve a concept")? I'd show them *in* a still and ask
+   alongside.
+5. Whether C's resting tag still needs to exist once the form is a tag
+   (it now means something) vs. the owner's "doesn't read like a plus
+   button" — the + must stay the loudest mark on the resting object.
+
+NEXT: product designer (visual focus) — how the blank tag looks as a form
+(pencil vs print vs stamp, the blank stub, the inactive ADD) and how the
+resting blank pin + tag answers both owner objections; and whether the
+same form reads right under A and Float triggers.

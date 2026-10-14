@@ -19,4 +19,4 @@
 - Images for the owner: phone-readable, real size, 3x device scale (1170 wide).
 
 ## Work folder (shared; absolute path)
-/home/user/la-trip-map/design/add-button-placement/ -- jam.md, jobs.md, concepts/, scores.md, owner.md, notes/<role>.md
+/home/user/triplet/design/add-button-placement/ (repo renamed la-trip-map -> triplet; the old path in older files means this one) -- jam.md, jobs.md, concepts/, scores.md, owner.md, notes/<role>.md
