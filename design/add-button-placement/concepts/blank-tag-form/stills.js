@@ -163,6 +163,7 @@ F['r10-f-blankcard664'] = { k: 'C', vp: V664, run: async p => { await card(p, { 
 F['r10-f-pinned664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
 F['r10-f-pinned-starred664'] = { k: 'C', vp: V664, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true, starred: true, visited: true, notes: NOTE2 }); await cGone(p); } };
 F['r10-f-pinned844'] = { k: 'C', inset: true, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
+F['r10-f-typing320'] = { k: 'C', vp: V320, run: async p => { await dock(p, { state: 'typing', wash: true, centre: [64.1500, -21.9480] }, 260); await cGone(p); } };
 F['r10-f-pinned320'] = { k: 'C', vp: V320, run: async p => { await hang(p, { state: 'picked', ...R10, centre: true, realPin: true }); await cGone(p); } };
 
 (async () => {

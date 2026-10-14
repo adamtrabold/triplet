@@ -1,5 +1,24 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 10 (owner cut A; push C as tag-is-button; the form centred, unpinned → pinned)
+- **C:** `concepts/C-tag-r10/t.inc.html` has 8 variants (`data-tv`). The
+  pick is #2, `twoend`: paper, an orange claim-check end, a navy +.
+  - Systems-scaled weight about 1.25.
+  - The solid and punched tags are about 3-5× (flood mass).
+  - Stills: R1 (eight at real size), R2-R4 pairs vs today, R5 full
+    real size.
+  - Frames `t10-*`.
+- **Form:**
+  - wash (`#btWash` inside the map container, z 650) while there's no
+    address;
+  - `hang(... realPin, centre)` = the type's pin above the tag;
+  - optical centre `OPTICAL` 0.45, clamped for the pin;
+  - TYPE = `pinStrip()` (the app's 32 pins, guess first);
+  - city is pencil text.
+  - Stills: `blank-tag-form/R10-F1-F4`.
+- **Next:** systems measures C #2 and writes the behaviour (the map move
+  on pick, city correction); the director scores.
+
 ## UPDATE 2026-10-14, round 9c re-shoots (C 9, A 9)
 - **C7:** the map moved in both panels.
   - 320 uses [64.1400, -21.9250].

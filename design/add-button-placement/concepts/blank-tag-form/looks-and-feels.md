@@ -1,4 +1,25 @@
-# The blank-tag form: how it looks and feels (shared by C, A and the Float frame)
+# The blank-tag form: how it looks and feels (shared by C and Float)
+
+## Round 10 (owner: "too low on the screen … visually weighted center … not pinned, then as it's being filled out the background changes and it looks pinned once there's an address … the dropdowns are very awkward"; then "i meant *visually centered")
+
+Frames `r10-*`; stills `R10-F1`-`F4`.
+
+- **Unpinned until there's an address (R10-F1).**
+  - While you type, and on a blank card with the keyboard down, the map is washed back: `--paper` at 78% over the map panes, under the credit and the controls (they stay readable).
+  - The tag is a card on paper, not on a place: no pin, no string, an empty eyelet.
+- **Pinned once there's an address (R10-F2).**
+  - On the pick, the wash lifts, the map is the place, and **its pin stands above the tag on the real string**. It's the type's own pin (selected grammar), so it changes with TYPE.
+  - The map moves once here; systems owns how. Nothing is saved until ADD.
+- **Visually centred.** The tag's own centre (the heavy part; the pin and string above are light) sits at the open area's **optical centre, 45% down**: the open area runs from the account badge's foot + 8 to the credit − 6.
+  - If the pin would leave the open area, the tag sits just low enough to keep it in.
+  - At 664 that's tag top 154 (pin and string clamped); at 844 it's 216. The keyboard-up dock is unchanged (it's already at the top).
+- **The dropdowns are gone.**
+  - **TYPE = pick your pin:** a sideways row of the app's own pins at 32 (ring grammar). The guess comes first and is selected: filled, with a navy ring around it. The row scrolls, with a part pin at the edge saying there are more. The printed TYPE caption is followed by the picked name in pencil.
+    - Choosing a type is choosing the pin you'll get, and the pin above the tag shows it.
+  - **City** is plain pencil at the end of the address line ("Barónsstígur 45a · Reykjavík"). It isn't a control: it's inferred, and the new-city / which-city questions handle the rare wrong case.
+    - **Open for systems:** a way to correct a wrong but known city. My lean is re-picking the result, or a long-press; not a visible control.
+- **Kept from round 9:** the pencil, the 32 rhythm (TYPE's caption row 28 and the strip 40), questions in the stub, ADD navy.
+
 
 ## Round 9b (director round 9 fixes 5)
 - **Control rows are 40:** address · city and TYPE (the chip rows), so tap areas never clip or overlap. NOTES stays 32. The filled card is 264 tall at 664 (foot 581).
