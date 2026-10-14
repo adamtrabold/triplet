@@ -1,6 +1,64 @@
 # Systems designer notes: sign-in button
 
-## Where things stand (jam closed by the director's turn 6; concept phase started)
+## Where things stand (2026-10-14, handoff written)
+- Owner approved round 2e: "Sign in is great". Signed out = V[14] (badge2.js),
+  signed in = today's account badge.
+- `handoff.md` written: **How it works** (structure, states table, the sheet's
+  words and behaviour, flows 1-5, motion timing rules, sizes, builder checks),
+  **Why**, a jobs check, open questions. **How it looks and feels** is a
+  marked placeholder for the visual designer.
+- Next: visual writes its section; then the build (lane 2), then one combined
+  CD + UX check.
+
+## Decisions in the handoff (mine, with reasons in its Why)
+- The architecture changed under the concepts: signed out IS the playground,
+  mode fixed at boot from the stored session, sign in/out RELOADS. So:
+  - Playground paints the badge from first paint (mode known synchronously);
+    real mode paints nothing until checkAuth resolves (replaces the old
+    "nothing until checkAuth in both apps").
+  - Arrival: one-shot sessionStorage hop marker {dir:'in', view}, written
+    before the reload, removed on read; Strike after the boot load + ~250ms;
+    3s cap (skip); a tap during it finishes it and opens the dropdown. Never on
+    reload / other-tab broadcast / Reduce Motion.
+  - Sign out: dry-up plays IN PLACE after signOut succeeds, THEN reload (the
+    SIGNED_OUT listener must defer when this tab started it). Unrequested
+    SIGNED_OUT reloads at once, no animation.
+  - Rare signed-out real mode (expired session offline): shows the badge;
+    success in place with an immediate Strike.
+- Busy locks the whole sheet (Keep playing/scrim/Esc too): a success reloads
+  anyway. Reverses my earlier "Keep playing stays live". 15s timeout.
+- New failure: storage blocked -> sign-in succeeds but the key isn't stored ->
+  message, no reload (else a silent loop back into the playground).
+- Errors mapped: invalid creds / network / 429 / other. Esc closes the sheet
+  (missing today). Dialog semantics + focus return. aria-expanded on signed-in.
+- Job 8 is built, not flagged: the marker carries centre/zoom/open tag both
+  ways; playground-only places just don't reopen.
+- Focus ring: the button is masked, so outline/box-shadow get clipped; the
+  ring must be drawn outside the mask (look = visual).
+- mode-test.js clicks #dropdownLogoutBtn in the playground; it needs updating.
+
+## Builder race to remember
+- The playground's realSupabaseClient SIGNED_IN listener reloads immediately,
+  possibly before login() continues: write the marker before signInWithPassword
+  (clear on failure) or have the listener skip while login() is in flight.
+
+## Open questions
+- Q2 (owner): is the sheet's one line enough to say changes aren't kept?
+  Left open, not decided.
+- Job 4 (quieter than +) is pending the + redesign side-by-side; the badge's
+  x follows the + team's layout (it's tied to #accountBtn's slot).
+- UX may object to the busy lock (see handoff open questions).
+- jobs.md's sign-out line still says "(That's if Q1 is yes.)": stale; noted in
+  the handoff's jobs check, jobs.md not edited.
+
+## Director objections
+- None to the handoff yet.
+
+---
+
+# Earlier notes (before approval)
+
+## Where things stood (jam closed by the director's turn 6; concept phase started)
 - `jobs.md` is written: jobs 1 to 9 (6 to 9 inferred), the flows, Q1 (with
   the team's "yes" recommendation) and Q2, and builder notes. Short and
   plain, for the owner's phone.
