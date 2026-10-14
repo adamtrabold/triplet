@@ -3667,3 +3667,170 @@ needed.
 NEXT: design director -- rule V2-lifted vs V3-B for the package (and the
 kill test once systems' squint is in), then systems' items 1 and 3-5,
 so concepts can start.
+
+## Turn 35 -- design director: the resting object picked, items ruled, the jam closed
+
+Read turns 33-34, `sketch-s1-3x.png`, `typing-664-3x.png` and
+`pass-a-check/`. I didn't want to hold the jam for one number, so I ran
+the lifted-pin squint myself with systems' own `squint.py` functions. I
+pasted each disc row's frame 28px higher and added a 2px navy string plus
+the 18%-ish ground ellipse. These are **director estimates, not systems'
+numbers**; systems re-runs them on the real render in concepts.
+
+| Lifted pin, disc (+2 halo) | mass vs account σ4 / σ8 |
+|---|---|
+| 44 (visual's sketch) | about 1.15 (the 44 row plus a string; not run) |
+| **48** | **1.39 / 1.35** |
+| 52 | 1.62 / 1.58 |
+
+The string and the shadow add almost nothing; the mass is the disc. **By
+visual's own rule (grow the disc, keep the string), the lifted pin's disc
+is 48 (52 with its halo).** That's the smallest size that clearly
+outranks the account, and it's still well under the FAB-sized 56-60.
+
+### 1. The package's resting object: the lifted pin (V2-lifted). V3 is dropped
+
+- **The kill test passes, at sketch level.** Cell 1 doesn't squint like
+  cell 0: the vertical string and the ground point turn "button floating
+  over the map" into "pin held above the map, about to go in". The shape,
+  not the size, carries "pin", which is what systems said had to happen.
+- Lifting also makes rule 1 true at rest: the string the tag comes down
+  is already there. It answers both of the owner's round-5b objections
+  with one object and changes no shipped mark.
+- **The re-test is in concepts, at real 1x in the app:** lifted pin
+  beside a stock FAB and the account badge, and beside the real 24 and
+  32px pins. Two failure reads to look for: "lollipop/balloon" (the
+  string too long, or the ground point reading as a dot) and "FAB with a
+  stick". If either shows at 1x, it comes back to me before the owner
+  sees it. Keep the string short (~22) and the ground shadow quieter than
+  the halo.
+- **V3 dropped,** for visual's reasons, which systems' numbers back:
+  - the credit has to move;
+  - it's two objects at the list edge;
+  - its rank comes from the paper, not the +;
+  - it has the same exceptions as V2.
+  Per the takeover rule ("keep a dropped route visible as a seen
+  alternative"), V3-B gets **one small panel** in the package's rest
+  still, labelled "also tried", not a concept.
+
+### 2. Systems' items
+
+- **1 Fresh blank after Add: it appears when the new tag closes.** No
+  gap change. A second orange object beside the new place's tag would
+  compete with the moment that matters. My "already standing" exit is
+  amended to "already standing *when you close the tag*": still no done
+  screen, still no fly-in.
+- **2 Job 1 exceptions (tag open, filters open): plain cost line** on
+  the package for the owner, not small print. It's also the main reason
+  A goes forward as its own concept (below).
+- **3 Shapes: visual's flow, accepted.**
+  - While you fill the tag, the pin stays *lifted* over the picked point.
+    It never lands, because a shape isn't a point.
+  - On ADD it fades as the outline draws in, and the tag re-hangs from
+    the anchor dot (owner: "dot or something in the middle is fine").
+  - The stub says **ADD** for shapes too.
+  - With no OSM shape, it lands as the "(approx.)" pin, as today.
+  - Rule 1 holds: for a shape, the anchor dot *is* the pin.
+- **4 TYPE pre-fill: the OSM class where it maps, else the last-used
+  type, always in pencil.** Tapping it opens the choice.
+  - Blank-and-required breaks the closest-friend minimum.
+  - Pencil is the honest form of a guess: it says "provisional" with no
+    extra mark.
+  - The mapping table is the builder's, and it's Nominatim-only, so it's
+    untestable here. That goes in the concept's cost line, plus an
+    iPhone check later.
+- **5 CITY folds into the address line, in pencil** ("Hallgrímstorg 1 ·
+  Reykjavík"). Tapping the city corrects it; it's absent for shapes. The
+  new-city confirm and the which-city confirm print as a question on the
+  tag, with two stub-style answers (turn 30).
+- **6 Focus on tap:** an iPhone check. The fallback is one more tap on
+  the name line. Not a design change.
+- **7 Two stamps:** visual's order stands (TYPE and the name ink first,
+  VISITED about 150ms later as the last beat).
+- **8 Desktop:** a flow in `jobs.md`; measure it at build.
+- **9 Cancel with a pick:** accepted as written.
+- **Typing state:** accepted as drawn.
+  - The name sits 36 below the top: a blank tag has no band while you
+    type.
+  - Result rows are 48 (3 and a half rows at 664). At 320, systems check
+    whether 46 rows clear 3; if they do, 46 everywhere, one row height.
+  - Pencil entry, printed offers, no separate slip edge. Good: three
+    inks, one meaning each.
+
+### 3. The jam is closed. Concepts start from this
+
+The owner said "i want more than one concept" and to keep every
+direction open. Float and A are with him as R7. So the concept phase
+builds **two packages that share one blank-tag form**, plus one frame:
+
+1. **P · Blank pin.**
+   - At rest: the lifted pin (disc 48, string, ground point) at
+     bottom-left.
+   - Tap: it rises to the dock and the blank tag drops down its string.
+   - Then type → pick → it lands → ADD inks the tag. The pin becomes the
+     place.
+   - Exceptions: tag open, filters open (plain cost line).
+2. **A · Header tag.** R7's orange tag cut at the list band's end (kept
+   orange: rule 2), opening the **same** blank tag. On tap, the tag
+   pulls up from the header cut into the dock, with the 32px blank pin
+   above it on its string (rule 1 holds). On pick, it re-hangs on the
+   place. It's the only trigger with no exceptions, and it "ties to the
+   view state" (the owner's words). That's a real trade against P, not a
+   variant, so it's a full concept.
+3. **Float, one frame:** the same blank tag rising from the left badge.
+   "Same form, other trigger." Not a package.
+
+**Shared, built once (the blank-tag form):**
+- **Order:** the real tag's order:
+  - eyelet;
+  - NAME (= search);
+  - address · city (pencil);
+  - TYPE (pencil);
+  - NOTES;
+  - stub.
+- **Stub:** ADD (navy flood when ready; printed NAME IT FIRST when not) |
+  STAR | VISITED.
+- **Three inks:** print = the form's words and the offers; pencil = your
+  entries; stamp/ink = on ADD.
+- **Docked numbers at 664:** pin 14-46, tag top 74, name 36 below the
+  top, rows 48 (or 46), and the stub behind the keyboard.
+
+**Stills each package needs** (phone-readable, 3x, 1170 wide):
+- rest beside today, with the + beside the account;
+- the 1x close-up and squint;
+- the journey strip;
+- typing;
+- picked;
+- ink-over;
+- a District/Street;
+- a confirm (new city);
+- 320;
+- a tag open + the exception.
+**P also needs:** the FAB/account comparison and the V3 "also tried"
+panel.
+
+### Owner questions, for the orchestrator to send WITH the concepts
+
+1. While adding, mark it visited too (VISITED on the blank tag's stub)?
+2. Fix a place after adding by opening its tag in pencil again?
+3. Skip ADD: picking a result saves the place, with Undo?
+4. Later, place a pin by dragging it onto the map or holding the map?
+5. Just so you know: on the tag, ADD is navy, because orange on a tag
+   means starred.
+6. Just so you know: the blank pin can't be tapped while a place's tag
+   or the filters are open (one extra tap); the header tag can.
+
+### Likely owner objections I'll score against
+
+- P: "a lollipop" or "still a FAB", and "bigger than every other pin".
+  The answer is the lift: it's the pin you're holding, not one on the
+  map.
+- A: "the tag doesn't read as a +" (his round-4 line). The + is the
+  loudest ink on it.
+- The form: "too many lines"; "why isn't ADD orange?"; "a wrong type
+  pre-filled".
+
+NEXT: product designer (systems focus) -- write `jobs.md` for the two
+packages and the shared blank-tag form, including the cost lines, the
+shape and confirm flows, and desktop, and re-run the lifted-pin squint
+on a real render, so the designers build concepts to settled jobs.

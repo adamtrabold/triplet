@@ -1037,3 +1037,56 @@ to place (later); FYI ADD navy on the tag.
 ### Next
 Systems measures V2/V3, slip lines, docked position; visual draws the
 journey strip; then I pick the resting object in jobs.md.
+
+---
+
+## Jam closed -- turn 35 (2026-10-14)
+
+### Evidence
+- Turns 33-34.
+- `sketch-s1-3x.png`, `typing-664-3x.png`.
+- My own lifted-pin squint, using systems' `squint.py` functions:
+  - disc 48: 1.39 / 1.35x the account;
+  - disc 52: 1.62 / 1.58x;
+  - the string and shadow add almost nothing.
+  - These are an estimate; systems re-runs them on the real render.
+
+### Rulings
+- **Package resting object: the lifted pin.**
+  - Disc 48 + halo, a ~22px string, and a quiet ground point, at
+    bottom-left.
+  - Kill test (vs the stock FAB) passes at sketch level. Re-test at
+    real 1x in concepts.
+  - Fail reads to watch: "lollipop/balloon", "FAB with a stick".
+- **V3 dropped.** It stays as one "also tried" panel.
+- **Fresh blank after Add:** appears when the new tag closes.
+- **Shapes:** the pin stays lifted (never lands), then fades into the
+  outline; the tag re-hangs from the anchor dot; the stub word is ADD.
+- **TYPE:** the OSM class, else last-used, always pencil.
+- **CITY:** folds into the address line, in pencil.
+- **Confirms:** printed questions on the tag.
+- **Result rows:** 48 (46 if 320 needs it, one height everywhere).
+  - Name 36 below the tag's top.
+  - The stub behind the keyboard while typing.
+
+### Concept set (more than one, every direction open)
+1. P (blank pin).
+2. A (header tag cut, orange, exception-free) with the same blank tag.
+3. One frame of Float with the same form.
+
+### Owner questions queued
+1. Visited-while-adding.
+2. Edit-after-add.
+3. Pick-is-add with Undo.
+4. Drag/hold to place.
+5. FYI: ADD is navy on the tag.
+6. FYI: P's exceptions vs A having none.
+
+### Watch at scoring
+- P: lollipop / FAB / "bigger than other pins".
+- A: "doesn't read as +".
+- The form: line count, ADD not orange, a wrong pre-filled type.
+
+### Next
+- Systems writes `jobs.md` and re-runs the squint.
+- The designers build P and A; I steer after every pair of turns.
