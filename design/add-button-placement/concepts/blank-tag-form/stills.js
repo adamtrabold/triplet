@@ -15,11 +15,11 @@ const HTML = {
 };
 // C (pin+tag button, round 9): k = 'C' (the pick) or 'C:<pin>:<stub>:<plus>' for the variants
 const CINC = fs.readFileSync(path.join(CON, 'C-pintag/c.inc.html'), 'utf8');
-const CPICK = (process.env.CPICK || 'side:ring:tag:4:144:40:4').split(':');
+const CPICK = (process.env.CPICK || 'side:fillplus:rules:0:144:40:4:heavy').split(':');
 const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
 // C keys: 'C' (the pick) or 'C:<form>:<pin>:<plus>:<ps>:<w>:<pd>'
-const htmlFor = k => { if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw] = k === 'C' ? CPICK : k.split(':').slice(1);
-  return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}"`); };
+const htmlFor = k => { if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw, cg] = k === 'C' ? CPICK : k.split(':').slice(1);
+  return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}" data-cg="${cg || ''}"`); };
 // ---------- helpers ----------
 const zoomIn = (p, c) => p.evaluate(c => map.setView(c || [64.1471, -21.9426], 14, { animate: false }), c);
 const rowId = (p, name) => p.evaluate(n => locations.find(l => l.name === n && l.city === 'reykjavik').id, name);
@@ -124,7 +124,7 @@ async function card(p, s, o = {}) { await template(p); await p.click('#collapseB
 const NOTE2 = 'Bring a towel. Locals swim at 7am; the outdoor hot tubs are the best part';
 both('r9-today', { k: 'today', zoom: true, centre: CREST });
 both('r9-c-rest', { k: 'C', zoom: true, centre: CREST });
-both('r9-c-alt', { k: 'C:hang:fillplus:none:0:100:32', zoom: true, centre: CREST });
+both('r9-c-alt', { k: 'C:side:ring:tag:4:144:40:4', zoom: true, centre: CREST });
 F['r9-c-pressed'] = { k: 'C', zoom: true, centre: CREST, run: p => p.evaluate(() => document.getElementById('cp').classList.add('press')) };
 F['r9-c-rest664'] = { k: 'C', vp: V664 };   // the city view (the app's opening fit)
 F['r9-c-tapped664'] = { k: 'C', vp: V664, zoom: true, centre: CREST, run: async p => { await dock(p, { state: 'typing' }); await cGone(p); } };

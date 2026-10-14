@@ -72,19 +72,27 @@
       : `<circle class="cp-face" cx="${px}" cy="${py}" r="${PIN / 2 - 1.25}" fill="var(--brand-orange)" stroke="var(--brand-orange-deep)" stroke-width="2.5"/>`);
     const PS = [[13, 4.5], [16, 5.5], [18, 6.5], [21, 7.5], [23, 8.5]][+(R.dataset.cps || 0)];
     const bx = ox + (ex + pw / 2 + (W - STUB)) / 2, by = oy + H / 2;
+    // a blank tag's printed write-on lines (the form's rules), when the + is on the pin
+    const lx0 = ox + ex + pw / 2 + 8, lx1 = ox + W - STUB - 8;
+    const rules = plusOn === 'rules' ? [0.42, 0.68].map(f => `<line x1="${lx0}" y1="${oy + H * f}" x2="${lx1}" y2="${oy + H * f}" stroke="var(--hair)" stroke-width="1.5"/>`).join('') : '';
     const plus = plusOn === 'tag' ? `<path d="M${bx - PS[0]} ${by}H${bx + PS[0]}M${bx} ${by - PS[0]}V${by + PS[0]}" stroke="var(--navy)" stroke-width="${PS[1]}" stroke-linecap="round"/>` : '';
+    // the + as the pin's glyph (round 9c): the app's pin grammar -- ring pin: an orange-deep + on the paper face; filled: navy or paper
+    const heavy = R.dataset.cg === 'heavy', ga = PIN * (heavy ? .27 : .24), gsw = Math.max(3, PIN * (heavy ? .135 : .11));
+    const pinGlyph = /plus/.test(pin) ? `<path d="M${px - ga} ${py}H${px + ga}M${px} ${py - ga}V${py + ga}" stroke="${ring ? 'var(--brand-orange-deep)' : pin === 'fillplusc' ? 'var(--paper)' : 'var(--navy)'}" stroke-width="${gsw}" stroke-linecap="round"/>` : '';
     const sx = ox + W - STUB, Wt = W + ox, Ht = H + oy * 2;
     el.style.width = Wt + 'px';
     el.innerHTML = `<svg width="${Wt}" height="${Ht}" viewBox="0 0 ${Wt} ${Ht}" aria-hidden="true">
       <defs><mask id="cpm"><path d="${tagPath}" fill="white"/><circle cx="${sx}" cy="${oy}" r="3.5" fill="black"/><circle cx="${sx}" cy="${oy + H}" r="3.5" fill="black"/></mask></defs>
       <g class="cp-tag"><g mask="url(#cpm)"><path class="cp-paper" d="${tagPath}" fill="var(--paper-raised)"/>
-        <line x1="${sx}" y1="${oy + 6}" x2="${sx}" y2="${oy + H - 6}" stroke="var(--hair)" stroke-width="1.5" stroke-dasharray="4 3"/>${plus}</g></g>
-      <g style="filter:drop-shadow(0 1.5px 1.5px rgba(26,26,24,.18))">${face}</g></svg>`;
+        <line x1="${sx}" y1="${oy + 6}" x2="${sx}" y2="${oy + H - 6}" stroke="var(--hair)" stroke-width="1.5" stroke-dasharray="4 3"/>${plus}${rules}</g></g>
+      <g style="filter:drop-shadow(0 1.5px 1.5px rgba(26,26,24,.18))">${face}${pinGlyph}</g></svg>`;
     el.style.height = Ht + 'px';
-    const S = document.getElementById('locations').getBoundingClientRect().top; el.style.top = (S - 20 - Ht) + 'px';
+    el.style.top = (footY() - Ht) + 'px';
   }
+  function footY() { const S = document.getElementById('locations').getBoundingClientRect().top, c = document.querySelector('.leaflet-control-attribution');
+    const r = c && c.getBoundingClientRect(); return Math.min(S - 20, r && r.height ? Math.floor(r.top) - 6 : 1e9); }
   function mount() { if (!document.getElementById('cp')) { const b = document.createElement('button'); b.id = 'cp'; b.setAttribute('aria-label', 'Add a place'); document.body.appendChild(b); } draw(); }
   window.__C = { mount, draw };
-  if (R.dataset.k === 'C') { mount(); setInterval(() => { const el = document.getElementById('cp'); if (el && !el.classList.contains('gone')) { const S = document.getElementById('locations').getBoundingClientRect().top; el.style.top = (S - 20 - el.offsetHeight) + 'px'; } }, 60); }
+  if (R.dataset.k === 'C') { mount(); setInterval(() => { const el = document.getElementById('cp'); if (el && !el.classList.contains('gone')) { el.style.top = (footY() - el.offsetHeight) + 'px'; } }, 60); }
 })();
 </script>

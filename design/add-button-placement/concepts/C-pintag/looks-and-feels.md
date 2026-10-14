@@ -1,4 +1,21 @@
-# C · Pin+tag: how it looks and feels (round 9b, supersedes round 9 below)
+# C · Pin+tag: how it looks and feels (round 9c, supersedes 9b and 9 below)
+
+## Round 9c (director round 9b: C 8; the likely reads were "O+" and the ring read as the eyelet)
+
+- **The pick** (`side:fillplus:rules:0:144:40:4:heavy`):
+  - **The sideways tag is unchanged** (144 × 75).
+  - **The + is now the pin's icon.** The pin is the app's selected-pin grammar in the action orange: an orange face, a 2.5 deep-orange rim, a 2px paper halo, 40 across.
+    - The + is navy at 0.27 × D (11px arms) with a 0.135 × D stroke (5.4), round caps.
+    - **Deviation, named:** the shipped selected pins carry a paper glyph. Navy is used because the + must be the strongest ink. A paper + measured 0.86 vs 0.98 (mine).
+  - **The tag is blank and ruled:** two 1.5px `--hair` write-on lines between the pin and the stub, the form's own rules in miniature. With no + on it, nothing on the tag reads as a word or symbol. A blank tag with lines is a tag to fill in.
+  - **Rough mass:** 0.98 / 0.93 (mine). Systems' harness reads about 1.2× of mine, so I expect about 1.18-1.2. Systems confirms. If it lands under 1.2, the next dial is the glyph stroke (6), not the pin's size.
+  - **The foot** is now min(20 above the list, 6 above the credit's top), so 521 at 844, 6 clear of the credit (`footY()` in `c.inc.html`).
+- **Also tried (C2):** round 9b's empty ring + the printed +.
+- **Pressed (C8):** the face goes deep orange (the + stays navy), and the tag goes to `--paper`.
+- **Also measured** (`raw/cv-side-*`):
+  - ring pin + orange-deep glyph: 0.62, too quiet;
+  - the tag at 124 wide: 0.93, same read, smaller. A footprint dial if systems wants it.
+
 
 ## Round 9b: the director scored C 7 ("what keeps blocking a 9": rank bought by added mass)
 

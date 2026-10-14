@@ -1,5 +1,17 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 9c (director 9b: C 8, A 9)
+- **C:** the + moved onto the pin as its glyph (filled orange 40, navy
+  +, heavier glyph `data-cg=heavy`). The tag is blank with two ruled
+  lines (`data-cplus=rules`).
+  - Pick string: `side:fillplus:rules:0:144:40:4:heavy`.
+  - The foot is 6 above the credit (`footY()`).
+  - Rough mass 0.98 (≈1.2 systems').
+- **C2's "also tried"** is now 9b's ring + printed + (`r9-c-alt`).
+- **Re-shot:** C1, C2, C3, C4, C5, C7, C8 (C6 is unchanged; C is hidden
+  there).
+- **Next:** systems re-measures rank; the director scores.
+
 ## UPDATE 2026-10-14, round 9b (director: C 7, A 9; five fixes)
 - **C's new pick:** a shipping tag lying across, pinned through its
   eyelet by an orange ring pin (40, 4 ring, empty face), with a navy +
