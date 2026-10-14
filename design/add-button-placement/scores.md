@@ -1001,3 +1001,107 @@ Never send C with the banded tag.
 
 ## Orchestrator, 2026-10-13
 C re-shot without the band (visual): + no longer clearly ahead of account in the squint test, so C stays 8 and is not sent (per round 6b ruling: "If C's re-shoot ... fails: send Float and A now"). Float and A sent.
+
+---
+
+## Concept round 7 -- director, 2026-10-14 (Float at the left; A as the Hanging Tag cut)
+
+Looked at, 1x and squint first: `E-float/R7-F2-1x`, `stub/R7-A2-1x`,
+`stub/R7-A3-eyelet`. Then `R7-F1`, `R7-F4`; `R7-A4`, `R7-A5`, `R7-A7`;
+jam turns 26 and 28.
+
+### Rulings on the two mild reads
+1. **The × against the band's ▲ (15px off-axis): accepted, no change.**
+   - In `R7-F4` the × reads as the start of the Add row: ink + 12 to Add,
+     both centred on one line, with the ▲ small and about 70px below.
+   - Moving it would be a control changing place on tap (turn 27).
+2. **Two oranges with a starred tag open (`R7-A5`, right): accepted, no
+   change.**
+   - One brand orange for the star, the tag band and actions is the
+     owner's own system ("orange for star / tag top all the way"; "the
+     star is the action orange").
+   - The navy + keeps the header tag reading as "add", not "starred".
+   - The open tag is 316px of content and stays first.
+   - The shared cut is his "ties to the view state", visible on purpose.
+
+### Likely owner objections, named first
+- **Float:**
+  - "ADD LOCATION doesn't line up with the fields": told in F4's cost
+    line; it's the action row.
+  - "two +s on the left": at 1x the boxed white zoom and the orange cut
+    badge don't read as one family.
+
+  Neither is likely to block. He chose the left himself.
+- **A:**
+  - "where's the hole, is it still a tag?": `R7-A3` shows the hole and the
+    hole + patch beside the pick, with the reason (a dot, a switch knob).
+  - "it points left like an arrow": at 1x in R7-A2 and A7 the two
+    chamfers read as a tag's cut end, and A5 puts the real tag's identical
+    cut on screen to confirm it.
+
+  Possible, not likely, and the alternatives are in front of him.
+
+### Scores
+- **Float, bottom-left: 9.**
+  - The look is his (orange, 60px, finer cut). In `R7-F2` the squint test
+    puts + clearly first with no shared line to the account.
+  - The ink is 20/20, on the row icons' left channel.
+  - The credit is back at the right, the form row is exact, and every
+    state is clean.
+  - The work changed (corner), so this is a fresh score.
+- **A, Hanging Tag cut: 9.**
+  - At 1x it's an object at the band's end, not a fourth icon. The
+    chamfers say tag without the dot-prone hole.
+  - It doesn't read as "starred": a cream tag with an orange band is
+    starred, and this is an all-orange stock with a navy + (A4, A5).
+  - `R7-A5` shows his reason: the header tag and the open place tag share
+    one cut, and the open tag wins.
+  - At 320 the chamfers give locate room (A7).
+  - The work changed (shape), so this is a fresh score.
+
+### Mechanical fix before the send
+- **`R7-A4`:** the REST and PRESSED crops carry a white sliver with tick
+  marks along the top (the credit strip's bottom edge). At phone size it
+  reads as stray marks. Re-crop below the credit, the same window for all
+  three states. I check it.
+
+### FINAL SEND (one message, Float → A)
+
+**1. Float, bottom-left** (`concepts/E-float/`):
+1. `R7-F1-right-vs-left-3x.png`
+2. `R7-F2-1x.png`
+3. `R7-F3-tag-open-664-3x.png`
+4. `R7-F4-adding-844-3x.png`
+5. `R7-F5-collapsed-3x.png`
+6. `R7-F6-320-tag-3x.png`
+
+Cost line: "+ rides down with the list when you tap it (and back on
+cancel); with the filters open, close them first."
+Just so you know: "While adding, ADD LOCATION starts about 27px right of the
+form's fields so it can sit beside the ×; and the map credit goes back to
+the bottom-right."
+
+**2. A, the tag in the list header** (`concepts/stub/`):
+1. `R7-A1-tag-vs-ticket-3x.png`
+2. `R7-A2-1x.png`
+3. `R7-A3-eyelet-3x.png`
+4. `R7-A4-states-3x.png` (**re-cropped**)
+5. `R7-A5-tag-open-3x.png`
+6. `R7-A6-adding-3x.png`
+7. `R7-A7-320-3x.png`
+
+Cost line: "The list title gets 32px shorter ('list' drops first, at 320 the
+count too)."
+Just so you know: "With a starred place open there are two oranges, its band
+and the + tag. It's one brand orange, and the + keeps it reading as add."
+
+**Also in the message:**
+- jobs.md Q2 (fly to the new place and open its tag after Add?).
+- Q3 (later ideas) only if it's not already answered.
+- C stays parked; don't mention it unless he asks.
+
+**Not sent:** `R7-check` frames, the `r7/` raw frames, and all round-6
+stills.
+
+### Did the work change?
+Yes, both (corner; shape). Fresh scores, 9 and 9.

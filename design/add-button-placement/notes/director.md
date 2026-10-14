@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 7 rulings" at the bottom -- systems measured; visual shooting both owner sets; then I score)
+## Status (current: see "Round 7 scored" at the bottom -- Float-left 9, A tag cut 9; waiting on the R7-A4 re-crop, then send)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -936,3 +936,60 @@ Id like to see that mocked"
 ### Next
 Visual shoots both owner sets; I score both in one pass, 1x and squint
 first.
+
+---
+
+## Round 7 scored -- 2026-10-14 (jam turn 29; scores.md "Concept round 7")
+
+### Evidence
+- 1x and squint first: R7-F2, R7-A2, R7-A3.
+- Then R7-F1, F4, A4, A5, A7; jam turns 26 and 28.
+
+### Scores (fresh; the work changed)
+- **Float, bottom-left: 9.** + is first in the squint test with no shared
+  line to the account; ink 20/20 on the row icons' channel; the credit is
+  back at bottom-right; the form row is exact (× ink + 12, one centre
+  line).
+- **A, Hanging Tag cut, no hole: 9.** At 1x it's an object at the band's
+  end, not a fourth icon. All-orange with a navy + doesn't read as
+  starred (starred = a cream tag with an orange band). A5 shows his "ties
+  to the view state" with the open tag winning. At 320 the chamfers give
+  locate room.
+
+### Rulings
+- **× 15px off ▲:** accepted (it reads as the Add row's start; no move on
+  tap).
+- **Two oranges with a starred tag:** accepted. It's the owner's one-orange
+  system, and the + keeps the header tag reading as add.
+
+### Mechanical
+R7-A4: the credit-strip sliver with tick marks above the REST/PRESSED crops.
+Re-crop below it; I check before the send.
+
+### Send (scores.md round 7)
+- Float: R7-F1 to F6.
+- A: R7-A1 to A7 (A4*).
+- Cost lines:
+  - Float: the ride + filters.
+  - A: the title is 32px shorter.
+- Just so you know:
+  - Float: the form-row offset and the credit at the right.
+  - A: two oranges with a starred tag.
+- Plus Q2. C stays parked.
+
+### Likely owner objections
+- Float: Add is offset from the fields; two +s on the left.
+- A: "where's the hole" (A3 answers); "an arrow?" (A5's shared cut
+  answers).
+
+### What blocked a 9 this round
+Nothing structural. Only a crop artifact.
+- Visual's handover check should add: **every crop's edges are clean (no
+  slivers of neighbouring chrome).**
+
+### Next
+- Re-crop A4, then I check it and release.
+- On his pick: handoff.md, which I check against owner.md (orange 60px,
+  finer cut, left corner, form row A, the conditional prefix,
+  `TAG_SHEET_GAP` 88 / or the A tag cut and the 32px title cost) before
+  the build.

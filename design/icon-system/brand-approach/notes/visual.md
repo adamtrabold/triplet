@@ -1,6 +1,36 @@
 # Notes: product designer (visual focus)
 
-## Where things stand (2026-10-14, after jam turn 2)
+## Where things stand (2026-10-14, after jam turn 4 = pass 2)
+
+Pass 2 is done. Board: `../concepts/sketches/attitudes-v2.html`, with one
+PNG per card (`v2-card-0-today` … `v2-card-4-dropped`) plus
+`attitudes-v2-3x.png`. Rendered with the scratchpad scripts `shot.js` (full
+page) and `cards.js` (per-card element shots, DSF 3, waiting on
+`document.fonts.ready` so Archivo loads from Google Fonts). Directions
+going forward (director, turn 3): **Field Guide, Cut Paper (with Spot
+merged in), Timetable Sorts**. Dropped strip: Same Die (kept as the grid
+seed), Spot, Badge, Code, Linocut. Parity is NOT a premise: each card
+states its own on/off stance.
+
+Pass-2 decisions:
+- Field Guide: specimens are filled with corner radius ~0.8; tools are a 1.8
+  stroke with round ends (radius 0.9), in ink-2. One grammar, two weights.
+  District is a solid parcel with a cream dashed inner boundary, and the
+  dashes mush at 12px.
+- Cut Paper: off = the dotted cut-here line in tool ink (passes 1-bit);
+  the fallback is a solid knife line. District is one off-true block cut
+  into 4 by two cream street gaps. Its tools are still the heaviest marks
+  on the board.
+- Timetable Sorts: a 2-unit monoline with flat ends and mitred joins,
+  filled only where a typeface would fill (star, knife blade, needle).
+  ☆/★ are a typographic pair. There is an inline proof line in caps
+  type. Next: real Archivo cues (ink traps, squarish curves).
+- Every card: a plain + selected navy row, the tag stub with the real
+  stamp, a map crop (near pins, a selected inverted pin, a cluster),
+  12px and 1-bit strips, and Says / Risks / Choosing. Still to add:
+  true 1x insets.
+
+## Earlier (after jam turn 2)
 
 Phase 1 (brand approach to icons: conceptual attitude, not drawings). I took
 jam turn 2 in `../jam.md`. No concepts, no scoring, no grid. Next: the
@@ -62,7 +92,11 @@ What the sketch showed:
 
 ## Director's objections
 
-None yet.
+Turn 3: parity rested on an old note, so it was dropped as a premise. The
+sketch's districts were weak ("medical badge", "guitar pick"). The
+sketch was missing the map, the reversal and the tag stub. Same Die is a
+method, not an attitude. Q2 (is the star printed or applied?) was answered
+by the Pencil Star. Q3 (whimsy for places only) is now a team default.
 
 ## Open questions (owner's calls)
 

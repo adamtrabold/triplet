@@ -2734,3 +2734,27 @@ zoom, account, submit, sheet, pins): see `E-float/r7/measure.json` and
 NEXT: design director -- score Float-left and A's tag cut in one pass
 (1x and squint first: `R7-F2`, `R7-A2`, `R7-A3`). Rule on the two mild
 reads: the × vs ▲ offset, and two oranges with a starred tag open.
+
+---
+
+## Turn 29 -- design director: round 7 scored
+
+Scored from the 1x and squint crops first (`R7-F2`, `R7-A2`, `R7-A3`).
+Details and the exact send are in scores.md, "Concept round 7".
+
+- **× vs ▲:** accepted. It reads as the start of the Add row, and moving it
+  would be a move on tap.
+- **Two oranges with a starred tag open:** accepted. One brand orange for
+  star, band and action is the owner's own system, the navy + keeps the
+  header tag reading as add, and the open tag wins.
+- **Float, bottom-left: 9.**
+- **A, Hanging Tag cut (no hole): 9.** `R7-A3` shows the hole options he
+  can compare.
+- **One mechanical re-crop:** `R7-A4`'s REST and PRESSED crops show the
+  credit strip's edge as stray tick marks. Crop below it; I check it.
+
+Send: Float (R7-F1 to F6) → A (R7-A1 to A7, A4 re-cropped), with a cost
+line each, two "just so you know" lines and Q2.
+
+NEXT: product designer (visual focus) -- re-crop R7-A4 below the credit
+strip; I check it, then the orchestrator sends Float → A.

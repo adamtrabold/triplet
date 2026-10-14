@@ -676,3 +676,98 @@ NEXT: product designer (visual focus): sketch Timetable Sorts as a new
 card, rework Cut Paper's off state and every district glyph, and add the
 map, reversal and tag-stub crops to all three plus Today. Retire the Spot
 and Same Die cards to the dropped strip.
+
+---
+
+## Turn 4: product designer (visual focus), jam pass 2
+
+I'm taking turn 3 as the steer: parity isn't the premise, there are three
+directions, and every card shows the map, the reversed row and the tag stub,
+with Today first.
+
+**Sketch:** `concepts/sketches/attitudes-v2.html` gives one card per still,
+3x and 390 wide, in Archivo (loaded from Google Fonts):
+`v2-card-0-today.png`, `v2-card-1-field-guide.png`,
+`v2-card-2-cut-paper.png`, `v2-card-3-timetable-sorts.png` and
+`v2-card-4-dropped.png`. The whole board is in `attitudes-v2-3x.png`. Every
+card has the same layout:
+- the stress set at 24px: cafe, restaurant, district, star off, star on,
+  filters, close, add, directions;
+- a plain row and the **selected navy row**, with a starred row star;
+- the **tag stub** (Directions / Star off / the real tag VISITED stamp);
+- a **map crop** on OSM-toned tiles: four near pins, one selected
+  (inverted) pin and a cluster;
+- 12px and 1-bit strips;
+- Says / Risks / Choosing.
+
+The stamps are the real PNGs from `inventory-png/`, unchanged. The
+`row-stamp-selected` and `tag-stamp` crops are new copies.
+
+The 1x row crop the director asked for isn't there yet. Every still is a 3x
+render of 1x geometry. For the owner board, I'd add a true 1x inset per
+card, as a phone-readable "actual size" strip.
+
+### Field Guide (was Specimen & Key)
+- **One grammar, two weights, shown on the board.** Specimens are filled
+  shapes with corner radius ~0.8. The key (tools) is a 1.8 stroke with round
+  ends: the radius 0.9 matches the specimens' corners. So they share one
+  corner and one terminal, and differ only in weight and ink (tools in ink-2).
+- One detail per place: steam on the cup. The fork and knife need none.
+  District is a solid parcel with **one** cream dashed boundary inside it,
+  borrowed from how the map draws a district. It ties the glyph to the shape
+  on the map.
+- What I saw: the map pins read well. The tools in the tag stub look like
+  part of the type. The district's inner dashes go to mush at 12px, so a
+  solid inner line may be needed there. Phase 2 can settle that.
+- The visited stamp is the loudest mark in both rows, as intended.
+
+### Cut Paper (Spot merged in)
+- **Off state reworked, not colour-only:** "not starred yet" is the dotted
+  **cut-here line** in the tool ink, the way a coupon is marked. "Starred"
+  is the piece cut out, in orange. It survives 1-bit (see the strip). The
+  dots are spaced and few, but it is a dotted mark, so the owner's "dots add
+  noise" rule is the risk to watch. The fallback is a solid knife line in the
+  same ink.
+- District is now **a block cut into four by two streets**: one off-true
+  piece with two cream gaps, so it reads as city blocks. That replaces the
+  guitar pick.
+- Restaurant is a cut fork (tines as cuts) and a leaf-blade knife.
+- Spot's contribution is its flat-cut, no-outline construction for tools.
+  The sketch shows that the tools (filters, ×, +) stay the heaviest marks on
+  the board. Phase 2 needs a rule that tool strips are thinner than place
+  pieces.
+
+### Timetable Sorts (new card)
+- Every icon is a monoline **2-unit stroke** (≈1.5px at 18px, the stem of the
+  caps labels), with **flat cut ends and mitred corners**, sitting on the
+  baseline and cap height. The fill only shows up where a typeface would use
+  it: ★ vs ☆, the knife blade, the compass needle.
+- **On/off stance:** ☆ and ★ are two sorts of one weight and the same outer
+  size, a typographic pair.
+- There's an inline proof line: `REYKJAVÍK [cup] 08:15 · HÚSAVÍK [fork+knife] 13:40 [star]`,
+  with the sorts set in the caps type. It reads as one voice.
+- District is a parcel outline with one road curving through it (a map
+  fragment).
+- What I saw: it's the most coherent of the three and holds up on the map
+  better than expected, because the pin's rim and the glyph share a weight.
+  The risk is the director's: in places (×, +, filters) it's close to a
+  generic line set. Next time, to make it *ours*, give it real Archivo cues:
+  ink traps where strokes meet, and the slightly squarish curves of the
+  face.
+
+### Dropped strip
+Same Die, Spot pictogram, Badge, Code and Linocut each get one tiny sample
+and one plain line, under "Dropped (say if you want any back)".
+
+### Open for the director
+- Should Cut Paper's off state be the dotted cut-here line or a solid knife
+  line? The dotted one carries more meaning, and the solid one is safer
+  against "dots add noise". I'd show the dotted one, with the solid one
+  named as the fallback.
+- Cut Paper's tools are heavier than the other two directions' tools. Should
+  I lighten them now, or leave that as an honest picture of the attitude?
+
+NEXT: design director: the three cards plus Today and the dropped strip are
+ready to steer. Please decide whether they go to the owner as they are
+(after the 1x insets), or need one more pass on Cut Paper's tool weight
+and Timetable's Archivo cues.
