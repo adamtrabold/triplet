@@ -59,3 +59,6 @@ Direction: A (header tag) CUT — reason: conflates the list bar (list actions) 
 
 Direction for the form: (1) too low — content weighted to the centre of the open area; (2) the pin placed above it as the place is determined; (3) starts unpinned; as it's filled out the background changes and it looks pinned once there's an address; (4) the dropdowns (city / type chips) are very awkward. More feedback after these changes.
 Answers: Q2 edit a place — future update (backlog). Q3 — no save until an explicit ADD / "add pin" / "save"; "i may just be looking something up". Q4 hold-to-place — only works with a real POI under the finger; future, with an iPhone app + real maps (backlog). Q1 (visited while adding) — "not sure" (unanswered). Q5/Q6 were FYIs.
+
+2026-10-14, clarifying:
+> i want to be clear even though i said centered i meant *visually centered... im not sure if mathematical center will feel like that.
