@@ -1,5 +1,16 @@
 # Director notes: sign-in button
 
+## Status (2026-10-14, round 2d)
+The owner on 2c: "Person is too high and let's take it to the blue and
+orange style again since the plus is changing". Iteration, not a
+rejection.
+
+2d (v9: navy die, orange person + arc, person centre 21.6, arc centre
+23.2) SCORED **9**. READY: `round2/sheet-2d-3x.png`, plus a one-line
+message: shown alone while + changes; side by side with the new + before
+the build. A combined check with the + crew's still is needed before the
+build: the sign-in badge must stay the quieter of the two.
+
 ## Status (2026-10-12, round 2c)
 The owner liked 2b with a refinement ("weighted low ... visually
 centered ... more space between the icon and sign in -- look at the
@@ -231,3 +242,26 @@ on the zoomed real-size crops.
 Spec for the build: V[7] in `round2/badge2.js` (ps .68, sw 1.45, fs 6, ls
 1.3, r 16.6, fw 700, cy 18.4, ay 21.6, hair space). The blot and the dry-up
 are centred on the person.
+
+## Round 2d (2026-10-14)
+The owner pulled it back to the blue/orange style (the + is becoming
+orange) and lowered the person. The owner rule in owner.md: feedback on
+concepts is iteration and never counts toward the stuck rule.
+
+- Verified the die, the shadow and the pressed state against
+  `#accountBtn` CSS (index.html ~368-430). It's the existing state
+  system, not new styles.
+- Height: ink centre 27.35 by numbers. On navy it reads settled. The owner
+  bracketed it (2c high, 2b low), so measured centring is not the target
+  any more; his eye is. Lesson: on a dark die with orange words, the
+  optical centre sits lower than on paper. Don't re-lift it to the
+  numeric centre.
+- Same colours in both states: accepted. The words are the signal, and
+  it's one family in two states.
+- Watch: navy-on-navy strike invisible, so the motion is quieter (words
+  covered from the person outward, plus the pop). Judge it live in the
+  build.
+- Open: see it next to the new + before the build. Q1/Q2 are still
+  unanswered.
+
+Score: 9. Spec: V[9] (`nv: 1`) in `round2/badge2.js`.

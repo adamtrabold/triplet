@@ -94,3 +94,25 @@ so at 0.06s the reversed figure is whole, not cut. With `cy` 25, as in 2b, the b
   centroid sits 0.7 lower because the words spread wide at the foot.
 - A and B are close: B moves the person up 0.4 and the words down 0.4, so it trades even margins for more air
   between the two. That air is the owner's ask, so B is the pick.
+
+## Round 2d: navy and orange, person lowered (owner on 2c)
+Owner (verbatim): "Person is too high and let's take it to the blue and orange style again since the plus is changing"
+
+Sheet: `sheet-2d-3x.png` (from `sheet-2d.html`). Stills are in `shots/2d/`; re-render with
+`OUT=shots/2d VS=9 V=9 SOLO=1 node render2.js`. With `SOLO`, + is hidden and the badge sits alone at right:16,
+because + is changing and the + crew owns where it goes.
+- **Style** (`nv: 1` in `badge2.js`): a plain navy scallop die, like today's `#accountBtn`, with no paper edge and
+  no shadow. The person and the SIGN IN arc are both `--brand-orange` #EE7434. Orange on navy measures 5.08:1.
+  Pressed uses today's state: face `--state-on-press` #2A4F73, ink `--paper` #F2EBDD (7.18:1).
+- **Height** (v9): halfway between 2b and 2c. The person centre is at 21.6 (2b 25, 2c 18.4) and the arc centre at
+  23.2 (2b 25, 2c 21.6). I judged it against the same colours at the 2b and 2c heights (`lift.html`, keys 11 and 12).
+  On navy, the 2c height clearly reads high and 2b reads low. 10 (20.8/22.8) was a near second.
+- Measured (ink): ink box centre **27.35** (2b 29.9, 2c 24.9); centroid 28.2; room to the valley, top/bottom,
+  **8.6 / 3.9**; closest ink to the rim **3.47**, so ≥2px holds; person-to-caps gap **7.24** (2b 5.6, 2c 8.8).
+  Sizes, tracking, the hair space and weight 700 are unchanged.
+- **Motion**: same frames and timings. The navy strike over the navy die is invisible except where it covers
+  orange, so signing in reads as the words sinking into the navy from the person outward while the person grows to
+  ×1 and settles to centre. The dry-up's slightly translucent navy lets the words fade back from the rim in.
+  The signed-in badge is unchanged.
+- **For the director:** signed out and signed in now differ only by the arc and the person's size (job 2: "tell at
+  a glance"). The orange words are the whole signal.

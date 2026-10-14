@@ -2251,23 +2251,16 @@
       #locations.collapsed { transform: none; }
       #locations.collapsed #locationsList { display: block; }
       #collapseBtn { display: none; }
-      /* collapseBtn (the header's alignment spacer, see its rule above) is
-         gone in the rail, so stand in with a blank spacer of the same
-         width -- otherwise the title would sit flush at the gutter instead
-         of 56px, out of line with every row's name. */
-      #locationsHeader::before {
-        content: '';
-        display: block;
-        width: var(--col-glyph);
-        flex-shrink: 0;
-      }
-      /* The 360px rail is 30px narrower than a phone, and the sort button
+      /* No caret in the rail, so the title moves over to the gutter where
+         the caret was (owner, 2026-10-13: "in that case the city name should
+         shift over") rather than holding a blank spacer for it.
+         The 360px rail is 30px narrower than a phone, and the sort button
          made the icon row four wide: the icons pack at 4px (mouse targets,
-         no thumb) so "Copenhagen list (38)" still fits untruncated. The
-         spine holds: spacer 28 + 4 gap + 8 margin = the title at 56px. */
+         no thumb). */
       #locationsHeader { gap: var(--s1); }
-      #locationsHeader::before { margin-right: var(--s2); }
-      #locationsHeader h2 { margin-right: var(--s1); }
+      /* The title's L stem sits 1px inside the row icons' ring: a round
+         edge overshoots a straight one, so this is what reads as aligned. */
+      #locationsHeader h2 { margin-right: var(--s1); margin-left: 2px; }
       #mainContent { left: 360px; bottom: 0 !important; height: auto !important; }
       /* The panel slides up from the viewport bottom once the sheet is a
          full-height rail -- there is no bottom sheet left to sit above. */
@@ -2692,16 +2685,20 @@
 
     // Initialize Supabase client with auth support
     const { createClient } = supabase;
-    // PLAYGROUND (?play): a shareable copy anyone can poke at. Each table is
-    // read once from the real database, then every read and write runs
-    // against that in-memory copy -- nothing is ever written back, and a
-    // reload starts fresh (owner: fresh copy, not saved per visitor). The
-    // real client is built WITHOUT the stored session, so even a stray write
-    // would go out anonymous and RLS would refuse it.
-    const PLAYGROUND = new URLSearchParams(location.search).has('play');
-    const supabaseClient = PLAYGROUND
-      ? createPlaygroundClient(createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false, autoRefreshToken: false } }))
-      : createClient(SUPABASE_URL, SUPABASE_KEY);
+    // PLAYGROUND: signed out, the app is a playground (owner: "play
+    // shouldn't live at its own url -- it should be the experience pre-sign
+    // in"). Each table is read once from the real database, then every read
+    // and write runs against that in-memory copy -- nothing is ever written
+    // back, and a reload starts fresh. Signed out there is no session, so a
+    // stray write would go out anonymous and RLS would refuse it. The mode is
+    // fixed at boot from supabase-js's stored session (its default storage
+    // key); signing in or out reloads into the other mode.
+    const AUTH_STORAGE_KEY = 'sb-' + new URL(SUPABASE_URL).hostname.split('.')[0] + '-auth-token';
+    const PLAYGROUND = (() => { try { return !localStorage.getItem(AUTH_STORAGE_KEY); } catch (e) { return true; } })();
+    const realSupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabaseClient = PLAYGROUND ? createPlaygroundClient(realSupabaseClient) : realSupabaseClient;
+    // A sign-in in another tab reaches this one too (supabase-js broadcasts it): boot again as the real app.
+    if (PLAYGROUND) realSupabaseClient.auth.onAuthStateChange(event => { if (event === 'SIGNED_IN') location.reload(); });
 
     // Mimics the slice of supabase-js the app uses: from(t).select/insert/
     // update/upsert/delete with order/eq/in, awaited for { data, error };
@@ -2767,7 +2764,7 @@
         from: query,
         auth: {
           getSession: async () => ({ data: { session: { user: guest } }, error: null }),
-          signInWithPassword: async () => ({ data: { user: guest }, error: null }),
+          signInWithPassword: creds => real.auth.signInWithPassword(creds),   // the real sign-in; login() then reloads into the real app
           signOut: async () => ({ error: null }),
           onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } })
         }
@@ -2987,7 +2984,7 @@
       if (typeof refreshTags === 'function' && map) refreshTags();
       if (PLAYGROUND) {
         // The playground's account menu is just a Sign in button (owner):
-        // it leaves for the real app with the sign-in modal open.
+        // it opens the sign-in modal; a good sign-in reloads into the real app.
         dropdownUserEmail.hidden = true;
         document.getElementById('dropdownLogoutBtn').textContent = 'Sign in';
         accountBtn.classList.add('show');
@@ -3045,6 +3042,8 @@
       if (error) {
         authError.textContent = error.message;
         authError.style.display = 'block';
+      } else if (PLAYGROUND) {
+        location.reload();   // the session is stored now: boot again as the real app
       } else {
         currentUser = data.user;
         updateAuthUI();
@@ -3053,8 +3052,8 @@
     }
 
     async function logout() {
-      if (PLAYGROUND) { location.href = location.pathname + '?signin'; return; }
-      await supabaseClient.auth.signOut();
+      if (PLAYGROUND) { hideAccountDropdown(); showAuthModal(); return; }   // the menu's button reads Sign in
+      await supabaseClient.auth.signOut({ scope: 'local' });   // this device only: a global sign-out would quietly drop every other device into the playground
       currentUser = null;
       hideAccountDropdown();
       updateAuthUI();
@@ -9089,6 +9088,9 @@
 
     // Initialize auth and set up auth state listener
     supabaseClient.auth.onAuthStateChange((event, session) => {
+      // Signed out (Logout, or a session that could no longer refresh):
+      // boot again as the playground.
+      if (!PLAYGROUND && event === 'SIGNED_OUT') { location.reload(); return; }
       currentUser = session?.user || null;
       updateAuthUI();
 
@@ -9098,13 +9100,8 @@
       }
     });
 
-    // Check auth on page load; ?signin (the playground's Sign in) opens the
-    // sign-in modal once, then drops the param from the address bar.
-    checkAuth().then(signedIn => {
-      if (PLAYGROUND || !new URLSearchParams(location.search).has('signin')) return;
-      history.replaceState(null, '', location.pathname + location.hash);
-      if (!signedIn) showAuthModal();
-    });
+    // Check auth on page load
+    checkAuth();
 
     // The list's scroll gradient listener is attached ONCE, here — not inside a
     // renderer, where it used to leak one listener per poll tick.
@@ -9309,6 +9306,13 @@ const V = {
   5: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 19.6, ay: 21.8, ws: '\u200A' },
   6: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 18.8, ay: 21.2, ws: '\u200A' },
   7: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 18.4, ay: 21.6, ws: '\u200A' },
+  // 2d: owner on 2c 'Person is too high ... take it to the blue and orange style again since the plus is changing'
+  // nv = navy die, orange person + orange arc (today's account badge colours). Lift between 2b and 2c.
+  8:  { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 22.4, ay: 23.6, ws: '\u200A', nv: 1 },
+  9:  { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 21.6, ay: 23.2, ws: '\u200A', nv: 1 },
+  10: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 20.8, ay: 22.8, ws: '\u200A', nv: 1 },
+  11: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 25, ay: 25, ws: '\u200A', nv: 1 },   // 2b position, navy (comparison only)
+  12: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 18.4, ay: 21.6, ws: '\u200A', nv: 1 }, // 2c position, navy (comparison only)
   3: { ps: .76, sw: 1.5, fs: 5.5, ls: 2.3, r: 18.3, fw: 650, st: '100%', cy: 25 },
 };
 SB.V = V;
@@ -9318,9 +9322,9 @@ function person(cx, cy, s, ink, swPx) {
   return `<g transform="translate(${cx - 12 * s},${cy - 12 * s}) scale(${s})" fill="none" stroke="${ink}" stroke-width="${swPx / s}" stroke-linecap="round" stroke-linejoin="round"><path d="${BODY}"/><circle cx="12" cy="7" r="4"/></g>`;
 }
 // U arc under the centre; startOffset compensates the trailing letter-space so the word sits dead centre
-function arc(r, fs, ls, fw, st, op = 1, ws = ' ', ay = 25) {
+function arc(r, fs, ls, fw, st, op = 1, ws = ' ', ay = 25, ink = C.navy) {
   const id = 'sbR' + (uid++), half = Math.PI * r / 2 + ls / 2;
-  return `<g class="sb-arc" data-ay="${ay}" opacity="${op}"><defs><path id="${id}" d="M${25 - r},${ay} A${r},${r} 0 0 0 ${25 + r},${ay}"/></defs><text font-family="Archivo" font-weight="${fw}" font-stretch="${st}" font-size="${fs}" letter-spacing="${ls}" fill="${C.navy}"><textPath href="#${id}" startOffset="${half.toFixed(2)}" text-anchor="middle" data-r="${r}">SIGN${ws}IN</textPath></text></g>`;
+  return `<g class="sb-arc" data-ay="${ay}" opacity="${op}"><defs><path id="${id}" d="M${25 - r},${ay} A${r},${r} 0 0 0 ${25 + r},${ay}"/></defs><text font-family="Archivo" font-weight="${fw}" font-stretch="${st}" font-size="${fs}" letter-spacing="${ls}" fill="${ink}"><textPath href="#${id}" startOffset="${half.toFixed(2)}" text-anchor="middle" data-r="${r}">SIGN${ws}IN</textPath></text></g>`;
 }
 // k = blow-up factor for enlargements: edge and contact shadow stay 1 CSS px, as on the map
 const shadowEdge = (face, k = 1) => `<polygon points="${SCALLOP}" fill="rgba(0,0,0,.22)" transform="translate(0,${1 / k})"/><polygon points="${SCALLOP}" style="fill:${face}" stroke="${C.edge}" stroke-width="${1 / k}" stroke-linejoin="round"/>`;
@@ -9336,7 +9340,10 @@ const wrap = (inner, size = 50) => `<svg width="${size}" height="${size}" viewBo
 SB.badgeA = function (o = {}) {
   const v = V[o.v || window.__V || 2];
   const t = o.t ?? 0, ps = v.ps + (1 - v.ps) * t, cy = v.cy + (25 - v.cy) * t, sw = v.sw + (2 - v.sw) * t;
-  let s = shadowEdge(o.face || FACE, o.size ? o.size / 50 : 1) + arc(v.r, v.fs, v.ls, v.fw, v.st, o.textOp ?? 1, v.ws, v.ay ?? 25) + person(25, cy, ps, C.navy, sw);
+  // navy style: plain navy die like today's account badge (no edge/shadow; pressed = --state-on-press, paper ink)
+  const nv = v.nv, pr = o.pressed, inkC = nv ? (pr ? '#F2EBDD' : C.orange) : C.navy;
+  let s = (nv ? `<polygon points="${SCALLOP}" fill="${pr ? '#2A4F73' : C.navy}"/>` : shadowEdge(o.face || FACE, o.size ? o.size / 50 : 1))
+    + arc(v.r, v.fs, v.ls, v.fw, v.st, o.textOp ?? 1, v.ws, v.ay ?? 25, inkC) + person(25, cy, ps, inkC, sw);
   const pts = o.ink ? blotPts(o.ink, cy) : o.dry !== undefined ? dryPts(o.dry, cy) : null;
   if (pts) s += inkLayer(pts, person(25, cy, ps, C.orange, sw), o.dry !== undefined ? 1 - o.dry * .25 : 1);
   return wrap(s, o.size);

@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Sign-in A round 2d</title>
+<link rel="stylesheet" href="../../flow/proto/sheet.css">
+<style>
+.pair{display:flex;gap:8px;padding:6px 16px 2px}.pair>div{width:175px;display:flex;flex-direction:column;align-items:center}
+.lab{font:700 12px/15px Archivo;font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;color:#12293F;text-align:center;margin-top:6px}
+.t{font-size:12px;line-height:15px;color:#5A564C;text-align:center;margin-top:3px}
+.row2{display:flex;gap:8px;padding:2px 16px}.row2>div{width:160px}.row2 img{display:block;border-radius:2px}
+.rl{font-size:12px;line-height:15px;color:#5A564C;padding:8px 16px 4px}
+.pick{background:#FAF5EA;margin:8px 16px 0;padding:10px 12px;border-left:3px solid #12293F;font-size:13px;line-height:18px}
+.trio{display:flex;justify-content:center;gap:28px;padding:6px 16px 4px}.trio>div{display:flex;flex-direction:column;align-items:center}
+.cmp{display:flex;align-items:flex-end;justify-content:center;gap:28px;padding:10px 16px 4px}.cmp>div{display:flex;flex-direction:column;align-items:center}
+</style>
+<script>window.__CONCEPT='A'</script><script src="../../flow/proto/patch.js"></script><script src="badge2.js"></script></head><body>
+<h1>A · Sign-in badge, navy</h1>
+<p>Your notes: the person was too high, and with + changing, back to blue and orange. It's now today's navy badge with an orange person and orange SIGN IN, and the person sits between the last two heights.</p>
+<div class="cmp" id="cmp"></div>
+<div class="trio" id="trio"></div>
+<h2>Real size</h2>
+<img class="img" src="shots/2d/top-v9-390.png" width="390" height="84"><div class="cap">The top of the screen. Shown on its own in the corner, since + is changing.</div>
+<div class="row2"><div><img src="shots/2d/v9-cream-alone.png" width="160" height="80"><div class="rl" style="padding:3px 0 8px">On the map</div></div><div><img src="shots/2d/v9-dark-alone.png" width="160" height="80"><div class="rl" style="padding:3px 0 8px">Over water and park, where the map is darkest</div></div></div>
+<h2>Signing in and out</h2>
+<p>Signing in, the words sink into the navy and the person grows into your usual badge. Signing out, the words come back.</p>
+<div class="frames">
+<div style="width:65px"><img src="shots/2d/in-0.png" width="65" height="62"><div class="t">Arrive</div></div>
+<div style="width:65px"><img src="shots/2d/in-60.png" width="65" height="62"><div class="t">0.06s</div></div>
+<div style="width:65px"><img src="shots/2d/in-130.png" width="65" height="62"><div class="t">0.13s</div></div>
+<div style="width:65px"><img src="shots/2d/in-250.png" width="65" height="62"><div class="t">0.25s</div></div>
+<div style="width:65px"><img src="shots/2d/in-380.png" width="65" height="62"><div class="t">Signed in</div></div>
+</div>
+<div class="frames">
+<div style="width:65px"><img src="shots/2d/out-0.png" width="65" height="62"><div class="t">Signed in</div></div>
+<div style="width:65px"><img src="shots/2d/out-150.png" width="65" height="62"><div class="t">0.15s</div></div>
+<div style="width:65px"><img src="shots/2d/out-300.png" width="65" height="62"><div class="t">0.3s</div></div>
+<div style="width:65px"><img src="shots/2d/out-450.png" width="65" height="62"><div class="t">0.45s</div></div>
+<div style="width:65px"><img src="shots/2d/out-540.png" width="65" height="62"><div class="t">Signed out</div></div>
+</div>
+<div style="height:16px"></div>
+<script>
+cmp.innerHTML = `<div>${SB.badgeA({ v: 7, size: 60 })}<div class="t">Before: the one you saw</div></div><div>${SB.badgeA({ v: 9, size: 150 })}<div class="t">Now, 3× real size</div></div>`;
+trio.innerHTML = `<div>${SB.badgeA({ v: 9, size: 72, pressed: 1 })}<div class="t">Pressed</div></div><div>${SB.signedIn(72)}<div class="t">Signed in (unchanged)</div></div>`;
+document.fonts.ready.then(() => SB.centerArcs());
+</script></body></html>

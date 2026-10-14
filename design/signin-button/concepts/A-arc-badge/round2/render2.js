@@ -67,7 +67,7 @@ const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120))
     await ctx.close();
   }
   { const { ctx, page } = await open(b, { w: 320, h: 700 });
-    await set(page, `SB.renderControl('A',SB.badgeA({v:${MV}}));SB.centerArcs()`);
+    await set(page, `if(${SOLO}){document.getElementById('floatingAddBtn').style.display='none';document.getElementById('accountBtn').style.right='16px';}SB.renderControl('A',SB.badgeA({v:${MV}}));SB.centerArcs()`);
     await page.screenshot({ path: `${OUT}/top-v${MV}-320.png`, clip: { x: 0, y: 0, width: 320, height: 84 } }); await ctx.close(); }
   await b.close(); console.log('done');
 })();

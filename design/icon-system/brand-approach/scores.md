@@ -314,3 +314,66 @@ In this order, as images at phone width (no canvas):
 
 And the decision itself: "Which direction, or which mix, should the team
 take into the grid and drawing phase?"
+
+---
+
+## Round 2b: fix-pass check (2026-10-14)
+
+Re-checked `v4-card-brand.png`, `v4-card-3-timetable-sorts.png`,
+`v4-card-4-side-by-side.png` and `v4-card-5-dropped.png` at phone width.
+
+**READY. Everything below goes to the owner.**
+
+- **Brand card: 9** (from 8). The sentence is replaced word for word, and
+  the example box now pairs a printed TYPE label with the real, FIXED
+  stamp. It matches his printed vs stamped rule exactly. Nothing else
+  changed.
+- **Card 3, Timetable Sorts: 9** (from 8). All three fixes landed and
+  nothing new broke:
+  - The account head and the directions compass are round again. The type
+    character now lives in the proportion and the cut, not in squared
+    circles.
+  - In the tag strip, the off star matches the fixed check's height. The
+    Directions, Star and Mark visited segments read as one family.
+  - District is the outlined block cut by two streets. It's the same idea
+    as Field Guide's, so the two compare like for like.
+
+  The remaining risks ("outlined icons are the common modern default"; "the
+  lightest on the map") are stated on the card for him to weigh. They're
+  his call to make, not hidden faults.
+- **Card 4, side by side:** now shows Today, Field Guide and Timetable only.
+  The two directions are clearly apart in the strip, row, tag and map, and
+  differ in kind (filled printed plates vs type-cut outlines).
+- **Card 5, dropped:** Cut Paper's category strip and its line are in, plus
+  the dotted star. One optional copy nit: Spot Pictogram's line says
+  "Folded into Cut Paper", which is now dropped too. Make it "Folded into
+  Cut Paper (also dropped)" if that's a one-word edit. It doesn't block the
+  send.
+- Field Guide (9) and Today were unchanged since round 2, so they weren't
+  re-scored.
+
+### Final send list
+
+As phone-width images, in this order. No canvas.
+1. `v4-card-brand.png`: the brand, in plain words
+2. `v4-card-0-today.png`: reference
+3. `v4-card-1-field-guide.png`: Field Guide (9)
+4. `v4-card-3-timetable-sorts.png`: Timetable Sorts (9)
+5. `v4-card-4-side-by-side.png`
+6. `v4-card-5-dropped.png`
+
+`jobs.md` has already gone to him.
+
+### Owner questions (one batch, sent with the cards)
+
+1. "Which direction, or which mix, should the team take into the grid and
+   drawing phase?"
+2. "On Oct 7 you wrote 'the checked items are stronger visually than the
+   open ones.' Is that still something you want addressed in this work? If
+   so, is it that the open ones look too weak, or that the checked ones look
+   too loud? Visited stays as it is either way."
+3. "Does 'Visited should not change' include the outline check on the tag
+   you tap to mark a place visited?" (We've kept it as is.)
+4. "Is anything else fixed besides Visited: the pins' round shell and rim,
+   the scalloped account and + buttons, the category colours?" (We've kept
+   them all.)

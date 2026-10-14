@@ -172,6 +172,14 @@ sources are the file where the quote is recorded.
 - **Edges are shadows, not hard lines.** "the dark line on the edge should be
   a shadow not a hard line" (sticker; chat). That was about the dark hard
   line along the peel/fold: a hard dark line on a fold is still not OK.
+- **Box strokes follow the box's header.** A plain paper box (a menu, a
+  dropdown) takes the dividers' 1px `--hair` line; a box with a navy header
+  band (the sign-in box) keeps its 2px navy stroke. "Keep edges. Others are
+  fine except for sign in let’s keep that blue with the new logic which
+  should be documented in the design system that if the box has a blue bg
+  header it can have the darker stroke" (2026-10-14). Single edges (the
+  filter panel's bottom, the desktop list rail, the sort menu's printed-label
+  offset) stay as they are.
 - **A 1px hard edge added to give a shadow definition is fine.** "The 1px
   hard edge to add shadow definition is fine" (visited sticker, 2026-10-02;
   via the coordinator). Keep it as subtle as it can be while doing the job

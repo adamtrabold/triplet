@@ -217,3 +217,30 @@ phase 2". jobs.md is already sent. No canvas.
 Visual's fix pass, then I verify the 3 cards (a look, not a re-score of
 FG). Then the coordinator sends. Phase 2 (research, grid, SVG tooling
 recommendation) waits for his pick.
+
+---
+
+## Round 2b (fix-pass check), 2026-10-14: READY
+
+- Brand card 9: the copy is replaced verbatim and the box shows printed
+  TYPE vs the stamped VISITED (FIXED).
+- Timetable 9: circles restored, the off star matches the check's height,
+  the district is a block cut by streets. Its remaining risks are stated on
+  the card.
+- Field Guide 9 (unchanged since round 2). Cut Paper dropped (card 5).
+- Card 4 is now Today / FG / TS. Card 5 has an optional nit: Spot's line
+  should say "Folded into Cut Paper (also dropped)".
+
+Sent to the owner: brand, 0, 1, 3, 4, 5, plus 4 questions (which direction
+or mix; the 10-07 note as a question; the mark-visited check; the other
+fixed items). jobs.md already sent.
+
+### For phase 2 (after his pick)
+- Grid seed: the visited check's bar and corner (from Same Die).
+- Optical masters at 12, 18 and 24 for whichever wins (Timetable already
+  has 2.9 / 2.35 / 2.0).
+- Real radii, not the sketch's rounding filter. Map-star keylines.
+- Tooling recommendation (SVG authoring or MCP) is owed to him.
+- If he mixes directions, check "same icon drawing language everywhere"
+  first: FG's filled plates and TS's outline sorts can't simply be
+  interleaved. A mix needs one rule for which family uses which.

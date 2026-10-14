@@ -86,7 +86,7 @@ body{margin:0;background:#E4DCCB;color:var(--ink);font-family:Archivo,Arial,sans
 .cols h4{margin:0 0 6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy)}
 .cols ul{margin:0;padding:0;list-style:none;font-size:12px;line-height:1.3}.cols li{margin:0 0 7px;padding-left:10px;position:relative}
 .cols li:before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:var(--ink2)}.cols svg{vertical-align:-2px;margin-left:3px}
-</style></head><body>
+.drow .strip svg{width:18px;height:18px}</style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <filter id="thr" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="discrete" tableValues="0 0 1"/><feFuncG type="discrete" tableValues="0 0 1"/><feFuncB type="discrete" tableValues="0 0 1"/></feComponentTransfer></filter>
 <filter id="soft" filterUnits="userSpaceOnUse" x="-3" y="-3" width="30" height="30"><feGaussianBlur stdDeviation=".42"/><feComponentTransfer><feFuncA type="linear" slope="7" intercept="-3"/></feComponentTransfer></filter>
@@ -275,10 +275,10 @@ Object.assign(G.C,{
 });
 // TIMETABLE: same cut, now lightly rounded via the soft filter (radius from the visited check); type traits in tools
 Object.assign(G.S,{
- district:st('M3.5 6.5L14 3.5 20.5 9 18 20.5 5 18.5Z')+st('M8.6 5.2L11.4 18.9M11.1 12.8L19.4 14.4'),
- account:'<rect fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" x="8.2" y="3.6" width="7.6" height="7.6" rx="2.6"/>'+st('M4.5 21V18.4C4.5 15.6 5.6 14.6 8.6 14.6H15.4C18.4 14.6 19.5 15.6 19.5 18.4V21'),
+ district:'<defs><clipPath id="tdc"><path d="M3.5 6.6L13.9 3 21 9.1 18.1 21 4.8 18.2Z"/></clipPath><mask id="tdm" maskUnits="userSpaceOnUse" x="-2" y="-2" width="28" height="28"><rect x="-2" y="-2" width="28" height="28" fill="#fff"/><path d="M9.3 2.4L11.6 22.4M2 12.8L22.8 14.5" stroke="#000" stroke-width="2.4" fill="none"/></mask></defs><g mask="url(#tdm)"><path fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" stroke-linejoin="miter" d="M3.5 6.6L13.9 3 21 9.1 18.1 21 4.8 18.2Z"/><g clip-path="url(#tdc)"><path fill="none" stroke="currentColor" style="stroke-width:calc(2.4px + var(--sw,2) * 2px)" d="M9.3 2.4L11.6 22.4M2 12.8L22.8 14.5"/></g></g>',
+ account:'<circle fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" cx="12" cy="7.4" r="3.7"/>'+st('M4.5 21V18.4C4.5 15.6 5.6 14.6 8.6 14.6H15.4C18.4 14.6 19.5 15.6 19.5 18.4V21'),
  locate:'<rect fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" x="8.3" y="8.3" width="7.4" height="7.4" rx="2"/>'+st('M12 1.5V6.3M12 17.7V22.5M1.5 12H6.3M17.7 12H22.5'),
- directions:'<rect fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" x="3.5" y="3.5" width="17" height="17" rx="5.2"/>'+f('M15.8 8.2L13.3 13.3 8.2 15.8 10.7 10.7z'),
+ directions:'<circle fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" cx="12" cy="12" r="8.5"/>'+f('M15.8 8.2L13.3 13.3 8.2 15.8 10.7 10.7z'),
  plus:st('M12 6V18M6 12H18'), planplus:st('M12 6V18M6 12H18'), planadd:st('M12 6.8V17.2M6.8 12H17.2'),
  addopen:st('M7.6 7.6L16.4 16.4M16.4 7.6L7.6 16.4'), close:st('M7 7L17 17M17 7L7 17'), del:st('M7.4 7.4L16.6 16.6M16.6 7.4L7.4 16.6'),
  zin:st('M12 6V18M6 12H18'), zout:st('M6 12H18'),
@@ -320,7 +320,7 @@ const rows=(d)=>`<div class="bleed">
  <div class="row v"><div class="badge" style="border-color:${INK.cafe}">${svg(d,'cafe',INK.cafe,18,'--ko:var(--paper)')}</div><div class="nm">Café Loki<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp.png" alt="">${rowX(d,'var(--ink2)')}</div>
  <div class="row sel"><div class="badge">${svg(d,'cafe','var(--paper)',18,'--ko:var(--navy)')}</div>${svg(d,'staron','var(--or)',18)}<div class="nm">Brauð &amp; Co<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp-selected.png" alt="">${rowX(d,'rgba(242,235,221,.8)')}</div></div>`;
 const stubs=(d)=>`<div class="stubwrap bleed">
- <div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staroff',N,20)}STAR</div><div class="seg"><span class="fx">FIXED</span>${MV(N,20)}MARK<br>VISITED</div></div>
+ <div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staroff',N,d==='S'?23:20)}STAR</div><div class="seg"><span class="fx">FIXED</span>${MV(N,20)}MARK<br>VISITED</div></div>
  <div style="height:8px"></div>
  <div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staron','var(--or)',20)}STARRED</div><div class="seg"><span class="fx">FIXED</span><img src="ref-tag-stamp.png" alt=""></div></div></div>`;
 const chips=(d)=>`<div class="chips">${[['restaurant',1],['cafe',1],['bar',0],['nature',1],['district',1],['street',0]].map(([c,on])=>`<div class="chip${on?'':' off'}" style="border-bottom-color:${on?INK[c]:'#C9BEA6'}">${svg(d,c,on?INK[c]:'#9A9282',12,'--ko:var(--raised)')}${c.toUpperCase()}</div>`).join('')}</div>`;
@@ -360,13 +360,14 @@ const card=c=>`<div class="card"><div class="no">${c.no} · sketch of an attitud
  ${c.verdict?`<div class="verdict">${c.verdict}</div>`:''}
 </div>`;
 const sbs=()=>`<div class="card sbs"><div class="no">Card 4 · side by side</div><h2>Side by side</h2><p class="att">This is how far apart they are: the same categories, row, tag strip and map, once per direction.</p>
- ${[['T','Today'],['F','Field Guide'],['C','Cut Paper'],['S','Timetable Sorts']].map(([d,n])=>`<h3>${n}</h3>
+ ${[['T','Today'],['F','Field Guide'],['S','Timetable Sorts']].map(([d,n])=>`<h3>${n}</h3>
  <div class="strip">${CAT.map(c=>svg(d,c,INK[c],18)).join('')}</div>
  <div class="bleed" style="margin-top:6px"><div class="row v"><div class="badge" style="border-color:${INK.cafe}">${svg(d,'cafe',INK.cafe,18,'--ko:var(--paper)')}</div><div class="nm">Café Loki<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp.png" alt="">${rowX(d,'var(--ink2)')}</div></div>
- <div class="stubwrap bleed" style="padding:0"><div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staroff',N,20)}STAR</div><div class="seg"><span class="fx">FIXED</span>${MV(N,20)}MARK<br>VISITED</div></div></div>
+ <div class="stubwrap bleed" style="padding:0"><div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staroff',N,d==='S'?23:20)}STAR</div><div class="seg"><span class="fx">FIXED</span>${MV(N,20)}MARK<br>VISITED</div></div></div>
  ${mapCrop(d,150)}`).join('')}</div>`;
 let scp='';for(let i=0;i<=72;i++){const a=i/72*2*Math.PI,r=10.6+0.9*Math.cos(a*12);scp+=(i?'L':'M')+(12+r*Math.cos(a)).toFixed(2)+' '+(12+r*Math.sin(a)).toFixed(2)}
 const drop=`<div class="card"><div class="no">Card 5</div><h2>Dropped: say if you want any back</h2>
+ <div class="drow" style="display:block"><b>Cut Paper</b><div class="strip" style="margin:4px 0">${CAT.map(c=>svg('C',c,INK[c],18)).join('')}</div>Its own shapes, but in rows, the tag and the map it looks like Field Guide.</div>
  <div class="drow"><svg viewBox="0 0 24 24" style="color:${INK.cafe}"><path fill="none" stroke="currentColor" stroke-width="3" d="M4.5 5.5h10.5v5.5a4 4 0 0 1-4 4H8.5a4 4 0 0 1-4-4z"/><path fill="none" stroke="currentColor" stroke-width="3" d="M16 7.5h2.2l1.8 1.8v1.4l-1.8 1.8H16"/><path fill="currentColor" d="M2.5 18.8h15l-1.6 2.4H4.1z"/></svg><div><b>Same Die</b>Drawn with the visited check’s bar. The heaviest option; kept as the starting point for the drawing grid, not as a look.</div></div>
  <div class="drow"><svg viewBox="0 0 24 24" style="color:${INK.cafe}"><path fill="currentColor" d="M3 5h13v6a6.5 6.5 0 0 1-13 0z"/><path fill="currentColor" fill-rule="evenodd" d="M17.5 5.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 1 1 0-7zm0 2a1.5 1.5 0 1 0 0 3a1.5 1.5 0 1 0 0-3z"/><rect x="2" y="19" width="16" height="2.6" fill="currentColor"/></svg><div><b>Spot pictogram</b>Flat geometric shapes. Folded into Cut Paper; on its own the tools turned into barcodes.</div></div>
  <div class="drow"><svg viewBox="0 0 24 24"><path d="${scp}Z" fill="${INK.cafe}"/><g transform="translate(6 6) scale(.5)" style="color:#F2EBDD">${G.T.cafe}</g></svg><div><b>Badge</b>Each icon an emblem. Containers add ink, and round vs diamond already says the family.</div></div>
@@ -376,8 +377,8 @@ const drop=`<div class="card"><div class="no">Card 5</div><h2>Dropped: say if yo
 const brandCard=()=>`<div class="card brand"><div class="no">Before the directions</div><h2>The brand, in plain words</h2>
  <div class="bl"><b>Printed with care, marked by hand, kept like a souvenir.</b>Triplet should feel like the labels, matchbooks and park posters you bring home from a trip.</div>
  <div class="bl"><b>Vintage in method, not in costume.</b>Few inks, cut shapes, real print logic. No fake wear, no old-timey fonts.</div>
- <div class="bl"><b>The app prints. You stamp.</b>Everything the app shows is printed: clean, flat, the same every time. Only your own marks, like Visited, look applied by hand.
-  <div class="pv"><div class="plab"><span>PRINTED</span>CAFE · REYKJAVÍK</div><div class="pstamp"><span class="fx">FIXED</span><img src="ref-tag-stamp.png" alt=""><span class="cap">STAMPED</span></div></div></div>
+ <div class="bl"><b>The app prints. You stamp.</b>The form is printed: clean, flat, the same every time. What’s filled in about a place is stamped, like the type and stop number on the tag, and your own marks, like Visited.
+  <div class="pv"><div class="plab"><span>PRINTED</span>TYPE</div><div class="pstamp"><span class="fx">FIXED</span><img src="ref-tag-stamp.png" alt=""><span class="cap">STAMPED</span></div></div></div>
  <div class="bl"><b>Icons are the furniture. The place name is the hero.</b>On a luggage label the name is loud and the little pictures are small, one ink, and quiet.
   <img class="savoy" src="ref-savoy-luggage.jpg" alt=""><span class="src">Hotel Savoy luggage label (inspo): small one-ink pictograms on the case</span></div>
  <div class="cols"><div><h4>Supports</h4><ul>

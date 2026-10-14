@@ -1,5 +1,14 @@
 # Visual designer notes: sign-in button
 
+## Round 2d (owner on 2c: "Person is too high and let's take it to the blue and orange style again since the plus is changing")
+- v9 = navy die + orange person/arc (today's account colours; `nv` flag), person cy 21.6 / arc ay 23.2 (midway 2b-2c,
+  judged on navy against 2b/2c heights). Ink box centre 27.35, room 8.6/3.9, rim clearance 3.47, gap 7.24.
+- Pressed = --state-on-press face + paper ink. Orange-on-navy 5.08:1.
+- Rendered alone in the corner (SOLO=1) since + is changing (+ crew: 60px orange badge, placement theirs).
+- Motion: navy strike is invisible except over orange, so the words sink into the navy. Dry-up fades them back.
+- Risk: signed-out vs signed-in now differ only by the arc and the person's size (job 2). Flagged for the director.
+- Sheet `sheet-2d-3x.png`, stills `shots/2d/`. Flow sheet frame 5 still points at 2b; re-point after approval.
+
 ## Round 2c presentation (director: B/v7 = 9, A/v6 = 8; show B only)
 - `sheet-2c-3x.png` re-shot to the same path (1170x2808). A is cut everywhere. The sheet leads with a small 'Before' badge next to B at 3x and a plain line with no letters, then B's real-size crops two across (next to +, over water, alone on cream and on water), then the in/out strips. v6 stays in code and shots for the record.
 
