@@ -1,5 +1,21 @@
 # Visual designer notes: sign-in button
 
+## Handoff written (owner approved 2e: "Sign in is great")
+- `handoff.md` "How it looks and feels" + "Why (visual)" written. Exact values for V[14] (SVG layer by layer,
+  centerArcs = rotate(2.91 25 23.2) in Chromium), pressed, hover (cursor only), the focus ring (a sibling
+  `#accountFocus` with the scallop ×1.16, a paper 4px + navy 2px double ring, because the mask clips anything on the
+  button), the transition-off swap, the Strike (keyframe table, STAR_POP easings, scale peak 1.12, linear
+  r/t), the dry-up (k(ms) from the DRY constants + dryEaseThr; 0.10/0.54/0.76/1 at 150/300/450/540) and Reduce
+  Motion (instant swap).
+- Fringe fix settled: blot r 21 at 130ms (I rendered 19.5, 21 and 22.5; 21 leaves a sliver only at the bottom tips,
+  which reads as spreading ink; 22.5 loses the travel). The stills still show 19.5; the handoff says it changed.
+- Chose the shrinking-shape dry (dryPts) over the app's `dryUp()` blur filter: the filter erodes thin strokes and
+  would only soften a 46px slab and then fade. Timing still comes from the DRY constants.
+- Flow sheet frame 5 now points at `round2/shots/2e/in-*` (sheet.html + proto/make-sheets.js); `flow/sheet-3x.png`
+  re-shot. Its Q1 text is history (answered by the product).
+- Open: the badge beside the new + (job 4); iPhone checks (6px caps, arc centring in Safari, the warm edge).
+- Next: answer the builder's questions; the combined CD + UX check runs on the build.
+
 ## Round 2e (owner on 2d: "I forgot it was orange and blue when signed in so let's do white and blue signed out";
 ## clarified: "I mean the style it was before I said to change it to orange and blue")
 - I started on two readings of "white and blue": paper marks on the navy die, and a paper die with navy marks. The

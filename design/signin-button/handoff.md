@@ -242,12 +242,140 @@ and one `sessionStorage` key.
 
 ---
 
-## How it looks and feels (visual: TO BE WRITTEN by the visual designer)
+## How it looks and feels (visual)
 
-> Placeholder. The visual designer writes this section: the V[14] drawing as
-> built (die, edge, shadow, person, arc, `centerArcs()`), pressed and the
-> focus ring's look, the Strike and dry-up frames, the 0.13s blot fringe
-> watch, and the side-by-side check with the new +.
+The approved stills are `concepts/A-arc-badge/round2/sheet-2e-3x.png`. The reference drawing code is
+`concepts/A-arc-badge/round2/badge2.js` (`SB.badgeA({v:14})`, `blotPts`, `dryPts`, `inkLayer`, `centerArcs`).
+Port those functions as they are; the numbers below are what they draw. All units are the 50×50 viewBox, which is
+1:1 with CSS px at the button's size. Colours are the app's tokens; hex is given for checking only.
+
+### Signed out, rest (V[14])
+The button keeps `#accountBtn`'s box (50×50, `top: calc(var(--s4) + var(--chrome-top-inset))`, the slot's
+`right`). In this state the button itself paints nothing: `background: transparent; -webkit-mask-image: none;
+mask-image: none; box-shadow: none`. Everything is one inline SVG, `width="50" height="50" viewBox="0 0 50 50"`,
+`overflow: visible`, `aria-hidden="true"`, drawn bottom to top:
+
+1. **Contact shadow:** the 50-unit scallop polygon (the one in the CSS mask, starting `45.00,25.00`), fill
+   `rgba(0,0,0,.22)`, `transform="translate(0,1)"`. It's the minimum lift for paper on a cream map.
+2. **Die:** the same polygon, fill `--paper-raised` #FAF5EA, stroke `rgba(107,74,40,.22)` 1px,
+   `stroke-linejoin: round`. This is the warm edge approved on the sticker, as a shadow edge, not a keyline.
+3. **SIGN IN on a U:** `<path d="M8.4,23.2 A16.6,16.6 0 0 0 41.6,23.2">`, and on it `<text>` in Archivo, weight 700,
+   `font-stretch: 100%`, 6px, `letter-spacing: 1.3px`, fill `--navy` #12293F, `<textPath startOffset="26.73"
+   text-anchor="middle">` with the text `SIGN` + U+200A (hair space) + `IN`. Upright, no tilt, no texture,
+   full-strength ink. The arc's centre (25, 23.2) is deliberately not the die's centre, which is part of the approved
+   height.
+   - **Centring (must do):** Chromium sets textPath glyphs off-centre. Wrap the arc in `<g>` and rotate it about
+     (25, 23.2) so the first and last letters sit symmetric about 6 o'clock. Use `SB.centerArcs()`, run once after
+     `document.fonts.ready`; the measured result in Chromium is `rotate(2.91 25 23.2)`, ends at ±53.8°. If you'd
+     rather not measure at runtime, hard-code 2.91, but then the owner's iPhone check must confirm it's centred in
+     Safari.
+4. **Person:** the account glyph (lucide user: `M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2` plus a circle at (12,7),
+   r 4) in `<g transform="translate(16.84,13.44) scale(.68)">`. That's ×0.68, with its 24-unit box centred at
+   (25, 21.6). `fill: none`, stroke `--navy`, `stroke-width: 2.1324` (1.45px on screen), round caps and joins.
+
+The measured ink (2d/2e tables in the README) gives an ink-box centre of 27.35, 7.24px between the person and the
+caps, and at least 3.47px from any ink to the scallop's valleys.
+
+### Signed out, pressed
+The die's fill goes to `--paper-pressed` #DCD3C3. The ink stays navy, and the shadow and edge stay. No scale, no
+movement: it's pressed in, not lit up. (In the concept this is `#accountBtn.signin:active { --sb-face: #DCD3C3 }`
+with the die's fill `var(--sb-face, #FAF5EA)`.)
+
+### Signed out, hover (desktop)
+Only `cursor: pointer`. No hover look: the badge should stay quieter than +.
+
+### Focus-visible (both states)
+The mask clips anything drawn on the signed-in button, and a square outline round a scallop looks wrong, so the
+ring is its own element, drawn the same way in both states:
+- `#accountFocus`: a sibling placed after `#accountBtn`, `position: fixed`, same box as the button,
+  `pointer-events: none`, `z-index` one above the button, hidden by default and shown by
+  `#accountBtn:focus-visible + #accountFocus { display: block }`. Keep its `right` tied to the same
+  value as the button's.
+- Inside it, an SVG (viewBox 0 0 50 50, `overflow: visible`) has the same scallop polygon scaled
+  `transform="translate(25 25) scale(1.16) translate(-25 -25)"`, with `fill: none` and
+  `vector-effect: non-scaling-stroke`, drawn twice: first `--paper` at 4px, then `--navy` at 2px on top. That
+  gives a navy ring with a 1px paper halo each side, so it reads on the paper badge, on the navy badge and on the
+  darkest map. This is the app's double-ring pattern (`.seg button:focus-visible`: paper then navy), following the
+  scallop.
+- `#accountBtn:focus-visible { outline: none }`.
+
+### Sheet open
+The badge rests unchanged under the scrim. No open or active look in the signed-out state.
+
+### Signed in (all states)
+Today's `#accountBtn`, untouched: navy die (mask on), `--figure` person at 24px with stroke 2, today's `:active`,
+`.active` and `.active:active`.
+
+### State swap (any time the content changes)
+`#accountBtn` has `transition: background .15s, color .15s`. Turn it off for the swap (for example, add a class
+that sets `transition: none` for one frame), or a translucent navy square flashes for 150ms while the mask comes
+off. Swap the content, the classes and the `aria-label` in the same frame.
+
+### The Strike (signing in: arrival, flow 1, and in place, flow 4)
+It's one object changing ink: navy ink lands on the paper badge from the person outward. The navy words disappear
+under it (navy on navy, so there's no fade), and inside the ink the person turns orange and grows into the
+signed-in badge.
+
+- **Clock:** `STAR_POP_MS` (380ms). Drive everything below from one animation's `currentTime` (rAF), the way
+  `dryUp()` does.
+- **Scale (the whole button, `transform-origin: 50% 50%`):** STAR_POP's offsets and per-segment easings, scale
+  only, no rotation: `scale(1)` @0 → `scale(1.12)` @0.34 → `scale(0.97)` @0.65 → `scale(1)` @1. That's
+  STAR_POP's table with its rotations removed and the peak at 1.12 instead of 1.4: the badge is 50px, not a
+  star glyph.
+- **Ink and person** interpolate linearly between these keys (ms from the start):
+
+  | ms | blot radius r | t | scale (from above) | what you see |
+  |---|---|---|---|---|
+  | 0 | 0 (no blot) | 0 | 1 | the signed-out badge |
+  | 60 | 9 | 0.15 | ~1.06 | a navy blot under the person, which is going orange |
+  | 130 | **21** | 0.55 | 1.12 | the die nearly covered; a thin paper rim is left at the bottom tips |
+  | 250 | 24 | 0.9 | 0.97 | fully navy; the person almost full size |
+  | 380 | (done) | 1 | 1 | **swap** to the real signed-in button (today's markup and mask, transition off) |
+
+  - Person at t: scale `0.68 + 0.32t`, centre `(25, 21.6 + 3.4t)`, on-screen stroke `1.45 + 0.55t` px.
+  - Blot: `blotPts(r, cy(t))` (48 points, ±10% wobble), centred on the person's current centre, filled `--navy`,
+    clipped to the scallop. Inside the blot, draw the person again in `--brand-orange` #EE7434, clipped to the
+    blot (`inkLayer`). Outside the blot the navy person and words stay as they are.
+  - The words are never animated: the ink covers them.
+- **The 0.13s fringe fix (changed from the stills):** at 130ms the blot radius is **21**, not the stills' 19.5. At
+  19.5 a paper rim showed round every scallop tip, which read as a halo. At 21 a sliver of paper is left only at
+  the bottom tips, below the raised person, which reads as ink that's still spreading. Don't push it to 22.5 or
+  more: then the frame is just "already navy" and the ink loses its travel.
+- The paper badge's 1px contact shadow stays under the ink until the swap, then goes, as on today's badge. It's
+  1px at 380ms and invisible in practice.
+
+### The dry-up (signing out: departure, flow 3)
+The same object in reverse, with no pop: the navy ink dries back off the paper from the scallop's tips inward,
+thinnest first and centre last. The person shrinks and turns navy as the ink leaves it, and the navy words are
+revealed (they were there under the ink all along), not animated.
+
+- **Clock:** `DRY.MS` (540ms). The first frame replaces the signed-in button with the signed-out drawing plus a
+  full ink layer (k = 0), transition off, so nothing visibly changes at the start.
+- **Dry amount k(ms)**, using the app's `DRY` constants and `dryEaseThr` (no new curve):
+  `k = (1 − DRY.SNAP_GAIN) · dryEaseThr(min(1, ms / DRY.THR_MS)) + DRY.SNAP_GAIN · s²`, where
+  `s = clamp((ms − DRY.SNAP_FROM) / (DRY.MS − DRY.SNAP_FROM), 0, 1)`. Check values: k ≈ 0.10 at 150ms, 0.54 at
+  300ms, 0.76 at 450ms (the snap), 1 at 540ms.
+- **Each frame:** the ink layer is `inkLayer(dryPts(k, cy), orangePerson)` at opacity `1 − 0.25k`, and the person
+  is at `t = 1 − k` (same size and position formulas as the Strike). `dryPts` has 16 lobes that dry between the
+  scallop's tips first.
+- **At 540ms:** the ink layer is gone, leaving the plain signed-out badge with label "Sign in". Then the reload
+  (systems' flow 3).
+- No scale, no pop: the owner's rule for un-visit ("i dont think either should pop") applies.
+
+### Reduce Motion
+Neither plays. Swap straight to the end state in one frame (transition off): no cross-fade, no scale.
+
+### Sizes
+- 50×50 everywhere: 320px, 390px, desktop. The badge doesn't scale. At 320 it was checked in `shots/2e/top-v14-320.png`.
+- Retina: everything is SVG; the edge and shadow are 1 CSS px at any DPR, as on the map.
+- Dynamic Type doesn't change the drawing (systems' note stands).
+
+### Still to check (team, before the build closes)
+1. **Beside the new +:** the paper badge must read as the quieter of the two next to the redesigned + (job 4).
+   When the + crew has a still, put this badge in the same frame at real size. If + moves, both states of this
+   badge move together and nothing in the drawing changes.
+2. **On the owner's iPhone:** the 6px caps at weight 700 in Safari, the arc centring (2.91° is Chromium's
+   number), and the warm 1px edge on a real screen.
 
 ---
 
@@ -299,6 +427,29 @@ and one `sessionStorage` key.
   design, and the in-place success reuses the Strike.
 - **The other team's +:** this spec ties the badge to `#accountBtn`'s slot,
   not to an x coordinate, so the + redesign can't break it, only move it.
+
+### Why (visual)
+- **Paper signed out, navy signed in.** These are the owner's words: "I mean the style it was before I said to
+  change it to orange and blue". It also earns its place. Paper with navy print is the quietest thing in the
+  corner, so it sits below + in the hierarchy (secondary marks never outrank content or the primary action). The
+  two states now differ by die, ink, words and the person's size, not just the words, so job 2 holds at a glance.
+- **Printed, not stamped.** It's upright, untextured, full-strength ink with no rim and no tilt, so it can't be
+  mistaken for the VISITED stamp. The form's own words are printed; only the clerk's entries are stamped.
+- **The Strike is real printing.** Navy over navy print covers it, so the words vanish under the ink with no
+  invented fade, and the person reverses to orange, which is exactly how the signed-in badge is printed. One
+  object changes ink, so nothing slides or swaps. It's the owner's "stamp with some grow shrink... maybe the
+  same as the star", which is why it uses STAR_POP's timing.
+- **Peak 1.12, not STAR_POP's 1.4.** A 50px badge at 1.4 would cover + and the map's top edge. 1.12 is
+  visible on a phone without colliding with anything.
+- **The dry-up reuses the app's dry, with no pop.** The owner's un-visit rules ("dry up is the best", "thickest
+  things should dry up slowest", "a taaaad more snap", never pop) apply to any ink leaving paper. The tips are the
+  thin parts, so they go first; the snap is the same `DRY` constants. The badge uses a shrinking ink shape rather
+  than `dryUp()`'s blur filter, because that filter erodes thin strokes; on a 46px solid slab it would only
+  soften the edge and then fade.
+- **The focus ring follows the scallop.** A square ring round a die-cut badge is the "hard line that makes no
+  physical sense" the owner has turned down before. The double ring is the app's existing focus language.
+- **r 21 at 0.13s.** It's the stills' fringe watch, settled by rendering 19.5, 21 and 22.5 on water at 2.2×:
+  21 keeps the ink's travel without a halo.
 
 ---
 
