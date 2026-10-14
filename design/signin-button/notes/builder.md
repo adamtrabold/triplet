@@ -1,5 +1,42 @@
 # Builder notes: sign-in badge
 
+## Round 2 (2026-10-14): director 8 / jobs 9/9 / review BLOCKED -> fixed in one batch
+- **BLOCKER fixed (in-place sign-in, flow 4):** `login()`'s real-mode branch
+  now sets a `hold` before ending busy, so `updateAuthUI()` (and the
+  SIGNED_IN event) can't swap the slot to 'account' before the Strike.
+  `setAccountBadge(state, force)`: the Strike's end, `finishArrival()` and the
+  dry-up's end force the repaint (their frames drew over the content while
+  the recorded state stayed put). Before this the last Strike frame stayed as
+  the badge's content and hid the orange open look.
+- **Sheet no longer jumps on an error:** `#authError` always keeps one line
+  (16px) of room, in today's colour and place (moved from its inline style to
+  `#authModalContent #authError`). Rest, wrong-password and offline line up
+  pixel for pixel above the error line (checked by image diff). A message
+  longer than one line (the storage one, anything at 320px) still grows it.
+- **"be kept." orphan:** `text-wrap: balance` on `#authModalLine`, NOT the
+  `pretty` the director asked for. Deviation, and why: Chromium's `pretty`
+  only fixes a single-word last line, so it left "be kept." alone at 390px
+  (the re-shot still showed it); Safari only has `pretty` from 26, while
+  `balance` works in Chromium and Safari 17.5+. Result: "Only the trip's
+  owners can sign in. / Your changes here won't be kept."
+- **`signed-in-dropdown` re-shot** with the press released, the hover moved
+  off and the 150ms open transition finished. The old still was caught
+  mid-transition.
+- **`restoreHopView()` uses the normal open path:** `openPopupOnArrival()`.
+  For a pin that's `focusMap({atLeast: SOLO_MIN_ZOOM}, {animate: false})`, as
+  a list tap does; for a shape, its min zoom. The usual case (the tag was open
+  at the saved view) opens at once. A saved zoom below SOLO_MIN_ZOOM now
+  steps in to 14, so the pin is solo.
+- **Tests:** `signin-test.js` 41/41. Case 9 now checks the content (account
+  glyph, no clipPath, mask on, navy) and the orange `.active` look when the
+  dropdown opens. New 9b: a tap during the in-place Strike. New 9c: a
+  clustered pin restore. All four new checks fail on `ba473f8`.
+- **Owner sheet:** `build/owner-sheet-3x.png`, composed by
+  `build/owner-sheet.js` from the stills.
+- **Docs:** the notes correction below (storage-blocked SIGNED_IN); the older
+  Playground entry in `docs/iphone-checks.md` tidied; the reviewer's backlog
+  entry marked (1)-(3) fixed, (4) open.
+
 ## Status (2026-10-14, round 1 of the build)
 Built into `index.html` on `claude/elegant-galileo-1c5ntm` from `handoff.md`
 (round 2e, owner: "Sign in is great"). Not on main: next is the director's
@@ -43,9 +80,13 @@ regenerates them).
 ## Decisions (mine, all build-level) and why
 - **Hop marker is written before the request AND the playground listener
   skips while `loginInFlight`** (the handoff offered either; both is safest).
-  The listener also skips when no session is stored: real supabase-js still
-  emits SIGNED_IN when storage is blocked, which would have reloaded into the
-  playground and defeated the storage-blocked message (found by the test).
+  The listener also skips when no session is stored: when storage is blocked
+  a SIGNED_IN would have reloaded into the playground and defeated the
+  storage-blocked message. Correction (round 2): I first saw this with the
+  test STUB, which emits SIGNED_IN unconditionally, and wrote it up as
+  real supabase-js behaviour without checking. The reviewer has since
+  confirmed it against the real supabase-js 2.39.3 (storage-blocked probe
+  passed), so the guard stays.
 - **Strike clock = the scale animation itself** (one animation, rAF reads its
   currentTime); the dry-up uses `el.animate(null, {duration: DRY.MS})` as its
   clock. No literals for 380/540: `STAR_POP_MS`, `DRY.MS`; keyframe offsets and

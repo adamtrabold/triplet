@@ -242,6 +242,8 @@ pick/redirect before building anything.
   committed check runs the real supabase-js (all stubs); the reviewer's
   probe against the real 2.39.3 UMD (playground writes, hop, storage blocked,
   `scope=local`, expired session) passed 7/7 -- worth committing one.
+  Status: (1), (2) and (3) fixed in build round 2 (2026-10-14; `signin-test.js`
+  cases 9, 9b and 9c fail on `ba473f8` and pass now). (4) stays open.
 
 - Sign-in badge build follow-ups (2026-10-14): (1) the 50-unit scallop
   polygon now lives three times -- `#floatingAddBtn`/`#accountBtn`'s CSS

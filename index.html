@@ -2288,6 +2288,15 @@
     #authModalContent button.secondary:disabled:hover { background: transparent; }
     #authModalContent.busy input { color: var(--ink-2); caret-color: transparent; }
     #authModalLine[hidden] { display: none; }
+    /* The sheet's one line: "be kept." never left alone on its second line. balance, not pretty:
+       Chromium's pretty only rescues a single-word last line (it left "be kept." alone at 390px),
+       and Safari only has pretty from 26; balance is in both (Safari 17.5+). */
+    #authModalLine { text-wrap: balance; }
+    /* The error line (today's colour and place, under the buttons) keeps its one line of room while
+       empty, so an error appearing moves nothing: the sheet is centred, and a line that arrived
+       would lift every field and button by half its height. A message longer than a line (only the
+       storage one, or anything at 320px) still grows it. */
+    #authModalContent #authError { color: var(--figure-deep); margin-top: var(--s4); min-height: 16px; }
 
     /* Auth Status Indicator - Hidden, using account button instead */
     #authStatus {
@@ -2610,7 +2619,7 @@
         <input type="password" id="authPasswordInput" placeholder="Password" autocomplete="current-password">
         <button id="loginBtn">Sign in</button>
         <button id="cancelAuthBtn" class="secondary">Cancel</button>
-        <p id="authError" role="status" aria-live="polite" style="color: var(--figure-deep); margin-top: 1rem; display: none;"></p>
+        <p id="authError" role="status" aria-live="polite"></p>
       </div>
     </div>
   </div>
@@ -3183,9 +3192,11 @@
     // ---- the slot's state ----
     // Content, look and name change in the same frame, with the transition off (no navy flash
     // while the mask comes off). The name swaps only here: at the end of the Strike or the dry-up.
-    function setAccountBadge(state) {
+    // force: repaint even when the slot already reads `state` -- the end of a Strike or dry-up, whose
+    // frames drew over the content while the recorded state stayed put.
+    function setAccountBadge(state, force) {
       const b = accountBtnEl();
-      if (state === accountBadge) return;
+      if (state === accountBadge && !force) return;
       b.classList.add('swap');
       b.classList.toggle('show', state !== 'hidden');
       b.classList.toggle('signin', state === 'signin');
@@ -3229,7 +3240,7 @@
       const tick = () => {
         if (badgeMotion !== m) return;
         const ms = m.anim.currentTime == null ? 0 : m.anim.currentTime;
-        if (m.anim.playState === 'finished' || ms >= STAR_POP_MS) { stopBadgeMotion(); setAccountBadge('account'); return; }
+        if (m.anim.playState === 'finished' || ms >= STAR_POP_MS) { stopBadgeMotion(); setAccountBadge('account', true); return; }
         const { r, t } = strikeAt(ms);
         b.innerHTML = signinBadgeSvg({ t, blot: r });
         m.raf = requestAnimationFrame(tick);
@@ -3250,7 +3261,7 @@
     function finishArrival() {
       if (!badgeMotion || badgeMotion.kind === 'dry') return;
       stopBadgeMotion();
-      setAccountBadge('account');
+      setAccountBadge('account', true);
     }
 
     // ---- the dry-up: signing out ----
@@ -3266,8 +3277,7 @@
         const ms = m.anim.currentTime == null ? 0 : m.anim.currentTime;
         if (m.anim.playState === 'finished' || ms >= DRY.MS) {
           stopBadgeMotion();
-          accountBadge = 'account';   // force the swap: label, popup role and the plain badge together
-          setAccountBadge('signin');
+          setAccountBadge('signin', true);   // label, popup role and the plain badge together
           done(); return;
         }
         const s = Math.min(1, Math.max(0, (ms - DRY.SNAP_FROM) / (DRY.MS - DRY.SNAP_FROM)));
@@ -3307,12 +3317,22 @@
       syncMarkerGlyphZoom();
       syncNeighborhoodLayers();
       if (view.tag == null || !rowItem(view.tag)) return;
+      // The normal open path (openPopupOnArrival(), as a list tap): a pin opens only once it is solo
+      // (SOLO_MIN_ZOOM), a shape once its layer exists (its min zoom). Already there (the usual case:
+      // the tag was open at this view) it opens at once; otherwise the map steps in, without animation.
       if (isShapeKey(view.tag)) {
-        const layer = neighborhoodLayersById.get(shapeIdOf(view.tag));
-        if (layer) layer.openPopup(view.at ? L.latLng(view.at) : undefined);
+        const sid = shapeIdOf(view.tag), nb = neighborhoodShapes.find(n => n.id === sid);
+        if (!nb) return;
+        const center = view.at ? L.latLng(view.at) : L.latLngBounds(nb.geometry).getCenter();
+        const zoom = Math.max(map.getZoom(), neighborhoodMinZoom(nb));
+        openPopupOnArrival(center, zoom, () => neighborhoodLayersById.get(sid), () => map.setView(center, zoom, { animate: false }));
       } else {
-        const en = markersById.get(view.tag);
-        if (en && en.marker) en.marker.openPopup();
+        const loc = locations.find(l => l.id === view.tag);
+        if (!loc) return;
+        const center = [loc.lat, loc.lng];
+        openPopupOnArrival(center, Math.max(map.getZoom(), SOLO_MIN_ZOOM),
+          () => { const en = markersById.get(loc.id); return en && en.marker; },
+          () => focusMap(center, { atLeast: SOLO_MIN_ZOOM }, { animate: false }));
       }
     }
 
@@ -3403,11 +3423,11 @@
 
     function showAuthError(msg) {
       const e = document.getElementById('authError');
-      e.textContent = msg; e.style.display = 'block';
+      e.textContent = msg;
     }
     function hideAuthError() {
       const e = document.getElementById('authError');
-      e.textContent = ''; e.style.display = 'none';
+      e.textContent = '';
     }
 
     // Busy: "Signing in...", both buttons off, the fields read-only (the focused one blurred, so its
@@ -3474,10 +3494,13 @@
       if (PLAYGROUND) { location.reload(); return; }   // the session is stored: boot again as the real app (busy until then)
 
       // Real mode, signed out (rare): success happens in place, and the Strike plays at once.
+      // The slot stays the sign-in badge until the Strike: a hold keeps updateAuthUI() (here and from
+      // the SIGNED_IN event) off it, and the Strike's end swaps to the account badge.
+      badgeMotion = { kind: 'hold' };
       setSignInBusy(false);
       currentUser = res.data && res.data.user || currentUser;
       hideAuthModal();
-      updateAuthUI();          // the email, the tags; the badge stays the sign-in badge for the Strike
+      updateAuthUI();          // the email, the tags
       playStrike();
     }
 
