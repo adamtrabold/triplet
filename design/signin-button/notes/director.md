@@ -328,3 +328,20 @@ Needs the owner's eyes (stills), per "the owner sees any new visual look":
 Handoff text fixes: in "Settled", say that signed in gains the shared
 focus ring; in the motion section, note the Strike's trigger vs the
 sheet's "Tap" label.
+
+## Build round 1 (2026-10-14, dad6cb4)
+Score: 8. The badge is to spec (it would be a 9 by itself): V[14] at 3x,
+pressed, the scalloped focus ring both states, the Strike with r 21 at
+130ms (the bottom sliver only), the dry-up tips first with no pop, and
+320, 390 and desktop all level with +.
+What blocks the 9: the sign-in sheet jumps ~14px when an error line
+appears (centred flex + the error added below Keep playing). That breaks
+"controls don't move or grow" in the one sheet this build re-wrote. Also
+the "be kept." orphan on the sheet's line, and the dropdown still was shot
+mid-press.
+Fixes sent: reserve the error space (placement is UX's call, but nothing
+moves); text-wrap pretty on the line; re-shoot the dropdown released.
+The builder's focus calls 1-3: build-level, no concept change.
+Owner stills list: in scores.md "Build, round 1".
+Re-look: rest vs wrong vs offline sheet stills must line up pixel for
+pixel on the fields and buttons.
