@@ -1,7 +1,7 @@
 // Impeccable gate: the logic behind run.sh (see README.md for what each part covers).
 //
 //   --gate (default)  deterministic, must pass. Exit 0 pass, 1 failed, 3 could not run.
-//     static layer   `impeccable@4.1.0 detect` in file mode; findings -> identities
+//     static layer   `impeccable@4.5.2 detect` in file mode; findings -> identities
 //                    -> diffed against baseline.json. Any added OR missing identity fails.
 //     runtime layer  `detect` in URL mode on the app served locally with the
 //                    gesture-harness stub, 390x844, once per UI state (driver.js);
@@ -25,7 +25,8 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '../..');
-const PKG = 'impeccable@4.1.0';
+const VER = '4.5.2';
+const PKG = `impeccable@${VER}`;
 const SKILL = path.join(REPO, '.agents/skills/impeccable');
 // Hermetic: ignore any .impeccable/config, DESIGN.md or inline impeccable-disable
 // comments, so every agent sees the same findings. Waivers live in the baselines.
@@ -67,7 +68,7 @@ if (badCmd.length) die(`unknown review command(s): ${badCmd.join(', ')}\nknown: 
 
 // ---------- running the pinned detector ----------
 const ENV = { ...process.env, IMPECCABLE_NO_TELEMETRY: '1', DO_NOT_TRACK: '1' };
-delete ENV.IMPECCABLE_BIN; // would let the shim run an arbitrary engine instead of 4.1.0's
+delete ENV.IMPECCABLE_BIN; // would let the shim run an arbitrary engine instead of this release's
 let npxMode = '--offline'; // cache-only first: instant and works without network
 const npxArgs = rest => ['-y', ...(npxMode ? [npxMode] : []), PKG, ...rest];
 
@@ -75,12 +76,12 @@ const npxArgs = rest => ['-y', ...(npxMode ? [npxMode] : []), PKG, ...rest];
 function ensurePackage() {
   const probe = () => spawnSync('npx', npxArgs(['--version']), { env: ENV, encoding: 'utf8', timeout: 180000 });
   let r = probe();
-  if (r.status === 0 && r.stdout.trim() === '4.1.0') return;
+  if (r.status === 0 && r.stdout.trim() === VER) return;
   npxMode = null; // not cached: fetch it (bounded retries so offline fails in seconds, not minutes)
   Object.assign(ENV, { npm_config_fetch_retries: '1', npm_config_fetch_timeout: '30000' });
   console.error(`impeccable-gate: ${PKG} not in the npm cache, fetching from the registry...`);
   r = probe();
-  if (r.status === 0 && r.stdout.trim() === '4.1.0') return;
+  if (r.status === 0 && r.stdout.trim() === VER) return;
   die(`cannot get ${PKG} (not in the npm cache and the registry fetch failed). ` +
       `The gate did NOT run; do not treat this as a pass.\n` +
       `${(r.stderr || '').trim().split('\n').slice(-4).join('\n')}${r.error ? '\n' + r.error.message : ''}`);
