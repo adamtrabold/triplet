@@ -12,7 +12,9 @@ combined CD + UX check).
 - Signed out, this badge sits in the account badge's corner. So Q1 is
   answered by the product: the badge shows whenever you're signed out.
 - Signed out = V[14] in `concepts/A-arc-badge/round2/badge2.js`. Signed in =
-  today's account badge, unchanged.
+  today's account badge, unchanged except that it gains the shared
+  scalloped focus ring (keyboard only; a new look the owner sees in the
+  final stills).
 
 **Sources:** `owner.md` (the owner's words), `jobs.md` (jobs 1 to 9, the
 flows), `scores.md` (rounds 2d and 2e), `concepts/A-arc-badge/round2/README.md`
@@ -203,7 +205,10 @@ and one `sessionStorage` key.
 - **The Strike:** 380ms, `STAR_POP`'s offsets and easings, scale only (no
   rotation), peak about 1.12. It is **one object changing ink**: it doesn't
   cross-fade between two buttons. It plays only in arrival (flow 1) and in the
-  in-place sign-in (flow 4).
+  in-place sign-in (flow 4). **Trigger:** not on the tap. The approved
+  sheet's motion row is labelled "Tap", but in the build the Strike plays
+  when the real app arrives after the reload (flow 1). The owner is told
+  this as a fact.
 - **The dry-up:** 540ms with the snap, the `DRY` constants. It plays only in
   departure (flow 3). No pop.
 - **Reduce Motion:** neither plays. The state swaps instantly, and the timing
