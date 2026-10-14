@@ -419,3 +419,12 @@ explicitly map those five letters before the generic NFD strip.
 - Plans, deferred from v3 §6: add a stop from a place's popup or straight
   from the add form; share a route to Maps; animate the default fit (the
   build jumps).
+- **Edit a place after adding it** (owner, 2026-10-14: "editing a place is
+  a future update for sure"). Today only star and visited change after Add.
+  The + placement crew's blank-tag form (design/add-button-placement/)
+  suggested reopening a place's tag in pencil as the edit surface.
+- **Save a place by tapping a real business on the map** (owner, 2026-10-14:
+  holding a spot "would not work very well unless there was a place
+  underneath it that the map was providing ... i could see this in the
+  future once we make this an iphone app and integrate real maps"). Needs a
+  map with POIs; not with today's Leaflet tiles.
