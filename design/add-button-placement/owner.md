@@ -27,3 +27,10 @@ So: feedback on concepts is normal iteration, not a rejection. Do not count it t
 > im not sold on any of the directions yet. i like them all for different reasons. the claim check feels fairly disconnected to the idea of a location, but maybe as a "ticket" it works if i think of it that way. my problem with the tag one is that the pin doesnt look like a pin and therefore the tag doesnt read as a tag (or a button for that matter). prominence is the problem on the badge... its the same weight and heirarchy as account, which it shouldnt be.
 
 Feedback (normal iteration, not a rejection). Likes all three for different reasons.
+
+2026-10-14, on round 6 (Float, A admission ticket):
+> As far as add buttons the badge is probably the most interesting to me right now. I like it in orange and bigger but maybe the plus should be on the left? Easier for me to reach.
+>
+> The tag shape in the list header is also interesting — not everything in these places is a ticketed thing so the tag ties better to the view state. Id like to see that mocked
+
+Direction: (1) Float — orange and bigger is liked; try it in the LEFT corner (easier for him to reach). (2) A's "tag cut" route (the Hanging Tag shape in the list header) — he wants it mocked; the tag ties better to the view state than a ticket.
