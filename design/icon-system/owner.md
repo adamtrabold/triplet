@@ -25,3 +25,8 @@ Orchestrator's error: the crew was briefed from the 2026-10-07 backlog quote as 
 > All of this should follow my standard design buds guidance
 
 Scope now: phase 1 = brand approach to icons (conceptual directions) in `brand-approach/`. Phase 2 (after owner approval) = research best practices + shared grid system + SVG drawing; tool recommendation. The earlier visited-state concept work (concepts/b|c|d, grammar boards) is superseded and not part of this. Constraint: visited does not change.
+
+2026-10-14, on the v4 brand cards (Today, Field Guide, Timetable Sorts, side by side, dropped):
+> I think the pin/place icons need to be solid and outlined icons should be used when something has yet to be tapped by me like Star and visited. So field guide, cut paper, spot pictograph are working best for me — and they can be inside a stroked circle
+
+Direction: place (category) icons are solid, and they can sit inside a stroked circle. Outlined icons mean "not yet tapped by me" (Star, Visited). The best directions are Field Guide plus two from the dropped strip, Cut Paper and Spot Pictogram. Timetable Sorts is not on the list. The project moves to a new agent team via a handoff.
