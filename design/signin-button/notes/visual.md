@@ -1,5 +1,23 @@
 # Visual designer notes: sign-in button
 
+## Round 2e (owner on 2d: "I forgot it was orange and blue when signed in so let's do white and blue signed out";
+## clarified: "I mean the style it was before I said to change it to orange and blue")
+- I started on two readings of "white and blue": paper marks on the navy die, and a paper die with navy marks. The
+  owner's clarification settled it on 2c's paper style before the sheet went out, so the first reading was dropped,
+  not shown. (Its one strength, for the record: signing in "colours in" the marks, like the visited rule.)
+- Spec: V[14] in `badge2.js` = V[9]'s geometry + 2c's colours (paper-raised die, warm 1px edge, 1px shadow, navy
+  ink). `badgeA({pressed:1})` on a paper die = --paper-pressed face, navy ink.
+- Signed in is unchanged. The sign-in moment is the original Strike (navy floods the paper, the person turns orange
+  and grows), and it can be seen again. The dry-up returns to paper. The states now differ by die, ink, words and size.
+- Sheet `sheet-2e-3x.png` (+ `-1x`), stills in `shots/2e/`. It opens with signed out and signed in side by side at 3x,
+  then pressed, with 2d for reference. Real size follows: the top strip, signed-out vs signed-in crops, and the
+  darkest map. Then the in/out strips.
+- Open: (1) see it beside the new orange + before the build. A paper badge next to an orange + should read quieter,
+  which is right for a secondary control, but check it. (2) The 0.13s paper fringe at the scallop tips (README).
+  (3) Flow sheet frame 5 still points at the 2b frames; once approved, re-point it to `round2/shots/2e/in-*`.
+  (4) Q1/Q2 from earlier rounds are still unanswered.
+- Next: the director's look, then the owner; then the handoff's looks-and-feels part, with V[14] as the spec.
+
 ## Round 2d (owner on 2c: "Person is too high and let's take it to the blue and orange style again since the plus is changing")
 - v9 = navy die + orange person/arc (today's account colours; `nv` flag), person cy 21.6 / arc ay 23.2 (midway 2b-2c,
   judged on navy against 2b/2c heights). Ink box centre 27.35, room 8.6/3.9, rim clearance 3.47, gap 7.24.
