@@ -1,6 +1,44 @@
 # Notes: product designer (visual focus)
 
-## Where things stand (2026-10-14, after jam turn 7: six stills built)
+## Where things stand (2026-10-14, after jam turn 9: round 2 stills)
+
+Director round 1 scores: FG 7, CP 6, TS 8. Nothing has gone to the owner.
+Round 2 is built in `../concepts/sketches/attitudes-v4.html` and renders
+to the `v4-card-*.png` stills:
+- `v4-card-brand` (new, goes in front)
+- `v4-card-0-today` through `v4-card-5-dropped`
+
+Re-render with `cards4.js` in the scratchpad (the same as cards3, plus the
+brand card name). New reference image: `ref-savoy-luggage.jpg`, cropped
+from `design/inspo/project/hotel-savoy-dolomiti-label.jpg` at
+(120,460,800,900). Nothing goes on the icon canvas: these are stills only.
+
+How the round-2 overrides are built: the `ROUND 2 OVERRIDES` block,
+inserted before `CAT`, patches `G.F`, `G.C` and `G.S`.
+- `SOFT()` wraps glyphs in the `#soft` filter: a blur of .42 plus an alpha
+  ramp, which gives about a 0.5 corner radius, as on the check. Its
+  filterUnits must stay userSpaceOnUse, or horizontal-only paths vanish.
+- `sq()` draws butt/miter strokes.
+- `strip()` draws angle-cut parallelogram strips.
+
+Tool grammars:
+- FG: square-cut softened ends, inlaid knobs.
+- CP: filled angle-cut strips.
+- TS: lightly rounded type cut, squarish rings, ×/+ proportioned to the
+  caps.
+
+Places:
+- FG: one cream inlay on all 11.
+- CP: no lean; the scissors are in the silhouette (flares, bites, S-cut);
+  street is a single tapered ribbon; the off star is solid.
+- TS: district is a T-junction block.
+
+Verdict at phone size: TS is distinct. FG now reads as "Today, as a
+printed family". CP is distinct in the category strip but still near FG in
+the row, tag stub and map, so I recommend moving it to dropped. The
+director rules on that.
+
+## Earlier (after jam turn 7: six stills built)
 
 The jam is closed (director turn 6). I built the six stills per §3 in
 `../concepts/sketches/attitudes-v3.html`. They render to `v3-card-0-today`,
@@ -145,6 +183,11 @@ Turn 6: the three directions look near-identical in rows and on the map
 tools in FG. Buttons keep their loudness. Timetable needs its typeface cues
 and a 12px cut now. Cut Paper's tools should be lighter and its row ×
 quiet. Mark visited is treated as FIXED.
+Round 1 scores (scores.md): FG 7 ("Today, tidied"; anonymous tools), CP 6
+(the lean reads as an error; the tools became strokes; the dotted star reads
+as missing), TS 8 (breaks "lightly rounded"; the check looks foreign; the
+tools are stock). Shared fix: each direction's tools get their own grammar.
+The brand card was missing.
 
 ## Open questions (owner's calls)
 

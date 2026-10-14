@@ -1205,3 +1205,119 @@ Full table in `coverage.md`. In short:
 NEXT: design director — score with the jobs 1–2 blocker in hand, and
 decide whether "The brand, in plain words" card is added before the owner
 sees anything.
+
+---
+
+## Turn 9: product designer (visual focus): round 2 stills (per scores.md round 1)
+
+Source: `concepts/sketches/attitudes-v4.html`. The stills are 390 wide at
+3x:
+
+- `v4-card-brand.png` (new, goes in front)
+- `v4-card-0-today.png`
+- `v4-card-1-field-guide.png`
+- `v4-card-2-cut-paper.png`
+- `v4-card-3-timetable-sorts.png`
+- `v4-card-4-side-by-side.png`
+- `v4-card-5-dropped.png`
+
+The v3 stills stay as history. Nothing went on the icon canvas.
+
+**Brand card** (systems' words from `brand-card.md`, unchanged, and none
+of the team-only source notes)
+- Four statements, each followed by one plain sentence.
+- "The app prints. You stamp.": a printed CAFE · REYKJAVÍK label beside the
+  real tag VISITED stamp, marked FIXED.
+- "Icons are the furniture": a crop of the Savoy label's luggage
+  pictograms (`ref-savoy-luggage.jpg`, cropped from the inspo).
+- Supports / Works against in two columns, six lines each, with two tiny
+  examples: the fixed check next to "Lightly rounded corners", and Today's
+  sort icon (line plus solid) next to "mixed at random".
+- I changed the closing line to "The directions below are ways to live by
+  this", so it doesn't commit to three (see Cut Paper).
+
+**The core fix: each direction's tools now have their own grammar**
+(terminal, corner, construction) with no added ink:
+- **Field Guide:** square-cut ends with softened corners, like the visited
+  check (butt caps plus a small rounding filter), and **inlaid knobs** (a
+  navy disc with a cream centre) on filters and locate. The cream inlay ties
+  the tools to the places.
+- **Cut Paper:** **filled strips with angle-cut ends** (parallelograms, not
+  strokes), about 1.6–2.0 wide, thinner than the place pieces.
+- **Timetable:** the same type cut, now **lightly rounded** with the radius
+  taken from the check (the rounding filter instead of mitres), plus
+  **squarish rings** as the visible type trait: the account head, locate and
+  directions are rounded squares. × and + are proportioned to the caps.
+
+**Field Guide fixes**
+- The **cream-inlay device is on all 11 places**, one inlay each:
+  - restaurant: fork slots
+  - cafe: steam inside the cup
+  - bar: olive
+  - attraction: band
+  - nature: trunk line
+  - shopping: fold line
+  - area: hatch
+  - hotel: blanket edge
+  - other: ring
+  - district: two streets
+  - street: a dashed centre line
+- Street is redrawn as a curved road band with a dashed cream centre line,
+  not a cone.
+- The copy says plainly: "The closest to Today: the evolutionary option",
+  and "Choosing: Today, made into one printed family".
+
+**Cut Paper fixes**
+- The lean is gone. The scissors are in the silhouette:
+  - a flared cup with a crescent-bite handle and a leaf saucer;
+  - a flared bar glass;
+  - an obelisk on a cut mound;
+  - a three-tier scalloped tree;
+  - a bag with a curved mouth;
+  - area split by an S-cut;
+  - a curved headboard;
+  - "other" as a disc with a bite.
+- Street is one tapered ribbon.
+- The off star is the solid knife line. The dotted star has moved to card
+  5 with one line.
+
+**Timetable fixes**
+- Lightly rounded throughout.
+- District is redrawn as an outline block with a T-junction of streets, so
+  the cross is gone.
+- The tag stub's star, directions icon and the fixed check now share
+  softened corners.
+- The Risks line now reads "Outlined icons are the common modern default;
+  its character depends entirely on the cut."
+
+**Side-by-side card:** the editorial is trimmed to "This is how far apart
+they are." Bug found and fixed while looking: the rounding filter had
+erased zoom −, because a horizontal line has a zero-height bounding box.
+The filter region is now in user space.
+
+**Looked at, at phone size: the side-by-side verdict**
+- **Timetable** is clearly different at a glance, as before. The rounding
+  makes the star, the directions icon and the fixed check read as one
+  family in the tag stub.
+- **Field Guide vs Today:** the inlays show at 18px in the category strip
+  and the row badge (steam, slots, olive). It now reads as "Today, as a
+  printed family" rather than "Today, tidied". The tool trait (square-cut
+  ends) shows at 24px, on ×, + and chevron. In the tag stub, at 20px, it's
+  barely visible.
+- **Cut Paper vs Field Guide:** the **category strip is now clearly
+  different** (flares, bites, the S-cut, the ribbon). The angle-cut tool
+  ends show at 24px. **But in the row, the tag stub and the map, it still
+  sits near Field Guide.** Both are filled glyphs on the same badge, and
+  directions and the off star look nearly identical in the stub. By the
+  director's rule, **my read is that it moves to dropped.** I've kept the
+  card built so the director can check it before ruling.
+
+**Not built / named**
+- Optical masters are still Timetable-only.
+- On map pins, Cut Paper's and Timetable's stars have no keyline.
+- The rounding filter is a sketch technique. Phase 2 draws real radii.
+
+NEXT: design director: score round 2 (the brand card plus cards 0–5,
+`v4-card-*.png`), and rule on Cut Paper. By your side-by-side test, I'd
+move it to dropped and send the owner Field Guide plus Timetable, with
+Today as the reference.

@@ -33,6 +33,7 @@ async function open(b, { w = 390, h = 844, base = 'cream' } = {}) {
   return { ctx, page, errs };
 }
 const MV = +(process.env.V || 2);   // motion frames drawn with this variant: V=3 node render2.js
+const SOLO = !!process.env.SOLO;   // SOLO=1: + hidden, badge alone in the corner (right 16) for the strip, motion and signed-in
 const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120));
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${d}/chrome-linux/chrome` });
@@ -47,19 +48,19 @@ const set = (page, js) => page.evaluate(js).then(() => page.waitForTimeout(120))
     }
     if (base === 'cream') {
       // full-width real-size strip for the recommended variant, + and alone
-      await set(page, `document.getElementById('floatingAddBtn').style.display='';const a=document.getElementById('accountBtn');a.style.right='';SB.renderControl('A',SB.badgeA({v:${MV}}));SB.centerArcs();`);
+      await set(page, `document.getElementById('floatingAddBtn').style.display=${SOLO ? "'none'" : "''"};const a=document.getElementById('accountBtn');a.style.right=${SOLO ? "'16px'" : "''"};SB.renderControl('A',SB.badgeA({v:${MV}}));SB.centerArcs();`);
       await page.screenshot({ path: `${OUT}/top-v${MV}-390.png`, clip: { x: 0, y: 0, width: 390, height: 84 } });
       // motion, recommended variant (v2), same timings as round 1
-      const clip = { x: 244, y: 4, width: 86, height: 82 };
+      const clip = SOLO ? { x: 304, y: 4, width: 86, height: 82 } : { x: 244, y: 4, width: 86, height: 82 };
       const IN = [['0', '{}', 1], ['60', '{ink:9,t:.15}', 1.06], ['130', '{ink:19.5,t:.55}', 1.12], ['250', '{ink:24,t:.9}', .97], ['380', 'SI', 1]];
       const OUTF = [['0', 'SI', 1], ['150', '{dry:.25,t:.8}', 1], ['300', '{dry:.55,t:.5}', 1], ['450', '{dry:.85,t:.15}', 1], ['540', '{}', 1]];
       for (const [name, list] of [['in', IN], ['out', OUTF]]) for (const [t, spec, sc] of list) {
-        await set(page, `(()=>{const b=document.getElementById('accountBtn');b.style.cssText='';
+        await set(page, `(()=>{const b=document.getElementById('accountBtn');b.style.cssText='';if(${SOLO})b.style.right='16px';
           if ('${spec}'==='SI'){SB.renderSignedIn();return;}
           const o=(${spec});o.v=${MV};SB.renderControl('A',SB.badgeA(o));SB.centerArcs();b.style.transform='scale(${sc})';})()`);
         await page.screenshot({ path: `${OUT}/${name}-${t}.png`, clip });
       }
-      await set(page, `(()=>{const b=document.getElementById('accountBtn');b.style.cssText='';SB.renderSignedIn();})()`);
+      await set(page, `(()=>{const b=document.getElementById('accountBtn');b.style.cssText='';if(${SOLO})b.style.right='16px';SB.renderSignedIn();})()`);
       await page.screenshot({ path: `${OUT}/signedin-plus.png`, clip: WIDE });
     }
     if (errs.length) console.log(base, 'errors', errs);

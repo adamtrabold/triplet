@@ -182,3 +182,38 @@ visibly changes.
   owner Q3.
 - Systems confirms: TS's sharp off star clashes with the fixed check, and
   FG/CP tools are near-identical. Both are already in my fixes.
+
+---
+
+## Round 2 scores (v4), 2026-10-14
+
+READY after a short fix pass. I check the brand card, card 3 and card 4
+before sending.
+- Brand card 8, and 9 with a verbatim copy fix. "Everything the app shows
+  is printed; only your own marks are applied" contradicts the owner's
+  rule: the clerk's entries (type, stop number) are stamped. Replacement
+  text is in scores.md, and the example box shows a printed "TYPE" label.
+- Field Guide 9 (from 7): inlays on all 11 places, a new street, tools tied
+  to the check, honest "evolutionary" framing.
+- Timetable 8 (held): square rings made the account head square and put the
+  compass in a box (gimmick). The off star is smaller than the fixed check.
+  Irregular district. Three fixes: round things round, off star sized to the
+  check, block district.
+- Cut Paper 7, DROPPED: its silhouettes are its own, but in row, tag and map
+  it can't be told from FG. It goes to card 5 with its category strip;
+  card 4 loses it.
+
+### Recurring blocker
+Traits added from outside to manufacture difference turn into gimmicks
+(the lean, mitres, square rings). Every trait needs a reason in the thing
+it draws. Card copy must match the owner's own rules exactly.
+
+### Send list (after verification)
+Brand, 0 Today, 1 FG, 3 TS, 4 side by side (Today/FG/TS), 5 dropped (with
+CP). Plus the batch of 3 questions and "which direction or mix goes to
+phase 2". jobs.md is already sent. No canvas.
+
+### Next
+Visual's fix pass, then I verify the 3 cards (a look, not a re-score of
+FG). Then the coordinator sends. Phase 2 (research, grid, SVG tooling
+recommendation) waits for his pick.

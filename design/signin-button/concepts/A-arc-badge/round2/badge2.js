@@ -18,6 +18,13 @@ const V = {
   5: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 19.6, ay: 21.8, ws: '\u200A' },
   6: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 18.8, ay: 21.2, ws: '\u200A' },
   7: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 18.4, ay: 21.6, ws: '\u200A' },
+  // 2d: owner on 2c 'Person is too high ... take it to the blue and orange style again since the plus is changing'
+  // nv = navy die, orange person + orange arc (today's account badge colours). Lift between 2b and 2c.
+  8:  { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 22.4, ay: 23.6, ws: '\u200A', nv: 1 },
+  9:  { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 21.6, ay: 23.2, ws: '\u200A', nv: 1 },
+  10: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 20.8, ay: 22.8, ws: '\u200A', nv: 1 },
+  11: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 25, ay: 25, ws: '\u200A', nv: 1 },   // 2b position, navy (comparison only)
+  12: { ps: .68, sw: 1.45, fs: 6, ls: 1.3, r: 16.6, fw: 700, st: '100%', cy: 18.4, ay: 21.6, ws: '\u200A', nv: 1 }, // 2c position, navy (comparison only)
   3: { ps: .76, sw: 1.5, fs: 5.5, ls: 2.3, r: 18.3, fw: 650, st: '100%', cy: 25 },
 };
 SB.V = V;
@@ -27,9 +34,9 @@ function person(cx, cy, s, ink, swPx) {
   return `<g transform="translate(${cx - 12 * s},${cy - 12 * s}) scale(${s})" fill="none" stroke="${ink}" stroke-width="${swPx / s}" stroke-linecap="round" stroke-linejoin="round"><path d="${BODY}"/><circle cx="12" cy="7" r="4"/></g>`;
 }
 // U arc under the centre; startOffset compensates the trailing letter-space so the word sits dead centre
-function arc(r, fs, ls, fw, st, op = 1, ws = ' ', ay = 25) {
+function arc(r, fs, ls, fw, st, op = 1, ws = ' ', ay = 25, ink = C.navy) {
   const id = 'sbR' + (uid++), half = Math.PI * r / 2 + ls / 2;
-  return `<g class="sb-arc" data-ay="${ay}" opacity="${op}"><defs><path id="${id}" d="M${25 - r},${ay} A${r},${r} 0 0 0 ${25 + r},${ay}"/></defs><text font-family="Archivo" font-weight="${fw}" font-stretch="${st}" font-size="${fs}" letter-spacing="${ls}" fill="${C.navy}"><textPath href="#${id}" startOffset="${half.toFixed(2)}" text-anchor="middle" data-r="${r}">SIGN${ws}IN</textPath></text></g>`;
+  return `<g class="sb-arc" data-ay="${ay}" opacity="${op}"><defs><path id="${id}" d="M${25 - r},${ay} A${r},${r} 0 0 0 ${25 + r},${ay}"/></defs><text font-family="Archivo" font-weight="${fw}" font-stretch="${st}" font-size="${fs}" letter-spacing="${ls}" fill="${ink}"><textPath href="#${id}" startOffset="${half.toFixed(2)}" text-anchor="middle" data-r="${r}">SIGN${ws}IN</textPath></text></g>`;
 }
 // k = blow-up factor for enlargements: edge and contact shadow stay 1 CSS px, as on the map
 const shadowEdge = (face, k = 1) => `<polygon points="${SCALLOP}" fill="rgba(0,0,0,.22)" transform="translate(0,${1 / k})"/><polygon points="${SCALLOP}" style="fill:${face}" stroke="${C.edge}" stroke-width="${1 / k}" stroke-linejoin="round"/>`;
@@ -45,7 +52,10 @@ const wrap = (inner, size = 50) => `<svg width="${size}" height="${size}" viewBo
 SB.badgeA = function (o = {}) {
   const v = V[o.v || window.__V || 2];
   const t = o.t ?? 0, ps = v.ps + (1 - v.ps) * t, cy = v.cy + (25 - v.cy) * t, sw = v.sw + (2 - v.sw) * t;
-  let s = shadowEdge(o.face || FACE, o.size ? o.size / 50 : 1) + arc(v.r, v.fs, v.ls, v.fw, v.st, o.textOp ?? 1, v.ws, v.ay ?? 25) + person(25, cy, ps, C.navy, sw);
+  // navy style: plain navy die like today's account badge (no edge/shadow; pressed = --state-on-press, paper ink)
+  const nv = v.nv, pr = o.pressed, inkC = nv ? (pr ? '#F2EBDD' : C.orange) : C.navy;
+  let s = (nv ? `<polygon points="${SCALLOP}" fill="${pr ? '#2A4F73' : C.navy}"/>` : shadowEdge(o.face || FACE, o.size ? o.size / 50 : 1))
+    + arc(v.r, v.fs, v.ls, v.fw, v.st, o.textOp ?? 1, v.ws, v.ay ?? 25, inkC) + person(25, cy, ps, inkC, sw);
   const pts = o.ink ? blotPts(o.ink, cy) : o.dry !== undefined ? dryPts(o.dry, cy) : null;
   if (pts) s += inkLayer(pts, person(25, cy, ps, C.orange, sw), o.dry !== undefined ? 1 - o.dry * .25 : 1);
   return wrap(s, o.size);
