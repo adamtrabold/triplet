@@ -1170,3 +1170,32 @@ Prepared in scores.md. P6 is held back.
 
 ### Next
 Re-shot stills only → re-score → release the send.
+
+---
+
+## Round 8b -- 2026-10-14 (scores.md "Concept round 8b")
+
+### Scores
+- **P 9, A 9** (from 8/8).
+  - Spacing is fixed: a 248 tag on a 32 rhythm.
+  - ADD shrinks by the top with the map panning; the stub never moves.
+  - T5 has two panels; the crops are clean.
+
+### Flags ruled
+- (a) The list stays at its band while the new tag is open: accepted.
+  It's an objection to watch, not a question.
+- (b) 89/72 by room.
+- (c) min-height rows, with T4's note shown on two lines.
+
+### Mechanical re-shoots before the send (I check, no re-score)
+1. The stub's foot clears the credit (T3-T8 hanging frames).
+2. T4's two-line note.
+3. A3-tap typing re-panned (a star in the eyelet).
+
+### Send
+The final list (19 stills, P → A → T → Float), the cost lines and the
+6 owner questions are in scores.md 8b. P6 is held back.
+
+### Next
+- Check the re-shoots, then release the send.
+- On his pick: check handoff.md against owner.md.
