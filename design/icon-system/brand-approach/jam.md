@@ -771,3 +771,144 @@ NEXT: design director: the three cards plus Today and the dropped strip are
 ready to steer. Please decide whether they go to the owner as they are
 (after the 1x insets), or need one more pass on Cut Paper's tool weight
 and Timetable's Archivo cues.
+
+---
+
+## Turn 5: product designer (systems focus), jam pass 2
+
+I'm taking the director's turn 3 as settled. Parity is out: my turn 1's
+"on/off parity" item and my O5 framing of the 10-07 quote are withdrawn.
+Each direction states its on/off stance as a result of its attitude. Read:
+turns 2 to 4, the three v2 cards, `notes/director.md`.
+
+This turn: how each direction works across **every** icon family and state
+in `inventory.md`, not only the nine-icon stress set: what stays fixed, what
+changes, and what breaks. I'm not judging the look. That belongs to the
+visual designer and the director.
+
+### 1. What's fixed under all three directions
+
+These hold whichever direction wins. A card that contradicts one of them is
+wrong, not bold.
+
+- **Visited:** the row and tag stamp, the map sticker (near, far, selected,
+  starred), the stamp check, the sticker checks, and the visited plan pin.
+  The owner: "Visited should not change."
+- **Containers:** the pin's round shell and 2px rim, its sizes (16/24/32),
+  the inverted selected pin, the diamond shell for district and street rows
+  and plan stops, the far pin dropping its glyph below `GLYPH_MIN_ZOOM`,
+  and the scalloped navy account and + buttons. "The pin's look is
+  shipped; changing the pin itself is a separate decision"
+  (owner-taste). That's director Q2, still open with the owner.
+- **Colour meanings:** brand orange is action and star; navy is the selected
+  row; each category keeps its ink; ink-2 grey is for secondary numbers.
+- **Not icons, so out of scope:** cluster discs and counts, plan numerals,
+  the you-are-here dot, the tag anchor dot, the map outlines of districts
+  and streets, and the tag's furniture (band, eyelet, string).
+
+### 2. Each direction, family by family
+
+Rows use the inventory's families. "Shown" means it's on the v2 card.
+"Unshown" means the card doesn't show it yet, and that's where surprises
+will come from.
+
+| Family (inventory) | Field Guide | Cut Paper | Timetable Sorts |
+|---|---|---|---|
+| 11 category glyphs: chip 12, badge/near pin 18, selected pin 23 | Specimens: filled, category ink, one cut detail each. **Shown:** 3 of 11 | Cut pieces, category ink, drawn off true once. **Shown:** 3 of 11 | Monoline sorts at the label stem, category ink. **Shown:** 3 of 11 |
+| Selected pin (paper glyph on an ink field) and the selected navy row's badge | Holds: solid shapes reverse cleanly (map crop) | Holds (map crop) | Holds at 23px. At 18px on navy it's thin, but it reads in the row crop |
+| Controls: account, +, sort, filters, locate, close, directions, plan check, plan +, more, chevron | Key register: 1.8 stroke, ink-2 | Flat strips, tool ink, heaviest of the three | Sorts at one weight, navy |
+| Text glyphs (× ▼) and Leaflet zoom | Drawn into the key | Drawn as cut strips | Drawn as sorts |
+| Star on/off: row 18, map 10/12/16 with halo, cluster, tag 20, add form 16 | On = specimen (orange fill), off = key outline. Off is quieter **by design** | On = cut piece, off = dotted cut-here line | ★/☆: one weight, one outer size |
+| **Tag "mark visited" (not-yet-visited check)** | **Unshown** | **Unshown** | **Unshown** |
+| Pencil Star (draws, then lands as the printed star) | Lands on the specimen star | Lands on an off-true star | Lands on a mitred star |
+| Starred cluster's star cutout ("cutouts follow the star") | Follows | Follows the off-true shape | Follows |
+
+### 3. Things that break, or that nobody has decided yet
+
+1. **The "mark visited" check in the tag is unshown, and "Visited should not
+   change" may or may not cover it.** The inventory lists it as its own
+   icon: the tag's Visited segment *before* stamping, which is the stamp
+   check's path stroked at 2.05. It's the direct sibling of the star's off
+   state and sits beside it in the same tag stub. Either it's part of
+   Visited (fixed, so every direction must sit next to an unchanged 2.05
+   rounded outline check) or it's a tool (each direction redraws it). **Add
+   it to the owner's scope questions alongside director Q2.** Until then,
+   every card's tag stub should show the *unvisited* tag too (Directions,
+   Star off, Mark visited off). That's the state a user sees most.
+2. **Field Guide: grey has two meanings.** The key register puts tools in
+   ink-2 grey. The filter chips already use a greyed glyph to mean "this
+   category is *off*". Under Field Guide an active chip's glyph is a
+   coloured specimen and an inactive one is grey, which is the same grey as
+   the tools. It's "Colour must communicate" pulling two ways. The fix is
+   either "grey = secondary" stated as one meaning and accepted for both,
+   or "inactive chip = dashed hairline only" (the chip already has that) so
+   the glyph keeps its ink. That's for the visual designer and the director
+   to decide. I'm noting it so it doesn't surface in the build.
+3. **Field Guide: the + and account buttons are tools, but they're loud on
+   purpose.** They're orange on navy, the brand's action colour, on a
+   scalloped badge. "Tools are quiet" has to read as "the *glyph* is drawn
+   at key weight, the *button* keeps its loudness." Otherwise the
+   direction contradicts a shipped colour rule. None of the cards shows the
+   top-right buttons, so add them to the stress set for all three.
+4. **Timetable Sorts: weight at 12px.** A 2-unit stroke on a 24 grid comes
+   out at 1px in the 12px filter chip and about 0.75px for the 10px map star
+   if it's ever outlined. A type-weight system has to define **optical
+   masters** (a heavier 12px cut, like a caption size of a typeface), or the
+   chips go grey. This is a grid requirement for phase 2, and it decides
+   whether Timetable can work at all on 12px chips. Field Guide's district
+   dashes have the same problem (turn 4 saw it). Cut Paper is the least
+   exposed.
+5. **Cut Paper: a tool outranks content in the row.** The delete × in the
+   row crop is the heaviest mark after the stamp. Today it's a quiet
+   ink-2 text ×. "Secondary marks never outrank content" and "closer to the
+   X, it's not interactive" both point to keeping it light. The card should
+   show the row × at its real weight, as Cut Paper would actually ship it.
+   Otherwise the owner judges a row the direction wouldn't produce.
+6. **The dotted cut-here star (Cut Paper)** only appears where the open star
+   appears today: the tag (20px) and the add form (16px). It never appears
+   on the map or in rows ("No star unless it's been starred"). So the dots
+   live in two calm places, which caps the "dots add noise" risk. That's
+   worth one line on the card, because the owner will picture dotted stars
+   everywhere.
+7. **Any new star shape reaches gesture-adjacent code.** The Pencil Star's
+   five strokes trace the star's outline, and the starred-cluster cutout
+   copies its shape. A direction that changes the star's silhouette (Cut
+   Paper's off-true star, Timetable's mitred star) means re-authoring
+   `pencilStarMarkup` and the cutout, and in phase 3 it trips the gesture
+   gate (the "84 + 8 (+ N8-a)" star gate). Field Guide keeps today's star,
+   so it costs nothing here. This isn't a reason to choose: it's a cost
+   phase 2 should know about.
+8. **Coverage: 8 of 11 categories, the street glyph and 7 tools are unshown.**
+   Street (today's dashed oddball), hotel, nature, area and other are the
+   ones most likely to break a direction: nature next to a tree emblem,
+   and "other" as a bare dot in a type-weight system. The owner said
+   "I want to see every icon in the app up next to each other." Before
+   he sees the cards, each one needs an **all-categories strip at 18px**
+   (11 glyphs) plus the street glyph next to district. The rest of the
+   tools can wait for phase 2.
+
+### 4. Each direction's off-state stance, in one line each (no parity)
+
+- **Field Guide:** off is a key mark. It's quieter than on, deliberately,
+  because the user's own mark is the treasure.
+- **Cut Paper:** off is the dotted line *before the cut*. It's a different
+  kind of mark from on, and it's 1-bit safe.
+- **Timetable Sorts:** off and on are a typographic pair, ☆/★, at the same
+  weight and outer size.
+
+### 5. jobs.md
+
+Written: `jobs.md`, short and plain, from his words for this phase. There's
+no premise taken from the 10-07 note, and inferred jobs are marked.
+
+### Open (for the director)
+
+- The scope question on the mark-visited check (§3.1) should go into the
+  owner batch alongside Q2 and Q3.
+- I'd add these to every card before it reaches the owner: the unvisited
+  tag stub, the top-right scalloped buttons, and an 11-category strip plus
+  street. Without them, three of the jobs in `jobs.md` can't be checked.
+
+NEXT: design director — fold the §3 structural items into the steer for
+turn 6 (visual), decide on Field Guide's grey conflict, and add the
+mark-visited scope question to the owner batch.
