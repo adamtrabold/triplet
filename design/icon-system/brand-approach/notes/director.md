@@ -133,3 +133,52 @@ Visual builds the six stills, then I score all of them in one pass.
 Before scoring, check the side-by-side card first: if the directions
 aren't distinguishable in row and map context, none of them reaches a 9 as
 a direction.
+
+---
+
+## Round 1 scores (v3 cards), 2026-10-14
+
+Not READY. Scores in `scores.md`: Field Guide 7, Cut Paper 6, Timetable
+Sorts 8. Today, side by side and dropped are not scored (kept).
+
+### What keeps blocking a 9
+The directions converge in the TOOLS (18 of about 33 icons are a stock
+round line set in all three). The cause is my own default, "tools carry no
+whimsy", which became "tools carry no identity". Fix for all three: a tool
+grammar per direction (terminal, corner, construction) you can see at 18
+to 24px without adding ink.
+
+### Per direction
+- FG 7: "Today, tidied." It needs one specimen device across all 11 places
+  (cream inlay inside the silhouette, Savoy logic; district and street
+  already do it), key tools that take their corner from the visited check,
+  a street redraw (cone), and an honest "closest to Today" line.
+- CP 6: the lean is invisible or reads as an error, the tools are plain
+  strokes, and the dotted star reads as missing. One round to prove the cut
+  in the SILHOUETTE (Matisse) plus angle-cut filled tool strips, with the
+  solid knife-line off star. If it still sits near FG in card 4, replace it
+  (or drop it and show 2 + Today).
+- TS 8: the most distinct, and holds on the map. It breaks the owner's
+  "lightly rounded" rule (mitres and flat ends, so the fixed check looks
+  foreign), the district reads as first aid, and the tools are still stock.
+  Fixes: a light radius from the check, a block district, one visible type
+  trait in the tools.
+- Card 4 is the key still. Trim its editorial so the owner judges.
+
+### Next
+Visual round 2 on FG, CP and TS with the numbered fixes, then I re-score
+in one pass, starting with card 4. Don't raise a score unless card 4
+visibly changes.
+
+### Added after systems' coverage (jam turn 8)
+- BLOCKER: jobs 1–2 (the brand in plain words, plus supports and works
+  against) are on no card. That's the owner's FIRST ask. A new "The brand,
+  in plain words" card goes in front of card 0: attitude line, method not
+  costume, the app prints and you stamp (real stamp), icons are furniture
+  (Savoy crop), at most 6 supports and 6 works-against lines, then "three
+  ways to live by this". Systems drafts the words, visual lays it out.
+  I missed this at turn 6; check the jobs against the board every round.
+- Star-shape cost is moot (all keep the filled star), so it's dropped from
+  owner Q3.
+- Systems confirms: TS's sharp off star clashes with the fixed check, and
+  FG/CP tools are near-identical. Both are already in my fixes.
