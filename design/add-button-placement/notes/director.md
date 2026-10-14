@@ -993,3 +993,47 @@ Nothing structural. Only a crop artifact.
   finer cut, left corner, form row A, the conditional prefix,
   `TAG_SHEET_GAP` 88 / or the A tag cut and the 32px title cost) before
   the build.
+
+---
+
+## Takeover -- jam turn 32 (2026-10-14), Pass A: blank pin + blank-tag form
+
+New director. Owner revived C as ONE package with the add form as a blank
+tag; keep every direction open (Float and A from R7 still with him).
+
+### Rules I set for the package
+1. Pin always above the tag on a straight string, every step.
+2. Orange outside the paper = act (+, account, A's cut); orange on the
+   paper = starred (band, Star segment). Hence ADD on the tag = navy flood;
+   A stays orange.
+3. Minimum add = tap, type, pick, ADD; everything else pre-filled in
+   pencil.
+4. After ADD: ink-over, pin glyph fills, and a fresh blank pin is just
+   there at rest (no done screen).
+
+### Rulings
+- V1 (small tag silhouette) dropped: the shrink the owner rejected twice.
+- V2 (blank pin alone) forward; kill if it squints like a stock FAB; must
+  beat the account badge (not 32px).
+- V3 (pocket: the tag's die-cut top showing above the list, pin above)
+  forward as C's other resting state. One of V2/V3 picked in jobs.md.
+- Rest position bottom-left (owner's reach note).
+- P1 results on the tag (print slip); floor 3 results at 664.
+- P2 drag/long-press out (owner Q). P3 no-ADD = owner Q. J17 VISITED on
+  the blank stub in stills; J18 edit = one labelled option still.
+- Float and A: one frame each, "same form, other trigger". Not packages.
+- P4 draft name not shown at rest.
+
+### Owner questions queued (send with concepts)
+Visited-while-adding; edit-after-add; pick-is-add with Undo; drag/hold
+to place (later); FYI ADD navy on the tag.
+
+### Likely owner objections to watch
+- V2: "that's just a FAB" / "same weight as account".
+- V3: "it's covering the map" / "is it a tag or a box".
+- Form: "too many lines" (each line earns it; CITY may fold into address);
+  "why isn't add orange".
+
+### Next
+Systems measures V2/V3, slip lines, docked position; visual draws the
+journey strip; then I pick the resting object in jobs.md.

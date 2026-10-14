@@ -3139,3 +3139,152 @@ The form is trigger-agnostic, agreed with systems. Visually:
 NEXT: design director -- rule on the three resting objects (V1 tag-first,
 V2 pin-only, V3 pocket), ADD's colour on a tag, and A's trigger going navy
 inside this package, so systems can measure the survivors.
+
+## Turn 32 -- design director (new director): rulings for the package, one direction added
+
+New director; my predecessor's notes read as history. Looked at R6-C1,
+R6-C6 and R7-A5 again before ruling. Real draws: field **baggage
+handling** (the check-in counter); Oblique **"What would your closest
+friend do?"**
+
+### The idea I'm holding everyone to
+
+The owner asked for a *package*, so the test is one physical story told
+without a break: **a blank pin carries a blank tag; you write on the tag;
+the ink dries; the pin is now a place.** One object from rest to the real
+tag. Two rules come out of it, and both bind every frame:
+
+1. **The pin is always above the tag, on a straight string, at every
+   step** (the owner's own "pop down out of the pin ... straight string").
+   Docked above the keyboard, searching, picked, saving: if a frame shows
+   the tag without its pin on top, or a pin without a string to the tag,
+   the story broke there.
+2. **Orange outside the paper = act; orange on the paper = starred.** The
+   + trigger (pin, Float, A's cut) is orange, like account. On any tag,
+   orange is the band and the Star segment only. This is the line that
+   settles ADD and A below.
+
+Closest-friend test (the draw): a friend hands you a tag and a pen and
+says "write the name, I'll do the rest". So **the minimum add is: tap,
+type, pick, ADD.** Everything else on the blank tag arrives pre-filled in
+pencil (city, type where OSM maps, address); you touch a line only to
+correct it. If a frame makes the user fill a second line to finish, that
+frame is wrong.
+
+Baggage-handling direction (for visual, not a new concept): at the bag
+drop the agent tears a tag off a roll, writes nothing you didn't say,
+loops it on, and the bag leaves on the belt. Borrow the *exit*, not the
+props: on ADD the pencil inks, the pin's face fills with its category
+glyph, the tag closes into the real place's tag on the spot -- and **a
+fresh blank pin is already standing on its stand** (not animated in; just
+there when you look back). Add is repeatable without a "done" screen. No
+belts, rolls or airport codes on screen.
+
+### Resting object: V2 and V3 go forward; V1 is dropped
+
+- **V1 (small tag-first silhouette): drop.** It asks a ~96px tag to
+  carry chamfers, eyelet, perforation and notches -- the exact shrink that
+  made the owner say "the tag doesn't read as a tag" twice. Keep the lesson,
+  not the frame.
+- **V2 (the blank pin alone): forward, with a kill condition.** It's the
+  owner's words taken literally ("the blank pin version of the add
+  button") and the simplest. Its risk is the one he already named: an
+  orange disc with a + is the Material FAB, his "knee jerk to the
+  standard". It survives only if it reads as *a pin standing on the map*,
+  not a button floating over it: map-pin grammar (paper halo, the
+  real pins' ground contact), and the + exactly where the category glyph
+  goes. Visual: put it beside a stock FAB at 1x; if they squint the same,
+  V2 is dead. It also has to beat the account badge in the squint
+  (round 5b: "same weight and hierarchy as account, which it shouldn't
+  be") -- so not 32px; systems find the size that wins.
+- **V3 (the pocket): forward, as C's other resting state, not a fourth
+  concept.** It solves V1's problem the right way: crop, don't shrink --
+  the tag's most recognisable part (die-cut top, eyelet, string to the
+  pin) at full scale. It is the only resting object that previews the
+  form (J7) without a miniature. Gate: J5 (never covers a pin or a tag
+  near the map's bottom edge) and the credit.
+- **Rest position: bottom-left** for both. The owner's last placement
+  note ("maybe the plus should be on the left? Easier for me to reach")
+  carries to whatever the + is.
+- I'll pick V2 or V3 for the package in jobs.md, from systems' numbers and
+  visual's 1x frames. One resting object goes to the owner, not two
+  ("fewer variations").
+- **P4 (draft name shown on the resting object): not at rest.** A kept
+  draft shows when you open the tag again. At rest the + stays the only
+  ink.
+
+### ADD's colour on the tag: navy
+
+Navy flood, cream ADD, in the stub's first segment (Directions' slot), as
+visual proposed. Reason is rule 2 above: on a tag, orange already means
+starred, and the owner named navy as the other action colour ("either
+navy or orange"). The inactive ADD is print-only with a wrapped NAME IT
+FIRST -- accepted, the stub's wrap rule covers it. This changes
+CLAUDE.md's "submit = brand orange" for the tag only, so it goes to the
+owner as a one-line "just so you know" with the concepts, not as a
+decision we hide.
+
+### A in this package: stays orange
+
+No navy. A's orange cut is the + trigger -- chrome, not paper -- so rule
+2 keeps it orange, like account. Navy would also merge with the navy
+selected row directly under it (R7-A5). A is with the owner as scored;
+we don't edit it under him. What we owe him is one frame: **the same
+blank-tag form opened from A, and one from Float** -- "same form, other
+trigger" -- so the form isn't a C-only bonus. Not two more packages.
+
+### Systems' five questions
+
+1. **P1 (results on the tag) over C's band search: yes.** "Filling out a
+   blank tag" starts at the first keystroke. Results print on a slip below
+   the name line (visual's Q4), print not pencil; only the picked one
+   becomes pencil. Systems: at 664 with the keyboard up, how many result
+   lines fit, and may the slip overhang the tag's foot? Floor: 3 results.
+   Below 3, come back to me before falling back to the band.
+2. **P2 (drag the pin / long-press the map): out of this package.** It's
+   the gesture lane, Nominatim-only, untestable here, and the owner
+   question about it is already queued. One line in the owner questions.
+3. **P3 (the pick is the add, no ADD): not a concept frame.** Shared-table
+   Undo and the post-create city confirms make it a data decision, not a
+   look. It goes to the owner as a question. The closest-friend minimum
+   (tap, type, pick, ADD) gets most of its speed anyway.
+4. **J17 VISITED on the blank stub: in the stills.** The stub one-for-one
+   with the real stub (ADD | STAR | VISITED) keeps every mark's meaning
+   and costs nothing new. **J18 edit-after-add: one still, labelled as an
+   option.** Both get asked alongside the concepts.
+5. **The resting tag still exists only as V3.** V2 has no tag at rest by
+   design. See above.
+
+### Visual's open questions
+
+1. Navy -- ruled. 2. V1 -- dropped. 3. V3 is C's other resting state; J5
+   and the credit are systems' to check. 4. Print slip -- yes, measure.
+5. P3 -- an owner question.
+
+### Pushes for the next pass
+
+- **Visual:** the full journey as one strip (rest, tap, typing, results
+  slip, picked + flown, ink-over, back at rest with a fresh blank) at
+  1x-honest size, so I can check rule 1 frame by frame. V2 beside a stock
+  FAB and the account badge at 1x. V3 at 664 and 844, collapsed and with a
+  tag open. Same blank tag, District/Street state (CITY gone, ADD wording).
+- **Systems:** V2's diameter to win the squint vs the 50px account; V3's
+  footprint vs J5, the credit and the 320 width; the slip's line count;
+  where the docked tag + pin sit with the keyboard at 664, so the pin
+  still clears the safe area above the tag.
+
+### Owner questions, for the orchestrator to send WITH the concepts (not now)
+
+1. While adding, mark it visited too (VISITED on the blank tag's stub)?
+2. Fix a place after adding by opening its tag in pencil again?
+3. Skip ADD: picking a result saves the place, with Undo?
+4. Later, place a pin by dragging it onto the map or holding the map?
+5. Just so you know: on the tag, ADD is navy, because orange on a tag
+   means starred.
+(Q2 from earlier, "land on the new place after Add", is answered by the
+package itself: it ends on the real tag.)
+
+NEXT: product designer (systems focus) -- measure the two survivors
+(V2's size against the account, V3's footprint against pins/credit/320),
+the result slip's line count at 664, and where the docked pin + tag sit
+with the keyboard up, so visual can draw the journey to real numbers.
