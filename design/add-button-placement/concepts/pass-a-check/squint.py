@@ -16,20 +16,21 @@ def weight(img, base, box, s):
     x0, y0, x1, y1 = [int(v) for v in box]; m = 3 * s
     dE = np.sqrt(((A - B) ** 2).sum(-1))[max(0, y0 - m):y1 + m, max(0, x0 - m):x1 + m]
     return float(dE.sum()), float(dE.max())
-base = Image.open('frames/v2-0.png'); p = json.load(open('probe.json'))
-ac = p['acct844']
-# account painted out: fill its box with the median colour of a ring just outside it
-arr = np.asarray(base.convert('RGB')).copy(); x0, y0, x1, y1 = ac
-ring = np.concatenate([arr[y1 + 4:y1 + 10, x0:x1].reshape(-1, 3), arr[y0:y1, x0 - 10:x0 - 4].reshape(-1, 3)])
-arr[y0 - 2:y1 + 4, x0 - 2:x1 + 2] = np.median(ring, 0); noacct = Image.fromarray(arr)
-out = {}
-for s in (4, 8):
-    out[f'account_s{s}'] = weight(base, noacct, ac, s)
-    for D in (32, 40, 44, 48, 52, 56, 60):
-        out[f'V2-{D}_s{s}'] = weight(Image.open(f'frames/v2-{D}.png'), base, p[f'v2box{D}'], s)
-json.dump(out, open('squint.json', 'w'), indent=1)
-for s in (4, 8):
-    A = out[f'account_s{s}'][0]
-    print(f'sigma {s}: account mass {A:.0f} peak {out[f"account_s{s}"][1]:.1f}')
-    for D in (32, 40, 44, 48, 52, 56, 60):
-        m, pk = out[f'V2-{D}_s{s}']; print(f'  V2 {D}px: mass {m:.0f} = {m / A:.2f}x account, peak {pk:.1f}')
+if __name__ == '__main__':
+    base = Image.open('frames/v2-0.png'); p = json.load(open('probe.json'))
+    ac = p['acct844']
+    # account painted out: fill its box with the median colour of a ring just outside it
+    arr = np.asarray(base.convert('RGB')).copy(); x0, y0, x1, y1 = ac
+    ring = np.concatenate([arr[y1 + 4:y1 + 10, x0:x1].reshape(-1, 3), arr[y0:y1, x0 - 10:x0 - 4].reshape(-1, 3)])
+    arr[y0 - 2:y1 + 4, x0 - 2:x1 + 2] = np.median(ring, 0); noacct = Image.fromarray(arr)
+    out = {}
+    for s in (4, 8):
+        out[f'account_s{s}'] = weight(base, noacct, ac, s)
+        for D in (32, 40, 44, 48, 52, 56, 60):
+            out[f'V2-{D}_s{s}'] = weight(Image.open(f'frames/v2-{D}.png'), base, p[f'v2box{D}'], s)
+    json.dump(out, open('squint.json', 'w'), indent=1)
+    for s in (4, 8):
+        A = out[f'account_s{s}'][0]
+        print(f'sigma {s}: account mass {A:.0f} peak {out[f"account_s{s}"][1]:.1f}')
+        for D in (32, 40, 44, 48, 52, 56, 60):
+            m, pk = out[f'V2-{D}_s{s}']; print(f'  V2 {D}px: mass {m:.0f} = {m / A:.2f}x account, peak {pk:.1f}')
