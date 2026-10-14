@@ -1400,3 +1400,16 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     count is 1, not 24, because the list is collapsed under the form);
     gesture popup-open 42/42 (20/20 + 20/20), rows 12/12 (56.00px),
     places-ux 30/30, tag-sync 12/12, plans 32/32, shapes 50/50.
+
+- **Add-form place suggestions no longer cut off** — 2026-10-15. Owner:
+  "yes" (fix it), then "yep" (land the fix; short screens to the add-form
+  team). `#addressAutocomplete` was a fixed 300px hanging inside
+  `#mainContent` (`overflow: hidden`), so its bottom was clipped (on the new
+  + badge layout at every size, desktop included). Now `max-height:
+  min(300px, var(--ac-room, 300px))`, with `fitAutocomplete()` setting
+  `--ac-room` to the room above the nearest clip edge or the visual-viewport
+  bottom (so the keyboard counts); re-fit on open, resize, visualViewport
+  resize and `#mainContent` resize. Look unchanged apart from the box ending
+  whole. Checked in Chromium at 390x844, 390x664, 320x568 and 1280x800: 0
+  clipped (main before the fix: clipped at all four). Impeccable gate
+  passed; places-ux 30/30, popup-open 42/42.

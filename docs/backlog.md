@@ -376,18 +376,9 @@ pick/redirect before building anything.
   (they'd also feed the skill's context). (4) The design hook is not
   installed (harness config: owner decision).
 
-- **Bug (confirmed 2026-10-14): the add form's place suggestions are cut off
-  on phones.** `#addressAutocomplete` (absolute, `max-height: 300px`) hangs
-  below the Name field but `#mainContent` is `overflow: hidden` and ends at
-  the sheet's top edge, so the list's bottom is cut where the sheet starts.
-  Repro (Chromium, gesture-harness stub, Nominatim faked with 10 results):
-  390x844, tap +, type "Kaffi" -> list spans y 269-569, `#mainContent` ends
-  at 544, the last 25px are hidden; 390x664 (shorter phone / toolbars
-  showing) -> `#mainContent` ends at 364, only ~1.6 of 10 suggestions show.
-  The list still scrolls internally, so every item is reachable, but most of
-  the box is hidden on short screens. Desktop (1280x800) is not cut.
-  Impeccable 4.5.2 no longer reports this clip (its rule now skips page-shell
-  containers), so nothing in the gate tracks it any more.
+- Add form: the new close badge (×, bottom-left) overlaps the left edge of
+  the place-suggestion list while it's open (390x844, 2026-10-15, after the +
+  badge landed). For the add-form team.
 
 - State system shipped (see `docs/shipped.md`). Left open: floating
   add/account buttons' pressed fill is the off-token literal `#1B3A57`; map
