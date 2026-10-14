@@ -229,3 +229,14 @@ Stills:
 - `R6-A3-routes-3x.png`
 
 Raw frames: `r6/`.
+
+## Round 7: the Hanging Tag's cut (owner: "the tag ties better to the view state")
+- **The shape:** the header stub cut like the top of a place's tag, both
+  corners chamfered 14px at its left end, **no eyelet**.
+  - A hole reads as a dot beside locate.
+  - A hole with a patch reads as a switch knob.
+- **The look:** orange tooth stock, navy + 28px at 3px (shifted 5px right
+  to centre on the stock).
+- **States:** pressed deep orange + paper +; open is the navy ON colour
+  with a ×.
+- **Stills:** `R7-A1..A7`. Layer: `r7.inc.html`. Frames: `r7/`.

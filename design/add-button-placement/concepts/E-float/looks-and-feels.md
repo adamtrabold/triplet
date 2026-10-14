@@ -136,3 +136,14 @@ Raw frames: `r6/` (`measure.json`, all clash-clean). Layer:
   - `R6-F8-320-tag-3x.png`: Copenhagen, 1 row whole plus about half the
     next.
 - All clash-clean. Measurements in `r6/measure-r6b.json`.
+
+## Round 7: the + at the left (owner: "maybe the plus should be on the left? Easier for me to reach")
+- **The look is unchanged** (orange, 60px, a finer cut of the badge's
+  edge). Scaled about its lower-LEFT ink corner, so the ink is 19.9 from
+  the side and from the list, on the row icons' line.
+- **The map credit** goes back to the bottom-right. "Leaflet |" is kept
+  at a map width of 338px or more and dropped below.
+- **Adding:** the × rides down at the left. ADD LOCATION sits beside it
+  from the ×'s ink + 12 (82.5) to the form's right edge (374), on the same
+  centre line.
+- **Stills:** `R7-F1..F6`. Frames and measurements are in `r7/`.

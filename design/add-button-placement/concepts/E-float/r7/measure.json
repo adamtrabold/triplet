@@ -1,0 +1,499 @@
+{
+ "fr-rest": {
+  "obj": [
+   314.8,
+   468.8,
+   374.8,
+   528.8
+  ],
+  "ink": [
+   319.5,
+   473.5,
+   370.1,
+   524.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 544,
+  "credit": [
+   0,
+   527.2,
+   186.1,
+   544
+  ],
+  "creditText": "© OpenStreetMap contributors",
+  "submit": "hidden",
+  "collapseBtn": [
+   16,
+   558,
+   44,
+   586
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   562,
+   368,
+   582
+  ],
+  "rows": 4,
+  "errs": [],
+  "clash": []
+ },
+ "fr-rest-1x": {
+  "obj": [
+   314.8,
+   468.8,
+   374.8,
+   528.8
+  ],
+  "ink": [
+   319.5,
+   473.5,
+   370.1,
+   524.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 544,
+  "credit": [
+   0,
+   527.2,
+   186.1,
+   544
+  ],
+  "creditText": "© OpenStreetMap contributors",
+  "submit": "hidden",
+  "collapseBtn": [
+   16,
+   558,
+   44,
+   586
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   562,
+   368,
+   582
+  ],
+  "rows": 4,
+  "errs": [],
+  "clash": []
+ },
+ "fl-rest": {
+  "obj": [
+   15.2,
+   468.8,
+   75.2,
+   528.8
+  ],
+  "ink": [
+   19.9,
+   473.5,
+   70.5,
+   524.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 544,
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "creditText": " Leaflet | © OpenStreetMap contributors",
+  "submit": "hidden",
+  "collapseBtn": [
+   16,
+   558,
+   44,
+   586
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   562,
+   368,
+   582
+  ],
+  "rows": 4,
+  "errs": [],
+  "clash": []
+ },
+ "fl-rest-1x": {
+  "obj": [
+   15.2,
+   468.8,
+   75.2,
+   528.8
+  ],
+  "ink": [
+   19.9,
+   473.5,
+   70.5,
+   524.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 544,
+  "credit": [
+   138.9,
+   527.2,
+   390,
+   544
+  ],
+  "creditText": " Leaflet | © OpenStreetMap contributors",
+  "submit": "hidden",
+  "collapseBtn": [
+   16,
+   558,
+   44,
+   586
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   562,
+   368,
+   582
+  ],
+  "rows": 4,
+  "errs": [],
+  "clash": []
+ },
+ "fl-tag664": {
+  "obj": [
+   15.2,
+   362.8,
+   75.2,
+   422.8
+  ],
+  "ink": [
+   19.9,
+   367.5,
+   70.5,
+   418.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": [
+   37,
+   142,
+   353,
+   346
+  ],
+  "sheetTop": 438,
+  "credit": [
+   138.9,
+   421.2,
+   390,
+   438
+  ],
+  "creditText": " Leaflet | © OpenStreetMap contributors",
+  "submit": "hidden",
+  "collapseBtn": [
+   16,
+   452,
+   44,
+   480
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   456,
+   368,
+   476
+  ],
+  "rows": 3,
+  "errs": [],
+  "clash": []
+ },
+ "fl-form844": {
+  "obj": [
+   15.2,
+   708.8,
+   75.2,
+   768.8
+  ],
+  "ink": [
+   19.9,
+   713.5,
+   70.5,
+   764.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 784,
+  "credit": [
+   138.9,
+   308.2,
+   390,
+   325
+  ],
+  "creditText": " Leaflet | © OpenStreetMap contributors",
+  "submit": [
+   82.5,
+   716.8,
+   374,
+   760.8
+  ],
+  "collapseBtn": [
+   16,
+   798,
+   44,
+   826
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   802,
+   368,
+   822
+  ],
+  "rows": 21,
+  "errs": [],
+  "clash": []
+ },
+ "fl-collapsed": {
+  "obj": [
+   15.2,
+   674.8,
+   75.2,
+   734.8
+  ],
+  "ink": [
+   19.9,
+   679.5,
+   70.5,
+   730.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   57,
+   44,
+   121
+  ],
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 750,
+  "credit": [
+   138.9,
+   733.2,
+   390,
+   750
+  ],
+  "creditText": " Leaflet | © OpenStreetMap contributors",
+  "submit": "hidden",
+  "collapseBtn": [
+   16,
+   764,
+   44,
+   792
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   768,
+   368,
+   788
+  ],
+  "rows": 21,
+  "errs": [],
+  "clash": []
+ },
+ "fl-tag320": {
+  "obj": [
+   15.2,
+   348.8,
+   75.2,
+   408.8
+  ],
+  "ink": [
+   19.9,
+   353.5,
+   70.5,
+   404.1
+  ],
+  "acct": [
+   254,
+   16,
+   304,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": [
+   16,
+   142,
+   304,
+   334
+  ],
+  "sheetTop": 424,
+  "credit": [
+   133.9,
+   407.2,
+   320,
+   424
+  ],
+  "creditText": "© OpenStreetMap contributors",
+  "submit": "hidden",
+  "collapseBtn": [
+   16,
+   438,
+   44,
+   466
+  ],
+  "title": "Copenhagen list (23)",
+  "locate": [
+   278,
+   442,
+   298,
+   462
+  ],
+  "rows": 1,
+  "errs": [],
+  "clash": []
+ },
+ "fl-form844-1x": {
+  "obj": [
+   15.2,
+   708.8,
+   75.2,
+   768.8
+  ],
+  "ink": [
+   19.9,
+   713.5,
+   70.5,
+   764.1
+  ],
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "zoom": [
+   10,
+   10,
+   44,
+   74
+  ],
+  "tagGap": 88,
+  "tag": null,
+  "sheetTop": 784,
+  "credit": [
+   138.9,
+   308.2,
+   390,
+   325
+  ],
+  "creditText": " Leaflet | © OpenStreetMap contributors",
+  "submit": [
+   82.5,
+   716.8,
+   374,
+   760.8
+  ],
+  "collapseBtn": [
+   16,
+   798,
+   44,
+   826
+  ],
+  "title": "Reykjavík list (23)",
+  "locate": [
+   348,
+   802,
+   368,
+   822
+  ],
+  "rows": 21,
+  "errs": [],
+  "clash": []
+ }
+}

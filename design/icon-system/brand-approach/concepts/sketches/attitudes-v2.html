@@ -1,0 +1,172 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<title>Icon attitudes v2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<style>
+:root{--paper:#F2EBDD;--raised:#FAF5EA;--hair:#D8CEBA;--ink:#1A1A18;--ink2:#5A564C;--navy:#12293F;--or:#EE7434;--ord:#A8400C;--cafe:#6E4C22;--rest:#7A2436;--dist:#328177}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Archivo,Arial,sans-serif;width:390px;padding:16px}
+h1{font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 4px;color:var(--navy)}
+.lede{font-size:12px;color:var(--ink2);margin:0 0 14px;line-height:1.35}
+.card{background:var(--raised);border:1px solid var(--hair);margin:0 0 16px;padding:12px}
+.card h2{font-size:15px;margin:0;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.card .att{font-size:12.5px;margin:3px 0 10px;line-height:1.32;color:var(--ink)}
+.sec{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:10px 0 4px}
+.strip{display:flex;align-items:center;gap:13px}
+.strip svg{width:24px;height:24px;flex:none}
+.strip.s12{gap:15px}.strip.s12 svg{width:12px;height:12px}
+.lab{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);width:34px;flex:none}
+.copy{filter:url(#thr)}
+.row{display:flex;align-items:center;gap:10px;height:56px;background:#E7DFD0;margin:0 -12px;padding:0 12px}
+.row.sel{background:var(--navy);color:var(--paper)}
+.badge{width:24px;height:24px;flex:none;border-radius:50%;border:2px solid;background:var(--paper);display:grid;place-items:center}
+.badge svg{width:16px;height:16px;display:block}
+.row.sel .badge{background:var(--navy);border-color:var(--paper)}
+.nm{font-size:16px;font-weight:600;line-height:1.15;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm small{display:block;font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.75}
+.rstar{width:18px;height:18px;flex:none}
+.stamp{width:72px;flex:none}
+.x{width:14px;height:14px;flex:none;display:block}
+.stub{display:flex;background:var(--raised);border-top:1.5px dashed var(--hair);margin:0 -12px;height:74px;border-bottom:1px solid var(--hair)}
+.seg{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--ink)}
+.seg+.seg{border-left:1.5px dashed var(--hair)}
+.seg svg{width:20px;height:20px}
+.seg img{width:86px}
+.map{position:relative;height:150px;margin:0 -12px;overflow:hidden}
+.map>svg.tiles{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:2px solid;width:24px;height:24px}
+.pin svg{width:17px;height:17px;display:block}
+.pin.sel{width:32px;height:32px;border-width:2.5px;border-color:var(--paper);box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.18)}
+.pin.sel svg{width:22px;height:22px}
+.clu{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--ord);border:2px solid var(--paper);color:var(--paper);font-size:10px;font-weight:700;display:grid;place-items:center}
+.notes{font-size:11.5px;line-height:1.35;margin:10px 0 0;padding:0;list-style:none}
+.notes li{margin:0 0 4px;display:grid;grid-template-columns:64px 1fr;align-items:baseline}.notes b{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.tt{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--navy);display:flex;align-items:center;gap:5px;margin-top:8px;padding:6px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.tt svg{width:13px;height:13px;flex:none}
+.drop{background:transparent;border:1px dashed var(--hair)}
+.drow{display:flex;gap:10px;align-items:center;font-size:11.5px;line-height:1.3;margin:6px 0}
+.drow svg{width:24px;height:24px;flex:none}
+.drow b{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+</style></head><body>
+<h1>Icon attitudes: sketches, round 2</h1>
+<p class="lede">Each card shows the same icons in one attitude: cafe, restaurant, district, star off, star on, filters, close, add, directions. They sit in a list row, the selected row, the tag's bottom strip and on the map. The visited stamp is the real one and never changes. These sketch an attitude; they aren't final drawings.</p>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<filter id="thr" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="discrete" tableValues="0 0 1"/><feFuncG type="discrete" tableValues="0 0 1"/><feFuncB type="discrete" tableValues="0 0 1"/></feComponentTransfer></filter>
+<filter id="lino"><feTurbulence baseFrequency=".35" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter>
+</defs>
+<symbol id="star" viewBox="0 0 24 24"><path d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
+
+<!-- TODAY (copied from index.html) -->
+<symbol id="t-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h13v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V4z"/><path fill="currentColor" d="M17 6h2a3 3 0 0 1 0 6h-2V6z"/><path fill="currentColor" d="M2 19h16v2H2z"/></symbol>
+<symbol id="t-rest" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h2v7h1V2h2v7h1V2h2v8a3 3 0 0 1-2 2.83V22h-4v-9.17A3 3 0 0 1 6 10V2z"/></symbol>
+<symbol id="t-dist" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/></symbol>
+<symbol id="t-staro" viewBox="0 0 24 24"><use href="#star" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="t-staron" viewBox="0 0 24 24"><use href="#star" fill="currentColor"/></symbol>
+<symbol id="t-filt" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></g><g fill="currentColor"><circle cx="8" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="12" cy="18" r="2"/></g></symbol>
+<symbol id="t-x" viewBox="0 0 24 24"><text x="12" y="18" text-anchor="middle" font-size="20" font-family="Arial" fill="currentColor">&#215;</text></symbol>
+<symbol id="t-plus" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></g></symbol>
+<symbol id="t-dir" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/></symbol>
+
+<!-- FIELD GUIDE: places = filled specimens, one meaningful detail each; tools = the key, type weight 1.8, round ends ~ the specimens' corner radius -->
+<symbol id="f-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 8.5h13v4a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6z"/><path fill="currentColor" d="M16.6 9.5h1a3.2 3.2 0 0 1 0 6.4h-1.9v-2h1.9a1.2 1.2 0 0 0 0-2.4h-1z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9.5 6.3c-1.5-1.4 1.5-2.3 0-4.1"/><rect x="2" y="20" width="15" height="2" rx=".9" fill="currentColor"/></symbol>
+<symbol id="f-rest" viewBox="0 0 24 24"><g fill="currentColor"><rect x="4.6" y="2" width="1.7" height="7" rx=".8"/><rect x="7.6" y="2" width="1.7" height="7" rx=".8"/><rect x="10.6" y="2" width="1.7" height="7" rx=".8"/><path d="M4.6 7.6h7.7v1.3a3.4 3.4 0 0 1-2.6 3.3v9a.9.9 0 0 1-.9.9h-.7a.9.9 0 0 1-.9-.9v-9a3.4 3.4 0 0 1-2.6-3.3z"/><path d="M15.4 2.4c3.4.9 4.4 5.3 4.1 9.8h-1.9v9a.9.9 0 0 1-.9.9h-.4a.9.9 0 0 1-.9-.9z"/></g></symbol>
+<symbol id="f-dist" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M3.5 7L13 3l8 6.5-3 11.5-12.5-2.5z"/><path fill="none" style="stroke:var(--ko,#FAF5EA)" stroke-width="1.3" stroke-dasharray="2.1 1.5" d="M6.6 8.8L12.4 6.3 17.3 10.3 15.5 17.3 7.8 15.8z"/></symbol>
+<symbol id="f-staron" viewBox="0 0 24 24"><use href="#star" fill="currentColor"/></symbol>
+<symbol id="f-staro" viewBox="0 0 24 24"><use href="#star" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" transform="translate(1.2 1.2) scale(.9)"/></symbol>
+<symbol id="f-filt" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></g><g style="fill:var(--ko,#FAF5EA)" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="6" r="2.2"/><circle cx="16" cy="12" r="2.2"/><circle cx="12" cy="18" r="2.2"/></g></symbol>
+<symbol id="f-x" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></g></symbol>
+<symbol id="f-plus" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></g></symbol>
+<symbol id="f-dir" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" r="8.6"/><path fill="currentColor" stroke="currentColor" stroke-width=".8" stroke-linejoin="round" d="M15.6 8.4L13.2 13.2 8.4 15.6 10.8 10.8z"/></symbol>
+
+<!-- CUT PAPER: scissor-cut pieces, off-true in the drawing, clean edges. Off = the dotted "cut here" line in tool ink -->
+<symbol id="c-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3.3 5.6L17 4.7C16.9 10.4 15.6 15.6 10 15.9C4.9 16.1 3.6 11.2 3.3 5.6Z"/><path fill="currentColor" d="M16.7 6.6C21.4 6 22.2 12.4 15.6 13.2L16 11.3C19.2 10.9 19.1 8.1 16.5 8.5Z"/><path fill="currentColor" d="M2.2 19.3C7.2 17.9 13.3 18 18.8 19.4C13.2 21.3 7.3 21.2 2.2 19.3Z"/></symbol>
+<symbol id="c-rest" viewBox="0 0 24 24"><g fill="currentColor"><path d="M4.8 2.5L6.2 2.4 6.4 7.2 7.3 7.2 7.3 2.4 8.7 2.4 8.8 7.2 9.7 7.2 9.8 2.5 11.2 2.6C11.4 6.4 10.8 9.4 8.9 10.3L9.3 21.5 7.4 21.6 7.6 10.3C5.4 9.3 4.7 6.4 4.8 2.5Z"/><path d="M15.2 2.4C18.8 3.6 19.6 8.8 18.6 12.6L17.3 12.7 17.5 21.5 15.6 21.4Z"/></g></symbol>
+<symbol id="c-dist" viewBox="0 0 24 24"><path fill="currentColor" d="M3.5 6.6L13.9 3 21 9.1 18.1 21 4.8 18.2C5.2 14.2 4.3 10.4 3.5 6.6Z"/><path fill="none" style="stroke:var(--ko,#FAF5EA)" stroke-width="1.7" d="M9.3 3.9L11.4 21M3.4 12.9C9 12.6 14.6 13.4 21.5 14.4"/></symbol>
+<symbol id="c-staron" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.1" d="M12.3 2.1L14.8 8.5L21.7 9.1L16.3 13.6L18.4 21.1L12 16.9L5.5 21.3L7.6 13.8L2.2 9.2L9.3 8.4Z"/></symbol>
+<symbol id="c-staro" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.7" stroke-dasharray=".1 2.6" d="M12.3 2.1L14.8 8.5L21.7 9.1L16.3 13.6L18.4 21.1L12 16.9L5.5 21.3L7.6 13.8L2.2 9.2L9.3 8.4Z"/></symbol>
+<symbol id="c-filt" viewBox="0 0 24 24"><g fill="currentColor"><path d="M3 5.4L21 5.8 21 7.6 3 7.2Z"/><path d="M3 11.6L21 11.1 21 12.9 3 13.4Z"/><path d="M3 17.6L21 17.9 21 19.7 3 19.4Z"/><circle cx="8" cy="6.4" r="2.9"/><circle cx="16.2" cy="12" r="2.9"/><circle cx="11.5" cy="18.6" r="2.9"/></g></symbol>
+<symbol id="c-x" viewBox="0 0 24 24"><g fill="currentColor"><path d="M4.6 3.2L20.9 18.9 18.9 20.9 3.1 5.1Z"/><path d="M19.4 3.4L21 5.2 5 21 3.2 19.1Z"/></g></symbol>
+<symbol id="c-plus" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10.5 3.3L13.6 3.6 13.3 20.8 10.7 20.5Z"/><path d="M3.4 10.6L20.7 10.3 20.6 13.2 3.2 13.5Z"/></g></symbol>
+<symbol id="c-dir" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 3.2C17.2 3 21 7 20.8 12.2C20.6 17.1 16.8 20.9 11.8 20.8C6.9 20.6 3.1 16.8 3.2 11.9C3.3 6.9 7.1 3.3 12 3.2ZM12 5.1C8.2 5.2 5.2 8.1 5.1 11.9C5.1 15.8 8.1 18.9 11.9 18.9C15.8 19 18.9 15.9 18.9 12.1C19 8.2 15.8 5 12 5.1Z"/><path fill="currentColor" d="M16.4 7.4L13.4 13.5 7.5 16.7 10.5 10.5Z"/></symbol>
+
+<!-- TIMETABLE SORTS: every icon a character of the face: one stroke (2), flat cut ends, mitred corners, sits on cap height/baseline -->
+<symbol id="s-cafe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter"><path d="M4 6.5h11v6a4.5 4.5 0 0 1-4.5 4.5h-2A4.5 4.5 0 0 1 4 12.5z"/><path d="M15 8.5h1.6a2.6 2.6 0 0 1 0 5.2H15"/><path d="M2.5 20.5h14"/></g></symbol>
+<symbol id="s-rest" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M5.5 3v5.5a2.75 2.75 0 0 0 5.5 0V3M8.25 3v18"/><path d="M18 21V3"/></g><path fill="currentColor" d="M19 2.6C15.6 3.8 14.2 8 14.2 13H19z"/></symbol>
+<symbol id="s-dist" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter"><path d="M3.5 7.5L13 3.6l7.5 6-2.8 11L5.2 18.2z"/><path d="M4.4 13.4C9.5 11 13.8 15.6 19.6 12.6"/></g></symbol>
+<symbol id="s-staro" viewBox="0 0 24 24"><path id="sp" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="10" d=""/></symbol>
+<symbol id="s-staron" viewBox="0 0 24 24"><path id="sp2" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="10" d=""/></symbol>
+<symbol id="s-filt" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2"><path d="M3.5 6h17M3.5 12h17M3.5 18h17M8 3v6M16 9v6M12 15v6"/></g></symbol>
+<symbol id="s-x" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></g></symbol>
+<symbol id="s-plus" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2"><path d="M12 4.5v15M4.5 12h15"/></g></symbol>
+<symbol id="s-dir" viewBox="0 0 24 24"><circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="8.5"/><path fill="currentColor" d="M15.8 8.2L13.3 13.3 8.2 15.8 10.7 10.7z"/></symbol>
+
+<!-- DROPPED samples -->
+<symbol id="d-cafe" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" d="M4.5 5.5h10.5v5.5a4 4 0 0 1-4 4H8.5a4 4 0 0 1-4-4z"/><path fill="none" stroke="currentColor" stroke-width="3" d="M16 7.5h2.2l1.8 1.8v1.4l-1.8 1.8H16"/><path fill="currentColor" d="M2.5 18.8h15l-1.6 2.4H4.1z"/></symbol>
+<symbol id="b-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h13v6a6.5 6.5 0 0 1-13 0z"/><path fill="currentColor" fill-rule="evenodd" d="M17.5 5.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 1 1 0-7zm0 2a1.5 1.5 0 1 0 0 3a1.5 1.5 0 1 0 0-3z"/><rect x="2" y="19" width="16" height="2.6" fill="currentColor"/></symbol>
+</svg>
+
+<div id="out"></div>
+
+<script>
+// Timetable star: sharp 5-point sort
+(function(){const cx=12,cy=12.8,R=9.6,r=3.9;let d='';for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r:R;d+=(i?'L':'M')+(cx+rr*Math.cos(a)).toFixed(2)+' '+(cy+rr*Math.sin(a)).toFixed(2)}d+='Z';
+ const s=d.replace(/(\d+\.\d+) (\d+\.\d+)/g,(m,x,y)=>((+x-12)*.86+12).toFixed(2)+' '+((+y-12.8)*.86+12.8).toFixed(2));
+ document.getElementById('sp').setAttribute('d',s);document.getElementById('sp2').setAttribute('d',s);})();
+
+const u=(id,col,extra='')=>`<svg viewBox="0 0 24 24" style="color:${col};${extra}"><use href="#${id}"/></svg>`;
+const C=[
+ {p:'t',name:'Today (for reference)',att:'Places are filled shapes, tools are 2px lines, and the close button is a typed ×. Two drawing languages.',
+  tool:'var(--navy)',key:'var(--navy)',offc:'var(--ink)',
+  notes:[['Says','A capable standard set, nothing to do with labels, posters or ink.'],['Shows','District is a dashed box; the off star is a thin outline beside a solid one.']]},
+ {p:'f',name:'Field Guide',att:'Places are drawn with care, like the plates in a field guide. Tools are quiet, like the small print beside them.',
+  tool:'var(--ink2)',key:'var(--ink2)',offc:'var(--ink2)',
+  notes:[['Says','The places are the treasure; the app gets out of the way.'],['Risks','The two weights could read as two styles. The tools might feel too faint on the busy map buttons.'],['Choosing','A calm app where places and your own marks carry all the character.']]},
+ {p:'c',name:'Cut Paper',att:'Every icon is a piece cut from paper with scissors, a little off true, with clean edges. "Not starred yet" is the dotted cut-here line.',
+  tool:'var(--navy)',key:'var(--navy)',offc:'var(--navy)',
+  notes:[['Says','Handmade and playful; the most "ours".'],['Risks','Off-true can tip into sloppy. The dotted line is a dotted mark, so it must stay sparse.'],['Choosing','The most whimsy, with the craft in each shape.']]},
+ {p:'s',name:'Timetable Sorts',att:'Every icon is a character of Triplet’s own typeface, like the cup and the knife and fork in an old ferry timetable.',
+  tool:'var(--navy)',key:'var(--navy)',offc:'var(--navy)',tt:true,
+  notes:[['Says','Precise and printed; icons and words speak in one voice.'],['Risks','The thinnest on map tiles. It must be cut for this typeface, or it’s a generic line set.'],['Choosing','Icons that read as part of the words.']]},
+];
+const set=(c,sz)=>[u(c.p+'-cafe','var(--cafe)'),u(c.p+'-rest','var(--rest)'),u(c.p+'-dist','var(--dist)'),u(c.p+'-staro',c.offc),u(c.p+'-staron','var(--or)'),u(c.p+'-filt',c.tool),u(c.p+'-x',c.tool),u(c.p+'-plus',c.tool),u(c.p+'-dir',c.tool)].join('');
+const tiles=`<svg class="tiles" viewBox="0 0 366 150" preserveAspectRatio="none">
+ <rect width="366" height="150" fill="#F2EFE9"/>
+ <path d="M250 0h116v70c-30 10-60 4-84-14C266 44 254 24 250 0z" fill="#AAD3DF"/>
+ <path d="M0 96c40-6 70 6 92 30v24H0z" fill="#CDEBB0"/>
+ <g fill="#D9D0C9"><rect x="20" y="12" width="34" height="22"/><rect x="62" y="10" width="26" height="30"/><rect x="128" y="18" width="40" height="20"/><rect x="190" y="70" width="30" height="26"/><rect x="230" y="96" width="44" height="22"/><rect x="120" y="96" width="34" height="26"/><rect x="300" y="100" width="40" height="30"/></g>
+ <g fill="none" stroke-linecap="round"><path d="M0 52C90 46 170 60 366 88" stroke="#E0D9CF" stroke-width="11"/><path d="M0 52C90 46 170 60 366 88" stroke="#fff" stroke-width="8"/><path d="M104 0C110 50 100 100 112 150" stroke="#E0D9CF" stroke-width="8"/><path d="M104 0C110 50 100 100 112 150" stroke="#fff" stroke-width="5.5"/><path d="M176 150C180 110 200 80 238 60" stroke="#E0D9CF" stroke-width="7"/><path d="M176 150C180 110 200 80 238 60" stroke="#fff" stroke-width="4.5"/></g>
+</svg>`;
+const pin=(id,col,x,y)=>`<div class="pin" style="left:${x}px;top:${y}px;border-color:${col}"><svg viewBox="0 0 24 24" style="color:${col};--ko:var(--paper)"><use href="#${id}"/></svg></div>`;
+const spin=(id,col,x,y)=>`<div class="pin sel" style="left:${x}px;top:${y}px;background:${col}"><svg viewBox="0 0 24 24" style="color:var(--paper);--ko:${col}"><use href="#${id}"/></svg></div>`;
+const card=c=>`<div class="card">
+ <h2>${c.name}</h2><p class="att">${c.att}</p>
+ <div class="strip">${set(c)}</div>
+ ${c.tt?`<div class="tt">REYKJAVÍK ${u('s-cafe','var(--cafe)')} 08:15 <span style="opacity:.5">·</span> HÚSAVÍK ${u('s-rest','var(--rest)')} 13:40 ${u('s-staron','var(--or)')}</div>`:''}
+ <div class="sec">List rows: plain and selected</div>
+ <div class="row"><div class="badge" style="border-color:var(--cafe)"><svg viewBox="0 0 24 24" style="color:var(--cafe);--ko:var(--paper)"><use href="#${c.p}-cafe"/></svg></div>
+  <div class="nm">Café Loki<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp.png" alt=""><svg class="x" viewBox="0 0 24 24" style="color:var(--ink2)"><use href="#${c.p}-x"/></svg></div>
+ <div class="row sel"><div class="badge"><svg viewBox="0 0 24 24" style="color:var(--paper);--ko:var(--navy)"><use href="#${c.p}-cafe"/></svg></div>
+  <svg class="rstar" viewBox="0 0 24 24" style="color:var(--or)"><use href="#${c.p}-staron"/></svg>
+  <div class="nm">Brauð &amp; Co<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp-selected.png" alt=""><svg class="x" viewBox="0 0 24 24" style="color:var(--paper);opacity:.8"><use href="#${c.p}-x"/></svg></div>
+ <div class="sec">Tag, bottom strip</div>
+ <div class="stub"><div class="seg">${u(c.p+'-dir',c.key)}DIRECTIONS</div><div class="seg">${u(c.p+'-staro',c.offc)}STAR</div><div class="seg"><img src="ref-tag-stamp.png" alt=""></div></div>
+ <div class="sec">Map</div>
+ <div class="map">${tiles}${pin(c.p+'-cafe','var(--cafe)',40,24)}${pin(c.p+'-rest','var(--rest)',150,62)}${spin(c.p+'-rest','var(--rest)',214,16)}${pin(c.p+'-cafe','var(--cafe)',300,72)}<div class="clu" style="left:62px;top:96px">4</div>${pin(c.p+'-rest','var(--rest)',250,108)}</div>
+ <div class="sec">12px, then photocopied to one ink</div>
+ <div class="strip s12"><span class="lab">12px</span>${set(c)}</div>
+ <div class="strip s12 copy" style="margin-top:6px"><span class="lab">1-bit</span>${set(c)}</div>
+ <ul class="notes">${c.notes.map(n=>`<li><b>${n[0]}</b>${n[1]}</li>`).join('')}</ul>
+</div>`;
+// scallop for badge sample
+let sc='';for(let i=0;i<=72;i++){const a=i/72*2*Math.PI,r=10.6+0.9*Math.cos(a*12);sc+=(i?'L':'M')+(12+r*Math.cos(a)).toFixed(2)+' '+(12+r*Math.sin(a)).toFixed(2)}
+const drop=`<div class="card drop"><h2 style="font-size:13px">Dropped (say if you want any back)</h2>
+ <div class="drow">${u('d-cafe','var(--cafe)')}<div><b>Same Die</b>Drawn with the visited check's bar. It's the heaviest option, so it's kept as the starting point for the grid, not as a look.</div></div>
+ <div class="drow">${u('b-cafe','var(--cafe)')}<div><b>Spot pictogram</b>Flat geometric shapes. Folded into Cut Paper; on its own the tools turned into barcodes.</div></div>
+ <div class="drow"><svg viewBox="0 0 24 24"><path d="${sc}Z" fill="var(--cafe)"/><g transform="translate(6 6) scale(.5)" style="color:var(--paper)"><use href="#t-cafe"/></g></svg><div><b>Badge</b>Each icon is an emblem. Containers add ink; round vs diamond already says the family.</div></div>
+ <div class="drow"><svg viewBox="0 0 24 24"><rect x="1" y="6" width="22" height="12" rx="1.5" fill="none" stroke="var(--cafe)" stroke-width="1.5"/><text x="12" y="15.2" text-anchor="middle" font-size="8.5" font-weight="700" font-family="Archivo" fill="var(--cafe)">CAF</text></svg><div><b>Code</b>Letters instead of icons. You asked to keep the icon.</div></div>
+ <div class="drow"><svg viewBox="0 0 24 24" style="color:var(--cafe)"><g filter="url(#lino)"><use href="#t-cafe"/></g></svg><div><b>Linocut</b>Carved, wobbly edges. At 12px wobble looks like a rendering bug.</div></div>
+</div>`;
+document.getElementById('out').innerHTML=C.map(card).join('')+drop;
+</script>
+</body></html>

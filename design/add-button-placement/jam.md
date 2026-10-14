@@ -2672,3 +2672,65 @@ NEXT: product designer (visual focus) -- shoot the Float-left owner stills
 (form line A, the conditional prefix) and mock A's Hanging Tag cut at owner
 fidelity, the eyelet and the dot, filter and starred-orange reads answered
 in the 1x crops; then I score both in one pass.
+
+---
+
+## Turn 28 -- product designer (visual focus): round 7 stills (Float at the left, A as the tag cut)
+
+Built on copies of today's main by `concepts/r7-stills.js`, using systems'
+r7 patches plus the turn-27 rulings. Composed by `concepts/compose-r7.js`.
+Every frame passes `chrome-check` plus the + object check (credit, tag,
+zoom, account, submit, sheet, pins): see `E-float/r7/measure.json` and
+`stub/r7/measure.json`.
+
+### Float, bottom-left (60px orange, a finer cut of the badge's edge)
+- **Rest:** box 15.2,468.8 – 75.2,528.8. The ink is 19.9 from the side
+  and from the list, on the row icons' line.
+- **Credit:** back at the bottom-right, "Leaflet |" kept at 390, dropped
+  at 320.
+- **Adding:** Add runs 82.5–374, which is the ×'s ink (70.5) + 12, out to
+  374. Both are centred on y 738.8.
+- **The other states:** tag 664 (3 rows); collapsed (ink 19.9 above the
+  band); 320 tag (1 row whole plus about half the next).
+- **Stills:** `E-float/R7-F1` to `R7-F6`.
+- **1x reads (report, nothing fixed):**
+  - **× vs ▲:** the × (centre 45.2) sits right of the band's ▲ (about
+    x30), 15px off-axis, about 70px above it. At 1x the × reads as the
+    start of the Add row, not as a slip. The ▲ is small and far enough
+    below. Mild; no flag.
+  - **Two +s on the left:** the zoom's + is a white boxed segment at the
+    top and this one is an orange cut badge at the bottom. At 1x they
+    don't read as one control family.
+  - **Squint, with no shared line:** the orange + is clearly first and the
+    account second (`R7-F2`).
+
+### A, the Hanging Tag's cut in the list header
+- **Eyelet: dropped** (`R7-A3` shows all three):
+  - the two chamfers alone read as a tag;
+  - a hole reads as a dot beside locate's crosshair;
+  - a hole + patch reads as a little switch knob, a fourth control.
+- **Not a filter:** at 1x it's an object at the band's end, not a fourth
+  icon (`R7-A2`). It's 60x57, flush to the edge, orange, with a 28px +,
+  against the 24px navy line icons.
+- **Not "starred":**
+  - On a real tag "starred" is a cream tag with an orange band. This one
+    is all orange with a navy +, the same orange as ADD LOCATION.
+  - With a starred place's tag open there are two oranges on screen
+    (`R7-A5`, right), and the + is what keeps the header tag reading as
+    add. Honest, mild.
+- **The rhyme:** in `R7-A5` the open place tag's chamfers and the header
+  tag's are visibly the same cut.
+- **Hierarchy:** the open tag (316 wide) wins; the header tag is a small
+  object at the band's end.
+- **Stills:** `stub/R7-A1` to `R7-A7`:
+  - vs ticket;
+  - 1x + squint;
+  - eyelet alternatives;
+  - rest / pressed / open;
+  - tag open (a place and a starred place);
+  - adding;
+  - 320.
+
+NEXT: design director -- score Float-left and A's tag cut in one pass
+(1x and squint first: `R7-F2`, `R7-A2`, `R7-A3`). Rule on the two mild
+reads: the × vs ▲ offset, and two oranges with a starred tag open.

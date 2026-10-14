@@ -1,5 +1,31 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 7 (jam turn 28): Float at the left, A as the Hanging Tag cut
+- **Owner:** the badge is most interesting ("orange and bigger", but the +
+  "on the left? Easier for me to reach"). The tag shape in the header
+  "ties better to the view state". C is parked.
+- **Scripts:**
+  - `concepts/r7-stills.js` builds main copies with systems' r7 patches,
+    plus Add = the ×'s ink + 12 and the prefix dropped below 338px of map.
+    Writes `E-float/r7/`, `stub/r7/`.
+  - `concepts/compose-r7.js` writes `E-float/R7-F1..F6` and
+    `stub/R7-A1..A7`.
+- **A layer:** `stub/r7.inc.html` (`data-a="tag7"`,
+  `data-eye=none|hole|patch`).
+  - Pick: none (the chamfers only, 14px).
+  - The + is shifted 5px right to centre on the stock.
+- **Decisions:**
+  - Eyelet dropped: a hole is a dot, and a patch is a switch knob.
+  - Float-left alignment as systems measured.
+  - Form line A per the director.
+- **Reads (for the director):**
+  - × vs ▲ offset: mild, reads as the Add row's start.
+  - The two left +s don't read as one family.
+  - Squint: + first.
+  - A with a starred tag open shows two oranges; the + keeps it add.
+- **Gotcha:** the shared scratchpad's `sheet.py` was overwritten by
+  another agent. Mine is in `scratchpad/vis/crops.py` now.
+
 ## UPDATE 2026-10-13, round 6b re-shoot (director turn 24: C 9 conditional on dropping the band)
 - **The change:** C's resting tag has no band (`data-band="none"`).
   - Reason: on a real tag a band means starred, and this blank tag is
