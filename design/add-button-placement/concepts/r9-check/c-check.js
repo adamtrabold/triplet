@@ -6,7 +6,9 @@ const L = require('../lib-render.js'); const fs = require('fs'); const path = re
 const CON = path.join(__dirname, '..'), real = fs.readFileSync('/home/user/triplet/index.html', 'utf8'), rd = f => fs.readFileSync(path.join(CON, f), 'utf8');
 const PREFIX = `<script>(function () { const t = setInterval(() => { try { if (map && map.attributionControl) { if (map.getSize().x < 338) map.attributionControl.setPrefix(false); clearInterval(t); } } catch (e) {} }, 50); })();</script>`;
 const inj = (h, incs, attrs) => { const i = h.lastIndexOf('</body>'); return (h.slice(0, i) + incs.join('\n') + '\n' + h.slice(i)).replace('<html lang="en"', `<html lang="en" ${attrs}`); };
-const html = v => inj(real, [rd('blank-tag-form/blank.inc.html'), rd('C-pintag/c.inc.html'), PREFIX], `data-k="C" data-cpin="fill" data-cstub="${v}" data-cplus="tag"`);
+const VAR = process.env.CV ? JSON.parse(process.env.CV) : { pick: 'data-cpin="fill" data-cstub="third" data-cplus="tag"', quiet: 'data-cpin="fill" data-cstub="cream" data-cplus="tag"' };
+const html = v => inj(real, [rd('blank-tag-form/blank.inc.html'), rd('C-pintag/c.inc.html'), PREFIX], `data-k="C" ${VAR[v]}`);
+const TAG = process.env.TAG || '';
 const CAT = { re: 'restaurant', sh: 'shopping', ca: 'cafe', ar: 'area', at: 'attraction', ba: 'bar', na: 'nature', di: 'district' };
 const CITY = { co: 'copenhagen', la: 'la', ma: 'malmo', re: 'reykjavik', st: 'stockholm' };
 const rows = fs.readFileSync(path.join(CON, 'pass-a-check/real-pins.txt'), 'utf8').trim().split(';').map((s, i) => { const [c, la, ln, k] = s.trim().split(' ');
@@ -21,7 +23,7 @@ const MEAS = `(() => { const ov = (a, b, m = 0) => Math.min(a.right, b.right) - 
 (async () => {
   const b = await L.launch(); const out = { fit: {}, frames: {} };
   const tmp = v => { const f = path.join(__dirname, `_c-${v}.html`); fs.writeFileSync(f, html(v)); return f; };
-  const fPick = tmp('third'), fQuiet = tmp('cream');
+  const names = Object.keys(VAR), files = Object.fromEntries(names.map(n => [n, tmp(n)])); const fPick = files[names[0]];
   for (const vp of [[390, 844], [390, 664], [375, 667], [320, 568]]) {
     const { ctx, page } = await L.open(b, { html: fPick, vp, js: JS, dsf: 1 });
     for (const city of Object.values(CITY)) for (const col of [false, true]) {
@@ -33,16 +35,16 @@ const MEAS = `(() => { const ov = (a, b, m = 0) => Math.min(a.right, b.right) - 
     await ctx.close();
   }
   // squint frames, 390x844 @1x: opening fit (Reykjavik) and z14 at visual's CREST
-  for (const [f, v] of [[fPick, 'pick'], [fQuiet, 'quiet']]) for (const view of ['fit', 'z14']) {
+  for (const [v, f] of Object.entries(files)) for (const view of ['fit', 'z14']) {
     const { ctx, page } = await L.open(b, { html: f, vp: [390, 844], js: JS, dsf: 1 });
     await page.evaluate(() => setActiveCity('reykjavik')); await page.waitForTimeout(900);
     if (view === 'z14') { await page.evaluate(() => map.setView([64.1460, -21.9380], 14, { animate: false })); await page.waitForTimeout(900); }
-    await page.screenshot({ path: path.join(OUT, `${v}-${view}.png`) });
+    await page.screenshot({ path: path.join(OUT, `${TAG}${v}-${view}.png`) });
     out.frames[`${v}-${view}`] = await page.evaluate(MEAS);
     out.frames[`acct`] = await page.evaluate(() => { const r = document.getElementById('accountBtn').getBoundingClientRect(); return [r.left, r.top, r.right, r.bottom]; });
     await page.evaluate(() => document.getElementById('cp').classList.add('gone')); await page.waitForTimeout(100);
-    await page.screenshot({ path: path.join(OUT, `${v}-${view}-none.png`) });
+    await page.screenshot({ path: path.join(OUT, `${TAG}${v}-${view}-none.png`) });
     await ctx.close();
   }
-  fs.writeFileSync(path.join(__dirname, 'c-check.json'), JSON.stringify(out, null, 1)); [fPick, fQuiet].forEach(f => fs.unlinkSync(f)); await b.close();
+  fs.writeFileSync(path.join(__dirname, `${TAG}c-check.json`), JSON.stringify(out, null, 1)); Object.values(files).forEach(f => fs.unlinkSync(f)); await b.close();
 })();

@@ -1,3 +1,88 @@
+# C · Pin+tag: how it works (round 9b, supersedes round 9 below)
+
+## Round 9b (systems, 2026-10-14): the sideways pinned tag
+
+Visual's pick: `data-cform=side data-cpin=ring data-cplus=tag data-cps=4
+data-cw=144 data-cpd=40 data-crw=4`.
+- **The object:** a 144 × 75 tag lying across, with the app's ring pin
+  (40, orange ring, empty face) through its eyelet at the left end and a
+  navy + (46 / 8.5) between the pin and the upright stub. There's no
+  navy block.
+- **Measured:** `../r9-check/c-check.js` (now takes `CV` and `TAG`),
+  `mass.py b9-` and `deadzone.py`, on the real 202 pins with visual's own
+  layers.
+
+### Rank (job 2)
+
+| | Squint vs the account, σ4 / σ8 (fit and z14 alike) | Box (390x844, list up) |
+|---|---|---|
+| **Pick (side, ring pin 40)** | **1.23 / 1.15** | 19.9,449 – 163.9,524 (144 × 75) |
+| Also tried (R6 at 40: + on a filled pin, blank tag hanging) | 1.26 / 1.24 | 19.9,391 – 119.9,524 (100 × 133) |
+
+- Visual's estimate of about 1.2-1.3 was right. **The pick is just over
+  the bar at σ4 and just under it at σ8.** It's borderline on the metric.
+  The director judges the real-size look first.
+- Every gram of it is the + and the ring, with no added block. The also
+  tried scores a touch higher by a different route (the filled disc).
+
+### Footprint (job 4)
+
+- **Opening fit, 40 scenes:** 0 pins under, except **320 list up: Malmö 3
+  (+1 near), Stockholm 6 (+1 near)**. That's worse than round 9's 2 and 4:
+  the object is 144 wide.
+- **Street zoom (z14, random views, 390x664 list up):**
+  - Copenhagen 19%, Stockholm 22%, Malmö 26%, LA 7%;
+  - round 9's 100 × 125: 22 / 24 / 29 / 7;
+  - the Float: 11 / 12 / 15 / 3.
+  - **Slightly better than round 9, still about twice the Float.** The
+    cost line stands: "covers a place in about 1 street view in 4–5 in
+    the dense cities".
+- **The credit: the tag's right end sits over the credit's x, 3.2px
+  above its top,** at every width (the credit starts at x 139 / 124 /
+  134, and the tag runs to 163.9). It doesn't overlap, but at 3px the two
+  touch to the eye.
+  - (a) Raise C's foot from 20 to 26 above the list (6px of map). That
+    gives a 9.2 gap; it breaks the shared 20 foot with the Float rule.
+  - (b) Narrow the tag to 116 (ends at 136, clear of x 139 at 390, but
+    not at 375's 124).
+  - (c) Accept.
+  - **I lean (a):** the credit is a required mark, and "touching" is the
+    kind of seam the owner catches. Director's call.
+
+### Tap target, states, hand-off (the new shape)
+
+- **Hit area:** the whole 144 × 75 box, pin and tag as one button. The
+  bare corner above the tag's right end (the chamfers) is inside the box;
+  that's acceptable, since it's one object.
+- **Pressed:** the pin fills (the selected grammar), and the tag's paper
+  goes `--paper`.
+- **Tap:** the tag lifts off the pin and rises, rotating up to the
+  dock's tag (144 → 316 wide), as the blank form.
+  - The pin stays at its spot. While adding, the list is at its band, so
+    the rest spot rides to 509-584 at 664, **under the card** (317-581):
+    it's hidden, as the states table says.
+  - On ADD a pin goes into the card's eyelet on the place (T5). That is
+    the place's own pin arriving with the flight, not the button's pin
+    travelling. When the tag closes, the button is back at rest, whole.
+- **Exceptions, the other states and flows:** unchanged from round 9
+  (below). Hidden under a place's tag and under the filters (+1 tap
+  each).
+
+### Jobs re-check (round 9b)
+
+| Job | C 9b |
+|---|---|
+| 1 Reach | yes, with the 2 ruled exceptions; left side |
+| 2 Main action | **borderline**: 1.23 / 1.15 against the bar of 1.2; the director judges the look first |
+| 3 Know what you'll fill out | yes: the button *is* the finished thing (a tag pinned to a place) |
+| 4 Never in the way | yes, with costs: 320 list up Malmö 3 / Stockholm 6 at the opening fit; 19-26% of dense street views; **3.2px over the credit** (fix a) |
+| 5-17 | yes, via the form (40px rows and the credit, checked: form spec "Round 9b") |
+
+**No unsupported job.** Job 2 is a borderline number, and job 4 has a
+seam (the credit).
+
+---
+
 # C · Pin+tag: how it works (round 9)
 
 Systems, 2026-10-14. C is a trigger. The form is

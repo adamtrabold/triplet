@@ -1,5 +1,16 @@
 # The blank-tag form: how it works (shared by P, A and the Float frame)
 
+> **Round 9b, checked by systems (2026-10-14).** Visual's `raw/measure.json` of 13:20.
+> - **The credit is fixed:** visible in every card state (587-604 at 664, 491-508 at 320). Flag 1 below is closed.
+> - **Rows that hold a control are 40 tall** (address · city, TYPE); NOTES stays 32. The card at 664 is now **317-581 (264)**, ADD unchanged at 521-581, and the hanging point moves to (195, 273). At 320 it's 221-485; new city 285-581; failed 275-581; Float 248-512.
+> - **Hit areas with 40 rows:**
+>   - The × (309-353 × 357-401) against the city chip (234-337 × 408-433): a 44px chip hit overlaps the × by **2.5px** (was 10.5).
+>   - The city chip's 44 runs **5.5px** into NOTES' row (437-469).
+>   - TYPE (478-503) clears NOTES (0.5px) and the stub.
+>   - At 320 the × and the city chip overlap by 2.5px.
+>   - **Builder rule, which closes both: each control's hit area is its own row band.** The chips get the full 40 (close to 44); the × hit stops at the NAME row's foot. With that there's no overlap anywhere.
+> - **Results while typing and ADD:** the docked tag (74-390 at 664) and its stub (330-390, behind the keyboard) are unchanged.
+
 > **Round 9 (director turn 38), checked by systems on the real render (2026-10-14). This overrides everything below where they differ.** Numbers come from visual's `raw/measure.json` (stub data) plus `../r9-check/` (real pins).
 >
 > **The model:** the filled tag is a **card in the screen's frame**: docked on the keyboard while you type, then on the list's band. **The map doesn't move until ADD.** There's no pin or string while you fill it in, and the eyelet is empty. On **ADD** there's one flight: the map brings the place to the card's hanging point (x 195, y = card top − 44), the pin drops into the eyelet, and the ink-over runs. After that, round 8b's no-move shrink applies: the top comes down, the stub stays. Section 2's "Hanging" placement and the map pans in "Numbers" (the picked tag) are void.

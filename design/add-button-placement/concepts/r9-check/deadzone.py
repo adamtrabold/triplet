@@ -6,7 +6,7 @@ def px(lat, lng, z=14):
     s = 256 * 2 ** z; x = (lng + 180) / 360 * s; y = (1 - math.log(math.tan(math.radians(lat)) + 1 / math.cos(math.radians(lat))) / math.pi) / 2 * s
     return x, y
 W, H = 390, 364
-OBJ = {'C pin+tag 100x125': (19.9, H - 145, 119.9, H - 20), 'Float 60x60': (15.2, H - 80, 75.2, H - 20), 'P lifted 52x78 (ref)': (17.9, H - 94, 69.9, H - 16)}
+OBJ = {'C 9b side 144x75': (19.9, H - 95, 163.9, H - 20), 'C also-tried 100x133': (19.9, H - 153, 119.9, H - 20), 'C pin+tag 100x125': (19.9, H - 145, 119.9, H - 20), 'Float 60x60': (15.2, H - 80, 75.2, H - 20), 'P lifted 52x78 (ref)': (17.9, H - 94, 69.9, H - 16)}
 random.seed(7)
 for city in ['re', 'co', 'st', 'ma', 'la']:
     P = [px(float(a), float(b)) for c, a, b, k in pins if c == city]

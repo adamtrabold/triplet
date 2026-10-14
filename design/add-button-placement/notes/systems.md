@@ -553,3 +553,11 @@ result count at 664 with keyboard, and the docked-tag heights.
   2. The chip 44 hit areas overlap the tag's × (about 10x28) and run into NOTES' row (5.5 / 8.5). Rule: hit = own row band; or rows that hold a tappable at 40 (+16 on the card). I lean 40.
 - jobs.md: C replaces P; job 8 rewritten; job 16 answers-as-buttons; new **job 17** (everything tappable looks tappable, the owner's words). Flows: C, A eyelet empty, re-search, district, new city in the stub, desktop. The old version is in `notes/jobs-r8b.md`.
 - Files: `C-pintag/how-it-works.md` (new; coverage inside), the A round-9 section, the form spec's Round 9 note.
+
+## Round 9b (2026-10-14): C as a sideways pinned tag; 40px rows; the credit fixed
+- C pick (144x75, ring pin 40, + 46/8.5, no navy block): mass **1.23 / 1.15** (bar 1.2: borderline; the director judges the look first). Also tried (R6 at 40, + on a filled pin): 1.26 / 1.24, 100x133.
+- Footprint: opening fit 0 except 320 list up Malmö 3, Stockholm 6. z14 odds CPH 19 / STO 22 / MAL 26 / LA 7% (round 9: 22 / 24 / 29 / 7; Float 11 / 12 / 15 / 3).
+- **The tag's right end is 3.2px above the credit** at every width (it overlaps the credit's x). I lean raising the foot to 26 (gap 9.2). Director's call.
+- Form: the credit shows in every card state (fixed). 40 rows: card 317-581 at 664 (hanging point 195, 273). The chip/× overlap is down to 2.5px, chip vs NOTES 5.5. **Rule: hit area = own row band** (closes both).
+- Hand-off: the tag lifts off the pin and rotates up into the dock; the button's pin is hidden under the card while adding; the place's pin arrives with the ADD flight.
+- `r9-check/c-check.js` now takes `CV` (JSON name → attrs) and `TAG`; `mass.py [TAG]`.
