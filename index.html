@@ -2296,7 +2296,7 @@
        empty, so an error appearing moves nothing: the sheet is centred, and a line that arrived
        would lift every field and button by half its height. A message longer than a line (only the
        storage one, or anything at 320px) still grows it. */
-    #authModalContent #authError { color: var(--figure-deep); margin-top: var(--s4); min-height: 16px; }
+    #authModalContent #authError { color: var(--figure-deep); margin-top: var(--s4); min-height: 1lh; }
 
     /* Auth Status Indicator - Hidden, using account button instead */
     #authStatus {
@@ -3318,7 +3318,7 @@
       syncNeighborhoodLayers();
       if (view.tag == null || !rowItem(view.tag)) return;
       // The normal open path (openPopupOnArrival(), as a list tap): a pin opens only once it is solo
-      // (SOLO_MIN_ZOOM), a shape once its layer exists (its min zoom). Already there (the usual case:
+      // (at the saved zoom if it is solo there, else SOLO_MIN_ZOOM), a shape once its layer exists (its min zoom). Already there (the usual case:
       // the tag was open at this view) it opens at once; otherwise the map steps in, without animation.
       if (isShapeKey(view.tag)) {
         const sid = shapeIdOf(view.tag), nb = neighborhoodShapes.find(n => n.id === sid);
@@ -3330,7 +3330,18 @@
         const loc = locations.find(l => l.id === view.tag);
         if (!loc) return;
         const center = [loc.lat, loc.lng];
-        openPopupOnArrival(center, Math.max(map.getZoom(), SOLO_MIN_ZOOM),
+        // Land on the same spot: keep the saved zoom when the pin is on its own there (a tag can be
+        // open below SOLO_MIN_ZOOM on a pin with no neighbours); step in only when it could cluster.
+        // "On its own" must survive the tag's own pan: the cluster grid is pixel-aligned, so a pin that
+        // is solo in this exact view can join a neighbour's cell once the map moves. So: no other
+        // listed place within one cell (clusterCellPxForZoom()) on either axis, which no pan can merge.
+        const z = map.getZoom(), p = map.project(center, z), cell = clusterCellPxForZoom(z);
+        const solo = z >= SOLO_MIN_ZOOM || !visibleLocations().some(o => {
+          if (o.id === loc.id) return false;
+          const q = map.project([o.lat, o.lng], z);
+          return Math.abs(q.x - p.x) < cell && Math.abs(q.y - p.y) < cell;
+        });
+        openPopupOnArrival(center, solo ? map.getZoom() : SOLO_MIN_ZOOM,
           () => { const en = markersById.get(loc.id); return en && en.marker; },
           () => focusMap(center, { atLeast: SOLO_MIN_ZOOM }, { animate: false }));
       }
