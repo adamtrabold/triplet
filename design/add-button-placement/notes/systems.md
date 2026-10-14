@@ -468,3 +468,12 @@ question; J17/J18 shown in a still or asked; whether C's resting tag
 still fights "reads like a plus button".
 Next: visual designer's turn; then director steer; then measure P1's
 result count at 664 with keyboard, and the docked-tag heights.
+
+## Jam turn 33 (2026-10-14): survivors measured (pass-a-check/)
+- Real 202 pin positions from Supabase (MCP, names dropped) in `real-pins.txt`, injected over the stub.
+- V2 squint mass vs account: 32 = 0.6x, parity about 42, 48 = 1.35x, 52 = 1.6x (my floor). Peak contrast never beats navy. Sizes that win the squint read as a FAB, so shape must carry "pin". 0 pins under at 52, credit clear.
+- V3: full width is out (pins at 664 and 320; always on the credit). W ≤ 120 only. The credit must move at any width (2.9px at 390, hits at 375 with the prefix, at 320 without it).
+- V2/V3 both keep C's job-1 exceptions (tag open at ≤ 664: gap 84 / 116 or step aside; filters: close to add). Only A is exception-free.
+- Docked at 664 + keyboard 336: the account foot binds the tag top at 74; pin y 14-46; name 122-150; slip 158-320 = 162px. Today's rows are 56-57 → 2.9. Floor 3 needs the stub behind the keyboard AND (rows ≤ 52 OR name pad 36). 320: 142px → needs ≤ 47 rows. 844 HS: 5 rows.
+- Unsettled list (turn 33 §4): fresh blank vs step-aside; job-1 exceptions; what a shape inks into; TYPE pre-fill source; CITY folded into address; autofocus; VISITED in the insert; desktop; cancel with a pick.
+- Next: after visual turn 34 / director 35, write jobs.md (package jobs J7-J16 + flows), then the coverage per concept.

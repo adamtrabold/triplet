@@ -3288,3 +3288,218 @@ NEXT: product designer (systems focus) -- measure the two survivors
 (V2's size against the account, V3's footprint against pins/credit/320),
 the result slip's line count at 664, and where the docked pin + tag sit
 with the keyboard up, so visual can draw the journey to real numbers.
+
+## Turn 33 -- product designer (systems focus): the survivors measured, the docked journey in numbers
+
+Measured on a copy of **today's main** with the **real 202 pin positions**
+(read from Supabase via the MCP, names dropped) instead of the stub's
+grid, so "never covers a pin" is tested against the owner's actual trip.
+Everything is in `concepts/pass-a-check/`:
+- `probe.js`: every marker box per city × viewport × list up/collapsed,
+  credit boxes with and without "Leaflet |", V2 squint frames, and
+  result-row heights;
+- `footprints.py`: the V2 and V3 footprints against the pins and the
+  credit;
+- `squint.py`: blurred colour-mass, V2 against the account badge;
+- `geo.js`: the real tag's geometry with a tag open;
+- json outputs, `frames/v2-*.png` and `frames/v2-sizes-crop.png`.
+
+Placements assumed (from turns 31-32): bottom-left, ink 19.9 from the
+side (the Float's line), foot 20 above the list.
+
+### 1. V2 (the blank pin alone): the size that beats the account
+
+Squint mass = the colour difference the object adds once blurred (σ 4
+and 8 px), against the 50px navy account badge measured the same way.
+
+| V2 disc (+2px paper halo) | 32 (R6) | 40 | 44 | 48 | **52** | 56 | 60 |
+|---|---|---|---|---|---|---|---|
+| mass vs account (σ4 / σ8) | 0.60 / 0.58 | 0.94 / 0.92 | 1.13 / 1.11 | 1.35 / 1.33 | **1.59 / 1.56** | 1.84 / 1.81 | 2.12 / 2.09 |
+
+- **Parity is at about 42px.** R6's 32px pin was 0.6x the account,
+  which is exactly why the owner read it as "same weight … as account" or
+  below. **To clearly outrank, it needs at least 48 (1.35x); I'd call 52
+  (1.6x) the floor for "the main action".**
+- Peak contrast never beats the account (orange on cream 72-75 dE vs
+  navy's 77), so V2 can win on mass only, never on darkness. Orange vs
+  navy can't be fixed by size.
+- **The catch for visual and the director:** every size that wins the
+  squint (≥ 44) is 1.4-1.9x the selected pin (32) and 2-2.3x the normal
+  pin (24). The kill test is "a pin, not a FAB", and at 52 the disc
+  alone is a FAB (look at `frames/v2-sizes-crop.png`). **Size can't
+  satisfy both conditions; only shape can.** Something in the pin grammar
+  (a foot or point, ground contact) has to carry "pin" at a size no other
+  pin has.
+- Footprint at 52, real pins: **0 under and 0 within 6px**, in all 5
+  cities, at 844, 664, 375x667 and 320x568, list up and collapsed. The
+  credit is clear in every case, prefix kept (it's right-aligned and
+  starts at x 139 / 124 / 69). At street zoom any corner object can sit
+  on a place; panning frees it, as before.
+- **With a tag open:** at 664, 375 and 320 the tag lowers the list so
+  its foot is 52 above the list. V2-52's top sits 72 above the list, so
+  the two overlap (the tag spans x 37-353, V2 x 18-74). The options are
+  the same as C's and the Float's: step aside under a tag (C's ruling),
+  or `TAG_SHEET_GAP` 84 (20 + 52 + 12), which costs one row at 664 and
+  320. At 844 the gap is 198, so V2 clears.
+- **Filters open:** V2 sits under the panel, so the rule is "close
+  filters to add" (C's ruling).
+
+### 2. V3 (the pocket): footprint vs pins, credit and 320
+
+Variants: the visible tag crop is W wide × h tall at the left gutter, and
+the pin sits over the crop's centre at the real `TAG_HANG` (pin top 60
+above the tag top).
+
+| Variant | Pins under (+within 6px), list up | Credit hit (prefix / no prefix) |
+|---|---|---|
+| W 120, h 44 | 0 everywhere; 320 Stockholm +2 near | 844 / 664: clear by **2.9px**; 375: **hit** / clear; 320: **hit / hit** |
+| W 120, h 64 | 0; 320 Stockholm +3 near | same |
+| W 160, h 44 | 320: Malmö 1 (+2), Stockholm **4** | hit at every width with the prefix; 320 hits without it |
+| W full (316), h 44 | 664: Malmö 2, Stockholm 2; 320: up to 6 | **hit everywhere**, both ways |
+| W full, h 64 | 664: Malmö 4; 320: Copenhagen **5 (+12)** | hit everywhere |
+
+- **Full width is out:** it covers real pins at 664 and is always on the
+  credit. "Crop, don't shrink" only works if the crop is narrow, so **W ≤
+  120**: a pocket corner, not a pocket band. At 120 the chamfer, eyelet
+  and string survive (visual to confirm).
+- **The credit has to move for V3 at any width.** At 120 it's 2.9px from
+  the tag at 390 (touching to the eye), it hits at 375 with the prefix,
+  and at 320 it hits even without the prefix (credit x 134 against the
+  tag's 136). Simplest: the credit goes up to sit on the pin's level at
+  the right (it's right-aligned anyway). That is a placement decision, so
+  it's the director's call.
+- **V3 does not keep A's no-exception job 1, as visual hoped.** It rides
+  the list's top edge, the same as C:
+  - With a tag open at 664, 375 and 320 the tag's foot is 52 above the
+    list. V3-120-44's crop clears it by 8px, but **its pin and string
+    (60px above the crop) land on the tag's stub**, so it would need to
+    step aside or need a gap of 116.
+  - With filters open, the panel covers the list's top edge where the
+    pocket lives, so "close filters to add" applies.
+  - Both survivors carry C's two ruled exceptions; Float has the filters
+    exception (gap 88) and only A is exception-free. **Say it plainly to
+    the owner.**
+- Collapsed: both clear (0 pins, safe area fine).
+
+### 3. The docked journey at 664 with the keyboard up (the numbers to draw to)
+
+Measured from the real tag:
+- pin 32;
+- pin top → tag top 60 (`TAG_HANG` 44 + 16);
+- tag top → name top 48 (`.tag-in` padding);
+- name 28;
+- stub 60;
+- tag 316 wide, x 37-353 at 390.
+
+Today's result rows (`.autocomplete-item`, 12/16, padding 12) at the
+tag's 284px content width are **56-57px each** (real Nominatim names wrap
+to 2 lines). Search returns up to 10 (`limit: 10`), so the slip scrolls.
+
+Keyboard: C's drawn 336pt, so 328px of the page is visible at 664.
+
+- The binding limit at the top is **the account badge, not the pin**.
+  The tag spans x 37-353 and the badge x 266-316 (or 324-374 if + leaves
+  the corner). So **the tag's top can't go above y 74** (badge foot 66 +
+  8). That puts the pin at **y 14-46** on the tag's axis (x 179-211):
+  clear of zoom (x 10-44) and the account badge, with 14px of screen
+  above it. Rule 1 holds at no cost.
+- The stack is then:
+  - tag top 74;
+  - name 122-150;
+  - the slip from y 158 to the keyboard (320, with 8 clear).
+  - **That's 162px for results.**
+
+| Rows in the slip at 664 | 56px rows (today) | 52px rows (padding 10) | 44px rows (one line) |
+|---|---|---|---|
+| Stub hidden under the keyboard | **2 (2.9)**: below the floor | **3** (6 spare) | **3** (+0.7) |
+| Same, name pad 48 → 36 (no band on a blank tag) | **3** (174px, 6 spare) | 3 | 3-4 |
+| Stub showing above the keyboard | 1 | 1 | 2 |
+
+- **Floor 3 is met only if the stub drops behind the keyboard while you
+  type.** This is my answer to "may the slip overhang the tag's foot?":
+  the tag doesn't end at the keyboard; it runs on behind it, and its foot
+  (with the inactive ADD) is simply below the fold. When you pick, the
+  keyboard drops, the tag re-hangs on the place and the stub is there. It
+  also matches C's ruling of no inactive Add in view while typing.
+- **It also needs one of two things:**
+  - (a) rows at 52px or less (padding 10, or one-line rows with the name
+    in the tag's weight and the address truncated: visual's call);
+  - (b) the blank tag's name starting 36 below the tag's top instead of
+    48. The 48 exists to clear the 36px starred band, and a blank tag has
+    no band until STAR is tapped (STAR only matters after the pick, when
+    the keyboard is down).
+  - With neither, today's rows give 2.9, and I'd come back to the
+    director rather than drop to the band.
+- **320x568:** the keyboard is about 260, so 308px are visible. The tag
+  is x 16-304, so the account's foot still binds and the tag's top is 74.
+  The slip runs y 158-300 = 142px: **2 rows at 56, 3 at 44-47.** **The
+  floor of 3 needs (a) at 320 even with (b).**
+- **844, Home Screen (47 inset):** the tag's top is 121 (badge foot 113 +
+  8). The slip runs 205-500 = 295px, which is 5 rows. No issue.
+- **After the pick (keyboard down, 664):** C's numbers hold. The list
+  drops to its band and the blank tag (about 364 tall, 404 for a shape)
+  hangs from the pin with **ADD at y 515-559**. The pin sits 60 above the
+  tag's top, on the place. The tag is the real tag's width, so it covers
+  the same map area as a real tag.
+
+### 4. Still unsettled in jobs and flows (before I write jobs.md)
+
+1. **The fresh blank pin after Add (director's baggage exit) contradicts
+   the step-aside rule.** After Add the new place's tag is open, and
+   under a tag V2 and V3 are hidden (at 664 and below). So the fresh
+   blank can't "already be standing" while you look at the new tag; it
+   appears when the tag closes. Unless the director wants `TAG_SHEET_GAP`
+   84 (V2) or 116 (V3) on phones, which costs one row with a tag open. The
+   director has to pick one.
+2. **Job 1 has exceptions for both survivors** (tag open, filters open):
+   one extra tap each. A is the only exception-free trigger. This belongs
+   in the owner's cost line, not in small print.
+3. **What a district or street inks into.** "The pin is now a place"
+   breaks for shapes: the owner ruled that shapes have no map pin, just
+   the outline, with the tag hanging from the anchor dot. Proposed flow:
+   - the blank pin stands on the picked point while you fill the tag;
+   - on ADD (TRACE IT?) the pin dissolves into the outline;
+   - the tag re-hangs from the anchor dot.
+   - If OSM has no shape, it inks as the "(approx.)" pin, as today.
+   - Visual and the director should confirm.
+4. **Pre-filled TYPE is a new behaviour and needs a source.** Search
+   today returns no category mapping, and the select's default is
+   Restaurant (its first option), so a "pre-filled in pencil" TYPE would
+   be wrong most of the time. Options:
+   - map OSM class/type (needs the search to ask for it; the builder's
+     cost is small, but it can't be tested here: Nominatim is blocked);
+   - default to the last-used type;
+   - leave TYPE blank and required. That breaks the closest-friend rule
+     "tap, type, pick, ADD".
+   - The director has to choose.
+5. **CITY on the blank tag.** It's auto (`maybeDetectCity`), with the
+   new-city confirm when outside every city. I propose: CITY isn't a
+   line; it folds into the address line ("Hallgrímstorg 1 · Reykjavík"),
+   tap to correct, absent for shapes. That saves a line on the 364px tag.
+   Needs confirming.
+6. **Tap count.** The minimum is tap, (type), pick, ADD. The keyboard
+   rising from the tap needs `focus()` inside the gesture after
+   `requireAuth()`, which is still the iPhone check from C. If iOS
+   refuses, it's one more tap on the name line.
+7. **VISITED on the blank stub** means the insert carries `visited: true`.
+   It's trivial in data, but the ink-over then runs two stamps at once
+   (TYPE and VISITED): the order of the motion is visual's.
+8. **Desktop (wide):** not measured this pass. The docked tag has no
+   keyboard there; the tag can hang from the pin in the map column at
+   once. That goes in jobs.md as a flow, and I'll measure it when the
+   concept is built.
+9. **Cancel with a picked place.** The draft is kept, there's no marker,
+   and the view is restored (C's ruling). When you tap again, the tag
+   re-hangs on the kept place with the keyboard down. That's the "draft
+   shows when you open it" ruling, made concrete.
+
+Not changed: jobs 1-6 in `jobs.md`, job 6 (playground adds as signed in,
+a stale session asks) and the city switch after Add (C, J15).
+
+NEXT: product designer (visual focus) — two things need a shape that
+only visual can supply. V2 has to read as a pin, not a FAB, at 52px (the
+smallest size that clearly beats the account in the squint). V3 has to
+work as a 120-wide corner crop. Both get drawn into the docked journey at
+the numbers above: the tag's top at 74, 162px of slip, rows of 52 or
+less or the name 36 below the tag's top, and the stub behind the
+keyboard. Then the director rules on items 1, 3, 4 and 5.
