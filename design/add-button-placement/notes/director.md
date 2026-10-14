@@ -1358,3 +1358,4 @@ The cost lines and six questions are in scores.md 9c.
 
 ### Next
 Check the 2 re-shoots → release. On his pick: handoff.md vs owner.md.
+- 2026-10-14: C2/C7 re-shoots checked; 22-still round-9c send released unchanged.

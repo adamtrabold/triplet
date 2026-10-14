@@ -1725,3 +1725,11 @@ Evidence: C1, C3, C4, C8, C2, C6, C7.
 ### Did the work change?
 Yes: the + moved onto the pin, and the tag is blank and ruled. C goes
 8 → 9.
+
+### Round 9c re-shoots checked -- SEND RELEASED (2026-10-14)
+- **C2:** now the pick beside the hanging arrangement he asked about,
+  with the one-line reason. Clean.
+- **C7:** re-panned. Nothing beside the button; one pin peeks behind
+  the zoom control at 320, which is real app behaviour and acceptable.
+- The 22-still send stands exactly as listed in round 9c, with its cost
+  lines and six owner questions.

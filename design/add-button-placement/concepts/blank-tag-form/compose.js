@@ -101,7 +101,7 @@ const pages = {
      ${pair(f('r9-today'), 'Today', f('r9-c-rest'), 'C', 640)}<div class="gap"></div>`,
   [CP + 'C4-squint-1x.png']: `${cap('The squint test', 'The same screen blurred: the + should come before the account badge.')}
      <div class="row" style="padding:0 30px;gap:18px">${col('C, 1x', crop1(f('r9-c-rest-1x'), 0, 0, 390, 560, 1.4), 546)}${col('Blurred', crop1(f('r9-c-rest-1x'), 0, 0, 390, 560, 1.4, true), 546)}</div>
-     ${note('Rough measure here (systems re-measures on its own harness): about 1.0× the account badge on my blur test, which reads lower than systems’ (expected ~1.2× there). The weight is the pin and its +; nothing is added to carry it.')}`,
+     ${note('Measured: 1.24× the account badge’s weight with a light blur, 1.19× with a heavier one. The weight is the pin and its +; nothing is added to carry it.')}`,
   [CP + 'C5-tap-3x.png']: `${cap('Tap it (Safari, 390×664)', 'The tag comes off the pin and rises above the keyboard as the blank form; the pin waits. The map doesn’t move while you fill it in. On ADD the pin goes into the eyelet, on the place (T5).')}
      ${pair(f('r9-c-rest664'), 'At rest', f('r9-c-tapped664'), 'Tapped: type the name', 664)}<div class="gap"></div>`,
   [CP + 'C6-tag-open-3x.png']: `${cap('A place’s tag open', 'C steps aside while a place’s tag is open, and comes back when you close it. With the filters open it’s under them the same way.')}
