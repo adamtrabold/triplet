@@ -1201,3 +1201,4 @@ The final list (19 stills, P → A → T → Float), the cost lines and the
 - On his pick: check handoff.md against owner.md.
 - 2026-10-14: round 8b re-shoots checked; send released (P 9, A 9). Next: owner's pick -> check handoff.md vs owner.md.
 - 2026-10-14: send held -- demo TYPE NATURE for a pool was an accident; mapped leisure=swimming_pool/sports_centre -> Attraction; re-shoot T3,T4,T5,T8,A5.
+- 2026-10-14: ATTRACTION re-shoots + P5 re-centre checked; 19-still send released unchanged.

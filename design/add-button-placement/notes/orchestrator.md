@@ -8,3 +8,11 @@
 - Round counts restart (new direction). Rejection count stays at 1 (round-4 set; later feedback is "normal iteration" per owner).
 - Previous agents can't be continued (new session): fresh agents start from notes/<role>.md.
 - Plan: jam pass(es) on the new scope (systems first: jobs for the add form), jobs.md -> owner, then concepts. Float + A stay in play as R7; whether the form rev pairs with them too is the team's call.
+
+## 2026-10-14 — round 8 sent to owner
+- Jam pass A (turns 30-35), jobs.md rewritten (16 jobs; jobs summary sent to owner, no reply yet).
+- Round 8: P 8, A 8 -> fixes -> round 8b: P 9, A 9. Coverage check passed (concepts/coverage-r8.md).
+- Orchestrator pre-send check caught Sundhöllin TYPE "NATURE" (demo accident) -> director ruled pools -> Attraction; re-shot.
+- Sent 19 stills (P1-P5, A1-A4, T0, T2, T1, T3-T8, A5), 3 cost lines, 6 owner questions. P6 held back.
+- Round 7 (Float, A ticket-tag) still unanswered; this set is in addition.
+- Agents (this session): systems, visual, director continued by SendMessage; notes current.

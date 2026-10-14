@@ -1400,3 +1400,14 @@ P and A go 8 → 9 on the re-shot stills.
   - A5;
   - plus any other frame that shows it.
 - No re-score. I check the re-shoots, then the send goes as listed.
+
+### TYPE fix checked -- SEND RELEASED, final (2026-10-14)
+- Checked T5, A5 and P5:
+  - Sundhöllin is ATTRACTION throughout.
+  - T5's landed pin is the attraction pin.
+  - P5's 320 panel is re-centred, with nothing under the account badge
+    or the blank pin.
+- Water parks were added to the Attraction mapping row (spec only).
+- The 19-still send stands exactly as listed in round 8b (same files,
+  same order), with the same cost lines and the same six owner
+  questions.
