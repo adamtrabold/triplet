@@ -531,3 +531,11 @@ result count at 664 with keyboard, and the docked-tag heights.
 - A: the band's × is now 16px under ADD (588 vs 604). Still distinct.
 - All jobs hold on P and A, except the long-name/notes overflow (a builder/visual fix).
 - Coverage r8b written: concepts/coverage-r8.md. No unsupported job on P or A; P's 2 job-1 exceptions are a cost line (P4). Edit-after-add is not built (owner question).
+
+## Turn 37 (2026-10-14): the owner's reply to 8b; new direction, the round count restarts
+- Owner: the blank pin is "ugly". He wants the pin+tag as the button "with tweaks". The add-city answers don't read as buttons. He's worried the map moves under a pinned tag; the fallback is "the tag filled out, the pin placed after creation".
+- **Pinned model, walked on the 8b spec:** the map moves 5x in a plain add (list resize, flyTo on pick, the NOTES-focus pan ≥164 at 664 (88 at 320) and back, STAR 12, ADD shrink 52); +2 with a question (about 70 each way); +1-2 for shapes (re-hang to the centre dot 50-400px, plus a zoom-out); re-search is +1 flyTo; new city is a country-scale flight.
+- **Fallback:** the tag sits on the keyboard or on the band; the map is still while filling; ONE flight on ADD brings the place under the tag's hanging point (the tag doesn't move). Cost: job 8. Mitigation: addresses in the text, plus an on-demand "show me" from the address line. **Recommended.**
+- **Pin+tag button (C R6b) at bottom-left, real render:** disc 32 = 0.86x the account (his "same weight", measured); 40 = 1.20x; 48 = 1.61x. Box 84x112-128. Credit clear. 320 Stockholm list up: 3 pins under. Exceptions: tag open (gap 152 or step aside), filters. Hand-off: the button's tag grows into the form; the pin waits (i on top, or ii behind with the eyelet empty until ADD; my lean is ii, the owner's words).
+- **T7:** the answers read as text and ADD says "ANSWER ABOVE". Proposed: the answers live in the stub while a question is up (the primary gets ADD's ready treatment).
+- `pass-a-check/pintag.js` added. Next: the director rules; then jobs.md is updated (job 8, rule 1).

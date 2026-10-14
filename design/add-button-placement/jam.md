@@ -3919,3 +3919,209 @@ in one pass. One more visual turn, then I score.
 NEXT: product designer (visual focus) -- fixes 1-5: pencil that reads as
 pencil at 1x (with the comparison frame), the full blank tag, P3/A3 cut
 to two panels, the T2 re-crop, P2's needle. Then I score round 8.
+
+## Turn 37 -- product designer (systems focus): does the map have to move? (new direction, round count restarts)
+
+Owner, verbatim (2026-10-14, on round 8b):
+> Blank pin looks ugly. I wanted to explore the version where the pin+tag
+> was the button and see if that could work with tweaks.
+>
+> Also i like the hang tag but some of the buttons aren't reading like
+> buttons — specifically the add city one. That whole area sort of
+> disappears.
+>
+> And I like the tag being pinned as you fill it out but I'm worried in
+> order for it to make sense the map will have to move underneath as it
+> gets filled out — which will make it all confusing. Have the agents
+> reason about this and if it's too complicated just have the tag be
+> what's filled out and the pin placed after creation.
+
+New scripts in `concepts/pass-a-check/`: `pintag.js` (C's pin+tag
+button, squint) and the shared `probe.json` / `geo.json`.
+
+### 1. Pinned while filling: yes, the map has to move, 5 to 9 times
+
+Walked on round 8b's own spec. I count every time the map moves under
+the tag (pan, zoom or resize) for one ordinary add. Hanging tag at 664:
+340-588, pin 280-312, the rows at 388 / 420 / 452 / 484, stub 528-588,
+list at its band (604).
+
+| # | Moment | What the map does | 664 | 320x568 | 844 Home Screen |
+|---|---|---|---|---|---|
+| 1 | Tap + | the list drops to its band, so the map's frame grows by 240 (Leaflet resize) | 364 → 604 | 268 → 508 | 544 → 784 |
+| 2 | **Pick** | **flyTo**: pans across the city (up to its whole width) and zooms in 2-3 levels to ≥ 16, so the point lands under the pin at (195, 296) | yes | yes | yes |
+| 3 | **Tap NOTES** | the keyboard rises over the NOTES line. To keep the tag pinned, **the map pans up** so the line clears the keyboard | **≥ 164** (NOTES foot 484 → 320) | ≥ 88 | ≥ 164 |
+| 4 | Done with NOTES | the keyboard drops, **the map pans back** | 164 | 88 | 164 |
+| 5 | STAR | the band adds 12 to the top; the foot is fixed, so **the map pans** 12 | 12 | 12 | 12 |
+| 6 | A question appears (new city; which city) | the tag grows about 70 at the top, and **the map pans** about 70 | ~70 | ~70 | ~70 |
+| 7 | It's answered | **pans back** | ~70 | ~70 | ~70 |
+| 8 | ADD | the tag tightens to the real tag by its top, and **the map pans** 52 | 52 | 52 | 52 |
+| 9 | Close the tag | the list rises, the map's frame shrinks | — | — | — |
+
+- **Re-search** (a second pick) is another flyTo.
+- **New city:** the pick's flyTo leaves the trip (Reykjavík → Lisbon is
+  a zoom-out to country level and back in). Cancel flies home.
+- **District / street:** on ADD the tag re-hangs from the area's centre
+  dot, not the picked point. That's another pan of about 50-400px at
+  zoom 16 (about 1 m/px at 64°N). If the outline is wider than the view,
+  it also zooms out 1-2 levels (a 1 km district is about 950px at 16).
+
+**So the owner's worry is right.** In a plain add with a note and a
+star, the map moves 5 times (1, 2, 3, 4, 5). With a question it's 7,
+and a district adds 1-2 more, while you're looking at the tag. Moves
+3-7 aren't caused by the place at all; they only exist to keep a pinned
+tag clear of the keyboard and of its own growth. The only alternative
+is that the tag moves off its pin, which breaks "pinned". The flyTo on
+pick (2) is the one move that carries meaning.
+
+### 2. The owner's fallback: fill the tag, place the pin on ADD
+
+The tag is a card in the screen's frame, not on the map:
+- **Keyboard up:** it sits on the keyboard (docked: top 74 at 664).
+- **Keyboard down:** it sits on the list's band, foot just above it
+  (340-588 at 664), with ADD at the thumb.
+
+| Moment | Map | The tag |
+|---|---|---|
+| Tap + | the list drops to its band (as every concept already does) | rises into the dock |
+| Type, pick | **still** | the keyboard drops; the tag settles onto the band, the way a sheet follows the keyboard |
+| NOTES | **still** | rides up with the keyboard, then back |
+| STAR, a question | **still** | grows from the top; the foot (ADD) doesn't move |
+| **ADD** | **one flight:** the place is brought to the tag's hanging point (195, 296 at 664), so the pin lands into the eyelet as the map arrives. The tag doesn't move. | inks over |
+| District / street | one flight, framing the outline, with the centre dot at the hanging point (zoom-out included) | — |
+| New city | one flight to the new city, and the list switches | — |
+| Close | the list rises | — |
+
+**One map move per add, after you've finished writing,** plus the list's
+resize, which is the same in both models. What moves while you write is
+the tag riding the keyboard: the ordinary iPhone form behaviour, not the
+world behind it.
+
+**What it costs: job 8, "see where it goes before you commit".** Two
+partial answers:
+- **(a) The words already say where.** Each result prints its address,
+  and the picked tag prints "address · city" in pencil, plus "New city?"
+  when it's outside the trip.
+- **(b) On demand, not automatic.** Tapping the address line (or a small
+  "show me" mark on it) flies the map once to put the spot under the
+  hanging point. That's a move you asked for, not one that happens to
+  you.
+- **A wrong pick is then only seen on ADD,** which makes "fix a place
+  after adding" (scope question 2) or an Undo slip after ADD (Plans v3
+  has one) more valuable. One line for the director.
+
+**Recommendation: the fallback, with (b).** The owner's bar is "if it's
+too complicated". Five to nine moves under a form you're writing on is
+too complicated. The pinned model's only real gain (seeing the spot) is
+kept on request, and the ADD flight keeps the moment the owner likes
+(the tag gets pinned, by the place coming to it). Job 8 becomes "see
+where it goes on request before ADD, and always on ADD". That change
+needs the director's sign-off.
+
+### 3. The pin+tag as the button (C's R6b, "with tweaks")
+
+**What's settled from R6b:**
+- an orange 32 disc with a navy + (the selected-pin grammar);
+- a 1.5px straight string;
+- an 84x66 cream tag (15 chamfers, eyelet and patch, 1px warm edge, the
+  tag's shadow, no band).
+
+**Measured again at the owner's side (bottom-left, ink 19.9, foot 20
+above the list), real render, real 202 pins:**
+
+| Disc | Box at 390x844 | Squint mass vs account (σ4 / σ8) |
+|---|---|---|
+| 32 (R6b) | 19.9,412 – 103.9,524 (84x112) | **0.86 / 0.84**: below the account. This is his round-5b "same weight", measured |
+| 40 | 84x120 | 1.20 / 1.17 |
+| 48 | 84x128 | 1.61 / 1.57 |
+
+- **Rank:** the cream tag adds almost nothing (cream on a cream map).
+  The disc carries the rank, as with the lifted pin. **Tweak 1 for
+  visual:** disc 40 for parity-plus, or 48 for the lifted pin's 1.6x.
+  Alternatively, give the tag ink that counts (a navy + printed on the
+  tag, not just the pin): that's visual's call.
+- **Footprint:**
+  - the credit is clear at every width (the credit is right-aligned);
+  - real pins: 0 under, everywhere but **320 Stockholm, list up: 3
+    under** (with the default fit). Panning frees them, but it's the one
+    place it lands on the trip;
+  - dead zone 84x120, about 2.9% of the map at 844.
+- **Exceptions (the same kind as C and P):**
+  - **Tag open:** at 664, 375 and 320 the tag's foot is 52 above the
+    list, and the object's top is 132-148 above it. So: step aside
+    (ruled before for C), or `TAG_SHEET_GAP` 152, which costs a row I
+    wouldn't spend.
+  - **Filters open:** under the panel; close them to add. A stays the
+    only exception-free trigger.
+- **States:**
+  - rest;
+  - pressed (deep orange disc; the tag goes `--paper`);
+  - hidden (a tag open, the filters open, while adding, and after ADD
+    until the new tag closes);
+  - signed out (adds); stale sign-in (asks, nothing moves);
+  - Plans (adds a place);
+  - desktop (the map column's bottom-left).
+- **Hand-off under the fallback (my lean):**
+  - **The button's tag is the form's tag.** Tap: the small tag grows into
+    the full blank tag, docked on the keyboard (84 → 316 wide, from the
+    corner).
+  - **The pin waits.** Two ways; visual and director choose:
+    - **(i) The pin rides on top of the docked tag** (rule 1 from turn
+      32). Risk: a pin above the map reads as *placed* on whatever's
+      under it, which is false until ADD.
+    - **(ii) The pin stays behind at the button's spot, and the tag's
+      eyelet is empty while you fill it.** On ADD the map arrives and
+      the pin drops into the eyelet on the place. That's the owner's
+      "the pin placed after creation", word for word. It also makes the
+      button's anatomy mean something: the pin and the tag are separate
+      until ADD joins them.
+    - I lean (ii), and it supersedes turn 32's rule 1 for the filling
+      phase. The owner's words outrank our rule.
+  - **After ADD:** the fresh pin+tag is at rest when the new tag closes,
+    as before.
+- **Under the pinned model** (if the director keeps it), the hand-off is
+  C's R6 flow: the tag hangs from the pin on the picked spot, and §1's
+  map moves apply.
+
+### 4. For visual: the answer area (T7) disappears
+
+The owner: "some of the buttons aren't reading like buttons —
+specifically the add city one. That whole area sort of disappears."
+- **As a job,** this is job 16 (a straight answer, with what to do next)
+  and job 12 (finish near the thumb). When a question is up, its answers
+  are the *only* way forward, so they must read as the next action more
+  strongly than anything else on the tag.
+- **What T7 does now:**
+  - The answers are printed words on the same cream paper, separated
+    only by dashed hairlines, so they read as text, not controls.
+  - Meanwhile the real action slot (the stub) shows a disabled "ADD /
+    ANSWER ABOVE". So the eye goes to the stub, finds nothing, and the
+    area above it reads as fine print.
+- **Structural option (not a look): put the question's answers in the
+  stub.**
+  - While a question is up, the stub's segments *are* the answers,
+    where ADD lives and under the thumb: **ADD LISBON** (the primary,
+    with ADD's ready treatment) | **PICK FROM MY LIST**.
+  - The question's sentence prints just above the perforation.
+  - Once it's answered, the stub returns to ADD | STAR | VISITED.
+  - For the shape's "which city": NEW CITY | [runner-up], with "another
+    city…" as a printed link above.
+  - This also removes "ANSWER ABOVE".
+- **Either way:** the primary answer gets the same treatment as a ready
+  ADD (the one action control on a tag), and the secondary reads as a
+  tappable segment, not a caption. The look is visual's.
+
+### What changes in jobs.md (after the director rules)
+
+- **Job 8** becomes "see where on request before ADD, and always on ADD"
+  (if the fallback wins).
+- **Job 3** for the pin+tag: what you tap *is* the tag you'll fill
+  (stronger than P's string).
+- **Job 2:** the pin+tag needs the disc at 40 or more (or ink on the
+  tag) to beat the account.
+- **Rule 1** (the director's "pin above the tag at every step") is
+  superseded during filling if (ii) wins.
+
+NEXT: design director — rule pinned vs fallback (with the job 8 change),
+the pin's wait (i vs ii), and whether the answers go in the stub; then
+visual draws the pin+tag button with the rank tweak.
