@@ -1,4 +1,55 @@
-# C · Pin+tag: how it works (round 9b, supersedes round 9 below)
+# C · Pin+tag: how it works (round 9c, supersedes 9b and 9 below)
+
+## Round 9c (systems, 2026-10-14): the + becomes the pin's glyph; the tag is blank and ruled
+
+Visual's pick: `side:fillplus:rules:0:144:40:4:heavy`.
+- The same 144 × 75 sideways tag.
+- **The pin:** a filled orange 40 pin with a navy + (11px arms, 5.4
+  stroke) as its glyph.
+- **The tag:** blank, with two ruled write-on lines.
+- **The foot:** min(20 above the list, 6 above the credit).
+
+Measured on the real 202 pins with visual's layers: `../r9-check/`
+(`TAG=c9-`).
+
+| | Squint vs the account, σ4 / σ8 (fit and z14 alike) | Box (390x844, list up) |
+|---|---|---|
+| **Pick** | **1.24 / 1.19** | 19.9,446 – 163.9,521 |
+| Dial: 124 wide | 1.15 / 1.11 | 19.9,457 – 144.9,521 |
+
+- **Plainly: at σ4 it clears 1.2; at σ8 it's 0.01 short (1.19).** That's
+  within this metric's noise, but on the number it's not over the bar at
+  both blurs. The narrower 124 tag drops it to 1.15 / 1.11, so **don't use
+  that dial for footprint.** If the director wants both blurs ≥ 1.2,
+  visual's next dial is the glyph stroke (5.4 → 6). I haven't measured
+  it; it needs a dial in `c.inc.html`.
+- **Credit: fixed.** There's 6.2px clear above the credit's top at every
+  width (it was 3.2).
+- **Pins, at the opening fit:** 0 under in 38 of 40 scenes; **320 list up:
+  Malmö 4, Stockholm 6 (+1 near)**. That's the same object, raised 3px.
+- **Street zoom:** unchanged from 9b (the same 144 × 75): Copenhagen 19%,
+  Stockholm 22%, Malmö 26%, LA 7% (the Float is 11 / 12 / 15 / 3).
+- **Tap target, states, hand-off:** as in 9b (below), with two changes:
+  - **pressed:** the face goes deep orange, the + stays navy, and the
+    tag goes `--paper`;
+  - **tap:** the blank ruled tag lifts off the pin into the dock (its two
+    lines become the form's rules), and the + pin stays at its spot,
+    hidden under the card while adding.
+
+### Jobs re-check (round 9c)
+
+| Job | C 9c |
+|---|---|
+| 1 Reach | yes, with the 2 ruled exceptions; left side |
+| 2 Main action, reads as + and as a pin | **borderline: 1.24 / 1.19 against the bar of 1.2** (short by 0.01 at σ8). The + is now the pin's own glyph, so "reads as +" no longer depends on the tag |
+| 3 Know what you'll fill out | yes: a blank, ruled tag pinned to a place |
+| 4 Never in the way | yes, with costs: 320 list up Malmö 4 / Stockholm 6; 19-26% of dense street views; **the credit is clear (6.2)** |
+| 5-17 | yes, via the form (unchanged) |
+
+**No unsupported job.** Job 2 is at the bar, not over it at σ8.
+
+---
+
 
 ## Round 9b (systems, 2026-10-14): the sideways pinned tag
 

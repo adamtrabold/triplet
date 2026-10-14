@@ -561,3 +561,8 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Form: the credit shows in every card state (fixed). 40 rows: card 317-581 at 664 (hanging point 195, 273). The chip/× overlap is down to 2.5px, chip vs NOTES 5.5. **Rule: hit area = own row band** (closes both).
 - Hand-off: the tag lifts off the pin and rotates up into the dock; the button's pin is hidden under the card while adding; the place's pin arrives with the ADD flight.
 - `r9-check/c-check.js` now takes `CV` (JSON name → attrs) and `TAG`; `mass.py [TAG]`.
+
+## Round 9c (2026-10-14): + on the pin (filled 40, navy heavy +), a blank ruled tag, the foot 6 above the credit
+- Mass 1.24 / 1.19 (σ4 / σ8): **σ8 is 0.01 short of 1.2**. The 124-wide dial gives 1.15 / 1.11 (worse). Next dial: glyph stroke 6 (unmeasured).
+- Credit clearance 6.2 at every width (fixed). 320 list up: Malmö 4, Stockholm 6. z14 odds unchanged (19 / 22 / 26 / 7%).
+- C spec updated (round 9c section); jobs hold; job 2 is at the bar.
