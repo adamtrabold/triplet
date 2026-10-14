@@ -313,6 +313,26 @@ ring is its own element, drawn the same way in both states:
 ### Sheet open
 The badge rests unchanged under the scrim. No open or active look in the signed-out state.
 
+### The sheet while busy (new state; the sheet's look is otherwise unchanged)
+It uses the app's one rule for unavailable or loading (`--state-off-alpha`), the same as the add form's
+`#submitBtn:disabled`. There's no new disabled look.
+- **Primary, "Signing in…":** `opacity: var(--state-off-alpha); color: var(--ink); cursor: default`. The
+  orange stays orange, just faded. No spinner, no pulse: the words carry it, and it's short.
+  This supersedes the round-1 flow sheet's flat 50% orange/paper mix, which was a one-off disabled look.
+- **Secondary (Keep playing / Cancel):** the same `--state-off-alpha` and `cursor: default`. While busy it does
+  nothing, so it mustn't look tappable. Its hover look is off while busy.
+- **Fields (read-only):** the values stay full size and readable, in `color: var(--ink-2)`. The underline stays
+  1px `--hair`, `caret-color: transparent`, and the focused field is blurred so the 2px `--figure-deep` focus
+  underline goes away. Not faded: on an error the email (or both fields) comes back as it was, so it should
+  never look erased.
+- **Ending busy (an error):** everything returns to rest in one frame. The error line is today's `#authError`,
+  unchanged.
+
+### "Signing out…" in the dropdown (new state)
+`#dropdownLogoutBtn` while the call runs: text `Signing out…`, `opacity: var(--state-off-alpha);
+cursor: default`, no hover or press background. The email line above it stays as it is. The badge stays in its
+open orange look (`.active`) until the dropdown closes.
+
 ### Signed in (all states)
 Today's `#accountBtn`, untouched: navy die (mask on), `--figure` person at 24px with stroke 2, today's `:active`,
 `.active` and `.active:active`.
@@ -327,6 +347,12 @@ It's one object changing ink: navy ink lands on the paper badge from the person 
 under it (navy on navy, so there's no fade), and inside the ink the person turns orange and grows into the
 signed-in badge.
 
+- **Before it starts (the arrival hold, real mode):** the slot shows the full signed-out badge exactly as at rest
+  (V[14]): `#accountBtn`'s mask off, background transparent, no box-shadow, with the paper badge drawn by the SVG.
+  It's the same paint as the playground's signed-out state, so the badge you tapped is the one you find. It holds
+  like that, static, through the wait and the ~250ms beat. The Strike's first frame is identical to it, so the
+  start is seamless. The tap-to-finish and the 3s skip go straight to the signed-in button in one frame
+  (transition off).
 - **Clock:** `STAR_POP_MS` (380ms). Drive everything below from one animation's `currentTime` (rAF), the way
   `dryUp()` does.
 - **Scale (the whole button, `transform-origin: 50% 50%`):** STAR_POP's offsets and per-segment easings, scale
@@ -360,6 +386,13 @@ The same object in reverse, with no pop: the navy ink dries back off the paper f
 thinnest first and centre last. The person shrinks and turns navy as the ink leaves it, and the navy words are
 revealed (they were there under the ink all along), not animated.
 
+- **Sequence (confirmed, it reads well):** on success the dropdown closes and `.active` comes off. The badge
+  goes from open orange back to navy rest through today's 150ms transition, untouched. That's the familiar
+  "menu closed" beat. **Then** the dry-up starts from the navy rest look. Start it on the transition's end
+  (`transitionend` on `background-color`, with a 150ms fallback timer), never before: a dry-up that starts on a
+  half-orange face would jump colour on its first frame. "Transition off" applies from the dry-up's first frame
+  on, not to the close. In total it's about 690ms from the tap's success to the reload: the orange settles, then
+  the ink dries.
 - **Clock:** `DRY.MS` (540ms). The first frame replaces the signed-in button with the signed-out drawing plus a
   full ink layer (k = 0), transition off, so nothing visibly changes at the start.
 - **Dry amount k(ms)**, using the app's `DRY` constants and `dryEaseThr` (no new curve):
@@ -459,6 +492,11 @@ Neither plays. Swap straight to the end state in one frame (transition off): no 
   soften the edge and then fade.
 - **The focus ring follows the scallop.** A square ring round a die-cut badge is the "hard line that makes no
   physical sense" the owner has turned down before. The double ring is the app's existing focus language.
+- **Busy states use the app's existing disabled rule** (`--state-off-alpha`, as on the add form's submit),
+  not a new one. That's the owner's "clear, matching state system". The fields stay readable, because what's
+  kept on an error must look kept.
+- **Orange to navy, then the dry.** Two beats, each one the user already knows: the menu closing, then the ink
+  leaving. Overlapping them would make one muddy colour change and break the owner's ask for motion you can see.
 - **r 21 at 0.13s.** It's the stills' fringe watch, settled by rendering 19.5, 21 and 22.5 on water at 2.2×:
   21 keeps the ink's travel without a halo.
 
