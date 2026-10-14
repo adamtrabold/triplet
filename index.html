@@ -435,7 +435,10 @@
       top: calc(74px + var(--chrome-top-inset));
       right: 74px;
       background: var(--paper);
-      border: 2px solid var(--navy);
+      /* Box edges: a plain paper box takes the dividers' 1px --hair (owner,
+         2026-10-14). A box with a navy header band keeps the 2px navy
+         stroke -- see #authModalContent and docs/owner-taste.md. */
+      border: 1px solid var(--hair);
       border-radius: 2px;
       padding: var(--s4);
       z-index: 2000;
@@ -2142,6 +2145,7 @@
 
     #authModalContent {
       background: var(--paper);
+      /* Navy header band, so it keeps the 2px navy stroke (owner rule, see #accountDropdown). */
       border: 2px solid var(--navy);
       border-radius: 2px;
       max-width: 400px;
