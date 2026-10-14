@@ -227,6 +227,22 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- Sign-in badge review findings (reviewer, 2026-10-14, build `ba473f8`):
+  (1) BLOCKER, in-place sign-in (flow 4, signed-out real mode): `login()`
+  ends busy, then `updateAuthUI()` swaps the slot to 'account' BEFORE
+  `playStrike()`, so the Strike runs on the navy masked button, the label
+  turns "Account" at the start, and the end's `setAccountBadge('account')` is
+  a no-op: the last Strike frame stays as the badge's content for good, which
+  hides the dropdown's orange `.active` look under navy ink (a tap
+  mid-Strike freezes that frame). `signin-test.js` case 9 only checks
+  `accountBadge`, not the content. (2) `docs/iphone-checks.md`'s older
+  Playground entry still says "account badge -> Sign in" and "Logout". (3)
+  `restoreHopView()` reopens a pin with `marker.openPopup()`, not the normal
+  open path; a pin clustered at the restored zoom won't reopen. (4) No
+  committed check runs the real supabase-js (all stubs); the reviewer's
+  probe against the real 2.39.3 UMD (playground writes, hop, storage blocked,
+  `scope=local`, expired session) passed 7/7 -- worth committing one.
+
 - Sign-in badge build follow-ups (2026-10-14): (1) the 50-unit scallop
   polygon now lives three times -- `#floatingAddBtn`/`#accountBtn`'s CSS
   mask (`-webkit-mask-image` and `mask-image`) and JS `SCALLOP_PTS` (the
