@@ -539,3 +539,17 @@ result count at 664 with keyboard, and the docked-tag heights.
 - **Pin+tag button (C R6b) at bottom-left, real render:** disc 32 = 0.86x the account (his "same weight", measured); 40 = 1.20x; 48 = 1.61x. Box 84x112-128. Credit clear. 320 Stockholm list up: 3 pins under. Exceptions: tag open (gap 152 or step aside), filters. Hand-off: the button's tag grows into the form; the pin waits (i on top, or ii behind with the eyelet empty until ADD; my lean is ii, the owner's words).
 - **T7:** the answers read as text and ADD says "ANSWER ABOVE". Proposed: the answers live in the stub while a question is up (the primary gets ADD's ready treatment).
 - `pass-a-check/pintag.js` added. Next: the director rules; then jobs.md is updated (job 8, rule 1).
+
+## Round 9 (2026-10-14): C pin+tag measured; the form is the fallback model
+- Director turn 38: the fallback (card in the frame, map still, ONE flight on ADD, eyelet empty while filling); answers in the stub; the tappables audit; P dropped; rank by inflation isn't a 9.
+- **C** (`r9-check/c-check.js`, real pins, visual's layers):
+  - rank: pick 1.65 / 1.60 (z14: 1.65 / 1.57); quiet 1.10 / 1.03. Visual's rough figures were 1.44 / 0.86.
+  - box 100x125: at 664, 19.9,219 – 119.9,344. Credit gap 19, but **4 at 375** (prefix kept).
+  - opening fit: 0 pins except 320 Malmö 2 and Stockholm 4.
+  - **z14 dead-zone odds (`deadzone.py`):** C 22-29% in Copenhagen / Stockholm / Malmö vs Float 11-15%. That's a cost line.
+- **The card (visual's measure.json):** 664: 333-581, ADD 37-142 × 521-581, hanging point (195, 289). 320: 237-485. New city: two segments of 158 wide.
+- **Flags:**
+  1. The credit is hidden in every card state (the `body:has(#btDock)` rule). It must show except while the keyboard is up.
+  2. The chip 44 hit areas overlap the tag's × (about 10x28) and run into NOTES' row (5.5 / 8.5). Rule: hit = own row band; or rows that hold a tappable at 40 (+16 on the card). I lean 40.
+- jobs.md: C replaces P; job 8 rewritten; job 16 answers-as-buttons; new **job 17** (everything tappable looks tappable, the owner's words). Flows: C, A eyelet empty, re-search, district, new city in the stub, desktop. The old version is in `notes/jobs-r8b.md`.
+- Files: `C-pintag/how-it-works.md` (new; coverage inside), the A round-9 section, the form spec's Round 9 note.

@@ -1,5 +1,32 @@
 # The blank-tag form: how it works (shared by P, A and the Float frame)
 
+> **Round 9 (director turn 38), checked by systems on the real render (2026-10-14). This overrides everything below where they differ.** Numbers come from visual's `raw/measure.json` (stub data) plus `../r9-check/` (real pins).
+>
+> **The model:** the filled tag is a **card in the screen's frame**: docked on the keyboard while you type, then on the list's band. **The map doesn't move until ADD.** There's no pin or string while you fill it in, and the eyelet is empty. On **ADD** there's one flight: the map brings the place to the card's hanging point (x 195, y = card top − 44), the pin drops into the eyelet, and the ink-over runs. After that, round 8b's no-move shrink applies: the top comes down, the stub stays. Section 2's "Hanging" placement and the map pans in "Numbers" (the picked tag) are void.
+>
+> **Card numbers, checked:**
+> - **664:** the card is 333-581 (248), its foot 6 above the credit's top (587), the list's band at 604, **ADD 37-142 × 521-581 (105 × 60)**, the hanging point (195, 289).
+> - **320:** the card is 237-485, ADD 16-112 × 425-485, the hanging point (160, 193).
+> - **New city (664):** the card is 301-581 and grows at the top; the stub becomes two segments, **ADD [CITY] 37-195 and PICK FROM MY LIST 195-353, both × 521-581**. "ANSWER ABOVE" is gone.
+> - **Float frame:** the card is 264-512, ADD 452-512.
+>
+> **Two flags:**
+> 1. **The credit is hidden while the card is up.** In `raw/measure.json` the credit reads `hidden` in every card state (`body:has(#btDock) .leaflet-control-attribution { visibility: hidden }`). The director ruled the credit is hidden only while the keyboard is up; the picked, question and failed states must show it (it's a required credit). Scope the rule to `#btDock.kbd` (or whatever marks "keyboard up"). Visual's stills crop it out, but the builder would ship the bug.
+> 2. **The 25px chips' 44px hit areas collide on the 32px rhythm (T9).** At 664:
+>    - the city chip is 234-337 × 416-441, so its 44 hit spans 406.5-450.5;
+>    - the tag's **× is 309-353 × 373-417**, so the two **overlap by about 10 × 28 at the top-right**;
+>    - the city hit runs 5.5px into NOTES' row (445-477);
+>    - the TYPE chip (89-218 × 478-503) has a 44 hit of 468.5-512.5, **8.5px into NOTES' row**.
+>    - At 320 the × (277-321) and the city chip (320-345) touch edge to edge.
+>    - **A mis-tap on × cancels the add.** The draft is kept, but it's the worst miss on the tag.
+>    - **Rule I'd give the builder:** each tappable gets its own row band as its hit area (the chip's row: full 32 high, the chip's width plus 8 each side), never 44 across rows. And the × hit stops at the NAME row's foot.
+>    - That makes the chips 32-high targets, under Apple's 44pt minimum. The fix that keeps 44 is rows that hold a tappable at 40 (address·city, TYPE): +16 on the card (264). That's the director's and visual's call; I lean 40, because a mis-tap on a pencil-entry chip just opens a picker, but a miss on × cancels the add.
+>
+> **Re-checked:**
+> - **Results while typing:** unchanged from 8b (docked numbers; 89 or 72 by room).
+> - **ADD and the stub don't move:** in the card, ADD is at the foot (fixed); a question grows the card from the top. Holds.
+> - **The flight:** a single move. New city: a country-scale flight on ADD (Reykjavík → Lisbon), and the list switches. District: the move frames the outline (it may zoom out) and the centre dot lands at the hanging point.
+
 > **Round 8b, checked and folded in by systems (2026-10-14).** This replaces the round-8 note. Visual's numbers are in `looks-and-feels.md` "Round 8b" and `blank.inc.html`.
 >
 > **Followed (numbers checked):**

@@ -122,3 +122,21 @@ round-7 measures are `../stub/` (`looks-and-feels.md` "Round 7",
   to clear the open badge (× at 524-584). That puts ADD at about 452-512.
   It's the same kind of cost as round 7's gap of 88.
 - Otherwise as A.
+
+## Round 9 (systems)
+
+- **The trigger is unchanged.** The blank tag pulls up out of the cut
+  into the dock with its **eyelet empty**. The filled tag is the card on
+  the band (map still), and ADD's one flight pins it. The ending is the
+  same as C's.
+- **The band's ×** (about 604-661 at 664, x 330-390) and ADD (37-142 ×
+  521-581) are 23px apart vertically and far apart horizontally. No
+  conflict.
+- **Coverage re-check (jobs.md round 9):**
+  - every job holds;
+  - job 1: no exceptions, right side;
+  - job 4: no map footprint at all (C covers a pin in 22-29% of dense
+    street views; A never);
+  - job 17: the same hit-area rule as the form spec, flag 2.
+- **The Float frame:** the card is 264-512 and ADD is 452-512, clear of
+  the open badge.
