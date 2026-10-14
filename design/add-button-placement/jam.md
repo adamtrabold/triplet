@@ -2405,3 +2405,169 @@ The details and the final send list are in scores.md, "Concept round 6b".
 NEXT: product designer (visual focus) -- re-shoot C's rest tag without the
 starred band (C1, C2, C4 pick, C6 frame 1); I check the 1x squint, then the
 orchestrator sends Float → A → C.
+
+---
+
+## Turn 25 -- design director: round 7 steer (owner picked two to take further)
+
+### The owner on round 6 (verbatim, 2026-10-14)
+
+> As far as add buttons the badge is probably the most interesting to me
+> right now. I like it in orange and bigger but maybe the plus should be on
+> the left? Easier for me to reach.
+>
+> The tag shape in the list header is also interesting — not everything in
+> these places is a ticketed thing so the tag ties better to the view state.
+> Id like to see that mocked
+
+**Settled by him:**
+- The Float is orange, 60px, with the finer edge. That's liked, so it
+  doesn't change.
+- The left corner is his to try ("easier for me to reach"). We don't argue
+  reach. Last round we read reach as right-thumb; he's told us his.
+- The tag cut is the A to mock. His reason is that **a tag ties to the view
+  state**: the tag is what a place opens into, and not everything on the
+  list is a ticketed thing. That replaces the admission ticket.
+- C is parked. It isn't in this round, and its pending re-shoot is off.
+
+**Open, and ours:**
+- the Float's best alignment and behaviour at the left;
+- how the header tag answers the two objections I raised against it
+  (below).
+
+### Draws (real RNG)
+
+- **"Mirror it"** (the Float): mirroring isn't free. Every right-corner
+  decision was made for the right, and the left has its own neighbours.
+  Walk them again; don't flip the numbers.
+- **"Retrace your steps"** (A): the tag cut came out of round 6 as a route
+  I ruled against. Go back to it, now with his reason, and answer my
+  objections instead of inheriting them.
+- **Library cards** (A): the card pocket and its tab. A tab or tag at the
+  end of a row is a familiar "pull this out" object, not a filter chip.
+  Use it only if it helps the "not a filter" problem.
+
+### 1. Float, left corner (systems first, then visual)
+
+**Settled:** the look as round 6, and the rulings that carry over:
+- ride on form open;
+- filters "under";
+- **`TAG_SHEET_GAP` 88** (the 316px tag spans both corners, so the gap
+  should hold; confirm it);
+- the navy open state with a paper ×.
+
+**Measure and decide (systems), at 60px:**
+- **Alignment:**
+  - `l-gutter-20` was the cleanest alignment at 50px (ink 0.9px from the
+    category rings: the owner's "one left channel").
+  - Re-measure at 60, scaled about the badge's lower-left ink, so it stays
+    20 from the side and 20 from the list.
+  - Check whether the ring channel still holds, and whether the + glyph
+    centre or the ink edge is the right thing to align.
+- **The OSM credit:**
+  - With the badge at the left, the credit can go back to Leaflet's
+    default bottom-right.
+  - Measured at 50, it was 72.9px clear at 390. Check 320 at 60px.
+  - Say whether the "Leaflet |" prefix can stay. If it fits, it stays:
+    ruling 4 was made for the right corner.
+- **The form line:**
+  - Today ADD LOCATION would start at x 78, so the form loses its 56px
+    spine on that one line.
+  - Find the honest options and show them, e.g. Add beside the × as
+    measured, or Add on the spine with the × on its own.
+  - I'll rule after seeing them. "Small marks line up exactly" is in play.
+- **The left column:**
+  - The zoom control is at the top-left, so the + badge and the zoom's +
+    share one side. Check at 1x that they don't read as one control family.
+  - The back-swipe edge (16px from the left): an iPhone check, listed, not
+    solved here.
+- **The usual states:**
+  - list up at 844 and 664;
+  - collapsed with the 34px inset;
+  - tag open at 664 and at 320;
+  - adding at 844 and 664;
+  - filters open;
+  - desktop (the map column's left corner sits beside the rail).
+- Pins under the badge in all 5 cities.
+
+**Owner stills (visual, after systems):**
+1. Right vs left at rest, side by side (so he sees the move, not a new
+   object).
+2. The 1x crop plus squint, with the account badge in frame. The account
+   is now at the opposite corner, so check that hierarchy still reads
+   with no shared line.
+3. Tag open at 664.
+4. Adding at 844 (the form line).
+5. Collapsed with the inset.
+6. 320 with a tag open.
+
+### 2. A, the Hanging Tag cut in the list header (visual)
+
+**Settled:**
+- A's home: the header's right end, flush to the edge, the thumb band, no
+  header height.
+- The + is the sign and the loudest mark.
+- Orange stock with the band's tooth.
+- States, the flow and the cost: the title is 32px shorter.
+
+**The mock must answer my two objections from round 6 (by showing, not by
+caption):**
+1. **The eyelet reads as a dot at 1x** (the owner's "no dots"). At 1x it
+   must read as a punched hole with its patch, like the real tag's, or not
+   be there.
+   - Visual decides whether the tag reads as a tag with the chamfers alone.
+2. **A tag shape in the sort/filter row reads as a "tags" filter.** It must
+   read as an object at the end of the band, not a fourth icon.
+   - The dials: scale against the 32px icons, being flush to the edge, the
+     orange stock, and the + carrying the meaning.
+   - The library-card tab draw may help.
+
+**Plus one I'm adding now:**
+3. **Orange on a tag means "starred" today** (the band). The header tag is
+   all orange, as the action colour. Show that it reads as "add", the same
+   orange as ADD LOCATION and the Float, not as "a starred tag".
+   - This is the round-6b check: a borrowed part keeps its meaning in the
+     state it's shown in.
+
+**His reason has to show:**
+- At least one still has a real place's tag open above the list, with the
+  header tag at the band's end, so the "ties to the view state" rhyme can
+  be seen.
+- Also check that the two don't compete: the open tag is content and must
+  win.
+
+**Owner stills:**
+1. The header tag vs the round-6 admission ticket at rest (the comparison
+   he asked for).
+2. The 1x crop plus squint, with the account badge in frame.
+3. Rest / pressed / open.
+4. A real tag open with the header tag (the rhyme and the hierarchy).
+5. Adding.
+6. 320.
+
+**Systems:** a quick structural check only. The box is the same as A's,
+so confirm the title cost and the hit area, and that the chamfered side
+doesn't crowd the locate icon at 320.
+
+### Bar (unchanged)
+- 1x crop and squint first, account in frame.
+- `chrome-check` clean.
+- Captions checked against the measurements.
+- Frames checked against the current rulings.
+- The "reads as" pass names the object first.
+- Borrowed parts keep their meaning.
+- One cost line each.
+
+### Who goes first
+
+Systems, on the Float's left corner at 60px. It's mostly measurement, and
+the form-line question needs options before visual polishes anything. Then
+visual does both concepts' owner stills, the A tag mock being the main
+design work, with systems' quick A check alongside. Then I score both in
+one pass.
+
+NEXT: product designer (systems focus) -- the Float's left corner is a
+mirror that isn't free (alignment at 60px, the credit going back to the
+right, the form line losing its spine, the zoom column, the usual states);
+measure it and bring the form-line options before visual shoots the owner
+stills and mocks A's Hanging Tag cut.

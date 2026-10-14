@@ -1,6 +1,6 @@
 # Director notes -- + placement
 
-## Status (current: see "Round 6b" at the bottom -- Float 9, A 9, C 9 pending a bandless re-shoot I check; final send in scores.md round 6b)
+## Status (current: see "Round 7 opened" at the bottom -- Float to the LEFT corner + A as the Hanging Tag cut; C parked; systems first)
 2026-10-13: round 5 scored (jam turn 17, scores.md round 5): Float 9 and
 A 9 after mechanical re-shoots/caption; C 8, ring fix. Waiting on visual,
 then I check the re-shot stills and release one send (Float, A, C). The
@@ -821,3 +821,80 @@ check every frame and release the send (or Float + A with a line on C).
 - Me: check it, then release.
 - Orchestrator: sends Float → A → C. On his pick: handoff.md, which I check
   against owner.md before the build.
+
+---
+
+## Round 7 opened -- 2026-10-14 (jam turn 25)
+
+### Owner on round 6 (verbatim; also in owner.md)
+"As far as add buttons the badge is probably the most interesting to me
+right now. I like it in orange and bigger but maybe the plus should be on
+the left? Easier for me to reach.
+
+The tag shape in the list header is also interesting — not everything in
+these places is a ticketed thing so the tag ties better to the view state.
+Id like to see that mocked"
+
+### What it tells me
+- **The Float leads.** Orange + 60px + the finer edge are liked, so they're
+  settled. **Reach is his:** we'd assumed a right thumb for him, and he
+  says the left is easier. Don't relitigate.
+- **A's tag cut,** the route I ruled against in round 6, is what he wants
+  to see. His reason ("ties to the view state") beats my "A and C become
+  the same kind". That objection is moot anyway, with C parked.
+  - My other two objections become the mock's job: the eyelet reads as a
+    dot at 1x, and a tag in the sort/filter row reads as a "tags" filter.
+  - New: orange on a tag = starred today (the band), so the header tag's
+    orange has to read as "add".
+- **C: parked.** The bandless re-shoot is off. If C comes back: the band
+  ruling stands, and C is otherwise at 9.
+
+### Steer
+- **Float, left corner (systems first):**
+  - re-measure `l-gutter-20` at 60px (ink 0.9px from the rings at 50; does
+    the ring channel hold?);
+  - the credit back at bottom-right (keep "Leaflet |" if it fits;
+    ruling 4 was for the right corner);
+  - **the form line:** Add would start at x 78 and lose the 56 spine;
+    systems brings options, I rule;
+  - the zoom column (two +s on the left at 1x?);
+  - the back-swipe edge (iPhone check);
+  - `TAG_SHEET_GAP` 88 should hold (confirm);
+  - all the usual states, and desktop.
+  - Owner stills: right vs left, 1x/squint with account, tag 664, adding
+    844, collapsed, 320 tag.
+- **A, tag cut (visual):**
+  - answer the dot, filter and starred-orange reads by showing them;
+  - one still with a real tag open plus the header tag (the rhyme he
+    named, and hierarchy: the tag wins);
+  - stills: tag vs admission, 1x/squint, states, the tag rhyme, adding,
+    320.
+  - Systems: a quick check only (same box).
+- **Draws:** "Mirror it" (mirroring isn't free), "Retrace your steps",
+  library cards (tab-at-the-end ≠ filter chip).
+
+### Likely owner objections to hold round 7 to
+- **Float-left:**
+  - "two +s on the left" (zoom);
+  - "Add doesn't line up" (the form line);
+  - "the credit moved again".
+- **A tag:**
+  - "the hole is a dot";
+  - "it looks like a filter/tags button";
+  - "orange tag = starred?";
+  - "it fights the open tag".
+
+### What keeps blocking a 9 (carried)
+- Object identity and rank: solved for the Float, being solved for A's
+  new form.
+- Borrowed parts keeping their meaning (6b).
+- My own pre-judgements of his taste. I killed the tag cut on structural
+  grounds he didn't share. Rule: **when I drop a route, keep it visible in
+  the owner stills as a seen alternative** (as R6-A3 did). That's how he
+  found the one he wanted.
+
+### Next
+- Systems: Float-left measurements and form-line options; the quick A tag
+  check.
+- Visual: the owner stills for both, with the A tag mock as the main work.
+- Me: score both in one pass, 1x first.
