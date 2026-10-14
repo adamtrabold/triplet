@@ -1,4 +1,39 @@
-# C · Pin+tag: how it looks and feels (round 9)
+# C · Pin+tag: how it looks and feels (round 9b, supersedes round 9 below)
+
+## Round 9b: the director scored C 7 ("what keeps blocking a 9": rank bought by added mass)
+
+**The pick: a tag pinned to the map** (`data-cform=side data-cpin=ring data-cplus=tag data-cps=4 data-cw=144 data-cpd=40 data-crw=4`).
+- **A shipping tag lying across**, 144 × 75:
+  - its left end die-cut (two chamfers);
+  - its right end the stub (an upright 1.5 dashed `--hair` perforation, with r3.5 notches top and bottom);
+  - `--paper-raised`, with the real tag's edge and shadow.
+- **The app's own pin pushed through its eyelet** at the left end: the pin grammar (paper face, coloured ring) in the action orange, 40 across with a 4 ring. **The face is empty:** a blank pin is a pin with no icon yet. It has a small contact shadow, because it's pressed into the map.
+- **One +, printed on the tag between the pin and the stub:** navy, 46 across, 8.5 stroke, round caps. It's the strongest ink on the object.
+- **No added block.** The navy slot is gone. The rank comes from the + and the pin's ring.
+  - My rough measure is 1.09× / 1.00× (σ4 / σ8; my method reads about 0.83× of systems' on R6b, so I expect about 1.2-1.3× on theirs). Systems re-measures.
+- **Footprint:** 144 × 75, about 10.8k px², down from 12.5k (100 × 125) in round 9. The left edge is on the 19.9 ink line and the foot is 20 above the list. The right end passes over the credit's x but sits above its y.
+- **Why it lies across:**
+  - A ring over a cross reads as the female sign at 1x (every "+ on the tag under a hanging pin" variant did; `raw/cv-hang-ring-tag*`, `cv-push-*`).
+  - Side by side, ring then cross, there's no such read.
+  - And "pinned through the eyelet" is the end state the add leads to: the button shows the finished thing (a tag pinned to a place).
+- **Also tried (C2), as the director asked:** R6's arrangement with today's tag. The + is on a filled orange pin (navy +), and the blank tag hangs from it on its string.
+- **Pressed (C8):** the pin fills (as a pin does when it's selected), and the tag goes to `--paper`.
+- **Tap:** the tag lifts off the pin and rises (rotating up to the dock's landscape tag, 144 → 316 wide) as the blank form. The pin stays in its spot. On ADD the pin goes into the docked/carded tag's eyelet on the place (T5).
+- **Variants tried this round** (`raw/cv-*`, rough mass σ4):
+
+| Variant | 1x read | Mass |
+|---|---|---|
+| Pick: side, ring pin 40/4, + 46/8.5 | a pinned tag with a + | 1.09 |
+| Side, filled pin 36, + 42/7.5 | the pin reads as a dot/rivet | 1.26 |
+| Side, ring pin 36/3, + 42/7.5 | the same as the pick, quieter | 0.87 |
+| Push (the pin on the eyelet, upright tag), + under it | the female sign | 0.67-0.97 |
+| Hang, ring pin, + on the tag | the female sign | 0.75 |
+| Hang, + on a filled pin 40 (R6 at 40) | a pin and a blank card; reads well, light | 0.98 |
+
+- **Open:**
+  - **The ring may read as an oversized grommet** rather than a pin, because it sits where an eyelet would. At 1x (C1) I read it as a pin among pins (same ring grammar, larger), but it's the risk to watch.
+  - **The pin is 40,** larger than the app's 32 selected pin (within the director's turn-38 "at most 40").
+
 
 Visual, 2026-10-14. Owner (on round 8b): "Blank pin looks ugly. I wanted to explore the version where the pin+tag was the button and see if that could work with tweaks." Director turn 38 set the rules: the app's own pin at its own size, a tag that reads as the Hanging Tag at 1x, one +, orange off the paper, at home beside the real pins and the account badge first.
 

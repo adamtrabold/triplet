@@ -23,7 +23,7 @@ const journey = steps => { const w = Math.floor((1170 - 30 - (steps.length - 1) 
   return `<div class="row" style="padding:0 15px;gap:12px">${steps.map(([n, t], i) => `<div class="col" style="width:${w}px"><div class="lab small"><span class="num">${i + 1}</span>${t}</div>${crop(f(n), 0, 0, 390, 664, s, 390, 'border:1px solid #cfc4ae')}</div>`).join('')}</div>`; };
 // the tappables audit: the filled card cropped at 3.34x, numbered dots at each tappable's top-left (measure.json)
 const M = JSON.parse(fs.readFileSync(R + 'measure.json', 'utf8'));
-function taps() { const t = M['r9-f-card664'].taps, x0 = 20, y0 = 320, x1 = 370, y1 = 596, sc = 1170 / (x1 - x0);
+function taps() { const t = M['r9-f-card664'].taps, x0 = 20, y0 = 300, x1 = 370, y1 = 584, sc = 1170 / (x1 - x0);
   const pts = [t.x[0], t.chips[0], t.notes[0], t.chips[1], t.segs[0], t.segs[1], t.segs[2]];
   const dots = pts.map((b, i) => { const cx = ((b[0] + b[2]) / 2 - x0) * sc, cy = (b[1] - y0) * sc; return `<div style="position:absolute;left:${cx - 26}px;top:${cy - 30}px;width:52px;height:52px;border-radius:50%;background:#A8400C;color:#fff;font-size:30px;font-weight:700;text-align:center;line-height:52px;box-shadow:0 0 0 4px #F2EBDD">${i + 1}</div>`; }).join('');
   return `<div style="position:relative;width:1170px">${crop(f('r9-f-card664'), x0, y0, x1, y1, sc)}${dots}</div>`; }
@@ -91,21 +91,25 @@ const pages = {
      <b style="color:#12293F">2 · City</b> and <b style="color:#12293F">4 · Type</b> are the filter chips from the filter panel: outlined, with a ⌄. Type shows the category’s icon and colour, so you see the pin you’ll get.<br>
      <b style="color:#12293F">3 · Notes</b> is a line to write on, with its label; the whole line is the tap target.<br>
      <b style="color:#12293F">5 · ADD</b> navy, the one action on the tag. <b style="color:#12293F">6 · Star</b> and <b style="color:#12293F">7 · Mark visited</b>: the real tag’s segments, unchanged.</div>`,
-  // ================= C · PIN+TAG =================
-  [CP + 'C1-rest-vs-today-3x.png']: `${cap('C · the pin and its tag', 'The + is a blank place: the app’s own pin, at its own size, with a blank luggage tag on its string. The + is printed on the tag where you’ll write, and the tag’s stub has ADD’s navy slot, like the form it opens. Bottom-left; the account badge is alone at the top.')}
+  // ================= C · PIN+TAG (round 9b) =================
+  [CP + 'C1-real-size-3x.png']: `${cap('C · a tag pinned to the map, at real size', 'This is how it looks on your phone (1x, each pixel shown as you’d see it), with the app’s own pins and the account badge. A blank luggage tag, held to the map by one of the app’s pins pushed through its eyelet, with the + printed on it. The pin is empty: the place has no type yet.')}
+     ${crop1(f('r9-c-rest-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
+  [CP + 'C2-also-tried-3x.png']: `${cap('Also tried: the + on the pin, a blank tag hanging from it', 'Round 6’s arrangement, with today’s tag. Left: the pick; right: this one, both at real size.')}
+     <div class="row" style="gap:30px">${col('Pick', crop1(f('r9-c-rest-1x'), 0, 392, 190, 525, 3), 570)}${col('Also tried', crop1(f('r9-c-alt-1x'), 0, 392, 190, 525, 3), 570)}</div>
+     ${note('Why not the + on the tag under a hanging pin: a ring over a cross reads as the female sign at 1x. So in the pick the pin goes through the eyelet at the tag’s end and the + sits beside it.')}`,
+  [CP + 'C3-rest-vs-today-3x.png']: `${cap('C beside today', 'Bottom-left, by your thumb; the account badge is alone at the top.')}
      ${pair(f('r9-today'), 'Today', f('r9-c-rest'), 'C', 640)}<div class="gap"></div>`,
-  [CP + 'C2-1x-3x.png']: `${cap('At real size (1x), beside the app’s pins and the account badge', 'Top: the whole screen at 1x, and blurred (the squint test: the + should come first). Bottom: close-ups at 1x ×4: the pick, and the same object with no navy on the tag.')}
+  [CP + 'C4-squint-1x.png']: `${cap('The squint test', 'The same screen blurred: the + should come before the account badge.')}
      <div class="row" style="padding:0 30px;gap:18px">${col('C, 1x', crop1(f('r9-c-rest-1x'), 0, 0, 390, 560, 1.4), 546)}${col('Blurred', crop1(f('r9-c-rest-1x'), 0, 0, 390, 560, 1.4, true), 546)}</div>
-     <div class="row" style="padding:0 30px;gap:18px">${col('Pick: ADD’s navy slot on the stub', crop1(f('r9-c-rest-1x'), 0, 385, 136, 545, 4), 544)}${col('Also tried: no navy (too quiet)', crop1(f('r9-c-alt-1x'), 0, 385, 136, 545, 4), 544)}</div>
-     ${note('Measured roughly here (systems re-measures): the pick is about 1.4× the account badge’s weight when blurred; with no navy on the tag it’s about 0.85× — the “same weight as account” problem. The pin stays the app’s own 32px pin; the weight comes from the tag.')}`,
-  [CP + 'C3-tap-3x.png']: `${cap('Tap it (Safari, 390×664)', 'The tag comes off the pin and rises above the keyboard as the blank form; the pin waits. The map doesn’t move while you fill it in. On ADD the pin goes into the eyelet, on the place (T5).')}
+     ${note('Rough measure here (systems re-measures on its own harness): about 1.1× the account badge blurred at σ4, 1.0× at σ8. The weight is the navy + and the pin’s ring; nothing is added to carry it.')}`,
+  [CP + 'C5-tap-3x.png']: `${cap('Tap it (Safari, 390×664)', 'The tag comes off the pin and rises above the keyboard as the blank form; the pin waits. The map doesn’t move while you fill it in. On ADD the pin goes into the eyelet, on the place (T5).')}
      ${pair(f('r9-c-rest664'), 'At rest', f('r9-c-tapped664'), 'Tapped: type the name', 664)}<div class="gap"></div>`,
-  [CP + 'C4-tag-open-3x.png']: `${cap('A place’s tag open', 'The pin and tag step aside while a place’s tag is open, and come back when you close it. With the filters open it’s under them the same way.')}
-     ${full(f('r9-c-tag664'))}${cost('one extra tap to add while a place’s tag or the filters are open (close it first). The header tag (A) has no such step.')}`,
-  [CP + 'C5-sizes-3x.png']: `${cap('Small phone, list down', 'Left: 320 wide. Right: list down on the Home Screen app: it rides the list’s edge.')}
+  [CP + 'C6-tag-open-3x.png']: `${cap('A place’s tag open', 'C steps aside while a place’s tag is open, and comes back when you close it. With the filters open it’s under them the same way.')}
+     ${full(f('r9-c-tag664'))}${cost('one extra tap to add while a place’s tag or the filters are open (close it first). The header tag (A) has no such step. In a street-level view it can sit on a place; panning frees it.')}`,
+  [CP + 'C7-sizes-3x.png']: `${cap('Small phone, list down', 'Left: 320 wide. Right: list down on the Home Screen app: it rides the list’s edge.')}
      <div class="row" style="gap:20px">${col('320 × 568', crop(f('r9-c-rest320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('List down', crop(f('r9-c-collapsed'), 0, 300, 390, 844, 575 / 390), 575)}</div><div class="gap"></div>`,
-  [CP + 'C6-pressed-3x.png']: `${cap('Pressed', 'Deep orange pin, the tag goes to paper: the pressed grammar of every orange action.')}
-     <div class="row" style="gap:20px">${col('Rest', crop(f('r9-c-rest'), 0, 385, 136, 545, 575 / 136), 575)}${col('Pressed', crop(f('r9-c-pressed'), 0, 385, 136, 545, 575 / 136), 575)}</div><div class="gap"></div>`,
+  [CP + 'C8-pressed-3x.png']: `${cap('Pressed', 'The pin fills, as a pin does when it’s selected; the tag goes to paper.')}
+     <div class="row" style="gap:20px">${col('Rest', crop(f('r9-c-rest'), 0, 430, 190, 525, 575 / 190), 575)}${col('Pressed', crop(f('r9-c-pressed'), 0, 430, 190, 525, 575 / 190), 575)}</div><div class="gap"></div>`,
 };
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${dd}/chrome-linux/chrome`, args: ['--allow-file-access-from-files'] });

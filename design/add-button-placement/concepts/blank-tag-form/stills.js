@@ -15,10 +15,11 @@ const HTML = {
 };
 // C (pin+tag button, round 9): k = 'C' (the pick) or 'C:<pin>:<stub>:<plus>' for the variants
 const CINC = fs.readFileSync(path.join(CON, 'C-pintag/c.inc.html'), 'utf8');
-const CPICK = ['fill', 'third', 'tag'];
+const CPICK = (process.env.CPICK || 'side:ring:tag:4:144:40:4').split(':');
 const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
-const htmlFor = k => { if (!k.startsWith('C')) return HTML[k]; const [pin, stub, plus, ps] = k === 'C' ? CPICK : k.split(':').slice(1);
-  return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cpin="${pin}" data-cstub="${stub}" data-cplus="${plus}" data-cps="${ps || ''}"`); };
+// C keys: 'C' (the pick) or 'C:<form>:<pin>:<plus>:<ps>:<w>:<pd>'
+const htmlFor = k => { if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw] = k === 'C' ? CPICK : k.split(':').slice(1);
+  return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}"`); };
 // ---------- helpers ----------
 const zoomIn = (p, c) => p.evaluate(c => map.setView(c || [64.1471, -21.9426], 14, { animate: false }), c);
 const rowId = (p, name) => p.evaluate(n => locations.find(l => l.name === n && l.city === 'reykjavik').id, name);
@@ -32,7 +33,7 @@ const restP = p => p.evaluate(() => __BT.restP());
 const hideP = p => p.evaluate(() => { const e = document.getElementById('lp'); if (e) e.classList.add('gone'); });
 // capture a real tag as the template, then close it (the blank tag is built from the shipped DOM)
 async function template(p) { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => { __BT.capture(); map.closePopup(); }); await p.waitForTimeout(700); }
-async function dock(p, s, kbH) { await template(p); await zoomIn(p, s.centre || (process.env.DC ? JSON.parse(process.env.DC) : [64.1440, -21.9400])); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
+async function dock(p, s, kbH) { await template(p); await p.click('#collapseBtn'); await p.waitForTimeout(900); await zoomIn(p, s.centre || (process.env.DC ? JSON.parse(process.env.DC) : [64.1440, -21.9400])); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
 async function hang(p, s, place = 'Sundhöllin') { await openPlace(p, place, true); await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
 const floatBadge = (p, open) => p.evaluate(open => {   // the Float frame: R7's badge (60px, orange, account's scalloped die) at bottom-left
   const a = document.getElementById('accountBtn'), m = getComputedStyle(a).webkitMaskImage || getComputedStyle(a).maskImage;
@@ -98,9 +99,9 @@ F['cmp-pencil'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked' }) };
 F['cmp-off'] = { ...F['cmp-off-1x'], dsf: 3 };
 F['cmp-blank'] = { ...F['cmp-blank-1x'], dsf: 3 };
 // C variants at rest (z14, the account in frame) and 1x, for the look and the squint
-for (const v of ['fill:cream:tag', 'fill:navy:tag', 'ring:cream:tag', 'fill:cream:pin', 'fill:third:tag', 'fill:cream:tag:big', 'fill:third:tag:big']) both('cv-' + v.replace(/:/g, '-'), { k: 'C:' + v, zoom: true, centre: CREST });
-F['cv-none'] = { k: 'C', zoom: true, dsf: 1, run: p => p.evaluate(() => document.getElementById('cp').classList.add('gone')) };
-F['cv-noacct'] = { k: 'C', zoom: true, dsf: 1, run: p => p.evaluate(() => { document.getElementById('cp').classList.add('gone'); document.getElementById('accountBtn').style.visibility = 'hidden'; }) };
+for (const v of (process.env.CV || 'hang:fillplus:none:0:100:32').split(',')) both('cv-' + v.replace(/:/g, '-'), { k: 'C:' + v, zoom: true, centre: CREST });
+F['cv-none'] = { k: 'C', zoom: true, centre: CREST, dsf: 1, run: p => p.evaluate(() => document.getElementById('cp').classList.add('gone')) };
+F['cv-noacct'] = { k: 'C', zoom: true, centre: CREST, dsf: 1, run: p => p.evaluate(() => { document.getElementById('cp').classList.add('gone'); document.getElementById('accountBtn').style.visibility = 'hidden'; }) };
 // A
 both('a-rest', { k: 'A', zoom: true });
 F['a-tag664'] = { k: 'A', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
@@ -123,7 +124,7 @@ async function card(p, s, o = {}) { await template(p); await p.click('#collapseB
 const NOTE2 = 'Bring a towel. Locals swim at 7am; the outdoor hot tubs are the best part';
 both('r9-today', { k: 'today', zoom: true, centre: CREST });
 both('r9-c-rest', { k: 'C', zoom: true, centre: CREST });
-both('r9-c-alt', { k: 'C:fill:cream:tag', zoom: true, centre: CREST });
+both('r9-c-alt', { k: 'C:hang:fillplus:none:0:100:32', zoom: true, centre: CREST });
 F['r9-c-pressed'] = { k: 'C', zoom: true, centre: CREST, run: p => p.evaluate(() => document.getElementById('cp').classList.add('press')) };
 F['r9-c-rest664'] = { k: 'C', vp: V664 };   // the city view (the app's opening fit)
 F['r9-c-tapped664'] = { k: 'C', vp: V664, zoom: true, centre: CREST, run: async p => { await dock(p, { state: 'typing' }); await cGone(p); } };

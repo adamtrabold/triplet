@@ -1,5 +1,26 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 9b (director: C 7, A 9; five fixes)
+- **C's new pick:** a shipping tag lying across, pinned through its
+  eyelet by an orange ring pin (40, 4 ring, empty face), with a navy +
+  46/8.5 beside it. 144×75, no added block.
+  - Rough mass 1.09 (σ4).
+  - Dial string: `side:ring:tag:4:144:40:4` (`CPICK` in `stills.js`;
+    `c.inc.html` `drawSide()`).
+- **Killed:** any circle-over-cross arrangement (it reads as the female
+  sign).
+- **Also tried:** R6 (`hang:fillplus:none:0:100:32`).
+- **Stills:** `C1` real size, `C2` also tried, `C3` vs today, `C4`
+  squint, `C5` tap, `C6` tag open, `C7` sizes, `C8` pressed. The old
+  C1-C6 are deleted.
+- **Form:**
+  - 40px chip rows.
+  - The credit is never hidden; `dock()` now collapses the list first.
+  - T9 crop is 300-584.
+- **Mass method:** my blur metric reads about 0.83× of systems' (R6b:
+  0.71 mine vs 0.86 theirs). The baseline frames `cv-none`/`cv-noacct`
+  must use the same centre as the variant.
+
 ## UPDATE 2026-10-14, round 9 (owner: "Blank pin looks ugly…"; director turn 38)
 - **P is dropped.** C (pin+tag) and A carry the shared form; Float is one
   frame.

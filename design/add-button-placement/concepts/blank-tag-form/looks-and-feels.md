@@ -1,5 +1,10 @@
 # The blank-tag form: how it looks and feels (shared by C, A and the Float frame)
 
+## Round 9b (director round 9 fixes 5)
+- **Control rows are 40:** address · city and TYPE (the chip rows), so tap areas never clip or overlap. NOTES stays 32. The filled card is 264 tall at 664 (foot 581).
+- **The OSM credit is visible in every state.** The "hidden while docked" rule is gone: docked, the list has dropped to its band, so the credit is under the keyboard; carded, the foot clears it by 6.
+- Re-shot: T0-T9, A3, A5.
+
 ## Round 9 (director turn 38). This overrides everything below where they differ.
 
 - **The filled tag is a card in the screen's frame; the map stays still.**

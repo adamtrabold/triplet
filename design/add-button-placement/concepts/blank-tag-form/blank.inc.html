@@ -31,7 +31,7 @@
 
   /* ---- the docked tag: fixed to the visual viewport, string from the pin's foot ---- */
   #btDock { position: fixed; z-index: 1550; left: 0; top: 0; }
-  body:has(#btDock) .leaflet-control-attribution { visibility: hidden; }
+  /* the OSM credit stays visible in every state (director round 9, ruling 3); the card's foot clears it */
   #btDock .leaflet-popup { position: absolute; margin: 0; transform: none !important; bottom: auto !important; }
 
   /* ---- blank-mode contents: a RULED blank tag (turn 37). Every line is there from the first frame, at a fixed
@@ -78,6 +78,8 @@
   .tag-in.has-res > .bt-f:not(.name) { visibility: hidden; }
   .bt-res { position: absolute; z-index: 2; left: 0; right: 0; top: 89px; bottom: 0; padding: 0 var(--s4); background: var(--paper-raised); overflow: hidden; }
   /* round 9: tap-to-change entries are the app's filter chip; questions print above the stub; answers ARE the stub */
+  /* control rows (a chip on them) are 40 so tap areas never clip or overlap (director round 9, ruling 1); NOTES stays 32 */
+  .bt-f.addr, .bt-f.type { min-height: 40px; }
   .bt-f.addr .bt-rule { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s2); }
   .bt-chip.filter-btn { padding: 3px var(--s2); gap: 6px; font-size: 13px; line-height: 16px; letter-spacing: .06em; cursor: pointer; margin-bottom: 3px; white-space: nowrap; }
   .bt-chip .bt-pencil { font-weight: 700; }
