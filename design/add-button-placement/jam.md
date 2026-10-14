@@ -3503,3 +3503,167 @@ work as a 120-wide corner crop. Both get drawn into the docked journey at
 the numbers above: the tag's top at 74, 162px of slip, rows of 52 or
 less or the name 36 below the tag's top, and the stub behind the
 keyboard. Then the director rules on items 1, 3, 4 and 5.
+
+## Turn 34 -- product designer (visual focus): V2 made a pin, V3 cropped, the typing state drawn to the numbers
+
+Sketches, labelled SKETCH, in `concepts/sketches/pass-a/` (`sketch.html`,
+`typing.html`, `render.js`):
+- `sketch-s1-3x.png`: V2, six shapes at the same squint mass, beside the
+  account seal and real 24px pins;
+- `sketch-s2-3x.png`: V3, two 120px crops;
+- `typing-664-3x.png`: the typing state at systems' numbers.
+
+They're for judging the idea, not owner stills.
+
+### 1. V2 at 52: size can't say "pin", shape can. My pick: the lifted pin
+
+Systems are right: at 52 a disc is a FAB, and cell 5 (R6's grammar, scaled
+up) shows it. I drew five shapes against the stock FAB (cell 0):
+
+- **1 Lifted, not yet placed: FORWARD.**
+  - A 44px orange disc with a 2px paper halo (48 overall), deep-orange
+    rim and navy +. It's the app's own round pin, raised.
+  - Under it, a straight 1.6px navy string drops about 22px to a point on
+    the map, with a small soft ground shadow (restrained: one ellipse,
+    ~18% opacity).
+  - It reads as a pin held above the map, about to go in. Every map app
+    uses "lifted with a shadow" to mean "a pin you're placing", so the
+    shape carries the meaning, not the size.
+  - It's also rule 1 at rest. The string is already there, and the tag
+    comes down it when you tap. The owner's "pop down out of the pin ...
+    straight string" is the trigger's own anatomy.
+  - It changes no shipped mark. The landed pin is the app's pin; only the
+    lift is new.
+- **3 Teardrop: dropped.** It's the strongest "pin" read, but it's the
+  stock drop-a-pin icon, the owner's "knee jerk to the standard" in pin
+  form. It's also a shape the app never draws, and the new place would
+  become a different shape the moment it's added.
+- **2 Push-pin: dropped.** It reads "pin" and has whimsy, but the angled
+  needle is the only diagonal on a map of uprights, and its tip isn't
+  where you'd trust the place to go.
+- **4 Pin + empty string with a ring: dropped.** The ring at the bottom
+  reads as a balloon or lollipop, and a ring is a dot (noise rule).
+- **5 Big app disc: dropped.** It's the FAB.
+
+**Kill test (the director's):** in the sketch, 1 does not squint like 0.
+The vertical string and the ground point break the disc's "floating
+button" silhouette. That needs confirming at real 1x in the app.
+**Systems:** re-run `squint.py` on this shape (48 halo'd disc + string +
+shadow, about 72 tall). I expect about 1.35x the account (the 48 row). If
+it comes in under 1.3, grow the disc to 48 (52 halo'd) and keep the
+string, not the reverse.
+
+### 2. V3 at 120: "narrow, not small" draws; my vote is to drop it anyway
+
+- **A, an eyelet-centred crop of the 316 tag: dropped.** With no
+  chamfers it's a cream box with a patch. That's the failure the owner
+  named.
+- **B, narrow, not small: drawable.** It's a 120-wide tag top with 22px
+  chamfers, but the eyelet patch (48x28), grommet, string and pin are full
+  scale. Only the width changes, and tags do come in widths. It reads as a
+  tag top.
+- **Why I'd still drop V3:**
+  - It needs the credit moved.
+  - It's two objects (the paper and a 32px pin) at the list edge.
+  - Its rank comes from the cream paper, not the +.
+  - It has the same exceptions as V2 (tag open, filters open).
+  - Lifted V2 already says "a tag comes down this string" with one
+    object.
+- If the director keeps V3, B is how it's drawn: pin 32 above, string 28
+  to the grommet, 26px of paper showing above the list header.
+
+### 3. The typing state at 664 (`typing-664-3x.png`)
+
+These are systems' numbers, all met in the sketch:
+- the pin 14-46 on the tag's axis, clear of zoom and the account badge;
+- the tag top at 74 (28px chamfers, patch 4 below the top);
+- **the name at 36 below the top (110-138)**, taking option (b): a blank
+  tag has no band while you type;
+- **result rows at 48px**: name 14/600 navy plus a one-line address in
+  11px `--ink-2`, both truncated to one line;
+- the stub running on behind the keyboard.
+
+Result: **3 rows plus half of the 4th** from 150 to 320. That meets the
+floor of 3, and the half row shows the list scrolls (the owner's own "half
+second list item" rule). At 320 the same 48px rows give 2.9. **Systems:**
+check whether 46px rows (a 13px name) clear 3 there. Visual sign-off:
+13/11 stays legible.
+
+Visual decisions in the typing state:
+- **What you type is pencil.** It's graphite `--ink-2`, in the real tag's
+  condensed display face at the real name size, with a graphite caret.
+  The NAME caption is printed under the line, small caps navy. There's no
+  placeholder.
+- **The results are printed, on the tag itself, under the name.** They
+  sit between hairlines (`--hair` softened), with no separate slip edge:
+  a slip would add a second paper edge and a shadow for nothing. Print vs
+  pencil makes the difference clear: the offers are print, and your
+  entry is pencil.
+- **The docked pin is 32px**, the real hanging-pin size, so the tag below
+  reads at real scale. It's still orange with the navy + (the type isn't
+  known yet). The lifted pin shrinks 48 → 32 as it rises to the dock.
+
+### 4. The journey in looks (for the director's rule-1 check)
+
+1. **Rest.** The pin is lifted bottom-left, on its string to a ground
+   point.
+2. **Tap.** The pin rises to the dock (14-46) and shrinks to 32. Its
+   string lengthens, and the blank tag pops down it, using the existing
+   tag-pop timing. The keyboard comes up.
+3. **Typing.** As above.
+4. **Pick.**
+   - The keyboard drops and the map flies.
+   - **The pin lands:** the lift and ground shadow go, and it sits on
+     the spot like every other pin. The tag hangs from it at the real
+     tag's position.
+   - The name, address and CITY appear in pencil, and TYPE in pencil.
+   - The stub shows **ADD (navy flood) | STAR | VISITED**.
+5. **ADD.** The ink-over, in this order:
+   - the name bleeds graphite → navy, while TYPE is stamped (seeded
+     angle and texture);
+   - if VISITED is on, its stamp lands about 150ms later as the final
+     beat. Two stamps at once read as noise, one after the other as
+     "done";
+   - ADD reprints as DIRECTIONS;
+   - the pin's face goes from orange-with-+ to the category ring and
+     glyph, as a quick swap (no new motion family).
+   The tag is now the real tag.
+6. **Close the tag.** The fresh lifted pin is standing at bottom-left.
+
+**Systems' item 1 (fresh blank vs step-aside):** "appears when the tag
+closes" is the better look. A second orange object beside the new place's
+tag would compete with it at the moment you read it. No gap change is
+needed.
+
+### 5. Visual takes on systems' items 3-5 (the director rules)
+
+- **3 Shapes.**
+  - While you fill the tag, the pin stays lifted over the picked point:
+    a shape isn't a point, so it never "lands".
+  - On ADD, the pin fades out as the outline appears, and the tag
+    re-hangs from the anchor dot (the owner's "dot or something in the
+    middle is fine").
+  - The stub word is **ADD for shapes too**, not TRACE IT: one action,
+    one word.
+  - If OSM has no shape, the pin lands as the "(approx.)" pin, as
+    today.
+- **4 TYPE pre-fill.** A wrong entry in pencil is worse than none, but
+  "blank and required" breaks tap-type-pick-ADD. My lean: the OSM class
+  where it maps, else the last-used type. It's always pencil, so it's
+  visibly provisional, and tapping it opens the choice. Data's call on
+  the source.
+- **5 CITY.** Folded into the address line, all pencil: "Hallgrímstorg 1
+  · Reykjavík". Tapping the city corrects it. It's absent for shapes.
+  That saves a line.
+
+### Dropped this turn (final)
+
+- V2 shapes: teardrop, push-pin, empty string with a ring, big disc.
+- V3 crop A.
+- My vote: V3 as a whole.
+- A separate result slip.
+- TRACE IT.
+
+NEXT: design director -- rule V2-lifted vs V3-B for the package (and the
+kill test once systems' squint is in), then systems' items 1 and 3-5,
+so concepts can start.

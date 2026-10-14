@@ -1,0 +1,56 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Archivo;font-weight:400 700;font-stretch:62% 125%;src:url(file:///home/user/triplet/design/gesture-harness/vendor/k3kQo8UDI-1M0wlSfdnoLg.woff2)}
+:root{--paper:#F2EBDD;--navy:#12293F;--ink:#1A1A18;--ink2:#5A564C;--hair:#D8CEBA;--or:#EE7434;--ord:#A8400C;--map:#F2EEE6;--tag:#F8F3E8}
+body{margin:0;background:#E9E2D4;font-family:Archivo,sans-serif;color:var(--navy)}
+.sheet{width:390px;padding:10px 0 14px}
+h1{font-size:11px;letter-spacing:.08em;margin:4px 10px 2px;font-weight:700}
+p.c{font-size:8.5px;line-height:1.35;margin:0 10px 6px;color:#3d3a33}
+.row{display:flex;gap:4px;padding:0 6px;flex-wrap:wrap}
+.cell{width:battle;position:relative;background:var(--map);height:150px;width:122px;overflow:hidden}
+.cell b{position:absolute;left:5px;bottom:4px;font-size:8px;letter-spacing:.06em}
+.sk{position:absolute;right:4px;top:3px;font-size:6.5px;color:#8a8273;letter-spacing:.1em}
+svg{display:block}
+</style></head><body>
+<div class="sheet" id="s1">
+<h1>SKETCH · V2 AT 52: PIN OR FAB?</h1>
+<p class="c">Same 52px squint mass in each cell. Small rings = the map's real 24px pins; the navy seal = the 50px account badge, for rank.</p>
+<div class="row" id="v2"></div>
+</div>
+<div class="sheet" id="s2">
+<h1>SKETCH · V3 AS A 120px CORNER CROP</h1>
+<p class="c">Bottom-left, at the list's top edge. Patch, grommet, string and pin at full scale in both.</p>
+<div class="row" id="v3"></div>
+</div>
+<script>
+const PLUS=(x,y,s,c='#12293F',w=3)=>`<path d="M${x} ${y-s} V${y+s} M${x-s} ${y} H${x+s}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+const pin=(x,y,c)=>`<circle cx="${x}" cy="${y}" r="11" fill="#F2EBDD" stroke="${c}" stroke-width="2"/><circle cx="${x}" cy="${y}" r="4" fill="${c}" opacity=".7"/>`;
+function seal(cx,cy,r){let d='';const n=12;for(let i=0;i<=n*2;i++){const a=i*Math.PI/n;const rr=i%2?r:r-3.2;d+=(i?'L':'M')+(cx+rr*Math.cos(a)).toFixed(1)+' '+(cy+rr*Math.sin(a)).toFixed(1)}return `<path d="${d}Z" fill="#12293F" stroke="#12293F" stroke-width="2" stroke-linejoin="round"/><circle cx="${cx}" cy="${cy-4}" r="5" fill="none" stroke="#EE7434" stroke-width="2"/><path d="M${cx-9} ${cy+11} q9 -11 18 0" fill="none" stroke="#EE7434" stroke-width="2"/>`}
+const bg=`${pin(20,22,'#547326')}${pin(98,40,'#7A2436')}`+seal(96,108,0);
+const cells=[
+ ['0 STOCK FAB (ref.)',`<defs><filter id="f0"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".25"/></filter></defs><circle cx="40" cy="100" r="26" fill="#EE7434" filter="url(#f0)"/>${PLUS(40,100,10)}`],
+ ['1 LIFTED, NOT YET PLACED',`<ellipse cx="40" cy="124" rx="9" ry="2.6" fill="#1A1A18" opacity=".18"/><line x1="40" y1="100" x2="40" y2="123" stroke="#12293F" stroke-width="1.6"/><circle cx="40" cy="123.5" r="1.6" fill="#12293F"/><circle cx="40" cy="82" r="24" fill="#F2EBDD"/><circle cx="40" cy="82" r="21.5" fill="#EE7434" stroke="#A8400C" stroke-width="2"/>${PLUS(40,82,9.5)}`],
+ ['2 PUSH-PIN',`<ellipse cx="50" cy="122" rx="6" ry="2" fill="#1A1A18" opacity=".2"/><line x1="40" y1="96" x2="50" y2="121" stroke="#8a8273" stroke-width="2.2" stroke-linecap="round"/><circle cx="38" cy="86" r="22" fill="#EE7434" stroke="#A8400C" stroke-width="2"/>${PLUS(38,86,9)}`],
+ ['3 TEARDROP',`<path d="M40 126 C34 112 16 102 16 84 a24 24 0 0 1 48 0 C64 102 46 112 40 126Z" fill="#EE7434" stroke="#A8400C" stroke-width="2"/><circle cx="40" cy="84" r="15" fill="#F2EBDD"/>${PLUS(40,84,7.5)}`],
+ ['4 PIN + EMPTY STRING',`<circle cx="40" cy="80" r="24" fill="#F2EBDD"/><circle cx="40" cy="80" r="21.5" fill="#EE7434" stroke="#A8400C" stroke-width="2"/>${PLUS(40,80,9.5)}<line x1="40" y1="104" x2="40" y2="122" stroke="#5A564C" stroke-width="1.4"/><circle cx="40" cy="125" r="3.5" fill="#F8F3E8" stroke="#5A564C" stroke-width="1.4"/>`],
+ ['5 APP PIN, BIG (R6 grammar)',`<circle cx="40" cy="96" r="28" fill="#F2EBDD"/><circle cx="40" cy="96" r="25" fill="#EE7434" stroke="#12293F" stroke-width="2.5"/>${PLUS(40,96,10)}`],
+];
+document.getElementById('v2').innerHTML=cells.map(([t,s])=>`<div class="cell"><span class="sk">SKETCH</span><svg width="122" height="150">${pin(20,22,'#547326')}${pin(98,40,'#7A2436')}${pin(100,128,'#5b6b3a')}${seal(98,84,25)}${s}</svg><b>${t}</b></div>`).join('');
+// V3
+function v3(mode){
+ const W=122,H=150, top=104; // list top at 130
+ let tag='';
+ if(mode==='a'){ // eyelet-centred crop of the 316 tag: flat top, no chamfers, runs off both sides of the crop
+   tag=`<rect x="1" y="${top}" width="120" height="40" fill="#F8F3E8" stroke="#c9bfa9" stroke-width=".6"/><rect x="37" y="${top+4}" width="48" height="28" rx="4" fill="#efe7d6"/>`;
+ } else { // narrow, not small: 120-wide tag top, chamfer 22, full-size patch
+   tag=`<path d="M23 ${top} H99 L121 ${top+22} V150 H1 V${top+22} Z" fill="#F8F3E8" stroke="#c9bfa9" stroke-width=".6"/><rect x="37" y="${top+4}" width="48" height="28" rx="4" fill="#efe7d6"/>`;
+ }
+ const plus=`<g opacity=".95">${PLUS(61,top+40,0,'#12293F',0)}</g>`;
+ return `<svg width="${W}" height="${H}">${pin(12,20,'#547326')}${pin(104,30,'#7A2436')}
+  <line x1="61" y1="${top-28}" x2="61" y2="${top+18}" stroke="#4a463e" stroke-width="1.4"/>
+  ${tag}<circle cx="61" cy="${top+18}" r="5" fill="none" stroke="#b7ab92" stroke-width="2"/><circle cx="61" cy="${top+18}" r="3" fill="#F2EEE6"/>
+  <circle cx="61" cy="${top-44}" r="17" fill="#F2EBDD"/><circle cx="61" cy="${top-44}" r="15.5" fill="#EE7434" stroke="#A8400C" stroke-width="1.6"/>${PLUS(61,top-44,7)}
+  <rect x="0" y="130" width="122" height="20" fill="#F2EBDD"/><line x1="0" y1="130" x2="122" y2="130" stroke="#D8CEBA"/>
+  <text x="8" y="144" font-size="8" font-weight="700" letter-spacing="1" fill="#12293F">▼ REYKJAVÍK</text></svg>`;
+}
+document.getElementById('v3').innerHTML=[['A EYELET-CENTRED CROP',v3('a')],['B NARROW, NOT SMALL',v3('b')]].map(([t,s])=>`<div class="cell" style="width:190px"><span class="sk">SKETCH</span>${s.replace('width="122"','width="190"')}<b>${t}</b></div>`).join('');
+</script></body></html>

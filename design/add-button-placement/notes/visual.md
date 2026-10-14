@@ -1,5 +1,37 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, jam turn 34 (pass 2, last jam pass)
+- **Director (turn 32):** V1 dropped. V2 and V3 forward, bottom-left; ADD
+  is navy; A stays orange. **Rule 1:** the pin is always above the tag on
+  a straight string. **Rule 2:** orange off the paper = act, orange on
+  the paper = starred. Minimum add: tap, type, pick, ADD. A fresh blank
+  waits after Add.
+- **Systems (turn 33, `concepts/pass-a-check/`):**
+  - V2 needs a 52px squint mass to outrank the account, which makes a
+    disc a FAB.
+  - V3 must be ≤120 wide, and the credit must move.
+  - Dock at 664: pin 14-46, tag top 74, results 150-320.
+- **My turn 34 (sketches in `concepts/sketches/pass-a/`, re-render with
+  `node render.js`):**
+  - V2 = the **lifted pin**: a 44 disc with a 2px halo, a 1.6 navy string
+    ~22 down to a ground point, and a faint shadow. It lands on pick.
+  - Dropped: teardrop, push-pin, ring-string, big disc.
+  - V3-B ("narrow, not small", 120 wide, 22 chamfers, full-size patch) is
+    drawable, but my vote is to drop V3.
+  - Typing: the name at 36 below the top, in pencil; results printed on
+    the tag; 48px rows (3 and a half); no slip edge; docked pin 32.
+  - ADD order: name ink + TYPE stamp, VISITED stamp +150ms, ADD →
+    DIRECTIONS, pin + → glyph.
+  - The fresh blank appears when the tag closes.
+  - Shapes: the pin stays lifted, then fades into the outline; ADD
+    everywhere (no TRACE IT).
+  - TYPE in pencil from OSM, else last-used. CITY folded into the address
+    line.
+- **Waiting on:**
+  - systems' squint on the lifted shape (and 46px rows at 320);
+  - director rulings (V2 vs V3, items 1 and 3-5).
+- **Next:** concepts, then real stills at 3x.
+
 ## UPDATE 2026-10-14, jam turn 31 (new visual designer): blank pin + blank-tag form
 - **Owner:** revive C as ONE package with the add form as a blank tag you
   fill out. Float and A (round 7) are still with him; keep them open.
