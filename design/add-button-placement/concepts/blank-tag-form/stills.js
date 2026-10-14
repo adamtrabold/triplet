@@ -26,7 +26,7 @@ const restP = p => p.evaluate(() => __BT.restP());
 const hideP = p => p.evaluate(() => { const e = document.getElementById('lp'); if (e) e.classList.add('gone'); });
 // capture a real tag as the template, then close it (the blank tag is built from the shipped DOM)
 async function template(p) { await openPlace(p, 'Hallgrímskirkja'); await p.evaluate(() => { __BT.capture(); map.closePopup(); }); await p.waitForTimeout(700); }
-async function dock(p, s, kbH) { await template(p); await zoomIn(p, s.centre || [64.1440, -21.9426]); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
+async function dock(p, s, kbH) { await template(p); await zoomIn(p, s.centre || (process.env.DC ? JSON.parse(process.env.DC) : [64.1440, -21.9400])); await p.waitForTimeout(500); await p.evaluate(([s, h]) => { __BT.dock(s); __BT.kb(true, h); }, [s, kbH]); await p.waitForTimeout(300); }
 async function hang(p, s, place = 'Sundhöllin') { await openPlace(p, place, true); await p.evaluate(s => __BT.hang(s), s); await p.waitForTimeout(300); }
 const floatBadge = (p, open) => p.evaluate(open => {   // the Float frame: R7's badge (60px, orange, account's scalloped die) at bottom-left
   const a = document.getElementById('accountBtn'), m = getComputedStyle(a).webkitMaskImage || getComputedStyle(a).maskImage;
@@ -73,7 +73,7 @@ F['f-blank664'] = { k: 'P', vp: V664, zoom: true, run: p => dock(p, { state: 'bl
 F['f-typing664'] = { k: 'P', vp: V664, zoom: true, run: p => dock(p, { state: 'typing' }) };
 F['f-nores664'] = { k: 'P', vp: V664, zoom: true, run: p => dock(p, { state: 'nores', text: 'Hallgrimz' }) };
 F['f-picked664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked' }) };
-F['f-starred664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked', starred: true, visited: true, notes: 'Bring a towel; locals swim at 7am' }) };
+F['f-starred664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked', starred: true, visited: true, notes: 'Bring a towel. Locals swim at 7am; the outdoor hot tubs are the best part' }) };
 F['f-inking664'] = { k: 'P', vp: V664, run: p => hang(p, { state: 'picked', inked: 'mid', inking: true }) };
 F['f-done664'] = { k: 'P', vp: V664, run: p => openPlace(p, 'Sundhöllin') };
 F['f-after664'] = { k: 'P', vp: V664, run: async p => { await openPlace(p, 'Sundhöllin', true); await p.evaluate(() => __BT.alignReal()); await p.waitForTimeout(300); } };
@@ -118,7 +118,10 @@ F['fl-picked664'] = { k: 'F', vp: V664, run: async p => { await hang(p, { state:
     const m = await page.evaluate(() => { const bx = q => { const e = document.querySelector(q); if (!e) return null; const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden') return 'hidden'; const r = e.getBoundingClientRect(); return r.width ? [r.left, r.top, r.right, r.bottom].map(v => +v.toFixed(1)) : 'hidden'; };
       const A = document.getElementById('accountBtn').getBoundingClientRect();
       const acctPins = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return getComputedStyle(m).visibility !== 'hidden' && r.right > A.left - 4 && r.left < A.right + 4 && r.bottom > A.top - 4 && r.top < A.bottom + 4; }).length;
-      return { acctPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
+      const eye = document.querySelector('#btDock .tag-patch'); let eyePin = null;
+      if (eye) { const e = eye.getBoundingClientRect(), cx = (e.left + e.right) / 2, cy = e.top + 14;
+        eyePin = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return cx > r.left - 7 && cx < r.right + 7 && cy > r.top - 7 && cy < r.bottom + 7; }).length; }
+      return { acctPins, eyePin, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
     m.errs = errs; m.clash = await chromeCheck(page);
     meas[name] = m; console.log(name, JSON.stringify(m));
     await page.screenshot({ path: path.join(C, 'raw', `${name.replace(/-1x$/, '')}-${s.dsf === 1 ? 1 : 3}x.png`) });

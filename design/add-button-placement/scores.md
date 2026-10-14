@@ -1247,3 +1247,142 @@ sketches.
 ### Did the work change?
 - Yes, since turn 36: pencil, blank state, journeys, crops, needle.
 - This is the first score for round 8.
+
+## Concept round 8b -- director, 2026-10-14 (re-score after the round-8 fixes; round-8 scores kept above)
+
+### Evidence
+- At phone size first: T0-T8 (re-shot, demo place Sundhöllin), P3-tap,
+  A3-tap, A5.
+- Then the 8b top note in `blank-tag-form/how-it-works.md`.
+
+### Round-8 fixes: checked
+1. **Spacing:** fixed.
+   - The picked tag is 248: the real tag plus the NOTES row, on one 32
+     rhythm (T3).
+   - The empty bands are gone, and the captions follow one rule.
+2. **ADD keeps the stub put:** fixed (T5). Before and after share the
+   stub's foot, the top comes down, and it's the real tag at once.
+3. **T5 has two panels:** fixed, and readable.
+4. **A3-tap rest and A5 right:** the badge is clear in both.
+5. **Results start:** T8 typing shows 3 full rows plus a half.
+
+### Systems' three flags: ruled
+- **(a) The list held at its band while the new tag is open: accepted.**
+  - The add is what put the list down. Nothing closes it, and it comes
+    back when the tag closes.
+  - A stub that stays under your thumb is the stronger of the owner's two
+    rules at that moment.
+  - It goes on my objection list, not to the owner as a question.
+- **(b) 89 vs 72, chosen by room: accepted.** The 375x629 case at 2.9
+  rows is an iPhone check.
+- **(c) Lines min-height 32, growing: accepted as the spec.**
+  - The owner's own rule is "long notes should just show full length", so
+    one still should show it.
+  - T4 is being re-shot anyway (below), so its note goes to two lines.
+  - No new still.
+
+### Mechanical re-shoots (I check them before the send; no re-score)
+1. **The stub's foot clears the map credit.**
+   - In T3, T4 and T5 the "Leaflet | © OpenStreetMap" box touches or
+     overlaps the stub's bottom edge (foot 588, band 604, credit about 18
+     tall).
+   - Set the hanging tag's foot to the credit's top − 6 and keep the same
+     no-move rule.
+   - Re-shoot every hanging-tag frame where they meet: T3, T4, T5 (both
+     panels), T6, T7, T8 picked.
+2. **T4's note wraps to two lines** (the min-height spec, shown once).
+3. **A3-tap typing panel: re-pan** so no pin shows through the eyelet.
+   Right now a starred pin's orange star sits in the hole, which reads as
+   a starred mark.
+
+### Likely owner objections
+- **P:**
+  - "a FAB with a stick" (P2 answers);
+  - "bigger than other pins";
+  - the orange pin vs the orange clusters.
+- **A:** "+ on the right; I said left" (in the cost line).
+- **The tag:**
+  - "ADD isn't orange" (T3 caption);
+  - "the list stays down after I add" (flag a);
+  - "a guessed type is wrong" (cost line).
+- None is likely enough to hold a 9. The one that was likely (spacing) is
+  fixed.
+
+### Scores
+- **P · Blank pin: 9.**
+  - One object from + to place, and his own revived idea.
+  - The pin reads as a pin being placed at 1x (P2).
+  - The form now looks like the real tag before and after.
+- **A · Header tag: 9.**
+  - The same form, with the only trigger that has no extra step (A4).
+  - The tag pulls up out of a tag.
+- **Float frame (A5):** clean.
+
+### FINAL SEND (one message, in this order; after re-shoots 1-3 are checked)
+**P · the blank pin**
+1. P1-rest-vs-today
+2. P2-1x-pin-or-button
+3. P3-tap
+4. P4-tag-open. Cost: "One extra tap to add while a place's tag or the
+   filters are open."
+5. P5-sizes (320 + list down)
+
+**A · the header tag**
+6. A1-rest-vs-today. Cost: "The list title is 32px shorter; the + is on
+   the right."
+7. A2-1x
+8. A3-tap
+9. A4-tag-open
+
+**The blank tag (both packages)**
+10. T0-pencil-vs-greyed-1x
+11. T2-blank-and-no-results
+12. T1-typing
+13. T3-picked
+14. T4-starred-visited (two-line note)
+15. T5-ink-over
+16. T6-district
+17. T7-questions
+18. T8-320
+
+**Float**
+19. A5-float-frame
+
+**Cost line for the tag:** "TYPE is a guess from OpenStreetMap (or your
+last type), in pencil; tap to change it. It can only be checked on your
+iPhone."
+
+**Held back:**
+- P6 (pressed + "also tried" pocket): only if he asks.
+- raw/, pass-a-check/, sketches.
+
+**Owner questions, with the send:**
+1. While adding, mark it visited too (VISITED on the blank tag)?
+2. Fix a place after adding by opening its tag in pencil again?
+3. Skip ADD: picking a result saves the place, with Undo?
+4. Later, place a pin by dragging it onto the map or holding the map?
+5. Just so you know: on the tag, ADD is navy, because orange on a tag
+   means starred.
+6. Just so you know: the blank pin needs one extra tap while a tag or the
+   filters are open; the header tag doesn't.
+
+### Did the work change?
+Yes:
+- spacing;
+- ADD by the top;
+- T5;
+- crops;
+- the results rule.
+
+P and A go 8 → 9 on the re-shot stills.
+
+### Round 8b re-shoots checked -- SEND RELEASED (2026-10-14)
+- Checked at phone size: T4, T5, A3-tap.
+  - The tag's foot is clear of the credit in T4 and T5.
+  - T4's note wraps to two lines, as it should.
+  - A3-tap's eyelet is clear (a sliver of a pin behind the tag's top
+    edge is acceptable).
+- Coverage check passed (`concepts/coverage-r8.md`).
+- Scores stand: P 9, A 9.
+- The send is released as listed under "FINAL SEND" in round 8b, with
+  19 stills, the three cost lines and the six owner questions.

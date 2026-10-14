@@ -1,5 +1,19 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, round 8b re-shoots (P 9, A 9; director's three mechanical fixes)
+- **The hanging tag's foot = the map credit's top − 6** (`footLimit()`
+  in `blank.inc.html`; Float still min'd with its badge, 512).
+  - At 664 the foot is 581 (credit 587); at 320 it's 485.
+  - The stub doesn't move at ADD (`alignReal` uses the same limit).
+- **Lines grow:** `.bt-f` is min-height 32. The notes row has an 8px
+  head so a wrapped note clears the rule above.
+  - T4's note is two lines; the picked tag is still 248.
+- **Docked map centre** is [64.1440, -21.9400], so no pin shows in the
+  eyelet. measure.json has `eyePin` (0 in every docked frame) and
+  `acctPins`.
+- **Re-shot:** T0, T1, T2, T3-T8, P3-tap, A3-tap, A5. All 20 stills open
+  at 1170.
+
 ## UPDATE 2026-10-14, round 8b (director scored P 8 / A 8; five fixes)
 - **Fix 1, one rhythm:** 32px rows (`.bt-f`), the rule at the foot.
   - Empty-line captions print ON the line. Only NAME, docked, has an
