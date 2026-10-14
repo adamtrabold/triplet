@@ -313,3 +313,68 @@ centring via `SB.centerArcs()` runs about the arc's own centre.
 
 The lesson running through all three: on a badge with type at one side,
 centre the whole group by its ink, and judge at real size. 2c does that.
+
+## Concept A, round 2d: navy and orange, person lowered (director, 2026-10-14)
+
+Owner on 2c (verbatim): "Person is too high and let's take it to the blue
+and orange style again since the plus is changing". Normal iteration, not
+a rejection.
+
+Based on: `round2/sheet-2d-3x.png` (all sections), `shots/2d/top-v9-390`
+zoomed, `shots/2d/signedin-plus`, `in-*`/`out-*`, README "Round 2d", and
+`#accountBtn`/`#floatingAddBtn` CSS in `index.html` (lines ~368-430).
+
+**Did the work really change?** Yes, both notes:
+- **Style:** it's today's `#accountBtn` die (navy, no paper edge, same 1px
+  registration shadow) with a brand-orange person and arc. Orange on navy
+  measures 5.08:1.
+- **Pressed:** `--state-on-press` with paper ink. I checked that this is the
+  app's existing pressed state for these two buttons, not a new one.
+- **Height:** halfway, person centre 21.6. The ink centre is 27.35 by the
+  numbers, but the owner judged 2c (24.9) too high and 2b (29.9) low.
+  Zoomed at real size on navy it reads settled, neither floating nor
+  sinking.
+- Sizes and type are unchanged from what he liked.
+
+Visual's flagged risk (signed out and signed in share colours) and my
+read: job 2 is "tell at a glance that you're signed out". The arc
+literally says SIGN IN, which is the most direct possible signal. The
+signed-in badge has no words and a bigger person. Same colours were the
+owner's explicit call. One family in two states fits his "clear, matching
+state system". I don't count it against the score.
+
+Likely owner objections:
+1. "The sign-in animation lost its punch." Navy ink on a navy die is
+   invisible, so the strike now reads as the words being covered from the
+   person outward while the person grows and settles, plus the pop. It
+   still animates and still "stamps" (pop + cover), but it's quieter than
+   in paper rounds. Possible. The stills can't show it either way; motion
+   is judged live.
+2. "Show it next to the new +." He gave the + change as his reason. The
+   sheet shows it alone because the + crew owns the new +. Possible, and
+   answered in the message (fix 1), not in this sheet.
+3. "Signed in and signed out look too alike." Possible, low: the words
+   are gone and the person is bigger.
+4. Height: his own "between" ask, met. Not likely.
+5. Legibility of 6px orange on navy: reads cleanly in the 1:1 and zoomed
+   crops. Not likely; the iPhone is his check.
+
+### 2d (v9): **9**
+His two notes are answered exactly, with nothing else he liked
+disturbed. It's today's badge vocabulary, so it's one system with the
+signed-in state and the app's pressed/open rules. I'd defend it as is.
+
+### Before the owner sees it (presentation only)
+1. Owner message, one line: "Shown on its own while + is being
+   redesigned; once the new + has a look, we'll show them side by side
+   before building." The + crew's still and this badge must be checked
+   together before the build (orange + next to navy-with-orange: the
+   sign-in badge must still read as the quieter of the two).
+2. Optional: drop the motion strip to the sign-in row only (5 frames)
+   since navy-on-navy frames read as near-duplicates. It's fine either
+   way.
+
+Build watch (handoff): the strike is invisible on navy, so the cover
+timing carries the moment. Keep the pop (STAR_POP feel) and the
+person-outward cover; under Reduce Motion, the words simply go.
+Spec: V[9] in `round2/badge2.js` (`nv: 1`).
