@@ -1,0 +1,152 @@
+{
+ "admit@320": {
+  "nb": [
+   260,
+   268,
+   320,
+   325
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 84,
+  "ellipsized": true,
+  "locateBox": [
+   224,
+   256
+  ],
+  "locateSvg": [
+   230,
+   250
+  ],
+  "svgToCut": 10,
+  "svgToCutAtCorner": 24,
+  "locateBoxOverNb": false,
+  "hitChamferCorner": "self",
+  "hitEyelet": "self",
+  "hitLocateEdge": "centerMeBtn"
+ },
+ "admit@375": {
+  "nb": [
+   315,
+   367,
+   375,
+   424
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 139,
+  "ellipsized": false,
+  "locateBox": [
+   279,
+   311
+  ],
+  "locateSvg": [
+   285,
+   305
+  ],
+  "svgToCut": 10,
+  "svgToCutAtCorner": 24,
+  "locateBoxOverNb": false,
+  "hitChamferCorner": "self",
+  "hitEyelet": "self",
+  "hitLocateEdge": "centerMeBtn"
+ },
+ "admit@390": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 154,
+  "ellipsized": false,
+  "locateBox": [
+   294,
+   326
+  ],
+  "locateSvg": [
+   300,
+   320
+  ],
+  "svgToCut": 10,
+  "svgToCutAtCorner": 24,
+  "locateBoxOverNb": false,
+  "hitChamferCorner": "self",
+  "hitEyelet": "self",
+  "hitLocateEdge": "centerMeBtn"
+ },
+ "tagcut@320": {
+  "nb": [
+   260,
+   268,
+   320,
+   325
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 84,
+  "ellipsized": true,
+  "locateBox": [
+   224,
+   256
+  ],
+  "locateSvg": [
+   230,
+   250
+  ],
+  "svgToCut": 10,
+  "svgToCutAtCorner": 24,
+  "locateBoxOverNb": false,
+  "hitChamferCorner": "self",
+  "hitEyelet": "self",
+  "hitLocateEdge": "centerMeBtn"
+ },
+ "tagcut@375": {
+  "nb": [
+   315,
+   367,
+   375,
+   424
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 139,
+  "ellipsized": false,
+  "locateBox": [
+   279,
+   311
+  ],
+  "locateSvg": [
+   285,
+   305
+  ],
+  "svgToCut": 10,
+  "svgToCutAtCorner": 24,
+  "locateBoxOverNb": false,
+  "hitChamferCorner": "self",
+  "hitEyelet": "self",
+  "hitLocateEdge": "centerMeBtn"
+ },
+ "tagcut@390": {
+  "nb": [
+   330,
+   544,
+   390,
+   601
+  ],
+  "title": "Copenhagen list (23)",
+  "titleW": 154,
+  "ellipsized": false,
+  "locateBox": [
+   294,
+   326
+  ],
+  "locateSvg": [
+   300,
+   320
+  ],
+  "svgToCut": 10,
+  "svgToCutAtCorner": 24,
+  "locateBoxOverNb": false,
+  "hitChamferCorner": "self",
+  "hitEyelet": "self",
+  "hitLocateEdge": "centerMeBtn"
+ }
+}

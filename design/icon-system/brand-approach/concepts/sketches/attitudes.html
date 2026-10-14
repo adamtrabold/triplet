@@ -1,0 +1,107 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<title>Icon attitudes sketch</title>
+<style>
+:root{--paper:#F2EBDD;--raised:#FAF5EA;--hair:#D8CEBA;--ink:#1A1A18;--ink2:#5A564C;--navy:#12293F;--or:#EE7434;--ord:#A8400C;--cafe:#6E4C22;--dist:#328177}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Archivo,"Arial Narrow",Arial,sans-serif;width:390px;padding:16px}
+h1{font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 4px;color:var(--navy)}
+.lede{font-size:12px;color:var(--ink2);margin:0 0 14px;line-height:1.35}
+.card{background:var(--raised);border:1px solid var(--hair);margin:0 0 14px;padding:12px 12px 10px}
+.card h2{font-size:14px;margin:0;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.card p{font-size:12px;margin:3px 0 8px;line-height:1.3;color:var(--ink2)}
+.strip{display:flex;align-items:center;gap:12px;flex-wrap:nowrap}
+.strip svg{width:24px;height:24px;flex:none}
+.strip.s12 svg{width:12px;height:12px}
+.strip.s12{gap:10px;margin-top:6px}
+.lab{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);width:44px;flex:none}
+.stamp{width:72px;flex:none;margin-left:auto}
+.row{display:flex;align-items:center;gap:10px;height:56px;background:#E7DFD0;margin:8px -12px 0;padding:0 12px}
+.badge{width:24px;height:24px;flex:none;border-radius:50%;border:2px solid var(--cafe);background:var(--paper);display:grid;place-items:center}
+.badge svg{width:15px;height:15px}
+.nm{font-size:15px;font-weight:600;line-height:1.15;flex:1;min-width:0}
+.nm small{display:block;font-size:10px;letter-spacing:.08em;color:var(--ink2);font-weight:700}
+.row .x{width:14px;height:14px;flex:none}.row .x svg{width:14px;height:14px;display:block}
+.copy{filter:url(#thr);margin-top:6px}
+.tag{font-size:9px;color:var(--ink2);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+</style></head><body>
+<h1>Icon attitudes: quick sketch</h1>
+<p class="lede">Sketches to show an attitude, not drawings. Same set each time: cafe, district, star off, star on, filters, close, add. The visited stamp is the real one, unchanged. Bottom strip of each card: 12px, then the same photocopied to one ink (1-bit, cut at 67% grey): does the shape alone still say on vs off?</p>
+
+<!-- reusable symbols -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<filter id="thr" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="discrete" tableValues="0 0 1" /><feFuncG type="discrete" tableValues="0 0 1"/><feFuncB type="discrete" tableValues="0 0 1"/></feComponentTransfer></filter>
+<pattern id="screen" width="2.2" height="2.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="1.1" cy="1.1" r=".62" fill="#5A564C"/></pattern>
+</defs>
+<!-- TODAY -->
+<symbol id="t-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h13v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V4z"/><path fill="currentColor" d="M17 6h2a3 3 0 0 1 0 6h-2V6z"/><path fill="currentColor" d="M2 19h16v2H2z"/></symbol>
+<symbol id="t-dist" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/></symbol>
+<symbol id="star" viewBox="0 0 24 24"><path d="M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z"/></symbol>
+<symbol id="t-filt" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></g><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></symbol>
+<symbol id="t-x" viewBox="0 0 24 24"><text x="12" y="18" text-anchor="middle" font-size="20" font-family="Arial" fill="currentColor">&#215;</text></symbol>
+<symbol id="t-plus" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></g></symbol>
+
+<!-- B SPOT PICTOGRAM: geometric primitives, flat, no outlines; off = tint screen -->
+<symbol id="b-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h13v6a6.5 6.5 0 0 1-13 0z"/><path fill="currentColor" fill-rule="evenodd" d="M17.5 5.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 1 1 0-7zm0 2a1.5 1.5 0 1 0 0 3a1.5 1.5 0 1 0 0-3z"/><rect x="2" y="19" width="16" height="2.6" fill="currentColor"/></symbol>
+<symbol id="b-dist" viewBox="0 0 24 24"><path fill="currentColor" d="M3.5 7.5L14 3l7 7.5-4.5 10.5L4.5 17z"/><path fill="#FAF5EA" d="M9 8.6h2.4v8.3H9zM6 11.6h12v2.3H6z" opacity=".95"/></symbol>
+<symbol id="b-filt" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="5" width="18" height="2.4"/><rect x="3" y="11" width="18" height="2.4"/><rect x="3" y="17" width="18" height="2.4"/><rect x="5" y="3" width="5" height="6.4"/><rect x="14" y="9" width="5" height="6.4"/><rect x="9.5" y="15" width="5" height="6.4"/></g></symbol>
+<symbol id="b-x" viewBox="0 0 24 24"><g fill="currentColor"><rect x="10.6" y="2.5" width="2.8" height="19" transform="rotate(45 12 12)"/><rect x="10.6" y="2.5" width="2.8" height="19" transform="rotate(-45 12 12)"/></g></symbol>
+<symbol id="b-plus" viewBox="0 0 24 24"><g fill="currentColor"><rect x="10.6" y="3.5" width="2.8" height="17"/><rect x="3.5" y="10.6" width="17" height="2.8"/></g></symbol>
+
+<!-- CUT PAPER: scissor-cut silhouettes; asymmetry in the drawing, clean edges; off = uninked stock -->
+<symbol id="c-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M3.3 5.6L17 4.7C16.9 10.4 15.6 15.6 10 15.9C4.9 16.1 3.6 11.2 3.3 5.6Z"/><path fill="currentColor" d="M16.7 6.6C21.4 6 22.2 12.4 15.6 13.2L16 11.3C19.2 10.9 19.1 8.1 16.5 8.5Z"/><path fill="currentColor" d="M2.2 19.3C7.2 17.9 13.3 18 18.8 19.4C13.2 21.3 7.3 21.2 2.2 19.3Z"/></symbol>
+<symbol id="c-dist" viewBox="0 0 24 24"><path fill="currentColor" d="M4.2 6.8C7.8 5.1 11 3.6 14.6 3.1L20.8 9.6C19.6 13.1 17.7 17.1 16.2 21L4.8 17.6C5.3 13.9 4.6 10.3 4.2 6.8Z"/><path fill="#FAF5EA" d="M7.4 13.2C10.6 11.6 13.9 11.2 17.4 11.9L17.1 13.3C14 12.8 11 13.2 8.1 14.7Z"/></symbol>
+<symbol id="c-star" viewBox="0 0 24 24"><path stroke-linejoin="round" stroke-width="1.2" d="M12.3 2.1L14.8 8.5L21.7 9.1L16.3 13.6L18.4 21.1L12 16.9L5.5 21.3L7.6 13.8L2.2 9.2L9.3 8.4Z"/></symbol>
+<symbol id="c-filt" viewBox="0 0 24 24"><g fill="currentColor"><path d="M3 5.4L21 5.8 21 7.6 3 7.2Z"/><path d="M3 11.6L21 11.1 21 12.9 3 13.4Z"/><path d="M3 17.6L21 17.9 21 19.7 3 19.4Z"/><circle cx="8" cy="6.4" r="2.9"/><circle cx="16.2" cy="12" r="2.9"/><circle cx="11.5" cy="18.6" r="2.9"/></g></symbol>
+<symbol id="c-x" viewBox="0 0 24 24"><g fill="currentColor"><path d="M4.6 3.2L20.9 18.9 18.9 20.9 3.1 5.1Z"/><path d="M19.4 3.4L21 5.2 5 21 3.2 19.1Z"/></g></symbol>
+<symbol id="c-plus" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10.5 3.3L13.6 3.6 13.3 20.8 10.7 20.5Z"/><path d="M3.4 10.6L20.7 10.3 20.6 13.2 3.2 13.5Z"/></g></symbol>
+
+<!-- SAME DIE: built from the visited check's bar (~3.2 of 24, square-ish ends) + the tag's 45deg die-cut corner; off = same bar weight -->
+<symbol id="d-cafe" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="miter" d="M4.5 5.5h10.5v5.5a4 4 0 0 1-4 4H8.5a4 4 0 0 1-4-4z"/><path fill="none" stroke="currentColor" stroke-width="3" d="M16 7.5h2.2l1.8 1.8v1.4l-1.8 1.8H16"/><path fill="currentColor" d="M2.5 18.8h15l-1.6 2.4H4.1z"/></symbol>
+<symbol id="d-dist" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" d="M8 4.5h8l3.5 3.5v8l-3.5 3.5H8l-3.5-3.5V8z"/><rect x="10.4" y="10.4" width="3.2" height="3.2" fill="currentColor"/></symbol>
+<symbol id="d-staro" viewBox="0 0 24 24"><use href="#star" fill="none" stroke="currentColor" stroke-width="3" transform="translate(2.4 2.4) scale(.8)" stroke-linejoin="round"/></symbol>
+<symbol id="d-filt" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="3"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></g><g fill="currentColor"><path d="M6 2.5h3.5l1.5 1.5v4l-1.5 1.5H6L4.5 8V4z"/><path d="M14 8.5h3.5L19 10v4l-1.5 1.5H14L12.5 14v-4z"/><path d="M9.5 14.5H13l1.5 1.5v4L13 21.5H9.5L8 20v-4z"/></g></symbol>
+<symbol id="d-x" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="3" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></g></symbol>
+<symbol id="d-plus" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="3" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></g></symbol>
+
+<!-- SPECIMEN & KEY: places are rich specimens (fill + cream knockout detail); tools are type-weight, ink-2 -->
+<symbol id="s-cafe" viewBox="0 0 24 24"><path fill="currentColor" d="M2.5 8h14v4.5a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6z"/><path fill="currentColor" fill-rule="evenodd" d="M17.5 9a3.2 3.2 0 1 1 0 6.4h-1.2v-2h1.2a1.2 1.2 0 0 0 0-2.4h-1.2V9z"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M7 5.8c-1-1.2 1-2 0-3.4M11.6 5.8c-1-1.2 1-2 0-3.4"/><path fill="#FAF5EA" d="M5 10.4h9v1.3H5z"/><rect x="1.5" y="20" width="17" height="2" fill="currentColor"/></symbol>
+<symbol id="s-dist" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6.5L13.5 2.5l7.5 7-4 11.5L4 17.5z"/><path fill="none" stroke="#FAF5EA" stroke-width="1.4" d="M6 9.5l12 4.2M10.6 4.6L9 18.5M16.5 6.5L13 19.6"/></symbol>
+<symbol id="s-staro" viewBox="0 0 24 24"><use href="#star" fill="none" stroke="currentColor" stroke-width="1.8" transform="translate(1.2 1.2) scale(.9)" stroke-linejoin="round"/></symbol>
+<symbol id="s-filt" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></g><g fill="#FAF5EA" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="6" r="2.1"/><circle cx="16" cy="12" r="2.1"/><circle cx="12" cy="18" r="2.1"/></g></symbol>
+<symbol id="s-x" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></g></symbol>
+<symbol id="s-plus" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></g></symbol>
+</svg>
+
+<template id="tpl"></template>
+<div id="out"></div>
+
+<script>
+const D = [
+ {k:'t', name:'Today (reference)', line:'Fill for places, 2px line for tools, a text ×. Off star has about a third of the on star’s ink.',
+  cafe:'#t-cafe', dist:'#t-dist', soff:'<use href="#star" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>', filt:'#t-filt', x:'#t-x', plus:'#t-plus', son:'<use href="#star" fill="#EE7434"/>', tool:'var(--navy)'},
+ {k:'b', name:'Spot-colour pictogram', line:'Built from primitives, flat ink, no outlines anywhere. Off is the same shape printed as a tint screen.',
+  cafe:'#b-cafe', dist:'#b-dist', soff:'<use href="#star" fill="url(#screen)"/>', filt:'#b-filt', x:'#b-x', plus:'#b-plus', son:'<use href="#star" fill="#EE7434"/>', tool:'var(--navy)'},
+ {k:'c', name:'Cut paper', line:'Cut with scissors from one sheet: the asymmetry is in the drawing, the edges stay clean. Off is the same cut in plain, uninked stock.',
+  cafe:'#c-cafe', dist:'#c-dist', soff:'<use href="#c-star" fill="#D8CEBA" stroke="#D8CEBA"/>', filt:'#c-filt', x:'#c-x', plus:'#c-plus', son:'<use href="#c-star" fill="#EE7434" stroke="#EE7434"/>', tool:'var(--navy)'},
+ {k:'d', name:'Same die', line:'Drawn with the visited check’s bar and the tag’s 45° die-cut corner, so the fixed marks are family. Off and on share one bar weight.',
+  cafe:'#d-cafe', dist:'#d-dist', soff:'<use href="#d-staro"/>', filt:'#d-filt', x:'#d-x', plus:'#d-plus', son:'<use href="#star" fill="#EE7434"/>', tool:'var(--navy)'},
+ {k:'s', name:'Specimen & key', line:'Places are specimens with one cream cut detail; tools step back to the weight of the caps type, in grey ink. Loud things, quiet tools.',
+  cafe:'#s-cafe', dist:'#s-dist', soff:'<use href="#s-staro"/>', filt:'#s-filt', x:'#s-x', plus:'#s-plus', son:'<use href="#star" fill="#EE7434"/>', tool:'var(--ink2)'},
+];
+const svg = (inner, col) => `<svg viewBox="0 0 24 24" style="color:${col}">${inner.startsWith('#')?`<use href="${inner}"/>`:inner}</svg>`;
+const set = d => [svg(d.cafe,'var(--cafe)'), svg(d.dist,'var(--dist)'), svg(d.soff, d.tool), svg(d.son,'var(--or)'), svg(d.filt,d.tool), svg(d.x,d.tool), svg(d.plus,d.tool)].join('');
+document.getElementById('out').innerHTML = D.map(d => `
+ <div class="card">
+  <h2>${d.name}</h2><p>${d.line}</p>
+  <div class="strip">${set(d)}</div>
+  <div class="row"><div class="badge" style="border-color:var(--cafe)">${svg(d.cafe,'var(--cafe)')}</div>
+   <div class="nm">Café Loki<small>CAFE · REYKJAVÍK</small></div>
+   <img class="stamp" src="ref-row-stamp.png" alt="">
+   <span class="x">${svg(d.x,'var(--ink2)')}</span></div>
+  <div class="strip s12"><span class="lab">12px</span>${set(d)}</div>
+  <div class="strip s12 copy"><span class="lab">1-bit</span>${set(d)}</div>
+ </div>`).join('');
+</script>
+</body></html>

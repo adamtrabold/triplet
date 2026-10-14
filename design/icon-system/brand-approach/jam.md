@@ -279,3 +279,200 @@ NEXT: product designer (visual focus): take the ethos and the five
 directions, push or kill any of them on brand and look (especially B's
 off state and C's small-size problem), and propose how to show each one
 on the stress set.
+
+---
+
+## Turn 2: product designer (visual focus)
+
+Read: `owner.md`, `docs/owner-taste.md` (all of it), the inspo README plus
+all 8 `project/` images, CLAUDE.md, `inventory.md`, the badge row and two
+context screens, and turn 1. I didn't read the superseded `../concepts/`.
+
+Real draws (python `secrets`). Oblique Strategies: **"Use fewer notes"** and
+**"Repetition is a form of change"**. Borrowed fields: **Matisse paper
+cut-outs** and **botanical field guides**. Twist: **"icons must survive
+being photocopied."** All of them got used below.
+
+Sketch: `concepts/sketches/attitudes-3x.png` (source `attitudes.html`, 390
+wide at 3x). It shows today plus four attitudes on the same seven icons,
+each in a real row beside the **real, unchanged** visited stamp, at 12px,
+and photocopied to one ink. These are sketches of an attitude, not
+drawings.
+
+### 1. On the ethos: agree, with two corrections
+
+Turn 1's eight points hold up. The one-liner is close. I'd tighten it to:
+
+> **Printed with care, marked by hand, kept like a souvenir.** Few inks and
+> confident shapes for the things the app prints; the user's own marks
+> (visited, star) are the only things that look *applied*.
+
+Two corrections from looking at the inspo itself rather than the README:
+
+- **The inspo's icons are small and quiet. The poster is loud.** On the
+  Savoy label the luggage pictograms (skis, racket, sun, snowflake) are tiny
+  single-ink line-and-silhouette marks *inside* a loud composition. The NPS
+  arrowhead and the PCT diamond are emblems, but each brochure has exactly
+  one. The loud thing in every piece is the name and the picture, never the
+  furniture. For Triplet the name is the place, and the "picture" is the map
+  and the tag. **Icons are the furniture.** That cuts against reading "poster
+  confidence" as "make every icon bold".
+- **"Too noisy" is the headline complaint, and parity can make it worse.**
+  Turn 1 reads "the checked items are stronger visually than the open ones"
+  as "raise the off state to match". It could just as well mean the on
+  states are too loud. Visited can't change, so if the on state is the
+  problem, the fix has to come from everything *around* visited getting
+  quieter, not from off states getting louder. **That's the owner's call.**
+  See the open questions. The sketch shows the risk: in "spot pictogram" and
+  "same die", raising the tools to full ink makes the filters glyph and the
+  × the heaviest things in the row, heavier than the visited stamp. That
+  breaks "secondary marks never outrank content" and "decorative marks sit
+  tight".
+
+### 2. Push / reshape / kill turn 1's directions
+
+- **A Printed & Stamped: keep it, but as a law, not a look.** It's the
+  brand's best idea and it answers *who made the mark*, not *how the press
+  draws*. Every look below can honour it. It can't be shown to the owner on
+  its own: it has no drawing style until it's paired with one. Proposal:
+  state it once, at the top of the owner board, as the rule every direction
+  follows ("the app prints; you stamp"). That leaves the open question of
+  whether the star is printed or applied, which is for the owner, not us.
+- **B Spot-Colour Pictograms: keep, and solve the off state with print
+  logic.** Turn 1 asked for the off state to be solved. A printer has three
+  honest ways to show "not yet":
+  1. **Tint screen.** The same silhouette as a halftone of the ink.
+     Sketched: at 24px it reads as "unprinted", and it survives the
+     photocopy. At 12px the dots turn to mush. It may work only at 16px and
+     up.
+  2. **Keyline.** An outline: today's answer, and the one the owner called
+     weaker.
+  3. **Blind deboss.** Pressed with no ink. Lovely on paper, invisible on a
+     screen. Kill it.
+
+  Risk seen in the sketch: a fully flat control set is heavy. The filters
+  glyph turns into a barcode. B probably needs a rule that **tools are
+  thinner primitives than places**, which drifts towards "Specimen & Key"
+  below.
+- **C Cut Block (linocut): kill the gouge, keep the hand, and reshape it as
+  "Cut Paper"** (the Matisse draw). The linocut puts the hand in the *edge*
+  (wobble), and wobble at 12px reads as a rendering bug. Scissors put the
+  hand in the *drawing* (a cup that flares, a strip cut slightly off true)
+  and leave the edges clean. It passes the photocopy test at 12px (sketch).
+  It's the most whimsical option that isn't noise, and it's kin to the
+  sticker and the tag (things cut from paper). **Found in the sketch:** its
+  natural off state, "uninked stock" (the same cut in plain tan), **vanishes
+  when photocopied**. That means it's colour-only, which breaks "color coding
+  is not enough". Cut Paper needs another off state, for example the cut
+  *hole*: the shape missing from a small paper patch.
+- **D Badge & Emblem: kill it as a direction, keep one idea.** Badges are
+  containers, containers are ink, and the owner wants less ink. What survives
+  is "the outer shape says the family" (round = place, diamond = area). It's
+  already shipped, so it's a fact every direction keeps, not a direction.
+- **E Code & Flag: kill it.** "Preserve the icon" is the owner's rule, and
+  type already carries the category name in the row. The useful bit, that
+  luggage tags are *typographic* objects, comes back below as "tools at type
+  weight".
+
+### 3. Two new directions (different in kind)
+
+**F. Same Die: the fixed marks are the seed.** (*Repetition is a form of
+change.*) The owner's two fixed things are visited (stamp, sticker, check)
+and the shipped shapes (the tag's 45° die-cut, the scalloped buttons).
+Turn every icon into their relative: draw with the visited check's bar
+(about 3.2 of 24, square ends softened to the check's tiny radius, which is
+literally "lightly rounded like the rest"), and use the tag's 45° clipped
+corner wherever an icon has a corner (the knobs on filters, the district
+outline, the cup's handle). The stamp then stops being the odd one out
+without changing at all. *Supports:* continuity ("for continuity" is the
+owner's own word), it makes visited fixed *and* at home, and it gives a
+grid almost for free. *Detracts:* the sketch shows it's the heaviest
+attitude: everything at the check's weight crowds the row. It may need two
+bar weights (check weight for places, lighter for tools), and the 45°
+corner can tip into gimmick if it's on everything. It's the closest to a
+"consistent line set", so it must earn its whimsy through the die-cut, or
+it's average.
+
+**G. Specimen & Key: a hierarchy by role.** (*Use fewer notes* plus
+**botanical field guides**.) A field guide has two registers: the
+*specimen plate* (the rich, careful, coloured drawing of the thing) and the
+*key* (small, plain type-weight marks that help you use the book). Triplet
+maps onto it exactly. **Places are specimens:** category glyphs keep their
+ink and gain one meaningful cut detail (steam on the cup, streets cut into
+the district block). **Tools are key:** sort, filters, locate, ×, +, and the
+open star drop to the stroke weight of the app's caps labels, in ink-2 grey,
+so they read as part of the typography. *Supports:* "too noisy", "secondary
+marks never outrank content", "mark size matches text weight", and "colour
+must communicate, or go neutral". The visited stamp, unchanged, becomes
+clearly the loudest mark in a row, as an achievement should be. In the
+sketch it's the calmest row by a distance. *Detracts:* it risks two drawing
+languages, against "same icon drawing language everywhere". It only passes
+if both registers share one corner, terminal and construction grammar and
+differ **only** in weight and ink. That's a grid rule to set in phase 2. The
+open star at type weight also stays lighter than the filled star. That is
+deliberate here (off is a key mark, on is a specimen), but it's the
+opposite of turn 1's parity reading, so the owner's answer to Q1 below
+decides whether G is even eligible.
+
+**Whimsy budget, for every direction:** the character goes in the *place*
+glyphs (the specimens: categories, the things you collect) and in the
+user's own marks. Tools never carry whimsy. That's what keeps "whimsy, not
+average" from turning into "noisy".
+
+### 4. Supports and detracts: my additions to turn 1's list
+
+Supports:
+- **One-ink test.** Every icon has to survive a 1-bit photocopy at 12px, with
+  on and off still distinguishable. It's a cheap check and it caught Cut
+  Paper's off state in the sketch.
+- The type is a reference: tool weight is measured against the caps labels
+  (Archivo bold, about 10 to 12px), not invented.
+- Character in proportion and silhouette (a flared cup, a cut strip), never
+  in surface.
+
+Detracts:
+- **Mascots and faces.** The Savoy bellhop is charming on a label and fatal
+  in a 12px glyph. Whimsy isn't cute.
+- **Bubbly, super-round "friendly SaaS" caps.** The owner said *lightly*
+  rounded, and the visited check's radius is tiny.
+- **Duotone or outline-plus-fill hybrids** (the current icon-kit fashion).
+  They're two inks on one small mark, and that's noise.
+- **Ink texture or misregistration inside icons.** Texture already lives on
+  the tag band and the stamp. Adding it to icons is the "clouds" mistake at
+  a smaller size.
+- **Tools heavier than the stamp.** The sketch shows how easily this
+  happens (B, F).
+
+### 5. How to show each direction to the owner
+
+Agree with turn 1's stress set at real size beside the visited stamp. Changes:
+
+- **One phone-width card per direction, all the same layout**, so he can
+  compare by scrolling: the name and a one-sentence attitude; the seven
+  icons at 24px; **a real row crop with the real stamp** (the place where
+  noise actually gets judged); a 12px strip; and the one-ink strip. That's
+  the format of `attitudes-3x.png`. Add the tag stub (Directions, Star,
+  Visited segments) as a second crop, because star off and on lives there.
+- **Put "Today" first** as the reference card. He reacts against something
+  concrete.
+- **At most four directions** ("I don't think we need this many
+  variations"). My pick to show: **B Spot pictogram, C' Cut paper, F Same
+  die, G Specimen & key**, with A stated once as the law over all four.
+- Each card has three plain lines: what it says about the brand, what it
+  risks, and the one thing he'd be choosing. No essays on the board.
+- The sketches are labelled "sketch of an attitude, not a drawing", because
+  he asked for an approach, not icons.
+
+### Open questions (for the owner, via the director; not for us to resolve)
+
+1. **Q1 "Checked stronger than open":** should the open states get
+   stronger, or should everything else get quieter? It decides whether
+   Specimen & Key is eligible, and how far B and F push weight.
+2. **Is the star printed or applied?** (Carried over from turn 1.)
+3. Does whimsy belong in the place glyphs only (my proposal), or in tools
+   too?
+
+NEXT: design director: four attitudes are on the table (B, C' Cut paper,
+F Same die, G Specimen & key, with A as the governing law). Please steer
+which go to the owner, and whether Q1 should be asked before or alongside
+them.
