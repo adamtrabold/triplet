@@ -44,7 +44,7 @@
   .tag.is-blank .tag-in { padding-top: var(--s12); padding-bottom: var(--s3); box-sizing: border-box; }
   .tag.is-blank.docked .tag-in { padding-top: 36px; min-height: 256px; }
   .tag.is-blank .tag-in > .bt-q, .tag.is-blank .tag-in > .bt-err { margin-top: var(--s3) !important; }
-  .bt-f { position: relative; height: var(--s8); box-sizing: border-box; display: flex; align-items: flex-end; }
+  .bt-f { position: relative; min-height: var(--s8); box-sizing: border-box; display: flex; align-items: flex-end; }
   .bt-rule { position: relative; flex: 1; min-width: 0; border-bottom: 1px solid var(--hair); }
   .bt-f.name .bt-rule { margin-right: 30px; }
   /* an empty line's caption prints ON the line (a form's field label), and the entry replaces it; only NAME, while
@@ -236,7 +236,7 @@
     if (s.inked !== 'done') makeBlank(tag, s);
     // the taller blank tag must still clear the list (the real tag-fit does this by panning): pan the map up if needed
     const tb = tag.querySelector('.tag-body').getBoundingClientRect(), S = document.getElementById('locations').getBoundingClientRect().top;
-    const ov = Math.round(tb.bottom - (s.clear || S - 16)); if (ov) map.panBy([0, ov], { animate: false });
+    const ov = Math.round(tb.bottom - Math.min(s.clear || 1e9, footLimit())); if (ov) map.panBy([0, ov], { animate: false });
     // the selected marker -> the blank pin (lifted for a shape: it never lands)
     const sel = document.querySelector('.leaflet-marker-icon .highlighted-marker');
     const icon = sel && sel.closest('.leaflet-marker-icon');
@@ -252,10 +252,13 @@
     return 'ok';
   };
 
+  // the hanging tag's foot: 6 above the map credit's top (director 8b), else 16 above the list
+  function footLimit() { const c = document.querySelector('.leaflet-control-attribution'), S = document.getElementById('locations').getBoundingClientRect().top;
+    const r = c && c.getBoundingClientRect(); return r && r.height ? Math.floor(r.top) - 6 : S - 16; }
   // after ADD: the REAL tag, its foot (stub) where the blank tag's was (the top edge came down; the map panned with it)
   BT.alignReal = function (limit) {
     const tb = document.querySelector('.leaflet-popup.tag-popup .tag-body').getBoundingClientRect(), S = document.getElementById('locations').getBoundingClientRect().top;
-    const ov = Math.round(tb.bottom - (limit || S - 16)); if (ov) map.panBy([0, ov], { animate: false }); return ov;
+    const ov = Math.round(tb.bottom - (limit || footLimit())); if (ov) map.panBy([0, ov], { animate: false }); return ov;
   };
   // ---------------- keyboard ----------------
   BT.kb = function (on, h) {

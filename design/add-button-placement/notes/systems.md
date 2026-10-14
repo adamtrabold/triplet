@@ -530,3 +530,4 @@ result count at 664 with keyboard, and the docked-tag heights.
 - The iPhone check: `panBy` in sync with the 300ms CSS shrink (no stub jitter); the director's fallback exists.
 - A: the band's × is now 16px under ADD (588 vs 604). Still distinct.
 - All jobs hold on P and A, except the long-name/notes overflow (a builder/visual fix).
+- Coverage r8b written: concepts/coverage-r8.md. No unsupported job on P or A; P's 2 job-1 exceptions are a cost line (P4). Edit-after-add is not built (owner question).
