@@ -34,3 +34,8 @@ Feedback (normal iteration, not a rejection). Likes all three for different reas
 > The tag shape in the list header is also interesting — not everything in these places is a ticketed thing so the tag ties better to the view state. Id like to see that mocked
 
 Direction: (1) Float — orange and bigger is liked; try it in the LEFT corner (easier for him to reach). (2) A's "tag cut" route (the Hanging Tag shape in the list header) — he wants it mocked; the tag ties better to the view state than a ticket.
+
+2026-10-14:
+> I actually want to come back to the blank pin version of the add button — I also want to rev the add modal to be more like filling out a blank tag…I feel like together that could be a cool package.
+
+Direction: revive C (blank pin) together with the add form as a blank Hanging Tag you fill out — one package. Not started; the owner is moving the project to a new agent.
