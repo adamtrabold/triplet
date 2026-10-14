@@ -2959,3 +2959,183 @@ NEXT: product designer (visual focus) — how the blank tag looks as a form
 (pencil vs print vs stamp, the blank stub, the inactive ADD) and how the
 resting blank pin + tag answers both owner objections; and whether the
 same form reads right under A and Float triggers.
+
+## Turn 31 -- product designer (visual focus): the blank tag as a form, the resting object, the three triggers
+
+New visual designer (previous notes read as history). Real draws this
+turn: Oblique **"Honor thy error as a hidden intention"**; field
+**library card catalogue** (the book pocket with a blank card standing in
+it). Grounded in the real tag (`buildPopupHtml()`: band, eyelet, name,
+stamped TYPE, stub = DIRECTIONS | STAR | VISITED, 1.5px dashed `--hair`
+perforation with side notches) and C's R6 stills.
+
+### 1. The blank tag as a form: three inks, one meaning each
+
+The owner already gave us the system; I just apply it to an empty tag.
+"Only the clerk's entries are stamped; the form's own words are printed."
+
+- **Print (navy `--ink`, the app's small caps) = the form's own words.**
+  Captions NAME · TYPE · NOTES, the stub labels, the write-on rules.
+  Rules are a single hairline at the `--hair` weight (no boxes, no field
+  outlines: "no heavy rules or boxes"). No placeholder text in the lines;
+  the caption is the prompt.
+- **Pencil (graphite = the Pencil Star's `--ink-2`, the app's own faces)
+  = your entries before you commit.** The name goes on its line in the
+  tag's display face, at the real tag's size, but in graphite with the
+  pencil's tooth. TYPE pencils in when picked (or pre-fills in pencil from
+  OSM). Pencil says "provisional, still yours to change" without one extra
+  mark. No handwriting font ("no typewriter face"; same rule).
+- **Stamp/ink = Add.** On ADD the pencil inks over: TYPE is rubber-stamped
+  exactly as the real tag stamps it (seeded angle/texture, "ink is never
+  identical twice"), the name goes graphite → navy with the visited
+  stamp's ink-bleed family. That ink-over IS the confirmation (J15); no
+  toast, no check. The tag you're holding *becomes* the real tag in place.
+- **The blank tag is full size and the real tag's proportions,** not a
+  shrunk sheet: an empty name line at display height so the blank looks
+  like the tag it will be (J12). Paper always cream ("the tag's paper
+  never changes"); no band until STAR is tapped.
+
+### 2. The blank stub: one-for-one with the real stub
+
+Real stub: DIRECTIONS | STAR | VISITED. Blank stub: **ADD | STAR |
+VISITED** -- ADD sits in Directions' slot, because Directions is the one
+thing a place that doesn't exist yet can't do. On ADD that segment
+re-prints as DIRECTIONS (a quick print swap under the ink-over). Every
+borrowed mark keeps its meaning: STAR on the blank stub prints the band
+exactly as on the real tag; VISITED (J17) stamps exactly as on the real
+tag. Nothing on the stub is new.
+
+- **Inactive ADD: printed, not greyed-out-button.** The word ADD in
+  `--ink-2` with a second printed line under it, caption size: NAME IT
+  FIRST (wraps centred, the stub's wrap rule). No disabled-grey slab, no
+  empty dotted ring ("don't show empty states as marks"; the dotted ring
+  is visited's).
+- **Active ADD: a navy ink flood in its segment, cream ADD.** Not orange:
+  on a tag, orange already means *starred* (the band, the Star segment's
+  colour focus). Navy is the other action colour the owner named ("navy or
+  orange"). **Open, director:** CLAUDE.md lists "submit" as brand orange;
+  on a tag I think navy wins on meaning. Flag it, don't assume.
+- **Unvisited VISITED segment** shows what the real unvisited segment
+  shows, nothing more.
+
+### 3. The resting object vs the owner's two objections
+
+"Honor thy error": take both objections as true, not as misreads to argue
+with. Looking at R6-C1 again, the *pin* half is now the app's own pin
+grammar and does sit right among the 17 real pins. What fails is the tag:
+at 84x66 it's a cream rectangle with a hat -- the chamfers are 13px, the
+stub, perforation and side notches are gone, so it reads as a price tag or
+a box, and then the whole object reads as neither tag nor button. And the
++ sits on the pin, the tag carries nothing, so the eye doesn't link "tap
+the tag" with "+".
+
+Three answers that differ in kind (I'd take the first two forward):
+
+**V1. Tag-first silhouette, + on the tag's name line.** Keep the small
+real pin at the top (32px, orange face, empty -- no glyph, since the
+place has no type yet: a *blank* pin is literally blank). The string drops
+to a tag drawn with every luggage-tag signature exaggerated for its size:
+deep chamfers (~22% of width), eyelet patch + grommet on the string's
+axis, the stub's perforation and the two half-round side notches. The +
+is printed big in navy on the NAME line, where you'll write. Read: "a blank
+tag; write on it." The + is the loudest mark because it's the biggest ink
+on the brightest object; the orange pin is the colour accent above it.
+Cost: the tag must be big enough for notches to survive at 1x (my guess
+~96 wide; systems to measure against the corner footprint and squint
+rank vs the account badge).
+
+**V2. Pin-first, no tag at rest.** The blank pin alone, at selected-pin
+size, orange face, navy + where the category glyph will go. The tag
+doesn't exist until you tap: it pops down out of the pin on its straight
+string (the owner's own tag motion), blank. Answers "doesn't read like a
++" by removing the thing that confused it; answers "pin doesn't look like
+a pin" by being exactly the map's pin. Loses J7's preview at rest -- but
+the *motion* previews it the first time and every time. Simplest of the
+three ("simple simple simple"). Risk: a 32px orange disc is close to a
+deep-orange cluster at city zoom; needs the paper halo the starred pins
+already use, and rank vs the 50px account badge was "about level" in R6.
+
+**V3 (new, from the draw). The pocket: the list is the card catalogue.**
+The blank tag stands *tucked behind the list sheet* like a card in a
+library-book pocket: only its top third shows above the list header --
+chamfered top, eyelet, string -- with the + printed on the showing paper,
+at the left (thumb side). The pin stands on the map just above it, string
+taut to the eyelet. Tap (or pull up) and the tag slides out of the pocket
+into the full blank form, docked above the keyboard. Why it's different in
+kind: the tag's most recognisable part (the die-cut top + eyelet) is the
+only part shown, at full scale, so it can't read as a box; and it rides
+the list, so it keeps A's one big advantage (works with a tag or filters
+open, J1) without being a header cut. Costs: it overlaps the map's
+bottom edge (J5: never on a pin or tag -- systems to check); it's one more
+object at the list's edge; the sign-in badge stays top-right so rank vs
+account should be easy. It is A and C merged; the director may rule it
+replaces one of them rather than adds a fourth.
+
+Dropped fast: a **pad of stacked blank tags** ("take one", deli
+dispenser) -- reads "new" without a +, but the offset edges are two extra
+lines of noise and it severs the pin; and a **dashed "placeholder" ring
+pin** -- dashed/dotted rings are visited's stamp track, so it borrows a
+mark and changes its meaning.
+
+Lean on the "is it a pin" question: keep the app's round pin. A teardrop
+would read as "map pin" faster, but it's a mark the app never draws, and
+it was killed in round 6 as a water drop. If the owner still says "not a
+pin" at V1/V2 quality, that is an owner question to put beside the
+concept, not one to guess.
+
+### 4. Does the same form read right behind A and Float?
+
+The form is trigger-agnostic, agreed with systems. Visually:
+
+- **C (V1/V2) and V3: strongest.** The trigger is the form folded/at
+  rest; open and add are one object changing ink. Owner's "bonus points"
+  in full.
+- **Float: works, plainly.** The badge isn't a tag, so there's no metaphor
+  to break and none to gain. Reading I'd use: the badge is a control, the
+  tag is the paper it hands you -- the blank tag rises from the badge's
+  corner on the left (thumb side), docked low. I'd NOT make the badge "the
+  stamp that inks it": a stamp on a tag means visited.
+- **A: needs one change once the form is a tag.** A's trigger is an
+  *orange* tag cut. With a cream blank tag opening from it, the orange tag
+  now sits one step from the real tag's band and reads as "starred tag".
+  It was tolerable when the form was a sheet; beside a real-looking tag it
+  borrows a mark and changes its meaning. Option: A's cut goes navy (the
+  selected-row navy the header already sits beside) with a cream +, and
+  the orange stays with the star. Director's call; I'd show A navy in the
+  package frame.
+
+### 5. Motion (sketch level)
+
+- Open: the blank tag pops down out of the pin (C), slides out of the
+  pocket (V3), or rises from the badge (Float) -- the existing tag pop
+  timing, no new curve.
+- Pick a result: the place name pencils onto the NAME line left to right
+  (fast, the Pencil Star's stroke speed, once), the map flies, the tag
+  re-hangs from the pin at the spot.
+- ADD: stamp grow-shrink on TYPE, name inks over, ADD segment re-prints
+  DIRECTIONS, the pin's face fills with the category glyph. All triggered
+  by state change; nothing touches row gestures.
+- Cancel: the tag goes back the way it came; a kept draft shows as the
+  pencilled name on the resting tag (systems' P4) -- V1 and V3 can show it
+  (graphite on the name line replaces the +? no: the + must stay; draft
+  name sits under it small. Open), V2 can't.
+
+### Open questions (plainly)
+
+1. ADD's flood: navy (my lean, orange = starred on a tag) vs brand-orange
+   submit.
+2. V1's tag size at rest: can notches + perforation survive inside the
+   corner footprint and still win the squint against the account badge?
+   (systems measure)
+3. V3's pocket vs J5 (map's bottom edge pins) and vs A -- replace or add?
+4. P1's results on the tag: I'd print results (the app's search offers,
+   not your entries) on a slip *below* the name line, in print not pencil;
+   only the picked one becomes pencil. 2-3 lines at 664 with the keyboard
+   is tight -- systems' numbers decide whether the slip may overhang the
+   tag's bottom edge.
+5. P3 (no ADD, pencil-then-ink as edit): visually it's the same three
+   inks, so it costs me nothing; its risk is data, not look.
+
+NEXT: design director -- rule on the three resting objects (V1 tag-first,
+V2 pin-only, V3 pocket), ADD's colour on a tag, and A's trigger going navy
+inside this package, so systems can measure the survivors.

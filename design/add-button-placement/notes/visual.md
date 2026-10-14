@@ -1,5 +1,35 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-14, jam turn 31 (new visual designer): blank pin + blank-tag form
+- **Owner:** revive C as ONE package with the add form as a blank tag you
+  fill out. Float and A (round 7) are still with him; keep them open.
+- **Form look (proposed):** three inks, one meaning each.
+  - Print (navy small caps) = the form's own words.
+  - Pencil (`--ink-2` graphite, the app's faces) = entries before ADD.
+  - Stamp/ink-over on ADD = the confirmation.
+  - Full-size tag, real proportions, cream, no band until STAR.
+- **Blank stub:** ADD | STAR | VISITED. ADD sits in Directions' slot and
+  re-prints as DIRECTIONS on add.
+  - Inactive ADD is printed `--ink-2` with NAME IT FIRST under it.
+  - Active ADD is a navy flood (orange = starred on a tag). **Open.**
+- **Resting objects offered:**
+  - V1 tag-first: a bigger tag with notches and perforation, + on the name
+    line, blank orange pin.
+  - V2 pin-only: no tag at rest; it pops out on tap.
+  - V3 pocket: the tag tucked behind the list, top third showing (from the
+    draw: library card catalogue).
+  - Dropped: a stacked pad; a dashed-ring pin (it borrows visited's track).
+- **My diagnosis of R6 C:** the pin already reads; the 84x66 tag lost the
+  tag signatures (notches, stub, perforation), and the + wasn't on the tag.
+- **Pairings:**
+  - Float works plainly. Don't make the badge a "stamp": a stamp on a tag
+    means visited.
+  - A's orange tag cut now reads "starred" beside a real-looking tag.
+    Proposed: A goes navy.
+- **Next:** the director rules; systems measures the survivors; then stills.
+  No sketches made this turn.
+
+
 ## UPDATE 2026-10-14, round 7 (jam turn 28): Float at the left, A as the Hanging Tag cut
 - **Owner:** the badge is most interesting ("orange and bigger", but the +
   "on the left? Easier for me to reach"). The tag shape in the header
