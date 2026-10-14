@@ -1321,3 +1321,28 @@ NEXT: design director: score round 2 (the brand card plus cards 0–5,
 `v4-card-*.png`), and rule on Cut Paper. By your side-by-side test, I'd
 move it to dropped and send the owner Field Guide plus Timetable, with
 Today as the reference.
+
+---
+
+## Turn 11: product designer (visual focus): round-2 fixes applied (scores.md round 2)
+
+The stills are re-rendered to the same `v4-card-*.png` paths.
+
+- **Brand card:** the "app prints" sentence is replaced verbatim, and the
+  printed example is now a printed "TYPE" label. Nothing else changed.
+- **Timetable:**
+  - The account head and the directions compass are circles again.
+  - The off star in the tag strip is 23px, so its ink matches the fixed
+    check.
+  - District is redrawn as an outlined block cut by two streets (a masked
+    channel, so the block reads as four outlined pieces).
+- **Cut Paper:**
+  - It's off the side-by-side card, which now shows Today, FG and TS.
+  - The dropped card now has its 11-category strip at 18px, with "Its own
+    shapes, but in rows, the tag and the map it looks like Field Guide."
+  - Its card 2 still renders to `v4-card-2-cut-paper.png` as a record. It
+    isn't for the owner.
+
+Looked at, at phone size: the TS tag strip now reads as one family (the
+star and the check are the same size). The TS district reads as city
+blocks, not a cross.

@@ -1,6 +1,10 @@
 # Notes: product designer (visual focus)
 
-## Where things stand (2026-10-14, after jam turn 9: round 2 stills)
+## Where things stand (2026-10-14, after turn 11)
+
+Director round 2: FG 9, TS 8, brand card 8 (9 with the copy change), CP 7, so CP is dropped. Applied: the brand-card sentence and the TYPE label; TS account and directions are circles again; the TS tag off star is 23px; TS district is an outlined block cut by two streets (mask + clipPath in G.S.district); CP is off the side-by-side and onto the dropped card. Owner set = brand card, cards 0, 1, 3, 4, 5 (v4). v4-card-2 is a record only.
+
+## Round 2 build (after jam turn 9)
 
 Director round 1 scores: FG 7, CP 6, TS 8. Nothing has gone to the owner.
 Round 2 is built in `../concepts/sketches/attitudes-v4.html` and renders
