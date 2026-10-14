@@ -76,3 +76,60 @@ Tooling (SVG tool or MCP) is deferred to phase 2.
 Visual designer: Timetable card, Cut Paper off state, districts, and the
 map, reversal and tag crops. Then systems (one pass, if useful), then I
 score all three cards in one pass.
+
+---
+
+## Update after jam pass 2 (turn 6, closes the jam)
+
+Read the v2 cards (`v2-card-1/2/3`), turns 4 and 5, and `jobs.md`. No
+scores yet.
+
+### What I saw (carry into scoring)
+- THE likely owner objection: in rows and on the map the three directions
+  look almost the same as each other and as Today. The difference lives
+  only in the 24px stress row and the tools. A side-by-side card was added
+  to expose this honestly.
+- District is weak everywhere except Cut Paper (a block cut by two
+  streets). Street is still missing everywhere.
+- The Timetable proof line is the strongest single idea on the board. Its
+  tools are still generic, so the Archivo cues are needed now.
+- Cut Paper's "off true" is invisible at row size.
+
+### Rulings made
+1. The mark-visited check is FIXED by default. It's asked as owner Q2.
+2. Field Guide tools are NOT grey. Quiet by weight only, in the current
+   tool ink. Grey keeps one meaning: off, disabled or secondary.
+3. The + and account buttons keep their loudness. Only the glyph follows
+   the direction. They're on every card.
+4. Timetable shows a 12px caption cut. The full optical masters are phase
+   2.
+5. Cut Paper's tools are lightened now. The row × stays quiet in every
+   direction.
+6. Cut Paper's off star: dotted primary, with a solid knife-line inset as
+   the fallback. Check the dotted-mark buzz in the tag stub.
+7. The star's shape is open. Its cost (Pencil Star, cluster cutout, gesture
+   gate) is in owner Q3.
+8. Leaflet zoom and the text × and ▼ are in by default (not a question).
+
+### The concept phase builds (6 stills, 390 wide at 3x)
+Cards 0 to 3 (Today, FG, CP, TS), each with: the full set at 24px (11
+categories, star on and off plus mark-visited FIXED, every control,
+Leaflet zoom); real-size strips (12/18/23 and the tools at their sizes)
+plus 1-bit; context crops (header plus scalloped buttons; plain, visited
+and selected rows; the tag stub unvisited AND starred + visited; a map
+with a sticker and a district stop; chips). Card 4: side by side. Card 5:
+dropped.
+
+### Owner batch (sent with jobs.md, none blocking)
+1. The 10-07 "checked vs open" note: still wanted? Weak open states or loud
+   checked ones?
+2. Does "Visited should not change" include the tag's mark-visited outline
+   check?
+3. What else is fixed: the shells, the scalloped buttons, the category
+   colours, the star's shape (with the cost of changing the star)?
+
+### Next
+Visual builds the six stills, then I score all of them in one pass.
+Before scoring, check the side-by-side card first: if the directions
+aren't distinguishable in row and map context, none of them reaches a 9 as
+a direction.

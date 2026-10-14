@@ -912,3 +912,152 @@ no premise taken from the 10-07 note, and inferred jobs are marked.
 NEXT: design director — fold the §3 structural items into the steer for
 turn 6 (visual), decide on Field Guide's grey conflict, and add the
 mark-visited scope question to the owner batch.
+
+---
+
+## Turn 6: design director, jam pass 2 (closes the jam)
+
+Read: turns 4 and 5, `jobs.md`, `v2-card-1/2/3`. Still no scores. Scoring
+comes on the built cards.
+
+### 1. What I see on the v2 cards (steer, not scores)
+
+- **The biggest risk is one nobody has named: in the rows and on the map,
+  the three directions look almost the same.** The cup and fork badges in
+  the row crops and the pins in the map crops are near twins on all three
+  cards. The differences only show in the 24px stress row and in the tools.
+  The owner looks at the row and the map first, so the likely reply is
+  "what's different?". The fix is in the build list (§3): a side-by-side
+  card, and the category glyphs shown big enough for the attitude to read.
+  If a direction still looks like Today in a row, that's a finding about the
+  direction, not a rendering problem, and the card should say so.
+- **District is still the weakest drawing on every card.** Field Guide's
+  dashed pentagon reads as a badge, and its dashes go to mush at 12px.
+  Timetable's reads as a bowl or a hat. Cut Paper's block cut by two streets
+  is the best of the three and the bar for the others. Street is still
+  missing everywhere.
+- **Timetable's proof line** (`REYKJAVÍK [cup] 08:15 · HÚSAVÍK [fork] 13:40`)
+  is the most charming thing on the board. It *is* the attitude, so keep it.
+  The tools in the stress row are still a generic line set. Add the Archivo
+  cues from turn 4 (ink traps, squarish curves) now, not in phase 2,
+  because "is it generic" is the very thing the owner will judge.
+- **Cut Paper's "off true" doesn't show at row size.** If the hand only
+  appears at 24px, the card should say "the hand shows at 24 and up", or
+  push the cut further on the place glyphs.
+
+### 2. Rulings on the open items
+
+1. **The mark-visited check (the tag's not-yet-visited check): treat it as
+   fixed, then ask.** The owner's "Visited should not change" plausibly
+   covers the Visited segment's unvisited face. The conservative reading is
+   fixed, unchanged and labelled "fixed" on every card. It goes into the
+   owner batch as a yes/no.
+2. **Field Guide's double grey: tools do not go grey.** Grey already means
+   secondary numbers, inactive chips, and the signed-out disabled controls
+   ("greyed out should offer sign in"). A grey tool would read as disabled.
+   Field Guide's key is quiet **by weight only**, and drawn in the tools'
+   current ink (navy, or the button's ink). Grey keeps its meaning: off.
+   Inactive chips stay as they are (dashed hairline, grey glyph).
+3. **The + and account buttons:** the button keeps its loudness (navy,
+   scalloped, orange glyph, the brand's action colour). Only the glyph's
+   drawing follows the direction. Add both buttons to every card. In Field
+   Guide, check that a key-weight glyph at 24px in a 50px button isn't
+   timid. If it is, the direction needs a "button sizes" rule, and the card
+   shows it.
+4. **Timetable at 12px:** the card shows a **12px caption cut** (one
+   heavier optical master) in the chip strip, not the 24 master scaled down.
+   If it still greys out, the card says so in Risks. The full set of
+   optical masters is phase-2 grid work.
+5. **Cut Paper's tools: lighten them now** (visual's question). The rule
+   "tool strips are thinner than place pieces" is part of the attitude, so
+   it belongs on the card. The row delete × in every direction is drawn as
+   the direction would ship it, and stays quiet ("secondary marks never
+   outrank content").
+6. **Cut Paper's off star:** show the dotted cut-here line as the primary,
+   with the solid knife line as a small inset beside it, labelled
+   "fallback". Add one line on the card: "Only in the tag and add form.
+   Rows and the map never show an unstarred star." The tag stub already has
+   a dashed divider and a dotted stamp track. Look at all three dotted marks
+   together in that crop. If they buzz, that's a strike against dotted, and
+   the card says so.
+7. **The star's shape:** directions may restyle it. The cost (the Pencil
+   Star redrawn, the cluster cutout redrawn, and the full gesture gate
+   rerun) goes into owner Q3 as one plain clause, so he can rule that the
+   star's shape is fixed if he wants. Field Guide keeps today's star.
+8. **Leaflet's zoom and the text × and ▼:** these are *in* by default and
+   drawn on every card. That's a scope call we can make. It isn't an owner
+   question, and he can overrule it.
+
+### 3. What the concept phase builds (exact)
+
+Six stills, all the same layout, 390 CSS px wide, rendered at 3x (1170 px),
+so on his phone at full width every icon is at its real size. The real
+Visited PNGs are used unchanged and labelled **FIXED**.
+
+**Cards 0 to 3 (Today, Field Guide, Cut Paper, Timetable Sorts), each
+with:**
+
+1. Name, one line of attitude, then Says / Risks / Choosing (as v2).
+2. **Full set at 24px**, in groups:
+   - all 11 categories (restaurant, cafe, bar, attraction, nature,
+     shopping, area, hotel, other, district, street);
+   - star on and off, plus the mark-visited check (FIXED);
+   - every control: account, +, add-open ×, sort, filters, locate, tag
+     close, directions, sort/plan check, plan +, more, chevron, collapse ▼,
+     row delete ×, plan + / ×, and Leaflet zoom +/−.
+3. **Real-size strips, at the size each one ships:** categories at 12 (chip),
+   18 (badge or near pin) and 23 (selected pin); tools at their inventory
+   sizes; then the **1-bit strip** of the same.
+4. **Context crops at real size:**
+   - list header (▼, title, sort, filters, locate) plus the scalloped
+     account and + buttons;
+   - three rows: plain unvisited, visited (stamp), and selected navy
+     starred;
+   - the tag stub in **both** states: unvisited (Directions, Star off,
+     Mark visited FIXED) and starred + visited;
+   - the map crop: near pins of 4+ categories, one selected, one starred,
+     one visited sticker (FIXED), and one district shape stop;
+   - filter chips, active and inactive.
+5. For Timetable, the proof line. For Cut Paper, the fallback inset.
+
+**Card 4, side by side:** the same row, tag stub, map crop and 11-category
+strip, stacked once per direction (Today, FG, CP, TS), on one phone-width
+still. It answers "what's different?" and "every icon side by side".
+
+**Card 5, dropped:** as v2 (Same Die, Spot, Badge, Code, Linocut), titled
+"Dropped — say if you want any back".
+
+These are concepts, but they're crafted. The owner reads a still at real
+size as near-final. No canvas.
+
+### 4. What goes to the owner, and when
+
+- **`jobs.md` goes to the owner now**, as written. It takes no premise from
+  the 10-07 note and marks what we inferred. I'd send it unchanged.
+- The cards go to the owner only after I've scored them 9 or more.
+- The questions below go to him now, with `jobs.md`. None of them blocks
+  building the cards: each has a stated default the cards follow.
+
+### 5. Owner questions (one batch)
+
+1. "On Oct 7 you wrote 'the checked items are stronger visually than the
+   open ones.' Is that still something you want addressed in this work? If
+   so, is it that the open ones look too weak, or that the checked ones look
+   too loud? Visited stays as it is either way." *(Default until he answers:
+   no direction is built to fix it. Each one states its own stance.)*
+2. "Does 'Visited should not change' include the outline check on the tag
+   you tap to mark a place visited?" *(Default: yes, it's fixed.)*
+3. "Is anything else fixed besides Visited: the pins' round shell and rim,
+   the scalloped account and + buttons, the category colours, the star's
+   shape? Changing the star's shape means redrawing the swipe-star animation
+   and retesting the swipe." *(Default: the shells, buttons and colours are
+   fixed; the star's shape is open.)*
+
+Dropped as owner questions: is the star printed or applied (shipped answer),
+where whimsy lives (our default, shown), and Leaflet zoom and the text
+glyphs (in by default, shown).
+
+NEXT: product designer (visual focus) — build the six stills in §3 (four
+direction cards with full coverage, real-size and 1-bit strips and both tag
+states, plus the side-by-side card and the dropped card), applying the
+rulings in §2. Then I score all of them in one pass.
