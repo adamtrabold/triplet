@@ -122,3 +122,55 @@ Owner: "Let's try it turned 90 degrees too". Measured the same way
 **No unsupported job for the upright orange.** There's one cost to put
 on the send: the list loses a row with a tag open at 664 at 70 tall (or
 the tag goes to 58 tall or less).
+
+### Round 11b, the short upright: orange 36 × 58 (preset p6; visual's V7)
+
+Measured with `TAG=t11c-`, plus `../r10-check/gap-check.js`, which opens
+a real tag on the real app with `TAG_SHEET_GAP` patched (48 to 105), at
+4 viewports, with a short name and a two-line name.
+
+- **Rank:**
+  - **1.45 / 1.44 x the account** (σ4 / σ8): over the director's 1.2 at
+    both blurs;
+  - **1.08x the Float** (1.34), so the two buttons are nearly equal in
+    weight, which makes the owner's call a pure comparison of shape;
+  - the 43 × 70 upright was 2.12x, and p5 was 1.69x.
+- **Coverage:**
+  - 0 pins at all 40 opening views;
+  - street zoom: Copenhagen 9% / Stockholm 10% / Malmö 12% / LA 2%
+    (the lowest of any C; the Float is 12 / 13 / 16 / 3).
+- **Credit:** 80 / 65 / 75px of horizontal clearance at 390 / 375 / 320.
+- **Tag-open gap: 90 is confirmed.**
+
+| `TAG_SHEET_GAP` | 664: rows, button top to tag foot | 375x667 | 320x568 | 844 |
+|---|---|---|---|---|
+| 48 (today) | 3 rows, **overlaps by 32** | 3, overlaps 32 | 2, overlaps 32 | 4, clear |
+| 88 (the Float) | 3, clear by 8 | 3, 8 | 1, 4 | 4 |
+| **90** | **3, clear by 10** | **3, 10** | **1, 6** | **4** |
+| 93 | **2**, 13 | 3, 13 | 1, 9 | 4 |
+| 105 (43 × 70) | 2, 25 | 2, 25 | 1, 18 | 4 |
+
+- **90 keeps 3 rows at 664 and 667 and clears the open tag.** 93 is
+  already one row short at 664, so **90 is the ceiling, not just a
+  value that works**.
+- At 320 the list is already at its minimum, so the open tag sits a
+  little higher instead. It's 1 row, the same as the Float's 88.
+- The two-line name gave the same result as the short one (the tag
+  grows upward).
+- **Tap target:**
+  - 36 wide → pad 4px on each side to 44, invisibly; 58 tall is fine;
+  - the hit area is that 44 × 58 rectangle, so the hole counts;
+  - with the left padding the hit area starts at 15.9, inside the
+    screen's 16px gutter; fine, since nothing else is there.
+- **Hand-off:** the same as the 43 × 70 upright: a pure grow into the
+  form (hole → eyelet, end → stub). No rotation.
+
+**Jobs:** every job holds for the orange 36 × 58.
+- Job 1 has no tag-open exception at gap 90; only the filters, the same
+  as the Float.
+- Job 2: 1.45x.
+- Job 3 is the strongest read (the same orientation as the form).
+- Job 4: the lowest coverage of any C.
+- Jobs 5-18 are unchanged (the shared form).
+
+**No costs left that the Float doesn't also have.**

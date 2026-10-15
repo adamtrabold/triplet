@@ -1,0 +1,810 @@
+{
+ "fit": {
+  "390x844|copenhagen|up": {
+   "box": [
+    16.9,
+    460,
+    58.9,
+    524
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    527.2,
+    390,
+    544
+   ],
+   "creditGap": 80,
+   "markers": 16,
+   "zoom": 6.298933127164547
+  },
+  "390x844|copenhagen|collapsed": {
+   "box": [
+    16.9,
+    700,
+    58.9,
+    764
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    767.2,
+    390,
+    784
+   ],
+   "creditGap": 80,
+   "markers": 36,
+   "zoom": 12
+  },
+  "390x844|la|up": {
+   "box": [
+    16.9,
+    460,
+    58.9,
+    524
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    527.2,
+    390,
+    544
+   ],
+   "creditGap": 80,
+   "markers": 15,
+   "zoom": 11
+  },
+  "390x844|la|collapsed": {
+   "box": [
+    16.9,
+    700,
+    58.9,
+    764
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    767.2,
+    390,
+    784
+   ],
+   "creditGap": 80,
+   "markers": 15,
+   "zoom": 11
+  },
+  "390x844|malmo|up": {
+   "box": [
+    16.9,
+    460,
+    58.9,
+    524
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    527.2,
+    390,
+    544
+   ],
+   "creditGap": 80,
+   "markers": 15,
+   "zoom": 12
+  },
+  "390x844|malmo|collapsed": {
+   "box": [
+    16.9,
+    700,
+    58.9,
+    764
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    767.2,
+    390,
+    784
+   ],
+   "creditGap": 80,
+   "markers": 15,
+   "zoom": 12
+  },
+  "390x844|reykjavik|up": {
+   "box": [
+    16.9,
+    460,
+    58.9,
+    524
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    527.2,
+    390,
+    544
+   ],
+   "creditGap": 80,
+   "markers": 12,
+   "zoom": 11
+  },
+  "390x844|reykjavik|collapsed": {
+   "box": [
+    16.9,
+    700,
+    58.9,
+    764
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    767.2,
+    390,
+    784
+   ],
+   "creditGap": 80,
+   "markers": 11,
+   "zoom": 11
+  },
+  "390x844|stockholm|up": {
+   "box": [
+    16.9,
+    460,
+    58.9,
+    524
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    527.2,
+    390,
+    544
+   ],
+   "creditGap": 80,
+   "markers": 17,
+   "zoom": 11
+  },
+  "390x844|stockholm|collapsed": {
+   "box": [
+    16.9,
+    700,
+    58.9,
+    764
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    767.2,
+    390,
+    784
+   ],
+   "creditGap": 80,
+   "markers": 19,
+   "zoom": 11
+  },
+  "390x664|copenhagen|up": {
+   "box": [
+    16.9,
+    280,
+    58.9,
+    344
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    347.2,
+    390,
+    364
+   ],
+   "creditGap": 80,
+   "markers": 17,
+   "zoom": 6.166235497814553
+  },
+  "390x664|copenhagen|collapsed": {
+   "box": [
+    16.9,
+    520,
+    58.9,
+    584
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    587.2,
+    390,
+    604
+   ],
+   "creditGap": 80,
+   "markers": 35,
+   "zoom": 12
+  },
+  "390x664|la|up": {
+   "box": [
+    16.9,
+    280,
+    58.9,
+    344
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    347.2,
+    390,
+    364
+   ],
+   "creditGap": 80,
+   "markers": 15,
+   "zoom": 11
+  },
+  "390x664|la|collapsed": {
+   "box": [
+    16.9,
+    520,
+    58.9,
+    584
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    587.2,
+    390,
+    604
+   ],
+   "creditGap": 80,
+   "markers": 15,
+   "zoom": 11
+  },
+  "390x664|malmo|up": {
+   "box": [
+    16.9,
+    280,
+    58.9,
+    344
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    347.2,
+    390,
+    364
+   ],
+   "creditGap": 80,
+   "markers": 14,
+   "zoom": 12
+  },
+  "390x664|malmo|collapsed": {
+   "box": [
+    16.9,
+    520,
+    58.9,
+    584
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    587.2,
+    390,
+    604
+   ],
+   "creditGap": 80,
+   "markers": 14,
+   "zoom": 12
+  },
+  "390x664|reykjavik|up": {
+   "box": [
+    16.9,
+    280,
+    58.9,
+    344
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    347.2,
+    390,
+    364
+   ],
+   "creditGap": 80,
+   "markers": 11,
+   "zoom": 11
+  },
+  "390x664|reykjavik|collapsed": {
+   "box": [
+    16.9,
+    520,
+    58.9,
+    584
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    587.2,
+    390,
+    604
+   ],
+   "creditGap": 80,
+   "markers": 12,
+   "zoom": 11
+  },
+  "390x664|stockholm|up": {
+   "box": [
+    16.9,
+    280,
+    58.9,
+    344
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    347.2,
+    390,
+    364
+   ],
+   "creditGap": 80,
+   "markers": 17,
+   "zoom": 11
+  },
+  "390x664|stockholm|collapsed": {
+   "box": [
+    16.9,
+    520,
+    58.9,
+    584
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    587.2,
+    390,
+    604
+   ],
+   "creditGap": 80,
+   "markers": 17,
+   "zoom": 11
+  },
+  "375x667|copenhagen|up": {
+   "box": [
+    16.9,
+    283,
+    58.9,
+    347
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    350.2,
+    375,
+    367
+   ],
+   "creditGap": 65,
+   "markers": 16,
+   "zoom": 6.160450719125396
+  },
+  "375x667|copenhagen|collapsed": {
+   "box": [
+    16.9,
+    523,
+    58.9,
+    587
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    590.2,
+    375,
+    607
+   ],
+   "creditGap": 65,
+   "markers": 32,
+   "zoom": 12
+  },
+  "375x667|la|up": {
+   "box": [
+    16.9,
+    283,
+    58.9,
+    347
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    350.2,
+    375,
+    367
+   ],
+   "creditGap": 65,
+   "markers": 14,
+   "zoom": 11
+  },
+  "375x667|la|collapsed": {
+   "box": [
+    16.9,
+    523,
+    58.9,
+    587
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    590.2,
+    375,
+    607
+   ],
+   "creditGap": 65,
+   "markers": 12,
+   "zoom": 11
+  },
+  "375x667|malmo|up": {
+   "box": [
+    16.9,
+    283,
+    58.9,
+    347
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    350.2,
+    375,
+    367
+   ],
+   "creditGap": 65,
+   "markers": 13,
+   "zoom": 12
+  },
+  "375x667|malmo|collapsed": {
+   "box": [
+    16.9,
+    523,
+    58.9,
+    587
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    590.2,
+    375,
+    607
+   ],
+   "creditGap": 65,
+   "markers": 13,
+   "zoom": 12
+  },
+  "375x667|reykjavik|up": {
+   "box": [
+    16.9,
+    283,
+    58.9,
+    347
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    350.2,
+    375,
+    367
+   ],
+   "creditGap": 65,
+   "markers": 10,
+   "zoom": 11
+  },
+  "375x667|reykjavik|collapsed": {
+   "box": [
+    16.9,
+    523,
+    58.9,
+    587
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    590.2,
+    375,
+    607
+   ],
+   "creditGap": 65,
+   "markers": 11,
+   "zoom": 11
+  },
+  "375x667|stockholm|up": {
+   "box": [
+    16.9,
+    283,
+    58.9,
+    347
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    350.2,
+    375,
+    367
+   ],
+   "creditGap": 65,
+   "markers": 15,
+   "zoom": 11
+  },
+  "375x667|stockholm|collapsed": {
+   "box": [
+    16.9,
+    523,
+    58.9,
+    587
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    123.9,
+    590.2,
+    375,
+    607
+   ],
+   "creditGap": 65,
+   "markers": 16,
+   "zoom": 11
+  },
+  "320x568|copenhagen|up": {
+   "box": [
+    16.9,
+    184,
+    58.9,
+    248
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    251.2,
+    320,
+    268
+   ],
+   "creditGap": 75,
+   "markers": 17,
+   "zoom": 6.046656117583496
+  },
+  "320x568|copenhagen|collapsed": {
+   "box": [
+    16.9,
+    424,
+    58.9,
+    488
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    491.2,
+    320,
+    508
+   ],
+   "creditGap": 75,
+   "markers": 32,
+   "zoom": 12
+  },
+  "320x568|la|up": {
+   "box": [
+    16.9,
+    184,
+    58.9,
+    248
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    251.2,
+    320,
+    268
+   ],
+   "creditGap": 75,
+   "markers": 13,
+   "zoom": 11
+  },
+  "320x568|la|collapsed": {
+   "box": [
+    16.9,
+    424,
+    58.9,
+    488
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    491.2,
+    320,
+    508
+   ],
+   "creditGap": 75,
+   "markers": 14,
+   "zoom": 11
+  },
+  "320x568|malmo|up": {
+   "box": [
+    16.9,
+    184,
+    58.9,
+    248
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    251.2,
+    320,
+    268
+   ],
+   "creditGap": 75,
+   "markers": 12,
+   "zoom": 12
+  },
+  "320x568|malmo|collapsed": {
+   "box": [
+    16.9,
+    424,
+    58.9,
+    488
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    491.2,
+    320,
+    508
+   ],
+   "creditGap": 75,
+   "markers": 12,
+   "zoom": 12
+  },
+  "320x568|reykjavik|up": {
+   "box": [
+    16.9,
+    184,
+    58.9,
+    248
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    251.2,
+    320,
+    268
+   ],
+   "creditGap": 75,
+   "markers": 11,
+   "zoom": 11
+  },
+  "320x568|reykjavik|collapsed": {
+   "box": [
+    16.9,
+    424,
+    58.9,
+    488
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    491.2,
+    320,
+    508
+   ],
+   "creditGap": 75,
+   "markers": 10,
+   "zoom": 11
+  },
+  "320x568|stockholm|up": {
+   "box": [
+    16.9,
+    184,
+    58.9,
+    248
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    251.2,
+    320,
+    268
+   ],
+   "creditGap": 75,
+   "markers": 18,
+   "zoom": 11
+  },
+  "320x568|stockholm|collapsed": {
+   "box": [
+    16.9,
+    424,
+    58.9,
+    488
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    133.9,
+    491.2,
+    320,
+    508
+   ],
+   "creditGap": 75,
+   "markers": 14,
+   "zoom": 11
+  }
+ },
+ "frames": {
+  "orangeUp6-fit": {
+   "box": [
+    16.9,
+    460,
+    58.9,
+    524
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    527.2,
+    390,
+    544
+   ],
+   "creditGap": 80,
+   "markers": 10,
+   "zoom": 7.621081866432708
+  },
+  "acct": [
+   324,
+   16,
+   374,
+   66
+  ],
+  "orangeUp6-z14": {
+   "box": [
+    16.9,
+    460,
+    58.9,
+    524
+   ],
+   "under": 0,
+   "near6": 0,
+   "credit": [
+    138.9,
+    527.2,
+    390,
+    544
+   ],
+   "creditGap": 80,
+   "markers": 45,
+   "zoom": 14
+  }
+ }
+}

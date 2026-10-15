@@ -601,3 +601,4 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Rank and coverage are the same as flat: orange 2.12x (1.58x the Float); cream 0.59 (fails job 2); p5 38x64 orange 1.69. 0 pins at the opening views; z14 11/12/15/3. Credit 73/58/68.
 - Cost: TAG_SHEET_GAP 105 (p5 99) → at 664 the list goes 3 → 2 rows with a tag open (3 rows need ≤ 93, i.e. upright ≤ 58 tall). Lean: a ≤ 58-tall upright, or accept 2 rows; stepping aside reintroduces the exception.
 - Hand-off: the upright is already the form's orientation → a pure grow, no rotation; the hole becomes the eyelet, the end becomes the stub.
+- Short upright 36x58 orange (p6): 1.45 / 1.44 x the account (1.08x the Float); 0 pins; z14 9/10/12/2%; credit 80/65/75. **Gap 90 confirmed: 3 rows at 664/667, 10px clear; 93 drops to 2 → 90 is the ceiling.** 320: 1 row (same as the Float). Hit 36 → pad 4 each side to 44. All jobs hold; no costs beyond the Float's.
