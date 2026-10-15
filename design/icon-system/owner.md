@@ -51,4 +51,9 @@ Direction: whimsy IS wanted; the hand-made directions were cut on execution risk
 2026-10-15, correcting the orchestrator's summary rule ("Clarity comes first; warmth comes from subtle rounding, never a hand-made look"):
 > this is a bad rule. clarity comes first is great. subtle rounding is a place where warmth can come from. "never a hand made look" is bad. i dont want to say never to that and handmade can come from many angles -- construction method, textural approach, the inkblot thing, etc.
 
-Direction: clarity first stands. Subtle rounding is one source of warmth among others. Hand-made is not ruled out; it can come from construction method, texture, or the ink-blot (stamp/bleed) idea. The 2026-10-15 "Specimen and the hand-cut looks are out" line above means those specific executions, not hand-made as a whole.
+Direction: clarity first stands. Subtle rounding is one source of warmth among others. Hand-made is not ruled out. His examples of where it can come from (construction method, texture, the ink-blot idea) are examples, not a complete list. The 2026-10-15 "Specimen and the hand-cut looks are out" line above means those specific executions, not hand-made as a whole.
+
+2026-10-15, on the orchestrator's restatement ("It can come from how an icon is built, from texture, or from the ink-blot idea"):
+> these are just examples. not exhaustive. again you are overstating my intent.
+
+Orchestrator's note: record his words; don't turn his examples into lists, rules or limits.
