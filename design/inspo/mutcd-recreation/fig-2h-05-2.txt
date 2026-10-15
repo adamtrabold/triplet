@@ -1,0 +1,126 @@
+Figure 2H-5. Recreational and Cultural Interest Area Symbol Signs 
+(Sheet 2 of 5)
+
+Sheet 2 of the figure shows 25 signs.
+
+RM-040 is shown with a large equilateral cross. It is labeled "First 
+Aid."
+RM-050 is shown with a vertical fork and knife on a plate. It is 
+labeled "Food."
+RM-060 is shown with a symbol of a gas pump. It is labeled "Gas."
+RM-070 is shown with the symbols of an egg, a milk carton, and 
+an apple in front of a bread slice. It is labeled "Grocery 
+Store."
+RM-080 is shown with a stylized symbol of a right-facing person 
+in a wheelchair. It is labeled "Handicapped."
+RM-090 is shown with a stylized symbol of a person in a bed. It 
+is labeled "Lodging."
+RM-100 is shown with a symbol of a vertical wrench. It is labeled 
+"Mechanic."
+RM-110 is shown with an outline of an envelope. It is labeled "Post 
+Office."
+RM-120 is shown with a symbol of a picnic table. It is labeled 
+"Picnic Area." 
+RM-130 is shown with a symbol of a picnic table inside a roofed 
+structure. It is labeled "Picnic Shelter."
+RM-140 is shown with the stylized symbols of a woman in a dress 
+to the left of a man in front of side-by-side doors with top edges 
+that angle up toward the center. It is labeled "Rest Room."
+RM-150 is shown with a symbol of a telephone receiver. It is labeled 
+"Telephone."
+RM-160 is shown with a symbol of a camper trailer parked over a 
+pit with a vertical line and downward-pointing arrow extending from 
+the trailer into the pit. It is labeled "Trailer Sanitary Station."
+RM-170 is shown with a symbol of a camera. It is labeled "Viewing 
+Area."
+RM-200 is shown with a symbol of a recreational vehicle. It is 
+labeled "Motor Home."
+RM-210 is shown with symbols of three tents. It is shown directly 
+above a horizontal rectangular plaque with the words "GROUP 
+CAMPING" on two lines. It is labeled "Group Camping."
+RM-220 is shown with symbols of three picnic tables. It is shown 
+directly above a horizontal rectangular plaque with the words "GROUP 
+PICNICKING" on two lines. It is labeled "Group Picnicking."
+RM-230 is shown with a large letter "R" and a smaller letter "x" combined to form "Rx." It is shown directly above a horizontal rectangular plaque with the words "24 HR" on one line. It is labeled "24-Hour Pharmacy."
+RA-010 is shown with a symbol of an airplane. It is labeled "Airport."
+RA-020 is shown with a head-on symbol of a bus. It is labeled "Bus 
+Stop."
+RA-030 is shown with a symbol of flames rising from two crossed 
+logs. It is labeled "Campfire."
+RA-040 is shown with symbols of three people contained within an 
+outlined square. On top of the square, a short downward-pointing 
+arrow is shown to the left of a short upward-pointing arrow. It 
+is labeled "Elevator."
+RA-050 is shown with a symbol of a dog sitting inside a cage. It 
+is labeled "Kennel."
+RA-060 is shown with the symbols of a washing machine to the left 
+of a clothes dryer. It is labeled "Laundry."
+RA-070 is shown with a symbol of a horizontal key above a symbol 
+of a suitcase inside an outlined square. It is labeled "Locker."
+RA-080 is shown with a large letter "P." It is labeled 
+"Parking."
+Back to: Sheet 1 | Continue 
+to: Sheet 3 | Sheet 
+4 | Sheet 5  
+Back 
+to Chapter 2H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+US DOT Home | FHWA Home | MUTCD Home | Operations Home | Privacy Policy
+United States Department of Transportation - Federal Highway Administration
+
+
+<!--
+revdate = new Date(document.lastModified);
+if (revdate.getYear() == 69) {
+// workaround for .asp pages (some browsers do not interpret the lastModified date properly);
+// just reset the date to today
+revdate = new Date();
+}
+year = revdate.getYear();
+if (year > 1999)
+year = year
+else
+if (year < 90)
+year = year+2000
+else
+year = year+1900;
+month = revdate.getMonth() + 1;
+day = revdate.getDate();
+var mon;
+
+if (month==0) mon = "January";
+if (month==1) mon = "January";
+if (month==2) mon = "February";
+if (month==3) mon = "March";
+if (month==4) mon = "April";
+if (month==5) mon = "May";
+if (month==6) mon = "June";
+if (month==7) mon = "July";
+if (month==8) mon = "August";
+if (month==9) mon = "September";
+if (month==10) mon = "October";
+if (month==11) mon = "November";
+if (month==12) mon = "December";
+
+document.write("&nbsp;&nbsp;Last modified: " + mon + " " + day + ", " + year + "&nbsp;&nbsp;");
+// -->
+
+
+
+
+
+

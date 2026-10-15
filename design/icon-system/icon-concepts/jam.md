@@ -970,3 +970,243 @@ coverage is clean. READY (`scores.md` round 1c).
 
 NEXT: coordinator — send the six t4 cards in order with the three
 questions, word for word (scores.md round 1).
+
+## Turn 11: product designer (visual focus), the MUTCD brown signs
+
+New inspo: `../../inspo/mutcd-recreation/`. I looked at all five sheets
+of Figure 2H-5 (129 signs), the usage figures 2H-1 to 2H-4, and FHWA's
+descriptions. His words: "i dont want them to just use them outright, but
+this gives "built" more legs as a concept and also may spark some ideas."
+
+Build tests: `sketches/t5-mutcd-tests.png` (source `sketches/t5-mutcd.html`,
+team only). Every idea there is *derived from* a sign and named by its
+code. None is a copy. Nothing on the t4 cards is rebuilt yet; the
+director decides.
+
+### 1. What they teach about construction
+
+1. **The system is the frame, not the drawing style.** All 129 signs sit
+   in one rounded square with one inset keyline, in one ink. Inside it the
+   subjects vary wildly: geometric bars (RG-140 lookout tower), organic
+   silhouettes (RG-020 bear, RG-090 fish), figures in mid-gesture (RW-030
+   diving), even letters (RA-080 P, RG-100 ?). They still read as one set,
+   because the frame, the single flat ink and the weight never change.
+   - For us: Constructed doesn't have to mean "only bars and 45°". Our
+     circle, 2px rim and one ink per category already do the frame's job.
+   - A place can be a flat silhouette (a tree, a lighthouse) if it obeys
+     the same rules: flat, one ink, the same weight of negative space.
+   - That's the "legs" he means. It widens what built can draw without
+     going hand-made.
+2. **One cut carries the key detail.** Examples:
+   - The lighthouse's open door (RG-120)
+   - The tunnel's segmented arch (RG-200)
+   - The cutlery on the Food sign, cut out of a solid plate (RM-050)
+   - The camera's lens (RM-170)
+   The detail is negative space inside one solid, never a second colour
+   or a line drawn on top. That's exactly our cream-cut grammar (now
+   crisp), so it confirms we keep it.
+3. **Wit is a moment inside the strict build, not decoration.** Examples:
+   - RG-070 Falling Rocks: a triangle shedding three discs.
+   - RG-110 Leashed Pets: the dog sits while its person walks.
+   - RL-050 Playground: a seesaw mid-tip.
+   - RG-130 Litter: the toss.
+   The parts are as plain as anything else in the set; the joke is the
+   situation. This matches turn 2's rule (the wit in one part *of the
+   object*, never added), and sharpens it: **the wit is what the object is
+   doing.**
+4. **Figures are a disc head plus a few tapered bars**, with joints shown
+   by gaps, never drawn. The gesture carries the meaning (Ped Xing RG-150,
+   hiking RL-100). If we draw any figure (street, account), that's the
+   recipe: few parts, real gesture.
+5. **Direction is never inside the symbol.** The arrow always lives on a
+   separate plaque under the sign (Fig. 2H-1, 2H-3). That's one more
+   reason for Directions to stay our own control (the compass), and for
+   place icons never to carry arrows. RG-160 is the one exception (§2).
+6. **Text plaques carry what a picture can't** ("GROUP CAMPING", "24 HR",
+   "VISITOR INFO").
+   - For us: every row already prints its plaque (the TYPE line), and the
+     tag stamps it.
+   - So an icon doesn't have to explain everything. Bar doesn't need to
+     say "jazz club", and attraction doesn't need to depict 62 kinds of
+     sight.
+   - That argues for the common sign wherever it's clear, which agrees
+     with the director's order of tests.
+
+### 2. New concepts per icon
+
+All derived; each was built at real size on the test sheet.
+
+| Icon | Concept (and sign code) | At 24 / 18 / 12px | What it changes |
+|---|---|---|---|
+| Attraction | **RM-170 Viewing Area is a camera** | — | Nothing new. It **confirms attraction A** with an official precedent: in the brown-sign system, "worth seeing" = a camera. |
+| Attraction | **"Look at that": an arrow at a disc** (from RG-160 Point of Interest) | weak: my build merged the arrow and the disc into a pin or an eyedropper | It's a concept for the *whole* mixed bag, not one kind of sight, so it's the strongest new idea here. It needs RG-160's clear gap between the arrow and the disc, and a second build before it's judged. Risk: ↗ "open link". If it builds, it's a better attraction B than the column front, which covers half the set. |
+| Attraction | the Nordic **"sevärdhet" ⌘** (not MUTCD: the sights symbol on Scandinavian brown tourist signs) | reads as the Mac ⌘ key; its loops are outlines | The most trip-specific idea anywhere in this project, and it fails twice: the Command-key read, and the law (loops are empty shapes). Recorded for the dropped card, not proposed. |
+| Restaurant | **Cutlery cut out of a solid plate** (from RM-050 Food) | reads clearly at all three sizes | It's a better second idea than the covered dish (room service / a bell). Its catch is ours, not the sign's: a filled disc inside our circle looks like the *open* (selected) pin, which is a solid disc. It could replace the cloche as restaurant B, with that risk stated. |
+| Street | **A figure walking between two kerb lines** (from RG-150 Ped Xing) | reads as "walk this street" | It **improves street A**. The two lines turn "walking directions" into "a street you walk", which was the walker's stated risk. I'd swap it in. |
+| Nature | **Lighthouse with its door cut out** (RG-120) | reads | He saved one lighthouse (Reykjanesviti), so it's a single place, not the category's concept. Recorded only. |
+| Nature / attraction | **Lookout tower in bars and a 45° brace** (RG-140) | reads | Pure Constructed, almost our grid already. A "viewpoint" idea with no category to sit in. Recorded only. |
+| Bar | **The drink as a wave inside the glass** (RG-050 Drinking Water) | reads as water | Shows how the system draws a liquid, but reads as "drinking water", not a night out. Not proposed. |
+| Other | **"?"** (RG-100 Information) | reads as help / information | Not proposed. |
+| Café, shopping, hotel, district, area, tools | — | — | Nothing new, but the signs confirm several picks: RM-090 Lodging (a person in a bed) is our bed with a head; picnic and grocery signs show goods, not shops. Shopping by goods (RM-070 shows four items) would be noise in 18px. |
+
+What it changes on the t4 cards, if the director agrees:
+1. **Street A** becomes the figure between two kerb lines (RG-150 idea).
+2. **Restaurant B** becomes cutlery cut out of a plate (RM-050 idea), with
+   the "looks like the open pin" risk. It replaces the covered dish.
+3. **Attraction B**: one more build of "an arrow at a disc" (RG-160 idea).
+   If it reads, it replaces the column front. If not, nothing changes.
+4. Dropped card: add the ⌘ sevärdhet sign, the lighthouse, the lookout
+   tower, the water glass and "?", one line each.
+
+Everything else on the cards stands.
+
+### 3. Does this answer "does built still feel novel"?
+
+Partly, and in a useful direction.
+
+- **The brown sign *is* a vintage road-trip artefact.** Its look is
+  exactly "built": flat, one ink, a fixed frame, few parts. So "built" and
+  "vintage travel" aren't in tension. This system is where the vintage
+  look comes from.
+- What makes a brown sign feel like a trip, not an airport, is two
+  things:
+  - **its subjects:** lighthouses, lookout towers, ferries, campfires,
+    picnic shelters
+  - **its moments:** falling rocks, the leashed dog
+  Neither is a drawing style.
+- So the answer to "should we push some more" may be: push the
+  **subjects and the moments**, not the drawing. The "our objects" strip
+  on card 0 is that test. These signs add a reason to keep it, and a
+  standard for it (one moment per icon, at most).
+
+That's a reading of the signs, not a rule. He said "something to
+consider but not lock on".
+
+### Open questions
+
+1. The plate's filled disc vs the open pin's filled disc: a real
+   collision, or fine because the plate keeps a paper ring inside the
+   rim? (Director; it's visible on the test sheet.)
+2. Is one more build of the RG-160 arrow worth it before the cards go?
+
+NEXT: design director — rule on the three t4 swaps (street A, restaurant
+B, attraction B), then the cards are rebuilt or sent as they are.
+
+---
+
+## Turn 12: design director, rulings on the brown signs
+
+I read turn 11, `sketches/t5-mutcd-tests.png` at phone size, and his words
+in `../../inspo/mutcd-recreation/README.md` ("i dont want them to just use
+them outright, but this gives "built" more legs as a concept and also may
+spark some ideas"). My bias check holds: real size first, then what he
+saved, then family, then wit. The common sign wins a tie.
+
+The signs are a good find, and turn 11 reads them well. Its §1 points
+(the frame, not the drawing, makes the system; one cut carries the
+detail; the wit is what the object is doing) go into my notes for the
+drawing step, as a reading, not a rule ("something to consider but not
+lock on").
+
+### The three proposed swaps
+
+1. **Street A, the walker between kerbs: one rebuild, then the tie rule.**
+   As built, the upper kerb sits at head height. At 24px it reads as a
+   figure under a bar (a weightlifter, a limbo), and at 12px as three
+   stacked strokes. The idea is right ("a street you walk", not "walking
+   directions"), but the plain walker is the road sign itself.
+   - One rebuild, with the street under the figure only (the ground it
+     walks on), nothing above the head.
+   - If it clearly beats the plain walker at 12px and 24px, it becomes
+     street A.
+   - If it's a tie or worse, street A stays the plain walker, and the
+     kerb version goes on the dropped card.
+2. **Restaurant B, cutlery cut from a plate: NOT swapped. Dropped card.**
+   It reads well, better than the covered dish. But the clash with the
+   open pin is real, and it's systemic, not a drawing issue:
+   - The rules card says "the open pin fills with its colour while its
+     tag is open". A plate makes every restaurant pin look half-open on
+     the map, which is exactly where he needs to see which pin is open.
+   - The paper ring inside the rim doesn't save it at 24px on tiles.
+   - A clash with a rule beats a misread, so the covered dish stays as B,
+     still labelled "we'd keep the fork and knife". The plate's dropped
+     line: "Reads well, but every restaurant pin would look like the open
+     one."
+3. **Attraction B, an arrow at a disc: no second build. Dropped card.**
+   This is the clever whole-category idea I'd have loved, which is why I
+   checked it hardest.
+   - Its misread is in the concept, not the build. An arrow on a phone
+     means "open link" or "go", and on the map it would sit near the tag's
+   Directions.
+   - Turn 11's own §5 says the signs never put direction inside a place
+     symbol.
+   - The camera, the common sign, is the official sign's own choice
+     ("Viewing Area"), so the tie rule is decisive.
+   - The column front stays as B, with its honest "museums and palaces"
+     line. The arrow's dropped line: "Look at that: an arrow on a phone
+     means 'open link'."
+
+### The dropped card: add, one line each, under a small heading "From the brown road signs"
+
+The sevärdhet ⌘ (a Command key; its loops are outlines), the lighthouse
+(one saved place, not a category), the lookout tower (a viewpoint with no
+category), the drink as a wave (drinking water), "?" for other (help),
+the plate, the arrow at a disc, and the kerbs if the rebuild ties. No sign
+codes on the card: they're noise to him.
+
+### One fact line, card 2, attraction A
+
+Add: "The US brown road signs use a camera for 'viewing area' too." It's a
+fact he'll like, and it shows his inspo was used. Nothing else on the
+cards changes.
+
+### Where the changes land
+
+On the design canvas page "Icon concepts"
+(https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW), rebuilt from
+`t4.html`, not as phone PNGs. I then look at the changed sections there
+(street, attraction A's line, dropped). Everything else stays at 9.
+
+NEXT: product designer (visual focus) — the one street rebuild (ground
+only, nothing above the head) judged against the plain walker at 12 and 24
+px; the dropped-card additions and the camera fact line in `t4.html`;
+rebuild the canvas page "Icon concepts". Then the director looks at the
+changed sections on the canvas.
+
+## Turn 13: product designer (visual focus), street rebuild and the turn-12 edits
+
+**Street rebuild: a TIE, so street A stays the plain walker.** I built two
+versions with the street under the figure only and nothing above the
+head:
+- one kerb line under the feet
+- a dashed road line under the feet
+
+Judged against the plain walker at 24px and 12px (rows added to
+`sketches/t5-mutcd-tests.png`):
+- At 24px the line adds a little "on a street", but also a little "on a
+  floor or a step".
+- At 12px both are the walker with a smudge under it.
+- Neither clearly beats the plain walker, which is the road sign itself.
+  Per the tie rule, the kerb idea goes on the dropped card.
+
+**Edits in `sketches/t4.html`** (the canvas is not republished; another
+agent rebuilds it from this file):
+1. **Card 2, attraction A:** the Shows line ends with "The US brown road
+   signs use a camera for 'viewing area' too."
+2. **Card 5:** a new group, "From the brown road signs", one line each,
+   with turn 12's wording and no sign codes:
+   - the Nordic sights sign ⌘
+   - the lighthouse
+   - the lookout tower
+   - the drink as a wave in a glass
+   - "?" for other
+   - cutlery cut from a plate
+   - an arrow at a disc
+   - a walker between two kerbs: turn 12's misreads, plus "With the
+     street under the feet only, it ties with the plain walker, so the
+     plain walker stays."
+
+Nothing else on the cards changed.
+
+NEXT: whoever rebuilds the canvas page "Icon concepts" from `t4.html`;
+then the director looks at the changed sections there.

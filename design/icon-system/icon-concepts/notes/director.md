@@ -136,3 +136,22 @@ symbol (told apart by its box), the pointer covers the current plan, and
 each "staying" item has its reason (the anchor-dot quote is verified as
 his). The crisp cuts fixed the blur. All six are at 9. Send per
 scores.md round 1.
+
+## Brown-sign inspo (MUTCD), turn 12, 2026-10-15
+
+Owner: "i dont want them to just use them outright, but this gives
+"built" more legs as a concept and also may spark some ideas."
+
+- Rulings: street A gets one ground-only rebuild (a tie keeps the plain
+  walker). The plate and the arrow at a disc go to the dropped card (the
+  open-pin clash; the "open link" misread). The camera gets a fact line.
+  The cloche and the column front stay as the B options.
+- For the drawing step (a reading, not a rule): the frame and the one ink
+  make the system, not a single drawing style; one cut carries the
+  detail; the wit is what the object is doing; figures = a disc head plus
+  tapered bars; no arrows inside place symbols.
+- The review surface is now the design canvas,
+  https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW, page "Icon concepts"
+  (built from t4.html). Changes are rebuilt there, not as PNGs.
+- Bias check held: the two clever ideas (plate, arrow) lost to a rule and
+  to the common sign.

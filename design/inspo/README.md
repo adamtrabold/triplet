@@ -35,3 +35,7 @@ patches, "No. of Pieces" fields, From / To lines, ruled fields, a big serial
 number). Common grammar: one big destination word, small labelled fields in
 a clear order, perforated tear-off claim stubs, reinforced eyelets, string,
 serial numbers.
+
+## `mutcd-recreation/`
+
+The US federal (MUTCD Part 2H) brown recreation and roadside-attraction symbol signs, 129 symbols, added 2026-10-15 at the owner's request as icon inspiration: "i dont want them to just use them outright, but this gives "built" more legs as a concept and also may spark some ideas." See its README.

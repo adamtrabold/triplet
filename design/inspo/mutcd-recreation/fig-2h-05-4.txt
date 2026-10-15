@@ -1,0 +1,125 @@
+Figure 2H-5. Recreational and Cultural Interest Area Symbol Signs 
+(Sheet 4 of 5)
+
+Sheet 4 of the figure shows 25 signs.
+
+RL-210 is shown with a symbol of a person on a hang glider. It 
+is labeled "Hang Glider."
+RW-010 is shown with a symbol of a cabin cruiser contained within 
+a square-shaped heavy dashed line with arrowheads at the corners 
+of the square. The arrowheads point in a counterclockwise direction 
+around the square. It is labeled "Boat Tours."
+RW-020 is shown with a symbol of two people in a canoe rowing. 
+It is labeled "Canoeing."
+RW-030 is shown with a symbol of a l person diving into a wave 
+at a 45-degree angle. It is labeled "Diving."
+RW-040 is shown with a horizontal symbol of a person wearing a 
+mask and tank. It is labeled "Diving (Scuba)."
+RW-050 is shown with a symbol of an open-mouthed fish with a hook 
+on the end of a vertical line just above the fish's head. It is 
+labeled "Fishing."
+RW-060 is shown with a large symbol of an anchor. It is labeled 
+"Marine Recreation Area."
+RW-070 is shown with a symbol of a cabin cruiser. It is labeled 
+"Motorboating."
+RW-080 is shown with a symbol of a boat on a trailer on a 45-degree 
+angle ramp. It is labeled "Ramp (Launch)."
+RW-090 is shown with a symbol of a person in a boat rowing. It 
+is labeled "Rowboating."
+RW-100 is shown with a symbol of a sailboat with two sails. It 
+is labeled "Sailboating."
+RW-110 is shown with a symbol of a person standing on water skis 
+with arms stretched forward. It is labeled "Skiing (Water)."
+RW-120 is shown with a symbol of a person on a surfboard. It is 
+labeled "Surfing."
+RW-130 is shown with a symbol of a right-facing person swimming. 
+It is labeled "Swimming."
+RW-140 is shown with a symbol of a person walking in water below 
+the knees. It is labeled "Wading."
+RW-160 is shown with a symbol of a person standing on a railed 
+pier and fishing. It is labeled "Fishing Pier."
+RW-170 is shown with a symbol of a person lowering a boat into 
+the water. It is labeled "Hand Launch."
+RW-190 is shown with a symbol of a person paddling a kayak. It 
+is labeled "Kayak."
+RW-210 is shown with a symbol of a person standing on a surfboard 
+and wind surfing. It is labeled "Wind Surf."
+RS-010 is shown with a symbol of a person on skate blades. It is 
+labeled "Skating (Ice)."
+RS-020 is shown with a symbol of a person on skis that are pointing 
+up at a 45-degree angle. It is labeled "Ski Jumping."
+RS-030 is shown with a symbol of a person sitting on a seat on 
+skis. It is labeled "Skiing (Bobbing)."
+RS-040 is shown with a symbol of a person on skis with one foot 
+raised and holding ski poles. It is labeled "Skiing (Cross 
+Country)."
+RS-050 is shown with a symbol of a person leaning forward over 
+downward-pointing skis and holding ski poles. It is labeled "Skiing 
+(Downhill)."
+RS-060 is shown with a symbol of a person lying on a sled pointed 
+down at a 45-degree angle. It is labeled "Sledding."
+Back to: Sheet 1 | Sheet 
+2 | Sheet 3 | Continue 
+to: Sheet 5  
+Back 
+to Chapter 2H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+US DOT Home | FHWA Home | MUTCD Home | Operations Home | Privacy Policy
+United States Department of Transportation - Federal Highway Administration
+
+
+<!--
+revdate = new Date(document.lastModified);
+if (revdate.getYear() == 69) {
+// workaround for .asp pages (some browsers do not interpret the lastModified date properly);
+// just reset the date to today
+revdate = new Date();
+}
+year = revdate.getYear();
+if (year > 1999)
+year = year
+else
+if (year < 90)
+year = year+2000
+else
+year = year+1900;
+month = revdate.getMonth() + 1;
+day = revdate.getDate();
+var mon;
+
+if (month==0) mon = "January";
+if (month==1) mon = "January";
+if (month==2) mon = "February";
+if (month==3) mon = "March";
+if (month==4) mon = "April";
+if (month==5) mon = "May";
+if (month==6) mon = "June";
+if (month==7) mon = "July";
+if (month==8) mon = "August";
+if (month==9) mon = "September";
+if (month==10) mon = "October";
+if (month==11) mon = "November";
+if (month==12) mon = "December";
+
+document.write("&nbsp;&nbsp;Last modified: " + mon + " " + day + ", " + year + "&nbsp;&nbsp;");
+// -->
+
+
+
+
+
+
