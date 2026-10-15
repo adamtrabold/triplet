@@ -320,3 +320,46 @@ scale.
 ### Next
 Visual builds the v5 cards; systems runs coverage on jobs 1–13; I score
 all of them in one pass, side-by-side card first.
+
+---
+
+## Round 3 scores (v5 cards), 2026-10-15: NOT READY
+
+Full text in scores.md. Rules 8 (9 after two copy edits); Specimen 8;
+Roundel 5, DROPPED; side by side not scored (it gets rebuilt).
+
+### Why
+- Specimen: about 6 of 11 glyphs are Today's drawings, and "Made from Cut
+  Paper: the scissors in each shape" isn't visible at 24px. Likely owner
+  reads: "this is today" and "where's the cut paper?". The area hatch reads
+  as a texture.
+- Roundel: met my kill switch (half the set is "Specimen, bigger"), its ink
+  is 49% vs 28% (the noisiest map, against "too noisy"), the open pin can't
+  fill (it breaks the rules card), and 7 of 11 tell apart.
+
+### New concept 2: Constructed (Spot Pictogram led)
+Draw: Aicher Munich '72 + "Remove ambiguities and convert to specifics".
+Places assembled from circles, bars and 0/45/90 cuts on one grid whose
+unit is the 2.00px line (bars at 2, 4 or 6px): the weight rule and the
+drawing rule become one. Lightly rounded. Inlay only as the gaps the grid
+leaves. Whole in the circle. Specimen becomes Cut Paper + Field Guide only.
+The split follows his own named directions: cut vs built.
+Kill test: if Specimen and Constructed look alike in the 24px strip and
+the row, they're one concept, and that's the team's failure to fix, not
+to send.
+
+### Still true
+The rules card is the strongest card. Directions = ring, districts and
+streets in the circle, 2.00px weight, chips bare: all settled, none of
+them owner questions. The send asks only (1) which concept, (2) OK to
+start phase 2.
+
+### Recurring blocker (rounds 1–3)
+Difference is manufactured by framing or size (lean, mitres, square rings,
+crop) instead of by how the thing is drawn. And card copy claims more than
+the frames show. Check "Made from" lines against the pixels every round.
+
+### Next
+Visual: Specimen fixes 1–6, the rules edits 7–8, a new Constructed card
+(with a grid frame), side by side rebuilt, Roundel added to dropped. Then
+systems coverage, then I score in one pass (side by side first).

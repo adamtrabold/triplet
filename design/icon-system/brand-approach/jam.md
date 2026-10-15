@@ -2242,3 +2242,22 @@ scores.
 NEXT: design director — score all six v5 cards in one pass (rules, Today,
 Specimen, Roundel, side by side, dropped), and rule on whether Roundel
 stays as the second concept.
+
+---
+
+## Turn 18: design director, round 3 scores
+
+Not ready. The full scores and fixes are in `scores.md` (round 3). Rules 8
+(9 after two copy edits). Specimen 8. Roundel 5, **dropped**: it reads as
+"Specimen, bigger" for half the set, it's the noisiest map, the open pin
+can't fill, and 7 of 11 tell apart.
+
+The new concept 2 is **Constructed** (Spot Pictogram led, Aicher's method):
+places built from circles, bars and 0/45/90 cuts on a grid whose unit is
+the 2.00px line. Specimen becomes Cut Paper + Field Guide, with its cut
+made visible. They split along his own named directions: cut vs built.
+
+NEXT: product designer (visual focus) — Specimen fixes 1–6, rules edits
+7–8, a new Constructed card (with a grid frame), side by side rebuilt
+(Today / Specimen / Constructed), Roundel added to the dropped card; then
+systems coverage; then I score in one pass.
