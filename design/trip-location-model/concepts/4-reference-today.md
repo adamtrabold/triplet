@@ -1,0 +1,85 @@
+# Reference: today (one home per place)
+
+Not a candidate: it's today's model, so the owner can see what the
+concepts change.
+
+## The rules (today)
+
+1. **Adding asks for a city** from a seeded list, pre-filled from the
+   location's box (`matchCity()`); a pin outside every city asks about a
+   new one.
+2. **No trips.** Nothing groups cities.
+3. **A wrong city can't be fixed** until place edit exists.
+
+## What exists
+
+- **City:** a registry, seeded before any place exists (Reykjavík,
+  Copenhagen, Malmö, Stockholm, Los Angeles). It can be extended.
+- **Place:** exactly one city, decided when it's added, plus its
+  location. Its real town is stored in `address_details` (missing on 59 of
+  202), but nothing uses it.
+- **Plan:** an ordered list of stops across cities.
+- **No trip.** Nothing groups cities.
+
+## Stored vs. inferred
+
+- **Stored:** the place's city (chosen at add, pre-filled by inference
+  from the location).
+- **Inferred:** only that pre-fill.
+
+- **No-town places, districts and streets:** a district or street is
+  filed by a vote of its points against the seeded cities
+  (`resolveShapeCity()`); a no-town place is filed by the viewbox like any
+  pin.
+
+## What can be corrected, and when
+
+- A place's city only at add; afterwards it needs place edit (future).
+- A new city can be created at add, by answering a question.
+
+## P: places-first
+
+**FAIL.** Adding asks which city: the City field comes first in today's
+add form (`index.html` ~2801), and a pin outside every city triggers a
+new-city question (`maybeDetectCity()`, ~4853-4865).
+
+## Creation moments
+
+| # | Today | Check |
+|---|---|---|
+| C1 | Cities exist before any place | FAIL |
+| C2 | The place goes to an existing city, inferred or chosen. No trip; nothing named from the place | FAIL |
+| C3 | Filed to whichever city is inferred or chosen, through a question | FAIL |
+| C5 | A new-city question, or the nearest city | FAIL |
+| C6 | Just another city; no trips | FAIL |
+| C7 | n/a | n/a |
+| C8 | No trips; a misfiled place needs edit (future) | FAIL |
+| C9 | No trip to name | FAIL |
+
+## Test cases
+
+| Case | Today | Check |
+|---|---|---|
+| T1 Øresund | Each place filed on its own; no single correction moves both | FAIL |
+| T2 Kastrup for both cities | One city only | FAIL |
+| T3 Jönköping | Filed to some city; there's no "between" | FAIL |
+| T4 Copenhagen 2028; someday Berlin | No trips: 2028's places merge into the Copenhagen city with 2026's; Berlin triggers the new-city question | FAIL |
+
+**Jobs:**
+- **Fails:** 1, 2, 4-10, 12 and 13, and P.
+- **Passes:** 3 and 11.
+  - **3:** a city filter shows exactly one seeded city's places, and the
+    map the same set (`visibleLocations()` filters by `filters.city`).
+    It passes on the letter; the seeded city isn't a city in your head
+    (that's job 5's fail).
+  - **11:** verified in `index.html`. The list and the map both come from
+    the same filtered set (`visibleLocations()`); the map only adds zoom
+    clustering (`mapVisibleLocations()`), and zoom never changes the
+    list.
+- **12 (fails, Turn 17):** the view can be "All cities", which is none
+  of job 12's views (a trip, a city, a plan, or one of
+  those narrowed by real town).
+- **5 and 8 fail** as worded now: no real town is exposed for narrowing
+  (job 5), and a city's view doesn't hold only the plans with a stop in
+  it (job 8).
+- **14:** n/a.

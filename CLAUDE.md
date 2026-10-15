@@ -9,6 +9,7 @@ simplification.**
 
 This file loads every session: keep it to rules and pointers. Detail goes in:
 
+- `docs/architecture.md` — UX model + code architecture; read first if new to the app.
 - `docs/shipped.md` — spec + history of every shipped feature (constants,
   dials, test gates, rejected alternatives). **Read a feature's section
   before touching it.** Later entries supersede earlier ones.
