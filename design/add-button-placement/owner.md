@@ -87,3 +87,8 @@ Direction: cream upright. Step 1 proportion (shape, independent of size), step 2
 > I like 40 but am not into the cream stub. Let’s try a variant with an all cream stub moving the orange bar to the top like a starred location tag
 
 Direction: width 40 (height 54) liked. Cream-stub-with-orange-edge rejected. New variant: stub all cream; the orange bar moves to the TOP, like a starred place tag (the orange band). Note: the owner is knowingly borrowing the starred band look (team rule "orange band on a tag = starred" was set from the owner's own direction earlier).
+
+2026-10-15, clarifying:
+> I don’t need it to read as stars in just trying to think of visual connections
+
+The orange top bar is a visual connection to the place tag, not meant to read as "starred". No need for a "does it read as starred" frame.
