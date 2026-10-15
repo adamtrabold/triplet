@@ -1,0 +1,1 @@
+- Turn 1 (2026-10-15): jobs.md (14 jobs: city in tag 1-5, TYPE select 6, star/visited 7-9, go-to vs show/hide 10-14) + jam Turn 1. Found: today's city pick filters map+list (setActiveCity sets filters.city); visited can't be set at add (insert visited:false); TYPE is a select today; star at add exists.
