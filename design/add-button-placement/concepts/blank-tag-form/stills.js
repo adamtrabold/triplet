@@ -229,6 +229,7 @@ F['r11v-orange-p4-up-tag664'] = { k: 'T:orange:104:0:p4:up', vp: V664, run: p =>
 
 // round 11b: the short upright (36 x 58)
 both('r11v-orange-p6-up', { k: 'T:orange:104:0:p6:up', zoom: true, centre: CREST });
+both('r11v-twoend-p6-up', { k: 'T:twoend:104:0:p6:up', zoom: true, centre: CREST });
 F['r11v-orange-p6-up-tag664'] = { k: 'T:orange:104:0:p6:up', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
 
 (async () => {

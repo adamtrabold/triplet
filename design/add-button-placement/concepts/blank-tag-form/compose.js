@@ -198,8 +198,8 @@ const pages = {
   [R11 + 'V4-upright-real-size-3x.png']: `${cap('C upright at real size', 'As your phone shows it, with the app’s own pins and the account badge.')}
      ${crop1(f('r11v-orange-p4-up-1x'), 0, 0, 390, 544, 3)}
      ${note('Rough weight (systems re-measures): about 2× the account badge, the same as lying flat; it stands 27px taller and takes 27px less width.')}`,
-  [R11 + 'V5-upright-colourways-3x.png']: `${cap('Upright, both colourways', 'Left: the orange tag. Right: cream with an orange end (rough weight about 0.6× the account: quieter than it).')}
-     ${pair(f('r11v-orange-p4-up'), 'Orange tag', f('r11v-twoend-p4-up'), 'Cream, orange end', 640)}<div class="gap"></div>`,
+  [R11 + 'V5-upright-colourways-3x.png']: `${cap('Upright 36 × 58, both colourways', 'Left: the orange tag, 1.45× the account badge’s weight (measured). Right: cream with an orange end, about 0.6× (rough): quieter than the account.')}
+     ${pair(f('r11v-orange-p6-up'), 'Orange tag', f('r11v-twoend-p6-up'), 'Cream, orange end', 640)}<div class="gap"></div>`,
   [R11 + 'V7-short-upright-3x.png']: `${cap('A shorter upright: 36 × 58', 'Left: 36 × 58. Right: 43 × 70. Both at real size (1x as your phone shows it), then at twice that so the hole, the dotted line and the end can be checked. Below: a place’s tag open in Safari, with 3 list rows still showing.')}
      <div class="row" style="padding:0 30px;gap:30px;align-items:flex-end">${col('36 × 58, real size', crop1(f('r11v-orange-p6-up-1x'), 0, 450, 90, 527, 3), 270)}${col('43 × 70, real size', crop1(f('r11v-orange-p4-up-1x'), 0, 440, 90, 527, 3), 270)}</div>
      <div class="row" style="padding:12px 30px 0;gap:30px;align-items:flex-end">${col('36 × 58, ×2', crop1(f('r11v-orange-p6-up-1x'), 0, 450, 90, 527, 6), 540)}${col('43 × 70, ×2', crop1(f('r11v-orange-p4-up-1x'), 0, 440, 90, 527, 6), 540)}</div>

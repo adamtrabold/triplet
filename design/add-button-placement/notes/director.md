@@ -1476,3 +1476,4 @@ V2, V1, V5 (+ V7 if 36 × 58 is picked).
 Check V7 → release.
 - 2026-10-15: 11b checked. Upright 36x58 picked (1.45x account, 3 rows kept). Lean send released: V2, V7, V1. Next: his call -> handoff.md vs owner.md.
 - 2026-10-15: V5 to be re-shot at 36x58 (both colourways) and replaces V1 in the send; release after check.
+- 2026-10-15: V5 checked; 3-still send (V2, V7, V5) released.

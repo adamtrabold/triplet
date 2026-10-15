@@ -2098,3 +2098,7 @@ Evidence: V2 (choice), V1, V5.
 3. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V5-upright-colourways-3x.png (re-shot at 36 × 58)
 
 The cost lines are unchanged.
+
+### V5 re-shoot checked -- 3-still send RELEASED (2026-10-15)
+- V5 is at 36 x 58 in both colourways, with honest weights in the caption.
+- The send is V2, V7, V5, with the 11b cost lines.
