@@ -8,7 +8,7 @@
        env(safe-area-inset-top) itself is nonzero in a plain Safari tab too
        (it reports the physical notch, not standalone-ness) -- but a tab's
        own opaque toolbar already occupies that strip, so the floating
-       icons (#floatingAddBtn/#accountBtn/#accountDropdown) use
+       icons (#accountBtn/#accountDropdown) use
        --chrome-top-inset, which only carries the real inset in standalone
        (see its definition in :root) and is 0 in a tab, so those icons
        don't double-pad there. Other top-anchored controls that clear the
@@ -177,16 +177,26 @@
          therefore the OPPOSITE default from --chrome-bottom (which starts
          nonzero and gets pinned to 0 in standalone): --chrome-top-inset
          starts at 0px and only picks up the real inset once we know we're
-         in standalone. Only for the icons (#floatingAddBtn/#accountBtn/
-         #accountDropdown) -- other env(safe-area-inset-top) call sites in
+         in standalone. Only for the icons (#accountBtn/#accountDropdown;
+         the add badge rides the sheet at the bottom-left) -- other env(safe-area-inset-top) call sites in
          this file are about clearing the physical notch itself (the error
          banner, the add-form controls panel, Leaflet's zoom control), not
          about a colored status bar, so they keep the unconditional inset
          and are left alone. */
       --chrome-top-inset: 0px;
-      /* The account slot's x (left of +): #accountBtn, its focus ring #accountFocus and
+      /* The account slot's x: the top-right corner alone (the + moved to the bottom-left,
+         design/add-button-placement/handoff.md). #accountBtn, its focus ring #accountFocus and
          #accountDropdown all read this one value, so they can never drift apart. */
-      --account-slot-right: 74px;
+      --account-slot-right: var(--s4);
+      /* THE ADD BADGE (#floatingAddBtn, design/add-button-placement/handoff.md): 60px, aligned
+         by its INK, not its box. The 24-lobe edge's ink sits --add-ink-inset inside the box on
+         every side; the ink's left edge and its foot are both --add-ink-gap from the screen's
+         left and the list's top edge (the rows' left channel). Every number that knows where the
+         badge is (its box, ADD LOCATION's line beside it) derives from these. */
+      --add-size: 60px;
+      --add-ink-inset: 4.68px;
+      --add-ink-gap: 19.9px;
+      --add-box-gap: calc(var(--add-ink-gap) - var(--add-ink-inset));   /* 15.22: box edge to the screen's left / the sheet's top */
 
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
@@ -198,7 +208,7 @@
       --state-press: var(--paper-pressed);
       --state-on-bg: var(--navy);
       --state-on-fg: var(--paper);
-      --state-on-press: #2A4F73; /* an ON tile or a filled navy button pressed: one clear step lighter navy (about 1.7:1 from --navy; paper glyph stays >=7:1). Floating add/account pressed to #1B3A57 before */
+      --state-on-press: #2A4F73; /* an ON tile or a filled navy button pressed: one clear step lighter navy (about 1.7:1 from --navy; paper glyph stays >=7:1). The account badge / open add badge pressed to #1B3A57 before */
       --state-off-alpha: 0.4;
       --state-tile-inset: 4px;   /* popup pressed tiles (star, Mark Visited, Get Directions): the tile clears the glyph/words by this on every side */
       --state-press-filed: #D1C8B7;   /* pressed on a FILED (visited) row: one more equal step down the ladder (paper, filed, pressed, this), so a press still reads on --paper-filed */
@@ -362,13 +372,12 @@
     #error:focus-visible { outline: 2px solid var(--ink); outline-offset: -4px; }
     #error.info { background: var(--navy); color: var(--paper); }
 
-    /* Floating controls stay circular -- the badge motif is on-brief and
-       they are already thumb-sized. Solid navy field, figure glyph, no
+    /* The account badge stays circular -- the badge motif is on-brief and
+       it is already thumb-sized. Solid navy field, figure glyph, no
        inset ring -- the edge itself is scalloped (the same wavy line as
        the filter-panel divider, wrapped around a circle) rather than
        drawn with a second painted ring. The shadow is a print-registration
-       offset, not a blur. */
-    #floatingAddBtn,
+       offset, not a blur. (The add badge has its own rules below.) */
     #accountBtn {
       position: fixed;
       /* --chrome-top-inset, not the raw env() -- only standalone has a
@@ -392,11 +401,6 @@
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
       box-shadow: 0 1px 0 rgba(0,0,0,0.25);
-    }
-
-    #floatingAddBtn {
-      right: var(--s4);
-      display: flex;
     }
 
     #accountBtn {
@@ -444,7 +448,6 @@
     #accountFocus .ring-halo { stroke: var(--paper); stroke-width: 4px; }
     #accountFocus .ring-ink { stroke: var(--navy); stroke-width: 2px; }
 
-    #floatingAddBtn:active,
     #accountBtn:active {
       background: var(--state-on-press);
       color: var(--paper);               /* filled buttons: glyph / text flips to paper when pressed */
@@ -455,7 +458,6 @@
        to the navy-tile rule. */
     /* Open state INVERTS rather than going transparent. The scalloped
        mask carries over unchanged -- only the fill and icon color flip. */
-    #floatingAddBtn.active,
     #accountBtn.active {
       background: var(--figure);
       color: var(--navy);
@@ -464,7 +466,6 @@
 
     /* Open, then held: one tone step deeper (--figure to --figure-deep), glyph
        flips to paper for contrast, same as submit. Must follow .active. */
-    #floatingAddBtn.active:active,
     #accountBtn.active:active {
       background: var(--figure-deep);
       color: var(--paper);
@@ -527,6 +528,76 @@
     #accountDropdown button:disabled:hover,
     #accountDropdown button:disabled:active { opacity: var(--state-off-alpha); cursor: default; background: transparent; }
 
+    /* THE ADD BADGE (design/add-button-placement/handoff.md): brand orange printed stock with a
+       navy +, 60px, at the bottom-left of the map. It RIDES the list's top edge: positioned like
+       #locations (absolute in the 100lvh body, from the bottom) and moved by the identical
+       transform and 0.3s ease, driven by the same --sheet-lower / collapse, so it lands on the
+       sheet's frames with no lag and no second curve. Drawn at 60, never transform: scale(), so
+       layout code (tagSheetGap(), planChrome()) reads the real box and the edge stays crisp.
+       Edge: a finer cut of the badge's edge, 24 round lobes 2.04px deep, outer radius 25.32 in
+       the 60 box (ink 4.68px inside it), r(t) = 25.32 - 2.04*(1 - cos 24t)/2, 240 points; the
+       same polygon as ADD_SCALLOP_PTS (its focus ring): change both together. z 998: over the
+       map and the form, under the filters panel (999), which simply lies over it. */
+    #floatingAddBtn,
+    #addFocus {
+      position: absolute;
+      left: var(--add-box-gap);
+      bottom: calc(300px + var(--chrome-bottom) + var(--add-box-gap));
+      width: var(--add-size);
+      height: var(--add-size);
+      transform: translateY(var(--sheet-lower, 0px));
+      z-index: 998;
+    }
+    /* The list collapsed (or dropped to its band for the form): #locations.collapsed's transform. */
+    body.sheet-collapsed #floatingAddBtn,
+    body.sheet-collapsed #addFocus {
+      transform: translateY(calc(240px - env(safe-area-inset-bottom, 0px)));
+    }
+    #floatingAddBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      background-color: var(--brand-orange);
+      background-image: var(--tex-flood);   /* the tag band's paper tooth: the same printed stock */
+      background-size: 160px 160px;
+      background-position: -23px -71px;     /* the patch with no streak through the + */
+      color: var(--navy);
+      transition: transform 0.3s ease, background-color 0.15s ease, color 0.15s ease;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpolygon fill='white' points='30.00,4.68 30.66,4.88 31.29,5.42 31.88,6.09 32.45,6.65 33.04,6.92 33.67,6.81 34.37,6.42 35.12,5.92 35.87,5.57 36.55,5.54 37.14,5.91 37.61,6.59 38.01,7.39 38.41,8.08 38.91,8.49 39.55,8.55 40.33,8.35 41.18,8.07 41.99,7.92 42.66,8.07 43.13,8.58 43.41,9.36 43.59,10.23 43.80,11.01 44.17,11.53 44.77,11.76 45.58,11.76 46.47,11.71 47.30,11.77 47.90,12.10 48.23,12.70 48.29,13.53 48.24,14.42 48.24,15.23 48.47,15.83 48.99,16.20 49.77,16.41 50.64,16.59 51.42,16.87 51.93,17.34 52.08,18.01 51.93,18.82 51.65,19.67 51.45,20.45 51.51,21.09 51.92,21.59 52.61,21.99 53.41,22.39 54.09,22.86 54.46,23.45 54.43,24.13 54.08,24.88 53.58,25.63 53.19,26.33 53.08,26.96 53.35,27.55 53.91,28.12 54.58,28.71 55.12,29.34 55.32,30.00 55.12,30.66 54.58,31.29 53.91,31.88 53.35,32.45 53.08,33.04 53.19,33.67 53.58,34.37 54.08,35.12 54.43,35.87 54.46,36.55 54.09,37.14 53.41,37.61 52.61,38.01 51.92,38.41 51.51,38.91 51.45,39.55 51.65,40.33 51.93,41.18 52.08,41.99 51.93,42.66 51.42,43.13 50.64,43.41 49.77,43.59 48.99,43.80 48.47,44.17 48.24,44.77 48.24,45.58 48.29,46.47 48.23,47.30 47.90,47.90 47.30,48.23 46.47,48.29 45.58,48.24 44.77,48.24 44.17,48.47 43.80,48.99 43.59,49.77 43.41,50.64 43.13,51.42 42.66,51.93 41.99,52.08 41.18,51.93 40.33,51.65 39.55,51.45 38.91,51.51 38.41,51.92 38.01,52.61 37.61,53.41 37.14,54.09 36.55,54.46 35.87,54.43 35.12,54.08 34.37,53.58 33.67,53.19 33.04,53.08 32.45,53.35 31.88,53.91 31.29,54.58 30.66,55.12 30.00,55.32 29.34,55.12 28.71,54.58 28.12,53.91 27.55,53.35 26.96,53.08 26.33,53.19 25.63,53.58 24.88,54.08 24.13,54.43 23.45,54.46 22.86,54.09 22.39,53.41 21.99,52.61 21.59,51.92 21.09,51.51 20.45,51.45 19.67,51.65 18.82,51.93 18.01,52.08 17.34,51.93 16.87,51.42 16.59,50.64 16.41,49.77 16.20,48.99 15.83,48.47 15.23,48.24 14.42,48.24 13.53,48.29 12.70,48.23 12.10,47.90 11.77,47.30 11.71,46.47 11.76,45.58 11.76,44.77 11.53,44.17 11.01,43.80 10.23,43.59 9.36,43.41 8.58,43.13 8.07,42.66 7.92,41.99 8.07,41.18 8.35,40.33 8.55,39.55 8.49,38.91 8.08,38.41 7.39,38.01 6.59,37.61 5.91,37.14 5.54,36.55 5.57,35.87 5.92,35.12 6.42,34.37 6.81,33.67 6.92,33.04 6.65,32.45 6.09,31.88 5.42,31.29 4.88,30.66 4.68,30.00 4.88,29.34 5.42,28.71 6.09,28.12 6.65,27.55 6.92,26.96 6.81,26.33 6.42,25.63 5.92,24.88 5.57,24.13 5.54,23.45 5.91,22.86 6.59,22.39 7.39,21.99 8.08,21.59 8.49,21.09 8.55,20.45 8.35,19.67 8.07,18.82 7.92,18.01 8.07,17.34 8.58,16.87 9.36,16.59 10.23,16.41 11.01,16.20 11.53,15.83 11.76,15.23 11.76,14.42 11.71,13.53 11.77,12.70 12.10,12.10 12.70,11.77 13.53,11.71 14.42,11.76 15.23,11.76 15.83,11.53 16.20,11.01 16.41,10.23 16.59,9.36 16.87,8.58 17.34,8.07 18.01,7.92 18.82,8.07 19.67,8.35 20.45,8.55 21.09,8.49 21.59,8.08 21.99,7.39 22.39,6.59 22.86,5.91 23.45,5.54 24.13,5.57 24.88,5.92 25.63,6.42 26.33,6.81 26.96,6.92 27.55,6.65 28.12,6.09 28.71,5.42 29.34,4.88'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpolygon fill='white' points='30.00,4.68 30.66,4.88 31.29,5.42 31.88,6.09 32.45,6.65 33.04,6.92 33.67,6.81 34.37,6.42 35.12,5.92 35.87,5.57 36.55,5.54 37.14,5.91 37.61,6.59 38.01,7.39 38.41,8.08 38.91,8.49 39.55,8.55 40.33,8.35 41.18,8.07 41.99,7.92 42.66,8.07 43.13,8.58 43.41,9.36 43.59,10.23 43.80,11.01 44.17,11.53 44.77,11.76 45.58,11.76 46.47,11.71 47.30,11.77 47.90,12.10 48.23,12.70 48.29,13.53 48.24,14.42 48.24,15.23 48.47,15.83 48.99,16.20 49.77,16.41 50.64,16.59 51.42,16.87 51.93,17.34 52.08,18.01 51.93,18.82 51.65,19.67 51.45,20.45 51.51,21.09 51.92,21.59 52.61,21.99 53.41,22.39 54.09,22.86 54.46,23.45 54.43,24.13 54.08,24.88 53.58,25.63 53.19,26.33 53.08,26.96 53.35,27.55 53.91,28.12 54.58,28.71 55.12,29.34 55.32,30.00 55.12,30.66 54.58,31.29 53.91,31.88 53.35,32.45 53.08,33.04 53.19,33.67 53.58,34.37 54.08,35.12 54.43,35.87 54.46,36.55 54.09,37.14 53.41,37.61 52.61,38.01 51.92,38.41 51.51,38.91 51.45,39.55 51.65,40.33 51.93,41.18 52.08,41.99 51.93,42.66 51.42,43.13 50.64,43.41 49.77,43.59 48.99,43.80 48.47,44.17 48.24,44.77 48.24,45.58 48.29,46.47 48.23,47.30 47.90,47.90 47.30,48.23 46.47,48.29 45.58,48.24 44.77,48.24 44.17,48.47 43.80,48.99 43.59,49.77 43.41,50.64 43.13,51.42 42.66,51.93 41.99,52.08 41.18,51.93 40.33,51.65 39.55,51.45 38.91,51.51 38.41,51.92 38.01,52.61 37.61,53.41 37.14,54.09 36.55,54.46 35.87,54.43 35.12,54.08 34.37,53.58 33.67,53.19 33.04,53.08 32.45,53.35 31.88,53.91 31.29,54.58 30.66,55.12 30.00,55.32 29.34,55.12 28.71,54.58 28.12,53.91 27.55,53.35 26.96,53.08 26.33,53.19 25.63,53.58 24.88,54.08 24.13,54.43 23.45,54.46 22.86,54.09 22.39,53.41 21.99,52.61 21.59,51.92 21.09,51.51 20.45,51.45 19.67,51.65 18.82,51.93 18.01,52.08 17.34,51.93 16.87,51.42 16.59,50.64 16.41,49.77 16.20,48.99 15.83,48.47 15.23,48.24 14.42,48.24 13.53,48.29 12.70,48.23 12.10,47.90 11.77,47.30 11.71,46.47 11.76,45.58 11.76,44.77 11.53,44.17 11.01,43.80 10.23,43.59 9.36,43.41 8.58,43.13 8.07,42.66 7.92,41.99 8.07,41.18 8.35,40.33 8.55,39.55 8.49,38.91 8.08,38.41 7.39,38.01 6.59,37.61 5.91,37.14 5.54,36.55 5.57,35.87 5.92,35.12 6.42,34.37 6.81,33.67 6.92,33.04 6.65,32.45 6.09,31.88 5.42,31.29 4.88,30.66 4.68,30.00 4.88,29.34 5.42,28.71 6.09,28.12 6.65,27.55 6.92,26.96 6.81,26.33 6.42,25.63 5.92,24.88 5.57,24.13 5.54,23.45 5.91,22.86 6.59,22.39 7.39,21.99 8.08,21.59 8.49,21.09 8.55,20.45 8.35,19.67 8.07,18.82 7.92,18.01 8.07,17.34 8.58,16.87 9.36,16.59 10.23,16.41 11.01,16.20 11.53,15.83 11.76,15.23 11.76,14.42 11.71,13.53 11.77,12.70 12.10,12.10 12.70,11.77 13.53,11.71 14.42,11.76 15.23,11.76 15.83,11.53 16.20,11.01 16.41,10.23 16.59,9.36 16.87,8.58 17.34,8.07 18.01,7.92 18.82,8.07 19.67,8.35 20.45,8.55 21.09,8.49 21.59,8.08 21.99,7.39 22.39,6.59 22.86,5.91 23.45,5.54 24.13,5.57 24.88,5.92 25.63,6.42 26.33,6.81 26.96,6.92 27.55,6.65 28.12,6.09 28.71,5.42 29.34,4.88'/%3E%3C/svg%3E");
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+    #addFocus { transition: transform 0.3s ease; pointer-events: none; display: none; }
+    #floatingAddBtn:focus-visible { outline: none; }   /* the ring is #addFocus: the mask would clip one drawn here */
+    #floatingAddBtn:focus-visible + #addFocus { display: block; }
+    #addFocus svg { display: block; overflow: visible; }
+    #addFocus polygon { fill: none; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+    #addFocus .ring-halo { stroke: var(--paper); stroke-width: 4px; }
+    #addFocus .ring-ink { stroke: var(--navy); stroke-width: 2px; }
+    /* Pressed: one tone step deeper, the + flips to paper (submit's press). Texture kept. */
+    #floatingAddBtn:active { background-color: var(--brand-orange-deep); color: var(--paper); }
+    /* Open (the form is showing): the badge is the form's one cancel -- a navy field with a paper x,
+       no texture, so ADD LOCATION stays the one orange thing on screen. Must follow :active. */
+    #floatingAddBtn.active { background-color: var(--navy); background-image: none; color: var(--paper); }
+    #floatingAddBtn.active:active { background-color: var(--state-on-press); color: var(--paper); }
+    /* Desktop: the map column's bottom-left, 15.22 from the rail; nothing rides. */
+    @media (min-width: 900px) {
+      #floatingAddBtn,
+      #addFocus,
+      body.sheet-collapsed #floatingAddBtn,
+      body.sheet-collapsed #addFocus {
+        left: calc(360px + var(--add-box-gap));
+        bottom: var(--add-box-gap);
+        transform: none;
+      }
+    }
+
     #mainContent {
       /* Stays FIXED (Safari tints its tab status bar from the top fixed
          layer -- see .leaflet-container), but sized by HEIGHT from top 0,
@@ -588,6 +659,51 @@
       display: block;
     }
 
+    /* THE FORM ON THE BAND (body.add-open; design/add-button-placement/handoff.md, "ride", form
+       line A). Tapping + drops the list to its band; the form sits on it, not at the top, and the
+       badge (now the x) rides down beside ADD LOCATION. Never under the zoom / account row: it
+       stops 12px below it and scrolls inside itself. Every offset below derives from the badge's
+       own tokens (--add-box-gap, --add-size), so Add stays on the x's line at every height. */
+    body.add-open #controls {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding-top: var(--s6);
+      /* Add (44px: --s3 + 20px line + --s3) centred on the x's centre, which is
+         --add-box-gap + --add-size / 2 above the form's foot (the sheet's edge). */
+      padding-bottom: calc(var(--add-box-gap) + var(--add-size) / 2 - 22px);
+      max-height: calc(100% - 74px - var(--s3) - var(--chrome-top-inset));
+      overflow-y: auto;
+      border-bottom: 0;
+      border-top: 2px solid var(--navy);
+      /* Add's left edge = the x's box right + 12, measured from the form's 56px spine. */
+      --add-ml: calc(var(--add-box-gap) + var(--add-size) + var(--s3) - 56px);
+      --add-x: calc(56px + var(--add-ml));
+    }
+    /* ADD LOCATION shares the x's line (its own 31px step off the spine) and is sticky, so a form
+       taller than the room scrolls while Add never leaves the x. Its paper backing spans the full
+       row (box-shadows: around it, out to the right edge, back to the screen's left behind the x,
+       and down to the form's foot), so a scrolled field never shows beside the x. */
+    body.add-open #addForm button#submitBtn {
+      display: block;
+      width: calc(100% - var(--add-ml));
+      margin-left: var(--add-ml);
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+      box-shadow:
+        0 0 0 var(--s2) var(--paper),
+        var(--s2) 0 0 var(--s2) var(--paper),
+        0 var(--s6) 0 var(--s2) var(--paper),
+        var(--s2) var(--s6) 0 var(--s2) var(--paper),
+        calc(-1 * var(--add-x)) 0 0 var(--s2) var(--paper),
+        calc(-1 * var(--add-x)) var(--s6) 0 var(--s2) var(--paper);
+    }
+    /* The OSM credit rides the form's top edge (syncAddCredit()); where no map strip is left it
+       steps out, never half-covered, as for the sort menu. */
+    body.add-open.add-credit-off .leaflet-control-attribution { visibility: hidden; }
+
     #addForm {
       display: none;
     }
@@ -644,7 +760,7 @@
       margin-top: var(--s1);
     }
 
-    /* State system, filled primary buttons: pressed = one tone step. Submit deepens (--figure to --figure-deep); the navy floating add/account buttons lighten (--navy to --state-on-press). */
+    /* State system, filled primary buttons: pressed = one tone step. Submit and the add badge deepen (--figure / --brand-orange to their -deep); the navy account badge (and the open add badge) lightens (--navy to --state-on-press). */
     #addForm button#submitBtn:active { background: var(--figure-deep); color: var(--paper); }
     #addForm button#submitBtn:disabled { opacity: var(--state-off-alpha); color: var(--ink); cursor: default; }
 
@@ -2646,13 +2762,21 @@
     <button id="dropdownLogoutBtn">Sign out</button>
   </div>
 
-  <!-- A stroked SVG, not a text character: `line-height: 0` on a 1.75rem "+"
-       was doing optical-centering work that breaks across platforms. -->
+  <!-- The add badge (bottom-left, rides the sheet's edge). A stroked SVG, not a text character:
+       `line-height: 0` on a 1.75rem "+" was doing optical-centering work that breaks across
+       platforms. 26.4px at stroke-width 1.8182 (viewBox units) = 2.00px on screen, the account
+       icon's line for now; the app-wide weight belongs to the icon project (docs/backlog.md).
+       The same two strings as setAddBtnGlyph(), so the first paint matches. -->
   <button id="floatingAddBtn" aria-label="Add a place">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-    </svg>
+    <svg width="26.4" height="26.4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8182" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
   </button>
+  <!-- Its keyboard focus ring: a sibling (the button's mask would clip a ring drawn on it), shown
+       by #floatingAddBtn:focus-visible + #addFocus. Must stay directly after #floatingAddBtn. -->
+  <div id="addFocus" aria-hidden="true">
+    <svg width="60" height="60" viewBox="0 0 60 60"><g transform="translate(30 30) scale(1.16) translate(-30 -30)">
+      <polygon class="ring-halo"/><polygon class="ring-ink"/>
+    </g></svg>
+  </div>
 
   <div id="mainContent">
     <div id="controls">
@@ -3074,8 +3198,13 @@
     //     and snap) plays right after Sign out succeeds, before the reload.
     // Neither plays under Reduce Motion: the state swaps in one frame.
     // =========================================================================
-    // The 50-unit scallop: the same polygon as the floating buttons' CSS mask (#floatingAddBtn,
-    // #accountBtn). The mask is CSS and can't read this; change both together.
+    // The 50-unit scallop: the same polygon as the account badge's CSS mask (#accountBtn). The
+    // mask is CSS and can't read this; change both together. (The add badge has its own finer
+    // cut, ADD_SCALLOP_PTS.)
+    // The add badge's edge (#floatingAddBtn, 60 box): a finer cut of the badge's edge, 24 lobes,
+    // r(t) = 25.32 - 2.04*(1 - cos 24t)/2, 240 points. The same polygon as #floatingAddBtn's CSS
+    // mask; change both together. Read here for its focus ring (#addFocus).
+    const ADD_SCALLOP_PTS = '30.00,4.68 30.66,4.88 31.29,5.42 31.88,6.09 32.45,6.65 33.04,6.92 33.67,6.81 34.37,6.42 35.12,5.92 35.87,5.57 36.55,5.54 37.14,5.91 37.61,6.59 38.01,7.39 38.41,8.08 38.91,8.49 39.55,8.55 40.33,8.35 41.18,8.07 41.99,7.92 42.66,8.07 43.13,8.58 43.41,9.36 43.59,10.23 43.80,11.01 44.17,11.53 44.77,11.76 45.58,11.76 46.47,11.71 47.30,11.77 47.90,12.10 48.23,12.70 48.29,13.53 48.24,14.42 48.24,15.23 48.47,15.83 48.99,16.20 49.77,16.41 50.64,16.59 51.42,16.87 51.93,17.34 52.08,18.01 51.93,18.82 51.65,19.67 51.45,20.45 51.51,21.09 51.92,21.59 52.61,21.99 53.41,22.39 54.09,22.86 54.46,23.45 54.43,24.13 54.08,24.88 53.58,25.63 53.19,26.33 53.08,26.96 53.35,27.55 53.91,28.12 54.58,28.71 55.12,29.34 55.32,30.00 55.12,30.66 54.58,31.29 53.91,31.88 53.35,32.45 53.08,33.04 53.19,33.67 53.58,34.37 54.08,35.12 54.43,35.87 54.46,36.55 54.09,37.14 53.41,37.61 52.61,38.01 51.92,38.41 51.51,38.91 51.45,39.55 51.65,40.33 51.93,41.18 52.08,41.99 51.93,42.66 51.42,43.13 50.64,43.41 49.77,43.59 48.99,43.80 48.47,44.17 48.24,44.77 48.24,45.58 48.29,46.47 48.23,47.30 47.90,47.90 47.30,48.23 46.47,48.29 45.58,48.24 44.77,48.24 44.17,48.47 43.80,48.99 43.59,49.77 43.41,50.64 43.13,51.42 42.66,51.93 41.99,52.08 41.18,51.93 40.33,51.65 39.55,51.45 38.91,51.51 38.41,51.92 38.01,52.61 37.61,53.41 37.14,54.09 36.55,54.46 35.87,54.43 35.12,54.08 34.37,53.58 33.67,53.19 33.04,53.08 32.45,53.35 31.88,53.91 31.29,54.58 30.66,55.12 30.00,55.32 29.34,55.12 28.71,54.58 28.12,53.91 27.55,53.35 26.96,53.08 26.33,53.19 25.63,53.58 24.88,54.08 24.13,54.43 23.45,54.46 22.86,54.09 22.39,53.41 21.99,52.61 21.59,51.92 21.09,51.51 20.45,51.45 19.67,51.65 18.82,51.93 18.01,52.08 17.34,51.93 16.87,51.42 16.59,50.64 16.41,49.77 16.20,48.99 15.83,48.47 15.23,48.24 14.42,48.24 13.53,48.29 12.70,48.23 12.10,47.90 11.77,47.30 11.71,46.47 11.76,45.58 11.76,44.77 11.53,44.17 11.01,43.80 10.23,43.59 9.36,43.41 8.58,43.13 8.07,42.66 7.92,41.99 8.07,41.18 8.35,40.33 8.55,39.55 8.49,38.91 8.08,38.41 7.39,38.01 6.59,37.61 5.91,37.14 5.54,36.55 5.57,35.87 5.92,35.12 6.42,34.37 6.81,33.67 6.92,33.04 6.65,32.45 6.09,31.88 5.42,31.29 4.88,30.66 4.68,30.00 4.88,29.34 5.42,28.71 6.09,28.12 6.65,27.55 6.92,26.96 6.81,26.33 6.42,25.63 5.92,24.88 5.57,24.13 5.54,23.45 5.91,22.86 6.59,22.39 7.39,21.99 8.08,21.59 8.49,21.09 8.55,20.45 8.35,19.67 8.07,18.82 7.92,18.01 8.07,17.34 8.58,16.87 9.36,16.59 10.23,16.41 11.01,16.20 11.53,15.83 11.76,15.23 11.76,14.42 11.71,13.53 11.77,12.70 12.10,12.10 12.70,11.77 13.53,11.71 14.42,11.76 15.23,11.76 15.83,11.53 16.20,11.01 16.41,10.23 16.59,9.36 16.87,8.58 17.34,8.07 18.01,7.92 18.82,8.07 19.67,8.35 20.45,8.55 21.09,8.49 21.59,8.08 21.99,7.39 22.39,6.59 22.86,5.91 23.45,5.54 24.13,5.57 24.88,5.92 25.63,6.42 26.33,6.81 26.96,6.92 27.55,6.65 28.12,6.09 28.71,5.42 29.34,4.88';
     const SCALLOP_PTS = '45.00,25.00 45.71,25.93 46.10,26.90 46.00,27.84 45.40,28.70 44.50,29.45 43.57,30.13 42.89,30.81 42.61,31.61 42.71,32.57 43.02,33.68 43.26,34.83 43.19,35.87 42.68,36.67 41.77,37.19 40.64,37.47 39.51,37.68 38.60,38.00 38.00,38.60 37.68,39.51 37.47,40.64 37.19,41.77 36.67,42.68 35.87,43.19 34.83,43.26 33.68,43.02 32.57,42.71 31.61,42.61 30.81,42.89 30.13,43.57 29.45,44.50 28.70,45.40 27.84,46.00 26.90,46.10 25.93,45.71 25.00,45.00 24.14,44.25 23.31,43.74 22.47,43.64 21.56,43.96 20.55,44.50 19.48,44.99 18.45,45.15 17.55,44.84 16.85,44.07 16.32,43.02 15.87,41.96 15.35,41.15 14.64,40.70 13.68,40.59 12.53,40.64 11.36,40.61 10.36,40.32 9.68,39.64 9.39,38.64 9.36,37.47 9.41,36.32 9.30,35.36 8.85,34.65 8.04,34.13 6.98,33.68 5.93,33.15 5.16,32.45 4.85,31.55 5.01,30.52 5.50,29.45 6.04,28.44 6.36,27.53 6.26,26.69 5.75,25.86 5.00,25.00 4.29,24.07 3.90,23.10 4.00,22.16 4.60,21.30 5.50,20.55 6.43,19.87 7.11,19.19 7.39,18.39 7.29,17.43 6.98,16.32 6.74,15.17 6.81,14.13 7.32,13.33 8.23,12.81 9.36,12.53 10.49,12.32 11.40,12.00 12.00,11.40 12.32,10.49 12.53,9.36 12.81,8.23 13.33,7.32 14.13,6.81 15.17,6.74 16.32,6.98 17.43,7.29 18.39,7.39 19.19,7.11 19.87,6.43 20.55,5.50 21.30,4.60 22.16,4.00 23.10,3.90 24.07,4.29 25.00,5.00 25.86,5.75 26.69,6.26 27.53,6.36 28.44,6.04 29.45,5.50 30.52,5.01 31.55,4.85 32.45,5.16 33.15,5.93 33.68,6.98 34.13,8.04 34.65,8.85 35.36,9.30 36.32,9.41 37.47,9.36 38.64,9.39 39.64,9.68 40.32,10.36 40.61,11.36 40.64,12.53 40.59,13.68 40.70,14.64 41.15,15.35 41.96,15.87 43.02,16.32 44.07,16.85 44.84,17.55 45.15,18.45 44.99,19.48 44.50,20.55 43.96,21.56 43.64,22.47 43.74,23.31 44.25,24.14';
     const BADGE_PERSON = 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2';   // lucide user (the account glyph) + circle (12,7) r 4
     const ACCOUNT_GLYPH = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="' + BADGE_PERSON + '"></path><circle cx="12" cy="7" r="4"></circle></svg>';
@@ -5403,7 +5532,7 @@
       try {
         const mt = map.getContainer().getBoundingClientRect().top;
         let y = 0;
-        for (const el of [document.querySelector('.leaflet-control-zoom'), document.getElementById('floatingAddBtn'), document.getElementById('accountBtn')]) {
+        for (const el of [document.querySelector('.leaflet-control-zoom'), document.getElementById('accountBtn')]) {   // not the + : it rides the sheet's edge now
           const r = el && el.getBoundingClientRect();
           if (r && r.height) y = Math.max(y, r.bottom - mt);
         }
@@ -5445,7 +5574,20 @@
     const TAG_POP_MS = 280;        // the pop-out (CSS tagPop)
     const TAG_PAN_MS = 250;        // pan to the open position
     const TAG_SHEET_MS = 300;      // #locations' transform transition (the list lowering for a tall tag)
-    const TAG_SHEET_GAP = 48;      // DIAL: map left clear between the tag's foot and the list (--s12; CD: ">= 48")
+    // Map left clear between the tag's foot and the list: the add badge's box top above the list's
+    // edge + 12 (88 at its 60px box), read from its RENDERED box so the tag's foot always clears
+    // the badge, which stays visible and tappable with a tag open (design/add-button-placement).
+    // The edge is the sheet's top, or on the desktop rail the map's bottom. Both ride the same
+    // transform, so the difference holds mid-transition. Was the 48 dial (CD: ">= 48"), the floor.
+    const TAG_SHEET_GAP_MIN = 48;
+    function tagSheetGap() {
+      try {
+        const b = document.getElementById('floatingAddBtn').getBoundingClientRect();
+        if (!b.height) return TAG_SHEET_GAP_MIN;
+        const edge = railQuery.matches ? map.getContainer().getBoundingClientRect().bottom : document.getElementById('locations').getBoundingClientRect().top;
+        return Math.max(TAG_SHEET_GAP_MIN, Math.ceil(edge - b.top + 12));
+      } catch (_) { return TAG_SHEET_GAP_MIN; }
+    }
     const TAG_LIST_MIN = 144;      // the list never lowers past its header (60) + one row (56) + half the next (28), so it reads as scrollable (owner); a taller tag scrolls inside
     // Always an even number of px, so the tag's centre (the hole, the patch, the string) sits on a whole
     // pixel and on the pin's x exactly (TagPopup centres it with round(w / 2)).
@@ -8878,31 +9020,80 @@
       }
     };
     
-    document.getElementById('floatingAddBtn').onclick = async () => {
-      const controls = document.getElementById('controls');
-      const form = document.getElementById('addForm');
+    // THE + RIDES (design/add-button-placement/handoff.md, "ride"). Tap +: the list drops to its
+    // band, the badge rides down with it as the x, and today's form sits on the band with ADD
+    // LOCATION on the x's line. Cancel (the x, or Esc) puts back the list (up or collapsed) and
+    // its scroll, and the tag that was open, on the same place; the draft survives (the toggle
+    // only hides the form; closeAddForm() clears it after a successful Add).
+    let addRestore = null;   // { collapsed, scroll, tag } while the form is open
+    const addFormOpen = () => document.getElementById('floatingAddBtn').classList.contains('active');
+    function showAddForm(open) {
       const btn = document.getElementById('floatingAddBtn');
-
-      // If trying to open the form, check auth first
-      if (!btn.classList.contains('active')) {
-        if (!await requireAuth()) return;
-        noteInteraction();
-        syncAddFormCity();   // default only — the user's explicit pick wins
-      }
-
-      controls.classList.toggle('show');
-      form.classList.toggle('show');
-      btn.classList.toggle('active');
-
-      setAddBtnGlyph(btn.classList.contains('active'));
+      document.getElementById('controls').classList.toggle('show', open);
+      document.getElementById('addForm').classList.toggle('show', open);
+      btn.classList.toggle('active', open);
+      document.body.classList.toggle('add-open', open);
+      setAddBtnGlyph(open);
+      syncAddCredit();
+    }
+    function openAddForm() {
+      closeSortMenu(false);   // one overlay at a time
+      const panel = document.getElementById('filtersPanel');
+      if (panel.classList.contains('visible')) document.getElementById('toggleFiltersBtn').click();   // (by keyboard: the panel covers the badge to a finger)
+      const list = document.getElementById('locationsList');
+      addRestore = { collapsed: sheetIsCollapsed(), scroll: tagSession ? tagSession.scroll : list.scrollTop, tag: openTagKey() };
+      if (addRestore.tag != null) map.closePopup();
+      showAddForm(true);
+      if (!railQuery.matches && !addRestore.collapsed) toggleSheetCollapsed();
+    }
+    // reopenTag: cancel puts the open tag back; a successful Add doesn't.
+    function rideBack(reopenTag) {
+      const r = addRestore; addRestore = null;
+      showAddForm(false);
+      if (!r) return;
+      let wait = 0;
+      if (!railQuery.matches && !r.collapsed && sheetIsCollapsed()) { toggleSheetCollapsed(); wait = TAG_SHEET_MS + 20; }
+      if (!r.collapsed) document.getElementById('locationsList').scrollTop = r.scroll;
+      if (reopenTag && r.tag != null) setTimeout(() => {   // the list's own row-tap path: navigate and open the tag
+        const en = rowEntry(r.tag);
+        if (en && en.el && en.el.isConnected && !addFormOpen() && !tagOpenNow()) en.el.click();
+      }, wait);
+    }
+    document.getElementById('floatingAddBtn').onclick = async () => {
+      if (addFormOpen()) { rideBack(true); return; }
+      if (!await requireAuth()) return;   // a stale stored sign-in: the sign-in sheet, and nothing moves
+      noteInteraction();
+      syncAddFormCity();   // default only — the user's explicit pick wins
+      openAddForm();
     };
+    // Esc cancels the form, as the x does (not while the autocomplete, the sign-in sheet, the sort
+    // menu or a tag has it).
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape' || e.defaultPrevented || !addFormOpen()) return;
+      if (document.getElementById('addressAutocomplete').classList.contains('show')) return;
+      if (document.getElementById('authModal').classList.contains('show') || sortMenuOpen() || tagOpenNow()) return;
+      e.preventDefault(); rideBack(true);
+    });
+    // The OSM credit rides the form's top edge while the form sits on the band; with no map strip
+    // left above the form (below the zoom / account row) it steps out.
+    function syncAddCredit() {
+      if (typeof map === 'undefined' || !map) return;
+      const lb = map.getContainer().querySelector('.leaflet-bottom.leaflet-right');
+      const open = document.body.classList.contains('add-open'), h = open ? document.getElementById('controls').offsetHeight : 0;
+      if (lb) lb.style.marginBottom = open ? h + 'px' : '';
+      const inset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--chrome-top-inset')) || 0;
+      document.body.classList.toggle('add-credit-off', open && map.getContainer().getBoundingClientRect().bottom - h < 74 + 12 + 17 + inset);
+    }
+    if (window.ResizeObserver) new ResizeObserver(() => syncAddCredit()).observe(document.getElementById('controls'));
 
     // The +/× glyph as SVG rather than a text character.
+    // 26.4px at stroke-width 1.8182 = 2.00px on screen (the account icon's line, for now: the icon
+    // project sets the app-wide weight). An instant swap: no rotation tween.
     function setAddBtnGlyph(isClose) {
       const btn = document.getElementById('floatingAddBtn');
       btn.innerHTML = isClose
-        ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>'
-        : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+        ? '<svg width="26.4" height="26.4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8182" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>'
+        : '<svg width="26.4" height="26.4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8182" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
     }
 
     document.getElementById('toggleFiltersBtn').onclick = () => {
@@ -8916,7 +9107,8 @@
       placePlanSlip();       // the list moved under the slip
     };
 
-    document.getElementById('collapseBtn').onclick = () => {
+    document.getElementById('collapseBtn').onclick = () => toggleSheetCollapsed();
+    function toggleSheetCollapsed() {
       // A tag is open: ▼ / ▲ is the user's own choice and the tag stays open.
       // The tag's lowering is dropped first; raised again, the sheet re-fits
       // the open tag; a list collapsed here stays collapsed after the tag closes.
@@ -8936,13 +9128,16 @@
       // The map meets the sheet's top edge; the geometry lives in CSS
       // (#mainContent / #mainContent.sheet-collapsed).
       mainContent.classList.toggle('sheet-collapsed', locations.classList.contains('collapsed'));
+      // The add badge rides the sheet: the same collapse, read by its CSS (body.sheet-collapsed).
+      document.body.classList.toggle('sheet-collapsed', locations.classList.contains('collapsed'));
       if (tagUp && !locations.classList.contains('collapsed')) setSheetLower(tagSheetNeed(map._popup));
 
       // Force Leaflet to redraw map after resize
       setTimeout(() => {
         map.invalidateSize();
+        syncAddCredit();
       }, 300);
-    };
+    }
 
     document.getElementById('centerMeBtn').onclick = centerOnUserLocation;
     initSort();
@@ -8955,6 +9150,7 @@
     document.getElementById('dropdownLogoutBtn').onclick = logout;
     // The focus ring follows the scallop: the same polygon, drawn twice (paper halo, navy ring).
     document.querySelectorAll('#accountFocus polygon').forEach(p => p.setAttribute('points', SCALLOP_PTS));
+    document.querySelectorAll('#addFocus polygon').forEach(p => p.setAttribute('points', ADD_SCALLOP_PTS));
 
     // Close auth modal when clicking outside (hideAuthModal() ignores it while busy)
     document.getElementById('authModal').onclick = (e) => {
@@ -9091,10 +9287,7 @@
       setAddFormStarred(false);
       document.getElementById('categoryInput').value = 'restaurant';
       document.getElementById('categoryInput').dispatchEvent(new Event('change'));
-      document.getElementById('controls').classList.remove('show');
-      document.getElementById('addForm').classList.remove('show');
-      document.getElementById('floatingAddBtn').classList.remove('active');
-      setAddBtnGlyph(false);
+      rideBack(false);   // the list comes back, the badge returns to rest (+); no tag reopened
       document.getElementById('submitBtn').textContent = 'Add Location';
       document.getElementById('submitBtn').disabled = false;
     }
@@ -9362,6 +9555,14 @@
       maxZoom: 19
     }).addTo(map);
 
+    // The OSM credit (Leaflet's default bottom-right) loses its "Leaflet |" prefix on a map
+    // narrower than 338px, where it would touch the add badge (320: overlaps by 6.3 with it, clear
+    // by 58.7 without). "© OpenStreetMap contributors" always stays.
+    const ATTRIBUTION_PREFIX = map.attributionControl.options.prefix;
+    const syncAttributionPrefix = () => map.attributionControl.setPrefix(map.getSize().x < 338 ? false : ATTRIBUTION_PREFIX);
+    syncAttributionPrefix();
+    map.on('resize', syncAttributionPrefix);
+
     map.on('dragend zoomend', noteInteraction);
     map.on('zoomend', syncNeighborhoodLayers);
     map.on('zoomend', syncPlanShapeMarkers);   // the numbered diamonds share the pin numbers' zoom gate
@@ -9407,7 +9608,7 @@
 
     // ---- the tag's open / close choreography --------------------------------
     // Open: the map pans the pin to just under the top controls, the list
-    // sheet LOWERS only as far as the whole tag needs, with TAG_SHEET_GAP of
+    // sheet LOWERS only as far as the whole tag needs, with tagSheetGap() of
     // map below it (owner 2026-10-07: "i dont like closing the list when a tag
     // is open now -- it should just adjust height if it needs to (with a good
     // amount of padding below the tag."); if the tag already fits, the list
@@ -9458,7 +9659,7 @@
       if (!inn) return;
       inn.style.maxHeight = ''; inn.classList.remove('scrolls');
       const mapR = map.getContainer().getBoundingClientRect(), r = c.getBoundingClientRect();
-      const over = r.bottom + tagSlipRoom() - (mapR.bottom - TAG_SHEET_GAP);
+      const over = r.bottom + tagSlipRoom() - (mapR.bottom - tagSheetGap());
       if (over > 0 && !c.classList.contains('tag-wait')) { inn.style.maxHeight = Math.max(120, inn.offsetHeight - over) + 'px'; inn.classList.add('scrolls'); }
     }
     const tagSlipRoom = () => currentUser ? 0 : 52;   // signed out: room for the sign-in slip (44px button + 2 x 1px rule) + its 6px gap
@@ -9482,7 +9683,7 @@
       const mapH = map.getSize().y - cur;   // the map's height with the sheet where the user left it
       const bottom = pinPopupTopPad() + 2 * tagPinRadius(popup) + c.offsetHeight + tagSlipRoom();
       const sheetH = document.getElementById('locations').getBoundingClientRect().height;
-      return Math.min(Math.max(0, bottom + TAG_SHEET_GAP - mapH), Math.max(0, sheetH - TAG_LIST_MIN));
+      return Math.min(Math.max(0, bottom + tagSheetGap() - mapH), Math.max(0, sheetH - TAG_LIST_MIN));
     }
     function showTagDot(popup) {
       const src = popup._source;

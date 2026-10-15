@@ -83,6 +83,13 @@ pick/redirect before building anything.
   time") and Alignment / spacing ("Spacing between things is insane and
   icons don't fill the same visual space"). Scope, approach and solutions
   are open; they belong to the designer/CD/UX roles.
+  Include the + badge (owner, 2026-10-15, verbatim: "Build the matched icon
+  but we need to include this in the icon project everything is
+  inconsistent"). On-screen line weights measured today: account icon
+  2.00px, list rows' category icons 2.00px, list toolbar icons 1.50px,
+  locate-me 2.08px, the + 2.00px (was 2.29). The + follows whatever weight
+  the project sets: one attribute, `stroke-width` in `setAddBtnGlyph()` and
+  the initial `#floatingAddBtn` markup.
 - ~~**Popup star alignment with full content**~~ CLOSED by the Hanging Tag
   (built 2026-10-07 on `popup-hanging-tag`, `docs/shipped.md` "Hanging Tag +
   orange star"): the star is no longer beside the title; it is a fixed
@@ -198,11 +205,15 @@ pick/redirect before building anything.
   sheet covers ADD LOCATION, so a tap on Add lands on a list row. Repro:
   open the add form at 390x664 -- `design/add-button-placement/concepts/stub-stress/today-form664-3x.png`.
   Being folded into the + placement work (proposal: the list drops to its
-  header band while the form is open).
+  header band while the form is open). FIXED on `plus-badge-build`
+  (2026-10-15, not landed yet): the form sits on the band, ADD LOCATION on
+  the ×'s line at every height.
 - **Add form opens behind the open filters panel** (same source): with the
   filters panel open, tapping + opens the form behind it and a tap on Add
   hits a filter chip. Repro: open filters, tap +. Proposal in the + work:
-  opening the form closes filters and the sort menu.
+  opening the form closes filters and the sort menu. FIXED on
+  `plus-badge-build` (2026-10-15, not landed yet): the panel covers the badge
+  (close filters first); a keyboard open closes filters and the sort menu.
 
 - **A place added in another city vanishes from the list** (found
   2026-10-12 by the + placement crew, in a prototype). If the place you
