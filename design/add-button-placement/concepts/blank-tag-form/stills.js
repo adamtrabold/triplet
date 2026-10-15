@@ -248,6 +248,11 @@ both('r11p-real-40-stub', { k: 'T:twoend:104:0:x-54-40-3-10:up', zoom: true, cen
 for (const b of [12, 16, 20]) both(`r11b-40-b${b}`, { k: `T:twoend:104:0:x-54-40-0-10-${b}:up`, zoom: true, centre: CREST });
 F['r11b-40-b16-tag664'] = { k: 'T:twoend:104:0:x-54-40-0-10-16:up', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
 
+// round 11f: the three side by side (owner: "the badge add, the cream with orange 40/8 and 12 next to each other with account too")
+both('r11t-float', { k: 'F', zoom: true, centre: CREST, run: p => floatBadge(p, false) });
+both('r11t-e8', { k: 'T:twoend:104:0:x-54-40-8-8:up', zoom: true, centre: CREST });
+both('r11t-b12', { k: 'T:twoend:104:0:x-54-40-0-10-12:up', zoom: true, centre: CREST });
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {
