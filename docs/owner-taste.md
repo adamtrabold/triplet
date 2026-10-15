@@ -62,11 +62,14 @@ sources are the file where the quote is recorded.
 - **The tag pops out of the pin onto a straight string.** "i think the tag
   should just pop down "out of" the pin but end with a straight string"
   (2026-10-05, Hanging Tag v2; chat).
-- **Don't assume a detail is a flaw.** When showing options, describe what
-  differs neutrally; don't label a detail good or bad unless the owner has
-  said so. "12 is the best for me. They're assuming the edge straddling is a
-  bad thing." (2026-10-15, + placement: band 12, whose eyelet straddles the
-  band's edge, picked over the team's "fixed" 16; chat).
+- **Judgments are opinions, not facts.** Agents rate and recommend, but a
+  call that rests only on the team's own taste, not on something the owner
+  has said, is shown as an opinion ("we think…"), and the option stays in
+  front of the owner. Don't drop or "fix" a detail the owner hasn't objected
+  to. (2026-10-15, + placement: the team called an eyelet ring overlapping
+  the edge of the tag's coloured band "misaligned" and recommended moving
+  it; the owner preferred the overlap and said the team was assuming it was
+  a bad thing; chat.)
 
 ## Hierarchy
 
