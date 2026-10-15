@@ -29,3 +29,6 @@
 - Orchestrator pre-send checks: director's cost line (wrong "steps aside") corrected via systems; R1 stale weights fixed.
 - Sent 23 stills (C0, C1-C6, R1-R4, F1-F6, R10-F1/F2/F5/F3/F6/F4). Open Q: visited while adding.
 - Backlog: edit-a-place, tap-a-map-business (future).
+
+## 2026-10-15 — round 11 sent
+- C tag 70x43 orange 9 (2.12x account, 1.58x Float); cream/orange end 0.59x (cost line). Sent C0, K1, C2, K2, S1. Visited-while-adding not re-asked (director).

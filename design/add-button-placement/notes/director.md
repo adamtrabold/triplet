@@ -1418,3 +1418,35 @@ Check the re-shoots → release.
   its caption) and C1-C6 at 84, then check and release the round-10 send
   list.
 - 2026-10-14: round 10c re-shoots checked; 23-still send released (R10-F6 added after R10-F3).
+
+---
+
+## Round 11 scored -- 2026-10-15
+
+### Owner on round 10
+- The tag is too wide, the + too large, the balance off; narrower both
+  sides.
+- He misses the hole.
+- He wants to see the orange tag AND cream with an orange claim-check
+  end.
+
+### Scores
+- **Orange 70 × 43: 9.**
+  - The + is 18, the hole is back, and the parts sit in even thirds.
+  - It's the same size as the Float in C0, so the call is pure shape.
+  - 2.12x the account.
+- **Cream with orange end:** shown (he asked) with its cost, at 0.59x
+  the account. Below the account is his R5b objection. Not recommended,
+  not inflated.
+
+### Send
+C0, K1, C2, K2, S1 (5 stills).
+- Cost lines: the cream is quieter than the account; hidden only with
+  the filters open.
+
+### Visited-while-adding
+- Not re-asked (twice "not sure").
+- The form keeps optional MARK VISITED; settle at handoff.
+
+### Next
+His C-vs-Float call → handoff.md checked against owner.md.

@@ -1925,3 +1925,84 @@ new form, and the form is revised to his notes.
 - **The send is 23 stills,** in round 10's order, with R10-F6 placed
   after R10-F3 and before R10-F4. It carries the round-10c cost lines
   and the one open question (visited-while-adding).
+
+## Concept round 11 -- director, 2026-10-15 (C iterated: narrower, smaller +, hole back; two colourways)
+
+Owner, verbatim: "Let's iterate the tag a bit before I make a call. The tag is too wide and the plus is too large. Balance feels off. I feel like both sides could get narrower. Also I miss the hole. I think in the smaller arrangement I'd like to see orange tag as well as cream with orange claim check edge"
+
+### Real-size look first
+Evidence: C0, C2, K1, K2, K3, S1, C6, C4.
+
+**Orange tag, 70 × 43, + at 18, the hole back (the lead):**
+- At 1x it's a luggage tag at once:
+  - the pointed end with its hole;
+  - the +;
+  - the perforation and the claim-check end.
+- The parts sit in even thirds, so the balance he felt was off is
+  fixed. Both sides are narrower, and the + no longer crowds the tag.
+- Beside the Float in C0 the two are now the same size, so his call is
+  shape alone.
+- 2.12x the account and 1.58x the Float. Coverage is at or under the
+  Float's.
+- The hole at 1x is a small pale ring. It's quiet, but it's there, and
+  it's what he asked for.
+
+**Cream with the orange claim-check end, the same tag:**
+- It looks right: the warmest, most "tag" of the two.
+- But at 0.59x the account it comes second to the account badge. That's
+  his own round-5b objection ("same weight and hierarchy as account,
+  which it shouldnt be"), here even lower.
+- He asked to see it, so it goes. Its cost is said plainly, not hidden
+  and not fixed by inflating it.
+
+**S1 (four proportions):**
+- It shows the narrowing was explored, not guessed.
+- Golden (the lead) and Compact are close.
+- Slim's + is too small, and Squat loses the claim-check proportion.
+
+### Likely owner objections
+1. "The cream one is too quiet." LIKELY. It's the cost line.
+2. "The hole reads as a dot." POSSIBLE at 1x. On the orange tag it's a
+   ring showing the map through it, which is the shipped tag's hole
+   logic.
+3. "Now it's the same size as the badge, so which?" That's the point
+   of C0: his call.
+- Nothing likely holds the orange lead under 9.
+
+### Scores
+- **C, orange tag (the lead): 9.**
+- **C, cream with orange end:** shown as he asked, with its cost. Not a
+  9 on rank, by his own rule; I'm not recommending it.
+- **Float 9 and the form 9:** unchanged, not re-sent.
+
+### Send (this iteration plus the choice frame), in order
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/C0-two-options-3x.png
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/K1-two-colourways-3x.png
+3. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/C2-real-size-3x.png
+4. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/K2-cream-real-size-3x.png
+5. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/S1-proportions-real-size-3x.png
+
+**Held back:**
+- C1, C3-C7: unchanged in kind from round 10 and covered by C0/C2.
+- K3: duplicates K1.
+
+**Cost lines:**
+- "The cream tag is quieter than the account badge: at a glance your
+  eye goes to the account first. The orange one comes first."
+- "Either button is hidden while the filters are open: one extra tap to
+  close them first."
+
+**Visited-while-adding:**
+- Not re-asked. He has said "not sure" and it's been asked twice.
+- The form as sent keeps MARK VISITED on the blank tag's stub (one tap,
+  optional, the real stamp).
+- It's settled at handoff unless he raises it.
+
+### Did the work change?
+Yes:
+- new proportions (70 × 43);
+- a smaller +;
+- the hole back;
+- the cream colourway added.
+
+C's orange lead stays at 9 on real change.
