@@ -2064,3 +2064,91 @@ tie-breaking.
 NEXT: product designer (systems focus) — rewrite concept 1 to the three
 rules and fixes, cascade into 2, 3, jobs.md and the overview; then a
 fresh checker.
+
+## Turn 19 -- product designer (systems focus): Turn 18 applied (three rules)
+
+Each concept file now opens with its numbered rules, then the invisible
+plumbing, then everything else, kept short.
+
+- **Concept 1** is rewritten as the director's three rules: near → that
+  city; one trip per continent at a time; fix things once, after.
+  - Plumbing: the anchor, which trip when a continent has two, the
+    continent table, the no-town fallback, districts and streets as
+    places, and what's stored.
+  - The band, On the way, the threshold, "past", the nearest active
+    trip and the automatic border are all gone; the border survives
+    only as the Q8 option.
+  - The prices are listed plainly.
+- **Concept 2:** the first rules are concept 1's three. Rule 4: a hotel
+  makes its city a base. Rule 5: bases are ordered by hotel dates, else
+  first visit, else no position.
+  - Hotel promotion is dropped as moot.
+  - Ties and no-time visits are plumbing.
+  - Stretches are off by default (Q4).
+- **Concept 3:** concept 1's rules 1 and 3, plus its own rule 2: trips
+  are worked out by continent and a time gap of about 6 months (we
+  think). Its cases and its chaining limit are said plainly.
+- **Today:** opens with its three rules. Job 12 drops On the way.
+- **jobs.md:**
+  - Terms are rewritten (rules 1-3, the fixes, base and order) with a
+    "gone in Turn 18" line.
+  - Job 9: "a figure of its own" passes.
+  - Job 10 adds "split off with one fix".
+  - Job 12 drops On the way.
+  - C3 and C5 are reworded; C4 is retired; C6 is another continent.
+  - **The test cases now count the owner's real fixes, with the border
+    off:**
+    - T1 takes two fixes (Malmö its own, then Tårnby with Malmö); the
+      Saltholm caveat stays.
+    - T2 Kastrup takes two fixes.
+    - T3 Jönköping is its own city.
+    - **New T4:** Copenhagen 2028 and someday Berlin take one split fix
+      each in concepts 1 and 2. In concept 3, 2028 separates by itself
+      and Berlin needs "these are separate".
+- **One gap the director didn't close, filled as plumbing:** a split
+  takes the city's **unvisited** places, so the 2026 visits stay in
+  2026. Without that, splitting Copenhagen 2028 would drag the old trip's
+  Copenhagen with it.
+  - After a split, a place within reach of a city joins that city's
+    trip, and a new city joins the trip of the nearest city on its
+    continent; ties go to the most recently added-to.
+  - This needs a director check.
+- **Owner questions, as Turn 18 rewords them** (no "he" was in the
+  Turn 18 text; the wording here uses "you" throughout):
+  1. When a place lands in the wrong city: fix it once for the whole
+     town, or fix that one place? (One place alone needs edit, which is
+     future.)
+  2. Can one place show under two cities (Copenhagen's airport under
+     both)?
+  3. Are hotels and airports places you want to visit, or the frame of
+     the trip?
+  4. Should the app put your trip in order? It could use hotel dates (if
+     it has them), the order you actually visit, both, or neither. If it
+     has an order, should places in between sit between two stays? (We
+     think both sources, hotel dates first; in-between only with dates.)
+  5. One trip per continent at a time: a new city on the same continent
+     joins your current trip until you split it off ("Copenhagen 2028").
+     OK? Or should old trips close by themselves? Or do you want
+     everything at once (concept 3)?
+  6. A place on another continent quietly starts a new trip. OK, or ask
+     first?
+  7. *(Retired: there's no threshold any more.)*
+  8. Malmö is 28 km from Copenhagen. Should it join Copenhagen until you
+     say "Malmö is its own city" (simplest, we think), or should a
+     border keep them apart automatically?
+- **Overview:**
+  - card 1 is now the three rules, a one-line example and the price;
+  - card 2 is "model 1's three rules, plus a hotel makes its city a
+    base";
+  - card 3 names its time-gap rule;
+  - it was re-rendered at 1170x2911 (shorter) and read at phone size.
+
+**Changed ids for the checker:**
+- jobs 2, 9, 10, 12;
+- C3, C4 (retired), C5, C6;
+- T1, T2, T3, and the new T4;
+- concept 2: C7e (now the tie case);
+- the overview.
+
+NEXT: director — check the split-takes-unvisited plumbing; then a fresh
+checker on the ids above.
