@@ -1,0 +1,113 @@
+Figure 2H-4. Examples of Symbol Signing Layout
+This figure illustrates examples of symbol signing layout within 
+a recreational or cultural area. A plan view area map is shown of 
+Cedar Springs marina, depicting a main road at the bottom of the 
+figure, a marina complex entry road that leads into the marina complex 
+from the main roadway, and internal roadways and facilities within 
+the marina complex.
+On the main road, a horizontal rectangular brown guide sign is 
+shown on each right-hand side of the road in advance of the intersection 
+with the marina complex entry road, displaying the words "CEDAR 
+SPRINGS" on the first line and a marine recreation area symbol 
+sign (anchor enclosed within a square white border) and a horizontal 
+arrow pointing into the area on the second line.
+At the intersection of the marina complex entry road and an internal 
+access road to the right toward a campground, a sign assembly is 
+shown at the near right corner of the intersection, facing traffic 
+entering the complex. This assembly is shown with a camping symbol 
+sign mounted above a trailer symbol sign, which is above a right-pointing 
+horizontal arrow sign.
+The entry road is shown continuing and curving up and to the left 
+and intersecting an access road on the left that leads to a parking 
+area, amphitheater, and information center. A sign assembly is shown 
+on the right side of the entry road on the near side of the intersection 
+with this access road. The left portion of the sign assembly is 
+composed of an information symbol sign (question mark enclosed within 
+a square white border) mounted above a square plaque with the words 
+"VISITOR INFO" on two lines, which is above a left-pointing 
+horizontal arrow sign. The right portion of the sign assembly is 
+shown composed of an amphitheater symbol sign mounted above a parking 
+symbol sign ("P"), which is above a left-pointing horizontal 
+arrow sign. On the access road at the entrance to the parking area, 
+a vertical rectangular sign is shown that includes a parking symbol 
+("P" enclosed within a square white border) on the top 
+portion of the sign and a smaller amphitheater symbol (enclosed 
+within a square white border) and a right-pointing horizontal arrow 
+on the bottom portion of the sign.
+The marina complex entry road is shown continuing to curve to the 
+left and down toward another parking area. It is shown intersecting 
+a road to the right that is labeled "Launch Ramp." At 
+the intersection with the Launch Ramp, a sign assembly is shown 
+on the right side of the entry road at the near side of the intersection. 
+The left side of this assembly is shown composed of a picnic area 
+symbol sign, parking symbol sign ("P"), and upward-pointing 
+vertical arrow sign. The right side of this assembly is shown composed 
+of a launch ramp symbol sign and a right-pointing horizontal arrow 
+sign.
+The marina complex entry road is shown continuing downward past 
+the Launch Ramp and ending as it enters a parking area. A narrower 
+roadway or path is shown leading out of the parking lot and past 
+a picnic area to a beach. In front of the beach, facing the narrower 
+roadway or path a swimming symbol sign is shown. 
+Back 
+to Chapter 2H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+US DOT Home | FHWA Home | MUTCD Home | Operations Home | Privacy Policy
+United States Department of Transportation - Federal Highway Administration
+
+
+<!--
+revdate = new Date(document.lastModified);
+if (revdate.getYear() == 69) {
+// workaround for .asp pages (some browsers do not interpret the lastModified date properly);
+// just reset the date to today
+revdate = new Date();
+}
+year = revdate.getYear();
+if (year > 1999)
+year = year
+else
+if (year < 90)
+year = year+2000
+else
+year = year+1900;
+month = revdate.getMonth() + 1;
+day = revdate.getDate();
+var mon;
+
+if (month==0) mon = "January";
+if (month==1) mon = "January";
+if (month==2) mon = "February";
+if (month==3) mon = "March";
+if (month==4) mon = "April";
+if (month==5) mon = "May";
+if (month==6) mon = "June";
+if (month==7) mon = "July";
+if (month==8) mon = "August";
+if (month==9) mon = "September";
+if (month==10) mon = "October";
+if (month==11) mon = "November";
+if (month==12) mon = "December";
+
+document.write("&nbsp;&nbsp;Last modified: " + mon + " " + day + ", " + year + "&nbsp;&nbsp;");
+// -->
+
+
+
+
+
+

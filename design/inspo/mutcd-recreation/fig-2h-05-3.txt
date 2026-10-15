@@ -1,0 +1,128 @@
+Figure 2H-5. Recreational and Cultural Interest Area Symbol Signs 
+(Sheet 3 of 5)
+
+Sheet 3 of the figure shows 25 signs.
+
+RA-090 is shown with a stylized symbol of a man. It is labeled 
+"Rest Room (Men)."
+RA-100 is shown with a stylized symbol of a woman in a dress. It 
+is labeled "Rest Room (Women)."
+RA-110 is shown with a symbol of a person sleeping in a roofed 
+structure. It is labeled "Shelter (Sleeping)."
+RA-120 is shown with a symbol of a roofed structure. It is labeled 
+"Shelter (Trail)."
+RA-130 is shown with a symbol of a showerhead spraying water down 
+on a symbol of a person from the waist up. It is labeled "Showers."
+RA-150 is shown with stylized symbols of a woman, child, and man 
+holding hands. It is labeled "Family Rest Room."
+RA-160 is shown with a symbol of a helicopter. It is labeled "Helicopter."
+RL-010 is shown with a square above three upward-curving horizontal 
+lines, with the second and third lines wider horizontally than the 
+one above. It is labeled "Amphitheater."
+RL-020 is shown with a symbol of a person wearing a backpack climbing 
+a hill with a wide base that tapers upward. It is labeled "Climbing."
+RL-030 is shown with a symbol of a person wearing a helmet and 
+holding on to an overhead rope attached to the top of a vertical 
+rock with a base that is the width as the top. It is labeled "Climbing 
+(Rock)."
+RL-040 is shown with a stylized symbol of a person aiming a rifle. 
+It is labeled "Hunting."
+RL-050 is shown with a symbol of two children on a see-saw. It 
+is labeled "Playground."
+RL-060 is shown with a symbol of a rock hammer on the left raised 
+over jagged discs on the lower right. It is labeled "Rock Collecting."
+RL-070 is shown with a stylized symbol of a person on hands and 
+knees wearing a backpack and a helmet with a light beam coming from 
+it. It is labeled "Spelunking."
+RL-080 is shown with an upside-down U-shaped structure surrounding 
+a symbol of a horse. It is labeled "Stable."
+RL-090 is shown with a symbol of a bicycle. It is labeled "Trail 
+(Bicycle)."
+RL-100 is shown with a symbol of two people with backpacks and 
+walking sticks. It is labeled "Trail (Hiking)."
+RL-110 is shown with a symbol of a person riding a horse. It is 
+labeled "Trail (Horse)."
+RL-120 is shown with a symbol of a car contained within a square-shaped 
+heavy dashed line with arrowheads at the corners of the square. 
+The arrowheads point in a counterclockwise direction around the 
+square. It is labeled "Trail (Interpretive, Auto)."
+RL-130 is shown with a symbol of a person looking at an information 
+plaque, contained within a square-shaped heavy dashed white line 
+with arrowheads at the corners of the square. The arrowheads point 
+in a counterclockwise direction around the square. It is labeled 
+"Trail (Interpretive, Ped.)."
+RL-140 is shown with a symbol of a roofless Jeep-type vehicle. 
+It is labeled "Trail/Road (4 WD Veh.)."
+RL-150 is shown with a symbol of a person wearing a helmet riding 
+a motorized bicycle. It is labeled "Trail (Trail Bike)."
+RL-160 is shown with a symbol of a cable car hanging from a downward-curving 
+horizontal line. It is labeled "Tramway."
+RL-170 is shown with a symbol of a person wearing a helmet riding 
+an all-terrain vehicle. It is labeled "All-Terrain Vehicle."
+RL-190 is shown with a stylized symbol of a person shooting with 
+a bow and arrow. It is labeled "Archer."
+Back to: Sheet 1 | Sheet 
+2 | Continue to: Sheet 4 
+| Sheet 5  
+Back 
+to Chapter 2H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+US DOT Home | FHWA Home | MUTCD Home | Operations Home | Privacy Policy
+United States Department of Transportation - Federal Highway Administration
+
+
+<!--
+revdate = new Date(document.lastModified);
+if (revdate.getYear() == 69) {
+// workaround for .asp pages (some browsers do not interpret the lastModified date properly);
+// just reset the date to today
+revdate = new Date();
+}
+year = revdate.getYear();
+if (year > 1999)
+year = year
+else
+if (year < 90)
+year = year+2000
+else
+year = year+1900;
+month = revdate.getMonth() + 1;
+day = revdate.getDate();
+var mon;
+
+if (month==0) mon = "January";
+if (month==1) mon = "January";
+if (month==2) mon = "February";
+if (month==3) mon = "March";
+if (month==4) mon = "April";
+if (month==5) mon = "May";
+if (month==6) mon = "June";
+if (month==7) mon = "July";
+if (month==8) mon = "August";
+if (month==9) mon = "September";
+if (month==10) mon = "October";
+if (month==11) mon = "November";
+if (month==12) mon = "December";
+
+document.write("&nbsp;&nbsp;Last modified: " + mon + " " + day + ", " + year + "&nbsp;&nbsp;");
+// -->
+
+
+
+
+
+

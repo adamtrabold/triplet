@@ -1,0 +1,98 @@
+Figure 2H-1. Examples of Use of Educational Plaques, Prohibitory 
+Slashes, and Arrows
+This figure illustrates six examples of use of educational plaques, 
+prohibitory slashes, and arrows. The figure illustrates symbol signs 
+shown as square brown signs with white borders and symbols, and 
+educational plaques and arrow signs shown as horizontal rectangular 
+brown signs with white borders and lettering.
+Example (a), labeled "Directional sign with arrow," shows 
+a swimming symbol sign mounted above a left-pointing horizontal 
+arrow sign.
+Example (b), labeled "Directional signs with arrow," 
+shows a hiking symbol sign mounted above a sleeping shelter symbol 
+sign mounted above a left-pointing horizontal arrow sign.
+Example (c), labeled "Directional signs with arrows," 
+shows two separate sign assemblies: a trail bike symbol sign mounted 
+above a left-pointing horizontal arrow sign, and a four-wheel-drive 
+vehicle symbol sign mounted above a right-pointing horizontal arrow 
+sign.
+Example (d), labeled "Directional sign with secondary symbol," 
+shows a vertical rectangular sign with a parking symbol ("P") 
+in the top portion of the sign above a smaller amphitheater symbol. 
+To the right of the amphitheater symbol, a right-pointing horizontal 
+arrow is shown.
+Example (e), labeled "Management symbols with prohibitive 
+slashes and educational plaques," shows two separate sign assemblies: 
+a campfire symbol sign with a red diagonal slash across it from 
+top left to bottom right, mounted above a smaller horizontal rectangular 
+plaque with the words "NO CAMPFIRES," and a smoking symbol 
+sign (a cigarette) with a red diagonal slash across it from top 
+left to bottom right, mounted above a smaller horizontal rectangular 
+plaque with the words "NO SMOKING."
+Example (f), labeled "Directional sign with educational plaque 
+and arrow," shows an information symbol sign (a question mark) 
+mounted above a smaller horizontal rectangular plaque with the words 
+"VISITOR INFO," mounted above a right-pointing horizontal 
+arrow sign. 
+Back 
+to Chapter 2H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+US DOT Home | FHWA Home | MUTCD Home | Operations Home | Privacy Policy
+United States Department of Transportation - Federal Highway Administration
+
+
+<!--
+revdate = new Date(document.lastModified);
+if (revdate.getYear() == 69) {
+// workaround for .asp pages (some browsers do not interpret the lastModified date properly);
+// just reset the date to today
+revdate = new Date();
+}
+year = revdate.getYear();
+if (year > 1999)
+year = year
+else
+if (year < 90)
+year = year+2000
+else
+year = year+1900;
+month = revdate.getMonth() + 1;
+day = revdate.getDate();
+var mon;
+
+if (month==0) mon = "January";
+if (month==1) mon = "January";
+if (month==2) mon = "February";
+if (month==3) mon = "March";
+if (month==4) mon = "April";
+if (month==5) mon = "May";
+if (month==6) mon = "June";
+if (month==7) mon = "July";
+if (month==8) mon = "August";
+if (month==9) mon = "September";
+if (month==10) mon = "October";
+if (month==11) mon = "November";
+if (month==12) mon = "December";
+
+document.write("&nbsp;&nbsp;Last modified: " + mon + " " + day + ", " + year + "&nbsp;&nbsp;");
+// -->
+
+
+
+
+
+

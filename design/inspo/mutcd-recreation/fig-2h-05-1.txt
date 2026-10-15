@@ -1,0 +1,122 @@
+Figure 2H-5. Recreational and Cultural Interest Area Symbol Signs 
+(Sheet 1 of 5)
+This figure shows 129 recreational and cultural interest area symbol 
+signs. The figure is composed of five sheets. They are square brown 
+symbol signs with white borders and legends.
+
+Sheet 1 of the figure shows 25 signs.
+
+RG-010 is shown with a side view of a sedan. It is labeled "Automobile."
+RG-020 is shown with a side view of a bear with one front paw raised. 
+It is labeled "Bear Viewing Area."
+RG-030 is shown with a cross-section view of a vertical barrier 
+with five vertical waves to the left of the barrier and one to the 
+right. It is labeled "Dam."
+RG-040 is shown with a side view of a deer with antlers. It is 
+labeled "Deer Viewing Area."
+RG-050 is shown with a drinking glass with a wave at the top. It 
+is labeled "Drinking Water."
+RG-060 is shown with a symbol of a person standing with outstretched 
+arms inside of and touching one end of a spiraling square-shaped 
+line. It is labeled "Environmental Study Area."
+RG-070 is shown with an equilateral triangle with jagged discs 
+breaking off the right side. It is labeled "Falling Rocks."
+RG-080 is shown with a side view of a rifle. It is labeled "Firearms."
+RG-090 is shown with a side view of a fish. It is labeled "Fish 
+Hatchery."
+RG-100 is shown with a large question mark. It is labeled "Information."
+RG-110 is shown with a symbol of a person holding a leash attached 
+to a sitting dog. It is labeled "Leashed Pets."
+RG-120 is shown with a symbol of a lighthouse with an open door 
+on the right. It is labeled "Lighthouse."
+RG-130 is shown with a symbol of a person putting trash into a 
+container. It is labeled "Litter Container."
+RG-140 is shown with a roofed structure atop tall vertical supports 
+connected by a cross brace. It is labeled "Lookout Tower."
+RG-150 is shown with a symbol of a person walking between two horizontal 
+dotted lines. It is labeled "Ped Xing."
+RG-160 is shown with a diagonal arrow on the lower left pointing 
+up and to the right at a disc on the upper right of the sign. It 
+is labeled "Point of Interest."
+RG-170 is shown with a symbol of a ranger standing next to a building 
+that has a flag. It is labeled "Ranger Station."
+RG-180 is shown with a symbol of a horizontal cigarette with smoke 
+rising from the right end. It is labeled "Smoking."
+RG-190 is shown with a symbol of a box truck. It is labeled "Truck."
+RG-200 is shown with a small solid upside-down "U" within 
+an upside-down segmented U-shaped line. It is labeled "Tunnel."
+RG-240 is shown with a symbol of a standing dog. It is labeled 
+"Dog."
+RG-260 is shown with a symbol of a single propeller seaplane. It 
+is labeled "Seaplane."
+RM-010 is shown with a symbol of a tent. It is labeled "Camping 
+(Tent)."
+RM-020 is shown with a symbol of a camper trailer. It is labeled 
+"Camping (Trailer)."
+RM-030 is shown with a symbol of a car on a horizontal platform 
+atop a wave. It is labeled "Ferry."
+Continue to: Sheet 2 | Sheet 
+3 | Sheet 4 | Sheet 
+5  
+Back 
+to Chapter 2H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+US DOT Home | FHWA Home | MUTCD Home | Operations Home | Privacy Policy
+United States Department of Transportation - Federal Highway Administration
+
+
+<!--
+revdate = new Date(document.lastModified);
+if (revdate.getYear() == 69) {
+// workaround for .asp pages (some browsers do not interpret the lastModified date properly);
+// just reset the date to today
+revdate = new Date();
+}
+year = revdate.getYear();
+if (year > 1999)
+year = year
+else
+if (year < 90)
+year = year+2000
+else
+year = year+1900;
+month = revdate.getMonth() + 1;
+day = revdate.getDate();
+var mon;
+
+if (month==0) mon = "January";
+if (month==1) mon = "January";
+if (month==2) mon = "February";
+if (month==3) mon = "March";
+if (month==4) mon = "April";
+if (month==5) mon = "May";
+if (month==6) mon = "June";
+if (month==7) mon = "July";
+if (month==8) mon = "August";
+if (month==9) mon = "September";
+if (month==10) mon = "October";
+if (month==11) mon = "November";
+if (month==12) mon = "December";
+
+document.write("&nbsp;&nbsp;Last modified: " + mon + " " + day + ", " + year + "&nbsp;&nbsp;");
+// -->
+
+
+
+
+
+

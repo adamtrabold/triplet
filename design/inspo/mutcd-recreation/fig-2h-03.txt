@@ -1,0 +1,126 @@
+Figure 2H-3. Height and Lateral Position of Signs Located Within 
+Recreational and Cultural Interest Areas
+This figure illustrates height and lateral positions of signs located 
+within recreational and cultural interest areas. Four sign assemblies 
+are shown as square brown symbol signs with white borders and symbols 
+and horizontal rectangular arrow signs with white borders and arrows 
+on a brown background.
+The first sign assembly is labeled "Roadside Assembly Business 
+or Residence District." An amphitheater symbol sign is shown 
+mounted above a right-pointing horizontal arrow sign. The sign assembly 
+is shown placed to the right of a roadway with a curb. The distance 
+from the inside of the curb to the nearest edge of the sign assembly 
+is shown as a dimension of not less than 0.6 m (2 ft). The distance 
+from the bottom edge of the sign assembly to the ground is shown 
+as a dimension of not less than 2.1 m (7 ft).
+The second sign assembly is labeled "Roadside Assembly Rural 
+District." Two symbol signs are shown mounted next to each 
+other horizontally with associated directional arrow signs. On the 
+left, a trailer symbol sign is mounted above a left-pointing horizontal 
+arrow sign, and on the right a camping symbol sign is mounted above 
+a vertical upward-pointing arrow sign. The sign assembly is shown 
+placed to the right of a roadway with a paved shoulder but no curb. 
+The distance from the outside edge of the paved shoulder to the 
+nearest edge of the sign assembly is shown as a dimension of not 
+less than 1.8 m (6 ft). The distance from the bottom edge of the 
+sign assembly to the elevation of the roadway at the outside edge 
+of the paved shoulder is shown as a dimension of not less than 1.5 
+m (5 ft).
+The third sign assembly is labeled "Roadside Assembly Business 
+or Residence District." Three symbol signs are shown mounted 
+together in a triangular pattern, with associated directional arrow 
+signs. On the top of the assembly, a sailboat symbol sign is mounted 
+above an upward-pointing vertical arrow sign. Below and to the left, 
+a launch ramp symbol sign is shown mounted above a left-pointing 
+horizontal arrow sign. To the right of that, a rowboating symbol 
+sign is shown mounted above a right-pointing horizontal arrow sign. 
+The sign assembly is shown placed to the right of a roadway with 
+a curb. The distance from the inside of the curb to the nearest 
+edge of the sign assembly is shown as a dimension of not less than 
+0.6 m 2 ft). The distance from the bottom edge of the sign assembly 
+to the ground surface is shown as a dimension of not less than 2.1 
+m (7 ft).
+The fourth sign assembly is labeled "Roadside Assembly Rural 
+District." Four symbol signs are mounted together in a square 
+pattern with associated directional arrow signs. At the top left 
+of the assembly, a sledding symbol sign is shown mounted above an 
+upward-pointing vertical arrow sign. At the bottom left of the assembly, 
+an ice skating symbol sign is shown mounted above a left-pointing 
+horizontal arrow sign. At the top right of the assembly, a snowmobiling 
+symbol sign is shown mounted above an upward-pointing vertical arrow 
+sign. At the bottom right of the assembly, a ski jumping symbol 
+sign is shown mounted above a right-pointing horizontal arrow sign. 
+The sign assembly is shown placed to the right of a roadway with 
+a paved shoulder but no curb. The distance from the outside edge 
+of the paved shoulder to the nearest edge of the sign assembly is 
+shown as a dimension of not less than 1.8 m (6 ft). The distance 
+from the bottom edge of the sign assembly to the ground surface 
+below the center of the assembly is shown as a dimension of not 
+less than 1.5 m (5 ft).
+A note at the bottom of the figure states "See Section 
+2A.19 for reduced lateral offset distances that may be used 
+in areas where lateral offsets are limited, and in urban areas where 
+sidewalk width is limited or where existing poles are close to the 
+curb." 
+Back 
+to Chapter 2H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+US DOT Home | FHWA Home | MUTCD Home | Operations Home | Privacy Policy
+United States Department of Transportation - Federal Highway Administration
+
+
+<!--
+revdate = new Date(document.lastModified);
+if (revdate.getYear() == 69) {
+// workaround for .asp pages (some browsers do not interpret the lastModified date properly);
+// just reset the date to today
+revdate = new Date();
+}
+year = revdate.getYear();
+if (year > 1999)
+year = year
+else
+if (year < 90)
+year = year+2000
+else
+year = year+1900;
+month = revdate.getMonth() + 1;
+day = revdate.getDate();
+var mon;
+
+if (month==0) mon = "January";
+if (month==1) mon = "January";
+if (month==2) mon = "February";
+if (month==3) mon = "March";
+if (month==4) mon = "April";
+if (month==5) mon = "May";
+if (month==6) mon = "June";
+if (month==7) mon = "July";
+if (month==8) mon = "August";
+if (month==9) mon = "September";
+if (month==10) mon = "October";
+if (month==11) mon = "November";
+if (month==12) mon = "December";
+
+document.write("&nbsp;&nbsp;Last modified: " + mon + " " + day + ", " + year + "&nbsp;&nbsp;");
+// -->
+
+
+
+
+
+
