@@ -1,5 +1,114 @@
 # Notes: product designer (visual focus)
 
+## Where things stand (2026-10-15, round 3, after jam turn 13)
+
+I'm a new visual designer, picking up from these notes. The owner's reply
+to v4 (see `../../owner.md`):
+
+- **His rules:** places are solid and can sit in a stroked circle;
+  outlined = "not yet tapped by me" (Star, Visited); Visited is unchanged.
+- **His picks:** FG, CP and Spot work best. Timetable is off.
+- **The +:** it's now in the project ("everything is inconsistent").
+
+Systems opened round 3 in turn 12 (A outline reserved / B two registers /
+C circle does the work). I took turn 13 with three jam sketches, which are
+not owner cards:
+
+- `../concepts/sketches/r3-jam-1-blanks.png`: the law, and A vs B in the
+  tag strip and header.
+- `../concepts/sketches/r3-jam-2-places.png`: Specimen vs Roundel, all 11,
+  rows, map, chips, district/street circle vs diamond.
+- `../concepts/sketches/r3-jam-3-weight.png`: every line, today vs 1.5 vs
+  2.0.
+- Source: `../concepts/sketches/jam-r3-visual.html`. It's the first 336
+  lines of `attitudes-v4.html` (G sets + helpers) plus a round-3 block.
+
+To re-render:
+
+```
+NODE_PATH=/opt/node22/lib/node_modules node cards5.js <html> <outdir>
+```
+
+`cards5.js` was in the scratchpad: it screenshots each `.card` at DSF 3
+after `fonts.ready` plus 1.5s, and names the files `r3-jam-<n>-*.png`. The
+scratchpad doesn't survive a session, so here is the whole script:
+
+```
+const{chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:800},deviceScaleFactor:3});await p.goto('file://'+process.argv[2]);await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(1500);const n=['1-blanks','2-places','3-weight'];const c=await p.$$('.card');for(let i=0;i<c.length;i++)await c[i].screenshot({path:process.argv[3]+'/r3-jam-'+n[i]+'.png'});await b.close();})();
+```
+
+Round-3 code structure:
+- `u(px,size)`: on-screen px to viewBox units.
+- `TB` / `TA`: tool sets for B / A, drawn as `(size, px) => svg`.
+- `P1`: Specimen place glyphs (picked from G.F / G.C).
+- `P2`: Roundel close-ups, clipped by the rim at r = 12 − rim − 0.9.
+- `mark(kind, cat, size, {sel, rim, shell, row, g})`: draws circle or
+  diamond shells, the selected inversion (row → navy field, pin → ink
+  field), and the clip.
+
+### Turn-13 positions (mine, for the director)
+
+1. **A and B are one concept.** They differ in three icons only (account,
+   locate, directions). The law: **"the only empty shapes in the app are
+   the blanks you haven't filled"**. Tools can be lines, but any closed
+   shape in a tool has something solid inside it (solid account head,
+   solid locate dot, solid filter knobs, compass ring with its needle).
+   - A blank is the exact hollow of its done state: same silhouette, same
+     size, never scaled down. That's the railway-lamp logic.
+   - The open question: Directions as ring + needle (B, my lean) or a
+     solid turn arrow (A, "road paint"). The arrow says "turn right"
+     literally.
+2. **Kill C as a standalone.** The collision is in the tag strip, where no
+   place appears. Circle = a place stays as the shared rule.
+3. **Two place concepts that differ in kind:**
+   - **Specimen:** floats in the rim. Mix:
+     - CP silhouettes as the base.
+     - Spot primitives as the construction grid.
+     - FG cream inlay only where the object really has a second colour
+       (fork gaps, road centre line, district streets).
+     - One note of character per glyph.
+   - **Roundel:** the rim crops a close-up, like a coin or a porthole.
+     The owner has said yes to the crop elsewhere ("centered in the circle
+     even if it's slightly cut off").
+     - It's about 1/3 larger and the best-reading at 24px, but it's more
+       ink per pin.
+     - Some crops become other signs: area as "no entry" (redrawn as a
+       hatched coin, still weak), district as a crosshair (streets moved
+       off-centre), hotel as a half-moon (zoomed out).
+4. **District/street: circle, my lean** (against systems' diamond). In the
+   diamond the glyph shrinks to 0.6 and is the hardest to read. He wrote
+   "circle". Show both.
+5. **Weight: 2.00px on screen for every single line.** The FIXED check is
+   1.52px, but as a hollow bar it reads like a 2.0px line. At 1.5px the
+   star off goes weaker than the check, which is the 10-07 complaint
+   again.
+   - What moves: sort/filters/chevron 1.5 → 2, tag × 1.28 → 2, locate
+     2.08 → 2, directions 1.90 → 2, star off 1.67 → 2.
+   - The + and the account already sit at 2.00.
+   - Watch the tag × at 14px. If it gets loud, make it smaller, not
+     thinner.
+6. **Chips: bare, my lean.** The chip is the shell. Roundel's chip has to
+   carry a 16px roundel.
+7. **"Other" (a dot in a ring) reads as a selected radio button**, today
+   too. It's a phase-2 drawing fix.
+
+### Next
+
+The director steers turn 14. If Specimen and Roundel go forward, build
+the round-3 cards:
+- Today, Specimen and Roundel, plus a shared rules card (the law, systems'
+  "tapped by me" table, the weight still, the Directions question,
+  district/street circle vs diamond).
+- Each concept card covers jobs 5, 6, 9 and 11–13 (all 11, rows
+  plain/visited/selected + starred, tag strip, map, chips, header).
+
+Fix before the owner sees them:
+- Roundel's area and hotel drawings.
+- The "other" glyph.
+- An optional 12px cut.
+
+Then systems runs coverage.
+
 ## Where things stand (2026-10-14, after turn 11)
 
 Director round 2: FG 9, TS 8, brand card 8 (9 with the copy change), CP 7, so CP is dropped. Applied: the brand-card sentence and the TYPE label; TS account and directions are circles again; the TS tag off star is 23px; TS district is an outlined block cut by two streets (mask + clipPath in G.S.district); CP is off the side-by-side and onto the dropped card. Owner set = brand card, cards 0, 1, 3, 4, 5 (v4). v4-card-2 is a record only.

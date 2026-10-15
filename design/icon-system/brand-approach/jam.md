@@ -1562,3 +1562,232 @@ NEXT: product designer (visual focus) — push or kill the outline grammars
 (A reserved, B two registers, C the circle does the work) on look, decide
 how FG, CP and Spot mix in the place drawings, and say whether the
 line-weight still is worth adding.
+
+## Turn 13: product designer (visual focus), round 3
+
+This turn answers turn 12's NEXT: push or kill A / B / C on how they look,
+settle the FG / CP / Spot mix, and say whether the line-weight still is
+worth adding. I drew all three at real size before deciding anything. The
+sketches are 390 wide at 3x, so they're readable on a phone:
+
+- `concepts/sketches/r3-jam-1-blanks.png`: the tag strip today, under B and
+  under A, then starred, then the map buttons and list header in B and A.
+- `concepts/sketches/r3-jam-2-places.png`: the two place concepts below,
+  with all 11 at 24px, rows, the map, chips, and district/street in a
+  circle and in a diamond.
+- `concepts/sketches/r3-jam-3-weight.png`: every line at the size it
+  ships. Today first, then one rule at 1.5px, then one rule at 2.0px.
+- Source: `concepts/sketches/jam-r3-visual.html`. It has the v4 glyph sets
+  and helpers plus a round-3 block. Strokes are set in on-screen px with
+  `u()`.
+
+Real draws (python `secrets`). Oblique Strategies: **"Cut a vital
+connection"** and **"Use fewer notes"**. Borrowed fields: **road marking
+paint** and **railway signalling**.
+
+### 1. A and B are one concept. The law is "only blanks are empty"
+
+Once A and B were drawn side by side, they turned out to differ in **three
+icons**: account, locate and directions (plus how heavy the sort heads
+are). The +, ×, chevron and filter lines look the same either way, because
+a 2px bar and a 2px line are the same mark. By the round-2 rule ("if two
+look the same in a row, the tag and on the map, they're one"), A vs B isn't
+two concepts. It's one law with one question.
+
+Here's the law, sharpened from B. "Cut a vital connection" became: cut the
+link between *outlined* and *line*.
+
+> **The only empty shapes in the app are the blanks you haven't filled**
+> (star off, mark visited). Tools can be lines, but any closed shape in a
+> tool has something solid inside it.
+
+What that changes for the tools:
+
+- Account: a solid head with an open shoulder line. Today the head is an
+  empty ring.
+- Locate: a solid centre dot. Today it's an empty ring, and Field Guide's
+  version had a cream hole.
+- Filter knobs: solid. Field Guide's inlaid knobs had holes, so they go.
+- Directions: a ring with a solid needle. It already passes.
+- +, ×, chevron and sort: open lines. They already pass.
+
+Railway signalling backs this up from the other side. A signal lamp that
+isn't lit is still there, as an empty hood the same shape and size as the
+lit lamp. So a blank is **the exact hollow of its done state**: the same
+outline at the same size. The star off already is the hollow of the star
+on, and the mark-visited check is the hollow of the stamp's check. That's
+how it should stay. A blank is never drawn smaller than its filled form,
+so v4's Field Guide star off, scaled to .9, goes.
+
+**One question is left: Directions.** In the tag strip it sits next to the
+two blanks. There are two ways to draw it:
+
+- B: a ring with a needle. It's the app's own compass, it's never empty,
+  and it reads as a tool.
+- A, from road paint (the arrows painted on a road are solid; the empty
+  painted boxes are the bays waiting for a car): a solid turn arrow.
+
+On sketch 1, A's arrow is clear, but it says "turn right", a literal
+instruction, where the app means "get directions". It's also the only
+solid navy thing beside a star that fills in solid when you tap it. I lean
+B. A's solid account bust in the navy scallop does look good, though. I
+think that's worth one line in front of the owner, not a concept of its
+own. This is an opinion, not a fault in A.
+
+### 2. Kill C as a standalone. Keep the circle as the place shell
+
+The collision turn 12 found is in the tag strip: Directions, Star, Mark
+visited. No place appears there, so a circle can't fix it. C's promise that
+"tools can be anything" breaks exactly where it was needed. The circle
+stays in every concept, because he said places "can be inside a stroked
+circle", and the row badge and the pin already are one. I'd make
+**circle = a place** (turn 12 §4) a rule.
+
+### 3. Places: two concepts that differ in kind
+
+Turn 12 asked that concepts not differ "only in how a cup is cut", and I
+agree. FG, CP and Spot drawn as three cards would look like one card at
+18px; the director already ruled that CP looks like FG in the row, the tag
+and the map. Now that the circle is in, the thing that does differ in kind
+is **how the place sits in its circle**.
+
+**Concept 1: Specimen.** The solid place floats inside the rim, with paper
+all round it. The mix follows "Use fewer notes": each glyph gets one note
+of character, never two.
+
+- **Base:** Cut Paper's silhouettes. The scissors are in the outline: the
+  cup's flared lip, the scalloped tree, the bag's curved top.
+- **Construction:** Spot's primitives as the phase-2 grid (circles,
+  straight cuts, few nodes). That's how they get drawn, not a look.
+- **Inlay:** Field Guide's cream inlay only where the object really has a
+  second colour: the gaps in a fork, a road's centre line, a district's
+  streets. Road paint again: an inlay is paint that's really there. The
+  café's steam and the bag's rivets go.
+- In the sketch: restaurant, district and street are FG; the other eight
+  are CP; "other" is a plain solid dot.
+
+**Concept 2: Roundel.** The circle is the scissors. Each place is a
+close-up cropped by the rim, like a coin die or a porthole: the bowl of a
+glass with its stem running out the bottom, a tree with its trunk cut off,
+a district as a fragment of a street map. He has already said yes to the
+crop ("I want it centered in the circle even if it's slightly cut off").
+It's the purest form of "solid places inside a stroked circle", with the
+frame doing Cut Paper's cutting.
+
+What the sketch shows at phone size:
+
+- Roundel's glyphs are about a third bigger at the same 24px, so they read
+  better. Bar, nature, café, restaurant and street are the best icons on
+  the page.
+- It puts more ink in every pin. On the map that cuts against "too noisy".
+- Some crops turn into other signs:
+  - A diagonal slash for area read as "no entry". I redrew it as a hatched
+    coin, which is better but still weak.
+  - The first district looked like a crosshair, so I moved its streets
+    off-centre.
+  - The first hotel looked like a half-moon, so I zoomed it out.
+- Every Roundel drawing has to pass a "what other sign is this?" test.
+  Specimen doesn't carry that risk.
+- Specimen is calm and closest to what he picked. Roundel has the most
+  character.
+
+I'd take **both** forward as round 3's "more than one concept". The law
+(§1), the circle and the weight (§5) are shared. That way the two concepts
+differ only in the drawing, which is where his choice really is.
+
+One thing turned up in both: **"other" as a dot in a ring reads as a
+selected radio button.** It does today too. It's a phase-2 drawing fix (an
+asterisk or a solid diamond, for example). I'm naming it, not solving it.
+
+### 4. District and street: circle (my lean, against turn 12's diamond)
+
+Sketch 2's first strip shows district and street in the circle, then in
+the diamond. To fit the diamond, the glyph has to shrink to about 0.6
+scale, because the diamond's inscribed square is smaller. That makes them
+the two hardest icons in the row to read. Why I lean circle:
+
+- He wrote "circle".
+- He asked for fewer variations.
+- The drawing inside already says "area" (a block cut by streets, a road).
+- Shapes have no map pin ("just the area box"), so the diamond only ever
+  shows up in rows.
+
+That's an opinion, so both stay in front of him, with the circle as our
+recommendation. The plan-stop shell follows whichever wins.
+
+### 5. Line weight: the still is worth it, and it argues for 2.00px
+
+Sketch 3 shows every line at its ship size. Today they run from 1.28px
+(the tag's ×) to 2.08px (locate). The surprise is the FIXED check. At
+1.52px it's a hollow bar, with two edges close together, so **it reads as
+heavy as a 2.0px single line**, not a 1.5px one.
+
+- In the 1.5px column, the star off goes weaker than the check. That's the
+  10-07 complaint ("checked stronger than open") all over again.
+- In the 2.0px column, the star off, the check and the tools sit together
+  as one family.
+
+My proposal: **one line weight, 2.00px on screen, for every single line**:
+tools, the +, the account, the rims, and the star off (1.67 → 2.00). The
+check stays fixed and already matches by eye, so the blanks follow the
+system rule and the check doesn't force it.
+
+What moves:
+
+| Icon | Today | Proposed |
+|---|---|---|
+| Sort, filters, chevron | 1.50px | 2.00px |
+| Tag × | 1.28px | 2.00px |
+| Locate | 2.08px | 2.00px |
+| Directions | 1.90px | 2.00px |
+
+The + and the account are already 2.00px, so they don't move. At 2.00px
+the header tools are still lighter than its 14.5px bold caps title, so
+"tools stay quiet" holds. One thing to watch: the tag × at 2.00px and 14px
+gets louder. If it does, the fix is a smaller ×, not a thinner line. A
+heavier cut for 12px (the chips) is phase 2.
+
+### 6. Chips: bare (my lean)
+
+The rim reads in a 16px chip, but a chip is already a box. A ring inside a
+box is "containers add ink". A chip is a filter, not a place, so the chip
+itself is the shell. Sketch 2's last block shows all three versions.
+Roundel can't go bare, because the crop needs its frame, so in Roundel the
+chip carries the 16px roundel. That's one more cost to put on its card.
+
+### 7. Feel
+
+Nothing new in motion. Star off → on is the same outline filling with ink
+(the Pencil Star, shipped). Mark visited → the stamp (FIXED). The law in §1
+is what makes the fill legible: only an empty shape can fill.
+
+### Proposed round-3 set (for the director)
+
+Today (for reference), **Specimen** and **Roundel**, plus one shared rules
+card. The rules card holds:
+
+- the law in plain words
+- systems' "tapped by me" table
+- the weight still (today → 2.00)
+- the Directions question for the tag strip (ring or arrow)
+- district/street in a circle vs a diamond
+
+Each concept card covers jobs 5, 6, 9 and 11–13: all 11 categories, rows
+(plain, visited, selected + starred), the tag strip, the map, chips and the
+header.
+
+### Open questions
+
+1. Directions in the tag: ring + needle (B, my lean) or a solid arrow (A)?
+2. District/street: circle (my lean) or diamond? Show both.
+3. Chips: bare (my lean) or in a rim?
+4. Roundel's "what other sign is this?" risk: carry it to the owner, or
+   should the director kill it now? I'd carry it. It's the only concept
+   that differs in kind from Specimen.
+5. The tag × at 2.00px: make it smaller, or let it keep a lighter line?
+   Measure in phase 2.
+
+NEXT: design director — steer round 3. Take Specimen and Roundel forward
+on the shared law ("only blanks are empty"), the circle and the 2.00px
+weight. Rule on the Directions question and on district/street. Then
+systems runs coverage against jobs 1–13 on the built cards.
