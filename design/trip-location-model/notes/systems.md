@@ -1,0 +1,12 @@
+# Systems designer notes: trip / city / place model
+
+## Turn 1 (2026-10-15)
+- Jobs 1-12 written from owner.md first (jobs 9-12 inferred).
+- The key question: where does "the city I think of it with" come from? A choice / a rule / a tag / the moment of adding / an existing object.
+- Ideas I1-I9: chosen home (minimal; = 12c), also-known-as (ZIP: additive aliases), catchments (edit the area), bases (go-from; trip = ordered bases; legs for in-between), route (trip as a line; places snap to a stop or leg), around-not-in (Voronoi of your cities; zero filing), provenance (home = the city you were viewing when you added it), plans-as-groups (collections; many-to-many), two lenses (mental lens + real-city chips nested; likely constant).
+- RNG: watersheds, ZIP vs mailing names, genealogy trees; Oblique "Is there something missing?" (→ bases), "Change nothing…" (→ I1).
+- Early lean: I7 + I2 + I9 (lowest friction); I4/I5 truest to trips but cost setup; I6 automatic with a failure case.
+- Open for the director: trip as a container now; many-to-many; keep 3-4 concepts differing in the source of home.
+- History: the add-button work's workflows.md / Round 12c / the app map artifact are one idea (I1), not the answer.
+- Scope widened by the owner ("rev the app workflow as a whole … make sure it all sings"): today's app is the baseline to question. Added app shapes S1 lens (breadcrumb trip › city runs map/list/+), S2 route spine (the list is the trip; sections per stop, legs; the map follows scroll), S3 trip home → city (two levels), S4 atlas (the map navigates; "X & around"; questions the CLAUDE.md viewport rule, flagged). Each must also revise the tag, add, plans, past trips.
+- Owner: sketch level only; the model, not UI. Jam turn 1's NEXT reworded (visual: sketch-level reactions to I1-I9 / S1-S4, no stills).

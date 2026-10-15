@@ -8,3 +8,13 @@
 > i expect many ideas here, not a hard recommendation, unless they have one that is completely obvious and stands out meaningfully against the others.
 
 Earlier, in the + placement work (design/add-button-placement/owner.md): "You're taking me to literal on the suburb use case — backing way out I need to be able to include a place in a city that does not match how I'm thinking about the trip which may be a city name or something else. Right now it's by city name. This is separate from filters which should have a filter by city." · Answers: editing a place = future; no save without an explicit ADD; hold-to-place = future (real maps/iPhone app).
+
+2026-10-15:
+> i want to be clear, im wanting to rev the app workflow as a whole not just fit in new ideas. i want to make sure it all sings.
+
+Scope: a revision of the whole app workflow around the model, not new ideas slotted into today's app.
+
+2026-10-15:
+> i dont want full on visuals -- i just want sketch level thought here -- the model is what to nail right now not ui
+
+Fidelity: sketch-level only; nail the model, not UI.
