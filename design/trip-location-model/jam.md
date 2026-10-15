@@ -2310,3 +2310,82 @@ No new rules.
   size.
 
 NEXT: orchestrator — send the overview and Q1-Q6, Q8.
+
+## Turn 23 -- product designer (systems focus): the owner's reframe (city buckets, trip tags)
+
+The owner, after seeing the three-model overview (verbatim):
+
+> "ok re trips im actually coming to a realization. really what i need is
+> a way to group cities.. something more conceptually like a tag that
+> creates the conceptual connective thread. cities should probably
+> continue to operate as today — where they are something set based on
+> location of a pin (or somehow manually...i dont think i can do that
+> today). items can also be outside of that city today and still be
+> considered part of that city... in this mental model the city is more
+> of a bucket than an actual city — i'd think about it like "the
+> copenhagen part of the trip" or "im going to LA"... sometimes that's
+> the whole of the trip, sometimes that's part of a larger trip... i
+> should be able to somehow group cities together into a meta-trip and
+> then show / hide on the map based on that"
+
+Fact: the City select is auto-guessed from the pin and can be overridden
+at add (`userOverrodeCity`); nothing changes after adding.
+
+**The new model** (`concepts/5-city-buckets-trip-tags.md`). It has
+three rules and no plumbing:
+1. Every place is in one city bucket: guessed from the pin, overridable
+   at add (as today), and it can hold places outside its real bounds.
+2. A trip is a tag on cities, made whenever you like, after logging.
+   It's optional.
+3. Showing a trip shows its cities' places, in the list and on the map
+   together (it's a filter); hiding it hides them.
+
+**The open questions, answered at sketch level:**
+- **Made without setup:** nothing needs a trip, so logging is exactly
+  today's. Tagging is admin, but after the places.
+  - One optional default (Q-A, we think yes): a city created while
+    you're looking at a trip joins it.
+- **A city in several trips:** yes, it's a tag.
+- **A city outside every trip:** a plain city, as today.
+- **The city filter:** stays, one level below the trip.
+- **Plans:** unchanged; a trip shows the plans with a stop in its
+  cities.
+- **Show/hide:** it's a filter, so the list and the map move together
+  (the CLAUDE.md rule), never map-only.
+
+**Kept and dropped:**
+- **Kept:**
+  - the real town on each place (stored, for job 6 later);
+  - places-first;
+  - and possibly "nearest city within about a day trip" as the add-time
+    guess, stated as the guess itself, never hidden (Q-B, we think
+    yes).
+- **Dropped:**
+  - figures, anchors, town memory and town fixes;
+  - automatic trips, continents, splits, merges and the time gap;
+  - On the way and the border;
+  - stays and order, which are parked.
+
+**The prices:**
+- A wrong city can't be fixed after adding until place edit exists.
+  That's now the model's one missing piece, and the owner named it.
+- A repeat trip to the same city shows the old places too, unless the
+  owner makes a separate bucket ("Copenhagen 2028").
+- Tagging is a manual, after-the-fact step.
+- One bucket per place (Kastrup is in Copenhagen or Malmö, not both).
+
+**Owner questions:**
+- **Answered by the reframe:** Q1, Q2, Q5, Q6 and Q8.
+- **Parked:** Q3 and Q4 (stays, order).
+- **New:**
+  - Q-A: does a new city join the trip you're looking at?
+  - Q-B: should the city guess be the nearest city within a day trip?
+  - Q-C: can several trips show at once? We think yes.
+
+**Not done:**
+- jobs.md and the overview still describe concepts 1-3. They need
+  rescoping to this model once the director scores it.
+- Concepts 1-4 are left as the record.
+
+NEXT: director — score concept 5 against the owner's words and
+places-first, and rule on Q-A/Q-B/Q-C before any jobs.md rewrite.
