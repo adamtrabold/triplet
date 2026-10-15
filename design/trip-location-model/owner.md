@@ -18,3 +18,13 @@ Scope: a revision of the whole app workflow around the model, not new ideas slot
 > i dont want full on visuals -- i just want sketch level thought here -- the model is what to nail right now not ui
 
 Fidelity: sketch-level only; nail the model, not UI.
+
+2026-10-15:
+> we also need to think about how these things are created. e.g. if we have a trips model how do i create that -- i do not want someone to have to manually do a bunch of shit to set up a thing before they just start getting to logging the places they want to go
+
+Constraint: creation must be near-zero setup — no manual setup before logging places; trips/cities/etc. should come into being as a by-product of adding places (or with minimal friction).
+
+2026-10-15:
+> the philosophical approach should be places-first; immediately doing the thing you actually want to do not the adin
+
+Principle: places-first — you immediately do the thing you want (log/see places), not the admin ("adin" = admin). Structure (trips, cities, groups) follows from places, never ahead of them.

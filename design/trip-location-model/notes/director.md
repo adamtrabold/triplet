@@ -29,3 +29,49 @@
   order/dates; one trip at a time.
 - **Next:** systems pass 2 (the jobs plus the Øresund / airport /
   day-trip cases, and what each stores).
+- 2026-10-15: owner added places-first (no setup before logging places). It governs the model pick. Systems' turn 4 adds D (by region). Waiting on systems' handover.
+
+## Jam closed -- turn 6 (2026-10-15)
+
+### Rulings
+- **Verdicts:** A, D pass; C conditional; B fails (his test, not our
+  taste).
+- **A + D merged** into "a rule that remembers":
+  - nearest first, then a per-real-city memory;
+  - a real city can sit in two figures;
+  - the group-level "belongs with…" replaces the per-place see-also;
+  - cost: no single-place exception (an owner question).
+- **C** is an optional stays layer (it appears only once a hotel is
+  logged; dates are never asked).
+- **B** is kept only as the "today" reference.
+- **Accepted:**
+  - "On the way";
+  - the 2-place city threshold (the number is our opinion);
+  - nothing structural asked at add (a constant);
+  - the "no trip container" model as concept 3;
+  - a quiet new trip with an after-the-fact correction, plus trip merge
+    as the safety net.
+
+### Concepts
+1. The rule that remembers.
+2. 1 + stays.
+3. No trip container.
+Plus the B reference.
+
+We think 1 is strongest. It's sent as an opinion, not as the only
+option.
+
+### Owner questions (7)
+1. Fix the rule vs. one place.
+2. One place under two cities.
+3. Hotels as places or frame.
+4. Order/dates.
+5. One trip vs. everything.
+6. A quiet new trip.
+7. The threshold of 2.
+
+### Prerequisite
+The real-city backfill.
+
+### Next
+Systems writes jobs.md.
