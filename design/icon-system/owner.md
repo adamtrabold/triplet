@@ -47,3 +47,8 @@ Direction: Constructed (built, on the grid) is the direction, with warmth from s
 > The scoring rewarded novelty. ... -- this is a good point. im wondering if built in context of the rest of the app still feels novel -- e.g. the idea of a vintage travel theme -- or if we should push some more. something to consider but not lock on.
 
 Direction: whimsy IS wanted; the hand-made directions were cut on execution risk, not on idea. Built can and should still be whimsical; craft matters most. Open (consider, don't lock): does built still feel novel in the context of the app's vintage-travel theme, or should it be pushed further?
+
+2026-10-15, correcting the orchestrator's summary rule ("Clarity comes first; warmth comes from subtle rounding, never a hand-made look"):
+> this is a bad rule. clarity comes first is great. subtle rounding is a place where warmth can come from. "never a hand made look" is bad. i dont want to say never to that and handmade can come from many angles -- construction method, textural approach, the inkblot thing, etc.
+
+Direction: clarity first stands. Subtle rounding is one source of warmth among others. Hand-made is not ruled out; it can come from construction method, texture, or the ink-blot (stamp/bleed) idea. The 2026-10-15 "Specimen and the hand-cut looks are out" line above means those specific executions, not hand-made as a whole.

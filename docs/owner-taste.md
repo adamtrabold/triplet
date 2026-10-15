@@ -140,16 +140,17 @@ sources are the file where the quote is recorded.
   pin/place icons need to be solid and outlined icons should be used when
   something has yet to be tapped by me like Star and visited ... and they can
   be inside a stroked circle" (2026-10-14; `design/icon-system/owner.md`).
-- **Clarity first; warmth comes from subtle rounding, not a hand-made look.**
-  "the clarity is best with built. i think through subtle rounding, etc. we
-  can get some of the warmth / mimicry of the inspo / vintage roadtrip
-  brochures/pamphlets/ etc. the rest risk feeling amateurish." Hand-cut or
-  hand-drawn looks read as amateurish to him; vintage = precise printed
-  pictograms, softened (2026-10-15, picking Constructed over Specimen;
-  `design/icon-system/owner.md`). Whimsy is still wanted: "i do think whimsy
-  is totally great; there is not one correct way to show whimsy though and
-  the craft matters most ... i do think built can still be whimsical." The
-  hand-made directions were cut on execution risk, not on idea.
+- **Clarity comes first; craft matters most.** "the clarity is best with
+  built. i think through subtle rounding, etc. we can get some of the warmth
+  / mimicry of the inspo / vintage roadtrip brochures/pamphlets/ etc. the rest
+  risk feeling amateurish." Subtle rounding is one source of warmth, not the
+  only one. Hand-made is NOT ruled out: "i dont want to say never to that and
+  handmade can come from many angles -- construction method, textural
+  approach, the inkblot thing, etc." Whimsy is wanted: "i do think whimsy is
+  totally great; there is not one correct way to show whimsy though and the
+  craft matters most ... i do think built can still be whimsical." Field
+  Guide / Cut Paper / Specimen were cut on execution risk, not on idea
+  (2026-10-15; `design/icon-system/owner.md`).
 - **Same icon drawing language everywhere.** "Checkmark was only supposed to
   be lightly rounded like the rest of the icons" ; "we need to do an icon
   pass on the rest at some other time" (chat).
