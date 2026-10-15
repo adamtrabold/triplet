@@ -32,3 +32,6 @@
 
 ## 2026-10-15 — round 11 sent
 - C tag 70x43 orange 9 (2.12x account, 1.58x Float); cream/orange end 0.59x (cost line). Sent C0, K1, C2, K2, S1. Visited-while-adding not re-asked (director).
+
+## 2026-10-15 — round 11b sent
+- Upright 36x58 orange 9 (1.45x account, 1.08x Float; 3 rows kept with gap 90). Sent V2, V7, V5.
