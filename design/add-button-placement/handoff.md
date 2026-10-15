@@ -393,3 +393,22 @@ to `width/height 26.4` and `stroke-width 1.8182`. Do that in the initial
      of what the owner approved, so **build/17 goes in the stills he sees
      before landing**, with one line: "On the computer the form now opens
      at the bottom, beside the +."
+
+## Director answers, review round (2026-10-15)
+
+1. **Sort menu open: one tap.** The spec means it. Tapping + closes the
+   sort menu and opens the form in the same tap. The badge sits above
+   the sort scrim, or the scrim passes taps at the badge's box through.
+   Not a cost line.
+2. **Screen reader:** when open, the label is "Close add form", with
+   `aria-expanded="true"` (and `aria-controls` pointing at the form). At
+   rest it stays "Add a place", with `aria-expanded="false"`. This
+   follows the visible +/× swap.
+3. **The list band's ▲ while adding: allow it** (as built). It works:
+   the form shrinks and scrolls, and the badge rides with it.
+   - Hiding it would make a control vanish ("controls don't move"), and
+     disabling it would add a state for nothing.
+4. **Desktop tag gap: apply 88 only where the tag could overlap the
+   badge.** That's when the tag's horizontal span crosses the badge's
+   box. Otherwise use the old 48. Every desktop tag shouldn't lose 40px
+   for a badge in the corner.
