@@ -105,3 +105,8 @@ Pick: band 12 (eyelet ring straddling the band edge is GOOD, not a flaw). Next: 
 
 Approved: Float (the badge) — orange scalloped badge, navy +, bottom-left ("for now"). Reason: the circle relates to the (pin) icon; what you add is a pin, not a tag. C (tag-as-button) set aside. Open: whether the approval covers the round-10 blank-tag form too (asked).
 (Owner correction: "bottom" in the decision above was meant as "button".)
+
+2026-10-15:
+> Just button for now now let’s solidify the blank tag. What’s the latest? I’ve lost it
+
+Scope: handoff/build = the badge button only (opens today's add form). Then the blank-tag form continues as its own design work.
