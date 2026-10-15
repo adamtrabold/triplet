@@ -146,3 +146,8 @@ Owner YES: land plus-badge-build on main. Filter-chip question not answered (sta
 > for 1 let's push the + up with the panel
 
 Tweak: when the filters panel opens, the + rides up with it (sits above the panel's top edge, as it sits above the list), so it stays visible and the chips are never under it.
+
+2026-10-15, on the filters/+ options:
+> filter panel should change height and scroll
+
+Pick: option 2 — cap the filters panel height (it scrolls inside) so the + always fits above it and rides up with it.
