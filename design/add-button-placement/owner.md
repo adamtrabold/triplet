@@ -141,3 +141,8 @@ Reframe: the grouping a place is filed under = how the owner thinks about the tr
 > ok sweet. badge is good to go now im looking at the rest
 
 Owner YES: land plus-badge-build on main. Filter-chip question not answered (stays as built; logged open).
+
+2026-10-15, on the filter-chip question (F1):
+> for 1 let's push the + up with the panel
+
+Tweak: when the filters panel opens, the + rides up with it (sits above the panel's top edge, as it sits above the list), so it stays visible and the chips are never under it.
