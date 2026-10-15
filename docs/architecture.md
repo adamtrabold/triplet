@@ -432,9 +432,11 @@ browser (CLAUDE.md, "Environment constraints").
 > **Not built.** Nothing below exists in `index.html` or the database.
 
 Source: `design/trip-location-model/concepts/5-city-buckets-trip-tags.md`
-and the owner's words in `design/trip-location-model/owner.md`. As of
-2026-10-15 these two files were in the owner's working checkout but not yet
-on `main`. The older `design/trip-location-model/proposal.md` is on main.
+and the owner's words, verbatim, in `design/trip-location-model/owner.md`
+(the last answers are at the end). The rest of that folder is the working
+record: concepts 1–4 are kept "in case the owner ever wants trips to form by
+themselves", along with `jobs*.md`, `jam.md` and `notes/`. The older
+`proposal.md` is the "widen search on a miss" decision, which shipped.
 
 **Today:** a place's City is auto-guessed from where the pin is (bbox match,
 see §3). It can be overridden only in the add form (`userOverrodeCity`) and
@@ -504,6 +506,6 @@ Things that bite and aren't obvious from the code alone:
   listener on Leaflet's `popupPane`, so don't attach per-button listeners.
 - **Everything in `docs/` is measured in Chromium only.** Safari and iPhone
   behaviour is unverified until the owner checks it.
-- **CLAUDE.md is stale on Plans.** Its "Current priorities" still calls Plans
-  "not merged". `docs/shipped.md` (2026-10-15) says it's on main with the
-  tables live, which matches `index.html`.
+- **Plans is on main.** The tables exist live (`docs/shipped.md`, update of
+  2026-10-15). The older shipped-entry lines that say "not merged" are
+  superseded.
