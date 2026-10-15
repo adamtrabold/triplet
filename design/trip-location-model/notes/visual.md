@@ -37,3 +37,28 @@
   - the airport across several cities;
   - real-city chips alongside In/From.
 - **Next:** the director picks; then concepts at sketch fidelity.
+
+## 2026-10-15, jam turn 5 (places-first)
+- **New owner rules:**
+  - no setup before logging;
+  - "places-first; immediately doing the thing you actually want to do
+    not the adin".
+- **First-run sketch, for every passing model:**
+  - empty = map + list + "+ to log one";
+  - the city appears with its first place;
+  - the trip appears at the second city, named from its countries;
+  - renaming is optional.
+- **A far-away place** starts a new trip silently. The new tag prints
+  "New trip · United States", with "Keep in …" as the stub's other half
+  (an after-the-fact correction; owner question).
+- **Proposed:**
+  - merge A + D into "a rule that remembers": nearest, plus a
+    per-real-city "belongs with…" on the From sub-heads; this retires
+    N2's per-place see-also;
+  - C becomes an optional stays layer (it switches on when a hotel is
+    logged);
+  - kill B as a live concept (keep it as the "today" reference);
+  - add a "no trip container" model to test owner question 5;
+  - "On the way" for far-from-any-figure places;
+  - a new city needs 2 places (an opinion, a fixed rule).
+- **Next:** the director rules.

@@ -857,3 +857,146 @@ NEXT: design director — decide whether D joins A, B and C (four kinds),
 and whether A gets a fixed "On the way" reach. Then concepts start:
 visual's sketch of the three views per model, and my per-model flows
 (add, the lens, plans) written up.
+
+## Turn 5 -- product designer (visual focus): places-first, felt from the first open
+
+Owner, verbatim:
+- "i do not want someone to have to manually do a bunch of shit to set up
+  a thing before they just start getting to logging the places they want
+  to go";
+- "the philosophical approach should be places-first; immediately doing
+  the thing you actually want to do not the adin".
+
+Sketch level only. Judgments below are my opinions, not facts.
+
+### The first five minutes, the same for every model that passes
+
+Ideally nothing on screen says "trip" or "city" until places have made
+them.
+```
+ open (empty)            log 1st place             log a place in Grindavík      log a place in Copenhagen
+┌─────────────────┐     ┌─────────────────┐       ┌─────────────────┐           ┌─────────────────┐
+│ map             │     │ map, 1 pin       │       │ map, 2 pins      │           │ map              │
+│              (+)│ ──▶ │                  │  ──▶  │                  │   ──▶     │                  │
+├─────────────────┤     ├─────────────────┤       ├─────────────────┤           ├─────────────────┤
+│ YOUR PLACES (0) │     │ REYKJAVÍK (1)    │       │ REYKJAVÍK (1)    │           │ ‹ Iceland & Denmark│
+│ + to log one    │     │  Hallgrímskirkja │       │ ─ FROM REYKJAVÍK ─│           │ COPENHAGEN (1)   │
+└─────────────────┘     └─────────────────┘       │  Blue Lagoon     │           └─────────────────┘
+                                                   └─────────────────┘
+```
+- **What you see first:** the map, the list and the +. There's no picker,
+  no "new trip" and no onboarding.
+  - Empty, the list's one line is print: "+ to log one".
+  - The search is worldwide, because there's no trip to scope it.
+- **The city appears the moment a place lands:** the header names it.
+  **The trip appears only once there are two cities:** that's when the
+  "‹" step back has somewhere to go.
+  - The trip's name is generated from its countries ("Iceland",
+    "Iceland & Denmark").
+  - Renaming it "Scandinavia 2026" is the only admin, and it's optional,
+    whenever.
+- **A far-away place starts a new trip without asking.** The tag you've
+  just added prints it, on the tag itself, after the fact:
+  `New trip · United States`, with `Keep in Iceland & Denmark` as the
+  stub's other half.
+  - That's a correction after the thing you wanted, never a question
+    before it. It sharpens Turn 4's "Start a new trip?" into a non-question.
+  - Owner question: is an after-the-fact correction acceptable here,
+    given that edit is future? It's on the tag only while it's open.
+
+### Each model through that lens
+
+**A · rule ("From"). Pass, and it *feels* like nothing.**
+- The Blue Lagoon just shows up under "From Reykjavík" on the first log,
+  with no moment of filing. That's the whole pitch.
+- Where it feels wrong is when a place flips sides near a midpoint
+  (Lund), and you can't do anything about it. Without edit, that's a
+  shrug.
+
+**D · region sets. Pass, and I'd merge A into it.**
+- At the first open it's indistinguishable from A. The difference only
+  appears when the rule is wrong, and then the fix is **beside the
+  places, not in a settings screen**:
+  - in "From Malmö", the places group by real city, under quiet print
+    sub-heads;
+  - a sub-head carries one printed action, `Lund · 3  — belongs with…`.
+  ```
+  ── FROM MALMÖ ───────────────
+     Lund · 3               belongs with…
+       Lund Cathedral
+       …
+  ```
+  That's one tap, once, for every Lund place, past and future. It's
+  places-first, because you fix it while looking at the places.
+- **Push: A and D are one concept, "a rule that remembers".**
+  - "Nearest" (A) is how a new real city gets its first figure.
+  - D's per-region memory is how you overrule it.
+  - Two concepts that differ only in whether the correction exists would
+    waste the owner's attention.
+  - Call it **A/D**. The see-also per place (N2) can then retire: a
+    region correction does its job without a control on the tag.
+- The cost: the backfill (0 of 202) is a prerequisite, and an
+  uneven-sized municipality can be coarse. Jönköping still needs a
+  "between" (below).
+
+**C · anchors. Keep as a layer, not a model.**
+- Through places-first, "log your hotel" is closer to admin than to "a
+  place I want to go". The owner said hotels may be a frame (owner
+  question 3, still open).
+- **Reshape:** C becomes an **optional layer on A/D**. Nothing changes
+  until a place in the Hotel category is logged. Then:
+  - its city gets a base mark in the trip lens;
+  - the trip's sections take the hotels' order;
+  - places in between get legs.
+- You never set it up; it only reacts. If he never logs a hotel, he never
+  sees it.
+- That keeps job 9 (places in between) answerable without making it a
+  condition.
+
+**B · one home. Kill as a live concept (keep it as the "today" reference).**
+- On every add the tag carries a pre-filled home you're meant to check,
+  and it's wrong whenever you add outside the city on screen.
+- That's filing at the moment he said he wants to "immediately do the
+  thing". With edit being future, a wrong home is permanent.
+- Showing it as a concept invites a choice we already know fails his
+  rule. It can stand as the "this is what today is" column in the send.
+
+### Sharper ideas that came from this
+
+- **"Between" without hotels (for A/D's Jönköping):** when a place is far
+  from every figure but inside the trip's spread, it files under
+  `On the way` in the trip lens, as a section of its own. There's no
+  leg logic, just "not near any of your cities yet". Log a second place
+  there and it becomes a figure itself.
+- **The header names a city only when the places made it one.** One
+  place in Jönköping doesn't add a "Jönköping" city to the cities
+  sheet; two do. The threshold is a fixed app rule, not a setting (owner:
+  no distance setting). It's my opinion of the number, not a measured
+  one.
+- **Nothing structural is ever asked for at add.** At add, the tag
+  shows only what the place *is*: name, address, type, pencil notes.
+  Figures and trips are shown on the tag *after* ADD, as print.
+
+### What I'd take to concepts (for the director)
+
+1. **A/D**, a rule that remembers: nearest, plus a per-real-city
+   correction beside the places.
+2. **A/D + the stays layer (C)**: the same, plus bases, order and legs
+   that switch on when you log a hotel.
+3. A deliberately different one, to keep the set honest: **N4 relaxed**,
+   all your places at once.
+   - No trip container: trips are just the "figure of figures" the app
+     clusters by distance.
+   - It tests owner question 5 ("one trip at a time, or everything at
+     once?"). It's places-first in the extreme: there's no trip object
+     at all.
+4. **B** only as the "today" reference column.
+
+Open (owner questions):
+- the after-the-fact "New trip" on the tag;
+- the two-places threshold for a new city;
+- whether hotels are places or the frame.
+
+NEXT: design director — rule on merging A and D, on C as a layer, on
+killing B as a live concept, and on adding the "no trip container"
+model; then concepts at sketch level.
