@@ -1391,14 +1391,27 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     - The + rides the panel's top edge (`body.add-rides-filters`,
       `--filters-lift` = the panel's height; the same 15.22 gap and 0.3s ease)
       whenever its box clears the zoom/account row by 12, decided live by
-      `syncFiltersLift()`. Otherwise the panel covers it, as before.
+      `syncFiltersLift()`.
+    - Where it can't ride, it **moves beside the account badge** instead
+      (owner: "when they are so high that they hit the zoom, the plus icon
+      should just move next to the account where it used to be, and
+      potentially match size even"). It sits to the account's LEFT (the
+      account doesn't move), `--s2` (8px) between the boxes as in the old
+      pairing, centred on the account's centre line (`body.add-to-top`).
+      One transform (`--add-dx` / `--add-dy`) on the same 0.3s ease carries it
+      there in a single diagonal move. Tap and aria are unchanged (it closes
+      the filters and opens the form).
+    - Size dial `ADD_TOP_SIZE` (owner call open): `'normal'` keeps 60px;
+      `'matched'` is the account's 50px, with the + drawn at 22px and its line
+      kept at 2.00px (CSS `stroke-width` 2.1818, `body.add-top-matched`).
+      Stills of both: `design/add-button-placement/build/top/`.
     - Measured with the stub's 5 cities (panel 369px): it rides at 390x844
-      Safari (+ box top 97.8), list collapsed and desktop; it's covered at
-      390x844 Home Screen, 664, 667 and 320 with the list up. With 11 cities
-      (411px) it's covered at 844 Safari too, and the panel scrolls at the
-      Home Screen, 664 and 320 (panel tops at 86).
-    - `tagSheetGap()` adds the lift back, so the tag gap stays 88 while
-      lifted.
+      Safari (+ box top 97.8), list collapsed and desktop; it moves beside the
+      account at 390x844 Home Screen, 664, 667 and 320 with the list up. With
+      11 cities (411px) it moves at 844 Safari too, and the panel scrolls at
+      the Home Screen, 664 and 320 (panel tops at 86).
+    - `tagSheetGap()` reads the badge's resting box (its rendered box minus
+      its own transform), so the tag gap stays 88 whether lifted or moved.
     - Gates: Impeccable passed; places-ux 30/30, popup-open 42/42, tag-sync
       12/12, plans 32/32. Stills: `design/add-button-placement/build/filters/`.
   - With the sort menu open it lifts above the scrim

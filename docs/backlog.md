@@ -302,11 +302,10 @@ pick/redirect before building anything.
   sits lands on a category chip and silently toggles that filter off. Owner
   answered: "for 1 let's push the + up with the panel" -- FIXED on branch
   `plus-rides-filters` (not landed): the + rides above the panel where it
-  fits. Where it doesn't (short phones with the list up, the Home Screen at
-  844, any panel taller than its room) the panel still covers it, by the
-  owner's call ("at the smaller sizes where the + goes off screen, just have
-  the filters go over the +"), so a tap on that spot still hits a chip
-  there.
+  fits. Where it doesn't, it moves beside the account badge (owner: "the
+  plus icon should just move next to the account where it used to be"), so
+  no chip is ever under it. Open: its size there (`ADD_TOP_SIZE`, normal or
+  matched to the account).
 - **Open task, for the designers: `planSafeBox()` treats the + badge's top as
   a full-width bottom limit** (+ badge review, 2026-10-15). The badge is in
   `planChrome()`, so plan fits lose about 100px at the bottom across the whole

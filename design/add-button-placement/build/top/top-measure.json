@@ -1,0 +1,112 @@
+{
+ "a-normal-390x844-home-screen-3x.png": {
+  "mode": "beside account",
+  "box": [
+   256,
+   58,
+   316,
+   118
+  ],
+  "gapToAccount": 8
+ },
+ "a-normal-390x664-3x.png": {
+  "mode": "beside account",
+  "box": [
+   256,
+   11,
+   316,
+   71
+  ],
+  "gapToAccount": 8
+ },
+ "a-normal-320x568-3x.png": {
+  "mode": "beside account",
+  "box": [
+   186,
+   11,
+   246,
+   71
+  ],
+  "gapToAccount": 8
+ },
+ "a-normal-390x844-safari-long-list-3x.png": {
+  "mode": "beside account",
+  "box": [
+   256,
+   11,
+   316,
+   71
+  ],
+  "gapToAccount": 8
+ },
+ "390x844-safari-todays-list-rides-3x.png": {
+  "mode": "rides",
+  "box": [
+   15.2,
+   97.8,
+   75.2,
+   157.8
+  ],
+  "gapToAccount": 248.78
+ },
+ "a-normal-390x664-mid-move-3x.png": {
+  "mode": "beside account",
+  "box": [
+   208.4,
+   65.9,
+   268.4,
+   125.9
+  ],
+  "gapToAccount": 55.58
+ },
+ "b-matched-390x844-home-screen-3x.png": {
+  "mode": "beside account",
+  "box": [
+   266,
+   63,
+   316,
+   113
+  ],
+  "gapToAccount": 8
+ },
+ "b-matched-390x664-3x.png": {
+  "mode": "beside account",
+  "box": [
+   266,
+   16,
+   316,
+   66
+  ],
+  "gapToAccount": 8
+ },
+ "b-matched-320x568-3x.png": {
+  "mode": "beside account",
+  "box": [
+   196,
+   16,
+   246,
+   66
+  ],
+  "gapToAccount": 8
+ },
+ "b-matched-390x844-safari-long-list-3x.png": {
+  "mode": "beside account",
+  "box": [
+   266,
+   16,
+   316,
+   66
+  ],
+  "gapToAccount": 8
+ },
+ "b-matched-390x664-mid-move-3x.png": {
+  "mode": "beside account",
+  "box": [
+   216.4,
+   69.9,
+   268.4,
+   121.9
+  ],
+  "gapToAccount": 55.59
+ }
+}
