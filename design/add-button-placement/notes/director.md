@@ -1619,3 +1619,4 @@ The city is plain pencil; "Which city?" only on overlap.
     the stills.
 - **Later:** trips above groups (it doesn't block the add form; the
   model works either way).
+- 2026-10-15: builder gaps answered in handoff.md: Add = box right + 12 (approved numbers); desktop keeps phone layout, build/17 shown to owner before landing.

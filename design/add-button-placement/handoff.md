@@ -374,3 +374,22 @@ to `width/height 26.4` and `stroke-width 1.8182`. Do that in the initial
   sheet. A second animation would make it read as a separate floating
   thing. Haptics stay reserved for marks so a tick keeps meaning "you
   changed something".
+
+## Director answers to the builder's gaps (2026-10-15)
+
+1. **Add's left edge = the badge's box right + 12** (x 87.2 at 390; a
+   31px step off the fields' spine).
+   - The text "the ×'s ink right + 12" was wrong. The numbers are what
+     the owner saw in the approved round-7 stills, and the build matches
+     them. Keep it.
+   - This is a designer answer and doesn't change the concept.
+2. **Desktop (≥ 900): keep the phone layout as built** (build/17).
+   - The form opens at the bottom of the map column, Add sits on the ×'s
+     line, and the badge turns × in place.
+   - One layout everywhere: the form opens where the + is, and Add sits
+     beside its cancel.
+   - Today's top-of-column form would put Add about 650px from the ×.
+   - This is a designer answer, not a concept change. Desktop wasn't part
+     of what the owner approved, so **build/17 goes in the stills he sees
+     before landing**, with one line: "On the computer the form now opens
+     at the bottom, beside the +."
