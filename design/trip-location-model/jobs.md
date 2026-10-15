@@ -124,7 +124,7 @@ Every job below is read through P.
 | C1 | **First open, empty** | the map, an empty list ("+ to log one"), the +. Search is worldwide | any trip, city or onboarding step |
 | C2 | **The first place ever** | after ADD, a trip and a city exist, named from the place (country / real city). Nothing was asked | a name, trip or city was requested |
 | C3 | **The first place in a new real city, same country** | it's filed under the nearest city as "From"; no new city appears yet | a question, or a new city from one place |
-| C4 | **The second place in that real city** | it becomes a city of its own (the threshold of 2 is a fixed rule, not a setting; the number is the team's opinion) | a setting, or a question |
+| C4 | **The second place in a real city that is beyond every figure's reach** (in "On the way") | it becomes a city of its own (threshold 2: a fixed rule, not a setting; the number is the team's opinion). **Within a figure's reach (Grindavík) a real city stays "From" its figure however many places it has**, unless "belongs with… its own city" is said (director, 2026-10-15: protects job 5) | a setting, or a question; or a within-reach city splitting off on its own |
 | C5 | **The first place in a new country** (Copenhagen while the trip is Iceland) | within the trip's spread → a new city in the same trip; the generated trip name widens ("Iceland & Denmark") | a question, or a forced new trip |
 | C6 | **A far-away place** (LA) | a new trip starts quietly, named from its country. The open tag prints "New trip · United States" with "Keep in Iceland & Denmark" beside it, after ADD | a question before ADD |
 | C7 | **A hotel** (concept 2) | the base, order and legs appear; no dates asked | dates or setup required |
@@ -137,7 +137,7 @@ Every job below is read through P.
 |---|---|---|
 | **T1 Øresund:** Saltholm (an island about 12 km from Copenhagen, 20 km from Malmö) and Kastrup Søbad (Tårnby) | both in Tårnby municipality (Saltholm's we believe, not verified) | both appear under **From Copenhagen** with nothing chosen. If the owner says "Tårnby belongs with Malmö", it's one rule change that moves both |
 | **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Copenhagen Kastrup (Tårnby), used for both Copenhagen and Malmö | | Keflavík shows under Reykjavík with nothing chosen. Kastrup shows under Copenhagen, **and under Malmö too if Tårnby is put in both figures** (a real city in two figures). In concept 2 a hotel-adjacent airport sits at the edge of its base |
-| **T3 Jönköping:** about 300 km from both Stockholm and Malmö | | it appears under **On the way** in the trip view (concept 2, with stays: on the Stockholm → Malmö leg). A second Jönköping place makes it a city of its own (C4) |
+| **T3 Jönköping:** about 300 km from both Stockholm and Malmö | | it appears under **On the way** in the trip view (concept 2, with stays: on the Stockholm → Malmö leg). A second Jönköping place makes it a city of its own (C4: Jönköping is beyond every reach) |
 
 Reference (today, B): T1 and T2 are filed by whatever city was chosen at
 add, with one home only (Kastrup can't be under both). T3 has no

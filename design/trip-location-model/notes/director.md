@@ -75,3 +75,31 @@ The real-city backfill.
 
 ### Next
 Systems writes jobs.md.
+
+## Concepts scored -- turn 8 (2026-10-15)
+
+### C4
+Fixed in jobs.md: the threshold of 2 applies only beyond reach; within
+reach a city stays "From" (protects job 5).
+
+### Scores
+- **C1: 9.**
+- **C2: 8.** Two gaps:
+  - one hotel demotes Malmö (fix: no folding, legs only for figureless
+    places);
+  - order by the order added is arbitrary (fix: show order only once
+    hotels have dates).
+- **C3: 7.** Clusters chain, and "separate" brings trips back. It stays
+  as the Q5 answer, not recommended.
+
+### Overview changes
+1. Card 1's reach line.
+2. Card 1's threshold line.
+3. Card 2's cost line.
+4. Card 3's naming (generated name).
+5. Airport town softened.
+6. 59 not 58.
+7. Distances labelled "we think".
+
+### Next
+Visual's fixes, then I re-check C2 and the overview.

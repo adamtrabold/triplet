@@ -1184,3 +1184,91 @@ places with no `address_details`** (not "0 of 202").
 NEXT: design director (or a fresh checker): run jobs.md's P, C1-C9,
 T1-T3 and jobs 1-14 against the four files, and rule on flag 1 (C4)
 before the send.
+
+## Turn 8 -- design director: C4 ruled; the concepts scored; changes before the send
+
+### 1. C4: I adopted visual's rule and fixed jobs.md (C4 and T3)
+- The threshold of 2 applies **only to a real city beyond every
+  figure's reach** (in "On the way").
+- Within reach (Grindavík), a real city stays "From" its figure however
+  many places it gets, unless the owner says "belongs with… its own
+  city".
+- That protects job 5. The number 2 and the reach stay labelled
+  as the team's opinion.
+
+### 2. Scores (concept phase: the idea, against places-first and "it all sings")
+
+**Concept 1, a rule that remembers: 9.**
+- It passes P with nothing to set up and nothing chosen per add.
+- Every fix is made once, beside the places.
+- The lens, figures, On the way and the tag's two truths make one
+  system.
+- Likely owner pushback:
+  - a "From" section in every city list;
+  - unmeasured distances.
+  Both are said plainly, so neither holds it under 9.
+
+**Concept 2, plus stays: 8.**
+- **Gap 1: the demotion.** One logged hotel turns Malmö from a city into
+  "Malmö · from Copenhagen". Logging a place changes the structure he
+  sees, a side effect he never asked for.
+  - **Fix:** bases add a mark and order only. A figure never folds under
+    a base.
+  - Legs hold only places with no figure (they replace "On the way").
+- **Gap 2: order by the order added is arbitrary.** Log the Reykjavík
+  hotel first and Reykjavík leads a trip that ends there.
+  - **Fix:** show the stays' order only once each base's hotel has a
+    date. Until then, the sections keep concept 1's order. That's no
+    question asked, and no wrong order shown.
+  - Dates are still never asked; a date he gives is used.
+- With both fixes it can reach 9.
+
+**Concept 3, no trip container: 7.**
+- It's places-first in the extreme and the honest answer to owner
+  question 5.
+- But by its own account, clusters chain (a Toronto stopover, a Paris
+  weekend), and the fix ("these are separate") brings the trip back.
+  There's no past trip either.
+- It can't reach 9 as a model. **It stays in the set as the
+  "everything at once" answer,** labelled with those weaknesses. It
+  isn't something we're recommending.
+
+### 3. The overview (overview-3x.png): what has to change (visual; not fixed by me)
+
+It reads cold at phone size: large text, one card per concept, the
+opinion stated at the foot. Changes:
+1. **Concept 1's card:** "joins the nearest of the trip's cities"
+   reads as unlimited distance. Add: "if it's within about a day trip
+   (we think 60-80 km); farther goes 'On the way'".
+2. **The threshold of 2 isn't on the overview.** Add one line to
+   card 1: "two places beyond reach make a new city (we think 2)".
+3. **Concept 2's card has no cost line.**
+   - After the fixes above: "Order appears once hotels have dates; a
+     city never folds under a hotel city."
+   - If gap 1 isn't fixed, the card must say the Malmö demotion plainly.
+4. **Concept 3's naming contradiction (orchestrator's a):** "named by
+   country" vs the header "SCANDINAVIA 2026". Use a generated name in
+   the example ("ICELAND · DENMARK · SWEDEN"). Note that "Scandinavia
+   2026" is a rename you can give it.
+5. **The airport (orchestrator's b):** Keflavík airport may fall in
+   Reykjanesbær or Suðurnesjabær depending on OSM. Change the row to
+   "Keflavík airport · (its OSM town)". Better: add one line, "the town
+   OSM gives can surprise; that's what 'belongs with…' fixes", which
+   is the concept's point anyway.
+6. **The count (orchestrator's c):** 58 places have no
+   `address_details`, and 1 more has details but no town. That makes
+   **59 of 202** without a real town. Systems confirms the number, and
+   both the overview and the concept files use it.
+7. **Label the three distances** (reach, spread, far away) as "we think,
+   unmeasured" wherever they appear. Concept 3's "another continent" is
+   labelled; concept 1's file is labelled. Check the overview after
+   edits 1-2.
+8. **Concept files:** concept 2 takes gap fixes 1-2. All three take the
+   59 count.
+
+### Owner questions: unchanged from Turn 6 (7)
+Q4 (order/dates) now carries concept 2's gap-2 fix.
+
+NEXT: product designer (visual focus) — overview changes 1-7 and
+concept 2's two gap fixes in its file. Systems confirms the 59 count.
+Then I check and re-score concept 2.
