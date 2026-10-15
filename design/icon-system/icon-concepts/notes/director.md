@@ -83,7 +83,48 @@ badge, 12px chip, a row, a map pin; "what it shows / why it fits" and
 - An icon that isn't readable at real size (ticket, coffee pot, plate).
 - Too many questions, or a category he never asked about.
 
-## Next
+## Next (as of turn 3)
 
 Systems fixes the records → visual's three build tests + the six t4 cards →
 I score in one pass, the strips card first.
+
+## Round 1 scores (t4 cards), 2026-10-15: one fix pass, then READY
+
+Full text in `scores.md` (this folder). Cards 0, 1 and 5 score 9; cards
+2, 3 and 4 score 8.
+
+- The build tests worked as they should. The ticket, the coffee pot and
+  the road failed and are on the dropped card. Café B = cup + bun, street
+  = pedestrian sign / enamel plate.
+- Bias check: I didn't prefer any trip object on a tie. The common-sign
+  strip is the calmer one, and I said so.
+- Fixes:
+  1. Peaks must read as mountains (two summits).
+  2. The Gunnuhver row has no city.
+  3. District B gets the "we'd keep the blocks" line.
+  4. The fountain's misread adds "anchor".
+  5. Card 4 gets a "staying as they are" line (the marks and furniture,
+     and Plans' + and ×).
+  6. The bin's "could be" wording.
+- Then systems coverage against jobs.md, then I look at cards 2, 3 and 4,
+  then send. The send order and the three questions are in scores.md.
+
+### Recurring
+Card honesty: padded seconds must say so, and every visible line must be
+true at real size. The concepts themselves are sound and conventional
+where they should be.
+
+### For the drawing step (after his picks)
+- Family check first if he picks several "ours".
+- The bin needs a UX check before it ships.
+- The pointer ▸ only reads in a menu row.
+- Pools & hot springs: not raised (his call). The hot spring is on the
+  dropped card.
+
+## Round 1b check (cards 2–4), 2026-10-15
+
+All six t4 cards are at 9. The peaks read as mountains, Gunnuhver's row
+matches his data, district B is honestly labelled, the fountain names the
+anchor, and card 4 has the "staying as they are" line. READY, pending a
+clean systems coverage run against jobs.md (running in parallel). The send
+order and the questions are in scores.md, round 1.

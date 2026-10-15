@@ -730,3 +730,206 @@ NEXT: product designer (systems focus) — fix the two "Settled" records and
 the sheet labels (§0b), then product designer (visual focus) — the ticket,
 coffee-pot and second-street build tests, then the six t4 cards in §4;
 then I score them in one pass, the strips card first.
+
+---
+
+## Turn 4: product designer (visual focus): build tests and the t4 cards
+
+The source is `sketches/t4.html`. It renders the build-test sheet and the
+six cards (390 wide at 3x).
+
+### Build tests (`sketches/t3-buildtests.png`, team only)
+
+Each candidate is shown as a 24px badge, then bare at 18px and at 12px,
+and judged at 1x.
+
+**Ticket (attraction): FAIL. It isn't shown as a concept.**
+- Flat: a battery.
+- Tilted 25° with notches at the perforation: a wrapped sweet or a
+  plaster.
+- Tilted 45°: a pill.
+- Scooped corners: a battery or a pill.
+- Tilted 20° with end bites, printed lines and a perforated stub: reads as
+  a ticket at 24px, but becomes a label at 12px.
+
+Per turn 3, attraction's pair is now **camera / column front**. The
+column front's line says it plainly: "It fits museums and palaces, not
+landmarks or Tivoli." The ticket goes on the dropped card with its four
+misreads.
+
+**Coffee pot (café): FAIL.**
+- The diner decanter reads as a lab flask or a kettle.
+- The percolator reads as a kettle or a watering can.
+- I drew a kettle for comparison, and neither pot clearly beats it.
+
+Café's second concept is now **cup + bun**. Its risk is on the card: "Two
+objects in a small circle: busier than one." The decanter goes on the
+dropped card.
+
+**Street: a second concept found.**
+- The **pedestrian-street sign** (a walking figure, the road sign for a
+  street you walk) reads at 18px and at 12px. Its risk: "walking
+  directions" or steps.
+- The zebra crossing reads as a ladder or a barcode, so it's dropped.
+
+Street's pair is now **pedestrian sign / enamel plate**. Neither is a
+road, so the card doesn't need the "one concept" admission. The road
+goes on the dropped card with its three failures.
+
+### The six cards (for the owner, after the director's score)
+
+| Card | File |
+|---|---|
+| 0 Strips | `sketches/t4-card-0-strips.png` |
+| 1 Food and drink | `sketches/t4-card-1-food-drink.png` |
+| 2 Sights, outdoors and shops | `sketches/t4-card-2-sights-outdoors.png` |
+| 3 Parts of town, hotel, other | `sketches/t4-card-3-places-of-town.png` |
+| 4 Tools | `sketches/t4-card-4-tools.png` |
+| 5 Dropped | `sketches/t4-card-5-dropped.png` |
+
+What every card shares:
+- "Rough builds, not drawings" once, in the header.
+- Each concept is shown four ways: in a row with one of his real saved
+  places, as a 24px badge, as a 12px chip, and as a pin among four
+  neighbours on a small map.
+- Each concept has two lines:
+  - **Shows** (what it is and why it fits what he saved)
+  - **Could be** (what it might be mistaken for)
+- The common sign comes first.
+- No verdicts. Where we'd keep the common sign (restaurant, hotel), the
+  line says so plainly.
+- Each category opens with a fact line about what he has saved.
+
+**Card 0 (strips):**
+- The title is a question, followed by his words, quoted.
+- Strip 1 is the common sign for each place. Strip 2 is a travel object
+  wherever one survived the sheet: café cup + bun, bar notes, nature
+  peaks, shopping awning, street enamel plate. Elsewhere it keeps the
+  common sign.
+- Both strips use the same build quality, the same three rows (Jazzhouse,
+  Svenskt Tenn, Jægersborggade) and the same map crop with one pin per
+  category.
+- It asks nothing.
+
+**The pairs:**
+
+| Place | A (common sign) | B |
+|---|---|---|
+| Restaurant | fork + knife | covered dish ("we'd keep the fork and knife") |
+| Café | cup | cup + bun |
+| Bar | glass | two notes (with his 8-of-12 music venues fact) |
+| Attraction | camera | column front |
+| Nature | conifer | peaks, without the sun |
+| Shopping | bag | shopfront with an awning |
+| Area | city blocks, the same as district | a fountain on a square (its own idea) |
+| District | city blocks | a solid parcel |
+| Street | pedestrian sign | enamel plate |
+| Hotel | bed | crescent moon ("we'd keep the bed") |
+| Other | asterisk | solid diamond |
+
+Question 2 sits beside area, and question 3 beside other, word for word.
+
+**Card 4 (tools):**
+- The settled strip (close, sort, filters, locate, directions, more, one
+  wedge, zoom +/−, and the + on its orange badge at 2.00) is labelled
+  "settled by the team".
+- The pointer is shown in a sort menu row.
+- Delete: × vs bin, with the line "This changes how delete works, so our
+  UX check comes before anything ships."
+- The empty list: blank tag vs no icon.
+
+**Card 5:** every kill, with its 24px build and one line, including the
+ticket, the coffee pot, the hot spring, the jazz horn and the passport.
+
+Question 1 ("For each icon, which concept do you want — or neither?") goes
+in the coordinator's message with the cards. It isn't on a card.
+
+### Unsure
+
+- Area B (the fountain) and district B (the solid parcel) are the weakest
+  seconds. They exist so every place has two concepts that differ in kind.
+  Their risks are stated.
+- Rows for hotel and other use placeholder names ("A hotel", "Something
+  else"), because he has saved nothing in either.
+
+NEXT: design director — score the t4 cards in one pass, the strips card
+first.
+
+---
+
+## Turn 5: design director, round 1 scores
+
+Full text in `scores.md`. Cards 0 (strips), 1 (food and drink) and 5
+(dropped) score 9. Cards 2, 3 and 4 score 8. My bias check held: no trip
+object won on a tie. The fixes:
+1. Nature B as real peaks (two summits).
+2. Gunnuhver's row as the app renders it (it has no city).
+3. District B gets "we'd keep the blocks".
+4. The fountain's "could be" adds "an anchor".
+5. A "staying as they are" line on card 4 for the marks, the map
+   furniture, and Plans' + and ×.
+6. The bin's "could be" wording.
+
+NEXT: product designer (visual focus) — fixes 1–6 in scores.md; then
+product designer (systems focus) — coverage against jobs.md on all six
+cards; then the director looks at cards 2–4 and hands the send list to the
+coordinator.
+
+## Turn 6: product designer (visual focus), t4 fixes 1–6
+
+All six `t4-card-*.png` are re-rendered from `sketches/t4.html`.
+
+1. **Peaks redrawn.** Two summits (the taller one with a cream snowcap)
+   on a base bar, with no sun. They read as mountains at 24px and 12px.
+   The new peaks are in card 0's strip 2, card 2 and every map crop.
+2. **Gunnuhver row** now matches his data, read from `locations`
+   (read-only): "Gunnuhver - fumarole", NATURE · REYKJAVÍK.
+3. **District B** adds "Shown so you can see a second idea; we'd keep the
+   blocks."
+4. **Area B (fountain):** "Could be" now reads "Drinking water, or an
+   anchor."
+5. **Card 4** opens with the "Staying as they are" line, word for word
+   from scores.md.
+6. **The bin's "Could be"** now reads "Nothing else; but it's heavier in
+   every row than the ×."
+
+NEXT: product designer (systems focus) — coverage against jobs.md on all
+six cards; then the director looks at cards 2–4.
+
+---
+
+## Turn 7: design director, fix-pass check
+
+Cards 2, 3 and 4 are now 9. All six t4 cards are at 9 (`scores.md` round
+1b). READY, pending a clean coverage run.
+
+NEXT: coordinator — when systems' coverage against jobs.md comes back
+with no blockers, send the six t4 cards in order with the three questions
+(word for word in scores.md round 1); if it finds a blocker, the visual
+designer fixes it and the director looks at that card only.
+
+---
+
+## Turn 8: product designer (systems focus), coverage on the t4 cards
+
+The full table is in `coverage.md`. **2 blockers, both on card 4 (tools),
+each a one-icon or one-line fix.** All 11 places pass every job: two
+concepts each, his real saved places, all four views, a "Could be", and
+the area and other questions.
+
+1. **The account is on no card** (job 1). The passport is on the dropped
+   card, but the kept account (v6's solid head) isn't in card 4's settled
+   strip.
+2. **The + overload is unanswered** (jobs.md: "Concepts must say which
+   meanings may share a symbol"). × and the check are handled; zoom + and
+   "add a place" sit side by side with no line.
+
+Not blocking:
+- The blurred cream details (shopfront door, enamel plate, snowcap, bun)
+  read as faults.
+- The pointer should say it also covers the current plan.
+- "Staying as they are" lists items without a reason.
+- If he answers "keep area and district separate", area A has to change.
+
+NEXT: product designer (visual focus) — the two card-4 fixes (and the
+blur, if cheap); then the director looks at card 4 only, per turn 7.
