@@ -310,8 +310,15 @@ against are 4, 8 and 9.
 - Should concepts differ in where the home comes from (choice / rule /
   context / area), as above? I'd keep 3-4 that differ in kind.
 
-NEXT: product designer (visual focus) — how the four app shapes (lens,
-route spine, trip home, atlas) and the home sources (a chosen home,
-also-known-as, catchment, bases, provenance) would look in the header,
-filters, map, tag and add flow, and which reads simplest at a glance.
-Then the director picks 3-4 whole-app concepts that differ in kind.
+**Owner, verbatim (2026-10-15): "i dont want full on visuals -- i just
+want sketch level thought here -- the model is what to nail right now
+not ui".** So the work stays at model level: entities, relationships,
+how you move through trip / city / plan, and rough flows. Any picture
+is a sketch. The S1-S4 "app shapes" above are movement models (how you
+navigate), not screens.
+
+NEXT: product designer (visual focus) — sketch level only (boxes and
+arrows, no stills): react to the I1-I9 home sources and the S1-S4
+movement models. Push or kill them, add any that differ in kind, and say
+which feel simplest to live with. Then the director picks 3-4 models
+that differ in kind to take into concepts.
