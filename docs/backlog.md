@@ -240,11 +240,38 @@ pick/redirect before building anything.
   (`initSort()`: `if (e.key === 'Escape' && sortMenuOpen()) closeSortMenu()`)
   and the error banner's (`dismissErrorByKey()` listener) don't call
   `preventDefault()`, so a later Esc listener acts on the same keypress.
-  Today it's harmless: the + form's Esc skips while the sort menu is open, and
-  the tag's Esc doesn't check `defaultPrevented`. A new Esc listener would
-  double-fire. Repro (from reading the code, not yet run): show the error banner with a tag open, press Esc: the
-  banner and the tag both close. Fix: `preventDefault()` in both, and have
-  later listeners skip on `e.defaultPrevented`.
+  The + form's Esc skips while the sort menu is open, and the tag's Esc
+  doesn't check `defaultPrevented`. Repro (from reading the code, not yet
+  run): show the error banner with a tag open, press Esc: the banner and the
+  tag both close. **Live case (reviewer, landing round):** Esc with the error
+  banner showing also cancels the + add form. The form's Esc listener on
+  `document` runs before the banner's, which listens on `window` (bubbling
+  reaches `document` first), so `defaultPrevented` isn't set yet when the
+  form checks it. Fix:
+  `preventDefault()` in both handlers and have later listeners skip on
+  `e.defaultPrevented`, and make the form's Esc skip while `#error.show`
+  (listener order means it can't rely on the banner's preventDefault).
+- **Bug: expanding the list (▲) with a tag opened while collapsed leaves the
+  tag under the top controls** (pre-existing on main; found by the + badge
+  review, 2026-10-15). The tag ends about 10px above the map's top, under the
+  zoom / account row. Repro: 390x844, collapse the list, tap a pin near the
+  top of the map, then ▲. The + form's cancel reaches it too: with the form
+  open, tap a pin, then ×. Fix: re-fit the tag (pan + `tagSheetNeed()`) on
+  expand.
+- **Open task: a tap on the +'s spot with the filters panel open** (+ badge
+  review, 2026-10-15). The panel covers the badge by design; a tap where the
+  + usually sits lands on a category chip and silently toggles that filter
+  off. The owner asked about it; not decided: keep as is, or keep the chips
+  off the badge's spot.
+- **Open task, for the designers: `planSafeBox()` treats the + badge's top as
+  a full-width bottom limit** (+ badge review, 2026-10-15). The badge is in
+  `planChrome()`, so plan fits lose about 100px at the bottom across the whole
+  width, not just the bottom-left corner. Designers to know; a corner-only
+  exclusion would be a design call.
+- **Open task: tell the sign-in crew** (`design/signin-button/`) that the
+  account badge moved: `--account-slot-right` is now `var(--s4)`, and it sits
+  alone at the top-right (the + is bottom-left). Their "re-judge beside the
+  new +" item can run now.
 - **The first tag open of a session lowers the list 4px more than later
   opens** (pre-existing on main; found by the + badge build's jobs check,
   2026-10-15). The first open measures the tag 212px tall, later opens of the

@@ -1346,9 +1346,9 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   clip was checked in a render and is a REAL bug, now in `docs/backlog.md`
   with repro steps.
 
-- **The + becomes the Float badge (button only)** — built 2026-10-15 on
-  `plus-badge-build` (NOT landed: waits for the combined check and the owner's
-  yes). Owner: "I think it's the badge for now. Conceptually it's stronger
+- **The + becomes the Float badge (button only)** — LANDED 2026-10-15 from
+  `plus-badge-build` (director 9, jobs 6/6, review PASS; owner: "ok sweet.
+  badge is good to go"). Owner: "I think it's the badge for now. Conceptually it's stronger
   because the circle relates to the icon, the tag isn't really what you're
   adding it's the pin" ; "Just button for now" ; "Build the matched icon but
   we need to include this in the icon project everything is inconsistent".
@@ -1371,6 +1371,9 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     ease (`body.sheet-collapsed`, toggled by `toggleSheetCollapsed()`).
     Measured: badge foot to sheet edge 15.22 on every frame of the drop.
     Desktop: the map column's bottom-left, 15.22 from the rail; nothing rides.
+    On desktop the form now opens at the BOTTOM of the map column, beside the
+    + (it turns × in place), not at the top as before (owner saw
+    `design/add-button-placement/build/17-desktop-form-open-1280x800.png`).
   - z 998: over the map and the form, under the filters panel (999), which
     covers it by design. With the sort menu open it lifts above the scrim
     (2560), so one tap closes the menu and opens the form.
