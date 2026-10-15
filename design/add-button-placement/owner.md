@@ -151,3 +151,8 @@ Tweak: when the filters panel opens, the + rides up with it (sits above the pane
 > filter panel should change height and scroll
 
 Pick: option 2 — cap the filters panel height (it scrolls inside) so the + always fits above it and rides up with it.
+
+2026-10-15, on the filters panel numbers:
+> for #1 at the smaller sizes where the + goes off screen, just have the filters go over the +
+
+Read as: the + rides up with the filters panel where it fits (e.g. 390x844 Safari, list collapsed, desktop); where it would go off screen / under the zoom row, the panel keeps today's height and covers the + (no cap). Supersedes "change height and scroll" (orchestrator's reading, stated to owner).
