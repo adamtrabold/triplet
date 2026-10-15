@@ -4,9 +4,9 @@ Model only. **(We think)** marks the team's opinion.
 
 ## The rules
 
-1-3. **Concept 1's three rules**, unchanged (near → that city; one trip
-   per continent at a time; you fix things once, after the fact).
-4. **A hotel makes its city a base.** A hotel beyond reach is already a
+1-3. **Concept 1's three rules**, unchanged (near → that city; a place
+   joins its city's trip; you fix things once, after the fact).
+4. **A hotel (a place in the Hotel category) makes its city a base.** A hotel beyond reach is already a
    city of its own (rule 1), so a one-night stop is a base too.
 5. **Bases go in order, each from the first it has:** its hotel's dates
    (if the app has them), else when you first visited a place in it,
@@ -48,11 +48,22 @@ As concept 1, plus:
 | C7d | No dates, the trip under way | Bases take positions as you first visit them | PASS |
 | C7e | Two bases on the same date | They share a position | PASS |
 
-- **T1-T3:** as concept 1. Jönköping is its own city; with a hotel there
-  it's a base. An airport is never on a stretch.
+- **T1-T4:** as concept 1. Jönköping is its own city; with a hotel there
+  it's a base.
 - **Job 2:** the trip has the order when there is one. **Job 14:** (a)
   no hotel → concept 1; (b) an undated, unvisited hotel → a base with no
   position, nothing else moves; (c) dated or visited bases → an order.
+
+## Known limits (no rule added for these)
+
+- **A loop trip:** two Reykjavík hotels (start and end of the trip) make
+  one base with one position, so the return stay doesn't show in the
+  order.
+- **A hotel within reach** of a bigger city (a Selfoss hotel, about 57
+  km out) makes that city (Reykjavík) the base, not Selfoss, unless the
+  owner fixes "Selfoss is its own city".
+- **Hotel dates** depend on how the app gets them (Q4); until then,
+  order comes from first visits.
 
 ## P: places-first
 
