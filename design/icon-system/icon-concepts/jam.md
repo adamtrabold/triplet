@@ -1091,3 +1091,84 @@ consider but not lock on".
 
 NEXT: design director — rule on the three t4 swaps (street A, restaurant
 B, attraction B), then the cards are rebuilt or sent as they are.
+
+---
+
+## Turn 12: design director, rulings on the brown signs
+
+I read turn 11, `sketches/t5-mutcd-tests.png` at phone size, and his words
+in `../../inspo/mutcd-recreation/README.md` ("i dont want them to just use
+them outright, but this gives "built" more legs as a concept and also may
+spark some ideas"). My bias check holds: real size first, then what he
+saved, then family, then wit. The common sign wins a tie.
+
+The signs are a good find, and turn 11 reads them well. Its §1 points
+(the frame, not the drawing, makes the system; one cut carries the
+detail; the wit is what the object is doing) go into my notes for the
+drawing step, as a reading, not a rule ("something to consider but not
+lock on").
+
+### The three proposed swaps
+
+1. **Street A, the walker between kerbs: one rebuild, then the tie rule.**
+   As built, the upper kerb sits at head height. At 24px it reads as a
+   figure under a bar (a weightlifter, a limbo), and at 12px as three
+   stacked strokes. The idea is right ("a street you walk", not "walking
+   directions"), but the plain walker is the road sign itself.
+   - One rebuild, with the street under the figure only (the ground it
+     walks on), nothing above the head.
+   - If it clearly beats the plain walker at 12px and 24px, it becomes
+     street A.
+   - If it's a tie or worse, street A stays the plain walker, and the
+     kerb version goes on the dropped card.
+2. **Restaurant B, cutlery cut from a plate: NOT swapped. Dropped card.**
+   It reads well, better than the covered dish. But the clash with the
+   open pin is real, and it's systemic, not a drawing issue:
+   - The rules card says "the open pin fills with its colour while its
+     tag is open". A plate makes every restaurant pin look half-open on
+     the map, which is exactly where he needs to see which pin is open.
+   - The paper ring inside the rim doesn't save it at 24px on tiles.
+   - A clash with a rule beats a misread, so the covered dish stays as B,
+     still labelled "we'd keep the fork and knife". The plate's dropped
+     line: "Reads well, but every restaurant pin would look like the open
+     one."
+3. **Attraction B, an arrow at a disc: no second build. Dropped card.**
+   This is the clever whole-category idea I'd have loved, which is why I
+   checked it hardest.
+   - Its misread is in the concept, not the build. An arrow on a phone
+     means "open link" or "go", and on the map it would sit near the tag's
+   Directions.
+   - Turn 11's own §5 says the signs never put direction inside a place
+     symbol.
+   - The camera, the common sign, is the official sign's own choice
+     ("Viewing Area"), so the tie rule is decisive.
+   - The column front stays as B, with its honest "museums and palaces"
+     line. The arrow's dropped line: "Look at that: an arrow on a phone
+     means 'open link'."
+
+### The dropped card: add, one line each, under a small heading "From the brown road signs"
+
+The sevärdhet ⌘ (a Command key; its loops are outlines), the lighthouse
+(one saved place, not a category), the lookout tower (a viewpoint with no
+category), the drink as a wave (drinking water), "?" for other (help),
+the plate, the arrow at a disc, and the kerbs if the rebuild ties. No sign
+codes on the card: they're noise to him.
+
+### One fact line, card 2, attraction A
+
+Add: "The US brown road signs use a camera for 'viewing area' too." It's a
+fact he'll like, and it shows his inspo was used. Nothing else on the
+cards changes.
+
+### Where the changes land
+
+On the design canvas page "Icon concepts"
+(https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW), rebuilt from
+`t4.html`, not as phone PNGs. I then look at the changed sections there
+(street, attraction A's line, dropped). Everything else stays at 9.
+
+NEXT: product designer (visual focus) — the one street rebuild (ground
+only, nothing above the head) judged against the plain walker at 12 and 24
+px; the dropped-card additions and the camera fact line in `t4.html`;
+rebuild the canvas page "Icon concepts". Then the director looks at the
+changed sections on the canvas.

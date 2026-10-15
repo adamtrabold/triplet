@@ -143,3 +143,25 @@ send order and the three questions are as in round 1 above, unchanged.
   No blur reads as a fault now.
 - **All six t4 cards are at 9. Coverage is clean. READY.** The send order
   and the three questions are as in round 1, unchanged.
+
+---
+
+## Round 1d: brown-sign rulings (turn 12), 2026-10-15
+
+No re-score. The cards stay at 9. The changes:
+- **Street A:** one rebuild of the walker with the street under the
+  figure only. It swaps in only if it clearly beats the plain walker at 12
+  and 24px. A tie keeps the walker (the common sign).
+- **Restaurant B:** the plate is NOT swapped (it clashes with the open
+  pin's fill). It goes to the dropped card. The covered dish stays.
+- **Attraction B:** the arrow at a disc gets no second build ("open link"
+  is a misread in the concept, and the camera is the signs' own choice). It
+  goes to the dropped card. The column front stays.
+- **Dropped card:** a "From the brown road signs" group: ⌘, lighthouse,
+  lookout tower, the wave drink, "?", the plate, the arrow, and the kerbs
+  if they tie.
+- **Card 2:** a camera fact line ("The US brown road signs use a camera
+  for 'viewing area' too.").
+
+The changes are rebuilt on the canvas page "Icon concepts", not as PNGs. I
+look at the changed sections there.
