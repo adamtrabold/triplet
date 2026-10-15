@@ -1379,7 +1379,8 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     + (it turns × in place), not at the top as before (owner saw
     `design/add-button-placement/build/17-desktop-form-open-1280x800.png`).
   - z 998: over the map and the form, under the filters panel (999).
-  - **Filters panel (branch `plus-rides-filters`, 2026-10-15, not landed).**
+  - **Filters panel (LANDED 2026-10-15 from `plus-rides-filters`, main
+    `764c45a`; owner: "yes when i say something is good that means ship it").**
     Owner: "let's push the + up with the panel" ; "at the smaller sizes where
     the + goes off screen, just have the filters go over the +" ; "the panel
     height should all just be responsive" ; "stops below zoom and account".
