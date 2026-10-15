@@ -1,5 +1,27 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 12 blank-tag form: STARTED, then ON HOLD (orchestrator: the owner wants the city/search workflows mapped first)
+- **Code is in, nothing is rendered, no R12 stills.**
+- `blank.inc.html` (concept layer) takes `s.r12`:
+  - typing drops "Search everywhere";
+  - `s.widened` prints one line (`.bt-wide`, 36 tall, 12px `--ink-2`,
+    hairline) above 3 results;
+  - the city is plain pencil (no `.bt-city` underline);
+  - `whichcity` takes `s.ask` / `s.ans`, both answers at equal weight
+    (`bt-alt`, no navy flood), no city on the address line while asked.
+  - Old states are unchanged without `r12`.
+- `stills.js` has the frames:
+  - `r12-f-typing664`, `wide664`, `blankcard664`, `pinned664`;
+  - `which664` (Copenhagen; the fixture's Sundhöllin is moved to Kastrup
+    55.6412, 12.6625 via the new per-frame `js`).
+  - Not run. Re-run with `ONLY=r12 node stills.js` once systems' workflow
+    map settles the states.
+  - Note: the `k: 'F'` page still shows today's top-right + (the Float
+    hides while adding). Hide it, or use the C page + `cGone()` as r10
+    did, before shooting.
+- **The R12 compose pages** (F1 unpinned, F2 pinned, F3 widened, F4 which
+  city) are not written yet.
+
 ## UPDATE 2026-10-15, X2 in context + attribution fix
 - **Director:** owner.md has no "liked the finer edge" quote (round 6 was
   "orange and bigger"). handoff.md is reworded to the team's opinion, and
