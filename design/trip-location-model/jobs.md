@@ -57,9 +57,10 @@ the owner and a place.
 ## Terms
 
 - **Bucket** (a "city" in the app): one per place. Pre-filled by the
-  guess: the nearest bucket within about a day trip (we think 60-80 km,
-  unmeasured); if none is within reach, a new bucket named from the real
-  town. Changeable or new at add; it can hold places outside its real
+  guess: the nearest bucket within about a day trip (owner, Q-B; we
+  think 60-80 km, unmeasured, measured to each city's stored centre, so
+  an empty city can be guessed); if none is within reach, (we think) a
+  new bucket named from the real town. Changeable or new at add; it can hold places outside its real
   bounds and be named anything.
 - **Real town:** where the place really is (`address_details`).
 - **Trip:** a tag on buckets; optional, any number; a bucket can be in
@@ -83,8 +84,10 @@ the owner and a place.
    town).
 4. **Trips are tags.** PASS if a city can be tagged any time after, or
    optionally when created on its own (never inside adding a place); any
-   number of trips exist; one bucket can be in several; and a new place
-   joins its bucket's trips automatically.
+   number of trips exist; one bucket can be in several; a new place
+   joins its bucket's trips automatically; a city created by adding a
+   place joins no trip until it's tagged later, elsewhere; and adding a
+   place never shows a trip (owner, E).
 5. **The trip filter.** PASS if, with no trip selected, every place
    shows; with one or more selected (Q-C decided), exactly the places
    whose bucket is in any of them show, in the list and on the map

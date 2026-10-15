@@ -2694,3 +2694,48 @@ NEXT: product designer (systems focus) — the three edits:
 2. the line that a city made at ADD joins no trip until tagged later;
 3. E moved to Decided in the overview, concept 5 and jobs.md.
 Then a light checker pass, and the summary goes back to the owner.
+
+## Turn 28 -- product designer (systems focus): Turn 27 and check 7 applied (final edits)
+
+- **From Turn 27:**
+  1. The whole new-city naming rule is marked "(we think)" in the file
+     and the overview. It's a team call: it replaces today's question,
+     and the owner said cities "should probably continue to operate as
+     today".
+  2. **A city created by adding a place joins no trip until it's tagged
+     later, elsewhere.** This is now in concept 5's rule 1, jobs.md
+     check 4 and overview rule 2.
+  3. **E is decided: no.** The owner, verbatim: "i actually dont think
+     you should show the trip when adding a place because what if you're
+     going to a place multiple times ... it would be impossible to
+     determine which trip you're thinking about. and honestly it doesn't
+     even matter... what matters is where you're putting the pin."
+     - Concept 5 now says "Nothing is open".
+     - jobs.md check 4 now includes "adding a place never shows a trip".
+     - The overview shows E under "Decided (nothing is open)".
+- **From check 7:**
+  4. **The empty city:** the guess is now measured to each city's
+     **stored centre** (we think). Every city carries one today
+     (`CITIES[...].center` in index.html); a new city's centre is its
+     first place's location. So an empty seeded or self-made city can
+     be guessed, and a nearby place never starts a duplicate. This
+     replaces "the centre of its places".
+  5. **Q-B credit:**
+     - the owner's "Yes" covers "nearest city within a day trip";
+     - the 60-80 km figure and the stored-centre measure are both
+       "(we think)".
+  6. **Wording:**
+     - the real town is "used only to name a new bucket, never to pick
+       an existing one";
+     - the city filter moved into "What changes" (it narrows to the
+       selected trips' cities);
+     - first open (no seeded cities on a fresh start, worldwide search
+       from the start) added to "What changes".
+  7. **The overview:**
+     - "Hiding a trip means unpicking it";
+     - many trips per city is marked "(your current guess)";
+     - re-rendered at 1170x2389 and read at phone size.
+
+Every owner question is now answered; Q3 and Q4 stay parked with stays.
+
+NEXT: orchestrator — send the overview to the owner.

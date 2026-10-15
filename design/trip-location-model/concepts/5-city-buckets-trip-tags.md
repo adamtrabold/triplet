@@ -3,7 +3,7 @@
 Model only (the owner: "the model is what to nail right now not ui").
 Supersedes concepts 1-3 as the working model. **(We think)** marks the
 team's opinion; everything else is the owner's words, the owner's
-answers (A to D, Q-D, repeat trips, many trips), or today's fact.
+answers (A to E, Q-D, repeat trips, many trips), or today's fact.
 
 > "really what i need is a way to group cities.. something more
 > conceptually like a tag that creates the conceptual connective thread
@@ -16,14 +16,22 @@ answers (A to D, Q-D, repeat trips, many trips), or today's fact.
 
 1. **Every place is in one city bucket, pre-filled by a guess you can
    change at add.** Nothing is asked and nothing blocks ADD.
-   - **The guess:** the nearest bucket within about a day trip
-     **(we think 60-80 km, unmeasured)**, measured to the centre of
-     that bucket's places (owner, Q-B: "Yes").
-   - **No bucket within reach** (the first place ever, Jönköping,
-     anything past a day trip): the guess is a **new bucket named from
-     the place's real town**, made when you press ADD. **(We think)** this
-     replaces today's new-city question, because places-first rules out
-     asking.
+   - **The guess:** the nearest bucket within about a day trip (owner,
+     Q-B: "Yes"); **(we think 60-80 km, unmeasured)**.
+   - **(We think) measured to each city's stored centre.** Every city
+     carries one today (`CITIES[...].center`); a new city's centre is
+     its first place's location. So an empty city (seeded, or created on
+     its own) can still be guessed, and a nearby place never starts a
+     duplicate of it.
+   - **(We think) no bucket within reach** (the first place ever,
+     Jönköping, anything past a day trip): the guess is a **new bucket
+     named from the place's real town**, made when you press ADD. This
+     whole naming rule is the team's call, not the owner's: it replaces
+     today's new-city question, and the owner said cities "should
+     probably continue to operate as today". Places-first rules out
+     asking, which is why we think it's right.
+   - **A city created by adding a place joins no trip** until it's
+     tagged later, elsewhere (owner, D and E).
    - At add you can pick another bucket or make a new one, named
      anything ("Golden Circle"). A bucket can hold
      places outside its real bounds (the Blue Lagoon in Reykjavík).
@@ -72,7 +80,8 @@ answers (A to D, Q-D, repeat trips, many trips), or today's fact.
 ## What's stored
 
 - per place: its bucket and its real town (`address_details`), the town
-  shown, never used for filing;
+  shown, and used only to name a new bucket, never to pick an existing
+  one;
 - buckets (today's `cities` registry);
 - **new:** trips (a name), and which cities each trip tags.
 
@@ -82,7 +91,7 @@ answers (A to D, Q-D, repeat trips, many trips), or today's fact.
   after adding (the owner: "or somehow manually...i dont think i can do
   that today"). It's the one place edit this model needs.
 - **Two buckets on the same ground** (if the owner ever makes one) have
-  near-identical centres, so the guess can land in either; pick by hand.
+  nearly the same centre, so the guess can land in either; pick by hand.
   A repeat trip never needs this: it re-tags the same city.
 - **One bucket per place:** Kastrup is in Copenhagen or Malmö, not both.
   A trip tagging both cities shows it either way.
@@ -101,8 +110,11 @@ answers (A to D, Q-D, repeat trips, many trips), or today's fact.
 - The real town shows beside the bucket.
 - Trips (tags) and the trip filter are new.
 - A place's city can be edited after adding (Q-D).
+- The city filter narrows to the selected trips' cities.
+- First open: no seeded cities on a fresh start, and search is worldwide
+  from the start (today seeds cities and widens search only on a miss).
 
-Unchanged: the pick at add, the city filter, plans.
+Unchanged: the pick at add, plans.
 
 ## Owner questions
 
@@ -125,10 +137,13 @@ Unchanged: the pick at add, the city filter, plans.
   - **Q-D:** "if the app puts a place in the wrong city you should be
     able to edit the city attached to the place. you should not be able
     to edit the trips the city is attached to"
-- **Still open (the only one):**
-  - **Seeing the trip at add:** the owner: "Im ambivalent/not sure if
-    you should see the associated trip alongside the city when adding a
-    place."
+  - **E, the trip at add: no.** "i actually dont think you should show
+    the trip when adding a place because what if you're going to a place
+    multiple times, or a second or third time or wahtever, it would be
+    impossible to determine which trip you're thinking about. and
+    honestly it doesn't even matter... what matters is where you're
+    putting the pin."
+- **Nothing is open.**
 - **Answered by the reframe:** Q1, Q2, Q5, Q6, Q8.
 - **Parked with stays:** Q3 (hotels as places or the frame), Q4 (trip
   order).
