@@ -1585,3 +1585,37 @@ matches there, it widens on its own and says so."
 
 ### Unchanged
 The city is plain pencil; "Which city?" only on overlap.
+
+---
+
+## 2026-10-15 -- badge handoff final check + group model
+
+### Handoff: PASS
+- Specs X2's right panel: 24 lobes, textured, 26.4 +, 2.00px stroke.
+  No stale 3px strokes remain.
+- Re-measured at 1.38/1.37x the account.
+- The stand-in is explicitly not built.
+- The finer edge is labelled as the team's opinion, and the false round-6
+  attribution is gone.
+- The icon-project note is there, and in the backlog.
+- Both costs are stated (filters = 1 extra tap; 320 with a tag open = 1
+  row).
+
+### Group model (12c): right
+- **Group** (how he thinks about the trip, his choice, pre-filled,
+  tappable) vs **real city** (from the address, shown in the address
+  line, and the new City filter). It matches his words.
+- Dropping the distance rule and "Which city?" is right.
+
+### Questions trimmed (5 → 2 now; the rest stated as defaults he can override)
+- **Ask now:**
+  1. Confirm the model in one line.
+  2. When the guess is off (a different country from the group on
+     screen): ask, or quietly use the group on screen?
+- **Defaults stated, not asked:**
+  - one group per place;
+  - the City filter only within the group you're looking at;
+  - today's five keep their names, with the word for "group" picked with
+    the stills.
+- **Later:** trips above groups (it doesn't block the add form; the
+  model works either way).
