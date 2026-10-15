@@ -78,3 +78,93 @@ Round 10's row of pins goes (the owner).
 
 NEXT: visual designer — the tag's city states and TYPE select on the
 canvas, plus a first sketch of go-to vs. show/hide.
+
+## Turn 2 -- product designer (visual focus): the canvas, and answers to Turn 1's questions
+
+**Canvas:** https://claude.ai/artifact/6aSGgGczYGfWGP1UqTDGP3. It's built
+on the Triplet design system (installed on the canvas), with 11 artboards
+at phone size (390x844), in three rows. Stickies carry the open
+questions. These are options to react to, not final work; taste calls
+are marked **(we think)**.
+
+**Row 1, the city on the add tag:**
+- same;
+- different;
+- new;
+- changing it;
+- two other ways.
+
+**Row 2:**
+- TYPE closed;
+- TYPE open, with icons;
+- star + visited at add.
+
+**Row 3, the city control, three directions:**
+1. a "Go to" menu under the list title;
+2. the list in city sections;
+3. city labels on the zoomed-out map.
+
+### Answers to systems' questions
+
+1. **Both truths.**
+   - The filed city gets **its own CITY row, a select drawn exactly like
+     TYPE's** (a label, a chip with the value in pencil, a chevron), so
+     the tag's two filing choices look alike.
+   - The address line stays the address ("Norðurljósavegur 9 ·
+     Grindavík").
+   - When the real town differs, it prints quietly at the right of the
+     CITY row, as "in Grindavík" in `ink-2`. That's print, not a control.
+   - When they're the same, it's said once (just "Reykjavík").
+   - A new city carries a small **NEW CITY** mark in
+     `brand-orange-deep` caps until ADD.
+   - **(We think)** a fixed row beats the earlier tappable word: the tag
+     never changes height between the three states (the owner: "controls
+     don't move or grow").
+   - Two other ways are on the last board of row 1, for the owner to
+     react to:
+     - **A:** a routing label, "FILED UNDER / REYKJAVÍK", printed like a
+       baggage tag's destination;
+     - **B:** one address line ending "→ Reykjavík ⌄".
+2. **The city as a control: a select chip, not an underlined word.**
+   - Tapping it prints the cities as rows over the tag's lower half:
+     - the guess first, with its reason ("nearest · 47 km"; we think only
+       the guess shows a distance);
+     - then the other cities;
+     - then "+ New city · Grindavík, from the address".
+   - The pin never moves.
+3. **TYPE closed: the type's badge plus its word,** in a chip like CITY.
+   - The pin above the tag follows the pick.
+   - **Icons in the open list: (we think) yes.** The glyph is how a type
+     is recognised on the map, and the word always sits beside it.
+   - The list is drawn like the sort menu (paper-raised, a navy 2px
+     printed offset). The picked type is a navy row, and it scrolls past
+     9 rows.
+4. **Go to: three directions that differ in kind.**
+   - **1, a menu.** The list title becomes a button ("ALL PLACES (202)
+     ⌄") that opens "Go to": the cities, nearest first, with counts.
+   - **2, the list.** The list runs in city sections. A section heading
+     is go-to (tap it and the map frames that city) and carries its own
+     "Hide".
+   - **3, the map.** At a wide zoom each city is one printed label
+     ("REYKJAVÍK 23"). Tap it to go there; a "fit all my cities" button
+     sits under the zoom.
+5. **Show/hide.**
+   - In 1 and 3, **(we think)** city chips in the filter panel, beside
+     the category chips (it's a filter, like categories).
+   - In 2, it's on the section heading. Hidden cities collect in one
+     "Hidden: Malmö · Show" line at the list's end.
+   - A hidden city reads greyed in a go-to list. Going to it shows it
+     again (systems' edge rule, owner to confirm).
+6. **The list's title:** "ALL PLACES (202)" **(we think)**. It always
+   names what the list holds, and changes only when cities are hidden
+   ("PLACES · 4 CITIES (190)" is an alternative; open).
+7. **The design system:** Triplet exists and is installed on the canvas.
+   No new one is needed. The icon revision (another session) will
+   restyle the badges.
+
+**Not done:** the pencil grain and the paper texture are left out of the
+canvas drawings (sketch fidelity), and the account badge is drawn as a
+plain circle.
+
+NEXT: the owner reacts on the canvas. Then systems checks the picked
+direction against jobs 1-14.
