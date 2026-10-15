@@ -1,5 +1,16 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, owner pick: the matched badge
+- **Owner:** "Build the matched icon but we need to include this in the
+  icon project everything is inconsistent".
+- **handoff.md** now specs X2's right panel: 24 lobes, textured, a 26.4
+  svg at `stroke-width` 1.8182 (2.00px), for the + and the × alike, also
+  in the initial markup.
+- The line-weight system is deferred to backlog "Icon system full
+  revision"; the + matches the account icon for now.
+- I fixed systems' "3px stroke" line to point to the spec.
+- X1 is flagged as showing the + at 3.30px.
+
 ## UPDATE 2026-10-15, round 12 blank-tag form: STARTED, then ON HOLD (orchestrator: the owner wants the city/search workflows mapped first)
 - **Code is in, nothing is rendered, no R12 stills.**
 - `blank.inc.html` (concept layer) takes `s.r12`:

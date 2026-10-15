@@ -184,6 +184,8 @@ the band line at every height.
 - `concepts/E-float/X1-build-spec-3x.png`: the round 6/7 badge drawn
   natively at 60px (top row and the four states),
 next to round 7's render, which it matches, and next to the account badge.
+  **X1 draws the + at 3.30px.** The built + is 2.00px, as in X2's right
+  panel; the edge, field and colours in X1's states are as built.
 
 **The pick: the matched badge (X2's right panel).** Owner, verbatim
 (2026-10-15): "Build the matched icon but we need to include this in the
