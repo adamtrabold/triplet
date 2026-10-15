@@ -206,8 +206,92 @@ missing?" — yes: where you sleep).**
   a trip?
 - **Past trips:** where LA goes.
 
+### Scope widened: the whole app's workflow (owner, folded in)
+
+> "i want to be clear, im wanting to rev the app workflow as a whole not
+> just fit in new ideas. i want to make sure it all sings."
+
+So today's app (`../add-button-placement/concepts/blank-tag-form/diagrams/app-model.html`,
+https://claude.ai/artifact/HzSR9UF58wh7pcZ9FcfZr1) is the **baseline to
+question, not to preserve**. Today's shape, for reference:
+- city chips in the filters panel switch "the city";
+- the map plus a list sheet underneath;
+- Plans is a separate view behind the filters panel;
+- add is a form that infers a city.
+
+The ideas above (I1-I8) answer *where a place's home comes from*. The
+whole-app question is **how you move around**. Four app shapes that
+differ in kind, each able to carry several of I1-I8:
+
+**S1. The lens (one breadcrumb runs everything).**
+- One control in the list header, **Scandinavia 2026 › Reykjavík**.
+  Tap the trip to widen, tap a city to narrow, tap the chevron to switch
+  trip.
+- It replaces the city chips. The map, the list and the + all follow
+  the lens.
+- The filters panel keeps only "what kind" (categories, visited,
+  starred) and "where it really is" (real-city chips, I9).
+- Add pre-fills from the lens (I7 for free).
+- Plans live inside the lens: the trip's plans, or this city's plans.
+- *Strength:* one place answers "what am I looking at?" (the header
+  rule).
+- *Risk:* the header gets busy at 320 (the trip name plus the city
+  name).
+
+**S2. The route spine (the list *is* the trip).**
+- The list becomes the trip in order: a section per stop (Copenhagen,
+  Malmö, Stockholm, Reykjavík), with in-between places on the legs
+  between them (I5).
+- Scrolling the list *travels*: the map follows the section in view.
+  Tapping a section header collapses the trip to that city.
+- Plans are days inside a stop.
+- *Strength:* "the whole trip" and "one city" are the same list at two
+  zooms; no mode switch.
+- *Risk:* the map following the scroll conflicts with today's rule that
+  the list never depends on the map. Here it's the reverse (the map
+  follows the list), which is allowed, but it's new motion. It needs an
+  order for the trip.
+
+**S3. Trip home → city (two levels, like an album).**
+- Opening a trip shows a **trip page**: its cities as cards (counts,
+  visited progress, the next plan), plus "everything" and in-between
+  places. Tapping a card goes into today's map-and-list for that city
+  (its home view, I1-I7 deciding membership).
+- Plans can sit on the trip page (cross-city) or the city.
+- *Strength:* the clearest place to start "from a few different
+  points".
+- *Risk:* one more level, so more taps for the person who lives in one
+  city all trip.
+
+**S4. Atlas (the map navigates; the list is "here and around").**
+- There's no city selector at all. Where the map is decides the city:
+  pan to Reykjavík and the header reads "Reykjavík & around", and the
+  list shows that city's catchment (I3/I6), not just what's on screen.
+- The trip is the set of places you've saved, framed together when you
+  zoom out.
+- *Strength:* the least chrome; it matches "I'm in Reykjavík".
+- *Risk:* it **questions a CLAUDE.md rule** ("never gate list
+  membership on map viewport"). Strictly, membership follows the
+  catchment, not the viewport, but picking the catchment from the map
+  centre is close. It needs the owner's explicit OK, flagged rather than
+  assumed.
+
+**What every shape must also revise, not just carry:**
+- **The tag:** shows its home and its real city ("Reykjavík · in
+  Grindavík"), and which trip it's in.
+- **The add flow:** lands where you're looking, with nothing to pick
+  (this is the blank-tag form's group entry, recast).
+- **Plans:** are they part of a trip, a city, or free?
+- **The + and account:** unchanged positions; the + is global (any trip
+  or city), as he said.
+- **Past trips:** where LA lives (switching trip in S1, the trip list in
+  S3, panning away in S4).
+
 ### Early lean (not a recommendation)
 
+- **App shape:** S1 (the lens) is the least disruptive and fixes the
+  header rule. S2 (the route) is the most "it all sings" if trips have
+  an order; worth a full concept.
 - **I7 + I2 + I9** look like the lowest-friction mix: home = where you
   were when you added it, plus "also show in…" for exceptions, plus
   real-city chips nested under it.
@@ -226,8 +310,8 @@ against are 4, 8 and 9.
 - Should concepts differ in where the home comes from (choice / rule /
   context / area), as above? I'd keep 3-4 that differ in kind.
 
-NEXT: product designer (visual focus) — how each kind of idea (a chosen
-home, also-known-as, a catchment on the map, bases/route, provenance)
-would look in the list header, the filters and the map, and which reads
-as simplest at a glance. Then the director picks 3-4 that differ in
-kind.
+NEXT: product designer (visual focus) — how the four app shapes (lens,
+route spine, trip home, atlas) and the home sources (a chosen home,
+also-known-as, catchment, bases, provenance) would look in the header,
+filters, map, tag and add flow, and which reads simplest at a glance.
+Then the director picks 3-4 whole-app concepts that differ in kind.

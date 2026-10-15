@@ -13,3 +13,8 @@ Earlier, in the + placement work (design/add-button-placement/owner.md): "You're
 > i want to be clear, im wanting to rev the app workflow as a whole not just fit in new ideas. i want to make sure it all sings.
 
 Scope: a revision of the whole app workflow around the model, not new ideas slotted into today's app.
+
+2026-10-15:
+> i dont want full on visuals -- i just want sketch level thought here -- the model is what to nail right now not ui
+
+Fidelity: sketch-level only; nail the model, not UI.
