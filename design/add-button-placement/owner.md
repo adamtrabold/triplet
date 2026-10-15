@@ -171,3 +171,8 @@ Pick: A — the panel's top limit is just below the zoom/account row; it sizes t
 > re filters - when they are so high that they hit the zoom, the plus icon should just move next to the account where it used to be, and potentially match size even
 
 Change: where the + can't ride above the panel, it moves to the top-right beside the account badge (its old spot) instead of being covered. Size open: show it at its own size and at the account badge's size.
+
+2026-10-15, on the + beside the account (A normal / B matched stills):
+> matched is good but let's put it to the right of account
+
+Pick: B matched (50px), placed to the RIGHT of the account badge (the + takes the corner; the account shifts left).
