@@ -111,6 +111,8 @@
   .bt-r.bt-rc.on::after { content: ''; width: 12px; height: 7px; border-left: 2.2px solid var(--navy); border-bottom: 2.2px solid var(--navy); transform: rotate(-45deg) translate(1px, -2px); }
   .bt-every { height: 36px; display: flex; align-items: center; gap: 8px; font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: .08em; color: var(--navy); }
   .bt-every svg { width: 16px; height: 16px; }
+  /* round 12: the widened search's one printed line (print, not a control) */
+  .bt-wide { height: 36px; display: flex; align-items: center; font-size: 12px; line-height: 16px; color: var(--ink-2); border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); }
   /* the search offers: PRINTED on the tag (not pencil), 48px rows, hairlines, no slip edge */
   .bt-r { height: 48px; box-sizing: border-box; border-bottom: 1px solid color-mix(in srgb, var(--hair) 70%, var(--paper-raised)); display: flex; flex-direction: column; justify-content: center; min-width: 0; }
   .bt-r b { font-size: 14px; line-height: 18px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -197,7 +199,7 @@
     let h = `<div class="bt-f name${pre ? ' typing' : ''}"><div class="bt-rule"><h2 class="bt-name ${pre ? 'bt-pencil' : pen}" style="${s.inked && !s.inking ? 'color:var(--ink)' : ''}">${nameTxt}</h2></div>${pre ? '<span class="bt-cap">Name</span>' : ''}</div>`;
     // ADDRESS . CITY (a printed hint for a shape)
     h += shape ? `<div class="bt-f"><div class="bt-rule"><div class="bt-hint">Traced from OpenStreetMap when you add it</div></div></div>`
-      : `<div class="bt-f addr"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR}${s.r10 && s.state !== 'newcity' ? ` · <span class="bt-city">${s.city || CITY}</span>` : ''}`}</div>${pre || s.inked || s.state === 'newcity' ? '' : s.r10 ? '' : chip(null, s.city || CITY)}</div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
+      : `<div class="bt-f addr"><div class="bt-rule"><div class="bt-addr ${pen}">${pre ? '' : `${s.addr || ADDR}${s.r10 && s.state !== 'newcity' && !(s.r12 && s.state === 'whichcity') ? (s.r12 ? ` · ${s.city || CITY}` : ` · <span class="bt-city">${s.city || CITY}</span>`) : ''}`}</div>${pre || s.inked || s.state === 'newcity' ? '' : s.r10 ? '' : chip(null, s.city || CITY)}</div>${pre ? '<span class="bt-cap">Address · city</span>' : ''}</div>`;
     // NOTES (above TYPE: the real tag's order)
     h += `<div class="bt-f"><div class="bt-rule"><div class="bt-note ${pen}">${s.notes || ''}</div></div>${s.notes ? '' : '<span class="bt-cap">Notes</span>'}</div>`;
     // TYPE
@@ -205,11 +207,12 @@
       : chip(type, type);
     if (s.r10 && !s.inked) h += `<div class="bt-f type r10"><span class="tag-lab">Type</span><span class="bt-type bt-pencil">${pre ? '' : type}</span></div>${pinStrip(pre ? null : type)}`;
     else h += `<div class="bt-f type"><span class="tag-lab">Type</span><div class="bt-rule">${typeHtml}</div></div>`;
-    if (st === 'typing') h += `<div class="bt-res">${(s.results || RESULTS).slice(0, s.r10 ? 3 : 9).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}${s.r10 ? `<div class="bt-every"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12H20.5M12 3.5C9 7 9 17 12 20.5M12 3.5C15 7 15 17 12 20.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Search everywhere</div>` : ''}</div>`;
+    if (st === 'typing' && s.r12) h += `<div class="bt-res">${s.widened ? `<div class="bt-wide">${s.widened}</div>` : ''}${(s.results || RESULTS).slice(0, 3).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}</div>`;
+    else if (st === 'typing') h += `<div class="bt-res">${(s.results || RESULTS).slice(0, s.r10 ? 3 : 9).map(([n, a]) => `<div class="bt-r"><b>${n}</b><span>${a}</span></div>`).join('')}${s.r10 ? `<div class="bt-every"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12H20.5M12 3.5C9 7 9 17 12 20.5M12 3.5C15 7 15 17 12 20.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Search everywhere</div>` : ''}</div>`;
     if (st === 'cityopen') h += `<div class="bt-res city">${['Reykjavík', 'Copenhagen', 'Malmö', 'Stockholm', 'Los Angeles'].map(c => `<div class="bt-r bt-rc${c === 'Reykjavík' ? ' on' : ''}"><b>${c}</b></div>`).join('')}<div class="bt-r bt-rc"><b style="color:var(--ink-2)">New city…</b></div></div>`;
     if (st === 'nores') h += `<div class="bt-res"><div class="bt-msg">No places called that — try another name.</div></div>`;
     if (st === 'newcity') h += `<div class="bt-ask"><b>New city?</b>Lisbon isn’t one of your cities yet.</div>`;
-    if (st === 'whichcity') h += `<div class="bt-ask"><b>Which city?</b>Most of this district is outside Reykjavík.</div>`;
+    if (st === 'whichcity') h += `<div class="bt-ask"><b>Which city?</b>${s.ask || 'Most of this district is outside Reykjavík.'}</div>`;
     if (st === 'failed') h += `<div class="bt-err" style="margin-top:14px">— try again. Nothing is lost.</div>`;
     return h;
   }
@@ -240,14 +243,14 @@
   BT.grain = grain;
   function stubify(tag, s) {
     const dir = tag.querySelector('.tag-slot.dir');
-    const ready = !['blank', 'typing', 'nores', 'newcity'].includes(s.state);
+    const ready = !['blank', 'typing', 'nores', 'newcity'].includes(s.state) && !(s.r12 && s.state === 'whichcity');
     const label = s.state === 'newcity' ? 'Answer above' : 'Name it first';
     if (dir) dir.innerHTML = s.inked ? dir.innerHTML
       : ready ? `<span class="tag-seg bt-add${s.busy ? ' busy' : ''}">${plusIcon}${s.busy ? 'Adding…' : 'Add'}</span>`
       : `<span class="tag-seg bt-add off">Add<small>${label}</small></span>`;
-    const ans = s.state === 'newcity' ? ['Add Lisbon', 'Pick from my list'] : s.state === 'whichcity' ? ['New city', 'Kópavogur'] : null;
+    const ans = s.state === 'newcity' ? ['Add Lisbon', 'Pick from my list'] : s.state === 'whichcity' ? (s.ans || ['New city', 'Kópavogur']) : null;
     if (ans) { const st = tag.querySelector('.tag-stub'); st.classList.add('bt-two');
-      st.innerHTML = `<span class="tag-slot"><span class="tag-seg bt-add">${plusIcon}${ans[0]}</span></span><span class="tag-slot"><span class="tag-seg bt-alt">${listIcon}${ans[1]}</span></span>`; }
+      st.innerHTML = s.r12 && s.state === 'whichcity' ? ans.map(a => `<span class="tag-slot"><span class="tag-seg bt-alt">${a}</span></span>`).join('') : `<span class="tag-slot"><span class="tag-seg bt-add">${plusIcon}${ans[0]}</span></span><span class="tag-slot"><span class="tag-seg bt-alt">${listIcon}${ans[1]}</span></span>`; }
   }
   function makeBlank(tag, s) {
     tag.classList.add('is-blank'); tag.classList.remove('is-visited');
