@@ -34,7 +34,7 @@ const CSS = `body{margin:0;background:#E9E2D3;font-family:'DejaVu Sans Condensed
  .num{display:inline-block;width:34px;height:34px;border-radius:50%;background:#12293F;color:#F2EBDD;text-align:center;line-height:34px;font-size:22px;margin-right:8px}
  .cost{font-size:33px;padding:22px 30px 30px;line-height:1.3} .cost b{color:#A8400C}
  .row{display:flex;align-items:flex-start} .col{flex:none} .gap{height:24px}`;
-const R10 = CON + '/C-tag-r10/', EF = CON + '/E-float/', P = CON + '/P-blank-pin/', A = CON + '/A-header-tag/', T = C + '/', CP = CON + '/C-pintag/';
+const R11 = CON + '/C-tag-r11/', R10 = CON + '/C-tag-r10/', EF = CON + '/E-float/', P = CON + '/P-blank-pin/', A = CON + '/A-header-tag/', T = C + '/', CP = CON + '/C-pintag/';
 const pages = {
   // ================= P · BLANK PIN =================
   [P + 'P1-rest-vs-today-3x.png']: `${cap('P · the blank pin', 'The + is a place’s pin, held above the map, not yet placed: the app’s own round pin in the action orange, on a short needle with its shadow on the ground. Bottom-left, by your thumb. The account badge is alone at the top.')}
@@ -161,6 +161,33 @@ const pages = {
      <div class="row" style="gap:20px">${col('320 × 568', crop(f('f10-rest320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('List down', crop(f('f10-collapsed'), 0, 300, 390, 844, 575 / 390), 575)}</div><div class="gap"></div>`,
   [EF + 'F7-pressed-3x.png']: `${cap('Pressed', 'Deep orange with a paper +: the pressed look of every orange action.')}
      <div class="row" style="gap:20px">${col('Rest', crop(f('f10-rest'), 0, 425, 140, 525, 575 / 140), 575)}${col('Pressed', crop(f('f10-pressed'), 0, 425, 140, 525, 575 / 140), 575)}</div><div class="gap"></div>`,
+  // ================= ROUND 11 =================
+  [R11 + 'S1-proportions-real-size-3x.png']: `${cap('Narrower both sides, a smaller +, the hole back', 'Four proportions, each in both colourways: the orange tag, and cream with an orange claim-check end. Shown at real size and a half (1x ×1.5) so the parts can be seen.')}
+<div class="lab" style="padding:16px 30px 6px">Compact, 72 × 42 <span style="font-weight:400;color:#3d4a55">— 1.7 : 1. Both ends shortened; the + at 18.</span></div><div class="row" style="padding:0 30px;gap:30px">${crop1(f('r11-orange-p1-1x'), 0, 452, 120, 527, 4.5)}${crop1(f('r11-twoend-p1-1x'), 0, 452, 120, 527, 4.5)}</div><div class="lab" style="padding:16px 30px 6px">Squat, 64 × 44 <span style="font-weight:400;color:#3d4a55">— 1.45 : 1, nearest a hand-held luggage tag; the tightest footprint.</span></div><div class="row" style="padding:0 30px;gap:30px">${crop1(f('r11-orange-p2-1x'), 0, 452, 120, 527, 4.5)}${crop1(f('r11-twoend-p2-1x'), 0, 452, 120, 527, 4.5)}</div><div class="lab" style="padding:16px 30px 6px">Slim, 80 × 36 <span style="font-weight:400;color:#3d4a55">— 2.2 : 1, a long claim check; the + at 16 reads small.</span></div><div class="row" style="padding:0 30px;gap:30px">${crop1(f('r11-orange-p3-1x'), 0, 452, 120, 527, 4.5)}${crop1(f('r11-twoend-p3-1x'), 0, 452, 120, 527, 4.5)}</div><div class="lab" style="padding:16px 30px 6px">Golden, 70 × 43 (the lead) <span style="font-weight:400;color:#3d4a55">— 1.62 : 1. The hole, the + and the claim-check end sit in even thirds of the tag.</span></div><div class="row" style="padding:0 30px;gap:30px">${crop1(f('r11-orange-p4-1x'), 0, 452, 120, 527, 4.5)}${crop1(f('r11-twoend-p4-1x'), 0, 452, 120, 527, 4.5)}</div><div class="gap"></div>`,
+  [R11 + 'C0-two-options-3x.png']: `${cap('Two options for +', 'Left: the badge (Float). Right: the tag is the button (C), the orange tag. Both bottom-left, both open the same blank tag; both hide only while the filters are open.')}
+     ${pair(f('f10-rest'), 'Float · the badge', f('c11-rest'), 'C · the tag', 640)}<div class="gap"></div>`,
+  [R11 + 'C1-rest-vs-today-3x.png']: `${cap('C · the tag is the button', 'Smaller and better balanced: 70 × 43, the hole at the cut end, a smaller + in the middle, the dotted line and the claim-check end. Bottom-left by your thumb; the account badge alone at the top.')}
+     ${pair(f('r9-today'), 'Today', f('c11-rest'), 'C', 640)}<div class="gap"></div>`,
+  [R11 + 'C2-real-size-3x.png']: `${cap('C at real size', 'As your phone shows it (1x, each pixel as you’d see it), with the app’s own pins and the account badge.')}
+     ${crop1(f('c11-rest-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
+  [R11 + 'C3-squint-1x.png']: `${cap('The squint test', 'The same screen blurred: the + should come before the account badge.')}
+     <div class="row" style="padding:0 30px;gap:18px">${col('1x', crop1(f('c11-rest-1x'), 0, 0, 390, 544, 1.4), 546)}${col('Blurred', crop1(f('c11-rest-1x'), 0, 0, 390, 544, 1.4, true), 546)}</div>
+     ${note('Rough measure (systems re-measures): about 2× the account badge’s weight, and about 1.5× the Float badge’s.')}`,
+  [R11 + 'C4-tap-3x.png']: `${cap('Tap it (Safari, 390×664)', 'The claim-check end tears off and the tag rises above the keyboard as the blank form; the map behind is washed back until there’s an address. The button is gone while you add: the tag’s × is the one cancel.')}
+     ${pair(f('c11-rest664'), 'At rest', f('c11-tapped664'), 'Tapped: type the name', 664)}<div class="gap"></div>`,
+  [R11 + 'C5-tag-open-3x.png']: `${cap('A place’s tag open', 'It stays where it is and can be tapped: adding closes the place’s tag, and cancelling brings it back. The list sits a little lower to make room.')}${full(f('c11-tag664'))}<div class="gap"></div>`,
+  [R11 + 'C6-sizes-3x.png']: `${cap('Small phone, list down', 'Left: 320 wide. Right: list down on the Home Screen app: it rides the list’s edge.')}
+     <div class="row" style="gap:20px">${col('320 × 568', crop(f('c11-rest320'), 0, 0, 320, 568, 575 / 320, 320), 575)}${col('List down', crop(f('c11-collapsed'), 0, 300, 390, 844, 575 / 390), 575)}</div><div class="gap"></div>`,
+  [R11 + 'C7-pressed-3x.png']: `${cap('Pressed', 'Deep orange: the pressed look of every orange action.')}
+     <div class="row" style="gap:20px">${col('Rest', crop(f('c11-rest'), 0, 440, 110, 527, 575 / 110), 575)}${col('Pressed', crop(f('c11-pressed'), 0, 440, 110, 527, 575 / 110), 575)}</div><div class="gap"></div>`,
+  [R11 + 'K1-two-colourways-3x.png']: `${cap('The two colourways, the same tag', 'Left: the orange tag. Right: cream, with the claim-check end in orange. Same size, hole and +.')}
+     ${pair(f('c11-rest'), 'Orange tag', f('c11b-rest'), 'Cream, orange end', 640)}
+     <div class="row" style="padding:20px 30px 0;gap:30px">${crop1(f('c11-rest-1x'), 0, 452, 120, 527, 4.5)}${crop1(f('c11b-rest-1x'), 0, 452, 120, 527, 4.5)}</div>
+     ${note('Rough weights (systems re-measures): the orange tag about 2× the account badge; the cream one about 0.6× — quieter than the account, so it doesn’t come first.')}`,
+  [R11 + 'K2-cream-real-size-3x.png']: `${cap('Cream with an orange claim-check end, at real size', 'As your phone shows it, with the app’s own pins and the account badge.')}
+     ${crop1(f('c11b-rest-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
+  [R11 + 'K3-cream-rest-664-3x.png']: `${cap('Cream with an orange end, in a Safari tab (390×664)', 'At rest, beside the orange one.')}
+     ${pair(f('c11-rest664'), 'Orange tag', f('c11b-rest664'), 'Cream, orange end', 664)}<div class="gap"></div>`,
 };
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${dd}/chrome-linux/chrome`, args: ['--allow-file-access-from-files'] });

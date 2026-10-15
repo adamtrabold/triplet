@@ -30,6 +30,7 @@
     const v = R.dataset.tv || 'paper', W = +(R.dataset.tw || 104), tilt = +(R.dataset.tilt || 0), pr = document.getElementById('tb').classList.contains('press');
     let svg, w, h;
     const plus = (cx, cy, a, sw, col) => `<path d="M${cx - a} ${cy}H${cx + a}M${cx} ${cy - a}V${cy + a}" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    if (R.dataset.tp) return drawR11(v, R.dataset.tp, pr);
     if (v === 'apptag') {
       // the app's own tag in miniature: chamfered top corners, the eyelet hole on its patch, a stub along the bottom
       w = W; h = Math.round(W * .74); const CH = Math.round(W * .17), ST = Math.round(h * .3), by = h - ST;
@@ -57,6 +58,35 @@
     const el = document.getElementById('tb'); const pad = 6;
     el.style.width = (w + pad) + 'px'; el.style.height = (h + pad) + 'px';
     el.innerHTML = `<svg width="${w + pad}" height="${h + pad}" viewBox="0 0 ${w + pad} ${h + pad}" aria-hidden="true"><g transform="translate(0 ${pad / 2}) rotate(${tilt} ${w / 2} ${h / 2})">${svg}</g></svg>`;
+    el.style.top = (footY() - h - pad / 2) + 'px';
+  }
+  // ROUND 11 (owner: "The tag is too wide and the plus is too large. Balance feels off. I feel like both sides could get
+  // narrower. Also I miss the hole."): proportion presets; the punched hole (with the tag's grommet ring) at the die-cut
+  // end; the + centred between the hole and the perforation, smaller; colourways orange (#7) and twoend (#2).
+  const P11 = {      // [W, H, chamfer, stub, plusArm, plusStroke]
+    p1: [72, 42, 12, 15, 9, 3.6],      // compact: 1.7 : 1
+    p2: [64, 44, 13, 14, 8.5, 3.4],    // squat: nearer a real luggage tag's end-on read, 1.45 : 1
+    p3: [80, 36, 11, 15, 8, 3.2],      // slim claim check: 2.2 : 1
+    p4: [70, 43, 12, 14, 9, 3.6],      // golden: 1.62 : 1
+  };
+  function drawR11(v, tp, pr) {
+    const [w, h, CH, STUB, A, SW] = P11[tp], sx = w - STUB, hx = CH * .85 + 3, hy = h / 2, HR = Math.max(2.6, h * .065);
+    const path = `M${CH} 0H${w}V${h}H${CH}L0 ${h - CH}V${CH}Z`;
+    const orange = v === 'orange';
+    const stock = pr ? (orange ? 'var(--brand-orange-deep)' : 'var(--paper)') : orange ? 'var(--brand-orange)' : 'var(--paper-raised)';
+    const endFill = !orange ? `<rect x="${sx}" y="0" width="${STUB}" height="${h}" fill="${pr ? 'var(--brand-orange-deep)' : 'var(--brand-orange)'}"/>` : '';
+    const perf = orange ? 'rgba(18,41,63,.5)' : 'var(--hair)';
+    const ring = orange ? 'rgba(242,235,221,.55)' : 'var(--hair)';
+    // the + sits in the optical middle of the field between the hole's ring and the perforation
+    const fx0 = hx + HR + 3, bx = (fx0 + sx) / 2 + .5, by = h / 2;
+    const el = document.getElementById('tb'), pad = 6;
+    const svg = `<defs><mask id="tm"><path d="${path}" fill="white"/><circle cx="${hx}" cy="${hy}" r="${HR}" fill="black"/><circle cx="${sx}" cy="0" r="3" fill="black"/><circle cx="${sx}" cy="${h}" r="3" fill="black"/></mask></defs>
+      <g class="tb-shadow"><g mask="url(#tm)"><path d="${path}" fill="${stock}"/>${endFill}
+      <circle cx="${hx}" cy="${hy}" r="${HR + 1.6}" fill="none" stroke="${ring}" stroke-width="2.2"/>
+      <line x1="${sx}" y1="5" x2="${sx}" y2="${h - 5}" stroke="${perf}" stroke-width="1.4" stroke-dasharray="3.5 2.5"/>
+      <path d="M${bx - A} ${by}H${bx + A}M${bx} ${by - A}V${by + A}" stroke="var(--navy)" stroke-width="${SW}" stroke-linecap="round"/></g></g>`;
+    el.style.width = (w + pad) + 'px'; el.style.height = (h + pad) + 'px';
+    el.innerHTML = `<svg width="${w + pad}" height="${h + pad}" viewBox="0 0 ${w + pad} ${h + pad}" aria-hidden="true"><g transform="translate(0 ${pad / 2})">${svg}</g></svg>`;
     el.style.top = (footY() - h - pad / 2) + 'px';
   }
   function mount() { if (!document.getElementById('tb')) { const b = document.createElement('button'); b.id = 'tb'; b.setAttribute('aria-label', 'Add a place'); document.body.appendChild(b); } draw(); }

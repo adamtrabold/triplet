@@ -1,5 +1,16 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 11 (owner: tag too wide, + too large, balance off, miss the hole; show orange + cream-with-orange-end)
+- **`drawR11()`** in `C-tag-r10/t.inc.html`, presets `P11`:
+  - p1 72×42, p2 64×44, p3 80×36, p4 70×43 (the lead);
+  - the hole at the die-cut end with its grommet ring;
+  - the + is 18 / 3.6, centred between the hole and the perforation.
+- **Lead:** orange p4 (`T11 = 'T:orange:104:0:p4'`); cream colourway
+  `T11B`.
+- **Rough weights:** orange about 2× the account, cream about 0.6×.
+- **Stills:** `C-tag-r11/` S1, C0-C7, K1-K3.
+- **Next:** systems re-measures; the director scores; the send.
+
 ## UPDATE 2026-10-14, round 10c re-shoot at 84 + the ADD still
 - **C #7 is 84 × 44** (`TC = 'T:orange:84'`). C0-C7 re-shot.
   - C0's caption now says "both hide only while the filters are open".
