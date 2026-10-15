@@ -602,6 +602,27 @@
         transform: none;
       }
     }
+    /* The filters panel open: the badge rides up with the panel's top edge, the same gap above it
+       as above the list, by the same 0.3s ease (owner, 2026-10-15: "let's push the + up with the
+       panel"). --filters-lift is the panel's height (its foot sits on the edge the badge rides).
+       Only where the lifted box clears the zoom / account row with a gap (syncFiltersLift(), from
+       live measurement); otherwise no class, and the panel covers the badge as before (owner: "at
+       the smaller sizes where the + goes off screen, just have the filters go over the +").
+       Measured from the panel, so an open tag's --sheet-lower doesn't apply while lifted. */
+    body.add-rides-filters #floatingAddBtn,
+    body.add-rides-filters #addFocus {
+      transform: translateY(calc(-1 * var(--filters-lift, 0px)));
+    }
+    body.add-rides-filters.sheet-collapsed #floatingAddBtn,
+    body.add-rides-filters.sheet-collapsed #addFocus {
+      transform: translateY(calc(240px - env(safe-area-inset-bottom, 0px) - var(--filters-lift, 0px)));
+    }
+    @media (min-width: 900px) {
+      body.add-rides-filters.sheet-collapsed #floatingAddBtn,
+      body.add-rides-filters.sheet-collapsed #addFocus {
+        transform: translateY(calc(-1 * var(--filters-lift, 0px)));
+      }
+    }
 
     #mainContent {
       /* Stays FIXED (Safari tints its tab status bar from the top fixed
@@ -5595,8 +5616,16 @@
           const c = popup && popup.getElement && popup.getElement(), t = c && c.getBoundingClientRect();
           if (!t || !t.width || t.right <= b.left || t.left >= b.right) return TAG_SHEET_GAP_MIN;
         }
+        // The badge's RESTING top: a lift for the filters panel (syncFiltersLift()) is added back, and
+        // while lifted its transform drops --sheet-lower, so that comes back too (phone, list up).
+        let top = b.top;
+        if (document.body.classList.contains('add-rides-filters')) {
+          const css = document.documentElement.style;
+          top += (parseFloat(css.getPropertyValue('--filters-lift')) || 0)
+            + (railQuery.matches || sheetIsCollapsed() ? 0 : (parseFloat(css.getPropertyValue('--sheet-lower')) || 0));
+        }
         const edge = railQuery.matches ? map.getContainer().getBoundingClientRect().bottom : document.getElementById('locations').getBoundingClientRect().top;
-        return Math.max(TAG_SHEET_GAP_MIN, Math.ceil(edge - b.top + 12));
+        return Math.max(TAG_SHEET_GAP_MIN, Math.ceil(edge - top + 12));
       } catch (_) { return TAG_SHEET_GAP_MIN; }
     }
     const TAG_LIST_MIN = 144;      // the list never lowers past its header (60) + one row (56) + half the next (28), so it reads as scrollable (owner); a taller tag scrolls inside
@@ -9098,6 +9127,29 @@
       document.body.classList.toggle('add-credit-off', open && map.getContainer().getBoundingClientRect().bottom - h < 74 + 12 + 17 + inset);
     }
     if (window.ResizeObserver) new ResizeObserver(() => syncAddCredit()).observe(document.getElementById('controls'));
+    // The filters panel open: lift the badge onto the panel's top edge when its box would still
+    // clear the zoom / account row by --s3 (12); otherwise leave it for the panel to cover. Read
+    // from layout (offsetTop / offsetHeight ignore the panel's slide-in transform), so it holds on
+    // any screen and mid-slide.
+    function syncFiltersLift() {
+      const panel = document.getElementById('filtersPanel'), btn = document.getElementById('floatingAddBtn');
+      let lift = 0;
+      if (panel.classList.contains('visible') && btn.offsetHeight) {
+        const gap = (railQuery.matches ? document.body.clientHeight : document.getElementById('locations').offsetTop) - (btn.offsetTop + btn.offsetHeight);
+        const boxTop = panel.offsetTop - gap - btn.offsetHeight;
+        let row = 0;
+        for (const el of [document.querySelector('.leaflet-control-zoom'), document.getElementById('accountBtn')]) {
+          const r = el && el.getBoundingClientRect();
+          if (r && r.height) row = Math.max(row, r.bottom);
+        }
+        if (boxTop >= row + 12) lift = panel.getBoundingClientRect().height;   // exact (fractional); its foot is the edge
+      }
+      document.documentElement.style.setProperty('--filters-lift', lift.toFixed(2) + 'px');
+      document.body.classList.toggle('add-rides-filters', lift > 0);
+    }
+    new MutationObserver(syncFiltersLift).observe(document.getElementById('filtersPanel'), { attributes: true, attributeFilter: ['class'] });
+    if (window.ResizeObserver) new ResizeObserver(() => syncFiltersLift()).observe(document.getElementById('filtersPanel'));
+    window.addEventListener('resize', syncFiltersLift);
 
     // The +/× glyph as SVG rather than a text character.
     // 26.4px at stroke-width 1.8182 = 2.00px on screen (the account icon's line, for now: the icon
