@@ -41,3 +41,8 @@ Fact check (orchestrator, index.html): today the add form's City select is auto-
 > D. When adding a place to a city, it should automatically be added to any relevant trips. BUT you should not add cities to trips inside of the ui of adding a place. Im ambivalent/not sure if you should see the associated trip alongside the city when adding a place.
 
 Note (orchestrator): the owner's D answers trips-at-add, not Q-D as asked (moving a place to another city after adding — with trips, or wait for place editing?). Q-D is still open.
+
+2026-10-15, on repeat trips (concept 5):
+> a repeat trip to the same place should not change the pins -- if i go back to a place i may want to see all the places i noted prior / which i visited / etc
+
+Read as: no separate "Copenhagen 2028" bucket; a repeat trip tags the same city again (a city in two trips), and all its places, visited or not, show under both.
