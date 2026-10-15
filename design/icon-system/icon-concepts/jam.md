@@ -895,3 +895,15 @@ All six `t4-card-*.png` are re-rendered from `sketches/t4.html`.
 
 NEXT: product designer (systems focus) — coverage against jobs.md on all
 six cards; then the director looks at cards 2–4.
+
+---
+
+## Turn 7: design director, fix-pass check
+
+Cards 2, 3 and 4 are now 9. All six t4 cards are at 9 (`scores.md` round
+1b). READY, pending a clean coverage run.
+
+NEXT: coordinator — when systems' coverage against jobs.md comes back
+with no blockers, send the six t4 cards in order with the three questions
+(word for word in scores.md round 1); if it finds a blocker, the visual
+designer fixes it and the director looks at that card only.

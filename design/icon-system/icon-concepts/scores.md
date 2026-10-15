@@ -101,3 +101,26 @@ he'd expect.
 ### Did the work change?
 
 This is the first scored round of this step.
+
+---
+
+## Round 1b: fix-pass check (cards 2–4), 2026-10-15: all six at 9
+
+A look, not a re-score. I checked the nature section of card 2, the
+district section of card 3 (plus the fountain line in `t4.html`) and the
+top and bin sections of card 4, at full size.
+
+- **Card 2: 9** (from 8). The peaks are two summits with a snowcap on a
+  base bar. They read as mountains at 24px, at the 12px chip and on the
+  map, with no sunrise or image read. The Gunnuhver row now matches his
+  data ("Gunnuhver - fumarole", NATURE · REYKJAVÍK).
+- **Card 3: 9** (from 8). District B carries "we'd keep the blocks". The
+  fountain's "could be" names the anchor.
+- **Card 4: 9** (from 8). The "Staying as they are" line opens the card,
+  word for word. The bin's line is fixed.
+- Cards 0, 1 and 5 hold at 9. Card 0's strip 2 picked up the new peaks,
+  and the frame is still fair.
+
+**READY once the systems coverage run comes back with no blockers.** If
+coverage finds a blocker, it gets fixed and I look at that card only. The
+send order and the three questions are as in round 1 above, unchanged.
