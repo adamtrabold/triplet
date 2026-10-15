@@ -1372,10 +1372,15 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     Measured: badge foot to sheet edge 15.22 on every frame of the drop.
     Desktop: the map column's bottom-left, 15.22 from the rail; nothing rides.
   - z 998: over the map and the form, under the filters panel (999), which
-    covers it by design. The sort menu's scrim takes the first tap.
+    covers it by design. With the sort menu open it lifts above the scrim
+    (2560), so one tap closes the menu and opens the form.
+  - Screen reader: "Add a place" / "Close add form", `aria-expanded`,
+    `aria-controls="addForm"`. Esc with place suggestions showing closes only
+    the suggestions.
   - `#accountBtn` owns the top-right alone (`--account-slot-right` = `--s4`).
   - **TAG_SHEET_GAP is now `tagSheetGap()`**: the badge's rendered box top
-    above the list's edge + 12 (88), floor 48. `pinPopupTopPad()` no longer
+    above the list's edge + 12 (88), floor 48. Desktop: 88 only for a tag whose
+    span crosses the badge's box, else 48. `pinPopupTopPad()` no longer
     counts the +; `planChrome()` still does (it now guards the bottom-left).
   - **Tap + ("ride", form line A):** stale sign-in → the sign-in sheet,
     nothing moves; else the sort menu and filters close, an open tag closes

@@ -235,6 +235,26 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- **Esc handlers that don't mark the keypress spent** (reviewer, + badge
+  build round 1, 2026-10-15). The sort menu's document-level Esc
+  (`initSort()`: `if (e.key === 'Escape' && sortMenuOpen()) closeSortMenu()`)
+  and the error banner's (`dismissErrorByKey()` listener) don't call
+  `preventDefault()`, so a later Esc listener acts on the same keypress.
+  Today it's harmless: the + form's Esc skips while the sort menu is open, and
+  the tag's Esc doesn't check `defaultPrevented`. A new Esc listener would
+  double-fire. Repro (from reading the code, not yet run): show the error banner with a tag open, press Esc: the
+  banner and the tag both close. Fix: `preventDefault()` in both, and have
+  later listeners skip on `e.defaultPrevented`.
+- **The first tag open of a session lowers the list 4px more than later
+  opens** (pre-existing on main; found by the + badge build's jobs check,
+  2026-10-15). The first open measures the tag 212px tall, later opens of the
+  same tag 208px, so `tagSheetNeed()` lowers the sheet 4px more the first
+  time (main at 390x664: 34px, then 30, 30; the + build: 74, then 70, 70).
+  Something in the tag (fonts or the stamp line, likely) settles 4px shorter
+  after its first render. Repro: 390x664, tap a starred row, read
+  `--sheet-lower`; close it, tap it again, read again. Visible as the add
+  badge (and the list) sitting 4px higher after a cancel restores the tag.
+
 - Sign-in badge review findings (reviewer, 2026-10-14, build `ba473f8`):
   (1) BLOCKER, in-place sign-in (flow 4, signed-out real mode): `login()`
   ends busy, then `updateAuthUI()` swaps the slot to 'account' BEFORE

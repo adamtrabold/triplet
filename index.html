@@ -574,6 +574,11 @@
       mask-repeat: no-repeat;
     }
     #addFocus { transition: transform 0.3s ease; pointer-events: none; display: none; }
+    /* Sort menu open: the badge sits above its scrim (2550; the menu is 2600), so one tap on +
+       closes the menu and opens the form (openAddForm()). The menu opening already closed the
+       filters panel, so this never lifts the badge over the panel. */
+    body.sort-open #floatingAddBtn,
+    body.sort-open #addFocus { z-index: 2560; }
     #floatingAddBtn:focus-visible { outline: none; }   /* the ring is #addFocus: the mask would clip one drawn here */
     #floatingAddBtn:focus-visible + #addFocus { display: block; }
     #addFocus svg { display: block; overflow: visible; }
@@ -2767,7 +2772,7 @@
        platforms. 26.4px at stroke-width 1.8182 (viewBox units) = 2.00px on screen, the account
        icon's line for now; the app-wide weight belongs to the icon project (docs/backlog.md).
        The same two strings as setAddBtnGlyph(), so the first paint matches. -->
-  <button id="floatingAddBtn" aria-label="Add a place">
+  <button id="floatingAddBtn" aria-label="Add a place" aria-expanded="false" aria-controls="addForm">
     <svg width="26.4" height="26.4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8182" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
   </button>
   <!-- Its keyboard focus ring: a sibling (the button's mask would clip a ring drawn on it), shown
@@ -5579,11 +5584,17 @@
     // the badge, which stays visible and tappable with a tag open (design/add-button-placement).
     // The edge is the sheet's top, or on the desktop rail the map's bottom. Both ride the same
     // transform, so the difference holds mid-transition. Was the 48 dial (CD: ">= 48"), the floor.
+    // Desktop: only a tag whose horizontal span crosses the badge's box pays the 88 (director,
+    // review round); every other desktop tag keeps the 48.
     const TAG_SHEET_GAP_MIN = 48;
-    function tagSheetGap() {
+    function tagSheetGap(popup) {
       try {
         const b = document.getElementById('floatingAddBtn').getBoundingClientRect();
         if (!b.height) return TAG_SHEET_GAP_MIN;
+        if (railQuery.matches) {
+          const c = popup && popup.getElement && popup.getElement(), t = c && c.getBoundingClientRect();
+          if (!t || !t.width || t.right <= b.left || t.left >= b.right) return TAG_SHEET_GAP_MIN;
+        }
         const edge = railQuery.matches ? map.getContainer().getBoundingClientRect().bottom : document.getElementById('locations').getBoundingClientRect().top;
         return Math.max(TAG_SHEET_GAP_MIN, Math.ceil(edge - b.top + 12));
       } catch (_) { return TAG_SHEET_GAP_MIN; }
@@ -9032,6 +9043,8 @@
       document.getElementById('controls').classList.toggle('show', open);
       document.getElementById('addForm').classList.toggle('show', open);
       btn.classList.toggle('active', open);
+      btn.setAttribute('aria-label', open ? 'Close add form' : 'Add a place');   // follows the visible +/x swap
+      btn.setAttribute('aria-expanded', String(open));
       document.body.classList.toggle('add-open', open);
       setAddBtnGlyph(open);
       syncAddCredit();
@@ -9208,6 +9221,9 @@
     // Hide autocomplete when pressing Escape
     nameInput.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        // Suggestions showing: Esc closes only them (preventDefault tells the form's own Esc --
+        // cancel, rideBack() -- that this keypress is spent). With none showing it cancels the form.
+        if (document.getElementById('addressAutocomplete').classList.contains('show')) e.preventDefault();
         hideAutocomplete();
       }
     });
@@ -9659,7 +9675,7 @@
       if (!inn) return;
       inn.style.maxHeight = ''; inn.classList.remove('scrolls');
       const mapR = map.getContainer().getBoundingClientRect(), r = c.getBoundingClientRect();
-      const over = r.bottom + tagSlipRoom() - (mapR.bottom - tagSheetGap());
+      const over = r.bottom + tagSlipRoom() - (mapR.bottom - tagSheetGap(popup));
       if (over > 0 && !c.classList.contains('tag-wait')) { inn.style.maxHeight = Math.max(120, inn.offsetHeight - over) + 'px'; inn.classList.add('scrolls'); }
     }
     const tagSlipRoom = () => currentUser ? 0 : 52;   // signed out: room for the sign-in slip (44px button + 2 x 1px rule) + its 6px gap
@@ -9683,7 +9699,7 @@
       const mapH = map.getSize().y - cur;   // the map's height with the sheet where the user left it
       const bottom = pinPopupTopPad() + 2 * tagPinRadius(popup) + c.offsetHeight + tagSlipRoom();
       const sheetH = document.getElementById('locations').getBoundingClientRect().height;
-      return Math.min(Math.max(0, bottom + tagSheetGap() - mapH), Math.max(0, sheetH - TAG_LIST_MIN));
+      return Math.min(Math.max(0, bottom + tagSheetGap(popup) - mapH), Math.max(0, sheetH - TAG_LIST_MIN));
     }
     function showTagDot(popup) {
       const src = popup._source;

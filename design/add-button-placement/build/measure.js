@@ -26,11 +26,11 @@ const M = () => {
 };
 const starTag = async p => { const id = await p.evaluate(() => (locations.find(l => l.starred && document.querySelector(`#locationsList .location-card[data-id="${l.id}"]`)) || {}).id); await p.click(`#locationsList .location-card[data-id="${id}"] .row-main`).catch(() => p.click(`#locationsList .location-card[data-id="${id}"]`)); await p.waitForTimeout(1900); };
 const S = {
-  rest_844: {}, rest_664: { vp: [390, 664] }, rest_375: { vp: [375, 667] }, rest_320: { vp: [320, 568], city: 'copenhagen' },
+  rest_844: {}, rest_664: { vp: [390, 664] }, rest_375: { vp: [375, 667] }, rest_320: { vp: [320, 568], city: 'reykjavik' },
   collapsed_home: { inset: true, pre: 'collapse' }, desktop: { vp: [1280, 800], desk: true },
-  tag_844: { pre: 'tag' }, tag_664: { vp: [390, 664], pre: 'tag' }, tag_320: { vp: [320, 568], city: 'copenhagen', pre: 'tag' },
+  tag_844: { pre: 'tag' }, tag_664: { vp: [390, 664], pre: 'tag' }, tag_320: { vp: [320, 568], city: 'reykjavik', pre: 'tag' },
   filters_844: { pre: 'filters' }, sort_844: { pre: 'sort', tap: true },
-  form_844: { tap: true }, form_664: { vp: [390, 664], tap: true }, form_320: { vp: [320, 568], city: 'copenhagen', tap: true },
+  form_844: { tap: true }, form_664: { vp: [390, 664], tap: true }, form_320: { vp: [320, 568], city: 'reykjavik', tap: true },
   form_collapsed_home: { inset: true, pre: 'collapse', tap: true }, form_desktop: { vp: [1280, 800], desk: true, tap: true },
   tagform_844: { pre: 'tag', tap: true, cancel: true }, scrolled_cancel: { pre: 'scroll', tap: true, cancel: true },
   play_form: { q: '', js: "try { localStorage.removeItem('sb-jgvckilmltimabfdvaly-auth-token'); } catch (e) {}", tap: true },

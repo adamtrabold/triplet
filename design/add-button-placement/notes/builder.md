@@ -109,3 +109,36 @@ Other checks:
   `design/add-button-placement/`. The isolated worktree's Write tool refused that path. The
   notes live here on `plus-badge-build`. The stills are in both places: the node render wrote
   them to the shared checkout, and copies are committed here.
+
+## Round 2 (review fixes, 2026-10-15)
+
+Round 1 results: director 9, jobs checker 6/6, reviewer BLOCKED. Fixed in one batch, following
+the handoff's "Director answers, review round":
+
+1. **BLOCKER, Esc in the place search:** `nameInput`'s Esc handler now calls `preventDefault()`
+   when suggestions are showing, and the form's document-level Esc skips a spent keypress.
+   Verified: with suggestions showing, Esc closes only them; a second, plain Esc cancels the form.
+2. **Sort menu open, one tap (director 1):** `body.sort-open` lifts the badge and `#addFocus`
+   to z 2560, above the scrim (2550) and below the menu (2600). Opening the sort menu already
+   closes the filters panel, so the badge is never lifted over it. `openAddForm()` closes the
+   menu. Verified: the badge is what's hit at its centre with the menu open, and one tap gives the
+   form open with the menu closed.
+3. **Accessibility (director 2):** `showAddForm()` sets `aria-label` to "Close add form" or
+   "Add a place" and `aria-expanded` to true or false. The markup carries
+   `aria-expanded="false" aria-controls="addForm"`.
+4. **Desktop tag gap (director 4):** on the rail, `tagSheetGap(popup)` returns 48 unless the
+   tag's horizontal span crosses the badge's box; then it returns 88. `tagFit()` and
+   `tagSheetNeed()` pass the popup. Verified: a tag at x 662–978 gets 48; a tag moved to
+   x 247–563 (crossing the badge at 375–435) gets 88. Phones are always 88.
+5. **320 stills:** re-shot with Reykjavík (the stub labels the same places with each city;
+   Copenhagen showed Reykjavík names). The numbers are unchanged: tag clearance 12.8, 1 row.
+6. **Backlog:** the sort-menu and error-banner Esc handlers don't `preventDefault()` (logged,
+   not fixed: my sort change doesn't touch that handler).
+7. **The 4px nit is not from the +.** On main too, the first tag open of a session measures
+   the tag 212px tall and later opens 208px, so the sheet lowers 4px more the first time
+   (main 34 → 30, build 74 → 70). The cancel's reopen is a "later open". Logged in the backlog
+   with a repro; not fixed here.
+
+Checks: Impeccable gate passed (unchanged identities). Gesture suites: popup-open 42/42,
+rows 12/12, places-ux 30/30, tag-sync 12/12. `build/measure.json` was re-run: every box is
+unchanged from round 1, and sort_844 now opens on the first tap.

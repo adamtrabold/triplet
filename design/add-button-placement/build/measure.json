@@ -240,7 +240,7 @@
    "bg": "rgb(238, 116, 52)",
    "img": "url(\"data:im",
    "fg": "rgb(18, 41, 63)",
-   "gap": 88,
+   "gap": 48,
    "add": null,
    "addCentreDy": -754.78,
    "addHit": "locationsHeader",
@@ -407,7 +407,7 @@
    "rows": 1,
    "collapsed": false,
    "form": null,
-   "tagKey": "cop01",
+   "tagKey": "rey01",
    "auth": false,
    "acct": [
     254,
@@ -475,7 +475,7 @@
    "sheetTop": 544,
    "inkLeft": 19.9,
    "inkFoot": 19.9,
-   "centreHit": "sortScrim",
+   "centreHit": "badge",
    "active": false,
    "bg": "rgb(238, 116, 52)",
    "img": "url(\"data:im",
@@ -505,35 +505,45 @@
   "afterFirstTap": {
    "box": [
     15.2,
-    468.8,
+    708.8,
     75.2,
-    528.8
+    768.8
    ],
-   "sheetTop": 544,
+   "sheetTop": 784,
    "inkLeft": 19.9,
    "inkFoot": 19.9,
    "centreHit": "badge",
-   "active": false,
-   "bg": "rgb(238, 116, 52)",
-   "img": "url(\"data:im",
-   "fg": "rgb(18, 41, 63)",
+   "active": true,
+   "bg": "rgb(18, 41, 63)",
+   "img": "none",
+   "fg": "rgb(242, 235, 221)",
    "gap": 88,
-   "add": null,
-   "addCentreDy": -498.78,
-   "addHit": "map",
+   "add": [
+    87.2,
+    716.8,
+    374,
+    760.8
+   ],
+   "addCentreDy": 0,
+   "addHit": "submitBtn",
    "credit": [
     138.9,
-    527.2,
+    308.2,
     390,
-    544
+    325
    ],
    "creditText": " Leaflet | © OpenStreetMap contributors",
-   "creditGapToBadge": 63.7,
+   "creditGapToBadge": 383.8,
    "tag": null,
    "tagFootToBadgeTop": null,
-   "rows": 4,
-   "collapsed": false,
-   "form": null,
+   "rows": 0,
+   "collapsed": true,
+   "form": [
+    0,
+    324.8,
+    390,
+    784
+   ],
    "tagKey": null,
    "auth": false,
    "acct": [
@@ -673,6 +683,7 @@
    "scroll": 0
   },
   "track": [
+   15.22,
    15.22,
    15.22,
    15.22,
@@ -1152,7 +1163,7 @@
    "bg": "rgb(238, 116, 52)",
    "img": "url(\"data:im",
    "fg": "rgb(18, 41, 63)",
-   "gap": 88,
+   "gap": 48,
    "add": null,
    "addCentreDy": -754.78,
    "addHit": "locationsHeader",
@@ -1225,7 +1236,7 @@
    "bg": "rgb(18, 41, 63)",
    "img": "none",
    "fg": "rgb(242, 235, 221)",
-   "gap": 88,
+   "gap": 48,
    "add": [
     447.2,
     732.8,
