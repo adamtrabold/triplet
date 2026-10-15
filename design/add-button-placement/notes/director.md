@@ -1480,3 +1480,44 @@ Check V7 → release.
 - 2026-10-15 (11c): cream-squat is the owner's decision (job 2 fails for every cream; his rule vs his taste). Pick 40x55 end 10 on look (36x54 end 8 thins the end to a stripe). Send Q4, Q1 with a plain trade note. Next: his pick -> handoff.
 - 2026-10-15 (11d): proportion study P1/P2 fit to send. Recommend 40 wide, cream stub, 3px orange edge (thin orange, tear-off kept, squatter). Size comes next.
 - 2026-10-15 (11e): cream 40x54 with orange top band; fit to send (B3, B1, B2). Recommend band 16 (hole inside the band like the place tag; 12 straddles, 20 outweighs the +).
+
+---
+
+## Handoff check -- 2026-10-15 (Float, button only)
+
+### Approved
+- The Float badge, button only, opening today's form.
+- The owner's reason: "the circle relates to the icon… it's the pin".
+
+### Matches
+- scope;
+- bottom-left, inked to the left channel;
+- rides the sheet;
+- form line A;
+- the navy × when open;
+- the tag gap of 88 (stays tappable);
+- the filters exception;
+- the account alone at the top-right;
+- jobs 1-6.
+
+### Drift (sent back)
+1. **The badge spec differs from the badge he approved.**
+   - The last frames he saw were the 14-lobe, flat, 30px + stand-in.
+     The handoff builds the 24-lobe, textured, 26.4px + version.
+   - The handoff says "the owner said in round 6 that he liked the finer
+     edge". owner.md doesn't say that; he said "orange and bigger".
+   - By his new rule ("Judgments are opinions, not facts"; don't "fix" a
+     detail he hasn't objected to), the default is what he approved.
+   - The finer edge goes to him as our opinion, with X1. **Owner
+     decision before build.**
+2. **Job 2 rank** was measured on the stand-in only. Systems re-measures
+   whichever badge he picks (the 26.4 + is smaller).
+3. **Remove the false attribution.** Reword it as "we think the finer
+   edge…".
+4. **Cost lines for the owner, plainly:**
+   - filters open = one extra tap;
+   - 320 with a tag open = 1 list row instead of 2.
+
+### Not an owner decision
+- No haptic on +, and the instant +→× swap. Both are today's behaviour,
+  unchanged.

@@ -110,3 +110,8 @@ Approved: Float (the badge) — orange scalloped badge, navy +, bottom-left ("fo
 > Just button for now now let’s solidify the blank tag. What’s the latest? I’ve lost it
 
 Scope: handoff/build = the badge button only (opens today's add form). Then the blank-tag form continues as its own design work.
+
+2026-10-15, on the round-10 blank tag:
+> How does it decide what city to search first? I don’t know if search everywhere makes sense unless it’s not finding what you’re looking for. The systems designer should have caught that. Also why is Reykjavik underlined?
+
+Feedback: "Search everywhere" as an always-present row questioned (only makes sense when it isn't finding what you want). The underline on the city (the tap cue) isn't reading as intended.
