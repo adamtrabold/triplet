@@ -1,5 +1,44 @@
 # Notes: product designer (visual focus), icon concepts
 
+## Update (after jam turn 4): build tests and the t4 cards
+
+Director turn 3 steered. I ran the build tests and built the six t4 cards
+from `../sketches/t4.html`:
+- `t3-buildtests.png` (team only)
+- `t4-card-0-strips.png`
+- `t4-card-1-food-drink.png`
+- `t4-card-2-sights-outdoors.png`
+- `t4-card-3-places-of-town.png`
+- `t4-card-4-tools.png`
+- `t4-card-5-dropped.png`
+
+To re-render:
+
+```
+NODE_PATH=/opt/node22/lib/node_modules node t4.js <html> <outdir>
+```
+
+`t4.js` was in the scratchpad: playwright at DSF 3, waiting for
+`window.READY`, then each `.card` in order with the names above.
+
+What's in `t4.html`:
+- `D` holds every rough glyph.
+- `badge()` draws the 24px circle; `bare()` draws the glyph alone.
+- `concept()` draws the row, badge, chip and mini map, plus the Shows and
+  Could-be lines.
+- `COMMON` and `OURS` hold the two strips' sets.
+- `DROP` is the dropped list.
+
+Results:
+- **Ticket:** failed all 5 builds, so attraction is camera / column
+  front.
+- **Coffee pot:** failed against the kettle, so café B is cup + bun.
+- **Street B:** found. The pedestrian-street sign passes, so street is
+  pedestrian sign / enamel plate.
+- **Weakest seconds:** area B (fountain) and district B (solid parcel).
+
+Next: the director scores the t4 cards in one pass.
+
 ## Where things stand (2026-10-15, after jam turn 2)
 
 The owner picked **Constructed** (built on the 2px grid) on the v6 cards.

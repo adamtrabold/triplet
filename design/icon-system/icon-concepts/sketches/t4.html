@@ -1,0 +1,248 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<title>Icon concepts t4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<style>
+:root{--paper:#F2EBDD;--raised:#FAF5EA;--hair:#D8CEBA;--ink:#1A1A18;--ink2:#5A564C;--navy:#12293F;--or:#EE7434;--ord:#A8400C}
+*{box-sizing:border-box}body{margin:0;background:#E4DCCB;font-family:Archivo,Arial,sans-serif;width:390px;color:var(--ink)}
+.card{background:var(--raised);padding:14px 16px 16px;margin:0 0 24px}
+.card h2{font-size:17px;margin:0;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.no{font-size:10px;letter-spacing:.12em;color:var(--ink2);font-weight:700;text-transform:uppercase}
+.att{font-size:12.5px;margin:4px 0 4px;line-height:1.35}
+.q{font-size:12.5px;line-height:1.35;color:var(--navy);background:#F3ECDF;border-left:3px solid var(--or);padding:7px 10px;margin:8px 0}
+.q b{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ord);margin-bottom:2px}
+.cat{border-top:1px solid var(--hair);margin-top:12px;padding-top:9px}
+.cat h3{margin:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy)}
+.fact{font-size:11.5px;line-height:1.35;color:var(--ink2);margin:3px 0 6px}
+.cn{margin:10px 0 0}
+.cn h4{margin:0 0 5px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.vis{display:flex;align-items:center;gap:10px;margin-top:6px}
+.lines{font-size:11.5px;line-height:1.35;margin-top:6px}
+.lines div{display:grid;grid-template-columns:62px 1fr;gap:6px;margin-bottom:3px}
+.lines i{font-style:normal;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:700;padding-top:2px}
+.bleed{margin:0 -16px}
+.row{display:flex;align-items:center;gap:10px;height:56px;background:#F1E9DB;padding:0 16px;border-bottom:1px solid var(--hair)}
+.nm{font-size:16px;font-weight:600;line-height:1.15;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm small{display:block;font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px}
+.chip{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 10px;background:var(--raised);border:1px solid var(--hair);border-bottom:2px solid;font-size:11px;font-weight:700;letter-spacing:.08em;flex:none}
+.mini{position:relative;height:64px;flex:1;background:#E8E4DA;overflow:hidden;border-radius:2px}
+.mini .pn{position:absolute}
+.strip{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lab{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:10px 0 5px}
+.map{position:relative;height:150px;background:#E8E4DA;overflow:hidden}
+.map .pn{position:absolute}
+.bt{display:grid;grid-template-columns:96px 1fr;gap:4px 10px;align-items:center;border-top:1px solid var(--hair);padding:8px 0}
+.bt .ics{display:flex;gap:8px;align-items:center}
+.bt span{font-size:11.5px;line-height:1.3}
+.bt b{font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.pass{color:#2F6B3A}.fail{color:var(--ord)}
+.drop{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center;border-top:1px solid var(--hair);padding:6px 0;font-size:11.5px;line-height:1.3}
+.drop b{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.menu{background:var(--raised);border:1px solid var(--hair);width:230px;font-size:13px}
+.menu div{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-top:1px solid var(--hair)}
+.menu div:first-child{border-top:0}.menu .cur{font-weight:700;color:var(--navy)}
+.empty{display:flex;flex-direction:column;align-items:center;gap:6px;background:#F1E9DB;padding:14px;font-size:12px;color:var(--ink2);flex:1}
+.scal{display:grid;place-items:center}
+.settled{display:flex;flex-wrap:wrap;gap:12px 14px;align-items:center}
+.settled>div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><filter id="soft" filterUnits="userSpaceOnUse" x="-3" y="-3" width="30" height="30"><feGaussianBlur stdDeviation=".42"/><feComponentTransfer><feFuncA type="linear" slope="7" intercept="-3"/></feComponentTransfer></filter></defs></svg>
+<div id="out"></div>
+<script>
+const KO='style="fill:var(--ko,#F2EBDD)"',KOS='style="stroke:var(--ko,#F2EBDD)"';
+const f=d=>`<path fill="currentColor" d="${d}"/>`, R=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="currentColor"/>`;
+const C=(x,y,r,ko)=>`<circle cx="${x}" cy="${y}" r="${r}" ${ko?KO:'fill="currentColor"'}/>`;
+const L=(d,w=2,cap='butt')=>`<path fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="${cap}" stroke-linejoin="miter" d="${d}"/>`;
+const KOR=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" ${KO}/>`;
+const INK={restaurant:'#7A2436',cafe:'#6E4C22',bar:'#3D5A7A',attraction:'#547326',nature:'#1E3A2B',shopping:'#8A7AA8',area:'#2B3F52',hotel:'#2E2433',other:'#4F5450',district:'#328177',street:'#5E2C17',tool:'#12293F'};
+const STAR='M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z';
+// ticket base (local), notches + perforation
+const TK=(rot,corners)=>`<g transform="translate(12 12) rotate(${rot}) scale(.86) translate(-12 -12)">`+(corners?
+  f('M5.5 7h13a2 2 0 0 0 2 2v6a2 2 0 0 0-2 2h-13a2 2 0 0 0-2-2V9a2 2 0 0 0 2-2z'):
+  f('M2 7h12.2a1.8 1.8 0 0 0 3.6 0H22v10h-4.2a1.8 1.8 0 0 0-3.6 0H2z'))
+  +`<g ${KO}>${corners?'<rect x="15.3" y="8.6" width="1.4" height="1.6"/><rect x="15.3" y="11.2" width="1.4" height="1.6"/><rect x="15.3" y="13.8" width="1.4" height="1.6"/>':'<rect x="15.3" y="9.3" width="1.4" height="1.5"/><rect x="15.3" y="11.8" width="1.4" height="1.5"/><rect x="15.3" y="14.3" width="1.4" height="1.5"/>'}</g></g>`;
+const D={
+ fork:R(5,6,2,5)+R(8,6,2,5)+R(11,6,2,5)+f('M5 10h8v1l-3 3v4H8v-4l-3-3z')+f('M15 6a3 3 0 0 1 3 3v5h-1v4h-2z'),
+ cloche:f('M4 15a8 8 0 0 1 16 0z')+C(12,6,1.6)+R(3,16,18,2),
+ cup:f('M5 6h10v4a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z')+f('M15 7h3a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-3v-2h3V9h-3z')+R(5,16,12,2),
+ decanter:R(7,4,9,2)+f('M8 6h7v3H8z')+C(11.5,14,5.5)+f('M16 8h1.5a2.5 2.5 0 0 1 2.5 2.5v3a2.5 2.5 0 0 1-2.5 2.5H16v-2h1.5a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5H16z')+f('M7 4L4.5 3.5V6H7z'),
+ perc:R(9,5,6,2)+C(12,3.8,1.2)+f('M8 8h8l1.5 11h-11z')+f('M8 9.5L4 6.5v2.8L8 12.3z')+f('M17 9h2v9h-2zM15.6 9h3v2h-3zM16.2 16h2.8v2h-2.8z'),
+ kettle:f('M4 18a8 8 0 0 1 16 0z')+R(10,8,4,2)+L('M7 11a5 5 0 0 1 10 0',2)+f('M4.5 15L2 12v3l2.5 2z'),
+ cupbun:f('M3 8h9v3.5a3.5 3.5 0 0 1-3.5 3.5h-2A3.5 3.5 0 0 1 3 11.5z')+f('M12 9h1.5a1.8 1.8 0 0 1 0 3.6H12v-1.6h1.5a.2.2 0 0 0 0-.4H12z')+R(2,16.5,12,2)+C(18.2,14.2,3.6)+`<path fill="none" ${KOS} stroke-width="1" d="M16.2 13.2a2 2 0 0 1 3.6 1.4"/>`,
+ wine:f('M7 5h10v4a5 5 0 0 1-10 0z')+R(11,13,2,4)+R(8,17,8,2),
+ notes:C(8,16.5,2.6)+C(16,16.5,2.6)+R(9.6,6,2,10.5)+R(17.6,6,2,10.5)+R(9.6,5,10,3),
+ camera:f('M4 9h4l1.5-2h5L16 9h4v9H4z')+C(12,13.5,3.6,1)+C(12,13.5,2),
+ ticketA:TK(-25,0), ticketB:TK(-45,0), ticketC:TK(-25,1),
+ ticketD:`<g transform="translate(12 12) rotate(-20) scale(.9) translate(-12 -12)">`+f('M2 6h20v4a2 2 0 0 0 0 4v4H2v-4a2 2 0 0 0 0-4z')+`<g ${KO}><rect x="5" y="9" width="9" height="1.6"/><rect x="5" y="12.6" width="6" height="1.6"/><rect x="16.4" y="6" width="1.2" height="2"/><rect x="16.4" y="9.5" width="1.2" height="2"/><rect x="16.4" y="13" width="1.2" height="2"/><rect x="16.4" y="16.4" width="1.2" height="1.6"/></g></g>`,
+ ticketFlat:f('M4 8h16v3a1.5 1.5 0 0 0 0 2v3H4v-3a1.5 1.5 0 0 0 0-2z')+KOR(14.5,8,1,8),
+ temple:f('M7 10l5-5 5 5z')+R(7,12,2,5)+R(11,12,2,5)+R(15,12,2,5)+R(6,17,12,2),
+ binox:C(7.5,15,3.5)+C(16.5,15,3.5)+R(5,7,5,7)+R(14,7,5,7)+R(10,9,4,3),
+ tree:f('M12 4l4 4H8z')+f('M12 7l5 5H7z')+f('M12 10l6 6H6z')+R(11,16,2,3),
+ peaks:f('M3 17l5-5 5 5z')+f('M7 17l7-8 7 8z')+R(3,18,18,2),
+ peaksSun:f('M3 17l5-5 5 5z')+f('M7 17l7-8 7 8z')+R(3,18,18,2)+C(7,8,2),
+ steam:f('M5 13h14a7 7 0 0 1-14 0z')+L('M8 11V8.5l2-2V4')+L('M12 11V8.5l2-2V4')+L('M16 11V8.5l2-2V4'),
+ leaf:f('M5 19C5 10 10 5 19 5c0 9-5 14-14 14z')+`<path fill="none" ${KOS} stroke-width="1.4" d="M6 18L16 8"/>`,
+ bag:f('M6 9h12l-1 10H7z')+R(9,5,2,4)+R(13,5,2,4)+R(9,5,6,2),
+ awning:R(4,5,16,4)+C(6,9,2)+C(10,9,2)+C(14,9,2)+C(18,9,2)+f('M5 12h14v7H5z')+KOR(10,14,4,5),
+ pricetag:f('M5 12l7-7h7v7l-7 7z')+C(15.5,8.5,1.4,1),
+ blocks:f('M5 9l3-3h2v6H5z')+R(12,6,7,6)+R(5,14,5,4)+R(12,14,7,4),
+ fountain:R(4,15,16,3)+R(6,18,12,2)+R(11,7,2,8)+f('M12 4l3 4h-6z')+L('M8 11.5l2-2.5M16 11.5l-2-2.5',1.8),
+ parcel:f('M5 9l4-4h6l4 4v4l-3 3v3H8l-3-3z')+`<path fill="none" ${KOS} stroke-width="1.8" d="M12 4.5V19.5"/>`,
+ fmap:f('M5 9l4-4v10l-4 4z')+f('M10 5l4 4v10l-4-4z')+f('M15 9l4-4v10l-4 4z'),
+ rooftops:f('M3 19v-7l4-4 4 4v7z')+f('M11 19v-9l4-4 4 4v9z')+KOR(6,14,2,2)+KOR(14,12,2,2),
+ plate:f('M3 6h18v8H3z')+KOR(6,9,12,2)+R(11,14,2,6),
+ walker:C(12.5,4.6,2.1)+L('M12 8l-1.2 6',2.6)+L('M10.8 13.6L8 19M10.8 13.6l3 2.6v3.4',2.4)+L('M11.7 9l-3.2 3M12 9l3.2 2.2',2),
+ zebra:R(4,5,16,1.6)+R(4,17.4,16,1.6)+R(5,8,2.2,8)+R(9.3,8,2.2,8)+R(13.6,8,2.2,8)+R(17.9,8,2,8),
+ road:`<path fill="none" stroke="currentColor" stroke-width="6" d="M5 15h4l6-6h4"/>`+`<path fill="none" ${KOS} stroke-width="1.6" stroke-dasharray="2 2" d="M5 15h4l6-6h4"/>`,
+ lamp:R(11,9,2,11)+R(8,19,8,2)+f('M8 4h8l-1.5 4h-5z'),
+ bed:R(5,7,2,11)+R(7,13,11,3)+R(16,16,2,2)+C(10,10,2)+R(13,10,5,3),
+ moon:f('M14 4a8 8 0 1 0 6 12A7 7 0 0 1 14 4z'),
+ key:C(8,12,4)+C(8,12,1.6,1)+R(11,11,9,2)+R(16,13,2,3)+R(19,13,1,2),
+ asterisk:L('M12 4v16M4 12h16M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7',2.4),
+ diamond:f('M12 5l7 7-7 7-7-7z'),
+ pennant:R(7,5,2,14)+f('M9 5h8l-3 3 3 3H9z'),
+ martini:f('M6 5h12l-6 6z')+R(11,10,2,6)+R(8,16,8,2),
+ kringle:`<path fill="none" stroke="currentColor" stroke-width="3" d="M12 17C6 12 6 7 9.5 7S12 11 12 13s-1 6 2.5 4S18 12 12 17z"/>`,
+ trumpet:R(4,11,9,2)+f('M13 9l6-3v12l-6-3z')+R(6,8,2,3)+R(9,8,2,3)+C(5,12,1.5),
+ glassnote:f('M3 6h9l-4.5 4.5z')+R(6.5,10,2,5)+R(4.5,15,6,2)+C(15,16,2.4)+R(16.4,6,2,10)+R(16.4,6,4,2),
+ mich:f('M12 4l2 5 5 .5-4 3.5 1.5 5L12 15l-4.5 3 1.5-5-4-3.5 5-.5z'),
+ manicule:R(4,10,8,6)+R(12,10,8,2.4)+R(12,13,4,2)+R(4,8,4,2),
+ bowl:f('M4 11h16a8 8 0 0 1-16 0z')+L('M9 9V5M12 9V4M15 9V5',1.8),
+ // tools
+ xmark:L('M6 6l12 12M18 6L6 18'), bin:R(5,6,14,2)+R(10,4,4,2)+f('M7 9h10l-1 11H8z')+`<g ${KO}><rect x="9.5" y="11" width="1.4" height="7"/><rect x="13.1" y="11" width="1.4" height="7"/></g>`,
+ sort:L('M8 21V8.5M16 3v12.5')+f('M8 2.6l4.3 6.2H3.7z')+f('M16 21.4l-4.3-6.2h8.6z'),
+ filters:L('M3.5 6h17M3.5 12h17M3.5 18h17')+C(8,6,2.6)+C(16,12,2.6)+C(12,18,2.6),
+ crosshair:C(12,12,3.6)+L('M12 1.8v5M12 17.2v5M1.8 12h5M17.2 12h5'),
+ compass:`<circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9.2"/>`+f('M16.4 7.6L13.5 13.5 7.6 16.4 10.5 10.5z'),
+ more:C(5.5,12,1.8)+C(12,12,1.8)+C(18.5,12,1.8), wedge:f('M5.5 8.5h13L12 16z'),
+ plus:L('M12 5v14M5 12h14'), minus:L('M5 12h14'), pointer:f('M8 6l7 6-7 6z'),
+ blanktag:f('M8 4h8l3 3v13H5V7z')+C(12,8,1.6,1),
+ head:C(12,7.4,4.1)+L('M4.6 21v-1.4a4.3 4.3 0 0 1 4.3-4.3h6.2a4.3 4.3 0 0 1 4.3 4.3V21'),
+ passport:f('M6 4h12v16H6z')+C(12,11,3.4,1)+C(12,11,1.8)+KOR(9,16,6,1.4),
+ yah:C(12,12,8)+C(12,12,5.5,1)+C(12,12,3.6), pinplus:f('M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z')+`<path fill="none" ${KOS} stroke-width="2" d="M12 5.5v7M8.5 9h7"/>`,
+ funnel:f('M4 5h16l-6 7v7l-4-2v-5z'),
+};
+const badge=(d,ink,size=24,sel)=>`<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none;overflow:visible${sel?';filter:drop-shadow(0 1px 2px rgba(0,0,0,.28))':''}"><circle cx="12" cy="12" r="${sel?12:11}" fill="${sel?ink:'var(--paper)'}" stroke="${sel?ink:ink}" stroke-width="${sel?0:2}"/><g transform="translate(12 12) scale(.82) translate(-12 -12)" style="color:${sel?'var(--paper)':ink};--ko:${sel?ink:'var(--paper)'}" filter="url(#soft)">${D[d]}</g></svg>`;
+const bare=(d,ink,size,bg='var(--raised)')=>`<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none;color:${ink};--ko:${bg}"><g filter="url(#soft)">${D[d]}</g></svg>`;
+const COMMON={restaurant:'fork',cafe:'cup',bar:'wine',attraction:'camera',nature:'tree',shopping:'bag',area:'blocks',hotel:'bed',other:'asterisk',district:'blocks',street:'walker'};
+const NB=['restaurant','cafe','nature','shopping','bar'];
+const mini=(d,cat)=>{const others=NB.filter(c=>c!==cat).slice(0,4);const pos=[[14,6],[52,32],[118,8],[150,34]];
+ return `<div class="mini"><svg style="position:absolute;inset:0" width="100%" height="100%" viewBox="0 0 200 64" preserveAspectRatio="none"><path d="M0 40C60 34 120 46 200 30" stroke="#fff" stroke-width="7" fill="none"/><path d="M92 0C96 24 88 44 94 64" stroke="#fff" stroke-width="5" fill="none"/></svg>
+ ${others.map((c,i)=>`<div class="pn" style="left:${pos[i][0]}px;top:${pos[i][1]}px">${badge(COMMON[c],INK[c])}</div>`).join('')}<div class="pn" style="left:84px;top:18px">${badge(d,INK[cat])}</div></div>`;};
+const row=(d,cat,name,sub)=>`<div class="bleed"><div class="row">${badge(d,INK[cat])}<div class="nm">${name}<small>${sub||cat.toUpperCase()+' · '}</small></div><svg viewBox="0 0 24 24" width="10" height="10" style="color:var(--ink2)">${D.xmark}</svg></div></div>`;
+const chip=(d,cat,lab)=>`<span class="chip" style="border-bottom-color:${INK[cat]}">${bare(d,INK[cat],12)}${lab||cat.toUpperCase()}</span>`;
+const concept=(letter,title,d,cat,name,sub,shows,mist)=>`<div class="cn"><h4>${letter} · ${title}</h4>${row(d,cat,name,sub)}
+ <div class="vis">${badge(d,INK[cat])}${chip(d,cat)}${mini(d,cat)}</div>
+ <div class="lines"><div><i>Shows</i><span>${shows}</span></div><div><i>Could be</i><span>${mist}</span></div></div></div>`;
+const catBlock=(name,fact,concepts,extra='')=>`<div class="cat"><h3>${name}</h3><div class="fact">${fact}</div>${extra}${concepts.join('')}</div>`;
+const head=(no,title,sub)=>`<div class="no">${no} · rough builds, not drawings</div><h2>${title}</h2>${sub?`<p class="att">${sub}</p>`:''}`;
+
+// ---------- BUILD TESTS (for the team, not the owner)
+const btRow=(d,cat,label,verdict,cls)=>`<div class="bt"><div class="ics">${badge(d,INK[cat])}${bare(d,INK[cat],18)}${bare(d,INK[cat],12)}</div><span><b class="${cls}">${verdict}</b> ${label}</span></div>`;
+const buildTests=()=>`<div class="card">${head('Team only · build tests','Three build tests')}
+<p class="att">Each at the 24px badge, then bare at 18px and 12px. Judged at 1x on a phone.</p>
+<div class="lab">Attraction: the ticket</div>
+${btRow('ticketFlat','attraction','flat (turn 2): a battery','FAIL','fail')}
+${btRow('ticketA','attraction','tilted 25°, notches at the perforation','FAIL: a wrapped sweet / a plaster','fail')}
+${btRow('ticketB','attraction','tilted 45°','FAIL: a pill / a plaster','fail')}
+${btRow('ticketC','attraction','tilted 25°, scooped corners','FAIL: a battery / a pill','fail')}
+${btRow('ticketD','attraction','tilted 20°, end bites, printed lines, perforated stub','WEAK: a ticket at 24, a label at 12','fail')}
+<div class="lab">Café: pot or kettle</div>
+${btRow('kettle','cafe','a kettle, for comparison','REF','')}
+${btRow('decanter','cafe','diner coffee decanter (round bowl, collar, side handle)','FAIL: a lab flask / a kettle','fail')}
+${btRow('perc','cafe','percolator (tall, straight spout, lid knob)','FAIL: a kettle / a watering can','fail')}
+${btRow('cupbun','cafe','fallback: a cup and a bun','PASS (two objects)','pass')}
+<div class="lab">Street: a second concept</div>
+${btRow('road','street','road (failed three times)','FAIL','fail')}
+${btRow('walker','street','pedestrian-street sign: a walking figure','PASS','pass')}
+${btRow('zebra','street','zebra crossing','FAIL: a ladder / a barcode','fail')}
+${btRow('plate','street','enamel street-name plate (control)','PASS','pass')}
+</div>`;
+
+// ---------- CARD 0 STRIPS
+const OURS={restaurant:'fork',cafe:'cupbun',bar:'notes',attraction:'camera',nature:'peaks',shopping:'awning',area:'blocks',hotel:'bed',other:'asterisk',district:'blocks',street:'plate'};
+const CATS=['restaurant','cafe','bar','attraction','nature','shopping','area','hotel','other','district','street'];
+const bigMap=(set)=>{const P=[['restaurant',20,18],['cafe',70,44],['bar',120,14],['attraction',170,50],['nature',222,16],['shopping',270,46],['area',318,18],['hotel',40,96],['other',150,104],['district',250,100],['street',330,96]];
+ return `<div class="map bleed"><svg style="position:absolute;inset:0" width="390" height="150"><path d="M0 84C120 70 240 100 390 76" stroke="#fff" stroke-width="9" fill="none"/><path d="M110 0C116 60 104 110 112 150" stroke="#fff" stroke-width="6" fill="none"/><path d="M276 0v150" stroke="#fff" stroke-width="5"/></svg>${P.map(([c,x,y])=>`<div class="pn" style="left:${x}px;top:${y}px">${badge(set[c],INK[c])}</div>`).join('')}</div>`;};
+const setStrip=(set,title)=>`<div class="lab">${title}</div><div class="strip">${CATS.map(c=>badge(set[c],INK[c])).join('')}</div>
+ <div style="height:8px"></div>${row(set.bar,'bar','Jazzhouse','BAR · COPENHAGEN')}${row(set.street,'street','Jægersborggade','STREET · COPENHAGEN')}${row(set.shopping,'shopping','Svenskt Tenn','SHOPPING · STOCKHOLM')}<div style="height:8px"></div>${bigMap(set)}`;
+const card0=()=>`<div class="card">${head('Card 0','Does built still feel new?')}
+<p class="att">You wrote: “im wondering if built in context of the rest of the app still feels novel -- e.g. the idea of a vintage travel theme -- or if we should push some more. something to consider but not lock on.”</p>
+<p class="att">Two strips, built the same way. The first uses the common sign for each place. The second swaps in a travel object wherever one held up at real size, and keeps the common sign where none did. They aren’t two sets to choose between; you pick per icon on the next cards.</p>
+${setStrip(COMMON,'1 · The common sign')}${setStrip(OURS,'2 · A travel object, where one holds up')}</div>`;
+
+// ---------- CARD 1 FOOD & DRINK
+const card1=()=>`<div class="card">${head('Card 1','Food and drink')}
+${catBlock('Restaurant','What you’ve saved (30): vegan places, a hot-dog stand, food halls, Noma.',[
+ concept('A','Fork and knife','fork','restaurant','Bæjarins Beztu','RESTAURANT · REYKJAVÍK','The sign every map and road uses for “a meal”. It fits a hot-dog stand and Noma alike.','Not much. It’s the plainest icon here, and we’d keep it.'),
+ concept('B','A covered dish','cloche','restaurant','Bæjarins Beztu','RESTAURANT · REYKJAVÍK','A served meal. Shown so you can see a second idea; we’d keep the fork and knife.','Room service, or a bell.')])}
+${catBlock('Café','What you’ve saved (16): coffee, and bakeries (about half), a cat café.',[
+ concept('A','A cup and saucer','cup','cafe','Café Loki','CAFE · REYKJAVÍK','Coffee, the rail-station sign for a café.','It says nothing about the bakeries.'),
+ concept('B','A cup and a bun','cupbun','cafe','Sankt Peders Bageri','CAFE · COPENHAGEN','Coffee and cake, so the bakeries count too.','Two objects in a small circle: busier than one.')])}
+${catBlock('Bar','What you’ve saved (12): 8 are music venues (Jazzhouse, Montmartre, Fasching, Nalen, VEGA, Debaser ×2, Slaktkyrkan), plus a tiki bar and WarPigs.',[
+ concept('A','A glass','wine','bar','WarPigs','BAR · COPENHAGEN','A drink and a night out. The round bowl keeps it from reading as a funnel.','A wine bar only; it says nothing about live music.'),
+ concept('B','Two notes','notes','bar','Jazzhouse','BAR · COPENHAGEN','Live music, which is what most of these are.','“Audio” or a music app.')])}</div>`;
+
+// ---------- CARD 2 SIGHTS / OUTDOORS / SHOPPING
+const card2=()=>`<div class="card">${head('Card 2','Sights, outdoors and shops')}
+${catBlock('Attraction','What you’ve saved (62): museums, galleries, palaces and castles, landmarks (Hallgrímskirkja, Harpa, the Little Mermaid), Tivoli and Gröna Lund, murals.',[
+ concept('A','A camera','camera','attraction','Hallgrímskirkja','ATTRACTION · REYKJAVÍK','The park-map sign for “worth seeing”. It covers landmarks and murals as well as museums.','“Take a photo.”'),
+ concept('B','A column front','temple','attraction','Vasa Museum','ATTRACTION · STOCKHOLM','The classic sign for a museum. It fits museums and palaces, not landmarks or Tivoli.','A bank or a court.')])}
+${catBlock('Nature','What you’ve saved (10): parks, two pools (Laugardalslaug, Sundhöllin), a lighthouse, a fumarole (Gunnuhver), a bridge between continents.',[
+ concept('A','A conifer','tree','nature','Humlegården','NATURE · STOCKHOLM','The park-map sign for green space. Most of these are parks.','A Christmas tree, in December. It doesn’t cover the pools or the coast.'),
+ concept('B','Mountain peaks','peaks','nature','Gunnuhver','NATURE','The landscape: coast, lava, the fumarole, as well as parks.','“Hiking” or “terrain”.')])}
+${catBlock('Shopping','What you’ve saved (53): records, ceramics, books, design (Svenskt Tenn), vintage, a market.',[
+ concept('A','A carrier bag','bag','shopping','Svenskt Tenn','SHOPPING · STOCKHOLM','The sign for “a shop”, everywhere.','A padlock, at the smallest size.'),
+ concept('B','A shopfront with an awning','awning','shopping','Svenskt Tenn','SHOPPING · STOCKHOLM','A small shop on a street, which is what most of these are. The scalloped edge echoes the app’s scalloped buttons.','A market, or a store locator.')])}</div>`;
+
+// ---------- CARD 3 TOWN / HOTEL / OTHER
+const card3=()=>`<div class="card">${head('Card 3','Parts of town, hotel, other')}
+${catBlock('Area','What you’ve saved (18): neighbourhoods (Gamla Stan, Christiania), squares and markets, parks and cemeteries, streets.',[
+ concept('A','City blocks (the same icon as district)','blocks','area','Gamla Stan','AREA · STOCKHOLM','“A part of town”, the same idea whether it’s saved with a shape or without one.','A grid, or an app icon.'),
+ concept('B','A fountain on a square','fountain','area','Lilla Torg','AREA · MALMÖ','A square or an old town to wander: its own idea, separate from district.','Drinking water.')],
+ `<div class="q"><b>Question</b>Area and district are often the same places (Djurgården, Möllevångstorget and Laugavegur are saved as both). Should they share one icon?</div>`)}
+${catBlock('District','What you’ve saved (6): Möllan, Grandi, Västra Hamnen, Skogskyrkogården, Djurgården, Nyhavn. Shown on the map as a shape.',[
+ concept('A','City blocks','blocks','district','Djurgården','DISTRICT · STOCKHOLM','The map’s own sign for a built-up part of town.','A grid, or an app icon.'),
+ concept('B','A solid parcel','parcel','district','Grandi','DISTRICT · REYKJAVÍK','The shape of a district on the map, filled in.','A blob, or a shield.')])}
+${catBlock('Street','What you’ve saved (5): Grandagarður, Jægersborggade, Laugavegur, Skólavörðustígur, Bondegatan. Mostly streets you walk.',[
+ concept('A','The pedestrian-street sign','walker','street','Laugavegur','STREET · REYKJAVÍK','The road sign for a street you walk.','“Walking directions”, or steps.'),
+ concept('B','An enamel street-name plate','plate','street','Jægersborggade','STREET · COPENHAGEN','The name plates on Nordic street corners.','An information sign.')])}
+${catBlock('Hotel','Nothing saved yet.',[
+ concept('A','A bed','bed','hotel','A hotel','HOTEL','The sign every map uses for a place to sleep.','A sofa, at the smallest size. We’d keep the bed.'),
+ concept('B','A crescent moon','moon','hotel','A hotel','HOTEL','A night’s stay. Shown so you can see a second idea; we’d keep the bed.','“Night mode” or sleep settings.')])}
+${catBlock('Other','Nothing filed here yet.',[
+ concept('A','An asterisk','asterisk','other','Something else','OTHER','The printed footnote mark: “see note”.','A sun, or a snowflake.'),
+ concept('B','A solid diamond','diamond','other','Something else','OTHER','A plain marker that isn’t a control.','The old diamond shape for districts and streets.')],
+ `<div class="q"><b>Question</b>Nothing is filed under Other yet. Keep it in the add form, or remove it?</div>`)}</div>`;
+
+// ---------- CARD 4 TOOLS
+const scal=(inner,bg,size)=>{let sc=[];for(let i=0;i<96;i++){const a=i/96*2*Math.PI,r=46+4*Math.cos(a*12);sc.push(`${(50+r*Math.cos(a)).toFixed(1)}% ${(50+r*Math.sin(a)).toFixed(1)}%`)};return `<div class="scal" style="width:${size}px;height:${size}px;background:${bg};clip-path:polygon(${sc.join(',')})">${inner}</div>`;};
+const tset=[['xmark','close'],['sort','sort'],['filters','filters'],['crosshair','locate'],['compass','directions'],['more','more'],['wedge','open / fold'],['plus','zoom +'],['minus','zoom −']];
+const card4=()=>`<div class="card">${head('Card 4','Tools')}
+<div class="cat"><h3>Settled by the team</h3><div class="fact">Every line is 2.00px, as on the rules card.</div>
+<div class="settled">${tset.map(([d,l])=>`<div>${bare(d,INK.tool,22)}${l}</div>`).join('')}<div>${scal(bare('plus',INK.tool,26.4,'var(--or)'),'var(--or)',60)}add a place</div></div></div>
+<div class="cat"><h3>The chosen option in a menu</h3><div class="fact">A check means Visited, which stays as it is, so the chosen sort gets a pointer instead.</div>
+<div class="menu"><div class="cur">${bare('pointer',INK.tool,14)}Recently added</div><div><span style="width:14px"></span>A to Z</div><div><span style="width:14px"></span>Nearest first</div></div></div>
+<div class="cat"><h3>Delete a place</h3><div class="fact">This changes how delete works, so our UX check comes before anything ships.</div>
+ <div class="cn"><h4>A · ×</h4>${rowT('xmark')}<div class="lines"><div><i>Shows</i><span>Today’s ×, the same mark as close.</span></div><div><i>Could be</i><span>“Close” rather than “delete”.</span></div></div></div>
+ <div class="cn"><h4>B · A bin</h4>${rowT('bin')}<div class="lines"><div><i>Shows</i><span>Delete, and only delete.</span></div><div><i>Could be</i><span>Heavier in every row than the place name should allow.</span></div></div></div></div>
+<div class="cat"><h3>An empty list</h3><div class="fact">The compass now means Directions only.</div>
+ <div class="vis"><div class="empty">${bare('blanktag',INK.tool,28,'#F1E9DB')}Nothing here yet.<b style="font-size:9px;letter-spacing:.1em">A · A BLANK LUGGAGE TAG</b></div><div class="empty"><span style="height:28px"></span>Nothing here yet.<b style="font-size:9px;letter-spacing:.1em">B · NO ICON</b></div></div>
+ <div class="lines"><div><i>Shows</i><span>A: “nothing filed yet”, with the app’s own tag. B: just the words.</span></div><div><i>Could be</i><span>A: a bookmark. B: nothing to mistake.</span></div></div></div></div>`;
+const rowT=(d)=>`<div class="bleed"><div class="row">${badge('fork',INK.restaurant)}<div class="nm">Bæjarins Beztu<small>RESTAURANT · REYKJAVÍK</small></div>${bare(d,'var(--ink2)',d==='bin'?14:10)}</div></div>`;
+
+// ---------- CARD 5 DROPPED
+const DROP=[['martini','bar','Martini glass','A funnel, at real size.'],['trumpet','bar','Jazz horn','A fish or a brush at 18px.'],['glassnote','bar','A glass and a note','Two objects in one small circle.'],['moon','bar','Crescent moon (for bars)','Sleep, and it’s hotel’s second idea.'],
+ ['decanter','cafe','Diner coffee pot','A kettle or a flask at 18px.'],['kringle','cafe','Bakers’ kringle','Built from loops, it’s an outline, and outlines mean “not marked yet”.'],['bowl','restaurant','Steaming bowl','Too close to the café cup.'],
+ ['ticketD','attraction','Admission ticket','“You go in” fits museums, castles and Tivoli, but four builds read as a sweet, a plaster, a pill or a label at real size.'],['binox','attraction','Binoculars','Leans to nature, and to “search”.'],['mich','attraction','Guidebook star','The same shape as your Star.'],['manicule','attraction','Pointing hand','In an app it means “tap here”.'],
+ ['peaksSun','nature','Peaks with a sun','Every phone’s “image” icon.'],['steam','nature','Hot spring ♨ (pools and the fumarole)','A soup bowl at real size, and it isn’t a category you asked for.'],['leaf','nature','Leaf','Reads as vegan, like your vegan restaurants.'],
+ ['pricetag','shopping','Price tag','The Hanging Tag’s twin, and “sale”.'],['fmap','area','Folded map','The app is a map: “open in maps”.'],['rooftops','district','Rooftops','“City” or “home”.'],
+ ['road','street','A road with a centre line','A pencil, a cone, then an escalator: three builds failed.'],['zebra','street','Zebra crossing','A ladder or a barcode.'],['lamp','street','Lamppost','A lamp, or “idea”.'],
+ ['key','hotel','Room key','The key’s ring is an outline, and it reads as “sign in”.'],['pennant','other','Flag','“Report”.'],
+ ['passport','tool','Passport for your account','The best story (your stamps live in it), but it doesn’t say “me”.'],['yah','tool','You-are-here mark for locate','A selected radio button.'],['pinplus','tool','A pin with + for “add”','More ink on the loudest button.'],['funnel','tool','Funnel for filters','Too close to a glass.']];
+const card5=()=>`<div class="card">${head('Card 5','Dropped: say if you want any back')}
+${DROP.map(([d,c,n,w])=>`<div class="drop">${c==='tool'?bare(d,INK.tool,24):badge(d,INK[c])}<div><b>${n}</b>${w}</div></div>`).join('')}</div>`;
+
+document.getElementById('out').innerHTML=buildTests()+card0()+card1()+card2()+card3()+card4()+card5();
+window.READY=1;
+</script></body></html>
