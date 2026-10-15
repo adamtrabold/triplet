@@ -80,6 +80,8 @@ team's opinion):
   - only bases are ordered, each by its stays' earliest date, else its
     first visit, else not at all;
   - a leg is the stretch between two consecutive ordered bases.
+    **Legs are off by default**; they exist only if the owner asks for
+    them (Q4, Turn 15).
 
 ## Jobs
 
@@ -114,11 +116,10 @@ team's opinion):
 9. **Places in between have a home.**
    - Check: PASS if a place beyond every reach but inside the spread
      (Jönköping) belongs to a named group, not to an arbitrary figure:
-     - **On the way** (concepts 1 and 3, and concept 2 without an
-       order);
-     - or, in concept 2 with an order, **the leg** whose line between
-       two ordered bases is nearest to it. Places on no leg stay in On
-       the way.
+     - **On the way** (all concepts, by default);
+     - or, only in concept 2 with legs turned on and an order, **the
+       leg** whose line between two ordered bases is nearest to it.
+       Places on no leg stay in On the way.
 10. **Other trips stay out of the way** (concepts 1 and 2), **or
     everything is visible at once** (concept 3).
     - Check (1, 2): PASS if another trip's places never mix into this
@@ -145,8 +146,9 @@ team's opinion):
       not.
     - (b) A new undated, unvisited stay makes its figure a base with no
       position. Nothing else moves.
-    - (c) Bases with a date (or a first visit) take positions in order;
-      legs run between consecutive ordered bases.
+    - (c) Bases with a date (or a first visit) take positions in order.
+      No-figure places stay On the way (legs only if the owner turns
+      them on).
     - No date is ever asked for.
 
 ## Creation moments (each checked against P)
@@ -167,9 +169,9 @@ team's opinion):
 
 | Case | PASS if |
 |---|---|
-| **T1 Øresund:** Saltholm, Kastrup Søbad (both in Tårnby municipality; Saltholm's we believe, not verified) | both are in the Copenhagen figure with nothing chosen, **and** putting Tårnby with Malmö is **one** change that moves both (Malmö must already be a figure: the border signal, or the owner's one fix) |
+| **T1 Øresund:** Saltholm, Kastrup Søbad (both in Tårnby municipality; Saltholm's we believe, not verified) | **Both branches must hold:** (i) **border on:** both are in the Copenhagen figure with nothing chosen; Malmö is already a figure; putting Tårnby with Malmö is **one** change that moves both. (ii) **border off:** both are in the Copenhagen figure with nothing chosen; Malmö first has to be made a figure (one change), then putting Tårnby with Malmö is one more: **two changes**, each moving every place of its real city. FAIL if either branch needs a per-place change |
 | **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Kastrup (Tårnby), for both Copenhagen and Malmö | Keflavík is in Reykjavík with nothing chosen. Kastrup is in Copenhagen, **and in Malmö too after one change** (Tårnby in both figures). In concept 2 an airport has a figure, so it's never on a leg |
-| **T3 Jönköping:** about 300 km from both Stockholm and Malmö | it's in **On the way**. In concept 2, with Copenhagen and Stockholm as consecutive ordered bases, it's on their leg. A second Jönköping place makes it a figure (C4) |
+| **T3 Jönköping:** about 300 km from both Stockholm and Malmö | it's in **On the way** (all concepts, by default). Only in concept 2 with legs turned on and Copenhagen and Stockholm as consecutive ordered bases: on their leg. A second Jönköping place makes it a figure (C4) |
 
 Reference (today): it fails P and jobs 1-10 and 13, and passes 11 (list
 and map share the same filtered set) and 12.

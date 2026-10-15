@@ -11,7 +11,9 @@ opinion.
 - **Base:** a figure that contains at least one stay.
 - **Order:** an order of the trip's **bases**. It exists only when the
   trip has at least two bases.
-- **Leg:** the stretch between two consecutive *ordered* bases.
+- **Leg (off by default):** the stretch between two consecutive
+  *ordered* bases. It only exists if the owner asks for it in Q4
+  (director, Turn 15).
 
 ## Stored vs. inferred
 
@@ -19,7 +21,7 @@ opinion.
 |---|---|
 | concept 1's | bases (from stays) |
 | a stay's date range, when it has one | the order of the bases (rule below) |
-| per place: **when it was first marked visited** (a new field; today `visited` is yes/no, and `updated_at` can't stand in) | which leg an On-the-way place sits on |
+| per place: **when it was first marked visited** (a new field; today `visited` is yes/no, and `updated_at` can't stand in) | (only with legs on) which leg an On-the-way place sits on |
 
 ## The ordering rule (one source per base, never all-or-nothing)
 
@@ -37,27 +39,25 @@ opinion.
 - Nothing is ever asked for. Dates and visits are things already done
   (where dates come from: jobs.md "Dates").
 
-## Where everything sits once there's an order
+## Where everything sits once there's an order (default: no legs)
 
 - **Bases:** in order.
+- **No-figure places:** stay **On the way**, as in concept 1. There are no
+  legs by default.
 - **A figure that isn't a base** (Malmö with no hotel): it stays a
   figure. It sits right after the ordered base whose anchor is nearest
   to it (it's never folded into that base).
-- **"Between two bases":** a no-figure place sits on the leg whose
-  straight line (anchor to anchor) is nearest to it, if it's within the
-  trip's spread.
-- **A no-figure place on no leg** (only one ordered base, or beyond the
-  first or last base): it stays **On the way**, as in concept 1.
+- **Only if the owner asks for legs (Q4):** a no-figure place sits on
+  the leg whose straight line (anchor to anchor) is nearest to it, within
+  the trip's spread. A no-figure place on no leg (only one ordered base,
+  or beyond the ends) stays On the way.
 - **Views (job 12):** unchanged from concept 1. They're a trip, a
   figure, On the way, or nothing yet.
-  - A leg is **not** a view of its own. Its places are a group inside the
-    trip view, in order between its two bases.
-  - On the way remains a view for the places on no leg.
-
-**Can it be simpler?** Yes, by dropping legs: order bases only, and keep
-every no-figure place in On the way. That costs job 9's "between" being
-specific (Jönköping is just "on the way"), and halves the rules. **(We
-think)** legs are worth it only if the owner answers Q4 with dates.
+  - With legs on, a leg is **not** a view of its own. Its places are a
+    group inside the trip view, in order between its two bases.
+  - On the way remains a view.
+- **(We think)** legs earn their extra rule only if the owner wants a
+  dated order, so they're off unless the owner asks in Q4.
 
 ## What can be corrected, and when
 
@@ -79,7 +79,7 @@ place's figure).
 |---|---|---|---|
 | C7 | A stay, the first (Copenhagen) | Copenhagen is a base. One base, so no order, no legs. Nothing else changes | PASS |
 | C7b | Another stay, another figure, undated, unvisited | That figure is a base with no position. Nothing else moves | PASS |
-| C7c | Bases dated (or first visited) | Those bases take positions; legs run between consecutive ordered bases; On-the-way places nearest a leg move onto it | PASS |
+| C7c | Bases dated (or first visited) | Those bases take positions, and the trip view follows that order. No-figure places stay On the way (with legs on, if the owner asked: on the nearest leg) | PASS |
 | C7d | No dates, the trip under way | Bases take positions as you first visit them | PASS |
 
 ## Test cases
@@ -88,17 +88,18 @@ place's figure).
 |---|---|---|
 | T1 Øresund | As concept 1 | as concept 1 |
 | T2 airports | As concept 1. An airport has a figure, so it's never on a leg | PASS |
-| T3 Jönköping | Copenhagen and Stockholm are consecutive ordered bases → on their leg (it's nearest that line). Otherwise → On the way | PASS |
+| T3 Jönköping | On the way (default). With legs on and Copenhagen and Stockholm as consecutive ordered bases → on their leg | PASS |
 
 ## Jobs (only where they differ from concept 1)
 
 - **2:** the trip view follows the order when there is one.
-- **9:** a leg when ordered; On the way otherwise.
+- **9:** On the way (a leg only if the owner turns legs on).
 - **14:**
   - (a) no stay → identical to concept 1, visits or not;
   - (b) an undated, unvisited stay → a base with no position, nothing
     else moves;
-  - (c) dated (or visited) bases → order and legs.
+  - (c) dated (or visited) bases → an order (legs only if the owner
+    asks).
 
 ## Prerequisite
 
@@ -110,5 +111,7 @@ new "first visited at" field.
 
 3 (hotels as places or frame); 4: "Should the app put your trip in
 order? It could use your hotel dates (read from a booking you paste),
-the order you actually visit places, both, or neither. (We think both,
-with hotel dates first.)" Plus concept 1's.
+the order you actually visit, both, or neither. If it has an order,
+should places in between sit on the stretch between two stays? (We
+think both sources, hotel dates first, and stretches only if you want
+dates.)" Plus concept 1's.

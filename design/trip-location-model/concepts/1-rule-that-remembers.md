@@ -173,4 +173,9 @@ short-address backfill covers them, they're filed by location alone
 ## Open (owner questions)
 
 1 (fix the rule or one place), 2 (a place in two figures), 6 (a quiet
-new trip), 7 (the threshold of 2).
+new trip), 7 (the threshold of 2), **8 (new):** "When a place is close
+to one of your cities but across a border (Malmö near Copenhagen),
+should it be a city of its own automatically? We think yes. The cost:
+two close cities in one country (Stockholm and Uppsala) count as one
+until you fix it once." (Rule 3, the border, is on in this model as
+sent **(we think)**; the owner's one fix exists either way.)

@@ -43,3 +43,4 @@
 - Concept 3: jobs 6/8/13 lines; name survival.
 - Today job 11 PASS (visibleLocations shared; zoom only clusters).
 - jobs.md fully rewritten as model outcomes (no UI strings); the overview cards 1/2 updated (3277 tall).
+- Turn 16: Turn 15 applied (overview 3 edits, re-rendered 3277; concept 2 legs off by default; Q4 reworded + Q8 added; jobs T1 both branches). Changed: 9, 14, C7, T1, T3 (+ concept 2's 2, 12).

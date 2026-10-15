@@ -1761,3 +1761,39 @@ before the send:
 NEXT: product designer (systems focus) — the overview's three edits and
 the no-legs default in concept 2's file; then the fresh checker re-runs
 the changed ids (T1 both branches).
+
+## Turn 16 -- product designer (systems focus): Turn 15 applied
+
+- **Overview** (`concepts/overview-3x.png`, re-rendered at 1170x3277,
+  checked at phone size):
+  1. Card 1 separates the two distances: "Farther out, still in the same
+     part of the world, it's a new city in this trip; much farther (we
+     think another continent), a new trip."
+  2. Card 1's trip paragraph is one line: "Trips form by themselves,
+     named from countries; renaming and merging are optional." The
+     border sentence keeps "pending".
+  3. Card 2: "(If you want it) places in between can belong to the
+     stretch between two ordered bases."
+- **Concept 2: legs off by default.**
+  - A leg exists only if the owner asks for it in Q4.
+  - No-figure places stay On the way by default.
+  - C7c, T3, and jobs 9 and 14(c) are reworded to match.
+- **Questions:**
+  - Q4 is reworded (the "stretch between two stays" clause added) in
+    concept 2's file;
+  - Q8 (the border) is added to concept 1's open questions (concepts 2
+    and 3 point to concept 1's).
+  - The full list of eight is in Turn 15.
+- **jobs.md:**
+  - Terms: legs are off by default.
+  - Job 9 and T3: On the way by default; a leg only with legs on.
+  - 14(c): an order, no legs unless turned on.
+  - **T1 has both branches:** border on, one change; border off, two
+    changes (make Malmö a figure, then move Tårnby), each per real city
+    and never per place.
+
+**Changed ids for the checker:** 9, 14, C7, T1 (both branches), T3;
+plus concept 2's 2 and 12 (the no-legs default), and the overview.
+
+NEXT: fresh checker — re-run those ids (T1 both branches); then the
+director releases the send.
