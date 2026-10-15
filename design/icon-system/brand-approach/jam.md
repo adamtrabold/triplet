@@ -2011,3 +2011,152 @@ words exactly.
 NEXT: product designer (visual focus) — build the six v5 cards in §10 with
 fixes 1–10. Then systems runs coverage against jobs 1–13 on the built
 cards, and I score all of them in one pass.
+
+## Turn 15: product designer (visual focus), the v5 cards (built per turn 14 §10)
+
+The six cards are built. Each is 390 wide at 3x, in
+`concepts/sketches/`:
+- `v5-card-rules.png`
+- `v5-card-0-today.png`
+- `v5-card-1-specimen.png`
+- `v5-card-2-roundel.png`
+- `v5-card-3-side-by-side.png`
+- `v5-card-4-dropped.png`
+
+The source is `concepts/sketches/attitudes-v5.html`. It's the v4 glyph sets
+and helpers plus a v5 block. It measures the ink first, then renders and
+sets `window.READY`. The new sticker refs, with transparent backgrounds so
+they sit on the map tiles, are `ref-sticker-near-t.png`,
+`ref-sticker-starred-t.png` and `ref-sticker-far-t.png`.
+
+### The turn-14 rulings, as applied
+
+- **The law.** It's on the rules card in his quote and in plain words, with
+  the "only your marks vary" line under it. The tools follow it: the
+  account has a solid head with open shoulders, locate a solid centre, the
+  filter knobs are solid, and Directions is a ring with a solid needle.
+  The star off is the full-size hollow of the star on (no 0.9 scale).
+- **One weight.** Every line is set in on-screen px through `u()`, at 2.00
+  everywhere: tools, the +, the account, the tag ×, the star off, and
+  every place rim (row 24px, pin 24 and 32px, chip roundel 16px). Only the
+  check stays at 1.52 (FIXED). The rules card shows Today vs 2.00 only,
+  with the + and the account marked "already 2.00", and the one sentence
+  on why not 1.5.
+- **Shapes.** District and street sit in the circle on both concept cards.
+  The diamond, C, the solid arrow, A's solid bust and Timetable are on the
+  dropped card, one line each.
+- **Chips.** Specimen's chips are bare at 12px. Roundel's carry a 16px
+  roundel, with the cost stated in its "Costs" line.
+
+### Fixes 1–10
+
+1. **Size isn't the difference.** Specimen is drawn at the largest size
+   that still floats: 1.0px of paper inside the rim, fitted by measured
+   ink radius, so nothing touches the rim. Roundel is clipped 0.9px inside
+   the rim. Measured ink cover of the 20px field: Specimen averages 28%,
+   Roundel 49%. See the honest read below.
+2. **Equal mass.** Specimen is balanced by measured ink area: heavy glyphs
+   are shrunk toward the 60th percentile, light ones grow until they reach
+   the fit radius. The spread is 18–35%. The thin glyphs (restaurant, bar,
+   flag, street) can't grow further without touching the rim. They look
+   balanced by eye in the 24px strip, though bar and the flag are the
+   lightest. Roundel can't be balanced the same way: full-field crops
+   (café, district, area) sit at 55–61%, the fork at 39%.
+3. **"Other"** is now a solid pennant on a pole: a marked spot, not a
+   control, in both concepts.
+4. **Lightly rounded.** Every place glyph goes through the `#soft` filter
+   (about 0.5 corner, as on the check). For phase 2 that becomes real radii.
+5. **Same icon everywhere.** Each card shows the tag hanging from its
+   selected pin, the row badge (plain and navy-selected) and the pins, all
+   drawn by one `mark()` function.
+6. **The busy map.** One crop on every card: 19 near pins, the selected
+   pin, a starred pin, a visited sticker and a starred sticker, two
+   clusters and the district's area box (no pin, as he asked). There's a
+   far-zoom strip (empty rings, far stickers, a cluster) on every concept
+   card. The side-by-side card uses the same crop at the same height.
+7. **Specimen attraction and area redrawn.** Attraction is a temple front:
+   the gaps between the columns are the cream inlay, which really is there.
+   Area is a hatched square, the way a map legend draws an area.
+8. **The Roundel misread test** (below). Bar, attraction, hotel and
+   shopping were redrawn.
+9. **Ink cost** is shown, not explained. The busy map does it, plus one
+   "Costs" line.
+10. **The chip cost** is one line on the Roundel card.
+
+### Roundel: "what other sign is this?" (not on the card)
+
+| | Reads as | Verdict |
+|---|---|---|
+| Restaurant | Fork and knife, cut at the handles | Passes |
+| Café | A cup on a cropped saucer, maybe a soup bowl at 16px | Passes |
+| Bar | Was a funnel. Now the bowl, an olive, the stem and the foot: a martini | Passes |
+| Attraction | Was a bottle. Now a temple front with the columns cut. Could be a bank or courthouse, but that's the same family | Passes |
+| Nature | Tree, trunk cut | Passes |
+| Shopping | A bag with a narrow handle. At 16px it's still near a padlock or basket | Borderline |
+| Area | A hatched coin, a barber pole, a striped ball. It says nothing about "area" | **Fails** |
+| Hotel | Was a blob. Now a bed (headboard, pillow, mattress, a fold, a leg). Reads at 24px, smudges at 16px | Borderline |
+| Other | A pennant, "flag a spot". Could read as "report", but in a map pin it's a waypoint | Passes |
+| District | A field cut by three streets. Reads as a beach ball or a globe as often as a map | **Borderline / fails** |
+| Street | A road with a dashed centre line | Passes |
+
+Two fail or nearly fail, and both are areas. A crop of a flat field has no
+silhouette left to read, so the crop loses exactly the shapes that need
+an edge.
+
+### Honest read: is Roundel "Specimen, bigger"?
+
+**Partly, yes.** In the side-by-side strip and rows:
+- Café, attraction, area, district, street and shopping read as cropped,
+  a different kind of picture.
+- Restaurant, nature, bar, other and hotel are tall, narrow objects. The
+  crop only trims their ends, so they read as Specimen at a larger size.
+  That's about half the set.
+
+On the map it is clearly a different, much heavier page (49% vs 28% ink):
+the busy-map crop shows Roundel as the noisiest of the three, which is
+his original complaint.
+
+It also turned up a problem the director didn't list: **the selected pin
+inverts badly in Roundel.** A crop that fills 61% of the field turns mostly
+cream when inverted, so the open café pin looks like a cream pin with a
+brown rim instead of a filled one. The tag card shows it. "The open pin
+fills with its colour" (rules card) holds for Specimen and is weak for
+Roundel.
+
+So the director's condition ("If Roundel still reads as 'Specimen,
+bigger'…") is half met by the drawings, and the map and the selected pin
+count against it. I'd score it as a real but costly alternative. If the
+director drops it, we need a second concept that differs in kind. I don't
+have one ready, and I won't pretend Roundel is more different than it is.
+
+### Specimen vs Today, also honestly
+
+Specimen is close to Today in the row: still a solid glyph floating in a
+2px ring. What changes:
+- District and street are solid and in the circle.
+- Every place is lightly rounded and mass-balanced.
+- "Other" is a flag, not a radio button.
+- The attraction is a temple, not a bullet.
+- The tools follow the law at 2.00.
+- The weight is one number.
+
+That's the evolutionary option again (v4's Field Guide "risk", still
+true). The owner should see it named that way, not dressed up.
+
+### Open questions
+
+1. Roundel: keep it as the second concept with its costs stated, or drop
+   it and look for another that differs in kind? (Director.)
+2. Area and district in Roundel fail the misread test. If Roundel stays,
+   should areas be the one family drawn whole (floating) inside the
+   coin? That would break the concept's one rule.
+3. The rules card's "tapped by me" table stacks the two star icons
+   vertically (a layout nit). Fix in the fix pass if the director wants
+   it.
+4. Specimen's light glyphs (bar, flag, street) are fit-limited. Should
+   they be redrawn wider, or is that phase-2 grid work?
+
+NEXT: product designer (systems focus) — coverage run on the six v5 cards
+against jobs 1–13 (the tag stub's category circle, the "tapped by me"
+table and the weight table are the new parts), then the director scores
+all of them in one pass.

@@ -1,5 +1,74 @@
 # Notes: product designer (visual focus)
 
+## Where things stand (2026-10-15, round 3, after jam turn 15)
+
+Director turn 14 ruled on the jam:
+- **Law accepted:** "Outlined means you haven't marked it yet (Star,
+  Visited). Nothing else in the app is an empty shape", plus "only your
+  marks vary".
+- **Killed / settled:** C is killed. Directions is the ring with a solid
+  needle. Account is a solid head with open shoulders. District and street
+  sit in the circle.
+- **Weight and chips:** 2.00px on screen everywhere. Specimen's chips are
+  bare.
+- **Both concepts go forward,** with conditions 1–10.
+
+I built the six v5 cards (turn 15), all in `../concepts/sketches/`, 390
+wide at 3x:
+- `v5-card-rules.png`
+- `v5-card-0-today.png`
+- `v5-card-1-specimen.png`
+- `v5-card-2-roundel.png`
+- `v5-card-3-side-by-side.png`
+- `v5-card-4-dropped.png`
+
+Source: `../concepts/sketches/attitudes-v5.html`. To re-render (the script
+was in the scratchpad):
+
+```
+NODE_PATH=/opt/node22/lib/node_modules node cards6.js <html> <outdir>
+```
+
+That script is cards5.js plus a wait for `window.READY`, with names
+`['rules','0-today','1-specimen','2-roundel','3-side-by-side','4-dropped']`
+and the prefix `v5-card-`. It logs the measured ink cover per glyph.
+
+Structure of the v5 block:
+- `W = 2` is the one weight. `u(px, size)` converts on-screen px to
+  viewBox units.
+- `TL`: the tools under the law. `TT`: Today's tools as shipped.
+- `SP`: the Specimen sources (CP silhouettes; FG district/street; a temple
+  for attraction; a hatched square for area; a pennant for other).
+- `RO`: the Roundel close-ups, clip r = 9.1 at 24px.
+- `fitAll()` measures each glyph on a canvas, fits Specimen to the radius
+  `innerR − 1.0px` around its bbox centre, then shrinks heavy glyphs toward
+  the 60th-percentile area with exponent .35. It logs the coverage.
+- `mark(set, cat, size, {sel: 'pin'|'row'})` is the one function for rows,
+  pins, the tag's pin and chips. Today's district/street use the diamond.
+  `denseMap(set, h)` places 19 pins (`PINS`) plus the selected pin,
+  stickers, clusters and the tiles' district box. `farStrip()` and `tag()`
+  hang the tag from its selected pin; the band turns orange when starred.
+
+Findings:
+- **Ink cover:** Specimen averages 28% (18–35%); Roundel 49%.
+- **Roundel misreads:** area fails (a hatched coin), district is
+  borderline (a beach ball). Shopping at 16px and hotel at 16px are
+  borderline. Bar, attraction and hotel were redrawn.
+- **Roundel is half "Specimen, bigger".** Tall, narrow objects (fork, tree,
+  glass, flag, bed) only get their ends trimmed. On the map it's much
+  heavier.
+- **Roundel's selected pin inverts badly.** A crop that fills most of the
+  field turns mostly cream, so the open café looks unselected.
+- **Specimen is evolutionary**, close to Today in the row. I said so in
+  the turn rather than dressing it up.
+
+Next:
+1. Systems runs coverage on the v5 cards.
+2. The director scores all six in one pass, and rules on keeping Roundel
+   or finding a second concept that differs in kind.
+3. Then the fix pass. Known nits: the star icons stack in the rules
+   table; the dropped card's diamond shows Today's dashed glyphs.
+
 ## Where things stand (2026-10-15, round 3, after jam turn 13)
 
 I'm a new visual designer, picking up from these notes. The owner's reply

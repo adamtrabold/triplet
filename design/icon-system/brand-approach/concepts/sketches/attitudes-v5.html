@@ -1,0 +1,571 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<title>Icon jam r3</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<style>
+:root{--paper:#F2EBDD;--raised:#FAF5EA;--hair:#D8CEBA;--ink:#1A1A18;--ink2:#5A564C;--navy:#12293F;--or:#EE7434;--ord:#A8400C}
+*{box-sizing:border-box}
+body{margin:0;background:#E4DCCB;color:var(--ink);font-family:Archivo,Arial,sans-serif;width:390px}
+.card{background:var(--raised);padding:14px 16px 16px;margin:0 0 24px}
+.card h2{font-size:17px;margin:0;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.no{font-size:10px;letter-spacing:.12em;color:var(--ink2);font-weight:700;text-transform:uppercase}
+.att{font-size:13px;margin:4px 0 6px;line-height:1.35}
+.notes{font-size:12px;line-height:1.35;margin:6px 0 4px;padding:0;list-style:none}
+.notes li{margin:0 0 4px;display:grid;grid-template-columns:70px 1fr;align-items:baseline}
+.notes b{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.sec{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);font-weight:700;margin:16px 0 6px;padding-top:8px;border-top:1px solid var(--hair)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px 2px}
+.cell{display:flex;flex-direction:column;align-items:center;gap:3px}
+.cell svg{width:24px;height:24px;display:block}
+.cell span{font-size:8px;letter-spacing:.04em;color:var(--ink2);text-align:center;line-height:1.1;text-transform:uppercase}
+.cell.fixed span{color:var(--ord);font-weight:700}
+.strip{display:flex;align-items:center;gap:6px;min-height:26px;flex-wrap:wrap}
+.strip .lab{font-size:8.5px;letter-spacing:.08em;color:var(--ink2);flex:0 0 100%;text-transform:uppercase;font-weight:700;margin:4px 0 -2px}
+.strip svg{display:block;flex:none}
+.copy{filter:url(#thr)}
+.fx{font-size:7.5px;font-weight:700;letter-spacing:.1em;color:var(--ord);background:#FBE3D3;padding:1px 3px;border-radius:2px}
+.bleed{margin:0 -16px}
+/* header crop */
+.maptop{position:relative;height:74px;background:#E8E4DA}
+.zoom{position:absolute;left:12px;top:10px;width:34px;border:2px solid rgba(0,0,0,.2);border-radius:4px;background:#fff;overflow:hidden}
+.zoom div{height:30px;display:grid;place-items:center;color:#000}
+.zoom div+div{border-top:1px solid #ccc}
+.zoom svg{width:18px;height:18px}
+.scal{position:absolute;top:12px;width:50px;height:50px;background:var(--navy);display:grid;place-items:center;color:var(--or)}
+.lhead{height:56px;background:#EFE7D8;display:flex;align-items:center;padding:0 16px;gap:14px;border-bottom:1px solid var(--hair);color:var(--navy)}
+.lhead .t{flex:1;font-size:14.5px;font-weight:700;letter-spacing:.1em;white-space:nowrap}
+/* rows */
+.row{display:flex;align-items:center;gap:10px;height:56px;background:#F1E9DB;padding:0 16px;border-bottom:1px solid var(--hair)}
+.row.v{background:#E7DFD0}
+.row.sel{background:var(--navy);color:var(--paper)}
+.badge{width:24px;height:24px;flex:none;border-radius:50%;border:2px solid;background:var(--paper);display:grid;place-items:center}
+.badge svg{width:18px;height:18px;display:block}
+.row.sel .badge{background:var(--navy);border-color:var(--paper)}
+.nm{font-size:16px;font-weight:600;line-height:1.15;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm small{display:block;font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px}
+.stamp{width:72px;flex:none}
+/* tag stub */
+.stub{display:flex;background:var(--raised);border-top:1.5px dashed var(--hair);height:76px;border-bottom:1px solid var(--hair);position:relative}
+.seg{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--ink);position:relative;text-align:center}
+.seg+.seg{border-left:1.5px dashed var(--hair)}
+.seg img{width:86px}
+.seg .fx{position:absolute;top:4px;right:4px}
+.stubwrap{background:#E9E1D1;padding:8px 0}
+/* map */
+.map{position:relative;height:170px;overflow:hidden;background:#E8E4DA}
+.map>svg.tiles{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:2px solid;width:24px;height:24px}
+.pin svg{width:18px;height:18px;display:block}
+.pin.approx{border-style:dashed}
+.pin.sel{width:32px;height:32px;border-width:2.5px;border-color:var(--paper);box-shadow:0 0 0 1px rgba(0,0,0,.2),0 2px 5px rgba(0,0,0,.2)}
+.pin.sel svg{width:23px;height:23px}
+.pstar{position:absolute;width:12px;height:12px;right:-6px;top:-6px}
+.clu{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--ord);border:2px solid var(--paper);color:var(--paper);font-size:10px;font-weight:700;display:grid;place-items:center}
+.stk{position:absolute;width:40px;height:40px}
+.maplab{position:absolute;font-size:7.5px;font-weight:700;letter-spacing:.08em;color:var(--ink2);background:rgba(250,245,234,.85);padding:1px 3px;border-radius:2px}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:7px;height:30px;padding:0 10px;background:var(--raised);border:1px solid var(--hair);border-bottom:2px solid;font-size:11px;font-weight:700;letter-spacing:.08em}
+.chip.off{border:1px dashed #C9BEA6;color:var(--ink2)}
+.chip svg{width:12px;height:12px}
+.proof{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--navy);display:flex;align-items:center;gap:5px;padding:7px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:8px;flex-wrap:wrap}
+.inset{display:inline-flex;align-items:center;gap:6px;border:1px dashed var(--hair);padding:5px 8px;font-size:9.5px;color:var(--ink2);letter-spacing:.06em;margin-top:8px}
+.verdict{background:#F3ECDF;border-left:3px solid var(--navy);padding:7px 9px;font-size:12px;line-height:1.35;margin-top:8px}
+.sbs h3{font-size:12px;letter-spacing:.1em;color:var(--navy);margin:14px 0 6px;text-transform:uppercase}
+.drow{display:flex;gap:10px;align-items:center;font-size:12px;line-height:1.3;margin:8px 0}
+.drow svg{width:28px;height:28px;flex:none}
+.drow b{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.brand .bl{font-size:13px;line-height:1.38;margin:12px 0 0}.brand .bl b{display:block;font-size:15.5px;color:var(--navy);margin-bottom:2px;line-height:1.25}
+.brand .bl.last b{font-size:14px}
+.pv{display:flex;align-items:center;gap:14px;margin-top:10px;background:#FAF5EA;border:1px solid var(--hair);padding:10px 12px}
+.plab{border:1.5px solid var(--navy);padding:6px 9px;font-size:11.5px;font-weight:700;letter-spacing:.09em;color:var(--navy);display:flex;flex-direction:column;gap:2px}
+.plab span,.cap{font-size:7.5px;letter-spacing:.14em;color:var(--ink2);font-weight:700}
+.pstamp{position:relative;display:flex;flex-direction:column;align-items:center}.pstamp img{width:104px}.pstamp .fx{position:absolute;top:-6px;right:-8px}
+.savoy{display:block;width:100%;height:170px;object-fit:cover;margin-top:10px;border-radius:2px}.src{display:block;font-size:9.5px;color:var(--ink2);margin-top:3px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;padding-top:10px;border-top:1px solid var(--hair)}
+.cols h4{margin:0 0 6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy)}
+.cols ul{margin:0;padding:0;list-style:none;font-size:12px;line-height:1.3}.cols li{margin:0 0 7px;padding-left:10px;position:relative}
+.cols li:before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:var(--ink2)}.cols svg{vertical-align:-2px;margin-left:3px}
+.drow .strip svg{width:18px;height:18px}</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<filter id="thr" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="discrete" tableValues="0 0 1"/><feFuncG type="discrete" tableValues="0 0 1"/><feFuncB type="discrete" tableValues="0 0 1"/></feComponentTransfer></filter>
+<filter id="soft" filterUnits="userSpaceOnUse" x="-3" y="-3" width="30" height="30"><feGaussianBlur stdDeviation=".42"/><feComponentTransfer><feFuncA type="linear" slope="7" intercept="-3"/></feComponentTransfer></filter>
+<filter id="lino"><feTurbulence baseFrequency=".35" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter>
+</defs></svg>
+<div id="out"></div>
+<script>
+const STAR='M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.93 8.17L21.46 8.75A1.3 1.3 0 0 1 22.19 11.01L18.06 14.73A0.6 0.6 0 0 0 17.88 15.30L19.03 20.73A1.3 1.3 0 0 1 17.11 22.12L12.30 19.35A0.6 0.6 0 0 0 11.70 19.35L6.89 22.12A1.3 1.3 0 0 1 4.97 20.73L6.12 15.30A0.6 0.6 0 0 0 5.94 14.73L1.81 11.01A1.3 1.3 0 0 1 2.54 8.75L8.07 8.17A0.6 0.6 0 0 0 8.55 7.81Z';
+const CHECK='M0.75 12.09Q0.05 12.80 0.75 13.51L8.90 21.66Q9.61 22.36 10.28 21.62L23.28 7.33Q23.95 6.59 23.21 5.92L20.03 3.02Q19.29 2.35 18.62 3.09L10.06 12.50Q9.39 13.24 8.68 12.53L5.21 9.05Q4.50 8.35 3.79 9.05Z';
+const KO='style="fill:var(--ko,#FAF5EA)"', KOS='style="stroke:var(--ko,#FAF5EA)"';
+const f=d=>`<path fill="currentColor" d="${d}"/>`;
+// mitred sort star
+const tstar=(()=>{const cx=12,cy=12.9,R=8.3,r=3.4;let d='';for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r:R;d+=(i?'L':'M')+(cx+rr*Math.cos(a)).toFixed(2)+' '+(cy+rr*Math.sin(a)).toFixed(2)}return d+'Z'})();
+// off-true ring for cut paper
+const ring=(cx,cy,R,w,k)=>{let o='',n='';for(let i=0;i<=36;i++){const a=i/36*2*Math.PI,j=1+k*Math.sin(a*2+0.7);o+=(i?'L':'M')+(cx+R*j*Math.cos(a)).toFixed(2)+' '+(cy+R*j*Math.sin(a)).toFixed(2);}for(let i=36;i>=0;i--){const a=i/36*2*Math.PI,j=1+k*Math.sin(a*2+0.7);n+=(i<36?'L':'M')+(cx+(R-w)*j*Math.cos(a)).toFixed(2)+' '+(cy+(R-w)*j*Math.sin(a)).toFixed(2);}return `<path fill="currentColor" fill-rule="evenodd" d="${o}Z${n}Z"/>`};
+const blob=(cx,cy,R,k)=>{let o='';for(let i=0;i<=36;i++){const a=i/36*2*Math.PI,j=1+k*Math.sin(a*2+0.7);o+=(i?'L':'M')+(cx+R*j*Math.cos(a)).toFixed(2)+' '+(cy+R*j*Math.sin(a)).toFixed(2);}return `<path fill="currentColor" d="${o}Z"/>`};
+const st=(d,w='var(--sw,2)',extra='')=>`<path fill="none" stroke="currentColor" style="stroke-width:${w}" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" ${extra} d="${d}"/>`;
+const rs=(d,w=1.8)=>`<path fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" d="${d}"/>`;
+
+const G={
+T:{ // today, from index.html
+ restaurant:f('M6 2h2v7h1V2h2v7h1V2h2v8a3 3 0 0 1-2 2.83V22h-4v-9.17A3 3 0 0 1 6 10V2z'),
+ cafe:f('M3 4h13v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V4z')+f('M17 6h2a3 3 0 0 1 0 6h-2V6z')+f('M2 19h16v2H2z'),
+ bar:f('M3 3h18l-8 9v7h4v2H7v-2h4v-7L3 3z'),
+ attraction:f('M12 2l3 6v11H9V8l3-6z')+f('M7 20h10v2H7z'),
+ nature:f('M12 2l4 6h-2.5l3 5H14l3.5 6h-11L10 13H7.5l3-5H8l4-6z')+f('M11 18h2v4h-2z'),
+ shopping:f('M12 1a4 4 0 0 0-4 4v2h2V5a2 2 0 0 1 4 0v2h2V5a4 4 0 0 0-4-4z')+f('M4 7h16l-1.5 15h-13L4 7z'),
+ area:f('M3 4h18v2H3zM3 18h18v2H3zM3 4h2v16H3zM19 4h2v16h-2z')+f('M8.5 18l6-12h2l-6 12h-2zM13.5 18l5-10v4l-3 6h-2z'),
+ hotel:f('M2 6h3v7h9a5 5 0 0 1 5 5v3h-3v-2H5v2H2V6z')+'<circle fill="currentColor" cx="8.5" cy="9.5" r="2.5"/>',
+ other:'<circle fill="currentColor" cx="12" cy="12" r="5"/>',
+ district:'<path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/>',
+ street:'<path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8" d="M3 18C7 6 17 18 21 6"/>',
+ staron:f(STAR), staroff:`<path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="${STAR}"/>`,
+ account:'<g fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></g>',
+ plus:'<g stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></g>',
+ addopen:'<g stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></g>',
+ sort:'<g fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="8" x2="8" y2="21"/><path d="M8 2.5L12.5 9h-9z" fill="currentColor" stroke="none"/><line x1="16" y1="3" x2="16" y2="16"/><path d="M16 21.5L11.5 15h9z" fill="currentColor" stroke="none"/></g>',
+ filters:'<g stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></g><g fill="currentColor"><circle cx="8" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="12" cy="18" r="2"/></g>',
+ locate:'<g fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5"/></g>',
+ close:'<path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>',
+ directions:'<circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/>',
+ check:'<path d="M3.5 12.5l5.5 5.5L20.5 6" fill="none" stroke="currentColor" stroke-width="2.25"/>',
+ planplus:'<path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.25"/>',
+ more:'<g fill="currentColor"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></g>',
+ chevron:'<path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.25"/>',
+ collapse:'<text x="12" y="17" text-anchor="middle" font-size="14" font-family="Arial" fill="currentColor">&#9660;</text>',
+ del:'<text x="12" y="17.5" text-anchor="middle" font-size="18" font-family="Arial" fill="currentColor">&#215;</text>',
+ planadd:'<text x="12" y="17.5" text-anchor="middle" font-size="18" font-family="Arial" fill="currentColor" transform="rotate(45 12 12)">&#215;</text>',
+ zin:'<text x="12" y="19" text-anchor="middle" font-size="22" font-weight="700" font-family="Lucida Console,Courier New,monospace" fill="currentColor">+</text>',
+ zout:'<text x="12" y="19" text-anchor="middle" font-size="22" font-weight="700" font-family="Lucida Console,Courier New,monospace" fill="currentColor">&#8722;</text>',
+},
+F:{ // FIELD GUIDE: places = filled specimens (corner r~.8), one detail; tools = navy key, 1.8 round
+ restaurant:'<g fill="currentColor"><rect x="4.6" y="2" width="1.7" height="7" rx=".8"/><rect x="7.6" y="2" width="1.7" height="7" rx=".8"/><rect x="10.6" y="2" width="1.7" height="7" rx=".8"/><path d="M4.6 7.6h7.7v1.3a3.4 3.4 0 0 1-2.6 3.3v9a.9.9 0 0 1-.9.9h-.7a.9.9 0 0 1-.9-.9v-9a3.4 3.4 0 0 1-2.6-3.3z"/><path d="M15.4 2.4c3.4.9 4.4 5.3 4.1 9.8h-1.9v9a.9.9 0 0 1-.9.9h-.4a.9.9 0 0 1-.9-.9z"/></g>',
+ cafe:f('M3 8.5h13v4a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6z')+f('M16.6 9.5h1a3.2 3.2 0 0 1 0 6.4h-1.9v-2h1.9a1.2 1.2 0 0 0 0-2.4h-1z')+rs('M9.5 6.3c-1.5-1.4 1.5-2.3 0-4.1')+'<rect x="2" y="20" width="15" height="2" rx=".9" fill="currentColor"/>',
+ bar:f('M3.4 3.2h17.2a.6.6 0 0 1 .45 1L13.1 12.9v6.3h3.4a.9.9 0 0 1 0 1.8h-9a.9.9 0 0 1 0-1.8h3.4v-6.3L2.95 4.2a.6.6 0 0 1 .45-1z')+`<circle cx="9.6" cy="6.3" r="1.5" ${KO}/>`,
+ attraction:f('M12 2.2l3.1 5.6V18H8.9V7.8z')+'<rect x="6.3" y="19.2" width="11.4" height="2.6" rx=".8" fill="currentColor"/>'+`<rect x="8.9" y="8.2" width="6.2" height="1.2" ${KO}/>`,
+ nature:'<path fill="currentColor" stroke="currentColor" stroke-width=".9" stroke-linejoin="round" d="M12 2.2l4.5 6.2h-2.3l3.3 4.9h-2.5l3.7 5.6H5.3L9 13.3H6.5l3.3-4.9H7.5z"/><rect x="10.9" y="18.6" width="2.2" height="3.8" rx=".6" fill="currentColor"/>',
+ shopping:f('M4.2 8h15.6l-1.4 13.2a.9.9 0 0 1-.9.8H6.5a.9.9 0 0 1-.9-.8z')+rs('M8.8 8.6V6.2a3.2 3.2 0 0 1 6.4 0v2.4',1.9)+`<circle cx="8.8" cy="10.6" r=".95" ${KO}/><circle cx="15.2" cy="10.6" r=".95" ${KO}/>`,
+ area:'<rect x="3" y="4" width="18" height="16" rx="1.2" fill="currentColor"/>'+`<path ${KOS} stroke-width="1.7" stroke-linecap="round" d="M8 17.5L13.6 6.5M13 17.5L18.2 7.5"/>`,
+ hotel:f('M2 6.5a.9.9 0 0 1 .9-.9h1.4a.9.9 0 0 1 .9.9V13h9.3a5 5 0 0 1 5 5v2.6a.9.9 0 0 1-.9.9h-1.3a.9.9 0 0 1-.9-.9V19H5.2v1.6a.9.9 0 0 1-.9.9H2.9a.9.9 0 0 1-.9-.9z')+'<circle fill="currentColor" cx="8.8" cy="9.6" r="2.5"/>',
+ other:'<circle fill="currentColor" cx="12" cy="12" r="5.5"/>',
+ district:'<path fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 6.5L14.5 3.5 20.5 9 18 20.5 5.5 18.5z"/>'+`<path fill="none" ${KOS} stroke-width="1.6" stroke-linecap="round" d="M9.6 5L11.2 19.6M5 12.6L19.6 14.4"/>`,
+ street:'<path fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M9.2 3h5.6l5.7 18.4H3.5z"/>'+`<path ${KO} d="M11.55 4.8h.9l.75 14.9h-2.4z"/>`,
+ staron:f(STAR), staroff:`<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" transform="translate(1.2 1.2) scale(.9)" d="${STAR}"/>`,
+ account:rs('M4.6 20.6v-1.3a4.3 4.3 0 0 1 4.3-4.3h6.2a4.3 4.3 0 0 1 4.3 4.3v1.3')+'<circle fill="none" stroke="currentColor" stroke-width="1.8" cx="12" cy="7.6" r="3.8"/>',
+ plus:rs('M12 5v14M5 12h14'), addopen:rs('M7 7l10 10M17 7L7 17'), close:rs('M6 6l12 12M18 6L6 18'), del:rs('M6.5 6.5l11 11M17.5 6.5l-11 11'),
+ planplus:rs('M12 5v14M5 12h14'), planadd:rs('M12 6v12M6 12h12'),
+ sort:rs('M8 20V4.5M4.5 8 8 4.5 11.5 8M16 4v15.5M12.5 16 16 19.5 19.5 16'),
+ filters:rs('M4 6h16M4 12h16M4 18h16')+`<g ${KO} stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="6" r="2.2"/><circle cx="16" cy="12" r="2.2"/><circle cx="12" cy="18" r="2.2"/></g>`,
+ locate:'<circle fill="none" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" r="3.4"/>'+rs('M12 2v4.5M12 17.5V22M2 12h4.5M17.5 12H22'),
+ directions:'<circle fill="none" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" r="8.6"/><path fill="currentColor" stroke="currentColor" stroke-width=".8" stroke-linejoin="round" d="M15.6 8.4L13.2 13.2 8.4 15.6 10.8 10.8z"/>',
+ check:rs('M4 12.5l5 5L20 6.5'), more:'<g fill="currentColor"><circle cx="5.5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18.5" cy="12" r="1.7"/></g>',
+ chevron:rs('M5.5 9l6.5 6.5L18.5 9'), collapse:'<path fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6.5 9h11L12 15.5z"/>',
+ zin:rs('M12 5v14M5 12h14',2), zout:rs('M5 12h14',2),
+},
+C:{ // CUT PAPER: places cut off true (pushed); tools = thinner cut strips
+ restaurant:'<g transform="rotate(-4 12 12)" fill="currentColor"><path d="M4.8 2.5L6.2 2.4 6.4 7.2 7.3 7.2 7.3 2.4 8.7 2.4 8.8 7.2 9.7 7.2 9.8 2.5 11.2 2.6C11.4 6.4 10.8 9.4 8.9 10.3L9.3 21.5 7.4 21.6 7.6 10.3C5.4 9.3 4.7 6.4 4.8 2.5Z"/><path d="M15.2 2.4C18.8 3.6 19.6 8.8 18.6 12.6L17.3 12.7 17.5 21.5 15.6 21.4Z"/></g>',
+ cafe:'<g transform="rotate(-5 12 12)">'+f('M3.1 5.8L17.2 4.6C17.1 10.6 15.6 15.9 9.8 16.1C4.5 16.2 3.4 11.4 3.1 5.8Z')+f('M16.9 6.5C21.6 5.8 22.4 12.6 15.6 13.4L16 11.4C19.3 11 19.2 8.1 16.6 8.5Z')+f('M2 19.5C7.2 17.9 13.5 18 19.1 19.6C13.4 21.6 7.3 21.5 2 19.5Z')+'</g>',
+ bar:'<g transform="rotate(3 12 12)">'+f('M2.8 3.7L21 3.1 13.4 12 13.7 18.6 17.2 19.5C14.2 20.8 9.8 20.9 6.6 19.7L10.6 18.6 10.8 12Z')+'</g>',
+ attraction:'<g transform="rotate(-3 12 12)">'+f('M12.4 1.8L15.4 7.8 15.8 18.4 8.6 18.6 9 7.5Z')+f('M6 19.3L18.1 19 18.3 21.9 6.2 21.7Z')+'</g>',
+ nature:f('M12.4 1.6L17.2 8.2 14.7 8.3 18.6 13.4 15.6 13.6 19.9 19.2 4.4 19.4 8.4 13.7 5.6 13.4 9.5 8.4 7 8Z')+f('M10.9 19.1L13.3 19.1 13.6 22.5 10.8 22.4Z'),
+ shopping:'<g transform="rotate(4 12 12)">'+f('M3.8 7.7L20.4 7.2 18.8 21.9 5.4 22.1Z')+f('M8.1 7.5C7.8 2.3 16.3 1.9 16 7.3L14.2 7.3C14.3 4.1 9.8 4.2 9.9 7.5Z')+'</g>',
+ area:f('M3.2 4.3L15.4 3.8 7 20.3 3.5 20.5Z')+f('M17.6 3.7L21 4.1 20.6 20.2 9.2 20.4Z'),
+ hotel:'<g transform="rotate(-3 12 12)">'+f('M2.1 5.6L5.2 5.4 5.3 12.8 14.6 12.9C18.4 13 20.1 15.4 20 18.5L20.1 21.5 17 21.6 16.9 19.2 5.4 19.3 5.3 21.6 2.2 21.7Z')+'<ellipse fill="currentColor" cx="8.8" cy="9.4" rx="2.8" ry="2.4" transform="rotate(-18 8.8 9.4)"/></g>',
+ other:blob(12,12,5.6,.07),
+ district:f('M3.5 6.6L13.9 3 21 9.1 18.1 21 4.8 18.2C5.2 14.2 4.3 10.4 3.5 6.6Z')+`<path fill="none" ${KOS} stroke-width="1.7" d="M9.3 3.9L11.4 21M3.4 12.9C9 12.6 14.6 13.4 21.5 14.4"/>`,
+ street:'<path fill="none" stroke="currentColor" stroke-width="4.6" d="M3.4 21.2C5.6 12.4 9.4 15.6 12.6 12.4C15.6 9.4 16.4 5.6 20.4 2.8"/>'+`<path fill="none" ${KOS} stroke-width="1" d="M3.4 21.2C5.6 12.4 9.4 15.6 12.6 12.4C15.6 9.4 16.4 5.6 20.4 2.8"/>`,
+ staron:'<path fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.1" d="M12.3 2.1L14.8 8.5L21.7 9.1L16.3 13.6L18.4 21.1L12 16.9L5.5 21.3L7.6 13.8L2.2 9.2L9.3 8.4Z"/>',
+ staroff:'<path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.7" stroke-dasharray=".1 2.6" d="M12.3 2.1L14.8 8.5L21.7 9.1L16.3 13.6L18.4 21.1L12 16.9L5.5 21.3L7.6 13.8L2.2 9.2L9.3 8.4Z"/>',
+ staroffsolid:'<path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.4" d="M12.3 2.1L14.8 8.5L21.7 9.1L16.3 13.6L18.4 21.1L12 16.9L5.5 21.3L7.6 13.8L2.2 9.2L9.3 8.4Z"/>',
+ account:ring(12,7.6,4.1,1.8,.05)+f('M4.3 21.2C4.2 16.6 7.4 14.5 12.1 14.6C16.9 14.5 19.9 16.4 19.8 21.1L18 21.1C17.9 17.6 15.8 16.3 12 16.4C8.4 16.4 6.2 17.6 6.1 21.2Z'),
+ plus:f('M11.1 3.8L12.9 3.6 12.8 20.4 11.2 20.3Z')+f('M3.7 11.2L20.4 10.9 20.4 12.7 3.6 12.8Z'),
+ addopen:'<g transform="rotate(45 12 12)">'+f('M11.1 5.2L12.9 5 12.8 19 11.2 18.9Z')+f('M5.1 11.2L18.9 10.9 18.9 12.7 5 12.8Z')+'</g>',
+ close:'<g transform="rotate(45 12 12)">'+f('M11.1 3.6L12.9 3.4 12.8 20.6 11.2 20.5Z')+f('M3.5 11.2L20.5 10.9 20.5 12.7 3.4 12.8Z')+'</g>',
+ del:'<g transform="rotate(45 12 12)">'+f('M11.3 5.4L12.7 5.3 12.6 18.7 11.4 18.6Z')+f('M5.4 11.3L18.7 11.1 18.7 12.5 5.3 12.6Z')+'</g>',
+ planplus:f('M11.2 4.8L12.8 4.7 12.7 19.3 11.3 19.2Z')+f('M4.7 11.3L19.3 11.1 19.3 12.7 4.6 12.8Z'),
+ planadd:f('M11.3 5.6L12.7 5.5 12.6 18.5 11.4 18.4Z')+f('M5.5 11.3L18.5 11.2 18.5 12.6 5.4 12.7Z'),
+ sort:f('M7.2 8.3L8.9 8.2 9 21 7.3 21.1Z')+f('M8.2 2.3L12.4 9 3.8 9.2Z')+f('M15.1 3L16.8 2.9 16.9 15.8 15.2 15.9Z')+f('M16 21.7L11.6 15 20.3 14.8Z'),
+ filters:f('M3 5.6L21 5.9 21 7.5 3 7.2Z')+f('M3 11.4L21 11.2 21 12.8 3 13Z')+f('M3 17.5L21 17.8 21 19.4 3 19.1Z')+blob(8,6.5,2.3,.06)+blob(16.2,12.1,2.3,.06)+blob(11.6,18.4,2.3,.06),
+ locate:ring(12,12,4.1,1.8,.05)+f('M11.2 1.6L12.9 1.5 12.8 6.2 11.2 6.3Z')+f('M11.1 17.7L12.8 17.8 12.9 22.4 11.2 22.5Z')+f('M1.6 11.1L6.3 11.2 6.2 12.8 1.5 12.9Z')+f('M17.8 11.2L22.4 11.1 22.5 12.7 17.7 12.8Z'),
+ directions:ring(12,12,8.9,1.7,.03)+f('M16.4 7.4L13.4 13.5 7.5 16.7 10.5 10.5Z'),
+ check:f('M3.2 12.3L4.6 11 9.4 15.9 19.6 5.6 21 6.9 9.5 18.6Z'),
+ more:blob(5.4,12.2,1.9,.08)+blob(12,11.9,1.9,.08)+blob(18.6,12.1,1.9,.08),
+ chevron:f('M4.6 9.6L5.9 8.3 12.1 14.6 18.2 8.4 19.5 9.7 12.1 17.2Z'),
+ collapse:f('M5.8 8.6L18.4 9.1 11.9 16.2Z'),
+ zin:f('M11.1 4.8L12.9 4.7 12.8 19.3 11.2 19.2Z')+f('M4.7 11.1L19.3 10.9 19.3 12.8 4.6 12.9Z'), zout:f('M4.7 11.1L19.3 10.9 19.3 12.8 4.6 12.9Z'),
+},
+S:{ // TIMETABLE SORTS: one stroke (var --sw), flat ends, mitred, squarish curves, ink-trap gaps at joins
+ restaurant:st('M5.5 3V8.4C5.5 10.6 6.3 11.4 8.25 11.4C10.2 11.4 11 10.6 11 8.4V3M8.25 3V8.6M8.25 12.6V21')+st('M18 21V12')+f('M19 2.6C15.6 3.8 14.3 8 14.3 13H19z'),
+ cafe:st('M4 6.5H15V11.5C15 15.7 14 17 10.6 17H8.4C5 17 4 15.7 4 11.5Z')+st('M16.7 8.8H17.4C19.5 8.8 20.1 9.6 20.1 11.2C20.1 12.8 19.5 13.6 17.4 13.6H16.7')+st('M2.5 20.5H16.5'),
+ bar:st('M3.6 4H20.4L12 12.6Z')+st('M12 14.3V19.6')+st('M7.5 20.8H16.5'),
+ attraction:st('M12 3L15 8.2V18.4H9V8.2Z')+st('M6.5 21H17.5'),
+ nature:st('M12 2.6L16.4 8.4H13.9L17.9 13.8H15L19 19.2H5L9 13.8H6.1L10.1 8.4H7.6Z')+st('M12 20.4V22.6'),
+ shopping:st('M4.6 8.2H19.4L18.2 21H5.8Z')+st('M9 6.8V6.2C9 3.9 9.9 3 12 3C14.1 3 15 3.9 15 6.2V6.8'),
+ area:st('M3.5 4.5H20.5V19.5H3.5Z')+st('M8.6 17L15.4 7'),
+ hotel:st('M3 4.6V21.2')+st('M4.4 13.5H15.4C18.6 13.5 20 14.7 20 17.6V21.2')+st('M4.4 18.4H18.8')+'<circle fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" cx="9" cy="9.3" r="2.2"/>',
+ other:'<rect fill="currentColor" x="8.4" y="8.4" width="7.2" height="7.2" rx="2.6"/>',
+ district:st('M3.5 6.5L14 3.5 20.5 9 18 20.5 5 18.5Z')+st('M9.4 6.2L10.9 17.6M6.4 12.7L17.6 14.1'),
+ street:st('M9 3L4 21M15 3L20 21')+st('M12 4V8M12 11V15M12 18V21'),
+ staron:`<path fill="currentColor" stroke="currentColor" style="stroke-width:var(--sw,2)" stroke-linejoin="miter" stroke-miterlimit="10" d="${tstar}"/>`,
+ staroff:`<path fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" stroke-linejoin="miter" stroke-miterlimit="10" d="${tstar}"/>`,
+ account:'<circle fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" cx="12" cy="7.4" r="3.7"/>'+st('M4.5 21V18.6C4.5 15.8 5.8 14.6 9 14.6H15C18.2 14.6 19.5 15.8 19.5 18.6V21'),
+ plus:st('M12 4.5V19.5M4.5 12H19.5'), addopen:st('M6.7 6.7L17.3 17.3M17.3 6.7L6.7 17.3'), close:st('M5.5 5.5L18.5 18.5M18.5 5.5L5.5 18.5'), del:st('M6.5 6.5L17.5 17.5M17.5 6.5L6.5 17.5'),
+ planplus:st('M12 5V19M5 12H19'), planadd:st('M12 6V18M6 12H18'),
+ sort:st('M8 21V8.6')+f('M8 2.4L12.4 8.4H3.6Z')+st('M16 3V15.4')+f('M16 21.6L11.6 15.6H20.4Z'),
+ filters:st('M3.5 6H20.5M3.5 12H20.5M3.5 18H20.5M8 3V9M16 9V15M12 15V21'),
+ locate:'<rect fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" x="8.5" y="8.5" width="7" height="7" rx="3"/>'+st('M12 1.5V6.3M12 17.7V22.5M1.5 12H6.3M17.7 12H22.5'),
+ directions:'<rect fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" x="3.5" y="3.5" width="17" height="17" rx="7.6"/>'+f('M15.8 8.2L13.3 13.3 8.2 15.8 10.7 10.7z'),
+ check:st('M3.5 12.5L9 18L20.5 6.5'),
+ more:'<g fill="currentColor"><rect x="3.4" y="10.4" width="3.2" height="3.2" rx=".9"/><rect x="10.4" y="10.4" width="3.2" height="3.2" rx=".9"/><rect x="17.4" y="10.4" width="3.2" height="3.2" rx=".9"/></g>',
+ chevron:st('M5 9L12 16L19 9'), collapse:f('M5.5 8.5H18.5L12 16Z'),
+ zin:st('M12 5V19M5 12H19'), zout:st('M5 12H19'),
+}};
+// ===== ROUND 2 OVERRIDES =====
+const SOFT=s=>`<g filter="url(#soft)">${s}</g>`;
+const sq=(d,w=1.8)=>`<path fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="6" d="${d}"/>`;
+const strip=(x1,y1,x2,y2,w=1.9)=>{const L=Math.hypot(x2-x1,y2-y1),dx=(x2-x1)/L,dy=(y2-y1)/L,nx=-dy,ny=dx,h=w/2,s=w*.6;const P=(x,y)=>x.toFixed(2)+' '+y.toFixed(2);
+ return `<path fill="currentColor" d="M${P(x1+nx*h+dx*s,y1+ny*h+dy*s)}L${P(x2+nx*h+dx*s,y2+ny*h+dy*s)}L${P(x2-nx*h-dx*s,y2-ny*h-dy*s)}L${P(x1-nx*h-dx*s,y1-ny*h-dy*s)}Z"/>`};
+// FIELD GUIDE: one cream inlay per place; tools square-cut like the visited check (softened), knobs inlaid
+Object.assign(G.F,{
+ restaurant:'<g fill="currentColor"><path d="M4.6 2.4h7.7v6.5a3.4 3.4 0 0 1-2.6 3.3v9a.9.9 0 0 1-.9.9h-.7a.9.9 0 0 1-.9-.9v-9a3.4 3.4 0 0 1-2.6-3.3z"/><path d="M15.4 2.4c3.4.9 4.4 5.3 4.1 9.8h-1.9v9a.9.9 0 0 1-.9.9h-.4a.9.9 0 0 1-.9-.9z"/></g>'+`<g ${KO}><rect x="6.55" y="2.2" width="1.1" height="5.8"/><rect x="9.25" y="2.2" width="1.1" height="5.8"/></g>`,
+ cafe:f('M2.5 6.5h14v5.5a6.5 6.5 0 0 1-6.5 6.5h-1a6.5 6.5 0 0 1-6.5-6.5z')+f('M17.1 8h.9a3.4 3.4 0 0 1 0 6.8h-2.2v-2h2.2a1.4 1.4 0 0 0 0-2.8h-.9z')+'<rect x="1.5" y="20" width="16" height="2" rx=".9" fill="currentColor"/>'+`<path fill="none" ${KOS} stroke-width="1.5" stroke-linecap="round" d="M9.6 15.6c-1.8-1.7 1.8-2.7 0-5.4"/>`,
+ nature:G.F.nature+`<path fill="none" ${KOS} stroke-width="1.1" stroke-linecap="round" d="M12 7v10.6"/>`,
+ shopping:f('M4.2 8h15.6l-1.4 13.2a.9.9 0 0 1-.9.8H6.5a.9.9 0 0 1-.9-.8z')+rs('M8.8 8.6V6.2a3.2 3.2 0 0 1 6.4 0v2.4',1.9)+`<rect x="5.6" y="10.6" width="12.8" height="1.3" ${KO}/>`,
+ hotel:G.F.hotel+`<rect x="5.2" y="14.6" width="11" height="1.1" ${KO}/>`,
+ other:'<circle fill="currentColor" cx="12" cy="12" r="6.2"/>'+`<circle fill="none" ${KOS} stroke-width="1.2" cx="12" cy="12" r="3"/>`,
+ street:'<path fill="none" stroke="currentColor" stroke-width="6.6" d="M5 22.5C6.4 15 9.4 11.6 12 10.4C14.6 9.2 17.6 7.4 19 1.5"/>'+`<path fill="none" ${KOS} stroke-width="1.3" stroke-dasharray="2.6 2.4" d="M5.6 21.4C6.9 14.8 9.6 12 12 10.9C14.4 9.8 17 8.2 18.3 3"/>`,
+ staroff:SOFT(`<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter" transform="translate(1.2 1.2) scale(.9)" d="${STAR}"/>`),
+ account:SOFT(sq('M4.6 21v-1.7a4.3 4.3 0 0 1 4.3-4.3h6.2a4.3 4.3 0 0 1 4.3 4.3V21')+'<circle fill="none" stroke="currentColor" stroke-width="1.8" cx="12" cy="7.6" r="3.8"/>'),
+ plus:SOFT(sq('M12 4.5v15M4.5 12h15')), addopen:SOFT(sq('M6.5 6.5l11 11M17.5 6.5l-11 11')), close:SOFT(sq('M5.5 5.5l13 13M18.5 5.5l-13 13')), del:SOFT(sq('M6.5 6.5l11 11M17.5 6.5l-11 11')),
+ planplus:SOFT(sq('M12 4.5v15M4.5 12h15')), planadd:SOFT(sq('M12 5.5v13M5.5 12h13')),
+ sort:SOFT(sq('M8 21V5M4.2 8.6L8 4.6l3.8 4M16 3v16M12.2 15.4l3.8 4 3.8-4')),
+ filters:SOFT(sq('M3.5 6h17M3.5 12h17M3.5 18h17'))+'<g fill="currentColor"><circle cx="8" cy="6" r="2.5"/><circle cx="16" cy="12" r="2.5"/><circle cx="12" cy="18" r="2.5"/></g>'+`<g ${KO}><circle cx="8" cy="6" r="1"/><circle cx="16" cy="12" r="1"/><circle cx="12" cy="18" r="1"/></g>`,
+ locate:'<circle fill="currentColor" cx="12" cy="12" r="3.6"/>'+`<circle ${KO} cx="12" cy="12" r="1.4"/>`+SOFT(sq('M12 1.5V7M12 17v5.5M1.5 12H7M17 12h5.5')),
+ directions:'<circle fill="none" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" r="8.6"/>'+SOFT('<path fill="currentColor" d="M15.8 8.2L13.2 13.2 8.2 15.8 10.8 10.8z"/>'),
+ check:SOFT(sq('M3.8 12.4l5.4 5.4L20.4 6.6')), chevron:SOFT(sq('M5 8.8l7 7 7-7')),
+ more:'<g fill="currentColor"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></g>',
+ collapse:SOFT('<path fill="currentColor" d="M6 8.8h12l-6 7z"/>'),
+ zin:SOFT(sq('M12 4.5v15M4.5 12h15',2)), zout:SOFT(sq('M4.5 12h15',2)),
+});
+// CUT PAPER: no lean; scissors in the silhouette (curved cuts, flares, bites); tools = filled angle-cut strips
+Object.assign(G.C,{
+ cafe:f('M2.6 5.2C7 6 12.5 6 18 5C17.6 11 15.8 16 10.2 16.4C5 16.6 3.2 11.6 2.6 5.2Z')+f('M16.9 7.4C21.8 6.4 22.5 13.1 15.6 13.8L16.1 11.8C19.5 11.4 19.2 8.6 16.7 9.2Z')+f('M1.8 19.4C7 17.6 13.6 17.6 19.4 19.4C13.6 21.6 7 21.6 1.8 19.4Z'),
+ restaurant:'<g fill="currentColor"><path d="M4.8 2.5L6.2 2.4 6.4 7.2 7.3 7.2 7.3 2.4 8.7 2.4 8.8 7.2 9.7 7.2 9.8 2.5 11.2 2.6C11.4 6.4 10.8 9.4 8.9 10.3L9.3 21.5 7.4 21.6 7.6 10.3C5.4 9.3 4.7 6.4 4.8 2.5Z"/><path d="M15.2 2.4C18.8 3.6 19.6 8.8 18.6 12.6L17.3 12.7 17.5 21.5 15.6 21.4Z"/></g>',
+ bar:f('M2.6 3.4C9 4.2 15 4.2 21.4 3.4C18 7.6 15.2 10.6 13.2 12.4L13.4 18.4C15 18.6 16.6 19 17.6 19.8C13.8 21 10.2 21 6.4 19.8C7.4 19 9 18.6 10.6 18.4L10.8 12.4C8.8 10.6 6 7.6 2.6 3.4Z'),
+ attraction:f('M12 1.8L15.2 7.6C15.1 11 15.2 14.6 15.8 18L8.2 18C8.8 14.6 8.9 11 8.8 7.6Z')+f('M5.4 22.2C6.4 19.6 9 18.9 12 18.9C15 18.9 17.6 19.6 18.6 22.2Z'),
+ nature:f('M12 1.6C13.4 4.2 15.6 6.6 17.2 7.8C16 8.2 14.8 8.3 13.8 8.2C15.4 10.6 17.6 12.6 19 13.4C17.6 13.9 16 14 14.6 13.9C16.4 16.4 18.6 18.2 20.2 19L3.8 19C5.4 18.2 7.6 16.4 9.4 13.9C8 14 6.4 13.9 5 13.4C6.4 12.6 8.6 10.6 10.2 8.2C9.2 8.3 8 8.2 6.8 7.8C8.4 6.6 10.6 4.2 12 1.6Z')+f('M10.9 19L13.1 19 13.3 22.4 10.7 22.4Z'),
+ shopping:f('M3.8 7.4C7 8.6 9.4 8.8 12 8.8C14.6 8.8 17 8.6 20.2 7.4L18.8 21.8L5.2 21.8Z')+f('M8.2 8.2C7.8 2.4 16.2 2.2 15.8 8.2L14 8.4C14.2 4.4 9.8 4.4 10 8.4Z'),
+ area:f('M3.2 4L13.4 4C10.6 9 12.6 14.8 8.4 20L3.2 20Z')+f('M15.4 4L20.8 4 20.8 20 10.4 20C14.6 14.8 12.6 9 15.4 4Z'),
+ hotel:f('M2 4.8C3.6 4.6 4.8 5 5.4 6L5.4 12.8 14.6 12.8C18.4 12.8 20.2 15.2 20.2 18.4L20.2 21.6 17.2 21.6 17.2 19.2 5.4 19.2 5.4 21.6 2 21.6Z')+blob(9.2,9.2,2.6,.08),
+ other:f('M17.6 9.2A6.2 6.2 0 1 1 13.8 6C13.3 7.5 13.9 9 15.5 9.6C16.2 9.8 16.9 9.7 17.6 9.2Z'),
+ street:f('M3 21.6C4.2 14.6 8.4 13.4 11.6 12.6C14.6 11.8 17.8 9.6 19.6 2.4L21.6 3C20.2 11.4 16.6 14.6 12.6 15.6C9.6 16.4 6.8 17.2 5.8 21.8Z'),
+ staroff:'<path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M12.3 2.1L14.8 8.5L21.7 9.1L16.3 13.6L18.4 21.1L12 16.9L5.5 21.3L7.6 13.8L2.2 9.2L9.3 8.4Z"/>',
+ account:ring(12,7.6,4.2,1.9,.04)+f('M4 21.4C4 16.6 7.4 14.4 12.1 14.5C16.9 14.4 20.2 16.4 20 21.4L17.8 20.6C17.6 17.6 15.6 16.4 12 16.4C8.6 16.4 6.4 17.4 6.2 20.6Z'),
+ plus:strip(12,4,12,20)+strip(4,12,20,12), addopen:strip(6.6,6.6,17.4,17.4)+strip(17.4,6.6,6.6,17.4), close:strip(5.4,5.4,18.6,18.6)+strip(18.6,5.4,5.4,18.6), del:strip(6.8,6.8,17.2,17.2,1.6)+strip(17.2,6.8,6.8,17.2,1.6),
+ planplus:strip(12,5,12,19,1.8)+strip(5,12,19,12,1.8), planadd:strip(12,6,12,18,1.6)+strip(6,12,18,12,1.6),
+ sort:strip(8,21,8,8.6)+f('M8 2.6L12.2 9H3.8Z')+strip(16,3,16,15.4)+f('M16 21.4L11.8 15H20.2Z'),
+ filters:strip(3.5,6,20.5,6,1.7)+strip(3.5,12,20.5,12,1.7)+strip(3.5,18,20.5,18,1.7)+blob(8,6,2.4,.06)+blob(16,12,2.4,.06)+blob(12,18,2.4,.06),
+ locate:ring(12,12,4.2,1.8,.04)+strip(12,1.6,12,6.6,1.8)+strip(12,17.4,12,22.4,1.8)+strip(1.6,12,6.6,12,1.8)+strip(17.4,12,22.4,12,1.8),
+ directions:ring(12,12,9,1.8,.03)+f('M16.4 7.4L13.4 13.5 7.5 16.7 10.5 10.5Z'),
+ check:strip(4,12.2,9.6,17.8,2)+strip(9.2,18,20.4,6.4,2),
+ chevron:strip(5,8.8,12.6,16.4,1.9)+strip(11.4,16.4,19,8.8,1.9),
+ more:blob(5.4,12,1.9,.08)+blob(12,12,1.9,.08)+blob(18.6,12,1.9,.08),
+ collapse:f('M5.6 8.6C9.8 9.4 14.2 9.4 18.4 8.6L12 16.2Z'),
+ zin:strip(12,4.5,12,19.5,2)+strip(4.5,12,19.5,12,2), zout:strip(4.5,12,19.5,12,2),
+});
+// TIMETABLE: same cut, now lightly rounded via the soft filter (radius from the visited check); type traits in tools
+Object.assign(G.S,{
+ district:'<defs><clipPath id="tdc"><path d="M3.5 6.6L13.9 3 21 9.1 18.1 21 4.8 18.2Z"/></clipPath><mask id="tdm" maskUnits="userSpaceOnUse" x="-2" y="-2" width="28" height="28"><rect x="-2" y="-2" width="28" height="28" fill="#fff"/><path d="M9.3 2.4L11.6 22.4M2 12.8L22.8 14.5" stroke="#000" stroke-width="2.4" fill="none"/></mask></defs><g mask="url(#tdm)"><path fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" stroke-linejoin="miter" d="M3.5 6.6L13.9 3 21 9.1 18.1 21 4.8 18.2Z"/><g clip-path="url(#tdc)"><path fill="none" stroke="currentColor" style="stroke-width:calc(2.4px + var(--sw,2) * 2px)" d="M9.3 2.4L11.6 22.4M2 12.8L22.8 14.5"/></g></g>',
+ account:'<circle fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" cx="12" cy="7.4" r="3.7"/>'+st('M4.5 21V18.4C4.5 15.6 5.6 14.6 8.6 14.6H15.4C18.4 14.6 19.5 15.6 19.5 18.4V21'),
+ locate:'<rect fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" x="8.3" y="8.3" width="7.4" height="7.4" rx="2"/>'+st('M12 1.5V6.3M12 17.7V22.5M1.5 12H6.3M17.7 12H22.5'),
+ directions:'<circle fill="none" stroke="currentColor" style="stroke-width:var(--sw,2)" cx="12" cy="12" r="8.5"/>'+f('M15.8 8.2L13.3 13.3 8.2 15.8 10.7 10.7z'),
+ plus:st('M12 6V18M6 12H18'), planplus:st('M12 6V18M6 12H18'), planadd:st('M12 6.8V17.2M6.8 12H17.2'),
+ addopen:st('M7.6 7.6L16.4 16.4M16.4 7.6L7.6 16.4'), close:st('M7 7L17 17M17 7L7 17'), del:st('M7.4 7.4L16.6 16.6M16.6 7.4L7.4 16.6'),
+ zin:st('M12 6V18M6 12H18'), zout:st('M6 12H18'),
+});
+for(const k in G.S){ if(!G.S[k].startsWith('<g filter')) G.S[k]=SOFT(G.S[k]); }
+
+const CAT=['restaurant','cafe','bar','attraction','nature','shopping','area','hotel','other','district','street'];
+const INK={restaurant:'#7A2436',cafe:'#6E4C22',bar:'#3D5A7A',attraction:'#547326',nature:'#1E3A2B',shopping:'#8A7AA8',area:'#2B3F52',hotel:'#2E2433',other:'#4F5450',district:'#328177',street:'#5E2C17'};
+const TOOLS=[['account','account'],['plus','add'],['addopen','add open'],['sort','sort'],['filters','filters'],['locate','locate'],['close','tag close'],['directions','directions'],['check','check'],['planplus','plan +'],['more','more'],['chevron','chevron'],['collapse','collapse'],['del','row delete'],['planadd','plan add'],['del','plan remove'],['zin','zoom +'],['zout','zoom −']];
+const TOOLSIZE={account:24,plus:22,addopen:22,sort:18,filters:18,locate:20,close:14,directions:20,check:16,planplus:16,more:18,chevron:16,collapse:14,del:14,planadd:14,zin:18,zout:18};
+// optical masters (Timetable only): heavier cut at small sizes
+const swFor=(d,px)=>d!=='S'?'':(px<=13?'--sw:2.9;':px<=19?'--sw:2.35;':'--sw:2;');
+const svg=(d,name,col,px,extra='')=>`<svg viewBox="0 0 24 24" width="${px}" height="${px}" style="color:${col};${swFor(d,px)}${extra}">${G[d][name]}</svg>`;
+const MV=(col,px)=>`<svg viewBox="-1.5 -1.5 27 27" width="${px}" height="${px}" style="color:${col}"><path d="${CHECK}" fill="none" stroke="currentColor" stroke-width="2.05" stroke-linejoin="round"/></svg>`;
+const N='var(--navy)';
+// scallop clip
+let sc=[];for(let i=0;i<96;i++){const a=i/96*2*Math.PI,r=46+4*Math.cos(a*12);sc.push(`${(50+r*Math.cos(a)).toFixed(1)}% ${(50+r*Math.sin(a)).toFixed(1)}%`)}const SCAL=`clip-path:polygon(${sc.join(',')})`;
+
+const tiles=(h)=>`<svg class="tiles" viewBox="0 0 390 ${h}" preserveAspectRatio="none">
+ <path d="M270 0h120v78c-34 10-66 4-92-14C284 50 272 26 270 0z" fill="#AAD3DF"/>
+ <path d="M0 ${h-62}c44-6 76 8 100 34v28H0z" fill="#CDEBB0"/>
+ <g fill="#D6CEC4"><rect x="22" y="14" width="36" height="22"/><rect x="66" y="10" width="26" height="30"/><rect x="138" y="20" width="40" height="20"/><rect x="200" y="78" width="30" height="26"/><rect x="244" y="104" width="44" height="22"/><rect x="128" y="104" width="34" height="26"/><rect x="316" y="108" width="40" height="30"/></g>
+ <path d="M150 ${h-60}L196 ${h-74}L232 ${h-48}L214 ${h-12}L160 ${h-18}Z" fill="rgba(50,129,119,.08)" stroke="#328177" stroke-width="2.5" stroke-dasharray="6 4"/>
+ <g fill="none" stroke-linecap="round"><path d="M0 56C96 50 180 64 390 94" stroke="#DCD3C7" stroke-width="11"/><path d="M0 56C96 50 180 64 390 94" stroke="#fff" stroke-width="8"/><path d="M112 0C118 54 106 110 120 ${h}" stroke="#DCD3C7" stroke-width="8"/><path d="M112 0C118 54 106 110 120 ${h}" stroke="#fff" stroke-width="5.5"/></g>
+</svg>`;
+const pin=(d,c,x,y,o={})=>`<div class="pin${o.approx?' approx':''}" style="left:${x}px;top:${y}px;border-color:${INK[c]}">${svg(d,c,INK[c],18,'--ko:var(--paper)')}${o.star?(d==='T'||d==='F'?`<svg class="pstar" viewBox="0 0 24 24"><path d="${STAR}" fill="#EE7434" stroke="#FAF5EA" stroke-width="6" paint-order="stroke"/><path d="${STAR}" fill="none" stroke="#A8400C" stroke-width="1.5"/></svg>`:`<span class="pstar" style="filter:drop-shadow(0 0 1px #FAF5EA) drop-shadow(0 0 1px #FAF5EA) drop-shadow(0 0 .5px #FAF5EA)">${svg(d,'staron','#EE7434',12)}</span>`):''}</div>`;
+const spin=(d,c,x,y)=>`<div class="pin sel" style="left:${x}px;top:${y}px;background:${INK[c]}">${svg(d,c,'var(--paper)',23,'--ko:'+INK[c])}</div>`;
+const mapCrop=(d,h=170)=>`<div class="map bleed" style="height:${h}px">${tiles(h)}
+ ${pin(d,'restaurant',36,20)}${pin(d,'bar',150,62)}${spin(d,'cafe',226,14)}${pin(d,'nature',318,82,{star:1})}${pin(d,'hotel',58,h-58)}
+ <div class="clu" style="left:16px;top:${Math.round(h*.4)}px">4</div>
+ <img class="stk" src="ref-sticker-near.png" style="left:248px;top:${h-62}px" alt=""><span class="maplab" style="left:282px;top:${h-40}px">VISITED · FIXED</span>
+ ${pin(d,'district',180,h-56,{approx:1})}<span class="maplab" style="left:146px;top:${h-14}px">DISTRICT (APPROX. PIN)</span></div>`;
+const header=(d)=>`<div class="bleed"><div class="maptop"><div class="zoom"><div>${svg(d,'zin','#000',18)}</div><div>${svg(d,'zout','#000',18)}</div></div>
+ <div class="scal" style="right:84px;${SCAL}">${svg(d,'account','var(--or)',24)}</div><div class="scal" style="right:20px;${SCAL}">${svg(d,'plus','var(--or)',22)}</div></div>
+ <div class="lhead">${svg(d,'collapse',N,14)}<span class="t">REYKJAVÍK LIST (22)</span>${svg(d,'sort',N,18)}${svg(d,'filters',N,18,'--ko:#EFE7D8')}${svg(d,'locate',N,20)}</div></div>`;
+const rowX=(d,col)=>svg(d,'del',col,14);
+const rows=(d)=>`<div class="bleed">
+ <div class="row"><div class="badge" style="border-color:${INK.restaurant}">${svg(d,'restaurant',INK.restaurant,18,'--ko:var(--paper)')}</div><div class="nm">Bæjarins Beztu<small>RESTAURANT · REYKJAVÍK</small></div>${rowX(d,'var(--ink2)')}</div>
+ <div class="row v"><div class="badge" style="border-color:${INK.cafe}">${svg(d,'cafe',INK.cafe,18,'--ko:var(--paper)')}</div><div class="nm">Café Loki<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp.png" alt="">${rowX(d,'var(--ink2)')}</div>
+ <div class="row sel"><div class="badge">${svg(d,'cafe','var(--paper)',18,'--ko:var(--navy)')}</div>${svg(d,'staron','var(--or)',18)}<div class="nm">Brauð &amp; Co<small>CAFE · REYKJAVÍK</small></div><img class="stamp" src="ref-row-stamp-selected.png" alt="">${rowX(d,'rgba(242,235,221,.8)')}</div></div>`;
+const stubs=(d)=>`<div class="stubwrap bleed">
+ <div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staroff',N,d==='S'?23:20)}STAR</div><div class="seg"><span class="fx">FIXED</span>${MV(N,20)}MARK<br>VISITED</div></div>
+ <div style="height:8px"></div>
+ <div class="stub"><div class="seg">${svg(d,'directions',N,20)}DIRECTIONS</div><div class="seg">${svg(d,'staron','var(--or)',20)}STARRED</div><div class="seg"><span class="fx">FIXED</span><img src="ref-tag-stamp.png" alt=""></div></div></div>`;
+const chips=(d)=>`<div class="chips">${[['restaurant',1],['cafe',1],['bar',0],['nature',1],['district',1],['street',0]].map(([c,on])=>`<div class="chip${on?'':' off'}" style="border-bottom-color:${on?INK[c]:'#C9BEA6'}">${svg(d,c,on?INK[c]:'#9A9282',12,'--ko:var(--raised)')}${c.toUpperCase()}</div>`).join('')}</div>`;
+const fullSet=(d)=>`<div class="grid">${CAT.map(c=>`<div class="cell">${svg(d,c,INK[c],24)}<span>${c}</span></div>`).join('')}
+ <div class="cell">${svg(d,'staroff',N,24)}<span>star off</span></div><div class="cell">${svg(d,'staron','var(--or)',24)}<span>star on</span></div>
+ <div class="cell fixed">${MV(N,24)}<span>mark visited · fixed</span></div>
+ </div>
+ <div class="grid" style="margin-top:12px">${TOOLS.map(([k,l])=>`<div class="cell">${svg(d,k,N,24)}<span>${l}</span></div>`).join('')}</div>`;
+const sizes=(d,copy)=>{const cl=copy?' copy':'';return `
+ <div class="strip${cl}"><span class="lab">chip 12</span>${CAT.map(c=>svg(d,c,INK[c],12)).join('')}${svg(d,'staron','var(--or)',12)}</div>
+ <div class="strip${cl}"><span class="lab">pin 18</span>${CAT.map(c=>svg(d,c,INK[c],18)).join('')}</div>
+ <div class="strip${cl}"><span class="lab">sel 23</span>${CAT.map(c=>svg(d,c,INK[c],23)).join('')}</div>
+ <div class="strip${cl}"><span class="lab">tools</span>${['account','plus','sort','filters','locate','close','directions','check','more','chevron','collapse','del','zin'].map(k=>svg(d,k,N,TOOLSIZE[k])).join('')}${svg(d,'staroff',N,16)}${svg(d,'staron','var(--or)',16)}</div>`};
+
+// ===================== ROUND 3 CARDS (v5) =====================
+// Law: only blanks are empty. One line weight: 2.00px on screen. Places solid, in a circle.
+const W=2; // the one weight, on-screen px
+const u=(px,size,vb=24)=>+(px*vb/size).toFixed(3);
+const LN=(d,size,px=W)=>`<path fill="none" stroke="currentColor" stroke-width="${u(px,size)}" stroke-linecap="round" stroke-linejoin="round" d="${d}"/>`;
+const sv=(inner,col,px,vb='0 0 24 24',st='')=>`<svg viewBox="${vb}" width="${px}" height="${px}" style="color:${col};display:block;flex:none;overflow:visible;${st}">${inner}</svg>`;
+const CHK=(px=20,col=N)=>MV(col,px); // FIXED mark-visited check (1.52px at 20)
+
+// ---- Tools under the law, every line at W
+const TL={
+ plus:s=>LN('M12 5v14M5 12h14',s), minus:s=>LN('M5 12h14',s), close:s=>LN('M6 6l12 12M18 6L6 18',s),
+ sort:s=>LN('M8 21V8.5M16 3v12.5',s)+SOFT(f('M8 2.6l4.3 6.2H3.7z')+f('M16 21.4l-4.3-6.2h8.6z')),
+ filters:s=>LN('M3.5 6h17M3.5 12h17M3.5 18h17',s)+'<g fill="currentColor"><circle cx="8" cy="6" r="2.6"/><circle cx="16" cy="12" r="2.6"/><circle cx="12" cy="18" r="2.6"/></g>',
+ locate:s=>'<circle fill="currentColor" cx="12" cy="12" r="3.6"/>'+LN('M12 1.8v5M12 17.2v5M1.8 12h5M17.2 12h5',s),
+ account:s=>'<circle fill="currentColor" cx="12" cy="7.4" r="4.1"/>'+LN('M4.6 21v-1.4a4.3 4.3 0 0 1 4.3-4.3h6.2a4.3 4.3 0 0 1 4.3 4.3V21',s),
+ directions:s=>`<circle fill="none" stroke="currentColor" stroke-width="${u(W,s)}" cx="12" cy="12" r="9.2"/>`+SOFT('<path fill="currentColor" d="M16.4 7.6L13.5 13.5 7.6 16.4 10.5 10.5z"/>'),
+ chevron:s=>LN('M5 9l7 7 7-7',s), collapse:s=>SOFT('<path fill="currentColor" d="M5.5 8.5h13L12 16z"/>'),
+ staroff:s=>`<path fill="none" stroke="currentColor" stroke-width="${u(W,s)}" stroke-linejoin="round" d="${STAR}"/>`,
+};
+const tl=(k,s,col=N)=>sv(TL[k](s),col,s);
+// Today's tools as shipped (their own weights)
+const TT={plus:s=>sv('<path fill="none" stroke="currentColor" stroke-width="1.8182" stroke-linecap="round" d="M12 5v14M5 12h14"/>',N,s),
+ account:(s,c)=>sv(G.T.account,c||N,s), sort:s=>sv(G.T.sort,N,s), filters:s=>sv(G.T.filters,N,s), locate:s=>sv(G.T.locate,N,s),
+ close:s=>sv(G.T.close,N,s), chevron:s=>sv(G.T.chevron,N,s), collapse:s=>sv(G.T.collapse,N,s),
+ directions:s=>sv('<circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9"/><path fill="currentColor" d="M16 8l-2.5 6L7 16.5l2.5-6L16 8z"/>',N,s,'1.5 1.5 21 21'),
+ staroff:s=>sv(`<path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="${STAR}"/>`,N,s)};
+
+// ---- PLACE GLYPHS
+// Specimen: mounted whole (herbarium). Cut Paper silhouettes; a cream inlay only where the thing really has one.
+const SP={
+ restaurant:G.C.restaurant, cafe:G.C.cafe, bar:G.C.bar,
+ attraction:f('M12 2.4L21.6 8.4H2.4z')+f('M3.2 9.4h17.6v9.2H3.2z')+f('M1.8 19.6h20.4v2.4H1.8z')+`<g ${KO}><rect x="6.5" y="10.8" width="1.5" height="7.8"/><rect x="11.25" y="10.8" width="1.5" height="7.8"/><rect x="16" y="10.8" width="1.5" height="7.8"/></g>`,
+ nature:G.C.nature, shopping:G.C.shopping,
+ area:'<rect x="3" y="3" width="18" height="18" rx="2.2" fill="currentColor"/>'+`<path fill="none" ${KOS} stroke-width="1.6" stroke-linecap="butt" d="M3.4 9.6L9.6 3.4M3.4 16.1L16.1 3.4M7.9 20.6L20.6 7.9M14.4 20.6L20.6 14.4"/>`,
+ hotel:G.C.hotel,
+ other:'<rect x="5.4" y="2.6" width="2.4" height="19.4" rx=".8" fill="currentColor"/>'+f('M7.4 3.2L20 8.4 7.4 13.6z'),
+ district:G.F.district, street:G.F.street,
+};
+// Roundel: the coin. Drawn for a 24px badge, clipped at r = 9.1.
+const RO={
+ restaurant:'<g fill="currentColor"><path d="M5.2 1h1.6v7.4h1V1h1.6v7.4h1V1H12v8.6a3 3 0 0 1-1.9 2.8V24H7.1V12.4a3 3 0 0 1-1.9-2.8z"/><path d="M14.6 1.4c3.6 1 4.6 5.6 4.3 10.4h-1.9V24h-2.4z"/></g>',
+ cafe:f('M1.8 6.2C7.4 7.2 12.4 7.2 17.6 6.2v6.4a6.2 6.2 0 0 1-6.2 6.2H8a6.2 6.2 0 0 1-6.2-6.2z')+f('M17.4 8.2h1a3.6 3.6 0 0 1 0 7.2h-2.6v-2.2h2.6a1.4 1.4 0 0 0 0-2.8h-1z')+f('M-1 20.2C6 18.6 14 18.6 25 20.2V26H-1z'),
+ bar:f('M-1 4C8 5 16 5 25 4L13.3 15.2V19h3.6a.9.9 0 0 1 0 1.8H7.1a.9.9 0 0 1 0-1.8h3.6v-3.8z')+`<circle cx="9.6" cy="7.8" r="1.7" ${KO}/>`,
+ attraction:f('M12 2.2L25 9.4H-1z')+f('M-1 10.6h26v8.4H-1z')+f('M-1 20.2h26V26H-1z')+`<g ${KO}><rect x="4.3" y="11.8" width="1.6" height="7.2"/><rect x="9.3" y="11.8" width="1.6" height="7.2"/><rect x="14.3" y="11.8" width="1.6" height="7.2"/><rect x="19.3" y="11.8" width="1.6" height="7.2"/></g>`,
+ nature:f('M12 .4C13.6 3.4 16 6 17.8 7.2c-1.2.4-2.4.5-3.4.4 1.8 2.8 4.2 5 5.8 5.9-1.5.5-3.2.6-4.6.5 2 2.8 4.4 4.8 6.2 5.7H2.2c1.8-.9 4.2-2.9 6.2-5.7-1.4.1-3.1 0-4.6-.5 1.6-.9 4-3.1 5.8-5.9-1 .1-2.2 0-3.4-.4C8 6 10.4 3.4 12 .4z')+f('M10.5 19h3v6h-3z'),
+ shopping:f('M5.4 9.2h13.2l1.4 15H4z')+`<path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M9 9.8V6.6a3 3 0 0 1 6 0v3.2"/>`+`<rect x="5.2" y="11.4" width="13.6" height="1.1" ${KO}/>`,
+ area:'<rect x="-1" y="-1" width="26" height="26" fill="currentColor"/>'+`<path fill="none" ${KOS} stroke-width="1.6" d="M-2 8L8 -2M-2 14.5L14.5 -2M-2 21L21 -2M3 26L26 3M9.5 26L26 9.5M16 26L26 16"/>`,
+ hotel:f('M2.4 4.6h3.4v16H2.4z')+'<rect x="7" y="9" width="5.6" height="3.2" rx="1.4" fill="currentColor"/>'+f('M5.8 13h14.4a3.4 3.4 0 0 1 3.4 3.4v1.8H5.8z')+f('M2.4 18.2H25v2.4H2.4z')+'<rect x="19.4" y="20" width="2.4" height="3" fill="currentColor"/>'+`<rect x="13.6" y="13" width="1" height="5.2" ${KO}/>`,
+ other:'<rect x="6.2" y="3" width="2.5" height="24" rx=".8" fill="currentColor"/>'+f('M8.4 3.4L22 9.2 8.4 15z'),
+ district:'<rect x="-1" y="-1" width="26" height="26" fill="currentColor"/>'+`<path fill="none" ${KOS} stroke-width="2" d="M7 -1L13.6 25M-1 8.6L25 16.6M15.4 -1L19.4 11.2"/>`,
+ street:'<path fill="none" stroke="currentColor" stroke-width="8.4" d="M3 26C5 15 9.6 12.4 12.4 11.2C15.4 9.9 18.6 7 20.6 -2"/>'+`<path fill="none" ${KOS} stroke-width="1.4" stroke-dasharray="2.6 2.4" d="M3.9 25C5.8 15 10 12.6 12.4 11.6C15 10.4 17.8 7.6 19.6 -1"/>`,
+};
+const RCLIP=9.1;
+
+// ---- Measure ink (for Specimen fit + equal mass), in a 10px/unit canvas
+const measure=(markup,clipR)=>new Promise(res=>{
+ const body=markup.replace(/currentColor/g,'#000');
+ const inner=clipR?`<defs><clipPath id="c"><circle cx="12" cy="12" r="${clipR}"/></clipPath></defs><g clip-path="url(#c)">${body}</g>`:body;
+ const s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 36 36" width="360" height="360">${inner}</svg>`;
+ const img=new Image();img.onload=()=>{const cv=document.createElement('canvas');cv.width=cv.height=360;const x=cv.getContext('2d');x.drawImage(img,0,0);
+  const d=x.getImageData(0,0,360,360).data;let n=0,x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;const pts=[];
+  for(let j=0;j<360;j++)for(let i=0;i<360;i++){const k=(j*360+i)*4;if(d[k+3]>128&&d[k]<110){n++;if(i<x0)x0=i;if(i>x1)x1=i;if(j<y0)y0=j;if(j>y1)y1=j;if((i+j)%3==0)pts.push([i,j]);}}
+  const cx=(x0+x1)/2,cy=(y0+y1)/2;let R=0;for(const [i,j] of pts){const r=Math.hypot(i-cx,j-cy);if(r>R)R=r;}
+  res({A:n/100,cx:cx/10-6,cy:cy/10-6,R:R/10+.05});};
+ img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);});
+const FIT={};
+async function fitAll(){
+ const M={};for(const c of CAT)M[c]=await measure(SP[c]);
+ const Rt=9.0;const Af={};for(const c of CAT){const s=Rt/M[c].R;Af[c]=M[c].A*s*s;}
+ const sorted=CAT.map(c=>Af[c]).sort((a,b)=>a-b);const At=sorted[Math.floor(sorted.length*.6)];
+ for(const c of CAT){const sFit=1/M[c].R;const k=Af[c]>At?Math.pow(At/Af[c],.35):1;FIT[c]={s1:sFit*k,cx:M[c].cx,cy:M[c].cy,cov:(Af[c]*k*k/(Math.PI*100))};}
+ const RC={};for(const c of CAT){const m=await measure(RO[c],RCLIP);RC[c]=m.A/(Math.PI*100);}
+ console.log('SPECIMEN coverage of the 20px field: '+CAT.map(c=>c+' '+(FIT[c].cov*100).toFixed(0)+'%').join(', '));
+ console.log('ROUNDEL coverage of the 20px field: '+CAT.map(c=>c+' '+(RC[c]*100).toFixed(0)+'%').join(', '));
+ const sa=CAT.reduce((a,c)=>a+FIT[c].cov,0)/11, ra=CAT.reduce((a,c)=>a+RC[c],0)/11;console.log('mean SP '+(sa*100).toFixed(0)+'% RO '+(ra*100).toFixed(0)+'%');
+}
+// glyph markup for a set at a target radius (units of the 24 box)
+const spG=(c,Rt)=>{const F=FIT[c],k=F.s1*Rt;return `<g transform="translate(12 12) scale(${k.toFixed(4)}) translate(${(-F.cx).toFixed(3)} ${(-F.cy).toFixed(3)})">${SOFT(SP[c])}</g>`;};
+let clipN=0;
+// mark(set, cat, size, o): set 'T' | 'SP' | 'RO'. o.sel: 'pin' | 'row'. Rim always W px (today: 2px too).
+const mark=(set,c,size,o={})=>{const ink=INK[c],sel=o.sel;const rimU=u(W,size);
+ const fg=sel?'var(--paper)':ink, field=sel==='pin'?ink:sel==='row'?'var(--navy)':'var(--paper)', rimCol=sel==='pin'?ink:sel==='row'?'var(--paper)':ink;
+ const diamond=set==='T'&&(c==='district'||c==='street');
+ const id='k'+(clipN++);let rim,inner;
+ if(diamond){const r=12-rimU/2;rim=`<path d="M12 ${12-r}L${12+r} 12 12 ${12+r} ${12-r} 12Z" fill="${field}" stroke="${rimCol}" stroke-width="${rimU}" stroke-linejoin="round"/>`;}
+ else rim=`<circle cx="12" cy="12" r="${12-rimU/2}" fill="${field}" stroke="${rimCol}" stroke-width="${rimU}"/>`;
+ const innerR=12-rimU;
+ if(set==='T'){const g=diamond?.6:(size>=30?23/32:.75);inner=`<g transform="translate(${12-12*g} ${12-12*g}) scale(${g})">${G.T[c]}</g>`;}
+ else if(set==='SP'){inner=spG(c,innerR-u(1.0,size));}
+ else {const cr=innerR-u(.9,size),k=cr/RCLIP;inner=`<defs><clipPath id="${id}"><circle cx="12" cy="12" r="${cr.toFixed(3)}"/></clipPath></defs><g clip-path="url(#${id})"><g transform="translate(12 12) scale(${k.toFixed(4)}) translate(-12 -12)">${SOFT(RO[c])}</g></g>`;}
+ return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none;overflow:visible${sel==='pin'?';filter:drop-shadow(0 1px 2px rgba(0,0,0,.28))':''}">${rim}<g style="color:${fg};--ko:${sel?(sel==='row'?'var(--navy)':ink):'var(--paper)'}">${inner}</g></svg>`;};
+const bare=(set,c,size,col)=>{col=col||INK[c];const inner=set==='T'?G.T[c]:spG(c,11.4);return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none;color:${col};--ko:var(--raised)">${inner}</svg>`;};
+
+// ---- Building blocks
+const TOOLS_OF=s=>s==='T'?TT:null;
+const tool=(set,k,size,col)=>set==='T'?(k==='account'?TT.account(size,col):TT[k](size)):tl(k,size,col||N);
+const strip24=(set,copy)=>`<div class="strip${copy?' copy':''}" style="gap:8px">${CAT.map(c=>mark(set,c,24)).join('')}</div>`;
+const stripSmall=(set)=>set==='RO'?`<div class="strip" style="gap:9px">${CAT.map(c=>mark('RO',c,16)).join('')}</div>`:`<div class="strip" style="gap:13px">${CAT.map(c=>bare(set,c,12)).join('')}</div>`;
+const stamp=(sel)=>`<img class="stamp" src="ref-row-stamp${sel?'-selected':''}.png" alt="">`;
+const rX=(set,col)=>set==='T'?`<span style="color:${col};font-size:17px;line-height:1;width:14px;text-align:center;font-family:Arial">×</span>`:sv(LN('M7 7l10 10M17 7L7 17',12),col,12);
+const row=(set,c,name,o={})=>`<div class="row${o.v?' v':''}${o.sel?' sel':''}">${mark(set,c,24,{sel:o.sel?'row':0})}${o.star?sv(f(STAR),'var(--or)',16):''}<div class="nm">${name}<small>${c.toUpperCase()} · REYKJAVÍK</small></div>${o.v?stamp(o.sel):''}${rX(set,o.sel?'rgba(242,235,221,.8)':'var(--ink2)')}</div>`;
+const rowsV=set=>`<div class="bleed">${row(set,'restaurant','Bæjarins Beztu')}${row(set,'cafe','Café Loki',{v:1})}${row(set,'cafe','Brauð &amp; Co',{v:1,sel:1,star:1})}${row(set,'district','Grandi')}</div>`;
+const headerV=set=>`<div class="bleed"><div class="maptop" style="height:150px">
+ <div class="zoom"><div>${set==='T'?sv(G.T.zin,'#000',18):tl('plus',18,'#000')}</div><div>${set==='T'?sv(G.T.zout,'#000',18):tl('minus',18,'#000')}</div></div>
+ <div class="scal" style="right:16px;top:12px;width:50px;height:50px;${SCAL}">${tool(set,'account',24,'var(--or)')}</div>
+ <div class="scal add" style="left:14px;top:84px;width:60px;height:60px;${SCAL}">${tool(set,'plus',26.4,N)}</div></div>
+ <div class="lhead">${tool(set,'collapse',14)}<span class="t">REYKJAVÍK LIST (22)</span>${tool(set,'sort',18)}${tool(set,'filters',18)}${tool(set,'locate',20)}</div></div>`;
+// tag: hangs from the selected pin
+const tagSeg=(icon,lab,fx)=>`<div class="seg">${fx?'<span class="fx">FIXED</span>':''}${icon}${lab}</div>`;
+const tag=(set,c,name,starred)=>{const T=set==='T';
+ const dir=T?TT.directions(20):tl('directions',20), star=starred?sv(f(STAR),'var(--or)',20):(T?TT.staroff(20):tl('staroff',20));
+ const x=T?TT.close(14):tl('close',14);
+ return `<div class="tagwrap"><div class="tpin">${mark(set,c,32,{sel:'pin'})}</div><div class="tstring"></div>
+ <div class="tag"><div class="tband${starred?' on':''}"><span class="eye"></span></div>
+ <div class="tbody"><div class="tname">${name}</div><span class="tx">${x}</span><div class="ttype">TYPE <b>${c.toUpperCase()}</b></div></div>
+ <div class="stub">${tagSeg(dir,'DIRECTIONS')}${tagSeg(star,starred?'STARRED':'STAR')}${starred?tagSeg('<img src="ref-tag-stamp.png" alt="" style="width:86px">','',1):tagSeg(CHK(20),'MARK<br>VISITED',1)}</div></div></div>`;};
+const tags=set=>`<div class="bleed tagbg">${tag(set,'restaurant','Bæjarins Beztu',0)}${tag(set,'cafe','Brauð &amp; Co',1)}</div>`;
+// dense map: same crop for every card
+const PINS=[['restaurant',26,28],['cafe',62,50],['bar',98,24],['nature',142,40,1],['shopping',180,66],['attraction',214,30],['hotel',258,58],['other',296,26],['area',336,60],
+ ['restaurant',44,96],['cafe',86,122],['bar',128,98],['nature',36,166],['attraction',172,150],['hotel',304,140],['restaurant',342,116],['cafe',252,198],['shopping',116,196],['bar',196,206]];
+const denseMap=(set,h=250)=>{const at=(c,x,y,st)=>`<div class="mp" style="left:${x}px;top:${y}px">${mark(set,c,24)}${st?`<svg class="pstar" viewBox="0 0 24 24"><path d="${STAR}" fill="#EE7434" stroke="#FAF5EA" stroke-width="6" paint-order="stroke"/><path d="${STAR}" fill="none" stroke="#A8400C" stroke-width="1.5"/></svg>`:''}</div>`;
+ return `<div class="map bleed" style="height:${h}px">${tiles(h)}
+ ${PINS.map(p=>at(...p)).join('')}
+ <div class="mp" style="left:208px;top:96px">${mark(set,'cafe',32,{sel:'pin'})}</div>
+ <img class="stk" src="ref-sticker-near-t.png" style="left:262px;top:88px" alt=""><img class="stk" src="ref-sticker-starred-t.png" style="left:64px;top:166px" alt="">
+ <div class="clu" style="left:14px;top:214px">4</div><div class="clu" style="left:352px;top:196px">2</div>
+ <span class="maplab" style="left:150px;top:${h-12}px">DISTRICT: AREA BOX ONLY, NO PIN</span></div>`;};
+const farStrip=()=>`<div class="map bleed" style="height:64px;background:#E8E4DA"><div class="far">${CAT.map(c=>`<span class="ring" style="border-color:${INK[c]}"></span>`).join('')}<img src="ref-sticker-far-t.png" alt=""><img src="ref-sticker-far-t.png" alt=""><div class="clu" style="position:static">7</div></div><span class="maplab" style="left:16px;top:50px">FAR ZOOM: THE SAME ON EVERY CARD</span></div>`;
+const chipsV=set=>`<div class="chips">${[['restaurant',1],['cafe',1],['bar',0],['district',1],['street',0]].map(([c,on])=>{const ink=on?INK[c]:'#9A9282';
+ const g=set==='RO'?`<span style="${on?'':'filter:grayscale(1) opacity(.6)'}">${mark('RO',c,16)}</span>`:bare(set,c,12,ink);
+ return `<div class="chip${on?'':' off'}" style="border-bottom-color:${on?INK[c]:'#C9BEA6'}">${g}${c.toUpperCase()}</div>`}).join('')}</div>`;
+const three=(a,b,c)=>`<ul class="notes"><li><b>What it is</b><span>${a}</span></li><li><b>Good at</b><span>${b}</span></li><li><b>Costs</b><span>${c}</span></li></ul>`;
+
+const conceptCard=(set,no,name,att,lines,extra='')=>`<div class="card"><div class="no">${no} · sketch, not final drawings</div><h2>${name}</h2><p class="att">${att}</p>${lines}
+ <div class="sec">All 11 places, 24px, as in a row</div>${strip24(set)}
+ <div class="sec">${set==='RO'?'Filter-chip size (16px roundel)':'Filter-chip size (12px)'}</div>${stripSmall(set)}
+ <div class="sec">Photocopied to one ink</div>${strip24(set,1)}
+ <div class="sec">Map buttons and list header${set==='T'?'':' (every line 2.00px)'}</div>${headerV(set)}
+ <div class="sec">Rows: plain, visited, selected + starred, district</div>${rowsV(set)}
+ <div class="sec">Tag: the pin it hangs from, then the strip. Unmarked, then starred + visited</div>${tags(set)}
+ <div class="sec">Map, a busy street</div>${denseMap(set)}${farStrip()}
+ <div class="sec">Filter chips: on and off</div>${chipsV(set)}${extra}</div>`;
+
+// ---- RULES CARD
+const wt=[['+ badge',26.4,'2.00','already 2.00',()=>TT.plus(26.4),()=>tl('plus',26.4)],
+ ['account',24,'2.00','already 2.00',()=>TT.account(24),()=>tl('account',24)],
+ ['sort',18,'1.50','',()=>TT.sort(18),()=>tl('sort',18)],['filters',18,'1.50','',()=>TT.filters(18),()=>tl('filters',18)],
+ ['locate',20,'2.08','',()=>TT.locate(20),()=>tl('locate',20)],['tag ×',14,'1.28','',()=>TT.close(14),()=>tl('close',14)],
+ ['chevron',16,'1.50','',()=>TT.chevron(16),()=>tl('chevron',16)],['directions',20,'1.90','',()=>TT.directions(20),()=>tl('directions',20)],
+ ['star off',20,'1.67','',()=>TT.staroff(20),()=>tl('staroff',20)]];
+const rulesCard=()=>`<div class="card rules"><div class="no">Round 3 · read this first</div><h2>The rules under both concepts</h2>
+ <div class="law"><span class="q">“the pin/place icons need to be solid and outlined icons should be used when something has yet to be tapped by me like Star and visited”</span>
+ <b>Outlined means you haven’t marked it yet (Star, Visited). Nothing else in the app is an empty shape.</b>
+ <div class="pair">${tl('staroff',24)}<span>→</span>${sv(f(STAR),'var(--or)',24)}<i></i>${CHK(24)}<span>→</span><img src="ref-tag-stamp.png" alt="" style="width:78px"><span class="fx">FIXED</span></div>
+ <p>Everything the app prints is the same every time: one line weight, one grid, one circle. Only your own marks vary (the stamp’s angle, the sticker’s peel).</p></div>
+ <div class="sec">“Tapped by me”: what follows the rule</div>
+ <table class="tb">
+ <tr><td>${tl('staroff',18)}${sv(f(STAR),'var(--or)',18)}</td><td><b>Star</b>Outline until you star it, then solid orange. Follows the rule.</td></tr>
+ <tr><td>${CHK(18)}<img src="ref-tag-stamp.png" alt="" style="width:50px"></td><td><b>Visited</b>Outline check until you mark it, then the stamp. Follows the rule. Unchanged.</td></tr>
+ <tr><td><span class="minichip" style="border-bottom-color:${INK.cafe}">${bare('SP','cafe',10)}</span></td><td><b>Filter chips</b>A setting, not a mark. The chip shows on or off; the icon stays solid.</td></tr>
+ <tr><td>${sv(LN('M3.5 12.5l5.5 5.5L20.5 6',16),N,16)}</td><td><b>Sort and plan ticks</b>A tick shows the current choice.</td></tr>
+ <tr><td>${mark('SP','restaurant',22,{sel:'pin'})}</td><td><b>The open pin</b>Fills with its colour while its tag is open.</td></tr>
+ <tr><td><span class="ring" style="border-color:${INK.bar};width:16px;height:16px"></span></td><td><b>Far pin</b>An empty ring when zoomed out. It means “not visited yet”, beside the far sticker, so it agrees with the rule.</td></tr>
+ <tr><td><span style="font-weight:700;color:var(--navy);font-size:15px">+ → 3</span></td><td><b>Plans</b>+ to add, then a stop number. Left as it is for now.</td></tr></table>
+ <div class="sec">One line weight: 2.00px on screen, everywhere</div>
+ <p class="att" style="margin-top:0">Today the same setting lands anywhere from 1.28 to 2.08px. From now on, a line’s weight never varies; only its size does. The Mark-visited check (1.52px, fixed) is a hollow bar and already looks as heavy as a 2.00px line. Lighter than 2.00, the empty star would look weaker than the check again.</p>
+ <div class="wt"><div class="wh"><span></span><span>Today</span><span>2.00px</span></div>
+ ${wt.map(([n,s,t,a,T0,T1])=>`<div class="wr"><span class="wn">${n}<i>${t}px today${a?' · '+a:''}</i></span><div class="wc">${T0()}</div><div class="wc">${T1()}</div></div>`).join('')}
+ <div class="wr fixed"><span class="wn">mark visited<i>1.52px · fixed</i></span><div class="wc">${CHK(20)}</div><div class="wc">${CHK(20)}</div></div>
+ <div class="wr"><span class="wn">place circles<i>2.00px: rows, pins, 16px chips</i></span><div class="wc">${mark('T','cafe',24)}</div><div class="wc">${mark('SP','cafe',24)}</div></div></div>
+ <div class="sec">Settled by the team</div>
+ <ul class="plain"><li><span class="ic">${mark('SP','district',22)}${mark('SP','street',22)}</span>Districts and streets sit in the circle like every place.</li>
+ <li><span class="ic">${tl('directions',20)}</span>Directions stays a ring with a solid needle.</li>
+ <li><span class="ic">${bare('SP','cafe',12)}</span>Specimen’s filter chips show the icon on its own: the chip is already its frame.</li></ul>
+ <div class="sec">Staying as it is</div>
+ <p class="att" style="margin-top:0">Visited (the stamp, the sticker and the Mark-visited check), the round pin, the scalloped buttons and the category colours.</p></div>`;
+
+// ---- SIDE BY SIDE
+const sbs=()=>`<div class="card sbs"><div class="no">Card 3 · side by side</div><h2>Side by side</h2><p class="att">The same row, tag strip and busy map, once for each.</p>
+ ${[['T','Today'],['SP','Specimen: mounted whole'],['RO','Roundel: cut by the circle']].map(([s,n])=>`<h3>${n}</h3>${strip24(s)}
+ <div class="bleed" style="margin-top:8px">${row(s,'cafe','Café Loki',{v:1})}${row(s,'cafe','Brauð &amp; Co',{v:1,sel:1,star:1})}</div>
+ <div class="bleed" style="background:#E9E1D1;padding:0"><div class="stub">${tagSeg(s==='T'?TT.directions(20):tl('directions',20),'DIRECTIONS')}${tagSeg(s==='T'?TT.staroff(20):tl('staroff',20),'STAR')}${tagSeg(CHK(20),'MARK<br>VISITED',1)}</div></div>
+ ${denseMap(s,250)}`).join('')}</div>`;
+
+// ---- DROPPED
+const dropCard=()=>`<div class="card"><div class="no">Card 4</div><h2>Dropped: say if you want any back</h2>
+ <div class="drow" style="display:block"><b>Timetable Sorts</b><div class="strip" style="margin:4px 0">${CAT.map(c=>svg('S',c,INK[c],18)).join('')}</div>Places drawn as outlines. Under your rule, outlines mean “not marked yet”, and it wasn’t on your list.</div>
+ <div class="drow"><span class="dic">${tool('T','sort',16)}<span style="display:inline-block;width:20px;height:20px;border:2px solid ${N};border-radius:50%;display:grid;place-items:center">${sv(G.T.filters,N,12)}</span></span><div><b>The circle does the work</b>Make the circle the only sign of a place, so tools could be drawn any way. The mix-up is in the tag strip, where no place appears, so it can’t help there.</div></div>
+ <div class="drow"><span class="dic">${sv(f('M5.2 22.6V12.2a5.4 5.4 0 0 1 5.4-5.4h3.8V1.6l8.4 7.6-8.4 7.6v-5.2h-3.8a.8.8 0 0 0-.8.8v10.2z'),N,22)}</span><div><b>Solid arrow for Directions</b>It says “turn right”, not “get directions”, and it would be the loudest thing in the strip.</div></div>
+ <div class="drow"><span class="dic">${mark('T','district',24)}${mark('T','street',24)}</span><div><b>Diamond for districts and streets</b>The icon has to shrink to fit, so these become the hardest to read in a row.</div></div>
+ <div class="drow"><span class="dic" style="background:var(--navy);${SCAL};width:40px;height:40px;display:grid;place-items:center">${sv('<circle fill="currentColor" cx="12" cy="7.2" r="4.3"/>'+f('M4 21.6v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2z'),'var(--or)',20)}</span><div><b>Solid account figure</b>Handsome, but heavier beside the orange +, and the rule doesn’t need it.</div></div></div>`;
+
+(async()=>{await fitAll();
+ const out=[rulesCard(),
+  conceptCard('T','Card 0','Today (for reference)','Places are solid; tools are lines at whatever weight each one landed on; districts and streets sit in a diamond.',three('What ships now.','Clear places, familiar tools.','Line weights from 1.28 to 2.08px; empty rings (account, locate) next to the empty star; × typed, not drawn.')),
+  conceptCard('SP','Card 1','Specimen','Each place is mounted whole inside its circle, with paper all round it, like a plant pressed on a sheet.',three('Solid places, whole, inside the circle. Each gets one cut in its outline or one cream detail, only where the thing really has it (the fork’s gaps, the road’s centre line).','Calm. Every place reads whole, at every size, and the chips can drop the circle.','Smaller drawings in the same circle, and the less character of the two.')),
+  conceptCard('RO','Card 2','Roundel','Each place fills its circle and the rim cuts it off, like the picture on a coin.',three('Solid places as close-ups, cropped by the circle.','Bigger, bolder drawings in the same circle; the most character.','More ink on every pin (see the busy map). Filter chips must carry the circle too: a 16px roundel instead of a bare 12px icon.')),
+  sbs(),dropCard()];
+ document.getElementById('out').innerHTML=out.join('');window.READY=1;})();
+</script>
+<style>
+.maptop .scal{display:grid;place-items:center}.scal{background:var(--navy)}.scal.add{background:var(--or)}
+.mp{position:absolute}.mp .pstar{position:absolute;width:12px;height:12px;right:-6px;top:-6px}
+.far{position:absolute;left:16px;top:12px;display:flex;align-items:center;gap:7px}
+.ring{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px solid;background:var(--paper);box-sizing:border-box}
+.far img{width:40px;height:40px;margin:-12px -9px}
+.tagbg{background:#E8E4DA;padding:10px 0 14px}
+.tagwrap{position:relative;width:300px;margin:0 auto 14px}
+.tpin{display:flex;justify-content:center}.tstring{width:1.5px;height:16px;background:#4A4A44;margin:0 auto}
+.tag{background:var(--raised);box-shadow:0 1px 3px rgba(0,0,0,.18);clip-path:polygon(28px 0,272px 0,300px 26px,300px 100%,0 100%,0 26px)}
+.tband{height:30px;background:#EFE7D8;position:relative}.tband.on{background:var(--or)}
+.eye{position:absolute;left:50%;top:-8px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#E3DACA;box-shadow:inset 0 0 0 2px rgba(0,0,0,.12)}
+.tbody{position:relative;padding:8px 16px 10px}
+.tname{font-stretch:62%;font-weight:700;font-size:26px;line-height:1.05;letter-spacing:-.01em;color:var(--ink);padding-right:28px}
+.tx{position:absolute;right:16px;top:12px}
+.ttype{font-size:10px;letter-spacing:.14em;color:var(--ink2);margin-top:8px}.ttype b{font-size:15px;letter-spacing:.06em;color:#5C5850;margin-left:8px;display:inline-block;transform:rotate(-1.2deg);opacity:.85}
+.tag .stub{border-top:1.5px dashed var(--hair);height:70px;border-bottom:0}
+.law{margin-top:10px;padding:10px 12px;background:var(--raised);border:1px solid var(--hair);border-left:3px solid var(--navy)}
+.law .q{display:block;font-size:12px;line-height:1.35;color:var(--ink2);margin-bottom:8px}
+.law b{display:block;font-size:15px;line-height:1.3;color:var(--navy)}
+.law p{font-size:12.5px;line-height:1.35;margin:8px 0 0}
+.pair{display:flex;align-items:center;gap:8px;margin-top:10px;position:relative}.pair span{font-size:14px;color:var(--ink2)}.pair i{width:14px}.pair .fx{font-size:7.5px;color:var(--ord);position:static}
+.tb{width:100%;border-collapse:collapse;font-size:12px;line-height:1.3}.tb td{border-top:1px solid var(--hair);padding:7px 0;vertical-align:middle}
+.tb td:first-child{width:100px;white-space:nowrap}.tb td:first-child>*{display:inline-block;vertical-align:middle;margin-right:6px}.tb b{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.minichip{display:inline-flex!important;align-items:center;height:20px;padding:0 7px;border:1px solid var(--hair);border-bottom:2px solid}
+.wh,.wr{display:grid;grid-template-columns:150px 1fr 1fr;align-items:center}
+.wh span{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);text-align:center}
+.wr{border-top:1px solid var(--hair);height:40px}.wr.fixed{background:#FBEDE2}
+.wn{font-size:11.5px;font-weight:700;color:var(--navy)}.wn i{display:block;font-style:normal;font-weight:400;font-size:9.5px;color:var(--ink2)}
+.wc{display:grid;place-items:center}
+.plain{list-style:none;margin:0;padding:0;font-size:12.5px;line-height:1.35}.plain li{display:flex;align-items:center;gap:10px;margin:0 0 8px}.plain .ic{display:flex;gap:4px;flex:none;width:52px}
+.drow .dic svg{width:auto;height:auto}.dic{display:flex;gap:4px;flex:none;width:52px;justify-content:center}
+</style>
+</body></html>
