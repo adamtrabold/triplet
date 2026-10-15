@@ -1346,3 +1346,219 @@ The stills are re-rendered to the same `v4-card-*.png` paths.
 Looked at, at phone size: the TS tag strip now reads as one family (the
 star and the check are the same size). The TS district reads as city
 blocks, not a cross.
+
+---
+
+## Turn 12: product designer (systems focus), round 3 opens
+
+New this round (all in `../owner.md`): the owner's rule on the v4 cards
+("the pin/place icons need to be solid and outlined icons should be used
+when something has yet to be tapped by me like Star and visited. So field
+guide, cut paper, spot pictograph are working best for me — and they can
+be inside a stroked circle"), and the + joining the project ("Build the
+matched icon but we need to include this in the icon project everything
+is inconsistent"). `jobs.md` is updated: jobs 8–13 are new, and the later
+jobs gain "the + takes the project's weight".
+
+Real draws (python `secrets`). Oblique Strategies: **"Give way to your
+worst impulse"** and **"Change instrument roles"**. Borrowed fields:
+**library card catalogues** and **laundry care symbols**. All four are
+used below.
+
+### 1. What his rule settles (structure, not looks)
+
+His rule is a state grammar, and it's the brand's own law made visible.
+A library catalogue card is a printed form with empty boxes, and the clerk
+fills them in. **The form prints the blank; you fill it in.** An outline is
+the printed blank (an empty star, the outlined check). A solid mark is the
+filled-in entry (the orange star, the stamp). The brand card already says
+"The form is printed … What's filled in about a place is stamped". He has
+now told us what that looks like in an icon.
+
+It also answers three things we've been carrying:
+
+- **The 10-07 note ("the checked items are stronger visually than the
+  open ones").** He now wants exactly that difference, as the signal:
+  outlined = waiting, solid = done. The old Q1 (should open get stronger,
+  or checked get quieter?) is answered by his rule. I'd retire it from the
+  owner batch. The director decides.
+- **The mark-visited check** (the outlined check on the tag) already *is*
+  his rule. Visited stays as it is, and now it has a reason. The old
+  "fixed or redrawn?" question can be retired too.
+- **District and street become solid.** Today they're dashed strokes (the
+  inventory's outliers). FG, CP and Spot already draw them solid.
+
+### 2. "Tapped by me": what the rule covers (job 10)
+
+Every on/off icon in the inventory, sorted by what kind of state it is.
+This is my proposal. The line between "a mark" and "a setting" is the
+thing to check with him, if the director wants to.
+
+| On/off icon | Kind of state | Under his rule |
+|---|---|---|
+| Star (tag, add form) | **A mark I put on a place** | Outline = not starred, solid = starred. Today already does this. |
+| Visited (tag check → stamp; map sticker) | **A mark I put on a place** | Outline check → stamp. FIXED, and it already fits. |
+| In a plan (Plans: + to add, × to remove, then a stop number) | **A mark I put on a place, inside a plan** | Open. A stop is "tapped by me". Today the not-yet state is a text + and the done state is a number: not outline vs solid, but it is blank vs filled in. I'd leave it alone this phase and name it. |
+| Filter chips (active / inactive) | A view setting, not a mark on a place | **Out.** The place glyph stays solid either way; the chip shows the state (today a dashed hairline and a grey glyph). |
+| Sort tick, current-plan tick | A choice in a menu | **Out.** |
+| Selected pin (inverted, solid field) | Which place I'm looking at | **Out, but it agrees with the rule:** the pin I tapped fills. Worth one line on the card. It makes the rule feel deliberate. |
+| Far pin (an empty 16px ring, no glyph) | Zoom level, not state | **Collision to watch.** An empty ring is literally an outlined shape, so under his rule it could read as "not tapped yet". The far pin sits beside the far sticker (visited), so "empty ring = not visited yet" is even *true*. I'd show it and say so, not change it. |
+| Approximate pin (dashed rim) | Data quality | Out. The dash is on the circle, not the icon. |
+
+Proposed definition, for the card in plain words: **"Outlined means a mark
+you haven't made yet: Star and Visited. Everything else (filters, menus,
+which pin is open) shows its state another way."**
+
+### 3. The real structural question: does outline mean only one thing? (job 11)
+
+If outlined means "not tapped yet", then **every other outlined icon
+carries a second meaning**. Today, and in Field Guide, all the tools (sort,
+filters, locate, account, directions, ×, +, chevron) are line drawings.
+Line drawings aren't quite outlines (a + or × has no inside to fill), but
+account, locate, directions and the off-star are closed shapes drawn as
+edges. In the tag they sit side by side: Directions, Star off, Mark
+visited. That strip is where a user could read "Directions: not tapped
+yet".
+
+The system can go two ways. They differ in kind, and the three liked
+directions split along this line, which is why I think it's the right axis
+for round 3:
+
+- **A. Outline is reserved.** Solid is the default for *everything*:
+  places, and tools too. The only outlined icons in the app are the blanks
+  waiting for you (star off, mark visited). Tools are solid strips and
+  shapes (Cut Paper's angle-cut strips, Spot's flat primitives; a solid
+  compass disc with a cream needle, a solid person). One look and you know
+  what's waiting. *Risk:* a solid toolbar gets heavy (Spot's "barcode"
+  tools, turn 2), and solid tools compete with the solid places. Tools
+  would need to be smaller or quieter in ink than places, not thinner.
+- **B. Two registers, kept apart by kind.** Places solid. Tools are line
+  drawings (Field Guide's key), made only from *open* strokes where they
+  can be (+, ×, ticks, a chevron; the compass as a ring with a solid
+  needle, which already has a solid part). The only *closed* outlines in
+  the app are the blanks. *Risk:* open line vs closed outline is a real
+  difference, but subtle at 20px. The tag strip is the test.
+
+"Change instrument roles", pushed a step further, gives a third option,
+which I offer as the wildcard: **C. The circle does the work.** The circle
+becomes the "this is a place" signal: a solid glyph in a ring is a place,
+and anything without a ring is a tool. Then the tools can be drawn any
+way (line is fine), and outline vs solid only has to work *inside* the
+state marks. It leans on the circle being used everywhere a place
+appears, which is §4.
+
+All three keep Visited exactly as it is. The visual designer should push
+or kill any of them on look. I'd show A and B at least, because Field
+Guide's tools are B, and Cut Paper's and Spot's are A.
+
+### 4. The stroked circle as grammar, not ornament (job 12)
+
+"Give way to your worst impulse": I tried putting *every* icon in a
+stroked circle, tools included. It falls over at once. The toolbar becomes
+a row of coins, the + becomes a circle inside a scallop, and the circle
+stops meaning anything. That's the Badge direction we dropped ("containers
+add ink"). So the impulse proves the rule by failing: **the circle has to
+mean "a place", and only a place.**
+
+Laundry care symbols work this way. The outer shape says the family (a
+circle is dry cleaning, a square is the dryer, a triangle is bleach), the
+inside says the detail, all at one line weight, readable at 5mm. For
+Triplet:
+
+- **Circle = a place.** The row badge and the map pin already are this (a
+  2px rim, a solid glyph). The filter chip shows the glyph *bare*
+  (`glyphHtml()`: "Bare glyph, no shell -- chips"). It's the one place a
+  place glyph appears without its circle. Whether a 12px glyph can carry a
+  circle (it grows to about 16px) is a drawing question for phase 2. For
+  round 3 I'd show the chip both ways.
+- **District and street: circle or diamond?** He wrote "circle". Today the
+  shapes sit in a diamond shell (row, plan stop), which already says "an
+  area, not a point" by family, the laundry way. My lean: the diamond is
+  the shapes' version of the circle (same stroke, other shell). But he may
+  mean circle for everything. Show both on the card, and say which we
+  recommend.
+- **The rim is a line, so it takes the line weight** (§5).
+- **The selected pin fills its circle** (§2). That stays.
+
+### 5. One weight: the + and "everything is inconsistent" (job 13)
+
+The measured weights (account 2.00, row category rim 2.00, list toolbar
+1.50, locate-me 2.08, + 2.00) look random, but they have one cause. Every
+icon sets its stroke in its own **viewBox units** (24 wide), and they
+render at different sizes, so the same number comes out at different
+on-screen weights:
+
+- sort and filters: stroke 2 drawn at 18px = **1.50px**
+- locate: stroke 2.5 drawn at 20px = **2.08px**
+- account: stroke 2 drawn at 24px = **2.00px**
+- the +: stroke 1.8182 at 26.4px, back-calculated to hit **2.00px** (its
+  own comment says so, `index.html` around line 2773)
+
+So the fix is a rule, not a redraw: **line weight is set in on-screen
+pixels, once, for the whole app**, and each icon is drawn (or scaled) to
+hit it at the size it ships. Three of the five already sit at 2.00, so
+2.00 is the obvious candidate. The visual designer and the director set
+the number. It may need a heavier cut at 12px (Timetable's optical masters
+showed that). Phase 2's grid owns it, and the + then takes it (one
+attribute in `setAddBtnGlyph()` and in `#floatingAddBtn`).
+
+For round 3, one still with every line in the app side by side (the +,
+account, sort, filters, locate, the tag ×, the rims, the off-star and the
+fixed check), first at today's weights and then at the one rule, shows him
+the problem and the fix in one look. It's small, and it closes job 13.
+
+This raises a question for the visual designer. The off-star and the fixed
+mark-visited check are outlines (stroke 2 and 2.05 in a 24 box, about 1.7px
+at 20px). If the system weight is 2.00, do the blanks go to 2.00 with
+everything else? Visited's check is fixed, so the answer may be that the
+blanks keep their weight and the system matches *them*. Measure first.
+
+### 6. How Field Guide, Cut Paper and Spot combine (job 8)
+
+Under his rule all three now share one structure: a solid place in a
+circle, an outlined blank, a solid done mark. **What separates them is
+only how the solid place is drawn:**
+
+- Field Guide: a silhouette with **one cream detail printed into it**.
+- Cut Paper: **the cut is in the outline** (flares, bites).
+- Spot Pictogram: **built from a few geometric primitives**, no detail.
+
+They aren't rival systems any more. They're three ways to draw one
+system's places, and they can mix: for example, Spot's construction (the
+grid), Cut Paper's one cut where the thing's own shape asks for it, and a
+cream inlay only where a silhouette alone won't read. That's a drawing
+call, so the visual designer and the director own it.
+
+The tools are where they still differ in kind (§3: FG is B, CP and Spot
+are A). So my proposal for round 3's concepts: **build them on the outline
+question (A reserved, B two registers, maybe C), each drawn in whatever mix
+of FG, CP and Spot the visual designer thinks best**, rather than three
+cards that differ only in how a cup is cut. The round-2 lesson holds: if
+two concepts look the same in a row, the tag and on the map, they're one
+concept.
+
+### 7. Revised directions, or ask to move to phase 2?
+
+Not my call: the director decides. What I can say from structure: the
+place-drawing question (§6) is already a phase-2 drawing question, and the
+weight (§5) is a phase-2 grid rule. **What's still a phase-1 question is
+§3 (is outline reserved?) and §4 (circle or diamond, and the chip).**
+Those change what every icon *is*, and he hasn't seen them. One short
+round showing A vs B (and the circle) on the tag strip, a row, the map and
+the toolbar, plus the weight still, would let him approve a direction
+*and* phase 2 in one reply.
+
+### Open questions
+
+1. Plan membership (+ → number): is it "tapped by me" under his rule? (I'd
+   leave it as it is this phase.)
+2. District and street: circle or diamond? (Show both.)
+3. Do the blanks set the system weight, or follow it? (Measure the fixed
+   check first.)
+4. Retire owner Q1 (the 10-07 note) and the mark-visited question as
+   answered by his rule? (Director.)
+
+NEXT: product designer (visual focus) — push or kill the outline grammars
+(A reserved, B two registers, C the circle does the work) on look, decide
+how FG, CP and Spot mix in the place drawings, and say whether the
+line-weight still is worth adding.
