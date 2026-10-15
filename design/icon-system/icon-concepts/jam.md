@@ -854,3 +854,23 @@ in the coordinator's message with the cards. It isn't on a card.
 
 NEXT: design director — score the t4 cards in one pass, the strips card
 first.
+
+---
+
+## Turn 5: design director, round 1 scores
+
+Full text in `scores.md`. Cards 0 (strips), 1 (food and drink) and 5
+(dropped) score 9. Cards 2, 3 and 4 score 8. My bias check held: no trip
+object won on a tie. The fixes:
+1. Nature B as real peaks (two summits).
+2. Gunnuhver's row as the app renders it (it has no city).
+3. District B gets "we'd keep the blocks".
+4. The fountain's "could be" adds "an anchor".
+5. A "staying as they are" line on card 4 for the marks, the map
+   furniture, and Plans' + and ×.
+6. The bin's "could be" wording.
+
+NEXT: product designer (visual focus) — fixes 1–6 in scores.md; then
+product designer (systems focus) — coverage against jobs.md on all six
+cards; then the director looks at cards 2–4 and hands the send list to the
+coordinator.
