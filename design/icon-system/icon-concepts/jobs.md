@@ -13,8 +13,11 @@ meaning the concept behind each icon, not the exact drawing."
 
 ## Settled (not reopened here)
 
-- **Constructed** is the direction: built on a grid, with warmth from subtle
-  rounding, in the manner of vintage road-trip brochures and pamphlets.
+- **Constructed** is the direction. In his words: "the clarity is best with
+  built. i think through subtle rounding, etc. we can get some of the
+  warmth / mimicry of the inspo / vintage roadtrip brochures/pamphlets/
+  etc." The rest is in `../owner.md`, including "i dont want to say never
+  to that" and "these are just examples. not exhaustive."
 - **Outlined means you haven't marked it yet** (Star, Visited). Nothing else
   is an empty shape.
 - Places are solid, in a circle. Every line is 2.00px on screen.

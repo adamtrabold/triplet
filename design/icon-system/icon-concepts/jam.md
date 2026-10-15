@@ -8,10 +8,14 @@ card (`v6-card-2-constructed.png`), `../../inspo/`, and the owner's saved
 places (read from the live `locations` and `neighborhood_shapes` tables,
 2026-10-15, read-only).
 
-Settled: Constructed (built on the grid, warmth from subtle rounding,
-the vintage brochure feel); the v6 rules (outlined = not marked by me,
-only blanks are empty, places solid in a circle, 2.00px); Visited FIXED;
-hand-made looks out.
+Settled: he picked Constructed. His words: "the clarity is best with
+built. i think through subtle rounding, etc. we can get some of the warmth
+/ mimicry of the inspo / vintage roadtrip brochures/pamphlets/ etc." The
+rest of what he said is in `../owner.md` (newest at the bottom), including
+"i dont want to say never to that" and "these are just examples. not
+exhaustive." Also settled: the v6 rules card (outlined = not marked by me,
+only blanks are empty, places solid in a circle, 2.00px), and Visited
+FIXED.
 
 ---
 
@@ -23,6 +27,10 @@ fields: **the Ordnance Survey map legend** and **hobo signs**. All four
 are used below.
 
 ### 0. The lesson from "your calls have been the exact opposite of mine"
+
+*Correction (turn 3, §0b):* this section overstates him where it treats
+hand-made as ruled out (the hobo-signs "warning"). His later words in
+`../owner.md` stand over it: "i dont want to say never to that".
 
 Across three rounds the team's picks went to the hand: Field Guide, then
 Cut Paper, then Specimen. He picked the press every time it was on offer:
