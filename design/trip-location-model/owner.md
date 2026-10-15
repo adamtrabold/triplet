@@ -33,3 +33,11 @@ Principle: places-first — you immediately do the thing you want (log/see place
 > ok re trips im actually coming to a realization. really what i need is a way to group cities.. something more conceptually like a tag that creates the conceptual connective thread. cities should probably continue to operate as today — where they are something set based on location of a pin (or somehow manually...i dont think i can do that today). items can also be outside of that city today and still be considered part of that city... in this mental model the city is more of a bucket than an actual city — i'd think about it like "the copenhagen part of the trip" or "im going to LA"... sometimes that's the whole of the trip, sometimes that's part of a larger trip... i should be able to somehow group cities together into a meta-trip and then show / hide on the map based on that
 
 Fact check (orchestrator, index.html): today the add form's City select is auto-guessed from the pin's location and can be overridden by hand at add time (`userOverrodeCity`); there is no way to change it after adding (no place editing).
+
+2026-10-15, answers to Q-A..Q-D on concept 5:
+> A. Im not sure about complexity of ux here so thinking conceptually -- it should be able to add a city to a trip when adding a city, it should not be or feel required. in fact it should not feel very high prominence at all imo.
+> B. Yes. the address needs to comfortably balance the idea of the city it belongs to in the app vs the city the address actually places it
+> C. yes
+> D. When adding a place to a city, it should automatically be added to any relevant trips. BUT you should not add cities to trips inside of the ui of adding a place. Im ambivalent/not sure if you should see the associated trip alongside the city when adding a place.
+
+Note (orchestrator): the owner's D answers trips-at-add, not Q-D as asked (moving a place to another city after adding — with trips, or wait for place editing?). Q-D is still open.
