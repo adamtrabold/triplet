@@ -1,5 +1,31 @@
 # Notes: product designer (systems focus)
 
+## Latest (2026-10-15, jam turn 20: coverage on the v6 cards)
+
+Since turn 16: visual's turn 17 fixed my three v5 blockers. In turn 18 the
+director scored round 3 (rules 8, Specimen 8, Roundel 5, which was
+**dropped**) and added **Constructed** (Spot Pictogram led, Aicher's
+method, parts in multiples of the 2px line). Specimen is now Cut Paper +
+Field Guide with visible cuts. In turn 19 visual built the v6 cards.
+
+My coverage (`../coverage.md` round 3b): **no blockers.** Jobs 1–13 are
+supported on Specimen, Constructed and the rules card (1–2 via the v4
+brand card). Copy fix: the rules card's weight row "place circles: rows,
+pins, 16px chips" becomes "rows and pins" (a Roundel leftover). Drawing
+findings for the score: CO restaurant reads "Y4", CO street reads as a
+pencil ("edit"), CO district's 45° street is a blur. Carry into the
+handoff: Constructed's selected pin at 1.25× (an optical-size rule for
+phase 2).
+
+Next: the director scores. If he approves and the owner picks, I write
+How it works in `handoff.md`: the law and where outlines appear, the
+"tapped by me" list, the circle rule (chips bare), one weight in on-screen
+px with the + and account following it, optical sizes (12px, the 32px
+selected pin), and every state (empty, selected, far, approx, visited
+FIXED).
+
+---
+
 ## Latest (2026-10-15, jam turn 16: coverage on the v5 cards)
 
 What happened since turn 12: visual turn 13; director turn 14 merged A+B

@@ -2404,3 +2404,38 @@ I'd say that to the owner in one line rather than force it.
 
 NEXT: product designer (systems focus) — coverage run on the six v6 cards
 against jobs 1–13, then the director scores in one pass.
+
+---
+
+## Turn 20: product designer (systems focus), coverage on the v6 cards
+
+The full table is in `coverage.md` (round 3b, at the top). **No blockers.**
+Every job from 1 to 13 is supported on Specimen, Constructed and the rules
+card. Jobs 1–2 are covered by the v4 brand card he already has.
+
+- **The v5 blockers are closed.** Job 8: Specimen names Cut Paper and Field
+  Guide, Constructed names Spot Pictogram, so all three of his directions
+  are accounted for and the frames back each claim. Job 10: "Where outlines
+  appear" is on the rules card, and the open-pin row is now true for both
+  concepts.
+- **Structure:** the two concepts share the law, the circle, the 2.00px
+  weight and every tool, and differ only in how a place is made (cut vs
+  built). On the job side that's right: one system, two drawing methods,
+  which is the choice he's being asked to make. Constructed's grid frame
+  also makes the weight rule and the drawing rule visibly one rule. That's
+  the strongest phase-2 seed on the board.
+- **One copy fix:** the rules card's weight table still says "place
+  circles: rows, pins, 16px chips". That's left over from Roundel, and it
+  contradicts its own "Filter chips show the icon on its own". Make it
+  "rows and pins".
+- **For the score, not blockers:** in Constructed, the restaurant reads as
+  "Y4", the street as a pencil (which means "edit"), and the district's 45°
+  street renders as a blur rather than a cut.
+
+On my structural question from turn 19's open point 3 (Constructed's
+selected pin at 1.25×): it doesn't affect any job, and it belongs in the
+phase-2 grid rules for optical sizes. I'll carry it into the handoff.
+
+NEXT: design director — score the v6 cards in one pass (coverage is clean;
+one copy fix on the rules card and the three Constructed drawing findings
+are in `coverage.md`).
