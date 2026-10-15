@@ -136,6 +136,17 @@ sources are the file where the quote is recorded.
 - **The icon system needs a full revision: less noise, more clarity.**
   "also i want the next priority to be fixing our icon system -- they're too noisy, the approacah we're using the checked items are stronger visually than the open ones. the icon system needs more clarity... i need a full rev. so note that"
   (2026-10-07; chat).
+- **Places are solid; outlined means "not yet marked by me".** "I think the
+  pin/place icons need to be solid and outlined icons should be used when
+  something has yet to be tapped by me like Star and visited ... and they can
+  be inside a stroked circle" (2026-10-14; `design/icon-system/owner.md`).
+- **Clarity first; warmth comes from subtle rounding, not a hand-made look.**
+  "the clarity is best with built. i think through subtle rounding, etc. we
+  can get some of the warmth / mimicry of the inspo / vintage roadtrip
+  brochures/pamphlets/ etc. the rest risk feeling amateurish." Hand-cut or
+  hand-drawn looks read as amateurish to him; vintage = precise printed
+  pictograms, softened (2026-10-15, picking Constructed over Specimen;
+  `design/icon-system/owner.md`).
 - **Same icon drawing language everywhere.** "Checkmark was only supposed to
   be lightly rounded like the rest of the icons" ; "we need to do an icon
   pass on the rest at some other time" (chat).
