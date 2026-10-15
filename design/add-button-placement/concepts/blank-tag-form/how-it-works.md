@@ -10,6 +10,14 @@
 > - **City cue:** a 1px underline under the city word; your hit band stands. The city list is 40px rows from 122 in the tag.
 > - **The Float hides while adding** (frames `f10-*`, gap 88). **C's gap is 86** (frames `c10-*`). The credit prefix rule is 380.
 
+> **Round 12b (systems, 2026-10-15): pending the owner. See `workflows.md`.** Mapping the owner's three workflows (a suburb he calls "Chicago", a pasted address, a bare name that could be anywhere) shows that Round 12's "the map's country first, widen only on zero" fails the bare-name case: a same-name local match hides the real one, and the widening never runs. The proposed rule in `workflows.md`:
+> - **one search, everywhere** (no city name added, no country lock, soft lean to the screen's area);
+> - **re-ordered by the app:** this city → your other cities → the rest, nearest first;
+> - an invisible local search as a safety net when nothing lands in this city;
+> - **filing:** containment → nearest base within a set distance → "New city?".
+>
+> It adds no rows or controls (the director's objection to (b) was the always-printed row). It replaces the scope part of Round 12 if the owner and director agree. The city rule (plain pencil; "Which city?" on overlap) stands either way.
+
 > **Round 12 (systems, 2026-10-15): search scope, and the city. Replaces round 10's always-present "Search everywhere" row and round 10b's tappable city.**
 >
 > Owner: "How does it decide what city to search first? I don't know if search everywhere makes sense unless it's not finding what you're looking for. The systems designer should have caught that. Also why is Reykjavik underlined?" He's right: an always-present row is UI for a case that's rare, and I should have caught it.

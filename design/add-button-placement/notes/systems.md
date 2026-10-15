@@ -619,3 +619,9 @@ result count at 664 with keyboard, and the docked-tag heights.
 - City: matchCity() is containment by city areas, not a guess → not a control, no underline. New: ask "Which city?" in the stub only when the point is in two cities' areas (Copenhagen/Malmö). Reverses round 10b's tappable city.
 - jobs.md job 5 and the C flow step 3 updated.
 - Director ruled (b) out. Round 12 note and jobs.md updated: (a) + (c) only; added an invisible builder rule (a city name in the query scopes to that city: "Tivoli Copenhagen" deterministic, not luck). Job 5 holds, with a cost: reaching another city takes typing its name or moving the map (not automatic).
+
+## Workflows (2026-10-15): the owner asked to map the city workflows
+- `concepts/blank-tag-form/workflows.md`: W1 suburb-as-base (search found via widening; filing asks "new city" → wrong), W2 pasted address (found only after a scoped miss; new city → trip open), W3 bare name anywhere (FAILS today: a local same-name hit blocks the widening); inferred W4 here-and-now, W5 shapes (Overpass bbox, deferred), W6 map-POI (future).
+- Recommendation: search everywhere once (no suffix, no country lock, soft viewbox) + client re-rank (this city → other cities → nearest) + invisible local safety net; filing: containment → nearest base within a distance → "New city?".
+- Open for the owner: the distance (100/150/200/always ask); trips next (a new city joins the current trip or asks); jump to the new city after ADD.
+- The form spec's Round 12b pointer: it supersedes Round 12's scope if agreed.
