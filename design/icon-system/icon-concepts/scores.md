@@ -124,3 +124,22 @@ top and bin sections of card 4, at full size.
 **READY once the systems coverage run comes back with no blockers.** If
 coverage finds a blocker, it gets fixed and I look at that card only. The
 send order and the three questions are as in round 1 above, unchanged.
+
+---
+
+## Round 1c: coverage-fix check (card 4 and the crisp cuts), 2026-10-15: READY
+
+- **Card 4: 9.** I checked:
+  - The account (solid head, open shoulders, on the navy scallop) is in
+    the settled strip.
+  - The + line is plain and honest: one symbol, told apart by its box. I
+    agree with keeping it; a pin-with-+ was dropped for ink.
+  - The pointer covers the current plan.
+  - Each "staying" item has its reason. The anchor-dot quote is genuinely
+    his ("Dot or something in the middle is fine", owner-taste.md, about
+    the district/street tag anchor), so it isn't overstated.
+- **The crisp cuts on cards 0–3:** the shop door, the plate's name bar,
+  the snowcap and the bun's highlight are sharp at 24px in card 0's strip 2.
+  No blur reads as a fault now.
+- **All six t4 cards are at 9. Coverage is clean. READY.** The send order
+  and the three questions are as in round 1, unchanged.
