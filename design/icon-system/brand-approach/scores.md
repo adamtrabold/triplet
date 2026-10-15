@@ -377,3 +377,319 @@ As phone-width images, in this order. No canvas.
 4. "Is anything else fixed besides Visited: the pins' round shell and rim,
    the scalloped account and + buttons, the category colours?" (We've kept
    them all.)
+
+---
+
+## Round 3 (v5 cards), 2026-10-15: NOT READY
+
+Scored in one pass, side by side first. Frames: `v5-card-3-side-by-side.png`
+(the three 24px strips cropped at full resolution, plus the Specimen and
+Roundel busy maps), `v5-card-rules.png`, `v5-card-1-specimen.png` (all of
+it), `v5-card-4-dropped.png`, plus the Roundel strip and the misread table
+in jam turn 15. Today (card 0) is reference and isn't scored.
+
+| Card | Score |
+|---|---|
+| Rules | 8 (9 with the copy fixes below) |
+| 1 Specimen | 8 |
+| 2 Roundel | 5, DROPPED |
+| 3 Side by side | Rebuilt with the new concept 2; not scored |
+| 4 Dropped | Fine; Roundel is added |
+
+### Likely owner objections, before scoring
+
+1. **"Specimen is just what we have now."** In the 24px strip, 6 of the 11
+   (fork, cup, cocktail, tree, bag, bed) are Today's drawings. He asked for
+   "a full rev". *Likely.*
+2. **"Where's the Cut Paper?"** Specimen's "Made from" says "the scissors
+   in each shape", but no cut can be seen at 24px. A card line the frames
+   don't back is the kind of thing he catches. *Likely.*
+3. **"Roundel is noisier, and that's what I complained about."** Its ink is
+   49% vs 28%, the busy map is the loudest of the three, the selected pin
+   can't fill, and only 7 of 11 tell apart. *Certain.*
+4. **"Roundel is just bigger icons."** For about half the set (restaurant,
+   nature, bar, other, hotel) the crop only trims their ends. *Likely.*
+5. **"Area looks like a texture / no data."** The hatched square in both
+   concepts. *Possible.*
+6. "Why are you asking me this": not likely. The rules card settles the
+   team's calls itself and asks nothing.
+
+### Roundel: 5, DROPPED
+
+It fails my own kill switch from turn 14 (it reads as "Specimen, bigger"
+for half the set), and the costs the designer measured all point at his
+original complaint:
+- It's the noisiest page on the busy map.
+- The open pin can't fill with its colour, so it breaks a rule on our own
+  rules card.
+- The areas (area, district) fail the misread test, and the hotel reads as
+  a mug: only 7 of 11 tell apart at a glance.
+
+It goes on the dropped card, one line: "Each place drawn big and cropped
+by its circle, like a coin. Twice the ink on the map, the open pin can't
+fill, and areas stop reading." The designer's honesty in turn 15 is what
+made this an easy call.
+
+### The second concept instead: **Constructed** (Spot Pictogram led)
+
+Real draw (python `secrets`): **Otl Aicher's Munich 1972 pictograms** and
+**"Remove ambiguities and convert to specifics"**.
+
+Specimen blended all three of his directions into one, which took the
+choice away from him. Split them along the line where they really differ
+in kind, which is **how a solid place is made**:
+
+- **Specimen = cut.** Cut Paper led, with Field Guide's inlay. Organic
+  silhouettes, each with one visible scissor cut or one cream detail.
+- **Constructed = built.** Spot Pictogram led, on Aicher's method. Every
+  place is assembled only from a few specified parts on one grid: circles,
+  bars, and cuts at 0°, 45° and 90°. Nothing is freehand.
+  - "Convert to specifics": the parts are **multiples of the 2.00px line**.
+    A bar is 2, 4 or 6px, and the grid unit is the line weight. So the
+    solids are literally made of the app's one stroke, and the weight rule
+    and the drawing rule become one rule. That's a reason in the thing, not
+    a trait added from outside.
+  - Lightly rounded corners, like the check (his rule, not Aicher's
+    sharpness).
+  - The cream inlay appears only as gaps the grid leaves (the fork's tines,
+    the road's line), never as a drawn detail.
+  - Places sit whole in the circle, sized to the grid, not cropped.
+- Both concepts share the law, the circle, the 2.00px weight and the
+  tools. Everything Specimen's card covers, Constructed's card covers.
+
+**Kill test (the same as Roundel's):** if Constructed and Specimen can't
+be told apart in the 24px strip and in a row, they're one concept. Then I
+send that back as the team's failure, not as two cards.
+
+### Fixes
+
+**Specimen (8):**
+1. **Make the cut visible.** Each of the 11 shows its one cut (Cut Paper)
+   or its one real cream detail (Field Guide) at 24px. Where a glyph is
+   still Today's drawing, it changes, or the card says plainly that it
+   keeps Today's.
+2. Add a **Today → Specimen** pair strip (11 pairs, 24px) so he sees what
+   changed without hunting.
+3. **"Made from"** must match the frames: Cut Paper and Field Guide only.
+   Spot moves to Constructed.
+4. **Area:** the hatched square reads as a texture. Redraw it as something
+   that says "an area" (designer's call). The same applies in Constructed.
+5. **"Costs"** is rewritten against Constructed, not Roundel.
+6. Bar and the flag are still the lightest. A nudge now if it's cheap;
+   otherwise it's phase-2 grid work. Not blocking.
+
+**Rules (8 → 9):**
+7. Remove "(Roundel can't do this as drawn: see its card.)" from the open
+   pin row.
+8. "Specimen's filter chips show the icon on its own" becomes "Filter chips
+   show the icon on its own" (both concepts go bare).
+9. Nothing else changes. It's the best card on the board: the law, where
+   outlines appear, the weight table and "staying as it is" are exactly
+   right.
+
+**New card 2, Constructed:** the same frames as Specimen's card: all 11 at
+24px, 12px, one ink, header, rows, both tag states hanging from the pin,
+the same busy map and far-zoom strip, chips, and "Made from / What it is /
+Good at / Costs". Add one small frame showing the grid: three places drawn
+over their parts, with the 2px unit marked.
+
+**Side by side (card 3):** Today / Specimen / Constructed, in the same
+strip, row, tag strip and busy map.
+
+**Dropped (card 4):** add Roundel (strip + one line).
+
+### What keeps blocking a 9 (round 3)
+
+The second concept keeps coming from **how big or how framed** the glyph
+is (Roundel's crop) instead of **how it's drawn**. It's the same pattern as
+rounds 1–2: a trait applied from outside (lean, mitres, square rings, now
+the crop) to make a difference, which turns into a cost. The fix this time
+is to split along a line the owner drew himself: his three named
+directions differ in how a shape is made (cut vs built). The other repeat
+is copy claiming more than the frames show ("Made from Cut Paper").
+
+### Did the work change?
+
+Yes. This is the first build of round 3, so there's no earlier score to
+hold.
+
+### If round 4 brings everything to 9: the send list and the questions
+
+As phone-width images, in this order:
+1. `v5-card-rules.png` (or v6): the rules, read first
+2. `v5-card-0-today.png`: reference
+3. Specimen
+4. Constructed
+5. Side by side
+6. Dropped
+
+Questions, only these two:
+1. "Specimen or Constructed (or a mix)?"
+2. "OK to move to phase 2 with that and the rules card? That's research,
+   one shared grid, every icon redrawn as SVG, the + and the account set to
+   the project weight, and a recommendation on the drawing tool."
+
+---
+
+## Round 3b (v6 cards), 2026-10-15: NOT READY, one short fix pass
+
+Scored in one pass, side by side first. Frames:
+- `v6-card-3-side-by-side.png`, with its three 24px strips cropped at full
+  resolution and stacked (Today / Specimen / Constructed)
+- `v6-card-1-specimen.png`, the top half (copy, strip, Today → Specimen
+  pairs)
+- `v6-card-2-constructed.png`, all of it (copy, strip, grid frame, 12px,
+  one ink, header, rows, both tags, the busy map, far zoom, chips)
+- `v6-card-rules.png`, the table and the end
+- `v6-card-4-dropped.png`
+
+Today (card 0) is reference and isn't scored.
+
+| Card | Score |
+|---|---|
+| Rules | **9** (from 8). Both copy edits landed, and the weight row now says "rows and pins". |
+| 1 Specimen | **9** (from 8), with one copy edit (fix 4) |
+| 2 Constructed | **8** (new) |
+| 3 Side by side | Passes the kill test, with one line added (fix 1) |
+| 4 Dropped | Fine. Roundel's line is word for word. |
+
+### Likely owner objections, before scoring
+
+1. **"Specimen and Constructed look the same."** In a single row, yes:
+   they share the circle, the colour, the weight and the law on purpose.
+   In the strip, about half the set differs clearly (restaurant, temple,
+   flag, district, street, the bag's top, the olive). *Likely, unless the
+   card says up front where to look.*
+2. **"Constructed is just Today."** Its cup, bar and tree are, near
+   enough, Today's drawings (Today's set is already built on bars and
+   45°). Specimen's card says which shapes it keeps; Constructed's doesn't.
+   *Likely.*
+3. **"What's that?"** Constructed's restaurant (plate between fork and
+   knife) reads as a dumbbell or "|o|" at 24px, and it's the most common
+   pin on the map. Its district reads as a letter or a logo ("P"). *Likely
+   for the restaurant; possible for the district.*
+4. Specimen's street (beads on a strip) and bar (the olive glint) are
+   fuzzy at 24px. *Possible.* They're drawing-phase work, not a concept
+   fault.
+5. "Why are you asking me this": not likely. The rules card settles every
+   team call and asks nothing.
+
+### Rulings on the visual designer's questions (turn 19)
+
+1. **Kill test: PASS.** "Clear in the strip, subtle in the row" is enough,
+   *if the card says so*. The two concepts share every rule on purpose, so a
+   single row will always look close. The choice is how a place is drawn:
+   by hand, warm (Specimen), or on the 2px grid, exact (Constructed). That
+   shows in the strip and the grid frame, and it differs in method, which
+   is the real choice. Forcing them apart in the row would mean adding a
+   trait from outside, which is the thing that's blocked us for three
+   rounds. So I won't ask for it.
+2. **Cup, bed and map: leave them for phase 2.** No pushing for
+   difference's sake. The designer's "a cup that's one 2px ring plus a bar"
+   would make a place an outline, which breaks the owner's first rule
+   ("the pin/place icons need to be solid"). Where Constructed keeps Today's
+   drawing because Today's is already built that way, say so (fix 2).
+3. **The 1.25× glyph in the 32px selected pin: allowed for these stills.**
+   The optical-size rule (scale vs 1:1 with more paper) is phase-2 grid
+   work, and systems carries it into the handoff. It doesn't go on a card.
+
+### Fixes (one pass; I check the cards, I don't re-score the rest)
+
+1. **Side by side:** one line under the title, in plain words: "Both use
+   the same rules, circle and weight. They differ in how each place is
+   drawn: by hand (Specimen) or on a 2px grid (Constructed). Compare the
+   strips; in a single row they look close on purpose."
+2. **Constructed "What it is":** say plainly which places keep Today's
+   shape (cup, bar, tree, and any other it keeps), as Specimen's card does.
+   Add the Today → Constructed pair strip that Specimen has, so the two
+   cards compare like for like.
+3. **Constructed restaurant:** it has to read as "restaurant" at 24px, on
+   the grid. The plate between fork and knife reads as a dumbbell. The
+   designer's call how; it's the most common pin.
+4. **Specimen "Good at":** drop "closest to what you know". Both keep three
+   of Today's shapes, so it's no longer true of one alone. "Warm and a
+   little playful; the most whimsy" stands.
+5. **Constructed district:** check it doesn't read as a letter or a logo.
+   Fix it only if it does, and only on the grid.
+
+Once 1–5 land and I've looked at cards 1–3, it's READY. No re-score
+round.
+
+### What kept blocking a 9 (rounds 1–3b), and why
+
+The second concept kept getting its difference from **outside the
+drawing**: the lean, mitres, square rings, the crop. Each time, that turned
+into a cost. Splitting along the owner's own named directions (cut vs
+built) fixed it. What's left is the honesty of the copy: the cards have to
+say exactly what changed and where to look. The pixels are now ahead of
+the words, not behind them.
+
+### Did the work change?
+
+Yes. Rules: both edits landed, and it goes from 8 to 9. Specimen: visible
+cuts and inlays on eight places, the pair strip, a folded-map area, and
+honest copy; it goes from 8 to 9. Constructed is new.
+
+### The send (after fixes 1–5 and my check)
+
+As phone-width images, in this order. No canvas.
+1. `v6-card-rules.png`: the rules under both concepts (read first)
+2. `v6-card-0-today.png`: today, for reference
+3. `v6-card-1-specimen.png`: Specimen, cut by hand
+4. `v6-card-2-constructed.png`: Constructed, built on a grid
+5. `v6-card-3-side-by-side.png`: both next to Today
+6. `v6-card-4-dropped.png`: what we dropped
+
+The owner questions, word for word (only these two):
+1. "Specimen or Constructed (or a mix)?"
+2. "OK to move to phase 2 with that and the rules card? That's research,
+   one shared grid, every icon redrawn as SVG, the + and the account set to
+   the project weight, and a recommendation on the drawing tool."
+
+
+---
+
+## Round 3c: fix-pass check (cards 1–3), 2026-10-15: READY after two copy edits
+
+I checked the re-rendered `v6-card-1-specimen.png` (the top: copy and
+strip), `v6-card-2-constructed.png` (the top: copy, 24px strip, the new
+Today → Constructed pairs, the grid) and `v6-card-3-side-by-side.png` (the
+title line, the Today strip, rows and tag). This is a look, not a
+re-score of the other cards.
+
+- **Constructed: 9** (from 8). Fixes 2, 3 and 5 landed:
+  - The restaurant now reads as a fork and knife, not a dumbbell.
+  - The pair strip makes "what changed" as easy to see as on Specimen's
+    card.
+  - The district reads as city blocks, not a letter.
+  - The half-unit tine cut is phase-2 grid business, not a card matter.
+- **Side by side:** the line is word for word. Kill test passed.
+- **Specimen: 9** holds. "Closest to what you know" is gone.
+
+**Two copy edits before sending.** Text only, no re-check needed (the
+coordinator confirms the words). Each one is a card line the pixels
+contradict, which is the thing I said I'd check every round:
+1. **Specimen "What it is":** "Restaurant, café and tree keep Today's
+   shape; the other eight are new." Its restaurant gains a knife (Today's
+   is a fork alone), so make it "Café and tree keep Today's shape; the
+   other nine are new." (`attitudes-v6.html` line 557.)
+2. **Constructed "Costs":** "some places (the bed, the temple) get
+   abstract". The bed keeps Today's shape (its own "What it is" says so),
+   so make it "some places (the temple, the folded map) get abstract".
+   (Line 558.)
+
+### Send list (stands)
+
+As phone-width images, in this order. No canvas.
+1. `v6-card-rules.png`
+2. `v6-card-0-today.png`
+3. `v6-card-1-specimen.png`
+4. `v6-card-2-constructed.png`
+5. `v6-card-3-side-by-side.png`
+6. `v6-card-4-dropped.png`
+
+The owner questions, word for word (only these two):
+1. "Specimen or Constructed (or a mix)?"
+2. "OK to move to phase 2 with that and the rules card? That's research,
+   one shared grid, every icon redrawn as SVG, the + and the account set to
+   the project weight, and a recommendation on the drawing tool."

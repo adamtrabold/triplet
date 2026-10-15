@@ -2011,3 +2011,523 @@ words exactly.
 NEXT: product designer (visual focus) — build the six v5 cards in §10 with
 fixes 1–10. Then systems runs coverage against jobs 1–13 on the built
 cards, and I score all of them in one pass.
+
+## Turn 15: product designer (visual focus), the v5 cards (built per turn 14 §10)
+
+The six cards are built. Each is 390 wide at 3x, in
+`concepts/sketches/`:
+- `v5-card-rules.png`
+- `v5-card-0-today.png`
+- `v5-card-1-specimen.png`
+- `v5-card-2-roundel.png`
+- `v5-card-3-side-by-side.png`
+- `v5-card-4-dropped.png`
+
+The source is `concepts/sketches/attitudes-v5.html`. It's the v4 glyph sets
+and helpers plus a v5 block. It measures the ink first, then renders and
+sets `window.READY`. The new sticker refs, with transparent backgrounds so
+they sit on the map tiles, are `ref-sticker-near-t.png`,
+`ref-sticker-starred-t.png` and `ref-sticker-far-t.png`.
+
+### The turn-14 rulings, as applied
+
+- **The law.** It's on the rules card in his quote and in plain words, with
+  the "only your marks vary" line under it. The tools follow it: the
+  account has a solid head with open shoulders, locate a solid centre, the
+  filter knobs are solid, and Directions is a ring with a solid needle.
+  The star off is the full-size hollow of the star on (no 0.9 scale).
+- **One weight.** Every line is set in on-screen px through `u()`, at 2.00
+  everywhere: tools, the +, the account, the tag ×, the star off, and
+  every place rim (row 24px, pin 24 and 32px, chip roundel 16px). Only the
+  check stays at 1.52 (FIXED). The rules card shows Today vs 2.00 only,
+  with the + and the account marked "already 2.00", and the one sentence
+  on why not 1.5.
+- **Shapes.** District and street sit in the circle on both concept cards.
+  The diamond, C, the solid arrow, A's solid bust and Timetable are on the
+  dropped card, one line each.
+- **Chips.** Specimen's chips are bare at 12px. Roundel's carry a 16px
+  roundel, with the cost stated in its "Costs" line.
+
+### Fixes 1–10
+
+1. **Size isn't the difference.** Specimen is drawn at the largest size
+   that still floats: 1.0px of paper inside the rim, fitted by measured
+   ink radius, so nothing touches the rim. Roundel is clipped 0.9px inside
+   the rim. Measured ink cover of the 20px field: Specimen averages 28%,
+   Roundel 49%. See the honest read below.
+2. **Equal mass.** Specimen is balanced by measured ink area: heavy glyphs
+   are shrunk toward the 60th percentile, light ones grow until they reach
+   the fit radius. The spread is 18–35%. The thin glyphs (restaurant, bar,
+   flag, street) can't grow further without touching the rim. They look
+   balanced by eye in the 24px strip, though bar and the flag are the
+   lightest. Roundel can't be balanced the same way: full-field crops
+   (café, district, area) sit at 55–61%, the fork at 39%.
+3. **"Other"** is now a solid pennant on a pole: a marked spot, not a
+   control, in both concepts.
+4. **Lightly rounded.** Every place glyph goes through the `#soft` filter
+   (about 0.5 corner, as on the check). For phase 2 that becomes real radii.
+5. **Same icon everywhere.** Each card shows the tag hanging from its
+   selected pin, the row badge (plain and navy-selected) and the pins, all
+   drawn by one `mark()` function.
+6. **The busy map.** One crop on every card: 19 near pins, the selected
+   pin, a starred pin, a visited sticker and a starred sticker, two
+   clusters and the district's area box (no pin, as he asked). There's a
+   far-zoom strip (empty rings, far stickers, a cluster) on every concept
+   card. The side-by-side card uses the same crop at the same height.
+7. **Specimen attraction and area redrawn.** Attraction is a temple front:
+   the gaps between the columns are the cream inlay, which really is there.
+   Area is a hatched square, the way a map legend draws an area.
+8. **The Roundel misread test** (below). Bar, attraction, hotel and
+   shopping were redrawn.
+9. **Ink cost** is shown, not explained. The busy map does it, plus one
+   "Costs" line.
+10. **The chip cost** is one line on the Roundel card.
+
+### Roundel: "what other sign is this?" (not on the card)
+
+| | Reads as | Verdict |
+|---|---|---|
+| Restaurant | Fork and knife, cut at the handles | Passes |
+| Café | A cup on a cropped saucer, maybe a soup bowl at 16px | Passes |
+| Bar | Was a funnel. Now the bowl, an olive, the stem and the foot: a martini | Passes |
+| Attraction | Was a bottle. Now a temple front with the columns cut. Could be a bank or courthouse, but that's the same family | Passes |
+| Nature | Tree, trunk cut | Passes |
+| Shopping | A bag with a narrow handle. At 16px it's still near a padlock or basket | Borderline |
+| Area | A hatched coin, a barber pole, a striped ball. It says nothing about "area" | **Fails** |
+| Hotel | Was a blob. Now a bed (headboard, pillow, mattress, a fold, a leg). Reads at 24px, smudges at 16px | Borderline |
+| Other | A pennant, "flag a spot". Could read as "report", but in a map pin it's a waypoint | Passes |
+| District | A field cut by three streets. Reads as a beach ball or a globe as often as a map | **Borderline / fails** |
+| Street | A road with a dashed centre line | Passes |
+
+Two fail or nearly fail, and both are areas. A crop of a flat field has no
+silhouette left to read, so the crop loses exactly the shapes that need
+an edge.
+
+### Honest read: is Roundel "Specimen, bigger"?
+
+**Partly, yes.** In the side-by-side strip and rows:
+- Café, attraction, area, district, street and shopping read as cropped,
+  a different kind of picture.
+- Restaurant, nature, bar, other and hotel are tall, narrow objects. The
+  crop only trims their ends, so they read as Specimen at a larger size.
+  That's about half the set.
+
+On the map it is clearly a different, much heavier page (49% vs 28% ink):
+the busy-map crop shows Roundel as the noisiest of the three, which is
+his original complaint.
+
+It also turned up a problem the director didn't list: **the selected pin
+inverts badly in Roundel.** A crop that fills 61% of the field turns mostly
+cream when inverted, so the open café pin looks like a cream pin with a
+brown rim instead of a filled one. The tag card shows it. "The open pin
+fills with its colour" (rules card) holds for Specimen and is weak for
+Roundel.
+
+So the director's condition ("If Roundel still reads as 'Specimen,
+bigger'…") is half met by the drawings, and the map and the selected pin
+count against it. I'd score it as a real but costly alternative. If the
+director drops it, we need a second concept that differs in kind. I don't
+have one ready, and I won't pretend Roundel is more different than it is.
+
+### Specimen vs Today, also honestly
+
+Specimen is close to Today in the row: still a solid glyph floating in a
+2px ring. What changes:
+- District and street are solid and in the circle.
+- Every place is lightly rounded and mass-balanced.
+- "Other" is a flag, not a radio button.
+- The attraction is a temple, not a bullet.
+- The tools follow the law at 2.00.
+- The weight is one number.
+
+That's the evolutionary option again (v4's Field Guide "risk", still
+true). The owner should see it named that way, not dressed up.
+
+### Open questions
+
+1. Roundel: keep it as the second concept with its costs stated, or drop
+   it and look for another that differs in kind? (Director.)
+2. Area and district in Roundel fail the misread test. If Roundel stays,
+   should areas be the one family drawn whole (floating) inside the
+   coin? That would break the concept's one rule.
+3. The rules card's "tapped by me" table stacks the two star icons
+   vertically (a layout nit). Fix in the fix pass if the director wants
+   it.
+4. Specimen's light glyphs (bar, flag, street) are fit-limited. Should
+   they be redrawn wider, or is that phase-2 grid work?
+
+NEXT: product designer (systems focus) — coverage run on the six v5 cards
+against jobs 1–13 (the tag stub's category circle, the "tapped by me"
+table and the weight table are the new parts), then the director scores
+all of them in one pass.
+
+---
+
+## Turn 16: product designer (systems focus), coverage on the v5 cards
+
+The full table is in `coverage.md` (round 3, at the top). In short:
+
+- **Jobs 3, 5, 6, 7, 9, 11, 12 and 13 pass** on both concepts and the
+  rules card. Jobs 1–2 pass through the v4 brand card he's already seen.
+  The law holds in every tag strip and header: every tool now has a solid
+  part, and the star off is the full-size hollow of the star on.
+- **BLOCKER, job 8 (both cards).** He named Field Guide, Cut Paper and Spot
+  Pictogram. No v5 card uses those names, so he can't see what became of
+  them. The concepts *are* the combination, but nothing says so. One line
+  fixes it.
+- **BLOCKER, job 10 (rules card).** The "tapped by me" table never says
+  *where* outlines appear. Rows and the map show nothing until you mark a
+  place. Outlines live only in the tag and the add form. Without that line
+  he'll picture an outlined star on every row and pin.
+- **BLOCKER, job 10 (Roundel only).** The rules card says "The open pin
+  fills with its colour". Roundel's open pin is a cream disc with a brown
+  rim, so the card is false for it. Either redraw it or say it differs.
+- **Not blocking:** the row × at 2.00 is now bold on every row (make it
+  smaller, per the director's own rule). The account's "already 2.00"
+  hides that its head goes solid. Roundel's hotel reads as a mug, so with
+  area and district failing too, only 7 of 11 tell apart at a glance.
+
+NEXT: product designer (visual focus) — the three one-line or
+one-drawing fixes (job 8 line, job 10 "where outlines appear" line,
+Roundel's open pin or its caveat), plus the row × size; then the director
+scores all six in one pass.
+
+## Turn 17: product designer (visual focus), coverage fixes on the v5 cards
+
+All six `v5-card-*.png` are re-rendered from `attitudes-v5.html`.
+
+**Blockers:**
+
+1. **Job 8.** Each concept card has a "Made from" line above "What it
+   is", naming his three directions:
+   - **Specimen:** Cut Paper = the outlines (the scissors in each shape),
+     Field Guide = the cream detail only where the thing has one, Spot
+     Pictogram = few simple shapes as the drawing grid.
+   - **Roundel:** Spot Pictogram = flat simple shapes drawn big, Cut Paper
+     = the cut made by the circle itself, Field Guide = the cream detail
+     (the columns, the road line, the olive).
+2. **Job 10, where outlines appear.** A new section on the rules card,
+   before the table: "Only in the tag and the add form, where you can mark
+   a place. Rows and pins show nothing until you've marked it; then the
+   orange star and the stamp or sticker appear." It matches his "No star
+   unless it's been starred".
+3. **Job 10, Roundel's open pin.** I said it rather than redrew it.
+   - Roundel's "Costs" line now says the open pin can't simply fill with
+     its colour: a close-up turns mostly cream when reversed (see the café
+     pin over the starred tag), so Roundel would need its own open-pin
+     design.
+   - The rules card's open-pin row adds: "(Roundel can't do this as drawn:
+     see its card.)"
+   - Why not redraw it: every way of making it fill breaks the concept.
+     Showing the glyph whole when open is Specimen. Shrinking the crop is
+     inconsistent. Tinting the glyph adds a third ink. That's a real cost
+     of Roundel, and the director should weigh it, not have it hidden.
+
+**Also:**
+
+- **The row ×** is smaller (10px box, arms about 4.6px), still at 2.00px:
+  the weight stays, the size goes down.
+- **The account** is labelled "2.00px today · already 2.00, head goes
+  solid".
+- **The rules-table star icons** sit side by side, not stacked.
+- **The dropped card's diamond** now shows Specimen's district and street
+  inside the diamond, not Today's dashed glyphs. It shows the shrink
+  honestly.
+
+**Not changed:** Roundel's hotel. Turn 16 says it reads as a mug. With
+area and district, that makes 7 of 11 that tell apart at a glance. That's
+the director's scoring input, and it doesn't need another redraw before he
+scores.
+
+NEXT: design director — score all six v5 cards in one pass (rules, Today,
+Specimen, Roundel, side by side, dropped), and rule on whether Roundel
+stays as the second concept.
+
+---
+
+## Turn 18: design director, round 3 scores
+
+Not ready. The full scores and fixes are in `scores.md` (round 3). Rules 8
+(9 after two copy edits). Specimen 8. Roundel 5, **dropped**: it reads as
+"Specimen, bigger" for half the set, it's the noisiest map, the open pin
+can't fill, and 7 of 11 tell apart.
+
+The new concept 2 is **Constructed** (Spot Pictogram led, Aicher's method):
+places built from circles, bars and 0/45/90 cuts on a grid whose unit is
+the 2.00px line. Specimen becomes Cut Paper + Field Guide, with its cut
+made visible. They split along his own named directions: cut vs built.
+
+NEXT: product designer (visual focus) — Specimen fixes 1–6, rules edits
+7–8, a new Constructed card (with a grid frame), side by side rebuilt
+(Today / Specimen / Constructed), Roundel added to the dropped card; then
+systems coverage; then I score in one pass.
+
+## Turn 19: product designer (visual focus), v6 cards: Specimen cut, Constructed built
+
+Built per turn 18 and scores.md (round 3). The new set is `v6-card-*.png`
+in `concepts/sketches/`, 390 wide at 3x:
+
+| Card | File |
+|---|---|
+| Rules | `v6-card-rules.png` |
+| 0 Today | `v6-card-0-today.png` |
+| 1 Specimen | `v6-card-1-specimen.png` |
+| 2 Constructed | `v6-card-2-constructed.png` |
+| 3 Side by side | `v6-card-3-side-by-side.png` |
+| 4 Dropped | `v6-card-4-dropped.png` |
+
+The source is `concepts/sketches/attitudes-v6.html`. The v5 files stay as
+the record of round 3's first build.
+
+### Specimen fixes 1–6
+
+1. **A visible cut or a real cream detail on each of the 11.** The card
+   says plainly which ones keep Today's shape (restaurant, café, tree).
+   The other eight are new:
+   - Cut Paper (a cut you can see at 24px):
+     - the bag's pinked top (5 teeth)
+     - the flag's snipped swallowtail
+     - the map's folds (area)
+   - Field Guide (a cream detail the thing really has):
+     - the olive in the glass
+     - the columns of the temple
+     - the blanket's edge on the bed
+     - the district's streets
+     - the road's centre line
+2. **A Today → Specimen pair strip,** 11 pairs at 24px, right under the
+   strip.
+3. **"Made from" now names Cut Paper and Field Guide only,** each with the
+   frames that back it. Spot Pictogram has moved to Constructed.
+4. **Area is a folded map,** three panels with fold gaps. It reads as
+   "a piece of map". The hatched square is gone. Constructed draws the
+   same idea in its own way.
+5. **"Costs" is rewritten against Constructed:** drawn by eye, not on a
+   grid, so balance takes judgement; softer and less exact.
+6. **Bar and flag:**
+   - The flag gained mass with the swallowtail (28%, from 20%).
+   - The bar is still the lightest (19%). The olive knocks some ink out
+     of it. I left the bar for phase 2.
+
+### Rules edits 7–8
+
+- The Roundel note is gone from the open-pin row.
+- "Filter chips show the icon on its own" now covers both concepts.
+- Nothing else changed.
+
+### Constructed (new card 2)
+
+Spot Pictogram, built the way Aicher drew the Munich 1972 pictograms.
+Every place is drawn 1:1 at 24px on a 2px grid: bars 2, 4 or 6px wide,
+circles, and cuts at 0°, 45° or 90°, lightly rounded by the same `#soft`
+filter as the check. Cream appears only as gaps the grid leaves (the
+fork's tines, the road's dashes, the district's streets).
+
+How each place is built:
+
+| Place | Parts |
+|---|---|
+| Fork and knife | Two 2px tines, a 45°-cut blade |
+| Cup | A rounded body, a squared handle, a 2px saucer bar |
+| Bar | A 45° triangle bowl, a 2px stem, a 2px foot |
+| Temple | A 45° pediment, three 2px columns, a 2px base |
+| Tree | Three 45° tiers |
+| Bag | A slightly tapered body, a squared handle |
+| Area | A folded map from three 45° panels |
+| Bed | Headboard, mattress and post bars, a circle head |
+| Flag | A pole, and a flag with a 45° notch |
+| District | A block cut by one straight street and one 45° street |
+| Street | A 6px road turning at 45°, with 2px cream dashes |
+
+The card has the same frames as Specimen's, plus a grid frame: the café,
+the bar and the tree at 104px over the 2px grid, with one sentence
+explaining it.
+
+Measured ink cover: Constructed averages 29% (20–41%), Specimen 28%
+(18–35%). So mass isn't the difference.
+
+Misreads I caught and fixed before rendering:
+- The bag with a round handle was a padlock. It now has a squared handle
+  and a tapered body.
+- The plain triangle flag was a play button. It now has a notch.
+- The perspective road was a traffic cone. It's now a road turning at 45°.
+- The 2×2 district was an app-launcher grid. It's now one block cut by
+  two streets.
+- Three upright bars for area were a bar chart. They're now panels
+  zig-zagging at 45°.
+
+### Side by side and dropped
+
+- **Side by side** is Today / Specimen: cut / Constructed: built, each with
+  the same strip, two rows, the tag strip and the busy map at the same
+  height.
+- **Dropped** adds Roundel, with its 11 at 24px and the director's line
+  word for word.
+
+### The kill test, honestly
+
+**In the 24px strip: they differ in how they're drawn.**
+- Specimen is curves, a flared lip, tiered scallops, a pinked edge and a
+  free-drawn road.
+- Constructed is straight bars, 45° triangles, square handles and a
+  6px road.
+- At a glance, about 8 of 11 are clearly different drawings: fork and
+  knife, bar, temple, tree, bag, flag, district and street.
+- The other three are siblings. The cup, the bed and the folded map share
+  the same idea and differ only in finish.
+
+**In a row: visible side by side, subtle alone.**
+- The café row is a curved cup on a lens saucer vs a square cup on a bar
+  saucer. You see it on the side-by-side card.
+- In one row on its own you'd notice "rounder" vs "squarer", not a
+  different system.
+
+**On the map:** same mass, same pin. Constructed reads a little crisper.
+
+So the test passes in the strip and passes only weakly in the row. The
+real difference is finish and method (cut vs built), not identity, because
+both obey the same law, the same circle and the same weight. That's
+honest, and probably right: they are two ways of drawing one system. If
+the director needs them apart *in the row at a glance*, I don't think any
+drawing-only difference will do that without breaking the shared rules.
+I'd say that to the owner in one line rather than force it.
+
+### Open questions
+
+1. Is "visible in the strip, subtle in the row" enough for the kill test?
+   (Director.)
+2. Should the 3 sibling glyphs (cup, bed, map) be pushed further apart in
+   Constructed (for example a cup that's one 2px ring plus a bar), or is
+   that phase 2?
+3. Constructed's selected pin draws the glyph at 1.25× (32px pin). That
+   breaks "1 grid unit = 2px" in that one place. Alternatively keep it
+   1:1 with more paper. (Phase 2.)
+
+NEXT: product designer (systems focus) — coverage run on the six v6 cards
+against jobs 1–13, then the director scores in one pass.
+
+---
+
+## Turn 20: product designer (systems focus), coverage on the v6 cards
+
+The full table is in `coverage.md` (round 3b, at the top). **No blockers.**
+Every job from 1 to 13 is supported on Specimen, Constructed and the rules
+card. Jobs 1–2 are covered by the v4 brand card he already has.
+
+- **The v5 blockers are closed.** Job 8: Specimen names Cut Paper and Field
+  Guide, Constructed names Spot Pictogram, so all three of his directions
+  are accounted for and the frames back each claim. Job 10: "Where outlines
+  appear" is on the rules card, and the open-pin row is now true for both
+  concepts.
+- **Structure:** the two concepts share the law, the circle, the 2.00px
+  weight and every tool, and differ only in how a place is made (cut vs
+  built). On the job side that's right: one system, two drawing methods,
+  which is the choice he's being asked to make. Constructed's grid frame
+  also makes the weight rule and the drawing rule visibly one rule. That's
+  the strongest phase-2 seed on the board.
+- **One copy fix:** the rules card's weight table still says "place
+  circles: rows, pins, 16px chips". That's left over from Roundel, and it
+  contradicts its own "Filter chips show the icon on its own". Make it
+  "rows and pins".
+- **For the score, not blockers:** in Constructed, the restaurant reads as
+  "Y4", the street as a pencil (which means "edit"), and the district's 45°
+  street renders as a blur rather than a cut.
+
+On my structural question from turn 19's open point 3 (Constructed's
+selected pin at 1.25×): it doesn't affect any job, and it belongs in the
+phase-2 grid rules for optical sizes. I'll carry it into the handoff.
+
+NEXT: design director — score the v6 cards in one pass (coverage is clean;
+one copy fix on the rules card and the three Constructed drawing findings
+are in `coverage.md`).
+
+## Turn 21: product designer (visual focus), v6 fixes from coverage
+
+I fixed the four findings in `coverage.md` and re-rendered all six
+`v6-card-*.png` from `attitudes-v6.html`. That covers the strips, the
+side-by-side card and the busy maps.
+
+1. **Rules card, weight row.** "place circles: 2.00px: rows and pins"
+   (chips dropped).
+2. **Constructed restaurant** read as "Y4". It's now a place setting: a
+   solid 3.5 plate between a fork (3px head, 45° shoulders, 2px handle)
+   and a knife cut at 45°. The plate makes it say "restaurant".
+3. **Constructed street** read as a pencil (edit). It's now a 6px road
+   that steps across at 45° (a switchback, square ends, no point), with
+   2px cream dashes. The remaining risk is that it reads as an escalator,
+   but not as a tool.
+4. **Constructed district.** The 45° cream street blurred (anti-aliasing
+   under the soft filter). Now the streets are only the 2px gaps on the
+   grid, at 0° and 90°: three blocks, each with a 45° corner cut so it
+   doesn't read as a UI layout grid.
+
+Ink cover: Constructed now averages 30%, Specimen 28%.
+
+NEXT: design director — score the v6 cards in one pass.
+
+---
+
+## Turn 22: design director, round 3b scores
+
+Full text in `scores.md` (round 3b). Rules 9, Specimen 9, Constructed 8.
+The kill test passes ("clear in the strip, subtle in the row") as long as
+the side-by-side card says where to look.
+
+Rulings on turn 19's questions:
+1. Pass, with a line on the side-by-side card.
+2. Cup, bed and map go to phase 2. No 2px-ring cup: an outlined place
+   breaks "places are solid".
+3. The 1.25× selected-pin glyph is allowed in the stills. It's phase-2
+   grid work.
+
+Five fixes (copy plus two drawings): the side-by-side line; Constructed
+names the shapes it keeps from Today and gets a pair strip; Constructed
+restaurant (reads as a dumbbell); Specimen drops "closest to what you
+know"; Constructed district (check the logo read).
+
+NEXT: product designer (visual focus) — fixes 1–5 in scores.md round 3b,
+re-render the v6 cards; then the director checks cards 1–3 (a look, not a
+re-score) and hands the send list to the coordinator.
+
+## Turn 23: product designer (visual focus), round 3b fixes
+
+All six `v6-card-*.png` are re-rendered from `attitudes-v6.html`.
+
+1. **Side by side:** the director's line is under the title, word for
+   word.
+2. **Constructed:**
+   - "What it is" now says "Cup, glass, tree and bed keep Today's shape
+     (Today's are already built this way); the other seven are new."
+   - A Today → Constructed pair strip sits under the 24px strip, like
+     Specimen's.
+3. **Constructed restaurant** is redrawn on the grid as a fork and a knife
+   side by side, with no plate:
+   - The fork has three 2px tines with 1px cuts between them, and 45°
+     shoulders down to a 2px handle.
+   - The knife has a 3px blade with a quarter-circle back and a 2px
+     handle.
+   - At 24px it reads as cutlery, not a dumbbell. The 1px tine cuts are
+     half a grid unit, the one place the grid halves. I'm naming that
+     here, not on the card.
+4. **Specimen "Good at"** is now "Warm and a little playful; the most
+   whimsy."
+5. **Constructed district:** the old one (three blocks with corner cuts)
+   could read as a "P" or a logo, so I redrew it. It's now four unequal
+   blocks split by 2px straight streets, with a 45° corner on the top-left
+   block. It reads as city blocks. Because the blocks are unequal, it
+   doesn't read as an app grid.
+
+NEXT: design director — check cards 1–3 and hand the send list to the
+coordinator.
+
+
+---
+
+## Turn 24: design director, fix-pass check
+
+Constructed is 9; Specimen and the side by side hold. READY after two
+text-only edits (Specimen's "Café and tree keep Today's shape; the other
+nine are new"; Constructed's costs "(the temple, the folded map)"). The
+send list and the owner questions are in `scores.md` round 3c.
+
+NEXT: coordinator — have the two copy edits made and re-rendered, confirm
+the words, then send the six v6 cards and the two questions to the owner.
