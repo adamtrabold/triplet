@@ -104,3 +104,4 @@ Pick: band 12 (eyelet ring straddling the band edge is GOOD, not a flaw). Next: 
 > We’ve beaten this bottom to death I think it’s the badge for now. Conceptually it’s stronger because the circle relates to the icon, the tag isn’t really what you’re adding it’s the pin
 
 Approved: Float (the badge) — orange scalloped badge, navy +, bottom-left ("for now"). Reason: the circle relates to the (pin) icon; what you add is a pin, not a tag. C (tag-as-button) set aside. Open: whether the approval covers the round-10 blank-tag form too (asked).
+(Owner correction: "bottom" in the decision above was meant as "button".)
