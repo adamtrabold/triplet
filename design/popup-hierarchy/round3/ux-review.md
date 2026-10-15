@@ -2,7 +2,7 @@
 
 UX agent, 2026-10-05, on the designer's `a2df37e`. Brief: `docs/ux-brief.md`.
 Jobs J1–J10 come from `../ux-analysis.md`. Hard limits and soft defaults are
-from `../round2/ux-review.md` §4. I judged the **idea**: a concept is killed
+from `../../archive/popup-hierarchy/round2/ux-review.md` §4. I judged the **idea**: a concept is killed
 only for an idea-level interaction failure. Each must-fix below says whether
 a better execution could fix it. Evidence comes from the 1x phone stills
 (busiest first), then the 3x crops and the f-frames.

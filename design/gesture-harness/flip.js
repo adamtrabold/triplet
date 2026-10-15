@@ -1,5 +1,5 @@
 // FLIP SUITE -- the "+ 8" of the star gate "84 + 8 (+ N8-a)". Re-implements
-// design/pencil-star/flip6.js (N5-a) on this harness: frame-by-frame proof that no
+// design/archive/pencil-star/flip6.js (N5-a) on this harness: frame-by-frame proof that no
 // visible glyph changes on a STILL frame. Per rAF on the stroked row it logs the h3
 // signature (node identity | text | clientWidth), the name's MEASURED screen x (a
 // Range on the first glyph) and the truncation edge vs the mask's fade start.

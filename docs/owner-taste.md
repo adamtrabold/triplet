@@ -180,7 +180,7 @@ sources are the file where the quote is recorded.
 - **Motion must be visible and symmetric.** "too fast I can't see it" ; "too
   pointy" ; "more dramatic pop and angle" ; "the star should slightly pop out
   when erasing it" ; "Star animation should go both ways" (Pencil Star;
-  `docs/shipped.md`, `design/swipe-visit/p8-design.md`).
+  `docs/shipped.md`, `design/archive/swipe-visit/p8-design.md`).
 - **Moving rows move everything.** "it should move like any other element"
   (stamp during swipe; `design/state-system/sheet.html`).
 
@@ -345,7 +345,7 @@ sources are the file where the quote is recorded.
 - **A toggle must look like a toggle.** "toggler doesn't look like a toggle"
   (Plans/Places; chat).
 - **Reuse existing control styles.** "the same text button not a new button
-  style" (Get Directions; `design/swipe-visit/p8-design.md`).
+  style" (Get Directions; `design/archive/swipe-visit/p8-design.md`).
 - **Copy: "Directions" is fine.** "Directions is fine" (2026-10-05, popup
   action label, replacing "Get Directions"; chat).
 - **Grip/number leads, by convention.** "number/drag control should probably

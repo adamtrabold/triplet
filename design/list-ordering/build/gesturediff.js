@@ -1,7 +1,7 @@
 // Differential row-gesture check: the same gestures (by place id) against REPO's index.html.
 // Prints one JSON line of outcomes; run once with REPO=<base checkout> and once on this branch, compare.
-// (The tracked suites test6/flip6/vtest need design/pencil-star/lib.js, s2.js, r5-metrics.js and
-// design/star2/lib.js, which were never committed; this is the stand-in.)
+// (The archived suites test6/flip6/vtest need the Pencil Star harness -- lib.js, s2.js,
+// r5-metrics.js and a "star2" lib.js -- which was never committed; this is the stand-in.)
 const { open, launch } = require('./harness');
 const W = ms => new Promise(r => setTimeout(r, ms));
 async function pt(page, id, sel) { await page.evaluate(id => document.querySelector(`.location-card[data-id="${id}"]`).scrollIntoView({ block: 'center' }), id); await W(150);

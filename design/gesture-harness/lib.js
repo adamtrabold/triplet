@@ -4,8 +4,9 @@
 // delete and touchend; and synthesises touch input through CDP
 // Input.dispatchTouchEvent at real timing.
 //
-// Replaces the never-committed design/pencil-star/lib.js, s2.js, r5-metrics.js
-// and design/star2/lib.js (see README.md). Chromium only: this is emulated
+// Replaces the Pencil Star harness (lib.js, s2.js, r5-metrics.js) and a second
+// star lib.js ("star2"), none of which was ever committed (see README.md).
+// Chromium only: this is emulated
 // touch, not iOS.
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs'), path = require('path'), zlib = require('zlib');

@@ -106,9 +106,9 @@ pick/redirect before building anything.
   starred (no always-visible or hollow star in the list). Open: the POPUP
   star's alignment when the popup has full content (long name, address,
   notes); includes the CD-deferred 41px empty gap above Get Directions in a
-  bare popup (star-target geometry). **Active concept thread:
-  `design/popup-star-alignment/`.** `design/star-alignment/` is history
-  only: an earlier exploration (2026-09-28) that misframed the problem as
+  bare popup (star-target geometry). (The concept thread it named,
+  `design/popup-star-alignment/`, never reached main.)
+  `design/archive/star-alignment/` is history only: an earlier exploration (2026-09-28) that misframed the problem as
   an outline/list-row question, so its variants (reserved-column,
   dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
   are not candidates.
@@ -131,7 +131,7 @@ pick/redirect before building anything.
   to rows": dark sticker on map pins, the stamp on rows). Original item, for history: (owner,
   2026-09-29 ask; final check size/shape decisions 2026-10-02). Supersedes
   the old "Visited pins have no map treatment" thread: Round 4 dots
-  (`design/visited-marker/concept/`) were REJECTED by the owner as visual
+  (`design/archive/visited-marker/concept/`) were REJECTED by the owner as visual
   noise; do not revive. Approved direction, in stills:
   `design/visited-system/stamp-first/README.md` (final spec at top).
   Pin = category-wash face + centred check (9px NEAR, 6.2px FAR, selected
@@ -235,15 +235,13 @@ pick/redirect before building anything.
   2026-10-15 with the + badge: the panel covers the badge (close filters
   first); a keyboard open closes filters and the sort menu.
 
-- **+ rides up with the filters panel** (owner, 2026-10-15: "for 1 let's
-  push the + up with the panel"; then "the panel height should all just be
-  responsive"; ceiling A: "stops below zoom and account"). BUILT on branch
-  `plus-rides-filters` (not landed; the owner sees the stills first):
-  the panel sizes to its content up to 12px below the zoom/account row and
-  scrolls inside past that; the + rides the panel's top edge wherever its box
-  clears that row by 12 (live measurement), else the panel covers it. Spec:
-  `docs/shipped.md` "+ badge" entry; stills
-  `design/add-button-placement/build/filters/`.
+- ~~**+ rides up with the filters panel**~~ LANDED 2026-10-15 (main
+  `764c45a`). The panel sizes to its content up to 12px below the
+  zoom/account row and scrolls inside past that. The + rides the panel's top
+  edge wherever it fits; where it doesn't, it moves to the top-right at the
+  account's size and the account steps left. Spec: `docs/shipped.md` "+
+  badge" entry; stills `design/add-button-placement/build/filters/` and
+  `build/top/`.
 
 - **A place added in another city vanishes from the list** (found
   2026-10-12 by the + placement crew, in a prototype). If the place you
@@ -300,8 +298,8 @@ pick/redirect before building anything.
 - **A tap on the +'s spot with the filters panel open** (+ badge review,
   2026-10-15). The panel covers the badge by design; a tap where the + usually
   sits lands on a category chip and silently toggles that filter off. Owner
-  answered: "for 1 let's push the + up with the panel" -- FIXED on branch
-  `plus-rides-filters` (not landed): the + rides above the panel where it
+  answered: "for 1 let's push the + up with the panel" -- FIXED, landed
+  2026-10-15 (main `764c45a`): the + rides above the panel where it
   fits. Where it doesn't, it moves to the top-right corner, matched to the
   account's size, and the account steps left (owner: "matched is good but
   let's put it to the right of account"), so no chip is ever under it.

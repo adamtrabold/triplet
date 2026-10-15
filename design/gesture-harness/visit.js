@@ -1,4 +1,4 @@
-// VISIT SUITE -- `vtest.js` of the gate. Re-implements design/swipe-visit/vtest.js
+// VISIT SUITE -- `vtest.js` of the gate. Re-implements design/archive/swipe-visit/vtest.js
 // (the committed p7 version: 49 cases full + 46 reduced = 95) on this harness, against
 // the real index.html. Same case list and numbering. Cases whose behaviour was
 // superseded after p7 assert the CURRENT code and are tagged:

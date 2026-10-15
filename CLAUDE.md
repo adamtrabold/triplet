@@ -20,6 +20,7 @@ This file loads every session: keep it to rules and pointers. Detail goes in:
 - `docs/cd-brief.md` — mandatory brief/checklist for every CD agent.
 - `docs/owner-taste.md` — the owner's stated design-taste rules, verbatim.
 - `design/<feature>/` — design records; `design/inspo/` — visual reference.
+- `design/archive/` — finished/superseded design work. Ignore unless you need history.
 
 When something ships: add its entry to `docs/shipped.md`, close it in
 `docs/backlog.md`, add its iPhone checks, and touch this file only if a rule
@@ -72,7 +73,9 @@ no design/UX/brand calls (Roles below); designers read `docs/owner-taste.md`
 and new taste rules go there the same day; the owner's quotes go in briefs
 verbatim; messages to the owner are terse, plain language, one per real event
 (decision needed, thing live, blocker); a plain bug the owner reports is
-verified by one agent before theorizing. Everything else is optional.
+verified by one agent before theorizing; when the owner calls a shown look
+good, that is the go to land it — don't ask again (owner: "yes when i say
+something is good that means ship it"). Everything else is optional.
 
 ### Roles (owner-set)
 
@@ -185,8 +188,8 @@ operator makes none of these calls.
 - **Row gestures (Pencil Star right, visit left):** report the star gate as
   **"84 + 8 (+ N8-a)"**, never "84"; visit suite `vtest.js`; plus
   popup-open 20/20, 0 dust-over-text frames, rows 56.00px, curve8 frame
-  counts; plan-rows (Plans stop rows: number, 400ms hold, × / +) once
-  Plans is in the page. Delete fires only on a near-still tap
+  counts; plan-rows (Plans stop rows: number, 400ms hold, × / +; suite
+  `plans.js`). Delete fires only on a near-still tap
   (`DELETE_TAP_SLOP` 4px). All of it runs with
   `design/gesture-harness/run-all.sh [index.html]`
   (Chromium-emulated touch; see its README for limits and known failures).

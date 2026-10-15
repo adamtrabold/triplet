@@ -21,6 +21,15 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   "Leaflet |"; (5) tap +, then type in a field with the keyboard up: ADD
   LOCATION stays reachable (sticky) and the × cancels; (6) a tag open, tap
   +: the tag closes and the form opens; × brings the same tag back.
+- **The + and the filters panel (landed 2026-10-15):** open the filters.
+  (1) On a tall phone in a Safari tab, the + rides up above the panel, in
+  step with it. (2) In the Home Screen app, and in a Safari tab with the
+  toolbar showing, the + glides to the top-right at the account's size while
+  the account steps left; it should read as one calm move. Tell us if
+  passing under the account mid-move looks like a collision. (3) The panel
+  never covers the zoom or account row, and its chips scroll inside it.
+  (4) Tap the + there: filters close and the form opens; the account slides
+  back.
 - **Suggestions over the x (landed 2026-10-15):** tap +, type
   a place name: where the suggestion list meets the ×, the list is on top
   and tapping that part picks the suggestion (the form stays open); the ×

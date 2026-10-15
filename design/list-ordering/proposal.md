@@ -436,8 +436,8 @@ finds the heading-as-dial too clever or too easy to tap by accident
 A static filmstrip of both treatments (heading-as-dial across its three
 mode frames, plus the rejected icon-button variant, and a "What's Left"
 list body underneath so the tiering is visible in place) is at
-`design/list-ordering/concept/mockup.html`, screenshotted to
-`design/list-ordering/concept/mockup.png`. Built from the app's real
+`design/archive/list-ordering/concept/mockup.html`, screenshotted to
+`design/archive/list-ordering/concept/mockup.png`. Built from the app's real
 tokens/classes (`--paper`, `--ink`, `--hair`, `.location-card`,
 `.row-star`, `#locationsHeader`'s exact 56px/32px-button geometry) copied
 verbatim, not approximated — concept fidelity, not production code.
