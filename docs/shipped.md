@@ -1378,8 +1378,30 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     On desktop the form now opens at the BOTTOM of the map column, beside the
     + (it turns × in place), not at the top as before (owner saw
     `design/add-button-placement/build/17-desktop-form-open-1280x800.png`).
-  - z 998: over the map and the form, under the filters panel (999), which
-    covers it by design. With the sort menu open it lifts above the scrim
+  - z 998: over the map and the form, under the filters panel (999).
+  - **Filters panel (branch `plus-rides-filters`, 2026-10-15, not landed).**
+    Owner: "let's push the + up with the panel" ; "at the smaller sizes where
+    the + goes off screen, just have the filters go over the +" ; "the panel
+    height should all just be responsive" ; "stops below zoom and account".
+    - The panel sizes to its content up to `--top-row-bottom` (74 + the
+      safe-area top: the zoom control's foot) + `--s3`, and scrolls inside past
+      that, in every mode (list up, collapsed, the rail). It replaces the
+      `40vh + 33px` cap. `sizeFiltersPanel()` re-runs when the panel opens or
+      the list collapses under it.
+    - The + rides the panel's top edge (`body.add-rides-filters`,
+      `--filters-lift` = the panel's height; the same 15.22 gap and 0.3s ease)
+      whenever its box clears the zoom/account row by 12, decided live by
+      `syncFiltersLift()`. Otherwise the panel covers it, as before.
+    - Measured with the stub's 5 cities (panel 369px): it rides at 390x844
+      Safari (+ box top 97.8), list collapsed and desktop; it's covered at
+      390x844 Home Screen, 664, 667 and 320 with the list up. With 11 cities
+      (411px) it's covered at 844 Safari too, and the panel scrolls at the
+      Home Screen, 664 and 320 (panel tops at 86).
+    - `tagSheetGap()` adds the lift back, so the tag gap stays 88 while
+      lifted.
+    - Gates: Impeccable passed; places-ux 30/30, popup-open 42/42, tag-sync
+      12/12, plans 32/32. Stills: `design/add-button-placement/build/filters/`.
+  - With the sort menu open it lifts above the scrim
     (2560), so one tap closes the menu and opens the form.
   - Screen reader: "Add a place" / "Close add form", `aria-expanded`,
     `aria-controls="addForm"`. Esc with place suggestions showing closes only

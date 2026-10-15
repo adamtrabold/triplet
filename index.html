@@ -197,6 +197,10 @@
       --add-ink-inset: 4.68px;
       --add-ink-gap: 19.9px;
       --add-box-gap: calc(var(--add-ink-gap) - var(--add-ink-inset));   /* 15.22: box edge to the screen's left / the sheet's top */
+      /* The top control row's foot: Leaflet's zoom control (10px margin + its 64px box) under
+         .leaflet-top's safe-area inset -- the lowest of the top-row controls (the account badge's
+         foot is 66 + --chrome-top-inset). The filters panel never grows past it (+ --s3). */
+      --top-row-bottom: calc(74px + env(safe-area-inset-top, 0px));
 
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
@@ -1821,11 +1825,28 @@
     .plan-act:first-child { margin-left: calc(var(--s3) * -1); }
     .plan-act:active { background: var(--state-press); }
 
-    /* The panel is as tall as Places' content, capped at 40vh + 33px (371px
-       at 390x844), and the SAME height in both views (sizeFiltersPanel()):
-       Plans' picker row makes the chips scroll, never the panel grow, so the
-       switch, the map above and the sheet below never move. */
-    #filtersPanel { max-height: calc(40vh + 33px); overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+    /* The panel is as tall as Places' content, up to just below the zoom / account row
+       (--top-row-bottom + --s3; owner, 2026-10-15: "stops below zoom and account", "the panel
+       height should all just be responsive"), and scrolls inside itself past that. It is the SAME
+       height in both views (sizeFiltersPanel()): Plans' picker row makes the chips scroll, never
+       the panel grow, so the switch, the map above and the sheet below never move. Its foot sits
+       on the list's edge (or the band, collapsed; the screen's foot on the rail). */
+    #filtersPanel {
+      max-height: calc(100vh - 300px - var(--chrome-bottom) - var(--top-row-bottom) - var(--s3));
+      max-height: calc(100lvh - 300px - var(--chrome-bottom) - var(--top-row-bottom) - var(--s3));
+      overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    }
+    #filtersPanel.collapsed-mode {
+      max-height: calc(100vh - 60px - var(--sheet-under) - var(--top-row-bottom) - var(--s3));
+      max-height: calc(100lvh - 60px - var(--sheet-under) - var(--top-row-bottom) - var(--s3));
+    }
+    @media (min-width: 900px) {
+      #filtersPanel,
+      #filtersPanel.collapsed-mode {
+        max-height: calc(100vh - var(--top-row-bottom) - var(--s3));
+        max-height: calc(100lvh - var(--top-row-bottom) - var(--s3));
+      }
+    }
 
     /* Plans keeps the sort (it orders the places below the rule; stops keep
        plan order) -- except with no plan open, when there is nothing to sort. */
@@ -9213,7 +9234,9 @@
       document.documentElement.style.setProperty('--filters-lift', lift.toFixed(2) + 'px');
       document.body.classList.toggle('add-rides-filters', lift > 0);
     }
-    new MutationObserver(syncFiltersLift).observe(document.getElementById('filtersPanel'), { attributes: true, attributeFilter: ['class'] });
+    // Opening, closing, or the list collapsing under it (collapsed-mode): re-size the panel to its
+    // new room first (sizeFiltersPanel() reads the max-height), then re-check the lift.
+    new MutationObserver(() => { sizeFiltersPanel(); syncFiltersLift(); }).observe(document.getElementById('filtersPanel'), { attributes: true, attributeFilter: ['class'] });
     if (window.ResizeObserver) new ResizeObserver(() => syncFiltersLift()).observe(document.getElementById('filtersPanel'));
     window.addEventListener('resize', syncFiltersLift);
 

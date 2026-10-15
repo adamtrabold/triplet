@@ -237,13 +237,13 @@ pick/redirect before building anything.
 
 - **+ rides up with the filters panel** (owner, 2026-10-15: "for 1 let's
   push the + up with the panel"; then "the panel height should all just be
-  responsive"). WIP on branch `plus-rides-filters` (`987704c`, not landed):
-  the + rides the panel's top edge where it fits, else the panel covers it.
-  Waits on the owner's pick of the panel-height ceiling (options as put to
-  the owner: A below the zoom/account row, B up to the top of the screen,
-  C a percentage of the map height; the options are not recorded in the
-  repo). Owner's words: `design/add-button-placement/owner.md` on
-  `claude/elegant-galileo-1c5ntm`.
+  responsive"; ceiling A: "stops below zoom and account"). BUILT on branch
+  `plus-rides-filters` (not landed; the owner sees the stills first):
+  the panel sizes to its content up to 12px below the zoom/account row and
+  scrolls inside past that; the + rides the panel's top edge wherever its box
+  clears that row by 12 (live measurement), else the panel covers it. Spec:
+  `docs/shipped.md` "+ badge" entry; stills
+  `design/add-button-placement/build/filters/`.
 
 - **A place added in another city vanishes from the list** (found
   2026-10-12 by the + placement crew, in a prototype). If the place you
@@ -300,8 +300,13 @@ pick/redirect before building anything.
 - **A tap on the +'s spot with the filters panel open** (+ badge review,
   2026-10-15). The panel covers the badge by design; a tap where the + usually
   sits lands on a category chip and silently toggles that filter off. Owner
-  answered: "for 1 let's push the + up with the panel" -- now the "+ rides up
-  with the filters panel" item above (`plus-rides-filters`).
+  answered: "for 1 let's push the + up with the panel" -- FIXED on branch
+  `plus-rides-filters` (not landed): the + rides above the panel where it
+  fits. Where it doesn't (short phones with the list up, the Home Screen at
+  844, any panel taller than its room) the panel still covers it, by the
+  owner's call ("at the smaller sizes where the + goes off screen, just have
+  the filters go over the +"), so a tap on that spot still hits a chip
+  there.
 - **Open task, for the designers: `planSafeBox()` treats the + badge's top as
   a full-width bottom limit** (+ badge review, 2026-10-15). The badge is in
   `planChrome()`, so plan fits lose about 100px at the bottom across the whole
