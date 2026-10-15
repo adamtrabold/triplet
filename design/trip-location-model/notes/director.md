@@ -191,3 +191,4 @@ Plumbing: the anchor, the continent table, the no-town fallback.
 ### Lesson
 Count the rules a person must hold. If you can't say it out loud in
 three lines, it doesn't sing.
+- 2026-10-15 (turn 20): split-unvisited = plumbing, if the split fix says 'places you've been stay'. Tie-break = plumbing, but rule 2 reworded: 'A place joins its city's trip; a new continent starts one quietly.' Overview passes, with that edit. Scores 9/9/7.

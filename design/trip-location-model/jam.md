@@ -2152,3 +2152,45 @@ plumbing, then everything else, kept short.
 
 NEXT: director — check the split-takes-unvisited plumbing; then a fresh
 checker on the ids above.
+
+## Turn 20 -- design director: plumbing checked; overview checked
+
+### 1. A split takes only the city's unvisited places: plumbing, accepted
+- It happens as the result of a fix the owner performs, so the outcome
+  shows up at once. Nobody has to predict it.
+- It also matches what a person expects: what you've already done stays
+  with the old trip, and what's still wanted moves to the new one.
+- **One condition:** the split fix's description carries it in plain
+  words: "places you've already been stay with the old trip".
+  Then it's understood, not hidden.
+
+### 2. The tie-break when a continent has two trips: plumbing, but rule 2's wording must change
+- After a split, rule 2 ("one trip per continent at a time") is no
+  longer literally true. A person reading it would predict wrong, so the
+  rule as written is the bug, not the tie-break.
+- **Reword rule 2 to what actually happens, which is simpler:**
+  > **"A place joins its city's trip. A place on a continent where you
+  > have no trip starts one quietly."**
+- Trips then follow cities: rule 1 picks the city, and the city carries
+  the trip.
+- "Nearest city's trip" and "most recently added-to on a tie" sink into
+  plumbing, because a person never needs them to predict the common
+  case.
+- Still three rules; none added.
+
+### 3. The overview at phone size: passes, with one edit
+- It's shorter (2911), with one idea per card, every number marked "we
+  think", and the price plainly said.
+- **Edit:** card 1's rule 2 takes the wording above, in concept 1's file
+  and jobs.md Terms as well.
+
+### Scores
+- Concept 1: 9.
+- Concept 2: 9.
+- Concept 3: 7.
+Unchanged; the work only got simpler.
+
+NEXT: product designer (systems focus) — reword rule 2 (overview,
+concept 1, jobs.md Terms) and add the "places you've already been stay"
+line to the split fix. After the checker passes, the orchestrator sends
+the overview and the seven live questions (Q1-Q6, Q8).
