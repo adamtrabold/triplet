@@ -944,7 +944,8 @@
       border: 1px solid var(--navy);
       border-top: none;
       border-radius: 0 0 2px 2px;
-      max-height: 300px;
+      /* --ac-room: visible room below the field, set by fitAutocomplete() */
+      max-height: min(300px, var(--ac-room, 300px));
       overflow-y: auto;
       z-index: 1000;
       display: none;
@@ -4214,6 +4215,7 @@
       const autocompleteDiv = document.getElementById('addressAutocomplete');
       autocompleteDiv.innerHTML = '<div class="autocomplete-loading">Searching...</div>';
       autocompleteDiv.classList.add('show');
+      fitAutocomplete();
 
       const isStale = () => seq !== searchSeq || document.getElementById('nameInput').value !== query;
       try {
@@ -4283,6 +4285,30 @@
 
       hideAutocomplete();
     }
+
+    // The suggestion list hangs below the Name field inside #mainContent,
+    // which is overflow: hidden and ends where the bottom sheet starts, so on
+    // phones its CSS max-height (300px) ran past that edge and the bottom was
+    // cut off. Cap it to the room actually visible below the field (nearest
+    // clipping ancestor, and the visual viewport so an on-screen keyboard
+    // counts) via --ac-room; it scrolls inside that, the CSS 300px cap still applies.
+    function fitAutocomplete() {
+      const dd = document.getElementById('addressAutocomplete');
+      if (!dd.classList.contains('show')) return;
+      const top = dd.getBoundingClientRect().top;
+      const vv = window.visualViewport;
+      let bottom = vv ? vv.offsetTop + vv.height : window.innerHeight;
+      for (let el = dd.parentElement; el; el = el.parentElement) {
+        const cs = getComputedStyle(el);
+        if (cs.overflowY !== 'visible') bottom = Math.min(bottom, el.getBoundingClientRect().bottom);
+      }
+      const room = Math.floor(bottom - top);
+      if (room > 0) dd.style.setProperty('--ac-room', `${room}px`);
+      else dd.style.removeProperty('--ac-room');
+    }
+    window.addEventListener('resize', fitAutocomplete);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', fitAutocomplete);
+    if (window.ResizeObserver) new ResizeObserver(fitAutocomplete).observe(document.getElementById('mainContent'));
 
     // Hide autocomplete dropdown
     function hideAutocomplete() {
