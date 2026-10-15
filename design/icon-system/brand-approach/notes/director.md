@@ -363,3 +363,49 @@ the frames show. Check "Made from" lines against the pixels every round.
 Visual: Specimen fixes 1–6, the rules edits 7–8, a new Constructed card
 (with a grid frame), side by side rebuilt, Roundel added to dropped. Then
 systems coverage, then I score in one pass (side by side first).
+
+---
+
+## Round 3b scores (v6 cards), 2026-10-15: one short fix pass, then READY
+
+Full text in scores.md. Rules 9, Specimen 9 (one copy edit), Constructed
+8, the side-by-side card passes the kill test with one line added, the
+dropped card is fine.
+
+### Rulings on visual's questions
+1. Kill test PASSES on "clear in the strip, subtle in the row", provided
+   the side-by-side card says so in one line. The concepts share every rule
+   on purpose. The choice is the drawing method (hand-cut vs 2px grid).
+   Forcing a row-level difference would be the recurring gimmick.
+2. Constructed's cup, bed and map: phase 2. Don't push them for
+   difference. The "2px ring cup" idea is rejected: an outlined place
+   breaks "places are solid".
+3. The 1.25× glyph in the 32px selected pin is allowed in the stills.
+   Optical sizing is a phase-2 grid rule (systems carries it).
+
+### Fixes outstanding (I check cards 1–3 when they land, no re-score)
+1. The side-by-side line on where to look.
+2. Constructed names which places keep Today's shape, plus a Today →
+   Constructed pair strip.
+3. Constructed restaurant reads as a dumbbell: redraw on the grid.
+4. Specimen "Good at": drop "closest to what you know".
+5. Constructed district: check the letter/logo read; fix only if needed.
+
+### Send (after the check)
+Rules, 0 Today, 1 Specimen, 2 Constructed, 3 Side by side, 4 Dropped
+(the v6 files). The two questions are word for word in scores.md.
+
+### For phase 2 (carry into the handoff)
+- Grid seed: Constructed's 2px unit = the line weight. That's useful even
+  if he picks Specimen (balance by eye on the same unit).
+- Optical sizes: 12px chips, the 32px selected pin (1.25× vs 1:1).
+- Weak glyphs in both: bar (light), street (fuzzy dashes/beads), cup, bed
+  and map (siblings).
+- Real radii instead of the `#soft` filter. Map-star keylines.
+- Tool/MCP recommendation owed.
+- The far pin and the Plans + stay as they are (rules card).
+
+### Lesson (rounds 1–3b)
+Difference comes from the drawing method, split along the owner's own
+words, never from framing or size. Card copy must say exactly what changed
+and where to look.

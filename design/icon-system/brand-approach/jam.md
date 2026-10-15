@@ -2463,3 +2463,27 @@ side-by-side card and the busy maps.
 Ink cover: Constructed now averages 30%, Specimen 28%.
 
 NEXT: design director — score the v6 cards in one pass.
+
+---
+
+## Turn 22: design director, round 3b scores
+
+Full text in `scores.md` (round 3b). Rules 9, Specimen 9, Constructed 8.
+The kill test passes ("clear in the strip, subtle in the row") as long as
+the side-by-side card says where to look.
+
+Rulings on turn 19's questions:
+1. Pass, with a line on the side-by-side card.
+2. Cup, bed and map go to phase 2. No 2px-ring cup: an outlined place
+   breaks "places are solid".
+3. The 1.25× selected-pin glyph is allowed in the stills. It's phase-2
+   grid work.
+
+Five fixes (copy plus two drawings): the side-by-side line; Constructed
+names the shapes it keeps from Today and gets a pair strip; Constructed
+restaurant (reads as a dumbbell); Specimen drops "closest to what you
+know"; Constructed district (check the logo read).
+
+NEXT: product designer (visual focus) — fixes 1–5 in scores.md round 3b,
+re-render the v6 cards; then the director checks cards 1–3 (a look, not a
+re-score) and hands the send list to the coordinator.

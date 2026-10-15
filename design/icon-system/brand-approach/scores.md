@@ -528,3 +528,120 @@ Questions, only these two:
 2. "OK to move to phase 2 with that and the rules card? That's research,
    one shared grid, every icon redrawn as SVG, the + and the account set to
    the project weight, and a recommendation on the drawing tool."
+
+---
+
+## Round 3b (v6 cards), 2026-10-15: NOT READY, one short fix pass
+
+Scored in one pass, side by side first. Frames:
+- `v6-card-3-side-by-side.png`, with its three 24px strips cropped at full
+  resolution and stacked (Today / Specimen / Constructed)
+- `v6-card-1-specimen.png`, the top half (copy, strip, Today → Specimen
+  pairs)
+- `v6-card-2-constructed.png`, all of it (copy, strip, grid frame, 12px,
+  one ink, header, rows, both tags, the busy map, far zoom, chips)
+- `v6-card-rules.png`, the table and the end
+- `v6-card-4-dropped.png`
+
+Today (card 0) is reference and isn't scored.
+
+| Card | Score |
+|---|---|
+| Rules | **9** (from 8). Both copy edits landed, and the weight row now says "rows and pins". |
+| 1 Specimen | **9** (from 8), with one copy edit (fix 4) |
+| 2 Constructed | **8** (new) |
+| 3 Side by side | Passes the kill test, with one line added (fix 1) |
+| 4 Dropped | Fine. Roundel's line is word for word. |
+
+### Likely owner objections, before scoring
+
+1. **"Specimen and Constructed look the same."** In a single row, yes:
+   they share the circle, the colour, the weight and the law on purpose.
+   In the strip, about half the set differs clearly (restaurant, temple,
+   flag, district, street, the bag's top, the olive). *Likely, unless the
+   card says up front where to look.*
+2. **"Constructed is just Today."** Its cup, bar and tree are, near
+   enough, Today's drawings (Today's set is already built on bars and
+   45°). Specimen's card says which shapes it keeps; Constructed's doesn't.
+   *Likely.*
+3. **"What's that?"** Constructed's restaurant (plate between fork and
+   knife) reads as a dumbbell or "|o|" at 24px, and it's the most common
+   pin on the map. Its district reads as a letter or a logo ("P"). *Likely
+   for the restaurant; possible for the district.*
+4. Specimen's street (beads on a strip) and bar (the olive glint) are
+   fuzzy at 24px. *Possible.* They're drawing-phase work, not a concept
+   fault.
+5. "Why are you asking me this": not likely. The rules card settles every
+   team call and asks nothing.
+
+### Rulings on the visual designer's questions (turn 19)
+
+1. **Kill test: PASS.** "Clear in the strip, subtle in the row" is enough,
+   *if the card says so*. The two concepts share every rule on purpose, so a
+   single row will always look close. The choice is how a place is drawn:
+   by hand, warm (Specimen), or on the 2px grid, exact (Constructed). That
+   shows in the strip and the grid frame, and it differs in method, which
+   is the real choice. Forcing them apart in the row would mean adding a
+   trait from outside, which is the thing that's blocked us for three
+   rounds. So I won't ask for it.
+2. **Cup, bed and map: leave them for phase 2.** No pushing for
+   difference's sake. The designer's "a cup that's one 2px ring plus a bar"
+   would make a place an outline, which breaks the owner's first rule
+   ("the pin/place icons need to be solid"). Where Constructed keeps Today's
+   drawing because Today's is already built that way, say so (fix 2).
+3. **The 1.25× glyph in the 32px selected pin: allowed for these stills.**
+   The optical-size rule (scale vs 1:1 with more paper) is phase-2 grid
+   work, and systems carries it into the handoff. It doesn't go on a card.
+
+### Fixes (one pass; I check the cards, I don't re-score the rest)
+
+1. **Side by side:** one line under the title, in plain words: "Both use
+   the same rules, circle and weight. They differ in how each place is
+   drawn: by hand (Specimen) or on a 2px grid (Constructed). Compare the
+   strips; in a single row they look close on purpose."
+2. **Constructed "What it is":** say plainly which places keep Today's
+   shape (cup, bar, tree, and any other it keeps), as Specimen's card does.
+   Add the Today → Constructed pair strip that Specimen has, so the two
+   cards compare like for like.
+3. **Constructed restaurant:** it has to read as "restaurant" at 24px, on
+   the grid. The plate between fork and knife reads as a dumbbell. The
+   designer's call how; it's the most common pin.
+4. **Specimen "Good at":** drop "closest to what you know". Both keep three
+   of Today's shapes, so it's no longer true of one alone. "Warm and a
+   little playful; the most whimsy" stands.
+5. **Constructed district:** check it doesn't read as a letter or a logo.
+   Fix it only if it does, and only on the grid.
+
+Once 1–5 land and I've looked at cards 1–3, it's READY. No re-score
+round.
+
+### What kept blocking a 9 (rounds 1–3b), and why
+
+The second concept kept getting its difference from **outside the
+drawing**: the lean, mitres, square rings, the crop. Each time, that turned
+into a cost. Splitting along the owner's own named directions (cut vs
+built) fixed it. What's left is the honesty of the copy: the cards have to
+say exactly what changed and where to look. The pixels are now ahead of
+the words, not behind them.
+
+### Did the work change?
+
+Yes. Rules: both edits landed, and it goes from 8 to 9. Specimen: visible
+cuts and inlays on eight places, the pair strip, a folded-map area, and
+honest copy; it goes from 8 to 9. Constructed is new.
+
+### The send (after fixes 1–5 and my check)
+
+As phone-width images, in this order. No canvas.
+1. `v6-card-rules.png`: the rules under both concepts (read first)
+2. `v6-card-0-today.png`: today, for reference
+3. `v6-card-1-specimen.png`: Specimen, cut by hand
+4. `v6-card-2-constructed.png`: Constructed, built on a grid
+5. `v6-card-3-side-by-side.png`: both next to Today
+6. `v6-card-4-dropped.png`: what we dropped
+
+The owner questions, word for word (only these two):
+1. "Specimen or Constructed (or a mix)?"
+2. "OK to move to phase 2 with that and the rules card? That's research,
+   one shared grid, every icon redrawn as SVG, the + and the account set to
+   the project weight, and a recommendation on the drawing tool."
