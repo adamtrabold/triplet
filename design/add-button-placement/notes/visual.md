@@ -1,5 +1,28 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, handoff: the Float approved (button only), "How it looks and feels" written
+- **Owner:** "I think it's the badge for now… the circle relates to the
+  icon… it's the pin"; "Just button for now". The badge opens TODAY's
+  form; the blank-tag form stays in design.
+- **Wrote** `handoff.md` "How it looks and feels" + the visual "Why".
+- **Found and flagged a stand-in:** round 10's `floatBadge()` (F1-F7) and
+  my T3way stills drew the account's 14-lobe mask, flat orange, a 30px +.
+  The spec is round 6/7's: 24 fine lobes 2.04 deep (R 25.32 in a 60 box),
+  `--tex-flood` at -23 -71, a 26.4 + at stroke 3. I wrote it as such and
+  named the swap if the owner prefers the stand-in.
+- **Proof still:** `concepts/E-float/X1-build-spec-3x.png`. Native 60
+  render (`stills.js` `x1-native-*`, `nativeBadge()`, `FINE60` points)
+  matches R7's scale(1.2) render; 4 states close up.
+- **Calls made:**
+  - no haptic on + (`hapticTap()` is the mark tick; today's + doesn't
+    tick);
+  - no rotation tween on + to × (instant swap; the ride is the motion);
+  - the open state is navy without texture;
+  - the account keeps its own mask and `.active` (split the shared rules);
+  - add a `#addFocus` ring like `#accountFocus`.
+- **Open:** whether the owner wants the stand-in's bigger + (optional
+  check with X1).
+
 ## UPDATE 2026-10-15, round 11f (owner: "12 is the best for me. They're assuming the edge straddling is a bad thing." + "the badge add, the cream with orange 40/8 and 12 next to each other with account too")
 - **Owner pick within the band variant: band 12.** The eyelet ring
   straddling the band's edge is wanted, not a flaw. Don't caption it as a
