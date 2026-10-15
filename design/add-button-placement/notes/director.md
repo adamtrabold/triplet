@@ -1521,3 +1521,34 @@ Check V7 → release.
 ### Not an owner decision
 - No haptic on +, and the instant +→× swap. Both are today's behaviour,
   unchanged.
+
+---
+
+## Round 12 ruling -- search scope and the city (2026-10-15)
+
+Owner: "How does it decide what city to search first? I don't know if search everywhere makes sense unless it's not finding what you're looking for... why is Reykjavik underlined?"
+
+### (a) Zero results here → widen automatically, with one printed line: ACCEPT
+That is exactly the "unless it's not finding" case.
+
+### (b) Always-printed "In your other cities" section: OUT
+- It's the same problem in another form: UI for the rare case, shown on
+  every search, and a second section and divider to read past each time.
+- It's also a second network call per pause.
+- Case (b) (the name exists here AND in another of your cities) is
+  already covered with no new UI:
+  - the scope follows the map's city, so look at Copenhagen and search;
+  - or type "Tivoli Copenhagen": no Icelandic match, so (a) widens and
+    finds it.
+- If the owner later says he keeps hitting it, revisit then.
+
+### (c) Worldwide fallback, then "New city?": ACCEPT
+
+### City
+- **Not a control, no underline: ACCEPT.** It reverses 10b.
+- **"Which city?" in the stub only when two cities' areas overlap:
+  ACCEPT.** It's the same pattern as the district question.
+
+### Answer to his question (plain, for the send)
+"It searches the country of the city the map is showing. If nothing
+matches there, it widens on its own and says so."
