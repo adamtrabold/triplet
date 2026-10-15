@@ -147,6 +147,8 @@ Object.assign(D,{
  lighthouse:f('M10 6h4l1.6 13H8.4z')+R(9,3.6,6,2)+C(12,2.8,1)+R(7,19,10,2)+KOR(12.3,14,1.6,3.6),
  lookout:f('M7 6l5-3 5 3z')+R(8,6.6,8,3)+R(8.4,9.6,1.8,10.4)+R(13.8,9.6,1.8,10.4)+L('M10 11l4 4M14 11l-4 4',1.4),
  glassWave:f('M6 4h12l-1.6 16H7.6z')+`<path ${KO} d="M6.2 4h11.6l-.3 3.2c-1.4.9-2.4-.6-3.8.3s-2.4-.6-3.8.3-2.4-.6-3.4.2z"/>`,
+ walkGround:`<g transform="translate(0 -1.6)">${D.walker}</g>`+R(4,19.4,16,1.8),
+ walkDash:`<g transform="translate(0 -1.6)">${D.walker}</g>`+R(3,19.4,4.4,1.8)+R(9.8,19.4,4.4,1.8)+R(16.6,19.4,4.4,1.8),
  qmark:f('M8 8a4 4 0 1 1 6 3.5c-1 .6-1 1.2-1 2.5h-2.4c0-2 .4-3 1.8-3.8A1.7 1.7 0 1 0 10.4 8z')+R(10.6,15.6,2.4,2.4),
 });
 const t5=()=>`<div class="card">${head('Team only · MUTCD tests','What the brown signs suggest, built at real size')}
@@ -161,6 +163,8 @@ ${btRow('sevard','attraction','not MUTCD: the Nordic “sevärdhet” ⌘ sign o
 <div class="lab">Street</div>
 ${btRow('walker','street','today’s A: a walking figure','REF','')}
 ${btRow('walkSt','street','RG-150 idea: the figure walking between two kerb lines','READS as “walk this street”','pass')}
+${btRow('walkGround','street','turn-12 rebuild: one kerb under the feet, nothing above','TIE','fail')}
+${btRow('walkDash','street','turn-12 rebuild: a dashed road line under the feet','TIE','fail')}
 <div class="lab">Nature (his saved lighthouse, Reykjanesviti)</div>
 ${btRow('lighthouse','nature','RG-120 idea: a lighthouse with its door cut out','READS; but covers one place','fail')}
 ${btRow('lookout','nature','RG-140 idea: a lookout tower from bars and a 45° brace','READS; a “viewpoint” idea, not a category','fail')}

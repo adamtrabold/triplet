@@ -1172,3 +1172,41 @@ only, nothing above the head) judged against the plain walker at 12 and 24
 px; the dropped-card additions and the camera fact line in `t4.html`;
 rebuild the canvas page "Icon concepts". Then the director looks at the
 changed sections on the canvas.
+
+## Turn 13: product designer (visual focus), street rebuild and the turn-12 edits
+
+**Street rebuild: a TIE, so street A stays the plain walker.** I built two
+versions with the street under the figure only and nothing above the
+head:
+- one kerb line under the feet
+- a dashed road line under the feet
+
+Judged against the plain walker at 24px and 12px (rows added to
+`sketches/t5-mutcd-tests.png`):
+- At 24px the line adds a little "on a street", but also a little "on a
+  floor or a step".
+- At 12px both are the walker with a smudge under it.
+- Neither clearly beats the plain walker, which is the road sign itself.
+  Per the tie rule, the kerb idea goes on the dropped card.
+
+**Edits in `sketches/t4.html`** (the canvas is not republished; another
+agent rebuilds it from this file):
+1. **Card 2, attraction A:** the Shows line ends with "The US brown road
+   signs use a camera for 'viewing area' too."
+2. **Card 5:** a new group, "From the brown road signs", one line each,
+   with turn 12's wording and no sign codes:
+   - the Nordic sights sign ⌘
+   - the lighthouse
+   - the lookout tower
+   - the drink as a wave in a glass
+   - "?" for other
+   - cutlery cut from a plate
+   - an arrow at a disc
+   - a walker between two kerbs: turn 12's misreads, plus "With the
+     street under the feet only, it ties with the plain walker, so the
+     plain walker stays."
+
+Nothing else on the cards changed.
+
+NEXT: whoever rebuilds the canvas page "Icon concepts" from `t4.html`;
+then the director looks at the changed sections there.
