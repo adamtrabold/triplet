@@ -25,7 +25,7 @@ answers (Q-A to Q-C, and D as answered), or today's fact.
      replaces today's new-city question, because places-first rules out
      asking.
    - At add you can pick another bucket or make a new one, named
-     anything ("Golden Circle", "Copenhagen 2028"). A bucket can hold
+     anything ("Golden Circle"). A bucket can hold
      places outside its real bounds (the Blue Lagoon in Reykjavík).
    - **Both truths** (owner, Q-B: "the address needs to comfortably
      balance the idea of the city it belongs to in the app vs the city
@@ -38,7 +38,13 @@ answers (Q-A to Q-C, and D as answered), or today's fact.
      city is created on its own, optionally and with low prominence
      (owner, A). **Never inside adding a place** (owner, D).
    - Trips are optional: nothing needs one. A city can be in several
-     trips.
+     trips (the owner's current guess, not a hard rule: "my guess right
+     now is that i should be able to assign a city to many trips").
+   - **A repeat trip tags the same city again** (owner: "a repeat trip
+     to the same place should not change the pins -- if i go back to a
+     place i may want to see all the places i noted prior / which i
+     visited / etc"). Copenhagen in "Scandinavia 2026" and in a 2028
+     trip shows all its places, visited or not, under both.
 3. **Trips filter what you see, on the map and in the list together.**
    - No trip selected: every place shows, whether or not its city is in
      a trip.
@@ -69,13 +75,12 @@ answers (Q-A to Q-C, and D as answered), or today's fact.
 
 ## The prices, said plainly
 
-- **A wrong bucket can't be fixed after adding** unless the move edit
+- **A wrong guess can't be fixed after adding** unless the move edit
   comes (Q-D, open). The owner: "or somehow manually...i dont think i
   can do that today".
-- **A repeat trip to the same city needs its own bucket**
-  ("Copenhagen 2028"), and **its places must be picked by hand at
-  add**: two buckets on the same ground have near-identical centres, so
-  the guess can land in either.
+- **Two buckets on the same ground** (if the owner ever makes one) have
+  near-identical centres, so the guess can land in either; pick by hand.
+  A repeat trip never needs this: it re-tags the same city.
 - **One bucket per place:** Kastrup is in Copenhagen or Malmö, not both.
   A trip tagging both cities shows it either way.
 - **Tagging is a step done afterwards,** never during adding a place.
@@ -106,13 +111,19 @@ Unchanged: the pick at add, the city filter, plans.
     the city it belongs to in the app vs the city the address actually
     places it"
   - **C:** "yes"
+  - **Many trips per city (the owner's current guess):** "my guess right
+    now is that i should be able to assign a city to many trips"
+  - **Repeat trips:** "a repeat trip to the same place should not change
+    the pins -- if i go back to a place i may want to see all the places
+    i noted prior / which i visited / etc"
   - **D (as answered: trips at add):** "When adding a place to a city,
     it should automatically be added to any relevant trips. BUT you
     should not add cities to trips inside of the ui of adding a place."
 - **Still open:**
-  - **Q-D (as asked):** should moving a place to another bucket after
-    adding come with trips, or wait for full place editing? (We think
-    with trips.) The orchestrator re-asks it.
+  - **Q-D:** when the guess put a place in the wrong city, should
+    moving it to the right one after adding come with trips, or wait for
+    full place editing? (We think with trips.) Repeat trips don't need
+    it. The orchestrator re-asks it.
   - **Seeing the trip at add:** the owner: "Im ambivalent/not sure if
     you should see the associated trip alongside the city when adding a
     place."

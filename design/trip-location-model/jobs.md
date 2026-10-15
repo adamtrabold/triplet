@@ -56,45 +56,59 @@ the owner and a place.
 
 ## Terms
 
-- **Bucket** (a "city" in the app): one per place, guessed from the pin,
-  overridable or new at add; it can hold places outside its real bounds
-  and be named anything.
+- **Bucket** (a "city" in the app): one per place. Pre-filled by the
+  guess: the nearest bucket within about a day trip (we think 60-80 km,
+  unmeasured); if none is within reach, a new bucket named from the real
+  town. Changeable or new at add; it can hold places outside its real
+  bounds and be named anything.
 - **Real town:** where the place really is (`address_details`).
-- **Trip:** a tag on buckets; optional, made after logging, any number;
-  a bucket can be in several.
-- **Showing a trip:** a filter; the list and the map narrow together.
+- **Trip:** a tag on buckets; optional, any number; a bucket can be in
+  several (the owner's current guess: "i should be able to assign a
+  city to many trips"), and a place is in every trip its bucket is in. Tagged after,
+  or when a city is created on its own; never inside adding a place.
+- **Trip filter:** none selected → every place; some selected → the
+  places whose bucket is in any of them. The list and the map move
+  together.
 
 ## Model checks
 
 1. **Log a place with no trip.** PASS if a place can be logged, and
    seen, with no trip existing.
 2. **A bucket can hold a place outside its real town.** PASS if the
-   Blue Lagoon (Grindavík) can be in Reykjavík by the guess (Q-B,
-   pending) or the pick at add.
-3. **Both truths.** PASS if a place exposes its bucket and its real town
-   ("Reykjavík · in Grindavík").
-4. **Trips are tags made after.** PASS if a trip is made after logging,
-   any number exist, and one bucket can be in several.
-5. **Showing trips.** PASS if showing a trip narrows the list and the
-   map together to its buckets' places, and hiding it removes them;
-   several at once (Q-C, pending).
+   Blue Lagoon (Grindavík) is guessed into Reykjavík (about 40 km, within
+   a day trip; Q-B decided), or picked at add.
+3. **Both truths** (owner, Q-B). PASS if a place exposes its bucket and
+   its real town ("Reykjavík · in Grindavík"), wherever the real town is
+   known (not yet on 59 of 202: 58 fixable by the backfill, 1 with no
+   town).
+4. **Trips are tags.** PASS if a city can be tagged any time after, or
+   optionally when created on its own (never inside adding a place); any
+   number of trips exist; one bucket can be in several; and a new place
+   joins its bucket's trips automatically.
+5. **The trip filter.** PASS if, with no trip selected, every place
+   shows; with one or more selected (Q-C decided), exactly the places
+   whose bucket is in any of them show, in the list and on the map
+   together; deselecting the last one returns to everything; a city in
+   two trips shows if either is selected.
 6. **The city filter sits under the trip.** PASS if, with a trip shown,
-   the city filter picks among that trip's buckets, and with none, it
-   works as today.
+   the city filter picks among the selected trips' buckets, and with
+   none, among all.
 7. **Plans.** PASS if a trip shows the plans with a stop in its
    buckets, and a plan's stops can be in any buckets.
-8. **A repeat trip.** PASS if Copenhagen 2028 can be kept apart from
-   2026 through a separate bucket ("Copenhagen 2028").
+8. **A repeat trip doesn't change the pins** (owner). PASS if a second
+   trip to Copenhagen tags the same city, and all its places, noted or
+   visited before, show under both trips.
 9. **Nothing structural is required at add.** PASS if the bucket is
-   pre-filled and never asked for or blocking ADD.
-10. **A wrong bucket can be fixed.** PASS only with the move edit (Q-D,
-    pending). Without it: FAIL, stated as the model's one gap.
+   always pre-filled (an existing bucket, or a new one named from the
+   real town) and never asked for or blocking ADD.
+10. **A wrong guess can be fixed.** PASS only with the move edit (Q-D,
+    open). Without it: FAIL, stated as the model's one gap.
 
 ## Creation moment
 
 | # | Moment | PASS if | FAIL if |
 |---|---|---|---|
-| C1 | **First open, empty** | no trip exists or is required; search is worldwide; the first place can be logged at once | any trip, city or setup step is required |
+| C1 | **First open, empty** | no bucket or trip exists or is required; search is worldwide; the first place is logged at once, into a new bucket named from its real town | any trip, city or setup step is required |
 
 C2-C9 are retired (they checked automatic trips and figures).
 
@@ -102,29 +116,31 @@ C2-C9 are retired (they checked automatic trips and figures).
 
 | Case | Outcome | Check |
 |---|---|---|
-| **T1 Øresund:** Saltholm, Kastrup Søbad (Tårnby), and Malmö | Malmö is its own bucket, as today. Saltholm and Kastrup Søbad go to the guessed bucket (Copenhagen) or the pick; their real town shows Tårnby. A trip tagging Copenhagen and Malmö shows all of them | PASS |
-| **T2 The airport:** Keflavík; Kastrup for both Copenhagen and Malmö | Keflavík goes to Reykjavík by the guess (Q-B) or the pick. Kastrup is in **one** bucket; a trip tagging both cities shows it either way. It can't be under both buckets (by design) | PASS |
-| **T3 Jönköping** | The guess or the pick: a nearby bucket, or a new "Jönköping" bucket tagged into the trip | PASS |
-| **T4 Copenhagen 2028** | A separate bucket ("Copenhagen 2028") in its own trip. Places already in 2026's Copenhagen that you go back for need the move edit (Q-D) | PASS with Q-D; without it, the leftovers stay in 2026's bucket |
+| **T1 Øresund:** Saltholm, Kastrup Søbad (Tårnby), and Malmö | Malmö is its own bucket. Saltholm and Kastrup Søbad go to the guessed bucket (the nearest within reach: Copenhagen) or the pick; their real town shows Tårnby. A trip tagging Copenhagen and Malmö shows all of them | PASS |
+| **T2 The airport:** Keflavík; Kastrup for both Copenhagen and Malmö | Keflavík goes to Reykjavík by the guess (about 40 km straight-line, approximate) or the pick. Kastrup is in **one** bucket; a trip tagging both cities shows it either way. It can't be under both buckets (by design) | PASS |
+| **T3 Jönköping** | No bucket within a day trip, so the guess is a new "Jönköping" bucket (or the pick). It joins the trip only when tagged afterwards | PASS |
+| **T4 Copenhagen again in 2028** | A 2028 trip tags Copenhagen too. Copenhagen is in both trips; every Copenhagen place, noted or visited in 2026, shows under both. No pin changes, no new bucket | PASS |
 
 ## Today, for reference
 
-Today has buckets, the guess and the override. It **fails 4, 5 and 8**
-(no trips; a repeat trip could have its own city only via the new-city
-question), **3** (the real town isn't shown), **9** (a pin outside every
-city triggers the new-city question, `maybeDetectCity()`) and **10** (no move). It **passes 1, 2, 6 and 7**, and C1
-fails (cities are seeded before any place).
+Today has buckets, the guess (the seeded city's box) and the override.
+It **fails 4 and 5** (no trips), **8** (no second trip to tag), **3** (the real town isn't shown), **9** (a pin outside every
+city triggers the new-city question, `maybeDetectCity()`) and **10** (no move). It **passes 1, 2
+(by the pick), 6 and 7**, and C1 fails (cities are seeded before any
+place).
 
 ## What the model stores, and its prerequisite
 
 - per place: its bucket and its real town (as today);
 - buckets (today's `cities` registry);
 - **new:** trips (a name) and which buckets each trip tags;
-- the move edit (Q-D) changes a place's bucket; nothing else is edited.
+- the move edit (Q-D, open) changes a wrongly guessed place's bucket;
+  nothing else is edited.
 - **Real town:** 144 of 202 places have it; 59 don't (58 need the
   short-address backfill, 1 has details but no town; live count,
-  2026-10-15). Check 3 needs the backfill for those 59; nothing else
-  does.
+  2026-10-15). Check 3 needs the backfill for 58 of them (1 has no
+  town to find). New buckets are named from it; without it, from the
+  next address level.
 
 ## Out of scope
 
