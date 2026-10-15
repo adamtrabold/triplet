@@ -28,3 +28,8 @@ Constraint: creation must be near-zero setup — no manual setup before logging 
 > the philosophical approach should be places-first; immediately doing the thing you actually want to do not the adin
 
 Principle: places-first — you immediately do the thing you want (log/see places), not the admin ("adin" = admin). Structure (trips, cities, groups) follows from places, never ahead of them.
+
+2026-10-15, after seeing the three-model overview (reframe — supersedes the concept set):
+> ok re trips im actually coming to a realization. really what i need is a way to group cities.. something more conceptually like a tag that creates the conceptual connective thread. cities should probably continue to operate as today — where they are something set based on location of a pin (or somehow manually...i dont think i can do that today). items can also be outside of that city today and still be considered part of that city... in this mental model the city is more of a bucket than an actual city — i'd think about it like "the copenhagen part of the trip" or "im going to LA"... sometimes that's the whole of the trip, sometimes that's part of a larger trip... i should be able to somehow group cities together into a meta-trip and then show / hide on the map based on that
+
+Fact check (orchestrator, index.html): today the add form's City select is auto-guessed from the pin's location and can be overridden by hand at add time (`userOverrodeCity`); there is no way to change it after adding (no place editing).
