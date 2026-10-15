@@ -20,7 +20,7 @@ meaning the concept behind each icon, not the exact drawing."
 - Places are solid, in a circle. Every line is 2.00px on screen.
 - **Visited doesn't change**: the stamp, the sticker and the mark-visited
   check.
-- Hand-made looks are out.
+- Hand-made is not ruled out: it can come from construction method, texture or the ink-blot idea (owner, 2026-10-15). Clarity comes first; craft matters most.
 
 ## Jobs for the whole set
 
