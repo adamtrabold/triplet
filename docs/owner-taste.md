@@ -146,7 +146,10 @@ sources are the file where the quote is recorded.
   brochures/pamphlets/ etc. the rest risk feeling amateurish." Hand-cut or
   hand-drawn looks read as amateurish to him; vintage = precise printed
   pictograms, softened (2026-10-15, picking Constructed over Specimen;
-  `design/icon-system/owner.md`).
+  `design/icon-system/owner.md`). Whimsy is still wanted: "i do think whimsy
+  is totally great; there is not one correct way to show whimsy though and
+  the craft matters most ... i do think built can still be whimsical." The
+  hand-made directions were cut on execution risk, not on idea.
 - **Same icon drawing language everywhere.** "Checkmark was only supposed to
   be lightly rounded like the rest of the icons" ; "we need to do an icon
   pass on the rest at some other time" (chat).

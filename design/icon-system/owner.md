@@ -40,3 +40,10 @@ Context: the + is live on main (771a8c3): an orange 60px scalloped badge, bottom
 > the clarity is best with built. i think through subtle rounding, etc. we can get some of the warmth / mimicry of the inspo / vintage roadtrip brochures/pamphlets/ etc. the rest risk feeling amateurish. its interesting that your calls have been the exact opposite of mine, i wonder why. now let's get to deeper brainstorm on the icons themselves -- meaning the concept behind each icon, not the exact drawing. then we can tackle grid system and perfecting the drawings themselves.
 
 Direction: Constructed (built, on the grid) is the direction, with warmth from subtle rounding (the vintage road-trip brochure/pamphlet feel). Specimen and the hand-cut looks are out ("risk feeling amateurish"). The rules card stands. Next: a deeper brainstorm on the concept behind each icon (what each depicts), not the drawing. After that: the grid system, then perfecting the drawings. Note his "your calls have been the exact opposite of mine": the team's picks (Field Guide, Cut Paper, Specimen) kept favouring hand-made warmth; he favours printed precision.
+
+2026-10-15, replying to the orchestrator's "why our calls were opposite" points:
+> We aimed at a goal you never set. ... — i do think whimsy is totally great; there is not one correct way to show whimsy though and the craft matters most... so while in theory field guide, cut paper, specimen do make sense, the actual execution was a risk so i cut them. i do think built can still be whimsical.
+
+> The scoring rewarded novelty. ... -- this is a good point. im wondering if built in context of the rest of the app still feels novel -- e.g. the idea of a vintage travel theme -- or if we should push some more. something to consider but not lock on.
+
+Direction: whimsy IS wanted; the hand-made directions were cut on execution risk, not on idea. Built can and should still be whimsical; craft matters most. Open (consider, don't lock): does built still feel novel in the context of the app's vintage-travel theme, or should it be pushed further?
