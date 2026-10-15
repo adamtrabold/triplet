@@ -19,7 +19,7 @@ const CPICK = (process.env.CPICK || 'side:fillplus:rules:0:144:40:4:heavy').spli
 const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
 // C keys: 'C' (the pick) or 'C:<form>:<pin>:<plus>:<ps>:<w>:<pd>'
 const TINC = fs.readFileSync(path.join(CON, 'C-tag-r10/t.inc.html'), 'utf8');
-const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt, tp] = k.split(':'); return inj(real.replace('const TAG_SHEET_GAP = 48;', 'const TAG_SHEET_GAP = 86;'), [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"${tp ? ` data-tp="${tp}"` : ""}`); }
+const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt, tp, trot] = k.split(':'); return inj(real.replace('const TAG_SHEET_GAP = 48;', 'const TAG_SHEET_GAP = 86;'), [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"${tp ? ` data-tp="${tp}"` : ""}${trot ? ` data-trot="${trot}"` : ""}`); }
   if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw, cg] = k === 'C' ? CPICK : k.split(':').slice(1);
   return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}" data-cg="${cg || ''}"`); };
 // ---------- helpers ----------
@@ -218,6 +218,13 @@ F['c11-tag664'] = { k: T11, vp: V664, run: p => openPlace(p, 'Brauð & Co, the c
 F['c11-rest320'] = { k: T11, vp: V320, zoom: true, centre: [64.1400, -21.9250] };
 F['c11-collapsed'] = { k: T11, inset: true, zoom: true, centre: [64.1500, -21.9450], run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); } };
 F['c11b-rest664'] = { k: T11B, vp: V664 };
+
+// round 11b: the tag turned 90 degrees
+for (const cw of ['orange', 'twoend']) for (const [tp, rot] of [['p4', 'up'], ['p4', 'down'], ['p5', 'up']]) both(`r11v-${cw}-${tp}-${rot}`, { k: `T:${cw}:104:0:${tp}:${rot}`, zoom: true, centre: CREST });
+F['r11v-orange-p4-up-664'] = { k: 'T:orange:104:0:p4:up', vp: V664 };
+F['r11v-orange-p4-up-320'] = { k: 'T:orange:104:0:p4:up', vp: V320, zoom: true, centre: [64.1400, -21.9250] };
+F['r11v-orange-p4-up-collapsed'] = { k: 'T:orange:104:0:p4:up', inset: true, zoom: true, centre: [64.1500, -21.9450], run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); } };
+F['r11v-orange-p4-up-tag664'] = { k: 'T:orange:104:0:p4:up', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
 
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });

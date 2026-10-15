@@ -1,5 +1,15 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 11b (owner: "Let's try it turned 90 degrees too")
+- **`data-trot=up|down`** in `drawR11()`; preset p5 (64×38) for a slimmer
+  upright.
+- **Lead upright:** orange p4, hole up, end down (43×70).
+- **Stills:** `C-tag-r11/V1-V6`; V2 is the three-way choice (Float | flat |
+  upright).
+- **Rough weights:** upright orange about 2×, cream about 0.6×.
+- **Next:** systems measures upright coverage; the director scores; the
+  send.
+
 ## UPDATE 2026-10-15, round 11 (owner: tag too wide, + too large, balance off, miss the hole; show orange + cream-with-orange-end)
 - **`drawR11()`** in `C-tag-r10/t.inc.html`, presets `P11`:
   - p1 72×42, p2 64×44, p3 80×36, p4 70×43 (the lead);

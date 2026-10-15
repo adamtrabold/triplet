@@ -1,5 +1,24 @@
 # C · the tag is the button, round 11: how it looks and feels
 
+## Round 11b: turned 90° (owner: "Let's try it turned 90 degrees too")
+
+`drawR11()` dial `data-trot = up | down`: the same horizontal tag rotated. Frames `r11v-*`.
+
+- **Lead: hole at the top, claim-check end at the bottom** (`p4`, 43 × 70).
+  - It hangs the way the place's Hanging Tag does: eyelet up, stub down. The upright luggage tag is the classic silhouette, and the most "tag" read we've had at 1x.
+- **Hole at the bottom, end at the top:** the tag stood on its eyelet. It reads more like a price label or a flag. Shown, not recommended.
+- **Slimmer upright** (`p5`, 38 × 64): the same tag, one size down. The + is 16.
+- **The + doesn't change** (it's symmetric). It sits centred between the hole's ring and the perforation, as when flat.
+- **Placement:** bottom-left, left edge 19.9, foot min(list − 20, credit − 6). It is 27px taller and 27px narrower than when flat. The credit is clear at every width (x ≤ 69). The list edge is unchanged (foot 20 above).
+- **Rough weights** (systems re-measures): orange upright about 2×, the same as flat. Cream upright about 0.6× (quieter than the account). p5 orange about 1.6×.
+- **Stills:**
+  - V1: three ways up × both colourways at real size × 1.5;
+  - V2: **the choice** (Float | C flat | C upright);
+  - V3: upright vs today;
+  - V4: upright at real size;
+  - V5: upright, both colourways;
+  - V6: 320, list down, a tag open.
+
 Visual, 2026-10-15. Owner (on round 10): "Let's iterate the tag a bit before I make a call. The tag is too wide and the plus is too large. Balance feels off. I feel like both sides could get narrower. Also I miss the hole. I think in the smaller arrangement I'd like to see orange tag as well as cream with orange claim check edge"
 
 Prototype: `../C-tag-r10/t.inc.html`, `drawR11()` with presets `P11` (dial `data-tp`); frames `r11-*`, `c11-*`, `c11b-*` in `../blank-tag-form/stills.js`; stills come from `../blank-tag-form/compose.js`.
