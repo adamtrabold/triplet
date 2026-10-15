@@ -322,3 +322,174 @@ arrows, no stills): react to the I1-I9 home sources and the S1-S4
 movement models. Push or kill them, add any that differ in kind, and say
 which feel simplest to live with. Then the director picks 3-4 models
 that differ in kind to take into concepts.
+
+## Turn 2 -- product designer (visual focus)
+
+Sketch level only, as the owner asked: "i dont want full on visuals -- i
+just want sketch level thought here -- the model is what to nail right now
+not ui". Boxes are for thinking, not screens.
+
+**Random draws (real RNG):**
+- fields: **library call numbers** and **restaurant menus (courses)**;
+- Oblique Strategy: **"Look closely at the most embarrassing details and
+  amplify them."**
+
+### What each movement model is like to live with
+
+**S1, the lens.**
+- You open the app to the last lens you used.
+- Moving between the trip and a city is one tap on the header, both ways.
+- The map frames the lens. The list is the lens.
+- It's the simplest to live with: one question ("what am I looking at?")
+  has one answer, in one place.
+- **Sharper:** the header names **one** thing, what the list is, with the
+  step back to the wider level beside it. That fixes the 320 width.
+  ```
+  ┌──────────────────────────────────────┐
+  │ ‹ Scandinavia   REYKJAVÍK  (23)   ⇅ ⚙ │   city lens: one name, a step back
+  └──────────────────────────────────────┘
+  ┌──────────────────────────────────────┐
+  │ ▾ SCANDINAVIA 2026  (96)          ⇅ ⚙ │   trip lens: ▾ = switch trip (LA lives here)
+  └──────────────────────────────────────┘
+  ```
+  Tapping the city name opens the trip's cities as a short sheet (S3's
+  cards, reduced to rows: name, count, visited x/y). That's the only
+  "album" anyone needs.
+
+**S2, the route spine.**
+- As a whole app it's heavy. A single-city day scrolls past three other
+  cities, and the trip needs an order before it works.
+- Its best part is **how the trip lens's list reads**, so I'd fold it
+  into S1 rather than keep it as a shape.
+- **Sharper:** in the trip lens, the list is in sections by city (the
+  menu's courses). With no order set, they're alphabetical; if you've
+  given an order, they're in trip order. Tapping a section heading
+  narrows the lens to that city.
+- The map does **not** follow the scroll. That's new motion and against
+  the spirit of the list rule.
+  ```
+  SCANDINAVIA 2026
+  ── COPENHAGEN (31) ─────────────
+     Tivoli · Torvehallerne · …
+  ── MALMÖ (12) ──────────────────
+  ── REYKJAVÍK (23) ──────────────
+  ```
+
+**S3, trip home → city.**
+- As a level of its own, it's one more tap every time for someone who
+  spends the whole trip in one city.
+- **Kill as a shape.** Keep its content as S1's city sheet (above).
+
+**S4, atlas.**
+- It's lovely in a demo and confusing to live with: the list changes
+  when you nudge the map.
+- It also fights the owner's own "should have a filter by city" and the
+  list rule in CLAUDE.md.
+- **Kill.** The "& around" part survives below without needing the map
+  to steer.
+
+### Home sources: kills, keeps, sharper versions
+
+| | Verdict | Why |
+|---|---|---|
+| I1 home city, chosen | **Keep as the floor** | Every idea still needs one place where a place is "filed". |
+| I2 also-known-as | **Keep, sharper** (library, below) | It's additive, and only the exceptions are touched. |
+| I3 catchments you edit | **Kill** | Dragging an area on a phone is fiddly, and edit is future (owner). |
+| I4 bases | **Keep, reshaped** (anchors, below) | It's the truest to trips, but the setup has to disappear. |
+| I5 route | **Fold into S1** as optional section order | It's a source of order, not a home. |
+| I6 around (nearest of your cities) | **Keep as the default** | It gets the Blue Lagoon right with zero filing. |
+| I7 where you added it | **Keep for add only** | The lens pre-fills the home and the tag prints it, so it's never silent. |
+| I8 plans as groups | **Kill** | "Everything near Reykjavík" and "Tuesday" are different jobs, and overloading Plans blurs both. |
+| I9 two lenses | **Mostly absorbed** (In / From, below) | Real-city chips stay for "filter by city". |
+
+### New ideas, and sharper versions
+
+**N1. "In" and "From" (restaurant courses + I6 + I9 in one move).**
+- A city lens's list has two courses:
+  - **In Reykjavík**: places whose real city is Reykjavík;
+  - **From Reykjavík**: everything that's nearer Reykjavík than any of
+    your other cities (I6), plus anything you've said is "also
+    Reykjavík".
+- The ruled line between the sections **is** the real-city distinction.
+  Most of the time nobody needs a filter to see it.
+- The Blue Lagoon and the airport appear under "From" without anyone
+  filing them.
+- The rows in "From" print their real place and distance, for example
+  `Blue Lagoon · Grindavík · 47 km`.
+  ```
+  REYKJAVÍK (23)
+     Hallgrímskirkja
+     Sundhöllin …
+  ── FROM REYKJAVÍK (4) ──────────
+     Blue Lagoon        Grindavík · 47 km
+     Keflavík Airport   Reykjanesbær · 50 km
+     Þingvellir         Bláskógabyggð · 45 km
+  ```
+- The map shows both sections. The "From" pins sit outside the city, so
+  you can see "around" without a drawn boundary.
+- **This is the one I'd push hardest. It reads simplest.** It needs no
+  new setup, no new control and no filing at add time.
+
+**N2. See also (library call numbers: one shelf, many subject cards).**
+- This is I2 in the library's terms. A place has **one shelf** (its real
+  location) and any number of **"see also"** cards.
+- The tag prints them the way a catalogue card does, under the address:
+  `See also: Reykjavík`.
+- It's the override for N1's rule when "nearest" is wrong; for example,
+  the airport as "see also Copenhagen" for the flight out.
+- How you set one is an add-time and future-edit question. It's not
+  needed for the common case.
+
+**N3. Anchors (the embarrassing detail, amplified).**
+- The embarrassing detail: **the airport isn't a place you want to
+  visit.** It's logistics, and today it sits in the list beside the
+  bakeries.
+- Amplified, the hotel, the airport and the ferry are a different kind of
+  place: **anchors** (arrive, sleep, leave).
+- **Adding an anchor creates the base (I4) by itself.** You add the
+  Reykjavík hotel, and Reykjavík is a base of the trip, with no setup.
+- Anchors also give the trip its order, through dates if they have any
+  or the order you added them. S2's sections then have an order for
+  free, and "places in between" (job 9) sit between two anchors.
+- In the list, an anchor heads its city's section rather than being one
+  of its rows.
+- *Risk:* it's a new kind of place. It may be the "is there something
+  missing?" answer, or it may be too much. I'd show it as a wildcard.
+
+**N4. One trip at a time (Do the simplest thing).**
+- The app is always in exactly one trip. LA is a past or other trip,
+  reached through ▾, and its places never mix in.
+- So "trip" costs nothing visible day to day. It's the outer frame,
+  named once in the trip lens. Cities are what you actually move
+  between.
+
+### Which reads simplest
+
+**S1 (one name in the header, with a step back) + N1 (In / From) + I7
+(add pre-fills the lens's city)**, inside **N4** (one trip at a time).
+- That takes nothing new to set up, and a single tap moves you between
+  trip and city.
+- The Blue Lagoon case is answered by the list's own structure.
+- N2 is the escape hatch. N3 is the wildcard that would make trips sing
+  if the owner wants dates and order.
+
+Not "completely obvious" yet. N1's default (nearest of *your* cities)
+is wrong whenever two of your cities are close: is a place on the
+Øresund "from" Copenhagen or Malmö? N2 has to cover that.
+
+### Open questions
+- Should a place in "From Reykjavík" also appear in "In Grindavík" if
+  Grindavík is one of your cities? (No, in my opinion: then it's simply
+  "In".)
+- Does the airport belong to every city you fly through, or to the
+  flight's anchor only (N3)?
+- Should real-city filter chips remain once In / From exists? The
+  owner's own words say a city filter should exist, so yes, but maybe
+  inside the filters panel only.
+
+NEXT: design director — pick 3-4 models that differ in kind. My
+suggestion:
+- (a) S1 + N1 (automatic);
+- (b) S1 + I1/I7 (chosen home, filed at add);
+- (c) N3 anchors (trip-shaped);
+- (d) N2 see-also as the many-to-many alternative.
