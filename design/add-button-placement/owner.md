@@ -131,3 +131,8 @@ Direction: map the city/search workflows before more form drawing. Three named: 
 > Build the matched icon but we need to include this in the icon project everything is inconsistent
 
 Build: X2 right panel — 24-lobe textured badge, 26.4px +, + stroke 2.00px (matched to the account icon). Line-weight inconsistency across icons goes to the icon project (backlog).
+
+2026-10-15, on the city workflows map:
+> You’re taking me to literal on the suburb use case — backing way out I need to be able to include a place in a city that does not match how I’m thinking about the trip which may be a city name or something else. Right now it’s by city name. This is separate from filters which should have a filter by city.
+
+Reframe: the grouping a place is filed under = how the owner thinks about the trip (may be a city name or something else). A place must be includable in that grouping even when its real city differs. Today the grouping is the city name. Separately, filters should offer filter-by-(real)-city. The suburb case was one example, not the rule; the distance-radius question is likely moot.
