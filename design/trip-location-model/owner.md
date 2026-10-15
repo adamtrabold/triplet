@@ -57,3 +57,8 @@ Read as: Q-D = yes, a place's city is editable after adding; from a place you ne
 
 2026-10-15, closing the last open question (show the trip when adding a place?):
 > i actually dont think you should show the trip when adding a place because what if you're going to a place multiple times, or a second or third time or wahtever, it would be impossible to determine which trip you're thinking about. and honestly it doesn't even matter... what matters is where you're putting the pin.
+
+2026-10-15, "Trips: keep or drop?" (after the keep/drop use cases):
+> drop
+
+Decision: no trip entity. Cities stay buckets (concept 5's city rules stand: pin-based guess, editable city, both truths); trip tags, trip filter and trip-related questions are dropped. Multi-select city filter not yet decided.

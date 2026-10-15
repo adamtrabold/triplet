@@ -181,3 +181,6 @@ Pick: B matched (50px), placed to the RIGHT of the account badge (the + takes th
 > yes when i say something is good that means ship it
 
 Rule: when the owner calls a shown look good, that is the go to land it — don't ask again.
+
+2026-10-15, "Should the add form let you mark a place visited as you add it?":
+> yes
