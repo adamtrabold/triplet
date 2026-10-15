@@ -1478,3 +1478,4 @@ Check V7 → release.
 - 2026-10-15: V5 to be re-shot at 36x58 (both colourways) and replaces V1 in the send; release after check.
 - 2026-10-15: V5 checked; 3-still send (V2, V7, V5) released.
 - 2026-10-15 (11c): cream-squat is the owner's decision (job 2 fails for every cream; his rule vs his taste). Pick 40x55 end 10 on look (36x54 end 8 thins the end to a stripe). Send Q4, Q1 with a plain trade note. Next: his pick -> handoff.
+- 2026-10-15 (11d): proportion study P1/P2 fit to send. Recommend 40 wide, cream stub, 3px orange edge (thin orange, tear-off kept, squatter). Size comes next.

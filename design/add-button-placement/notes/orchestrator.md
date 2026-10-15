@@ -38,3 +38,6 @@
 
 ## 2026-10-15 — round 11c sent as a decision
 - Cream squat: all cream < account (36x54 0.31x, 40x55 0.41x). Director pick 40x55 on looks; sent Q4, Q1 (captions corrected to measured) as owner decision vs orange.
+
+## 2026-10-15 — proportion study sent
+- P1 (grid), P2 (real size). Director rec: 40 wide, cream stub + 3px orange edge.

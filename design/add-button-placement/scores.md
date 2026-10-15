@@ -2137,3 +2137,33 @@ Owner, verbatim: "Really like the turned cream and orange but I feel like it cou
 ### Message to the owner (exact)
 > Two ways to make the cream tag a tad squatter. Left: your route, 36×54 with a thinner orange end. It gets squat, but the end shrinks to a stripe and stops reading as the tear-off. Right: 40×55, a touch wider and shorter, so the end can stay a proper band. That's our pick.
 > One trade to know: the cream tag is quieter than the account badge (about 0.4× its weight; the squatter, the quieter), so your eye lands on the account first. The orange version comes first. If quiet is what you want, cream at 40×55 is ready.
+
+## Round 11d -- director, 2026-10-15 (proportion study for the owner's pick)
+
+Owner, verbatim: "Let's nail proportion then overall size…. Maybe the orange needs to be even thinner"
+
+### Is it fit to send?
+**Yes. P1, then P2.**
+- **Honest:**
+  - the height is held at 54, so only the shape changes;
+  - its own caption says where the orange stops reading as a tear-off
+    (3 and the hairline).
+- **Legible:** each tag is about 120px across at 3x on a phone. P2 shows
+  the candidates at real size beside the account badge.
+- **The options that matter:**
+  - width × end thickness;
+  - plus the one structural idea that answers "even thinner" without
+    losing the claim check: the cream stub with an orange edge.
+- 20 cells is a lot against "fewer variations". But he asked to nail
+  the proportion, and a grid is the honest tool for that. No weights,
+  correctly: size comes next by his own order.
+
+### Recommendation (one line to pass on)
+**40 wide, cream stub with a 3px orange edge (P1 bottom row, third
+column).** The orange gets as thin as you asked, but the dotted line
+and notches still make it a tear-off, and 40 gives the tad more squat
+you wanted.
+
+### Send, in order
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/P1-proportion-grid-3x.png
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/P2-proportion-real-size-3x.png
