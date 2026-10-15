@@ -41,13 +41,14 @@ way"). A place that has a figure is never moved onto a leg.
 ```
  TRIP LENS, every base dated                  TRIP LENS, no dates (or no hotels) = concept 1
 ┌──────────────────────────────────┐        ┌──────────────────────────────┐
-│ ▾ SCANDINAVIA 2026 (96)          │        │ ▾ SCANDINAVIA 2026 (96)      │
+│ ▾ SCANDINAVIA 2026 (87)          │        │ ▾ SCANDINAVIA 2026 (87)      │
 │ ◆ COPENHAGEN (31)    12–15 Sep   │        │ ◆ COPENHAGEN (31)            │
 │ ── MALMÖ (12) ─────────────────  │        │ ── MALMÖ (12) ────────────   │
 │ ┄ on the way to Stockholm (1) ┄  │        │ ◆ STOCKHOLM (20)             │
 │ ◆ STOCKHOLM (20)     15–18 Sep   │        │ ◆ REYKJAVÍK (23)             │
 │ ◆ REYKJAVÍK (23)     18–22 Sep   │        │ ── ON THE WAY (1) ────────   │
 └──────────────────────────────────┘        └──────────────────────────────┘
+ the header counts every place in the sections: 31 + 12 + 1 + 20 + 23 = 87
  the city lens is concept 1's, with the base's hotel(s) heading its list
 ```
 

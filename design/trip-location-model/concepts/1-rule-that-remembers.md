@@ -93,14 +93,15 @@ team's taste is marked **(we think)**.
 | C8 | Correcting trips later | Trip list: merge two trips (a trip-level action) | PASS |
 | C9 | Naming | Rename the trip any time; never needed to proceed | PASS |
 
-**Flag on C4, for systems and the director.** As jobs.md writes it ("the
-second place in that real city becomes a city of its own"), C4 breaks job
-5. Log a second Grindavík place and the Blue Lagoon leaves Reykjavík.
-- This sketch applies the threshold only to places beyond the reach
-  (On the way).
+**C4, resolved (director, Turn 8).** jobs.md's C4 now reads: "**The
+second place in a real city that is beyond every figure's reach** (in
+'On the way')", and adds: "**Within a figure's reach (Grindavík) a real
+city stays 'From' its figure however many places it has**, unless
+'belongs with… its own city' is said (director, 2026-10-15: protects job
+5)".
+- This sketch follows that wording.
 - The reach is a fixed app rule; its number isn't set here. **(We
   think)** about a day trip, roughly 60-80 km; unmeasured.
-- If the director keeps C4 as written, job 5 needs a different rule.
 
 **The fix, beside the places:**
 ```

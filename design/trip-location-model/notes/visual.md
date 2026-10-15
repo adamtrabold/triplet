@@ -84,3 +84,34 @@
 - 59 of 202 lack a real town (58 + 1) in every file.
 - Concept 3's examples use generated names.
 - Next: the director checks and re-scores concept 2.
+
+## 2026-10-15, after the fresh jobs check (jobs-check.md)
+- jobs.md and jam.md were not touched (systems is editing them).
+- **Concept 3:**
+  - the cluster lens drawn on its own terms (sections, rows, On the way,
+    its map = its set; jobs 2, 9, 11);
+  - three-level diagram;
+  - C1 says "Search is worldwide";
+  - C2 gives the header after the first ADD: `‹ Iceland  REYKJAVÍK (1)`
+    (job 1);
+  - C6 played out: a new group plus "Goes with …" on the tag after ADD,
+    which writes a "these go together" rule;
+  - the stored model corrected (global memory; cluster name and
+    together/separate rules).
+  - Asked systems for a concept-3 variant of jobs.md's C6.
+- **Concept 4:**
+  - P FAILS outright: the City select (`#cityInput`, index ~2801) and the
+    pin new-city confirm (`maybeDetectCity`, ~4853);
+  - C1 and C2 FAIL strictly; C4, C5, C9 and T1 also FAIL (the checker's
+    grading);
+  - jobs fail: 1-11, 13 and P.
+- **Concept 2:** the header count is 87 (it matches the sections). The
+  dating question was left alone.
+- **Concept 1:** the C4 flag now quotes jobs.md's current wording,
+  marked resolved.
+- **Overview:** two cards' content changed, so it was re-rendered
+  (1170x3227; checked):
+  - card 3: "fixed after the fact ('goes with…' / 'separate'), never
+    asked first";
+  - Today: "the add form asks for it (a City field, a new-city
+    confirm)".
