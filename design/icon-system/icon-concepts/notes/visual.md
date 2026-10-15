@@ -9,9 +9,11 @@ drawing. Next comes the grid, then the drawings.
 Owner direction, all in `../../owner.md`:
 - Clarity first.
 - Subtle rounding is *one* source of warmth.
-- Hand-made is NOT ruled out. It can come from construction method,
-  texture, or "the inkblot thing". The hand-cut executions were cut on
-  execution risk, not on idea.
+- Hand-made is not ruled out. His examples ("construction method,
+  textural approach, the inkblot thing, etc.") "are just examples. not
+  exhaustive. again you are overstating my intent." Don't turn them into
+  options or rules; quote him from owner.md. The hand-cut executions were
+  cut on execution risk, not on idea.
 - Whimsy is wanted ("built can still be whimsical"; "craft matters
   most").
 - Novelty is open: does built still feel novel in the vintage-travel
@@ -64,7 +66,8 @@ NODE_PATH=/opt/node22/lib/node_modules node one.js <html> <out-prefix>
 - **New:**
   - a two-strip novelty test (convention vs "our objects")
   - a pools & hot springs category (an owner question)
-  - ink spread as the rounding method (a craft idea for the grid step)
+  - corners softened like ink spread: my own idea, one option among
+    many for the drawing step, not a default
 
 ## Open
 

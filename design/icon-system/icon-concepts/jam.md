@@ -346,10 +346,12 @@ construction method, textural approach, the inkblot thing, etc." Specimen
 and Cut Paper were cut on execution risk, not on idea. He adds: "i do
 think whimsy is totally great; there is not one correct way to show
 whimsy though and the craft matters most… i do think built can still be
-whimsical." This turn reads wit as a property of the **concept** (what
-the icon depicts, a double meaning, a trip object). Hand-made warmth
-(texture, ink bleed) is a property of the **craft**, and belongs to the
-grid and drawing step. I note where an icon could carry it.
+whimsical." He also said his examples "are just examples. not
+exhaustive. again you are overstating my intent." So nothing here turns
+them into a list of options or a rule. Because this step is about what
+each icon depicts, I look for the wit that a concept can carry (a double
+meaning, a trip object). Everything about surface and construction waits
+for the drawing step, where he can judge it by eye.
 
 Real draws (python `secrets`). Oblique Strategies: **"Retrace your steps"**
 and **"Water"**. Borrowed fields: **laundry care labels** and **the Swiss
@@ -487,14 +489,11 @@ sheet.
    pools and a fumarole are already saved. It's the most Iceland thing in
    the app and the cleanest double meaning available. It's an owner
    question (a new category), so it rides with turn 1's batch.
-3. **The craft layer as a concept, for the grid step**. His "the inkblot
-   thing" points at one specific, already-shipped hand-made source: **ink
-   bleed**. The stamp and the Pencil Star already behave like ink. A
-   printed place glyph could carry a very faint ink-spread at its corners
-   (the rounding *is* ink spread, rather than a CSS radius). That's warmth
-   from construction method, his phrase. It's not a concept for this step;
-   I'm noting it so the grid step tests it rather than defaults to a
-   plain radius.
+3. **One idea for the drawing step, mine, not his rule:** the softening of
+   corners could behave like ink spread on paper rather than a plain
+   geometric radius. The stamp and the Pencil Star already behave like
+   ink. It's one option among many for that step, noted so it gets tried
+   alongside the others, not a default.
 
 ### What I'd send up
 
