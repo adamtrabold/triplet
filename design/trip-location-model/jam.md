@@ -1571,3 +1571,496 @@ files.
 NEXT: fresh checker — re-run the changed ids against the stripped
 concept files and the jobs.md of Turn 11; then the director checks the
 overview for the send.
+
+## Turn 14 -- product designer (systems focus): after check 2 (Malmö, concept 2's rule, the gaps)
+
+`jobs-check-2.md` read in full. Model only.
+
+**1. Malmö: distance alone can't do it.**
+- Malmö is about 28 km from Copenhagen, Lund about 39 km. Any day-trip
+  reach merges them.
+- **Proposed second signal: the country border.**
+  - Within reach and the same country → join (From).
+  - Within reach but across a border → a new figure at once.
+  - So Malmö is a figure, Lund is From Malmö, and Tårnby is From
+    Copenhagen.
+  - It's places-first (from data each place has) and needs no question.
+  - **Cost:** close same-country cities the owner thinks of apart
+    (Stockholm and Uppsala) merge until the owner fixes it once.
+- **Considered:** a city's size (it splits Lund and Frederiksberg off
+  too), and "the owner fixes it once" (always available).
+- **If the director rejects the border, the honest answer is the
+  owner's one fix,** and T1 then takes two changes (make Malmö a figure,
+  then move Tårnby). jobs.md's T1 now says Malmö must already be a
+  figure, and the fix counts as one change.
+
+**2. Concept 2, made coherent and kept close to "the same, plus stays":**
+- **Only bases are ordered.** No stay means concept 1 exactly, whatever
+  has been visited.
+- **Per base, never all-or-nothing:** its stays' earliest date, else its
+  first visit, else no position. A new base never moves the others.
+- **With an order:**
+  - non-base figures sit after the nearest ordered base;
+  - a no-figure place sits on the leg whose line (anchor to anchor) is
+    nearest, within the spread;
+  - a no-figure place on no leg (one ordered base, or beyond the ends)
+    stays On the way.
+- **Views are unchanged:** a leg is a group inside the trip view, not a
+  view.
+- **Simpler option, said plainly:** drop legs, so bases are ordered and
+  in-between places stay On the way. (We think legs are only worth it
+  if the owner answers Q4 with dates.)
+
+**3. One-liners:**
+- concepts 1 and 2, C2 / job 1: the current view becomes the new place's
+  figure;
+- concept 3: narrowing by real city (6), a figure's plans (8), a place
+  exposing both truths (13).
+
+**4. Gaps:**
+- **Reach is measured from a figure's anchor:** the centre of its named
+  member, which is the member real city with the most places. That
+  stops snowballing.
+- **The name follows the most places:** Roskilde-first becomes
+  Copenhagen once København has more places.
+- **A big municipality joins once through the memory** (Þingvellir
+  brings Bláskógabyggð, so Geysir follows).
+- **A concept-3 custom name survives growth.** It's keyed to its figures
+  at naming; on a split, the bigger part keeps it; on a join, the bigger
+  cluster's name wins. The generated name never overrides it.
+
+**5. UI stripped:**
+- concept 2's date-entry wording and the "plan defaults to a day" line;
+- in jobs.md, every UI string (the map / list / + / empty copy / tag
+  text / ◆ / pencil / NAME line / "beside");
+- every check is now a model outcome: Terms (anchor, border, base /
+  order / leg), job 9/14/T3 for the per-base order, job 12 (legs aren't
+  views; a figure narrowed by real city is still the figure);
+- "My read", "The director rules:" and the stale NEXT are gone, and the
+  Dates section records Turn 12's ruling.
+
+**6. Today's reference, job 11:** verified in `index.html`. The list and
+the map both come from `visibleLocations()` (the same filters); the map
+only adds zoom clustering (`mapVisibleLocations()`). **PASS.** Today
+now fails P and jobs 1-10 and 13, and passes 11 and 12.
+
+**7. Overview:**
+- card 1 now says how a trip forms (by itself with the first place,
+  named from countries; a far-away place quietly starts another;
+  rename and merge optional), with the border rule (pending), On the
+  way, the threshold, and "farther out starts a new city";
+- card 2 is the per-base order;
+- re-rendered (1170x3277), and checked.
+
+**Director to rule:**
+1. The border as the second signal (or "the owner fixes it once").
+2. Concept 2 with legs, or the simpler no-legs version.
+3. The anchor and naming rule (most places).
+4. Concept 3's name-survival rule.
+
+**Changed ids for the checker:** 1, 2, 7, 9, 11 (reference), 12, 13, 14,
+C1, C2, C5, C6, C7, C8, C9, T1, T2, T3, plus concept 3's 6 and 8.
+
+NEXT: design director — rule items 1-4; then the checker re-runs the
+changed ids.
+
+## Turn 15 -- design director: Turn 14 ruled; re-scored; overview checked
+
+Model only. Anything resting on the team's taste goes to the owner as an
+option, not settled here.
+
+### Rulings
+
+**1. The border as the second signal: an owner question, with our
+opinion.**
+- Distance alone can't keep Malmö apart from Copenhagen, so something
+  must.
+- The border is a fair proxy because every place carries it, nothing is
+  asked, and it's places-first.
+- But whether it matches how the owner thinks is the owner's to say,
+  and the Stockholm-Uppsala cost is real.
+- **Model as sent:** border on **(we think)**. The fallback is "the
+  owner fixes it once", which exists either way.
+- T1 counts a single change only if the border is on. The checker should
+  test both branches.
+
+**2. Concept 2: legs go to the owner inside Q4. Default: no legs.**
+- Per-base order (dates → first visit → none, and a new base never moves
+  the others) is coherent. Accepted.
+- Legs add a second rule: nearest anchor-to-anchor line within the
+  spread. **(We think)** they earn that only if the owner wants a dated
+  order.
+- So: **no legs unless the owner asks for them in Q4**. In-between
+  places stay On the way.
+- That keeps concept 2 to "the same, plus stays".
+
+**3. The anchor, and naming by most places: accepted.**
+- Measuring reach from the anchor (the member real city with the most
+  places) is a correctness rule: without it, figures snowball. Not a
+  question.
+- A figure's name following the most places is **(we think)**: the
+  owner sees it in the files, not as a question. It's too fine-grained
+  for the owner's attention, and a rename can come later if wanted.
+
+**4. Concept 3's name survival: accepted as written (we think).**
+- The bigger part keeps the name, and a custom name beats a generated
+  one.
+- It's mechanics for a model we don't recommend. No owner question.
+
+### Scores
+- **Concept 1: 9.** It's still coherent, with the border labelled
+  "pending" and the owner's one fix behind it.
+- **Concept 2: 9.** Per-base order makes it robust: a new base never
+  reshuffles. With legs left to the owner, it stays close to "the same,
+  plus stays".
+- **Concept 3: 7.** The name rule doesn't touch its real weakness
+  (chaining through stopovers). It stays as the "everything at once"
+  answer.
+
+### The overview (1170×3277), cold at phone size
+
+It reads, and every unmeasured number carries "we think". Changes
+before the send:
+1. **Card 1: the two "farther" levels blur.** "Farther out it starts a
+   new city" and "a far-away place quietly starts another [trip]" read
+   as the same distance.
+   - Say: "farther out, still in the same part of the world → a new city
+     in this trip; much farther (we think another continent) → a new
+     trip."
+2. **Card 1 is long** (five paragraphs).
+   - Fold the trip paragraph into one line: "Trips form by themselves,
+     named from countries; renaming and merging are optional."
+   - Keep the border sentence with its "pending".
+3. **Card 2:** "places in between belong to the stretch between two
+   ordered bases" becomes "**(if you want it)** places in between can
+   belong to the stretch between two ordered bases". That matches
+   ruling 2.
+
+### Owner questions (now 8)
+1. When the app files a place under the wrong city: fix the rule once
+   (every place in that town), or that one place? (One place alone needs
+   edit, which is future.)
+2. Can one place show under two cities (Copenhagen's airport under
+   Copenhagen and Malmö)?
+3. Are hotels and airports places you want to visit, or the frame of the
+   trip?
+4. **(Reworded)** Should the app put your trip in order? It could use
+   your hotel dates (read from a booking you paste), the order you
+   actually visit, both, or neither. If it has an order, should places in
+   between sit on the stretch between two stays? (We think both sources,
+   hotel dates first, and stretches only if you want dates.)
+5. One trip at a time, or everything at once?
+6. A far-away place quietly starts a new trip, with "keep it in this
+   trip" right after. Is that OK, or should it ask first?
+7. Two places beyond reach make a new city. We think 2; is that right?
+8. **(New)** When a place is close to one of your cities but across a
+   border (Malmö near Copenhagen), should it be a city of its own
+   automatically? We think yes. The cost: two close cities in one country
+   (Stockholm and Uppsala) count as one until you fix it once.
+
+NEXT: product designer (systems focus) — the overview's three edits and
+the no-legs default in concept 2's file; then the fresh checker re-runs
+the changed ids (T1 both branches).
+
+## Turn 16 -- product designer (systems focus): Turn 15 applied
+
+- **Overview** (`concepts/overview-3x.png`, re-rendered at 1170x3277,
+  checked at phone size):
+  1. Card 1 separates the two distances: "Farther out, still in the same
+     part of the world, it's a new city in this trip; much farther (we
+     think another continent), a new trip."
+  2. Card 1's trip paragraph is one line: "Trips form by themselves,
+     named from countries; renaming and merging are optional." The
+     border sentence keeps "pending".
+  3. Card 2: "(If you want it) places in between can belong to the
+     stretch between two ordered bases."
+- **Concept 2: legs off by default.**
+  - A leg exists only if the owner asks for it in Q4.
+  - No-figure places stay On the way by default.
+  - C7c, T3, and jobs 9 and 14(c) are reworded to match.
+- **Questions:**
+  - Q4 is reworded (the "stretch between two stays" clause added) in
+    concept 2's file;
+  - Q8 (the border) is added to concept 1's open questions (concepts 2
+    and 3 point to concept 1's).
+  - The full list of eight is in Turn 15.
+- **jobs.md:**
+  - Terms: legs are off by default.
+  - Job 9 and T3: On the way by default; a leg only with legs on.
+  - 14(c): an order, no legs unless turned on.
+  - **T1 has both branches:** border on, one change; border off, two
+    changes (make Malmö a figure, then move Tårnby), each per real city
+    and never per place.
+
+**Changed ids for the checker:** 9, 14, C7, T1 (both branches), T3;
+plus concept 2's 2 and 12 (the no-legs default), and the overview.
+
+NEXT: fresh checker — re-run those ids (T1 both branches); then the
+director releases the send.
+
+## Turn 17 -- product designer (systems focus): after check 3 (which trip a place joins)
+
+Applied jobs-check-3.md, items 1-8. Every new number is **(we think)**,
+unmeasured.
+
+- **1. Trip assignment (the missing rule):** concepts 1 and 2 now run it
+  before the figure rule. Nothing is asked:
+  1. an **active** trip that already has the place's real city (the most
+     recently added-to, if several);
+  2. else the nearest active trip on the same continent (to its nearest
+     anchor);
+  3. else a new trip, named from the country.
+  - **Past** = has visits and none in 60 days. Past trips take nothing
+    new, so Copenhagen 2028 starts "Denmark 2028".
+  - **Continent:** a fixed country table (Iceland and the Canaries are
+    Europe; Greenland is North America). It replaces "same part of the
+    world" and "far away".
+  - **Tivoli while viewing the US trip** → Scandinavia; the view never
+    decides.
+  - **Someday Berlin** widens the trip by default. A new correction,
+    **split a figure into its own trip**, fixes it.
+  - The memory is now **global**, so job 7 holds across trips. Merging
+    keeps the name of the trip with more places.
+  - Concept 3: clusters link by same continent **and** a time gap of
+    about 6 months, by when places were logged or visited. Paris 2024,
+    Scandinavia 2026 and Copenhagen 2028 separate; someday Berlin chains
+    until "these are separate". That's an honest limit.
+  - **Q5 extended, not a 9th question:** "a new city on the same
+    continent widens the trip, or starts its own; we think widen."
+- **2. The spread box is gone. Nearby band:** within 300 km of any
+  anchor → On the way.
+  - Order-independent: Jönköping is within the band of both Malmö and
+    Stockholm.
+  - Edinburgh, about 800 km out → a new figure (it doesn't balloon).
+  - One-city trip: Vík, about 180 km out → On the way.
+  - Honest limit: it's still one fixed distance; one correction per real
+    city fixes it.
+  - Lund before Malmö: Lund is a figure by the border rule; Malmö joins
+    From Lund; the name follows the anchor.
+- **3. Concept 2:**
+  - A stay in On the way promotes its real city to a figure, and so a
+    base, at once (the Gothenburg one-night base).
+  - Non-base figures are **unordered** ("right after" is dropped).
+  - Ties share a position, including one stay making two bases.
+  - Visits from before the new field have no time, so no position;
+    nothing is invented.
+- **4. No-town places:** the real city = the next OSM level
+  (municipality, then county). Else the place goes through the rules by
+  location alone and no real-city correction moves it. Saltholm caveat
+  added under T1.
+  - Districts and streets are places (centroid → real city → the same
+    rules), with one line in each concept. Today's file notes the
+    shape vote.
+- **5. T2 has both branches:** border on, one change; border off, two.
+- **6. jobs.md:**
+  - Job 5 now requires the real city to stay exposed, so today fails.
+  - Job 8: "only the plans with a stop in it".
+  - Job 12 allows a plan and "narrowed by real city"; today fails on
+    "All cities".
+  - Today now passes **only 11**.
+  - Terms: band, continent, trip assignment, past, global memory,
+    no-town.
+  - Dates: "booking text supplied when a hotel is added".
+- **7. Concept 2's UI is gone:**
+  - "read from a booking you paste" → "if the app has them";
+  - the list-layout wording → "how a view shows the order is not this
+    model's call".
+- **8. Overview:**
+  - intro: "Three models, plus today for comparison";
+  - card 1: band, continent, trip assignment, past;
+  - card 2: "a hotel on the way makes its town a city first";
+  - card 3: "keeps model 1's city in your head", time-gap trips, and a
+    new cost line;
+  - concept 1's file has a "We think … director's labelled opinion"
+    section;
+  - re-rendered 1170x3520 and read at phone size.
+
+**What can't fully hold:**
+- No single rule gets both Copenhagen 2028 (a new trip) and someday
+  Berlin (its own trip) without asking. We chose time ("past") for the
+  first and a split correction for the second.
+- A no-town place with no municipality can't be moved by any correction
+  until place edit exists.
+
+**Director rulings needed:**
+- trip assignment, including "most recently added-to" and "nearest
+  active trip";
+- past = 60 days;
+- the continent table;
+- the split correction;
+- the band = 300 km (replacing the spread);
+- concept 2's stay promotion, ties and no-time visits;
+- concept 3's time gap (6 months);
+- the no-town fallback;
+- the Q5 extension.
+
+**Changed ids for the checker:**
+- jobs 5, 7 (global), 8, 9, 12;
+- C5, C6;
+- T1 (Saltholm caveat), T2 (both branches), T3 (band);
+- concept 2: C7e, C7f (new) and job 14;
+- concept 3: C5, C6;
+- concept 4: the grade (11 only);
+- the overview.
+
+NEXT: director — rule on the list above; then a fresh checker re-runs
+the changed ids.
+
+## Turn 18 -- design director: it got too clever; the simplest version that still passes
+
+Owner: "the app should be as simple and low friction as possible" and
+"i want to make sure it all sings".
+
+### The step back: count what a person must know to predict where a place lands
+
+Concept 1 as Turn 17 has it:
+
+**Trip rules (6):**
+1. an active trip with the same real city;
+2. the most recently added-to, among several;
+3. the nearest active trip on the same continent;
+4. otherwise a new trip;
+5. "past" means 60 days since the last visit;
+6. a continent table (Iceland is Europe, Greenland is North America).
+
+**City rules (8):**
+1. the memory;
+2. reach is 60-80 km;
+3. reach is measured from the anchor;
+4. the anchor is the town with the most places;
+5. the border splits;
+6. a 300 km band means On the way;
+7. two places on the way make a city;
+8. beyond the band, a new city.
+
+**Plus:** the no-town fallback, and a split correction.
+
+That's **about 14 rules, 4 fixed numbers and a lookup table.** Nobody
+holds that in their head, so nobody can predict where a place lands.
+Unpredictable is the opposite of "sings". Every rule was a reasonable
+answer to a checker case, and together they're too clever. **That's
+on me as much as anyone:** I asked for the cases to be closed by rule,
+and each fix added one more.
+
+### The simplest version that still passes the jobs (we think)
+
+Three rules a person can say out loud, plus the fixes:
+
+1. **Near → that city.** A place goes with the nearest of your cities if
+   it's within about a day trip **(we think 60-80 km, unmeasured)**.
+   Otherwise it's a city of its own, even with one place.
+2. **One trip per continent at a time.** A place joins your current trip
+   on its continent. If you have none there, a new trip starts quietly,
+   named from the country.
+3. **You fix things once, after the fact; nothing is ever asked first.**
+   - a town goes with another city, or is its own ("Lund goes with
+     Copenhagen", "Malmö is its own city");
+   - a city splits off into its own trip ("Copenhagen 2028", "someday
+     Berlin");
+   - two trips merge.
+
+**Invisible plumbing**, which a person never has to know: the anchor
+that measures reach, the continent lookup, the no-town fallback, and
+tie-breaking.
+
+**What collapses, and the price, said plainly:**
+- **The 300 km band, On the way and the two-place threshold become rule
+  1's "otherwise it's a city of its own".**
+  - Jönköping is a one-place city in the trip. Job 9 still passes: it's
+    findable, not under an arbitrary city.
+  - Price: small one-place cities sit in the trip's list. **(We think)**
+    that's honest rather than cluttered.
+- **The border becomes a fix.**
+  - Malmö (28 km) joins Copenhagen until the owner says "Malmö is its
+    own city", once, ever.
+  - Price: one fix for this trip. **The owner decides** (Q8), and the
+    automatic border stays available as the option.
+- **"Past = 60 days" and "nearest active trip" become rule 2 plus the
+  split fix.**
+  - Copenhagen 2028 joins Scandinavia 2026 until the owner splits it
+    off.
+  - Price: one fix per repeat trip to the same continent. **(We think)**
+    that's rare enough. It goes in Q5.
+- **Kept, because they cost no understanding:** the continent table (the
+  person only knows "another continent"), the anchor, and the no-town
+  fallback.
+
+**Jobs check:**
+- Job 5: the Blue Lagoon is near Reykjavík. Pass.
+- Job 7: the per-town fix, global. Pass.
+- Job 9: its own city. Pass.
+- Job 10: one trip per continent, plus split. Pass.
+- P: nothing asked. Pass.
+- T1: Tårnby goes to Copenhagen by nearest. Malmö needs one fix with the
+  border off. Pass.
+- T2: Keflavík goes to Reykjavík. Pass.
+- T3: Jönköping becomes its own city. Pass.
+
+### Item-by-item rulings, inside the simple version
+
+| Item | Ruling |
+|---|---|
+| Trip-joining rule | **Replaced** by rule 2 (your trip on that continent, else a new one) |
+| Past = 60 days | **Dropped.** The split fix covers repeat trips (Q5) |
+| Continent table | **Kept**, as invisible plumbing |
+| Split correction | **Kept.** It's now the main trip fix |
+| 300 km band | **Dropped** (with On the way and the threshold) |
+| Border rule | **Off in the simple version.** It's the owner's option in Q8 |
+| Concept 2, hotel promotion | **Moot:** an off-reach hotel town is already its own city, and so a base |
+| Concept 2, ties and no-time visits | **Accepted** as plumbing (ties share a position; no time means no position; nothing is invented) |
+| Concept 3, 6-month gap | **Accepted for concept 3 only (we think).** Time is the only way a no-container model can separate trips. It's that model's own complexity, said on its card |
+| No-town fallback | **Accepted** as plumbing |
+| Q5 extended | **Reworded** (below) |
+
+### Scores
+- **Concept 1 as in Turn 17: 7.** It's correct case by case, but it
+  doesn't sing: a person can't predict it.
+- **Concept 1, simple (the three rules above): 9.** This is what goes to
+  the owner.
+- **Concept 2: 9 on the simple base.** Order is per base, from dates or
+  else first visits, with no legs by default.
+- **Concept 3: 7, unchanged.** Its time gap is an honest third rule, and
+  chaining is still its weakness. It stays as the "everything at once"
+  answer.
+
+### Owner questions (the list changes)
+1. When a place lands in the wrong city: fix it once for the whole town,
+   or fix that one place? (One place alone needs edit, which is future.)
+2. Can one place show under two cities (Copenhagen's airport under both)?
+3. Are hotels and airports places you want to visit, or the frame of the
+   trip?
+4. Should the app put your trip in order? It could use hotel dates (if
+   it has them), the order you actually visit, both, or neither. If it
+   has an order, should places in between sit between two stays? (We
+   think both sources, hotel dates first; in-between only with dates.)
+5. **(Reworded)** One trip per continent at a time: a new city on the
+   same continent joins your current trip until you split it off
+   ("Copenhagen 2028"). OK? Or should old trips close by themselves? Or
+   do you want everything at once (concept 3)?
+6. **(Reworded)** A place on another continent quietly starts a new trip.
+   OK, or ask first?
+7. **(Retired: no threshold any more.)**
+8. **(Reworded)** Malmö is 28 km from Copenhagen. Should it join
+   Copenhagen until you say "Malmö is its own city" (simplest, we
+   think), or should a border keep them apart automatically?
+
+### What has to change (systems)
+- **Concept 1's file:** rewrite as the three rules, plus fixes, plus
+  plumbing.
+  - Delete the band, On the way, the threshold, past, the "nearest active
+    trip" and the border (the border moves to an option under Q8).
+- **Concept 2's file:** rests on the new concept 1. Hotel promotion
+  goes.
+- **Concept 3's file:** its card names the time gap as its own rule.
+- **jobs.md:**
+  - Terms: remove band, past and spread.
+  - Job 9: "its own city" passes.
+  - T3: Jönköping becomes its own city.
+  - C4: retired.
+  - T1 and T2: border-off as the main branch.
+- **Overview:** card 1 becomes the three rules in plain words. That's
+  shorter than today's card.
+
+NEXT: product designer (systems focus) — rewrite concept 1 to the three
+rules and fixes, cascade into 2, 3, jobs.md and the overview; then a
+fresh checker.

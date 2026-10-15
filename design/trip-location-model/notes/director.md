@@ -135,3 +135,59 @@ think both).
 - map sentences;
 - C3's view;
 - the stale C4 flag and the reference's P grade (a fail).
+
+## Turn 15 (2026-10-15)
+
+### Rulings
+- **Border:** an owner question (we think on), Q8.
+- **Legs:** default off, inside Q4.
+- **Anchor and naming:** anchor = most places (correctness); naming =
+  "we think".
+- **C3's name rule:** accepted.
+
+### Scores
+1 = 9, 2 = 9, 3 = 7.
+
+### Overview edits
+1. Separate "new city" from "new trip" distances.
+2. Fold the trip paragraph.
+3. Card 2's stretch marked "if you want it".
+
+### Questions
+8 now.
+
+## Turn 18 -- too clever (2026-10-15)
+
+### The count
+Concept 1 had about 14 rules, 4 numbers and a table. Unpredictable, so it
+doesn't sing. My own pattern: closing every checker case by rule.
+
+### Simple version (we think)
+1. Near (a day trip) → that city, else its own city.
+2. One trip per continent at a time, else a new trip quietly.
+3. Fix once after the fact: a town's city, split a city into a trip,
+   merge trips.
+
+Plumbing: the anchor, the continent table, the no-town fallback.
+
+### Dropped
+- the band;
+- On the way;
+- the threshold of 2;
+- past = 60 days;
+- the nearest active trip;
+- the border (now an option, Q8).
+
+### Scores
+- C1 (Turn 17) = 7.
+- C1 simple = 9.
+- C2 = 9 (on the simple base).
+- C3 = 7 (its 6-month gap accepted for it only).
+
+### Questions
+- Q7 retired.
+- Q5, Q6 and Q8 reworded.
+
+### Lesson
+Count the rules a person must hold. If you can't say it out loud in
+three lines, it doesn't sing.

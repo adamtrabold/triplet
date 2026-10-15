@@ -35,3 +35,13 @@
 - Overview re-rendered from the scratchpad ov/ov.html (playwright, 1170 wide; 2927 tall), model-only.
 - No he/his/him in the concept files or jobs.md.
 - Changed ids: P,1,2,3,4,6,8,9,10,11,12,13,14,C1,C2,C4,C6,C7,C8,T2,T3.
+
+## Turn 14 (2026-10-15): after jobs-check-2
+- Malmö: proposed the border signal (same country + reach → join; across a border → own figure), else the owner fixes it once (T1 = 2 changes). Pending the director.
+- Anchor = the centre of the member with the most places (the name follows it); reach from the anchor; Bláskógabyggð via the memory.
+- Concept 2: only bases are ordered, per base (date → first visit → none); a new base never moves others; non-base figures after the nearest base; legs by the nearest line; no leg → On the way; legs aren't views. A simpler no-legs option offered.
+- Concept 3: jobs 6/8/13 lines; name survival.
+- Today job 11 PASS (visibleLocations shared; zoom only clusters).
+- jobs.md fully rewritten as model outcomes (no UI strings); the overview cards 1/2 updated (3277 tall).
+- Turn 16: Turn 15 applied (overview 3 edits, re-rendered 3277; concept 2 legs off by default; Q4 reworded + Q8 added; jobs T1 both branches). Changed: 9, 14, C7, T1, T3 (+ concept 2's 2, 12).
+- Turn 17: check 3 applied. Trip assignment (active trip with the real city → nearest active same-continent trip → new; past = 60 days; continent table; view never decides; split correction; global memory). Nearby band 300 km replaces the spread. Concept 2: stay promotes On-the-way town; non-base figures unordered; ties; no-time visits. Concept 3: continent + 6-month time-gap clusters. No-town → next OSM level, else by location. Districts/streets = places. jobs 5/8/12 tightened; today passes 11 only; T2 both branches. Overview re-rendered 1170x3520. Q5 extended (widen vs own trip).
