@@ -128,3 +128,11 @@ matches his data, district B is honestly labelled, the fountain names the
 anchor, and card 4 has the "staying as they are" line. READY, pending a
 clean systems coverage run against jobs.md (running in parallel). The send
 order and the questions are in scores.md, round 1.
+
+## Round 1c (2026-10-15): READY
+
+Card 4 is 9 after the coverage fixes: the account is added, the + is one
+symbol (told apart by its box), the pointer covers the current plan, and
+each "staying" item has its reason (the anchor-dot quote is verified as
+his). The crisp cuts fixed the blur. All six are at 9. Send per
+scores.md round 1.

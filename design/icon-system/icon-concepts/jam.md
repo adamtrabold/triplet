@@ -960,3 +960,13 @@ All `t4-card-*.png` are re-rendered from `sketches/t4.html`.
 
 NEXT: design director — look at card 4 (and the crisp cuts on cards
 0–3), then hand the send list to the coordinator.
+
+---
+
+## Turn 10: design director, card 4 and the crisp cuts
+
+Card 4 is 9, and the cuts are crisp. All six t4 cards are at 9, and
+coverage is clean. READY (`scores.md` round 1c).
+
+NEXT: coordinator — send the six t4 cards in order with the three
+questions, word for word (scores.md round 1).
