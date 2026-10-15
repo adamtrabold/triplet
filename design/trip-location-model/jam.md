@@ -2509,3 +2509,45 @@ solving a problem the owner has now dissolved by naming the model.
 NEXT: product designer (systems focus) — fold items 1-3 above into
 concept 5, rewrite jobs.md and the overview to the rescope; then a fresh
 checker.
+
+## Turn 25 -- product designer (systems focus): Turn 24 applied (concept 5 rescope)
+
+- **Concept 5 folds in the three kept items:**
+  1. **Both truths:** a place shows its bucket and its real town
+     ("Reykjavík · in Grindavík").
+  2. **A bucket is the owner's to name:** anything, including "Golden
+     Circle" or "Copenhagen 2028", made at add as today's new city.
+  3. **Never asked:** the bucket is pre-filled by the guess and never
+     blocks ADD. This is now rule 1's own text.
+  - Q-D is added (we think it comes with trips). The move edit is now
+    the model's one stated gap.
+  - Q-A's risk is said plainly: it's the one place the view decides
+    something.
+  - An "On record" line covers concepts 1-3.
+- **jobs.md is rewritten as concept-5 model checks:**
+  - P, plus the reframe quote beside the earlier owner words;
+  - Terms: bucket, real town, trip, showing a trip;
+  - checks 1-9 as the director listed them, plus 10 (a wrong bucket
+    can be fixed: PASS only with Q-D);
+  - C1 is kept and C2-C9 are retired.
+- **T1-T4 under concept 5:**
+  - T1 PASS: Malmö is its own bucket; a trip tagging both cities shows
+    all of them.
+  - T2 PASS: Kastrup is in one bucket, by design.
+  - T3 PASS: the guess or the pick.
+  - T4 PASS with Q-D: Copenhagen 2028 is its own bucket; 2026
+    leftovers need the move.
+- **Today, for reference:**
+  - it passes 1, 2, 6 and 7;
+  - it fails 3, 4, 5, 8, 9, 10 and C1.
+- **Prerequisite:** only check 3 needs the backfill for the 59.
+- **The overview is one card,** re-rendered at 1170x2011 and read at
+  phone size. It holds:
+  - the three rules, quoting the owner where possible;
+  - both truths in one line;
+  - the costs;
+  - Q-A to Q-D (we think yes);
+  - Q3 and Q4, parked with stays;
+  - the record line about earlier models.
+
+NEXT: fresh checker — run jobs.md (concept 5) and the overview.

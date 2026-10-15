@@ -1,15 +1,9 @@
-# Trips, cities and places: jobs and checks
+# Trips, cities and places: model checks (concept 5)
 
-What the model has to let the owner do. Sketch level: the model, not UI.
-Each job has a check a fresh checker can run against a concept's sketch
-(boxes, arrows, a walk-through), and say PASS or FAIL.
-
-Concepts this applies to (jam Turn 6):
-1. **A rule that remembers.**
-2. **Rule + stays.**
-3. **No trip container.**
-4. **Reference: today (B, one home per place).** Today fails several jobs
-   on purpose; it's the comparison, not a candidate.
+What the model has to let the owner do. Model only, not UI. Each check
+says PASS or FAIL against `concepts/5-city-buckets-trip-tags.md`.
+Rewritten for the owner's reframe (Turn 24); concepts 1-4 and their
+checks are on record in `concepts/` and jam.md Turns 4-22.
 
 ## The owner's words (verbatim, `owner.md`)
 
@@ -39,186 +33,101 @@ Concepts this applies to (jam Turn 6):
 > "the philosophical approach should be places-first; immediately doing
 > the thing you actually want to do not the adin"
 
+After the three-model overview (the reframe this file now checks):
+
+> "really what i need is a way to group cities.. something more
+> conceptually like a tag that creates the conceptual connective thread.
+> cities should probably continue to operate as today ... the city is
+> more of a bucket than an actual city ... i should be able to somehow
+> group cities together into a meta-trip and then show / hide on the map
+> based on that"
+
 Earlier: "This is separate from filters which should have a filter by
 city." Settled: editing a place is future; nothing saves without an
 explicit ADD; hold-to-place is future.
 
 ## The governing rule: places-first
 
-**P. Log or see places immediately.** Trips and cities come out of the
-places, never ahead of them.
+**P. Log or see places immediately.** Nothing structural stands between
+the owner and a place.
+- **PASS if** nothing (a trip, a city, a date) has to exist, or be
+  created, named or chosen, before or as a condition of logging a place.
+- **FAIL if** any of that is required, or adding blocks on it.
 
-- **PASS if** nothing (a trip, a city, a group, a date) has to exist,
-  or be created, named or chosen, before or as a condition of logging a
-  place, and adding a place asks for nothing structural.
-- **FAIL if** any of that is required, or adding asks which trip or
-  city.
+## Terms
 
-Every job below is read through P.
+- **Bucket** (a "city" in the app): one per place, guessed from the pin,
+  overridable or new at add; it can hold places outside its real bounds
+  and be named anything.
+- **Real town:** where the place really is (`address_details`).
+- **Trip:** a tag on buckets; optional, made after logging, any number;
+  a bucket can be in several.
+- **Showing a trip:** a filter; the list and the map narrow together.
 
-## Terms (one meaning each; Turn 18)
+## Model checks
 
-- **Figure** (a "city" in the concept files): "the city I think of it
-  with", a named group of places in one trip, made by rule 1 and the
-  fixes.
-- **Reach:** about a day trip (we think 60-80 km, unmeasured), a
-  straight line to a figure's anchor: the centre of its places, never a
-  municipal seat (plumbing).
-- **Rule 1:** each place by its own distance: within reach → the
-  nearest figure; otherwise a figure of its own, even with one place.
-  Only the owner's fixes override it; nothing else is remembered.
-- **Rule 2:** a place joins its city's trip. A place on a continent
-  where you have no trip starts one quietly, named from its country.
-  Concept 3 instead works trips out by continent and a time gap (we
-  think 6 months).
-- **Fixes (rule 3), after the fact, never asked first:**
-  - a town **goes with** another figure, **is its own**, or **also
-    belongs with** a second figure (each global: every place in that
-    town, now and later, in every trip);
-  - a figure **splits off** into its own trip ("places you've already
-    been stay with the old trip");
-  - two trips **merge** (concept 3: "these go together" / "these are
-    separate" instead).
-- **Known limits** are listed in each concept file, one line each; they
-  aren't rules.
-- **Base and order** (concept 2): a base is a figure with a hotel; bases
-  are ordered by hotel dates, else first visit, else not at all.
-  Stretches between bases are off by default (Q4).
-- Gone in Turn 18: the spread and band, On the way, the two-place
-  threshold, "past", the automatic border (now an option, Q8).
+1. **Log a place with no trip.** PASS if a place can be logged, and
+   seen, with no trip existing.
+2. **A bucket can hold a place outside its real town.** PASS if the
+   Blue Lagoon (Grindavík) can be in Reykjavík by the guess (Q-B,
+   pending) or the pick at add.
+3. **Both truths.** PASS if a place exposes its bucket and its real town
+   ("Reykjavík · in Grindavík").
+4. **Trips are tags made after.** PASS if a trip is made after logging,
+   any number exist, and one bucket can be in several.
+5. **Showing trips.** PASS if showing a trip narrows the list and the
+   map together to its buckets' places, and hiding it removes them;
+   several at once (Q-C, pending).
+6. **The city filter sits under the trip.** PASS if, with a trip shown,
+   the city filter picks among that trip's buckets, and with none, it
+   works as today.
+7. **Plans.** PASS if a trip shows the plans with a stop in its
+   buckets, and a plan's stops can be in any buckets.
+8. **A repeat trip.** PASS if Copenhagen 2028 can be kept apart from
+   2026 through a separate bucket ("Copenhagen 2028").
+9. **Nothing structural is required at add.** PASS if the bucket is
+   pre-filled and never asked for or blocking ADD.
+10. **A wrong bucket can be fixed.** PASS only with the move edit (Q-D,
+    pending). Without it: FAIL, stated as the model's one gap.
 
-## Jobs
-
-1. **Log a place on the very first open.**
-   - Check: from an empty app, log a place. PASS if no trip or figure
-     existed or was asked for beforehand, and afterwards a trip and a
-     figure exist **and the current view is the new place's figure**.
-2. **See a whole trip at once.**
-   - Check: PASS if one view holds every place in the trip, grouped by
-     figure, and the map shows the same set.
-3. **Focus on one city of a trip.**
-   - Check: PASS if one view holds exactly one figure's places, and the
-     map shows the same set.
-4. **Move between the trip and a city in one step, either way.**
-   - Check: PASS if trip → figure and figure → trip are each one step.
-5. **See a place under the city you think of it with, without filing
-   it.** The Blue Lagoon (Grindavík) and Keflavík airport (Reykjanesbær)
-   come under Reykjavík.
-   - Check: PASS if, after logging both with nothing chosen, both are in
-     the Reykjavík figure **and each still exposes its real town**. FAIL
-     if that needs a per-place choice, or the real town is lost.
-6. **Find places by where they really are** ("a filter by city").
-   - Check: PASS if places can be narrowed to one real town (Grindavík),
-     separately from figures.
-7. **Fix a wrong grouping without editing a place** (edit is future).
-   - Check: PASS if "Lund goes with Copenhagen" is one fix, which moves
-     every Lund place, now and later. FAIL if the only fix is per place,
-     or impossible.
-8. **Plans that cross cities.**
-   - Check: PASS if a plan can hold stops from more than one figure, and
-     a figure's view includes **only** the plans with a stop in it (every
-     one of them).
-9. **Places in between have a home.**
-   - Check: PASS if a place beyond every reach (Jönköping) is findable
-     as **a figure of its own** in the trip, not filed under an arbitrary
-     figure.
-10. **Other trips stay out of the way** (concepts 1 and 2), **or
-    everything is visible at once** (concept 3).
-    - Check (1, 2): PASS if another trip's places never mix into this
-      trip's views, that trip is one step away, and a repeat or someday
-      trip on the same continent can be separated by fixes, never per
-      place (one split per city it covers, plus merges to rejoin the
-      split cities into one trip for a multi-city repeat).
-    - Check (3): PASS if all places can be seen together, with the
-      trips distinct and nameable.
-11. **The map shows what the list shows.**
-    - Check: PASS if every view's map set equals its list set (zoom may
-      hide pins on the map; it never changes the list).
-12. **It's always clear what you're looking at.**
-    - Check: PASS if every view is exactly one of: a trip, a figure, a
-      plan, any of those narrowed by real town, or nothing yet (empty);
-      concept 3 adds everything.
-13. **A place shows both truths.**
-    - Check: PASS if a place exposes its figure and its real town, and
-      neither was asked for when it was added.
-14. **Hotels only matter if you log them** (concept 2). All three must
-    hold:
-    - (a) With no hotel, concept 2 is identical to concept 1.
-    - (b) A new undated, unvisited hotel makes its figure a base with no
-      position. Nothing else moves.
-    - (c) Bases with a date (or a first visit) take positions in order.
-    - No date is ever asked for.
-
-## Creation moments (each checked against P)
+## Creation moment
 
 | # | Moment | PASS if | FAIL if |
 |---|---|---|---|
-| C1 | **First open, empty** | no trip, no figure exists; search is worldwide | any trip, city or setup step exists or is required |
-| C2 | **The first place ever** | a trip and a figure exist afterwards, named from the place (country, real town); the current view is that figure; nothing asked | a name, trip or city was requested |
-| C3 | **A new town within reach** (Grindavík) | it joins the nearest figure; no new figure | a question, or a new figure |
-| C4 | *(retired in Turn 18: there's no threshold)* | | |
-| C5 | **Beyond reach, same continent** (Copenhagen while the trip is Iceland; Jönköping) | a new figure in the same trip from that one place; the generated trip name widens. Concept 3: the same, inside the time gap | a question, or a forced new trip |
-| C6 | **Another continent** (LA) | concepts 1 and 2: a new trip starts quietly, named from its country. Concept 3: a new trip worked out (also for months later). Either is fixable after (merge, or "these go together") | a question before adding |
-| C7 | **A hotel** (concept 2) | job 14 (b) and (c) | a date prompt, a required date, or any setup |
-| C8 | **Correcting trips later** | merge or split (concepts 1 and 2), or "these go together" / "these are separate" (concept 3): never a place edit | the only fix is editing places |
-| C9 | **Naming** | a trip can be renamed any time, optionally; a custom name survives the trip growing | renaming is required to proceed |
+| C1 | **First open, empty** | no trip exists or is required; search is worldwide; the first place can be logged at once | any trip, city or setup step is required |
 
-## Test cases (run each through each concept)
+C2-C9 are retired (they checked automatic trips and figures).
 
-The automatic border is off (Turn 18), so the fixes below are what the
-owner actually has to make. If the owner turns the border on (Q8), each
-needs one fix fewer.
+## Test cases under concept 5
 
-| Case | PASS if |
-|---|---|
-| **T1 Øresund:** Saltholm, Kastrup Søbad (both in Tårnby municipality; Saltholm's we believe, not verified), with Malmö logged | All three are in the Copenhagen figure with nothing chosen. Putting Tårnby with Malmö takes **two fixes**: "Malmö is its own", then "Tårnby goes with Malmö", each moving every place in its town. (If OSM gives Saltholm no town or municipality, the second fix doesn't move it: say so.) FAIL if any step is per place |
-| **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Kastrup (Tårnby), for both Copenhagen and Malmö | Keflavík is in Reykjavík with nothing chosen. Kastrup is in Copenhagen; in Malmö too after **two fixes** ("Malmö is its own", then "Tårnby also belongs with Malmö"). Concept 2: an airport is never a base |
-| **T3 Jönköping:** about 300 km from both Stockholm and Malmö | **a figure of its own** in the trip, in any logging order, with nothing chosen |
-| **T4 Repeat and someday trips:** Copenhagen in 2028, after Scandinavia 2026; Berlin logged while planning Scandinavia | concepts 1 and 2: both join Scandinavia, and **one split fix** each separates them (the split takes unvisited places, so 2026's visits stay). Concept 3: Berlin needs "these are separate"; 2028 separates only if nothing chains it to 2026, and a chained repeat to the same city can't be separated (a FAIL, in its Known limits) |
+| Case | Outcome | Check |
+|---|---|---|
+| **T1 Øresund:** Saltholm, Kastrup Søbad (Tårnby), and Malmö | Malmö is its own bucket, as today. Saltholm and Kastrup Søbad go to the guessed bucket (Copenhagen) or the pick; their real town shows Tårnby. A trip tagging Copenhagen and Malmö shows all of them | PASS |
+| **T2 The airport:** Keflavík; Kastrup for both Copenhagen and Malmö | Keflavík goes to Reykjavík by the guess (Q-B) or the pick. Kastrup is in **one** bucket; a trip tagging both cities shows it either way. It can't be under both buckets (by design) | PASS |
+| **T3 Jönköping** | The guess or the pick: a nearby bucket, or a new "Jönköping" bucket tagged into the trip | PASS |
+| **T4 Copenhagen 2028** | A separate bucket ("Copenhagen 2028") in its own trip. Places already in 2026's Copenhagen that you go back for need the move edit (Q-D) | PASS with Q-D; without it, the leftovers stay in 2026's bucket |
 
-Reference (today): it fails P, jobs 1, 2, 4-10, 12 and 13, and T1-T4,
-and passes 3 (a city filter, on the letter) and 11 (list and map share
-the same filtered set). Job 5 fails on the real
-town (nothing exposes it); job 12 fails on "All cities".
+## Today, for reference
 
-## What the model stores, and its prerequisite (checked)
+Today has buckets, the guess and the override. It **fails 4, 5 and 8**
+(no trips; a repeat trip could have its own city only via the new-city
+question), **3** (the real town isn't shown), **9** (a pin outside every
+city triggers the new-city question, `maybeDetectCity()`) and **10** (no move). It **passes 1, 2, 6 and 7**, and C1
+fails (cities are seeded before any place).
 
-- **Concept 1 stores:**
-  - per place: its real location, real town and trip;
-  - one global memory, holding only the owner's town fixes;
-  - per trip: an optional name, merges and splits.
-- **Concept 2 stores** concept 1's, plus a hotel's dates when it has
-  them, and **per place, when it was first marked visited** (a new
-  field). Bases and order are inferred.
-- **Concept 3 stores:**
-  - per place: real location, real town, when it was logged and first
-    visited (no trip; so concept 3 also needs the new "first visited"
-    field);
-  - one global memory;
-  - "these go together" / "these are separate" rules and an optional
-    trip name, keyed by member figures, so they survive the trip
-    re-forming.
-- **The real town comes from `locations.address_details`.** That's the
-  raw OpenStreetMap address written at add since 2026-10-05; the short
-  address uses the same column. The town is its city, town, village or
-  municipality (else the next level OSM gives; else none, and rule 1
-  runs on the location alone). Districts and streets use their centroid.
-- **Today (2026-10-15, live count):** 144 of 202 places have it, and 143
-  name a town. **59 places have no real town:** 58 with no
-  `address_details`, and 1 with details but no town.
-  - The prerequisite: run the short-address backfill again for the 58.
-  - The "0/202" in CLAUDE.md and `docs/iphone-checks.md` is stale.
+## What the model stores, and its prerequisite
 
-## Dates (concept 2), as ruled in Turn 12
-
-- **In:** order from first visits (needs the stored "first visited at").
-- **In, as "we think":** dates from booking text supplied when a hotel
-  is added. It's unreliable; a wrong date can only be fixed before
-  adding (edit is future).
-- **Held back, but visible to the owner:** an optional date on hotels.
-- **If neither date route is accepted,** order comes from visits only.
+- per place: its bucket and its real town (as today);
+- buckets (today's `cities` registry);
+- **new:** trips (a name) and which buckets each trip tags;
+- the move edit (Q-D) changes a place's bucket; nothing else is edited.
+- **Real town:** 144 of 202 places have it; 59 don't (58 need the
+  short-address backfill, 1 has details but no town; live count,
+  2026-10-15). Check 3 needs the backfill for those 59; nothing else
+  does.
 
 ## Out of scope
 
 - UI. The owner: "the model is what to nail right now not ui".
-- Editing a place, and hold-to-place: both future (owner).
+- Stays and trip order (Q3, Q4): parked.
+- Full place editing and hold-to-place: future (owner).

@@ -13,10 +13,15 @@ team's opinion; everything else is the owner's or today's fact.
 
 ## The rules
 
-1. **Every place is in one city bucket.** It's guessed from the pin's
-   location when you add it, and you can pick another at add (today's
-   behaviour). A bucket can hold places outside its real bounds (the
-   Blue Lagoon in Reykjavík).
+1. **Every place is in one city bucket.** It's pre-filled by a guess
+   from the pin's location, and you can pick another, or make a new
+   bucket, at add (as today). **It's never asked and never blocks ADD.**
+   A bucket can hold places outside its real bounds (the Blue Lagoon in
+   Reykjavík), and it can be named anything ("Golden Circle",
+   "Copenhagen 2028").
+   - **Both truths:** a place always exposes its bucket **and** its
+     real town ("Reykjavík · in Grindavík"), so the Blue Lagoon never
+     pretends to be in Reykjavík.
 2. **A trip is a tag on cities.** You tag cities into a trip whenever
    you like, after logging. Trips are optional: nothing needs one.
 3. **Showing a trip shows its cities' places** (on the map and in the
@@ -51,16 +56,16 @@ That's the whole model. Nothing else decides anything.
 
 ## What's stored
 
-- per place (as today): its city, plus its real town
-  (`address_details`), kept and not used for filing;
+- per place (as today): its bucket, plus its real town
+  (`address_details`), shown beside the bucket and never used for
+  filing;
 - cities (as today: the `cities` registry);
 - **new:** trips (a name), and which cities each trip tags.
 
 ## Kept from concepts 1-3, and dropped
 
 - **Kept:**
-  - the real town on each place: stored, shown later, and the future
-    "find by where it really is" (job 6);
+  - the real town on each place, shown beside the bucket (both truths);
   - places-first: nothing before logging.
   - **(We think)** maybe the city guess: "nearest city within about a
     day trip" would put the Blue Lagoon in Reykjavík without a hand
@@ -77,9 +82,9 @@ That's the whole model. Nothing else decides anything.
 
 ## The prices, said plainly
 
-- **A wrong city can't be fixed after adding** until place edit exists
-  (today's gap, now the model's one missing piece). The owner: "or
-  somehow manually...i dont think i can do that today".
+- **A wrong bucket needs the move edit (Q-D).** The model needs one
+  edit and no other: change a place's bucket. The owner: "or somehow
+  manually...i dont think i can do that today".
 - **A repeat trip to the same city** (Copenhagen 2028) shows all of
   Copenhagen's places, including the 2026 ones, unless the owner makes a
   separate bucket ("Copenhagen 2028"). Buckets are the unit, by design.
@@ -115,6 +120,17 @@ are.
     (We think yes.)
   - **Q-C:** can several trips show at once? (We think yes: it's a
     filter, like categories.)
+  - **Q-D:** should moving a place to another bucket after adding come
+    with trips, or wait for full place editing? (We think it comes with
+    trips; without it, a wrong guess and a repeat trip have no fix.)
+  - The director (Turn 24) sends Q-A to Q-D as "we think". The risk in
+    Q-A, said plainly: it's the one place the current view decides
+    something.
+
+## On record
+
+Concepts 1-3 (trips by rule) are kept in this folder in case the owner
+ever wants trips to form by themselves.
 
 ## Prerequisite
 
