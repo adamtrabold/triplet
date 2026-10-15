@@ -44,3 +44,4 @@
 - Today job 11 PASS (visibleLocations shared; zoom only clusters).
 - jobs.md fully rewritten as model outcomes (no UI strings); the overview cards 1/2 updated (3277 tall).
 - Turn 16: Turn 15 applied (overview 3 edits, re-rendered 3277; concept 2 legs off by default; Q4 reworded + Q8 added; jobs T1 both branches). Changed: 9, 14, C7, T1, T3 (+ concept 2's 2, 12).
+- Turn 17: check 3 applied. Trip assignment (active trip with the real city → nearest active same-continent trip → new; past = 60 days; continent table; view never decides; split correction; global memory). Nearby band 300 km replaces the spread. Concept 2: stay promotes On-the-way town; non-base figures unordered; ties; no-time visits. Concept 3: continent + 6-month time-gap clusters. No-town → next OSM level, else by location. Districts/streets = places. jobs 5/8/12 tightened; today passes 11 only; T2 both branches. Overview re-rendered 1170x3520. Q5 extended (widen vs own trip).

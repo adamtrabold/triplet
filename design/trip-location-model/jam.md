@@ -1797,3 +1797,111 @@ plus concept 2's 2 and 12 (the no-legs default), and the overview.
 
 NEXT: fresh checker — re-run those ids (T1 both branches); then the
 director releases the send.
+
+## Turn 17 -- product designer (systems focus): after check 3 (which trip a place joins)
+
+Applied jobs-check-3.md, items 1-8. Every new number is **(we think)**,
+unmeasured.
+
+- **1. Trip assignment (the missing rule):** concepts 1 and 2 now run it
+  before the figure rule. Nothing is asked:
+  1. an **active** trip that already has the place's real city (the most
+     recently added-to, if several);
+  2. else the nearest active trip on the same continent (to its nearest
+     anchor);
+  3. else a new trip, named from the country.
+  - **Past** = has visits and none in 60 days. Past trips take nothing
+    new, so Copenhagen 2028 starts "Denmark 2028".
+  - **Continent:** a fixed country table (Iceland and the Canaries are
+    Europe; Greenland is North America). It replaces "same part of the
+    world" and "far away".
+  - **Tivoli while viewing the US trip** → Scandinavia; the view never
+    decides.
+  - **Someday Berlin** widens the trip by default. A new correction,
+    **split a figure into its own trip**, fixes it.
+  - The memory is now **global**, so job 7 holds across trips. Merging
+    keeps the name of the trip with more places.
+  - Concept 3: clusters link by same continent **and** a time gap of
+    about 6 months, by when places were logged or visited. Paris 2024,
+    Scandinavia 2026 and Copenhagen 2028 separate; someday Berlin chains
+    until "these are separate". That's an honest limit.
+  - **Q5 extended, not a 9th question:** "a new city on the same
+    continent widens the trip, or starts its own; we think widen."
+- **2. The spread box is gone. Nearby band:** within 300 km of any
+  anchor → On the way.
+  - Order-independent: Jönköping is within the band of both Malmö and
+    Stockholm.
+  - Edinburgh, about 800 km out → a new figure (it doesn't balloon).
+  - One-city trip: Vík, about 180 km out → On the way.
+  - Honest limit: it's still one fixed distance; one correction per real
+    city fixes it.
+  - Lund before Malmö: Lund is a figure by the border rule; Malmö joins
+    From Lund; the name follows the anchor.
+- **3. Concept 2:**
+  - A stay in On the way promotes its real city to a figure, and so a
+    base, at once (the Gothenburg one-night base).
+  - Non-base figures are **unordered** ("right after" is dropped).
+  - Ties share a position, including one stay making two bases.
+  - Visits from before the new field have no time, so no position;
+    nothing is invented.
+- **4. No-town places:** the real city = the next OSM level
+  (municipality, then county). Else the place goes through the rules by
+  location alone and no real-city correction moves it. Saltholm caveat
+  added under T1.
+  - Districts and streets are places (centroid → real city → the same
+    rules), with one line in each concept. Today's file notes the
+    shape vote.
+- **5. T2 has both branches:** border on, one change; border off, two.
+- **6. jobs.md:**
+  - Job 5 now requires the real city to stay exposed, so today fails.
+  - Job 8: "only the plans with a stop in it".
+  - Job 12 allows a plan and "narrowed by real city"; today fails on
+    "All cities".
+  - Today now passes **only 11**.
+  - Terms: band, continent, trip assignment, past, global memory,
+    no-town.
+  - Dates: "booking text supplied when a hotel is added".
+- **7. Concept 2's UI is gone:**
+  - "read from a booking you paste" → "if the app has them";
+  - the list-layout wording → "how a view shows the order is not this
+    model's call".
+- **8. Overview:**
+  - intro: "Three models, plus today for comparison";
+  - card 1: band, continent, trip assignment, past;
+  - card 2: "a hotel on the way makes its town a city first";
+  - card 3: "keeps model 1's city in your head", time-gap trips, and a
+    new cost line;
+  - concept 1's file has a "We think … director's labelled opinion"
+    section;
+  - re-rendered 1170x3520 and read at phone size.
+
+**What can't fully hold:**
+- No single rule gets both Copenhagen 2028 (a new trip) and someday
+  Berlin (its own trip) without asking. We chose time ("past") for the
+  first and a split correction for the second.
+- A no-town place with no municipality can't be moved by any correction
+  until place edit exists.
+
+**Director rulings needed:**
+- trip assignment, including "most recently added-to" and "nearest
+  active trip";
+- past = 60 days;
+- the continent table;
+- the split correction;
+- the band = 300 km (replacing the spread);
+- concept 2's stay promotion, ties and no-time visits;
+- concept 3's time gap (6 months);
+- the no-town fallback;
+- the Q5 extension.
+
+**Changed ids for the checker:**
+- jobs 5, 7 (global), 8, 9, 12;
+- C5, C6;
+- T1 (Saltholm caveat), T2 (both branches), T3 (band);
+- concept 2: C7e, C7f (new) and job 14;
+- concept 3: C5, C6;
+- concept 4: the grade (11 only);
+- the overview.
+
+NEXT: director — rule on the list above; then a fresh checker re-runs
+the changed ids.

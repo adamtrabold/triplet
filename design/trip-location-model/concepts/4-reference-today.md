@@ -19,6 +19,11 @@ concepts change.
   from the location).
 - **Inferred:** only that pre-fill.
 
+- **No-town places, districts and streets:** a district or street is
+  filed by a vote of its points against the seeded cities
+  (`resolveShapeCity()`); a no-town place is filed by the viewbox like any
+  pin.
+
 ## What can be corrected, and when
 
 - A place's city only at add; afterwards it needs place edit (future).
@@ -53,11 +58,16 @@ new-city question (`maybeDetectCity()`, ~4853-4865).
 | T3 Jönköping | Filed to some city; there's no "between" | FAIL |
 
 **Jobs:**
-- **Fails:** 1-10 and 13, and P.
-- **Passes:** 11 and 12.
+- **Fails:** 1-10, 12 and 13, and P.
+- **Passes:** 11 only.
   - **11:** verified in `index.html`. The list and the map both come from
     the same filtered set (`visibleLocations()`); the map only adds zoom
     clustering (`mapVisibleLocations()`), and zoom never changes the
     list.
-  - **12:** the current view names its city.
+- **12 (fails, Turn 17):** the view can be "All cities", which is none
+  of job 12's views (a trip, a figure, On the way, a plan, or one of
+  those narrowed by real city).
+- **5 and 8 fail** as worded now: no real city is exposed for narrowing
+  (job 5), and a city's view doesn't hold only the plans with a stop in
+  it (job 8).
 - **14:** n/a.

@@ -69,12 +69,28 @@ team's opinion):
   nearest such figure ("From").
 - **Within reach, across a border:** a new figure at once (the border
   signal; proposed in Turn 14, pending the director).
-- **Spread:** the box around the trip's figures. Beyond every reach but
-  inside it, a place goes to **On the way**.
-- **Outside the spread, same part of the world:** a new figure in the
-  same trip, and the trip widens.
-- **Far away** (we think another continent): a new trip (concepts 1 and
-  2), or a new cluster (concept 3).
+- **Nearby band** (Turn 17; replaces the spread box): beyond every
+  reach but within a fixed distance of a figure's **anchor** (we think
+  300 km), a place goes to **On the way**. Measured from anchors, so it
+  doesn't depend on logging order.
+- **Beyond the band, same continent:** a new figure in the same trip, and
+  the trip widens.
+- **Same continent:** from a fixed country table (Iceland and the
+  Canaries are Europe; Greenland is North America).
+- **Trip assignment** (concepts 1 and 2; Turn 17; runs before the
+  figure rule): an **active** trip that already has the place's real
+  city (the most recently added-to, if several); else the nearest active
+  trip on the same continent; else a new trip named from the country.
+  The current view doesn't decide. Concept 3 has no trips: clusters
+  link by same continent and a time gap (we think 6 months).
+- **Past:** a trip with visits and none in the last 60 days (we think).
+  A past trip takes no new places.
+- **Global memory:** which figure(s) each real city belongs to, held once
+  for the whole app, so a correction holds in every trip, now and later.
+- **No town in OSM** (Saltholm, a national park): the real city is the
+  next OSM level (municipality, then county); else the place goes
+  through the rules by location alone. Districts and streets are places
+  (their centroid).
 - **Base, order, leg** (concept 2):
   - a base is a figure with a stay (a Hotel place);
   - only bases are ordered, each by its stays' earliest date, else its
@@ -102,7 +118,10 @@ team's opinion):
    it.** The Blue Lagoon (Grindavík) and Keflavík airport (Reykjanesbær)
    come under Reykjavík.
    - Check: PASS if, after logging both with nothing chosen, both are in
-     the Reykjavík figure. FAIL if that needs a per-place choice.
+     the Reykjavík figure **and each still exposes its real city
+     (Grindavík, Reykjanesbær)**. FAIL if that needs a per-place choice,
+     or if the real city is lost (filing them under Reykjavík by its box
+     alone fails).
 6. **Find places by where they really are** ("a filter by city").
    - Check: PASS if places can be narrowed to one real city (Grindavík),
      separately from figures.
@@ -112,9 +131,10 @@ team's opinion):
      place, or impossible.
 8. **Plans that cross cities.**
    - Check: PASS if a plan can hold stops from more than one figure, and
-     a figure's view includes the plans with a stop in it.
+     a figure's view includes **only** the plans with a stop in it (every
+     one of them).
 9. **Places in between have a home.**
-   - Check: PASS if a place beyond every reach but inside the spread
+   - Check: PASS if a place beyond every reach but within the nearby band
      (Jönköping) belongs to a named group, not to an arbitrary figure:
      - **On the way** (all concepts, by default);
      - or, only in concept 2 with legs turned on and an order, **the
@@ -132,8 +152,10 @@ team's opinion):
 12. **It's always clear what you're looking at.**
     - Check: PASS if every view is exactly one of:
       - a trip;
-      - a figure (narrowed by real city or not; it's still the figure);
+      - a figure;
       - On the way;
+      - a plan;
+      - any of those narrowed by real city (it's still that view);
       - nothing yet (empty);
       - concept 3: everything, or a cluster.
     - In concept 2 a leg is a group inside the trip view, not a view.
@@ -159,8 +181,8 @@ team's opinion):
 | C2 | **The first place ever** | a trip and a figure exist afterwards, named from the place (country, real city); the current view is that figure; nothing asked | a name, trip or city was requested |
 | C3 | **The first place in a new real city within reach, same country** (Grindavík) | it joins that figure (From); no new figure | a question, or a new figure from that one place |
 | C4 | **The second place in a real city beyond every reach** (On the way) | it becomes a figure (threshold 2, a fixed rule; the number is the team's opinion). Within reach, a real city stays From however many places it has, unless corrected to "its own figure" | a setting, a question, or a within-reach city splitting off on its own |
-| C5 | **The first place outside the spread, same part of the world** (Copenhagen while the trip is Iceland), **or within reach across a border** (Malmö while the trip has Copenhagen) | a new figure in the same trip from that one place; the generated trip name widens. Concept 3: a new figure in the same cluster | a question, or a forced new trip |
-| C6 | **A far-away place** (LA) | concepts 1 and 2: a new trip starts without asking, named from its country, and can be undone right after (keep it in the current trip). Concept 3: a new cluster, named from its country, correctable any time after ("these go together") | a question before adding |
+| C5 | **The first place beyond the band, same continent** (Copenhagen while the trip is Iceland), **or within reach across a border** (Malmö while the trip has Copenhagen) | a new figure in the same trip from that one place; the generated trip name widens. Concept 3: a new figure in the same cluster | a question, or a forced new trip |
+| C6 | **A place on another continent** (LA), **or one that no active trip takes** (Copenhagen 2028, once 2026 is past) | concepts 1 and 2: a new trip starts without asking, named from its country, and can be undone right after (keep it in the current trip). Concept 3: a new cluster, named from its country, correctable any time after ("these go together") | a question before adding |
 | C7 | **A stay** (concept 2) | job 14 (b) and (c) | a date prompt, a required date, or any setup |
 | C8 | **Correcting trips later** | merging two trips (concepts 1 and 2), or "these go together" / "these are separate" (concept 3): never a place edit | the only fix is editing places |
 | C9 | **Naming** | a trip or cluster can be renamed any time, optionally; a custom name survives the trip or cluster growing | renaming is required to proceed |
@@ -170,18 +192,20 @@ team's opinion):
 | Case | PASS if |
 |---|---|
 | **T1 Øresund:** Saltholm, Kastrup Søbad (both in Tårnby municipality; Saltholm's we believe, not verified) | **Both branches must hold:** (i) **border on:** both are in the Copenhagen figure with nothing chosen; Malmö is already a figure; putting Tårnby with Malmö is **one** change that moves both. (ii) **border off:** both are in the Copenhagen figure with nothing chosen; Malmö first has to be made a figure (one change), then putting Tårnby with Malmö is one more: **two changes**, each moving every place of its real city. FAIL if either branch needs a per-place change |
-| **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Kastrup (Tårnby), for both Copenhagen and Malmö | Keflavík is in Reykjavík with nothing chosen. Kastrup is in Copenhagen, **and in Malmö too after one change** (Tårnby in both figures). In concept 2 an airport has a figure, so it's never on a leg |
+| **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Kastrup (Tårnby), for both Copenhagen and Malmö | Keflavík is in Reykjavík with nothing chosen. **Both branches must hold:** (i) **border on:** Kastrup is in Copenhagen, **and in Malmö too after one change** (Tårnby in both figures). (ii) **border off:** Malmö first has to be made a figure (one change), then Tårnby in both: **two changes**. In concept 2 an airport has a figure, so it's never on a leg |
 | **T3 Jönköping:** about 300 km from both Stockholm and Malmö | it's in **On the way** (all concepts, by default). Only in concept 2 with legs turned on and Copenhagen and Stockholm as consecutive ordered bases: on their leg. A second Jönköping place makes it a figure (C4) |
 
-Reference (today): it fails P and jobs 1-10 and 13, and passes 11 (list
-and map share the same filtered set) and 12.
+Reference (today): it fails P and jobs 1-10, 12 and 13, and passes only
+11 (list and map share the same filtered set). Job 5 fails on the real
+city (nothing exposes it); job 12 fails on "All cities".
 
 ## What the model stores, and its prerequisite (checked)
 
 - **Concept 1 stores:**
   - per place: its real location, real city and trip;
-  - per trip: the memory (which figure(s) each real city belongs to),
-    an optional name, and merges.
+  - **one global memory** (which figure(s) each real city belongs to);
+  - per trip: an optional name, merges and splits;
+  - per place: when it was first visited (for "past").
 - **Concept 2 stores** concept 1's, plus a stay's date range when it has
   one, and **per place, when it was first marked visited** (a new
   field). Bases, order and legs are inferred.
@@ -199,14 +223,14 @@ and map share the same filtered set) and 12.
   name a town. **59 places have no real town:** 58 with no
   `address_details`, and 1 with details but no town.
   - The prerequisite: run the short-address backfill again for the 58.
-    Until then, those are filed by location alone (the nearest figure).
+    Until then, those go through the rules by location alone.
   - The "0/202" in CLAUDE.md and `docs/iphone-checks.md` is stale.
 
 ## Dates (concept 2), as ruled in Turn 12
 
 - **In:** order from first visits (needs the stored "first visited at").
-- **In, as "we think":** dates read from a booking the owner pastes when
-  adding a hotel. It's unreliable; a wrong date can only be fixed before
+- **In, as "we think":** dates from booking text supplied when a hotel
+  is added. It's unreliable; a wrong date can only be fixed before
   adding (edit is future).
 - **Held back, but visible to the owner:** an optional date on hotels.
 - **If neither date route is accepted,** order comes from visits only.
