@@ -70,18 +70,18 @@ const opt=(d,cat,verdict,label,tool)=>`<div class="opt ${verdict}"><div class="i
 const G=[
  ['Restaurant','restaurant',[['fork','keep','fork + knife (sign)'],['plate','kill','(n/a)']].slice(0,1)],
  ['Café','cafe',[['cup','keep','cup + saucer (sign)'],['pot','push','road-trip coffee pot'],['kringle','kill','bakers’ kringle: an outline at 18px']]],
- ['Bar / music','bar',[['martini','kill','martini: a funnel'],['wine','keep','stemmed glass, round bowl'],['notes','push','two notes (if “music & bars”)'],['trumpet','push','jazz horn (poster)']]],
- ['Attraction','attraction',[['ticket','push','admission ticket'],['camera','keep','camera: “see this”'],['binox','keep','binoculars'],['temple','kill','column front: half the set']]],
- ['Nature','nature',[['tree','keep','conifer (park map)'],['peaks','push','peaks + sun + water (poster)'],['steam','push','hot spring ♨: pools + fumaroles']]],
+ ['Bar / music','bar',[['martini','kill','martini: a funnel'],['wine','keep','stemmed glass, round bowl'],['notes','push','two notes (if “music & bars”)'],['trumpet','kill','jazz horn (poster)']]],
+ ['Attraction','attraction',[['ticket','push','admission ticket'],['camera','keep','camera: “see this”'],['binox','keep','binoculars (backup only)'],['temple','kill','column front: half the set']]],
+ ['Nature','nature',[['tree','keep','conifer (park map)'],['peaks','push','peaks + sun (ruled: the sun goes)'],['steam','kill','hot spring ♨: not a nature concept']]],
  ['Shopping','shopping',[['bag','keep','carrier bag'],['awning','push','shopfront, scalloped awning'],['pricetag','kill','price tag: the Hanging Tag’s twin']]],
  ['Area / district','district',[['blocks','push','city blocks (area = its pin twin)'],['fmap','kill','folded map: the app is a map']]],
  ['Street','street',[['plate','push','enamel street-name plate'],['stepped','kill','road: pencil / escalator']]],
  ['Hotel','hotel',[['bed','keep','bed'],['key','kill','room key: a ring, and “sign in”']]],
  ['Other','other',[['asterisk','keep','printed asterisk (if kept)'],['pennant','kill','flag: “report”']]],
 ];
-const T=[['head','keep','account: head'],['passport','push','account: passport (wit)'],['crosshair','keep','locate: crosshair'],['yah','push','locate = the you-are-here mark'],['xmark','keep','close ×'],['bin','push','delete = bin (UX call)'],['check','kill','current tick = visited’s check'],['pointer','push','current = ▸ pointer'],['compass','keep','directions; not empty list'],['blanktag','push','empty list = blank tag']];
+const T=[['head','keep','account: head'],['passport','kill','account: passport (wit)'],['crosshair','keep','locate: crosshair'],['yah','kill','locate = the you-are-here mark'],['xmark','keep','close ×'],['bin','push','delete = bin (UX call)'],['check','kill','current tick = visited’s check'],['pointer','push','current = ▸ pointer'],['compass','keep','directions; not empty list'],['blanktag','push','empty list = blank tag']];
 document.getElementById('out').innerHTML=`<div class="card"><div class="no">Icon concepts · jam turn 2 · visual · rough builds, not drawings</div><h2>Concepts at real size</h2>
-<p class="att">Each candidate is built roughly on the 2px grid: a 24px badge, then 12px bare. The verdicts are mine, for the director. These are concept tests only; nothing here is drawn.</p>
+<p class="att">Each candidate is built roughly on the 2px grid: a 24px badge, then 12px bare. Verdicts as ruled in jam turn 3 (director). These are concept tests only; nothing here is drawn.</p>
 ${G.map(([n,c,os])=>`<div class="cat"><h3>${n}</h3><div class="opts">${os.map(([d,v,l])=>opt(d,c,v,l)).join('')}</div></div>`).join('')}
 <div class="cat"><h3>Tools (navy, 22px)</h3><div class="opts">${T.map(([d,v,l])=>opt(d,'tool',v,l,1)).join('')}</div></div></div>`;
 window.READY=1;

@@ -8,10 +8,14 @@ card (`v6-card-2-constructed.png`), `../../inspo/`, and the owner's saved
 places (read from the live `locations` and `neighborhood_shapes` tables,
 2026-10-15, read-only).
 
-Settled: Constructed (built on the grid, warmth from subtle rounding,
-the vintage brochure feel); the v6 rules (outlined = not marked by me,
-only blanks are empty, places solid in a circle, 2.00px); Visited FIXED;
-hand-made looks out.
+Settled: he picked Constructed. His words: "the clarity is best with
+built. i think through subtle rounding, etc. we can get some of the warmth
+/ mimicry of the inspo / vintage roadtrip brochures/pamphlets/ etc." The
+rest of what he said is in `../owner.md` (newest at the bottom), including
+"i dont want to say never to that" and "these are just examples. not
+exhaustive." Also settled: the v6 rules card (outlined = not marked by me,
+only blanks are empty, places solid in a circle, 2.00px), and Visited
+FIXED.
 
 ---
 
@@ -23,6 +27,10 @@ fields: **the Ordnance Survey map legend** and **hobo signs**. All four
 are used below.
 
 ### 0. The lesson from "your calls have been the exact opposite of mine"
+
+*Correction (turn 3, §0b):* this section overstates him where it treats
+hand-made as ruled out (the hobo-signs "warning"). His later words in
+`../owner.md` stand over it: "i dont want to say never to that".
 
 Across three rounds the team's picks went to the hand: Field Guide, then
 Cut Paper, then Specimen. He picked the press every time it was on offer:
@@ -519,3 +527,206 @@ NEXT: design director — steer which pairs and owner questions go up
 (turn 1's four, plus pools & hot springs and the two-strip novelty test),
 and rule on the ticket, the peaks, and the convention vs "our objects"
 framing.
+
+---
+
+## Turn 3: design director, steer
+
+I read the owner's new words in `../owner.md` and `docs/owner-taste.md`,
+`jobs.md`, turns 1 and 2, and `sketches/t2-concepts.png` at phone size.
+No scores this turn.
+
+My real draw (python `secrets`): **"Courage!"**. Here it means having the
+nerve to send the plain sign when it's the best one, and to ask him fewer
+questions.
+
+### 0. My bias, named first
+
+He wrote: "its interesting that your calls have been the exact opposite of
+mine, i wonder why." Across three rounds, the director's scores (mine and my
+predecessor's) rewarded the hand-made and the novel: Field Guide 9, Cut
+Paper kept alive, Timetable "the most distinct", and Constructed scored
+lowest of the two when he picked it. So I hold myself to this order of tests
+for every concept in this step, and I'll score in this order:
+
+1. **It reads at real size**: a 24px badge, a 12px chip and a map pin, on a
+   phone.
+2. **It covers what he actually saved**, not the category's name.
+3. **It belongs to one printed family.**
+4. Only then: wit, or something new.
+
+A trip object beats the common sign only if it reads as well. A concept
+being plain is never a mark against it. If I catch myself preferring the
+clever option on a tie, the common sign wins.
+
+### 0b. Two records to correct (systems, before anything is built)
+
+He has twice said we overstate his intent. Two lines in this folder still
+do it:
+- The jam header's "Settled" line says "hand-made looks out". That's wrong.
+  Turn 2 corrected it, but the header still says it.
+- `jobs.md` "Settled" says "with warmth from subtle rounding, in the manner
+  of vintage road-trip brochures". That turns one example into the method.
+
+Replace both with his words, quoted, and add nothing:
+> "the clarity is best with built. i think through subtle rounding, etc. we
+> can get some of the warmth / mimicry of the inspo / vintage roadtrip
+> brochures/pamphlets/ etc."
+
+Then point to `../owner.md` for the rest ("i dont want to say never to
+that…"; "these are just examples. not exhaustive."). On the cards, his
+words appear only as quotes, never as our rules. Nothing in this step is
+about surface, texture or rounding. That's the drawing step, and he judges
+it by eye there.
+
+Also: the sheet and turn 2's table disagree. The sheet labels the jazz
+horn, the passport and the you-are-here mark PUSH, but the text kills them.
+The text is the ruling. Fix the sheet labels so the record agrees with
+itself.
+
+### 1. Rulings on visual's push/kill list
+
+I agree with turn 2's KEEPs and KILLs, except where noted below. Where they
+don't conflict, its reasons stand.
+
+- **The admission ticket (attraction): one build test, then in or out.**
+  The concept is the best fit for a 62-place mix ("you go in"), and that
+  is exactly why I distrust my liking it. On the sheet it reads as a
+  battery or a bandage. One test, the tilted stub with one notch, judged at
+  18px and 12px on the sheet. If it doesn't read as a ticket there, it
+  isn't shown to him. A concept that can't be read at real size isn't a
+  concept for this app. If it fails, attraction's pair is camera / column
+  front. The column front fits museums only, so its line says that
+  honestly ("museums and palaces; not landmarks or Tivoli"). Binoculars
+  stay a backup only. They lean to nature and "search".
+- **Peaks + sun (nature): the sun goes.** The "image placeholder" read is
+  every phone's, and it's at its strongest exactly at real size, where he
+  judges. Clarity first, so wit doesn't outvote that. The pair is
+  **conifer / peaks without the sun** (landscape vs park). If the plain
+  peaks read as "hiking" or "terrain", that's a fair read for Iceland's
+  coast and the fumarole. Say it on the card as the risk.
+- **The hot-spring sign: not a nature concept, and not a question.** See §3.
+- **Jazz horn, passport, you-are-here, kringle, martini, folded map,
+  rooftops, price tag, flag, lamppost, room key: KILLED**, for turn 2's
+  reasons. The passport is the best story in the set, and it still doesn't
+  say "me". Recorded and not sent, as visual said.
+- **The coffee pot (café): only if the build reads as a pot.** A kettle
+  means "kitchen". If it can't be told from a kettle at 18px, café's second
+  concept is cup + pastry (one object beside the cup, so it covers the
+  bakeries, half of the 16), and its noise risk goes on the card.
+- **Street: the enamel plate stays, and needs a second concept that
+  builds.** The road failed three times. Find one more concept that
+  differs in kind and reads at 18px. If none survives the sheet, the card
+  says "one concept: the road didn't survive construction three times",
+  and shows the failed road small. Owning the miss is better than padding
+  the card.
+- **Restaurant, hotel: the common sign is clearly best.** He asked for more
+  than one concept, so each still gets a second that differs in kind,
+  labelled honestly as weaker ("shown so you can see it; we'd keep the
+  fork and knife"). That gives him the choice without our pretending it's
+  close. (Courage: say it plainly.)
+- **Tools, settled by the team and shown as one strip, with no question:**
+  close ×, sort arrows, filter sliders, locate crosshair, Directions
+  compass, more (…), one solid wedge for both disclosures, zoom +/−, the +
+  (his "Build the matched icon"). The current-choice mark moves off the
+  check, because the check is Visited's (FIXED). It becomes the solid
+  pointer ▸, shown in a menu row, where it reads, not alone, where it
+  reads as play.
+- **Tools with a real choice** (each a pair on the tools card):
+  - delete, × vs bin. The card says it changes how delete works, and UX
+    checks it before anything ships.
+  - empty list, blank luggage tag vs no icon. The compass is now
+    Directions' alone.
+
+### 2. "Convention" vs "our objects" strips: YES, as one frame, not a choice of set
+
+This is the only way to answer his novelty question by eye ("im wondering
+if built in context of the rest of the app still feels novel … or if we
+should push some more. something to consider but not lock on"). So:
+
+- **One card, near the front**: two full strips of the 11 at 24px.
+  1. The common sign for each.
+  2. Our object where one survived the sheet, and the common sign where
+     none did.
+- Each strip is also shown **in a row and on the same small map crop**,
+  because his question is "in context of the rest of the app".
+- **The same build quality in both.** If the "ours" strip is drawn with
+  more care, the frame is rigged. I'll check this first.
+- Title it as a question, in his words. No verdict, no editorial. He mixes
+  per icon on the cards that follow; the strips aren't two sets to pick
+  from.
+- Because he said "not lock on", this card asks nothing. It's there to
+  look at.
+
+### 3. Which category questions go to him
+
+Fewer is better, and nothing that asks him to do our sorting:
+
+- **Bar → not a question.** The bar card carries the fact ("8 of your 12
+  bars are music venues: Jazzhouse, Fasching, Debaser…") and shows glass vs
+  notes. His pick answers it. Renaming the category is a data change he
+  can raise if he wants. We don't propose it.
+- **Attraction / nature / area boundaries → not asked.** It's too broad,
+  and it hands him our job. Each place card states, in one line, what's
+  actually in it from his saved places. That's enough for him to see a
+  mismatch if he cares.
+- **Area = district's pin twin → ASKED.** It's concrete, it's his data, and
+  it decides whether area needs a concept of its own.
+- **Other → ASKED,** as a yes/no. Zero rows. The card shows the asterisk in
+  case he keeps it.
+- **Pools & hot springs → NOT asked.** It's a new category he never asked
+  for. That's the exact pattern he called out ("We aimed at a goal you
+  never set"). The nature card's fact line already names the two pools and
+  the fumarole. If he wants a category for them, he'll say so. Recorded in
+  my notes, not sent.
+
+The questions, word for word, sent with the cards:
+1. "For each icon, which concept do you want — or neither?"
+2. "Area and district are often the same places (Djurgården,
+   Möllevångstorget and Laugavegur are saved as both). Should they share
+   one icon?"
+3. "Nothing is filed under Other yet. Keep it in the add form, or remove
+   it?"
+
+### 4. What goes to him (the cards; all 390 wide at 3x, phone-readable)
+
+Concept level, not drawings. Each card says "rough builds, not drawings"
+once, at the top. Each concept is shown as:
+- the 24px badge
+- the 12px chip glyph
+- one row
+- one map pin among a few neighbours
+
+with two plain lines:
+- **What it shows, and why it fits** what he saved.
+- **Could be mistaken for.**
+
+The common sign comes first in every pair. No verdicts on the cards. Where
+we'd keep the common sign, the line says so in plain words.
+
+1. `t4-card-0-strips.png`: convention vs our objects (§2). It asks nothing.
+2. `t4-card-1-food-drink.png`: restaurant, café, bar.
+3. `t4-card-2-sights-outdoors.png`: attraction, nature, shopping.
+4. `t4-card-3-places-of-town.png`: area, district, street (with question 2
+   beside area), hotel, other (with question 3).
+5. `t4-card-4-tools.png`: the settled strip (one line: "settled by the
+   team"), then the two pairs (delete, empty list), the pointer in a menu
+   row, and the + at 2.00px.
+6. `t4-card-5-dropped.png`: every KILL, with its 24px build and one line,
+   so he can bring any back. That includes the passport, the hot spring and
+   the jazz horn.
+
+Every place has at least two concepts that differ in kind. The only
+possible exception is street, and if so it's said openly on the card.
+
+### Open (mine)
+
+- If he picks "ours" for several, the family check (job 6) becomes the
+  first test in the drawing step.
+- The bin is an interaction change. It needs a UX check before it ships,
+  even if he picks it.
+
+NEXT: product designer (systems focus) — fix the two "Settled" records and
+the sheet labels (§0b), then product designer (visual focus) — the ticket,
+coffee-pot and second-street build tests, then the six t4 cards in §4;
+then I score them in one pass, the strips card first.

@@ -13,14 +13,21 @@ meaning the concept behind each icon, not the exact drawing."
 
 ## Settled (not reopened here)
 
-- **Constructed** is the direction: built on a grid, with warmth from subtle
-  rounding, in the manner of vintage road-trip brochures and pamphlets.
+- **Constructed** is the direction. In his words: "the clarity is best with
+  built. i think through subtle rounding, etc. we can get some of the
+  warmth / mimicry of the inspo / vintage roadtrip brochures/pamphlets/
+  etc." The rest is in `../owner.md`, including "i dont want to say never
+  to that" and "these are just examples. not exhaustive."
 - **Outlined means you haven't marked it yet** (Star, Visited). Nothing else
   is an empty shape.
 - Places are solid, in a circle. Every line is 2.00px on screen.
 - **Visited doesn't change**: the stamp, the sticker and the mark-visited
   check.
-- Hand-made is not ruled out (owner, 2026-10-15). He gave examples of where it can come from (construction method, texture, the ink-blot idea); they are examples, not a complete list. Clarity comes first; craft matters most.
+- On hand-made, his words (2026-10-15): "i dont want to say never to that
+  and handmade can come from many angles -- construction method, textural
+  approach, the inkblot thing, etc." and "these are just examples. not
+  exhaustive." On whimsy: "there is not one correct way to show whimsy
+  though and the craft matters most".
 
 ## Jobs for the whole set
 
