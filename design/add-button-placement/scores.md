@@ -2244,3 +2244,28 @@ a still-fixture fix, not a build fix.
    - 10 form open;
    - 00 states;
    - 17 desktop (with its one line).
+
+## Build round 2 -- director, 2026-10-15 (plus-badge-build 5feaa02)
+
+### What changed and what I checked
+- **Changed:**
+  - the Esc blocker is fixed;
+  - + works in one tap over the sort menu;
+  - the aria labels (Close add form / aria-expanded);
+  - the desktop tag gap now applies only on overlap.
+- **Checked:** the 320 stills re-shot with Reykjavík data (04, 12 seen,
+  and consistent). The 4px nit traces to main, so it's not this build.
+
+### Score
+- **9** (unchanged; the work changed only toward the handoff).
+- No new owner objections.
+
+### Owner send (new look, before landing), in order
+1. /home/user/triplet/design/add-button-placement/build/01-rest-390x844.png
+2. /home/user/triplet/design/add-button-placement/build/07-tag-open-390x664.png
+3. /home/user/triplet/design/add-button-placement/build/10-form-open-390x844.png
+4. /home/user/triplet/design/add-button-placement/build/00-states-closeup-3x.png
+5. /home/user/triplet/design/add-button-placement/build/17-desktop-form-open-1280x800.png
+
+Desktop line: "On the computer the form now opens at the bottom, beside
+the +."
