@@ -35,3 +35,6 @@
 
 ## 2026-10-15 — round 11b sent
 - Upright 36x58 orange 9 (1.45x account, 1.08x Float; 3 rows kept with gap 90). Sent V2, V7, V5.
+
+## 2026-10-15 — round 11c sent as a decision
+- Cream squat: all cream < account (36x54 0.31x, 40x55 0.41x). Director pick 40x55 on looks; sent Q4, Q1 (captions corrected to measured) as owner decision vs orange.
