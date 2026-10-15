@@ -1335,3 +1335,66 @@ owner gets the overview.
 
 NEXT: orchestrator — once the jobs checker passes, send the overview and
 the seven questions to the owner.
+
+## Turn 11 -- product designer (systems focus): jobs.md fixed after the fresh check; how concept 2's dates could arrive
+
+`jobs-check.md` read. Only `jobs.md` changed (visual is in the concept
+files):
+1. **Concept 2's revision carried in** (Turns 8-10):
+   - **Job 14** is now three clauses, all required: (a) no hotel =
+     concept 1; (b) an undated hotel = a base mark only; (c) every base
+     dated = order and legs.
+   - **C7** matches.
+   - **Job 9 and T3:** On the way until every base is dated, then a leg
+     (the example's Copenhagen ↔ Stockholm).
+2. **One meaning per term.** A new "Terms" block uses concept 1's rule
+   tree:
+   - reach (joins a figure, "From");
+   - spread (inside it but beyond reach = On the way);
+   - outside the spread in the same part of the world (a new figure);
+   - far away (a new trip, or a cluster in concept 3).
+   **C3** is now limited to within reach. **C5** is now "outside the
+   spread" (it said "within" before: the contradiction the checker
+   found).
+3. **59, not 58:** 58 places with no `address_details` plus 1 with
+   details but no town (the orchestrator verified this). The
+   prerequisite is reworded.
+4. **Concept 3's storage:**
+   - one *global* real-city memory (no trip to hang it on);
+   - "these go together" and "these are separate" stored as rules,
+     keyed by their member figures, because clusters re-form;
+   - the optional cluster name, keyed the same way.
+5. **Ambiguities resolved:**
+   - job 14 (all clauses);
+   - T2: the airport has a figure, so in concept 2 it sits in its city's
+     list under the ◆, never on a leg ("at the edge" is gone);
+   - job 12 allows "Your places" (empty) and concept 3's "All places"
+     and cluster names;
+   - **C6** has a concept-3 variant (a new cluster, nothing to keep).
+
+**Concept 2's dates: how they could arrive without breaking P** (full
+table in jobs.md):
+- **D1, paste the booking:** the dates are read from a pasted
+  confirmation and pencilled on the tag before ADD. Nothing asked.
+  Parsing is unreliable.
+- **D2, an optional "Stay" line** on a Hotel tag. Borderline on P: it's
+  an optional field.
+- **D3, learned on the trip:** order comes from the first visited mark
+  in each city. Needs a hidden `visited_at` timestamp (none today:
+  `visited` is a boolean, and `updated_at` moves on any change). It only
+  helps during and after the trip.
+- **My read (opinion):** D1 + D3, with D2 held back.
+- **If none is accepted:** concept 2 is concept 1 plus a base mark, and
+  the owner should hear that on its card.
+
+Not in jobs.md (the concept files' issues, for visual):
+- concept 2's header count of 96 vs. sections summing to 87;
+- concept 3's first-ADD header (job 1) and its undrawn cluster view;
+- concept 3's C1 missing "search is worldwide";
+- concept 1's stale "flag on C4";
+- the reference under-grading itself on P (today's add form opens with a
+  City select, `index.html` 2801-2802).
+
+NEXT: design director — rule on the date routes (D1 / D2 / D3 or none).
+Then the checker re-runs the changed checks (9, 12, 14, C3, C5-C7, T2,
+T3) once visual's concept fixes land.

@@ -23,3 +23,7 @@
 ## jobs.md (2026-10-15), after director turn 6
 - Written: P (places-first, governing), jobs 1-14 with checks, creation moments C1-C9, tests T1-T3, the B reference, what's stored.
 - Verified the backfill claim: the real city = `locations.address_details` (the same column as short_address; the short-address backfill tool). The live DB today: 144/202 have address_details (143 with a city/town/village/municipality); **58 missing**. The "0/202" in CLAUDE.md / iphone-checks / the jam is stale. The prerequisite = the 58 rows.
+
+## Turn 11 (2026-10-15): jobs.md fixed after jobs-check.md
+- Concept 2's dates-gated order/legs carried into jobs 9 and 14 (3 clauses) and C7/T3; a Terms block (reach/spread/outside/far away) matches concept 1; C3 = within reach; C5 = outside the spread; 59 (58 + 1); concept 3's storage = a global memory + together/separate rules keyed by member figures + a name; T2 "edge" removed; job 12's allowed names widened; C6 concept-3 variant.
+- Dates proposal: D1 paste the booking (parsed, pencilled, no ask), D2 an optional Stay line (borderline P), D3 learned on the trip (first visited per figure; needs a hidden visited_at). Lean D1 + D3; else concept 2 = concept 1 + a base mark.
