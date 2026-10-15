@@ -607,3 +607,8 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Cream q1 36x54 (end 8): **0.31 / 0.28 x the account (0.23x the Float)**; q3 40x55: 0.41; p6 cream 36x58: 0.42. A smaller orange end = lower rank (the end is the weight).
 - Coverage 9/10/11/2%; 0 pins; credit clear; gaps 86/87 → 3 rows at 664; tap pads to 44.
 - **Job 2 fails for every cream variant** → send it back, or the owner chooses a quiet + knowing the number (suggested one-line cost on the send). Orange at the same size passes (1.45).
+
+## Handoff (2026-10-15): the owner approved the Float badge, button only
+- `handoff.md` "How it works" written: the structure (`#floatingAddBtn` moves bottom-left, ink 19.9/19.9, rides the sheet, 60px drawn not scaled; the account goes to right: var(--s4)); positions; states (pressed, open navy/paper ×, tag open → gap 88 (320 1 row), filters under, sort closes, playground, stale, Plans, keyboard); interactions = R7 ride + form line A with TODAY's form (#controls absolute on the band, sticky Add, Add from the rendered box); credit prefix <338; pinPopupTopPad remove; TAG_SHEET_GAP derived 88; planChrome keep; iPhone checks.
+- Jobs 1-6 check: all supported. Job 3 partly (owner accepted: "the circle relates to the icon"); job 5 OK via today's City-first form. Costs: filters +1 tap; 320 1 row with a tag open.
+- Desktop ride unmeasured (builder verifies).
