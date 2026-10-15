@@ -72,3 +72,8 @@ Direction (C only; no call yet): narrower on both sides (the + side and the clai
 > Let’s try it turned 90 degrees too
 
 Direction: show the C tag rotated 90° (vertical) as well, alongside the horizontal one.
+
+2026-10-15, on round 11b:
+> Really like the turned cream and orange but I feel like it could be a tad more squat.. Marge just by reducing the orange edge!
+
+Direction: the owner likes the UPRIGHT CREAM with the orange end (V5 right). Make it a tad more squat, maybe ("Marge" read as "maybe") just by reducing the orange edge. Note: cream measured ~0.59x the account (job 2 cost line was shown with it); the owner saw that line.
