@@ -1450,3 +1450,27 @@ C0, K1, C2, K2, S1 (5 stills).
 
 ### Next
 His C-vs-Float call → handoff.md checked against owner.md.
+
+---
+
+## Round 11b -- 2026-10-15
+
+### Scores
+- **Upright hole-up (43 × 70): 9 on look.**
+  - It's the place's hanging tag, and the tap is a pure grow.
+  - Hole-down reads as a price label.
+- **The row cost (3 → 2 at 664 with a tag open):** not accepted.
+  - It goes against his "header, one item, half a second item" rule.
+  - Step-aside is not acceptable either: no new exception.
+
+### Call
+- Visual frames V7 at 36 × 58 (real size and tag-open at 664).
+- Systems checks ≥ 1.2x the account.
+- If it passes, it's the upright. If not, 43 × 70 with a "2 rows"
+  cost line.
+
+### Send
+V2, V1, V5 (+ V7 if 36 × 58 is picked).
+
+### Next
+Check V7 → release.

@@ -2006,3 +2006,56 @@ Yes:
 - the cream colourway added.
 
 C's orange lead stays at 9 on real change.
+
+## Concept round 11b -- director, 2026-10-15 (C turned 90°)
+
+Owner, verbatim: "Let's try it turned 90 degrees too"
+
+### Real-size look first
+Evidence: V2 (choice), V1, V5.
+- **Upright, hole up, claim-check end down (43 × 70):** the best read of
+  the three.
+  - It *is* the place's tag, hanging: eyelet up, stub down. That's the
+    owner's "pin and what it opens are one idea" without drawing a pin.
+  - Tap-to-form becomes a pure grow, with no rotation. It's simpler.
+  - Same weight as flat (2.12x).
+- **Hole-down:** reads as a price label. Rightly not the lead.
+- **Cream upright:** the same 0.59x cost as flat.
+
+### The list-row cost: not accepted at 43 × 70
+- To stay tappable under an open place tag, the list drops 105px, and at
+  664 it shows 2 rows instead of 3.
+- His rule: "we should show the list header, one list item, half second
+  list item … the list item in view should be the one selected". Two
+  rows is a real loss on the screen he uses most.
+- Stepping aside under a tag would bring back an exception we've told
+  him is gone. No.
+- **Call:** visual frames the shorter upright **36 × 58** (the same
+  proportions, + ~15) as **V7**. It sits at real size beside 43 × 70,
+  in the orange colourway, plus one tag-open frame at 664 showing 3
+  rows.
+- Systems measures its weight. **It must stay ≥ 1.2x the account and
+  read as the tag at 1x** (eyelet, perforation, end all visible).
+  - If it holds, 36 × 58 is the upright, with no row cost.
+  - If it doesn't, 43 × 70 goes with the cost line: "With a place's tag
+    open, the list shows 2 rows instead of 3 on a typical phone."
+
+### Scores
+- **C upright (orange, at whichever size passes the V7 check): 9.**
+- **C flat (orange, 70 × 43): stays 9.**
+- **Cream (either way):** shown with its cost; not recommended.
+
+### Send (lean; after V7 is checked), in order
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V2-choice-3x.png (re-shot with the chosen upright size if it changes)
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V1-upright-options-real-size-3x.png
+3. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V5-upright-colourways-3x.png
+4. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V7-short-upright-3x.png (new; sent only if 36 × 58 is the pick)
+
+**Held back:** V3, V4, V6 and the round-11 flat set (he has them).
+
+**Cost lines:**
+- "The cream tag is quieter than the account badge; the orange one
+  comes first."
+- "Any of them is hidden while the filters are open: one extra tap to
+  close them first."
+- Plus the 2-rows line, only if 43 × 70 stays.
