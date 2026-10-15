@@ -207,6 +207,17 @@ const pages = {
      ${note('Rough weight (systems re-measures): about 1.5× the account badge.')}`,
   [R11 + 'V6-upright-sizes-3x.png']: `${cap('Upright: small phone, list down, a tag open', 'Left: 320 wide. Middle: list down (Home Screen). Right: a place’s tag open in Safari: it stays, the list sits a little lower.')}
      <div class="row" style="padding:0 12px;gap:12px;align-items:flex-end">${col('320 × 568', crop(f('r11v-orange-p4-up-320'), 0, 0, 320, 568, 372 / 320, 320, 'border:1px solid #cfc4ae'), 374)}${col('List down', crop(f('r11v-orange-p4-up-collapsed'), 0, 270, 390, 844, 372 / 390, 390, 'border:1px solid #cfc4ae'), 374)}${col('A tag open', crop(f('r11v-orange-p4-up-tag664'), 0, 0, 390, 664, 372 / 390, 390, 'border:1px solid #cfc4ae'), 374)}</div><div class="gap"></div>`,
+  // ================= ROUND 11c: a tad more squat =================
+  [R11 + 'Q1-squat-options-3x.png']: `${cap('A tad more squat', 'The cream upright with its orange end, shorter. Your route: a smaller orange end (8 or 6). Also: a touch wider and shorter (40 × 55). Close-ups at real size × 1.5. Weights are against the account badge.')}
+     <div class="row" style="padding:0 20px;gap:14px">${col('Now: 36 × 58<br><span style="font-weight:400;font-size:22px;color:#3d4a55">orange end 12<br>about 0.6×</span>', crop1(f('r11v-twoend-p6-up-1x'), 0, 455, 62, 527, 4.4), 272)}${col('36 × 54<br><span style="font-weight:400;font-size:22px;color:#3d4a55">orange end 8 (your route)<br>about 0.45× (rough)</span>', crop1(f('r11q-twoend-q1-up-1x'), 0, 455, 62, 527, 4.4), 272)}${col('36 × 52<br><span style="font-weight:400;font-size:22px;color:#3d4a55">orange end 6<br>about 0.4× (rough)</span>', crop1(f('r11q-twoend-q2-up-1x'), 0, 455, 62, 527, 4.4), 272)}${col('Also: 40 × 55<br><span style="font-weight:400;font-size:22px;color:#3d4a55">a touch wider, end 10<br>about 0.6× (rough)</span>', crop1(f('r11q-twoend-q3-up-1x'), 0, 455, 62, 527, 4.4), 272)}</div>
+     ${note('Plainly: a smaller orange end makes it quieter — the end is most of its colour. At 36 × 54 it is about 0.45× the account, at 36 × 52 about 0.4×, against 0.6× now; the + still comes after the account badge in all of them. The 40 × 55 keeps about 0.6×.')}`,
+  [R11 + 'Q2-squat-real-size-3x.png']: `${cap('36 × 54 (end 8) at real size', 'As your phone shows it, with the app’s own pins and the account badge.')}
+     ${crop1(f('r11q-twoend-q1-up-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
+  [R11 + 'Q3-squat-vs-now-3x.png']: `${cap('Now vs a tad more squat', 'Left: 36 × 58, end 12 (now). Right: 36 × 54, end 8.')}
+     ${pair(f('r11v-twoend-p6-up'), '36 × 58 (now)', f('r11q-twoend-q1-up'), '36 × 54', 640)}<div class="gap"></div>`,
+  [R11 + 'Q4-squat-alternative-3x.png']: `${cap('Also: 40 × 55', 'Squatter by being a touch wider as well as shorter, so the orange end can stay at 10 and keep its weight. Left: 36 × 54 (end 8). Right: 40 × 55.')}
+     ${pair(f('r11q-twoend-q1-up'), '36 × 54', f('r11q-twoend-q3-up'), '40 × 55', 640)}<div class="gap"></div>`,
+  [R11 + 'Q5-squat-tag-open-3x.png']: `${cap('36 × 54 with a place’s tag open (390 × 664)', 'It stays and can be tapped; 3 list rows still show.')}${full(f('r11q-twoend-q1-up-tag664'))}<div class="gap"></div>`,
 };
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${dd}/chrome-linux/chrome`, args: ['--allow-file-access-from-files'] });

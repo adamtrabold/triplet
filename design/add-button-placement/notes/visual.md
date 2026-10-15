@@ -1,5 +1,19 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 11c (owner: the turned cream + orange "a tad more squat… maybe just by reducing the orange edge")
+- **Presets:**
+  - q1 = 36×54 (end 8), the owner's route;
+  - q2 = 36×52 (end 6);
+  - q3 = 40×55 (end 10), the alternative.
+  - Gaps 86 / 84 / 87 keep 3 rows at 664.
+- **Rough weights, scaled to systems' 0.59 for the current cream:**
+  - q1 about 0.45×;
+  - q2 about 0.4×;
+  - q3 about 0.6×.
+  - A smaller orange end makes it quieter; it's said plainly on Q1.
+- **Stills:** `C-tag-r11/Q1-Q5` (close-ups, q1 real size, vs now, the
+  alternative, tag open).
+
 ## UPDATE 2026-10-15, round 11b short upright
 - **p6 preset** = 58×36 (upright 36×58), + 15 / 3.2, hole r 2.6.
 - **The T page gap** is now foot 20 + the object + 12: p6 upright 90, p4
