@@ -19,7 +19,8 @@ const CPICK = (process.env.CPICK || 'side:fillplus:rules:0:144:40:4:heavy').spli
 const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
 // C keys: 'C' (the pick) or 'C:<form>:<pin>:<plus>:<ps>:<w>:<pd>'
 const TINC = fs.readFileSync(path.join(CON, 'C-tag-r10/t.inc.html'), 'utf8');
-const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt, tp, trot] = k.split(':'); return inj(real.replace('const TAG_SHEET_GAP = 48;', 'const TAG_SHEET_GAP = 86;'), [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"${tp ? ` data-tp="${tp}"` : ""}${trot ? ` data-trot="${trot}"` : ""}`); }
+const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt, tp, trot] = k.split(':'); const GAP = trot && process.env.TGAP ? process.env.TGAP : trot ? (tp === 'p6' ? 90 : 108) : 86;   // foot 20 + the object + 12
+    return inj(real.replace('const TAG_SHEET_GAP = 48;', `const TAG_SHEET_GAP = ${GAP};`), [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"${tp ? ` data-tp="${tp}"` : ""}${trot ? ` data-trot="${trot}"` : ""}`); }
   if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw, cg] = k === 'C' ? CPICK : k.split(':').slice(1);
   return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}" data-cg="${cg || ''}"`); };
 // ---------- helpers ----------
@@ -226,6 +227,10 @@ F['r11v-orange-p4-up-320'] = { k: 'T:orange:104:0:p4:up', vp: V320, zoom: true, 
 F['r11v-orange-p4-up-collapsed'] = { k: 'T:orange:104:0:p4:up', inset: true, zoom: true, centre: [64.1500, -21.9450], run: async p => { await p.click('#collapseBtn'); await p.waitForTimeout(900); } };
 F['r11v-orange-p4-up-tag664'] = { k: 'T:orange:104:0:p4:up', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
 
+// round 11b: the short upright (36 x 58)
+both('r11v-orange-p6-up', { k: 'T:orange:104:0:p6:up', zoom: true, centre: CREST });
+F['r11v-orange-p6-up-tag664'] = { k: 'T:orange:104:0:p6:up', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {
@@ -246,7 +251,9 @@ F['r11v-orange-p4-up-tag664'] = { k: 'T:orange:104:0:p4:up', vp: V664, run: p =>
         eyePin = [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(); return cx > r.left - 7 && cx < r.right + 7 && cy > r.top - 7 && cy < r.bottom + 7; }).length; }
       const LP = document.getElementById('lp') || document.getElementById('cp') || document.getElementById('tb') || document.getElementById('fb'); const lpPins = LP ? [...document.querySelectorAll('.leaflet-marker-icon')].filter(m => { const r = m.getBoundingClientRect(), q = LP.getBoundingClientRect(); return r.right > q.left - 4 && r.left < q.right + 4 && r.bottom > q.top - 4 && r.top < q.bottom + 4; }).length : null;
       const taps = window.__BT && __BT.taps && document.getElementById('btDock') ? __BT.taps() : null;
-      return { taps, acctPins, eyePin, lpPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
+      const lst = document.getElementById('locationsList'), lr = lst.getBoundingClientRect();
+      const rows = [...lst.querySelectorAll('.location-card[data-id]')].filter(c => { const r = c.getBoundingClientRect(); return r.top >= lr.top - 1 && r.bottom <= Math.min(lr.bottom, innerHeight) + 1; }).length;
+      return { rows, taps, acctPins, eyePin, lpPins, lp: bx('#lp'), nb: bx('#nb'), acct: bx('#accountBtn'), credit: bx('.leaflet-control-attribution'), tag: bx('.tag-popup .tag-body'), add: bx('.bt-add'), pin: bx('#btPin'), sheetTop: Math.round(document.getElementById('locations').getBoundingClientRect().top) }; });
     m.errs = errs; m.clash = await chromeCheck(page);
     meas[name] = m; console.log(name, JSON.stringify(m));
     await page.screenshot({ path: path.join(C, 'raw', `${name.replace(/-1x$/, '')}-${s.dsf === 1 ? 1 : 3}x.png`) });

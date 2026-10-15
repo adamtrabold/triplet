@@ -1,5 +1,15 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 11b short upright
+- **p6 preset** = 58×36 (upright 36×58), + 15 / 3.2, hole r 2.6.
+- **The T page gap** is now foot 20 + the object + 12: p6 upright 90, p4
+  upright 108, flat 86 (`TGAP` env overrides).
+  - At 664 with a tag open, 90 keeps 3 rows; 96 drops to 2.
+  - measure.json has `rows` now.
+- **Stills:** V7 (36×58 vs 43×70 at real size and ×2, plus a tag open at
+  664 with 3 rows). V2 (the choice) is re-shot with 36×58 as the upright.
+- **Rough weight:** 36×58 is about 1.5× the account.
+
 ## UPDATE 2026-10-15, round 11b (owner: "Let's try it turned 90 degrees too")
 - **`data-trot=up|down`** in `drawR11()`; preset p5 (64×38) for a slimmer
   upright.

@@ -1,5 +1,12 @@
 # C · the tag is the button, round 11: how it looks and feels
 
+## Round 11b, short upright (director: keep the third list row)
+
+- **36 × 58** (`p6`, upright): the + is 15 across with a 3.2 stroke, the hole r 2.6 with its ring, the end 12. The hole, the dotted line and the end all read at 1x (V7).
+- **Tag open:** `TAG_SHEET_GAP` = 20 + 58 + 12 = **90**, which keeps **3 list rows at 664** (43 × 70 needs 108, which shows 2).
+- **Rough weight:** about 1.5× the account (systems re-measures).
+- **V2 (the choice)** now shows the upright at 36 × 58.
+
 ## Round 11b: turned 90° (owner: "Let's try it turned 90 degrees too")
 
 `drawR11()` dial `data-trot = up | down`: the same horizontal tag rotated. Frames `r11v-*`.
