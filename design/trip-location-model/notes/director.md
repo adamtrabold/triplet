@@ -220,3 +220,4 @@ The obvious answer, sent alone. Concepts 1-3 are the record (one line).
 ### Lesson
 The owner's own naming of the model beat 20 turns of rules. Keep
 offering simpler framings early.
+- 2026-10-15 (turn 27): C5 as answered = 9. New-city prefill fits A but is a team call: label 'we think' on the overview; a city born at ADD joins no trip (D). Overview: the 'still open' item is answered by the owner (no trip shown at add) -> Decided E. No new questions.

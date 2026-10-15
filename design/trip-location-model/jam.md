@@ -2636,3 +2636,61 @@ place shows the city's trip.
 
 NEXT: director — score concept 5 as answered, then a fresh checker
 (light pass) before the summary goes back to the owner.
+
+## Turn 27 -- design director: concept 5 as answered
+
+### Score: 9
+- Every rule now stands on the owner's own words:
+  - bucket, and "the Copenhagen part";
+  - trip tags;
+  - pick trips to see them, several at once (C);
+  - both truths (B);
+  - the wrong city editable, its trips never (Q-D);
+  - repeat trips re-tag the same city ("should not change the pins").
+- Places-first holds, and the three rules are still predictable.
+- Its one remaining team opinion (below) is labelled.
+
+### The new-city pre-fill: it fits, with two conditions
+- **It fits A ("should not be or feel required"):** nothing is asked and
+  ADD is never blocked.
+- **But it's a team call.** It replaces today's new-city question, and
+  the owner said cities "should probably continue to operate as today".
+  So:
+  1. **Label it "(we think)" on the overview too.** Rule 1's "if none is
+     that close, a new city named from the real town" is unlabelled
+     there; the concept file has the label.
+  2. **State what happens to a city made this way and trips.** It's
+     created inside add-place, and D says "you should not add cities to
+     trips inside of the ui of adding a place". So a city born at ADD
+     joins **no** trip until it's tagged later, elsewhere. A's optional,
+     low-key "add to a trip" belongs to making a city on its own, not
+     to this path.
+     - Concept 5, jobs.md (check 4) and the overview each get one line.
+
+### The overview at phone size: reads, but one stale item
+- **"Still open: show a city's trip next to it while adding a place?
+  (You weren't sure.)" is answered.** The owner's last entry: "i
+  actually dont think you should show the trip when adding a place …
+  what matters is where you're putting the pin."
+  - Move it to Decided ("**E** No trip shown when adding a place; what
+    matters is the pin").
+  - "Still open" then holds nothing but the parked Q3 and Q4.
+  - The same goes for concept 5's file and jobs.md, wherever it's
+    listed as open.
+- Everything else reads cold:
+  - one card;
+  - "we think 60-80 km" labelled;
+  - the 59 note;
+  - Decided A-D plus the wrong city;
+  - the costs;
+  - the record line.
+
+### No new owner questions
+After E, everything is answered except stays (Q3, Q4), which are parked
+by design.
+
+NEXT: product designer (systems focus) — the three edits:
+1. the "we think" on the overview's new-city pre-fill;
+2. the line that a city made at ADD joins no trip until tagged later;
+3. E moved to Decided in the overview, concept 5 and jobs.md.
+Then a light checker pass, and the summary goes back to the owner.
