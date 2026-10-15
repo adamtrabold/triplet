@@ -17,3 +17,4 @@
 - Key finding: edit-after-add being future favours models whose figure is derived (A, C, D), where fixes are per rule, not per place.
 - D (by region: a figure = a named set of real cities; a new real city joins the nearest figure; a per-region fix; real-city chips = the figure's members). Needs the address backfill (0/202).
 - Owner question to add: fix a place vs fix the rule once.
+- Creation (owner: no setup before logging): trips and figures auto-created from places (named from the country / real city; renameable). Second trip: one question "Start a new trip?" when far (or ▾ New trip). None of A-D needs setup; B pays a pre-filled choice per add (wrong outside the lens; unfixable until edit); C's value needs stays logged (0 hotels today); A and D zero/zero. Any variant requiring create/name/dates first fails the owner's rule.

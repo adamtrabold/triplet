@@ -767,6 +767,51 @@ Test places:
 - It differs from A (distance), B (per place) and C (stays) in kind:
   **membership is decided at the level of real places' names, once.**
 
+### How things come into being (owner constraint, folded in)
+
+> "we also need to think about how these things are created. e.g. if we
+> have a trips model how do i create that -- i do not want someone to
+> have to manually do a bunch of shit to set up a thing before they just
+> start getting to logging the places they want to go"
+
+**Rule I've applied to every model:**
+- Trips and figures (cities, bases) are **created as a side effect of
+  logging places**, never as a step before it.
+- They're named automatically. A trip is named after its first place's
+  country, with no year, because there are no dates yet: "Iceland".
+- They can be renamed whenever (renaming a trip isn't editing a place,
+  but it's flagged as an owner question).
+- **A model fails the owner's rule if it needs anything made, named or
+  dated before the first place can be logged.**
+
+| Moment | A · rule | B · one home | C · anchors | D · region sets |
+|---|---|---|---|---|
+| **The very first place** (empty app) | A trip is made ("Iceland"), and its first city is the place's real city. Nothing asked | The same; home = its real city | The same. **No bases** until a hotel is logged, so the figure comes from A's rule | The same; the first figure = {its real city} |
+| **The first place in a new city, same country** | It joins the nearest city's "From" (within the reach), or becomes a new trip city beyond it. Nothing asked | Home pre-filled from the lens. **Adding Lund while looking at Malmö = Malmö**; to make Lund its own home, choose "New city…" on the tag (one step) | As A. A hotel there makes it a base | It joins the nearest figure, or becomes a new figure beyond the reach. Nothing asked |
+| **The first place in a new country** (Copenhagen while the trip is Iceland) | A new trip city (it's far from every other one). The trip now spans two countries ("Scandinavia" is a rename) | Home pre-filled from the lens = **Reykjavík, which is wrong**. It must be changed at add ("New city…"), or it's misfiled until edit exists | As A | A new figure (far away). Nothing asked |
+| **Starting a second trip** (LA) | The place is far from every city in the trip (another continent) → **one question: "Start a new trip?"** (pre-named "United States"), or ▾ → New trip | The same | The same | The same |
+| **Setup before the first log** | **None** | **None** | **None** required. Its *structure* needs hotels logged; hotel dates are optional (order = the order added) | **None** |
+| **Choices per add** | 0 (see-also optional, add only) | **1, pre-filled**, and wrong whenever the lens isn't the place's city | 0 | 0 |
+| **Later tuning** (optional) | per place, at add only (edit is future) | none possible until edit exists | log your stays | **per region, any time** ("Lund goes with Copenhagen") |
+
+**Plainly:**
+- **None of the four needs setup before logging,** as long as trips and
+  figures are made automatically, as above.
+- The version of *any* model that asks you to create a trip, name a city
+  or set dates first **fails the owner's rule**. That includes C if it
+  insisted on hotel dates. All of them are written here without it.
+- **B pays its cost at every add:** a pre-filled home that's a real
+  decision, wrong whenever you add outside the city on screen, and
+  unfixable until edit exists. It's the weakest on "just start logging",
+  though it doesn't strictly fail.
+- **C costs nothing up front,** but its benefit (bases, legs, order)
+  only appears if you log your stays, and today there are none. Logging
+  a hotel *is* a kind of setup, if one you might do anyway.
+- **A and D are the cheapest:** zero to start, zero per add.
+- **The one question every model shares** is "Start a new trip?" when a
+  place lands far from the current trip. That's the only moment trips
+  are visible at all, and it can be skipped (it joins the current trip).
+
 ### For the director
 
 - A, B, C and D differ in **where the figure comes from**: distance,
@@ -776,6 +821,9 @@ Test places:
   - **C** is the only one that answers "places in between" fully.
   - **A** is the most automatic.
   - **B** is the most predictable, and the most fragile without edit.
+- On creation: A and D need nothing up front and nothing per add. B
+  asks at every add (pre-filled). C needs nothing up front, but its
+  value waits on logging stays.
 - New owner question to add: "If the app gets one place's city wrong,
   would you rather fix that place, or fix the rule (for example 'Lund
   belongs with Copenhagen') once for all places like it?"
