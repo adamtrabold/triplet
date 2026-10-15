@@ -29,10 +29,10 @@ pick/redirect before building anything.
   Already done with the Hanging Tag (2026-10-07): the per-city palette is
   removed and the accent is `--brand-orange` / `--brand-orange-deep` (read via
   `--figure`, `--figure-deep`, `--star`); the rest of the palette is still
-  to be named. Lane 1 (tweak): no visual change. Sequencing: its own pass right after the
-  popup redesign (Hanging Tag, building on branch `popup-hanging-tag`)
-  lands, and before the icon system revision below, which leans on the same
-  mark colours.
+  to be named. Lane 1 (tweak): no visual change. Sequencing: its own pass
+  after the popup redesign (the Hanging Tag landed 2026-10-07) and before
+  the icon system revision below, which leans on the same mark colours.
+  Status (2026-10-15): not started (no token-pass commit on main).
   Current state (`index.html` on main, 2026-10-07):
   - Already CSS custom properties on `:root` (lines 189-235): `--paper`,
     `--paper-raised`, `--paper-pressed`, `--paper-filed`, `--paper-warm`,
@@ -74,9 +74,13 @@ pick/redirect before building anything.
   Zero visual change, proven by the Impeccable identity diff and
   before/after stills.
 - **Icon system full revision** (owner, 2026-10-07, verbatim:
-  "also i want the next priority to be fixing our icon system -- they're too noisy, the approacah we're using the checked items are stronger visually than the open ones. the icon system needs more clarity... i need a full rev. so note that"). Lane 2 (feature / new look). Sequencing: next after
-  the popup redesign (Hanging Tag) and the star colour, both in progress in
-  `design/popup-hierarchy/`. Related prior owner quotes in
+  "also i want the next priority to be fixing our icon system -- they're too noisy, the approacah we're using the checked items are stronger visually than the open ones. the icon system needs more clarity... i need a full rev. so note that"). Lane 2 (feature / new look). The popup redesign
+  (Hanging Tag) and the star colour it followed have landed (2026-10-07).
+  **In design** on branch `claude/elegant-galileo-1c5ntm`,
+  `design/icon-system/` (not on main): inventory, then phase 1 = a brand
+  approach to icons (`brand-approach/`); the owner's 2026-10-14 direction
+  (place icons solid, outlined = not yet tapped by me, visited unchanged)
+  and phase 2 (grid + SVG drawing after approval) are in its `owner.md`. Related prior owner quotes in
   `docs/owner-taste.md`: Icons / marks ("Same icon drawing language
   everywhere": "Checkmark was only supposed to be lightly rounded like the
   rest of the icons" ; "we need to do an icon pass on the rest at some other
@@ -110,7 +114,9 @@ pick/redirect before building anything.
   are not candidates.
 - ~~**Short address in the popup**~~ BUILT 2026-10-07 with the Hanging Tag
   (`tagAddress()`: `short_address`, else derived from `address_details`,
-  else omitted -- never the full string). Still open: the owner runs
+  else omitted -- never the full string). Still open: 59 of 202 places lack
+  a real town (58 have no `address_details`, 1 has details but no town;
+  live count 2026-10-15); the owner re-runs
   `tools/short-address-backfill.html`. Original item: (owner, 2026-10-05: "#1 since there's a
   directions button"). The data shipped 2026-10-05 (`locations.short_address`,
   `docs/shipped.md` "Short address"); showing it lands WITH the popup
@@ -119,10 +125,10 @@ pick/redirect before building anything.
   soft is no longer needed: the columns are live) and decides the fallback
   for rows the backfill could not fill (NULL). Owner still has to run
   `tools/short-address-backfill.html` (`docs/iphone-checks.md`).
-- ~~**Visited system: peeled sticker**~~ BUILT 2026-10-02 on branch
-  `visited-sticker` (see `docs/shipped.md` "Visited sticker"), revised the
-  same day to one cream + neutral look; lands once the owner approves the
-  revised stills. Original item, for history: (owner,
+- ~~**Visited system: peeled sticker**~~ LANDED (built 2026-10-02 on
+  `visited-sticker`, merged with `visited-sticker-2`; see `docs/shipped.md`
+  "Visited sticker" and, superseding it for rows, 2026-10-03 "Stamp returns
+  to rows": dark sticker on map pins, the stamp on rows). Original item, for history: (owner,
   2026-09-29 ask; final check size/shape decisions 2026-10-02). Supersedes
   the old "Visited pins have no map treatment" thread: Round 4 dots
   (`design/visited-marker/concept/`) were REJECTED by the owner as visual
@@ -165,12 +171,28 @@ pick/redirect before building anything.
     city/trip picking.
   - Discovery: `design/trip-location-model/proposal.md`. Related: Phase 2
     "trip context (dates/closures)".
-- **Plans: apply the migration, then the iPhone checks** (v3 built on
-  branch `plans-v3-build`, see `docs/shipped.md` "Plans (v3 build)").
-  **Blocker:** apply `supabase/migrations/20260929000000_add_plans.sql` to
-  the live project (operator, after review); until then the Plans side says
-  plans aren't available yet and nobody can create one. Then the owner's
-  iPhone pass (`docs/iphone-checks.md`). Open for designer/UX:
+  - **Active design (2026-10-15)** on branch `claude/elegant-galileo-1c5ntm`,
+    `design/trip-location-model/` (not on main): `owner.md` (the owner's
+    words: the model is locations, cities, trips and plans; a place may
+    belong to a city it isn't physically in; sketch level, model not UI;
+    near-zero setup), `jam.md`, `jobs.md`, and `concepts/` with three
+    concepts -- 1 "a rule that remembers", 2 the same plus stays (hotels),
+    3 no trip container -- plus 4, a reference of today (not a candidate).
+    Not yet sent to the owner (status per the branch's own notes; no owner
+    reply recorded). Governing rule, places-first (owner, 2026-10-15: "the
+    philosophical approach should be places-first; immediately doing the
+    thing you actually want to do not the adin").
+  - The blank-tag add form (`design/add-button-placement/concepts/blank-tag-form/`,
+    same branch) continues after the + badge as its own design work; it
+    touches the same city/search questions. Status unclear: reported on hold
+    until the trip model settles, but no record of the pause in the repo.
+- **Plans: the iPhone checks** (v3, see `docs/shipped.md` "Plans (v3
+  build)"). The v3 code is in `index.html` on main (its commits, e.g.
+  `42bd919`, are on main; branch `plans-v3-build` is gone from the remote).
+  The `plans` / `plan_stops` tables exist in the live DB (checked
+  2026-10-15); no docs entry records when
+  `supabase/migrations/20260929000000_add_plans.sql` was applied. Next: the
+  owner's iPhone pass (`docs/iphone-checks.md`). Open for designer/UX:
   the starred stop's name starts at 122px, not 96px (v3 §7 CD note); the
   build decisions listed in the shipped entry (reorder Undo copy, stamp at
   normal ink, chip framing). Owner question still open (v3 §4, owner-12):
@@ -186,8 +208,8 @@ pick/redirect before building anything.
   reference. Review the category glyphs and other icons (fork, cup,
   martini, etc., star, chevrons, + and x, the plan/shape marks) for one
   consistent drawing language (end caps, corner radius, stroke/fill,
-  optical size), later. Concept stage first (designer, UX, CD). Nothing
-  started.
+  optical size), later. Folded into the "Icon system full revision" above
+  (now in design in `design/icon-system/` on `claude/elegant-galileo-1c5ntm`).
 
 - **Plans follow-ups from the final review** (critics-final 9c5296e,
   `design/impeccable-gate/reviews/2026-10-01-6d3609c2c34d/REPORT.md`; not
@@ -204,16 +226,24 @@ pick/redirect before building anything.
   viewport height (Safari tab with toolbars, 390x664; SE 375x667) the list
   sheet covers ADD LOCATION, so a tap on Add lands on a list row. Repro:
   open the add form at 390x664 -- `design/add-button-placement/concepts/stub-stress/today-form664-3x.png`.
-  Being folded into the + placement work (proposal: the list drops to its
-  header band while the form is open). FIXED on `plus-badge-build`
-  (2026-10-15, not landed yet): the form sits on the band, ADD LOCATION on
-  the ×'s line at every height.
+  FIXED, landed 2026-10-15 with the + badge (`plus-badge-build`): the form
+  sits on the band, ADD LOCATION on the ×'s line at every height.
 - **Add form opens behind the open filters panel** (same source): with the
   filters panel open, tapping + opens the form behind it and a tap on Add
   hits a filter chip. Repro: open filters, tap +. Proposal in the + work:
-  opening the form closes filters and the sort menu. FIXED on
-  `plus-badge-build` (2026-10-15, not landed yet): the panel covers the badge
-  (close filters first); a keyboard open closes filters and the sort menu.
+  opening the form closes filters and the sort menu. FIXED, landed
+  2026-10-15 with the + badge: the panel covers the badge (close filters
+  first); a keyboard open closes filters and the sort menu.
+
+- **+ rides up with the filters panel** (owner, 2026-10-15: "for 1 let's
+  push the + up with the panel"; then "the panel height should all just be
+  responsive"). WIP on branch `plus-rides-filters` (`987704c`, not landed):
+  the + rides the panel's top edge where it fits, else the panel covers it.
+  Waits on the owner's pick of the panel-height ceiling (options as put to
+  the owner: A below the zoom/account row, B up to the top of the screen,
+  C a percentage of the map height; the options are not recorded in the
+  repo). Owner's words: `design/add-button-placement/owner.md` on
+  `claude/elegant-galileo-1c5ntm`.
 
 - **A place added in another city vanishes from the list** (found
   2026-10-12 by the + placement crew, in a prototype). If the place you
@@ -234,6 +264,15 @@ pick/redirect before building anything.
   still the last resort.
 
 ## Known minor bugs / follow-ups
+
+- **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
+  seen while testing the suggestions-over-x tweak). `node
+  design/gesture-harness/plans.js index.html` is 31/32 on origin/main
+  (was 32/32 at the + badge landing): reduced pass, "a long name: Added …
+  as stop 4 truncates the name only" gets `{"text":"Added Kaffi Vínyl as
+  stop 4","nameCut":false}`, i.e. the name no longer truncates at that
+  width. Either the fixture/width drifted or the slip's layout changed;
+  not investigated.
 
 - **Esc handlers that don't mark the keypress spent** (reviewer, + badge
   build round 1, 2026-10-15). The sort menu's document-level Esc
@@ -258,11 +297,11 @@ pick/redirect before building anything.
   top of the map, then ▲. The + form's cancel reaches it too: with the form
   open, tap a pin, then ×. Fix: re-fit the tag (pan + `tagSheetNeed()`) on
   expand.
-- **Open task: a tap on the +'s spot with the filters panel open** (+ badge
-  review, 2026-10-15). The panel covers the badge by design; a tap where the
-  + usually sits lands on a category chip and silently toggles that filter
-  off. The owner asked about it; not decided: keep as is, or keep the chips
-  off the badge's spot.
+- **A tap on the +'s spot with the filters panel open** (+ badge review,
+  2026-10-15). The panel covers the badge by design; a tap where the + usually
+  sits lands on a category chip and silently toggles that filter off. Owner
+  answered: "for 1 let's push the + up with the panel" -- now the "+ rides up
+  with the filters panel" item above (`plus-rides-filters`).
 - **Open task, for the designers: `planSafeBox()` treats the + badge's top as
   a full-width bottom limit** (+ badge review, 2026-10-15). The badge is in
   `planChrome()`, so plan fits lose about 100px at the bottom across the whole
@@ -333,9 +372,10 @@ pick/redirect before building anything.
   `index.html?play`; neither exists any more.
 
 - Hanging Tag follow-ups (2026-10-07, `docs/shipped.md` "Hanging Tag +
-  orange star"): (0) BLOCKER for landing: 0/202 live rows have
-  `short_address`/`address_details` -- the owner runs
-  `tools/short-address-backfill.html`, then a read-only count; (1) the
+  orange star"): (0) short address: 59 of 202 places lack a real town (58
+  have no `address_details`, 1 has details but no town; live count
+  2026-10-15) -- the owner re-runs `tools/short-address-backfill.html`, then
+  a read-only count; (1) the
   starred treatment is the band (owner: "tag top all the way"; `TAG_STAR_STYLE`
   keeps segment / both); (2) the reversed paper star of the segment option is
   2.69:1 on brand orange -- `TAG_REVERSED_STAR_KEYLINE` lifts its edge to
@@ -376,18 +416,9 @@ pick/redirect before building anything.
   (they'd also feed the skill's context). (4) The design hook is not
   installed (harness config: owner decision).
 
-- **Bug (confirmed 2026-10-14): the add form's place suggestions are cut off
-  on phones.** `#addressAutocomplete` (absolute, `max-height: 300px`) hangs
-  below the Name field but `#mainContent` is `overflow: hidden` and ends at
-  the sheet's top edge, so the list's bottom is cut where the sheet starts.
-  Repro (Chromium, gesture-harness stub, Nominatim faked with 10 results):
-  390x844, tap +, type "Kaffi" -> list spans y 269-569, `#mainContent` ends
-  at 544, the last 25px are hidden; 390x664 (shorter phone / toolbars
-  showing) -> `#mainContent` ends at 364, only ~1.6 of 10 suggestions show.
-  The list still scrolls internally, so every item is reachable, but most of
-  the box is hidden on short screens. Desktop (1280x800) is not cut.
-  Impeccable 4.5.2 no longer reports this clip (its rule now skips page-shell
-  containers), so nothing in the gate tracks it any more.
+- ~~Add form: the new close badge (×, bottom-left) overlaps the left edge of
+  the place-suggestion list~~ FIXED 2026-10-15 (`621f4f5`, `docs/shipped.md`
+  "Place suggestions lie over the x").
 
 - State system shipped (see `docs/shipped.md`). Left open: floating
   add/account buttons' pressed fill is the off-token literal `#1B3A57`; map

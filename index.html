@@ -956,22 +956,28 @@
       position: relative;
     }
 
+    /* At body level (see the markup): fixed to the Name field's foot and width, and clipped as
+       the form's scroll box would clip it, all set by fitAutocomplete(). z 998 = the badge's;
+       later in the DOM, so it lies over the x, still under the filters panel and the sheet. */
     #addressAutocomplete {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
+      position: fixed;
+      top: var(--ac-top, 0px);
+      left: var(--ac-left, 0px);
+      width: var(--ac-width, 0px);
+      box-sizing: border-box;
+      clip-path: var(--ac-clip, none);
       background: var(--paper-raised);
       border: 1px solid var(--navy);
       border-top: none;
       border-radius: 0 0 2px 2px;
-      max-height: 300px;
+      /* --ac-room: visible room below the field, set by fitAutocomplete() */
+      max-height: min(300px, var(--ac-room, 300px));
       overflow-y: auto;
-      z-index: 1000;
+      z-index: 998;
       display: none;
     }
 
-    #addressAutocomplete.show {
+    body.add-open #addressAutocomplete.show {
       display: block;
     }
 
@@ -2803,6 +2809,11 @@
       <polygon class="ring-halo"/><polygon class="ring-ink"/>
     </g></svg>
   </div>
+  <!-- The Name field's place suggestions (#addressInputWrapper, in the form). Lives out here, not
+       in #mainContent (its own stacking context, under the badge), so the list lies over the x
+       where the two meet (owner: "list should go on top of x"): same z as the badge, later in the
+       DOM. Pinned under the field by fitAutocomplete(). Must stay after #floatingAddBtn. -->
+  <div id="addressAutocomplete"></div>
 
   <div id="mainContent">
     <div id="controls">
@@ -2842,7 +2853,7 @@
 
         <div id="addressInputWrapper">
           <input type="text" id="nameInput" placeholder="Search for a place..." required autocomplete="off">
-          <div id="addressAutocomplete"></div>
+          <!-- its suggestion list, #addressAutocomplete, is at body level (after #addFocus) -->
         </div>
         <input type="text" id="addressInput" placeholder="Address" required>
         <div id="newCityConfirm" class="new-city-confirm" style="display:none;">
@@ -4235,6 +4246,7 @@
       const autocompleteDiv = document.getElementById('addressAutocomplete');
       autocompleteDiv.innerHTML = '<div class="autocomplete-loading">Searching...</div>';
       autocompleteDiv.classList.add('show');
+      fitAutocomplete();
 
       const isStale = () => seq !== searchSeq || document.getElementById('nameInput').value !== query;
       try {
@@ -4304,6 +4316,59 @@
 
       hideAutocomplete();
     }
+
+    // The suggestion list hangs below the Name field inside #mainContent,
+    // which is overflow: hidden and ends where the bottom sheet starts, so on
+    // phones its CSS max-height (300px) ran past that edge and the bottom was
+    // cut off. Cap it to the room actually visible below the field (nearest
+    // clipping ancestor, and the visual viewport so an on-screen keyboard
+    // counts) via --ac-room; it scrolls inside that, the CSS 300px cap still applies.
+    // 2026-10-15: the list now lives at body level (so it lies over the x, see the markup), so
+    // this also pins it: fixed to the field's foot and width (what top: 100%; left/right: 0 did
+    // in the wrapper), the room measured from the field's clipping ancestors as before, and
+    // clipped (--ac-clip) to them, as it was when it sat inside them (a scrolled form).
+    function fitAutocomplete() {
+      const dd = document.getElementById('addressAutocomplete');
+      if (!dd.classList.contains('show')) return;
+      const wrap = document.getElementById('addressInputWrapper');
+      const wr = wrap.getBoundingClientRect();
+      const top = wr.bottom;
+      const vv = window.visualViewport;
+      let bottom = vv ? vv.offsetTop + vv.height : window.innerHeight;
+      let clipT = -Infinity, clipL = -Infinity, clipR = Infinity, clipB = Infinity;
+      for (let el = wrap; el; el = el.parentElement) {
+        const cs = getComputedStyle(el);
+        if (cs.overflowY !== 'visible') bottom = Math.min(bottom, el.getBoundingClientRect().bottom);
+        if (el !== document.body && el !== document.documentElement && (cs.overflowX !== 'visible' || cs.overflowY !== 'visible')) {
+          const b = el.getBoundingClientRect();
+          clipT = Math.max(clipT, b.top + el.clientTop);
+          clipL = Math.max(clipL, b.left + el.clientLeft);
+          clipR = Math.min(clipR, b.left + el.clientLeft + el.clientWidth);
+          clipB = Math.min(clipB, b.top + el.clientTop + el.clientHeight);
+        }
+      }
+      dd.style.setProperty('--ac-top', `${top}px`);
+      dd.style.setProperty('--ac-left', `${wr.left}px`);
+      dd.style.setProperty('--ac-width', `${wr.width}px`);
+      const room = Math.floor(bottom - top);
+      if (room > 0) dd.style.setProperty('--ac-room', `${room}px`);
+      else dd.style.removeProperty('--ac-room');
+      // Only where an ancestor actually cuts into the list (in practice: the form scrolled up).
+      const h = Math.min(300, room > 0 ? room : 300);
+      const it = Math.max(0, clipT - top), il = Math.max(0, clipL - wr.left);
+      const ir = Math.max(0, wr.right - clipR), ib = Math.max(0, top + h - clipB);
+      if (it || il || ir || ib) dd.style.setProperty('--ac-clip', `inset(${it}px ${ir}px ${ib}px ${il}px)`);
+      else dd.style.removeProperty('--ac-clip');
+    }
+    window.addEventListener('resize', fitAutocomplete);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', fitAutocomplete);
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(fitAutocomplete);
+      ro.observe(document.getElementById('mainContent'));
+      ro.observe(document.getElementById('addForm'));   // form content above the field changing height
+    }
+    // The form scrolls inside #controls; the list no longer scrolls with it, so it follows.
+    document.getElementById('controls').addEventListener('scroll', fitAutocomplete, { passive: true });
 
     // Hide autocomplete dropdown
     function hideAutocomplete() {
@@ -9075,6 +9140,7 @@
       btn.setAttribute('aria-label', open ? 'Close add form' : 'Add a place');   // follows the visible +/x swap
       btn.setAttribute('aria-expanded', String(open));
       document.body.classList.toggle('add-open', open);
+      if (!open) hideAutocomplete();   // the list lives outside the form (body level); it closes with it
       setAddBtnGlyph(open);
       syncAddCredit();
     }
@@ -9265,7 +9331,7 @@
 
     // Hide autocomplete when clicking outside
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('#addressInputWrapper')) {
+      if (!e.target.closest('#addressInputWrapper, #addressAutocomplete')) {
         hideAutocomplete();
       }
     });

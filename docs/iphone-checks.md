@@ -6,12 +6,12 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- **FIRST: run the short-address backfill** (`tools/short-address-backfill.html`,
-  in your browser, signed in). Until it runs, no tag shows an address line
-  (0/202 places have `short_address`/`address_details`); the tag lays out
-  cleanly without it. Afterwards, check a few tags show "street number · area".
-- **The + badge (built 2026-10-15 on `plus-badge-build`; check once it
-  lands):** (1) the orange badge rides the list's top edge in step with it --
+- **FIRST: re-run the short-address backfill** (`tools/short-address-backfill.html`,
+  in your browser, signed in). 59 of 202 places lack a real town (58 have no
+  `address_details`, 1 has details but no town; live count 2026-10-15);
+  those tags show no address line and lay out cleanly without it.
+  Afterwards, check a few of them show "street number · area".
+- **The + badge (landed 2026-10-15):** (1) the orange badge rides the list's top edge in step with it --
   list up / collapsed, a tall tag lowering the list, and the drop when you
   tap + -- with no lag or second motion; (2) its fine scalloped edge (60px
   mask) is crisp, not blurred or stair-stepped; (3) in a Safari tab, a tap
@@ -21,6 +21,13 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   "Leaflet |"; (5) tap +, then type in a field with the keyboard up: ADD
   LOCATION stays reachable (sticky) and the × cancels; (6) a tag open, tap
   +: the tag closes and the form opens; × brings the same tag back.
+- **Suggestions over the x (landed 2026-10-15):** tap +, type
+  a place name: where the suggestion list meets the ×, the list is on top
+  and tapping that part picks the suggestion (the form stays open); the ×
+  still shows and works everywhere else. Scroll the form with the list open
+  (small phone, keyboard up): the list stays stuck under the Name field.
+  With the keyboard up or down the list ends whole, never cut off at the
+  bottom (landed 2026-10-15, "place suggestions no longer cut off").
 - **Playground = signed out (2026-10-13):** in a private Safari tab (signed
   out), open the app: your real places load; star, visit, delete and add
   one; reload and check they're all back to normal; check in your signed-in
@@ -28,7 +35,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   sign in: the page reloads into the real trip, signed in. Account badge →
   Sign out: it reloads into the playground, and your other devices stay
   signed in.
-- **Sign-in badge (built 2026-10-14; check once it lands):** signed out, the
+- **Sign-in badge (landed 2026-10-14):** signed out, the
   corner shows the paper SIGN IN badge: (1) the tiny SIGN IN caps read
   cleanly in Safari and the word sits centred under the person (its tilt is
   measured in Chromium; tell us if it leans); the warm 1px edge looks like
@@ -261,8 +268,10 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   a city chip or category chip: the chip goes beige while held; (4) popup Mark
   Visited: a beige tile shows while pressed, then the usual toggle; (5) Add
   form submit while saving looks dim (.4), still legible.
-- iPhone check of Plans (v3 build). **Before the migration is applied (do
-  this first):** (0) open filters, tap PLANS: the picker beside the switch
+- iPhone check of Plans (v3, in `index.html` on main). The `plans` /
+  `plan_stops` tables exist in the live DB (checked 2026-10-15), so step (0)
+  below no longer applies unless they go missing. **Before the migration is
+  applied:** (0) open filters, tap PLANS: the picker beside the switch
   reads NOT SET UP YET and does nothing when tapped, the list says "Plans
   aren't set up yet.", the city and category chips still work, the map shows
   the city as Places does (no stop pins), no error banner; tap PLACES: the app is exactly as before. A plan
