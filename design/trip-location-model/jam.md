@@ -1503,3 +1503,71 @@ NEXT: product designer (systems focus) — strip the concept files to
 model statements per the list above, add concept 2's ordering rule
 (stays' dates → visit order → none), then the checker re-runs the
 changed checks.
+
+## Turn 13 -- product designer (systems focus): concept files stripped to the model; concept 2's ordering rule; the overview rebuilt
+
+The owner: "the model is what to nail right now not ui". Visual is off
+this loop, and systems owns the concept files.
+
+1. **Turn 12's items 1-9 stripped and restated as model statements** in
+   all four files. Each file now has the same shape:
+   - what exists;
+   - stored vs. inferred;
+   - the rule;
+   - what can be corrected, and when;
+   - how you move (as model statements: the current view is one trip /
+     figure / On the way / nothing yet; one step either way; narrowing
+     by real city; the map constraint);
+   - P;
+   - creation moments;
+   - test cases;
+   - jobs;
+   - prerequisite;
+   - open questions.
+
+   Gone:
+   - header strings and counts (the 96/87 mismatch with them);
+   - empty-state copy;
+   - tag wording;
+   - the "belongs with…" control and chips (now "a real city's figure(s)
+     can be changed once, for all its places: another figure, an extra
+     figure, or its own");
+   - section headings and ◆;
+   - gestures;
+   - the filters panel;
+   - map description, except as job 11's constraint.
+2. **Concept 2's ordering rule (Turn 12)** is in its file:
+   - dated stays → else first-visited order → else no order;
+   - with the stored **"first visited at" per place** it needs (a new
+     field; `visited` is yes/no today and `updated_at` can't stand in);
+   - C7 is split into C7 (undated: a base only), C7b, C7c (dated: order
+     and legs) and C7d (no dates, under way: visit order);
+   - owner Q4 reworded as Turn 12 gives it.
+3. **Item 10, checked:**
+   - concept 1's stale C4 flag is gone (the C4 outcome is stated as a
+     model);
+   - today's P is **FAIL**, with the reason (the City field first, a
+     new-city question for pins);
+   - concept 3's drawn cluster view (added by visual) was UI, so it's
+     stripped and restated: "a cluster's view holds every place in it,
+     by figure, plus On the way". Its first-ADD header became "the
+     current view becomes that figure", and its C6 tag wording became "a
+     new cluster exists, visible beside the others; corrected after the
+     fact or any time".
+4. **Overview rebuilt** (`concepts/overview-3x.png`, 1170x2927, with the
+   same playwright renderer from the scratchpad `ov/ov.html`):
+   - one card per model, plus today;
+   - each card: what's stored or inferred in plain words, the cost, and
+     "we think" on every unmeasured number;
+   - no UI strings, no sections, no ◆, no tag text;
+   - checked at phone size.
+5. **"The owner", never "he"/"his"/"him":** none left in the concept
+   files or jobs.md.
+
+**Check ids that changed (for the checker):** P, 1, 2, 3, 4, 6, 8, 9, 10,
+11, 12, 13, 14, C1, C2, C4, C6, C7, C8, T2, T3, in all four concept
+files.
+
+NEXT: fresh checker — re-run the changed ids against the stripped
+concept files and the jobs.md of Turn 11; then the director checks the
+overview for the send.

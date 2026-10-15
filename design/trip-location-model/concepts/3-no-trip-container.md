@@ -1,166 +1,92 @@
 # Concept 3: no trip container
 
-Sketch level, model not UI. Figures (cities) work exactly as in concept
-1: nearest, the memory, "belongs with…", On the way. **What's different
-is that a trip isn't an object.** All places are one collection; the
-app sees **clusters** (places close enough to be one trip) and names them
-by country. **(We think)** marks the team's taste.
+Model only. Figures, the memory, its corrections and On the way work as
+concept 1. **What's different: a trip is not an object.** **(We think)**
+marks the team's opinion.
 
-## The model in one picture
+## What exists
 
-```
- ALL PLACES (one collection; nothing stores "trip")
-   │
-   ├── CLUSTER "Iceland · Denmark · Sweden"   ← worked out from distance, named from countries
-   │      ├── figure Reykjavík  { Reykjavík, Grindavík, Reykjanesbær … }
-   │      ├── figure Copenhagen { København, Frederiksberg, Tårnby }
-   │      ├── figure Stockholm  { … }
-   │      └── On the way        { Jönköping … }
-   └── CLUSTER "United States"
-          └── figure Los Angeles
-```
+- **Place:** a real location and its real city. No trip.
+- **Cluster:** the app's "trip". Places that chain together within
+  "far away" of each other. It's worked out, never made, and named from
+  its countries.
+- **Figure:** as concept 1, inside a cluster.
+- **On the way:** as concept 1, inside a cluster.
+- **Plan:** belongs to the cluster its stops sit in. A plan whose stops
+  span two clusters belongs to both.
 
-**Stored** (corrected after the jobs check):
-- **per place:** location and real city only; there's no trip field.
-- **global, not per trip:** the per-real-city memory (which figure(s)
-  each real city belongs to).
-- **per cluster, all optional:**
-  - a NAME given to it ("Scandinavia 2026");
-  - "these go together" / "these are separate" rules between clusters.
+## Stored vs. inferred
 
-**Derived:** the clusters, every time. Places within "far away" of each
-other chain into one cluster. **(We think)** "far away" is another
-continent; unmeasured.
+| Stored | Inferred |
+|---|---|
+| per place: location, real city | clusters, every time (by distance) |
+| **one global memory** (which figure(s) each real city belongs to; there's no trip to hang it on) | a place's figure and cluster |
+| **cluster rules:** "these go together" and "these are separate", each keyed by the clusters' member figures (clusters re-form, so they can't be keyed by an id) | a cluster's generated name |
+| an optional cluster name, keyed the same way | |
 
-## The cluster: this concept's "trip", on its own terms
+**(We think)** "far away" is another continent; unmeasured.
 
-The middle level is a cluster: a group the app worked out, not a
-container anyone made. It's drawn here as its own view.
+## What can be corrected, and when
 
-```
- CLUSTER LENS
-┌────────────────────────────────────────────┐
-│ ‹ All places                               │   one tap up to everything
-│ ICELAND · DENMARK · SWEDEN (202)           │   the generated name (or "Scandinavia 2026" once renamed)
-│ ── REYKJAVÍK (23) ───────────────────────  │   tap a heading → that city lens
-│    Hallgrímskirkja                         │
-│    Sundhöllin …                            │
-│    from Reykjavík: Blue Lagoon · Grindavík │
-│ ── COPENHAGEN (31) ──────────────────────  │
-│    Tivoli …                                │
-│ ── MALMÖ (12) ───────────────────────────  │
-│ ── STOCKHOLM (20) ───────────────────────  │
-│ ── ON THE WAY (1) ───────────────────────  │
-│    Jönköping place · Jönköping             │
-│ …                                          │
-└────────────────────────────────────────────┘
- MAP: exactly this list's set (every place in the cluster, On the way included),
-      framed to the cluster. Zoom may hide pins; it never changes the list.
- FILTERS: kind, visited, starred + real-city chips within the cluster.
-```
-- **Job 2 (a whole trip):** this view lists every place in the cluster,
-  by city, with On the way. The sections add up to the header.
-- **Job 9 (in between):** Jönköping sits under ON THE WAY in the cluster
-  lens, as in concept 1's rule, but with the cluster standing in for
-  the trip.
-- **Job 11 (the map matches):** for the cluster lens, the map shows the
-  cluster's set, framed to it.
-  - For ALL PLACES: everything, framed to the world.
-  - For a city lens: as concept 1.
+- A real city's figure(s): as concept 1.
+- Two clusters that are one trip: "these go together", any time.
+- One cluster that is two trips (chained through a stopover): "these
+  are separate", any time.
+- A cluster's name: any time (optional).
 
-## What you see, all three levels
+## How you move
 
-```
- ALL PLACES                         CLUSTER LENS (above)             CITY LENS = concept 1's
-┌──────────────────────────────┐   ┌──────────────────────────┐    ┌──────────────────────────┐
-│ ALL PLACES (225)             │   │ ‹ All places             │    │ ‹ Iceland · Denmark · Sw… │
-│ ── ICELAND · DENMARK ·       │──▶│ ICELAND · DENMARK ·      │──▶ │ REYKJAVÍK (23)           │
-│    SWEDEN (202) ──────────── │   │ SWEDEN (202)             │    │ ── FROM REYKJAVÍK ────   │
-│ ── UNITED STATES (23) ────── │◀──│ ── REYKJAVÍK (23) ── …   │◀── │   Blue Lagoon · Grindavík│
-└──────────────────────────────┘   └──────────────────────────┘    └──────────────────────────┘
- map: the world, both clusters      map: the cluster               map: the city's figure
-```
-- Each level is one tap down (tap a heading) and one tap up ("‹").
-- Cluster names are generated from countries. "Scandinavia 2026" is a
-  rename the owner can give one.
-- **(We think)** the app opens on the last lens used, usually a city.
+- The current view is always exactly one of: everything, a cluster, a
+  figure, On the way, or (empty) nothing yet.
+- Each level is one step up or down.
+- Nothing is ever hidden: other clusters are one level up (job 10's
+  concept-3 check).
+- Constraint (job 11): the map shows exactly the view's set.
 
 ## P: places-first
 
-**PASS, in the extreme.** There's no trip to make, name or merge. The
-first open is the map, the list and the +, and nothing structural is
-asked at add.
+**PASS, in the extreme.** There's no trip to make, name or merge, and
+nothing structural is asked at add.
 
 ## Creation moments
 
-| # | Moment | What happens | Check |
+| # | Moment | Outcome | Check |
 |---|---|---|---|
-| C1 | First open, empty | Map, `ALL PLACES (0)`, "+ to log one", the +. **Search is worldwide** (there's no cluster to scope it) | PASS |
-| C2 | First place ever (Hallgrímskirkja) | After ADD, a figure "Reykjavík" and a cluster "Iceland" exist, both named from the place. **The lens moves to the place's city: header `‹ Iceland  REYKJAVÍK (1)`.** Nothing asked | PASS (job 1: a city name in the header) |
-| C3 | New real city within reach, same country | As in concept 1 (From the nearest) | PASS |
-| C4 | Second place in a real city beyond every reach | As in concept 1 / jobs.md C4 (a city of its own). Within reach it stays "From" | PASS |
-| C5 | New country nearby (Tivoli) | It joins the same cluster as a new figure; the generated name widens to "Iceland · Denmark" | PASS |
-| C6 | A far-away place (Griffith Observatory) | See below | see below |
-| C7 | A hotel | n/a (no stays layer; could be added as in concept 2) | n/a |
-| C8 | Correcting groupings later | Nothing to merge: clusters follow distance. Rules at the cluster level, never per place: "these go together" (two clusters as one trip) and "these are separate" (break a chain) | PASS |
-| C9 | Naming | Name a cluster any time ("Scandinavia 2026"); optional. *(The jobs check flagged that a name on a derived cluster needs a stable key when clusters re-chain. We think it sticks to the cluster holding most of the places it was given to; unresolved.)* | PASS |
-
-### C6, played out (concept 3's own version)
-
-```
- log Griffith Observatory  ──ADD──▶  it's "far away" from every place, so the app sees a 2nd cluster
-                                     the lens moves to its city:  ‹ United States   LOS ANGELES (1)
-                                     the open tag prints, after ADD:
-                                       Los Angeles · in Los Angeles
-                                       New group · United States   |   Goes with Iceland · Denmark · Sweden
-```
-- **Nothing is asked before ADD.** The new group is just what the app
-  sees.
-- "Goes with…" is the correction beside it, after the fact. It writes a
-  "these go together" rule, so LA would show inside the Scandinavian
-  cluster. **(We think)** it's rarely used.
-- This is concept 1's C6 moment, with "trip" read as "cluster".
-  jobs.md's C6 has no concept-3 variant (the checker's point). Judged by
-  its intent, PASS: nothing is asked, a group starts quietly, and a
-  correction sits on the tag. A concept-3 wording for C6 is for systems
-  and jobs.md.
+| C1 | First open, empty | Nothing yet. Search is worldwide | PASS |
+| C2 | First place ever | A figure (its real city) and a cluster (named from its country) now exist. The current view becomes that figure. Nothing asked | PASS |
+| C3 | New real city within reach | As concept 1 (From the nearest figure) | PASS |
+| C4 | Second place beyond every reach | As concept 1 | PASS |
+| C5 | Outside the spread, same part of the world | A new figure in the same cluster; the cluster's name widens | PASS |
+| C6 | A far-away place | A new cluster exists, named from its country, visible next to the others. Nothing asked. "These go together" corrects it, after the fact or any time | PASS |
+| C7 | A hotel | n/a (no stays layer) | n/a |
+| C8 | Correcting groupings later | "These go together" / "these are separate"; never per place | PASS |
+| C9 | Naming | A cluster can be named any time; optional | PASS |
 
 ## Test cases
 
-T1 (Øresund), T2 (airport) and T3 (Jönköping) behave **as in concept 1**,
-inside the Scandinavian cluster. T3's Jönköping shows under ON THE WAY in
-the cluster lens (drawn above). All PASS.
-
-## Jobs (where they differ)
-
-- **1:** after the first ADD, the header names the city (C2).
-- **2, 9, 11:** the cluster lens, drawn above.
-- **10:** **the other check applies:** everything is visible at once,
-  and the clusters are visible and nameable. PASS.
-  - Cost: LA is one level up, never hidden. Opening the app wide shows
-    both.
-  - **(We think)** most opens land on the last city lens, so in practice
-    LA is out of sight.
-- **8:** a plan belongs to the cluster its stops sit in. A plan with
-  stops in two clusters is allowed, and it shows in both.
+T1, T2 and T3: as concept 1, inside the Scandinavian cluster. All PASS.
 
 ## The honest weaknesses
 
-- **Clusters can surprise.** A place halfway between two clusters
-  (a stopover in Toronto) could chain them into one. "Far away" has to
-  be generous **(we think another continent)**, and then a weekend in
-  Paris and Scandinavia 2026 would be one cluster.
-  - The fix is a cluster-level "these are separate", which is the trip
-    object coming back in through the side door.
-- **No "past trip":** an old trip's places stay in the collection
-  forever. Visited marks keep them honest, but nothing archives them.
+- **Clusters can chain** (a Toronto stopover joins Scandinavia and LA),
+  or, with a generous "far away", a Paris weekend and Scandinavia 2026
+  become one cluster. "These are separate" fixes it, and that is the trip
+  object coming back in through the side door.
+- **No past trips:** an old trip's places stay in the one collection.
+
+## Jobs (where they differ)
+
+- **1:** after the first place, the current view is its figure (C2).
+- **2, 9, 11:** a cluster's view holds every place in it, by figure, plus
+  On the way.
+- **8:** plans as above.
+- **10:** everything is visible, and clusters are visible and nameable.
 
 ## Prerequisite
 
-As in concept 1: **59 of 202 places without a real town** (58 with no `address_details`, 1 with no town in them).
+As concept 1 (59 of 202 places without a real town).
 
 ## Open (owner questions)
 
-- 5: one trip at a time, or everything at once? This concept is the
-  "everything" answer.
-- Plus concept 1's questions.
+5 (one trip at a time, or everything at once: this concept is
+"everything"), plus concept 1's.

@@ -27,3 +27,11 @@
 ## Turn 11 (2026-10-15): jobs.md fixed after jobs-check.md
 - Concept 2's dates-gated order/legs carried into jobs 9 and 14 (3 clauses) and C7/T3; a Terms block (reach/spread/outside/far away) matches concept 1; C3 = within reach; C5 = outside the spread; 59 (58 + 1); concept 3's storage = a global memory + together/separate rules keyed by member figures + a name; T2 "edge" removed; job 12's allowed names widened; C6 concept-3 variant.
 - Dates proposal: D1 paste the booking (parsed, pencilled, no ask), D2 an optional Stay line (borderline P), D3 learned on the trip (first visited per figure; needs a hidden visited_at). Lean D1 + D3; else concept 2 = concept 1 + a base mark.
+
+## Turn 13 (2026-10-15): systems owns the concept files (visual is off the loop)
+- All 4 concept files rewritten as model statements (exists / stored vs inferred / rule / correctable when / movement as model / P / C / T / jobs / prerequisite / open). UI stripped per Turn 12's items 1-9.
+- Concept 2: the ordering rule (dated stays → first-visited → none) + the stored first_visited_at; C7 → C7/b/c/d.
+- Item 10: concept 1's C4 flag gone; today P = FAIL; concept 3's drawn cluster view stripped to a model statement.
+- Overview re-rendered from the scratchpad ov/ov.html (playwright, 1170 wide; 2927 tall), model-only.
+- No he/his/him in the concept files or jobs.md.
+- Changed ids: P,1,2,3,4,6,8,9,10,11,12,13,14,C1,C2,C4,C6,C7,C8,T2,T3.

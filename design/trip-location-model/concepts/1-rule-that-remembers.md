@@ -1,157 +1,133 @@
 # Concept 1: a rule that remembers
 
-Sketch level (owner: "sketch level thought … the model is what to nail
-right now not ui"). Text and boxes only. Anything resting only on the
-team's taste is marked **(we think)**.
+Model only (owner: "the model is what to nail right now not ui"). No
+screens, wording or controls. **(We think)** marks the team's opinion.
 
-## The model in one picture
+## What exists
 
-```
- TRIP  (made by the places, named from its countries: "Iceland & Denmark")
-   │      renameable any time ("Scandinavia 2026"), never required
-   │
-   ├── FIGURE "Reykjavík"   = { Reykjavík, Grindavík, Reykjanesbær, Bláskógabyggð }   ← real cities
-   ├── FIGURE "Copenhagen"  = { København, Frederiksberg, Tårnby }
-   ├── FIGURE "Malmö"       = { Malmö, Lund, Tårnby }        ← a real city may sit in two figures
-   └── ON THE WAY           = places far from every figure (Jönköping, one place)
+- **Place:** a real location, its real city (from `address_details`),
+  and the trip it belongs to.
+- **Trip:** a group of places. It's made by the places, never ahead of
+  them. Its name is generated from its countries, and can be renamed any
+  time (never required).
+- **Figure:** "the city I think of it with". A figure is a named set of
+  real cities, belonging to one trip.
+  - Example: figure Reykjavík = {Reykjavík, Grindavík, Reykjanesbær,
+    Bláskógabyggð}.
+  - A real city can be in more than one figure (Tårnby in Copenhagen and
+    Malmö).
+- **On the way:** places in a trip that are beyond every figure's reach.
+  This isn't a figure; it's the absence of one.
+- **Plan:** an ordered list of stops, belonging to a trip. It can cross
+  figures.
 
- PLACE  = real location + real city (from address_details) + trip
-          its figure is NEVER stored on the place: it follows from its real city
-```
+## Stored vs. inferred
 
-**What's stored:**
-- **per place:** location, real city, trip;
-- **per trip:** the memory, i.e. which figure(s) each real city belongs
-  to.
+| Stored | Inferred (never stored on the place) |
+|---|---|
+| per place: location, real city, trip | the place's figure: from its real city, through the memory |
+| per trip: the **memory** (which figure(s) each real city belongs to), the trip's optional name, and merges | "In" (its real city *is* the figure's own) vs. "From" (another real city in the figure) |
+| | the trip's name, until renamed |
 
-**The rule:**
-- A real city seen for the first time joins the **nearest** figure.
-- From then on the memory decides.
-- The only correction is to the memory ("Lund belongs with…"), never to
-  a place.
+## The rule (where a new place goes)
 
-## Where a new place goes (the whole rule)
+For a new place with real city R:
+1. If R is already in the memory → its figure(s).
+2. Else, if R is **within reach** of a figure → R joins the nearest
+   figure (From).
+3. Else, if R is **inside the trip's spread** → On the way. When R has 2
+   places it becomes a figure of its own.
+4. Else, if R is in the same part of the world → R becomes a new figure,
+   and the trip widens.
+5. Else (**far away**) → a new trip, started without asking.
 
-```
- new place, real city R
-   │
-   ├─ R already in the memory? ───────────────────────────▶ its figure(s). Done.
-   │
-   ├─ within REACH of a figure? ──────────────────────────▶ R joins the nearest figure ("From …")
-   │
-   ├─ inside the trip's SPREAD (between figures)? ─────────▶ ON THE WAY; at 2 places in R → R is a figure
-   │
-   ├─ outside the spread, but the same part of the world? ─▶ a new figure R; the trip widens (C5)
-   │
-   └─ far away (another continent) ────────────────────────▶ a new trip, quietly (C6)
-```
-- REACH, SPREAD and "far away" are fixed app rules, never settings
-  (owner: no distance settings). Their numbers aren't set here.
-- **(We think)** REACH is about a day trip, roughly 60-80 km. SPREAD is
-  the box around the trip's figures. "Far away" is another continent.
-  All unmeasured.
-- **Known quirk:** a first place in a real city that falls inside the box
-  (Oslo, between Reykjavík and Stockholm) waits in On the way until a
-  second place arrives.
+- Reach, spread and far away are fixed app rules, never settings (the
+  owner: no distance settings).
+- **(We think):** reach is about a day trip (60-80 km), spread is the box
+  around the trip's figures, far away is another continent. The
+  threshold is 2. All unmeasured.
+- **Known quirk:** the first place in a real city inside the box (Oslo)
+  waits in On the way until a second arrives.
 
-## What you see
+## What can be corrected, and when
 
-```
- CITY LENS                                  TRIP LENS
-┌───────────────────────────────┐          ┌───────────────────────────────┐
-│ ‹ Iceland & Denmark           │  tap ‹   │ ▾ ICELAND & DENMARK (27)      │
-│ REYKJAVÍK (23)                │ ───────▶ │ ── REYKJAVÍK (23) ──────────  │
-│   Hallgrímskirkja             │ ◀─────── │ ── COPENHAGEN (3) ──────────  │
-│   …                           │ tap a    │ ── ON THE WAY (1) ──────────  │
-│ ── FROM REYKJAVÍK ──────────  │ heading  └───────────────────────────────┘
-│   Grindavík · 1               │                ▾ = other trips (LA), never mixed in
-│     Blue Lagoon               │
-│   Reykjanesbær · 1            │          The map always shows the list's set.
-│     Keflavík airport          │          Filters panel: kind, visited, starred,
-└───────────────────────────────┘          + REAL-CITY chips ("filter by city").
-```
+- **A real city's figure(s), any time, once, for all its places now and
+  later:** move it to another figure, add it to an extra figure, or make
+  it its own figure. That changes the memory, never a place.
+- **A new trip started for a far-away place:** undone right after adding
+  (keep it in the current trip), or later by merging two trips (a
+  trip-level change, not a place edit).
+- **The trip's name:** any time.
+- **Not correctable:** one place's figure on its own (that needs place
+  edit, which is future). **(We think that's rare)** (owner question 1).
+
+## How you move
+
+- The current view is always exactly one of: a trip, a figure, On the
+  way, or (empty) nothing yet.
+- Trip ↔ figure is one step either way (job 4).
+- Other trips are one step away and never mixed in (job 10).
+- Places can be narrowed by real city, separately from figures (job 6).
+- Plans belong to the trip; a figure's view includes the plans with any
+  stop in it.
+- Constraint (job 11): the map shows exactly the view's set.
 
 ## P: places-first
 
-**PASS.**
-- The first open is the map, the list and the +.
-- At add, the tag shows only what the place is (name, address, type,
-  notes). Trip and figure print on the tag after ADD.
-- Nothing is created, named, chosen or dated first.
+**PASS.** Nothing is created, named, chosen or dated before or during
+adding. Trip and figure are inferred, and are exposed after the place is
+added.
 
 ## Creation moments
 
-| # | Moment | What happens | Check |
+| # | Moment | Outcome | Check |
 |---|---|---|---|
-| C1 | First open, empty | Map, `YOUR PLACES (0)`, "+ to log one", the +. Search is worldwide | PASS |
-| C2 | First place ever (Hallgrímskirkja) | After ADD: trip "Iceland" and figure "Reykjavík" exist; header `REYKJAVÍK (1)`. Nothing asked | PASS |
-| C3 | First place in a new real city, same country (Blue Lagoon, Grindavík) | Grindavík joins the nearest figure, Reykjavík. The place lists under `FROM REYKJAVÍK › Grindavík · 1`. No new city | PASS |
-| C4 | Second place in that real city | **It depends on the reach.** (See the flag below.) **Beyond the reach of every figure** ("On the way", like Jönköping), 2 places make it a city of its own **(we think 2; a fixed rule, not a setting)**. **Within the reach** (Grindavík, 47 km from Reykjavík), it stays in "From Reykjavík" however many places it gets. You can still make it its own city with "belongs with… its own city" | PASS with the deviation flagged |
-| C5 | First place in a new country (Tivoli, while the trip is Iceland) | It's outside the spread, in the same part of the world, so it's a new figure "Copenhagen" in the same trip. The generated name widens to "Iceland & Denmark" (unless you've renamed it) | PASS |
-| C6 | A far-away place (Griffith Observatory) | A new trip "United States" starts quietly. The open tag prints `New trip · United States` with `Keep in Iceland & Denmark` beside it, after ADD | PASS |
-| C7 | A hotel | It's just a place in the Hotel category. There's no stays layer here (see concept 2) | n/a |
-| C8 | Correcting trips later | Trip list: merge two trips (a trip-level action) | PASS |
-| C9 | Naming | Rename the trip any time; never needed to proceed | PASS |
-
-**C4, resolved (director, Turn 8).** jobs.md's C4 now reads: "**The
-second place in a real city that is beyond every figure's reach** (in
-'On the way')", and adds: "**Within a figure's reach (Grindavík) a real
-city stays 'From' its figure however many places it has**, unless
-'belongs with… its own city' is said (director, 2026-10-15: protects job
-5)".
-- This sketch follows that wording.
-- The reach is a fixed app rule; its number isn't set here. **(We
-  think)** about a day trip, roughly 60-80 km; unmeasured.
-
-**The fix, beside the places:**
-```
- ── FROM MALMÖ ─────────────────────────
-    Lund · 3                 belongs with…  ──▶  [ Malmö ✓ ] [ Copenhagen ] [ its own city ]
-      Lund Cathedral                          one tap: every Lund place, now and later
-```
-**Cost:** one Lund place can't go with Copenhagen while the others stay
-with Malmö (that would need place edit, which is future). **(We think
-that's rare.)** It's owner question 1.
+| C1 | First open, empty | No trip, no figure. Search is worldwide | PASS |
+| C2 | First place ever (Hallgrímskirkja) | A trip ("Iceland") and a figure (Reykjavík) now exist, named from the place. Nothing asked | PASS |
+| C3 | First place in a new real city within reach (Blue Lagoon, Grindavík) | Grindavík joins the nearest figure, Reykjavík (From). No new figure | PASS |
+| C4 | Second place in a real city beyond every reach | It becomes a figure of its own (the threshold of 2). Within reach (Grindavík), it stays From however many places it has, unless corrected to "its own figure" | PASS |
+| C5 | First place outside the spread, same part of the world (Tivoli while the trip is Iceland) | A new figure, Copenhagen, in the same trip. The generated name widens ("Iceland & Denmark") | PASS |
+| C6 | A far-away place (Griffith Observatory) | A new trip ("United States") starts without asking. It can be undone right after (keep it in the current trip) | PASS |
+| C7 | A hotel | Just a place in the Hotel category (no stays layer) | n/a |
+| C8 | Correcting trips later | Merge two trips (a trip-level change) | PASS |
+| C9 | Naming | Rename a trip any time; never needed | PASS |
 
 ## Test cases
 
-| Case | Result | Check |
+| Case | Outcome | Check |
 |---|---|---|
-| **T1 Øresund:** Saltholm, Kastrup Søbad (Tårnby) | Tårnby's first place → nearest figure, **Copenhagen**. Both list under `FROM COPENHAGEN › Tårnby`. "Tårnby belongs with Malmö" is one change that moves both | PASS |
-| **T2 airport:** Keflavík (Reykjanesbær) | `FROM REYKJAVÍK › Reykjanesbær`, nothing chosen | PASS |
-| **T2 airport:** Kastrup (Tårnby), for both cities | Under Copenhagen by default. "Tårnby belongs with… **also** Malmö" puts Tårnby in both figures, so Kastrup shows in both | PASS |
-| **T3 Jönköping** | Far from every figure but inside the trip's spread, so it goes in `ON THE WAY` in the trip lens. A second Jönköping place makes it a city (C4) | PASS |
+| T1 Øresund: Saltholm, Kastrup Søbad (Tårnby) | Tårnby joins the nearest figure, Copenhagen; both places are From Copenhagen. Moving Tårnby to Malmö is one correction that moves both | PASS |
+| T2 airport: Keflavík (Reykjanesbær) | Reykjanesbær joins Reykjavík; the airport is From Reykjavík. Nothing chosen | PASS |
+| T2 airport: Kastrup (Tårnby), for both cities | In Copenhagen by default. Adding Tårnby to Malmö too puts the airport in both | PASS |
+| T3 Jönköping | Beyond every reach, inside the spread → On the way. A second Jönköping place makes it a figure | PASS |
 
-## Jobs 1-14 (quick read for the checker)
+## Jobs (quick read for the checker)
 
-| Job | Result |
+| Job | Where |
 |---|---|
 | 1 | C2 |
-| 2 | trip lens, sections + On the way |
-| 3 | city lens |
-| 4 | ‹ and a heading tap |
+| 2 | the trip view: every place, by figure, plus On the way |
+| 3 | the figure view |
+| 4 | one step either way |
 | 5 | C3, T2 |
-| 6 | real-city chips |
-| 7 | "belongs with…" |
-| 8 | plans belong to the trip; a city lens shows the plans touching it |
+| 6 | narrowing by real city |
+| 7 | the memory correction |
+| 8 | plans belong to the trip |
 | 9 | On the way |
-| 10 | ▾ |
-| 11 | the map = the list |
-| 12 | one name in the header |
-| 13 | the tag after ADD: "Reykjavík · in Grindavík" |
+| 10 | one trip at a time |
+| 11 | the map constraint |
+| 12 | the current view is one trip, figure, On the way, or nothing yet |
+| 13 | a place exposes its figure and real city, after adding |
 | 14 | n/a (concept 2) |
 
 ## Prerequisite
 
-The real city comes from `address_details`. **59 of 202 places have
-no real town**: 58 have no `address_details` and 1 has details but no
-town (live count, 2026-10-15, confirmed by systems). Until the
-short-address backfill covers them, those 59 are filed by location alone (nearest
-figure), with no real city to print or filter by.
+**59 of 202 places have no real town** (58 with no `address_details`, 1
+with details but no town; live count, 2026-10-15). Until the
+short-address backfill covers them, they're filed by location alone
+(nearest figure).
 
 ## Open (owner questions)
 
-- 1: fix the rule or one place.
-- 2: a place under two cities.
-- 6: a quiet new trip.
-- 7: the threshold of 2.
+1 (fix the rule or one place), 2 (a place in two figures), 6 (a quiet
+new trip), 7 (the threshold of 2).
