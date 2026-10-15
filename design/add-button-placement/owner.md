@@ -156,3 +156,8 @@ Pick: option 2 — cap the filters panel height (it scrolls inside) so the + alw
 > for #1 at the smaller sizes where the + goes off screen, just have the filters go over the +
 
 Read as: the + rides up with the filters panel where it fits (e.g. 390x844 Safari, list collapsed, desktop); where it would go off screen / under the zoom row, the panel keeps today's height and covers the + (no cap). Supersedes "change height and scroll" (orchestrator's reading, stated to owner).
+
+2026-10-15:
+> the panel height should all just be responsive
+
+Read as: one responsive rule, no per-size special cases — the panel sizes to its content up to the space the screen allows and scrolls inside past that; the + rides above it when there's room, else is covered.
