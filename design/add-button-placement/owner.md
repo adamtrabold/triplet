@@ -166,3 +166,8 @@ Read as: one responsive rule, no per-size special cases — the panel sizes to i
 > stops below zoom and account
 
 Pick: A — the panel's top limit is just below the zoom/account row; it sizes to content up to that and scrolls inside past it; the + rides above when there's room, else is covered.
+
+2026-10-15, on the filters build stills (+ covered when the panel reaches the zoom row):
+> re filters - when they are so high that they hit the zoom, the plus icon should just move next to the account where it used to be, and potentially match size even
+
+Change: where the + can't ride above the panel, it moves to the top-right beside the account badge (its old spot) instead of being covered. Size open: show it at its own size and at the account badge's size.
