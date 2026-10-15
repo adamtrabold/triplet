@@ -1413,3 +1413,22 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   whole. Checked in Chromium at 390x844, 390x664, 320x568 and 1280x800: 0
   clipped (main before the fix: clipped at all four). Impeccable gate
   passed; places-ux 30/30, popup-open 42/42.
+
+- **Place suggestions lie over the x** — 2026-10-15 (tweak lane). Owner:
+  "list should go on top of x". The open badge (×, z 998, body level)
+  painted over the list's left edge, since the list sat inside
+  `#mainContent` (its own stacking context); a tap there closed the form.
+  `#addressAutocomplete` now lives at body level right after `#addFocus`
+  (same z 998, later in the DOM: over the x, under the filters panel 999
+  and the sheet 1000), `position: fixed`. `fitAutocomplete()` also pins it:
+  `--ac-top/--ac-left/--ac-width` from `#addressInputWrapper`'s rect,
+  `--ac-room` as before (from the wrapper's clipping ancestors / the visual
+  viewport), `--ac-clip` (clip-path) only where an ancestor would have cut
+  it (a scrolled form). Re-fit also on `#controls` scroll and `#addForm`
+  resize. Guards: shown only under `body.add-open`; `showAddForm(false)`
+  hides it; the outside-click handler counts the list as inside. Box,
+  computed styles, `--ac-room` identical to before at 390x844, 390x664,
+  320x568, 1280x800; elementFromPoint in list∩× hits the list, the × still
+  hits outside it; a tap there picks the suggestion. Impeccable gate passed;
+  places-ux 30/30, popup-open 42/42, plans 31/32 (the one failure is on main
+  too, see backlog). Stills: `design/ac-over-x/`.
