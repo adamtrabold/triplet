@@ -4516,7 +4516,7 @@
         focusCity(selection, { animate: opts.animate !== false });
       }
 
-      persistCitySelection(selection);
+      if (opts.persist !== false) persistCitySelection(selection);
       updateUI();                 // reaches syncMarkers()/syncLocationCards()
       updateCitySelectorUI();
       syncAddFormCity();
@@ -5019,6 +5019,21 @@
       }
     }
 
+    // The "you are here" dot (locate button and the first-open fix share it).
+    function placeUserLocationMarker(latitude, longitude) {
+      if (userLocationMarker) map.removeLayer(userLocationMarker);
+      // "You are here" is not a category, so it deliberately carries no
+      // glyph and no category ink -- a plain navy dot with a paper rim.
+      const userIcon = L.divIcon({
+        html: `<div style="background: var(--navy); width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--navy), inset 0 0 0 4px var(--paper), 0 1px 0 rgba(0,0,0,0.25);"></div>`,
+        className: '',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      });
+      userLocationMarker = L.marker([latitude, longitude], { icon: userIcon }).addTo(map);
+      userLocationMarker.bindPopup('<div class="popup-title" style="text-align:center">You are here</div>');
+    }
+
     function centerOnUserLocation() {
       const btn = document.getElementById('centerMeBtn');
       
@@ -5034,23 +5049,8 @@
           const { latitude, longitude } = position.coords;
           takeFix(latitude, longitude);   // the list's Nearest order reuses this fix (no second prompt)
           
-          // Remove old user location marker if exists
-          if (userLocationMarker) {
-            map.removeLayer(userLocationMarker);
-          }
-          
-          // "You are here" is not a category, so it deliberately carries no
-          // glyph and no category ink -- a plain navy dot with a paper rim.
-          const userIcon = L.divIcon({
-            html: `<div style="background: var(--navy); width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--navy), inset 0 0 0 4px var(--paper), 0 1px 0 rgba(0,0,0,0.25);"></div>`,
-            className: '',
-            iconSize: [16, 16],
-            iconAnchor: [8, 8]
-          });
+          placeUserLocationMarker(latitude, longitude);
 
-          userLocationMarker = L.marker([latitude, longitude], { icon: userIcon }).addTo(map);
-          userLocationMarker.bindPopup('<div class="popup-title" style="text-align:center">You are here</div>');
-          
           // Center map on user location
           focusMap([latitude, longitude], 14, { animate: true });
 
@@ -6292,6 +6292,105 @@
         }
       } else sortMode = saved;
       syncSortButton();
+    }
+
+    // ---- First open: where a new device starts (docs/shipped.md "First open") --
+    // Nothing stored on this device: ask for the location once, at boot.
+    //   granted, within FIRST_OPEN_NEAR_KM of a known city -> that city, framed on you
+    //   granted, no city near                              -> All cities, centred on you
+    //   denied / unavailable / no answer in FIRST_OPEN_WAIT_MS -> firstOpenFallbackCity()
+    // Denial is silent (no error banner). The map moves at most once after the
+    // boot frame: the fallback is snapped in (no animation) when the data lands
+    // if the location hasn't answered yet, and a fix that arrives later flies
+    // there -- unless the user has already touched the page.
+    const FIRST_OPEN_NEAR_KM = 80;      // "about a day trip" to the city's centre
+    const FIRST_OPEN_WAIT_MS = 8000;
+
+    // Time zone -> a representative [lat, lng], for the no-places fallback.
+    // Small on purpose: zones near the CITIES seed plus North America's main
+    // ones. An unlisted zone falls through to DEFAULT_CITY.
+    const TZ_POINTS = {
+      'Atlantic/Reykjavik': [64.15, -21.94], 'Europe/Copenhagen': [55.68, 12.57],
+      'Europe/Stockholm': [59.33, 18.07], 'Europe/Oslo': [59.91, 10.75],
+      'Europe/Helsinki': [60.17, 24.94], 'Europe/Berlin': [52.52, 13.40],
+      'Europe/Amsterdam': [52.37, 4.90], 'Europe/Paris': [48.86, 2.35],
+      'Europe/London': [51.51, -0.13], 'Europe/Dublin': [53.35, -6.26],
+      'America/Los_Angeles': [34.05, -118.24], 'America/Vancouver': [49.28, -123.12],
+      'America/Phoenix': [33.45, -112.07], 'America/Denver': [39.74, -104.99],
+      'America/Chicago': [41.88, -87.63], 'America/New_York': [40.71, -74.01],
+      'America/Toronto': [43.65, -79.38], 'America/Anchorage': [61.22, -149.90],
+      'Pacific/Honolulu': [21.31, -157.86]
+    };
+
+    // The fallback chain, in order:
+    //   1. the city of the most recently added place (locations arrive
+    //      created_at DESC). The data is shared today; with per-person
+    //      accounts this becomes the user's own newest place.
+    //   2. no places: the known city nearest the device's time zone
+    //      (no permission, no network);
+    //   3. DEFAULT_CITY.
+    function firstOpenFallbackCity() {
+      const newest = locations.find(l => CITIES[l.city]);
+      if (newest) return newest.city;
+      try {
+        const pt = TZ_POINTS[Intl.DateTimeFormat().resolvedOptions().timeZone];
+        if (pt) return Object.keys(CITIES)
+          .sort((a, b) => haversineKm(pt, CITIES[a].center) - haversineKm(pt, CITIES[b].center))[0];
+      } catch (e) { /* no Intl time zone: the default */ }
+      return DEFAULT_CITY;
+    }
+
+    function startFirstOpen() {
+      let answer = null;          // null pending | { lat, lng } | 'none'
+      let data = false;           // the boot load has landed
+      let framed = false;         // the fallback is on screen
+      let done = false;           // the location has been applied (or given up on)
+      let touched = false;        // the user has started using the page
+      const touch = () => { touched = true; };
+      document.addEventListener('pointerdown', touch, { capture: true, once: true });
+      document.addEventListener('keydown', touch, { capture: true, once: true });
+
+      const applyFallback = () => {
+        if (framed) return;
+        framed = true;
+        // Already using the page (e.g. picked a city): keep what's on screen.
+        if (touched) return persistCitySelection(citySelection);
+        setActiveCity(firstOpenFallbackCity(), { animate: false });
+      };
+      const applyFix = ({ lat, lng }) => {
+        done = true;
+        takeFix(lat, lng);        // Nearest reuses it, no second prompt
+        if (touched && framed) return;   // never yank a page the user is already using
+        const near = rankCitiesByProximity([lat, lng], FIRST_OPEN_NEAR_KM)[0];
+        const animate = framed;   // boot frame -> snap; fallback on screen -> one fly
+        setActiveCity(near ? near.cityId : ALL_CITIES, { frame: false });
+        placeUserLocationMarker(lat, lng);
+        if (!(inPlanView() && activePlan())) focusMap([lat, lng], SOLO_MIN_ZOOM, { animate });
+      };
+      const settle = () => {
+        if (done) return;
+        if (answer && answer !== 'none') return applyFix(answer);
+        if (data) applyFallback();      // pending or refused: the fallback, now
+        if (answer === 'none' && framed) done = true;
+      };
+
+      const giveUp = setTimeout(() => { if (!answer) { answer = 'none'; settle(); } }, FIRST_OPEN_WAIT_MS);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            clearTimeout(giveUp);
+            // A late answer (after the wait) still lands if the page is untouched.
+            answer = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+            done = false;
+            settle();
+          },
+          () => { clearTimeout(giveUp); if (!answer) { answer = 'none'; settle(); } },   // silent
+          { enableHighAccuracy: false, maximumAge: 600000, timeout: FIRST_OPEN_WAIT_MS }
+        );
+      } else {
+        answer = 'none';
+      }
+      return { dataLoaded() { data = true; settle(); } };
     }
 
     // =========================================================================
@@ -10038,11 +10137,15 @@
 
     // Sole entry point for city state. On cold start there is nothing to
     // animate away from, so framing is instant.
+    // Returning device: the last viewed city (or All cities), exactly as stored.
+    // First open (nothing stored, and not an auth hop): see startFirstOpen().
     const restoredCity = restoreCitySelection();          // cityId | ALL_CITIES | null
-    setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false });
+    const firstOpen = restoredCity === null && !authHop ? startFirstOpen() : null;
+    setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false, persist: !firstOpen });
 
     Promise.all([fetchLocations(), fetchNeighborhoodShapes(), fetchCities(), fetchPlans()])
       .then(() => {
+        if (firstOpen) firstOpen.dataLoaded();
         if (inPlanView()) frameActivePlan(); cleanupOrphanCities();
         // Just hopped (signed in or out): land where you were -- the view, and the open tag.
         if (authHop) { try { restoreHopView(authHop.view); } catch (e) { /* the default view stands */ } }

@@ -195,14 +195,17 @@ pick/redirect before building anything.
   puts a place in the wrong city you should be able to edit the city
   attached to the place". Applies to every place, whether it shows as a pin
   or as a district/street outline. Lane 2 (needs design first).
-- **First open for a new user centres on their location** (owner,
-  2026-10-15, verbatim: "on open if someone has never used it it should open
-  on their location"). Today a first open (no city stored on the device)
-  frames Los Angeles (`DEFAULT_CITY = 'la'`) and never asks for location on
-  load; location is used only via the locate button or the Nearest sort.
-  Open questions for UX: the permission prompt's timing, and what shows on
-  denial or with no places near the user. See `docs/architecture.md` §3
-  "Open".
+- ~~**First open for a new user centres on their location**~~ LANDED
+  2026-10-15 (owner: "let's change default city to last viewed; first
+  timers it loads the user's location; if the user declines location
+  access idk give me a good city to start from"). Returning devices restore
+  the last viewed city; a first open asks for the location once and picks
+  the city within 80 km or All cities. Fallback rule on denial/no answer:
+  the city of the most recently added place, else the known city nearest
+  the device's time zone, else `DEFAULT_CITY`. With per-person accounts
+  (owner: "im assuming here eventually we will build accounts and that
+  wont be the place") step 1 becomes the user's own newest place. Spec:
+  `docs/shipped.md` "First open"; flow: `docs/architecture.md` §3 "Open".
 - **Plans: the iPhone checks** (v3, see `docs/shipped.md` "Plans (v3
   build)"). The v3 code is in `index.html` on main (its commits, e.g.
   `42bd919`, are on main; branch `plans-v3-build` is gone from the remote).
