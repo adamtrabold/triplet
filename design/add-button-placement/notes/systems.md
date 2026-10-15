@@ -602,3 +602,8 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Cost: TAG_SHEET_GAP 105 (p5 99) → at 664 the list goes 3 → 2 rows with a tag open (3 rows need ≤ 93, i.e. upright ≤ 58 tall). Lean: a ≤ 58-tall upright, or accept 2 rows; stepping aside reintroduces the exception.
 - Hand-off: the upright is already the form's orientation → a pure grow, no rotation; the hole becomes the eyelet, the end becomes the stub.
 - Short upright 36x58 orange (p6): 1.45 / 1.44 x the account (1.08x the Float); 0 pins; z14 9/10/12/2%; credit 80/65/75. **Gap 90 confirmed: 3 rows at 664/667, 10px clear; 93 drops to 2 → 90 is the ceiling.** 320: 1 row (same as the Float). Hit 36 → pad 4 each side to 44. All jobs hold; no costs beyond the Float's.
+
+## Round 11c (2026-10-15): the upright cream, more squat
+- Cream q1 36x54 (end 8): **0.31 / 0.28 x the account (0.23x the Float)**; q3 40x55: 0.41; p6 cream 36x58: 0.42. A smaller orange end = lower rank (the end is the weight).
+- Coverage 9/10/11/2%; 0 pins; credit clear; gaps 86/87 → 3 rows at 664; tap pads to 44.
+- **Job 2 fails for every cream variant** → send it back, or the owner chooses a quiet + knowing the number (suggested one-line cost on the send). Orange at the same size passes (1.45).

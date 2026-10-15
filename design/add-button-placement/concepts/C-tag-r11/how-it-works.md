@@ -174,3 +174,64 @@ a real tag on the real app with `TAG_SHEET_GAP` patched (48 to 105), at
 - Jobs 5-18 are unchanged (the shared form).
 
 **No costs left that the Float doesn't also have.**
+
+---
+
+## Round 11c (systems, 2026-10-15): the upright cream, "a tad more squat"
+
+Owner: he likes the upright cream with the orange end; "a tad more
+squat… maybe just by reducing the orange edge". Measured with
+`TAG=t11q-` (the real 202 pins, visual's `q1`/`q3`/`p6` presets, cream
+`twoend`, upright).
+
+| | **q1 36 × 54 (end 8)** | q3 40 × 55 (end 10) | p6 36 × 58 cream (ref) | p6 36 × 58 orange (ref) |
+|---|---|---|---|---|
+| vs the account, σ4 / σ8 | **0.31 / 0.28** | 0.41 / 0.38 | 0.42 / 0.39 | 1.45 / 1.44 |
+| vs the Float (1.34) | 0.23x | 0.31x | 0.31x | 1.08x |
+| Pins at the opening fit (40 scenes) | 0 | 0 | 0 | 0 |
+| Street zoom: Copenhagen / Stockholm / Malmö / LA | 9 / 10 / 11 / 2% | 9 / 10 / 12 / 3% | 9 / 10 / 12 / 2% | the same |
+| Credit, horizontal clearance (390 / 375 / 320) | 80 / 65 / 75 | 76 / 61 / 71 | 80 / 65 / 75 | the same |
+| `TAG_SHEET_GAP` (20 + height + 12) | 86: **3 rows at 664**, about 9 clear of an open tag | 87: 3 rows | 90: 3 rows | 90 |
+| Tap target | pad 4 each side → 44 × 54 | pad 2 each side → 44 × 55 | 44 × 58 | 44 × 58 |
+
+- **Coverage, credit, gap and tap target: all fine.** Every row is at
+  or better than the Float, and the gap stays under the 90 ceiling,
+  so 3 rows hold at 664.
+- **Job 2 is the problem, plainly: every cream upright ranks well
+  below the account badge, 3-4x short of the 1.2 bar.**
+  - The owner's own squat change makes it worse. The orange end is
+    almost all of the cream tag's weight, so shrinking it (12 → 8)
+    takes 36 × 58's 0.42x down to **0.31x**: under a third of the
+    account and under a quarter of the Float.
+  - The Float, and the orange tag at the same size, are 1.34 and 1.45.
+  - This is the owner's round-5b objection, in his own words: the +
+    with the "same weight and heirarchy as account, which it shouldn't
+    be". Here it's well under that.
+- **What would change it** (levers for visual and the director, not a
+  recommendation):
+  - (a) the orange tag (1.45x) instead;
+  - (b) weight on the cream from the + (a heavier or darker +): visual
+    measured that a bigger + barely moves rank on cream (round 9);
+  - (c) a larger orange end, the opposite of his ask;
+  - (d) **the owner accepts a quiet + by choice.** If he picks cream
+    knowing it's lighter than the account, job 2 changes from "ranks
+    above the account" to his call. That should be said to him in one
+    line on the send, not decided for him.
+
+### Jobs re-check (round 11c)
+
+| Job | q1 cream 36 × 54 | q3 cream 40 × 55 |
+|---|---|---|
+| 1 Reach | yes: gap 86, the filters the only exception | yes: gap 87 |
+| 2 Main action, above the account | **NO: 0.31x** (0.23x the Float) | **NO: 0.41x** |
+| 3 Know what you'll fill out | yes: an upright tag, the same orientation as the form | yes |
+| 4 Never in the way | yes: the lowest coverage measured (9 / 10 / 11 / 2%) | yes |
+| 5-18 | unchanged (the form) | unchanged |
+
+**Unsupported: job 2, for every cream variant.**
+- By the coverage rule that sends the colourway back, unless the
+  owner, told the number, chooses a + quieter than the account.
+- The orange upright at the same sizes would pass (36 × 58: 1.45x).
+- **Suggested line for the send:** "In cream the button is lighter than
+  your account badge (about a third of its weight). Orange makes it
+  the strongest thing in that corner. Your call."
