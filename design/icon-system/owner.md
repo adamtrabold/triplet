@@ -76,3 +76,5 @@ Orchestrator's note: record his words; don't turn his examples into lists, rules
 - Other row (comment): "i like the asterisk" (read as: keep Other in the add form; told him so in the thread)
 - Attraction (comment): "the comments always sit closest to the one i mean unless it's a "niether of these work" comment. i will say camera says "sight" more than attraction. i wonder if the nordic loop works the best here."
   Read: restaurant = A (fork and knife), nature = A (conifer). Attraction reopened: explore the Nordic sights loop (⌘), dropped earlier as a Mac-key/outline risk.
+- Attraction (comment): "i agree with the pushback, but i also am leaning on the inspo a bit for this" then "i dont know if it has to read as a solid shape -- its heavy enough" (the Nordic loop: lead idea for attraction; may stay a heavy line rather than solid).
+- Area (comment): "well -- lets pressure test that... what's the difference between a district and an area?" Orchestrator answered with the data (district = 6 OSM outlines; area = 18 pins, mixed; 8 overlap) and two options; awaiting his lean.
