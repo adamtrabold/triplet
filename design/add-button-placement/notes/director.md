@@ -1479,3 +1479,4 @@ Check V7 → release.
 - 2026-10-15: V5 checked; 3-still send (V2, V7, V5) released.
 - 2026-10-15 (11c): cream-squat is the owner's decision (job 2 fails for every cream; his rule vs his taste). Pick 40x55 end 10 on look (36x54 end 8 thins the end to a stripe). Send Q4, Q1 with a plain trade note. Next: his pick -> handoff.
 - 2026-10-15 (11d): proportion study P1/P2 fit to send. Recommend 40 wide, cream stub, 3px orange edge (thin orange, tear-off kept, squatter). Size comes next.
+- 2026-10-15 (11e): cream 40x54 with orange top band; fit to send (B3, B1, B2). Recommend band 16 (hole inside the band like the place tag; 12 straddles, 20 outweighs the +).

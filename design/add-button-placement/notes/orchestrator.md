@@ -41,3 +41,6 @@
 
 ## 2026-10-15 — proportion study sent
 - P1 (grid), P2 (real size). Director rec: 40 wide, cream stub + 3px orange edge.
+
+## 2026-10-15 — band-on-top sent
+- B3, B1, B2 sent. Director rec band 16. (Director claimed an owner note about bar shape that the owner never made — not passed on.)

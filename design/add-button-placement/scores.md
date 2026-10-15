@@ -2167,3 +2167,32 @@ you wanted.
 ### Send, in order
 1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/P1-proportion-grid-3x.png
 2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/P2-proportion-real-size-3x.png
+
+## Round 11e -- director, 2026-10-15 (40 × 54, all cream, orange band on top)
+
+Owner, verbatim: "I like 40 but am not into the cream stub. Let's try a variant with an all cream stub moving the orange bar to the top like a starred location tag" / "I don't need it to read as stars in just trying to think of visual connections"
+
+### Is it fit to send?
+**Yes.**
+- The band follows the die-cut top, so it obeys his earlier "the orange
+  bar is not matching the shape of the tag" note.
+- The cream stub keeps its dotted line and notches.
+- B1 shows the three depths honestly; B2 shows them at real size beside
+  the account.
+- B3 is the strongest frame: the + is visibly the open place tag in
+  small. That's exactly the "visual connection" he's after.
+- No weights measured. That's fine; size comes after he picks the
+  proportion.
+
+### Recommendation (one line to pass on)
+**Band 16:** the hole sits fully inside the band, the way a place's tag
+carries its eyelet. At 12 the ring straddles the edge and looks
+misaligned, and at 20 the band starts to outweigh the +.
+
+### Send, in order
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/B3-band-vs-starred-3x.png
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/B1-band-close-up-3x.png
+3. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/B2-band-real-size-3x.png
+
+**Held back:** B4 (the whole screen; B3 already shows it at real size in
+context).
