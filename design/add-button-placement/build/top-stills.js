@@ -1,5 +1,5 @@
 // The + moving beside the account badge when the filters panel is too tall for it to ride (branch
-// plus-rides-filters). Both size variants: (a) normal 60px, (b) matched to the account's 50px. 3x.
+// plus-rides-filters). Matched to the account's 50px, in the account's corner; the account steps left. 3x.
 // "long" = 6 extra test cities added in the page only (never written), so the panel is taller.
 //   node design/add-button-placement/build/top-stills.js index.html design/add-button-placement/build/top
 const L = require('./lib.js'); const path = require('path'); const fs = require('fs');
@@ -16,12 +16,11 @@ const CASES = [
 ];
 (async () => {
   const b = await L.launch(); const log = {};
-  for (const [variant, matched] of [['a-normal', false], ['b-matched', true]]) {
+  for (const [variant, matched] of [['matched', true]]) {
     for (const [n, s] of CASES) {
-      if (s.one && matched) continue;   // it rides there: the size dial doesn't apply
+
       const { ctx, page, errs } = await L.open(b, { html: HTML, vp: s.vp, inset: s.inset, dsf: 3 });
       await page.evaluate(() => setActiveCity('reykjavik')); await page.waitForTimeout(800);
-      if (matched) await page.evaluate(() => document.body.classList.add('add-top-matched'));
       if (s.long) await page.evaluate(LONG);
       await page.click('#toggleFiltersBtn');
       if (s.mid) { await page.waitForTimeout(30); await page.evaluate(() => document.getAnimations().forEach(a => { a.pause(); a.currentTime = 150; })); await page.waitForTimeout(100); }   // half-way through the 0.3s move, frozen for the still
@@ -29,7 +28,7 @@ const CASES = [
       const f = s.one ? `${n}-3x.png` : `${variant}-${n}-3x.png`;
       await page.screenshot({ path: path.join(OUT, f) });
       log[f] = await page.evaluate(() => { const r = document.getElementById('floatingAddBtn').getBoundingClientRect(), a = document.getElementById('accountBtn').getBoundingClientRect();
-        return { mode: document.body.classList.contains('add-to-top') ? 'beside account' : document.body.classList.contains('add-rides-filters') ? 'rides' : 'covered', box: [r.left, r.top, r.right, r.bottom].map(v => +v.toFixed(1)), gapToAccount: +(a.left - r.right).toFixed(2) }; });
+        return { mode: document.body.classList.contains('add-to-top') ? 'beside account' : document.body.classList.contains('add-rides-filters') ? 'rides' : 'covered', box: [r.left, r.top, r.right, r.bottom].map(v => +v.toFixed(1)), gapToAccount: +(r.left - a.right).toFixed(2), account: [a.left, a.top].map(v => +v.toFixed(1)) }; });
       console.log(f, JSON.stringify(log[f]), errs.length ? errs : '');
       await ctx.close();
     }

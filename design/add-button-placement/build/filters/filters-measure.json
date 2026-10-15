@@ -23,7 +23,7 @@
   "panelH": 411,
   "content": 411,
   "scrolls": false,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x844-safari-closed-3x.png": {
@@ -50,7 +50,7 @@
   "panelH": 411,
   "content": 411,
   "scrolls": false,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x844-safari-open-scrolled-3x.png": {
@@ -59,7 +59,7 @@
   "panelH": 411,
   "content": 411,
   "scrolls": false,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x844-home-screen-closed-1x.png": {
@@ -77,7 +77,7 @@
   "panelH": 369,
   "content": 369,
   "scrolls": false,
-  "plusTop": 58,
+  "plusTop": 63,
   "errs": 0
  },
  "390x844-home-screen-open-1x.png": {
@@ -86,7 +86,7 @@
   "panelH": 409,
   "content": 411,
   "scrolls": true,
-  "plusTop": 58,
+  "plusTop": 63,
   "errs": 0
  },
  "390x844-home-screen-closed-3x.png": {
@@ -104,7 +104,7 @@
   "panelH": 369,
   "content": 369,
   "scrolls": false,
-  "plusTop": 58,
+  "plusTop": 63,
   "errs": 0
  },
  "390x844-home-screen-open-3x.png": {
@@ -113,7 +113,7 @@
   "panelH": 409,
   "content": 411,
   "scrolls": true,
-  "plusTop": 58,
+  "plusTop": 63,
   "errs": 0
  },
  "390x844-home-screen-open-scrolled-3x.png": {
@@ -122,7 +122,7 @@
   "panelH": 409,
   "content": 411,
   "scrolls": true,
-  "plusTop": 58,
+  "plusTop": 63,
   "errs": 0
  },
  "390x664-closed-1x.png": {
@@ -140,7 +140,7 @@
   "panelH": 276,
   "content": 369,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x664-open-1x.png": {
@@ -149,7 +149,7 @@
   "panelH": 276,
   "content": 411,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x664-closed-3x.png": {
@@ -167,7 +167,7 @@
   "panelH": 276,
   "content": 369,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x664-open-3x.png": {
@@ -176,7 +176,7 @@
   "panelH": 276,
   "content": 411,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x664-open-scrolled-3x.png": {
@@ -185,7 +185,7 @@
   "panelH": 276,
   "content": 411,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "320x568-closed-1x.png": {
@@ -203,7 +203,7 @@
   "panelH": 180,
   "content": 369,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "320x568-open-1x.png": {
@@ -212,7 +212,7 @@
   "panelH": 180,
   "content": 453,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "320x568-closed-3x.png": {
@@ -230,7 +230,7 @@
   "panelH": 180,
   "content": 369,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "320x568-open-3x.png": {
@@ -239,7 +239,7 @@
   "panelH": 180,
   "content": 453,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "320x568-open-scrolled-3x.png": {
@@ -248,7 +248,7 @@
   "panelH": 180,
   "content": 453,
   "scrolls": true,
-  "plusTop": 11,
+  "plusTop": 16,
   "errs": 0
  },
  "390x844-list-collapsed-closed-1x.png": {

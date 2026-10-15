@@ -1392,22 +1392,26 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
       `--filters-lift` = the panel's height; the same 15.22 gap and 0.3s ease)
       whenever its box clears the zoom/account row by 12, decided live by
       `syncFiltersLift()`.
-    - Where it can't ride, it **moves beside the account badge** instead
-      (owner: "when they are so high that they hit the zoom, the plus icon
-      should just move next to the account where it used to be, and
-      potentially match size even"). It sits to the account's LEFT (the
-      account doesn't move), `--s2` (8px) between the boxes as in the old
-      pairing, centred on the account's centre line (`body.add-to-top`).
-      One transform (`--add-dx` / `--add-dy`) on the same 0.3s ease carries it
-      there in a single diagonal move. Tap and aria are unchanged (it closes
-      the filters and opens the form).
-    - Size dial `ADD_TOP_SIZE` (owner call open): `'normal'` keeps 60px;
-      `'matched'` is the account's 50px, with the + drawn at 22px and its line
-      kept at 2.00px (CSS `stroke-width` 2.1818, `body.add-top-matched`).
-      Stills of both: `design/add-button-placement/build/top/`.
+    - Where it can't ride, it **moves to the top-right corner, matched to
+      the account's size** (owner: "when they are so high that they hit the
+      zoom, the plus icon should just move next to the account where it used
+      to be, and potentially match size even" ; "matched is good but let's
+      put it to the right of account"). `body.add-to-top`:
+      - The + takes the account's own slot (`--account-slot-right`, top
+        `--s4` + `--chrome-top-inset`) at the account's 50px. It's drawn at
+        22px with its line kept at 2.00px (CSS `stroke-width` 2.1818).
+      - The account badge, its focus ring and its menu step left by 50 +
+        `--s2` (8px, the old pairing's gap), only while the + is up there.
+      - Both move on the panel's 0.3s ease. One transform (`--add-dx` /
+        `--add-dy`) carries the + in a single diagonal move. During the move
+        the + passes under the sliding account for a few frames (2–7 frames,
+        up to about 25px of overlap), then they settle side by side.
+      - Tap and aria are unchanged: it closes the filters and opens the form,
+        and the account slides back.
+      - Stills: `design/add-button-placement/build/top/`.
     - Measured with the stub's 5 cities (panel 369px): it rides at 390x844
-      Safari (+ box top 97.8), list collapsed and desktop; it moves beside the
-      account at 390x844 Home Screen, 664, 667 and 320 with the list up. With
+      Safari (+ box top 97.8), list collapsed and desktop; it moves to the
+      top-right at 390x844 Home Screen, 664, 667 and 320 with the list up. With
       11 cities (411px) it moves at 844 Safari too, and the panel scrolls at
       the Home Screen, 664 and 320 (panel tops at 86).
     - `tagSheetGap()` reads the badge's resting box (its rendered box minus

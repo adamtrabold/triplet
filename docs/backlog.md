@@ -302,10 +302,9 @@ pick/redirect before building anything.
   sits lands on a category chip and silently toggles that filter off. Owner
   answered: "for 1 let's push the + up with the panel" -- FIXED on branch
   `plus-rides-filters` (not landed): the + rides above the panel where it
-  fits. Where it doesn't, it moves beside the account badge (owner: "the
-  plus icon should just move next to the account where it used to be"), so
-  no chip is ever under it. Open: its size there (`ADD_TOP_SIZE`, normal or
-  matched to the account).
+  fits. Where it doesn't, it moves to the top-right corner, matched to the
+  account's size, and the account steps left (owner: "matched is good but
+  let's put it to the right of account"), so no chip is ever under it.
 - **Open task, for the designers: `planSafeBox()` treats the + badge's top as
   a full-width bottom limit** (+ badge review, 2026-10-15). The badge is in
   `planChrome()`, so plan fits lose about 100px at the bottom across the whole

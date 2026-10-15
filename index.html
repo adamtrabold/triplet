@@ -628,23 +628,31 @@
       }
     }
     /* The panel too tall for the + to ride above it (it would hit the zoom / account row): the +
-       moves to the top-right, beside the account badge -- its spot before the badge build (owner,
-       2026-10-15: "the plus icon should just move next to the account where it used to be, and
-       potentially match size even"). The account badge doesn't move; the + sits to its LEFT, the
-       old pairing's --s2 (8px) between the two boxes, centred on the account's centre line.
-       --add-dx / --add-dy (syncFiltersLift()) carry it from its resting box to that spot in one
-       transform, the same 0.3s ease, so the move reads as one motion. Size: ADD_TOP_SIZE. */
+       moves to the top-right corner, matched to the account badge's size, and the account steps
+       left to make room (owner, 2026-10-15: "the plus icon should just move next to the account
+       where it used to be, and potentially match size even" ; "matched is good but let's put it to
+       the right of account"). The + takes the account's own slot (--account-slot-right, top --s4 +
+       --chrome-top-inset); the account (its focus ring and menu with it) shifts left by its 50px
+       box + --s2, the old pairing's gap, only while the + is up there (body.add-to-top). Both
+       moves run on the panel's 0.3s ease, so it reads as one motion. --add-dx / --add-dy
+       (syncFiltersLift()) carry the + from its resting box in one transform. */
     body.add-to-top #floatingAddBtn,
     body.add-to-top #addFocus,
     body.add-to-top.sheet-collapsed #floatingAddBtn,
     body.add-to-top.sheet-collapsed #addFocus {
       transform: translate(var(--add-dx, 0px), var(--add-dy, 0px));
+      width: 50px;
+      height: 50px;
     }
-    /* (b) matched: the account's 50px box; the + drawn at 22px with its line kept at 2.00px
+    /* Matched: the account's 50px box; the + drawn at 22px with its line kept at 2.00px
        (2.1818 x 22 / 24). The box shrinks toward its bottom-left anchor; --add-dy accounts for it. */
-    body.add-to-top.add-top-matched #floatingAddBtn,
-    body.add-to-top.add-top-matched #addFocus { width: 50px; height: 50px; }
-    body.add-to-top.add-top-matched #floatingAddBtn svg { width: 22px; height: 22px; stroke-width: 2.1818; }
+    body.add-to-top #floatingAddBtn svg { width: 22px; height: 22px; stroke-width: 2.1818; }
+    #accountBtn,
+    #accountFocus,
+    #accountDropdown { transition-property: background, color, transform; transition-duration: 0.15s, 0.15s, 0.3s; transition-timing-function: ease; }
+    body.add-to-top #accountBtn,
+    body.add-to-top #accountFocus,
+    body.add-to-top #accountDropdown { transform: translateX(calc(-1 * (50px + var(--s2)))); }
 
     #mainContent {
       /* Stays FIXED (Safari tints its tab status bar from the top fixed
@@ -9234,10 +9242,6 @@
     // clear the zoom / account row by --s3 (12); otherwise leave it for the panel to cover. Read
     // from layout (offsetTop / offsetHeight ignore the panel's slide-in transform), so it holds on
     // any screen and mid-slide.
-    // DIAL (owner call open, 2026-10-15): the +'s size when it moves beside the account badge.
-    // 'normal' = its own 60px; 'matched' = the account's 50px ("potentially match size even").
-    const ADD_TOP_SIZE = 'normal';
-    document.body.classList.toggle('add-top-matched', ADD_TOP_SIZE === 'matched');
     function syncFiltersLift() {
       const panel = document.getElementById('filtersPanel'), btn = document.getElementById('floatingAddBtn'), root = document.documentElement;
       const size = parseFloat(getComputedStyle(root).getPropertyValue('--add-size')) || 60;
@@ -9259,14 +9263,14 @@
       root.style.setProperty('--filters-lift', lift.toFixed(2) + 'px');
       document.body.classList.toggle('add-rides-filters', lift > 0);
       if (top) {
-        // Beside the account badge: its left edge minus --s2 is the +'s right edge; centred on the
-        // account's centre line. Without a shown account badge, the slot it would take
-        // (--account-slot-right: --s4, 50px, top --s4 + --chrome-top-inset).
-        const w = document.body.classList.contains('add-top-matched') ? 50 : size;
-        const a = document.getElementById('accountBtn').getBoundingClientRect();
+        // The account badge's own slot, which the account vacates (it steps left, CSS): read from its
+        // resting box (rendered box minus its own, maybe mid-move, transform). Without a shown
+        // account badge, the slot from its tokens (--account-slot-right: --s4; top --s4 +
+        // --chrome-top-inset).
+        const w = 50, ab = document.getElementById('accountBtn'), a = ab.getBoundingClientRect();
+        const at = getComputedStyle(ab).transform, am = new DOMMatrix(at === 'none' ? undefined : at);
         const inset = parseFloat(getComputedStyle(root).getPropertyValue('--chrome-top-inset')) || 0;
-        const acc = a.width ? a : { left: innerWidth - 16 - 50, top: 16 + inset, height: 50 };
-        const x = acc.left - 8 - w, y = acc.top + acc.height / 2 - w / 2;
+        const x = a.width ? a.left - am.m41 : innerWidth - 16 - 50, y = a.width ? a.top - am.m42 : 16 + inset;
         // The box's resting left and foot, exact: its rendered box minus its own (maybe mid-move) transform.
         const r = btn.getBoundingClientRect(), cs = getComputedStyle(btn).transform, m = new DOMMatrix(cs === 'none' ? undefined : cs);
         const left = r.left - m.m41, foot = r.bottom - m.m42;
