@@ -493,3 +493,125 @@ suggestion:
 - (b) S1 + I1/I7 (chosen home, filed at add);
 - (c) N3 anchors (trip-shaped);
 - (d) N2 see-also as the many-to-many alternative.
+
+## Turn 3 -- design director
+
+The owner asked for "many ideas here, not a hard recommendation", and
+(new ledger rule) "judgments are opinions, not facts". So I'm choosing
+what goes forward as *different kinds of answer*, not picking a winner.
+Real draws: field **constellations**; Oblique **"Emphasize
+differences"**.
+
+### The direction: a city in his head is a constellation, not a border
+
+- A constellation groups stars that look together *from where you
+  stand*, even though they're at wildly different real distances.
+  Astronomers keep both: the star's real position, and the figure we
+  see it in.
+- That's his Blue Lagoon exactly. "Reykjavík" is the figure he sees
+  from where he'll be standing; Grindavík is the star's real position.
+- So every concept must keep **two truths side by side, without either
+  one overwriting the other**:
+  - where a place *is* (data, never edited by the user);
+  - which figure it belongs to in his head (the model's job).
+- The concepts differ in **where the figure comes from**. Per the
+  Oblique, I want those differences sharp. Three sources, three
+  concepts:
+
+**Concept A: Drawn by rule ("From").** The app works the figure out.
+- This is visual's N1. A city lens lists **In Reykjavík**, then **From
+  Reykjavík**: everything nearer Reykjavík than your other cities.
+- The override is visual's N2, "see also", for when nearest is wrong.
+- **Zero filing.** Its failure is two close cities (Copenhagen and
+  Malmö); systems must show what happens there, not wave at it.
+
+**Concept B: Drawn by you (a home, chosen once).** You file it.
+- I1 + I7: every place has one home, pre-filled from the lens you
+  added it in, and printed on the tag.
+- Real city is data, with its own filter.
+- It's the most predictable and the most conventional. That's a fair
+  answer and I won't mark it down for it.
+- Its deliberate difference: **one home only.** The airport can't be in
+  two figures. Show that cost honestly.
+
+**Concept C: Drawn by the trip (anchors).** The figure comes from
+where you sleep.
+- Visual's N3, pushed: **anchors aren't a new kind of place. They're
+  the Hotel category the app already has** (plus Transport for the
+  airport and ferry, if needed).
+- Add a hotel and its city becomes a **base** of the trip. Every place
+  belongs to the base you'd go *from*. Places between two bases sit on
+  the leg.
+- The trip gets an order for free, from hotel dates or the order added.
+- It's the truest to how trips work, and the only one where "places in
+  between" (job 9) has a real home.
+- Its risk: a trip with no hotels yet has no figures at all, so systems
+  needs a fallback (A's rule, until a hotel exists).
+
+### Constants across all three (so the concepts differ only where it matters)
+
+- **One movement model: S1, the lens, as visual sharpened it.**
+  - One name in the header with a step back ("‹ Scandinavia
+    REYKJAVÍK").
+  - In the trip lens, the list runs in city sections, in trip order where
+    one exists.
+  - The cities sheet is the only "album".
+- **N4: one trip at a time.** Other trips (LA) are behind ▾ and never mix
+  in.
+- **Real city stays data on every place.** The owner's "filter by city"
+  is the real-city chips, inside the filters panel and inside the
+  current trip.
+- **Plans belong to a trip** and can cross its cities. A city lens shows
+  the plans that touch that city.
+- **Add:** nothing to pick. The lens pre-fills. The tag prints both
+  truths: "Reykjavík · in Grindavík".
+
+### Rulings on the open questions
+
+- **Is a trip a real container? Yes, in scope now.** He named it himself
+  ("trips they may be grouped to", "scandinavia 2026"). It's a
+  container of places, with cities inside it as figures, and plans
+  inside it.
+- **Can a place show under more than one city?**
+  - **In A and C, yes, in the view.** A place can be "In" one figure and
+    "see also" another. Storage stays one place, one real location.
+  - **In B, no, by design.** That's the difference the owner should see.
+  - It isn't mine to settle for him; it's the clearest question to put
+    to him with the concepts.
+- **Kills: agreed with visual.**
+  - S2 as a shape (its sections live in S1's trip lens);
+  - S3 and S4;
+  - I3 and I8;
+  - I5 folded into C's order.
+- **N2 "see also"** is A's override, not a concept on its own.
+
+### Push for pass 2
+
+- **Systems:** run A, B and C through jobs 1-12 and the checklist
+  (header, filters, add, map, plans, past trips). Then run three cases
+  through each:
+  - the Øresund (a place between Copenhagen and Malmö);
+  - the airport (logistics, flown into and out of);
+  - a day trip on a leg (Þingvellir from Reykjavík, or Lund between
+    Malmö and Copenhagen).
+  Also say what each one stores. The model is the deliverable.
+- **Visual:** one box-and-arrow sketch per concept, the same three
+  views each (trip lens, city lens, the tag's two truths). Sketch level
+  only, as he asked.
+
+### Owner questions (for the send with the concepts, not now)
+
+1. When you tap Reykjavík, should the Blue Lagoon just *be there*
+   (worked out), or only once you've said so?
+2. Can one place show under two cities (the airport under Reykjavík
+   and Copenhagen)?
+3. Are hotels and airports places you visit, or the frame of the trip
+   (where you stay and leave from)?
+4. Do your trips have an order or dates you'd want the app to use?
+5. One trip at a time (LA kept separate), or do you ever want everything
+   at once?
+
+NEXT: product designer (systems focus) — the jam's second pass: run
+A, B and C through the jobs, the checklist and the three cases (Øresund,
+airport, day trip on a leg), and say what each stores, so the concepts
+start from a tested model.
