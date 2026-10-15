@@ -390,7 +390,7 @@ const RO={
 const RCLIP=9.1;
 const R_=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="currentColor"/>`;
 const CO={
- restaurant:R_(6,6,2,5)+R_(10,6,2,5)+R_(6,10,6,2)+R_(8,12,2,7)+f('M14 14V10l4-4v8z')+R_(16,14,2,5),
+ restaurant:f('M5 7h3v4l-.5.5V17h-2v-5.5L5 11z')+'<circle cx="12" cy="12" r="3.5" fill="currentColor"/>'+f('M16 17V10l3-3v10z'),
  cafe:f('M5 6h10v4a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z')+f('M15 7h3a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-3v-2h3V9h-3z')+R_(5,16,12,2),
  bar:f('M6 5h12l-6 6z')+R_(11,10,2,6)+R_(8,16,8,2),
  attraction:f('M7 10l5-5 5 5z')+R_(7,12,2,5)+R_(11,12,2,5)+R_(15,12,2,5)+R_(6,17,12,2),
@@ -399,8 +399,8 @@ const CO={
  area:f('M5 9l4-4v10l-4 4z')+f('M10 5l4 4v10l-4-4z')+f('M15 9l4-4v10l-4 4z'),
  hotel:R_(5,7,2,11)+R_(7,13,11,3)+R_(16,16,2,2)+'<circle cx="10" cy="10" r="2" fill="currentColor"/>'+R_(13,10,5,3),
  other:R_(7,5,2,14)+f('M9 5h8l-3 3 3 3H9z'),
- district:R_(6,6,12,12)+`<path fill="none" ${KOS} stroke-width="2" d="M11 5V19M5 17L17 5"/>`,
- street:`<path fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" d="M9 19.5V13l6-6"/>`+`<path fill="none" ${KOS} stroke-width="1.6" stroke-dasharray="2 2" d="M9 19.5V13l6-6"/>`,
+ district:f('M5 10l4-4v12H5z')+R_(11,6,8,6)+f('M11 14h8l-4 4h-4z'),
+ street:`<path fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" d="M5 15h4l6-6h4"/>`+`<path fill="none" ${KOS} stroke-width="1.6" stroke-dasharray="2 2" d="M5 15h4l6-6h4"/>`,
 };
 const COFF={};
 
@@ -527,7 +527,7 @@ const rulesCard=()=>`<div class="card rules"><div class="no">Round 3 · read thi
  <div class="wt"><div class="wh"><span></span><span>Today</span><span>2.00px</span></div>
  ${wt.map(([n,s,t,a,T0,T1])=>`<div class="wr"><span class="wn">${n}<i>${t}px today${a?' · '+a:''}</i></span><div class="wc">${T0()}</div><div class="wc">${T1()}</div></div>`).join('')}
  <div class="wr fixed"><span class="wn">mark visited<i>1.52px · fixed</i></span><div class="wc">${CHK(20)}</div><div class="wc">${CHK(20)}</div></div>
- <div class="wr"><span class="wn">place circles<i>2.00px: rows, pins, 16px chips</i></span><div class="wc">${mark('T','cafe',24)}</div><div class="wc">${mark('SP','cafe',24)}</div></div></div>
+ <div class="wr"><span class="wn">place circles<i>2.00px: rows and pins</i></span><div class="wc">${mark('T','cafe',24)}</div><div class="wc">${mark('SP','cafe',24)}</div></div></div>
  <div class="sec">Settled by the team</div>
  <ul class="plain"><li><span class="ic">${mark('SP','district',22)}${mark('SP','street',22)}</span>Districts and streets sit in the circle like every place.</li>
  <li><span class="ic">${tl('directions',20)}</span>Directions stays a ring with a solid needle.</li>

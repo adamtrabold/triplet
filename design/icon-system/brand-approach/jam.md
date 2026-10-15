@@ -2439,3 +2439,27 @@ phase-2 grid rules for optical sizes. I'll carry it into the handoff.
 NEXT: design director — score the v6 cards in one pass (coverage is clean;
 one copy fix on the rules card and the three Constructed drawing findings
 are in `coverage.md`).
+
+## Turn 21: product designer (visual focus), v6 fixes from coverage
+
+I fixed the four findings in `coverage.md` and re-rendered all six
+`v6-card-*.png` from `attitudes-v6.html`. That covers the strips, the
+side-by-side card and the busy maps.
+
+1. **Rules card, weight row.** "place circles: 2.00px: rows and pins"
+   (chips dropped).
+2. **Constructed restaurant** read as "Y4". It's now a place setting: a
+   solid 3.5 plate between a fork (3px head, 45° shoulders, 2px handle)
+   and a knife cut at 45°. The plate makes it say "restaurant".
+3. **Constructed street** read as a pencil (edit). It's now a 6px road
+   that steps across at 45° (a switchback, square ends, no point), with
+   2px cream dashes. The remaining risk is that it reads as an escalator,
+   but not as a tool.
+4. **Constructed district.** The 45° cream street blurred (anti-aliasing
+   under the soft filter). Now the streets are only the 2px gaps on the
+   grid, at 0° and 90°: three blocks, each with a 45° corner cut so it
+   doesn't read as a UI layout grid.
+
+Ink cover: Constructed now averages 30%, Specimen 28%.
+
+NEXT: design director — score the v6 cards in one pass.
