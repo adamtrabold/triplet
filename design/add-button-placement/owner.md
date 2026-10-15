@@ -67,3 +67,8 @@ Answers: Q2 edit a place — future update (backlog). Q3 — no save until an ex
 > Let’s iterate the tag a bit before I make a call. The tag is too wide and the plus is too large. Balance feels off. I feel like both sides could get narrower. Also I miss the hole. I think in the smaller arrangement I’d like to see orange tag as well as cream with orange claim check edge
 
 Direction (C only; no call yet): narrower on both sides (the + side and the claim-check side); smaller +; better balance; bring back the hole (eyelet); at the smaller size show BOTH orange tag (#7) and cream with orange claim-check edge (#2). Float and the form: no new notes.
+
+2026-10-15, on round 11:
+> Let’s try it turned 90 degrees too
+
+Direction: show the C tag rotated 90° (vertical) as well, alongside the horizontal one.
