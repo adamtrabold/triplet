@@ -79,17 +79,20 @@
     // round 11d proportion study: tp = 'x-<length>-<width>-<end>-<stub>' (lengths along the tag; end = the orange band's
     // thickness at the very end; stub = the claim-check part from the perforation to the end, cream above the band)
     let END = null;
-    if (tp.startsWith('x-')) { const [, L, Wd, E, S] = tp.split('-').map(Number); P11[tp] = [L, Wd, Math.round(Wd * .28), S, 7.5, 3.2]; END = E; }
+    let BAND = 0;
+    if (tp.startsWith('x-')) { const [, L, Wd, E, S, B] = tp.split('-').map(Number); P11[tp] = [L, Wd, Math.round(Wd * .28), S, 7.5, 3.2]; END = E; BAND = B || 0; }
     const [w, h, CH, STUB, A, SW] = P11[tp], sx = w - STUB, hx = CH * .85 + 3, hy = h / 2, HR = Math.max(2.6, h * .065);
     const path = `M${CH} 0H${w}V${h}H${CH}L0 ${h - CH}V${CH}Z`;
     const orange = v === 'orange';
     const stock = pr ? (orange ? 'var(--brand-orange-deep)' : 'var(--paper)') : orange ? 'var(--brand-orange)' : 'var(--paper-raised)';
     const eT = END == null ? STUB : END;
-    const endFill = !orange ? `<rect x="${w - eT}" y="0" width="${eT}" height="${h}" fill="${pr ? 'var(--brand-orange-deep)' : 'var(--brand-orange)'}"/>` : '';
+    const endFill = (!orange && eT > 0 ? `<rect x="${w - eT}" y="0" width="${eT}" height="${h}" fill="${pr ? 'var(--brand-orange-deep)' : 'var(--brand-orange)'}"/>` : '')
+      // round 11e: the orange band across the die-cut end, like the starred Hanging Tag's band (the hole sits in it)
+      + (BAND ? `<rect x="0" y="0" width="${BAND}" height="${h}" fill="${pr ? 'var(--brand-orange-deep)' : 'var(--brand-orange)'}"/>` : '');
     const perf = orange ? 'rgba(18,41,63,.5)' : 'var(--hair)';
-    const ring = orange ? 'rgba(242,235,221,.55)' : 'var(--hair)';
+    const ring = orange || BAND ? 'rgba(242,235,221,.6)' : 'var(--hair)';
     // the + sits in the optical middle of the field between the hole's ring and the perforation
-    const fx0 = hx + HR + 3, bx = (fx0 + sx) / 2 + .5, by = h / 2;
+    const fx0 = BAND ? BAND : hx + HR + 3, bx = (fx0 + sx) / 2 + .5, by = h / 2;   // with a band: centred in the cream between the band and the perforation
     const el = document.getElementById('tb'), pad = 6;
     const svg = `<defs><mask id="tm"><path d="${path}" fill="white"/><circle cx="${hx}" cy="${hy}" r="${HR}" fill="black"/><circle cx="${sx}" cy="0" r="${END != null && STUB > END ? 3.4 : 3}" fill="black"/><circle cx="${sx}" cy="${h}" r="${END != null && STUB > END ? 3.4 : 3}" fill="black"/></mask></defs>
       <g class="tb-shadow"><g mask="url(#tm)"><path d="${path}" fill="${stock}"/>${endFill}

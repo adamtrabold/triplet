@@ -244,6 +244,10 @@ both('r11p-real-36-e3', { k: 'T:twoend:104:0:x-54-36-3-3:up', zoom: true, centre
 both('r11p-real-36-stub', { k: 'T:twoend:104:0:x-54-36-3-10:up', zoom: true, centre: CREST });
 both('r11p-real-40-stub', { k: 'T:twoend:104:0:x-54-40-3-10:up', zoom: true, centre: CREST });
 
+// round 11e: all cream, cream stub, the orange band at the top (the starred Hanging Tag's band), 40 x 54
+for (const b of [12, 16, 20]) both(`r11b-40-b${b}`, { k: `T:twoend:104:0:x-54-40-0-10-${b}:up`, zoom: true, centre: CREST });
+F['r11b-40-b16-tag664'] = { k: 'T:twoend:104:0:x-54-40-0-10-16:up', vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') };
+
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });
   for (const [name, s] of Object.entries(F).filter(([n]) => !process.env.ONLY || process.env.ONLY.split(',').some(p => n.startsWith(p)))) {

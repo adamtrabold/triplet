@@ -1,5 +1,19 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 11e (owner: 40 wide; no cream stub; "an all cream stub moving the orange bar to the top like a starred location tag")
+- **The preset string** takes a band: `x-54-40-0-10-<band>` (end 0, a
+  cream stub of 10, band 12/16/20). The hole ring is paper at 60% on the
+  band. With a band, the + centres in the cream between the band and the
+  perforation.
+- **Stills:**
+  - `C-tag-r11/B1` (close-up of the 3 bands);
+  - `B2` (real size beside the account);
+  - `B3` (beside an open starred tag at 664, with starred pins);
+  - `B4` (band 16 full screen at real size).
+- **Band 16** holds the hole fully inside it, like the starred tag.
+- **Not done:** the real band's paper texture (`--tex-flood`) isn't on the
+  mini band; a build would add it.
+
 ## UPDATE 2026-10-15, round 11d (owner: "Let's nail proportion then overall size…. Maybe the orange needs to be even thinner")
 - **Step 1, proportion only. Size held by height (54 upright).**
   - Widths 32 / 36 / 40 / 44 (0.59-0.81 : 1).
