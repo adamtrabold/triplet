@@ -99,3 +99,8 @@ The orange top bar is a visual connection to the place tag, not meant to read as
 > Lets see that with the badge add, the cream with orange 40/8 and 12 next to each othwr with account too
 
 Pick: band 12 (eyelet ring straddling the band edge is GOOD, not a flaw). Next: a side-by-side of three: the Float badge, the cream 40-wide with an 8px orange end (P1 grid), and the band-12 tag; with the account badge in view.
+
+2026-10-15, DECISION:
+> We’ve beaten this bottom to death I think it’s the badge for now. Conceptually it’s stronger because the circle relates to the icon, the tag isn’t really what you’re adding it’s the pin
+
+Approved: Float (the badge) — orange scalloped badge, navy +, bottom-left ("for now"). Reason: the circle relates to the (pin) icon; what you add is a pin, not a tag. C (tag-as-button) set aside. Open: whether the approval covers the round-10 blank-tag form too (asked).

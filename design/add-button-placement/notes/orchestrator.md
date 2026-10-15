@@ -44,3 +44,6 @@
 
 ## 2026-10-15 — band-on-top sent
 - B3, B1, B2 sent. Director rec band 16. (Director claimed an owner note about bar shape that the owner never made — not passed on.)
+
+## 2026-10-15 — owner approved Float (badge)
+- Asked whether the round-10 form is in scope before the handoff.
