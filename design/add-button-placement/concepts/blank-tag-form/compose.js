@@ -233,6 +233,11 @@ const pages = {
   [R11 + 'B3-band-vs-starred-3x.png']: `${cap('The family resemblance (390 × 664)', 'A place’s tag is open above; the + (bottom-left, band 16) is the same object in small: the band across the cut top with the eyelet in it, cream paper, the dotted line and the stub.')}${full(f('r11b-40-b16-tag664'))}<div class="gap"></div>`,
   [R11 + 'B4-band-real-size-full-3x.png']: `${cap('Band 16 on the whole screen, at real size', 'With the app’s own pins and the account badge.')}
      ${crop1(f('r11b-40-b16-1x'), 0, 0, 390, 544, 3)}<div class="gap"></div>`,
+  // ================= ROUND 11f: the three side by side, with the account =================
+  [R11 + 'T3way-in-app-3x.png']: `${cap('Three side by side', 'The same map, the account badge top-right. Each sits bottom-left and opens the same blank tag.')}
+     <div class="row" style="padding:0 12px;gap:12px">${col('The badge<br><span style="font-weight:400;font-size:22px;color:#3d4a55">orange, 60 × 60</span>', crop(f('r11t-float'), 0, 0, 390, 640, 370 / 390, 390, 'border:1px solid #cfc4ae'), 372)}${col('Cream, orange end 8<br><span style="font-weight:400;font-size:22px;color:#3d4a55">40 × 54</span>', crop(f('r11t-e8'), 0, 0, 390, 640, 370 / 390, 390, 'border:1px solid #cfc4ae'), 372)}${col('Cream, orange band 12<br><span style="font-weight:400;font-size:22px;color:#3d4a55">40 × 54, ring on the band’s edge</span>', crop(f('r11t-b12'), 0, 0, 390, 640, 370 / 390, 390, 'border:1px solid #cfc4ae'), 372)}</div><div class="gap"></div>`,
+  [R11 + 'T3way-strip-3x.png']: `${cap('At real size, beside the account badge', 'As your phone shows them. Account 50 × 50; badge 60 × 60; tags 40 × 54. Visual weight not measured.')}
+     <div class="row" style="padding:0 30px;gap:30px;align-items:flex-end">${col('Account', crop1(f('r11t-b12-1x'), 316, 1, 384, 81, 3), 204)}${col('Badge', crop1(f('r11t-float-1x'), 6, 454, 84, 534, 3), 234)}${col('End 8', crop1(f('r11t-e8-1x'), 6, 454, 74, 534, 3), 204)}${col('Band 12', crop1(f('r11t-b12-1x'), 6, 454, 74, 534, 3), 204)}</div><div class="gap"></div>`,
 };
 (async () => {
   const b = await chromium.launch({ executablePath: `/opt/pw-browsers/${dd}/chrome-linux/chrome`, args: ['--allow-file-access-from-files'] });

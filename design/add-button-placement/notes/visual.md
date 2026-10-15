@@ -1,5 +1,28 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 11f (owner: "12 is the best for me. They're assuming the edge straddling is a bad thing." + "the badge add, the cream with orange 40/8 and 12 next to each other with account too")
+- **Owner pick within the band variant: band 12.** The eyelet ring
+  straddling the band's edge is wanted, not a flaw. Don't caption it as a
+  compromise again (B1's note framed 16 as "as on a starred tag"; history).
+- **New frames** (`blank-tag-form/stills.js`, round 11f block), all on the
+  same map (CREST, zoom 14), 390x844, 1x and 3x:
+  - `r11t-float` (page F, `floatBadge(p, false)`: 60, orange, navy +);
+  - `r11t-e8` (`T:twoend:104:0:x-54-40-8-8:up`: cream 40x54, orange end 8);
+  - `r11t-b12` (`T:twoend:104:0:x-54-40-0-10-12:up`: cream, band 12).
+  Measured in DOM: account 50x50 at [324,16]; Float 60x60; tags 40x54.
+- **Stills** (`compose.js`, ONLY=T3way):
+  - `C-tag-r11/T3way-in-app-3x.png` (three panels like V2, 1170x913);
+  - `C-tag-r11/T3way-strip-3x.png` (account | badge | end 8 | band 12 at
+    real size x3, 1170x510).
+  Captions state only measured sizes; visual weight explicitly "not
+  measured" (no ratios claimed for these three).
+- **My read (opinion, not measured):** band 12 is the quietest and most
+  tag-like of the three and keeps the family tie to the place tag; end 8
+  puts its orange at the bottom where it reads as a base/shadow; the badge
+  matches the account most closely in shape and weight. Owner decides.
+- **Next:** owner's call between the three; then step 2 (overall size) if a
+  tag wins; the real band texture (`--tex-flood`) still not on the mini band.
+
 ## UPDATE 2026-10-15, round 11e (owner: 40 wide; no cream stub; "an all cream stub moving the orange bar to the top like a starred location tag")
 - **The preset string** takes a band: `x-54-40-0-10-<band>` (end 0, a
   cream stub of 10, band 12/16/20). The hole ring is paper at 60% on the
