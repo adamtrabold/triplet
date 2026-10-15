@@ -1,5 +1,29 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, X2 in context + attribution fix
+- **Director:** owner.md has no "liked the finer edge" quote (round 6 was
+  "orange and bigger"). handoff.md is reworded to the team's opinion, and
+  the badge choice is marked OPEN pending the owner.
+- **Owner:** "need to see them in context — the line weight looks
+  inconsistent" (confirmed "Inconsistent").
+- **Measured on-screen strokes, real app at 390x844:**
+  - account icon 2.00; row category icons 2.00;
+  - toolbar (sort / filter) 1.50; locate-me 2.08;
+  - today's + 2.29;
+  - stand-in + 3.75; build + 3.30.
+- **Still:** `E-float/X2-in-context-3x.png`, three in-app panels plus a
+  real-size line-by-line strip (account, row icon, the three):
+  - stand-in;
+  - round 6/7 build;
+  - build with the line matched to 2.00 (stroke-width 1.818 on a 26.4 svg).
+  All three are at the same position (box bottom 15.2 above the list).
+  `nativeBadge()` gained `standin` and `rest2`. X1 is re-captioned
+  neutrally.
+- **Open:** the owner's pick among the three. My opinion (not a fact):
+  the matched line ties the + to the account and the row icons. At 2px
+  the + is the lightest mark on its badge, but the account's glyph is the
+  same.
+
 ## UPDATE 2026-10-15, handoff: the Float approved (button only), "How it looks and feels" written
 - **Owner:** "I think it's the badge for now… the circle relates to the
   icon… it's the pin"; "Just button for now". The badge opens TODAY's

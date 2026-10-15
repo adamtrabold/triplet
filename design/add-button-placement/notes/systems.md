@@ -618,3 +618,4 @@ result count at 664 with keyboard, and the docked-tag heights.
 - No row, no control. ≤ 2 Nominatim calls per pause (spacing + stale check exist).
 - City: matchCity() is containment by city areas, not a guess → not a control, no underline. New: ask "Which city?" in the stub only when the point is in two cities' areas (Copenhagen/Malmö). Reverses round 10b's tappable city.
 - jobs.md job 5 and the C flow step 3 updated.
+- Director ruled (b) out. Round 12 note and jobs.md updated: (a) + (c) only; added an invisible builder rule (a city name in the query scopes to that city: "Tivoli Copenhagen" deterministic, not luck). Job 5 holds, with a cost: reaching another city takes typing its name or moving the map (not automatic).

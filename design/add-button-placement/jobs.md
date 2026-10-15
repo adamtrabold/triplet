@@ -46,9 +46,9 @@ Your words:
    - + never lives in the list's own bar, and it never takes the list's
      city, filters or plan as given.
    - The search starts in the city you're looking at. If nothing
-     matches there it looks everywhere on its own, and it always adds the
-     best matches from your other cities below, under "In your other
-     cities". No button to press.
+     matches there, it looks everywhere on its own. To add in another of
+     your cities, type its name with the place ("Tivoli Copenhagen"), or
+     look at that city on the map first. No button to press.
    - After ADD the list switches to the place's city.
 6. **It works signed out.** *(inferred)* Signed out you're in the
    playground: + adds exactly as it does signed in, and nothing is kept
@@ -203,8 +203,8 @@ How the parts behave:
    - The keyboard comes up on NAME. If iPhone won't raise it, it's one
      tap on the name line.
 3. **Type:** results print under the name, scroll, and show a half row
-   to say so. They come from the city you're looking at first, then
-   "In your other cities" (and everywhere, if nothing matched). The stub sits behind the
+   to say so. They come from the city you're looking at (or the city
+   you typed with the name), and from everywhere if nothing matched. The stub sits behind the
    keyboard.
 4. **Pick:**
    - The keyboard drops. The tag settles to the visual centre of the open

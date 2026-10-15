@@ -177,11 +177,14 @@ the band line at every height.
 
 *Visual (product designer, visual focus), 2026-10-15.*
 
-**Reference still:** `concepts/E-float/X1-build-spec-3x.png`. It shows the
-build spec drawn natively at 60px (top row "Build" and the four states),
+**Reference stills:**
+- `concepts/E-float/X2-in-context-3x.png`: the three candidates in the
+  app.
+- `concepts/E-float/X1-build-spec-3x.png`: the round 6/7 badge drawn
+  natively at 60px (top row and the four states),
 next to round 7's render, which it matches, and next to the account badge.
 
-**Read this first: the stand-in.** The frames the owner saw last (round
+**Read this first: the stand-in, and the open pick.** The frames the owner saw last (round
 10's `E-float/F1`-`F7` and round 11's `C-tag-r11/T3way-*`) drew a
 **stand-in**: the account's own 14-lobe edge, flat orange and a 30px +.
 **Which badge is OPEN, pending the owner.** The values below describe the
