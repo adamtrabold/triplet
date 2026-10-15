@@ -1552,3 +1552,36 @@ That is exactly the "unless it's not finding" case.
 ### Answer to his question (plain, for the send)
 "It searches the country of the city the map is showing. If nothing
 matches there, it widens on its own and says so."
+
+---
+
+## Round 12b ruling -- 2026-10-15 (city workflows)
+
+### ACCEPT, amended
+**Search everywhere each time, re-ordered: this city → your other cities
+→ the rest.**
+- My Round 12 objection was to visible UI for a rare case. 12b adds none.
+- The owner's newer words ("starting from search … it needs to find it
+  anywhere") are W3, which country-first can't serve. His words outrank
+  my ruling.
+
+### Amendments
+1. **No section headers or dividers in the results.** The order alone
+   carries it, and each row's town already says where it is.
+2. **Drop Round 12's (a) printed "Nothing in Iceland…" line and the
+   city-name-in-text rule.** Both are moot when every search is global.
+3. **Keep the invisible local safety-net search.** It must never add a
+   row of its own; local hits just slot in first.
+4. **Filing distance is an app constant, not a user setting.**
+   - workflows.md says "a distance you set once". That conflicts with the
+     ledger rule "User should not have to select distance."
+   - Ask the owner to pick the constant once, as a design choice:
+     100 / 150 / 200 km, or always ask "File under Chicago?".
+
+### Owner questions: right ones
+1. The distance, reworded as a fixed rule the app uses, not a setting.
+2. Trips next? (W2's "coded to a trip").
+3. After adding in another city, jump there? (Our opinion: yes.)
+
+### Unchanged
+The city is plain pencil; "Which city?" only on overlap.

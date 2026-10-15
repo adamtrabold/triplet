@@ -31,7 +31,8 @@ describe the blank-tag form; for this build the form is today's.
   `#addForm` / `.active`) and its +/× glyph swap (`setAddBtnGlyph`).
 - **The look is visual's (`concepts/E-float/looks-and-feels.md`):**
   - a 60 × 60 box with the badge's scalloped edge;
-  - brand orange with a navy + (3px stroke);
+  - brand orange with a navy + (2.00px stroke on screen; see How it looks
+    and feels);
   - drawn at 60px, **not** with `transform: scale()`, so layout code sees
     the real box and the edge is crisp on iOS.
 - **Placement** (aligned by ink, not by box):
@@ -184,34 +185,31 @@ the band line at every height.
   natively at 60px (top row and the four states),
 next to round 7's render, which it matches, and next to the account badge.
 
-**Read this first: the stand-in, and the open pick.** The frames the owner saw last (round
-10's `E-float/F1`-`F7` and round 11's `C-tag-r11/T3way-*`) drew a
-**stand-in**: the account's own 14-lobe edge, flat orange and a 30px +.
-**Which badge is OPEN, pending the owner.** The values below describe the
-round 6/7 badge (the finer edge, the paper texture, a 26.4px +). That is the
-team's opinion of the better fit, not an owner pick. owner.md records only
-"orange and bigger" for round 6, nothing on the edge. The owner, on choosing:
-"idk need to see them in context — the line weight looks inconsistent"
-(confirmed "Inconsistent"). The comparison is
-`concepts/E-float/X2-in-context-3x.png`, three panels:
-- the stand-in;
-- the round 6/7 build;
-- the build with its + stroke matched to the account icon (2.00px).
+**The pick: the matched badge (X2's right panel).** Owner, verbatim
+(2026-10-15): "Build the matched icon but we need to include this in the
+icon project everything is inconsistent".
+- **Build:** the 24-lobe badge with the paper texture and a 26.4px +, its
+  stroke **2.00px on screen**, which matches the account icon.
+- The comparison he chose from is `concepts/E-float/X2-in-context-3x.png`.
+- **The stand-in is not built.** Round 10's `E-float/F1`-`F7` and round
+  11's `C-tag-r11/T3way-*` drew a stand-in: the account's 14-lobe edge,
+  flat orange and a 30px + at 3.75px.
+- **On the edge:** the finer edge is the team's opinion, kept from round
+  6/7. owner.md records only "orange and bigger" for round 6. The owner
+  then approved the matched panel, which has that edge.
 
-Measured on-screen strokes:
-- the account icon is 2.00px, and so are the list rows' category icons;
+**The line weight belongs to the icon project.** Today's on-screen strokes
+are inconsistent:
+- the account icon is 2.00px;
+- the list rows' category icons are 2.00px;
 - the list toolbar icons are 1.50px;
-- today's + is 2.29px;
-- the stand-in + is 3.75px;
-- the build + is 3.30px.
+- locate-me is 2.08px;
+- today's + is 2.29px.
 
-**The builder waits for the owner's pick.** The swaps between the panels
-are:
-- **stand-in:** the account's 14-lobe mask, `background-image: none`, svg
-  30 with stroke 3;
-- **matched:** svg 26.4 with `stroke-width` 1.82 (2.00px on screen).
-
-Nothing else changes.
+The + matches the account icon (2.00px) **for now**. The app-wide line
+weight is decided in `docs/backlog.md` "Icon system full revision", per
+the owner's quote above. If that project sets another weight, the +
+follows it; it's one attribute, see Glyph.
 
 ### The badge (rest)
 
@@ -248,8 +246,11 @@ Nothing else changes.
     makes it the same printed stock.
 - **Glyph:** the existing + SVG (viewBox 24, lines 12,5-12,19 and
   5,12-19,12, round caps).
-  - Size `width="26.4" height="26.4"`, `stroke-width="3"` (about 3.3px on
-    screen; arms about 15.4px).
+  - Size `width="26.4" height="26.4"` and **`stroke-width="1.8182"`**,
+    in viewBox units: 1.8182 × 26.4 / 24 = **2.00px on screen**, the
+    account icon's line. Arms are about 15.4px.
+  - Drawn as inline SVG `<line>`s, as today's `setAddBtnGlyph()` does.
+    No CSS `stroke-width` override and no `vector-effect`.
   - `color: var(--navy)` (#12293F); the stroke is `currentColor`.
   - Centred in the box (flex centre, as today).
   - Navy on brand orange is the token pair's intended use (`--brand-orange`
@@ -266,7 +267,7 @@ Nothing else changes.
 |---|---|---|---|
 | Rest | `--brand-orange` + `--tex-flood` | navy + | |
 | Pressed (`:active`, not open) | `--brand-orange-deep` (#A8400C), texture kept | **paper +** (`--paper` #F2EBDD) | Deep orange carries paper type (5.20:1), like the submit button's press. |
-| Open (`.active`, the form is showing) | `--navy`, **no texture** (`background-image: none`) | **paper ×** (today's × SVG at the same 26.4 / stroke 3) | ADD LOCATION stays the one orange thing on screen (director ruling). This replaces today's inverted-orange `.active` for this button only. **`#accountBtn.active` keeps today's look**, so split the shared `.active` rules. |
+| Open (`.active`, the form is showing) | `--navy`, **no texture** (`background-image: none`) | **paper ×** (today's × SVG at the same 26.4 / `stroke-width` 1.8182, 2.00px) | ADD LOCATION stays the one orange thing on screen (director ruling). This replaces today's inverted-orange `.active` for this button only. **`#accountBtn.active` keeps today's look**, so split the shared `.active` rules. |
 | Open + pressed | `--state-on-press` (#2A4F73), no texture | paper × | |
 | Keyboard focus | unchanged field | unchanged | A ring like the account's: a `#addFocus` sibling (2px `--navy` ink plus a 4px `--paper` halo), following this button's 24-lobe polygon at 1.16×, `pointer-events: none`. The mask would clip an outline drawn on the button itself. |
 | Signed out (playground) | identical to rest | | No special look. |
@@ -276,7 +277,8 @@ Nothing else changes.
 | Desktop hover | none | | The pointer cursor only, the app's rule for badges (the account's hover is the pointer only). |
 
 The glyph swap keeps `setAddBtnGlyph()`. Change only its two SVG strings
-to `width/height 26.4` and `stroke-width 3`.
+to `width/height 26.4` and `stroke-width 1.8182`. Do that in the initial
+`#floatingAddBtn` markup (~2651) too, so the first paint matches.
 
 ### Motion and feedback
 
@@ -349,8 +351,8 @@ to `width/height 26.4` and `stroke-width 3`.
   the problem on the badge… same weight and heirarchy as account, which it
   shouldnt be". With two axes changed (field and size) the + reads as first
   and the account as second at a squint (R6-F2; systems measured 1.34 /
-  1.33× the account, on round 10's render, i.e. the stand-in; the build's
-  smaller + is not re-measured). The navy 60 still read as a pair.
+  1.33× the account, on round 10's render, i.e. the stand-in; the built
+  badge, with its lighter +, is not re-measured). The navy 60 still read as a pair.
 - **The finer edge:** with a third axis changed, it's the same badge
   family, but a different cut. That means it isn't the account's twin (the
   objection) and doesn't leave the brand either. 10 deep lobes read as a
