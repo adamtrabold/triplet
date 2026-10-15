@@ -2102,3 +2102,38 @@ The cost lines are unchanged.
 ### V5 re-shoot checked -- 3-still send RELEASED (2026-10-15)
 - V5 is at 36 x 58 in both colourways, with honest weights in the caption.
 - The send is V2, V7, V5, with the 11b cost lines.
+
+## Round 11c -- director, 2026-10-15 (cream upright, a tad more squat) -- a DECISION for the owner, not a 9 to defend
+
+Owner, verbatim: "Really like the turned cream and orange but I feel like it could be a tad more squat.. Marge just by reducing the orange edge!"
+
+### Framing
+- He's choosing the cream knowingly: V5 said "quieter than the
+  account". Job 2 (outrank the account) fails for every cream version
+  (systems measured: 36×58 0.42x, 40×55 0.41x, 36×54 0.31x), and
+  squatter makes it worse.
+- That's his rule against his taste, so it's his call. I won't score
+  the cream as a 9 or argue him out of it. The send says the trade
+  plainly, once, with the orange as the one-line alternative.
+
+### Proportion, on the look (Q1, Q2, Q3, Q4)
+- **His route, 36 × 54 with an 8px end:**
+  - It's squat, but the orange end thins to a strip that reads as an
+    underline, not a claim-check end.
+  - It's also the quietest (0.31x).
+- **36 × 52, 6px end:** the same problem, worse.
+- **40 × 55, 10px end:** the pick.
+  - It's just as squat to the eye (a touch wider, not only shorter), and
+    the end stays a band you'd tear off.
+  - It holds the most weight of the squat options (0.41x).
+- **Recommend 40 × 55.** His route goes beside it so he can see why.
+
+### Send (lean), in order
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/Q4-squat-alternative-3x.png (his route vs 40 × 55, in the app)
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/Q1-squat-options-3x.png (close-ups. Its rough weights differ from systems'; the message gives the measured ones.)
+
+**Held back:** Q2, Q3, Q5 (the tag-open check passes).
+
+### Message to the owner (exact)
+> Two ways to make the cream tag a tad squatter. Left: your route, 36×54 with a thinner orange end. It gets squat, but the end shrinks to a stripe and stops reading as the tear-off. Right: 40×55, a touch wider and shorter, so the end can stay a proper band. That's our pick.
+> One trade to know: the cream tag is quieter than the account badge (about 0.4× its weight; the squatter, the quieter), so your eye lands on the account first. The orange version comes first. If quiet is what you want, cream at 40×55 is ready.
