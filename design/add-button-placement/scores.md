@@ -2059,3 +2059,42 @@ Evidence: V2 (choice), V1, V5.
 - "Any of them is hidden while the filters are open: one extra tap to
   close them first."
 - Plus the 2-rows line, only if 43 × 70 stays.
+
+### Round 11b checked -- upright 36 × 58 picked; SEND RELEASED (2026-10-15)
+- **V7 at 1x:** the hole, the +, the dotted line and the end all read.
+  It's the same tag a size down, not a shrunk one.
+- **Systems:**
+  - 1.45x the account and 1.08x the Float, so it sits beside the badge
+    at nearly the same weight and his call is about shape;
+  - the lowest coverage of any C (9/10/12/2%);
+  - the credit is clear;
+  - the tag-open gap of 90 keeps 3 rows at 664;
+  - a 44 × 58 tap area;
+  - the only exception is open filters.
+- **C upright, 36 × 58, orange: 9.** The 2-rows cost line is dropped.
+
+**Send (lean), in order:**
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V2-choice-3x.png
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V7-short-upright-3x.png
+3. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V1-upright-options-real-size-3x.png
+
+**Cost lines:**
+- "Each one is hidden while the filters are open: one extra tap to
+  close them first."
+- "The cream tag is quieter than the account badge; the orange one
+  comes first."
+
+### Correction to the 11b send (2026-10-15)
+- V5 wasn't in the send, but the orchestrator's check exposes a gap.
+  The cream upright appears only at 43 × 70, which is no longer the
+  pick. V1 has the same problem (it labels 43 × 70 "the lead").
+- **Re-shoot V5 at 36 × 58, both colourways.**
+- That V5 replaces V1 in the send. Hole-down was already ruled out, so
+  V1 isn't needed.
+
+**Send (lean, final), in order, after I check the V5 re-shoot:**
+1. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V2-choice-3x.png
+2. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V7-short-upright-3x.png
+3. /home/user/triplet/design/add-button-placement/concepts/C-tag-r11/V5-upright-colourways-3x.png (re-shot at 36 × 58)
+
+The cost lines are unchanged.
