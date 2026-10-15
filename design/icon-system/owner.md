@@ -30,3 +30,8 @@ Scope now: phase 1 = brand approach to icons (conceptual directions) in `brand-a
 > I think the pin/place icons need to be solid and outlined icons should be used when something has yet to be tapped by me like Star and visited. So field guide, cut paper, spot pictograph are working best for me — and they can be inside a stroked circle
 
 Direction: place (category) icons are solid, and they can sit inside a stroked circle. Outlined icons mean "not yet tapped by me" (Star, Visited). The best directions are Field Guide plus two from the dropped strip, Cut Paper and Spot Pictogram. Timetable Sorts is not on the list. The project moves to a new agent team via a handoff.
+
+2026-10-15, relayed from the + placement session (owner's words, as passed on):
+> Build the matched icon but we need to include this in the icon project everything is inconsistent
+
+Context: the + is live on main (771a8c3): an orange 60px scalloped badge, bottom-left, navy + at a 2.00px stroke. Its weight is one attribute: stroke-width in setAddBtnGlyph() and the initial #floatingAddBtn markup. Measured on-screen line weights today: account icon 2.00px, list-row category icons 2.00px, list toolbar icons 1.50px, locate-me 2.08px, the + 2.00px (was 2.29). The icon project sets the weight; the + follows it.
