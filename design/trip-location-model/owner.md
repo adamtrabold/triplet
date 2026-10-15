@@ -49,3 +49,8 @@ Read as: no separate "Copenhagen 2028" bucket; a repeat trip tags the same city 
 
 2026-10-15:
 > my guess right now is that i should be able to assign a city to many trips
+
+2026-10-15, answering Q-D (moving a place to another city):
+> if the app puts a place in the wrong city you should be able to edit the city attached to the place. you should not be able to edit the trips the city is attached to
+
+Read as: Q-D = yes, a place's city is editable after adding; from a place you never edit which trips its city is in (consistent with D: city↔trip tagging happens elsewhere).
