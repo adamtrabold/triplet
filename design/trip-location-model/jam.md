@@ -1663,3 +1663,101 @@ C1, C2, C5, C6, C7, C8, C9, T1, T2, T3, plus concept 3's 6 and 8.
 
 NEXT: design director — rule items 1-4; then the checker re-runs the
 changed ids.
+
+## Turn 15 -- design director: Turn 14 ruled; re-scored; overview checked
+
+Model only. Anything resting on the team's taste goes to the owner as an
+option, not settled here.
+
+### Rulings
+
+**1. The border as the second signal: an owner question, with our
+opinion.**
+- Distance alone can't keep Malmö apart from Copenhagen, so something
+  must.
+- The border is a fair proxy because every place carries it, nothing is
+  asked, and it's places-first.
+- But whether it matches how the owner thinks is the owner's to say,
+  and the Stockholm-Uppsala cost is real.
+- **Model as sent:** border on **(we think)**. The fallback is "the
+  owner fixes it once", which exists either way.
+- T1 counts a single change only if the border is on. The checker should
+  test both branches.
+
+**2. Concept 2: legs go to the owner inside Q4. Default: no legs.**
+- Per-base order (dates → first visit → none, and a new base never moves
+  the others) is coherent. Accepted.
+- Legs add a second rule: nearest anchor-to-anchor line within the
+  spread. **(We think)** they earn that only if the owner wants a dated
+  order.
+- So: **no legs unless the owner asks for them in Q4**. In-between
+  places stay On the way.
+- That keeps concept 2 to "the same, plus stays".
+
+**3. The anchor, and naming by most places: accepted.**
+- Measuring reach from the anchor (the member real city with the most
+  places) is a correctness rule: without it, figures snowball. Not a
+  question.
+- A figure's name following the most places is **(we think)**: the
+  owner sees it in the files, not as a question. It's too fine-grained
+  for the owner's attention, and a rename can come later if wanted.
+
+**4. Concept 3's name survival: accepted as written (we think).**
+- The bigger part keeps the name, and a custom name beats a generated
+  one.
+- It's mechanics for a model we don't recommend. No owner question.
+
+### Scores
+- **Concept 1: 9.** It's still coherent, with the border labelled
+  "pending" and the owner's one fix behind it.
+- **Concept 2: 9.** Per-base order makes it robust: a new base never
+  reshuffles. With legs left to the owner, it stays close to "the same,
+  plus stays".
+- **Concept 3: 7.** The name rule doesn't touch its real weakness
+  (chaining through stopovers). It stays as the "everything at once"
+  answer.
+
+### The overview (1170×3277), cold at phone size
+
+It reads, and every unmeasured number carries "we think". Changes
+before the send:
+1. **Card 1: the two "farther" levels blur.** "Farther out it starts a
+   new city" and "a far-away place quietly starts another [trip]" read
+   as the same distance.
+   - Say: "farther out, still in the same part of the world → a new city
+     in this trip; much farther (we think another continent) → a new
+     trip."
+2. **Card 1 is long** (five paragraphs).
+   - Fold the trip paragraph into one line: "Trips form by themselves,
+     named from countries; renaming and merging are optional."
+   - Keep the border sentence with its "pending".
+3. **Card 2:** "places in between belong to the stretch between two
+   ordered bases" becomes "**(if you want it)** places in between can
+   belong to the stretch between two ordered bases". That matches
+   ruling 2.
+
+### Owner questions (now 8)
+1. When the app files a place under the wrong city: fix the rule once
+   (every place in that town), or that one place? (One place alone needs
+   edit, which is future.)
+2. Can one place show under two cities (Copenhagen's airport under
+   Copenhagen and Malmö)?
+3. Are hotels and airports places you want to visit, or the frame of the
+   trip?
+4. **(Reworded)** Should the app put your trip in order? It could use
+   your hotel dates (read from a booking you paste), the order you
+   actually visit, both, or neither. If it has an order, should places in
+   between sit on the stretch between two stays? (We think both sources,
+   hotel dates first, and stretches only if you want dates.)
+5. One trip at a time, or everything at once?
+6. A far-away place quietly starts a new trip, with "keep it in this
+   trip" right after. Is that OK, or should it ask first?
+7. Two places beyond reach make a new city. We think 2; is that right?
+8. **(New)** When a place is close to one of your cities but across a
+   border (Malmö near Copenhagen), should it be a city of its own
+   automatically? We think yes. The cost: two close cities in one country
+   (Stockholm and Uppsala) count as one until you fix it once.
+
+NEXT: product designer (systems focus) — the overview's three edits and
+the no-legs default in concept 2's file; then the fresh checker re-runs
+the changed ids (T1 both branches).

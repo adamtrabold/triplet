@@ -135,3 +135,23 @@ think both).
 - map sentences;
 - C3's view;
 - the stale C4 flag and the reference's P grade (a fail).
+
+## Turn 15 (2026-10-15)
+
+### Rulings
+- **Border:** an owner question (we think on), Q8.
+- **Legs:** default off, inside Q4.
+- **Anchor and naming:** anchor = most places (correctness); naming =
+  "we think".
+- **C3's name rule:** accepted.
+
+### Scores
+1 = 9, 2 = 9, 3 = 7.
+
+### Overview edits
+1. Separate "new city" from "new trip" distances.
+2. Fold the trip paragraph.
+3. Card 2's stretch marked "if you want it".
+
+### Questions
+8 now.
