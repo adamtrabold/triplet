@@ -138,18 +138,39 @@ flowchart TD
   P --> C{City stored on this device?}
   S --> C
   C -->|yes| D[Frame that city or All cities]
-  C -->|"no (first open)"| E["Frame LA (DEFAULT_CITY)<br/>no location request"]
+  C -->|"no (first open)"| E["Frame DEFAULT_CITY (not saved);<br/>ask for location once (startFirstOpen)"]
   D --> F[Fetch places, shapes, cities, plans in parallel]
   E --> F
   F --> G[Render list + map, start polling]
+  E --> L{Location within 8 s?}
+  L -->|"granted, a city within 80 km"| N["That city, map on you at SOLO_MIN_ZOOM"]
+  L -->|"granted, no city near"| AC["All cities, map on you"]
+  L -->|"denied / unavailable / no answer"| FB["Fallback chain (below)"]
 ```
 
-**Today, on first open:** a new user sees the playground framed on
-Los Angeles (`DEFAULT_CITY = 'la'`, `restoreCitySelection()` returns null).
-The app never asks for location on load. Location is used only when the user
-taps locate (`centerOnUserLocation()`, zoom 14) or picks the Nearest sort;
-a saved Nearest sort resumes on load only if permission is already granted.
-Backlog: "First open for a new user centres on their location".
+**First open** (no city stored on this device, and not a sign-in/out
+reload): `startFirstOpen()` asks for the location once at boot, the app's
+only location request on load. Granted: within 80 km
+(`FIRST_OPEN_NEAR_KM`) of a city's centre, that city, the map on the user
+at `SOLO_MIN_ZOOM` with the "you are here" dot; otherwise All cities,
+centred on the user. Denied, unavailable or no answer in 8 s
+(`FIRST_OPEN_WAIT_MS`): silent (no error banner), and
+`firstOpenFallbackCity()` picks:
+
+1. the city of the most recently added place (`locations` arrive
+   `created_at` DESC). The data is shared today; with per-person accounts
+   this becomes the user's own newest place;
+2. no places: the known city nearest the device's time zone
+   (`Intl...timeZone` → `TZ_POINTS`, no permission or network);
+3. otherwise `DEFAULT_CITY` (LA).
+
+The result is saved, so the next open restores it like any returning
+device. The map moves at most once after the boot frame: if the data lands
+before the answer, the fallback snaps in (no animation); a fix that comes
+later flies there once, even after the 8 s, unless the user has touched the
+page. Later, location is used only by the locate button
+(`centerOnUserLocation()`, zoom 14) and the Nearest sort; a saved Nearest
+sort resumes on load only if permission is already granted.
 
 ### Browse and filter
 

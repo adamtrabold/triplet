@@ -6,6 +6,15 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- **First open asks for your location (landed 2026-10-15):** in a fresh
+  private Safari tab (nothing stored): (1) Safari asks for your location
+  once, right at load; (2) Allow: the map lands on you with the navy
+  dot, on the nearest city within 80 km (or All cities if none), in one
+  move; (3) a new private tab, Don't Allow: no error message, and the map
+  opens on the city of the newest place; (4) leave the prompt unanswered:
+  after about 8 s the map is on that city, and answering Allow later still
+  moves it once if you haven't touched anything; (5) reload: it opens on
+  the city you were last viewing, with no prompt.
 - **FIRST: re-run the short-address backfill** (`tools/short-address-backfill.html`,
   in your browser, signed in). 59 of 202 places lack a real town (58 have no
   `address_details`, 1 has details but no town; live count 2026-10-15);
