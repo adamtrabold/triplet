@@ -898,7 +898,19 @@ six cards; then the director looks at cards 2–4.
 
 ---
 
-## Turn 7: product designer (systems focus), coverage on the t4 cards
+## Turn 7: design director, fix-pass check
+
+Cards 2, 3 and 4 are now 9. All six t4 cards are at 9 (`scores.md` round
+1b). READY, pending a clean coverage run.
+
+NEXT: coordinator — when systems' coverage against jobs.md comes back
+with no blockers, send the six t4 cards in order with the three questions
+(word for word in scores.md round 1); if it finds a blocker, the visual
+designer fixes it and the director looks at that card only.
+
+---
+
+## Turn 8: product designer (systems focus), coverage on the t4 cards
 
 The full table is in `coverage.md`. **2 blockers, both on card 4 (tools),
 each a one-icon or one-line fix.** All 11 places pass every job: two
@@ -920,5 +932,4 @@ Not blocking:
 - If he answers "keep area and district separate", area A has to change.
 
 NEXT: product designer (visual focus) — the two card-4 fixes (and the
-blur, if cheap); then the director looks at cards 2–4 and hands the send
-list to the coordinator.
+blur, if cheap); then the director looks at card 4 only, per turn 7.

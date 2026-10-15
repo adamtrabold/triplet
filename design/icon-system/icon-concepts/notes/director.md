@@ -120,3 +120,11 @@ where they should be.
 - The pointer ▸ only reads in a menu row.
 - Pools & hot springs: not raised (his call). The hot spring is on the
   dropped card.
+
+## Round 1b check (cards 2–4), 2026-10-15
+
+All six t4 cards are at 9. The peaks read as mountains, Gunnuhver's row
+matches his data, district B is honestly labelled, the fountain names the
+anchor, and card 4 has the "staying as they are" line. READY, pending a
+clean systems coverage run against jobs.md (running in parallel). The send
+order and the questions are in scores.md, round 1.

@@ -1,4 +1,4 @@
-# Coverage: t4 cards against icon-concepts/jobs.md (systems check, 2026-10-15)
+# Coverage: t4 cards against icon-concepts/jobs.md (systems check, 2026-10-15; jam turn 8)
 
 Cards: `sketches/t4-card-0-strips.png` (C0), `-1-food-drink` (C1),
 `-2-sights-outdoors` (C2), `-3-places-of-town` (C3), `-4-tools` (C4),
