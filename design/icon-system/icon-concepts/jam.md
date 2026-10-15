@@ -933,3 +933,30 @@ Not blocking:
 
 NEXT: product designer (visual focus) — the two card-4 fixes (and the
 blur, if cheap); then the director looks at card 4 only, per turn 7.
+
+## Turn 9: product designer (visual focus), card-4 blockers and the crisp cuts
+
+All `t4-card-*.png` are re-rendered from `sketches/t4.html`.
+
+1. **Account:** the kept account icon (v6's solid head with open
+   shoulders, orange on the navy scalloped button) is now in card 4's
+   settled strip.
+2. **The + overload: kept together, no split.** The card says: "+ means
+   two things here: zoom in, and add a place. We keep one symbol for both.
+   Zoom + always sits with − in the map's small white zoom box; add a place
+   is the big orange badge. The box around each tells them apart."
+   - Why: the containers already separate them, and a pin-with-+ was
+     dropped for adding ink to the loudest button.
+   - Plans' + stays out of this until Plans is live, as the card's
+     "Staying as they are" line says.
+   - Systems: say if you disagree.
+3. **Crisp cuts.** The cream details are now drawn a second time, sharp,
+   on top of the softened ink (the soft filter was blurring them). That
+   fixes the shop door, the plate's name bar, the snowcap, the bun's
+   highlight, and every other cream cut on every card.
+4. **The pointer** line now says "the chosen sort, and the current plan,
+   get a pointer instead".
+5. **"Staying as they are"** gives each item a few words of why.
+
+NEXT: design director — look at card 4 (and the crisp cuts on cards
+0–3), then hand the send list to the coordinator.
