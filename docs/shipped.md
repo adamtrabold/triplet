@@ -1477,3 +1477,39 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   hits outside it; a tap there picks the suggestion. Impeccable gate passed;
   places-ux 30/30, popup-open 42/42, plans 31/32 (the one failure is on main
   too, see backlog). Stills: `design/archive/ac-over-x/`.
+
+## First open (2026-10-15)
+
+- **Default city = last viewed; first open = the user's location** —
+  2026-10-15. Owner: "let's change default city to last viewed; first
+  timers it loads the user's location; if the user declines location
+  access idk give me a good city to start from". Later: "im assuming here
+  eventually we will build accounts and that wont be the place".
+  - Returning device: unchanged, the stored `triplet.citySelection` (a
+    city or All cities) is restored.
+  - First open (nothing stored, not an auth-hop reload):
+    `startFirstOpen()` calls `getCurrentPosition` once at boot. The boot
+    frame is `DEFAULT_CITY`, not persisted (`setActiveCity(..., { persist:
+    false })`), so a reload during the prompt asks again.
+  - Granted: `rankCitiesByProximity(fix, FIRST_OPEN_NEAR_KM = 80)`; a hit
+    selects that city, otherwise All cities; the map goes to the fix at
+    `SOLO_MIN_ZOOM` via `focusMap()`, with the "you are here" dot
+    (`placeUserLocationMarker()`, now shared with the locate button) and
+    `takeFix()` (Nearest reuses it).
+  - Denied / unavailable / no answer in `FIRST_OPEN_WAIT_MS` = 8000:
+    silent. `firstOpenFallbackCity()`: (1) city of the newest place
+    (`locations[0]`, server order `created_at` DESC; per-account once
+    accounts exist); (2) no places: the known city nearest the time zone's
+    point in `TZ_POINTS` (19 zones: Nordic/European and North American);
+    (3) `DEFAULT_CITY`. Picked by the orchestrator (the owner asked us to
+    choose): it lands where the latest activity is, with no hard-coded city.
+  - One move: the fallback snaps in when the data lands if the answer is
+    still pending; a later fix flies there once (a fix after 8 s still
+    applies), unless the user has touched the page (pointerdown/keydown),
+    which keeps what they're looking at. The result is persisted.
+  - No visual change. Tested in Chromium with storage cleared and
+    geolocation mocked, signed in and playground: 22/22 (returning city and
+    All cities; granted near, granted slow, granted far; denied; timeout;
+    no places with Stockholm/Reykjavík/Tokyo time zones; late grant
+    untouched/touched). Impeccable gate passed; places-ux 30/30, plans
+    32/32, popup-open 42/42.
