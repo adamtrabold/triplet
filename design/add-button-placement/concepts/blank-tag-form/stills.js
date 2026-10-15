@@ -19,7 +19,7 @@ const CPICK = (process.env.CPICK || 'side:fillplus:rules:0:144:40:4:heavy').spli
 const CREST = process.env.CC ? JSON.parse(process.env.CC) : [64.1460, -21.9380];
 // C keys: 'C' (the pick) or 'C:<form>:<pin>:<plus>:<ps>:<w>:<pd>'
 const TINC = fs.readFileSync(path.join(CON, 'C-tag-r10/t.inc.html'), 'utf8');
-const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt, tp, trot] = k.split(':'); const GAP = trot && process.env.TGAP ? process.env.TGAP : trot ? ({ p6: 90, q1: 86, q2: 84, q3: 87 }[tp] || 108) : 86;   // foot 20 + the object + 12
+const htmlFor = k => { if (k.startsWith('T')) { const [, tv, tw, tilt, tp, trot] = k.split(':'); const GAP = trot && process.env.TGAP ? process.env.TGAP : trot ? ({ p6: 90, q1: 86, q2: 84, q3: 87 }[tp] || (tp && tp.startsWith('x-') ? 20 + +tp.split('-')[1] + 12 : 108)) : 86;   // foot 20 + the object + 12
     return inj(real.replace('const TAG_SHEET_GAP = 48;', `const TAG_SHEET_GAP = ${GAP};`), [BT, TINC, PREFIX], `data-k="T" data-tv="${tv || 'paper'}" data-tw="${tw || 104}" data-tilt="${tilt || 0}"${tp ? ` data-tp="${tp}"` : ""}${trot ? ` data-trot="${trot}"` : ""}`); }
   if (!k.startsWith('C')) return HTML[k]; const [form, pin, plus, ps, w, pd, rw, cg] = k === 'C' ? CPICK : k.split(':').slice(1);
   return inj(real, [BT, CINC, PREFIX], `data-k="C" data-cform="${form}" data-cpin="${pin}" data-cplus="${plus}" data-cps="${ps || 0}" data-cw="${w || 100}" data-cpd="${pd || 32}" data-crw="${rw || 3}" data-cg="${cg || ''}"`); };
@@ -235,6 +235,14 @@ F['r11v-orange-p6-up-tag664'] = { k: 'T:orange:104:0:p6:up', vp: V664, run: p =>
 // round 11c: the upright cream a tad more squat
 for (const q of ['q1', 'q2', 'q3']) { both(`r11q-twoend-${q}-up`, { k: `T:twoend:104:0:${q}:up`, zoom: true, centre: CREST });
   F[`r11q-twoend-${q}-up-tag664`] = { k: `T:twoend:104:0:${q}:up`, vp: V664, run: p => openPlace(p, 'Brauð & Co, the cinnamon bakery on Frakkastígur') }; }
+
+// round 11d: proportion study, height held at 54 (upright); widths x end treatments; plus 'stub' = a cream claim-check
+// stub 10 long behind the perforation with only its last 3px orange (the notches and perforation carry the tear-off)
+const PW = [32, 36, 40, 44], PE = [['e8', 8, 8], ['e5', 5, 5], ['e3', 3, 3], ['e1', 1.5, 1.5], ['stub', 3, 10]];
+for (const wd of PW) for (const [en, e, st] of PE) F[`r11p-${wd}-${en}`] = { k: `T:twoend:104:0:x-54-${wd}-${e}-${st}:up`, zoom: true, centre: CREST, dsf: 3 };
+both('r11p-real-36-e3', { k: 'T:twoend:104:0:x-54-36-3-3:up', zoom: true, centre: CREST });
+both('r11p-real-36-stub', { k: 'T:twoend:104:0:x-54-36-3-10:up', zoom: true, centre: CREST });
+both('r11p-real-40-stub', { k: 'T:twoend:104:0:x-54-40-3-10:up', zoom: true, centre: CREST });
 
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });

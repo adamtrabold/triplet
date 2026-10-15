@@ -1,5 +1,21 @@
 # Visual designer notes -- + placement
 
+## UPDATE 2026-10-15, round 11d (owner: "Let's nail proportion then overall size…. Maybe the orange needs to be even thinner")
+- **Step 1, proportion only. Size held by height (54 upright).**
+  - Widths 32 / 36 / 40 / 44 (0.59-0.81 : 1).
+  - End treatments 8 / 5 / 3 / 1.5, plus "stub": a cream claim-check stub
+    10 behind the perforation, only the last 3px orange, notches r3.4.
+- **Custom preset string** `x-<len>-<width>-<end>-<stub>` in `drawR11()`.
+  Frames `r11p-*`. The gap is foot 20 + length + 12.
+- **Stills:**
+  - `C-tag-r11/P1` (a labelled grid at about 1.1× real size, with the
+    honest read);
+  - `P2` (a real-size strip beside the account badge).
+- **Read:** 8 and 5 still read as tear-off. 3 and 1.5 read as a hem or
+  underline, and the notches bite the corners. The cream stub with an
+  orange edge keeps the tear-off read with thin orange.
+- **Step 2 (overall size)** waits for the owner's pick.
+
 ## UPDATE 2026-10-15, round 11c (owner: the turned cream + orange "a tad more squat… maybe just by reducing the orange edge")
 - **Presets:**
   - q1 = 36×54 (end 8), the owner's route;
