@@ -145,52 +145,45 @@ pick/redirect before building anything.
   Build needs: full gesture gate (it replaces the VISITED stamp; vtest /
   replay cases must be rewritten, V14's 72x32 ring model), the Impeccable
   gate, and iPhone checks. Nothing built yet.
-- **Trips vs. cities restructure** (owner, 2026-09-23; trimmed
-  2026-09-29). *The search bug is fixed:* search widens on a miss (see
-  `docs/shipped.md`, "Search widens on a miss"). Owner: "When we expand
-  cities vs trips and create the different structure maybe that should
-  change. User should not have to select distance." Still open, as one
-  piece of work:
-  - **A trip entity.** A trip has an overarching location; the places on
-    it may or may not be in one city (day trips, other towns, a stop en
-    route). Today `cities` does double duty as both "where the trip is"
-    and "where this place is".
-  - **Filing friction a widened search now exposes:**
-    - A pick outside every city box raises "Add <town>?", even for a day
-      trip (e.g. Uppsala from Stockholm, Reykjanes from Reykjavík).
-    - Dismissing it files the place under the map's city.
-    - A result with no city/town/village in its address (a rural
-      viewpoint) is filed silently under the map's city, even in another
-      country.
-    - A pin filed to a new city doesn't appear in the current city's list
-      until you switch city.
-  - **No distance setting** for the owner, per the quote above.
-  - **Overpass street/node lookups** outside known city boxes (need a
-    bbox).
-  - **Constraint:** adding a place stays low-friction, with no forced
-    city/trip picking.
-  - Discovery: `design/trip-location-model/proposal.md`. Related: Phase 2
-    "trip context (dates/closures)".
-  - **Active design (2026-10-15)** on branch `claude/elegant-galileo-1c5ntm`,
-    `design/trip-location-model/` (not on main): `owner.md` (the owner's
-    words: the model is locations, cities, trips and plans; a place may
-    belong to a city it isn't physically in; sketch level, model not UI;
-    near-zero setup), `jam.md`, `jobs.md`, and `concepts/` with three
-    concepts -- 1 "a rule that remembers", 2 the same plus stays (hotels),
-    3 no trip container -- plus 4, a reference of today (not a candidate).
-    Not yet sent to the owner (status per the branch's own notes; no owner
-    reply recorded). Governing rule, places-first (owner, 2026-10-15: "the
-    philosophical approach should be places-first; immediately doing the
-    thing you actually want to do not the adin").
-  - The blank-tag add form (`design/add-button-placement/concepts/blank-tag-form/`,
-    same branch) continues after the + badge as its own design work; it
-    touches the same city/search questions. Status unclear: reported on hold
-    until the trip model settles, but no record of the pause in the repo.
+- **City buckets** (owner, 2026-09-23; decided 2026-10-15). Trips are
+  dropped: no trip entity (owner, on "Trips: keep or drop?": "drop").
+  *The search bug is fixed:* search widens on a miss (see `docs/shipped.md`,
+  "Search widens on a miss"). Owner: "User should not have to select
+  distance." Rules: `docs/architecture.md` §6;
+  `design/trip-location-model/concepts/5-city-buckets-trip-tags.md` (its
+  trip parts are history). The work, as one piece:
+  - **City guess:** a place sits in one city bucket guessed from the pin --
+    the nearest city within about a day trip, else a new city named from
+    the real town. No distance setting, no forced city picking; adding
+    stays low-friction (governing rule, owner: "the philosophical approach
+    should be places-first; immediately doing the thing you actually want
+    to do not the adin"). Replaces today's filing friction: "Add <town>?"
+    for a day trip, dismissal filing under the map's city, rural results
+    filed silently under the map's city, a new-city pin missing from the
+    current list until you switch city.
+  - **Edit a place's city:** at add and later (see "Edit a place after
+    adding it" below).
+  - **Both truths:** a place shows its app city and its real town. Owner:
+    "the address needs to comfortably balance the idea of the city it
+    belongs to in the app vs the city the address actually places it".
+  - A repeat visit to a place doesn't change its pins. Whether the city
+    filter becomes multi-select is NOT decided.
+  - **Backfill prerequisite:** 59 of 202 places lack a real town (live
+    count 2026-10-15); 58 are fixable by `tools/short-address-backfill.html`
+    (the owner runs it -- top of `docs/iphone-checks.md`).
+  - Overpass street/node lookups outside known city boxes need a bbox.
+  - Design records on branch `claude/elegant-galileo-1c5ntm`,
+    `design/trip-location-model/` (`owner.md`, concepts). The blank-tag add
+    form (`design/add-button-placement/concepts/blank-tag-form/`) continues
+    as its own design work and touches the same city questions.
+- **Add form: mark a place visited while adding it** (owner, 2026-10-15,
+  on "Should the add form let you mark a place visited as you add it?":
+  "yes"). Not built. Lane 2 (the add form's look changes).
 - **Edit a place after adding it** (owner, 2026-10-15, verbatim: "we need
   to add the ability to edit places in the backlog"). Today nothing about a
   place can be changed once it's added (name, notes, category, city,
   position); the only fix is delete and re-add, which loses visited/starred
-  and plan stops. The trip model needs this too: changing a place's city
+  and plan stops. City buckets need this too: changing a place's city
   after adding. Owner, in `design/trip-location-model/owner.md`: "if the app
   puts a place in the wrong city you should be able to edit the city
   attached to the place". Applies to every place, whether it shows as a pin

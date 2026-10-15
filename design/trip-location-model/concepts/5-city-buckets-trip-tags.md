@@ -1,5 +1,7 @@
 # Concept 5: city buckets, trip tags (the owner's reframe)
 
+> **2026-10-15: owner dropped trips ('drop'). The city-bucket rules stand; everything about trips below is history.**
+
 Model only (the owner: "the model is what to nail right now not ui").
 Supersedes concepts 1-3 as the working model. **(We think)** marks the
 team's opinion; everything else is the owner's words, the owner's

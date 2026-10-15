@@ -405,14 +405,12 @@ the `geocoder*.html` pages are historical).
 
 ---
 
-## 6. Trip model: decided, not built, **under review**
+## 6. Decided, not built: city buckets
 
-> **Under review: the owner is reconsidering whether trips are needed at all.**
-
-Concept 5: a city stays a bucket; a trip is a tag on cities; a place's city
-becomes editable after adding. Nothing of it is in `index.html` or the DB.
-Read `design/trip-location-model/concepts/5-city-buckets-trip-tags.md` and
-`design/trip-location-model/owner.md` before touching it.
+No trip entity (owner, 2026-10-15: "drop"). A place sits in one city bucket guessed from the pin: the nearest city within about a day trip, else a new city named from the real town; editable at add and later.
+A place shows both its app city and its real town (owner: "the address needs to comfortably balance the idea of the city it belongs to in the app vs the city the address actually places it").
+A repeat visit to a place doesn't change its pins. Whether the city filter becomes multi-select is not decided. Nothing of it is in `index.html` or the DB.
+Read `design/trip-location-model/concepts/5-city-buckets-trip-tags.md` (its trip parts are dropped) and `design/trip-location-model/owner.md` before touching it.
 
 ---
 

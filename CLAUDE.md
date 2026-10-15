@@ -227,14 +227,8 @@ bottom-left (2026-10-15); add-form place suggestions fitted and over the ×
 - **+ rides up with the filters panel** -- branch `plus-rides-filters`
   (987704c, WIP, not landed). Waits on the owner's pick of the panel-height
   ceiling; owner: "the panel height should all just be responsive".
-- **Trip / location model** -- in active design on branch
-  `claude/elegant-galileo-1c5ntm`, `design/trip-location-model/` (owner.md,
-  jam.md, jobs.md, concepts/ 1-3 plus a "today" reference). Sketch level,
-  model not UI. Governing rule: places-first (owner: "the philosophical
-  approach should be places-first; immediately doing the thing you actually
-  want to do not the adin"). Adding a place must stay low-friction. The
-  blank-tag add form (`design/add-button-placement/concepts/blank-tag-form/`)
-  waits on it.
+- **City buckets** -- decided, not built; trips dropped (owner: "drop").
+  Rules: `docs/architecture.md` §6. Add form gets "mark visited" (owner: "yes").
 - **Icon system full revision** (owner, 2026-10-07) -- lane 2, in design on
   `claude/elegant-galileo-1c5ntm` (`design/icon-system/`, brand-approach
   phase). Includes the +'s line weight (measured weights in
