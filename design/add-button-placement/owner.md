@@ -92,3 +92,10 @@ Direction: width 40 (height 54) liked. Cream-stub-with-orange-edge rejected. New
 > I don’t need it to read as stars in just trying to think of visual connections
 
 The orange top bar is a visual connection to the place tag, not meant to read as "starred". No need for a "does it read as starred" frame.
+
+2026-10-15, on band-on-top (B1-B3):
+> 12 is the best for me. They’re assuming the edge straddling is a bad thing.
+>
+> Lets see that with the badge add, the cream with orange 40/8 and 12 next to each othwr with account too
+
+Pick: band 12 (eyelet ring straddling the band edge is GOOD, not a flaw). Next: a side-by-side of three: the Float badge, the cream 40-wide with an 8px orange end (P1 grid), and the band-12 tag; with the account badge in view.
