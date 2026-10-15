@@ -62,3 +62,11 @@ Orchestrator's note: record his words; don't turn his examples into lists, rules
 > one thing about icon inspo -- it comes to mind that there are official icons from the us government for roadside attractions and such... we should use these as inspo. pull the images and add them to inspo and then give them to the team and see if it changes anything. i dont want them to just use them outright, but this gives "built" more legs as a concept and also may spark some ideas. https://mutcd.fhwa.dot.gov/htm/2003r1r2/part2/part2h.htm
 
 (MUTCD Part 2H, recreational and cultural interest area signs. Inspiration only, not to be used outright. Pending: the sandbox can't reach mutcd.fhwa.dot.gov or Wikimedia.)
+
+2026-10-15, notes and comments on the design canvas (Icon concepts page), in progress:
+- Café, typed on the board: "i like the cup and saucer, but it's not just coffee shops. adding a bun is too much visual noise... need to push here."
+- Bar, typed on the board: "i like the glass, but not differentiated enough from cafe"
+- Restaurant row: "i like this direction the best" (A or B asked in the thread)
+- Attraction row: "i like this direction the best" (A or B asked)
+- Nature row: "i like this direction the best" (A or B asked)
+- Shopping A (carrier bag): "i think bag is easier to udnerstand at a glance"
