@@ -1,0 +1,88 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<title>Icon concepts t2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<style>
+:root{--paper:#F2EBDD;--raised:#FAF5EA;--hair:#D8CEBA;--ink:#1A1A18;--ink2:#5A564C;--navy:#12293F;--or:#EE7434;--ord:#A8400C}
+*{box-sizing:border-box}body{margin:0;background:#E4DCCB;font-family:Archivo,Arial,sans-serif;width:390px;color:var(--ink)}
+.card{background:var(--raised);padding:14px 16px 16px;margin:0 0 24px}
+.card h2{font-size:17px;margin:0;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.no{font-size:10px;letter-spacing:.12em;color:var(--ink2);font-weight:700;text-transform:uppercase}
+.att{font-size:12.5px;margin:4px 0 4px;line-height:1.35}
+.cat{border-top:1px solid var(--hair);padding:9px 0 6px}
+.cat h3{margin:0 0 6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy)}
+.opts{display:flex;gap:10px;flex-wrap:wrap}
+.opt{width:84px;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.opt .ic{display:flex;gap:6px;align-items:center;height:26px}
+.opt span{font-size:9px;line-height:1.15;color:var(--ink2)}
+.opt b{font-size:8px;letter-spacing:.1em;font-weight:700}
+.push b{color:#2F6B3A}.kill b{color:var(--ord)}.keep b{color:var(--navy)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><filter id="soft" filterUnits="userSpaceOnUse" x="-3" y="-3" width="30" height="30"><feGaussianBlur stdDeviation=".42"/><feComponentTransfer><feFuncA type="linear" slope="7" intercept="-3"/></feComponentTransfer></filter></defs></svg>
+<div id="out"></div>
+<script>
+const KO='style="fill:var(--ko,#F2EBDD)"',KOS='style="stroke:var(--ko,#F2EBDD)"';
+const f=d=>`<path fill="currentColor" d="${d}"/>`, R=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="currentColor"/>`;
+const C=(x,y,r,ko)=>`<circle cx="${x}" cy="${y}" r="${r}" ${ko?KO:'fill="currentColor"'}/>`;
+const L=(d,w=2)=>`<path fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="butt" stroke-linejoin="miter" d="${d}"/>`;
+const INK={restaurant:'#7A2436',cafe:'#6E4C22',bar:'#3D5A7A',attraction:'#547326',nature:'#1E3A2B',shopping:'#8A7AA8',area:'#2B3F52',hotel:'#2E2433',other:'#4F5450',district:'#328177',street:'#5E2C17',tool:'#12293F'};
+// rough concept builds on the 2px grid (24 = 24px)
+const D={
+ fork:R(5,6,2,5)+R(8,6,2,5)+R(11,6,2,5)+f('M5 10h8v1l-3 3v4H8v-4l-3-3z')+f('M15 6a3 3 0 0 1 3 3v5h-1v4h-2z'),
+ cup:f('M5 6h10v4a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z')+f('M15 7h3a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-3v-2h3V9h-3z')+R(5,16,12,2),
+ pot:f('M8 5h6v2H8z')+f('M7 8h8l2 10H5z')+f('M15 9l4-2v3l-3 2z')+R(6,18,10,1),
+ kringle:`<path fill="none" stroke="currentColor" stroke-width="3" d="M12 17C6 12 6 7 9.5 7S12 11 12 13s-1 6 2.5 4S18 12 12 17z"/>`,
+ wine:f('M7 5h10v4a5 5 0 0 1-10 0z')+R(11,13,2,4)+R(8,17,8,2),
+ martini:f('M6 5h12l-6 6z')+R(11,10,2,6)+R(8,16,8,2),
+ notes:C(8,16.5,2.6)+C(16,16.5,2.6)+R(9.6,6,2,10.5)+R(17.6,6,2,10.5)+R(9.6,5,10,3),
+ trumpet:R(4,11,9,2)+f('M13 9l6-3v12l-6-3z')+R(6,8,2,3)+R(9,8,2,3)+C(5,12,1.5),
+ ticket:f('M4 8h16v3a1.5 1.5 0 0 0 0 2v3H4v-3a1.5 1.5 0 0 0 0-2z')+`<rect x="14.5" y="8" width="1" height="8" ${KO}/>`,
+ camera:f('M4 9h4l1.5-2h5L16 9h4v9H4z')+C(12,13.5,3.6,1)+C(12,13.5,2),
+ binox:C(7.5,15,3.5)+C(16.5,15,3.5)+R(5,7,5,7)+R(14,7,5,7)+R(10,9,4,3),
+ temple:f('M7 10l5-5 5 5z')+R(7,12,2,5)+R(11,12,2,5)+R(15,12,2,5)+R(6,17,12,2),
+ tree:f('M12 4l4 4H8z')+f('M12 7l5 5H7z')+f('M12 10l6 6H6z')+R(11,16,2,3),
+ peaks:f('M3 17l5-5 5 5z')+f('M7 17l7-8 7 8z')+R(3,18,18,2)+C(7,8,2),
+ steam:f('M5 13h14a7 7 0 0 1-14 0z')+L('M8 11V8.5l2-2V4')+L('M12 11V8.5l2-2V4')+L('M16 11V8.5l2-2V4'),
+ bag:f('M6 9h12l-1 10H7z')+R(9,5,2,4)+R(13,5,2,4)+R(9,5,6,2),
+ awning:R(4,5,16,4)+C(6,9,2)+C(10,9,2)+C(14,9,2)+C(18,9,2)+f('M5 12h14v7H5z')+`<rect x="10" y="14" width="4" height="5" ${KO}/>`,
+ pricetag:f('M5 12l7-7h7v7l-7 7z')+C(15.5,8.5,1.4,1),
+ blocks:f('M5 9l3-3h2v6H5z')+R(12,6,7,6)+R(5,14,5,4)+R(12,14,7,4),
+ fmap:f('M5 9l4-4v10l-4 4z')+f('M10 5l4 4v10l-4-4z')+f('M15 9l4-4v10l-4 4z'),
+ bed:R(5,7,2,11)+R(7,13,11,3)+R(16,16,2,2)+C(10,10,2)+R(13,10,5,3),
+ key:C(8,12,4)+C(8,12,1.6,1)+R(11,11,9,2)+R(16,13,2,3)+R(19,13,1,2),
+ asterisk:L('M12 4v16M4 12h16M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7',2.4),
+ pennant:R(7,5,2,14)+f('M9 5h8l-3 3 3 3H9z'),
+ stepped:`<path fill="none" stroke="currentColor" stroke-width="6" d="M5 15h4l6-6h4"/>`+`<path fill="none" ${KOS} stroke-width="1.6" stroke-dasharray="2 2" d="M5 15h4l6-6h4"/>`,
+ plate:f('M3 6h18v8H3z')+`<rect x="6" y="9" width="12" height="2" ${KO}/>`+R(11,14,2,6),
+ head:C(12,7.4,4.1)+L('M4.6 21v-1.4a4.3 4.3 0 0 1 4.3-4.3h6.2a4.3 4.3 0 0 1 4.3 4.3V21'),
+ passport:f('M6 4h12v16H6z')+C(12,11,3.4,1)+C(12,11,1.8)+`<rect x="9" y="16" width="6" height="1.4" ${KO}/>`,
+ crosshair:C(12,12,3.6)+L('M12 1.8v5M12 17.2v5M1.8 12h5M17.2 12h5'),
+ yah:C(12,12,8)+C(12,12,5.5,1)+C(12,12,3.6),
+ xmark:L('M6 6l12 12M18 6L6 18'),
+ bin:R(5,6,14,2)+R(10,4,4,2)+f('M7 9h10l-1 11H8z')+`<g ${KO}><rect x="9.5" y="11" width="1.4" height="7"/><rect x="13.1" y="11" width="1.4" height="7"/></g>`,
+ pointer:f('M8 6l7 6-7 6z'), check:L('M4 12.5l5 5L20 6.5'),
+ blanktag:f('M8 4h8l3 3v13H5V7z')+C(12,8,1.6,1),
+ compass:`<circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="9.2"/>`+f('M16.4 7.6L13.5 13.5 7.6 16.4 10.5 10.5z'),
+};
+const badge=(d,ink,size=24)=>`<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;overflow:visible"><circle cx="12" cy="12" r="11" fill="var(--paper)" stroke="${ink}" stroke-width="2"/><g transform="translate(12 12) scale(.82) translate(-12 -12)" style="color:${ink}" filter="url(#soft)">${D[d]}</g></svg>`;
+const bare=(d,ink,size)=>`<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;color:${ink};--ko:var(--raised)"><g filter="url(#soft)">${D[d]}</g></svg>`;
+const opt=(d,cat,verdict,label,tool)=>`<div class="opt ${verdict}"><div class="ic">${tool?bare(d,INK.tool,22):badge(d,INK[cat])+bare(d,INK[cat],12)}</div><b>${verdict.toUpperCase()}</b><span>${label}</span></div>`;
+const G=[
+ ['Restaurant','restaurant',[['fork','keep','fork + knife (sign)'],['plate','kill','(n/a)']].slice(0,1)],
+ ['Café','cafe',[['cup','keep','cup + saucer (sign)'],['pot','push','road-trip coffee pot'],['kringle','kill','bakers’ kringle: an outline at 18px']]],
+ ['Bar / music','bar',[['martini','kill','martini: a funnel'],['wine','keep','stemmed glass, round bowl'],['notes','push','two notes (if “music & bars”)'],['trumpet','push','jazz horn (poster)']]],
+ ['Attraction','attraction',[['ticket','push','admission ticket'],['camera','keep','camera: “see this”'],['binox','keep','binoculars'],['temple','kill','column front: half the set']]],
+ ['Nature','nature',[['tree','keep','conifer (park map)'],['peaks','push','peaks + sun + water (poster)'],['steam','push','hot spring ♨: pools + fumaroles']]],
+ ['Shopping','shopping',[['bag','keep','carrier bag'],['awning','push','shopfront, scalloped awning'],['pricetag','kill','price tag: the Hanging Tag’s twin']]],
+ ['Area / district','district',[['blocks','push','city blocks (area = its pin twin)'],['fmap','kill','folded map: the app is a map']]],
+ ['Street','street',[['plate','push','enamel street-name plate'],['stepped','kill','road: pencil / escalator']]],
+ ['Hotel','hotel',[['bed','keep','bed'],['key','kill','room key: a ring, and “sign in”']]],
+ ['Other','other',[['asterisk','keep','printed asterisk (if kept)'],['pennant','kill','flag: “report”']]],
+];
+const T=[['head','keep','account: head'],['passport','push','account: passport (wit)'],['crosshair','keep','locate: crosshair'],['yah','push','locate = the you-are-here mark'],['xmark','keep','close ×'],['bin','push','delete = bin (UX call)'],['check','kill','current tick = visited’s check'],['pointer','push','current = ▸ pointer'],['compass','keep','directions; not empty list'],['blanktag','push','empty list = blank tag']];
+document.getElementById('out').innerHTML=`<div class="card"><div class="no">Icon concepts · jam turn 2 · visual · rough builds, not drawings</div><h2>Concepts at real size</h2>
+<p class="att">Each candidate is built roughly on the 2px grid: a 24px badge, then 12px bare. The verdicts are mine, for the director. These are concept tests only; nothing here is drawn.</p>
+${G.map(([n,c,os])=>`<div class="cat"><h3>${n}</h3><div class="opts">${os.map(([d,v,l])=>opt(d,c,v,l)).join('')}</div></div>`).join('')}
+<div class="cat"><h3>Tools (navy, 22px)</h3><div class="opts">${T.map(([d,v,l])=>opt(d,'tool',v,l,1)).join('')}</div></div></div>`;
+window.READY=1;
+</script></body></html>

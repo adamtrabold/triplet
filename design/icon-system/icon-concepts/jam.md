@@ -326,3 +326,197 @@ brand (the brochure, park-map and rail-pictogram vocabulary; Nordic-specific
 objects like the pretzel sign and the enamel street plate), and say which
 of each pair can be *built* clearly on the 2px grid at 18px. Then the
 director steers which questions go to the owner.
+
+---
+
+## Turn 2: product designer (visual focus)
+
+Sketch: `sketches/t2-concepts.png` (source `sketches/concepts-t2.html`).
+Every candidate below is roughly built on the 2px grid and shown as a
+24px badge, at 12px bare, and the tools at 22px navy. These are concept
+tests, not drawings, but a concept that can't be built clearly at real
+size isn't a concept we can ship. "Builds" below means what I saw on that
+sheet at 1x, not what I expect.
+
+**Correction to turn 1's "Settled" line.** "Hand-made looks out" is wrong.
+The owner's words: "clarity comes first is great. subtle rounding is a
+place where warmth can come from. "never a hand made look" is bad. i dont
+want to say never to that and handmade can come from many angles --
+construction method, textural approach, the inkblot thing, etc." Specimen
+and Cut Paper were cut on execution risk, not on idea. He adds: "i do
+think whimsy is totally great; there is not one correct way to show
+whimsy though and the craft matters most… i do think built can still be
+whimsical." This turn reads wit as a property of the **concept** (what
+the icon depicts, a double meaning, a trip object). Hand-made warmth
+(texture, ink bleed) is a property of the **craft**, and belongs to the
+grid and drawing step. I note where an icon could carry it.
+
+Real draws (python `secrets`). Oblique Strategies: **"Retrace your steps"**
+and **"Water"**. Borrowed fields: **laundry care labels** and **the Swiss
+railway clock**.
+
+### 1. Where the wit lives in a built set (the Swiss railway clock)
+
+Hilfiker's station clock is pure construction: bars, a circle, nothing
+freehand. Yet everyone remembers it for **one** playful part: the red
+disc on the second hand, borrowed from the guard's signalling paddle. One
+witty part, inside a strict build, is what makes a built set feel loved
+rather than municipal.
+
+As a craft idea for the next step, not a concept ruling: **in each place
+icon the wit sits in one part, and everything else stays plain
+construction.** Examples:
+- the olive in the glass
+- the note heads
+- the sun over the peaks
+- the knife's rounded back
+- the pillow head on the bed
+
+That's how "built can still be whimsical" without a hand-made surface.
+
+The risk is that it turns into a dot on every icon, which is the noise he
+rejected ("Dots add an insane amount of visual noise"). So the wit part
+has to be **part of the object**, never added to it.
+
+**Novelty** (his "something to consider but not lock on"): built
+pictograms on their own are the airport. They aren't novel, and the
+sheet proves it: the conventional column (fork, cup, bag, bed, crosshair)
+could be any transit app. Novelty in this app can only come from two
+places:
+- **What we choose to depict**: trip objects, the brochure's own
+  vocabulary.
+- **The craft layer**: rounding, ink, maybe texture.
+
+So my pushes below lean on **specific objects** wherever they still read
+at 12px. I'd show him one strip of "convention" against one strip of
+"our objects", so he can judge novelty with his eyes, not from our
+argument.
+
+### 2. "Retrace your steps": the app already has a vocabulary
+
+Going back through the inspo and the shipped work, Triplet already talks
+in **travel paperwork**:
+- the luggage tag, the claim-check stub and the stamp
+- the scalloped badge, like a stamp or seal edge
+- the printed TYPE line
+
+The places' natural source is the **printed legend** (park map,
+Ordnance Survey, rail pictograms). The **paperwork** is the natural
+source for app states: an empty list, an admission, a passport. That
+gives a clean split that stays one family:
+
+- **Places = legend signs** (things in the world, drawn like a map key)
+- **States and empties = paperwork** (the tag, the ticket, the stamp)
+
+It also tells us what to kill: a price tag for shopping (paperwork used
+as a place) and a pennant for "other". Both are in the wrong drawer.
+
+### 3. Places: push / keep / kill, with what the build showed
+
+"Builds" means it reads at a 24px badge **and** at 12px bare on the
+sheet.
+
+| Place | Candidate | Verdict | Builds? | Why |
+|---|---|---|---|---|
+| Restaurant | fork + knife | **KEEP** | yes | The most common pin should be the plainest. Wit: the knife's round back is its one curve. A plate between fork and knife read as a dumbbell in v6. |
+| Café | cup + saucer | **KEEP** | yes | Clear for coffee. |
+| | coffee pot | push (wit) | weak: reads as a kettle | The road-trip diner pot is exactly his "vintage roadtrip brochures". The 18px build reads as a kettle/teapot, so it needs the drawing step to prove it. Keep it alive as a wit option. |
+| | kringle (bakers' sign) | **KILL** | no | Built from loops, so at 18px it's an outline (and "nothing else is an empty shape") or a knot. The idea is lovely; the build can't carry it. |
+| | steaming bowl | **KILL** | — | Collides with restaurant (turn 1). |
+| Bar | martini | **KILL** | reads as a funnel | Confirmed again at 12px. |
+| | stemmed glass, round bowl | **KEEP** (if "bar") | yes | The round bowl is what stops the funnel read. A wine/beer glass also fits the WarPigs/tiki end. |
+| | two beamed notes | **PUSH** (if "music & bars") | yes, the clearest of the set | Most of what he saved here is Jazzhouse, Fasching, Debaser. Notes are what a jazz-festival poster prints. Risk: "audio/Spotify". In a place circle, in his colour, on a map, I think it reads as "music venue". |
+| | jazz horn | **KILL** | no: a fish or a brush at 18px | Great poster object, unbuildable at this size. |
+| | glass + note together | **KILL** | — | Two objects in one 18px circle is the noise he's against (turn 1 agrees). |
+| | crescent moon | **KILL** | — | Sleep / night mode, and it collides with hotel. |
+| Attraction | admission ticket | **PUSH (concept), build unproven** | no: a battery/bandage when horizontal | Best concept for a 62-place mixed bag: museums, Tivoli, castles and palaces all mean "you go in". It's the paperwork drawer, though (§2). It may need its classic tilted stub and one punched notch to read. Test it in the drawing step; fall back to the camera if it fails. |
+| | camera | **KEEP** | yes, clearly | "See this": covers landmarks and murals too. Risk: "take a photo". The safe pick. |
+| | binoculars | keep (backup) | yes | Reads, but leans to nature and "search". |
+| | column front | **KILL** | yes, but wrong | Fits half the set, and reads as a bank. |
+| | Michelin star | **KILL** | — | Collides with the Star (turn 1). |
+| | manicule ☞ ("look here", the vintage brochure's pointing hand) | **KILL** (new, recorded) | — | Peak brochure wit, but in an app a pointing hand means "tap here". |
+| Nature | conifer | **KEEP** | yes | Park-map clear. Parks are most of the set. |
+| | peaks + sun + water | push (brand) | yes, but reads as the generic **"image"** icon | It's the park poster's own motif, and it covers the lighthouse and fumarole coast. At 12px it's every app's photo placeholder. Show it, and say so. If the sun goes, the image read goes too, but so does the wit. |
+| | hot spring ♨ ("Water": pools + fumaroles in one sign) | **PUSH (concept), not as nature** | reads as a soup bowl | The double meaning is the best wit on the sheet: the Japanese map sign covers both Iceland pools *and* Gunnuhver. Built as a bowl, it collides with restaurant. Built over a water line instead of a bowl, it could carry a **"pools & hot springs" category** if he wants one (turn 1's flag). Not a nature icon. |
+| | leaf | **KILL** | — | Reads as vegan, which collides with his vegan restaurants. |
+| Shopping | carrier bag | **KEEP** | yes, with the square handle (a round handle = padlock) | The convention. |
+| | shopfront with scalloped awning | **PUSH** | yes, at 24 and at 12 | Records, ceramics, design stores: it says "a little shop on a street", which is what he saves. The scallops rhyme with the app's scalloped badges, so the wit is built into the set. Risk: "market/store locator", which is fine for a shop. |
+| | price tag | **KILL** | — | The Hanging Tag's twin, in the wrong drawer (§2). |
+| Area / district | city blocks | **PUSH** | yes (v6 build) | Agree with turn 1: area is district's pin twin, one concept for "a part of town". |
+| | folded map | **KILL** | — | The app *is* a map. It reads as "open in maps". |
+| | rooftops | **KILL** | — | Reads as "city/home". |
+| Street | enamel street-name plate on its post | **PUSH** | yes, as "a sign"; at 12px it's a T | The blue enamel plates of Copenhagen and Stockholm, and Reykjavík's: a trip object, and very printed. It doesn't collide with Directions, which is a compass, not a signpost. Risk: "information sign". |
+| | road with centre line | **KILL** (built) | no: pencil, cone, escalator across three builds | Three tries on the grid; the convention doesn't survive construction at 18px. |
+| | lamppost | **KILL** | — | Reads as "light/idea". |
+| Hotel | bed | **KEEP** | yes | Clear, and there are 0 saved anyway. Not worth wit. |
+| | room key | **KILL** | — | The bow is a ring (an empty shape), and it reads as "sign in". |
+| Other | printed asterisk (footnote) | keep, weakly | reads as a sun or a snowflake | The honest answer is turn 1's: remove the category (0 rows). If it stays, the footnote asterisk at least isn't a control. |
+| | flag | **KILL** | — | "Report", and the wrong drawer. |
+
+### 4. Tools
+
+| Tool | Candidate | Verdict | Builds? | Why |
+|---|---|---|---|---|
+| Account | head and shoulders | **KEEP** | yes | Instant "me". |
+| | passport | **PUSH as wit, but it fails as a build** | no: a phone or speaker at 22px | Passport + stamp is the best story in the set (your stamps live in it). As a button it doesn't say "me/sign in". Record it; don't send it as an option. |
+| Locate | crosshair with a solid centre | **KEEP** | yes | |
+| | the you-are-here mark | **KILL** | reads as a selected radio button | Logical ("the button shows what it puts on the map"), but the read loses. |
+| Directions | compass | **KEEP** (settled) | yes | It can't also be the empty-list icon. |
+| Close | × | **KEEP** | yes | |
+| Delete | wastebasket | **PUSH** (UX call) | yes, clearly | It separates the destructive act from close. My visual worry: it's heavier in every row. "Secondary marks never outrank content", so it has to be smaller than the × it replaces, or appear only on swipe. That's an interaction question, not mine. |
+| Current-choice | the visited check | **KILL** | — | It's Visited's shape (FIXED). |
+| | solid pointer ▸ | **PUSH** | yes, but alone it reads as "play" | Beside a menu line, the way a rail timetable or index marks "this one", it reads as current. It needs the row to read. |
+| Disclosure | one solid wedge for chevron and ▼ | **PUSH** | yes | One meaning, one shape. |
+| Empty list | blank luggage tag | **PUSH** | yes | Paperwork drawer, the brand's own object: "nothing filed yet". It also frees the compass to mean only Directions. |
+| + (add a place) | + | **KEEP** | yes | Settled, and he said "Build the matched icon". |
+| | pin with + | kill | — | More ink on the loudest button. The overload is better fixed by giving the other +'s their own concepts. |
+| Sort | arrows | **KEEP** | yes | |
+| Filters | sliders | **KEEP** | yes | |
+| | funnel | **KILL** | — | Collides with the martini's funnel read, as turn 1 said. |
+
+### 5. Missing concepts that differ in kind
+
+1. **"Our objects" strip vs "convention" strip** (a framing, not one
+   icon). For the novelty question, build a whole set two ways:
+   - Convention: fork, cup, glass, camera, tree, bag, blocks, plate, bed.
+   - Ours: fork, cup, notes, ticket, tree or ♨, awning, blocks, enamel
+     plate, bed.
+   He judges novelty by eye. Today there are only single-icon options,
+   which can't answer "does built still feel novel".
+2. **A trip-only category: pools & hot springs** (♨ over water). Two
+   pools and a fumarole are already saved. It's the most Iceland thing in
+   the app and the cleanest double meaning available. It's an owner
+   question (a new category), so it rides with turn 1's batch.
+3. **The craft layer as a concept, for the grid step**. His "the inkblot
+   thing" points at one specific, already-shipped hand-made source: **ink
+   bleed**. The stamp and the Pencil Star already behave like ink. A
+   printed place glyph could carry a very faint ink-spread at its corners
+   (the rounding *is* ink spread, rather than a CSS radius). That's warmth
+   from construction method, his phrase. It's not a concept for this step;
+   I'm noting it so the grid step tests it rather than defaults to a
+   plain radius.
+
+### What I'd send up
+
+- **Places, concept pairs to show him:** café (cup / coffee pot), bar or
+  music (stemmed glass / notes, once the name is answered), attraction
+  (camera / ticket, if the ticket builds), nature (conifer / peaks),
+  shopping (bag / awning), street (enamel plate, alone; the road failed
+  three times).
+- **Settle without him:** fork, cup as the default, blocks for area and
+  district, bed, the tool rows above.
+- **Owner questions** (with turn 1's four): add "pools & hot springs"?
+  And show him the two strips for novelty.
+
+### Open questions
+
+1. Can the ticket be built to read at 18px (tilted, one notch)? It needs
+   a drawing test before it goes to him.
+2. Peaks + sun: is reading as "image" fatal, or is the park-poster
+   meaning strong enough in a nature-coloured circle on a map? (Director.)
+3. Delete as a bin: the size/visibility question goes to UX.
+
+NEXT: design director — steer which pairs and owner questions go up
+(turn 1's four, plus pools & hot springs and the two-strip novelty test),
+and rule on the ticket, the peaks, and the convention vs "our objects"
+framing.
