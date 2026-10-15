@@ -120,3 +120,4 @@ Feedback: "Search everywhere" as an always-present row questioned (only makes se
 > Re which badge to build idk need to see them in context — the line weight looks k consistent
 
 Needs both badges (stand-in vs round 6/7 build) in context before choosing. "k consistent" most likely "inconsistent" (the + stroke weight vs the account icon's line weight) — unconfirmed.
+(Owner confirmed: "inconsistent".)
