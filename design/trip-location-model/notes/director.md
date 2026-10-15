@@ -192,3 +192,31 @@ Plumbing: the anchor, the continent table, the no-town fallback.
 Count the rules a person must hold. If you can't say it out loud in
 three lines, it doesn't sing.
 - 2026-10-15 (turn 20): split-unvisited = plumbing, if the split fix says 'places you've been stay'. Tie-break = plumbing, but rule 2 reworded: 'A place joins its city's trip; a new continent starts one quietly.' Overview passes, with that edit. Scores 9/9/7.
+
+## Turn 24 -- the owner's reframe (2026-10-15)
+
+### The model
+Concept 5 (city buckets plus trip tags) is the owner's own model.
+- **Score 9.** It's three rules, places-first, and predictable.
+- **The gap:** no move-a-place edit (Q-D: we think it comes with trips).
+
+### Questions (we think yes to each)
+- Q-A: a new city joins the trip in view.
+- Q-B: nearest within a day trip as the guess.
+- Q-C: several trips at once.
+
+### Kept from 1-3
+- Both truths exposed.
+- Buckets named anything.
+- Nothing required at add.
+
+### Send
+The obvious answer, sent alone. Concepts 1-3 are the record (one line).
+
+### Rescope
+- jobs.md: the concept-5 jobs, C2-C9 retired, T1-T4 re-run.
+- Overview: one card plus Q-A to Q-D.
+
+### Lesson
+The owner's own naming of the model beat 20 turns of rules. Keep
+offering simpler framings early.

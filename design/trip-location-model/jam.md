@@ -2389,3 +2389,123 @@ three rules and no plumbing:
 
 NEXT: director — score concept 5 against the owner's words and
 places-first, and rule on Q-A/Q-B/Q-C before any jobs.md rewrite.
+
+## Turn 24 -- design director: concept 5 scored; Q-A/B/C; the rescope
+
+The owner's reframe (verbatim in `owner.md`) is the owner's own model:
+"a way to group cities.. something more conceptually like a tag", "the
+city is more of a bucket", "group cities together into a meta-trip and
+then show / hide on the map".
+
+### Score: concept 5 = 9
+- **Against the owner's words:** it's the owner's model, said back in
+  three rules.
+  - "Bucket" and "the copenhagen part of the trip" → rule 1.
+  - "a tag … connective thread" → rule 2.
+  - "show / hide … based on that" → rule 3.
+  - "sometimes that's the whole of the trip, sometimes part of a larger
+    trip" → a city in any number of trips.
+- **Places-first:** logging is exactly today's. Trips never stand
+  between the owner and a place; tagging comes after.
+- **"Sings":** a person can predict everything from three sentences.
+  It's simpler than any of concepts 1-3, and that's the strongest signal
+  in this loop.
+- **Why not 10:** it leans on one thing that doesn't exist. **A place in
+  the wrong bucket can't be moved after adding.** The owner named it
+  ("or somehow manually...i dont think i can do that today"), and every
+  repeat-trip and wrong-guess case lands on it. That's the honest gap,
+  and it becomes a question (Q-D), not a rule.
+
+### Q-A, Q-B, Q-C: each goes to the owner as "we think"
+- **Q-A: a city created while looking at a trip joins it.**
+  - We think yes. It's places-first, it's visible as it happens, and a
+    trip's tags can be changed any time. That's a trip-level change, not
+    a place edit.
+  - The risk: it's the one place the current view decides something.
+    Said plainly.
+- **Q-B: the city guess is "the nearest of your cities within about a
+  day trip".**
+  - We think yes. It's the one piece of concepts 1-3 that serves job 5
+    (the Blue Lagoon in Reykjavík without a pick), and it changes
+    nothing else.
+  - The day trip is still an unmeasured "we think 60-80 km". A pick at
+    add still overrides it.
+- **Q-C: several trips shown at once.**
+  - We think yes: it's a filter, like categories, and the list and the
+    map move together.
+
+### New owner question
+- **Q-D: moving a place to another city after adding.**
+  - This model needs one edit and no other: change a place's bucket.
+  - Should that one edit come with trips, or wait for full place
+    editing?
+  - We think it comes with trips. Without it, a wrong guess and the
+    repeat trip have no fix.
+
+### Missing from concepts 1-3 that's worth keeping
+1. **Both truths on a place.** Keep, as a model statement: a place
+   exposes its bucket **and** its real town ("Reykjavík · in Grindavík").
+   Concept 5 stores the real town but says "shown later". Keep job 13 as
+   a model requirement, so the Blue Lagoon never pretends to be in
+   Reykjavík.
+2. **The bucket's name is the owner's.** The owner said earlier the
+   grouping "may be a city name or something else". The model should say
+   a bucket can be named anything ("Golden Circle", "Copenhagen 2028"),
+   and new buckets are made at add, as today's "new city".
+3. **Nothing structural is *required* at add.** The bucket is pre-filled
+   by the guess and never blocks ADD. Today's add form puts City first,
+   which is why today failed P. Concept 5 says "as today", so keep the
+   requirement explicit: guessed and overridable, never asked.
+
+**Dropped, rightly:** the town memory, automatic trips, continents,
+splits, On the way, the border and stays. All of that was the team
+solving a problem the owner has now dissolved by naming the model.
+
+### Obvious answer, or alongside alternatives?
+- **The obvious answer.** It's the owner's own model, stated by the
+  owner, and plainly simpler than everything the team proposed.
+- Sending concepts 1-3 beside it would ask the owner to re-argue a
+  decision the owner just made. They stay in the repo as the record.
+- One line in the send says so: "Earlier models (trips by rule) are kept
+  on record if you ever want trips to form by themselves."
+
+### Rescope
+
+**jobs.md, rewritten for concept 5:**
+- P: unchanged.
+- The rest of the jobs, as model checks:
+  1. Log a place with no trip.
+  2. A place can be in a bucket outside its real town (the guess or the
+     pick).
+  3. The real town is exposed beside the bucket.
+  4. Trips are tags made after, any number, a city in several.
+  5. Showing trips narrows the list and the map together; several at
+     once (Q-C).
+  6. The city filter sits under the trip.
+  7. Plans show in a trip when a stop is in its cities.
+  8. A repeat trip works through a separate bucket.
+  9. Nothing structural is required at add.
+- **Retire:** creation moments C2-C9 (automatic trips and figures).
+  Keep C1 (the first open).
+- **Re-run T1-T4 under concept 5:**
+  - Malmö is its own bucket, as today;
+  - Kastrup is in one bucket, with the trip grouping both;
+  - Jönköping is the guess or the pick;
+  - Copenhagen 2028 is a separate bucket.
+- The guess (Q-B) and the move edit (Q-D) are marked pending.
+
+**Overview: one card, not four.**
+- Concept 5's three rules in the owner's own words where possible.
+- The prices:
+  - one bucket per place;
+  - a wrong bucket needs the move edit (Q-D);
+  - a repeat trip needs its own bucket;
+  - tagging is a step done afterwards.
+- The two truths, in one line.
+- Questions: Q-A, Q-B, Q-C, Q-D. Q3 and Q4 are noted as parked with
+  stays.
+- The one record line about earlier models.
+
+NEXT: product designer (systems focus) — fold items 1-3 above into
+concept 5, rewrite jobs.md and the overview to the rescope; then a fresh
+checker.
