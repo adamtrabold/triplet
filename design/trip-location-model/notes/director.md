@@ -29,3 +29,4 @@
   order/dates; one trip at a time.
 - **Next:** systems pass 2 (the jobs plus the Øresund / airport /
   day-trip cases, and what each stores).
+- 2026-10-15: owner added places-first (no setup before logging places). It governs the model pick. Systems' turn 4 adds D (by region). Waiting on systems' handover.
