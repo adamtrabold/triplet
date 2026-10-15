@@ -186,6 +186,23 @@ pick/redirect before building anything.
     same branch) continues after the + badge as its own design work; it
     touches the same city/search questions. Status unclear: reported on hold
     until the trip model settles, but no record of the pause in the repo.
+- **Edit a place after adding it** (owner, 2026-10-15, verbatim: "we need
+  to add the ability to edit places in the backlog"). Today nothing about a
+  place can be changed once it's added (name, notes, category, city,
+  position); the only fix is delete and re-add, which loses visited/starred
+  and plan stops. The trip model needs this too: changing a place's city
+  after adding. Owner, in `design/trip-location-model/owner.md`: "if the app
+  puts a place in the wrong city you should be able to edit the city
+  attached to the place". Applies to every place, whether it shows as a pin
+  or as a district/street outline. Lane 2 (needs design first).
+- **First open for a new user centres on their location** (owner,
+  2026-10-15, verbatim: "on open if someone has never used it it should open
+  on their location"). Today a first open (no city stored on the device)
+  frames Los Angeles (`DEFAULT_CITY = 'la'`) and never asks for location on
+  load; location is used only via the locate button or the Nearest sort.
+  Open questions for UX: the permission prompt's timing, and what shows on
+  denial or with no places near the user. See `docs/architecture.md` §3
+  "Open".
 - **Plans: the iPhone checks** (v3, see `docs/shipped.md` "Plans (v3
   build)"). The v3 code is in `index.html` on main (its commits, e.g.
   `42bd919`, are on main; branch `plans-v3-build` is gone from the remote).
