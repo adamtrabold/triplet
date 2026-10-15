@@ -10,13 +10,27 @@
 > - **City cue:** a 1px underline under the city word; your hit band stands. The city list is 40px rows from 122 in the tag.
 > - **The Float hides while adding** (frames `f10-*`, gap 88). **C's gap is 86** (frames `c10-*`). The credit prefix rule is 380.
 
+> **Round 12c (systems, 2026-10-15): groups vs. real cities (the owner's reply to the workflows map). See `workflows.md` (revised).** A place's **group** is how the owner thinks about the trip (`locations.city`; today's five "cities" are groups). Its **real city** is data from the address (`address_details`), shown in the address line and used by a new **filter by city**.
+> - On the tag the group is a pencilled entry, pre-filled (an area that contains the place → the group on screen) and **tappable** to change; tapping prints your groups as rows plus "New group…".
+> - It asks "Add to [group], or a new group?" only when the place is in a different country from the group on screen.
+> - The 150 km distance rule is moot. Round 12's city rule (not a control; "Which city?" on overlap) is replaced. Round 12b's search holds, with "group" for "city".
+> - Open for the owner: the name for a group, trips above groups or not, one group per place, the filter's scope, when to ask.
+
 > **Round 12b (systems, 2026-10-15): pending the owner. See `workflows.md`.** Mapping the owner's three workflows (a suburb he calls "Chicago", a pasted address, a bare name that could be anywhere) shows that Round 12's "the map's country first, widen only on zero" fails the bare-name case: a same-name local match hides the real one, and the widening never runs. The proposed rule in `workflows.md`:
 > - **one search, everywhere** (no city name added, no country lock, soft lean to the screen's area);
 > - **re-ordered by the app:** this city → your other cities → the rest, nearest first;
 > - an invisible local search as a safety net when nothing lands in this city;
 > - **filing:** containment → nearest base within a set distance → "New city?".
 >
-> It adds no rows or controls (the director's objection to (b) was the always-printed row). It replaces the scope part of Round 12 if the owner and director agree. The city rule (plain pencil; "Which city?" on overlap) stands either way.
+> It adds no rows or controls (the director's objection to (b) was the always-printed row). The city rule (plain pencil; "Which city?" on overlap) stands.
+>
+> **Accepted by the director (2026-10-15), with four amendments, now in `workflows.md`:**
+> 1. No section headers or dividers in the results: one plain list, ordered.
+> 2. Round 12's "Nothing in Iceland, so showing results everywhere" line and its "type the city with the name" rule are **dropped**.
+> 3. The invisible local fallback search stays. Its hits are slotted first in the same list, never as their own row.
+> 4. The suburb and day-trip distance is a **fixed app rule** (150 km proposed), not a user setting.
+>
+> **This replaces Round 12's search-scope part (below) in full.** Of Round 12, only the city rule remains.
 
 > **Round 12 (systems, 2026-10-15): search scope, and the city. Replaces round 10's always-present "Search everywhere" row and round 10b's tappable city.**
 >

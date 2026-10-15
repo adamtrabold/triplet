@@ -626,3 +626,10 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Open for the owner: the distance (100/150/200/always ask); trips next (a new city joins the current trip or asks); jump to the new city after ADD.
 - The form spec's Round 12b pointer: it supersedes Round 12's scope if agreed.
 - Picked badge (X2 rest2: 24 lobes, textured, + 26.4 / 2.00px): 1.38 / 1.37 x the account (stand-in reproduced at 1.34 / 1.33). handoff.md job-2 row updated. Script: r10-check/badge-x2.js.
+- Director accepted Round 12b with 4 amendments (no headers or dividers; drop the "Nothing in Iceland" line and the type-the-city rule; the local fallback slots first, never its own row; the distance is a fixed app rule at 150 km). Done in workflows.md, the form spec's 12b note (it replaces Round 12's scope), and jobs.md job 5 + the C flow step 3. Job 5 holds fully again (any city reachable with no trick).
+
+## Round 12c (2026-10-15): the owner, "you're taking me too literal on the suburb"
+- The model: **group** (how he thinks of the trip; = today's `locations.city`/`cities`) vs **real city** (from `address_details`; shown in the address, and a new filter-by-city). The distance rule is moot.
+- At add: the group is a tappable pencilled entry, pre-filled (containing area → the group on screen); it asks "Add to X, or a new group?" only on a country mismatch; a new group is pre-named from the real city (editable).
+- Search 12b holds, with "group" for "city". Filter-by-city needs the short-address backfill (0/202) first.
+- workflows.md rewritten; the form spec's Round 12c note. Open for the owner: the name, trips above groups, multi-group, the filter scope, when to ask.

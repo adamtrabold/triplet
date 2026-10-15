@@ -1,136 +1,130 @@
-# Adding a place: the city workflows, mapped
+# Adding a place: groups and real cities (revised)
 
-Systems, 2026-10-15. This answers the owner: "I don't understand the
-workflow for the city thing — I think we need to map it out."
+Systems, 2026-10-15. This replaces the first version of this file. The
+owner, on that version:
 
-Sources:
-- `design/trip-location-model/proposal.md` (discovery; its option B, "file
-  day trips under the nearest base", was deferred);
-- CLAUDE.md "Trips vs. cities restructure";
-- the code: `detectCityContext()`, `nominatim()`, `nominatimWithFallback()`,
-  `matchCity()`, `maybeDetectCity()`, `CITIES` and the `cities` table.
+> "You're taking me to literal on the suburb use case — backing way out I
+> need to be able to include a place in a city that does not match how
+> I'm thinking about the trip which may be a city name or something else.
+> Right now it's by city name. This is separate from filters which should
+> have a filter by city."
 
-## How it works today, in one breath
+Read with:
+- `design/trip-location-model/proposal.md` (earlier thinking);
+- `docs/backlog.md` "Trips vs. cities restructure" (its constraint:
+  adding stays low-friction, with no forced city or trip picking).
 
-- **Search:** it uses the city the map is showing (the nearest of your
-  cities within 75 km of the map's centre). It **adds that city's name to
-  what you type** ("…, Stockholm") and **allows only its country**. If
-  that finds nothing, it tries once more with no name added and no
-  country limit, still favouring the area on screen.
-- **Filing:** a picked place goes under whichever of your cities' boxes
-  contains it. If it's in no box, the app asks "Add [town] as a new
-  city?".
-- **No trips:** a city is both the filing bucket and the list you look
-  at.
+## The model, in plain terms
 
-## The workflows
+Two different things are both called "city" today. They come apart:
 
-### W1. "It's Chicago to me, but it's really in a suburb"
+| | **Group** (working name) | **Real city** |
+|---|---|---|
+| What it is | how *you* think about the trip: "Chicago", "Reykjavík", "Golden Circle", "Iceland"… | where the place actually is: Oak Park, Hafnarfjörður, Frederiksberg |
+| Who decides | you (the app suggests) | the address (OpenStreetMap) |
+| Where it shows | the list you're looking at and the group switcher | the tag's address line, and the new filter |
+| In the data today | `locations.city` (the `cities` table: label, map centre, search area) | `locations.address_details` (stored at add time since the short-address work; old rows need the backfill, which is 0 of 202 filled) |
 
-1. You're looking at Chicago and type the place's name.
-2. **Today:** the search becomes "name, Chicago, IL". A suburb's address
-   doesn't say Chicago, so it may find **nothing**. Then the wider retry
-   runs and usually finds it. *Can go wrong: a wrong same-name place
-   inside Chicago wins first.*
-3. You pick it. **Filing today:** if the suburb is inside Chicago's box,
-   it's filed under Chicago. If it isn't, it asks **"Add Oak Park as a new
-   city?"**, which is wrong for you: you think of it as Chicago.
-4. **What it needs:** filing by *the base you think in*. A place near one
-   of your cities goes under that city without asking (a suburb or a day
-   trip; Reykjanes under Reykjavík is the same case, already in your
-   data).
+- **Today's five "cities" simply are groups.** They happen to be named
+  after cities, and nothing about them has to change except that a place
+  no longer has to physically sit in one to belong to it.
+- **The distance rule (150 km) is moot.** A place goes in the group you
+  put it in, not the nearest one. The one heuristic left is when to *ask*
+  (below), and that's a country check, not a distance.
 
-### W2. Planning ahead: paste an address
+## How a place gets its group when you add it
 
-1. You paste a full address, for a city you aren't looking at, maybe
-   one that isn't in the app yet.
-2. **Today:** the pasted text gets the *current* city's name added
-   ("…, Iceland") and Iceland-only, so it finds nothing. Then the wider
-   retry finds it. It works, but slowly (two searches) and by luck.
-3. You pick it. **Filing:** if the city exists, it goes there. If not:
-   "Add Chicago as a new city?".
-4. **What it needs:** an address carries its own location, so search it
-   **anywhere, first time**.
-   - File it by where it is, and create the city if needed.
-   - **Then "coded to a trip":** a new city has no trip to belong to,
-     because trips don't exist yet. That's the open part (below).
-   - After ADD, the list switches to that city (job 14).
+The tag shows the group as one pencilled entry, pre-filled. The entry
+can be tapped to change it. This is a real choice now, so it's a
+visible control, unlike round 12's city word. You never *have* to touch
+it.
 
-### W3. The hardest: just a name, could be anywhere
+The pre-fill, in order:
+1. **A group whose area contains the place** (its search area, or near
+   its existing places) → that group.
+2. Otherwise **the group you're looking at.**
+3. **It asks only when that guess is clearly off:** the place is in a
+   different country from everything in the group you're looking at
+   (adding a Chicago place while looking at Reykjavík).
+   - **"Add to Reykjavík, or a new group?"** appears in the stub, the
+     same question pattern as before.
+   - A new group is pre-named from the place's real city ("Chicago"),
+     and you can edit the name.
 
-1. You type "Noma" or "Tivoli" with no address. You might be looking at
-   any city.
-2. **Today:** it's locked to the city on screen and that city's country.
-   If a same-name place exists there, **that's all you see**. The real
-   one in another country never shows, because the wider retry only runs
-   on *zero* results. *This is the case that fails.*
-3. **What it needs:** search everywhere, but **show what's near you
-   first**, so a local "Tivoli" still comes first when you're at home in
-   it.
+Tapping the group entry prints your groups as rows on the tag, plus
+"New group…". It's the same pattern as the type choices.
 
-### Inferred (marked)
+## The three workflows again
 
-- **W4 (inferred): adding where you're standing, on the trip.** The map is
-  already on that city, so local-first is right. Nothing extra is needed.
-- **W5 (inferred): a district or street.** The outline lookup (Overpass)
-  needs a box. A suburb street outside your cities' boxes can't be
-  traced; today it falls back to an "(approx.)" pin. It's the same
-  filing question as W1. Deferred in the proposal, and still deferred.
-- **W6 (inferred): seeing a business on the map and saving it.** That's
-  your "future, with real maps" item. Out of scope.
+**W1. "It's Chicago to me" (the place's real city differs)**
+1. You're looking at Chicago and type the name. Search finds it (below).
+2. The tag shows "… · **Oak Park**" in the address (the real city) and
+   the group **Chicago** (pre-filled, because that's where you are).
+3. ADD. It's in your Chicago list. Filter by city shows it under Oak
+   Park.
 
-## One rule for all three (recommendation)
+*Can go wrong:* nothing structural. If you were looking at another
+group, you change the group entry with one tap.
 
-**Search: always everywhere, nearest first.**
-- One search, with nothing added to your words and no country lock. It
-  leans toward the area on screen.
-- The app then **re-orders** the results:
-  1. places in the city you're looking at;
-  2. places in your other cities;
-  3. everything else, nearest first.
-- Every row already shows its town, so you can see where each one is.
-- This fixes W3 (the far "Noma" is in the list), W2 (an address finds
-  itself) and W1 (the suburb is found, and found first because it's
-  near).
-- No buttons, no extra rows.
-- *(The safety net, invisible: if none of the results is in the city on
-  screen, the app also runs today's local search and puts any local hits
-  first. That covers a common name where the world's famous one would
-  crowd out the local one. It's a browser test; the sandbox can't reach
-  the search service.)*
+**W2. Planning ahead: paste an address**
+1. You paste it. Search finds it anywhere, first time.
+2. If an existing group's area contains it, it pre-fills that group.
+   If it's in another country from the group on screen, the tag asks:
+   "Add to Reykjavík, or a new group?". New → "Chicago" (editable).
+3. ADD. The list switches to that group so you see it land (job 14).
 
-**Filing: by where the place is, then by the base you think in.**
-1. Inside one of your cities' areas → that city. Inside two (Copenhagen
-   and Malmö overlap) → **"Which city?"** on the tag.
-2. **Near one of your cities** (within a distance you set once, say 150
-   km) → that city, without asking. That's the suburb and day-trip case
-   (W1).
-3. Far from all of them → **"New city? [town]"** on the tag. That's W2's
-   new city.
+*"Coded to a trip":* a group may **be** your trip, or trips may sit
+above groups. That's open (below).
 
-## Trip vs. city: what each workflow needs (not deciding the model)
+**W3. Just a name, could be anywhere**
+1. Search: round 12b's rule still holds, with "city" read as "group":
+   - one search everywhere;
+   - one plain list, ordered: places near **the group you're looking
+     at** first, then your other groups, then the rest;
+   - an invisible local search fills in local hits first when none came
+     back;
+   - no headings, no extra rows.
+2. Group pre-fill as above.
 
-- **W1 needs** a city to mean "a base", not a municipality. That works
-  with or without trips; it only needs the "near one of your cities"
-  rule and its distance.
-- **W2 needs** a new city to belong to *something*: today it's just a
-  new city among all the others. With trips it would join a trip ("Chicago
-  2027"), and you'd see that trip's places, not Iceland's.
-- **W3 needs** nothing from trips. The search rule covers it. Trips would
-  only change "your other cities" to "this trip's cities".
+## What filter-by-city adds
 
-## Open, for the owner
+- A **City** set of chips in the filters panel, built from the real
+  cities of the places in the group you're looking at (Chicago · Oak
+  Park · Evanston).
+- It's shown only when the group has two or more.
+- It narrows the list and the map, and it's separate from the group
+  switcher. ("A list shows everything that matches the active filters"
+  holds.)
+- **It needs the real city for old places:** the short-address backfill
+  (0 of 202 rows today) has to run first, or old places have no city to
+  filter by.
+- Today's `#cityFilters` chips are really the group switcher. Naming and
+  placement are visual's and UX's, but the two must not look like the
+  same control.
 
-1. **The suburb and day-trip distance:**
-   - (a) 100 km;
-   - (b) 150 km;
-   - (c) 200 km;
-   - (d) always ask "File under Chicago?" when it's outside a city's
-     area.
-2. **Is a trip what you want to build next?** A trip = a name, maybe
-   dates, and its cities. If yes: when you add a new city (W2), it joins
-   the trip you're looking at, or asks "Which trip?". If not yet: a new
-   city just joins the list, as today.
-3. **After adding a place in another city or trip (W2), should the app
-   jump there?** We'd say yes, so you see it land. It means you leave the
-   city you were looking at.
+## What changes from earlier rounds
+
+- **Round 12's city rule** ("plain pencil, not a control; 'Which city?'
+  only on overlap") is **replaced**.
+  - The group is a tappable entry. The real city is plain text in the
+    address line.
+  - The overlap question goes: the group is your choice, pre-filled from
+    whichever group's area contains the place.
+- **Round 12b search:** it holds, with "group" for "city".
+- **"New city?"** becomes "Add to [group], or a new group?", asked
+  only on the country mismatch.
+
+## Open, for the owner (not decided here)
+
+1. **What do you call the grouping?** Trip, city, place, or something
+   else. Are today's five simply renamed in the app's words (Reykjavík,
+   Copenhagen… stay as they are)?
+2. **Trips above groups, or a group *is* the trip?** For example, "Nordic
+   Sept 2026" holding Reykjavík, Copenhagen, Malmö and Stockholm, or
+   just the five groups as now.
+3. **Can a place be in more than one group?** We'd say no for now.
+4. **Filter by city:** only within the group you're looking at (our
+   suggestion), or across all groups?
+5. **When the guess is off:** is a country mismatch the right moment to
+   ask? Or should it always quietly use the group on screen, and you
+   change it if needed?
