@@ -164,7 +164,7 @@ the band line at every height.
 | Job | Supported? | Where |
 |---|---|---|
 | 1 Reach with your thumb, every state | **Yes, with one exception: the filters open** (close them first, one tap). With a place's tag open it stays tappable (gap 88). The left is the owner's side. | States table; R7-F3, F5 |
-| 2 Main action, above the account | **Yes:** 1.34 / 1.33x the account's squint weight on the real render; alone in its corner, opposite the account. | `r10-check/float.js`; F2, F3 |
+| 2 Main action, above the account | **Yes:** the **picked badge** (X2's right panel: 24 fine lobes, textured orange, a 26.4px navy + with a 2.00px stroke) measures **1.38 / 1.37x the account's squint weight** (σ4 / σ8). That's the real 202 pins, Reykjavík, at both the opening fit and street zoom (z14), over the 1.2 bar. The round-10 stand-in measured 1.34 / 1.33 in the same run, which confirms the harness. Alone in its corner, opposite the account. | `concepts/r10-check/badge-x2.js`; X2, F2, F3 |
 | 3 Know what you're about to fill out *(inferred)* | **Partly, accepted by the owner.** The badge opens today's form, not a tag. His reason for choosing it is that the circle relates to the pin icon (what you add is a pin). That's the job read his way. | Owner's words above |
 | 4 + never gets in your way | **Yes:** 0 pins at the opening views; the credit rule; the tag gap 88; never over rows or the delete ×. | Collisions table |
 | 5 + is for the whole trip | **Yes:** + lives on the map, not in the list's bar. Today's form starts with City, which scopes the search, so adding to any city works as it does today. | Structure; today's `#cityInput` |
@@ -354,7 +354,7 @@ to `width/height 26.4` and `stroke-width 1.8182`. Do that in the initial
   shouldnt be". With two axes changed (field and size) the + reads as first
   and the account as second at a squint (R6-F2; systems measured 1.34 /
   1.33× the account, on round 10's render, i.e. the stand-in; the built
-  badge, with its lighter +, is not re-measured). The navy 60 still read as a pair.
+  badge, with its lighter +, re-measured by systems at 1.38 / 1.37×). The navy 60 still read as a pair.
 - **The finer edge:** with a third axis changed, it's the same badge
   family, but a different cut. That means it isn't the account's twin (the
   objection) and doesn't leave the brand either. 10 deep lobes read as a

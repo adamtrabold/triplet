@@ -625,3 +625,4 @@ result count at 664 with keyboard, and the docked-tag heights.
 - Recommendation: search everywhere once (no suffix, no country lock, soft viewbox) + client re-rank (this city → other cities → nearest) + invisible local safety net; filing: containment → nearest base within a distance → "New city?".
 - Open for the owner: the distance (100/150/200/always ask); trips next (a new city joins the current trip or asks); jump to the new city after ADD.
 - The form spec's Round 12b pointer: it supersedes Round 12's scope if agreed.
+- Picked badge (X2 rest2: 24 lobes, textured, + 26.4 / 2.00px): 1.38 / 1.37 x the account (stand-in reproduced at 1.34 / 1.33). handoff.md job-2 row updated. Script: r10-check/badge-x2.js.
