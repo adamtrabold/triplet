@@ -1141,3 +1141,46 @@ NEXT: product designer (systems focus) — write `jobs.md` for the
 trip-model concepts: jobs 1-12 with places-first as the governing rule,
 the creation moments above, and the three test cases, so visual and
 systems sketch the three concepts against one list.
+
+## Turn 7 -- product designer (visual focus): the concepts sketched
+
+Sketch level (owner: "sketch level thought… the model is what to nail
+right now not ui"). Text and box sketches, one file per concept, each run
+through P, C1-C9 and T1-T3, with a jobs line for the checker:
+- `concepts/1-rule-that-remembers.md`, the full rule, with a "where a new
+  place goes" decision tree;
+- `concepts/2-rule-plus-stays.md`, only what the stays layer adds;
+- `concepts/3-no-trip-container.md`;
+- `concepts/4-reference-today.md`.
+
+Overview for the owner, phone-readable: `concepts/overview-3x.png`
+(1170 wide, large text). It carries the corrected prerequisite: **58
+places with no `address_details`** (not "0 of 202").
+
+**Flags for systems and the director:**
+1. **C4 as jobs.md writes it breaks job 5.** "The second place in a real
+   city becomes a city of its own" means a second Grindavík place pulls
+   the Blue Lagoon out of Reykjavík.
+   - The sketches apply the threshold of 2 only to places **beyond the
+     reach** (On the way).
+   - Within the reach, a real city stays "From" its figure however many
+     places it has, unless the owner says "belongs with… its own city".
+   - jobs.md's C4 check needs the same wording, or a different rule.
+2. **The rule needs three fixed distances.** These are app rules, never
+   settings:
+   - REACH (joins a figure);
+   - SPREAD (between figures → On the way);
+   - "far away" (a new trip).
+   **(We think)**: REACH about a day trip (60-80 km), SPREAD the box
+   around the figures, "far away" another continent. All unmeasured.
+   - Known quirk: a first place inside the box (Oslo) waits in On the
+     way until a second place arrives.
+3. **Concept 2's surprise:** one hotel turns Malmö from a top-level city
+   into "Malmö · from Copenhagen". It only fits if hotels are the trip's
+   frame (owner question 3).
+4. **Concept 3's weakness:** clusters chain through stopovers. A
+   "these are separate" fix brings the trip object back.
+
+NEXT: design director (or a fresh checker): run jobs.md's P, C1-C9,
+T1-T3 and jobs 1-14 against the four files, and rule on flag 1 (C4)
+before the send.

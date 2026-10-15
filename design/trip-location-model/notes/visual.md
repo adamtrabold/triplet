@@ -62,3 +62,17 @@
   - "On the way" for far-from-any-figure places;
   - a new city needs 2 places (an opinion, a fixed rule).
 - **Next:** the director rules.
+
+## 2026-10-15, turn 7: concepts sketched
+- **Files:** concepts/1-4 (.md, text sketches) and overview-3x.png (for the
+  owner, 1170x2582, large type, no second person).
+- **Prerequisite corrected:** 58 places have no address_details.
+- **Flags:**
+  - C4 vs job 5: the threshold applies beyond the reach only;
+  - REACH / SPREAD / far-away are fixed unmeasured rules (we think 60-80
+    km, the bbox, another continent);
+  - concept 2's Malmö demotion;
+  - concept 3's chaining.
+- **Next:** the checker / director; the C4 ruling.
+- **Renderer:** the overview HTML is in the scratchpad (ov/ov.html),
+  rendered with playwright at 1170 / dsf 1.
