@@ -633,3 +633,8 @@ result count at 664 with keyboard, and the docked-tag heights.
 - At add: the group is a tappable pencilled entry, pre-filled (containing area → the group on screen); it asks "Add to X, or a new group?" only on a country mismatch; a new group is pre-named from the real city (editable).
 - Search 12b holds, with "group" for "city". Filter-by-city needs the short-address backfill (0/202) first.
 - workflows.md rewritten; the form spec's Round 12c note. Open for the owner: the name, trips above groups, multi-group, the filter scope, when to ask.
+
+## App map (2026-10-15)
+- The owner asked for a model of the whole app; the tldraw route was dropped (the owner: any better tool), so it's a Mermaid artifact instead. https://claude.ai/artifact/HzSR9UF58wh7pcZ9FcfZr1 (source `concepts/blank-tag-form/diagrams/app-model.html`).
+- 8 "today" diagrams (data, who can edit/playground, screen, taps + gestures, cities/filters/sort, adding (search + shapes), Plans, sync/poll) + a "Proposed" band (group vs real city, the Chicago example, the 3 workflows, questions a/b). Marked unsure: locate ↔ nearest; Plans with real data (0 plans in the DB).
+- Not verified by render here: the Mermaid lib is blocked in the sandbox; the artifact renders `pre.mermaid` natively. The labels avoid pipes.

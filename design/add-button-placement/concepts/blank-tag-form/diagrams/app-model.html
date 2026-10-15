@@ -1,0 +1,311 @@
+<title>Triplet App Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..100,400..800&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  /* Layout: one phone-width column; each diagram sits on a sheet of map paper with its caption under it; "proposed" gets its own orange-ruled band. */
+  :root {
+    --paper: #F4EEE2;      /* the app's cream */
+    --sheet: #FBF8F2;      /* a raised tag */
+    --ink: #1F2F4A;        /* navy */
+    --ink-2: #5A6577;      /* secondary text */
+    --hair: #DDD3C1;       /* rules */
+    --orange: #C8561C;     /* brand orange, deepened for text */
+    --orange-wash: #F6E1D2;
+    --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+    --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #141B26; --sheet: #1C2533; --ink: #ECE5D8; --ink-2: #A8B0BD;
+      --hair: #2E3A4C; --orange: #F08A52; --orange-wash: #2E2219; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141B26; --sheet: #1C2533; --ink: #ECE5D8; --ink-2: #A8B0BD;
+    --hair: #2E3A4C; --orange: #F08A52; --orange-wash: #2E2219; color-scheme: dark;
+  }
+  body {
+    background: var(--paper); color: var(--ink);
+    font: 16px/1.55 var(--font-body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 28px 56px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+  header { display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow { font: 600 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+  h1 { font: 800 clamp(30px, 8vw, 44px)/1.02 var(--font-display); font-stretch: 70%; margin: 0; text-wrap: balance; letter-spacing: .01em; }
+  h2 { font: 750 24px/1.1 var(--font-display); font-stretch: 75%; margin: 0; text-wrap: balance; }
+  h3 { font: 700 17px/1.25 var(--font-body); margin: 0; }
+  p { margin: 0; max-width: 65ch; }
+  .lede { color: var(--ink-2); }
+  nav ol { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+  nav a { color: var(--ink); text-underline-offset: 3px; }
+  section { display: flex; flex-direction: column; gap: 14px; }
+  .fig { background: var(--sheet); border: 1px solid var(--hair); border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .fig .scroll { overflow-x: auto; }
+  .fig pre.mermaid { margin: 0; background: transparent; min-width: 0; }
+  .fig p { font-size: 15px; }
+  .unsure { color: var(--orange); font-weight: 600; }
+  .band { border-top: 3px solid var(--orange); padding-top: 18px; display: flex; flex-direction: column; gap: 14px; }
+  .tagline { display: inline-block; align-self: flex-start; background: var(--orange-wash); color: var(--orange); font: 700 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; padding: 6px 8px; border-radius: 3px; }
+  .q { background: var(--sheet); border: 1px solid var(--hair); border-left: 4px solid var(--orange); border-radius: 4px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .q b { font-family: var(--font-display); font-stretch: 80%; font-size: 18px; }
+  footer { color: var(--ink-2); font-size: 14px; }
+  a:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Triplet · how it fits together</span>
+    <h1>Triplet App Map</h1>
+    <p class="lede">The whole app as it works today on main, drawn as small diagrams. The last part, marked <b>Proposed</b>, is the group vs. real-city idea. Nothing in it is built.</p>
+    <nav aria-label="Contents">
+      <ol>
+        <li><a href="#data">What's stored</a></li>
+        <li><a href="#who">Who can change things</a></li>
+        <li><a href="#screen">What's on the screen</a></li>
+        <li><a href="#taps">What a tap does</a></li>
+        <li><a href="#filter">Cities, filters and sort</a></li>
+        <li><a href="#add">Adding a place</a></li>
+        <li><a href="#plans">Plans</a></li>
+        <li><a href="#sync">Saving and syncing</a></li>
+        <li><a href="#proposed">Proposed: groups vs. real cities</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <section id="data">
+    <h2>1 · What's stored</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  C["City (cities)<br>Reykjavík, Copenhagen,<br>Malmö, Stockholm, LA"]
+  L["Place (locations)<br>name · category · lat/lng<br>visited · starred · notes"]
+  S["District or street<br>(neighborhood_shapes)<br>outline · visited · starred"]
+  P["Plan (plans)<br>a named list"]
+  T["Stop (plan_stops)<br>an ordered entry"]
+  C -->|"every place belongs<br>to one city"| L
+  C -->|"every shape belongs<br>to one city"| S
+  P -->|"has many"| T
+  T -->|"points at a place"| L
+  T -->|"or a shape"| S
+</pre></div>
+      <p>Everything hangs off a city. A place and a district/street both carry their own visited and starred marks. A plan is an ordered list whose stops can be places or shapes. Today: 202 places, 11 shapes, 5 cities, 0 plans.</p>
+    </div>
+  </section>
+
+  <section id="who">
+    <h2>2 · Who can change things</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  O["Open the app"] --> Q{"Signed in?"}
+  Q -->|"yes: Adam or Erica"| R["Real database<br>reads and writes"]
+  Q -->|"no"| G["Playground<br>a copy in memory"]
+  G -->|"add, star, visit,<br>delete all work"| X["Nothing is saved:<br>a reload starts fresh"]
+  G -->|"account badge → Sign in"| R
+  R -->|"anyone may read"| V["Public read"]
+</pre></div>
+      <p>Signed out, you're in the playground: the app loads a copy of everything and lets you change it, but nothing reaches the database. Only the two signed-in owners can save. Signing in or out reloads the app into the other mode.</p>
+    </div>
+  </section>
+
+  <section id="screen">
+    <h2>3 · What's on the screen</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  subgraph TOP["Top corners"]
+    Z["Zoom + −"]
+    A["Account badge<br>(sign in / out)"]
+  end
+  subgraph MAP["Map"]
+    PN["Pins and clusters"]
+    SH["District and street outlines"]
+    TAG["Hanging Tag<br>(a place's card)"]
+    ADD["+ badge, bottom-left"]
+  end
+  subgraph LIST["List sheet"]
+    HD["Header: city name · count<br>sort · filters · locate"]
+    RW["Rows: places and shapes"]
+  end
+  FP["Filters panel<br>Places / Plans · city · categories"]
+  HD --> FP
+  ADD --> FORM["Add form"]
+  PN --> TAG
+</pre></div>
+      <p>The map sits on top and the list underneath. The list's header holds sort, filters and "show my location". The + badge rides the top edge of the list at the bottom-left of the map. The account badge sits alone in the top-right corner.</p>
+    </div>
+  </section>
+
+  <section id="taps">
+    <h2>4 · What a tap does</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart LR
+  R["Tap a row"] --> F["Map flies to it,<br>zooms in far enough"] --> T["Its Hanging Tag opens"]
+  P["Tap a pin"] --> T
+  T --> SEL["The row turns navy<br>(selected)"]
+  T -->|"close the tag"| CLR["Selection clears"]
+  C["Tap a cluster"] --> Z["Map zooms in<br>to separate the pins"]
+</pre></div>
+      <p>Every list item goes to its place on the map, from any zoom, and opens its tag when it arrives. The selected row follows whichever tag is open.</p>
+    </div>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart LR
+  ROW["A row"] -->|"stroke right"| STAR["Pencil Star:<br>star / unstar"]
+  ROW -->|"stroke left"| VIS["Visited stamp:<br>visit / un-visit"]
+  ROW -->|"tap ×"| DEL["Delete"]
+  TAG["The tag"] -->|"Directions"| AM["Opens Apple Maps"]
+  TAG -->|"Star"| STAR
+  TAG -->|"Visited"| VIS
+</pre></div>
+      <p>Star and visited can be set from the row with a stroke, or from the tag with a tap. Both write to the same place, so the pin, the row and the tag all change together. Directions hands off to Apple Maps.</p>
+    </div>
+  </section>
+
+  <section id="filter">
+    <h2>5 · Cities, filters and sort</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  CC["Pick a city chip"] --> AC["Active city changes"]
+  AC --> M["Map moves to that city"]
+  AC --> L["List shows that city's places"]
+  CAT["Category chips"] --> L
+  CAT --> PINS["Map shows the same set"]
+  ZM["Zoom level"] -->|"map only"| PINS
+  SO["Sort: A–Z · category ·<br>nearest · left to visit ·<br>starred · newest"] --> L
+  LOC["Show my location"] --> NR["Map centres on you;<br>enables 'nearest'"]
+</pre></div>
+      <p>Filters decide what's in the list and on the map; zoom only decides what the map can draw, never what the list shows. Sort reorders the list only. <span class="unsure">Unsure:</span> exactly how "show my location" and the "nearest" sort hand off to each other.</p>
+    </div>
+  </section>
+
+  <section id="add">
+    <h2>6 · Adding a place (today's form)</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  B["Tap +"] --> AU{"Allowed?"}
+  AU -->|"stale sign-in"| SI["Sign-in sheet"]
+  AU -->|"yes (or playground)"| FM["Form: city · category ·<br>search · notes · star"]
+  FM --> SR["Search OpenStreetMap<br>in the map's city"]
+  SR -->|"nothing found"| WI["Search again,<br>anywhere"]
+  SR --> PK["Pick a result"]
+  WI --> PK
+  PK --> CI{"Inside one of<br>your cities?"}
+  CI -->|"yes"| SET["City filled in"]
+  CI -->|"no"| NC["'Add this as a new city?'"]
+  SET --> SV["Add Location"]
+  NC --> SV
+</pre></div>
+      <p>Search starts in the city the map is showing and only looks further if it finds nothing. The city is filled in from where the picked place is. A place outside all your cities offers to create a new city.</p>
+    </div>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  SV["Add Location"] --> K{"Category"}
+  K -->|"a pin category"| LI["Save to places"]
+  K -->|"district or street"| OSM["Fetch the outline<br>from OpenStreetMap"]
+  OSM -->|"found"| VOTE["Work out the city<br>from the outline"]
+  VOTE -->|"clear"| SS["Save to shapes"]
+  VOTE -->|"split between cities"| ASK["'Which city?'"]
+  ASK --> SS
+  OSM -->|"no outline"| AP["Save an approximate pin<br>'(approx.)'"]
+</pre></div>
+      <p>Districts and streets go through the same form but are traced from OpenStreetMap. If there's no outline, the app saves an approximate pin instead and says so in its name.</p>
+    </div>
+  </section>
+
+  <section id="plans">
+    <h2>7 · Plans</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart LR
+  FP["Filters panel"] -->|"Places / Plans"| PV["Plans view"]
+  PV --> PL["Make, rename,<br>delete a plan"]
+  PV --> ST["Stops: add a place<br>or shape, reorder,<br>remove (with Undo)"]
+  ST --> NUM["Map shows the stops<br>as numbers in order"]
+  PV --> PLUS["+ still adds a place<br>(not a stop)"]
+</pre></div>
+      <p>Plans is a view you switch to from the filters panel. A plan is an ordered list of stops drawn on the map with numbers. <span class="unsure">Unsure:</span> the plans tables exist with no plans in them yet, so how Plans behaves with real data isn't confirmed.</p>
+    </div>
+  </section>
+
+  <section id="sync">
+    <h2>8 · Saving and syncing</h2>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+sequenceDiagram
+  participant You as Your phone
+  participant DB as Database
+  participant Her as Erica's phone
+  You->>You: star / visit shows at once
+  You->>DB: save the change
+  DB-->>You: on error, undo on screen
+  Her->>DB: checks every 10 s (60 s when idle)
+  DB-->>Her: the new mark appears
+</pre></div>
+      <p>Changes show on your screen straight away and then save. If a save fails, the screen goes back. The other phone picks up changes by checking every 10 seconds while in use, or every minute when idle.</p>
+    </div>
+  </section>
+
+  <section id="proposed" class="band">
+    <span class="tagline">Proposed · not built</span>
+    <h2>Groups vs. real cities</h2>
+    <p>Today "city" means two things at once. The proposal splits them: the <b>group</b> is how you think about the trip, and the <b>real city</b> is where the place actually is.</p>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart LR
+  PL["A place"] -->|"you choose<br>(filled in for you)"| GR["Group<br>e.g. Chicago"]
+  PL -->|"from the address"| RC["Real city<br>e.g. Oak Park"]
+  GR --> LS["The list you look at"]
+  RC --> CF["A new 'City' filter<br>inside the group"]
+</pre></div>
+      <p>A place lives in the group you put it in, even when its address is somewhere else. Its real city stays as data, for the address line and for filtering.</p>
+    </div>
+    <div class="fig">
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  G["Group: Chicago"]
+  G --> W["Wrigley Field<br>real city: Chicago"]
+  G --> F["Frank Lloyd Wright Home<br>real city: Oak Park"]
+  G --> B["Bahá'í House of Worship<br>real city: Evanston"]
+  CF["City filter in the Chicago group:<br>Chicago · Oak Park · Evanston"] -.-> G
+</pre></div>
+      <p>All three live in your Chicago group. The City filter narrows the group to one real city when you want it.</p>
+    </div>
+    <div class="fig">
+      <h3>Three ways of adding, under this model</h3>
+      <div class="scroll"><pre class="mermaid">
+flowchart TD
+  subgraph W1["'It's Chicago to me'"]
+    a1["Looking at Chicago,<br>type the name"] --> a2["Found; real city Oak Park"] --> a3["Group: Chicago<br>(filled in) → Add"]
+  end
+  subgraph W2["Paste an address first"]
+    b1["Paste the address"] --> b2["Found anywhere"] --> b3{"A group already<br>covers it?"}
+    b3 -->|"yes"| b4["That group → Add"]
+    b3 -->|"no"| b5["New group,<br>named from its city"]
+  end
+  subgraph W3["Search from a name"]
+    c1["Type a name"] --> c2["Search everywhere,<br>nearest to your group first"] --> c3["Pick → group filled in → Add"]
+  end
+</pre></div>
+      <p>In every case the group is filled in for you and you can tap it to change it. Search looks everywhere, with places near the group you're looking at listed first.</p>
+    </div>
+    <div class="q">
+      <b>a. Is this the model?</b>
+      <p>Group = how you think about the trip. Real city = where the place is. A City filter works inside a group.</p>
+    </div>
+    <div class="q">
+      <b>b. Adding a place in a different country from the group on screen</b>
+      <p>Should the app ask "Add to Reykjavík, or a new group?", or quietly use the group on screen and let you change it?</p>
+    </div>
+  </section>
+
+  <footer>Drawn from the code on main and the project notes, 15 Oct 2026. Items marked <span class="unsure">Unsure</span> weren't confirmed in the code.</footer>
+</div>
