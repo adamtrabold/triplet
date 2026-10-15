@@ -46,3 +46,6 @@ Note (orchestrator): the owner's D answers trips-at-add, not Q-D as asked (movin
 > a repeat trip to the same place should not change the pins -- if i go back to a place i may want to see all the places i noted prior / which i visited / etc
 
 Read as: no separate "Copenhagen 2028" bucket; a repeat trip tags the same city again (a city in two trips), and all its places, visited or not, show under both.
+
+2026-10-15:
+> my guess right now is that i should be able to assign a city to many trips
