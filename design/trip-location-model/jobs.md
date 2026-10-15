@@ -59,18 +59,27 @@ Every job below is read through P.
 ## Terms (one meaning each; Turn 18)
 
 - **Figure** (a "city" in the concept files): "the city I think of it
-  with", a named set of real towns in one trip.
+  with", a named group of places in one trip, made by rule 1 and the
+  fixes.
 - **Reach:** about a day trip (we think 60-80 km, unmeasured), measured
   to a figure's anchor (plumbing).
-- **Rule 1:** within reach → the nearest figure; otherwise a figure of
-  its own, even with one place.
-- **Rule 2:** one trip per continent at a time; another continent starts
-  a new trip quietly, named from its country. Concept 3 instead works
-  trips out by continent and a time gap (we think 6 months).
-- **Fixes (rule 3), after the fact, never asked first:** a town goes with
-  another figure or is its own (global: every place in that town, now
-  and later, in every trip); a figure splits off into its own trip
-  (its unvisited places); two trips merge.
+- **Rule 1:** each place by its own distance: within reach → the
+  nearest figure; otherwise a figure of its own, even with one place.
+  Only the owner's fixes override it; nothing else is remembered.
+- **Rule 2:** a place joins its city's trip. A place on a continent
+  where you have no trip starts one quietly, named from its country.
+  Concept 3 instead works trips out by continent and a time gap (we
+  think 6 months).
+- **Fixes (rule 3), after the fact, never asked first:**
+  - a town **goes with** another figure, **is its own**, or **also
+    belongs with** a second figure (each global: every place in that
+    town, now and later, in every trip);
+  - a figure **splits off** into its own trip ("places you've already
+    been stay with the old trip");
+  - two trips **merge** (concept 3: "these go together" / "these are
+    separate" instead).
+- **Known limits** are listed in each concept file, one line each; they
+  aren't rules.
 - **Base and order** (concept 2): a base is a figure with a hotel; bases
   are ordered by hotel dates, else first visit, else not at all.
   Stretches between bases are off by default (Q4).
@@ -116,7 +125,8 @@ Every job below is read through P.
     everything is visible at once** (concept 3).
     - Check (1, 2): PASS if another trip's places never mix into this
       trip's views, that trip is one step away, and a repeat or someday
-      trip on the same continent can be split off with one fix.
+      trip on the same continent can be separated by fixes, never per
+      place (one split per city it covers).
     - Check (3): PASS if all places can be seen together, with the
       trips distinct and nameable.
 11. **The map shows what the list shows.**
@@ -160,26 +170,28 @@ needs one fix fewer.
 | Case | PASS if |
 |---|---|
 | **T1 Øresund:** Saltholm, Kastrup Søbad (both in Tårnby municipality; Saltholm's we believe, not verified), with Malmö logged | All three are in the Copenhagen figure with nothing chosen. Putting Tårnby with Malmö takes **two fixes**: "Malmö is its own", then "Tårnby goes with Malmö", each moving every place in its town. (If OSM gives Saltholm no town or municipality, the second fix doesn't move it: say so.) FAIL if any step is per place |
-| **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Kastrup (Tårnby), for both Copenhagen and Malmö | Keflavík is in Reykjavík with nothing chosen. Kastrup is in Copenhagen; in Malmö too after **two fixes** (Malmö its own, then Tårnby in both). Concept 2: an airport is never a base or on a stretch |
+| **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Kastrup (Tårnby), for both Copenhagen and Malmö | Keflavík is in Reykjavík with nothing chosen. Kastrup is in Copenhagen; in Malmö too after **two fixes** ("Malmö is its own", then "Tårnby also belongs with Malmö"). Concept 2: an airport is never a base |
 | **T3 Jönköping:** about 300 km from both Stockholm and Malmö | **a figure of its own** in the trip, in any logging order, with nothing chosen |
-| **T4 Repeat and someday trips:** Copenhagen in 2028, after Scandinavia 2026; Berlin logged while planning Scandinavia | concepts 1 and 2: both join Scandinavia, and **one split fix** each separates them (the split takes unvisited places, so 2026's visits stay). Concept 3: 2028 separates by time; Berlin needs "these are separate" |
+| **T4 Repeat and someday trips:** Copenhagen in 2028, after Scandinavia 2026; Berlin logged while planning Scandinavia | concepts 1 and 2: both join Scandinavia, and **one split fix** each separates them (the split takes unvisited places, so 2026's visits stay). Concept 3: 2028 separates by time only if no 2026 place is visited in 2028; otherwise, and for Berlin, "these are separate" |
 
-Reference (today): it fails P and jobs 1-10, 12 and 13, and passes only
-11 (list and map share the same filtered set). Job 5 fails on the real
+Reference (today): it fails P, jobs 1, 2, 4-10, 12 and 13, and T1-T4,
+and passes 3 (a city filter, on the letter) and 11 (list and map share
+the same filtered set). Job 5 fails on the real
 town (nothing exposes it); job 12 fails on "All cities".
 
 ## What the model stores, and its prerequisite (checked)
 
 - **Concept 1 stores:**
   - per place: its real location, real town and trip;
-  - one global memory (which figure(s) each real town belongs to);
+  - one global memory, holding only the owner's town fixes;
   - per trip: an optional name, merges and splits.
 - **Concept 2 stores** concept 1's, plus a hotel's dates when it has
   them, and **per place, when it was first marked visited** (a new
   field). Bases and order are inferred.
 - **Concept 3 stores:**
   - per place: real location, real town, when it was logged and first
-    visited (no trip);
+    visited (no trip; so concept 3 also needs the new "first visited"
+    field);
   - one global memory;
   - "these go together" / "these are separate" rules and an optional
     trip name, keyed by member figures, so they survive the trip

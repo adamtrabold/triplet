@@ -2194,3 +2194,84 @@ NEXT: product designer (systems focus) — reword rule 2 (overview,
 concept 1, jobs.md Terms) and add the "places you've already been stay"
 line to the split fix. After the checker passes, the orchestrator sends
 the overview and the seven live questions (Q1-Q6, Q8).
+
+## Turn 21 -- product designer (systems focus): Turn 20 and check 4 applied (final pass)
+
+No rules added. Everything the check found that would have needed a new
+rule is now a one-line **Known limit**.
+
+- **Turn 20:**
+  - Rule 2 now reads "A place joins its city's trip. A place on a
+    continent where you have no trip starts one quietly." It's changed
+    in concept 1, concept 2's rule list, jobs.md Terms and the overview.
+  - The split fix now says "places you've already been stay with the
+    old trip".
+- **1. Predictability (concept 1):**
+  - Rule 1 judges each place by its own distance. The memory holds
+    **only the owner's town fixes**, so a remembered town never pulls a
+    place beyond a day trip.
+  - Worked case, the Golden Circle: Þingvellir → Reykjavík; Geysir and
+    Gullfoss → a city "Bláskógabyggð", in either order; one fix puts
+    them all under Reykjavík.
+  - Rule 3 lists all three town fixes (goes with, is its own, also
+    belongs with), "every place in that town, now and later", the split
+    line, and merge.
+  - T2 uses "also belongs with". T4 is now in the test table.
+  - The trip a place joins follows rule 2. Plumbing only covers a brand
+    new city (the nearest city's trip) and a city in two trips (the
+    most recently added-to).
+  - A city is a group of places, so contradiction 1 (global memory vs.
+    one trip) is gone: a fix applies to the named city in whichever trip
+    the place lands.
+- **2. Concept 3:**
+  - The heading is now "Trips worked out, not kept".
+  - Rule 3 is the town fixes plus "together" / "separate" (no split or
+    merge); C8 matches.
+  - "How you move: as concept 1", plus everything. That closes J2, J3,
+    J4, J8 and J11.
+  - Rule 2 says either time links.
+  - T4 is honest: 2028 separates only if no 2026 place is visited in
+    2028.
+  - The prerequisite adds the "first visited" field.
+- **3. Known limits (one line each):**
+  - **Concept 1:**
+    - a repeat trip across several cities;
+    - a plan crossing a split city (it shows in both trips);
+    - a merge dropping a custom name;
+    - adding outside the current view;
+    - the anchor rename and reach as a range.
+  - **Concept 2:**
+    - the loop trip;
+    - a hotel within reach;
+    - hotel dates pending Q4.
+    - "An airport is never on a stretch" was underivable, so it's
+      dropped. Hotel = the Hotel category, stated.
+  - **Concept 3:**
+    - chaining (including the 2026 leftover);
+    - visits re-forming trips.
+- **4. Today:**
+  - J3 PASS on the letter (the city filter and the map share
+    `visibleLocations()`; the seeded city isn't a city in your head);
+  - T4 FAIL added;
+  - C4 removed;
+  - "From" and "real city" replaced.
+  - jobs.md's reference line now reads: passes 3 and 11.
+- **jobs.md:** job 10's check is now "separated by fixes, never per
+  place (one split per city it covers)".
+- **5. Overview:**
+  - card 3 heading and text (rule 1, town fixes, together/separate, the
+    chaining cost, the first-visited record);
+  - rule 2 reworded; rule 3 is fuller;
+  - the price lines are darker (#24323f) and slightly larger (38px);
+  - the footer says "real town";
+  - re-rendered at 1170x3133 and read at phone size.
+
+**Changed ids for the checker:**
+- concept 1: rule 1/2/3, T2, T4, J10;
+- concept 2: T2 (no stretch claim);
+- concept 3: J2, J3, J4, J8, J11, C8, T4;
+- today: J3, T4, C4 (gone);
+- the overview.
+
+NEXT: fresh checker (light pass on the ids above); then the
+orchestrator sends the overview and Q1-Q6, Q8.
