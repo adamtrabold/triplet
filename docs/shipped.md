@@ -709,6 +709,10 @@ Places clusters and pins exactly as in Places, a stop is a normal pin with a
 neutral square number tag; × on the right as in Places; + grey; numbers stay
 (route mapping deferred); no heavy navy lines. Build record, tests and stills:
 `design/plans-build/`. **Not merged; the plans migration is not applied.**
+**Update 2026-10-15 (supersedes the line above):** merged to main (`42bd919`
+is on main; the Places | Plans switch is in `index.html`). The `plans` /
+`plan_stops` tables exist in the live DB (read-only check 2026-10-15); the
+date the migration was applied is not recorded.
 
 **Schema.** `supabase/migrations/20260929000000_add_plans.sql`, **not applied
 yet** (the operator applies it after review). `plans(id uuid, name text
