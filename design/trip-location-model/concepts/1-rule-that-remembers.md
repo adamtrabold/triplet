@@ -29,17 +29,60 @@ screens, wording or controls. **(We think)** marks the team's opinion.
 | per trip: the **memory** (which figure(s) each real city belongs to), the trip's optional name, and merges | "In" (its real city *is* the figure's own) vs. "From" (another real city in the figure) |
 | | the trip's name, until renamed |
 
+## Definitions
+
+- **A figure's anchor:** the centre of its *named member*, which is the
+  member real city with the most places (ties: the earliest). The figure
+  takes that member's name.
+  - So the first place in a region doesn't fix the name for good: log
+    Roskilde before Tivoli, and the figure is "Roskilde" until
+    København has more places. Then it's "Copenhagen", and Roskilde is
+    From Copenhagen.
+- **Within reach:** the new place's location is within the reach
+  distance of a figure's **anchor**, never of its other members. That
+  way figures can't snowball outward town by town.
+
 ## The rule (where a new place goes)
 
 For a new place with real city R:
-1. If R is already in the memory → its figure(s).
-2. Else, if R is **within reach** of a figure → R joins the nearest
-   figure (From).
-3. Else, if R is **inside the trip's spread** → On the way. When R has 2
-   places it becomes a figure of its own.
-4. Else, if R is in the same part of the world → R becomes a new figure,
+1. If R is already in the memory → its figure(s). (A big municipality
+   joins once: Þingvellir brings Bláskógabyggð into Reykjavík, so Geysir,
+   about 100 km out but in the same municipality, follows.)
+2. Else, if the place is **within reach** of a figure's anchor **and in
+   the same country** → R joins the nearest such figure (From).
+3. Else, if it's **within reach but across a border** → R becomes a new
+   figure at once: a neighbouring city, not a stop on the way. This is
+   **the second signal (proposed, for the director)**; see below.
+4. Else, if it's **inside the trip's spread** → On the way. When R has 2
+   places, it becomes a figure of its own.
+5. Else, if it's in the same part of the world → R becomes a new figure,
    and the trip widens.
-5. Else (**far away**) → a new trip, started without asking.
+6. Else (**far away**) → a new trip, started without asking.
+
+### Why a second signal (the Malmö problem)
+
+- Malmö is about 28 km from Copenhagen and Lund about 39 km, well inside
+  a 60-80 km reach. Distance alone would file both From Copenhagen for
+  good, and the owner's own example cities would merge.
+- **Proposed signal: the country border.** A real city in another
+  country never joins a figure by reach; it starts its own (rule 3).
+  - Malmö (Sweden) → its own figure. Lund (Sweden) → From Malmö (same
+    country, nearest). Tårnby (Denmark) → From Copenhagen.
+  - It's places-first: nothing is asked, and it comes from data each
+    place already has.
+  - **Cost:** two close cities in the *same* country that the owner
+    thinks of separately (Stockholm and Uppsala, about 65 km) still
+    merge, until the owner fixes it once ("Uppsala is its own figure",
+    one change).
+- **Alternatives considered:**
+  - **A city's size** (OSM tells a city from a town). It would also
+    split Lund and Frederiksberg off as figures, which the owner
+    probably doesn't want.
+  - **The owner fixes it once.** It's always available, and it's the
+    honest fallback for every case the border misses.
+- **If the director rejects the border,** the honest answer is "the
+  owner fixes it once": "Malmö is its own figure", one change, after
+  which Lund still has to be checked.
 
 - Reach, spread and far away are fixed app rules, never settings (the
   owner: no distance settings).
@@ -83,7 +126,7 @@ added.
 | # | Moment | Outcome | Check |
 |---|---|---|---|
 | C1 | First open, empty | No trip, no figure. Search is worldwide | PASS |
-| C2 | First place ever (Hallgrímskirkja) | A trip ("Iceland") and a figure (Reykjavík) now exist, named from the place. Nothing asked | PASS |
+| C2 | First place ever (Hallgrímskirkja) | A trip ("Iceland") and a figure (Reykjavík) now exist, named from the place. Nothing asked. **The current view becomes the new place's figure** (Reykjavík) | PASS |
 | C3 | First place in a new real city within reach (Blue Lagoon, Grindavík) | Grindavík joins the nearest figure, Reykjavík (From). No new figure | PASS |
 | C4 | Second place in a real city beyond every reach | It becomes a figure of its own (the threshold of 2). Within reach (Grindavík), it stays From however many places it has, unless corrected to "its own figure" | PASS |
 | C5 | First place outside the spread, same part of the world (Tivoli while the trip is Iceland) | A new figure, Copenhagen, in the same trip. The generated name widens ("Iceland & Denmark") | PASS |
@@ -96,16 +139,16 @@ added.
 
 | Case | Outcome | Check |
 |---|---|---|
-| T1 Øresund: Saltholm, Kastrup Søbad (Tårnby) | Tårnby joins the nearest figure, Copenhagen; both places are From Copenhagen. Moving Tårnby to Malmö is one correction that moves both | PASS |
+| T1 Øresund: Saltholm, Kastrup Søbad (Tårnby) | Tårnby (Denmark) joins the nearest same-country figure, Copenhagen; both places are From Copenhagen. Malmö is a figure of its own (rule 3, border). Moving Tårnby to Malmö is **one** correction that moves both | PASS (with the border signal; without it, the owner first makes Malmö its own figure, so two changes) |
 | T2 airport: Keflavík (Reykjanesbær) | Reykjanesbær joins Reykjavík; the airport is From Reykjavík. Nothing chosen | PASS |
-| T2 airport: Kastrup (Tårnby), for both cities | In Copenhagen by default. Adding Tårnby to Malmö too puts the airport in both | PASS |
+| T2 airport: Kastrup (Tårnby), for both cities | In Copenhagen by default. Adding Tårnby to the Malmö figure too (one change; Malmö exists by rule 3) puts the airport in both | PASS |
 | T3 Jönköping | Beyond every reach, inside the spread → On the way. A second Jönköping place makes it a figure | PASS |
 
 ## Jobs (quick read for the checker)
 
 | Job | Where |
 |---|---|
-| 1 | C2 |
+| 1 | C2: the current view becomes the new place's figure |
 | 2 | the trip view: every place, by figure, plus On the way |
 | 3 | the figure view |
 | 4 | one step either way |

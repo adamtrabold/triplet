@@ -53,6 +53,11 @@ new-city question (`maybeDetectCity()`, ~4853-4865).
 | T3 Jönköping | Filed to some city; there's no "between" | FAIL |
 
 **Jobs:**
-- **Fails:** 1-11 and 13, and P.
-- **Passes:** 12 (the current view names its city).
+- **Fails:** 1-10 and 13, and P.
+- **Passes:** 11 and 12.
+  - **11:** verified in `index.html`. The list and the map both come from
+    the same filtered set (`visibleLocations()`); the map only adds zoom
+    clustering (`mapVisibleLocations()`), and zoom never changes the
+    list.
+  - **12:** the current view names its city.
 - **14:** n/a.

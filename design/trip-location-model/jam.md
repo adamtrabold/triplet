@@ -1571,3 +1571,95 @@ files.
 NEXT: fresh checker — re-run the changed ids against the stripped
 concept files and the jobs.md of Turn 11; then the director checks the
 overview for the send.
+
+## Turn 14 -- product designer (systems focus): after check 2 (Malmö, concept 2's rule, the gaps)
+
+`jobs-check-2.md` read in full. Model only.
+
+**1. Malmö: distance alone can't do it.**
+- Malmö is about 28 km from Copenhagen, Lund about 39 km. Any day-trip
+  reach merges them.
+- **Proposed second signal: the country border.**
+  - Within reach and the same country → join (From).
+  - Within reach but across a border → a new figure at once.
+  - So Malmö is a figure, Lund is From Malmö, and Tårnby is From
+    Copenhagen.
+  - It's places-first (from data each place has) and needs no question.
+  - **Cost:** close same-country cities the owner thinks of apart
+    (Stockholm and Uppsala) merge until the owner fixes it once.
+- **Considered:** a city's size (it splits Lund and Frederiksberg off
+  too), and "the owner fixes it once" (always available).
+- **If the director rejects the border, the honest answer is the
+  owner's one fix,** and T1 then takes two changes (make Malmö a figure,
+  then move Tårnby). jobs.md's T1 now says Malmö must already be a
+  figure, and the fix counts as one change.
+
+**2. Concept 2, made coherent and kept close to "the same, plus stays":**
+- **Only bases are ordered.** No stay means concept 1 exactly, whatever
+  has been visited.
+- **Per base, never all-or-nothing:** its stays' earliest date, else its
+  first visit, else no position. A new base never moves the others.
+- **With an order:**
+  - non-base figures sit after the nearest ordered base;
+  - a no-figure place sits on the leg whose line (anchor to anchor) is
+    nearest, within the spread;
+  - a no-figure place on no leg (one ordered base, or beyond the ends)
+    stays On the way.
+- **Views are unchanged:** a leg is a group inside the trip view, not a
+  view.
+- **Simpler option, said plainly:** drop legs, so bases are ordered and
+  in-between places stay On the way. (We think legs are only worth it
+  if the owner answers Q4 with dates.)
+
+**3. One-liners:**
+- concepts 1 and 2, C2 / job 1: the current view becomes the new place's
+  figure;
+- concept 3: narrowing by real city (6), a figure's plans (8), a place
+  exposing both truths (13).
+
+**4. Gaps:**
+- **Reach is measured from a figure's anchor:** the centre of its named
+  member, which is the member real city with the most places. That
+  stops snowballing.
+- **The name follows the most places:** Roskilde-first becomes
+  Copenhagen once København has more places.
+- **A big municipality joins once through the memory** (Þingvellir
+  brings Bláskógabyggð, so Geysir follows).
+- **A concept-3 custom name survives growth.** It's keyed to its figures
+  at naming; on a split, the bigger part keeps it; on a join, the bigger
+  cluster's name wins. The generated name never overrides it.
+
+**5. UI stripped:**
+- concept 2's date-entry wording and the "plan defaults to a day" line;
+- in jobs.md, every UI string (the map / list / + / empty copy / tag
+  text / ◆ / pencil / NAME line / "beside");
+- every check is now a model outcome: Terms (anchor, border, base /
+  order / leg), job 9/14/T3 for the per-base order, job 12 (legs aren't
+  views; a figure narrowed by real city is still the figure);
+- "My read", "The director rules:" and the stale NEXT are gone, and the
+  Dates section records Turn 12's ruling.
+
+**6. Today's reference, job 11:** verified in `index.html`. The list and
+the map both come from `visibleLocations()` (the same filters); the map
+only adds zoom clustering (`mapVisibleLocations()`). **PASS.** Today
+now fails P and jobs 1-10 and 13, and passes 11 and 12.
+
+**7. Overview:**
+- card 1 now says how a trip forms (by itself with the first place,
+  named from countries; a far-away place quietly starts another;
+  rename and merge optional), with the border rule (pending), On the
+  way, the threshold, and "farther out starts a new city";
+- card 2 is the per-base order;
+- re-rendered (1170x3277), and checked.
+
+**Director to rule:**
+1. The border as the second signal (or "the owner fixes it once").
+2. Concept 2 with legs, or the simpler no-legs version.
+3. The anchor and naming rule (most places).
+4. Concept 3's name-survival rule.
+
+**Changed ids for the checker:** 1, 2, 7, 9, 11 (reference), 12, 13, 14,
+C1, C2, C5, C6, C7, C8, C9, T1, T2, T3, plus concept 3's 6 and 8.
+
+NEXT: design director — rule items 1-4; then the checker re-runs the
+changed ids.

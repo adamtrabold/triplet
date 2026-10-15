@@ -1,7 +1,7 @@
 # Concept 3: no trip container
 
-Model only. Figures, the memory, its corrections and On the way work as
-concept 1. **What's different: a trip is not an object.** **(We think)**
+Model only. Figures, the memory, its corrections, On the way, and
+concept 1's definitions and border signal all work as concept 1. **What's different: a trip is not an object.** **(We think)**
 marks the team's opinion.
 
 ## What exists
@@ -24,6 +24,16 @@ marks the team's opinion.
 | **cluster rules:** "these go together" and "these are separate", each keyed by the clusters' member figures (clusters re-form, so they can't be keyed by an id) | a cluster's generated name |
 | an optional cluster name, keyed the same way | |
 
+**A custom name survives the cluster changing.** It's attached to the
+figures present when it was given.
+- If the cluster grows, the name stays, and the generated name never
+  overrides it.
+- If the cluster splits, the part with the most of those figures keeps
+  the name.
+- If two named clusters join, the one with more places keeps its name.
+- A "these go together" / "these are separate" rule is keyed the same
+  way, so it survives growth too.
+
 **(We think)** "far away" is another continent; unmeasured.
 
 ## What can be corrected, and when
@@ -41,6 +51,10 @@ marks the team's opinion.
 - Each level is one step up or down.
 - Nothing is ever hidden: other clusters are one level up (job 10's
   concept-3 check).
+- Places can be narrowed by real city, separately from figures (job 6).
+- A figure's view includes the plans with any stop in it (job 8).
+- A place exposes both its figure and its real city, after it's added
+  (job 13).
 - Constraint (job 11): the map shows exactly the view's set.
 
 ## P: places-first
@@ -57,7 +71,7 @@ nothing structural is asked at add.
 | C3 | New real city within reach | As concept 1 (From the nearest figure) | PASS |
 | C4 | Second place beyond every reach | As concept 1 | PASS |
 | C5 | Outside the spread, same part of the world | A new figure in the same cluster; the cluster's name widens | PASS |
-| C6 | A far-away place | A new cluster exists, named from its country, visible next to the others. Nothing asked. "These go together" corrects it, after the fact or any time | PASS |
+| C6 | A far-away place | A new cluster exists, named from its country. Nothing asked. "These go together" corrects it, any time after | PASS |
 | C7 | A hotel | n/a (no stays layer) | n/a |
 | C8 | Correcting groupings later | "These go together" / "these are separate"; never per place | PASS |
 | C9 | Naming | A cluster can be named any time; optional | PASS |
