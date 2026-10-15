@@ -115,3 +115,8 @@ Scope: handoff/build = the badge button only (opens today's add form). Then the 
 > How does it decide what city to search first? I don’t know if search everywhere makes sense unless it’s not finding what you’re looking for. The systems designer should have caught that. Also why is Reykjavik underlined?
 
 Feedback: "Search everywhere" as an always-present row questioned (only makes sense when it isn't finding what you want). The underline on the city (the tap cue) isn't reading as intended.
+
+2026-10-15, on X1 (which badge to build):
+> Re which badge to build idk need to see them in context — the line weight looks k consistent
+
+Needs both badges (stand-in vs round 6/7 build) in context before choosing. "k consistent" most likely "inconsistent" (the + stroke weight vs the account icon's line weight) — unconfirmed.
