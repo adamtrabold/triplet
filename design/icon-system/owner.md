@@ -74,3 +74,5 @@ Orchestrator's note: record his words; don't turn his examples into lists, rules
 - Street row (comment): "walker is the best here"
 - Hotel row (comment): "bed is the best here"
 - Other row (comment): "i like the asterisk" (read as: keep Other in the add form; told him so in the thread)
+- Attraction (comment): "the comments always sit closest to the one i mean unless it's a "niether of these work" comment. i will say camera says "sight" more than attraction. i wonder if the nordic loop works the best here."
+  Read: restaurant = A (fork and knife), nature = A (conifer). Attraction reopened: explore the Nordic sights loop (⌘), dropped earlier as a Mac-key/outline risk.
