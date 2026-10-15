@@ -1,5 +1,61 @@
 # Notes: product designer (visual focus)
 
+## Where things stand (after jam turn 19): the v6 cards
+
+**Director round 3 (turn 18, scores.md):**
+- Scores: Rules 8, Specimen 8, Roundel 5 (dropped).
+- **Constructed** is the new concept 2: Spot Pictogram led, built the way
+  Aicher drew the Munich '72 pictograms, on a 2px grid.
+- Specimen is now Cut Paper + Field Guide, with each cut made visible.
+- Kill test: Specimen and Constructed must differ in how they're drawn,
+  in the 24px strip and in a row.
+
+**Built (turn 19), in `../concepts/sketches/`:**
+- `v6-card-rules.png`
+- `v6-card-0-today.png`
+- `v6-card-1-specimen.png`
+- `v6-card-2-constructed.png`
+- `v6-card-3-side-by-side.png`
+- `v6-card-4-dropped.png`
+
+**Source:** `attitudes-v6.html`. To re-render:
+
+```
+NODE_PATH=/opt/node22/lib/node_modules node cards7.js <html> <outdir>
+```
+
+The render script was in the scratchpad. It's the same as cards6, but
+names the cards `['rules','0-today','1-specimen','2-constructed',
+'3-side-by-side','4-dropped']` with the prefix `v6-card-`. The v5 cards and
+`attitudes-v5.html` stay as the record.
+
+**New in the code:**
+- `CO`: Constructed glyphs, integer rects/paths on a 24 grid.
+  - `R_(x,y,w,h)` draws a rect.
+  - `COFF` holds a centring offset per glyph, measured in `fitAll()` and
+    snapped to 0.5.
+  - `mark(set 'CO')` draws 1:1 at 24px and 1.25× in the 32px pin.
+  - `bare('CO')` draws at 1.45× for 12px chips.
+- `pairs()` draws the Today → Specimen strip.
+- `gridFrame()` draws three glyphs over the 2px grid.
+- The Roundel `RO` set is kept (the dropped card uses it).
+- Specimen changes in `SP`:
+  - bar + olive
+  - bag with a pinked top
+  - area as a folded map
+  - hotel + a blanket line
+  - flag with a swallowtail
+
+**Kill-test read (mine):**
+- Strip: about 8 of 11 are clearly different drawings. Cup, bed and map
+  are siblings.
+- Row: visible side by side, subtle alone.
+- Ink: Specimen 28%, Constructed 29%. Size and mass aren't the
+  difference.
+- I said plainly that the difference is finish and method, not identity.
+
+**Next:** systems coverage on v6, then the director scores.
+
 ## Update (after jam turn 17): the coverage fixes are applied
 
 Systems' coverage run (turn 16, `../coverage.md`) found three blockers, and

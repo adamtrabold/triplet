@@ -2261,3 +2261,146 @@ NEXT: product designer (visual focus) — Specimen fixes 1–6, rules edits
 7–8, a new Constructed card (with a grid frame), side by side rebuilt
 (Today / Specimen / Constructed), Roundel added to the dropped card; then
 systems coverage; then I score in one pass.
+
+## Turn 19: product designer (visual focus), v6 cards: Specimen cut, Constructed built
+
+Built per turn 18 and scores.md (round 3). The new set is `v6-card-*.png`
+in `concepts/sketches/`, 390 wide at 3x:
+
+| Card | File |
+|---|---|
+| Rules | `v6-card-rules.png` |
+| 0 Today | `v6-card-0-today.png` |
+| 1 Specimen | `v6-card-1-specimen.png` |
+| 2 Constructed | `v6-card-2-constructed.png` |
+| 3 Side by side | `v6-card-3-side-by-side.png` |
+| 4 Dropped | `v6-card-4-dropped.png` |
+
+The source is `concepts/sketches/attitudes-v6.html`. The v5 files stay as
+the record of round 3's first build.
+
+### Specimen fixes 1–6
+
+1. **A visible cut or a real cream detail on each of the 11.** The card
+   says plainly which ones keep Today's shape (restaurant, café, tree).
+   The other eight are new:
+   - Cut Paper (a cut you can see at 24px):
+     - the bag's pinked top (5 teeth)
+     - the flag's snipped swallowtail
+     - the map's folds (area)
+   - Field Guide (a cream detail the thing really has):
+     - the olive in the glass
+     - the columns of the temple
+     - the blanket's edge on the bed
+     - the district's streets
+     - the road's centre line
+2. **A Today → Specimen pair strip,** 11 pairs at 24px, right under the
+   strip.
+3. **"Made from" now names Cut Paper and Field Guide only,** each with the
+   frames that back it. Spot Pictogram has moved to Constructed.
+4. **Area is a folded map,** three panels with fold gaps. It reads as
+   "a piece of map". The hatched square is gone. Constructed draws the
+   same idea in its own way.
+5. **"Costs" is rewritten against Constructed:** drawn by eye, not on a
+   grid, so balance takes judgement; softer and less exact.
+6. **Bar and flag:**
+   - The flag gained mass with the swallowtail (28%, from 20%).
+   - The bar is still the lightest (19%). The olive knocks some ink out
+     of it. I left the bar for phase 2.
+
+### Rules edits 7–8
+
+- The Roundel note is gone from the open-pin row.
+- "Filter chips show the icon on its own" now covers both concepts.
+- Nothing else changed.
+
+### Constructed (new card 2)
+
+Spot Pictogram, built the way Aicher drew the Munich 1972 pictograms.
+Every place is drawn 1:1 at 24px on a 2px grid: bars 2, 4 or 6px wide,
+circles, and cuts at 0°, 45° or 90°, lightly rounded by the same `#soft`
+filter as the check. Cream appears only as gaps the grid leaves (the
+fork's tines, the road's dashes, the district's streets).
+
+How each place is built:
+
+| Place | Parts |
+|---|---|
+| Fork and knife | Two 2px tines, a 45°-cut blade |
+| Cup | A rounded body, a squared handle, a 2px saucer bar |
+| Bar | A 45° triangle bowl, a 2px stem, a 2px foot |
+| Temple | A 45° pediment, three 2px columns, a 2px base |
+| Tree | Three 45° tiers |
+| Bag | A slightly tapered body, a squared handle |
+| Area | A folded map from three 45° panels |
+| Bed | Headboard, mattress and post bars, a circle head |
+| Flag | A pole, and a flag with a 45° notch |
+| District | A block cut by one straight street and one 45° street |
+| Street | A 6px road turning at 45°, with 2px cream dashes |
+
+The card has the same frames as Specimen's, plus a grid frame: the café,
+the bar and the tree at 104px over the 2px grid, with one sentence
+explaining it.
+
+Measured ink cover: Constructed averages 29% (20–41%), Specimen 28%
+(18–35%). So mass isn't the difference.
+
+Misreads I caught and fixed before rendering:
+- The bag with a round handle was a padlock. It now has a squared handle
+  and a tapered body.
+- The plain triangle flag was a play button. It now has a notch.
+- The perspective road was a traffic cone. It's now a road turning at 45°.
+- The 2×2 district was an app-launcher grid. It's now one block cut by
+  two streets.
+- Three upright bars for area were a bar chart. They're now panels
+  zig-zagging at 45°.
+
+### Side by side and dropped
+
+- **Side by side** is Today / Specimen: cut / Constructed: built, each with
+  the same strip, two rows, the tag strip and the busy map at the same
+  height.
+- **Dropped** adds Roundel, with its 11 at 24px and the director's line
+  word for word.
+
+### The kill test, honestly
+
+**In the 24px strip: they differ in how they're drawn.**
+- Specimen is curves, a flared lip, tiered scallops, a pinked edge and a
+  free-drawn road.
+- Constructed is straight bars, 45° triangles, square handles and a
+  6px road.
+- At a glance, about 8 of 11 are clearly different drawings: fork and
+  knife, bar, temple, tree, bag, flag, district and street.
+- The other three are siblings. The cup, the bed and the folded map share
+  the same idea and differ only in finish.
+
+**In a row: visible side by side, subtle alone.**
+- The café row is a curved cup on a lens saucer vs a square cup on a bar
+  saucer. You see it on the side-by-side card.
+- In one row on its own you'd notice "rounder" vs "squarer", not a
+  different system.
+
+**On the map:** same mass, same pin. Constructed reads a little crisper.
+
+So the test passes in the strip and passes only weakly in the row. The
+real difference is finish and method (cut vs built), not identity, because
+both obey the same law, the same circle and the same weight. That's
+honest, and probably right: they are two ways of drawing one system. If
+the director needs them apart *in the row at a glance*, I don't think any
+drawing-only difference will do that without breaking the shared rules.
+I'd say that to the owner in one line rather than force it.
+
+### Open questions
+
+1. Is "visible in the strip, subtle in the row" enough for the kill test?
+   (Director.)
+2. Should the 3 sibling glyphs (cup, bed, map) be pushed further apart in
+   Constructed (for example a cup that's one 2px ring plus a bar), or is
+   that phase 2?
+3. Constructed's selected pin draws the glyph at 1.25× (32px pin). That
+   breaks "1 grid unit = 2px" in that one place. Alternatively keep it
+   1:1 with more paper. (Phase 2.)
+
+NEXT: product designer (systems focus) — coverage run on the six v6 cards
+against jobs 1–13, then the director scores in one pass.
