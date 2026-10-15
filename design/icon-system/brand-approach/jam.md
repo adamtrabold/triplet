@@ -2518,3 +2518,16 @@ All six `v6-card-*.png` are re-rendered from `attitudes-v6.html`.
 
 NEXT: design director — check cards 1–3 and hand the send list to the
 coordinator.
+
+
+---
+
+## Turn 24: design director, fix-pass check
+
+Constructed is 9; Specimen and the side by side hold. READY after two
+text-only edits (Specimen's "Café and tree keep Today's shape; the other
+nine are new"; Constructed's costs "(the temple, the folded map)"). The
+send list and the owner questions are in `scores.md` round 3c.
+
+NEXT: coordinator — have the two copy edits made and re-rendered, confirm
+the words, then send the six v6 cards and the two questions to the owner.

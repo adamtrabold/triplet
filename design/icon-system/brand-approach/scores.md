@@ -645,3 +645,51 @@ The owner questions, word for word (only these two):
 2. "OK to move to phase 2 with that and the rules card? That's research,
    one shared grid, every icon redrawn as SVG, the + and the account set to
    the project weight, and a recommendation on the drawing tool."
+
+
+---
+
+## Round 3c: fix-pass check (cards 1–3), 2026-10-15: READY after two copy edits
+
+I checked the re-rendered `v6-card-1-specimen.png` (the top: copy and
+strip), `v6-card-2-constructed.png` (the top: copy, 24px strip, the new
+Today → Constructed pairs, the grid) and `v6-card-3-side-by-side.png` (the
+title line, the Today strip, rows and tag). This is a look, not a
+re-score of the other cards.
+
+- **Constructed: 9** (from 8). Fixes 2, 3 and 5 landed:
+  - The restaurant now reads as a fork and knife, not a dumbbell.
+  - The pair strip makes "what changed" as easy to see as on Specimen's
+    card.
+  - The district reads as city blocks, not a letter.
+  - The half-unit tine cut is phase-2 grid business, not a card matter.
+- **Side by side:** the line is word for word. Kill test passed.
+- **Specimen: 9** holds. "Closest to what you know" is gone.
+
+**Two copy edits before sending.** Text only, no re-check needed (the
+coordinator confirms the words). Each one is a card line the pixels
+contradict, which is the thing I said I'd check every round:
+1. **Specimen "What it is":** "Restaurant, café and tree keep Today's
+   shape; the other eight are new." Its restaurant gains a knife (Today's
+   is a fork alone), so make it "Café and tree keep Today's shape; the
+   other nine are new." (`attitudes-v6.html` line 557.)
+2. **Constructed "Costs":** "some places (the bed, the temple) get
+   abstract". The bed keeps Today's shape (its own "What it is" says so),
+   so make it "some places (the temple, the folded map) get abstract".
+   (Line 558.)
+
+### Send list (stands)
+
+As phone-width images, in this order. No canvas.
+1. `v6-card-rules.png`
+2. `v6-card-0-today.png`
+3. `v6-card-1-specimen.png`
+4. `v6-card-2-constructed.png`
+5. `v6-card-3-side-by-side.png`
+6. `v6-card-4-dropped.png`
+
+The owner questions, word for word (only these two):
+1. "Specimen or Constructed (or a mix)?"
+2. "OK to move to phase 2 with that and the rules card? That's research,
+   one shared grid, every icon redrawn as SVG, the + and the account set to
+   the project weight, and a recommendation on the drawing tool."

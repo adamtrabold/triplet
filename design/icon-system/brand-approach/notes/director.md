@@ -409,3 +409,25 @@ Rules, 0 Today, 1 Specimen, 2 Constructed, 3 Side by side, 4 Dropped
 Difference comes from the drawing method, split along the owner's own
 words, never from framing or size. Card copy must say exactly what changed
 and where to look.
+
+
+---
+
+## Round 3c check (cards 1–3), 2026-10-15: READY after two copy edits
+
+Constructed 9 (from 8): the restaurant reads as cutlery, the pair strip is
+in, and the district reads as blocks. Specimen holds at 9, and the side
+by side passes. Everything on the send list is at 9 or more.
+
+Two text-only edits before the send (the coordinator confirms them, no
+re-check):
+1. Specimen: "Café and tree keep Today's shape; the other nine are new"
+   (its restaurant gained a knife).
+2. Constructed costs: "(the temple, the folded map) get abstract" (the bed
+   keeps Today's shape).
+
+The send list and the two owner questions are in scores.md (round 3c).
+
+Phase 1 is done once he answers. Phase-2 handoff items are listed above
+(round 3b notes). When he picks: check that handoff.md matches his words,
+and a mix needs one rule saying which places are cut and which are built.
