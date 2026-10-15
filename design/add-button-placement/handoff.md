@@ -184,13 +184,31 @@ next to round 7's render, which it matches, and next to the account badge.
 **Read this first: the stand-in.** The frames the owner saw last (round
 10's `E-float/F1`-`F7` and round 11's `C-tag-r11/T3way-*`) drew a
 **stand-in**: the account's own 14-lobe edge, flat orange and a 30px +.
-**Build the round 6/7 badge**: the finer edge, the paper texture and a
-26.4px +, which is what's specified below. The owner said in round 6 that
-he liked the finer edge, and it was never retired. The difference is small
-at real size (X1, top row).
-- Open question for the owner, optional: if he prefers the stand-in's
-  larger + and plainer edge, swap three values (the mask, `background-image:
-  none`, and an svg size of 30). Nothing else changes.
+**Which badge is OPEN, pending the owner.** The values below describe the
+round 6/7 badge (the finer edge, the paper texture, a 26.4px +). That is the
+team's opinion of the better fit, not an owner pick. owner.md records only
+"orange and bigger" for round 6, nothing on the edge. The owner, on choosing:
+"idk need to see them in context — the line weight looks inconsistent"
+(confirmed "Inconsistent"). The comparison is
+`concepts/E-float/X2-in-context-3x.png`, three panels:
+- the stand-in;
+- the round 6/7 build;
+- the build with its + stroke matched to the account icon (2.00px).
+
+Measured on-screen strokes:
+- the account icon is 2.00px, and so are the list rows' category icons;
+- the list toolbar icons are 1.50px;
+- today's + is 2.29px;
+- the stand-in + is 3.75px;
+- the build + is 3.30px.
+
+**The builder waits for the owner's pick.** The swaps between the panels
+are:
+- **stand-in:** the account's 14-lobe mask, `background-image: none`, svg
+  30 with stroke 3;
+- **matched:** svg 26.4 with `stroke-width` 1.82 (2.00px on screen).
+
+Nothing else changes.
 
 ### The badge (rest)
 
@@ -333,9 +351,11 @@ to `width/height 26.4` and `stroke-width 3`.
 - **The finer edge:** with a third axis changed, it's the same badge
   family, but a different cut. That means it isn't the account's twin (the
   objection) and doesn't leave the brand either. 10 deep lobes read as a
-  flower or a gear and were rejected. The owner liked the orange, bigger,
-  finer badge in round 6, and his approval reason, "the circle relates to
-  the icon… it's the pin", is the round shape itself, which this keeps.
+  flower or a gear and were rejected. In our opinion (not the owner's
+  words) the finer cut helps; the owner's own words in round 6 were
+  "orange and bigger". His approval reason, "the circle relates to the
+  icon… it's the pin", concerns the round shape, which all three
+  candidates keep.
 - **Paper tooth on the orange:** every flood of brand orange in the app is
   printed stock (the tag's band). A flat CSS orange would be the one
   digital-looking object on the map.

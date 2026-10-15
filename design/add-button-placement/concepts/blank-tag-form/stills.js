@@ -259,12 +259,13 @@ const FINE60 = '30.00,4.68 30.66,4.88 31.29,5.42 31.88,6.09 32.45,6.65 33.04,6.9
 const nativeBadge = (p, st) => p.evaluate(([pts, st]) => { const m = `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><polygon fill='white' points='${pts}'/></svg>`)}")`;
   let f = document.getElementById('fb'); if (!f) { f = document.createElement('div'); f.id = 'fb'; document.body.appendChild(f); }
   const bg = st === 'open' ? 'background:var(--navy)' : st === 'openpress' ? 'background:var(--state-on-press)' : `background-color:${st === 'press' ? 'var(--brand-orange-deep)' : 'var(--brand-orange)'};background-image:var(--tex-flood);background-size:160px 160px;background-position:-23px -71px`;
+  const sw = st === 'rest2' ? (2 * 24 / 26.4).toFixed(3) : 3; if (st === 'rest2') st = 'rest';
   const ink = st === 'rest' ? 'var(--navy)' : 'var(--paper)', open = st === 'open' || st === 'openpress';
   f.style.cssText = `position:fixed;z-index:1500;left:15.2px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;${bg};-webkit-mask-image:${m};-webkit-mask-size:100% 100%;mask-image:${m};mask-size:100% 100%`;
-  f.innerHTML = `<svg width="26.4" height="26.4" viewBox="0 0 24 24" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round">${open ? '<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>' : '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>'}</svg>`;
+  f.innerHTML = `<svg width="26.4" height="26.4" viewBox="0 0 24 24" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round">${open ? '<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>' : '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>'}</svg>`;
   const S = document.getElementById('locations').getBoundingClientRect().top; f.style.top = (S - 15.2 - 60) + 'px';
 }, [FINE60, st]);
-for (const st of ['rest', 'press', 'open', 'openpress']) both(`x1-native-${st}`, { k: 'F', zoom: true, centre: CREST, run: p => nativeBadge(p, st) });
+for (const st of ['rest', 'rest2', 'press', 'open', 'openpress']) both(`x1-native-${st}`, { k: 'F', zoom: true, centre: CREST, run: p => nativeBadge(p, st) });
 
 (async () => {
   const b = await L.launch(); const meas = {}; fs.mkdirSync(path.join(C, 'raw'), { recursive: true });

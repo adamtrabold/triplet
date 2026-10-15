@@ -10,6 +10,39 @@
 > - **City cue:** a 1px underline under the city word; your hit band stands. The city list is 40px rows from 122 in the tag.
 > - **The Float hides while adding** (frames `f10-*`, gap 88). **C's gap is 86** (frames `c10-*`). The credit prefix rule is 380.
 
+> **Round 12 (systems, 2026-10-15): search scope, and the city. Replaces round 10's always-present "Search everywhere" row and round 10b's tappable city.**
+>
+> Owner: "How does it decide what city to search first? I don't know if search everywhere makes sense unless it's not finding what you're looking for. The systems designer should have caught that. Also why is Reykjavik underlined?" He's right: an always-present row is UI for a case that's rare, and I should have caught it.
+>
+> **How scope is decided today (and it stays that way for the first search):**
+> - `detectCityContext()` takes the **city the map is showing**: the nearest of your cities within 75 km of the map's centre.
+> - The search is limited to that city's **country** (`countrycodes`, a hard filter), with the city's area as a soft ranking hint.
+> - If the map shows none of your cities, it searches the visible area.
+> - That's right most of the time: you're usually looking where you're adding.
+>
+> **The three ways it can miss, and what happens (no new controls):**
+>
+> | Case | Example | What happens |
+> |---|---|---|
+> | (a) Nothing matches in this country | viewing Reykjavík, typing "Torvehallerne" | **As today:** it widens automatically and shows what it finds elsewhere. New: the results area prints one line, "Nothing in Iceland, so showing results everywhere" (print, not a control). |
+> | (b) Matches here, but you want one in another of **your** cities | viewing Reykjavík, typing "Tivoli" (wanting Copenhagen) | **New: a second search runs on its own** about 1 s after the first, if the text hasn't changed. It's limited to the **countries of your other cities** (one Nominatim call; `countrycodes` takes a list: dk, se, us). Its best 3 hits print **below** the local results under a printed divider, "In your other cities". Each row already shows its address and city, so "Tivoli · Copenhagen" is right there. Nothing to tap to make it happen. |
+> | (c) The place is only somewhere outside your trip | typing "Time Out Market" (Lisbon) | (a) and (b) both find nothing in your countries, so it widens worldwide, as today's widening does. On the pick, the **New city?** question (answers in the stub) files it. |
+>
+> - **Typing the city with the name also works** ("Tivoli Copenhagen"): it matches nothing in Iceland, so (a) widens and finds it. Nobody needs to know that; it's just consistent.
+> - **The "Search everywhere" row goes** (round 10's R10-F1 left panel; jobs.md job 5 updated).
+> - **Cost:** at most 2 searches per pause in typing. That's within Nominatim's 1-per-second rule (`NOMINATIM_SPACING_MS` already spaces calls, and the existing stale check drops a second search when the text has changed). It's untestable in the sandbox (Nominatim is blocked), so it's an iPhone/browser check.
+> - **Order is the signal:** your current city's matches first, your other cities' after the divider. With no matches here, the divider line says so (case a).
+>
+> **The city: it doesn't need to be tappable, so there's no underline.**
+> - The city isn't a nearest-guess: `matchCity()` files a point by **which of your cities' areas contains it**, and uses the nearest centre only when two areas overlap.
+> - So it can only be wrong in two cases:
+>   1. **The point falls in two cities' areas** (Copenhagen and Malmö across the Øresund are the real case). **New rule:** on the pick, the tag asks **"Which city?"**, with the two cities as the stub's two answers: the same question and pattern as a district straddling two cities. That's the one moment a choice is real.
+>   2. **The point is outside all your cities:** "New city?", as today.
+> - Otherwise the city is plain pencil after the address. No underline, no tap target.
+> - That **reverses round 10b's "the city word is tappable"**: I'd argued for a fix-it path, but the only real failure is the overlap, and asking then is better than a hidden control.
+> - The look (dropping the underline) is visual's; the rule is "not a control".
+> - Deliberately filing a place under a different city (say, a day trip you want under Reykjavík) is the trips-vs-cities work or a future edit, not this form.
+
 > **Round 10b (systems, 2026-10-14): visual's round 10 reconciled with mine, plus how the wash → pinned change behaves.** Visual's frames are `r10-*` in `raw/measure.json`; the look is in `looks-and-feels.md` "Round 10".
 >
 > **Reconciled:**

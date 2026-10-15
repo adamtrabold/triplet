@@ -612,3 +612,9 @@ result count at 664 with keyboard, and the docked-tag heights.
 - `handoff.md` "How it works" written: the structure (`#floatingAddBtn` moves bottom-left, ink 19.9/19.9, rides the sheet, 60px drawn not scaled; the account goes to right: var(--s4)); positions; states (pressed, open navy/paper ×, tag open → gap 88 (320 1 row), filters under, sort closes, playground, stale, Plans, keyboard); interactions = R7 ride + form line A with TODAY's form (#controls absolute on the band, sticky Add, Add from the rendered box); credit prefix <338; pinPopupTopPad remove; TAG_SHEET_GAP derived 88; planChrome keep; iPhone checks.
 - Jobs 1-6 check: all supported. Job 3 partly (owner accepted: "the circle relates to the icon"); job 5 OK via today's City-first form. Costs: filters +1 tap; 320 1 row with a tag open.
 - Desktop ride unmeasured (builder verifies).
+
+## Round 12 (2026-10-15): the search scope, rethought (the owner caught my always-present "Search everywhere")
+- Scope stays the map's city → its country (hard) + area (soft). Misses: (a) zero → auto-widen (as today) + one printed line; (b) local matches but wanted elsewhere → an automatic 2nd search about 1s later over your other cities' countries (countrycodes list), top 3 under a printed "In your other cities"; (c) only outside the trip → (a)+(b) empty → worldwide, then "New city?".
+- No row, no control. ≤ 2 Nominatim calls per pause (spacing + stale check exist).
+- City: matchCity() is containment by city areas, not a guess → not a control, no underline. New: ask "Which city?" in the stub only when the point is in two cities' areas (Copenhagen/Malmö). Reverses round 10b's tappable city.
+- jobs.md job 5 and the C flow step 3 updated.
