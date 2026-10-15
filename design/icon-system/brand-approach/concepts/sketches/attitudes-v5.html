@@ -417,13 +417,13 @@ let clipN=0;
 // mark(set, cat, size, o): set 'T' | 'SP' | 'RO'. o.sel: 'pin' | 'row'. Rim always W px (today: 2px too).
 const mark=(set,c,size,o={})=>{const ink=INK[c],sel=o.sel;const rimU=u(W,size);
  const fg=sel?'var(--paper)':ink, field=sel==='pin'?ink:sel==='row'?'var(--navy)':'var(--paper)', rimCol=sel==='pin'?ink:sel==='row'?'var(--paper)':ink;
- const diamond=set==='T'&&(c==='district'||c==='street');
+ const diamond=(set==='T'&&(c==='district'||c==='street'))||o.shell==='diamond';
  const id='k'+(clipN++);let rim,inner;
  if(diamond){const r=12-rimU/2;rim=`<path d="M12 ${12-r}L${12+r} 12 12 ${12+r} ${12-r} 12Z" fill="${field}" stroke="${rimCol}" stroke-width="${rimU}" stroke-linejoin="round"/>`;}
  else rim=`<circle cx="12" cy="12" r="${12-rimU/2}" fill="${field}" stroke="${rimCol}" stroke-width="${rimU}"/>`;
  const innerR=12-rimU;
  if(set==='T'){const g=diamond?.6:(size>=30?23/32:.75);inner=`<g transform="translate(${12-12*g} ${12-12*g}) scale(${g})">${G.T[c]}</g>`;}
- else if(set==='SP'){inner=spG(c,innerR-u(1.0,size));}
+ else if(set==='SP'){inner=spG(c,diamond?innerR/1.414-u(.4,size):innerR-u(1.0,size));}
  else {const cr=innerR-u(.9,size),k=cr/RCLIP;inner=`<defs><clipPath id="${id}"><circle cx="12" cy="12" r="${cr.toFixed(3)}"/></clipPath></defs><g clip-path="url(#${id})"><g transform="translate(12 12) scale(${k.toFixed(4)}) translate(-12 -12)">${SOFT(RO[c])}</g></g>`;}
  return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none;overflow:visible${sel==='pin'?';filter:drop-shadow(0 1px 2px rgba(0,0,0,.28))':''}">${rim}<g style="color:${fg};--ko:${sel?(sel==='row'?'var(--navy)':ink):'var(--paper)'}">${inner}</g></svg>`;};
 const bare=(set,c,size,col)=>{col=col||INK[c];const inner=set==='T'?G.T[c]:spG(c,11.4);return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none;color:${col};--ko:var(--raised)">${inner}</svg>`;};
@@ -434,7 +434,7 @@ const tool=(set,k,size,col)=>set==='T'?(k==='account'?TT.account(size,col):TT[k]
 const strip24=(set,copy)=>`<div class="strip${copy?' copy':''}" style="gap:8px">${CAT.map(c=>mark(set,c,24)).join('')}</div>`;
 const stripSmall=(set)=>set==='RO'?`<div class="strip" style="gap:9px">${CAT.map(c=>mark('RO',c,16)).join('')}</div>`:`<div class="strip" style="gap:13px">${CAT.map(c=>bare(set,c,12)).join('')}</div>`;
 const stamp=(sel)=>`<img class="stamp" src="ref-row-stamp${sel?'-selected':''}.png" alt="">`;
-const rX=(set,col)=>set==='T'?`<span style="color:${col};font-size:17px;line-height:1;width:14px;text-align:center;font-family:Arial">×</span>`:sv(LN('M7 7l10 10M17 7L7 17',12),col,12);
+const rX=(set,col)=>set==='T'?`<span style="color:${col};font-size:17px;line-height:1;width:14px;text-align:center;font-family:Arial">×</span>`:sv(LN('M6.5 6.5l11 11M17.5 6.5l-11 11',10),col,10);
 const row=(set,c,name,o={})=>`<div class="row${o.v?' v':''}${o.sel?' sel':''}">${mark(set,c,24,{sel:o.sel?'row':0})}${o.star?sv(f(STAR),'var(--or)',16):''}<div class="nm">${name}<small>${c.toUpperCase()} · REYKJAVÍK</small></div>${o.v?stamp(o.sel):''}${rX(set,o.sel?'rgba(242,235,221,.8)':'var(--ink2)')}</div>`;
 const rowsV=set=>`<div class="bleed">${row(set,'restaurant','Bæjarins Beztu')}${row(set,'cafe','Café Loki',{v:1})}${row(set,'cafe','Brauð &amp; Co',{v:1,sel:1,star:1})}${row(set,'district','Grandi')}</div>`;
 const headerV=set=>`<div class="bleed"><div class="maptop" style="height:150px">
@@ -466,7 +466,7 @@ const farStrip=()=>`<div class="map bleed" style="height:64px;background:#E8E4DA
 const chipsV=set=>`<div class="chips">${[['restaurant',1],['cafe',1],['bar',0],['district',1],['street',0]].map(([c,on])=>{const ink=on?INK[c]:'#9A9282';
  const g=set==='RO'?`<span style="${on?'':'filter:grayscale(1) opacity(.6)'}">${mark('RO',c,16)}</span>`:bare(set,c,12,ink);
  return `<div class="chip${on?'':' off'}" style="border-bottom-color:${on?INK[c]:'#C9BEA6'}">${g}${c.toUpperCase()}</div>`}).join('')}</div>`;
-const three=(a,b,c)=>`<ul class="notes"><li><b>What it is</b><span>${a}</span></li><li><b>Good at</b><span>${b}</span></li><li><b>Costs</b><span>${c}</span></li></ul>`;
+const three=(a,b,c,m)=>`<ul class="notes">${m?`<li><b>Made from</b><span>${m}</span></li>`:''}<li><b>What it is</b><span>${a}</span></li><li><b>Good at</b><span>${b}</span></li><li><b>Costs</b><span>${c}</span></li></ul>`;
 
 const conceptCard=(set,no,name,att,lines,extra='')=>`<div class="card"><div class="no">${no} · sketch, not final drawings</div><h2>${name}</h2><p class="att">${att}</p>${lines}
  <div class="sec">All 11 places, 24px, as in a row</div>${strip24(set)}
@@ -480,7 +480,7 @@ const conceptCard=(set,no,name,att,lines,extra='')=>`<div class="card"><div clas
 
 // ---- RULES CARD
 const wt=[['+ badge',26.4,'2.00','already 2.00',()=>TT.plus(26.4),()=>tl('plus',26.4)],
- ['account',24,'2.00','already 2.00',()=>TT.account(24),()=>tl('account',24)],
+ ['account',24,'2.00','already 2.00, head goes solid',()=>TT.account(24),()=>tl('account',24)],
  ['sort',18,'1.50','',()=>TT.sort(18),()=>tl('sort',18)],['filters',18,'1.50','',()=>TT.filters(18),()=>tl('filters',18)],
  ['locate',20,'2.08','',()=>TT.locate(20),()=>tl('locate',20)],['tag ×',14,'1.28','',()=>TT.close(14),()=>tl('close',14)],
  ['chevron',16,'1.50','',()=>TT.chevron(16),()=>tl('chevron',16)],['directions',20,'1.90','',()=>TT.directions(20),()=>tl('directions',20)],
@@ -490,13 +490,14 @@ const rulesCard=()=>`<div class="card rules"><div class="no">Round 3 · read thi
  <b>Outlined means you haven’t marked it yet (Star, Visited). Nothing else in the app is an empty shape.</b>
  <div class="pair">${tl('staroff',24)}<span>→</span>${sv(f(STAR),'var(--or)',24)}<i></i>${CHK(24)}<span>→</span><img src="ref-tag-stamp.png" alt="" style="width:78px"><span class="fx">FIXED</span></div>
  <p>Everything the app prints is the same every time: one line weight, one grid, one circle. Only your own marks vary (the stamp’s angle, the sticker’s peel).</p></div>
+ <div class="sec">Where outlines appear</div><p class="att" style="margin-top:0">Only in the tag and the add form, where you can mark a place. Rows and pins show nothing until you’ve marked it; then the orange star and the stamp or sticker appear.</p>
  <div class="sec">“Tapped by me”: what follows the rule</div>
  <table class="tb">
  <tr><td>${tl('staroff',18)}${sv(f(STAR),'var(--or)',18)}</td><td><b>Star</b>Outline until you star it, then solid orange. Follows the rule.</td></tr>
  <tr><td>${CHK(18)}<img src="ref-tag-stamp.png" alt="" style="width:50px"></td><td><b>Visited</b>Outline check until you mark it, then the stamp. Follows the rule. Unchanged.</td></tr>
  <tr><td><span class="minichip" style="border-bottom-color:${INK.cafe}">${bare('SP','cafe',10)}</span></td><td><b>Filter chips</b>A setting, not a mark. The chip shows on or off; the icon stays solid.</td></tr>
  <tr><td>${sv(LN('M3.5 12.5l5.5 5.5L20.5 6',16),N,16)}</td><td><b>Sort and plan ticks</b>A tick shows the current choice.</td></tr>
- <tr><td>${mark('SP','restaurant',22,{sel:'pin'})}</td><td><b>The open pin</b>Fills with its colour while its tag is open.</td></tr>
+ <tr><td>${mark('SP','restaurant',22,{sel:'pin'})}</td><td><b>The open pin</b>Fills with its colour while its tag is open. (Roundel can’t do this as drawn: see its card.)</td></tr>
  <tr><td><span class="ring" style="border-color:${INK.bar};width:16px;height:16px"></span></td><td><b>Far pin</b>An empty ring when zoomed out. It means “not visited yet”, beside the far sticker, so it agrees with the rule.</td></tr>
  <tr><td><span style="font-weight:700;color:var(--navy);font-size:15px">+ → 3</span></td><td><b>Plans</b>+ to add, then a stop number. Left as it is for now.</td></tr></table>
  <div class="sec">One line weight: 2.00px on screen, everywhere</div>
@@ -524,20 +525,20 @@ const dropCard=()=>`<div class="card"><div class="no">Card 4</div><h2>Dropped: s
  <div class="drow" style="display:block"><b>Timetable Sorts</b><div class="strip" style="margin:4px 0">${CAT.map(c=>svg('S',c,INK[c],18)).join('')}</div>Places drawn as outlines. Under your rule, outlines mean “not marked yet”, and it wasn’t on your list.</div>
  <div class="drow"><span class="dic">${tool('T','sort',16)}<span style="display:inline-block;width:20px;height:20px;border:2px solid ${N};border-radius:50%;display:grid;place-items:center">${sv(G.T.filters,N,12)}</span></span><div><b>The circle does the work</b>Make the circle the only sign of a place, so tools could be drawn any way. The mix-up is in the tag strip, where no place appears, so it can’t help there.</div></div>
  <div class="drow"><span class="dic">${sv(f('M5.2 22.6V12.2a5.4 5.4 0 0 1 5.4-5.4h3.8V1.6l8.4 7.6-8.4 7.6v-5.2h-3.8a.8.8 0 0 0-.8.8v10.2z'),N,22)}</span><div><b>Solid arrow for Directions</b>It says “turn right”, not “get directions”, and it would be the loudest thing in the strip.</div></div>
- <div class="drow"><span class="dic">${mark('T','district',24)}${mark('T','street',24)}</span><div><b>Diamond for districts and streets</b>The icon has to shrink to fit, so these become the hardest to read in a row.</div></div>
+ <div class="drow"><span class="dic">${mark('SP','district',24,{shell:'diamond'})}${mark('SP','street',24,{shell:'diamond'})}</span><div><b>Diamond for districts and streets</b>The icon has to shrink to fit, so these become the hardest to read in a row.</div></div>
  <div class="drow"><span class="dic" style="background:var(--navy);${SCAL};width:40px;height:40px;display:grid;place-items:center">${sv('<circle fill="currentColor" cx="12" cy="7.2" r="4.3"/>'+f('M4 21.6v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2z'),'var(--or)',20)}</span><div><b>Solid account figure</b>Handsome, but heavier beside the orange +, and the rule doesn’t need it.</div></div></div>`;
 
 (async()=>{await fitAll();
  const out=[rulesCard(),
   conceptCard('T','Card 0','Today (for reference)','Places are solid; tools are lines at whatever weight each one landed on; districts and streets sit in a diamond.',three('What ships now.','Clear places, familiar tools.','Line weights from 1.28 to 2.08px; empty rings (account, locate) next to the empty star; × typed, not drawn.')),
-  conceptCard('SP','Card 1','Specimen','Each place is mounted whole inside its circle, with paper all round it, like a plant pressed on a sheet.',three('Solid places, whole, inside the circle. Each gets one cut in its outline or one cream detail, only where the thing really has it (the fork’s gaps, the road’s centre line).','Calm. Every place reads whole, at every size, and the chips can drop the circle.','Smaller drawings in the same circle, and the less character of the two.')),
-  conceptCard('RO','Card 2','Roundel','Each place fills its circle and the rim cuts it off, like the picture on a coin.',three('Solid places as close-ups, cropped by the circle.','Bigger, bolder drawings in the same circle; the most character.','More ink on every pin (see the busy map). Filter chips must carry the circle too: a 16px roundel instead of a bare 12px icon.')),
+  conceptCard('SP','Card 1','Specimen','Each place is mounted whole inside its circle, with paper all round it, like a plant pressed on a sheet.',three('Solid places, whole, inside the circle. Each gets one cut in its outline or one cream detail, only where the thing really has it (the fork’s gaps, the road’s centre line).','Calm. Every place reads whole, at every size, and the chips can drop the circle.','Smaller drawings in the same circle, and the less character of the two.','<b class="src">Cut Paper</b>: the outlines, with the scissors in each shape. <b class="src">Field Guide</b>: the cream detail, only where the thing really has one. <b class="src">Spot Pictogram</b>: few, simple shapes, as the drawing grid.')),
+  conceptCard('RO','Card 2','Roundel','Each place fills its circle and the rim cuts it off, like the picture on a coin.',three('Solid places as close-ups, cropped by the circle.','Bigger, bolder drawings in the same circle; the most character.','More ink on every pin (see the busy map). Filter chips must carry the circle too: a 16px roundel instead of a bare 12px icon. The open pin can’t simply fill with its colour: a close-up turns mostly cream when reversed (see the café pin over the starred tag), so Roundel would need its own open-pin design.','<b class="src">Spot Pictogram</b>: flat, simple shapes, drawn big. <b class="src">Cut Paper</b>: the cut, made by the circle itself. <b class="src">Field Guide</b>: the cream detail, only where the thing really has one (the columns, the road line, the olive).')),
   sbs(),dropCard()];
  document.getElementById('out').innerHTML=out.join('');window.READY=1;})();
 </script>
 <style>
 .maptop .scal{display:grid;place-items:center}.scal{background:var(--navy)}.scal.add{background:var(--or)}
-.mp{position:absolute}.mp .pstar{position:absolute;width:12px;height:12px;right:-6px;top:-6px}
+.notes .src{display:inline;font-size:inherit;letter-spacing:0;text-transform:none;color:var(--navy)}.mp{position:absolute}.mp .pstar{position:absolute;width:12px;height:12px;right:-6px;top:-6px}
 .far{position:absolute;left:16px;top:12px;display:flex;align-items:center;gap:7px}
 .ring{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px solid;background:var(--paper);box-sizing:border-box}
 .far img{width:40px;height:40px;margin:-12px -9px}
@@ -558,7 +559,7 @@ const dropCard=()=>`<div class="card"><div class="no">Card 4</div><h2>Dropped: s
 .law p{font-size:12.5px;line-height:1.35;margin:8px 0 0}
 .pair{display:flex;align-items:center;gap:8px;margin-top:10px;position:relative}.pair span{font-size:14px;color:var(--ink2)}.pair i{width:14px}.pair .fx{font-size:7.5px;color:var(--ord);position:static}
 .tb{width:100%;border-collapse:collapse;font-size:12px;line-height:1.3}.tb td{border-top:1px solid var(--hair);padding:7px 0;vertical-align:middle}
-.tb td:first-child{width:100px;white-space:nowrap}.tb td:first-child>*{display:inline-block;vertical-align:middle;margin-right:6px}.tb b{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.tb td:first-child{width:100px;white-space:nowrap}.tb td:first-child svg{display:inline-block!important;vertical-align:middle}.tb td:first-child>*{display:inline-block;vertical-align:middle;margin-right:6px}.tb b{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
 .minichip{display:inline-flex!important;align-items:center;height:20px;padding:0 7px;border:1px solid var(--hair);border-bottom:2px solid}
 .wh,.wr{display:grid;grid-template-columns:150px 1fr 1fr;align-items:center}
 .wh span{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);text-align:center}

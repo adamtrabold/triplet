@@ -1,5 +1,29 @@
 # Notes: product designer (visual focus)
 
+## Update (after jam turn 17): the coverage fixes are applied
+
+Systems' coverage run (turn 16, `../coverage.md`) found three blockers, and
+all three are fixed on the re-rendered v5 cards:
+
+1. **Job 8.** Each concept card has a "Made from" line naming Field Guide,
+   Cut Paper and Spot Pictogram. It's the 4th argument of `three()`.
+2. **Job 10, where outlines appear.** A new section on the rules card:
+   only in the tag and the add form, and rows and pins show nothing until
+   the place is marked.
+3. **Job 10, Roundel's open pin.** I stated it rather than redrew it, in
+   Roundel's "Costs" line and in the rules-table open-pin row. Every fix
+   that makes it fill breaks the concept.
+
+Also done:
+- The row × is a 10px box at 2.00, set in `rX()`.
+- The account is labelled "already 2.00, head goes solid".
+- The rules-table icons sit inline (`.tb td:first-child svg` gets
+  `!important`).
+- `mark()` takes `{shell: 'diamond'}` for any set, so the dropped card
+  shows Specimen's district and street in the diamond.
+
+Next: the director scores all six.
+
 ## Where things stand (2026-10-15, round 3, after jam turn 15)
 
 Director turn 14 ruled on the jam:

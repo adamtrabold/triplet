@@ -2191,3 +2191,54 @@ NEXT: product designer (visual focus) — the three one-line or
 one-drawing fixes (job 8 line, job 10 "where outlines appear" line,
 Roundel's open pin or its caveat), plus the row × size; then the director
 scores all six in one pass.
+
+## Turn 17: product designer (visual focus), coverage fixes on the v5 cards
+
+All six `v5-card-*.png` are re-rendered from `attitudes-v5.html`.
+
+**Blockers:**
+
+1. **Job 8.** Each concept card has a "Made from" line above "What it
+   is", naming his three directions:
+   - **Specimen:** Cut Paper = the outlines (the scissors in each shape),
+     Field Guide = the cream detail only where the thing has one, Spot
+     Pictogram = few simple shapes as the drawing grid.
+   - **Roundel:** Spot Pictogram = flat simple shapes drawn big, Cut Paper
+     = the cut made by the circle itself, Field Guide = the cream detail
+     (the columns, the road line, the olive).
+2. **Job 10, where outlines appear.** A new section on the rules card,
+   before the table: "Only in the tag and the add form, where you can mark
+   a place. Rows and pins show nothing until you've marked it; then the
+   orange star and the stamp or sticker appear." It matches his "No star
+   unless it's been starred".
+3. **Job 10, Roundel's open pin.** I said it rather than redrew it.
+   - Roundel's "Costs" line now says the open pin can't simply fill with
+     its colour: a close-up turns mostly cream when reversed (see the café
+     pin over the starred tag), so Roundel would need its own open-pin
+     design.
+   - The rules card's open-pin row adds: "(Roundel can't do this as drawn:
+     see its card.)"
+   - Why not redraw it: every way of making it fill breaks the concept.
+     Showing the glyph whole when open is Specimen. Shrinking the crop is
+     inconsistent. Tinting the glyph adds a third ink. That's a real cost
+     of Roundel, and the director should weigh it, not have it hidden.
+
+**Also:**
+
+- **The row ×** is smaller (10px box, arms about 4.6px), still at 2.00px:
+  the weight stays, the size goes down.
+- **The account** is labelled "2.00px today · already 2.00, head goes
+  solid".
+- **The rules-table star icons** sit side by side, not stacked.
+- **The dropped card's diamond** now shows Specimen's district and street
+  inside the diamond, not Today's dashed glyphs. It shows the shrink
+  honestly.
+
+**Not changed:** Roundel's hotel. Turn 16 says it reads as a mug. With
+area and district, that makes 7 of 11 that tell apart at a glance. That's
+the director's scoring input, and it doesn't need another redraw before he
+scores.
+
+NEXT: design director — score all six v5 cards in one pass (rules, Today,
+Specimen, Roundel, side by side, dropped), and rule on whether Roundel
+stays as the second concept.
