@@ -1,0 +1,344 @@
+{
+ "390x844-safari-closed-1x.png": {
+  "rides": false,
+  "panelTop": 844,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-safari-open-todays-list-1x.png": {
+  "rides": true,
+  "panelTop": 173,
+  "panelH": 369,
+  "content": 369,
+  "scrolls": false,
+  "plusTop": 97.8,
+  "errs": 0
+ },
+ "390x844-safari-open-1x.png": {
+  "rides": false,
+  "panelTop": 131,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-safari-closed-3x.png": {
+  "rides": false,
+  "panelTop": 844,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-safari-open-todays-list-3x.png": {
+  "rides": true,
+  "panelTop": 173,
+  "panelH": 369,
+  "content": 369,
+  "scrolls": false,
+  "plusTop": 97.8,
+  "errs": 0
+ },
+ "390x844-safari-open-3x.png": {
+  "rides": false,
+  "panelTop": 131,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-safari-open-scrolled-3x.png": {
+  "rides": false,
+  "panelTop": 131,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-home-screen-closed-1x.png": {
+  "rides": false,
+  "panelTop": 844,
+  "panelH": 409,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-home-screen-open-todays-list-1x.png": {
+  "rides": false,
+  "panelTop": 173,
+  "panelH": 369,
+  "content": 369,
+  "scrolls": false,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-home-screen-open-1x.png": {
+  "rides": false,
+  "panelTop": 133,
+  "panelH": 409,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-home-screen-closed-3x.png": {
+  "rides": false,
+  "panelTop": 844,
+  "panelH": 409,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-home-screen-open-todays-list-3x.png": {
+  "rides": false,
+  "panelTop": 173,
+  "panelH": 369,
+  "content": 369,
+  "scrolls": false,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-home-screen-open-3x.png": {
+  "rides": false,
+  "panelTop": 133,
+  "panelH": 409,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x844-home-screen-open-scrolled-3x.png": {
+  "rides": false,
+  "panelTop": 133,
+  "panelH": 409,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 468.8,
+  "errs": 0
+ },
+ "390x664-closed-1x.png": {
+  "rides": false,
+  "panelTop": 664,
+  "panelH": 276,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 288.8,
+  "errs": 0
+ },
+ "390x664-open-todays-list-1x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 276,
+  "content": 369,
+  "scrolls": true,
+  "plusTop": 288.8,
+  "errs": 0
+ },
+ "390x664-open-1x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 276,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 288.8,
+  "errs": 0
+ },
+ "390x664-closed-3x.png": {
+  "rides": false,
+  "panelTop": 664,
+  "panelH": 276,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 288.8,
+  "errs": 0
+ },
+ "390x664-open-todays-list-3x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 276,
+  "content": 369,
+  "scrolls": true,
+  "plusTop": 288.8,
+  "errs": 0
+ },
+ "390x664-open-3x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 276,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 288.8,
+  "errs": 0
+ },
+ "390x664-open-scrolled-3x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 276,
+  "content": 411,
+  "scrolls": true,
+  "plusTop": 288.8,
+  "errs": 0
+ },
+ "320x568-closed-1x.png": {
+  "rides": false,
+  "panelTop": 568,
+  "panelH": 180,
+  "content": 453,
+  "scrolls": true,
+  "plusTop": 192.8,
+  "errs": 0
+ },
+ "320x568-open-todays-list-1x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 180,
+  "content": 369,
+  "scrolls": true,
+  "plusTop": 192.8,
+  "errs": 0
+ },
+ "320x568-open-1x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 180,
+  "content": 453,
+  "scrolls": true,
+  "plusTop": 192.8,
+  "errs": 0
+ },
+ "320x568-closed-3x.png": {
+  "rides": false,
+  "panelTop": 568,
+  "panelH": 180,
+  "content": 453,
+  "scrolls": true,
+  "plusTop": 192.8,
+  "errs": 0
+ },
+ "320x568-open-todays-list-3x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 180,
+  "content": 369,
+  "scrolls": true,
+  "plusTop": 192.8,
+  "errs": 0
+ },
+ "320x568-open-3x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 180,
+  "content": 453,
+  "scrolls": true,
+  "plusTop": 192.8,
+  "errs": 0
+ },
+ "320x568-open-scrolled-3x.png": {
+  "rides": false,
+  "panelTop": 86,
+  "panelH": 180,
+  "content": 453,
+  "scrolls": true,
+  "plusTop": 192.8,
+  "errs": 0
+ },
+ "390x844-list-collapsed-closed-1x.png": {
+  "rides": false,
+  "panelTop": 844,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 708.8,
+  "errs": 0
+ },
+ "390x844-list-collapsed-open-todays-list-1x.png": {
+  "rides": true,
+  "panelTop": 413,
+  "panelH": 369,
+  "content": 369,
+  "scrolls": false,
+  "plusTop": 337.8,
+  "errs": 0
+ },
+ "390x844-list-collapsed-open-1x.png": {
+  "rides": true,
+  "panelTop": 371,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 295.8,
+  "errs": 0
+ },
+ "390x844-list-collapsed-closed-3x.png": {
+  "rides": false,
+  "panelTop": 844,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 708.8,
+  "errs": 0
+ },
+ "390x844-list-collapsed-open-todays-list-3x.png": {
+  "rides": true,
+  "panelTop": 413,
+  "panelH": 369,
+  "content": 369,
+  "scrolls": false,
+  "plusTop": 337.8,
+  "errs": 0
+ },
+ "390x844-list-collapsed-open-3x.png": {
+  "rides": true,
+  "panelTop": 371,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 295.8,
+  "errs": 0
+ },
+ "390x844-list-collapsed-open-scrolled-3x.png": {
+  "rides": true,
+  "panelTop": 371,
+  "panelH": 411,
+  "content": 411,
+  "scrolls": false,
+  "plusTop": 295.8,
+  "errs": 0
+ },
+ "desktop-1280x800-closed-1x.png": {
+  "rides": false,
+  "panelTop": 1100,
+  "panelH": 283,
+  "content": 283,
+  "scrolls": false,
+  "plusTop": 724.8,
+  "errs": 0
+ },
+ "desktop-1280x800-open-todays-list-1x.png": {
+  "rides": true,
+  "panelTop": 557,
+  "panelH": 241,
+  "content": 241,
+  "scrolls": false,
+  "plusTop": 481.8,
+  "errs": 0
+ },
+ "desktop-1280x800-open-1x.png": {
+  "rides": true,
+  "panelTop": 515,
+  "panelH": 283,
+  "content": 283,
+  "scrolls": false,
+  "plusTop": 439.8,
+  "errs": 0
+ }
+}
