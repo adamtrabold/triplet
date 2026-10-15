@@ -35,3 +35,8 @@ Direction: place (category) icons are solid, and they can sit inside a stroked c
 > Build the matched icon but we need to include this in the icon project everything is inconsistent
 
 Context: the + is live on main (771a8c3): an orange 60px scalloped badge, bottom-left, navy + at a 2.00px stroke. Its weight is one attribute: stroke-width in setAddBtnGlyph() and the initial #floatingAddBtn markup. Measured on-screen line weights today: account icon 2.00px, list-row category icons 2.00px, list toolbar icons 1.50px, locate-me 2.08px, the + 2.00px (was 2.29). The icon project sets the weight; the + follows it.
+
+2026-10-15, on the v6 cards (rules, Today, Specimen, Constructed, side by side, dropped):
+> the clarity is best with built. i think through subtle rounding, etc. we can get some of the warmth / mimicry of the inspo / vintage roadtrip brochures/pamphlets/ etc. the rest risk feeling amateurish. its interesting that your calls have been the exact opposite of mine, i wonder why. now let's get to deeper brainstorm on the icons themselves -- meaning the concept behind each icon, not the exact drawing. then we can tackle grid system and perfecting the drawings themselves.
+
+Direction: Constructed (built, on the grid) is the direction, with warmth from subtle rounding (the vintage road-trip brochure/pamphlet feel). Specimen and the hand-cut looks are out ("risk feeling amateurish"). The rules card stands. Next: a deeper brainstorm on the concept behind each icon (what each depicts), not the drawing. After that: the grid system, then perfecting the drawings. Note his "your calls have been the exact opposite of mine": the team's picks (Field Guide, Cut Paper, Specimen) kept favouring hand-made warmth; he favours printed precision.
