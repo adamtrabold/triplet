@@ -72,7 +72,9 @@ no design/UX/brand calls (Roles below); designers read `docs/owner-taste.md`
 and new taste rules go there the same day; the owner's quotes go in briefs
 verbatim; messages to the owner are terse, plain language, one per real event
 (decision needed, thing live, blocker); a plain bug the owner reports is
-verified by one agent before theorizing. Everything else is optional.
+verified by one agent before theorizing; when the owner calls a shown look
+good, that is the go to land it — don't ask again (owner: "yes when i say
+something is good that means ship it"). Everything else is optional.
 
 ### Roles (owner-set)
 
