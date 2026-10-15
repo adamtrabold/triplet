@@ -19,7 +19,8 @@ by country. **(We think)** marks the team's taste.
           └── figure Los Angeles
 
  PLACE = real location + real city.  Figures: the per-real-city memory (as concept 1).
- Clusters: DERIVED every time (places within "far away" of each other chain together).
+ Clusters: DERIVED every time (places within "far away" of each other chain together;
+ "far away" = we think another continent, unmeasured).
  The only thing stored about a cluster: an optional NAME you gave it ("Scandinavia 2026").
 ```
 
@@ -28,11 +29,12 @@ by country. **(We think)** marks the team's taste.
 ```
  EVERYTHING (the widest lens)                CITY LENS = concept 1's
 ┌──────────────────────────────────┐        ┌──────────────────────────┐
-│ ALL PLACES (225)                 │        │ ‹ Scandinavia 2026       │
-│ ── SCANDINAVIA 2026 (202) ─────  │  tap   │ REYKJAVÍK (23)           │
+│ ALL PLACES (225)                 │        │ ‹ Iceland · Denmark · Sw…│
+│ ── ICELAND · DENMARK · SWEDEN (202)│  tap   │ REYKJAVÍK (23)           │
 │    Reykjavík 23 · Copenhagen 31… │ ─────▶ │ ── FROM REYKJAVÍK ────   │
 │ ── UNITED STATES (23) ─────────  │        └──────────────────────────┘
 └──────────────────────────────────┘
+ cluster names are generated from countries; "Scandinavia 2026" is a rename you can give it
  the map: everything at once, zoomed out across the world; the clusters are visible as groups
 ```
 
@@ -91,7 +93,7 @@ inside the Scandinavian cluster. All PASS.
 
 ## Prerequisite
 
-As in concept 1: **58 places without `address_details`**.
+As in concept 1: **59 of 202 places without a real town** (58 with no `address_details`, 1 with no town in them).
 
 ## Open (owner questions)
 

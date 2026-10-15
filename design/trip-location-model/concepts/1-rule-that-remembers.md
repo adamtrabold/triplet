@@ -142,9 +142,10 @@ that's rare.)** It's owner question 1.
 
 ## Prerequisite
 
-The real city comes from `address_details`. **58 places have none**
-(live count, 2026-10-15; 144 of 202 have it). Until the short-address
-backfill runs for them, those 58 are filed by location alone (nearest
+The real city comes from `address_details`. **59 of 202 places have
+no real town**: 58 have no `address_details` and 1 has details but no
+town (live count, 2026-10-15, confirmed by systems). Until the
+short-address backfill covers them, those 59 are filed by location alone (nearest
 figure), with no real city to print or filter by.
 
 ## Open (owner questions)

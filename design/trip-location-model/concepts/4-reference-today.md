@@ -11,7 +11,7 @@ what the concepts change. Sketch level.
    └── PLACE.city = exactly ONE city, decided at add (inferred from the point; a new-city dialog for shapes)
 
  No trip object. The "trip" is all the cities; there's no grouping above a city.
- Real city: in address_details (144 of 202 places have it; 58 don't), not shown or filtered.
+ Real city: in address_details (59 of 202 places lack a real town: 58 with none, 1 with no town), not shown or filtered.
 ```
 
 ## What you see
