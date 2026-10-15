@@ -10,6 +10,17 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   in your browser, signed in). Until it runs, no tag shows an address line
   (0/202 places have `short_address`/`address_details`); the tag lays out
   cleanly without it. Afterwards, check a few tags show "street number · area".
+- **The + badge (built 2026-10-15 on `plus-badge-build`; check once it
+  lands):** (1) the orange badge rides the list's top edge in step with it --
+  list up / collapsed, a tall tag lowering the list, and the drop when you
+  tap + -- with no lag or second motion; (2) its fine scalloped edge (60px
+  mask) is crisp, not blurred or stair-stepped; (3) in a Safari tab, a tap
+  on the badge's left third never starts a back navigation, and a back swipe
+  from the very left edge doesn't press it; (4) on a small phone (or 320
+  wide), the map credit reads "© OpenStreetMap contributors" with no
+  "Leaflet |"; (5) tap +, then type in a field with the keyboard up: ADD
+  LOCATION stays reachable (sticky) and the × cancels; (6) a tag open, tap
+  +: the tag closes and the form opens; × brings the same tag back.
 - **Playground = signed out (2026-10-13):** in a private Safari tab (signed
   out), open the app: your real places load; star, visit, delete and add
   one; reload and check they're all back to normal; check in your signed-in

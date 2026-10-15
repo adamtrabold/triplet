@@ -1345,3 +1345,58 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
   uppercase run is 30 characters, all labels); the add-form place-suggestion
   clip was checked in a render and is a REAL bug, now in `docs/backlog.md`
   with repro steps.
+
+- **The + becomes the Float badge (button only)** — LANDED 2026-10-15 from
+  `plus-badge-build` (director 9, jobs 6/6, review PASS; owner: "ok sweet.
+  badge is good to go"). Owner: "I think it's the badge for now. Conceptually it's stronger
+  because the circle relates to the icon, the tag isn't really what you're
+  adding it's the pin" ; "Just button for now" ; "Build the matched icon but
+  we need to include this in the icon project everything is inconsistent".
+  Spec: `design/add-button-placement/handoff.md`; builder notes
+  `design/add-button-placement/notes/builder.md`; stills
+  `design/add-button-placement/build/`.
+  - `#floatingAddBtn` moves to the bottom-left: 60px, brand orange with the
+    tag band's paper tooth (`--tex-flood`, 160px, -23px -71px), a navy + at
+    26.4px / `stroke-width` 1.8182 (2.00px on screen, the account icon's line
+    until the icon project sets one). Its own 24-lobe mask, "a finer cut of
+    the badge's edge" (`ADD_SCALLOP_PTS`, the same polygon as the CSS mask:
+    change both together). Pressed: `--brand-orange-deep`, paper +. Open:
+    navy, paper ×, no texture; open + pressed: `--state-on-press`. Focus:
+    `#addFocus` sibling ring. No haptic, no rotation, no hover.
+  - Aligned by ink: tokens `--add-size` 60, `--add-ink-inset` 4.68,
+    `--add-ink-gap` 19.9, `--add-box-gap` (15.22). Ink 19.9 from the left and
+    19.9 above the list's edge. Box at 390x844 15.2,468.8–75.2,528.8.
+  - **It rides the sheet:** absolute in the body like `#locations`, the
+    identical `translateY(var(--sheet-lower))` / collapsed transform and 0.3s
+    ease (`body.sheet-collapsed`, toggled by `toggleSheetCollapsed()`).
+    Measured: badge foot to sheet edge 15.22 on every frame of the drop.
+    Desktop: the map column's bottom-left, 15.22 from the rail; nothing rides.
+    On desktop the form now opens at the BOTTOM of the map column, beside the
+    + (it turns × in place), not at the top as before (owner saw
+    `design/add-button-placement/build/17-desktop-form-open-1280x800.png`).
+  - z 998: over the map and the form, under the filters panel (999), which
+    covers it by design. With the sort menu open it lifts above the scrim
+    (2560), so one tap closes the menu and opens the form.
+  - Screen reader: "Add a place" / "Close add form", `aria-expanded`,
+    `aria-controls="addForm"`. Esc with place suggestions showing closes only
+    the suggestions.
+  - `#accountBtn` owns the top-right alone (`--account-slot-right` = `--s4`).
+  - **TAG_SHEET_GAP is now `tagSheetGap()`**: the badge's rendered box top
+    above the list's edge + 12 (88), floor 48. Desktop: 88 only for a tag whose
+    span crosses the badge's box, else 48. `pinPopupTopPad()` no longer
+    counts the +; `planChrome()` still does (it now guards the bottom-left).
+  - **Tap + ("ride", form line A):** stale sign-in → the sign-in sheet,
+    nothing moves; else the sort menu and filters close, an open tag closes
+    (remembered), the list drops to its band and today's form sits on it
+    (`body.add-open`), max-height 12px below the zoom / account row, scrolling
+    inside. ADD LOCATION is sticky, on the ×'s line (box right + 12, centred
+    on the × centre; 87.2–374 × 716.8–760.8 at 844), with a full-row paper
+    backing. The OSM credit rides the form's top (`syncAddCredit()`) and
+    steps out where no strip is left (320x568). Cancel (×, Esc) restores the
+    list, its scroll and the tag (via the row's own tap path); the draft
+    survives. A successful Add: `closeAddForm()` → `rideBack(false)`.
+  - The OSM credit drops "Leaflet |" below 338px of map width.
+  - Gates: Impeccable gate passed (identities unchanged; the add state's raw
+    count is 1, not 24, because the list is collapsed under the form);
+    gesture popup-open 42/42 (20/20 + 20/20), rows 12/12 (56.00px),
+    places-ux 30/30, tag-sync 12/12, plans 32/32, shapes 50/50.

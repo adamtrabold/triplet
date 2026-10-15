@@ -83,13 +83,13 @@ pick/redirect before building anything.
   time") and Alignment / spacing ("Spacing between things is insane and
   icons don't fill the same visual space"). Scope, approach and solutions
   are open; they belong to the designer/CD/UX roles.
-  Add (owner, 2026-10-15, on the + badge: "we need to include this in the
-  icon project everything is inconsistent"): line weights don't match
-  across the chrome. Measured on screen at 390×844: account icon 2.00px,
-  list-row category icons 2.00px, list toolbar icons 1.50px, locate-me
-  2.08px, today's + 2.29px. The new + badge is built at 2.00px to match the
-  account icon (`design/add-button-placement/concepts/E-float/X2-in-context-3x.png`);
-  the icon project sets the one stroke for all of them.
+  Include the + badge (owner, 2026-10-15, verbatim: "Build the matched icon
+  but we need to include this in the icon project everything is
+  inconsistent"). On-screen line weights measured today: account icon
+  2.00px, list rows' category icons 2.00px, list toolbar icons 1.50px,
+  locate-me 2.08px, the + 2.00px (was 2.29). The + follows whatever weight
+  the project sets: one attribute, `stroke-width` in `setAddBtnGlyph()` and
+  the initial `#floatingAddBtn` markup.
 - ~~**Popup star alignment with full content**~~ CLOSED by the Hanging Tag
   (built 2026-10-07 on `popup-hanging-tag`, `docs/shipped.md` "Hanging Tag +
   orange star"): the star is no longer beside the title; it is a fixed
@@ -205,11 +205,15 @@ pick/redirect before building anything.
   sheet covers ADD LOCATION, so a tap on Add lands on a list row. Repro:
   open the add form at 390x664 -- `design/add-button-placement/concepts/stub-stress/today-form664-3x.png`.
   Being folded into the + placement work (proposal: the list drops to its
-  header band while the form is open).
+  header band while the form is open). FIXED on `plus-badge-build`
+  (2026-10-15, not landed yet): the form sits on the band, ADD LOCATION on
+  the ×'s line at every height.
 - **Add form opens behind the open filters panel** (same source): with the
   filters panel open, tapping + opens the form behind it and a tap on Add
   hits a filter chip. Repro: open filters, tap +. Proposal in the + work:
-  opening the form closes filters and the sort menu.
+  opening the form closes filters and the sort menu. FIXED on
+  `plus-badge-build` (2026-10-15, not landed yet): the panel covers the badge
+  (close filters first); a keyboard open closes filters and the sort menu.
 
 - **A place added in another city vanishes from the list** (found
   2026-10-12 by the + placement crew, in a prototype). If the place you
@@ -230,6 +234,53 @@ pick/redirect before building anything.
   still the last resort.
 
 ## Known minor bugs / follow-ups
+
+- **Esc handlers that don't mark the keypress spent** (reviewer, + badge
+  build round 1, 2026-10-15). The sort menu's document-level Esc
+  (`initSort()`: `if (e.key === 'Escape' && sortMenuOpen()) closeSortMenu()`)
+  and the error banner's (`dismissErrorByKey()` listener) don't call
+  `preventDefault()`, so a later Esc listener acts on the same keypress.
+  The + form's Esc skips while the sort menu is open, and the tag's Esc
+  doesn't check `defaultPrevented`. Repro (from reading the code, not yet
+  run): show the error banner with a tag open, press Esc: the banner and the
+  tag both close. **Live case (reviewer, landing round):** Esc with the error
+  banner showing also cancels the + add form. The form's Esc listener on
+  `document` runs before the banner's, which listens on `window` (bubbling
+  reaches `document` first), so `defaultPrevented` isn't set yet when the
+  form checks it. Fix:
+  `preventDefault()` in both handlers and have later listeners skip on
+  `e.defaultPrevented`, and make the form's Esc skip while `#error.show`
+  (listener order means it can't rely on the banner's preventDefault).
+- **Bug: expanding the list (▲) with a tag opened while collapsed leaves the
+  tag under the top controls** (pre-existing on main; found by the + badge
+  review, 2026-10-15). The tag ends about 10px above the map's top, under the
+  zoom / account row. Repro: 390x844, collapse the list, tap a pin near the
+  top of the map, then ▲. The + form's cancel reaches it too: with the form
+  open, tap a pin, then ×. Fix: re-fit the tag (pan + `tagSheetNeed()`) on
+  expand.
+- **Open task: a tap on the +'s spot with the filters panel open** (+ badge
+  review, 2026-10-15). The panel covers the badge by design; a tap where the
+  + usually sits lands on a category chip and silently toggles that filter
+  off. The owner asked about it; not decided: keep as is, or keep the chips
+  off the badge's spot.
+- **Open task, for the designers: `planSafeBox()` treats the + badge's top as
+  a full-width bottom limit** (+ badge review, 2026-10-15). The badge is in
+  `planChrome()`, so plan fits lose about 100px at the bottom across the whole
+  width, not just the bottom-left corner. Designers to know; a corner-only
+  exclusion would be a design call.
+- **Open task: tell the sign-in crew** (`design/signin-button/`) that the
+  account badge moved: `--account-slot-right` is now `var(--s4)`, and it sits
+  alone at the top-right (the + is bottom-left). Their "re-judge beside the
+  new +" item can run now.
+- **The first tag open of a session lowers the list 4px more than later
+  opens** (pre-existing on main; found by the + badge build's jobs check,
+  2026-10-15). The first open measures the tag 212px tall, later opens of the
+  same tag 208px, so `tagSheetNeed()` lowers the sheet 4px more the first
+  time (main at 390x664: 34px, then 30, 30; the + build: 74, then 70, 70).
+  Something in the tag (fonts or the stamp line, likely) settles 4px shorter
+  after its first render. Repro: 390x664, tap a starred row, read
+  `--sheet-lower`; close it, tap it again, read again. Visible as the add
+  badge (and the list) sitting 4px higher after a cancel restores the tag.
 
 - Sign-in badge review findings (reviewer, 2026-10-14, build `ba473f8`):
   (1) BLOCKER, in-place sign-in (flow 4, signed-out real mode): `login()`
