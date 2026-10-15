@@ -2196,3 +2196,51 @@ misaligned, and at 20 the band starts to outweigh the +.
 
 **Held back:** B4 (the whole screen; B3 already shows it at real size in
 context).
+
+## Build round 1 -- director, 2026-10-15 (plus-badge-build; stills build/00-17)
+
+### Evidence
+Stills 00, 01, 04, 07, 09, 10, 12, 13 and 17 at phone size, plus the
+builder's notes, against handoff.md.
+
+### Against the handoff
+- **The badge (00):** 24 fine lobes on textured orange, a navy + at
+  2.00. All the states match:
+  - pressed: deep orange with a paper +;
+  - open: navy with a paper ×;
+  - open + pressed;
+  - the focus ring follows the edge.
+  It sits beside the account as a different cut of the same family.
+- **Placement and ride (01, 04, 07):**
+  - bottom-left on the rows' channel;
+  - rides the sheet (29/29 frames in step);
+  - the tag-open gap of 88 keeps the badge clear under the tag;
+  - the 320 credit drops the prefix.
+- **Filters (09):** the panel covers the badge, as specced.
+- **Form (10, 12, 13):**
+  - Add sits on the ×'s line at box right + 12 (my ruling);
+  - the form sits on the band and scrolls inside at 320;
+  - the × reads as cancel, and Add is the one orange action.
+- **Desktop (17):** as ruled.
+
+### Likely owner objections
+- "The + looks thin next to the account." It's his own call (matched
+  icon); the icon project owns it. Not a fix.
+- **"Why do the Reykjavík places say Copenhagen?"** (04, 12, 13). The
+  320 stills' fixture labels Reykjavík places as Copenhagen. LIKELY to
+  catch his eye in the stills he sees before landing.
+
+### Score
+**9.** It realises the handoff at final quality. The one item below is
+a still-fixture fix, not a build fix.
+
+### Mechanical (before the owner sees the stills)
+1. Re-shoot 04, 12, 13 (and 08, if it uses the same fixture) with
+   consistent data: Copenhagen's places under Copenhagen, or Reykjavík
+   for both.
+2. The stills the owner sees before landing (new look):
+   - 01 rest;
+   - 07 tag open;
+   - 10 form open;
+   - 00 states;
+   - 17 desktop (with its one line).
