@@ -57,3 +57,8 @@ Direction: clarity first stands. Subtle rounding is one source of warmth among o
 > these are just examples. not exhaustive. again you are overstating my intent.
 
 Orchestrator's note: record his words; don't turn his examples into lists, rules or limits.
+
+2026-10-15, new inspo:
+> one thing about icon inspo -- it comes to mind that there are official icons from the us government for roadside attractions and such... we should use these as inspo. pull the images and add them to inspo and then give them to the team and see if it changes anything. i dont want them to just use them outright, but this gives "built" more legs as a concept and also may spark some ideas. https://mutcd.fhwa.dot.gov/htm/2003r1r2/part2/part2h.htm
+
+(MUTCD Part 2H, recreational and cultural interest area signs. Inspiration only, not to be used outright. Pending: the sandbox can't reach mutcd.fhwa.dot.gov or Wikimedia.)
