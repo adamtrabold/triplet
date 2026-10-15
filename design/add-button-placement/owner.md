@@ -184,3 +184,10 @@ Rule: when the owner calls a shown look good, that is the go to land it — don'
 
 2026-10-15, "Should the add form let you mark a place visited as you add it?":
 > yes
+
+2026-10-15, on the city filter and the round-10 add form:
+> today doesnt show one city at a time, the filter panel just takes you to that city. it doesnt "hide" the other things if i scroll over does it? if it does im not sure if i like that. i do like having a way to quickly center myself on a city, but i also feel like i need a way to show/hide the cities i care or dont care about. i actually think it would be less common for me to hide a city than to just want to navigate around to my cities with stops.
+> i think the "type" should be a select in the tag -- i dont like seeing all the icons in the tag. but they may be helpful iin the dropdown?
+> im still no sure how the city thing works in the tag here. i thin it would be better for us to jam in a design canvas
+
+Fact (orchestrator, index.html `visibleLocations()`): today a city chip DOES hide other cities — `filters.city` filters both the list and the map; only "All cities" shows everything.
