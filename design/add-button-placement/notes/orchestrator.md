@@ -47,3 +47,7 @@
 
 ## 2026-10-15 — owner approved Float (badge)
 - Asked whether the round-10 form is in scope before the handoff.
+
+## 2026-10-15 — build bar met (round 2)
+- Director 9, jobs 6/6 PASS, review PASS. Sent 01, 07, 10, 00, 17 + desktop line + filters-chip question. Pending owner yes to land plus-badge-build on main.
+- To do at landing: backlog adds (pre-existing tag -10px on expand; error-banner Esc also cancels form; planSafeBox full-width cost), shipped.md desktop form note, tell sign-in crew account moved to right: var(--s4).
