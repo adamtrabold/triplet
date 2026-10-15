@@ -591,3 +591,8 @@ result count at 664 with keyboard, and the docked-tag heights.
 - #7 on the real render: 104 → **4.06 / 4.07 x the account (3.0x the Float)**; 84 → 2.65 (2.0x the Float), z14 12/13/16/3%; 78 → 2.28 (1.7x), 41 tall → pad the hit to 44. Opening fit at 104: only 320 Stockholm, 1 pin.
 - The director's draft cost line ("steps aside while a tag or the filters are open") is WRONG: both stay tappable with a tag open (Float gap 88, ruled R7; C gap 86, drawn in C5). The filters are the only exception. The corrected line is in `C-tag-r10/how-it-works.md`.
 - Coverage r10 written: concepts/coverage-r10.md. All 18 jobs supported on C (#7 at 84) and the Float. Still gap: no round-10 ADD/ink-over frame (T5 is round 9 and contradicts the caption).
+
+## Round 11 (2026-10-15): the C tag at 70x43, the hole back, the + 18
+- Orange: **2.12 / 2.12 x the account (1.58x the Float)**. Cream with an orange end: **0.59 / 0.56 (below the account → fails job 2)**.
+- 0 pins at all 40 opening views; z14 11/12/14/3% (≤ Float). Credit clear at every width with today's <338 prefix rule (380 not needed). TAG_SHEET_GAP 78. Hit 43 → pad to 44; the hit area is the rectangle (the hole counts).
+- Spec: `C-tag-r11/how-it-works.md`. Jobs hold for orange; cream fails job 2 (shown at the owner's request, with the cost line).
