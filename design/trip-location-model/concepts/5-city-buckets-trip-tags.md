@@ -3,7 +3,7 @@
 Model only (the owner: "the model is what to nail right now not ui").
 Supersedes concepts 1-3 as the working model. **(We think)** marks the
 team's opinion; everything else is the owner's words, the owner's
-answers (Q-A to Q-C, and D as answered), or today's fact.
+answers (A to D, Q-D, repeat trips, many trips), or today's fact.
 
 > "really what i need is a way to group cities.. something more
 > conceptually like a tag that creates the conceptual connective thread
@@ -31,6 +31,9 @@ answers (Q-A to Q-C, and D as answered), or today's fact.
      balance the idea of the city it belongs to in the app vs the city
      the address actually places it"): a place shows its bucket and its
      real town ("Reykjavík · in Grindavík").
+   - **A wrong guess is fixed by editing the place's city, after adding**
+     (owner, Q-D). From a place you never edit which trips its city is
+     in.
 2. **A trip is a tag on cities.**
    - A place belongs to every trip its city is in, automatically (owner,
      D).
@@ -75,9 +78,9 @@ answers (Q-A to Q-C, and D as answered), or today's fact.
 
 ## The prices, said plainly
 
-- **A wrong guess can't be fixed after adding** unless the move edit
-  comes (Q-D, open). The owner: "or somehow manually...i dont think i
-  can do that today".
+- **Editing a place's city is new work:** today nothing can change
+  after adding (the owner: "or somehow manually...i dont think i can do
+  that today"). It's the one place edit this model needs.
 - **Two buckets on the same ground** (if the owner ever makes one) have
   near-identical centres, so the guess can land in either; pick by hand.
   A repeat trip never needs this: it re-tags the same city.
@@ -97,7 +100,7 @@ answers (Q-A to Q-C, and D as answered), or today's fact.
 - No new-city question: a new bucket is pre-filled instead.
 - The real town shows beside the bucket.
 - Trips (tags) and the trip filter are new.
-- The move edit, if Q-D is yes.
+- A place's city can be edited after adding (Q-D).
 
 Unchanged: the pick at add, the city filter, plans.
 
@@ -119,11 +122,10 @@ Unchanged: the pick at add, the city filter, plans.
   - **D (as answered: trips at add):** "When adding a place to a city,
     it should automatically be added to any relevant trips. BUT you
     should not add cities to trips inside of the ui of adding a place."
-- **Still open:**
-  - **Q-D:** when the guess put a place in the wrong city, should
-    moving it to the right one after adding come with trips, or wait for
-    full place editing? (We think with trips.) Repeat trips don't need
-    it. The orchestrator re-asks it.
+  - **Q-D:** "if the app puts a place in the wrong city you should be
+    able to edit the city attached to the place. you should not be able
+    to edit the trips the city is attached to"
+- **Still open (the only one):**
   - **Seeing the trip at add:** the owner: "Im ambivalent/not sure if
     you should see the associated trip alongside the city when adding a
     place."

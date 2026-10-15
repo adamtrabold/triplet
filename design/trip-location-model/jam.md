@@ -2551,3 +2551,88 @@ checker.
   - the record line about earlier models.
 
 NEXT: fresh checker — run jobs.md (concept 5) and the overview.
+
+## Turn 26 -- product designer (systems focus): the owner's answers and check 6 folded into concept 5
+
+**The owner's answers** (verbatim in `owner.md`; copied into concept 5
+as written):
+- **A:** "it should be able to add a city to a trip when adding a city,
+  it should not be or feel required. in fact it should not feel very
+  high prominence at all imo."
+- **B:** "Yes. the address needs to comfortably balance the idea of the
+  city it belongs to in the app vs the city the address actually places
+  it". Both truths are now owner-backed; the "we think" on them is
+  dropped.
+- **C:** "yes".
+- **D (as answered, trips at add):** "When adding a place to a city, it
+  should automatically be added to any relevant trips. BUT you should
+  not add cities to trips inside of the ui of adding a place."
+  - Open: "Im ambivalent/not sure if you should see the associated trip
+    alongside the city when adding a place."
+- **Repeat trips:** "a repeat trip to the same place should not change
+  the pins -- if i go back to a place i may want to see all the places i
+  noted prior / which i visited / etc". There's no "Copenhagen 2028"
+  bucket: the same city is tagged into the second trip.
+- **Many trips per city** (the owner's current guess, not a hard rule):
+  "my guess right now is that i should be able to assign a city to many
+  trips".
+- **Q-D:** "if the app puts a place in the wrong city you should be able
+  to edit the city attached to the place. you should not be able to edit
+  the trips the city is attached to".
+
+**Check 6 fixes:**
+1. **The guess is fully stated:**
+   - the nearest bucket within about a day trip (we think 60-80 km,
+     unmeasured), measured to the centre of its places;
+   - with none within reach (the first place, Jönköping), a new bucket
+     named from the real town, made on ADD;
+   - (we think) that replaces today's new-city question, since
+     places-first rules out asking;
+   - "exactly as today" claims are gone, and a "What changes from
+     today" list replaces them;
+   - co-located buckets: the guess can land in either, so pick by hand.
+     A repeat trip never needs one now.
+2. **The trip filter:**
+   - none selected → everything;
+   - some selected → places whose city is in any of them, so a city in
+     two trips shows if either is selected;
+   - "hide" = deselect; the last one off → everything;
+   - (we think) there's no exclude mode: it's our reading of "show /
+     hide", kept as one filter so list = map.
+3. **C1 and the real town:**
+   - C1: no buckets and no trips; search is worldwide; the first place
+     makes its bucket.
+   - Both truths are honest about the 59 places without a real town
+     (58 fixable by the backfill; 1 has no town and shows the bucket
+     alone).
+4. **The overview is one card,** re-rendered at 1170x2420 and read at
+   phone size:
+   - the 60-80 km figure matches the file;
+   - the 59 note is in;
+   - A-D and the wrong-city edit are marked decided;
+   - the one open question;
+   - Q3 and Q4 are parked;
+   - the record line.
+
+**jobs.md:**
+- Terms cover the guess, trip and filter.
+- Check 2 cites the guess (about 40 km, approximate). Check 3 carries
+  the 59 caveat.
+- Check 4: tagging after or at city creation, never in add-place; auto
+  trips via the city.
+- Check 5: full filter semantics. Check 6: picks among the selected
+  trips' cities.
+- **Check 8:** a repeat trip doesn't change the pins.
+- Check 9: always pre-filled.
+- **Check 10:** the place's city is editable, never its trips (PASS).
+- C1 is restated. T1-T3 are reworded.
+- **T4:** Copenhagen is tagged into the 2028 trip; everything shows
+  under both; no new bucket, no edit.
+- Today: fails 3, 4, 5, 8, 9, 10 and C1; passes 1, 2 (by the pick), 6
+  and 7.
+
+**Every owner question is now answered except one:** whether adding a
+place shows the city's trip.
+
+NEXT: director — score concept 5 as answered, then a fresh checker
+(light pass) before the summary goes back to the owner.

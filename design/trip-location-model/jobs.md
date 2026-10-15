@@ -101,8 +101,9 @@ the owner and a place.
 9. **Nothing structural is required at add.** PASS if the bucket is
    always pre-filled (an existing bucket, or a new one named from the
    real town) and never asked for or blocking ADD.
-10. **A wrong guess can be fixed.** PASS only with the move edit (Q-D,
-    open). Without it: FAIL, stated as the model's one gap.
+10. **A wrong guess can be fixed** (owner, Q-D). PASS if a place's city
+    can be edited after adding, and editing a place never changes which
+    trips a city is in.
 
 ## Creation moment
 
@@ -119,7 +120,7 @@ C2-C9 are retired (they checked automatic trips and figures).
 | **T1 Øresund:** Saltholm, Kastrup Søbad (Tårnby), and Malmö | Malmö is its own bucket. Saltholm and Kastrup Søbad go to the guessed bucket (the nearest within reach: Copenhagen) or the pick; their real town shows Tårnby. A trip tagging Copenhagen and Malmö shows all of them | PASS |
 | **T2 The airport:** Keflavík; Kastrup for both Copenhagen and Malmö | Keflavík goes to Reykjavík by the guess (about 40 km straight-line, approximate) or the pick. Kastrup is in **one** bucket; a trip tagging both cities shows it either way. It can't be under both buckets (by design) | PASS |
 | **T3 Jönköping** | No bucket within a day trip, so the guess is a new "Jönköping" bucket (or the pick). It joins the trip only when tagged afterwards | PASS |
-| **T4 Copenhagen again in 2028** | A 2028 trip tags Copenhagen too. Copenhagen is in both trips; every Copenhagen place, noted or visited in 2026, shows under both. No pin changes, no new bucket | PASS |
+| **T4 Copenhagen again in 2028** | A 2028 trip tags Copenhagen too. Copenhagen is in both trips; every Copenhagen place, noted or visited in 2026, shows under both. No pin changes, no new bucket, no place edit | PASS |
 
 ## Today, for reference
 
@@ -134,8 +135,8 @@ place).
 - per place: its bucket and its real town (as today);
 - buckets (today's `cities` registry);
 - **new:** trips (a name) and which buckets each trip tags;
-- the move edit (Q-D, open) changes a wrongly guessed place's bucket;
-  nothing else is edited.
+- one place edit: a place's city (Q-D); a city's trips are never edited
+  from a place.
 - **Real town:** 144 of 202 places have it; 59 don't (58 need the
   short-address backfill, 1 has details but no town; live count,
   2026-10-15). Check 3 needs the backfill for 58 of them (1 has no
