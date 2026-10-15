@@ -1302,3 +1302,36 @@ Then I check and re-score concept 2.
   reference). Concept 3's example names are now generated.
 
 NEXT: design director — check the overview and re-score concept 2.
+
+## Turn 10 -- design director: concept 2 re-scored; overview checked
+
+**Concept 2: 8 → 9.**
+- Both gaps are fixed. A hotel only adds a mark, a city never folds,
+  and order and legs wait for dates that are never asked for.
+- Logging a place no longer restructures anything he didn't ask for.
+- Its honest limit: until his hotels have dates, it *is* concept 1. That
+  makes his answers to Q3 and Q4 decide its worth, which is the right
+  place for that decision. Said plainly on its card.
+
+**The overview, cold at phone size: passes.**
+- One card per concept, large type, and each card carries its own cost.
+- Every unmeasured number reads "we think": the reach, the threshold of
+  2 and "far away".
+- The count is 59 with its reason. The airport town is softened, and
+  concept 3's name is generated, with the rename noted.
+- "The team thinks concept 1 is strongest; that's an opinion" closes
+  it.
+
+**Scores:**
+- C1: 9.
+- C2: 9.
+- C3: 7, sent as the "everything at once" answer, not recommended.
+
+**Send** (after the fresh jobs check passes):
+- `concepts/overview-3x.png`;
+- the seven owner questions from Turn 6.
+The concept files stay in the repo for anyone who wants depth; the
+owner gets the overview.
+
+NEXT: orchestrator — once the jobs checker passes, send the overview and
+the seven questions to the owner.

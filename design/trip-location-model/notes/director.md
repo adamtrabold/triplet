@@ -103,3 +103,4 @@ reach a city stays "From" (protects job 5).
 
 ### Next
 Visual's fixes, then I re-check C2 and the overview.
+- 2026-10-15 (turn 10): C2 -> 9 (no folding; order and legs wait for dates). Overview passes cold. Send the overview + 7 questions after the jobs check.
