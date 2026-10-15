@@ -77,3 +77,8 @@ Direction: show the C tag rotated 90° (vertical) as well, alongside the horizon
 > Really like the turned cream and orange but I feel like it could be a tad more squat.. Marge just by reducing the orange edge!
 
 Direction: the owner likes the UPRIGHT CREAM with the orange end (V5 right). Make it a tad more squat, maybe ("Marge" read as "maybe") just by reducing the orange edge. Note: cream measured ~0.59x the account (job 2 cost line was shown with it); the owner saw that line.
+
+2026-10-15, on round 11c (squat cream, 36x54 vs 40x55; sent as a decision with the weight trade):
+> Let’s nail proportion then overall size…. Maybe the orange needs to be even thinner
+
+Direction: cream upright. Step 1 proportion (shape, independent of size), step 2 overall size. Try the orange end even thinner. Owner did not pick orange; continuing with cream (weight trade was stated).
