@@ -1,6 +1,6 @@
 // DUST SUITE -- "0 dust-over-text frames" (docs/shipped.md Pencil Star rounds 4-6:
 // "Rule: dust may never overlap text -- 0 frames, guarded by the dust detector";
-// design/pencil-star/r6-design.md, dust6.js). Every rAF frame at 60Hz, in real time,
+// design/archive/pencil-star/r6-design.md, dust6.js). Every rAF frame at 60Hz, in real time,
 // counts any eraser speck (.sg-crumb) with opacity > 0.05 whose box overlaps the
 // stroked row's h3 or meta box. Also measures lift -> name moving (rule <= 150ms;
 // r6 measured <= 117ms) on full-motion unstars released before the rub finished.

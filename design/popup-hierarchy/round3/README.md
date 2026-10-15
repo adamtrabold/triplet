@@ -56,7 +56,7 @@ Character comes from:
   drops and swings, a label rises, a card is pulled from the file, a stamp
   comes down, a seal flies to the stamp corner). Shown as frames.
 
-From the reviews (`../round2/ux-review.md`, `../round2/cd-review.md`):
+From the reviews (`../../archive/popup-hierarchy/round2/ux-review.md`, `../../archive/popup-hierarchy/round2/cd-review.md`):
 - UX hard limits are held in every concept: one-tap Directions / Star /
   Visited, 44px targets, nothing moves on a tap, a typical note readable
   with no tap, the OSM credit visible, nothing parked at the screen edges.

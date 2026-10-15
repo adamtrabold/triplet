@@ -106,9 +106,9 @@ pick/redirect before building anything.
   starred (no always-visible or hollow star in the list). Open: the POPUP
   star's alignment when the popup has full content (long name, address,
   notes); includes the CD-deferred 41px empty gap above Get Directions in a
-  bare popup (star-target geometry). **Active concept thread:
-  `design/popup-star-alignment/`.** `design/star-alignment/` is history
-  only: an earlier exploration (2026-09-28) that misframed the problem as
+  bare popup (star-target geometry). (The concept thread it named,
+  `design/popup-star-alignment/`, never reached main.)
+  `design/archive/star-alignment/` is history only: an earlier exploration (2026-09-28) that misframed the problem as
   an outline/list-row question, so its variants (reserved-column,
   dog-ear/stripe/action-cluster, corner badge, starred-only section, etc.)
   are not candidates.
@@ -131,7 +131,7 @@ pick/redirect before building anything.
   to rows": dark sticker on map pins, the stamp on rows). Original item, for history: (owner,
   2026-09-29 ask; final check size/shape decisions 2026-10-02). Supersedes
   the old "Visited pins have no map treatment" thread: Round 4 dots
-  (`design/visited-marker/concept/`) were REJECTED by the owner as visual
+  (`design/archive/visited-marker/concept/`) were REJECTED by the owner as visual
   noise; do not revive. Approved direction, in stills:
   `design/visited-system/stamp-first/README.md` (final spec at top).
   Pin = category-wash face + centred check (9px NEAR, 6.2px FAR, selected

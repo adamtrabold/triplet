@@ -1,5 +1,5 @@
 // TOUCH SUITE -- the "84" of the star gate "84 + 8 (+ N8-a)".
-// A re-implementation of design/pencil-star/test6.js (42 cases x 2 motion modes = 84)
+// A re-implementation of design/archive/pencil-star/test6.js (42 cases x 2 motion modes = 84)
 // on this harness, run against the real index.html. Case-for-case the same list as
 // test6.js; where p8 / swipe-visit superseded a behaviour, the case asserts the
 // CURRENT spec (docs/shipped.md) and says so in its name ("[p8]", "[visit]"):

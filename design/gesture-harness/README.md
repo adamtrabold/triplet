@@ -1,7 +1,8 @@
 # Row-gesture test harness (the load-bearing gate)
 
-Rebuilt 2026-10-01. The original harness was never committed. Its files were
-`design/pencil-star/lib.js`, `s2.js`, `r5-metrics.js`, `design/star2/lib.js`,
+Rebuilt 2026-10-01. The original harness was never committed to any ref. Its files
+were the Pencil Star's `lib.js`, `s2.js` and `r5-metrics.js` (meant to sit in what is
+now `design/archive/pencil-star/`), a second star `lib.js` (`star2`, never in the repo),
 `curve8.js`, `dust6.js` and the popup-open suite (`docs/backlog.md`,
 `docs/shipped.md` "List order"). That left the CLAUDE.md gate impossible to run.
 This folder replaces all of them. It runs against the real `index.html`, unmodified,
@@ -27,12 +28,17 @@ design/gesture-harness/run-all.sh [path/to/index.html] [suite ...]
   `curve`, `dust`, `flip` and S2 measure real time per rAF, and parallel
   browsers would disturb that.
 
-The last two lines printed are the gate. A fully passing run reads like this:
+The last two lines printed are the gate. A fully passing run would read like this:
 
 ```
 GATE star "84 + 8 (+ N8-a)" · vtest 95/95 · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, lift->move <=127ms) · rows 56.00px · curve8 row 11/3, highlighted 11/3, popup 10/3 · delete-slop 36/36
 GATE PASSED            (or: GATE FAILED: <suites>, followed by each failing case)
 ```
+
+That is the spec, not what main prints today. The recorded origin/main baseline
+(`docs/shipped.md` "Gates", 2026-10-07 onward) is **vtest 91/95** (V14 ×2 and V15 ×2,
+pre-existing; see Findings 2–3 below) and **curve8 row 10/3, highlighted 10/3, popup 10/3**
+(Finding 1). Compare a run against that baseline, not against 95/95 and 11/3.
 
 ## What it is
 
@@ -69,12 +75,12 @@ GATE PASSED            (or: GATE FAILED: <suites>, followed by each failing case
 
 | Suite | Gate number | Spec (docs/shipped.md unless noted) |
 |---|---|---|
-| `touch.js` | **84/84**: 42 cases × 2 motion modes | Pencil Star entry (all rounds). It is `design/pencil-star/test6.js` case for case. |
+| `touch.js` | **84/84**: 42 cases × 2 motion modes | Pencil Star entry (all rounds). It is `design/archive/pencil-star/test6.js` case for case. |
 | `flip.js` | **8/8**, and its negative control must **fail 4/4** | Rounds 4–6, "FLIP rule, re-specified". It is `flip6.js` (N5-a). |
 | N8-a (in `touch.js`) | **4/4**: mouse and touch × 2 modes | Rounds 7–8, "A mouse click refocuses the button (N8-a)". |
-| `visit.js` | **95/95**: 49 full + 46 reduced | Swipe-left visited. It is `design/swipe-visit/vtest.js` (p7) case for case. |
+| `visit.js` | **95/95**: 49 full + 46 reduced (main's recorded baseline is 91/95: V14 ×2, V15 ×2) | Swipe-left visited. It is `design/archive/swipe-visit/vtest.js` (p7) case for case. |
 | `popup-open.js` | **20/20 in each motion mode** | "List click always opens the popup". |
-| `dust.js` | **0** speck-over-text frames | Rounds 4–6 "Dust sweep" and `design/pencil-star/r6-design.md`. |
+| `dust.js` | **0** speck-over-text frames | Rounds 4–6 "Dust sweep" and `design/archive/pencil-star/r6-design.md`. |
 | `rows.js` | **56.00px** is the only height ever seen | "Rows 56.00px throughout". |
 | `curve.js` | row **≥11/3**, popup **≥8/3** | Rounds 7–8 spin-stamp, and `r8-design.md` §1. |
 | `delete.js` | **36/36** | Swipe-left "Delete safety", the UX sweep. |

@@ -92,7 +92,7 @@ it anywhere else:
   it only works for a known city. (b) Pan the map more than 75 km from
   every known city. Search is then hard-bounded to the visible map.
 
-### Corrections to the earlier doc (`design/trip-place-model/proposal.md`, 2026-09-28)
+### Corrections to the earlier doc (`design/archive/trip-place-model/proposal.md`, 2026-09-28)
 
 - It says `locations.city` / `neighborhood_shapes.city` are "not enforced
   FKs" and could go nullable "without a migration". Both are wrong. Live

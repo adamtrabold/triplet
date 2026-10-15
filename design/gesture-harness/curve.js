@@ -1,5 +1,5 @@
 // CURVE SUITE -- `curve8.js` of the gate (docs/shipped.md Pencil Star rounds 7-8,
-// design/pencil-star/r8-design.md section 1). The STAR_POP spin-stamp ink landing,
+// design/archive/pencil-star/r8-design.md section 1). The STAR_POP spin-stamp ink landing,
 // measured in-page per rAF at 60Hz in real time: frames at >= 1.3x and frames at
 // <= 0.97 from the ink landing to rest, plus the peak and the rest state.
 //   row (plain), row (highlighted): real CDP star strokes (0.6px/ms, 100px)

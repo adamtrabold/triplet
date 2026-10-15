@@ -1,7 +1,7 @@
 # Hanging Tag v4: UX review (colour, Visited trigger, sign-in slip)
 
 UX agent, 2026-10-07, on `515822a`. Brief: `docs/ux-brief.md`. Hard limits
-are from `../../round2/ux-review.md` §4 (amended in round 5 for wide
+are from `../../../archive/popup-hierarchy/round2/ux-review.md` §4 (amended in round 5 for wide
 segments). Evidence: the 1x phone stills, then the 3x crops.
 
 Owner (verbatim): "1. Segmented stub is awesome. I now wonder about the

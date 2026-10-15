@@ -143,7 +143,7 @@ stop 3 of 3" in every variant.
 
 - Round 5 Claim check had a labelled field grid. The CD killed it for ruled
   cells, labels repeating values ("Starred: Yes, Visited: Visited") and an
-  empty ☐ (`../round5/tag/cd-review.md`). None of the variants below has cells,
+  empty ☐ (`../../archive/popup-hierarchy/round5/tag/cd-review.md`). None of the variants below has cells,
   checkboxes or a label that repeats its value. Only TYPE and PLAN are fields.
   Star and Visited stay in the stub.
 - In round 5's fixes, the line became one quiet inline line. The build set it
