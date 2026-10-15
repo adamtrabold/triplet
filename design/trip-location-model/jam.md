@@ -1398,3 +1398,108 @@ Not in jobs.md (the concept files' issues, for visual):
 NEXT: design director — rule on the date routes (D1 / D2 / D3 or none).
 Then the checker re-runs the changed checks (9, 12, 14, C3, C5-C7, T2,
 T3) once visual's concept fixes land.
+
+## Turn 12 -- design director: concept 2's dates ruled; UI flagged for stripping
+
+Model, not UI (owner: "the model is what to nail right now not ui").
+
+### The model statement (this is what gets ruled, not a route)
+
+- **A stay is a Hotel-category place that may carry a date range.**
+- **A trip's order comes from the first source that exists:**
+  1. dated stays (the stays' dates);
+  2. else the order you actually visited its cities (the first visit
+     in each city);
+  3. else no order: concept 1's sections, and "On the way" instead of
+     legs.
+- **Nothing is ever asked for.** Every source is something you've
+  already done.
+
+### The routes
+
+- **D3, learned from visits: in.**
+  - It follows from the owner's own principle ("places-first;
+    immediately doing the thing you actually want to do"). It uses only
+    what you'd do anyway.
+  - **Model consequence:** a place must record *when* it was first marked
+    visited.
+    - Today `visited` is a yes/no, and `updated_at` can't stand in.
+    - That's a stored field (a database change, gesture/data lane at
+      build), flagged now so it isn't a surprise.
+  - Its limit is plain: it gives order only during and after the trip.
+- **D1, dates read from a pasted booking: in, as "we think".**
+  - It extends what the owner already does: "planning in advance… pasting
+    an address first".
+  - It gives order *before* the trip, which D3 can't.
+  - **Its costs:**
+    - reading dates from bookings is unreliable;
+    - with edit future, a wrong date is only fixable before ADD.
+  - So it's offered to the owner as an option, not settled.
+- **D2, an optional date line on hotels: held back, but visible to the
+  owner as the conventional route.**
+  - **(We think)** it's the one route that puts a field in front of
+    him, which leans toward the admin he ruled out.
+  - Not hidden: it's his call.
+- **None:** still possible. Then concept 2 is concept 1 plus a base
+  mark, and its card has to say so.
+
+### Owner question 4, reworded (replaces Turn 6's Q4)
+
+> "Should the app put your trip in order? It could use your hotel dates
+> (read from a booking you paste), the order you actually visit
+> places, both, or neither. (We think both, with hotel dates first.)"
+
+### UI to strip from the concept files (for systems)
+
+**Keep only:** entities, what's stored vs. derived, the rule tree,
+creation-moment outcomes, test-case outcomes, and the jobs lines.
+
+**Strip, or restate as a plain model statement:**
+1. **Header strings and counts:**
+   - "‹ Iceland & Denmark";
+   - "REYKJAVÍK (23)";
+   - "YOUR PLACES (0)";
+   - "ALL PLACES (225)";
+   - "▾ SCANDINAVIA 2026 (96)", including the 96 vs 87 mismatch, which
+     goes away with it.
+   - Model: *the current view is always one trip, one figure, On the
+     way, or (concept 3) everything / a cluster.*
+2. **Empty-state copy:** "+ to log one". Model: *an empty app has no
+   trip or figure.*
+3. **Tag wording and layout:**
+   - "Reykjavík · in Grindavík";
+   - "New trip · United States" / "Keep in Iceland & Denmark";
+   - "after ADD, print on the tag";
+   - "pencil", "NAME line", "blank tag", "stub".
+   - Model: *a place exposes both its figure and its real city; a
+     far-away place makes a new trip, and that can be undone by keeping
+     it in the current trip (or by merging trips later).*
+4. **"belongs with…" as a control:**
+   - sub-heads with counts;
+   - "beside the places";
+   - the [Malmö ✓] [Copenhagen] [its own city] chips.
+   - Model: *a real city's figure(s) can be changed once, for all its
+     places; options: an existing figure, an extra figure, or its own.*
+5. **List section headings and order on screen:**
+   - "FROM REYKJAVÍK";
+   - "ON THE WAY" as a section;
+   - ◆ as the base mark.
+   - Model: *a place is In or From its figure; a place with no figure
+     is On the way; a figure with a stay is a base.*
+6. **Navigation gestures:** "tap ‹", "tap a heading", "one tap down",
+   ▾. Model: *moving between trip and figure is one step either way
+   (job 4).*
+7. **The filters panel and "real-city chips".** Model: *places can be
+   narrowed by real city, separately from figures.*
+8. **Map behaviour sentences.** Keep these as the constraint in job 11,
+   not as a description.
+9. **Concept 3's undrawn cluster view and first-ADD header** (systems'
+   list). These vanish with 1 and 6.
+10. **The stale "flag on C4" in concept 1,** and the reference's P grade
+    (today's form opens with a City select, so it **fails** P). Model
+    fixes, not UI: correct them.
+
+NEXT: product designer (systems focus) — strip the concept files to
+model statements per the list above, add concept 2's ordering rule
+(stays' dates → visit order → none), then the checker re-runs the
+changed checks.

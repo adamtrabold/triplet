@@ -104,3 +104,34 @@ reach a city stays "From" (protects job 5).
 ### Next
 Visual's fixes, then I re-check C2 and the overview.
 - 2026-10-15 (turn 10): C2 -> 9 (no folding; order and legs wait for dates). Overview passes cold. Send the overview + 7 questions after the jobs check.
+
+## Turn 12 (2026-10-15)
+
+### Visual off the loop
+The owner asked why a visual designer is on a model loop. Systems owns
+the concept files now.
+
+### Date routes
+- **Model:** order = dated stays → first-visit order → none. Nothing
+  asked.
+- **D3 is in:** it follows from places-first. It needs a stored "first
+  visited at" (a DB change).
+- **D1 (pasted booking) is "we think"**, an option offered to the owner.
+- **D2 is held back** but visible.
+- **None** = concept 2 is concept 1 plus a base mark.
+
+### Q4 reworded
+Order from hotel dates (pasted), visit order, both, or neither (we
+think both).
+
+### UI flagged for systems to strip (10 items)
+- headers and counts;
+- empty copy;
+- tag wording;
+- the "belongs with…" control;
+- section headings and ◆;
+- gestures;
+- chips;
+- map sentences;
+- C3's view;
+- the stale C4 flag and the reference's P grade (a fail).
