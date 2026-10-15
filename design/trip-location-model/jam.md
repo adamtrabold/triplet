@@ -1000,3 +1000,144 @@ Open (owner questions):
 NEXT: design director — rule on merging A and D, on C as a layer, on
 killing B as a live concept, and on adding the "no trip container"
 model; then concepts at sketch level.
+
+## Turn 6 -- design director: the jam closes
+
+Governing principle (owner, verbatim): "the philosophical approach should
+be places-first; immediately doing the thing you actually want to do not
+the adin". And: "i expect many ideas here, not a hard recommendation,
+unless they have one that is completely obvious and stands out
+meaningfully against the others." Sketch level; model, not UI. Anything
+below that rests only on our taste is marked **(we think)** and stays
+visible to the owner as an option.
+
+### Rulings
+
+**1. The places-first verdicts: agreed.**
+- A and D pass.
+- C passes only as something you never have to do.
+- B fails, and that isn't our taste: it's his test applied. A pre-filled
+  home on every add is filing at the moment he said he wants to
+  "immediately do the thing", and with edit future a wrong home is
+  permanent.
+
+**2. Merge A and D into "a rule that remembers": yes.**
+- They're one idea with and without its correction. Showing them apart
+  would spend his attention on a difference he'd see in one sentence.
+- How it works:
+  - "nearest of your cities" files a new real city the first time;
+  - the per-real-city memory overrules it from then on;
+  - a real city may sit in two figures (Tårnby, for the airport, in both
+    Copenhagen and Malmö).
+- **The group-level fix replaces the per-place "see also": yes.** It's
+  fixed beside the places ("Lund · 3 — belongs with…"), once, for every
+  Lund place, past and future, and it needs no place edit.
+- **The cost, said plainly:** one Lund place can't go with Copenhagen
+  while the rest go with Malmö. **(We think that's rare enough.)** It
+  goes to him as a question, not a settled point.
+- **Prerequisite for this and every concept:** the real-city backfill
+  (0 of 202 today).
+
+**3. C as an optional stays layer, switched on by logging a hotel:
+yes.**
+- Nothing appears until a Hotel-category place exists. Then:
+  - its city gets a base mark;
+  - the trip's sections take the stays' order;
+  - in-between places sit on legs.
+- Hotel dates are never asked; order defaults to the order added.
+- Whether hotels are places to visit or the trip's frame is still his
+  to say. The layer works either way.
+
+**4. Kill B as a live concept: yes.** It stays only as the **"today"
+reference** column in the send, so he can see what changes. We don't
+dress it up as an option we expect to fail.
+
+**5. The added ideas:**
+- **"On the way": yes.** A place far from all your figures but inside
+  the trip's spread files there, as its own section. It's job 9 without
+  hotels.
+- **A new city once there are two places there: yes, as a fixed rule.**
+  - Not a setting: he's said no distance or threshold settings.
+  - **The number 2 is our opinion (we think);** it goes to him visibly.
+- **Nothing structural asked at add: yes, a constant for every
+  concept.**
+  - The tag at add shows what the place *is*.
+  - Figure and trip print on it after ADD.
+- **The "no trip container" model: yes, as the third concept.**
+  - It differs in kind: trips aren't objects at all, just how your
+    places cluster.
+  - It's the honest test of his question "one trip at a time, or
+    everything at once?", and places-first in the extreme.
+
+**6. The quiet new-trip default (correct it after, don't ask first):
+yes.**
+- A far-away place starts a new trip, named from its country.
+- The open tag prints it with the correction beside it
+  ("Keep in Iceland & Denmark").
+- With place edit future, the safety net is **trip-level**: two trips can
+  be merged later from the trip list. That isn't editing a place.
+- **(We think)** an after-the-fact correction is right for places-first.
+  It's his call, so it's on the list.
+
+### Is one model plainly ahead?
+
+- **Not enough to send only one.** "A rule that remembers" is ahead on
+  places-first: zero setup, zero choices per add, and every fix is made
+  once, beside the places.
+- But concepts 2 and 3 each answer something it can't: in-between and
+  order, and whether trips should exist at all.
+- **(We think)** concept 1 is the strongest. It's sent as our opinion,
+  with the other two in full.
+
+### Concepts going to sketch (model, not UI)
+
+1. **A rule that remembers.** Nearest of your cities, plus a per-real-city
+   correction beside the places. "On the way" for places far from every
+   figure. One trip at a time, made and named by your places.
+2. **The same, plus stays.** Log a hotel, and bases, trip order and legs
+   appear. Nothing until then.
+3. **No trip container.** All your places at once; trips are clusters the
+   app sees, named by country. The figures work as in 1.
+- **Reference: today (B).** One home per place, filed at add.
+
+**Constant across all three:**
+- the lens (one name in the header, one tap back out);
+- real-city chips as his "filter by city";
+- plans belong to the trip (or, in 3, to the cluster their stops sit in);
+- nothing structural asked at add;
+- the tag prints both truths ("Reykjavík · in Grindavík").
+
+Each concept's sketch walks the same moments:
+- the first open;
+- the first place;
+- a place in a new real city;
+- a place in a new country;
+- a far-away place;
+- the fix ("Lund belongs with…").
+Plus the three test cases: Øresund, the airport, Jönköping.
+
+### Owner questions still open (send with the concepts)
+
+1. **When the app files a place under the wrong city:** fix the rule
+   once ("Lund belongs with Copenhagen", every Lund place), or fix that
+   one place? (One place on its own needs edit, which is future.)
+2. **Can one place show under two cities?** For example, Copenhagen's
+   airport under both Copenhagen and Malmö.
+3. **Are hotels and airports places you want to visit, or the frame of
+   the trip** (where you stay and leave from)?
+4. **Do your trips have an order or dates** you'd want the app to use?
+5. **One trip at a time** (LA kept apart), **or everything at once?**
+   Concept 3 shows the second.
+6. **A far-away place starts a new trip quietly,** with "keep it in this
+   trip" on its tag right after. Is that the right moment, or should it
+   ask first?
+7. **A place becomes a city of its own once there are two places
+   there.** We think 2; is that right?
+
+Retired from Turn 3's list: "should the Blue Lagoon just be there?" All
+three concepts answer yes, and Q1 covers when it's wrong.
+
+NEXT: product designer (systems focus) — write `jobs.md` for the
+trip-model concepts: jobs 1-12 with places-first as the governing rule,
+the creation moments above, and the three test cases, so visual and
+systems sketch the three concepts against one list.
