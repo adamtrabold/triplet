@@ -126,3 +126,8 @@ Needs both badges (stand-in vs round 6/7 build) in context before choosing. "k c
 > I don’t understand the workflow for the city thing — I think we need to map it out. There are a few key workflows — a trip where I’m personally referring to it as like let’s say Chicago or something, but the place is in a suburb in reality. I need the address to be found. Then there’s where I’m planning in advance for a city and am pasting an address first it should automatically go to that city…but also probably needs to be coded to a “trip.” But then there’s the hardest — starting from search without a pasted thing it needs to find it anywhere.
 
 Direction: map the city/search workflows before more form drawing. Three named: (1) a place in a suburb of the city the owner calls by name (e.g. "Chicago") — the real address must be found and it files under the trip city; (2) planning ahead: paste an address first -> goes to that city automatically, and probably coded to a "trip"; (3) hardest: search from a name with nothing pasted — must find it anywhere. Overlaps the backlog "Trips vs cities restructure" (design/trip-location-model/).
+
+2026-10-15, DECISION (badge to build):
+> Build the matched icon but we need to include this in the icon project everything is inconsistent
+
+Build: X2 right panel — 24-lobe textured badge, 26.4px +, + stroke 2.00px (matched to the account icon). Line-weight inconsistency across icons goes to the icon project (backlog).

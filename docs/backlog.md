@@ -83,6 +83,13 @@ pick/redirect before building anything.
   time") and Alignment / spacing ("Spacing between things is insane and
   icons don't fill the same visual space"). Scope, approach and solutions
   are open; they belong to the designer/CD/UX roles.
+  Add (owner, 2026-10-15, on the + badge: "we need to include this in the
+  icon project everything is inconsistent"): line weights don't match
+  across the chrome. Measured on screen at 390×844: account icon 2.00px,
+  list-row category icons 2.00px, list toolbar icons 1.50px, locate-me
+  2.08px, today's + 2.29px. The new + badge is built at 2.00px to match the
+  account icon (`design/add-button-placement/concepts/E-float/X2-in-context-3x.png`);
+  the icon project sets the one stroke for all of them.
 - ~~**Popup star alignment with full content**~~ CLOSED by the Hanging Tag
   (built 2026-10-07 on `popup-hanging-tag`, `docs/shipped.md` "Hanging Tag +
   orange star"): the star is no longer beside the title; it is a fixed
