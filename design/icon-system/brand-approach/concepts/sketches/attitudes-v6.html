@@ -390,7 +390,7 @@ const RO={
 const RCLIP=9.1;
 const R_=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="currentColor"/>`;
 const CO={
- restaurant:f('M5 7h3v4l-.5.5V17h-2v-5.5L5 11z')+'<circle cx="12" cy="12" r="3.5" fill="currentColor"/>'+f('M16 17V10l3-3v10z'),
+ restaurant:R_(5,6,2,5)+R_(8,6,2,5)+R_(11,6,2,5)+f('M5 10h8v1l-3 3v4H8v-4l-3-3z')+f('M15 6a3 3 0 0 1 3 3v5h-1v4h-2z'),
  cafe:f('M5 6h10v4a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z')+f('M15 7h3a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-3v-2h3V9h-3z')+R_(5,16,12,2),
  bar:f('M6 5h12l-6 6z')+R_(11,10,2,6)+R_(8,16,8,2),
  attraction:f('M7 10l5-5 5 5z')+R_(7,12,2,5)+R_(11,12,2,5)+R_(15,12,2,5)+R_(6,17,12,2),
@@ -399,7 +399,7 @@ const CO={
  area:f('M5 9l4-4v10l-4 4z')+f('M10 5l4 4v10l-4-4z')+f('M15 9l4-4v10l-4 4z'),
  hotel:R_(5,7,2,11)+R_(7,13,11,3)+R_(16,16,2,2)+'<circle cx="10" cy="10" r="2" fill="currentColor"/>'+R_(13,10,5,3),
  other:R_(7,5,2,14)+f('M9 5h8l-3 3 3 3H9z'),
- district:f('M5 10l4-4v12H5z')+R_(11,6,8,6)+f('M11 14h8l-4 4h-4z'),
+ district:f('M5 9l3-3h2v6H5z')+R_(12,6,7,6)+R_(5,14,5,4)+R_(12,14,7,4),
  street:`<path fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" d="M5 15h4l6-6h4"/>`+`<path fill="none" ${KOS} stroke-width="1.6" stroke-dasharray="2 2" d="M5 15h4l6-6h4"/>`,
 };
 const COFF={};
@@ -484,14 +484,14 @@ const farStrip=()=>`<div class="map bleed" style="height:64px;background:#E8E4DA
 const chipsV=set=>`<div class="chips">${[['restaurant',1],['cafe',1],['bar',0],['district',1],['street',0]].map(([c,on])=>{const ink=on?INK[c]:'#9A9282';
  const g=set==='RO'?`<span style="${on?'':'filter:grayscale(1) opacity(.6)'}">${mark('RO',c,16)}</span>`:bare(set,c,12,ink);
  return `<div class="chip${on?'':' off'}" style="border-bottom-color:${on?INK[c]:'#C9BEA6'}">${g}${c.toUpperCase()}</div>`}).join('')}</div>`;
-const pairs=()=>`<div class="pairs">${CAT.map(c=>`<span class="pr">${mark('T',c,24)}<i>→</i>${mark('SP',c,24)}</span>`).join('')}</div>`;
+const pairs=(set)=>`<div class="pairs">${CAT.map(c=>`<span class="pr">${mark('T',c,24)}<i>→</i>${mark(set,c,24)}</span>`).join('')}</div>`;
 const gridFrame=()=>`<div class="gf">${['cafe','bar','nature'].map(c=>{let g='';for(let i=0;i<=24;i+=2)g+=`<path d="M${i} 0V24M0 ${i}H24" stroke="${i%4?'#E3D8C4':'#D2C4AA'}" stroke-width=".12"/>`;
  return `<div><svg viewBox="0 0 24 24" width="104" height="104" style="display:block;background:var(--raised)">${g}<circle cx="12" cy="12" r="11" fill="none" stroke="${INK[c]}" stroke-width="2" opacity=".35"/><g transform="translate(${COFF[c].dx} ${COFF[c].dy})" style="color:${INK[c]}" opacity=".88">${CO[c]}</g></svg><span>${c}</span></div>`}).join('')}</div><p class="gcap">Each square is 2px, the width of the app’s one line. Every part is a bar 2, 4 or 6px wide, a circle, or a cut at 0°, 45° or 90°.</p>`;
 const three=(a,b,c,m)=>`<ul class="notes">${m?`<li><b>Made from</b><span>${m}</span></li>`:''}<li><b>What it is</b><span>${a}</span></li><li><b>Good at</b><span>${b}</span></li><li><b>Costs</b><span>${c}</span></li></ul>`;
 
 const conceptCard=(set,no,name,att,lines,extra='')=>`<div class="card"><div class="no">${no} · sketch, not final drawings</div><h2>${name}</h2><p class="att">${att}</p>${lines}
  <div class="sec">All 11 places, 24px, as in a row</div>${strip24(set)}
- ${set==='SP'?`<div class="sec">Today → Specimen, what changed</div>${pairs()}`:''}${set==='CO'?`<div class="sec">How it’s built: the grid</div>${gridFrame()}`:''}
+ ${set==='SP'?`<div class="sec">Today → Specimen, what changed</div>${pairs('SP')}`:''}${set==='CO'?`<div class="sec">Today → Constructed, what changed</div>${pairs('CO')}<div class="sec">How it’s built: the grid</div>${gridFrame()}`:''}
  <div class="sec">Filter-chip size (12px)</div>${stripSmall(set)}
  <div class="sec">Photocopied to one ink</div>${strip24(set,1)}
  <div class="sec">Map buttons and list header${set==='T'?'':' (every line 2.00px)'}</div>${headerV(set)}
@@ -536,7 +536,7 @@ const rulesCard=()=>`<div class="card rules"><div class="no">Round 3 · read thi
  <p class="att" style="margin-top:0">Visited (the stamp, the sticker and the Mark-visited check), the round pin, the scalloped buttons and the category colours.</p></div>`;
 
 // ---- SIDE BY SIDE
-const sbs=()=>`<div class="card sbs"><div class="no">Card 3 · side by side</div><h2>Side by side</h2><p class="att">The same row, tag strip and busy map, once for each.</p>
+const sbs=()=>`<div class="card sbs"><div class="no">Card 3 · side by side</div><h2>Side by side</h2><p class="att">Both use the same rules, circle and weight. They differ in how each place is drawn: by hand (Specimen) or on a 2px grid (Constructed). Compare the strips; in a single row they look close on purpose.</p>
  ${[['T','Today'],['SP','Specimen: cut'],['CO','Constructed: built']].map(([s,n])=>`<h3>${n}</h3>${strip24(s)}
  <div class="bleed" style="margin-top:8px">${row(s,'cafe','Café Loki',{v:1})}${row(s,'cafe','Brauð &amp; Co',{v:1,sel:1,star:1})}</div>
  <div class="bleed" style="background:#E9E1D1;padding:0"><div class="stub">${tagSeg(s==='T'?TT.directions(20):tl('directions',20),'DIRECTIONS')}${tagSeg(s==='T'?TT.staroff(20):tl('staroff',20),'STAR')}${tagSeg(CHK(20),'MARK<br>VISITED',1)}</div></div>
@@ -554,8 +554,8 @@ const dropCard=()=>`<div class="card"><div class="no">Card 4</div><h2>Dropped: s
 (async()=>{await fitAll();
  const out=[rulesCard(),
   conceptCard('T','Card 0','Today (for reference)','Places are solid; tools are lines at whatever weight each one landed on; districts and streets sit in a diamond.',three('What ships now.','Clear places, familiar tools.','Line weights from 1.28 to 2.08px; empty rings (account, locate) next to the empty star; × typed, not drawn.')),
-  conceptCard('SP','Card 1','Specimen','Each place is cut from paper with scissors: one cut you can see, or one cream detail the thing really has. Mounted whole in its circle.',three('Solid places with organic, hand-cut shapes. Restaurant, café and tree keep Today’s shape; the other eight are new.','Warm and a little playful; the most whimsy, and closest to what you know.','Drawn by eye, not on a grid, so keeping all 11 the same weight takes judgement. Softer and less exact than Constructed.','<b class="src">Cut Paper</b>: the shapes, each with one visible cut (the bag’s pinked top, the flag’s snipped tail, the map’s folds). <b class="src">Field Guide</b>: one cream detail where the thing really has it (the olive, the columns, the road’s centre line, the streets).')),
-  conceptCard('CO','Card 2','Constructed','Each place is built from a few parts on one grid, the way Otl Aicher drew the Munich 1972 pictograms: circles, bars and 45° cuts.',three('Solid places assembled from parts whose sizes are multiples of the 2px line. Nothing is freehand.','Exact and consistent: the places are made of the same line as every tool, so the weight rule and the drawing rule are one rule.','Stiffer, more like a road sign: less warmth than Specimen, and some places (the bed, the temple) get abstract.','<b class="src">Spot Pictogram</b>: flat, few, geometric shapes, built on a grid. Cream appears only as gaps the grid leaves.')),
+  conceptCard('SP','Card 1','Specimen','Each place is cut from paper with scissors: one cut you can see, or one cream detail the thing really has. Mounted whole in its circle.',three('Solid places with organic, hand-cut shapes. Restaurant, café and tree keep Today’s shape; the other eight are new.','Warm and a little playful; the most whimsy.','Drawn by eye, not on a grid, so keeping all 11 the same weight takes judgement. Softer and less exact than Constructed.','<b class="src">Cut Paper</b>: the shapes, each with one visible cut (the bag’s pinked top, the flag’s snipped tail, the map’s folds). <b class="src">Field Guide</b>: one cream detail where the thing really has it (the olive, the columns, the road’s centre line, the streets).')),
+  conceptCard('CO','Card 2','Constructed','Each place is built from a few parts on one grid, the way Otl Aicher drew the Munich 1972 pictograms: circles, bars and 45° cuts.',three('Solid places assembled from parts whose sizes are multiples of the 2px line. Nothing is freehand. Cup, glass, tree and bed keep Today’s shape (Today’s are already built this way); the other seven are new.','Exact and consistent: the places are made of the same line as every tool, so the weight rule and the drawing rule are one rule.','Stiffer, more like a road sign: less warmth than Specimen, and some places (the bed, the temple) get abstract.','<b class="src">Spot Pictogram</b>: flat, few, geometric shapes, built on a grid. Cream appears only as gaps the grid leaves.')),
   sbs(),dropCard()];
  document.getElementById('out').innerHTML=out.join('');window.READY=1;})();
 </script>

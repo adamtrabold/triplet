@@ -2487,3 +2487,34 @@ know"; Constructed district (check the logo read).
 NEXT: product designer (visual focus) — fixes 1–5 in scores.md round 3b,
 re-render the v6 cards; then the director checks cards 1–3 (a look, not a
 re-score) and hands the send list to the coordinator.
+
+## Turn 23: product designer (visual focus), round 3b fixes
+
+All six `v6-card-*.png` are re-rendered from `attitudes-v6.html`.
+
+1. **Side by side:** the director's line is under the title, word for
+   word.
+2. **Constructed:**
+   - "What it is" now says "Cup, glass, tree and bed keep Today's shape
+     (Today's are already built this way); the other seven are new."
+   - A Today → Constructed pair strip sits under the 24px strip, like
+     Specimen's.
+3. **Constructed restaurant** is redrawn on the grid as a fork and a knife
+   side by side, with no plate:
+   - The fork has three 2px tines with 1px cuts between them, and 45°
+     shoulders down to a 2px handle.
+   - The knife has a 3px blade with a quarter-circle back and a 2px
+     handle.
+   - At 24px it reads as cutlery, not a dumbbell. The 1px tine cuts are
+     half a grid unit, the one place the grid halves. I'm naming that
+     here, not on the card.
+4. **Specimen "Good at"** is now "Warm and a little playful; the most
+   whimsy."
+5. **Constructed district:** the old one (three blocks with corner cuts)
+   could read as a "P" or a logo, so I redrew it. It's now four unequal
+   blocks split by 2px straight streets, with a 45° corner on the top-left
+   block. It reads as city blocks. Because the blocks are unequal, it
+   doesn't read as an app grid.
+
+NEXT: design director — check cards 1–3 and hand the send list to the
+coordinator.
