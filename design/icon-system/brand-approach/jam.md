@@ -2160,3 +2160,34 @@ NEXT: product designer (systems focus) — coverage run on the six v5 cards
 against jobs 1–13 (the tag stub's category circle, the "tapped by me"
 table and the weight table are the new parts), then the director scores
 all of them in one pass.
+
+---
+
+## Turn 16: product designer (systems focus), coverage on the v5 cards
+
+The full table is in `coverage.md` (round 3, at the top). In short:
+
+- **Jobs 3, 5, 6, 7, 9, 11, 12 and 13 pass** on both concepts and the
+  rules card. Jobs 1–2 pass through the v4 brand card he's already seen.
+  The law holds in every tag strip and header: every tool now has a solid
+  part, and the star off is the full-size hollow of the star on.
+- **BLOCKER, job 8 (both cards).** He named Field Guide, Cut Paper and Spot
+  Pictogram. No v5 card uses those names, so he can't see what became of
+  them. The concepts *are* the combination, but nothing says so. One line
+  fixes it.
+- **BLOCKER, job 10 (rules card).** The "tapped by me" table never says
+  *where* outlines appear. Rows and the map show nothing until you mark a
+  place. Outlines live only in the tag and the add form. Without that line
+  he'll picture an outlined star on every row and pin.
+- **BLOCKER, job 10 (Roundel only).** The rules card says "The open pin
+  fills with its colour". Roundel's open pin is a cream disc with a brown
+  rim, so the card is false for it. Either redraw it or say it differs.
+- **Not blocking:** the row × at 2.00 is now bold on every row (make it
+  smaller, per the director's own rule). The account's "already 2.00"
+  hides that its head goes solid. Roundel's hotel reads as a mug, so with
+  area and district failing too, only 7 of 11 tell apart at a glance.
+
+NEXT: product designer (visual focus) — the three one-line or
+one-drawing fixes (job 8 line, job 10 "where outlines appear" line,
+Roundel's open pin or its caveat), plus the row × size; then the director
+scores all six in one pass.

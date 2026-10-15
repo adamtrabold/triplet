@@ -1,5 +1,33 @@
 # Notes: product designer (systems focus)
 
+## Latest (2026-10-15, jam turn 16: coverage on the v5 cards)
+
+What happened since turn 12: visual turn 13; director turn 14 merged A+B
+into one law ("Outlined means you haven't marked it yet (Star, Visited).
+Nothing else in the app is an empty shape."), killed C, settled circle for
+districts and streets, ring + needle Directions, 2.00px everywhere, bare
+chips for Specimen, and asked for phase 2 in the same send. Two concepts:
+**Specimen** (herbarium: whole, floating in the circle) and **Roundel**
+(coin: fills the field, cropped by the rim). Visual built six v5 cards
+(turn 15).
+
+My coverage (`../coverage.md`, round 3 at top): jobs 3, 5–7, 9, 11–13
+pass; 1–2 pass via the v4 brand card. **Blockers:**
+1. Job 8: no card names FG / CP / Spot, so he can't see what happened to
+   his three. Needs one line saying both concepts combine them.
+2. Job 10 (rules card): it never says where outlines appear. Rows and the
+   map show nothing until marked; outlines are only in the tag and the add
+   form.
+3. Job 10 (Roundel): the rules card says "the open pin fills with its
+   colour", but Roundel's open pin is a cream disc with a brown rim.
+Non-blocking: the row × is bold at 2.00 (shrink it), the account's
+"already 2.00" label, Roundel's hotel reads as a mug (7 of 11 readable).
+
+Next: visual's fix pass, then the director scores. Re-check only jobs 8
+and 10 after the fixes. After approval: How it works in the handoff.
+
+---
+
 ## Where things stand (2026-10-15, round 3, after jam turn 12)
 
 The v4 board went to the owner (brand card, Today, Field Guide 9, Timetable
