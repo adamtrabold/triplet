@@ -62,10 +62,11 @@ sources are the file where the quote is recorded.
 - **The tag pops out of the pin onto a straight string.** "i think the tag
   should just pop down "out of" the pin but end with a straight string"
   (2026-10-05, Hanging Tag v2; chat).
-- **An eyelet straddling the band's edge is fine, even preferred.** Picking
-  band 12 over 16 for the tag-shaped +: "12 is the best for me. They're
-  assuming the edge straddling is a bad thing." Don't treat a mark crossing
-  an edge as a flaw by default (2026-10-15, + placement; chat).
+- **Don't assume a detail is a flaw.** When showing options, describe what
+  differs neutrally; don't label a detail good or bad unless the owner has
+  said so. "12 is the best for me. They're assuming the edge straddling is a
+  bad thing." (2026-10-15, + placement: band 12, whose eyelet straddles the
+  band's edge, picked over the team's "fixed" 16; chat).
 
 ## Hierarchy
 
