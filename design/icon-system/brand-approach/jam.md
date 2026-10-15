@@ -1791,3 +1791,223 @@ NEXT: design director — steer round 3. Take Specimen and Roundel forward
 on the shared law ("only blanks are empty"), the circle and the 2.00px
 weight. Rule on the Directions question and on district/street. Then
 systems runs coverage against jobs 1–13 on the built cards.
+
+---
+
+## Turn 14: design director, round 3 steer
+
+I read turns 12–13, the three r3 sketches at phone size (plus crops of the
+24px strips and both maps), owner.md (newest at the bottom), jobs.md and
+owner-taste.md. No scores this turn: it's a steer on the jam proposals.
+I score the built cards in one pass.
+
+My own real draw (python `secrets`): **"The inconsistency principle"** and
+**herbarium sheets**. Both are used below (§1 and §3).
+
+### 1. The law: "only blanks are empty". ACCEPTED, A and B merged
+
+Visual is right: A and B differ in three icons, so they're one concept
+with one law. It's also the cleanest reading of his rule: "outlined icons
+should be used when something has yet to be tapped by me". The law, for
+the rules card, in his terms:
+
+> **Outlined means you haven't marked it yet (Star, Visited). Nothing else
+> in the app is an empty shape.**
+
+The tools that change: account (solid head, open shoulders, B's version),
+locate (solid centre), filter knobs (solid). +, ×, chevron and sort are
+open lines and pass. A blank is the exact hollow of its done state, at the
+same size (the railway lamp). FG's star off at 0.9 scale goes.
+
+I took "the inconsistency principle" seriously, and it gives a reason he
+can hold us to. He said "everything is inconsistent". The brand already
+has exactly one place where inconsistency is wanted: **your own marks**
+(the stamp's tilt, the sticker's peel corner and size, the Pencil Star's
+hand). So: **everything the app prints is perfectly consistent (one
+weight, one grid, one shell); only your marks vary.** That's the law's
+second line, and it's why the 2.00px rule (§6) isn't fussiness. Put it on
+the rules card, one line, under the law.
+
+The law has two collisions. Both stay as they are, and each goes on the
+rules card as one line, not as a question:
+- **Far pin (an empty 16px ring):** it's an empty shape, but what it stands
+  for (a place you haven't visited) is "not marked yet", and it sits beside
+  the far sticker. It agrees with the law. Show it.
+- **Plans + → stop number:** that's blank → filled in, not outline →
+  solid. Named, and left alone this phase.
+
+Two questions are retired from the owner batch, because his rule answers
+them: the 10-07 "checked vs open" question, and whether Visited includes
+the mark-visited check (it does, and the check is already his outline).
+
+### 2. C (the circle does the work): KILLED
+
+Agreed, for visual's reason: the collision is in the tag strip, where no
+place appears, so the circle can't fix it. It goes on the dropped strip.
+
+### 3. Specimen vs Roundel: BOTH FORWARD, with conditions
+
+They differ in kind, in how the place sits in its circle. The herbarium
+draw names it. A herbarium sheet mounts the **whole** specimen with paper
+all round it, never cropped. A coin die **fills** its field and lets the
+rim cut. Specimen is the herbarium and Roundel is the coin. That's a real
+choice, and it's his to make: "centered in the circle even if it's
+slightly cut off" points one way, "too noisy" the other. Use the
+herbarium/coin line on the cards if it reads in plain words; drop it if it
+needs explaining.
+
+Before I score either, these must hold. I can see the owner's objections
+from here:
+
+**Both:**
+1. **Size must not be the difference.** In the sketch Roundel reads "a
+   third bigger", so the honest objection is "Roundel is just Specimen
+   zoomed in". Draw Specimen at the **largest size that still floats**
+   (paper all round, but not a thumbnail). Then the difference has to be
+   float vs crop, not small vs big.
+2. **Equal visual mass across all 11** ("icons don't fill the same visual
+   space"). Herbarium logic: every specimen gets the same optical weight on
+   its sheet. Today the Specimen café and tree are heavy, and the
+   attraction and cocktail are light. Balance by eye, and show the 11 in
+   one strip so he can check it.
+3. **"Other" can't be a dot in a ring.** It reads as a radio button, and
+   under the law it reads as a selected option. Draw something solid that
+   isn't a control (the designer's call). The owner reads stills as
+   near-final, so a radio button is an objection, not polish.
+4. **Lightly rounded**, like the fixed check ("Checkmark was only supposed
+   to be lightly rounded like the rest of the icons"). Solids get the same
+   light corner: no sharp mitres, no pillowy blobs.
+5. **The same icon on the map, in the row and in the tag** ("icon is
+   treated differently for category in the pop up than on the map —
+   why?"). Show the tag stub's category circle on each card, next to the
+   row and the pin.
+6. **A dense map.** Noise is his original complaint, and three pins in a
+   park won't show it. One map crop at a realistic density: 15–20 pins, a
+   cluster, the selected pin, a starred pin, two stickers and a district,
+   plus a far-zoom strip (rings and far stickers). Use the same crop for
+   Today, Specimen and Roundel.
+
+**Specimen:**
+7. At 24px the attraction (the obelisk reads as a bell or a bullet) and
+   the area (two slabs) don't say what they are. Redraw them.
+
+**Roundel:**
+8. The bar reads as a funnel, the attraction as a bottle, the area as a
+   barber pole or no-entry sign, the hotel as a blob. Every Roundel glyph
+   has to pass "what other sign is this?" before it goes on a card. Write
+   the misread for each of the 11 in your turn (not on the card), and fix
+   the ones that fail.
+9. Show the ink cost; don't explain it. The dense map does that.
+10. The chip carries the 16px roundel (it can't go bare). State the cost in
+    one line.
+
+If Roundel still reads as "Specimen, bigger" on the side-by-side card
+after fixes 1 and 8, I'll say so when I score, and it goes to the dropped
+strip with Timetable. Then we find a second concept that differs in kind.
+We don't send him one.
+
+### 4. Directions in the tag: RING + NEEDLE. Not an owner question
+
+B's compass. The arrow says "turn right" where the app means "get
+directions". A solid navy arrow would also be the loudest thing in a strip
+whose job is to show two blanks. The ring passes the law because the
+needle is solid. This is a UI call, so it's ours, and it doesn't go to him
+as a question. The arrow goes on the dropped strip with one line.
+
+The account is ruled the same way: B's solid head with open shoulders.
+A's full solid bust is handsome, but it adds mass beside the orange +, and
+the law doesn't need it.
+
+### 5. District and street: CIRCLE. Not an owner question
+
+He wrote "inside a stroked circle". The diamond shrinks the glyph to about
+0.6 scale, which makes these the two hardest icons in the row to read.
+Shapes have no map pin, so the diamond's "area" signal only ever showed in
+rows, and the drawing inside already says "area". The plan-stop shell
+follows. The diamond goes on the dropped strip, small, with one line.
+
+### 6. Line weight: 2.00px ACCEPTED
+
+One weight, set in on-screen px, for every line: the rims, the +, the
+account, the tools and the star off (1.67 → 2.00). The fixed check (1.52,
+a hollow bar) matches a 2.00px line by eye, as sketch 3 shows. The 1.5
+column shows why not to go lighter: the star off goes weaker than the
+check, which is the 10-07 complaint again. The + and the account already
+sit at 2.00, so "build the matched icon" is met without moving them.
+
+- On the rules card, show **Today vs 2.00 only**. Drop the 1.5 column, and
+  keep the one sentence on why 1.5 fails.
+- Show the tag × at 2.00 in the tag crop. If it shouts, make it smaller,
+  not thinner. The rule: **weight never varies; size does.**
+- The rims on the map pins and in the 16px chip are lines too, so give
+  their on-screen measure on the card. The 12px optical cut is phase 2.
+
+### 7. Chips: bare for Specimen (accepted). Roundel: a 16px roundel, with its cost stated
+
+A chip is already a container. His "can be inside a stroked circle" is
+permission, not a rule.
+
+### 8. The shared rules card: YES
+
+One card, phone-readable, in this order:
+1. The law in his words (§1), with the "only your marks vary" line.
+2. "Tapped by me": a short table of 5–6 rows. Star and Visited follow the
+   rule. Filter chips, the sort and plan ticks, and the selected pin show
+   their state another way. The far pin and the Plans + get one line each.
+   Plain words, no jargon.
+3. One weight: today vs 2.00, every line at its ship size, with the + and
+   the account marked "already 2.00".
+4. Settled by the team (no question): a circle for districts and streets,
+   the ring-and-needle Directions, bare chips (Specimen).
+5. Staying as is, in one line: Visited (the stamp, the sticker, the
+   mark-visited check), the pin shell, the scalloped buttons and the
+   category colours.
+
+### 9. Phase 2: YES, this round asks for it
+
+What's left between the two concepts is a drawing question, and phase 2
+(research, one grid, SVGs, the tool recommendation) is where drawing gets
+done. The law, the circle and the weight are structural, and they're on
+the rules card. So the send asks him two things, and only two:
+
+1. "Specimen or Roundel (or a mix)?"
+2. "OK to move to phase 2 with that and the rules card? That's research,
+   one shared grid, every icon redrawn as SVG, the + and the account set to
+   the project weight, and a recommendation on the drawing tool."
+
+Nothing else goes to him. The send only goes if both concept cards and
+the rules card score 9.
+
+### 10. What to build (all 390 wide at 3x, phone-readable, crafted)
+
+- `v5-card-rules.png`: the shared rules card (§8).
+- `v5-card-0-today.png`: Today, with the dense-map crop added (otherwise
+  reuse v4).
+- `v5-card-1-specimen.png` and `v5-card-2-roundel.png`, each with:
+  - the 11 at 24px in one strip (equal mass), plus a 12px strip and 1-bit
+  - rows: plain, visited (the real stamp), selected + starred (navy)
+  - the tag stub: unstarred and unvisited, then starred + visited, with
+    its category circle, Directions, the star off/on and the FIXED check
+  - the header: the account, the + and the list toolbar at 2.00
+  - the dense map and the far-zoom strip (§3.6)
+  - chips
+  - three plain lines: what it is, what it's good at, what it costs
+- `v5-card-3-side-by-side.png`: Today / Specimen / Roundel in the same
+  row, tag strip and dense map crop. I check this card first.
+- `v5-card-4-dropped.png`: Timetable Sorts (not on his list), C, the solid
+  Directions arrow, the diamond shell and A's solid bust, one line each.
+
+No editorial boxes arguing for a concept: let the frames do it. Quote his
+words exactly.
+
+### Open questions (mine, not the owner's)
+
+- Is the starred tag (orange band, filled star) clearly the done state
+  beside the hollow star of the other state? Stack both tag states on each
+  card.
+- On the map, the stars' paper halo and `--star-deep` keyline stay. Check
+  that they hold up next to a Roundel pin.
+
+NEXT: product designer (visual focus) — build the six v5 cards in §10 with
+fixes 1–10. Then systems runs coverage against jobs 1–13 on the built
+cards, and I score all of them in one pass.

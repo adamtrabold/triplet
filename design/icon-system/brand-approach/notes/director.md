@@ -244,3 +244,79 @@ fixed items). jobs.md already sent.
 - If he mixes directions, check "same icon drawing language everywhere"
   first: FG's filled plates and TS's outline sorts can't simply be
   interleaved. A mix needs one rule for which family uses which.
+
+---
+
+## Round 3 steer (jam turn 14), 2026-10-15 — new director
+
+Took over from the round 1–2b director. Read owner.md, jobs.md, turns
+12–13, sketches r3-jam-1/2/3. No scores yet this round.
+
+### Owner's new direction (verbatim in owner.md)
+Places are solid, can sit in a stroked circle. Outlined = "yet to be
+tapped by me" (Star, Visited). Liked: Field Guide, Cut Paper, Spot.
+Timetable is NOT on his list (dropped). The + joins the project
+("everything is inconsistent").
+
+### Rulings (keep consistent)
+1. Law ACCEPTED (A+B merged): "Outlined means you haven't marked it yet
+   (Star, Visited). Nothing else in the app is an empty shape." Plus,
+   from my Oblique draw "the inconsistency principle": "Everything the app
+   prints is perfectly consistent; only your marks vary" (stamp tilt,
+   sticker peel, Pencil Star).
+   Tools: account = solid head + open shoulders; locate = solid centre;
+   filter knobs solid. A blank = the exact hollow of its done state, same
+   size.
+2. Far pin (empty ring) and Plans +→number: stay as they are, one line
+   each on the rules card.
+3. Retired owner questions: the 10-07 note and the mark-visited check
+   (his rule answers both). "Anything else fixed?" is not asked; it's
+   stated as the default on the rules card.
+4. C KILLED (dropped strip).
+5. Specimen (herbarium: whole, floating) vs Roundel (coin: fills the
+   field, cropped by the rim): BOTH forward with conditions. Kill switch:
+   if Roundel reads as "Specimen, bigger" on the side-by-side card, it's
+   dropped and we find a second concept that differs in kind. Never send
+   one concept.
+6. Directions = ring + needle. Not an owner question (UI call).
+7. District/street = circle. Not an owner question (he wrote circle; the
+   diamond shrinks the glyph to 0.6). The plan-stop shell follows.
+8. 2.00px on screen for every line, rims included. The rules card shows
+   today vs 2.00 only. "Weight never varies; size does" (the tag × gets
+   smaller if it shouts). 12px optical cut is phase 2.
+9. Chips: bare (Specimen), 16px roundel (Roundel, cost stated).
+10. Phase 2 IS asked this round: (1) Specimen or Roundel (or mix)? (2) OK
+    to move to phase 2 with that plus the rules card? Nothing else. Only
+    if both concept cards and the rules card score 9.
+
+### Fixes required before scoring (jam turn 14 §3)
+Both: size isn't the difference (Specimen at its largest floating size);
+equal visual mass across 11; "other" not a radio button; lightly rounded;
+the same icon in map/row/tag; a dense map (15–20 pins, cluster, selected,
+starred, stickers, district) + far-zoom strip, the same crop for all three.
+Specimen: attraction and area redraws. Roundel: misread test on all 11
+(bar = funnel, attraction = bottle, area = barber pole, hotel = blob);
+chip cost.
+
+### Cards ordered (v5, 390 wide at 3x)
+rules, 0 Today (+dense map), 1 Specimen, 2 Roundel, 3 side by side
+(check first), 4 dropped (Timetable, C, the arrow, the diamond, the solid
+bust).
+
+### Likely owner objections (pre-empt when scoring)
+- "Roundel is just bigger icons" (size, not kind).
+- "Still noisy" on the dense map, mainly Roundel.
+- "Why is that a radio button" ("other").
+- "Icons don't fill the same visual space" (mass imbalance).
+- "Why are you asking me this" if any team call goes to him as a question.
+- Anything near Visited that looks changed.
+
+### What blocked a 9 before (history)
+Rounds 1–2: traits added from outside to manufacture difference became
+gimmicks; directions converged in rows and on the map. Watch for the same
+thing here: Roundel's crop must earn its difference in the drawing, not in
+scale.
+
+### Next
+Visual builds the v5 cards; systems runs coverage on jobs 1–13; I score
+all of them in one pass, side-by-side card first.
