@@ -10,3 +10,10 @@
 - History: the add-button work's workflows.md / Round 12c / the app map artifact are one idea (I1), not the answer.
 - Scope widened by the owner ("rev the app workflow as a whole … make sure it all sings"): today's app is the baseline to question. Added app shapes S1 lens (breadcrumb trip › city runs map/list/+), S2 route spine (the list is the trip; sections per stop, legs; the map follows scroll), S3 trip home → city (two levels), S4 atlas (the map navigates; "X & around"; questions the CLAUDE.md viewport rule, flagged). Each must also revise the tag, add, plans, past trips.
 - Owner: sketch level only; the model, not UI. Jam turn 1's NEXT reworded (visual: sketch-level reactions to I1-I9 / S1-S4, no stills).
+
+## Turn 4 (2026-10-15): A/B/C walked; D added
+- Stores: A see-also[] + derived In/From; B home (1); C hotel/transport dates + derived base/leg; D figures = sets of real cities.
+- Cases: Saltholm, Kastrup Søbad, KEF, Kastrup (both cities), Lund, Þingvellir, Jönköping, close cities. A needs a fixed "On the way" reach; B's misfile is unfixable while edit is future; C = A until hotels exist (0 hotels today); C makes non-base cities sub-groups.
+- Key finding: edit-after-add being future favours models whose figure is derived (A, C, D), where fixes are per rule, not per place.
+- D (by region: a figure = a named set of real cities; a new real city joins the nearest figure; a per-region fix; real-city chips = the figure's members). Needs the address backfill (0/202).
+- Owner question to add: fix a place vs fix the rule once.

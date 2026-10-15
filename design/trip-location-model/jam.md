@@ -615,3 +615,172 @@ NEXT: product designer (systems focus) — the jam's second pass: run
 A, B and C through the jobs, the checklist and the three cases (Øresund,
 airport, day trip on a leg), and say what each stores, so the concepts
 start from a tested model.
+
+## Turn 4 -- product designer (systems focus): A, B and C walked through; a fourth that differs in kind
+
+Sketch level, as asked. Facts used:
+- the trip's 5 cities and 202 places;
+- **0 places in the Hotel category today**, and no Transport category
+  exists;
+- real city comes from `address_details` (stored for new places only;
+  the backfill is 0 of 202);
+- **edit after adding is future** (owner).
+
+That last fact turned out to matter most (see "What the walk showed").
+
+Test places:
+- **Øresund:** Saltholm, an island about 12 km from Copenhagen and 20 km
+  from Malmö (Danish), and Kastrup Søbad (Tårnby).
+- **Airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík), and
+  Copenhagen Kastrup (Tårnby, about 8 km from Copenhagen and 30 km from
+  Malmö), which you'd fly in and out of for both cities.
+- **Day trip on a leg:**
+  - Lund (about 17 km from Malmö, 40 km from Copenhagen);
+  - Þingvellir (about 45 km from Reykjavík);
+  - Jönköping, a stop between Stockholm and Malmö (about 300 km from
+    each).
+
+### What each stores (model, not schema)
+
+| | A · by rule ("From") | B · by you (one home) | C · by the trip (anchors) |
+|---|---|---|---|
+| Trip | name; its cities (name, centre) | the same | the same, plus an **order** (hotel dates, or the order the hotels were added) |
+| Place | real location, real city, trip, **see-also: cities (0 or more)** | real location, real city, trip, **home city (exactly 1)** | real location, real city, trip; **hotel / transport places can carry dates** |
+| Derived, never stored | its figure = In (its real city is a trip city) or From the nearest trip city; plus its see-also | nothing: the home *is* the figure | its base = the nearest base (a city with a hotel), or the leg between two consecutive bases |
+| Today's data → model | `city` becomes "trip city"; the figure is recomputed | `city` = home (a straight carry-over) | the same as A until hotels exist (**fallback = A's rule**) |
+
+### The three cases
+
+| Case | A · rule | B · one home | C · anchors |
+|---|---|---|---|
+| **Saltholm** (between Copenhagen and Malmö) | From Copenhagen (nearest). Right. | Home = whichever city lens you added it from; from the trip lens, the nearest (Copenhagen). Right either way, by your choice | Base Copenhagen if you sleep there. If Malmö is a base too and they're consecutive → **on the Copenhagen ↔ Malmö leg** |
+| **Kastrup Søbad** (Tårnby, just outside Copenhagen) | From Copenhagen. Right. | Home Copenhagen (from the lens). Right | From the Copenhagen base. Right |
+| **Keflavík airport** | From Reykjavík. Right. | Home Reykjavík. Right | **An anchor:** it opens the Reykjavík base (arrive) or closes it (leave). It's listed as the base's frame, not as a sight |
+| **Kastrup airport, for both Copenhagen and Malmö** | From Copenhagen. **Under Malmö only with a see-also**, set at add time (edit is future) | Copenhagen **only**; it can't also be Malmö (by design) | An anchor at the edge of *both* bases' stays. It shows in both, with no setting |
+| **Lund** (17 km from Malmö) | From Malmö (nearest). Wrong if you'd go from Copenhagen; fix with a see-also at add | Home = the lens you added from. Predictable | From whichever base you sleep in. If both are bases → on the leg |
+| **Þingvellir** | From Reykjavík. Right | Home Reykjavík. Right | From the Reykjavík base. Right |
+| **Jönköping** (between Stockholm and Malmö) | From Malmö (nearest), **arguably wrong: there's no "between"** unless "From" has a fixed reach, beyond which it's "On the way" | Home = the lens you added from; there's no "between" either | **On the Stockholm → Malmö leg.** The only model where it has a real home |
+| **Close cities** (Copenhagen–Malmö, 28 km apart) | Works by nearest, but a place near the midpoint flips on a few km, with no say | No issue: you chose | Bases decide. If only Copenhagen is a base, **Malmö becomes a sub-group "From Copenhagen › Malmö"**, a real difference: a city you don't sleep in isn't a figure of its own |
+
+### Jobs 1-12
+
+| Job | A | B | C |
+|---|---|---|---|
+| 1 Whole trip | ✓ trip lens, city sections | ✓ | ✓ sections **in trip order** |
+| 2 One city | ✓ In + From | ✓ its homes | ✓ a base. A non-base city is a sub-group |
+| 3 Between the two | ✓ (S1 lens) | ✓ | ✓ |
+| 4 Blue Lagoon under Reykjavík | ✓ **automatic** | ✓ if added from Reykjavík's lens; ✗ if added from the trip or another lens (**unfixable until edit exists**) | ✓ automatic (with no hotels: A's rule) |
+| 5 Filter by real city | ✓ real-city chips | ✓ | ✓ |
+| 6 Group into trips | ✓ | ✓ | ✓ |
+| 7 Plans across cities | ✓ | ✓ | ✓, and **a day starts at its base** |
+| 8 Low-friction add | ✓ nothing to pick | ✓ pre-filled, but it *is* a choice made at add | ✓ nothing to pick. Adding a hotel *is* the setup |
+| 9 Places in between | **partial** (only with an "On the way" reach) | **partial** (filed somewhere arbitrary) | ✓ legs |
+| 10 Other trips out of the way | ✓ one trip at a time | ✓ | ✓ |
+| 11 Map matches | ✓ (In and From pins) | ✓ | ✓ |
+| 12 Header names it | ✓ | ✓ | ✓ (a sub-group needs a name: "Malmö · from Copenhagen") |
+
+### The app-wide checklist (sketch)
+
+- **Header (all):** S1, one name with a step back. C's trip lens adds
+  order: "Copenhagen → Malmö → Stockholm → Reykjavík".
+- **Filters (all):**
+  - categories, visited, starred;
+  - **real-city chips inside the trip** (the owner's "filter by city");
+  - nothing else, because the figure is the lens, not a filter.
+- **Add:**
+  - **A:** the trip comes from the lens and nothing else is asked. A
+    see-also is only possible here, at add (edit is future).
+  - **B:** the home is pre-filled from the lens and shown on the tag,
+    tappable at add.
+  - **C:** as A. A hotel or transport place may ask for dates
+    (optional).
+- **Map:**
+  - **A:** In pins plus From pins.
+  - **B:** that home's pins.
+  - **C:** the base's pins, plus legs drawn as the in-between places in
+    the trip lens. Sketch only.
+- **Tag (all):** two truths, "Reykjavík · in Grindavík".
+  - In A the first is worked out.
+  - In B it's chosen.
+  - In C it reads "from Reykjavík" (base), or "on the way, Stockholm →
+    Malmö".
+- **Plans (all):** belong to the trip. A city lens shows the plans with
+  any stop in that figure. In C a plan can default to "a day from a
+  base".
+- **Past trips (all):** behind ▾ (N4).
+
+### What the walk showed
+
+1. **Edit after adding is future, and that changes the comparison.**
+   - B's misfile, and A's missing see-also, can only be fixed **at add
+     time**.
+   - So any model that relies on a per-place choice is fragile *right
+     now*: a place added from the wrong lens stays wrong until edit
+     ships.
+   - Models where the figure is worked out (A, C) degrade more
+     gracefully: a wrong rule can be fixed **once, by changing the
+     rule**, not per place.
+2. **A's "nearest" needs a reach,** or Jönköping-style stops get a wrong
+   figure. A fixed reach (the owner: no distance setting, so it's a
+   fixed app rule) with "On the way" beyond it brings A close to C's
+   legs, without hotels.
+3. **C has no figures until a hotel exists** (0 today), so it's A
+   in practice until you add your stays.
+4. **Real city everywhere needs the backfill** (0 of 202). A's "In"
+   and every real-city filter depend on it.
+
+### A fourth model, different in kind (from the walk)
+
+**D · Drawn by region: a figure is a named set of real cities.**
+- Nobody files places, and no distance rule is involved. Each figure in
+  the trip *is a list of real cities*:
+  - "Reykjavík" = Reykjavík, Grindavík, Reykjanesbær, Bláskógabyggð;
+  - "Copenhagen" = Copenhagen, Frederiksberg, Tårnby.
+- A place's figure follows from its real city.
+- **Stores:**
+  - per place: real city only (plus trip);
+  - per figure: its member real cities (and a real city may be in two
+    figures; Tårnby can be in Copenhagen *and* Malmö for the airport).
+- **New real cities arrive with no setup:** the first place from
+  Grindavík joins the nearest figure, so Grindavík becomes "Reykjavík"
+  from then on.
+- **The fix-it is per region, not per place,** and it doesn't need place
+  editing: "Lund belongs with Copenhagen" is one change that moves every
+  Lund place, now and later.
+- It joins the owner's two asks into one control. The **real-city
+  chips** he wants as a filter are the *same list* the figures are made
+  of: a figure is a saved bundle of real-city chips.
+- **The cases:**
+  - Saltholm and Kastrup Søbad → Tårnby → Copenhagen ✓;
+  - Keflavík → Reykjanesbær → Reykjavík ✓;
+  - Kastrup airport → Tårnby, which is in both Copenhagen and Malmö
+    if you put it in both ✓;
+  - Lund → its own real city, joining Malmö (nearest) until you say
+    Copenhagen ✓;
+  - Þingvellir → Bláskógabyggð → Reykjavík ✓;
+  - Jönköping → nearest, unless it becomes a figure of its own ("On the
+    way"), or one set is shared by two figures. **Partial, like A.**
+- **Risk:**
+  - Real-city granularity is uneven (a municipality can be huge, and
+    some rural results have no city).
+  - The backfill is a hard prerequisite.
+- It differs from A (distance), B (per place) and C (stays) in kind:
+  **membership is decided at the level of real places' names, once.**
+
+### For the director
+
+- A, B, C and D differ in **where the figure comes from**: distance,
+  your per-place choice, your stays, or your per-region choice.
+- My read (opinion, not a recommendation):
+  - **D** is the most robust while place edit doesn't exist.
+  - **C** is the only one that answers "places in between" fully.
+  - **A** is the most automatic.
+  - **B** is the most predictable, and the most fragile without edit.
+- New owner question to add: "If the app gets one place's city wrong,
+  would you rather fix that place, or fix the rule (for example 'Lund
+  belongs with Copenhagen') once for all places like it?"
+
+NEXT: design director — decide whether D joins A, B and C (four kinds),
+and whether A gets a fixed "On the way" reach. Then concepts start:
+visual's sketch of the three views per model, and my per-model flows
+(add, the lens, plans) written up.
