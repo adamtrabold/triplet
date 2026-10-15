@@ -161,3 +161,8 @@ Read as: the + rides up with the filters panel where it fits (e.g. 390x844 Safar
 > the panel height should all just be responsive
 
 Read as: one responsive rule, no per-size special cases — the panel sizes to its content up to the space the screen allows and scrolls inside past that; the + rides above it when there's room, else is covered.
+
+2026-10-15, on the filters panel ceiling (A/B/C):
+> stops below zoom and account
+
+Pick: A — the panel's top limit is just below the zoom/account row; it sizes to content up to that and scrolls inside past it; the + rides above when there's room, else is covered.
