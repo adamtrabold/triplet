@@ -1,5 +1,46 @@
 # Notes: product designer (systems focus)
 
+## Latest (2026-10-15): owner picked Constructed; step 3 = icon concepts
+
+The owner picked **Constructed** ("the clarity is best with built … the
+rest risk feeling amateurish") and asked for a deeper brainstorm on the
+*concept* behind each icon, before the grid and the drawings. The new
+work folder is `design/icon-system/icon-concepts/` (`jobs.md`, `jam.md`).
+Notes for this step stay in this file, since there's one systems notes
+file for the icon project.
+
+Done: `icon-concepts/jobs.md` (whole-set jobs; for each place and tool,
+what to recognise and what it must not be mistaken for; a marks scope
+job) and jam turn 1.
+
+Key findings (turn 1):
+- **The lesson:** we read vintage as craft, he reads it as print. We
+  judged on boards, he judges at real size. We chased distinct, he chose
+  clear. Steer: the convention first (park-map, rail, OS legend,
+  Michelin); character comes from picking the right object for this trip.
+- **The categories don't match their names** (read from the live tables).
+  Bar is mostly music venues. Attraction (62) holds museums, landmarks,
+  amusement parks, murals and streets. Nature holds two pools, a
+  lighthouse and a fumarole. Area (18) overlaps district/street: 6 places
+  are saved as both. Hotel and other have 0 rows. Four owner questions:
+  rename bar, the attraction/nature/area lines (and pools), area = pin
+  twin of district, and keep or remove other.
+- **Symbol overloads:** × means close, delete (destructive) and remove;
+  + means add a place, new plan, add to plan and zoom. The sort/plan tick
+  is the visited check's shape. Proposed: one symbol, one meaning for
+  destructive and marking acts. Delete as a wastebasket (needs a UX
+  check), the tick as a solid pointer, one disclosure wedge.
+- Candidates for every place (2–5 each, differing in kind) and every tool.
+  Marks and furniture are out of scope, except you-are-here if Locate
+  becomes "the mark itself".
+
+Next: the visual designer pushes and kills on brand and on how well each
+can be built at 18px; the director steers the owner batch. Then: jobs
+coverage on the chosen concept set, and the How it works handoff for the
+grid phase.
+
+---
+
 ## Latest (2026-10-15, jam turn 20: coverage on the v6 cards)
 
 Since turn 16: visual's turn 17 fixed my three v5 blockers. In turn 18 the
