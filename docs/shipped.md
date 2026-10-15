@@ -709,6 +709,10 @@ Places clusters and pins exactly as in Places, a stop is a normal pin with a
 neutral square number tag; × on the right as in Places; + grey; numbers stay
 (route mapping deferred); no heavy navy lines. Build record, tests and stills:
 `design/plans-build/`. **Not merged; the plans migration is not applied.**
+**Update 2026-10-15 (supersedes the line above):** merged to main (`42bd919`
+is on main; the Places | Plans switch is in `index.html`). The `plans` /
+`plan_stops` tables exist in the live DB (read-only check 2026-10-15); the
+date the migration was applied is not recorded.
 
 **Schema.** `supabase/migrations/20260929000000_add_plans.sql`, **not applied
 yet** (the operator applies it after review). `plans(id uuid, name text
@@ -1127,7 +1131,7 @@ Spec sources: `design/popup-hierarchy/` rounds 4-7 (READMEs, reviews, `round6/ta
 **The tag** (`TagPopup`, `buildPopupHtml()`; districts/streets via `shapePopupHtml()`). A Leaflet popup subclass that hangs BELOW its anchor (`_updatePosition()` sets `top`, centred; `_adjustPan()` only re-fits), so every open path (pin tap, `openPopupOnArrival()` for pins/shapes/approx pins, setPopupContent on toggle and poll) is unchanged and `.leaflet-popup`, `.popup-title`, `.popup-star(-tap)`, `.popup-visited(-tap)`, `.popup-directions`, `.popup-cat`, `.sgp-in/.sgp-out .sg-ink` keep their meanings.
 - Stock: `--tag-w` 316px (or the screen less 2 x 16), `--paper-raised`, 28px chamfers (clip-path), 10px eyelet hole at 18px and two 5px stub notches (mask). The stock is the same light cream (`--paper-raised`) in every state -- visited, starred, signed out -- only a press tile flashes inside it (owner: "it shoudl be that same light cream always"). Shadow + the owner-approved 1px warm edge are drop-shadows on a static blank copy of the die-cut (`.tag-shadow`), so nothing animating inside the tag re-renders a filter (with the filter on the tag itself, curve8 popup dropped a frame). Eyelet patch `--paper` + `--hair` grommet (unchanged when visited); on the band, a 28% paper wash so the band shows through (a solid patch read as a blank box). String 1.5px `--ink-2`, pin foot -> eyelet centre; `TAG_HANG` 44 (pin centre -> tag top).
 - Content: 48px (`--s12`) from the tag's top to the name, i.e. 12px clear below the band; name (26/28, `font-stretch` 62%, 700); short address (13/18 `--ink-2`); the whole note (14/20 `--ink`, `pre-line`); a TYPE / PLAN field line (11px bold label, 11px medium value, `--ink-2`); then the 60px perforated stub: Directions | Star | Visited, three equal whole-segment targets (>= 88 x 60), 11px labels on one baseline, one 20px icon box each with the glyphs matched optically (compass ring ~17px, star and check ~18.5px, ~1.5-1.9px strokes), dashed dividers drawn as pseudo-elements. Close: a 44px x on the name row; map tap; Esc (own keydown listener -- Leaflet's only fires while the map container itself has focus).
-- No address line when there is none: the note follows the name with its normal 8px; no gap, no separator. Short address (`tagAddress()`): `short_address`, else `deriveShortAddress(address_details, name)`, else none -- never the full string, no heuristic on it (owner chose stored structured data). **Live data has neither column filled (0/202): no real tag shows an address until the owner runs `tools/short-address-backfill.html`; the branch doesn't land before that.** `doFetchLocations()` selects both columns and retries without them on a missing-column error (`shortAddressColumnsMissing`); `markerSignature()` includes `short_address`.
+- No address line when there is none: the note follows the name with its normal 8px; no gap, no separator. Short address (`tagAddress()`): `short_address`, else `deriveShortAddress(address_details, name)`, else none -- never the full string, no heuristic on it (owner chose stored structured data). **Live data has neither column filled (0/202): no real tag shows an address until the owner runs `tools/short-address-backfill.html`; the branch doesn't land before that.** (Update 2026-10-15, live count: 59 of 202 places lack a real town -- 58 have no `address_details`, 1 has details but no town; the owner re-runs the backfill.) `doFetchLocations()` selects both columns and retries without them on a missing-column error (`shortAddressColumnsMissing`); `markerSignature()` includes `short_address`.
 - Directions: plain ink. Shapes: the tag hangs from a dot (8px in the shape's ink on a 2px `--paper` ring, only while open) at `shapeAnchor()`, which is also the Directions point: the shape layer's `openPopup()` always opens at the anchor.
 - Starred, `TAG_STAR_STYLE`: **'band' (default; owner "tag top all the way")** -- a 36px `--star` band printed across the top of the stock, inside its clip and mask, so it follows the chamfers and the eyelet; the Star segment shows the one orange star (+ STARRED; the pencil circle is gone -- follow-ups below). 'segment' -- the segment printed solid `--star`, star reversed (paper, 2.69:1; dial `TAG_REVERSED_STAR_KEYLINE` adds a `--star-deep` hairline, 5.67:1 against it), STARRED navy (5.08:1). 'both'. ~~**Starred is shown 4 times on a starred tag + pin** (CD count): the pin's star, the band, the segment's orange star, the pencil circle (plus the word). The circle is the owner's provisional keep ("for now"), not removed.~~ Superseded by the follow-ups: the circle is removed (3 marks + the word).
 - Texture (`--tex-flood`, `--tex-stamp`; inline SVG feTurbulence, ~1 KB each, static): paper tooth -- a fine grain (1.3) plus short horizontal fibres (.07 x .95), paper-tone, max ~.2 alpha, no low-frequency blotches. On the band/segment; the stamp ink is masked by the same tooth.
@@ -1374,8 +1378,47 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     On desktop the form now opens at the BOTTOM of the map column, beside the
     + (it turns × in place), not at the top as before (owner saw
     `design/add-button-placement/build/17-desktop-form-open-1280x800.png`).
-  - z 998: over the map and the form, under the filters panel (999), which
-    covers it by design. With the sort menu open it lifts above the scrim
+  - z 998: over the map and the form, under the filters panel (999).
+  - **Filters panel (branch `plus-rides-filters`, 2026-10-15, not landed).**
+    Owner: "let's push the + up with the panel" ; "at the smaller sizes where
+    the + goes off screen, just have the filters go over the +" ; "the panel
+    height should all just be responsive" ; "stops below zoom and account".
+    - The panel sizes to its content up to `--top-row-bottom` (74 + the
+      safe-area top: the zoom control's foot) + `--s3`, and scrolls inside past
+      that, in every mode (list up, collapsed, the rail). It replaces the
+      `40vh + 33px` cap. `sizeFiltersPanel()` re-runs when the panel opens or
+      the list collapses under it.
+    - The + rides the panel's top edge (`body.add-rides-filters`,
+      `--filters-lift` = the panel's height; the same 15.22 gap and 0.3s ease)
+      whenever its box clears the zoom/account row by 12, decided live by
+      `syncFiltersLift()`.
+    - Where it can't ride, it **moves to the top-right corner, matched to
+      the account's size** (owner: "when they are so high that they hit the
+      zoom, the plus icon should just move next to the account where it used
+      to be, and potentially match size even" ; "matched is good but let's
+      put it to the right of account"). `body.add-to-top`:
+      - The + takes the account's own slot (`--account-slot-right`, top
+        `--s4` + `--chrome-top-inset`) at the account's 50px. It's drawn at
+        22px with its line kept at 2.00px (CSS `stroke-width` 2.1818).
+      - The account badge, its focus ring and its menu step left by 50 +
+        `--s2` (8px, the old pairing's gap), only while the + is up there.
+      - Both move on the panel's 0.3s ease. One transform (`--add-dx` /
+        `--add-dy`) carries the + in a single diagonal move. During the move
+        the + passes under the sliding account for a few frames (2–7 frames,
+        up to about 25px of overlap), then they settle side by side.
+      - Tap and aria are unchanged: it closes the filters and opens the form,
+        and the account slides back.
+      - Stills: `design/add-button-placement/build/top/`.
+    - Measured with the stub's 5 cities (panel 369px): it rides at 390x844
+      Safari (+ box top 97.8), list collapsed and desktop; it moves to the
+      top-right at 390x844 Home Screen, 664, 667 and 320 with the list up. With
+      11 cities (411px) it moves at 844 Safari too, and the panel scrolls at
+      the Home Screen, 664 and 320 (panel tops at 86).
+    - `tagSheetGap()` reads the badge's resting box (its rendered box minus
+      its own transform), so the tag gap stays 88 whether lifted or moved.
+    - Gates: Impeccable passed; places-ux 30/30, popup-open 42/42, tag-sync
+      12/12, plans 32/32. Stills: `design/add-button-placement/build/filters/`.
+  - With the sort menu open it lifts above the scrim
     (2560), so one tap closes the menu and opens the form.
   - Screen reader: "Add a place" / "Close add form", `aria-expanded`,
     `aria-controls="addForm"`. Esc with place suggestions showing closes only

@@ -9,6 +9,7 @@ simplification.**
 
 This file loads every session: keep it to rules and pointers. Detail goes in:
 
+- `docs/architecture.md` — UX model + code architecture; read first if new to the app.
 - `docs/shipped.md` — spec + history of every shipped feature (constants,
   dials, test gates, rejected alternatives). **Read a feature's section
   before touching it.** Later entries supersede earlier ones.
@@ -104,7 +105,7 @@ operator makes none of these calls.
 - `locations`: pins — `city`, `category`, `lat/lng`, `visited`, `starred`.
 - `locations.address_details` (raw Nominatim `address` jsonb) / `short_address`
   ("street number · area", `deriveShortAddress()`, duplicated in
-  `tools/short-address-backfill.html`): written at add time; not shown yet.
+  `tools/short-address-backfill.html`): written at add time; shown on the tag via `tagAddress()`.
 - `neighborhood_shapes`: districts/streets — `city`, `type`
   (`district`|`street`), `geometry` (array of `[lat,lng]`, not GeoJSON),
   fetched live from OSM (Nominatim polygon / Overpass way) at add time;
@@ -206,31 +207,40 @@ operator makes none of these calls.
 
 ## Current priorities (full text in `docs/backlog.md`)
 
-Concept work exists for visited pins (owner hasn't picked). Get a decision
-before building (lane 2).
+Get the owner's decision on any concept before building it (lane 2).
 
-- **Popup redesign (Hanging Tag) + orange star** — LANDED 2026-10-07
-  (owner: "ok i think we're good enough to go to build"). Spec:
-  `docs/shipped.md` "Hanging Tag + orange star". Open owner calls: the
-  starred treatment (`TAG_STAR_STYLE`, band by default; owner: "orange for
-  star / tag top all the way"). Next: the owner runs the short-address
-  backfill (0/202 rows filled; no tag shows an address until then) --
-  top of `docs/iphone-checks.md`.
-- **Brand colour tokens: one system** (owner, 2026-10-07) — own pass right
-  after the popup lands; lane 1, zero visual change. Every colour a named
-  brand token (per-city colours already gone with the tag: `--brand-orange`). Full text in `docs/backlog.md`.
-- **Icon system full revision** (owner, 2026-10-07) — next after the popup
-  redesign and star colour; lane 2. Quote and pointers in `docs/backlog.md`.
-- **Visited pins on the map** — Round 4 (dots outside the rim) scored 9/10
-  in `design/visited-marker/concept/`; owner's last read was skeptical
-  ("not following good design principles") — review with fresh eyes.
-- **Trips vs. cities restructure**: search already widens on a miss. Still
-  open: a trip entity and day-trip filing, with no distance setting for
-  the user (`design/trip-location-model/`). Adding a place must stay
-  low-friction.
-- **Plans** — v3 (build and follow in one list, shared filters, grey
-  numbers, map tags, Undo slip) is built on `plans-v3-build`, not merged;
-  the plans migration must be applied before anyone can create a plan.
-  Spec: `design/plans-deepdive/v3/README.md`; shipped entry "Plans (v3
-  build)". Route mapping is on the roadmap.
-- **Ghost VISITED stamp in the popup** — new idea, concept stage.
+**Live on main (recent):** the Hanging Tag popup + orange star
+(2026-10-07; starred treatment = the band, `TAG_STAR_STYLE` 'band'; owner:
+"orange for star / tag top all the way imo"); the visited sticker on map
+pins with the stamp back on rows; the playground as the signed-out app
+(2026-10-13); the sign-in badge (2026-10-14); the + as the orange Float badge,
+bottom-left (2026-10-15); add-form place suggestions fitted and over the ×
+(2026-10-15). Specs: `docs/shipped.md`.
+
+- **Short-address backfill (owner action):** 59 of 202 places lack a real
+  town (58 have no `address_details`, 1 has details but no town; live
+  count 2026-10-15); the owner re-runs the short-address backfill -- top of
+  `docs/iphone-checks.md`.
+- **+ rides up with the filters panel** -- branch `plus-rides-filters`
+  (987704c, WIP, not landed). Waits on the owner's pick of the panel-height
+  ceiling; owner: "the panel height should all just be responsive".
+- **Trip / location model** -- in active design on branch
+  `claude/elegant-galileo-1c5ntm`, `design/trip-location-model/` (owner.md,
+  jam.md, jobs.md, concepts/ 1-3 plus a "today" reference). Sketch level,
+  model not UI. Governing rule: places-first (owner: "the philosophical
+  approach should be places-first; immediately doing the thing you actually
+  want to do not the adin"). Adding a place must stay low-friction. The
+  blank-tag add form (`design/add-button-placement/concepts/blank-tag-form/`)
+  waits on it.
+- **Icon system full revision** (owner, 2026-10-07) -- lane 2, in design on
+  `claude/elegant-galileo-1c5ntm` (`design/icon-system/`, brand-approach
+  phase). Includes the +'s line weight (measured weights in
+  `docs/backlog.md`).
+- **Brand colour tokens: one system** (owner, 2026-10-07) -- lane 1, zero
+  visual change. Every colour a named brand token (the per-city palette is
+  already gone: `--brand-orange`). Not started.
+- **Plans** -- v3 is in `index.html` on main (Places | Plans switch). The
+  `plans`/`plan_stops` tables exist in the live DB (checked 2026-10-15;
+  no docs entry records the apply). Next: the owner's iPhone pass. Spec:
+  `design/plans-deepdive/v3/README.md`; shipped entry "Plans (v3 build)".
+  Route mapping is on the roadmap.
