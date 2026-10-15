@@ -970,3 +970,124 @@ coverage is clean. READY (`scores.md` round 1c).
 
 NEXT: coordinator — send the six t4 cards in order with the three
 questions, word for word (scores.md round 1).
+
+## Turn 11: product designer (visual focus), the MUTCD brown signs
+
+New inspo: `../../inspo/mutcd-recreation/`. I looked at all five sheets
+of Figure 2H-5 (129 signs), the usage figures 2H-1 to 2H-4, and FHWA's
+descriptions. His words: "i dont want them to just use them outright, but
+this gives "built" more legs as a concept and also may spark some ideas."
+
+Build tests: `sketches/t5-mutcd-tests.png` (source `sketches/t5-mutcd.html`,
+team only). Every idea there is *derived from* a sign and named by its
+code. None is a copy. Nothing on the t4 cards is rebuilt yet; the
+director decides.
+
+### 1. What they teach about construction
+
+1. **The system is the frame, not the drawing style.** All 129 signs sit
+   in one rounded square with one inset keyline, in one ink. Inside it the
+   subjects vary wildly: geometric bars (RG-140 lookout tower), organic
+   silhouettes (RG-020 bear, RG-090 fish), figures in mid-gesture (RW-030
+   diving), even letters (RA-080 P, RG-100 ?). They still read as one set,
+   because the frame, the single flat ink and the weight never change.
+   - For us: Constructed doesn't have to mean "only bars and 45°". Our
+     circle, 2px rim and one ink per category already do the frame's job.
+   - A place can be a flat silhouette (a tree, a lighthouse) if it obeys
+     the same rules: flat, one ink, the same weight of negative space.
+   - That's the "legs" he means. It widens what built can draw without
+     going hand-made.
+2. **One cut carries the key detail.** Examples:
+   - The lighthouse's open door (RG-120)
+   - The tunnel's segmented arch (RG-200)
+   - The cutlery on the Food sign, cut out of a solid plate (RM-050)
+   - The camera's lens (RM-170)
+   The detail is negative space inside one solid, never a second colour
+   or a line drawn on top. That's exactly our cream-cut grammar (now
+   crisp), so it confirms we keep it.
+3. **Wit is a moment inside the strict build, not decoration.** Examples:
+   - RG-070 Falling Rocks: a triangle shedding three discs.
+   - RG-110 Leashed Pets: the dog sits while its person walks.
+   - RL-050 Playground: a seesaw mid-tip.
+   - RG-130 Litter: the toss.
+   The parts are as plain as anything else in the set; the joke is the
+   situation. This matches turn 2's rule (the wit in one part *of the
+   object*, never added), and sharpens it: **the wit is what the object is
+   doing.**
+4. **Figures are a disc head plus a few tapered bars**, with joints shown
+   by gaps, never drawn. The gesture carries the meaning (Ped Xing RG-150,
+   hiking RL-100). If we draw any figure (street, account), that's the
+   recipe: few parts, real gesture.
+5. **Direction is never inside the symbol.** The arrow always lives on a
+   separate plaque under the sign (Fig. 2H-1, 2H-3). That's one more
+   reason for Directions to stay our own control (the compass), and for
+   place icons never to carry arrows. RG-160 is the one exception (§2).
+6. **Text plaques carry what a picture can't** ("GROUP CAMPING", "24 HR",
+   "VISITOR INFO").
+   - For us: every row already prints its plaque (the TYPE line), and the
+     tag stamps it.
+   - So an icon doesn't have to explain everything. Bar doesn't need to
+     say "jazz club", and attraction doesn't need to depict 62 kinds of
+     sight.
+   - That argues for the common sign wherever it's clear, which agrees
+     with the director's order of tests.
+
+### 2. New concepts per icon
+
+All derived; each was built at real size on the test sheet.
+
+| Icon | Concept (and sign code) | At 24 / 18 / 12px | What it changes |
+|---|---|---|---|
+| Attraction | **RM-170 Viewing Area is a camera** | — | Nothing new. It **confirms attraction A** with an official precedent: in the brown-sign system, "worth seeing" = a camera. |
+| Attraction | **"Look at that": an arrow at a disc** (from RG-160 Point of Interest) | weak: my build merged the arrow and the disc into a pin or an eyedropper | It's a concept for the *whole* mixed bag, not one kind of sight, so it's the strongest new idea here. It needs RG-160's clear gap between the arrow and the disc, and a second build before it's judged. Risk: ↗ "open link". If it builds, it's a better attraction B than the column front, which covers half the set. |
+| Attraction | the Nordic **"sevärdhet" ⌘** (not MUTCD: the sights symbol on Scandinavian brown tourist signs) | reads as the Mac ⌘ key; its loops are outlines | The most trip-specific idea anywhere in this project, and it fails twice: the Command-key read, and the law (loops are empty shapes). Recorded for the dropped card, not proposed. |
+| Restaurant | **Cutlery cut out of a solid plate** (from RM-050 Food) | reads clearly at all three sizes | It's a better second idea than the covered dish (room service / a bell). Its catch is ours, not the sign's: a filled disc inside our circle looks like the *open* (selected) pin, which is a solid disc. It could replace the cloche as restaurant B, with that risk stated. |
+| Street | **A figure walking between two kerb lines** (from RG-150 Ped Xing) | reads as "walk this street" | It **improves street A**. The two lines turn "walking directions" into "a street you walk", which was the walker's stated risk. I'd swap it in. |
+| Nature | **Lighthouse with its door cut out** (RG-120) | reads | He saved one lighthouse (Reykjanesviti), so it's a single place, not the category's concept. Recorded only. |
+| Nature / attraction | **Lookout tower in bars and a 45° brace** (RG-140) | reads | Pure Constructed, almost our grid already. A "viewpoint" idea with no category to sit in. Recorded only. |
+| Bar | **The drink as a wave inside the glass** (RG-050 Drinking Water) | reads as water | Shows how the system draws a liquid, but reads as "drinking water", not a night out. Not proposed. |
+| Other | **"?"** (RG-100 Information) | reads as help / information | Not proposed. |
+| Café, shopping, hotel, district, area, tools | — | — | Nothing new, but the signs confirm several picks: RM-090 Lodging (a person in a bed) is our bed with a head; picnic and grocery signs show goods, not shops. Shopping by goods (RM-070 shows four items) would be noise in 18px. |
+
+What it changes on the t4 cards, if the director agrees:
+1. **Street A** becomes the figure between two kerb lines (RG-150 idea).
+2. **Restaurant B** becomes cutlery cut out of a plate (RM-050 idea), with
+   the "looks like the open pin" risk. It replaces the covered dish.
+3. **Attraction B**: one more build of "an arrow at a disc" (RG-160 idea).
+   If it reads, it replaces the column front. If not, nothing changes.
+4. Dropped card: add the ⌘ sevärdhet sign, the lighthouse, the lookout
+   tower, the water glass and "?", one line each.
+
+Everything else on the cards stands.
+
+### 3. Does this answer "does built still feel novel"?
+
+Partly, and in a useful direction.
+
+- **The brown sign *is* a vintage road-trip artefact.** Its look is
+  exactly "built": flat, one ink, a fixed frame, few parts. So "built" and
+  "vintage travel" aren't in tension. This system is where the vintage
+  look comes from.
+- What makes a brown sign feel like a trip, not an airport, is two
+  things:
+  - **its subjects:** lighthouses, lookout towers, ferries, campfires,
+    picnic shelters
+  - **its moments:** falling rocks, the leashed dog
+  Neither is a drawing style.
+- So the answer to "should we push some more" may be: push the
+  **subjects and the moments**, not the drawing. The "our objects" strip
+  on card 0 is that test. These signs add a reason to keep it, and a
+  standard for it (one moment per icon, at most).
+
+That's a reading of the signs, not a rule. He said "something to
+consider but not lock on".
+
+### Open questions
+
+1. The plate's filled disc vs the open pin's filled disc: a real
+   collision, or fine because the plate keeps a paper ring inside the
+   rim? (Director; it's visible on the test sheet.)
+2. Is one more build of the RG-160 arrow worth it before the cards go?
+
+NEXT: design director — rule on the three t4 swaps (street A, restaurant
+B, attraction B), then the cards are rebuilt or sent as they are.

@@ -1,5 +1,44 @@
 # Notes: product designer (visual focus), icon concepts
 
+## Update (after jam turn 11): the MUTCD brown signs
+
+**New inspo:** `../../inspo/mutcd-recreation/` (MUTCD Part 2H, 129
+signs). I read all of it and built the ideas at real size:
+`../sketches/t5-mutcd-tests.png` (source `t5-mutcd.html`, the first 141
+lines of `t4.html` plus new `D` entries). To render it:
+
+```
+NODE_PATH=/opt/node22/lib/node_modules node shot-vis.js <html> <out-prefix>
+```
+
+`shot-vis.js` was in the scratchpad. It's my own copy, because `one.js`
+there was changed by another session.
+
+**Lessons:**
+- The system is the frame (one shell, one ink, one weight); silhouettes
+  are allowed inside it. That gives built its "legs".
+- One cut carries the key detail. This confirms our cream cuts.
+- Wit is a moment: the object doing something (falling rocks, the leashed
+  dog).
+- Figures are a disc head plus tapered bars, with joints shown by gaps.
+- Arrows live outside the symbol.
+- The row's TYPE line is our plaque, so icons needn't explain everything.
+
+**Proposed t4 swaps (director's call):**
+- Street A → the figure between two kerb lines (from RG-150).
+- Restaurant B → cutlery cut out of a solid plate (from RM-050). Risk: a
+  filled disc looks like the open pin.
+- Attraction B → an arrow at a disc (from RG-160), if a second build
+  reads. My first build merged them into a dropper.
+- Add to dropped: ⌘ sevärdhet (the Mac key; outline loops), lighthouse
+  RG-120, lookout tower RG-140, water glass RG-050, "?" RG-100.
+
+**Novelty:** the brown sign is where the vintage built look comes from.
+What it suggests is pushing subjects and moments, not the drawing. That's
+a reading, not a rule.
+
+**Next:** the director rules on the swaps.
+
 ## Update (after jam turn 4): build tests and the t4 cards
 
 Director turn 3 steered. I ran the build tests and built the six t4 cards
