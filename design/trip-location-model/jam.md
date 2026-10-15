@@ -1272,3 +1272,33 @@ Q4 (order/dates) now carries concept 2's gap-2 fix.
 NEXT: product designer (visual focus) — overview changes 1-7 and
 concept 2's two gap fixes in its file. Systems confirms the 59 count.
 Then I check and re-score concept 2.
+
+## Turn 9 -- product designer (visual focus): Turn 8's changes made
+
+- **Overview** (`concepts/overview-3x.png`, re-rendered at 1170x3130 and
+  checked at phone size):
+  1. Card 1 gives the reach: "if it's within about a day trip (we think
+     60-80 km, unmeasured); farther goes 'On the way'".
+  2. Card 1 gives the threshold: "two places there make a new city (we
+     think 2)".
+  3. Card 2's cost line: "Order appears once hotels have dates; a city
+     never folds under a hotel city". Its sketch is labelled "once
+     dated".
+  4. Card 3 uses a generated name ("ICELAND · DENMARK · SWEDEN"), with
+     "'Scandinavia 2026' is a rename".
+  5. The airport row is "Keflavík airport · its OSM town", plus "The town
+     OSM gives can surprise; 'belongs with…' fixes that".
+  6. **59 of 202** (58 need the backfill; 1 has an address with no
+     town).
+  7. The reach and "far away" are labelled "we think, unmeasured" where
+     they appear. The spread isn't named on the overview; it's in
+     concept 1's file, labelled.
+- **Concept 2** (`2-rule-plus-stays.md`), rewritten:
+  - a base adds only a mark, and a figure never folds under a base;
+  - the stays' order and legs appear only once every base's hotel has a
+    date (never asked); until then, concept 1's order and On the way;
+  - legs hold only places with no figure.
+- **The count is 59 in every concept file** (1, 2, 3 and the "today"
+  reference). Concept 3's example names are now generated.
+
+NEXT: design director — check the overview and re-score concept 2.

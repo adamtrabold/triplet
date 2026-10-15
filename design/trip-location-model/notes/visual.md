@@ -76,3 +76,11 @@
 - **Next:** the checker / director; the C4 ruling.
 - **Renderer:** the overview HTML is in the scratchpad (ov/ov.html),
   rendered with playwright at 1170 / dsf 1.
+
+## 2026-10-15, turn 9: Turn 8 changes
+- Overview changes 1-7 made, re-rendered 1170x3130, checked.
+- Concept 2: base = mark only; order and legs only once every base is
+  dated; legs = figureless places only.
+- 59 of 202 lack a real town (58 + 1) in every file.
+- Concept 3's examples use generated names.
+- Next: the director checks and re-scores concept 2.
