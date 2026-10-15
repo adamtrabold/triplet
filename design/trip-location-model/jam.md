@@ -2275,3 +2275,38 @@ rule is now a one-line **Known limit**.
 
 NEXT: fresh checker (light pass on the ids above); then the
 orchestrator sends the overview and Q1-Q6, Q8.
+
+## Turn 22 -- product designer (systems focus): check 5's two claims (honesty edits only)
+
+No new rules.
+
+- **F0, reach and the Golden Circle:**
+  - Concept 1's plumbing and jobs.md Terms now say reach is a
+    **straight line** to the anchor. The anchor is **the centre of the
+    city's own places** in its biggest town, never a municipal seat.
+  - The Golden Circle case is redone with approximate straight-line
+    distances (from known coordinates, **not measured**):
+    - Reykjavík → Þingvellir about 41 km, → Geysir about 81 km, →
+      Gullfoss about 90 km;
+    - Geysir → Gullfoss about 10 km, → Þingvellir about 41 km.
+  - Results:
+    - Geysir sits at the edge of reach.
+    - **Þingvellir is roughly a tie and can land either way.**
+    - One fix settles it.
+  - "Near-ties between two cities" is added to Known limits.
+- **F1, concept 3's T4:**
+  - It's graded **FAIL for a repeat trip to the same city**. When the
+    places chain, "separate" is keyed by cities, Copenhagen is in both
+    trips, and nothing says which places go where.
+  - It moves into Known limits as a one-liner.
+  - Berlin still passes.
+  - jobs.md T4 says so.
+- **J10 (jobs.md):** a multi-city repeat now reads "one split per city,
+  plus merges to rejoin them", matching concept 1's limit.
+- **Concept 2:** "only Hotel-category places are stays, so an airport, a
+  district or a street is never a base".
+- **Overview:** card 3's cost now says a repeat trip to the same city
+  can't be separated. It was re-rendered (1170x3185) and read at phone
+  size.
+
+NEXT: orchestrator — send the overview and Q1-Q6, Q8.

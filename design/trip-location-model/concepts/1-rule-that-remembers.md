@@ -29,9 +29,10 @@ Nothing is created, named, chosen or dated before adding.
 
 ## Invisible plumbing (not needed for the common case)
 
-- **Reach** is measured to a city's **anchor**: the centre of its town
-  with the most places (ties: the earliest). The city takes that town's
-  name.
+- **Reach is a straight line**, measured to a city's **anchor**: the
+  centre of the city's own places in its town with the most places
+  (ties: the earliest). It's where your places are, never a municipal
+  seat. The city takes that town's name.
 - **A new city's trip:** the trip of the nearest city on its continent
   (normally your only one there). If a city is in two trips (Copenhagen
   2026 and 2028), the one added to most recently. A fix names a city;
@@ -66,13 +67,20 @@ Nothing is created, named, chosen or dated before adding.
 
 ## Worked case: the Golden Circle (rule 1, no memory)
 
-Þingvellir (about 45 km from Reykjavík), Geysir (about 100 km) and
-Gullfoss (about 115 km) are all in Bláskógabyggð municipality.
-- Þingvellir goes with Reykjavík (within reach).
-- Geysir is beyond reach → a city of its own, named "Bláskógabyggð".
-  Gullfoss, about 10 km from it, joins it. In either order.
-- If the owner wants all three under Reykjavík: one fix,
-  "Bláskógabyggð goes with Reykjavík".
+Þingvellir, Geysir and Gullfoss are all in Bláskógabyggð municipality.
+Straight-line distances are **approximate, from known coordinates, not
+measured**: Reykjavík → Þingvellir about 41 km, → Geysir about 81 km,
+→ Gullfoss about 90 km; Geysir → Gullfoss about 10 km; Geysir →
+Þingvellir about 41 km.
+- Gullfoss is beyond reach → a city of its own ("Bláskógabyggð"), and
+  Geysir, about 10 km away, joins it. Geysir alone sits at the edge of a
+  60-80 km reach, so on its own it could go either way.
+- **Þingvellir is roughly a tie** between Reykjavík and that new city.
+  It can land either way, depending on what's logged and the exact
+  anchors.
+- **One fix settles it** either way: "Bláskógabyggð goes with
+  Reykjavík" puts all three under Reykjavík; "Bláskógabyggð is its own
+  city" keeps all three together, Þingvellir included.
 
 ## The prices, said plainly
 
@@ -100,6 +108,8 @@ Gullfoss (about 115 km) are all in Bláskógabyggð municipality.
 - **The name can change** as another town in a city overtakes the
   anchor, and **reach is a range**, so a place at about 70 km is a
   judgement call until the number is measured.
+- **Near-ties between two cities** (Þingvellir) can land either way; one
+  town fix settles them.
 
 ## How you move
 

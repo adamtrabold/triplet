@@ -61,8 +61,9 @@ Every job below is read through P.
 - **Figure** (a "city" in the concept files): "the city I think of it
   with", a named group of places in one trip, made by rule 1 and the
   fixes.
-- **Reach:** about a day trip (we think 60-80 km, unmeasured), measured
-  to a figure's anchor (plumbing).
+- **Reach:** about a day trip (we think 60-80 km, unmeasured), a
+  straight line to a figure's anchor: the centre of its places, never a
+  municipal seat (plumbing).
 - **Rule 1:** each place by its own distance: within reach → the
   nearest figure; otherwise a figure of its own, even with one place.
   Only the owner's fixes override it; nothing else is remembered.
@@ -126,7 +127,8 @@ Every job below is read through P.
     - Check (1, 2): PASS if another trip's places never mix into this
       trip's views, that trip is one step away, and a repeat or someday
       trip on the same continent can be separated by fixes, never per
-      place (one split per city it covers).
+      place (one split per city it covers, plus merges to rejoin the
+      split cities into one trip for a multi-city repeat).
     - Check (3): PASS if all places can be seen together, with the
       trips distinct and nameable.
 11. **The map shows what the list shows.**
@@ -172,7 +174,7 @@ needs one fix fewer.
 | **T1 Øresund:** Saltholm, Kastrup Søbad (both in Tårnby municipality; Saltholm's we believe, not verified), with Malmö logged | All three are in the Copenhagen figure with nothing chosen. Putting Tårnby with Malmö takes **two fixes**: "Malmö is its own", then "Tårnby goes with Malmö", each moving every place in its town. (If OSM gives Saltholm no town or municipality, the second fix doesn't move it: say so.) FAIL if any step is per place |
 | **T2 The airport:** Keflavík (Reykjanesbær, about 50 km from Reykjavík); Kastrup (Tårnby), for both Copenhagen and Malmö | Keflavík is in Reykjavík with nothing chosen. Kastrup is in Copenhagen; in Malmö too after **two fixes** ("Malmö is its own", then "Tårnby also belongs with Malmö"). Concept 2: an airport is never a base |
 | **T3 Jönköping:** about 300 km from both Stockholm and Malmö | **a figure of its own** in the trip, in any logging order, with nothing chosen |
-| **T4 Repeat and someday trips:** Copenhagen in 2028, after Scandinavia 2026; Berlin logged while planning Scandinavia | concepts 1 and 2: both join Scandinavia, and **one split fix** each separates them (the split takes unvisited places, so 2026's visits stay). Concept 3: 2028 separates by time only if no 2026 place is visited in 2028; otherwise, and for Berlin, "these are separate" |
+| **T4 Repeat and someday trips:** Copenhagen in 2028, after Scandinavia 2026; Berlin logged while planning Scandinavia | concepts 1 and 2: both join Scandinavia, and **one split fix** each separates them (the split takes unvisited places, so 2026's visits stay). Concept 3: Berlin needs "these are separate"; 2028 separates only if nothing chains it to 2026, and a chained repeat to the same city can't be separated (a FAIL, in its Known limits) |
 
 Reference (today): it fails P, jobs 1, 2, 4-10, 12 and 13, and T1-T4,
 and passes 3 (a city filter, on the letter) and 11 (list and map share

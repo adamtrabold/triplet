@@ -47,15 +47,20 @@ plus one more view: **everything**, with trips distinct and nameable.
 - Paris 2024 and Scandinavia 2026: two trips (years apart, nothing
   links them).
 - T1-T3: as concept 1.
-- **T4:** Copenhagen 2028 separates by itself **only if** nothing from
-  2026 is visited in 2028. The likely case, a 2026 leftover you go back
-  for, links the two, and "these trips are separate" fixes it. Someday
-  Berlin needs the same fix.
+- **T4: FAIL for a repeat trip to the same city.** Copenhagen 2028
+  separates by itself only if nothing chains it to 2026. When it does
+  (a 2026 leftover visited in 2028), there's one worked-out trip, and
+  "these trips are separate" has no way to say which Copenhagen places
+  go where (concept 1's split has "places you've already been stay";
+  this model has nothing like it). Someday Berlin is fine: "separate"
+  works on a distinct city.
 
 ## Known limits (no rule added for these)
 
 - **Trips chain:** a someday city logged mid-planning, a 2026 leftover
   visited in 2028, or a year of steady logging on one continent.
+- **A chained repeat trip to the same city can't be separated** (T4):
+  the fix is keyed by cities, and Copenhagen is in both.
 - **Marking a place visited can re-form trips,** so the trip you're
   looking at can change under you.
 - No trip ever closes; an old trip is one nothing new links to.

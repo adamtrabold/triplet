@@ -28,7 +28,8 @@ for.
   can't stand in).
 - The order is something the trip has; how a view shows it is not this
   model's call.
-- Districts and streets are never hotels, so never bases.
+- Only Hotel-category places are stays, so an airport, a district or a
+  street is never a base.
 
 ## Off by default: stretches (Q4)
 
