@@ -895,3 +895,30 @@ All six `t4-card-*.png` are re-rendered from `sketches/t4.html`.
 
 NEXT: product designer (systems focus) — coverage against jobs.md on all
 six cards; then the director looks at cards 2–4.
+
+---
+
+## Turn 7: product designer (systems focus), coverage on the t4 cards
+
+The full table is in `coverage.md`. **2 blockers, both on card 4 (tools),
+each a one-icon or one-line fix.** All 11 places pass every job: two
+concepts each, his real saved places, all four views, a "Could be", and
+the area and other questions.
+
+1. **The account is on no card** (job 1). The passport is on the dropped
+   card, but the kept account (v6's solid head) isn't in card 4's settled
+   strip.
+2. **The + overload is unanswered** (jobs.md: "Concepts must say which
+   meanings may share a symbol"). × and the check are handled; zoom + and
+   "add a place" sit side by side with no line.
+
+Not blocking:
+- The blurred cream details (shopfront door, enamel plate, snowcap, bun)
+  read as faults.
+- The pointer should say it also covers the current plan.
+- "Staying as they are" lists items without a reason.
+- If he answers "keep area and district separate", area A has to change.
+
+NEXT: product designer (visual focus) — the two card-4 fixes (and the
+blur, if cheap); then the director looks at cards 2–4 and hands the send
+list to the coordinator.
