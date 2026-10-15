@@ -72,3 +72,4 @@ Orchestrator's note: record his words; don't turn his examples into lists, rules
 - Shopping A (carrier bag): "i think bag is easier to udnerstand at a glance"
 - Area row (comment): "area and district are not differentiated enough from each other conceptually. i like the fountain direction on Area so push that for area. district may work if we can make fountain / fountain on a square work"
 - Street row (comment): "walker is the best here"
+- Hotel row (comment): "bed is the best here"
