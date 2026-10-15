@@ -78,7 +78,7 @@ const D={
  temple:f('M7 10l5-5 5 5z')+R(7,12,2,5)+R(11,12,2,5)+R(15,12,2,5)+R(6,17,12,2),
  binox:C(7.5,15,3.5)+C(16.5,15,3.5)+R(5,7,5,7)+R(14,7,5,7)+R(10,9,4,3),
  tree:f('M12 4l4 4H8z')+f('M12 7l5 5H7z')+f('M12 10l6 6H6z')+R(11,16,2,3),
- peaks:f('M3 17l5-5 5 5z')+f('M7 17l7-8 7 8z')+R(3,18,18,2),
+ peaks:f('M2 17.5L8.5 7.5l3.5 5.2L15.5 4 22 17.5z')+`<path ${KO} d="M15.5 4l3.1 4.4-3.1-1.4-3.1 1.4z"/>`+R(2,19,20,1.8),
  peaksSun:f('M3 17l5-5 5 5z')+f('M7 17l7-8 7 8z')+R(3,18,18,2)+C(7,8,2),
  steam:f('M5 13h14a7 7 0 0 1-14 0z')+L('M8 11V8.5l2-2V4')+L('M12 11V8.5l2-2V4')+L('M16 11V8.5l2-2V4'),
  leaf:f('M5 19C5 10 10 5 19 5c0 9-5 14-14 14z')+`<path fill="none" ${KOS} stroke-width="1.4" d="M6 18L16 8"/>`,
@@ -190,7 +190,7 @@ ${catBlock('Attraction','What you’ve saved (62): museums, galleries, palaces a
  concept('B','A column front','temple','attraction','Vasa Museum','ATTRACTION · STOCKHOLM','The classic sign for a museum. It fits museums and palaces, not landmarks or Tivoli.','A bank or a court.')])}
 ${catBlock('Nature','What you’ve saved (10): parks, two pools (Laugardalslaug, Sundhöllin), a lighthouse, a fumarole (Gunnuhver), a bridge between continents.',[
  concept('A','A conifer','tree','nature','Humlegården','NATURE · STOCKHOLM','The park-map sign for green space. Most of these are parks.','A Christmas tree, in December. It doesn’t cover the pools or the coast.'),
- concept('B','Mountain peaks','peaks','nature','Gunnuhver','NATURE','The landscape: coast, lava, the fumarole, as well as parks.','“Hiking” or “terrain”.')])}
+ concept('B','Mountain peaks','peaks','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The landscape: coast, lava, the fumarole, as well as parks.','“Hiking” or “terrain”.')])}
 ${catBlock('Shopping','What you’ve saved (53): records, ceramics, books, design (Svenskt Tenn), vintage, a market.',[
  concept('A','A carrier bag','bag','shopping','Svenskt Tenn','SHOPPING · STOCKHOLM','The sign for “a shop”, everywhere.','A padlock, at the smallest size.'),
  concept('B','A shopfront with an awning','awning','shopping','Svenskt Tenn','SHOPPING · STOCKHOLM','A small shop on a street, which is what most of these are. The scalloped edge echoes the app’s scalloped buttons.','A market, or a store locator.')])}</div>`;
@@ -199,11 +199,11 @@ ${catBlock('Shopping','What you’ve saved (53): records, ceramics, books, desig
 const card3=()=>`<div class="card">${head('Card 3','Parts of town, hotel, other')}
 ${catBlock('Area','What you’ve saved (18): neighbourhoods (Gamla Stan, Christiania), squares and markets, parks and cemeteries, streets.',[
  concept('A','City blocks (the same icon as district)','blocks','area','Gamla Stan','AREA · STOCKHOLM','“A part of town”, the same idea whether it’s saved with a shape or without one.','A grid, or an app icon.'),
- concept('B','A fountain on a square','fountain','area','Lilla Torg','AREA · MALMÖ','A square or an old town to wander: its own idea, separate from district.','Drinking water.')],
+ concept('B','A fountain on a square','fountain','area','Lilla Torg','AREA · MALMÖ','A square or an old town to wander: its own idea, separate from district.','Drinking water, or an anchor.')],
  `<div class="q"><b>Question</b>Area and district are often the same places (Djurgården, Möllevångstorget and Laugavegur are saved as both). Should they share one icon?</div>`)}
 ${catBlock('District','What you’ve saved (6): Möllan, Grandi, Västra Hamnen, Skogskyrkogården, Djurgården, Nyhavn. Shown on the map as a shape.',[
  concept('A','City blocks','blocks','district','Djurgården','DISTRICT · STOCKHOLM','The map’s own sign for a built-up part of town.','A grid, or an app icon.'),
- concept('B','A solid parcel','parcel','district','Grandi','DISTRICT · REYKJAVÍK','The shape of a district on the map, filled in.','A blob, or a shield.')])}
+ concept('B','A solid parcel','parcel','district','Grandi','DISTRICT · REYKJAVÍK','The shape of a district on the map, filled in. Shown so you can see a second idea; we’d keep the blocks.','A blob, or a shield.')])}
 ${catBlock('Street','What you’ve saved (5): Grandagarður, Jægersborggade, Laugavegur, Skólavörðustígur, Bondegatan. Mostly streets you walk.',[
  concept('A','The pedestrian-street sign','walker','street','Laugavegur','STREET · REYKJAVÍK','The road sign for a street you walk.','“Walking directions”, or steps.'),
  concept('B','An enamel street-name plate','plate','street','Jægersborggade','STREET · COPENHAGEN','The name plates on Nordic street corners.','An information sign.')])}
@@ -219,13 +219,14 @@ ${catBlock('Other','Nothing filed here yet.',[
 const scal=(inner,bg,size)=>{let sc=[];for(let i=0;i<96;i++){const a=i/96*2*Math.PI,r=46+4*Math.cos(a*12);sc.push(`${(50+r*Math.cos(a)).toFixed(1)}% ${(50+r*Math.sin(a)).toFixed(1)}%`)};return `<div class="scal" style="width:${size}px;height:${size}px;background:${bg};clip-path:polygon(${sc.join(',')})">${inner}</div>`;};
 const tset=[['xmark','close'],['sort','sort'],['filters','filters'],['crosshair','locate'],['compass','directions'],['more','more'],['wedge','open / fold'],['plus','zoom +'],['minus','zoom −']];
 const card4=()=>`<div class="card">${head('Card 4','Tools')}
+<div class="fact" style="margin-top:8px">Staying as they are: the Star, Visited, cluster counts, stop numbers, the far pin’s ring, the approximate pin’s dashed rim and the tag’s anchor dot. Plans’ + and × stay as they are until Plans is live.</div>
 <div class="cat"><h3>Settled by the team</h3><div class="fact">Every line is 2.00px, as on the rules card.</div>
 <div class="settled">${tset.map(([d,l])=>`<div>${bare(d,INK.tool,22)}${l}</div>`).join('')}<div>${scal(bare('plus',INK.tool,26.4,'var(--or)'),'var(--or)',60)}add a place</div></div></div>
 <div class="cat"><h3>The chosen option in a menu</h3><div class="fact">A check means Visited, which stays as it is, so the chosen sort gets a pointer instead.</div>
 <div class="menu"><div class="cur">${bare('pointer',INK.tool,14)}Recently added</div><div><span style="width:14px"></span>A to Z</div><div><span style="width:14px"></span>Nearest first</div></div></div>
 <div class="cat"><h3>Delete a place</h3><div class="fact">This changes how delete works, so our UX check comes before anything ships.</div>
  <div class="cn"><h4>A · ×</h4>${rowT('xmark')}<div class="lines"><div><i>Shows</i><span>Today’s ×, the same mark as close.</span></div><div><i>Could be</i><span>“Close” rather than “delete”.</span></div></div></div>
- <div class="cn"><h4>B · A bin</h4>${rowT('bin')}<div class="lines"><div><i>Shows</i><span>Delete, and only delete.</span></div><div><i>Could be</i><span>Heavier in every row than the place name should allow.</span></div></div></div></div>
+ <div class="cn"><h4>B · A bin</h4>${rowT('bin')}<div class="lines"><div><i>Shows</i><span>Delete, and only delete.</span></div><div><i>Could be</i><span>Nothing else; but it’s heavier in every row than the ×.</span></div></div></div></div>
 <div class="cat"><h3>An empty list</h3><div class="fact">The compass now means Directions only.</div>
  <div class="vis"><div class="empty">${bare('blanktag',INK.tool,28,'#F1E9DB')}Nothing here yet.<b style="font-size:9px;letter-spacing:.1em">A · A BLANK LUGGAGE TAG</b></div><div class="empty"><span style="height:28px"></span>Nothing here yet.<b style="font-size:9px;letter-spacing:.1em">B · NO ICON</b></div></div>
  <div class="lines"><div><i>Shows</i><span>A: “nothing filed yet”, with the app’s own tag. B: just the words.</span></div><div><i>Could be</i><span>A: a bookmark. B: nothing to mistake.</span></div></div></div></div>`;

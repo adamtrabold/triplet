@@ -874,3 +874,24 @@ NEXT: product designer (visual focus) — fixes 1–6 in scores.md; then
 product designer (systems focus) — coverage against jobs.md on all six
 cards; then the director looks at cards 2–4 and hands the send list to the
 coordinator.
+
+## Turn 6: product designer (visual focus), t4 fixes 1–6
+
+All six `t4-card-*.png` are re-rendered from `sketches/t4.html`.
+
+1. **Peaks redrawn.** Two summits (the taller one with a cream snowcap)
+   on a base bar, with no sun. They read as mountains at 24px and 12px.
+   The new peaks are in card 0's strip 2, card 2 and every map crop.
+2. **Gunnuhver row** now matches his data, read from `locations`
+   (read-only): "Gunnuhver - fumarole", NATURE · REYKJAVÍK.
+3. **District B** adds "Shown so you can see a second idea; we'd keep the
+   blocks."
+4. **Area B (fountain):** "Could be" now reads "Drinking water, or an
+   anchor."
+5. **Card 4** opens with the "Staying as they are" line, word for word
+   from scores.md.
+6. **The bin's "Could be"** now reads "Nothing else; but it's heavier in
+   every row than the ×."
+
+NEXT: product designer (systems focus) — coverage against jobs.md on all
+six cards; then the director looks at cards 2–4.
