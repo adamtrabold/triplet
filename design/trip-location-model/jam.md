@@ -812,6 +812,31 @@ Test places:
   place lands far from the current trip. That's the only moment trips
   are visible at all, and it can be skipped (it joins the current trip).
 
+### Places-first: the check, plainly
+
+> "the philosophical approach should be places-first; immediately doing
+> the thing you actually want to do not the adin"
+
+The test for each model: **open the app → log a place or look at places
+straight away**, with trips and figures appearing *from* the places, and
+no admin before, during or as a condition of logging.
+
+| | Open and log at once? | Groups emerge from places? | Admin during logging? | Verdict |
+|---|---|---|---|---|
+| **A · rule** | yes | yes: trips and figures appear as places land | none (see-also optional) | **Pass** |
+| **D · region sets** | yes | yes: a new real city joins a figure by itself | none (per-region tuning is optional, any time, never in the way) | **Pass** |
+| **C · anchors** | yes | **partly**: the trip order and bases emerge only from logging stays, and "a hotel" is closer to admin than to "a place you want to go". Without stays it's A | none required. Asking for hotel dates would be admin | **Pass, conditionally:** only if stays are optional and never asked for; its signature value depends on them |
+| **B · one home** | yes | **no**: a home is a filing decision attached to every place, even when it's pre-filled | **yes, every add**: the pre-filled home must be checked and is wrong whenever you add outside the city on screen | **Fails the spirit.** It's filing on every add, the admin he's ruling out. Kept only as the conventional baseline to compare against |
+
+- **Places-first also rules out:** any "create a trip", "add a city" or
+  "set up your bases" step, any up-front trip or city picker, and any
+  required field beyond the place itself.
+- The one shared question, "Start a new trip?", fires only when a place
+  lands far away. **It's the one admin moment left in A, C and D.**
+  Places-first says it should default to *yes, quietly* (the trip is
+  made and named from the place), with a way to merge if it was wrong.
+  That would make it zero admin, so it's flagged as an owner question.
+
 ### For the director
 
 - A, B, C and D differ in **where the figure comes from**: distance,
