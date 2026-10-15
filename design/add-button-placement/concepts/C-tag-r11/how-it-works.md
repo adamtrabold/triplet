@@ -54,3 +54,71 @@ visual's own layer (`drawR11`).
 **No unsupported job for the orange tag.** The cream colourway fails job
 2. It isn't a send-back, because orange is the lead and cream is shown
 because the owner asked to see it, but it must carry the cost line.
+
+---
+
+## Round 11b (systems, 2026-10-15): turned 90°, upright 43 × 70 (the hole at the top, the end at the bottom)
+
+Owner: "Let's try it turned 90 degrees too". Measured the same way
+(`TAG=t11b-`, `data-trot=up`).
+
+| | Upright orange (p4, 43 × 70) | Upright cream, orange end | Upright orange, slim (p5, 38 × 64) | Flat orange (11, ref) |
+|---|---|---|---|---|
+| vs the account, σ4 / σ8 | **2.12 / 2.12** | **0.59 / 0.56** | 1.69 / 1.69 | 2.12 / 2.12 |
+| vs the Float (1.34) | 1.58x | 0.44x | 1.26x | 1.58x |
+| Pins at the opening fit (40 scenes) | 0 | 0 | 0 | 0 |
+| Street zoom: Copenhagen / Stockholm / Malmö / LA | 11 / 12 / 15 / 3% | the same | 10 / 11 / 13 / 3% | 11 / 12 / 14 / 3% |
+| Credit, horizontal clearance (390 / 375 / 320) | 73 / 58 / 68 | the same | wider | 43 / 28 / 38 |
+| `TAG_SHEET_GAP` (foot 23 + height + 12) | **105** | 105 | **99** | 78 |
+
+- **Rank and coverage: turning it changes nothing.** It has the same
+  area, so the same mass. Street-zoom coverage is within a point, and
+  the credit is clearer, because the tag is narrower.
+- **The one structural cost is the taller footprint with a place's tag
+  open.**
+  - To stay tappable under an open tag, the list sits lower by the
+    tag's height: a gap of 105 (99 for p5), against 78 flat and 88 for
+    the Float.
+  - **At 664 that drops the list from 3 rows to 2 with a tag open**
+    (3 rows need a gap of 93 or less). At 320 it stays at 1 row either
+    way.
+  - The choices:
+    - (a) accept 2 rows at 664;
+    - (b) an upright at 58 tall or less (for example 36 × 58), which
+      keeps 3 rows;
+    - (c) step aside under a tag, which brings back the tag-open
+      exception that the Float doesn't have.
+  - I lean **(b)** if the owner picks upright. It's the owner's
+    visual call, so (b) needs a frame from visual.
+- **Tap target:** 43 wide → pad 1px to 44 (invisible, sideways). It's 70
+  tall. The hit area is the rectangle, so the hole counts.
+- **Placement:**
+  - the drawn left edge stays on 19.9 (the 3px pad sits outside it);
+  - the foot is 23 above the list;
+  - the top is 93 above the list at 664 (y 251-344 with the list up).
+  - It clears zoom and every top control at every size.
+- **The hand-off gets simpler: no rotation.**
+  - The upright button is already the form's orientation: hole at the
+    top (it becomes the form's eyelet), + in the body, claim-check end at
+    the bottom (it becomes the form's stub with ADD).
+  - Tap = a pure grow, from the button's box to the docked tag (43 → 316
+    wide), with every part in place.
+  - The flat tag had to turn upright while it grew. Upright is the
+    clearest job-3 read yet ("what you tap is the tag you'll fill"),
+    with nothing to re-map.
+  - The claim-check-end tear (round 10's motion) becomes a downward
+    tear at the bottom, which still reads.
+
+### Jobs re-check (round 11b)
+
+| Job | Upright orange | Upright cream |
+|---|---|---|
+| 1 Reach | yes. The only exception is the filters, **if** the tag-open gap of 105 is accepted (2 rows at 664) or the tag is 58 tall or less. With (c) it gains a tag-open exception | the same |
+| 2 Main action | yes: 2.12x | **no: 0.59x** (the same cost line as the flat cream) |
+| 3 Know what you'll fill out | **yes, the strongest:** the same orientation as the form | yes |
+| 4 Never in the way | yes: 0 pins at the opening views; street zoom at Float level; the credit is clear | yes |
+| 5-18 | unchanged (the form) | unchanged |
+
+**No unsupported job for the upright orange.** There's one cost to put
+on the send: the list loses a row with a tag open at 664 at 70 tall (or
+the tag goes to 58 tall or less).
