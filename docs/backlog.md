@@ -235,6 +235,15 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
+  seen while testing the suggestions-over-x tweak). `node
+  design/gesture-harness/plans.js index.html` is 31/32 on origin/main
+  (was 32/32 at the + badge landing): reduced pass, "a long name: Added …
+  as stop 4 truncates the name only" gets `{"text":"Added Kaffi Vínyl as
+  stop 4","nameCut":false}`, i.e. the name no longer truncates at that
+  width. Either the fixture/width drifted or the slip's layout changed;
+  not investigated.
+
 - **Esc handlers that don't mark the keypress spent** (reviewer, + badge
   build round 1, 2026-10-15). The sort menu's document-level Esc
   (`initSort()`: `if (e.key === 'Escape' && sortMenuOpen()) closeSortMenu()`)

@@ -21,6 +21,11 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   "Leaflet |"; (5) tap +, then type in a field with the keyboard up: ADD
   LOCATION stays reachable (sticky) and the × cancels; (6) a tag open, tap
   +: the tag closes and the form opens; × brings the same tag back.
+- **Suggestions over the x (2026-10-15; check once it lands):** tap +, type
+  a place name: where the suggestion list meets the ×, the list is on top
+  and tapping that part picks the suggestion (the form stays open); the ×
+  still shows and works everywhere else. Scroll the form with the list open
+  (small phone, keyboard up): the list stays stuck under the Name field.
 - **Playground = signed out (2026-10-13):** in a private Safari tab (signed
   out), open the app: your real places load; star, visit, delete and add
   one; reload and check they're all back to normal; check in your signed-in
