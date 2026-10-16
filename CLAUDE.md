@@ -75,7 +75,11 @@ verbatim; messages to the owner are terse, plain language, one per real event
 (decision needed, thing live, blocker); a plain bug the owner reports is
 verified by one agent before theorizing; when the owner calls a shown look
 good, that is the go to land it — don't ask again (owner: "yes when i say
-something is good that means ship it"). Everything else is optional.
+something is good that means ship it"). Every design project keeps a `history.md`
+(dated timeline: what the owner saw, his verbatim words, the decision,
+evidence links; one entry per real moment), and superseded canvas rounds move
+to the canvas's Archive page, never deleted (owner wants it for case
+studies; example: `design/icon-system/history.md`). Everything else is optional.
 
 ### Roles (owner-set)
 
