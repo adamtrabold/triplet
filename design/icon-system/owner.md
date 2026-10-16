@@ -79,3 +79,44 @@ Orchestrator's note: record his words; don't turn his examples into lists, rules
 - Attraction (comment): "i agree with the pushback, but i also am leaning on the inspo a bit for this" then "i dont know if it has to read as a solid shape -- its heavy enough" (the Nordic loop: lead idea for attraction; may stay a heavy line rather than solid).
 - Area (comment): "well -- lets pressure test that... what's the difference between a district and an area?" Orchestrator answered with the data (district = 6 OSM outlines; area = 18 pins, mixed; 8 overlap) and two options; awaiting his lean.
 - Area (comment): "i actually think we're uncovering a flaw in the data model. things like squares are really not quite areas either. they could be represented by a pin. a street however is closer to a district (but not quite) and *should* have a box, becuase interesting places on streets are close together and streets can run through entire cities. do a deeper recommendation on amending the categories." (Systems designer writing design/icon-system/categories.md; area/district icons wait on it.)
+
+2026-10-16, on the categories recommendation (design/icon-system/categories.md, page https://claude.ai/artifact/XANh5kcCLzEy4csb8pNYyt):
+> only a couple things of feedback — i think sight is different from attraction -- think mountain vs theme park. though i guess that would be nature. which makes me think sight is still wrong and attraction is actually better. the other thing is that bars and music should be two separate things -- bars and venues. if a bar has music, that is different from a venue that is primarily music that may or may not be a bar if that makes sense? maybe it doesnt pressure test the thinking
+> the venue differentiator in my head is if i'd go there if there wasn't a show happening
+
+Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venue is a place you'd only go to for a show.
+
+2026-10-16, answers on the categories recommendation:
+> i agree attraction is very broad -- i like museums + galleries or museum/gallery or something similar (not all galleries are museums)
+> 1. square as own category i like that
+> 2. street is fine to be trimmed but just make sure its long enough i hav eno idea how big 600m is
+> 3. nature if it's natural; pools if it's like a city pool should be closer to attraction
+> 4. cool on that
+> 5. i dont even know what all of those are lol so i think they're right?
+(4 = rename District to Neighbourhood: yes. 5 = the Venue table stands.)
+> i do wonder if there should be sight vs attraction -- an attraction usually costs money and has thinigs to do and i wouldnt necessarily think of a mural as an attraction
+> or maybe its landmark?
+> oh that's interesting. what would something like vasa or tram museum fall under if we did not have a museums category
+> what are some alternate words for attraction that get at the same vibe
+> would it be worth separating out amusement park?
+> dont think about it in regards to what i have today
+> i dont think people think of parks as amusement parks they think of like city parks. im goo dnot changing it for now.
+(Proposed, not confirmed: Landmark + Art + Attraction, with themed museums in Attraction and art museums, galleries and murals in Art; "Outing" offered as an alternative name for Attraction. Decided: amusement parks stay in Attraction, no full-day split for now.)
+> yeah i think that's good for now   (locks Landmark + Art + Attraction)
+> now what about landmark vs nature   (orchestrator proposed "who made it"; owner: "i dont remember the who made it rule" -- not confirmed)
+> what about like plymouth rock   (broke "who made it"; proposal v2: "why it matters")
+> ok im good with that. but id like to pressuretest it more   ("why it matters" accepted)
+> botanical garden idk if that's that clear -- those are usually man made and constructed   (botanical gardens -> Attraction; parks -> Nature)
+> i actually dont know if park is nature? i think park should probably be its own maybe?
+> i think if park is in the name it probably should be a park
+(Park added as its own pin category. Orchestrator flagged one exception: national parks stay Nature.)
+> is this too fragie?
+> no i think 13 icons is just too many regardless. i wonder if there isn't different consolidation based on that "what am i doing there" line. for example maybe square isn't necessary. maybe we don't need an other. etc.
+> night out is presumptive. i do think there's clear differentiation between restaurants and coffee shops/cafes (e.g. id be looking for a bakery if i want a pastry).
+(Grouping rejected; consolidate by "what am I doing there". Proposed 10: Restaurant, Café, Bar, Venue, Landmark, Attraction, Park (squares in), Nature, Shopping, Hotel; Other dropped; Art optional as the 11th. Café/Restaurant and Bar/Venue stay separate. Open: 10 or 11.)
+> i think galleries and museums could go into attraction, but sometimes i do just want to go to a museum
+> maybe we could merge park into nature afterall
+> yeah i actually am like wait what if im with my kid and i just want to see what parks i marked.
+> also square could be landmark
+> i think that's good fo rnow
+LOCKED (2026-10-16): 11 pins -- Restaurant, Café, Bar, Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel -- plus shapes Neighbourhood and Street. Tests: "what am I doing there?" and "would I filter for just these?"
