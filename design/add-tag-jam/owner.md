@@ -69,3 +69,5 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on GoToMap's little-tag badge B) i like tying to the tag but i dont think this is quite there yet
 > (on Collapse option B's header) i like this icon but im not sure if placement is right or treatment
 > (on Collapse option C's LOWER tab) i love this but itll get in the way of the + and it clutters up the map. maybe the icon in the version above in here would be good with no text? and then it could be right aligned? idk if that will feel messy
+> (on Collapse option A, the grab handle) maybe this is the most elegant approach?
+> (to the team) lets clean up the jam design board -- want to know what to pay attention to
