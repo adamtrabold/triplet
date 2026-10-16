@@ -20,7 +20,7 @@ The owner approved this list ("yeah i think that's good for now"). The revisions
 - **Neighbourhood**: drawn as its outline.
 - **Street**: a box around the stretch you care about. Streets under about 1.5km are saved whole; longer ones are trimmed with handles.
 
-**Landmark vs Nature:** who made it. Built by people means Landmark. Natural means Nature, even when it's famous (a waterfall, a volcano). Parks and gardens are Nature. Edge cases go by why you go: the Bridge Between Continents is Nature (you go for the rift), and Reykjanesviti is a Landmark (you go for the lighthouse).
+**Landmark vs Nature (orchestrator's proposal, not yet confirmed by the owner):** who made it. Built by people means Landmark. Natural means Nature, even when it's famous (a waterfall, a volcano). Parks and gardens are Nature. Edge cases go by why you go: the Bridge Between Continents is Nature (you go for the rift), and Reykjanesviti is a Landmark (you go for the lighthouse).
 
 **Gone:** Area, District (renamed Neighbourhood), and the "Sight" and "Museums & galleries" ideas, which were superseded.
 
