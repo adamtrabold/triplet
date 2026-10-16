@@ -1,49 +1,63 @@
-# Grid g1: for the design director
+# Grid g2: for the design director
 
-From the product designer (icon specialist), 2026-10-16. Please score before anything goes to the owner.
+From the product designer (icon specialist), 2026-10-16. This is the fix batch for your round g1 (`scores.md`, fixes 1–8). g1's handoff is in git history (87b6286).
 
 ## What to look at
 
-- Phone stills: `stills/g1-card-0.png` … `g1-card-6.png` (390 wide at 3x; cards 1–3 are tall), and `g1-card-5-1x.png` for 1x. Source: `cards.html`.
-- Canvas, page **Grid concepts**: https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW (the same 7 cards at 760 wide). Nothing was replaced, so nothing went to Archive.
-- SVGs: `svg/A-pixel/`, `svg/B-seal/`, `svg/C-press/` (the 13 skeletons at 24 and 12, single paths with real holes).
-- Code and reasons: `src/`, `notes.md` (research with links).
+- Phone stills: `stills/g2-card-0.png` … `g2-card-5.png` (390 wide at 3x), plus `g2-card-2-1x.png`. The source is `cards-g2.html`.
+- Canvas, page **Grid concepts**: https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW, with 6 g2 boards and the question as the page title. The 7 g1 boards are on **Archive** under "Round g1 · 2026-10-16 · grid, three concepts (scored 7; replaced by g2)".
+- SVGs: `svg/g2/<joint|wear|press>/<pick>-24.svg`, `-32.svg` and `-12.svg`. The g1 SVGs stay in `svg/A-pixel` etc. as history.
+- Code: `src/frame.js` (the frame, the three laws, the 24 → 32/Ø18 refit) and `src/boards2.js`.
 
-Cards: 0 the brief and the measured sizes · 1 A Pixel plate · 2 B Seal · 3 C Press kit · 4 corners, three laws on the same shapes · 5 all 13 per grid at real size, plus measured findings · 6 the tool and the question.
+Cards:
+- 0: brief, sizes, the rough-skeleton line, the question
+- 1: the frame (the team's call)
+- 2: choice 1, the corner law
+- 3: choice 1, close-ups
+- 4: choice 2, fullness
+- 5: tool
 
-## How each concept answers his brief (his sentences, as he wrote them)
+## Fixes 1–8
 
-| His words | A · Pixel plate | B · Seal | C · Press kit |
-|---|---|---|---|
-| "sit in the stroked circle but also make sense on their own" | Drawn in the badge's own pixels (live Ø16, 2px air); a separate 12 drawing for the chip | Drawn in the badge, fuller (live Ø17, 1.5px air); the chip is the same drawing shrunk, pen at 2px | 12 modules in the badge; the 12 chip is drawn first |
-| "at their root simple shapes, but joined together" | Rectangles, circles, arcs, 45° | Masses plus centre-lines drawn with a pen; polar | A kit of module parts |
-| "minimal bezier curves with perfect architecture" | 264 curves for the 13 (24 badge) | 285 | 245 |
-| "corner rounding should not be 100% consistent … different architecturally sound prinicples to how different angles intersect" | By joint: what the corner is (line end, mass, tip, shoulder, join, notch) | By angle: even wear, so the radius follows the angle | By side: one outside and one inside radius; the angle changes only what you see |
-| "allude to something screened or pressed" | Inside corners fill | Inside corners fill | Most literal: ink squeeze outside, ink fill inside |
+1. **One frame, as the team's call** (card 1, first line, with the reason in his words): a separate drawing per size on the pixel grid, and the 12 on the 2px module. B is out as a grid. The 13 are shown on the frame with corners not yet rounded, so the frame is judged apart from the corner choice.
+2. **Two choices he can see.**
+   - (a) **Corner law** (card 2): column front, conifer and coupe at 4x, then on the 32 selected pin and the 24 badge, then all 13 at 24, for each law. Card 2 states the visibility: "At 24 on your phone the difference is texture, not shape … On the 32 selected pin it shows, and at 4x it's obvious."
+   - (b) **Fullness** (card 4): all 13 at 24 in one row each, plus 4x and the 32 pin.
+3. **Personality line** for each law: each opens with his sentence in quotes, "personality in the approach to how strokes are connected and curve", then one line on where that law puts the curve.
+4. **C honesty:** card 1 says what was done: "the 12s were drawn as their own set on the 2px module, not derived from the 24s. The 32s are the 24s enlarged by code, a first fit."
+5. **⌘:** 2px like every line (card 1: "Every line is 2px, the ⌘ included"). Only the 12px fact remains (⌘, spokes and arms need 1.5px there).
+6. **Rough skeletons named once, up front** (card 0), in your wording.
+7. **g1 boards archived** on the canvas, as above.
+8. **`history.md`:** not added yet. Its rule is one line when the owner sees the work, so it gets added when this goes to him.
 
-## My honest read
+## Two places I changed what you asked, and why
 
-- **A · Pixel plate.** The safest. It is the crispest at 1x and the closest to how established systems work (Material keylines, IBM whole pixels, Fluent per-size drawings). Its corner law answers "different principles for different angles" most directly, because it names the joints. Costs: 26 drawings, and the selected pin doesn't grow its glyph. Its skeletons come out a little stiff (45° only).
-- **B · Seal.** The best-looking skeletons at 24: fuller in the circle, and the wheel, the column front and the cup read best here. It is one drawing per icon. But its chip is the weakest: the wheel loses its spokes, the column front drops to two columns and the cup's handle closes. That is the "make sense on their own" sentence, failing at 12. The even-wear law is the most principled angle rule, but at right angles it is almost the same as A.
-- **C · Press kit.** The most "printed" character, and the press law is the most literal reading of "screened or pressed". It is also the coarsest. Pressed inside corners fill small openings (the wheel's openings become round holes), and some skeletons are crude (the cup). Risk: its rule is one pair of radii, which he may read as "100% consistent" even though the visible effect varies with the angle. The card says this plainly.
-- **If I had to lean:** A's frame and sizes, with either A's joinery or B's even-wear corners. That's why the question allows mixing. I have not put a recommendation on the cards; the cards report.
+Both follow the orchestrator's note: "If the corner laws really are invisible at real size, a choice between them isn't a real choice. The options he sees have to differ visibly."
 
-## Facts on the cards I want you to check
+- **The corner laws were re-tuned to differ in kind, not by tenths.** In g1 all three put a little softness everywhere, so they looked the same. Now each puts the softness in a different place:
+  - **by joint:** in the joins, with a 1.1px fillet; ends and edges stay crisp.
+  - **even wear:** on the outer silhouette; every outside corner is worn 0.38px deep (right angle 0.92, 110° apex 1.7), and inside corners are almost untouched.
+  - **pressed:** in the inside corners; ink pools 1.5px, and outside corners are 0.3.
+  
+  At 4x and on the 32 pin they are plainly different. At 24 the difference is a texture, and the card says so. The laws are still "slight", but are they still slight enough for him? I think yes at 24; judge it on card 2.
+- **Fullness is Ø16 vs Ø18 (1px of air), not Ø17.** I built Ø17. It moved each edge half a pixel and didn't read as a choice at 24, so card 4 shows the step that does, and says why. The question's wording changed to match: "…2px of air or the fuller 1px?" If you want Ø17 back for fidelity to your ruling, it's one number in `boards2.js` (the `live` value 18 → 17).
 
-- At 12px with a 2px line, any grid is 6 × 6 modules, so A and C share one chip drawing. Card 5 says so.
-- The ⌘, the wheel's spokes and the walker's arms need 1.5px at 12 in A and C. These break the 2.00px rule there, and they are labelled as a drawing-step question.
-- The ⌘ heavier than 2px (your condition): a 3px ⌘ with 1px openings needs Ø18.3. The live areas are Ø16 (A, C) and Ø17 (B). Only the 32 selected pin has room. This one is computed, not guessed.
-- Every skeleton fits its grid's limit, measured on the finished outline.
-- Real rows use three of his saved places named on the t6 cards (Vasa Museum, Tivoli, Hallgrímskirkja).
+## Things to check
 
-## Known weak spots
+- **The 32 and Ø18 glyphs are the 24's parts scaled by code, with every 2px line kept at 2px.** Parts that touched a line still touch it, edges are not snapped to pixels, and the card says so. Fit is measured on the finished outline:
+  - At Ø16, everything stays within r 8.5 (pin 11.3).
+  - At Ø18, everything stays within r 9.5 (pin 12.7).
+- **Curves per glyph are the same under every law** (264 for the 13). Each rounded corner is one curve whatever its radius, so the laws change the character, not the count.
+- **The pressed conifer:** a 1.5px fill in the narrow tier notches made round knobs, so narrow notches use 0.6 instead (and still fill deepest because of the angle). The rule text says so.
 
-- The skeletons are rough by design. The ones that look worst at 24: C's wheel (a button), A's bed and C's bed (sofa-like), and the bag (still near a padlock). These are notes for the drawing step, not grid faults, but he will see them.
-- B's polar vocabulary only shows in a few picks (the wheel, the coupe, the bag handle, the cup).
-- C claims "the 24 adds parts to the 12". In this round the 12s were drawn as their own set. They hold the same ideas, but I didn't derive the 24 from the 12 in code.
+## My read
 
-## The ask (one question)
+- **The frame is right**, and it's the conventional answer (Material, IBM, Fluent).
+- **Of the laws,** by joint is the one that most directly answers "different architecturally sound principles to how different angles intersect", and its filleted joins carry "how strokes are connected".
+- Pressed is the most literal "screened or pressed".
+- Even wear reads most "vintage" on the silhouette, but at 24 its round line ends make the set look softer and a little toy-like.
+- I'd lean by joint with 2px of air, but the cards don't say so; he chooses.
 
-"Which grid do we draw the 13 on: A, B, C, or parts of more than one (for example one grid's frame with another's corners)?"
+## The ask (word for word)
 
-The tool line is a recommendation, not a question. We keep authoring as code; Figma via its MCP is offered only if he wants to push curves himself.
+"For the grid: which corner law — by joint, even wear or pressed? And in the circle, 2px of air or the fuller 1px?"

@@ -27,3 +27,12 @@ Full text: `scores.md`, round g1.
 
 NEXT: icon designer, fixes 1–8 in `scores.md`. Then I look at the
 changed cards.
+
+## Turn 2: icon designer, round g2 (fixes 1–8)
+
+- One frame as the team's call (per-size drawings, pixel grid, 12 on the 2px module); two visible choices: corner law and fullness.
+- Corner laws re-tuned to differ in kind (by joint = joins, even wear = silhouette, pressed = inside corners), per the orchestrator's "the options he sees have to differ visibly". At 24 it's texture; the card says so.
+- Fullness shown as Ø16 vs Ø18 (Ø17 built; half a pixel per edge didn't read). The question's wording follows: "…2px of air or the fuller 1px?"
+- ⌘ at 2px; rough skeletons named on card 0; g1 boards archived on the canvas. Details: `for-director.md`.
+
+NEXT: design director, look at the g2 cards.

@@ -1,4 +1,15 @@
-# Grid: notes (round g1, 2026-10-16)
+# Grid: notes
+
+## Round g2 (2026-10-16), after the director's g1 score (7)
+
+- **One frame, the team's call:** a drawing per size; 24 and 32 on the pixel grid; 12 on the 2px module. Why: B's one-drawing chip broke "but also make sense on their own" at 12 (g1 card 2).
+- **Two choices for the owner, made visible:** the corner law and fullness. The g1 laws differed by tenths of a pixel. The g2 laws put the softness in different places (joins / silhouette / inside corners), so they differ in kind at 4x and on the 32 pin; at 24 the difference is texture, and the card says so. Numbers in `src/frame.js` (`LAWS`, `LAW_INFO`).
+- **Fullness:** Ø16 (2px of air) vs Ø18 (1px). Ø17 was built and dropped from the cards because it moved each edge only half a pixel.
+- **32 pin and Ø18:** `refit()` scales the 24's parts exactly, keeps every 2px line at 2px about its own centre, and keeps any part that touched a line touching it. A first fit; pixel snapping is drawing-step work.
+- **⌘:** 2px like every line (the director withdrew the heavier-line condition; owner: "its heavy enough").
+- Files: `cards-g2.html`, `stills/g2-card-*.png`, `svg/g2/<law>/`, `src/frame.js`, `src/boards2.js`. g1 stays as history (`cards.html`, `stills/g1-*`, `svg/A-pixel` …, `src/concepts.js`, `src/boards.js`); the g1 canvas boards are on the Archive page.
+
+# Round g1 (2026-10-16)
 
 Product designer (icon specialist). Owner, verbatim: "we're not at drawing step next, next step is defining the grid"; "lets not focus on differentiation yet we aren't making final icons here"; "i want more than one concept." His build brief is quoted in full on card 0 and in `../owner.md`.
 
