@@ -506,3 +506,9 @@ want sub pixels from prolly .8 to 2.5"
      ring).
   3. Then the craft.
 - **The width is his pick by eye.** We don't recommend it as settled.
+- **Owner:** "Also include app icons not just the ones for types".
+  - The sweep must also show the UI icons at each width: the +,
+    account, star, locate-me, the toolbar, close and the rest of
+    `../../inventory.md`.
+  - Each at its real size and in context.
+  - Without them the sweep is under 9.

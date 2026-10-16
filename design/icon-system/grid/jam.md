@@ -223,5 +223,13 @@ density goal. I want sub pixels from prolly .8 to 2.5"
 - **Not decided by us:** the width. It's his "perfect overall density
   goal". We show the range and he picks by eye.
 
+**Added (owner):** "Also include app icons not just the ones for types".
+- The sweep shows the app's UI icons at each width, alongside the 13:
+  the +, account, star, locate-me, the toolbar, close and the rest, per
+  `../inventory.md`.
+- Each is shown at its real size and in its real context (the + in its
+  badge, the toolbar row, the tag's close).
+- A sweep with only the 13 is under 9.
+
 NEXT: icon designer, the stroke-width sweep. Then the director scores it
-against 0–3.
+against 0–3 and the app icons.
