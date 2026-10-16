@@ -46,3 +46,5 @@ Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today th
 > (on TYPE open) this dropdown is far too wide -- what should it actually do? when i said full width i meant the dividers should stretch the full width of the dropdown window
 > (on Changing the city, the menu) lets treat all dropdowns the same -- also the distance between dropdown select and the actual list is massive
 > (on Plans, plan vs city) the plan vs city selection is far too complex. let's simplify it to as few separate actions as possible with extreme clarity between picking a plan or city and then the "go to" sections within a plan
+> (on CityChange, in the City/Trip naming thread) this is great. no feedback on this screen anymore
+Read as: the CityChange screen is approved as drawn (label "City"); the naming question closes on City.
