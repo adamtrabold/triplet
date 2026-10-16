@@ -128,6 +128,6 @@ The owner knows these places, so any row can flip on his call. The test decides 
 
 1. **Square:** its own pin category, or fold squares into Attraction?
 2. **Street box:** a stretch you trim when adding, about 600m by default. OK?
-4. **Pools and hot springs** (Laugardalslaug, Sundhöllin, Gunnuhver): stay in Nature, or get their own category?
-5. **Names:** "District" → "Neighbourhood". Yes or no? (Attraction stays.)
-6. **The Venue table:** any place the "would I go without a show?" test puts in the wrong bucket?
+3. **Pools and hot springs** (Laugardalslaug, Sundhöllin, Gunnuhver): stay in Nature, or get their own category?
+4. **Names:** "District" → "Neighbourhood". Yes or no? (Attraction stays.)
+5. **The Venue table:** any place the "would I go without a show?" test puts in the wrong bucket?
