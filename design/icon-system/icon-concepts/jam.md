@@ -1617,3 +1617,71 @@ Museum's drawing moves far from a front.
 
 NEXT: design director — score card 6. Then the canvas Venue board is
 rebuilt from `t6.html`, and the owner picks.
+
+---
+
+## Turn 18: design director, card 6 (Venue)
+
+I rendered `t6.html` myself (390 wide at 3x) and read card 6 at full
+size.
+
+**Card 6 scores 8.** The card is honest: every misread is named, and the
+one-ink check against his picks is exactly the right test. The concept
+behind the spotlight is right too, but the build doesn't say it yet.
+
+**A signal from his picks.** He chose the single plain object every
+time: cup, coupe, column front, ⌘, wheel, round tree, conifer. He passed
+over the ones that were a gesture or a moment (skål, seesaw) and the
+pair I led with (peaks). That points Venue to one object that means "a
+show is on", not to a scene.
+
+**What I saw at real size:**
+- **A, the stage from your seat; B, the marquee: out.** At 12px both are
+  a building front beside his locked column front. The card says so. They
+  go to the dropped card.
+- **C, the spotlight: the right idea, the wrong lamp.**
+  - A stage light means "someone is on", for a gig and a play alike. It's
+    one object, which matches how he picks.
+  - As built, at 24px it's a desk lamp with an angled shade. The card's
+    "clearest silhouette" is true only as a shape: at 12px it's a wedge,
+    not a light.
+  - One rebuild: a theatre can light on its yoke, a cylinder with a lens
+    face, aimed down, with its beam as a solid cone landing on a stage
+    line.
+  - Judge it at 24px and 12px in one ink, beside the ⌘, the wheel and
+    the column front.
+  - If it still reads as a desk lamp or a torch at 24px, the card says
+    so plainly, and it goes to him as it is, labelled.
+- **D, the crowd: honest second, weak.** At 24px the three heads read as
+  dots under a bar (an egg box, a keypad), and at 12px as a calendar row.
+  The idea is the brown signs' audience, but it's a moment, and he hasn't
+  picked a moment yet. It goes with the line it already has.
+- **E, the ticket stub: out.** At 12px it's a scrap of paper, and at 24px
+  a receipt beside Shopping. That's a third failure across two
+  categories. It goes to the dropped card for good.
+
+**What goes to him:** four options on the Venue board.
+- the two poles, notes and curtain, labelled "music" and "theatre";
+- the spotlight, rebuilt;
+- the crowd.
+
+A, B and E go to the dropped card, one line each:
+- A, B: "a building front at 12px, beside the museum's column front";
+- E: "a scrap of paper at 12px; a receipt beside Shopping".
+
+The board gets one line under the two poles: "These two say which
+kind; the two below say 'a show is on'."
+
+**The one question, word for word:**
+"Venue: the notes say music, the curtain says theatre, and the spotlight
+and the crowd say 'a show is on'. Which one, or neither?"
+
+NEXT: product designer (visual focus) —
+- the one spotlight rebuild (a can light on a yoke, a cone beam, a stage
+  line), judged against the ⌘, the wheel and the column front in one ink
+  at 24px and 12px;
+- card 6 trimmed to the poles, C and D, with A, B and E moved to card 5;
+- the canvas Venue board rebuilt from `t6.html`.
+
+Then I check the spotlight section only, and the coordinator asks the
+question.

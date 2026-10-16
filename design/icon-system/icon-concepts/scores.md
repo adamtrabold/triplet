@@ -330,3 +330,46 @@ title notes on the concepts page; hold the ask until the fixes land.
 same family as before (a count, a lean, an argument in a misread
 field). The structural fix worked: the cross-group and real-size
 problems are gone.
+
+---
+
+## Round 3: card 6, Venue (2026-10-16): 8, one rebuild
+
+Context: the owner ticked his picks: cup, coupe, column front, ⌘ on
+Landmark, Ferris wheel, round tree, conifer. He said "i still struggle
+with venue -- it could be music, it could be theatre". I rendered
+`t6.html` myself and read card 6 at full size.
+
+**Card 6: 8.** The card is honest and the one-ink test is right. The
+lead concept, the spotlight, is right, but its build reads as a desk
+lamp at 24px and a bare wedge at 12px.
+
+| Option | Verdict | Why |
+|---|---|---|
+| Notes (pole) | to him | Music. The common sign. |
+| Curtain (pole) | to him | Theatre. |
+| A, stage from your seat | dropped | A building front at 12px beside his column front |
+| B, marquee | dropped | The same clash |
+| C, spotlight | to him, after one rebuild | One object meaning "a show is on", for a gig or a play. It fits how he picks (single plain objects). |
+| D, crowd | to him, labelled weaker | The idea holds, but it reads as dots under a bar at 24px and a calendar row at 12px. And it's a moment, which he hasn't picked so far. |
+| E, ticket stub | dropped | A scrap of paper at 12px and a receipt beside Shopping. Its third fail. |
+
+**Likely owner objections:**
+- "That's a desk lamp" (the spotlight as built). *Likely*, hence the
+  rebuild.
+- "Still music or theatre?" *Possible*. Answered by the line under the
+  poles.
+
+**Fix:** one rebuild of the spotlight as a theatre can on a yoke, with
+a lens face, aimed down, and a solid cone beam onto a stage line. Judge
+it in one ink at 24px and 12px beside the ⌘, the wheel and the column
+front. If it still reads as a desk lamp or a torch at 24px, label it so,
+and it goes anyway.
+
+**Ready** after the rebuild and my look at that section. The question,
+word for word:
+"Venue: the notes say music, the curtain says theatre, and the spotlight
+and the crowd say 'a show is on'. Which one, or neither?"
+
+**Did the work change?** Yes. Card 6 is new. Cards 0–5 are not
+re-scored.

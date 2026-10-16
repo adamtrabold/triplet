@@ -237,3 +237,31 @@ coordinator asks the two questions.
 - Pattern to watch for in the drawing step: the honesty slips now live
   in wording (counts, leans, arguments in a Could be field), not in
   real-size claims.
+
+## His t6 picks, and Venue (turn 18, 2026-10-16)
+
+- **Picks (ticked on the canvas):**
+  - Café: cup and saucer
+  - Bar: coupe
+  - Museum: column front
+  - Landmark: ⌘ (this answers q2)
+  - Attraction: Ferris wheel
+  - Park: round tree
+  - Nature: conifer
+- **Calibration:** he picked the single plain object each time. He
+  passed over my differ-in-kind leads (skål over the coupe, peaks over
+  the conifer) and the moments (skål, seesaw). Round tree + conifer is
+  the pair I called weakest, and it's his call. For the drawing step,
+  the two trees must read apart at 12px. Weight "one plain object" over
+  "a gesture" or "a pair that differs in kind" in future scoring.
+- **Venue:** "i still struggle with venue -- it could be music, it could
+  be theatre".
+  - Card 6 scored 8.
+  - To him: the notes and the curtain (the poles), the spotlight after
+    one rebuild (a can light on a yoke, a cone beam), and the crowd,
+    labelled weaker.
+  - Dropped: the stage-from-seat and the marquee (the column-front
+    clash), and the ticket (a scrap of paper or a receipt).
+  - The question is in `scores.md`, round 3.
+- **Next:** the spotlight rebuild, then my look at that section, then the
+  ask.
