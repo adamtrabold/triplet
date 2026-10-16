@@ -1,5 +1,12 @@
 # Grid: notes
 
+## Round g3 (2026-10-16), after the owner: "I don't see a single grid" and "what about the interior?"
+
+- **Sheets show the grid as a grid:** outside (circle, air, live area, keyshapes, pixel or ring structure), inside (guides with all 13 overlaid), the 12px chip grid, and corners. Icons are secondary.
+- **Two grids:** A pixel keyline (box 6–18, TOP 6, SHOULDER 10, BASE 18, axis 12; by-joint corners; Ø16) and B radial seal (rings r3/5.5/8.5, chords 5.5/18.5, 15° rays; even-wear corners; Ø17). Both hand over to one 12px chip grid (6 × 6 modules of 2px).
+- **The interior system** (shared): 2px lines; parts in whole px, 2/4/6/8/12 by default; gaps only 1px or 2px; holes ≥ 2px (the ⌘'s loops are the exception); circle radii 1.5/2/3/4. Precedent for shared horizontal guides: type design's baseline, x-height and cap height.
+- **Skeletons rebuilt to obey the interiors:** `src/picks3.js`. Sheets: `src/boards3.js` → `cards-g3.html`, `stills/g3-*`, `svg/g3/`. The g2 canvas boards are on Archive.
+
 ## Round g2 (2026-10-16), after the director's g1 score (7)
 
 - **One frame, the team's call:** a drawing per size; 24 and 32 on the pixel grid; 12 on the 2px module. Why: B's one-drawing chip broke "but also make sense on their own" at 12 (g1 card 2).

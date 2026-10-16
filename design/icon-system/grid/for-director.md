@@ -1,63 +1,75 @@
-# Grid g2: for the design director
+# Grid g3: for the design director
 
-From the product designer (icon specialist), 2026-10-16. This is the fix batch for your round g1 (`scores.md`, fixes 1–8). g1's handoff is in git history (87b6286).
+From the product designer (icon specialist), 2026-10-16. This round restructures after the owner's two reactions. g1 and g2 handoffs are in git history.
 
-## What to look at
+## What he said (verbatim, relayed)
 
-- Phone stills: `stills/g2-card-0.png` … `g2-card-5.png` (390 wide at 3x), plus `g2-card-2-1x.png`. The source is `cards-g2.html`.
-- Canvas, page **Grid concepts**: https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW, with 6 g2 boards and the question as the page title. The 7 g1 boards are on **Archive** under "Round g1 · 2026-10-16 · grid, three concepts (scored 7; replaced by g2)".
-- SVGs: `svg/g2/<joint|wear|press>/<pick>-24.svg`, `-32.svg` and `-12.svg`. The g1 SVGs stay in `svg/A-pixel` etc. as history.
-- Code: `src/frame.js` (the frame, the three laws, the 24 → 32/Ø18 refit) and `src/boards2.js`.
+On g2 cards 2 and 4:
+> "I don't understand. I see a bunch of icons redrawn. I don't see a single grid"
 
-Cards:
-- 0: brief, sizes, the rough-skeleton line, the question
-- 1: the frame (the team's call)
-- 2: choice 1, the corner law
-- 3: choice 1, close-ups
-- 4: choice 2, fullness
-- 5: tool
+On the g2 frame card:
+> "I am glad we have the outer stuff defined in that grid by what about the interior? There's nothing to keep them consistent outside height/width and space to the ring"
 
-## Fixes 1–8
+He has also said:
+> "i want more than one concept"
 
-1. **One frame, as the team's call** (card 1, first line, with the reason in his words): a separate drawing per size on the pixel grid, and the 12 on the 2px module. B is out as a grid. The 13 are shown on the frame with corners not yet rounded, so the frame is judged apart from the corner choice.
-2. **Two choices he can see.**
-   - (a) **Corner law** (card 2): column front, conifer and coupe at 4x, then on the 32 selected pin and the 24 badge, then all 13 at 24, for each law. Card 2 states the visibility: "At 24 on your phone the difference is texture, not shape … On the 32 selected pin it shows, and at 4x it's obvious."
-   - (b) **Fullness** (card 4): all 13 at 24 in one row each, plus 4x and the 32 pin.
-3. **Personality line** for each law: each opens with his sentence in quotes, "personality in the approach to how strokes are connected and curve", then one line on where that law puts the curve.
-4. **C honesty:** card 1 says what was done: "the 12s were drawn as their own set on the 2px module, not derived from the 24s. The 32s are the 24s enlarged by code, a first fit."
-5. **⌘:** 2px like every line (card 1: "Every line is 2px, the ⌘ included"). Only the 12px fact remains (⌘, spokes and arms need 1.5px there).
-6. **Rough skeletons named once, up front** (card 0), in your wording.
-7. **g1 boards archived** on the canvas, as above.
-8. **`history.md`:** not added yet. Its rule is one line when the owner sees the work, so it gets added when this goes to him.
+## What changed
 
-## Two places I changed what you asked, and why
+**The grid is now the subject.** Each grid has its own sheet. Icons are secondary: rough skeletons laid on the grid only to show it in use. Each sheet runs:
 
-Both follow the orchestrator's note: "If the corner laws really are invisible at real size, a choice between them isn't a real choice. The options he sees have to differ visibly."
+1. **Outside** (what he said works). A large construction drawing at 24px, enlarged 14x on the phone, with pixel rulers. It shows the ring, the air, the live circle, how far points may reach, and the keyshapes. Below it, each keyshape on its own, and the numbers.
+2. **Inside** (his new question). The guides every glyph obeys, drawn large, with **all 13 glyphs overlaid as outlines**, so you can see the system holding them together. Then a strip of all 13 at 3.5x with the guides running straight through every badge, like a type specimen. Then the interior rules:
+   - one box
+   - three guide lines (or, in B, rings and chords)
+   - part sizes, two gap sizes, minimum holes, a short set of circle radii
+   - 2px lines
+3. **The chip.** The 12px grid: 6 × 6 modules of the 2px line. Both grids hand over to this same chip grid, and the sheet says why.
+4. **Corners** as part of the grid: an elbow, a T-join and the conifer's notch, enlarged.
 
-- **The corner laws were re-tuned to differ in kind, not by tenths.** In g1 all three put a little softness everywhere, so they looked the same. Now each puts the softness in a different place:
-  - **by joint:** in the joins, with a 1.1px fillet; ends and edges stay crisp.
-  - **even wear:** on the outer silhouette; every outside corner is worn 0.38px deep (right angle 0.92, 110° apex 1.7), and inside corners are almost untouched.
-  - **pressed:** in the inside corners; ink pools 1.5px, and outside corners are 0.3.
-  
-  At 4x and on the 32 pin they are plainly different. At 24 the difference is a texture, and the card says so. The laws are still "slight", but are they still slight enough for him? I think yes at 24; judge it on card 2.
-- **Fullness is Ø16 vs Ø18 (1px of air), not Ø17.** I built Ø17. It moved each edge half a pixel and didn't read as a choice at 24, so card 4 shows the step that does, and says why. The question's wording changed to match: "…2px of air or the fuller 1px?" If you want Ø17 back for fidelity to your ruling, it's one number in `boards2.js` (the `live` value 18 → 17).
+**Two grids, not three.** They are genuinely different in kind:
 
-## Things to check
+- **A · Pixel keyline grid:** square.
+  - Glyphs sit inside a 12px box (6 to 18).
+  - Guides: TOP 6, SHOULDER 10, BASE 18, centre axis 12.
+  - Corners by joint.
+  - Live circle Ø16 (2px of air).
+- **B · Radial seal grid:** round.
+  - Rings: CORE r3, BODY r5.5, REACH r8.5.
+  - Chords: TOP 5.5 and BASE 18.5.
+  - Rays every 15°.
+  - Corners by even wear.
+  - Live circle Ø17 (1.5px of air).
 
-- **The 32 and Ø18 glyphs are the 24's parts scaled by code, with every 2px line kept at 2px.** Parts that touched a line still touch it, edges are not snapped to pixels, and the card says so. Fit is measured on the finished outline:
-  - At Ø16, everything stays within r 8.5 (pin 11.3).
-  - At Ø18, everything stays within r 9.5 (pin 12.7).
-- **Curves per glyph are the same under every law** (264 for the 13). Each rounded corner is one curve whatever its radius, so the laws change the character, not the count.
-- **The pressed conifer:** a 1.5px fill in the narrow tier notches made round knobs, so narrow notches use 0.6 instead (and still fill deepest because of the angle). The rule text says so.
+The g1 module grid became the chip grid shared by both. The pressed corner law isn't shown this round.
+
+**The 13 skeletons were rebuilt to obey each grid's interior** (`src/picks3.js`), so the overlays are evidence, not decoration.
+- **A's overlay is tight:** every glyph sits inside the box, stands on BASE and reaches TOP, and joins at SHOULDER.
+- **B's overlay is looser,** by the nature of a round grid: the pediment and the bench are wider than the box, and round glyphs fill REACH. I've left that visible rather than hiding it.
+- **Gaps checked by hand:** 1px or 2px only.
+- **Fit measured on the finished outlines:** A ≤ 8.34 (limit 8.5), B ≤ 8.91 (limit 9).
+
+## Canvas and files
+
+- **Canvas, page "Grid concepts":** https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW. It holds 5 g3 boards (`Grid3Intro`, `Grid3A`, `Grid3B`, `Grid3Compare`, `Grid3Tool`), and the page title is the question.
+- **g2's 6 boards** are on Archive at y 9400 under "Round g2 · … (replaced by g3 …)". g1 is still there above them.
+- **Stills:** `stills/g3-sheet-0..4.png` (3x), plus `g3-sheet-3-1x.png`. Source: `cards-g3.html`. SVGs: `svg/g3/<A-pixel|B-radial>/`.
+- **Code:** `src/boards3.js`, `src/picks3.js`.
+- **I rendered and looked at them myself at 3x and 1x.**
+  - The big construction drawings, the overlays and the guide strips read on a phone.
+  - At 1x the side-by-side sheet is legible: both grids, both overlays and the real-size rows.
 
 ## My read
 
-- **The frame is right**, and it's the conventional answer (Material, IBM, Fluent).
-- **Of the laws,** by joint is the one that most directly answers "different architecturally sound principles to how different angles intersect", and its filleted joins carry "how strokes are connected".
-- Pressed is the most literal "screened or pressed".
-- Even wear reads most "vintage" on the silhouette, but at 24 its round line ends make the set look softer and a little toy-like.
-- I'd lean by joint with 2px of air, but the cards don't say so; he chooses.
+- **A is the stronger grid.** The overlay shows why: one box, three lines, and the 13 visibly share a ground, a top and a shoulder. That answers his "nothing to keep them consistent" directly.
+- **B is the more characterful one.** It fills the seal, and its rings suit the wheel, the ⌘ and the cup. But its interior holds the set together less tightly, and the overlay shows it.
+- **I'd draw on A.** The cards don't say so.
 
-## The ask (word for word)
+## Things you may flag
 
-"For the grid: which corner law — by joint, even wear or pressed? And in the circle, 2px of air or the fuller 1px?"
+- **Low glyphs look low.** The cup and the bed sit low in A because they stand on BASE. That's the cost of a shared ground; centring them would break the guide.
+- **The 12px chip has no interior guides of its own yet.** Its drawings are the earlier set. The sheet only claims the 6 × 6 module.
+- **The tool card is now short** and has no question.
+
+## The ask
+
+"Which grid do we draw the 13 on: A, the square pixel grid, or B, the round seal grid?"

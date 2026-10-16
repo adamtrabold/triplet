@@ -36,3 +36,11 @@ changed cards.
 - ⌘ at 2px; rough skeletons named on card 0; g1 boards archived on the canvas. Details: `for-director.md`.
 
 NEXT: design director, look at the g2 cards.
+
+## Turn 3: icon designer, round g3 (the grid as the subject)
+
+- Owner on g2: "I don't understand. I see a bunch of icons redrawn. I don't see a single grid" and "what about the interior? There's nothing to keep them consistent outside height/width and space to the ring".
+- One sheet per grid: outside, inside (guides with all 13 overlaid, plus a guide strip through the 13), the chip, corners. Two grids that differ in kind: A pixel keyline, B radial seal. Skeletons rebuilt to obey each interior.
+- g2 boards archived. Question: "Which grid do we draw the 13 on: A, the square pixel grid, or B, the round seal grid?" Details: `for-director.md`.
+
+NEXT: design director, score g3.
