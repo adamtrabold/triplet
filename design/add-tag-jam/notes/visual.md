@@ -142,3 +142,16 @@
     Applied to TYPE, City (now a menu under the chip, not in-tag rows),
     Go to and the title menu.
 - **2026-10-16, v13:** the new-city mark is picked: C, the deep-orange rubber stamp (the VISITED build), reading just "NEW". It is on the CityNew tag; A and B are greyed "not picked". Stale stickies s1b and s2 are refreshed. Threads 8f910052 and a6b0be70 are resolved.
+- **2026-10-16, v14, the final section header (owner picks):**
+  - the city name in variant B's type (12px caps, .12em);
+  - the count as a quiet tally;
+  - the eye for show/hide.
+- **The count rule, decided:** a quiet tally on the whole canvas (`cnt()`
+  = .8em grey 700 tabular). Section headers fix it at 11px; the 15px top
+  header's tally scales to 12px. Cluster discs are the exception.
+- **New boards:**
+  - TitleAndGoTo (row 5): the title picks, plus a small Go to chip and
+    its menu. Thread 47b66098 is open.
+  - Collapse (row 5): A grab handle (we think) / B last icon on the
+    right / C a printed "Lower" tab. Thread 082ebef3 is open.
+- **Resolved:** ac67b0fb, 7b50d2d8, c75967ec, 03619be4, d9def744.

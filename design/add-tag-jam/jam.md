@@ -442,3 +442,86 @@ section, never filtering to it. Hiding stays in the filter panel.
 
 NEXT: visual designer — draw Option 1 (Option 2 beside it if useful) and
 answer the owner's thread 91154dfc.
+
+## Turn 8 -- product designer (systems focus): places and plans are two kinds of thing
+
+The owner, on PlanCity1 (verbatim): "no you are not thinking deep
+enough. think about the model. there are places and there are plans.
+there may be a bunch of both. they dont make sense in the same list so
+there either needs to be a different view or a different button for
+plans vs places".
+
+**The owner is right, and Turn 7 withdraws.** Its title menu put two
+kinds of thing in one list.
+
+### The model
+
+- **Places:** a collection, many of them, grouped by city.
+  - Unordered: it's sorted, never sequenced.
+  - Filterable (categories, show/hide cities).
+- **Plans:** a list of routes, possibly many.
+  - Each plan is an *ordered* set of stops, and a stop is a place.
+  - Inside a plan, its cities in stop order form **legs**.
+- **Two levels in Plans, one in Places.**
+  - Places is the collection itself.
+  - Plans is first a list of plans, then one plan.
+  - Turns 5 and 7 went wrong by flattening that second level into a
+    picker.
+
+### Today (`#listSwitch`, `setListView()`)
+
+- The Places | Plans switch sits **inside the filter panel**, with the
+  plan picker (`#planPick`) under it. So it's hidden whenever the panel
+  is closed.
+- Switching to Plans jumps straight into the last plan, or the first
+  (`activePlan() || plans[0]`), and frames it. There's never a list of
+  plans you see first.
+- That's why the plan picker drifted up into the title: the real
+  top-level choice was buried in a filter panel.
+
+### Option A (we think, clearly better): two views, the switch at the top
+
+- **Places | Plans is the top-level switch, always visible** (out of the
+  filter panel). It answers "what am I looking at" by kind.
+- **Places view:** the title says "Places" (with its count).
+  - **Go to** = a city: the list runs in city sections, and tapping a
+    heading frames that city. It moves the map only, never filters.
+  - **Show/hide cities** lives in the filter panel, with categories.
+- **Plans view, level 1: the plans list.** One row per plan: its name,
+  its stop count, its cities.
+  - Tap a row to open the plan. "New plan" is the list's last row.
+  - The map frames all plans' stops, or your cities if there are none.
+- **Plans view, level 2: one plan.** The title is the plan's name, with
+  a back step to the plans list.
+  - **Go to** = a leg: its stops run in leg sections (Reykjavík → Golden
+    Circle → Copenhagen), and tapping a leg heading frames it.
+  - Below the stops, the places you can add with + (as today).
+- **Show/hide never hides a stop** (Turn 5). It only narrows the
+  addable places.
+- **Each view remembers where it was:** Places its scroll, Plans its
+  open plan or the list.
+- **Separate actions:** the switch (kind), a row (which plan), a
+  section heading (go to). Each is a different gesture for a different
+  question.
+
+### Option B: Places is home; Plans is a button
+
+- The app is Places. A separate **Plans** button (on the map or the
+  list's edge) opens the plans list as a sheet; tapping a plan opens it
+  in place of the Places list.
+  - You leave the plan with ×, back to Places.
+- Go-to and show/hide are the same as A.
+- **Cost:**
+  - plans become a mode you enter and leave, not a peer;
+  - one more permanent button on a screen that already has the + and
+    the account badge;
+  - "am I in a plan?" rests on remembering you opened it, where A's
+    switch always says so.
+
+**Recommendation: A.** Places and plans are peers you move between
+often while planning, and A shows which one you're in at all times. B
+fits only if plans are rare, and the owner says "there may be a bunch of
+both".
+
+NEXT: visual designer — draw A (B beside it if useful) and answer thread
+0d441a3b.

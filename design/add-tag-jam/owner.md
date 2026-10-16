@@ -52,3 +52,9 @@ Read as: the CityChange screen is approved as drawn (label "City"); the naming q
 > (search scope thread) is there some sort of open source or available search model that achieves this? im worried we wont be able to build something as robust as what may already exist that we could integrate
 Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/lon location bias; free fair-use public API or self-host) recommended first; alternatives Mapbox Search Box, Google Places (terms restrict non-Google maps).
 > (on PlanCity1, Option 1's title menu) no you are not thinking deep enough. think about the model. there are places and there are plans. there may be a bunch of both. they dont make sense in the same list so there either needs to be a different view or a different button for plans vs places
+> (on the section-header board, variant B's "Reykjavík") i like this type size for the city name
+> (on the section-header board, the tally "23") i like this for the number count
+> (on the section-header board, the eye beside it) i like this for the show / hide
+> (on Go to 3's list header "All places (202)") the type size here is good for overall header. the number should match what we do in the list headers...maybe that type size will be too small though
+> (on Go to 1's menu) this is great but how do you pick a plan
+> (on the list header "▼All places (202)") i wonder if collapse shouldn't live somewhere else to not confuse with the dropdown select. also is this the right icon for collapse or could we do something more different.
