@@ -20,7 +20,7 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-16 · t6 picks (ticks on the canvas):** cup and saucer, coupe, column front, ⌘ loop (on Landmark), Ferris wheel, round tree (then bench: "lets do park bench"), conifer. "i still struggle with venue -- it could be music, it could be theatre"
 - **10-16 · Venue = curtain:** "again this is an app for way more than just me." Lesson: judge icons for every user, not his current pins.
-- **10-16 · All 13 picked:** Neighbourhood "i like the city blocks for neighborhood". "lets not focus on differentiation yet we aren't making final icons here" → on to grid and drawing.
+- **10-16 · All 13 picked:** Neighbourhood "i like the city blocks for neighborhood". "lets not focus on differentiation yet we aren't making final icons here" "we're not at drawing step next, next step is defining the grid"
 
 ## Milestone commits
 

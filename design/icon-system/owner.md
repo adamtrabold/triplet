@@ -129,3 +129,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > again this is an app for way more than just me.   (Venue = curtain; I had argued from his current data, again)
 > lets not focus on differentiation yet we aren't making final icons here
 > i like the city blocks for neighborhood   (13 of 13 picked; concept step closed)
+> we're not at drawing step next, next step is defining the grid
