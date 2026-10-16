@@ -107,3 +107,6 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > what about like plymouth rock   (broke "who made it"; proposal v2: "why it matters")
 > ok im good with that. but id like to pressuretest it more   ("why it matters" accepted)
 > botanical garden idk if that's that clear -- those are usually man made and constructed   (botanical gardens -> Attraction; parks -> Nature)
+> i actually dont know if park is nature? i think park should probably be its own maybe?
+> i think if park is in the name it probably should be a park
+(Park added as its own pin category. Orchestrator flagged one exception: national parks stay Nature.)

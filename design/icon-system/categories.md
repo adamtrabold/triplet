@@ -11,7 +11,8 @@ The owner approved this list ("yeah i think that's good for now"). The revisions
 - **Art**: art, design and architecture museums, galleries, murals, public art.
 - **Attraction**: you go in and do things, usually with a ticket: rides, castles, tours, themed museums (Vasa, the tram museum), city pools.
 - **Square**: a square, plaza or market place to sit in.
-- **Nature**: parks, gardens, coast, anything natural.
+- **Park**: a city park you hang out in. If "park" is in the name, it's a Park (owner), except national parks, which are Nature.
+- **Nature**: the natural world itself, often a day trip: waterfalls, volcanoes, coast, hikes.
 - **Shopping**: a shop or market stall.
 - **Hotel**: where you sleep.
 - **Other**: anything else.
