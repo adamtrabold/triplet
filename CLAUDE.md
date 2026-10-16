@@ -76,8 +76,9 @@ verbatim; messages to the owner are terse, plain language, one per real event
 verified by one agent before theorizing; when the owner calls a shown look
 good, that is the go to land it — don't ask again (owner: "yes when i say
 something is good that means ship it"). Every design project keeps a `history.md`
-(dated timeline: what the owner saw, his verbatim words, the decision,
-evidence links; one entry per real moment), and superseded canvas rounds move
+(one line-item per moment the owner saw work or decided, max ~4 lines:
+the deciding quote, the outcome, a link to the evidence; link, never copy;
+owner: "i dont want to balloon a ... gb history file"), and superseded canvas rounds move
 to the canvas's Archive page, never deleted (owner wants it for case
 studies; example: `design/icon-system/history.md`). Everything else is optional.
 
