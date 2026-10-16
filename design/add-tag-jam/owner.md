@@ -22,3 +22,4 @@ Design system: Triplet — https://claude.ai/artifact/JXWsMZs32JyKdcEzakKrPW
 > maybe instead of city we refer to *this* level as trip? run that idea by the team -- the pro is that it would clarify this situation, but the con is that usually it *will* be a city
 > (on the "FILED UNDER / Reykjavík" alternative) we do not need this on every tag. it probably only needs to be there when editing
 > (on Star + visited at add) we don't need to change how visited marking works at all. do not tuch
+> (on Go to 1: menu under the list title) hmm i hadnt considered changing the ui for selecting a city. maybe this is better than having the filter panel chips -- certainly clearer from a ux perspective. how do plans work here?

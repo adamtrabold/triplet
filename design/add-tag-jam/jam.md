@@ -225,3 +225,32 @@ really in Grindavík; a "Golden Circle" bucket).
 
 NEXT: director — score the naming; then the owner picks City (we
 think), Area, or the label-free row.
+
+## Turn 4 -- design director: naming the bucket
+
+The owner: "maybe instead of city we refer to *this* level as trip? …
+the pro is that it would clarify this situation, but the con is that
+usually it *will* be a city".
+
+- **Trip: we think no.** It clears up the Blue Lagoon's label, but it
+  clashes with two things the owner already set:
+  - a repeat visit keeps one Copenhagen, so it can't be two trips;
+  - in the owner's own example, "trip" is the bigger thing (Scandinavia
+    2026).
+  It would also say "trip" on the 90% of places that are simply in their
+  city.
+- **Our pick: the label-free row (we think).** The tag shows just
+  "Reykjavík ⌄ · in Grindavík", the way an address never labels its
+  city.
+  - That gets the owner's pro (no label claiming the Blue Lagoon is in
+    the city Reykjavík) without the con.
+  - "City" stays where it's always true: the filter, go-to, and the
+    city list.
+- **If the owner wants a word on the tag:** "City" (we think, since it
+  usually is one) beats "Area". The "in Grindavík" print already
+  carries the odd case.
+
+**The owner's choice:** a label-free row (our pick), "City", or "Area".
+"Trip" is not recommended, for the reasons above.
+
+NEXT: the owner picks; then visual applies it on the canvas.

@@ -1,0 +1,1 @@
+- 2026-10-16 (add-tag jam turn 4): naming. We think the label-free row ('Reykjavík ⌄ · in Grindavík'); Trip clashes with the repeat-visit rule and the owner's own 'trip' (Scandinavia 2026). City > Area if a word is wanted.
