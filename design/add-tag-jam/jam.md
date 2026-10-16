@@ -374,3 +374,71 @@ search needs its own answer.
 
 NEXT: visual designer — draw those three on the canvas; then the owner
 picks.
+
+## Turn 7 -- product designer (systems focus): plan vs. city, simplified
+
+The owner, on the PlansGoTo board (verbatim): "the plan vs city
+selection is far too complex. let's simplify it to as few separate
+actions as possible with extreme clarity between picking a plan or city
+and then the "go to" sections within a plan".
+
+**What the board has now:**
+- three controls in Plans: the Places | Plans switch (filter panel), the
+  plan picker (the title), and a Go to beside it;
+- in Places, a Go-to title menu and show/hide chips.
+- Turn 5 caused it: I kept "which plan" and "where in it" as two
+  pickers. Too many.
+
+**The model, in two questions:**
+1. **What am I looking at?** Your places, or one plan. One answer at a
+   time, always named in the title.
+2. **Where in it?** A section of what you're looking at: a city in
+   Places, a leg in a plan.
+
+### Option 1 (we think, clearly the simpler): one picker; the list's sections are "go to"
+
+- **The title is the one picker.** It holds "All places", then your
+  plans, then "New plan". It replaces the Places | Plans switch, so
+  there's no switch any more.
+- **"Go to" isn't a control: it's the list's own section headings.**
+  - In Places, the list runs in city sections (Turn 2's direction 2).
+  - In a plan, it runs in legs, one per city in stop order ("Reykjavík ·
+    3 stops", "Copenhagen · 6 stops").
+  - Tap a heading and the map frames that section. That's the same
+    gesture in both, and it's never a filter.
+- **Show/hide cities stays in the filter panel** (it's rare, like
+  categories) and never hides a plan's stops (Turn 5).
+- **Separate actions:** two. Pick what (the title), go where (a
+  heading). Nothing else.
+- **Cost:**
+  - the Places list is always grouped by city, so a sort applies within
+    each city;
+  - reaching a far city means scrolling to its heading. Whether headings
+    pin or index is visual's call.
+
+### Option 2: one menu for everything
+
+- The title opens one menu with three groups:
+  - *In this plan* (Whole plan, then its legs), shown only while a plan
+    is open;
+  - *Places* (All, then each city);
+  - *Plans* (each plan, New plan).
+- Picking a city shows Places, framed there. Picking a plan opens it.
+  Picking a leg frames it.
+- **Separate actions:** one control.
+- **Cost:** "what" and "where" share one long menu, so the clarity
+  between picking a plan and going inside it rests on group headings,
+  not on two different gestures. It's the opposite of "extreme clarity
+  between" them.
+
+**Recommendation: Option 1.** Two kinds of action that never look
+alike:
+- the title picks what you're looking at;
+- a section heading takes you somewhere inside it.
+
+That's the owner's line between "picking a plan or city" and "go to
+sections within a plan". "Picking a city" here means going to its
+section, never filtering to it. Hiding stays in the filter panel.
+
+NEXT: visual designer — draw Option 1 (Option 2 beside it if useful) and
+answer the owner's thread 91154dfc.

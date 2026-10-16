@@ -2,3 +2,4 @@
 - Turn 3 (2026-10-16): naming the bucket: Trip weakest (repeat visit, 'Scandinavia 2026' clash), City best (we think), Area runner-up, label-free CITY row as visual idea.
 - Turn 5 (2026-10-16): Plans + Go-to: title stays plan picker; Go-to in Plans = Whole plan, plan's cities in stop order, then others; Go-to never filters (+ candidates = shown cities); show/hide never hides stops.
 - Turn 6 (2026-10-16): search scope options A-H; we think B+C+D (worldwide, ranked by your cities, rows say where, typed city sharpens); alt E (near chip); baseline A softened; hard country filter goes regardless.
+- Turn 7 (2026-10-16): plan vs city simplified: Option 1 (rec) title = one picker (All places / plans / New plan, replaces switch), go-to = list section headings (cities in Places, legs in a plan); Option 2 one menu for all.
