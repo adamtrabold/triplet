@@ -1,6 +1,6 @@
 # Icon system: history
 
-A dated timeline of the real moments in this project: rounds shown to the owner, decisions, reversals. One entry per moment, newest at the bottom. Each entry gives what he saw, his words (verbatim, from `owner.md`), what was decided, and where the evidence is. The orchestrator adds an entry at every such moment. This is the spine for a case study.
+One entry per moment the owner saw work or decided, newest at the bottom: what he saw, the deciding quote, the outcome, and a link to the evidence. Keep entries short: link the evidence rather than copying it. Full words are in `owner.md`.
 
 Evidence lives in the repo (git keeps every version; to see any stage, `git checkout <commit> -- design/icon-system`); the review canvas is https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW (superseded rounds go to its Archive page).
 
