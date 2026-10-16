@@ -26,6 +26,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-16 · Grid g2 shown:** one frame (a drawing per size, pixel grid, 12px on the 2px module); asked: corner law (by joint, even wear, pressed) and 2px vs 1px of air. Canvas page "Grid concepts". `grid/`
 
+- **10-16 · "I don't see a single grid":** g2 led with icons, and the grid was buried on card 1. Lesson: show the grid as a grid.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
