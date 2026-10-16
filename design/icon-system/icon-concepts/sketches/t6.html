@@ -137,11 +137,14 @@ const concept=(letter,title,d,cat,name,sub,shows,mist)=>`<div class="cn"><h4>${l
 const catBlock=(name,fact,concepts,extra='')=>`<div class="cat"><h3>${name}</h3><div class="fact">${fact}</div>${extra}${concepts.join('')}</div>`;
 const head=(no,title,sub)=>`<div class="no">${no} · rough builds, not drawings</div><h2>${title}</h2>${sub?`<p class="att">${sub}</p>`:''}`;
 
-// =================== T6: the locked list (2026-10-16) ===================
-// Provisional inks for the four new pins: borrowed or placeholder, NOT a colour proposal.
-Object.assign(INK,{venue:'#6A2E4E',museum:'#2B3F52',landmark:'#4F5450',park:'#3F6B4E',neighbourhood:'#328177'});
+// =================== T6: the locked list (2026-10-16), round 2 after director turn 15 ===================
+// The four new pins share ONE neutral ink until the colour proposal: "Colour comes later".
+const NEW_INK='#6E695F';
+Object.assign(INK,{venue:NEW_INK,museum:NEW_INK,landmark:NEW_INK,park:NEW_INK,neighbourhood:'#328177'});
 const ONE='#2E2B27';
 const KOST=(d,w=1.2)=>`<path fill="none" ${KOS} stroke-width="${w}" d="${d}"/>`;
+// carousel horse on a pole (facing right); x = pole centre, y = top of body
+const HORSE=(x,y)=>R(x-.5,9.6,1,10.2)+R(x-2.6,y,5.2,2)+f(`M${x+1.4} ${y}L${x+2.4} ${y-2.2}H${x+3.9}V${y-1.1}L${x+3} ${y-.9}L${x+2.8} ${y+.6}Z`)+R(x-2.4,y+2,1,1.7)+R(x+1.4,y+2,1,1.7)+R(x-3.5,y+.2,1,1.5);
 Object.assign(D,{
  // ---- café
  kringle:C(7.8,10,5.2)+C(16.2,10,5.2)+f('M3.6 13L12 20.8l8.4-7.8z')+`<g ${KO}><ellipse cx="7.6" cy="10.2" rx="2.9" ry="2.1" transform="rotate(-35 7.6 10.2)"/><ellipse cx="16.4" cy="10.2" rx="2.9" ry="2.1" transform="rotate(35 16.4 10.2)"/><path d="M12 13.4l2.6 3.2h-5.2z"/></g>`,
@@ -164,114 +167,136 @@ Object.assign(D,{
  fountain2:L('M12 6.4C8.4 4.2 5.6 7 5.1 13M12 6.4c3.6-2.2 6.4.6 6.9 6.6',1.5)+R(11.3,5.6,1.4,3.4)+f('M8 9h8c0 1.4-1.8 2.4-4 2.4S8 10.4 8 9z')+R(11,11,2,3)+f('M3 13.6h18v1.4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z')+R(2,19.6,5,1.6)+R(9.5,19.6,5,1.6)+R(17,19.6,5,1.6),
  obelisk:f('M10.3 6l1.7-2.6L13.7 6l.8 10h-5.3z')+R(7.6,16,8.8,2)+R(5.6,18,12.8,2.2),
  wheel:`<circle cx="12" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/>`+L('M12 3v14M5 10h14M7 5l10 10M17 5L7 15',1)+C(12,10,1.8)+[0,1,2,3,4,5,6,7].map(i=>{const a=i*Math.PI/4;return R(12+7*Math.cos(a)-1.4,10+7*Math.sin(a)-1.1,2.8,2.6)}).join('')+L('M12 10L7.2 21M12 10l4.8 11',2)+R(5,20,14,1.6),
- carousel:R(11.4,1.8,1.2,2.4)+f('M12 3.6l9 5.4H3z')+[4.5,7.5,10.5,13.5,16.5,19.5].map(x=>C(x,9,1.5)).join('')+R(5.2,10,1.6,8)+R(11.2,10,1.6,8)+R(17.2,10,1.6,8)+R(3,18,18,2.4),
+ // t6 first build: roof on three posts on a base (read as the column front)
+ carouselOld:R(11.4,1.8,1.2,2.4)+f('M12 3.6l9 5.4H3z')+[4.5,7.5,10.5,13.5,16.5,19.5].map(x=>C(x,9,1.5)).join('')+R(5.2,10,1.6,8)+R(11.2,10,1.6,8)+R(17.2,10,1.6,8)+R(3,18,18,2.4),
+ // rebuild: cone tent + scallop, two horses on poles at different heights, a round platform, no posts or base
+ carousel:R(11.4,1,1.2,2.4)+f('M12 2.6l8.6 5.6H3.4z')+[4.6,7.6,10.6,13.6,16.6,19.4].map(x=>C(x,8.4,1.5)).join('')+HORSE(7.6,12.2)+HORSE(15.6,15)+f('M3 19.4c3 1.6 15 1.6 18 0v1.6c-3 1.6-15 1.6-18 0z'),
  tower:f('M6 4h2.4v2.4h2.4V4h2.4v2.4h2.4V4H18v16H6z')+`<path ${KO} d="M10 20v-3.4a2 2 0 0 1 4 0V20z"/>`+KOR(11.3,9.4,1.4,3.2),
  // ---- park / nature
  roundtree:C(12,7.6,4.6)+C(8.2,11,3.8)+C(15.8,11,3.8)+R(8.2,11,7.6,3.8)+R(11,14,2,6.2)+R(7,19.6,10,1.6),
  bench:R(4,6,16,2)+R(4,9.4,16,2)+R(5,6,2,9)+R(17,6,2,9)+R(3,13.2,18,2.4)+R(5,15.6,2,4.4)+R(17,15.6,2,4.4),
  seesaw:f('M12 13.5l3 6H9z')+L('M3 16.8L21 10.2',2.2)+L('M6 15.4l.5-3.8',2.2)+C(6.6,9.8,1.8)+L('M18 11l-.2-3.6',2.2)+C(17.8,5.9,1.8),
  falls:R(3,5,9.4,2.6)+R(3,7.6,4.4,12.6)+R(8.4,7.6,1.4,10.6)+R(10.8,7.6,1.4,10.6)+f('M7.4 18.2h13.6v2H7.4z')+L('M13.6 16.6c1.2-1 2.4-1 3.6 0M17.6 15.4c.9-.8 1.9-.8 2.8 0',1.2),
- // ---- dropped this turn
+ // ---- dropped
  hiker:C(12,4.6,2)+L('M11.8 7.6l-1 6.2',2.6)+L('M10.8 13.6L8.6 19.6M10.8 13.6l2.8 2.4v3.6',2.4)+L('M11.6 8.6l3.4 2.6',2)+L('M15.6 9.2l1 10.6',1.4)+R(7.8,8.2,3,4.6),
  marquee:R(4,6,16,12)+[5.6,8.8,12,15.2,18.4].map(x=>C(x,7.6,.9,1)+C(x,16.4,.9,1)).join('')+KOR(6.4,10,11.2,4),
  cablecar:L('M2 5.5L22 9',1.4)+R(11.4,6.6,1.2,4)+R(7,10.6,10,8)+KOR(8.4,12,3,3)+KOR(12.6,12,3,3),
  tumbler:f('M6 7h12l-1.2 13H7.2z')+KOR(8.4,10.4,3,3)+KOR(12.4,12.6,3,3),
 });
 
-const CATS6=['restaurant','cafe','bar','venue','museum','landmark','attraction','park','nature','shopping','hotel','neighbourhood','street'];
-const SETTLED={restaurant:'fork',shopping:'bag',hotel:'bed',neighbourhood:'blocks',street:'walker'};
-Object.assign(COMMON,{venue:'stage',museum:'temple',landmark:'sevard',attraction:'carousel',park:'roundtree',nature:'peaks',neighbourhood:'blocks',cafe:'cup',bar:'wine'});
+// leads (director turn 15) for the 13-across strip and the map crops
+const LEAD={restaurant:'fork',cafe:'cup',bar:'skal',venue:'notes',museum:'temple',landmark:'sevard',attraction:'wheel',park:'roundtree',nature:'peaks',shopping:'bag',hotel:'bed',neighbourhood:'blocks',street:'walker'};
+Object.assign(COMMON,LEAD);
+const PINS=['restaurant','cafe','bar','venue','museum','landmark','attraction','park','nature','shopping','hotel'],SHAPES=['neighbourhood','street'];
 const lbl=s=>`<div style="font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);text-align:center;margin-top:3px;line-height:1.1">${s}</div>`;
 const cell=(d,cat,txt)=>`<div style="display:flex;flex-direction:column;align-items:center;width:52px">${badge(d,cat?INK[cat]:ONE)}<div style="height:5px"></div>${bare(d,cat?INK[cat]:ONE,12)}${lbl(txt)}</div>`;
-const holeCell=(txt)=>`<div style="display:flex;flex-direction:column;align-items:center;width:52px"><div style="width:24px;height:24px;border-radius:50%;border:2px dashed var(--hair)"></div><div style="height:17px"></div>${lbl(txt)}</div>`;
-// a "set" line: n cells in one ink, with a short verdict
-const setLine=(cells,verdict)=>`<div class="bt" style="grid-template-columns:auto 1fr"><div class="ics" style="gap:2px">${cells.map(([d,t])=>cell(d,null,t)).join('')}</div><span>${verdict}</span></div>`;
+// facts only: no verdict tags
+const setLine=(cells,fact)=>`<div class="bt" style="grid-template-columns:auto 1fr"><div class="ics" style="gap:2px">${cells.map(([d,t])=>cell(d,null,t)).join('')}</div><span>${fact}</span></div>`;
+// 13 across: a column per icon, 24px badge over 12px chip glyph
+const across=(cats,one)=>`<div style="display:flex;gap:6px;align-items:flex-start">${cats.map(c=>`<div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:24px">${badge(LEAD[c],one?ONE:INK[c])}${bare(LEAD[c],one?ONE:INK[c],12)}</div>`).join('')}</div>`;
+const legend=`<div class="fact" style="font-size:10.5px;margin-top:6px">Pins: restaurant, café, bar, venue, museum, landmark, attraction, park, nature, shopping, hotel. Shapes: neighbourhood, street.</div>`;
+const NOTE_INK=`<div class="fact" style="font-size:10.5px">Venue, museum, landmark and park are in one grey ink. Colour comes later.</div>`;
+const starOut=size=>`<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none"><path d="${STAR}" fill="none" stroke="${ONE}" stroke-width="${2*24/size}" stroke-linejoin="round"/></svg>`;
 
-// ---------- CARD 0: the new list
-const card0=()=>`<div class="card">${head('T6 · Card 0','The new list, 13 icons')}
-<p class="att">Your locked list: 11 pins and 2 shapes. Five are settled by your picks. Eight are open: four new or changed (Venue, Museum, Landmark, Park), Attraction’s new meaning, Nature now that Park is separate, and the café and bar push.</p>
-<div class="lab">Settled by your picks</div>
-<div class="strip">${['restaurant','shopping','hotel','neighbourhood','street'].map(c=>cell(SETTLED[c],c,c)).join('')}</div>
-<div class="fact" style="margin-top:6px">Saved after the migration: Restaurant 30, Café 16, Bar 4, Venue 11, Museum 24, Landmark 23, Attraction 15, Park 9, Nature 2, Shopping 49, Hotel 0.</div><div class="lab">Open (dashed); colours on new pins are placeholders, not a proposal</div>
-<div class="strip">${['cafe','bar','venue','museum','landmark','attraction','park','nature'].map(c=>holeCell(c)).join('')}</div>
-<div class="q"><b>The one idea behind this turn</b>The row already prints the plaque (BAR · COPENHAGEN), so an icon only has to tell its neighbours apart, not explain everything. The hard neighbours are two trios and a pair: café · bar · venue, museum · landmark · attraction, and park · nature. Each is checked in one ink, so shape does the work and colour can’t cheat.</div>
+// ---------- CARD 0: the 13 side by side
+const card0=()=>`<div class="card">${head('T6 · Card 0','All 13, side by side')}
+<p class="att">Your locked list: 11 pins and 2 shapes. Five are settled; for the other eight this strip shows our lead. The cards after it show the other concepts for each.</p>
+<div class="lab">In colour · 24px badge, 12px chip</div>${across(PINS)}<div style="height:8px"></div>${across(SHAPES)}${NOTE_INK}
+<div class="lab">In one ink</div>${across(PINS,1)}<div style="height:8px"></div>${across(SHAPES,1)}${legend}
+<div class="lab">Settled</div>
+<div class="strip" style="gap:14px;align-items:flex-start">${[['restaurant','your pick'],['shopping','your pick'],['hotel','your pick'],['street','your pick']].map(([c,t])=>cell(LEAD[c],c,c+'<br>'+t)).join('')}${cell('blocks','neighbourhood','neighbour-<br>hood')}</div>
+<div class="fact">Neighbourhood: carried over from District; you haven’t commented on it.</div>
+<div class="fact">Saved after the migration: Restaurant 30, Café 16, Bar 4, Venue 11, Museum 24, Landmark 23, Attraction 15, Park 9, Nature 2, Shopping 49, Hotel 0.</div>
+<div class="q"><b>The idea behind these cards</b>The row already prints the plaque (BAR · COPENHAGEN), so an icon only has to tell its neighbours apart, not explain everything. The neighbours are shown in one ink on card 4, so shape does the work and colour can’t.</div>
 </div>`;
 
 // ---------- CARD 1: café / bar / venue
 const card1=()=>`<div class="card">${head('T6 · Card 1','Café, bar, venue')}
-${catBlock('Café','Coffee or a pastry, 16 saved (no change in the migration). You: “i like the cup and saucer, but it’s not just coffee shops. adding a bun is too much visual noise... need to push here.”',[
- concept('A','Cup and saucer, kept; the row says the rest','cup','cafe','Sankt Peders Bageri','CAFE · COPENHAGEN','Coffee. The bakery half is carried by the name and the row, as a road sign carries its plaque.','Not the push you asked for. It says nothing about pastry.'),
- concept('B','The bakers’ kringle','kringle','cafe','Sankt Peders Bageri','CAFE · COPENHAGEN','The pretzel sign that hangs over bakeries across Denmark and Sweden. One object, in place of the cup rather than beside it, so no extra noise. A trip object you’ll see in the street.','A heart at 12px. With round holes it read as a face; teardrop holes fix most of that. It says bakery more than coffee.'),
- concept('C','A cinnamon bun from above','bun','cafe','Café Loki','CAFE · REYKJAVÍK','Fika: the bun that comes with the coffee. A solid disc with one cut, the spiral.','A snail, a target, or a loading spinner. It says pastry, not coffee.')])}
-${catBlock('Bar','Having a drink. 4 saved: WarPigs, Covell, Tiki-ti, Metro bar. You: “i like the glass, but not differentiated enough from cafe”. It must also stay clear of Venue.',[
- concept('A','The wine glass, kept','wine','bar','WarPigs','BAR · COPENHAGEN','A drink. Kept as the control.','At 12px its bowl and the café cup are the same blob; only the stem differs.'),
- concept('B','A coupe on a long stem','coupe','bar','Tiki-ti','BAR · LOS ANGELES','A cocktail. The wide, shallow bowl on a tall stem leaves paper all round it, where the cup is a low, heavy mass. The difference is the empty space.','A cake stand or a trophy. Close to the fountain if the fountain is used.'),
- concept('C','Two glasses: skål','skal','bar','WarPigs','BAR · COPENHAGEN','A toast, the moment rather than the object. Two glasses leaning in make a V that nothing else in the set has.','A celebration, or a wedding. Two objects, though they read as one gesture.'),
- concept('D','A pint with a head','pint','bar','WarPigs','BAR · COPENHAGEN','A beer. Tall and straight where the cup is wide and low, with a foam top.','A bin at 24px, which is a tool. A jar, or a glass of water.')])}
+${catBlock('Café','Coffee or a pastry, 16 saved. You: “i like the cup and saucer, but it’s not just coffee shops. adding a bun is too much visual noise... need to push here.”',[
+ concept('A','Cup and saucer','cup','cafe','Sankt Peders Bageri','CAFE · COPENHAGEN','Coffee. The bakery half is carried by the name and the row, as a road sign carries its plaque.','It says nothing about pastry.'),
+ concept('B','The bakers’ kringle','kringle','cafe','Sankt Peders Bageri','CAFE · COPENHAGEN','The pretzel sign that hangs over bakeries across Denmark and Sweden. One object, in place of the cup rather than beside it. A thing you’ll see in the street.','A heart at 12px. It says bakery more than coffee. Next to the ⌘ loop it’s another knot (card 4).')])}
+${catBlock('Bar','Having a drink. 4 saved: WarPigs, Covell, Tiki-ti, Metro bar. You: “i like the glass, but not differentiated enough from cafe”.',[
+ concept('A','Two glasses: skål','skal','bar','WarPigs','BAR · COPENHAGEN','The glass you liked, as a toast: a moment rather than an object. Two glasses leaning in make a V that nothing else in the set has.','A celebration, or a wedding. Two objects, though they read as one gesture.'),
+ concept('B','A coupe on a long stem','coupe','bar','Tiki-ti','BAR · LOS ANGELES','A cocktail. The wide, shallow bowl on a tall stem leaves paper all round it, where the cup is a low, heavy mass.','A cake stand or a trophy. A cousin of the fountain on a square (card 4).'),
+ concept('C','The wine glass (today, for comparison)','wine','bar','WarPigs','BAR · COPENHAGEN','The glass you liked, as drawn today.','At 12px its bowl and the café cup are the same blob; only the stem differs.')])}
 ${catBlock('Venue','Seeing a show: “if i’d go there if there wasn’t a show happening”. 11 saved: Jazzhouse, Jazzhus Montmartre, VEGA, Øksnehallen, Debaser Nova and Strand, Fasching, Nalen, Slaktkyrkan, Konserthuset, the Greek Theatre.',[
- concept('A','A stage and its rows','stage','venue','Konserthuset','VENUE · STOCKHOLM','A stage with curved rows of seats in front of it: the place itself, whatever the show. From the brown road signs’ amphitheatre.','A layered cake at 24px; a Wi-Fi sign (curved bands); a podium.'),
- concept('B','The curtain','curtain','venue','Greek Theatre','VENUE · LOS ANGELES','“A show”: drapes swept open. Covers theatre and concerts.','A window with curtains, or home. It leans to theatre over a jazz club.'),
- concept('C','Two notes','notes','venue','Jazzhouse','VENUE · COPENHAGEN','Live music, which is most of what you’ve saved here. Moved from Bar.','“Audio”, or a music app. It says nothing about theatre.'),
- concept('D','A stage microphone','mic','venue','Fasching','VENUE · STOCKHOLM','Someone on stage: a gig, a comedy night.','The phone’s voice and dictation button. That’s a strong misread.')])}
-<div class="cat"><h3>The trio in one ink</h3><div class="fact">Café · bar · venue side by side at 24px and 12px. Colour off, so only shape tells them apart.</div>
-${setLine([['cup','café'],['wine','bar'],['notes','venue']],'<b class="fail">TODAY’S PROBLEM</b> Cup and wine glass are one mass at 12px.')}
-${setLine([['cup','café'],['coupe','bar'],['stage','venue']],'<b class="pass">CLEAR</b> Low mass, open stem, wide bands: three different shapes.')}
-${setLine([['cup','café'],['skal','bar'],['curtain','venue']],'<b class="pass">CLEAR</b> The V of the toast is unique. The curtain is the busiest at 12px.')}
-${setLine([['kringle','café'],['wine','bar'],['stage','venue']],'<b class="pass">CLEAR</b> The cup is gone, so the plain glass becomes safe.')}
-${setLine([['bun','café'],['pint','bar'],['notes','venue']],'<b class="fail">WEAK</b> Bun and pint’s foam are both round tops at 12px.')}
-</div></div>`;
+ concept('A','Two notes','notes','venue','Jazzhouse','VENUE · COPENHAGEN','Live music: about 9 of the 11 are music. The common sign.','“Audio”, or a music app. It says nothing about theatre.'),
+ concept('B','The curtain','curtain','venue','Greek Theatre','VENUE · LOS ANGELES','“A show”: drapes swept open, which is your own test for a venue.','A window with curtains, or home. It leans to theatre over a jazz club.')])}</div>`;
 
 // ---------- CARD 2: museum / landmark / attraction
+const CAROUSEL_PASSED=false; // set after judging the rebuild against the column front, one ink, 12px
 const card2=()=>`<div class="card">${head('T6 · Card 2','Museum, landmark, attraction')}
-<div class="q"><b>Where the Nordic loop belongs</b>You leaned to the ⌘ loop for Attraction (“i wonder if the nordic loop works the best here”). On Nordic brown signs it means <i>sevärdhet</i>, “a thing worth seeing”. Attraction now means going in to do things, and Landmark means a place to see. So I show the loop in both rows and think it fits Landmark better. Your call.</div>
 ${catBlock('Museum','Any museum or gallery: art, history, themed. 24 saved, from the Vasa Museum, Fotografiska, the ABBA Museum and Spårvägsmuseet to the Hammer, Kjarvalsstaðir and Galleri Bo Bjerggaard.',[
  concept('A','A column front','temple','museum','Vasa Museum','MUSEUM · STOCKHOLM','The classic museum sign.','A bank or a court. It leans to old museums, not galleries.'),
- concept('B','A picture on a nail','frame','museum','Fotografiska','MUSEUM · STOCKHOLM','A picture hung on a wall: galleries and art museums. The wire and nail stop it from being the phone’s “image” icon.','A hanging sign, or a TV. Weak for the Vasa or the tram museum.'),
- concept('C','A vase on a plinth','vase','museum','Spårvägsmuseet','MUSEUM · STOCKHOLM','A thing on display: art, history and themed alike.','A trophy, or an urn.'),
- concept('D','The rope barrier','rope','museum','Moderna Museet','MUSEUM · STOCKHOLM','“Look, don’t touch.” Two posts and a sagging rope: the moment you’re in a museum.','The letter M at 12px. A club’s velvet rope (that’s Venue), or a queue.')])}
+ concept('B','The rope barrier','rope','museum','Moderna Museet','MUSEUM · STOCKHOLM','“Look, don’t touch.” Two posts and a sagging rope: the moment you’re in a museum.','The letter M at 12px. A club’s velvet rope (that’s Venue), or a queue.'),
+ concept('C','A vase on a plinth','vase','museum','Spårvägsmuseet','MUSEUM · STOCKHOLM','A thing on display: art, history and themed alike.','A trophy, an urn, a chess pawn, or a bust.')])}
 ${catBlock('Landmark','A notable place to see; it matters because of people. 23 saved: buildings (Hallgrímskirkja, Harpa, Turning Torso, 8 House), monuments (Little Mermaid, Sólfar), 6 murals, 5 squares (Lilla Torg, Möllevångstorget, Nytorget, Israels Plads, Frederiksberg Runddel), Reykjanesviti lighthouse.',[
- concept('A','The Nordic sights loop ⌘','sevard','landmark','Hallgrímskirkja','LANDMARK · REYKJAVÍK','The Scandinavian sign for “worth seeing”, from the brown signs on Nordic roads. A heavy line, as you said: “its heavy enough”.','The Mac ⌘ key. Its loops are empty shapes, which the rules card keeps for “not marked yet”.'),
- concept('B','A fountain on a square','fountain2','landmark','Lilla Torg','LANDMARK · MALMÖ','You said to push the fountain. Squares are Landmark now, so the fountain stands on paving, with water falling from an upper bowl.','A drinking fountain, or a trophy. Close to the coupe if Bar takes it.'),
- concept('C','A monument','obelisk','landmark','Sólfar Sun Voyager','LANDMARK · REYKJAVÍK','A monument on its steps: made by people, there to be looked at.','A pencil, or a rocket. Says “memorial” more than “mural”.'),
- concept('D','A camera','camera','landmark','Turning Torso','LANDMARK · MALMÖ','You said “camera says ‘sight’ more than attraction”. Landmark is the sight.','“Take a photo.”')])}
+ concept('A','The Nordic sights loop ⌘','sevard','landmark','Hallgrímskirkja','LANDMARK · REYKJAVÍK','On Nordic brown signs it means <i>sevärdhet</i>, “worth seeing”. You leaned to it for Attraction when Attraction still held the sights; they’re Landmark now, so it’s here. A heavy line, as you said: “its heavy enough”.','The Mac ⌘ key.'),
+ concept('B','A camera','camera','landmark','Turning Torso','LANDMARK · MALMÖ','You said “camera says ‘sight’ more than attraction”. Landmark is the sight now.','“Take a photo.”'),
+ concept('C','A fountain on a square','fountain2','landmark','Lilla Torg','LANDMARK · MALMÖ','You said to push the fountain. Squares are Landmark now, so the fountain stands on paving, with water falling from an upper bowl.','A drinking fountain, or a trophy. Busy at 12px. A cousin of the coupe (card 4).')])}
 ${catBlock('Attraction','Going in to do things. 15 saved: Tivoli, Gröna Lund, Skansen, Junibacken; Rosenborg, Christiansborg, Malmöhus Castle; Omnom, Perlan, Aurora, the Swan Boats, CopenHill, Hollyhock House; two city pools.',[
- concept('A','The Nordic loop, heavier','sevardHeavy','attraction','Tivoli','ATTRACTION · COPENHAGEN','Your lean, built heavier, with the middle filled so it’s not an empty shape.','A four-leaf clover, or the ⌘ key. On Nordic signs it means a sight, not a ride.'),
- concept('B','A carousel','carousel','attraction','Gröna Lund','ATTRACTION · STOCKHOLM','The fairground: a pointed roof with a scalloped edge, a flag on top, poles. The scallop rhymes with the app’s buttons.','A bandstand or a gazebo (that’s a park), a circus tent, or a shop awning.'),
- concept('C','A Ferris wheel','wheel','attraction','Tivoli','ATTRACTION · COPENHAGEN','Rides. The sign maps use for a theme park.','A sun, a gear, or a bike wheel. The rim is an outline. Says nothing about castles or pools.'),
- concept('D','A castle tower','tower','attraction','Rosenborg','ATTRACTION · COPENHAGEN','A place you go into. Castles are a big share, and Tivoli has towers too. Pure grid: battlements and a door.','A chess rook, or “security”. Says nothing about pools or rides.')])}
-<div class="cat"><h3>The trio in one ink</h3>
-${setLine([['temple','museum'],['sevard','landmark'],['carousel','attraction']],'<b class="pass">CLEAR</b> Three different outlines: block, loop, roof.')}
-${setLine([['frame','museum'],['fountain2','landmark'],['wheel','attraction']],'<b class="fail">BUSY</b> Fountain and wheel are both fine-lined at 12px.')}
-${setLine([['vase','museum'],['obelisk','landmark'],['tower','attraction']],'<b class="pass">CLEAR</b> All solid and upright: a vase, a spike, a block.')}
-${setLine([['rope','museum'],['camera','landmark'],['sevardHeavy','attraction']],'<b class="pass">CLEAR</b> But the ⌘ here means a sight, which is Landmark.')}
-</div></div>`;
+ concept('A','A Ferris wheel','wheel','attraction','Tivoli','ATTRACTION · COPENHAGEN','Rides: the common map sign for a theme park, and Tivoli, Gröna Lund and Skansen are the heart of this list.','A sun, a gear, or a bike wheel. Busy at 12px. Says nothing about castles or pools.'),
+ concept('B','A castle tower','tower','attraction','Rosenborg','ATTRACTION · COPENHAGEN','A place you go into. Castles are a big share, and Tivoli has towers too. Pure grid: battlements and a door.','A chess rook, or “security”. Says nothing of rides or pools.'),
+ ...(CAROUSEL_PASSED?[concept('C','A carousel','carousel','attraction','Gröna Lund','ATTRACTION · STOCKHOLM','The fairground: a cone tent with a scalloped edge, and two horses on poles, one up and one down.','A circus tent.')]:[])])}</div>`;
 
 // ---------- CARD 3: park / nature
 const card3=()=>`<div class="card">${head('T6 · Card 3','Park and nature')}
-<p class="att">Park is a city park, where you hang out outside in town (you: “what if im with my kid and i just want to see what parks i marked”). Nature is the natural world: waterfalls, volcanoes, coast, hikes, national parks. You’d picked the conifer for Nature before Park was its own category, so the question is open again: if both are trees, they’re one idea told apart by shape.</p>
+<p class="att">Park is a city park, where you hang out outside in town. Nature is the natural world: waterfalls, volcanoes, coast, hikes, national parks. You picked the conifer for Nature before Park was its own category, so these are shown as pairs (card 4).</p>
 ${catBlock('Park','A city park. 9 saved: Humlegården, Vasaparken, Tantolunden, Slottsparken, Folkets Park, Griffith Park, Björns Trädgård, Superkilen park, Assistens Cemetery.',[
- concept('A','A round tree','roundtree','park','Humlegården','PARK · STOCKHOLM','A broad-leaf tree with a round canopy: the town tree, against the forest conifer.','Broccoli, or a cloud. Beside a conifer it’s “two kinds of tree”.'),
- concept('B','A park bench','bench','park','Björns Trädgård','PARK · STOCKHOLM','Hanging out: the thing you do in a city park, not the greenery.','A bed, at 12px, which is Hotel. Or a fence.'),
- concept('C','A seesaw','seesaw','park','Superkilen park','PARK · COPENHAGEN','The playground, mid-tip: you with your kid. A moment, as on the brown signs.','A balance or scales. It says “playground” more than “park”.'),
- concept('D','The fountain','fountain2','park','Humlegården','PARK · STOCKHOLM','The same fountain as Landmark B. It fits a park as well as a square, but only one category can have it.','A drinking fountain, or a trophy.')])}
-${catBlock('Nature','The natural world. Only 2 saved today: Gunnuhver and the Bridge Between Continents (Iceland’s waterfalls and coast aren’t saved yet). With Park gone, the 9 parks are the bigger group, so the pair matters more than Nature alone.',[
- concept('A','A conifer, your earlier pick','tree','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The forest and the wild. Safe if Park isn’t a tree too.','A Christmas tree. Beside a round tree it’s only told apart by shape.'),
- concept('B','Mountain peaks','peaks','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The landscape: volcanoes, hikes, coast. Most of Iceland. A different kind of thing from any park.','“Hiking”, or terrain.'),
- concept('C','A waterfall','falls','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','A cliff with water falling into a pool: the waterfalls of Iceland, though none is saved yet.','A shower, or a comb. It fits waterfalls better than the coast.')])}
-<div class="cat"><h3>The pairs in one ink</h3>
-${setLine([['roundtree','park'],['tree','nature']],'<b class="fail">CLOSE</b> Two trees: told apart by outline only, weakest at 12px.')}
-${setLine([['roundtree','park'],['peaks','nature']],'<b class="pass">CLEAR</b> Town tree against landscape: different in kind.')}
-${setLine([['bench','park'],['tree','nature']],'<b class="pass">CLEAR</b> Keeps your conifer. But the bench is near the bed.')}
-${setLine([['seesaw','park'],['peaks','nature']],'<b class="pass">CLEAR</b> The seesaw is the thinnest at 12px.')}
-${setLine([['bench','park'],['bed','hotel']],'<b class="fail">CHECK</b> Bench against bed (Hotel, settled).')}
-</div></div>`;
+ concept('A','A round tree','roundtree','park','Humlegården','PARK · STOCKHOLM','A broad-leaf tree with a round canopy: the map sign for a park, the town tree against the forest conifer.','Broccoli, or a cloud. Beside a conifer it’s “two kinds of tree”.'),
+ concept('B','A park bench','bench','park','Björns Trädgård','PARK · STOCKHOLM','Hanging out: the thing you do in a city park, not the greenery.','A fence. At 12px it’s a slab on legs, like the bed (Hotel).'),
+ concept('C','A seesaw','seesaw','park','Superkilen park','PARK · COPENHAGEN','The playground, mid-tip.','A balance or scales. It says “playground” more than “park”. The thinnest at 12px.')])}
+${catBlock('Nature','The natural world. Only 2 saved today: Gunnuhver, a geothermal vent, and the Bridge Between Continents, the rift on Reykjanes. Neither has trees.',[
+ concept('A','Mountain peaks','peaks','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The landscape: volcanoes, hikes, coast. It fits the vent and the rift, and what Iceland will add.','“Hiking”, or terrain.'),
+ concept('B','A conifer, your earlier pick','tree','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The forest and the wild. Picked before Park split off.','A Christmas tree. Neither of your two Nature places has trees.')])}</div>`;
 
-// ---------- CARD 4: dropped this turn
-const DROP6=[['tumbler','bar','Tumbler with ice','A bin, which is a tool.'],['marquee','venue','Marquee lights','The bulbs blur at 24px; a box at 12px.'],['ticketD','venue','Ticket','Failed four builds last round; still a plaster or a label.'],
- ['cablecar','attraction','Cable car','One kind of ride; reads as a ski lift.'],['hiker','nature','A hiker','Too close to Street’s walker.'],['croissant','cafe','Croissant (not built)','A crescent moon, which was Hotel’s second idea.'],['cupbun','cafe','Cup and bun','You said too much noise.']];
-const card4=()=>`<div class="card">${head('T6 · Card 4','Dropped this turn')}${DROP6.filter(r=>D[r[0]]).map(dropRow).join('')}<div class="drop"><span></span><div><b>Croissant (not built)</b>A crescent moon, which was Hotel’s second idea.</div></div></div>`;
+// ---------- CARD 4: the neighbours, in one ink (facts only)
+const card4=()=>`<div class="card">${head('T6 · Card 4','The neighbours, in one ink')}
+<p class="att">At 24px and 12px, one ink, so shape does the work.</p>
+<div class="lab">Café · bar · venue</div>
+${setLine([['cup','café'],['skal','bar'],['notes','venue']],'A low cup with a handle; two glasses in a V; two notes on stems.')}
+${setLine([['kringle','café'],['wine','bar'],['curtain','venue']],'A knot with three holes; one glass on a stem; two drapes under a bar.')}
+${setLine([['cup','café'],['coupe','bar'],['notes','venue']],'A low cup; a wide, shallow bowl on a tall stem; two notes.')}
+${setLine([['cup','café'],['wine','bar']],'Today: at 12px the cup and the glass are both a bowl over a short base.')}
+<div class="lab">Museum · landmark · attraction</div>
+${setLine([['temple','museum'],['sevard','landmark'],['wheel','attraction']],'A roof on columns; a looped square; a spoked ring on legs.')}
+${setLine([['rope','museum'],['camera','landmark'],['tower','attraction']],'Two posts and a rope; a camera body with a lens; a block with battlements.')}
+${setLine([['vase','museum'],['fountain2','landmark'],['wheel','attraction']],'A vase on a block; two bowls with falling water; a spoked ring.')}
+${setLine([['temple','museum'],['carouselOld','attraction'],['carousel','attraction']],`The carousel against the column front. Left: the column front. Middle: the first build, a roof on three posts on a base. Right: the rebuild, a cone tent with two horses on poles. ${CAROUSEL_PASSED?'':'At 24px the horses read. At 12px they don’t, and it’s a scalloped roof over thin posts: a gazebo, still a building, so it goes to the dropped card.'}`)}
+<div class="lab">Park · nature</div>
+${setLine([['roundtree','park'],['peaks','nature']],'A round tree; two peaks on a base line.')}
+${setLine([['bench','park'],['tree','nature'],['bed','hotel']],'A bench, a conifer, and the bed (Hotel). Bench and bed are both a slab on legs at 12px.')}
+${setLine([['seesaw','park'],['peaks','nature']],'A tilted plank with two figures; two peaks.')}
+${setLine([['roundtree','park'],['tree','nature']],'Two trees: a round one and a pointed one. At 12px they differ only in outline.')}
+<div class="lab">Across the groups</div>
+${setLine([['kringle','café'],['sevard','landmark']],'Both are a knot of loops at 12px: three holes in a solid, four loops round a square.')}
+${setLine([['vase','museum'],['tower','attraction']],'A round piece on a block and a battlemented block: a pawn and a rook.')}
+${setLine([['coupe','bar'],['fountain2','landmark']],'Both are a wide bowl on a stem over a base.')}
+<div class="lab">The ⌘ beside the outline Star</div>
+<div class="ics" style="display:flex;gap:14px;align-items:center">${badge('sevard',ONE)}${bare('sevard',ONE,12)}<span style="width:10px"></span>${starOut(24)}${starOut(12)}</div>
+</div>`;
+
+// ---------- CARD 5: dropped
+const DROP6=[
+ ['bun','cafe','Cinnamon bun from above','A spinner or a snail, and pastry only.'],
+ ['pint','bar','A pint with a head','A bin at 24px, which is a tool.'],
+ ['tumbler','bar','Tumbler with ice','A bin, which is a tool.'],
+ ['stage','venue','A stage and its rows','A stack or a cake at 24px, before it’s a stage.'],
+ ['mic','venue','A stage microphone','The phone’s voice and dictation button.'],
+ ['marquee','venue','Marquee lights','The bulbs blur at 24px; a box at 12px.'],
+ ['ticketD','venue','Ticket','Failed four builds last round; still a plaster or a label.'],
+ ['frame','museum','A picture on a nail','Weak for the Vasa and the tram museum, and it’s an empty frame.'],
+ ['obelisk','landmark','A monument','A pencil or a rocket.'],
+ ['sevardHeavy','attraction','The loop with its middle filled','A clover. The loop has gone to Landmark.'],
+ ...(CAROUSEL_PASSED?[]:[['carousel','attraction','A carousel (rebuilt once)','Rebuilt as a cone tent with two horses on poles. The horses read at 24px; at 12px it’s a roof over thin posts, a gazebo.']]),
+ ['cablecar','attraction','Cable car','One kind of ride; reads as a ski lift.'],
+ ['fountain2','park','The fountain, for Park','It can live in one place only, and you asked for it on a square.'],
+ ['falls','nature','A waterfall','A comb or a shower, and none is saved.'],
+ ['hiker','nature','A hiker','Too close to Street’s walker.'],
+ ['cupbun','cafe','Cup and bun','You said too much noise.']];
 const dropRow=([d,c,n,w])=>`<div class="drop">${badge(d,INK[c])}<div><b>${n}</b>${w}</div></div>`;
+const card5=()=>`<div class="card">${head('T6 · Card 5','Dropped this turn')}${DROP6.map(dropRow).join('')}<div class="drop"><span></span><div><b>Croissant (not built)</b>A crescent moon, which was Hotel’s second idea.</div></div></div>`;
 
-document.getElementById('out').innerHTML=card0()+card1()+card2()+card3()+card4();
+document.getElementById('out').innerHTML=card0()+card1()+card2()+card3()+card4()+card5();
 window.READY=1;
 </script></body></html>
