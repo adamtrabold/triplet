@@ -27,3 +27,7 @@ Design system: Triplet — https://claude.ai/artifact/JXWsMZs32JyKdcEzakKrPW
 > (on PlansGoTo) what does selecting a plan vs selecting a city look like?
 > (on StarVisited) is this just a mock of the visited badge? looks nothing like the real one
 > (on GoToMap) let's polish up the screens now that we're starting to align -- pull in the real elements everywhere
+> (on header A) this doesnt feel like the right place for the number... it also doesnt match approaches elsewhere... we should get to the best thing (e.g. niether is perfect) and align
+> (on TypeOpen tag) this feels good, but i'm curious -- does the city selection scope search? if so, maybe it should be treated differently and put somewhere else. may need some divergent thought here.
+
+Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today the add form's city scopes the search: it appends the city's `geocodeSuffix` to the query, applies its `countrycodes` as a HARD filter, and its `viewbox` as a soft ranking hint (search widens on a miss).
