@@ -1,3 +1,29 @@
+# Place categories: decided (2026-10-16)
+
+The owner approved this list ("yeah i think that's good for now"). The revisions below show how it got here.
+
+**Pins** (places you go *to*):
+- **Restaurant**: a meal.
+- **Café**: coffee, a bakery, a snack.
+- **Bar**: you go for the drink, whether or not there's music.
+- **Venue**: you'd only go if there's a show on.
+- **Landmark**: a famous thing you look at, usually free: a landmark building, a statue, a monument.
+- **Art**: art, design and architecture museums, galleries, murals, public art.
+- **Attraction**: you go in and do things, usually with a ticket: rides, castles, tours, themed museums (Vasa, the tram museum), city pools.
+- **Square**: a square, plaza or market place to sit in.
+- **Nature**: parks, gardens, coast, anything natural.
+- **Shopping**: a shop or market stall.
+- **Hotel**: where you sleep.
+- **Other**: anything else.
+
+**Shapes** (places you walk *around in* or *along*):
+- **Neighbourhood**: drawn as its outline.
+- **Street**: a box around the stretch you care about. Streets under about 1.5km are saved whole; longer ones are trimmed with handles.
+
+**Gone:** Area, District (renamed Neighbourhood), and the "Sight" and "Museums & galleries" ideas, which were superseded.
+
+---
+
 # Place categories: a recommendation
 
 2026-10-16. A recommendation, not a decision. The owner decides. Written from the live data (202 pins, 6 district shapes, 5 street shapes).

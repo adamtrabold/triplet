@@ -102,3 +102,4 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > dont think about it in regards to what i have today
 > i dont think people think of parks as amusement parks they think of like city parks. im goo dnot changing it for now.
 (Proposed, not confirmed: Landmark + Art + Attraction, with themed museums in Attraction and art museums, galleries and murals in Art; "Outing" offered as an alternative name for Attraction. Decided: amusement parks stay in Attraction, no full-day split for now.)
+> yeah i think that's good for now   (locks Landmark + Art + Attraction)
