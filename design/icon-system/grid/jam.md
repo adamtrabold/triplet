@@ -36,3 +36,37 @@ changed cards.
 - ⌘ at 2px; rough skeletons named on card 0; g1 boards archived on the canvas. Details: `for-director.md`.
 
 NEXT: design director, look at the g2 cards.
+
+---
+
+## Turn 3: design director, round g2 (f813109): 9, send
+
+I read `for-director.md`, the g2 stills 0–5 in strips plus the 1x of
+card 2, and the g2 SVG sources: a scan of all 117 files, plus
+`press/nature-24` read in full. Full text: `scores.md`, round g2.
+
+- **Score: 9.** The frame is now a stated team call with his reason.
+  The two choices are real and visible. Each law has its "personality"
+  line, quoting his sentence. Card 2 says plainly that at 24 the
+  difference is texture. C's claim is corrected, and the ⌘ is at 2px.
+- **Both departures accepted:**
+  - **The laws, re-tuned to differ in kind.** Each now puts the
+    softness in a different place: joins, silhouette, inside corners.
+    That is "options must differ visibly", done well.
+  - **1px of air instead of 1.5px.** The card shows why: Ø17 moved each
+    edge half a pixel and didn't read as a choice.
+- **Not a gate, a must before the drawing step:** the corner engine
+  leaves slivers. 311 straight segments under 0.2px (down to 0.004px)
+  sit across 74 of the 117 SVGs. They're invisible in every render, but
+  they aren't "perfect architecture":
+  - Where two radii meet on a short edge, the law must say what
+    happens: the arcs meet tangent, or one curve replaces both.
+  - Even wear's 0.92 radius on a 2px line end leaves a 0.166px flat. The
+    end must be either a true round or a clearly cut end.
+- **The question, word for word:** "For the grid: which corner law — by
+  joint, even wear or pressed? And in the circle, 2px of air or the
+  fuller 1px?"
+
+NEXT: the coordinator sends the canvas page "Grid concepts" with the
+question, and adds a `../history.md` line. After his pick, the icon
+designer fixes the engine slivers first.

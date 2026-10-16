@@ -106,3 +106,74 @@ in the circle, 2px of air or the fuller 1.5px?"
 ### Did the work change?
 
 This is the first score of the grid phase.
+
+---
+
+## Round g2 (f813109), 2026-10-16: 9, READY to send
+
+**What I read:**
+- `for-director.md`;
+- the stills `g2-card-0..5` at 3x, in strips, plus `g2-card-2-1x`;
+- the SVGs in `svg/g2/`: a scan of all 117 files for structure and
+  micro-segments, plus `press/nature-24` read in full.
+
+**The work changed.** Every g1 fix is in:
+1. **One frame, as the team's call,** with his "make sense on their
+   own" as the reason (card 1).
+2. **Two choices he can see:** the corner law on three whole glyphs at
+   4x, at 32 and at 24, plus all 13 (card 2); fullness on all 13, at 4x
+   and on the 32 (card 4).
+3. **His personality sentence quoted** with one line per law.
+4. **C's claim corrected** (card 1, "What was done this round").
+5. **The ⌘ at 2px,** with only the 12px fact kept.
+6. **The rough skeletons named** on card 0.
+7. **g1 moved to Archive.**
+8. **The history line** waits for the send, which is right.
+
+**The two departures, ruled:**
+- **Laws re-tuned to differ in kind: accepted.** The softness sits in
+  the joins (by joint), on the silhouette (even wear) or in the inside
+  corners (pressed). At 4x and on the 32 they're plainly different. At
+  24 it's texture, and card 2 says so in "Plainly". Whether that is
+  still "slight" is his call to make by eye.
+- **1px vs 2px of air: accepted.** Card 4 says why 1.5px wasn't shown,
+  and the 1px step is a visible choice.
+
+**Score: 9.** I'd defend this to him as is. It's honest, he can see
+both choices, and the question is two short picks.
+
+**Likely objections (none blocks it):**
+- "Even wear's line ends look round, not slight." *Possible.* That's
+  his choice to make by eye, and the cards show it.
+- "1px of air crowds the ring." *Possible.* That's a choice too.
+- "The museum reads as a ш." *Possible.* It's a skeleton, and card 0
+  says to judge the grid.
+
+**Must-do before the drawing step (not a send gate):**
+1. **Engine slivers.**
+   - 311 straight segments under 0.2px (down to 0.004px) across 74 of
+     the 117 g2 SVGs. Example: `press/nature-24` has "C… 15.36 8 L15.28
+     8 C…".
+   - The corner law must define what happens when two radii meet on a
+     short edge: tangent arcs, or one curve replacing two. No
+     near-zero segments.
+2. **Line ends under even wear.** A 0.92 radius on a 2px end leaves a
+   0.166px flat. Make it a true semicircle or a clearly cut end. An
+   almost-round end isn't "perfect architecture".
+3. **Pixel-snapping.** Pixel-snap the 32s and the Ø18 refits (card 1
+   and card 4 already say so).
+4. **The 1.5px parts at 12px** (the ⌘, the spokes, the arms): a
+   drawing-step question, as the cards say.
+
+**The send:**
+- Where: the canvas page "Grid concepts", whose page title already
+  carries the question.
+- Then a `../history.md` line.
+- The question, word for word: "For the grid: which corner law — by
+  joint, even wear or pressed? And in the circle, 2px of air or the
+  fuller 1px?"
+
+**Trend:** the g1 blockers were structural (choices he couldn't see, a
+concept that failed his words) and they're gone. What's left is
+engine-level craft that doesn't show in any render. I found it by
+reading the sources, which is why I read them.

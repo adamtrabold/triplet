@@ -409,3 +409,18 @@ Full scores are in `../../grid/scores.md`; the turn is in
 - **Question (after the fixes):** "For the grid: which corner law — by
   joint, even wear or pressed? And in the circle, 2px of air or the
   fuller 1.5px?"
+
+## Grid round g2 (f813109): 9, sent to the coordinator
+
+- **Accepted both departures:** the laws re-tuned to differ in kind, and
+  1px of air instead of 1.5px.
+- **The question now ends** "…2px of air or the fuller 1px?"
+- **Must-do before the drawing step (my source read):**
+  - 311 sub-0.2px straight slivers across 74 of the 117 g2 SVGs (the
+    corner engine leaves them when two radii meet on a short edge);
+  - even wear's 0.166px flat on line ends;
+  - pixel-snapping the 32 and Ø18 refits;
+  - the 1.5px parts at 12.
+  These are craft, not send gates. Re-scan with
+  `scratchpad/microseg.py`, or the same check, every round.
+- **Next:** his picks, then the icon designer fixes the engine first.
