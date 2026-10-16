@@ -18,7 +18,7 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 - **10-16 · Categories rethought:** "we're uncovering a flaw in the data model" → locked at 11 pins and 2 shapes, using "what am I doing there?" and "would I filter for just these?" Lesson: an icon question can be a data-model question. `categories.md`
 - **10-16 · t6 on the canvas:** all 13 side by side, plus the open icons. Asked "which one, or neither?" and where the ⌘ goes.
 
-- **10-16 · t6 picks (ticks on the canvas):** cup and saucer, coupe, column front, ⌘ loop (on Landmark), Ferris wheel, round tree, conifer. "i still struggle with venue -- it could be music, it could be theatre"
+- **10-16 · t6 picks (ticks on the canvas):** cup and saucer, coupe, column front, ⌘ loop (on Landmark), Ferris wheel, round tree (then bench: "lets do park bench"), conifer. "i still struggle with venue -- it could be music, it could be theatre"
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
