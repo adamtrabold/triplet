@@ -368,5 +368,16 @@ I'll judge, from his words and the settled rules, not a new rule set:
 
 (Superseded: my earlier "the circle is open, 'can' not 'must'" line. He
 has since said the circle is required.)
+
+**Who and how (grid phase).** An expert icon designer replaces the
+previous designer for this phase. Owner: "the designer should be an
+expert icon designer with the highest attention to glyph craft".
+- **Handoff:** through `design/icon-system/grid/for-director.md`,
+  relayed by the coordinator.
+- **The bar is glyph craft**, in his words: "highest attention to detail
+  and quality -- minimal bezier curves with perfect architecture".
+- **For the grid, that means I read the SVG sources**, not only the
+  renders: the point counts, where the curves join and how the corners
+  are built.
 Read-apart checks stay notes, not gates ("lets not focus on
 differentiation yet").
