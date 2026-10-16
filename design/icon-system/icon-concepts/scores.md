@@ -165,3 +165,120 @@ No re-score. The cards stay at 9. The changes:
 
 The changes are rebuilt on the canvas page "Icon concepts", not as PNGs. I
 look at the changed sections there.
+
+---
+
+## Round 2 (t6 cards, the locked list), 2026-10-16: NOT READY, one fix pass
+
+Scored in one pass. I read all five cards at full size (cards 1–3 in
+1900px strips), with `t6.html` open for the glyph sources. The rulings
+are in jam turn 15.
+
+**Bias check.** As before: real size, then his places, then family, then
+wit. The clever ideas I'd have liked are the kringle, skål, the stage
+and the carousel. Two of them lose here on real size (the stage, the
+carousel as built). The common sign leads wherever it reads: notes,
+column front, Ferris wheel, round tree, peaks. The ⌘ leads on Landmark
+because it's his own lean and it's the sign's literal meaning, not
+because it's clever.
+
+| Card | Score | Based on | Why |
+|---|---|---|---|
+| 0 The list | **8** | Whole card | Neighbourhood sits under "Settled by your picks", but he never picked the blocks. The new pins carry placeholder colours. There's no all-13 strip in one ink (his original ask, and the only cross-group test). |
+| 1 Café, bar, venue | **8** | Café A–C, Bar A–D, Venue A–D, one-ink trio | The concepts are good and honest. But the stage leads while it reads as a stack at 24px. Four weak options are still shown (bun, pint, microphone, stage). The trio rows carry CLEAR/WEAK verdicts. The kringle is never checked against the ⌘. |
+| 2 Museum, landmark, attraction | **7** | Museum A–D, Landmark A–D, Attraction A–D, one-ink trios | A false verdict: the carousel and the column front are the same roof on posts at 12px, and the row is labelled CLEAR. The loop is shown on two categories. The filled loop is a clover. The vase and the castle make a chess set, untested. |
+| 3 Park and nature | **8** | Park A–D, Nature A–C, one-ink pairs | The pair framing is right. But the seesaw's "you with your kid" repurposes a filtering quote. The waterfall reads as a comb and nothing is saved for it. The fountain is offered to two categories. The conifer leads Nature over the peaks that fit his vent and rift. |
+| 4 Dropped | **9** | Whole card | Every kill has a reason he can argue with. It takes this round's additions. |
+
+### Likely owner objections
+
+1. **"The museum and the carousel are the same building."** *Likely.*
+   It's the first trio row he'd look at.
+2. **"I said the loop for attraction."** *Likely* to be asked about.
+   It's answered by question 2 and the card's one line on *sevärdhet*.
+3. **"Why is that a burger?"** (the stage) *Likely.*
+4. **"I never picked the blocks."** *Possible.* He's called out
+   overstating twice.
+5. **"Too many options."** *Possible.* Eight open icons with four
+   concepts each is about 30 rows on one page. The survivors list cuts
+   it to about 20.
+6. **"Why are the new ones these colours?"** *Possible.* A
+   placeholder colour invites a reaction to the wrong thing.
+7. **"Is that ⌘ allowed under the outline rule?"** *Unlikely.* He said
+   "its heavy enough". Covered by showing it beside the Star.
+
+### Fixes (one batch, then I look at the canvas)
+
+1. **Carousel:** one rebuild (cone tent, scallop, horses on poles, not a
+   roof on posts), judged in one ink at 12px against the column front.
+   If it fails, it goes to the dropped card.
+2. **The ⌘:** Landmark A only. The filled loop goes to the dropped card.
+   The "Could be" line becomes "The Mac ⌘ key." Show it once beside the
+   outline Star at 24 and 12.
+3. **Survivors only on the canvas** (ruling list in jam turn 15):
+   - Café: cup, kringle.
+   - Bar: skål, coupe, with the wine glass as the control.
+   - Venue: notes, curtain.
+   - Museum: column front, rope, vase.
+   - Landmark: ⌘, camera, fountain.
+   - Attraction: Ferris wheel, castle, carousel if rebuilt.
+   - Park: round tree, bench, seesaw.
+   - Nature: peaks, conifer.
+4. **To the dropped card:** the bun, the pint, the stage, the
+   microphone, the picture on a nail, the monument, the waterfall, the
+   filled loop and the fountain-as-Park, one line each.
+5. **Text:**
+   - The seesaw line becomes "The playground, mid-tip."
+   - The vase's misread adds "a chess pawn, or a bust".
+   - Card 0's Neighbourhood label becomes "Carried over from District;
+     you haven't commented on it".
+   - The one-ink rows state facts, with no CLEAR/WEAK/BUSY tags.
+6. **The new four** (Venue, Museum, Landmark, Park) go in one neutral
+   ink, labelled "Colour comes later".
+7. **Top of the page:** all 13 leads side by side, coloured, then in one
+   ink, at 24 and 12. Below it, the cross pairs: kringle / ⌘, vase /
+   castle, coupe / fountain.
+
+### Rulings asked for (short form; full text in jam turn 15)
+
+- **⌘:** Landmark. He confirms with a yes/no.
+- **The heavy-line loop:** it doesn't break "only blanks are empty". It
+  has no filled version, so it can't mean "not marked yet". This holds
+  only while the line is clearly heavier than the 2.00px outline (a
+  drawing-step requirement).
+- **Park and Nature:** a pair. Lead: round tree + peaks. Second: bench +
+  conifer. Third: seesaw + peaks.
+- **Bar, café, venue:** the ideas differ in kind. Café: cup or kringle.
+  Bar: skål or coupe. Venue: notes or curtain.
+- **The four colours:** the product designer (visual focus) proposes
+  them in the drawing step, from the brand tokens. The director scores.
+  The owner sees them first.
+
+### Send (after the fixes and my canvas look)
+
+On the canvas page "Icon concepts", with the page replaced, not added
+to. Two questions, word for word:
+1. "For each open icon — café, bar, venue, museum, landmark,
+   attraction, park, nature — which one, or neither?"
+2. "You leaned to the ⌘ loop for Attraction. On the Nordic signs it
+   means 'worth seeing', which is now Landmark, so we've put it there.
+   OK, or do you want it back on Attraction?"
+
+### What keeps blocking a 9 (across rounds)
+
+- The same thing as round 1: card honesty at real size. This round it
+  showed up in three forms:
+  - a verdict tag that's false at 12px (the carousel);
+  - a quote repurposed as a reason (the seesaw's "with my kid", and
+    Neighbourhood "settled by your picks");
+  - a lead that the card itself says misreads (the stage).
+- **Why it keeps happening:** the designer tests within the groups it
+  set up and labels its own results. Conflicts across groups go unseen,
+  and its own leads get the kinder label.
+- **The structural fix:** an all-13 strip in one ink, and facts instead
+  of verdict tags. Then he judges, and the cards report.
+
+### Did the work change?
+
+Yes. This is a new round on the locked list: new categories, new
+concepts and new cards. No score carried over.

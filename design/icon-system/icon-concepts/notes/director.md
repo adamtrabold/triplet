@@ -155,3 +155,65 @@ Owner: "i dont want them to just use them outright, but this gives
   (built from t4.html). Changes are rebuilt there, not as PNGs.
 - Bias check held: the two clever ideas (plate, arrow) lost to a rule and
   to the common sign.
+
+## Round 2: the t6 cards on the locked list (turn 15, 2026-10-16)
+
+New director, taking over from the notes above. The list is now 11 pins
+plus 2 shapes (`../categories.md`). Scores (full text in `scores.md`
+round 2): card 0 8, card 1 8, card 2 7, card 3 8, card 4 9. NOT READY:
+one fix batch, then I look at the canvas.
+
+**Rulings (keep consistent with these):**
+- **⌘ → Landmark.** *Sevärdhet* means "worth seeing", which is
+  Landmark's definition. His Attraction lean predates the split. The
+  filled-centre loop (a clover) is dropped. It goes to him as a yes/no.
+- **The heavy-line loop is OK under "only blanks are empty".** It has
+  no filled twin, so it can't read as "not marked yet". The condition,
+  for the drawing step: the line is clearly heavier than the 2.00px
+  outline (t6 has 2.4, barely). The same reading covers the kringle's
+  holes and the wheel's rim.
+- **Park and Nature are a pair.** Lead: round tree + peaks (his nature
+  places are a vent and a rift, with no trees). Second: bench + conifer
+  (keeps his pick; bench ≈ bed at 12px). Third: seesaw + peaks.
+- **Café:** cup or kringle. **Bar:** skål or coupe (wine glass as the
+  control). **Venue:** notes or curtain. Dropped: bun, pint, stage
+  (reads as a stack), microphone.
+- **Museum:** column front, rope, vase. **Landmark:** ⌘, camera,
+  fountain (the fountain lives here only). **Attraction:** Ferris wheel,
+  castle, carousel only if one rebuild stops it being a roof on posts.
+  Dropped: picture on a nail, monument, waterfall, filled loop.
+- **The four new colours:** the product designer (visual focus)
+  proposes them in the drawing step, from the brand tokens, clear of the
+  orange and navy. I score them; he sees them first. Until then they're
+  in one neutral ink on the canvas.
+- **Neighbourhood blocks are NOT his pick.** Label it "carried over".
+
+**Canvas plan:** replace the "Icon concepts" page; don't append. In
+order: all 13 leads (coloured, then in one ink, at 24 and 12); one
+section per open icon (survivors only); neighbours and cross pairs in
+one ink, with facts and no verdict tags; the dropped list. Two
+questions, word for word, in `scores.md` round 2.
+
+**Recurring blocker:** card honesty at real size, now in three forms:
+false verdict tags, quotes repurposed as reasons, and leads that the
+card itself says misread. The cause: tests only inside the designer's
+own groups, with self-labelled results. The fix: the all-13 one-ink
+strip, and facts instead of verdicts.
+
+**Watch on the canvas look:**
+- the carousel rebuild vs the column front at 12px;
+- the kringle vs the ⌘ at 12px;
+- whether the page reads as about 20 options, not 30;
+- no placeholder colours.
+
+**Open, for the drawing step:**
+- the loop's weight condition;
+- the bench vs the bed if he picks the bench;
+- the fountain vs the coupe if he picks both;
+- the vase vs the castle (a chess set) if he picks both;
+- the castle-in-Attraction vs "why it matters" question (turn 14),
+  which only matters if he picks the tower.
+
+**Next:** the product designer (visual focus) makes the fixes and
+rebuilds the canvas. I look at the changed sections. Then the
+coordinator asks the two questions.

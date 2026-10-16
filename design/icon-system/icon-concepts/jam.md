@@ -1308,3 +1308,215 @@ NEXT: design director — score the t6 cards (the candidates per open icon
 and the one-ink trios), rule on where the loop goes and which pairs go to
 the owner. Then whoever the coordinator names rebuilds the canvas page
 from `t6.html`.
+
+---
+
+## Turn 15: design director, t6 scores and rulings
+
+I read `../owner.md` (to the LOCKED line), `../categories.md` (top), my
+notes, `scores.md`, `jobs.md`, turn 14 and the five t6 cards at full
+size (cards 1–3 in strips). Bias check, same order as before: real size
+first, then his saved places, then family, then wit. On a tie the common
+sign wins. Full scores in `scores.md`, round 2.
+
+**Scores:** card 0 **8**, card 1 **8**, card 2 **7**, card 3 **8**,
+card 4 **9**. The idea behind the turn is right: the row prints the
+plaque, so an icon only has to beat its neighbours, tested in one ink.
+What keeps the cards under 9 is the test itself. One verdict is false at
+real size, and the trios were only tested inside themselves.
+
+### What I saw at real size that the cards don't say
+
+1. **The carousel is the column front.** In card 2's first one-ink row,
+   museum A and attraction B are both a pointed roof on three posts on a
+   base. At 12px they're one building. The card calls the row "CLEAR …
+   block, loop, roof". He'd catch it in a second.
+2. **Cross-group pairs nobody tested:**
+   - the kringle (café) and the ⌘ (landmark), both looped knots at 12px;
+   - the vase on a plinth (museum C) and the castle tower (attraction D),
+     a pawn and a rook, so a chess set;
+   - the coupe (bar B) and the fountain (landmark B), already named.
+3. **The stage (venue A) is a stack**: a burger or a layered cake in the
+   row at 24px, before it's ever a stage. The card says so, and it still
+   leads.
+4. **The conifer on Gunnuhver.** His only two Nature places are a
+   geothermal vent and the rift bridge on Reykjanes, with no trees. The
+   peaks fit what he saved. The conifer is his earlier pick, made before
+   Park split off.
+
+### Rulings
+
+**1. The ⌘ loop goes to Landmark.** Attraction A (the loop with its
+middle filled) is dropped.
+- On Nordic signs it means *sevärdhet*, "worth seeing". That's
+  Landmark's definition word for word ("a notable place to see").
+  Attraction is now "going in to do things".
+- When he leaned to it for Attraction, Attraction still held the sights.
+  The locked list moved them to Landmark, and the loop goes with them.
+- Landmark is the most mixed category (buildings, monuments, murals,
+  squares, a lighthouse). An abstract "worth seeing" mark covers all of
+  them; no single object does.
+- Filling the middle turns it into a clover, which is worse than the
+  problem it fixes.
+- It's his lean, so it goes to him as one yes/no (question 2 below). We
+  don't show it in both rows.
+
+**2. A heavy-line loop doesn't break "only blanks are empty".**
+- The rule exists so that an outline reads as the *unfilled* version of
+  something you haven't marked yet: the Star and Visited. The ⌘ has no
+  filled version, so it can't be read as "not marked yet". It's a
+  glyph, like a letter with counters.
+- His "its heavy enough" is his own reading of his own rule. We don't
+  argue his rule back at him.
+- It holds on one condition, which the drawing step must keep: the
+  loop's line is clearly heavier than the outline weight that means
+  "not marked" (the 2.00px Star). In t6 it's 2.4 on the grid, which is
+  barely heavier.
+- The same reading covers the kringle's holes and the wheel's rim: they
+  are cuts in a solid mark, not empty versions of a mark.
+- Card fix: the ⌘'s "Could be" drops the rules-card sentence and says
+  "The Mac ⌘ key." The canvas shows it once beside the outline Star at
+  24 and 12, with no comment, so he can see it for himself.
+
+**3. Park and Nature are picked as a pair. Lead pair: round tree +
+peaks.**
+- The peaks cover what he has saved (vent, rift) and what Iceland will
+  add (waterfalls, coast, volcanoes).
+- The round tree is the map convention for a park.
+- The two are different in kind (a town thing and a landscape) and stay
+  clear in one ink at 12px.
+- Second pair: bench + conifer. It keeps his earlier pick, at the cost
+  of the bench and the bed sharing a slab-on-legs at 12px. The card says
+  that.
+- Seesaw + peaks stays as a third option. Its Shows line drops "you
+  with your kid". He said that about filtering for parks, not about the
+  picture, so the line overstates him. The new line: "The playground,
+  mid-tip."
+- Round tree + conifer is shown only as the weak pair, honestly.
+- The waterfall goes to the dropped card: a comb or a shower, and none
+  is saved.
+- The fountain leaves Park. It can live in one place only, and he asked
+  for it on a square.
+
+**4. Bar vs café vs venue.** He likes the cup and he likes the glass.
+"Not differentiated enough" can mean the shape or the idea (both are a
+drink in a vessel). The concepts that answer both differ in kind, not
+just in outline:
+- **Café: A cup and saucer, B the kringle.** The bun goes to the
+  dropped card (a spinner or a snail, and pastry only). The kringle is
+  the real push he asked for. It says bakery more than coffee, and the
+  card says so. It must be checked in one ink beside the ⌘.
+- **Bar: A skål, B the coupe; the wine glass shown as today's control.**
+  Skål keeps the glass he likes and turns the idea into a moment, the
+  only V in the set. The coupe fixes the outline but is still "a glass".
+  The pint goes to the dropped card (a bin).
+- **Venue: A two notes, B the curtain.**
+  - The notes are the common sign, and true for what he saved (about 9
+    of 11 are music: the jazz clubs, VEGA, Debaser, Nalen, Fasching,
+    Konserthuset).
+  - The curtain is the strongest outline and means "a show", which is
+    his own test ("if i'd go there if there wasn't a show happening").
+    It leans to theatre, and the card says so.
+  - The stage goes to the dropped card ("a stack or a cake at 24px"),
+    and so does the microphone (dictation).
+- Pairs on the canvas: cup + skål + notes; kringle + wine glass +
+  curtain; cup + coupe + notes. Each is shown in one ink, with the
+  facts and no CLEAR/WEAK tags.
+
+**5. Museum, Landmark, Attraction.**
+- **Museum:** A column front, B rope barrier, C vase on a plinth.
+  - The vase's "Could be" adds "a chess pawn, or a bust".
+  - The picture on a nail goes to the dropped card. It's weak for the
+    Vasa and the tram museum, and it's an empty frame.
+- **Landmark:** A the ⌘ loop, B the camera, C the fountain on a square.
+  - The camera's Shows line keeps his "camera says 'sight'". Landmark
+    is the sight now, so his note supports it here.
+  - The monument goes to the dropped card ("a pencil or a rocket").
+- **Attraction:** A the Ferris wheel, B the castle tower, and C the
+  carousel only after one rebuild.
+  - The Ferris wheel is the common map sign for a theme park, and
+    Tivoli, Gröna Lund and Skansen are the heart of this category. It's
+    busy at 12px, and the card says so. Its rim is a heavy line, under
+    ruling 2.
+  - The castle stays honestly labelled ("says nothing of rides or
+    pools").
+  - Carousel rebuild: it must not be a roof on posts. Use the cone
+    tent, the scallop and the horses on poles, judged against the
+    column front in one ink at 12px. If it still reads as a building,
+    it goes to the dropped card.
+
+**6. The four new colours: the product designer (visual focus) sets
+them.**
+- Colour is UI and brand representation, which is the designer's role in
+  his own words. He also asked that "the designer and cd should know"
+  the palette.
+- When: in the drawing step, after his picks, and in step with the
+  backlog's "brand colour tokens: one system".
+- Constraints, from his words: every colour comes from the brand tokens
+  and keeps its meaning, colour alone never tells two apart, and the new
+  colours stay clear of the brand orange (star, selection band) and of
+  navy (the selected row).
+- I score the proposal. He sees it before it lands.
+- Until then, the canvas shows the four new pins in one neutral ink,
+  labelled "Colour comes later". A placeholder colour invites a
+  reaction to the wrong thing.
+
+**7. Card 0's "Settled by your picks" overstates him on
+Neighbourhood.**
+- He never picked the city blocks. His District comment was "district
+  may work if we can make fountain / fountain on a square work", and
+  then the data-model rethink.
+- The label becomes "Carried over from District; you haven't commented
+  on it".
+- The other four are his picks: the fork and knife, the bag, the bed
+  and the walker.
+
+### The canvas (https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW, page "Icon concepts")
+
+Replace the page; don't add to it. The old Area, District, Other, Sight
+and two-concept attraction sections are superseded. He has said what he
+thinks of a cluttered canvas. Top to bottom:
+
+1. **All 13 side by side**: the five he settled plus our lead for each
+   open icon, as badges at 24px and chips at 12px, then the same row in
+   one ink. That's his original ask ("every icon side by side"), and it's
+   the cross-group check the trios missed.
+2. **One section per open icon** (Café, Bar, Venue, Museum, Landmark,
+   Attraction, Park, Nature), with the survivors from rulings 3–5. Each
+   one gets a real saved place in a row, a badge, a chip, a map crop,
+   Shows and Could be.
+3. **The neighbours in one ink**: the café · bar · venue trios, the
+   museum · landmark · attraction trios, and the park · nature pairs,
+   all from the survivors, plus the cross pairs (kringle / ⌘, vase /
+   castle, coupe / fountain) and the ⌘ beside the outline Star. Facts
+   only, no verdict tags.
+4. **Dropped this turn**: card 4 plus the bun, the pint, the stage, the
+   microphone, the picture on a nail, the monument, the waterfall, the
+   filled loop, the fountain-as-Park, and the carousel if its rebuild
+   fails. One line each.
+
+**The questions, word for word** (as a comment on the canvas, or in chat
+with the link):
+1. "For each open icon — café, bar, venue, museum, landmark,
+   attraction, park, nature — which one, or neither?"
+2. "You leaned to the ⌘ loop for Attraction. On the Nordic signs it
+   means 'worth seeing', which is now Landmark, so we've put it there.
+   OK, or do you want it back on Attraction?"
+
+Not asked: colours (ours to propose later), the heavy-line rule (his
+"its heavy enough" settles it), and Park and Nature as a pair (the
+section shows the pairs, and question 1 covers it).
+
+NEXT: product designer (visual focus) —
+- the carousel rebuild (one try, judged against the column front in one
+  ink at 12px);
+- the ⌘ beside the outline Star;
+- the 13-across lead strip and the cross pairs;
+- the t6.html text fixes (rulings 2–5 and 7: verdict tags out, the
+  seesaw's line, the vase's misread, the ⌘'s Could be, card 0's
+  Neighbourhood label, the new four in one neutral ink);
+- the dropped-card additions;
+- then the canvas page rebuilt from `t6.html` as above.
+
+Then the director looks at the changed sections on the canvas, before
+the coordinator asks him the two questions.
