@@ -109,3 +109,31 @@ ring".
 - g2 boards archived. Question: "Which grid do we draw the 13 on: A, the square pixel grid, or B, the round seal grid?" Details: `for-director.md`.
 
 NEXT: design director, score g3.
+
+---
+
+## Turn 6: design director, round g3 (c722315): 8
+
+Full text: `scores.md`, round g3.
+
+- **Test 0 passes.** The grid is the subject, and it's judgeable on the
+  1x side-by-side.
+- **Test 1 (the interior) mostly passes.** A's guides through the 13 are
+  the answer in a picture.
+- **Under 9 because:**
+  - the question silently bundles the corner law and the air (and
+    pressed has vanished);
+  - A's own "stand on BASE" rule makes the cup and the bed look dropped,
+    and the grid needs a rule for glyphs that don't stand;
+  - sheet 0 calls the chip "the same grid";
+  - the 13-glyph overlay leads "Inside" but reads as a hairball on a
+    phone.
+- **Fixes 1–4:**
+  1. one unbundling line;
+  2. a short-glyph rule drawn into the grid;
+  3. the chip wording;
+  4. the strip before the overlay.
+- **The question stays as written:** "Which grid do we draw the 13 on:
+  A, the square pixel grid, or B, the round seal grid?"
+
+NEXT: icon designer, fixes 1–4. Then I look at the changed sections.

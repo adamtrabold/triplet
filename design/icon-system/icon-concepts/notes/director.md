@@ -464,3 +464,18 @@ don't see a single grid". My 9 was wrong.
     consistent beyond height, width and space to the ring? The grid has
     to show it as the grid, not argue it in text.
   - I don't prescribe how. That's the designer's call.
+
+## Grid round g3 (c722315): 8, four fixes
+
+- **Both first tests pass.** The grid is the subject, and the interior
+  is answered (best by A's guides running through the 13).
+- **Blocks:**
+  - the bundled corner law and air;
+  - A's BASE rule drops the cup and the bed (the grid needs a rule for
+    short glyphs);
+  - the chip mislabelled "the same grid";
+  - the overlay hairball leading "Inside".
+- The question stays.
+- **Watch next look:**
+  - the cup and the bed in A's real-size row;
+  - whether the short-glyph rule is drawn as a guide, not a nudge.

@@ -202,3 +202,87 @@ asked the first question: can he see and judge a grid on his phone?
   his phone.
 
 The engine-sliver must-dos above still stand for the drawing step.
+
+---
+
+## Round g3 (c722315), 2026-10-16: 8, one short fix pass
+
+**What I read:**
+- `for-director.md`;
+- stills `g3-sheet-0..4` at 3x, in strips;
+- `g3-sheet-3-1x` (phone size).
+
+**Test 0: is the grid the subject, and can he judge it on a phone?
+PASS.**
+- Each sheet opens on a big construction drawing with rulers.
+- The side-by-side sheet at 1x shows both grids, outside and inside,
+  legibly.
+- The icons are secondary and labelled as skeletons.
+- This is the fix g2 needed.
+
+**Test 1: does it answer his interior question? MOSTLY.**
+- A answers it in a picture: one box, TOP / SHOULDER / BASE and the axis,
+  with the guides running through all 13 like a type specimen. That strip
+  is the clearest answer on the page.
+- The shared rules (parts, gaps, counters, circle radii) are a real
+  system, but they're a text table.
+- Two gaps (fixes 2 and 3 below):
+  - A's own rule puts the cup and the bed visibly low at real size;
+  - the chip has no interior at all.
+
+| | Score | Why |
+|---|---|---|
+| A · Pixel keyline | **8** | The clearest interior. "Stand on BASE" makes the cup and the bed look dropped, which is a hole in the grid's own rule, not just in the skeletons. |
+| B · Radial seal | **8** | A real alternative in kind. The overlay honestly shows it holds the set less tightly. Its sheet is clear. |
+| **The send** | **8** | The question bundles three choices, and see fixes 1–4. |
+
+### Likely owner objections
+
+1. **"If I pick A, did I also pick by-joint corners and 2px of air?"**
+   *Likely.* A and B silently differ in corner law (by joint vs even
+   wear) and air (2px vs 1.5px), both choices from g2. Pressed has
+   vanished without his say.
+2. **"Why does the cup look like it fell?"** *Likely.* It's visible in
+   A's real-size row, and it's the rule's doing.
+3. **"What am I looking at?"** *Possible.* The full 13-glyph overlay is
+   a grey hairball at phone size. The guides-through-the-13 strip is
+   what explains it.
+4. **"Sheet 0 says the chip is the same grid."** *Possible.* It isn't:
+   it's a 6 × 6 module with the earlier drawings and no interior guides.
+
+### Fixes (one batch)
+
+1. **Unbundle.** Sheet 3, under "How they differ", gets one line:
+   "Corners and the air go with either grid; that's a separate pick
+   after this (by joint, even wear or pressed; 2px or 1.5px)." Make the
+   matching line on sheets 1 and 2 say each sheet's corners and air are
+   shown as an example. Don't re-render with the variables held
+   constant; the line is enough.
+2. **Short and wide glyphs** (A, and B if it applies). The grid states
+   its rule for glyphs that don't stand: cup, bed, coupe bowl, blocks.
+   - Show it as a guide on the construction drawing, with the cup and
+     the bed redrawn to it in the strip and the real-size row.
+   - The rule is the designer's call. It must be part of the grid, not
+     a per-icon nudge.
+3. **Chip honesty.** Sheet 0's "The chip: the same grid at 12px" becomes
+   "The chip: its own 6 × 6 grid of 2px modules; its inside guides come
+   with the drawings." The chip sections keep their current text.
+4. **Order inside "Inside".** Put the guides-through-the-13 strip first
+   and the full overlay second, captioned "all 13 at once: they share
+   the box and the lines" (A) or the honest equivalent (B). The overlay
+   stays as evidence, but it can't lead.
+
+**Not required this round** (each is already stated, or a later step):
+pressed shown on a grid, the engine slivers, the 32 and Ø18 snapping.
+
+### The question, word for word (after the fixes)
+
+"Which grid do we draw the 13 on: A, the square pixel grid, or B, the
+round seal grid?"
+
+The question is unchanged; fix 1 makes it one decision.
+
+### Did the work change?
+
+Yes, fundamentally. It's a new structure built around his two
+reactions. Both first tests pass, and what's left is four short fixes.
