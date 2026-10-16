@@ -23,7 +23,7 @@ Today the category decides the drawing: district and street are shapes, and ever
 |---|---|---|
 | Restaurant | Somewhere to eat a meal | none |
 | Café | Coffee, a bakery, a snack | none |
-| Bar | Drinks and live music | open: rename to "Bars & music"? (9 of 12 are music venues) |
+| Bar | Drinks and live music | open: rename to "Bars & music"? (8 of 12 are music venues) |
 | Sight | Something to see: museum, landmark, gallery, mural, ride | renamed from Attraction; same places |
 | Square | A square, plaza or market place to sit in | **new**; takes the squares from Area |
 | Nature | A park, garden, coast, pool, hot spring | gains the parks from Area |
