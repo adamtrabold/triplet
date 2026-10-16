@@ -254,3 +254,63 @@ usually it *will* be a city".
 "Trip" is not recommended, for the reasons above.
 
 NEXT: the owner picks; then visual applies it on the canvas.
+
+## Turn 5 -- product designer (systems focus): Plans with the Go-to menu
+
+The owner, on "Go to 1: menu under the list title" (verbatim): "hmm i
+hadnt considered changing the ui for selecting a city. maybe this is
+better than having the filter panel chips -- certainly clearer from a ux
+perspective. how do plans work here?"
+
+### Today in Plans (checked in `index.html`)
+
+- **The switch:** Places | Plans, in the filter panel.
+- **The list title** is the open plan's name, which is also the plan
+  picker. It isn't a city: `updateUI()` prints `activePlan().name`, and
+  "Plans" with none open.
+- **The list:** the plan's stops, numbered, **always all of them,
+  whatever the filters say**. After them come the other places the
+  filters match, each with a + to add (`planOthers()`).
+- **The city chip already does double duty in Plans** (`frameActivePlan()`):
+  - With the panel closed ("following"), it frames that city's stops.
+    The code calls it "which leg am I on".
+  - With the panel open ("building"), it frames the stops plus the
+    candidates.
+  - It also narrows the + candidates to that city, because it's a
+    filter.
+
+### The model with Go-to and show/hide
+
+1. **Two questions in Plans, kept apart:**
+   - *which plan*: the plan picker. It stays the list title, as today.
+   - *where in it*: Go-to.
+2. **Go-to in Plans lists the plan's cities first** (we think):
+   - "Whole plan" first, which frames every stop;
+   - then the cities that have stops, **in stop order** (Reykjavík →
+     Copenhagen → Malmö), each with its stop count;
+   - then your other cities, so you can reach a city with no stops yet
+     while building.
+   - A tap frames that city's stops, or its places if it has none. This
+     is today's "which leg am I on", now said plainly. It moves the map
+     only.
+3. **Go-to never filters, in Plans either.** The + candidates are no
+   longer narrowed to the city you went to. They're every place in the
+   **shown** cities that matches the categories, not already a stop.
+   - **(We think)** they're ordered nearest to where you went first,
+     which changes order but never membership.
+4. **Show/hide never hides a stop.** A plan's stops always show, as
+   today. Hiding Malmö removes Malmö's + candidates, and its other
+   places, but a Malmö stop stays in the plan, numbered, on the map and
+   in the list.
+   - In Go-to, a hidden city that holds stops still lists in the plan
+     section.
+5. **Plans can span cities, unchanged.** A stop is a place, and the
+   place keeps its own city. Nothing about a plan is per-city.
+
+**Where Go-to sits in Plans** (the title is taken by the plan picker) is
+visual's call. Two ways to read it:
+- **(we think)** a second, smaller Go-to beside the plan's name;
+- or the same Go-to button in the same spot in both views, with the
+  plan picker moved.
+
+NEXT: director — score; visual places Go-to in Plans view on the canvas.
