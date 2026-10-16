@@ -1685,3 +1685,37 @@ NEXT: product designer (visual focus) —
 
 Then I check the spotlight section only, and the coordinator asks the
 question.
+
+---
+
+## Turn 19: design director, the spotlight rebuild (35c70f3)
+
+I re-rendered `t6.html` and read card 6's spotlight section and its
+one-ink rows at full size.
+
+**The rebuild:**
+- **At 24px:** it no longer reads as a desk lamp. To me it still reads
+  as a pen nib or a brush before a stage light. The card names "a brush
+  or a shovel blade", so the label is honest.
+- **At 12px:** a bar over a slanted blob, as the card says. It fails the
+  chip.
+- **Against his picks:** no collision with the ⌘, the wheel or the
+  column front.
+
+**The finding the card should lead with.** Both middle options miss at
+real size: the spotlight at 12px, the crowd at both sizes. So the honest
+result of two rounds is that nothing we've built says "a show of any
+kind" and reads at 12px. That's worth his decision. He can pick a pole
+(notes or curtain, both clear at every size), or take a weaker middle
+into the drawing step. It isn't worth a third round of builds before he
+sees it.
+
+**Card 6: 9**, with one change: the question carries the finding. The
+card itself needs nothing more. The Could be lines already say it.
+
+**The question, word for word (it replaces turn 18's):**
+"Venue: the notes say music and the curtain says theatre; both read at
+every size. Nothing we built says 'a show of any kind' clearly at 12px;
+the spotlight and the crowd are the closest. Which one, or neither?"
+
+NEXT: the coordinator asks him, on the canvas Venue board.

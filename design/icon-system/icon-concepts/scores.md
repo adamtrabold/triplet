@@ -378,3 +378,25 @@ re-scored.
 tree-- lets do park bench". The pair is bench + conifer. For the drawing
 step, the bench (Park) and the bed (Hotel) must read apart at 12px. The
 two-trees constraint is gone.
+
+---
+
+## Round 3b: the spotlight rebuild (35c70f3), 2026-10-16: card 6 is 9, send
+
+I rendered it myself and read the spotlight section and its one-ink rows.
+
+- **The rebuild at 24px:** it's no longer a desk lamp. It's closer to a
+  pen nib or a brush, which the card names. At 12px it fails, which the
+  card also says. It doesn't collide with any of his picks.
+- **The work changed:** the card is trimmed to four options, the
+  spotlight is rebuilt, and the stage, marquee and stub are dropped.
+- **Score: 9.** The card is honest and complete. The real finding is
+  that neither middle option reads at 12px. That belongs in the
+  question, not in a third build round.
+- **Likely objection:** "So none of the in-between ones work?" *Likely*,
+  and the question says it first.
+- **The question, word for word** (it replaces round 3's): "Venue: the
+  notes say music and the curtain says theatre; both read at every size.
+  Nothing we built says 'a show of any kind' clearly at 12px; the
+  spotlight and the crowd are the closest. Which one, or neither?"
+- **Send:** on the canvas Venue board.
