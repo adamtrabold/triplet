@@ -243,5 +243,12 @@ guidance for the future".
   Test it with one icon outside the current set, built only from the
   written rules and labelled as a test.
 
+**Added to "one family" (owner):** "Home Screen icon will also need to
+feel naturally part of the family".
+- The current apple-touch-icon is shown beside each width's block, at
+  home-screen size, with an honest flag if it doesn't fit.
+- Redesigning it isn't asked for here. Showing whether it belongs is.
+
 NEXT: icon designer, the stroke-width sweep. Then the director scores it
-against 0–3, the app icons, one family and the future-icon test.
+against 0–3, the app icons, one family (the Home Screen icon included)
+and the future-icon test.
