@@ -424,3 +424,34 @@ Full scores are in `../../grid/scores.md`; the turn is in
   These are craft, not send gates. Re-scan with
   `scratchpad/microseg.py`, or the same check, every round.
 - **Next:** his picks, then the icon designer fixes the engine first.
+
+## LESSON (g2 miss, 2026-10-16): score the deliverable he asked for
+
+The owner, on g2: "I don't understand. I see a bunch of icons redrawn. I
+don't see a single grid". My 9 was wrong.
+
+- **What happened:**
+  - The step's deliverable was a grid, and the sheets showed icons.
+  - My own g1 fixes caused it. I made the frame a "team's call" (taking
+    the grid out of his hands) and asked for laws on whole glyphs plus
+    all 13 icons (making icons the subject).
+  - I then scored against my fix list and his drawing brief, not
+    against the phase's actual ask.
+- **New first check, before any other scoring:** is the thing he asked
+  for this phase the visible subject of the sheets, and can he see and
+  judge it on his phone? If not, the score is under 9, however good the
+  rest is.
+- **Watch myself:** when I convert a choice into "the team's call", I
+  must check I'm not removing the deliverable itself from his view.
+  When I add evidence (whole glyphs, all 13), I must check it doesn't
+  become the subject.
+- **Bias-check order now:**
+  0. The asked-for deliverable is the subject and is judgeable on his
+     phone.
+  1. Reads at real size.
+  2. Works for every user.
+  3. One family.
+  4. Wit.
+- **Grid redo (icon designer):** the grid is the subject, shown as
+  grids, more than one if there's more than one sound option. The
+  engine-sliver must-dos still apply at the drawing step.

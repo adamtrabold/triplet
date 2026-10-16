@@ -177,3 +177,28 @@ both choices, and the question is two short picks.
 concept that failed his words) and they're gone. What's left is
 engine-level craft that doesn't show in any render. I found it by
 reading the sources, which is why I read them.
+
+### Retracted: the 9 was wrong
+
+The owner, on g2: "I don't understand. I see a bunch of icons redrawn. I
+don't see a single grid".
+
+**The deliverable for this step is a grid**, and the sheets led with
+icons. The grid itself was on card 1 only, and I ruled it out of his
+hands.
+
+**My part in it.** My g1 fixes pushed the work further toward icons:
+- "one frame, as the team's call" took the grid away from him;
+- "show each law on three whole glyphs, plus all 13 at 24" made the
+  icons the subject.
+
+I scored g2 against my own fix list and his drawing brief. I never
+asked the first question: can he see and judge a grid on his phone?
+
+**For the redo:**
+- The grid is the subject, shown as grids.
+- There's more than one grid if there's more than one sound option.
+- The first test before anything else: he can see and judge a grid on
+  his phone.
+
+The engine-sliver must-dos above still stand for the drawing step.

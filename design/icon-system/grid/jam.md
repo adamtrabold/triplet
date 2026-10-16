@@ -70,3 +70,23 @@ card 2, and the g2 SVG sources: a scan of all 117 files, plus
 NEXT: the coordinator sends the canvas page "Grid concepts" with the
 question, and adds a `../history.md` line. After his pick, the icon
 designer fixes the engine slivers first.
+
+---
+
+## Turn 4: design director, the g2 miss
+
+The owner: "I don't understand. I see a bunch of icons redrawn. I don't
+see a single grid". My 9 was wrong.
+
+- **The step's deliverable is a grid.** The sheets led with icons and
+  buried the grid on card 1.
+- **My g1 ruling drove it there.** I made the frame a team call, so the
+  grid stopped being his choice. I also asked for corner laws on whole
+  glyphs and all 13 icons, so the icons became the subject.
+- **The redo** (icon designer): the grid is the subject, shown as grids,
+  more than one if more than one is sound.
+- **My first test when it lands:** can he see and judge a grid on his
+  phone, before anything else is scored?
+
+NEXT: icon designer, the grid redo. Then the director scores it with the
+first test above.
