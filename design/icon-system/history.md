@@ -2,7 +2,7 @@
 
 A dated timeline of the real moments in this project: rounds shown to the owner, decisions, reversals. One entry per moment, newest at the bottom. Each entry gives what he saw, his words (verbatim, from `owner.md`), what was decided, and where the evidence is. The orchestrator adds an entry at every such moment. This is the spine for a case study.
 
-Evidence lives in the repo (git keeps every version); the review canvas is https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW (superseded rounds go to its Archive page).
+Evidence lives in the repo (git keeps every version; to see any stage, `git checkout <commit> -- design/icon-system`); the review canvas is https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW (superseded rounds go to its Archive page).
 
 ---
 
@@ -82,3 +82,17 @@ Evidence lives in the repo (git keeps every version); the review canvas is https
 **Seen:** all 13 side by side; the surviving options for café, bar, venue, museum, landmark, attraction, park and nature; one-ink neighbour comparisons; the dropped list.
 **Asked:** "For each open icon — café, bar, venue, museum, landmark, attraction, park, nature — which one, or neither?" and whether the ⌘ loop moves to Landmark.
 **Evidence:** `icon-concepts/sketches/t6.html`, the canvas "Icon concepts" page.
+
+---
+
+## Milestone commits
+
+(Git tags can't be pushed from this environment, so these commits stand in for them.)
+
+| Milestone | Commit |
+|---|---|
+| Inventory of every icon | 1360b50 |
+| v4 brand cards shown | baec7a9 |
+| v6 cards shown, Constructed chosen | a8a583f / ec6cc11 |
+| t4 concept cards | 2717977 |
+| Categories locked | db40060 |
