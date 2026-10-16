@@ -1,31 +1,29 @@
-# Place categories: decided (2026-10-16)
+# Place categories: locked (2026-10-16)
 
-The owner approved this list ("yeah i think that's good for now"). The revisions below show how it got here.
+Owner: "i think that's good fo rnow". Two tests decide every category: **what am I doing there?** and **would I ever filter for just these?** (owner: "what if im with my kid and i just want to see what parks i marked", "sometimes i do just want to go to a museum").
 
-**Pins** (places you go *to*):
-- **Restaurant**: a meal.
-- **Café**: coffee, a bakery, a snack.
-- **Bar**: you go for the drink, whether or not there's music.
-- **Venue**: you'd only go if there's a show on.
-- **Landmark**: a famous thing you look at, usually free: a landmark building, a statue, a monument.
-- **Art**: art, design and architecture museums, galleries, murals, public art.
-- **Attraction**: you go in and do things, usually with a ticket: rides, castles, tours, themed museums (Vasa, the tram museum), city pools.
-- **Square**: a square, plaza or market place to sit in.
-- **Park**: a city park you hang out in. If "park" is in the name, it's a Park (owner), except national parks, which are Nature.
-- **Nature**: the natural world itself, often a day trip: waterfalls, volcanoes, coast, hikes.
-- **Shopping**: a shop or market stall.
-- **Hotel**: where you sleep.
-- **Other**: anything else.
+**Pins (11):**
+- **Restaurant**: eating a meal.
+- **Café**: coffee or a pastry (owner: "id be looking for a bakery if i want a pastry").
+- **Bar**: having a drink.
+- **Venue**: seeing a show. You'd only go if there's a show on.
+- **Museum**: any museum or gallery: art, history, themed.
+- **Landmark**: a notable place to see: buildings, monuments, public art and murals, squares.
+- **Attraction**: going in to do things: rides, castles, tours, city pools, botanical gardens.
+- **Park**: a city park, where you hang out outside in town. "Park" in the name makes it a Park, except national parks.
+- **Nature**: getting into the natural world: waterfalls, volcanoes, coast, hikes.
+- **Shopping**: shopping.
+- **Hotel**: sleeping.
 
-**Shapes** (places you walk *around in* or *along*):
+**Shapes (2):**
 - **Neighbourhood**: drawn as its outline.
-- **Street**: a box around the stretch you care about. Streets under about 1.5km are saved whole; longer ones are trimmed with handles.
+- **Street**: a box around the stretch you care about. Streets under about 1.5km are saved whole.
 
-**Landmark vs Nature (proposal v2, not yet confirmed):** why it matters. Landmark: it matters because of people, either what they built or what happened there (Plymouth Rock, a church, a battlefield, the Little Mermaid). Nature: it matters as nature itself (a waterfall, a volcano, a park, the Bridge Between Continents, which you visit for the rift). v1, "who made it", failed on Plymouth Rock (owner: "what about like plymouth rock").
+**Landmark vs Nature:** why it matters. A Landmark matters because of people (Plymouth Rock, a church). Nature matters as nature itself. Tie-breaker: what would most people do there?
 
-**Tie-breaker for every category (proposal, from pressure-testing):** what would most people do there? Places that are both go by their main draw: Þingvellir and Uluru are Nature, the Eiffel Tower is a Landmark (the ticket up is a bonus), Blue Lagoon is an Attraction (you go in and bathe). A sculpture that's a symbol of the place (the Little Mermaid, Sun Voyager) is a Landmark; one you go to for the art (a mural, Þúfa) is Art. A famous square you sit in is a Square. **Gardens:** a park you hang out in is Nature; a botanical garden is a curated collection you tour, often ticketed, so it's an Attraction (owner: "botanical garden idk if that's that clear -- those are usually man made and constructed").
+**Gone:** Area, Other, Square (now in Landmark), Art and Sight (superseded), District (renamed Neighbourhood).
 
-**Gone:** Area, District (renamed Neighbourhood), and the "Sight" and "Museums & galleries" ideas, which were superseded.
+**Not yet done:** the place-by-place migration below was written for an earlier list and needs redoing for this one before the build.
 
 ---
 

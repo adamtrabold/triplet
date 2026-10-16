@@ -114,3 +114,9 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > no i think 13 icons is just too many regardless. i wonder if there isn't different consolidation based on that "what am i doing there" line. for example maybe square isn't necessary. maybe we don't need an other. etc.
 > night out is presumptive. i do think there's clear differentiation between restaurants and coffee shops/cafes (e.g. id be looking for a bakery if i want a pastry).
 (Grouping rejected; consolidate by "what am I doing there". Proposed 10: Restaurant, Café, Bar, Venue, Landmark, Attraction, Park (squares in), Nature, Shopping, Hotel; Other dropped; Art optional as the 11th. Café/Restaurant and Bar/Venue stay separate. Open: 10 or 11.)
+> i think galleries and museums could go into attraction, but sometimes i do just want to go to a museum
+> maybe we could merge park into nature afterall
+> yeah i actually am like wait what if im with my kid and i just want to see what parks i marked.
+> also square could be landmark
+> i think that's good fo rnow
+LOCKED (2026-10-16): 11 pins -- Restaurant, Café, Bar, Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel -- plus shapes Neighbourhood and Street. Tests: "what am I doing there?" and "would I filter for just these?"
