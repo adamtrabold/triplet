@@ -156,3 +156,10 @@
     right / C a printed "Lower" tab. Thread 082ebef3 is open.
 - **Resolved:** ac67b0fb, 7b50d2d8, c75967ec, 03619be4, d9def744.
 - **2026-10-16, v15:** new row 6, PlacesPlansA (systems Turn 8, Option A). The shipped .seg Places | Plans switch sits at the sheet top, always visible. Places: city sections. Plans: a list of plans (route glyph, name, stops and cities, a ›, New plan last). One plan: a back chevron, legs as headings, numbered stops. Row 5 (PlanCity1, TitleAndGoTo) is greyed as superseded. Option B is not drawn. Threads 0d441a3b and 47b66098 are open.
+
+## Canvas v16–v17 (2026-10-16)
+- v16: CityNew: the NEW stamp sits right after the city dropdown (sel_row right slot justify-self:start), on all tags.
+- v17: menus drop the "why" labels (nearest / hidden / km): name + tally only, one baseline; a hidden city stays greyed.
+- v17: GoToMap fit button is now a labelled "All cities" (go-to ring + text) in the Leaflet control style.
+- New boards: CityMetaRefined (R1 eyelet axis, R2 routing line; NEW stamp after the dropdown), SectionSeparate (S1 air above, S2 navy ledger rule + raised band), HiddenCity (H1 hidden header state with closed eye, H2 gone + filters dot), TagBadge (T1 small Hanging Tag, T2 sideways luggage label; tally rule; navy-edged shadow for legibility), CollapseRefined (K1 last icon after a hairline at 18px, K2 right-aligned icon-only sheet-edge tab, list up and lowered; credit lifted above the tab).
+- Picked: tag direction for the map badge (bd932962 closed); B's collapse icon (082ebef3 closed).

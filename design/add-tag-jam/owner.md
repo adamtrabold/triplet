@@ -58,3 +58,14 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on Go to 3's list header "All places (202)") the type size here is good for overall header. the number should match what we do in the list headers...maybe that type size will be too small though
 > (on Go to 1's menu) this is great but how do you pick a plan
 > (on the list header "▼All places (202)") i wonder if collapse shouldn't live somewhere else to not confuse with the dropdown select. also is this the right icon for collapse or could we do something more different.
+
+## 2026-10-16 (canvas threads, round b)
+> (on CityNew's NEW stamp) i like this but i want it closer to the dropdown than closer to the edge
+> (on CityAsMetadata, execution 1) this *feels* good but looks really ugly and doesnt feel like rational placement
+> (on GoToHeader's Go to menu) this is looking good but nearest and hidden are oddly placed / baselines aren't aligned. also im not really sure if we need either text there. hiddens are already visually hidden and i probably know what city i'm near
+> (on the section header) good for now... though now im wondering if the header is separate enough visually
+> (on GoToSections' "Hidden: Malmö  Show" row) this ui is awkward
+> (on GoToMap's fit button) what is this icon?
+> (on GoToMap's little-tag badge B) i like tying to the tag but i dont think this is quite there yet
+> (on Collapse option B's header) i like this icon but im not sure if placement is right or treatment
+> (on Collapse option C's LOWER tab) i love this but itll get in the way of the + and it clutters up the map. maybe the icon in the version above in here would be good with no text? and then it could be right aligned? idk if that will feel messy
