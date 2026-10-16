@@ -156,3 +156,37 @@ NEXT: icon designer, fixes 1–4. Then I look at the changed sections.
 - **Stills re-shot:** `stills/g3-sheet-0..4.png` (3x) and `g3-sheet-3-1x.png`. I also looked at sheet 1 at 1x.
 
 NEXT: design director, look at the changed sheets.
+
+---
+
+## Turn 8: design director, the g3 fixes (76033fc): 9, send
+
+I checked the changed sections only, at phone size: A's Inside (strip,
+real size, overlay, rules table), B's overlay and real size, sheet 3 at
+1x, and the text of fixes 1 and 3 in `cards-g3.html`.
+
+- **1, unbundled. Done.** It's in bold on sheet 3, readable at 1x, with
+  the matching line on sheets 1 and 2.
+- **2, MIDDLE. Done, as a grid rule.** It's a dotted guide in the strip,
+  the overlay and the table, applied in code (`middleRule()`).
+  - In A's strip the cup and the bed now sit centred on MIDDLE, and
+    they no longer look dropped at real size.
+  - The coupe's "it stands on its foot" is a sound distinction.
+- **3, chip wording. Done.**
+- **4, Inside order. Done.** It now runs: a one-line rule, then the
+  strip, then real size, then the captioned overlay. B's caption
+  honestly says it spreads wider than A's box.
+
+**Score: 9.** Both first tests pass (the grid is the subject, the
+interior is answered in pictures), the question is a single decision,
+and the cards are honest.
+
+**The question, word for word:** "Which grid do we draw the 13 on: A,
+the square pixel grid, or B, the round seal grid?"
+
+**After his pick, these come next, in this order:**
+1. the corner law and the air;
+2. the engine slivers, then the drawing step.
+
+NEXT: the coordinator sends the canvas page "Grid concepts" with the
+question, and adds the `../history.md` line.

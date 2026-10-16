@@ -479,3 +479,9 @@ don't see a single grid". My 9 was wrong.
 - **Watch next look:**
   - the cup and the bed in A's real-size row;
   - whether the short-glyph rule is drawn as a guide, not a nudge.
+- **g3b (76033fc): 9, sent.** MIDDLE 12 is drawn and applied by rule,
+  and the cup and the bed are centred. The other three fixes are in.
+- **After his grid pick, in order:**
+  1. the corner law and the air;
+  2. the engine slivers;
+  3. the drawing step.

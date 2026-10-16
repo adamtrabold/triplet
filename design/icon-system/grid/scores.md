@@ -286,3 +286,24 @@ The question is unchanged; fix 1 makes it one decision.
 
 Yes, fundamentally. It's a new structure built around his two
 reactions. Both first tests pass, and what's left is four short fixes.
+
+## Round g3b (76033fc), 2026-10-16: 9, READY
+
+I checked the changed sections only, at phone size.
+
+- **Fixes 1–4 are all in:**
+  1. **Unbundled:** the line is on sheet 3, legible at 1x, and on
+     sheets 1 and 2.
+  2. **MIDDLE 12:** drawn as a guide and applied by rule in code. In A,
+     the cup and the bed are centred and no longer look dropped.
+  3. **The chip line** is corrected.
+  4. **Inside order:** rule, strip, real size, then the captioned
+     overlay.
+- **The work changed:** yes, exactly the four fixes.
+- **Likely objections, none blocking:**
+  - The overlay is still dense. *Possible.* It now sits last, with a
+    caption.
+  - B spreads wider than A's box. That's stated, and it's his call.
+- **Send** the canvas page "Grid concepts". The question, word for
+  word: "Which grid do we draw the 13 on: A, the square pixel grid, or
+  B, the round seal grid?"
