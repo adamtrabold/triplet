@@ -85,3 +85,9 @@ Orchestrator's note: record his words; don't turn his examples into lists, rules
 > the venue differentiator in my head is if i'd go there if there wasn't a show happening
 
 Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venue is a place you'd only go to for a show.
+
+2026-10-16, answers on the categories recommendation:
+> i agree attraction is very broad -- i like museums + galleries or museum/gallery or something similar (not all galleries are museums)
+> 1. square as own category i like that
+> 2. street is fine to be trimmed but just make sure its long enough i hav eno idea how big 600m is
+> 3. nature if it's natural; pools if it's like a city pool should be closer to attraction

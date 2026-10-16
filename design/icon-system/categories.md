@@ -124,10 +124,25 @@ Owner, verbatim: "i think sight is different from attraction -- think mountain v
 
 The owner knows these places, so any row can flip on his call. The test decides it, not the place's name.
 
+## Revision 2 (owner answers, 2026-10-16)
+
+- **Museums & galleries split out of Attraction** (owner: "i like museums + galleries or museum/gallery or something similar (not all galleries are museums)"). Working name: **Museums & galleries**. It takes 23 places:
+  - Copenhagen: Designmuseum Danmark, Danish Architecture Center BLOX, Galleri Bo Bjerggaard, Nils Stærk, V1 Gallery
+  - LA: Hammer Museum, Photo Booth Museum, The Broad, Shepard Fairey Exhibit
+  - Malmö: Moderna Museet Malmö
+  - Reykjavík: Ásmundarsafn, Hafnarhús, Icelandic Punk Museum, Kjarvalsstaðir, Reykjavík Maritime Museum
+  - Stockholm: ABBA Museum, ArkDes, Fotografiska, Moderna Museet, Spårvägsmuseet, Spritmuseum, Scenkonstmuseet, Vasa Museum
+
+  Attraction keeps landmarks, castles, rides, murals and tours.
+- **Square: its own category.** Decided.
+- **Street length.** 600m is about a 7–8 minute walk. Proposal: a street under about 1.5km (a 20-minute walk) is saved whole. A longer one is trimmed to about 1.5km around where you searched, with handles to stretch it. For scale: Jægersborggade is roughly 300m long, so it's always saved whole.
+- **Pools and natural spots** (owner: "nature if it's natural; pools if it's like a city pool should be closer to attraction"):
+  - Laugardalslaug and Sundhöllin are city pools → Attraction.
+  - Gunnuhver and the Bridge Between Continents are natural → stay Nature.
+  - Reykjanesviti is a lighthouse in the landscape. It's built, so by the rule → Attraction. The owner can flip it.
+
 ## Questions only the owner can answer
 
-1. **Square:** its own pin category, or fold squares into Attraction?
-2. **Street box:** a stretch you trim when adding, about 600m by default. OK?
-3. **Pools and hot springs** (Laugardalslaug, Sundhöllin, Gunnuhver): stay in Nature, or get their own category?
-4. **Names:** "District" → "Neighbourhood". Yes or no? (Attraction stays.)
-5. **The Venue table:** any place the "would I go without a show?" test puts in the wrong bucket?
+1. **Name:** "Museums & galleries", or something shorter?
+2. **Names:** "District" → "Neighbourhood". Yes or no?
+3. **The Venue table:** any place the "would I go without a show?" test puts in the wrong bucket?
