@@ -70,3 +70,13 @@
   - plus an "after tap" note.
 - **Naming** (city / trip / no label) is pending the owner; the canvas
   still says CITY.
+- **2026-10-16, canvas v7:** the stub's marks are now the shipped markup.
+  - **VISITED:** `.row-stamp` 72x32, navy 82%, the dotted track as an
+    inline SVG path (pathLength 166.29, dasharray 0 1.9797), the 2px ring
+    inset 4, the filled STICKER_CHECK.row 8px, VISITED 10px caps, x1.1, a
+    -3.5deg tilt.
+  - **Star:** `#g-star` / `#g-star-open` at 20px (viewBox -1 -1 26 26);
+    starred = orange fill, 1.5px deep-orange stroke under it.
+  - **Mark visited check:** `.tag-ochk` (STICKER_CHECK.row, stroke 2.05).
+  - **Not carried:** the stamp's paper-tooth texture (`--tex-stamp`),
+    like all texture on the canvas.
