@@ -120,3 +120,7 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > also square could be landmark
 > i think that's good fo rnow
 LOCKED (2026-10-16): 11 pins -- Restaurant, Café, Bar, Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel -- plus shapes Neighbourhood and Street. Tests: "what am I doing there?" and "would I filter for just these?"
+
+2026-10-16, on the t6 canvas (hand-drawn checkmarks on the boards = "conceptually locked"):
+> i added checkmarks to the ones i think conceptually are locked. i still struggle with venue -- it could be music, it could be theatre
+Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column front · Landmark = the Nordic ⌘ loop (answers q2: it goes on Landmark) · Attraction = Ferris wheel · Park = round tree · Nature = conifer. Venue open: notes say music, curtain says theatre.
