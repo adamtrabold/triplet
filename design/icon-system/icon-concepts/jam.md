@@ -1210,3 +1210,101 @@ Nothing else on the cards changed.
 
 NEXT: whoever rebuilds the canvas page "Icon concepts" from `t4.html`;
 then the director looks at the changed sections there.
+
+---
+
+## Turn 14: product designer (visual focus), concepts for the locked list
+
+The owner locked 11 pins and 2 shapes (`../categories.md`, top). I worked
+from his picks and canvas notes in `../owner.md` and the final migration
+(real places and counts). Everything is built at real size in
+`sketches/t6.html`, in t4's style and with its helpers. Stills (team
+only, not on the canvas):
+- `sketches/t6-card-0-list.png`
+- `sketches/t6-card-1-cafe-bar-venue.png`
+- `sketches/t6-card-2-museum-landmark-attraction.png`
+- `sketches/t6-card-3-park-nature.png`
+- `sketches/t6-card-4-dropped.png`
+
+Each concept has a real saved place in a row, plus a badge, a chip, a
+map crop, a Shows line and a Could be line. The colours on the four new
+pins are placeholders, not a proposal.
+
+**The idea behind this turn.** The row already prints the plaque (BAR ·
+COPENHAGEN): that's the brown-sign lesson from turn 11. So an icon only
+has to tell its neighbours apart. The hard neighbours are two trios and a
+pair:
+- café · bar · venue
+- museum · landmark · attraction
+- park · nature
+
+Each card ends with those sets **in one ink**, at 24px and 12px, so shape
+does the work and colour can't cheat. That's also the test for his bar
+note ("not differentiated enough from cafe"): today's cup and wine glass
+are one blob at 12px.
+
+**Settled, not reopened:**
+- restaurant: fork and knife
+- shopping: the bag
+- hotel: the bed
+- street: the walker
+- neighbourhood: city blocks (carried over from district A)
+
+### Candidates
+
+| Icon | Concepts (each a different kind) | Could be misread as (seen at real size) |
+|---|---|---|
+| **Café** (16) | A. Cup and saucer, kept; the row carries "bakery". B. **The bakers' kringle**: the pretzel sign over Nordic bakeries, *in place of* the cup, so no extra noise. C. **A cinnamon bun from above**: a disc with one spiral cut (fika). | A. Not the push he asked for. B. A heart at 12px. Round holes read as a face; teardrop loops fix most of that. It says bakery more than coffee. C. A snail, a target, a spinner. |
+| **Bar** (4) | A. Wine glass, kept. B. **A coupe on a long stem**: a wide, shallow bowl with paper all round. C. **Skål**: two glasses leaning in, a V nothing else in the set has. D. A pint with a head. | A. One mass with the cup at 12px. B. A cake stand, a trophy; close to the fountain. C. A wedding; two objects. D. **A bin** at 24px, which is a tool. |
+| **Venue** (11) | A. **A stage and its rows** (from the amphitheatre sign). B. **The curtain**. C. Two notes (from the old Bar B). D. A stage microphone. | A. A layered cake, Wi-Fi, a podium. B. A window, or home; leans to theatre. C. An audio app. D. The phone's dictation button (a strong misread). |
+| **Museum** (24) | A. Column front. B. **A picture on a nail** (the wire stops the "image" read). C. **A vase on a plinth** (a thing on display). D. **The rope barrier** ("look, don't touch"). | A. A bank, a court. B. A TV, a hanging sign; weak for the Vasa. C. A trophy, an urn. D. **The letter M** at 12px; a club's rope (Venue). |
+| **Landmark** (23) | A. **The Nordic loop ⌘** as a heavy line. B. **The fountain on a square** (his "push that"; squares are Landmark now). C. A monument on its steps. D. The camera (his "camera says 'sight'"). | A. The ⌘ key; its loops are empty shapes, against the rules card. B. A drinking fountain, a trophy; busy at 12px. C. A pencil, a rocket. D. "Take a photo." |
+| **Attraction** (15) | A. **The loop, heavier, with the centre filled** (his lean, built to "its heavy enough"). B. **A carousel**: pointed roof, scalloped edge, flag. C. A Ferris wheel. D. **A castle tower** on the grid. | A. A clover; and the loop means *sevärdhet*, "worth seeing". B. A bandstand or gazebo (that's a park), a circus. C. A sun, a gear; its rim is an outline. D. A chess rook; says nothing of rides or pools. |
+| **Park** (9) | A. **A round tree** (the town tree). B. **A bench** (what you do there). C. **A seesaw**, mid-tip (his "with my kid"). D. The fountain, if Landmark doesn't take it. | A. Broccoli; beside a conifer it's "two trees". B. Checked against the bed: it holds. C. Scales; the thinnest at 12px. D. As Landmark B. |
+| **Nature** (2) | A. Conifer (his earlier pick). B. **Peaks**. C. **A waterfall**. | A. Close to a round-tree Park. B. "Hiking". C. A shower, a comb; no waterfall is saved yet. |
+
+### My positions
+
+1. **The Nordic loop belongs to Landmark, not Attraction.** It means
+   *sevärdhet*, "a thing worth seeing", and Attraction now means going in
+   to do things. I show it in both rows so he can see it, and the card
+   says it's his call.
+   - Built as a heavy line, it reads.
+   - Its loops are still empty shapes, which the rules card keeps for
+     "not marked yet".
+   - Filling the centre (Attraction A) half-fixes that, but turns it into
+     a clover.
+2. **Bar vs café is a silhouette problem, not a subject problem.** In one
+   ink, the coupe (open stem, wide shallow bowl) and skål (a V) both
+   separate cleanly from the cup. The other way: move café off the cup
+   (kringle), and the plain glass is safe again. The pint fails (a bin).
+3. **Park and Nature are picked as a pair.**
+   - Round tree + conifer is the weak pair: they differ in outline only,
+     worst at 12px.
+   - Round tree + peaks is clear, and so is bench + conifer (which keeps
+     his pick).
+   - Nature has only 2 places saved, so Park's 9 matter more.
+4. **The fountain can only live in one place.** Landmark (squares) is the
+   closer fit to what he liked it for on Area. If Bar takes the coupe,
+   the fountain and the coupe are cousins (stemmed basins), so check
+   that pair.
+5. **Venue: the stage leads for me.** It's the place itself rather than
+   one kind of show. The notes are the honest fallback, since most of the
+   11 are music.
+
+### Open questions
+
+- Is a heavy-line ⌘ acceptable under the rules card's "nothing else is
+  an empty shape"? He said "its heavy enough", but the rule is his too.
+- Kringle or bun: does a pastry-only café icon serve the coffee half well
+  enough, given the row prints CAFE?
+- The colours for Venue, Museum, Landmark and Park aren't set; the cards
+  use placeholders. Who sets them, and when?
+- Castles are in Attraction (the list says so), but under "why it
+  matters" a castle looks at home in Landmark too. This only matters if
+  the tower is picked.
+
+NEXT: design director — score the t6 cards (the candidates per open icon
+and the one-ink trios), rule on where the loop goes and which pairs go to
+the owner. Then whoever the coordinator names rebuilds the canvas page
+from `t6.html`.
