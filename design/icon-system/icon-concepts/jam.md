@@ -1572,3 +1572,48 @@ NEXT: product designer (visual focus) — fixes 1–4 in `t6.html` and on
 the canvas boards T6List, T6MuseumLandmarkAttraction, T6ParkNature and
 T6Neighbours. Then the coordinator asks the owner the two questions,
 word for word (scores.md, round 2).
+
+---
+
+## Turn 17: product designer (visual focus), Venue again
+
+The owner ticked his picks on the canvas (`../owner.md`): cup, coupe,
+column front, ⌘ (on Landmark), Ferris wheel, round tree, conifer. Round
+tree + conifer is his call. **For the drawing step:** the two trees must
+read apart at 12px.
+
+Venue is still open: "i still struggle with venue -- it could be music,
+it could be theatre". The job is to say "a show" without choosing which
+kind. His own test is "if i'd go there if there wasn't a show
+happening".
+
+All of it is built in `sketches/t6.html`, **card 6**. The notes (music)
+and the curtain (theatre) stay as the two poles. Five ideas sit between
+them:
+
+| | Concept | Shows | Misread at 24px · at 12px |
+|---|---|---|---|
+| A | **The stage from your seat**: an arch framing a lit floor with three footlights | any stage: a band, an orchestra, a play | a doorway, a fireplace · a block with an arch, close to the column front |
+| B | **The marquee**: a pediment, a band of three big lit bulbs, the doors (vintage matchbooks and brochures) | "tonight", whatever's on | a cinema, a shopfront · a gabled block, a house or the column front |
+| C | **A spotlight**: a stage lamp on a stand, its beam a solid wedge to the floor | someone is on | a desk lamp, a torch, a projector · a wedge, the clearest silhouette of the five |
+| D | **The crowd**: three heads from behind, facing a lit stage bar (the brown-sign "moment", from the amphitheatre RL-010) | you, in the audience, at any show | "people" or contacts, like the account's head · three dots under a bar |
+| E | **A torn ticket stub**, upright, with "admit one" lines and a punch hole | you only go with a ticket, which is his own test | a receipt (Shopping), a coupon · a tilted scrap of paper |
+
+**The ticket, asked directly:** torn and upright, it's a ticket at 24px.
+The torn edge removes the pill and the plaster that sank it for
+Attraction. At 12px it's still a scrap of paper, so it fails the chip,
+and it sits next to Shopping as a receipt.
+
+**What the one-ink check shows** (card 6, bottom):
+- A and B both become a building front at 12px, beside his column front
+  (Museum). That's a real clash now that Museum is locked.
+- C (spotlight) and D (crowd) don't collide with any pick.
+
+**My lean: C, the spotlight.** It's the only one that's equally a gig
+and a play. It has the clearest 12px silhouette, and it clashes with
+none of his picks. D is the most "you" (the audience), but at 24px it
+risks reading as "people". A and B are out on the Museum clash, unless
+Museum's drawing moves far from a front.
+
+NEXT: design director — score card 6. Then the canvas Venue board is
+rebuilt from `t6.html`, and the owner picks.

@@ -297,6 +297,40 @@ const DROP6=[
 const dropRow=([d,c,n,w])=>`<div class="drop">${badge(d,INK[c])}<div><b>${n}</b>${w}</div></div>`;
 const card5=()=>`<div class="card">${head('T6 · Card 5','Dropped this turn')}${DROP6.map(dropRow).join('')}<div class="drop"><span></span><div><b>Croissant (not built)</b>A crescent moon, which was Hotel’s second idea.</div></div></div>`;
 
-document.getElementById('out').innerHTML=card0()+card1()+card2()+card3()+card4()+card5();
+// ---------- CARD 6: venue again (owner 2026-10-16: "i still struggle with venue -- it could be music, it could be theatre")
+const FIG=(x,y,s,ko)=>`<g ${ko?`style="stroke:var(--ko,#F2EBDD)" stroke-width="1.2"`:''} fill="currentColor"><circle cx="${x}" cy="${y}" r="${2.3*s}"/><path d="M${x-3.8*s} 20.5a${3.8*s} ${4.4*s} 0 0 1 ${7.6*s} 0z"/></g>`;
+Object.assign(D,{
+ // a stage seen from the seats: the arch frames it, the floor is lit
+ prosc:`<path fill="currentColor" fill-rule="evenodd" d="M3 3.5h18v17H3zM6.6 20.5V11a5.4 4.6 0 0 1 10.8 0v9.5z"/>`+R(6.6,17.4,10.8,3.1)+`<g ${KO}><circle cx="9" cy="19" r=".8"/><circle cx="12" cy="19" r=".8"/><circle cx="15" cy="19" r=".8"/></g>`,
+ // the sign out front: pediment, a band of three big bulbs, the doors
+ marq2:f('M4 8.6L12 3.4l8 5.2z')+R(3,9.6,18,5.4)+`<g ${KO}><circle cx="7" cy="12.3" r="1.5"/><circle cx="12" cy="12.3" r="1.5"/><circle cx="17" cy="12.3" r="1.5"/></g>`+R(6,16,12,4.6)+KOR(11.4,16,1.2,4.6),
+ // a stage lamp on its stand, its beam a solid wedge to the floor
+ spot:`<g transform="rotate(-28 6.4 6.4)">${R(3,4,7,5)+R(10,3.2,1.6,6.6)}</g>`+R(5.4,9.6,2,9.4)+R(3,19,6.6,1.8)+f('M11.6 5.6L21 17.4V20.8H12.2z')+KOR(12.6,18.6,8.4,1.1),
+ // the crowd from behind, facing a lit stage
+ crowd:R(3,3.5,18,3)+[6.4,12,17.6].map(x=>C(x,13,1.9)+f(`M${x-2.6} 20.6a2.6 4.2 0 0 1 5.2 0z`)).join(''),
+ // a torn stub: ADMIT ONE
+ stub:`<g transform="rotate(-14 12 12)">`+f('M7 5.6l1.25-1.5 1.25 1.5 1.25-1.5 1.25 1.5 1.25-1.5 1.25 1.5 1.25-1.5 1.25 1.5 1.25-1.5L17 5.6V20.4H7z')+`<g ${KO}><rect x="9" y="8.6" width="6" height="1.5"/><rect x="9" y="11.6" width="4.2" height="1.5"/><circle cx="12" cy="16.6" r="1.5"/></g></g>`,
+});
+const card6=()=>`<div class="card">${head('T6 · Card 6','Venue: a show, not music or theatre')}
+<div class="q"><b>You wrote</b>“i still struggle with venue -- it could be music, it could be theatre”</div>
+<p class="att">Your test: “if i’d go there if there wasn’t a show happening”. So the icon needs “a show”, without saying which kind. 11 saved, mostly music: the jazz clubs (Jazzhouse, Jazzhus Montmartre, Fasching, Nalen), VEGA, Debaser Nova and Strand, Slaktkyrkan, Konserthuset, Øksnehallen, the Greek Theatre. The two poles first, then five ideas that sit between them.</p>
+${catBlock('The two poles','From card 1, for comparison.',[
+ concept('Music','Two notes','notes','venue','Jazzhouse','VENUE · COPENHAGEN','Music, and nothing else.','“Audio”, a music app. Leaves out theatre.'),
+ concept('Theatre','The curtain','curtain','venue','Greek Theatre','VENUE · LOS ANGELES','A show on a stage.','A window, home. Leans to theatre.')])}
+${catBlock('In between','Each says “a show is on” rather than what kind.',[
+ concept('A','The stage, from your seat','prosc','venue','Konserthuset','VENUE · STOCKHOLM','An arch framing a lit stage floor with three footlights: any stage, for a band, an orchestra or a play. The place, seen the way you see it.','24px: a doorway, a fireplace, or an arched window. 12px: a solid block with a dark arch, close to the column front (Museum).'),
+ concept('B','The marquee','marq2','venue','Nalen','VENUE · STOCKHOLM','The sign over the door with its bulbs lit: “tonight”, whatever’s on. Straight from the vintage brochures and matchbooks. Three big bulbs, not a ring of small ones, so they survive.','24px: a cinema, or a shopfront. 12px: a gabled block, a house or the column front (Museum).'),
+ concept('C','A spotlight','spot','venue','VEGA','VENUE · COPENHAGEN','A stage lamp throwing its beam on the floor: someone is on. It works for a gig and a play alike.','24px: a desk lamp, a torch or a projector. 12px: a wedge, the clearest silhouette here.'),
+ concept('D','The crowd','crowd','venue','Debaser Strand','VENUE · STOCKHOLM','Three heads from behind, facing a lit stage: you, in the audience. The moment, as on the brown signs, and true for any show.','24px: “people” or contacts, the head-and-shoulders sign the account uses. 12px: three bumps under a bar.'),
+ concept('E','A torn ticket stub','stub','venue','Øksnehallen','VENUE · COPENHAGEN','“Admit one”: you’d only go with a ticket, which is your own test. The torn edge is the tell, and a stub has no rounded ends to read as a pill.','24px: a receipt (Shopping) or a coupon. 12px: a tilted label. For Attraction it failed at 18px as a sweet or a plaster; torn and upright it’s a ticket at 24px, but at 12px it’s still a scrap of paper.')])}
+<div class="cat"><h3>Beside your picks, in one ink</h3><div class="fact">Café cup, bar coupe, museum column front, landmark ⌘, attraction wheel, then each venue idea.</div>
+${setLine([['cup','café'],['coupe','bar'],['temple','museum']],'Your picks for café, bar and museum.')}
+${setLine([['prosc','A'],['marq2','B'],['spot','C'],['crowd','D'],['stub','E']],'The five venue ideas.')}
+${setLine([['temple','museum'],['prosc','venue A'],['marq2','venue B']],'All three are a building front at 12px: a roof or an arch over a solid block.')}
+${setLine([['sevard','landmark'],['wheel','attraction'],['spot','venue C']],'A looped square, a spoked ring, a wedge of light.')}
+${setLine([['crowd','venue D'],['notes','venue']],'Three heads under a bar; two notes on stems.')}
+</div></div>`;
+
+document.getElementById('out').innerHTML=card0()+card1()+card2()+card3()+card4()+card5()+card6();
 window.READY=1;
 </script></body></html>
