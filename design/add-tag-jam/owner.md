@@ -40,3 +40,4 @@ Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today th
 > (on Go to 3's badges) i like having a badge for the city at a zoomed out level. it's nice. are these clickable? would be cool to zoom in if you did.
 > (on Go to 3's badge) i also think about the fact that the map itself will have a city name... so what this is really communicating is "there is a trip here and this is the city" -- i wonder if it needs something to communicate the first half (an icon or something?)
 > (on Go to 1's menu) everything should go full width inside a dropdown
+> (on Go to 1, the go-to icon) i preferred the older icon.. i know we're working on thsoe in a different thread, but lets put it back. this is the "my location" button right now so it's confusing.

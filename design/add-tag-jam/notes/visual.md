@@ -120,3 +120,5 @@
     c51d58ae, 809bd89e;
   - left open for the owner's pick: 20cd568d, a6b0be70, 5baf422c,
     03619be4, bd932962, 32791bc9 (naming), 1241f2b0.
+
+- **2026-10-16, v9:** Go to uses the earlier ring + dot glyph everywhere (menus, header A, Plans chip and menu, the near chip). The crosshair stays only on the shipped "my location" button. Thread 82962a61 is resolved.
