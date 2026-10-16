@@ -91,3 +91,6 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > 1. square as own category i like that
 > 2. street is fine to be trimmed but just make sure its long enough i hav eno idea how big 600m is
 > 3. nature if it's natural; pools if it's like a city pool should be closer to attraction
+> 4. cool on that
+> 5. i dont even know what all of those are lol so i think they're right?
+(4 = rename District to Neighbourhood: yes. 5 = the Venue table stands.)

@@ -141,8 +141,10 @@ The owner knows these places, so any row can flip on his call. The test decides 
   - Gunnuhver and the Bridge Between Continents are natural → stay Nature.
   - Reykjanesviti is a lighthouse in the landscape. It's built, so by the rule → Attraction. The owner can flip it.
 
-## Questions only the owner can answer
+## Decided (owner, 2026-10-16)
+
+Square: its own category. Streets: trimmed, long enough (see Revision 2). City pools → Attraction, natural spots → Nature. District → Neighbourhood. Venue split as tabled. Attraction keeps its name; Museums & galleries splits out of it.
+
+## Still open
 
 1. **Name:** "Museums & galleries", or something shorter?
-2. **Names:** "District" → "Neighbourhood". Yes or no?
-3. **The Venue table:** any place the "would I go without a show?" test puts in the wrong bucket?
