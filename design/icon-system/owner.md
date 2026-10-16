@@ -130,3 +130,5 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > lets not focus on differentiation yet we aren't making final icons here
 > i like the city blocks for neighborhood   (13 of 13 picked; concept step closed)
 > we're not at drawing step next, next step is defining the grid
+
+> yes they need to sit in the stroked circle but also make sense on their own. they need to be at their root simple shapes, but joined together to make coherent glyphs. they must be crafted with the highest attention to detail and quality -- minimal bezier curves with perfect architecture. personality in the approach to how strokes are connected and curve. slight rounding of interior and exterior corners to add a vintage softness. corner rounding should not be 100% consistent though as there are different architecturally sound prinicples to how different angles intersect. the effect of the rounding should allude to something screened or pressed.
