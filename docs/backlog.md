@@ -7,6 +7,15 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 
 ## Priority (owner-requested, next up)
 
+- **Place categories: new list** (owner, 2026-10-16; locked: "i think that's good fo rnow"). There are 11 pin categories: Restaurant, Café, Bar, Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel. There are 2 shapes: Neighbourhood (District renamed) and Street, which becomes a box around a trimmed stretch.
+  - Area and Other go.
+  - The tests: "what am I doing there?" and "would I filter for just these?"
+  - Spec and the place-by-place migration: `design/icon-system/categories.md`. That's 183 pins after the move, plus 9 new shapes to fetch in the owner's browser.
+  - Lane 2/3: app change plus a DB migration through the Supabase MCP.
+  - The biggest new piece is the street "trim to the stretch" step in the add form.
+  - The icon set follows the new list (`design/icon-system/`).
+  - Not started.
+
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
