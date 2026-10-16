@@ -23,3 +23,7 @@ Design system: Triplet — https://claude.ai/artifact/JXWsMZs32JyKdcEzakKrPW
 > (on the "FILED UNDER / Reykjavík" alternative) we do not need this on every tag. it probably only needs to be there when editing
 > (on Star + visited at add) we don't need to change how visited marking works at all. do not tuch
 > (on Go to 1: menu under the list title) hmm i hadnt considered changing the ui for selecting a city. maybe this is better than having the filter panel chips -- certainly clearer from a ux perspective. how do plans work here?
+> (on SectionHeaders, variant A — heading row on the list grid: locate glyph = go to, name at 56, count + hide eye) i really like this header.
+> (on PlansGoTo) what does selecting a plan vs selecting a city look like?
+> (on StarVisited) is this just a mock of the visited badge? looks nothing like the real one
+> (on GoToMap) let's polish up the screens now that we're starting to align -- pull in the real elements everywhere
