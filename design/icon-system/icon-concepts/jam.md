@@ -1728,7 +1728,9 @@ The owner, on Venue: "it's probably the curtain for me then? unless we
 decide to separate theater and music", then "again this is an app for
 way more than just me."
 
-- **Venue = the curtain.** All 13 are now picked:
+- **Venue = the curtain.** 12 of 13 are picked. Neighbourhood (city
+  blocks) is our lead, carried over from District, NOT his pick (ruling
+  7, turn 15). The coordinator is asking him.
   - Restaurant: fork and knife
   - Café: cup and saucer
   - Bar: coupe
@@ -1740,7 +1742,7 @@ way more than just me."
   - Nature: conifer
   - Shopping: bag
   - Hotel: bed
-  - Neighbourhood: city blocks
+  - Neighbourhood: city blocks (our lead, not his pick; asked)
   - Street: walker
 - **The theatre / music split** stays open only if he raises it again.
   We don't propose it.
@@ -1750,5 +1752,10 @@ way more than just me."
   of the app. His saved places are examples that test a concept. They
   are not the audience.
 
-NEXT: the drawing step (grid, optical sizes, drawings), per `jobs.md`
-"Later".
+- **Read-apart checks are notes, not gates.** The owner said: "lets not
+  focus on differentiation yet we aren't making final icons here". Bench
+  vs bed, curtain vs column front and similar stay as notes in my file.
+  They aren't constraints, and I don't score against them now.
+
+NEXT: his answer on Neighbourhood, then the drawing step (grid, optical
+sizes, drawings), per `jobs.md` "Later".

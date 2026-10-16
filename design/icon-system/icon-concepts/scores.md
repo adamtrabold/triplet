@@ -403,8 +403,14 @@ I rendered it myself and read the spotlight section and its one-ink rows.
 
 **Outcome:** he picked the curtain: "it's probably the curtain for me
 then? unless we decide to separate theater and music"; "again this is an
-app for way more than just me." All 13 icons are picked, and the concept
-step is closed.
+app for way more than just me." 12 of 13 icons are picked. Neighbourhood
+(city blocks) is our lead, not his pick; the coordinator is asking him.
+The concept step closes on his answer.
+
+The owner then said: "lets not focus on differentiation yet we aren't
+making final icons here". The 12px read-apart checks above (bench vs bed,
+curtain vs column front and similar) are notes now, not constraints or
+gates.
 
 He corrected the scoring frame: icons are judged for every user, and his
 saved places are only examples. That replaces step 2 of my bias check.

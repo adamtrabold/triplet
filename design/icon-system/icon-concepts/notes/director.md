@@ -280,13 +280,18 @@ coordinator asks the two questions.
   - If he picks the spotlight or the crowd, the 12px read is the
     drawing step's first problem.
 
-## Concept step closed (turn 20, 2026-10-16)
+## Concept step: 12 of 13 picked (turn 20, 2026-10-16)
+
+Correction: Neighbourhood (city blocks) is OUR lead, carried over from
+District, and never his pick. I flagged this myself in ruling 7, then
+repeated the error in turn 20's first draft. The coordinator is asking
+him; the step closes on his answer.
 
 - **Venue = the curtain.** Owner: "it's probably the curtain for me
   then? unless we decide to separate theater and music"; "again this is
   an app for way more than just me." The theatre / music split is open
   only if he raises it.
-- **All 13:**
+- **The 13 (12 his picks; Neighbourhood is our lead):**
   - Restaurant: fork and knife
   - Café: cup and saucer
   - Bar: coupe
@@ -298,7 +303,7 @@ coordinator asks the two questions.
   - Nature: conifer
   - Shopping: bag
   - Hotel: bed
-  - Neighbourhood: city blocks
+  - Neighbourhood: city blocks (our lead, not his pick; being asked)
   - Street: walker
 - **Bias check, revised (his correction):**
   1. Reads at real size.
@@ -308,12 +313,16 @@ coordinator asks the two questions.
   3. One family.
   4. Then wit.
   Also, from his picks: one plain object beats a gesture or a scene.
-- **Carry into the drawing step:**
+- **Read-apart checks are notes, not gates.** Owner: "lets not focus on
+  differentiation yet we aren't making final icons here". These are
+  observations only, not constraints, and I don't score against them now:
   - bench vs bed at 12px;
-  - the ⌘'s line clearly heavier than the 2.00px outline;
   - the Ferris wheel is busy at 12px;
   - the curtain vs the column front at 12px;
-  - the coupe's stem at 12px;
+  - the coupe's stem at 12px.
+- **Carry into the drawing step:**
+  - the ⌘'s line clearly heavier than the 2.00px outline (this is the
+    rules-card condition from ruling 2, not a read-apart check);
   - the four new colours (Venue, Museum, Landmark, Park), proposed by
     the product designer (visual focus) from the brand tokens, clear of
     the orange and the navy;
