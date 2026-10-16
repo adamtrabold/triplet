@@ -33,4 +33,4 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 | v6 cards shown, Constructed chosen | a8a583f / ec6cc11 |
 | t4 concept cards | 2717977 |
 | Categories locked | db40060 |
-| All 13 concepts picked | (this commit) |
+| All 13 concepts picked | c42639d |
