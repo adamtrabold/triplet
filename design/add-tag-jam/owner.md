@@ -43,3 +43,6 @@ Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today th
 > (on Go to 1, the go-to icon) i preferred the older icon.. i know we're working on thsoe in a different thread, but lets put it back. this is the "my location" button right now so it's confusing.
 > (on Go to 2, header A) actually i dont think it want an icon in the table header... let's just drop it and align the header text with the edge of the icon
 > (on Search 2, the near chip) no this is far too complex.
+> (on TYPE open) this dropdown is far too wide -- what should it actually do? when i said full width i meant the dividers should stretch the full width of the dropdown window
+> (on Changing the city, the menu) lets treat all dropdowns the same -- also the distance between dropdown select and the actual list is massive
+> (on Plans, plan vs city) the plan vs city selection is far too complex. let's simplify it to as few separate actions as possible with extreme clarity between picking a plan or city and then the "go to" sections within a plan

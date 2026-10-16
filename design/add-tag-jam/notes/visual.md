@@ -123,3 +123,21 @@
 
 - **2026-10-16, v9:** Go to uses the earlier ring + dot glyph everywhere (menus, header A, Plans chip and menu, the near chip). The crosshair stays only on the shipped "my location" button. Thread 82962a61 is resolved.
 - **2026-10-16, v10:** section header A has no glyph. The name is the go-to button, its left edge at x 18 (the row badges' ink edge), with the eye on the right. The NEW tab moved off the text. Thread 2c2231cc is resolved.
+- **2026-10-16, v11-12:**
+  - Search 2 (the near chip) is greyed out and marked REJECTED, with a
+    sticky (owner: "far too complex"). Search 1 and 3 remain.
+  - New row 5, PlanCity1 (systems Turn 7, Option 1):
+    - the title is the one picker (all places / plans / new plan);
+    - the section headings (header A) are go to: cities, or a plan's
+      legs;
+    - show/hide stays in the filter panel.
+    PlansGoTo is greyed out as SUPERSEDED. Option 2 is not drawn.
+    Thread 91154dfc is left open.
+  - **One dropdown spec** (threads c654c2fc and cdce28a5; I'd misread
+    "full width" in b7f43313):
+    - natural width (max-content, min 200);
+    - dividers edge to edge;
+    - content on one left edge, the check at the right;
+    - opens 6px under its trigger, left-aligned to it.
+    Applied to TYPE, City (now a menu under the chip, not in-tag rows),
+    Go to and the title menu.
