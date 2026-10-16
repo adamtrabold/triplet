@@ -90,3 +90,12 @@ see a single grid". My 9 was wrong.
 
 NEXT: icon designer, the grid redo. Then the director scores it with the
 first test above.
+
+**Added test.** The owner, on the g2 frame card: "I am glad we have the
+outer stuff defined in that grid by what about the interior? There's
+nothing to keep them consistent outside height/width and space to the
+ring".
+- The outer frame landed with him.
+- The redo must also answer the interior: what inside the live area
+  keeps the 13 consistent.
+- It has to be shown as part of each grid, visible on his phone.

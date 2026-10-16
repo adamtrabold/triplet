@@ -455,3 +455,12 @@ don't see a single grid". My 9 was wrong.
 - **Grid redo (icon designer):** the grid is the subject, shown as
   grids, more than one if there's more than one sound option. The
   engine-sliver must-dos still apply at the drawing step.
+- **The owner on the g2 frame card:** "I am glad we have the outer stuff
+  defined in that grid by what about the interior? There's nothing to
+  keep them consistent outside height/width and space to the ring".
+  - The outer frame landed (ring, air, live circle, keylines).
+  - **When I score the redo, check that each grid answers his
+    "interior" question.** What inside the live area keeps the 13
+    consistent beyond height, width and space to the ring? The grid has
+    to show it as the grid, not argue it in text.
+  - I don't prescribe how. That's the designer's call.
