@@ -19,6 +19,7 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 - **10-16 · t6 on the canvas:** all 13 side by side, plus the open icons. Asked "which one, or neither?" and where the ⌘ goes.
 
 - **10-16 · t6 picks (ticks on the canvas):** cup and saucer, coupe, column front, ⌘ loop (on Landmark), Ferris wheel, round tree (then bench: "lets do park bench"), conifer. "i still struggle with venue -- it could be music, it could be theatre"
+- **10-16 · Venue = curtain:** "again this is an app for way more than just me." Lesson: judge icons for every user, not his current pins.
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)

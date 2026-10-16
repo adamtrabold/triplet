@@ -125,3 +125,5 @@ LOCKED (2026-10-16): 11 pins -- Restaurant, Café, Bar, Venue, Museum, Landmark,
 > i added checkmarks to the ones i think conceptually are locked. i still struggle with venue -- it could be music, it could be theatre
 Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column front · Landmark = the Nordic ⌘ loop (answers q2: it goes on Landmark) · Attraction = Ferris wheel · Park = round tree · Nature = conifer. Venue open: notes say music, curtain says theatre.
 > good point on the round tree-- lets do park bench   (Park = bench; replaces round tree)
+> it's probably the curtain for me then? unless we decide to separate theater and music
+> again this is an app for way more than just me.   (Venue = curtain; I had argued from his current data, again)
