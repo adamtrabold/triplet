@@ -14,3 +14,9 @@ Prior add-form work: design/add-button-placement/concepts/blank-tag-form/ (round
 
 Canvas: https://claude.ai/artifact/6aSGgGczYGfWGP1UqTDGP3 (empty, Design type)
 Design system: Triplet — https://claude.ai/artifact/JXWsMZs32JyKdcEzakKrPW
+
+2026-10-16, canvas comments:
+> alignment of both of these dropdowns are weird
+> nothces arent cutting out -- did something change in tag design or is this just an artifact of it being a sketch?
+> same here re: design change -- is this a sketching artifact?
+> maybe instead of city we refer to *this* level as trip? run that idea by the team -- the pro is that it would clarify this situation, but the con is that usually it *will* be a city
