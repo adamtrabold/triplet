@@ -2,6 +2,9 @@
 
 One entry per moment the owner saw work or decided. At most 4 lines each, with the deciding quote only. Full words are in `owner.md`, the team's reasoning in `jam.md` and `scores.md`.
 
+**Snapshots** (`snapshots/`): 1 start: navy + top-right, beside the account badge (10-12) · 2 end: the orange badge bottom-left.
+
+
 - **10-12 · The ask:** "it should probably be more prominent + reachable on the phone"
 - **10-12 · One concept shown:** "i want more than one concept." This became a standing rule.
 - **10-13 · Stub, striker strip, pencilled pin:** "The tag is novel but it doesn't read like a plus button … The full width button … is way too much ui. I don't want to just knee jerk to the standard"

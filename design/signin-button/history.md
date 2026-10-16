@@ -2,6 +2,9 @@
 
 One entry per moment the owner saw work or decided. At most 4 lines each, with the deciding quote only. Full words are in `owner.md`, the team's reasoning in `jam.md` and `scores.md`.
 
+**Snapshots** (`snapshots/`): 1 start: the signed-in account badge · 2 the playground's boxed SIGN IN menu (rejected) · 3 end: the signed-out paper badge · 4 end: signed in.
+
+
 - **10-08 · The ask:** a non-destructive "playground" to share. "it should just have a sign in button"
 - **10-12 · The boxed SIGN IN menu, rejected:** "no that button does not look good … one i'd like explored is a verson where there is a signed out person themed icon … with "sign in" … following a circular path under it" → the arc-badge concept. `current-rejected-menu-3x.png`
 - **10-12 · Concept A (director 9):** "on the right track but it's ugly. icon should be centered … text should be smaller and probably tracked out" → round 2. `concepts/A-arc-badge/sheet-3x.png`

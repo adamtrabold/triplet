@@ -2,6 +2,9 @@
 
 One entry per moment the owner saw work or decided. At most 4 lines each, with the deciding quote only. Full words are in `owner.md`, the team's reasoning in the `jam.md` and `scores.md` files. Review canvas: https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW (older rounds are on its Archive page).
 
+**Snapshots** (`snapshots/`): 1 start: the app today and every icon side by side (the inventory). The end shot gets added when the new icons land.
+
+
 - **10-07 · The ask:** "they're too noisy … the checked items are stronger visually than the open ones … i need a full rev."
 - **10-13 · Every icon side by side:** an inventory of 74 icons on the canvas. `inventory.md`
 - **10-14 · False start:** the crew worked from an old backlog line. "Visited should not change. Also I never told you what I wanted changed" and "all I want is every icon side by side" → reset to brand approach first, then grid and SVGs. Lesson: brief from his current words.

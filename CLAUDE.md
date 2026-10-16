@@ -79,8 +79,10 @@ something is good that means ship it"). Every design project keeps a `history.md
 (one line-item per moment the owner saw work or decided, max ~4 lines:
 the deciding quote, the outcome, a link to the evidence; link, never copy;
 owner: "i dont want to balloon a ... gb history file"), and superseded canvas rounds move
-to the canvas's Archive page, never deleted (owner wants it for case
-studies; example: `design/icon-system/history.md`). Everything else is optional.
+to the canvas's Archive page, never deleted Each history also keeps
+`snapshots/` with app screenshots at the start and the end (render any
+commit with `node design/snapshots/shoot.js <commit> <out.png> [signedout]`)
+(owner wants both for case studies; example: `design/icon-system/history.md`). Everything else is optional.
 
 ### Roles (owner-set)
 
