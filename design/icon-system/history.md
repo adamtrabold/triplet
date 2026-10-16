@@ -28,6 +28,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-16 · "I don't see a single grid":** g2 led with icons, and the grid was buried on card 1. Lesson: show the grid as a grid.
 
+- **10-16 · Grid g3 shown:** two grids (A square pixel keyline, B radial seal) with interior guides (TOP, SHOULDER, MIDDLE, BASE, centre axis). Asked: "Which grid do we draw the 13 on". `grid/stills/g3-sheet-3.png`
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
