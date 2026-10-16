@@ -303,7 +303,8 @@ him; the step closes on his answer.
   - Nature: conifer
   - Shopping: bag
   - Hotel: bed
-  - Neighbourhood: city blocks (our lead, not his pick; being asked)
+  - Neighbourhood: city blocks (our lead, then his pick when asked; 13
+    of 13)
   - Street: walker
 - **Bias check, revised (his correction):**
   1. Reads at real size.
@@ -327,3 +328,27 @@ him; the step closes on his answer.
     the product designer (visual focus) from the brand tokens, clear of
     the orange and the navy;
   - the + weight follows the set.
+
+## Next phase: the grid (2026-10-16)
+
+13 of 13 picked; concept step closed. Owner: "we're not at drawing step
+next, next step is defining the grid". Phase brief (owner.md, 2026-10-14):
+"After I approve a direction or directions there, the team will research
+best practices for icon design and develop a shared grid system to
+iterate on drawing the icons. These should be svgs and if it's better to
+mcp or connect to a different tool for this they can let me know."
+
+Scoring the grid concepts (in `design/icon-system/grid/`, from the
+product designer, visual focus): only a 9 goes to the coordinator. What
+I'll judge, from his words and the settled rules, not a new rule set:
+- it's a grid to iterate drawings on, not finished drawings;
+- SVG;
+- research that's cited and short;
+- a tool recommendation with a reason (MCP or another tool, his ask);
+- it holds the settled frame: places solid in a stroked circle, 2.00px
+  lines, outline = not yet marked, the ⌘ line heavier than the outline;
+- it serves the real sizes (24 badge, 12 chip, map pin);
+- warmth from construction (his "subtle rounding, etc.", examples not a
+  list).
+Read-apart checks stay notes, not gates ("lets not focus on
+differentiation yet").

@@ -1759,3 +1759,15 @@ way more than just me."
 
 NEXT: his answer on Neighbourhood, then the drawing step (grid, optical
 sizes, drawings), per `jobs.md` "Later".
+
+**Update:**
+- He picked city blocks for Neighbourhood, so 13 of 13 are picked and
+  the concept step is closed.
+- The next step is the grid, not drawing. Owner: "we're not at drawing
+  step next, next step is defining the grid". His phase brief (2026-10-14):
+  "After I approve a direction or directions there, the team will research
+  best practices for icon design and develop a shared grid system to
+  iterate on drawing the icons. These should be svgs and if it's better
+  to mcp or connect to a different tool for this they can let me know."
+- The designer's grid concepts, research and tool recommendation go in
+  `../grid/`. I score them there, and only a 9 goes to the coordinator.
