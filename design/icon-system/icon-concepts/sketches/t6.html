@@ -187,23 +187,26 @@ Object.assign(D,{
 // leads (director turn 15) for the 13-across strip and the map crops
 const LEAD={restaurant:'fork',cafe:'cup',bar:'skal',venue:'notes',museum:'temple',landmark:'sevard',attraction:'wheel',park:'roundtree',nature:'peaks',shopping:'bag',hotel:'bed',neighbourhood:'blocks',street:'walker'};
 Object.assign(COMMON,LEAD);
+// the owner's picks (canvas ticks 2026-10-16; Park switched to the bench); Venue open = null
+const PICK={...LEAD,bar:'coupe',park:'bench',nature:'tree',venue:null};
+const openBadge=(size)=>`<div style="width:${size}px;height:${size}px;border-radius:50%;border:2px dashed var(--hair);box-sizing:border-box;flex:none"></div>`;
 const PINS=['restaurant','cafe','bar','venue','museum','landmark','attraction','park','nature','shopping','hotel'],SHAPES=['neighbourhood','street'];
 const lbl=s=>`<div style="font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);text-align:center;margin-top:3px;line-height:1.1">${s}</div>`;
 const cell=(d,cat,txt)=>`<div style="display:flex;flex-direction:column;align-items:center;width:52px">${badge(d,cat?INK[cat]:ONE)}<div style="height:5px"></div>${bare(d,cat?INK[cat]:ONE,12)}${lbl(txt)}</div>`;
 // facts only: no verdict tags
 const setLine=(cells,fact)=>`<div class="bt" style="grid-template-columns:auto 1fr"><div class="ics" style="gap:2px">${cells.map(([d,t])=>cell(d,null,t)).join('')}</div><span>${fact}</span></div>`;
 // 13 across: a column per icon, 24px badge over 12px chip glyph
-const across=(cats,one)=>`<div style="display:flex;gap:6px;align-items:flex-start">${cats.map(c=>`<div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:24px">${badge(LEAD[c],one?ONE:INK[c])}${bare(LEAD[c],one?ONE:INK[c],12)}</div>`).join('')}</div>`;
+const across=(cats,one)=>`<div style="display:flex;gap:6px;align-items:flex-start">${cats.map(c=>`<div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:24px">${PICK[c]?badge(PICK[c],one?ONE:INK[c])+bare(PICK[c],one?ONE:INK[c],12):openBadge(24)+`<div style="font-size:7px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);font-weight:700;line-height:12px">open</div>`}</div>`).join('')}</div>`;
 const legend=`<div class="fact" style="font-size:10.5px;margin-top:6px">Pins: restaurant, café, bar, venue, museum, landmark, attraction, park, nature, shopping, hotel. Shapes: neighbourhood, street.</div>`;
 const NOTE_INK=`<div class="fact" style="font-size:10.5px">Venue, museum, landmark and park are in one grey ink. Colour comes later.</div>`;
 const starOut=size=>`<svg viewBox="0 0 24 24" width="${size}" height="${size}" style="display:block;flex:none"><path d="${STAR}" fill="none" stroke="${ONE}" stroke-width="${2*24/size}" stroke-linejoin="round"/></svg>`;
 
 // ---------- CARD 0: the 13 side by side
 const card0=()=>`<div class="card">${head('T6 · Card 0','All 13, side by side')}
-<p class="att">Your locked list: 11 pins and 2 shapes. Four are your picks and Neighbourhood is carried over; for the other eight this strip shows our lead. The cards after it show the other concepts for each.</p>
+<p class="att">Your picks: the ones you ticked on the canvas (cup and saucer, coupe, column front, the ⌘ loop on Landmark, Ferris wheel, park bench, conifer) and the four from t4 (fork and knife, bag, walker, bed). Neighbourhood is carried over. Venue is still open (card 6).</p>
 <div class="lab">In colour · 24px badge, 12px chip</div>${across(PINS)}<div style="height:8px"></div>${across(SHAPES)}${NOTE_INK}
 <div class="lab">In one ink</div>${across(PINS,1)}<div style="height:8px"></div>${across(SHAPES,1)}${legend}
-<div class="lab">Settled</div>
+<div class="lab">Picked on the t4 boards</div>
 <div class="strip" style="gap:14px;align-items:flex-start">${[['restaurant','your pick'],['shopping','your pick'],['hotel','your pick'],['street','your pick']].map(([c,t])=>cell(LEAD[c],c,c+'<br>'+t)).join('')}${cell('blocks','neighbourhood','neighbour-<br>hood')}</div>
 <div class="fact">Neighbourhood: carried over from District; you haven’t commented on it.</div>
 <div class="fact">Saved after the migration: Restaurant 30, Café 16, Bar 4, Venue 11, Museum 24, Landmark 23, Attraction 15, Park 9, Nature 2, Shopping 49, Hotel 0.</div>
