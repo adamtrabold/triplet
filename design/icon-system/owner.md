@@ -135,3 +135,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > the designer should be an expert icon designer with the highest attention to glyph craft   (grid handed to a specialist icon designer)
 > I don't understand. I see a bunch of icons redrawn. I don't see a single grid   (on g2 cards 2 and 4)
 > I am glad we have the outer stuff defined in that grid by what about the interior? There's nothing to keep them consistent outside height/width and space to the ring
+> A feels to be producing better sized icons but the icons are too simplistic that are coming out in reality. Let's try a bunch of pixel widths for the stroke to give us the perfect overall density goal. I want sub pixels from prolly .8 to 2.5   (on g3; reopens the 2.00px line)
