@@ -23,8 +23,9 @@ Today the category decides the drawing: district and street are shapes, and ever
 |---|---|---|
 | Restaurant | Somewhere to eat a meal | none |
 | Café | Coffee, a bakery, a snack | none |
-| Bar | Drinks and live music | open: rename to "Bars & music"? (8 of 12 are music venues) |
-| Sight | Something to see: museum, landmark, gallery, mural, ride | renamed from Attraction; same places |
+| Bar | You go for the drink (music or not) | keeps 4: WarPigs, Covell, Tiki-ti, Metro |
+| Venue | You'd only go if there's a show on | **new**; 8 from Bar, 3 from Attraction |
+| Attraction | Something made to visit: museum, landmark, gallery, castle, mural, ride | name kept (owner); loses the venues |
 | Square | A square, plaza or market place to sit in | **new**; takes the squares from Area |
 | Nature | A park, garden, coast, pool, hot spring | gains the parks from Area |
 | Shopping | A shop or market stall | none |
@@ -89,7 +90,7 @@ The owner's point: "interesting places on streets are close together and streets
 | Fashion District | LA | Shopping | Neighbourhood |
 | Værnedamsvej (approx.) | Copenhagen | District pin | Street (needs its stretch) |
 
-Murals saved at a street address (Davidshallsgatan 10 and 24, Södra Skolgatan, Stenhuggaregatan, Rentemestervej) are points. They stay Sight.
+Murals saved at a street address (Davidshallsgatan 10 and 24, Södra Skolgatan, Stenhuggaregatan, Rentemestervej) are points. They stay Attraction.
 
 **Notes and stars carry over.** Before a duplicate pin is removed, its notes, star and visited state are copied onto the matching shape.
 
@@ -103,10 +104,30 @@ Murals saved at a street address (Davidshallsgatan 10 and 24, Södra Skolgatan, 
 - **Icons:** Area's fountain or square idea moves to **Square**, which fits it better. Neighbourhood keeps the city blocks; street keeps the walker. This also settles the area-vs-district icon clash.
 - **Data:** a one-time migration through the Supabase MCP. Fetching the 6 new outlines and stretches needs live OpenStreetMap, which only works in the owner's browser (the `tools/` page).
 
+
+## Revision 1 (owner feedback, 2026-10-16)
+
+Owner, verbatim: "i think sight is different from attraction -- think mountain vs theme park. though i guess that would be nature. which makes me think sight is still wrong and attraction is actually better. the other thing is that bars and music should be two separate things -- bars and venues. if a bar has music, that is different from a venue that is primarily music that may or may not be a bar if that makes sense? maybe it doesnt pressure test the thinking"
+
+**Attraction stays.** Pressure test: a mountain is Nature. What's left in Attraction is things *made* to be visited: museums, landmarks, castles, galleries, murals, Tivoli, Gröna Lund, the swan boats. "Sight" fails for the rides (you do them, you don't look at them). "Attraction" covers both. One flag: 23 of the 62 are museums or galleries. If the list ever feels like a junk drawer, Museum is the natural split. Not proposed now.
+
+**Bar and Venue split.** The owner's test, verbatim: "the venue differentiator in my head is if i'd go there if there wasn't a show happening". If you wouldn't go without a show, it's a Venue. If you'd go anyway, it's a Bar, an Attraction or Nature, whatever it is without the show. The test holds on the data:
+
+| Place | Without a show? | Moves to |
+|---|---|---|
+| Jazzhouse, Jazzhus Montmartre, VEGA (Copenhagen) | wouldn't go | Bar → Venue |
+| Debaser Nova, Debaser Strand, Fasching, Nalen, Slaktkyrkan (Stockholm) | wouldn't go | Bar → Venue |
+| Greek Theatre (LA), Konserthuset (Stockholm), Øksnehallen (Copenhagen) | wouldn't go | Attraction → Venue |
+| Harpa (Reykjavík) | would go, for the building | stays Attraction |
+| Folkets Park (Malmö) | would go, it's a park | stays Attraction (or Nature) |
+| WarPigs, Covell, Tiki-ti, Metro bar | would go, for the drink | stay Bar |
+
+The owner knows these places, so any row can flip on his call. The test decides it, not the place's name.
+
 ## Questions only the owner can answer
 
-1. **Square:** its own pin category, or fold squares into Sight?
+1. **Square:** its own pin category, or fold squares into Attraction?
 2. **Street box:** a stretch you trim when adding, about 600m by default. OK?
-3. **Bar:** rename to "Bars & music"?
 4. **Pools and hot springs** (Laugardalslaug, Sundhöllin, Gunnuhver): stay in Nature, or get their own category?
-5. **Names:** "District" → "Neighbourhood" and "Attraction" → "Sight". Yes or no?
+5. **Names:** "District" → "Neighbourhood". Yes or no? (Attraction stays.)
+6. **The Venue table:** any place the "would I go without a show?" test puts in the wrong bucket?

@@ -79,3 +79,9 @@ Orchestrator's note: record his words; don't turn his examples into lists, rules
 - Attraction (comment): "i agree with the pushback, but i also am leaning on the inspo a bit for this" then "i dont know if it has to read as a solid shape -- its heavy enough" (the Nordic loop: lead idea for attraction; may stay a heavy line rather than solid).
 - Area (comment): "well -- lets pressure test that... what's the difference between a district and an area?" Orchestrator answered with the data (district = 6 OSM outlines; area = 18 pins, mixed; 8 overlap) and two options; awaiting his lean.
 - Area (comment): "i actually think we're uncovering a flaw in the data model. things like squares are really not quite areas either. they could be represented by a pin. a street however is closer to a district (but not quite) and *should* have a box, becuase interesting places on streets are close together and streets can run through entire cities. do a deeper recommendation on amending the categories." (Systems designer writing design/icon-system/categories.md; area/district icons wait on it.)
+
+2026-10-16, on the categories recommendation (design/icon-system/categories.md, page https://claude.ai/artifact/XANh5kcCLzEy4csb8pNYyt):
+> only a couple things of feedback — i think sight is different from attraction -- think mountain vs theme park. though i guess that would be nature. which makes me think sight is still wrong and attraction is actually better. the other thing is that bars and music should be two separate things -- bars and venues. if a bar has music, that is different from a venue that is primarily music that may or may not be a bar if that makes sense? maybe it doesnt pressure test the thinking
+> the venue differentiator in my head is if i'd go there if there wasn't a show happening
+
+Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venue is a place you'd only go to for a show.
