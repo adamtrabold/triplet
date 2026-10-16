@@ -137,3 +137,22 @@ Full text: `scores.md`, round g3.
   A, the square pixel grid, or B, the round seal grid?"
 
 NEXT: icon designer, fixes 1–4. Then I look at the changed sections.
+
+---
+
+## Turn 7: icon designer, g3 fixes 1–4
+
+- **1, unbundled.** Sheet 3, under "How they differ", in bold: "Corners and the air go with either grid; that's a separate pick after this (by joint, even wear or pressed; 2px or 1.5px)." Sheets 1 and 2, under Corners: "These corners and this sheet's air (2px / 1.5px) are shown as an example. Corners and air go with either grid; they are a separate pick after this one."
+- **2, the middle rule.** A new guide, MIDDLE 12 (dotted), in both grids. It is drawn in the guides strip, in the overlay and in the rules table.
+  - The rule: a glyph without a ground is centred on MIDDLE (its height split evenly above and below), snapped to 1px in A and 0.5px in B. That covers the cup on its saucer, the bed, the city blocks and the ⌘.
+  - It is applied in code (`middleRule()` in `src/boards3.js`), not as a per-icon nudge. The cup moves from 10–18 to 8–16 in A.
+  - The bed was redrawn as a low object (headboard 9–18), then centred by the rule.
+  - The coupe has a foot, so it stands on BASE; that is stated in the table.
+- **3, sheet 0:** "The chip: its own 6 × 6 grid of 2px modules; its inside guides come with the drawings."
+- **4, Inside order:** a one-line rule, then the guides-through-the-13 strip, then real size, then the overlay, captioned:
+  - A: "All 13 at once: they share the box and the lines".
+  - B: "All 13 at once: they share the base, the middle and the rings, but spread wider than A's box".
+- **Canvas:** the fixed g3 boards are updated in place on "Grid concepts". The pre-fix g3 boards are copied to Archive at y 12000 as "g3 before fixes".
+- **Stills re-shot:** `stills/g3-sheet-0..4.png` (3x) and `g3-sheet-3-1x.png`. I also looked at sheet 1 at 1x.
+
+NEXT: design director, look at the changed sheets.

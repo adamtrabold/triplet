@@ -17,7 +17,7 @@ const FONT = 'font-family="Archivo, Arial, sans-serif"';
 const GRIDS = [
   {
     id: 'A', key: 'pixel', name: 'Pixel keyline grid', law: 'joint', set: A3, live: 8, pts: 8.5,
-    line: 'Square, like a drawing board: one square is one screen pixel. Glyphs are built inside a square and share three horizontal guides.',
+    line: 'Square, like a drawing board: one square is one screen pixel. Glyphs are built inside a square and share four horizontal guides.',
     outside: [
       ['Unit', '1px squares, 24 × 24'],
       ['Circle', 'ring 2px · air 2px · live circle Ø16 · points to Ø17'],
@@ -25,8 +25,9 @@ const GRIDS = [
     ],
     inside: [
       ['Box', 'every glyph inside the 12px square (6 to 18); tips and heads may reach the circle'],
-      ['Guides', 'TOP 6 · SHOULDER 10 · BASE 18 · centre axis 12'],
-      ['How', 'standing glyphs stand on BASE; tall ones reach TOP; where a top part meets a body (roof on columns, bowl on stem, valance over curtains) it is at SHOULDER'],
+      ['Guides', 'TOP 6 · SHOULDER 10 · MIDDLE 12 · BASE 18 · centre axis 12'],
+      ['Standing', 'a glyph with a ground stands on BASE; tall ones reach TOP; where a top part meets a body (roof on columns, bowl on stem, valance over curtains) it is at SHOULDER. The coupe stands on its foot, so it stays on BASE and its bowl takes TOP'],
+      ['Not standing', 'a glyph without a ground (the cup on its saucer, the bed, the city blocks, the ⌘) is centred on MIDDLE: its height split evenly above and below, to the nearest pixel'],
       ['Angles', 'orthogonal, 45°, and whole-pixel slopes (1:2)'],
     ],
     corners: 'By joint: joins filleted 1.1px, cut ends 0.35, tips 0.3. The curve lives where strokes connect.',
@@ -42,8 +43,9 @@ const GRIDS = [
     ],
     inside: [
       ['Rings', 'CORE r3 (hubs, heads, centres) · BODY r5.5 (the main mass) · REACH r8.5 (round glyphs fill it)'],
-      ['Guides', 'TOP 5.5 and BASE 18.5 (chords of the circle) · centre axis 12'],
-      ['How', 'standing glyphs stand on BASE; tall ones reach TOP (tips may pass it); round glyphs fill REACH; the main mass fills BODY; a hub sits inside CORE'],
+      ['Guides', 'TOP 5.5 and BASE 18.5 (chords of the circle) · MIDDLE 12 · centre axis 12'],
+      ['Standing', 'a glyph with a ground stands on BASE; tall ones reach TOP (tips may pass it); round glyphs fill REACH; the main mass fills BODY; a hub sits inside CORE'],
+      ['Not standing', 'a glyph without a ground (the cup on its saucer, the bed, the city blocks, the ⌘) is centred on MIDDLE, to the nearest half pixel'],
       ['Angles', 'any multiple of 15° (30° and 60° give triangles and hexagons)'],
     ],
     corners: 'Even wear: every outside corner worn 0.38px deep (right angles round 0.9, tips stay sharp); inside corners barely change. The curve lives on the silhouette.',
@@ -59,8 +61,20 @@ const SHARED = [
 ];
 
 // glyph cache
+// THE MIDDLE RULE (a grid rule, applied in code, not a per-icon nudge): a glyph that doesn't stand
+// on the ground (seen from above, or a low object that reads best held in the middle: the cup on its
+// saucer, the bed, the city blocks, the ⌘) is centred on MIDDLE 12: its height is split evenly above
+// and below the line, snapped to the grid's step (1px in A, 0.5px in B). Standing glyphs stay on BASE.
+const MIDDLE = ['cafe', 'hotel', 'neighbourhood', 'landmark'];
+function middleRule(g, id) {
+  const prims = g.set[id];
+  if (!MIDDLE.includes(id)) return prims;
+  const b = E.build(prims, {}).bounds, c = b.y + b.h / 2, step = g.id === 'A' ? 1 : 0.5;
+  const dy = Math.round((12 - c) / step) * step;
+  return dy ? E.xform(prims, 1, 0, 0, 0, dy) : prims;
+}
 const GL = {};
-for (const g of GRIDS) { GL[g.id] = {}; for (const [id] of NAMES) GL[g.id][id] = E.build(g.set[id], { law: LAWS[g.law], centre: [12, 12] }); }
+for (const g of GRIDS) { GL[g.id] = {}; for (const [id] of NAMES) GL[g.id][id] = E.build(middleRule(g, id), { law: LAWS[g.law], centre: [12, 12] }); }
 const CHIP = {}; for (const [id] of NAMES) CHIP[id] = E.build(X12[id], { law: LAWS.joint });
 
 // SVG files
@@ -118,11 +132,11 @@ function guides(gd, s, { x0 = 0, x1 = 24, label = true, ox = 0 } = {}) {
   const c = COL.blue; let g = '';
   const H = (y, name, dash) => L(s, x0, y, x1, y, c, 1.6, dash) + (label ? T(s, x0 + 0.3, y - 0.3, name, c, 'start', 9.5) : '');
   if (gd.id === 'A') {
-    g += H(6, 'TOP 6') + H(10, 'SHOULDER 10', [4, 3]) + H(18, 'BASE 18');
+    g += H(6, 'TOP 6') + H(10, 'SHOULDER 10', [4, 3]) + H(12, 'MIDDLE 12', [1.5, 2.5]) + H(18, 'BASE 18');
     g += L(s, ox + 12, 0, ox + 12, 24, c, 1, [2, 3]);
     if (label) g += `<rect x="${ox + 6}" y="6" width="12" height="12" fill="none" stroke="${c}" stroke-opacity=".5" stroke-width="${f2(1 / s)}"/>`;
   } else {
-    g += H(5.5, 'TOP 5.5') + H(18.5, 'BASE 18.5');
+    g += H(5.5, 'TOP 5.5') + H(12, 'MIDDLE 12', [1.5, 2.5]) + H(18.5, 'BASE 18.5');
     g += L(s, ox + 12, 0, ox + 12, 24, c, 1, [2, 3]);
     for (const [r, n] of [[3, 'CORE r3'], [5.5, 'BODY r5.5'], [8.5, 'REACH r8.5']]) {
       g += `<circle cx="${ox + 12}" cy="12" r="${r}" fill="none" stroke="${c}" stroke-width="${f2(1.6 / s)}"${r === 5.5 ? ` stroke-dasharray="${f2(4 / s)} ${f2(3 / s)}"` : ''}/>`;
@@ -146,8 +160,8 @@ function guideRows(gd, cell, perRow) {
     row.forEach((id, k) => { g += `<g transform="translate(${k * 24} 0)"><circle cx="12" cy="12" r="11" fill="${COL.paper}" stroke="${COL.navy}" stroke-width="2"/><path d="${GL[gd.id][id].d}" fill="${COL.navy}"/></g>`; });
     // guides across the whole row, over the glyphs
     const c = COL.blue;
-    const ys = gd.id === 'A' ? [[6], [10, 1], [18]] : [[5.5], [18.5]];
-    for (const [y, d] of ys) g += L(s, 0, y, W, y, c, 1.4, d ? [4, 3] : null).replace('<line', '<line stroke-opacity=".85"');
+    const ys = gd.id === 'A' ? [[6], [10, [4, 3]], [12, [1.5, 2.5]], [18]] : [[5.5], [12, [1.5, 2.5]], [18.5]];
+    for (const [y, d] of ys) g += L(s, 0, y, W, y, c, 1.4, d || null).replace('<line', '<line stroke-opacity=".85"');
     row.forEach((id, k) => { g += L(s, k * 24 + 12, 0, k * 24 + 12, 24, c, 1, [2, 3]); });
     out += `<svg width="${f2(row.length * cell)}" height="${cell}" viewBox="0 0 ${W} 24" aria-hidden="true" style="display:block;margin-bottom:6px">${g}</svg>`;
   }
@@ -214,7 +228,7 @@ h3{font-size:14px;margin:20px 0 2px;letter-spacing:.08em;text-transform:uppercas
 function cardIntro(n) {
   return `<section class="card" id="c${n}"><div class="no">Grid · round 3 · sheet ${n}</div><h2>Two grids</h2>
 <p class="att">A grid is the board every icon is drawn on. Each sheet shows one grid as a grid:</p>
-<p class="sm"><b>Outside</b>: the circle, the air, the live area, the keyshapes and the squares or rings everything snaps to.<br><b>Inside</b>: the guides that keep the glyphs consistent with each other, with all 13 laid over them to show it working.<br><b>The chip</b>: the same grid at 12px.<br><b>Corners</b>: the grid's corner rule.</p>
+<p class="sm"><b>Outside</b>: the circle, the air, the live area, the keyshapes and the squares or rings everything snaps to.<br><b>Inside</b>: the guides that keep the glyphs consistent with each other, with all 13 laid over them to show it working.<br><b>The chip</b>: its own 6 × 6 grid of 2px modules; its inside guides come with the drawings.<br><b>Corners</b>: the grid's corner rule.</p>
 <div class="q"><b>You asked</b>"${INTERIOR_Q}"</div>
 <p class="sm">The inside of each sheet is the answer: shared guide lines (or rings) every glyph stands on and reaches to, one set of part sizes, two gap sizes and a minimum hole. The same rules hold in both grids; each grid lays its guides out its own way.</p>
 <p class="sm" style="color:${COL.ink2}">Settled in both: every line 2.00px; a separate drawing per size; places solid. Icons on these sheets are rough skeletons placed on the grid to show it in use, not drawings.</p>
@@ -237,20 +251,22 @@ function cardGrid(gd, W, n) {
 <div class="keys">${keyNames.map(k => `<div>${miniKey(gd, k, kpx)}${k}</div>`).join('')}</div>
 <table class="facts" style="margin-top:8px">${gd.outside.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>
 <h3>Inside</h3>
-<div class="lab">The guides, with all 13 glyphs overlaid as outlines</div>
-<div class="hero">${insideSheet(gd, big)}</div>
-<div class="leg"><span><i class="b"></i>guides${gd.id === 'B' ? ' and rings' : ''}</span><span><i class="o"></i>the 13, outlined</span></div>
-<table class="facts" style="margin-top:8px">${gd.inside.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}${SHARED.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>
+<p class="sm">${gd.id === 'A' ? 'Four lines every glyph is built to. Standing glyphs stand on BASE and reach TOP or SHOULDER; glyphs that don\'t stand (cup, bed, blocks, ⌘) centre on MIDDLE.' : 'Rings and two chords every glyph is built to. Standing glyphs stand on BASE; round glyphs fill REACH; glyphs that don\'t stand (cup, bed, blocks, ⌘) centre on MIDDLE.'}</p>
 <div class="lab">The guides running through all 13, enlarged ${(cell / 24).toFixed(1)}x</div>
 ${guideRows(gd, cell, per)}
 <div class="real">${NAMES.map(([id]) => badge(GL[gd.id][id].d)).join('')}</div>
 <p class="sm" style="text-align:center;color:${COL.ink2};font-size:10.5px">Real size</p>
+<div class="lab">${gd.id === 'A' ? 'All 13 at once: they share the box and the lines' : 'All 13 at once: they share the base, the middle and the rings, but spread wider than A\'s box'}</div>
+<div class="hero">${insideSheet(gd, big)}</div>
+<div class="leg"><span><i class="b"></i>guides${gd.id === 'B' ? ' and rings' : ''}</span><span><i class="o"></i>the 13, outlined</span></div>
+<table class="facts" style="margin-top:8px">${gd.inside.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}${SHARED.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>
 <h3>The chip</h3>
 <div class="row2">${chipSheet(W > 500 ? 240 : 150, CHIP.museum.d)}<div class="t">At 12px the glyph stands alone, without the circle. It gets its own simpler drawing on a 6 × 6 grid of 2px modules: six lines across. Both grids hand over to this same chip grid, because at 12px a 2px line leaves no room for anything finer.</div></div>
 <h3>Corners</h3>
 <div class="corn">${SPEC.map(p => cornerMini(gd, p, W > 500 ? 200 : 110)).join('')}</div>
 <p class="sm" style="color:${COL.ink2};font-size:10.5px;margin:2px 0 0">An elbow, a T-join and the conifer's notch, enlarged ${W > 500 ? 17 : 9}x.</p>
 <p class="sm">${gd.corners} Dashed orange: the sharp construction.</p>
+<p class="sm" style="color:${COL.ink2}">These corners and this sheet's air (${gd.id === 'A' ? '2px' : '1.5px'}) are shown as an example. Corners and air go with either grid; they are a separate pick after this one.</p>
 <p class="prec">Precedent: ${gd.precedent}</p>
 </section>`;
 }
@@ -266,6 +282,7 @@ function cardCompare(W, n) {
 <div class="cmp">${GRIDS.map(g => `<div class="real">${NAMES.map(([id]) => badge(GL[g.id][id].d)).join('')}</div>`).join('')}</div>
 <div class="lab">How they differ</div>
 <div class="cmp">${GRIDS.map(g => `<div class="s"><b>${g.name}</b><br>${g.outside[1][1]}<br>${g.inside[1][1]}<br>${g.corners.split(':')[0]} corners</div>`).join('')}</div>
+<p class="sm"><b>Corners and the air go with either grid; that's a separate pick after this (by joint, even wear or pressed; 2px or 1.5px).</b></p>
 <div class="q"><b>The question</b>${Q}</div>
 </section>`;
 }
