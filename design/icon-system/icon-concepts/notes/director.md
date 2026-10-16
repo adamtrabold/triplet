@@ -265,3 +265,8 @@ coordinator asks the two questions.
   - The question is in `scores.md`, round 3.
 - **Next:** the spotlight rebuild, then my look at that section, then the
   ask.
+- **Update (same day):** Park is now the bench. Owner: "good point on
+  the round tree-- lets do park bench". So the pair is bench + conifer.
+  The two trees no longer need to read apart. The new drawing-step
+  constraint: the bench (Park) and the bed (Hotel) must read apart at
+  12px (both are a slab on legs; t6 card 4 shows it).

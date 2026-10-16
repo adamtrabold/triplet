@@ -373,3 +373,8 @@ and the crowd say 'a show is on'. Which one, or neither?"
 
 **Did the work change?** Yes. Card 6 is new. Cards 0–5 are not
 re-scored.
+
+**Update:** Park is now the bench. Owner: "good point on the round
+tree-- lets do park bench". The pair is bench + conifer. For the drawing
+step, the bench (Park) and the bed (Hotel) must read apart at 12px. The
+two-trees constraint is gone.
