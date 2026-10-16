@@ -345,8 +345,10 @@ I'll judge, from his words and the settled rules, not a new rule set:
 - SVG;
 - research that's cited and short;
 - a tool recommendation with a reason (MCP or another tool, his ask);
-- it holds the settled frame: places solid in a stroked circle, 2.00px
-  lines, outline = not yet marked, the ⌘ line heavier than the outline;
+- it holds the settled frame: places solid, 2.00px lines, outline = not
+  yet marked, the ⌘ line heavier than the outline. The circle is open:
+  his words are "...and they can be inside a stroked circle" ("can", not
+  "must"), so a grid concept without the circle is valid;
 - it serves the real sizes (24 badge, 12 chip, map pin);
 - warmth from construction (his "subtle rounding, etc.", examples not a
   list).
