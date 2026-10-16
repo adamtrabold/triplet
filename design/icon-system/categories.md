@@ -22,6 +22,8 @@ The owner approved this list ("yeah i think that's good for now"). The revisions
 
 **Landmark vs Nature (proposal v2, not yet confirmed):** why it matters. Landmark: it matters because of people, either what they built or what happened there (Plymouth Rock, a church, a battlefield, the Little Mermaid). Nature: it matters as nature itself (a waterfall, a volcano, a park, the Bridge Between Continents, which you visit for the rift). v1, "who made it", failed on Plymouth Rock (owner: "what about like plymouth rock").
 
+**Tie-breaker for every category (proposal, from pressure-testing):** what would most people do there? Places that are both go by their main draw: Þingvellir and Uluru are Nature, the Eiffel Tower is a Landmark (the ticket up is a bonus), Blue Lagoon is an Attraction (you go in and bathe). A sculpture that's a symbol of the place (the Little Mermaid, Sun Voyager) is a Landmark; one you go to for the art (a mural, Þúfa) is Art. A famous square you sit in is a Square. **Gardens:** a park you hang out in is Nature; a botanical garden is a curated collection you tour, often ticketed, so it's an Attraction (owner: "botanical garden idk if that's that clear -- those are usually man made and constructed").
+
 **Gone:** Area, District (renamed Neighbourhood), and the "Sight" and "Museums & galleries" ideas, which were superseded.
 
 ---

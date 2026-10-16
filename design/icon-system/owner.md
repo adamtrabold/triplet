@@ -105,3 +105,5 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > yeah i think that's good for now   (locks Landmark + Art + Attraction)
 > now what about landmark vs nature   (orchestrator proposed "who made it"; owner: "i dont remember the who made it rule" -- not confirmed)
 > what about like plymouth rock   (broke "who made it"; proposal v2: "why it matters")
+> ok im good with that. but id like to pressuretest it more   ("why it matters" accepted)
+> botanical garden idk if that's that clear -- those are usually man made and constructed   (botanical gardens -> Attraction; parks -> Nature)
