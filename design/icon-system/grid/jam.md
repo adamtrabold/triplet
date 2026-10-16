@@ -231,5 +231,17 @@ density goal. I want sub pixels from prolly .8 to 2.5"
   badge, the toolbar row, the tag's close).
 - A sweep with only the 13 is under 9.
 
+**Added (owner):** "Yes I'm looking for an harmonious complete set and
+guidance for the future".
+- **Harmonious, complete set.** At each width, do the 13 and the UI
+  icons read as one family? Same weight feel, same density, same corner
+  character, and no place icon heavier or lighter than a tool. Show
+  them together, in one block per width, as well as in context.
+- **Guidance for the future.** The grid must work for icons not drawn
+  yet. The rules (guides, parts, gaps, counters, corners, line weight)
+  have to be stated so that a new icon could be built from them alone.
+  Test it with one icon outside the current set, built only from the
+  written rules and labelled as a test.
+
 NEXT: icon designer, the stroke-width sweep. Then the director scores it
-against 0–3 and the app icons.
+against 0–3, the app icons, one family and the future-icon test.

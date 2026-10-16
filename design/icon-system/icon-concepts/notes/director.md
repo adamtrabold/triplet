@@ -512,3 +512,11 @@ want sub pixels from prolly .8 to 2.5"
     `../../inventory.md`.
   - Each at its real size and in context.
   - Without them the sweep is under 9.
+- **Owner:** "Yes I'm looking for an harmonious complete set and guidance
+  for the future". Two more criteria:
+  - **One family:** at each width, the 13 and the UI icons together
+    read as one set (weight, density, corner character), shown together
+    as one block.
+  - **Guidance for the future:** the grid's written rules are enough to
+    build an icon not yet drawn. The proof is one new test icon built
+    only from the rules and labelled as a test.
