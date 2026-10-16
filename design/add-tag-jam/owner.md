@@ -51,3 +51,4 @@ Read as: the CityChange screen is approved as drawn (label "City"); the naming q
 > (on CityNew, mark C, the rubber stamp) this with just "new"?
 > (search scope thread) is there some sort of open source or available search model that achieves this? im worried we wont be able to build something as robust as what may already exist that we could integrate
 Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/lon location bias; free fair-use public API or self-host) recommended first; alternatives Mapbox Search Box, Google Places (terms restrict non-Google maps).
+> (on PlanCity1, Option 1's title menu) no you are not thinking deep enough. think about the model. there are places and there are plans. there may be a bunch of both. they dont make sense in the same list so there either needs to be a different view or a different button for plans vs places
