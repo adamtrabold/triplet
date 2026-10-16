@@ -1,3 +1,4 @@
 - Turn 1 (2026-10-15): jobs.md (14 jobs: city in tag 1-5, TYPE select 6, star/visited 7-9, go-to vs show/hide 10-14) + jam Turn 1. Found: today's city pick filters map+list (setActiveCity sets filters.city); visited can't be set at add (insert visited:false); TYPE is a select today; star at add exists.
 - Turn 3 (2026-10-16): naming the bucket: Trip weakest (repeat visit, 'Scandinavia 2026' clash), City best (we think), Area runner-up, label-free CITY row as visual idea.
 - Turn 5 (2026-10-16): Plans + Go-to: title stays plan picker; Go-to in Plans = Whole plan, plan's cities in stop order, then others; Go-to never filters (+ candidates = shown cities); show/hide never hides stops.
+- Turn 6 (2026-10-16): search scope options A-H; we think B+C+D (worldwide, ranked by your cities, rows say where, typed city sharpens); alt E (near chip); baseline A softened; hard country filter goes regardless.

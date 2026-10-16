@@ -314,3 +314,63 @@ visual's call. Two ways to read it:
   plan picker moved.
 
 NEXT: director — score; visual places Go-to in Plans view on the canvas.
+
+## Turn 6 -- product designer (systems focus): what scopes the search, if not the city row
+
+The owner (verbatim): "this feels good, but i'm curious -- does the city
+selection scope search? if so, maybe it should be treated differently and
+put somewhere else. may need some divergent thought here."
+
+**Fact (`nominatim()`, `formCityId()`):** yes, today's form city scopes
+the search:
+- its `geocodeSuffix` is appended to the query;
+- `countrycodes` is a **hard** filter;
+- `viewbox` is a soft hint;
+- it widens only on zero results.
+
+In the new tag the city is **guessed after the pick**, so it can't also
+be the scope: that's circular. The city row becomes filing only, and
+search needs its own answer.
+
+### The options (they differ in kind)
+
+| | What scopes it | Where it lives | Cost |
+|---|---|---|---|
+| **A. The map's view** (the blank tag's current rule, `detectCityContext()`) | the city the map shows, or the visible area | nowhere: implicit | You must look at Copenhagen before adding Tivoli; a same-name match where you are wins. As a **hard** country filter it's the Tivoli bug; soft, it's tolerable |
+| **B. Worldwide, ranked by you** (round 12b, `workflows.md`) | nothing hard; results ranked: near the map → near any of your cities → the rest. An invisible local search runs alongside when nothing near lands | nowhere: no control | Two requests per pause (Nominatim's 1/s etiquette); a bare common name lists several (several Tivolis) |
+| **C. B, and every result says where it is** | as B | each result row ends with its real town and country ("Tivoli · København, Denmark") | none beyond B. It makes worldwide safe: you pick by reading, not by scope |
+| **D. Typing the place says where** (round 12's rule) | a city name in the text ("tivoli copenhagen") scopes to that city's area | in the NAME text: no control | Invisible, so you have to know it; best as a booster to B, not alone |
+| **E. A "near" chip in the search field** | an explicit scope, pre-set to the map's view, tappable to one of your cities, "Near me" or "Anywhere" | a small chip inside or beside NAME, gone once a place is picked | One more control, and two city-ish things on one tag ("near Reykjavík", filed under Reykjavík) until the pick. It's honest and predictable |
+| **F. Where you are** (device location) | the phone's position | an option in E, or automatic when you're near one of your cities | A location permission prompt; useless when planning from home, which is most adding |
+| **G. The last city you used** | sticky, like today's `activeCity` | nowhere | Unpredictable after switching cities; it's today's hidden state, the thing the owner just asked about |
+| **H. Search the map, not the world** | results are the OSM names inside the visible map, as you pan | the map itself: you search where you look | Precise when planning a neighbourhood, but you have to go there first; anything off-screen is unfindable |
+
+### What we think
+
+- **The hard country filter goes, whatever we pick.** It's what hides
+  Copenhagen's Tivoli while you're looking at Iceland.
+- **Strongest default: B + C + D, with no scope control (we think).**
+  - Search is worldwide.
+  - Results rank your own cities first.
+  - Each result says where it is.
+  - Typing a city in the text sharpens it.
+  - It's places-first in the extreme: you type the place and read where
+    each result is.
+  - The search never depends on what the map shows or on a hidden
+    "current city".
+- **Strongest alternative: E,** the "near" chip, if the owner wants the
+  scope visible and in hand. It separates "where to look" from "where to
+  file", which is exactly the owner's instinct ("treated differently and
+  put somewhere else").
+- **The baseline to compare against: A, softened** (today's map rule
+  with no hard filter). It needs no new idea; its cost is "pan first".
+- **F, G and H** are weaker as defaults. F is worth keeping as one of
+  E's options ("Near me").
+
+**For visual to draw (the strongest three):**
+1. **B + C:** the results list with each row's place line.
+2. **E:** the "near" chip in the NAME field, before and after the pick.
+3. **A softened:** the baseline.
+
+NEXT: visual designer — draw those three on the canvas; then the owner
+picks.

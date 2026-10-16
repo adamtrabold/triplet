@@ -31,3 +31,5 @@ Design system: Triplet — https://claude.ai/artifact/JXWsMZs32JyKdcEzakKrPW
 > (on TypeOpen tag) this feels good, but i'm curious -- does the city selection scope search? if so, maybe it should be treated differently and put somewhere else. may need some divergent thought here.
 
 Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today the add form's city scopes the search: it appends the city's `geocodeSuffix` to the query, applies its `countrycodes` as a HARD filter, and its `viewbox` as a soft ranking hint (search widens on a miss).
+> (on CityDifferent "in Grindavík") i dont think we need to show when it's different from the real town
+> (on TypeOpen menu) this dropdown feels good, but alignment is odd. lets left align all content and put the check on the right
