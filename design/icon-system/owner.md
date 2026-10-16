@@ -104,3 +104,4 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 (Proposed, not confirmed: Landmark + Art + Attraction, with themed museums in Attraction and art museums, galleries and murals in Art; "Outing" offered as an alternative name for Attraction. Decided: amusement parks stay in Attraction, no full-day split for now.)
 > yeah i think that's good for now   (locks Landmark + Art + Attraction)
 > now what about landmark vs nature   (orchestrator proposed "who made it"; owner: "i dont remember the who made it rule" -- not confirmed)
+> what about like plymouth rock   (broke "who made it"; proposal v2: "why it matters")

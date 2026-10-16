@@ -20,7 +20,7 @@ The owner approved this list ("yeah i think that's good for now"). The revisions
 - **Neighbourhood**: drawn as its outline.
 - **Street**: a box around the stretch you care about. Streets under about 1.5km are saved whole; longer ones are trimmed with handles.
 
-**Landmark vs Nature (orchestrator's proposal, not yet confirmed by the owner):** who made it. Built by people means Landmark. Natural means Nature, even when it's famous (a waterfall, a volcano). Parks and gardens are Nature. Edge cases go by why you go: the Bridge Between Continents is Nature (you go for the rift), and Reykjanesviti is a Landmark (you go for the lighthouse).
+**Landmark vs Nature (proposal v2, not yet confirmed):** why it matters. Landmark: it matters because of people, either what they built or what happened there (Plymouth Rock, a church, a battlefield, the Little Mermaid). Nature: it matters as nature itself (a waterfall, a volcano, a park, the Bridge Between Continents, which you visit for the rift). v1, "who made it", failed on Plymouth Rock (owner: "what about like plymouth rock").
 
 **Gone:** Area, District (renamed Neighbourhood), and the "Sight" and "Museums & galleries" ideas, which were superseded.
 
