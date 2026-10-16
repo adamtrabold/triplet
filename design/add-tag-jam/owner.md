@@ -35,3 +35,8 @@ Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today th
 > (on TypeOpen menu) this dropdown feels good, but alignment is odd. lets left align all content and put the check on the right
 > (on CityNew badge) this badge isn't perfect, i want it to have more of the app's personality. give this to the team
 > (on CityAlternatives "FILED UNDER / Reykjavík" top-right) i do like this top right city tag thingy. this is not the right execution, but in regards to my comment about the city scoping search, this direciton (again not specific ui) would help with that by making the city both higher level heirarchy but also still make sense. selecting a city before typing an address from a ux perspective feels odd... having it here feeling more like metadata is really clear from that angle
+> (on TYPE open) is this our dropdown style? struggling with what to give feedback since this is supposed to be a sketch but it's looking like its using the design system
+> (on Go to 2's section header) alignment reads funky here -- i do like the clear sightlines, but there's something off about this table header. keep pexploring.
+> (on Go to 3's badges) i like having a badge for the city at a zoomed out level. it's nice. are these clickable? would be cool to zoom in if you did.
+> (on Go to 3's badge) i also think about the fact that the map itself will have a city name... so what this is really communicating is "there is a trip here and this is the city" -- i wonder if it needs something to communicate the first half (an icon or something?)
+> (on Go to 1's menu) everything should go full width inside a dropdown

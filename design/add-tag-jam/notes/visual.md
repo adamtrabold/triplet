@@ -80,3 +80,43 @@
   - **Mark visited check:** `.tag-ochk` (STICKER_CHECK.row, stroke 2.05).
   - **Not carried:** the stamp's paper-tooth texture (`--tex-stamp`),
     like all texture on the canvas.
+
+## 2026-10-16, polish pass (canvas v8) + talking to the owner in the canvas threads
+- **Generator:** scratchpad gen2.py, which replaces gen.py. Every element
+  is lifted from index.html:
+  - the account (SCALLOP_PTS);
+  - the + (the 24-lobe mask points, the tex-flood turbulence as inline
+    SVG filters, the 1.8182 +);
+  - Leaflet's zoom and credit;
+  - the #locationsHeader icons;
+  - the .location-card grid (badgeHtml 24, the row star, .row-stamp, the
+    ×, the filed field);
+  - markerIcon pins (24) with markerStarHtml;
+  - the cluster disc (22, figure-deep);
+  - the tag die, band texture, stub (real star, check, stamp);
+  - the plan ledger as shipped.
+- **Not reproducible:**
+  - the OSM tiles (no network);
+  - the pencil grain and --tex-stamp (would need data-URI masks);
+  - the visited stickers on pins (not drawn).
+- **The count rule (option 1, applied):** "(n)" after the name in its own
+  type. Clusters are the exception. Option 2 (a quiet grey tally) is on
+  SectionHeaders. The plan picker still says "3 STOPS" (shipped).
+- **Menus:** the sort-menu voice, full width (gutter to gutter, or the
+  tag's width), content on one left edge, the check at the right.
+- **New boards:**
+  - CityAsMetadata (destination print / routing box / eyebrow);
+  - row 4, search: SearchWorld (place line), SearchNear (820, before and
+    after), SearchMap (baseline).
+- **Existing boards changed:**
+  - CityNew: 1420 tall, three new-city marks (printed / little tag /
+    rubber stamp; B in the phone);
+  - GoToSections uses header A;
+  - PlansGoTo is 820 wide (pick a plan vs Go to).
+- "in Grindavík" is removed everywhere.
+- **Threads:**
+  - replied: all the listed ones;
+  - resolved: b7f43313, d4ae20e8, 227789c4, 4fe3971b, 17947bde,
+    c51d58ae, 809bd89e;
+  - left open for the owner's pick: 20cd568d, a6b0be70, 5baf422c,
+    03619be4, bd932962, 32791bc9 (naming), 1241f2b0.
