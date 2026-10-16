@@ -20,3 +20,5 @@ Design system: Triplet — https://claude.ai/artifact/JXWsMZs32JyKdcEzakKrPW
 > nothces arent cutting out -- did something change in tag design or is this just an artifact of it being a sketch?
 > same here re: design change -- is this a sketching artifact?
 > maybe instead of city we refer to *this* level as trip? run that idea by the team -- the pro is that it would clarify this situation, but the con is that usually it *will* be a city
+> (on the "FILED UNDER / Reykjavík" alternative) we do not need this on every tag. it probably only needs to be there when editing
+> (on Star + visited at add) we don't need to change how visited marking works at all. do not tuch
