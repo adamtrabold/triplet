@@ -23,7 +23,85 @@ Owner: "i think that's good fo rnow". Two tests decide every category: **what am
 
 **Gone:** Area, Other, Square (now in Landmark), Art and Sight (superseded), District (renamed Neighbourhood).
 
-**Not yet done:** the place-by-place migration below was written for an earlier list and needs redoing for this one before the build.
+## Migration for the locked list (every place that changes)
+
+Data: the live DB on 2026-10-16, 202 pins and 11 shapes. Places not listed keep their category. Before a duplicate pin is removed, its notes, star and visited state move onto the matching shape.
+
+**Bar → Venue (8):** Jazzhouse, Jazzhus Montmartre, VEGA (Copenhagen); Debaser Nova, Debaser Strand, Fasching, Nalen, Slaktkyrkan (Stockholm).
+*Stay Bar (4):* WarPigs, Covell, Tiki-ti, Metro bar.
+
+**Attraction → Museum (24):**
+- Copenhagen: Designmuseum Danmark, BLOX, Galleri Bo Bjerggaard, Nils Stærk, V1 Gallery
+- LA: Hammer Museum, Photo Booth Museum, The Broad, Shepard Fairey Exhibit
+- Malmö: Moderna Museet Malmö
+- Reykjavík: Ásmundarsafn, Hafnarhús, Icelandic Punk Museum, Kjarvalsstaðir, Maritime Museum, Marshall House
+- Stockholm: ABBA Museum, ArkDes, Fotografiska, Moderna Museet, Spårvägsmuseet, Spritmuseum, Scenkonstmuseet, Vasa Museum
+
+**Attraction → Venue (3):** Greek Theatre (LA), Konserthuset (Stockholm), Øksnehallen (Copenhagen).
+
+**Attraction → Landmark (17):**
+- Copenhagen: 8 House, Amalienborg, Little Mermaid, Rentemestervej (mural)
+- Malmö: Turning Torso, plus 5 murals (Davidshallsgatan 10 and 24, Grynbodagatan 9, Södra Skolgatan, Stenhuggaregatan)
+- Reykjavík: Hallgrímskirkja, Harpa, Sólfar Sun Voyager, Þúfa
+- Stockholm: City Hall, Public Library
+- LA: The Philosophical Research Society
+
+**Attraction → Park (1):** Folkets Park (park in the name).
+
+**Attraction → Street shapes (4):** Grandagarður and Skólavörðustígur (remove the pins; the shapes exist); Klapparstígur (new Street); Bondegatan Erstagatan (merge into the Bondegatan street).
+
+*Stay Attraction (13):* Christiansborg, CopenHill, Rosenborg, Tivoli, Echo Park Swan Boats, Hollyhock House, Malmöhus Castle, Aurora Reykjavík, Omnom, Perlan, Gröna Lund, Junibacken, Skansen.
+
+**Nature → Park (5):** Griffith Park, Slottsparken, Humlegården, Tantolunden, Vasaparken.
+**Nature → Attraction (2):** Laugardalslaug, Sundhöllin (city pools).
+**Nature → Landmark (1):** Reykjanesviti (lighthouse).
+*Stay Nature (2):* Bridge Between Continents, Gunnuhver.
+
+**Area (18) goes:**
+- → Landmark (squares): Lilla Torg, Möllevångstorget, Nytorget
+- → Park: Superkilen park, Björns Trädgård, Assistens Cemetery
+- → Shopping: Hornstulls Marknad
+- → Neighbourhood (fetch outline): Freetown Christiania, Nyboder, Gamla Stan
+- → Street: Hornstull Strand
+- Remove the pin (a shape already exists): Skogskyrkogården, Djurgården, Västra Hamnen Bo01, Old Harbour (covered by Grandi), Jægersborggade, Laugavegur, Bondegatan
+
+**Shopping changes (5):**
+- → Street: Ravnsborggade, Sankt Eriksgatan
+- → Landmark (squares): Israels Plads, Frederiksberg Runddel
+- → Neighbourhood: Fashion District
+
+**District pin → Street:** Værnedamsvej (approx.).
+
+**Shapes:** the 6 district shapes are renamed Neighbourhood. The 5 streets are clipped to a stretch where they're over about 1.5km.
+
+**Restaurant, Café, Hotel:** no changes.
+
+**Tally after migration:**
+
+| Category | Count |
+|---|---|
+| Restaurant | 30 |
+| Café | 16 |
+| Bar | 4 |
+| Venue | 11 |
+| Museum | 24 |
+| Landmark | 23 |
+| Attraction | 15 |
+| Park | 9 |
+| Nature | 2 |
+| Shopping | 49 |
+| Hotel | 0 |
+
+That's 183 pins. 202 minus 19 that become shapes or are removed as duplicates. Plus new shapes to fetch in the owner's browser: 4 Neighbourhoods (Christiania, Nyboder, Gamla Stan, Fashion District) and 5 Streets (Hornstull Strand, Klapparstígur, Ravnsborggade, Sankt Eriksgatan, Værnedamsvej).
+
+## What the app change costs (locked list)
+
+- **Categories:** 11 pin categories, the same number as today, which counted Area and Other. New: Venue, Museum, Landmark, Park. Gone: Area, Other.
+- **`CATEGORY_COLORS`:** colours for Venue, Museum, Landmark and Park; drop Area and Other; District becomes Neighbourhood.
+- **Add form:** the new list. Street gets the "trim to the stretch" step, the biggest new piece of work.
+- **Data:** a one-time migration through the Supabase MCP, plus fetching the 9 new shapes in the owner's browser (the `tools/` page; the sandbox can't reach OpenStreetMap).
+- **Icons:** the icon team is working from this list (Venue, Museum, Landmark, Park vs Nature, Attraction).
+
 
 ---
 
