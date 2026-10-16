@@ -95,3 +95,10 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > 5. i dont even know what all of those are lol so i think they're right?
 (4 = rename District to Neighbourhood: yes. 5 = the Venue table stands.)
 > i do wonder if there should be sight vs attraction -- an attraction usually costs money and has thinigs to do and i wouldnt necessarily think of a mural as an attraction
+> or maybe its landmark?
+> oh that's interesting. what would something like vasa or tram museum fall under if we did not have a museums category
+> what are some alternate words for attraction that get at the same vibe
+> would it be worth separating out amusement park?
+> dont think about it in regards to what i have today
+> i dont think people think of parks as amusement parks they think of like city parks. im goo dnot changing it for now.
+(Proposed, not confirmed: Landmark + Art + Attraction, with themed museums in Attraction and art museums, galleries and murals in Art; "Outing" offered as an alternative name for Attraction. Decided: amusement parks stay in Attraction, no full-day split for now.)
