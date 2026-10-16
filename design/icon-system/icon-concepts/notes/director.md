@@ -311,7 +311,7 @@ coordinator asks the two questions.
 - **Carry into the drawing step:**
   - bench vs bed at 12px;
   - the ⌘'s line clearly heavier than the 2.00px outline;
-  - the wheel and the fountain-free Landmark busy at 12px (the wheel);
+  - the Ferris wheel is busy at 12px;
   - the curtain vs the column front at 12px;
   - the coupe's stem at 12px;
   - the four new colours (Venue, Museum, Landmark, Park), proposed by
