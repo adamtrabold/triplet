@@ -168,3 +168,60 @@ plain circle.
 
 NEXT: the owner reacts on the canvas. Then systems checks the picked
 direction against jobs 1-14.
+
+## Turn 3 -- product designer (systems focus): what to call the bucket ("trip" vs. "city")
+
+The owner, on the canvas's CITY row (verbatim): "maybe instead of city
+we refer to *this* level as trip? run that idea by the team -- the pro
+is that it would clarify this situation, but the con is that usually it
+*will* be a city".
+
+**What's being named:** only the bucket a place is filed under. Trips as
+a grouping were dropped ("drop"). The bucket is usually the real city
+(Sundhöllin → Reykjavík), and sometimes not (the Blue Lagoon → Reykjavík,
+really in Grindavík; a "Golden Circle" bucket).
+
+**The owner's own words for it:**
+- "the city is more of a bucket than an actual city";
+- "the copenhagen part of the trip" / "im going to LA";
+- "sometimes that's the whole of the trip, sometimes that's part of a
+  larger trip";
+- "navigate around to my cities with stops".
+- Earlier, "trip" meant the bigger thing: "scandinavia 2026 may include
+  spots in copenhagen, stockholm, reykjavik".
+
+### The names, weighed
+
+| | Add tag | Filter | Go to | List title | Repeat visit (Copenhagen 2026 and 2028) | Clash with earlier "trip" |
+|---|---|---|---|---|---|---|
+| **City** (today) | "CITY Reykjavík · in Grindavík": the odd case reads as two cities, but the "in Grindavík" print carries the difference | "Show/hide cities": plain | "Go to a city": plain | "All places", unchanged | One Copenhagen: right | None |
+| **Trip** | "TRIP Reykjavík" for a café in Reykjavík reads strangely, because most buckets are a city | "Hide trips" sounds like hiding history, not an area | "Go to a trip" is odd for a place on a map | unchanged | **Breaks:** one "Copenhagen" bucket would be called one trip, though the owner takes it twice. The owner's rule says a repeat visit doesn't change the pins, so the app can't make "Copenhagen 2028" a second trip | **Strong:** "Scandinavia 2026" (the owner's trip) holds several of these, so a trip would contain trips |
+| **Area** ("Reykjavík area") | "AREA Reykjavík · in Grindavík": honest for both cases | "Show/hide areas": fine | "Go to an area": fine | unchanged | One area: right | None |
+| **Base** (where you head out from) | Fits the Blue Lagoon and "im going to LA" | "Hide bases": odd | fine | unchanged | One base: right | It implies a hotel. That collides with the parked stays idea (Q3, Q4), and a day-trip bucket like "Golden Circle" isn't one |
+
+### What we think
+
+- **Trip is clearly the weakest.** It fixes the Blue Lagoon's label but
+  breaks the two things the owner already decided:
+  - a repeat visit doesn't change the pins, so one Copenhagen can't be
+    two "trips";
+  - "trip" in the owner's own example (Scandinavia 2026) is the bigger,
+    multi-city thing. Calling the bucket a trip would block that word if
+    the owner ever wants trips back.
+- **City is the best word (we think),** because "usually it *will* be a
+  city", as the owner says.
+  - The odd case is already handled by both truths: the bucket prints
+    "Reykjavík" and the real town prints "in Grindavík".
+  - The problem in the comment is that a label says "City" above a value
+    that isn't one, not the word itself.
+- **Area is the honest runner-up (we think)** if the owner wants the
+  word itself to cover the odd case. Its cost is that it's a little
+  vaguer for the 90% of places that are just in their city.
+- **An idea for visual, not a rule:** the tag's CITY row could drop its
+  label and show only the value ("Reykjavík ⌄ · in Grindavík"), the way
+  an address doesn't label its city. Then the tag never has to pick a
+  word, and "city" stays for the filter and go-to, where it's always
+  right.
+
+NEXT: director — score the naming; then the owner picks City (we
+think), Area, or the label-free row.
