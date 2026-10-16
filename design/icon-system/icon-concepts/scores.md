@@ -282,3 +282,51 @@ to. Two questions, word for word:
 
 Yes. This is a new round on the locked list: new categories, new
 concepts and new cards. No score carried over.
+
+---
+
+## Round 2b: the turn-15 batch check (40c3480), 2026-10-16: 9, pending four text fixes
+
+What I looked at:
+- `t6.html`, rendered myself (headless Chromium, 390 wide at 3x): cards
+  0–5 at full size.
+- The canvas index: the concepts page holds the six T6 boards and the
+  two question notes, and the t4 boards are gone.
+
+The work changed: every round-2 fix landed.
+
+| Card | Score | Note |
+|---|---|---|
+| 0 All 13 | **9** after fix 1 | The strip is right: in colour, then one ink, with the new four in grey. Line 203 still says "Five are settled". |
+| 1 Café, bar, venue | **9** | Survivors only. The kringle's Could be names the ⌘. Honest. |
+| 2 Museum, landmark, attraction | **9** after fix 2 | The ⌘ text is right; the vase names the pawn. The castle says "a big share" when it's 3 of 15. |
+| 3 Park and nature | **9** after fix 3 | The pairs are framed right and the seesaw line is fixed. The conifer's Could be argues instead of listing misreads. |
+| 4 Neighbours in one ink | **9** after fix 4 | Facts, not verdicts. The cross pairs and the ⌘ beside the Star are there. The carousel row's labels collide. |
+| 5 Dropped | **9** | Complete, one honest line each. The carousel's failure is shown. |
+
+Fixes (text only; I check them by text, with no further look):
+1. Card 0: "Four are your picks and Neighbourhood is carried over; for
+   the other eight this strip shows our lead. The cards after it show
+   the other concepts for each."
+2. Castle Shows: "A place you go into. Three of the 15 are castles
+   (Rosenborg, Christiansborg, Malmöhus), and Tivoli has towers too.
+   Pure grid: battlements and a door."
+3. Conifer Could be: "A Christmas tree."
+4. Carousel row: label the columns "FIRST BUILD" and "REBUILD".
+
+Likely owner objections now:
+- **"Ferris wheel and fountain are busy at 12px."** *Possible.* The
+  cards say so, and it's a drawing-step matter.
+- **"Kringle and ⌘ are both knots."** *Possible.* It's shown, and only
+  matters if he picks both.
+
+Neither blocks the send; both are visible to him.
+
+**READY once fixes 1–4 are in `t6.html` and on the canvas boards.** Ask
+the two questions from round 2, word for word. They're already posted as
+title notes on the concepts page; hold the ask until the fixes land.
+
+**Blocker trend:** the honesty issues are down to wording, in the
+same family as before (a count, a lean, an argument in a misread
+field). The structural fix worked: the cross-group and real-size
+problems are gone.

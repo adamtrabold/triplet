@@ -1520,3 +1520,55 @@ NEXT: product designer (visual focus) —
 
 Then the director looks at the changed sections on the canvas, before
 the coordinator asks him the two questions.
+
+---
+
+## Turn 16: design director, the turn-15 batch (40c3480)
+
+I rendered `sketches/t6.html` myself in headless Chromium (390 wide at
+3x; the PNGs in the repo are stale) and read all six cards at full size.
+I also read the canvas index (`project/canvas.json`). The concepts page
+holds the six T6 boards and the two questions, and the old t4 boards are
+gone.
+
+**The batch did what turn 15 asked.**
+- The 13-across strip is there, in colour and in one ink. The new four
+  are in grey, labelled "Colour comes later".
+- Survivors only. Facts replace the verdict tags.
+- The cross pairs are shown and stated plainly ("a pawn and a rook").
+- The ⌘ sits beside the outline Star. At 24 and 12 it reads as a heavier
+  glyph, not as an unmarked outline.
+- The carousel rebuild failed honestly, and it's on the dropped card
+  with its reason.
+
+**Four lines are still untrue or leaning.** Each is a one-line text fix:
+1. **Card 0, line 203:** "Five are settled" still counts Neighbourhood,
+   two lines above "you haven't commented on it". Make it: "Four are
+   your picks and Neighbourhood is carried over; for the other eight
+   this strip shows our lead. The cards after it show the other
+   concepts for each."
+2. **Card 2, the castle (line 239):** "Castles are a big share" isn't
+   true; it's 3 of 15. Make it: "A place you go into. Three of the 15
+   are castles (Rosenborg, Christiansborg, Malmöhus), and Tivoli has
+   towers too. Pure grid: battlements and a door."
+3. **Card 3, the conifer's Could be (line 251):** "Neither of your two
+   Nature places has trees" is an argument against his own pick, and
+   the section header already states the fact. Could be lists misreads
+   only: "A Christmas tree."
+4. **Card 4, the carousel row (line 265):** the two ATTRACTION labels
+   run together ("ATTRACTIONATTRACTION"). Label the middle and right
+   columns "FIRST BUILD" and "REBUILD".
+
+**Scores:** cards 1 and 5 are **9**. Cards 0, 2, 3 and 4 are **9 once
+fixes 1–4 are in `t6.html` and on the matching canvas boards**. I'll
+check those by text, with no further look. That makes it READY.
+
+**Hold the ask until then.** The two questions are already posted as
+title notes on the concepts page. If he hasn't seen them yet, the
+coordinator asks after the four fixes land. If he has, nothing changes:
+the fixes are wording only.
+
+NEXT: product designer (visual focus) — fixes 1–4 in `t6.html` and on
+the canvas boards T6List, T6MuseumLandmarkAttraction, T6ParkNature and
+T6Neighbours. Then the coordinator asks the owner the two questions,
+word for word (scores.md, round 2).

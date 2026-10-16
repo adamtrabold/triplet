@@ -217,3 +217,23 @@ strip, and facts instead of verdicts.
 **Next:** the product designer (visual focus) makes the fixes and
 rebuilds the canvas. I look at the changed sections. Then the
 coordinator asks the two questions.
+
+## Round 2b (turn 16, 2026-10-16): 9, pending four text fixes
+
+- How I checked: I rendered `t6.html` myself, because the PNGs are
+  stale (`scratchpad/shoot.js`: Playwright from
+  /opt/node22/lib/node_modules, Chromium in /opt/pw-browsers). I also
+  read the canvas `project/canvas.json`: six T6 boards on page
+  "concepts", the q1/q2 title notes, and the t4 boards removed.
+- The carousel rebuild failed (a gazebo at 12px) and is dropped.
+  Attraction is the Ferris wheel or the castle.
+- The four remaining fixes are text only:
+  - card 0's "Five are settled";
+  - the castle's "big share" (it's 3 of 15);
+  - the conifer's arguing Could be;
+  - the carousel row's colliding labels.
+- I verify them by text in `t6.html` and the canvas boards. Then READY.
+  The ask waits for them.
+- Pattern to watch for in the drawing step: the honesty slips now live
+  in wording (counts, leans, arguments in a Could be field), not in
+  real-size claims.
