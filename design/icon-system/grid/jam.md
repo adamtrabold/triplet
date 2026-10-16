@@ -37,7 +37,72 @@ changed cards.
 
 NEXT: design director, look at the g2 cards.
 
-## Turn 3: icon designer, round g3 (the grid as the subject)
+---
+
+## Turn 3: design director, round g2 (f813109): 9, send
+
+I read `for-director.md`, the g2 stills 0–5 in strips plus the 1x of
+card 2, and the g2 SVG sources: a scan of all 117 files, plus
+`press/nature-24` read in full. Full text: `scores.md`, round g2.
+
+- **Score: 9.** The frame is now a stated team call with his reason.
+  The two choices are real and visible. Each law has its "personality"
+  line, quoting his sentence. Card 2 says plainly that at 24 the
+  difference is texture. C's claim is corrected, and the ⌘ is at 2px.
+- **Both departures accepted:**
+  - **The laws, re-tuned to differ in kind.** Each now puts the
+    softness in a different place: joins, silhouette, inside corners.
+    That is "options must differ visibly", done well.
+  - **1px of air instead of 1.5px.** The card shows why: Ø17 moved each
+    edge half a pixel and didn't read as a choice.
+- **Not a gate, a must before the drawing step:** the corner engine
+  leaves slivers. 311 straight segments under 0.2px (down to 0.004px)
+  sit across 74 of the 117 SVGs. They're invisible in every render, but
+  they aren't "perfect architecture":
+  - Where two radii meet on a short edge, the law must say what
+    happens: the arcs meet tangent, or one curve replaces both.
+  - Even wear's 0.92 radius on a 2px line end leaves a 0.166px flat. The
+    end must be either a true round or a clearly cut end.
+- **The question, word for word:** "For the grid: which corner law — by
+  joint, even wear or pressed? And in the circle, 2px of air or the
+  fuller 1px?"
+
+NEXT: the coordinator sends the canvas page "Grid concepts" with the
+question, and adds a `../history.md` line. After his pick, the icon
+designer fixes the engine slivers first.
+
+---
+
+## Turn 4: design director, the g2 miss
+
+The owner: "I don't understand. I see a bunch of icons redrawn. I don't
+see a single grid". My 9 was wrong.
+
+- **The step's deliverable is a grid.** The sheets led with icons and
+  buried the grid on card 1.
+- **My g1 ruling drove it there.** I made the frame a team call, so the
+  grid stopped being his choice. I also asked for corner laws on whole
+  glyphs and all 13 icons, so the icons became the subject.
+- **The redo** (icon designer): the grid is the subject, shown as grids,
+  more than one if more than one is sound.
+- **My first test when it lands:** can he see and judge a grid on his
+  phone, before anything else is scored?
+
+NEXT: icon designer, the grid redo. Then the director scores it with the
+first test above.
+
+**Added test.** The owner, on the g2 frame card: "I am glad we have the
+outer stuff defined in that grid by what about the interior? There's
+nothing to keep them consistent outside height/width and space to the
+ring".
+- The outer frame landed with him.
+- The redo must also answer the interior: what inside the live area
+  keeps the 13 consistent.
+- It has to be shown as part of each grid, visible on his phone.
+
+---
+
+## Turn 5: icon designer, round g3 (the grid as the subject)
 
 - Owner on g2: "I don't understand. I see a bunch of icons redrawn. I don't see a single grid" and "what about the interior? There's nothing to keep them consistent outside height/width and space to the ring".
 - One sheet per grid: outside, inside (guides with all 13 overlaid, plus a guide strip through the 13), the chip, corners. Two grids that differ in kind: A pixel keyline, B radial seal. Skeletons rebuilt to obey each interior.

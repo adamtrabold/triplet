@@ -409,3 +409,58 @@ Full scores are in `../../grid/scores.md`; the turn is in
 - **Question (after the fixes):** "For the grid: which corner law — by
   joint, even wear or pressed? And in the circle, 2px of air or the
   fuller 1.5px?"
+
+## Grid round g2 (f813109): 9, sent to the coordinator
+
+- **Accepted both departures:** the laws re-tuned to differ in kind, and
+  1px of air instead of 1.5px.
+- **The question now ends** "…2px of air or the fuller 1px?"
+- **Must-do before the drawing step (my source read):**
+  - 311 sub-0.2px straight slivers across 74 of the 117 g2 SVGs (the
+    corner engine leaves them when two radii meet on a short edge);
+  - even wear's 0.166px flat on line ends;
+  - pixel-snapping the 32 and Ø18 refits;
+  - the 1.5px parts at 12.
+  These are craft, not send gates. Re-scan with
+  `scratchpad/microseg.py`, or the same check, every round.
+- **Next:** his picks, then the icon designer fixes the engine first.
+
+## LESSON (g2 miss, 2026-10-16): score the deliverable he asked for
+
+The owner, on g2: "I don't understand. I see a bunch of icons redrawn. I
+don't see a single grid". My 9 was wrong.
+
+- **What happened:**
+  - The step's deliverable was a grid, and the sheets showed icons.
+  - My own g1 fixes caused it. I made the frame a "team's call" (taking
+    the grid out of his hands) and asked for laws on whole glyphs plus
+    all 13 icons (making icons the subject).
+  - I then scored against my fix list and his drawing brief, not
+    against the phase's actual ask.
+- **New first check, before any other scoring:** is the thing he asked
+  for this phase the visible subject of the sheets, and can he see and
+  judge it on his phone? If not, the score is under 9, however good the
+  rest is.
+- **Watch myself:** when I convert a choice into "the team's call", I
+  must check I'm not removing the deliverable itself from his view.
+  When I add evidence (whole glyphs, all 13), I must check it doesn't
+  become the subject.
+- **Bias-check order now:**
+  0. The asked-for deliverable is the subject and is judgeable on his
+     phone.
+  1. Reads at real size.
+  2. Works for every user.
+  3. One family.
+  4. Wit.
+- **Grid redo (icon designer):** the grid is the subject, shown as
+  grids, more than one if there's more than one sound option. The
+  engine-sliver must-dos still apply at the drawing step.
+- **The owner on the g2 frame card:** "I am glad we have the outer stuff
+  defined in that grid by what about the interior? There's nothing to
+  keep them consistent outside height/width and space to the ring".
+  - The outer frame landed (ring, air, live circle, keylines).
+  - **When I score the redo, check that each grid answers his
+    "interior" question.** What inside the live area keeps the 13
+    consistent beyond height, width and space to the ring? The grid has
+    to show it as the grid, not argue it in text.
+  - I don't prescribe how. That's the designer's call.
