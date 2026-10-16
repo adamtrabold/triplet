@@ -48,3 +48,6 @@ Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today th
 > (on Plans, plan vs city) the plan vs city selection is far too complex. let's simplify it to as few separate actions as possible with extreme clarity between picking a plan or city and then the "go to" sections within a plan
 > (on CityChange, in the City/Trip naming thread) this is great. no feedback on this screen anymore
 Read as: the CityChange screen is approved as drawn (label "City"); the naming question closes on City.
+> (on CityNew, mark C, the rubber stamp) this with just "new"?
+> (search scope thread) is there some sort of open source or available search model that achieves this? im worried we wont be able to build something as robust as what may already exist that we could integrate
+Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/lon location bias; free fair-use public API or self-host) recommended first; alternatives Mapbox Search Box, Google Places (terms restrict non-Google maps).

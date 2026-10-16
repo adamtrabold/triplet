@@ -141,3 +141,4 @@
     - opens 6px under its trigger, left-aligned to it.
     Applied to TYPE, City (now a menu under the chip, not in-tag rows),
     Go to and the title menu.
+- **2026-10-16, v13:** the new-city mark is picked: C, the deep-orange rubber stamp (the VISITED build), reading just "NEW". It is on the CityNew tag; A and B are greyed "not picked". Stale stickies s1b and s2 are refreshed. Threads 8f910052 and a6b0be70 are resolved.
