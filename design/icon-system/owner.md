@@ -110,3 +110,7 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > i actually dont know if park is nature? i think park should probably be its own maybe?
 > i think if park is in the name it probably should be a park
 (Park added as its own pin category. Orchestrator flagged one exception: national parks stay Nature.)
+> is this too fragie?
+> no i think 13 icons is just too many regardless. i wonder if there isn't different consolidation based on that "what am i doing there" line. for example maybe square isn't necessary. maybe we don't need an other. etc.
+> night out is presumptive. i do think there's clear differentiation between restaurants and coffee shops/cafes (e.g. id be looking for a bakery if i want a pastry).
+(Grouping rejected; consolidate by "what am I doing there". Proposed 10: Restaurant, Café, Bar, Venue, Landmark, Attraction, Park (squares in), Nature, Shopping, Hotel; Other dropped; Art optional as the 11th. Café/Restaurant and Bar/Venue stay separate. Open: 10 or 11.)
