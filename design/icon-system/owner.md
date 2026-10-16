@@ -94,3 +94,4 @@ Direction: keep "Attraction" (not "Sight"). Split Bar into Bar and Venue; a Venu
 > 4. cool on that
 > 5. i dont even know what all of those are lol so i think they're right?
 (4 = rename District to Neighbourhood: yes. 5 = the Venue table stands.)
+> i do wonder if there should be sight vs attraction -- an attraction usually costs money and has thinigs to do and i wouldnt necessarily think of a mural as an attraction

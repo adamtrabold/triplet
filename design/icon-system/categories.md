@@ -141,10 +141,34 @@ The owner knows these places, so any row can flip on his call. The test decides 
   - Gunnuhver and the Bridge Between Continents are natural → stay Nature.
   - Reykjanesviti is a lighthouse in the landscape. It's built, so by the rule → Attraction. The owner can flip it.
 
+## Revision 3: Sight and Attraction (2026-10-16)
+
+Owner, verbatim: "i do wonder if there should be sight vs attraction -- an attraction usually costs money and has thinigs to do and i wouldnt necessarily think of a mural as an attraction"
+
+**Pressure test: it holds.** The rule: a **Sight** you look at, usually from outside, free, for a few minutes. An **Attraction** you go into and do something, usually with a ticket. Once museums, venues and streets have moved out, the 32 places left split about evenly:
+
+| Sight (look at it) | Attraction (go in, do things) |
+|---|---|
+| Murals: Davidshallsgatan 10 and 24, Grynbodagatan 9, Södra Skolgatan, Stenhuggaregatan, Rentemestervej | Tivoli, Gröna Lund, Skansen, Junibacken |
+| Little Mermaid, Sólfar Sun Voyager, Þúfa | Echo Park Swan Boats, Perlan, Aurora Reykjavík, Omnom factory tour |
+| Turning Torso, 8 House, Harpa | Rosenborg, Christiansborg, Malmöhus Castle, Hollyhock House |
+| Stockholm Public Library | Folkets Park, CopenHill |
+| Reykjanesviti lighthouse | Laugardalslaug, Sundhöllin (city pools) |
+
+**Edge cases** are places you can look at or go into (owner's call; the default is what you'd mostly do):
+- Hallgrímskirkja (sight; the tower costs extra)
+- Amalienborg (sight; the changing of the guard)
+- Stockholm City Hall (sight from outside; attraction on a tour)
+- The Philosophical Research Society (sight)
+- Marshall House (it's mostly galleries, so Museums & galleries)
+
+**Icons:** this fits the earlier note that "camera says 'sight' more than attraction". The camera goes to Sight. Attraction needs its own idea; the Nordic loop is literally the Scandinavian "sight" sign, so the team should test which of the two it belongs to.
+
 ## Decided (owner, 2026-10-16)
 
-Square: its own category. Streets: trimmed, long enough (see Revision 2). City pools → Attraction, natural spots → Nature. District → Neighbourhood. Venue split as tabled. Attraction keeps its name; Museums & galleries splits out of it.
+Square: its own category. Streets: trimmed, long enough (see Revision 2). City pools → Attraction, natural spots → Nature. District → Neighbourhood. Venue split as tabled. Attraction keeps its name; Museums & galleries splits out of it. (Revision 3 proposes a Sight split as well.)
 
 ## Still open
 
 1. **Name:** "Museums & galleries", or something shorter?
+2. **Sight split:** OK, and are the edge cases right?
