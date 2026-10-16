@@ -485,3 +485,24 @@ don't see a single grid". My 9 was wrong.
   1. the corner law and the air;
   2. the engine slivers;
   3. the drawing step.
+
+## g3 outcome: the 2.00px line is reopened (2026-10-16)
+
+Owner: "A feels to be producing better sized icons but the icons are too
+simplistic that are coming out in reality. Let's try a bunch of pixel
+widths for the stroke to give us the perfect overall density goal. I
+want sub pixels from prolly .8 to 2.5"
+
+- **2.00px is no longer settled.** Retire it from my criteria. Also
+  open: the 6 × 6 chip module, the 2px minimum part, the 1px and 2px
+  gaps, the ⌘ at 2px and the + weight.
+- **A leads on size; nothing is picked.**
+- **Scoring the stroke sweep:**
+  0. He can judge density at real size on his phone (24 and 12, in a
+     row and on a map, at 1x and 3x; enlargements second).
+  1. It shows the richness he's missing. Thinner lines must buy detail,
+     not just redraw the same skeleton thinner.
+  2. The costs are honest (1x blur, what dies at 12, the + and the
+     ring).
+  3. Then the craft.
+- **The width is his pick by eye.** We don't recommend it as settled.

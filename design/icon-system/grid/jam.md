@@ -190,3 +190,38 @@ the square pixel grid, or B, the round seal grid?"
 
 NEXT: the coordinator sends the canvas page "Grid concepts" with the
 question, and adds the `../history.md` line.
+
+---
+
+## Turn 9: design director, criteria for the stroke sweep
+
+The owner on g3: "A feels to be producing better sized icons but the
+icons are too simplistic that are coming out in reality. Let's try a
+bunch of pixel widths for the stroke to give us the perfect overall
+density goal. I want sub pixels from prolly .8 to 2.5"
+
+- **The 2.00px line is reopened by him.** It's no longer settled.
+  Sub-pixel widths are in, across roughly 0.8 to 2.5. Every rule that
+  rested on 2px is open with it: the 6 × 6 chip module, the
+  "2px smallest part", the 1px and 2px gaps, the ⌘ "2px like every line"
+  and the + weight.
+- **A leads on size, but it isn't picked.** A's frame (box, guides,
+  MIDDLE) is the likely carrier for the sweep, but that's not a decision.
+- **What I'll score the sweep on** (his words decide, in this order):
+  0. **Can he judge density at real size on his phone?** The same
+     glyphs at each width, at 24 and 12, side by side, in a row and on a
+     map crop, at 1x and 3x. Enlargements come second.
+  1. **Does it show the richness he says is missing** ("too simplistic")?
+     A thinner line has to buy more detail: more parts or finer
+     features at the same size, not the same skeleton drawn thinner. If
+     every width shows the same simple skeleton, he can't judge the
+     trade.
+  2. **Honesty about what each width costs:** where sub-pixel lines
+     blur at 1x, what dies at 12px, and what happens to the + and the
+     ring.
+  3. **Then the craft of the sheets.**
+- **Not decided by us:** the width. It's his "perfect overall density
+  goal". We show the range and he picks by eye.
+
+NEXT: icon designer, the stroke-width sweep. Then the director scores it
+against 0–3.
