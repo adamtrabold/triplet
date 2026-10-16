@@ -20,7 +20,7 @@ meaning the concept behind each icon, not the exact drawing."
   to that" and "these are just examples. not exhaustive."
 - **Outlined means you haven't marked it yet** (Star, Visited). Nothing else
   is an empty shape.
-- Places are solid, in a circle. Every line is 2.00px on screen.
+- Places are solid; the circle is optional ("they can be inside a stroked circle"). Every line is 2.00px on screen.
 - **Visited doesn't change**: the stamp, the sticker and the mark-visited
   check.
 - On hand-made, his words (2026-10-15): "i dont want to say never to that
