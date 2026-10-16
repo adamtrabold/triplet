@@ -24,3 +24,49 @@
   - the list title.
 - Sketch fidelity: no pencil grain or paper texture; the account badge is
   a circle.
+
+## 2026-10-16, the owner's canvas comments, one pass (canvas version 6)
+- **Visited (owner: "we don't need to change how visited marking works at
+  all. do not tuch"):**
+  - the stamp-the-tag idea is removed;
+  - mark-visited-at-add uses the shipped tag's own Visited segment
+    unchanged: the row stamp, x1.1, -3deg, navy 82%;
+  - star stays the segment plus the band.
+  - **Do not propose visited changes in this work.**
+- **Dropdown alignment:**
+  - CITY and TYPE are one grid: label 40 | chip 150 | note;
+  - chips are 32 tall, icon 20, chevron right-aligned in the chip.
+  - The CITY chip gets a stroked pin glyph so the values align.
+- **The tag matches the shipped die:**
+  - 316 wide;
+  - 28px chamfers;
+  - a real 10px eyelet hole at (50%, 18px), with the paper patch and
+    grommet;
+  - real 5px stub notches (mask);
+  - the string 1.5px ink-2 to the eyelet's centre;
+  - a 60px stub, perforation inset 10;
+  - padding-top 48, name 26/28;
+  - the band 36.
+  - Before this they were sketch shortcuts (282 wide, 24px chamfers, a
+    painted eyelet, painted notches, a 58px stub, a 22px band, name line
+    34).
+- **NEW treatment** (one, used everywhere): a blue (#2B6CB0) dashed
+  outline plus a NEW tab. NEW = new in this jam, not shipped and not the
+  round-10 tag.
+- **The TYPE open list:** a custom menu modelled on #sortMenu (24px
+  caption, 40px rows, a check in a 16px gutter). Chosen over the native
+  picker because a native picker can't show icons.
+- **City treatment only on the add/edit tag** (owner). It's on the
+  alternatives board and in sticky s1.
+- **New boards:**
+  - SectionHeaders: A, a row-grid heading; B, a printed rule; C, the
+    header's voice;
+  - PlansGoTo: Go to beside the plan name; Whole plan / the plan's
+    cities in stop order / other cities.
+- **GoToMap** is 1330 tall, with the badge variants below the phone:
+  - A, the cluster disc;
+  - B, a little tag;
+  - C, your stamp;
+  - plus an "after tap" note.
+- **Naming** (city / trip / no label) is pending the owner; the canvas
+  still says CITY.
