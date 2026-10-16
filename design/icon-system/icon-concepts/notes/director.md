@@ -381,3 +381,31 @@ expert icon designer with the highest attention to glyph craft".
   are built.
 Read-apart checks stay notes, not gates ("lets not focus on
 differentiation yet").
+
+## Grid round g1 (87b6286), scored 2026-10-16: NOT READY
+
+Full scores are in `../../grid/scores.md`; the turn is in
+`../../grid/jam.md`.
+
+- **Scores:** A 8, B 6, C 7. The send is 7.
+- **Why under 9:**
+  - The three look the same at real size.
+  - B's one-drawing chip fails "make sense on their own".
+  - "personality in the approach to how strokes are connected and
+    curve" is unanswered.
+  - The question hands him the synthesis.
+- **Ruling:** one frame as the team's call (per-size drawings, A's pixel
+  grid, C's 2px module at 12). Two visible choices go to him: the corner
+  law (shown on whole glyphs at 4x, 32 and 24) and fullness (Ø16 vs
+  Ø17).
+- **Withdrawn:** my ⌘ "line heavier than 2.00px" condition from ruling
+  2. It was mine, not his. His words: "its heavy enough". The ⌘ is 2px
+  like every line.
+- **Craft evidence is good.** The SVGs are single paths, one cubic per
+  corner, 3 decimals, and the curves are counted. Keep reading the
+  sources each round.
+- **Watch for:** claims on cards that weren't done (C's "12 drawn
+  first"). This is the same honesty pattern as the concept step.
+- **Question (after the fixes):** "For the grid: which corner law — by
+  joint, even wear or pressed? And in the circle, 2px of air or the
+  fuller 1.5px?"
