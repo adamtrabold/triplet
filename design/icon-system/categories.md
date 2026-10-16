@@ -105,6 +105,8 @@ That's 183 pins. 202 minus 19 that become shapes or are removed as duplicates. P
 
 ---
 
+# History: earlier drafts (superseded by the locked list above)
+
 # Place categories: a recommendation
 
 2026-10-16. A recommendation, not a decision. The owner decides. Written from the live data (202 pins, 6 district shapes, 5 street shapes).
