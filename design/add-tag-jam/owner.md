@@ -41,3 +41,4 @@ Fact (orchestrator, index.html `nominatim()` / `formCityId()`): yes — today th
 > (on Go to 3's badge) i also think about the fact that the map itself will have a city name... so what this is really communicating is "there is a trip here and this is the city" -- i wonder if it needs something to communicate the first half (an icon or something?)
 > (on Go to 1's menu) everything should go full width inside a dropdown
 > (on Go to 1, the go-to icon) i preferred the older icon.. i know we're working on thsoe in a different thread, but lets put it back. this is the "my location" button right now so it's confusing.
+> (on Go to 2, header A) actually i dont think it want an icon in the table header... let's just drop it and align the header text with the edge of the icon

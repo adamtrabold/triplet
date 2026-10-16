@@ -122,3 +122,4 @@
     03619be4, bd932962, 32791bc9 (naming), 1241f2b0.
 
 - **2026-10-16, v9:** Go to uses the earlier ring + dot glyph everywhere (menus, header A, Plans chip and menu, the near chip). The crosshair stays only on the shipped "my location" button. Thread 82962a61 is resolved.
+- **2026-10-16, v10:** section header A has no glyph. The name is the go-to button, its left edge at x 18 (the row badges' ink edge), with the eye on the right. The NEW tab moved off the text. Thread 2c2231cc is resolved.
