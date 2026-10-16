@@ -346,11 +346,27 @@ I'll judge, from his words and the settled rules, not a new rule set:
 - research that's cited and short;
 - a tool recommendation with a reason (MCP or another tool, his ask);
 - it holds the settled frame: places solid, 2.00px lines, outline = not
-  yet marked, the ⌘ line heavier than the outline. The circle is open:
-  his words are "...and they can be inside a stroked circle" ("can", not
-  "must"), so a grid concept without the circle is valid;
+  yet marked, the ⌘ line heavier than the outline. Each icon sits in the
+  stroked circle and makes sense on its own;
 - it serves the real sizes (24 badge, 12 chip, map pin);
-- warmth from construction (his "subtle rounding, etc.", examples not a
-  list).
+- **his drawing brief, scored word for word (2026-10-16, in owner.md,
+  jobs.md and owner-taste.md):**
+  > "yes they need to sit in the stroked circle but also make sense on
+  > their own. they need to be at their root simple shapes, but joined
+  > together to make coherent glyphs. they must be crafted with the
+  > highest attention to detail and quality -- minimal bezier curves with
+  > perfect architecture. personality in the approach to how strokes are
+  > connected and curve. slight rounding of interior and exterior corners
+  > to add a vintage softness. corner rounding should not be 100%
+  > consistent though as there are different architecturally sound
+  > prinicples to how different angles intersect. the effect of the
+  > rounding should allude to something screened or pressed."
+
+  When I score, I hold each grid concept against these sentences as he
+  wrote them, and quote the sentence a gap falls under. I don't
+  paraphrase or reduce them to a checklist.
+
+(Superseded: my earlier "the circle is open, 'can' not 'must'" line. He
+has since said the circle is required.)
 Read-apart checks stay notes, not gates ("lets not focus on
 differentiation yet").
