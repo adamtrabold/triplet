@@ -200,7 +200,7 @@ const starOut=size=>`<svg viewBox="0 0 24 24" width="${size}" height="${size}" s
 
 // ---------- CARD 0: the 13 side by side
 const card0=()=>`<div class="card">${head('T6 · Card 0','All 13, side by side')}
-<p class="att">Your locked list: 11 pins and 2 shapes. Five are settled; for the other eight this strip shows our lead. The cards after it show the other concepts for each.</p>
+<p class="att">Your locked list: 11 pins and 2 shapes. Four are your picks and Neighbourhood is carried over; for the other eight this strip shows our lead. The cards after it show the other concepts for each.</p>
 <div class="lab">In colour · 24px badge, 12px chip</div>${across(PINS)}<div style="height:8px"></div>${across(SHAPES)}${NOTE_INK}
 <div class="lab">In one ink</div>${across(PINS,1)}<div style="height:8px"></div>${across(SHAPES,1)}${legend}
 <div class="lab">Settled</div>
@@ -236,7 +236,7 @@ ${catBlock('Landmark','A notable place to see; it matters because of people. 23 
  concept('C','A fountain on a square','fountain2','landmark','Lilla Torg','LANDMARK · MALMÖ','You said to push the fountain. Squares are Landmark now, so the fountain stands on paving, with water falling from an upper bowl.','A drinking fountain, or a trophy. Busy at 12px. A cousin of the coupe (card 4).')])}
 ${catBlock('Attraction','Going in to do things. 15 saved: Tivoli, Gröna Lund, Skansen, Junibacken; Rosenborg, Christiansborg, Malmöhus Castle; Omnom, Perlan, Aurora, the Swan Boats, CopenHill, Hollyhock House; two city pools.',[
  concept('A','A Ferris wheel','wheel','attraction','Tivoli','ATTRACTION · COPENHAGEN','Rides: the common map sign for a theme park, and Tivoli, Gröna Lund and Skansen are the heart of this list.','A sun, a gear, or a bike wheel. Busy at 12px. Says nothing about castles or pools.'),
- concept('B','A castle tower','tower','attraction','Rosenborg','ATTRACTION · COPENHAGEN','A place you go into. Castles are a big share, and Tivoli has towers too. Pure grid: battlements and a door.','A chess rook, or “security”. Says nothing of rides or pools.'),
+ concept('B','A castle tower','tower','attraction','Rosenborg','ATTRACTION · COPENHAGEN','A place you go into. Three of the 15 are castles (Rosenborg, Christiansborg, Malmöhus), and Tivoli has towers too. Pure grid: battlements and a door.','A chess rook, or “security”. Says nothing of rides or pools.'),
  ...(CAROUSEL_PASSED?[concept('C','A carousel','carousel','attraction','Gröna Lund','ATTRACTION · STOCKHOLM','The fairground: a cone tent with a scalloped edge, and two horses on poles, one up and one down.','A circus tent.')]:[])])}</div>`;
 
 // ---------- CARD 3: park / nature
@@ -248,7 +248,7 @@ ${catBlock('Park','A city park. 9 saved: Humlegården, Vasaparken, Tantolunden, 
  concept('C','A seesaw','seesaw','park','Superkilen park','PARK · COPENHAGEN','The playground, mid-tip.','A balance or scales. It says “playground” more than “park”. The thinnest at 12px.')])}
 ${catBlock('Nature','The natural world. Only 2 saved today: Gunnuhver, a geothermal vent, and the Bridge Between Continents, the rift on Reykjanes. Neither has trees.',[
  concept('A','Mountain peaks','peaks','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The landscape: volcanoes, hikes, coast. It fits the vent and the rift, and what Iceland will add.','“Hiking”, or terrain.'),
- concept('B','A conifer, your earlier pick','tree','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The forest and the wild. Picked before Park split off.','A Christmas tree. Neither of your two Nature places has trees.')])}</div>`;
+ concept('B','A conifer, your earlier pick','tree','nature','Gunnuhver - fumarole','NATURE · REYKJAVÍK','The forest and the wild. Picked before Park split off.','A Christmas tree.')])}</div>`;
 
 // ---------- CARD 4: the neighbours, in one ink (facts only)
 const card4=()=>`<div class="card">${head('T6 · Card 4','The neighbours, in one ink')}
@@ -262,7 +262,7 @@ ${setLine([['cup','café'],['wine','bar']],'Today: at 12px the cup and the glass
 ${setLine([['temple','museum'],['sevard','landmark'],['wheel','attraction']],'A roof on columns; a looped square; a spoked ring on legs.')}
 ${setLine([['rope','museum'],['camera','landmark'],['tower','attraction']],'Two posts and a rope; a camera body with a lens; a block with battlements.')}
 ${setLine([['vase','museum'],['fountain2','landmark'],['wheel','attraction']],'A vase on a block; two bowls with falling water; a spoked ring.')}
-${setLine([['temple','museum'],['carouselOld','attraction'],['carousel','attraction']],`The carousel against the column front. Left: the column front. Middle: the first build, a roof on three posts on a base. Right: the rebuild, a cone tent with two horses on poles. ${CAROUSEL_PASSED?'':'At 24px the horses read. At 12px they don’t, and it’s a scalloped roof over thin posts: a gazebo, still a building, so it goes to the dropped card.'}`)}
+${setLine([['temple','museum'],['carouselOld','first build'],['carousel','rebuild']],`The carousel against the column front. Left: the column front. Middle: the first build, a roof on three posts on a base. Right: the rebuild, a cone tent with two horses on poles. ${CAROUSEL_PASSED?'':'At 24px the horses read. At 12px they don’t, and it’s a scalloped roof over thin posts: a gazebo, still a building, so it goes to the dropped card.'}`)}
 <div class="lab">Park · nature</div>
 ${setLine([['roundtree','park'],['peaks','nature']],'A round tree; two peaks on a base line.')}
 ${setLine([['bench','park'],['tree','nature'],['bed','hotel']],'A bench, a conifer, and the bed (Hotel). Bench and bed are both a slab on legs at 12px.')}
