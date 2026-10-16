@@ -1,5 +1,48 @@
 # Notes: product designer (visual focus), icon concepts
 
+## Update (after jam turn 14): the locked list, t6
+
+The owner locked 11 pins and 2 shapes (`../../categories.md`).
+- **Settled:** restaurant fork, shopping bag, hotel bed, street walker,
+  neighbourhood blocks.
+- **Open:** the café push, bar vs café and venue, venue, museum,
+  landmark, attraction, park, nature.
+
+**Built:** `../sketches/t6.html` is the first 138 lines of `t4.html`
+(the helpers and `D`) plus a t6 block:
+- new glyphs in `D`
+- provisional inks for venue, museum, landmark and park in `INK`
+  (placeholders, not a colour proposal)
+- `cell()` and `setLine()` for the one-ink trios (ink `ONE`)
+
+Stills: `../sketches/t6-card-0..4-*.png`. To re-render:
+
+```
+NODE_PATH=/opt/node22/lib/node_modules node shot-vis.js <html> <out-prefix>
+```
+
+`shot-vis.js` is in the scratchpad. It screenshots each `.card` at DSF 3
+after `window.READY`, as `<prefix>-<n>.png`.
+
+**Real-size findings:**
+- Cup and wine glass are one blob at 12px, which confirms his bar note.
+- The pint reads as a bin.
+- The rope barrier reads as M.
+- The stage reads as a layered cake.
+- The carousel reads as a bandstand.
+- The kringle needed teardrop holes to stop reading as a face.
+- Round tree + conifer is the weak pair.
+
+**My leans:**
+- the ⌘ loop goes to Landmark
+- bar: the coupe or skål (or café moves to the kringle and the glass
+  stays)
+- park and nature are picked as a pair
+- venue: the stage
+- the fountain goes to Landmark
+
+**Next:** the director scores t6.
+
 ## Update (after jam turn 11): the MUTCD brown signs
 
 **New inspo:** `../../inspo/mutcd-recreation/` (MUTCD Part 2H, 129
