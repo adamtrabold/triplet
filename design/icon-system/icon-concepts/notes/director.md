@@ -270,3 +270,12 @@ coordinator asks the two questions.
   The two trees no longer need to read apart. The new drawing-step
   constraint: the bench (Park) and the bed (Hotel) must read apart at
   12px (both are a slab on legs; t6 card 4 shows it).
+- **Turn 19 (the spotlight rebuild):** card 6 is 9 and goes to him.
+  - At 24px the rebuild reads as a pen nib or a brush (the card names
+    it). At 12px it fails.
+  - Ruling: don't run a third build round. Tell him plainly that nothing
+    says "a show of any kind" at 12px, and let him choose a pole or a
+    weak middle.
+  - The question is in `scores.md`, round 3b.
+  - If he picks the spotlight or the crowd, the 12px read is the
+    drawing step's first problem.
