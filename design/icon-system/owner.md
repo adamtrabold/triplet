@@ -138,3 +138,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > A feels to be producing better sized icons but the icons are too simplistic that are coming out in reality. Let's try a bunch of pixel widths for the stroke to give us the perfect overall density goal. I want sub pixels from prolly .8 to 2.5   (on g3; reopens the 2.00px line)
 > Also include app icons not just the ones for types   (in the stroke-width sweep)
 > Yes I'm looking for an harmonious complete set and guidance for the future   (confirming UI icons are in; the goal of the system)
+> Home Screen icon will also need to feel naturally part of the family
