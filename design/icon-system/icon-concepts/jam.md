@@ -1719,3 +1719,36 @@ every size. Nothing we built says 'a show of any kind' clearly at 12px;
 the spotlight and the crowd are the closest. Which one, or neither?"
 
 NEXT: the coordinator asks him, on the canvas Venue board.
+
+---
+
+## Turn 20: design director, Venue picked; all 13 done
+
+The owner, on Venue: "it's probably the curtain for me then? unless we
+decide to separate theater and music", then "again this is an app for
+way more than just me."
+
+- **Venue = the curtain.** All 13 are now picked:
+  - Restaurant: fork and knife
+  - Café: cup and saucer
+  - Bar: coupe
+  - Venue: curtain
+  - Museum: column front
+  - Landmark: the ⌘ loop
+  - Attraction: Ferris wheel
+  - Park: bench
+  - Nature: conifer
+  - Shopping: bag
+  - Hotel: bed
+  - Neighbourhood: city blocks
+  - Street: walker
+- **The theatre / music split** stays open only if he raises it again.
+  We don't propose it.
+- **The frame was wrong, and I was part of it.** I argued for the notes
+  as "true for what he saved", and my bias check ranked "covers what he
+  actually saved" second. From now on, an icon is judged for every user
+  of the app. His saved places are examples that test a concept. They
+  are not the audience.
+
+NEXT: the drawing step (grid, optical sizes, drawings), per `jobs.md`
+"Later".

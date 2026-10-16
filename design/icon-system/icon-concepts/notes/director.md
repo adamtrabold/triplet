@@ -279,3 +279,42 @@ coordinator asks the two questions.
   - The question is in `scores.md`, round 3b.
   - If he picks the spotlight or the crowd, the 12px read is the
     drawing step's first problem.
+
+## Concept step closed (turn 20, 2026-10-16)
+
+- **Venue = the curtain.** Owner: "it's probably the curtain for me
+  then? unless we decide to separate theater and music"; "again this is
+  an app for way more than just me." The theatre / music split is open
+  only if he raises it.
+- **All 13:**
+  - Restaurant: fork and knife
+  - Café: cup and saucer
+  - Bar: coupe
+  - Venue: curtain
+  - Museum: column front
+  - Landmark: ⌘
+  - Attraction: Ferris wheel
+  - Park: bench
+  - Nature: conifer
+  - Shopping: bag
+  - Hotel: bed
+  - Neighbourhood: city blocks
+  - Street: walker
+- **Bias check, revised (his correction):**
+  1. Reads at real size.
+  2. Works for **every user** of the app. His saved places are examples
+     that test a concept, never the audience. This replaces "covers what
+     he actually saved".
+  3. One family.
+  4. Then wit.
+  Also, from his picks: one plain object beats a gesture or a scene.
+- **Carry into the drawing step:**
+  - bench vs bed at 12px;
+  - the ⌘'s line clearly heavier than the 2.00px outline;
+  - the wheel and the fountain-free Landmark busy at 12px (the wheel);
+  - the curtain vs the column front at 12px;
+  - the coupe's stem at 12px;
+  - the four new colours (Venue, Museum, Landmark, Park), proposed by
+    the product designer (visual focus) from the brand tokens, clear of
+    the orange and the navy;
+  - the + weight follows the set.

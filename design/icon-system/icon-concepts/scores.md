@@ -400,3 +400,11 @@ I rendered it myself and read the spotlight section and its one-ink rows.
   Nothing we built says 'a show of any kind' clearly at 12px; the
   spotlight and the crowd are the closest. Which one, or neither?"
 - **Send:** on the canvas Venue board.
+
+**Outcome:** he picked the curtain: "it's probably the curtain for me
+then? unless we decide to separate theater and music"; "again this is an
+app for way more than just me." All 13 icons are picked, and the concept
+step is closed.
+
+He corrected the scoring frame: icons are judged for every user, and his
+saved places are only examples. That replaces step 2 of my bias check.
