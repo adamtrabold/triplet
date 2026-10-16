@@ -31,8 +31,8 @@ meaning the concept behind each icon, not the exact drawing."
 
 ## Jobs for the whole set
 
-1. **See a concept for every icon in the app**, not a sample: the 11
-   places, every tool, the + and the account (`../inventory.md`).
+1. **See a concept for every icon in the app**, not a sample: the 13
+   places (11 pins, 2 shapes), every tool, the + and the account (`../inventory.md`).
 2. **Choose between at least two concepts per icon**, different in kind
    (not two drawings of one idea), each with why it fits a traveller.
 3. **Know the risk of each**: what it could be mistaken for, on the map, in
@@ -48,19 +48,30 @@ meaning the concept behind each icon, not the exact drawing."
 
 ## Places: tell them apart at a glance (map, row, chip)
 
-| Category | You need to recognise | Must not be mistaken for |
-|---|---|---|
-| Restaurant | "a place to eat a meal" (food halls and hot-dog stands too) | café; shopping (a food market); a letter or a number |
-| Café | "coffee, cake, a bakery" | restaurant; bar (both are cups and glasses) |
-| Bar | "drinks and a night out", which in your list is mostly **music venues and jazz clubs** | café; restaurant; a funnel or a lamp |
-| Attraction | "a sight to go and see": museums, galleries, castles, landmarks, amusement parks, murals | a bank or a court (a column front); a church only; nature |
-| Nature | "outdoors": parks, but in your list also **pools, a lighthouse, a fumarole, a bridge** | area (a park is both); a Christmas tree |
-| Shopping | "a shop": records, ceramics, books, design, markets | a padlock; a basket meaning "cart/checkout" |
-| Area | "a neighbourhood to wander" (your list: Gamla Stan, Christiania, markets, squares, cemeteries) | district and street (the same places appear in both); nature |
-| Hotel | "where we sleep" (0 saved today) | a hospital or a bed shop |
-| Other | "something that isn't any of these" (0 saved today) | a radio button (empty circle), a selected option, "report" |
-| District | "an outlined part of town" (a shape on the map) | area; a grid or app icon; a first-aid cross |
-| Street | "a street to walk" (a line on the map) | district; a pencil ("edit"); a film strip; a cone |
+The locked list (2026-10-16, `../categories.md`): 11 pins and 2 shapes.
+Area, Other and District are gone (District is renamed Neighbourhood;
+Square is now part of Landmark). Counts are after the migration. "Pick"
+is the owner's pick as recorded in `../owner.md`.
+
+| Category | You need to recognise | Must not be mistaken for | Pick so far |
+|---|---|---|---|
+| Restaurant (30) | "a place to eat a meal" (food halls and hot-dog stands too) | café; shopping (a food market); a letter or a number | A, fork and knife |
+| Café (16) | "coffee or a pastry", a bakery as much as a coffee shop | restaurant; bar (both are cups and glasses) | open: "i like the cup and saucer, but it's not just coffee shops. adding a bun is too much visual noise... need to push here." |
+| Bar (4) | "having a drink" | café ("i like the glass, but not differentiated enough from cafe"); venue; a funnel or a lamp | open: the glass is liked |
+| Venue (11) | "seeing a show": a place you'd only go to if there's a show on | bar; a phone's audio or voice control | open (new) |
+| Museum (24) | "any museum or gallery": art, history, themed | a bank or a court; landmark; shopping | open (new) |
+| Landmark (23) | "a notable place to see": buildings, monuments, murals, squares; it matters because of people | attraction; nature; a church only | open (new) |
+| Attraction (15) | "going in to do things": rides, castles, tours, city pools, botanical gardens | landmark ("camera says 'sight' more than attraction"); museum | open: "i wonder if the nordic loop works the best here"; "i dont know if it has to read as a solid shape -- its heavy enough" |
+| Park (9) | "a city park", where you hang out outside in town | nature; a Christmas tree; hotel (if a bench) | open (new) |
+| Nature (2) | "the natural world": waterfalls, volcanoes, coast, hikes | park; "hiking" only; a Christmas tree | open again: A was the conifer, before Park split off |
+| Shopping (49) | "a shop": records, ceramics, books, design, markets | a padlock; a basket meaning "cart/checkout" | A, bag: "bag is easier to understand at a glance" |
+| Hotel (0) | "where we sleep" | a hospital or a bed shop; a bench | bed: "bed is the best here" |
+| Neighbourhood (shape) | "a part of town to wander" (drawn as its outline) | a grid or app icon; a first-aid cross | city blocks (district A, carried over) |
+| Street (shape) | "a street to walk" (a box round the stretch) | neighbourhood; a pencil ("edit"); walking directions | walker: "walker is the best here" |
+
+Owner on the fountain (for the old Area): "i like the fountain direction on
+Area so push that". Area is gone; the fountain may serve Landmark (squares)
+or Park.
 
 ## Tools: recognise the action instantly
 
