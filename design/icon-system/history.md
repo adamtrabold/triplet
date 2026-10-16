@@ -22,6 +22,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 - **10-16 · Venue = curtain:** "again this is an app for way more than just me." Lesson: judge icons for every user, not his current pins.
 - **10-16 · All 13 picked:** Neighbourhood "i like the city blocks for neighborhood". "lets not focus on differentiation yet we aren't making final icons here" "we're not at drawing step next, next step is defining the grid"
 
+- **10-16 · How the icons are built:** "they need to sit in the stroked circle but also make sense on their own … the effect of the rounding should allude to something screened or pressed." Full quote in `owner.md`.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
