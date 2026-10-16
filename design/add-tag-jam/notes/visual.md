@@ -155,3 +155,4 @@
   - Collapse (row 5): A grab handle (we think) / B last icon on the
     right / C a printed "Lower" tab. Thread 082ebef3 is open.
 - **Resolved:** ac67b0fb, 7b50d2d8, c75967ec, 03619be4, d9def744.
+- **2026-10-16, v15:** new row 6, PlacesPlansA (systems Turn 8, Option A). The shipped .seg Places | Plans switch sits at the sheet top, always visible. Places: city sections. Plans: a list of plans (route glyph, name, stops and cities, a ›, New plan last). One plan: a back chevron, legs as headings, numbered stops. Row 5 (PlanCity1, TitleAndGoTo) is greyed as superseded. Option B is not drawn. Threads 0d441a3b and 47b66098 are open.
