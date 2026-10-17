@@ -95,3 +95,4 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on SectionSeparate, S1) I think I like this one - the light bg draws too much attention
 > (on Go to 3, the map's city labels) I know this is less connected conceptually but visually I prefer it
 > (on CollapseRefined, K2 tab) Yeah ran feels definitely it but the list needs the subtle top border that the tab has
+> (in chat, confirming the map badge) Your assumption was right about the box

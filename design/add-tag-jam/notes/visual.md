@@ -176,3 +176,4 @@
 - v23 (systems Turn 10): new row-2 board PlacesPlansKinds — Option 1: title "Places · Reykjavík ⌄" / "Plans · Golden Circle ⌄"; menu with a Places | Plans toggle (shipped .seg look) on top and only that kind’s items (All cities + cities with tallies, hidden city greyed with closed eye; All plans + plans + New plan); Golden Circle stops by city; All plans list. Option 2 (two title buttons) as one phone. Turn 9 board archived.
 - v24: section header = S1 everywhere (60px, air above, name on a 2px hair rule, paper, no band); decided. HiddenCity shortened so H1 Malmö shows.
 - v25: sheet gets a 1px hair top border (the tab’s border); the tab overlaps it so they join seamlessly; every Now sheet.
+- v26: map city badge = the boxed label (GoToMap), decided; TagBadge archived; waiting list down to 5.
