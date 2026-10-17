@@ -71,3 +71,17 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on Collapse option C's LOWER tab) i love this but itll get in the way of the + and it clutters up the map. maybe the icon in the version above in here would be good with no text? and then it could be right aligned? idk if that will feel messy
 > (on Collapse option A, the grab handle) maybe this is the most elegant approach?
 > (to the team) lets clean up the jam design board -- want to know what to pay attention to
+
+## 2026-10-17 (canvas comments, not sent to Claude)
+> (on CityMetaRefined, R2's routing line) I like this but I think the rule underneath it is too much
+> (on CityMetaRefined, R2's TYPE value "nature") The text here is louder than the other dropdown
+> (on CityDifferent, the city "Reykjavík") I'm actually having second thoughts/.. maybe we do need some way to note this city is near the main city of the trip
+> (on the Now page, at the Option A sticky: Places | Plans always visible) No i do not want it always visible
+> (on Go to 2, the list header "All places 202") This header type now feels too small…what's my type scale?
+> (same thread) Maybe it's that three padding above and below is too big idk try some stuff out
+> (on SectionSeparate, S2) I like the color the rule is too much
+> (on Go to 1, the hidden "Malmö 12" row) J just repeat the closed eye icon on the right on hidden one
+> (on TagBadge, T1) String is too long dot too heavy. Maybe orange?
+> (on TagBadge, T2's string) No this feels unnatural because of gravity
+> (on CollapseRefined, K2's tab) For me it's this one right now
+> (on Search 1) Sure

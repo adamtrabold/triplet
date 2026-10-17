@@ -164,3 +164,10 @@
 - New boards: CityMetaRefined (R1 eyelet axis, R2 routing line; NEW stamp after the dropdown), SectionSeparate (S1 air above, S2 navy ledger rule + raised band), HiddenCity (H1 hidden header state with closed eye, H2 gone + filters dot), TagBadge (T1 small Hanging Tag, T2 sideways luggage label; tally rule; navy-edged shadow for legibility), CollapseRefined (K1 last icon after a hairline at 18px, K2 right-aligned icon-only sheet-edge tab, list up and lowered; credit lifted above the tab).
 - Picked: tag direction for the map badge (bd932962 closed); B's collapse icon (082ebef3 closed).
 - v18: canvas split into pages. "Now" (launch): live and decided boards in 6 topic rows (add tag; Places and Plans; section header, count and Go to; map city badge; collapse, with A first; search), a "Waiting on you" sticky (8 open decisions) and green "Decided" stickies. "Archive": CityAlternatives, CityAsMetadata, PlansGoTo, SearchNear, PlanCity1, TitleAndGoTo, plus split-out CityNewMarks, GoToMapBadges and SectionHeadersHistory (the unpicked variants moved off the live boards). GoToSections drops the "Hidden: Malmö / Show" row (H1/H2 replace it either way). Notes cleaned: no distance, no "(202)".
+
+## Canvas v20 (2026-10-17)
+- Decided from owner comments: R2 routing line (no rule) replaces the CITY row on every add tag (Main, CityDifferent, CityNew, CityChange, TYPE boards, StarVisited); city list drops from the routing line. TYPE chip value 12px caps .12em (was 14px, "louder"). Section header = S2 band (RAISED) + 1px hair, no navy rule, everywhere. Collapse = K2 tab on every sheet (sheet() draws it; header loses the left triangle; Leaflet credit lifted 24px). Search 1.
+- Go to menu: a hidden city shows the closed eye at the right (and stays greyed).
+- TagBadge: T2 dropped (gravity); T1 refined, short string (6px + eyelet), 5px dot: navy vs orange.
+- New board ListHeaderType: L0 today (15/56), L1 tighter (15/48), L2 one step up (18/52).
+- Archived: Collapse (A/B/C), SearchMap.
