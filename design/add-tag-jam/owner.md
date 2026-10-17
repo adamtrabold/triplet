@@ -118,3 +118,4 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 Read as: T3's UI (a quiet last row in the menu, styled like the other rows) carrying I1's content ("Plans 3 ›"). Process: stop labelling options with codes (T1/I2/…); use short descriptive names.
 > (chat, on the quiet bottom row, both sides) This is great but icon alignment isn’t centered
 Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring.
+> (on the quiet-bottom-row menus) This is great but icon alignment isn’t centered
