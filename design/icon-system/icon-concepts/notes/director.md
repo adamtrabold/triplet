@@ -561,3 +561,17 @@ want sub pixels from prolly .8 to 2.5"
   - If the three look the same at real size, the sheet says so plainly,
     and says what separates them.
   - It doesn't recommend a width.
+- **g5 (f2ffa1d), by a new icon designer** (the last one was lost to a
+  container restart): **8**.
+  - It passes the choose-on-phone test.
+  - **The block:** sheet 3 frames 1.5's details as pure gains. At real
+    size some cost the read (coupe as "I", bag as a toolbox, bed in two,
+    cup stacked). It needs fair notes both ways.
+  - Sheet 6's "match in subject" is untrue, so it becomes "nearest in
+    kind".
+- **Recurring, under the new designer too:** the frame leans toward the
+  designer's private read. Check every comparison sheet for one-sided
+  colour or labels.
+- **The MUTCD lines are re-measured:** the centre is about 1.2–1.5px at
+  the same size, and picture to picture all three of ours are heavier
+  than the signs; 1.5 is the nearest.

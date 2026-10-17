@@ -352,3 +352,46 @@ Owner: "Feels like 1.5 or 2 to me right now"; then "What's closest to the inspo"
 - No width recommended on the sheets. Question: "Which of 1.5, 1.75 and 2px gives the density you want?"
 
 NEXT: design director, score g5 to the g4 note's test ("can he actually choose between the three on his phone?").
+
+---
+
+## Turn 15: design director, g5 (f2ffa1d): 8, two fixes
+
+Full text: `scores.md`, round g5.
+
+- **The test mostly passes.**
+  - The three are side by side in every context at 1x.
+  - The differences are named and enlarged.
+  - "They look alike" is said plainly, and it's really 1.5 against the
+    rest.
+  - The detail cut-offs are honestly called our rule.
+  - The inspo is answered two ways with corrected numbers.
+  - No width is recommended.
+- **What blocks a 9: sheet 3 counts the details as pure gains.**
+  - The orange notes mark only what 1.75 and 2 lose.
+  - At real size some of 1.5's details cost the read: the coupe's drink
+    line makes an "I", the bag's band makes a toolbox, the bed's fold
+    breaks it in two, the cup's rim stacks.
+  - He leans "1.5 or 2", so the frame must be fair both ways.
+- **Fixes:**
+  1. Sheet 3 notes costs as well as gains, in one neutral colour.
+  2. Sheet 6's "match in subject" becomes "nearest in kind".
+- **The question is unchanged:** "Which of 1.5, 1.75 and 2px gives the
+  density you want?"
+
+NEXT: icon designer, the two fixes. Then I look at sheets 3 and 6 only.
+
+---
+
+## Turn 16: icon designer, the g5 fixes (turn 15's two)
+
+- **Sheet 3:** every note is now one colour (grey). There's no orange for loss, so a width that keeps a detail and a width that loses one look the same. Under 1.5, a plain note marks where a detail costs the read at real size. I judged each on the 24px renders at 1x and 3x:
+  - cup: "the rim splits the cup into two stacked slabs";
+  - coupe: "the bowl thins to a bar; the glass reads as an "I"";
+  - bag: "with the band it reads as a toolbox";
+  - bed: "the fold splits the bed in two".
+  The architrave, the 3 tines, the 4 tiers and the scallops read fine, so they get no note.
+- **Sheet 6:** "beside the nearest of our icons in kind".
+- Re-shot `stills/g5-sheet-3.png` and `g5-sheet-6.png`. On the canvas, `Grid5Diff` and `Grid5Inspo` are updated; the replaced versions are on Archive at y 27000, "g5 before fixes".
+
+NEXT: design director, look at sheets 3 and 6.

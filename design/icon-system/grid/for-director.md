@@ -37,6 +37,12 @@ Standing: "Yes I'm looking for an harmonious complete set and guidance for the f
    The facts are stated; there's no pick.
 6. **No recommended width** on any sheet. The question on every sheet: "Which of 1.5, 1.75 and 2px gives the density you want?"
 
+## After your g5 score (8): the two fixes
+
+- **Sheet 3:** all notes are one grey; orange no longer marks loss. Under 1.5, a note says where a detail costs the read at real size. Cup: "the rim splits the cup into two stacked slabs". Coupe: "the bowl thins to a bar; the glass reads as an "I"". Bag: "with the band it reads as a toolbox". Bed: "the fold splits the bed in two". No note on the architrave, the tines, the tiers or the scallops: at real size they read fine.
+- **Sheet 6:** "beside the nearest of our icons in kind".
+- Re-shot `stills/g5-sheet-3.png` and `g5-sheet-6.png`. On the canvas, the replaced boards are on Archive at y 27000.
+
 ## My check of the MUTCD numbers (fig-2h-05-1.gif, measured, not eyeballed)
 
 Method: each sign's brown field, then the run lengths of white pixels in rows and columns inside it (`scratchpad/g5m/find.py`; per-sign histograms). The signs are 80–81px square (brown to the edge; the white border is the paper), not 78.

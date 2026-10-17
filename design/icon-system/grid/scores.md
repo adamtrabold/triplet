@@ -382,3 +382,62 @@ criteria. Six of the seven checks pass.
 - **Send** the canvas page "Grid concepts". The question, word for word:
   "Which stroke width gives the overall density you want? (Or two
   neighbours to look at closer.)"
+
+---
+
+## Round g5 (f2ffa1d): the close look at 1.5, 1.75 and 2, 2026-10-17: 8, two fixes
+
+**What I read:** `for-director.md`, jam turn 14, the stills
+`g5-sheet-0..6` at 3x (in strips) and `g5-sheet-1-1x`.
+
+**The test: can he choose between the three on his phone? Mostly yes.**
+- **Side by side in the same contexts, real size: pass.** Sheet 1 at
+  1x shows the header, chips, rows and map with the three stacked.
+  Sheet 2 has the + as it ships and the tag.
+- **Deciding differences named: pass.** Sheet 0's table and sheet 3's
+  enlargements cover the tines, tiers, small details, scallops and
+  chips.
+- **"They look alike" said plainly: pass.** It's on sheet 0, and it's
+  true at 1x: 1.75 and 2 are nearly one picture, and it's really 1.5
+  against the rest.
+- **"Where the details stop is our rule, not the width": pass.** This
+  is important, and it's stated well.
+- **Closest to the inspo: pass.** It's answered two ways with
+  re-measured numbers. "Picture to picture … 1.5 is the nearest" answers
+  his question without a recommendation.
+- **No recommended width:** right.
+
+**Why it's 8: sheet 3 frames the details as pure gains, and some cost
+the read at real size.**
+- The orange notes mark only what 1.75 and 2 lose, so the sheet leans
+  toward 1.5. At real size (sheet 3's small badges, sheet 1's rows and
+  map), some of 1.5's details hurt:
+  - the coupe's drink line splits the bowl, and it reads as a capital
+    "I";
+  - the bag's band makes it a toolbox or briefcase;
+  - the bed's fold breaks it into two pieces;
+  - the cup's rim stacks it.
+- He leans "1.5 or 2", so the frame has to be fair both ways. This is
+  my standing "rigged frame" objection.
+
+### Fixes (one batch)
+
+1. **Sheet 3, fair both ways.**
+   - For each detail row, add a plain note under 1.5 wherever the
+     detail costs the read at real size (coupe: "reads as an I"; bag:
+     "a toolbox"; bed: "breaks in two"; cup: "a stack"). Use the
+     designer's honest judgement at real size, not my list verbatim.
+   - Use the same colour for gains and costs, or none. Orange can't mean
+     "loss" only on the right-hand columns.
+   - If a detail truly reads fine, say nothing.
+2. **Sheet 6 wording.** "beside our icons that match in subject" isn't
+   true (lighthouse/museum, tower/wheel, tent/conifer). Make it "beside
+   the nearest of our icons in kind".
+
+**Not required:** anything else. The MUTCD numbers are corrected and
+honest.
+
+**The question, word for word (unchanged):** "Which of 1.5, 1.75 and 2px
+gives the density you want?"
+
+**Did the work change?** Yes. This is a new round, built to my test.
