@@ -424,3 +424,73 @@ I checked sheet 3 at 3x and the text of sheets 0 and 6 in `cards-g5.html`.
 NEXT: icon designer, the sheet-0 line (I check it by text). Then the
 coordinator sends the canvas page "Grid concepts" and adds the
 `../history.md` line.
+
+---
+
+## Turn 18: design director, criteria for the drawing round
+
+The owner: "Weight wise 1.5 but these icons are far from there drawing
+wise". Then: "Let's do a few at a time— we will need to pressure test
+the grid as it's being made".
+
+**Settled by him:** stroke = 1.5px, on grid A. Real drawings come next,
+a few at a time, with the corner law and the air shown on drawn icons.
+
+**The bar is his:** "they must be crafted with the highest attention to
+detail and quality -- minimal bezier curves with perfect architecture."
+A skeleton-level drawing isn't a 9.
+
+**Every batch is scored on two things.**
+
+**A. Drawing craft.** His build-brief sentences, in order; I quote the
+one a gap falls under.
+1. **"make sense on their own"** and in the circle: each icon reads at
+   24, at 12 and enlarged. The g5 costs are the first test: no stacked
+   cup, no "I" coupe, no toolbox bag, no split bed.
+2. **"simple shapes, but joined together to make coherent glyphs".**
+   The joins are made with intent.
+3. **"minimal bezier curves with perfect architecture".** I read the
+   SVG sources:
+   - point counts;
+   - zero sub-0.2px slivers;
+   - tangent curve joins;
+   - points on the pixel grid or on stated half-pixels;
+   - one path, real holes.
+4. **"personality in the approach to how strokes are connected and
+   curve".**
+5. **Corners:** "slight", "not 100% consistent" by joint type, and
+   alluding to "screened or pressed". The law has to be visible on the
+   32 pin and enlarged.
+6. **Family:** the batch sits with the earlier batches, the 1.5px UI
+   icons, the Star and today's visited marks.
+
+**B. The grid, pressure-tested.**
+- Each batch reports, icon by icon, where grid A held and where it
+  broke:
+  - box, guides, MIDDLE;
+  - part sizes, cuts and spaces;
+  - repeated parts;
+  - the small-details cut-off;
+  - angles, corners.
+- Any proposed grid change is shown, not just described: the grid
+  before and after, with the icons it fixes and the earlier batch icons
+  re-checked under it.
+- A batch where "the grid held everywhere" must show it. Silence isn't a
+  report.
+- A grid change that only helps one icon is a per-icon exception, and
+  it's labelled as one.
+
+**What the sheets must show:**
+- each drawn icon at 24, 12 and on the 32 pin, at real size;
+- enlarged on grid A with the construction visible, beside its
+  skeleton;
+- the held/broke report;
+- any grid change, before and after.
+
+**Not a 9:**
+- anything he could call "far from there drawing wise";
+- slivers in the sources;
+- an invisible corner law;
+- a grid break that's hidden or only described.
+
+NEXT: icon designer, batch 1 at 1.5. Then the director scores A and B.

@@ -602,6 +602,13 @@ wise".
     0.2px).
   - The sheets lead with the drawn icons at real size, with the
     skeleton beside each for comparison.
+- **The owner:** "Let's do a few at a time— we will need to pressure test
+  the grid as it's being made". Every batch is scored on two things:
+  - **(A) Drawing craft.**
+  - **(B) An honest held/broke report on grid A.** Any proposed grid
+    change is shown before and after, and the earlier batches are
+    re-checked under it. A one-icon fix is labelled as an exception.
+  Details in `../../grid/jam.md` turn 18.
 - **Watch myself:** don't let a well-built sheet or honest notes carry a
   weak drawing to 9. The drawing itself is the deliverable now (the g2
   lesson: score the thing he asked for).
