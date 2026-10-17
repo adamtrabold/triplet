@@ -16,6 +16,11 @@ For the next operator session. Read CLAUDE.md first (process, gates, roles).
 - **Trip model (background):** `design/trip-location-model/` — trips dropped; city buckets decided.
 - **App docs:** `docs/architecture.md` (also as a page: https://claude.ai/artifact/5UNGq7t3VN5WsnbxCEdT3u).
 
+## Designer memory
+- `notes/visual.md` (190 lines) and `notes/systems.md` are the designers' running notes; `handoff.md` is the spec.
+- `canvas-src/gen2.py` + `canvas-src/project/` — the canvas generator and every board's source (copied from the old session's scratchpad, which is gone). To change the canvas: edit/regenerate here, publish to the canvas url with `root` = canvas-src.
+- The designer/systems agents themselves don't carry over; a new session starts fresh agents and briefs them from these files.
+
 ## Status
 - Every canvas decision is made; nothing on the canvas waits on the owner.
 - Owner approved building: "Great to build". Lane 2 (feature): ONE builder per phase, worktree,
