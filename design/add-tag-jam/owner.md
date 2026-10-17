@@ -96,3 +96,6 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on Go to 3, the map's city labels) I know this is less connected conceptually but visually I prefer it
 > (on CollapseRefined, K2 tab) Yeah ran feels definitely it but the list needs the subtle top border that the tab has
 > (in chat, confirming the map badge) Your assumption was right about the box
+> (on CityNew, "Jönköping") New badge before Chevron?
+> (on TYPE select: open, "attraction") Can this auto detect?
+> (on City as metadata, R2's "Reykjavík") I think left aligned works better here

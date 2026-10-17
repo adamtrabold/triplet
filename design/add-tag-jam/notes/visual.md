@@ -177,3 +177,5 @@
 - v24: section header = S1 everywhere (60px, air above, name on a 2px hair rule, paper, no band); decided. HiddenCity shortened so H1 Malmö shows.
 - v25: sheet gets a 1px hair top border (the tab’s border); the tab overlaps it so they join seamlessly; every Now sheet.
 - v26: map city badge = the boxed label (GoToMap), decided; TagBadge archived; waiting list down to 5.
+- v27: NEW stamp moved inside the city dropdown button, between name and chevron (gaps balanced: 3px before, -1px after + chevron inset).
+- v27 published; R2 left alignment reconfirmed (owner); TYPE auto-detect question sent to systems.
