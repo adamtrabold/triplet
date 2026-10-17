@@ -92,3 +92,5 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on the canvas) Really hard to judge how this looks with the blue lines for new stuff
 > (on the distance note) I really like the distance note but it should feel more related to the actual address
 > (on the NEW stamp) The new badge is poorly aligned with the new dropdown
+> (on SectionSeparate, S1) I think I like this one - the light bg draws too much attention
+> (on Go to 3, the map's city labels) I know this is less connected conceptually but visually I prefer it
