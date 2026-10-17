@@ -702,6 +702,26 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const t = await page.evaluate(() => { const tb = document.getElementById('collapseTab').getBoundingClientRect(), sh = document.getElementById('locations').getBoundingClientRect(), at = document.querySelector('.leaflet-control-attribution').getBoundingClientRect(), add = document.getElementById('floatingAddBtn').getBoundingClientRect();
       return { w: tb.width, h: tb.height, right: Math.round(innerWidth - tb.right), onEdge: Math.round(sh.top - tb.bottom), attrAbove: at.bottom <= tb.top + 0.5, clearAdd: add.right < tb.left, label: document.getElementById('collapseTab').getAttribute('aria-label'), border: getComputedStyle(document.getElementById('locations')).borderTopWidth, oldBtn: !!document.getElementById('collapseBtn') }; });
     ok('H10 the collapse tab: 44x24 on the sheet\'s top edge at the right (16px; its paper covers the sheet\'s rule under it), "Lower the list"; the credit above it; clear of the +; the sheet\'s 1px top rule; no header arrow', t.w === 44 && t.h === 24 && t.right === 16 && t.onEdge === -1 && t.attrAbove && t.clearAdd && t.label === 'Lower the list' && t.border === '1px' && !t.oldBtn, t);
+    // check fixes (batch A): valid markup, headings, one state per eye, targets, a hidden go-to never titles the list
+    const mk = await page.evaluate(() => { const h = document.querySelector('#locationsHeader h2'), b = document.getElementById('titleBtn');
+      return { h2HasBtn: !!(h && h.contains(b)), btnHasHeading: !!b.querySelector('h1, h2, h3, h4, h5, h6'), secHeadings: [...document.querySelectorAll('.sec-head')].every(e => !!e.querySelector('h3 > .sec-name')),
+        pressed: document.querySelectorAll('.sec-eye[aria-pressed]').length }; });
+    ok('H12a the heading holds the title button (no heading inside a button); every section name is an h3; the eye states itself once (its label, no aria-pressed)', mk.h2HasBtn && !mk.btnHasHeading && mk.secHeadings && mk.pressed === 0, mk);
+    const hit = await page.evaluate(() => { const hd = document.getElementById('locationsHeader').getBoundingClientRect(), tb = document.getElementById('titleBtn').getBoundingClientRect(), sb = document.getElementById('sortBtn').getBoundingClientRect();
+      const at = (x, y) => { const e = document.elementFromPoint(x, y); return e ? (e.closest('#titleBtn') ? 'title' : e.closest('#sortBtn') ? 'sort' : e.closest('#toggleFiltersBtn') ? 'filters' : e.closest('#centerMeBtn') ? 'locate' : e.id || e.className) : null; };
+      const e0 = document.querySelector('.sec-eye'), l0 = document.getElementById('locationsList'); l0.scrollTop += e0.getBoundingClientRect().top - l0.getBoundingClientRect().top - 60;
+      const eye = e0.getBoundingClientRect(), ec = { x: eye.x + eye.width / 2, y: eye.y + eye.height / 2 };
+      const atEye = (x, y) => { const e = document.elementFromPoint(x, y); return !!(e && e.closest('.sec-eye')); };
+      return { title: [at(2, hd.top + 2), at(2, hd.bottom - 2), at(tb.right - 1, hd.top + 2), at(tb.right - 1, hd.bottom - 2)], sort: at(sb.x + sb.width / 2, sb.y + sb.height / 2), filters: at(document.getElementById('toggleFiltersBtn').getBoundingClientRect().x + 16, hd.top + hd.height / 2),
+        eye: [atEye(ec.x - 21, ec.y), atEye(ec.x + 21, ec.y), atEye(ec.x, ec.y - 21), atEye(ec.x, ec.y + 21)] }; });
+    ok('H12b targets: the title button covers the whole 52px band from the screen edge to the ⇅ zone (sort, filters keep theirs); the eye answers 44 x 44', hit.title.every(t => t === 'title') && hit.sort === 'sort' && hit.filters === 'filters' && hit.eye.every(Boolean), hit);
+    await goCity(page, 'copenhagen');
+    await page.evaluate(() => { ['copenhagen', 'malmo'].forEach(c => hiddenCities.add(c)); persistHiddenCities(); updateUI(); }); await W(300);
+    const th = [await h2(page), await tally(page)];
+    await page.evaluate(() => { hiddenCities.delete('malmo'); updateUI(); }); await W(200);
+    const th2 = [await h2(page), await tally(page), String(await page.evaluate(() => shownTally()))];
+    await page.evaluate(() => { hiddenCities.clear(); hiddenCities.add('malmo'); persistHiddenCities(); updateUI(); }); await W(200);
+    ok('H12c the gone-to city hidden: the title falls back to "All places" + the shown count (0 with every city hidden)', th[0] === 'All places' && th[1] === '0' && th2[0] === 'All places' && th2[1] === th2[2] && th2[2] !== '0' && (await h2(page)) === 'Copenhagen', { th, th2 });
     ok('H11 no errors', !errors.length, errors);
     await ctx.close(); }
   // a plan whose city recurs: one leg header per run

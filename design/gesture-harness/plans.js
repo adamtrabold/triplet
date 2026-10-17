@@ -12,6 +12,8 @@
 //   hold the number 450ms, drag one row down -> the stop moves one place; no navigate, no star/visit
 //   × from its centre: 0/2/3px release removes; 4/6/12/40px never (left, the visit direction)
 //   + from its centre: 0/3px adds; 4/12px never
+//   a held stop dragged across a leg header, near the top and near the foot (auto-scroll): headers move
+//     with the rows, the drop lands where the preview's gap was
 //   rows 56.00px, stop rows and Places rows below the rule alike
 //   a visited + starred street as a stop: stamp, field and star as a pin stop; un-visit from its ×; × removes it
 // Fixture: stub.js's one plan (opted in with localStorage gh.plans): Reykjavík rows 0, 5, 1.
@@ -147,6 +149,51 @@ const STOPS = 'rey00,rey05,rey01';
     await reset(); p = await sbox('.plan-x'); await tap(p); await W(800);
     rec(mode, '× on the street stop removes it (the plan is back to its three stops)', (await order()) === STOPS && (await page.evaluate(() => stopsOf('gh-p').length)) === 3, await order());
 
+    // drag across a leg header (add-tag-jam phase 1): the plan gets a Copenhagen stop between Reykjavík ones
+    // (legs Reykjavík | Copenhagen | Reykjavík); a held stop dragged across a header: every header moves with the
+    // rows (no row ever covers a header), and the drop lands exactly where the preview's gap was -- near the
+    // list's top, and near its foot with the edge auto-scroll running.
+    const cid = await page.evaluate(async () => { await addStop('gh-p', { locationId: 'cop00' }); const s = stopsOf('gh-p').find(x => x.location_id === 'cop00'); await reorderStop(s.id, 1); return s.id; }); await W(600);
+    const LEGS = 'rey00,cop00,rey05,rey01';
+    const legState = () => page.evaluate(() => {
+      const list = document.getElementById('locationsList'), lr = list.getBoundingClientRect(), lifted = document.querySelector('.plan-lifted');
+      const nodes = [...list.children].filter(e => e.matches('.sec-head, .location-card.is-stop') && e !== lifted).map(e => ({ e, r: e.getBoundingClientRect(), head: e.matches('.sec-head') }));
+      let cover = 0;
+      nodes.forEach(a => nodes.forEach(b => { if (a !== b && a.head && !b.head && a.r.top < b.r.bottom - 1 && b.r.top < a.r.bottom - 1) cover++; }));
+      // the preview's slot: the other stops (as drawn now) whose middle is above the lifted row's middle
+      const lm = lifted ? (lifted.getBoundingClientRect().top + lifted.getBoundingClientRect().bottom) / 2 : null;
+      const slot = lifted ? nodes.filter(n => !n.head && (n.r.top + n.r.bottom) / 2 < lm).length : null;
+      return { cover, slot, lifted: !!lifted, legs: document.querySelectorAll('#locationsList .sec-head.is-leg').length, lt: lr.top, lb: Math.min(lr.bottom, innerHeight) };
+    });
+    const legDrag = async (id, dy, foot) => {
+      await page.evaluate(() => { map.closePopup(); setHighlighted(null); document.getElementById('locationsList').scrollTop = 0; }); await W(300);
+      if (foot) await page.evaluate(id => { const l = document.getElementById('locationsList'), r = document.querySelector(`.location-card[data-id="${id}"]`).getBoundingClientRect(), lr = l.getBoundingClientRect();
+        l.scrollTop += r.bottom - (Math.min(lr.bottom, innerHeight) - 20); }, id), await W(300);
+      const q = await page.evaluate(id => { const r = document.querySelector(`.location-card[data-id="${id}"] .row-n`).getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, id);
+      await T(cdp, 'touchStart', q.x, q.y); await W(470);
+      const mids = [];
+      for (let k = 1; k <= 14; k++) { await T(cdp, 'touchMove', q.x, q.y + dy * k / 14); await W(24); if (k % 5 === 0) mids.push(await legState()); }
+      await W(foot ? 400 : 150);
+      const pre = await legState(); mids.push(pre);
+      await T(cdp, 'touchEnd'); await W(900);
+      const ord = (await order()).split(',');
+      return { pre, mids, ord, at: ord.indexOf(id), legs: (await legState()).legs };
+    };
+    // near the top: Reykjavík's first stop down ~1.5 rows, across the Copenhagen header
+    let d = await legDrag('rey00', 112, false);
+    rec(mode, 'drag across a leg header (near the top): headers move with the rows (no row covers a header), the drop lands where the preview showed', d.mids.every(m => m.lifted && m.cover === 0) && d.at === d.pre.slot && d.at >= 1, d);
+    await page.evaluate(([cid]) => { const s = stopsOf('gh-p'); const r0 = s.find(x => x.location_id === 'rey00'); return reorderStop(r0.id, 0).then(() => { const c = stopsOf('gh-p').find(x => x.id === cid); return reorderStop(cid, 1); }); }, [cid]); await W(600);
+    const back1 = await order();
+    // near the foot: the last stop up across a header, from the list's bottom edge (auto-scroll can run)
+    d = await legDrag('rey01', -150, true);
+    rec(mode, 'drag up across a leg header (from the list\'s foot): no row covers a header; the drop lands where the preview showed', back1 === LEGS && d.mids.every(m => m.lifted && m.cover === 0) && d.at === d.pre.slot && d.at <= 1, { back1, d });
+    await page.evaluate(([cid]) => { const ids = ['rey00', 'cop00', 'rey05', 'rey01']; let p = Promise.resolve(); ids.forEach((loc, i) => { p = p.then(() => reorderStop(stopsOf('gh-p').find(t => t.location_id === loc).id, i)); }); return p; }, [cid]); await W(600);
+    const back2 = await order();
+    d = await legDrag('rey00', 112, true);
+    rec(mode, 'drag down across a leg header at the list\'s foot (the edge auto-scroll runs): no row covers a header; the drop lands where the preview showed', back2 === LEGS && d.mids.every(m => m.lifted && m.cover === 0) && d.at === d.pre.slot && d.at >= 1, { back2, d });
+    // back to the fixture's three stops
+    await page.evaluate(async cid => { await removeStop(cid); const s = stopsOf('gh-p'); const ids = ['rey00', 'rey05', 'rey01']; for (let i = 0; i < ids.length; i++) { const x = stopsOf('gh-p').find(t => t.location_id === ids[i]); await reorderStop(x.id, i); } hidePlanSlip(); }, cid); await W(600);
+    rec(mode, 'the plan is back to its three stops', (await order()) === STOPS, await order());
     const hs = await page.evaluate(() => [...new Set([...document.querySelectorAll('#locationsList .location-card')].map(e => e.getBoundingClientRect().height.toFixed(2)))]);
     rec(mode, 'rows 56.00px (stop rows and the rows below the rule)', hs.length === 1 && hs[0] === '56.00', hs);
     rec(mode, 'no page errors', !errors.length, errors);

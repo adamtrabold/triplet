@@ -63,7 +63,7 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     let same = true; for (const m of ['az', 'category', 'left', 'starred', 'newest']) { await page.evaluate(m => setSortMode(m, { announce: false }), m); if ((await ids(page)).slice().sort().join() !== filtered) same = false; }
     ok('S6 with a category filter on, every order shows exactly the filtered set', same && !filtered.includes('kin'));
     await page.evaluate(() => { filters.categories.shopping = true; setSortMode('az'); }); await W(100);
-    const sh = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].map(e => e.querySelector('h3') && e.querySelector('h3').textContent).filter(Boolean).slice(-2));
+    const sh = await page.evaluate(() => [...document.querySelectorAll('#locationsList > .location-card')].map(e => e.querySelector('h3') && e.querySelector('h3').textContent).filter(Boolean).slice(-2));   // rows only: section headers carry an h3 too (add-tag-jam)
     ok('S7 shapes keep their own block after the pins, A-Z', JSON.stringify(sh) === JSON.stringify(['Istedgade', 'Vesterbro']), sh);
     ok('S8 no page errors', !errors.length, errors);
     await ctx.close(); }
