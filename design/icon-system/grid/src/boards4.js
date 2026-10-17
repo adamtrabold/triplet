@@ -252,13 +252,13 @@ function sheetGuide(W, n) {
 
 function page(W, rel) { return { css: CSS(W), cards: [sheetIntro(rel, 0), sheetSweep(1), sheetAcross(W, 2), sheetApp(rel, 3), sheetGuide(W, 4)] }; }
 
-{
+if (require.main === module) {
   const { css, cards } = page(390, '../inventory-png/');
   fs.writeFileSync(path.join(ROOT, 'cards-g4.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 4: stroke sweep</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
 }
-const out = process.argv[2];
+const out = require.main === module ? process.argv[2] : null;
 if (out) {
   const W = 760, assets = JSON.parse(process.env.ASSETS || '{}');
   HOME = assets.home || 'apple-touch-icon.png';
@@ -300,4 +300,5 @@ renderVals() { return {}; }
   fs.writeFileSync(path.join(out, 'boards.json'), JSON.stringify(names.map((nm, i) => ({ file: nm + '.dc.html', title: titles[i] })), null, 1));
   fs.writeFileSync(path.join(out, 'measure.html'), `<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0}${css}.card{margin:0}</style></head><body><div class="cards">${page(W, '/home/user/la-trip-map/.claude/worktrees/agent-a8232643d0d0e8556/design/icon-system/inventory-png/').cards.join('')}</div></body></html>`);
 }
-console.log('ink', WS.map(w => wl(w) + ' ' + INK[w] + '%').join(' · '));
+if (require.main === module) console.log('ink', WS.map(w => wl(w) + ' ' + INK[w] + '%').join(' · '));
+module.exports = { COL, f2, WS, wl, lawFor, GL, INK, UI, uiIcon, badge, chip, COSTS, buys, STAR, setHome: h => { HOME = h; }, imgHome: (px) => imgHome(px) };
