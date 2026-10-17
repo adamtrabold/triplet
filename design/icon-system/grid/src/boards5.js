@@ -100,8 +100,8 @@ table.cmp td:first-child{font-size:9.5px;letter-spacing:.08em;text-transform:upp
 .dg .n{font-size:11px;line-height:1.3;color:${COL.ink};padding:8px 0;border-top:1px solid ${COL.hair};align-self:stretch;display:flex;flex-direction:column;justify-content:center}
 .dg .n b{font-size:12px;color:${COL.navy};display:block}
 .dg .c{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px 0;border-top:1px solid ${COL.hair};align-self:stretch}
-.dg .c i{font-style:normal;font-size:10px;font-weight:700;color:${COL.ord};letter-spacing:.04em}
-.dg .c i.same{color:${COL.ink2}}
+.dg .c i{font-style:normal;font-size:10px;font-weight:700;color:${COL.ink2};letter-spacing:.04em}
+.dg .c i.cost{font-weight:400;font-size:10.5px;line-height:1.3;text-align:center;padding:0 2px}
 .x3{display:grid;grid-template-columns:${W > 500 ? '120px' : '74px'} repeat(3,1fr);gap:4px 6px;align-items:center}
 .x3 .h{font-size:15px;font-weight:700;color:${COL.navy};text-align:center}
 .x3 .n{font-size:10px;font-weight:700;color:${COL.navy};line-height:1.15}
@@ -174,24 +174,25 @@ function sheetCtx2(n) {
 // ---- sheet 2: the differences, big and real size --------------------------------------------------
 function sheetDiff(W, n) {
   const big = W > 500 ? 96 : 66;
-  const cell = (w, id, note, same) => `<div class="c">${badge(w, GL[w][id].b24.d, big)}${badge(w, GL[w][id].b24.d)}${note ? `<i${same ? ' class="same"' : ''}>${note}</i>` : ''}</div>`;
+  const cell = (w, id, note, cost) => `<div class="c">${badge(w, GL[w][id].b24.d, big)}${badge(w, GL[w][id].b24.d)}${note ? `<i>${note}</i>` : ''}${cost ? `<i class="cost">At real size: ${cost}</i>` : ''}</div>`;
   const d = Object.fromEntries(WS.map(w => [w, details(w)]));
   const rows = [
-    ['restaurant', 'The fork', 'Tines', w => `${d[w].tines} tines`, w => w !== 1.5],
-    ['nature', 'The conifer', 'Tiers', w => `${d[w].tiers} tiers`, w => w !== 1.5],
-    ['cafe', 'The cup', 'Rim band', w => d[w].small ? 'rim' : 'no rim', w => !d[w].small],
-    ['bar', 'The coupe', 'Drink line', w => d[w].small ? 'drink line' : 'none', w => !d[w].small],
-    ['shopping', 'The bag', 'Band under the handle', w => d[w].small ? 'band' : 'none', w => !d[w].small],
-    ['hotel', 'The bed', "Blanket's fold", w => d[w].small ? 'fold' : 'none', w => !d[w].small],
-    ['museum', 'The column front', 'Architrave', w => d[w].small ? 'architrave' : 'none', w => !d[w].small],
-    ['venue', 'The curtain', 'Scallops', w => d[w].scallops ? 'scallops' : 'plain', w => !d[w].scallops],
-    ['landmark', 'The ⌘', 'Weight only', () => '', () => false],
+    // the last field: where the 1.5 detail costs the read at real size (judged on the 24px renders at 1x and 3x); none = reads fine
+    ['restaurant', 'The fork', 'Tines', w => `${d[w].tines} tines`, null],
+    ['nature', 'The conifer', 'Tiers', w => `${d[w].tiers} tiers`, null],
+    ['cafe', 'The cup', 'Rim band', w => d[w].small ? 'rim' : 'no rim', 'the rim splits the cup into two stacked slabs'],
+    ['bar', 'The coupe', 'Drink line', w => d[w].small ? 'drink line' : 'none', 'the bowl thins to a bar; the glass reads as an "I"'],
+    ['shopping', 'The bag', 'Band under the handle', w => d[w].small ? 'band' : 'none', 'with the band it reads as a toolbox'],
+    ['hotel', 'The bed', "Blanket's fold", w => d[w].small ? 'fold' : 'none', 'the fold splits the bed in two'],
+    ['museum', 'The column front', 'Architrave', w => d[w].small ? 'architrave' : 'none', null],
+    ['venue', 'The curtain', 'Scallops', w => d[w].scallops ? 'scallops' : 'plain', null],
+    ['landmark', 'The ⌘', 'Weight only', () => '', null],
   ];
   const chipRow = ids => WS.map(w => `<div class="c">${ids.map(id => glyph(w, id, 48)).join('')}<div style="display:flex;gap:6px">${ids.map(id => chip(GL[w][id].c12.d)).join('')}</div></div>`).join('');
   return `<section class="card" id="c${n}"><div class="no">Grid · round 5 · sheet ${n}</div><h2>What actually changes</h2>
-<p class="att">Each difference, big (${(big / 24).toFixed(1)}x) and at real size underneath. Orange notes mark what the width loses.</p>
+<p class="att">Each difference, big (${(big / 24).toFixed(1)}x) and at real size underneath, with what that width has. Under 1.5, a note says where a detail costs the read at real size; a detail that reads fine has no note.</p>
 <div class="dg"><div></div>${WS.map(w => `<div class="h">${wl(w)}</div>`).join('')}
-${rows.map(([id, nm, what, note, lost]) => `<div class="n"><b>${nm}</b>${what}</div>${WS.map(w => cell(w, id, note(w), !lost(w))).join('')}`).join('\n')}
+${rows.map(([id, nm, what, note, cost]) => `<div class="n"><b>${nm}</b>${what}</div>${WS.map(w => cell(w, id, note(w), w === 1.5 ? cost : null)).join('')}`).join('\n')}
 <div class="n"><b>The chips</b>Bench, bed, blocks at 12px (4x, then real size)</div>${chipRow(['park', 'hotel', 'neighbourhood'])}
 </div>
 <p class="sm mute">Not changing: columns, spokes, slats and blocks keep the same count at all three. The ⌘ only gets heavier.</p>
@@ -238,7 +239,7 @@ function sheetInspo(W, n) {
   const pr = (a, b) => `${(100 * a / 71).toFixed(1)}${b && b !== a ? '–' + (100 * b / 71).toFixed(1) : ''}%`;
   return `<section class="card" id="c${n}"><div class="no">Grid · round 5 · sheet ${n}</div><h2>Closest to the inspo</h2>
 <div class="q"><b>You asked</b>"${QUOTE2}"</div>
-<p class="att">MUTCD brown signs (sheet 1 of Figure 2H-5), beside our icons that match in subject. Two ways to compare, because the signs and the badges are built differently: a sign's picture fills most of its square; our glyph fills the 12px box inside a 24px badge.</p>
+<p class="att">MUTCD brown signs (sheet 1 of Figure 2H-5), beside the nearest of our icons in kind. Two ways to compare, because the signs and the badges are built differently: a sign's picture fills most of its square; our glyph fills the 12px box inside a 24px badge.</p>
 <div class="lab">1 · Same size on screen: a sign the size of a badge</div>
 <div class="mg"><div></div>${PAIRS.map(p => `<div class="t">${p[2]}<br>/ ${p[3]}</div>`).join('')}
 <div class="n">MUTCD</div>${PAIRS.map(([k]) => sign(k, big)).join('')}
