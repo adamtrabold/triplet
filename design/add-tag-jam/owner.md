@@ -99,3 +99,6 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on CityNew, "Jönköping") New badge before Chevron?
 > (on TYPE select: open, "attraction") Can this auto detect?
 > (on City as metadata, R2's "Reykjavík") I think left aligned works better here
+> (on the distance note) I think under with more detail is better — maybe it’d be best under the line à la form validation notices
+> (on Go to 2, the first section header) First row doesn’t need all the extra padding
+> (on List header, L2) This one
