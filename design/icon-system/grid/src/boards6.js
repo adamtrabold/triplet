@@ -7,6 +7,7 @@ const E = require('./engine.js');
 const B4 = require('./boards4.js');
 const { COL, f2, uiIcon } = B4;
 const { W, CUT, DRAW, plus, star, BATCH } = require('./picks6.js');
+const { R, cut } = E;
 const { LAWS6, LAW_NAMES } = require('./laws6.js');
 const ROOT = path.join(__dirname, '..');
 const LAWS = ['joint', 'wear', 'press'];
@@ -58,16 +59,29 @@ const ui = (law, k, px) => `<svg width="${f2(px || UIP[k][1])}" height="${f2(px 
 const selPin = (d) => `<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15.25" fill="${COL.navy}" stroke="${COL.navy}" stroke-width="1.5"/><path d="${d}" transform="translate(4 4)" fill="${COL.paper}"/></svg>`;
 const SCALLOP_PATH = (() => { const src = fs.readFileSync(path.join(__dirname, 'boards5.js'), 'utf8'); return src.match(/const SCALLOP = '([^']+)'/)[1]; })();
 const plusBadge = (law, px = 60) => `<div style="position:relative;width:${px}px;height:${px}px;line-height:0;flex:none"><svg width="${px}" height="${px}" viewBox="0 0 60 60" style="position:absolute;left:0;top:0" aria-hidden="true"><polygon points="${SCALLOP_PATH}" fill="${COL.or}"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">${ui(law, 'plus')}</div></div>`;
+// the construction: each simple shape's own outline, in orange, over the drawing (cuts dashed)
+const cons = (prims, px, o = 6) => E.parts(E.xform(prims, 1, 0, 0, o, o)).map(q => `<path d="${q.d}" fill="none" stroke="${COL.or}" stroke-width="${f2(1.4 * 24 / px)}"${q.cut ? ` stroke-dasharray="${f2(3 * 24 / px)} ${f2(2 * 24 / px)}"` : ''}/>`).join('');
+// the curve rule made visible: on-curve points (squares) and handles (lines + dots) of one shape
+function anat(q, px, o = 6) {
+  const k = 24 / px, pts = E.anatomy(E.xform([q], 1, 0, 0, o, o)[0]); let g = '';
+  for (const a of pts) {
+    for (const h of [a.hi, a.ho]) if (h) g += `<line x1="${a.p[0]}" y1="${a.p[1]}" x2="${h[0]}" y2="${h[1]}" stroke="${COL.or}" stroke-width="${f2(1.2 * k)}"/><circle cx="${h[0]}" cy="${h[1]}" r="${f2(2.2 * k)}" fill="${COL.or}"/>`;
+    g += `<rect x="${f2(a.p[0] - 2.6 * k)}" y="${f2(a.p[1] - 2.6 * k)}" width="${f2(5.2 * k)}" height="${f2(5.2 * k)}" fill="${COL.raised}" stroke="${COL.ord}" stroke-width="${f2(1.2 * k)}"/>`;
+  }
+  return g;
+}
 // on the grid, enlarged: half-pixel lattice, the box, the guides
-function onGrid(d, px, s = 12, ring = true) {
+function onGrid(d, px, s = 12, ring = true, extra = '') {
   const k = px / 24, o = (24 - s) / 2, L = (a, b, c, e, col, sw, dash) => `<line x1="${a}" y1="${b}" x2="${c}" y2="${e}" stroke="${col}" stroke-width="${f2(sw / k)}"${dash ? ` stroke-dasharray="${f2(dash[0] / k)} ${f2(dash[1] / k)}"` : ''}/>`;
   let g = `<rect width="24" height="24" fill="${COL.raised}"/>`;
   for (let i = 0; i <= 48; i++) { const v = i / 2, c = i % 2 ? '#EFE8DA' : i === 24 ? COL.g3 : COL.g1; g += L(v, 0, v, 24, c, 1) + L(0, v, 24, v, c, 1); }
   if (ring) g += `<circle cx="12" cy="12" r="11.25" fill="none" stroke="${COL.navy}" stroke-width="1.5"/>`;
-  g += `<rect x="${o}" y="${o}" width="${s}" height="${s}" fill="none" stroke="${COL.blue}" stroke-opacity=".7" stroke-width="${f2(1 / k)}"/>`;
-  for (const [y, dash] of [[0], [4, [4, 3]], [6, [1.5, 2.5]], [12]]) g += L(0, o + y * s / 12, 24, o + y * s / 12, COL.blue, 1.2, dash);
+  if (ring) { // the place grid: box and guides (an app icon has its own box, so none)
+    g += `<rect x="${o}" y="${o}" width="${s}" height="${s}" fill="none" stroke="${COL.blue}" stroke-opacity=".7" stroke-width="${f2(1 / k)}"/>`;
+    for (const [y, dash] of [[0], [4, [4, 3]], [6, [1.5, 2.5]], [12]]) g += L(0, o + y * s / 12, 24, o + y * s / 12, COL.blue, 1.2, dash);
+  }
   g += `<path d="${d}" fill="${COL.navy}" fill-opacity=".88"/>`;
-  return `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true">${g}</svg>`;
+  return `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true">${g}${extra}</svg>`;
 }
 
 const CSS = W_ => `
@@ -125,7 +139,7 @@ function sheetIntro(n) {
 </ul>
 <p class="sm">Every part is a simple shape (rectangle, triangle, a curve with two points), joined into one solid glyph. The bowls of the cup and the coupe are each two curves; the conifer's drooping branches are one curve each side.</p>
 <div class="q long"><b>Your build brief</b>"${BRIEF}"</div>
-<p class="sm"><b>What you can judge now that you couldn't on skeletons:</b> the corner law (sheet 2, on the drawings; sheet 3 in the app) and the air in the ring (sheet 4). Sheet 5 is the grid, updated by what this batch found.</p>
+<p class="sm"><b>What you can judge now that you couldn't on skeletons:</b> the corner law (sheet 2, on the drawings; sheet 3 in the app) and the air in the ring (sheet 4). Sheet 5 is the grid, pressure-tested: where it held and broke, icon by icon, and each change before and after.</p>
 <p class="sm mute">Not in this batch: the other 9 places and the rest of the app icons. Visited and the home-screen icon are unchanged.</p>
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;
@@ -134,7 +148,7 @@ function sheetIntro(n) {
 // ---- sheet 1: the drawings, before and now ------------------------------------------------------
 const HOW = {
   cafe: 'Bowl: a flat rim and two curves meeting at the bottom. Ear: half a ring on the shoulder, so its counter stays open at 24px. Saucer: a 1.5px slab whose ends lift. No rim line: at 1.5 it split the cup.',
-  bar: 'Bowl: a flat rim on TOP and two curves into the stem. Stem: one 1.5px line. Foot: a low dome on BASE. The bowl is solid, so it reads as a full glass. No drink line: at 1.5 it turned the glass into an "I".',
+  bar: 'Bowl: a flat rim on TOP and two curves into the stem, its foot on SHOULDER. Stem: one 1.5px line. Foot: a low dome on BASE. The bowl is solid, so it reads as a full glass. No drink line: at 1.5 it turned the glass into an "I".',
   museum: 'Pediment on TOP; a cut; a beam; four columns hanging from it; a plinth on BASE. The spaces between the columns are 1.5px, the same as the line, so four fit (the skeleton had three).',
   nature: 'Four tiers, each a tip and two branches that droop to their ends, so the notches between tiers are sharp and the tips stay points. The trunk is one 1.5px line on BASE.',
 };
@@ -143,16 +157,16 @@ function sheetDrawings(W_, n) {
   const blocks = BATCH.map(([id, nm]) => {
     const g = GD.joint[12][id], old = B4.GL[1.5][id];
     return `<div class="icon"><h3>${nm}</h3>
-<div class="pair"><div>${onGrid(old.b24.d, big)}Skeleton (g5)</div><div>${onGrid(g.b24.d, big)}Drawn (batch 1)</div></div>
-<div class="pair" style="margin-top:8px"><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(old.b24.d)}${chip(old.c12.d)}${badge(old.b24.d, 72)}</span></div><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(g.b24.d)}${chip(g.c12.d)}${badge(g.b24.d, 72)}</span></div></div>
+<div class="pair"><div>${onGrid(old.b24.d, big)}Skeleton (g5)</div><div>${onGrid(g.b24.d, big, 12, true, cons(DRAW[id](12), big))}Drawn, its parts in orange</div></div>
+<div class="pair" style="margin-top:8px"><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(old.b24.d)}${chip(old.c12.d)}${badge(old.b24.d, 72)}</span></div><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(g.b24.d)}${chip(g.c12.d)}${selPin(g.b24.d)}${badge(g.b24.d, 72)}</span></div></div>
 <p class="sm">${HOW[id]}</p><p class="sm mute">${g.curves} curves in the outline, with the by-joint corners.</p></div>`;
   }).join('');
   const uis = ['plus', 'star'].map(k => `<div class="icon"><h3>${k === 'plus' ? 'The +' : 'The Star (not starred)'}</h3>
-<div class="pair"><div>${uiIcon(k === 'plus' ? 0 : 3, 1.5, big)}Stroke at 1.5px (g5)</div><div>${onGrid(UD.joint[k].d, big, 12, false).replace(/<rect x="6"[^>]*\/>/, '')}Drawn (batch 1)</div></div>
+<div class="pair"><div>${uiIcon(k === 'plus' ? 0 : 3, 1.5, big)}Stroke at 1.5px (g5)</div><div>${onGrid(UD.joint[k].d, big, 12, false)}Drawn (batch 1)</div></div>
 <div class="pair" style="margin-top:8px"><div>${uiIcon(k === 'plus' ? 0 : 3, 1.5)}</div><div>${ui('joint', k)}</div></div>
 <p class="sm">${k === 'plus' ? 'Two 1.5px bars; the crossing takes the same fillet as a joint in the places, the ends stay cut.' : 'A five-point star 1.5px wide, drawn as a shape: the outer tips stay points, the inner corners take the joint fillet. It stays the one outline.'}</p></div>`).join('');
   return `<section class="card" id="c${n}"><div class="no">Grid · round 6 · batch 1 · sheet ${n}</div><h2>The drawings</h2>
-<p class="att">Each icon on the grid, ${(big / 24).toFixed(1)}x, the g5 skeleton beside the drawing. Under each, real size (badge and chip) and 3x. Shown with the by-joint corners; sheet 2 has all three laws.</p>
+<p class="att">Each icon on the grid, ${(big / 24).toFixed(1)}x, the g5 skeleton beside the drawing. The orange outlines are the simple shapes each drawing is joined from (a dashed one is cut away). Under each, real size (badge 24, chip 12, the selected pin 32) and 3x. Shown with the by-joint corners; sheet 2 has all three laws.</p>
 ${blocks}${uis}
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;
@@ -167,7 +181,7 @@ const LAW_LINE = {
 function sheetCorners(W_, n) {
   const big = W_ > 500 ? 150 : 84;
   const head = `<div></div>${LAWS.map(l => `<div class="h">${LAW_NAMES[l]}</div>`).join('')}`;
-  const rows = BATCH.map(([id, nm]) => `<div class="n">${nm}</div>${LAWS.map(l => `<div class="c">${badge(GD[l][12][id].b24.d, big)}<span class="rs">${badge(GD[l][12][id].b24.d)}${chip(GD[l][12][id].c12.d)}</span></div>`).join('')}`).join('');
+  const rows = BATCH.map(([id, nm]) => `<div class="n">${nm}</div>${LAWS.map(l => `<div class="c">${badge(GD[l][12][id].b24.d, big)}<span class="rs">${badge(GD[l][12][id].b24.d)}${chip(GD[l][12][id].c12.d)}${selPin(GD[l][12][id].b24.d)}</span></div>`).join('')}`).join('');
   const urows = ['plus', 'star'].map(k => `<div class="n">${k === 'plus' ? 'The +' : 'Star'}</div>${LAWS.map(l => `<div class="c">${ui(l, k, big * 0.8)}${ui(l, k)}</div>`).join('')}`).join('');
   const zoom = W_ > 500 ? 190 : 104;
   // close-ups per law: the museum's beam meeting its columns (joins and outside corners), and the conifer's notches
@@ -175,7 +189,7 @@ function sheetCorners(W_, n) {
   const close = zv('museum', 6, 8.5, 6.5);
   const close2 = zv('nature', 12, 10, 6);
   return `<section class="card" id="c${n}"><div class="no">Grid · round 6 · batch 1 · sheet ${n}</div><h2>The corners, on the drawings</h2>
-<p class="att">The same drawings with each corner law, ${(big / 24).toFixed(1)}x, and at real size underneath (badge and chip).</p>
+<p class="att">The same drawings with each corner law, ${(big / 24).toFixed(1)}x, and at real size underneath (badge 24, chip 12, selected pin 32).</p>
 <div class="g3">${head}<div class="n">How</div>${LAWS.map(l => `<div class="c" style="font-size:10.5px;line-height:1.3;text-align:center;font-weight:400">${LAW_LINE[l]}</div>`).join('')}${rows}${urows}
 <div class="n">Close-up: museum, beam and columns</div>${close}<div class="n">Close-up: conifer, the notches</div>${close2}</div>
 <p class="sm"><b>The clearest difference:</b> by joint and pressed turn the spaces between the columns into small arches, and fill the conifer's notches; even wear keeps them square and sharp. Pressed fills deepest.</p>
@@ -215,24 +229,56 @@ ${AIRS.map(([s, nm]) => `<div class="tri"><div class="wl">${nm}</div><div><div c
 }
 
 // ---- sheet 5: the grid, pressure-tested by batch 1 ----------------------------------------------
+const { G4 } = require('./picks4.js');
+const REPORT = {
+  cafe: { held: 'box; MIDDLE (the cup and saucer centres on it exactly); the ear opens 2.3px at 24', broke: ['cut 0.9 → change 1', 'the rim line → change 3', 'curves had no rule → change 4'] },
+  bar: { held: 'box; TOP (the rim) and BASE (the foot); SHOULDER (the bowl ends on it); one piece, no cuts', broke: ['the drink line → change 3', 'curves → change 4'] },
+  museum: { held: 'box; TOP, SHOULDER (the beam), BASE (the plinth); the pediment\'s 1-in-2 slope; the beam is a part, not a cut, so it stays', broke: ['cut 0.9 → change 1', 'its own column spacing → change 2'] },
+  nature: { held: 'box; TOP (the tip), BASE (the trunk); four tiers, as the repeated-parts rule chose at 1.5', broke: ['branches are curves, which the angle rule didn\'t cover → change 5'] },
+  plus: { held: 'its size and place in the + badge', broke: ['a stroke can\'t take a corner law → change 6'] },
+  star: { held: 'the one outline; its size', broke: ['a stroke → change 6'] },
+};
 function sheetGrid(W_, n) {
-  const px = W_ > 500 ? 150 : 76;
-  return `<section class="card" id="c${n}"><div class="no">Grid · round 6 · batch 1 · sheet ${n}</div><h2>The grid, after batch 1</h2>
-<p class="att">You said "${Q2}". These are grid A's rules as they stand after drawing this batch. <b>Kept</b> held up; <b>Changed</b> is where a drawing fought the rule and we propose changing the rule rather than bending the drawing; <b>Open</b> is what the next batch has to test.</p>
-<div style="display:flex;gap:6px;justify-content:space-between;margin:8px 0">${BATCH.map(([id]) => onGrid(GD.joint[12][id].b24.d, px)).join('')}</div>
+  const px = W_ > 500 ? 150 : 96, sm = W_ > 500 ? 110 : 72;
+  const L = LAWS6.joint, built = (prims) => E.build(E.xform(prims, 1, 0, 0, 6, 6), { law: L }).d;
+  const ba = (before, after, lb = 'Before', la = 'After') => `<div class="pair" style="margin:6px 0 4px"><div>${before}${lb}</div><div>${after}${la}</div></div>`;
+  const real = (d1, d2) => `<div class="pair"><div><span class="rs" style="display:flex;gap:6px">${badge(d1)}${badge(d1, 48)}</span></div><div><span class="rs" style="display:flex;gap:6px">${badge(d2)}${badge(d2, 48)}</span></div></div>`;
+  // change 1: the cut
+  const cafe09 = built(DRAW.cafe(12, 0.9)), mus09 = built(DRAW.museum(12, 0.9));
+  const c1 = ba(onGrid(cafe09, px), onGrid(GD.joint[12].cafe.b24.d, px), 'Cut 0.9px', 'Cut 1px') + real(mus09, GD.joint[12].museum.b24.d);
+  // change 2: spaces between repeated parts
+  const c2 = ba(onGrid(B4.GL[1.5].museum.b24.d, px), onGrid(GD.joint[12].museum.b24.d, px), 'Own spacing 2.1px: 3 columns', 'Spaces = the line: 4 columns');
+  // change 3: no hairline cuts inside a mass
+  const rim = built([...DRAW.cafe(12), cut(R(0.5, 2.6, 9, 0.9))]), drink = built([...DRAW.bar(12), cut(R(-1, 1.2, 14, 0.9))]);
+  const c3 = ba(onGrid(rim, px), onGrid(GD.joint[12].cafe.b24.d, px), 'With the rim cut', 'Without') + real(rim, GD.joint[12].cafe.b24.d)
+    + ba(onGrid(drink, px), onGrid(GD.joint[12].bar.b24.d, px), 'With the drink line', 'Without') + real(drink, GD.joint[12].bar.b24.d);
+  // change 4: the curve rule (before: the skeleton's bowl was a circle cut off at TOP)
+  const oldBowl = G4.bar(1.5)[0], newBowl = DRAW.bar(12)[0], cupBowl = DRAW.cafe(12)[0];
+  const c4 = ba(onGrid(B4.GL[1.5].bar.b24.d, px, 12, true, anat(oldBowl, px)), onGrid(GD.joint[12].bar.b24.d, px, 12, true, anat(newBowl, px)), 'Skeleton: a circle, its points off the glyph', 'Drawn: two curves, points at the extremes')
+    + `<div class="pair"><div></div><div>${onGrid(GD.joint[12].cafe.b24.d, px, 12, true, anat(cupBowl, px))}The cup's bowl, the same rule</div></div>`;
+  // change 5: angles. Straight lines keep the rule (the pediment); the branches are curves
+  const c5 = ba(onGrid(GD.joint[12].museum.b24.d, px, 12, true, anat(DRAW.museum(12)[0], px)), onGrid(GD.joint[12].nature.b24.d, px, 12, true, DRAW.nature(12).slice(0, 4).map(q => anat(q, px)).join('')), 'Straight: the pediment rises 1 in 2', 'Curved: each branch is one curve');
+  // change 6: app icons drawn
+  const c6 = ba(uiIcon(0, 1.5, px), onGrid(UD.joint.plus.d, px, 12, false), 'A stroke: the crossing can\'t be shaped', 'A shape: the crossing takes the joint fillet');
+  const rep = [...BATCH, ['plus', 'The +'], ['star', 'The Star']].map(([id, nm]) => `<li><b>${nm}.</b> Held: ${REPORT[id].held}. <b>Broke:</b> ${REPORT[id].broke.join('; ')}.</li>`).join('');
+  const ch = (no, title, why, fig) => `<div class="icon"><h3>Change ${no}: ${title}</h3><p class="sm">${why}</p>${fig}</div>`;
+  return `<section class="card" id="c${n}"><div class="no">Grid · round 6 · batch 1 · sheet ${n}</div><h2>The grid, pressure-tested</h2>
+<p class="att">You said "${Q2}". First, icon by icon, where grid A held and where it broke. Then each change we propose, shown before and after. Batch 1 is the first, so there are no earlier drawings to re-check; batch 2 will re-check these six under any new change.</p>
+<div style="display:flex;gap:6px;justify-content:space-between;margin:8px 0">${BATCH.map(([id]) => onGrid(GD.joint[12][id].b24.d, sm, 12, true, cons(DRAW[id](12), sm))).join('')}</div>
+<div class="lab">Held and broke, icon by icon</div>
+<ul class="facts">${rep}</ul>
+<div class="lab">The changes (proposed; none is a one-icon exception)</div>
+${ch(1, 'a cut is 1px, not 0.9', '0.9 (0.6 × the line) never lands on the 0.25px drawing lattice, so every edge after a cut drifted off it. 1px does. It fixes the café and the museum; at real size the difference is a hair (the museum, real size and 2x, below).', c1)}
+${ch(2, 'spaces between repeated parts = the line', 'The skeleton gave the museum its own wider column spacing, an exception for one icon. The general rule (a space between separate parts is the line, 1.5px) fits four columns, and four reads as a column front at 24px.', c2)}
+${ch(3, 'no hairline cuts inside a mass', 'This replaces "small details only at w ≤ 1.5px", which let in the rim, the drink line, the bag\'s band and the bed\'s fold; all four cost the read (g5). Detail comes from the silhouette and from open counters instead. Shown on the two in this batch; the bag and bed are batch 2.', c3)}
+${ch(4, 'a rule for curves', 'The grid had none. As drawn: a curve runs between two points that are its extremes, with flat or upright handles, and ends on the 0.25px lattice or at a corner. So a bowl is two curves. Squares are points; dots are handles.', c4)}
+${ch(5, 'angles: straight lines and curves', 'Straight lines keep "orthogonal, 45° or a whole-pixel slope". The conifer\'s branches are curves, which that rule didn\'t cover; they follow change 4.', c5)}
+${ch(6, 'app icons are drawn as shapes', 'The + and the Star are drawn like the places, so the corner law reaches them. A stroke can only have round or square ends.', c6)}
+<div class="lab">Open</div>
 <ul class="facts">
-<li><span class="tag">Kept</span><b>Line:</b> 1.5px, everything: every line, the ring, the app icons at the size each renders.</li>
-<li><span class="tag">Kept</span><b>Box and guides:</b> 12 × 12 in the 24 badge. TOP 0 and BASE 12 did their job in all four: the coupe's rim, the pediment and the tree's tip sit on TOP; the foot, plinth and trunk stand on BASE.</li>
-<li><span class="tag">Kept</span><b>MIDDLE:</b> a glyph with no ground of its own is centred on MIDDLE. The cup and saucer sits exactly on it.</li>
-<li><span class="tag new">Changed</span><b>Cut between touching parts: 1px, not 0.9.</b> 0.9 (0.6 × the line) never lands on the drawing lattice, so every edge after a cut drifted off it. 1px does, and it opens a little more at 24px: the cup above its saucer, the pediment above the beam.</li>
-<li><span class="tag new">Changed</span><b>Spaces between repeated parts = the line (1.5px).</b> The skeleton gave the columns their own wider spacing (2.1px), which allowed three. The general rule allows four, and four reads as a column front at 24px. Proposed: no special spacing for one icon.</li>
-<li><span class="tag new">Changed</span><b>No hairline cuts inside a mass.</b> The rule "small details only at w ≤ 1.5px" let in the cup's rim, the drink line, the bag's band and the bed's fold, and all four cost the read (g5). Proposed: detail comes from the silhouette and from open counters (the cup's ear, the gaps between columns), not from cuts through a solid.</li>
-<li><span class="tag new">Changed</span><b>Curves:</b> the grid had no rule for them. Proposed, as drawn here: a curve runs between two points that are its extremes (flat or upright handles), so a bowl is two curves; a curve ends on the 0.25px lattice or at a corner.</li>
-<li><span class="tag new">Changed</span><b>Angles:</b> straight lines keep "orthogonal, 45° or a whole-pixel slope" (the pediment rises 1 in 2). The conifer's branches are curves, which that rule didn't cover; they follow the curve rule.</li>
-<li><span class="tag new">Changed</span><b>App icons are drawn, not stroked.</b> The + and the Star are shapes with the same corner law as the places. A stroke can't take a corner law (its ends are either round or square).</li>
-<li><span class="tag">Open</span><b>SHOULDER (4) isn't doing work yet.</b> No part of this batch lands on it: the coupe's bowl ends at 4.6, the museum's beam at 3.9. Batch 2 tests it on the hotel, venue and landmark; if they don't use it either, we propose retiring it.</li>
-<li><span class="tag">Open</span><b>The corner law and the air:</b> your picks (sheets 2 to 4).</li>
-<li><span class="tag">Open</span><b>Pixel lattice:</b> every point sits on a 0.25px lattice. A 1.5px line centred in the box can't sit on whole or half pixels (the coupe's stem runs 11.25 to 12.75 in the badge), so its edges fall between dots on a 3x phone. To settle with the corner law.</li>
+<li><b>SHOULDER (4):</b> it held in two of four (the coupe's bowl and the museum's beam end on it). Batch 2 tests it again.</li>
+<li><b>The corner law and the air:</b> your picks (sheets 2 to 4).</li>
+<li><b>The pixel lattice:</b> every construction point is on a 0.25px lattice; the corner rounds end where the law puts them. A 1.5px line centred in the box can't sit on whole or half pixels (the coupe's stem runs 11.25 to 12.75), so its edges fall between dots on a 3x phone.</li>
 </ul>
 <p class="sm mute">Next batch, if this direction is right: hotel (the bed without its fold), venue, landmark (the ⌘) and attraction (the wheel's spokes), with the account and locate icons.</p>
 <div class="q"><b>The question</b>${ASK}</div>
@@ -241,7 +287,7 @@ function sheetGrid(W_, n) {
 
 function page(W_) { return { css: CSS(W_), cards: [sheetIntro(0), sheetDrawings(W_, 1), sheetCorners(W_, 2), sheetApp(3), sheetAir(W_, 4), sheetGrid(W_, 5)] }; }
 const NAMES6 = ['Grid6Intro', 'Grid6Drawings', 'Grid6Corners', 'Grid6App', 'Grid6Air', 'Grid6Rules'];
-const TITLES6 = ['Batch 1: drawn at 1.5px', 'The drawings', 'The corners, on the drawings', 'In the app, real size', 'The air in the ring', 'The grid, after batch 1'];
+const TITLES6 = ['Batch 1: drawn at 1.5px', 'The drawings', 'The corners, on the drawings', 'In the app, real size', 'The air in the ring', 'The grid, pressure-tested'];
 
 if (require.main === module) {
   {

@@ -497,7 +497,7 @@ NEXT: icon designer, batch 1 at 1.5. Then the director scores A and B.
 
 ---
 
-## Turn 18: icon designer, round g6, batch 1 (the first drawn icons)
+## Turn 19: icon designer, round g6, batch 1 (the first drawn icons)
 
 Owner: "Weight wise 1.5 but these icons are far from there drawing wise"; "Let's do a few at a time— we will need to pressure test the grid as it's being made".
 
@@ -508,7 +508,7 @@ Owner: "Weight wise 1.5 but these icons are far from there drawing wise"; "Let's
   - the three corner laws on the drawings, with close-ups;
   - the laws in the app at real size;
   - the air (2px or 1.5px);
-  - the grid after batch 1 (Kept, Changed, Open).
+  - the grid, pressure-tested: held and broke, icon by icon, then each change before and after (built to turn 18's criteria).
 - **Grid changes proposed:**
   - cut 1px (not 0.9);
   - spaces between repeated parts = the line (four columns);
@@ -516,7 +516,7 @@ Owner: "Weight wise 1.5 but these icons are far from there drawing wise"; "Let's
   - a curve rule;
   - curves exempt from the angle rule;
   - app icons drawn as shapes.
-  - SHOULDER is open: no part of batch 1 uses it.
+  - SHOULDER is open: it held in two of four (the coupe's bowl and the museum's beam).
 - **Engine:** slivers under 0.2px are now dropped (0 in `svg/g6`; there were 81).
 - g5 is moved to Archive. Details: `for-director.md`.
 

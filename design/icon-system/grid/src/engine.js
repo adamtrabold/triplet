@@ -179,7 +179,19 @@ function build(prims, { law, penW, info, centre } = {}) {
   return { d, far, bounds: { x: b.x, y: b.y, w: b.width, h: b.height } };
 }
 
+// construction: each primitive's own outline (before the union), for drawing the build over a glyph
+function parts(prims) { return prims.map(q => { const it = toItem(q); const d = it.pathData; it.remove(); return { d, cut: !!q.cut }; }); }
+// anatomy of one primitive: its on-curve points and handles (for showing the curve rule)
+function anatomy(q) {
+  const it = toItem(q), kids = it.children ? it.children : [it], out = [];
+  for (const k of kids) for (const s of k.segments) {
+    const p = s.point;
+    out.push({ p: [p.x, p.y], hi: s.handleIn.isZero() ? null : [p.x + s.handleIn.x, p.y + s.handleIn.y], ho: s.handleOut.isZero() ? null : [p.x + s.handleOut.x, p.y + s.handleOut.y] });
+  }
+  it.remove(); return out;
+}
+
 // count curve commands in a path (the "minimal bezier" figure on the boards)
 const countCurves = d => (d.match(/C/g) || []).length;
 
-module.exports = { R, C, P, B, O, A, S, D, cut, pen, build, join, xform, countCurves };
+module.exports = { R, C, P, B, O, A, S, D, cut, pen, build, join, xform, countCurves, parts, anatomy };
