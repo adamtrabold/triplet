@@ -1752,6 +1752,10 @@
        one line: the navy is drawn 1px above the quiet row (box-shadow, so its 40px holds), over the
        row above's hair. */
     #titleMenu .menu-row[data-kind] { box-shadow: 0 -1px 0 var(--navy), 0 -2px 0 var(--paper-raised); }
+    /* p1-fixes v4 (owner: "Maybe we do the double thickness between the "all" and the list?"): the
+       ledger's own doubled rule -- .location-card.group-end, the category break: the row's 1px --hair
+       bottom rule at 2px -- under "All places" / "All plans". */
+    #titleMenu .menu-row:first-child { border-bottom-width: 2px; }
     #titleMenu .menu-row[data-kind]:active { background: var(--paper-pressed); }
 
     .menu-cap {
