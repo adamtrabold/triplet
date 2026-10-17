@@ -123,3 +123,4 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 
 ## 2026-10-17 (on the Phase 1 fixes stills)
 > I don't like it opening upwards because then the places/plan switch is where the thumb is rather than the cities…that is backwards to what will be used most. Add places is fine but that header isn't differentiated much
+> (on 5-menu-v2 / 6-add-divider-v2) Let's use a style we already use for the add places break. What about the wavy line? Also I like the menu. Need a stronger separator between the list in it and the button to the other menu. I'd say double width or blue but idk what's used in the app elsewhere that would make the most sense

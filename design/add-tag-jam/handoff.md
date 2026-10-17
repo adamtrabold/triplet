@@ -679,31 +679,40 @@ An open plan's list, top to bottom:
   - the title stays the plan's name.
   - Reference: `planGoToCity()`.
 - **Eye:** `setCityHidden()`, unchanged.
-- **Caption, v2: a tear-off line.** Owner: "Add places is fine but that
-  header isn't differentiated much". The end of the plan is now drawn as a
-  divider, not a header.
-  - `.plan-rule`: `height:40px; padding:0 var(--gutter); display:flex;
-    align-items:center; gap:var(--s2); background:var(--paper)`. **No solid
-    rules** top or bottom.
-  - The perforation: `::before` and `::after`, each `flex:1 1 0;
-    min-width:var(--s4); height:0; border-top:1.5px dashed
-    rgba(var(--ink-2-rgb), .5)`. This is the tag stub's perforation (1.5px
-    dashed), here in the token's 50% ink so it reads on the list's paper.
-  - The caption sits **centred** in the gap: caps 11px/12px, .12em, 700,
-    `--ink-2`, `position:relative; top:1px`.
+- **Caption, v3: the wavy line.** Owner on the v2 dashes: "Let's use a style we
+  already use for the add places break. What about the wavy line?"
+  - **Where the line comes from:** the app's one wavy line is the scalloped
+    die-cut edge of the account badge (`#accountBtn`, the `SCALLOP_PTS` mask),
+    the + badge (`ADD_SCALLOP_PTS`) and the mark's seal. `index.html`'s own
+    comment on `#accountBtn` calls that edge "the same wavy line". At the
+    account badge's 50px, its 16 lobes sit about 7.9px apart and about 2.2px
+    deep.
+    - The panel divider that comment also names no longer exists; the badges
+      are what's live.
+  - **Laid flat:** an 8px period, 2.5px from peak to trough, a 1.5px stroke,
+    round caps, in `rgba(var(--ink-2-rgb), .55)`.
+  - **How it's drawn:** `.plan-rule::before` and `::after` are each
+    `flex:1 1 0; min-width:var(--s4); height:6px`, with
+    `background:rgba(var(--ink-2-rgb), .55)` masked by one 8×6 SVG tile
+    repeated along x:
+    - the path is `M0 4.25C1.33 4.25 2 1.75 4 1.75S6.67 4.25 8 4.25`;
+    - its stroke is `#000`, 1.5px wide, round caps;
+    - it's applied as `-webkit-mask` and `mask` at `left center / 8px 6px repeat-x`;
+    - the exact CSS is on `design-p1-fixes`.
+  - **The band:** 40px tall, `--paper`, no solid rules,
+    `padding:0 var(--gutter)`, `gap:var(--s2)`.
+  - **The caption:** centred between the two waves, caps 11px/12px, .12em,
+    700, `--ink-2`, `top:1px`.
     - Markup: `<span class="rule-cap"><span class="h-name">Add
       places{cats}</span><span class="tally">{n}</span></span>`.
     - `.rule-cap { display:flex; align-items:baseline; gap:.45em }`.
-    - The tally is 11px with no margin of its own (the gap spaces it).
-    - The text reads `ADD PLACES 89`, or `ADD PLACES · CAFE 4` when chips are
-      off.
-  - It differs from a city header on three counts: centred against
-    left-aligned, a dashed line against a solid 2px rule, grey caption against
-    a navy name. The tear-off line also says what it is: the plan ends here.
-  - 11px is Impeccable's floor.
-  - `showPlanRule()` and the slip still anchor to this band. The slip now
-    covers a 40px band, so the builder should check its fit.
-  - The first city header under it stays compact (44px).
+    - The tally is 11px with no margin of its own.
+    - The text reads `ADD PLACES 89`, or `ADD PLACES · CAFE 4` with chips off.
+  - **Why it reads as a break:** a centred caption between waves sets it apart
+    from the city headers, which are left-aligned, navy, on a solid 2px rule.
+  - `showPlanRule()` and the slip anchor here. The slip now covers a 40px band,
+    so the builder should check its fit.
+  - The first city header under the break stays compact (44px).
 - Reorder (drag) never crosses the caption: unchanged.
 
 Why: the owner's job is "build a plan by filtering places", and the app
@@ -789,6 +798,23 @@ and its box is locked for as long as it's open.
   - **You must add `#titleMenu[hidden] { display:none }`.** The id rule's
     `display:flex` beats `.menu-box[hidden]`, so without it the menu never
     hides.
+- **v3, a stronger separator before the quiet row.** Owner: "Need a stronger
+  separator between the list in it and the button to the other menu. I'd say
+  double width or blue but idk what's used in the app elsewhere that would
+  make the most sense".
+  - **The choice:** a **1px `var(--navy)` line**, the shared menu spec's
+    caption rule (`.menu-cap`'s `border-bottom:1px solid var(--navy)`) and
+    the box's own edge colour. It splits the box into two compartments: what
+    to go to, and the other kind.
+  - **Why not double width:** the app's 2px rule (`--hair`, the ledger's
+    category break) is still the pale hair, so it would barely stand out on
+    `--paper-raised`.
+  - **How it's drawn:** `#titleMenu .menu-row[data-kind] { box-shadow: 0 -1px 0 var(--navy), 0 -2px 0 var(--paper-raised); }`.
+    - The navy line covers the hair of the row above, and the paper layer
+      covers any leftover hair, so one clean line shows.
+    - The row keeps its 40px.
+    - With the shorter side's blank paper above it, the line still sits on the
+      quiet row's top edge.
 - The opening slip comes down from above: `--slip-from: -4px`. The title
   chevron doesn't rotate (v1's rotation is dropped).
 - Resizing while open re-decides: clear the lock and place the menu again.
@@ -886,8 +912,8 @@ the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
 
 ### Open for the owner
 
-- The v2 menu (sheet 5): it opens downward over the list header, cities
-  first, the Places/Plans row last, and nothing moves when you switch kinds.
-- The v2 divider (sheet 6).
+- The menu is approved ("I like the menu"). It now has a navy line before
+  the Places/Plans row (sheet 7).
+- The wavy-line break (sheet 8).
 - Rename and Delete in the open plan (sheet 3): no comment from the owner yet;
   it's in the final stills.

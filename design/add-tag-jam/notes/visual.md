@@ -260,3 +260,16 @@
     stub's 1.5px dash, at 50% ink-2), 40px tall, no solid rules.
   - Prototype merged with batch A (48d40d2) at afe11fc. The Impeccable gate
     passes. Stills: `5-menu-v2.png`, `6-add-divider-v2.png`.
+- **2026-10-17, round 3:** the menu is approved ("I like the menu").
+  - **Separator:** a 1px navy line before the quiet row, taken from the menu
+    spec's caption rule and matching the box edge. Drawn as a box-shadow over
+    the hair of the row above.
+    - Rejected: the 2px hair (too pale on paper-raised).
+  - **Break:** the wavy line. The app's only wavy line is the scalloped edge
+    of the account and + badges (16 lobes about 7.9px apart, about 2.2px deep
+    at 50px), laid flat: 8px period, 2.5px deep, 1.5px stroke, at 55% ink-2,
+    with the caption centred.
+    - The panel divider that `#accountBtn`'s comment also names no longer
+      exists.
+  - Prototype b292c18. The Impeccable gate passes. Stills: `7-menu-v3.png`,
+    `8-add-divider-v3.png`.
