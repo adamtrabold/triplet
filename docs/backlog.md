@@ -209,20 +209,12 @@ pick/redirect before building anything.
 - ~~**Add form: mark a place visited while adding it**~~ (owner, 2026-10-15: "yes"). BUILT in
   the add tag (phase 2, branch `add-tag-p2`, not landed): the tag's own Mark visited segment,
   the insert writes `visited`.
-- **Add tag: a picked place can't be renamed before ADD** (found building phase 2, 2026-10-17).
-  The blank-tag rule "editing NAME after a pick voids the pick" means the OSM name is the only
-  name a picked place can get ("Sundhöll Reykjavíkur", not "Sundhöllin"); typing over it
-  re-searches. Needs a design answer (rename at add, or the future place edit). Repro: +, pick
-  Sundhöllin, edit the name: the address and pin go.
-- **Add tag: distance-first ranking can bury the landmark** (found building phase 2). Jam
-  Turn 6's "near the map first, each tier nearest first" (we think) re-sorts Nominatim's own
-  relevance away: in Reykjavík, "Harpa" lists the Kalkofnsvegur bus stop above the concert hall.
-  Owner/systems call: keep relevance inside the near-the-map tier? (Fixture:
-  `design/add-tag-jam/p2/fixtures/Harpa.json`.) The Photon trial above is the bigger answer.
-- **Add tag: a district's outline shows only after ADD** (phase 2). TypeDetected says "a
-  neighbourhood pick shows District, with its outline"; the build fetches the outline at ADD (as
-  today) and shows the district's pin above the tag before. A pre-ADD outline needs a lookup per
-  pick (Nominatim lookup by OSM id works). Design/systems call.
+- **Add tag: a place with no town is filed under the nearest city, however far** (phase 2's
+  fallback, until phase 3's reach rule): "Village of Tivoli" (NY: OSM gives only "Town of Red
+  Hook") shows "LA · ≈ 3,935 km from LA". Phase 3 makes it a NEW city from a reverse lookup.
+- **Add tag: a District's outline can sit behind the tag** (batch A): the pick puts the area's
+  point under the pin at zoom ≥ 14, so most of a big outline is under the card
+  (`stills/build-p2/10b-district-outline.png`). Framing it is a design/systems call.
 - **Obsolete checks after phase 2:** `design/trip-location-model/widen-test.js` (the city-scoped
   search and its widening are gone) and `design/state-system/check.js`'s "submit disabled
   opacity" case (`#submitBtn` is now the stub's ADD segment) test removed behaviour; delete or

@@ -191,3 +191,29 @@ call: build the new tag whole, not a retrofit of `#addForm`.
 ## Checks
 - `design/add-tag-jam/p2/addtest.js` (48 cases, live-search fixtures in `p2/fixtures/`).
 - Stills: `design/add-tag-jam/stills/build-p2/stills.js`.
+
+## Phase 2, batch A: the CD + UX check's fixes (2026-10-17; `checks/p2-cd-ux.md`)
+1. **NAME edit keeps the pick** (W1/W2 blocker): `voidAddPick()` is gone; typing only re-runs the
+   results; the typed name is saved (D7 saves "Sundhöllin" at Sundhöll's place).
+2. **Address hits** (`resultName(r, query)`, `isAddressHit()`): a nameless house/building is named
+   "road number" (number-first countries as `deriveShortAddress()`), else from the typed text; an
+   address hit, or a street/building found for a typed house number, is never Street/District.
+3. **Quiet search** (`cityRegions()`, `searchNearCities()`): no result near the map or a city ->
+   one bounded search per other region (1/s), merged, re-ranked. A countrycodes-only retry was
+   tried first and didn't find Noma; bounded boxes do.
+4. `accept-language=en` on search, reverse and lookup (a URL parameter). Fixtures re-fetched with
+   a generic UA (`p2/fetch-fixtures.sh`, with the tests' view as the soft viewbox).
+5. **TYPE table**: water:*, leisure beach -> Nature; leisure resort/beach_resort/spa/sauna, amenity
+   public_bath/spa -> Attraction (flag: a resort could be a hotel; the Blue Lagoon's lake row is
+   Nature, its resort row Attraction). No match / address hit -> Other (an existing category).
+6. `townOf()` skips admin names; `deriveNewCityConfig()` uses it.
+7. Ranking: importance inside a tier; duplicates merged (same OSM object, or same name + kind
+   within 50 m).
+8. **District outline before ADD** (`syncAddOutline()`): /lookup at the pick, drawn with
+   `neighborhoodStyle()`, removed when TYPE leaves District/Street or the tag closes; ADD reuses it.
+   Vesterbro's top hit is a node (no outline); Sund's is a relation.
+9. a11y: "Type: X" button name; "new city" in the city button's name; `aria-describedby="addDist"`;
+   `placeAddMenu()` re-fits on window / visualViewport resize (the menu no longer closes on resize).
+Left for batch B (designer): result-row type words, "NAME IT FIRST", District's address slot,
+TYPE menu fit, the Street/District pin, the TYPE trigger's weight.
+Checks: addtest 66/66; Impeccable PASSED; stills re-shot (+ `10b-district-outline.png`).

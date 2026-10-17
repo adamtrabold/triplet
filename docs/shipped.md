@@ -1620,26 +1620,38 @@ validation notices"; on Star / visited: "do not tuch". Builder notes:
 - **The pick:** the map jumps once, unanimated, under the wash so the place sits under the pin
   above the eyelet (zoom ≥ 16; shapes ≥ 14), then the wash lifts (200ms) and the type's pin (the
   selected grammar) stands on the string. The zoom buttons zoom about the place. Editing NAME
-  voids the pick (wash back, no pin, no address); City and TYPE stay, a hand pick stays one.
+  after a pick keeps the pick (place, address, city, TYPE, OSM pair) and only re-runs the
+  results; another tap changes the pick; the typed name is what's saved (UX ruling, check W1/W2).
+  An address hit with no name of its own is named "street number" ("Laugavegur 18"), else from
+  what was typed, never a bare house number.
 - **Search: worldwide, each result says where.** No city scope: no `geocodeSuffix`, no
-  `countrycodes`, never bounded; the map's view is only Nominatim's soft viewbox. Re-sorted:
-  inside the map's view (+25%) -> within 75 km of one of your cities -> the rest, each nearest
-  first (jam Turn 6, "we think"). Rows: name, then "type · Town, Country". ≥ 2 characters, the
+  `countrycodes`, never bounded; the map's view is only Nominatim's soft viewbox; every Nominatim
+  request asks `accept-language=en`. Re-sorted: inside the map's view (+25%) -> within 75 km of one
+  of your cities -> the rest; inside a tier by Nominatim importance, then nearest; duplicates
+  (same OSM object, or same name and kind within 50 m) merge. When nothing lands near the map or
+  any city, one quiet bounded search per other region of your cities (`cityRegions()`: city boxes
+  merged while within 8°; the view's own region skipped) is merged in, so "Tivoli" / "Noma" from
+  Reykjavík find Copenhagen's. Rows: name, then "type · Town, Country". ≥ 2 characters, the
   1s debounce, "Searching…" / "No places called that — try another name." / "Search timed out —
   try again.".
 - **TYPE, a select, auto-detected:** the trigger (20px badge, caps value, chevron) opens the menu
   (caption "Type", the 11 types with badges, the check on the current one) just under it. On a
   pick the OSM pair (`class`/`type`, or Photon's `osm_key`/`osm_value`) maps through
   `OSM_TYPE_TABLE` (jam Turn 11, + leisure swimming_pool / sports_centre / water_park ->
-  Attraction; `highway` points like bus stops are not streets; `boundary=administrative` below a
-  city -> District). No match: TYPE stays. A TYPE set by hand in this add is never overridden.
+  Attraction; + `water=*` and `leisure=beach` -> Nature; `leisure=resort / beach_resort / spa /
+  sauna`, `amenity=public_bath / spa` -> Attraction; `highway` points like bus stops are not
+  streets; `boundary=administrative` below a city -> District). An address hit (a house, a
+  building, or a street found for a typed house number) is never Street/District. No match, or an
+  address hit: an untouched TYPE becomes Other. A TYPE set by hand in this add is never overridden.
   A neighbourhood -> District switches ADD to the shape flow; the address line reads "Traced from
-  OpenStreetMap when you add it".
+  OpenStreetMap when you add it"; its outline (Nominatim `/lookup` by the pick's OSM id, once) is
+  drawn on the map before ADD in the shape layer's style and reused by ADD.
 - **The city (the routing line):** first line, caps 12, no rule; tap: the menu (caption "City",
   the current city with the pin glyph and check, your cities, then "New city" + "+ {real town}").
   Before a pick: the map centre's city (the old `defaultFormCity()` rule). After: the city whose
   box holds the place, else the real town (an existing city of that name, or a NEW one), else the
-  nearest; phase 3 replaces this with the nearest city in reach. A hand pick wins. The pin never
+  nearest; phase 3 replaces this with the nearest city in reach. The town is city / town /
+  village, skipping administrative names ("... Municipality", "Town of ..."). A hand pick wins. The pin never
   moves. **NEW stamp** (48x24, the stamp's dotted track and ring, `--brand-orange-deep` 88%,
   -4deg) before the chevron exactly when ADD will make the city: ADD runs `addCity()` first; if it
   fails nothing is inserted. Cancel makes nothing. `#newCityConfirm` and `#shapeCityConfirm` are
@@ -1657,7 +1669,13 @@ validation notices"; on Star / visited: "do not tuch". Builder notes:
   clears, the list comes back and the new place's own tag opens.
 - **Cancel** keeps the draft (name, pick, city, TYPE, notes, Star, visited) and puts back the map
   view, the list and a tag that was open. Esc closes a menu or the results first.
-- **Gates (Chromium):** `design/add-tag-jam/p2/addtest.js` 48/48 (real Nominatim responses in
+- **a11y:** the TYPE button reads "Type: Nature. Change the type"; the city button says "new city"
+  when the NEW stamp shows and is described by the distance note; the open menus re-fit their
+  height on a viewport / keyboard change.
+- **Gates, batch A (the check's fixes, 2026-10-17):** addtest 66/66 (fixtures re-fetched in English
+  with the tests' view hint, `p2/fetch-fixtures.sh`); Impeccable `IMPECCABLE GATE PASSED`; no row or
+  tag gesture code touched (gesture gate not re-run).
+- **Gates (Chromium), first build:** `design/add-tag-jam/p2/addtest.js` 48/48 (real Nominatim responses in
   `p2/fixtures/`); Impeccable: `IMPECCABLE GATE PASSED` (static 1/1,
   runtime 10/10, 0 new, 0 missing; no `--update`; "NAME IT FIRST" went 9 -> 11px to clear the
   floor). Full gesture gate (the shared haptic tap path `HAPTIC_TAPS` lost `.form-star-tap`): star

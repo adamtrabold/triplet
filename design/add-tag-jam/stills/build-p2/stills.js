@@ -34,9 +34,9 @@ const W = P.W;
   await page.evaluate(() => document.querySelector('#addStub .popup-star').click()); await W(500);
   await page.evaluate(() => document.querySelector('#addStub .popup-visited').click()); await W(700);
   await shot('05-star-visited');
-  // 6. editing NAME after a pick: the pick is void (wash back, no pin, no address), City and TYPE stay
-  // (the shot is the moment of the edit, before the next search answers)
-  await page.evaluate(() => { const i = document.getElementById('nameInput'); i.value = 'Sundhöll'; voidAddPick(); }); await W(400);
+  // 6. editing NAME after a pick: the pick stays (place, address, pin), the typed name is what's saved
+  // (renamed after the pick: the pick, its address and pin stay; the shot is before the next search answers)
+  await page.evaluate(() => { const i = document.getElementById('nameInput'); i.value = 'Sundhöllin'; i.dispatchEvent(new Event('input', { bubbles: true })); hideAutocomplete(); i.blur(); }); await W(400);
   await shot('06-name-edited-after-pick');
   await reset();
   // 7. a place outside its city's area: the distance note (Blue Lagoon, ≈ 40 km from Reykjavík)
@@ -56,9 +56,15 @@ const W = P.W;
   await P.pick(page, 0); await blur();
   await shot('10-district-detected');
   await reset();
-  // 11. the busiest: a long name, a long address, a note, Star and Mark visited, a NEW city
-  await P.openAdd(page); await P.typeName(page, 'Blue Lagoon');
-  await page.evaluate(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /Puncak/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(500);
+  // 10b. a neighbourhood with an OSM boundary (Sund, Reykjavík): District with its outline before ADD
+  await P.openAdd(page); await P.typeName(page, 'Sund');
+  await page.evaluate(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /Administrative/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(900); await blur();
+  await shot('10b-district-outline');
+  await reset();
+  // 11. the busiest: a long name, a note, the distance note, Star and Mark visited (Village of Tivoli, NY: no town, so the nearest city)
+  await P.openAdd(page); await P.typeName(page, 'Tivoli');
+  await page.waitForFunction(() => /Tivoli Gardens/.test(document.getElementById('addResults').textContent), null, { timeout: 8000 }).catch(() => {});
+  await page.evaluate(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /Village of Tivoli/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(500);
   await page.evaluate(() => { const n = document.getElementById('notesInput'); n.value = 'Go early, before the tour buses. Bring cash for the parking and a towel; the path down is slippery after rain.'; n.dispatchEvent(new Event('input', { bubbles: true }));
     document.querySelector('#addStub .popup-star').click(); }); await W(400);
   await page.evaluate(() => document.querySelector('#addStub .popup-visited').click()); await W(700); await blur();

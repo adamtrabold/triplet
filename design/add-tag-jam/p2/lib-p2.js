@@ -17,7 +17,9 @@ function fixtureFor(url) {
     return fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '[]';
   }
   if (u.pathname.startsWith('/reverse')) return '{}';
-  const q = (u.searchParams.get('q') || '').trim().replace(/ /g, '_');
+  let q = (u.searchParams.get('q') || '').trim().replace(/ /g, '_');
+  if (u.searchParams.get('bounded') === '1') q += `__vb_${u.searchParams.get('viewbox').replace(/,/g, '_')}`;
+  else if (u.searchParams.get('countrycodes')) q += `__${u.searchParams.get('countrycodes')}`;
   const f = path.join(FX, `${q}.json`);
   return fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '[]';
 }

@@ -45,7 +45,13 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   + again: everything you'd filled in is still there and the map is back where it was.
   (11) Pinch-zoom is blocked while the tag is up; the zoom buttons zoom around the picked place.
   (12) In a Safari tab (shorter screen) the tag and ADD sit above the map credit, and the result
-  rows are readable above the keyboard (3 or more).
+  rows are readable above the keyboard (3 or more). (13) Results are usable with the keyboard up: you can
+  scroll them and tap one without the keyboard covering it. (14) Paste an address from Notes or
+  Maps ("Laugavegur 18, Reykjavík"): the result reads "Laugavegur 18", the pick keeps that name and
+  TYPE Other (not Street); rename it ("Anna's flat") and ADD: it saves under your name at that
+  address. (15) Pick Sundhöllin, then change the name to "Sundhöllin": the pin, address and city
+  stay; ADD saves "Sundhöllin". (16) From Reykjavík, "Tivoli" and "Noma" list Copenhagen's after a
+  second's pause. (17) Results, towns and countries read in English.
 - **First open asks for your location (landed 2026-10-15):** in a fresh
   private Safari tab (nothing stored): (1) Safari asks for your location
   once, right at load; (2) Allow: the map lands on you with the navy
