@@ -169,7 +169,7 @@ function sheetCorners(W_, n) {
   const head = `<div></div>${LAWS.map(l => `<div class="h">${LAW_NAMES[l]}</div>`).join('')}`;
   const rows = BATCH.map(([id, nm]) => `<div class="n">${nm}</div>${LAWS.map(l => `<div class="c">${badge(GD[l][12][id].b24.d, big)}<span class="rs">${badge(GD[l][12][id].b24.d)}${chip(GD[l][12][id].c12.d)}</span></div>`).join('')}`).join('');
   const urows = ['plus', 'star'].map(k => `<div class="n">${k === 'plus' ? 'The +' : 'Star'}</div>${LAWS.map(l => `<div class="c">${ui(l, k, big * 0.8)}${ui(l, k)}</div>`).join('')}`).join('');
-  const zoom = W_ > 500 ? 220 : 104;
+  const zoom = W_ > 500 ? 190 : 104;
   // close-ups per law: the museum's beam meeting its columns (joins and outside corners), and the conifer's notches
   const zv = (id, x, y, s) => LAWS.map(l => `<div class="c"><svg width="${zoom}" height="${zoom}" viewBox="${x} ${y} ${s} ${s}" aria-hidden="true"><rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${COL.raised}"/><path d="${GD[l][12][id].b24.d}" fill="${COL.navy}"/></svg></div>`).join('');
   const close = zv('museum', 6, 8.5, 6.5);
@@ -178,6 +178,7 @@ function sheetCorners(W_, n) {
 <p class="att">The same drawings with each corner law, ${(big / 24).toFixed(1)}x, and at real size underneath (badge and chip).</p>
 <div class="g3">${head}<div class="n">How</div>${LAWS.map(l => `<div class="c" style="font-size:10.5px;line-height:1.3;text-align:center;font-weight:400">${LAW_LINE[l]}</div>`).join('')}${rows}${urows}
 <div class="n">Close-up: museum, beam and columns</div>${close}<div class="n">Close-up: conifer, the notches</div>${close2}</div>
+<p class="sm"><b>The clearest difference:</b> by joint and pressed turn the spaces between the columns into small arches, and fill the conifer's notches; even wear keeps them square and sharp. Pressed fills deepest.</p>
 <p class="sm"><b>Plainly:</b> at real size the three are close. You see the laws at 3x and on the selected pin; at 24px they change the texture, not the shape. Even wear shows most at real size, because it rounds the cut ends (the + and the plinth's ends look softer).</p>
 <div class="q"><b>The question</b>Which corners: by joint, even wear or pressed?</div>
 </section>`;
