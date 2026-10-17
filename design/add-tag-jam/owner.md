@@ -103,3 +103,5 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on Go to 2, the first section header) First row doesn’t need all the extra padding
 > (on List header, L2) This one
 > (chat, on TYPE auto-detect / Vesterbro) Neighborhood should be district
+> (in chat, on TYPE auto-detect) Neighborhood should be district
+> (in chat, on the Photon test) Add it to the backlog but I want the test automated not manual
