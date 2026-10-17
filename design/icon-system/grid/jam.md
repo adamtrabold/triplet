@@ -252,3 +252,15 @@ feel naturally part of the family".
 NEXT: icon designer, the stroke-width sweep. Then the director scores it
 against 0–3, the app icons, one family (the Home Screen icon included)
 and the future-icon test.
+
+---
+
+## Turn 10: icon designer, round g4 (the stroke sweep)
+
+- Eight widths, 0.8 to 2.5px, on grid A. The 13 are rebuilt per width (the parametric `src/picks4.js`): repeated parts as many as fit, small details only at w ≤ 1.5, the ring = w.
+- One family block per width: the badges, the chips, 12 UI icons at their real sizes, the + and today's home-screen icon at 60px. Each block has an ink %, "Buys" and "Costs". In-app rows, the map and the header with today's visited stamp and sticker.
+- Guidance sheet: the written rules, plus a labelled future-icon test ("Library"). Result: it sits with the set but reads as a bar chart.
+- Home-screen icon flagged: it doesn't sit naturally at any width as it stands.
+- g3 archived. Details: `for-director.md`.
+
+NEXT: design director, score g4 to the turn-9 order.

@@ -1,75 +1,68 @@
-# Grid g3: for the design director
+# Grid g4: stroke-width sweep, for the design director
 
-From the product designer (icon specialist), 2026-10-16. This round restructures after the owner's two reactions. g1 and g2 handoffs are in git history.
+From the product designer (icon specialist), 2026-10-17. Built to your turn-9 order. The g3 handoff is in git history.
 
-## What he said (verbatim, relayed)
+## His words (verbatim, relayed)
 
-On g2 cards 2 and 4:
-> "I don't understand. I see a bunch of icons redrawn. I don't see a single grid"
+> "A feels to be producing better sized icons but the icons are too simplistic that are coming out in reality. Let's try a bunch of pixel widths for the stroke to give us the perfect overall density goal. I want sub pixels from prolly .8 to 2.5"
 
-On the g2 frame card:
-> "I am glad we have the outer stuff defined in that grid by what about the interior? There's nothing to keep them consistent outside height/width and space to the ring"
+> "Also include app icons not just the ones for types"
 
-He has also said:
-> "i want more than one concept"
+> "Yes I'm looking for an harmonious complete set and guidance for the future"
 
-## What changed
+> "Home Screen icon will also need to feel naturally part of the family"
 
-**The grid is now the subject.** Each grid has its own sheet. Icons are secondary: rough skeletons laid on the grid only to show it in use. Each sheet runs:
+## Where
 
-1. **Outside** (what he said works). A large construction drawing at 24px, enlarged 14x on the phone, with pixel rulers. It shows the ring, the air, the live circle, how far points may reach, and the keyshapes. Below it, each keyshape on its own, and the numbers.
-2. **Inside** (his new question). The guides every glyph obeys, drawn large, with **all 13 glyphs overlaid as outlines**, so you can see the system holding them together. Then a strip of all 13 at 3.5x with the guides running straight through every badge, like a type specimen. Then the interior rules:
-   - one box
-   - three guide lines (or, in B, rings and chords)
-   - part sizes, two gap sizes, minimum holes, a short set of circle radii
-   - 2px lines
-3. **The chip.** The 12px grid: 6 × 6 modules of the 2px line. Both grids hand over to this same chip grid, and the sheet says why.
-4. **Corners** as part of the grid: an elbow, a T-join and the conifer's notch, enlarged.
+- **Canvas, page "Grid concepts":** https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW. It holds 5 g4 boards (`Grid4Intro`, `Grid4Sweep`, `Grid4Across`, `Grid4App`, `Grid4Guide`), and the page title is the question.
+- **The g3 boards (after fixes)** moved to Archive at y 16400.
+- **The visited stamp, the visited sticker and today's home-screen icon** are uploaded as canvas assets and shown unchanged.
+- **Stills:** `stills/g4-sheet-0..4.png` (3x) and `g4-sheet-1-1x.png`. Source: `cards-g4.html`.
+- **Code:** `src/picks4.js` (parametric skeletons, the detail rule, the test icon) and `src/boards4.js`.
+- **SVGs:** `svg/g4/w<width>/`.
+- I rendered all five sheets at 3x and the sweep sheet at 1x, and looked at them.
 
-**Two grids, not three.** They are genuinely different in kind:
+## Against your order
 
-- **A · Pixel keyline grid:** square.
-  - Glyphs sit inside a 12px box (6 to 18).
-  - Guides: TOP 6, SHOULDER 10, BASE 18, centre axis 12.
-  - Corners by joint.
-  - Live circle Ø16 (2px of air).
-- **B · Radial seal grid:** round.
-  - Rings: CORE r3, BODY r5.5, REACH r8.5.
-  - Chords: TOP 5.5 and BASE 18.5.
-  - Rays every 15°.
-  - Corners by even wear.
-  - Live circle Ø17 (1.5px of air).
+1. **Density at real size on a phone.**
+   - Sheet 1 has one block per width (0.8, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5px). Each block shows the 13 badges at 24px, the 13 chips at 12px and the app icons at their real sizes. The badges and chips are 1:1 CSS px, so on his phone they show at true size; the app icons scale their strokes to w at each icon's real size.
+   - Each block carries an "ink" number: the share of a 24px badge that's ink, averaged over the 13. It runs 26% at 0.8 to 57% at 2.5.
+   - Sheet 3 shows each width in list rows, on the map and in the header.
+2. **Thinner lines buy richness.**
+   - The 13 are parametric (`G4[id](w)`), rebuilt at each width, not scaled.
+   - Repeated parts are "as many as fit" with the cut and space rules: tines 5→2, columns 5→3, spokes 8→4, slats 3→2, tiers 5→3, blocks 4×4→2×2.
+   - Small details appear only at w ≤ 1.5: the rim, the drink line, the fold and the architrave. The scallops last to 1.75.
+   - Each block's "Buys:" line prints the counts the rule chose.
+3. **Honest costs per width.** Each block has a "Costs:" line, written from the renders:
+   - 0.8: the ring is lighter than the visited marks; 4×4 blocks read as an app grid; a 0.8px line looks grey on non-retina screens.
+   - 2.25 and 2.5: the wheel closes up, the roof merges with the columns, and the chips clog.
+4. **UI icons in their real contexts.**
+   - The set: +, ×, account, star (outline), locate, sort, filters, directions, tag ×, tick, chevron and more, each at its app size with stroke = w.
+   - Sheet 3 puts them in rows and the header, next to today's visited stamp and sticker (context only; Visited doesn't change).
+   - The UI icons are plain strokes with round caps and joins. Their corner rule follows the later corner pick.
+5. **One family.** Each width is one block: places, chips, UI icons, the + button and the home-screen icon together.
+6. **Future-icon test** (sheet 4).
+   - The written rules: box, guides, the middle rule, one width w, cuts 0.6w and spaces w, repeated parts as many as fit, small details only at w ≤ 1.5, angles, corners.
+   - Then "Library", labelled as a test, built only from those rules at all eight widths, beside the set and on the grid.
+   - Result, stated on the sheet: in weight, size and detail it sits with the set at every width, but as an idea it reads as a bar chart. The rules make an icon consistent; they don't make its concept clear.
+7. **Craft.** The same visual language as g3. The badges' ring takes w too: one width for everything.
 
-The g1 module grid became the chip grid shared by both. The pressed corner law isn't shown this round.
+## The home-screen icon (flagged plainly on sheet 0)
 
-**The 13 skeletons were rebuilt to obey each grid's interior** (`src/picks3.js`), so the overlays are evidence, not decoration.
-- **A's overlay is tight:** every glyph sits inside the box, stands on BASE and reaches TOP, and joins at SHOULDER.
-- **B's overlay is looser,** by the nature of a round grid: the pediment and the bench are wider than the box, and round glyphs fill REACH. I've left that visible rather than hiding it.
-- **Gaps checked by hand:** 1px or 2px only.
-- **Fit measured on the finished outlines:** A ≤ 8.34 (limit 8.5), B ≤ 8.91 (limit 9).
+- **It is today's PNG, unchanged,** shown at 60px with the iOS corner in every block.
+- **Measured:**
+  - its stem is 3.75px wide at 60px, about a 2px line relative to its seal;
+  - its ink covers 39% of the square.
+- **The flag:** as it stands it doesn't sit naturally in the family at any width. It's the only solid, scalloped, ringless mark: it pairs with the + button's scallop, not with the ringed badges, and it's the heaviest thing in every block. Redesigning it wasn't asked for, so it isn't attempted.
 
-## Canvas and files
+## Fixed, so the sweep only varies w
 
-- **Canvas, page "Grid concepts":** https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW. It holds 5 g3 boards (`Grid3Intro`, `Grid3A`, `Grid3B`, `Grid3Compare`, `Grid3Tool`), and the page title is the question.
-- **g2's 6 boards** are on Archive at y 9400 under "Round g2 · … (replaced by g3 …)". g1 is still there above them.
-- **Stills:** `stills/g3-sheet-0..4.png` (3x), plus `g3-sheet-3-1x.png`. Source: `cards-g3.html`. SVGs: `svg/g3/<A-pixel|B-radial>/`.
-- **Code:** `src/boards3.js`, `src/picks3.js`.
-- **I rendered and looked at them myself at 3x and 1x.**
-  - The big construction drawings, the overlays and the guide strips read on a phone.
-  - At 1x the side-by-side sheet is legible: both grids, both overlays and the real-size rows.
+Grid A's box and guides, the middle rule, the live circle Ø16, and the corner rule (by joint, with its radii scaled by w/2).
 
-## My read
+## My read (not on the sheets)
 
-- **A is the stronger grid.** The overlay shows why: one box, three lines, and the 13 visibly share a ground, a top and a shoulder. That answers his "nothing to keep them consistent" directly.
-- **B is the more characterful one.** It fills the seal, and its rings suit the wheel, the ⌘ and the cup. But its interior holds the set together less tightly, and the overlay shows it.
-- **I'd draw on A.** The cards don't say so.
-
-## Things you may flag
-
-- **Low glyphs look low.** The cup and the bed sit low in A because they stand on BASE. That's the cost of a shared ground; centring them would break the guide.
-- **The 12px chip has no interior guides of its own yet.** Its drawings are the earlier set. The sheet only claims the 6 × 6 module.
-- **The tool card is now short** and has no question.
+1.25–1.5 is where the set gets the richness he's asking for without the ring falling below the visited marks: all the small details are in, and cuts are 0.75–0.9px. Below 1.25 the badges look fragile next to the stamp and sticker; above 2 the details go and the chips clog. The sheets don't say this; he compares.
 
 ## The ask
 
-"Which grid do we draw the 13 on: A, the square pixel grid, or B, the round seal grid?"
+"Which stroke width gives the overall density you want? (Or two neighbours to look at closer.)"
