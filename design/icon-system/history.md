@@ -36,6 +36,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-17 · Stroke narrowed:** "Feels like 1.5 or 2 to me right now" → a closer look at 1.5–2.
 
+- **10-17 · Drawing batch 1 shown:** café, bar, museum, nature, + and Star drawn at 1.5px on grid A; corner laws and air on real drawings; grid changes 1–8. Asked: closer drawing-wise? which corners, which air. `grid/stills/g6-sheet-1.png`, `g6-sheet-2.png`
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
