@@ -573,3 +573,26 @@ re-read the sources.
 g6 batch 1's boards before these fixes are on Archive at y 33000.
 
 NEXT: design director, sheets 1, 2 and 5 and the sources.
+
+---
+
+## Turn 22: design director, batch 1 fixes (dab1947): 9, one crop fix
+
+- **Change 7 (the collision arc) is right:**
+  - the slot top is two equal quarter arcs at x 9.000;
+  - 0 slivers;
+  - `check-svg.py`: 33/35 symmetric. The two misses are the deliberate
+    `before-collision/` copies, so the count is "33 of 35", not
+    "33/33".
+- **The three-tier conifer is better,** and change 8 is sound.
+- **Sheet 2 is fair both ways:** the arcade for by joint and pressed,
+  and the blunt ends for even wear.
+- **Score: 9.**
+- **One crop fix first:** a stray speck (the tip of the tier above) at
+  the top of sheet 2's even-wear conifer close-up. I'll look at that
+  close-up only.
+- **The question is unchanged.**
+
+NEXT: icon designer, the crop fix. Then the director looks at that one
+close-up, and the coordinator sends the canvas page "Grid concepts" with
+the question and adds the `../history.md` line.

@@ -629,3 +629,13 @@ wise".
   - The conifer: try three tiers.
   - Pixel-snap rule due in batch 2. The drawing itself is the deliverable now (the g2
   lesson: score the thing he asked for).
+- **Batch 1 fixes (g6b, dab1947): 9.**
+  - The collision arc is centred.
+  - `src/check-svg.py` now does the sliver and symmetry checks. Use it
+    each round; it reports 33/35, and the 2 misses are the before
+    copies.
+  - The conifer is three tiers.
+  - The sheet-2 costs are fair both ways.
+  - One crop speck still to fix (the even-wear conifer close-up).
+  - Due in batch 2: the pixel-snap rule shown at 1x, and SHOULDER
+    re-tested.

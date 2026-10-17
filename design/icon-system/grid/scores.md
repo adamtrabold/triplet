@@ -549,3 +549,48 @@ drawing-wise? If so: which corners (by joint, even wear or pressed),
 and 2px or 1.5px of air?"
 
 **Did the work change?** Yes. This is the first drawing round.
+
+## Round g6b (dab1947), 2026-10-17: 9, send after one crop fix
+
+**What I checked:**
+- sheets 1, 2 and 5 at 3x;
+- `src/check-svg.py` and my sliver scan on `svg/g6`;
+- the museum slot path read by hand.
+
+**A. Craft: 9.**
+- **Change 7 is right.** The museum slot top is now two equal quarter
+  arcs meeting at x 9.000. The sliver scan is 0, and `check-svg.py`
+  reports 33/35 symmetric. The 2 asymmetric files are the
+  `before-collision/` copies kept to show the old fault, which is
+  correct. (The handoff said 33/33; it's 33 of 35, with the two misses
+  being the before copies.)
+- **The three-tier conifer is better.** It's calmer at 24, the chip
+  reads, and change 8 ("a ceiling, not a target") is a sound general
+  rule.
+- The cup and the coupe hold.
+
+**B. Grid honesty: 9.** Changes 7 and 8 are shown before and after,
+and the before versions are on Archive.
+
+**Fairness: fixed.**
+- Sheet 2 names a cost for each side: the museum reads as an arcade
+  under by joint and pressed (pressed deepest), and even wear blunts the
+  cut ends.
+- Neither law is favoured.
+
+**One crop fix before he sees it:**
+- Sheet 2's even-wear conifer close-up shows a stray speck at its top
+  edge: the clipped tip of the tier above.
+- On his phone it reads as a drawing fault.
+- Move the crop window (or clip it consistently in all three columns)
+  so no part of a neighbouring tier shows.
+- I check it by look on that one close-up.
+
+**The question, word for word (unchanged):** "Are these closer
+drawing-wise? If so: which corners (by joint, even wear or pressed),
+and 2px or 1.5px of air?"
+
+**Due in batch 2:**
+- the pixel-snap rule for 1.5px edges, shown at 1x;
+- SHOULDER re-tested;
+- the six re-checked under any new change.
