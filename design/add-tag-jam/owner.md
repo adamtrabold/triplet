@@ -107,3 +107,5 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (in chat, on the Photon test) Add it to the backlog but I want the test automated not manual
 > (chat) Definitely h1 for hidden cities
 > (in chat) Definitely h1 for hidden cities
+> (on Places and Plans) Places/plans does not need to be in the list header
+> (on the Places menu) This one is feeling the best but the toggle isn't right yet play with size and placement
