@@ -19,7 +19,7 @@
     sort: ['#sortBtn', function () { document.getElementById('sortBtn').click(); },
       function () { var m = document.getElementById('sortMenu'); return m && !m.hidden && m.children.length > 0; }],
     add: ['#floatingAddBtn', function () { document.getElementById('floatingAddBtn').click(); },
-      function () { var f = document.getElementById('addForm'); return f && f.classList.contains('show'); }],
+      function () { var f = document.getElementById('addForm'); return f && !f.hidden; }],
     // add-tag-jam phase 1: Plans is picked in the list title's menu (the quiet row, then a plan)
     plans: ['#titleBtn', function () {
         document.getElementById('titleBtn').click();

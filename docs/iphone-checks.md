@@ -23,6 +23,29 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   map credit sits above it, the + never touches it, and lowered there's no line under the title;
   (7) star/visit swipes still work on rows right under a header; (8) a long plan name ends in
   "…" right before its count.
+- **The add tag (add-tag-jam phase 2; branch `add-tag-p2`, check once landed):** on your phone,
+  signed in. (1) Tap +: the list drops, the map pales and a blank tag shows NAME / ADDRESS /
+  NOTES / TYPE with the city line on top; the keyboard comes up on NAME and the tag sits right
+  under the zoom buttons (if the keyboard doesn't come up, say so: one tap on NAME is the
+  fallback). (2) Type "Sundhöllin": results print inside the tag, each "Sports centre ·
+  Reykjavíkurborg, Ísland"; tap it: the keyboard drops, the map jumps once (hidden under the pale
+  wash) and the green Attraction pin stands on the string right on the pool; no visible map
+  slide. (3) Type "Tivoli" from Reykjavík: results from several countries, each saying where;
+  pick Copenhagen's if it's there (if Copenhagen's Tivoli isn't listed, say so -- it's the Photon
+  question). (4) Pick "Blue Lagoon": the line says REYKJAVÍK and under the address "≈ 40 km from
+  Reykjavík"; tap the city: a menu of your cities, then "NEW CITY · + Grindavík". (5) Pick
+  something in a town you have no city for (e.g. "Jönköpings läns museum"): the line says
+  JÖNKÖPING with the orange NEW stamp; ADD: Jönköping appears as a city section and the new
+  place's tag opens; cancel instead: no city is made. (6) Pick "Vesterbro": TYPE switches to
+  District and the address line says it's traced from OpenStreetMap; ADD: the outline draws.
+  (7) Change TYPE by hand, then pick another place: TYPE stays yours. Same for the city.
+  (8) Tap Star (band prints) and Mark visited (the stamp lands) before ADD: the row arrives
+  starred and stamped. (9) With the tag open tap NOTES and write a long note: if the keyboard
+  would cover it the tag lifts (its pin and string hide) and comes back down after. (10) ×, then
+  + again: everything you'd filled in is still there and the map is back where it was.
+  (11) Pinch-zoom is blocked while the tag is up; the zoom buttons zoom around the picked place.
+  (12) In a Safari tab (shorter screen) the tag and ADD sit above the map credit, and the result
+  rows are readable above the keyboard (3 or more).
 - **First open asks for your location (landed 2026-10-15):** in a fresh
   private Safari tab (nothing stored): (1) Safari asks for your location
   once, right at load; (2) Allow: the map lands on you with the navy
@@ -267,11 +290,9 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   visited row — should navigate, not raise the delete confirm; (6) stamp
   text at arm's length looks crisp, not soft. (Tilt is the press + tilt
   check above.)
-- Smoke-test the new shape-city resolution in a real browser (agent
-  sandboxes here can't reach Nominatim/Overpass): add a district/street
-  that should confidently match an existing city, one that should trip the
-  `shapeCityConfirm` dialog, and try both its "Add city" and "Add to
-  [city]" buttons.
+- Smoke-test shape city resolution in a real browser (the add tag, phase 2): add a district that
+  clearly sits in one of your cities (files there), and one straddling two (files under the city
+  the line showed, or your hand pick); there is no "Which city?" dialog any more.
 - Re-run `tools/neighborhood-shapes.html` for `reykjavik-klapparstigur` in
   your own browser. The tool now auto-drops OSM segments that disagree with
   the majority-voted city (see Architecture in `CLAUDE.md`), which should exclude

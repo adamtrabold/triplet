@@ -1596,3 +1596,74 @@ list?"; "Let's use a style we already use for the add places break. What about t
   failures are the playground-mode harness, backlog; S5 = the accepted ~17-character title);
   sorttest 76/77 (D1 fails on main too); places-ux 30/30. Impeccable: `IMPECCABLE GATE PASSED`
   (static 1/1, runtime 10/10, 0 new, 0 missing; no `--update`).
+
+## The add tag (add-tag-jam phase 2; built 2026-10-17 on `add-tag-p2` -- NOT LANDED)
+
+Owner: "Great to build" (the decided design, `design/add-tag-jam/handoff.md` "Phase 2", "One menu
+spec", the Phase 3 visual for the city menu, NEW stamp and distance note); "Run it per CLAUDE.md
+lane 2, one phase at a time"; on phase 2's scope "Whatever makes the most sense" (operator: build
+the blank-tag form whole). From the jam: "i think the "type" should be a select in the tag -- i
+dont like seeing all the icons in the tag. but they may be helpful iin the dropdown?"; "Can this
+auto detect?"; "Neighborhood should be district"; "I think left aligned works better here";
+"I like this but I think the rule underneath it is too much"; "New badge before Chevron?";
+"I think under with more detail is better — maybe it’d be best under the line à la form
+validation notices"; on Star / visited: "do not tuch". Builder notes:
+`design/add-tag-jam/notes/builder.md` (Phase 2). Stills: `design/add-tag-jam/stills/build-p2/`.
+
+- **Tap + and a blank place tag opens** (`#addForm`): the shipped Hanging Tag's die, patch,
+  shadows, notches and stub, filled in on the tag. Lines: the routing line (the city), NAME (the
+  search, 26px), the address, the distance note, NOTES (16px), TYPE; stub ADD | STAR | MARK
+  VISITED. A card in the screen's frame (not a popup): 45% down the open map, docked under the
+  top controls while the keyboard is up on NAME (or would cover NOTES). The list drops to its
+  band; the + hides (× / Esc cancel). The map is washed (`#addWash`, `--paper` 78%) until a place
+  is picked, and blocked from drags while the tag is up.
+- **The pick:** the map jumps once, unanimated, under the wash so the place sits under the pin
+  above the eyelet (zoom ≥ 16; shapes ≥ 14), then the wash lifts (200ms) and the type's pin (the
+  selected grammar) stands on the string. The zoom buttons zoom about the place. Editing NAME
+  voids the pick (wash back, no pin, no address); City and TYPE stay, a hand pick stays one.
+- **Search: worldwide, each result says where.** No city scope: no `geocodeSuffix`, no
+  `countrycodes`, never bounded; the map's view is only Nominatim's soft viewbox. Re-sorted:
+  inside the map's view (+25%) -> within 75 km of one of your cities -> the rest, each nearest
+  first (jam Turn 6, "we think"). Rows: name, then "type · Town, Country". ≥ 2 characters, the
+  1s debounce, "Searching…" / "No places called that — try another name." / "Search timed out —
+  try again.".
+- **TYPE, a select, auto-detected:** the trigger (20px badge, caps value, chevron) opens the menu
+  (caption "Type", the 11 types with badges, the check on the current one) just under it. On a
+  pick the OSM pair (`class`/`type`, or Photon's `osm_key`/`osm_value`) maps through
+  `OSM_TYPE_TABLE` (jam Turn 11, + leisure swimming_pool / sports_centre / water_park ->
+  Attraction; `highway` points like bus stops are not streets; `boundary=administrative` below a
+  city -> District). No match: TYPE stays. A TYPE set by hand in this add is never overridden.
+  A neighbourhood -> District switches ADD to the shape flow; the address line reads "Traced from
+  OpenStreetMap when you add it".
+- **The city (the routing line):** first line, caps 12, no rule; tap: the menu (caption "City",
+  the current city with the pin glyph and check, your cities, then "New city" + "+ {real town}").
+  Before a pick: the map centre's city (the old `defaultFormCity()` rule). After: the city whose
+  box holds the place, else the real town (an existing city of that name, or a NEW one), else the
+  nearest; phase 3 replaces this with the nearest city in reach. A hand pick wins. The pin never
+  moves. **NEW stamp** (48x24, the stamp's dotted track and ring, `--brand-orange-deep` 88%,
+  -4deg) before the chevron exactly when ADD will make the city: ADD runs `addCity()` first; if it
+  fails nothing is inserted. Cancel makes nothing. `#newCityConfirm` and `#shapeCityConfirm` are
+  gone.
+- **The distance note:** under the address rule, 11/14 `--ink-2`: "≈ 40 km from Reykjavík", only
+  when the place is outside its city's `viewbox` (no pad); straight line to the centre, under 10
+  km to the km, else to 5. Recomputes when the city changes.
+- **Star and Mark visited:** the tag's own segments, unchanged (band, pencil-star ink, the
+  stamp). The insert now writes `visited` (pins and shapes).
+- **ADD:** ready (navy flood) with a pick, or for a district/street with a name; not ready it
+  prints ADD / NAME IT FIRST; saving, ADDING… at 82%. A failed write keeps the draft and prints
+  "Couldn't save — try again. Nothing is lost." Shapes take their outline from the pick's own OSM
+  object (Nominatim `/lookup`), else today's searches; no outline -> the approximate pin. City at
+  ADD for shapes: a hand pick, else the confident vote, else the line's guess. Saved: the draft
+  clears, the list comes back and the new place's own tag opens.
+- **Cancel** keeps the draft (name, pick, city, TYPE, notes, Star, visited) and puts back the map
+  view, the list and a tag that was open. Esc closes a menu or the results first.
+- **Gates (Chromium):** `design/add-tag-jam/p2/addtest.js` 48/48 (real Nominatim responses in
+  `p2/fixtures/`); Impeccable: `IMPECCABLE GATE PASSED` (static 1/1,
+  runtime 10/10, 0 new, 0 missing; no `--update`; "NAME IT FIRST" went 9 -> 11px to clear the
+  floor). Full gesture gate (the shared haptic tap path `HAPTIC_TAPS` lost `.form-star-tap`): star
+  "84 + 8 (+ N8-a)" · popup-open 20/20 + 20/20 · dust 0 frames · rows 56.00px · curve8 10/3
+  (pre-existing) · delete-slop 36/36 · plan-rows 40/40 · places-ux 30/30 · shape-rows 50/50 ·
+  tag-sync 12/12 · vtest 90/95 in run-all (V14 x2, V15 x2 as main, plus V22 once in each of 2
+  run-alls; standalone `visit.js` 91/95 three times out of three; main 91/95 in 3 run-alls -- a
+  load-timing flake, the diff touches no row or stamp code). plantest 148/174 and sorttest 76/77,
+  identical to main.

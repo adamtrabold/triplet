@@ -116,3 +116,78 @@ Tests: plantest K block (menu box locked / raised-sheet top / hidden / separator
 sections, shared eye, tap-name stays in plan, hidden tally; the break), W4-W8 through the plan
 foot, E1/L7 zero plans, H6 compact landing (-16px), title reads use the button's full label (a
 long name is cut on screen); N5 closes by the scrim (the menu covers the title now).
+
+# Phase 2: the add tag (2026-10-17; branch `add-tag-p2` from main 6e0b3bf3; NOT LANDED)
+
+Spec: `handoff.md` "Phase 2" (systems + visual), "One menu spec", the Phase 3 visual for the city
+menu / NEW stamp / distance note, and the blank-tag form
+(`../add-button-placement/concepts/blank-tag-form/how-it-works.md` rounds 8b-12c). Operator's scope
+call: build the new tag whole, not a retrofit of `#addForm`.
+
+## What's built
+- **The tag** (`#addForm`, body level, z 1500): a fixed card made of the Hanging Tag's own parts
+  (`.tag-body/.tag-stock/.tag-patch/.tag-x/.tag-in/.tag-stub/.tag-string`, `.tag-band` when
+  starred), so the die-cut, eyelet, notches, shadow and stub are the shipped ones. Not a Leaflet
+  popup (round 9/10b's "card in the screen's frame"): `placeAddTag()` puts its centre 45% down the
+  open map (below the top controls + 8, above the credit - 6, the pin kept inside); with the
+  keyboard up (visualViewport 120px+ short) and NAME focused, or NOTES covered, it docks under the
+  top controls; docked with a place it is `.is-lifted` (pin + string hidden, map still).
+- **The wash** (`#addWash`, inside the map container, z 750: over the panes, under the controls and
+  credit): `--paper` 78% while there is no place; 200ms fade (reduced motion: snap). It stays as a
+  transparent blocker for as long as the tag is up, so a drag/pinch can never move the place out
+  from under the pin. Zoom buttons work: `zoomend` re-aligns (zooms about the place).
+- **The pick** (`selectAddress()`): name, display_name (stored as `address`), the short address
+  (shown), the OSM pair, osm_type/id; TYPE via `osmToType()` unless `typeHand`; city via
+  `guessCity()` unless `cityHand`; then `alignMapToPin()` (a `setView` with no animation at zoom
+  max(current, 16; shapes 14)), then the wash lifts. Editing NAME voids the pick (`voidAddPick()`).
+- **Search** (`searchAddress()`): `currentSearchCityConfig()` = the map's bounds as a soft viewbox,
+  no suffix / countrycodes / bounded (so `nominatimWithFallback()` never widens); results
+  re-sorted by `rankSearchResults()` (map view padded 25% -> within 75 km of a city -> rest, each
+  by distance); rows print name + "type · Town, Country" (`resultWhere()`), results in an opaque
+  panel inside the tag from under NAME's rule to the tag's foot (`#addResults`), keyboard-navigable.
+- **TYPE** (`OSM_TYPE_TABLE`, jam Turn 11 + the director's pool/sports-centre/water-park rows):
+  `highway=*` -> Street except point features (bus_stop, crossing, platform...);
+  `boundary=administrative` with a sub-city addresstype -> District. The trigger + the menu
+  (caption "Type", 20px badges, check right); the pin above the tag follows it.
+- **The city**: routing line (`#addCityBtn`), the menu (caption "City", the current city with the
+  pin glyph + check, the others spaced, then "New city" + "+ {real town}" when the pick's town
+  isn't one of your cities), the NEW stamp, the distance note (`addDistanceText()`).
+- **ADD** (`submitAddTag()`): pins need a pick; shapes need a name. A NEW city: 
+  `deriveNewCityConfig()` + `addCity()` first; fail -> error line, nothing inserted. Inserts carry
+  `visited` (pins and shapes). `addLocation()` / `addNeighborhoodShape()` now return true/false; on
+  false the tag stays with "Couldn't save — try again. Nothing is lost." Shapes: Nominatim
+  `/lookup` by the pick's OSM id first (polygon / line), else the old name searches near the pick
+  (bounded ±0.15°) or in the line's city; no outline -> the approx pin at the pick (or
+  `findApproximatePoint()`). Saved: `finishAdd()` clears the draft, the list comes back, and the
+  new place's tag opens through its row's tap path.
+- **Cancel** (×, Esc; Esc closes a menu / the results first): the map view jumps back (guarded
+  from the zoomend re-align), the list and the previously open tag come back, the draft is kept.
+- **Gone:** `#controls`, the old form CSS/markup, `#cityInput`, `#categoryInput`, `#starInput`
+  (`.form-star*`), `#newCityConfirm`, `#shapeCityConfirm` (+ JS), `#addressAutocomplete` /
+  `fitAutocomplete()`, `geocode()`, `maybeDetectCity()`, `populateCityInput()`, `formCityId()`,
+  `defaultFormCity()` (its rule lives on in `preGuessCity()`), `syncAddCredit()`'s form math.
+- **Tokens added:** `--paper-rgb`, `--navy-rgb`, `--brand-orange-deep-rgb` (channels of existing
+  colours: the wash, ADD saving, the NEW stamp's 88%).
+
+## Decisions (builder; flagged in the hand-back)
+- Pencil entries are flat `--ink-2` (the boards' look), not the concept's textured graphite.
+- "NAME IT FIRST" under a not-ready ADD at 11px (the concept's 9px failed Impeccable's floor).
+- NOTES writes at 16px (iOS no-zoom floor), not the tag's 14.
+- The TYPE menu keeps a fixed order (the old select's), scrolling the current row into view; the
+  board listed the current type first.
+- Before a pick with no cities at all, the routing line is empty (kept height); after the pick
+  it's the real town, NEW.
+- `userOverrodeType`/`cityHand` reset when the draft clears (a successful ADD), not on every open,
+  because the draft (incl. hand picks) survives a cancel.
+- ADD snaps to the new place's own tag (no ink-over): the jam handoff names no ADD motion.
+
+## Open / for the owner
+- Can't rename a picked place before ADD (editing NAME voids the pick) -> backlog.
+- Distance-first ranking can rank a bus stop above the landmark ("Harpa") -> backlog.
+- No pre-ADD district outline -> backlog.
+- Keyboard docking, the hidden jump and focus-in-the-tap are iPhone checks (Chromium has no
+  keyboard).
+
+## Checks
+- `design/add-tag-jam/p2/addtest.js` (48 cases, live-search fixtures in `p2/fixtures/`).
+- Stills: `design/add-tag-jam/stills/build-p2/stills.js`.

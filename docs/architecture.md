@@ -59,7 +59,7 @@ flowchart LR
 | Thing | What it is | Representations | In code |
 |---|---|---|---|
 | **Place** | Somewhere worth going. Has a city, category, name, notes, `visited`, `starred` | Pin, district outline or street line on the map; list row; place details | **Two tables for one concept:** `locations` (point places) and `neighborhood_shapes` (district/street places). The code calls the second kind a "shape". `rowItem()` / `shapeRowItem()` give both one interface, keyed by uuid or `'shape:<id>'` |
-| **City** | A bucket a place is filed under. Not a boundary | City section in the list (header, eye); a row in the list title's menu; City field in the add form | `cities` table merged into the static `CITIES` seed |
+| **City** | A bucket a place is filed under. Not a boundary | City section in the list (header, eye); a row in the list title's menu; the add tag's routing line | `cities` table merged into the static `CITIES` seed |
 | **Plan** / **stop** | A named, ordered list; a stop points at exactly one place | Numbered rows in Plans; number tags on the map | `plans`, `plan_stops` (`location_id` **or** `shape_id`) |
 | **Category** | The kind of place (11) | Glyph badge and ink on pins; filter chips | `CATEGORY_COLORS` |
 | **Visited / starred** | Flags on a place | Row: stamp (`.row-stamp`), orange star. Pin: peeled sticker (`STICKER`), star | boolean columns on both tables |
@@ -97,12 +97,11 @@ stateDiagram-v2
     FiltersPanel --> PlacesView: close / row tap
     PlacesView --> SortMenu: sort button
     SortMenu --> PlacesView
-    PlacesView --> AddForm: + badge
-    AddForm --> NewCityConfirm: pick outside every city
-    AddForm --> ShapeCityConfirm: shape city vote under 60%
-    NewCityConfirm --> AddForm
-    ShapeCityConfirm --> PlacesView
-    AddForm --> PlacesView: Add / ×
+    PlacesView --> AddTag: + badge
+    AddTag --> AddMenu: the routing line (City) / TYPE
+    AddMenu --> AddTag
+    AddTag --> DetailsOpen: ADD (the new place's tag)
+    AddTag --> PlacesView: × / Esc
   }
   Playground --> Main
   SignedIn --> Main
@@ -118,9 +117,8 @@ stateDiagram-v2
 | List title menu | `#titleBtn` | `openTitleMenu()`, `renderTitleMenu()`, `placeTitleMenu()` (`menuLock`), `goToCity()`, `choosePlan()`, `showAllPlans()` |
 | Sort menu | `#sortBtn` | `SORT_MODES`, `setSortMode()` |
 | Place details | row tap, pin tap | `buildPopupHtml()`, `TagPopup`, `tagOpened()` / `tagClosed()` |
-| Add form | + badge `#floatingAddBtn` | `#addForm`, `showAddForm()`, `closeAddForm()` |
-| New-city prompt | add form, pick outside every city | `#newCityConfirm`, `maybeDetectCity()` |
-| Shape-city prompt | add form, district/street vote < 0.6 | `showShapeCityConfirm()` |
+| Add tag (add-tag-jam phase 2) | + badge `#floatingAddBtn` | `#addForm` (a fixed card built from the tag's `.tag-*` parts), `openAddForm()`, `cancelAddForm()`, `renderAddTag()`, `placeAddTag()`, the wash `#addWash` |
+| Add tag menus | the routing line, TYPE | `#addCityMenu`, `#addTypeMenu`, `openAddMenu()` (the shared `.menu-box`) |
 | Sign-in sheet | `#accountBtn`, or `requireAuth()` | `showAuthModal()`, `login()` |
 | Locate | `#centerMeBtn` | `centerOnUserLocation()` |
 | Error banner | any failure | `showError()` / `hideError()` (by source) |
@@ -384,7 +382,7 @@ Leaflet 1.9.4, supabase-js 2.39.3, OSM raster tiles. GitHub Pages deploys
 | Plans | `fetchPlans()`, `createPlan()`, `addStop()`, `removeStop()`, `reorderStop()`, `syncPlanCards()`, `applyPlanMap()`, `initPlans()` |
 | Render | `updateUI()` (the single re-render), `syncLocationCards()`, `syncShapeCards()`, `syncMarkers()`, `syncClusterMarkers()`, `syncNeighborhoodLayers()`, `focusShape()` |
 | Row gestures | `attachStarGesture()`, `beginVisitDrag()`, `settleVisitDrag()`, `DELETE_TAP_SLOP`, `stampTilt()` |
-| Add form | `showAddForm()`, `isShapeCategory()`, `handleAddLocationSubmit()`, `handleAddShapeSubmit()`, `showShapeCityConfirm()`, `closeAddForm()` |
+| Add tag | `addDraft`, `openAddForm()`, `cancelAddForm()`, `searchAddress()` / `rankSearchResults()`, `selectAddress()` (the pick), `osmToType()`, `preGuessCity()` / `guessCity()`, `addDistanceText()`, `alignMapToPin()`, `submitAddTag()` → `handleAddLocationSubmit()` / `handleAddShapeSubmit()`, `finishAdd()`, `clearAddDraft()` |
 | Boot | `L.map(...)`, `tagOpened()`, `tagClosed()`, `restoreCitySelection()`, the `Promise.all` of the four fetches, `startPoll()` |
 
 State notes: data arrays are always fetched **in full** and filtered on the
@@ -428,7 +426,8 @@ constants" (not copied here). Not obvious from the code:
 - Duplicated ports (no build step): `deriveShortAddress()` and the shape city
   resolution also live in `tools/`. Change both copies.
 - `CITIES` is mutated at runtime; `SEED_CITY_IDS` are never deleted.
-- `addCity()` writes immediately, even if the form is abandoned.
+- `addCity()` writes immediately; the add tag calls it only at ADD (a NEW city), so an abandoned tag makes nothing.
+- The add tag is not a Leaflet popup: it's a card in the screen's frame, and the map moves under it (`alignMapToPin()`) so the picked place sits under its pin. While it's up a blocker (`#addWash`) keeps the map from being dragged.
 - The playground looks fully functional: a signed-out "save" saved nothing.
 - Place-details HTML is a string; its buttons use one delegated listener on
   Leaflet's `popupPane`. Don't attach per-button listeners.

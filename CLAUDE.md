@@ -120,24 +120,28 @@ operator makes none of these calls.
   static `CITIES` bootstrap in `index.html`, the offline-safe seed.
 - RLS, identical on all of them: public `SELECT`; writes restricted to
   `auth.jwt() ->> 'email' IN ('adamtrabold@gmail.com', 'ericatrabold@gmail.com')`.
-- The add form routes on category alone: `isShapeCategory()` (true for
+- The add tag routes on TYPE alone: `isShapeCategory()` (true for
   `district`/`street`) picks the fields and the target table — no separate
-  shape toggle.
-- **Shape city resolution:** a shape's `city` is never taken from the form;
-  `resolveShapeCity()` classifies every point against `CITIES` and
-  majority-votes (street segments that disagree with the winner are dropped
-  — catches spurious same-name OSM merges). Below
-  `SHAPE_CITY_CONFIDENT_SHARE` (60%), `handleAddShapeSubmit()` shows
-  `shapeCityConfirm`: create a new city (`deriveNewCityConfig()`/`addCity()`
-  via `nominatimReverse()` on the centroid) or assign to the runner-up.
-  `tools/neighborhood-shapes.html` has a duplicated port (no build step) that
-  shows a warning on the review card instead of a dialog.
+  shape toggle. TYPE is auto-set from the pick's OSM pair (`osmToType()`,
+  `OSM_TYPE_TABLE`) unless set by hand in this add (`addDraft.typeHand`).
+- **The add tag's city (add-tag-jam phase 2):**
+  the routing line; a hand pick wins (`addDraft.cityHand`); after a pick
+  `guessCity()` (the city whose box holds it, else the real town as a NEW
+  city, else the nearest). The search is worldwide (`currentSearchCityConfig()`
+  = the map's view as a soft hint only). A NEW city is made by ADD
+  (`addCity()` first, then the insert); there are no confirm dialogs.
+- **Shape city resolution:** `resolveShapeCity()` classifies every point
+  against `CITIES` and majority-votes (street segments that disagree with
+  the winner are dropped — catches spurious same-name OSM merges). At ADD a
+  hand-picked city wins; else the confident (≥ `SHAPE_CITY_CONFIDENT_SHARE`,
+  60%) winner; else the line's guess. `tools/neighborhood-shapes.html` has a
+  duplicated port (no build step) that shows a warning on the review card.
 - **No OSM shape → approximate pin:** `findApproximatePoint()` tries a
   Nominatim point search, then an Overpass node search in the city bbox; a
   hit is saved to `locations` with category = the shape type (already a
   valid pin category sharing `CATEGORY_COLORS`), label suffixed
-  `" (approx.)"`, notes naming the tier, city via
-  `resolveShapeCity([[lat, lng]], null)`. Only a double miss alerts. No
+  `" (approx.)"`, notes naming the tier, city = the guess at that point
+  (or the hand pick). Only a double miss prints a line on the tag. No
   automatic re-upgrade if OSM later gains a boundary.
 
 ## Environment constraints

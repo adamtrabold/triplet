@@ -170,8 +170,10 @@ pick/redirect before building anything.
 - **Add tag + city jam** (owner: "Great to build", 2026-10-17; `design/add-tag-jam/handoff.md`,
   four phases, lane 2 each). ~~Phase 1~~ LANDED 2026-10-17 (the list title's menu, city sections,
   show/hide, All plans, leg sections, the add-from sections, the collapse tab; owner on the final
-  looks: "Good"; `docs/shipped.md`). Next: phase 2 (the add tag), then 3 (city buckets: the guess
-  and editing a place's city), then 4 (the map's city badge). Known from phase 1: a plan name
+  looks: "Good"; `docs/shipped.md`). Phase 2 (the add tag) BUILT on branch `add-tag-p2`, NOT
+  LANDED: waits on the combined CD + UX check and the owner's look at
+  `design/add-tag-jam/stills/build-p2/` (`docs/shipped.md` "The add tag"). Then 3 (city buckets: the
+  guess and editing a place's city), then 4 (the map's city badge). Known from phase 1: a plan name
   longer than ~17 characters is cut in the 18px title (UX: accept).
 - **City buckets** (owner, 2026-09-23; decided 2026-10-15). Trips are
   dropped: no trip entity (owner, on "Trips: keep or drop?": "drop").
@@ -204,9 +206,27 @@ pick/redirect before building anything.
     `design/trip-location-model/` (`owner.md`, concepts). The blank-tag add
     form (`design/add-button-placement/concepts/blank-tag-form/`) continues
     as its own design work and touches the same city questions.
-- **Add form: mark a place visited while adding it** (owner, 2026-10-15,
-  on "Should the add form let you mark a place visited as you add it?":
-  "yes"). Not built. Lane 2 (the add form's look changes).
+- ~~**Add form: mark a place visited while adding it**~~ (owner, 2026-10-15: "yes"). BUILT in
+  the add tag (phase 2, branch `add-tag-p2`, not landed): the tag's own Mark visited segment,
+  the insert writes `visited`.
+- **Add tag: a picked place can't be renamed before ADD** (found building phase 2, 2026-10-17).
+  The blank-tag rule "editing NAME after a pick voids the pick" means the OSM name is the only
+  name a picked place can get ("Sundhöll Reykjavíkur", not "Sundhöllin"); typing over it
+  re-searches. Needs a design answer (rename at add, or the future place edit). Repro: +, pick
+  Sundhöllin, edit the name: the address and pin go.
+- **Add tag: distance-first ranking can bury the landmark** (found building phase 2). Jam
+  Turn 6's "near the map first, each tier nearest first" (we think) re-sorts Nominatim's own
+  relevance away: in Reykjavík, "Harpa" lists the Kalkofnsvegur bus stop above the concert hall.
+  Owner/systems call: keep relevance inside the near-the-map tier? (Fixture:
+  `design/add-tag-jam/p2/fixtures/Harpa.json`.) The Photon trial above is the bigger answer.
+- **Add tag: a district's outline shows only after ADD** (phase 2). TypeDetected says "a
+  neighbourhood pick shows District, with its outline"; the build fetches the outline at ADD (as
+  today) and shows the district's pin above the tag before. A pre-ADD outline needs a lookup per
+  pick (Nominatim lookup by OSM id works). Design/systems call.
+- **Obsolete checks after phase 2:** `design/trip-location-model/widen-test.js` (the city-scoped
+  search and its widening are gone) and `design/state-system/check.js`'s "submit disabled
+  opacity" case (`#submitBtn` is now the stub's ADD segment) test removed behaviour; delete or
+  rewrite them when next touched.
 - **Edit a place after adding it** (owner, 2026-10-15, verbatim: "we need
   to add the ability to edit places in the backlog"). Today nothing about a
   place can be changed once it's added (name, notes, category, city,
