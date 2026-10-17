@@ -1,0 +1,23 @@
+# Add tag + city jam: history
+
+One entry per moment the owner saw work or decided. Each entry is at most 4 lines and quotes only the deciding words. Full quotes are in `owner.md`, the team's reasoning in `jam.md` and the visual log in `notes/visual.md`. Review canvas: https://claude.ai/artifact/6aSGgGczYGfWGP1UqTDGP3 (the Now page; superseded rounds are on its Archive page).
+
+**Snapshots** (`snapshots/`): 1 start: the app on main at 90c396e (`snapshots/1-start-main-90c396e.png`). The end shot gets added when this work lands.
+
+- **10-16 · Real elements:** "let's polish up the screens … pull in the real elements everywhere" → every board was rebuilt from the app's own parts.
+- **10-16 · Visited untouched:** "we don't need to change how visited marking works at all. do not tuch".
+- **10-16 · One dropdown spec:** "lets treat all dropdowns the same" and "when i said full width i meant the dividers should stretch" → natural width, edge-to-edge dividers, check on the right.
+- **10-16 · The count:** "i like this for the number count" → a quiet grey tally everywhere (clusters excepted).
+- **10-16 · NEW city mark:** "this with just "new"?" → the deep-orange NEW stamp. "closer to the dropdown" (10-16), then "New badge before Chevron?" (10-17) → it now sits inside the city dropdown.
+- **10-16 · No "nearest"/"hidden" labels:** "i probably know what city i'm near" → removed from every menu.
+- **10-17 · City as metadata:** "this *feels* good but looks really ugly" → R1/R2 drawn; "I like this but I think the rule underneath it is too much" and "left aligned works better" → R2, the routing line, replaces the CITY row. `CityMetaRefined`
+- **10-17 · Collapse:** "For me it's this one right now" (K2), then "the list needs the subtle top border that the tab has" → the K2 tab on the sheet's edge, joined to the sheet by a hairline. `CollapseRefined`
+- **10-17 · Section header:** "I like the color the rule is too much", then "the light bg draws too much attention" → S1, with space above the header and a light rule; "First row doesn't need all the extra padding" → the first section is compact. `SectionSeparate`
+- **10-17 · Map city badge:** "this feels unnatural because of gravity" (T2 out), then "Your assumption was right about the box" → the boxed city label. `GoToMap`
+- **10-17 · Clean screens:** "Really hard to judge how this looks with the blue lines" → no NEW markers on the screens; a "Show what's new" tweak brings them back.
+- **10-17 · Distance note:** "maybe we do need some way to note this city is near the main city" → systems Turn 9; "should feel more related to the actual address" → "under the line à la form validation notices". `CityDistance`
+- **10-17 · List header:** "This one" → L2, 18px caps in a header 52 tall. `ListHeaderType`
+- **10-17 · TYPE auto-detect:** "Can this auto detect?" → systems Turn 11; "Neighborhood should be district". `TypeDetected`
+- **10-17 · Search:** "Sure" → Search 1; "Add it to the backlog but I want the test automated not manual" → Photon trial, backlog 90c396e.
+- **10-17 · Hidden city:** "Definitely h1 for hidden cities" → a greyed header with a closed eye. `HiddenCity`
+- **10-17 · Places and Plans:** "No i do not want it always visible" → Turn 9, then "absolutely not solved I need to be able to specify inside of either" → Turn 10, kind then item. "does not need to be in the list header" and "the toggle isn't right yet" → T1–T3; "I'm not starting with that decision every time I open the dropdown" → the menu opens on the items, and the other kind is reached by T3, I1 matchbook striker, I2 hotel label or I3 turned corner. Open. `PlacesPlansKinds`, `stills/places-plans/`

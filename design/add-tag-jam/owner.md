@@ -102,3 +102,15 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on the distance note) I think under with more detail is better — maybe it’d be best under the line à la form validation notices
 > (on Go to 2, the first section header) First row doesn’t need all the extra padding
 > (on List header, L2) This one
+> (chat, on TYPE auto-detect / Vesterbro) Neighborhood should be district
+> (in chat, on TYPE auto-detect) Neighborhood should be district
+> (in chat, on the Photon test) Add it to the backlog but I want the test automated not manual
+> (chat) Definitely h1 for hidden cities
+> (in chat) Definitely h1 for hidden cities
+> (on Places and Plans) Places/plans does not need to be in the list header
+> (on the Places menu) This one is feeling the best but the toggle isn't right yet play with size and placement
+> (chat, on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
+("demented" = segmented, autocorrect)
+> (on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
+> (chat) T2 language with t1 ui… what’s it look like in plans though
+> (chat, confirming "I2 + I1": the hotel label's look/wording as I1's bottom strip) Yes I
