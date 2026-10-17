@@ -27,16 +27,41 @@ for (const law of LAWS) {
     GD[law][s] = {};
     const o = (24 - s) / 2;
     for (const [id] of BATCH) {
-      const b24 = E.build(E.xform(DRAW[id](s), 1, 0, 0, o, o), { law: LAWS6[law], centre: [12, 12] });
+      const info = [];
+      const b24 = E.build(E.xform(DRAW[id](s), 1, 0, 0, o, o), { law: LAWS6[law], centre: [12, 12], info });
       const c12 = E.build(DRAW[id](12), { law: LAWS6[law] });
-      GD[law][s][id] = { b24, c12, curves: E.countCurves(b24.d) };
+      GD[law][s][id] = { b24, c12, curves: E.countCurves(b24.d), caps: info.filter(x => x.cap).length, d: b24.d };
     }
   }
 }
 // the two drawn UI icons, in their own 24 viewBox, radii in screen px at their app size
 const UIP = { plus: [plus, 26.4], star: [star, 20] };
+// batch 1's four-tier conifer, kept beside the three-tier drawing that replaced it (g6 fix 3)
+const N4 = {};
+for (const law of LAWS) N4[law] = { b24: E.build(E.xform(DRAW.nature4(12), 1, 0, 0, 6, 6), { law: LAWS6[law] }), c12: E.build(DRAW.nature4(12), { law: LAWS6[law] }) };
+// a finished path's points (squares) and handles (dots), for a close-up; k = viewBox units per css px
+function pathAnat(d, k) {
+  const t = d.match(/[MLCZ]|-?\d*\.?\d+/g); let i = 0, cur = null, start = null, g = '';
+  const sq = (x, y) => `<rect x="${f2(x - 3 * k)}" y="${f2(y - 3 * k)}" width="${f2(6 * k)}" height="${f2(6 * k)}" fill="${COL.raised}" stroke="${COL.ord}" stroke-width="${f2(1.4 * k)}"/>`;
+  const hd = (a, b) => `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${COL.or}" stroke-width="${f2(1.4 * k)}"/><circle cx="${b[0]}" cy="${b[1]}" r="${f2(2.6 * k)}" fill="${COL.or}"/>`;
+  while (i < t.length) {
+    if (t[i] === 'M') { cur = start = [+t[i + 1], +t[i + 2]]; g += sq(...cur); i += 3; }
+    else if (t[i] === 'L') { cur = [+t[i + 1], +t[i + 2]]; g += sq(...cur); i += 3; }
+    else if (t[i] === 'C') { const c = t.slice(i + 1, i + 7).map(Number); g += hd(cur, [c[0], c[1]]) + hd([c[4], c[5]], [c[2], c[3]]) + sq(c[4], c[5]); cur = [c[4], c[5]]; i += 7; }
+    else { cur = start; i++; }
+  }
+  return g;
+}
+// mirror check on a 24 drawing: the worst distance from any point to its mirror twin (0 = symmetric)
+function mirror(d, vb = 24) {
+  const n = (d.match(/-?\d*\.?\d+/g) || []).map(Number), pts = [];
+  for (let i = 0; i + 1 < n.length; i += 2) pts.push([n[i], n[i + 1]]);
+  let worst = 0;
+  for (const [x, y] of pts) { let m = Infinity; for (const [a, b] of pts) m = Math.min(m, Math.hypot(vb - x - a, y - b)); worst = Math.max(worst, m); }
+  return worst;
+}
 const UD = {};
-for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) UD[law][k] = E.build(fn(px), { law: c => LAWS6[law](c) * 24 / px }); }
+for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px), { law: c => LAWS6[law](c) * 24 / px, info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
 
 // SVG files
 for (const law of LAWS) for (const [s] of AIRS) {
@@ -150,8 +175,16 @@ const HOW = {
   cafe: 'Bowl: a flat rim and two curves meeting at the bottom. Ear: half a ring on the shoulder, so its counter stays open at 24px. Saucer: a 1.5px slab whose ends lift. No rim line: at 1.5 it split the cup.',
   bar: 'Bowl: a flat rim on TOP and two curves into the stem, its foot on SHOULDER. Stem: one 1.5px line. Foot: a low dome on BASE. The bowl is solid, so it reads as a full glass. No drink line: at 1.5 it turned the glass into an "I".',
   museum: 'Pediment on TOP; a cut; a beam; four columns hanging from it; a plinth on BASE. The spaces between the columns are 1.5px, the same as the line, so four fit (the skeleton had three).',
-  nature: 'Four tiers, each a tip and two branches that droop to their ends, so the notches between tiers are sharp and the tips stay points. The trunk is one 1.5px line on BASE.',
+  nature: 'Three tiers, each a tip and two branches that droop to their ends, so the notches between tiers are sharp and the tips stay points. The trunk is one 1.5px line on BASE. (Batch 1 had four; see below.)',
 };
+const NATURE_READ = 'three reads better. At 24 and in the 12px chip each notch is wider, so the tree is calmer and still clearly a conifer; on the 32 pin it holds. The cost: it is a broader, more triangular tree, and the four-tier one looks more like a spruce when enlarged. Three is now the drawing.';
+function natureTry(big) {
+  const four = N4.joint, three = GD.joint[12].nature;
+  return `<div class="lab">The one try: three tiers beside batch 1's four</div>
+<div class="pair"><div>${onGrid(four.b24.d, big)}Four tiers (batch 1)</div><div>${onGrid(three.b24.d, big)}Three tiers (now the drawing)</div></div>
+<div class="pair" style="margin-top:8px"><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(four.b24.d)}${chip(four.c12.d)}${selPin(four.b24.d)}${badge(four.b24.d, 72)}</span></div><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(three.b24.d)}${chip(three.c12.d)}${selPin(three.b24.d)}${badge(three.b24.d, 72)}</span></div></div>
+<p class="sm"><b>Plainly:</b> ${NATURE_READ}</p>`;
+}
 function sheetDrawings(W_, n) {
   const big = W_ > 500 ? 220 : 150;
   const blocks = BATCH.map(([id, nm]) => {
@@ -159,7 +192,7 @@ function sheetDrawings(W_, n) {
     return `<div class="icon"><h3>${nm}</h3>
 <div class="pair"><div>${onGrid(old.b24.d, big)}Skeleton (g5)</div><div>${onGrid(g.b24.d, big, 12, true, cons(DRAW[id](12), big))}Drawn, its parts in orange</div></div>
 <div class="pair" style="margin-top:8px"><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(old.b24.d)}${chip(old.c12.d)}${badge(old.b24.d, 72)}</span></div><div><span class="rs" style="display:flex;gap:8px;align-items:center">${badge(g.b24.d)}${chip(g.c12.d)}${selPin(g.b24.d)}${badge(g.b24.d, 72)}</span></div></div>
-<p class="sm">${HOW[id]}</p><p class="sm mute">${g.curves} curves in the outline, with the by-joint corners.</p></div>`;
+<p class="sm">${HOW[id]}</p><p class="sm mute">${g.curves} curves in the outline, with the by-joint corners.</p>${id === 'nature' ? natureTry(big) : ''}</div>`;
   }).join('');
   const uis = ['plus', 'star'].map(k => `<div class="icon"><h3>${k === 'plus' ? 'The +' : 'The Star (not starred)'}</h3>
 <div class="pair"><div>${uiIcon(k === 'plus' ? 0 : 3, 1.5, big)}Stroke at 1.5px (g5)</div><div>${onGrid(UD.joint[k].d, big, 12, false)}Drawn (batch 1)</div></div>
@@ -192,8 +225,11 @@ function sheetCorners(W_, n) {
 <p class="att">The same drawings with each corner law, ${(big / 24).toFixed(1)}x, and at real size underneath (badge 24, chip 12, selected pin 32).</p>
 <div class="g3">${head}<div class="n">How</div>${LAWS.map(l => `<div class="c" style="font-size:10.5px;line-height:1.3;text-align:center;font-weight:400">${LAW_LINE[l]}</div>`).join('')}${rows}${urows}
 <div class="n">Close-up: museum, beam and columns</div>${close}<div class="n">Close-up: conifer, the notches</div>${close2}</div>
-<p class="sm"><b>The clearest difference:</b> by joint and pressed turn the spaces between the columns into small arches, and fill the conifer's notches; even wear keeps them square and sharp. Pressed fills deepest.</p>
-<p class="sm"><b>Plainly:</b> at real size the three are close. You see the laws at 3x and on the selected pin; at 24px they change the texture, not the shape. Even wear shows most at real size, because it rounds the cut ends (the + and the plinth's ends look softer).</p>
+<p class="sm"><b>Plainly:</b> at real size the three are close for the cup, the coupe, the conifer and the Star; you see them at 3x and on the selected pin. Two places differ at real size, and each law has a cost:</p>
+<ul class="facts">
+<li><b>By joint and pressed, the museum:</b> the spaces between the columns end round at both ends, so at real size the museum reads more as an arcade, or a comb, than as columns under a beam. Pressed rounds them deepest.</li>
+<li><b>Even wear, the cut ends:</b> it rounds every end (the + arms, the plinth's ends, the ends of the coupe's foot), so those look blunter and less exact at real size. It keeps the museum's spaces square, so the museum reads as columns.</li>
+</ul>
 <div class="q"><b>The question</b>Which corners: by joint, even wear or pressed?</div>
 </section>`;
 }
@@ -233,8 +269,8 @@ const { G4 } = require('./picks4.js');
 const REPORT = {
   cafe: { held: 'box; MIDDLE (the cup and saucer centres on it exactly); the ear opens 2.3px at 24', broke: ['cut 0.9 → change 1', 'the rim line → change 3', 'curves had no rule → change 4'] },
   bar: { held: 'box; TOP (the rim) and BASE (the foot); SHOULDER (the bowl ends on it); one piece, no cuts', broke: ['the drink line → change 3', 'curves → change 4'] },
-  museum: { held: 'box; TOP, SHOULDER (the beam), BASE (the plinth); the pediment\'s 1-in-2 slope; the beam is a part, not a cut, so it stays', broke: ['cut 0.9 → change 1', 'its own column spacing → change 2'] },
-  nature: { held: 'box; TOP (the tip), BASE (the trunk); four tiers, as the repeated-parts rule chose at 1.5', broke: ['branches are curves, which the angle rule didn\'t cover → change 5'] },
+  museum: { held: 'box; TOP, SHOULDER (the beam), BASE (the plinth); the pediment\'s 1-in-2 slope; the beam is a part, not a cut, so it stays', broke: ['cut 0.9 → change 1', 'its own column spacing → change 2', 'lopsided slot ends → change 7'] },
+  nature: { held: 'box; TOP (the tip), BASE (the trunk)', broke: ['branches are curves, which the angle rule didn\'t cover → change 5', 'the g4 tier table says four at 1.5px, and four crowd at 24 → change 8'] },
   plus: { held: 'its size and place in the + badge', broke: ['a stroke can\'t take a corner law → change 6'] },
   star: { held: 'the one outline; its size', broke: ['a stroke → change 6'] },
 };
@@ -260,6 +296,14 @@ function sheetGrid(W_, n) {
   const c5 = ba(onGrid(GD.joint[12].museum.b24.d, px, 12, true, anat(DRAW.museum(12)[0], px)), onGrid(GD.joint[12].nature.b24.d, px, 12, true, DRAW.nature(12).slice(0, 4).map(q => anat(q, px)).join('')), 'Straight: the pediment rises 1 in 2', 'Curved: each branch is one curve');
   // change 6: app icons drawn
   const c6 = ba(uiIcon(0, 1.5, px), onGrid(UD.joint.plus.d, px, 12, false), 'A stroke: the crossing can\'t be shaped', 'A shape: the crossing takes the joint fillet');
+  const c8 = ba(onGrid(N4.joint.b24.d, px), onGrid(GD.joint[12].nature.b24.d, px), 'Four tiers (the table)', 'Three tiers (as many as read)') + real(N4.joint.b24.d, GD.joint[12].nature.b24.d);
+  // change 7: the collision rule. Before = batch 1 as first sent (the run between two rounds dropped)
+  const oldMus = fs.readFileSync(path.join(ROOT, 'svg/g6/before-collision/museum-24.svg'), 'utf8').match(/ d="([^"]+)"/g).pop().slice(4, -1);
+  const zs = W_ > 500 ? 220 : 150, zb = [7.9, 11.0, 2.2];   // one slot's top: x 8.25 to 9.75, top at 11.5
+  const zoomv = (d) => `<svg width="${zs}" height="${zs}" viewBox="${zb[0]} ${zb[1]} ${zb[2]} ${zb[2]}" aria-hidden="true"><rect x="${zb[0]}" y="${zb[1]}" width="${zb[2]}" height="${zb[2]}" fill="${COL.raised}"/><line x1="9" y1="${zb[1]}" x2="9" y2="${zb[1] + zb[2]}" stroke="${COL.blue}" stroke-width="${f2(zb[2] / zs)}" stroke-dasharray="${f2(4 * zb[2] / zs)} ${f2(3 * zb[2] / zs)}"/><path d="${d}" fill="${COL.navy}" fill-opacity=".85"/>${pathAnat(d, zb[2] / zs)}</svg>`;
+  const c7 = ba(zoomv(oldMus), zoomv(GD.joint[12].museum.b24.d), 'Before: two unequal curves, the top off centre', 'After: one arc, two equal quarters, centred') + real(oldMus, GD.joint[12].museum.b24.d);
+  const rechk = [...BATCH.map(([id, nm]) => [nm, LAWS.map(l => GD[l][12][id]), id === 'cafe']), ['The +', LAWS.map(l => UD[l].plus), false], ['The Star', LAWS.map(l => UD[l].star), false]]
+    .map(([nm, gs, asym]) => `<li><b>${nm}:</b> ${LAWS.map((l, i) => `${LAW_NAMES[l].toLowerCase()} ${gs[i].caps} arc${gs[i].caps === 1 ? '' : 's'}`).join(', ')}. Mirror check: ${asym ? 'not symmetric by design (the ear)' : `worst ${Math.max(...gs.map(g => mirror(g.d))).toFixed(3)}px`}. Slivers: 0.</li>`).join('');
   const rep = [...BATCH, ['plus', 'The +'], ['star', 'The Star']].map(([id, nm]) => `<li><b>${nm}.</b> Held: ${REPORT[id].held}. <b>Broke:</b> ${REPORT[id].broke.join('; ')}.</li>`).join('');
   const ch = (no, title, why, fig) => `<div class="icon"><h3>Change ${no}: ${title}</h3><p class="sm">${why}</p>${fig}</div>`;
   return `<section class="card" id="c${n}"><div class="no">Grid · round 6 · batch 1 · sheet ${n}</div><h2>The grid, pressure-tested</h2>
@@ -267,13 +311,15 @@ function sheetGrid(W_, n) {
 <div style="display:flex;gap:6px;justify-content:space-between;margin:8px 0">${BATCH.map(([id]) => onGrid(GD.joint[12][id].b24.d, sm, 12, true, cons(DRAW[id](12), sm))).join('')}</div>
 <div class="lab">Held and broke, icon by icon</div>
 <ul class="facts">${rep}</ul>
-<div class="lab">The changes (proposed; none is a one-icon exception)</div>
+<div class="lab">The changes (proposed; none is a one-icon exception). Change 7 was added after the director's score.</div>
 ${ch(1, 'a cut is 1px, not 0.9', '0.9 (0.6 × the line) never lands on the 0.25px drawing lattice, so every edge after a cut drifted off it. 1px does. It fixes the café and the museum; at real size the difference is a hair (the museum, real size and 2x, below).', c1)}
 ${ch(2, 'spaces between repeated parts = the line', 'The skeleton gave the museum its own wider column spacing, an exception for one icon. The general rule (a space between separate parts is the line, 1.5px) fits four columns, and four reads as a column front at 24px.', c2)}
 ${ch(3, 'no hairline cuts inside a mass', 'This replaces "small details only at w ≤ 1.5px", which let in the rim, the drink line, the bag\'s band and the bed\'s fold; all four cost the read (g5). Detail comes from the silhouette and from open counters instead. Shown on the two in this batch; the bag and bed are batch 2.', c3)}
 ${ch(4, 'a rule for curves', 'The grid had none. As drawn: a curve runs between two points that are its extremes, with flat or upright handles, and ends on the 0.25px lattice or at a corner. So a bowl is two curves. Squares are points; dots are handles.', c4)}
 ${ch(5, 'angles: straight lines and curves', 'Straight lines keep "orthogonal, 45° or a whole-pixel slope". The conifer\'s branches are curves, which that rule didn\'t cover; they follow change 4.', c5)}
 ${ch(6, 'app icons are drawn as shapes', 'The + and the Star are drawn like the places, so the corner law reaches them. A stroke can only have round or square ends.', c6)}
+${ch(7, 'two rounds that collide become one arc', `Added after the director's score. Where two rounds want more room than a short edge has (a 1.5px slot end, a bar's end), batch 1 dropped the leftover run, which left the slot's top off centre (x 9.03 on a slot centred at 9.0) with unequal curves. The rule now: they become one true semicircle, radius 0.75 on a 1.5px slot, drawn as two equal quarter arcs meeting on the centre line. Any other two rounds that would leave a run under 0.2px share the edge evenly. Shown 68x on one slot of the museum (squares are points, dots are handles), then real size before and after. <b>Re-checked under it, all six:</b><ul class="facts">${rechk}</ul><p class="sm">The mirror check: every point has a mirrored twin within 0.01px (the batch 1 museum missed by ${mirror(oldMus).toFixed(2)}px). The checks are in <code>src/check-svg.py</code>, beside the sliver scan.</p>`, c7)}
+${ch(8, '"as many as fit" is a ceiling, not a target', 'Added after the director\'s score. The g4 rule set the conifer\'s tiers by a table (four at 1.5px). Four fit, but they crowd at 24 and in the chip; three read cleaner. Proposed: repeated parts are as many as read at 24px, never more than the cut and space rules allow. It changes the conifer only; the museum\'s four columns and the other counts still read.', c8)}
 <div class="lab">Open</div>
 <ul class="facts">
 <li><b>SHOULDER (4):</b> it held in two of four (the coupe's bowl and the museum's beam end on it). Batch 2 tests it again.</li>

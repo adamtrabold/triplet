@@ -41,8 +41,8 @@ const DRAW = {
     out.push(R(0, s - W, s, W));                                   // plinth on BASE
     return out;
   },
-  // Nature: a conifer of four tiers, each branch drooping to its tip; the trunk on BASE.
-  nature(s = 12) {
+  // Nature, batch 1's FOUR tiers (kept for the record; three read better at 24, see nature).
+  nature4(s = 12) {
     const u = s / 12, X = v => f(v * u), c = s / 2;
     const tiers = [[0, 3.5, 2.5], [2.25, 6, 3.5], [4.5, 8.5, 4.5], [6.75, 10.75, 5.75]]; // [tip y, base y at the tips, half width]
     const out = [];
@@ -51,6 +51,19 @@ const DRAW = {
       out.push(D(`M${f(c)} ${X(ty)}L${f(c + X(hw))} ${X(by)}Q${f(c + X(hw * 0.45))} ${X(mid)} ${f(c)} ${X(mid)}Q${f(c - X(hw * 0.45))} ${X(mid)} ${f(c - X(hw))} ${X(by)}Z`));
     }
     out.push(R(c - W / 2, X(9.5), W, s - X(9.5)));                 // trunk
+    return out;
+  },
+  // Nature: a conifer of THREE tiers (g6 fix 3: tried beside the four, and it reads cleaner at 24 and 12),
+  // each branch drooping to its tip; the trunk on BASE.
+  nature(s = 12) {
+    const u = s / 12, X = v => f(v * u), c = s / 2;
+    const tiers = [[0, 4.25, 3], [3, 7.5, 4.5], [6, 10.75, 5.75]];
+    const out = [];
+    for (const [ty, by, hw] of tiers) {
+      const mid = by - 0.75;
+      out.push(D(`M${f(c)} ${X(ty)}L${f(c + X(hw))} ${X(by)}Q${f(c + X(hw * 0.45))} ${X(mid)} ${f(c)} ${X(mid)}Q${f(c - X(hw * 0.45))} ${X(mid)} ${f(c - X(hw))} ${X(by)}Z`));
+    }
+    out.push(R(c - W / 2, X(9.5), W, s - X(9.5)));
     return out;
   },
 };

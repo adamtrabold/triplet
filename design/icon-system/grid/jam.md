@@ -551,3 +551,25 @@ Full text: `scores.md`, round g6.
 
 NEXT: icon designer, fixes 1–3. Then I look at sheets 1, 2 and 5 and
 re-read the sources.
+
+---
+
+## Turn 21: icon designer, the batch 1 fixes (turn 20's three)
+
+1. **The collision rule is in the engine** (`src/engine.js`, `corners()`).
+   - Where two rounds want more room than a short edge has and the edge ends in two right-angle turns the same way (a slot end, a bar end), they become one semicircle of radius L/2: two equal quarter arcs meeting on the edge's middle.
+   - Any other two rounds that would leave a run under 0.2px share the edge evenly instead of dropping it. A semicircle keeps its size, and a neighbour gives way.
+   - **Checks:** `src/check-svg.py` scans for slivers (and now zero-length curves) and checks mirror symmetry within 0.01px. On `svg/g6`: 0 slivers; 33 of 33 symmetric files pass (the café is asymmetric by design). The batch 1 museum, kept in `svg/g6/before-collision/`, fails it by 0.06px.
+   - **Sheet 5, change 7:**
+     - one museum slot at 68x, before and after, with points and handles;
+     - real size before and after;
+     - all six re-checked (arcs per law, mirror worst, slivers).
+2. **Sheet 2 is fair both ways.**
+   - By joint and pressed: the museum reads more as an arcade, or a comb, than as columns under a beam at real size.
+   - Even wear: it rounds every cut end (the + arms, the plinth's ends, the foot's ends), so those look blunter; it keeps the museum as columns.
+   - The "close at real size" line now names only the icons where it's true.
+3. **Conifer:** I tried three tiers beside the four. Three reads better at 24, at 12 and on the 32 pin; the cost is a broader, more triangular tree. **Three is now the drawing.** It breaks the g4 tier table, so sheet 5 has change 8: "as many as fit" is a ceiling, not a target. Shown before and after; it changes only the conifer.
+
+g6 batch 1's boards before these fixes are on Archive at y 33000.
+
+NEXT: design director, sheets 1, 2 and 5 and the sources.

@@ -71,6 +71,22 @@ These are four kinds of joint, plus one crossing and one outline, so each corner
 - **"slight rounding … not 100% consistent … screened or pressed":** the three laws are shown on these drawings, and each gives a different radius per kind of corner.
 - **The four details that cost the read at 1.5:** not drawn (change 3, shown with and without on the café and bar). The rim and the drink line are gone; the cup and the coupe read from their silhouettes. The bag and the bed are in batch 2.
 
+## After your batch 1 score (8): the three fixes
+
+1. **The collision rule in the engine:**
+   - one centred semicircle where two rounds collide on a slot or bar end;
+   - even edge-sharing where a run under 0.2px would be left;
+   - a semicircle keeps its size and a neighbour gives way.
+
+   `src/check-svg.py` covers slivers, zero-length curves and mirror symmetry within 0.01px. `svg/g6` gives 0 slivers and 33 of 33 symmetric (the café is skipped by design; the batch 1 museum, kept in `svg/g6/before-collision/`, fails by 0.06). Sheet 5 has change 7: the slot at 68x before and after with points and handles, real size, and all six re-checked. Slot top now: apex x 9.000, radius 0.75, handles 0.414 each.
+2. **Sheet 2, fair both ways.**
+   - By joint and pressed: the museum reads as an arcade, or a comb, at real size.
+   - Even wear: blunter cut ends; the museum stays columns.
+   - "Close at real size" is limited to the icons where it's true.
+3. **Conifer.** Three tiers reads better at 24, 12 and on the 32 pin, at the cost of a broader tree. It's now the drawing (sheet 1 shows the four beside it). It broke the g4 tier table, so change 8 ("as many as fit" is a ceiling, not a target) is shown before and after.
+
+Not yet done, due in batch 2: the pixel-snap rule at 1x.
+
 ## Grid pressure test (sheet 5)
 
 **Kept:**
