@@ -610,5 +610,16 @@ wise".
     re-checked under it. A one-icon fix is labelled as an exception.
   Details in `../../grid/jam.md` turn 18.
 - **Watch myself:** don't let a well-built sheet or honest notes carry a
-  weak drawing to 9. The drawing itself is the deliverable now (the g2
+  weak drawing to 9.
+- **Batch 1 (g6, 542f75c): A 8, B 9.**
+  - The cup and the coupe are real drawings now.
+  - **Source-level finding:** the sliver fix drops the short run and
+    leaves lopsided two-cubic slot ends (`museum-12`, a 0.06px offset).
+    I asked for a collision rule (one centred arc), plus a symmetry
+    check alongside the sliver scan from now on.
+  - The museum under by joint and pressed is an arcade, and that's
+    uncounted as a cost. This is the third time a comparison sheet has
+    been one-sided; check every one.
+  - The conifer: try three tiers.
+  - Pixel-snap rule due in batch 2. The drawing itself is the deliverable now (the g2
   lesson: score the thing he asked for).

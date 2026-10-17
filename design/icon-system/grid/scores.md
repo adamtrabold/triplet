@@ -463,3 +463,89 @@ gives the density you want?"
 - **READY once the sheet-0 line is in** `cards-g5.html` and the canvas
   board `Grid5Intro`. The question, word for word: "Which of 1.5, 1.75
   and 2px gives the density you want?"
+
+---
+
+## Round g6, drawing batch 1 (542f75c), 2026-10-17: 8, one fix pass
+
+**What I read:**
+- `for-director.md` and jam turn 19;
+- the stills `g6-sheet-0..5` at 3x, in strips, plus `g6-sheet-3-1x`;
+- the sources: the sliver scan on all of `svg/g6`, and
+  `joint-air2/museum-12.svg` read point by point.
+
+### A. Drawing craft: 8
+
+- **Big step up from the skeletons.** At real size the cup, the coupe
+  and the column front now read as their objects. The g5 costs are
+  fixed by drawing, not by notes: no stacked cup and no "I" coupe.
+- **Personality is real:**
+  - the ear hangs on the cup's shoulder;
+  - the saucer's ends lift;
+  - the coupe's bowl flows into its stem and lands on a domed foot;
+  - the conifer's branches droop.
+- **Clean so far:** zero slivers (I confirmed it: 0 across `svg/g6`),
+  one path each, real counters, and honest curve counts.
+- **But "perfect architecture" isn't met at the source level.**
+  - The sliver fix drops the short straight run where two rounds
+    collide, and leaves the slot ends lopsided.
+  - In `museum-12`, each column gap's top is two cubics meeting at x =
+    9.03 on a 1.5px slot centred on 9.0. The left quarter spans 0.78px
+    and the right 0.72px, with unequal handles (0.458 vs 0.398).
+  - It's invisible at 24, but it's the opposite of "minimal bezier
+    curves with perfect architecture", and it'll repeat on every slot
+    and every narrow part.
+- **The museum under by joint and pressed is a different object.** The
+  gaps become capsules, round top and bottom: an arcade or a comb, not
+  a colonnade under a beam. Even wear keeps them square. Sheet 2
+  names it as "the clearest difference" but not as a cost to the read,
+  which is the g5 fairness gap again.
+- **The conifer** is the designer's own weakest. Four drooping tiers
+  crowd at 24 and in the chip.
+
+### B. Grid honesty: 9
+
+- Held and broke, icon by icon, for all six.
+- Six changes, each shown before and after on the icons it fixes.
+- "No earlier batch" is stated.
+- The open items are honest: SHOULDER held in two of four, and the
+  1.5px line can't land on whole or half pixels.
+- Change 3 ("no hairline cuts inside a mass") is the right
+  generalisation of the g5 finding.
+
+### Likely owner objections
+
+1. **"Why does the museum look like an aqueduct?"** *Likely*, under by
+   joint and pressed.
+2. **"The tree's still busy."** *Possible.*
+3. **"Are these closer?"** He'll say yes. The cup and the coupe are the
+   proof.
+
+### Fixes (one batch)
+
+1. **The collision rule, in the engine.**
+   - When two rounds meet on an edge shorter than their sum, they become
+     one true arc, centred and symmetric (a semicircle on a 1.5px slot
+     end), not two cubics with the run dropped.
+   - Re-run the sliver scan and add a symmetry check: mirrored parts
+     equal to 0.01px.
+   - Show the museum slot end before and after, enlarged, on sheet 5 as
+     a grid change ("change 7"), and re-check all six under it.
+2. **Sheet 2, fair both ways.** Under by joint and pressed, note the
+   museum's cost at real size: "the gaps become arches; it reads as an
+   arcade", in the designer's own honest words. Use the same neutral
+   note style as g5b. If the designer judges the arches read fine, say
+   nothing; I think they don't.
+3. **The conifer, one try at three tiers** (the repeated-parts rule
+   allows it), shown beside the four at 24, 12 and the 32 pin. Report
+   it plainly. If three wins, it's the drawing.
+
+**Not required this batch:** a pixel-snap rule for 1.5px edges on a 3x
+phone. It's on sheet 5 as open. Batch 2 must propose one (which edges
+land on device pixels) and show it at 1x.
+
+**The question, word for word (unchanged):** "Are these closer
+drawing-wise? If so: which corners (by joint, even wear or pressed),
+and 2px or 1.5px of air?"
+
+**Did the work change?** Yes. This is the first drawing round.

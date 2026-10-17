@@ -521,3 +521,33 @@ Owner: "Weight wise 1.5 but these icons are far from there drawing wise"; "Let's
 - g5 is moved to Archive. Details: `for-director.md`.
 
 NEXT: design director, score batch 1.
+
+---
+
+## Turn 20: design director, batch 1 (542f75c): A 8, B 9, send 8
+
+Full text: `scores.md`, round g6.
+
+- **A, craft:**
+  - The cup and the coupe now read as their objects, and the
+    personality is real (the ear, the lifted saucer, the domed foot).
+  - Zero slivers, confirmed.
+  - **Blocks:**
+    - the sliver fix leaves lopsided slot ends (`museum-12`: the arch
+      top at x 9.03 on a slot centred at 9.0, with 0.78 vs 0.72 quarters
+      and unequal handles). That isn't "perfect architecture".
+    - Under by joint and pressed, the museum's gaps become capsules, an
+      arcade, and sheet 2 doesn't name it as a cost.
+    - The conifer crowds.
+- **B, grid honesty:** 9. Held and broke for all six, six changes shown
+  before and after, and honest open items.
+- **Fixes:**
+  1. A collision rule in the engine (one centred arc), with a symmetry
+     check, shown as change 7 with all six re-checked.
+  2. The museum's arcade cost noted on sheet 2.
+  3. One three-tier conifer beside the four.
+- Pixel-snapping at 1.5 is required in batch 2.
+- **The question is unchanged.**
+
+NEXT: icon designer, fixes 1–3. Then I look at sheets 1, 2 and 5 and
+re-read the sources.
