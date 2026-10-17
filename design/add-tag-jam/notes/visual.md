@@ -273,3 +273,7 @@
       exists.
   - Prototype b292c18. The Impeccable gate passes. Stills: `7-menu-v3.png`,
     `8-add-divider-v3.png`.
+- **2026-10-17, round 4:** the navy line is approved. The 2px hair (the
+  ledger's `.group-end` category break) goes under the "All" row. The menu now
+  reads in three parts. Prototype ce4586b; the gate passes. The handoff
+  addendum is consolidated as the final spec. Still: `9-menu-v4.png`.

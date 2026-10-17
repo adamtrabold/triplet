@@ -618,18 +618,33 @@ shadows stay as they are. [Main, CityDifferent, StarVisited, CityMetaRefined]
 
 ## Phase 1 fixes (after build check)
 
-Designer pass, 2026-10-17, on the CD + UX check (`checks/p1-cd-ux.md`).
-Each fix below is built and working in the prototype branch
-**`design-p1-fixes`**: one commit on top of `add-tag-p1`, so diff it against
-`add-tag-p1` to get the reference implementation. Stills are in
-`stills/p1-fixes/`:
-- contact sheets `1-choosing.png`, `2-plan-building.png`,
-  `3-plans-list.png`, `4-small.png`;
-- 3x raws in `raw/`;
-- `stills.js`, which renders them.
+Designer pass, 2026-10-17, on the CD + UX check (`checks/p1-cd-ux.md`),
+then three owner rounds the same day. **This section is the complete final
+spec**, and later rounds replace earlier ones wherever they overlap.
+- The owner has approved the menu ("I like the menu"; "Blue is great for the
+  one you put it on").
+- The wavy break got no comment, so it stands.
+- Rename / Delete in the open plan got no comment either; the owner sees it
+  again in the final stills.
 
-The Impeccable gate **PASSES** on the prototype: the two low-contrast
-identities are gone.
+Each fix is built and working in the prototype branch **`design-p1-fixes`**
+(head ce4586b). It is `add-tag-p1` (batch A 48d40d2 merged in) plus the fixes,
+so diff it against `origin/add-tag-p1` to get the reference implementation.
+
+Stills are in `stills/p1-fixes/` (3x raws in `raw/`, rendered by `stills.js`).
+The final ones:
+- `9-menu-v4.png`: the menu;
+- `8-add-divider-v3.png`: the break;
+- `2-plan-building.png`: the add-from sections;
+- `3-plans-list.png`: the plans list, the plan foot and zero plans;
+- `1-choosing.png`: the go-to landing and the hidden header only. Its menu
+  frames are the superseded upward v1.
+- `4-small.png`: the long title and the lowered strip.
+
+The menu's place and look in `1-choosing.png` are superseded. The divider
+caption in the other early sheets is superseded by the wavy break.
+
+The Impeccable gate **PASSES** on the prototype.
 
 Everything not named here stays as built. These are still the builder's
 fixes, with no design answer needed:
@@ -760,7 +775,7 @@ every row (owner rules "Dots add an insane amount of visual noise" and
 "Simple, simple, simple"). It's still two taps away from anywhere: open the
 plan, then scroll to the end of its stops.
 
-### 3. Title menu position and width (v2, after the owner's feedback)
+### 3. Title menu: position, size, separators (final)
 
 The owner turned down v1, the menu opening upward: "I don't like it opening
 upwards because then the places/plan switch is where the thumb is rather than
@@ -798,23 +813,26 @@ and its box is locked for as long as it's open.
   - **You must add `#titleMenu[hidden] { display:none }`.** The id rule's
     `display:flex` beats `.menu-box[hidden]`, so without it the menu never
     hides.
-- **v3, a stronger separator before the quiet row.** Owner: "Need a stronger
-  separator between the list in it and the button to the other menu. I'd say
-  double width or blue but idk what's used in the app elsewhere that would
-  make the most sense".
-  - **The choice:** a **1px `var(--navy)` line**, the shared menu spec's
-    caption rule (`.menu-cap`'s `border-bottom:1px solid var(--navy)`) and
-    the box's own edge colour. It splits the box into two compartments: what
-    to go to, and the other kind.
-  - **Why not double width:** the app's 2px rule (`--hair`, the ledger's
-    category break) is still the pale hair, so it would barely stand out on
-    `--paper-raised`.
-  - **How it's drawn:** `#titleMenu .menu-row[data-kind] { box-shadow: 0 -1px 0 var(--navy), 0 -2px 0 var(--paper-raised); }`.
+- **Two separators in the box, both from the app's existing rules:**
+  - **Under the "All" row** ("All places" / "All plans"): the ledger's
+    **doubled rule**, the category break `.location-card.group-end`, which is
+    the row's 1px `--hair` bottom rule at **2px**:
+    `#titleMenu .menu-row:first-child { border-bottom-width: 2px; }`.
+    - Owner: "Maybe we do the double thickness between the "all" and the
+      list?"
+  - **Above the quiet Places/Plans row:** a **1px `var(--navy)` line**, the
+    shared menu spec's caption rule (`.menu-cap`'s border) and the box's own
+    edge colour:
+    `#titleMenu .menu-row[data-kind] { box-shadow: 0 -1px 0 var(--navy), 0 -2px 0 var(--paper-raised); }`.
     - The navy line covers the hair of the row above, and the paper layer
-      covers any leftover hair, so one clean line shows.
-    - The row keeps its 40px.
-    - With the shorter side's blank paper above it, the line still sits on the
-      quiet row's top edge.
+      covers any leftover hair, so one clean line shows and the row keeps its
+      40px.
+    - It sits on the quiet row's top edge even when the shorter side leaves
+      blank paper above it.
+    - Owner: "Need a stronger separator between the list in it and the button
+      to the other menu", then "Blue is great for the one you put it on".
+  - So the box reads in three parts: the overview row, the items, the other
+    kind.
 - The opening slip comes down from above: `--slip-from: -4px`. The title
   chevron doesn't rotate (v1's rotation is dropped).
 - Resizing while open re-decides: clear the lock and place the menu again.
@@ -900,7 +918,8 @@ Run the full Phase 1 set from the systems section: the gesture gate once at
 the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
 - the menu's top sits on the raised sheet's top edge, raised and lowered
   alike, and its box (top, left, width, height) is identical before and after
-  the quiet-row swap; `#titleMenu[hidden]` really hides it;
+  the quiet-row swap; `#titleMenu[hidden]` really hides it; the 2px rule under
+  the first row and the navy line above the quiet row are both there;
 - the add-from block:
   - its city sections;
   - the eye, shared with Places;
@@ -912,8 +931,7 @@ the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
 
 ### Open for the owner
 
-- The menu is approved ("I like the menu"). It now has a navy line before
-  the Places/Plans row (sheet 7).
-- The wavy-line break (sheet 8).
+- Final stills: the menu (`9-menu-v4.png`) and the wavy break
+  (`8-add-divider-v3.png`).
 - Rename and Delete in the open plan (sheet 3): no comment from the owner yet;
   it's in the final stills.
