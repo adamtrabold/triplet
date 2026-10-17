@@ -109,3 +109,5 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (in chat) Definitely h1 for hidden cities
 > (on Places and Plans) Places/plans does not need to be in the list header
 > (on the Places menu) This one is feeling the best but the toggle isn't right yet play with size and placement
+> (chat, on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
+("demented" = segmented, autocorrect)
