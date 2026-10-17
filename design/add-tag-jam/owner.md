@@ -112,3 +112,5 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (chat, on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
 ("demented" = segmented, autocorrect)
 > (on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
+> (chat) T2 language with t1 ui… what’s it look like in plans though
+> (chat, confirming "I2 + I1": the hotel label's look/wording as I1's bottom strip) Yes I
