@@ -69,3 +69,8 @@ Product designer (icon specialist). Owner, verbatim: "we're not at drawing step 
 ## Round g5 (2026-10-17), after "Feels like 1.5 or 2 to me right now" and "What's closest to the inspo"
 
 - 1.5, 1.75 and 2 side by side in the app's contexts, with the deciding differences shown big and at real size, the whole family per width, and MUTCD compared two ways (same size on screen; picture to picture). Skeletons are unchanged from g4. `src/boards5.js` → `cards-g5.html`, `stills/g5-*`. MUTCD measurements and method: `for-director.md`.
+
+## Round g6, batch 1 (2026-10-17), after "Weight wise 1.5 but these icons are far from there drawing wise"
+
+- The drawing step starts, a few icons at a time, each batch pressure-testing the grid. Batch 1: café, bar, museum, nature, the +, the Star.
+- `src/picks6.js` holds the drawings (functions of the box size); `src/laws6.js` the corner laws at 1.5px; `src/boards6.js` writes `cards-g6.html`, `stills/g6-*` and `svg/g6/`. The rules sheet (sheet 5) is the grid's current state.

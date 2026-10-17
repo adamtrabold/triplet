@@ -54,8 +54,8 @@ for (const w of WS) {
   INK[w] = Math.round(100 * (ring + sum / NAMES.length) / (Math.PI * 144));
 }
 
-// SVG files
-for (const w of WS) {
+// SVG files (only when this file is run, not when a later round requires it)
+if (require.main === module) for (const w of WS) {
   const dir = path.join(ROOT, 'svg', 'g4', 'w' + String(w).replace('.', '_')); fs.mkdirSync(dir, { recursive: true });
   for (const [id] of NAMES) {
     fs.writeFileSync(path.join(dir, `${id}-24.svg`), `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="${f2(12 - w / 2)}" fill="none" stroke="currentColor" stroke-width="${w}"/><path fill="currentColor" d="${GL[w][id].b24.d}"/></svg>\n`);

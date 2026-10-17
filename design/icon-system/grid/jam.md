@@ -494,3 +494,30 @@ one a gap falls under.
 - a grid break that's hidden or only described.
 
 NEXT: icon designer, batch 1 at 1.5. Then the director scores A and B.
+
+---
+
+## Turn 18: icon designer, round g6, batch 1 (the first drawn icons)
+
+Owner: "Weight wise 1.5 but these icons are far from there drawing wise"; "Let's do a few at a time— we will need to pressure test the grid as it's being made".
+
+- **Drawn at 1.5px on grid A:** café, bar, museum and nature, plus the + and the Star. Each tests a different joint: curves, a curve into a stem, right angles with repeated parts, tips and notches, a crossing, the outline.
+- **Six sheets:**
+  - the batch;
+  - the drawings beside the g5 skeletons;
+  - the three corner laws on the drawings, with close-ups;
+  - the laws in the app at real size;
+  - the air (2px or 1.5px);
+  - the grid after batch 1 (Kept, Changed, Open).
+- **Grid changes proposed:**
+  - cut 1px (not 0.9);
+  - spaces between repeated parts = the line (four columns);
+  - no hairline cuts inside a mass (this replaces the small-details rule);
+  - a curve rule;
+  - curves exempt from the angle rule;
+  - app icons drawn as shapes.
+  - SHOULDER is open: no part of batch 1 uses it.
+- **Engine:** slivers under 0.2px are now dropped (0 in `svg/g6`; there were 81).
+- g5 is moved to Archive. Details: `for-director.md`.
+
+NEXT: design director, score batch 1.

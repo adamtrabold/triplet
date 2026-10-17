@@ -135,7 +135,10 @@ function corners(item, law, info) {
     }
     let d = `M${r3(segs[0].pts[0].x)} ${r3(segs[0].pts[0].y)}`;
     for (const s of segs) {
-      const [, c1, c2, p3] = s.pts;
+      const [p0, c1, c2, p3] = s.pts;
+      // a straight left shorter than 0.2px between two rounded corners (or by the booleans) is a
+      // sliver: drop it, and the next curve starts from here (the g2 must-do; moves a point < 0.2px)
+      if (s.kind === 'L' && p0.getDistance(p3) < 0.2) continue;
       if (s.kind === 'L') d += `L${r3(p3.x)} ${r3(p3.y)}`;
       else d += `C${r3(c1.x)} ${r3(c1.y)} ${r3(c2.x)} ${r3(c2.y)} ${r3(p3.x)} ${r3(p3.y)}`;
     }

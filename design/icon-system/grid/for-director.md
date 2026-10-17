@@ -1,82 +1,101 @@
-# Grid g5: 1.5, 1.75 or 2px, for the design director
+# Grid g6, batch 1: the first drawn icons, for the design director
 
-From the icon designer (taking over mid-round after the container restart), 2026-10-17. Built to your g4 note ("The one test for it: can he actually choose between the three on his phone?"). The g4 handoff is in git history.
+From the icon designer, 2026-10-17. The g5 handoff (and my MUTCD measurements) are in git history.
 
 ## His words (verbatim)
 
-> "Feels like 1.5 or 2 to me right now"
+> "Weight wise 1.5 but these icons are far from there drawing wise"
 
-> "What's closest to the inspo"
+> "Let's do a few at a time— we will need to pressure test the grid as it's being made"
 
-Standing: "Yes I'm looking for an harmonious complete set and guidance for the future", "Also include app icons not just the ones for types", "Home Screen icon will also need to feel naturally part of the family".
+His build brief is quoted in full on sheet 0, and in `../owner.md`.
+
+## What's in batch 1, and why these
+
+| Icon | What it tests |
+|---|---|
+| Café | curves: the low cup, the ear, the saucer's lifted ends |
+| Bar | a curve flowing into a straight stem, and a foot |
+| Museum | right angles, and a repeated part (the columns) |
+| Nature | sharp tips and notches |
+| The + | a crossing (an app icon) |
+| The Star | the one outline (an app icon) |
+
+These are four kinds of joint, plus one crossing and one outline, so each corner law gets tested on every kind. Hotel, venue, landmark and attraction are proposed for batch 2.
 
 ## Where
 
-- **Canvas, page "Grid concepts":** https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW. Seven g5 boards (`Grid5Intro`, `Grid5Context`, `Grid5Plus`, `Grid5Diff`, `Grid5Family`, `Grid5TwoX`, `Grid5Inspo`); the page title is the question.
-- **g4 moved to Archive** (y 24000, "Round g4 · stroke sweep 0.8–2.5px"). Nothing deleted.
-- **Stills:** `stills/g5-sheet-0..6.png` (3x) and `g5-sheet-1-1x.png`. Source: `cards-g5.html`, built by `src/boards5.js` (skeletons unchanged: `src/picks4.js` via `boards4.js`).
-- **The WIP:** its approach was sound (2x columns, MUTCD crops), but the committed `boards5.js` was older than its HTML and showed each width on its own sheet, not side by side. I rebuilt the sheets; the 2x columns sheet is its sheet 1 minus the MUTCD part.
-- I looked at every sheet at 3x, sheet 1 at 1x, and the 760 canvas versions of sheets 1 and 6.
+- **Canvas, page "Grid concepts":** https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW. Six boards (`Grid6Intro`, `Grid6Drawings`, `Grid6Corners`, `Grid6App`, `Grid6Air`, `Grid6Rules`). The page title is the question.
+- **g5 moved to Archive** (y 30000), nothing deleted.
+- **Stills:** `stills/g6-sheet-0..5.png` (3x) and `g6-sheet-3-1x.png`. Source: `cards-g6.html`.
+- **Code:**
+  - `src/picks6.js`: the drawings, as functions of the box size, so the air option redraws them rather than scaling them;
+  - `src/laws6.js`: the three laws at 1.5px, the g2 radii × 0.75;
+  - `src/boards6.js`.
+- **SVGs:** `svg/g6/<law>-<air>/`, single paths, `currentColor`.
+- I looked at every sheet at 3x, sheet 3 at 1x, and sheet 2 at 760.
 
-## Against your test
+## The sheets
 
-1. **Side by side, same contexts, real size.** Sheet 1: header, chips, two list rows (one with the Star, one with the visited stamp), a map strip with a selected pin and the sticker; the three widths stacked under each other with a width label. Sheet 2: the + as it ships (60px scalloped badge, its line only changes) and the tag (badge, Star, Directions, ×, today's Visited stamp). Sheet 4: the whole family per width, as in the sweep.
-2. **The deciding differences, named and visible.** Sheet 0 has a table; sheet 3 shows each one big (2.75x) with real size under it, and an orange note where the width loses it:
-   - fork 3 tines → 2 (1.5 → 1.75);
-   - conifer 4 tiers → 3 (1.5 → 1.75);
-   - the small details, 1.5 only: cup rim, drink line, bag band, blanket fold, architrave;
-   - the curtain's scallops, gone at 2;
-   - the bench, bed and blocks chips at 12px, at 4x and real size;
-   - the ⌘ as the "weight only" control.
-   Also stated: what doesn't change (3 columns, 4 spokes, 2 slats, 2 × 2 blocks, bed, walker, ⌘, +, ×).
-3. **If they look alike, say so.** Sheet 0, verbatim: "Plainly, at real size, they look alike. In the header the three are almost the same. The bigger lines show it most: the + and the tag's ×. In the rows, chips and map, what you notice is the fork (3 tines or 2) and the conifer (4 tiers or 3), which change between 1.5 and 1.75. From 1.75 to 2 the change is weight only, apart from the curtain's scallops, and it's hard to see." That's what I saw at 3x and 1x.
-4. **Honesty about the rule.** Sheet 0 says the detail cut-offs are our g4 rule ("small details only at w ≤ 1.5", scallops to 1.75), not physics: they could move by a quarter pixel; the weight can't. This matters because he might choose 2 for weight and assume the details are forfeit.
-5. **MUTCD beside them** (sheet 6), two ways, because a sign's picture fills ~87% of its square and our glyph fills 50% of the badge:
-   - same size on screen (sign 81px = badge 24px): signs and badges at 2.2x and real size, plus a line ruler (8x) of the signs' measured lines against ours;
-   - picture to picture (the sign's picture the height of our 12px glyph).
-   The facts are stated; there's no pick.
-6. **No recommended width** on any sheet. The question on every sheet: "Which of 1.5, 1.75 and 2px gives the density you want?"
+- **0. The batch.** His two quotes, his brief verbatim, which icons and why, and what he can now judge. Ends with the question.
+- **1. The drawings.** Each icon on the grid at 6.3x: the g5 skeleton beside the drawing. Then real size (badge and chip) and 3x, a line on how it's built, and its curve count. The + and the Star are shown beside the g5 1.5px stroke versions.
+- **2. The corners, on the drawings.** All 6 icons × 3 laws at 3.5x and real size, plus two close-ups per law (the museum's beam and columns; the conifer's notches).
+  - The clearest difference, stated on the sheet: by joint and pressed turn the spaces between the columns into small arches and fill the conifer's notches. Even wear keeps them square.
+  - Plainly: at real size the three laws are close.
+- **3. In the app, real size.** The three laws stacked in list rows (with today's visited stamp), on a map with a selected pin and today's sticker, in the chips and on the + badge.
+- **4. The air.** 2px (box 12) vs 1.5px (box 12.75, every line still 1.5), on the grid at 4x, at real size, on the selected pin and in a row. Plainly: it's half a pixel a side. The cost is named: at 12.75 the guides fall off the lattice.
+- **5. The grid after batch 1.** Each rule is tagged Kept, Changed or Open; the changes are proposals.
 
-## After your g5 score (8): the two fixes
+## How the drawings answer his brief
 
-- **Sheet 3:** all notes are one grey; orange no longer marks loss. Under 1.5, a note says where a detail costs the read at real size. Cup: "the rim splits the cup into two stacked slabs". Coupe: "the bowl thins to a bar; the glass reads as an "I"". Bag: "with the band it reads as a toolbox". Bed: "the fold splits the bed in two". No note on the architrave, the tines, the tiers or the scallops: at real size they read fine.
-- **Sheet 6:** "beside the nearest of our icons in kind".
-- Re-shot `stills/g5-sheet-3.png` and `g5-sheet-6.png`. On the canvas, the replaced boards are on Archive at y 27000.
+- **"at their root simple shapes, but joined together":** every part is a rectangle, a triangle, a two-point curve or half a ring, united into one solid path with real counters.
+- **"minimal bezier curves with perfect architecture":**
+  - each bowl is two cubics between its extremes, with flat or upright handles;
+  - each conifer branch is one curve a side;
+  - curves per outline, by joint: café 16, bar 12, museum 23, nature 27. Most of these are the corner rounds (one cubic each);
+  - points sit on a 0.25px lattice.
+- **"personality in the approach to how strokes are connected and curve":**
+  - the cup's ear hangs on its shoulder;
+  - the coupe's bowl flows into the stem;
+  - the conifer's branches droop to their tips;
+  - the saucer's ends lift.
+- **"slight rounding … not 100% consistent … screened or pressed":** the three laws are shown on these drawings, and each gives a different radius per kind of corner.
+- **The four details that cost the read at 1.5:** not drawn. The rim and the drink line are gone; the cup and the coupe read from their silhouettes. The bag and the bed are in batch 2.
 
-## My check of the MUTCD numbers (fig-2h-05-1.gif, measured, not eyeballed)
+## Grid pressure test (sheet 5)
 
-Method: each sign's brown field, then the run lengths of white pixels in rows and columns inside it (`scratchpad/g5m/find.py`; per-sign histograms). The signs are 80–81px square (brown to the edge; the white border is the paper), not 78.
+**Kept:**
+- 1.5px everywhere;
+- the box and the TOP and BASE guides (every icon uses them);
+- MIDDLE (the cup and saucer centres on it exactly).
 
-| Part | Sheet px | Same size (× 24/81) | Share of picture height (÷ 71) |
-|---|---|---|---|
-| Crosswalk dashes (Ped Xing) | 3 | 0.89 | 4.2% |
-| Lookout-tower legs | 4 | 1.19 | 5.6% |
-| Litter can walls; study-area spiral | 4–5 | 1.19–1.48 | 5.6–7.0% |
-| Tent ground line | 5 | 1.48 | 7.0% |
-| Walker's limbs (Ped Xing) | 6–8 | 1.78–2.37 | 8.5–11.3% |
-| Drinking-water glass walls | 7–8 | 2.07–2.37 | 9.9–11.3% |
-| Masses: tunnel walls, tent sides | 14, 16 | 4.1, 4.7 | — |
-| Ours | — | 1.5 / 1.75 / 2 | 12.5% / 14.6% / 16.7% |
+**Changed (proposed):**
+- **Cut 1px, not 0.9.** 0.9 never lands on the lattice.
+- **Spaces between repeated parts = the line.** The museum gets four columns; the skeleton's special spacing allowed three.
+- **No hairline cuts inside a mass.** Detail comes from the silhouette and from open counters. This replaces "small details only at w ≤ 1.5".
+- **A curve rule:** a curve runs between its extremes and ends on the lattice or at a corner.
+- **Angles:** straight lines keep "orthogonal, 45° or whole-pixel slope"; curves follow the curve rule.
+- **App icons are drawn as shapes**, not strokes, so they can take the corner law.
 
-Against the orchestrator's quick read:
-- **Holds:** most lines are 4–5px; the weight comes from solid masses; 1.5 is the closest of the three.
-- **Corrections:** the field is 81px, not 78. The walker's *dashes* are 3px (the crosswalk); its *limbs* are 6–8. The tunnel arch is 14px, a mass, not a 7–8px wall; the 7–8px wall is the drinking-water glass ("the cup").
-- **Range:** the most common line is 4px = 1.2px at badge size, so the centre is nearer 1.2–1.5 than 1.5.
-- **Picture to picture, all three of ours are heavier than every sign line.** 1.5 (12.5%) sits just above the glass walls (11.3%). By either measure 1.5 is nearest, and 2 is heavier than the inspo's lines.
-- **Colour:** the signs are white on brown, which reads slightly heavier than it measures. Noted on the sheet.
+**Open:**
+- **SHOULDER (4) does no work in this batch.** Batch 2 tests it; if it still does none, we propose retiring it.
+- The corner law and the air are his picks.
+- **The lattice:** a 1.5px line centred in a 12px box can't sit on whole or half pixels, so its edges fall between dots on a 3x phone.
 
-## The home-screen icon
+## Craft checks
 
-Unchanged and shown in every family block (sheet 4), as asked. The g4 flag still stands: it doesn't sit naturally in the family. Redesign comes after the width pick.
-
-## Not done (on purpose)
-
-Corner law, air, home-screen redesign, the engine slivers: after his pick, per your order. `index.html` untouched.
+- **Slivers (your g2 must-do) are fixed in the engine.** A straight run under 0.2px between two rounded corners is dropped.
+  - `microseg.py` on `svg/g6`: 0 slivers, down from 81 before the fix.
+  - `boards4.js` now writes its SVGs only when run itself, so the archived g4 SVGs don't change.
+- **Every drawing fits:** the furthest ink is 8.38px from the centre, against a 10.5px inside edge of the ring.
 
 ## My read (not on the sheets)
 
-At real size the honest story is "1.5 versus the other two". 1.75 and 2 are nearly the same picture; 1.5 is lighter and keeps the fork, the conifer and the small details. Against the inspo, 1.5 is nearest by both measures. If he wants 2's weight with 1.5's details, that's a rule change (move the cut-offs), and it would need its own look.
+- **The drawings are clearly closer than the skeletons at real size.** The cup and the coupe now read as objects, and the museum reads as a column front.
+- **Corners:** by joint gives the most "carved" character: the column arches and the + crossing. Even wear softens the cut ends, which reads friendlier but less precise; pressed is the most "printed".
+- **Air:** I'd expect him to see little difference at real size.
+- **Weakest drawing:** nature. At 12px its four tiers crowd, and batch 2 may want three at the chip.
 
 ## The ask
 
-"Which of 1.5, 1.75 and 2px gives the density you want?"
+"Are these closer drawing-wise? If so: which corners (by joint, even wear or pressed), and 2px or 1.5px of air?"

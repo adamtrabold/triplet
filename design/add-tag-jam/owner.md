@@ -116,3 +116,7 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (chat, confirming "I2 + I1": the hotel label's look/wording as I1's bottom strip) Yes I
 > (chat, correcting the last pick) Ah I misdirected you sorry I meant t3 UI I1 content. This way of referring to things is confusing
 Read as: T3's UI (a quiet last row in the menu, styled like the other rows) carrying I1's content ("Plans 3 ›"). Process: stop labelling options with codes (T1/I2/…); use short descriptive names.
+> (chat, on the quiet bottom row, both sides) This is great but icon alignment isn’t centered
+Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring.
+> (on the quiet-bottom-row menus) This is great but icon alignment isn’t centered
+> Great to build
