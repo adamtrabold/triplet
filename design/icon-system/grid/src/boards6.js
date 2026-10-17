@@ -220,7 +220,7 @@ function sheetCorners(W_, n) {
   // close-ups per law: the museum's beam meeting its columns (joins and outside corners), and the conifer's notches
   const zv = (id, x, y, s) => LAWS.map(l => `<div class="c"><svg width="${zoom}" height="${zoom}" viewBox="${x} ${y} ${s} ${s}" aria-hidden="true"><rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${COL.raised}"/><path d="${GD[l][12][id].b24.d}" fill="${COL.navy}"/></svg></div>`).join('');
   const close = zv('museum', 6, 8.5, 6.5);
-  const close2 = zv('nature', 12, 10, 6);
+  const close2 = zv('nature', 12, 11, 6);   // two notches and the trunk; nothing of a neighbouring tier at the crop's edge
   return `<section class="card" id="c${n}"><div class="no">Grid · round 6 · batch 1 · sheet ${n}</div><h2>The corners, on the drawings</h2>
 <p class="att">The same drawings with each corner law, ${(big / 24).toFixed(1)}x, and at real size underneath (badge 24, chip 12, selected pin 32).</p>
 <div class="g3">${head}<div class="n">How</div>${LAWS.map(l => `<div class="c" style="font-size:10.5px;line-height:1.3;text-align:center;font-weight:400">${LAW_LINE[l]}</div>`).join('')}${rows}${urows}
