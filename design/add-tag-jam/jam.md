@@ -525,3 +525,68 @@ both".
 
 NEXT: visual designer — draw A (B beside it if useful) and answer thread
 0d441a3b.
+
+## Turn 9 -- product designer (systems focus): "near the main city", and where the switch lives
+
+### 1. "Near the main city"
+
+The owner (verbatim): "I'm actually having second thoughts/.. maybe we
+do need some way to note this city is near the main city of the trip".
+Earlier: "i dont think we need to show when it's different from the real
+town".
+
+**In the bucket model, "the main city of the trip" is the place's own
+city** (Reykjavík). Trips stay dropped. The relationship is one fact:
+**this place is outside its city, and this far from it.** The owner's
+word is "near", not "a different town". The real town already prints in
+the address line ("Norðurljósavegur 9 · Grindavík"), so naming it again
+was the redundant part. The distance is the part that's missing.
+
+**Minimal model statement (we think):**
+- **When:** only when the place lies **outside its city's own area**.
+  Cities carry bounds today (`CITIES[...].viewbox`), and a new city gets
+  them from its first place. Names aren't compared: "København" vs.
+  "Copenhagen" would misfire.
+- **What:** the straight-line distance from the city's centre, rounded:
+  "≈ 40 km from Reykjavík". It's derived from data the place already
+  has, so nothing is stored or asked.
+- **Where:** on the tag only, beside the city in R2's routing line, on
+  the add tag, the edit tag and the place's Hanging Tag alike.
+  - Not in list rows: the city sections already group it, and the
+    row's short address names the real town.
+  - Inside the city (Sundhöllin), nothing extra shows. Most tags look
+    exactly as decided.
+
+### 2. Where the Places | Plans switch lives (not always visible)
+
+The owner (verbatim): "No i do not want it always visible".
+
+**Option 1 (we think, better): the list title is a two-entry menu.**
+- The title reads what you're looking at: "All places (202)" or "Plans"
+  or a plan's name.
+- Tapping it opens a menu with **exactly two entries, Places and Plans**.
+  They're kinds, never items, so places and plans are never in one list
+  (the rejected Turn 7).
+- **Plans opens the plans list.** Tapping a plan opens it, the title
+  becomes its name, and a back step returns to the plans list.
+- **Go to stays where the owner liked it:** city section headers in
+  Places, leg headers in a plan.
+- **Cost:** the title is now a control. The collapse affordance has to
+  live elsewhere (the owner already asked: "collapse shouldn't live
+  somewhere else to not confuse with the dropdown select"; K2's tab).
+
+**Option 2: keep it in the filter panel** (today), as the panel's first
+row.
+- Plans then shows the plans list (today it jumps straight into a plan).
+- **Cost:** two steps away (open the panel, then switch), and the
+  switch sits among filters though it isn't one. That's why the plan
+  picker kept drifting up into the title.
+
+**The collapse tab's area** is ruled out: the owner already chose K2 for
+collapse there, and it would crowd the +.
+
+**Recommendation: Option 1.** The title already answers "what am I
+looking at", so the one tap that changes the answer belongs there.
+
+NEXT: visual designer — the distance note in R2's routing line (outside
+the city only), and the two-entry title menu with the plans list.

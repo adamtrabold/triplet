@@ -4,3 +4,4 @@
 - Turn 6 (2026-10-16): search scope options A-H; we think B+C+D (worldwide, ranked by your cities, rows say where, typed city sharpens); alt E (near chip); baseline A softened; hard country filter goes regardless.
 - Turn 7 (2026-10-16): plan vs city simplified: Option 1 (rec) title = one picker (All places / plans / New plan, replaces switch), go-to = list section headings (cities in Places, legs in a plan); Option 2 one menu for all.
 - Turn 8 (2026-10-16): places vs plans = two kinds; Turn 7 withdrawn. Option A (rec): Places|Plans switch at top level (out of filter panel); Places go-to = city sections; Plans = plans list → plan, go-to = leg sections; show/hide in filter panel, never hides stops. Option B: Plans as a button/sheet.
+- Turn 9 (2026-10-17): 'near the main city' = place outside its city's area → '≈40 km from Reykjavík' in R2 routing line, tags only; switch = title two-entry menu (Places/Plans → plans list) rec, alt keep in filter panel.
