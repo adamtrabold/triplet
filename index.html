@@ -1746,6 +1746,12 @@
     #titleMenu[hidden] { display: none; }
     #titleMenu .menu-row { flex: none; }
     #titleMenu .menu-row[data-kind] { position: sticky; bottom: 0; margin-top: auto; background: var(--paper-raised); z-index: 1; }
+    /* p1-fixes v3 (owner: "Need a stronger separator between the list in it and the button to the
+       other menu"): the menu spec's own caption rule -- 1px var(--navy), the box's edge colour (.menu-cap's
+       border-bottom) -- so the quiet row reads as its own compartment of the box. It replaces the hair there:
+       one line: the navy is drawn 1px above the quiet row (box-shadow, so its 40px holds), over the
+       row above's hair. */
+    #titleMenu .menu-row[data-kind] { box-shadow: 0 -1px 0 var(--navy), 0 -2px 0 var(--paper-raised); }
     #titleMenu .menu-row[data-kind]:active { background: var(--paper-pressed); }
 
     .menu-cap {
@@ -1939,7 +1945,14 @@
     .plan-rule { box-sizing: border-box; height: 40px; padding: 0 var(--gutter); display: flex; align-items: center; gap: var(--s2);
       background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: 0.12em;
       color: var(--ink-2); white-space: nowrap; }
-    .plan-rule::before, .plan-rule::after { content: ''; flex: 1 1 0; min-width: var(--s4); height: 0; border-top: 1.5px dashed rgba(var(--ink-2-rgb), 0.5); }
+    /* p1-fixes v3 (owner: "Let's use a style we already use for the add places break. What about the
+       wavy line?"): the app's wavy line is the scalloped die-cut edge of the account and + badges (and
+       the mark's seal): round lobes, ~8px apart, ~2.5px deep at their 44-56px size. Unrolled flat
+       here: 8px period, 2.5px peak to trough, 1.5px stroke, round caps, in --ink-2 at 55%. */
+    .plan-rule::before, .plan-rule::after { content: ''; flex: 1 1 0; min-width: var(--s4); height: 6px;
+      background: rgba(var(--ink-2-rgb), 0.55);
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6' viewBox='0 0 8 6'%3E%3Cpath d='M0 4.25C1.33 4.25 2 1.75 4 1.75S6.67 4.25 8 4.25' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") left center / 8px 6px repeat-x;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6' viewBox='0 0 8 6'%3E%3Cpath d='M0 4.25C1.33 4.25 2 1.75 4 1.75S6.67 4.25 8 4.25' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") left center / 8px 6px repeat-x; }
     .plan-rule .h-name { overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; position: relative; top: 1px; }
     .plan-rule .tally { font-size: 11px; margin-left: 0; position: relative; top: 1px; }
     .plan-rule .rule-cap { display: flex; align-items: baseline; gap: 0.45em; min-width: 0; flex: 0 1 auto; }
