@@ -34,6 +34,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-17 · Stroke sweep g4 shown:** 0.8–2.5px, whole family per width (13, UI icons, +, home-screen icon), ink %, buys/costs. Asked: which width. `grid/stills/g4-sheet-1.png`
 
+- **10-17 · Stroke narrowed:** "Feels like 1.5 or 2 to me right now" → a closer look at 1.5–2.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)

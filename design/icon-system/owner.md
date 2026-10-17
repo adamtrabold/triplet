@@ -139,3 +139,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > Also include app icons not just the ones for types   (in the stroke-width sweep)
 > Yes I'm looking for an harmonious complete set and guidance for the future   (confirming UI icons are in; the goal of the system)
 > Home Screen icon will also need to feel naturally part of the family
+> Feels like 1.5 or 2 to me right now   (on the g4 sweep; not a lock)
