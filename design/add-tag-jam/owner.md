@@ -85,3 +85,13 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on TagBadge, T2's string) No this feels unnatural because of gravity
 > (on CollapseRefined, K2's tab) For me it's this one right now
 > (on Search 1) Sure
+> (canvas, blue NEW outlines) Really hard to judge how this looks with the blue lines for new stuff
+> (distance note) I really like the distance note but it should feel more related to the actual address
+> (NEW stamp) The new badge is poorly aligned with the new dropdown
+> (Places | Plans title menu, Turn 9) Places plans is absolutely not solved I need to be able to specify inside of either
+> (on the canvas) Really hard to judge how this looks with the blue lines for new stuff
+> (on the distance note) I really like the distance note but it should feel more related to the actual address
+> (on the NEW stamp) The new badge is poorly aligned with the new dropdown
+> (on SectionSeparate, S1) I think I like this one - the light bg draws too much attention
+> (on Go to 3, the map's city labels) I know this is less connected conceptually but visually I prefer it
+> (on CollapseRefined, K2 tab) Yeah ran feels definitely it but the list needs the subtle top border that the tab has

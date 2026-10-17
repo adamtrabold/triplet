@@ -590,3 +590,77 @@ looking at", so the one tap that changes the answer belongs there.
 
 NEXT: visual designer — the distance note in R2's routing line (outside
 the city only), and the two-entry title menu with the plans list.
+
+## Turn 10 -- product designer (systems focus): kind, then the item within it
+
+The owner (verbatim): "Places plans is absolutely not solved I need to be
+able to specify inside of either".
+
+**The coordinator's reading is right**, and the owner's history supports
+it:
+- "i do like having a way to quickly center myself on a city" — picking
+  a city is a first-class act;
+- the Go-to menu "maybe this is better than having the filter panel
+  chips" — a menu of cities;
+- "they dont make sense in the same list" — kinds never mix;
+- "No i do not want it always visible" — the kind switch can't be a
+  standing control.
+
+Turn 9 failed because it chose only the **kind**. The **item** (which
+city, which plan) was left to scrolling headers or a second screen.
+
+**The structure: two levels, one choice each.**
+1. Kind: Places | Plans.
+2. The item within it:
+   - Places: All cities, or one city;
+   - Plans: All plans, or one plan.
+
+### What each choice shows
+
+| Choice | List | Map |
+|---|---|---|
+| Places · All cities | every place matching the filters, in city sections | frames all your (shown) cities |
+| Places · Reykjavík | **the same list** (picking a city goes there; it never hides anything; the owner: "if it does im not sure if i like that"), scrolled to Reykjavík's section | frames Reykjavík |
+| Plans · All plans | the plans list: one row per plan (name, stops, cities), New plan last | frames every plan's stops |
+| Plans · Golden Circle | its stops in leg sections, then the places you can add with + | frames its stops; a leg heading frames that leg |
+
+- Picking a hidden city shows it again; hidden cities sit in the menu
+  with the closed eye (the owner: "just repeat the closed eye icon").
+- **(We think)** in Places the title follows the city the map shows
+  (today's `detectCityContext()`: the nearest of your cities within
+  reach of the map's centre), and reads "All cities" when zoomed out.
+  That way it never names a city you've panned away from. Picking from
+  the menu is just the fast way there.
+
+### Option 1 (we think, better): one title, one menu, the kind toggle inside it
+
+- The title reads both levels: "Places · Reykjavík ⌄", "Plans · Golden
+  Circle ⌄".
+- Tapping it opens one menu:
+  - **a Places | Plans toggle at its top** (visible only here, so it's
+    never always visible);
+  - **below it, the items of that kind only**: All cities plus your
+    cities, or All plans plus your plans plus New plan.
+  - Flipping the toggle swaps the items without closing the menu.
+    Picking an item closes it.
+- **Taps:** any item of the same kind is one tap after opening; the
+  other kind's item is two.
+- Kinds never share a list: the toggle shows one kind at a time.
+
+### Option 2: two title segments
+
+- "Places ⌄ · Reykjavík ⌄": the first segment opens a two-entry kind
+  menu, and the second opens that kind's items.
+- **Cost:**
+  - two controls side by side;
+  - switching kind changes what the second segment holds;
+  - reaching another kind's plan takes two menus.
+- It's clearer only if the owner wants the kind to read as its own
+  button.
+
+**Recommendation: Option 1.** One control, read as "kind · item", answers
+"what am I looking at" in full. The kind toggle exists only inside the
+menu, and each kind's items are one tap away.
+
+NEXT: visual designer — draw Option 1's title states and its menu in
+both kinds (Option 2 beside it if useful).
