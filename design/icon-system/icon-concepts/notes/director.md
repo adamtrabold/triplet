@@ -545,3 +545,5 @@ want sub pixels from prolly .8 to 2.5"
   2. the Home Screen icon redrawn into the family;
   3. the engine slivers;
   4. the drawing step.
+- **g4b (f3af6b2): 9, sent.** The closed UI shapes are solid and the
+  Star is the only outline. All seven checks pass.
