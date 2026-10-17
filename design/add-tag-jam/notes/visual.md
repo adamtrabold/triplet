@@ -187,3 +187,4 @@
 - v34: I2 language on I1 UI: navy bottom strip with paper keyline (pill, inset 4/5px), route/ring glyph, caps label, orange count; Places menu "Plans 3", Plans menu (All plans, plans, New plan) "Places 202"; title "Golden Circle ⌄". T3/I1–I3 archived as PlacesPlansIdeas.
 - v35: quiet bottom row (plain menu row, hair rule above, route/ring glyph, caps label + tally, › chevron) on both menus; navy strip archived as PlacesPlansStrip; all Now board titles, Decided stickies and captions renamed without option codes.
 - v36: menu rows: label top:1px, CHECK16 path raised 0.75px, quiet row gets the rows’ own bottom hairline (no extra top rule); measured icon/text/check centres within 0.4px on every row. Places and Plans decided; sticky empty.
+- Build handoff: visual part of handoff.md written (phases 1–4, tokens, board files); end snapshot snapshots/2-end-design-decided.png.

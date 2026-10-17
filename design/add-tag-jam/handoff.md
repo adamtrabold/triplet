@@ -366,4 +366,250 @@ untouched).
 
 ## How it looks and feels (visual)
 
-*(The visual designer writes this section.)*
+Approved to build (owner: "Great to build"). These are the exact values for
+every decided state, set in phases 1–4 like the systems section. Each value
+comes from the canvas board named in brackets.
+
+- **Canvas:** https://claude.ai/artifact/6aSGgGczYGfWGP1UqTDGP3, page **Now**.
+- **Board sources:** each board's full HTML is the artifact file
+  `project/<Board>.dc.html`. Read it with the Artifact tool, `action: "read"`,
+  `path: "project/<Board>.dc.html"`. Ignore the blue NEW outlines and tabs:
+  they're a canvas-only marker, off by default.
+- **Phone stills:** `design/add-tag-jam/stills/places-plans/`.
+- **End-of-design snapshot:** `design/add-tag-jam/snapshots/2-end-design-decided.png`.
+
+**How to read the values.**
+
+- **Tokens:** every colour is an existing `:root` token in `index.html`. No new colours.
+- **Type:** all of it is `--font-ui` (Archivo). "Caps" means `font-stretch:75%`,
+  `text-transform:uppercase`, `font-weight:700`.
+- **Tally:** the count after a name, one treatment everywhere.
+  - `margin-left:.45em`, `font-size:.8em` (11px in section headers), 700, `letter-spacing:.06em`.
+  - `color:var(--ink-2)`, `font-variant-numeric:tabular-nums`. No brackets.
+  - [SectionHeaders]
+- **Motion:** only where stated below. Everything else snaps.
+  - Every new motion sits behind `prefers-reduced-motion: no-preference`, as `#sortMenu.opening` does.
+  - The visited stamp/sticker and the Star/Visited stub are untouched (owner: "do not tuch").
+
+### One menu spec (used in phases 1–3)
+
+Every new menu is `#sortMenu`'s box and row voice. Build it once as a shared
+class and reuse it.
+
+**Box.**
+
+- `background:var(--paper-raised)`, `border:1px solid var(--navy)`, `border-radius:2px`.
+- `box-shadow:2px 2px 0 var(--navy)`, `overflow:hidden`.
+- `width:max-content`, `min-width:200px` (the title menu is 248px).
+- It opens just under its trigger, left-aligned with it.
+- Scrim, attribution-hiding and outside-tap close: the same as sort.
+- Opening motion: the existing `sortSlip`, 140ms `cubic-bezier(.2,.8,.3,1)`.
+
+**Caption** (optional; the title menu has none).
+
+- 24px tall, `padding:0 var(--s3)`, `border-bottom:1px solid var(--navy)`.
+- Caps 10/12, `letter-spacing:.12em`, `var(--ink-2)`.
+- A mid-menu caption ("New city") also gets `border-top:1px solid var(--hair)`.
+
+**Row.**
+
+- Box: `display:flex; align-items:center; gap:var(--s2)`, `height:40px`, `padding:0 var(--s3)`.
+- Rule: `border-bottom:1px solid var(--hair)`. The last row keeps its rule too, so every row centres the same way.
+- Hit area: 44px, from the same `::before` −2px trick as `.sort-opt`.
+- Label: caps 13/16, `letter-spacing:.05em`, `var(--navy)`, plus **`position:relative; top:1px`**.
+  - That 1px is the optical centring the owner asked for ("icon alignment isn't centered").
+  - Without it, caps sit 1.4px high against the icons. Measured result: icon, text and check centres within 0.4px.
+- Pressed and focus: as `.sort-opt`.
+
+**Icon column.**
+
+- A 16px leading slot on every row, `flex:none`.
+- A row with no icon ("All cities", "All plans") gets an empty 16px spacer, so all text shares one left edge.
+- The TYPE menu uses its 20px category badges here instead.
+
+**Right slot.**
+
+- A 16px slot.
+- The current item gets a check: `viewBox 0 0 16 16`, path `M3 7.75l3.2 3.2L13 4.05`, stroke `var(--navy)` 1.5, no fill.
+  - Note the 7.75: this check sits 0.75px higher than a naive one, to centre it.
+- A hidden city gets the closed eye at 16px instead (Phase 1, Hide / show).
+- Otherwise the slot is empty.
+
+**Glyphs** (all 24-unit viewBox at 16px, `var(--navy)`).
+
+- **City ring:** circle r8, stroke 2, plus a dot r2.5 filled.
+- **Plan route:** two r2.6 rings at (6,6) and (18,18), stroke 2, joined by `M8.5 6h5a3 3 0 0 1 0 6h-3a3 3 0 0 0 0 6h5`, round caps.
+- **Plus:** `M12 5v14M5 12h14`, stroke 2, round caps.
+- **Row chevron ›:** 16px, path `M6 3.5l4.5 4.5L6 12.5`, stroke 1.6, round caps and joins.
+
+---
+
+### Phase 1 · List title, city sections, show/hide, collapse
+
+**List header** (`#locationsHeader`) [ListHeaderType, decided "one step up, 18px"]
+
+- `min-height:52px` (was 56), `padding:9px var(--gutter)`. The 1px `var(--hair)` rule below stays.
+- h2: **18px/22px** (was 15/20), caps, `letter-spacing:.08em`, tabular-nums, ellipsis.
+- The sort, filters and locate icons are unchanged.
+
+**Title button** [PlacesPlansKinds]
+
+- The h2 becomes a `<button aria-haspopup="menu" aria-expanded>`: `display:flex; align-items:center; gap:6px`, then the tally, then a 12px chevron.
+  - Chevron: path `M3 4.5L6 7.5L9 4.5`, stroke `var(--navy)` 1.6, round caps.
+- The title reads only what is shown, never "Places" or "Plans":
+  - "Reykjavík 23", "All places 202", "Golden Circle 3" or "All plans 3".
+  - Owner: "Places/plans does not need to be in the list header".
+
+**Title menu** [PlacesPlansKinds, decided; stills `2-places-menu-quiet-row.png`, `3-plans-menu-quiet-row.png`]
+
+- Box: the menu spec at `min-width:248px`, left edge on the gutter (16px), top 44px below the sheet's top edge. It overlaps the header band's lower 8px, as drawn.
+- It has no caption and no switch on top: it opens straight onto the items.
+- **Places side:**
+  - "All cities 202": spacer, no icon.
+  - Then each city: ring glyph, name and tally. The current one gets the check; a hidden one is dimmed (see Hide / show below).
+  - Last, the **quiet row** "Plans 3 ›": route glyph, caps label and tally, a flex gap, then the row chevron ›.
+- **Plans side:**
+  - "All plans 3": spacer.
+  - Each plan: route glyph, name and its stop tally. The current one gets the check.
+  - "New plan": plus glyph.
+  - Last, the quiet row "Places 202 ›" with the ring glyph.
+- The quiet row is a plain row: no fill, no extra top rule. Tapping it swaps the menu's contents in place, with no animation.
+
+**What each choice shows** [PlacesPlansKinds stills 1, 4, 5]
+
+- **A city:** the title becomes the city. The list stays whole and scrolls to that city's section; the map moves. Nothing hides.
+- **A plan:** the title becomes the plan. The list shows its stops, grouped by city in stop order.
+  - Each stop row's lead is its number: 28px column, centred, 15px 700, `font-stretch:85%`, `var(--ink-2)`.
+- **All plans:** one row per plan.
+  - Lead: the route glyph at 22px, in the 28px column.
+  - h3: the plan name. Meta: "3 stops · Reykjavík".
+  - Trailing: › at 16px `var(--ink-2)`, instead of ×.
+  - Last, "New plan": the plus glyph in the 28px column, caps 13 `.05em` `var(--navy)`, `min-height:56px`.
+
+**City section header** [SectionSeparate, SectionHeaders, GoToSections; decided "air above, light rule"]
+
+- Layout: `display:grid; grid-template-columns:1fr 28px; column-gap:var(--gap); align-items:end`.
+- Size: `height:60px`, `padding:0 var(--gutter) 6px 18px`.
+- Ground: `background:var(--paper)`, **`border-bottom:2px solid var(--hair)`**. No band, no navy rule.
+- The 18px left edge lines the name up with the row badges' left edge (16 + (28−24)/2).
+- **Name** is a `<button aria-label="Go to {city}">`, 32px tall, `align-items:flex-end`, `padding-bottom:4px`.
+  - Caps 12/14, `letter-spacing:.12em`, `var(--navy)`, with an 11px tally.
+- **Eye** is a `<button aria-label="Hide {city}">`, 28×32, holding the 20px eye:
+  - outline `M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z`, stroke `var(--ink-2)` 2;
+  - a pupil r2.8 filled `var(--ink-2)`.
+- **First section**, directly under the list header: **44px**, `align-items:center`, no bottom padding, and the name and eye buttons 44 tall. Owner: "First row doesn't need all the extra padding".
+
+**Hide / show a city** [HiddenCity, decided "greyed header, closed eye"]
+
+- A hidden city's header stays in its place in the list: the same 60px header, and its rows fold away.
+- The name drops to `opacity:.5`.
+- The eye becomes the **closed eye**, `<button aria-label="Show {city}">`, 20px:
+  - the eye as above, with the slash `M4 4l16 16` drawn twice;
+  - first in `var(--paper)` at stroke 4.5 (a knock-out);
+  - then in `var(--ink-2)` at stroke 2, round caps.
+- **Title menu:** the hidden city's row is `opacity:.55`, with the closed eye at 16px in the right slot. Its knock-out stroke is `var(--paper-raised)` there, to match the menu's ground.
+- Going to a hidden city shows it again.
+- No animation on fold. The list doesn't animate today.
+
+**Collapse tab** [CollapseRefined, decided]
+
+- The sheet gains `border-top:1px solid var(--hair)`. Owner: "the list needs the subtle top border that the tab has".
+- The old header `#collapseBtn` goes.
+- **Tab:** `<button aria-label="Lower the list">` (when lowered, "Raise the list").
+  - Placement: `position:absolute; right:var(--gutter); top:-24px` on the sheet; 44×24.
+  - Look: `background:var(--paper)`, `border:1px solid var(--hair)` with `border-bottom:0`, `border-radius:4px 4px 0 0`. Its paper runs into the sheet's.
+  - Hit area: extend it to 44px tall with an invisible `::before` upward.
+- **Icon:** 16px, stroke `var(--navy)` 2, no fill: a line from (4,20) to (20,20) plus `M7 8l5 5 5-5`.
+  - Lowered, it's rotated 180°, with `transition: transform 0.3s ease` (as `#collapseBtn` today).
+- **Motion:** the sheet's existing `transform 0.3s ease`. The tab rides with it.
+- The map attribution sits above the tab and never under it.
+- The + badge keeps bottom-left; the tab is right-aligned so the two never meet.
+
+---
+
+### Phase 2 · The add tag
+
+The shipped tag die, the stub (Add | Star | Mark visited), the patch and its
+shadows stay as they are. [Main, CityDifferent, StarVisited, CityMetaRefined]
+
+**Routing line** (the city, decided "R2, left-aligned", no rule under it)
+
+- It's the tag's first line, above the name, on the content's left edge. The CITY row is gone.
+- Line box: `display:flex; align-items:center; gap:var(--s2); min-height:28px; padding-bottom:2px; margin-bottom:4px`.
+- **City button:** `<button aria-expanded>`, `display:inline-flex; align-items:center; gap:4px; height:28px`.
+  - Label: caps 12/14, `letter-spacing:.12em`, `var(--navy)`, then the 12px chevron in `var(--navy)`.
+- **Open:**
+  - `background:var(--navy)`, `border-radius:3px`, `padding:0 6px 0 8px`, `margin-left:-8px`, so the text doesn't move.
+  - The text and chevron turn `var(--paper)` and the chevron turns 180°.
+- **Edit tag:** the same, with "Save" in the stub. [CityDistance, second phone]
+- **Hanging Tag** (a place's popup): the city prints in the same type, with no chevron and no button. [CityDistance, third phone]
+
+**TYPE select** [TypeClosed, TypeOpen, decided "the one dropdown spec"]
+
+- **Row:** `min-height:44px`, `display:grid; grid-template-columns:40px 150px 1fr; column-gap:var(--s2)`, `padding:6px 0`. No rule under it: it's the last row.
+- **Label:** the `.tag-lab` style: caps at weight 500, 11/16, `.12em`, `var(--ink-2)`.
+- **Trigger:** a button, 32px tall, `border:1px solid var(--hair)`, `border-radius:3px`, `padding:0 8px 0 6px`, `gap:6px`.
+  - Contents: the 20px category badge, the value in caps 12, `.12em`, `var(--ink-2)`, a flex gap, then the 12px chevron in `var(--ink-2)`.
+- **Open:** the trigger's border goes `var(--navy)`. The menu (spec above, caption "Type") opens right under it.
+  - Each row: the 20px category badge in the icon slot, the category name, and the check on the current one.
+- **Notes row** above it: unchanged. `min-height:32px`, label at the bottom, `padding-bottom:4px`, 1px `var(--hair)` rule.
+
+**TYPE detected** [TypeDetected, decided]
+
+- The value arrives already set, shown plainly. There's no "guessed" mark, chip or tint.
+- The 32px pin above the tag takes the category's colour and glyph at once. That change is the only feedback. No animation.
+- A neighbourhood pick shows District, with its outline (systems section).
+
+---
+
+### Phase 3 · City buckets (the city on the tag)
+
+**Changing the city** [CityChange]
+
+- The routing line's button opens the menu spec with the caption "City", left-aligned under the button.
+- Rows:
+  - The current city, with the city pin glyph at 16px (`var(--ink-2)`) and the check.
+  - Each other city, with a 16px spacer.
+  - Then a "New city" caption (24px, top `var(--hair)` rule).
+  - Then "+ {real town}", which makes a new city.
+- No tallies in this menu.
+
+**NEW stamp** (a city that ADD will create) [CityNew, decided "NEW stamp, before the chevron"]
+
+- **Where:** inside the city button, between the name and its chevron, wrapped with `margin:0 -1px 0 3px`.
+- **Box:** 48×24, `rotate(-4deg)`, colour `rgba(168,64,12,.88)` (that is `--brand-orange-deep` at 88%; write it via a channels var or `color-mix`).
+- **Outer track:** the `.row-stamp` dotted-track SVG.
+  - Same path and `pathLength='166.29'`, `stroke-dasharray='0 1.9797'`, stroke 1.1, round caps.
+  - Drawn in a 72×32 viewBox scaled to 48×24 (`preserveAspectRatio="none"`).
+- **Inner ring:** `inset:3px`, `border:1.5px solid currentColor`, `border-radius:50%`.
+- **Word:** "NEW", caps 9px, `letter-spacing:.08em`, centred.
+- **Behaviour:** static. It shows when the chosen city doesn't exist yet. Cancel makes nothing.
+
+**Distance note** [CityDistance, decided "under the address line, like a helper note"]
+
+- **Where:** under the address line's rule, as form helper text: `padding-top:4px`.
+- **Type:** Archivo at normal width, 400, 11/14, `var(--ink-2)`.
+- **Text:** "≈ 40 km from Reykjavík" (straight line, rounded).
+- **When:** only for a place outside its city's area. Most tags show nothing.
+- **Where it appears:** add, edit and the Hanging Tag. Never on list rows.
+
+---
+
+### Phase 4 · The map's city badge [GoToMap, decided "the boxed city label"]
+
+**Badge**
+
+- A `<button>` on the map at zoomed-out levels, centred on the city's stored `center`; which cities get one and at what zoom: systems, Phase 4.
+- **Look:** `background:var(--paper-raised)`, `border:1.5px solid var(--navy)`, `border-radius:2px`, `padding:5px 9px`.
+- **Shadow:** `box-shadow:2px 2px 0 var(--navy)`, the menu's offset shadow, so it reads as the same family.
+- **Label:** caps 13px, `letter-spacing:.08em`, `var(--navy)`, then the tally. No icon.
+- **Tap:** the map flies to that city's places, the same move as Go to (`flyToBounds`). At city zoom the badge gives way to the pins. The zoom threshold is in the systems section.
+
+**"All cities" control**
+
+- It sits under the Leaflet zoom control at `left:10px`.
+  - On the board it's at `top:84px`, below the zoom buttons. Keep the zoom control's own 10px gap.
+- **Look:** height 34, `box-sizing:border-box`, `padding:0 9px 0 7px`, `gap:5px`.
+  - The Leaflet control look: `background:#fff`, `border:2px solid rgba(0,0,0,.2)`, `border-radius:4px`. That's the zoom control's own CSS, not a brand colour, so leave it as Leaflet's.
+- **Contents:** the ring glyph at 16px, then "All cities" in caps 11/14, `.1em`, `var(--navy)`.
+- **Tap:** fits every city that has places.
