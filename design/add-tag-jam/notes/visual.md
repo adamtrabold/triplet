@@ -171,3 +171,4 @@
 - TagBadge: T2 dropped (gravity); T1 refined, short string (6px + eyelet), 5px dot: navy vs orange.
 - New board ListHeaderType: L0 today (15/56), L1 tighter (15/48), L2 one step up (18/52).
 - Archived: Collapse (A/B/C), SearchMap.
+- v21 (systems Turn 9): new board CityDistance (row 1 right): "≈ 40 km from Reykjavík" in the routing line beside the city (12px INK2), outside the city only, on the add tag, the edit tag (stub "Save") and the place's Hanging Tag (city printed, Directions | Star | Mark visited); Sundhöllin (inside) gets nothing extra. PlacesPlansA redrawn: no switch on the sheet; the list title (with chevron) opens a two-entry menu, Places or Plans; plans list; one plan with back; K2 tab. Both waiting on the owner; sticky updated (6 items).
