@@ -102,3 +102,4 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on the distance note) I think under with more detail is better — maybe it’d be best under the line à la form validation notices
 > (on Go to 2, the first section header) First row doesn’t need all the extra padding
 > (on List header, L2) This one
+> (chat, on TYPE auto-detect / Vesterbro) Neighborhood should be district
