@@ -113,9 +113,9 @@ stateDiagram-v2
 | Layer | Opens from | Element / function |
 |---|---|---|
 | List (Places) | always | `#locationsList`, `syncLocationCards()` + `syncShapeCards()` |
-| List (Plans) | Places \| Plans switch in the filters | `syncPlanCards()`, `renderPlanPanel()` |
+| List (Plans) | the list title's menu (its last row, then a plan or All plans) | `syncPlanCards()` (a plan: legs, foot, add-from sections), `syncPlansList()` (All plans) |
 | Filters panel | `#toggleFiltersBtn` | `createFilters()` (category chips only) |
-| List title menu | `#titleBtn` | `openTitleMenu()`, `renderTitleMenu()`, `goToCity()`, `choosePlan()`, `showAllPlans()` |
+| List title menu | `#titleBtn` | `openTitleMenu()`, `renderTitleMenu()`, `placeTitleMenu()` (`menuLock`), `goToCity()`, `choosePlan()`, `showAllPlans()` |
 | Sort menu | `#sortBtn` | `SORT_MODES`, `setSortMode()` |
 | Place details | row tap, pin tap | `buildPopupHtml()`, `TagPopup`, `tagOpened()` / `tagClosed()` |
 | Add form | + badge `#floatingAddBtn` | `#addForm`, `showAddForm()`, `closeAddForm()` |
@@ -265,7 +265,7 @@ Delete: the row's × on a near-still tap (`DELETE_TAP_SLOP`) →
 
 ```mermaid
 flowchart TD
-  A[Filters: switch to Plans] --> B["Plan picker: create, pick, rename, delete"]
+  A["Title menu: Plans side"] --> B["All plans: pick or New plan; a plan's foot: rename, delete"]
   B --> C["List: the plan's stops, numbered,<br/>then other filter matches with +"]
   C -->|"+"| D["addStop()"]
   C -->|"×"| E["removeStop() + Undo slip"]

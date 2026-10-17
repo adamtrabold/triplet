@@ -6,19 +6,23 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- **The list title, city sections, show/hide, the tab (add-tag-jam phase 1; check once it lands):**
-  (1) tap the list title: the menu opens on your cities (or plans), each with its count; tap the
-  last row ("Plans 3 ›" / "Places 202 ›"): it swaps in place and stays open; on your phone, note
-  whether it opens above the header (it can't fit below in a 300px list); (2) pick a city: the
-  title names it, the map flies there, the whole list scrolls to its header, nothing hides;
-  (3) tap a section's eye: its header greys, its rows fold away, its pins leave the map; reload:
-  still hidden; going to it from the menu shows it again; (4) the first header sits tight under
-  the title; the others have air above a light rule; (5) Plans: All plans lists each plan with
-  "n stops · City → City", ⋯ renames/deletes, › opens; a plan's stops sit under city headers
-  (tap one to frame that leg); (6) the tab at the top right of the list lowers/raises it, the
-  map credit sits above it and never under it, and the + never touches it; (7) scroll and
-  flick the list across section headers: no stuck rows, star/visit swipes still work right
-  under a header.
+- **The list title, city sections, show/hide, the tab (add-tag-jam phase 1, landed 2026-10-17):**
+  (1) tap the list title: the menu opens downward over the list header, cities first, with a
+  double rule under "All places" and a navy line above the last row ("Plans 3 ›"); tap that row:
+  it swaps to your plans in place -- the box doesn't move or resize -- and stays open; lower the
+  list and open it again: same place; (2) pick a city: the title names it, the map flies there,
+  the whole list scrolls so that city's header sits tight under the title, nothing hides;
+  (3) tap a section's eye: its name greys, its rows fold away, its pins leave the map; reload:
+  still hidden; going to it from the menu shows it again; (4) Plans: All plans lists each plan
+  with "n stops · City → City" and ›; with no plans it's just "+ New plan"; open a plan: its
+  stops sit under city headers (tap one to frame that leg), then Rename / Delete plan…, then
+  the wavy "ADD PLACES n" break and the addable places in city sections -- hide a city there and
+  it's hidden in Places too; tap a city's name there: the map goes to it and you stay in the plan;
+  (5) hold a stop's number and drag it across a city header: the header moves with the rows and
+  the stop lands where the gap showed; (6) the tab at the top right lowers/raises the list, the
+  map credit sits above it, the + never touches it, and lowered there's no line under the title;
+  (7) star/visit swipes still work on rows right under a header; (8) a long plan name ends in
+  "…" right before its count.
 - **First open asks for your location (landed 2026-10-15):** in a fresh
   private Safari tab (nothing stored): (1) Safari asks for your location
   once, right at load; (2) Allow: the map lands on you with the navy

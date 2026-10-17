@@ -48,10 +48,23 @@ const W = ms => new Promise(r => setTimeout(r, ms));
   await shot('07-plan-legs-recurring');
   await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 170; }); await W(200);
   await shot('07b-plan-legs-scrolled');
+  // 7c. the plan's foot (Rename / Delete plan…), the Add places break, the add-from city sections (Malmö hidden)
+  await page.evaluate(() => { setCityHidden('malmo', true); const l = document.getElementById('locationsList'), f = document.querySelector('.plan-foot'); l.scrollTop += f.getBoundingClientRect().top - l.getBoundingClientRect().top - 120; }); await W(300);
+  await shot('07c-plan-foot-add-places');
+  await page.evaluate(() => { const l = document.getElementById('locationsList'), h = document.querySelector('.plan-rule ~ .sec-head[data-city="malmo"]'); l.scrollTop += h.getBoundingClientRect().top - l.getBoundingClientRect().top - 120; }); await W(300);
+  await shot('07d-add-places-sections');
+  // 7e. Rename in place at the foot
+  await page.evaluate(() => { const l = document.getElementById('locationsList'), f = document.querySelector('.plan-foot'); l.scrollTop += f.getBoundingClientRect().top - l.getBoundingClientRect().top - 120; }); await W(200);
+  await tap('.plan-foot [data-act="foot-rename"]'); await W(500);
+  await shot('07e-plan-rename');
+  await page.evaluate(() => setPlanPanel({})); await W(200);
   // 8. collapse tab: raised is every shot above; lowered
   await page.evaluate(() => goToCity('copenhagen')); await W(1400);
   await tap('#collapseTab'); await W(700);
   await shot('08-collapse-tab-lowered');
+  await tap('#titleBtn'); await W(400);
+  await shot('08c-lowered-menu');
+  await page.keyboard.press('Escape'); await page.evaluate(() => document.activeElement && document.activeElement.blur()); await W(300);
   await tap('#collapseTab'); await W(700);
   await shot('08b-collapse-tab-raised');
   // 9. every city hidden: only greyed headers
@@ -62,6 +75,13 @@ const W = ms => new Promise(r => setTimeout(r, ms));
   await shot('10-zero-places');
   await tap('#titleBtn'); await W(400);
   await shot('10b-zero-places-menu');
+  await page.keyboard.press('Escape'); await page.evaluate(() => document.activeElement && document.activeElement.blur()); await W(300);
+  // 11. zero plans: the New plan row alone
+  await page.evaluate(() => { plans = []; planStops = []; showAllPlans(); }); await W(800);
+  await shot('11-zero-plans');
+  // 12. a long title: cut by script, the "…" as close to the tally as an uncut name
+  await page.evaluate(() => { plans = [{ id: 'lp', name: 'Last full day before we fly home from Kastrup', created_at: '2026-09-29T10:00:00Z' }]; choosePlan('lp'); }); await W(800);
+  await shot('12-long-title');
   console.log('errors', errors);
   await ctx.close(); await b.close();
 })();

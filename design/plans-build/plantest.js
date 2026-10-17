@@ -16,7 +16,7 @@ const base = { plans: FIX.plans, stops: FIX.stops, visited: ['mir'], storage: HI
 const NOR = 'mir,jae,cof,ass,S9001,bla';
 
 const tap = async (page, sel) => {
-  const r = await page.evaluate(sel => { const e = document.querySelector(sel); if (!e) return null; e.scrollIntoView({ block: 'nearest' }); const b = e.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; }, sel);
+  const r = await page.evaluate(sel => { const e = document.querySelector(sel); if (!e) return null; e.scrollIntoView({ block: e.closest('#titleMenu') ? 'center' : 'nearest' }); const b = e.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; }, sel);
   if (!r) throw new Error('no element ' + sel);
   await page.touchscreen.tap(r.x, r.y);
 };
@@ -41,8 +41,8 @@ const keys = page => page.evaluate(() => [...document.querySelectorAll('#locatio
   .map(e => e.matches('.plan-rule') ? '|' : (e.classList.contains('is-stop') ? '' : '+') + (e.dataset.id || 'S' + e.dataset.shapeId)));
 const stopKeys = async page => (await keys(page)).filter(k => k !== '|' && k[0] !== '+').join();
 const nums = page => page.evaluate(() => [...document.querySelectorAll('#locationsList .row-n')].map(n => n.textContent).join());
-// The title: its name (h2 .h-name) and its tally.
-const h2 = page => page.evaluate(() => document.querySelector('#locationsHeader h2 .h-name').textContent);
+// The title: its full name (the button's label; a long name is cut by script on screen) and its tally.
+const h2 = page => page.evaluate(() => document.getElementById('titleBtn').getAttribute('aria-label').replace(/, \d+\. Choose what the list shows$/, ''));
 const tally = page => page.evaluate(() => document.querySelector('#locationsHeader h2 .tally').textContent);
 const shown = (page, sel) => page.evaluate(sel => { const e = document.querySelector(sel); return !!e && getComputedStyle(e).display !== 'none' && e.getClientRects().length > 0; }, sel);
 const slip = page => page.evaluate(() => { const s = document.getElementById('planSlip'); return s && !s.hidden ? s.querySelector('.slip-text').textContent : null; });
@@ -92,7 +92,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
         rows: r.map(e => e.textContent.trim()), checked: r.filter(e => e.getAttribute('aria-checked') === 'true').map(e => e.dataset.go), hidden: r.filter(e => e.classList.contains('is-hidden')).map(e => e.dataset.go),
         h: r.map(e => e.getBoundingClientRect().height), tgt: r.map(e => { const a = getComputedStyle(e, '::before'); return e.getBoundingClientRect().height - parseFloat(a.top) - parseFloat(a.bottom); }), last: r[r.length - 1].dataset.kind }; });
     ok('P5 the title is a menu button; tapping it opens the menu (closing the panel) straight onto the Places side', tb.tag === 'BUTTON' && tb.pop === 'menu' && tb.exp === 'false' && m.exp === 'true' && m.role === 'menu' && !m.panel, { tb, m });
-    ok('P6 Places side: All cities + tally, each city with a place + tally (the current one checked, a hidden one greyed with the closed eye), then the quiet row "Plans 5 ›"; ≥248px wide', /^All cities\d+$/.test(m.rows[0]) && /^Copenhagen\d+$/.test(m.rows[1]) && /^Malmö\d+$/.test(m.rows[2])
+    ok('P6 Places side: All places + tally, each city with a place + tally (the current one checked, a hidden one greyed with the closed eye), then the quiet row "Plans 5 ›"; ≥248px wide', /^All places\d+$/.test(m.rows[0]) && /^Copenhagen\d+$/.test(m.rows[1]) && /^Malmö\d+$/.test(m.rows[2])
       && m.checked.join() === 'copenhagen' && m.hidden.join() === 'malmo' && m.rows[m.rows.length - 1] === 'Plans5' && m.last === 'plans' && m.w >= 248, m);
     ok('P6b menu rows: 40px (its 1px rule inside), ≥44px targets', m.h.every(h => h === 40) && m.tgt.every(h => h >= 44), m.h);
     await tap(page, '#titleMenu [data-kind="plans"]'); await W(200);
@@ -119,13 +119,13 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('N3 ✓ on the open plan only; rows 40px', led[1].cur === 'true' && [0, 2, 3, 4, 5].every(i => led[i].cur === 'false') && led.every(l => l.h === 40), led.map(l => [l.cur, l.h]));
     const pk = await page.evaluate(() => { const m = getComputedStyle(document.getElementById('titleMenu')); return { exp: document.getElementById('titleBtn').getAttribute('aria-expanded'), bg: m.backgroundColor, border: m.borderTopColor, shadow: m.boxShadow }; });
     ok('N4 open: the title says so (aria-expanded) and the menu is the sort menu\'s slip (paper-raised, navy edge, 2px navy offset)', pk.exp === 'true' && pk.bg === 'rgb(250, 245, 234)' && pk.border === 'rgb(18, 41, 63)' && /2px 2px 0px/.test(pk.shadow), pk);
-    await tap(page, '#titleBtn'); await W(200);
-    ok('N5 tapping the title again closes the menu', !(await menuOpen(page)) && (await page.evaluate(() => document.getElementById('titleBtn').getAttribute('aria-expanded'))) === 'false');
+    await page.touchscreen.tap(200, 120); await W(200);   // the menu covers the title now (it opens over the header): the outside tap closes it
+    ok('N5 an outside tap (the scrim) closes the menu', !(await menuOpen(page)) && (await page.evaluate(() => document.getElementById('titleBtn').getAttribute('aria-expanded'))) === 'false');
     const k = await keys(page);
     ok('V1 the list: the stops in plan order, the rule, then every Copenhagen match that is not a stop, each with +', k.slice(0, 7).join() === NOR + ',|' && k.slice(7).every(x => x[0] === '+') && k.length > 20
       && !k.slice(7).some(x => ['+mir', '+jae', '+cof', '+ass', '+S9001', '+bla'].includes(x)), k.slice(0, 9));
     const expectN = await page.evaluate(() => { const st = new Set(planStops.filter(s => s.plan_id === 'p-nor').map(s => s.location_id)); return locations.filter(l => l.city === 'copenhagen' && !st.has(l.id)).length + neighborhoodShapes.filter(n => n.city === 'copenhagen' && n.id !== 9001).length; });
-    ok('V2 the rule: Places\' group divider with its caption "Add from all places (n)", n = the rows below it (every shown place: Malmö is hidden)', (await page.evaluate(() => document.querySelector('.plan-rule').textContent)) === `Add from all places (${expectN})` && k.length - 7 === expectN, [expectN, k.length - 7]);
+    ok('V2 the break: "Add places" + its tally, n = the rows below it (every shown place: Malmö is hidden)', (await page.evaluate(() => document.querySelector('.plan-rule').textContent)) === `Add places${expectN}` && k.length - 7 === expectN, [expectN, k.length - 7]);
     ok('V3 the numbers 1..6, one grey state (the lead of a stop row: 15px 700, 85% width)', (await nums(page)) === '1,2,3,4,5,6' && (await page.evaluate(() => [...document.querySelectorAll('.row-n')].every(n => { const c = getComputedStyle(n); return c.color === 'rgb(90, 86, 76)' && c.fontWeight === '700' && c.fontSize === '15px' && c.fontStretch === '85%'; }))));
     const r = await page.evaluate(() => ({ rows: [...document.querySelectorAll('#locationsList .location-card')].map(e => e.getBoundingClientRect().height),
       head: document.getElementById('locationsHeader').getBoundingClientRect().height, x: document.querySelectorAll('#locationsList .location-card.is-stop .plan-x').length, add: document.querySelectorAll('#locationsList .location-card:not(.is-stop) .plan-add').length,
@@ -179,7 +179,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await page.evaluate(() => { document.getElementById('filter-cafe').click(); setCityHidden('malmo', false); setCityHidden('copenhagen', true); }); await W(400);
     const fk = await keys(page);
     ok('V17 Copenhagen hidden, Malmö shown, Cafe off: every stop still shows (a stop is never hidden); below the rule only Malmö non-cafés', fk.slice(0, 7).join() === NOR + ',|' && fk.slice(7).length > 0 && (await page.evaluate(ks => ks.every(k => { const l = locations.find(x => x.id === k.slice(1)); return l && l.city === 'malmo' && l.category !== 'cafe'; }), fk.slice(7))), fk);
-    ok('V18 the caption names the filters', /^Add from all places · \d+ categories \(\d+\)$/.test(await page.evaluate(() => document.querySelector('.plan-rule').textContent)), await page.evaluate(() => document.querySelector('.plan-rule').textContent));
+    ok('V18 the caption names the filters', /^Add places · \d+ categories\d+$/.test(await page.evaluate(() => document.querySelector('.plan-rule').textContent)), await page.evaluate(() => document.querySelector('.plan-rule').textContent));
     ok('V19 hiding a city or a chip never changes the view', (await page.evaluate(() => listView)) === 'plans' && (await h2(page)) === 'Nørrebro afternoon');
     await page.evaluate(() => { document.getElementById('filter-cafe').click(); setCityHidden('copenhagen', false); setCityHidden('malmo', true); }); await W(300);
     ok('V20 no page or console errors', !errors.length && !consoleErrors.length, { errors, consoleErrors });
@@ -195,13 +195,13 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const metas = await page.evaluate(() => [...document.querySelectorAll('#locationsList .location-card.is-stop .row-meta')].map(e => e.textContent));
     ok('S2 spanning plan: each stop row names its city', metas[0].includes('Malmö') && metas[1].includes('Copenhagen'), metas);
     await pick(page, 'p-empty');
-    const e0 = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.offsetParent).slice(0, 2).map(e => e.className + ':' + e.textContent.trim()));
-    ok('S3 a plan with 0 stops: "No stops yet · tap + on a place below" above the rule, then the places', e0[0] === 'plan-list-note:No stops yet · tap + on a place below' && /^plan-rule:Add from all places/.test(e0[1]), e0);
+    const e0 = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.offsetParent).slice(0, 3).map(e => e.className + ':' + e.textContent.trim()));
+    ok('S3 a plan with 0 stops: "No stops yet · tap + on a place below", the plan foot (Rename / Delete plan…), then the break and the places', e0[0] === 'plan-list-note:No stops yet · tap + on a place below' && e0[1] === 'plan-foot:RenameDelete plan…', e0);
     await pick(page, 'p-long');
-    const lg = await page.evaluate(() => { const h = document.querySelector('#locationsHeader h2 .h-name'); return { h: h.scrollWidth > h.clientWidth, e: getComputedStyle(h).textOverflow, lh: document.querySelector('#locationsHeader h2').getBoundingClientRect().height }; });
-    ok('S4 a long name ellipsizes on one line, header stays one row (22px line)', lg.h && lg.e === 'ellipsis' && lg.lh === 22, lg);
+    const lg = await page.evaluate(() => { const h = document.querySelector('#locationsHeader h2 .h-name'), t = document.querySelector('#locationsHeader h2 .tally'); return { text: h.textContent, fits: h.scrollWidth <= h.clientWidth + 0.5, gap: Math.round(t.getBoundingClientRect().left - h.getBoundingClientRect().right), lh: document.querySelector('#locationsHeader h2').getBoundingClientRect().height }; });
+    ok('S4 a long name is cut by script on one line ("…" right before the tally, as close as an uncut name), the label keeps it whole, header one row (22px line)', /…$/.test(lg.text) && lg.fits && lg.gap <= 8 && (await h2(page)) === 'Last full day before we fly home from Kastrup' && lg.lh === 22, lg);
     await pick(page, 'p-nor');
-    const twenty = await page.evaluate(() => { plans = plans.map(p => p.id === 'p-nor' ? { ...p, name: 'Østerbro and harbour' } : p); updateUI(); const h = document.querySelector('#locationsHeader h2 .h-name'); return [h.textContent.length, h.scrollWidth <= h.clientWidth]; });
+    const twenty = await page.evaluate(() => { plans = plans.map(p => p.id === 'p-nor' ? { ...p, name: 'Østerbro and harbour' } : p); updateUI(); const h = document.querySelector('#locationsHeader h2 .h-name'); return [h.textContent.length, h.scrollWidth <= h.clientWidth && !/…$/.test(h.textContent)]; });
     ok('S5 a 20-character name fits the phone header untruncated (with ⇅ back)', twenty[0] === 20 && twenty[1], twenty);
     await page.evaluate(() => { plans = plans.map(p => p.id === 'p-nor' ? { ...p, name: 'Nørrebro afternoon' } : p); updateUI(); });
     await tap(page, '#titleBtn'); await W(300);
@@ -213,7 +213,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     // exit restores the city
     const city0 = await page.evaluate(() => citySelection);
     await goCity(page, 'copenhagen');
-    const ex = await page.evaluate(() => ({ city: citySelection, c: map.getCenter(), z: map.getZoom(), h: document.querySelector('#locationsHeader h2 .h-name').textContent, sort: getComputedStyle(document.getElementById('sortBtn')).display,
+    const ex = await page.evaluate(() => ({ city: citySelection, c: map.getCenter(), z: map.getZoom(), h: document.getElementById('titleBtn').getAttribute('aria-label').replace(/, \d+\. Choose what the list shows$/, ''), sort: getComputedStyle(document.getElementById('sortBtn')).display,
       x: document.querySelectorAll('#locationsList .delete-btn').length, nums: document.querySelectorAll('.row-n').length, rule: !!document.querySelector('#locationsList .plan-rule'), tags: document.querySelectorAll('.stop-tag').length }));
     ok('X1 back to Places (the menu\'s city): same city, re-framed; list, ⇅ and X back; no numbers, rule or tags', ex.city === city0 && ex.city === 'copenhagen' && Math.abs(ex.c.lat - 55.6761) < 0.01 && ex.z === 12 && ex.h === 'Copenhagen' && ex.sort !== 'none' && ex.x > 20 && !ex.nums && !ex.rule && !ex.tags, ex);
     await ctx.close(); }
@@ -221,12 +221,11 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
   // ---------------------------------------------------------------- no plans yet
   { const { ctx, page } = await open(b, { plans: [], stops: [] });
     await toPlans(page);
-    const s = await page.evaluate(() => ({ empty: document.getElementById('locationsEmpty').firstChild && [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
-      btn: !!document.querySelector('#locationsEmpty .plan-empty-new'), h: document.querySelector('#locationsHeader h2').textContent, rows: document.querySelectorAll('#locationsList .location-card').length, map: markersById.size + clusterMarkersById.size }));
-    s.line2 = await page.evaluate(() => (document.querySelector('#locationsEmpty .plan-empty-line') || {}).textContent);
-    ok('E1 no plans yet: the list says so on two lines with the one New plan button; title "All plans 0"; no rows, nothing on the map, no ⇅', s.empty === 'No plans yet.' && s.line2 === 'A plan’s stops show here and on the map.' && s.btn && s.h === 'All plans0' && !s.rows && !s.map && !(await shown(page, '#sortBtn')), s);
-    await tap(page, '#locationsEmpty .plan-empty-new'); await W(400);
-    ok('E2 the empty list\'s New plan opens the name field (the list\'s create form), focused', (await page.evaluate(() => document.activeElement && document.activeElement.getAttribute('aria-label'))) === 'New plan name' && !!(await page.$('#locationsList .plan-form input')));
+    const s = await page.evaluate(() => ({ empty: getComputedStyle(document.getElementById('locationsEmpty')).display, rows: [...document.querySelectorAll('#locationsList > .plan-row, #locationsList > .plan-form')].map(r => r.textContent.trim()),
+      h: document.querySelector('#locationsHeader h2').textContent, cards: document.querySelectorAll('#locationsList .location-card').length, map: markersById.size + clusterMarkersById.size, old: !!document.querySelector('.plan-empty-new') }));
+    ok('E1 no plans yet: All plans is the list\'s own New plan row alone (no outlined button, no empty lines); title "All plans 0"; nothing on the map, no ⇅', s.empty === 'none' && s.rows.join('|') === 'New plan' && !s.old && s.h === 'All plans0' && !s.cards && !s.map && !(await shown(page, '#sortBtn')), s);
+    await tap(page, '#locationsList .plan-new-row .plan-open'); await W(400);
+    ok('E2 its New plan opens the name field (the list\'s create form), focused', (await page.evaluate(() => document.activeElement && document.activeElement.getAttribute('aria-label'))) === 'New plan name' && !!(await page.$('#locationsList .plan-form input')));
     await ctx.close(); }
 
   // ---------------------------------------------------------------- persistence
@@ -261,7 +260,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await ctx.close(); }
   { const { ctx, page } = await open(b, { ...base, writeDelay: 600 });
     await toPlans(page);
-    const s = await page.evaluate(async () => { const t = () => document.querySelector('#locationsHeader h2 .h-name').textContent; const p = renamePlan('p-nor', 'Nørrebro slow'); await new Promise(r => setTimeout(r, 100)); await fetchPlans(); const mid = t(); await p; return [mid, t()]; });
+    const s = await page.evaluate(async () => { const t = () => document.getElementById('titleBtn').getAttribute('aria-label').replace(/, \d+\. Choose what the list shows$/, ''); const p = renamePlan('p-nor', 'Nørrebro slow'); await new Promise(r => setTimeout(r, 100)); await fetchPlans(); const mid = t(); await p; return [mid, t()]; });
     ok('C5 a poll during an in-flight write never paints the old name back', s[0] === 'Nørrebro slow' && s[1] === 'Nørrebro slow', s);
     await ctx.close(); }
 
@@ -414,7 +413,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
   // ---------------------------------------------------------------- UX round: offline, no-plan map, 2a/2b, Undo, labels, motion, picker list
   { const { ctx, page, errors } = await open(b, { ...base, offline: true, storage: { ...HINTED, 'triplet.listView': 'plans', 'triplet.activePlan': 'p-nor' } });
     await W(400);
-    const o = await page.evaluate(() => ({ view: listView, title: document.querySelector('#locationsHeader h2 .h-name').textContent, empty: [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
+    const o = await page.evaluate(() => ({ view: listView, title: document.getElementById('titleBtn').getAttribute('aria-label').replace(/, \d+\. Choose what the list shows$/, ''), empty: [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
       banner: getComputedStyle(document.getElementById('error')).display }));
     ok('O1 offline at load: Plans keeps its view; the list says "Offline…"; no banner from Plans', o.view === 'plans' && o.title === 'All plans' && /^Offline\./.test(o.empty) && o.banner === 'none' && !errors.length, o);
     await page.evaluate(async () => { window.__PLANS_OFFLINE = false; await fetchPlans(); }); await W(300);
@@ -446,7 +445,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const u = await page.evaluate(() => { const b = document.querySelector('#planSlip button'), r = b.getBoundingClientRect(), a = getComputedStyle(b, '::before');
       const ring = [...document.styleSheets].flatMap(ss => { try { return [...ss.cssRules]; } catch (e) { return []; } }).filter(x => x.selectorText === '#planSlip button:focus-visible').map(x => x.style.boxShadow).join();
       return { w: r.width, h: r.height - parseFloat(a.top) - parseFloat(a.bottom), ring }; });
-    ok('U21 Undo: ≥44px wide, a 36px tall target on the rule band, the inset navy focus ring', u.w >= 44 && Math.round(u.h) === 36 && /inset 0(px)? 0(px)? 0(px)? 2px var\(--navy\)/.test(u.ring), u);
+    ok('U21 Undo: ≥44px wide, a ≥44px tall target on the 40px break band, the inset navy focus ring', u.w >= 44 && Math.round(u.h) >= 44 && /inset 0(px)? 0(px)? 0(px)? 2px var\(--navy\)/.test(u.ring), u);
     await page.evaluate(() => document.querySelector('#planSlip button').blur());
     await page.evaluate(() => document.querySelector('#planSlip').dispatchEvent(new FocusEvent('focusin'))); await W(6500);
     const held = await slip(page);
@@ -486,9 +485,9 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await toAllPlans(page);
     const g = await page.evaluate(() => ({ rows: [...document.querySelectorAll('#locationsList .plan-row')].map(r => [r.querySelector('h3') ? r.querySelector('h3').textContent : (r.textContent.trim()), Math.round(r.getBoundingClientRect().height)]),
       meta: [...document.querySelectorAll('#locationsList .plan-row .row-meta')].map(e => e.textContent), empty: getComputedStyle(document.getElementById('locationsEmpty')).display, title: document.querySelector('#locationsHeader h2').textContent }));
-    const want = n ? FIX.plans.slice(0, n).map(p => p.name).concat(['New plan']) : [];
-    ok(`L7 All plans, ${n} plan${n === 1 ? '' : 's'}: one 56px row per plan ("6 stops · Copenhagen"), then New plan${n ? '' : ' -- none: the empty list'}; the title "All plans ${n}"`, g.rows.map(r => r[0]).join('|') === want.join('|') && g.rows.every(r => r[1] === 56)
-      && (n === 0 ? g.empty === 'block' : g.meta[0] === '6 stops · Copenhagen') && g.title === 'All plans' + n, g);
+    const want = FIX.plans.slice(0, n).map(p => p.name).concat(['New plan']);
+    ok(`L7 All plans, ${n} plan${n === 1 ? '' : 's'}: one 56px row per plan ("6 stops · Copenhagen"), then New plan (none: the New plan row alone); the title "All plans ${n}"`, g.rows.map(r => r[0]).join('|') === want.join('|') && g.rows.every(r => r[1] === 56)
+      && g.empty === 'none' && (n === 0 || g.meta[0] === '6 stops · Copenhagen') && g.title === 'All plans' + n, g);
     await ctx.close(); }
 
   // ---------------------------------------------------------------- writes through the panel
@@ -505,20 +504,25 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('W3 Create: one insert (trimmed name, client uuid), the plan opens with no stops', c.length === 1 && c[0].table === 'plans' && c[0].op === 'insert' && c[0].payload[0].name === 'Harbour swim' && /^[0-9a-f-]{36}$/.test(c[0].payload[0].id)
       && (await h2(page)) === 'Harbour swim' && (await stopKeys(page)) === '', c);
     await toAllPlans(page);
-    await tap(page, '#locationsList [data-more="p-tiv"]'); await W(200);
-    const acts = await page.evaluate(() => [...document.querySelectorAll('#locationsList .plan-form .plan-act')].map(b => b.textContent));
-    ok('W4 ⋯ on a plans-list row: Rename / Delete plan… / Cancel in its row', acts.join() === 'Rename,Delete plan…,Cancel', acts);
-    await tap(page, '#locationsList .plan-form [data-act="rename"]'); await W(200);
-    await page.evaluate(() => { const i = document.querySelector('#locationsList .plan-form input'); i.select(); }); await page.keyboard.type('Tivoli late'); await page.keyboard.press('Enter'); await W(600);
+    const ends = await page.evaluate(() => ({ more: document.querySelectorAll('.plan-more, [data-more]').length, chev: document.querySelectorAll('#locationsList .plan-row .plan-chev').length, rows: document.querySelectorAll('#locationsList .plan-row:not(.plan-new-row)').length }));
+    await pick(page, 'p-tiv');
+    const foot = await page.evaluate(() => { const f = document.querySelector('#locationsList .plan-foot'), list = [...document.getElementById('locationsList').children];
+      return f && { acts: [...f.querySelectorAll('.plan-act')].map(b => b.textContent), role: f.getAttribute('role'), label: f.getAttribute('aria-label'), afterStops: list.indexOf(f) > list.indexOf(document.querySelector('.location-card.is-stop')) && list.indexOf(f) < list.indexOf(document.querySelector('.plan-rule')),
+        textLeft: Math.round(f.querySelector('.plan-act').getBoundingClientRect().left + parseFloat(getComputedStyle(f.querySelector('.plan-act')).paddingLeft)) }; });
+    ok('W4 the plans list rows end in › only (no ⋯ anywhere); Rename / Delete plan… live at the open plan\'s foot, between its stops and the break, a group named for the plan, text on the gutter', ends.more === 0 && ends.chev === ends.rows && ends.rows > 0
+      && foot && foot.acts.join() === 'Rename,Delete plan…' && foot.role === 'group' && foot.label === 'Tivoli tonight' && foot.afterStops && foot.textLeft === 16, { ends, foot });
+    await tap(page, '#locationsList .plan-foot [data-act="foot-rename"]'); await W(300);
+    const rf = await page.evaluate(() => ({ form: !!document.querySelector('#locationsList .plan-foot.plan-form input'), focus: document.activeElement && document.activeElement.getAttribute('aria-label') }));
+    await page.evaluate(() => { const i = document.querySelector('#locationsList .plan-foot input'); i.select(); }); await page.keyboard.type('Tivoli late'); await page.keyboard.press('Enter'); await W(600);
     const c2 = (await planCalls(page)).slice(1);
-    ok('W5 Rename (Enter saves): one update; the other plans untouched', c2.length === 1 && c2[0].op === 'update' && c2[0].payload.name === 'Tivoli late' && (await page.evaluate(() => plans.some(p => p.name === 'Harbour swim'))), c2);
+    ok('W5 Rename turns the foot into the in-row form, focused; Enter saves: one update; the title follows', rf.form && rf.focus === 'Plan name' && c2.length === 1 && c2[0].op === 'update' && c2[0].payload.name === 'Tivoli late' && (await h2(page)) === 'Tivoli late', { rf, c2 });
     await page.evaluate(() => { window.__confirmText = null; window.confirm = t => { __confirmText = t; return false; }; });
-    await tap(page, '#locationsList [data-more="p-tiv"]'); await W(150); await tap(page, '#locationsList .plan-form [data-act="delete"]'); await W(300);
-    ok('W6 Delete asks first ("Its places stay in your list."); Cancel deletes nothing', (await page.evaluate(() => __confirmText)) === 'Delete “Tivoli late”? Its places stay in your list.' && (await planCalls(page)).length === 2);
+    await tap(page, '#locationsList .plan-foot [data-act="foot-delete"]'); await W(300);
+    ok('W6 Delete plan… asks first ("Its places stay in your list."); Cancel deletes nothing', (await page.evaluate(() => __confirmText)) === 'Delete “Tivoli late”? Its places stay in your list.' && (await planCalls(page)).length === 2);
     await page.evaluate(() => { window.confirm = () => true; });
-    await tap(page, '#locationsList [data-more="p-tiv"]'); await W(150); await tap(page, '#locationsList .plan-form [data-act="delete"]'); await W(700);
-    ok('W7 deleting a plan: one delete, it is gone, the others stay', ((await planCalls(page)).slice(-1)[0] || {}).op === 'delete' && (await page.evaluate(() => plans.some(p => p.name === 'Harbour swim'))) && !(await page.evaluate(() => plans.some(p => p.id === 'p-tiv'))));
-    await tap(page, '#locationsList [data-more="p-nor"]'); await W(150); await tap(page, '#locationsList .plan-form [data-act="delete"]'); await W(700);
+    await tap(page, '#locationsList .plan-foot [data-act="foot-delete"]'); await W(700);
+    ok('W7 deleting the open plan: one delete, it is gone, Plans falls back to All plans', ((await planCalls(page)).slice(-1)[0] || {}).op === 'delete' && !(await page.evaluate(() => plans.some(p => p.id === 'p-tiv'))) && (await h2(page)) === 'All plans');
+    await pick(page, 'p-nor'); await tap(page, '#locationsList .plan-foot [data-act="foot-delete"]'); await W(700);
     ok('W8 deleting a plan with stops removes its stops too (cascade), places stay', !(await page.evaluate(() => planStops.some(s => s.plan_id === 'p-nor'))) && (await page.evaluate(() => locations.some(l => l.id === 'mir'))));
     ok('W9 no errors', !errors.length, errors);
     await ctx.close(); }
@@ -531,7 +535,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
       const after = plans.some(x => x.name === 'Doomed'), err = document.getElementById('errorText').textContent;
       await renamePlan('p-nor', 'Renamed'); const nm = plans.find(x => x.id === 'p-nor').name;
       const n0 = planStops.length; await deletePlan('p-tiv'); const back = plans.some(x => x.id === 'p-tiv') && planStops.length === n0;
-      return { mid, id, after, err, nm, back, h: document.querySelector('#locationsHeader h2 .h-name').textContent };
+      return { mid, id, after, err, nm, back, h: document.getElementById('titleBtn').getAttribute('aria-label').replace(/, \d+\. Choose what the list shows$/, '') };
     });
     ok('W10 a failed write shows at once (optimistic), then rolls back with the RLS message', r.mid && r.id === null && !r.after && r.err === 'Only Adam and Erica can edit plans.', r);
     ok('W11 failed rename and delete roll back exactly', r.nm === 'Nørrebro afternoon' && r.back && r.h === 'Nørrebro afternoon', r);
@@ -683,7 +687,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('H5 going to a hidden city shows it again (the menu)', !s5[0].hidden && s5[0].n > 20, s5);
     await goCity(page, 'malmo');
     const g = await page.evaluate(() => { const l = document.getElementById('locationsList'), h = document.querySelector('.sec-head[data-city="malmo"]'); return { top: Math.round(h.getBoundingClientRect().top - l.getBoundingClientRect().top), scroll: l.scrollTop, c: map.getCenter(), rows: document.querySelectorAll('#locationsList .location-card').length, cs: citySelection }; });
-    ok('H6 go to Malmö: the title is "Malmö" + its tally, the WHOLE list scrolled to its header, the map on Malmö; nothing hidden', (await h2(page)) === 'Malmö' && (await tally(page)) === String(await page.evaluate(() => cityTally('malmo'))) && g.top === 0 && g.scroll > 0 && Math.abs(g.c.lat - 55.605) < 0.02 && g.rows > 23 && g.cs === 'malmo', g);
+    ok('H6 go to Malmö: the title is "Malmö" + its tally, the WHOLE list scrolled to its header, landing compact (its 16px of air scrolled past: 44px showing), the map on Malmö; nothing hidden', (await h2(page)) === 'Malmö' && (await tally(page)) === String(await page.evaluate(() => cityTally('malmo'))) && g.top === -16 && g.scroll > 0 && Math.abs(g.c.lat - 55.605) < 0.02 && g.rows > 23 && g.cs === 'malmo', g);
     await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 0; }); await W(100);
     await tap(page, '.sec-head[data-city="copenhagen"] .sec-name'); await W(1400);
     ok('H7 a section\'s name goes to that city (title, map)', (await h2(page)) === 'Copenhagen' && (await page.evaluate(() => Math.abs(map.getCenter().lat - 55.6761) < 0.02)));
@@ -730,14 +734,57 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const { ctx, page, errors } = await open(b, { ...base, plans: P2, stops: S2 });
     await pick(page, 'p-loop');
     const L = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.matches('.sec-head, .location-card.is-stop, .plan-rule')).map(e => e.matches('.sec-head') ? `[${e.textContent.trim()}${e.classList.contains('is-first') ? '*' : ''}${e.querySelector('.sec-eye') ? 'eye' : ''}]` : e.matches('.plan-rule') ? '|' : e.dataset.id));
-    ok('H12 a plan open: its stops in leg sections broken where the city changes; a recurring city gets its own header each time; no eye; the first is compact; the addable places follow the rule, unsectioned', L.join(',') === '[Copenhagen1*],mir,[Malmö1],lil,[Copenhagen1],tiv,|', L);
+    ok('H12 a plan open: its stops in leg sections broken where the city changes; a recurring city gets its own header each time; no eye; the first is compact; after the break, the addable places in city sections (eyes, the first compact; hidden Malmö shows what it would add)', L.join(',') === '[Copenhagen1*],mir,[Malmö1],lil,[Copenhagen1],tiv,|,[Copenhagen' + L[7].slice(11).replace(/\*eye\]$/, '') + '*eye],[Malmö3eye]' && /^\[Copenhagen\d+\*eye\]$/.test(L[7]), L);
     ok('H13 no errors', !errors.length, errors);
+    await ctx.close(); }
+
+  // ---------------------------------------------------------------- K: the title menu's box, the add-from sections (add-tag-jam fixes)
+  { const { ctx, page, errors } = await open(b, base);
+    const box = () => page.evaluate(() => { const m = document.getElementById('titleMenu'), r = m.getBoundingClientRect(), el = document.getElementById('locations'), sr = el.getBoundingClientRect(), t = getComputedStyle(el).transform;
+      const rows = [...m.querySelectorAll('.menu-row')], q = m.querySelector('.menu-row[data-kind]');
+      return { box: [r.top, r.left, r.width, r.height].map(v => Math.round(v * 10) / 10).join(), raisedTop: Math.round((sr.top - (t && t !== 'none' ? new DOMMatrix(t).m42 : 0)) * 10) / 10, top: Math.round(r.top * 10) / 10,
+        firstRule: getComputedStyle(rows[0]).borderBottomWidth, quietShadow: getComputedStyle(q).boxShadow, quietBottom: Math.round(q.getBoundingClientRect().bottom - r.bottom), first: rows[0].textContent.trim() }; });
+    await openMenu(page);
+    const k1 = await box();
+    await tap(page, '#titleMenu [data-kind="plans"]'); await W(200);
+    const k2 = await box();
+    await closeMenu(page);
+    const hid = await page.evaluate(() => getComputedStyle(document.getElementById('titleMenu')).display);
+    ok('K1 the title menu opens down with its top on the raised sheet\'s top edge (over the list header); swapping kinds moves nothing (top, left, width, height); the quiet row sits at the foot', k1.top === k1.raisedTop && k1.box === k2.box && k1.quietBottom >= -2 && k2.quietBottom >= -2 && /^All places/.test(k1.first) && /^All plans/.test(k2.first), { k1, k2 });
+    ok('K2 a closed menu is really hidden (#titleMenu[hidden] beats its display:flex)', hid === 'none', hid);
+    ok('K3 separators: the ledger\'s 2px rule under the "All" row; a 1px navy line above the quiet Places / Plans row', k1.firstRule === '2px' && k2.firstRule === '2px' && /rgb\(18, 41, 63\) 0px -1px 0px/.test(k1.quietShadow), { a: k1.firstRule, s: k1.quietShadow });
+    await tap(page, '#collapseTab'); await W(500);
+    await openMenu(page);
+    const k4 = await box();
+    await closeMenu(page); await tap(page, '#collapseTab'); await W(500);
+    ok('K4 lowered, the menu opens in the same place as raised', k4.box === k1.box, { k1: k1.box, k4: k4.box });
+    // the add-from block: city sections, the shared eye, tap-name stays in the plan, a hidden city's tally
+    await pick(page, 'p-nor');
+    const af = () => page.evaluate(() => { const list = [...document.getElementById('locationsList').children], rule = document.querySelector('.plan-rule'), ri = list.indexOf(rule);
+      return list.slice(ri + 1).filter(e => e.matches('.sec-head')).map(e => ({ city: e.dataset.city, hidden: e.classList.contains('is-hidden'), first: e.classList.contains('is-first'), h: Math.round(e.getBoundingClientRect().height),
+        n: e.querySelector('.tally').textContent, addgo: !!e.querySelector('.sec-name[data-addgo]'), eye: !!e.querySelector('.sec-eye') })); });
+    const a1 = await af();
+    ok('K5 an open plan\'s addable places sit in Places\' city sections under the break (the first compact 44px); a hidden city\'s header shows what it would add, never 0', a1.length === 2 && a1[0].city === 'copenhagen' && a1[0].first && a1[0].h === 44 && a1[0].addgo && a1[0].eye
+      && a1[1].city === 'malmo' && a1[1].hidden && +a1[1].n > 0, a1);
+    await tap(page, '.plan-rule ~ .sec-head[data-city="malmo"] .sec-eye'); await W(300);
+    const shared = await page.evaluate(() => !hiddenCities.has('malmo') && localStorage.getItem('triplet.hiddenCities') === '[]');
+    const a2 = await af();
+    ok('K6 the add-from eye is Places\' eye: showing Malmö here shows it in Places too (one hiddenCities); its places unfold under it', shared && !a2[1].hidden && (await page.evaluate(() => [...document.querySelectorAll('.location-card:not(.is-stop)')].some(e => { const l = locations.find(x => x.id === e.dataset.id); return l && l.city === 'malmo'; }))), a2);
+    await page.evaluate(() => { setCityHidden('malmo', true); map.setView([10, 10], 5, { animate: false }); document.getElementById('locationsList').scrollTop = 0; }); await W(300);
+    await tap(page, '.plan-rule ~ .sec-head[data-city="malmo"] .sec-name'); await W(1600);
+    const g = await page.evaluate(() => { const l = document.getElementById('locationsList'), h = document.querySelector('.plan-rule ~ .sec-head[data-city="malmo"]');
+      return { view: listView, plan: activePlanId, hidden: hiddenCities.has('malmo'), lat: map.getCenter().lat, top: Math.round(h.getBoundingClientRect().top - l.getBoundingClientRect().top) }; });
+    ok('K7 tapping an add-from name keeps you in the plan: the map goes to the city, a hidden city shows again, its header lands compact, the title stays the plan', g.view === 'plans' && g.plan === 'p-nor' && !g.hidden && Math.abs(g.lat - 55.605) < 0.05 && (g.top === -16 || g.top <= 0) && (await h2(page)) === 'Nørrebro afternoon', g);
+    await page.evaluate(() => setCityHidden('malmo', true));
+    const brk = await page.evaluate(() => { const r = document.querySelector('.plan-rule'), b = getComputedStyle(r, '::before'); return { h: r.getBoundingClientRect().height, wave: b.maskImage || b.webkitMaskImage, cap: getComputedStyle(r).justifyContent, text: r.textContent }; });
+    ok('K8 the break: a 40px band, the caption between two wavy lines ("Add places" + tally)', brk.h === 40 && /svg/.test(brk.wave || '') && /^Add places\d+$/.test(brk.text), brk);
+    ok('K9 no errors', !errors.length, errors);
     await ctx.close(); }
 
   // ---------------------------------------------------------------- rail + collapsed
   { const { ctx, page, errors } = await open(b, { ...base, w: 1280, h: 800, touch: false });
     await page.click('#titleBtn'); await W(300); await page.click('#titleMenu [data-kind="plans"]'); await W(200); await page.click('#titleMenu [data-plan="p-nor"]'); await W(700); await page.click('#toggleFiltersBtn'); await W(400);
-    const r = await page.evaluate(() => { const p = document.getElementById('filtersPanel').getBoundingClientRect(), l = document.getElementById('locations').getBoundingClientRect(); return { pl: p.left, lw: l.width, h: document.querySelector('#locationsHeader h2 .h-name').textContent, rows: [...document.querySelectorAll('#locationsList .location-card.is-stop')].map(e => e.getBoundingClientRect().height), cursor: getComputedStyle(document.querySelector('.row-n')).cursor }; });
+    const r = await page.evaluate(() => { const p = document.getElementById('filtersPanel').getBoundingClientRect(), l = document.getElementById('locations').getBoundingClientRect(); return { pl: p.left, lw: l.width, h: document.getElementById('titleBtn').getAttribute('aria-label').replace(/, \d+\. Choose what the list shows$/, ''), rows: [...document.querySelectorAll('#locationsList .location-card.is-stop')].map(e => e.getBoundingClientRect().height), cursor: getComputedStyle(document.querySelector('.row-n')).cursor }; });
     ok('L1 ≥900px rail: panel beside the rail, Plans list in the rail, rows 56px, the number shows a grab cursor', r.pl === 360 && r.lw === 360 && r.h === 'Nørrebro afternoon' && r.rows.length === 6 && r.rows.every(h => h === 56) && r.cursor === 'grab', r);
     // mouse hold-drag
     const m = await page.evaluate(() => { const n = document.querySelector('.location-card[data-id="mir"] .row-n').getBoundingClientRect(), t = document.querySelector('.location-card[data-id="cof"]').getBoundingClientRect(); return { x: n.x + n.width / 2, y: n.y + n.height / 2, to: t.y + t.height / 2 }; });
@@ -755,7 +802,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await ctx.close(); }
   { const { ctx, page } = await open(b, base);
     await toPlans(page); await closePanel(page); await tap(page, '#collapseTab'); await W(500);
-    const c = await page.evaluate(() => ({ h: document.querySelector('#locationsHeader h2 .h-name').textContent, band: document.getElementById('locationsHeader').getBoundingClientRect().height, lab: document.getElementById('collapseTab').getAttribute('aria-label') }));
+    const c = await page.evaluate(() => ({ h: document.getElementById('titleBtn').getAttribute('aria-label').replace(/, \d+\. Choose what the list shows$/, ''), band: document.getElementById('locationsHeader').getBoundingClientRect().height, lab: document.getElementById('collapseTab').getAttribute('aria-label') }));
     ok('L5 collapsed sheet (the tab): the band shows the plan name, 52px, ⇅ kept; the tab now says "Raise the list"', c.h === 'Nørrebro afternoon' && c.band === 52 && c.lab === 'Raise the list' && (await shown(page, '#sortBtn')), c);
     await ctx.close(); }
 

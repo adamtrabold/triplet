@@ -168,14 +168,11 @@ pick/redirect before building anything.
   replay cases must be rewritten, V14's 72x32 ring model), the Impeccable
   gate, and iPhone checks. Nothing built yet.
 - **Add tag + city jam** (owner: "Great to build", 2026-10-17; `design/add-tag-jam/handoff.md`,
-  four phases, lane 2 each). **Phase 1** (the list title + its menu, city sections, show/hide,
-  All plans, leg sections, the collapse tab) is BUILT on branch `add-tag-p1`, waiting on the
-  CD + UX check and the owner's stills; entry drafted in `docs/shipped.md`. Open from it: the
-  Impeccable gate's 2 new low-contrast identities (the spec'd greyed hidden header, opacity .5)
-  need an owner waiver or a design change; the Places menu opens above the header on a phone
-  (no room below in the 300px list) -- designers to confirm; a 20-character plan name truncates
-  in the 18px title (plantest S5). Phases 2-4 (the add tag, city buckets, the map badge) not
-  started.
+  four phases, lane 2 each). ~~Phase 1~~ LANDED 2026-10-17 (the list title's menu, city sections,
+  show/hide, All plans, leg sections, the add-from sections, the collapse tab; owner on the final
+  looks: "Good"; `docs/shipped.md`). Next: phase 2 (the add tag), then 3 (city buckets: the guess
+  and editing a place's city), then 4 (the map's city badge). Known from phase 1: a plan name
+  longer than ~17 characters is cut in the 18px title (UX: accept).
 - **City buckets** (owner, 2026-09-23; decided 2026-10-15). Trips are
   dropped: no trip entity (owner, on "Trips: keep or drop?": "drop").
   *The search bug is fixed:* search widens on a miss (see `docs/shipped.md`,

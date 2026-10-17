@@ -1741,18 +1741,18 @@
        edge dividers, a 16px icon column, the check on the right. */
     .menu-box { width: max-content; min-width: 200px; overflow: hidden; }
     #titleMenu { min-width: 248px; max-width: calc(100vw - 2 * var(--gutter)); overflow-y: auto; overscroll-behavior: contain; }
-    /* p1-fixes: the quiet last row (the kind switch) never scrolls away: sticky at the box's foot. */
+    /* the quiet last row (the kind switch) never scrolls away: sticky at the box's foot. */
     #titleMenu { display: flex; flex-direction: column; box-sizing: border-box; }
     #titleMenu[hidden] { display: none; }
     #titleMenu .menu-row { flex: none; }
     #titleMenu .menu-row[data-kind] { position: sticky; bottom: 0; margin-top: auto; background: var(--paper-raised); z-index: 1; }
-    /* p1-fixes v3 (owner: "Need a stronger separator between the list in it and the button to the
+    /* (Owner: "Need a stronger separator between the list in it and the button to the
        other menu"): the menu spec's own caption rule -- 1px var(--navy), the box's edge colour (.menu-cap's
        border-bottom) -- so the quiet row reads as its own compartment of the box. It replaces the hair there:
        one line: the navy is drawn 1px above the quiet row (box-shadow, so its 40px holds), over the
        row above's hair. */
     #titleMenu .menu-row[data-kind] { box-shadow: 0 -1px 0 var(--navy), 0 -2px 0 var(--paper-raised); }
-    /* p1-fixes v4 (owner: "Maybe we do the double thickness between the "all" and the list?"): the
+    /* (Owner: "Maybe we do the double thickness between the "all" and the list?"): the
        ledger's own doubled rule -- .location-card.group-end, the category break: the row's 1px --hair
        bottom rule at 2px -- under "All places" / "All plans". */
     #titleMenu .menu-row:first-child { border-bottom-width: 2px; }
@@ -1782,7 +1782,7 @@
       font-size: 13px; line-height: 16px; letter-spacing: 0.05em; color: var(--navy);
     }
     .menu-gap { flex: 1 1 auto; }
-    .menu-row.is-hidden .menu-lab, .menu-row.is-hidden .menu-ico { color: var(--ink-2); }   /* p1-fixes: 6.17:1, the closed eye carries the state */
+    .menu-row.is-hidden .menu-lab, .menu-row.is-hidden .menu-ico { color: var(--ink-2); }   /* 6.17:1, the closed eye carries the state */
 
     /* ---- CITY SECTION HEADER (SectionSeparate S1 "air above, light rule";
        SectionHeaders; GoToSections). A keyed non-row node in the list: never
@@ -1820,11 +1820,10 @@
     .sec-head.is-first .sec-name { height: 44px; align-items: center; padding-bottom: 0; }
     .sec-head.is-first .sec-eye { height: 44px; }
     /* Hidden (HiddenCity H1): the same header in its place, greyed, the eye closed, its rows folded away. */
-    .sec-head.is-hidden .sec-name { color: var(--ink-2); }   /* p1-fixes: name 6.17:1, tally 6.17:1 (was .5 = 3.0:1 / 2.2:1) */
+    .sec-head.is-hidden .sec-name { color: var(--ink-2); }   /* name 6.17:1, tally 6.17:1 (was .5 = 3.0:1 / 2.2:1) */
     /* A plan's leg: the same header with no eye (a stop is never hidden); tapping frames the leg. */
     .sec-head.is-leg { grid-template-columns: 1fr; }
-    /* p1-fixes: the add-from caption carries the standard tally, no brackets. */
-    /* p1-fixes: lowered, the band is header only: no rule over the bare strip under it. */
+    /* Lowered (phone), the band is the header only: no rule over the bare strip under it. */
     @media (max-width: 899px) { #locations.collapsed #locationsHeader { border-bottom-color: transparent; } }
 
     /* ---- ALL PLANS: one row per plan (the Places row's grid and voice): the route glyph in the
@@ -1854,14 +1853,7 @@
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
       font-size: 13px; line-height: 16px; letter-spacing: 0.05em; color: var(--navy);
     }
-    .plan-more {
-      position: relative; width: 28px; height: 28px; padding: 0; margin: 0; border: none; background: transparent; color: var(--ink-2); cursor: pointer;
-      display: flex; align-items: center; justify-content: center; border-radius: 3px; -webkit-tap-highlight-color: transparent;
-    }
-    .plan-more::before { content: ''; position: absolute; inset: -8px; }   /* 44 x 44 */
-    .plan-more svg { width: 18px; height: 18px; display: block; }
-    .plan-more:active { background: var(--state-press); }
-    .plan-more:focus-visible, .plan-act:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--navy); }
+    .plan-act:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--navy); }
     /* In-row states (the ⋯ actions, rename, create): the row steps up to
        --paper-raised, the field colour, so it reads as "being edited". */
     .plan-form { display: flex; align-items: center; min-height: 56px; padding: 0 var(--s1) 0 var(--gutter); background: var(--paper-raised); border-bottom: 1px solid var(--hair); }
@@ -1877,7 +1869,7 @@
       font-size: 12px; line-height: 16px; letter-spacing: 0.08em; color: var(--ink-2); -webkit-tap-highlight-color: transparent;
     }
     .plan-act.primary { color: var(--navy); }
-    /* p1-fixes: the open plan's foot -- Rename, Delete plan... -- on the gutter, after the last stop. */
+    /* the open plan's foot -- Rename, Delete plan... -- on the gutter, after the last stop. */
     .plan-foot { display: flex; align-items: center; min-height: 44px; padding: 0 var(--gutter); background: var(--paper); }
     .plan-foot.plan-form { min-height: 56px; padding: 0 var(--s1) 0 var(--gutter); background: var(--paper-raised); }
     .plan-foot .plan-act { font-size: 11px; letter-spacing: 0.1em; }
@@ -1942,14 +1934,14 @@
     /* The plan ends at Places' group divider -- the last stop's 1px --hair
        rule plus this 1px = the 2px --hair a category change draws in Places --
        with a one-line caption naming what's below. */
-    /* p1-fixes v2 (owner: "Add places is fine but that header isn't differentiated much"): the end of
-       the plan is a TEAR-OFF LINE, not another header -- the tag stub's own perforation (1.5px dashed)
-       across the list, the caption centred in a paper gap. Centred + perforated vs the city headers'
-       left-aligned name on a solid 2px rule: a divider, never a section. 40px band, no solid rules. */
+    /* The ADD PLACES BREAK (add-tag-jam fixes; owner: "Add places is fine but that header isn't
+       differentiated much"): the end of the plan is a break, not another header -- the caption centred
+       between two wavy lines (below). Centred and wavy vs the city headers' left-aligned name on a solid
+       2px rule: a divider, never a section. 40px band, no solid rules. */
     .plan-rule { box-sizing: border-box; height: 40px; padding: 0 var(--gutter); display: flex; align-items: center; gap: var(--s2);
       background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: 0.12em;
       color: var(--ink-2); white-space: nowrap; }
-    /* p1-fixes v3 (owner: "Let's use a style we already use for the add places break. What about the
+    /* (Owner: "Let's use a style we already use for the add places break. What about the
        wavy line?"): the app's wavy line is the scalloped die-cut edge of the account and + badges (and
        the mark's seal): round lobes, ~8px apart, ~2.5px deep at their 44-56px size. Unrolled flat
        here: 8px period, 2.5px peak to trough, 1.5px stroke, round caps, in --ink-2 at 55%. */
@@ -1969,12 +1961,6 @@
     /* add / remove: the rows round the change slide to open or close the gap (.plan-shift) */
     .plan-rule.plan-shift, .plan-list-note.plan-shift { transition: transform 0.15s ease; }
     @media (prefers-reduced-motion: reduce) { .plan-rule.plan-shift, .plan-list-note.plan-shift { transition: none; } }
-    /* No plans yet: two explicit lines, then the one New plan, a city chip's 1px --hair. */
-    .plan-empty-line { display: block; }
-    .plan-empty-new { display: block; margin: var(--s4) auto 0; height: 36px; padding: 0 var(--s4); border: 1px solid var(--hair); border-radius: 3px;
-      background: var(--paper-raised); color: var(--ink); cursor: pointer; font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; font-style: normal; }
-    .plan-empty-new:active { background: var(--state-press); }
-    /* Header: just the plan's name; a tap returns the list to the stops. */
 
     /* The slip: added / removed / moved, with Undo, for 6s. ONE form, a
        full-bleed band (designer): on the rule it covers exactly the caption
@@ -3299,7 +3285,7 @@
     let plansDigest = null;
     let plansFetchPromise = null;
     let planMarksCache = null;
-    let planPanel = { mode: null, draft: '' };   // mode: null | 'creating' | 'acting' | 'renaming'
+    let planPanel = { mode: null, draft: '' };   // mode: null | 'creating' (All plans' New plan row) | 'renaming' (the open plan's foot)
 
     // =========================================================================
     // ACCOUNT BADGE + SIGN-IN (design/signin-button/handoff.md, approved by the
@@ -4610,7 +4596,7 @@
         list.scrollTop = 0; pendingSectionScroll = null;   // a city with nothing to show: the top
       }
     }
-    // p1-fixes: a go-to lands its header at the first section's compact 44px: the air above the
+    // a go-to lands its header at the first section's compact 44px: the air above the
     // name (60 - 44 = 16px) scrolls past, so no band of empty paper sits under the list title.
     const landingTrim = head => head.classList.contains('is-first') ? 0 : Math.max(0, head.offsetHeight - 44);
     // After a filter change in Plans, the list scrolls so the rule sits at the
@@ -6638,7 +6624,6 @@
       if (!planMode) return emptyMatchText();
       if (plansAvailable === false) return 'Plans aren’t set up yet.';
       if (plansAvailable === null) return plansOffline ? 'Offline. Plans load when you’re back online.' : 'Loading plans…';
-      if (!plans.length) return 'No plans yet.';   // + its second line (planEmptyLine2), never left to text-wrap
       if (!activePlan()) return 'Pick a plan.';
       return 'No stops yet.';
     }
@@ -6654,9 +6639,7 @@
     const planStopsNote = document.createElement('div'); planStopsNote.className = 'plan-list-note';
     planStopsNote.textContent = 'No stops yet · tap + on a place below';
     const planOthersNote = document.createElement('div'); planOthersNote.className = 'plan-list-note';
-    const planEmptyBtn = document.createElement('button'); planEmptyBtn.type = 'button'; planEmptyBtn.className = 'plan-empty-new'; planEmptyBtn.textContent = 'New plan';
-    const planEmptyLine2 = document.createElement('span'); planEmptyLine2.className = 'plan-empty-line'; planEmptyLine2.textContent = 'A plan’s stops show here and on the map.';
-    // p1-fixes: Rename / Delete plan live at the foot of the open plan's stops (no per-row mark on
+    // Rename / Delete plan live at the foot of the open plan's stops (no per-row mark on
     // the plans list): today's .plan-act text buttons, on the gutter. Rename swaps the foot for
     // today's in-row form.
     const planFoot = document.createElement('div'); planFoot.className = 'plan-foot';
@@ -6680,7 +6663,11 @@
     function ruleCaption(n) {
       const all = Object.keys(CATEGORY_COLORS), on = all.filter(c => filters.categories[c]);
       const cats = on.length === all.length ? '' : !on.length ? ' · no categories' : on.length <= 2 ? ' · ' + on.join(', ') : ` · ${on.length} categories`;
-      return `<span class="rule-cap"><span class="h-name">Add places${cats}</span><span class="tally">${n}</span></span>`;
+      return `<span class="rule-cap"><span class="h-name">Add places${escapeHtml(cats)}</span><span class="tally">${n}</span></span>`;
+    }
+    function addableTally(id, pm = planMarks()) {
+      return locations.filter(l => l.city === id && filters.categories[l.category] && !pm.byLoc.has(l.id)).length +
+        neighborhoodShapes.filter(n => n.city === id && filters.categories[n.type] && !pm.byShape.has(n.id)).length;
     }
     function planOthers() {
       const pm = planMarks();
@@ -6735,7 +6722,7 @@
         if (!rows.length) want.push(planStopsNote); else if (planStopsNote.parentNode) planStopsNote.remove();
         seq.push({ foot: true });
         seq.push({ rule: true });
-        // p1-fixes: the addable places in city sections -- Places' own header (name = go to, tally,
+        // the addable places in city sections -- Places' own header (name = go to, tally,
         // eye), same order, same hidden state (one hiddenCities for both kinds).
         const pinsBy = new Map(), shapesBy = new Map();
         others.locs.forEach(l => { if (!pinsBy.has(l.city)) pinsBy.set(l.city, []); pinsBy.get(l.city).push(l); });
@@ -6744,9 +6731,8 @@
         sectionCityIds().forEach(id => {
           const ps = pinsBy.get(id) || [], ss = shapesBy.get(id) || [], hidden = hiddenCities.has(id);
           if (!ps.length && !ss.length && !(hidden && (CITIES[id] || cityHasPlaces(id)))) return;
-          // A hidden section's tally: what it would add if shown (its chip-matching places, not stops).
-          const n = hidden ? locations.filter(l => l.city === id && filters.categories[l.category] && !pm.byLoc.has(l.id)).length +
-            neighborhoodShapes.filter(x => x.city === id && filters.categories[x.type] && !pm.byShape.has(x.id)).length : ps.length + ss.length;
+          // A hidden section's tally: what it would add if shown (its chip-matching places, not stops) -- never 0.
+          const n = hidden ? addableTally(id, pm) : ps.length + ss.length;
           seq.push({ add: id, first: firstAdd, hidden, n }); firstAdd = false;
           ps.forEach(loc => seq.push({ loc }));
           ss.forEach(nb => seq.push({ nb }));
@@ -7369,7 +7355,7 @@
     }
     // Go to a city (the title menu, a section header's name): Places, the whole list, scrolled
     // to that city's header; the map frames it. Never a filter.
-    // p1-fixes: an add-from header's name, in an open plan: the map goes to the city and the list
+    // an add-from header's name, in an open plan: the map goes to the city and the list
     // scrolls to that section (landing compact). You stay in the plan; a hidden city shows again.
     function planGoToCity(id) {
       if (hiddenCities.has(id)) setCityHidden(id, false);
@@ -7448,7 +7434,7 @@
       btn.setAttribute('aria-label', `${t.name}, ${t.n}. Choose what the list shows`);
       fitTitleName(t.name);
     }
-    // p1-fixes: a long title is cut by hand, not by text-overflow, so its "…" sits the same 6px from
+    // a long title is cut by hand, not by text-overflow, so its "…" sits the same 6px from
     // the tally as an uncut name's last letter (CSS ellipsis left 13px: the unused part of a glyph).
     function fitTitleName(full) {
       const el = document.querySelector('#titleBtn .h-name'); if (!el) return;
@@ -7503,7 +7489,7 @@
       return true;
     }
     const menuRowKey = el => el && el.dataset ? (el.dataset.go || el.dataset.plan || el.dataset.plans || el.dataset.kind || el.dataset.act || null) : null;
-    // p1-fixes v2 (designer, after the owner: "I don't like it opening upwards because then the
+    // (Designer, after the owner: "I don't like it opening upwards because then the
     // places/plan switch is where the thumb is rather than the cities"): the menu opens DOWNWARD and
     // takes the raised sheet's own place -- its top edge on the raised sheet's top edge, over the
     // list header -- so the cities sit right where the title was tapped and the quiet Places/Plans
@@ -7676,15 +7662,8 @@
         seen.add(key); want.push(e.el); return e;
       };
       const creating = planPanel.mode === 'creating';
-      if (plansAvailable === true) {   // p1-fixes: zero plans = the New plan row alone
+      if (plansAvailable === true) {   // zero plans: the New plan row alone
         plans.forEach(p => {
-          const tgt = p.id === planPanel.target;
-          if (tgt && planPanel.mode === 'renaming') { put('p:' + p.id, 'plan-form', planFormHtml('Plan name', 'save'), { 'data-form': 'rename' }); return; }
-          if (tgt && planPanel.mode === 'acting') {
-            put('p:' + p.id, 'plan-form', `<button type="button" class="plan-act primary" data-act="rename">Rename</button><button type="button" class="plan-act danger" data-act="delete">Delete plan…</button><span class="plan-spacer"></span><button type="button" class="plan-act" data-act="cancel">Cancel</button>`,
-              { role: 'group', 'aria-label': p.name });
-            return;
-          }
           const meta = planMetaText(p.id);
           put('p:' + p.id, 'plan-row', `<button type="button" class="plan-open" data-plan="${escapeAttr(p.id)}" aria-label="${escapeAttr(p.name)}, ${escapeAttr(meta)}"><span class="plan-ico">${ROUTE_22}</span>` +
             `<span class="plan-text"><h3>${escapeHtml(p.name)}</h3><span class="row-meta">${escapeHtml(meta)}</span></span></button>` +
@@ -7755,27 +7734,17 @@
           const p = activePlan(); if (!p) return;
           if (!await requireAuth()) return;
           if (fa.dataset.act === 'foot-rename') setPlanPanel({ mode: 'renaming', draft: p.name, target: p.id, focusInput: true });
+          // Plain words, the phone's own dialog (the app's other deletes do the same); Plans falls back to All plans.
           else if (confirm(`Delete “${p.name}”? Its places stay in your list.`)) { await deletePlan(p.id); if (inPlanView() && !activePlan()) frameAllPlans(); }
           return;
         }
         if (!e.target.closest('.plan-row, .plan-form')) return;
         const b = e.target.closest('[data-act]');
         if (b) {
-          const act = b.dataset.act, tp = plans.find(p => p.id === planPanel.target);
+          const act = b.dataset.act;
           if (act === 'cancel') setPlanPanel({});
           else if (act === 'create' || act === 'save') submitPlanForm();
           else if (act === 'new') openNewPlan();
-          else if (act === 'more') setPlanPanel({ mode: 'acting', target: b.dataset.more });
-          else if (act === 'rename' && tp) { if (await requireAuth()) setPlanPanel({ mode: 'renaming', draft: tp.name, target: tp.id, focusInput: true }); else setPlanPanel({}); }
-          else if (act === 'delete' && tp) {
-            if (!await requireAuth()) { setPlanPanel({}); return; }
-            setPlanPanel({});
-            // Plain words, the phone's own dialog (the app's other deletes do the same).
-            if (confirm(`Delete “${tp.name}”? Its places stay in your list.`)) {
-              await deletePlan(tp.id);
-              if (inPlanView() && !activePlan()) frameAllPlans();
-            }
-          }
           return;
         }
         const pick = e.target.closest('[data-plan]') || (e.target.closest('.plan-row') && e.target.closest('.plan-row').querySelector('[data-plan]'));
@@ -7816,7 +7785,6 @@
       });
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && titleMenuOpen()) closeTitleMenu(); });
       window.addEventListener('resize', () => { if (titleMenuOpen()) { menuLock = null; placeTitleMenu(); } });
-      planEmptyBtn.addEventListener('click', openNewPlan);
     }
 
     function updateUI() {
@@ -7825,9 +7793,9 @@
       // the other matches in the sort); Places sorts here, as it always has.
       const visible = (() => { const v = visibleLocations(); return planMode ? v : (heldOrder(v) || sortLocations(v)); })();
       const visibleShapes = (() => { const v = visibleNeighborhoodShapes(); return planMode ? v : (heldOrder(v, shapeRowKey) || sortShapes(v)); })();
-      renderTitle();
       document.body.classList.toggle('plan-view', planMode);
       document.body.classList.toggle('plan-none', planMode && !activePlan());
+      renderTitle();   // after the classes: plan-none hides ⇅, which changes the room the title is fitted to
       const mapVisible = mapVisibleLocations();
       syncMarkers(mapVisible.solo);
       syncClusterMarkers(mapVisible.clusters);
@@ -7863,10 +7831,6 @@
       emptyState.style.display = !listed ? 'block' : 'none';
       const emptyText_ = [...emptyState.childNodes].find(n => n.nodeType === 3);
       if (emptyText_) emptyText_.textContent = emptyText(planMode);
-      // No plans yet: the empty list offers the one next step (sign-in first if needed).
-      const wantNew = false;   // p1-fixes: the list's own New plan row replaces the outlined button
-      if (wantNew && !planEmptyBtn.parentNode) emptyState.append(planEmptyLine2, planEmptyBtn);
-      else if (!wantNew && planEmptyBtn.parentNode) { planEmptyLine2.remove(); planEmptyBtn.remove(); }
       if (list.lastElementChild !== listSpacer || emptyState.nextElementSibling !== listSpacer) {
         list.appendChild(emptyState);
         list.appendChild(listSpacer);

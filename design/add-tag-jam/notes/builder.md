@@ -102,3 +102,17 @@ at the stills come first (CLAUDE.md lane 2). Spec: `handoff.md` "Phase 1" + "One
    span; section and leg names sit in `<h3 class="sec-title">`; the eye drops `aria-pressed` and
    keeps its Show/Hide label (the name's label adds ", hidden"). No visual change: the stills
    re-shoot pixel-identical except 09 (the title now reads "All places 0").
+
+## Batch B: the approved looks (2026-10-17; handoff addendum "Phase 1 fixes (after build check)")
+
+Took the designer's prototype `design-p1-fixes` (ce4586b, a fast-forward of add-tag-p1) and cleaned
+it: the plans list's acting/renaming modes, `.plan-more`, `planEmptyBtn` / `planEmptyLine2` /
+`wantNew` and the `.plan-empty-*` CSS are deleted (not stubbed); the hidden add-from tally is
+`addableTally()`; the break caption escapes its category text; the prototype's "p1-fixes vN"
+comment tags became plain comments. One bug fixed on top: `renderTitle()` ran before the
+`plan-none` class toggled, so a plan title was fitted with ⇅ hidden and then CSS-ellipsized a
+second time (18px "…"-to-tally gap); it now runs after the classes (9.6px, as an uncut name).
+Tests: plantest K block (menu box locked / raised-sheet top / hidden / separators; add-from
+sections, shared eye, tap-name stays in plan, hidden tally; the break), W4-W8 through the plan
+foot, E1/L7 zero plans, H6 compact landing (-16px), title reads use the button's full label (a
+long name is cut on screen); N5 closes by the scrim (the menu covers the title now).
