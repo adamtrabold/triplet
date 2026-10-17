@@ -582,3 +582,26 @@ want sub pixels from prolly .8 to 2.5"
     READY.
   - Lesson: a fairness fix has to reach the summary sheet too, not only
     the detail sheet.
+
+## Stroke settled at 1.5; the drawing round (2026-10-17)
+
+The owner: "Weight wise 1.5 but these icons are far from there drawing
+wise".
+
+- **Stroke = 1.5px on grid A.** It's settled by him.
+- **Next:** real drawings, a few icons done properly first, with the
+  corner law and the air shown on drawn icons.
+- **The bar:** "the highest attention to detail and quality -- minimal
+  bezier curves with perfect architecture". Skeleton-level is never a 9.
+- **Scoring:** his build-brief sentences in order. Full list in
+  `../../grid/jam.md` turn 18.
+  - The g5 costs are test 1: no stacked cup, no "I" coupe, no toolbox
+    bag, no split bed.
+  - I read the sources every round. The sliver scan must return zero
+    (`scratchpad/microseg.py`, or re-create it: straight segments under
+    0.2px).
+  - The sheets lead with the drawn icons at real size, with the
+    skeleton beside each for comparison.
+- **Watch myself:** don't let a well-built sheet or honest notes carry a
+  weak drawing to 9. The drawing itself is the deliverable now (the g2
+  lesson: score the thing he asked for).
