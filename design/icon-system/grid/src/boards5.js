@@ -30,12 +30,12 @@ const PAIRS = [['lighthouse', 'museum', 'Lighthouse', 'Museum'], ['tower', 'attr
 const SIGN = 81, BADGE_K = 24 / SIGN, PIC_K = 12 / 71; // sign = badge; picture (71px tall) = our 12px box
 // line parts measured on the sheet (run lengths of the white legend, in sheet px)
 const PARTS = [
-  ['Crosswalk dashes (Ped Xing)', 3, 3],
+  ['Crosswalk dashes', 3, 3],
   ['Lookout-tower legs', 4, 4],
-  ['Litter can walls; study-area spiral', 4, 5],
+  ['Litter can, spiral', 4, 5],
   ['Tent ground line', 5, 5],
-  ["Walker's limbs (Ped Xing)", 6, 8],
-  ['Drinking-water glass walls', 7, 8],
+  ["Walker's limbs", 6, 8],
+  ['Glass walls', 7, 8],
 ];
 const MASSES = 'Masses, not lines: the tunnel walls 14px, the tent sides 16px.';
 const sign = (k, px) => `<img src="${CROP(k)}" width="${px}" height="${px}" alt="MUTCD sign" style="display:block">`;
@@ -75,6 +75,7 @@ table.cmp td{border-top:1px solid ${COL.hair};padding:6px 4px;vertical-align:top
 table.cmp td:first-child{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:${COL.navy};width:64px}
 .tri{display:grid;grid-template-columns:44px 1fr;align-items:center;border-top:1px solid ${COL.hair}}
 .tri:first-of-type{border-top:0}
+.tri>div:last-child{min-width:0;overflow:hidden}
 .wl{font-size:15px;font-weight:700;color:${COL.navy};line-height:1}
 .wl small{display:block;font-size:9px;letter-spacing:.08em;color:${COL.ink2};margin-top:2px}
 .bar{display:flex;align-items:center;gap:14px;height:52px;padding:0 10px;background:${COL.raised}}
@@ -138,11 +139,11 @@ function sheetIntro(n) {
 <tr><td>Small details</td>${WS.map(w => `<td>${d[w].small ? 'Yes: rim, drink line, bag band, fold, architrave' : 'None'}</td>`).join('')}</tr>
 <tr><td>Curtain</td>${WS.map(w => `<td>${d[w].scallops ? 'Scalloped' : 'Plain'}</td>`).join('')}</tr></table>
 <ul class="facts" style="margin-top:12px">
-<li><b>What decides it:</b> the weight of every line and the ring, plus five things the grid's rules change: the fork's tines, the conifer's tiers, the small details, the curtain's scallops, and how full the 12px chips get. Sheet 2 shows each one, big and real size.</li>
+<li><b>What decides it:</b> the weight of every line and the ring, plus five things the grid's rules change: the fork's tines, the conifer's tiers, the small details, the curtain's scallops, and how full the 12px chips get. Sheet 3 shows each one, big and at real size.</li>
 <li><b>The same at all three:</b> 3 columns, 4 spokes, 2 bench slats, 2 × 2 blocks, the bed, the walker, the ⌘, the + and the ×. They differ in weight only.</li>
-<li><b>Plainly, at real size:</b> 1.5 and 1.75 are hard to tell apart in a row or on the map; 2 is visibly bolder. The detail differences show at real size in the fork and the conifer; the small details mostly need a close look. It's clearest in the header, the chips and the + (sheet 1).</li>
+<li><b>Plainly, at real size, they look alike.</b> In the header the three are almost the same. The bigger lines show it most: the + and the tag's ×. In the rows, chips and map, what you notice is the fork (3 tines or 2) and the conifer (4 tiers or 3), which change between 1.5 and 1.75. From 1.75 to 2 the change is weight only, apart from the curtain's scallops, and it's hard to see. The small details (rim, drink line, band, fold, architrave) need a close look (sheet 3).</li>
 <li><b>Where the details stop is our rule, not the width:</b> in the sweep we cut each detail at the width where we judged it stopped opening at 24px. Those cut-offs could move by a quarter pixel; the weight can't.</li>
-<li><b>Closest to the inspo:</b> sheet 5 puts the MUTCD signs beside each width at the same size, with their measured line weights.</li>
+<li><b>Closest to the inspo:</b> sheet 6 puts the MUTCD signs beside each width at the same size, with their measured line weights.</li>
 </ul>
 <p class="sm mute">Fixed: grid A, places solid, closed shapes solid, the Star the only outline. Visited and today's home-screen icon are unchanged. Corners, air and the home-screen icon come after this pick. Skeletons, not final drawings.</p>
 <div class="q"><b>The question</b>${Q}</div>
@@ -163,9 +164,9 @@ function sheetCtx(n) {
 }
 function sheetCtx2(n) {
   return `<section class="card" id="c${n}"><div class="no">Grid · round 5 · sheet ${n}</div><h2>Side by side: the + and the tag</h2>
-<p class="att">Real size. The + is the 60px badge as it ships; only its line changes. The tag shows the place badge, the Star, Directions, the tick and the ×.</p>
-<div class="lab">The + button</div>${tri(w => `<div style="display:flex;align-items:center;gap:16px;padding:6px 0">${plus(w)}<span class="sm mute">${wl(w)} line on the +</span></div>`)}
-<div class="lab">The tag</div>${tri(w => `<div class="tag"><div class="x">${uiIcon(8, w)}</div><div class="nm">Vasa Museum</div><div class="ct">${badge(w, GL[w].museum.b24.d)}MUSEUM · STOCKHOLM</div><div class="seg"><div>${uiIcon(3, w)}Star</div><div>${uiIcon(7, w)}Directions</div><div>${uiIcon(9, w)}Visited</div></div></div>`)}
+<p class="att">Real size. The + is the 60px badge as it ships; only its line changes. The tag shows the place badge, the Star, Directions and the ×; its Visited stamp is today's, unchanged.</p>
+<div class="lab">The + button</div>${tri(w => `<div style="display:flex;align-items:center;gap:16px;padding:6px 0">${plus(w)}<span class="sm mute">${w === 2 ? 'Today the + is 2px.' : ''}</span></div>`)}
+<div class="lab">The tag</div>${tri(w => `<div class="tag"><div class="x">${uiIcon(8, w)}</div><div class="nm">Vasa Museum</div><div class="ct">${badge(w, GL[w].museum.b24.d)}MUSEUM · STOCKHOLM</div><div class="seg"><div>${uiIcon(3, w)}Star</div><div>${uiIcon(7, w)}Directions</div><div><img src="${REL.stamp}" width="66" height="35" alt="Visited stamp, unchanged" style="display:block"></div></div></div>`)}
 <div class="q"><b>The question</b>${Q}</div>
 </section>`;
 }
@@ -253,8 +254,8 @@ ${WS.map(w => `<div class="n">${wl(w)}</div>${PAIRS.map(([, id]) => badge(w, GL[
 ${WS.map(w => `<div class="n" style="font-size:13px">${wl(w)}</div>${PAIRS.map(([, id]) => glyph(w, id, picH)).join('')}`).join('')}</div>
 <p class="sm">Line as a share of the picture's height: the signs' lines run ${pr(3)} (dashes) to ${pr(8)} (the glass walls), most often ${pr(4)}. Ours: ${WS.map(w => `${wl(w)} = ${(100 * w / 12).toFixed(1)}%`).join(', ')}.</p>
 <ul class="facts" style="margin-top:10px">
-<li><b>Same size on screen:</b> the signs' lines run 0.9 to 2.4px; the most common (the 4px tower legs, can walls, spiral) is 1.2px. 1.5 sits inside that range, at the tent's ground line; 1.75 at the walker's limbs; 2 at the glass walls, the heaviest line on the sheet.</li>
-<li><b>Picture to picture:</b> all three of ours are heavier than any sign line except the glass walls; 1.5 is nearest to those.</li>
+<li><b>Same size on screen:</b> the signs' lines run 0.9 to 2.4px, and the most common (the 4px tower legs, can walls, spiral) is 1.2px. All three of ours are inside that range: 1.5 matches the tent's ground line, 1.75 the thinnest walker limb, and 2 sits just under the glass walls, the heaviest line on the sheet.</li>
+<li><b>Picture to picture:</b> all three of ours are heavier than every line on the signs. 1.5 (12.5%) is the nearest, just above the glass walls (9.9–11.3%).</li>
 <li><b>Where the signs' weight comes from:</b> solid masses (the tunnel, the tent, the lighthouse, the bodies), not heavy lines.</li>
 <li>The signs are white on brown; light marks on a dark ground look a little heavier than they measure. Ours are dark on paper.</li>
 </ul>
