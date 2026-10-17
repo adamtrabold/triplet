@@ -1,5 +1,11 @@
 # Director notes: icon concepts (step 3, what each icon depicts)
 
+**House rule (git), from the coordinator:**
+- Run git only inside your own worktree, on your own branch.
+- Push with `git push origin HEAD:claude/elegant-galileo-1c5ntm`.
+- Never `cd` into or `git -C` the main checkout.
+- Never update the local `claude/elegant-galileo-1c5ntm` ref.
+
 History: `../brand-approach/notes/director.md` (phase 1). The owner picked
 **Constructed** on the v6 cards. His words are in `../owner.md` (bottom),
 2026-10-15.
