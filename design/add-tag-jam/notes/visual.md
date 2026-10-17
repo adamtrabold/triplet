@@ -181,3 +181,4 @@
 - v27 published; R2 left alignment reconfirmed (owner); TYPE auto-detect question sent to systems.
 - v28: distance note decided: under the address rule as an 11px INK2 helper line ("≈ 40 km from Reykjavík"); first section under the list header is 44px (no air), later ones keep S1; list header = L2 (18/22 caps, 52 tall) everywhere, menus re-anchored; new board TypeDetected (Sundhöllin → Attraction, bakery → Cafe, pin matches); waiting list: Places/Plans, hidden city, Photon, TYPE detect + District/Street.
 - v29: TYPE auto-detect decided (neighbourhood → District); waiting list down to 3.
+- v31: hidden city decided H1 (in place on Go to 2; HiddenCity board H1 only; H2 split to HiddenCityH2, archived); waiting list: only Places and Plans. Stills of PlacesPlansKinds (live v31 file, byte-identical to local) at stills/places-plans/ (6 phones, 3x).
