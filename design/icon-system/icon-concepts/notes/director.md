@@ -547,3 +547,17 @@ want sub pixels from prolly .8 to 2.5"
   4. the drawing step.
 - **g4b (f3af6b2): 9, sent.** The closed UI shapes are solid and the
   Star is the only outline. All seven checks pass.
+- **Owner on g4:** "Feels like 1.5 or 2 to me right now". This is not a
+  lock.
+- **The next round is a closer look at 1.5, 1.75 and 2** in the app's
+  contexts.
+- **The one test for it:** can he actually choose between the three on
+  his phone?
+  - The three sit side by side in the same contexts (row, map, header,
+    + button, chips), at real size, at 1x and 3x.
+  - The differences that decide it are named and visible: the small
+    details at 1.5 that are gone by 1.75, the scallops gone by 2, the
+    fork's tines and the chip crowding.
+  - If the three look the same at real size, the sheet says so plainly,
+    and says what separates them.
+  - It doesn't recommend a width.
