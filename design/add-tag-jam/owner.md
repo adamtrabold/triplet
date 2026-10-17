@@ -105,3 +105,4 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (chat, on TYPE auto-detect / Vesterbro) Neighborhood should be district
 > (in chat, on TYPE auto-detect) Neighborhood should be district
 > (in chat, on the Photon test) Add it to the backlog but I want the test automated not manual
+> (chat) Definitely h1 for hidden cities
