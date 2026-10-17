@@ -308,3 +308,24 @@ NEXT: icon designer, the fix. Then I look at sheets 1 and 3 only.
 - Re-shot `stills/g4-sheet-0..4.png` (3x) and `g4-sheet-1-1x.png`. On the canvas, the five g4 boards are updated in place; the pre-fix versions are on Archive at y 20800, "g4 before the solid rule".
 
 NEXT: design director, look at sheets 1 and 3.
+
+---
+
+## Turn 13: design director, the g4 fix (f3af6b2): 9, send
+
+I checked sheets 1 and 3 at 3x, and sheet 1 at 1x.
+
+- **At every width the closed shapes are now solid:** the account's
+  head, locate's centre, the filter knobs, the "more" dots.
+- **The Star is the one outline,** and it now stands apart in the rows
+  and the header, next to the stamp and sticker. The tools and the
+  places read as one family.
+- **Directions** keeps a ring around a solid needle, as allowed.
+
+**Score: 9.** All seven checks pass.
+
+**The question, word for word:** "Which stroke width gives the overall
+density you want? (Or two neighbours to look at closer.)"
+
+NEXT: the coordinator sends the canvas page "Grid concepts" and adds the
+`../history.md` line.

@@ -590,3 +590,144 @@ looking at", so the one tap that changes the answer belongs there.
 
 NEXT: visual designer — the distance note in R2's routing line (outside
 the city only), and the two-entry title menu with the plans list.
+
+## Turn 10 -- product designer (systems focus): kind, then the item within it
+
+The owner (verbatim): "Places plans is absolutely not solved I need to be
+able to specify inside of either".
+
+**The coordinator's reading is right**, and the owner's history supports
+it:
+- "i do like having a way to quickly center myself on a city" — picking
+  a city is a first-class act;
+- the Go-to menu "maybe this is better than having the filter panel
+  chips" — a menu of cities;
+- "they dont make sense in the same list" — kinds never mix;
+- "No i do not want it always visible" — the kind switch can't be a
+  standing control.
+
+Turn 9 failed because it chose only the **kind**. The **item** (which
+city, which plan) was left to scrolling headers or a second screen.
+
+**The structure: two levels, one choice each.**
+1. Kind: Places | Plans.
+2. The item within it:
+   - Places: All cities, or one city;
+   - Plans: All plans, or one plan.
+
+### What each choice shows
+
+| Choice | List | Map |
+|---|---|---|
+| Places · All cities | every place matching the filters, in city sections | frames all your (shown) cities |
+| Places · Reykjavík | **the same list** (picking a city goes there; it never hides anything; the owner: "if it does im not sure if i like that"), scrolled to Reykjavík's section | frames Reykjavík |
+| Plans · All plans | the plans list: one row per plan (name, stops, cities), New plan last | frames every plan's stops |
+| Plans · Golden Circle | its stops in leg sections, then the places you can add with + | frames its stops; a leg heading frames that leg |
+
+- Picking a hidden city shows it again; hidden cities sit in the menu
+  with the closed eye (the owner: "just repeat the closed eye icon").
+- **(We think)** in Places the title follows the city the map shows
+  (today's `detectCityContext()`: the nearest of your cities within
+  reach of the map's centre), and reads "All cities" when zoomed out.
+  That way it never names a city you've panned away from. Picking from
+  the menu is just the fast way there.
+
+### Option 1 (we think, better): one title, one menu, the kind toggle inside it
+
+- The title reads both levels: "Places · Reykjavík ⌄", "Plans · Golden
+  Circle ⌄".
+- Tapping it opens one menu:
+  - **a Places | Plans toggle at its top** (visible only here, so it's
+    never always visible);
+  - **below it, the items of that kind only**: All cities plus your
+    cities, or All plans plus your plans plus New plan.
+  - Flipping the toggle swaps the items without closing the menu.
+    Picking an item closes it.
+- **Taps:** any item of the same kind is one tap after opening; the
+  other kind's item is two.
+- Kinds never share a list: the toggle shows one kind at a time.
+
+### Option 2: two title segments
+
+- "Places ⌄ · Reykjavík ⌄": the first segment opens a two-entry kind
+  menu, and the second opens that kind's items.
+- **Cost:**
+  - two controls side by side;
+  - switching kind changes what the second segment holds;
+  - reaching another kind's plan takes two menus.
+- It's clearer only if the owner wants the kind to read as its own
+  button.
+
+**Recommendation: Option 1.** One control, read as "kind · item", answers
+"what am I looking at" in full. The kind toggle exists only inside the
+menu, and each kind's items are one tap away.
+
+NEXT: visual designer — draw Option 1's title states and its menu in
+both kinds (Option 2 beside it if useful).
+
+## Turn 11 -- product designer (systems focus): TYPE detected from the place
+
+The owner, on the TYPE menu's "attraction" (verbatim): "Can this auto
+detect?"
+
+**Yes.**
+- Today nothing reads it: `index.html` around line 4097 says "The POI's
+  own name key (amenity, shop, tourism...) is never read".
+- Every search result already says what it is: Nominatim's `class` /
+  `type`, and Photon's `osm_key` / `osm_value` (the same OSM key/value
+  pair: `amenity=cafe`, `tourism=museum`).
+- So one table maps that pair to the app's categories, read on the pick.
+
+### The mapping (OSM key=value → TYPE)
+
+| TYPE | From (first match wins, top to bottom) |
+|---|---|
+| **Hotel** | `tourism=hotel, hostel, guest_house, motel, apartment, chalet, alpine_hut, camp_site` |
+| **Restaurant** | `amenity=restaurant, fast_food, food_court` |
+| **Cafe** | `amenity=cafe, ice_cream`; `shop=bakery, pastry, coffee` |
+| **Bar** | `amenity=bar, pub, biergarten, nightclub`; `craft=brewery, distillery` |
+| **Nature** | `natural=*` (peak, waterfall, beach, glacier, volcano, hot_spring, cave_entrance…); `leisure=park, nature_reserve, garden`; `boundary=national_park, protected_area`; `waterway=waterfall`; `tourism=viewpoint` |
+| **Attraction** | `tourism=attraction, museum, gallery, artwork, zoo, aquarium, theme_park`; `historic=*`; `amenity=theatre, arts_centre, cinema, place_of_worship`; `leisure=stadium` |
+| **Shopping** | `shop=*` (after Cafe's bakery/coffee); `amenity=marketplace` |
+| **Area** | `place=square, locality, plaza` (a point that names an area) |
+| **District** | `place=suburb, quarter, neighbourhood` (also `boundary=administrative` below city level) |
+| **Street** | `highway=*` (pedestrian, residential, living_street…) |
+| **Other** | transport and services: `aeroway=aerodrome`, `railway=station`, `amenity=ferry_terminal, bus_station` |
+
+- **(We think)** these splits are judgement calls the owner can see in
+  one table:
+  - a viewpoint is Nature;
+  - a church is Attraction;
+  - a bakery is Cafe;
+  - an airport is Other.
+- **District and Street change what's saved**, not just the label:
+  `isShapeCategory()` sends them to the shape table with an outline.
+  - **(We think)** detect them anyway, because picking "Vesterbro" means
+    the area.
+  - The tag shows TYPE District, so it's visible.
+  - Flag: if the owner would rather a neighbourhood search default to a
+    pin, these two rows drop out.
+
+### No match
+
+- An unmapped pair (`office=*`, `amenity=bank`…), or a result with no
+  class, **leaves TYPE as it was**: the default, or what you already set.
+  It never blocks ADD and never asks.
+- **A hand pick wins.** Once you've changed TYPE yourself in this add, a
+  later pick doesn't override it. That's the same rule as the city's
+  `userOverrodeCity`.
+
+### How the detected TYPE shows
+
+- **(We think) simply as the value, not marked as a guess.** The
+  type's pin above the tag changes with it, so a wrong guess is visible
+  at once. It's the same as the city: guessed, shown plainly.
+- It stays changeable through the TYPE select, before ADD and in edit.
+
+**Cost:** one lookup table in the code (two field names: Nominatim
+`class`/`type`, Photon `osm_key`/`osm_value`). No extra request. It's
+untestable in the sandbox (search is blocked), so it's an
+owner-browser check.
+
+NEXT: visual designer — draw the detected TYPE on the tag and answer
+thread fa8106af.
