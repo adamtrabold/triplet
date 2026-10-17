@@ -679,16 +679,31 @@ An open plan's list, top to bottom:
   - the title stays the plan's name.
   - Reference: `planGoToCity()`.
 - **Eye:** `setCityHidden()`, unchanged.
-- **Caption:** "Add places" plus the standard tally, no brackets:
-  `ADD PLACES 89`.
-  - The category qualifier stays when chips are off: `ADD PLACES · CAFE 4`.
-  - Markup: `<span class="h-name">Add places{cats}</span><span class="tally">{n}</span>`.
-  - `.plan-rule` becomes `display:flex; align-items:baseline`.
-  - Font size **11px** (was 10px; Impeccable's 11px floor flags 10px on new
-    text). The tally is 11px too.
-  - The rest of the band stays: 26px tall, hair rule top and bottom, caps
-    .12em, `--ink-2`.
-  - `showPlanRule()` and the slip still anchor to this band.
+- **Caption, v2: a tear-off line.** Owner: "Add places is fine but that
+  header isn't differentiated much". The end of the plan is now drawn as a
+  divider, not a header.
+  - `.plan-rule`: `height:40px; padding:0 var(--gutter); display:flex;
+    align-items:center; gap:var(--s2); background:var(--paper)`. **No solid
+    rules** top or bottom.
+  - The perforation: `::before` and `::after`, each `flex:1 1 0;
+    min-width:var(--s4); height:0; border-top:1.5px dashed
+    rgba(var(--ink-2-rgb), .5)`. This is the tag stub's perforation (1.5px
+    dashed), here in the token's 50% ink so it reads on the list's paper.
+  - The caption sits **centred** in the gap: caps 11px/12px, .12em, 700,
+    `--ink-2`, `position:relative; top:1px`.
+    - Markup: `<span class="rule-cap"><span class="h-name">Add
+      places{cats}</span><span class="tally">{n}</span></span>`.
+    - `.rule-cap { display:flex; align-items:baseline; gap:.45em }`.
+    - The tally is 11px with no margin of its own (the gap spaces it).
+    - The text reads `ADD PLACES 89`, or `ADD PLACES · CAFE 4` when chips are
+      off.
+  - It differs from a city header on three counts: centred against
+    left-aligned, a dashed line against a solid 2px rule, grey caption against
+    a navy name. The tear-off line also says what it is: the plan ends here.
+  - 11px is Impeccable's floor.
+  - `showPlanRule()` and the slip still anchor to this band. The slip now
+    covers a 40px band, so the builder should check its fit.
+  - The first city header under it stays compact (44px).
 - Reorder (drag) never crosses the caption: unchanged.
 
 Why: the owner's job is "build a plan by filtering places", and the app
@@ -736,51 +751,56 @@ every row (owner rules "Dots add an insane amount of visual noise" and
 "Simple, simple, simple"). It's still two taps away from anywhere: open the
 plan, then scroll to the end of its stops.
 
-### 3. Title menu position and width
+### 3. Title menu position and width (v2, after the owner's feedback)
 
-**Decision:** the menu decides its side and width once, when it opens, and
-never moves while open.
+The owner turned down v1, the menu opening upward: "I don't like it opening
+upwards because then the places/plan switch is where the thumb is rather than
+the cities…that is backwards to what will be used most".
 
-- **Phone (the bottom sheet, raised or lowered): it always opens ABOVE the
-  sheet.**
-  - Its **bottom edge sits 6px above the sheet's top edge**:
-    `bottom = innerHeight - (sheet.top - 6)`.
-  - Its left edge is on the gutter. It grows upward.
-  - `max-height = sheet.top - 14` (an 8px top margin); past that it scrolls
-    inside.
-- **Rail (≥900px): it always opens BELOW**, top at the rail's top + 44px (as
-  first drawn), with `max-height` reaching to 8px above the bottom of the
-  viewport.
-- **Width, locked for each open:**
-  - render both sides and take the wider natural (`max-content`) width;
-  - clamp it to `[248px, 100vw − 2 × gutter]` and set it as a fixed `width`;
-  - swapping kinds never changes it. Long labels get an ellipsis
-    (`.menu-lab` already does this).
-- **Swapping kinds:** the bottom edge, left edge and width stay put; only the
-  top edge moves with the row count. So **the quiet row stays right where
-  your thumb is**.
-- **The quiet row is sticky:**
-  `#titleMenu .menu-row[data-kind] { position:sticky; bottom:0;
-  background:var(--paper-raised); z-index:1 }`, pressed `--paper-pressed`.
-  The kind switch never scrolls away, even when many plans overflow.
-- **Chevron:** while the menu is open, the title's 12px chevron turns 180° to
-  point at it (up):
-  - `transform 140ms cubic-bezier(.2,.8,.3,1)`;
-  - no transition with reduced motion;
-  - no rotation on the rail, where the menu is below.
-- The opening slip comes from the menu's side: `--slip-from: 4px` above,
-  `-4px` on the rail.
-- Resizing while open re-decides: clear the lock and place it again.
-- Reference: `menuLock`, `measureMenuWidth()`, `placeTitleMenu()`.
+**Decision:** the menu opens **downward, in the raised sheet's own place**,
+and its box is locked for as long as it's open.
 
-Why: with real data (5 cities) the Places side needs 7 rows (282px), but only
-248px fit under the title in the 300px sheet. "Under the title" can't hold
-for both kinds, and that is what made it flip. Above, it always fits, it
-never covers the list you're choosing for, and it matches the sort menu,
-which already opens above.
+- **Phone (the bottom sheet), raised or lowered:**
+  - the box's **top edge sits on the raised sheet's top edge**
+    (`raisedSheetTop()` = the sheet's rect top minus its current `translateY`);
+  - its left edge is on the gutter;
+  - it covers the list header (the scrim already closes the menu on an
+    outside tap).
+  - So the rows you use most (All places and the cities, or All plans and the
+    plans) start right where you tapped the title. The quiet Places/Plans row
+    is the farthest row, at the box's foot.
+  - When the list is lowered, the box opens in the same place as when raised:
+    one place on screen.
+- **Rail (≥900px):** the box's top sits at the rail's top + 44px, with the
+  same locks.
+- **Locked box, set when it opens:** render both sides, then fix:
+  - `width` = the wider natural width, clamped to `[248px, 100vw − 2 × gutter]`;
+  - `height` = the taller side's height (rows + 2px border), capped at
+    `innerHeight − 8 − top`.
+  - Swapping kinds moves **nothing**: no edge, no row, no width. The shorter
+    side leaves plain paper between its last item and the quiet row.
+  - Real data fits without scrolling: 5 cities → 7 rows = 282px, and the room
+    in a 300px sheet is 292px. More rows scroll inside the box.
+- **The quiet row is pinned to the foot:**
+  - `#titleMenu { display:flex; flex-direction:column; box-sizing:border-box }`;
+  - `#titleMenu .menu-row { flex:none }`;
+  - `#titleMenu .menu-row[data-kind] { margin-top:auto; position:sticky; bottom:0; background:var(--paper-raised); z-index:1 }`,
+    pressed `--paper-pressed`.
+  - **You must add `#titleMenu[hidden] { display:none }`.** The id rule's
+    `display:flex` beats `.menu-box[hidden]`, so without it the menu never
+    hides.
+- The opening slip comes down from above: `--slip-from: -4px`. The title
+  chevron doesn't rotate (v1's rotation is dropped).
+- Resizing while open re-decides: clear the lock and place the menu again.
+- Reference: `menuLock`, `measureMenu()`, `raisedSheetTop()`,
+  `placeTitleMenu()` on `design-p1-fixes`.
 
-The owner saw it under the title in the earlier stills, so **the owner needs
-to see this change** (sheet 1).
+Why:
+- Cities first and nearest the thumb is what the owner asked for.
+- Opening downward from under the title needs 282px where only 248px fit;
+  starting the box at the sheet's top edge (over the header) gives 292px. That
+  makes one fixed box possible.
+- The locked height keeps the quiet row from moving when you tap it.
 
 ### 4. Hidden city: header and menu row contrast
 
@@ -852,8 +872,9 @@ you land on should look like the list's first city.
 
 Run the full Phase 1 set from the systems section: the gesture gate once at
 the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
-- the menu opens above, at the default sheet height and lowered, and keeps
-  the same width and bottom edge before and after the quiet-row swap;
+- the menu's top sits on the raised sheet's top edge, raised and lowered
+  alike, and its box (top, left, width, height) is identical before and after
+  the quiet-row swap; `#titleMenu[hidden]` really hides it;
 - the add-from block:
   - its city sections;
   - the eye, shared with Places;
@@ -865,7 +886,8 @@ the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
 
 ### Open for the owner
 
-- On the phone the menu now opens **upward from the list**, not under the
-  title as in the earlier stills. That's the one change to a look the owner
-  approved (sheet 1).
-- Rename and Delete moved off the plans list into the open plan (sheet 3).
+- The v2 menu (sheet 5): it opens downward over the list header, cities
+  first, the Places/Plans row last, and nothing moves when you switch kinds.
+- The v2 divider (sheet 6).
+- Rename and Delete in the open plan (sheet 3): no comment from the owner yet;
+  it's in the final stills.

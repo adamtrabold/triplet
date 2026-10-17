@@ -244,3 +244,19 @@
   into the first add-from header's air.
 - **Next:** the owner looks at sheets 1–3; then the builder applies all of
   it in one batch from `design-p1-fixes` and the addendum.
+- **2026-10-17, round 2 (owner feedback):** "I don't like it opening
+  upwards because then the places/plan switch is where the thumb is rather
+  than the cities…" and "Add places … header isn't differentiated much".
+  - **Menu v2:** it opens downward with its top on the raised sheet's top
+    edge, covering the header (292px of room against the 282px it needs). The
+    box is locked when it opens (width and height = the larger side), and the
+    quiet row is pinned to the foot. Raised and lowered open in one place.
+    - Rejected: upward with the switch at the top (the owner's earlier "not
+      starting with that decision" rule); under the title (248px doesn't fit
+      7 rows); shorter rows (targets under 44).
+    - Watch: when lowered, the thumb is low, so the switch row is the nearest
+      row there.
+  - **Divider v2:** a centred caption in a tear-off perforation (the tag
+    stub's 1.5px dash, at 50% ink-2), 40px tall, no solid rules.
+  - Prototype merged with batch A (48d40d2) at afe11fc. The Impeccable gate
+    passes. Stills: `5-menu-v2.png`, `6-add-divider-v2.png`.

@@ -120,3 +120,6 @@ Read as: T3's UI (a quiet last row in the menu, styled like the other rows) carr
 Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring.
 > (on the quiet-bottom-row menus) This is great but icon alignment isn’t centered
 > Great to build
+
+## 2026-10-17 (on the Phase 1 fixes stills)
+> I don't like it opening upwards because then the places/plan switch is where the thumb is rather than the cities…that is backwards to what will be used most. Add places is fine but that header isn't differentiated much
