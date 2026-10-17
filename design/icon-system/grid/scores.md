@@ -307,3 +307,63 @@ I checked the changed sections only, at phone size.
 - **Send** the canvas page "Grid concepts". The question, word for
   word: "Which grid do we draw the 13 on: A, the square pixel grid, or
   B, the round seal grid?"
+
+---
+
+## Round g4 (1ee6d64): stroke sweep, 2026-10-17: 8, one fix
+
+**What I read:**
+- `for-director.md`;
+- the stills `g4-sheet-0..4` at 3x, in strips;
+- `g4-sheet-1-1x` (his arm's-length view).
+
+| Check | Result |
+|---|---|
+| 0. He can judge density at real size on his phone | **Pass.** The 1x sweep shows all eight blocks on one screen. Sheet 3 puts each width in a row, on the map and in the header, beside today's stamp and sticker. The ink % per block is a good single number. |
+| 1. Thinner lines buy richness | **Pass.** The glyphs are rebuilt per width (tines 5→2, columns 5→3, spokes 8→4, blocks 4×4→2×2; rim, drink line, fold and architrave at w ≤ 1.5). "Buys:" prints what each width gets. This is exactly the trade he asked to see. |
+| 2. Honest costs | **Pass.** The "Costs:" lines match the renders: a ring lighter than the visited marks at 0.8–1, blocks reading as an app grid, the wheel closing at 2.25–2.5, clogged chips. |
+| 3. UI icons included | **Pass.** 12 UI icons plus the + button, at their real sizes and in context. |
+| 4. One family, the Home Screen icon included | **Fail on one point.** See fix 1. The Home Screen icon is flagged honestly (it fits at no width, and a redesign wasn't asked), which is right. |
+| 5. Guidance for the future | **Pass.** The written rules fit on one sheet. "Library" is built from them alone and honestly reported: consistent, but it reads as a bar chart. That's the right finding: the rules carry consistency, and concepts still need the concept step. |
+| 6. Craft | Good. The same visual language as g3. |
+
+**Why it's 8: the UI icons break his own outline rule, and so the
+family.**
+- His words: "outlined icons should be used when something has yet to
+  be tapped by me like Star and visited". The rules card reads "nothing
+  else is an empty shape".
+- In g4, several UI icons are drawn with empty closed shapes:
+  - the account (an open head);
+  - locate (an open centre ring);
+  - filters (open knobs);
+  - more (…) at the thin widths.
+- So at every width the outline Star doesn't stand apart as "not yet
+  tapped". Next to solid places, the tools read as a second, outlined
+  family.
+- The concept step had settled the account as "solid head, open
+  shoulders" (t4 card 4).
+- Likely objection: "Why is the account an outline? Only star and
+  visited are outlined." *Likely.*
+
+### Fix (one, then I look at sheets 1 and 3 only)
+
+1. **The UI icons follow the rules card.**
+   - Every closed shape is solid: the account's head, locate's centre,
+     the filter knobs, the dots of "more".
+   - Open strokes stay strokes (the +, ×, sort arrows, chevron, tick,
+     the shoulders' arc).
+   - The Star stays the one outline, with Visited unchanged.
+   - Directions: the needle stays solid. Its disc is a ring around a
+     solid needle (like the badge ring), so it's allowed. Say so in one
+     line.
+   - Add one line to the guidance sheet's rules: "Closed shapes are
+     solid; only the Star (and Visited) are outlines."
+
+**Not required:** an ink % for the UI icons, or a Home Screen redesign
+(after his width pick).
+
+**The question, word for word (unchanged):** "Which stroke width gives
+the overall density you want? (Or two neighbours to look at closer.)"
+
+**Did the work change?** Yes. This is a new round, built to the turn-9
+criteria. Six of the seven checks pass.
