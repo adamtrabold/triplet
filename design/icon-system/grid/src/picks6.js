@@ -7,17 +7,17 @@
 'use strict';
 const { R, C, P, B, O, A, D, cut } = require('./engine.js');
 const W = 1.5;          // the line, decided
-const CUT = 0.9;        // a cut between touching parts (0.6W)
+const CUT = 1;          // a cut between touching parts (batch 1: 1px, on the 0.25px lattice; 0.9 never was)
 const f = v => +v.toFixed(3);
 
 const DRAW = {
   // Café: a low, wide cup (the matchbook cup), its handle an ear, on a saucer with a lifted rim.
   cafe(s = 12) {
     const u = s / 12, X = v => f(v * u);
-    const top = 1.75, bot = 8.25;                              // cup: 6.5 tall
-    const cup = D(`M${X(0.25)} ${X(top)}H${X(9.25)}V${X(3.5)}C${X(9.25)} ${X(6.4)} ${X(7.4)} ${X(bot)} ${X(4.75)} ${X(bot)}C${X(2.1)} ${X(bot)} ${X(0.25)} ${X(6.4)} ${X(0.25)} ${X(3.5)}Z`);
+    const top = 1.5, bot = 8;                                   // cup: 6.5 tall
+    const cup = D(`M${X(0.5)} ${X(top)}H${X(9.5)}V${X(3.5)}C${X(9.5)} ${X(6.2)} ${X(7.6)} ${X(bot)} ${X(5)} ${X(bot)}C${X(2.4)} ${X(bot)} ${X(0.5)} ${X(6.2)} ${X(0.5)} ${X(3.5)}Z`);
     // the ear: a half ring hung on the cup's shoulder, centreline r 1.9 (its counter opens 2.3px)
-    const ear = A(X(9.0), X(4.4), 1.9 * u, W, -90, 90);
+    const ear = A(X(9.25), X(4.25), 1.9 * u, W, -90, 90);
     const st = bot + CUT;                                        // saucer top
     const saucer = D(`M${X(0)} ${X(st)}H${X(12)}C${X(11.6)} ${X(st + 1.2)} ${X(10.9)} ${X(st + W)} ${X(10.25)} ${X(st + W)}H${X(1.75)}C${X(1.1)} ${X(st + W)} ${X(0.4)} ${X(st + 1.2)} ${X(0)} ${X(st)}Z`);
     return [cup, ear, saucer];
@@ -25,7 +25,7 @@ const DRAW = {
   // Bar: a coupe, the bowl a full shallow curve, a long stem, a domed foot.
   bar(s = 12) {
     const u = s / 12, X = v => f(v * u), c = s / 2;
-    const bowl = D(`M${X(0.25)} ${X(0)}H${X(11.75)}C${X(11.75)} ${X(2.9)} ${X(9.2)} ${X(4.6)} ${X(6)} ${X(4.6)}C${X(2.8)} ${X(4.6)} ${X(0.25)} ${X(2.9)} ${X(0.25)} ${X(0)}Z`);
+    const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.85)} ${X(9.1)} ${X(4.5)} ${X(6)} ${X(4.5)}C${X(2.9)} ${X(4.5)} ${X(0.5)} ${X(2.85)} ${X(0.5)} ${X(0)}Z`);
     const stem = R(c - W / 2, X(4), W, X(10.6) - X(4));
     const foot = D(`M${X(2.25)} ${X(12)}C${X(2.25)} ${X(10.9)} ${X(4)} ${X(10.5)} ${X(6)} ${X(10.5)}C${X(8)} ${X(10.5)} ${X(9.75)} ${X(10.9)} ${X(9.75)} ${X(12)}Z`);
     return [bowl, stem, foot];
@@ -44,10 +44,10 @@ const DRAW = {
   // Nature: a conifer of four tiers, each branch drooping to its tip; the trunk on BASE.
   nature(s = 12) {
     const u = s / 12, X = v => f(v * u), c = s / 2;
-    const tiers = [[0, 3.6, 2.4], [2.3, 6.1, 3.4], [4.6, 8.6, 4.5], [6.9, 10.7, 5.75]]; // [tip y, base y at the tips, half width]
+    const tiers = [[0, 3.5, 2.5], [2.25, 6, 3.5], [4.5, 8.5, 4.5], [6.75, 10.75, 5.75]]; // [tip y, base y at the tips, half width]
     const out = [];
     for (const [ty, by, hw] of tiers) {
-      const mid = by - 0.7;                                       // the branch line lifts at the trunk: droop
+      const mid = by - 0.75;                                      // the branch line lifts at the trunk: droop
       out.push(D(`M${f(c)} ${X(ty)}L${f(c + X(hw))} ${X(by)}Q${f(c + X(hw * 0.45))} ${X(mid)} ${f(c)} ${X(mid)}Q${f(c - X(hw * 0.45))} ${X(mid)} ${f(c - X(hw))} ${X(by)}Z`));
     }
     out.push(R(c - W / 2, X(9.5), W, s - X(9.5)));                 // trunk
@@ -63,7 +63,7 @@ function plus(px = 26.4) {
 }
 // The Star (the one outline): a five-point star 1.5px wide at 20px.
 function star(px = 20) {
-  const k = 24 / px, w = W * k, cx = 12, cy = 12.6, Rc = 9.6, ri = Rc * 0.41;   // centreline star
+  const k = 24 / px, w = W * k, cx = 12, cy = 12.6, Rc = 9.6, ri = Rc * 0.47;   // centreline star
   const cl = []; for (let i = 0; i < 10; i++) { const r = i % 2 ? ri : Rc, a = -Math.PI / 2 + i * Math.PI / 5; cl.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
   return [P(...offset(cl, -w / 2)), cut(P(...offset(cl, w / 2)))];  // outer edge, inner edge: the line is w wide
 }
