@@ -664,3 +664,70 @@ menu, and each kind's items are one tap away.
 
 NEXT: visual designer — draw Option 1's title states and its menu in
 both kinds (Option 2 beside it if useful).
+
+## Turn 11 -- product designer (systems focus): TYPE detected from the place
+
+The owner, on the TYPE menu's "attraction" (verbatim): "Can this auto
+detect?"
+
+**Yes.**
+- Today nothing reads it: `index.html` around line 4097 says "The POI's
+  own name key (amenity, shop, tourism...) is never read".
+- Every search result already says what it is: Nominatim's `class` /
+  `type`, and Photon's `osm_key` / `osm_value` (the same OSM key/value
+  pair: `amenity=cafe`, `tourism=museum`).
+- So one table maps that pair to the app's categories, read on the pick.
+
+### The mapping (OSM key=value → TYPE)
+
+| TYPE | From (first match wins, top to bottom) |
+|---|---|
+| **Hotel** | `tourism=hotel, hostel, guest_house, motel, apartment, chalet, alpine_hut, camp_site` |
+| **Restaurant** | `amenity=restaurant, fast_food, food_court` |
+| **Cafe** | `amenity=cafe, ice_cream`; `shop=bakery, pastry, coffee` |
+| **Bar** | `amenity=bar, pub, biergarten, nightclub`; `craft=brewery, distillery` |
+| **Nature** | `natural=*` (peak, waterfall, beach, glacier, volcano, hot_spring, cave_entrance…); `leisure=park, nature_reserve, garden`; `boundary=national_park, protected_area`; `waterway=waterfall`; `tourism=viewpoint` |
+| **Attraction** | `tourism=attraction, museum, gallery, artwork, zoo, aquarium, theme_park`; `historic=*`; `amenity=theatre, arts_centre, cinema, place_of_worship`; `leisure=stadium` |
+| **Shopping** | `shop=*` (after Cafe's bakery/coffee); `amenity=marketplace` |
+| **Area** | `place=square, locality, plaza` (a point that names an area) |
+| **District** | `place=suburb, quarter, neighbourhood` (also `boundary=administrative` below city level) |
+| **Street** | `highway=*` (pedestrian, residential, living_street…) |
+| **Other** | transport and services: `aeroway=aerodrome`, `railway=station`, `amenity=ferry_terminal, bus_station` |
+
+- **(We think)** these splits are judgement calls the owner can see in
+  one table:
+  - a viewpoint is Nature;
+  - a church is Attraction;
+  - a bakery is Cafe;
+  - an airport is Other.
+- **District and Street change what's saved**, not just the label:
+  `isShapeCategory()` sends them to the shape table with an outline.
+  - **(We think)** detect them anyway, because picking "Vesterbro" means
+    the area.
+  - The tag shows TYPE District, so it's visible.
+  - Flag: if the owner would rather a neighbourhood search default to a
+    pin, these two rows drop out.
+
+### No match
+
+- An unmapped pair (`office=*`, `amenity=bank`…), or a result with no
+  class, **leaves TYPE as it was**: the default, or what you already set.
+  It never blocks ADD and never asks.
+- **A hand pick wins.** Once you've changed TYPE yourself in this add, a
+  later pick doesn't override it. That's the same rule as the city's
+  `userOverrodeCity`.
+
+### How the detected TYPE shows
+
+- **(We think) simply as the value, not marked as a guess.** The
+  type's pin above the tag changes with it, so a wrong guess is visible
+  at once. It's the same as the city: guessed, shown plainly.
+- It stays changeable through the TYPE select, before ADD and in edit.
+
+**Cost:** one lookup table in the code (two field names: Nominatim
+`class`/`type`, Photon `osm_key`/`osm_value`). No extra request. It's
+untestable in the sandbox (search is blocked), so it's an
+owner-browser check.
+
+NEXT: visual designer — draw the detected TYPE on the tag and answer
+thread fa8106af.
