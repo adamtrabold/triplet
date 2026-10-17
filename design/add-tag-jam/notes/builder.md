@@ -82,3 +82,23 @@ at the stills come first (CLAUDE.md lane 2). Spec: `handoff.md` "Phase 1" + "One
   main too (backlog).
 - During a stop drag across a leg header, the shifting rows move by one row height while headers
   stay put (approximate visuals; the drop index is right).
+
+## Check fixes, batch A (2026-10-17; `design/add-tag-jam/checks/p1-cd-ux.md`)
+
+1. **Drag across a leg header (blocker).** `attachStopDrag()`: the drop slot now comes from the
+   lifted row's edges against the other stops' resting middles (list content y, so leg headers and
+   the edge auto-scroll count), not `round(dy / h)`; every node between the old place and the slot --
+   stop rows AND the leg headers between them -- shifts one row height (`.sec-head.plan-shift` gets
+   the rows' 150ms transition), so the preview gap is exactly the drop index. New plans.js cases:
+   across a header near the top, up from the list's foot, down at the foot with auto-scroll; all
+   three fail on the previous commit and pass now. Limitation kept: the preview shows the index;
+   if the drop makes or merges a leg, the headers re-form after the drop.
+2. **Title for a hidden go-to city** falls back to "All places" + the shown count (0 with every city
+   hidden) -- `titleState()` checks `cityShown()`. Section and menu tallies are unchanged.
+3. **Targets:** the title button's ::before covers the whole 52px band from the screen edge to the
+   ⇅ zone (the ⇅ zone keeps the 12px gap). The section eye already answered 44x44 through its
+   ::before (now asserted by plantest H12b).
+4. **a11y:** `<h2><button id="titleBtn">` (was a heading inside the button) with a `.title-text`
+   span; section and leg names sit in `<h3 class="sec-title">`; the eye drops `aria-pressed` and
+   keeps its Show/Hide label (the name's label adds ", hidden"). No visual change: the stills
+   re-shoot pixel-identical except 09 (the title now reads "All places 0").

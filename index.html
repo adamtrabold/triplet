@@ -1226,14 +1226,9 @@
        list shows, its tally, a 12px chevron. It reads only what is shown,
        never "Places" or "Plans" (owner: "Places/plans does not need to be in
        the list header"). */
-    .title-btn {
-      position: relative; flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px;
-      margin: 0; padding: 0; border: none; background: transparent; color: var(--navy); cursor: pointer;
-      text-align: left; font: inherit; -webkit-tap-highlight-color: transparent;
-    }
-    .title-btn::before { content: ''; position: absolute; left: -4px; right: 0; top: -5px; bottom: -5px; }   /* 44px tall; never into the ⇅ zone */
-    .title-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--navy); border-radius: 2px; }
-    .title-btn .title-chev { width: 12px; height: 12px; flex: none; display: block; }
+    /* Markup: the heading holds the button (<h2><button>), so the title is both the list's heading
+       and its menu trigger. The button fills the heading; its target covers the whole 52px band from
+       the screen edge to the ⇅ zone (which owns the 12px gap). */
     #locationsHeader h2 {
       font-family: var(--font-ui);
       font-stretch: 75%;
@@ -1243,12 +1238,21 @@
       letter-spacing: 0.08em;
       font-weight: 700;
       margin: 0;
+      flex: 1;
       min-width: 0;
       display: flex;
-      align-items: baseline;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
+    .title-btn {
+      position: relative; flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px;
+      margin: 0; padding: 0; border: none; background: transparent; color: var(--navy); cursor: pointer;
+      text-align: left; font: inherit; letter-spacing: inherit; text-transform: inherit; -webkit-tap-highlight-color: transparent;
+    }
+    .title-btn::before { content: ''; position: absolute; left: calc(-1 * var(--gutter)); right: 0; top: -14.5px; bottom: -14.5px; }   /* the 52px band, screen edge to the ⇅ zone */
+    .title-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--navy); border-radius: 2px; }
+    .title-btn .title-chev { width: 12px; height: 12px; flex: none; display: block; }
+    .title-btn .title-text { display: flex; align-items: baseline; min-width: 0; }
     #locationsHeader .h-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
     /* THE TALLY: the count after a name, one treatment everywhere (title,
@@ -1738,13 +1742,12 @@
     .menu-box { width: max-content; min-width: 200px; overflow: hidden; }
     #titleMenu { min-width: 248px; max-width: calc(100vw - 2 * var(--gutter)); overflow-y: auto; overscroll-behavior: contain; }
     /* p1-fixes: the quiet last row (the kind switch) never scrolls away: sticky at the box's foot. */
-    #titleMenu .menu-row[data-kind] { position: sticky; bottom: 0; background: var(--paper-raised); z-index: 1; }
+    #titleMenu { display: flex; flex-direction: column; box-sizing: border-box; }
+    #titleMenu[hidden] { display: none; }
+    #titleMenu .menu-row { flex: none; }
+    #titleMenu .menu-row[data-kind] { position: sticky; bottom: 0; margin-top: auto; background: var(--paper-raised); z-index: 1; }
     #titleMenu .menu-row[data-kind]:active { background: var(--paper-pressed); }
-    /* The title's chevron turns toward the open menu (up on the phone, where the menu opens above). */
-    .title-btn .title-chev { transition: transform 140ms cubic-bezier(.2,.8,.3,1); }
-    .title-btn[aria-expanded="true"] .title-chev { transform: rotate(180deg); }
-    @media (min-width: 900px) { .title-btn[aria-expanded="true"] .title-chev { transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .title-btn .title-chev { transition: none; } }
+
     .menu-cap {
       height: 24px; display: flex; align-items: center; padding: 0 var(--s3); border-bottom: 1px solid var(--navy);
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
@@ -1782,6 +1785,7 @@
       background: var(--paper); border-bottom: 2px solid var(--hair);
       -webkit-user-select: none; user-select: none;
     }
+    .sec-title { margin: 0; min-width: 0; display: flex; font: inherit; }   /* the heading around the name: screen readers jump city to city */
     .sec-name {
       position: relative; justify-self: start; max-width: 100%; min-width: 0; height: 32px; display: flex; align-items: flex-end; padding: 0 0 4px; margin: 0;
       background: transparent; border: none; cursor: pointer; text-align: left; -webkit-tap-highlight-color: transparent;
@@ -1810,9 +1814,6 @@
     /* A plan's leg: the same header with no eye (a stop is never hidden); tapping frames the leg. */
     .sec-head.is-leg { grid-template-columns: 1fr; }
     /* p1-fixes: the add-from caption carries the standard tally, no brackets. */
-    .plan-rule { display: flex; align-items: baseline; }
-    .plan-rule .h-name { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-    .plan-rule .tally { font-size: 11px; }
     /* p1-fixes: lowered, the band is header only: no rule over the bare strip under it. */
     @media (max-width: 899px) { #locations.collapsed #locationsHeader { border-bottom-color: transparent; } }
 
@@ -1926,14 +1927,22 @@
     /* Reorder: the lifted row sits on paper with a hairline edge and drop; the
        others make room. */
     .location-card.plan-lifted { position: relative; z-index: 5; background: var(--paper-raised); box-shadow: 0 0 0 1px var(--hair), 0 3px 0 var(--hair); }
-    .location-card.plan-shift { transition: transform 0.15s ease; }
-    @media (prefers-reduced-motion: reduce) { .location-card.plan-shift { transition: none; } }
+    .location-card.plan-shift, .sec-head.plan-shift { transition: transform 0.15s ease; }
+    @media (prefers-reduced-motion: reduce) { .location-card.plan-shift, .sec-head.plan-shift { transition: none; } }
     /* The plan ends at Places' group divider -- the last stop's 1px --hair
        rule plus this 1px = the 2px --hair a category change draws in Places --
        with a one-line caption naming what's below. */
-    .plan-rule { box-sizing: border-box; min-height: 26px; padding: 7px var(--gutter) 5px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
+    /* p1-fixes v2 (owner: "Add places is fine but that header isn't differentiated much"): the end of
+       the plan is a TEAR-OFF LINE, not another header -- the tag stub's own perforation (1.5px dashed)
+       across the list, the caption centred in a paper gap. Centred + perforated vs the city headers'
+       left-aligned name on a solid 2px rule: a divider, never a section. 40px band, no solid rules. */
+    .plan-rule { box-sizing: border-box; height: 40px; padding: 0 var(--gutter); display: flex; align-items: center; gap: var(--s2);
       background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: 0.12em;
-      color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* p1-fixes: 11px, the Impeccable floor */
+      color: var(--ink-2); white-space: nowrap; }
+    .plan-rule::before, .plan-rule::after { content: ''; flex: 1 1 0; min-width: var(--s4); height: 0; border-top: 1.5px dashed rgba(var(--ink-2-rgb), 0.5); }
+    .plan-rule .h-name { overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; position: relative; top: 1px; }
+    .plan-rule .tally { font-size: 11px; margin-left: 0; position: relative; top: 1px; }
+    .plan-rule .rule-cap { display: flex; align-items: baseline; gap: 0.45em; min-width: 0; flex: 0 1 auto; }
     /* An empty section inside the list: Places' empty-state voice (condensed bold caps,
        --ink-2), no glyph -- the compass belongs to an empty whole list. */
     .plan-list-note {
@@ -2935,7 +2944,7 @@
   <div id="locations">
     <button id="collapseTab" type="button" aria-label="Lower the list" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="20"/><path d="M7 8l5 5 5-5"/></svg></button>
     <div id="locationsHeader">
-      <button id="titleBtn" class="title-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="titleMenu"><h2><span class="h-name">All places</span></h2><svg class="title-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <h2><button id="titleBtn" class="title-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="titleMenu"><span class="title-text"><span class="h-name">All places</span></span><svg class="title-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h2>
       <button id="sortBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="sortMenu" aria-label="Sort list: A–Z">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="8" y1="8" x2="8" y2="21"/>
@@ -6654,7 +6663,7 @@
     function ruleCaption(n) {
       const all = Object.keys(CATEGORY_COLORS), on = all.filter(c => filters.categories[c]);
       const cats = on.length === all.length ? '' : !on.length ? ' · no categories' : on.length <= 2 ? ' · ' + on.join(', ') : ` · ${on.length} categories`;
-      return `<span class="h-name">Add places${cats}</span><span class="tally">${n}</span>`;
+      return `<span class="rule-cap"><span class="h-name">Add places${cats}</span><span class="tally">${n}</span></span>`;
     }
     function planOthers() {
       const pm = planMarks();
@@ -7118,6 +7127,7 @@
     window.addEventListener('pointerup', e => { if (stopMouseDrag && e.pointerType === 'mouse') { const d = stopMouseDrag; stopMouseDrag = null; d.up(e); } });
     function attachStopDrag(el) {
       let timer = 0, start = null, armed = false, rows = null, from = -1, to = -1, lastY = 0, scroll0 = 0, raf = 0, baseTop = 0;
+      let others = [], kids = [], mid0 = 0, shifted = [];   // the other stops' resting mids (list content y), the list's nodes, the lifted row's mid
       const list = () => document.getElementById('locationsList');
       const onHandle = t => inPlanView() && el.classList.contains('is-stop') && t && t.closest && t.closest('.row-n, .row-badge');
       // Long moves: within STOP_EDGE px of the list's top or bottom edge the list
@@ -7135,7 +7145,12 @@
       const arm = () => {
         armed = true; el.classList.remove('active'); el.classList.add('plan-lifted');
         rows = [...document.querySelectorAll('#locationsList > .location-card.is-stop')]; from = to = rows.indexOf(el);
-        scroll0 = list().scrollTop; baseTop = el.getBoundingClientRect().top; lastY = start[1]; raf = requestAnimationFrame(autoScroll);
+        scroll0 = list().scrollTop; baseTop = el.getBoundingClientRect().top; lastY = start[1];
+        // The drop slot comes from where the lifted row actually is against the other stops' resting
+        // positions (leg headers sit between them), never from a row count.
+        const top0 = list().getBoundingClientRect().top - scroll0, mid = r => { const b = r.getBoundingClientRect(); return b.top + b.height / 2 - top0; };
+        mid0 = mid(el); others = rows.filter(r => r !== el).map(r => ({ el: r, mid: mid(r) })); kids = [...list().children]; shifted = [];
+        raf = requestAnimationFrame(autoScroll);
       };
       const move = y => {
         lastY = y;
@@ -7145,18 +7160,25 @@
         const fy = Math.max(lr.top - baseTop, Math.min(Math.min(lr.bottom, innerHeight) - h - baseTop, y - start[1]));
         const dy = fy + (list().scrollTop - scroll0);
         el.style.transform = `translateY(${dy}px)`;
-        to = Math.max(0, Math.min(rows.length - 1, from + Math.round(dy / h)));
-        rows.forEach((row, i) => {
-          if (row === el) return;
-          const sh = from < to && i > from && i <= to ? -h : from > to && i < from && i >= to ? h : 0;
-          row.classList.add('plan-shift'); row.style.transform = sh ? `translateY(${sh}px)` : '';
-        });
+        // A neighbour is passed once the lifted row's leading edge crosses its middle (half a row, as before).
+        const top = mid0 + dy - h / 2, bot = mid0 + dy + h / 2;
+        to = others.filter(o => (o.mid < mid0 ? top >= o.mid : bot > o.mid)).length;
+        // The preview is the drop: every node between the row's old place and its slot -- stop rows AND
+        // the leg headers between them -- moves one row height to close the old gap and open the new one.
+        const iEl = kids.indexOf(el);
+        let a = -1, b = -1, sh = 0;
+        if (to > from) { a = iEl + 1; b = kids.indexOf(others[to - 1].el); sh = -h; }
+        else if (to < from) { a = kids.indexOf(others[to].el); b = iEl - 1; sh = h; }
+        const now = a >= 0 ? kids.slice(a, b + 1) : [];
+        shifted.forEach(k => { if (!now.includes(k)) k.style.transform = ''; });
+        now.forEach(k => { k.classList.add('plan-shift'); k.style.transform = `translateY(${sh}px)`; });
+        shifted = shifted.filter(k => !now.includes(k)).concat(now);
       };
       const end = commit => {
         clearTimeout(timer); timer = 0; start = null;
         if (!armed) return;
         armed = false; cancelAnimationFrame(raf); raf = 0; el.classList.remove('plan-lifted'); el.style.transform = '';
-        rows.forEach(row => { row.style.transform = ''; row.classList.remove('plan-shift'); });
+        rows.concat(shifted).forEach(row => { row.style.transform = ''; row.classList.remove('plan-shift'); }); shifted = [];
         const r = stopRowFor(el);
         if (commit && r && to !== from) moveStop(r.stop.id, to);
       };
@@ -7392,8 +7414,9 @@
         const p = activePlan();
         return p ? { name: p.name, n: stopCount(p.id) } : { name: 'All plans', n: plans.length };
       }
-      // A city with no places at all (zero places, or a stale go-to) titles "All places".
-      if (citySelection !== ALL_CITIES && CITIES[citySelection] && (!placesLoaded || cityHasPlaces(citySelection))) {
+      // A city with no places at all (zero places, or a stale go-to), or a hidden one (UX ruling: the
+      // title never names what the list doesn't show), titles "All places" + the shown count.
+      if (citySelection !== ALL_CITIES && CITIES[citySelection] && cityShown(citySelection) && (!placesLoaded || cityHasPlaces(citySelection))) {
         return { name: CITIES[citySelection].label, n: cityTally(citySelection) };
       }
       return { name: 'All places', n: shownTally() };
@@ -7404,7 +7427,7 @@
       if (sig === titleSig) return;
       titleSig = sig;
       const btn = document.getElementById('titleBtn');
-      btn.querySelector('h2').innerHTML = `<span class="h-name">${escapeHtml(t.name)}</span><span class="tally">${t.n}</span>`;
+      btn.querySelector('.title-text').innerHTML = `<span class="h-name">${escapeHtml(t.name)}</span><span class="tally">${t.n}</span>`;
       btn.setAttribute('aria-label', `${t.name}, ${t.n}. Choose what the list shows`);
       fitTitleName(t.name);
     }
@@ -7463,41 +7486,42 @@
       return true;
     }
     const menuRowKey = el => el && el.dataset ? (el.dataset.go || el.dataset.plan || el.dataset.plans || el.dataset.kind || el.dataset.act || null) : null;
-    // p1-fixes (designer): ONE side, ONE width, decided once per open, never re-decided while open.
-    //  - Phone sheet (raised or lowered): ALWAYS above the sheet, its bottom edge 6px over the sheet's
-    //    top edge, so the quiet last row sits nearest the title and stays put when it swaps kinds;
-    //    only the top edge moves with the row count.
-    //  - Rail (>= 900px): ALWAYS below, 44px under the rail's top (as drawn).
-    //  - Width: the wider of the two sides' natural widths, clamped [248, viewport - 2 gutters].
-    //  - Too tall for its room: scrolls inside; the quiet row is sticky at the box's foot.
-    let menuLock = null;   // { up, width } while open
-    function measureMenuWidth() {
+    // p1-fixes v2 (designer, after the owner: "I don't like it opening upwards because then the
+    // places/plan switch is where the thumb is rather than the cities"): the menu opens DOWNWARD and
+    // takes the raised sheet's own place -- its top edge on the raised sheet's top edge, over the
+    // list header -- so the cities sit right where the title was tapped and the quiet Places/Plans
+    // row is the farthest row, at the box's foot. Same place raised or lowered.
+    // ONE box per open: width AND height locked to the larger of the two sides (clamped), so swapping
+    // kinds moves nothing -- not an edge, not the quiet row (it is pinned to the foot: margin-top
+    // auto + sticky). Rail (>= 900px): below the rail's header, same locks.
+    let menuLock = null;   // { top, width, height } while open
+    function measureMenu() {
       const menu = document.getElementById('titleMenu'), keep = menuKind;
-      let w = 0;
-      ['places', 'plans'].forEach(k => { menuKind = k; menuSig = null; renderTitleMenu(); menu.style.width = 'max-content'; w = Math.max(w, menu.offsetWidth); });
+      let w = 0, h = 0;
+      menu.style.height = ''; menu.style.maxHeight = '';
+      ['places', 'plans'].forEach(k => { menuKind = k; menuSig = null; renderTitleMenu(); menu.style.width = 'max-content'; w = Math.max(w, menu.offsetWidth); h = Math.max(h, menu.scrollHeight + 2); });
       menuKind = keep; menuSig = null; renderTitleMenu();
-      return w;
+      return { w, h };
+    }
+    function raisedSheetTop() {
+      const el = document.getElementById('locations'), r = el.getBoundingClientRect();
+      const t = getComputedStyle(el).transform, dy = t && t !== 'none' ? new DOMMatrix(t).m42 : 0;
+      return r.top - dy;
     }
     function placeTitleMenu() {
       const menu = document.getElementById('titleMenu'), sheet = document.getElementById('locations').getBoundingClientRect();
       const gutter = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gutter')) || 16;
       if (!menuLock) {
-        const w = measureMenuWidth();
-        menuLock = { up: !railQuery.matches, width: Math.min(innerWidth - 2 * gutter, Math.max(248, Math.ceil(w))) };
+        const m = measureMenu();
+        const top = railQuery.matches ? sheet.top + 44 : raisedSheetTop();
+        const room = innerHeight - 8 - top;
+        menuLock = { top, width: Math.min(innerWidth - 2 * gutter, Math.max(248, Math.ceil(m.w))), height: Math.min(room, Math.ceil(m.h)) };
       }
-      menu.style.width = `${menuLock.width}px`;
-      menu.style.maxHeight = ''; menu.style.top = ''; menu.style.bottom = '';
       menu.style.left = `${sheet.left + gutter}px`;
-      if (menuLock.up) {
-        menu.style.top = 'auto';
-        menu.style.bottom = `${innerHeight - (sheet.top - 6)}px`;
-        menu.style.maxHeight = `${sheet.top - 6 - 8}px`;
-      } else {
-        const below = sheet.top + 44;
-        menu.style.top = `${below}px`;
-        menu.style.maxHeight = `${innerHeight - 8 - below}px`;
-      }
-      menu.style.setProperty('--slip-from', menuLock.up ? '4px' : '-4px');
+      menu.style.top = `${menuLock.top}px`; menu.style.bottom = '';
+      menu.style.width = `${menuLock.width}px`;
+      menu.style.height = `${menuLock.height}px`; menu.style.maxHeight = '';
+      menu.style.setProperty('--slip-from', '-4px');
     }
     function openTitleMenu() {
       const btn = document.getElementById('titleBtn'), menu = document.getElementById('titleMenu');
@@ -7548,8 +7572,8 @@
       if (sig === e.sig) return;
       e.sig = sig;
       const label = cityLabel(id);
-      e.el.innerHTML = `<button type="button" class="sec-name" data-${goAttr}="${escapeAttr(id)}" aria-label="Go to ${escapeAttr(label)}, ${n}"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button>` +
-        `<button type="button" class="sec-eye" data-eye="${escapeAttr(id)}" aria-label="${hidden ? 'Show' : 'Hide'} ${escapeAttr(label)}" aria-pressed="${hidden}">${eyeSvg(hidden, '--paper')}</button>`;
+      e.el.innerHTML = `<h3 class="sec-title"><button type="button" class="sec-name" data-${goAttr}="${escapeAttr(id)}" aria-label="Go to ${escapeAttr(label)}, ${n}${hidden ? ', hidden' : ''}"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button></h3>` +
+        `<button type="button" class="sec-eye" data-eye="${escapeAttr(id)}" aria-label="${hidden ? 'Show' : 'Hide'} ${escapeAttr(label)}">${eyeSvg(hidden, '--paper')}</button>`;
     }
     function renderLegHead(e, i, leg, first) {
       const label = cityLabel(leg.city), n = leg.rows.length, sig = [label, n, first].join('|');
@@ -7557,7 +7581,7 @@
       e.el.classList.toggle('is-first', first);
       if (sig === e.sig) return;
       e.sig = sig;
-      e.el.innerHTML = `<button type="button" class="sec-name" data-leg="${i}" aria-label="Show ${escapeAttr(label)}, ${n} ${n === 1 ? 'stop' : 'stops'}, on the map"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button>`;
+      e.el.innerHTML = `<h3 class="sec-title"><button type="button" class="sec-name" data-leg="${i}" aria-label="Show ${escapeAttr(label)}, ${n} ${n === 1 ? 'stop' : 'stops'}, on the map"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button></h3>`;
     }
     function dropHeads(store) { store.forEach(e => e.el.remove()); store.clear(); }
 

@@ -68,6 +68,8 @@ const W = ms => new Promise(r => setTimeout(r, ms));
   await shot('11-lowered');
   await tap('#titleBtn'); await W(400);
   await shot('12-lowered-menu');
+  await tap('#titleMenu [data-kind="plans"]'); await W(300);
+  await shot('12b-lowered-menu-plans');
   await page.keyboard.press('Escape'); await page.evaluate(() => document.activeElement && document.activeElement.blur()); await W(200);
   await tap('#collapseTab'); await W(700);
   // 13. zero plans
