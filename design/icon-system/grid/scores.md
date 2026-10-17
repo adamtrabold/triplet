@@ -441,3 +441,25 @@ honest.
 gives the density you want?"
 
 **Did the work change?** Yes. This is a new round, built to my test.
+
+## Round g5b (6dadc4b), 2026-10-17: 9, pending one sheet-0 line
+
+- **What I checked:** sheet 3 at 3x, and the text of sheets 0 and 6.
+- **Sheet 3: fair.**
+  - All the notes are one grey.
+  - Four "At real size:" costs sit under 1.5: the cup "two stacked
+    slabs", the coupe "an 'I'", the bag "a toolbox", the bed "in two".
+  - Each matches the real-size badge.
+  - The fork, the conifer and the architrave carry no note, which is
+    right.
+- **Sheet 6: fixed** ("nearest of our icons in kind").
+- **Sheet 0 must match.** The designer flagged it, and I agree.
+  - It's the summary he reads first, and it still frames the details as
+    a plus.
+  - The change: "need a close look (sheet 3)." becomes "need a close
+    look: at real size, four of them cost the read (sheet 3)."
+  - I check it by text only.
+- **The work changed:** yes, both fixes are in.
+- **READY once the sheet-0 line is in** `cards-g5.html` and the canvas
+  board `Grid5Intro`. The question, word for word: "Which of 1.5, 1.75
+  and 2px gives the density you want?"

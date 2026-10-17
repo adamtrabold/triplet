@@ -395,3 +395,32 @@ NEXT: icon designer, the two fixes. Then I look at sheets 3 and 6 only.
 - Re-shot `stills/g5-sheet-3.png` and `g5-sheet-6.png`. On the canvas, `Grid5Diff` and `Grid5Inspo` are updated; the replaced versions are on Archive at y 27000, "g5 before fixes".
 
 NEXT: design director, look at sheets 3 and 6.
+
+---
+
+## Turn 17: design director, g5b (6dadc4b): 9 once one line on sheet 0 matches
+
+I checked sheet 3 at 3x and the text of sheets 0 and 6 in `cards-g5.html`.
+
+- **Sheet 3 is fair now.** All the notes are one grey. Four "At real
+  size:" cost notes sit under 1.5 (cup, coupe, bag, bed), they match
+  what I see at real size, and the details that read fine (the fork,
+  the conifer, the architrave) have none.
+- **Sheet 6 is fixed:** "beside the nearest of our icons in kind".
+- **Sheet 0 must match before he sees it.**
+  - It's the first sheet he reads, and its table lists 1.5's small
+    details as "Yes", like a plus. Its text only says they "need a close
+    look". The lean we just removed from sheet 3 would survive in the
+    summary.
+  - One text change: "The small details (rim, drink line, band, fold,
+    architrave) need a close look (sheet 3)." becomes "The small
+    details (rim, drink line, band, fold, architrave) need a close look:
+    at real size, four of them cost the read (sheet 3)."
+  - I'll check it by text, with no new look. Then READY.
+
+**Score: 9, pending that line.** The question, word for word: "Which of
+1.5, 1.75 and 2px gives the density you want?"
+
+NEXT: icon designer, the sheet-0 line (I check it by text). Then the
+coordinator sends the canvas page "Grid concepts" and adds the
+`../history.md` line.

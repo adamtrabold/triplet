@@ -575,3 +575,10 @@ want sub pixels from prolly .8 to 2.5"
 - **The MUTCD lines are re-measured:** the centre is about 1.2–1.5px at
   the same size, and picture to picture all three of ours are heavier
   than the signs; 1.5 is the nearest.
+- **g5b (6dadc4b): 9, pending one line.** Sheet 3 is fair (one grey,
+  four honest costs under 1.5), and sheet 6 is fixed.
+  - Sheet 0's summary must match: "need a close look: at real size,
+    four of them cost the read (sheet 3)". I check it by text, then it's
+    READY.
+  - Lesson: a fairness fix has to reach the summary sheet too, not only
+    the detail sheet.
