@@ -114,3 +114,5 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
 > (chat) T2 language with t1 ui… what’s it look like in plans though
 > (chat, confirming "I2 + I1": the hotel label's look/wording as I1's bottom strip) Yes I
+> (chat, correcting the last pick) Ah I misdirected you sorry I meant t3 UI I1 content. This way of referring to things is confusing
+Read as: T3's UI (a quiet last row in the menu, styled like the other rows) carrying I1's content ("Plans 3 ›"). Process: stop labelling options with codes (T1/I2/…); use short descriptive names.
