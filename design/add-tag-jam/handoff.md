@@ -613,3 +613,259 @@ shadows stay as they are. [Main, CityDifferent, StarVisited, CityMetaRefined]
   - The Leaflet control look: `background:#fff`, `border:2px solid rgba(0,0,0,.2)`, `border-radius:4px`. That's the zoom control's own CSS, not a brand colour, so leave it as Leaflet's.
 - **Contents:** the ring glyph at 16px, then "All cities" in caps 11/14, `.1em`, `var(--navy)`.
 - **Tap:** fits every city that has places.
+
+---
+
+## Phase 1 fixes (after build check)
+
+Designer pass, 2026-10-17, on the CD + UX check (`checks/p1-cd-ux.md`).
+Each fix below is built and working in the prototype branch
+**`design-p1-fixes`**: one commit on top of `add-tag-p1`, so diff it against
+`add-tag-p1` to get the reference implementation. Stills are in
+`stills/p1-fixes/`:
+- contact sheets `1-choosing.png`, `2-plan-building.png`,
+  `3-plans-list.png`, `4-small.png`;
+- 3x raws in `raw/`;
+- `stills.js`, which renders them.
+
+The Impeccable gate **PASSES** on the prototype: the two low-contrast
+identities are gone.
+
+Everything not named here stays as built. These are still the builder's
+fixes, with no design answer needed:
+- the title button's target covering the 52px header band;
+- the section eye at least 44 wide;
+- the h2 nested inside the title button;
+- the eye's double announce;
+- the drag-across-leg blocker;
+- UX's title fallback when the gone-to city is hidden: "All places" plus the
+  shown count.
+
+### 1. Building a plan for one city (UX blocker)
+
+**Decision:** the open plan's addable places use the Places list's own city
+sections:
+- the same header: name = go to, tally, eye;
+- the same order (`sectionCityIds()`);
+- the same hidden state. There is one `hiddenCities` for both kinds, so hiding
+  a city here hides it in Places too, and the reverse.
+
+A plan's stops never hide (unchanged).
+
+An open plan's list, top to bottom:
+1. its leg sections (unchanged);
+2. the plan foot (fix 2);
+3. the caption band (`.plan-rule`);
+4. one city section per city that has addable places matching the chips, or
+   that is hidden. Inside a section: today's sort, shapes after pins, as in
+   Places;
+5. the "every place is in this plan" note when nothing is addable
+   (unchanged).
+
+- **Section headers:**
+  - exactly `.sec-head` (60px, air above, 2px `--hair` rule);
+  - the **first one under the caption is the compact 44px** (`is-first`),
+    like the first section in Places.
+- **Tally** in an add-from header: the places it would add (matching the
+  chips, not already stops).
+  - A hidden city gets the same count, worked out as if it were shown. Never
+    "0".
+- **Hidden header:** as in Places (fix 4), with its rows folded away.
+- **Tapping the name** (`data-addgo`, not `data-go`) keeps you **in the
+  plan**:
+  - the map runs `focusCity(id)`;
+  - the list scrolls so that header lands compact (fix 5's +16px);
+  - a hidden city shows again, as go-to does in Places;
+  - the title stays the plan's name.
+  - Reference: `planGoToCity()`.
+- **Eye:** `setCityHidden()`, unchanged.
+- **Caption:** "Add places" plus the standard tally, no brackets:
+  `ADD PLACES 89`.
+  - The category qualifier stays when chips are off: `ADD PLACES · CAFE 4`.
+  - Markup: `<span class="h-name">Add places{cats}</span><span class="tally">{n}</span>`.
+  - `.plan-rule` becomes `display:flex; align-items:baseline`.
+  - Font size **11px** (was 10px; Impeccable's 11px floor flags 10px on new
+    text). The tally is 11px too.
+  - The rest of the band stays: 26px tall, hair rule top and bottom, caps
+    .12em, `--ink-2`.
+  - `showPlanRule()` and the slip still anchor to this band.
+- Reorder (drag) never crosses the caption: unchanged.
+
+Why: the owner's job is "build a plan by filtering places", and the app
+already has the filter for it: hide the cities you don't care about, jump to
+the one you do. A second, Plans-only filter would be a second system (owner
+rules "Fewer variations", "clear systems"). The sections also show which city
+each addable place is in at a glance, which the flat block didn't.
+
+### 2. Rename / Delete plan's home
+
+**Decision:**
+- The ⋯ leaves the plans-list rows. They end in › only.
+- Rename and Delete live **in the open plan, at the foot of its stops** (the
+  plan foot), between the last stop and the caption band.
+- A plan with no stops shows the foot after its "No stops yet" note.
+
+The parts:
+- **Plan foot** (`.plan-foot`):
+  - `display:flex; align-items:center; min-height:44px;
+    padding:0 var(--gutter); background:var(--paper)`;
+  - no rule of its own: the last stop's rule sits above it and the caption's
+    top rule below it.
+- **Its two buttons** are today's `.plan-act` text buttons, **"Rename"** and
+  **"Delete plan…"**:
+  - 11px, letter-spacing .1em, `--ink-2`, 44px tall;
+  - `margin-left:var(--s1)` between them;
+  - the first keeps `.plan-act`'s `margin-left:calc(var(--s3) * -1)`, so its
+    text starts on the gutter (16px), the caption's left edge;
+  - `role="group"`, with `aria-label` = the plan's name.
+- **Rename:** the foot turns into today's in-row form, in place, and takes
+  focus:
+  - `.plan-foot.plan-form`: 56px tall, `--paper-raised`;
+  - input + Cancel / Save, from `planFormHtml('Plan name','save')`;
+  - Save calls `renamePlan()`.
+- **Delete plan…:** today's `confirm()` ("Delete "{name}"? Its places stay in
+  your list."). After a delete, Plans falls back to All plans
+  (`frameAllPlans()`), as today.
+- Both stay behind `requireAuth()`, as today.
+- The All plans list's `acting` / `renaming` modes and the `.plan-more` CSS
+  can be deleted.
+
+Why: a thing's own settings live inside the thing (as in iOS Notes or
+Contacts), so the plans list stays one clean column of names with no mark on
+every row (owner rules "Dots add an insane amount of visual noise" and
+"Simple, simple, simple"). It's still two taps away from anywhere: open the
+plan, then scroll to the end of its stops.
+
+### 3. Title menu position and width
+
+**Decision:** the menu decides its side and width once, when it opens, and
+never moves while open.
+
+- **Phone (the bottom sheet, raised or lowered): it always opens ABOVE the
+  sheet.**
+  - Its **bottom edge sits 6px above the sheet's top edge**:
+    `bottom = innerHeight - (sheet.top - 6)`.
+  - Its left edge is on the gutter. It grows upward.
+  - `max-height = sheet.top - 14` (an 8px top margin); past that it scrolls
+    inside.
+- **Rail (≥900px): it always opens BELOW**, top at the rail's top + 44px (as
+  first drawn), with `max-height` reaching to 8px above the bottom of the
+  viewport.
+- **Width, locked for each open:**
+  - render both sides and take the wider natural (`max-content`) width;
+  - clamp it to `[248px, 100vw − 2 × gutter]` and set it as a fixed `width`;
+  - swapping kinds never changes it. Long labels get an ellipsis
+    (`.menu-lab` already does this).
+- **Swapping kinds:** the bottom edge, left edge and width stay put; only the
+  top edge moves with the row count. So **the quiet row stays right where
+  your thumb is**.
+- **The quiet row is sticky:**
+  `#titleMenu .menu-row[data-kind] { position:sticky; bottom:0;
+  background:var(--paper-raised); z-index:1 }`, pressed `--paper-pressed`.
+  The kind switch never scrolls away, even when many plans overflow.
+- **Chevron:** while the menu is open, the title's 12px chevron turns 180° to
+  point at it (up):
+  - `transform 140ms cubic-bezier(.2,.8,.3,1)`;
+  - no transition with reduced motion;
+  - no rotation on the rail, where the menu is below.
+- The opening slip comes from the menu's side: `--slip-from: 4px` above,
+  `-4px` on the rail.
+- Resizing while open re-decides: clear the lock and place it again.
+- Reference: `menuLock`, `measureMenuWidth()`, `placeTitleMenu()`.
+
+Why: with real data (5 cities) the Places side needs 7 rows (282px), but only
+248px fit under the title in the 300px sheet. "Under the title" can't hold
+for both kinds, and that is what made it flip. Above, it always fits, it
+never covers the list you're choosing for, and it matches the sort menu,
+which already opens above.
+
+The owner saw it under the title in the earlier stills, so **the owner needs
+to see this change** (sheet 1).
+
+### 4. Hidden city: header and menu row contrast
+
+**Decision:**
+- A hidden city's name is **`--ink-2` at full strength** (6.17:1 on
+  `--paper`).
+- Its tally stays `--ink-2` (6.17:1).
+- The **closed eye carries the state**, and the rows fold away (unchanged).
+- No opacity anywhere.
+
+The CSS:
+- `.sec-head.is-hidden .sec-name { color: var(--ink-2); }` replaces
+  `opacity:.5`.
+- In the title menu,
+  `.menu-row.is-hidden .menu-lab, .menu-row.is-hidden .menu-ico { color: var(--ink-2); }`
+  replaces `opacity:.55`. The closed eye stays in the right slot, as built.
+
+It still reads as hidden: a grey name between navy ones, the slashed eye, and
+no rows under it (the next header follows straight away). That keeps the
+owner's pick ("Definitely h1 for hidden cities"): same place, greyed.
+
+### 5. Go-to landing
+
+**Decision:** a go-to lands the city's header at the **first section's
+compact height**.
+- The list scrolls to the header's top **plus 16px** (60 − 44). The air above
+  the name scrolls out of view, and the header shows as a 44px band right
+  under the list title.
+- A header that is already `is-first` lands at 0.
+
+Details:
+- `landingTrim(head) = is-first ? 0 : max(0, head.offsetHeight − 44)`, added
+  in `applySectionScroll()` and in the plan's add-from go-to.
+- The header stays 60px in the list (nothing changes size); only the landing
+  scroll changes. Rows then start at the same height on screen whichever city
+  you pick.
+- Near the end of the list, where it can't scroll that far, it lands as close
+  as it can (as today).
+
+Why: the owner said "First row doesn't need all the extra padding". The city
+you land on should look like the list's first city.
+
+### 6. Smaller looks
+
+- **Zero plans:** All plans shows the list's own **New plan row alone**, the
+  same row as under a list of plans.
+  - The outlined NEW PLAN button and its "No plans yet. / A plan's stops show
+    here…" lines go (`planEmptyBtn`, `planEmptyLine2`, the `wantNew` append).
+  - The title reads "All plans 0".
+- **The lowered sheet's 7px strip:** on the phone, the lowered header loses
+  its bottom rule:
+  `@media (max-width:899px) { #locations.collapsed #locationsHeader { border-bottom-color: transparent; } }`.
+  The strip under the title is then plain paper, part of the band, and it
+  also clears the home indicator. Nothing moves.
+- **Truncated title:** cut by script, not by CSS `text-overflow`, so the "…"
+  sits the same distance from the tally as an uncut name's last letter: the
+  6px flex gap, measured at about 8px ink to ink, cut or uncut.
+  - Put the full name in `.h-name`.
+  - If it overflows, binary-search for the longest prefix (with trailing
+    spaces trimmed) plus "…" that fits the box's width.
+  - Fit again on resize.
+  - `aria-label` keeps the full name.
+  - Reference: `fitTitleName()`.
+- **One name for one state:** the menu's top Places row reads **"All
+  places"** (was "All cities"). It matches the title it sets and the Plans
+  side's "All plans".
+
+### Checks for the builder
+
+Run the full Phase 1 set from the systems section: the gesture gate once at
+the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
+- the menu opens above, at the default sheet height and lowered, and keeps
+  the same width and bottom edge before and after the quiet-row swap;
+- the add-from block:
+  - its city sections;
+  - the eye, shared with Places;
+  - tapping a name keeps you in the plan;
+  - a hidden city's tally isn't 0;
+- the plan foot's Rename and Delete, and no `.plan-more` on the plans list;
+- zero plans shows one New plan row;
+- a go-to lands its header showing 44px.
+
+### Open for the owner
+
+- On the phone the menu now opens **upward from the list**, not under the
+  title as in the earlier stills. That's the one change to a look the owner
+  approved (sheet 1).
+- Rename and Delete moved off the plans list into the open plan (sheet 3).

@@ -188,3 +188,59 @@
 - v35: quiet bottom row (plain menu row, hair rule above, route/ring glyph, caps label + tally, › chevron) on both menus; navy strip archived as PlacesPlansStrip; all Now board titles, Decided stickies and captions renamed without option codes.
 - v36: menu rows: label top:1px, CHECK16 path raised 0.75px, quiet row gets the rows’ own bottom hairline (no extra top rule); measured icon/text/check centres within 0.4px on every row. Places and Plans decided; sticky empty.
 - Build handoff: visual part of handoff.md written (phases 1–4, tokens, board files); end snapshot snapshots/2-end-design-decided.png.
+
+## 2026-10-17, Phase 1 fixes after the build check (new designer; lane 2, owner is the check)
+- **Input:** `checks/p1-cd-ux.md`: the UX blocker on building a plan for one
+  city; CD's cap for the ⋯ dots; the menu jumping; the hidden-city contrast
+  failing Impeccable; the 60px of air after a go-to; small looks.
+- **Method:** prototyped on the real build, branch `design-p1-fixes` (one
+  commit on `add-tag-p1`). Stills in `stills/p1-fixes/` (4 contact sheets +
+  3x raws + `stills.js`). Impeccable gate on the prototype: PASSED.
+- **Decisions** (exact values in handoff.md, "Phase 1 fixes (after build
+  check)"):
+  1. **Building a plan for one city:**
+     - the open plan's addable places use the Places list's city sections:
+       the same header, eye and order, and one hidden state shared by both
+       kinds;
+     - tapping a name keeps you in the plan (map and list go to the city);
+     - the first section under the caption is compact;
+     - the caption reads "ADD PLACES 89" at 11px.
+     - Rejected: a separate Plans-only city filter (a second system); sorting
+       the plan's own cities first (sections would jump as you add stops).
+  2. **Rename / Delete:**
+     - the ⋯ is gone from the plans list;
+     - a plan foot after the open plan's stops carries "Rename" and "Delete
+       plan…" (today's .plan-act text buttons at 11px), and Rename becomes
+       today's form in place.
+     - Rejected: swipe on plan rows (gesture work, undiscoverable); a ⋯ at
+       44px (CD's rejected pattern); actions in the title menu (it's for
+       getting around, not for editing).
+  3. **Title menu:**
+     - on the phone it always opens above the sheet, its bottom edge 6px over
+       the sheet's top edge, growing upward;
+     - on the rail it always opens below;
+     - its width is locked when it opens (the wider of the two sides, 248px
+       to the viewport minus the gutters);
+     - the quiet row is sticky at the foot, and the title chevron turns up
+       while it's open.
+     - Why: 7 real rows (282px) can't fit under the title in a 300px sheet,
+       and that is what made it flip.
+  4. **Hidden city:** the name in `--ink-2` at full strength (no opacity), in
+     the header and the menu row; the closed eye carries the state.
+  5. **Go-to landing:** the scroll adds 16px (60 − 44), so the header shows as
+     a 44px band, like the first city.
+  6. **Small looks:**
+     - zero plans shows the New plan row alone;
+     - the lowered header drops its bottom rule;
+     - the title is cut by script, so the "…" sits as close to the tally as an
+       uncut name's last letter;
+     - the menu's top row reads "All places".
+- **Open, for the owner:**
+  - the menu opening upward (it differs from the approved stills);
+  - rename/delete living in the open plan.
+- **Watch:** an open plan now stacks three bands between the stops and the
+  places (the foot, the caption, a compact header). It reads fine in the
+  stills; if the owner finds it heavy, the first idea is to fold the caption
+  into the first add-from header's air.
+- **Next:** the owner looks at sheets 1–3; then the builder applies all of
+  it in one batch from `design-p1-fixes` and the addendum.
