@@ -10,6 +10,28 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
+- **Search engine trial: Photon vs today's Nominatim (automated)** (owner,
+  2026-10-17, verbatim: "Add it to the backlog but I want the test
+  automated not manual"). Not started.
+  - Candidate: Photon (github.com/komoot/photon), an OSM-based geocoder
+    built for type-as-you-go: typo-tolerant, takes a lat/lon location bias,
+    free fair-use public API at `photon.komoot.io`.
+  - The owner picked "Search 1": search worldwide, rank places near the
+    owner's cities first. Photon's location bias is what makes that work.
+  - The trial is an automated script, never a manual check: a fixed set of
+    real queries goes through both today's Nominatim call (exactly as
+    `nominatim()` in `index.html` builds it) and Photon (lat/lon bias toward
+    the relevant city); each result is scored against expected answers and a
+    pass/fail table comes out. Cases: Tivoli from Reykjavík and from
+    Copenhagen; Blue Lagoon; Sundhöllin; misspellings such as
+    "Hallgrimskirja"; a café by name; "Vesterbro"; a street address; an
+    airport. Also record each result's OSM class/type, for the TYPE
+    auto-detect mapping in `design/add-tag-jam/jam.md` Turn 11 (on branch
+    `claude/elegant-galileo-1c5ntm`, not on main yet).
+  - Checked from the sandbox 2026-10-17: `photon.komoot.io` and
+    `nominatim.openstreetmap.org` both return HTTP 200, so the script can
+    run here or in CI. Keep request volume polite: a handful of queries with
+    delays between them.
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
   -- it should be the experience pre-sign in"); spec: `docs/shipped.md`
