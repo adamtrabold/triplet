@@ -78,7 +78,7 @@ function join(prims, penW) {
 // turn) and what is its interior angle on the ink side? The law gives a radius; the corner is
 // replaced by ONE cubic (a circular-arc fit), so each rounded corner adds exactly one curve.
 const r3 = v => Math.round(v * 1000) / 1000;
-function corners(item, law, info) {
+function corners(item, law, info, opts = {}) {
   const kids = item instanceof CompoundPath ? item.children.slice() : [item];
   const out = [];
   for (const p of kids) {
@@ -105,34 +105,69 @@ function corners(item, law, info) {
       let r = law({ convex, angle: inkAngle, lin, lout, straight, pt: [P0.x, P0.y] });
       if (!r || r <= 0) { cs.push(null); continue; }
       let d = r * Math.tan(ang / 2);
-      cs.push({ d, r, ang, convex, angle: inkAngle });
+      cs.push({ d, r, ang, turn, convex, angle: inkAngle });
       if (info) info.push({ x: r3(P0.x), y: r3(P0.y), r: r3(r), convex, angle: Math.round(inkAngle) });
+    }
+    // COLLISION RULE (g6 fix): two rounds that want more than a straight edge holds, where the edge
+    // ends in two right-angle turns the same way (a slot end, a bar end), become ONE true arc: a
+    // semicircle of radius L/2 centred on the edge, drawn as two equal quarter arcs meeting at its middle.
+    const caps = new Set();
+    if (!opts.noCaps) for (let i = 0; i < n; i++) {
+      const a = cs[i], b = cs[(i + 1) % n], cv = curves[i], L = cv.length;
+      if (!a || !b || !cv.isStraight() || a.d + b.d <= L - 0.2) continue;   // they collide, or would leave a sliver
+      const q = Math.PI / 2;
+      if (Math.sign(a.turn) !== Math.sign(b.turn) || Math.abs(Math.abs(a.turn) - q) > 0.03 || Math.abs(Math.abs(b.turn) - q) > 0.03) continue;
+      caps.add(i); a.d = L / 2; b.d = L / 2; a.cap = 'start'; b.cap = 'end';
+      if (info) info.push({ cap: true, x: r3(cv.getPointAtTime(0.5).x), y: r3(cv.getPointAtTime(0.5).y), r: r3(L / 2) });
     }
     // clamp: two trims on one curve never pass each other
     for (let i = 0; i < n; i++) {
+      if (caps.has(i)) continue;
       const a = cs[i], b = cs[(i + 1) % n], L = curves[i].length;
       const da = a ? a.d : 0, db = b ? b.d : 0;
-      if (da + db > L * 0.96) { const k = (L * 0.96) / (da + db); if (a) a.d = Math.min(a.d, a.d * k); if (b) b.d = Math.min(b.d, b.d * k); }
+      // two trims that would pass each other, or leave a run under 0.2px (a sliver), share the edge
+      // exactly: both scale by the same factor so they meet, and the edge vanishes evenly (symmetric)
+      if (a && b && (a.cap || b.cap) && da + db > L - 0.2) { // a semicircle keeps its size; the other round gives way
+        if (a.cap && b.cap) continue;
+        const keep = a.cap ? a : b, give = a.cap ? b : a; give.d = Math.max(0, L - keep.d);
+      }
+      else if (a && b && da + db > L - 0.2) { const k = L / (da + db); a.d *= k; b.d *= k; }
+      else if (da + db > L * 0.96) { const k = (L * 0.96) / (da + db); if (a) a.d = Math.min(a.d, a.d * k); if (b) b.d = Math.min(b.d, b.d * k); }
     }
+    for (let i = 0; i < n; i++) if (cs[i] && cs[i].d < 0.005) cs[i] = null; // a round that gave way entirely is a plain corner
     // emit: trimmed curves + one cubic per rounded corner
     const segs = []; // cubic list [p0,c1,c2,p3]
     const part = (cv, t0, t1) => {
       const c = cv.getPart(t0, t1);
       return [c.point1, c.point1.add(c.handle1), c.point2.add(c.handle2), c.point2];
     };
+    const K90 = (4 / 3) * Math.tan(Math.PI / 8); // a quarter circle's handle, as a share of its radius
     for (let i = 0; i < n; i++) {
       const cv = curves[i], a = cs[i], b = cs[(i + 1) % n], L = cv.length;
+      if (caps.has(i)) { // the second quarter: from the edge's middle to the next curve
+        const nx = curves[(i + 1) % n], r = L / 2, tb = nx.getTimeAt(r) ?? 0;
+        const apex = cv.getPointAtTime(0.5), tE = cv.getTangentAtTime(0.5), pB = nx.getPointAtTime(tb), tB = nx.getTangentAtTime(tb);
+        segs.push({ kind: 'C', pts: [apex, apex.add(tE.multiply(K90 * r)), pB.subtract(tB.multiply(K90 * r)), pB] });
+        continue;
+      }
       const t0 = a ? cv.getTimeAt(a.d) : 0, t1 = b ? cv.getTimeAt(L - b.d) : 1;
-      segs.push({ kind: cv.isStraight() ? 'L' : 'C', pts: part(cv, t0 == null ? 0 : t0, t1 == null ? 1 : t1) });
-      if (b) {
+      // a curve whose two rounds now meet has nothing left of itself: emit no zero-length piece
+      if (L - (a ? a.d : 0) - (b ? b.d : 0) > 0.01) segs.push({ kind: cv.isStraight() ? 'L' : 'C', pts: part(cv, t0 == null ? 0 : t0, t1 == null ? 1 : t1) });
+      if (b && b.cap === 'start') { // the first quarter: from this curve to the middle of the capped edge
+        const ce = curves[(i + 1) % n], r = ce.length / 2;
+        const pA = cv.getPointAtTime(t1 == null ? 1 : t1), tA = cv.getTangentAtTime(t1 == null ? 1 : t1);
+        const apex = ce.getPointAtTime(0.5), tE = ce.getTangentAtTime(0.5);
+        segs.push({ kind: 'C', pts: [pA, pA.add(tA.multiply(K90 * r)), apex.subtract(tE.multiply(K90 * r)), apex] });
+      } else if (b) {
         const nx = curves[(i + 1) % n];
         const tb = nx.getTimeAt(b.d) ?? 0;
-        const pA = segs[segs.length - 1].pts[3], pB = nx.getPointAtTime(tb);
+        const pA = cv.getPointAtTime(t1 == null ? 1 : t1), pB = nx.getPointAtTime(tb);
         const tA = cv.getTangentAtTime(t1 == null ? 1 : t1), tB = nx.getTangentAtTime(tb);
         const h = (4 / 3) * Math.tan(b.ang / 4) * (b.d / Math.tan(b.ang / 2));
         segs.push({ kind: 'C', pts: [pA, pA.add(tA.multiply(h)), pB.subtract(tB.multiply(h)), pB] });
       }
     }
+    if (!segs.length) continue;  // a degenerate piece the booleans left: nothing to draw
     let d = `M${r3(segs[0].pts[0].x)} ${r3(segs[0].pts[0].y)}`;
     for (const s of segs) {
       const [p0, c1, c2, p3] = s.pts;
@@ -163,9 +198,9 @@ function xform(prims, k, ox, oy, tx, ty) {
   });
 }
 
-function build(prims, { law, penW, info, centre } = {}) {
+function build(prims, { law, penW, info, centre, noCaps } = {}) {
   const it = join(prims, penW);
-  const d = law ? corners(it, law, info) : it.pathData;
+  const d = law ? corners(it, law, info, { noCaps }) : it.pathData;
   const b = it.bounds;
   // farthest ink point from the badge centre, for the fit check
   let far = 0;

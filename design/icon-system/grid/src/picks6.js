@@ -37,7 +37,7 @@ const DRAW = {
     const bt = X(3) + cut_;                                        // beam top
     out.push(R(X(0.75), bt, X(10.5), W));                          // beam (entablature)
     const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
-    for (let i = 0; i < n; i++) out.push(R(x0 + i * (W + gap), bt + W - 0.01, W, s - W - (bt + W) + 0.02));
+    for (let i = 0; i < n; i++) out.push(R(x0 + i * (W + gap), bt + W, W, s - W - (bt + W)));
     out.push(R(0, s - W, s, W));                                   // plinth on BASE
     return out;
   },
