@@ -582,7 +582,9 @@
        closes the menu and opens the form (openAddForm()). The menu opening already closed the
        filters panel, so this never lifts the badge over the panel. */
     body.sort-open #floatingAddBtn,
-    body.sort-open #addFocus { z-index: 2560; }
+    body.sort-open #addFocus,
+    body.menu-open #floatingAddBtn,
+    body.menu-open #addFocus { z-index: 2560; }
     #floatingAddBtn:focus-visible { outline: none; }   /* the ring is #addFocus: the mask would clip one drawn here */
     #floatingAddBtn:focus-visible + #addFocus { display: block; }
     #addFocus svg { display: block; overflow: visible; width: 100%; height: 100%; }
@@ -1066,55 +1068,14 @@
       transform: translateY(0);
     }
 
-    /* Categories are a wrapping BADGE GRID (multi-select). Cities are a flush
-       SEGMENTED CONTROL (single-select, matching setActiveCity). They used to
-       look identical, which miscommunicated the interaction model. */
+    /* Categories are a wrapping BADGE GRID (multi-select). Cities left the
+       panel (add-tag-jam phase 1): the list title's menu goes to a city and
+       each city section's eye shows / hides it. */
     #filters {
       display: flex;
       flex-wrap: wrap;
       gap: var(--s2);
       padding: var(--s4) var(--gutter);
-    }
-
-    /* The one ornamented divider in the app: a rope/braid hairline, used
-       exactly once. Ornament that appears once reads as craft; repeated, as
-       wallpaper. (ref 7) */
-    #cityFilters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--s2);
-      padding: var(--s4) var(--gutter) var(--s4) var(--gutter);
-      border-bottom: 4px solid transparent;
-      border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='4'%3E%3Cpath d='M0 2 Q2 0 4 2 T8 2 T12 2 T16 2' fill='none' stroke='%23D8CEBA' stroke-width='1.5'/%3E%3C/svg%3E") 0 0 4 0 repeat;
-    }
-
-    /* Independently-rounded chips, gapped -- same pattern as .filter-btn
-       below. Every chip stands alone (no first/last-on-line special
-       casing), so wrapping to any number of lines just works. Single-
-       select is communicated by .active's solid fill, never by borders
-       touching (design/archive/city-filter-wrap/concept, Option B). */
-    .city-btn {
-      padding: var(--s2) var(--s3);
-      border: 1px solid var(--hair);
-      border-radius: 3px;
-      font-family: var(--font-ui);
-      font-stretch: 75%;
-      text-transform: uppercase;
-      font-size: 12px;
-      line-height: 16px;
-      letter-spacing: 0.06em;
-      font-weight: 600;
-      cursor: pointer;
-      background: var(--paper-raised);
-      color: var(--ink);
-    }
-
-    .city-btn:active:not(.active) { background: var(--state-press); }
-    .city-btn.active:active { background: var(--state-on-press); border-color: var(--state-on-press); }
-    .city-btn.active {
-      background: var(--state-on-bg);
-      border-color: var(--state-on-bg);
-      color: var(--state-on-fg);
     }
 
     /* Chips carry INK text on paper, never white-on-category-color (which was
@@ -1246,52 +1207,64 @@
 
     /* Same surface as the list body -- --paper, not the --figure
        field. Navy text on paper is 12.51:1, comfortably AA.
-       The h2 title's left edge matches every row's name: collapseBtn is
-       resized to --col-glyph (28px, see its own rule) so it occupies the
-       identical leading slot a row's glyph column does -- gutter(16) +
-       col-glyph(28) + gap(12) = 56px, same formula as "content always
-       begins at 56px" above. On the desktop rail collapseBtn is display:none
-       (see the min-width:900px block), so a ::before spacer of the same
-       width stands in for it there -- the title lands on 56px either way. */
+       LIST HEADER (add-tag-jam phase 1, ListHeaderType "one step up, 18px"):
+       52px tall (9 + 34 + 9), the title on the gutter -- the collapse arrow
+       left the header for the tab on the sheet's top edge (#collapseTab). */
     #locationsHeader {
       display: flex;
       align-items: center;
       gap: var(--gap);
       flex-shrink: 0;
-      /* REAL vertical inset, not height-driven flex centring: this band
-         paints a background AND a rule on the bottom edge, so its text
-         needs measured clearance rather than whatever centring happens to
-         leave. 12 + 32 + 12 = 56px content box, + the 1px rule below. */
-      min-height: 56px;
-      padding: var(--s3) var(--gutter);
+      min-height: 52px;
+      padding: 9px var(--gutter);
       background: var(--paper);
       color: var(--navy);
       border-bottom: 1px solid var(--hair);
     }
 
+    /* The title is the list's one menu trigger (PlacesPlansKinds): what the
+       list shows, its tally, a 12px chevron. It reads only what is shown,
+       never "Places" or "Plans" (owner: "Places/plans does not need to be in
+       the list header"). */
+    .title-btn {
+      position: relative; flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px;
+      margin: 0; padding: 0; border: none; background: transparent; color: var(--navy); cursor: pointer;
+      text-align: left; font: inherit; -webkit-tap-highlight-color: transparent;
+    }
+    .title-btn::before { content: ''; position: absolute; left: -4px; right: 0; top: -5px; bottom: -5px; }   /* 44px tall; never into the ⇅ zone */
+    .title-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--navy); border-radius: 2px; }
+    .title-btn .title-chev { width: 12px; height: 12px; flex: none; display: block; }
     #locationsHeader h2 {
+      font-family: var(--font-ui);
       font-stretch: 75%;
       text-transform: uppercase;
-      font-size: 15px;
-      line-height: 20px;
+      font-size: 18px;
+      line-height: 22px;
       letter-spacing: 0.08em;
       font-weight: 700;
       margin: 0;
-      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: baseline;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    }
+    #locationsHeader .h-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+    /* THE TALLY: the count after a name, one treatment everywhere (title,
+       title menu, section headers): no brackets, a quiet grey step down. */
+    .tally {
+      margin-left: 0.45em; font-size: 0.8em; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--ink-2); font-variant-numeric: tabular-nums; flex: none; line-height: 1;
     }
 
-    #collapseBtn,
     #sortBtn,
     #toggleFiltersBtn,
     #centerMeBtn {
       background: transparent;
       border: none;
       color: var(--navy);
-      /* 32px square: sits inside the header's 12px inset without pushing the
+      /* 32px square: sits inside the header's 9px inset without pushing the
          bar taller, and stays a usable tap target. */
       width: 32px;
       height: 32px;
@@ -1304,31 +1277,38 @@
       transition: opacity 0.15s ease;
     }
 
-    /* Alignment spine: collapseBtn is the header's leading item, same slot a
-       row's glyph column occupies (--col-glyph 28px, not the shared 32px
-       button size above) so 16 (gutter) + 28 + 12 (gap) = 56px lines up the
-       title's text with every row's name -- see the header/desktop rules
-       below for the matching gutter+col-glyph+gap math on the collapsed
-       (desktop-rail) state, where this button is hidden. */
-    #collapseBtn { width: var(--col-glyph); height: var(--col-glyph); font-size: 14px; line-height: 1; transition: transform 0.3s ease; }
-    #collapseBtn.collapsed { transform: rotate(-180deg); }
-
-    /* State system: all four header icon buttons share one 3px tile.
+    /* State system: the header icon buttons share one 3px tile.
        Pressed = paper-pressed fill; open = reversed navy tile. The order
        matters: open comes after pressed, so a press on an open button
        keeps the tile. Loading = --state-off-alpha. */
-    #collapseBtn,
     #sortBtn,
     #toggleFiltersBtn,
     #centerMeBtn { border-radius: 3px; transition: background 0.12s ease, color 0.12s ease, opacity 0.15s ease, transform 0.3s ease; }
     #toggleFiltersBtn:active,
     #centerMeBtn:active,
     #sortBtn:active { background: var(--state-press); }
-    /* The collapse arrow keeps its 28px spine box; its pressed tile is the
-       same 32px as the others (2px bleed each side, so the spine holds). */
-    #collapseBtn { position: relative; isolation: isolate; }
-    #collapseBtn::before { content: ''; position: absolute; inset: -2px; z-index: -1; border-radius: 3px; }
-    #collapseBtn:active::before { background: var(--state-press); }
+
+    /* COLLAPSE TAB (CollapseRefined K2): icon only, a paper tab on the
+       sheet's top edge at the right, so it clears the + at the bottom-left.
+       Its paper runs into the sheet's; the sheet carries the tab's hairline
+       along its whole top edge (owner: "the list needs the subtle top border
+       that the tab has"). It rides the sheet's own transform. */
+    #locations { border-top: 1px solid var(--hair); }
+    #collapseTab {
+      position: absolute; right: var(--gutter); top: -24px; z-index: 3;
+      width: 44px; height: 24px; box-sizing: border-box; margin: 0; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--paper); color: var(--navy); cursor: pointer;
+      border: 1px solid var(--hair); border-bottom: 0; border-radius: 4px 4px 0 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #collapseTab::before { content: ''; position: absolute; left: -1px; right: -1px; bottom: 0; height: 44px; }   /* 44px tall, upward */
+    #collapseTab svg { width: 16px; height: 16px; display: block; transition: transform 0.3s ease; }
+    #collapseTab.collapsed svg { transform: rotate(180deg); }
+    #collapseTab:active { background: var(--state-press); }
+    #collapseTab:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--navy); }
+    /* The map's credit line sits above the tab, never under it. */
+    .leaflet-bottom.leaflet-right { margin-bottom: 24px; }
     #toggleFiltersBtn.active,
     #sortBtn[aria-expanded="true"] { background: var(--state-on-bg); color: var(--state-on-fg); }
     #toggleFiltersBtn.active:active,
@@ -1365,16 +1345,17 @@
        (the desktop rail). One fixed width, sized for the longest state
        (NEAREST + "LOCATION OFF"). A transparent scrim under it swallows the
        outside tap; the map's attribution steps out while it's open. */
-    #sortScrim { position: fixed; inset: 0; z-index: 2550; background: transparent; }
-    #sortMenu, #sortNote {
+    #sortScrim, #menuScrim { position: fixed; inset: 0; z-index: 2550; background: transparent; }
+    #sortMenu, #sortNote, .menu-box {
       position: fixed; z-index: 2600;
       background: var(--paper-raised); border: 1px solid var(--navy); border-radius: 2px;
       box-shadow: 2px 2px 0 var(--navy);
       padding: 0; margin: 0;
     }
     #sortMenu { width: 200px; }
-    #sortScrim[hidden], #sortMenu[hidden], #sortNote[hidden] { display: none; }
+    #sortScrim[hidden], #sortMenu[hidden], #sortNote[hidden], #menuScrim[hidden], .menu-box[hidden] { display: none; }
     body.sort-open .leaflet-control-attribution,
+    body.menu-open .leaflet-control-attribution,
     body.sort-noting .leaflet-control-attribution { visibility: hidden; }   /* never half-covered: a required credit */
     .sort-cap {
       height: 24px; display: flex; align-items: center; padding: 0 var(--s3) 0 36px;
@@ -1413,7 +1394,7 @@
       font-size: 11px; line-height: 14px; letter-spacing: 0.08em; color: var(--navy); white-space: nowrap;
     }
     @media (prefers-reduced-motion: no-preference) {
-      #sortMenu.opening { animation: sortSlip 140ms cubic-bezier(.2,.8,.3,1); }
+      #sortMenu.opening, .menu-box.opening { animation: sortSlip 140ms cubic-bezier(.2,.8,.3,1); }
     }
     @keyframes sortSlip {
       from { opacity: 0; transform: translateY(var(--slip-from, 4px)); }
@@ -1739,103 +1720,126 @@
     .locations-empty svg { display: block; margin: 0 auto var(--s3); color: var(--hair); }
 
     /* =====================================================================
-       PLANS (design/plans-deepdive/v3/README.md, docs/shipped.md "Plans").
-       Places | Plans is ONE joined switch, equal halves, pinned at the top
-       of the filter panel; in Plans only, the plan picker is a second row
-       under it. The city and category chips below are the same in both
-       views and scroll under the pinned rows. Places is the app as it was. Plans
-       lists the open plan's stops, Places' group divider with a caption,
-       then every place the filters match (+ adds it). No navy lines: the
-       switch, picker, plan list, slip and lifted row use the city chips'
-       --hair language; the ON half is the state system's solid navy tile.
-       State system: pressed = pale tile, on = navy tile + paper text,
-       unavailable = ink-2 text + a reason (the sort menu's Nearest rule).
+       PLANS (design/plans-deepdive/v3/README.md, docs/shipped.md "Plans";
+       add-tag-jam phase 1). The list title's menu picks the kind and the
+       item: Places (All cities, each city) or Plans (All plans, each plan,
+       New plan); its quiet last row swaps to the other kind. All plans is a
+       list of plans; a plan open lists its stops in leg sections, Places'
+       group divider with a caption, then every place the filters match (+
+       adds it). State system: pressed = pale tile, on = navy tile + paper
+       text, unavailable = ink-2 text + a reason.
        ===================================================================== */
-    .seg-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s3) var(--gutter); border-bottom: 1px solid var(--hair);
-      position: sticky; top: 0; z-index: 6; background: var(--paper); }   /* pinned: the switch never moves; the chips scroll under it */
-    /* One joined track: each half draws its own 1px edge (the shared middle
-       rule belongs to the second), so the track has no box of its own. */
-    .seg { display: flex; flex: 1 1 100%; height: 36px; }
-    .seg button {
-      flex: 1 1 0; position: relative; border: 1px solid var(--hair); margin: 0; padding: 0; background: var(--paper-raised); color: var(--navy); cursor: pointer;
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-size: 12px; line-height: 16px; letter-spacing: 0.08em; font-weight: 700;
-      -webkit-tap-highlight-color: transparent; transition: background 0.12s ease, color 0.12s ease;
-    }
-    .seg button:first-child { border-radius: 3px 0 0 3px; }
-    .seg button + button { border-left: none; border-radius: 0 3px 3px 0; }
-    .seg button::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
-    .seg button:active { background: var(--state-press); }
-    .seg button[aria-checked="true"] { background: var(--state-on-bg); border-color: var(--state-on-bg); color: var(--state-on-fg); }
-    .seg button[aria-checked="true"]:active { background: var(--state-on-press); }
-    .seg button:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
-    .seg button[aria-checked="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--navy), inset 0 0 0 4px var(--paper); }
 
-    /* The plan picker (Plans only): the open plan's name with a chevron, a
-       city chip's hairline, on its own row under the switch. */
-    #planPick { flex: 1 1 100%; min-width: 0; }
-    #filtersPanel:not(.plans-side) #planPick { display: none; }
-    .plan-picker {
-      position: relative; display: flex; align-items: center; gap: var(--s1); width: 100%; height: 36px; margin: 0; padding: 0 var(--s1) 0 var(--s3);
-      border: 1px solid var(--hair); border-radius: 3px; background: var(--paper-raised); color: var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent;
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 16px; letter-spacing: 0.06em;
-    }
-    .plan-picker::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 46px target */
-    .plan-picker .plan-name { flex: 1 1 auto; text-align: left; font-size: 12px; }
-    .plan-picker svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
-    /* No plans: an empty select -- "NO PLAN" in the picker's own type, --ink-2, chevron kept. */
-    .plan-picker.is-empty .plan-name { color: var(--ink-2); }
-    .plan-picker:active { background: var(--state-press); }
-    /* Open = the pressed tone with the chevron turned up. A named exception to
-       the state system's "open = navy tile": beside the solid PLANS half, navy
-       read as a third segment. */
-    .plan-picker[aria-expanded="true"] { background: var(--state-press); }
-    .plan-picker[aria-expanded="true"] svg { transform: rotate(180deg); }
-    .plan-picker[aria-disabled="true"] { opacity: var(--state-off-alpha); cursor: default; }
-    .plan-picker:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--navy); }
-    /* The picker's slip drops over the chips (no layout change): every plan
-       with its count and ⋯ (rename / delete that plan), then New plan. */
-    #planLedger { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(100% - 6px); z-index: 5; box-sizing: border-box;
-      background: var(--paper-raised); border: 1px solid var(--hair); border-radius: 3px; box-shadow: 0 2px 0 var(--hair); }
-    #planLedger[hidden] { display: none; }
-    #filtersPanel .under-plan-slip { visibility: hidden; }   /* a chip the open slip covers or would cut (layoutPlanLedger) */
-    /* 44px ledger rows + a 1px --hair rule: the sort menu's row voice. */
-    .plan-opt {
-      display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center;
-      height: 45px; border-bottom: 1px solid var(--hair); position: relative;
-    }
-    .plan-opt:last-child { border-bottom: none; }
-    .plan-scroll { overflow-y: auto; overscroll-behavior: contain; }   /* layoutPlanLedger() caps it */
-    .plan-scroll .plan-opt:last-child { border-bottom: 1px solid var(--hair); }   /* New plan sits below, pinned */
-    .plan-pick {
-      display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; column-gap: var(--s2);
-      height: 44px; min-width: 0; padding: 0 0 0 var(--s3); margin: 0; border: none; background: transparent; cursor: pointer; text-align: left;
-      color: var(--navy); -webkit-tap-highlight-color: transparent;
-    }
-    .plan-opt:not(:has(.plan-more)) .plan-pick { grid-column: 1 / -1; padding-right: 44px; }
-    .plan-pick:active { background: var(--state-press); }
-    .plan-pick:focus-visible, .plan-more:focus-visible, .plan-act:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--navy); }
-    .plan-check { width: 16px; height: 16px; display: block; visibility: hidden; }
-    .plan-pick[aria-current="true"] .plan-check,
-    .plan-new .plan-check { visibility: visible; }
-    .plan-name, .plan-act {
+    /* ---- THE MENU (add-tag-jam "One menu spec"): every new menu is the sort
+       menu's box and row voice -- built once here (.menu-box / .menu-row) and
+       reused. The box itself is #sortMenu's (see its rule): --paper-raised, a
+       1px navy edge, the 2px navy offset, 2px radius. Natural width, edge to
+       edge dividers, a 16px icon column, the check on the right. */
+    .menu-box { width: max-content; min-width: 200px; overflow: hidden; }
+    #titleMenu { min-width: 248px; max-width: calc(100vw - 2 * var(--gutter)); overflow-y: auto; overscroll-behavior: contain; }
+    .menu-cap {
+      height: 24px; display: flex; align-items: center; padding: 0 var(--s3); border-bottom: 1px solid var(--navy);
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
-      font-size: 13px; line-height: 16px; letter-spacing: 0.05em;
+      font-size: 10px; line-height: 12px; letter-spacing: 0.12em; color: var(--ink-2);
     }
-    .plan-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-    .plan-count {
+    .menu-row {
+      position: relative; display: flex; align-items: center; gap: var(--s2);
+      width: 100%; height: 40px; padding: 0 var(--s3); margin: 0;
+      background: transparent; border: none; border-bottom: 1px solid var(--hair);   /* the last row keeps its rule too */
+      color: var(--navy); text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .menu-row::before { content: ''; position: absolute; left: 0; right: 0; top: -2px; bottom: -2px; }   /* 44px targets */
+    .menu-row:active, .menu-row:focus-visible { background: var(--paper-pressed); outline: none; }
+    .menu-row:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    .menu-ico, .menu-end { width: 16px; height: 16px; flex: none; display: block; }
+    .menu-ico { color: var(--navy); }
+    /* The label sits 1px low: caps ride 1.4px high against the icons without it (owner: "icon
+       alignment isn't centered"); measured, icon, text and check centres land within 0.4px. */
+    .menu-lab {
+      position: relative; top: 1px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
-      font-size: 11px; line-height: 12px; letter-spacing: 0.08em; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums;
+      font-size: 13px; line-height: 16px; letter-spacing: 0.05em; color: var(--navy);
     }
-    .plan-new { color: var(--ink-2); }
+    .menu-gap { flex: 1 1 auto; }
+    .menu-row.is-hidden { opacity: 0.55; }
+
+    /* ---- CITY SECTION HEADER (SectionSeparate S1 "air above, light rule";
+       SectionHeaders; GoToSections). A keyed non-row node in the list: never
+       a gesture target. The name (a Go to button) rests on a 2px --hair rule
+       with the air above it; the eye shows / hides the city. The 18px left
+       edge lines the name up with the row badges' left edge (16 + (28-24)/2). */
+    .sec-head {
+      display: grid; grid-template-columns: 1fr var(--col-glyph); column-gap: var(--gap); align-items: end;
+      height: 60px; padding: 0 var(--gutter) 6px 18px;
+      background: var(--paper); border-bottom: 2px solid var(--hair);
+      -webkit-user-select: none; user-select: none;
+    }
+    .sec-name {
+      position: relative; justify-self: start; max-width: 100%; min-width: 0; height: 32px; display: flex; align-items: flex-end; padding: 0 0 4px; margin: 0;
+      background: transparent; border: none; cursor: pointer; text-align: left; -webkit-tap-highlight-color: transparent;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 12px; line-height: 14px; letter-spacing: 0.12em; color: var(--navy); white-space: nowrap;
+    }
+    .sec-name::before { content: ''; position: absolute; left: -6px; right: -6px; top: -6px; bottom: -6px; }   /* 44px target */
+    .sec-name .h-name { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    .sec-name .tally { font-size: 11px; }
+    .sec-name:active { opacity: 0.6; }
+    .sec-eye {
+      position: relative; width: var(--col-glyph); height: 32px; display: flex; align-items: center; justify-content: center;
+      margin: 0; padding: 0; background: transparent; border: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .sec-eye::before { content: ''; position: absolute; left: -8px; right: -8px; top: -6px; bottom: -6px; }   /* 44px target */
+    .sec-eye svg { width: 20px; height: 20px; display: block; }
+    .sec-eye:active { background: var(--state-press); border-radius: 3px; }
+    .sec-name:focus-visible, .sec-eye:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--navy); border-radius: 2px; }
+    /* The first section, directly under the list header: compact (owner: "First row doesn't need
+       all the extra padding"). */
+    .sec-head.is-first { height: 44px; align-items: center; padding-bottom: 0; }
+    .sec-head.is-first .sec-name { height: 44px; align-items: center; padding-bottom: 0; }
+    .sec-head.is-first .sec-eye { height: 44px; }
+    /* Hidden (HiddenCity H1): the same header in its place, greyed, the eye closed, its rows folded away. */
+    .sec-head.is-hidden .sec-name { opacity: 0.5; }
+    /* A plan's leg: the same header with no eye (a stop is never hidden); tapping frames the leg. */
+    .sec-head.is-leg { grid-template-columns: 1fr; }
+
+    /* ---- ALL PLANS: one row per plan (the Places row's grid and voice): the route glyph in the
+       28px column, the name, "3 stops · Reykjavík", ⋯ (rename / delete) and ›. New plan is the
+       last row. */
+    .plan-row {
+      display: flex; align-items: center; gap: var(--gap);
+      min-height: 56px; padding: var(--s2) var(--gutter); background: var(--paper); border-bottom: 1px solid var(--hair);
+      cursor: pointer; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none;
+    }
+    .plan-row:active { background: var(--state-press); }
+    .plan-open {
+      flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: var(--gap);
+      margin: 0; padding: 0; border: none; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .plan-open:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--navy); border-radius: 2px; }
+    .plan-text { display: flex; flex-direction: column; min-width: 0; }
+    .plan-row .plan-ico { flex: none; width: var(--col-glyph); height: var(--col-glyph); display: flex; align-items: center; justify-content: center; color: var(--navy); }
+    .plan-row .plan-ico svg { display: block; }
+    .plan-row h3 { margin: 0; font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.005em; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .plan-row .row-meta { font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-size: 10px; line-height: 12px; letter-spacing: 0.1em; font-weight: 700; color: var(--ink-2); margin-top: var(--s1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .plan-row-end { flex: none; display: flex; align-items: center; gap: var(--s1); }
+    .plan-chev { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; color: var(--ink-2); }
+    .plan-chev svg { width: 16px; height: 16px; display: block; }
+    .plan-new-row .plan-new-lab {
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 13px; line-height: 16px; letter-spacing: 0.05em; color: var(--navy);
+    }
     .plan-more {
-      width: 44px; height: 44px; padding: 0; margin: 0; border: none; background: transparent; color: var(--navy); cursor: pointer;
-      display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent;
+      position: relative; width: 28px; height: 28px; padding: 0; margin: 0; border: none; background: transparent; color: var(--ink-2); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; border-radius: 3px; -webkit-tap-highlight-color: transparent;
     }
+    .plan-more::before { content: ''; position: absolute; inset: -8px; }   /* 44 x 44 */
     .plan-more svg { width: 18px; height: 18px; display: block; }
     .plan-more:active { background: var(--state-press); }
+    .plan-more:focus-visible, .plan-act:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--navy); }
     /* In-row states (the ⋯ actions, rename, create): the row steps up to
        --paper-raised, the field colour, so it reads as "being edited". */
-    .plan-opt.plan-form { display: flex; gap: 0; padding: 0 var(--s1) 0 var(--s3); background: var(--paper-raised); }
+    .plan-form { display: flex; align-items: center; min-height: 56px; padding: 0 var(--s1) 0 var(--gutter); background: var(--paper-raised); border-bottom: 1px solid var(--hair); }
     .plan-form input {
       flex: 1 1 auto; min-width: 0; font: 400 16px/20px var(--font-ui); color: var(--ink); background: transparent;
       border: none; border-bottom: 1px solid var(--navy); border-radius: 0; padding: 4px 0; margin-right: var(--s1); outline: none;
@@ -1844,19 +1848,19 @@
     .plan-form .plan-spacer { flex: 1 1 auto; }
     .plan-act {
       height: 44px; padding: 0 var(--s3); margin: 0; border: none; background: transparent; cursor: pointer; flex-shrink: 0;
-      font-size: 12px; letter-spacing: 0.08em; color: var(--ink-2); -webkit-tap-highlight-color: transparent;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 12px; line-height: 16px; letter-spacing: 0.08em; color: var(--ink-2); -webkit-tap-highlight-color: transparent;
     }
     .plan-act.primary { color: var(--navy); }
-    .plan-act.danger { color: var(--ink-2); }   /* not the city accent: the confirm() is the guard */
+    .plan-act.danger { color: var(--ink-2); }   /* not an accent: the confirm() is the guard */
     .plan-act:first-child { margin-left: calc(var(--s3) * -1); }
     .plan-act:active { background: var(--state-press); }
 
     /* The panel is as tall as Places' content, up to just below the zoom / account row
        (--top-row-bottom + --s3; owner, 2026-10-15: "stops below zoom and account", "the panel
-       height should all just be responsive"), and scrolls inside itself past that. It is the SAME
-       height in both views (sizeFiltersPanel()): Plans' picker row makes the chips scroll, never
-       the panel grow, so the switch, the map above and the sheet below never move. Its foot sits
-       on the list's edge (or the band, collapsed; the screen's foot on the rail). */
+       height should all just be responsive"), and scrolls inside itself past that
+       (sizeFiltersPanel()). Its foot sits on the list's edge (or the band, collapsed; the
+       screen's foot on the rail). */
     #filtersPanel {
       max-height: calc(100vh - 300px - var(--chrome-bottom) - var(--top-row-bottom) - var(--s3));
       max-height: calc(100lvh - 300px - var(--chrome-bottom) - var(--top-row-bottom) - var(--s3));
@@ -1879,31 +1883,18 @@
     body.plan-none #sortBtn { display: none; }
 
     /* ---- Plans rows: ONE left axis, x = 30 (gutter 16 + half the 28px glyph
-       column). The header chevron, every Places icon and every stop number are
-       centred on it. A stop row is [number in the glyph column][--gap][its icon
-       in a second glyph column][--gap][text]: number centred at 30, icon 56-84
-       (its left edge on the header title's edge), text x=96. A starred stop
-       keeps Places' star slot at the head of its text (name x=122). Rows below
-       the divider are plain Places rows: icon centred at 30, text 56. */
-    body.plan-view .location-card.plan-num-row { grid-template-columns: calc(var(--col-glyph) * 2 + var(--gap)) 1fr auto; }
-    .row-lead { display: flex; align-items: center; gap: var(--gap); }
-    /* The stop's icon is placed by its INK, not its box (owner: "may not
-       follow mathematical number"). Measured on the rendered pixels
-       (design/plans-build/ink.js), a 24px badge centred in its column puts
-       its ring's ink at x=58, while a Places name's ink starts at ~56.7 (the
-       letters' side-bearing). So a ring (and the dotted approx. ring) lands
-       where round capitals (C, G, O, S) land, and the district diamond's tip
-       where pointed capitals (A, T) land: type's own optical overshoot. A
-       transform, so the sub-pixel shift is not snapped to whole px. */
-    .row-lead .row-badge { transform: translateX(-1.33px); }
-    .row-lead .row-badge[data-kind="diamond"] { transform: translateX(-1.83px); }
+       column). A stop row's lead is its NUMBER, centred in the glyph column
+       where a Places row has its icon (add-tag-jam phase 1, PlacesPlansKinds
+       "A plan": the category stays in the meta line); its text starts at 56,
+       as every row's. Rows below the divider are plain Places rows. */
+    .row-lead { display: flex; align-items: center; width: var(--col-glyph); }
     /* The number: one plain grey state, no ring, tile or navy. It is the
        hold-to-drag handle: no long-press callout, no text selection. */
-    .row-n { position: relative; flex: 0 0 var(--col-glyph); width: var(--col-glyph); height: 16px; text-align: center;
-      font-family: var(--font-ui); font-weight: 600; font-size: 13px; line-height: 16px;
+    .row-n { position: relative; flex: 0 0 var(--col-glyph); width: var(--col-glyph); height: 20px; text-align: center;
+      font-family: var(--font-ui); font-weight: 700; font-stretch: 85%; font-size: 15px; line-height: 20px;
       font-variant-numeric: tabular-nums; color: var(--ink-2); cursor: grab; touch-action: pan-y; -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
-    .row-n::before { content: ''; position: absolute; left: -16px; right: 0; top: -14px; bottom: -14px; }   /* 44 x 44: the screen edge to the glyph column's edge */
+    .row-n::before { content: ''; position: absolute; left: -16px; right: 0; top: -12px; bottom: -12px; }   /* 44 x 44: the screen edge to the glyph column's edge */
     .location-card.highlighted .row-n { color: var(--paper); }
     .row-n:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--navy); border-radius: 2px; }
     /* + (add) and × (remove from the plan) share the Places delete ×'s slot
@@ -1939,8 +1930,6 @@
       background: var(--paper-raised); color: var(--ink); cursor: pointer; font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; font-style: normal; }
     .plan-empty-new:active { background: var(--state-press); }
     /* Header: just the plan's name; a tap returns the list to the stops. */
-    body.plan-view #locationsHeader h2 { display: flex; min-width: 0; cursor: pointer; }
-    #locationsHeader .h-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
     /* The slip: added / removed / moved, with Undo, for 6s. ONE form, a
        full-bleed band (designer): on the rule it covers exactly the caption
@@ -2517,11 +2506,11 @@
          transform and the list-hiding are both switched off here. */
       #locations.collapsed { transform: none; }
       #locations.collapsed #locationsList { display: block; }
-      #collapseBtn { display: none; }
-      /* No caret in the rail, so the title moves over to the gutter where
-         the caret was (owner, 2026-10-13: "in that case the city name should
-         shift over") rather than holding a blank spacer for it.
-         The 360px rail is 30px narrower than a phone, and the sort button
+      /* Nothing to collapse: no tab, no sheet edge, and the credit drops back to the corner. */
+      #collapseTab { display: none; }
+      #locations { border-top: 0; }
+      .leaflet-bottom.leaflet-right { margin-bottom: 0; }
+      /* The 360px rail is 30px narrower than a phone, and the sort button
          made the icon row four wide: the icons pack at 4px (mouse targets,
          no thumb). */
       #locationsHeader { gap: var(--s1); }
@@ -2921,17 +2910,13 @@
   </div>
   
   <div id="filtersPanel">
-    <!-- Places | Plans: one joined switch. Places first: it's the default
-         and the app as it always was; Plans is a view you step into. -->
-    <div class="seg-wrap"><div class="seg" id="listSwitch" role="radiogroup" aria-label="List"><button type="button" role="radio" data-view="places" aria-checked="true" tabindex="0">Places</button><button type="button" role="radio" data-view="plans" aria-checked="false" tabindex="-1">Plans</button></div><div id="planPick"></div><div id="planLedger" role="group" aria-label="Plans" hidden></div></div>
-    <div id="cityFilters"></div>
     <div id="filters"></div>
   </div>
 
   <div id="locations">
+    <button id="collapseTab" type="button" aria-label="Lower the list" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="20"/><path d="M7 8l5 5 5-5"/></svg></button>
     <div id="locationsHeader">
-      <button id="collapseBtn">▼</button>
-      <h2>All Locations</h2>
+      <button id="titleBtn" class="title-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="titleMenu"><h2><span class="h-name">All places</span></h2><svg class="title-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <button id="sortBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="sortMenu" aria-label="Sort list: A–Z">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="8" y1="8" x2="8" y2="21"/>
@@ -2940,7 +2925,7 @@
           <path d="M16 21.5L11.5 15h9z" fill="currentColor" stroke="none"/>
         </svg>
       </button>
-      <button id="toggleFiltersBtn" title="Filters and plans" aria-label="Filters and plans" aria-expanded="false" aria-controls="filtersPanel">
+      <button id="toggleFiltersBtn" title="Filters" aria-label="Filters" aria-expanded="false" aria-controls="filtersPanel">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="4" y1="6" x2="20" y2="6"/>
           <line x1="4" y1="12" x2="20" y2="12"/>
@@ -2968,6 +2953,9 @@
   <div id="sortScrim" hidden></div>
   <div id="sortMenu" role="menu" aria-label="Sort list" hidden></div>
   <div id="sortNote" hidden></div>
+  <!-- The list title's menu (add-tag-jam phase 1): the shared .menu-box, body-level like sort. -->
+  <div id="menuScrim" hidden></div>
+  <div id="titleMenu" class="menu-box" role="menu" aria-label="Show in the list" hidden></div>
   <div id="sortLive" class="sr-only" aria-live="polite"></div>
 
   <script>
@@ -3165,8 +3153,14 @@
     let userLocationMarker = null;
     let locations = [];
     let neighborhoodShapes = [];
-    // filters.city === null ⇒ no city predicate (all cities)
-    let filters = { categories: {}, city: DEFAULT_CITY };
+    // The category chips. Cities are never a filter (add-tag-jam phase 1: "go to" and "hide"
+    // came apart): going to a city only moves the map and scrolls the list; hiddenCities hides.
+    let filters = { categories: {} };
+    // Per viewer (localStorage HIDDEN_CITIES_KEY): the city ids whose places are folded away in
+    // the list and off the map. Empty = none hidden. A plan's stops always show, hidden or not.
+    const HIDDEN_CITIES_KEY = 'triplet.hiddenCities';
+    let hiddenCities = new Set();
+    let placesLoaded = false;   // the boot read has landed (places, shapes, cities, plans)
     Object.keys(CATEGORY_COLORS).forEach(cat => filters.categories[cat] = true);
 
     // ---- reconciler state (Phase 0) -----------------------------------------
@@ -3250,7 +3244,7 @@
     let fetchPromise = null;         // in-flight guard
 
     // ---- plans state (PLANS, below) --------------------------------------------
-    let listView = 'places';         // 'places' | 'plans' -- the Places | Plans switch
+    let listView = 'places';         // 'places' | 'plans' -- picked in the list title's menu
     let plans = [];                  // [{ id, name, created_at }]
     let planStops = [];              // [{ id, plan_id, location_id, shape_id, position }]
     let plansAvailable = null;       // null = not loaded yet; false = tables missing (fail soft)
@@ -3920,11 +3914,16 @@
         }
 
         if (error) throw error;
+        revealCity(loc.city);   // a place added into a hidden city shows that city, or it would vanish on ADD
         await refetchLocations();
         hideError('mutation');
       } catch (err) {
         showWriteError(err, 'places');
       }
+    }
+    function revealCity(cityId) {
+      if (!hiddenCities.has(cityId)) return;
+      hiddenCities.delete(cityId); persistHiddenCities(); updateUI();
     }
 
     async function addNeighborhoodShape(shape) {
@@ -3936,6 +3935,7 @@
           .insert([shape]);
 
         if (error) throw error;
+        revealCity(shape.city);
         await refetchNeighborhoodShapes();
         hideError('mutation');
       } catch (err) {
@@ -4454,22 +4454,49 @@
       return citySelection === ALL_CITIES;
     }
 
-    function activeCityLabel() {
-      return isAllCities() ? 'All cities' : cityConfig(citySelection).label;
+
+    // ---- hidden cities (per viewer) ----------------------------------------
+    const cityShown = cityId => !hiddenCities.has(cityId);
+    function readHiddenCities() {
+      try {
+        const v = JSON.parse(localStorage.getItem(HIDDEN_CITIES_KEY) || '[]');
+        return new Set(Array.isArray(v) ? v.filter(x => typeof x === 'string') : []);
+      } catch (e) { return new Set(); }   // private mode / bad JSON: none hidden
+    }
+    function persistHiddenCities() {
+      try { localStorage.setItem(HIDDEN_CITIES_KEY, JSON.stringify([...hiddenCities])); } catch (e) { /* not persisted */ }
+    }
+    // The eye on a city's section header. Hidden: the header stays in its place, greyed, its
+    // rows folded away; its pins leave the map. Scroll is kept (the header doesn't move).
+    function setCityHidden(cityId, hidden) {
+      if (hidden === hiddenCities.has(cityId)) return;
+      noteInteraction();
+      if (hidden) hiddenCities.add(cityId); else hiddenCities.delete(cityId);
+      persistHiddenCities();
+      // Its pins leave the map: an open tag or selected row of that city goes with them.
+      if (hidden) {
+        const k = typeof openTagKey === 'function' ? openTagKey() : null, it = k != null ? rowItem(k) : null;
+        if (it && it.city === cityId && !(inPlanView() && planMarks().rows.some(r => (r.loc ? r.loc.id : shapeKey(r.nb.id)) === k))) { map.closePopup(); setHighlighted(null); }
+      }
+      updateUI();
     }
 
     // The filters apply in BOTH views. Plans adds the open plan's stops,
-    // whole and whatever the filters say (the chips choose what you can add;
-    // they never hide your plan).
+    // whole and whatever the filters or hidden cities say (the chips choose
+    // what you can add; they never hide your plan). All plans (no plan open):
+    // every plan's stops, so the map shows and frames them.
     function visibleLocations() {
-      const match = locations.filter(loc =>
-        filters.categories[loc.category] &&
-        (filters.city === null || loc.city === filters.city));
+      const match = locations.filter(loc => filters.categories[loc.category] && cityShown(loc.city));
       if (!inPlanView()) return match;
-      if (!activePlan()) return [];
+      if (!activePlan()) { const ids = allPlanStopIds('location_id'); return locations.filter(l => ids.has(l.id)); }
       const stops = planMarks().rows.filter(r => r.loc).map(r => r.loc);
       const inPlan = new Set(stops.map(l => l.id));
       return stops.concat(match.filter(l => !inPlan.has(l.id)));
+    }
+    function allPlanStopIds(field) {
+      const ids = new Set();
+      planStops.forEach(s => { if (s[field] != null && plans.some(p => p.id === s.plan_id)) ids.add(field === 'shape_id' ? Number(s[field]) : s[field]); });
+      return ids;
     }
 
     function persistCitySelection(selection) {
@@ -4492,43 +4519,54 @@
       }
     }
 
-    // The ONLY writer of citySelection, activeCity and filters.city.
-    // NOTE: there is deliberately NO no-op early-return when the selection is
-    // unchanged. Re-tapping the already-active city MUST re-frame the map —
-    // that is the recovery path for a user who panned into the ocean.
+    // GO TO: the ONLY writer of citySelection ("the last go-to": the list title and the boot
+    // frame) and activeCity. Going to a city never filters (add-tag-jam phase 1): the map frames
+    // it and the list -- whole -- scrolls to its section header. Going to a hidden city shows it
+    // again. NOTE: there is deliberately NO no-op early-return when the selection is unchanged.
+    // Re-picking the current city MUST re-frame the map -- that is the recovery path for a user
+    // who panned into the ocean.
     function setActiveCity(selection, opts = {}) {
       if (selection !== ALL_CITIES && !CITIES[selection]) selection = DEFAULT_CITY;
 
       citySelection = selection;
       if (selection !== ALL_CITIES) activeCity = selection;   // else keep last real city
-      filters.city = (selection === ALL_CITIES) ? null : selection;
+      // opts.reveal false: an automatic pick (boot restore, first open, a removed city), not the user's go-to.
+      if (opts.reveal !== false && selection !== ALL_CITIES && hiddenCities.has(selection)) { hiddenCities.delete(selection); persistHiddenCities(); }
 
       noteInteraction();
 
       // The highlighted location may belong to the city we are leaving.
       setHighlighted(null);
 
-      // Plans frames the open plan instead (frameActivePlan(): the building
-      // fit takes in the new city's places; following, its leg; no stops yet,
-      // the city's matching places).
+      // Plans frames the open plan instead (frameActivePlan()).
       const framePlan = inPlanView() && !!activePlan();
       if (opts.frame !== false && !framePlan) {
         focusCity(selection, { animate: opts.animate !== false });
       }
 
       if (opts.persist !== false) persistCitySelection(selection);
-      updateUI();                 // reaches syncMarkers()/syncLocationCards()
-      updateCitySelectorUI();
+      pendingSectionScroll = opts.scroll === false ? null : selection;
+      updateUI();                 // reaches syncMarkers() and the list; scrolls to the section
       syncAddFormCity();
-
-      // Preserving scroll across a poll tick is the point of the reconciler;
-      // preserving it across a city switch strands the user mid-list.
-      document.getElementById('locationsList').scrollTop = 0;
-      if (inPlanView()) { showPlanRule(); if (opts.frame !== false && framePlan) frameActivePlan(); }
+      if (inPlanView() && opts.frame !== false && framePlan) frameActivePlan();
+    }
+    // The list scrolls to the go-to city's section header once that header exists (at boot, the
+    // data arrives after the go-to). ALL_CITIES: the top. Consumed once; a poll never scrolls.
+    let pendingSectionScroll = null;
+    function applySectionScroll() {
+      if (pendingSectionScroll == null || inPlanView()) return;
+      const list = document.getElementById('locationsList');
+      if (pendingSectionScroll === ALL_CITIES) { list.scrollTop = 0; pendingSectionScroll = null; return; }
+      const e = cityHeads.get(pendingSectionScroll), head = e && e.el;
+      if (head && head.isConnected) {
+        list.scrollTop += head.getBoundingClientRect().top - list.getBoundingClientRect().top;
+        pendingSectionScroll = null;
+      } else if (placesLoaded) {
+        list.scrollTop = 0; pendingSectionScroll = null;   // a city with nothing to show: the top
+      }
     }
     // After a filter change in Plans, the list scrolls so the rule sits at the
-    // top of the list (the stops are one flick up, or a tap on the plan's name
-    // in the header). Nothing moves in Places.
+    // top of the list (the stops are one flick up). Nothing moves in Places.
     function showPlanRule() {
       const list = document.getElementById('locationsList');
       const rule = list.querySelector('.plan-rule');
@@ -4810,8 +4848,7 @@
         geocodeSuffix: cfg.geocodeSuffix, countrycodes: cfg.countrycodes, viewbox: cfg.viewbox
       };
       populateCityInput();
-      createCitySelector();
-      updateCitySelectorUI();   // createCitySelector() rebuilds from scratch -- reapply the active highlight
+      refreshTitleMenu();
     }
 
     async function addCity(cfg) {
@@ -4857,8 +4894,7 @@
           };
         });
         populateCityInput();
-        createCitySelector();
-        updateCitySelectorUI();
+        refreshTitleMenu();
         hideError('cities');
       } catch (err) {
         showReadProblem(err, 'cities');
@@ -4899,11 +4935,10 @@
       orphanIds.forEach(id => delete CITIES[id]);
 
       if (orphanIds.includes(citySelection)) {
-        setActiveCity(DEFAULT_CITY);
+        setActiveCity(DEFAULT_CITY, { reveal: false });
       } else {
         populateCityInput();
-        createCitySelector();
-        updateCitySelectorUI();
+        refreshTitleMenu();
       }
 
       if (removedLabels.length) {
@@ -6154,6 +6189,7 @@
     function openSortMenu() {
       const btn = document.getElementById('sortBtn'), menu = document.getElementById('sortMenu');
       closeFiltersPanel();
+      closeTitleMenu(false);
       renderSortMenu();
       hideSortNote();
       document.getElementById('sortScrim').hidden = false;
@@ -6355,7 +6391,7 @@
         framed = true;
         // Already using the page (e.g. picked a city): keep what's on screen.
         if (touched) return persistCitySelection(citySelection);
-        setActiveCity(firstOpenFallbackCity(), { animate: false });
+        setActiveCity(firstOpenFallbackCity(), { animate: false, reveal: false });
       };
       const applyFix = ({ lat, lng }) => {
         done = true;
@@ -6363,7 +6399,7 @@
         if (touched && framed) return;   // never yank a page the user is already using
         const near = rankCitiesByProximity([lat, lng], FIRST_OPEN_NEAR_KM)[0];
         const animate = framed;   // boot frame -> snap; fallback on screen -> one fly
-        setActiveCity(near ? near.cityId : ALL_CITIES, { frame: false });
+        setActiveCity(near ? near.cityId : ALL_CITIES, { frame: false, reveal: false });
         placeUserLocationMarker(lat, lng);
         if (!(inPlanView() && activePlan())) focusMap([lat, lng], SOLO_MIN_ZOOM, { animate });
       };
@@ -6397,10 +6433,9 @@
     // PLANS (design/plans-deepdive/v3/README.md, docs/shipped.md "Plans").
     // A plan is a named, ordered list of stops -- pins or districts/streets,
     // any city. `plans` + `plan_stops` in Supabase (supabase/migrations/
-    // 20260929000000_add_plans.sql), same RLS as locations. Places | Plans is
-    // a switch at the top of the filter panel; it changes only what the list
-    // shows (and so what the map draws). Filters, sort and the panel are
-    // shared. Plans is where you build AND follow a plan: the stops in order,
+    // 20260929000000_add_plans.sql), same RLS as locations. The list title's
+    // menu picks Places or Plans (and the city / plan); it changes only what
+    // the list shows (and so what the map draws). Filters and sort are shared. Plans is where you build AND follow a plan: the stops in order,
     // a captioned divider, then every place the filters match with +.
     // Fails soft: until the tables exist the Plans side says so, and Places
     // is exactly the app it was.
@@ -6456,19 +6491,19 @@
     function planStopLine(kind, id) { const r = planMark(kind, id); return r ? `Stop ${r.n} of ${r.m}` : ''; }
 
     // A STOP row's number takes the glyph column -- centred on the app's left
-    // axis, x=30, the centre of the header chevron and of every Places icon --
-    // and its Places badge moves one column over (x=56, the header title's
-    // edge); its text follows at x=96. Rows below the divider are plain Places
-    // rows (icon centred on x=30, text 56). The number is one grey state; it is
-    // the drag handle (hold STOP_HOLD_MS) and the keyboard's reorder control.
+    // axis, x=30, the centre of every Places icon -- and its text starts at 56,
+    // as every row's. Rows below the divider are plain Places rows. The number
+    // is one grey state; it is the drag handle (hold STOP_HOLD_MS) and the
+    // keyboard's reorder control.
     function numSpan(r, label) {
       const aria = `Stop ${r.n} of ${r.m}, ${escapeAttr(label)}. Hold and drag, or use the arrow keys (Home / End for first / last), to move it.`;
       return `<span class="row-n" role="button" tabindex="0" aria-label="${aria}">${r.n}</span>`;
     }
     function planLead(stop, category, kind, ink, label) {
       if (!(stop && inPlanView() && activePlan())) return `<div class="row-badge" style="--row-ink:${ink}">${badgeHtml(category, kind, 24)}</div>`;
-      // The stop's icon is placed by its INK, not its box: data-kind picks the optical offset (CSS .row-lead).
-      return `<div class="row-lead">${numSpan(stop, label)}<div class="row-badge" data-kind="${kind}" style="--row-ink:${ink}">${badgeHtml(category, kind, 24)}</div></div>`;
+      // A stop's lead is its number alone, in the glyph column (add-tag-jam phase 1); the
+      // category stays in the meta line.
+      return `<div class="row-lead">${numSpan(stop, label)}</div>`;
     }
     function rowActionHtml(stop, label) {
       if (!inPlanView()) return '<button class="delete-btn" aria-label="Delete">&times;</button>';
@@ -6548,8 +6583,7 @@
     // hide them all: "Nothing matches these filters."; a city with no places at all: "Nothing
     // here yet." (Places, and below the divider in Plans.)
     function emptyMatchText() {
-      const inCity = x => filters.city === null || x.city === filters.city;
-      const exist = locations.some(inCity) || neighborhoodShapes.some(n => isAllCities() || n.city === activeCity);
+      const exist = locations.some(l => cityShown(l.city)) || neighborhoodShapes.some(n => cityShown(n.city));
       return exist ? 'Nothing matches these filters.' : 'Nothing here yet.';
     }
     function emptyText(planMode) {
@@ -6562,7 +6596,7 @@
     }
 
     // Plans' own reconciler over the same card maps (pins AND shapes, one
-    // list). The Places reconcilers (syncLocationCards / syncShapeCards) never
+    // list). The Places reconcilers (syncPlacesList) never
     // run in Plans. The list = the plan's stops (all of them, in plan order,
     // whatever the filters: the chips choose what you can add, they never hide
     // your plan) / Places' group divider with a caption / every place and
@@ -6578,7 +6612,7 @@
     function ruleCaption(n) {
       const all = Object.keys(CATEGORY_COLORS), on = all.filter(c => filters.categories[c]);
       const cats = on.length === all.length ? '' : !on.length ? ' · no categories' : on.length <= 2 ? ' · ' + on.join(', ') : ` · ${on.length} categories`;
-      return `Add from ${activeCityLabel()}${cats} (${n})`;
+      return `Add from all places${cats} (${n})`;
     }
     function planOthers() {
       const pm = planMarks();
@@ -6587,8 +6621,8 @@
       return { locs: heldOrder(locs) || sortLocations(locs), shapes: heldOrder(shapes, shapeRowKey) || sortShapes(shapes) };
     }
     function othersNoteText() {
-      const any = locations.some(l => filters.categories[l.category] && (filters.city === null || l.city === filters.city)) ||
-        neighborhoodShapes.some(n => filters.categories[n.type] && (isAllCities() || n.city === activeCity));
+      const any = locations.some(l => filters.categories[l.category] && cityShown(l.city)) ||
+        neighborhoodShapes.some(n => filters.categories[n.type] && cityShown(n.city));
       return any ? 'Every place these filters match is in this plan.' : emptyMatchText();
     }
     // 9 (UX): after + / x (and their Undo) the rows on either side of the change slide to open or
@@ -6621,7 +6655,13 @@
       const seenLoc = new Set(), seenShape = new Set();
       const open = !!activePlan();
       const others = open ? planOthers() : { locs: [], shapes: [] };
-      const seq = rows.slice();
+      // Leg sections: the stops in stop order, broken where the stop's city changes; a city can
+      // recur (two Reykjavík legs, each its own header). No eye: a stop is never hidden.
+      const legs = [];
+      rows.forEach(r => { const c = r.loc ? r.loc.city : r.nb.city; if (!legs.length || legs[legs.length - 1].city !== c) legs.push({ city: c, rows: [] }); legs[legs.length - 1].rows.push(r); });
+      currentLegs = legs;
+      const seq = [];
+      legs.forEach((l, i) => { seq.push({ leg: i }); l.rows.forEach(r => seq.push(r)); });
       if (open) {
         if (!rows.length) want.push(planStopsNote); else if (planStopsNote.parentNode) planStopsNote.remove();
         seq.push({ rule: true });
@@ -6632,6 +6672,7 @@
       } else { [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); }); }
       planRule.textContent = ruleCaption(others.locs.length + others.shapes.length);
       seq.forEach((r, i) => {
+        if (r.leg != null) { const e = headEntry(legHeads, r.leg); renderLegHead(e, r.leg, legs[r.leg], !want.length); want.push(e.el); return; }
         if (r.rule) { want.push(planRule); return; }
         if (r.note) { want.push(planOthersNote); return; }
         if (r.loc) {
@@ -6659,6 +6700,7 @@
       });
       cardsById.forEach((entry, id) => { if (!seenLoc.has(id)) { entry.el.remove(); cardsById.delete(id); } });
       shapeCardsById.forEach((entry, id) => { if (!seenShape.has(id)) { entry.el.remove(); shapeCardsById.delete(id); } });
+      legHeads.forEach((e, k) => { if (k >= legs.length) { e.el.remove(); legHeads.delete(k); } });
       want.forEach((el, i) => { if (list.children[i] !== el) list.insertBefore(el, list.children[i] || null); });
       if (before) {
         const changed = typeof flip === 'object' ? (flip.locationId != null ? cardsById.get(flip.locationId) : shapeCardsById.get(Number(flip.shapeId))) : null;
@@ -6724,11 +6766,10 @@
       planStops = stopRows.map(s => ({ id: s.id, plan_id: s.plan_id, location_id: s.location_id ?? null,
         shape_id: s.shape_id == null ? null : Number(s.shape_id), position: Number(s.position) }));
       if (activePlanId && !activePlan()) {   // deleted (here or on the other phone)
-        activePlanId = inPlanView() && plans.length ? plans[0].id : null;
+        activePlanId = null;   // Plans falls back to All plans
         if (planPanel.mode !== 'creating') planPanel = { mode: null, draft: '' };
         writePlanPrefs();
       }
-      if (inPlanView() && !activePlanId && plans.length) { activePlanId = plans[0].id; writePlanPrefs(); }
       updateUI();
     }
     function fetchPlans() {
@@ -6782,7 +6823,7 @@
       const row = { id: newPlanId(), name, created_at: new Date().toISOString() };
       const ok = await planWrite('create the plan',
         () => { plans = plans.concat([row]); },
-        () => { plans = plans.filter(p => p.id !== row.id); if (activePlanId === row.id) { activePlanId = plans[0] ? plans[0].id : null; writePlanPrefs(); } },
+        () => { plans = plans.filter(p => p.id !== row.id); if (activePlanId === row.id) { activePlanId = null; writePlanPrefs(); } },
         () => supabaseClient.from('plans').insert([{ id: row.id, name: row.name }]));
       return ok ? row.id : null;
     }
@@ -6804,7 +6845,7 @@
         () => {
           plans = plans.filter(q => q.id !== id);
           planStops = planStops.filter(s => s.plan_id !== id);   // the DB cascades the same way
-          if (wasActive) { activePlanId = plans[0] ? plans[0].id : null; writePlanPrefs(); }
+          if (wasActive) { activePlanId = null; writePlanPrefs(); }
         },
         () => {
           if (!plans.some(q => q.id === id)) { plans = plans.slice(); plans.splice(Math.min(at, plans.length), 0, p); }
@@ -7098,9 +7139,8 @@
     //  BUILDING (filter panel open): the stops AND every place the filters
     //    match, so you see what you are choosing from. No zooming in for a
     //    close pair; overlapping stops share one tag.
-    //  FOLLOWING (panel closed): the stops in the selected city chip (the
-    //    "which leg am I on" control); with ALL CITIES, or when that city has
-    //    no stops, every stop.
+    //  FOLLOWING (panel closed): every stop. "Which leg am I on" is a leg's
+    //    section header in the list (frameLeg()).
     // The view jumps (no fly): animating the default fit is deferred (v3 §6).
     const stopLatLng = r => r.loc ? L.latLng(r.loc.lat, r.loc.lng) : (shapeCentroid(r.nb) && L.latLng(shapeCentroid(r.nb)));
     // A plan with no stops yet frames the places the filters match (the
@@ -7122,10 +7162,31 @@
       } else if (under) {
         fit(stopLL.concat(candidates()));
       } else {
-        const inCity = filters.city === null ? [] : rows.filter(r => (r.loc ? r.loc.city : r.nb.city) === filters.city).map(stopLatLng).filter(Boolean);
-        fit(inCity.length ? inCity : stopLL);
+        fit(stopLL);   // a leg is framed from its section header (frameLeg())
       }
       lastPlanFit = { view: planFitView() };
+    }
+    // A leg's section header (a run of stops in one city): frame just those stops, the same fit.
+    function frameLeg(legRows) {
+      if (!map) return;
+      noteInteraction();
+      const lls = legRows.map(stopLatLng).filter(Boolean);
+      if (!lls.length) return;
+      const box = planSafeBox(openPanelHeight()), sz = map.getSize();
+      if (lls.length === 1) map.setView(lls[0], Math.max(map.getZoom(), 15), { animate: false });
+      else map.fitBounds(L.latLngBounds(lls), { paddingTopLeft: [box.l, box.t], paddingBottomRight: [sz.x - box.r, sz.y - box.b], maxZoom: 16, animate: false });
+      lastPlanFit = { view: planFitView() };
+    }
+    // All plans: every plan's stops (visibleLocations() / visibleNeighborhoodShapes() put them on
+    // the map); none -> as Places frames the last go-to.
+    function frameAllPlans() {
+      if (!map) return;
+      const lls = visibleLocations().map(l => L.latLng(l.lat, l.lng))
+        .concat(visibleNeighborhoodShapes().map(n => shapeCentroid(n)).filter(Boolean).map(c => L.latLng(c)));
+      if (!lls.length) { focusCity(citySelection, { animate: true }); return; }
+      const box = planSafeBox(openPanelHeight()), sz = map.getSize();
+      if (lls.length === 1) map.setView(lls[0], Math.max(map.getZoom(), 15), { animate: false });
+      else map.fitBounds(L.latLngBounds(lls), { paddingTopLeft: [box.l, box.t], paddingBottomRight: [sz.x - box.r, sz.y - box.b], maxZoom: 16, animate: false });
     }
     // The panel changes the map's job (building vs following), so opening AND
     // closing it re-fit -- while the map is still where the app last put it (a
@@ -7157,10 +7218,11 @@
       }
     }
 
-    // The only writer of listView. The switch changes only what the list shows
-    // (and so what the map draws): never the filters, the sort or the panel.
-    // Back in Places, the map re-frames the selected city.
-    function setListView(view) {
+    // The only writer of listView (with choosePlan() / showAllPlans()). The title menu's items
+    // pick the kind and the item; this changes only what the list shows (and so what the map
+    // draws): never the filters, the sort or the panel. Each kind remembers its last item:
+    // Plans reopens the plan last open, or All plans (never an automatic first plan).
+    function setListView(view, opts = {}) {
       if (view !== 'plans') view = 'places';
       if (view === listView) return;
       closeSortMenu(false);
@@ -7169,128 +7231,345 @@
       listView = view;
       setHighlighted(null);
       if (map) map.closePopup();
-      if (view === 'plans') {
-        if (!activePlan()) activePlanId = plans[0] ? plans[0].id : null;
-        updateUI();
-        // With no plan open (none yet, not set up, offline) the map frames the selected city
-        // exactly as Places does (ALL CITIES: Places' all-cities fit) -- never a blank spot.
-        if (activePlan()) frameActivePlan(); else focusCity(citySelection, { animate: true });
-      } else {
-        updateUI();
-        focusCity(citySelection, { animate: true });
+      updateUI();
+      if (opts.frame !== false) {
+        if (view === 'plans') { if (activePlan()) frameActivePlan(); else frameAllPlans(); }
+        else focusCity(citySelection, { animate: true });
       }
       writePlanPrefs();
       document.getElementById('locationsList').scrollTop = 0;
     }
-    // Picking a plan opens it in Plans, closes the picker's slip and leaves the
-    // panel open; the map frames it.
+    // Picking a plan opens it in Plans; the map frames it.
     function choosePlan(id) {
       if (!plans.some(p => p.id === id)) return;
       noteInteraction();
       const same = listView === 'plans' && activePlanId === id;
       listView = 'plans';
       activePlanId = id;
-      planPanel = { mode: null, draft: '', open: false };
+      planPanel = { mode: null, draft: '' };
       if (!same) { setHighlighted(null); if (map) map.closePopup(); }
       updateUI();
-      frameActivePlan();   // re-picking the open plan re-frames it (the city chip's recovery move)
+      frameActivePlan();   // re-picking the open plan re-frames it (the recovery move)
       writePlanPrefs();
       if (!same) document.getElementById('locationsList').scrollTop = 0;
     }
+    // All plans: the plans list; the map frames every plan's stops.
+    function showAllPlans(opts = {}) {
+      noteInteraction();
+      const same = listView === 'plans' && !activePlanId;
+      listView = 'plans';
+      activePlanId = null;
+      if (!opts.keepPanel) planPanel = { mode: null, draft: '' };
+      if (!same) { setHighlighted(null); if (map) map.closePopup(); }
+      updateUI();
+      if (opts.frame !== false) frameAllPlans();
+      writePlanPrefs();
+      if (!same) document.getElementById('locationsList').scrollTop = 0;
+    }
+    // Go to a city (the title menu, a section header's name): Places, the whole list, scrolled
+    // to that city's header; the map frames it. Never a filter.
+    function goToCity(selection) {
+      if (inPlanView()) {
+        listView = 'places';
+        planPanel = { mode: null, draft: '' };
+        if (map) map.closePopup();
+        writePlanPrefs();
+      }
+      setActiveCity(selection);
+    }
 
-    // ---- the panel: switch + plan picker ----------------------------------
-    // The picker sits in the switch's row, in BOTH views (the panel is identical and the
-    // same height); its slip lists every plan (✓ = open, count, ⋯ = rename/delete THAT plan)
-    // and New plan. Picking a plan opens it in Plans and closes the slip; the panel stays.
-    let planLedgerSig = null;
-    const PLAN_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.25"/></svg>';
-    function renderPlanPanel() {
-      const panel = document.getElementById('filtersPanel');
-      panel.classList.toggle('plans-side', inPlanView());
-      document.querySelectorAll('#listSwitch [role="radio"]').forEach(b => {
-        const on = b.dataset.view === listView;
-        b.setAttribute('aria-checked', String(on));
-        b.tabIndex = on ? 0 : -1;
+    // ---- the list title and its menu (add-tag-jam phase 1) ------------------
+    // The title names the last pick -- the city gone to, All places, a plan or All plans -- plus
+    // its tally. It is a go-to label, not a claim about the viewport: it doesn't follow panning.
+    const MENU_SVG = {
+      ring: '<svg class="menu-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>',
+      route: '<svg class="menu-ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="M8.5 6h5a3 3 0 0 1 0 6h-3a3 3 0 0 0 0 6h5"/></g></svg>',
+      plus: '<svg class="menu-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+      check: '<svg class="menu-end" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 7.75l3.2 3.2L13 4.05" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
+      chev: '<svg class="menu-end" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5l4.5 4.5L6 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      spacer: '<span class="menu-ico" aria-hidden="true"></span>',
+      none: '<span class="menu-end" aria-hidden="true"></span>'
+    };
+    // The eye (a section header's show / hide; the closed eye also marks a hidden city's menu
+    // row). The closed eye's slash is drawn twice: a knock-out in the ground's colour, then ink.
+    function eyeSvg(closed, ground, cls = '') {
+      return `<svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z" fill="none" style="stroke:var(--ink-2)" stroke-width="2"/><circle cx="12" cy="12" r="2.8" style="fill:var(--ink-2)"/>` +
+        (closed ? `<path d="M4 4l16 16" style="stroke:var(${ground})" stroke-width="4.5"/><path d="M4 4l16 16" style="stroke:var(--ink-2)" stroke-width="2" stroke-linecap="round"/>` : '') + '</svg>';
+    }
+    // Section order: the menu's order -- CITIES' (the seed, then runtime cities appended), then
+    // any city id only the data knows. Stable: it never re-orders while you pan.
+    function sectionCityIds() {
+      const ids = Object.keys(CITIES), seen = new Set(ids);
+      locations.concat(neighborhoodShapes).forEach(x => { if (x.city && !seen.has(x.city)) { seen.add(x.city); ids.push(x.city); } });
+      return ids;
+    }
+    const cityLabel = id => (CITIES[id] ? CITIES[id].label : String(id));
+    // A city's tally: its places matching the category chips, shapes included (hidden or not).
+    function cityTally(id) {
+      return locations.filter(l => l.city === id && filters.categories[l.category]).length +
+        neighborhoodShapes.filter(n => n.city === id && filters.categories[n.type]).length;
+    }
+    // Every shown place matching the chips (the "All places" / "All cities" tally).
+    function shownTally() {
+      return locations.filter(l => filters.categories[l.category] && cityShown(l.city)).length +
+        neighborhoodShapes.filter(n => filters.categories[n.type] && cityShown(n.city)).length;
+    }
+    const cityHasPlaces = id => locations.some(l => l.city === id) || neighborhoodShapes.some(n => n.city === id);
+    // The menu's cities: every city with a place (whatever the chips), and every hidden one.
+    const menuCityIds = () => sectionCityIds().filter(id => cityHasPlaces(id) || (hiddenCities.has(id) && CITIES[id]));
+    function titleState() {
+      if (inPlanView()) {
+        const p = activePlan();
+        return p ? { name: p.name, n: stopCount(p.id) } : { name: 'All plans', n: plans.length };
+      }
+      // A city with no places at all (zero places, or a stale go-to) titles "All places".
+      if (citySelection !== ALL_CITIES && CITIES[citySelection] && (!placesLoaded || cityHasPlaces(citySelection))) {
+        return { name: CITIES[citySelection].label, n: cityTally(citySelection) };
+      }
+      return { name: 'All places', n: shownTally() };
+    }
+    let titleSig = null;
+    function renderTitle() {
+      const t = titleState(), sig = t.name + '\u0000' + t.n;
+      if (sig === titleSig) return;
+      titleSig = sig;
+      const btn = document.getElementById('titleBtn');
+      btn.querySelector('h2').innerHTML = `<span class="h-name">${escapeHtml(t.name)}</span><span class="tally">${t.n}</span>`;
+      btn.setAttribute('aria-label', `${t.name}, ${t.n}. Choose what the list shows`);
+    }
+
+    let menuKind = 'places';   // the side the open menu shows ('places' | 'plans')
+    let menuSig = null;
+    function titleMenuOpen() { return !document.getElementById('titleMenu').hidden; }
+    function menuRowHtml(attrs, ico, label, n, end, cls = '') {
+      return `<button type="button" class="menu-row${cls}" tabindex="-1" ${attrs}>${ico}<span class="menu-lab">${escapeHtml(label)}${n == null ? '' : `<span class="tally">${n}</span>`}</span><span class="menu-gap"></span>${end}</button>`;
+    }
+    function renderTitleMenu() {
+      const menu = document.getElementById('titleMenu');
+      const places = menuKind === 'places';
+      const cur = k => k ? MENU_SVG.check : MENU_SVG.none;
+      let html = '';
+      if (places) {
+        const here = !inPlanView();
+        html += menuRowHtml(`role="menuitemradio" aria-checked="${here && citySelection === ALL_CITIES}" data-go="${ALL_CITIES}"`, MENU_SVG.spacer, 'All cities', shownTally(), cur(here && citySelection === ALL_CITIES));
+        menuCityIds().forEach(id => {
+          const hid = hiddenCities.has(id), on = here && citySelection === id;
+          html += menuRowHtml(`role="menuitemradio" aria-checked="${on}" data-go="${escapeAttr(id)}"${hid ? ` aria-label="${escapeAttr(cityLabel(id))}, ${cityTally(id)}, hidden"` : ''}`, MENU_SVG.ring, cityLabel(id), cityTally(id),
+            hid ? eyeSvg(true, '--paper-raised', 'menu-end') : cur(on), hid ? ' is-hidden' : '');
+        });
+        html += menuRowHtml('role="menuitem" data-kind="plans" aria-haspopup="menu"', MENU_SVG.route, 'Plans', plansAvailable === true ? plans.length : null, MENU_SVG.chev);
+      } else {
+        const here = inPlanView();
+        html += menuRowHtml(`role="menuitemradio" aria-checked="${here && !activePlan()}" data-plans="all"`, MENU_SVG.spacer, 'All plans', plans.length, cur(here && !activePlan()));
+        plans.forEach(p => {
+          const on = here && p.id === activePlanId;
+          html += menuRowHtml(`role="menuitemradio" aria-checked="${on}" data-plan="${escapeAttr(p.id)}"`, MENU_SVG.route, p.name, stopCount(p.id), cur(on));
+        });
+        if (plansAvailable === true) html += menuRowHtml('role="menuitem" data-act="new"', MENU_SVG.plus, 'New plan', null, MENU_SVG.none);
+        html += menuRowHtml('role="menuitem" data-kind="places" aria-haspopup="menu"', MENU_SVG.ring, 'Places', shownTally(), MENU_SVG.chev);
+      }
+      if (html === menuSig) return false;
+      const had = menu.contains(document.activeElement) ? menuRowKey(document.activeElement) : null;
+      menuSig = html;
+      menu.innerHTML = html;
+      if (had) { const again = [...menu.querySelectorAll('.menu-row')].find(r => menuRowKey(r) === had); if (again) again.focus({ preventScroll: true }); }
+      return true;
+    }
+    const menuRowKey = el => el && el.dataset ? (el.dataset.go || el.dataset.plan || el.dataset.plans || el.dataset.kind || el.dataset.act || null) : null;
+    // Under the title: its left edge on the gutter, 44px below the sheet's top edge (over the
+    // header band's lower part, as drawn). Without room below (a lowered sheet), above the band.
+    function placeTitleMenu() {
+      const menu = document.getElementById('titleMenu'), sheet = document.getElementById('locations').getBoundingClientRect();
+      menu.style.maxHeight = '';
+      const h = menu.offsetHeight, gutter = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gutter')) || 16;
+      const below = sheet.top + 44, roomBelow = innerHeight - 8 - below, roomAbove = sheet.top - 2 - 8;
+      // A menu taller than either side (many plans) takes the roomier one and scrolls inside.
+      const down = h <= roomBelow || (h > roomAbove && roomBelow >= roomAbove);
+      const room = down ? roomBelow : roomAbove;
+      if (h > room) menu.style.maxHeight = `${Math.max(120, room)}px`;
+      menu.style.left = `${sheet.left + gutter}px`;
+      menu.style.top = `${down ? below : Math.max(8, sheet.top - 2 - Math.min(h, room))}px`;
+      menu.style.setProperty('--slip-from', down ? '-4px' : '4px');
+    }
+    function openTitleMenu() {
+      const btn = document.getElementById('titleBtn'), menu = document.getElementById('titleMenu');
+      closeSortMenu(false);
+      closeFiltersPanel();
+      menuKind = inPlanView() ? 'plans' : 'places';
+      menuSig = null;
+      renderTitleMenu();
+      document.getElementById('menuScrim').hidden = false;
+      document.body.classList.add('menu-open');
+      menu.hidden = false;
+      placeTitleMenu();
+      menu.classList.remove('opening'); void menu.offsetWidth; menu.classList.add('opening');
+      btn.setAttribute('aria-expanded', 'true');
+      const first = menu.querySelector('[aria-checked="true"]') || menu.querySelector('.menu-row');
+      if (first) first.focus({ preventScroll: true });
+    }
+    function closeTitleMenu(refocus = true) {
+      const menu = document.getElementById('titleMenu');
+      if (menu.hidden) return;
+      menu.hidden = true; menu.classList.remove('opening');
+      document.getElementById('menuScrim').hidden = true;
+      document.body.classList.remove('menu-open');
+      const btn = document.getElementById('titleBtn');
+      btn.setAttribute('aria-expanded', 'false');
+      if (refocus) btn.focus({ preventScroll: true });
+    }
+    // A poll tick or a write re-renders the open menu in place (same side, same focus).
+    function refreshTitleMenu() {
+      if (!titleMenuOpen()) return;
+      if (renderTitleMenu()) placeTitleMenu();
+    }
+
+    // ---- the list's section headers (keyed non-row nodes; never a gesture target) ----
+    const cityHeads = new Map();   // city id -> { el, sig }
+    const legHeads = new Map();    // leg index -> { el, sig }
+    let currentLegs = [];          // the open plan's legs, for a leg header's tap
+    function headEntry(store, key) {
+      let e = store.get(key);
+      if (!e) { const el = document.createElement('div'); el.className = 'sec-head'; e = { el, sig: null }; store.set(key, e); }
+      return e;
+    }
+    function renderCityHead(e, id, n, hidden, first) {
+      const sig = [cityLabel(id), n, hidden, first].join('|');
+      e.el.classList.toggle('is-first', first);
+      e.el.classList.toggle('is-hidden', hidden);
+      e.el.dataset.city = id;
+      if (sig === e.sig) return;
+      e.sig = sig;
+      const label = cityLabel(id);
+      e.el.innerHTML = `<button type="button" class="sec-name" data-go="${escapeAttr(id)}" aria-label="Go to ${escapeAttr(label)}, ${n}"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button>` +
+        `<button type="button" class="sec-eye" data-eye="${escapeAttr(id)}" aria-label="${hidden ? 'Show' : 'Hide'} ${escapeAttr(label)}" aria-pressed="${hidden}">${eyeSvg(hidden, '--paper')}</button>`;
+    }
+    function renderLegHead(e, i, leg, first) {
+      const label = cityLabel(leg.city), n = leg.rows.length, sig = [label, n, first].join('|');
+      e.el.classList.add('is-leg');
+      e.el.classList.toggle('is-first', first);
+      if (sig === e.sig) return;
+      e.sig = sig;
+      e.el.innerHTML = `<button type="button" class="sec-name" data-leg="${i}" aria-label="Show ${escapeAttr(label)}, ${n} ${n === 1 ? 'stop' : 'stops'}, on the map"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button>`;
+    }
+    function dropHeads(store) { store.forEach(e => e.el.remove()); store.clear(); }
+
+    // Places: one section per city, in the menu's order -- a header per city that has a shown
+    // place matching the chips, or that is hidden (its header only, greyed). Inside a section,
+    // today's sort, applied per section; shapes keep their block after the pins.
+    function syncPlacesList(visible, visibleShapes) {
+      const list = document.getElementById('locationsList');
+      const pinsBy = new Map(), shapesBy = new Map();
+      visible.forEach(l => { if (!pinsBy.has(l.city)) pinsBy.set(l.city, []); pinsBy.get(l.city).push(l); });
+      visibleShapes.forEach(n => { if (!shapesBy.has(n.city)) shapesBy.set(n.city, []); shapesBy.get(n.city).push(n); });
+      const want = [], seenLoc = new Set(), seenShape = new Set(), seenHead = new Set();
+      sectionCityIds().forEach(id => {
+        const pins = pinsBy.get(id) || [], shapes = shapesBy.get(id) || [], hidden = hiddenCities.has(id);
+        if (!pins.length && !shapes.length && !(hidden && (CITIES[id] || cityHasPlaces(id)))) return;
+        const head = headEntry(cityHeads, id);
+        renderCityHead(head, id, cityTally(id), hidden, !want.length);
+        seenHead.add(id); want.push(head.el);
+        pins.forEach((loc, i) => {
+          seenLoc.add(loc.id);
+          let entry = cardsById.get(loc.id);
+          if (!entry) { entry = { el: createCard(loc), signature: null }; cardsById.set(loc.id, entry); }
+          const signature = cardSignature(loc);
+          // Held while the pencil star owns this row (settleStarDrag() / ssReplay() / vsReplay()).
+          if (signature !== entry.signature && !starHeld.has(loc.id)) { renderCard(entry.el, loc); entry.signature = signature; }
+          entry.el.classList.toggle('highlighted', loc.id === highlightedId);
+          // Category order: the last row of each category run (in its section) carries an ink rule.
+          entry.el.classList.toggle('group-end', sortMode === 'category' && i < pins.length - 1 && pins[i + 1].category !== loc.category);
+          want.push(entry.el);
+        });
+        shapes.forEach(nb => {
+          const item = shapeRowItem(nb);
+          seenShape.add(nb.id);
+          let entry = shapeCardsById.get(nb.id);
+          if (!entry) { entry = { el: createCard(item), signature: null }; shapeCardsById.set(nb.id, entry); }
+          const signature = cardSignature(item);
+          // Held while a row gesture owns it, as a pin row.
+          if (signature !== entry.signature && !starHeld.has(item.id)) { renderCard(entry.el, item); entry.signature = signature; }
+          want.push(entry.el);
+        });
       });
-      const pick = document.getElementById('planPick'), ledger = document.getElementById('planLedger');
-      const counts = plans.map(p => stopCount(p.id));
-      const open = inPlanView() && plansAvailable === true && (!!planPanel.open || planPanel.mode === 'creating');
-      const sig = JSON.stringify([listView, plansAvailable, plansOffline, activePlanId, planPanel.mode, open, planPanel.target, plans.map(p => [p.id, p.name]), counts]);
-      if (sig === planLedgerSig) return;
-      planLedgerSig = sig;
-      const hadFocus = panel.contains(document.activeElement) ? document.activeElement : null;
-      const focusKey = hadFocus && (hadFocus.dataset.plan || hadFocus.dataset.more || hadFocus.dataset.act || (hadFocus.tagName === 'INPUT' ? 'input' : null));
-      const cur = activePlan();
-      // With no plans the picker is an empty select ("No plan"); its slip then holds only New plan.
-      const label = plansAvailable === false ? 'Not set up yet' : plansOffline ? 'Offline' : plansAvailable === null ? 'Loading…' : cur ? cur.name : plans.length ? 'Pick a plan' : 'No plan';
-      const act = plansAvailable !== true ? 'none' : 'toggle';
-      const empty = plansAvailable === true && !plans.length;
-      pick.innerHTML = !inPlanView() ? '' : `<button type="button" class="plan-picker${empty ? ' is-empty' : ''}" data-act="${act}" aria-haspopup="true" aria-expanded="${open}"${act === 'none' ? ' aria-disabled="true"' : ''} aria-label="Plan: ${escapeAttr(label)}">` +
-        `<span class="plan-name">${escapeHtml(label)}</span>${act === 'toggle' ? PLAN_CHEV : ''}</button>`;
-      ledger.hidden = !open;
-      if (!open) { ledger.innerHTML = ''; layoutPlanLedger(); return; }
-      const form = (lbl, a) => `<div class="plan-opt plan-form"><input type="text" maxlength="${PLAN_NAME_MAX}" enterkeyhint="done" autocomplete="off" aria-label="${lbl}" placeholder="Plan name" value="${escapeAttr(planPanel.draft)}">` +
-        `<button type="button" class="plan-act" data-act="cancel">Cancel</button><button type="button" class="plan-act primary" data-act="${a}">${a === 'create' ? 'Create' : 'Save'}</button></div>`;
-      ledger.innerHTML = '<div class="plan-scroll">' + plans.map((p, i) => {
-        const tgt = p.id === planPanel.target;
-        if (tgt && planPanel.mode === 'renaming') return form('Plan name', 'save');
-        if (tgt && planPanel.mode === 'acting') {
-          return `<div class="plan-opt plan-form" role="group" aria-label="${escapeAttr(p.name)}"><button type="button" class="plan-act primary" data-act="rename">Rename</button>` +
-            `<button type="button" class="plan-act danger" data-act="delete">Delete plan…</button><span class="plan-spacer"></span><button type="button" class="plan-act" data-act="cancel">Cancel</button></div>`;
+      cardsById.forEach((entry, id) => { if (!seenLoc.has(id)) { entry.el.remove(); cardsById.delete(id); } });
+      shapeCardsById.forEach((entry, id) => { if (!seenShape.has(id)) { entry.el.remove(); shapeCardsById.delete(id); } });
+      cityHeads.forEach((e, id) => { if (!seenHead.has(id)) { e.el.remove(); cityHeads.delete(id); } });
+      want.forEach((el, i) => { if (list.children[i] !== el) list.insertBefore(el, list.children[i] || null); });
+      return want.length - seenHead.size;   // rows
+    }
+
+    // ---- All plans: one row per plan, then New plan (or its create form) ----
+    const planListRows = new Map();   // key -> { el, sig }
+    const ROUTE_22 = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="M8.5 6h5a3 3 0 0 1 0 6h-3a3 3 0 0 0 0 6h5"/></g></svg>';
+    const ROW_CHEV = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5l4.5 4.5L6 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    // "3 stops · Reykjavík", its cities in stop order ("Copenhagen → Malmö").
+    function planMetaText(id) {
+      const rows = planRowsFor(id), n = rows.length, cities = [];
+      rows.forEach(r => { const c = r.loc ? r.loc.city : r.nb.city; if (c && cities[cities.length - 1] !== c) cities.push(c); });
+      return `${n} ${n === 1 ? 'stop' : 'stops'}${cities.length ? ' · ' + cities.map(cityLabel).join(' → ') : ''}`;
+    }
+    function planFormHtml(lbl, act) {
+      return `<input type="text" maxlength="${PLAN_NAME_MAX}" enterkeyhint="done" autocomplete="off" aria-label="${lbl}" placeholder="Plan name" value="${escapeAttr(planPanel.draft)}">` +
+        `<button type="button" class="plan-act" data-act="cancel">Cancel</button><button type="button" class="plan-act primary" data-act="${act}">${act === 'create' ? 'Create' : 'Save'}</button>`;
+    }
+    function syncPlansList() {
+      const list = document.getElementById('locationsList');
+      const want = [], seen = new Set();
+      const put = (key, cls, html, attrs = {}) => {
+        let e = planListRows.get(key);
+        const sig = cls + '\u0000' + html;
+        if (!e) { e = { el: document.createElement('div'), sig: null }; planListRows.set(key, e); }
+        if (e.sig !== sig) {
+          e.sig = sig; e.el.className = cls; e.el.innerHTML = html;
+          [...e.el.attributes].forEach(a => { if (a.name !== 'class') e.el.removeAttribute(a.name); });
+          Object.entries(attrs).forEach(([k, v]) => e.el.setAttribute(k, v));
         }
-        const n = counts[i], ct = `${n} ${n === 1 ? 'stop' : 'stops'}`;
-        return `<div class="plan-opt"><button type="button" class="plan-pick" data-plan="${escapeAttr(p.id)}" aria-current="${p.id === activePlanId}" aria-label="${escapeAttr(p.name)}, ${ct}">` +
-          `${PLAN_SVG.check}<span class="plan-name">${escapeHtml(p.name)}</span><span class="plan-count">${ct}</span></button>` +
-          `<button type="button" class="plan-more" data-act="more" data-more="${escapeAttr(p.id)}" aria-label="Rename or delete ${escapeAttr(p.name)}">${PLAN_SVG.more}</button></div>`;
-      }).join('') + '</div>' + (planPanel.mode === 'creating' ? form('New plan name', 'create')
-        : `<div class="plan-opt"><button type="button" class="plan-pick plan-new" data-act="new">${PLAN_SVG.plus}<span class="plan-name">New plan</span><span></span></button></div>`);
-      layoutPlanLedger();
-      const input = ledger.querySelector('input');
-      if (input && (focusKey === 'input' || planPanel.focusInput)) {
+        seen.add(key); want.push(e.el); return e;
+      };
+      const creating = planPanel.mode === 'creating';
+      if (plansAvailable === true && (plans.length || creating)) {
+        plans.forEach(p => {
+          const tgt = p.id === planPanel.target;
+          if (tgt && planPanel.mode === 'renaming') { put('p:' + p.id, 'plan-form', planFormHtml('Plan name', 'save'), { 'data-form': 'rename' }); return; }
+          if (tgt && planPanel.mode === 'acting') {
+            put('p:' + p.id, 'plan-form', `<button type="button" class="plan-act primary" data-act="rename">Rename</button><button type="button" class="plan-act danger" data-act="delete">Delete plan…</button><span class="plan-spacer"></span><button type="button" class="plan-act" data-act="cancel">Cancel</button>`,
+              { role: 'group', 'aria-label': p.name });
+            return;
+          }
+          const meta = planMetaText(p.id);
+          put('p:' + p.id, 'plan-row', `<button type="button" class="plan-open" data-plan="${escapeAttr(p.id)}" aria-label="${escapeAttr(p.name)}, ${escapeAttr(meta)}"><span class="plan-ico">${ROUTE_22}</span>` +
+            `<span class="plan-text"><h3>${escapeHtml(p.name)}</h3><span class="row-meta">${escapeHtml(meta)}</span></span></button>` +
+            `<span class="plan-row-end"><button type="button" class="plan-more" data-act="more" data-more="${escapeAttr(p.id)}" aria-label="Rename or delete ${escapeAttr(p.name)}">${PLAN_SVG.more}</button><span class="plan-chev" data-plan="${escapeAttr(p.id)}" aria-hidden="true">${ROW_CHEV}</span></span>`);
+        });
+        if (creating) put('new', 'plan-form', planFormHtml('New plan name', 'create'), { 'data-form': 'create' });
+        else put('new', 'plan-row plan-new-row', `<button type="button" class="plan-open" data-act="new"><span class="plan-ico">${MENU_SVG.plus}</span><span class="plan-new-lab">New plan</span></button>`);
+      }
+      planListRows.forEach((e, k) => { if (!seen.has(k)) { e.el.remove(); planListRows.delete(k); } });
+      want.forEach((el, i) => { if (list.children[i] !== el) list.insertBefore(el, list.children[i] || null); });
+      const input = list.querySelector('.plan-form input');
+      if (input && planPanel.focusInput) {
         planPanel.focusInput = false;
         input.focus({ preventScroll: true });
         input.setSelectionRange(input.value.length, input.value.length);
-      } else if (focusKey) {
-        const again = panel.querySelector(`[data-plan="${CSS.escape(focusKey)}"], [data-more="${CSS.escape(focusKey)}"], [data-act="${CSS.escape(focusKey)}"]`);
-        if (again) again.focus({ preventScroll: true });
+        input.closest('.plan-form').scrollIntoView({ block: 'nearest' });
       }
+      return want.length;
     }
-    // The picker's slip (UX 4): when its plans don't all fit above the panel's bottom, the plan
-    // list scrolls, capped so its last visible row is cut in half (the scroll cue), with New plan
-    // pinned below it. The slip hugs its rows; so its bottom edge never cuts through a chip,
-    // any chip it covers or crosses is hidden while it is open (.under-plan-slip).
-    function layoutPlanLedger() {
-      const panel = document.getElementById('filtersPanel'), ledger = document.getElementById('planLedger');
-      const sc = ledger.querySelector('.plan-scroll');
-      panel.querySelectorAll('.under-plan-slip').forEach(c => c.classList.remove('under-plan-slip'));
-      if (ledger.hidden || !sc) return;
-      sc.style.maxHeight = '';
-      const pr = panel.getBoundingClientRect(), lr = ledger.getBoundingClientRect(), DROP = 2;
-      const avail = pr.bottom - lr.top - DROP - 4;
-      const row = sc.firstElementChild ? sc.firstElementChild.getBoundingClientRect().height : 45;
-      if (lr.height > avail && sc.firstElementChild) {
-        const room = avail - (lr.height - sc.getBoundingClientRect().height);
-        sc.style.maxHeight = `${(Math.max(1, Math.floor(room / row - 0.5)) + 0.5) * row}px`;
-      }
-      const bottom = ledger.getBoundingClientRect().bottom + DROP;
-      panel.querySelectorAll('.city-btn, .filter-btn').forEach(c => { const r = c.getBoundingClientRect(); if (r.height && r.top < bottom) c.classList.add('under-plan-slip'); });
-    }
-    addEventListener('resize', () => { sizeFiltersPanel(); layoutPlanLedger(); });
-    // The panel keeps Places' height in both views (capped by its max-height); anything
-    // more (Plans' picker row) scrolls inside it.
+
+    // The panel is as tall as its content, capped by its max-height; anything more scrolls inside it.
     function sizeFiltersPanel() {
-      const pn = document.getElementById('filtersPanel'), pick = document.getElementById('planPick');
+      const pn = document.getElementById('filtersPanel');
       pn.style.height = '';
-      const extra = pick.offsetHeight ? pick.offsetHeight + parseFloat(getComputedStyle(pick.parentNode).rowGap || 0) : 0;
       const bw = pn.offsetHeight - pn.clientHeight;   // its top and bottom rules
-      pn.style.height = `${Math.min(parseFloat(getComputedStyle(pn).maxHeight) || Infinity, pn.scrollHeight - extra + bw)}px`;
+      pn.style.height = `${Math.min(parseFloat(getComputedStyle(pn).maxHeight) || Infinity, pn.scrollHeight + bw)}px`;
     }
-    function setPlanPanel(next) { planPanel = { mode: null, draft: '', open: true, ...next }; renderPlanPanel(); }
+    addEventListener('resize', () => sizeFiltersPanel());
+    function setPlanPanel(next) { planPanel = { mode: null, draft: '', ...next }; updateUI(); }
     async function submitPlanForm() {
       const name = cleanPlanName(planPanel.draft);
-      if (!name) { const i = document.querySelector('#planLedger input'); if (i) i.focus(); return; }
+      if (!name) { const i = document.querySelector('#locationsList .plan-form input'); if (i) i.focus(); return; }
       if (planPanel.mode === 'creating') {
-        setPlanPanel({ open: false });
+        setPlanPanel({});
         const id = await createPlan(name);
         if (id) choosePlan(id);
       } else if (planPanel.mode === 'renaming') {
@@ -7299,67 +7578,85 @@
         await renamePlan(id, name);
       }
     }
-    async function openNewPlan() {   // from the picker, the slip, or the empty list's button
+    // New plan (the title menu, the plans list, the empty list's button): All plans with the
+    // create form as its last row (today's form), the list raised if it was lowered.
+    async function openNewPlan() {
       if (!await requireAuth()) return;
-      const panel = document.getElementById('filtersPanel');
-      if (!panel.classList.contains('visible')) document.getElementById('toggleFiltersBtn').click();
-      setPlanPanel({ mode: 'creating', focusInput: true });
+      if (!railQuery.matches && sheetIsCollapsed()) toggleSheetCollapsed();
+      planPanel = { mode: 'creating', draft: '', focusInput: true };
+      if (inPlanView() && !activePlanId) updateUI(); else showAllPlans({ keepPanel: true });
     }
     function initPlans() {
-      const sw = document.getElementById('listSwitch'), fp = document.getElementById('filtersPanel');
       const ro = new ResizeObserver(() => sizeFiltersPanel());
-      [sw.parentNode, document.getElementById('cityFilters'), document.getElementById('filters')].forEach(e => ro.observe(e));
-      fp.addEventListener('scroll', () => layoutPlanLedger(), { passive: true });   // chips scrolling under the open slip
-      sw.addEventListener('click', e => { const b = e.target.closest('[role="radio"]'); if (b) setListView(b.dataset.view); });
-      sw.addEventListener('keydown', e => {
-        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
-        e.preventDefault();
-        const v = e.key === 'Home' ? 'places' : e.key === 'End' ? 'plans' : (listView === 'places' ? 'plans' : 'places');
-        setListView(v);
-        sw.querySelector(`[data-view="${v}"]`).focus();
+      ro.observe(document.getElementById('filters'));
+      const list = document.getElementById('locationsList');
+      // The list's own controls: section headers, the plans list and its forms. Rows keep their
+      // own handlers (createCard); these nodes are never rows, so never a gesture target.
+      list.addEventListener('click', async e => {
+        const go = e.target.closest('.sec-name[data-go]');
+        if (go) { goToCity(go.dataset.go); return; }
+        const eye = e.target.closest('.sec-eye[data-eye]');
+        if (eye) { setCityHidden(eye.dataset.eye, !hiddenCities.has(eye.dataset.eye)); return; }
+        const leg = e.target.closest('.sec-name[data-leg]');
+        if (leg) { const l = currentLegs[Number(leg.dataset.leg)]; if (l) frameLeg(l.rows); return; }
+        if (!e.target.closest('.plan-row, .plan-form')) return;
+        const b = e.target.closest('[data-act]');
+        if (b) {
+          const act = b.dataset.act, tp = plans.find(p => p.id === planPanel.target);
+          if (act === 'cancel') setPlanPanel({});
+          else if (act === 'create' || act === 'save') submitPlanForm();
+          else if (act === 'new') openNewPlan();
+          else if (act === 'more') setPlanPanel({ mode: 'acting', target: b.dataset.more });
+          else if (act === 'rename' && tp) { if (await requireAuth()) setPlanPanel({ mode: 'renaming', draft: tp.name, target: tp.id, focusInput: true }); else setPlanPanel({}); }
+          else if (act === 'delete' && tp) {
+            if (!await requireAuth()) { setPlanPanel({}); return; }
+            setPlanPanel({});
+            // Plain words, the phone's own dialog (the app's other deletes do the same).
+            if (confirm(`Delete “${tp.name}”? Its places stay in your list.`)) {
+              await deletePlan(tp.id);
+              if (inPlanView() && !activePlan()) frameAllPlans();
+            }
+          }
+          return;
+        }
+        const pick = e.target.closest('[data-plan]') || (e.target.closest('.plan-row') && e.target.closest('.plan-row').querySelector('[data-plan]'));
+        if (pick) choosePlan(pick.dataset.plan);
       });
-      const ledger = document.getElementById('planLedger');
-      ledger.addEventListener('input', e => { if (e.target.tagName === 'INPUT') planPanel.draft = e.target.value; });
-      ledger.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); setPlanPanel(e.target.tagName === 'INPUT' ? {} : { open: false }); return; }
+      list.addEventListener('input', e => { if (e.target.matches('.plan-form input')) planPanel.draft = e.target.value; });
+      list.addEventListener('keydown', e => {
+        if (!e.target.closest('.plan-form')) return;
+        if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); setPlanPanel({}); return; }
         if (e.target.tagName === 'INPUT' && e.key === 'Enter') { e.preventDefault(); submitPlanForm(); }
       });
-      const onClick = async e => {
-        const pick = e.target.closest('[data-plan]');
-        if (pick) { choosePlan(pick.dataset.plan); return; }
-        const b = e.target.closest('[data-act]');
-        if (!b) return;
-        const act = b.dataset.act, tp = plans.find(p => p.id === planPanel.target);
-        if (act === 'none') return;
-        if (act === 'toggle') setPlanPanel({ open: !(planPanel.open || planPanel.mode) });
-        else if (act === 'cancel') setPlanPanel({});
-        else if (act === 'create' || act === 'save') submitPlanForm();
-        else if (act === 'new') openNewPlan();
-        else if (act === 'more') setPlanPanel({ mode: 'acting', target: b.dataset.more });
-        else if (act === 'rename' && tp) { if (await requireAuth()) setPlanPanel({ mode: 'renaming', draft: tp.name, target: tp.id, focusInput: true }); else setPlanPanel({}); }
-        else if (act === 'delete' && tp) {
-          if (!await requireAuth()) { setPlanPanel({}); return; }
-          setPlanPanel({});
-          // Plain words, the phone's own dialog (the app's other deletes do the same). Any plan,
-          // open or not: deleting another plan never changes what you're looking at.
-          if (confirm(`Delete “${tp.name}”? Its places stay in your list.`)) {
-            await deletePlan(tp.id);
-            if (inPlanView() && !activePlan()) focusCity(citySelection, { animate: true });   // the last plan: frame the city, as Places does
-          }
+      // The title and its menu.
+      const btn = document.getElementById('titleBtn'), menu = document.getElementById('titleMenu'), scrim = document.getElementById('menuScrim');
+      btn.addEventListener('click', () => { if (titleMenuOpen()) closeTitleMenu(); else openTitleMenu(); });
+      scrim.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); closeTitleMenu(); });
+      menu.addEventListener('click', e => {
+        const r = e.target.closest('.menu-row'); if (!r) return;
+        const d = r.dataset;
+        if (d.kind) {   // the quiet last row: the other kind, in place, the menu stays open
+          menuKind = d.kind; renderTitleMenu(); placeTitleMenu();
+          const first = menu.querySelector('.menu-row'); if (first) first.focus({ preventScroll: true });
+          return;
         }
-      };
-      ledger.addEventListener('click', onClick);
-      document.getElementById('planPick').addEventListener('click', onClick);
-      // The slip closes with the panel.
-      document.getElementById('toggleFiltersBtn').addEventListener('click', () => setTimeout(() => {
-        if (!document.getElementById('filtersPanel').classList.contains('visible') && (planPanel.open || planPanel.mode)) setPlanPanel({ open: false });
-      }, 0));
-      // Back to the stops from anywhere in a long list: tap the plan's name
-      // (the iOS "tap the title to go to the top" convention). No new control.
-      document.querySelector('#locationsHeader h2').addEventListener('click', () => {
-        if (!inPlanView()) return;
-        document.getElementById('locationsList').scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+        closeTitleMenu();
+        if (d.go) goToCity(d.go);
+        else if (d.plans) showAllPlans();
+        else if (d.plan) choosePlan(d.plan);
+        else if (d.act === 'new') openNewPlan();
       });
+      menu.addEventListener('keydown', e => {
+        const opts = [...menu.querySelectorAll('.menu-row')], i = opts.indexOf(document.activeElement);
+        const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
+        if (e.key === 'ArrowDown') go(i + 1);
+        else if (e.key === 'ArrowUp') go(i - 1);
+        else if (e.key === 'Home') go(0);
+        else if (e.key === 'End') go(opts.length - 1);
+        else if (e.key === 'Escape' || e.key === 'Tab') { e.preventDefault(); closeTitleMenu(); }
+      });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && titleMenuOpen()) closeTitleMenu(); });
+      window.addEventListener('resize', () => { if (titleMenuOpen()) placeTitleMenu(); });
       planEmptyBtn.addEventListener('click', openNewPlan);
     }
 
@@ -7369,45 +7666,56 @@
       // the other matches in the sort); Places sorts here, as it always has.
       const visible = (() => { const v = visibleLocations(); return planMode ? v : (heldOrder(v) || sortLocations(v)); })();
       const visibleShapes = (() => { const v = visibleNeighborhoodShapes(); return planMode ? v : (heldOrder(v, shapeRowKey) || sortShapes(v)); })();
-      // The header is only a label: whatever the list is. Places: the city
-      // list and its count. Plans: just the plan's name (a count cost two
-      // characters of fit; Places' "<city> list (N)" still tells them apart).
-      const h2 = document.querySelector('#locationsHeader h2');
-      if (planMode && activePlan()) h2.innerHTML = `<span class="h-name">${escapeHtml(activePlan().name)}</span>`;
-      else h2.textContent = planMode ? 'Plans' : `${activeCityLabel()} list (${visible.length + visibleShapes.length})`;
+      renderTitle();
       document.body.classList.toggle('plan-view', planMode);
       document.body.classList.toggle('plan-none', planMode && !activePlan());
       const mapVisible = mapVisibleLocations();
       syncMarkers(mapVisible.solo);
       syncClusterMarkers(mapVisible.clusters);
-      if (planMode) syncPlanCards(planMarks().rows);
-      else {
-        [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });   // the index-based reconcilers own the list from row 0
+      let listed;
+      if (planMode) {
+        dropHeads(cityHeads);
+        if (activePlan()) { dropPlanList(); syncPlanCards(planMarks().rows); listed = 1; }
+        else {
+          dropHeads(legHeads); currentLegs = [];
+          [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });
+          cardsById.forEach(e => e.el.remove()); cardsById.clear();
+          shapeCardsById.forEach(e => e.el.remove()); shapeCardsById.clear();
+          listed = syncPlansList();
+        }
+      } else {
+        dropHeads(legHeads); currentLegs = []; dropPlanList();
+        [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });   // the Places reconciler owns the list from row 0
         document.querySelectorAll('#locationsList .is-stop').forEach(e => e.classList.remove('is-stop'));   // Plans' marker class, back on a Places row
-        syncLocationCards(visible);
-        syncShapeCards(visibleShapes, visible.length);
+        // No rows: the empty line -- unless every city with places is hidden, when the list holds
+        // only their greyed headers.
+        const rows = syncPlacesList(visible, visibleShapes);
+        listed = rows || (cityHeads.size && !locations.some(l => cityShown(l.city)) && !neighborhoodShapes.some(n => cityShown(n.city)));
       }
       syncNeighborhoodLayers();
       syncPlanShapeMarkers();
       applyPlanMap();
       placePlanSlip();   // the rule may have moved under it
 
-      // Empty state + bottom spacer always come last, after both card kinds.
+      // Empty state + bottom spacer always come last, after every row and header.
       const list = document.getElementById('locationsList');
       const emptyState = document.getElementById('locationsEmpty');
-      emptyState.style.display = (planMode ? !activePlan() : (visible.length + visibleShapes.length) === 0) ? 'block' : 'none';
+      // Every city hidden: the list holds only greyed headers (no empty line).
+      emptyState.style.display = !listed ? 'block' : 'none';
       const emptyText_ = [...emptyState.childNodes].find(n => n.nodeType === 3);
       if (emptyText_) emptyText_.textContent = emptyText(planMode);
       // No plans yet: the empty list offers the one next step (sign-in first if needed).
       const wantNew = planMode && plansAvailable === true && !plans.length;
       if (wantNew && !planEmptyBtn.parentNode) emptyState.append(planEmptyLine2, planEmptyBtn);
       else if (!wantNew && planEmptyBtn.parentNode) { planEmptyLine2.remove(); planEmptyBtn.remove(); }
-      if (list.lastElementChild !== listSpacer) {
+      if (list.lastElementChild !== listSpacer || emptyState.nextElementSibling !== listSpacer) {
         list.appendChild(emptyState);
         list.appendChild(listSpacer);
       }
-      renderPlanPanel();
+      refreshTitleMenu();
+      applySectionScroll();
     }
+    function dropPlanList() { planListRows.forEach(e => e.el.remove()); planListRows.clear(); }
 
     // ---- neighborhood shape rendering (Phase 3) ------------------------------
     // Binary add/remove at a zoom threshold, not an always-present opacity
@@ -7502,18 +7810,17 @@
       shapeStarMarkersById.forEach((m, id) => { if (!want.has(id)) { map.removeLayer(m); shapeStarMarkersById.delete(id); } });
     }
 
-    // City + category filtered, no zoom involved -- this is "what matches the
+    // Category + hidden-city filtered, no zoom involved -- this is "what matches the
     // user's filters," used by the sidebar list/count. A list enumerates
     // everything available; it isn't a viewport, so zoom has no business
     // hiding rows from it (unlike the map layer, see mapVisibleNeighborhoodShapes()).
     function visibleNeighborhoodShapes() {
       const match = neighborhoodShapes.filter(nb => {
         if (!filters.categories[nb.type]) return false;   // same category filter chips as pins
-        if (!isAllCities() && nb.city !== activeCity) return false;
-        return true;
+        return cityShown(nb.city);                        // and the same hidden cities
       });
       if (!inPlanView()) return match;
-      if (!activePlan()) return [];
+      if (!activePlan()) { const ids = allPlanStopIds('shape_id'); return neighborhoodShapes.filter(n => ids.has(n.id)); }
       const stops = planMarks().rows.filter(r => r.nb).map(r => r.nb);
       const inPlan = new Set(stops.map(n => n.id));
       return stops.concat(match.filter(n => !inPlan.has(n.id)));
@@ -9090,48 +9397,11 @@
       setTimeout(() => { x.style.pointerEvents = ''; }, left);
     }
 
-    function syncLocationCards(visible) {
-      const list = document.getElementById('locationsList');
-      const seen = new Set();
-
-      visible.forEach((loc, index) => {
-        seen.add(loc.id);
-        let entry = cardsById.get(loc.id);
-
-        if (!entry) {
-          entry = { el: createCard(loc), signature: null };
-          cardsById.set(loc.id, entry);
-        }
-
-        const signature = cardSignature(loc);
-        // Held while the pencil star owns this row (settleStarDrag() / ssReplay() / vsReplay()).
-        if (signature !== entry.signature && !starHeld.has(loc.id)) {
-          renderCard(entry.el, loc);
-          entry.signature = signature;
-        }
-        entry.el.classList.toggle('highlighted', loc.id === highlightedId);
-        // Category order: the last row of each category run carries an ink rule.
-        entry.el.classList.toggle('group-end', sortMode === 'category' && index < visible.length - 1 && visible[index + 1].category !== loc.category);
-
-        if (list.children[index] !== entry.el) {
-          list.insertBefore(entry.el, list.children[index] || null);
-        }
-      });
-
-      cardsById.forEach((entry, id) => {
-        if (seen.has(id)) return;
-        entry.el.remove();
-        cardsById.delete(id);
-      });
-    }
-
     // ---- neighborhood shape list cards ---------------------------------------
     // A shape's row is a pin's row (createCard()/renderCard() on its
     // shapeRowItem(): every gesture, the stamp, the star, delete safety), with
     // its own diamond badge and TYPE · CITY meta; framed by bounds, not a point
-    // -- see focusShape(). pinOffset places these cards right after the pin
-    // cards syncLocationCards() just wrote, so the two reconcilers can share
-    // one DOM list without stepping on each other's child indices.
+    // -- see focusShape(). syncPlacesList() places them after their section's pins.
     function focusShape(shapeId) {
       const nb = neighborhoodShapes.find(n => n.id === shapeId);
       if (!nb) return;
@@ -9155,61 +9425,6 @@
             map.flyTo(center, zoom, { duration: 0.5 });
           }
         });
-    }
-
-    function syncShapeCards(visible, pinOffset) {
-      const list = document.getElementById('locationsList');
-      const seen = new Set();
-
-      visible.forEach((nb, index) => {
-        seen.add(nb.id);
-        const item = shapeRowItem(nb);
-        let entry = shapeCardsById.get(nb.id);
-
-        if (!entry) {
-          entry = { el: createCard(item), signature: null };
-          shapeCardsById.set(nb.id, entry);
-        }
-
-        const signature = cardSignature(item);
-        // Held while a row gesture owns it, as a pin row (syncLocationCards()).
-        if (signature !== entry.signature && !starHeld.has(item.id)) {
-          renderCard(entry.el, item);
-          entry.signature = signature;
-        }
-
-        const targetIndex = pinOffset + index;
-        if (list.children[targetIndex] !== entry.el) {
-          list.insertBefore(entry.el, list.children[targetIndex] || null);
-        }
-      });
-
-      shapeCardsById.forEach((entry, id) => {
-        if (seen.has(id)) return;
-        entry.el.remove();
-        shapeCardsById.delete(id);
-      });
-    }
-
-    function createCitySelector() {
-      const container = document.getElementById('cityFilters');
-      const entries = Object.entries(CITIES)
-        .map(([id, c]) => [id, c.label])
-        .concat([[ALL_CITIES, 'All cities']]);
-
-      container.innerHTML = entries
-        .map(([id, label]) => `<button class="city-btn" data-city="${escapeHtml(id)}">${escapeHtml(label)}</button>`)
-        .join('');
-
-      container.querySelectorAll('.city-btn').forEach(btn => {
-        btn.onclick = () => setActiveCity(btn.getAttribute('data-city'));
-      });
-    }
-
-    function updateCitySelectorUI() {
-      document.querySelectorAll('#cityFilters .city-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-city') === citySelection);
-      });
     }
 
     // Chips are ink-on-paper with the category glyph, never white-on-category
@@ -9290,6 +9505,7 @@
     }
     function openAddForm() {
       closeSortMenu(false);   // one overlay at a time
+      closeTitleMenu(false);
       const panel = document.getElementById('filtersPanel');
       if (panel.classList.contains('visible')) document.getElementById('toggleFiltersBtn').click();   // (by keyboard: the panel covers the badge to a finger)
       const list = document.getElementById('locationsList');
@@ -9395,7 +9611,8 @@
     }
 
     document.getElementById('toggleFiltersBtn').onclick = () => {
-      closeSortMenu(false);   // one overlay at a time: the panel and the sort menu never share the screen
+      closeSortMenu(false);   // one overlay at a time: the panel and the menus never share the screen
+      closeTitleMenu(false);
       const filtersPanel = document.getElementById('filtersPanel');
       const toggleBtn = document.getElementById('toggleFiltersBtn');
       filtersPanel.classList.toggle('visible');
@@ -9405,7 +9622,7 @@
       placePlanSlip();       // the list moved under the slip
     };
 
-    document.getElementById('collapseBtn').onclick = () => toggleSheetCollapsed();
+    document.getElementById('collapseTab').onclick = () => toggleSheetCollapsed();
     function toggleSheetCollapsed() {
       // A tag is open: ▼ / ▲ is the user's own choice and the tag stays open.
       // The tag's lowering is dropped first; raised again, the sheet re-fits
@@ -9413,13 +9630,15 @@
       const tagUp = typeof tagOpenNow === 'function' && tagOpenNow();
       if (tagUp) setSheetLower(0);
       const locations = document.getElementById('locations');
-      const collapseBtn = document.getElementById('collapseBtn');
+      const collapseTab = document.getElementById('collapseTab');
       const mapElement = document.getElementById('map');
       const mainContent = document.getElementById('mainContent');
       const filtersPanel = document.getElementById('filtersPanel');
 
       locations.classList.toggle('collapsed');
-      collapseBtn.classList.toggle('collapsed');
+      const lowered = collapseTab.classList.toggle('collapsed');
+      collapseTab.setAttribute('aria-label', lowered ? 'Raise the list' : 'Lower the list');
+      collapseTab.setAttribute('aria-expanded', String(!lowered));
       mapElement.classList.toggle('expanded');
       filtersPanel.classList.toggle('collapsed-mode');
 
@@ -10115,7 +10334,7 @@
       document.getElementById('locations').classList.toggle('list-scrolled', on);   // the header's scroll shadow (no :has())
     }, { passive: true });
 
-    // Persistent tail elements of the list, owned by syncLocationCards().
+    // Persistent tail elements of the list, kept last by updateUI().
     const listSpacer = document.createElement('div');
     listSpacer.className = 'location-list-spacer';
     const locationsEmptyEl = document.createElement('div');
@@ -10130,7 +10349,7 @@
     locationsListEl.appendChild(listSpacer);
 
     populateCityInput();
-    createCitySelector();
+    hiddenCities = readHiddenCities();
     createFilters();
     restorePlanPrefs();
     initPlans();
@@ -10141,10 +10360,12 @@
     // First open (nothing stored, and not an auth hop): see startFirstOpen().
     const restoredCity = restoreCitySelection();          // cityId | ALL_CITIES | null
     const firstOpen = restoredCity === null && !authHop ? startFirstOpen() : null;
-    setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false, persist: !firstOpen });
+    setActiveCity(restoredCity ?? DEFAULT_CITY, { animate: false, persist: !firstOpen, reveal: false });   // a restore, not a go-to: a hidden city stays hidden
 
     Promise.all([fetchLocations(), fetchNeighborhoodShapes(), fetchCities(), fetchPlans()])
       .then(() => {
+        placesLoaded = true;
+        updateUI(); applySectionScroll();   // the go-to city's section exists now: the list lands on it
         if (firstOpen) firstOpen.dataLoaded();
         if (inPlanView()) frameActivePlan(); cleanupOrphanCities();
         // Just hopped (signed in or out): land where you were -- the view, and the open tag.

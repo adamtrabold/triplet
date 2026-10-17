@@ -1,6 +1,6 @@
 // PLAN-ROWS SUITE -- the row gestures on a Plans stop row (docs/shipped.md "Plans (v3
-// build)"). A stop row is a Places row with three deliberate changes: the grey number
-// LEFT of the icon (the stop's badge moves one column over), hold-to-drag on the number
+// build)"; add-tag-jam phase 1). A stop row is a Places row with three deliberate changes: the
+// grey number as its lead in place of the icon, under a leg (city) header, hold-to-drag on the number
 // (STOP_HOLD_MS 400ms, STOP_HOLD_SLOP 4px), and × / + in the delete ×'s slot (remove from
 // / add to the plan, DELETE_TAP_SLOP). Nothing else may change: until the hold arms, a
 // touch on the number is the row's. Real-timing CDP touch, both motion modes:
@@ -24,7 +24,7 @@ const STOPS = 'rey00,rey05,rey01';
   for (const reduced of [false, true]) { const mode = reduced ? 'reduced' : 'full';
     const { ctx, page, cdp, errors } = await openProto(b, { reduced, storage: { 'gh.plans': '1', 'triplet.reorderHint': '1' } });
     await page.waitForFunction(() => typeof plans !== 'undefined' && plans.length === 1, null, { timeout: 10000 });
-    await page.evaluate(() => setListView('plans')); await W(800);
+    await page.evaluate(() => choosePlan('gh-p')); await W(800);   // the plan picked in the title menu (Plans no longer auto-opens plans[0])
     const order = () => page.evaluate(() => stopsOf('gh-p').map(s => s.location_id).join());
     const flags = id => page.evaluate(id => { const l = locations.find(x => x.id === id); return { starred: !!l.starred, visited: !!l.visited }; }, id);
     const box = (id, sel) => page.evaluate(([id, sel]) => { const row = document.querySelector(`#locationsList .location-card[data-id="${id}"]`), l = document.getElementById('locationsList');

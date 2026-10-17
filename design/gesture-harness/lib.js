@@ -51,7 +51,13 @@ const INSTRUMENT = () => {
 };
 
 // opts: reduced, dsf, w, h, city, touch, file, storage {k:v}
+// Cities stopped being a list filter (add-tag-jam phase 1: the whole list in city sections; a
+// city's eye hides it). The suites address one city's 21 rows by index, so every OTHER fixture
+// city is hidden (triplet.hiddenCities) unless storage sets it: the list is that city's section
+// (its header + 21 rows + 2 shapes) among the others' greyed headers.
+const FIXTURE_CITIES = ['la', 'reykjavik', 'copenhagen', 'malmo', 'stockholm'];
 async function openProto(browser, { reduced = false, dsf = 1, w = 390, h = 844, city = 'reykjavik', touch = true, file = FILE, storage = {} } = {}) {
+  if (!('triplet.hiddenCities' in storage)) storage = { ...storage, 'triplet.hiddenCities': JSON.stringify(FIXTURE_CITIES.filter(c => c !== city)) };
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: dsf, hasTouch: touch, isMobile: touch,
     reducedMotion: reduced ? 'reduce' : 'no-preference' });
   const page = await ctx.newPage();

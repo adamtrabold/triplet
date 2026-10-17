@@ -20,13 +20,20 @@
       function () { var m = document.getElementById('sortMenu'); return m && !m.hidden && m.children.length > 0; }],
     add: ['#floatingAddBtn', function () { document.getElementById('floatingAddBtn').click(); },
       function () { var f = document.getElementById('addForm'); return f && f.classList.contains('show'); }],
-    plans: ['#listSwitch [data-view="plans"]', function () { document.querySelector('#listSwitch [data-view="plans"]').click(); },
-      function () { var b = document.querySelector('#listSwitch [data-view="plans"]'), p = document.getElementById('filtersPanel');
-        return b && b.getAttribute('aria-checked') === 'true' && p && p.classList.contains('plans-side'); }],
+    // add-tag-jam phase 1: Plans is picked in the list title's menu (the quiet row, then a plan)
+    plans: ['#titleBtn', function () {
+        document.getElementById('titleBtn').click();
+        var q = document.querySelector('#titleMenu [data-kind="plans"]'); if (q) q.click();
+        var p = document.querySelector('#titleMenu [data-plan]'); if (p) p.click();
+      },
+      function () { return document.body.classList.contains('plan-view') && !document.body.classList.contains('plan-none') && document.getElementById('titleMenu').hidden; }],
   };
   try {
     localStorage.clear();
     localStorage.setItem('triplet.citySelection', 'reykjavik');
+    // cities stopped being a list filter (add-tag-jam phase 1): hide the other fixture cities so the
+    // list is Reykjavik's section, as the city chip made it before (the gesture harness does the same)
+    localStorage.setItem('triplet.hiddenCities', JSON.stringify(['la', 'copenhagen', 'malmo', 'stockholm']));
     if (S === 'plans') localStorage.setItem('gh.plans', '1'); // the plans fixture in stub.js (plans builds)
   } catch (e) {}
   var done = false;

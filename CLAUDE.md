@@ -238,7 +238,7 @@ bottom-left (2026-10-15); add-form place suggestions fitted and over the ×
 - **Brand colour tokens: one system** (owner, 2026-10-07) -- lane 1, zero
   visual change. Every colour a named brand token (the per-city palette is
   already gone: `--brand-orange`). Not started.
-- **Plans** -- v3 is in `index.html` on main (Places | Plans switch). The
+- **Plans** -- v3 is in `index.html` on main (picked in the list title's menu once add-tag-jam phase 1 lands). The
   `plans`/`plan_stops` tables exist in the live DB (checked 2026-10-15;
   no docs entry records the apply). Next: the owner's iPhone pass. Spec:
   `design/plans-deepdive/v3/README.md`; shipped entry "Plans (v3 build)".

@@ -1513,3 +1513,70 @@ Not verified: **Safari / WebKit** -- `filter: url()` referencing a per-frame-upd
     no places with Stockholm/Reykjavík/Tokyo time zones; late grant
     untouched/touched). Impeccable gate passed; places-ux 30/30, plans
     32/32, popup-open 42/42.
+
+## List title, city sections, show/hide, collapse tab (add-tag-jam phase 1; built 2026-10-17 on `add-tag-p1`, NOT LANDED)
+
+Owner: "Great to build" (the decided design, `design/add-tag-jam/handoff.md` Phase 1 + "One menu
+spec"); "Places/plans does not need to be in the list header"; "Definitely h1 for hidden
+cities"; "First row doesn't need all the extra padding"; "For me it's this one right now" (K2)
+and "the list needs the subtle top border that the tab has". Builder notes:
+`design/add-tag-jam/notes/builder.md`. Stills: `design/add-tag-jam/stills/build-p1/`
+(`stills.js` reshoots them). Landing waits on the combined CD + UX check and the owner's yes.
+
+- **Go to and hide came apart.** Cities are never a filter: `filters.city` is gone. Going to a city
+  (the title menu, a section header's name; `goToCity()` -> `setActiveCity()`) frames it and scrolls
+  the WHOLE list to its section header (`pendingSectionScroll`, consumed once; a poll never
+  scrolls). Hiding is a section header's eye (`setCityHidden()`), per viewer in `localStorage`
+  `triplet.hiddenCities` (try/catch; empty = none). Hidden places leave the list and the map; a
+  plan's stops always show. Going to a hidden city shows it again (a boot restore doesn't:
+  `reveal: false`); adding a place into a hidden city shows it (`revealCity()`).
+- **The list title** (`#titleBtn`): 18/22 caps, the header 52px (`padding: 9px var(--gutter)`), the
+  title on the gutter; it reads what is shown plus a quiet tally (`.tally`, one treatment
+  everywhere) and a 12px chevron: "Copenhagen 23", "All places 115", "Golden Circle 3", "All
+  plans 3". A go-to label: it doesn't follow panning. Zero places: "All places 0".
+- **The title menu** (`#titleMenu`, the shared `.menu-box` / `.menu-row` classes, the sort menu's
+  box, scrim, credit-hiding and `sortSlip`): opens on the current kind. Places: All cities, each
+  city with a place (a hidden one dimmed .55 with the closed eye), then the quiet row "Plans n ›".
+  Plans: All plans, each plan + stop tally, New plan, "Places n ›". The quiet row swaps in place
+  without closing; picking closes. Placement: 44px below the sheet's top on the gutter when it
+  fits; otherwise above the header band (the sort menu's rule) -- on a 390x844 phone the Places
+  side (7 rows) always opens above; taller than either side, it scrolls inside.
+- **City sections** (`syncPlacesList()`): one header per city with a shown place matching the chips,
+  or hidden; CITIES order (runtime cities appended), stable. Header (`.sec-head`): 60px, air above,
+  the name (Go to) on a 2px --hair rule, 12/14 caps with an 11px tally, the 20px eye; the first one
+  44px. Hidden: the header in place, name at .5, closed eye, rows folded. Per section: today's sort,
+  shapes after pins. Headers are keyed non-row nodes, never a gesture target; rows unchanged
+  (56.00px).
+- **Plans:** All plans lists one row per plan ("6 stops · Copenhagen → Malmö → Copenhagen", ⋯ =
+  Rename / Delete plan…, ›) then New plan (today's create form, in the list). `setListView('plans')`
+  reopens the plan last open, else All plans (no automatic first plan); a deleted open plan falls
+  back to All plans. A plan open: its stops in leg sections (a header where the city changes, a
+  recurring city gets its own; no eye; a tap frames the leg, `frameLeg()`), then the rule ("Add from
+  all places (n)") and the addable places, unsectioned. A stop row's lead is its number alone (15px
+  700, 85% width); the category badge left the stop row.
+- **Gone:** the city chips, the Places | Plans switch, the plan picker and its slip, the header's
+  collapse arrow. The filter panel holds the category chips only ("Filters").
+- **Collapse tab** (`#collapseTab`): 44x24 on the sheet's top edge at the right, its paper running
+  into the sheet's, 16px icon (rotates 180 lowered), "Lower / Raise the list"; the sheet has a 1px
+  --hair top rule; the map credit sits 24px up, above the tab. Same `toggleSheetCollapsed()`; the
+  rail has no tab. The collapsed band stays 60px (the header is 52 + the rule).
+- **Tests updated for the removed UI:** the gesture harness (`lib.js`) and the list-ordering /
+  plans harnesses hide the other fixture cities (the old city chip); the Impeccable driver does the
+  same and opens Plans through the title menu; plantest's switch/picker cases now drive the title
+  menu and the plans list, plus a new H block (sections, hide/show + reload, go-to scroll, the
+  section name, All cities, a poll with the menu open, the tab, a recurring-city plan); sorttest's
+  header 52 and the ⇅ zone vs the title button.
+- **Gates (Chromium):** full gesture gate (index.html b2ca9365e3ed): star "84 + 8 (+ N8-a)" · vtest
+  91/95 (V14 x2, V15 x2, as main; the full run also failed V22 once, the known flake -- passed on
+  re-run) · popup-open 20/20 + 20/20 · dust 0 frames (65 runs, <=126ms) · rows 56.00px · curve8
+  row 10/3, highlighted 10/3, popup 10/3 (pre-existing) · delete-slop 36/36 · plan-rows 32/32 ·
+  places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12 -- failures identical to main's (main the
+  same day: vtest 91/95, curve8). plan-rows and shape-rows were re-run on the same index.html
+  after two harness fixes for the new list (plans.js opens the plan with `choosePlan()` now that
+  Plans doesn't auto-open `plans[0]`; shapes.js scrolls the shape row to the list's foot, since
+  hidden cities' headers now follow it).
+  plantest 136/162 (main 114/144 with the same crash guards: the ~25 shared failures are the
+  playground-mode harness, backlog; S5 is new: a 20-character plan name truncates, about 17 fit);
+  sorttest 76/77 (D1 fails on main too); places-ux 30/30. Impeccable: static ok; runtime FAILED on
+  2 new identities, both the spec'd greyed hidden header (name 3.0:1, tally 2.2:1 at opacity .5) --
+  needs an owner waiver or a design change; `--update` not run.

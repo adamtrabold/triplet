@@ -59,7 +59,7 @@ flowchart LR
 | Thing | What it is | Representations | In code |
 |---|---|---|---|
 | **Place** | Somewhere worth going. Has a city, category, name, notes, `visited`, `starred` | Pin, district outline or street line on the map; list row; place details | **Two tables for one concept:** `locations` (point places) and `neighborhood_shapes` (district/street places). The code calls the second kind a "shape". `rowItem()` / `shapeRowItem()` give both one interface, keyed by uuid or `'shape:<id>'` |
-| **City** | A bucket a place is filed under. Not a boundary | City chip in the filters; City field in the add form | `cities` table merged into the static `CITIES` seed |
+| **City** | A bucket a place is filed under. Not a boundary | City section in the list (header, eye); a row in the list title's menu; City field in the add form | `cities` table merged into the static `CITIES` seed |
 | **Plan** / **stop** | A named, ordered list; a stop points at exactly one place | Numbered rows in Plans; number tags on the map | `plans`, `plan_stops` (`location_id` **or** `shape_id`) |
 | **Category** | The kind of place (11) | Glyph badge and ink on pins; filter chips | `CATEGORY_COLORS` |
 | **Visited / starred** | Flags on a place | Row: stamp (`.row-stamp`), orange star. Pin: peeled sticker (`STICKER`), star | boolean columns on both tables |
@@ -88,7 +88,7 @@ stateDiagram-v2
   Boot --> SignedIn: stored session
   state "Main screen (map + list)" as Main {
     [*] --> PlacesView
-    PlacesView --> PlansView: Places | Plans switch
+    PlacesView --> PlansView: list title menu (quiet last row, then a plan)
     PlansView --> PlacesView
     PlacesView --> DetailsOpen: tap row or pin
     PlansView --> DetailsOpen: tap stop or pin
@@ -114,7 +114,8 @@ stateDiagram-v2
 |---|---|---|
 | List (Places) | always | `#locationsList`, `syncLocationCards()` + `syncShapeCards()` |
 | List (Plans) | Places \| Plans switch in the filters | `syncPlanCards()`, `renderPlanPanel()` |
-| Filters panel | `#toggleFiltersBtn` | `createCitySelector()`, `createFilters()` |
+| Filters panel | `#toggleFiltersBtn` | `createFilters()` (category chips only) |
+| List title menu | `#titleBtn` | `openTitleMenu()`, `renderTitleMenu()`, `goToCity()`, `choosePlan()`, `showAllPlans()` |
 | Sort menu | `#sortBtn` | `SORT_MODES`, `setSortMode()` |
 | Place details | row tap, pin tap | `buildPopupHtml()`, `TagPopup`, `tagOpened()` / `tagClosed()` |
 | Add form | + badge `#floatingAddBtn` | `#addForm`, `showAddForm()`, `closeAddForm()` |
@@ -176,7 +177,7 @@ sort resumes on load only if permission is already granted.
 
 ```mermaid
 flowchart LR
-  F["City chip + category chips<br/>+ Places | Plans"] --> V["visibleLocations()<br/>visibleNeighborhoodShapes()"]
+  F["Category chips + hidden cities<br/>+ Places / Plans (title menu)"] --> V["visibleLocations()<br/>visibleNeighborhoodShapes()"]
   V --> L["List: all matches, sorted<br/>(sortLocations / sortShapes)"]
   V --> Z["mapVisible*(): + zoom gate"]
   Z --> M["Map: pins, clusters, outlines"]
@@ -185,9 +186,12 @@ flowchart LR
 - Filters decide what **both** list and map show. Sort only reorders the
   list. Zoom only thins the map. Never use a `mapVisible*` function for list
   membership (CLAUDE.md).
-- A city chip calls `setActiveCity()`, the only writer of city state; tapping
-  the active city again reframes it (the recovery after panning away).
-  Category chips survive a city switch.
+- Going to a city (title menu, a section header's name) calls `goToCity()` -> `setActiveCity()`:
+  it frames the city and scrolls the WHOLE list to its section header; it never filters.
+  Hiding is separate: a section header's eye, `setCityHidden()`, `hiddenCities` (per viewer,
+  `localStorage` `triplet.hiddenCities`). Phase 1 of `design/add-tag-jam/handoff.md`.
+  Re-picking the current city reframes it (the recovery after panning away).
+  Category chips survive a go-to.
 
 ### List tap → map
 

@@ -255,16 +255,16 @@ const JAEGER = { latitude: 55.6925, longitude: 12.5445 };   // Jægersborggade
     const g = await page.evaluate(() => { const r = s => document.querySelector(s).getBoundingClientRect(); const btn = document.getElementById('sortBtn'), a = getComputedStyle(btn, '::after');
       const zoneL = r('#sortBtn').left + parseFloat(a.left), zoneR = r('#sortBtn').right - parseFloat(a.right), zoneT = r('#sortBtn').top + parseFloat(a.top), zoneB = r('#sortBtn').bottom - parseFloat(a.bottom);
       const h2 = document.querySelector('#locationsHeader h2');
-      return { header: r('#locationsHeader').height, zone: [zoneR - zoneL, zoneB - zoneT], inert: r('#toggleFiltersBtn').left - zoneR, clearCollapse: zoneL - r('#collapseBtn').right, h2fits: h2.scrollWidth <= h2.clientWidth, rows: [...document.querySelectorAll('.location-card')].slice(0, 5).map(e => e.getBoundingClientRect().height) }; });
-    ok('X1 header one row, 57px (56 + rule), unchanged', g.header === 57, g.header);
+      return { header: r('#locationsHeader').height, zone: [zoneR - zoneL, zoneB - zoneT], inert: r('#toggleFiltersBtn').left - zoneR, clearTitle: zoneL - r('#titleBtn').right, titleHit: (() => { const t = r('#titleBtn'), a2 = getComputedStyle(document.getElementById('titleBtn'), '::before'); return t.right - parseFloat(a2.right); })(), zoneL, h2fits: h2.scrollWidth <= h2.clientWidth, rows: [...document.querySelectorAll('.location-card')].slice(0, 5).map(e => e.getBoundingClientRect().height) }; });
+    ok('X1 header one row, 52px (its rule inside; add-tag-jam ListHeaderType)', g.header === 52, g.header);
     ok('X2 ⇅ tap zone >= 44 x 44 (50 x 56)', g.zone[0] >= 44 && g.zone[1] >= 44, g.zone);
     ok('X3 inert margin ⇅ zone -> filters box 4-8px', g.inert >= 4 && g.inert <= 8, g.inert);
-    ok('X4 clear of the collapse button', g.clearCollapse > 20, g.clearCollapse);
+    ok('X4 the ⇅ zone starts where the title button ends (the collapse arrow left the header): no overlapping targets', g.clearTitle >= -0.5 && g.titleHit <= g.zoneL + 0.5, g);
     ok('X5 rows still 56.00px', g.rows.every(h => h === 56), g.rows);
     let fits = []; for (const c of ['copenhagen', 'stockholm', null]) { fits.push(await page.evaluate(c => { setActiveCity ? setActiveCity(c === null ? ALL_CITIES : c) : 0; const h2 = document.querySelector('#locationsHeader h2'); return [h2.textContent, h2.scrollWidth <= h2.clientWidth]; }, c)); }
     ok('X6 long titles fit untruncated (Copenhagen / Stockholm / All cities)', fits.every(f => f[1]), fits);
     await page.evaluate(() => setActiveCity('copenhagen'));
-    await page.tap('#collapseBtn'); await W(500); await tapEl(page, '#sortBtn'); await W(300);
+    await page.tap('#collapseTab'); await W(500); await tapEl(page, '#sortBtn'); await W(300);
     const cg = await page.evaluate(() => { const m = document.getElementById('sortMenu').getBoundingClientRect(), h = document.getElementById('locationsHeader').getBoundingClientRect(); return { above: m.bottom <= h.top, inView: m.top >= 0, hdrVisible: h.bottom <= innerHeight + 1 }; });
     ok('X7 collapsed sheet: ⇅ visible, menu opens above it, on screen', cg.above && cg.inView && cg.hdrVisible, cg);
     await ctx.close(); }

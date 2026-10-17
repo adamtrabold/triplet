@@ -33,7 +33,8 @@ async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, geo = nu
     return route.fulfill({ status: 404, body: '' });
   });
   await page.addInitScript(st => { try { if (!sessionStorage.getItem('__seeded')) { sessionStorage.setItem('__seeded', '1');
-    localStorage.setItem('triplet.citySelection', 'copenhagen'); for (const [k, v] of Object.entries(st)) localStorage.setItem(k, v); } } catch (e) {} }, storage);
+    if (!('triplet.hiddenCities' in st)) localStorage.setItem('triplet.hiddenCities', '["malmo"]');   // cities stopped being a filter (add-tag-jam phase 1): the suites read Copenhagen's section, so Malmö is hidden
+      localStorage.setItem('triplet.citySelection', 'copenhagen'); for (const [k, v] of Object.entries(st)) localStorage.setItem(k, v); } } catch (e) {} }, storage);
   if (init) await page.addInitScript(init);
   if (clock) await page.clock.install();
   await page.goto('https://triplet.test/index.html');

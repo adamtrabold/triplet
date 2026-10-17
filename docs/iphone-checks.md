@@ -6,6 +6,19 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- **The list title, city sections, show/hide, the tab (add-tag-jam phase 1; check once it lands):**
+  (1) tap the list title: the menu opens on your cities (or plans), each with its count; tap the
+  last row ("Plans 3 ›" / "Places 202 ›"): it swaps in place and stays open; on your phone, note
+  whether it opens above the header (it can't fit below in a 300px list); (2) pick a city: the
+  title names it, the map flies there, the whole list scrolls to its header, nothing hides;
+  (3) tap a section's eye: its header greys, its rows fold away, its pins leave the map; reload:
+  still hidden; going to it from the menu shows it again; (4) the first header sits tight under
+  the title; the others have air above a light rule; (5) Plans: All plans lists each plan with
+  "n stops · City → City", ⋯ renames/deletes, › opens; a plan's stops sit under city headers
+  (tap one to frame that leg); (6) the tab at the top right of the list lowers/raises it, the
+  map credit sits above it and never under it, and the + never touches it; (7) scroll and
+  flick the list across section headers: no stuck rows, star/visit swipes still work right
+  under a header.
 - **First open asks for your location (landed 2026-10-15):** in a fresh
   private Safari tab (nothing stored): (1) Safari asks for your location
   once, right at load; (2) Allow: the map lands on you with the navy

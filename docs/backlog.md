@@ -167,6 +167,15 @@ pick/redirect before building anything.
   Build needs: full gesture gate (it replaces the VISITED stamp; vtest /
   replay cases must be rewritten, V14's 72x32 ring model), the Impeccable
   gate, and iPhone checks. Nothing built yet.
+- **Add tag + city jam** (owner: "Great to build", 2026-10-17; `design/add-tag-jam/handoff.md`,
+  four phases, lane 2 each). **Phase 1** (the list title + its menu, city sections, show/hide,
+  All plans, leg sections, the collapse tab) is BUILT on branch `add-tag-p1`, waiting on the
+  CD + UX check and the owner's stills; entry drafted in `docs/shipped.md`. Open from it: the
+  Impeccable gate's 2 new low-contrast identities (the spec'd greyed hidden header, opacity .5)
+  need an owner waiver or a design change; the Places menu opens above the header on a phone
+  (no room below in the 300px list) -- designers to confirm; a 20-character plan name truncates
+  in the 18px title (plantest S5). Phases 2-4 (the add tag, city buckets, the map badge) not
+  started.
 - **City buckets** (owner, 2026-09-23; decided 2026-10-15). Trips are
   dropped: no trip entity (owner, on "Trips: keep or drop?": "drop").
   *The search bug is fixed:* search widens on a miss (see `docs/shipped.md`,
@@ -323,6 +332,13 @@ pick/redirect before building anything.
   `preventDefault()` in both handlers and have later listeners skip on
   `e.defaultPrevented`, and make the form's Esc skip while `#error.show`
   (listener order means it can't rely on the banner's preventDefault).
+- **Bug (tests): plantest's harness runs the app in the playground** (since the playground became
+  the signed-out app, 2026-10-13): `design/plans-build/harness.js` never stores a session, so
+  `PLAYGROUND` is true, writes never reach the stub's `__db` and `__calls`, and polls read the
+  playground copy. ~25 plantest cases fail on main for this alone (C2-C4, U1/U4/U6, W3-W12, G2-G5,
+  D2-D7, V6/V8 is the tag's stop line). Repro: `VENDOR=design/gesture-harness/vendor node
+  design/plans-build/plantest.js` on main = 114/144. Fix: seed the auth key in the harness, then
+  re-baseline. Found 2026-10-17 (add-tag-jam phase 1 build).
 - **Bug: expanding the list (▲) with a tag opened while collapsed leaves the
   tag under the top controls** (pre-existing on main; found by the + badge
   review, 2026-10-15). The tag ends about 10px above the map's top, under the

@@ -38,6 +38,7 @@ async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, plans = 
   await page.addInitScript(([st, city, cfg]) => {
     Object.assign(window, cfg);
     try { if (!sessionStorage.getItem('__seeded')) { sessionStorage.setItem('__seeded', '1');
+      if (!('triplet.hiddenCities' in st)) localStorage.setItem('triplet.hiddenCities', '["malmo"]');   // cities stopped being a filter (add-tag-jam phase 1): the suites read Copenhagen's section, so Malmö is hidden
       localStorage.setItem('triplet.citySelection', city); for (const [k, v] of Object.entries(st)) localStorage.setItem(k, v); } } catch (e) {}
   }, [storage, city, { __PLANS: plans, __STOPS: stops, __PLANS_MISSING: missing, __PLANS_OFFLINE: offline, __FAIL_WRITES: failWrites, __WRITE_DELAY: writeDelay, __SIGNED_OUT: signedOut, __VISITED: visited }]);
   if (init) await page.addInitScript(init);

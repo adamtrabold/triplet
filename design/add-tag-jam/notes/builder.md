@@ -1,0 +1,84 @@
+# Builder notes: add-tag-jam phase 1 (the list title, city sections, show/hide, collapse)
+
+Branch `add-tag-p1` (from origin/main 90c396e). Not landed: the CD + UX check and the owner's look
+at the stills come first (CLAUDE.md lane 2). Spec: `handoff.md` "Phase 1" + "One menu spec".
+
+## Built (index.html)
+
+- **Gone:** the city chips (`#cityFilters`, `createCitySelector()`, `updateCitySelectorUI()`), the
+  Places | Plans switch (`#listSwitch`), the plan picker + slip (`#planPick`, `#planLedger`,
+  `layoutPlanLedger()`, `renderPlanPanel()`), `#collapseBtn`, `syncLocationCards()` /
+  `syncShapeCards()` (replaced by `syncPlacesList()`), `activeCityLabel()`. The filter panel holds the
+  category chips only; its button is now "Filters".
+- **Model:** `filters.city` is gone; `hiddenCities` (Set, `localStorage` `triplet.hiddenCities`,
+  try/catch, empty = none). `visibleLocations()` / `visibleNeighborhoodShapes()` keep a place when
+  its city is shown + the chips; a plan's stops always show. `setActiveCity()` is go-to only
+  (frames, scrolls the list to the header via `pendingSectionScroll` / `applySectionScroll()`,
+  unhides a hidden city unless `opts.reveal === false`). `goToCity()` switches to Places first.
+- **Title** (`#titleBtn` > h2 `.h-name` + `.tally` + 12px chevron): `titleState()`. Places: the last
+  go-to city + `cityTally()`, or "All places" + `shownTally()`; Plans: the plan + stop count, or
+  "All plans" + plan count.
+- **Title menu** (`#titleMenu.menu-box`, `#menuScrim`, body `.menu-open`): `openTitleMenu()`,
+  `renderTitleMenu()`, `placeTitleMenu()`, `refreshTitleMenu()` (poll-safe: re-renders in place,
+  keeps focus). Shared menu classes `.menu-box/.menu-row/.menu-ico/.menu-lab/.menu-end/.menu-cap`;
+  the box reuses `#sortMenu`'s rule and `sortSlip`. Quiet last row swaps sides without closing.
+- **City sections** (`syncPlacesList()`, `cityHeads`, `renderCityHead()`): keyed non-row nodes,
+  section order = `sectionCityIds()` (CITIES order, then unknown ids), per-section sort (the global
+  sort grouped), shapes after pins, `group-end` per section, `heldOrder()` unchanged. Header: Go to
+  name button + eye (`setCityHidden()`); first header compact (`.is-first`); hidden = greyed name,
+  closed eye, rows folded.
+- **All plans** (`syncPlansList()`, `planListRows`): plan rows (route glyph, name, "n stops · A →
+  B", ⋯ = today's Rename / Delete plan…, ›), New plan row / create form (`planPanel` reused).
+  `setListView('plans')` reopens the remembered plan or All plans (no auto `plans[0]`); a deleted
+  open plan falls back to All plans. Map: every plan's stops (`allPlanStopIds()`), `frameAllPlans()`.
+- **Leg sections** (`syncPlanCards()`, `legHeads`, `renderLegHead()`, `currentLegs`, `frameLeg()`):
+  broken where the stop's city changes; recurring city = its own header; no eye.
+- **Stop rows:** the lead is the number only (15px 700, 85% width, 28px column); the category
+  badge left the stop row (handoff "A plan").
+- **Collapse tab** (`#collapseTab`, K2): on the sheet's top edge at the right, 44x24, ::before to 44
+  tall, rotates 180 lowered, aria-label Lower/Raise the list; `#locations` border-top 1px --hair;
+  `.leaflet-bottom.leaflet-right` margin-bottom 24px (0 on the rail; tab hidden on the rail).
+- **Edge cases:** zero places "All places 0" (menu: All cities + quiet row); every city hidden =
+  only greyed headers (no empty line); a place added into a hidden city reveals it (`revealCity()`
+  in `addLocation()` / `addNeighborhoodShape()`).
+
+## Decisions (mine, inside the spec's gaps) -- flag list in the hand-back
+
+1. Menu placement on a real phone: 7 rows don't fit "44px below the sheet top" in a 300px sheet, so
+   `placeTitleMenu()` opens it above the header band (sort menu's rule) when it doesn't fit below,
+   and scrolls inside when neither side fits (many plans).
+2. Plan rule caption "Add from <city>" became "Add from all places" (cities don't filter now).
+3. Title for a city with no places at all (stale go-to, zero places) = "All places".
+4. The collapsed sheet keeps its 60px band (header is now 52 + the 1px sheet rule; 7px of empty
+   paper shows under it, list hidden) -- not re-plumbing the 60/240 constants shared by the +,
+   the map height, the panel and TAG_LIST_MIN.
+5. ⋯ on each plans-list row sits before the › (the spec moves it there; the stills don't draw it).
+6. A restore at boot / first open / orphan cleanup doesn't unhide a hidden city (`reveal: false`);
+   only the user's go-to does.
+7. Zero plans keeps today's empty list ("No plans yet." + New plan button) instead of a lone New
+   plan row.
+8. Hiding the city of an open tag closes the tag (its pin leaves the map).
+
+## Tests touched
+
+- `design/gesture-harness/lib.js`: hides every other fixture city (`triplet.hiddenCities`) so the
+  suites still read one city's 21 rows by index.
+- `design/list-ordering/build/harness.js`, `design/plans-build/harness.js`: hide Malmö (the old
+  Copenhagen chip).
+- `design/impeccable-gate/driver.js`: same hiding; the `plans` state opens via the title menu.
+- `plantest.js`: switch/picker/slip tests rewritten for the title menu + plans list; new H block
+  (sections, hide/show + persistence, go-to scroll, section name, All cities, poll with the menu
+  open, the tab, a recurring-city plan). Crash guards on `.slice(-1)[0].op`.
+- `design/gesture-harness/plans.js`: opens the plan with `choosePlan()`; `shapes.js`: scrolls the
+  shape row to the list's foot (hidden headers follow it now).
+- `sorttest.js`: header 52, the ⇅ zone vs the title button (was vs the collapse arrow), the tab.
+
+## Open gaps
+
+- Impeccable runtime: 2 new low-contrast identities = the spec'd greyed hidden header (name at
+  opacity .5 = 3.0:1, tally 2.2:1). Needs an owner waiver or a design change; no `--update` run.
+- plantest S5: a 20-character plan name no longer fits the 18px title with its tally + chevron.
+- plantest's harness runs in playground mode (since 2026-10-13), so ~25 write/poll tests fail on
+  main too (backlog).
+- During a stop drag across a leg header, the shifting rows move by one row height while headers
+  stay put (approximate visuals; the drop index is right).

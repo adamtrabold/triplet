@@ -85,7 +85,8 @@ const { rec, finish } = recorder('shapes');
       r('sloppy 6px tap navigates, marks nothing', s.nav === 1 && !s.starred && !s.visited, s); await ctx.close(); }
     { const { ctx, page, cdp, D } = await fresh(); await page.evaluate(() => { document.getElementById('locationsList').scrollTop = 0; }); await W(100);
       const y = await page.evaluate(sid => { const el = document.querySelector(`#locationsList .location-card[data-shape-id="${sid}"]`), l = document.getElementById('locationsList');
-        l.scrollTop = l.scrollHeight; const q = el.getBoundingClientRect(); return q.y + q.height / 2; }, D);
+        l.scrollTop += el.getBoundingClientRect().bottom - l.getBoundingClientRect().bottom;   // the row at the list's foot (other cities' hidden headers now follow it: add-tag-jam phase 1)
+        const q = el.getBoundingClientRect(); return q.y + q.height / 2; }, D);
       const st0 = await page.evaluate(() => document.getElementById('locationsList').scrollTop);
       await drag(page, cdp, line(200, y, 204, y + 150, 15)); await W(700); const s = await st(page, D); const st1 = await page.evaluate(() => document.getElementById('locationsList').scrollTop);
       r('vertical stroke on a shape row scrolls, never marks or navigates', st1 < st0 - 50 && !s.starred && !s.visited && !s.nav && !s.live, { st0, st1, s }); await ctx.close(); }
@@ -140,7 +141,7 @@ const { rec, finish } = recorder('shapes');
         const lay = neighborhoodLayersById.get(sid); return { inside: lay.getBounds().contains([la, ln]), title: document.querySelector('.leaflet-popup .popup-title').textContent, star: !!shapeStarMarkersById.get(sid) }; }, D);
       r('district popup: Get Directions to a point inside the district; no map star while unstarred', ins.inside && ins.title === 'Fixture District' && !ins.star, ins);
       // the popup star: toggles the shape, replays on its row (full motion), the map star appears; Mark Visited the same
-      await page.evaluate(() => document.getElementById('locationsList').scrollTop = 1e6); await W(200);
+      await page.evaluate(sid => { const l = document.getElementById('locationsList'), el = document.querySelector(`#locationsList .location-card[data-shape-id="${sid}"]`); l.scrollTop += el.getBoundingClientRect().bottom - l.getBoundingClientRect().bottom; }, D); await W(200);   // its row at the list's foot, on screen
       const tapIn = async sel => { const q = await page.evaluate(sel => { const e = document.querySelector(`.leaflet-popup ${sel}`).getBoundingClientRect(); return { x: e.x + e.width / 2, y: e.y + e.height / 2 }; }, sel); await page.touchscreen.tap(q.x, q.y); };
       await tapIn('.popup-star-tap'); await W(60); const held = await page.evaluate(sid => starHeld.has(shapeKey(sid)), D); await W(1400);
       const a = await st(page, D); const a2 = await page.evaluate(sid => ({ pressed: document.querySelector('.leaflet-popup .popup-star').getAttribute('aria-pressed'), star: !!(shapeStarMarkersById.get(sid) && map.hasLayer(shapeStarMarkersById.get(sid))) }), D);

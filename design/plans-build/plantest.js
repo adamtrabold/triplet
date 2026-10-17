@@ -1,5 +1,6 @@
-// Plans suite (v3 build): fail-soft without the tables, Places unchanged, the shared panel
-// (switch + picker + the same chips), the Plans list (stops / captioned rule / + places),
+// Plans suite (v3 build; add-tag-jam phase 1): fail-soft without the tables, Places unchanged,
+// the list title's menu (Places / Plans, the quiet last row), city sections + hide / show, All
+// plans, leg sections, the collapse tab, the Plans list (stops / captioned rule / + places),
 // the grey number, map tags + the Plans z ladder, popups, persistence, poll/no-clobber, add /
 // remove / reorder with the Undo slip, and the data layer (optimistic writes + rollback,
 // login gate) against the in-memory Supabase double (stub.js).
@@ -22,15 +23,27 @@ const tap = async (page, sel) => {
 const panelOpen = page => page.evaluate(() => document.getElementById('filtersPanel').classList.contains('visible'));
 const openPanel = async page => { if (!(await panelOpen(page))) { await tap(page, '#toggleFiltersBtn'); await W(400); } };
 const closePanel = async page => { if (await panelOpen(page)) { await tap(page, '#toggleFiltersBtn'); await W(400); } };
-const toPlans = async page => { await openPanel(page); await tap(page, '#listSwitch [data-view="plans"]'); await W(700); };
-const openPicker = async page => { await openPanel(page); if (await page.evaluate(() => document.getElementById('planLedger').hidden)) { await tap(page, '#planPick .plan-picker'); await W(200); } };
-const pick = async (page, id) => { await openPicker(page); await tap(page, `#planLedger [data-plan="${id}"]`); await W(800); };
+// The list title's menu (add-tag-jam phase 1) replaced the Places | Plans switch and the plan picker.
+const menuOpen = page => page.evaluate(() => !document.getElementById('titleMenu').hidden);
+const openMenu = async (page, side) => {
+  if (!(await menuOpen(page))) { await tap(page, '#titleBtn'); await W(250); }
+  if (side && (await page.$(`#titleMenu [data-kind="${side}"]`))) { await tap(page, `#titleMenu [data-kind="${side}"]`); await W(150); }
+};
+const closeMenu = async page => { if (await menuOpen(page)) { await page.keyboard.press('Escape'); await W(150); } };
+// Plans: the first fixture plan when there is one (the old switch opened plans[0]), else All plans.
+const toPlans = async page => { await openMenu(page, 'plans'); const first = await page.evaluate(() => plans[0] ? plans[0].id : null);
+  await tap(page, first ? `#titleMenu [data-plan="${first}"]` : '#titleMenu [data-plans="all"]'); await W(800); };
+const pick = async (page, id) => { await openMenu(page, 'plans'); await tap(page, `#titleMenu [data-plan="${id}"]`); await W(800); };
+const toAllPlans = async page => { await openMenu(page, 'plans'); await tap(page, '#titleMenu [data-plans="all"]'); await W(800); };
+const goCity = async (page, id) => { await openMenu(page, 'places'); await tap(page, `#titleMenu [data-go="${id}"]`); await W(1400); };
 // the list: stops (bare keys), '|' for the rule, '+key' for a place with +
 const keys = page => page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.offsetParent && e.matches('.location-card, .plan-rule'))
   .map(e => e.matches('.plan-rule') ? '|' : (e.classList.contains('is-stop') ? '' : '+') + (e.dataset.id || 'S' + e.dataset.shapeId)));
 const stopKeys = async page => (await keys(page)).filter(k => k !== '|' && k[0] !== '+').join();
 const nums = page => page.evaluate(() => [...document.querySelectorAll('#locationsList .row-n')].map(n => n.textContent).join());
-const h2 = page => page.evaluate(() => document.querySelector('#locationsHeader h2').textContent);
+// The title: its name (h2 .h-name) and its tally.
+const h2 = page => page.evaluate(() => document.querySelector('#locationsHeader h2 .h-name').textContent);
+const tally = page => page.evaluate(() => document.querySelector('#locationsHeader h2 .tally').textContent);
 const shown = (page, sel) => page.evaluate(sel => { const e = document.querySelector(sel); return !!e && getComputedStyle(e).display !== 'none' && e.getClientRects().length > 0; }, sel);
 const slip = page => page.evaluate(() => { const s = document.getElementById('planSlip'); return s && !s.hidden ? s.querySelector('.slip-text').textContent : null; });
 const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === 'plans' || c.table === 'plan_stops') && c.op !== 'select'));
@@ -43,17 +56,19 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const s = await page.evaluate(() => ({ view: listView, avail: plansAvailable, err: getComputedStyle(document.getElementById('error')).display, h2: document.querySelector('#locationsHeader h2').textContent,
       rows: document.querySelectorAll('#locationsList .location-card').length, x: document.querySelectorAll('#locationsList .delete-btn').length }));
     ok('F1 tables missing: no page/console errors, no error banner', !errors.length && !consoleErrors.length && s.err === 'none', { errors, consoleErrors, err: s.err });
-    ok('F2 tables missing: a stored Plans view starts in Places, list exactly as today', s.view === 'places' && s.avail === false && /^Copenhagen list \(\d+\)$/.test(s.h2) && s.rows > 20 && s.x === s.rows, s);
+    ok('F2 tables missing: a stored Plans view starts in Places, list exactly as today (title: the city + its tally)', s.view === 'places' && s.avail === false && /^Copenhagen\d+$/.test(s.h2) && s.rows > 20 && s.x === s.rows, s);
     await toPlans(page);
-    const f = await page.evaluate(() => ({ pick: document.querySelector('#planPick .plan-picker').textContent.trim(), dis: document.querySelector('#planPick .plan-picker').getAttribute('aria-disabled'),
-      empty: document.getElementById('locationsEmpty').textContent.trim(), led: document.getElementById('planLedger').hidden }));
-    ok('F3 Plans side: the picker reads "Not set up yet" (disabled), the list "Plans aren’t set up yet.", no rows, no New plan', f.pick === 'Not set up yet' && f.dis === 'true' && f.empty === 'Plans aren’t set up yet.' && f.led && !(await page.$('.plan-empty-new')) && (await keys(page)).length === 0, f);
-    await tap(page, '#planPick .plan-picker'); await W(200);
-    ok('F4 the disabled picker opens nothing', await page.evaluate(() => document.getElementById('planLedger').hidden));
-    ok('F5 Plans without tables: header "Plans", no ⇅, the chips stay live, nothing on the map', (await h2(page)) === 'Plans' && !(await shown(page, '#sortBtn')) && (await shown(page, '#cityFilters')) && (await shown(page, '#filters'))
+    const f = await page.evaluate(() => ({ empty: document.getElementById('locationsEmpty').textContent.trim() }));
+    await openMenu(page, 'plans');
+    const fm = await page.evaluate(() => [...document.querySelectorAll('#titleMenu .menu-row')].map(r => r.textContent.trim()));
+    await closeMenu(page);
+    ok('F3 Plans side: the list "Plans aren’t set up yet.", no rows, no New plan (list or menu: All plans, then Places)', f.empty === 'Plans aren’t set up yet.' && !(await page.$('.plan-empty-new')) && (await keys(page)).length === 0
+      && fm.length === 2 && /^All plans/.test(fm[0]) && /^Places/.test(fm[1]), { f, fm });
+    ok('F4 the title reads "All plans" with a 0 tally', (await h2(page)) === 'All plans' && (await tally(page)) === '0');
+    ok('F5 Plans without tables: no ⇅, the chips stay live, nothing on the map', !(await shown(page, '#sortBtn')) && (await shown(page, '#filters'))
       && (await page.evaluate(() => markersById.size + clusterMarkersById.size)) === 0);
-    await tap(page, '#listSwitch [data-view="places"]'); await W(500);
-    ok('F6 back to Places: list and header restored, still no errors', /^Copenhagen list/.test(await h2(page)) && (await page.evaluate(() => document.querySelectorAll('#locationsList .location-card').length)) > 20 && !errors.length && !consoleErrors.length);
+    await goCity(page, 'copenhagen');
+    ok('F6 back to Places (the menu\'s city): list and title restored, still no errors', (await h2(page)) === 'Copenhagen' && (await page.evaluate(() => document.querySelectorAll('#locationsList .location-card').length)) > 20 && !errors.length && !consoleErrors.length);
     await page.evaluate(() => { pollTick(); }); await W(400);
     ok('F7 a poll with the tables still missing stays silent', !errors.length && !consoleErrors.length && (await page.evaluate(() => getComputedStyle(document.getElementById('error')).display)) === 'none');
     await ctx.close(); }
@@ -63,64 +78,60 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const s = await page.evaluate(() => ({ view: listView, nums: document.querySelectorAll('.row-n').length, tags: document.querySelectorAll('.stop-tag').length, adds: document.querySelectorAll('.plan-add, .plan-x').length,
       x: document.querySelectorAll('#locationsList .delete-btn').length, rows: document.querySelectorAll('#locationsList .location-card').length, rule: !!document.querySelector('#locationsList .plan-rule') }));
     ok('P1 default = Places: every row has its delete X, no numbers, no +, no rule, no map tags', s.view === 'places' && !s.nums && !s.tags && !s.adds && !s.rule && s.x === s.rows, s);
-    ok('P2 Places header keeps its count and ⇅', /^Copenhagen list \(\d+\)$/.test(await h2(page)) && (await shown(page, '#sortBtn')));
+    ok('P2 Places title: the city and its tally (its places matching the chips), ⇅ kept', (await h2(page)) === 'Copenhagen' && (await tally(page)) === String(await page.evaluate(() => cityTally('copenhagen'))) && (await shown(page, '#sortBtn')));
     await openPanel(page);
-    const p = await page.evaluate(() => { const r = [...document.querySelectorAll('#listSwitch [role="radio"]')], pk = document.querySelector('#planPick .plan-picker'), pn = document.getElementById('filtersPanel');
-      return { group: document.getElementById('listSwitch').getAttribute('role'), labels: r.map(e => e.textContent), checked: r.map(e => e.getAttribute('aria-checked')),
-        cities: document.querySelectorAll('#cityFilters .city-btn').length, cats: document.querySelectorAll('#filters .filter-btn').length, ledger: document.getElementById('planLedger').hidden,
-        first: pn.firstElementChild.className, pick: !!pk, pickShown: document.getElementById('planPick').offsetHeight,
-        seg: document.querySelector('.seg').getBoundingClientRect().width, halves: r.map(e => e.getBoundingClientRect().width), row: document.querySelector('.seg-wrap').getBoundingClientRect().height,
-        panelH: pn.getBoundingClientRect().height, scroll: pn.scrollHeight - pn.clientHeight, ob: getComputedStyle(pn).overscrollBehaviorY, oy: getComputedStyle(pn).overflowY }; });
-    const geo = () => page.evaluate(() => { const r = e => { const b = document.querySelector(e).getBoundingClientRect(); return [b.x, b.y, b.width, b.height].map(v => Math.round(v * 100) / 100).join(); };
-      const pn = document.getElementById('filtersPanel'); return { sw: r('#listSwitch'), panel: r('#filtersPanel'), map: r('#map'), sheet: r('#locations'), scroll: pn.scrollHeight - pn.clientHeight }; });
-    const g0 = await geo();
-    ok('P3 panel: a radiogroup switch first, "Places" then "Plans", Places checked', p.group === 'radiogroup' && p.labels.join() === 'Places,Plans' && p.checked.join() === 'true,false' && p.first === 'seg-wrap', p);
-    ok('P4 Places side: every chip (6 cities incl. All, 11 categories); NO plan picker (no button, no row, no slip); the switch alone on its row, full width, equal halves (177.5px fills; the shared 1px rule is the first half\'s)', p.cities === 6 && p.cats === 11 && p.ledger && !p.pick && p.pickShown === 0 && p.seg === 358 && p.halves[0] - p.halves[1] === 1 && p.row === 61, p);
-    ok('P5 Places: the panel is 371px (40vh + 33px at 844), every chip unscrolled; it scrolls in place (overflow auto, overscroll contained)', Math.abs(p.panelH - 370.59) < 0.5 && p.scroll <= 0 && p.oy === 'auto' && p.ob === 'contain', p);
-    const tgt = await page.evaluate(() => [...document.querySelectorAll('#listSwitch button')].map(e => { const r = e.getBoundingClientRect(), a = getComputedStyle(e, '::before'); return r.height + parseFloat(a.top) * -1 + parseFloat(a.bottom) * -1; }));
-    ok('P6 switch segments: 36px drawn, ≥44px target', tgt.every(h => h >= 44), tgt);
-    await tap(page, '#listSwitch [data-view="plans"]'); await W(700);
-    const g1 = await geo();
-    const pp = await page.evaluate(() => ({ row: document.querySelector('.seg-wrap').getBoundingClientRect().height, pick: document.getElementById('planPick').getBoundingClientRect().height }));
-    ok('P7 to Plans: the switch, the panel, the map and the sheet do not move (same x/y/w/h); the picker row (36 + 8) scrolls the chips 44px instead of growing the panel', g1.sw === g0.sw && g1.panel === g0.panel && g1.map === g0.map && g1.sheet === g0.sheet && g1.scroll === 44 && pp.row === 105 && pp.pick === 36, { g0, g1, pp });
-    await page.evaluate(() => { document.getElementById('filtersPanel').scrollTop = 999; }); await W(150);
-    const g2 = await geo();
-    await pick(page, 'p-tiv');
-    const g3 = await geo();
-    await tap(page, '#listSwitch [data-view="places"]'); await W(600);
-    const g4 = await geo();
-    ok('P7b scrolled, picking a plan, back to Places: the switch never moves (pinned at the panel top)', [g2, g3, g4].every(g => g.sw === g0.sw && g.panel === g0.panel && g.map === g0.map && g.sheet === g0.sheet), { g2, g3, g4 });
-    await tap(page, '#listSwitch [data-view="plans"]'); await W(700);
-    ok('P7c the Plans tab reopens the last plan opened on this device; the panel stays open', (await page.evaluate(() => listView)) === 'plans' && (await h2(page)) === 'Tivoli tonight' && (await panelOpen(page)));
-    ok('P8 no errors', !errors.length, errors);
+    const p = await page.evaluate(() => { const pn = document.getElementById('filtersPanel');
+      return { first: pn.firstElementChild.id, kids: pn.children.length, cats: document.querySelectorAll('#filters .filter-btn').length, cities: document.querySelectorAll('.city-btn').length, sw: !!document.getElementById('listSwitch'), pick: !!document.getElementById('planPick'),
+        scroll: pn.scrollHeight - pn.clientHeight, ob: getComputedStyle(pn).overscrollBehaviorY, oy: getComputedStyle(pn).overflowY }; });
+    ok('P3 the filter panel holds the category chips only: no city chips, no Places | Plans switch, no plan picker', p.first === 'filters' && p.kids === 1 && p.cats === 11 && !p.cities && !p.sw && !p.pick, p);
+    ok('P4 the panel is as tall as its chips (nothing scrolled), and scrolls in place (overflow auto, overscroll contained)', p.scroll <= 0 && p.oy === 'auto' && p.ob === 'contain', p);
+    const tb = await page.evaluate(() => { const b = document.getElementById('titleBtn'); return { tag: b.tagName, pop: b.getAttribute('aria-haspopup'), exp: b.getAttribute('aria-expanded') }; });
+    await openMenu(page);
+    const m = await page.evaluate(() => { const mn = document.getElementById('titleMenu'), r = [...mn.querySelectorAll('.menu-row')];
+      return { exp: document.getElementById('titleBtn').getAttribute('aria-expanded'), role: mn.getAttribute('role'), panel: document.getElementById('filtersPanel').classList.contains('visible'), w: mn.getBoundingClientRect().width,
+        rows: r.map(e => e.textContent.trim()), checked: r.filter(e => e.getAttribute('aria-checked') === 'true').map(e => e.dataset.go), hidden: r.filter(e => e.classList.contains('is-hidden')).map(e => e.dataset.go),
+        h: r.map(e => e.getBoundingClientRect().height), tgt: r.map(e => { const a = getComputedStyle(e, '::before'); return e.getBoundingClientRect().height - parseFloat(a.top) - parseFloat(a.bottom); }), last: r[r.length - 1].dataset.kind }; });
+    ok('P5 the title is a menu button; tapping it opens the menu (closing the panel) straight onto the Places side', tb.tag === 'BUTTON' && tb.pop === 'menu' && tb.exp === 'false' && m.exp === 'true' && m.role === 'menu' && !m.panel, { tb, m });
+    ok('P6 Places side: All cities + tally, each city with a place + tally (the current one checked, a hidden one greyed with the closed eye), then the quiet row "Plans 5 ›"; ≥248px wide', /^All cities\d+$/.test(m.rows[0]) && /^Copenhagen\d+$/.test(m.rows[1]) && /^Malmö\d+$/.test(m.rows[2])
+      && m.checked.join() === 'copenhagen' && m.hidden.join() === 'malmo' && m.rows[m.rows.length - 1] === 'Plans5' && m.last === 'plans' && m.w >= 248, m);
+    ok('P6b menu rows: 40px (its 1px rule inside), ≥44px targets', m.h.every(h => h === 40) && m.tgt.every(h => h >= 44), m.h);
+    await tap(page, '#titleMenu [data-kind="plans"]'); await W(200);
+    const m2 = await page.evaluate(() => ({ open: !document.getElementById('titleMenu').hidden, rows: [...document.querySelectorAll('#titleMenu .menu-row')].map(e => e.textContent.trim()) }));
+    ok('P7 the quiet row swaps the menu to Plans in place (it stays open): All plans 5, each plan + its stop tally, New plan, "Places n ›"', m2.open && m2.rows.join('|') === 'All plans5|Nørrebro afternoon6|Malmö + Copenhagen day3|Tivoli tonight1|Last full day before we fly home from Kastrup4|Rainy day0|New plan|' + m2.rows[7] && /^Places\d+$/.test(m2.rows[7]), m2);
+    await tap(page, '#titleMenu [data-plan="p-tiv"]'); await W(800);
+    ok('P7b picking a plan closes the menu and opens it: the title is the plan + its stop tally', !(await menuOpen(page)) && (await h2(page)) === 'Tivoli tonight' && (await tally(page)) === '1' && (await page.evaluate(() => listView)) === 'plans');
+    await goCity(page, 'copenhagen');
+    await page.evaluate(() => setListView('plans')); await W(700);
+    ok('P7c each kind remembers its last item: back to Plans reopens the plan last opened on this device', (await page.evaluate(() => listView)) === 'plans' && (await h2(page)) === 'Tivoli tonight');
+    ok('P8 no errors', !errors.length, errors);    ok('P8 no errors', !errors.length, errors);
     await ctx.close(); }
 
   // ---------------------------------------------------------------- N / V: the Plans side
   { const { ctx, page, errors, consoleErrors } = await open(b, base);
     await toPlans(page);
-    ok('N1 first plan opens by default; the panel keeps every chip; header = the plan name; ⇅, filters and locate stay', (await h2(page)) === 'Nørrebro afternoon' && (await shown(page, '#cityFilters')) && (await shown(page, '#filters'))
+    ok('N1 a plan picked from the menu: the title = the plan name; ⇅, filters and locate stay', (await h2(page)) === 'Nørrebro afternoon' && (await shown(page, '#filters'))
       && (await shown(page, '#sortBtn')) && (await shown(page, '#toggleFiltersBtn')) && (await shown(page, '#centerMeBtn')));
-    await openPicker(page);
-    const led = await page.evaluate(() => [...document.querySelectorAll('#planLedger .plan-opt')].map(o => ({ name: (o.querySelector('.plan-name') || {}).textContent, ct: (o.querySelector('.plan-count') || {}).textContent || '',
-      cur: o.querySelector('.plan-pick') ? o.querySelector('.plan-pick').getAttribute('aria-current') : null, more: !!o.querySelector('.plan-more'), h: o.getBoundingClientRect().height })));
-    ok('N2 the picker\'s slip: every plan with its stop count, then New plan', led.map(l => l.name).join('|') === 'Nørrebro afternoon|Malmö + Copenhagen day|Tivoli tonight|Last full day before we fly home from Kastrup|Rainy day|New plan'
-      && led.map(l => l.ct).join('|') === '6 stops|3 stops|1 stop|4 stops|0 stops|', led.map(l => l.name + ':' + l.ct));
-    ok('N3 ✓ on the open plan; ⋯ on EVERY plan; rows 45px', led[0].cur === 'true' && led.slice(1, 5).every(l => l.cur === 'false') && led.slice(0, 5).every(l => l.more) && led.every(l => l.h === 45), led.map(l => [l.cur, l.more, l.h]));
-    const pk = await page.evaluate(() => { const p = document.querySelector('#planPick .plan-picker'), c = getComputedStyle(p); return { exp: p.getAttribute('aria-expanded'), bg: c.backgroundColor, color: c.color, chev: getComputedStyle(p.querySelector('svg')).transform }; });
-    ok('N4 open picker: the pressed tone (not navy), ink text, chevron turned up', pk.exp === 'true' && pk.bg === 'rgb(220, 211, 195)' && pk.color === 'rgb(26, 26, 24)' && pk.chev !== 'none', pk);
-    await tap(page, '#planPick .plan-picker'); await W(200);
-    ok('N5 tapping the picker again closes its slip; the panel stays open', (await page.evaluate(() => document.getElementById('planLedger').hidden)) && (await panelOpen(page)));
+    await openMenu(page, 'plans');
+    const led = await page.evaluate(() => [...document.querySelectorAll('#titleMenu .menu-row')].map(o => ({ name: o.querySelector('.menu-lab').firstChild.textContent, ct: (o.querySelector('.tally') || {}).textContent || '',
+      cur: o.getAttribute('aria-checked'), h: o.getBoundingClientRect().height })));
+    ok('N2 the menu\'s Plans side: All plans, every plan with its stop tally, New plan, Places', led.map(l => l.name).join('|') === 'All plans|Nørrebro afternoon|Malmö + Copenhagen day|Tivoli tonight|Last full day before we fly home from Kastrup|Rainy day|New plan|Places'
+      && led.slice(0, 6).map(l => l.ct).join('|') === '5|6|3|1|4|0', led.map(l => l.name + ':' + l.ct));
+    ok('N3 ✓ on the open plan only; rows 40px', led[1].cur === 'true' && [0, 2, 3, 4, 5].every(i => led[i].cur === 'false') && led.every(l => l.h === 40), led.map(l => [l.cur, l.h]));
+    const pk = await page.evaluate(() => { const m = getComputedStyle(document.getElementById('titleMenu')); return { exp: document.getElementById('titleBtn').getAttribute('aria-expanded'), bg: m.backgroundColor, border: m.borderTopColor, shadow: m.boxShadow }; });
+    ok('N4 open: the title says so (aria-expanded) and the menu is the sort menu\'s slip (paper-raised, navy edge, 2px navy offset)', pk.exp === 'true' && pk.bg === 'rgb(250, 245, 234)' && pk.border === 'rgb(18, 41, 63)' && /2px 2px 0px/.test(pk.shadow), pk);
+    await tap(page, '#titleBtn'); await W(200);
+    ok('N5 tapping the title again closes the menu', !(await menuOpen(page)) && (await page.evaluate(() => document.getElementById('titleBtn').getAttribute('aria-expanded'))) === 'false');
     const k = await keys(page);
     ok('V1 the list: the stops in plan order, the rule, then every Copenhagen match that is not a stop, each with +', k.slice(0, 7).join() === NOR + ',|' && k.slice(7).every(x => x[0] === '+') && k.length > 20
       && !k.slice(7).some(x => ['+mir', '+jae', '+cof', '+ass', '+S9001', '+bla'].includes(x)), k.slice(0, 9));
     const expectN = await page.evaluate(() => { const st = new Set(planStops.filter(s => s.plan_id === 'p-nor').map(s => s.location_id)); return locations.filter(l => l.city === 'copenhagen' && !st.has(l.id)).length + neighborhoodShapes.filter(n => n.city === 'copenhagen' && n.id !== 9001).length; });
-    ok('V2 the rule: Places\' group divider with its caption "Add from Copenhagen (n)", n = the rows below it', (await page.evaluate(() => document.querySelector('.plan-rule').textContent)) === `Add from Copenhagen (${expectN})` && k.length - 7 === expectN, [expectN, k.length - 7]);
-    ok('V3 the numbers 1..6, one grey state', (await nums(page)) === '1,2,3,4,5,6' && (await page.evaluate(() => [...document.querySelectorAll('.row-n')].every(n => { const c = getComputedStyle(n); return c.color === 'rgb(90, 86, 76)' && c.fontWeight === '600' && c.fontSize === '13px'; }))));
+    ok('V2 the rule: Places\' group divider with its caption "Add from all places (n)", n = the rows below it (every shown place: Malmö is hidden)', (await page.evaluate(() => document.querySelector('.plan-rule').textContent)) === `Add from all places (${expectN})` && k.length - 7 === expectN, [expectN, k.length - 7]);
+    ok('V3 the numbers 1..6, one grey state (the lead of a stop row: 15px 700, 85% width)', (await nums(page)) === '1,2,3,4,5,6' && (await page.evaluate(() => [...document.querySelectorAll('.row-n')].every(n => { const c = getComputedStyle(n); return c.color === 'rgb(90, 86, 76)' && c.fontWeight === '700' && c.fontSize === '15px' && c.fontStretch === '85%'; }))));
     const r = await page.evaluate(() => ({ rows: [...document.querySelectorAll('#locationsList .location-card')].map(e => e.getBoundingClientRect().height),
       head: document.getElementById('locationsHeader').getBoundingClientRect().height, x: document.querySelectorAll('#locationsList .location-card.is-stop .plan-x').length, add: document.querySelectorAll('#locationsList .location-card:not(.is-stop) .plan-add').length,
       del: document.querySelectorAll('#locationsList .delete-btn:not(.plan-x):not(.plan-add)').length, addColor: getComputedStyle(document.querySelector('.plan-add')).color, xColor: getComputedStyle(document.querySelector('.plan-x')).color,
       label: document.querySelector('.location-card[data-id="jae"] .row-n').getAttribute('aria-label') }));
-    ok('V4 rows 56px, header 57px; × on every stop, + on every other row, both grey; no Places delete X in Plans', r.rows.every(h => h === 56) && r.head === 57 && r.x === 6 && r.add === r.rows.length - 6 && r.del === 0 && r.addColor === INK2 && r.xColor === INK2, r);
+    ok('V4 rows 56px, header 52px (its rule inside); × on every stop, + on every other row, both grey; no Places delete X in Plans', r.rows.every(h => h === 56) && r.head === 52 && r.x === 6 && r.add === r.rows.length - 6 && r.del === 0 && r.addColor === INK2 && r.xColor === INK2, r);
     ok('V5 the number is a focusable button that says what it does', /^Stop 2 of 6, Jægersborggade\. Hold and drag, or use the arrow keys/.test(r.label), r.label);
     await closePanel(page);
     await tap(page, '.location-card[data-id="jae"] .row-main'); await W(1600);
@@ -165,12 +176,12 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const placesStamp = await page.evaluate(() => { document.body.classList.remove('plan-view'); const c = getComputedStyle(document.querySelector('.location-card[data-id="jae"] .row-stamp:not(.vs-copy)')).color; document.body.classList.add('plan-view'); return c; });
     ok('V16 a visited stop keeps its number and wears the Places stamp at its normal ink (no NEXT, nothing plan-specific)', (await nums(page)) === '1,2,3,4,5,6' && vis.stamp === placesStamp && !(await page.evaluate(() => /\bNEXT\b/i.test(document.body.innerText))), [vis, placesStamp]);
     // filters apply below the rule only
-    await page.evaluate(() => { document.getElementById('filter-cafe').click(); setActiveCity('malmo', { frame: false }); }); await W(400);
+    await page.evaluate(() => { document.getElementById('filter-cafe').click(); setCityHidden('malmo', false); setCityHidden('copenhagen', true); }); await W(400);
     const fk = await keys(page);
-    ok('V17 Malmö + Cafe off: every stop still shows; below the rule only Malmö non-cafés', fk.slice(0, 7).join() === NOR + ',|' && fk.slice(7).length > 0 && (await page.evaluate(ks => ks.every(k => { const l = locations.find(x => x.id === k.slice(1)); return l && l.city === 'malmo' && l.category !== 'cafe'; }), fk.slice(7))), fk);
-    ok('V18 the caption names the filters', /^Add from Malmö · \d+ categories \(\d+\)$/.test(await page.evaluate(() => document.querySelector('.plan-rule').textContent)), await page.evaluate(() => document.querySelector('.plan-rule').textContent));
-    ok('V19 a city or a chip never changes the view', (await page.evaluate(() => listView)) === 'plans' && (await h2(page)) === 'Nørrebro afternoon');
-    await page.evaluate(() => { document.getElementById('filter-cafe').click(); setActiveCity('copenhagen', { frame: false }); }); await W(300);
+    ok('V17 Copenhagen hidden, Malmö shown, Cafe off: every stop still shows (a stop is never hidden); below the rule only Malmö non-cafés', fk.slice(0, 7).join() === NOR + ',|' && fk.slice(7).length > 0 && (await page.evaluate(ks => ks.every(k => { const l = locations.find(x => x.id === k.slice(1)); return l && l.city === 'malmo' && l.category !== 'cafe'; }), fk.slice(7))), fk);
+    ok('V18 the caption names the filters', /^Add from all places · \d+ categories \(\d+\)$/.test(await page.evaluate(() => document.querySelector('.plan-rule').textContent)), await page.evaluate(() => document.querySelector('.plan-rule').textContent));
+    ok('V19 hiding a city or a chip never changes the view', (await page.evaluate(() => listView)) === 'plans' && (await h2(page)) === 'Nørrebro afternoon');
+    await page.evaluate(() => { document.getElementById('filter-cafe').click(); setCityHidden('copenhagen', false); setCityHidden('malmo', true); }); await W(300);
     ok('V20 no page or console errors', !errors.length && !consoleErrors.length, { errors, consoleErrors });
     await ctx.close(); }
 
@@ -178,44 +189,44 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
   { const { ctx, page } = await open(b, base);
     await toPlans(page);
     await pick(page, 'p-mc');
-    ok('S1 switch plan: header + stops follow, the picker\'s slip closes, ✓ moves', (await h2(page)) === 'Malmö + Copenhagen day' && (await stopKeys(page)) === 'lil,tiv,nyh'
-      && (await page.evaluate(() => document.getElementById('planLedger').hidden)) && (await page.evaluate(() => (setPlanPanel({ open: true }), document.querySelector('[data-plan="p-mc"]').getAttribute('aria-current')))) === 'true', await stopKeys(page));
-    await page.evaluate(() => setPlanPanel({ open: false }));
+    const closed1 = !(await menuOpen(page)); await openMenu(page, 'plans');
+    const cur1 = await page.evaluate(() => document.querySelector('#titleMenu [data-plan="p-mc"]').getAttribute('aria-checked')); await closeMenu(page);
+    ok('S1 switch plan: title + stops follow, the menu closes, ✓ moves', (await h2(page)) === 'Malmö + Copenhagen day' && (await stopKeys(page)) === 'lil,tiv,nyh' && closed1 && cur1 === 'true', await stopKeys(page));
     const metas = await page.evaluate(() => [...document.querySelectorAll('#locationsList .location-card.is-stop .row-meta')].map(e => e.textContent));
     ok('S2 spanning plan: each stop row names its city', metas[0].includes('Malmö') && metas[1].includes('Copenhagen'), metas);
     await pick(page, 'p-empty');
     const e0 = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.offsetParent).slice(0, 2).map(e => e.className + ':' + e.textContent.trim()));
-    ok('S3 a plan with 0 stops: "No stops yet · tap + on a place below" above the rule, then the places', e0[0] === 'plan-list-note:No stops yet · tap + on a place below' && /^plan-rule:Add from Copenhagen/.test(e0[1]), e0);
+    ok('S3 a plan with 0 stops: "No stops yet · tap + on a place below" above the rule, then the places', e0[0] === 'plan-list-note:No stops yet · tap + on a place below' && /^plan-rule:Add from all places/.test(e0[1]), e0);
     await pick(page, 'p-long');
     const lg = await page.evaluate(() => { const h = document.querySelector('#locationsHeader h2 .h-name'); return { h: h.scrollWidth > h.clientWidth, e: getComputedStyle(h).textOverflow, lh: document.querySelector('#locationsHeader h2').getBoundingClientRect().height }; });
-    ok('S4 a long name ellipsizes on one line, header stays one row', lg.h && lg.e === 'ellipsis' && lg.lh === 20, lg);
+    ok('S4 a long name ellipsizes on one line, header stays one row (22px line)', lg.h && lg.e === 'ellipsis' && lg.lh === 22, lg);
     await pick(page, 'p-nor');
     const twenty = await page.evaluate(() => { plans = plans.map(p => p.id === 'p-nor' ? { ...p, name: 'Østerbro and harbour' } : p); updateUI(); const h = document.querySelector('#locationsHeader h2 .h-name'); return [h.textContent.length, h.scrollWidth <= h.clientWidth]; });
     ok('S5 a 20-character name fits the phone header untruncated (with ⇅ back)', twenty[0] === 20 && twenty[1], twenty);
     await page.evaluate(() => { plans = plans.map(p => p.id === 'p-nor' ? { ...p, name: 'Nørrebro afternoon' } : p); updateUI(); });
-    await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = l.scrollHeight; }); await W(100);
-    await tap(page, '#locationsHeader h2'); await W(900);
-    ok('S6 tapping the plan\'s name returns the list to the stops', (await page.evaluate(() => document.getElementById('locationsList').scrollTop)) === 0);
+    await tap(page, '#titleBtn'); await W(300);
+    ok('S6 tapping the plan\'s name opens the menu, on the Plans side', (await menuOpen(page)) && !!(await page.$('#titleMenu [data-plans="all"]')));
+    await closeMenu(page);
     await page.evaluate(() => { document.getElementById('locationsList').scrollTop = 0; document.getElementById('filter-bar').click(); }); await W(300);
     ok('S7 a chip change in Plans scrolls the list so the rule sits at the top', await page.evaluate(() => { const l = document.getElementById('locationsList'), r = l.querySelector('.plan-rule'); return Math.abs(r.getBoundingClientRect().top - l.getBoundingClientRect().top) <= 1; }));
     await page.evaluate(() => document.getElementById('filter-bar').click()); await W(200);
     // exit restores the city
     const city0 = await page.evaluate(() => citySelection);
-    await tap(page, '#listSwitch [data-view="places"]'); await W(1400);
-    const ex = await page.evaluate(() => ({ city: citySelection, c: map.getCenter(), z: map.getZoom(), h: document.querySelector('#locationsHeader h2').textContent, sort: getComputedStyle(document.getElementById('sortBtn')).display,
-      x: document.querySelectorAll('#locationsList .delete-btn').length, nums: document.querySelectorAll('.row-n').length, rule: !!document.querySelector('#locationsList .plan-rule'), tags: document.querySelectorAll('.stop-tag').length, panel: document.getElementById('filtersPanel').classList.contains('visible') }));
-    ok('X1 back to Places: same city, re-framed; list, count, ⇅ and X back; no numbers, rule or tags; the panel stays open', ex.city === city0 && ex.city === 'copenhagen' && Math.abs(ex.c.lat - 55.6761) < 0.01 && ex.z === 12 && /^Copenhagen list/.test(ex.h) && ex.sort !== 'none' && ex.x > 20 && !ex.nums && !ex.rule && !ex.tags && ex.panel, ex);
+    await goCity(page, 'copenhagen');
+    const ex = await page.evaluate(() => ({ city: citySelection, c: map.getCenter(), z: map.getZoom(), h: document.querySelector('#locationsHeader h2 .h-name').textContent, sort: getComputedStyle(document.getElementById('sortBtn')).display,
+      x: document.querySelectorAll('#locationsList .delete-btn').length, nums: document.querySelectorAll('.row-n').length, rule: !!document.querySelector('#locationsList .plan-rule'), tags: document.querySelectorAll('.stop-tag').length }));
+    ok('X1 back to Places (the menu\'s city): same city, re-framed; list, ⇅ and X back; no numbers, rule or tags', ex.city === city0 && ex.city === 'copenhagen' && Math.abs(ex.c.lat - 55.6761) < 0.01 && ex.z === 12 && ex.h === 'Copenhagen' && ex.sort !== 'none' && ex.x > 20 && !ex.nums && !ex.rule && !ex.tags, ex);
     await ctx.close(); }
 
   // ---------------------------------------------------------------- no plans yet
   { const { ctx, page } = await open(b, { plans: [], stops: [] });
     await toPlans(page);
-    const s = await page.evaluate(() => ({ pick: document.querySelector('#planPick .plan-picker').textContent.trim(), empty: document.getElementById('locationsEmpty').firstChild && [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
+    const s = await page.evaluate(() => ({ empty: document.getElementById('locationsEmpty').firstChild && [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
       btn: !!document.querySelector('#locationsEmpty .plan-empty-new'), h: document.querySelector('#locationsHeader h2').textContent, rows: document.querySelectorAll('#locationsList .location-card').length, map: markersById.size + clusterMarkersById.size }));
     s.line2 = await page.evaluate(() => (document.querySelector('#locationsEmpty .plan-empty-line') || {}).textContent);
-    ok('E1 no plans yet: the picker is an empty select ("No plan"); the list says so on two lines with the one New plan button; header "Plans"; no rows, nothing on the map, no ⇅', s.pick === 'No plan' && s.empty === 'No plans yet.' && s.line2 === 'A plan’s stops show here and on the map.' && s.btn && s.h === 'Plans' && !s.rows && !s.map && !(await shown(page, '#sortBtn')), s);
-    await closePanel(page); await tap(page, '#locationsEmpty .plan-empty-new'); await W(400);
-    ok('E2 the empty list\'s New plan opens the panel with the name field, focused', (await panelOpen(page)) && (await page.evaluate(() => document.activeElement && document.activeElement.getAttribute('aria-label'))) === 'New plan name');
+    ok('E1 no plans yet: the list says so on two lines with the one New plan button; title "All plans 0"; no rows, nothing on the map, no ⇅', s.empty === 'No plans yet.' && s.line2 === 'A plan’s stops show here and on the map.' && s.btn && s.h === 'All plans0' && !s.rows && !s.map && !(await shown(page, '#sortBtn')), s);
+    await tap(page, '#locationsEmpty .plan-empty-new'); await W(400);
+    ok('E2 the empty list\'s New plan opens the name field (the list\'s create form), focused', (await page.evaluate(() => document.activeElement && document.activeElement.getAttribute('aria-label'))) === 'New plan name' && !!(await page.$('#locationsList .plan-form input')));
     await ctx.close(); }
 
   // ---------------------------------------------------------------- persistence
@@ -226,7 +237,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await page.reload(); await W(1200);
     ok('R2 reload reopens that plan', (await h2(page)) === 'Tivoli tonight' && (await stopKeys(page)) === 'tiv', await stopKeys(page));
     await page.evaluate(() => localStorage.setItem('triplet.activePlan', 'p-gone')); await page.reload(); await W(1200);
-    ok('R3 a stored plan that no longer exists falls back to the first plan', (await h2(page)) === 'Nørrebro afternoon');
+    ok('R3 a stored plan that no longer exists falls back to All plans (never an automatic first plan)', (await h2(page)) === 'All plans');
     await ctx.close(); }
   { const { ctx, page, errors } = await open(b, { ...base, init: () => { Storage.prototype.getItem = () => { throw new Error('denied'); }; Storage.prototype.setItem = () => { throw new Error('denied'); }; } });
     await toPlans(page);
@@ -246,11 +257,11 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await page.evaluate(async () => { __db.plan_stops.push({ id: 'sx', plan_id: 'p-nor', location_id: 'tor', shape_id: null, position: 2.5 }); await fetchPlans(); }); await W(300);
     ok('C3 the other phone adds a stop: it lands at its position, numbers 1..7, it leaves the places below', (await stopKeys(page)) === 'mir,jae,tor,cof,ass,S9001,bla' && (await nums(page)) === '1,2,3,4,5,6,7' && !(await keys(page)).includes('+tor'), await stopKeys(page));
     await page.evaluate(async () => { __db.plans = __db.plans.filter(p => p.id !== 'p-nor'); __db.plan_stops = __db.plan_stops.filter(s => s.plan_id !== 'p-nor'); await fetchPlans(); }); await W(300);
-    ok('C4 the other phone deletes the open plan: this one moves to the first remaining plan', (await h2(page)) === 'Malmö + Copenhagen day', await h2(page));
+    ok('C4 the other phone deletes the open plan: this one moves to All plans', (await h2(page)) === 'All plans', await h2(page));
     await ctx.close(); }
   { const { ctx, page } = await open(b, { ...base, writeDelay: 600 });
     await toPlans(page);
-    const s = await page.evaluate(async () => { const p = renamePlan('p-nor', 'Nørrebro slow'); await new Promise(r => setTimeout(r, 100)); await fetchPlans(); const mid = document.querySelector('#locationsHeader h2').textContent; await p; return [mid, document.querySelector('#locationsHeader h2').textContent]; });
+    const s = await page.evaluate(async () => { const t = () => document.querySelector('#locationsHeader h2 .h-name').textContent; const p = renamePlan('p-nor', 'Nørrebro slow'); await new Promise(r => setTimeout(r, 100)); await fetchPlans(); const mid = t(); await p; return [mid, t()]; });
     ok('C5 a poll during an in-flight write never paints the old name back', s[0] === 'Nørrebro slow' && s[1] === 'Nørrebro slow', s);
     await ctx.close(); }
 
@@ -271,13 +282,13 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const sl2 = await page.evaluate(() => { const s = document.getElementById('planSlip').getBoundingClientRect(), r = document.querySelector('.plan-rule').getBoundingClientRect(); return [s.top, s.height, r.top, r.height, s.left, s.width, r.left, r.width].map(Math.round); });
     ok('U3b scrolled so the rule shows, the slip rides it, covering exactly the caption line', sl2[0] === sl2[2] && sl2[1] === sl2[3] && sl2[4] === sl2[6] && sl2[5] === sl2[7], sl2);
     await tap(page, '#planSlip button'); await W(500);
-    ok('U4 Undo removes the stop again; the slip goes', (await stopKeys(page)) === NOR && (await slip(page)) === null && (await planCalls(page)).slice(-1)[0].op === 'delete');
+    ok('U4 Undo removes the stop again; the slip goes', (await stopKeys(page)) === NOR && (await slip(page)) === null && ((await planCalls(page)).slice(-1)[0] || {}).op === 'delete');
     await tap(page, '.location-card[data-id="cof"] .plan-x'); await W(500);
     ok('U5 × removes the stop from the plan (the place stays in Places): "Removed <name>"', (await stopKeys(page)) === 'mir,jae,ass,S9001,bla' && (await page.evaluate(() => locations.some(l => l.id === 'cof'))) && (await keys(page)).includes('+cof')
       && /^Removed The Coffee Collective/.test(await slip(page)), await slip(page));
     await tap(page, '#planSlip button'); await W(500);
     const back = await page.evaluate(() => planStops.find(s => s.id === 's3'));
-    ok('U6 Undo restores the same stop row at its old position (restoreStop)', (await stopKeys(page)) === NOR && back && back.position === 3 && (await planCalls(page)).slice(-1)[0].op === 'insert', back);
+    ok('U6 Undo restores the same stop row at its old position (restoreStop)', (await stopKeys(page)) === NOR && back && back.position === 3 && ((await planCalls(page)).slice(-1)[0] || {}).op === 'insert', back);
     // keyboard reorder answers with the slip; Undo moves it back
     await page.evaluate(() => document.querySelector('.location-card[data-id="mir"] .row-n').focus());
     await page.keyboard.press('ArrowDown'); await W(500);
@@ -293,7 +304,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     // hold-drag reorder (touch) answers with the slip too
     const cdp = await page.context().newCDPSession(page);
     await closePanel(page);
-    await page.evaluate(() => { document.getElementById('locationsList').scrollTop = 0; }); await W(200);
+    // the leg header (add-tag-jam phase 1) scrolled out of view, so the drag stays clear of the list's auto-scroll edge, as before
+    await page.evaluate(() => { const l = document.getElementById('locationsList'), h = l.querySelector('.sec-head'); l.scrollTop = h ? h.offsetHeight : 0; }); await W(200);
     const pts = await page.evaluate(() => { const n = document.querySelector('.location-card[data-id="jae"] .row-n').getBoundingClientRect(), r = document.querySelector('.location-card[data-id="ass"]').getBoundingClientRect(); return { x: n.x + n.width / 2, y: n.y + n.height / 2, to: r.y + r.height / 2 }; });
     const tp = (x, y) => [{ x, y, id: 1, radiusX: 4, radiusY: 4, force: 1 }];
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: tp(pts.x, pts.y) }); await W(470);
@@ -337,12 +349,19 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const txt = () => page.evaluate(() => [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim());
     await off(); await W(300);
     const a = await txt();
-    await page.evaluate(() => setActiveCity('la', { frame: false })); await W(300);
-    const c = await txt();
-    await page.evaluate(() => { Object.keys(CATEGORY_COLORS).forEach(c => document.getElementById('filter-' + c).click()); setActiveCity('copenhagen', { frame: false }); }); await W(300);
+    await page.evaluate(() => { Object.keys(CATEGORY_COLORS).forEach(c => document.getElementById('filter-' + c).click()); }); await W(300);
+    // every city with places hidden: only their greyed headers, no empty line (add-tag-jam: "Every city hidden")
+    await page.evaluate(() => setCityHidden('copenhagen', true)); await W(300);
+    const hid = await page.evaluate(() => ({ rows: document.querySelectorAll('#locationsList .location-card').length, heads: [...document.querySelectorAll('#locationsList .sec-head')].map(h => h.classList.contains('is-hidden')), empty: getComputedStyle(document.getElementById('locationsEmpty')).display }));
+    await page.evaluate(() => setCityHidden('copenhagen', false)); await W(300);
+    // no places at all: "Nothing here yet."
+    await page.evaluate(() => { window.__keep = [locations, neighborhoodShapes]; locations = []; neighborhoodShapes = []; updateUI(); }); await W(200);
+    const c = await txt(), t0 = await page.evaluate(() => document.querySelector('#locationsHeader h2').textContent);
+    await page.evaluate(() => { [locations, neighborhoodShapes] = window.__keep; updateUI(); }); await W(200);
+    ok('EM2 every city with places hidden: the list holds only greyed headers (no rows, no empty line)', hid.rows === 0 && hid.heads.length >= 2 && hid.heads.every(Boolean) && hid.empty === 'none', hid);
     await toPlans(page); await off(); await W(300);
     const d = await page.evaluate(() => (document.querySelector('#locationsList .plan-list-note:last-of-type') || {}).textContent);
-    ok('EM1 Places, every chip off: "Nothing matches these filters."; a city with no places (LA): "Nothing here yet."; Plans below the divider says the same', a === 'Nothing matches these filters.' && c === 'Nothing here yet.' && [...await page.evaluate(() => [...document.querySelectorAll('#locationsList .plan-list-note')].map(n => n.textContent))].includes('Nothing matches these filters.'), [a, c, d]);
+    ok('EM1 Places, every chip off: "Nothing matches these filters."; no places at all: "Nothing here yet." and the title "All places 0"; Plans below the divider says the same', a === 'Nothing matches these filters.' && c === 'Nothing here yet.' && t0 === 'All places0' && [...await page.evaluate(() => [...document.querySelectorAll('#locationsList .plan-list-note')].map(n => n.textContent))].includes('Nothing matches these filters.'), [a, c, d]);
     await ctx.close(); }
   // ---------------------------------------------------------------- the shared banner (owner, 2026-10-01)
   { const { ctx, page } = await open(b, base);
@@ -383,7 +402,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const p1 = await page.evaluate(() => ({ panel: document.getElementById('filtersPanel').classList.contains('visible'), exp: document.getElementById('toggleFiltersBtn').getAttribute('aria-expanded'), pop: !!document.querySelector('.leaflet-popup'), z: map.getZoom() }));
     ok('R1 Places: a row tap with the panel open closes it, then flies and opens the popup', !p1.panel && p1.exp === 'false' && p1.pop && p1.z >= 14, p1);
     await page.evaluate(() => map.closePopup());
-    await toPlans(page); await page.evaluate(() => document.getElementById('filter-bar').click()); await W(300);
+    await toPlans(page); await openPanel(page); await page.evaluate(() => document.getElementById('filter-bar').click()); await W(300);
     const filt0 = await page.evaluate(() => JSON.stringify(filters));
     await page.evaluate(() => document.querySelector('.location-card[data-id="cof"] .plan-x').click()); await W(500);
     const keep = await panelOpen(page);
@@ -395,19 +414,19 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
   // ---------------------------------------------------------------- UX round: offline, no-plan map, 2a/2b, Undo, labels, motion, picker list
   { const { ctx, page, errors } = await open(b, { ...base, offline: true, storage: { ...HINTED, 'triplet.listView': 'plans', 'triplet.activePlan': 'p-nor' } });
     await W(400);
-    const o = await page.evaluate(() => ({ view: listView, pick: document.querySelector('#planPick .plan-picker').textContent.trim(), empty: [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
+    const o = await page.evaluate(() => ({ view: listView, title: document.querySelector('#locationsHeader h2 .h-name').textContent, empty: [...document.getElementById('locationsEmpty').childNodes].find(n => n.nodeType === 3).textContent.trim(),
       banner: getComputedStyle(document.getElementById('error')).display }));
-    ok('O1 offline at load: Plans keeps its view; the picker reads "Offline"; the list says so; no banner from Plans', o.view === 'plans' && o.pick === 'Offline' && /^Offline\./.test(o.empty) && o.banner === 'none' && !errors.length, o);
+    ok('O1 offline at load: Plans keeps its view; the list says "Offline…"; no banner from Plans', o.view === 'plans' && o.title === 'All plans' && /^Offline\./.test(o.empty) && o.banner === 'none' && !errors.length, o);
     await page.evaluate(async () => { window.__PLANS_OFFLINE = false; await fetchPlans(); }); await W(300);
     ok('O2 back online: the plan opens', (await h2(page)) === 'Nørrebro afternoon' && (await stopKeys(page)) === NOR);
     await page.evaluate(async () => { window.__PLANS_OFFLINE = true; await fetchPlans(); }); await W(300);
-    ok('O3 offline later: the picker reads "Offline" and the list keeps what is loaded', (await page.evaluate(() => document.querySelector('#planPick .plan-picker').textContent.trim())) === 'Offline' && (await stopKeys(page)) === NOR && (await h2(page)) === 'Nørrebro afternoon');
+    ok('O3 offline later: the list keeps what is loaded', (await stopKeys(page)) === NOR && (await h2(page)) === 'Nørrebro afternoon');
     await ctx.close(); }
   { const { ctx, page } = await open(b, { plans: [], stops: [] });
     await page.evaluate(() => map.setView([10, 10], 5, { animate: false })); await W(200);
     await toPlans(page); await W(800);
     const c = await page.evaluate(() => ({ c: map.getCenter(), z: map.getZoom(), pins: markersById.size }));
-    ok('M7 no plan open: the map frames the selected city as Places does (Copenhagen, zoom 12), no stop pins', Math.abs(c.c.lat - 55.6761) < 0.02 && c.z === 12 && c.pins === 0, c);
+    ok('M7 All plans with no plans: the map frames the last go-to as Places does (Copenhagen, zoom 12), no stop pins', Math.abs(c.c.lat - 55.6761) < 0.02 && c.z === 12 && c.pins === 0, c);
     await ctx.close(); }
   { const { ctx, page, errors } = await open(b, base);
     await toPlans(page); await closePanel(page);
@@ -438,7 +457,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const lb = await page.evaluate(() => { const t = document.getElementById('toggleFiltersBtn'); return [t.getAttribute('aria-label'), t.title, t.getAttribute('aria-controls'), t.getAttribute('aria-expanded'), document.getElementById('accountBtn').getAttribute('aria-label'), document.getElementById('centerMeBtn').getAttribute('aria-label')]; });
     await openPanel(page);
     const lb2 = await page.evaluate(() => document.getElementById('toggleFiltersBtn').getAttribute('aria-expanded'));
-    ok('A1 the sliders button is "Filters and plans" (title + aria-label), aria-controls the panel, aria-expanded follows it; account and locate have names', lb[0] === 'Filters and plans' && lb[1] === 'Filters and plans' && lb[2] === 'filtersPanel' && lb[3] === 'false' && lb2 === 'true' && !!lb[4] && !!lb[5], [lb, lb2]);
+    ok('A1 the sliders button is "Filters" (title + aria-label; plans left the panel), aria-controls the panel, aria-expanded follows it; account and locate have names', lb[0] === 'Filters' && lb[1] === 'Filters' && lb[2] === 'filtersPanel' && lb[3] === 'false' && lb2 === 'true' && !!lb[4] && !!lb[5], [lb, lb2]);
     await closePanel(page);
     // 9: motion -- rows below the change slide (plan-shift with a transform at the start), the changed row does not
     const mv = await page.evaluate(async () => { const id = [...document.querySelectorAll('#locationsList .location-card:not(.is-stop)')].find(e => e.dataset.id).dataset.id;
@@ -456,54 +475,50 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await ctx.close(); }
   { const many = FIX.plans.concat(Array.from({ length: 6 }, (_, i) => ({ id: 'p-x' + i, name: 'Extra plan ' + (i + 1), created_at: `2026-09-27T1${i}:00:00Z` })));
     const { ctx, page } = await open(b, { ...base, plans: many });
-    await toPlans(page); await openPicker(page);
-    const L = await page.evaluate(() => { const sc = document.querySelector('#planLedger .plan-scroll'), lg = document.getElementById('planLedger'), pn = document.getElementById('filtersPanel');
-      const rows = [...sc.children], scR = sc.getBoundingClientRect(), last = rows.find(r => r.getBoundingClientRect().bottom > scR.bottom + 1);
-      const nw = lg.querySelector('.plan-new').getBoundingClientRect();
-      return { scroll: sc.scrollHeight > sc.clientHeight, cut: last ? (scR.bottom - last.getBoundingClientRect().top) / last.getBoundingClientRect().height : null, newVisible: nw.bottom <= pn.getBoundingClientRect().bottom && nw.top >= scR.bottom - 1, panelScroll: pn.scrollHeight - pn.clientHeight,
-        cuts: (b => [...pn.querySelectorAll('.city-btn, .filter-btn')].filter(c => getComputedStyle(c).visibility !== 'hidden').map(c => c.getBoundingClientRect()).filter(r => r.top < b && r.bottom > b).length)(lg.getBoundingClientRect().bottom + 2) }; });
-    ok('L6 (UX 4) 11 plans: the plan list scrolls, its last visible row cut in half, New plan pinned below, the panel scrolls only the picker row\'s 44px (never grows), no visible chip cut by its edge', L.scroll && Math.abs(L.cut - 0.5) < 0.05 && L.newVisible && L.panelScroll === 44 && L.cuts === 0, L);
+    await toPlans(page); await openMenu(page, 'plans');
+    const L = await page.evaluate(() => { const mn = document.getElementById('titleMenu'), r = mn.getBoundingClientRect(), rows = [...mn.querySelectorAll('.menu-row')], q = rows[rows.length - 1];
+      q.scrollIntoView({ block: 'nearest' }); const qr = q.getBoundingClientRect();
+      return { top: r.top, bottom: r.bottom, vh: innerHeight, rows: rows.length, scroll: mn.scrollHeight > mn.clientHeight, quiet: q.dataset.kind, quietIn: qr.top >= r.top - 1 && qr.bottom <= r.bottom + 1 }; });
+    ok('L6 11 plans: the menu stays on screen (it scrolls inside), its quiet last row reachable', L.top >= 0 && L.bottom <= L.vh && L.rows === 14 && L.quiet === 'places' && L.quietIn, L);
     await ctx.close(); }
   for (const n of [0, 1, 3]) {
     const { ctx, page } = await open(b, { ...base, plans: FIX.plans.slice(0, n), stops: n ? FIX.stops.filter(s => s.plan_id === 'p-nor') : [] });
-    await toPlans(page); await openPicker(page);
-    const g = await page.evaluate(() => { const lg = document.getElementById('planLedger'), lr = lg.getBoundingClientRect(), b = lr.bottom + 2;
-      const content = [...lg.children].reduce((a, c) => a + c.getBoundingClientRect().height, 0) + 2;   // rows + the 1px top and bottom edge
-      return { b, h: lr.height, content, cuts: [...document.querySelectorAll('#filtersPanel .city-btn, #filtersPanel .filter-btn')].filter(c => getComputedStyle(c).visibility !== 'hidden').map(c => c.getBoundingClientRect()).filter(r => r.top < b && r.bottom > b).length }; });
-    ok(`L7 ${n} plan${n === 1 ? '' : 's'}: the picker's slip hugs its rows (no empty band) and no visible chip is cut by its edge`, Math.abs(g.h - g.content) < 0.5 && g.cuts === 0, g);
+    await toAllPlans(page);
+    const g = await page.evaluate(() => ({ rows: [...document.querySelectorAll('#locationsList .plan-row')].map(r => [r.querySelector('h3') ? r.querySelector('h3').textContent : (r.textContent.trim()), Math.round(r.getBoundingClientRect().height)]),
+      meta: [...document.querySelectorAll('#locationsList .plan-row .row-meta')].map(e => e.textContent), empty: getComputedStyle(document.getElementById('locationsEmpty')).display, title: document.querySelector('#locationsHeader h2').textContent }));
+    const want = n ? FIX.plans.slice(0, n).map(p => p.name).concat(['New plan']) : [];
+    ok(`L7 All plans, ${n} plan${n === 1 ? '' : 's'}: one 56px row per plan ("6 stops · Copenhagen"), then New plan${n ? '' : ' -- none: the empty list'}; the title "All plans ${n}"`, g.rows.map(r => r[0]).join('|') === want.join('|') && g.rows.every(r => r[1] === 56)
+      && (n === 0 ? g.empty === 'block' : g.meta[0] === '6 stops · Copenhagen') && g.title === 'All plans' + n, g);
     await ctx.close(); }
 
   // ---------------------------------------------------------------- writes through the panel
   { const { ctx, page, errors } = await open(b, base);
-    await toPlans(page); await openPicker(page);
-    await tap(page, '#planLedger [data-act="new"]'); await W(300);
+    await toPlans(page); await openMenu(page, 'plans');
+    await tap(page, '#titleMenu [data-act="new"]'); await W(400);
     const focused = await page.evaluate(() => document.activeElement && document.activeElement.getAttribute('aria-label'));
-    ok('W1 New plan opens a name field in the picker\'s slip, focused', focused === 'New plan name', focused);
-    await tap(page, '#planLedger [data-act="cancel"]'); await W(200);
-    ok('W2 Cancel creates nothing', (await planCalls(page)).length === 0 && !!(await page.$('.plan-new')));
-    await tap(page, '#planLedger [data-act="new"]'); await W(200);
-    await page.keyboard.type('  Harbour   swim  '); await tap(page, '#planLedger [data-act="create"]'); await W(700);
+    ok('W1 the menu\'s New plan opens All plans with a name field as its last row, focused', focused === 'New plan name' && (await h2(page)) === 'All plans', focused);
+    await tap(page, '#locationsList .plan-form [data-act="cancel"]'); await W(200);
+    ok('W2 Cancel creates nothing; New plan is back', (await planCalls(page)).length === 0 && !!(await page.$('#locationsList .plan-new-row')));
+    await tap(page, '#locationsList .plan-new-row .plan-open'); await W(300);
+    await page.keyboard.type('  Harbour   swim  '); await tap(page, '#locationsList .plan-form [data-act="create"]'); await W(700);
     const c = await planCalls(page);
-    ok('W3 Create: one insert (trimmed name, client uuid), the plan opens with no stops, the panel stays open', c.length === 1 && c[0].table === 'plans' && c[0].op === 'insert' && c[0].payload[0].name === 'Harbour swim' && /^[0-9a-f-]{36}$/.test(c[0].payload[0].id)
-      && (await h2(page)) === 'Harbour swim' && (await stopKeys(page)) === '' && (await panelOpen(page)), c);
-    await openPicker(page);
-    await tap(page, '#planLedger [data-more="p-tiv"]'); await W(200);
-    const acts = await page.evaluate(() => [...document.querySelectorAll('#planLedger .plan-form .plan-act')].map(b => b.textContent));
-    ok('W4 ⋯ on a plan that is not open: Rename / Delete plan / Cancel in its row', acts.join() === 'Rename,Delete plan…,Cancel', acts);
-    await tap(page, '#planLedger [data-act="rename"]'); await W(200);
-    await page.evaluate(() => { const i = document.querySelector('#planLedger input'); i.select(); }); await page.keyboard.type('Tivoli late'); await page.keyboard.press('Enter'); await W(600);
+    ok('W3 Create: one insert (trimmed name, client uuid), the plan opens with no stops', c.length === 1 && c[0].table === 'plans' && c[0].op === 'insert' && c[0].payload[0].name === 'Harbour swim' && /^[0-9a-f-]{36}$/.test(c[0].payload[0].id)
+      && (await h2(page)) === 'Harbour swim' && (await stopKeys(page)) === '', c);
+    await toAllPlans(page);
+    await tap(page, '#locationsList [data-more="p-tiv"]'); await W(200);
+    const acts = await page.evaluate(() => [...document.querySelectorAll('#locationsList .plan-form .plan-act')].map(b => b.textContent));
+    ok('W4 ⋯ on a plans-list row: Rename / Delete plan… / Cancel in its row', acts.join() === 'Rename,Delete plan…,Cancel', acts);
+    await tap(page, '#locationsList .plan-form [data-act="rename"]'); await W(200);
+    await page.evaluate(() => { const i = document.querySelector('#locationsList .plan-form input'); i.select(); }); await page.keyboard.type('Tivoli late'); await page.keyboard.press('Enter'); await W(600);
     const c2 = (await planCalls(page)).slice(1);
-    ok('W5 Rename another plan (Enter saves): one update; the open plan is untouched', c2.length === 1 && c2[0].op === 'update' && c2[0].payload.name === 'Tivoli late' && (await h2(page)) === 'Harbour swim', c2);
+    ok('W5 Rename (Enter saves): one update; the other plans untouched', c2.length === 1 && c2[0].op === 'update' && c2[0].payload.name === 'Tivoli late' && (await page.evaluate(() => plans.some(p => p.name === 'Harbour swim'))), c2);
     await page.evaluate(() => { window.__confirmText = null; window.confirm = t => { __confirmText = t; return false; }; });
-    await openPicker(page);
-    await tap(page, '#planLedger [data-more="p-tiv"]'); await W(150); await tap(page, '#planLedger [data-act="delete"]'); await W(300);
+    await tap(page, '#locationsList [data-more="p-tiv"]'); await W(150); await tap(page, '#locationsList .plan-form [data-act="delete"]'); await W(300);
     ok('W6 Delete asks first ("Its places stay in your list."); Cancel deletes nothing', (await page.evaluate(() => __confirmText)) === 'Delete “Tivoli late”? Its places stay in your list.' && (await planCalls(page)).length === 2);
     await page.evaluate(() => { window.confirm = () => true; });
-    await openPicker(page);
-    await tap(page, '#planLedger [data-more="p-tiv"]'); await W(150); await tap(page, '#planLedger [data-act="delete"]'); await W(700);
-    ok('W7 deleting another plan: one delete, it is gone, the open plan stays open', (await planCalls(page)).slice(-1)[0].op === 'delete' && (await h2(page)) === 'Harbour swim' && !(await page.evaluate(() => plans.some(p => p.id === 'p-tiv'))));
-    await openPicker(page);
-    await tap(page, '#planLedger [data-more="p-nor"]'); await W(150); await tap(page, '#planLedger [data-act="delete"]'); await W(700);
+    await tap(page, '#locationsList [data-more="p-tiv"]'); await W(150); await tap(page, '#locationsList .plan-form [data-act="delete"]'); await W(700);
+    ok('W7 deleting a plan: one delete, it is gone, the others stay', ((await planCalls(page)).slice(-1)[0] || {}).op === 'delete' && (await page.evaluate(() => plans.some(p => p.name === 'Harbour swim'))) && !(await page.evaluate(() => plans.some(p => p.id === 'p-tiv'))));
+    await tap(page, '#locationsList [data-more="p-nor"]'); await W(150); await tap(page, '#locationsList .plan-form [data-act="delete"]'); await W(700);
     ok('W8 deleting a plan with stops removes its stops too (cascade), places stay', !(await page.evaluate(() => planStops.some(s => s.plan_id === 'p-nor'))) && (await page.evaluate(() => locations.some(l => l.id === 'mir'))));
     ok('W9 no errors', !errors.length, errors);
     await ctx.close(); }
@@ -516,7 +531,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
       const after = plans.some(x => x.name === 'Doomed'), err = document.getElementById('errorText').textContent;
       await renamePlan('p-nor', 'Renamed'); const nm = plans.find(x => x.id === 'p-nor').name;
       const n0 = planStops.length; await deletePlan('p-tiv'); const back = plans.some(x => x.id === 'p-tiv') && planStops.length === n0;
-      return { mid, id, after, err, nm, back, h: document.querySelector('#locationsHeader h2').textContent };
+      return { mid, id, after, err, nm, back, h: document.querySelector('#locationsHeader h2 .h-name').textContent };
     });
     ok('W10 a failed write shows at once (optimistic), then rolls back with the RLS message', r.mid && r.id === null && !r.after && r.err === 'Only Adam and Erica can edit plans.', r);
     ok('W11 failed rename and delete roll back exactly', r.nm === 'Nørrebro afternoon' && r.back && r.h === 'Nørrebro afternoon', r);
@@ -525,13 +540,14 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await ctx.close(); }
   { const { ctx, page } = await open(b, { ...base, signedOut: true });
     await toPlans(page);
-    ok('G1 signed out: plans are readable (stops, numbers, the picker\'s plans)', (await stopKeys(page)) === NOR && (await nums(page)) === '1,2,3,4,5,6' && (await page.evaluate(() => (setPlanPanel({ open: true }), document.querySelectorAll('#planLedger .plan-pick').length))) === 6);
-    await tap(page, '#planLedger [data-act="new"]'); await W(300);
-    const g = await page.evaluate(() => ({ modal: document.getElementById('authModal').classList.contains('show'), form: !!document.querySelector('#planLedger input'), copy: document.querySelector('#authModalBody p').textContent }));
+    await openMenu(page, 'plans');
+    ok('G1 signed out: plans are readable (stops, numbers, the menu\'s plans)', (await stopKeys(page)) === NOR && (await nums(page)) === '1,2,3,4,5,6' && (await page.evaluate(() => document.querySelectorAll('#titleMenu [data-plan]').length)) === 5);
+    await tap(page, '#titleMenu [data-act="new"]'); await W(300);
+    const g = await page.evaluate(() => ({ modal: document.getElementById('authModal').classList.contains('show'), form: !!document.querySelector('#locationsList .plan-form input'), copy: document.querySelector('#authModalBody p').textContent }));
     ok('G2 signed out: New plan opens the sign-in, no name field, no write', g.modal && !g.form && (await planCalls(page)).length === 0, g);
     ok('G3 sign-in copy covers plans', g.copy === 'You need to log in to make changes. Anyone can view places and plans without logging in.', g.copy);
     await page.evaluate(() => hideAuthModal());
-    await page.evaluate(() => setPlanPanel({ open: false })); await closePanel(page);
+    if (await page.$('#locationsList .plan-form')) await pick(page, 'p-nor');   // New plan opened All plans' form: back to the plan
     await tap(page, '.location-card[data-id="tor"] .plan-add'); await W(300);
     const g2 = await page.evaluate(() => document.getElementById('authModal').classList.contains('show')); await page.evaluate(() => hideAuthModal());
     await tap(page, '.location-card[data-id="cof"] .plan-x'); await W(300);
@@ -581,7 +597,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
 
   // ---------------------------------------------------------------- the default view
   { const { ctx, page } = await open(b, base);
-    await toPlans(page);
+    await toPlans(page); await openPanel(page); await W(300);
     const inBox = () => page.evaluate(() => { const box = planSafeBox(openPanelHeight()); return planMarks().rows.every(r => { const p = map.latLngToContainerPoint(stopLatLng(r)); return p.x >= box.l - 1 && p.x <= box.r + 1 && p.y >= box.t - 1 && p.y <= box.b + 1; }); });
     ok('M1 building (panel open): every stop and every filter match inside the safe box above the panel', (await inBox()) && (await page.evaluate(() => { const box = planSafeBox(openPanelHeight()); return planOthers().locs.every(l => { const p = map.latLngToContainerPoint([l.lat, l.lng]); return p.x >= box.l - 1 && p.x <= box.r + 1 && p.y >= box.t - 1 && p.y <= box.b + 1; }); })));
     const z0 = await page.evaluate(() => map.getZoom());
@@ -594,15 +610,16 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const c0 = await page.evaluate(() => planFitView());
     await W(500);
     ok('M3 once you moved the map, closing the panel leaves it alone', (await page.evaluate(() => planFitView())) === c0);
-    await openPanel(page); await pick(page, 'p-mc'); await closePanel(page);
-    await page.evaluate(() => setActiveCity('malmo')); await W(500);
+    await pick(page, 'p-mc'); await closePanel(page);
+    const legs = await page.evaluate(() => [...document.querySelectorAll('#locationsList .sec-head.is-leg')].map(h => h.textContent.trim()));
+    await tap(page, '#locationsList .sec-head.is-leg .sec-name[data-leg="0"]'); await W(500);
     const leg = await page.evaluate(() => { const b = map.getBounds(); return ['lil', 'tiv', 'nyh'].map(id => { const l = locations.find(x => x.id === id); return b.contains([l.lat, l.lng]); }); });
-    ok('M4 following a two-city plan: the Malmö chip frames the Malmö leg', leg[0] && !leg[1], leg);
+    ok('M4 following a two-city plan: its leg headers (Malmö 1, Copenhagen 2); the Malmö header frames the Malmö leg', legs.join('|') === 'Malmö1|Copenhagen2' && leg[0] && !leg[1], { legs, leg });
     await ctx.close(); }
   // a brand-new plan: no stops yet frames the city's matching places, and seven + never chase
   for (const panel of [true, false]) {
     const { ctx, page } = await open(b, base);
-    await toPlans(page); await pick(page, 'p-empty'); if (!panel) await closePanel(page); await W(300);
+    await toPlans(page); await pick(page, 'p-empty'); if (panel) await openPanel(page); await W(300);
     const inBox = (lls) => page.evaluate(lls => { const box = planSafeBox(openPanelHeight()); return lls.filter(([la, ln]) => { const p = map.latLngToContainerPoint([la, ln]); return !(p.x >= box.l - 1 && p.x <= box.r + 1 && p.y >= box.t - 1 && p.y <= box.b + 1); }).length; }, lls);
     const z = await page.evaluate(() => ({ z: map.getZoom(), fit: !!lastPlanFit, unmoved: planMapUnmoved(), cand: planOthers().locs.map(l => [l.lat, l.lng]) }));
     const out0 = await inBox(z.cand);
@@ -638,10 +655,69 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     ok('Q3 a quick vertical stroke on a number scrolls the list (no fly, no lift, no move)', (await page.evaluate(() => document.getElementById('locationsList').scrollTop)) > s0 && !(await page.$('.leaflet-popup')) && !(await page.$('.plan-lifted')) && (await stopKeys(page)) === NOR);
     await ctx.close(); }
 
+  // ---------------------------------------------------------------- H: city sections, hide / show, go to, legs, the tab (add-tag-jam phase 1)
+  { const { ctx, page, errors } = await open(b, base);
+    const sec = () => page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.matches('.sec-head, .location-card')).reduce((a, e) => {
+      if (e.matches('.sec-head')) a.push({ city: e.dataset.city, hidden: e.classList.contains('is-hidden'), first: e.classList.contains('is-first'), h: Math.round(e.getBoundingClientRect().height),
+        eye: e.querySelector('.sec-eye').getAttribute('aria-label'), id: e.dataset.id || null, n: 0, other: 0 });
+      else { const s = a[a.length - 1], it = rowItem(e.dataset.id || 'shape:' + e.dataset.shapeId); s.n++; if (it && it.city !== s.city) s.other++; }
+      return a; }, []));
+    const s1 = await sec();
+    ok('H1 Places: one section per city in the menu\'s order; Copenhagen first (compact 44px) with its rows; Malmö hidden: its 60px header greyed, "Show Malmö", no rows; a header is never a row', s1.length === 2 && s1[0].city === 'copenhagen' && s1[0].first && s1[0].h === 44 && s1[0].n > 20 && !s1[0].other && s1[0].eye === 'Hide Copenhagen'
+      && s1[1].city === 'malmo' && s1[1].hidden && s1[1].h === 60 && s1[1].n === 0 && s1[1].eye === 'Show Malmö' && s1.every(x => !x.id), s1);
+    const tallyOk = await page.evaluate(() => { const h = document.querySelector('.sec-head[data-city="copenhagen"] .tally').textContent; return +h === locations.filter(l => l.city === 'copenhagen').length + neighborhoodShapes.filter(n => n.city === 'copenhagen').length; });
+    ok('H1b the section tally counts the city\'s places, shapes included', tallyOk);
+    const scroll0 = await page.evaluate(() => document.getElementById('locationsList').scrollTop);
+    await tap(page, '.sec-head[data-city="malmo"] .sec-eye'); await W(300);
+    const s2 = await sec(), st2 = await page.evaluate(() => localStorage.getItem('triplet.hiddenCities'));
+    ok('H2 the eye shows Malmö: its rows unfold under its header, "Hide Malmö"; stored per viewer', s2[1].city === 'malmo' && !s2[1].hidden && s2[1].n === (await page.evaluate(() => locations.filter(l => l.city === 'malmo').length + neighborhoodShapes.filter(n => n.city === 'malmo').length)) && s2[1].n > 0 && !s2[1].other && s2[1].eye === 'Hide Malmö' && st2 === '[]', { s2, st2 });
+    ok('H2b the title (a go-to label) did not change', (await h2(page)) === 'Copenhagen');
+    await tap(page, '.sec-head[data-city="copenhagen"] .sec-eye'); await W(300);
+    const pins = await page.evaluate(() => [...markersById.values()].filter(e => e.loc.city === 'copenhagen').length);
+    ok('H3 hiding Copenhagen: its header stays first, greyed, its rows folded away, its pins off the map; the list did not jump', (await sec())[0].hidden && (await sec())[0].n === 0 && pins === 0 && (await page.evaluate(() => document.getElementById('locationsList').scrollTop)) === scroll0, pins);
+    await page.reload(); await W(1300);
+    const s4 = await sec();
+    ok('H4 a reload keeps it (localStorage triplet.hiddenCities)', s4[0].city === 'copenhagen' && s4[0].hidden && !s4[1].hidden, s4);
+    await goCity(page, 'copenhagen');
+    const s5 = await sec();
+    ok('H5 going to a hidden city shows it again (the menu)', !s5[0].hidden && s5[0].n > 20, s5);
+    await goCity(page, 'malmo');
+    const g = await page.evaluate(() => { const l = document.getElementById('locationsList'), h = document.querySelector('.sec-head[data-city="malmo"]'); return { top: Math.round(h.getBoundingClientRect().top - l.getBoundingClientRect().top), scroll: l.scrollTop, c: map.getCenter(), rows: document.querySelectorAll('#locationsList .location-card').length, cs: citySelection }; });
+    ok('H6 go to Malmö: the title is "Malmö" + its tally, the WHOLE list scrolled to its header, the map on Malmö; nothing hidden', (await h2(page)) === 'Malmö' && (await tally(page)) === String(await page.evaluate(() => cityTally('malmo'))) && g.top === 0 && g.scroll > 0 && Math.abs(g.c.lat - 55.605) < 0.02 && g.rows > 23 && g.cs === 'malmo', g);
+    await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 0; }); await W(100);
+    await tap(page, '.sec-head[data-city="copenhagen"] .sec-name'); await W(1400);
+    ok('H7 a section\'s name goes to that city (title, map)', (await h2(page)) === 'Copenhagen' && (await page.evaluate(() => Math.abs(map.getCenter().lat - 55.6761) < 0.02)));
+    await openMenu(page); await tap(page, '#titleMenu [data-go="__all__"]'); await W(1400);
+    ok('H8 All cities titles "All places" + every shown place', (await h2(page)) === 'All places' && (await tally(page)) === String(await page.evaluate(() => shownTally())));
+    // the poll tick: re-renders without moving the scroll or closing the open menu
+    await page.evaluate(() => { document.getElementById('locationsList').scrollTop = 300; }); await W(100);
+    await openMenu(page);
+    const p0 = await page.evaluate(() => document.getElementById('locationsList').scrollTop);
+    // (the harness runs in the playground, whose polls never see __db: apply a changed payload the way doFetchLocations() does)
+    await page.evaluate(() => { locations = locations.concat([{ id: 'zzz', name: 'Zzz late addition', address: 'x', category: 'cafe', lat: 55.69, lng: 12.55, notes: null, visited: false, starred: false, city: 'copenhagen' }]); updateUI(); }); await W(300);
+    const p1 = await page.evaluate(() => ({ open: !document.getElementById('titleMenu').hidden, scroll: document.getElementById('locationsList').scrollTop, all: document.querySelector('#titleMenu [data-go="__all__"] .tally').textContent, n: shownTally() }));
+    ok('H9 a poll with changes: the open menu stays open (its tallies follow), the list keeps its scroll', p1.open && p1.scroll === p0 && +p1.all === p1.n, { p0, p1 });
+    await closeMenu(page);
+    // the collapse tab
+    const t = await page.evaluate(() => { const tb = document.getElementById('collapseTab').getBoundingClientRect(), sh = document.getElementById('locations').getBoundingClientRect(), at = document.querySelector('.leaflet-control-attribution').getBoundingClientRect(), add = document.getElementById('floatingAddBtn').getBoundingClientRect();
+      return { w: tb.width, h: tb.height, right: Math.round(innerWidth - tb.right), onEdge: Math.round(sh.top - tb.bottom), attrAbove: at.bottom <= tb.top + 0.5, clearAdd: add.right < tb.left, label: document.getElementById('collapseTab').getAttribute('aria-label'), border: getComputedStyle(document.getElementById('locations')).borderTopWidth, oldBtn: !!document.getElementById('collapseBtn') }; });
+    ok('H10 the collapse tab: 44x24 on the sheet\'s top edge at the right (16px; its paper covers the sheet\'s rule under it), "Lower the list"; the credit above it; clear of the +; the sheet\'s 1px top rule; no header arrow', t.w === 44 && t.h === 24 && t.right === 16 && t.onEdge === -1 && t.attrAbove && t.clearAdd && t.label === 'Lower the list' && t.border === '1px' && !t.oldBtn, t);
+    ok('H11 no errors', !errors.length, errors);
+    await ctx.close(); }
+  // a plan whose city recurs: one leg header per run
+  { const P2 = FIX.plans.concat([{ id: 'p-loop', name: 'Loop', created_at: '2026-09-28T10:00:00Z' }]);
+    const S2 = FIX.stops.concat([['l1', 'mir', 1], ['l2', 'lil', 2], ['l3', 'tiv', 3]].map(([id, loc, position]) => ({ id, plan_id: 'p-loop', location_id: loc, shape_id: null, position })));
+    const { ctx, page, errors } = await open(b, { ...base, plans: P2, stops: S2 });
+    await pick(page, 'p-loop');
+    const L = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.matches('.sec-head, .location-card.is-stop, .plan-rule')).map(e => e.matches('.sec-head') ? `[${e.textContent.trim()}${e.classList.contains('is-first') ? '*' : ''}${e.querySelector('.sec-eye') ? 'eye' : ''}]` : e.matches('.plan-rule') ? '|' : e.dataset.id));
+    ok('H12 a plan open: its stops in leg sections broken where the city changes; a recurring city gets its own header each time; no eye; the first is compact; the addable places follow the rule, unsectioned', L.join(',') === '[Copenhagen1*],mir,[Malmö1],lil,[Copenhagen1],tiv,|', L);
+    ok('H13 no errors', !errors.length, errors);
+    await ctx.close(); }
+
   // ---------------------------------------------------------------- rail + collapsed
   { const { ctx, page, errors } = await open(b, { ...base, w: 1280, h: 800, touch: false });
-    await page.click('#toggleFiltersBtn'); await W(400); await page.click('#listSwitch [data-view="plans"]'); await W(700);
-    const r = await page.evaluate(() => { const p = document.getElementById('filtersPanel').getBoundingClientRect(), l = document.getElementById('locations').getBoundingClientRect(); return { pl: p.left, lw: l.width, h: document.querySelector('#locationsHeader h2').textContent, rows: [...document.querySelectorAll('#locationsList .location-card.is-stop')].map(e => e.getBoundingClientRect().height), cursor: getComputedStyle(document.querySelector('.row-n')).cursor }; });
+    await page.click('#titleBtn'); await W(300); await page.click('#titleMenu [data-kind="plans"]'); await W(200); await page.click('#titleMenu [data-plan="p-nor"]'); await W(700); await page.click('#toggleFiltersBtn'); await W(400);
+    const r = await page.evaluate(() => { const p = document.getElementById('filtersPanel').getBoundingClientRect(), l = document.getElementById('locations').getBoundingClientRect(); return { pl: p.left, lw: l.width, h: document.querySelector('#locationsHeader h2 .h-name').textContent, rows: [...document.querySelectorAll('#locationsList .location-card.is-stop')].map(e => e.getBoundingClientRect().height), cursor: getComputedStyle(document.querySelector('.row-n')).cursor }; });
     ok('L1 ≥900px rail: panel beside the rail, Plans list in the rail, rows 56px, the number shows a grab cursor', r.pl === 360 && r.lw === 360 && r.h === 'Nørrebro afternoon' && r.rows.length === 6 && r.rows.every(h => h === 56) && r.cursor === 'grab', r);
     // mouse hold-drag
     const m = await page.evaluate(() => { const n = document.querySelector('.location-card[data-id="mir"] .row-n').getBoundingClientRect(), t = document.querySelector('.location-card[data-id="cof"]').getBoundingClientRect(); return { x: n.x + n.width / 2, y: n.y + n.height / 2, to: t.y + t.height / 2 }; });
@@ -649,14 +725,18 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     for (let i = 1; i <= 8; i++) { await page.mouse.move(m.x, m.y + (m.to - m.y) * i / 8); await W(20); }
     await page.mouse.up(); await W(600);
     ok('L2 mouse: hold the number and drag reorders, no fly on release', (await stopKeys(page)) === 'jae,cof,mir,ass,S9001,bla' && !(await page.$('.leaflet-popup')), await stopKeys(page));
-    await page.evaluate(() => document.querySelector('#listSwitch [aria-checked="true"]').focus()); await page.keyboard.press('ArrowLeft'); await W(500);
-    ok('L3 keyboard: arrows move the switch (radiogroup)', (await page.evaluate(() => listView)) === 'places' && (await page.evaluate(() => document.activeElement.dataset.view)) === 'places');
+    await page.evaluate(() => document.getElementById('titleBtn').focus()); await page.keyboard.press('Enter'); await W(300);
+    const k1 = await page.evaluate(() => document.activeElement.dataset.plan);
+    await page.keyboard.press('ArrowDown'); const k2 = await page.evaluate(() => document.activeElement.dataset.plan);
+    await page.keyboard.press('Escape'); await W(200);
+    const k3 = await page.evaluate(() => ({ open: !document.getElementById('titleMenu').hidden, focus: document.activeElement.id }));
+    ok('L3 keyboard: Enter on the title opens the menu on the current plan, arrows move, Escape closes and hands focus back', k1 === 'p-nor' && k2 === 'p-mc' && !k3.open && k3.focus === 'titleBtn', { k1, k2, k3 });
     ok('L4 no errors on the rail', !errors.length, errors);
     await ctx.close(); }
   { const { ctx, page } = await open(b, base);
-    await toPlans(page); await closePanel(page); await tap(page, '#collapseBtn'); await W(500);
-    const c = await page.evaluate(() => ({ h: document.querySelector('#locationsHeader h2').textContent, band: document.getElementById('locationsHeader').getBoundingClientRect().height }));
-    ok('L5 collapsed sheet: the band shows the plan name, 57px, ⇅ kept', c.h === 'Nørrebro afternoon' && c.band === 57 && (await shown(page, '#sortBtn')), c);
+    await toPlans(page); await closePanel(page); await tap(page, '#collapseTab'); await W(500);
+    const c = await page.evaluate(() => ({ h: document.querySelector('#locationsHeader h2 .h-name').textContent, band: document.getElementById('locationsHeader').getBoundingClientRect().height, lab: document.getElementById('collapseTab').getAttribute('aria-label') }));
+    ok('L5 collapsed sheet (the tab): the band shows the plan name, 52px, ⇅ kept; the tab now says "Raise the list"', c.h === 'Nørrebro afternoon' && c.band === 52 && c.lab === 'Raise the list' && (await shown(page, '#sortBtn')), c);
     await ctx.close(); }
 
   await b.close();
