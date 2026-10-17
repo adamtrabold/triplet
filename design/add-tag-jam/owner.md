@@ -111,3 +111,4 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (on the Places menu) This one is feeling the best but the toggle isn't right yet play with size and placement
 > (chat, on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
 ("demented" = segmented, autocorrect)
+> (on T1/T2/T3) Both are interesting but the demented control shouldn’t be at the top I’m not starting with that decision every time I open the dropdown. Look at the inspo for potential ideas or inspiration
