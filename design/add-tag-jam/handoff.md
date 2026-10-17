@@ -935,3 +935,185 @@ the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
   (`8-add-divider-v3.png`).
 - Rename and Delete in the open plan (sheet 3): no comment from the owner yet;
   it's in the final stills.
+
+---
+
+## Phase 2 fixes (after build check)
+
+Designer pass, 2026-10-17, on the CD + UX check (`checks/p2-cd-ux.md`).
+
+- **Reference build:** branch **`design-p2-fixes`**, one commit (00d71d60) on
+  top of `add-tag-p2` ec265096. Diff it against ec265096; it doesn't contain
+  batch A.
+- **The two touch different code.** Batch A is behaviour only. My edits are
+  all in `resultWhere()` / the new `resultKind()`, `addStubHtml()` /
+  `addGoHint()`, `renderAddTag()`'s address and pin, `openAddMenu()`'s
+  placement, and CSS. One crossing: the pick object gains `where`, written in
+  `selectAddress()`.
+- **Stills** are in `stills/p2-fixes/` (3x raws in `raw/`; `stills.js`
+  renders them on the p2 fixtures):
+  - `1-results-and-add.png`
+  - `2-type.png`
+  - `3-district.png`
+- **Impeccable gate:** PASSED.
+- Everything not named here stays as built and as in the Phase 2 sections
+  above. The Star / Visited stub is untouched (owner: "do not tuch").
+
+### 1. Result rows: plain kind words
+
+The row stays "**kind · Town, Country**" (name above, unchanged). The kind is
+an everyday word, never raw OSM vocabulary. Write `resultKind(r)` with this
+order:
+
+1. **`key` is `place` or `boundary`:** look up the value, then
+   `r.addresstype`, in this table. With no hit, the word is **Area**.
+
+   | OSM value / addresstype | Word |
+   |---|---|
+   | city | City |
+   | town | Town |
+   | village, hamlet, isolated_dwelling | Village |
+   | farm | Farm |
+   | suburb, quarter, neighbourhood, city_district, borough | District |
+   | municipality, county, state, state_district, region, province | Region |
+   | country | Country |
+   | island, islet | Island |
+   | square, plaza | Square |
+   | locality | Area |
+   | postcode | Postcode |
+   | house | Address |
+
+2. **`key` is `highway`:** the value table below, else **Street**.
+3. **`key` is `building` (or the addresstype is building / house):**
+   **Address**.
+4. **The value table:**
+
+   | OSM value | Word |
+   |---|---|
+   | bus_stop | Bus stop |
+   | platform | Stop |
+   | tram_stop | Tram stop |
+   | station, halt | Station |
+   | subway_entrance | Metro |
+   | aerodrome | Airport |
+   | ferry_terminal | Ferry |
+   | place_of_worship | Church |
+   | fast_food | Fast food |
+   | guest_house | Guest house |
+   | attraction | Sight |
+
+5. **Otherwise:** the value itself, humanised (`_` becomes a space, first
+   letter capital): "Swimming pool", "Museum", "Theatre", "Cafe".
+6. **Value missing or `yes`:** **Place**.
+
+The where-part is unchanged: the town (city / town / village / hamlet /
+municipality / county / state), then the country. With batch A's English
+names it reads "Village · Ærøskøbing, Denmark".
+
+Why: the owner's rule "never label options with codes", applied to OSM's
+codes. "District" and "Street" match the TYPE words, so a District result
+reads the same before and after the pick.
+
+### 2. ADD's hint
+
+ADD's small second line (`.add-sub`, 11px, as built) says what's missing,
+and nothing once ADD is ready:
+
+| State | ADD |
+|---|---|
+| NAME empty | disabled, "**Name it first**" (as approved) |
+| A name typed, no place picked (a pin type) | disabled, "**Pick a place**" |
+| A place picked, or a District / Street with a name | ready ("+ ADD"), no line |
+| Saving | "Adding…" (as built) |
+
+`addGoHint()` returns "Pick a place" when `nameInput.value.trim()` is
+non-empty, else "Name it first". `renderAddGo()` already runs on every NAME
+input, so the line follows typing. While the results panel is up it covers
+the stub, so "Pick a place" shows once the results are put away (no match,
+a tap elsewhere, an edit with the panel closed).
+
+### 3. District and Street on the tag
+
+**No pin.** A District or Street hangs from **the shipped shape anchor dot**
+(`showTagDot()`: 14px, a paper r6 circle under an ink r4 circle, the ink
+being the type's `categoryInk()`), not the 32px pin. Owner: "Districts and
+streets need no map pin"; and on the dot, "Dot or something in the middle is
+fine".
+- `#addPin.is-dot { width:14px; height:14px; margin-left:-7px; top:calc(var(--tag-drop) - 29px) }`,
+  so the dot sits over the string's top end.
+- `renderAddTag()` writes the dot's SVG instead of `badgeHtml(…32…)` when
+  `isShapeCategory(d.type)`.
+- The string is unchanged. `alignMapToPin()` already aligns to the element's
+  centre, so the dot stands on the pick's point.
+- With batch A's outline drawn at pick time, the dot sits on the outline's
+  anchor, exactly as the place's Hanging Tag will sit after ADD.
+- No pick (a name typed by hand): no dot and no string, the eyelet empty, as
+  for a place with no pick.
+
+**The address slot prints where the area is, never a sentence.** The
+"Traced from OpenStreetMap when you add it" line goes.
+- After a pick: `pick.where`, the result's town, country, e.g.
+  "Copenhagen, Denmark" (`resultTown(r)`, stored on the pick in
+  `selectAddress()`). It uses the address's own style (13/18, `--ink-2`).
+- No pick: the slot stays empty, with its ADDRESS caption, like a place's.
+- The distance note stays off for shapes (as built).
+
+### 4. TYPE menu: placement and fit
+
+The TYPE (and city) menu still opens **6px under its trigger**, left-aligned.
+It is then kept on screen:
+- **floor** = 8px above the list bar (the lowered sheet's top,
+  `#locations` rect top), or 8px above the screen's foot if that's higher;
+- **ceiling** = the tag's open-area top (`addOpenArea().top`: the zoom /
+  account row + 8).
+- `top = max(ceiling, min(trigger.bottom + 6, floor − menuHeight))`.
+  When it doesn't fit below, the menu **slides up** as far as it must and may
+  cover its own trigger (the check marks the current type).
+- `max-height = floor − top`. It scrolls inside only when even that room is
+  short (a 667px-tall phone).
+
+At 390×844, all 11 rows (466px with the caption) fit, District and Street
+included, with nothing over the list bar. This is already in
+`openAddMenu()` on the prototype and applies to the city menu too.
+
+### 5. TYPE trigger: the city button's voice (a change from the approved board)
+
+**Decision:** the closed TYPE value is styled exactly like the city button.
+- No box, no badge.
+- Caps 12/14, `.12em`, 700, `var(--navy)`, then the 12px chevron right after
+  the word.
+- Open: the navy fill, paper text, the chevron turned 180°, `border-radius:3px`.
+- `padding:0 6px 0 8px; margin-left:-8px` so the word doesn't move.
+- 28px tall, with a 44px target via `::before` (top/bottom −8px).
+- The row becomes `grid-template-columns:40px 1fr`. The trigger is
+  `justify-self:start`, so its width is the word's.
+- The menu keeps its 20px category badges (the owner: icons "may be helpful
+  in the dropdown"). The pin above the tag shows the type's glyph and colour.
+- a11y as UX asked: the button is labelled by "Type" + the value.
+- CSS on the prototype: `.add-type-btn` (and the `.menu-badge` / `.menu-gap`
+  inside it hidden; the builder can simply drop them from the markup).
+
+Why, in the owner's words:
+- "The text here is louder than the other dropdown";
+- "lets treat all dropdowns the same";
+- from the first day, "i dont like seeing all the icons in the tag. but they
+  may be helpful iin the dropdown?".
+
+The boxed trigger + badge was the one dropdown on the tag that looked
+different, and the badge said the type a second time under the pin that
+already says it. **The owner sees this departure before it lands.**
+
+### Checks for the builder
+- **The Phase 2 set:** addtest, the Impeccable gate.
+- **New coverage:**
+  - result rows never print Administrative / Hamlet / Building / Yes;
+  - the ADD line in each of its three states;
+  - a shape draft has `#addPin.is-dot`, and its address is the where-line or
+    empty, never the sentence;
+  - the TYPE menu's rect stays inside `[ceiling, floor]` at 390×844 and
+    375×667;
+  - the TYPE trigger has no border or badge.
+
+### Open for the owner
+- The TYPE dropdown now looks like the city dropdown: no box, no icon on the
+  tag (`2-type.png`). OK?

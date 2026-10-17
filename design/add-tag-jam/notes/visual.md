@@ -277,3 +277,39 @@
   ledger's `.group-end` category break) goes under the "All" row. The menu now
   reads in three parts. Prototype ce4586b; the gate passes. The handoff
   addendum is consolidated as the final spec. Still: `9-menu-v4.png`.
+
+## 2026-10-17, Phase 2 fixes after the build check
+- **Prototype:** `design-p2-fixes` (00d71d60, on add-tag-p2 ec265096; batch A
+  not merged yet, since the builder hadn't pushed it). Stills:
+  `stills/p2-fixes/` 1–3. The Impeccable gate passes.
+- **Decisions** (exact values in handoff.md, "Phase 2 fixes"):
+  1. **Result kind words:** a table that turns OSM's words into everyday
+     ones. Places and boundaries by size (City / Town / Village / District /
+     Region / Country / Island / Area); highways are Street, or Bus stop
+     etc.; buildings are Address; a few value words (Airport, Ferry, Church,
+     Sight); otherwise the plain value; Place as the last resort.
+  2. **ADD's line:** "Name it first" when empty, "Pick a place" when a name
+     is typed but nothing is picked, nothing when ready.
+  3. **District / Street:**
+     - the add tag hangs from the shipped shape anchor dot (14px), not a pin;
+     - the address slot shows the area's "Town, Country" after a pick, and is
+       empty before one;
+     - the "Traced from OpenStreetMap" sentence is gone.
+  4. **TYPE menu:** it opens under the trigger, clamped between the zoom /
+     account row and 8px above the list bar, sliding up when needed (it may
+     cover the trigger); all 11 rows fit at 844px tall.
+  5. **TYPE trigger:** now the city button's look (no box, no badge, navy
+     caps 12 + chevron, navy fill when open). This departs from the approved
+     TypeClosed board, and is grounded in three owner quotes. The owner must
+     see it.
+- **Rejected:**
+  - two-column or compact TYPE menu rows (targets under 44, a second menu
+    style);
+  - an upward-opening menu (doesn't fit either);
+  - keeping a box but dropping the badge (still two dropdown styles).
+- **Watch:**
+  - the dot over a pale wash reads small; the outline (batch A) is what makes
+    the district legible on the map;
+  - the busiest TYPE menu covers the name while it's open.
+- **Next:** the owner judges `2-type.png` (the departure); the builder
+  applies these in one batch after batch A.
