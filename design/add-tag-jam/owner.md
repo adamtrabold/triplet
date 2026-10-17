@@ -89,3 +89,6 @@ Orchestrator answer (thread 5baf422c): Photon (komoot, OSM, autocomplete + lat/l
 > (distance note) I really like the distance note but it should feel more related to the actual address
 > (NEW stamp) The new badge is poorly aligned with the new dropdown
 > (Places | Plans title menu, Turn 9) Places plans is absolutely not solved I need to be able to specify inside of either
+> (on the canvas) Really hard to judge how this looks with the blue lines for new stuff
+> (on the distance note) I really like the distance note but it should feel more related to the actual address
+> (on the NEW stamp) The new badge is poorly aligned with the new dropdown
