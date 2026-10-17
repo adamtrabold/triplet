@@ -1737,6 +1737,14 @@
        edge dividers, a 16px icon column, the check on the right. */
     .menu-box { width: max-content; min-width: 200px; overflow: hidden; }
     #titleMenu { min-width: 248px; max-width: calc(100vw - 2 * var(--gutter)); overflow-y: auto; overscroll-behavior: contain; }
+    /* p1-fixes: the quiet last row (the kind switch) never scrolls away: sticky at the box's foot. */
+    #titleMenu .menu-row[data-kind] { position: sticky; bottom: 0; background: var(--paper-raised); z-index: 1; }
+    #titleMenu .menu-row[data-kind]:active { background: var(--paper-pressed); }
+    /* The title's chevron turns toward the open menu (up on the phone, where the menu opens above). */
+    .title-btn .title-chev { transition: transform 140ms cubic-bezier(.2,.8,.3,1); }
+    .title-btn[aria-expanded="true"] .title-chev { transform: rotate(180deg); }
+    @media (min-width: 900px) { .title-btn[aria-expanded="true"] .title-chev { transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .title-btn .title-chev { transition: none; } }
     .menu-cap {
       height: 24px; display: flex; align-items: center; padding: 0 var(--s3); border-bottom: 1px solid var(--navy);
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
@@ -1761,7 +1769,7 @@
       font-size: 13px; line-height: 16px; letter-spacing: 0.05em; color: var(--navy);
     }
     .menu-gap { flex: 1 1 auto; }
-    .menu-row.is-hidden { opacity: 0.55; }
+    .menu-row.is-hidden .menu-lab, .menu-row.is-hidden .menu-ico { color: var(--ink-2); }   /* p1-fixes: 6.17:1, the closed eye carries the state */
 
     /* ---- CITY SECTION HEADER (SectionSeparate S1 "air above, light rule";
        SectionHeaders; GoToSections). A keyed non-row node in the list: never
@@ -1798,9 +1806,15 @@
     .sec-head.is-first .sec-name { height: 44px; align-items: center; padding-bottom: 0; }
     .sec-head.is-first .sec-eye { height: 44px; }
     /* Hidden (HiddenCity H1): the same header in its place, greyed, the eye closed, its rows folded away. */
-    .sec-head.is-hidden .sec-name { opacity: 0.5; }
+    .sec-head.is-hidden .sec-name { color: var(--ink-2); }   /* p1-fixes: name 6.17:1, tally 6.17:1 (was .5 = 3.0:1 / 2.2:1) */
     /* A plan's leg: the same header with no eye (a stop is never hidden); tapping frames the leg. */
     .sec-head.is-leg { grid-template-columns: 1fr; }
+    /* p1-fixes: the add-from caption carries the standard tally, no brackets. */
+    .plan-rule { display: flex; align-items: baseline; }
+    .plan-rule .h-name { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    .plan-rule .tally { font-size: 11px; }
+    /* p1-fixes: lowered, the band is header only: no rule over the bare strip under it. */
+    @media (max-width: 899px) { #locations.collapsed #locationsHeader { border-bottom-color: transparent; } }
 
     /* ---- ALL PLANS: one row per plan (the Places row's grid and voice): the route glyph in the
        28px column, the name, "3 stops · Reykjavík", ⋯ (rename / delete) and ›. New plan is the
@@ -1852,6 +1866,11 @@
       font-size: 12px; line-height: 16px; letter-spacing: 0.08em; color: var(--ink-2); -webkit-tap-highlight-color: transparent;
     }
     .plan-act.primary { color: var(--navy); }
+    /* p1-fixes: the open plan's foot -- Rename, Delete plan... -- on the gutter, after the last stop. */
+    .plan-foot { display: flex; align-items: center; min-height: 44px; padding: 0 var(--gutter); background: var(--paper); }
+    .plan-foot.plan-form { min-height: 56px; padding: 0 var(--s1) 0 var(--gutter); background: var(--paper-raised); }
+    .plan-foot .plan-act { font-size: 11px; letter-spacing: 0.1em; }
+    .plan-foot .plan-act + .plan-act { margin-left: var(--s1); }
     .plan-act.danger { color: var(--ink-2); }   /* not an accent: the confirm() is the guard */
     .plan-act:first-child { margin-left: calc(var(--s3) * -1); }
     .plan-act:active { background: var(--state-press); }
@@ -1913,8 +1932,8 @@
        rule plus this 1px = the 2px --hair a category change draws in Places --
        with a one-line caption naming what's below. */
     .plan-rule { box-sizing: border-box; min-height: 26px; padding: 7px var(--gutter) 5px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
-      background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 10px; line-height: 12px; letter-spacing: 0.12em;
-      color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      background: var(--paper); font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 12px; letter-spacing: 0.12em;
+      color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* p1-fixes: 11px, the Impeccable floor */
     /* An empty section inside the list: Places' empty-state voice (condensed bold caps,
        --ink-2), no glyph -- the compass belongs to an empty whole list. */
     .plan-list-note {
@@ -4559,12 +4578,15 @@
       if (pendingSectionScroll === ALL_CITIES) { list.scrollTop = 0; pendingSectionScroll = null; return; }
       const e = cityHeads.get(pendingSectionScroll), head = e && e.el;
       if (head && head.isConnected) {
-        list.scrollTop += head.getBoundingClientRect().top - list.getBoundingClientRect().top;
+        list.scrollTop += head.getBoundingClientRect().top - list.getBoundingClientRect().top + landingTrim(head);
         pendingSectionScroll = null;
       } else if (placesLoaded) {
         list.scrollTop = 0; pendingSectionScroll = null;   // a city with nothing to show: the top
       }
     }
+    // p1-fixes: a go-to lands its header at the first section's compact 44px: the air above the
+    // name (60 - 44 = 16px) scrolls past, so no band of empty paper sits under the list title.
+    const landingTrim = head => head.classList.contains('is-first') ? 0 : Math.max(0, head.offsetHeight - 44);
     // After a filter change in Plans, the list scrolls so the rule sits at the
     // top of the list (the stops are one flick up). Nothing moves in Places.
     function showPlanRule() {
@@ -6608,11 +6630,31 @@
     const planOthersNote = document.createElement('div'); planOthersNote.className = 'plan-list-note';
     const planEmptyBtn = document.createElement('button'); planEmptyBtn.type = 'button'; planEmptyBtn.className = 'plan-empty-new'; planEmptyBtn.textContent = 'New plan';
     const planEmptyLine2 = document.createElement('span'); planEmptyLine2.className = 'plan-empty-line'; planEmptyLine2.textContent = 'A plan’s stops show here and on the map.';
-    // "Add from Copenhagen · cafe (1)": where the plan ends, and what the filters put below it.
+    // p1-fixes: Rename / Delete plan live at the foot of the open plan's stops (no per-row mark on
+    // the plans list): today's .plan-act text buttons, on the gutter. Rename swaps the foot for
+    // today's in-row form.
+    const planFoot = document.createElement('div'); planFoot.className = 'plan-foot';
+    const addHeads = new Map();   // the open plan's add-from city sections: city id -> { el, sig }
+    let planFootSig = null;
+    function renderPlanFoot() {
+      const p = activePlan(); if (!p) return;
+      const renaming = planPanel.mode === 'renaming' && planPanel.target === p.id;
+      const sig = renaming ? 'form' : 'acts|' + p.name;
+      if (sig !== planFootSig) {
+        planFootSig = sig;
+        planFoot.className = renaming ? 'plan-foot plan-form' : 'plan-foot';
+        planFoot.innerHTML = renaming ? planFormHtml('Plan name', 'save')
+          : `<button type="button" class="plan-act" data-act="foot-rename">Rename</button><button type="button" class="plan-act" data-act="foot-delete">Delete plan…</button>`;
+        planFoot.setAttribute('role', 'group'); planFoot.setAttribute('aria-label', p.name);
+      }
+      const input = planFoot.querySelector('input');
+      if (input && planPanel.focusInput) { planPanel.focusInput = false; requestAnimationFrame(() => { input.focus({ preventScroll: true }); input.setSelectionRange(input.value.length, input.value.length); }); }
+    }
+    // "Add places · cafe 4": where the plan ends, and what the filters put below it.
     function ruleCaption(n) {
       const all = Object.keys(CATEGORY_COLORS), on = all.filter(c => filters.categories[c]);
       const cats = on.length === all.length ? '' : !on.length ? ' · no categories' : on.length <= 2 ? ' · ' + on.join(', ') : ` · ${on.length} categories`;
-      return `Add from all places${cats} (${n})`;
+      return `<span class="h-name">Add places${cats}</span><span class="tally">${n}</span>`;
     }
     function planOthers() {
       const pm = planMarks();
@@ -6652,9 +6694,10 @@
       const flip = planFlipNext; planFlipNext = null;
       const before = flip ? new Map([...list.children].map(el => [el, el.getBoundingClientRect().top])) : null;
       const want = [];
-      const seenLoc = new Set(), seenShape = new Set();
+      const seenLoc = new Set(), seenShape = new Set(), seenAdd = new Set();
       const open = !!activePlan();
       const others = open ? planOthers() : { locs: [], shapes: [] };
+      const pm = planMarks();
       // Leg sections: the stops in stop order, broken where the stop's city changes; a city can
       // recur (two Reykjavík legs, each its own header). No eye: a stop is never hidden.
       const legs = [];
@@ -6664,16 +6707,33 @@
       legs.forEach((l, i) => { seq.push({ leg: i }); l.rows.forEach(r => seq.push(r)); });
       if (open) {
         if (!rows.length) want.push(planStopsNote); else if (planStopsNote.parentNode) planStopsNote.remove();
+        seq.push({ foot: true });
         seq.push({ rule: true });
-        others.locs.forEach(loc => seq.push({ loc }));
-        others.shapes.forEach(nb => seq.push({ nb }));
+        // p1-fixes: the addable places in city sections -- Places' own header (name = go to, tally,
+        // eye), same order, same hidden state (one hiddenCities for both kinds).
+        const pinsBy = new Map(), shapesBy = new Map();
+        others.locs.forEach(l => { if (!pinsBy.has(l.city)) pinsBy.set(l.city, []); pinsBy.get(l.city).push(l); });
+        others.shapes.forEach(n => { if (!shapesBy.has(n.city)) shapesBy.set(n.city, []); shapesBy.get(n.city).push(n); });
+        let firstAdd = true;
+        sectionCityIds().forEach(id => {
+          const ps = pinsBy.get(id) || [], ss = shapesBy.get(id) || [], hidden = hiddenCities.has(id);
+          if (!ps.length && !ss.length && !(hidden && (CITIES[id] || cityHasPlaces(id)))) return;
+          // A hidden section's tally: what it would add if shown (its chip-matching places, not stops).
+          const n = hidden ? locations.filter(l => l.city === id && filters.categories[l.category] && !pm.byLoc.has(l.id)).length +
+            neighborhoodShapes.filter(x => x.city === id && filters.categories[x.type] && !pm.byShape.has(x.id)).length : ps.length + ss.length;
+          seq.push({ add: id, first: firstAdd, hidden, n }); firstAdd = false;
+          ps.forEach(loc => seq.push({ loc }));
+          ss.forEach(nb => seq.push({ nb }));
+        });
         if (!others.locs.length && !others.shapes.length) { planOthersNote.textContent = othersNoteText(); seq.push({ note: true }); }
         else if (planOthersNote.parentNode) planOthersNote.remove();
-      } else { [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); }); }
-      planRule.textContent = ruleCaption(others.locs.length + others.shapes.length);
+      } else { [planRule, planStopsNote, planOthersNote, planFoot].forEach(n => { if (n.parentNode) n.remove(); }); }
+      planRule.innerHTML = ruleCaption(others.locs.length + others.shapes.length);
       seq.forEach((r, i) => {
         if (r.leg != null) { const e = headEntry(legHeads, r.leg); renderLegHead(e, r.leg, legs[r.leg], !want.length); want.push(e.el); return; }
         if (r.rule) { want.push(planRule); return; }
+        if (r.foot) { renderPlanFoot(); want.push(planFoot); return; }
+        if (r.add != null) { const e = headEntry(addHeads, r.add); renderCityHead(e, r.add, r.n, r.hidden, r.first, 'addgo'); seenAdd.add(r.add); want.push(e.el); return; }
         if (r.note) { want.push(planOthersNote); return; }
         if (r.loc) {
           const loc = r.loc;
@@ -6701,6 +6761,8 @@
       cardsById.forEach((entry, id) => { if (!seenLoc.has(id)) { entry.el.remove(); cardsById.delete(id); } });
       shapeCardsById.forEach((entry, id) => { if (!seenShape.has(id)) { entry.el.remove(); shapeCardsById.delete(id); } });
       legHeads.forEach((e, k) => { if (k >= legs.length) { e.el.remove(); legHeads.delete(k); } });
+      addHeads.forEach((e, k) => { if (!seenAdd.has(k)) { e.el.remove(); addHeads.delete(k); } });
+      if (!open && planFoot.parentNode) planFoot.remove();
       want.forEach((el, i) => { if (list.children[i] !== el) list.insertBefore(el, list.children[i] || null); });
       if (before) {
         const changed = typeof flip === 'object' ? (flip.locationId != null ? cardsById.get(flip.locationId) : shapeCardsById.get(Number(flip.shapeId))) : null;
@@ -7268,6 +7330,14 @@
     }
     // Go to a city (the title menu, a section header's name): Places, the whole list, scrolled
     // to that city's header; the map frames it. Never a filter.
+    // p1-fixes: an add-from header's name, in an open plan: the map goes to the city and the list
+    // scrolls to that section (landing compact). You stay in the plan; a hidden city shows again.
+    function planGoToCity(id) {
+      if (hiddenCities.has(id)) setCityHidden(id, false);
+      focusCity(id, { animate: true });
+      const e = addHeads.get(id), head = e && e.el, list = document.getElementById('locationsList');
+      if (head && head.isConnected) list.scrollTop += head.getBoundingClientRect().top - list.getBoundingClientRect().top + landingTrim(head);
+    }
     function goToCity(selection) {
       if (inPlanView()) {
         listView = 'places';
@@ -7336,7 +7406,24 @@
       const btn = document.getElementById('titleBtn');
       btn.querySelector('h2').innerHTML = `<span class="h-name">${escapeHtml(t.name)}</span><span class="tally">${t.n}</span>`;
       btn.setAttribute('aria-label', `${t.name}, ${t.n}. Choose what the list shows`);
+      fitTitleName(t.name);
     }
+    // p1-fixes: a long title is cut by hand, not by text-overflow, so its "…" sits the same 6px from
+    // the tally as an uncut name's last letter (CSS ellipsis left 13px: the unused part of a glyph).
+    function fitTitleName(full) {
+      const el = document.querySelector('#titleBtn .h-name'); if (!el) return;
+      el.textContent = full;
+      if (el.scrollWidth <= el.clientWidth + 0.5) return;
+      const avail = el.clientWidth, chars = [...full];
+      let lo = 1, hi = chars.length - 1, best = 1;
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        el.textContent = chars.slice(0, mid).join('').trimEnd() + '…';
+        if (el.scrollWidth <= avail + 0.5) { best = mid; lo = mid + 1; } else hi = mid - 1;
+      }
+      el.textContent = chars.slice(0, best).join('').trimEnd() + '…';
+    }
+    addEventListener('resize', () => { titleSig = null; renderTitle(); });
 
     let menuKind = 'places';   // the side the open menu shows ('places' | 'plans')
     let menuSig = null;
@@ -7351,7 +7438,7 @@
       let html = '';
       if (places) {
         const here = !inPlanView();
-        html += menuRowHtml(`role="menuitemradio" aria-checked="${here && citySelection === ALL_CITIES}" data-go="${ALL_CITIES}"`, MENU_SVG.spacer, 'All cities', shownTally(), cur(here && citySelection === ALL_CITIES));
+        html += menuRowHtml(`role="menuitemradio" aria-checked="${here && citySelection === ALL_CITIES}" data-go="${ALL_CITIES}"`, MENU_SVG.spacer, 'All places', shownTally(), cur(here && citySelection === ALL_CITIES));
         menuCityIds().forEach(id => {
           const hid = hiddenCities.has(id), on = here && citySelection === id;
           html += menuRowHtml(`role="menuitemradio" aria-checked="${on}" data-go="${escapeAttr(id)}"${hid ? ` aria-label="${escapeAttr(cityLabel(id))}, ${cityTally(id)}, hidden"` : ''}`, MENU_SVG.ring, cityLabel(id), cityTally(id),
@@ -7376,27 +7463,48 @@
       return true;
     }
     const menuRowKey = el => el && el.dataset ? (el.dataset.go || el.dataset.plan || el.dataset.plans || el.dataset.kind || el.dataset.act || null) : null;
-    // Under the title: its left edge on the gutter, 44px below the sheet's top edge (over the
-    // header band's lower part, as drawn). Without room below (a lowered sheet), above the band.
+    // p1-fixes (designer): ONE side, ONE width, decided once per open, never re-decided while open.
+    //  - Phone sheet (raised or lowered): ALWAYS above the sheet, its bottom edge 6px over the sheet's
+    //    top edge, so the quiet last row sits nearest the title and stays put when it swaps kinds;
+    //    only the top edge moves with the row count.
+    //  - Rail (>= 900px): ALWAYS below, 44px under the rail's top (as drawn).
+    //  - Width: the wider of the two sides' natural widths, clamped [248, viewport - 2 gutters].
+    //  - Too tall for its room: scrolls inside; the quiet row is sticky at the box's foot.
+    let menuLock = null;   // { up, width } while open
+    function measureMenuWidth() {
+      const menu = document.getElementById('titleMenu'), keep = menuKind;
+      let w = 0;
+      ['places', 'plans'].forEach(k => { menuKind = k; menuSig = null; renderTitleMenu(); menu.style.width = 'max-content'; w = Math.max(w, menu.offsetWidth); });
+      menuKind = keep; menuSig = null; renderTitleMenu();
+      return w;
+    }
     function placeTitleMenu() {
       const menu = document.getElementById('titleMenu'), sheet = document.getElementById('locations').getBoundingClientRect();
-      menu.style.maxHeight = '';
-      const h = menu.offsetHeight, gutter = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gutter')) || 16;
-      const below = sheet.top + 44, roomBelow = innerHeight - 8 - below, roomAbove = sheet.top - 2 - 8;
-      // A menu taller than either side (many plans) takes the roomier one and scrolls inside.
-      const down = h <= roomBelow || (h > roomAbove && roomBelow >= roomAbove);
-      const room = down ? roomBelow : roomAbove;
-      if (h > room) menu.style.maxHeight = `${Math.max(120, room)}px`;
+      const gutter = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gutter')) || 16;
+      if (!menuLock) {
+        const w = measureMenuWidth();
+        menuLock = { up: !railQuery.matches, width: Math.min(innerWidth - 2 * gutter, Math.max(248, Math.ceil(w))) };
+      }
+      menu.style.width = `${menuLock.width}px`;
+      menu.style.maxHeight = ''; menu.style.top = ''; menu.style.bottom = '';
       menu.style.left = `${sheet.left + gutter}px`;
-      menu.style.top = `${down ? below : Math.max(8, sheet.top - 2 - Math.min(h, room))}px`;
-      menu.style.setProperty('--slip-from', down ? '-4px' : '4px');
+      if (menuLock.up) {
+        menu.style.top = 'auto';
+        menu.style.bottom = `${innerHeight - (sheet.top - 6)}px`;
+        menu.style.maxHeight = `${sheet.top - 6 - 8}px`;
+      } else {
+        const below = sheet.top + 44;
+        menu.style.top = `${below}px`;
+        menu.style.maxHeight = `${innerHeight - 8 - below}px`;
+      }
+      menu.style.setProperty('--slip-from', menuLock.up ? '4px' : '-4px');
     }
     function openTitleMenu() {
       const btn = document.getElementById('titleBtn'), menu = document.getElementById('titleMenu');
       closeSortMenu(false);
       closeFiltersPanel();
       menuKind = inPlanView() ? 'plans' : 'places';
-      menuSig = null;
+      menuSig = null; menuLock = null;
       renderTitleMenu();
       document.getElementById('menuScrim').hidden = false;
       document.body.classList.add('menu-open');
@@ -7410,7 +7518,7 @@
     function closeTitleMenu(refocus = true) {
       const menu = document.getElementById('titleMenu');
       if (menu.hidden) return;
-      menu.hidden = true; menu.classList.remove('opening');
+      menu.hidden = true; menu.classList.remove('opening'); menuLock = null;
       document.getElementById('menuScrim').hidden = true;
       document.body.classList.remove('menu-open');
       const btn = document.getElementById('titleBtn');
@@ -7432,15 +7540,15 @@
       if (!e) { const el = document.createElement('div'); el.className = 'sec-head'; e = { el, sig: null }; store.set(key, e); }
       return e;
     }
-    function renderCityHead(e, id, n, hidden, first) {
-      const sig = [cityLabel(id), n, hidden, first].join('|');
+    function renderCityHead(e, id, n, hidden, first, goAttr = 'go') {
+      const sig = [cityLabel(id), n, hidden, first, goAttr].join('|');
       e.el.classList.toggle('is-first', first);
       e.el.classList.toggle('is-hidden', hidden);
       e.el.dataset.city = id;
       if (sig === e.sig) return;
       e.sig = sig;
       const label = cityLabel(id);
-      e.el.innerHTML = `<button type="button" class="sec-name" data-go="${escapeAttr(id)}" aria-label="Go to ${escapeAttr(label)}, ${n}"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button>` +
+      e.el.innerHTML = `<button type="button" class="sec-name" data-${goAttr}="${escapeAttr(id)}" aria-label="Go to ${escapeAttr(label)}, ${n}"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button>` +
         `<button type="button" class="sec-eye" data-eye="${escapeAttr(id)}" aria-label="${hidden ? 'Show' : 'Hide'} ${escapeAttr(label)}" aria-pressed="${hidden}">${eyeSvg(hidden, '--paper')}</button>`;
     }
     function renderLegHead(e, i, leg, first) {
@@ -7527,7 +7635,7 @@
         seen.add(key); want.push(e.el); return e;
       };
       const creating = planPanel.mode === 'creating';
-      if (plansAvailable === true && (plans.length || creating)) {
+      if (plansAvailable === true) {   // p1-fixes: zero plans = the New plan row alone
         plans.forEach(p => {
           const tgt = p.id === planPanel.target;
           if (tgt && planPanel.mode === 'renaming') { put('p:' + p.id, 'plan-form', planFormHtml('Plan name', 'save'), { 'data-form': 'rename' }); return; }
@@ -7539,7 +7647,7 @@
           const meta = planMetaText(p.id);
           put('p:' + p.id, 'plan-row', `<button type="button" class="plan-open" data-plan="${escapeAttr(p.id)}" aria-label="${escapeAttr(p.name)}, ${escapeAttr(meta)}"><span class="plan-ico">${ROUTE_22}</span>` +
             `<span class="plan-text"><h3>${escapeHtml(p.name)}</h3><span class="row-meta">${escapeHtml(meta)}</span></span></button>` +
-            `<span class="plan-row-end"><button type="button" class="plan-more" data-act="more" data-more="${escapeAttr(p.id)}" aria-label="Rename or delete ${escapeAttr(p.name)}">${PLAN_SVG.more}</button><span class="plan-chev" data-plan="${escapeAttr(p.id)}" aria-hidden="true">${ROW_CHEV}</span></span>`);
+            `<span class="plan-row-end"><span class="plan-chev" data-plan="${escapeAttr(p.id)}" aria-hidden="true">${ROW_CHEV}</span></span>`);
         });
         if (creating) put('new', 'plan-form', planFormHtml('New plan name', 'create'), { 'data-form': 'create' });
         else put('new', 'plan-row plan-new-row', `<button type="button" class="plan-open" data-act="new"><span class="plan-ico">${MENU_SVG.plus}</span><span class="plan-new-lab">New plan</span></button>`);
@@ -7597,8 +7705,18 @@
         if (go) { goToCity(go.dataset.go); return; }
         const eye = e.target.closest('.sec-eye[data-eye]');
         if (eye) { setCityHidden(eye.dataset.eye, !hiddenCities.has(eye.dataset.eye)); return; }
+        const ag = e.target.closest('.sec-name[data-addgo]');
+        if (ag) { planGoToCity(ag.dataset.addgo); return; }
         const leg = e.target.closest('.sec-name[data-leg]');
         if (leg) { const l = currentLegs[Number(leg.dataset.leg)]; if (l) frameLeg(l.rows); return; }
+        const fa = e.target.closest('.plan-foot [data-act^="foot-"]');
+        if (fa) {
+          const p = activePlan(); if (!p) return;
+          if (!await requireAuth()) return;
+          if (fa.dataset.act === 'foot-rename') setPlanPanel({ mode: 'renaming', draft: p.name, target: p.id, focusInput: true });
+          else if (confirm(`Delete “${p.name}”? Its places stay in your list.`)) { await deletePlan(p.id); if (inPlanView() && !activePlan()) frameAllPlans(); }
+          return;
+        }
         if (!e.target.closest('.plan-row, .plan-form')) return;
         const b = e.target.closest('[data-act]');
         if (b) {
@@ -7656,7 +7774,7 @@
         else if (e.key === 'Escape' || e.key === 'Tab') { e.preventDefault(); closeTitleMenu(); }
       });
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && titleMenuOpen()) closeTitleMenu(); });
-      window.addEventListener('resize', () => { if (titleMenuOpen()) placeTitleMenu(); });
+      window.addEventListener('resize', () => { if (titleMenuOpen()) { menuLock = null; placeTitleMenu(); } });
       planEmptyBtn.addEventListener('click', openNewPlan);
     }
 
@@ -7677,15 +7795,15 @@
         dropHeads(cityHeads);
         if (activePlan()) { dropPlanList(); syncPlanCards(planMarks().rows); listed = 1; }
         else {
-          dropHeads(legHeads); currentLegs = [];
-          [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });
+          dropHeads(legHeads); dropHeads(addHeads); currentLegs = [];
+          [planRule, planStopsNote, planOthersNote, planFoot].forEach(n => { if (n.parentNode) n.remove(); });
           cardsById.forEach(e => e.el.remove()); cardsById.clear();
           shapeCardsById.forEach(e => e.el.remove()); shapeCardsById.clear();
           listed = syncPlansList();
         }
       } else {
-        dropHeads(legHeads); currentLegs = []; dropPlanList();
-        [planRule, planStopsNote, planOthersNote].forEach(n => { if (n.parentNode) n.remove(); });   // the Places reconciler owns the list from row 0
+        dropHeads(legHeads); dropHeads(addHeads); currentLegs = []; dropPlanList();
+        [planRule, planStopsNote, planOthersNote, planFoot].forEach(n => { if (n.parentNode) n.remove(); });   // the Places reconciler owns the list from row 0
         document.querySelectorAll('#locationsList .is-stop').forEach(e => e.classList.remove('is-stop'));   // Plans' marker class, back on a Places row
         // No rows: the empty line -- unless every city with places is hidden, when the list holds
         // only their greyed headers.
@@ -7705,7 +7823,7 @@
       const emptyText_ = [...emptyState.childNodes].find(n => n.nodeType === 3);
       if (emptyText_) emptyText_.textContent = emptyText(planMode);
       // No plans yet: the empty list offers the one next step (sign-in first if needed).
-      const wantNew = planMode && plansAvailable === true && !plans.length;
+      const wantNew = false;   // p1-fixes: the list's own New plan row replaces the outlined button
       if (wantNew && !planEmptyBtn.parentNode) emptyState.append(planEmptyLine2, planEmptyBtn);
       else if (!wantNew && planEmptyBtn.parentNode) { planEmptyLine2.remove(); planEmptyBtn.remove(); }
       if (list.lastElementChild !== listSpacer || emptyState.nextElementSibling !== listSpacer) {
