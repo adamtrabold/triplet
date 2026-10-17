@@ -329,3 +329,26 @@ density you want? (Or two neighbours to look at closer.)"
 
 NEXT: the coordinator sends the canvas page "Grid concepts" and adds the
 `../history.md` line.
+
+---
+
+## Turn 14: icon designer (new; the last one was lost to a container restart), round g5
+
+Owner: "Feels like 1.5 or 2 to me right now"; then "What's closest to the inspo".
+
+- **Seven sheets** (`cards-g5.html`, `stills/g5-sheet-*`, canvas "Grid concepts"; g4 moved to Archive). The WIP's per-width app sheets became side by side.
+  - Sheet 1: the three widths stacked in the header, chips, rows and map.
+  - Sheet 2: the + as it ships, and the tag.
+  - Sheet 3: each deciding difference, big and at real size.
+  - Sheet 4: the whole family per width.
+  - Sheet 5: every icon at 2x.
+  - Sheet 6: MUTCD, compared two ways.
+- **Plainly, on sheet 0:** at real size they look alike. It's really 1.5 against the other two: the fork (3 tines to 2) and the conifer (4 tiers to 3) change between 1.5 and 1.75. From 1.75 to 2 the change is weight only, apart from the scallops. Also stated: the detail cut-offs are our rule, not the width.
+- **MUTCD re-measured** (run lengths on fig-2h-05-1):
+  - signs are 81px;
+  - lines are 3–8px, most often 4px, which is 1.2px at badge size;
+  - the 7–8px walls are the drinking-water glass, and the tunnel is a 14px mass.
+  - Picture to picture, all three of ours are heavier than every sign line. 1.5 is nearest by both measures. Table in `for-director.md`.
+- No width recommended on the sheets. Question: "Which of 1.5, 1.75 and 2px gives the density you want?"
+
+NEXT: design director, score g5 to the g4 note's test ("can he actually choose between the three on his phone?").

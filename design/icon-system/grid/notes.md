@@ -65,3 +65,7 @@ Product designer (icon specialist). Owner, verbatim: "we're not at drawing step 
 
 - No final drawings, no colours, no read-apart work ("lets not focus on differentiation yet").
 - index.html untouched.
+
+## Round g5 (2026-10-17), after "Feels like 1.5 or 2 to me right now" and "What's closest to the inspo"
+
+- 1.5, 1.75 and 2 side by side in the app's contexts, with the deciding differences shown big and at real size, the whole family per width, and MUTCD compared two ways (same size on screen; picture to picture). Skeletons are unchanged from g4. `src/boards5.js` → `cards-g5.html`, `stills/g5-*`. MUTCD measurements and method: `for-director.md`.

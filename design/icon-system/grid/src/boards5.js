@@ -18,7 +18,7 @@ const cutW = w => Math.max(0.6, 0.6 * w);
 
 // image paths (relative for cards-g5.html; replaced by asset URLs for the canvas)
 let REL = { stamp: '../inventory-png/row-stamp.png', sticker: '../inventory-png/sticker-near.png', home: '../../../apple-touch-icon.png' };
-const CROP = k => (REL.crops || 'inspo-crops/') + k + '.png';
+const CROP = k => (REL.crop && REL.crop[k]) || (REL.crops || 'inspo-crops/') + k + '.png';
 const stamp = () => `<img src="${REL.stamp}" width="82" height="44" alt="Visited stamp, unchanged" style="display:block">`;
 const sticker = () => `<img src="${REL.sticker}" width="40" height="40" alt="Visited sticker, unchanged" style="display:block">`;
 const home = (px = 60) => `<img src="${REL.home}" width="${px}" height="${px}" alt="Home-screen icon, today's" style="border-radius:${f2(px * 0.2237)}px;display:block">`;
