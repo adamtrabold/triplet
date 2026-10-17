@@ -140,5 +140,5 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > Yes I'm looking for an harmonious complete set and guidance for the future   (confirming UI icons are in; the goal of the system)
 > Home Screen icon will also need to feel naturally part of the family
 > Feels like 1.5 or 2 to me right now   (on the g4 sweep; not a lock)
-> Weight wise 1.5 but these icons are far from there drawing wise   (stroke = 1.5px)
-> Let's do a few at a time— we will need to pressure test the grid as it's being made
+> Weight wise 1.5 but these icons are far from there drawing wise   (on g5; the stroke is 1.5px)
+> Let's do a few at a time— we will need to pressure test the grid as it's being made   (the drawing step: batches; the grid evolves with them)

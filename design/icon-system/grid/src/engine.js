@@ -24,6 +24,7 @@ const B = (a, b, w, o = {}) => ({ t: 'B', a, b, w, ...o });
 const O = (cx, cy, r, w, o = {}) => ({ t: 'O', cx, cy, r, w, ...o });
 const A = (cx, cy, r, w, a0, a1, o = {}) => ({ t: 'A', cx, cy, r, w, a0, a1, ...o });
 const S = (cx, cy, r, a0, a1, o = {}) => ({ t: 'S', cx, cy, r, a0, a1, ...o });
+const D = (d, o = {}) => ({ t: 'D', d, ...o }); // a drawn closed path (SVG path data, glyph units)
 const cut = (p) => ({ ...p, cut: true });
 const pen = (p) => ({ ...p, pen: true });
 
@@ -32,6 +33,7 @@ function toItem(q, penW) {
   switch (q.t) {
     case 'R': return new Path.Rectangle(q.x, q.y, q.w, q.h);
     case 'C': return new Path.Circle(new Point(q.cx, q.cy), q.r);
+    case 'D': { const it = new CompoundPath(q.d); if (q.m) { it.scale(q.m[0], new Point(q.m[1], q.m[2])); it.translate(new Point(q.m[3] - q.m[1], q.m[4] - q.m[2])); } return it; }
     case 'P': return new Path({ segments: q.pts.map(p => new Point(p[0], p[1])), closed: true });
     case 'B': {
       const a = new Point(q.a), b = new Point(q.b), n = b.subtract(a).normalize().rotate(90).multiply(w / 2);
@@ -151,6 +153,7 @@ function xform(prims, k, ox, oy, tx, ty) {
     if (q.t === 'R') Object.assign(s, { x: X(q.x), y: Y(q.y), w: q.w * k, h: q.h * k });
     if (q.t === 'C' || q.t === 'S') Object.assign(s, { cx: X(q.cx), cy: Y(q.cy), r: q.r * k });
     if (q.t === 'P') s.pts = q.pts.map(p => [X(p[0]), Y(p[1])]);
+    if (q.t === 'D') { if (q.m) throw new Error('D: one xform only'); s.m = [k, ox, oy, tx, ty]; }
     if (q.t === 'B') Object.assign(s, { a: [X(q.a[0]), Y(q.a[1])], b: [X(q.b[0]), Y(q.b[1])], w: q.pen ? q.w : q.w * k });
     if (q.t === 'O' || q.t === 'A') Object.assign(s, { cx: X(q.cx), cy: Y(q.cy), r: q.r * k, w: q.pen ? q.w : q.w * k });
     return s;
@@ -176,4 +179,4 @@ function build(prims, { law, penW, info, centre } = {}) {
 // count curve commands in a path (the "minimal bezier" figure on the boards)
 const countCurves = d => (d.match(/C/g) || []).length;
 
-module.exports = { R, C, P, B, O, A, S, cut, pen, build, join, xform, countCurves };
+module.exports = { R, C, P, B, O, A, S, D, cut, pen, build, join, xform, countCurves };

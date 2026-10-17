@@ -36,10 +36,6 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-17 · Stroke narrowed:** "Feels like 1.5 or 2 to me right now" → a closer look at 1.5–2.
 
-- **10-17 · Close look g5 shown:** 1.5 / 1.75 / 2 in the app, what changes, closest to the MUTCD inspo. Asked: which width. `grid/stills/g5-sheet-1.png`, `g5-sheet-3.png`
-
-- **10-17 · Stroke = 1.5px:** "Weight wise 1.5 but these icons are far from there drawing wise"
-
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
@@ -52,4 +48,3 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 | t4 concept cards | 2717977 |
 | Categories locked | db40060 |
 | All 13 concepts picked | c42639d |
-| Stroke 1.5px picked | 527251b |
