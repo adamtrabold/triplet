@@ -149,7 +149,9 @@ operator makes none of these calls.
 
 ## Environment constraints
 
-- Sandbox egress to Supabase, Nominatim and Overpass is blocked (proxy 403).
+- Sandbox egress (checked 2026-10-17): Nominatim and Photon return HTTP 200;
+  Overpass (`overpass-api.de`) fails (connection reset, no HTTP status);
+  Supabase REST answers 401 without a key.
   Supabase is reachable through the **Supabase MCP connector** (project
   Trip Map, `jgvckilmltimabfdvaly`) — use `apply_migration`/`execute_sql`
   directly rather than handing SQL to the owner. No connector exists for
