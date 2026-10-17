@@ -734,6 +734,7 @@
        No place yet: no pin and no string, the eyelet empty. Lifted to the keyboard (NOTES): hidden. */
     #addPin { position: absolute; z-index: 4; left: 50%; top: calc(var(--tag-drop) - 60px); width: 32px; height: 32px; margin-left: -16px; line-height: 0; pointer-events: none; }
     #addPin svg { display: block; }
+    #addPin.is-dot { width: 14px; height: 14px; margin-left: -7px; top: calc(var(--tag-drop) - 29px); }   /* the dot sits on the string's top end, as the shipped shape tag hangs from it */
     #addForm:not(.is-picked) #addPin, #addForm:not(.is-picked) .tag-string,
     #addForm.is-lifted #addPin, #addForm.is-lifted .tag-string { display: none; }
 
@@ -782,17 +783,24 @@
     .add-notes.has-text { padding-top: var(--s2); }   /* a written note keeps the same head room as the other lines */
     .add-notes textarea { font-size: 16px; line-height: 20px; min-height: 20px; }   /* 16: the iOS no-zoom floor */
     /* TYPE (TypeClosed / TypeOpen, "the one dropdown spec"): the last row, no rule. */
-    .add-type { min-height: 44px; display: grid; grid-template-columns: 40px 150px 1fr; column-gap: var(--s2); align-items: center; padding: 6px 0; }
-    .add-type-btn { all: unset; box-sizing: border-box; position: relative; height: 32px; display: flex; align-items: center; gap: 6px; min-width: 0;
-      border: 1px solid var(--hair); border-radius: 3px; padding: 0 8px 0 6px; background: var(--paper); color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; }
-    .add-type-btn::before { content: ''; position: absolute; left: -1px; right: -1px; top: -7px; bottom: -7px; }   /* 44px target */
+    .add-type { min-height: 44px; display: grid; grid-template-columns: 40px 1fr; column-gap: var(--s2); align-items: center; padding: 6px 0; }
+    /* p2-fixes (designer; owner: "The text here is louder than the other dropdown", "lets treat all
+       dropdowns the same", and from the start "i dont like seeing all the icons in the tag. but they
+       may be helpful in the dropdown?"): the TYPE trigger is the CITY button -- no box, no badge
+       (the pin above the tag already shows the type's glyph and colour), caps 12 navy + the 12px
+       chevron right after the word; open = the navy fill, paper text, chevron turned. */
+    .add-type-btn { all: unset; box-sizing: border-box; position: relative; justify-self: start; display: inline-flex; align-items: center; gap: 4px; height: 28px; min-width: 0; max-width: 100%;
+      padding: 0 6px 0 8px; margin-left: -8px; border-radius: 3px; color: var(--navy); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .add-type-btn::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; bottom: -8px; }   /* 44px target */
     .add-type-btn:active { background: var(--state-press); }
-    .add-type-btn[aria-expanded="true"] { border-color: var(--navy); }
-    .add-type-btn:focus-visible { box-shadow: inset 0 0 0 1px var(--navy); border-color: var(--navy); }
-    .add-type-btn .menu-badge { width: 20px; height: 20px; flex: none; display: block; }
+    .add-type-btn[aria-expanded="true"] { background: var(--navy); color: var(--paper); }
+    .add-type-btn[aria-expanded="true"] .add-chev { transform: rotate(180deg); }
+    .add-type-btn:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    .add-type-btn[aria-expanded="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
+    .add-type-btn > .menu-badge { display: none; }
     .add-type-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-      font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 18px; letter-spacing: .12em; color: var(--ink-2); }
-    .add-type-btn .menu-gap { flex: 1 1 auto; }
+      font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .12em; color: inherit; }
+    .add-type-btn > .menu-gap { display: none; }
     /* a save that failed, or a shape OSM doesn't know: one printed line above the stub; nothing is cleared */
     .add-err { padding: 4px 0 6px; font-size: 13px; line-height: 18px; color: var(--ink); }
     .add-err[hidden] { display: none; }
@@ -4093,13 +4101,28 @@
     }
     const humanOsm = v => { const t = String(v || '').replace(/_/g, ' ').trim(); return t ? t[0].toUpperCase() + t.slice(1) : ''; };
     const townOf = a => (a && (a.city || a.town || a.village)) || '';
+    // p2-fixes: the result row's kind in everyday words, never raw OSM vocabulary ("Administrative",
+    // "Hamlet", "Building", "Yes"). Settlements and areas by their size; streets, stops and addresses
+    // by what you'd call them; everything else by its own (already plain) value, e.g. "Swimming pool".
+    const RESULT_PLACE_WORDS = { city: 'City', town: 'Town', village: 'Village', hamlet: 'Village', isolated_dwelling: 'Village', farm: 'Farm',
+      suburb: 'District', quarter: 'District', neighbourhood: 'District', city_district: 'District', borough: 'District',
+      municipality: 'Region', county: 'Region', state: 'Region', region: 'Region', province: 'Region', state_district: 'Region',
+      country: 'Country', island: 'Island', islet: 'Island', postcode: 'Postcode', house: 'Address', square: 'Square', locality: 'Area', plaza: 'Square' };
+    const RESULT_VALUE_WORDS = { bus_stop: 'Bus stop', platform: 'Stop', tram_stop: 'Tram stop', station: 'Station', halt: 'Station', subway_entrance: 'Metro',
+      aerodrome: 'Airport', ferry_terminal: 'Ferry', place_of_worship: 'Church', fast_food: 'Fast food', guest_house: 'Guest house', attraction: 'Sight' };
+    function resultKind(r) {
+      const { key, value } = osmPair(r), at = r.addresstype || '';
+      if (key === 'place' || key === 'boundary') return RESULT_PLACE_WORDS[value] || RESULT_PLACE_WORDS[at] || 'Area';
+      if (key === 'highway') return RESULT_VALUE_WORDS[value] || 'Street';
+      if (key === 'building' || key === 'addr' || at === 'building' || at === 'house') return 'Address';
+      if (RESULT_VALUE_WORDS[value]) return RESULT_VALUE_WORDS[value];
+      if (value && value !== 'yes') return humanOsm(value);
+      return 'Place';
+    }
+    const resultTown = r => { const a = r.address || {}; return [townOf(a) || a.hamlet || a.municipality || a.county || a.state || '', a.country].filter(Boolean).join(', '); };
     // "Swimming pool · Reykjavík, Iceland": what it is, then where.
     function resultWhere(r) {
-      const { key, value } = osmPair(r), a = r.address || {};
-      const kind = value && value !== 'yes' ? humanOsm(value) : humanOsm(key);
-      const town = townOf(a) || a.hamlet || a.municipality || a.county || a.state || '';
-      const where = [town, a.country].filter(Boolean).join(', ');
-      return [kind, where].filter(Boolean).join(' · ');
+      return [resultKind(r), resultTown(r)].filter(Boolean).join(' · ');
     }
     const resultName = r => (r.name && String(r.name).trim()) || String(r.display_name || '').split(',')[0].trim();
 
@@ -9329,7 +9352,7 @@
         ? `<button type="button" id="submitBtn" class="tag-seg add-go is-saving" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Adding…</button>`
         : ready
           ? `<button type="button" id="submitBtn" class="tag-seg add-go is-ready"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Add</button>`
-          : `<button type="button" id="submitBtn" class="tag-seg add-go" aria-disabled="true" aria-describedby="addGoWhy">Add<span class="add-sub" id="addGoWhy">Name it first</span></button>`;
+          : `<button type="button" id="submitBtn" class="tag-seg add-go" aria-disabled="true" aria-describedby="addGoWhy">Add<span class="add-sub" id="addGoWhy">${addGoHint()}</span></button>`;
       const starSvg = anim.ink || anim.rub
         ? `<svg class="sgp tag-star tag-star-anim ${anim.ink ? 'sgp-in' : 'sgp-out'}" viewBox="-1 -1 26 26" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>`
         : `<svg class="tag-star${st ? '' : ' is-open'}" viewBox="-1 -1 26 26" aria-hidden="true"><use href="#g-star${st ? '' : '-open'}"/></svg>`;
@@ -9344,6 +9367,11 @@
     }
     // ADD is ready with a picked place (a pin) or a name (a district / street: the outline is found
     // at ADD), and not while saving.
+    // p2-fixes: what ADD's line says while it waits. Empty NAME: "Name it first" (as approved). A
+    // name typed but no place picked: "Pick a place" (the results are right above). Ready: no line.
+    function addGoHint() {
+      return document.getElementById('nameInput').value.trim() ? 'Pick a place' : 'Name it first';
+    }
     function addReady() {
       if (addSaving) return false;
       if (isShapeCategory(addDraft.type)) return !!document.getElementById('nameInput').value.trim();
@@ -9385,7 +9413,9 @@
       const name = document.getElementById('nameInput');
       document.getElementById('addNameRow').classList.toggle('has-text', !!name.value);
       document.getElementById('addNotesRow').classList.toggle('has-text', !!document.getElementById('notesInput').value);
-      const addr = shape ? 'Traced from OpenStreetMap when you add it' : (d.pick ? d.pick.short || d.pick.address : '');
+      // p2-fixes: a District / Street prints where it is (the pick's town, country), never a sentence;
+      // before a pick the slot stays empty, its caption showing, like a place's.
+      const addr = !d.pick ? '' : shape ? (d.pick.where || '') : (d.pick.short || d.pick.address);
       document.getElementById('addAddr').textContent = addr;
       document.getElementById('addAddrRow').classList.toggle('has-text', !!addr);
       const dist = addDistanceText(), distEl = document.getElementById('addDist');
@@ -9394,7 +9424,13 @@
       document.getElementById('addTypeBadge').innerHTML = addTypeBadge(d.type, 20);
       document.getElementById('addTypeVal').textContent = addTypeName(d.type);
       const ink = categoryInk(d.type);
-      document.getElementById('addPin').innerHTML = badgeHtml(d.type, 'circle', 32, { ink, fill: ink, mark: '#F2EBDD', rim: 2.5 });
+      // p2-fixes (owner: "Districts and streets need no map pin"): a District / Street hangs from the
+      // shipped shape anchor dot (showTagDot(): paper r6 + ink r4, 14px), not a pin.
+      const pin = document.getElementById('addPin');
+      pin.classList.toggle('is-dot', shape);
+      pin.innerHTML = shape
+        ? `<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="var(--paper)"/><circle cx="7" cy="7" r="4" fill="${escapeAttr(ink)}"/></svg>`
+        : badgeHtml(d.type, 'circle', 32, { ink, fill: ink, mark: '#F2EBDD', rim: 2.5 });
       const err = document.getElementById('addErr');
       err.hidden = !addErrText; err.innerHTML = addErrText;
       renderAddGo();
@@ -9582,8 +9618,17 @@
       const r = trig.getBoundingClientRect(), gutter = 16;
       const left = Math.max(gutter, Math.min(r.left, innerWidth - gutter - menu.offsetWidth));
       menu.style.left = `${left}px`;
-      menu.style.top = `${r.bottom + 6}px`;
-      menu.style.maxHeight = `${Math.max(120, innerHeight - (r.bottom + 6) - 8)}px`;
+      // p2-fixes: the menu opens just under its trigger, but never past 8px above the list bar (the
+      // lowered sheet's top) nor the screen's foot. Too tall for that, it slides UP as far as it
+      // must (covering its trigger if need be), never above the zoom / account row (+8); only when
+      // even that room is short does it scroll inside.
+      const sheetTop = document.getElementById('locations').getBoundingClientRect().top;
+      const floor = Math.min(innerHeight, sheetTop > 0 ? sheetTop : innerHeight) - 8, ceil = addOpenArea().top;
+      menu.style.maxHeight = '';
+      const h = menu.offsetHeight;
+      const top = Math.max(ceil, Math.min(r.bottom + 6, floor - h));
+      menu.style.top = `${top}px`;
+      menu.style.maxHeight = `${Math.max(120, floor - top)}px`;
       menu.style.setProperty('--slip-from', '-4px');
       menu.classList.remove('opening'); void menu.offsetWidth; menu.classList.add('opening');
       trig.setAttribute('aria-expanded', 'true');
@@ -9648,7 +9693,7 @@
       const details = r.address && Object.keys(r.address).length ? r.address : null;
       const name = resultName(r), pair = osmPair(r);
       addDraft.pick = { name, address: r.display_name || name, short: details ? deriveShortAddress(details, name) : '', lat, lng, addressDetails: details,
-        osmKey: pair.key, osmValue: pair.value, osmType: r.osm_type || '', osmId: r.osm_id || null };
+        osmKey: pair.key, osmValue: pair.value, osmType: r.osm_type || '', osmId: r.osm_id || null, where: resultTown(r) };
       const nameEl = document.getElementById('nameInput');
       nameEl.value = name; autoGrow(nameEl);
       if (!addDraft.typeHand) { const t = osmToType(pair.key, pair.value, r.addresstype); if (t) addDraft.type = t; }
