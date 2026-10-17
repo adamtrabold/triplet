@@ -32,6 +32,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-16 · A leads, stroke reopened:** "A feels to be producing better sized icons but the icons are too simplistic … I want sub pixels from prolly .8 to 2.5"
 
+- **10-17 · Stroke sweep g4 shown:** 0.8–2.5px, whole family per width (13, UI icons, +, home-screen icon), ink %, buys/costs. Asked: which width. `grid/stills/g4-sheet-1.png`
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)

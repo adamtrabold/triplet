@@ -367,3 +367,18 @@ the overall density you want? (Or two neighbours to look at closer.)"
 
 **Did the work change?** Yes. This is a new round, built to the turn-9
 criteria. Six of the seven checks pass.
+
+## Round g4b (f3af6b2), 2026-10-17: 9, READY
+
+- **What I checked:** sheets 1 and 3 at 3x, and sheet 1 at 1x.
+- **The fix is in at every width:**
+  - the closed UI shapes are solid (the account's head, locate's centre,
+    the filter knobs, the "more" dots);
+  - the Star is the only outline, and it stands apart in the rows and
+    the header;
+  - Directions is a ring around a solid needle.
+- **One family:** passes. All seven checks pass.
+- **Did the work change?** Yes, exactly the one fix.
+- **Send** the canvas page "Grid concepts". The question, word for word:
+  "Which stroke width gives the overall density you want? (Or two
+  neighbours to look at closer.)"

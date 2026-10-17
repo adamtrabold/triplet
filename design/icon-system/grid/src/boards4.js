@@ -69,11 +69,11 @@ const STAR = 'M10.81 2.74A1.3 1.3 0 0 1 13.19 2.74L15.45 7.81A0.6 0.6 0 0 0 15.9
 const UI = [
   ['Add (+)', 26.4, (S) => `<path d="M12 5v14M5 12h14" ${S}/>`],
   ['Close form (×)', 26.4, (S) => `<path d="M6 6l12 12M18 6L6 18" ${S}/>`],
-  ['Account', 24, (S) => `<circle cx="12" cy="7" r="4" ${S}/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" ${S}/>`],
+  ['Account', 24, (S) => `<circle cx="12" cy="7" r="4" ${S.replace('fill="none"', 'fill="currentColor"')}/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" ${S}/>`],
   ['Star (not starred)', 20, (S) => `<path d="${STAR}" ${S}/>`],
-  ['Locate', 20, (S) => `<circle cx="12" cy="12" r="3.5" ${S}/><path d="M12 2v5M12 17v5M2 12h5M17 12h5" ${S}/>`],
+  ['Locate', 20, (S) => `<circle cx="12" cy="12" r="3.5" ${S.replace('fill="none"', 'fill="currentColor"')}/><path d="M12 2v5M12 17v5M2 12h5M17 12h5" ${S}/>`],
   ['Sort', 18, (S) => `<path d="M8 20V4M4 8l4-4 4 4M16 4v16M12 16l4 4 4-4" ${S}/>`],
-  ['Filters', 18, (S, w, k) => `<path d="M3 6h18M3 12h18M3 18h18" ${S}/><circle cx="9" cy="6" r="2.6" fill="${COL.raised}" ${S}/><circle cx="15" cy="12" r="2.6" fill="${COL.raised}" ${S}/><circle cx="7" cy="18" r="2.6" fill="${COL.raised}" ${S}/>`],
+  ['Filters', 18, (S, w, k) => `<path d="M3 6h18M3 12h18M3 18h18" ${S}/><circle cx="9" cy="6" r="2.6" ${S.replace('fill="none"', 'fill="currentColor"')}/><circle cx="15" cy="12" r="2.6" ${S.replace('fill="none"', 'fill="currentColor"')}/><circle cx="7" cy="18" r="2.6" ${S.replace('fill="none"', 'fill="currentColor"')}/>`],
   ['Directions', 20, (S) => `<circle cx="12" cy="12" r="9" ${S}/><path d="M16 8l-2.5 6L8 16.5l2.5-6Z" fill="currentColor" stroke="none"/>`],
   ['Close tag (×)', 14, (S) => `<path d="M5 5l14 14M19 5L5 19" ${S}/>`],
   ['Chosen (✓)', 16, (S) => `<path d="M3.5 12.5l5.5 5.5L20.5 6" ${S}/>`],
@@ -168,7 +168,7 @@ function sheetIntro(rel, n) {
 <ul class="facts">
 <li><b>The 13 place glyphs</b>, solid, on grid A (the 12px box; TOP, SHOULDER, MIDDLE and BASE). Every line, every cut and the badge's ring take that width.</li>
 <li><b>Finer strokes carry more detail.</b> Repeated parts are "as many as fit": from 5 tines down to 2, 5 columns to 3, 8 spokes to 4, 3 slats to 2, 5 tiers to 3, a 4 × 4 block plan to 2 × 2, scallops on the curtain, a drink line in the coupe, a rim on the cup, a fold in the blanket. That's how the glyphs get richer, not only thinner.</li>
-<li><b>The app's own icons</b> (the +, the ×, account, star, locate, sort, filters, directions, the tick, the chevron, more): outlined, at the size each renders in the app, with that width.</li>
+<li><b>The app's own icons</b> (the +, the ×, account, star, locate, sort, filters, directions, the tick, the chevron, more), at the size each renders in the app, with that width. Closed shapes are solid (the account's head, locate's centre, the filter knobs, the dots); open strokes stay strokes; the Star is the only outline. Directions keeps a ring around its solid needle, the way a badge's ring holds a solid glyph.</li>
 <li><b>Today's home-screen icon</b>, unchanged, at its home-screen size (60px) in every block, so you can see it with each width. Its marks are 3.75px wide at that size, about a 2px line relative to its seal. <b>Flag:</b> as it stands it doesn't sit naturally in the family at any width. It's the only solid, scalloped, ringless mark: it pairs with the + button's scallop, not with the ringed badges, and it's the heaviest thing in every block.</li>
 <li><b>Ink</b>: how much of a 24px badge is ink, averaged over the 13. It's one number for "overall density".</li>
 <li>Fixed: grid A's box, guides and the middle rule; the live circle Ø16; the corner rule (by joint, scaled with the width).</li>
@@ -238,6 +238,7 @@ function sheetGuide(W, n) {
 <li><b>Cuts and spaces.</b> A cut between touching parts is 0.6w (at least 0.6px); a space between separate parts is w (at least 1px).</li>
 <li><b>Repeated parts:</b> as many as fit with those cuts and spaces (tines, columns, spokes, slats, tiers, blocks).</li>
 <li><b>Small details</b> (a rim, a drink line, a fold, an architrave, a book's band) only at w ≤ 1.5px.</li>
+<li><b>Solid or outline</b> (the team's rule, from yours: "the pin/place icons need to be solid and outlined icons should be used when something has yet to be tapped by me like Star and visited"): closed shapes are solid; open strokes stay strokes; only the Star and Visited are outlines. A ring may hold a solid mark (the badge, Directions).</li>
 <li><b>Angles:</b> orthogonal, 45°, whole-pixel slopes. <b>Corners:</b> by joint, radii scaled with w (the corner law is a later pick).</li>
 </ul>
 <div class="lab">Test: a new icon, built only from the rules above</div>
