@@ -188,3 +188,92 @@
 - v35: quiet bottom row (plain menu row, hair rule above, route/ring glyph, caps label + tally, › chevron) on both menus; navy strip archived as PlacesPlansStrip; all Now board titles, Decided stickies and captions renamed without option codes.
 - v36: menu rows: label top:1px, CHECK16 path raised 0.75px, quiet row gets the rows’ own bottom hairline (no extra top rule); measured icon/text/check centres within 0.4px on every row. Places and Plans decided; sticky empty.
 - Build handoff: visual part of handoff.md written (phases 1–4, tokens, board files); end snapshot snapshots/2-end-design-decided.png.
+
+## 2026-10-17, Phase 1 fixes after the build check (new designer; lane 2, owner is the check)
+- **Input:** `checks/p1-cd-ux.md`: the UX blocker on building a plan for one
+  city; CD's cap for the ⋯ dots; the menu jumping; the hidden-city contrast
+  failing Impeccable; the 60px of air after a go-to; small looks.
+- **Method:** prototyped on the real build, branch `design-p1-fixes` (one
+  commit on `add-tag-p1`). Stills in `stills/p1-fixes/` (4 contact sheets +
+  3x raws + `stills.js`). Impeccable gate on the prototype: PASSED.
+- **Decisions** (exact values in handoff.md, "Phase 1 fixes (after build
+  check)"):
+  1. **Building a plan for one city:**
+     - the open plan's addable places use the Places list's city sections:
+       the same header, eye and order, and one hidden state shared by both
+       kinds;
+     - tapping a name keeps you in the plan (map and list go to the city);
+     - the first section under the caption is compact;
+     - the caption reads "ADD PLACES 89" at 11px.
+     - Rejected: a separate Plans-only city filter (a second system); sorting
+       the plan's own cities first (sections would jump as you add stops).
+  2. **Rename / Delete:**
+     - the ⋯ is gone from the plans list;
+     - a plan foot after the open plan's stops carries "Rename" and "Delete
+       plan…" (today's .plan-act text buttons at 11px), and Rename becomes
+       today's form in place.
+     - Rejected: swipe on plan rows (gesture work, undiscoverable); a ⋯ at
+       44px (CD's rejected pattern); actions in the title menu (it's for
+       getting around, not for editing).
+  3. **Title menu:**
+     - on the phone it always opens above the sheet, its bottom edge 6px over
+       the sheet's top edge, growing upward;
+     - on the rail it always opens below;
+     - its width is locked when it opens (the wider of the two sides, 248px
+       to the viewport minus the gutters);
+     - the quiet row is sticky at the foot, and the title chevron turns up
+       while it's open.
+     - Why: 7 real rows (282px) can't fit under the title in a 300px sheet,
+       and that is what made it flip.
+  4. **Hidden city:** the name in `--ink-2` at full strength (no opacity), in
+     the header and the menu row; the closed eye carries the state.
+  5. **Go-to landing:** the scroll adds 16px (60 − 44), so the header shows as
+     a 44px band, like the first city.
+  6. **Small looks:**
+     - zero plans shows the New plan row alone;
+     - the lowered header drops its bottom rule;
+     - the title is cut by script, so the "…" sits as close to the tally as an
+       uncut name's last letter;
+     - the menu's top row reads "All places".
+- **Open, for the owner:**
+  - the menu opening upward (it differs from the approved stills);
+  - rename/delete living in the open plan.
+- **Watch:** an open plan now stacks three bands between the stops and the
+  places (the foot, the caption, a compact header). It reads fine in the
+  stills; if the owner finds it heavy, the first idea is to fold the caption
+  into the first add-from header's air.
+- **Next:** the owner looks at sheets 1–3; then the builder applies all of
+  it in one batch from `design-p1-fixes` and the addendum.
+- **2026-10-17, round 2 (owner feedback):** "I don't like it opening
+  upwards because then the places/plan switch is where the thumb is rather
+  than the cities…" and "Add places … header isn't differentiated much".
+  - **Menu v2:** it opens downward with its top on the raised sheet's top
+    edge, covering the header (292px of room against the 282px it needs). The
+    box is locked when it opens (width and height = the larger side), and the
+    quiet row is pinned to the foot. Raised and lowered open in one place.
+    - Rejected: upward with the switch at the top (the owner's earlier "not
+      starting with that decision" rule); under the title (248px doesn't fit
+      7 rows); shorter rows (targets under 44).
+    - Watch: when lowered, the thumb is low, so the switch row is the nearest
+      row there.
+  - **Divider v2:** a centred caption in a tear-off perforation (the tag
+    stub's 1.5px dash, at 50% ink-2), 40px tall, no solid rules.
+  - Prototype merged with batch A (48d40d2) at afe11fc. The Impeccable gate
+    passes. Stills: `5-menu-v2.png`, `6-add-divider-v2.png`.
+- **2026-10-17, round 3:** the menu is approved ("I like the menu").
+  - **Separator:** a 1px navy line before the quiet row, taken from the menu
+    spec's caption rule and matching the box edge. Drawn as a box-shadow over
+    the hair of the row above.
+    - Rejected: the 2px hair (too pale on paper-raised).
+  - **Break:** the wavy line. The app's only wavy line is the scalloped edge
+    of the account and + badges (16 lobes about 7.9px apart, about 2.2px deep
+    at 50px), laid flat: 8px period, 2.5px deep, 1.5px stroke, at 55% ink-2,
+    with the caption centred.
+    - The panel divider that `#accountBtn`'s comment also names no longer
+      exists.
+  - Prototype b292c18. The Impeccable gate passes. Stills: `7-menu-v3.png`,
+    `8-add-divider-v3.png`.
+- **2026-10-17, round 4:** the navy line is approved. The 2px hair (the
+  ledger's `.group-end` category break) goes under the "All" row. The menu now
+  reads in three parts. Prototype ce4586b; the gate passes. The handoff
+  addendum is consolidated as the final spec. Still: `9-menu-v4.png`.

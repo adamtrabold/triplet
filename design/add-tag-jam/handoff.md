@@ -613,3 +613,325 @@ shadows stay as they are. [Main, CityDifferent, StarVisited, CityMetaRefined]
   - The Leaflet control look: `background:#fff`, `border:2px solid rgba(0,0,0,.2)`, `border-radius:4px`. That's the zoom control's own CSS, not a brand colour, so leave it as Leaflet's.
 - **Contents:** the ring glyph at 16px, then "All cities" in caps 11/14, `.1em`, `var(--navy)`.
 - **Tap:** fits every city that has places.
+
+---
+
+## Phase 1 fixes (after build check)
+
+Designer pass, 2026-10-17, on the CD + UX check (`checks/p1-cd-ux.md`),
+then three owner rounds the same day. **This section is the complete final
+spec**, and later rounds replace earlier ones wherever they overlap.
+- The owner has approved the menu ("I like the menu"; "Blue is great for the
+  one you put it on").
+- The wavy break got no comment, so it stands.
+- Rename / Delete in the open plan got no comment either; the owner sees it
+  again in the final stills.
+
+Each fix is built and working in the prototype branch **`design-p1-fixes`**
+(head ce4586b). It is `add-tag-p1` (batch A 48d40d2 merged in) plus the fixes,
+so diff it against `origin/add-tag-p1` to get the reference implementation.
+
+Stills are in `stills/p1-fixes/` (3x raws in `raw/`, rendered by `stills.js`).
+The final ones:
+- `9-menu-v4.png`: the menu;
+- `8-add-divider-v3.png`: the break;
+- `2-plan-building.png`: the add-from sections;
+- `3-plans-list.png`: the plans list, the plan foot and zero plans;
+- `1-choosing.png`: the go-to landing and the hidden header only. Its menu
+  frames are the superseded upward v1.
+- `4-small.png`: the long title and the lowered strip.
+
+The menu's place and look in `1-choosing.png` are superseded. The divider
+caption in the other early sheets is superseded by the wavy break.
+
+The Impeccable gate **PASSES** on the prototype.
+
+Everything not named here stays as built. These are still the builder's
+fixes, with no design answer needed:
+- the title button's target covering the 52px header band;
+- the section eye at least 44 wide;
+- the h2 nested inside the title button;
+- the eye's double announce;
+- the drag-across-leg blocker;
+- UX's title fallback when the gone-to city is hidden: "All places" plus the
+  shown count.
+
+### 1. Building a plan for one city (UX blocker)
+
+**Decision:** the open plan's addable places use the Places list's own city
+sections:
+- the same header: name = go to, tally, eye;
+- the same order (`sectionCityIds()`);
+- the same hidden state. There is one `hiddenCities` for both kinds, so hiding
+  a city here hides it in Places too, and the reverse.
+
+A plan's stops never hide (unchanged).
+
+An open plan's list, top to bottom:
+1. its leg sections (unchanged);
+2. the plan foot (fix 2);
+3. the caption band (`.plan-rule`);
+4. one city section per city that has addable places matching the chips, or
+   that is hidden. Inside a section: today's sort, shapes after pins, as in
+   Places;
+5. the "every place is in this plan" note when nothing is addable
+   (unchanged).
+
+- **Section headers:**
+  - exactly `.sec-head` (60px, air above, 2px `--hair` rule);
+  - the **first one under the caption is the compact 44px** (`is-first`),
+    like the first section in Places.
+- **Tally** in an add-from header: the places it would add (matching the
+  chips, not already stops).
+  - A hidden city gets the same count, worked out as if it were shown. Never
+    "0".
+- **Hidden header:** as in Places (fix 4), with its rows folded away.
+- **Tapping the name** (`data-addgo`, not `data-go`) keeps you **in the
+  plan**:
+  - the map runs `focusCity(id)`;
+  - the list scrolls so that header lands compact (fix 5's +16px);
+  - a hidden city shows again, as go-to does in Places;
+  - the title stays the plan's name.
+  - Reference: `planGoToCity()`.
+- **Eye:** `setCityHidden()`, unchanged.
+- **Caption, v3: the wavy line.** Owner on the v2 dashes: "Let's use a style we
+  already use for the add places break. What about the wavy line?"
+  - **Where the line comes from:** the app's one wavy line is the scalloped
+    die-cut edge of the account badge (`#accountBtn`, the `SCALLOP_PTS` mask),
+    the + badge (`ADD_SCALLOP_PTS`) and the mark's seal. `index.html`'s own
+    comment on `#accountBtn` calls that edge "the same wavy line". At the
+    account badge's 50px, its 16 lobes sit about 7.9px apart and about 2.2px
+    deep.
+    - The panel divider that comment also names no longer exists; the badges
+      are what's live.
+  - **Laid flat:** an 8px period, 2.5px from peak to trough, a 1.5px stroke,
+    round caps, in `rgba(var(--ink-2-rgb), .55)`.
+  - **How it's drawn:** `.plan-rule::before` and `::after` are each
+    `flex:1 1 0; min-width:var(--s4); height:6px`, with
+    `background:rgba(var(--ink-2-rgb), .55)` masked by one 8×6 SVG tile
+    repeated along x:
+    - the path is `M0 4.25C1.33 4.25 2 1.75 4 1.75S6.67 4.25 8 4.25`;
+    - its stroke is `#000`, 1.5px wide, round caps;
+    - it's applied as `-webkit-mask` and `mask` at `left center / 8px 6px repeat-x`;
+    - the exact CSS is on `design-p1-fixes`.
+  - **The band:** 40px tall, `--paper`, no solid rules,
+    `padding:0 var(--gutter)`, `gap:var(--s2)`.
+  - **The caption:** centred between the two waves, caps 11px/12px, .12em,
+    700, `--ink-2`, `top:1px`.
+    - Markup: `<span class="rule-cap"><span class="h-name">Add
+      places{cats}</span><span class="tally">{n}</span></span>`.
+    - `.rule-cap { display:flex; align-items:baseline; gap:.45em }`.
+    - The tally is 11px with no margin of its own.
+    - The text reads `ADD PLACES 89`, or `ADD PLACES · CAFE 4` with chips off.
+  - **Why it reads as a break:** a centred caption between waves sets it apart
+    from the city headers, which are left-aligned, navy, on a solid 2px rule.
+  - `showPlanRule()` and the slip anchor here. The slip now covers a 40px band,
+    so the builder should check its fit.
+  - The first city header under the break stays compact (44px).
+- Reorder (drag) never crosses the caption: unchanged.
+
+Why: the owner's job is "build a plan by filtering places", and the app
+already has the filter for it: hide the cities you don't care about, jump to
+the one you do. A second, Plans-only filter would be a second system (owner
+rules "Fewer variations", "clear systems"). The sections also show which city
+each addable place is in at a glance, which the flat block didn't.
+
+### 2. Rename / Delete plan's home
+
+**Decision:**
+- The ⋯ leaves the plans-list rows. They end in › only.
+- Rename and Delete live **in the open plan, at the foot of its stops** (the
+  plan foot), between the last stop and the caption band.
+- A plan with no stops shows the foot after its "No stops yet" note.
+
+The parts:
+- **Plan foot** (`.plan-foot`):
+  - `display:flex; align-items:center; min-height:44px;
+    padding:0 var(--gutter); background:var(--paper)`;
+  - no rule of its own: the last stop's rule sits above it and the caption's
+    top rule below it.
+- **Its two buttons** are today's `.plan-act` text buttons, **"Rename"** and
+  **"Delete plan…"**:
+  - 11px, letter-spacing .1em, `--ink-2`, 44px tall;
+  - `margin-left:var(--s1)` between them;
+  - the first keeps `.plan-act`'s `margin-left:calc(var(--s3) * -1)`, so its
+    text starts on the gutter (16px), the caption's left edge;
+  - `role="group"`, with `aria-label` = the plan's name.
+- **Rename:** the foot turns into today's in-row form, in place, and takes
+  focus:
+  - `.plan-foot.plan-form`: 56px tall, `--paper-raised`;
+  - input + Cancel / Save, from `planFormHtml('Plan name','save')`;
+  - Save calls `renamePlan()`.
+- **Delete plan…:** today's `confirm()` ("Delete "{name}"? Its places stay in
+  your list."). After a delete, Plans falls back to All plans
+  (`frameAllPlans()`), as today.
+- Both stay behind `requireAuth()`, as today.
+- The All plans list's `acting` / `renaming` modes and the `.plan-more` CSS
+  can be deleted.
+
+Why: a thing's own settings live inside the thing (as in iOS Notes or
+Contacts), so the plans list stays one clean column of names with no mark on
+every row (owner rules "Dots add an insane amount of visual noise" and
+"Simple, simple, simple"). It's still two taps away from anywhere: open the
+plan, then scroll to the end of its stops.
+
+### 3. Title menu: position, size, separators (final)
+
+The owner turned down v1, the menu opening upward: "I don't like it opening
+upwards because then the places/plan switch is where the thumb is rather than
+the cities…that is backwards to what will be used most".
+
+**Decision:** the menu opens **downward, in the raised sheet's own place**,
+and its box is locked for as long as it's open.
+
+- **Phone (the bottom sheet), raised or lowered:**
+  - the box's **top edge sits on the raised sheet's top edge**
+    (`raisedSheetTop()` = the sheet's rect top minus its current `translateY`);
+  - its left edge is on the gutter;
+  - it covers the list header (the scrim already closes the menu on an
+    outside tap).
+  - So the rows you use most (All places and the cities, or All plans and the
+    plans) start right where you tapped the title. The quiet Places/Plans row
+    is the farthest row, at the box's foot.
+  - When the list is lowered, the box opens in the same place as when raised:
+    one place on screen.
+- **Rail (≥900px):** the box's top sits at the rail's top + 44px, with the
+  same locks.
+- **Locked box, set when it opens:** render both sides, then fix:
+  - `width` = the wider natural width, clamped to `[248px, 100vw − 2 × gutter]`;
+  - `height` = the taller side's height (rows + 2px border), capped at
+    `innerHeight − 8 − top`.
+  - Swapping kinds moves **nothing**: no edge, no row, no width. The shorter
+    side leaves plain paper between its last item and the quiet row.
+  - Real data fits without scrolling: 5 cities → 7 rows = 282px, and the room
+    in a 300px sheet is 292px. More rows scroll inside the box.
+- **The quiet row is pinned to the foot:**
+  - `#titleMenu { display:flex; flex-direction:column; box-sizing:border-box }`;
+  - `#titleMenu .menu-row { flex:none }`;
+  - `#titleMenu .menu-row[data-kind] { margin-top:auto; position:sticky; bottom:0; background:var(--paper-raised); z-index:1 }`,
+    pressed `--paper-pressed`.
+  - **You must add `#titleMenu[hidden] { display:none }`.** The id rule's
+    `display:flex` beats `.menu-box[hidden]`, so without it the menu never
+    hides.
+- **Two separators in the box, both from the app's existing rules:**
+  - **Under the "All" row** ("All places" / "All plans"): the ledger's
+    **doubled rule**, the category break `.location-card.group-end`, which is
+    the row's 1px `--hair` bottom rule at **2px**:
+    `#titleMenu .menu-row:first-child { border-bottom-width: 2px; }`.
+    - Owner: "Maybe we do the double thickness between the "all" and the
+      list?"
+  - **Above the quiet Places/Plans row:** a **1px `var(--navy)` line**, the
+    shared menu spec's caption rule (`.menu-cap`'s border) and the box's own
+    edge colour:
+    `#titleMenu .menu-row[data-kind] { box-shadow: 0 -1px 0 var(--navy), 0 -2px 0 var(--paper-raised); }`.
+    - The navy line covers the hair of the row above, and the paper layer
+      covers any leftover hair, so one clean line shows and the row keeps its
+      40px.
+    - It sits on the quiet row's top edge even when the shorter side leaves
+      blank paper above it.
+    - Owner: "Need a stronger separator between the list in it and the button
+      to the other menu", then "Blue is great for the one you put it on".
+  - So the box reads in three parts: the overview row, the items, the other
+    kind.
+- The opening slip comes down from above: `--slip-from: -4px`. The title
+  chevron doesn't rotate (v1's rotation is dropped).
+- Resizing while open re-decides: clear the lock and place the menu again.
+- Reference: `menuLock`, `measureMenu()`, `raisedSheetTop()`,
+  `placeTitleMenu()` on `design-p1-fixes`.
+
+Why:
+- Cities first and nearest the thumb is what the owner asked for.
+- Opening downward from under the title needs 282px where only 248px fit;
+  starting the box at the sheet's top edge (over the header) gives 292px. That
+  makes one fixed box possible.
+- The locked height keeps the quiet row from moving when you tap it.
+
+### 4. Hidden city: header and menu row contrast
+
+**Decision:**
+- A hidden city's name is **`--ink-2` at full strength** (6.17:1 on
+  `--paper`).
+- Its tally stays `--ink-2` (6.17:1).
+- The **closed eye carries the state**, and the rows fold away (unchanged).
+- No opacity anywhere.
+
+The CSS:
+- `.sec-head.is-hidden .sec-name { color: var(--ink-2); }` replaces
+  `opacity:.5`.
+- In the title menu,
+  `.menu-row.is-hidden .menu-lab, .menu-row.is-hidden .menu-ico { color: var(--ink-2); }`
+  replaces `opacity:.55`. The closed eye stays in the right slot, as built.
+
+It still reads as hidden: a grey name between navy ones, the slashed eye, and
+no rows under it (the next header follows straight away). That keeps the
+owner's pick ("Definitely h1 for hidden cities"): same place, greyed.
+
+### 5. Go-to landing
+
+**Decision:** a go-to lands the city's header at the **first section's
+compact height**.
+- The list scrolls to the header's top **plus 16px** (60 − 44). The air above
+  the name scrolls out of view, and the header shows as a 44px band right
+  under the list title.
+- A header that is already `is-first` lands at 0.
+
+Details:
+- `landingTrim(head) = is-first ? 0 : max(0, head.offsetHeight − 44)`, added
+  in `applySectionScroll()` and in the plan's add-from go-to.
+- The header stays 60px in the list (nothing changes size); only the landing
+  scroll changes. Rows then start at the same height on screen whichever city
+  you pick.
+- Near the end of the list, where it can't scroll that far, it lands as close
+  as it can (as today).
+
+Why: the owner said "First row doesn't need all the extra padding". The city
+you land on should look like the list's first city.
+
+### 6. Smaller looks
+
+- **Zero plans:** All plans shows the list's own **New plan row alone**, the
+  same row as under a list of plans.
+  - The outlined NEW PLAN button and its "No plans yet. / A plan's stops show
+    here…" lines go (`planEmptyBtn`, `planEmptyLine2`, the `wantNew` append).
+  - The title reads "All plans 0".
+- **The lowered sheet's 7px strip:** on the phone, the lowered header loses
+  its bottom rule:
+  `@media (max-width:899px) { #locations.collapsed #locationsHeader { border-bottom-color: transparent; } }`.
+  The strip under the title is then plain paper, part of the band, and it
+  also clears the home indicator. Nothing moves.
+- **Truncated title:** cut by script, not by CSS `text-overflow`, so the "…"
+  sits the same distance from the tally as an uncut name's last letter: the
+  6px flex gap, measured at about 8px ink to ink, cut or uncut.
+  - Put the full name in `.h-name`.
+  - If it overflows, binary-search for the longest prefix (with trailing
+    spaces trimmed) plus "…" that fits the box's width.
+  - Fit again on resize.
+  - `aria-label` keeps the full name.
+  - Reference: `fitTitleName()`.
+- **One name for one state:** the menu's top Places row reads **"All
+  places"** (was "All cities"). It matches the title it sets and the Plans
+  side's "All plans".
+
+### Checks for the builder
+
+Run the full Phase 1 set from the systems section: the gesture gate once at
+the end, plantest, sorttest, places-ux and Impeccable. New coverage to add:
+- the menu's top sits on the raised sheet's top edge, raised and lowered
+  alike, and its box (top, left, width, height) is identical before and after
+  the quiet-row swap; `#titleMenu[hidden]` really hides it; the 2px rule under
+  the first row and the navy line above the quiet row are both there;
+- the add-from block:
+  - its city sections;
+  - the eye, shared with Places;
+  - tapping a name keeps you in the plan;
+  - a hidden city's tally isn't 0;
+- the plan foot's Rename and Delete, and no `.plan-more` on the plans list;
+- zero plans shows one New plan row;
+- a go-to lands its header showing 44px.
+
+### Open for the owner
+
+- Final stills: the menu (`9-menu-v4.png`) and the wavy break
+  (`8-add-divider-v3.png`).
+- Rename and Delete in the open plan (sheet 3): no comment from the owner yet;
+  it's in the final stills.
