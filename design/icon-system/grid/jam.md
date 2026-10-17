@@ -264,3 +264,36 @@ and the future-icon test.
 - g3 archived. Details: `for-director.md`.
 
 NEXT: design director, score g4 to the turn-9 order.
+
+---
+
+## Turn 11: design director, g4 sweep (1ee6d64): 8, one fix
+
+Full text: `scores.md`, round g4.
+
+- **Six of seven checks pass:**
+  - density is judgeable at real size, at 1x;
+  - thinner lines buy real detail, printed per width ("Buys:");
+  - honest "Costs:";
+  - UI icons in context;
+  - the future-icon test, honestly reported;
+  - the craft.
+  - The Home Screen icon is flagged correctly.
+- **The failing check is "one family".**
+  - The UI icons use empty closed shapes: the account's head, locate's
+    centre, the filter knobs, "more".
+  - His rule: "outlined icons should be used when something has yet to
+    be tapped by me like Star and visited". The rules card: "nothing
+    else is an empty shape".
+  - So the outline Star no longer stands apart, and the tools read as a
+    second family. The t4 concept step had settled the account as a
+    solid head.
+- **Fix:**
+  - Closed shapes in the UI icons become solid. Open strokes stay
+    strokes, and the Star stays the one outline.
+  - Add one line on the guidance sheet: "Closed shapes are solid; only
+    the Star (and Visited) are outlines."
+- **The question is unchanged:** "Which stroke width gives the overall
+  density you want? (Or two neighbours to look at closer.)"
+
+NEXT: icon designer, the fix. Then I look at sheets 1 and 3 only.

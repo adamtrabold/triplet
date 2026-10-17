@@ -525,3 +525,23 @@ want sub pixels from prolly .8 to 2.5"
   - the current apple-touch-icon sits beside each width's block at
     home-screen size, with a flag if it doesn't fit;
   - a redesign isn't asked for yet.
+
+## g4 stroke sweep (1ee6d64): 8, one fix (2026-10-17)
+
+- **Six of seven checks pass.** The parametric detail per width and the
+  Buys/Costs lines are strong, and the Library test is honest.
+- **The block is "one family".**
+  - The UI icons have empty closed shapes (the account's head, locate,
+    filter knobs, "more").
+  - That breaks his "outlined … yet to be tapped … like Star and
+    visited" and the rules card's "nothing else is an empty shape".
+- **Fix:** closed shapes solid, the Star the only outline, plus one
+  guidance line.
+- **Watch on the look:**
+  - the Star must now stand alone as the outline in the header and rows;
+  - the account must match t4's "solid head, open shoulders".
+- **After his width pick:**
+  1. the corner law and the air;
+  2. the Home Screen icon redrawn into the family;
+  3. the engine slivers;
+  4. the drawing step.
