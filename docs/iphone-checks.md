@@ -23,7 +23,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   map credit sits above it, the + never touches it, and lowered there's no line under the title;
   (7) star/visit swipes still work on rows right under a header; (8) a long plan name ends in
   "…" right before its count.
-- **The add tag (add-tag-jam phase 2; branch `add-tag-p2`, check once landed):** on your phone,
+- **The add tag (add-tag-jam phase 2, landed 2026-10-18):** on your phone,
   signed in. (1) Tap +: the list drops, the map pales and a blank tag shows NAME / ADDRESS /
   NOTES / TYPE with the city line on top; the keyboard comes up on NAME and the tag sits right
   under the zoom buttons (if the keyboard doesn't come up, say so: one tap on NAME is the
@@ -33,11 +33,13 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   slide. (3) Type "Tivoli" from Reykjavík: results from several countries, each saying where;
   pick Copenhagen's if it's there (if Copenhagen's Tivoli isn't listed, say so -- it's the Photon
   question). (4) Pick "Blue Lagoon": the line says REYKJAVÍK and under the address "≈ 40 km from
-  Reykjavík"; tap the city: a menu of your cities, then "NEW CITY · + Grindavík". (5) Pick
+  Reykjavík"; tap the city: a menu of your cities, then "NEW CITY · + Grindavík". Tap TYPE: all
+  11 types fit between the top buttons and the list bar (say if anything is cut or scrolls). (5) Pick
   something in a town you have no city for (e.g. "Jönköpings läns museum"): the line says
   JÖNKÖPING with the orange NEW stamp; ADD: Jönköping appears as a city section and the new
   place's tag opens; cancel instead: no city is made. (6) Pick "Vesterbro": TYPE switches to
-  District and the address line says it's traced from OpenStreetMap; ADD: the outline draws.
+  District, a small dot (no pin) hangs on the string, the address line reads "Copenhagen, Denmark"
+  and the outline shows if OSM has one; ADD: the outline is saved.
   (7) Change TYPE by hand, then pick another place: TYPE stays yours. Same for the city.
   (8) Tap Star (band prints) and Mark visited (the stamp lands) before ADD: the row arrives
   starred and stamped. (9) With the tag open tap NOTES and write a long note: if the keyboard

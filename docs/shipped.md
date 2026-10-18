@@ -1597,7 +1597,7 @@ list?"; "Let's use a style we already use for the add places break. What about t
   sorttest 76/77 (D1 fails on main too); places-ux 30/30. Impeccable: `IMPECCABLE GATE PASSED`
   (static 1/1, runtime 10/10, 0 new, 0 missing; no `--update`).
 
-## The add tag (add-tag-jam phase 2; built 2026-10-17 on `add-tag-p2` -- NOT LANDED)
+## The add tag (add-tag-jam phase 2; landed 2026-10-18 from `add-tag-p2`)
 
 Owner: "Great to build" (the decided design, `design/add-tag-jam/handoff.md` "Phase 2", "One menu
 spec", the Phase 3 visual for the city menu, NEW stamp and distance note); "Run it per CLAUDE.md
@@ -1607,7 +1607,10 @@ dont like seeing all the icons in the tag. but they may be helpful iin the dropd
 auto detect?"; "Neighborhood should be district"; "I think left aligned works better here";
 "I like this but I think the rule underneath it is too much"; "New badge before Chevron?";
 "I think under with more detail is better — maybe it’d be best under the line à la form
-validation notices"; on Star / visited: "do not tuch". Builder notes:
+validation notices"; on Star / visited: "do not tuch". After the CD + UX check (record:
+`design/add-tag-jam/checks/p2-cd-ux.md`, design branch), the owner on the designer's fixes: "I like
+the change to the add dropdown" (and "yes when i say something is good that means ship it").
+Approved stills: `design/add-tag-jam/stills/p2-fixes/`. Builder notes:
 `design/add-tag-jam/notes/builder.md` (Phase 2). Stills: `design/add-tag-jam/stills/build-p2/`.
 
 - **Tap + and a blank place tag opens** (`#addForm`): the shipped Hanging Tag's die, patch,
@@ -1631,11 +1634,16 @@ validation notices"; on Star / visited: "do not tuch". Builder notes:
   (same OSM object, or same name and kind within 50 m) merge. When nothing lands near the map or
   any city, one quiet bounded search per other region of your cities (`cityRegions()`: city boxes
   merged while within 8°; the view's own region skipped) is merged in, so "Tivoli" / "Noma" from
-  Reykjavík find Copenhagen's. Rows: name, then "type · Town, Country". ≥ 2 characters, the
+  Reykjavík find Copenhagen's. Rows: name, then "kind · Town, Country", the kind an everyday word
+  (`resultKind()`: Village, Town, District, Region, Street, Bus stop, Address, Church, Sight, else
+  the value humanised: "Swimming pool"), never an OSM code. ≥ 2 characters, the
   1s debounce, "Searching…" / "No places called that — try another name." / "Search timed out —
   try again.".
-- **TYPE, a select, auto-detected:** the trigger (20px badge, caps value, chevron) opens the menu
-  (caption "Type", the 11 types with badges, the check on the current one) just under it. On a
+- **TYPE, a select, auto-detected:** the trigger is the city button's voice (caps 12 navy + the
+  12px chevron, no box, no badge; open = navy fill; owner: "I like the change to the add
+  dropdown"); the menu (caption "Type", the 11 types with their 20px badges, the check on the
+  current one) opens 6px under it and, too tall for that, slides up -- never above the top controls
+  + 8, never past 8px above the list bar (all 11 rows fit at 390x844); the city menu the same. On a
   pick the OSM pair (`class`/`type`, or Photon's `osm_key`/`osm_value`) maps through
   `OSM_TYPE_TABLE` (jam Turn 11, + leisure swimming_pool / sports_centre / water_park ->
   Attraction; + `water=*` and `leisure=beach` -> Nature; `leisure=resort / beach_resort / spa /
@@ -1643,8 +1651,9 @@ validation notices"; on Star / visited: "do not tuch". Builder notes:
   streets; `boundary=administrative` below a city -> District). An address hit (a house, a
   building, or a street found for a typed house number) is never Street/District. No match, or an
   address hit: an untouched TYPE becomes Other. A TYPE set by hand in this add is never overridden.
-  A neighbourhood -> District switches ADD to the shape flow; the address line reads "Traced from
-  OpenStreetMap when you add it"; its outline (Nominatim `/lookup` by the pick's OSM id, once) is
+  A neighbourhood -> District switches ADD to the shape flow; its address line prints where the
+  area is ("Copenhagen, Denmark", the pick's `where` = `resultTown()`), empty before a pick; it
+  hangs from the shipped shape dot (14px, `#addPin.is-dot`), never a pin; its outline (Nominatim `/lookup` by the pick's OSM id, once) is
   drawn on the map before ADD in the shape layer's style and reused by ADD.
 - **The city (the routing line):** first line, caps 12, no rule; tap: the menu (caption "City",
   the current city with the pin glyph and check, your cities, then "New city" + "+ {real town}").
@@ -1662,7 +1671,7 @@ validation notices"; on Star / visited: "do not tuch". Builder notes:
 - **Star and Mark visited:** the tag's own segments, unchanged (band, pencil-star ink, the
   stamp). The insert now writes `visited` (pins and shapes).
 - **ADD:** ready (navy flood) with a pick, or for a district/street with a name; not ready it
-  prints ADD / NAME IT FIRST; saving, ADDING… at 82%. A failed write keeps the draft and prints
+  prints ADD / NAME IT FIRST (NAME empty) or ADD / PICK A PLACE (a name, no pick; `addGoHint()`); saving, ADDING… at 82%. A failed write keeps the draft and prints
   "Couldn't save — try again. Nothing is lost." Shapes take their outline from the pick's own OSM
   object (Nominatim `/lookup`), else today's searches; no outline -> the approximate pin. City at
   ADD for shapes: a hand pick, else the confident vote, else the line's guess. Saved: the draft
@@ -1672,6 +1681,10 @@ validation notices"; on Star / visited: "do not tuch". Builder notes:
 - **a11y:** the TYPE button reads "Type: Nature. Change the type"; the city button says "new city"
   when the NEW stamp shows and is described by the distance note; the open menus re-fit their
   height on a viewport / keyboard change.
+- **Gates, batch B (the designer's looks, 2026-10-18):** addtest 72/72; Impeccable `IMPECCABLE GATE
+  PASSED` (0 new, no `--update`); places-ux 30/30, plantest 148/174 and sorttest 76/77 (as main);
+  no row or tag gesture code touched. The p2-fixes states re-rendered on the build match the approved
+  stills except for batch A's data (English names, Nature for the Blue Lagoon, ranking).
 - **Gates, batch A (the check's fixes, 2026-10-17):** addtest 66/66 (fixtures re-fetched in English
   with the tests' view hint, `p2/fetch-fixtures.sh`); Impeccable `IMPECCABLE GATE PASSED`; no row or
   tag gesture code touched (gesture gate not re-run).

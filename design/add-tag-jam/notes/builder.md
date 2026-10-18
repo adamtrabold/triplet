@@ -217,3 +217,15 @@ call: build the new tag whole, not a retrofit of `#addForm`.
 Left for batch B (designer): result-row type words, "NAME IT FIRST", District's address slot,
 TYPE menu fit, the Street/District pin, the TYPE trigger's weight.
 Checks: addtest 66/66; Impeccable PASSED; stills re-shot (+ `10b-district-outline.png`).
+
+## Phase 2, batch B: the designer's looks (2026-10-18; handoff "Phase 2 fixes (after build check)")
+Ported `design-p2-fixes` (00d71d60, built before batch A) by hand onto batch A: `resultKind()` /
+`resultTown()` (the where-line now uses batch A's `townOf()`, so a District's address line and the
+rows agree: "Reykjavik, Iceland"), `addGoHint()`, the shape dot (`#addPin.is-dot`) and the where
+address line, the TYPE trigger in the city button's voice (badge and gap dropped from the markup,
+not hidden), and the menu fit folded into batch A's `placeAddMenu()` (floor: 8px above the list bar
+or the visible viewport's foot, the keyboard counting; ceiling: the top controls + 8). The approved
+stills and their script came across (`stills/p2-fixes/`). Owner: "I like the change to the add
+dropdown". Checks: addtest 72/72 (+ plain kinds, ADD's three lines, the dot + where-line, the menu
+inside [ceiling, floor] at 390x844 and 375x667, the trigger with no box or badge); Impeccable PASSED;
+places-ux 30/30; plantest / sorttest as main. Landed 2026-10-18.

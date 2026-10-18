@@ -32,6 +32,9 @@ const { W } = P;
   await page.waitForFunction(() => /Restaurant · Copenhagen/.test(document.getElementById('addResults').textContent), null, { timeout: 8000 }).catch(() => {});
   ok('A8 "Noma" from the Reykjavík view finds the Copenhagen restaurant, first', await ev(() => { const r = document.querySelector('#addResults .add-res'); return !!r && r.querySelector('.add-res-name').textContent === 'Noma' && /Restaurant · Copenhagen/.test(r.textContent); }), await ev(() => document.getElementById('addResults').textContent.slice(0, 200)));
   await P.typeName(page, 'Harpa');
+  ok('A9b result kinds are plain words, never OSM codes', await ev(() => { const t = document.getElementById('addResults').textContent; return !/Administrative|Hamlet|Building|\bYes\b|Place of worship|Bus_stop/.test(t); }) &&
+    await ev(() => [['place', 'hamlet'], ['boundary', 'administrative', 'town'], ['building', 'yes'], ['highway', 'bus_stop'], ['highway', 'residential'], ['amenity', 'place_of_worship'], ['leisure', 'sports_centre'], ['tourism', 'attraction'], ['shop', 'yes']]
+      .map(([k, v, at]) => resultKind({ class: k, type: v, addresstype: at || '' })).join('|')) === 'Village|Town|Address|Bus stop|Street|Church|Sports centre|Sight|Place');
   ok('A9 a near result needs no quiet search', !o.requests.some(u => u.includes('q=Harpa') && u.includes('bounded=1')));
   ok('A10 ranking inside a tier: importance first; same name + kind within 50 m merged', await ev(() => {
     const R = (name, cls, type, lat, lon, imp, id) => ({ name, class: cls, type, lat: String(lat), lon: String(lon), importance: imp, osm_type: 'node', osm_id: id, address: {} });
@@ -67,7 +70,9 @@ const { W } = P;
   // D. hand picks win; editing NAME keeps the pick (and City and TYPE); the typed name is saved
   await P.tap(page, '#addTypeBtn');
   ok('D1 TYPE menu: caption Type, 11 rows, the check on Attraction', await ev(() => { const m = document.getElementById('addTypeMenu'); return !m.hidden && m.querySelector('.menu-cap').textContent === 'Type' && m.querySelectorAll('.menu-row').length === 11 && m.querySelector('[aria-checked="true"]').dataset.type === 'attraction'; }));
-  ok('D2 the menu opens just under its trigger, left-aligned', await ev(() => { const t = document.getElementById('addTypeBtn').getBoundingClientRect(), m = document.getElementById('addTypeMenu').getBoundingClientRect(); return Math.abs(m.left - t.left) < 0.5 && m.top - t.bottom >= 4 && m.top - t.bottom <= 8; }));
+  ok('D2 the menu opens 6px under its trigger, left-aligned, sliding up only as far as the list bar needs', await ev(() => { const t = document.getElementById('addTypeBtn').getBoundingClientRect(), el = document.getElementById('addTypeMenu'), m = el.getBoundingClientRect();
+    const floor = Math.min(innerHeight, document.getElementById('locations').getBoundingClientRect().top) - 8, want = Math.max(addOpenArea().top, Math.min(t.bottom + 6, floor - el.scrollHeight - 2));
+    return Math.abs(m.left - t.left) < 0.5 && Math.abs(m.top - want) <= 1; }), await ev(() => [document.getElementById('addTypeBtn').getBoundingClientRect().bottom, document.getElementById('addTypeMenu').getBoundingClientRect().top]));
   await ev(() => document.querySelector('#addTypeMenu [data-type="nature"]').click()); await W(150);
   await P.tap(page, '#addCityBtn');
   ok('D3 City menu: caption City, your cities, the pin glyph + check on the current one', await ev(() => { const m = document.getElementById('addCityMenu'); const cur = m.querySelector('[aria-checked="true"]'); return !m.hidden && m.querySelector('.menu-cap').textContent === 'City' && cur.dataset.city === 'reykjavik' && !!cur.querySelector('svg.menu-ico') && m.querySelectorAll('[data-city]').length === 5; }));
@@ -155,8 +160,9 @@ const { W } = P;
 
   // H. a neighbourhood -> District: the shape flow (outline from the pick's own OSM object)
   await P.openAdd(page); await P.typeName(page, 'Sund');
-  await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /Administrative/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
-  ok('H1 Sund (boundary=administrative, neighbourhood) -> District; the address line is the hint', await ev(() => addDraft.type === 'district' && /Traced from OpenStreetMap/.test(document.getElementById('addAddr').textContent)));
+  await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /District · Reykjavik/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
+  ok('H1 Sund (boundary=administrative, neighbourhood) -> District; the address line says where ("Reykjavik, Iceland"), never a sentence', await ev(() => addDraft.type === 'district' && document.getElementById('addAddr').textContent === 'Reykjavik, Iceland'), await ev(() => document.getElementById('addAddr').textContent));
+  ok('H1d a District hangs from the 14px shape dot, not the pin', await ev(() => { const p = document.getElementById('addPin'); return p.classList.contains('is-dot') && p.getBoundingClientRect().width === 14 && !p.querySelector('use'); }));
   await W(300);
   ok('H1b the District\'s outline shows before ADD (TypeDetected)', await ev(() => !!addOutlineLayer && map.hasLayer(addOutlineLayer) && addOutlineLayer.getLatLngs()[0].length > 10));
   await ev(() => { document.getElementById('addTypeBtn').click(); document.querySelector('#addTypeMenu [data-type="cafe"]').click(); });
@@ -194,12 +200,33 @@ const { W } = P;
   ok('J2 targets: city line, TYPE, results rows >= 44 / 48', await ev(() => { const hit = el => { const r = el.getBoundingClientRect(), s = getComputedStyle(el, '::before'); return r.height - parseFloat(s.top) - parseFloat(s.bottom); }; return hit(document.getElementById('addCityBtn')) >= 44 && hit(document.getElementById('addTypeBtn')) >= 44; }));
   ok('J3 the tag clears the credit and the top controls', await ev(() => { const t = document.querySelector('#addForm .tag-body').getBoundingClientRect(), cr = document.querySelector('.leaflet-control-attribution').getBoundingClientRect(), pin = document.getElementById('addPin').getBoundingClientRect(), z = document.querySelector('.leaflet-control-zoom').getBoundingClientRect(); return t.bottom <= cr.top && pin.top >= z.bottom; }));
 
+  // N. ADD's line, the TYPE trigger, the menu's fit (phase 2 fixes)
+  await reset(); await P.openAdd(page);
+  const hint = () => ev(() => { const b = document.getElementById('submitBtn'), sub = b.querySelector('.add-sub'); return [b.classList.contains('is-ready'), sub ? sub.textContent : null]; });
+  const n1 = await hint();
+  await ev(() => { const i = document.getElementById('nameInput'); i.value = 'Somewhere'; i.dispatchEvent(new Event('input', { bubbles: true })); hideAutocomplete(); });
+  const n2 = await hint();
+  await P.typeName(page, 'Hallgrímskirkja'); await P.pick(page, 0);
+  const n3 = await hint();
+  ok('N1 ADD\'s line: "Name it first" -> "Pick a place" -> ready, no line', JSON.stringify([n1, n2, n3]) === JSON.stringify([[false, 'Name it first'], [false, 'Pick a place'], [true, null]]), [n1, n2, n3]);
+  ok('N2 the TYPE trigger is the city button\'s voice: no box, no badge, navy caps', await ev(() => { const b = document.getElementById('addTypeBtn'), cs = getComputedStyle(b); return parseFloat(cs.borderTopWidth) === 0 && !b.querySelector('.menu-badge, svg circle') && cs.color === 'rgb(18, 41, 63)' && b.getBoundingClientRect().height === 28; }));
+  for (const [w, h] of [[390, 844], [375, 667]]) {
+    await page.setViewportSize({ width: w, height: h }); await W(500);
+    await P.tap(page, '#addTypeBtn');
+    const fit = await ev(() => { const m = document.getElementById('addTypeMenu').getBoundingClientRect(), sheet = document.getElementById('locations').getBoundingClientRect().top;
+      return { top: m.top, bottom: m.bottom, ceil: addOpenArea().top, floor: Math.min(innerHeight, sheet) - 8, scrolls: document.getElementById('addTypeMenu').scrollHeight > document.getElementById('addTypeMenu').clientHeight + 1 }; });
+    ok(`N3 the TYPE menu sits between the top controls and 8px above the list bar at ${w}x${h}${w === 390 ? ', all 11 rows, no scroll' : ''}`, fit.top >= fit.ceil - 0.5 && fit.bottom <= fit.floor + 0.5 && (w !== 390 || !fit.scrolls), fit);
+    await ev(() => closeAddMenus(false)); await W(150);
+  }
+  await page.setViewportSize({ width: 390, height: 844 }); await W(400);
+
   // K. the menus re-fit to the visible viewport
   await reset(); await P.openAdd(page); await P.tap(page, '#addTypeBtn');
   const mh0 = await ev(() => parseFloat(document.getElementById('addTypeMenu').style.maxHeight));
-  await page.setViewportSize({ width: 390, height: 700 }); await W(400);
+  await page.setViewportSize({ width: 390, height: 560 }); await W(400);
   const mh1 = await ev(() => parseFloat(document.getElementById('addTypeMenu').style.maxHeight));
-  ok('K1 the open menu\'s height re-fits on a viewport change (and stays open)', mh1 < mh0 && await ev(() => !document.getElementById('addTypeMenu').hidden), { mh0, mh1 });
+  const inBox = await ev(() => { const m = document.getElementById('addTypeMenu').getBoundingClientRect(); return m.top >= addOpenArea().top - 0.5 && m.bottom <= Math.min(innerHeight, document.getElementById('locations').getBoundingClientRect().top) - 8 + 0.5; });
+  ok('K1 the open menu re-fits on a viewport change (shorter, still between the controls and the list bar, still open)', mh1 < mh0 && inBox && await ev(() => !document.getElementById('addTypeMenu').hidden), { mh0, mh1, inBox });
   await page.setViewportSize({ width: 390, height: 844 }); await W(300);
   await ev(() => closeAddMenus(false));
   ok('L1 every Nominatim request asks for English', o.requests.every(u => new URL(u).searchParams.get('accept-language') === 'en'), o.requests.filter(u => !u.includes('accept-language')));

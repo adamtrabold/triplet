@@ -170,9 +170,8 @@ pick/redirect before building anything.
 - **Add tag + city jam** (owner: "Great to build", 2026-10-17; `design/add-tag-jam/handoff.md`,
   four phases, lane 2 each). ~~Phase 1~~ LANDED 2026-10-17 (the list title's menu, city sections,
   show/hide, All plans, leg sections, the add-from sections, the collapse tab; owner on the final
-  looks: "Good"; `docs/shipped.md`). Phase 2 (the add tag) BUILT on branch `add-tag-p2`, NOT
-  LANDED: waits on the combined CD + UX check and the owner's look at
-  `design/add-tag-jam/stills/build-p2/` (`docs/shipped.md` "The add tag"). Then 3 (city buckets: the
+  looks: "Good"; `docs/shipped.md`). ~~Phase 2~~ LANDED 2026-10-18 (the add tag; owner on the
+  fixes: "I like the change to the add dropdown"; `docs/shipped.md` "The add tag"). Next: 3 (city buckets: the
   guess and editing a place's city), then 4 (the map's city badge). Known from phase 1: a plan name
   longer than ~17 characters is cut in the 18px title (UX: accept).
 - **City buckets** (owner, 2026-09-23; decided 2026-10-15). Trips are
@@ -207,7 +206,7 @@ pick/redirect before building anything.
     form (`design/add-button-placement/concepts/blank-tag-form/`) continues
     as its own design work and touches the same city questions.
 - ~~**Add form: mark a place visited while adding it**~~ (owner, 2026-10-15: "yes"). BUILT in
-  the add tag (phase 2, branch `add-tag-p2`, not landed): the tag's own Mark visited segment,
+  the add tag (phase 2, landed 2026-10-18): the tag's own Mark visited segment,
   the insert writes `visited`.
 - **Add tag: a place with no town is filed under the nearest city, however far** (phase 2's
   fallback, until phase 3's reach rule): "Village of Tivoli" (NY: OSM gives only "Town of Red

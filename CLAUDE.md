@@ -225,7 +225,9 @@ pins with the stamp back on rows; the playground as the signed-out app
 (2026-10-13); the sign-in badge (2026-10-14); the + as the orange Float badge,
 bottom-left (2026-10-15); add-form place suggestions fitted and over the ×
 (2026-10-15); add-tag-jam phase 1 -- the list title's menu (Places / Plans), city
-sections with show/hide, go-to never filters, the collapse tab (2026-10-17). Specs: `docs/shipped.md`.
+sections with show/hide, go-to never filters, the collapse tab (2026-10-17); add-tag-jam phase 2 --
+the add tag (worldwide search, TYPE auto-detected, the city line + NEW stamp, visited at add;
+2026-10-18). Specs: `docs/shipped.md`.
 
 - **Short-address backfill (owner action):** 59 of 202 places lack a real
   town (58 have no `address_details`, 1 has details but no town; live

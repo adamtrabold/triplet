@@ -58,7 +58,7 @@ const W = P.W;
   await reset();
   // 10b. a neighbourhood with an OSM boundary (Sund, Reykjavík): District with its outline before ADD
   await P.openAdd(page); await P.typeName(page, 'Sund');
-  await page.evaluate(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /Administrative/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(900); await blur();
+  await page.evaluate(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /District · Reykjavik/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(900); await blur();
   await shot('10b-district-outline');
   await reset();
   // 11. the busiest: a long name, a note, the distance note, Star and Mark visited (Village of Tivoli, NY: no town, so the nearest city)
