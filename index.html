@@ -739,19 +739,21 @@
     #addForm.is-lifted #addPin, #addForm.is-lifted .tag-string { display: none; }
 
     .add-in { padding-bottom: var(--s2); }
-    /* THE ROUTING LINE (R2, left-aligned; owner: "the rule underneath it is too much" -- none). */
-    .add-route { display: flex; align-items: center; gap: var(--s2); min-height: 28px; padding-bottom: 2px; margin-bottom: 4px; }
-    .add-city { all: unset; box-sizing: border-box; position: relative; display: inline-flex; align-items: center; gap: 4px; height: 28px; max-width: 100%;
+    /* THE ROUTING LINE (R2, left-aligned; owner: "the rule underneath it is too much" -- none). The
+       city, a filing, not a location: the add tag's first line (with its chevron) and, phase 3, the
+       Hanging Tag's (the same type, no chevron; a tap opens the same city menu). Shared classes. */
+    .route-line { display: flex; align-items: center; gap: var(--s2); min-height: 28px; padding-bottom: 2px; margin-bottom: 4px; }
+    .route-city { all: unset; box-sizing: border-box; position: relative; display: inline-flex; align-items: center; gap: 4px; height: 28px; max-width: 100%;
       padding: 0 6px 0 8px; margin-left: -8px; border-radius: 3px; color: var(--navy); cursor: pointer; -webkit-tap-highlight-color: transparent; }
-    .add-city::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; bottom: -8px; }   /* 44px target */
-    .add-city[hidden] { display: none; }
-    .add-city-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    .route-city::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; bottom: -8px; }   /* 44px target */
+    .route-city[hidden] { display: none; }
+    .route-city-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
       font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .12em; }
     .add-chev { width: 12px; height: 12px; flex: none; display: block; }
-    .add-city[aria-expanded="true"] { background: var(--navy); color: var(--paper); }
-    .add-city[aria-expanded="true"] .add-chev { transform: rotate(180deg); }
-    .add-city:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
-    .add-city[aria-expanded="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
+    .route-city[aria-expanded="true"] { background: var(--navy); color: var(--paper); }
+    .route-city[aria-expanded="true"] .add-chev { transform: rotate(180deg); }
+    .route-city:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    .route-city[aria-expanded="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
     /* THE NEW STAMP (CityNew, "NEW stamp, before the chevron"): the visited stamp's dotted track and
        ring, the brand's deep orange at 88%, a fixed -4deg. Static. It shows exactly when ADD will
        make the city. */
@@ -772,12 +774,13 @@
       color: var(--ink-2); caret-color: var(--ink-2); font-family: var(--font-ui); }
     .add-name { min-height: 33px; }
     .add-name textarea { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; min-height: 28px; padding-right: 32px; }
-    /* the x sits on the NAME line (the routing line pushed the name down 34) */
+    /* the x sits on the NAME line (the routing line pushed the name down 34; the add tag's NAME
+       line sits 2px lower than the Hanging Tag's name) */
     #addForm .tag-x { top: 76px; }
     .add-addr { min-height: 40px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
     .add-addr-text { min-width: 0; overflow-wrap: anywhere; }
     /* THE DISTANCE NOTE (CityDistance): under the address's rule, a form's helper note. */
-    .add-dist { padding-top: 4px; font-stretch: 100%; font-weight: 400; font-size: 11px; line-height: 14px; color: var(--ink-2); }
+    .add-dist, .tag-dist { padding-top: 4px; font-stretch: 100%; font-weight: 400; font-size: 11px; line-height: 14px; color: var(--ink-2); }
     .add-dist[hidden] { display: none; }
     .add-notes { min-height: 32px; }
     .add-notes.has-text { padding-top: var(--s2); }   /* a written note keeps the same head room as the other lines */
@@ -827,13 +830,13 @@
     .tag-seg.add-go.is-ready:focus-visible, .tag-seg.add-go.is-saving:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
 
     /* The tag's menus (City, Type): the shared .menu-box, opened just under their triggers. */
-    #addMenuScrim { position: fixed; inset: 0; z-index: 2550; background: transparent; }
-    #addMenuScrim[hidden] { display: none; }
-    #addCityMenu, #addTypeMenu { overflow-y: auto; overscroll-behavior: contain; max-width: calc(100vw - 2 * var(--gutter)); }
+    #addMenuScrim, #tagMenuScrim { position: fixed; inset: 0; z-index: 2550; background: transparent; }
+    #addMenuScrim[hidden], #tagMenuScrim[hidden] { display: none; }
+    #addCityMenu, #addTypeMenu, #tagCityMenu { overflow-y: auto; overscroll-behavior: contain; max-width: calc(100vw - 2 * var(--gutter)); }
     .menu-cap.is-mid { border-top: 1px solid var(--hair); }
     .menu-badge { width: 20px; height: 20px; flex: none; display: block; }
     .menu-ico.is-quiet { color: var(--ink-2); }
-    body.add-menu-open .leaflet-control-attribution { visibility: hidden; }   /* as sort: never half-covered */
+    body.add-menu-open .leaflet-control-attribution, body.tag-menu-open .leaflet-control-attribution { visibility: hidden; }   /* as sort: never half-covered */
 
     #filtersPanel {
       position: absolute;
@@ -1990,7 +1993,7 @@
     .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
-    .tag-x { all: unset; position: absolute; z-index: 4; top: 40px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    .tag-x { all: unset; position: absolute; z-index: 4; top: 74px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
     .tag-x svg { width: 14px; height: 14px; display: block; }
     .tag-x::before { content: ''; position: absolute; inset: 8px; z-index: -1; border-radius: 3px; }
@@ -2682,7 +2685,7 @@
         <span class="tag-patch" aria-hidden="true"></span>
         <button type="button" id="addCancel" class="tag-x" aria-label="Cancel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
         <div class="tag-in add-in">
-          <div class="add-route"><button type="button" id="addCityBtn" class="add-city" aria-haspopup="menu" aria-expanded="false" aria-controls="addCityMenu"><span class="add-city-name" id="addCityName"></span><span class="new-stamp" id="addNewStamp" hidden><span class="new-stamp-in" aria-hidden="true"><svg viewBox="0 0 72 32" preserveAspectRatio="none" aria-hidden="true"><path d="M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" pathLength="166.29" stroke-dasharray="0 1.9797"/></svg><span class="new-stamp-ring">New</span></span></span><svg class="add-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+          <div class="route-line"><button type="button" id="addCityBtn" class="route-city" aria-haspopup="menu" aria-expanded="false" aria-controls="addCityMenu"><span class="route-city-name" id="addCityName"></span><span class="new-stamp" id="addNewStamp" hidden><span class="new-stamp-in" aria-hidden="true"><svg viewBox="0 0 72 32" preserveAspectRatio="none" aria-hidden="true"><path d="M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" pathLength="166.29" stroke-dasharray="0 1.9797"/></svg><span class="new-stamp-ring">New</span></span></span><svg class="add-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
           <div class="add-f add-name" id="addNameRow"><textarea id="nameInput" rows="1" aria-label="Name" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search"></textarea><span class="add-cap" aria-hidden="true">Name</span></div>
           <div class="add-f add-addr" id="addAddrRow"><span class="add-addr-text" id="addAddr"></span><span class="add-cap" aria-hidden="true">Address</span></div>
           <div class="add-dist" id="addDist" hidden></div>
@@ -2699,6 +2702,9 @@
   <div id="addMenuScrim" hidden></div>
   <div id="addCityMenu" class="menu-box" role="menu" aria-label="City" hidden></div>
   <div id="addTypeMenu" class="menu-box" role="menu" aria-label="Type" hidden></div>
+  <!-- The Hanging Tag's city menu (add-tag-jam phase 3): the same menu, under the tag's routing line. -->
+  <div id="tagMenuScrim" hidden></div>
+  <div id="tagCityMenu" class="menu-box" role="menu" aria-label="City" hidden></div>
 
   <div id="mainContent">
     <div id="mapContainer">
@@ -4469,7 +4475,8 @@
 
     // Pure. Returns a RANKED LIST, not a single winner: with Copenhagen and
     // Malmö 30 km apart, ambiguity is the common case, not an edge case.
-    // Currently consumed only by defaultFormCity(); no auto-switching.
+    // The add tag's city guess (guessCity(): [0] within CITY_REACH_KM), its
+    // pre-pick line (preGuessCity()) and first open; no auto-switching.
     function rankCitiesByProximity(latlng, maxKm = 75) {
       return Object.keys(CITIES)
         .map(cityId => ({ cityId, km: haversineKm(latlng, CITIES[cityId].center) }))
@@ -4715,6 +4722,7 @@
         });
         syncAddTagCity();
         refreshTitleMenu();
+        refreshTags();   // the Hanging Tags' routing lines and distance notes read CITIES
         hideError('cities');
       } catch (err) {
         showReadProblem(err, 'cities');
@@ -4932,12 +4940,12 @@
               loc.notes, loc.visited, loc.city, loc.starred, loc.short_address || ''].join('|');
     }
 
-    // Everything the list card renders.
-    // A shape row (shapeRowItem()) adds what only it shows: its own ink and city.
+    // Everything the list card renders. Every row prints its city (phase 3: a place's city can
+    // change on its tag, setPlaceCity()); a shape row (shapeRowItem()) adds its own ink.
     function cardSignature(loc) {
       const sh = loc.shapeId != null;
-      return [loc.name, loc.address, loc.category, loc.visited, loc.starred, distanceLabel(loc), sh ? planMarkKey('shape', loc.shapeId) : planMarkKey('loc', loc.id), listView, inPlanView() ? activePlanId : '']
-        .concat(sh ? [loc.color, loc.city] : []).join('|');
+      return [loc.name, loc.address, loc.category, loc.visited, loc.starred, distanceLabel(loc), sh ? planMarkKey('shape', loc.shapeId) : planMarkKey('loc', loc.id), listView, inPlanView() ? activePlanId : '', loc.city]
+        .concat(sh ? [loc.color] : []).join('|');
     }
 
     // =========================================================================
@@ -5604,6 +5612,7 @@
 
     let popupStampId = null;     // Visited just set from the tag: the stamp comes down ONCE
     let popupUnstampId = null;   // ... just cleared: the stamp lifts off ONCE
+    let tagCityMenuKey = null;   // the row key whose Hanging Tag city menu is open (phase 3)
     function buildPopupHtml(loc) {
       const inkNow = !!loc.starred && popupInkId === loc.id;
       if (inkNow) popupInkId = null;
@@ -5636,13 +5645,22 @@
         : `<svg class="tag-ochk" viewBox="-1.5 -1.5 27 27" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="none" stroke="currentColor" stroke-width="2.05" stroke-linejoin="round"/></svg>Mark visited`
           + (unstampNow ? `<span class="row-stamp tag-stamp-out dry-out" style="--stamp-tilt:${tilt}deg;${tex}" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
       const x = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
+      // The routing line (phase 3): the place's city, the add tag's type with no chevron; a tap opens
+      // the city menu (signed out: the sign-in slip). The distance note under the address when the
+      // place lies outside its city's area (pins only, as on the add tag).
+      const cityName = cityLabel(loc.city), dist = sh ? '' : placeDistanceText(loc.lat, loc.lng, loc.city);
+      const distId = escapeAttr('tag-dist-' + loc.id);
+      const route = `<div class="route-line"><button type="button" class="route-city tag-city" data-id="${id}" aria-haspopup="menu" aria-expanded="${tagCityMenuKey === loc.id}" aria-controls="tagCityMenu"`
+        + ` aria-label="${escapeAttr(`City: ${cityName}. ${off ? 'Sign in to change it' : 'Change the city'}`)}"${off ? ' aria-disabled="true"' : ''}${dist ? ` aria-describedby="${distId}"` : ''}>`
+        + `<span class="route-city-name">${escapeHtml(cityName)}</span></button></div>`;
       return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
         + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span><div class="tag-stock">`
         + (band ? `<span class="tag-band" style="${texVars(loc.id, 'band', 160, .06)}" aria-hidden="true"></span>` : '')
         + '<span class="tag-patch" aria-hidden="true"></span>'
         + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
-        + `<div class="tag-in"><h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
+        + `<div class="tag-in">${route}<h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
         + (addr ? `<div class="tag-addr">${escapeHtml(addr)}</div>` : '')
+        + (dist ? `<div class="tag-dist" id="${distId}">${escapeHtml(dist)}</div>` : '')
         + (loc.notes ? `<div class="tag-notes">${escapeHtml(loc.notes)}</div>` : '')
         + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val tag-stamp popup-cat" style="--tilt:${typeTilt(loc.id)}deg;${texVars(loc.id, 'type', 170, .1)}">${escapeHtml(loc.category)}</span></span>`
         + (stop ? `<span class="tag-f"><span class="tag-lab">Plan</span><span class="tag-val tag-plan">Stop <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 1)}deg;${texVars(loc.id, 'n', 170, .1)}">${stop.n}</span> of <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 2)}deg;${texVars(loc.id, 'm', 170, .1)}">${stop.m}</span></span></span>` : '') + '</div></div>'
@@ -6272,7 +6290,7 @@
     function shapePopupHtml(nb) { return buildPopupHtml(shapeRowItem(nb)); }
     // Everything the shape popup shows (syncNeighborhoodLayers() re-sets it on a change).
     function shapePopupSignature(nb) {
-      return [nb.label, nb.type, nb.color, nb.note, !!nb.visited, !!nb.starred, planMarkKey('shape', nb.id)].join('|');
+      return [nb.label, nb.type, nb.color, nb.note, !!nb.visited, !!nb.starred, planMarkKey('shape', nb.id), nb.city].join('|');
     }
 
     // r18 (owner: "change the icon to the number like we used to do ... only on the map"): a stop
@@ -9384,6 +9402,7 @@
     const cityKey = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
     // Before a pick: the city the map's centre would file under (today's defaultFormCity(): the city
     // whose area holds it, else the nearest within 150 km, else the last go-to's). No city: null.
+    // Display only (phase 3): a pin can't be added before a pick, and the pick guesses again.
     function preGuessCity() {
       if (!map || !Object.keys(CITIES).length) return null;
       const c = map.getCenter(), m = matchCity(c.lat, c.lng);
@@ -9392,39 +9411,98 @@
       if (near) return { id: near.cityId };
       return CITIES[activeCity] ? { id: activeCity } : { id: Object.keys(CITIES)[0] };
     }
-    // After a pick (phase 2 keeps today's filing rule; phase 3 replaces it with the nearest city in
-    // reach): the city whose area holds the point; else the real town as a city (an existing one of
-    // that name, or a NEW one ADD will make); with no town, the nearest city, never blocking ADD.
+    // THE GUESS (add-tag-jam phase 3, "the city-bucket model"): the nearest of your cities whose
+    // stored centre is within CITY_REACH_KM (about a day trip) -- measured to the centre, so an
+    // empty city can still be guessed and a nearby place never duplicates it. None in reach: the
+    // real town as a NEW city (ADD makes it), or the existing city of that name. No town in the
+    // details (or no details): null, the caller's cue to reverse-geocode the point
+    // (guessCityAt()). Boxes no longer file anything: a seeded city's box decides only the
+    // distance note.
+    const CITY_REACH_KM = 70;   // (we think) one constant, never a setting
     function guessCity(lat, lng, details) {
-      const m = matchCity(lat, lng);
-      if (m) return { id: m };
+      const near = rankCitiesByProximity([lat, lng], CITY_REACH_KM)[0];
+      if (near) return { id: near.cityId };
       const town = townOf(details);
       if (town && details.country_code) {
         const same = Object.keys(CITIES).find(id => cityKey(CITIES[id].label) === cityKey(town));
         return same ? { id: same } : { newCity: { label: town, details, lat, lng } };
       }
+      return null;
+    }
+    // The last resort, so ADD is never blocked (we think): the nearest city however far, never new.
+    function nearestCityAnywhere(lat, lng) {
       const near = rankCitiesByProximity([lat, lng], Infinity)[0];
       return near ? { id: near.cityId } : null;
     }
+    // The whole rule, async: the guess; with no town, the point's reverse-geocoded town (one
+    // Nominatim call; `onDetails` gets what it found); failing that, the nearest city anywhere.
+    async function guessCityAt(lat, lng, details, onDetails) {
+      let g = guessCity(lat, lng, details);
+      if (g) return g;
+      const d = await nominatimReverse(lat, lng);
+      if (d) { if (onDetails) onDetails(d); g = guessCity(lat, lng, d); }
+      return g || nearestCityAnywhere(lat, lng);
+    }
     const addCityIsNew = () => !!(addDraft.city && addDraft.city.newCity);
     const addCityLabel = () => !addDraft.city ? '' : addDraft.city.newCity ? addDraft.city.newCity.label : cityLabel(addDraft.city.id);
-    // "New city · + <real town>": the pick's town when it isn't one of your cities.
-    function addNewTownOption() {
-      const p = addDraft.pick, town = p && townOf(p.addressDetails);
-      if (!town || !p.addressDetails.country_code) return null;
+    // "New city · + <real town>": a place's town (its details, else what a reverse geocode found)
+    // when it isn't one of your cities. Shared by the add tag and the Hanging Tag's city menu.
+    function newTownOption(details, lat, lng) {
+      const town = townOf(details);
+      if (!town || !details.country_code) return null;
       if (Object.keys(CITIES).some(id => cityKey(CITIES[id].label) === cityKey(town))) return null;
-      return { label: town, details: p.addressDetails, lat: p.lat, lng: p.lng };
+      return { label: town, details, lat, lng };
+    }
+    function addNewTownOption() {
+      const p = addDraft.pick;
+      return p ? newTownOption(p.addressDetails || p.reverseDetails, p.lat, p.lng) : null;
     }
     // The distance note: only when the place lies outside its city's own area (the box, no pad);
-    // straight line to the city's centre, under 10 km to the km, else to 5 km.
-    function addDistanceText() {
-      const p = addDraft.pick, c = addDraft.city;
-      if (!p || !c || c.newCity || !CITIES[c.id] || isShapeCategory(addDraft.type)) return '';
-      const cfg = CITIES[c.id];
-      if (!cfg.viewbox || pointInViewbox(p.lat, p.lng, cfg.viewbox, 0)) return '';
-      const km = haversineKm([p.lat, p.lng], cfg.center);
+    // straight line to the city's centre, under 10 km to the km, else to 5 km. The add tag and the
+    // Hanging Tag share it; never on list rows; never for a district / street.
+    function placeDistanceText(lat, lng, cityId) {
+      const cfg = CITIES[cityId];
+      if (!cfg || !cfg.viewbox || !isFinite(lat) || !isFinite(lng) || pointInViewbox(lat, lng, cfg.viewbox, 0)) return '';
+      const km = haversineKm([lat, lng], cfg.center);
       const r = km < 10 ? Math.max(1, Math.round(km)) : Math.round(km / 5) * 5;
       return `≈ ${r.toLocaleString('en')} km from ${cfg.label}`;
+    }
+    function addDistanceText() {
+      const p = addDraft.pick, c = addDraft.city;
+      if (!p || !c || c.newCity || isShapeCategory(addDraft.type)) return '';
+      return placeDistanceText(p.lat, p.lng, c.id);
+    }
+    // The city menu (CityChange): caption "City"; the current city with the pin glyph (--ink-2) and
+    // the check; your other cities; then "New city" + "+ {real town}" when there's a town to make.
+    // No tallies. One builder for the add tag and the Hanging Tag.
+    const CITY_PIN_ICO = '<svg class="menu-ico is-quiet" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>';
+    function cityMenuHtml(curId, town, townOn) {
+      let html = '<div class="menu-cap" aria-hidden="true">City</div>';
+      sectionCityIds().filter(id => CITIES[id]).forEach(id => {
+        const on = !townOn && id === curId;
+        html += `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-city="${escapeAttr(id)}">`
+          + (on ? CITY_PIN_ICO : MENU_SVG.spacer)
+          + `<span class="menu-lab">${escapeHtml(cityLabel(id))}</span><span class="menu-gap"></span>${on ? MENU_SVG.check : MENU_SVG.none}</button>`;
+      });
+      if (town) {
+        html += '<div class="menu-cap is-mid" aria-hidden="true">New city</div>'
+          + `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${!!townOn}" tabindex="-1" data-newcity="1" aria-label="New city: ${escapeAttr(town.label)}">${MENU_SVG.spacer}<span class="menu-lab">+ ${escapeHtml(town.label)}</span><span class="menu-gap"></span>${townOn ? MENU_SVG.check : MENU_SVG.none}</button>`;
+      }
+      return html;
+    }
+    // A menu just under its trigger, left-aligned, kept on screen (phase 2 fixes §4): floor = 8px
+    // above the list bar or the visible viewport's foot (the keyboard counts); ceiling = the top
+    // controls + 8. Too tall to open under its trigger, it slides up as far as it must (it may
+    // cover the trigger); it scrolls only when even that is short.
+    function placeMenuUnder(menu, trig) {
+      const r = trig.getBoundingClientRect(), gutter = 16, vv = window.visualViewport;
+      const foot = vv ? vv.offsetTop + vv.height : innerHeight, sheetTop = document.getElementById('locations').getBoundingClientRect().top;
+      const floor = Math.min(foot, sheetTop > 0 ? sheetTop : foot) - 8, ceil = addOpenArea().top;
+      menu.style.left = `${Math.max(gutter, Math.min(r.left, innerWidth - gutter - menu.offsetWidth))}px`;
+      menu.style.maxHeight = '';
+      const top = Math.max(ceil, Math.min(r.bottom + 6, floor - menu.offsetHeight));
+      menu.style.top = `${top}px`;
+      menu.style.maxHeight = `${Math.max(120, floor - top)}px`;
     }
 
     // ---- rendering ----
@@ -9694,20 +9772,7 @@
       const trig = document.getElementById(which === 'city' ? 'addCityBtn' : 'addTypeBtn');
       let html = '';
       if (which === 'city') {
-        html += '<div class="menu-cap" aria-hidden="true">City</div>';
-        const cur = addDraft.city && addDraft.city.id;
-        sectionCityIds().filter(id => CITIES[id]).forEach(id => {
-          const on = id === cur;
-          html += `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-city="${escapeAttr(id)}">`
-            + (on ? '<svg class="menu-ico is-quiet" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>' : MENU_SVG.spacer)
-            + `<span class="menu-lab">${escapeHtml(cityLabel(id))}</span><span class="menu-gap"></span>${on ? MENU_SVG.check : MENU_SVG.none}</button>`;
-        });
-        const town = addNewTownOption();
-        if (town) {
-          const on = addCityIsNew();
-          html += '<div class="menu-cap is-mid" aria-hidden="true">New city</div>'
-            + `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-newcity="1" aria-label="New city: ${escapeAttr(town.label)}">${MENU_SVG.spacer}<span class="menu-lab">+ ${escapeHtml(town.label)}</span><span class="menu-gap"></span>${on ? MENU_SVG.check : MENU_SVG.none}</button>`;
-        }
+        html = cityMenuHtml(addDraft.city && addDraft.city.id, addNewTownOption(), addCityIsNew());
       } else {
         html += '<div class="menu-cap" aria-hidden="true">Type</div>';
         ADD_TYPES.forEach(t => {
@@ -9731,17 +9796,7 @@
     function placeAddMenu() {
       [['addCityMenu', 'addCityBtn'], ['addTypeMenu', 'addTypeBtn']].forEach(([m, b]) => {
         const menu = document.getElementById(m); if (!menu || menu.hidden) return;
-        // floor: 8px above the list bar (the lowered sheet's top) or the visible viewport's foot (the
-        // keyboard counts); ceiling: the top controls + 8. Too tall to open under its trigger, it
-        // slides up as far as it must (it may cover the trigger); it scrolls only when even that is short.
-        const r = document.getElementById(b).getBoundingClientRect(), gutter = 16, vv = window.visualViewport;
-        const foot = vv ? vv.offsetTop + vv.height : innerHeight, sheetTop = document.getElementById('locations').getBoundingClientRect().top;
-        const floor = Math.min(foot, sheetTop > 0 ? sheetTop : foot) - 8, ceil = addOpenArea().top;
-        menu.style.left = `${Math.max(gutter, Math.min(r.left, innerWidth - gutter - menu.offsetWidth))}px`;
-        menu.style.maxHeight = '';
-        const top = Math.max(ceil, Math.min(r.bottom + 6, floor - menu.offsetHeight));
-        menu.style.top = `${top}px`;
-        menu.style.maxHeight = `${Math.max(120, floor - top)}px`;
+        placeMenuUnder(menu, document.getElementById(b));
       });
     }
     function closeAddMenus(refocus) {
@@ -9808,7 +9863,18 @@
       // TYPE from the pick; an address hit, or a pair the table doesn't know, is Other (a TYPE set
       // by hand in this add stays).
       if (!addDraft.typeHand) addDraft.type = (!isAddressHit(r, addResultsQuery) && osmToType(pair.key, pair.value, r.addresstype)) || 'other';
-      if (!addDraft.cityHand) addDraft.city = guessCity(lat, lng, details);
+      if (!addDraft.cityHand) {
+        addDraft.city = guessCity(lat, lng, details);
+        // no town to go on: the line waits (blank) for the point's reverse-geocoded town, else the
+        // nearest city; ADD meanwhile runs the same rule itself (handleAddLocationSubmit())
+        if (!addDraft.city) {
+          const p = addDraft.pick;
+          guessCityAt(lat, lng, null, d => { p.reverseDetails = d; }).then(g => {
+            if (addDraft.pick !== p || addDraft.cityHand || addDraft.city) return;
+            addDraft.city = g; renderAddTag();
+          });
+        }
+      }
       addErrText = '';
       hideAutocomplete();
       nameEl.blur();
@@ -9837,19 +9903,13 @@
       }
       return null;
     }
-    // After a pick-less guess failed (no details): reverse-geocode the point once and guess again.
-    async function addGuessAt(lat, lng, details) {
-      let g = guessCity(lat, lng, details);
-      if (!g && !details) { const d = await nominatimReverse(lat, lng); if (d) g = guessCity(lat, lng, d); }
-      return g;
-    }
     async function handleAddLocationSubmit() {
       const p = addDraft.pick;
       if (!p) return;
       const name = document.getElementById('nameInput').value.trim() || p.name;
       const notes = document.getElementById('notesInput').value.trim();
       let choice = addDraft.city;
-      if (!choice) choice = await addGuessAt(p.lat, p.lng, p.addressDetails);
+      if (!choice) choice = await guessCityAt(p.lat, p.lng, p.addressDetails);   // the line's guess was still waiting
       const createdCity = !!(choice && choice.newCity);
       const city = await addResolveCity(choice);
       if (!city) { addFail('<span class="tag-lab">Couldn’t save</span>try again. Nothing is lost.'); return; }
@@ -9865,8 +9925,9 @@
     }
     // A district / street: the outline is fetched now, from the pick's own OSM object when there is
     // one (Nominatim lookup), else by name near the pick, else by name in the line's city. City:
-    // a hand pick wins; else the outline's confident majority (resolveShapeCity()), else the line's
-    // guess. No outline: today's approximate pin (findApproximatePoint()), filed by the guess there.
+    // a hand pick wins; else the outline's confident majority (resolveShapeCity()), else the guess
+    // on its centroid (guessCityAt()). No outline: today's approximate pin (findApproximatePoint()),
+    // filed by the guess there.
     async function nominatimLookupPolygon(osmType, osmId) {
       const t = String(osmType || '')[0];
       if (!t || !osmId || !'NWR'.includes(t.toUpperCase())) return null;
@@ -9904,7 +9965,7 @@
       if (!geometry || !geometry.length) {
         const point = p ? { lat: p.lat, lng: p.lng, tier: 'the picked place', addressDetails: p.addressDetails } : await findApproximatePoint(name, cfg);
         if (!point) { addFail(`<span class="tag-lab">Not found</span>Couldn’t find “${escapeHtml(name)}” on OpenStreetMap. Try another spelling, or another type.`); return; }
-        let choice = addDraft.cityHand ? addDraft.city : await addGuessAt(point.lat, point.lng, point.addressDetails || null);
+        let choice = addDraft.cityHand ? addDraft.city : await guessCityAt(point.lat, point.lng, point.addressDetails || null);
         const createdCity = !!(choice && choice.newCity);
         const city = await addResolveCity(choice);
         if (!city) { addFail('<span class="tag-lab">Couldn’t save</span>try again. Nothing is lost.'); return; }
@@ -9925,7 +9986,7 @@
       let choice;
       if (addDraft.cityHand) choice = addDraft.city;
       else if (resolved.confident) choice = { id: resolved.winner };
-      else choice = addDraft.city || await addGuessAt(resolved.centroid[0], resolved.centroid[1], null);
+      else choice = await guessCityAt(resolved.centroid[0], resolved.centroid[1], null);   // below the confident share: the guess on the centroid (phase 3)
       const createdCity = !!(choice && choice.newCity);
       const city = await addResolveCity(choice);
       if (!city) { addFail('<span class="tag-lab">Couldn’t save</span>try again. Nothing is lost.'); return; }
@@ -10241,6 +10302,13 @@
     map.getPane('popupPane').addEventListener('click', (e) => {
       if (e.target.closest('.tag-x')) { e.stopPropagation(); map.closePopup(); return; }
       if (e.target.closest('.tag-slip button')) { e.stopPropagation(); hideTagSlip(); showAuthModal(); return; }
+      const cityBtn = e.target.closest('.tag-city');   // the routing line (phase 3): the city menu; signed out, the slip
+      if (cityBtn) {
+        e.stopPropagation();
+        if (cityBtn.getAttribute('aria-disabled') === 'true') { showTagSlip(); return; }
+        if (tagCityMenuKey === cityBtn.dataset.id) closeTagCityMenu(true); else openTagCityMenu(cityBtn.dataset.id);
+        return;
+      }
       const btn = e.target.closest('.popup-visited, .popup-star');
       if (!btn) return;
       const loc = rowItem(btn.dataset.id);   // a pin, or a district/street ('shape:<id>')
@@ -10265,6 +10333,159 @@
       if (isStar) ssReplay(loc.id); else vsReplay(loc.id);  // before the toggle, so the row is held and plays from its old state
       toggleLocationFlag(loc.id, isStar ? 'starred' : 'visited');
     });
+
+    // ---- THE HANGING TAG'S CITY (add-tag-jam phase 3, "the city-bucket model") ------------------
+    // The routing line's city opens the add tag's city menu (cityMenuHtml(): your cities, then "New
+    // city" + "+ {real town}"), body-level under its trigger like the add tag's. A pick files the
+    // place under that city (setPlaceCity()); "+ town" makes the city first (addCity()). The pin
+    // never moves: the city is a filing, not a location. Signed out / the playground: the button is
+    // greyed (aria-disabled) and offers today's sign-in slip.
+    const tagTownCache = new Map();   // row key -> reverse-geocoded details, for a place with none of its own (null while in flight)
+    const tagCityMenuOpen = () => tagCityMenuKey != null;
+    const tagCityTrigger = () => tagCityMenuKey == null ? null : document.querySelector(`.leaflet-popup .tag-city[data-id="${CSS.escape(tagCityMenuKey)}"]`);
+    // The point a place's city is reckoned from: a pin's own, a district / street's anchor on it.
+    const placePoint = item => item.shapeId != null && item.dir ? item.dir : [item.lat, item.lng];
+    function tagNewTown(key) {
+      const item = rowItem(key); if (!item) return null;
+      const [la, ln] = placePoint(item);
+      return newTownOption(item.address_details || tagTownCache.get(key) || null, la, ln);
+    }
+    function renderTagCityMenu() {
+      const key = tagCityMenuKey, item = rowItem(key), menu = document.getElementById('tagCityMenu');
+      if (!item) return;
+      const had = menu.contains(document.activeElement) ? document.activeElement.dataset : null;
+      menu.innerHTML = cityMenuHtml(item.city, tagNewTown(key), false);
+      if (had) {
+        const back = had.city ? menu.querySelector(`[data-city="${CSS.escape(had.city)}"]`) : menu.querySelector('[data-newcity]');
+        if (back) back.focus({ preventScroll: true });
+      }
+    }
+    function placeTagCityMenu() {
+      const menu = document.getElementById('tagCityMenu'), trig = tagCityTrigger();
+      if (!menu.hidden && trig) placeMenuUnder(menu, trig);
+    }
+    function openTagCityMenu(key) {
+      const item = rowItem(key); if (!item) return;
+      closeTagCityMenu(false);
+      closeSortMenu(false); closeTitleMenu(false);   // one overlay at a time
+      tagCityMenuKey = key;
+      const menu = document.getElementById('tagCityMenu');
+      renderTagCityMenu();
+      document.getElementById('tagMenuScrim').hidden = false;
+      document.body.classList.add('tag-menu-open');
+      menu.hidden = false;
+      placeTagCityMenu();
+      menu.style.setProperty('--slip-from', '-4px');
+      menu.classList.remove('opening'); void menu.offsetWidth; menu.classList.add('opening');
+      const trig = tagCityTrigger(); if (trig) trig.setAttribute('aria-expanded', 'true');
+      const first = menu.querySelector('[aria-checked="true"]') || menu.querySelector('.menu-row');
+      if (first) { first.focus({ preventScroll: true }); first.scrollIntoView({ block: 'nearest' }); }
+      // No town of its own (no address details, or a district / street): the point's town, looked
+      // up once (one Nominatim reverse); its "+ town" row joins the open menu when it arrives.
+      if (!item.address_details && !tagTownCache.has(key)) {
+        tagTownCache.set(key, null);
+        const [la, ln] = placePoint(item);
+        nominatimReverse(la, ln).then(d => {
+          if (d) tagTownCache.set(key, d); else tagTownCache.delete(key);   // a miss is asked again next time
+          if (d && tagCityMenuKey === key) { renderTagCityMenu(); placeTagCityMenu(); }
+        });
+      }
+    }
+    function closeTagCityMenu(refocus) {
+      const menu = document.getElementById('tagCityMenu');
+      if (menu.hidden && tagCityMenuKey == null) return;
+      const trig = tagCityTrigger();
+      tagCityMenuKey = null;
+      menu.hidden = true; menu.classList.remove('opening');
+      document.getElementById('tagMenuScrim').hidden = true;
+      document.body.classList.remove('tag-menu-open');
+      if (trig) { trig.setAttribute('aria-expanded', 'false'); if (refocus) trig.focus({ preventScroll: true }); }
+    }
+    document.getElementById('tagMenuScrim').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); closeTagCityMenu(true); });
+    (() => {
+      const menu = document.getElementById('tagCityMenu');
+      menu.addEventListener('click', e => {
+        const r = e.target.closest('.menu-row'), key = tagCityMenuKey; if (!r || key == null) return;
+        e.stopPropagation();
+        const item = rowItem(key), d = r.dataset;
+        if (d.city) { closeTagCityMenu(true); if (item && d.city !== item.city) setPlaceCity(key, d.city); }
+        else if (d.newcity) { const town = tagNewTown(key); closeTagCityMenu(true); if (town) movePlaceToNewCity(key, town); }
+      });
+      menu.addEventListener('keydown', e => {
+        const opts = [...menu.querySelectorAll('.menu-row')], i = opts.indexOf(document.activeElement);
+        const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
+        if (e.key === 'ArrowDown') go(i + 1);
+        else if (e.key === 'ArrowUp') go(i - 1);
+        else if (e.key === 'Home') go(0);
+        else if (e.key === 'End') go(opts.length - 1);
+        else if (e.key === 'Tab') { e.preventDefault(); closeTagCityMenu(true); }
+      });
+    })();
+    window.addEventListener('resize', placeTagCityMenu);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', placeTagCityMenu);
+
+    // The place's city changed on this phone (a pick, or its rollback): the row moves to its new
+    // section, the open tag re-reads its routing line and distance note; the pin doesn't move.
+    // The selected row stays in view, as when the tag opened (owner: "the list item in view should
+    // be the one selected").
+    function applyPlaceCity(key, cityId) {
+      const a = document.activeElement, refocus = !!(a && a.classList && a.classList.contains('tag-city'));
+      if (isShapeKey(key)) { const sid = shapeIdOf(key); neighborhoodShapes = neighborhoodShapes.map(n => n.id === sid ? { ...n, city: cityId } : n); }
+      else locations = locations.map(l => l.id === key ? { ...l, city: cityId } : l);
+      updateUI();
+      if (refocus) { const b = document.querySelector(`.leaflet-popup .tag-city[data-id="${CSS.escape(key)}"]`); if (b) b.focus({ preventScroll: true }); }
+      const list = document.getElementById('locationsList'), en = rowEntry(key);
+      if (openTagKey() === key && highlightedId === key && !sheetIsCollapsed() && en && en.el && en.el.isConnected && list.contains(en.el) && list.clientHeight > 0) {
+        const lr = list.getBoundingClientRect(), r = en.el.getBoundingClientRect(), bottom = lr.bottom - listSpacer.offsetHeight;
+        if (r.top < lr.top || r.height > bottom - lr.top) list.scrollTop += r.top - lr.top;
+        else if (r.bottom > bottom) list.scrollTop += r.bottom - bottom;
+      }
+    }
+    // Files a place (a row key: a pin's uuid or 'shape:<id>') under another of your cities: writes
+    // `city` on locations / neighborhood_shapes. Built like toggleLocationFlag(): optimistic,
+    // requireAuth(), held from the poll by flagWritesInFlight, the last write to settle refetches.
+    // Rollback is per write: only when the place still shows this write's city. Into a hidden city,
+    // the city is shown first (as an add does: revealCity()), or the place and its tag would vanish.
+    // Afterwards cleanupOrphanCities() removes an auto-added city the move left empty.
+    async function setPlaceCity(key, cityId) {
+      if (!await requireAuth()) return false;
+      const item = rowItem(key);
+      if (!item || !CITIES[cityId]) return false;
+      const prev = item.city;
+      if (prev === cityId) return true;
+      const shape = isShapeKey(key);
+      revealCity(cityId);
+      applyPlaceCity(key, cityId);
+      flagWritesInFlight++;
+      let ok = true;
+      try {
+        const { error } = await supabaseClient
+          .from(shape ? 'neighborhood_shapes' : 'locations')
+          .update({ city: cityId })
+          .eq('id', shape ? shapeIdOf(key) : key);
+        if (error) throw error;
+        hideError('mutation');
+      } catch (err) {
+        ok = false;
+        const now = rowItem(key);
+        if (now && now.city === cityId) applyPlaceCity(key, prev);
+        showWriteError(err, 'places');
+      } finally {
+        flagWritesInFlight--;
+      }
+      if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
+      cleanupOrphanCities();
+      return ok;
+    }
+    // "New city · + town" on the Hanging Tag: addCity() first (its own write error if it fails, and
+    // nothing moves), then the move. A move that then fails leaves the new city empty, and
+    // setPlaceCity()'s cleanup removes it.
+    async function movePlaceToNewCity(key, town) {
+      if (!await requireAuth()) return false;
+      const cfg = await deriveNewCityConfig(town.details, town.lat, town.lng);
+      if (!cfg || !await addCity(cfg)) return false;
+      return setPlaceCity(key, cfg.id);
+    }
 
     // ---- the tag's open / close choreography --------------------------------
     // Open: the map pans the pin to just under the top controls, the list
@@ -10300,7 +10521,7 @@
       if (!tagSlipOn) return;
       const t = e.target, inTag = t.closest && t.closest('.tag-popup');
       if (!inTag) { e.stopImmediatePropagation(); e.preventDefault(); hideTagSlip(); return; }
-      if (!t.closest('.tag-slip') && !(t.closest('.popup-star, .popup-visited') && t.closest('[aria-disabled="true"]'))) hideTagSlip();
+      if (!t.closest('.tag-slip') && !(t.closest('.popup-star, .popup-visited, .tag-city') && t.closest('[aria-disabled="true"]'))) hideTagSlip();
     }, true);
     function showTagSlip() {
       const p = tagOpenNow() && map._popup, c = p && p.getElement();
@@ -10411,6 +10632,7 @@
     }
     function tagClosed(popup) {
       clearTimeout(tagLiveTimer); clearTimeout(tagPopTimer);
+      closeTagCityMenu(false);
       hideTagSlip();
       const c = popup.getElement(); if (c) c.classList.remove('tag-wait', 'tag-pop');
       if (tagDot) { map.removeLayer(tagDot); tagDot = null; }
@@ -10431,7 +10653,9 @@
     // container itself has focus); not while the sign-in sheet is up.
     document.addEventListener('keydown', e => {
       if (e.key !== 'Escape' || !tagOpenNow() || document.getElementById('authModal').classList.contains('show')) return;
-      e.preventDefault(); map.closePopup();
+      e.preventDefault();
+      if (tagCityMenuOpen()) { closeTagCityMenu(true); return; }   // the city menu first
+      map.closePopup();
     });
     map.on('popupopen', e => { if (isTagPopup(e.popup)) tagOpened(e.popup); });
     map.on('popupclose', e => { if (isTagPopup(e.popup)) tagClosed(e.popup); });
