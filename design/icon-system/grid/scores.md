@@ -696,3 +696,77 @@ set? If so: which corners (by joint, even wear or pressed), and 2px or
 **Did the work change?** Yes. It's a full redraw against G1–G4. Its
 gains are real: centring by method, no pills, no passage, fitted
 corners and pixel fitting.
+
+## Round g7b (edf46cd), 2026-10-19: 8, close
+
+**What I read, in this order:**
+1. `g7-sheet-1-1x` and its blurred rows (the squint);
+2. sheet 1 at 3x;
+3. sheet 2 (cup and museum);
+4. jam turn 28 and `check-svg.py`.
+
+**My squint, written first:**
+- **Darkest:** the cup. It's now a compact block (wall plus ear) and the
+  blur makes it a dark square.
+- **Lightest:** the museum. Four thin posts under a thin roof read as a
+  comb or a rack at 24.
+- **The coupe and the tree sit between them,** and they match each
+  other well.
+- **Beside Material and Phosphor,** the cup is now in family with
+  theirs, and that's the right fix. The museum is the one that looks
+  less finished than the references: both of theirs keep a beam or
+  plinth that ties the columns together.
+
+**Gates: one fails.** Honesty.
+- Sheet 1 still says "Every counter or gap is at least the line
+  (1.5px), so it stays open at 12px and 24px."
+- The museum's new 1px cut makes that untrue, and sheet 2 calls it "the
+  narrowest passage in the set".
+- `for-director.md` also keeps the stale "Batch 2 proposes a
+  line-to-line join rule" line.
+- A gate failure caps the score at 8.
+
+**Craft:**
+
+| | Result | Why |
+|---|---|---|
+| C1 Centring | Pass | It holds. |
+| C2 Equal weight | **Fail (inverted)** | It swung from a heavy museum to a heavy cup and a light museum. The spread in the blurred row is about the same as g7's; only the outliers changed. |
+| C3 Proportion | Cup: pass. Museum: **fail** | The D-ear joined to the wall reads as a handle at 24 and sits with the references. The museum without its beam loses the tie that makes columns a building: a thin roof on four free posts. |
+| C4 Counters | **Marginal** | The museum's 1px cut is below the set's own minimum (the line). At 12, at 1x, it's one device pixel. |
+| C5 Corners | Pass | |
+| C6 Joins | Pass | Change 14: the 0.25px V traps at right-angle joins. The + crossing is clean at 3x, and so is the coupe's stem. |
+| C7 Pixels | Pass | |
+| C8 Metaphor | Pass | |
+
+**Score: 8.** The cup and the joins are fixed; the museum isn't.
+Balance comes from meeting in the middle, not swinging past it.
+
+### Fixes (one batch, small)
+
+1. **The museum, a third way, between g7 and g7b:**
+   - Put back a thin entablature or beam, so the columns sit on and under
+     solid parts, as both references do.
+   - Every gap is at least the line, so no 1px cut.
+   - Pull its weight up to the coupe and the tree in the blurred row.
+   - Levers: the beam's depth, the column width, three-quarter-height
+     columns. Keep four columns.
+2. **The cup, a touch lighter in the blur,** to meet the coupe and the
+   tree:
+   - narrow the wall-to-ear mass slightly, or open the ear's counter
+     toward 2px;
+   - keep the ear joined, and keep the cup's height.
+3. **The blurred row's verdict stated,** after 1 and 2: "darkest: X,
+   lightest: Y, within about the spread of Material's row", and true
+   when he looks.
+4. **Text:**
+   - sheet 1's "at least the line" sentence is made true by fix 1;
+   - drop the stale "Batch 2 proposes a line-to-line join rule" from
+     `for-director.md`.
+
+**The question (unchanged):** "Are these at the craft level now, as a
+set? If so: which corners (by joint, even wear or pressed), and 2px or
+1.5px of air?"
+
+**Did the work change?** Yes. The cup's ear and the ink traps are real
+craft gains (C3 for the cup, C6). The museum overshot.

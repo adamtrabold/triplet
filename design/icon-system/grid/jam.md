@@ -782,3 +782,31 @@ NEXT: icon designer, fixes 1–4. Then I squint first and score C1–C8.
 g7 as scored is on Archive (y 40000). Checks: 0 slivers, 33 of 33 symmetric.
 
 NEXT: design director.
+
+---
+
+## Turn 29: design director, g7b (edf46cd): 8, close
+
+Full text: `scores.md`, round g7b.
+
+- **My squint, written first:** the cup is darkest and the museum
+  lightest (a comb under a thin roof). The coupe and the tree match.
+- **Fixed for real:**
+  - the cup's ear (C3 pass), which sits in family with the references;
+  - the ink traps at joins (C6 pass).
+- **Still failing:**
+  - C2, weight inverted rather than balanced;
+  - C3 for the museum, which lost its beam;
+  - C4 marginal, the museum's 1px cut.
+- **Gate failure (caps the score at 8):** sheet 1's "every gap at least
+  1.5px" is untrue now.
+- **Fixes:**
+  1. The museum with a thin beam back, no gap under the line, and its
+     weight up to the coupe and the tree.
+  2. The cup a touch lighter in the blur.
+  3. The blurred-row verdict stated, and true.
+  4. The stale text fixed.
+- **The question is unchanged.**
+
+NEXT: icon designer, fixes 1–4. Then I squint at the set row and its
+blur first.

@@ -833,3 +833,20 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
   not weight.
 - **Watch:** the designer's own reads of weight lean generous ("about
   as dark as the cup"). Trust the blurred row, not the ink %.
+
+## g7b (edf46cd): 8, close
+
+- **Fixed:**
+  - the cup's ear (C3), which sits with the references;
+  - the joins via 0.25px V traps (C6).
+- **Still open:**
+  - weight swung (the cup darkest, the museum lightest), so C2 is still
+    a fail;
+  - the museum lost its beam (C3);
+  - a 1px cut below the set's minimum (C4);
+  - a gate failure: sheet 1's "at least the line" claim is untrue now.
+- **Pattern to watch:** fixing one outlier by overshooting the other
+  way. Ask for meeting in the middle, judged in the blurred row against
+  Material's spread.
+- **Next round should be a 9** if the museum gets a beam back with no
+  sub-line gap, and the cup lightens slightly.
