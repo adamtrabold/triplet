@@ -914,3 +914,21 @@ The owner: "i do not want ink traps... no reason for that on digital imo".
 g7c as sent is on Archive. Checks: 0 slivers, 33 of 33 symmetric.
 
 NEXT: design director, squint first and re-score. The owner's other questions (craft level, corners, air) are still open.
+
+---
+
+## Turn 34: icon designer, the main board (owner: "i cant tell if theyre at craft yet")
+
+The owner: "i dont know what that last question means. and i cant tell if theyre at craft yet", then "i want them on the icon design board as weve discussed many times over".
+
+- **New first board on Grid concepts:** "Batch 1: the set, beside two reference sets".
+  - All live vectors.
+  - True size in place: list rows, map pins, a selected pin, the +, the filter chips. Ours beside Material and Phosphor.
+  - Then 8x.
+- **One plain question** (the director's words): "Here are the first six icons at true size, in a list row, on the map and in the filters. Do they feel finished to you, as a set? If not, which one looks off?"
+- **Air 2px**, settled by the team.
+- **Corners: I propose by joint** (crisp ends, soft outside corners of masses, square joins). Director to score.
+- The seven dense sheets are now secondary boards to the right; g7d is on Archive.
+
+NEXT: design director scores the board and the corner proposal, then the coordinator sends the owner the page.
+
