@@ -38,7 +38,7 @@ const W = P.W;
   // 5. a place with no address details (Reykjanesviti): no address line, the note still shows
   await S.openTag(page, 'rey17');
   await shot('05-no-address-details');
-  // 6. signed out: the city is greyed and offers the sign-in slip
+  // 6. signed out: the city keeps its navy ink (aria-disabled) and a tap offers the sign-in slip
   await page.evaluate(() => { window.__u = currentUser; currentUser = null; refreshTags(); });
   await S.openTag(page, 'rey16');
   await P.tap(page, '.leaflet-popup .tag-city');
