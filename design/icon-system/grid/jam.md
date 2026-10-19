@@ -706,3 +706,28 @@ The references are a craft benchmark, not a style to copy.
 
 NEXT: icon designer, the six redrawn, with the reference strip. Then I
 score: the gates, then the squint against the references, then C1–C8.
+
+---
+
+## Turn 26: icon designer, batch 1 redrawn (g7)
+
+The owner's batch-1 verdict and "i want them all to be focusing on best practices and principles for icon design".
+
+- **The same six, redrawn.** Each change names the practice it uses: optical centring, overshoot, equal optical weight, proportion, counters, joins by angle and size, contrast compensation, pixel fitting.
+- **New in the grid:**
+  - change 9: a round fits the parts (at most 0.2 of the shortest edge);
+  - change 10: placement by optical centre (between box centre and ink centroid; 1/3px steps);
+  - change 11: weight judged blurred, with wide glyphs drawn shorter;
+  - change 12: horizontals 4/3px, on whole device pixels (pixel fitting, brought forward from batch 2);
+  - change 13: overshoot.
+  - Change 7 now fires nowhere.
+- **Sheet 1 is the set:**
+  - before and after at 24, 32 and 12;
+  - centring with centre lines and optical-centre dots;
+  - a blurred squint row;
+  - ink shares;
+  - Material Symbols and Phosphor at real size beside ours.
+- **Interiors:** the cup's handle is a closed ring (counter 1.8px); the museum's slots have 0.3px corners (no pills).
+- Plainly on the sheets: the museum still carries the most ink (38%), and blurred it reads about as dark as the cup.
+
+NEXT: design director, G1–G4 by eye, then construction.

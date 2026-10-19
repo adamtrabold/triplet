@@ -1,126 +1,100 @@
-# Grid g6, batch 1: the first drawn icons, for the design director
+# Grid g7: batch 1 redrawn to the craft bar, for the design director
 
-From the icon designer, 2026-10-17, built to your turn-18 criteria (A: craft; B: the grid held/broke report). The g5 handoff (and my MUTCD measurements) are in git history.
+From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first). The g6 handoff is in git history.
 
-## His words (verbatim)
+## His words (verbatim, `../owner.md`)
 
-> "Weight wise 1.5 but these icons are far from there drawing wise"
+> "i definitely think it's the right side for all of the icons on the first board on this page... and i definitely think the 1.5px weight feels the best right now. that said none of these are yet at the craft level i need the icons to be at -- the sizes of various parts of many of these are not yet optically pleasing, the rounding at various intersections feels wrong (some places too broad roujnding, some too tight), and some of the choices inside of the icons don't make sense (for example why does the coffee cup handle cut off on the bottom - it creates a narrow passage that will definitely disappear at small sizes...and why is the interior of the museum pillars totally rounded pill shapes...these are just examples). i also think some of these decisions are contributing to poor optical alignment inside of the badge -- some feel like they're floating above center, some feel slightly lower on center. none have the same optical weight exactly yet when viewed as a set."
 
-> "Let's do a few at a time— we will need to pressure test the grid as it's being made"
-
-His build brief is quoted in full on sheet 0, and in `../owner.md`.
-
-## What's in batch 1, and why these
-
-| Icon | What it tests |
-|---|---|
-| Café | curves: the low cup, the ear, the saucer's lifted ends |
-| Bar | a curve flowing into a straight stem, and a foot |
-| Museum | right angles, and a repeated part (the columns) |
-| Nature | sharp tips and notches |
-| The + | a crossing (an app icon) |
-| The Star | the one outline (an app icon) |
-
-These are four kinds of joint, plus one crossing and one outline, so each corner law gets tested on every kind. Hotel, venue, landmark and attraction are proposed for batch 2.
+> "i want them all to be focusing on best practices and principles for icon design"
 
 ## Where
 
-- **Canvas, page "Grid concepts":** https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW. Six boards (`Grid6Intro`, `Grid6Drawings`, `Grid6Corners`, `Grid6App`, `Grid6Air`, `Grid6Rules`). The page title is the question.
-- **g5 moved to Archive** (y 30000), nothing deleted.
-- **Stills:** `stills/g6-sheet-0..5.png` (3x) and `g6-sheet-3-1x.png`. Source: `cards-g6.html`.
+- **Canvas, page "Grid concepts":** https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW. Seven boards: `Grid7Intro`, `Grid7Set`, `Grid7Drawings`, `Grid7Corners`, `Grid7App`, `Grid7Air`, `Grid7Grid`.
+- **g6 (batch 1 as he saw it) moved to Archive** (y 36500).
+- **Stills:** `stills/g7-sheet-0..6.png` (3x) and `g7-sheet-1-1x.png`. Source: `cards-g7.html`.
 - **Code:**
-  - `src/picks6.js`: the drawings, as functions of the box size, so the air option redraws them rather than scaling them;
-  - `src/laws6.js`: the three laws at 1.5px, the g2 radii × 0.75;
-  - `src/boards6.js`.
-- **SVGs:** `svg/g6/<law>-<air>/`, single paths, `currentColor`.
-- I looked at every sheet at 3x, sheet 3 at 1x, and sheet 2 at 760.
+  - `src/picks7.js`: the drawings; each comment names its principles;
+  - `src/laws7.js`: the laws with the size fit;
+  - `src/optics.js`: ink area, ink centroid and box, exact from the outline;
+  - `src/boards7.js`: the sheets, with `place()` (optical centring).
+- **SVGs:** `svg/g7/<law>-<air>/`.
+- **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
+- I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
-## The sheets
+## Your gates, by eye
 
-- **0. The batch.** His two quotes, his brief verbatim, which icons and why, and what he can now judge. Ends with the question.
-- **1. The drawings.** Each icon on grid A at 6.3x: the g5 skeleton beside the drawing, with the construction shown as orange outlines of the simple shapes (cuts dashed). Below that:
-  - real size at 24, 12 and on the 32 pin, and 3x;
-  - a line on how it's built, and the curve count.
-  The + and the Star are shown beside the g5 1.5px strokes.
-- **2. The corners, on the drawings.** All 6 icons × 3 laws at 3.5x and at real size (24, 12, the 32 pin), plus two close-ups per law (the museum's beam and columns; the conifer's notches).
-  - The clearest difference, stated on the sheet: by joint and pressed turn the spaces between the columns into small arches and fill the conifer's notches. Even wear keeps them square.
-  - Plainly: at real size the three laws are close.
-- **3. In the app, real size.** The three laws stacked in list rows (with today's visited stamp), on a map with a selected pin and today's sticker, in the chips and on the + badge.
-- **4. The air.** 2px (box 12) vs 1.5px (box 12.75, every line still 1.5), on the grid at 4x, at real size, on the selected pin and in a row. Plainly: it's half a pixel a side. The cost is named: at 12.75 the guides fall off the lattice.
-- **5. The grid, pressure-tested** (to your turn-18 B):
-  - held and broke, icon by icon (all six);
-  - each of the six proposed changes, shown before and after on the icons it fixes;
-  - the curve rule shown with points and handles;
-  - "none is a one-icon exception" (change 2 removes one);
-  - no earlier batch to re-check, so it says so;
-  - the open items.
+- **G1, centring (sheet 1, "Centring").**
+  - Each drawing is placed by its optical centre: halfway between its box centre and its ink centroid. Steps are 1/3px vertically and 1/4px horizontally.
+  - Batch 1 measured: coupe 0.8px high, cup 0.2px high, museum and conifer 0.4px low.
+  - Redrawn: every optical centre is within 1/6px of the badge centre.
+  - The rows are shown at 2.6x with centre lines and dots, and at 24 and on the 32 pin.
+- **G2, weight (sheet 1, "Weight").**
+  - Squint test (a blurred row, before and after) plus ink share. Redrawn: café 31%, bar 29%, museum 38%, nature 30%.
+  - Plainly: the museum still carries the most ink. Blurred, it reads about as dark as the cup, because its ink is spread out. If you read it as heavier, its next lever is height (it is already drawn 11.3px tall, as a wide glyph).
+  - The + and the Star sit in the same rows.
+- **G3, interiors.**
+  - The cup's handle is a closed ring with its own counter, 1.8px across, held clear of the wall: no passage.
+  - The museum's spaces are 1.5px slots with 0.3px corners, so no pills.
+  - The conifer droops less, so its notches stay open.
+  - The coupe is solid.
+  - The Star's counter is about 6px across.
+  - No passage is narrower than the line.
+- **G4, proportion and corners.**
+  - **Coupe:** foot about 70% of the bowl.
+  - **Museum:** a low pediment (about 22°); beam and plinth overhang the columns 0.5px so it reads as a colonnade. Three columns were tried and read as a box with two doors, so four stay.
+  - **Cup:** about 1.4:1, with the saucer at full width.
+  - **Corners:** all three laws now share a fit rule: a round is never more than 0.2 of the shortest edge at its corner. That gives small corners on slots and line ends and full rounds on big joins. The by-joint values are also retuned: joins 0.6 (was 0.825), mass corners 0.45, line ends and tips 0.3.
 
-## How the drawings answer his brief
+## The practices, where each is used
 
-- **"at their root simple shapes, but joined together":** every part is a rectangle, a triangle, a two-point curve or half a ring, united into one solid path with real counters.
-- **"minimal bezier curves with perfect architecture":**
-  - each bowl is two cubics between its extremes, with flat or upright handles;
-  - each conifer branch is one curve a side;
-  - curves per outline, by joint: café 16, bar 12, museum 23, nature 27. Most of these are the corner rounds (one cubic each);
-  - points sit on a 0.25px lattice.
-- **"personality in the approach to how strokes are connected and curve":**
-  - the cup's ear hangs on its shoulder;
-  - the coupe's bowl flows into the stem;
-  - the conifer's branches droop to their tips;
-  - the saucer's ends lift.
-- **"slight rounding … not 100% consistent … screened or pressed":** the three laws are shown on these drawings, and each gives a different radius per kind of corner.
-- **The four details that cost the read at 1.5:** not drawn (change 3, shown with and without on the café and bar). The rim and the drink line are gone; the cup and the coupe read from their silhouettes. The bag and the bed are in batch 2.
+- **Optical centring:** `place()`, all six. Sheet 1 shows it; sheet 6, change 10.
+- **Overshoot:**
+  - the conifer's tip rises 1/2px above TOP;
+  - the museum's apex rises 1/3px;
+  - change 13.
+- **Equal optical weight:**
+  - checked by the squint row and ink share;
+  - wide glyphs are drawn shorter;
+  - change 11.
+- **Proportion:** per icon, sheet 2.
+- **Counters that survive small sizes:** G3 above.
+- **Joins and corners by angle and by size:** `laws7.js`; change 9.
+- **Contrast compensation:** horizontals are 4/3px against 1.5px uprights (the saucer, beam, plinth and the + crossbar); change 12.
+- **Pixel fitting** (your batch-2 ask, brought forward):
+  - 4/3px is exactly 4 device pixels on a 3x phone;
+  - horizontal edges sit on the 1/3px lattice, and placement moves in 1/3px steps;
+  - uprights stay 1.5px and centred, so their edges are half a dot off: symmetry wins for uprights;
+  - shown on sheet 6 (change 12) against the device-pixel grid.
+  - Cost, stated on the air sheet: 1.5px of air puts the box at 5.625 and loses the lattice.
 
-## After your batch 1 score (8): the three fixes
+## Reference strip (sheet 1)
 
-1. **The collision rule in the engine:**
-   - one centred semicircle where two rounds collide on a slot or bar end;
-   - even edge-sharing where a run under 0.2px would be left;
-   - a semicircle keeps its size and a neighbour gives way.
+Your turn 25 asked for Material Symbols and SF Symbols. SF Symbols isn't shown: Apple's licence limits them to Apple-platform work, and they can't be downloaded here. Phosphor (MIT) stands in, and the sheet says so.
 
-   `src/check-svg.py` covers slivers, zero-length curves and mirror symmetry within 0.01px. `svg/g6` gives 0 slivers and 33 of 33 symmetric (the café is skipped by design; the batch 1 museum, kept in `svg/g6/before-collision/`, fails by 0.06). Sheet 5 has change 7: the slot at 68x before and after with points and handles, real size, and all six re-checked. Slot top now: apex x 9.000, radius 0.75, handles 0.414 each.
-2. **Sheet 2, fair both ways.**
-   - By joint and pressed: the museum reads as an arcade, or a comb, at real size.
-   - Even wear: blunter cut ends; the museum stays columns.
-   - "Close at real size" is limited to the icons where it's true.
-3. **Conifer.** Three tiers reads better at 24, 12 and on the 32 pin, at the cost of a broader tree. It's now the drawing (sheet 1 shows the four beside it). It broke the g4 tier table, so change 8 ("as many as fit" is a ceiling, not a target) is shown before and after.
+Material Symbols Rounded (fill) and Phosphor (fill) for the cup, coupe, column front, tree, + and Star. Each is shown at 24px as drawn, then inside our badge at our 12px box, with ours in the same row. They're shown to judge craft (joins, counters, proportion), not to copy. They also appear at 12px beside our chips, with a faint centre line on our 24px row.
 
-Not yet done, due in batch 2: the pixel-snap rule at 1x.
+Plainly, on the sheet: in our badge at our box, both references look lighter than ours. That's the 1.5px line on a 12px drawing.
 
-## Grid pressure test (sheet 5)
+## C6, contrast compensation at joins (open, stated on sheet 6)
 
-**Kept:**
-- 1.5px everywhere;
-- the box and the TOP and BASE guides (every icon uses them);
-- MIDDLE (the cup and saucer centres on it exactly).
+The horizontals are compensated; the joins aren't. By joint and pressed add a small round where two lines meet, which adds ink at the join, the opposite of an ink trap. It's invisible at 24; at 3x the + crossing is slightly webbed. Batch 2 proposes a line-to-line join rule.
 
-**Changed (proposed):**
-- **Cut 1px, not 0.9.** 0.9 never lands on the lattice.
-- **Spaces between repeated parts = the line.** The museum gets four columns; the skeleton's special spacing allowed three.
-- **No hairline cuts inside a mass.** Detail comes from the silhouette and from open counters. This replaces "small details only at w ≤ 1.5".
-- **A curve rule:** a curve runs between its extremes and ends on the lattice or at a corner.
-- **Angles:** straight lines keep "orthogonal, 45° or whole-pixel slope"; curves follow the curve rule.
-- **App icons are drawn as shapes**, not strokes, so they can take the corner law.
+## Interiors enlarged (sheet 1)
 
-**Open:**
-- **SHOULDER (4) held in two of four** (the coupe's bowl, redrawn shallower to end on it, and the museum's beam). Batch 2 tests it again.
-- The corner law and the air are his picks.
-- **The lattice:** a 1.5px line centred in a 12px box can't sit on whole or half pixels, so its edges fall between dots on a 3x phone.
+At 8x, with widths: the cup's counter is 1.8px; the museum's slots are 1.5 × 5px; the conifer's notches open to the outside; the Star's counter is about 6px at 20px.
 
-## Craft checks
+## Construction
 
-- **Slivers (your g2 must-do) are fixed in the engine.** A straight run under 0.2px between two rounded corners is dropped.
-  - `microseg.py` on `svg/g6`: 0 slivers, down from 81 before the fix.
-  - `boards4.js` now writes its SVGs only when run itself, so the archived g4 SVGs don't change.
-- **Every drawing fits:** the furthest ink is 8.38px from the centre, against a 10.5px inside edge of the ring.
+- `check-svg.py` on `svg/g7`: 0 slivers; 33 of 33 symmetric files mirror within 0.01px (the café is skipped by design).
+- The collision rule (change 7) fires nowhere: 0 arcs in every icon under every law, because fitted rounds never collide.
 
 ## My read (not on the sheets)
 
-- **The drawings are clearly closer than the skeletons at real size.** The cup and the coupe now read as objects, and the museum reads as a column front.
-- **Corners:** by joint gives the most "carved" character: the column arches and the + crossing. Even wear softens the cut ends, which reads friendlier but less precise; pressed is the most "printed".
-- **Air:** I'd expect him to see little difference at real size.
-- **Weakest drawing:** nature. At 12px its four tiers crowd, and batch 2 may want three at the chip.
+- **Best gains:** centring is fixed by method, not by eye-nudging, and the slots and the handle are fixed.
+- **Weakest:** the cup's ring handle. It reads clearly as a handle at 24, but at 3x it's a ring, a simplification more than an ear. If he wants an ear, it needs a vertical cup wall the full height of the counter. That changes the cup's silhouette, and I'd show it as an option, not slip it in.
+- **The museum's weight** is the open judgement call (G2).
 
 ## The ask
 
-"Are these closer drawing-wise? If so: which corners (by joint, even wear or pressed), and 2px or 1.5px of air?"
+"Are these at the craft level now, as a set? If so: which corners (by joint, even wear or pressed), and 2px or 1.5px of air?"

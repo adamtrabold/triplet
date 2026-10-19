@@ -23,12 +23,12 @@ const DRAW = {
   // CAFÉ. Proportion: a cup about 1.6 x as wide as it is deep, on a saucer as wide as the whole glyph.
   // Counters that survive: the handle is a full ring with its OWN round counter (1.5px), held clear of
   // the cup's wall, so there is no passage between handle and cup to close up (owner: "why does the
-  // coffee cup handle cut off on the bottom - it creates a narrow passage").
+  // coffee cup handle cut off on the bottom - it creates a narrow passage"). The counter is 1.8px across.
   cafe(s = 12) {
     const u = s / 12, X = v => f(v * u);
-    const top = 2, bot = T(7.333), l = 0.5, r = 8.5, mid = (l + r) / 2;
-    const cup = D(`M${X(l)} ${X(top)}H${X(r)}C${X(r)} ${X(5.5)} ${X(6.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2.1)} ${X(bot)} ${X(l)} ${X(5.5)} ${X(l)} ${X(top)}Z`);
-    const ring = O(X(9.5), X(4.25), 1.5 * u, W);                     // centreline r 1.5: counter 1.5, ink 1.5
+    const top = 2, bot = T(7.333), l = 0.5, r = 8, mid = (l + r) / 2;
+    const cup = D(`M${X(l)} ${X(top)}H${X(r)}C${X(r)} ${X(5.5)} ${X(6.5)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2)} ${X(bot)} ${X(l)} ${X(5.5)} ${X(l)} ${X(top)}Z`);
+    const ring = O(X(9.6), X(4.4), 1.65 * u, W);                     // centreline r 1.65: counter 1.8 across, ink 1.5
     const st = bot + CUT;                                             // saucer top
     const saucer = D(`M${X(0)} ${X(st)}H${X(12)}C${X(11.55)} ${X(st + 1.05)} ${X(10.9)} ${X(st + WH)} ${X(10.1)} ${X(st + WH)}H${X(1.9)}C${X(1.1)} ${X(st + WH)} ${X(0.45)} ${X(st + 1.05)} ${X(0)} ${X(st)}Z`);
     return [cup, ring, saucer];

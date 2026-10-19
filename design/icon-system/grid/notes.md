@@ -74,3 +74,7 @@ Product designer (icon specialist). Owner, verbatim: "we're not at drawing step 
 
 - The drawing step starts, a few icons at a time, each batch pressure-testing the grid. Batch 1: café, bar, museum, nature, the +, the Star.
 - `src/picks6.js` holds the drawings (functions of the box size); `src/laws6.js` the corner laws at 1.5px; `src/boards6.js` writes `cards-g6.html`, `stills/g6-*` and `svg/g6/`. The rules sheet (sheet 5) is the grid's current state.
+
+## Round g7 (2026-10-19), batch 1 redrawn after "none of these are yet at the craft level i need"
+
+- The six redrawn to named icon-design practices. `src/picks7.js` (drawings), `src/laws7.js` (laws with the size fit), `src/optics.js` (area, centroid), `src/boards7.js` (sheets; `place()` = optical centring). Reference sets in `reference/`. `cards-g7.html`, `stills/g7-*`, `svg/g7/`.
