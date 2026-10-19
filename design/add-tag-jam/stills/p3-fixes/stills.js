@@ -23,6 +23,10 @@ const BUSY = { rey15: { ...S.REAL.rey15, name: 'Gunnhuver geothermal area - fuma
     await page.evaluate(() => { const st = planStops.filter(x => x.plan_id === 'gh-p').sort((a, b) => a.position - b.position); if (st[2]) { st[2].location_id = 'rey15'; st[2].shape_id = null; } choosePlan('gh-p'); }); await W(900);
     await S.openTag(page, 'rey15');
     await shot('01-busiest');
+    // a plain short tag (inside its city, no note): the breathing room reads
+    await S.openTag(page, 'rey16');
+    await shot('00-plain');
+    await S.openTag(page, 'rey15');
     if (w === 390) {
       // a plain tag at rest: the city's chevron cue
       await page.evaluate(() => { showPlacesView && showPlacesView(); }).catch(() => {});

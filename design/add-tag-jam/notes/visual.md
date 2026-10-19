@@ -343,3 +343,12 @@
   letting the busiest tag scroll on small phones.
 - **Next:** the owner sees the two stills; the builder applies them in one
   batch.
+- **2026-10-19, round 2:** the owner turned down the tightening ("all the
+  padding above and below the main content is gone").
+  - Restored main's padding: 48 above, address margin 2, fields 12/12.
+  - The city line stays 20px + 4px to the name; the × is at top 64.
+  - Measured: the plain tag is 160px everywhere; the busiest is 256px, which
+    fits at 390×844 and scrolls about one line at 375×667. That is the stated
+    trade.
+  - Prototype 55fa81dd. Still: `3-tag-padding.png` (it replaces
+    `1-tag-fits.png`).

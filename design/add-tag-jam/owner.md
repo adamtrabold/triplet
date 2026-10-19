@@ -128,3 +128,6 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 
 ## 2026-10-18 (on the Phase 2 fixes stills)
 > I like the change to the add dropdown
+
+## 2026-10-19 (on the Phase 3 fixes stills)
+> all the padding above and below the main content is gone
