@@ -352,3 +352,10 @@
     trade.
   - Prototype 55fa81dd. Still: `3-tag-padding.png` (it replaces
     `1-tag-fits.png`).
+
+- **2026-10-19, round 3:** the owner approved the scroll trade and wants more
+  padding; the title stays on the go-to city.
+  - Final: padding-top 56, city to name 6, fields 12/16, × at top 74.
+  - The plain tag is 174px; the busiest is 270px, which fits at 390×844 and
+    scrolls at 375×667.
+  - Prototype 9ff4e3c0. The addendum is final for the builder.
