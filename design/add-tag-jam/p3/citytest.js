@@ -51,17 +51,23 @@ const sh = require('./lib-p3.js');
       left: btn.querySelector('.route-city-name').getBoundingClientRect().left - t.querySelector('.tag-name').getBoundingClientRect().left, hit: btn.getBoundingClientRect().height - 2 * parseFloat(getComputedStyle(btn, '::before').top),
       x: Math.abs((t.querySelector('.tag-x').getBoundingClientRect().top + 22) - (t.querySelector('.tag-name').getBoundingClientRect().top + 14)) };
   });
-  ok('B1 the routing line is the tag\'s first line: the city, caps 12 navy, no chevron', t1.first === 'route-line' && t1.text === 'Reykjavík' && !t1.chev && /^12px 700 1.44px uppercase rgb\(18, 41, 63\)$/.test(t1.font), t1);
+  ok('B1 the routing line is the tag\'s first line: the city, caps 12 navy, with the add tag\'s chevron (p3 fixes §1)', t1.first === 'route-line' && t1.text === 'Reykjavík' && t1.chev && /^12px 700 1.44px uppercase rgb\(18, 41, 63\)$/.test(t1.font), t1);
   ok('B2 left-aligned with the name; 44px target; the x stays on the name line', Math.abs(t1.left) <= 0.5 && t1.hit >= 44 && t1.x <= 1, t1);
   ok('B3 inside its city\'s area: no distance note; the button says "City: Reykjavík. Change the city"', !t1.dist && t1.label === 'City: Reykjavík. Change the city', t1);
   await sh.openTag(page, 'rey15');   // re-set as Gunnuhver (outside the box)
   const t2 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), d = t.querySelector('.tag-dist'), a = t.querySelector('.tag-addr'), cs = d && getComputedStyle(d);
-    return { text: d && d.textContent, under: d && a && d.previousElementSibling === a, font: cs && [cs.fontSize, cs.lineHeight, cs.fontWeight, cs.paddingTop].join(' '), desc: t.querySelector('.tag-city').getAttribute('aria-describedby') === d.id };
+    return { text: d && d.textContent, addr: a && a.textContent, inAddr: d && d.parentElement === a, sep: !!(a && a.querySelector('.tag-dist-sep[aria-hidden="true"]')), font: cs && [cs.fontSize, cs.fontWeight, cs.whiteSpace, cs.display].join(' '), desc: t.querySelector('.tag-city').getAttribute('aria-describedby') === d.id };
   });
-  ok('B4 outside its city\'s area: "≈ 50 km from Reykjavík" under the address, 11/14 400, 4px above', t2.text === '≈ 50 km from Reykjavík' && t2.under && t2.font === '11px 14px 400 4px' && t2.desc, t2);
+  ok('B4 outside its city\'s area: "Vitabraut · Reykjanesbær · ≈ 50 km from Reykjavík", the note at the end of the address line, 11px 400, one unbreakable piece (p3 fixes §2)', t2.text === '≈ 50 km from Reykjavík' && t2.addr === 'Vitabraut · Reykjanesbær · ≈ 50 km from Reykjavík' && t2.inAddr && t2.sep && t2.font === '11px 400 nowrap inline' && t2.desc, t2);
   await sh.openTag(page, 'rey17');   // re-set as Reykjanesviti: no address details, no short address
-  const t3 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'); return { addr: !!t.querySelector('.tag-addr'), dist: (t.querySelector('.tag-dist') || {}).textContent }; });
-  ok('B5 no address details: no address line, the note still works (coordinates only)', !t3.addr && t3.dist === '≈ 50 km from Reykjavík', t3);
+  const t3 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), a = t.querySelector('.tag-addr'); return { addr: a && a.textContent, sep: !!(a && a.querySelector('.tag-dist-sep')), dist: (t.querySelector('.tag-dist') || {}).textContent }; });
+  ok('B5 no address details: the note stands alone on the address line (coordinates only)', t3.addr === '≈ 50 km from Reykjavík' && !t3.sep && t3.dist === '≈ 50 km from Reykjavík', t3);
+  // the spacing (p3 fixes §2): 60 above the first line, a 24px city line, 8 to the name, fields 12 / 16
+  await sh.openTag(page, 'rey16');
+  const sp = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), stock = t.querySelector('.tag-stock').getBoundingClientRect(), line = t.querySelector('.tag-in > .route-line').getBoundingClientRect(),
+      name = t.querySelector('.tag-name').getBoundingClientRect(), f = t.querySelector('.tag-fields'), cs = getComputedStyle(f), inn = t.querySelector('.tag-in');
+    return { above: line.top - stock.top, line: line.height, toName: name.top - line.bottom, fields: [cs.marginTop, cs.paddingBottom].join(' '), scrolls: inn.classList.contains('scrolls') }; });
+  ok('B7 60 above the first line, the city line 24 tall, 8 to the name, fields 12 / 16; a plain tag never scrolls', sp.above === 60 && sp.line === 24 && sp.toName === 8 && sp.fields === '12px 16px' && !sp.scrolls, sp);
   ok('B6 list rows never carry the note', await ev(() => !document.querySelector('#locationsList .tag-dist') && !/km from/.test(document.getElementById('locationsList').textContent)));
 
   // C. the city menu
@@ -75,7 +81,9 @@ const sh = require('./lib-p3.js');
   });
   ok('C1 the menu: caption City, your 5 cities, the current one with the pin glyph + check, no tallies', c1.open && c1.cap === 'City' && c1.cities === 5 && c1.cur === 'reykjavik' && c1.curIco && c1.check && !c1.tally, c1);
   ok('C2 "New city" caption + "+ Reykjanesbær" (the real town)', c1.mid === 'New city' && c1.town === '+ Reykjanesbær', c1);
-  ok('C3 6px under its trigger, left-aligned; the trigger open (navy, aria-expanded); focus on the current city', Math.abs(c1.dy - 6) <= 1 && Math.abs(c1.dx) <= 1 && c1.exp === 'true' && c1.bg === 'rgb(18, 41, 63)' && c1.focus, c1);
+  ok('C3 8px (--s2) under its trigger, left-aligned; the trigger open (navy, aria-expanded); focus on the current city', Math.abs(c1.dy - 8) <= 1 && Math.abs(c1.dx) <= 1 && c1.exp === 'true' && c1.bg === 'rgb(18, 41, 63)' && c1.focus, c1);
+  ok('C3b one 1px rule above "New city" (the last city row drops its own)', await ev(() => { const m = document.getElementById('tagCityMenu'), rows = m.querySelectorAll('[data-city]'), last = rows[rows.length - 1], cap = m.querySelector('.menu-cap.is-mid');
+    return getComputedStyle(last).borderBottomColor === 'rgba(0, 0, 0, 0)' && getComputedStyle(cap).borderTopWidth === '1px' && !!cap.closest('.menu-foot'); }));
   await page.keyboard.press('Escape'); await W(200);
   ok('C4 Esc closes the menu first; the tag stays open, focus back on the city', await ev(() => document.getElementById('tagCityMenu').hidden && openTagKey() === 'rey15' && document.activeElement.classList.contains('tag-city')));
   sh.reverse.next = { town: 'Reykjanesbær', country_code: 'is', country: 'Iceland' };
@@ -156,7 +164,7 @@ const sh = require('./lib-p3.js');
   const h0 = await ev(() => { const btn = document.querySelector('.leaflet-popup .tag-city'); return { dis: btn.getAttribute('aria-disabled'), label: btn.getAttribute('aria-label') }; });
   await P.tap(page, '.leaflet-popup .tag-city');
   const h1 = await ev(() => ({ menu: !document.getElementById('tagCityMenu').hidden, slip: (document.querySelector('.leaflet-popup .tag-slip') || {}).textContent, open: openTagKey() }));
-  ok('H1 signed out: the city is aria-disabled and says so; a tap offers the sign-in slip, no menu', h0.dis === 'true' && /Sign in to change it/.test(h0.label) && !h1.menu && /Sign in/.test(h1.slip || '') && h1.open === 'rey16', { h0, h1 });
+  ok('H1 signed out: the city is aria-disabled and says so; a tap offers the slip "Sign in to make changes", no menu', h0.dis === 'true' && /Sign in to change it/.test(h0.label) && !h1.menu && /^Sign in to make changesSign in$/.test(h1.slip || '') && h1.open === 'rey16', { h0, h1 });
   await ev(() => { hideTagSlip(); map.closePopup(); currentUser = window.__savedUser; refreshTags(); }); await W(400);
 
   // S. the check's fixes (p3-cd-ux S1a / S1b): reveal only when the place would vanish; a failed
@@ -201,7 +209,31 @@ const sh = require('./lib-p3.js');
   ok('I1 the add tag guesses by distance (Blue Lagoon -> Reykjavík, with the note)', await ev(() => addDraft.city.id === 'reykjavik' && document.getElementById('addDist').textContent === '≈ 40 km from Reykjavík'));
   await ev(() => { if (addFormOpen()) cancelAddForm(); clearAddDraft(); }); await W(400);
 
+  // M. menu reach (p3 fixes §5): 14 cities -- the menu stays under its trigger, "+ town" visible
+  await sh.openTag(page, 'rey15');
+  await ev(() => { for (let i = 0; i < 9; i++) CITIES['zz' + i] = { label: 'Extra City ' + i, center: [60 + i, 10], zoom: 11, viewbox: `9,${59 + i},11,${61 + i}` }; window.__ROWS.push(...[0,1,2,3,4,5,6,7,8].map(i => ({ id: 'zz' + i, name: 'Extra ' + i, address: null, category: 'other', lat: 60 + i, lng: 10, notes: null, visited: false, starred: false, city: 'zz' + i, created_at: '2026-09-01T00:00:00Z' }))); });
+  await ev(() => refetchLocations()); await W(400);
+  await P.tap(page, '.leaflet-popup .tag-city');
+  const m14 = await ev(() => { const m = document.getElementById('tagCityMenu'), r = m.getBoundingClientRect(), tr = document.querySelector('.leaflet-popup .tag-city').getBoundingClientRect(), town = m.querySelector('[data-newcity]').getBoundingClientRect();
+    return { cities: m.querySelectorAll('[data-city]').length, top: r.top, trig: tr.bottom, townIn: town.top >= r.top && town.bottom <= r.bottom + 0.5, scrolls: m.scrollHeight > m.clientHeight }; });
+  ok('M1 with 14 cities the menu stays under its trigger, its cities scroll, "+ town" stays visible', m14.cities === 14 && m14.top >= m14.trig && m14.townIn && m14.scrolls, m14);
+  await ev(() => { closeTagCityMenu(false); map.closePopup(); for (let i = 0; i < 9; i++) delete CITIES['zz' + i]; window.__ROWS = window.__ROWS.filter(r => !/^zz/.test(r.id)); }); await ev(() => refetchLocations()); await W(400);
+
   if (o.errors.length) ok('no page errors', false, o.errors);
+  // N. 375x667: the menu ends above the + badge; the busiest tag scrolls (fade on), the plain one fits
+  const o3 = await P.openP2(b, { file, w: 375, h: 667 });
+  const p3 = o3.page; await sh.install(p3); await sh.realRows(p3);
+  await sh.openTag(p3, 'rey15');
+  await P.tap(p3, '.leaflet-popup .tag-city');
+  const n1 = await p3.evaluate(() => { const m = document.getElementById('tagCityMenu').getBoundingClientRect(), f = document.getElementById('floatingAddBtn').getBoundingClientRect();
+    return { mBottom: m.bottom, fTop: f.top, cross: f.right > m.left && f.left < m.right }; });
+  ok('N1 at 375x667 the city menu ends 8px above the + badge it would cross', !n1.cross || n1.mBottom <= n1.fTop - 8 + 0.5, n1);
+  await p3.evaluate(() => closeTagCityMenu(false));
+  const plain = await p3.evaluate(() => document.querySelector('.leaflet-popup .tag-in').classList.contains('scrolls'));
+  await sh.realRows(p3, { rey01: { name: 'Aurora Reykjavík', short_address: 'Fiskislóð 53 · Vesturbær', notes: 'Indoor Northern Lights exhibit, rainy-day/kid option. Grandi harbor — not to be confused with unrelated businesses that also use "Aurora" in their name.' } });
+  await sh.openTag(p3, 'rey01');
+  const busy = await p3.evaluate(() => document.querySelector('.leaflet-popup .tag-in').classList.contains('scrolls'));
+  ok('N2 at 375x667 a plain tag fits; the busiest (a long note) scrolls inside (owner: "that trade is fine")', !plain && busy, { plain, busy });
   await b.close();
   finish();
 })();
