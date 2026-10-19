@@ -741,7 +741,7 @@
     .add-in { padding-bottom: var(--s2); }
     /* THE ROUTING LINE (R2, left-aligned; owner: "the rule underneath it is too much" -- none). The
        city, a filing, not a location: the add tag's first line (with its chevron) and, phase 3, the
-       Hanging Tag's (the same type, no chevron; a tap opens the same city menu). Shared classes. */
+       Hanging Tag's (the same button and chevron, on the scale spacing below; a tap opens the same city menu). Shared classes. */
     .route-line { display: flex; align-items: center; gap: var(--s2); min-height: 28px; padding-bottom: 2px; margin-bottom: 4px; }
     .route-city { all: unset; box-sizing: border-box; position: relative; display: inline-flex; align-items: center; gap: 4px; height: 28px; max-width: 100%;
       padding: 0 6px 0 8px; margin-left: -8px; border-radius: 3px; color: var(--navy); cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -750,7 +750,7 @@
     .route-city-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
       font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .12em; }
     .add-chev { width: 12px; height: 12px; flex: none; display: block; }
-    .route-city:active:not([aria-expanded="true"]) { background: var(--state-press); }   /* p3-fixes: pressed, as the tag's other controls */
+    .route-city:active:not([aria-expanded="true"]) { background: var(--state-press); }   /* pressed, as the tag's other controls */
     .route-city[aria-expanded="true"] { background: var(--navy); color: var(--paper); }
     .route-city[aria-expanded="true"] .add-chev { transform: rotate(180deg); }
     .route-city:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
@@ -835,8 +835,8 @@
     #addMenuScrim[hidden], #tagMenuScrim[hidden] { display: none; }
     #addCityMenu, #addTypeMenu, #tagCityMenu { overflow-y: auto; overscroll-behavior: contain; max-width: calc(100vw - 2 * var(--gutter)); }
     .menu-cap.is-mid { border-top: 1px solid var(--hair); }
-    /* p3-fixes: ONE rule above "New city": the city row just before it drops its own (it doubled
-       with the caption's top rule into a 2px band). The New city block is sticky at the foot. */
+    /* ONE rule above "New city": the city row just before it drops its own (it doubled with the
+       caption's top rule into a 2px band). The New city block is pinned (sticky) at the foot. */
     .menu-row.before-foot { border-bottom-color: transparent; }
     .menu-foot { position: sticky; bottom: 0; z-index: 1; background: var(--paper-raised); }
     .menu-badge { width: 20px; height: 20px; flex: none; display: block; }
@@ -2013,17 +2013,14 @@
       background: linear-gradient(to top, var(--scroll-shadow), transparent); }
     .tag-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); padding-right: 32px; overflow-wrap: anywhere; margin: 0; }
     .tag-addr { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
-    /* p3-fixes v2 (owner: "all the padding above and below the main content is gone"): main's
-       breathing room is kept whole -- 48 above the first line (the band's 36 + 12), the field line's
-       12 / 12 above the stub. The routing line takes the top slot (a 20px line, its target still 44
-       via ::before) with 4px to the name; the note rides the address line. The busiest tags (a long
-       name + a long note + a plan stop) scroll inside on the smallest phones (375x667), with the
-       stub's soft shadow -- the honest trade for the padding. */
-    /* p3-fixes v4 (owner: "does the spacing adhere to our design system multiples?"): every value on
-       the scale. Above the first line: .tag-in's own --s12 + the line's --s3 margin (60 = the band's 36 + --s6 clear); the
-       city line --s6 tall, --s2 to the name; the field line --s3 above / --s4 to the stub. (The ::before
-       only grows the city's hit area to 44: (44 - 24) / 2 = 10, not a visible space.) */
-    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s2); }   /* .tag-in's own --s12 + this --s3 = 60 above */
+    /* The place tag's spacing (phase 3 fixes; owner: "all the padding above and below the main
+       content is gone", "does the spacing adhere to our design system multiples?"): every value on
+       the scale. 60 above the first line (.tag-in's --s12 + the routing line's --s3 margin: the
+       band's 36 + --s6 clear); the city line --s6 tall, --s2 to the name; the note rides the
+       address line; the field line --s3 above / --s4 to the stub. The ::before only grows the
+       city's hit area to 44 ((44 - 24) / 2 = 10). The busiest tags scroll inside on a 375x667
+       phone, with the stub's soft shadow (owner: "that trade is fine"). */
+    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s2); }
     .tag-in .route-city { height: var(--s6); }
     .tag-in .route-city::before { top: -10px; bottom: -10px; }
     .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
@@ -5675,9 +5672,9 @@
         : `<svg class="tag-ochk" viewBox="-1.5 -1.5 27 27" aria-hidden="true"><path d="${STICKER_CHECK.row.d}" fill="none" stroke="currentColor" stroke-width="2.05" stroke-linejoin="round"/></svg>Mark visited`
           + (unstampNow ? `<span class="row-stamp tag-stamp-out dry-out" style="--stamp-tilt:${tilt}deg;${tex}" aria-hidden="true"><span class="row-stamp-ring">${stampCheckSvg()}<span class="row-stamp-word">Visited</span></span></span>` : '');
       const x = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
-      // The routing line (phase 3): the place's city, the add tag's type with no chevron; a tap opens
-      // the city menu (signed out: the sign-in slip). The distance note under the address when the
-      // place lies outside its city's area (pins only, as on the add tag).
+      // The routing line (phase 3): the place's city with the add tag's chevron; a tap opens the city
+      // menu (signed out: the sign-in slip). The distance note at the end of the address line when
+      // the place lies outside its city's area (pins only, as on the add tag).
       const cityName = cityLabel(loc.city), dist = sh ? '' : placeDistanceText(loc.lat, loc.lng, loc.city);
       const distId = escapeAttr('tag-dist-' + loc.id);
       const route = `<div class="route-line"><button type="button" class="route-city tag-city" data-id="${id}" aria-haspopup="menu" aria-expanded="${tagCityMenuKey === loc.id}" aria-controls="tagCityMenu"`
@@ -5689,7 +5686,7 @@
         + '<span class="tag-patch" aria-hidden="true"></span>'
         + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
         + `<div class="tag-in">${route}<h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
-        // p3-fixes: the distance note rides the END of the address line (" · ≈ 50 km", unbreakable,
+        // The distance note rides the END of the address line (" · ≈ 50 km", unbreakable,
         // wrapping as one piece), the city it is measured from printed on the routing line above.
         + (addr || dist ? `<div class="tag-addr">${addr ? escapeHtml(addr) : ''}${dist ? `${addr ? '<span class="tag-dist-sep" aria-hidden="true"> · </span>' : ''}<span class="tag-dist" id="${distId}">${escapeHtml(dist)}</span>` : ''}</div>` : '')
         + (loc.notes ? `<div class="tag-notes">${escapeHtml(loc.notes)}</div>` : '')
@@ -5703,7 +5700,7 @@
         + '</div></div></div><span class="tag-string" aria-hidden="true"></span></div>';
     }
 
-    // p3-fixes: the Hanging Tag's city carries the add tag's 12px chevron (UX: it must read as
+    // The Hanging Tag's city carries the add tag's 12px chevron (UX: it must read as
     // changeable at rest, like the add tag's city button).
     const ROUTE_CHEV = '<svg class="add-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     // The popup that hangs: its container's TOP sits at the anchor (+ the pin's
@@ -9520,21 +9517,19 @@
           + `<span class="menu-lab">${escapeHtml(cityLabel(id))}</span><span class="menu-gap"></span>${on ? MENU_SVG.check : MENU_SVG.none}</button>`;
       });
       if (town) {
-        // p3-fixes: "New city" + "+ town" are one block pinned to the menu's foot (sticky), so with
+        // "New city" + "+ town" are one block pinned to the menu's foot (sticky), so with
         // many cities the town is always in reach while the cities scroll above it.
         html += '<div class="menu-foot"><div class="menu-cap is-mid" aria-hidden="true">New city</div>'
           + `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${!!townOn}" tabindex="-1" data-newcity="1" aria-label="New city: ${escapeAttr(town.label)}">${MENU_SVG.spacer}<span class="menu-lab">+ ${escapeHtml(town.label)}</span><span class="menu-gap"></span>${townOn ? MENU_SVG.check : MENU_SVG.none}</button></div>`;
       }
       return html;
     }
-    // A menu just under its trigger, left-aligned, kept on screen (phase 2 fixes §4): floor = 8px
-    // above the list bar or the visible viewport's foot (the keyboard counts); ceiling = the top
-    // controls + 8. Too tall to open under its trigger, it slides up as far as it must (it may
-    // cover the trigger); it scrolls only when even that is short.
-    // p3-fixes: a CITY menu (keepTrigger) never slides over its trigger: it stays 6px under it and
-    // scrolls its cities, the New city block pinned at its foot (unless under 160px are left, when it
-    // slides as TYPE does). The floor also clears the + badge (its box + 8) when the menu's span
-    // crosses it (the Hanging Tag; the badge hides while adding).
+    // A menu --s2 under its trigger, left-aligned, kept on screen (phase 2 / 3 fixes): floor = 8px
+    // above the list bar or the visible viewport's foot (the keyboard counts), and above the + badge
+    // (its box - 8) when the menu's span crosses it; ceiling = the top controls + 8. TYPE, too tall
+    // to open under its trigger, slides up as far as it must (it may cover the trigger). A CITY menu
+    // (keepTrigger) never covers its trigger: it stays under it and its cities scroll, the New city
+    // block pinned at its foot -- unless under 160px are left, when it slides as TYPE does.
     function placeMenuUnder(menu, trig, keepTrigger) {
       const r = trig.getBoundingClientRect(), gutter = 16, vv = window.visualViewport;
       const foot = vv ? vv.offsetTop + vv.height : innerHeight, sheetTop = document.getElementById('locations').getBoundingClientRect().top;
@@ -9545,7 +9540,7 @@
       const fab = document.getElementById('floatingAddBtn'), br = fab && getComputedStyle(fab).visibility !== 'hidden' ? fab.getBoundingClientRect() : null;
       if (br && br.height && br.right > left && br.left < left + menu.offsetWidth) floor = Math.min(floor, br.top - 8);
       menu.style.maxHeight = '';
-      const under = r.bottom + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s2')) || 8);   // p3-fixes v4: --s2 under the trigger (was 6)
+      const under = r.bottom + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s2')) || 8);
       const top = keepTrigger && floor - under >= 160 ? under : Math.max(ceil, Math.min(under, floor - menu.offsetHeight));
       menu.style.top = `${top}px`;
       menu.style.maxHeight = `${Math.max(120, floor - top)}px`;
