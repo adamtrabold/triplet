@@ -22,7 +22,29 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
-## Your gates, by eye
+## After your g7 score (8): the four fixes
+
+1. **The cup (C3).**
+   - **The ear:** the handle is now a D-shaped ear joined to the wall over its height. The wall runs straight down past it before the bowl turns under. Its counter is 2 × 1.67px, closed by the straight wall, so there's no passage. Arms are 4/3px and the back 1.5px.
+   - **Sheet 2:** shows it beside the g7 ring and both reference cups, at 24 and 3x. **Kept: the ear.** It reads as a handle at 24, as both references do.
+   - **Size:** the cup is taller (wall from 1.33, 6.3 deep), so it no longer reads smallest. Ink 33%.
+2. **The museum (C2).**
+   - No separate beam: the pediment's base is the entablature, and the four columns stand free under it after the 1px cut (as Material draws it). It's drawn 10.7px tall. Ink 32%, down from 38%.
+   - Four columns, no pills.
+   - Cost, stated on sheet 2: the spaces between the columns now open into the 1px cut, the narrowest passage in the set.
+3. **Joins (C6), change 14.**
+   - Where a line meets or crosses another part at about a right angle (a concave corner of 75–105°), the join gets an ink trap: a V, 0.25px back along each edge and 0.25px into the ink, instead of a round.
+   - It applies under all three laws: the + crossing, the coupe's stem at bowl and foot, the trunk, the ear on the cup, the columns on the plinth. It's in the engine (`{ trap }` from a law) and in `laws7.js`.
+   - Sheet 6 shows the + at 3x before and after, in the badge, and the coupe's stem before and after.
+   - Cost: the three laws now differ only at outside corners and sharp notches (sheet 3 says so).
+4. **The set row, re-shot** (sheet 1).
+   - Ours, Material, Phosphor at 24, then at 12, at 1x.
+   - The same subjects in our badge, then each set blurred.
+   - **Plainly:** the darkest is our cup (a compact mass), and the lightest is our museum. The coupe and conifer sit between, and both references read lighter overall in our badge.
+
+Checks: 0 slivers; 33 of 33 symmetric; change 7 fires nowhere. g7 as scored is on Archive (y 40000).
+
+## Your gates, by eye (g7 as first sent)
 
 - **G1, centring (sheet 1, "Centring").**
   - Each drawing is placed by its optical centre: halfway between its box centre and its ink centroid. Steps are 1/3px vertically and 1/4px horizontally.

@@ -20,10 +20,9 @@ const CUT = 1;      // a cut between touching parts
 const f = v => +v.toFixed(3);
 
 const DRAW = {
-  // CAFÉ. Proportion: a cup about 1.6 x as wide as it is deep, on a saucer as wide as the whole glyph.
-  // Counters that survive: the handle is a full ring with its OWN round counter (1.5px), held clear of
-  // the cup's wall, so there is no passage between handle and cup to close up (owner: "why does the
-  // coffee cup handle cut off on the bottom - it creates a narrow passage"). The counter is 1.8px across.
+  // CAFÉ. A cup about 1.15 x as wide as deep, on a saucer as wide as the whole glyph. Counters that
+  // survive (owner: "why does the coffee cup handle cut off on the bottom - it creates a narrow passage"):
+  // see below.
   cafe(s = 12) {
     // g7 fix (director, C3): the handle is a D-shaped EAR joined to the cup wall over its height, its
     // counter 2 x 1.67px, bounded by the straight wall on one side (closed: no passage). The wall runs
@@ -60,12 +59,10 @@ const DRAW = {
     const foot = D(`M${X(2)} ${X(12)}C${X(2)} ${X(10.9)} ${X(3.9)} ${X(ft)} ${X(6)} ${X(ft)}C${X(8.1)} ${X(ft)} ${X(10)} ${X(10.9)} ${X(10)} ${X(12)}Z`);
     return [bowl, stem, foot];
   },
-  // MUSEUM. Proportion: a low pediment (rises 2.5 in 6, about 23 degrees, as classical pediments do), a
-  // beam and a plinth that overhang the columns by 0.5 (so it reads as a colonnade, not a box with
-  // windows), four columns with spaces equal to the line. (Three columns were tried for weight and read
-  // as a box with two doors.) Equal optical size: it is wide, so it is drawn 11.33px tall, not 12. Overshoot: the pointed apex rises 1/3px
-  // above TOP so it looks as tall as the flat-topped icons. Counters: the spaces between the columns are
-  // plain upright slots with small corners (no pills, owner's example).
+  // MUSEUM. Proportion: a low pediment (rises 2.67 in 6, about 24 degrees, as classical pediments do), a
+  // plinth that overhangs the columns by 0.5, four columns with spaces equal to the line. (Three columns
+  // were tried in g7 and read as a box with two doors.) Counters: the spaces between the columns are
+  // plain upright slots (no pills, owner's example).
   museum(s = 12) {
     // g7 fix (director, C2): lighter. No separate beam: the pediment's base is the entablature, and the
     // four columns stand free under it after a 1px cut (as mature sets draw a column front), so less

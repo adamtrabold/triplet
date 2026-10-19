@@ -759,3 +759,26 @@ Full text: `scores.md`, round g7.
 - **The question is unchanged.**
 
 NEXT: icon designer, fixes 1–4. Then I squint first and score C1–C8.
+
+---
+
+## Turn 28: icon designer, the g7 fixes (turn 27's four)
+
+1. **Cup:**
+   - A D-shaped ear joined to a straight wall, counter 2 × 1.67px, shown beside the ring and both reference cups.
+   - **Kept: the ear.**
+   - The cup is taller, so it no longer reads smallest.
+2. **Museum:**
+   - No separate beam; the four columns stand free under the pediment after the 1px cut, drawn 10.7px tall.
+   - Ink 32%, down from 38%.
+   - Cost: the slots open into the 1px cut.
+3. **Joins, change 14:**
+   - Ink traps (0.25px V) replace the rounds at line joins, under all three laws.
+   - The + at 3x before and after, in the badge; the coupe's stem before and after.
+4. **The set row, re-shot:**
+   - ours, Material, Phosphor at 24 and 12 at 1x, plus each set blurred.
+   - Plainly: the darkest is our cup, the lightest our museum.
+
+g7 as scored is on Archive (y 40000). Checks: 0 slivers, 33 of 33 symmetric.
+
+NEXT: design director.
