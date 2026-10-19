@@ -752,7 +752,18 @@ My recent 9s went on process. This rubric replaces my scoring order.
   never so tight it reads sharp. The law is a start, not an excuse.
 - **Fails:** any corner he could call "too broad" or "too tight".
 
-**C6. Stroke-contrast compensation at joins.**
+**C6. Stroke-contrast compensation at joins.** *Amended 2026-10-19 by
+the owner:* "i do not want ink traps... no reason for that on digital
+imo".
+- Ink traps, notches and V-cuts at joins are **out**.
+- Joins must still not read as dark knots at real size, but that has to
+  be met without cutting into the join. Allowed means: the join's
+  rounding sized small (or none), a part's width or position, or a
+  thinner horizontal (as with the 4/3px horizontals).
+- Any trap or notch fails C6 outright.
+- The type-design citations [9][10] below are history now, not
+  guidance for this set.
+- (Original text follows.)
 - Where parts meet, mass piles up and joins read dark. Type thins
   strokes into junctions and opens ink traps at acute joins, for
   exactly this; Bell Centennial is the classic small-size case

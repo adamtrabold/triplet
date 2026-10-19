@@ -133,3 +133,5 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 > all the padding above and below the main content is gone
 
 > (on 3-tag-padding) my better on the padding, though i could even see more. that trade is fine. it should stay on your current city
+
+> does the spacing adhere to our design system multiples?

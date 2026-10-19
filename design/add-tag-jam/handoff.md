@@ -1152,33 +1152,42 @@ Why: "lets treat all dropdowns the same". One control is now drawn one way
 on both tags, and the chevron is the app's existing "this opens a menu" mark
 (the list title, the add tag's city and TYPE).
 
-### 2. Padding and small-phone fit (final)
+### 2. Padding and small-phone fit (final, on the spacing scale)
 
 The owner, in order:
 1. "all the padding above and below the main content is gone" (v1);
-2. "better on the padding, though i could even see more. that trade is fine"
-   (v2, which scrolled the busiest tags on the smallest phones).
+2. "better on the padding, though i could even see more. that trade is fine";
+3. "does the spacing adhere to our design system multiples?"
 
-**Decision (final):** the place tag gets **more** breathing room than main.
-The busiest tags scroll inside on the smallest phones (owner-approved trade).
-The values below apply to the Hanging Tag only; the add tag is unchanged.
+**Decision (final):** the place tag has more breathing room than main, and
+**every spacing value is a scale token** (`--s1` 4 · `--s2` 8 · `--s3` 12 ·
+`--s4` 16 · `--s6` 24 · `--s8` 32 · `--s12` 48). The busiest tags scroll
+inside on the smallest phones (owner-approved trade). These values apply to
+the Hanging Tag only; the add tag is unchanged.
 
-| What | Final value | Main |
-|---|---|---|
-| `.tag-in` padding-top | **56px** (the band's 36 + 20 clear) | 48 |
-| `.tag-in > .route-line` | **min-height 20px, padding-bottom 0, margin-bottom 6px** (the city to the name) | (no city line) |
-| `.tag-in .route-city` | **height 20px**, `::before` top/bottom −12px (the target stays 44) | — |
-| `.tag-addr` | margin-top 2px | 2 |
-| Distance note | **ends the address line** (markup and CSS below) | own line |
-| `.tag-fields` | margin-top **12px**, padding-bottom **16px** (to the stub's perforation) | 12 / 12 |
-| `.tag-x` top | **74px** (centred on the name's first line, now at 82) | — |
+| What | Final value | px | Main |
+|---|---|---|---|
+| `.tag-in` padding-top | `var(--s12)` (unchanged rule) | 48 | 48 |
+| `.tag-in > .route-line` margin-top | `var(--s3)` | 12, so 60 above the first line = the band's 36 + 24 clear | — |
+| `.tag-in > .route-line` min-height | `var(--s6)`, padding-bottom 0 | 24 | — |
+| `.tag-in .route-city` height | `var(--s6)` | 24 | — |
+| `.tag-in > .route-line` margin-bottom (city to name) | `var(--s2)` | 8 | — |
+| `.tag-addr` margin-top | 2px, main's own value, untouched | 2 | 2 |
+| `.tag-fields` margin-top | `var(--s3)` | 12 | 12 |
+| `.tag-fields` padding-bottom (to the stub's perforation) | `var(--s4)` | 16 | 12 |
+| `.tag-x` top | 84px, derived: centred on the name's first line (60 + 24 + 8 + 14 − 22); not a spacing step | 84 | — |
+| `.route-city::before` top/bottom | −10px: grows the 24px button's hit area to 44 ((44 − 24) / 2); not a visible space | — | — |
 
-**Measured on the prototype** (`design-p3-fixes` 9ff4e3c0):
+The extra top room is written as the route line's `margin-top: var(--s3)`
+rather than `calc()` on the padding. The static Impeccable check reads the
+padding and flags a calc() it can't parse as "no inset".
+
+**Measured** (`design-p3-fixes` f8591822):
 
 | Tag | 390×844 | 375×667 |
 |---|---|---|
-| Plain short tag | 174px, fits | 174px, fits |
-| Busiest tag | 270px, fits | **scrolls** inside (233px room), with the shipped stub shadow (`.tag-in.scrolls`) |
+| Plain short tag | 184px, fits | 184px, fits |
+| Busiest tag | 280px, fits | **scrolls** inside (233px room), with the shipped stub shadow |
 
 **The note on the address line:**
 - Markup: `<div class="tag-addr">{addr}<span class="tag-dist-sep" aria-hidden="true"> · </span><span class="tag-dist" id="tag-dist-{id}">{note}</span></div>`.
@@ -1203,7 +1212,9 @@ one slip for star, visited and city. The SIGN IN button is unchanged.
 ### 5. City menu reach
 
 **The city menus (Hanging Tag and add tag) never slide over their trigger.**
-- They open 6px under it and stay there. The cities scroll inside the box.
+- They open **`var(--s2)` (8px) under it** and stay there. This also snaps
+  the jam's earlier 6px offset for TYPE (`placeMenuUnder()` reads `--s2`).
+  The shipped sort menu's 6px is not this jam's and is left alone. The cities scroll inside the box.
 - **"New city" + "+ town" are one block pinned to the box's foot**:
   `.menu-foot { position:sticky; bottom:0; z-index:1; background:var(--paper-raised) }`,
   wrapping the caption and the row. So the town is in reach with any number
@@ -1231,7 +1242,8 @@ tag controls. Both tags.
 - **New coverage:**
   - the plain tag never scrolls; the busiest fits at 390×844 and scrolls
     (fade on) at 375×667;
-  - padding-top 56, city to name 6, fields 12/16;
+  - 60 above the first line (`--s12` + `--s3`), a `--s6` city line,
+    `--s2` from the city to the name, fields `--s3` / `--s4`;
   - `.tag-city` has its chevron;
   - one 1px rule above "New city";
   - with 14 cities, the menu's top stays under its trigger and the

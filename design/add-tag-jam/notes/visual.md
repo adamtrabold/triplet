@@ -359,3 +359,13 @@
   - The plain tag is 174px; the busiest is 270px, which fits at 390×844 and
     scrolls at 375×667.
   - Prototype 9ff4e3c0. The addendum is final for the builder.
+
+- **2026-10-19, round 4:** spacing is on the scale.
+  - The tag: padding `--s12` plus the route line's `--s3` margin (60, so 24
+    clear under the band); the route line and button are `--s6`; `--s2` from
+    the city to the name; fields `--s3`/`--s4`; × at 84 (derived).
+  - Menus open `--s2` under the trigger.
+  - A calc() on the padding tripped the static gate's cramped-padding check,
+    so the extra room is a margin instead.
+  - Measured: the plain tag is 184px; the busiest is 280px, which fits at
+    390×844 and scrolls at 375×667. Prototype f8591822.
