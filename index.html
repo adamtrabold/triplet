@@ -1998,7 +1998,7 @@
     .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
-    .tag-x { all: unset; position: absolute; z-index: 4; top: 50px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    .tag-x { all: unset; position: absolute; z-index: 4; top: 64px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
     .tag-x svg { width: 14px; height: 14px; display: block; }
     .tag-x::before { content: ''; position: absolute; inset: 8px; z-index: -1; border-radius: 3px; }
@@ -2013,15 +2013,15 @@
       background: linear-gradient(to top, var(--scroll-shadow), transparent); }
     .tag-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); padding-right: 32px; overflow-wrap: anywhere; margin: 0; }
     .tag-addr { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
-    /* p3-fixes: room for the routing line without the busiest tag outgrowing 375x667 (main fitted
-       it with 1px to spare): the line is 20px (its target still 44 via ::before), set 2px under the
-       band's 36 (+ the line's own 2px = text 5px clear), the name right under it; the note joins the
-       address line; the field line's breathing room steps 12 -> 8. */
-    .tag-in { padding-top: 38px; }
-    .tag-in > .route-line { min-height: 20px; padding-bottom: 0; margin-bottom: 0; }
+    /* p3-fixes v2 (owner: "all the padding above and below the main content is gone"): main's
+       breathing room is kept whole -- 48 above the first line (the band's 36 + 12), the field line's
+       12 / 12 above the stub. The routing line takes the top slot (a 20px line, its target still 44
+       via ::before) with 4px to the name; the note rides the address line. The busiest tags (a long
+       name + a long note + a plan stop) scroll inside on the smallest phones (375x667), with the
+       stub's soft shadow -- the honest trade for the padding. */
+    .tag-in > .route-line { min-height: 20px; padding-bottom: 0; margin-bottom: 4px; }
     .tag-in .route-city { height: 20px; }
     .tag-in .route-city::before { top: -12px; bottom: -12px; }
-    .tag-in > .route-line ~ .tag-addr { margin-top: 0; }   /* the name's 28px line already leaves ~10px to the address */
     .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
     .tag-addr .tag-dist-sep { color: var(--ink-2); }
     .tag-notes { margin-top: var(--s2); font-size: 14px; line-height: 20px; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
@@ -2040,7 +2040,7 @@
        impression at its own per-place angle. Ink as read (textured core, mean): >= 4.5:1, measured
        (docs/shipped.md). Fields wrap as whole fields (column gap 16, row gap 8); a value never
        breaks inside. */
-    .tag-fields { display: flex; flex-wrap: wrap; column-gap: var(--s4); row-gap: var(--s2); margin-top: var(--s2); padding-bottom: var(--s2); align-items: baseline; }
+    .tag-fields { display: flex; flex-wrap: wrap; column-gap: var(--s4); row-gap: var(--s2); margin-top: var(--s3); padding-bottom: var(--s3); align-items: baseline; }
     .tag-f { display: flex; align-items: baseline; gap: var(--s2); min-width: 0; }
     .tag-lab { font-stretch: 75%; text-transform: uppercase; font-weight: 500; font-size: 11px; line-height: 16px; letter-spacing: .12em; color: var(--ink-2); }
     .tag-val { white-space: nowrap; }
