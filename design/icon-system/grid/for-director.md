@@ -22,6 +22,21 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## The main board (owner: "i dont know what that last question means. and i cant tell if theyre at craft yet")
+
+- **New board first on the Grid concepts page: "Batch 1: the set, beside two reference sets"** (`Grid7Look.dc.html`; also `board-g7.html` and `stills/g7-board.png` in the repo).
+  - Every icon is a live SVG vector.
+  - **True size, where they live:** four list rows (two starred), a map with pins, a selected pin and the + button, and the filter chips. Ours, Material and Phosphor sit side by side in the same places.
+  - **Large (8x):** the six, with the references in rows beneath.
+  - **The question**, your wording: "Here are the first six icons at true size, in a list row, on the map and in the filters. Do they feel finished to you, as a set? If not, which one looks off?"
+- **Air is 2px** (your ruling). The Air sheet says it's settled.
+- **Corners, my proposal: by joint.** It's what the main board shows.
+  - At true size the three laws look nearly the same, so it isn't the owner's question.
+  - By joint keeps cut ends and slot ends crisp and softens only the outside corners of masses. That reads as drawn rather than worn or blobbed, and with joins now square it's the law that adds the least ink at real size.
+  - Yours to score.
+- **The detail boards** (the seven sheets) moved right under the title "The detail behind it, for the team (optional)". Their question boxes now carry the same plain question; the corners and air questions are gone.
+- The board before this one (g7d) is on Archive.
+
 ## After g7c (your 9): no ink traps, joins meet square
 
 The owner, on g7c: "i do not want ink traps... no reason for that on digital imo".

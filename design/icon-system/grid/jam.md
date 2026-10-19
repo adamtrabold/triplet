@@ -1003,6 +1003,23 @@ canvas.
 
 ---
 
+## Turn 36: icon designer, the main board (owner: "i cant tell if theyre at craft yet")
+
+The owner: "i dont know what that last question means. and i cant tell if theyre at craft yet", then "i want them on the icon design board as weve discussed many times over".
+
+- **New first board on Grid concepts:** "Batch 1: the set, beside two reference sets".
+  - All live vectors.
+  - True size in place: list rows, map pins, a selected pin, the +, the filter chips. Ours beside Material and Phosphor.
+  - Then 8x.
+- **One plain question** (the director's words): "Here are the first six icons at true size, in a list row, on the map and in the filters. Do they feel finished to you, as a set? If not, which one looks off?"
+- **Air 2px**, settled by the team.
+- **Corners: I propose by joint** (crisp ends, soft outside corners of masses, square joins). Director to score.
+- The seven dense sheets are now secondary boards to the right; g7d is on Archive.
+
+NEXT: design director scores the board on the canvas (turn 35) and the corner proposal; then the coordinator sends it.
+
+---
+
 ## Turn 37: design director, the canvas board (Grid7Look, canvas version 95): board 9, drawings 8
 
 **How I looked:**

@@ -19,7 +19,7 @@ const AIRS = [[12, '2px of air'], [12.75, '1.5px of air']];
 
 const Q_CRAFT = "i definitely think it's the right side for all of the icons on the first board on this page... and i definitely think the 1.5px weight feels the best right now. that said none of these are yet at the craft level i need the icons to be at -- the sizes of various parts of many of these are not yet optically pleasing, the rounding at various intersections feels wrong (some places too broad roujnding, some too tight), and some of the choices inside of the icons don't make sense (for example why does the coffee cup handle cut off on the bottom - it creates a narrow passage that will definitely disappear at small sizes...and why is the interior of the museum pillars totally rounded pill shapes...these are just examples). i also think some of these decisions are contributing to poor optical alignment inside of the badge -- some feel like they're floating above center, some feel slightly lower on center. none have the same optical weight exactly yet when viewed as a set.";
 const Q_PRACTICE = 'i want them all to be focusing on best practices and principles for icon design';
-const ASK = 'Are these at the craft level now, as a set? If so: which corners (by joint, even wear or pressed), and 2px or 1.5px of air?';
+const ASK = 'Here are the first six icons at true size, in a list row, on the map and in the filters. Do they feel finished to you, as a set? If not, which one looks off?';
 
 // ---- OPTICAL CENTRING (practice: centre the mass, not the box) ---------------------------------
 // The point placed on the badge's centre is halfway between the drawing's box centre and its ink
@@ -184,7 +184,7 @@ function sheetIntro(n) {
 <p class="att">The same six (café, bar, museum, nature, the + and the Star), redrawn at 1.5px. Every change below comes from an established icon-design practice, named where it's used:</p>
 <ul class="facts">${P.map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
 <p class="sm"><b>Sheet 1 is the set</b>, judged together at real size, beside two mature icon sets (Material Symbols and Phosphor). Sheet 2 is each drawing, before and after. Sheet 6 is the grid, changed by this redraw.</p>
-<p class="sm mute">Still yours to pick: the corner law and the air (sheets 3 and 5). Visited and the home-screen icon are unchanged.</p>
+<p class="sm mute">The main board (Batch 1: the set) is drawn with the proposed corners, by joint, and 2px of air (the team's call: the difference doesn't show at true size). Visited and the home-screen icon are unchanged.</p>
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;
 }
@@ -284,7 +284,7 @@ function sheetCorners(W_, n) {
 <li><b>Even wear:</b> the silhouette is softened evenly, so the ends of the + and the plinth read a little blunter at real size.</li>
 <li><b>Pressed:</b> sharp outside corners and filled sharp notches (the conifer); with joins now square, it is closer to by joint than before.</li>
 </ul>
-<div class="q"><b>The question</b>Which corners: by joint, even wear or pressed?</div>
+<p class="sm mute">Proposed: by joint, which is what the main board shows. At true size the three laws look nearly the same; the director scores the proposal.</p>
 </section>`;
 }
 
@@ -298,7 +298,7 @@ function sheetApp(n) {
 <div class="lab">Map: pins and a selected pin</div>${tri(l => `<div class="map">${pins.map(([id, x, y]) => `<div class="pn" style="left:${x}px;top:${y}px">${badge(GD[l][12][id].d)}</div>`).join('')}<div class="pn" style="left:136px;top:30px">${selPin(GD[l][12].bar.d)}</div><div class="pn" style="left:92px;top:2px"><img src="${REL.sticker}" width="40" height="40" alt="Visited sticker, unchanged" style="display:block"></div></div>`)}
 <div class="lab">Filter chips (12px)</div>${tri(l => `<div class="chips">${BATCH.map(([id, nm]) => `<span class="chipx">${chip(GD[l][12][id].c12.d)}${nm.toUpperCase()}</span>`).join('')}</div>`)}
 <div class="lab">The + button</div>${tri(l => `<div style="padding:6px 0">${plusBadge(ui(l, 'plus'))}</div>`)}
-<div class="q"><b>The question</b>Which corners: by joint, even wear or pressed?</div>
+<p class="sm mute">Proposed: by joint, which is what the main board shows. At true size the three laws look nearly the same; the director scores the proposal.</p>
 </section>`;
 }
 
@@ -313,7 +313,7 @@ function sheetAir(W_, n) {
 <div class="lab">In a row, real size</div>
 ${AIRS.map(([s, nm]) => `<div class="tri"><div class="wl">${nm}</div><div><div class="row">${badge(GD.joint[s].cafe.d)}<div class="t">Kaffeverket<small>CAFÉ · STOCKHOLM</small></div>${badge(GD.joint[s].museum.d)}${badge(GD.joint[s].nature.d)}</div></div></div>`).join('')}
 <p class="sm"><b>Plainly:</b> it's half a pixel a side, slight at real size. <b>What 1.5px costs:</b> the box sits at 5.625px, off the 1/3px lattice, so the horizontals lose their whole-pixel edges on a 3x phone (sheet 6, change 12).</p>
-<div class="q"><b>The question</b>2px or 1.5px of air?</div>
+<p class="sm mute">Settled by the team: 2px. At true size the difference is half a pixel a side and doesn't show, and 2px keeps the horizontals on whole device pixels.</p>
 </section>`;
 }
 
@@ -356,6 +356,64 @@ ${ch('Change 13', 'overshoot', 'Practice: overshoot. A pointed top rises past TO
 </section>`;
 }
 
+
+// ---- the main board: the set, live vectors, in place at true size and large, beside the references --
+const LOOK_COLS = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature'], ['plus', 'Add (+)'], ['star', 'Star']];
+const LOOK_Q = ASK;
+const CATS = ['cafe', 'bar', 'museum', 'nature'];
+// a reference glyph's group, mapped into our 24px badge box (its 20px live area onto our 12px box)
+const refG = (r, fill) => { const [x, y, w] = r.vb.split(/\s+/).map(Number), k = 12 / (w * 20 / 24), live = w * 2 / 24; return `<g transform="translate(6 6) scale(${f2(k)}) translate(${f2(-x - live)} ${f2(-y - live)})">${r.d.map(d => `<path d="${d}" fill="${fill}"/>`).join('')}</g>`; };
+const SETS = (() => {
+  const ours = {
+    name: 'Ours', sub: 'redrawn',
+    badge: (id, px = 24) => badge(GD.joint[12][id].d, px),
+    pin: id => selPin(GD.joint[12][id].d),
+    chip: id => chip(GD.joint[12][id].c12.d),
+    ui: (id, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${UD.joint[id].d}" fill="${COL.navy}"/></svg>`,
+  };
+  const refs = REFS.map(([nm, rs]) => {
+    const at = id => rs[CATS.indexOf(id)];
+    return {
+      name: nm.split(' (')[0], sub: nm.includes('Material') ? 'Google\'s set, for comparison' : 'for comparison',
+      badge: (id, px = 24) => refInBadge(at(id), px),
+      pin: id => `<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15.25" fill="${COL.navy}" stroke="${COL.navy}" stroke-width="1.5"/><g transform="translate(4 4)">${refG(at(id), COL.paper)}</g></svg>`,
+      chip: id => `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><g transform="translate(-6 -6)">${refG(at(id), COL.navy)}</g></svg>`,
+      ui: (id, px) => refBare(rs[id === 'plus' ? 4 : 5], px),
+    };
+  });
+  return [ours, ...refs];
+})();
+const PLACES = [['cafe', 'Kaffeverket', 'CAFÉ · STOCKHOLM', true], ['bar', 'Tjoget', 'BAR · STOCKHOLM', false], ['museum', 'Vasa Museum', 'MUSEUM · STOCKHOLM', true], ['nature', 'Djurgården', 'NATURE · STOCKHOLM', false]];
+function inPlace(S) {
+  const rows = PLACES.map(([id, nm, sub, starred]) => `<div style="display:flex;align-items:center;gap:10px;height:56px;background:#F1E9DB;padding:0 10px;border-bottom:1px solid ${COL.hair}">${S.badge(id)}<div style="flex:1;min-width:0;font-size:16px;font-weight:600;line-height:1.15;color:${COL.ink};white-space:nowrap">${nm}<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">${sub}</div></div>${starred ? S.ui('star', 20) : ''}</div>`).join('');
+  const pins = [['cafe', 18, 14], ['museum', 96, 62], ['nature', 300, 20], ['bar', 360, 70]].map(([id, x, y]) => `<div style="position:absolute;left:${x}px;top:${y}px;line-height:0">${S.badge(id)}</div>`).join('');
+  const map = `<div style="position:relative;height:112px;background:${COL.map};overflow:hidden">${pins}<div style="position:absolute;left:190px;top:34px;line-height:0">${S.pin('bar')}</div><div style="position:absolute;left:12px;bottom:-4px;line-height:0">${plusBadge(S.ui('plus', 26.4), 60)}</div></div>`;
+  const chips = `<div style="display:flex;flex-wrap:wrap;gap:6px;padding:10px 0 0">${PLACES.map(([id]) => `<span style="display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 10px;background:${COL.raised};border:1px solid ${COL.hair};border-bottom:2px solid ${COL.navy};font-size:11px;font-weight:700;letter-spacing:.08em;color:${COL.navy}">${S.chip(id)}${id === 'cafe' ? 'CAFÉ' : id.toUpperCase()}</span>`).join('')}</div>`;
+  const lab = t => `<div style="font-size:12px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:16px 0 6px">${t}</div>`;
+  return `<div><div style="font-size:22px;font-weight:700;color:${COL.navy}">${S.name}</div><div style="font-size:15px;color:${COL.ink2};margin-bottom:4px">${S.sub}</div>${lab('List rows')}${rows}${lab('Map: pins, a selected pin, the + button')}${map}${lab('Filter chips')}${chips}</div>`;
+}
+function sheetLook() {
+  const L = 150, gap = 24, big = 192;
+  const plain = inner => `<svg width="${big}" height="${big}" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" fill="${COL.paper}"/>${inner}</svg>`;
+  const bigCell = (S, id) => id === 'plus' || id === 'star' ? plain(S.ui(id, 24).replace(/^<svg width="24" height="24"/, '<svg x="0" y="0" width="24" height="24"')) : S.badge(id, big);
+  const grid = `display:grid;grid-template-columns:${L}px repeat(6, ${big}px);column-gap:${gap}px;row-gap:28px;align-items:center`;
+  const head = `<div></div>${LOOK_COLS.map(([, nm]) => `<div style="font-size:20px;font-weight:700;color:${COL.navy}">${nm}</div>`).join('')}`;
+  const rowLabel = S => `<div style="font-size:20px;font-weight:700;color:${COL.navy};line-height:1.25">${S.name}<div style="font-size:15px;font-weight:400;color:${COL.ink2}">${S.sub}</div></div>`;
+  const bigRows = SETS.map(S => rowLabel(S) + LOOK_COLS.map(([id]) => `<div>${bigCell(S, id)}</div>`).join('')).join('');
+  const sec = t => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:0 0 16px">${t}</div>`;
+  return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
+<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six</div>
+<h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${COL.navy}">Café, bar, museum, nature, add and star</h1>
+<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1150px">Ours on the left, then the same subjects from two well-made icon sets, in the same places. Every icon here is a live vector at its true size: zoom in on the canvas to see the real drawing.</p>
+<div style="margin:0 0 56px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}">
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div>
+<div style="font-size:28px;line-height:1.3;color:${COL.navy};font-weight:600">${LOOK_Q}</div></div>
+${sec('True size, where they live in the app')}
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);column-gap:48px;margin-bottom:64px">${SETS.map(inPlace).join('')}</div>
+${sec('Large (8x)')}
+<div style="${grid}">${head}${bigRows}</div>
+</div>`;
+}
 function page(W_) { return { css: CSS(W_), cards: [sheetIntro(0), sheetSet(W_, 1), sheetDrawings(W_, 2), sheetCorners(W_, 3), sheetApp(4), sheetAir(W_, 5), sheetGrid(W_, 6)] }; }
 const NAMES7 = ['Grid7Intro', 'Grid7Set', 'Grid7Drawings', 'Grid7Corners', 'Grid7App', 'Grid7Air', 'Grid7Grid'];
 const TITLES7 = ['Batch 1, redrawn to the craft bar', 'The set, at real size', 'Each drawing, before and after', 'The corners, on the redrawn set', 'In the app, real size', 'The air in the ring', 'The grid, changed by the redraw'];
@@ -366,6 +424,9 @@ if (require.main === module) {
     fs.writeFileSync(path.join(ROOT, 'cards-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 7: batch 1 redrawn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
+    fs.writeFileSync(path.join(ROOT, 'board-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Batch 1, the set</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<style>body{margin:0}</style></head><body>${sheetLook()}</body></html>\n`);
   }
   const out = process.argv[2];
   if (out) {
@@ -405,6 +466,31 @@ renderVals() { return {}; }
 </body>
 </html>
 `));
+    fs.writeFileSync(path.join(out, 'project', 'Grid7Look.dc.html'), `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Batch 1, the set</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+${sheetLook()}
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
+`);
     fs.writeFileSync(path.join(out, 'boards.json'), JSON.stringify(NAMES7.map((nm, i) => ({ file: nm + '.dc.html', title: TITLES7[i] })), null, 1));
     fs.writeFileSync(path.join(out, 'measure.html'), `<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0}${m.css}.card{margin:0}</style></head><body><div class="cards">${m.cards.join('')}</div></body></html>`);
   }
