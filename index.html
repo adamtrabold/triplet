@@ -750,6 +750,7 @@
     .route-city-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
       font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .12em; }
     .add-chev { width: 12px; height: 12px; flex: none; display: block; }
+    .route-city:active:not([aria-expanded="true"]) { background: var(--state-press); }   /* p3-fixes: pressed, as the tag's other controls */
     .route-city[aria-expanded="true"] { background: var(--navy); color: var(--paper); }
     .route-city[aria-expanded="true"] .add-chev { transform: rotate(180deg); }
     .route-city:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
@@ -834,6 +835,10 @@
     #addMenuScrim[hidden], #tagMenuScrim[hidden] { display: none; }
     #addCityMenu, #addTypeMenu, #tagCityMenu { overflow-y: auto; overscroll-behavior: contain; max-width: calc(100vw - 2 * var(--gutter)); }
     .menu-cap.is-mid { border-top: 1px solid var(--hair); }
+    /* p3-fixes: ONE rule above "New city": the city row just before it drops its own (it doubled
+       with the caption's top rule into a 2px band). The New city block is sticky at the foot. */
+    .menu-row.before-foot { border-bottom-color: transparent; }
+    .menu-foot { position: sticky; bottom: 0; z-index: 1; background: var(--paper-raised); }
     .menu-badge { width: 20px; height: 20px; flex: none; display: block; }
     .menu-ico.is-quiet { color: var(--ink-2); }
     body.add-menu-open .leaflet-control-attribution, body.tag-menu-open .leaflet-control-attribution { visibility: hidden; }   /* as sort: never half-covered */
@@ -1993,7 +1998,7 @@
     .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
-    .tag-x { all: unset; position: absolute; z-index: 4; top: 74px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    .tag-x { all: unset; position: absolute; z-index: 4; top: 50px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
     .tag-x svg { width: 14px; height: 14px; display: block; }
     .tag-x::before { content: ''; position: absolute; inset: 8px; z-index: -1; border-radius: 3px; }
@@ -2008,6 +2013,17 @@
       background: linear-gradient(to top, var(--scroll-shadow), transparent); }
     .tag-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); padding-right: 32px; overflow-wrap: anywhere; margin: 0; }
     .tag-addr { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+    /* p3-fixes: room for the routing line without the busiest tag outgrowing 375x667 (main fitted
+       it with 1px to spare): the line is 20px (its target still 44 via ::before), set 2px under the
+       band's 36 (+ the line's own 2px = text 5px clear), the name right under it; the note joins the
+       address line; the field line's breathing room steps 12 -> 8. */
+    .tag-in { padding-top: 38px; }
+    .tag-in > .route-line { min-height: 20px; padding-bottom: 0; margin-bottom: 0; }
+    .tag-in .route-city { height: 20px; }
+    .tag-in .route-city::before { top: -12px; bottom: -12px; }
+    .tag-in > .route-line ~ .tag-addr { margin-top: 0; }   /* the name's 28px line already leaves ~10px to the address */
+    .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
+    .tag-addr .tag-dist-sep { color: var(--ink-2); }
     .tag-notes { margin-top: var(--s2); font-size: 14px; line-height: 20px; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
     /* THE FIELD LINE: RUBBER STAMP (design/popup-hierarchy/type-line/ round 2, variant D, "both
        stamped"; owner 2026-10-07: "Rubber stamp is great it should also be the numbers in # of #").
@@ -2024,7 +2040,7 @@
        impression at its own per-place angle. Ink as read (textured core, mean): >= 4.5:1, measured
        (docs/shipped.md). Fields wrap as whole fields (column gap 16, row gap 8); a value never
        breaks inside. */
-    .tag-fields { display: flex; flex-wrap: wrap; column-gap: var(--s4); row-gap: var(--s2); margin-top: var(--s3); padding-bottom: var(--s3); align-items: baseline; }
+    .tag-fields { display: flex; flex-wrap: wrap; column-gap: var(--s4); row-gap: var(--s2); margin-top: var(--s2); padding-bottom: var(--s2); align-items: baseline; }
     .tag-f { display: flex; align-items: baseline; gap: var(--s2); min-width: 0; }
     .tag-lab { font-stretch: 75%; text-transform: uppercase; font-weight: 500; font-size: 11px; line-height: 16px; letter-spacing: .12em; color: var(--ink-2); }
     .tag-val { white-space: nowrap; }
@@ -5652,15 +5668,16 @@
       const distId = escapeAttr('tag-dist-' + loc.id);
       const route = `<div class="route-line"><button type="button" class="route-city tag-city" data-id="${id}" aria-haspopup="menu" aria-expanded="${tagCityMenuKey === loc.id}" aria-controls="tagCityMenu"`
         + ` aria-label="${escapeAttr(`City: ${cityName}. ${off ? 'Sign in to change it' : 'Change the city'}`)}"${off ? ' aria-disabled="true"' : ''}${dist ? ` aria-describedby="${distId}"` : ''}>`
-        + `<span class="route-city-name">${escapeHtml(cityName)}</span></button></div>`;
+        + `<span class="route-city-name">${escapeHtml(cityName)}</span>${ROUTE_CHEV}</button></div>`;
       return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
         + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span><div class="tag-stock">`
         + (band ? `<span class="tag-band" style="${texVars(loc.id, 'band', 160, .06)}" aria-hidden="true"></span>` : '')
         + '<span class="tag-patch" aria-hidden="true"></span>'
         + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
         + `<div class="tag-in">${route}<h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
-        + (addr ? `<div class="tag-addr">${escapeHtml(addr)}</div>` : '')
-        + (dist ? `<div class="tag-dist" id="${distId}">${escapeHtml(dist)}</div>` : '')
+        // p3-fixes: the distance note rides the END of the address line (" · ≈ 50 km", unbreakable,
+        // wrapping as one piece), the city it is measured from printed on the routing line above.
+        + (addr || dist ? `<div class="tag-addr">${addr ? escapeHtml(addr) : ''}${dist ? `${addr ? '<span class="tag-dist-sep" aria-hidden="true"> · </span>' : ''}<span class="tag-dist" id="${distId}">${escapeHtml(dist)}</span>` : ''}</div>` : '')
         + (loc.notes ? `<div class="tag-notes">${escapeHtml(loc.notes)}</div>` : '')
         + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val tag-stamp popup-cat" style="--tilt:${typeTilt(loc.id)}deg;${texVars(loc.id, 'type', 170, .1)}">${escapeHtml(loc.category)}</span></span>`
         + (stop ? `<span class="tag-f"><span class="tag-lab">Plan</span><span class="tag-val tag-plan">Stop <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 1)}deg;${texVars(loc.id, 'n', 170, .1)}">${stop.n}</span> of <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 2)}deg;${texVars(loc.id, 'm', 170, .1)}">${stop.m}</span></span></span>` : '') + '</div></div>'
@@ -5672,6 +5689,9 @@
         + '</div></div></div><span class="tag-string" aria-hidden="true"></span></div>';
     }
 
+    // p3-fixes: the Hanging Tag's city carries the add tag's 12px chevron (UX: it must read as
+    // changeable at rest, like the add tag's city button).
+    const ROUTE_CHEV = '<svg class="add-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     // The popup that hangs: its container's TOP sits at the anchor (+ the pin's
     // radius, via --tag-drop inside), centred on it -- Leaflet's own popup sits
     // its BOTTOM there. Zoom animation is Leaflet's (it only moves the anchor).
@@ -9478,15 +9498,18 @@
     const CITY_PIN_ICO = '<svg class="menu-ico is-quiet" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>';
     function cityMenuHtml(curId, town, townOn) {
       let html = '<div class="menu-cap" aria-hidden="true">City</div>';
-      sectionCityIds().filter(id => CITIES[id]).forEach(id => {
+      const ids = sectionCityIds().filter(id => CITIES[id]);
+      ids.forEach((id, i) => {
         const on = !townOn && id === curId;
-        html += `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-city="${escapeAttr(id)}">`
+        html += `<button type="button" class="menu-row${town && i === ids.length - 1 ? ' before-foot' : ''}" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-city="${escapeAttr(id)}">`
           + (on ? CITY_PIN_ICO : MENU_SVG.spacer)
           + `<span class="menu-lab">${escapeHtml(cityLabel(id))}</span><span class="menu-gap"></span>${on ? MENU_SVG.check : MENU_SVG.none}</button>`;
       });
       if (town) {
-        html += '<div class="menu-cap is-mid" aria-hidden="true">New city</div>'
-          + `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${!!townOn}" tabindex="-1" data-newcity="1" aria-label="New city: ${escapeAttr(town.label)}">${MENU_SVG.spacer}<span class="menu-lab">+ ${escapeHtml(town.label)}</span><span class="menu-gap"></span>${townOn ? MENU_SVG.check : MENU_SVG.none}</button>`;
+        // p3-fixes: "New city" + "+ town" are one block pinned to the menu's foot (sticky), so with
+        // many cities the town is always in reach while the cities scroll above it.
+        html += '<div class="menu-foot"><div class="menu-cap is-mid" aria-hidden="true">New city</div>'
+          + `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${!!townOn}" tabindex="-1" data-newcity="1" aria-label="New city: ${escapeAttr(town.label)}">${MENU_SVG.spacer}<span class="menu-lab">+ ${escapeHtml(town.label)}</span><span class="menu-gap"></span>${townOn ? MENU_SVG.check : MENU_SVG.none}</button></div>`;
       }
       return html;
     }
@@ -9494,13 +9517,22 @@
     // above the list bar or the visible viewport's foot (the keyboard counts); ceiling = the top
     // controls + 8. Too tall to open under its trigger, it slides up as far as it must (it may
     // cover the trigger); it scrolls only when even that is short.
-    function placeMenuUnder(menu, trig) {
+    // p3-fixes: a CITY menu (keepTrigger) never slides over its trigger: it stays 6px under it and
+    // scrolls its cities, the New city block pinned at its foot (unless under 160px are left, when it
+    // slides as TYPE does). The floor also clears the + badge (its box + 8) when the menu's span
+    // crosses it (the Hanging Tag; the badge hides while adding).
+    function placeMenuUnder(menu, trig, keepTrigger) {
       const r = trig.getBoundingClientRect(), gutter = 16, vv = window.visualViewport;
       const foot = vv ? vv.offsetTop + vv.height : innerHeight, sheetTop = document.getElementById('locations').getBoundingClientRect().top;
-      const floor = Math.min(foot, sheetTop > 0 ? sheetTop : foot) - 8, ceil = addOpenArea().top;
-      menu.style.left = `${Math.max(gutter, Math.min(r.left, innerWidth - gutter - menu.offsetWidth))}px`;
+      let floor = Math.min(foot, sheetTop > 0 ? sheetTop : foot) - 8;
+      const ceil = addOpenArea().top;
+      const left = Math.max(gutter, Math.min(r.left, innerWidth - gutter - menu.offsetWidth));
+      menu.style.left = `${left}px`;
+      const fab = document.getElementById('floatingAddBtn'), br = fab && getComputedStyle(fab).visibility !== 'hidden' ? fab.getBoundingClientRect() : null;
+      if (br && br.height && br.right > left && br.left < left + menu.offsetWidth) floor = Math.min(floor, br.top - 8);
       menu.style.maxHeight = '';
-      const top = Math.max(ceil, Math.min(r.bottom + 6, floor - menu.offsetHeight));
+      const under = r.bottom + 6;
+      const top = keepTrigger && floor - under >= 160 ? under : Math.max(ceil, Math.min(under, floor - menu.offsetHeight));
       menu.style.top = `${top}px`;
       menu.style.maxHeight = `${Math.max(120, floor - top)}px`;
     }
@@ -9796,7 +9828,7 @@
     function placeAddMenu() {
       [['addCityMenu', 'addCityBtn'], ['addTypeMenu', 'addTypeBtn']].forEach(([m, b]) => {
         const menu = document.getElementById(m); if (!menu || menu.hidden) return;
-        placeMenuUnder(menu, document.getElementById(b));
+        placeMenuUnder(menu, document.getElementById(b), m === 'addCityMenu');
       });
     }
     function closeAddMenus(refocus) {
@@ -10362,7 +10394,7 @@
     }
     function placeTagCityMenu() {
       const menu = document.getElementById('tagCityMenu'), trig = tagCityTrigger();
-      if (!menu.hidden && trig) placeMenuUnder(menu, trig);
+      if (!menu.hidden && trig) placeMenuUnder(menu, trig, true);
     }
     function openTagCityMenu(key) {
       const item = rowItem(key); if (!item) return;
@@ -10527,7 +10559,7 @@
       const p = tagOpenNow() && map._popup, c = p && p.getElement();
       const s = c && c.querySelector(':scope > .tag-slip');
       if (!s) return;
-      if (!s.firstChild) s.innerHTML = '<span>Sign in to star and mark visited</span><button type="button">Sign in</button>';
+      if (!s.firstChild) s.innerHTML = '<span>Sign in to make changes</span><button type="button">Sign in</button>';
       tagSlipOn = true;
     }
     function hideTagSlip() {
