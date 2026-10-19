@@ -688,6 +688,41 @@
     /* Leaflet's zoom control clears the status bar / Dynamic Island in a
        home-screen launch (inset is 0 in a Safari tab). */
     .leaflet-top { margin-top: env(safe-area-inset-top, 0px); }
+
+    /* THE CITY BADGE (add-tag-jam phase 4, GoToMap "the boxed city label"): below
+       CITY_BADGE_MAX_ZOOM, one per shown city, at its stored centre. The menu's box family
+       (paper-raised, navy rule, the 2px offset navy shadow); caps 13 + the tally. The marker
+       icon is a 0x0 anchor; the button centres on it. */
+    .city-badge-anchor { width: 0; height: 0; }
+    .city-badge {
+      position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
+      display: flex; align-items: center; white-space: nowrap;
+      background: var(--paper-raised); border: 1.5px solid var(--navy); border-radius: 2px;
+      padding: 5px 9px; box-shadow: 2px 2px 0 var(--navy);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 13px; line-height: 16px; letter-spacing: 0.08em; color: var(--navy);
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .city-badge::before { content: ''; position: absolute; left: -2px; right: -2px; top: -9px; bottom: -9px; }   /* a 44px-tall hit area, as the menu rows' trick */
+    .city-badge:active { background: var(--state-press); }
+    .city-badge:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+    /* "All cities": under the zoom control, Leaflet's own control look (leaflet-bar: the
+       2px rgba(0,0,0,.2) border, 4px radius; #fff as its buttons) -- not a brand surface. */
+    .all-cities-btn {
+      position: relative; display: flex; align-items: center; gap: 5px; height: 34px; box-sizing: border-box;
+      padding: 0 9px 0 7px; background: #fff; background-clip: padding-box; cursor: pointer;
+      font-family: var(--font-ui); color: var(--navy); -webkit-tap-highlight-color: transparent;
+    }
+    .all-cities-btn::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 44px tall to the touch */
+    .all-cities-btn:active { background: #f4f4f4; }   /* leaflet-bar a:hover's own step */
+    .all-cities-btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+    .all-cities-ico { width: 16px; height: 16px; flex: none; display: block; }
+    .all-cities-lab {
+      font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 14px;
+      letter-spacing: 0.1em; white-space: nowrap;
+    }
+    body.plan-view .all-cities-btn, body.add-open .all-cities-btn { display: none; }
     /* OSM land beige, not leaflet.css's #ddd: iOS Safari tints its status
        bar from the top fixed layer, so this makes the strip read as map
        (and tiles loading in show beige, not grey). */
@@ -5026,6 +5061,16 @@
     // constant is what lets clustering extend there independently.
     const SOLO_MIN_ZOOM = 14;
 
+    // The map's city badges (add-tag-jam phase 4; the value is a "we think"): below this zoom, in
+    // Places, each SHOWN city with at least one shown place draws ONE boxed badge (its name + the
+    // tally) at its stored centre, in place of that city's pins and clusters. A zoom-gated MAP
+    // layer only -- mapVisibleLocations() / mapVisibleNeighborhoodShapes(); the list never changes
+    // with zoom. A badge tap is the go-to (goToCity()), which lands at the city's own zoom
+    // (cityConfig().zoom: 11-12 today, 12 for a new city), so this must stay below every city's
+    // zoom or the tap would land on badges again. Not SOLO_MIN_ZOOM / GLYPH_MIN_ZOOM: those still
+    // govern everything at and above this one.
+    const CITY_BADGE_MAX_ZOOM = 8;
+
     // Cluster-cell size for mapVisibleLocations()'s grid-snap below
     // SOLO_MIN_ZOOM, banded by zoom rather than one flat number -- a
     // coarser cell far out, finer as you approach the solo cutoff, so a
@@ -5474,6 +5519,7 @@
       const mapVisible = mapVisibleLocations();
       syncMarkers(mapVisible.solo);
       syncClusterMarkers(mapVisible.clusters);
+      syncCityBadges(mapVisible.badges);
 
       if (!crossed) return;
       markersById.forEach((entry, id) => {
@@ -7567,6 +7613,7 @@
       const mapVisible = mapVisibleLocations();
       syncMarkers(mapVisible.solo);
       syncClusterMarkers(mapVisible.clusters);
+      syncCityBadges(mapVisible.badges);
       let listed;
       if (planMode) {
         dropHeads(cityHeads);
@@ -7723,8 +7770,8 @@
     function mapVisibleNeighborhoodShapes() {
       // A plan's own shape stops draw at any zoom: the gate thins Places, and
       // a plan's stops are never clutter (their numbered diamond needs them).
-      const zoom = map.getZoom(), pm = planMarks();
-      return visibleNeighborhoodShapes().filter(nb => pm.byShape.has(nb.id) || zoom >= neighborhoodMinZoom(nb));
+      const zoom = map.getZoom(), pm = planMarks(), badged = badgeCityIds();   // a badged city's shapes give way to its badge
+      return visibleNeighborhoodShapes().filter(nb => pm.byShape.has(nb.id) || (zoom >= neighborhoodMinZoom(nb) && !badged.has(nb.city)));
     }
 
     function syncNeighborhoodLayers() {
@@ -7893,9 +7940,22 @@
       while (i < ns.length) { let j = i; while (j + 1 < ns.length && ns[j + 1] === ns[j] + 1) j++; out.push(j > i ? `${ns[i]}–${ns[j]}` : `${ns[i]}`); i = j + 1; }
       return out.join(',');
     }
+    // The cities that draw a badge right now (CITY_BADGE_MAX_ZOOM): Places only (a plan's stops
+    // show as today at every zoom), zoomed out, shown (hidden cities: no badge), with a stored
+    // centre and at least one place matching the filters. Their pins and shapes leave the map layer.
+    function badgeCityIds() {
+      if (!map || inPlanView() || map.getZoom() >= CITY_BADGE_MAX_ZOOM) return new Set();
+      const ids = new Set();
+      visibleLocations().forEach(l => ids.add(l.city));
+      visibleNeighborhoodShapes().forEach(n => ids.add(n.city));
+      return new Set([...ids].filter(id => CITIES[id] && Array.isArray(CITIES[id].center)));
+    }
     function mapVisibleLocations() {
-      const all = visibleLocations();
-      if (!map || map.getZoom() >= SOLO_MIN_ZOOM) { clusteredShapeIds = new Set(); return { solo: all, clusters: [] }; }
+      const badged = badgeCityIds();
+      const all = badged.size ? visibleLocations().filter(l => !badged.has(l.city)) : visibleLocations();
+      // In section order (the menu's), so the badges' DOM / tab order is stable.
+      const badges = sectionCityIds().filter(id => badged.has(id)).map(id => ({ id, label: cityLabel(id), count: cityTally(id), center: CITIES[id].center }));
+      if (!map || map.getZoom() >= SOLO_MIN_ZOOM) { clusteredShapeIds = new Set(); return { solo: all, clusters: [], badges }; }
       // Plans: a district/street stop joins the grid at its centroid like a pin ('shape:<id>');
       // clustered, its own mark hides (syncPlanShapeMarkers()). Places: nothing is added.
       const shapeStops = inPlanView() && activePlan() ? planMarks().rows.filter(r => r.nb && shapeCentroid(r.nb))
@@ -7933,7 +7993,33 @@
         members.forEach(m => { if (m.planShape) inClusters.add(Number(String(m.id).slice(6))); });
       });
       clusteredShapeIds = inClusters;
-      return { solo: shapeStops.length ? solo.filter(l => !l.planShape) : solo, clusters };
+      return { solo: shapeStops.length ? solo.filter(l => !l.planShape) : solo, clusters, badges };
+    }
+
+    // THE CITY BADGE (add-tag-jam phase 4, the boxed city label): a <button> on the map, centred
+    // on the city's stored centre (the icon is a 0x0 anchor; the button centres on it by CSS).
+    // Keyed by city id, re-iconed only when its name or tally changes, so a pan never re-creates
+    // one (no flicker). A tap is the go-to (goToCity(): the map frames the city, the list scrolls
+    // to its header, nothing is hidden). Synced wherever the clusters are.
+    const cityBadgeMarkers = new Map();   // city id -> { marker, sig }
+    function cityBadgeIcon(b) {
+      const html = `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">` +
+        `${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`;
+      return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
+    }
+    function syncCityBadges(badges) {
+      if (!map) return;
+      const seen = new Set();
+      badges.forEach(b => {
+        seen.add(b.id);
+        const sig = b.label + '|' + b.count + '|' + b.center.join(','), had = cityBadgeMarkers.get(b.id);
+        if (had && had.sig === sig) return;
+        if (had) { had.marker.setLatLng(b.center); had.marker.setIcon(cityBadgeIcon(b)); had.sig = sig; return; }
+        const marker = L.marker(b.center, { icon: cityBadgeIcon(b), keyboard: false, zIndexOffset: Z_CITY_BADGE }).addTo(map);
+        marker.on('click', () => goToCity(b.id));
+        cityBadgeMarkers.set(b.id, { marker, sig });
+      });
+      cityBadgeMarkers.forEach((e, id) => { if (!seen.has(id)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(id); } });
     }
 
     // Cluster badge: paper count on a solid field, deliberately not a
@@ -7995,7 +8081,9 @@
     // Among equals the starred one wins, so the place the owner cares
     // about is never the one hidden underneath. The selected pin always
     // tops everything.
-    const Z_HIGHLIGHTED = 1000, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500, Z_PIN_VISITED_DROP = 1000;
+    // A city badge (CITY_BADGE_MAX_ZOOM) sits at 800, between the starred cluster and the
+    // highlighted pin: it stands for a whole city, so no other city's cluster or pin covers it.
+    const Z_HIGHLIGHTED = 1000, Z_CITY_BADGE = 800, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500, Z_PIN_VISITED_DROP = 1000;
     // The Plans ladder (an open plan only; design/plans-deepdive/v3 §4).
     // Leaflet's z-index = the marker's screen y + this offset, so the steps are
     // 5000 apart (more than any screen is tall) or a lower mark further down
@@ -10323,6 +10411,25 @@
     const syncAttributionPrefix = () => map.attributionControl.setPrefix(map.getSize().x < 338 ? false : ATTRIBUTION_PREFIX);
     syncAttributionPrefix();
     map.on('resize', syncAttributionPrefix);
+
+    // "All cities" (add-tag-jam phase 4): under the zoom control, in its Leaflet look (the 10px
+    // control gap is Leaflet's own). A tap is the title menu's "All places" go-to
+    // (goToCity(ALL_CITIES)): the map fits every shown place, the list goes to its top. Not in
+    // Plans (no badges there either) or while the add tag is up (CSS).
+    const AllCitiesControl = L.Control.extend({
+      options: { position: 'topleft' },
+      onAdd() {
+        const b = L.DomUtil.create('button', 'leaflet-bar all-cities-btn');
+        b.type = 'button'; b.id = 'allCitiesBtn';
+        b.setAttribute('aria-label', 'Show all my cities');
+        b.innerHTML = MENU_SVG.ring.replace('class="menu-ico"', 'class="all-cities-ico"') + '<span class="all-cities-lab">All cities</span>';
+        L.DomEvent.disableClickPropagation(b);
+        L.DomEvent.disableScrollPropagation(b);
+        b.addEventListener('click', () => goToCity(ALL_CITIES));
+        return b;
+      }
+    });
+    new AllCitiesControl().addTo(map);
 
     initAddMapHooks();   // the add tag keeps a picked place under its pin
     map.on('dragend zoomend', noteInteraction);
