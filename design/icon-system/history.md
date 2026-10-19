@@ -40,6 +40,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-19 · Batch 1 verdict:** drawn side over skeletons, 1.5px confirmed; "none of these are yet at the craft level i need" (part sizes, rounding, interior choices, optical centring and weight). Full quote in `owner.md`.
 
+- **10-19 · Batch 1 redrawn (g7c) shown:** optical centring, balanced weight (blur spread 25→9), ear handle, beam museum, ink traps; beside Material and Phosphor. Asked: craft level as a set? corners? air? `grid/stills/g7-sheet-1.png`
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
