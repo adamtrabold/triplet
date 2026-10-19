@@ -1998,7 +1998,7 @@
     .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
-    .tag-x { all: unset; position: absolute; z-index: 4; top: 74px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    .tag-x { all: unset; position: absolute; z-index: 4; top: 84px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
     .tag-x svg { width: 14px; height: 14px; display: block; }
     .tag-x::before { content: ''; position: absolute; inset: 8px; z-index: -1; border-radius: 3px; }
@@ -2019,12 +2019,14 @@
        via ::before) with 4px to the name; the note rides the address line. The busiest tags (a long
        name + a long note + a plan stop) scroll inside on the smallest phones (375x667), with the
        stub's soft shadow -- the honest trade for the padding. */
-    /* p3-fixes v3 (owner: "better on the padding, though i could even see more"): 56 above the first
-       line (the band's 36 + 20), 6 from the city to the name, the field line 12 above / 16 to the stub. */
-    .tag-in { padding-top: 56px; }
-    .tag-in > .route-line { min-height: 20px; padding-bottom: 0; margin-bottom: 6px; }
-    .tag-in .route-city { height: 20px; }
-    .tag-in .route-city::before { top: -12px; bottom: -12px; }
+    /* p3-fixes v4 (owner: "does the spacing adhere to our design system multiples?"): every value on
+       the scale. Above the first line: main's --s12 + one --s3 (60 = the band's 36 + --s6 clear); the
+       city line --s6 tall, --s2 to the name; the field line --s3 above / --s4 to the stub. (The ::before
+       only grows the city's hit area to 44: (44 - 24) / 2 = 10, not a visible space.) */
+    .tag-in { padding-top: calc(var(--s12) + var(--s3)); }
+    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-bottom: var(--s2); }
+    .tag-in .route-city { height: var(--s6); }
+    .tag-in .route-city::before { top: -10px; bottom: -10px; }
     .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
     .tag-addr .tag-dist-sep { color: var(--ink-2); }
     .tag-notes { margin-top: var(--s2); font-size: 14px; line-height: 20px; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
@@ -9544,7 +9546,7 @@
       const fab = document.getElementById('floatingAddBtn'), br = fab && getComputedStyle(fab).visibility !== 'hidden' ? fab.getBoundingClientRect() : null;
       if (br && br.height && br.right > left && br.left < left + menu.offsetWidth) floor = Math.min(floor, br.top - 8);
       menu.style.maxHeight = '';
-      const under = r.bottom + 6;
+      const under = r.bottom + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s2')) || 8);   // p3-fixes v4: --s2 under the trigger (was 6)
       const top = keepTrigger && floor - under >= 160 ? under : Math.max(ceil, Math.min(under, floor - menu.offsetHeight));
       menu.style.top = `${top}px`;
       menu.style.maxHeight = `${Math.max(120, floor - top)}px`;
