@@ -1698,3 +1698,45 @@ Approved stills: `design/add-tag-jam/stills/p2-fixes/`. Builder notes:
   run-alls; standalone `visit.js` 91/95 three times out of three; main 91/95 in 3 run-alls -- a
   load-timing flake, the diff touches no row or stamp code). plantest 148/174 and sorttest 76/77,
   identical to main.
+
+## City buckets (add-tag-jam phase 3; NOT LANDED -- branch `add-tag-p3`)
+
+Owner: "Great to build"; "Run it per CLAUDE.md lane 2, one phase at a time". From the trip-location
+model: a place's city is a bucket guessed from the pin, editable at add and later (owner: "if the app
+puts a place in the wrong city you should be able to edit the city attached to the place"); both
+truths ("the address needs to comfortably balance the idea of the city it belongs to in the app vs
+the city the address actually places it"). Spec: `design/add-tag-jam/handoff.md` "Phase 3" (design
+branch). Notes: `design/add-tag-jam/notes/builder.md` (Phase 3). Stills:
+`design/add-tag-jam/stills/build-p3/`. **Waits on:** the CD + UX check, the owner's look, and a
+waiver for the Impeccable finding below.
+
+- **The guess** (`guessCity()` / `guessCityAt()`): the nearest city whose stored `center` is within
+  `CITY_REACH_KM` = 70 ("we think"; one constant); none in reach: the real town as a NEW city (or
+  the existing city of that name); no town in the details: the point's reverse-geocoded town; no
+  town at all: the nearest city however far, never new, so ADD is never blocked. Boxes file
+  nothing now: a city's `viewbox` decides only the distance note. The pre-pick line keeps the old
+  rule (display only). A district / street below the confident vote: the guess on its centroid.
+- **The Hanging Tag's routing line:** the place's city is the tag's first line, in the add tag's
+  type (caps 12 navy) with no chevron; tap: the add tag's city menu (caption City, your cities with
+  the pin glyph + check on the current one, then "New city · + {real town}"; a place with no
+  details gets its town from one reverse lookup on open). A pick files the place there
+  (`setPlaceCity()`: `locations.city` / `neighborhood_shapes.city` by row key; optimistic,
+  `requireAuth()`, held from the poll by `flagWritesInFlight`, rollback per write); "+ town" runs
+  `addCity()` first. The row moves to its new section (and stays in view while its tag is open);
+  the pin never moves; a hidden destination city is shown; `cleanupOrphanCities()` removes an
+  auto-added city left empty. Signed out / playground: greyed (`aria-disabled`), the sign-in slip.
+  Esc closes the menu before the tag. No DB migration.
+- **The distance note on the Hanging Tag:** under the address (11/14 `--ink-2`, 4px above):
+  "≈ 50 km from Reykjavík", only outside the city's box; pins only; coordinates only, so the 59
+  places without address details get it too. Never on list rows.
+- **Fixes on the way:** a pin row's signature now carries its city (its meta prints it); a shape
+  tag's popup signature carries its city; the tags re-read city names when the cities table loads.
+- **Gates (Chromium):** `design/add-tag-jam/p3/citytest.js` 35/35 (the guess, the line and note,
+  the menu, the write, rollback incl. per-write, the poll hold, "+ town", orphan cleanup, a
+  district's move, signed out, Esc); addtest 72/72; plantest 148/174 and sorttest 76/77 (identical
+  to main); full gesture gate: star "84 + 8 (+ N8-a)" · vtest 91/95 (V14 x2, V15 x2, as main) ·
+  popup-open 20/20 + 20/20 · dust 2 frames in run-all (stockholm highlighted unstar long), 0 frames
+  65/65 standalone (no row code touched) · rows 56.00px · curve8 10/3 (pre-existing) · delete-slop
+  36/36 · plan-rows 40/40 · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12. **Impeccable:
+  GATE FAILED on one new finding,** `kicker-above-heading` ("Reykjavík" above the tag's h2) -- the
+  approved routing line itself; static 0 new; no `--update`. Needs an owner/operator waiver.

@@ -229,3 +229,70 @@ stills and their script came across (`stills/p2-fixes/`). Owner: "I like the cha
 dropdown". Checks: addtest 72/72 (+ plain kinds, ADD's three lines, the dot + where-line, the menu
 inside [ceiling, floor] at 390x844 and 375x667, the trigger with no box or badge); Impeccable PASSED;
 places-ux 30/30; plantest / sorttest as main. Landed 2026-10-18.
+
+# Phase 3: the city-bucket model (2026-10-19; branch `add-tag-p3` from main dab4f745; NOT LANDED)
+
+Spec: `handoff.md` "Phase 3" (systems + visual: CityChange, CityNew, CityDistance third phone). The
+build was interrupted once (container restart); the coordinator saved it as WIP ea6f5e7a
+(`add-tag-p3-wip`), re-reviewed and continued from there.
+
+## What's built (index.html)
+- **The guess** (`guessCity()`, `CITY_REACH_KM` = 70, "we think"): nearest stored `center` within
+  reach (`rankCitiesByProximity(…, CITY_REACH_KM)[0]`); else the real town as a NEW city (or the
+  existing city of that label: never a duplicate); no town -> null. `guessCityAt()` adds the
+  reverse geocode (one `nominatimReverse()`), then `nearestCityAnywhere()` (never new, so ADD is
+  never blocked). `addGuessAt()` is gone. `matchCity()`'s boxes no longer file a pick; they stay in
+  `preGuessCity()` (pre-pick display only, the old 150 km rule, as the spec says),
+  `resolveShapeCity()`'s vote (the handoff keeps it) and the distance note.
+- **The pick** (`selectAddress()`): the sync guess; with no town, the line waits blank for
+  `guessCityAt()` and stores what the reverse found on the pick (`p.reverseDetails`) so the menu
+  can offer "+ town". ADD runs `guessCityAt()` itself if the line is still waiting.
+- **Shapes below the confident share:** the guess on the outline's centroid (was: the line's city).
+- **Shared:** `newTownOption()`, `placeDistanceText()` (add tag + Hanging Tag), `cityMenuHtml()`
+  (one city menu builder), `placeMenuUnder()` (the phase 2 fit rule, now shared by the add tag's
+  menus and the tag's). CSS: `.add-route/.add-city/.add-city-name` renamed to
+  `.route-line/.route-city/.route-city-name` (shared by both tags; no visual change).
+- **The Hanging Tag** (`buildPopupHtml()`): the routing line first in `.tag-in` (a `<button
+  class="route-city tag-city">` with the city in the add tag's type, no chevron; open = navy fill),
+  `.tag-dist` under the address (pins only, as on the add tag). `.tag-x` moved 40 -> 74px to stay
+  on the name line. Signed out: `aria-disabled`, a tap -> `showTagSlip()`.
+- **The menu** (`#tagCityMenu`, `#tagMenuScrim`, body `.tag-menu-open`): `openTagCityMenu()` /
+  `renderTagCityMenu()` / `closeTagCityMenu()`; arrows / Home / End / Tab / Esc (Esc closes the
+  menu before the tag); closes with the tag. A place with no details (or a shape) gets its town
+  from one reverse lookup on open (cached per session in `tagTownCache`; a miss is retried next
+  open); the "+ town" row joins the open menu when it arrives.
+- **The write** (`setPlaceCity(key, cityId)`): requireAuth; `revealCity()` first (a move into a
+  hidden city would otherwise remove the pin and close the tag); optimistic `applyPlaceCity()`
+  (updateUI, refocus the city button, keep the selected row in view); `flagWritesInFlight`;
+  rollback only if the place still shows this write's city; last write refetches;
+  `cleanupOrphanCities()` after. `movePlaceToNewCity()`: `deriveNewCityConfig()` + `addCity()`
+  first, then the move.
+- **Signatures:** `cardSignature()` now carries `loc.city` for pin rows too (the row meta prints
+  the city; before this, a pin row never re-rendered on a city change -- latent, made visible by
+  the move); `shapePopupSignature()` carries `nb.city`. `fetchCities()` calls `refreshTags()` so a
+  tag built before the cities table loaded doesn't show a raw city id.
+
+## Decisions (mine, flagged in the hand-back)
+1. Handoff conflict: the visual section says the Hanging Tag prints the city "with no chevron and
+   no button"; the systems section says "tap it to open the same city menu". Built: a button with
+   no chevron and no chrome (it reads as printed text; the open state is the add tag's navy fill).
+2. A move into a hidden city shows that city (as an add does).
+3. After a move the selected row is scrolled into view (owner: "the list item in view should be
+   the one selected").
+4. The "+ town" lookup for places with no details (reverse geocode on menu open).
+5. No distance note on district / street tags (as phase 2 built it for the add tag).
+6. Signed out the city keeps its navy ink (not greyed like Star / Mark visited); the slip's copy is
+   today's ("Sign in to star and mark visited").
+
+## Open
+- Impeccable runtime: 1 new finding, `kicker-above-heading` ("Reykjavík" above the tag's h2) --
+  the approved routing line itself. Needs the owner's / operator's waiver (the detector honours
+  `data-impeccable-allow-kickers` on an ancestor, or a baseline `--update`); not done by me.
+- The p2 check's "no town -> nearest however far" gap: solved for places with no details (reverse
+  lookup), NOT for US "Village of X" places (OSM's reverse gives only admin-style names). Backlog.
+- The list title still keeps the last go-to city after an add / move into another city (p2 nit).
+
+## Checks
+- `design/add-tag-jam/p3/citytest.js` (35 cases; `p3/lib-p3.js`: update / delete recorder, update
+  failure and slow settle, /reverse fixture, real places from the live DB on fixture rows).
+- Stills: `design/add-tag-jam/stills/build-p3/stills.js`.
