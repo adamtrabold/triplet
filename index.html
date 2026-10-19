@@ -2020,11 +2020,10 @@
        name + a long note + a plan stop) scroll inside on the smallest phones (375x667), with the
        stub's soft shadow -- the honest trade for the padding. */
     /* p3-fixes v4 (owner: "does the spacing adhere to our design system multiples?"): every value on
-       the scale. Above the first line: main's --s12 + one --s3 (60 = the band's 36 + --s6 clear); the
+       the scale. Above the first line: .tag-in's own --s12 + the line's --s3 margin (60 = the band's 36 + --s6 clear); the
        city line --s6 tall, --s2 to the name; the field line --s3 above / --s4 to the stub. (The ::before
        only grows the city's hit area to 44: (44 - 24) / 2 = 10, not a visible space.) */
-    .tag-in { padding-top: calc(var(--s12) + var(--s3)); }
-    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-bottom: var(--s2); }
+    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s2); }   /* .tag-in's own --s12 + this --s3 = 60 above */
     .tag-in .route-city { height: var(--s6); }
     .tag-in .route-city::before { top: -10px; bottom: -10px; }
     .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
