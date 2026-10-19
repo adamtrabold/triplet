@@ -596,3 +596,75 @@ NEXT: design director, sheets 1, 2 and 5 and the sources.
 NEXT: icon designer, the crop fix. Then the director looks at that one
 close-up, and the coordinator sends the canvas page "Grid concepts" with
 the question and adds the `../history.md` line.
+
+---
+
+## Turn 24: design director, his batch-1 verdict; my 9 was wrong
+
+His verdict on batch 1 is verbatim in `../owner.md` (canvas comment,
+10-19). In short:
+- the drawn versions beat the skeletons, and 1.5px stands;
+- but "none of these are yet at the craft level i need".
+
+**What my 9 missed, in his words:**
+1. **Part sizes:** "the sizes of various parts of many of these are not
+   yet optically pleasing".
+2. **Corners:** "the rounding at various intersections feels wrong
+   (some places too broad roujnding, some too tight)".
+3. **Interior choices:** "some of the choices inside of the icons don't
+   make sense". His examples: the cup's handle cut off at the bottom
+   makes "a narrow passage that will definitely disappear at small
+   sizes", and the museum's "totally rounded pill shapes". He says
+   "these are just examples", so they're not the whole list.
+4. **Optical centring:** "some feel like they're floating above center,
+   some feel slightly lower on center".
+5. **Optical weight:** "none have the same optical weight exactly yet
+   when viewed as a set".
+
+**Why I missed it:**
+- I scored construction (sources, symmetry, sliver counts) and the
+  honesty of the sheets.
+- I didn't judge the drawings by eye as a set at real size: mass,
+  centring, part proportion.
+- The museum's "pill" gaps were on the sheet as a cost, and I accepted
+  a note where I should have rejected the shape.
+- Clean sources and fair notes carried a weak drawing to 9, which is
+  exactly what my notes warned against.
+
+**New gates for every batch, judged by eye at real size before
+anything else:**
+- **G1. Optical centring.** Each icon sits optically centred in its
+  badge, neither floating high nor sitting low, judged as a row of the
+  batch at 24 and on the 32 pin. Geometry or MIDDLE alone doesn't pass
+  it.
+- **G2. Equal optical weight across the set.** In one row at real size,
+  no icon reads darker, lighter, bigger or smaller than its neighbours,
+  including the earlier batches, the + and the Star.
+- **G3. Every interior choice survives small sizes.**
+  - I look at each counter, gap, slot and passage at 12, 24 and 1x, and
+    ask two questions: does it make sense as the object, and does it
+    stay open?
+  - A passage narrower than it can stay at 12 fails.
+  - So does a shape that changes what the object is (pill gaps).
+- **G4. Part proportion and corner fit by eye.**
+  - Parts are optically pleasing in size relative to one another.
+  - Each corner's rounding suits its intersection, neither too broad
+    nor too tight. The law is a starting point, not an excuse.
+
+**Order of scoring from now on:**
+1. G1–G4, by eye at real size.
+2. Then construction (`check-svg.py`, sources).
+3. Then grid honesty.
+4. Then the fairness of the sheets.
+
+A batch below 9 on any of G1–G4 isn't a 9, however clean the rest is.
+
+**What I ask the sheets to show** (so G1–G4 can be judged):
+- the whole batch in one row at 24, at 32 and at 12, at 1x and 3x,
+  beside the + and the Star;
+- the same row with a faint horizontal centre line and the badge's
+  optical centre marked;
+- each icon's interior counters and passages enlarged with their
+  widths in px.
+
+NEXT: icon designer, the six redrawn. Then I score G1–G4 first.

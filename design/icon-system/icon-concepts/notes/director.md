@@ -639,3 +639,35 @@ wise".
   - One crop speck still to fix (the even-wear conifer close-up).
   - Due in batch 2: the pixel-snap rule shown at 1x, and SHOULDER
     re-tested.
+
+## LESSON 2 (batch 1 verdict, 2026-10-19): judge the drawing by eye, first
+
+The owner: "none of these are yet at the craft level i need". He named:
+- part sizes;
+- corners too broad or too tight;
+- interior choices (the cup's handle passage, the museum's pill gaps;
+  "these are just examples");
+- optical centring high or low;
+- unequal optical weight across the set.
+
+My 9 missed all of it.
+
+- **Why:**
+  - I let clean sources, symmetric arcs and fair notes stand in for
+    looking at the icons as a set at real size.
+  - I accepted a cost note (the arcade) where I should have rejected the
+    shape.
+  - It's the g2 miss again in a new form: I scored what I'd built
+    checks for, not what he judges.
+- **New gates, first in every score, by eye at real size:**
+  - G1, optical centring in the badge;
+  - G2, equal optical weight across the whole set (earlier batches, +,
+    Star);
+  - G3, every interior counter or passage makes sense and stays open at
+    12 and 1x;
+  - G4, part proportion and per-intersection corner fit by eye.
+  Construction checks come after. Full text: `../../grid/jam.md` turn
+  24.
+- **Habit:** before scoring, I put the batch in one row at 24 and 32 at
+  1x, squint, and write down which icon is heaviest, lightest, highest
+  and lowest before I read the designer's notes.

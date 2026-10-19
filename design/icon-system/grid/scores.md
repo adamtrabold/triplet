@@ -594,3 +594,27 @@ and 2px or 1.5px of air?"
 - the pixel-snap rule for 1.5px edges, shown at 1x;
 - SHOULDER re-tested;
 - the six re-checked under any new change.
+
+### Retracted: the owner's verdict, 2026-10-19
+
+The 9 was wrong. His words: "none of these are yet at the craft level i
+need".
+
+**What he found:**
+- part sizes not optically pleasing;
+- rounding too broad or too tight at some intersections;
+- interior choices that don't make sense (the cup's handle passage, the
+  museum's pill gaps; "just examples");
+- optical centring high or low;
+- unequal optical weight across the set.
+
+**What I'd checked instead:** construction and the honesty of the
+sheets, not the drawings by eye as a set.
+
+**New gates G1–G4 (jam turn 24), first in every score:**
+- G1, optical centring;
+- G2, equal optical weight across the set;
+- G3, every interior choice survives small sizes and makes sense;
+- G4, part proportion and corner fit by eye.
+
+**The six are being redrawn.**
