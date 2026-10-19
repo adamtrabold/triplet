@@ -815,3 +815,21 @@ My recent 9s went on process. This rubric replaces my scoring order.
 4. Construction checks, which confirm but never raise a score.
 
 G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
+
+## g7 (ea4788a): 8 on the rubric (2026-10-19)
+
+- **The squint first:** the museum is heaviest, the cup is smallest,
+  and the ring handle is the odd one out.
+- **Fails:**
+  - C2: the museum's weight.
+  - C3: the cup's ring handle, a disc beside the bowl rather than an ear
+    joined to the wall.
+  - C6: joins add ink; the + is webbed.
+- **Passes:** C1, C4, C5, C7, C8.
+- **Reference strip:** Material Symbols Rounded (fill) and Phosphor
+  (fill), in `../../grid/reference/`. SF Symbols isn't usable (licence),
+  so Phosphor stands in. Both read lighter in our badge, which is the
+  1.5px line on a 12px drawing, as he chose. Judge craft against them,
+  not weight.
+- **Watch:** the designer's own reads of weight lean generous ("about
+  as dark as the cup"). Trust the blurred row, not the ink %.

@@ -618,3 +618,81 @@ sheets, not the drawings by eye as a set.
 - G4, part proportion and corner fit by eye.
 
 **The six are being redrawn.**
+
+---
+
+## Round g7, batch 1 redrawn (ea4788a), 2026-10-19: 8, scored with the craft rubric
+
+**What I read, in this order:**
+1. `g7-sheet-1-1x` (the squint, before any notes);
+2. sheets 1–3 at 3x, in strips;
+3. `for-director.md`;
+4. `check-svg.py` on `svg/g7`.
+
+**My squint, written before the notes:**
+- **Heaviest:** the museum, a dense grille.
+- **Smallest / lightest:** the cup, which is flat, sits low and is small.
+- **Odd one out:** the cup's handle, a ring stuck on beside the bowl.
+- **Beside the references:** Material's column front and cup are calmer
+  and clearer at 24; ours read busier.
+
+**Gates (pass/fail, no points):** all pass.
+- Fair framing: the costs are stated, and so are "references look
+  lighter" and the Phosphor stand-in.
+- Construction: 0 slivers, 33/33 symmetric.
+- The deliverable (the drawings) is the subject.
+
+**Craft, C1–C8:**
+
+| | Result | Why (at real size, beside the references) |
+|---|---|---|
+| C1 Centring, overshoot | Pass | Placed by optical centre, within 1/6px. The tip and apex overshoot. The coupe no longer floats. |
+| C2 Equal weight | **Fail** | The museum (38% ink) reads darkest in the blurred row and in the 24 row. The cup reads smallest. The designer's "about as dark as the cup" isn't what I see. |
+| C3 Proportion | **Fail** (the cup) | The ring handle is a separate disc beside the bowl, not an ear joined to the wall. At 3x it's a ring, and at 24 it's a bubble. Material's and Phosphor's cups join the handle to the wall. The museum's columns are tall and dense against a thin beam and pediment. |
+| C4 Counters at 12 | Pass | Every gap is at least 1.5px at 12, the slots replace the pills, and the cup's passage is gone. |
+| C5 Corners by angle | Pass | The fit rule (a round is at most 0.2 of the shortest edge) cures "too broad". |
+| C6 Joins | **Fail** | Unsolved, as the designer says. The by-joint rounds add ink at line-to-line joins, and the + crossing is webbed at 3x. The + ships, so this can't wait for batch 2. |
+| C7 Pixel fitting | Pass | 4/3px horizontals fall on 3x device pixels, and the rule for 1.5px uprights is stated. |
+| C8 Metaphor, perspective | Pass, with one caution | All front elevations. The ring handle is the one less literal part (see C3). |
+
+**Score: 8.** Three criteria fail, and beside Material at real size the
+cup and the museum look clumsier.
+
+### Likely owner objections
+
+1. **"The handle's a donut."** *Likely.* The designer flagged it too.
+2. **"The museum's still the heaviest."** *Likely.* It's his G2.
+3. **"The + looks blobby in the middle when I zoom."** *Possible.*
+
+### Fixes (one batch)
+
+1. **The cup (C3, C8):**
+   - The handle becomes an ear joined to the cup wall over its height:
+     a D-shape, with its counter at least 1.5px at 12.
+   - Show it beside the ring as the option, with Material and Phosphor
+     in the same row, and pick the one that reads as a handle at 24.
+     The silhouette may change.
+   - Then re-check the cup's optical size against the set (C2).
+2. **The museum (C2):**
+   - Bring it to the set's weight, about the others' 29–31% and, more
+     importantly, the same darkness in the blurred row.
+   - Use the designer's levers: column height, column width, a taller
+     pediment or beam with less column. Keep four columns and no pills.
+   - Judge it in the blurred row; it must not be the darkest.
+3. **C6, a join rule now:**
+   - Where two lines meet or cross, thin into the join (a small notch
+     or trap) instead of adding a round: the + crossing, the coupe's
+     stem into the bowl and the foot, and the trunk into the tier.
+   - Show the + at 3x, before and after, and in the badge row.
+4. **The set row, re-shot** with the references:
+   - our six, then Material, then Phosphor, at 24 and 12, at 1x;
+   - plus the blurred row.
+   - State plainly which icon now reads darkest and lightest.
+
+**The question (unchanged):** "Are these at the craft level now, as a
+set? If so: which corners (by joint, even wear or pressed), and 2px or
+1.5px of air?"
+
+**Did the work change?** Yes. It's a full redraw against G1–G4. Its
+gains are real: centring by method, no pills, no passage, fitted
+corners and pixel fitting.

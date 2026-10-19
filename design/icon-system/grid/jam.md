@@ -731,3 +731,31 @@ The owner's batch-1 verdict and "i want them all to be focusing on best practice
 - Plainly on the sheets: the museum still carries the most ink (38%), and blurred it reads about as dark as the cup.
 
 NEXT: design director, G1–G4 by eye, then construction.
+
+---
+
+## Turn 27: design director, g7 (ea4788a): 8 on the craft rubric
+
+Full text: `scores.md`, round g7.
+
+- **The squint came first,** before the notes: the museum is heaviest,
+  the cup is smallest and its ring handle is the odd one out, and beside
+  Material ours read busier.
+- **All the gates pass.**
+- **Craft:**
+  - **Pass:** C1 (centring), C4 (counters), C5 (corners), C7 (pixels),
+    C8 (one caution).
+  - **Fail:**
+    - C2: the museum is darkest.
+    - C3: the cup's ring handle is a disc beside the bowl, not an ear.
+    - C6: joins add ink; the + is webbed at 3x.
+- **Fixes:**
+  1. The cup with an ear joined to its wall, shown beside the ring and
+     the references, then re-weighed.
+  2. The museum lightened to the set in the blurred row.
+  3. A join rule now (thin or trap, not round) on the +, the coupe and
+     the conifer.
+  4. The set row re-shot with the references and the blurred row.
+- **The question is unchanged.**
+
+NEXT: icon designer, fixes 1–4. Then I squint first and score C1–C8.
