@@ -211,7 +211,10 @@ pick/redirect before building anything.
 - ~~**Add form: mark a place visited while adding it**~~ (owner, 2026-10-15: "yes"). BUILT in
   the add tag (phase 2, landed 2026-10-18): the tag's own Mark visited segment,
   the insert writes `visited`.
-- **Add tag: a place with no town is filed under the nearest city, however far** (phase 2's
+- ~~**Add tag: a place with no town is filed under the nearest city, however far**~~ FIXED on
+  `add-tag-p3` (check batch A): `townOf()` strips a leading "Village of / Town of / City of /
+  Municipality of" (most specific first) before giving up, so Village of Tivoli is a NEW "Tivoli".
+  History: (phase 2's
   fallback). Phase 3 (not landed) narrows it: no town in the pick's details -> the point is
   reverse-geocoded and its town becomes a NEW city; only when that finds no town either does the
   "(we think)" last resort file it under the nearest city anywhere. **Not solved for US

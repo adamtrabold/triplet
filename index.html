@@ -3743,9 +3743,10 @@
         return false;
       }
     }
-    function revealCity(cityId) {
-      if (!hiddenCities.has(cityId)) return;
+    function revealCity(cityId) {   // true when it showed the city
+      if (!hiddenCities.has(cityId)) return false;
       hiddenCities.delete(cityId); persistHiddenCities(); updateUI();
+      return true;
     }
 
     async function addNeighborhoodShape(shape) {
@@ -4170,11 +4171,20 @@
     // ("... Municipality", "... kommun"); with accept-language=en Nominatim gives "Reykjavik", not
     // "Reykjavíkurborg".
     const TOWN_ADMIN_RE = /\b(municipality|kommun|kommune|county|region)\b|^(city|town|village|municipality) of /i;
+    // Before giving up, a US-style admin prefix is stripped, most specific first ("Village of
+    // Tivoli" inside "Town of Red Hook" -> "Tivoli"; check p3, item 8).
+    const TOWN_PREFIX_RE = /^(city|town|village|municipality) of\s+/i;
     function townOf(a) {
       if (!a) return '';
       for (const k of ['city', 'town', 'village']) {
         const v = a[k] ? String(a[k]).trim() : '';
         if (v && !TOWN_ADMIN_RE.test(v)) return v;
+      }
+      for (const k of ['village', 'town', 'city']) {
+        const v = a[k] ? String(a[k]).trim() : '';
+        if (!TOWN_PREFIX_RE.test(v)) continue;
+        const bare = v.replace(TOWN_PREFIX_RE, '').trim();
+        if (bare && !TOWN_ADMIN_RE.test(bare)) return bare;
       }
       return '';
     }
@@ -10477,7 +10487,9 @@
     // `city` on locations / neighborhood_shapes. Built like toggleLocationFlag(): optimistic,
     // requireAuth(), held from the poll by flagWritesInFlight, the last write to settle refetches.
     // Rollback is per write: only when the place still shows this write's city. Into a hidden city,
-    // the city is shown first (as an add does: revealCity()), or the place and its tag would vanish.
+    // the city is shown first (revealCity()) -- only when the place would otherwise vanish with its
+    // tag; a stop of the open plan (or, in All plans, any stop) never hides, so its city stays hidden
+    // (check S1b). A failed move hides again a city it showed (S1a).
     // Afterwards cleanupOrphanCities() removes an auto-added city the move left empty.
     async function setPlaceCity(key, cityId) {
       if (!await requireAuth()) return false;
@@ -10486,7 +10498,7 @@
       const prev = item.city;
       if (prev === cityId) return true;
       const shape = isShapeKey(key);
-      revealCity(cityId);
+      const revealed = hiddenCities.has(cityId) && !placeListedAnyCity(key) && revealCity(cityId);
       applyPlaceCity(key, cityId);
       flagWritesInFlight++;
       let ok = true;
@@ -10500,7 +10512,10 @@
       } catch (err) {
         ok = false;
         const now = rowItem(key);
-        if (now && now.city === cityId) applyPlaceCity(key, prev);
+        if (now && now.city === cityId) {
+          applyPlaceCity(key, prev);
+          if (revealed && !hiddenCities.has(cityId)) { hiddenCities.add(cityId); persistHiddenCities(); updateUI(); }
+        }
         showWriteError(err, 'places');
       } finally {
         flagWritesInFlight--;
@@ -10508,6 +10523,14 @@
       if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
       cleanupOrphanCities();
       return ok;
+    }
+    // Is the place listed whatever its city's eye says? Only a plan's stops are (visibleLocations() /
+    // visibleNeighborhoodShapes(): the open plan's stops, or every plan's in All plans).
+    function placeListedAnyCity(key) {
+      if (!inPlanView()) return false;
+      const sh = isShapeKey(key), id = sh ? shapeIdOf(key) : key;
+      if (!activePlan()) return allPlanStopIds(sh ? 'shape_id' : 'location_id').has(id);
+      return planMarks().rows.some(r => sh ? (r.nb && r.nb.id === id) : (r.loc && r.loc.id === id));
     }
     // "New city · + town" on the Hanging Tag: addCity() first (its own write error if it fails, and
     // nothing moves), then the move. A move that then fails leaves the new city empty, and

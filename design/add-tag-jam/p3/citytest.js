@@ -159,6 +159,43 @@ const sh = require('./lib-p3.js');
   ok('H1 signed out: the city is aria-disabled and says so; a tap offers the sign-in slip, no menu', h0.dis === 'true' && /Sign in to change it/.test(h0.label) && !h1.menu && /Sign in/.test(h1.slip || '') && h1.open === 'rey16', { h0, h1 });
   await ev(() => { hideTagSlip(); map.closePopup(); currentUser = window.__savedUser; refreshTags(); }); await W(400);
 
+  // S. the check's fixes (p3-cd-ux S1a / S1b): reveal only when the place would vanish; a failed
+  // move hides again the city it showed
+  await ev(() => setCityHidden('copenhagen', true)); await W(200);
+  await sh.openTag(page, 'rey16');
+  await P.tap(page, '.leaflet-popup .tag-city');
+  await ev(() => { window.__slowFail = 'locations'; document.querySelector('#tagCityMenu [data-city="copenhagen"]').click(); });
+  await W(150);
+  const s1 = await ev(() => ({ shown: !hiddenCities.has('copenhagen'), city: locations.find(l => l.id === 'rey16').city, open: openTagKey() }));
+  await W(700);
+  const s2 = await ev(() => ({ hidden: hiddenCities.has('copenhagen'), stored: JSON.parse(localStorage.getItem('triplet.hiddenCities') || '[]').includes('copenhagen'), city: locations.find(l => l.id === 'rey16').city, open: openTagKey() }));
+  ok('S1a a failed move into a hidden city: shown while it\'s pending, hidden again (and stored) on rollback; the place back, its tag open', s1.shown && s1.city === 'copenhagen' && s2.hidden && s2.stored && s2.city === 'reykjavik' && s2.open === 'rey16', { s1, s2 });
+  await ev(() => map.closePopup()); await W(300);
+  // a plan stop never hides: moving it into a hidden city leaves that city hidden
+  await ev(async () => { window.__PT.plans.push({ id: 'ct-p', name: 'City plan', created_at: '2026-09-01T00:00:00Z' });
+    ['rey00', 'rey05'].forEach((l, i) => window.__PT.plan_stops.push({ id: 'cs' + i, plan_id: 'ct-p', location_id: l, shape_id: null, position: i + 1 }));
+    await refetchPlans(); choosePlan('ct-p'); });
+  await W(900);
+  await ev(() => setCityHidden('stockholm', true));
+  await sh.openTag(page, 'rey05');
+  await P.tap(page, '.leaflet-popup .tag-city');
+  await ev(() => { window.__upd = []; document.querySelector('#tagCityMenu [data-city="stockholm"]').click(); }); await W(700);
+  const s3 = await ev(() => ({ hidden: hiddenCities.has('stockholm'), city: locations.find(l => l.id === 'rey05').city, row: !!(rowEntry('rey05') && rowEntry('rey05').el.isConnected), open: openTagKey(), upd: window.__upd.length }));
+  ok('S1b a stop of the open plan moved into a hidden city: the city stays hidden, the stop stays listed, its tag open', s3.hidden && s3.city === 'stockholm' && s3.row && s3.open === 'rey05' && s3.upd === 1, s3);
+  await ev(async () => { await setPlaceCity('rey05', 'reykjavik'); map.closePopup(); setListView('places', { frame: false }); }); await W(500);
+  ok('S1b\' outside a plan the same move still shows the city (the place would vanish)', await ev(async () => { const r = await setPlaceCity('rey05', 'stockholm'); const shown = !hiddenCities.has('stockholm'); await setPlaceCity('rey05', 'reykjavik'); return r && shown; }));
+
+  // T. townOf(): a US-style admin prefix stripped (p3 check, item 8)
+  const tw = await ev(() => ({ tivoli: townOf({ village: 'Village of Tivoli', town: 'Town of Red Hook', county: 'Dutchess County' }), city: townOf({ city: 'City of Westminster' }),
+    plain: townOf({ city: 'Malmö kommun', town: 'Limhamn' }), admin: townOf({ town: 'Town of Red Hook County' }), none: townOf({ municipality: 'Grindavíkurbær' }) }));
+  ok('T1 "Village of Tivoli" -> "Tivoli" (the most specific first); "City of Westminster" -> "Westminster"; plain names and admin units as before', tw.tivoli === "Tivoli" && tw.city === "Westminster" && tw.plain === "Limhamn" && tw.admin === "" && tw.none === "", tw);
+  await P.openAdd(page); await P.typeName(page, 'Tivoli');
+  await page.waitForFunction(() => /Village of Tivoli|Tivoli ·|Tivoli, /.test(document.getElementById('addResults').textContent), null, { timeout: 8000 }).catch(() => {});
+  await ev(() => { const rows = [...document.querySelectorAll('#addResults .add-res')]; const i = rows.findIndex(r => /United States/.test(r.textContent)); rows[i].click(); }); await W(500);
+  const tv = await ev(() => ({ city: addDraft.city, name: document.getElementById('addCityName').textContent, stamp: !document.getElementById('addNewStamp').hidden, dist: document.getElementById('addDist').textContent, where: addDraft.pick && addDraft.pick.where }));
+  ok('T2 real fixture (Nominatim "Tivoli", the NY village): a NEW "Tivoli" city, not LA ~3,935 km away', tv.city && tv.city.newCity && tv.city.newCity.label === "Tivoli" && tv.name === "Tivoli" && tv.stamp && !tv.dist, tv);
+  await ev(() => { if (addFormOpen()) cancelAddForm(); clearAddDraft(); }); await W(400);
+
   // I. the add tag: the pick's guess follows the new rule; a pick with no town waits for the reverse
   await P.openAdd(page); await P.typeName(page, 'Blue Lagoon'); await P.pick(page, 0);
   ok('I1 the add tag guesses by distance (Blue Lagoon -> Reykjavík, with the note)', await ev(() => addDraft.city.id === 'reykjavik' && document.getElementById('addDist').textContent === '≈ 40 km from Reykjavík'));

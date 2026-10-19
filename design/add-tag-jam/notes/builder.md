@@ -296,3 +296,15 @@ build was interrupted once (container restart); the coordinator saved it as WIP 
 - `design/add-tag-jam/p3/citytest.js` (35 cases; `p3/lib-p3.js`: update / delete recorder, update
   failure and slow settle, /reverse fixture, real places from the live DB on fixture rows).
 - Stills: `design/add-tag-jam/stills/build-p3/stills.js`.
+
+## Phase 3, batch A: the check's fixes (2026-10-19; `checks/p3-cd-ux.md`)
+1. S1a: `setPlaceCity()` remembers whether it showed the target city (`revealCity()` now returns
+   true when it did); the rollback hides it again (and persists) when the place is rolled back.
+2. S1b: the reveal runs only when `placeListedAnyCity(key)` is false (a stop of the open plan, or
+   any plan's stop in All plans, is listed whatever its city's eye says). The add path keeps its
+   own `revealCity()` (a new place is never a stop yet, so it would always vanish) -- not shared.
+3. `townOf()`: after the plain pass, a second pass (village, town, city: most specific first)
+   strips `^(city|town|village|municipality) of ` and keeps the rest unless it is still an admin
+   name. The fixtures hold only "Village of Tivoli" / "Town of Red Hook". addtest W6 updated.
+4. stills.js step 6 comment: navy, not greyed.
+Tests: citytest S1a, S1b, S1b', T1, T2 (the real Nominatim "Tivoli" fixture) -> 40/40.

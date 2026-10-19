@@ -1729,6 +1729,12 @@ waiver for the Impeccable finding below.
 - **The distance note on the Hanging Tag:** under the address (11/14 `--ink-2`, 4px above):
   "≈ 50 km from Reykjavík", only outside the city's box; pins only; coordinates only, so the 59
   places without address details get it too. Never on list rows.
+- **Check fixes, batch A** (`checks/p3-cd-ux.md`): a hidden target city is shown only when the
+  place would otherwise vanish (a plan's stops never hide, so moving one leaves its new city
+  hidden; S1b); a failed move hides again a city it showed, stored too (S1a); `townOf()` strips a
+  leading "Village of / Town of / City of" (most specific first: "Village of Tivoli" in "Town of
+  Red Hook" -> NEW "Tivoli"). citytest 40/40, addtest 72/72 (W6 now expects "Tivoli"),
+  popup-open 20/20 + 20/20, tag-sync 12/12.
 - **Fixes on the way:** a pin row's signature now carries its city (its meta prints it); a shape
   tag's popup signature carries its city; the tags re-read city names when the cities table loads.
 - **Gates (Chromium):** `design/add-tag-jam/p3/citytest.js` 35/35 (the guess, the line and note,

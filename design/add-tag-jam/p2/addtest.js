@@ -105,7 +105,7 @@ const { W } = P;
   ok('W4 a street found for a typed house number is not auto-typed Street', await ev(() => addDraft.type !== 'street' && addDraft.type === 'other'), await ev(() => addDraft.type));
   ok('W5 a pick the table doesn\'t know resets an untouched TYPE to Other', await ev(() => { const r = { name: 'X', class: 'office', type: 'company', lat: '64.14', lon: '-21.94', address: {} }; return osmToType('office', 'company') === null; }) && await ev(() => addDraft.type === 'other'));
   await reset();
-  ok('W6 the real town, not an admin unit', await ev(() => townOf({ city: 'Malmö kommun', town: 'Limhamn' }) === 'Limhamn' && townOf({ city: 'Reykjavik' }) === 'Reykjavik' && townOf({ municipality: 'Grindavíkurbær' }) === '' && townOf({ town: 'Town of Red Hook', village: 'Village of Tivoli' }) === ''));
+  ok('W6 the real town, not an admin unit', await ev(() => townOf({ city: 'Malmö kommun', town: 'Limhamn' }) === 'Limhamn' && townOf({ city: 'Reykjavik' }) === 'Reykjavik' && townOf({ municipality: 'Grindavíkurbær' }) === '' && townOf({ town: 'Town of Red Hook', village: 'Village of Tivoli' }) === 'Tivoli' /* p3 check: the admin prefix stripped, most specific first */));
   await reset();
 
   // E. the distance note and the city menu's New city
