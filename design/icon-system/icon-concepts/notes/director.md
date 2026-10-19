@@ -873,3 +873,35 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
 - **Calibration note:** this is the first 9 under the craft rubric. If
   he still finds craft gaps, record exactly which C-criterion I misread,
   and tighten it.
+
+
+## g7d (d8cc49e): craft 9, send held on the judgeability gate (2026-10-19)
+
+- The traps are out, the joins square, and C6 passes. The balance is
+  unchanged.
+- **The owner:** "i dont know what that last question means. and i cant
+  tell if theyre at craft yet".
+  - He can't judge stills at 24px, and the air/corner question asked for
+    distinctions he can't see.
+  - This is the g2 lesson on the surface: a craft score is worth
+    nothing if he can't judge the thing.
+- **Gate tightened:** anything sent must be judgeable by him on his
+  phone at true size, and every question must be about something he can
+  see.
+  - Distinctions invisible at true size are the team's call: the air
+    (2px), and the corner law unless it's visibly different.
+- **Next:** the live true-size vector page (pending his yes). I score
+  the page before it goes. The plain question is in `../../grid/jam.md`
+  turn 34.
+
+- **Correction (2026-10-19):** there's no live page. The owner: "i want
+  them on the icon design board as weve discussed many times over".
+  - Review lives only on the design canvas
+    (https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW).
+  - My judgeability gate applies to one canvas board: live SVG vectors
+    at true 1x in the real places (row, pin, selected pin, chip) plus
+    large, the reference row, plain labels, one plain question.
+  - I score it on the canvas.
+  - The air (2px) and corners (the designer proposes) rulings stand.
+  - Lesson: the surface is his call, and he's said it before. Check
+    `../../owner.md` for the stated surface before endorsing any new one.
