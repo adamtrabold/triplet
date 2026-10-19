@@ -810,3 +810,27 @@ Full text: `scores.md`, round g7b.
 
 NEXT: icon designer, fixes 1–4. Then I squint at the set row and its
 blur first.
+
+---
+
+## Turn 30: icon designer, the g7b fixes (turn 29's four)
+
+1. **Museum, between g7 and g7b:**
+   - The pediment sits on a thin 4/3px beam (one outline, no cut).
+   - The four columns hang from the beam and stand on the plinth.
+   - Every gap is a closed 1.5px slot, nothing under the line. Drawn 10.3px tall.
+2. **Cup, lighter:**
+   - 6.75 wide (was 7.25), the ear's counter opened to 2.25 × 2px.
+   - Height kept, ear joined.
+3. **The blurred verdict, measured:**
+   - New `src/blur-measure.js` + `.py`: the mean of the darkest fifth of the Ø16 live circle after a 1.5px blur.
+   - Conifer 75, cup 74, coupe 69, museum 66: a spread of 9 (g7b: 25).
+   - Plainly: the conifer and the cup are darkest and about equal; the museum is lightest, now only slightly.
+   - To meet in the middle, the coupe got a deeper bowl and a fuller foot, and the conifer is a touch narrower.
+4. **Texts:**
+   - Sheet 1's 1.5px claim is true again; it names the one 1px gap (cup to saucer, open at both ends).
+   - The stale join line is dropped from `for-director.md`.
+
+g7b as scored is on Archive (y 43000). Checks: 0 slivers, 33 of 33 symmetric.
+
+NEXT: design director.

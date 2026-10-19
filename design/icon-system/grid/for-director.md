@@ -22,6 +22,21 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## After your g7b score (8): the museum between, the cup lighter, the texts true
+
+1. **The museum, between g7 and g7b.** The pediment sits on a thin 4/3px beam (joined, so there's no cut); the four columns hang from the beam and stand on the plinth. Every gap is a closed 1.5px slot, nothing under the line. Low pediment, drawn 10.3px tall.
+2. **The cup, lighter.** It's 0.25px narrower each side (6.75 wide), and the ear's counter is opened to 2.25 × 2px. It keeps its height and keeps the ear joined.
+3. **The blurred verdict, measured.**
+   - New `src/blur-measure.js` (Playwright) and `src/blur-measure.py`: the mean of the darkest fifth of the Ø16 live circle after a 1.5px blur.
+   - Scores: conifer 75, cup 74, coupe 69, museum 66, a spread of 9 (g7b: 25).
+   - Sheet 1, plainly: the conifer and the cup are darkest and about equal; the museum is lightest, now only slightly.
+   - To meet in the middle, the coupe got a little more (bowl 4.7 deep, a fuller foot) and the conifer a little less.
+4. **Texts.**
+   - Sheet 1 now says "Every counter and slot is at least the line (1.5px)". It names the one 1px gap (cup to saucer, open at both ends).
+   - The stale join line is gone from this file.
+
+Checks: 0 slivers; 33 of 33 symmetric.
+
 ## After your g7 score (8): the four fixes
 
 1. **The cup (C3).**
@@ -98,13 +113,9 @@ Material Symbols Rounded (fill) and Phosphor (fill) for the cup, coupe, column f
 
 Plainly, on the sheet: in our badge at our box, both references look lighter than ours. That's the 1.5px line on a 12px drawing.
 
-## C6, contrast compensation at joins (open, stated on sheet 6)
-
-The horizontals are compensated; the joins aren't. By joint and pressed add a small round where two lines meet, which adds ink at the join, the opposite of an ink trap. It's invisible at 24; at 3x the + crossing is slightly webbed. Batch 2 proposes a line-to-line join rule.
-
 ## Interiors enlarged (sheet 1)
 
-At 8x, with widths: the cup's counter is 1.8px; the museum's slots are 1.5 × 5px; the conifer's notches open to the outside; the Star's counter is about 6px at 20px.
+At 8x, with widths: the cup's counter is 2.25 × 2px; the museum's slots are 1.5px, closed at both ends; the conifer's notches open to the outside; the Star's counter is about 6px at 20px.
 
 ## Construction
 
