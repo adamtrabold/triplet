@@ -44,6 +44,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-19 · No ink traps:** "i do not want ink traps... no reason for that on digital imo"
 
+- **10-19 · Review on the canvas only:** "i want them on the icon design board as weve discussed many times over" → no separate pages, no screenshots in place of the canvas.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
