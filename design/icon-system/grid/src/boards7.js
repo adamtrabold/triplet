@@ -58,9 +58,9 @@ const ink = d => 100 * measure(d).area / LIVE;
 function crop(d, x, y, sz, px, label) { return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:700;color:${COL.ink2};text-align:center;max-width:${px + 10}px"><svg width="${px}" height="${px}" viewBox="${f2(x)} ${f2(y)} ${sz} ${sz}" aria-hidden="true"><rect x="${f2(x)}" y="${f2(y)}" width="${sz}" height="${sz}" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}"/></svg>${label}</div>`; }
 const _c = GD.joint[12].cafe, _m = GD.joint[12].museum, _n = GD.joint[12].nature;
 const INTERIORS = [
-  crop(_c.d, 6 + _c.tx + 7.25, 6 + _c.ty + 0.75, 5, 64, 'Cup handle: an ear, counter 2.25 x 2px'),
+  crop(_c.d, 6 + _c.tx + 7.25, 6 + _c.ty + 0.75, 5, 64, 'Cup handle: a loop, counter 2.25 x 2.33px'),
   crop(_m.d, 6 + _m.tx + 1.75, 6 + _m.ty + 4.5, 4, 64, 'Museum: slots 1.5px wide, closed at both ends'),
-  crop(_n.d, 6 + _n.tx + 6.5, 6 + _n.ty + 2.5, 4, 64, 'Conifer: notches open to the outside, nothing to close'),
+  crop(_n.d, 6 + _n.tx + 6.5, 6 + _n.ty + 2.5, 4, 64, 'Conifer: plain V notches, open to the outside'),
   `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:700;color:${COL.ink2};text-align:center"><svg width="64" height="64" viewBox="4 4 16 16" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="${COL.raised}"/><path d="${UD.joint.star.d}" fill="${COL.navy}"/></svg>Star: counter about 6px across at 20px</div>`,
 ].join('');
 // SVG files
@@ -214,7 +214,7 @@ function sheetSet(W_, n) {
 <div class="srow"><div class="k">Batch 1</div><div class="set big blur">${oldRow(big)}</div></div>
 <div class="srow"><div class="k">Redrawn</div><div class="set big blur">${newRow(big)}</div></div>
 <table class="w"><tr><th>Icon</th><th>Ink, batch 1</th><th>Ink, redrawn</th><th>Placement</th></tr>${wt}</table>
-<p class="sm mute">Ink: the share of the Ø16 live circle that is ink. It is a guide, not the judge: a compact mass (the cup) looks darker than the same ink spread out (the museum), so the blurred row decides. <b>Blurred darkness</b> (the darkest fifth of the live circle after a 1.5px blur, measured; <code>src/blur-measure.js</code>): conifer 75, cup 74, coupe 69, museum 66, a spread of 9, down from 25 in g7b. <b>Plainly:</b> the conifer and the cup read darkest, about equal; the museum reads lightest, now only slightly.</p>
+<p class="sm mute">Ink: the share of the Ø16 live circle that is ink. It is a guide, not the judge: a compact mass (the cup) looks darker than the same ink spread out (the museum), so the blurred row decides. <b>Blurred darkness</b> (the darkest fifth of the live circle after a 1.5px blur, measured; <code>src/blur-measure.js</code>): conifer 75, cup 73, coupe 70, museum 66, a spread of 8, down from 25 in g7b. <b>Plainly:</b> the conifer and the cup read darkest, about equal; the museum reads lightest, now only slightly.</p>
 <div class="lab">Interiors, enlarged 8x, with their widths</div>
 <div class="set big">${INTERIORS}</div>
 <p class="sm mute">Every counter and slot is at least the line (1.5px), so it stays open at 12px and 24px. The one gap under it is the 1px cut between the cup and its saucer, open at both ends (a gap, not a passage).</p>
@@ -240,10 +240,10 @@ const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring an
 <p class="sm"><b>Kept: the ear.</b> At 24 it reads as a handle joined to the cup, as both references do; the ring read as a separate bubble.</p>`;
 // ---- sheet 2: each drawing ----------------------------------------------------------------------
 const PRIN = {
-  cafe: [['Counters', 'the handle is a D-shaped ear joined to the cup wall over its height; its counter is 2.25 x 2px, closed by the straight wall: no passage (your example).'], ['Proportion', 'cup 6.75 wide by 6.3 deep, the wall straight down past the ear, then the bowl turns under; the saucer runs the full 12. Taller than in g7 (which read smallest), and narrower than g7b (which read darkest).'], ['Joins', 'the ear meets the wall square: no round to fill the corner, no notch.'], ['Contrast compensation and pixel fitting', 'the saucer is a horizontal, 4/3px, on whole device pixels.'], ['Optical centring', 'moved down 2/3px.']],
+  cafe: [['Counters', 'the handle is a loop joined to the cup over its height; its counter is 2.25 x 2.33px (taller than wide, so it reads as a loop, not a "P"), closed by the cup: no passage (your example).'], ['Flow', 'cup and handle are one outline: the bowl\'s right side rises in one smooth S-curve into the base of the handle, with no step where they meet.'], ['Proportion', 'cup 6.75 wide by 6.3 deep; the handle 1/3px narrower than before; the saucer runs the full 12.'], ['Contrast compensation and pixel fitting', 'the saucer is a horizontal, 4/3px, on whole device pixels.'], ['Optical centring', 'moved down 1/3px.']],
   bar: [['Proportion', 'bowl 11 wide and 4.7 deep; foot 8 wide (about 70% of the bowl) with a fuller dome; one upright stem.'], ['Joins', 'the stem meets bowl and foot square, so no round fills the joins and they don\'t thicken; the bowl\'s rim corners stay crisp.'], ['Optical centring', 'its mass is at the top, so it moves down 2/3px (batch 1 floated).']],
   museum: [['Counters', 'the spaces between the columns are closed upright slots, 1.5px wide, their corners square: no pills (your example), no gap under the line.'], ['Proportion', 'between g7 and g7b: a low pediment (about 22°) set on a thin 4/3px beam; the four columns hang from the beam and stand on the plinth, so they read as a building, as both references do. Three columns were tried in g7 and read as a box with two doors.'], ['Equal optical weight', 'balanced against the coupe and the conifer in the blurred row (g7 read darkest, g7b lightest); drawn 10.3px tall, a wide glyph drawn shorter.'], ['Pixel fitting', 'the plinth is a 4/3px horizontal on whole device pixels.'], ['Optical centring', 'moved up 1px.']],
-  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Joins', 'the trunk meets the lowest tier square.'], ['Proportion', 'three tiers widening by equal steps; the branches droop less than batch 1, so the notches stay open.'], ['Optical centring', 'moved up 1/3px.']],
+  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Joins', 'the trunk meets the lowest tier square.'], ['Proportion', 'three plain triangles widening by equal steps, each base rising straight to the trunk; the tips are clean points and the notches simple Vs (no hooks, no round pockets).'], ['Optical centring', 'moved up 1/3px.']],
 };
 function sheetDrawings(W_, n) {
   const big = W_ > 500 ? 220 : 150;
@@ -255,7 +255,7 @@ function sheetDrawings(W_, n) {
 ${id === 'cafe' ? HANDLE : ''}<ul class="pr">${PRIN[id].map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
 <p class="sm mute">${g.curves} curves in the outline, by joint.</p></div>`;
   }).join('');
-  const uis = [['plus', 'The +', 'Uprights 1.5px, the horizontal 4/3px (contrast compensation). The crossing\'s rounds are fitted to the arms, so they are small, not a webbed blob.'], ['star', 'The Star (not starred)', 'A 1.5px outline. Its counter (the inner star) is 6px across, so it survives at 20px; the tips stay points and the inner corners take a small round.']]
+  const uis = [['plus', 'The +', 'Uprights 1.5px, the horizontal 4/3px (contrast compensation). The crossing is square: no round, no notch.'], ['star', 'The Star (not starred)', 'A 1.5px outline. Its counter (the inner star) is 6px across, so it survives at 20px; the tips stay points and the inner corners take a small round.']]
     .map(([k, nm, txt]) => `<div class="icon"><h3>${nm}</h3><div class="pair"><div>${uiOld(k, big)}Batch 1</div><div>${onGrid(UD.joint[k].d, big, 12, false)}Redrawn</div></div><div class="pair" style="margin-top:8px"><div>${uiOld(k)}</div><div>${ui('joint', k)}</div></div><p class="sm">${txt}</p></div>`).join('');
   return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · batch 1 redrawn · sheet ${n}</div><h2>Each drawing, before and after</h2>
 <p class="att">Batch 1 beside the redraw, on the grid at ${(big / 24).toFixed(1)}x (the redraw shown where it sits after optical centring), then real size: badge 24, chip 12, selected pin 32, and 3x. Under each, the practice behind each change.</p>
@@ -280,7 +280,7 @@ function sheetCorners(W_, n) {
 <p class="sm"><b>Plainly:</b> at real size the three are close for every icon now; the slots and line ends no longer round into pills under any law. What each law still costs:</p>
 <ul class="facts">
 <li><b>All three:</b> line joins now meet square (no round, no notch), the same under every law, so the laws differ only at outside corners and sharp notches.</li>
-<li><b>By joint:</b> crisp ends, softened outside corners of masses. Its cost is the least; it can look slightly mechanical up close.</li>
+<li><b>By joint (proposed, and on the main board):</b> crisp ends and points, plain V notches, softened outside corners of masses. Its cost is the least; it can look slightly mechanical up close.</li>
 <li><b>Even wear:</b> the silhouette is softened evenly, so the ends of the + and the plinth read a little blunter at real size.</li>
 <li><b>Pressed:</b> sharp outside corners and filled sharp notches (the conifer); with joins now square, it is closer to by joint than before.</li>
 </ul>

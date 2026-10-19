@@ -1085,3 +1085,22 @@ NEXT: design director scores the board on the canvas (turn 35) and the corner pr
 
 NEXT: icon designer, fixes 1–3 on the board. Then the director looks at
 the board on the canvas.
+
+---
+
+## Turn 38: icon designer, turn 37's fixes (cup flow, conifer tips)
+
+1. **Cup:**
+   - Cup and handle are one outline, with the bowl rising in one S-curve into the handle's base: no step.
+   - The handle is 1/3px narrower and 1/3px taller; its counter is 2.25 × 2.33, a loop rather than a "P".
+2. **Conifer:**
+   - Plain triangles whose bases rise straight to the trunk.
+   - The joint law now gives acute tips 0.12px (was 0.3) and acute notches none (was 0.3), so "tips stay crisp" is true.
+   - The same rule sharpens the Star's tips and the saucer's ends.
+3. **Blurred row:** conifer 75, cup 73, coupe 70, museum 66 (spread about 8).
+4. **Museum nubs kept:** the eave and plinth projecting are the temple's architecture, and both references widen the base. The director's call if he still disagrees.
+
+The main board is republished on the canvas; the board as scored is on Archive. Checks: 0 slivers, 33/33 symmetric.
+
+NEXT: design director, the 8x row and the true-size rows on the canvas.
+

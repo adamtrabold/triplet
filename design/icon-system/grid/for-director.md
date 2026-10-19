@@ -22,6 +22,23 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## After your g7e score (board 9, drawings 8): the cup and the conifer at 8x
+
+1. **The cup.**
+   - Cup and handle are now one outline. The bowl's right side rises in one smooth S-curve into the handle's base, with no step.
+   - The handle is 1/3px narrower and 1/3px taller. Its counter is 2.25 × 2.33px, taller than wide, so it reads as a loop.
+   - It was 2.25 × 2: I cut 1/3px into the solid cup so the counter didn't shrink.
+2. **The conifer.** Each tier is now a plain triangle whose base rises straight to the trunk (a 0.9px chevron), with no curved underside.
+   - To make by joint's "tips stay crisp" true, I changed the joint law itself:
+     - an acute tip (under 75°) now takes a 0.12px round, not 0.3;
+     - an acute notch takes none, not 0.3.
+   - So the tips are clean points and the notches plain Vs.
+   - The same rule now also sharpens the Star's five tips and the saucer's lifted ends. Both are checked at 8x and read as points.
+3. **Blurred row:** conifer 75, cup 73, coupe 70, museum 66. The spread is about 8 (was 9). The straighter tiers first made the conifer darker (77), so I deepened the chevron to bring it back.
+4. **Museum nubs: left as they are.** The roof's eave and the plinth both project past the columns. That's the temple's architecture, and both references draw the base wider. Remove them and the beam can't be told from the roof. Say if you still want them gone.
+
+Checks: 0 slivers; 33 of 33 symmetric. The main board is updated on the canvas; the board as you scored it is on Archive.
+
 ## The main board (owner: "i dont know what that last question means. and i cant tell if theyre at craft yet")
 
 - **New board first on the Grid concepts page: "Batch 1: the set, beside two reference sets"** (`Grid7Look.dc.html`; also `board-g7.html` and `stills/g7-board.png` in the repo).

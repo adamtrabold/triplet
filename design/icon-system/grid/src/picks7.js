@@ -24,21 +24,24 @@ const DRAW = {
   // survive (owner: "why does the coffee cup handle cut off on the bottom - it creates a narrow passage"):
   // see below.
   cafe(s = 12) {
-    // g7 fix (director, C3): the handle is a D-shaped EAR joined to the cup wall over its height, its
-    // counter 2.25 x 2px (g7b: opened to lighten the cup), bounded by the straight wall on one side (closed: no passage). The wall runs
-    // straight down past the counter, then the bowl turns under. Arms 4/3px (horizontals), back 1.5px.
+    // g7e fix (director, turn 37): the bowl FLOWS into the ear's base in one tangent curve (no step where
+    // they meet), and the ear is 1/3px narrower and 1/3px taller, so its counter (2.25 x 2.33px) is taller
+    // than wide and reads as a loop, not a boxy "P". Cup and ear are ONE outline. Its counter is closed by
+    // the straight inner wall (no passage). Arms 4/3px (horizontals), back 1.5px.
     const u = s / 12, X = v => f(v * u), K = 0.5523;
     const top = T(1.333), wall = T(4.667), bot = T(7.667), l = 1.5, r = 8.25, mid = (l + r) / 2;
-    const cup = D(`M${X(l)} ${X(top)}H${X(r)}V${X(wall)}C${X(r)} ${X(6.5)} ${X(6.75)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2.75)} ${X(bot)} ${X(l)} ${X(6.5)} ${X(l)} ${X(wall)}Z`);
-    const eb = top + 14 / 3, R = (eb - top) / 2, ex = 12 - R;                    // ear: outer 4.67 tall, its back a half circle
-    const ear = D(`M${X(7.5)} ${X(top)}H${X(ex)}C${X(ex + R * K)} ${X(top)} ${X(12)} ${X(top + R - R * K)} ${X(12)} ${X(top + R)}C${X(12)} ${X(top + R + R * K)} ${X(ex + R * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(7.5)}Z`);
-    const ct = top + WH, cb = eb - WH, cr = (cb - ct) / 2, cx = 12 - W - cr;      // counter, its back a half circle
-    const counter = cut(D(`M${X(r)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(12 - W)} ${X(ct + cr - cr * K)} ${X(12 - W)} ${X(ct + cr)}C${X(12 - W)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(r)}Z`));
+    const eR = 12 - 1 / 3;                                            // the ear's outer back
+    const eb = top + 5, R = (eb - top) / 2, ex = eR - R;               // ear: outer 5 tall, its back a half circle
+    // one outline: rim, ear back, ear base, then the bowl's right side as an S from the ear base down to
+    // the bottom (horizontal tangents at both ends), then the left side
+    const body = D(`M${X(l)} ${X(top)}H${X(ex)}C${X(ex + R * K)} ${X(top)} ${X(eR)} ${X(top + R - R * K)} ${X(eR)} ${X(top + R)}C${X(eR)} ${X(top + R + R * K)} ${X(ex + R * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r)}C${X(r - 1.35)} ${X(eb)} ${X(mid + 1.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2.75)} ${X(bot)} ${X(l)} ${X(6.5)} ${X(l)} ${X(wall)}Z`);
+    const ct = top + WH, cb = eb - WH, cr = (cb - ct) / 2, cx = eR - W - cr;      // counter, its back a half circle
+    const ci = r - 1 / 3;                                             // the counter's inner edge, into the solid cup
+    const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W)} ${X(ct + cr - cr * K)} ${X(eR - W)} ${X(ct + cr)}C${X(eR - W)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
     const st = bot + CUT;                                             // saucer top
     const saucer = D(`M${X(0)} ${X(st)}H${X(12)}C${X(11.55)} ${X(st + 1.05)} ${X(10.9)} ${X(st + WH)} ${X(10.1)} ${X(st + WH)}H${X(1.9)}C${X(1.1)} ${X(st + WH)} ${X(0.45)} ${X(st + 1.05)} ${X(0)} ${X(st)}Z`);
-    return [cup, ear, saucer, counter];
+    return [body, saucer, counter];
   },
-  // The g7 cup with the RING handle, kept to show beside the ear (director's fix 1).
   cafeRing(s = 12) {
     const u = s / 12, X = v => f(v * u);
     const top = 2, bot = T(7.333), l = 0.5, r = 8, mid = (l + r) / 2;
@@ -81,13 +84,13 @@ const DRAW = {
   // NATURE. Three tiers (g6 fix 3), each branch one curve drooping to its tip. Overshoot: the pointed
   // top rises 0.5 above TOP. Proportion: tiers widen by equal steps; the trunk shows 1.5 x 1.5.
   nature(s = 12) {
+    // g7e fix (director, turn 37): each tier is a plain triangle whose base rises straight to the trunk
+    // (a chevron, 0.9px), so the tips are clean points and the notches simple Vs: no curved
+    // undersides hooking the tips inward, no round pockets.
     const u = s / 12, X = v => f(v * u), c = s / 2;
     const tiers = [[-0.5, 4.25, 3.1], [2.6, 7.6, 4.5], [5.75, 10.75, 5.8]];
     const out = [];
-    for (const [ty, by, hw] of tiers) {
-      const mid = by - 0.65;
-      out.push(D(`M${f(c)} ${X(ty)}L${f(c + X(hw))} ${X(by)}Q${f(c + X(hw * 0.45))} ${X(mid)} ${f(c)} ${X(mid)}Q${f(c - X(hw * 0.45))} ${X(mid)} ${f(c - X(hw))} ${X(by)}Z`));
-    }
+    for (const [ty, by, hw] of tiers) out.push(P([c, X(ty)], [c + X(hw), X(by)], [c, X(by - 0.9)], [c - X(hw), X(by)]));
     out.push(R(c - W / 2, X(9.5), W, s - X(9.5)));
     return out;
   },

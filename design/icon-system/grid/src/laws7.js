@@ -18,9 +18,11 @@ const join = c => !c.convex && c.angle >= 75 && c.angle <= 105;
 const scaled = (law, k) => c => { const r = law(c); return r && r.trap ? { trap: r.trap.map(v => v * k) } : r * k; };
 const LAWS7 = {
   // By joint: the softness is in the joins; cut ends and tips stay crisp
+  // g7e (director, turn 37: "tips stay crisp"): an acute tip (under 75 degrees) takes only a 0.12px
+  // round, so it reads as a point at 8x, and an acute notch takes none, so it reads as a simple V
   joint: c => join(c) ? SQUARE : fit(c, c.convex
-    ? (c.angle < 75 ? 0.3 : c.angle > 105 ? 0.7 : Math.min(c.lin, c.lout) <= 2 ? 0.3 : 0.45)
-    : (c.angle < 75 ? 0.3 : 0.6)),
+    ? (c.angle < 75 ? 0.12 : c.angle > 105 ? 0.7 : Math.min(c.lin, c.lout) <= 2 ? 0.3 : 0.45)
+    : (c.angle < 75 ? 0 : 0.6)),
   // Even wear: every outside corner worn the same depth (0.28px); inside corners barely touched
   wear: c => { if (join(c)) return SQUARE; const f = 1 / Math.sin((c.angle * Math.PI / 180) / 2) - 1; return fit(c, c.convex ? Math.min(1.8, Math.max(0.15, 0.28 / f)) : Math.min(0.45, Math.max(0.12, 0.06 / f))); },
   // Pressed: ink pools inside corners; outside edges stay sharp
