@@ -23,6 +23,19 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   map credit sits above it, the + never touches it, and lowered there's no line under the title;
   (7) star/visit swipes still work on rows right under a header; (8) a long plan name ends in
   "…" right before its count.
+- **City buckets (add-tag-jam phase 3, NOT LANDED -- branch `add-tag-p3`):** on your phone, signed
+  in, live data. (1) Open Gunnuhver's tag: REYKJAVÍK on the first line, and under the address
+  "≈ 50 km from Reykjavík"; Sundhöllin's tag: no note. (2) **Move a place's city:** on a test
+  place, tap the city: a menu of your cities, then "NEW CITY · + <its town>"; pick another city:
+  the tag's line changes at once, the pin stays exactly where it was, the row jumps to that city's
+  section and stays in view; reload: it's still there (the write landed). Move it back. (3) Pick
+  "+ <town>": a new city section appears with the place in it; move it back: that city section
+  disappears ("Removed unused city"). (4) Reykjanesviti (no address): no address line, the note
+  still shows; its menu gets "+ <town>" a moment after opening. (5) Signed out (or on Erica's
+  phone signed out): tapping the city offers the sign-in slip, nothing moves. (6) Add "Blue
+  Lagoon": the line says REYKJAVÍK with "≈ 40 km"; add something 100+ km from every city: the
+  town with the NEW stamp. (7) Star / visit swipes and the tag's Star / Mark visited feel as
+  before.
 - **The add tag (add-tag-jam phase 2, landed 2026-10-18):** on your phone,
   signed in. (1) Tap +: the list drops, the map pales and a blank tag shows NAME / ADDRESS /
   NOTES / TYPE with the city line on top; the keyboard comes up on NAME and the tag sits right

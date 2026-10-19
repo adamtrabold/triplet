@@ -236,7 +236,7 @@ flowchart TD
 | Manual city pick | sets `userOverrodeCity`; auto-guessing stops for this form session |
 | Search widens | `nominatimWithFallback()`: one wider search only on zero results, 1 s spacing (`NOMINATIM_SPACING_MS`) |
 | Area/line city | never from the form; `resolveShapeCity()` votes per point (`SHAPE_CITY_CONFIDENT_SHARE` 0.6) |
-| After saving | **nothing can be edited**: not the city, name, notes or category. Backlog: "Edit a place after adding it" |
+| After saving | only the city (phase 3, not landed: the Hanging Tag's routing line); not the name, notes or category. Backlog: "Edit a place after adding it" |
 | Orphan cities | `cleanupOrphanCities()` (boot, after delete) removes auto-added cities nothing references; never the seed five |
 
 ### Mark visited / star, delete
@@ -407,11 +407,11 @@ the `geocoder*.html` pages are historical).
 
 ---
 
-## 6. Decided, not built: city buckets
+## 6. City buckets (add-tag-jam phase 3; built on `add-tag-p3`, NOT LANDED)
 
-No trip entity (owner, 2026-10-15: "drop"). A place sits in one city bucket guessed from the pin: the nearest city within about a day trip, else a new city named from the real town; editable at add and later.
-A place shows both its app city and its real town (owner: "the address needs to comfortably balance the idea of the city it belongs to in the app vs the city the address actually places it").
-A repeat visit to a place doesn't change its pins. Whether the city filter becomes multi-select is not decided. Nothing of it is in `index.html` or the DB.
+No trip entity (owner, 2026-10-15: "drop"). A place sits in one city bucket guessed from the pin: the nearest city whose stored `center` is within `CITY_REACH_KM` (70, "we think"; `guessCity()`), else a new city named from the real town (`townOf()` of the pick's details, else of `nominatimReverse()` on the point; `guessCityAt()`), else -- no town anywhere -- the nearest city however far. Boxes (`viewbox`) no longer file anything: they decide only the distance note (`placeDistanceText()`). Editable at add (the add tag's routing line) and later (the Hanging Tag's routing line -> the city menu -> `setPlaceCity()`, a `city` update on `locations` / `neighborhood_shapes`; "+ town" runs `addCity()` first; `cleanupOrphanCities()` after). The pin never moves: the city is a filing, not a location.
+A place shows both its app city (the routing line) and its real town (the address line, `tagAddress()`), plus "≈ N km from City" when it lies outside its city's box (owner: "the address needs to comfortably balance the idea of the city it belongs to in the app vs the city the address actually places it").
+A repeat visit to a place doesn't change its pins. Whether the city filter becomes multi-select is not decided. No DB change: the columns and RLS already allowed it.
 Read `design/trip-location-model/concepts/5-city-buckets-trip-tags.md` (its trip parts are dropped) and `design/trip-location-model/owner.md` before touching it.
 
 ---

@@ -130,11 +130,20 @@ operator makes none of these calls.
   city, else the nearest). The search is worldwide (`currentSearchCityConfig()`
   = the map's view as a soft hint only). A NEW city is made by ADD
   (`addCity()` first, then the insert); there are no confirm dialogs.
+- **City guess (phase 3, NOT LANDED, branch `add-tag-p3`):** a place's city
+  is a filing, never a location: `guessCity()` = the nearest city whose
+  stored `center` is within `CITY_REACH_KM` (70), else the real town as a
+  NEW city (`guessCityAt()` reverse-geocodes when the details have no
+  town), else the nearest city however far. Boxes decide only the distance
+  note (`placeDistanceText()`). Changed later on the Hanging Tag's routing
+  line via `setPlaceCity()` (optimistic, per-write rollback,
+  `flagWritesInFlight`); the pin never moves. Spec: `docs/shipped.md`
+  "City buckets".
 - **Shape city resolution:** `resolveShapeCity()` classifies every point
   against `CITIES` and majority-votes (street segments that disagree with
   the winner are dropped — catches spurious same-name OSM merges). At ADD a
   hand-picked city wins; else the confident (≥ `SHAPE_CITY_CONFIDENT_SHARE`,
-  60%) winner; else the line's guess. `tools/neighborhood-shapes.html` has a
+  60%) winner; else the guess on its centroid (`guessCityAt()`). `tools/neighborhood-shapes.html` has a
   duplicated port (no build step) that shows a warning on the review card.
 - **No OSM shape → approximate pin:** `findApproximatePoint()` tries a
   Nominatim point search, then an Overpass node search in the city bbox; a
@@ -236,8 +245,9 @@ the add tag (worldwide search, TYPE auto-detected, the city line + NEW stamp, vi
 - **+ rides up with the filters panel** -- branch `plus-rides-filters`
   (987704c, WIP, not landed). Waits on the owner's pick of the panel-height
   ceiling; owner: "the panel height should all just be responsive".
-- **City buckets** -- decided, not built; trips dropped (owner: "drop").
-  Rules: `docs/architecture.md` §6. Add form gets "mark visited" (owner: "yes").
+- **City buckets** -- add-tag-jam phase 3, built on `add-tag-p3`, NOT LANDED
+  (waits on the CD + UX check, the owner's look, an Impeccable waiver for
+  the routing line read as a "kicker"). Rules: `docs/architecture.md` §6.
 - **Icon system full revision** (owner, 2026-10-07) -- lane 2, in design on
   `claude/elegant-galileo-1c5ntm` (`design/icon-system/`, brand-approach
   phase). Includes the +'s line weight (measured weights in
