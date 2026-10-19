@@ -1000,3 +1000,71 @@ sent.
 
 NEXT: icon designer, the board. Then the director scores it on the
 canvas.
+
+---
+
+## Turn 37: design director, the canvas board (Grid7Look, canvas version 95): board 9, drawings 8
+
+**How I looked:**
+- I opened the board's source from the canvas (`project/Grid7Look.dc.html`)
+  and rendered it at 1x and 3x;
+- I squinted at the true-size rows first, then the 8x row against the
+  references.
+
+**The board (the surface): 9.**
+- It passes my judgeability gate:
+  - live vectors at true size in list rows, on the map (with a selected
+    pin and the +) and in the filter chips;
+  - the same places for Material and Phosphor beside them;
+  - an 8x row for zooming;
+  - plain labels;
+  - one plain question, in the words I proposed.
+- The dense sheets sit to the right, labelled optional.
+- This is the right board.
+
+**The corner proposal, "by joint": accepted.**
+- It's the most direct answer to his "different architecturally sound
+  principles to how different angles intersect".
+- It keeps cut ends and tips crisp, where even wear blunts them.
+- With joins now square, the law lives only at outside corners and
+  notches, which keeps it slight.
+
+**The drawings at 8x: 8.**
+- The board invites him to zoom, so the 8x row is now part of what he
+  judges.
+- At true size the four read cleanly and in balance, as in g7c.
+- At 8x, beside Material and Phosphor, two drawings show architecture
+  faults he would see:
+  1. **The cup:** the bowl's curve meets the ear's lower edge in a small
+     step or kink, not one continuous line. The ear reads as a boxy "P"
+     glued on, with a small slot of a counter. Material's handle is a
+     clear loop and Phosphor's a thin ring. (C3, and "perfect
+     architecture".)
+  2. **The conifer:** each tier's tip ends in a small inward hook, a
+     barb, and the notches carry little round pockets. At 8x it reads
+     fussy, like fish-hooks, against the references' clean triangles.
+     By joint's own rule says "tips stay crisp". (C5.)
+- **Minor, not blocking:** the museum's beam and plinth end in small
+  stepped nubs (the 0.5px overhang). At 8x they read as brackets. A
+  clean single step, or none, would be calmer. The designer's call.
+- The coupe, the +, the Star and the museum's body are clean.
+
+**Likely owner objections:**
+- "The cup handle looks like a P." *Likely*: he zooms, and he's named
+  the handle before.
+- "The tree's edges are weird when I zoom." *Possible.*
+
+**Fixes, then I look at the 8x row and the rows only:**
+1. **The cup:**
+   - the bowl flows into the ear's base in one tangent curve, with no
+     step;
+   - the ear one 1/3px step narrower, so its counter grows to read as a
+     loop (turn 31's note).
+2. **The conifer:** the tips are clean points per by-joint ("tips stay
+   crisp"): no hooks, and the notches simple.
+3. **Re-check the balance** in the blurred row after 1 and 2.
+
+**The question stays as on the board.**
+
+NEXT: icon designer, fixes 1–3 on the board. Then the director looks at
+the board on the canvas.

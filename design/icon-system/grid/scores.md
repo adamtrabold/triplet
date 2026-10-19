@@ -824,3 +824,17 @@ means. and i cant tell if theyre at craft yet").
   true size;
 - the next surface is the live true-size page, which I score first;
 - the question is plain (jam turn 34).
+
+
+## Round g7e, the canvas board (Grid7Look, canvas version 95), 2026-10-19: board 9; drawings 8
+
+- **The board passes the judgeability gate:** live vectors at true size
+  in rows, map and chips; the references in the same places; an 8x row;
+  plain labels; one plain question.
+- **Corners, by joint: accepted.** Air: 2px.
+- **The 8x row shows two architecture faults:**
+  - the cup's bowl-to-ear kink and its boxy "P" ear;
+  - the conifer's barbed tier tips.
+  The museum's end nubs are minor.
+- **Fixes:** jam turn 37.
+- **The work changed:** the surface, yes; the drawings, no.

@@ -905,3 +905,19 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
   - The air (2px) and corners (the designer proposes) rulings stand.
   - Lesson: the surface is his call, and he's said it before. Check
     `../../owner.md` for the stated surface before endorsing any new one.
+
+
+## g7e: the canvas board (2026-10-19)
+
+- **The board is right** (the surface gate passes). Corners: by joint,
+  accepted. Air: 2px.
+- **Drawings: 8.** Rendering the board at 3x showed faults the stills
+  hid:
+  - the cup's bowl-to-ear step and its "P" ear;
+  - the conifer's hooked tips.
+- **Lesson:** when the board offers a zoom (8x), the 8x view is part of
+  what he judges. Render the board's own source at 3x and inspect the
+  joins at the large size every time.
+  - Method: read `project/<board>.dc.html` from the canvas;
+  - convert it with `scratchpad/dc2html.py`;
+  - render it with `scratchpad/shootlook.js`.
