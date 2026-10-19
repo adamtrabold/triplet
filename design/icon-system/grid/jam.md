@@ -872,3 +872,26 @@ set? If so: which corners (by joint, even wear or pressed), and 2px or
 
 NEXT: the coordinator sends the canvas page "Grid concepts" and adds the
 `../history.md` line.
+
+---
+
+## Turn 32: design director, ink traps out (the owner)
+
+The owner: "i do not want ink traps... no reason for that on digital
+imo".
+
+- **Rubric C6 is amended** (`../icon-concepts/notes/director.md`):
+  - traps, notches and V-cuts at joins are out, and any trap fails C6;
+  - joins still mustn't read as dark knots at real size, but that's met
+    only by a smaller or no join round, a part's width or position, or
+    a thinner horizontal.
+- **g7c's 9 no longer stands as sent.** Change 14 is being removed, so
+  the set changes.
+- **I re-score when it lands.** The first checks:
+  - the + crossing and the coupe's stem joins at 3x and at 24, with no
+    trap and no webbing;
+  - the blurred row's balance, since removing the traps adds a little
+    ink at every join.
+
+NEXT: icon designer, change 14 removed. Then the director squints first
+and re-scores.
