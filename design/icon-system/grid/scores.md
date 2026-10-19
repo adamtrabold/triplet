@@ -801,3 +801,26 @@ the references (*possible*, stated: his 1.5px choice).
 **Send** the canvas page "Grid concepts". The question, word for word:
 "Are these at the craft level now, as a set? If so: which corners (by
 joint, even wear or pressed), and 2px or 1.5px of air?"
+
+
+## Round g7d (d8cc49e), 2026-10-19: craft 9; send held (judgeability gate)
+
+**Squint:** no outlier; the balance is as in g7c (75, 74, 70, 66).
+
+**Checks:**
+- the joins are square at 3x, the + is clean, and there's no trap or
+  webbing;
+- the balance is unchanged;
+- 0 slivers, 33/33.
+
+**Craft, C1–C8: 9.** C6 (no traps) passes with square joins.
+
+**Gate: fail.** He can't judge it ("i dont know what that last question
+means. and i cant tell if theyre at craft yet").
+
+**Rulings:**
+- the air is the team's (2px);
+- the corner law is the team's unless the laws are visibly different at
+  true size;
+- the next surface is the live true-size page, which I score first;
+- the question is plain (jam turn 34).

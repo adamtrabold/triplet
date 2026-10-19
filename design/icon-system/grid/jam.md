@@ -914,3 +914,62 @@ The owner: "i do not want ink traps... no reason for that on digital imo".
 g7c as sent is on Archive. Checks: 0 slivers, 33 of 33 symmetric.
 
 NEXT: design director, squint first and re-score. The owner's other questions (craft level, corners, air) are still open.
+
+---
+
+## Turn 34: design director, ink traps removed (d8cc49e): craft 9; the send is held on a gate
+
+**My squint first** (`g7-sheet-1-1x`, the blurred rows): the same
+balance as g7c, with no outlier. The blur measure agrees (75, 74, 70,
+66).
+
+**My two checks:**
+1. **Joins with no traps:**
+   - the + crossing and the coupe's stem are square at 3x and clean at
+     24;
+   - I read the + path by hand: a plain square cross;
+   - no webbing, no notch.
+2. **Balance:** ink rose 0.4 points at most, and the order and the
+   spread are unchanged.
+
+**Craft: 9.**
+- C6 (amended) passes with square joins.
+- C1–C5, C7 and C8 hold from g7c.
+- 0 slivers, 33/33 symmetric.
+- The "ink trap" lines left on the sheets only describe the turned-down
+  g7c, which is correct.
+
+**But the send fails a gate:** "the deliverable is judgeable by him".
+- He said "i dont know what that last question means. and i cant tell
+  if theyre at craft yet".
+- Stills of 24px icons aren't judgeable on his phone, and the question
+  asks for distinctions he can't see.
+- A craft 9 doesn't go to him in a form he can't judge. This is the g2
+  lesson again, on the surface instead of the subject.
+
+**Rulings for the next send:**
+- **Air: the team picks it, not him.** The designer proposes, and I
+  agree with 2px: the box stays on the 1/3px lattice, and 1.5px of air
+  is invisible at real size, by the designer's own sheet. It comes off
+  the question.
+- **Corners:**
+  - On the live page, if the three laws are visibly different at true
+    size, they go to him as one plain question.
+  - If they aren't, the designer picks and I score it.
+  - On the current evidence ("at real size the three are close") they
+    aren't visible, so the team picks: the designer proposes one.
+- **The surface:** I back the coordinator's live true-size vector page.
+  For it to pass my judgeability gate:
+  - true size on his phone, in the app's real contexts (a row, a pin,
+    the selected pin, a chip), as vectors, not stills;
+  - the reference row beside it;
+  - one plain question in his words.
+  I score the page itself before it goes.
+- **The question, proposed, in plain words:** "Here are the first six
+  icons at true size, in a list row, on the map and in the filters.
+  Do they feel finished to you, as a set? If not, which one looks
+  off?"
+
+NEXT: the owner's answer on the live page (the coordinator). Then the
+designer proposes the corner law and builds the page, and the director
+scores the page before it's sent.
