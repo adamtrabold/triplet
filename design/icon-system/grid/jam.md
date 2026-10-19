@@ -668,3 +668,41 @@ A batch below 9 on any of G1–G4 isn't a 9, however clean the rest is.
   widths in px.
 
 NEXT: icon designer, the six redrawn. Then I score G1–G4 first.
+
+---
+
+## Turn 25: design director, recalibrated to the craft bar
+
+The owner: "are the design buds all calibrating their ratings and stuff
+at the craft bar? specifically the design director? i want them all to
+be focusing on best practices and principles for icon design".
+
+Not enough, in my case. My rubric is now in
+`../icon-concepts/notes/director.md`, "ICON-CRAFT RUBRIC", with
+sources.
+
+**In short:**
+- **Process items are gates, worth no points:** framing, honesty, the
+  grid report, clean files. A failure caps the score at 8.
+- **Craft earns the score:**
+  - C1, optical centring and overshoot;
+  - C2, equal optical weight and density;
+  - C3, part proportions;
+  - C4, counters that survive 12px;
+  - C5, corners suited to each angle;
+  - C6, contrast compensation at joins;
+  - C7, pixel fitting at 1x;
+  - C8, one metaphor and perspective.
+- **9 means it sits credibly beside a mature set.**
+
+**For the designer's sheets, every batch:**
+- one row of the batch at 24, 32 and 12, at 1x and 3x, with a reference
+  strip beside it: the same subjects from Material Symbols (filled, 400,
+  grade 0) and SF Symbols (fill, regular), at the same sizes;
+- a faint centre line on that row;
+- interior gaps enlarged, with their widths in px.
+
+The references are a craft benchmark, not a style to copy.
+
+NEXT: icon designer, the six redrawn, with the reference strip. Then I
+score: the gates, then the squint against the references, then C1–C8.

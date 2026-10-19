@@ -671,3 +671,147 @@ My 9 missed all of it.
 - **Habit:** before scoring, I put the batch in one row at 24 and 32 at
   1x, squint, and write down which icon is heaviest, lightest, highest
   and lowest before I read the designer's notes.
+
+## ICON-CRAFT RUBRIC (recalibrated 2026-10-19, at the owner's ask)
+
+The owner: "are the design buds all calibrating their ratings and stuff
+at the craft bar? specifically the design director? i want them all to
+be focusing on best practices and principles for icon design".
+
+My recent 9s went on process. This rubric replaces my scoring order.
+
+**How a score is built:**
+- **Process items are pass/fail gates, worth zero points:**
+  - honest framing and fair notes;
+  - a held/broke grid report;
+  - clean files (`check-svg.py`: 0 slivers, symmetry);
+  - the deliverable is the subject.
+  A gate failure caps the score at 8, and a pass adds nothing.
+- **Craft earns the score:** C1–C8 below, judged by eye at real size
+  (24 badge, 32 pin, 12 chip, at 1x and 3x) before I read any notes.
+- **9 = calibrated against a mature set.** Side by side at real size,
+  in one row with a reference strip, the batch would sit credibly next
+  to a mature system on C1–C8.
+  - The reference strip uses the same subjects, solid style, at the same
+    sizes, from Material Symbols (filled, weight 400, grade 0, optical
+    size 20/24) and SF Symbols (fill, regular).
+  - A batch that looks clumsier than the references on any criterion
+    is at most 8.
+  - The strip is a craft benchmark, not a style target; ours stay
+    Constructed.
+
+**C1. Optical, not mathematical, centring, with overshoot.**
+- The eye balances mass, not the bounding box. Asymmetric glyphs
+  (the cup with its handle, the coupe, the tree) need small nudges to
+  look centred in the badge, and Apple notes that these adjustments
+  are "typically very small, but their effect is noticeable" [1][2].
+- Round and pointed forms overshoot flat ones, so they read the same
+  size: a circle or a tip goes slightly past the guide a flat edge sits
+  on. The amount grows the sharper the form [3][4].
+- **Fails:** any icon that reads high or low in a row, or a round or
+  pointed icon that reads small beside a flat one.
+
+**C2. Equal optical weight and density across the set.**
+- Keylines (circle, square, portrait and landscape rectangle) exist so
+  that every icon takes up a similar visual volume whatever its shape.
+  They're "a starting point and guide, not a hard rule"; optics win
+  [5][6][7].
+- Apple balances optically by scale: narrower glyphs grow to match
+  [2]. Material separates weight from size and grade so density can be
+  tuned without changing size [8].
+- **Test:** squint at the whole set in one row. No icon is darker,
+  lighter, bigger or smaller.
+- **Fails:** any outlier.
+
+**C3. Part proportions.**
+- Parts relate to one another the way the object does, optically: a
+  rim to a bowl, a stem to a foot, columns to a beam, a handle to a
+  cup.
+- Parts are simple and repeated sizes recur, but a part grows or
+  shrinks optically when it reads too heavy or too thin. Type design
+  sizes by eye after measuring [4].
+- **Fails:** a part that draws the eye for being too big or too
+  slight.
+
+**C4. Counters and gaps that survive the smallest size.**
+- Design for the smallest render. Fluent and IBM draw per size for
+  this reason, and map symbology sets minimum gaps and widths (see
+  `../../grid/notes.md`).
+- Every counter and passage is open and meaningful at 12px and at 1x.
+  Avoid narrow passages that close up (his cup handle). Never let a
+  counter change what the object is (his "pill" columns).
+- **Fails:** any gap under the size's minimum, or a counter shape that
+  misreads.
+
+**C5. Corner and join treatment suited to each angle.**
+- His "different architecturally sound principles to how different
+  angles intersect". In type, acute joins are opened and obtuse ones
+  barely touched, and the treatment follows the angle and the role of
+  the join [9][10].
+- Rounding is sized per intersection: never so broad it blobs a join,
+  never so tight it reads sharp. The law is a start, not an excuse.
+- **Fails:** any corner he could call "too broad" or "too tight".
+
+**C6. Stroke-contrast compensation at joins.**
+- Where parts meet, mass piles up and joins read dark. Type thins
+  strokes into junctions and opens ink traps at acute joins, for
+  exactly this; Bell Centennial is the classic small-size case
+  [9][10].
+- **Look for:** dark knots where a stem meets a beam, a handle meets a
+  cup, or tiers meet a trunk.
+- **Fails:** a visible dark spot at real size.
+
+**C7. Pixel fitting at real render sizes.**
+- Mature sets align elements to the pixel grid at their design sizes
+  (Material's 24 and 48 grids; IBM's whole-pixel coordinates; Fluent
+  per-size drawings) [8][11][12].
+- Here: edges land on device pixels at 1x and on 3x dots where the
+  1.5px line allows it, and a stated rule says which edges may fall
+  between pixels.
+- **Fails:** a blurred, uneven edge on a stem or plinth at 1x.
+
+**C8. Consistency of metaphor and perspective.**
+- One viewpoint (flat front or side elevation), one level of
+  literalness, one level of detail across the set. Fluent names icons
+  for the object they depict and avoids modifiers that add complexity
+  [13].
+- **Fails:** one icon in a different perspective, more literal or more
+  detailed than its neighbours.
+
+**Sources:**
+- [1] Apple HIG, Icons:
+  https://developer.apple.com/design/human-interface-guidelines/icons
+- [2] Apple WWDC 2017, "Designing Glyphs" (session 823):
+  https://developer.apple.com/videos/play/wwdc2017/823
+- [3] Overshoot (typography):
+  https://en.wikipedia.org/wiki/Overshoot_(typography)
+- [4] Tobias Frere-Jones, Typeface Mechanics 001 (overshoot):
+  https://stockholmstypografiskagille.se/typonyheter/typeface-mechanics-001/
+- [5] Material Design, system icons (keyline shapes, 24dp grid):
+  https://material.io/design/iconography/system-icons.html
+- [6] Sky, Skycons design guidelines (keylines for optical balance):
+  https://sky-ui.cf.sky.com/skycons/design-guidelines
+- [7] Volue Wave, Icon design guidelines ("follow what optically looks
+  best"): https://wave.volue.com/tokens/icon-design-guidelines
+- [8] Google, Material Symbols guide (weight, grade, optical size):
+  https://developers.google.com/fonts/docs/material_symbols
+- [9] Ink traps (acute joins, small sizes):
+  https://www.high-logic.com/font-editor/fontcreator/tutorials/create-ink-traps
+- [10] Bell Centennial (Matthew Carter):
+  https://en.wikipedia.org/wiki/Bell_Centennial
+- [11] IBM UI icons (whole-pixel coordinates, per-size strokes):
+  https://www.ibm.com/design/language/iconography/ui-icons/usage
+- [12] Microsoft Fluent 2 iconography (per-size drawings):
+  https://fluent2.microsoft.design/iconography
+- [13] Microsoft Windows app iconography (literal metaphors,
+  modifiers):
+  https://learn.microsoft.com/en-us/windows/apps/design/iconography/
+
+**My scoring order from now on:**
+1. The gates, pass/fail.
+2. Squint at our row beside the reference strip and write down the
+   outliers.
+3. C1–C8, citing the criterion for each fault.
+4. Construction checks, which confirm but never raise a score.
+
+G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
