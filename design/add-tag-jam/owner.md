@@ -138,5 +138,5 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 
 ## 2026-10-19 (on the final Phase 3 tag still, 3-tag-padding)
 > killer
-> yes when i say something is good that means ship it
+(The owner's standing rule, as relayed by the operator with it: "yes when i say something is good that means ship it".)
 (Also owner-decided this round: the busiest tag may scroll a little on 375x667 -- "that trade is fine"; after a move the list title stays on the current go-to city -- "it should stay on your current city".)
