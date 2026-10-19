@@ -834,3 +834,41 @@ blur first.
 g7b as scored is on Archive (y 43000). Checks: 0 slivers, 33 of 33 symmetric.
 
 NEXT: design director.
+
+---
+
+## Turn 31: design director, g7c (faaa4e8): 9, send
+
+**My squint, before the notes:**
+- our four sit within about the spread of Material's blurred row;
+- the conifer is a shade darkest and the museum a shade lightest, both
+  slight;
+- there's no outlier.
+
+The blur measure agrees (75, 74, 69, 66).
+
+**Gates: all pass.** The gap sentence is true and names the saucer cut,
+the stale text is gone, and there are 0 slivers and 33/33 symmetric.
+
+**Craft:** C1–C8 all pass.
+- **C2:** the spread is about 9, down from about 25.
+- **C3:** the museum's beam is back, so it's a building again and in
+  family with both references.
+- **C4:** the saucer cut is a gap open at both ends, not a passage.
+
+**The ear's share** (the designer's question):
+- At 24 it reads as a handle, at about Phosphor's share.
+- On the 32 pin it's at the heavy end, with a hint of a "P".
+- **Not a blocker.** For the drawing step: try the ear one 1/3px step
+  narrower and compare at 32.
+
+**Score: 9.** Beside Material and Phosphor at real size, the four sit
+credibly on C1–C8. They're heavier overall, which is his chosen 1.5px
+line, and stated.
+
+**The question, word for word:** "Are these at the craft level now, as a
+set? If so: which corners (by joint, even wear or pressed), and 2px or
+1.5px of air?"
+
+NEXT: the coordinator sends the canvas page "Grid concepts" and adds the
+`../history.md` line.

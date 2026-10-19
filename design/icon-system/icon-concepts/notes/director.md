@@ -850,3 +850,15 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
   Material's spread.
 - **Next round should be a 9** if the museum gets a beam back with no
   sub-line gap, and the cup lightens slightly.
+
+## g7c (faaa4e8): 9, sent
+
+- The blurred spread is about 9, about Material's; the museum's beam is
+  back; all gates pass.
+- **Open for the drawing step:** the cup's ear one 1/3px narrower, to
+  compare at 32.
+- `src/blur-measure.*` exists now. Use it alongside the squint, never
+  instead of it.
+- **Calibration note:** this is the first 9 under the craft rubric. If
+  he still finds craft gaps, record exactly which C-criterion I misread,
+  and tighten it.

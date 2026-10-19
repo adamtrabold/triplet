@@ -770,3 +770,34 @@ set? If so: which corners (by joint, even wear or pressed), and 2px or
 
 **Did the work change?** Yes. The cup's ear and the ink traps are real
 craft gains (C3 for the cup, C6). The museum overshot.
+
+## Round g7c (faaa4e8), 2026-10-19: 9, READY
+
+**My squint first:** no outlier in the blurred row, and the spread is
+about Material's. The measure: conifer 75, cup 74, coupe 69, museum 66
+(spread about 9, down from about 25).
+
+**Gates: pass.**
+- The gap claim is true (the saucer cut is named, open at both ends).
+- The stale text is gone.
+- 0 slivers, 33/33 symmetric.
+
+**C1–C8: all pass.**
+- The museum has its beam back (C3): pediment, beam, four columns,
+  plinth, in family with both references.
+- The slots are closed at 1.5px (C4).
+- The weight is balanced (C2).
+- The ink traps hold (C6).
+
+**The ear's share:** it reads as a handle at 24, at about Phosphor's
+share. It's heavy-ish at 32 (a hint of a "P"). For the drawing step, try
+the ear one 1/3px step narrower. Not a blocker.
+
+**Likely objections:** the ear on the pin (*possible*), and heavier than
+the references (*possible*, stated: his 1.5px choice).
+
+**The work changed:** yes, exactly fixes 1–4.
+
+**Send** the canvas page "Grid concepts". The question, word for word:
+"Are these at the craft level now, as a set? If so: which corners (by
+joint, even wear or pressed), and 2px or 1.5px of air?"
