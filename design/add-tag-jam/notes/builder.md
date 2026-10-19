@@ -319,3 +319,49 @@ slip copy. Cleaned the prototype's "p3-fixes vN" history comments into plain one
 `--update` run also rewrote unrelated state counts -- phase 2's add state -- so its output was
 discarded and only the entry kept); gate PASSED. The designer's stills script re-rendered on the
 build matches the approved raws (sub-pixel only). Full gesture gate as main. Owner: "killer".
+
+# Phase 4: the map's city badge (2026-10-19; branch `add-tag-p4` from main 6739a04f; NOT LANDED)
+
+Spec: `handoff.md` "Phase 4" (systems + visual: GoToMap, "the boxed city label" + "All cities").
+
+## What's built (index.html)
+- **`CITY_BADGE_MAX_ZOOM` = 8** ("we think", built as written; next to `SOLO_MIN_ZOOM`). Must stay
+  below every city's go-to zoom (11-12; new cities 12) or a badge tap would land on badges.
+- **`badgeCityIds()`**: Places only, zoom < 8, cities with a shown place (`visibleLocations()` /
+  `visibleNeighborhoodShapes()`, so hidden cities and chip-filtered cities drop out) and a stored
+  `center`. `mapVisibleLocations()` drops those cities' pins before clustering and returns
+  `badges` (section order, `cityTally()` = the section tally); `mapVisibleNeighborhoodShapes()`
+  drops their shapes (shape stars/stickers follow). The list never reads either (CLAUDE.md split).
+- **`syncCityBadges()`** wherever `syncClusterMarkers()` runs (`updateUI()`,
+  `syncMarkerGlyphZoom()` on moveend), so badges and clusters swap in the same sync. Keyed by city
+  id with a label|count|centre signature: a pan never re-creates a badge. Marker:
+  `L.divIcon` 0x0 anchor (`.city-badge-anchor`) holding a real `<button class="city-badge">`
+  centred by CSS; `keyboard: false` (the button is the tab stop); z `Z_CITY_BADGE` = 800 (added
+  to the ladder: above clusters, below the highlighted pin). Tap/Enter: `goToCity(id)`.
+- **CSS** exactly the board: paper-raised, 1.5px navy, radius 2, 5px 9px, 2px 2px 0 navy; caps 13
+  `.08em` navy + the shared `.tally`. Added: line-height 16 (the menu label's), a 44px-tall hit
+  area (::before -9px, the menu rows' trick), `:active` = `--state-press`, focus-visible outline.
+- **"All cities"** (`AllCitiesControl`, `#allCitiesBtn`): a Leaflet `topleft` control added after
+  the zoom control, so Leaflet's own 10px gap puts it at left 10 / top 84, 34 tall (measured).
+  `leaflet-bar` gives the border/radius; #fff + #f4f4f4 press are Leaflet's own. Ring glyph =
+  `MENU_SVG.ring`. aria-label "Show all my cities" (the board's). Tap: `goToCity(ALL_CITIES)`.
+
+## Decisions (mine, flagged)
+1. "All cities" = the title menu's "All places" go-to (fit + list top + title "All places"),
+   because the badge is the go-to too. Its label stays "All cities" as the board says (the menu
+   row was renamed "All places" for "one name for one state").
+2. "All cities" is hidden in Plans (a go-to would leave the plan; no badges there) and while the
+   add tag is up (a fit would move the place out from under the pin, which the wash prevents).
+3. The tag's top-pad / add tag's dock / filters-lift control lists are unchanged: the Hanging Tag
+   opens clear of the control (still 09: ~24px below it).
+4. Data-only city ids (no `CITIES` entry, no centre): no badge, their pins stay as today.
+
+## Open
+- Copenhagen/Malmö badges overlap at every badge zoom (design gap; backlog).
+- "All cities" can't fit LA + the Nordics on a 390px phone (minZoom 3; pre-existing fitVisible).
+- Impeccable's rendered states never show the badge zoom (gate passes; adding a state needs
+  `--update` approval).
+
+## Checks
+- `design/add-tag-jam/p4/badgetest.js` (28 cases; `p4/lib-p4.js`), stills
+  `design/add-tag-jam/stills/build-p4/stills.js`.

@@ -1780,3 +1780,38 @@ move "it should stay on your current city" (it does).
   36/36 · plan-rows 40/40 · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12. **Impeccable:
   GATE FAILED on one new finding,** `kicker-above-heading` ("Reykjavík" above the tag's h2) -- the
   approved routing line itself (waived at landing, above).
+
+## The map's city badge (add-tag-jam phase 4; NOT LANDED -- built on `add-tag-p4`)
+
+Owner: "Great to build"; "Run it per CLAUDE.md lane 2, one phase at a time"; on Go to 3's badges:
+"i like having a badge for the city at a zoomed out level. it's nice. are these clickable? would be
+cool to zoom in if you did."; "Your assumption was right about the box". Spec:
+`design/add-tag-jam/handoff.md` "Phase 4" (design branch; board GoToMap). Notes:
+`design/add-tag-jam/notes/builder.md` (Phase 4). Stills: `design/add-tag-jam/stills/build-p4/`.
+Waits on the CD + UX check and the owner's look.
+
+- **The badge:** below `CITY_BADGE_MAX_ZOOM` = 8 ("we think"), in Places, each shown city with at
+  least one place matching the chips draws one `<button class="city-badge">` at its stored
+  `center`: paper-raised, 1.5px navy, radius 2, padding 5px 9px, `2px 2px 0` navy shadow; caps 13
+  `.08em` navy + the shared `.tally` (= the section tally, `cityTally()`). It replaces that
+  city's pins, clusters and outlines on the map (`badgeCityIds()` in `mapVisibleLocations()` /
+  `mapVisibleNeighborhoodShapes()`); the list never changes with zoom. Hidden cities: none. Plans:
+  none (a plan's stops show as today). z 800 (`Z_CITY_BADGE`). Hit area 44px tall; pressed
+  `--state-press`. Tap / Enter: `goToCity(id)` (the menu's go-to: map at the city's zoom, title,
+  list on its header, nothing hidden). Synced with the clusters (`syncCityBadges()`), keyed by
+  city, so a pan never re-creates one.
+- **"All cities":** a Leaflet control under the zoom buttons (left 10, top 84, 34 tall; Leaflet's
+  border/radius/#fff), ring glyph + caps 11/14 `.1em` navy. Tap: `goToCity(ALL_CITIES)` (= the
+  title menu's "All places": fit every shown place, list to the top). Hidden in Plans and while
+  the add tag is up (builder's calls, flagged).
+- **Gates (Chromium):** `design/add-tag-jam/p4/badgetest.js` 28/28 (zoom sweep 3-15 and back:
+  swap at one zoom, never both/neither; pan + touch-drag: same badge node, 0 removals; list rows
+  identical at 5/13/16; hidden city; chip counts = section tally; all chips off; badge tap +
+  keyboard; All cities place/look/tap; Plans; add tag; cluster tap at 10 lands at 14; list tap
+  from zoom 5 lands solo with its tag; a data-only city keeps its pins); Impeccable `IMPECCABLE
+  GATE PASSED` (static 1/1, runtime 11/11, 0 new; its states don't render the badge zoom);
+  popup-open 20/20 + 20/20, places-ux 30/30, shape-rows 50/50, plan-rows 40/40, tag-sync 12/12;
+  addtest 72/72; citytest 45/45; plantest and sorttest 76/77 identical to main. No row/tag gesture
+  code touched, so not the full gesture gate.
+- **Open:** Copenhagen/Malmö badges overlap at every badge zoom; "All cities" can't frame LA and
+  the Nordics on a phone (minZoom 3) -- both in `docs/backlog.md`.
