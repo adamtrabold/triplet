@@ -173,7 +173,9 @@ pick/redirect before building anything.
   looks: "Good"; `docs/shipped.md`). ~~Phase 2~~ LANDED 2026-10-18 (the add tag; owner on the
   fixes: "I like the change to the add dropdown"; `docs/shipped.md` "The add tag"). ~~Phase 3~~ LANDED 2026-10-19
   (city buckets: the guess by reach, a place's city changed on its tag; owner on the final tag:
-  "killer"; `docs/shipped.md` "City buckets"). Next: 4 (the map's city badge). Known from phase 1: a plan name
+  "killer"; `docs/shipped.md` "City buckets"). Phase 4 (the map's city badge + "All cities") BUILT
+  on `add-tag-p4`, NOT LANDED: waits on the CD + UX check and the owner's look at
+  `design/add-tag-jam/stills/build-p4/` (`docs/shipped.md` "The map's city badge"). Known from phase 1: a plan name
   longer than ~17 characters is cut in the 18px title (UX: accept).
 - **City buckets** (owner, 2026-09-23; decided 2026-10-15) -- LANDED as add-tag-jam phase 3
   (2026-10-19; `docs/shipped.md` "City buckets"). Still open from this item: multi-select
@@ -331,6 +333,20 @@ pick/redirect before building anything.
   still the last resort.
 
 ## Known minor bugs / follow-ups
+
+- **City badges overlap when cities are close (add-tag-jam phase 4 build, 2026-10-19; for the
+  designers).** Copenhagen and Malmö (30 km apart) are ~44px apart at zoom 7 and closer further
+  out, so their badges (~80-120px wide) stack at every badge zoom; Malmö's covers most of
+  Copenhagen's (tap still reaches the uncovered part). Repro: all cities shown, zoom <= 7 over
+  the Øresund (`stills/build-p4/01-badges-all-shown.png`, `04b-zoom-7-badges.png`). The handoff
+  doesn't cover it (merge, offset, or drop one is a design call).
+- **"All cities" can't fit LA and the Nordics on a phone (phase 4 build).** The control (=
+  "All places" go-to, `fitVisible()`) clamps at the map's `minZoom` 3, where LA to Stockholm is
+  ~770px wide: a 390px phone shows mid-Atlantic with only Reykjavík's badge
+  (`stills/build-p4/07-after-all-cities.png`). Pre-existing for the menu's "All places" too.
+- **Impeccable's rendered states don't include a zoomed-out map (phase 4 build).** The gate
+  passes but never renders a city badge or the badge zoom; adding a state needs a baseline
+  `--update` (owner/operator approval).
 
 - **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
   seen while testing the suggestions-over-x tweak). `node

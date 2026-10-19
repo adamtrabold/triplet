@@ -23,6 +23,14 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   map credit sits above it, the + never touches it, and lowered there's no line under the title;
   (7) star/visit swipes still work on rows right under a header; (8) a long plan name ends in
   "…" right before its count.
+- **The map's city badge (add-tag-jam phase 4, NOT LANDED -- move to landed when it is):** (1)
+  pinch out past the country level: each city you show becomes one boxed label with its count;
+  pinch back in: the pins/clusters return at the same step, and panning while zoomed out never
+  blinks the labels; (2) hide a city with its eye: its label goes; turn a category chip off: the
+  counts drop like the section headers'; (3) tap a label: the map flies to that city, the title
+  names it, the list sits on its header; (4) "ALL CITIES" under the + / − buttons: tap it from a
+  city: the map zooms out and the list goes to its top ("All places"); it's gone in Plans and
+  while adding a place; (5) a label is easy to hit with a thumb and its press darkens.
 - **City buckets (add-tag-jam phase 3, landed 2026-10-19):** on your phone, signed
   in, live data. (1) Open Gunnuhver's tag: REYKJAVÍK ⌄ on the first line, and the address line ends
   "· ≈ 50 km from Reykjavík"; Sundhöllin's tag: no note; a long-note tag on a small phone scrolls a
