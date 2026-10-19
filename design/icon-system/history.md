@@ -42,6 +42,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-19 · Batch 1 redrawn (g7c) shown:** optical centring, balanced weight (blur spread 25→9), ear handle, beam museum, ink traps; beside Material and Phosphor. Asked: craft level as a set? corners? air? `grid/stills/g7-sheet-1.png`
 
+- **10-19 · No ink traps:** "i do not want ink traps... no reason for that on digital imo"
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
