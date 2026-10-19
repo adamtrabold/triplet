@@ -35,3 +35,5 @@ One entry per moment the owner saw work or decided. Each entry is at most 4 line
 - **10-19 · Phase 3 fixes, round 3:** "i could even see more. that trade is fine. it should stay on your current city" → padding is up again (56 above, 6 from the city to the name, 12/16 at the field line); the scroll trade is approved; the list title keeps the go-to city. The addendum is final. `stills/p3-fixes/3-tag-padding.png`
 
 - **10-19 · Phase 3 fixes, round 4:** "does the spacing adhere to our design system multiples?" → every new value snapped to a token: 60 above (`--s12` + `--s3`), a `--s6` city line, `--s2` from the city to the name, fields `--s3`/`--s4`, menus `--s2` under the trigger. `stills/p3-fixes/3-tag-padding.png`
+
+- **10-19 · Phase 3 approved and landing:** on the final tag still, "killer" → the builder ports `design-p3-fixes` onto `add-tag-p3`, records the operator-approved Impeccable waiver (`kicker-above-heading` on the city line), runs the full gates and lands phase 3 on main.
