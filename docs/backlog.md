@@ -171,12 +171,12 @@ pick/redirect before building anything.
   four phases, lane 2 each). ~~Phase 1~~ LANDED 2026-10-17 (the list title's menu, city sections,
   show/hide, All plans, leg sections, the add-from sections, the collapse tab; owner on the final
   looks: "Good"; `docs/shipped.md`). ~~Phase 2~~ LANDED 2026-10-18 (the add tag; owner on the
-  fixes: "I like the change to the add dropdown"; `docs/shipped.md` "The add tag"). Phase 3 (city buckets:
-  the guess and editing a place's city) BUILT on branch `add-tag-p3`, NOT LANDED (waits on the CD + UX
-  check, the owner's look and an Impeccable waiver, see below). Then 4 (the map's city badge). Known from phase 1: a plan name
+  fixes: "I like the change to the add dropdown"; `docs/shipped.md` "The add tag"). ~~Phase 3~~ LANDED 2026-10-19
+  (city buckets: the guess by reach, a place's city changed on its tag; owner on the final tag:
+  "killer"; `docs/shipped.md` "City buckets"). Next: 4 (the map's city badge). Known from phase 1: a plan name
   longer than ~17 characters is cut in the 18px title (UX: accept).
-- **City buckets** (owner, 2026-09-23; decided 2026-10-15) -- BUILT as add-tag-jam phase 3 (branch
-  `add-tag-p3`, NOT LANDED; `docs/shipped.md` "City buckets"). Still open from this item: multi-select
+- **City buckets** (owner, 2026-09-23; decided 2026-10-15) -- LANDED as add-tag-jam phase 3
+  (2026-10-19; `docs/shipped.md` "City buckets"). Still open from this item: multi-select
   (not decided), the backfill, Overpass outside city boxes. Trips are
   dropped: no trip entity (owner, on "Trips: keep or drop?": "drop").
   *The search bug is fixed:* search widens on a miss (see `docs/shipped.md`,
@@ -211,11 +211,11 @@ pick/redirect before building anything.
 - ~~**Add form: mark a place visited while adding it**~~ (owner, 2026-10-15: "yes"). BUILT in
   the add tag (phase 2, landed 2026-10-18): the tag's own Mark visited segment,
   the insert writes `visited`.
-- ~~**Add tag: a place with no town is filed under the nearest city, however far**~~ FIXED on
-  `add-tag-p3` (check batch A): `townOf()` strips a leading "Village of / Town of / City of /
+- ~~**Add tag: a place with no town is filed under the nearest city, however far**~~ FIXED
+  (phase 3, landed 2026-10-19): `townOf()` strips a leading "Village of / Town of / City of /
   Municipality of" (most specific first) before giving up, so Village of Tivoli is a NEW "Tivoli".
   History: (phase 2's
-  fallback). Phase 3 (not landed) narrows it: no town in the pick's details -> the point is
+  fallback). Phase 3 narrows it: no town in the pick's details -> the point is
   reverse-geocoded and its town becomes a NEW city; only when that finds no town either does the
   "(we think)" last resort file it under the nearest city anywhere. **Not solved for US
   villages:** "Village of Tivoli" (NY) reverse-geocodes to only `village: "Village of Tivoli"`,
@@ -230,20 +230,16 @@ pick/redirect before building anything.
   search and its widening are gone) and `design/state-system/check.js`'s "submit disabled
   opacity" case (`#submitBtn` is now the stub's ADD segment) test removed behaviour; delete or
   rewrite them when next touched.
-- **Hanging Tag city: open questions from the phase 3 build (not landed).** (1) The signed-out slip
-  still says "Sign in to star and mark visited" when it's offered by a city tap (today's
-  `showTagSlip()` copy, as the handoff says; a copy call). (2) Signed out, the city keeps its navy
-  ink while Star / Mark visited grey out (the city is information as well as a control; a design
-  call). (3) Moving a place shows the cleanup's "Removed unused city: X" band when the old city
-  was auto-added and is now empty (today's `cleanupOrphanCities()` message). (4) The phase 2
-  check's nit, still open: the list title keeps the last go-to city after an add or a move into
-  another city.
+- **Moving a place out of an emptied auto-added city shows "Removed unused city: X"** (phase 3,
+  today's `cleanupOrphanCities()` band; not raised by the check). Settled at phase 3: the slip copy
+  ("Sign in to make changes"), the signed-out city keeps its navy (CD ruling), the list title stays
+  on the go-to city after a move (owner: "it should stay on your current city").
 - **Edit a place after adding it** (owner, 2026-10-15, verbatim: "we need
   to add the ability to edit places in the backlog"). Today nothing about a
   place can be changed once it's added (name, notes, category, city,
   position); the only fix is delete and re-add, which loses visited/starred
   and plan stops. City buckets need this too: changing a place's city
-  after adding (phase 3 builds that one field on the Hanging Tag, branch `add-tag-p3`; the
+  after adding (phase 3, landed 2026-10-19, built that one field on the Hanging Tag; the
   rest stays future). Owner, in `design/trip-location-model/owner.md`: "if the app
   puts a place in the wrong city you should be able to edit the city
   attached to the place". Applies to every place, whether it shows as a pin

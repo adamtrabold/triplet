@@ -308,3 +308,14 @@ build was interrupted once (container restart); the coordinator saved it as WIP 
    name. The fixtures hold only "Village of Tivoli" / "Town of Red Hook". addtest W6 updated.
 4. stills.js step 6 comment: navy, not greyed.
 Tests: citytest S1a, S1b, S1b', T1, T2 (the real Nominatim "Tivoli" fixture) -> 40/40.
+
+## Phase 3, batch B: the designer's looks; landed (2026-10-19)
+Fast-forwarded to `design-p3-fixes` (f8591822, built on batch A): the Hanging Tag city's chevron +
+pressed state, the scale spacing, the note at the end of the address line, one rule above "New
+city", the city menu's pinned foot / keep-trigger / + badge floor, `--s2` under every trigger, the
+slip copy. Cleaned the prototype's "p3-fixes vN" history comments into plain ones. citytest -> 45
+(chevron, address-line note, spacing, one rule, 14-city reach, + badge floor at 375, slip copy,
+375x667 fit). Impeccable waiver: hand-added ONE `runtime-baseline.json` entry with its reason (a
+`--update` run also rewrote unrelated state counts -- phase 2's add state -- so its output was
+discarded and only the entry kept); gate PASSED. The designer's stills script re-rendered on the
+build matches the approved raws (sub-pixel only). Full gesture gate as main. Owner: "killer".

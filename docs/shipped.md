@@ -1699,7 +1699,7 @@ Approved stills: `design/add-tag-jam/stills/p2-fixes/`. Builder notes:
   load-timing flake, the diff touches no row or stamp code). plantest 148/174 and sorttest 76/77,
   identical to main.
 
-## City buckets (add-tag-jam phase 3; NOT LANDED -- branch `add-tag-p3`)
+## City buckets (add-tag-jam phase 3; landed 2026-10-19 from `add-tag-p3`)
 
 Owner: "Great to build"; "Run it per CLAUDE.md lane 2, one phase at a time". From the trip-location
 model: a place's city is a bucket guessed from the pin, editable at add and later (owner: "if the app
@@ -1707,8 +1707,42 @@ puts a place in the wrong city you should be able to edit the city attached to t
 truths ("the address needs to comfortably balance the idea of the city it belongs to in the app vs
 the city the address actually places it"). Spec: `design/add-tag-jam/handoff.md` "Phase 3" (design
 branch). Notes: `design/add-tag-jam/notes/builder.md` (Phase 3). Stills:
-`design/add-tag-jam/stills/build-p3/`. **Waits on:** the CD + UX check, the owner's look, and a
-waiver for the Impeccable finding below.
+`design/add-tag-jam/stills/build-p3/`. After the CD + UX check (`checks/p3-cd-ux.md`, design
+branch) and the designer's fixes (`handoff.md` "Phase 3 fixes (after build check)"; approved stills
+`design/add-tag-jam/stills/p3-fixes/`, the final tag `3-tag-padding.png`), the owner on the final
+tag: "killer" (standing rule: "yes when i say something is good that means ship it"); on small
+phones "that trade is fine" (the busiest tag scrolls a little at 375x667); on the list title after a
+move "it should stay on your current city" (it does).
+
+**Final look (the fixes, supersede the bullets below where they differ):**
+- The Hanging Tag's city carries the add tag's 12px chevron (`ROUTE_CHEV`, `.add-chev`; turns on the
+  navy fill when open; signed out it keeps chevron and navy). Pressed: `--state-press` (both tags).
+- Spacing, every value a scale token (Hanging Tag only): 60 above the first line (`.tag-in`'s
+  `--s12` + the routing line's `--s3` margin), the city line `--s6` tall (hit area 44 via ::before
+  -10px), `--s2` to the name, `.tag-fields` `--s3` above / `--s4` to the stub, `.tag-x` top 84px.
+  Plain tag 184px; busiest 280px fits at 390x844, scrolls inside at 375x667 (233px room).
+- The distance note rides the END of the address line: `{addr}<span class="tag-dist-sep"
+  aria-hidden="true"> · </span><span class="tag-dist">≈ 50 km from Reykjavík</span>` (11px,
+  nowrap, wraps as one piece); with no address it stands alone; still the city button's
+  `aria-describedby`.
+- The city menu (both tags, `cityMenuHtml()`): one 1px rule above "New city" (`.before-foot`);
+  "New city" + "+ town" pinned at the foot (`.menu-foot`, sticky) so the town is in reach with any
+  number of cities; city menus open `--s2` under the trigger and never cover it (cities scroll),
+  unless under 160px remain; TYPE keeps its slide. The floor clears the + badge (badge top - 8)
+  when the menu's span crosses it (`placeMenuUnder(menu, trig, keepTrigger)`).
+- The sign-in slip reads "Sign in to make changes" (star, visited and city).
+- **Check fixes, batch A** are below (reveal rule S1a/S1b, `townOf()` prefixes).
+- **Impeccable waiver** (operator-approved, owner informed, no objection; CD would defend it): the
+  runtime finding `kicker-above-heading` (the city line above the tag's h2) is one entry in
+  `design/impeccable-gate/runtime-baseline.json` with its reason; nothing else changed there.
+- **Gates, final (Chromium):** citytest 45/45 (+ chevron, the note on the address line, the scale
+  spacing, one rule, 14-city reach, the + badge floor at 375, the slip copy, 375x667 fit); addtest
+  72/72; Impeccable `IMPECCABLE GATE PASSED` (static 1/1, runtime 11/11, 0 new); full gesture gate:
+  star "84 + 8 (+ N8-a)" · vtest 91/95 (V14 x2, V15 x2, as main) · popup-open 20/20 + 20/20 ·
+  dust 0 frames · rows 56.00px · curve8 10/3 (pre-existing) · delete-slop 36/36 · plan-rows 40/40
+  · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12; plantest 148/174 and sorttest 76/77
+  (identical to main). The designer's `stills/p3-fixes/stills.js` re-rendered on the landed build
+  matches the approved raws (differences only sub-pixel anti-aliasing on one pin).
 
 - **The guess** (`guessCity()` / `guessCityAt()`): the nearest city whose stored `center` is within
   `CITY_REACH_KM` = 70 ("we think"; one constant); none in reach: the real town as a NEW city (or
@@ -1737,7 +1771,7 @@ waiver for the Impeccable finding below.
   popup-open 20/20 + 20/20, tag-sync 12/12.
 - **Fixes on the way:** a pin row's signature now carries its city (its meta prints it); a shape
   tag's popup signature carries its city; the tags re-read city names when the cities table loads.
-- **Gates (Chromium):** `design/add-tag-jam/p3/citytest.js` 35/35 (the guess, the line and note,
+- **Gates, first build (Chromium):** `design/add-tag-jam/p3/citytest.js` 35/35 (the guess, the line and note,
   the menu, the write, rollback incl. per-write, the poll hold, "+ town", orphan cleanup, a
   district's move, signed out, Esc); addtest 72/72; plantest 148/174 and sorttest 76/77 (identical
   to main); full gesture gate: star "84 + 8 (+ N8-a)" · vtest 91/95 (V14 x2, V15 x2, as main) ·
@@ -1745,4 +1779,4 @@ waiver for the Impeccable finding below.
   65/65 standalone (no row code touched) · rows 56.00px · curve8 10/3 (pre-existing) · delete-slop
   36/36 · plan-rows 40/40 · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12. **Impeccable:
   GATE FAILED on one new finding,** `kicker-above-heading` ("Reykjavík" above the tag's h2) -- the
-  approved routing line itself; static 0 new; no `--update`. Needs an owner/operator waiver.
+  approved routing line itself (waived at landing, above).

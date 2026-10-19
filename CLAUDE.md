@@ -130,7 +130,7 @@ operator makes none of these calls.
   city, else the nearest). The search is worldwide (`currentSearchCityConfig()`
   = the map's view as a soft hint only). A NEW city is made by ADD
   (`addCity()` first, then the insert); there are no confirm dialogs.
-- **City guess (phase 3, NOT LANDED, branch `add-tag-p3`):** a place's city
+- **City guess (add-tag-jam phase 3):** a place's city
   is a filing, never a location: `guessCity()` = the nearest city whose
   stored `center` is within `CITY_REACH_KM` (70), else the real town as a
   NEW city (`guessCityAt()` reverse-geocodes when the details have no
@@ -236,7 +236,9 @@ bottom-left (2026-10-15); add-form place suggestions fitted and over the ×
 (2026-10-15); add-tag-jam phase 1 -- the list title's menu (Places / Plans), city
 sections with show/hide, go-to never filters, the collapse tab (2026-10-17); add-tag-jam phase 2 --
 the add tag (worldwide search, TYPE auto-detected, the city line + NEW stamp, visited at add;
-2026-10-18). Specs: `docs/shipped.md`.
+2026-10-18); add-tag-jam phase 3 -- city buckets (the guess by reach, a place's city changed on
+its tag, the distance note; 2026-10-19; Impeccable `kicker-above-heading` waived for the city
+line). Specs: `docs/shipped.md`.
 
 - **Short-address backfill (owner action):** 59 of 202 places lack a real
   town (58 have no `address_details`, 1 has details but no town; live
@@ -245,9 +247,7 @@ the add tag (worldwide search, TYPE auto-detected, the city line + NEW stamp, vi
 - **+ rides up with the filters panel** -- branch `plus-rides-filters`
   (987704c, WIP, not landed). Waits on the owner's pick of the panel-height
   ceiling; owner: "the panel height should all just be responsive".
-- **City buckets** -- add-tag-jam phase 3, built on `add-tag-p3`, NOT LANDED
-  (waits on the CD + UX check, the owner's look, an Impeccable waiver for
-  the routing line read as a "kicker"). Rules: `docs/architecture.md` §6.
+- **Map city badge** -- add-tag-jam phase 4, next (`design/add-tag-jam/handoff.md`).
 - **Icon system full revision** (owner, 2026-10-07) -- lane 2, in design on
   `claude/elegant-galileo-1c5ntm` (`design/icon-system/`, brand-approach
   phase). Includes the +'s line weight (measured weights in
