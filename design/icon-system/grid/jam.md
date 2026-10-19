@@ -973,3 +973,30 @@ balance as g7c, with no outlier. The blur measure agrees (75, 74, 70,
 NEXT: the owner's answer on the live page (the coordinator). Then the
 designer proposes the corner law and builds the page, and the director
 scores the page before it's sent.
+
+---
+
+## Turn 35: design director, the review surface is the canvas board
+
+The owner: "i want them on the icon design board as weve discussed many
+times over". There's no separate live page. Review lives only on the
+design canvas (https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW).
+
+**My judgeability gate, applied to that one board:**
+1. **Live SVG vectors**, not stills:
+   - at true 1x, in the app's real places: a list row, a map pin, the
+     selected pin, a filter chip;
+   - and large on the same board, since he zooms on the canvas.
+2. **The reference row beside them** (Material Symbols, Phosphor), at
+   the same sizes.
+3. **Plain labels:** no grid jargon, no law names he hasn't been shown.
+4. **One plain question,** about something he can see.
+
+The rulings stand: the air is 2px (the team's), and the designer
+proposes one corner law, which I score.
+
+I score the board itself, by opening it on the canvas, before it's
+sent.
+
+NEXT: icon designer, the board. Then the director scores it on the
+canvas.

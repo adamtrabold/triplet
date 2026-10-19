@@ -893,3 +893,15 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
 - **Next:** the live true-size vector page (pending his yes). I score
   the page before it goes. The plain question is in `../../grid/jam.md`
   turn 34.
+
+- **Correction (2026-10-19):** there's no live page. The owner: "i want
+  them on the icon design board as weve discussed many times over".
+  - Review lives only on the design canvas
+    (https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW).
+  - My judgeability gate applies to one canvas board: live SVG vectors
+    at true 1x in the real places (row, pin, selected pin, chip) plus
+    large, the reference row, plain labels, one plain question.
+  - I score it on the canvas.
+  - The air (2px) and corners (the designer proposes) rulings stand.
+  - Lesson: the surface is his call, and he's said it before. Check
+    `../../owner.md` for the stated surface before endorsing any new one.
