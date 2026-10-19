@@ -1117,3 +1117,128 @@ already says it. **The owner sees this departure before it lands.**
 ### Open for the owner
 - The TYPE dropdown now looks like the city dropdown: no box, no icon on the
   tag (`2-type.png`). OK?
+
+---
+
+## Phase 3 fixes (after build check)
+
+Designer pass, 2026-10-19, on the CD + UX check (`checks/p3-cd-ux.md`).
+
+- **Reference build:** branch **`design-p3-fixes`** (93642a15): `add-tag-p3`
+  with batch A f9a5c0a3 merged in, plus one designer commit (c23cde34). Diff
+  it against `origin/add-tag-p3`.
+- **Stills** are in `stills/p3-fixes/` (3x raws in `raw/`; `stills.js`
+  renders them, printing the tag's fit as `{sh, ch}`):
+  - `1-tag-fits.png`
+  - `2-city-menu.png`
+- **Impeccable gate:** the only new finding is the known
+  `kicker-above-heading` (the approved city line), which is being waived
+  separately. Nothing else is new.
+- The visited stamp/sticker and the Star/Visited stub are untouched.
+
+### 1. The Hanging Tag's city reads as changeable (UX blocker)
+
+**Decision:** the Hanging Tag's city button gets **the add tag's 12px
+chevron** after the name: the same SVG (`M3 4.5L6 7.5L9 4.5`, stroke 1.6,
+round caps), the same `.add-chev` class and the same 4px gap.
+- Open, it turns 180° on the navy fill, as the add tag's does.
+- Signed out it keeps its chevron and its navy; a tap gives the sign-in slip
+  (fix 4).
+- No label is added (owner: "we do not need this on every tag").
+
+Reference: `ROUTE_CHEV` in `buildPopupHtml()`.
+
+Why: "lets treat all dropdowns the same". One control is now drawn one way
+on both tags, and the chevron is the app's existing "this opens a menu" mark
+(the list title, the add tag's city and TYPE).
+
+### 2. The busiest tag fits again at 375×667 (CD P1)
+
+The city line (+34px) and the note line (+18px) pushed the busiest tag
+(a 2-line name, address, distance, a 3-line note, starred, visited, a plan
+stop) past its room. Main fitted it with 1px to spare. **Measured on the
+prototype: the tag's inner height is 232px at both 375×667 and 390×844, the
+same as main, so there's no scroll.** It is reclaimed like this, for the
+Hanging Tag only (the add tag is unchanged):
+
+| What | Was (build) | Now |
+|---|---|---|
+| `.tag-in` padding-top | 48px | **38px** (the city text sits 5px under the 36px band) |
+| `.tag-in > .route-line` | min-height 28, padding-bottom 2, margin-bottom 4 | **min-height 20, no padding, no margin** |
+| `.tag-in .route-city` | height 28, `::before` −8px | **height 20, `::before` top/bottom −12px** (the target stays 44) |
+| `.tag-addr` after the route line | margin-top 2px | **0** (the name's 28px line still leaves ~10px) |
+| Distance note | its own line under the address (4px + 14px) | **ends the address line**: `Vitabraut · Reykjanesbær · ≈ 50 km from Reykjavík` |
+| `.tag-fields` | margin-top 12, padding-bottom 12 | **8 / 8** |
+| `.tag-x` top | 74px | **50px** (it stays centred on the name's first line) |
+
+**The note on the address line:**
+- Markup: `<div class="tag-addr">{addr}<span class="tag-dist-sep" aria-hidden="true"> · </span><span class="tag-dist" id="tag-dist-{id}">{note}</span></div>`.
+- `.tag-addr .tag-dist { display:inline; padding-top:0; white-space:nowrap; font-size:11px }`,
+  so it wraps as one piece onto a second address line when the address is
+  long.
+- With no address it stands alone in `.tag-addr`.
+- The city button's `aria-describedby` still points at it.
+
+Why the note moved: the owner asked that it "feel more related to the actual
+address". On the Hanging Tag (no field rules) the closest relation is the
+address line itself: the real town, then how far it is from the filed city
+printed just above. This only changes where the line sits; the wording is
+unchanged.
+
+### 3. One rule above "New city" (shared city menu)
+
+The last city row's hair rule and the caption's top hair rule stacked into a
+2px band. Now the city row just before the New city block carries
+`.before-foot { border-bottom-color: transparent }`, so the caption's own top
+rule is the one line. This applies to both tags (one `cityMenuHtml()`).
+
+### 4. Signed-out slip copy
+
+"Sign in to star and mark visited" becomes **"Sign in to make changes"**, the
+one slip for star, visited and city. The SIGN IN button is unchanged.
+
+### 5. City menu reach
+
+**The city menus (Hanging Tag and add tag) never slide over their trigger.**
+- They open 6px under it and stay there. The cities scroll inside the box.
+- **"New city" + "+ town" are one block pinned to the box's foot**:
+  `.menu-foot { position:sticky; bottom:0; z-index:1; background:var(--paper-raised) }`,
+  wrapping the caption and the row. So the town is in reach with any number
+  of cities.
+- Exception: if under 160px remain below the trigger, the menu slides up as
+  TYPE does.
+- `placeMenuUnder(menu, trig, keepTrigger)` takes `keepTrigger = true` for
+  `tagCityMenu` and `addCityMenu`, and `false` for TYPE. TYPE keeps the
+  phase-2 slide, so its 11 rows show District and Street.
+
+**The floor clears the + badge.**
+- When the menu's horizontal span crosses the visible `#floatingAddBtn` box,
+  the floor is `badge.top − 8`. This happens on the Hanging Tag at 375; the
+  badge hides while adding.
+- The menu then ends above the badge, with no orange sliver at its edge.
+
+### 6. City button pressed state
+
+`.route-city:active:not([aria-expanded="true"]) { background:var(--state-press) }`:
+the tag's own pressed tint, on the button's 3px-radius box, as on the other
+tag controls. Both tags.
+
+### Checks for the builder
+- **The Phase 3 set**, plus the Impeccable gate with the waiver.
+- **New coverage:**
+  - the busiest tag doesn't scroll at 375×667 or 390×844;
+  - `.tag-city` has its chevron;
+  - one 1px rule above "New city";
+  - with 14 cities, the menu's top stays under its trigger and the
+    "+ town" row stays visible;
+  - at 375 the menu doesn't overlap the + badge;
+  - the slip reads "Sign in to make changes".
+
+### Open for the owner
+- The distance on a place's tag now ends the address line
+  ("… · ≈ 50 km from Reykjavík") instead of sitting on its own line, so the
+  tag fits small phones again (`1-tag-fits.png`).
+- The city on a place's tag now has a small arrow, like the add tag's, so it
+  reads as tappable.
+- (Not mine, left for the owner: after moving a place to another city,
+  should the list title switch to that city? CD and UX disagree.)

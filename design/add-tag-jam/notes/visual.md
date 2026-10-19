@@ -313,3 +313,33 @@
   - the busiest TYPE menu covers the name while it's open.
 - **Next:** the owner judges `2-type.png` (the departure); the builder
   applies these in one batch after batch A.
+
+## 2026-10-19, Phase 3 fixes after the build check
+- **Prototype:** `design-p3-fixes` (93642a15, batch A merged). Stills:
+  `stills/p3-fixes/1-tag-fits.png`, `2-city-menu.png`. Impeccable: only the
+  known `kicker-above-heading`.
+- **Decisions** (exact values in handoff.md, "Phase 3 fixes"):
+  1. The Hanging Tag's city gets the add tag's chevron (always, signed out
+     too).
+  2. The busiest tag fits at 375×667 again, at 232px, the same as main:
+     - padding-top 38;
+     - a 20px route line;
+     - no address margin;
+     - the distance note joins the address line;
+     - the field line 8/8;
+     - the × at top 50.
+  3. One rule above New city (`.before-foot`).
+  4. The slip reads "Sign in to make changes".
+  5. City menus never cover their trigger; the New city block is sticky at
+     the foot; the floor clears the + badge.
+  6. The `:active` state on the city button is `--state-press`.
+- **Rejected:**
+  - the city in the band row (owner: "Type not in the tag's header band");
+  - a CITY field label (owner: "we do not need this on every tag");
+  - shrinking the list's minimum (owner: header + one row + half a row);
+  - the note on the city line (it reads away from the address).
+- **Watch:** the city line now sits 5px under a starred tag's band, which is
+  tight but clear. If the owner asks for more air, it can only come back by
+  letting the busiest tag scroll on small phones.
+- **Next:** the owner sees the two stills; the builder applies them in one
+  batch.
