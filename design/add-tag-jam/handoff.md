@@ -1152,38 +1152,37 @@ Why: "lets treat all dropdowns the same". One control is now drawn one way
 on both tags, and the chevron is the app's existing "this opens a menu" mark
 (the list title, the add tag's city and TYPE).
 
-### 2. The busiest tag fits again at 375×667 (CD P1)
+### 2. Small-phone fit (v2: padding kept)
 
-The city line (+34px) and the note line (+18px) pushed the busiest tag
-(a 2-line name, address, distance, a 3-line note, starred, visited, a plan
-stop) past its room. Main fitted it with 1px to spare. **Measured on the
-prototype: the tag's inner height is 232px at both 375×667 and 390×844, the
-same as main, so there's no scroll.** It is reclaimed like this, for the
-Hanging Tag only (the add tag is unchanged):
+The owner turned down v1's tightening: "all the padding above and below the
+main content is gone".
 
-| What | Was (build) | Now |
+**Decision:** the place tag keeps main's breathing room whole. In exchange,
+**the busiest tags scroll inside on the smallest phones**. This is said
+plainly, because it's the honest trade: there is no 50px to find on a 375×667
+tag without taking it from the padding, the list's minimum (owner: header +
+one row + half a row) or the stub ("do not tuch").
+
+| What | Value |
+|---|---|
+| `.tag-in` padding-top | **48px**, main's (the band's 36 + 12); unchanged from main |
+| `.tag-in > .route-line` | **min-height 20px, no padding, margin-bottom 4px** (the city to the name) |
+| `.tag-in .route-city` | **height 20px**, `::before` top/bottom −12px (the target stays 44) |
+| `.tag-addr` | margin-top **2px**, main's |
+| Distance note | **ends the address line** (as in v1, unchanged) |
+| `.tag-fields` | margin-top **12** / padding-bottom **12**, main's |
+| `.tag-x` top | **64px** (centred on the name's first line, now at 72) |
+
+**Measured:**
+
+| Tag | 390×844 | 375×667 |
 |---|---|---|
-| `.tag-in` padding-top | 48px | **38px** (the city text sits 5px under the 36px band) |
-| `.tag-in > .route-line` | min-height 28, padding-bottom 2, margin-bottom 4 | **min-height 20, no padding, no margin** |
-| `.tag-in .route-city` | height 28, `::before` −8px | **height 20, `::before` top/bottom −12px** (the target stays 44) |
-| `.tag-addr` after the route line | margin-top 2px | **0** (the name's 28px line still leaves ~10px) |
-| Distance note | its own line under the address (4px + 14px) | **ends the address line**: `Vitabraut · Reykjanesbær · ≈ 50 km from Reykjavík` |
-| `.tag-fields` | margin-top 12, padding-bottom 12 | **8 / 8** |
-| `.tag-x` top | 74px | **50px** (it stays centred on the name's first line) |
+| Plain short tag (Sundhöllin) | 160px, fits | 160px, fits |
+| Busiest tag (2-line name, address + distance, 3-line note, starred, visited, plan stop) | 256px, fits | needs 256 of 233px, **scrolls about one line**, with the shipped soft shadow at the stub (`.tag-in.scrolls`) |
 
-**The note on the address line:**
-- Markup: `<div class="tag-addr">{addr}<span class="tag-dist-sep" aria-hidden="true"> · </span><span class="tag-dist" id="tag-dist-{id}">{note}</span></div>`.
-- `.tag-addr .tag-dist { display:inline; padding-top:0; white-space:nowrap; font-size:11px }`,
-  so it wraps as one piece onto a second address line when the address is
-  long.
-- With no address it stands alone in `.tag-addr`.
-- The city button's `aria-describedby` still points at it.
-
-Why the note moved: the owner asked that it "feel more related to the actual
-address". On the Hanging Tag (no field rules) the closest relation is the
-address line itself: the real town, then how far it is from the filed city
-printed just above. This only changes where the line sits; the wording is
-unchanged.
+Against main, the city line costs 24px (20 + 4) and the note costs nothing,
+since it joins the address. A tag main fitted with less than 24px to spare
+now scrolls on that phone. Most tags have far more room than that.
 
 ### 3. One rule above "New city" (shared city menu)
 
@@ -1226,7 +1225,9 @@ tag controls. Both tags.
 ### Checks for the builder
 - **The Phase 3 set**, plus the Impeccable gate with the waiver.
 - **New coverage:**
-  - the busiest tag doesn't scroll at 375×667 or 390×844;
+  - the busiest tag doesn't scroll at 390×844, and scrolls (fade on) at
+    375×667; the plain tag never scrolls;
+  - padding-top 48 and fields 12/12, as main;
   - `.tag-city` has its chevron;
   - one 1px rule above "New city";
   - with 14 cities, the menu's top stays under its trigger and the
@@ -1235,9 +1236,9 @@ tag controls. Both tags.
   - the slip reads "Sign in to make changes".
 
 ### Open for the owner
-- The distance on a place's tag now ends the address line
-  ("… · ≈ 50 km from Reykjavík") instead of sitting on its own line, so the
-  tag fits small phones again (`1-tag-fits.png`).
+- The tag keeps all its padding (`3-tag-padding.png`), so on the smallest
+  phones the very busiest tags scroll a little inside. The distance stays at
+  the end of the address line.
 - The city on a place's tag now has a small arrow, like the add tag's, so it
   reads as tappable.
 - (Not mine, left for the owner: after moving a place to another city,
