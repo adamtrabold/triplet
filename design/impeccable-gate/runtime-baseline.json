@@ -16,6 +16,11 @@
       "reason": "Brand: --paper #F2EBDD is the vintage-label paper ground (design/inspo/project/); same as the static baseline."
     },
     {
+      "id": "kicker-above-heading | kicker \"Reykjavík\" above h2 \"Bæjarins Beztu\"",
+      "states": "popup",
+      "reason": "Waived 2026-10-19 (operator-approved, owner informed, no objection; CD would defend it, checks/p3-cd-ux.md): the Hanging Tag's routing line -- the place's city, the owner-approved design (add-tag-jam phase 3, \"R2, left-aligned\") and a working control that opens the city menu, not a decorative eyebrow."
+    },
+    {
       "id": "undersized-ui-text | 10px functional text \"area · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
