@@ -10,7 +10,7 @@ const { COL, f2, uiIcon } = B4;
 const P7 = require('./picks7.js');
 const P6 = require('./picks6.js');
 const { LAWS6 } = require('./laws6.js');
-const { LAWS7, LAW_NAMES, scaled, fit } = require('./laws7.js');
+const { LAWS7, LAW_NAMES, scaled, fit, TRAP } = require('./laws7.js');
 const { measure } = require('./optics.js');
 const { W, WH, DRAW, plus, star, BATCH } = P7;
 const ROOT = path.join(__dirname, '..');
@@ -43,11 +43,14 @@ const OLDC = {}; for (const [id] of BATCH) OLDC[id] = E.build(P6.DRAW[id](12), {
 const UIP = { plus: [plus, 26.4], star: [star, 20] };
 const UD = {}; for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px), { law: scaled(LAWS7[law], 24 / px), info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
 const UOLD = { plus: E.build(P6.plus(26.4), { law: c => LAWS6.joint(c) * 24 / 26.4 }), star: E.build(P6.star(20), { law: c => LAWS6.joint(c) * 24 / 20 }) };
-// g7 as first sent: line joins ROUNDED (0.6), not trapped; kept to show C6 before and after
+// g7 as first sent: line joins ROUNDED (0.6); g7c: joins TRAPPED (turned down by the owner). Kept to show change 14 before and after
 const ROUNDJ = c => (!c.convex && c.angle >= 75 && c.angle <= 105) ? fit(c, 0.6) : LAWS7.joint(c);
+const TRAPJ = c => (!c.convex && c.angle >= 75 && c.angle <= 105) ? TRAP : LAWS7.joint(c);
+const PLUS_TRAP = E.build(plus(26.4), { law: scaled(TRAPJ, 24 / 26.4) });
 const PLUS_ROUND = E.build(plus(26.4), { law: scaled(ROUNDJ, 24 / 26.4) });
 const RING = (() => { const o = 6, prims = DRAW.cafeRing(12), raw = E.build(E.xform(prims, 1, 0, 0, o, o), { law: LAWS7.joint }); const m = measure(raw.d); return E.build(E.xform(prims, 1, 0, 0, o + r4(12 - (m.box.cx + m.cx) / 2), o + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }); })();
 const BAR_ROUND = (() => { const b = GD.joint[12].bar; return E.build(E.xform(DRAW.bar(12), 1, 0, 0, 6 + b.tx, 6 + b.ty), { law: ROUNDJ }); })();
+const BAR_TRAP = (() => { const b = GD.joint[12].bar; return E.build(E.xform(DRAW.bar(12), 1, 0, 0, 6 + b.tx, 6 + b.ty), { law: TRAPJ }); })();
 const LIVE = Math.PI * 64; // the Ø16 live circle
 const ink = d => 100 * measure(d).area / LIVE;
 
@@ -169,9 +172,9 @@ function sheetIntro(n) {
     ['Overshoot', 'pointed and round tops rise past a flat top (the tree\'s tip by 1/2px) so they look the same height.'],
     ['Equal optical weight', 'checked by squinting (a blurred row) and by ink share; wide glyphs are drawn shorter.'],
     ['Proportion', 'parts sized to each other: a coupe\'s foot about 70% of its bowl, a low classical pediment, a cup about 1.4x as wide as deep.'],
-    ['Counters that survive small sizes', 'no passage narrower than the line; every hole at least 1.5px (the cup\'s handle is now a closed ring with its own round counter, 1.8px).'],
+    ['Counters that survive small sizes', 'no passage narrower than the line; every hole at least 1.5px (the cup\'s handle is a D-shaped ear, its counter 2.25 x 2px).'],
     ['Joins and corners by angle, and by size', 'a round never exceeds 0.2 of the shortest edge at its corner, so slots and line ends stay square-cornered (no pills).'],
-    ['Contrast compensation at joins', 'where a line meets or crosses another part, the join is thinned by a small ink trap (a V notch) instead of filled by a round: the + crossing, the coupe\'s stem, the trunk.'],
+    ['Joins add no ink', 'where a line meets or crosses another part, the join meets square: no round to fill it, no notch cut into it (no ink traps, your call): the + crossing, the coupe\'s stem, the trunk.'],
     ['Contrast compensation', 'horizontals are drawn about 10% thinner than uprights (1.33px against 1.5px), because a horizontal reads heavier.'],
     ['Pixel fitting', 'horizontals are 4/3px, exactly 4 device pixels on a 3x phone, and sit on whole device pixels.'],
   ];
@@ -237,10 +240,10 @@ const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring an
 <p class="sm"><b>Kept: the ear.</b> At 24 it reads as a handle joined to the cup, as both references do; the ring read as a separate bubble.</p>`;
 // ---- sheet 2: each drawing ----------------------------------------------------------------------
 const PRIN = {
-  cafe: [['Counters', 'the handle is a D-shaped ear joined to the cup wall over its height; its counter is 2.25 x 2px, closed by the straight wall: no passage (your example).'], ['Proportion', 'cup 6.75 wide by 6.3 deep, the wall straight down past the ear, then the bowl turns under; the saucer runs the full 12. Taller than in g7 (which read smallest), and narrower than g7b (which read darkest).'], ['Joins', 'the ear meets the wall with small ink traps.'], ['Contrast compensation and pixel fitting', 'the saucer is a horizontal, 4/3px, on whole device pixels.'], ['Optical centring', 'moved down 2/3px.']],
-  bar: [['Proportion', 'bowl 11 wide and 4.7 deep; foot 8 wide (about 70% of the bowl) with a fuller dome; one upright stem.'], ['Contrast compensation at joins', 'the stem meets bowl and foot through small ink traps, so the joins don\'t thicken; the bowl\'s rim corners stay crisp.'], ['Optical centring', 'its mass is at the top, so it moves down 2/3px (batch 1 floated).']],
-  museum: [['Counters', 'the spaces between the columns are closed upright slots, 1.5px wide, their corners thinned by ink traps: no pills (your example), no gap under the line.'], ['Proportion', 'between g7 and g7b: a low pediment (about 22°) set on a thin 4/3px beam; the four columns hang from the beam and stand on the plinth, so they read as a building, as both references do. Three columns were tried in g7 and read as a box with two doors.'], ['Equal optical weight', 'balanced against the coupe and the conifer in the blurred row (g7 read darkest, g7b lightest); drawn 10.3px tall, a wide glyph drawn shorter.'], ['Pixel fitting', 'the plinth is a 4/3px horizontal on whole device pixels.'], ['Optical centring', 'moved up 1px.']],
-  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Joins', 'the trunk meets the lowest tier through small ink traps.'], ['Proportion', 'three tiers widening by equal steps; the branches droop less than batch 1, so the notches stay open.'], ['Optical centring', 'moved up 1/3px.']],
+  cafe: [['Counters', 'the handle is a D-shaped ear joined to the cup wall over its height; its counter is 2.25 x 2px, closed by the straight wall: no passage (your example).'], ['Proportion', 'cup 6.75 wide by 6.3 deep, the wall straight down past the ear, then the bowl turns under; the saucer runs the full 12. Taller than in g7 (which read smallest), and narrower than g7b (which read darkest).'], ['Joins', 'the ear meets the wall square: no round to fill the corner, no notch.'], ['Contrast compensation and pixel fitting', 'the saucer is a horizontal, 4/3px, on whole device pixels.'], ['Optical centring', 'moved down 2/3px.']],
+  bar: [['Proportion', 'bowl 11 wide and 4.7 deep; foot 8 wide (about 70% of the bowl) with a fuller dome; one upright stem.'], ['Joins', 'the stem meets bowl and foot square, so no round fills the joins and they don\'t thicken; the bowl\'s rim corners stay crisp.'], ['Optical centring', 'its mass is at the top, so it moves down 2/3px (batch 1 floated).']],
+  museum: [['Counters', 'the spaces between the columns are closed upright slots, 1.5px wide, their corners square: no pills (your example), no gap under the line.'], ['Proportion', 'between g7 and g7b: a low pediment (about 22°) set on a thin 4/3px beam; the four columns hang from the beam and stand on the plinth, so they read as a building, as both references do. Three columns were tried in g7 and read as a box with two doors.'], ['Equal optical weight', 'balanced against the coupe and the conifer in the blurred row (g7 read darkest, g7b lightest); drawn 10.3px tall, a wide glyph drawn shorter.'], ['Pixel fitting', 'the plinth is a 4/3px horizontal on whole device pixels.'], ['Optical centring', 'moved up 1px.']],
+  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Joins', 'the trunk meets the lowest tier square.'], ['Proportion', 'three tiers widening by equal steps; the branches droop less than batch 1, so the notches stay open.'], ['Optical centring', 'moved up 1/3px.']],
 };
 function sheetDrawings(W_, n) {
   const big = W_ > 500 ? 220 : 150;
@@ -276,10 +279,10 @@ function sheetCorners(W_, n) {
 <div class="n">Close-up: the cup's handle</div>${zv('cafe', 13 + c.tx, 7 + c.ty, 6)}</div>
 <p class="sm"><b>Plainly:</b> at real size the three are close for every icon now; the slots and line ends no longer round into pills under any law. What each law still costs:</p>
 <ul class="facts">
-<li><b>All three:</b> line joins are now thinned by an ink trap, the same under every law, so the laws differ only at outside corners and sharp notches.</li>
+<li><b>All three:</b> line joins now meet square (no round, no notch), the same under every law, so the laws differ only at outside corners and sharp notches.</li>
 <li><b>By joint:</b> crisp ends, softened outside corners of masses. Its cost is the least; it can look slightly mechanical up close.</li>
 <li><b>Even wear:</b> the silhouette is softened evenly, so the ends of the + and the plinth read a little blunter at real size.</li>
-<li><b>Pressed:</b> sharp outside corners and filled sharp notches (the conifer); with joins now trapped, it is closer to by joint than before.</li>
+<li><b>Pressed:</b> sharp outside corners and filled sharp notches (the conifer); with joins now square, it is closer to by joint than before.</li>
 </ul>
 <div class="q"><b>The question</b>Which corners: by joint, even wear or pressed?</div>
 </section>`;
@@ -320,7 +323,7 @@ function sheetGrid(W_, n) {
   const ba = (before, after, lb, la) => `<div class="pair" style="margin:6px 0 4px"><div>${before}${lb}</div><div>${after}${la}</div></div>`;
   // 9: rounding fits the parts (the museum slot)
   const zs = W_ > 500 ? 200 : 140, slot = (d, x, y) => `<svg width="${zs}" height="${zs}" viewBox="${x} ${y} 3 3" aria-hidden="true"><rect x="${x}" y="${y}" width="3" height="3" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}"/></svg>`;
-  const m = GD.joint[12].museum, c9 = ba(slot(OLD.museum.d, 7.5, 14.5), slot(m.d, 7.5, 6 + m.ty + 32 / 3 - 2), 'Batch 1: the slot ends in a semicircle (a pill)', 'Now: a square slot end, its corners thinned by ink traps (change 14)');
+  const m = GD.joint[12].museum, c9 = ba(slot(OLD.museum.d, 7.5, 14.5), slot(m.d, 7.5, 6 + m.ty + 32 / 3 - 2), 'Batch 1: the slot ends in a semicircle (a pill)', 'Now: a square slot end, its corners square (change 14)');
   // 10: optical centring, box-centred vs placed, the whole set
   const boxRow = BATCH.map(([id]) => { const b = GD.joint[12][id]; const d = E.build(E.xform(DRAW[id](12), 1, 0, 0, 6 + r4(12 - b.mraw.box.cx), 6 + r3(12 - b.mraw.box.cy)), { law: LAWS7.joint }).d; return badge(d, 62, cross(62) + ocDot(d, 62)); }).join('');
   const optRow = BATCH.map(([id]) => badge(GD.joint[12][id].d, 62, cross(62) + ocDot(GD.joint[12][id].d, 62))).join('');
@@ -328,6 +331,7 @@ function sheetGrid(W_, n) {
   // 12: pixel fitting, a 3x device-pixel grid over the museum's beam and plinth
   const dp = (d, x, y, s) => { const sz = W_ > 500 ? 220 : 150; let g = `<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}" fill-opacity=".85"/>`; for (let i = Math.ceil(x * 3); i <= (x + s) * 3; i++) g += `<line x1="${i / 3}" y1="${y}" x2="${i / 3}" y2="${y + s}" stroke="${COL.or}" stroke-width="${f2(s / sz)}"/>`; for (let j = Math.ceil(y * 3); j <= (y + s) * 3; j++) g += `<line x1="${x}" y1="${j / 3}" x2="${x + s}" y2="${j / 3}" stroke="${COL.or}" stroke-width="${f2(s / sz)}"/>`; return `<svg width="${sz}" height="${sz}" viewBox="${x} ${y} ${s} ${s}" aria-hidden="true">${g}</svg>`; };
   const c12 = ba(dp(OLD.museum.d, 5.5, 16, 2.5), dp(m.d, 5.5, 6 + m.ty + 32 / 3 - 0.5, 2.5), 'Batch 1: a 1.5px plinth; its top edge falls between device pixels', 'Now: a 4/3px plinth; both edges on device pixels');
+  const px3 = W_ > 500 ? 150 : 96, tri = (svgs, labels) => `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 4px">${svgs.map((g, i) => `<div>${g}<div class="sm" style="font-weight:700">${labels[i]}</div></div>`).join('')}</div>`;
   const ch = (no, title, why, fig) => `<div class="icon"><h3>${no}: ${title}</h3><p class="sm">${why}</p>${fig}</div>`;
   return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · batch 1 redrawn · sheet ${n}</div><h2>The grid, changed by the redraw</h2>
 <p class="att">Your feedback says a grid of guides alone can't give optical centring or equal weight. These changes add the practices that do. Each one is shown before and after on the icons it fixes; all six were re-checked under each.</p>
@@ -335,7 +339,7 @@ ${ch('Change 9', 'a round fits the parts it joins', 'Practice: join and corner t
 ${ch('Change 10', 'placed by optical centre, not by the box', 'Practice: optical centring. The point put on the badge\'s centre is halfway between the drawing\'s box centre and its ink centroid. TOP, BASE and MIDDLE stay as drawing guides inside the box; they no longer set where the drawing sits in the badge. Dots: each drawing\'s optical centre.', c10)}
 ${ch('Change 11', 'equal optical weight, judged blurred', 'Practice: equal optical weight. Each batch is checked as a blurred row and by ink share (sheet 1). Wide drawings are drawn shorter (the museum is 10.3px tall) so they don\'t look bigger. The ink figure is a guide; the blurred row decides, and is now measured (src/blur-measure.js: the darkest fifth of the live circle after a 1.5px blur).', '')}
 ${ch('Change 12', 'horizontals 4/3px, on whole device pixels', 'Practices: contrast compensation (a horizontal reads heavier, so it is drawn about 10% thinner) and pixel fitting (4/3px is exactly 4 device pixels on a 3x phone). Horizontal edges sit on the 1/3px lattice and placement moves in 1/3px steps, so plinths, saucers and the + crossbar are crisp. Uprights stay 1.5px and centred, so their edges fall half a dot off: symmetry wins over snapping for uprights. Orange lines: device pixels on a 3x phone.', c12)}
-${ch('Change 14', 'joins are thinned, not filled (ink traps)', 'Added after the director\'s g7 score (C6). Practice: contrast compensation at joins. Where a line meets or crosses another part at about a right angle, two strokes overlap and the join reads darker. The join now gets a small V notch (0.25px back along each edge, 0.25px into the ink) instead of a round. It applies under all three laws: the + crossing, the coupe\'s stem at bowl and foot, the trunk, the ear on the cup, the columns on the plinth. The + at 3x, before and after:', ba(`<svg width="${px}" height="${px}" viewBox="6 6 12 12" aria-hidden="true"><rect x="6" y="6" width="12" height="12" fill="${COL.raised}"/><path d="${PLUS_ROUND.d}" fill="${COL.navy}"/></svg>`, `<svg width="${px}" height="${px}" viewBox="6 6 12 12" aria-hidden="true"><rect x="6" y="6" width="12" height="12" fill="${COL.raised}"/><path d="${UD.joint.plus.d}" fill="${COL.navy}"/></svg>`, 'g7: rounded join (webbed at 3x)', 'Now: an ink trap at each corner') + `<div class="pair"><div><span class="rs">${plusBadge(`<svg width="26.4" height="26.4" viewBox="0 0 24 24"><path d="${PLUS_ROUND.d}" fill="${COL.navy}"/></svg>`)}</span></div><div><span class="rs">${plusBadge(ui('joint', 'plus'))}</span></div></div>` + ba(`<svg width="${px}" height="${px}" viewBox="10 9 4 4" aria-hidden="true"><rect x="10" y="9" width="4" height="4" fill="${COL.raised}"/><path d="${BAR_ROUND.d}" fill="${COL.navy}"/></svg>`, `<svg width="${px}" height="${px}" viewBox="10 9 4 4" aria-hidden="true"><rect x="10" y="9" width="4" height="4" fill="${COL.raised}"/><path d="${GD.joint[12].bar.d}" fill="${COL.navy}"/></svg>`, 'The coupe\'s stem into the bowl, g7', 'Now'))}
+${ch('Change 14', 'joins meet square', 'Practice: a join adds as little ink as it can. Where a line meets or crosses another part at about a right angle, a round fills the corner and the join reads darker (g7, webbed). g7c thinned it with ink traps; you turned that down: "i do not want ink traps... no reason for that on digital imo". Now the join is square, with no round and no notch, under all three laws: the + crossing, the coupe\'s stem at bowl and foot, the trunk, the ear on the cup, the columns on the beam and plinth. Rounds stay on outside corners (sheet 3). The + and the coupe\'s stem at 3x:', tri([PLUS_ROUND.d, PLUS_TRAP.d, UD.joint.plus.d].map(d => `<svg width="${px3}" height="${px3}" viewBox="6 6 12 12" aria-hidden="true"><rect x="6" y="6" width="12" height="12" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}"/></svg>`), ['g7: rounded (webbed)', 'g7c: ink traps (turned down)', 'Now: square']) + `<div class="pair"><div><span class="rs">${plusBadge(`<svg width="26.4" height="26.4" viewBox="0 0 24 24"><path d="${PLUS_ROUND.d}" fill="${COL.navy}"/></svg>`)}</span></div><div><span class="rs">${plusBadge(ui('joint', 'plus'))}</span></div></div>` + tri([BAR_ROUND.d, BAR_TRAP.d, GD.joint[12].bar.d].map(d => `<svg width="${px3}" height="${px3}" viewBox="10 9 4 4" aria-hidden="true"><rect x="10" y="9" width="4" height="4" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}"/></svg>`), ['The coupe\'s stem, g7', 'g7c', 'Now']))}
 ${ch('Change 13', 'overshoot', 'Practice: overshoot. A pointed top rises past TOP (the tree by 1/2px) so it looks as tall as a flat top; round bottoms may pass BASE the same way.', '')}
 <div class="lab">Kept from batch 1</div>
 <ul class="facts">

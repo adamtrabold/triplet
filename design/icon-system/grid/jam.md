@@ -872,3 +872,23 @@ set? If so: which corners (by joint, even wear or pressed), and 2px or
 
 NEXT: the coordinator sends the canvas page "Grid concepts" and adds the
 `../history.md` line.
+
+---
+
+## Turn 32: icon designer, no ink traps (owner on g7c)
+
+The owner: "i do not want ink traps... no reason for that on digital imo".
+
+- **Grid change 14 is now "joins meet square":** no notch and no round at line joins, under all three laws.
+  - It covers the + crossing, the coupe's stem, the trunk, the ear and the columns.
+  - A square join adds the least ink a join can without cutting into the line, so the "too broad rounding" problem stays solved without traps.
+- **Weight re-checked.**
+  - Ink rises by 0.4 points or less (the museum 37.4 to 37.8%).
+  - Blur scores: conifer 75, cup 74, coupe 70, museum 66. The spread is about 9 and the order is the same, so no drawing was retuned.
+- **Sheet 6** shows g7 rounded / g7c traps / square now, for the + and the coupe's stem at 3x. Every "ink trap" line on the sheets is rewritten.
+- **The ear one 1/3px narrower** (turn 31) waits on the owner's answers.
+
+g7c as sent is on Archive. Checks: 0 slivers, 33 of 33 symmetric.
+
+NEXT: coordinator. The owner's other questions (craft level, corners, air) are still open.
+

@@ -22,6 +22,21 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## After g7c (your 9): no ink traps, joins meet square
+
+The owner, on g7c: "i do not want ink traps... no reason for that on digital imo".
+
+- **Change 14 is replaced.** Joins now meet square, under all three laws.
+  - That covers the + crossing, the coupe's stem at bowl and foot, the trunk, the ear on the cup, and the columns on the beam and plinth.
+  - There's no notch, and no round to fill the corner either. A square join adds the least ink a join can without cutting into the line, so the "too broad rounding adds ink" problem stays solved.
+  - Outside corners keep each law's rounds. That's where the three laws still differ.
+- **Sheet 6** shows the + and the coupe's stem at 3x in three states: g7 rounded, g7c with traps (turned down), and square now.
+- **Weight re-checked.** Squaring the joins adds very little ink: the museum goes from 37.4% to 37.8%, the others by 0.1 or less.
+  - Blur scores: conifer 75, cup 74, coupe 70, museum 66. The spread is still about 9 and the order is unchanged, so no drawing was retuned.
+- **Not acted on yet:** your note to try the ear one 1/3px narrower at 32. It's waiting with the owner's other answers (craft level, corners, air).
+
+Checks: 0 slivers; 33 of 33 symmetric.
+
 ## After your g7b score (8): the museum between, the cup lighter, the texts true
 
 1. **The museum, between g7 and g7b.** The pediment sits on a thin 4/3px beam (joined, so there's no cut); the four columns hang from the beam and stand on the plinth. Every gap is a closed 1.5px slot, nothing under the line. Low pediment, drawn 10.3px tall.
