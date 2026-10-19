@@ -10,7 +10,7 @@ const { COL, f2, uiIcon } = B4;
 const P7 = require('./picks7.js');
 const P6 = require('./picks6.js');
 const { LAWS6 } = require('./laws6.js');
-const { LAWS7, LAW_NAMES } = require('./laws7.js');
+const { LAWS7, LAW_NAMES, scaled, fit } = require('./laws7.js');
 const { measure } = require('./optics.js');
 const { W, WH, DRAW, plus, star, BATCH } = P7;
 const ROOT = path.join(__dirname, '..');
@@ -41,8 +41,13 @@ for (const law of LAWS) { GD[law] = {}; for (const [s] of AIRS) { GD[law][s] = {
 const OLD = {}; for (const [id] of BATCH) OLD[id] = E.build(E.xform(P6.DRAW[id](12), 1, 0, 0, 6, 6), { law: LAWS6.joint });
 const OLDC = {}; for (const [id] of BATCH) OLDC[id] = E.build(P6.DRAW[id](12), { law: LAWS6.joint });
 const UIP = { plus: [plus, 26.4], star: [star, 20] };
-const UD = {}; for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px), { law: c => LAWS7[law](c) * 24 / px, info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
+const UD = {}; for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px), { law: scaled(LAWS7[law], 24 / px), info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
 const UOLD = { plus: E.build(P6.plus(26.4), { law: c => LAWS6.joint(c) * 24 / 26.4 }), star: E.build(P6.star(20), { law: c => LAWS6.joint(c) * 24 / 20 }) };
+// g7 as first sent: line joins ROUNDED (0.6), not trapped; kept to show C6 before and after
+const ROUNDJ = c => (!c.convex && c.angle >= 75 && c.angle <= 105) ? fit(c, 0.6) : LAWS7.joint(c);
+const PLUS_ROUND = E.build(plus(26.4), { law: scaled(ROUNDJ, 24 / 26.4) });
+const RING = (() => { const o = 6, prims = DRAW.cafeRing(12), raw = E.build(E.xform(prims, 1, 0, 0, o, o), { law: LAWS7.joint }); const m = measure(raw.d); return E.build(E.xform(prims, 1, 0, 0, o + r4(12 - (m.box.cx + m.cx) / 2), o + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }); })();
+const BAR_ROUND = (() => { const b = GD.joint[12].bar; return E.build(E.xform(DRAW.bar(12), 1, 0, 0, 6 + b.tx, 6 + b.ty), { law: ROUNDJ }); })();
 const LIVE = Math.PI * 64; // the Ø16 live circle
 const ink = d => 100 * measure(d).area / LIVE;
 
@@ -50,8 +55,8 @@ const ink = d => 100 * measure(d).area / LIVE;
 function crop(d, x, y, sz, px, label) { return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:700;color:${COL.ink2};text-align:center;max-width:${px + 10}px"><svg width="${px}" height="${px}" viewBox="${f2(x)} ${f2(y)} ${sz} ${sz}" aria-hidden="true"><rect x="${f2(x)}" y="${f2(y)}" width="${sz}" height="${sz}" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}"/></svg>${label}</div>`; }
 const _c = GD.joint[12].cafe, _m = GD.joint[12].museum, _n = GD.joint[12].nature;
 const INTERIORS = [
-  crop(_c.d, 6 + _c.tx + 7.6, 6 + _c.ty + 2.4, 4, 64, 'Cup handle: counter 1.8px across'),
-  crop(_m.d, 6 + _m.tx + 1.75, 6 + _m.ty + 5, 4, 64, 'Museum: slots 1.5 x 5px'),
+  crop(_c.d, 6 + _c.tx + 7.25, 6 + _c.ty + 0.75, 5, 64, 'Cup handle: an ear, counter 2 x 1.67px'),
+  crop(_m.d, 6 + _m.tx + 1.75, 6 + _m.ty + 3.5, 4, 64, 'Museum: slots 1.5px wide, open to a 1px cut'),
   crop(_n.d, 6 + _n.tx + 6.5, 6 + _n.ty + 2.5, 4, 64, 'Conifer: notches open to the outside, nothing to close'),
   `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:700;color:${COL.ink2};text-align:center"><svg width="64" height="64" viewBox="4 4 16 16" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="${COL.raised}"/><path d="${UD.joint.star.d}" fill="${COL.navy}"/></svg>Star: counter about 6px across at 20px</div>`,
 ].join('');
@@ -165,7 +170,8 @@ function sheetIntro(n) {
     ['Equal optical weight', 'checked by squinting (a blurred row) and by ink share; wide glyphs are drawn shorter.'],
     ['Proportion', 'parts sized to each other: a coupe\'s foot about 70% of its bowl, a low classical pediment, a cup about 1.4x as wide as deep.'],
     ['Counters that survive small sizes', 'no passage narrower than the line; every hole at least 1.5px (the cup\'s handle is now a closed ring with its own round counter, 1.8px).'],
-    ['Joins and corners by angle, and by size', 'a round never exceeds 0.2 of the shortest edge at its corner, so slots and line ends stay square-cornered (no pills) and big joins stay soft.'],
+    ['Joins and corners by angle, and by size', 'a round never exceeds 0.2 of the shortest edge at its corner, so slots and line ends stay square-cornered (no pills).'],
+    ['Contrast compensation at joins', 'where a line meets or crosses another part, the join is thinned by a small ink trap (a V notch) instead of filled by a round: the + crossing, the coupe\'s stem, the trunk.'],
     ['Contrast compensation', 'horizontals are drawn about 10% thinner than uprights (1.33px against 1.5px), because a horizontal reads heavier.'],
     ['Pixel fitting', 'horizontals are 4/3px, exactly 4 device pixels on a 3x phone, and sit on whole device pixels.'],
   ];
@@ -205,26 +211,35 @@ function sheetSet(W_, n) {
 <div class="srow"><div class="k">Batch 1</div><div class="set big blur">${oldRow(big)}</div></div>
 <div class="srow"><div class="k">Redrawn</div><div class="set big blur">${newRow(big)}</div></div>
 <table class="w"><tr><th>Icon</th><th>Ink, batch 1</th><th>Ink, redrawn</th><th>Placement</th></tr>${wt}</table>
-<p class="sm mute">Ink: the share of the Ø16 live circle that is ink. It is a guide, not the judge: a compact mass (the cup) looks darker than the same ink spread out (the museum), so the blurred row decides. Plainly: the museum still carries the most ink; blurred, it reads about as dark as the cup.</p>
+<p class="sm mute">Ink: the share of the Ø16 live circle that is ink. It is a guide, not the judge: a compact mass (the cup) looks darker than the same ink spread out (the museum), so the blurred row decides. <b>Plainly, blurred:</b> the cup reads darkest (its mass is compact) and the museum lightest (its ink is spread across columns). The coupe and the conifer sit between.</p>
 <div class="lab">Interiors, enlarged 8x, with their widths</div>
 <div class="set big">${INTERIORS}</div>
 <p class="sm mute">Every counter or gap is at least the line (1.5px), so it stays open at 12px and 24px.</p>
-<div class="lab">Beside two mature sets, real size</div>
-${refRows}
-<div class="srow"><div class="k">Ours, redrawn</div><div class="set">${newRow(24)}${uis(false)}</div></div>
-<div class="srow"><div class="k">At 12px: Material, Phosphor, ours</div><div class="set">${REFS.map(([, rs]) => rs.slice(0, 4).map(r => refBare(r, 12)).join('')).join('<span style="width:10px"></span>')}<span style="width:10px"></span>${BATCH.map(([id]) => chip(GD.joint[12][id].c12.d)).join('')}</div></div>
-<div class="srow"><div class="k">Ours, with a faint centre line</div><div class="set">${BATCH.map(([id]) => badge(GD.joint[12][id].d, 24, `<line x1="0" y1="12" x2="24" y2="12" stroke="${COL.or}" stroke-opacity=".55" stroke-width="0.5"/>`)).join('')}</div></div>
-<p class="sm mute">The references use their own grids (Material: 2px lines, 20px live area; Phosphor: 1.5px). Shown to judge craft (joins, counters, proportion), not to copy. Plainly: in our badge at our 12px box, both references look lighter than ours; that is our 1.5px line at a 12px drawing, which you chose for weight. SF Symbols isn't shown: Apple's licence doesn't allow its symbols outside Apple-platform work, and they can't be downloaded here, so Phosphor stands in.</p>
+<div class="lab">Ours, then Material, then Phosphor: 24px and 12px, at 1x</div>
+<div class="srow"><div class="k">Ours, 24</div><div class="set">${newRow(24)}${uis(false)}</div></div>
+${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">${nm.split(' (')[0]}, 24</div><div class="set">${rs.map(r => refBare(r)).join('')}</div></div>`).join('')}
+<div class="srow"><div class="k">Ours, 12</div><div class="set">${BATCH.map(([id]) => chip(GD.joint[12][id].c12.d)).join('')}</div></div>
+${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">${nm.split(' (')[0]}, 12</div><div class="set">${rs.slice(0, 4).map(r => refBare(r, 12)).join('')}</div></div>`).join('')}
+<div class="lab">The same subjects in our badge, at our 12px box, then blurred</div>
+<div class="srow"><div class="k">Ours</div><div class="set">${newRow(24)}</div></div>
+${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">${nm.split(' (')[0]}</div><div class="set">${rs.slice(0, 4).map(r => refInBadge(r)).join('')}</div></div>`).join('')}
+<div class="srow"><div class="k">Blurred: ours, Material, Phosphor</div><div class="set big blur">${newRow(40)}<span style="width:8px"></span>${REFS.map(([, rs]) => rs.slice(0, 4).map(r => refInBadge(r, 40)).join('')).join('<span style="width:8px"></span>')}</div></div>
+<div class="srow"><div class="k">Ours, faint centre line</div><div class="set">${BATCH.map(([id]) => badge(GD.joint[12][id].d, 24, `<line x1="0" y1="12" x2="24" y2="12" stroke="${COL.or}" stroke-opacity=".55" stroke-width="0.5"/>`)).join('')}</div></div>
+<p class="sm mute">The references use their own grids (Material: 2px lines, 20px live area; Phosphor: 1.5px). Shown to judge craft (joins, counters, proportion), not to copy. Plainly: darkest of all three sets is our cup; lightest is our museum. In our badge at our 12px box, both references look lighter than ours overall; that is our 1.5px line at a 12px drawing, which you chose for weight. SF Symbols isn't shown: Apple's licence doesn't allow its symbols outside Apple-platform work, and they can't be downloaded here, so Phosphor stands in.</p>
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;
 }
 
+const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring and both reference cups, at 24 and 3x</div>
+<div class="set">${badge(GD.joint[12].cafe.d)}${badge(RING.d)}${refInBadge(REFS[0][1][0])}${refInBadge(REFS[1][1][0])}</div>
+<div class="set big">${badge(GD.joint[12].cafe.d, 72)}${badge(RING.d, 72)}${refInBadge(REFS[0][1][0], 72)}${refInBadge(REFS[1][1][0], 72)}</div>
+<p class="sm"><b>Kept: the ear.</b> At 24 it reads as a handle joined to the cup, as both references do; the ring read as a separate bubble.</p>`;
 // ---- sheet 2: each drawing ----------------------------------------------------------------------
 const PRIN = {
-  cafe: [['Counters', 'the handle is a closed ring with its own round counter, 1.8px across, held clear of the cup: no passage left to close (your example).'], ['Proportion', 'cup 7.5 wide by 5.3 deep (about 1.4 to 1); the saucer runs the full 12, so the handle sits over it.'], ['Contrast compensation and pixel fitting', 'the saucer is a horizontal, 4/3px, on whole device pixels.'], ['Optical centring', 'moved down 1/3px.']],
-  bar: [['Proportion', 'bowl 11 wide and 4.3 deep; foot 8 wide (about 70% of the bowl); one upright stem.'], ['Joins by size', 'the stem meets bowl and foot with the full join round; the bowl\'s rim corners stay crisp.'], ['Optical centring', 'its mass is at the top, so it moves down 2/3px (batch 1 floated).']],
-  museum: [['Counters', 'the spaces between the columns are upright slots, 1.5px wide, with 0.3px corners: no pills (your example).'], ['Proportion', 'a low pediment (about 22°); beam and plinth overhang the columns by 0.5px so it reads as a colonnade. Three columns were tried and read as a box with two doors.'], ['Equal optical size and weight', 'it is wide, so it is drawn 11.3px tall, not 12.'], ['Contrast compensation and pixel fitting', 'beam and plinth are 4/3px horizontals on whole device pixels.'], ['Optical centring', 'moved up 2/3px.']],
-  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Proportion', 'three tiers widening by equal steps; the branches droop less than batch 1, so the notches stay open.'], ['Optical centring', 'moved up 1/3px.']],
+  cafe: [['Counters', 'the handle is a D-shaped ear joined to the cup wall over its height; its counter is 2 x 1.67px, closed by the straight wall: no passage (your example).'], ['Proportion', 'cup 7.25 wide by 6.3 deep, the wall straight down past the ear, then the bowl turns under; the saucer runs the full 12. Taller than in g7, which read smallest.'], ['Joins', 'the ear meets the wall with small ink traps.'], ['Contrast compensation and pixel fitting', 'the saucer is a horizontal, 4/3px, on whole device pixels.'], ['Optical centring', 'moved down 2/3px.']],
+  bar: [['Proportion', 'bowl 11 wide and 4.3 deep; foot 8 wide (about 70% of the bowl); one upright stem.'], ['Contrast compensation at joins', 'the stem meets bowl and foot through small ink traps, so the joins don\'t thicken; the bowl\'s rim corners stay crisp.'], ['Optical centring', 'its mass is at the top, so it moves down 2/3px (batch 1 floated).']],
+  museum: [['Counters', 'the spaces between the columns are upright slots, 1.5px wide, with 0.3px corners: no pills (your example).'], ['Equal optical weight', 'lighter than g7 (32% ink, was 38%): no separate beam; the pediment\'s base is the entablature and the four columns stand free under it after a 1px cut, as mature sets draw it. Drawn 10.7px tall (a wide glyph drawn shorter).'], ['Proportion', 'a low pediment (about 24°); the plinth overhangs the columns by 0.5px. Three columns were tried in g7 and read as a box with two doors.'], ['Cost', 'the spaces between the columns now open into the 1px cut under the pediment, the narrowest passage in the set.'], ['Pixel fitting', 'the plinth is a 4/3px horizontal on whole device pixels.'], ['Optical centring', 'moved up 1px.']],
+  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Joins', 'the trunk meets the lowest tier through small ink traps.'], ['Proportion', 'three tiers widening by equal steps; the branches droop less than batch 1, so the notches stay open.'], ['Optical centring', 'moved up 1/3px.']],
 };
 function sheetDrawings(W_, n) {
   const big = W_ > 500 ? 220 : 150;
@@ -233,7 +248,7 @@ function sheetDrawings(W_, n) {
     return `<div class="icon"><h3>${nm}</h3>
 <div class="pair"><div>${onGrid(OLD[id].d, big)}Batch 1</div><div>${onGrid(g.d, big, 12, true, cons(DRAW[id](12), big, 6 + g.tx, 6 + g.ty), 6 + g.ty)}Redrawn, its parts in orange</div></div>
 <div class="pair" style="margin-top:8px"><div><span class="rs">${badge(OLD[id].d)}${chip(OLDC[id].d)}${selPin(OLD[id].d)}</span></div><div><span class="rs">${badge(g.d)}${chip(g.c12.d)}${selPin(g.d)}${badge(g.d, 72)}</span></div></div>
-<ul class="pr">${PRIN[id].map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
+${id === 'cafe' ? HANDLE : ''}<ul class="pr">${PRIN[id].map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
 <p class="sm mute">${g.curves} curves in the outline, by joint.</p></div>`;
   }).join('');
   const uis = [['plus', 'The +', 'Uprights 1.5px, the horizontal 4/3px (contrast compensation). The crossing\'s rounds are fitted to the arms, so they are small, not a webbed blob.'], ['star', 'The Star (not starred)', 'A 1.5px outline. Its counter (the inner star) is 6px across, so it survives at 20px; the tips stay points and the inner corners take a small round.']]
@@ -260,9 +275,10 @@ function sheetCorners(W_, n) {
 <div class="n">Close-up: the cup's handle</div>${zv('cafe', 13 + c.tx, 7 + c.ty, 6)}</div>
 <p class="sm"><b>Plainly:</b> at real size the three are close for every icon now; the slots and line ends no longer round into pills under any law. What each law still costs:</p>
 <ul class="facts">
-<li><b>By joint:</b> soft joins (the coupe's stem, the + crossing) with crisp ends. Its cost is the least, and it can look slightly mechanical up close.</li>
+<li><b>All three:</b> line joins are now thinned by an ink trap, the same under every law, so the laws differ only at outside corners and sharp notches.</li>
+<li><b>By joint:</b> crisp ends, softened outside corners of masses. Its cost is the least; it can look slightly mechanical up close.</li>
 <li><b>Even wear:</b> the silhouette is softened evenly, so the ends of the + and the plinth read a little blunter at real size.</li>
-<li><b>Pressed:</b> the deepest rounds inside the joins; up close the coupe's stem and the + crossing look webbed.</li>
+<li><b>Pressed:</b> sharp outside corners and filled sharp notches (the conifer); with joins now trapped, it is closer to by joint than before.</li>
 </ul>
 <div class="q"><b>The question</b>Which corners: by joint, even wear or pressed?</div>
 </section>`;
@@ -303,21 +319,22 @@ function sheetGrid(W_, n) {
   const ba = (before, after, lb, la) => `<div class="pair" style="margin:6px 0 4px"><div>${before}${lb}</div><div>${after}${la}</div></div>`;
   // 9: rounding fits the parts (the museum slot)
   const zs = W_ > 500 ? 200 : 140, slot = (d, x, y) => `<svg width="${zs}" height="${zs}" viewBox="${x} ${y} 3 3" aria-hidden="true"><rect x="${x}" y="${y}" width="3" height="3" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}"/></svg>`;
-  const m = GD.joint[12].museum, c9 = ba(slot(OLD.museum.d, 7.5, 10.5), slot(m.d, 7.5, 10.4 + m.ty), 'Batch 1: the slot ends in a semicircle (a pill)', 'Fitted: 0.3px corners on a 1.5px slot');
+  const m = GD.joint[12].museum, c9 = ba(slot(OLD.museum.d, 7.5, 14.5), slot(m.d, 7.5, 6 + m.ty + 32 / 3 - 2), 'Batch 1: the slot ends in a semicircle (a pill)', 'Now: a square slot end, its corners thinned by ink traps (change 14)');
   // 10: optical centring, box-centred vs placed, the whole set
   const boxRow = BATCH.map(([id]) => { const b = GD.joint[12][id]; const d = E.build(E.xform(DRAW[id](12), 1, 0, 0, 6 + r4(12 - b.mraw.box.cx), 6 + r3(12 - b.mraw.box.cy)), { law: LAWS7.joint }).d; return badge(d, 62, cross(62) + ocDot(d, 62)); }).join('');
   const optRow = BATCH.map(([id]) => badge(GD.joint[12][id].d, 62, cross(62) + ocDot(GD.joint[12][id].d, 62))).join('');
   const c10 = `<div class="srow"><div class="k">Box centred</div><div class="set big">${boxRow}</div></div><div class="srow"><div class="k">Optically centred</div><div class="set big">${optRow}</div></div>`;
   // 12: pixel fitting, a 3x device-pixel grid over the museum's beam and plinth
   const dp = (d, x, y, s) => { const sz = W_ > 500 ? 220 : 150; let g = `<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${COL.raised}"/><path d="${d}" fill="${COL.navy}" fill-opacity=".85"/>`; for (let i = Math.ceil(x * 3); i <= (x + s) * 3; i++) g += `<line x1="${i / 3}" y1="${y}" x2="${i / 3}" y2="${y + s}" stroke="${COL.or}" stroke-width="${f2(s / sz)}"/>`; for (let j = Math.ceil(y * 3); j <= (y + s) * 3; j++) g += `<line x1="${x}" y1="${j / 3}" x2="${x + s}" y2="${j / 3}" stroke="${COL.or}" stroke-width="${f2(s / sz)}"/>`; return `<svg width="${sz}" height="${sz}" viewBox="${x} ${y} ${s} ${s}" aria-hidden="true">${g}</svg>`; };
-  const c12 = ba(dp(OLD.museum.d, 6.25, 9.5, 2.5), dp(m.d, 6.25, 6 + m.ty + 13 / 3 - 0.5, 2.5), 'Batch 1: a 1.5px beam; its lower edge falls between device pixels', 'Redrawn: a 4/3px beam; both edges on device pixels');
+  const c12 = ba(dp(OLD.museum.d, 5.5, 16, 2.5), dp(m.d, 5.5, 6 + m.ty + 32 / 3 - 0.5, 2.5), 'Batch 1: a 1.5px plinth; its top edge falls between device pixels', 'Now: a 4/3px plinth; both edges on device pixels');
   const ch = (no, title, why, fig) => `<div class="icon"><h3>${no}: ${title}</h3><p class="sm">${why}</p>${fig}</div>`;
   return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · batch 1 redrawn · sheet ${n}</div><h2>The grid, changed by the redraw</h2>
 <p class="att">Your feedback says a grid of guides alone can't give optical centring or equal weight. These changes add the practices that do. Each one is shown before and after on the icons it fixes; all six were re-checked under each.</p>
 ${ch('Change 9', 'a round fits the parts it joins', 'Practice: join and corner treatment by angle and by size. A round is never more than 0.2 of the shortest edge at its corner. It replaces the pill ends that the collision rule (change 7) made on narrow slots; change 7 stays as a fallback and now fires nowhere in this batch.', c9)}
 ${ch('Change 10', 'placed by optical centre, not by the box', 'Practice: optical centring. The point put on the badge\'s centre is halfway between the drawing\'s box centre and its ink centroid. TOP, BASE and MIDDLE stay as drawing guides inside the box; they no longer set where the drawing sits in the badge. Dots: each drawing\'s optical centre.', c10)}
 ${ch('Change 11', 'equal optical weight, judged blurred', 'Practice: equal optical weight. Each batch is checked as a blurred row and by ink share (sheet 1). Wide drawings are drawn shorter (the museum is 11.3px tall) so they don\'t look bigger. The ink figure is a guide; the blurred row decides.', '')}
-${ch('Change 12', 'horizontals 4/3px, on whole device pixels', 'Practices: contrast compensation (a horizontal reads heavier, so it is drawn about 10% thinner) and pixel fitting (4/3px is exactly 4 device pixels on a 3x phone). Horizontal edges sit on the 1/3px lattice and placement moves in 1/3px steps, so beams, plinths, saucers and the + crossbar are crisp. Uprights stay 1.5px and centred, so their edges fall half a dot off: symmetry wins over snapping for uprights. Orange lines: device pixels on a 3x phone.', c12)}
+${ch('Change 12', 'horizontals 4/3px, on whole device pixels', 'Practices: contrast compensation (a horizontal reads heavier, so it is drawn about 10% thinner) and pixel fitting (4/3px is exactly 4 device pixels on a 3x phone). Horizontal edges sit on the 1/3px lattice and placement moves in 1/3px steps, so plinths, saucers and the + crossbar are crisp. Uprights stay 1.5px and centred, so their edges fall half a dot off: symmetry wins over snapping for uprights. Orange lines: device pixels on a 3x phone.', c12)}
+${ch('Change 14', 'joins are thinned, not filled (ink traps)', 'Added after the director\'s g7 score (C6). Practice: contrast compensation at joins. Where a line meets or crosses another part at about a right angle, two strokes overlap and the join reads darker. The join now gets a small V notch (0.3px back along each edge, 0.3px into the ink) instead of a round. It applies under all three laws: the + crossing, the coupe\'s stem at bowl and foot, the trunk, the ear on the cup, the columns on the plinth. The + at 3x, before and after:', ba(`<svg width="${px}" height="${px}" viewBox="6 6 12 12" aria-hidden="true"><rect x="6" y="6" width="12" height="12" fill="${COL.raised}"/><path d="${PLUS_ROUND.d}" fill="${COL.navy}"/></svg>`, `<svg width="${px}" height="${px}" viewBox="6 6 12 12" aria-hidden="true"><rect x="6" y="6" width="12" height="12" fill="${COL.raised}"/><path d="${UD.joint.plus.d}" fill="${COL.navy}"/></svg>`, 'g7: rounded join (webbed at 3x)', 'Now: an ink trap at each corner') + `<div class="pair"><div><span class="rs">${plusBadge(`<svg width="26.4" height="26.4" viewBox="0 0 24 24"><path d="${PLUS_ROUND.d}" fill="${COL.navy}"/></svg>`)}</span></div><div><span class="rs">${plusBadge(ui('joint', 'plus'))}</span></div></div>` + ba(`<svg width="${px}" height="${px}" viewBox="10 9 4 4" aria-hidden="true"><rect x="10" y="9" width="4" height="4" fill="${COL.raised}"/><path d="${BAR_ROUND.d}" fill="${COL.navy}"/></svg>`, `<svg width="${px}" height="${px}" viewBox="10 9 4 4" aria-hidden="true"><rect x="10" y="9" width="4" height="4" fill="${COL.raised}"/><path d="${GD.joint[12].bar.d}" fill="${COL.navy}"/></svg>`, 'The coupe\'s stem into the bowl, g7', 'Now'))}
 ${ch('Change 13', 'overshoot', 'Practice: overshoot. A pointed top rises past TOP (the tree by 1/2px) so it looks as tall as a flat top; round bottoms may pass BASE the same way.', '')}
 <div class="lab">Kept from batch 1</div>
 <ul class="facts">
@@ -328,7 +345,7 @@ ${ch('Change 13', 'overshoot', 'Practice: overshoot. A pointed top rises past TO
 <ul class="facts">
 <li><b>SHOULDER (4)</b> no longer places anything; with optical centring it is only a drawing guide. Batch 2 decides whether it earns its place.</li>
 <li><b>The corner law and the air</b> are your picks.</li>
-<li><b>Contrast compensation at joins:</b> horizontals are thinned (change 12), but the joins themselves are not. By joint and pressed add a small round where two lines meet (the + crossing, the coupe's stem), which adds a little ink at the join: the opposite of an ink trap. At 24px it doesn't show; at 3x the + crossing is slightly webbed. Batch 2 proposes a rule for line-to-line joins.</li>
+
 </ul>
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;

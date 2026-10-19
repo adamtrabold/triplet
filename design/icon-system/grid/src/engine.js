@@ -103,6 +103,10 @@ function corners(item, law, info, opts = {}) {
       const straight = prev.isStraight() && next.isStraight();
       const lin = prev.length, lout = next.length;
       let r = law({ convex, angle: inkAngle, lin, lout, straight, pt: [P0.x, P0.y] });
+      // an INK TRAP (g7 fix, contrast compensation at joins): the law may return { trap: [a, t] } for
+      // a join; the corner is then cut by a small V: from a point a back along each edge to a point t
+      // into the ink along the corner's bisector, thinning the join instead of adding ink to it.
+      if (r && r.trap) { cs.push({ d: r.trap[0], trap: true, N: P0.add(bis.multiply(-r.trap[1])), ang, turn, convex, angle: inkAngle }); if (info) info.push({ trap: true, x: r3(P0.x), y: r3(P0.y) }); continue; }
       if (!r || r <= 0) { cs.push(null); continue; }
       let d = r * Math.tan(ang / 2);
       cs.push({ d, r, ang, turn, convex, angle: inkAngle });
@@ -114,7 +118,7 @@ function corners(item, law, info, opts = {}) {
     const caps = new Set();
     if (!opts.noCaps) for (let i = 0; i < n; i++) {
       const a = cs[i], b = cs[(i + 1) % n], cv = curves[i], L = cv.length;
-      if (!a || !b || !cv.isStraight() || a.d + b.d <= L - 0.2) continue;   // they collide, or would leave a sliver
+      if (!a || !b || a.trap || b.trap || !cv.isStraight() || a.d + b.d <= L - 0.2) continue;   // they collide, or would leave a sliver
       const q = Math.PI / 2;
       if (Math.sign(a.turn) !== Math.sign(b.turn) || Math.abs(Math.abs(a.turn) - q) > 0.03 || Math.abs(Math.abs(b.turn) - q) > 0.03) continue;
       caps.add(i); a.d = L / 2; b.d = L / 2; a.cap = 'start'; b.cap = 'end';
@@ -158,6 +162,10 @@ function corners(item, law, info, opts = {}) {
         const pA = cv.getPointAtTime(t1 == null ? 1 : t1), tA = cv.getTangentAtTime(t1 == null ? 1 : t1);
         const apex = ce.getPointAtTime(0.5), tE = ce.getTangentAtTime(0.5);
         segs.push({ kind: 'C', pts: [pA, pA.add(tA.multiply(K90 * r)), apex.subtract(tE.multiply(K90 * r)), apex] });
+      } else if (b && b.trap) { // the V of an ink trap: in to the notch point, out along the next edge
+        const nx = curves[(i + 1) % n], tb = nx.getTimeAt(b.d) ?? 0;
+        const pA = cv.getPointAtTime(t1 == null ? 1 : t1), pB = nx.getPointAtTime(tb);
+        segs.push({ kind: 'L', pts: [pA, pA, b.N, b.N] }, { kind: 'L', pts: [b.N, b.N, pB, pB] });
       } else if (b) {
         const nx = curves[(i + 1) % n];
         const tb = nx.getTimeAt(b.d) ?? 0;

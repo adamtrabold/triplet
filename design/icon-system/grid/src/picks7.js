@@ -25,11 +25,27 @@ const DRAW = {
   // the cup's wall, so there is no passage between handle and cup to close up (owner: "why does the
   // coffee cup handle cut off on the bottom - it creates a narrow passage"). The counter is 1.8px across.
   cafe(s = 12) {
+    // g7 fix (director, C3): the handle is a D-shaped EAR joined to the cup wall over its height, its
+    // counter 2 x 1.67px, bounded by the straight wall on one side (closed: no passage). The wall runs
+    // straight down past the counter, then the bowl turns under. Arms 4/3px (horizontals), back 1.5px.
+    const u = s / 12, X = v => f(v * u), K = 0.5523;
+    const top = T(1.333), wall = T(4.667), bot = T(7.667), l = 1.25, r = 8.5, mid = (l + r) / 2;
+    const cup = D(`M${X(l)} ${X(top)}H${X(r)}V${X(wall)}C${X(r)} ${X(6.5)} ${X(6.75)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2.75)} ${X(bot)} ${X(l)} ${X(6.5)} ${X(l)} ${X(wall)}Z`);
+    const eb = top + 13 / 3, R = (eb - top) / 2, ex = 12 - R;                    // ear: outer 2 to 6.333, its back a half circle
+    const ear = D(`M${X(7.5)} ${X(top)}H${X(ex)}C${X(ex + R * K)} ${X(top)} ${X(12)} ${X(top + R - R * K)} ${X(12)} ${X(top + R)}C${X(12)} ${X(top + R + R * K)} ${X(ex + R * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(7.5)}Z`);
+    const ct = top + WH, cb = eb - WH, cr = (cb - ct) / 2, cx = 12 - W - cr;      // counter, its back a half circle
+    const counter = cut(D(`M${X(r)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(12 - W)} ${X(ct + cr - cr * K)} ${X(12 - W)} ${X(ct + cr)}C${X(12 - W)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(r)}Z`));
+    const st = bot + CUT;                                             // saucer top
+    const saucer = D(`M${X(0)} ${X(st)}H${X(12)}C${X(11.55)} ${X(st + 1.05)} ${X(10.9)} ${X(st + WH)} ${X(10.1)} ${X(st + WH)}H${X(1.9)}C${X(1.1)} ${X(st + WH)} ${X(0.45)} ${X(st + 1.05)} ${X(0)} ${X(st)}Z`);
+    return [cup, ear, saucer, counter];
+  },
+  // The g7 cup with the RING handle, kept to show beside the ear (director's fix 1).
+  cafeRing(s = 12) {
     const u = s / 12, X = v => f(v * u);
     const top = 2, bot = T(7.333), l = 0.5, r = 8, mid = (l + r) / 2;
     const cup = D(`M${X(l)} ${X(top)}H${X(r)}C${X(r)} ${X(5.5)} ${X(6.5)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2)} ${X(bot)} ${X(l)} ${X(5.5)} ${X(l)} ${X(top)}Z`);
-    const ring = O(X(9.6), X(4.4), 1.65 * u, W);                     // centreline r 1.65: counter 1.8 across, ink 1.5
-    const st = bot + CUT;                                             // saucer top
+    const ring = O(X(9.6), X(4.4), 1.65 * u, W);
+    const st = bot + CUT;
     const saucer = D(`M${X(0)} ${X(st)}H${X(12)}C${X(11.55)} ${X(st + 1.05)} ${X(10.9)} ${X(st + WH)} ${X(10.1)} ${X(st + WH)}H${X(1.9)}C${X(1.1)} ${X(st + WH)} ${X(0.45)} ${X(st + 1.05)} ${X(0)} ${X(st)}Z`);
     return [cup, ring, saucer];
   },
@@ -51,13 +67,16 @@ const DRAW = {
   // above TOP so it looks as tall as the flat-topped icons. Counters: the spaces between the columns are
   // plain upright slots with small corners (no pills, owner's example).
   museum(s = 12) {
+    // g7 fix (director, C2): lighter. No separate beam: the pediment's base is the entablature, and the
+    // four columns stand free under it after a 1px cut (as mature sets draw a column front), so less
+    // ink sits across the top. Drawn 10.67px tall (a wide glyph drawn shorter). Four columns, spaces =
+    // the line, slots with small corners (no pills).
     const u = s / 12, X = v => f(v * u);
-    const pb = T(3.333);                                              // a wide glyph is drawn shorter (equal optical size)
-    const out = [P([X(0), X(pb)], [X(6), X(T(0.667))], [X(12), X(pb)])];
-    const bt = X(pb) + CUT;                                         // beam top
-    out.push(R(X(0.25), bt, X(11.5), WH));                            // beam: a horizontal, 0.5 past the columns
-    const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);   // spaces = the line
-    for (let i = 0; i < n; i++) out.push(R(x0 + i * (W + gap), bt + WH, W, s - WH - (bt + WH)));
+    const pb = T(4);
+    const out = [P([X(0), X(pb)], [X(6), X(T(1.333))], [X(12), X(pb)])];   // pediment, rises 2.67 in 6
+    const ct = X(pb) + CUT;                                           // column tops
+    const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
+    for (let i = 0; i < n; i++) out.push(R(x0 + i * (W + gap), ct, W, s - WH - ct));
     out.push(R(X(0.25), s - WH, X(11.5), WH));                         // plinth on BASE: a horizontal
     return out;
   },
