@@ -110,5 +110,65 @@
  "reel-4-stop": {
   "x": 195,
   "y": 122
+ },
+ "float-corner-1-plain": {
+  "x": 345,
+  "y": 150
+ },
+ "float-corner-2-starred": {
+  "x": 345,
+  "y": 150
+ },
+ "float-corner-3-visited": {
+  "x": 345,
+  "y": 150
+ },
+ "float-corner-5-district": {
+  "x": 345,
+  "y": 140
+ },
+ "float-corner-4-stop": {
+  "x": 345,
+  "y": 150
+ },
+ "float-above-1-plain": {
+  "x": 337,
+  "y": 134
+ },
+ "float-above-2-starred": {
+  "x": 337,
+  "y": 134
+ },
+ "float-above-3-visited": {
+  "x": 337,
+  "y": 134
+ },
+ "float-above-5-district": {
+  "x": 337,
+  "y": 124
+ },
+ "float-above-4-stop": {
+  "x": 337,
+  "y": 134
+ },
+ "float-below-1-plain": {
+  "x": 195,
+  "y": 406
+ },
+ "float-below-2-starred": {
+  "x": 195,
+  "y": 406
+ },
+ "float-below-3-visited": {
+  "x": 195,
+  "y": 406
+ },
+ "float-below-5-district": {
+  "x": 195,
+  "y": 376
+ },
+ "float-below-4-stop": {
+  "x": 195,
+  "y": 414
  }
 }

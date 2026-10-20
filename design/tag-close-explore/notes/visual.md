@@ -41,3 +41,28 @@ paper, not chrome.
 - Reel: does it need any resting hint, or does tap-pin/tap-map cover anyone who never pulls?
 - Bow: whimsy that means something, or decoration? (owner-taste "no dots/decoration that adds noise")
 - All of these are Chromium-only. Safari or the iPhone are unchecked, the reel's touch handling most of all.
+
+## Round 2: a close that floats outside the tag (2026-10-20)
+Owner on the four above, verbatim: "no those last ones are too clever... the dog ear is the closest non-pin one, but its a tag so why would it have a dogear. what about floating outside the tag?"
+
+Three placements, one mark: a 28px disc of --paper-raised (the tag's own paper) with the tag's warm edge and
+contact/lift shadow and a 12px --ink-2 x. It has a 44px target, sits off the paper and has no colour of its own
+(`html.close-float-corner | close-float-above | close-float-below`). It has the same states as before, plus a reference pin row.
+Sheet: `concepts/float.png`; phone sheets `concepts/concept-pin.png`, `concept-float-corner.png`, `concept-float-above.png`, `concept-float-below.png`.
+
+- B. **In the cut corner**: centred on the corner the die-cut removed (the tag's bounding top-right), ~6px clear of the chamfer.
+- C. **Above the corner**: above the top edge, its right side 8px past the tag's right edge, level with the string's run.
+- D. **Below the tag**: centred under the stub, 16px clear, in thumb reach.
+
+Collisions checked at 390 (the tag is 316 wide, so there's a 37px margin each side):
+- Zoom and account controls: none. The tag always pans so its pin sits just under those controls (`pinPopupTopPad()`).
+  C sits ~56px below the account button's bottom, and B lower still.
+- Map edge: B and C reach 14px and 22px past the tag's right edge. At 390 there's plenty of room. On screens narrower
+  than 348 the tag is the screen less 32, so B would sit ~2px from the edge and C would clip. Each would need a clamp if built.
+- D: `tagSheetNeed()` doesn't count the extra ~60px below the stub. A tall tag (long note) could tuck D under the list
+  sheet unless that room is added (as `tagSlipRoom()` does for the signed-out slip). The signed-out slip also lives
+  under the tag, so the two would stack.
+- Other pins: a disc can land on a neighbouring pin (see C's plan stop, beside a visited stop pin). The disc sits above pins in z-order.
+
+Pick: B, in the cut corner. It's the "corner of the overall tag" the owner asked for, fills a gap the tag already has,
+and stays off the band and the content.

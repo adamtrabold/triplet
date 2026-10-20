@@ -7,6 +7,18 @@ F = '/usr/share/fonts/truetype/dejavu/'
 font = lambda s, b=False: ImageFont.truetype(F + ('DejaVuSans-Bold.ttf' if b else 'DejaVuSans.ttf'), s)
 INK, INK2, PAPER = (26, 26, 24), (90, 86, 76), (250, 245, 234)
 
+import sys
+SET = sys.argv[1] if len(sys.argv) > 1 else 'concepts'
+FLOAT = [
+    ('pin', 'A. The pin is the close (reference)',
+     "While the tag is open, the pin it hangs from turns into a navy x. Tap it to close.", None),
+    ('float-corner', 'B. Float in the cut corner',
+     "A small paper disc with an x, floating off the tag, centred on the corner the die-cut removed. It belongs to the tag's corner, not its content, and never touches the paper or the starred band.", None),
+    ('float-above', 'C. Float above the corner',
+     "The same disc, floating above the tag's top edge, lined up with its right edge, level with the string.", None),
+    ('float-below', 'D. Float below the tag',
+     "The same disc, centred under the stub, where the thumb already is (the lightbox close).", None),
+]
 CONCEPTS = [
     ('pin', 'A. The pin is the close (reference)',
      "Last round's favourite, one colour: while the tag is open, the pin it hangs from turns into a navy x. Tap it to close.", None),
@@ -68,18 +80,19 @@ def block(key, title, line, film, cols=5, gap=16):
     for p in parts: im.paste(p, (0, y)); y += p.height + 20
     return im
 
+if SET == 'float': CONCEPTS = FLOAT
 blocks = [block(*c) for c in CONCEPTS]
 for c, b in zip(CONCEPTS, blocks):
     pad = 40; out = Image.new('RGB', (b.width + 2 * pad, b.height + 2 * pad), PAPER); out.paste(b, (pad, pad))
     out.save(os.path.join(D, f'concept-{c[0]}.png'))
 pad = 48
 head = Image.new('RGB', (blocks[0].width, 150), PAPER); d = ImageDraw.Draw(head)
-d.text((0, 0), 'Closing the place tag: four different ways', font=font(52, True), fill=INK)
-d.text((0, 76), 'Each on a plain pin, a starred tag, a visited pin, a plan stop and a district (390 wide, real map). Esc and a keyboard close stay in all four.', font=font(26), fill=INK2)
+d.text((0, 0), ('Closing the place tag: four different ways' if SET != 'float' else 'Closing the place tag: a close floating outside it'), font=font(52, True), fill=INK)
+d.text((0, 76), 'Each on a plain pin, a starred tag, a visited pin, a plan stop and a district (390 wide, real map). Esc and a keyboard close stay in all.', font=font(26), fill=INK2)
 H = head.height + sum(b.height for b in blocks) + 90 * len(blocks) + 2 * pad
 out = Image.new('RGB', (blocks[0].width + 2 * pad, H), PAPER); out.paste(head, (pad, pad)); y = pad + head.height + 30
 for b in blocks:
     ImageDraw.Draw(out).line((pad, y - 30, out.width - pad, y - 30), fill=(216, 206, 186), width=3)
     out.paste(b, (pad, y)); y += b.height + 90
-out.save(os.path.join(D, 'concepts.png'), optimize=True)
+out.save(os.path.join(D, 'concepts.png' if SET != 'float' else 'float.png'), optimize=True)
 print(out.size)

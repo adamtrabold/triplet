@@ -2038,6 +2038,24 @@
     html.close-fold .tag-close-mark::after { content: ''; position: absolute; left: 4px; top: 14px; width: 10px; height: 10px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 2L8 8M8 2L2 8' stroke='%235A564C' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 10px 10px no-repeat; }
 
+    /* FLOAT (owner: "what about floating outside the tag?"): the close is its own small piece of the
+       tag's paper -- a 28px disc of --paper-raised, the tag's warm edge and contact shadow, a 12px
+       --ink-2 x -- that floats OFF the paper (never on the stock, the band or the content). 44 target.
+       float-corner: centred on the corner the die-cut removed (the tag's bounding corner, top right),
+                     so it sits in the cut, ~6px clear of the chamfer.
+       float-above:  above the tag's top edge, right-aligned with the tag's right edge, level with the string's run.
+       float-below:  centred under the tag's stub, --s4 clear of it, in the thumb's reach. */
+    html[class*="close-float"] .tag-x { width: 44px; height: 44px; z-index: 5; }
+    html[class*="close-float"] .tag-x svg { width: 12px; height: 12px; position: relative; color: var(--ink-2); }
+    html[class*="close-float"] .tag-x::before { inset: 8px; border-radius: 50%; background: var(--paper-raised);
+      box-shadow: 0 0 0 .75px var(--tag-edge), 0 1px 1px var(--tag-shadow-contact), 0 3px 6px var(--tag-shadow-lift); }
+    html[class*="close-float"] .tag-x:active::before { background: color-mix(in srgb, var(--paper-raised) 88%, var(--ink)); }
+    html[class*="close-float"] .tag-x:focus-visible { box-shadow: none; }
+    html[class*="close-float"] .tag-x:focus-visible::before { box-shadow: 0 0 0 2px var(--navy); }
+    html.close-float-corner .tag-x { top: -22px; right: -22px; }
+    html.close-float-above .tag-x { top: -46px; right: -8px; }
+    html.close-float-below .tag-x { top: auto; bottom: -60px; right: auto; left: 50%; margin-left: -22px; }
+
     /* C. BADGE REEL: no mark. The pin is a retractable reel: pull the tag down, let go, and it zips
        back up into the pin (the pop-out, reversed). --tug is the pull; .reel-go plays the retract. */
     .tag-popup { --tug: 0px; }
