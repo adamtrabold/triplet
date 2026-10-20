@@ -1195,3 +1195,4 @@ approaches should be as much a part of the brand as anything".
   definition. Never drop an option he reacted to on a visibility claim.
 - **Also:** a row must be one rule. A liked feature riding inside
   another rule's row is a per-icon passenger.
+- **Taper board v123: 9, sent.** None, counterpunch (his) and woodcut, one rule per row, verified by side-by-side crops.

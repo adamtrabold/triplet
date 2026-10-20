@@ -988,3 +988,14 @@ The verdict stands within our own set:
   woodcut), each one rule (jam turn 61).
 - **My turn-59 "not a real choice" on counterpunch is withdrawn:** I
   judged visibility by my eye, not his.
+
+
+## Round g7k-taper3 (canvas v123), 2026-10-20: 9, READY
+
+- **Three rows, one rule each:**
+  - no taper (true);
+  - counterpunch, the taper he noticed, plain on the coupe at 8x;
+  - woodcut, posts only.
+- I compared like parts across the rows side by side.
+- **Checks:** 15/15.
+- **Send** the taper board with its question.

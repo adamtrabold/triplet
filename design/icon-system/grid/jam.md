@@ -2243,3 +2243,41 @@ Burin stays dropped, with its reason on the board.
 **Looked at:** the board at 1x and 3x. Counterpunch now differs visibly from no taper at 8x (the cup's handle, the star's hole).
 
 NEXT: design director, the taper board's three rows.
+
+---
+
+## Turn 63: design director, the taper board's three rows (canvas v123): 9, send
+
+**How I looked:**
+- I read the text from the board's source and rendered it at 1x and
+  3x;
+- I cropped the same part from all three rows, side by side at 8x: the
+  coupe, the cup, the star and the museum.
+
+**The three rows:**
+- **No taper:** true. The coupe's band walls are even, and so are the
+  star's and the cup's holes.
+- **Counterpunch: one rule, and it's the taper he noticed.**
+  - The coupe's band walls are thick at the rim and thin toward the band
+    in this row only. That's plain beside the even top row at 8x.
+  - The star's hole and the cup's handle hole take the same rule. It's
+    subtler there, and the row's own line says so ("zoom in to see it on
+    the star and the cup's handle too").
+  - The handle hole at 1.57 × 2.23 stays open.
+- **Woodcut: posts only.** The columns, the coupe's stem and the trunk
+  flare where they meet a mass, and the holes stay even. One rule per
+  row, no passengers.
+- **The question** is plain and offers the combination.
+- **Burin** is dropped with its reason.
+- **Checks** on the board: 0 slivers, 15/15 symmetric.
+- **Possible objection, not likely:** at 8x the woodcut columns read a
+  little like turned balusters. It's visible and honest, and it's his
+  call.
+
+**Score: 9. READY.** The question, as on the board: "The taper you liked
+on the coupe, made into a rule (the middle row), beside a second taper
+from woodcut (bottom row) and no taper at all (top row). Which do you
+want? Combining the middle and bottom rows is possible."
+
+NEXT: the coordinator sends the taper board (with the Weight board's
+question if still open) and adds the `../history.md` line.
