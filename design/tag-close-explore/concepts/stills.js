@@ -27,14 +27,14 @@ const W = P.W;
     });
     await S.install(page);
     await S.realRows(page, { rey15: { ...S.REAL.rey15, visited: true }, rey17: { ...S.REAL.rey17, starred: true } });
-    await page.evaluate(c => { document.documentElement.classList.add('close-' + c);
+    await page.evaluate(c => { if (c.startsWith('pin-')) document.documentElement.classList.add('close-pin', c); else document.documentElement.classList.add('close-' + c);
       // the pin concept's disc sits on a district's dot too: the string hangs from its edge
-      if (c === 'pin') { const orig = tagPinRadius; window.tagPinRadius = p => { const src = p && p._source; return src && src.locationId == null ? 16 : orig(p); }; } }, opt);
+      if (c.startsWith('pin')) { const orig = tagPinRadius; window.tagPinRadius = p => { const src = p && p._source; return src && src.locationId == null ? 16 : orig(p); }; } }, opt);
     // the focus point of this concept's close mark, in CSS px
     const point = () => page.evaluate(c => {
       const pop = document.querySelector('.leaflet-popup.tag-popup'); if (!pop) return null;
       const tb = pop.querySelector('.tag-body').getBoundingClientRect(), st = pop.querySelector('.tag-string').getBoundingClientRect();
-      if (c === 'pin' || c === 'reel') return { x: st.left + st.width / 2, y: st.top + 8 };
+      if (c.startsWith('pin') || c === 'reel') return { x: st.left + st.width / 2, y: st.top + 8 };
       if (c === 'untie') return { x: tb.left + tb.width / 2, y: tb.top + 20 };
       if (c === 'fold') return { x: tb.right - 22, y: tb.top + 24 };
       if (c === 'float-corner') return { x: tb.right - 8, y: tb.top + 8 };

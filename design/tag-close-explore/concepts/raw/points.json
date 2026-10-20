@@ -170,5 +170,65 @@
  "float-below-4-stop": {
   "x": 195,
   "y": 414
+ },
+ "pin-paper-1-plain": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-paper-2-starred": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-paper-3-visited": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-paper-5-district": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-paper-4-stop": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-orange-1-plain": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-orange-2-starred": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-orange-3-visited": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-orange-5-district": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-orange-4-stop": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-ring-1-plain": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-ring-2-starred": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-ring-3-visited": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-ring-5-district": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-ring-4-stop": {
+  "x": 195,
+  "y": 122
  }
 }

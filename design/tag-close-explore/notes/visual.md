@@ -66,3 +66,23 @@ Collisions checked at 390 (the tag is 316 wide, so there's a 37px margin each si
 
 Pick: B, in the cut corner. It's the "corner of the overall tag" the owner asked for, fills a gap the tag already has,
 and stays off the band and the content.
+
+## Round 3: the pin is the close -- its colour (2026-10-20)
+Owner, verbatim: "pin is making the most sense to me, but navy feels too much like visited... it disappears... i want a more "close"-y color"
+
+Decided: while its tag is open, the pin (or a district's dot) becomes the close. Open: its colour. Three options, each
+added on top of `close-pin` as one more html class (`pin-paper | pin-orange | pin-ring`). Each is a 30px disc with a 16px x (2.6 stroke):
+- A. **Paper**: --paper-raised disc, --ink x, 1.5px --ink ring, the tag's shadow. The classic light close; no pin on
+  the map is a light disc with a dark x. Quietest of the three; on pale tiles it relies on the ink ring.
+- B. **Brand orange**: --brand-orange disc, --ink x (orange carries dark type, not paper), a paper ring. The + badge's
+  colour, so add and close pair up; it's the loudest and can't be read as visited. Weak spot: on a starred place the orange star
+  sits on the orange disc, kept apart only by its paper halo.
+- C. **Orange ring**: paper disc, --brand-orange-deep x and 2px ring. The accent as a line; the star stays clear.
+  The deep orange (#A8400C) is a rust that sits nearer the restaurant wine (#7A2436) than B does, though as a ring rather than a fill.
+
+No new colour is needed. A true "close red" would be a system change and would read as a restaurant (wine) pin, so I didn't propose one.
+Sheet: `concepts/pin-colour.png`; phone sheets `concept-pin-navy.png` (today, for comparison), `concept-pin-paper.png`,
+`concept-pin-orange.png`, `concept-pin-ring.png`.
+
+Pick: B, brand orange. It's the most unmistakably "close" (loud, action-coloured, never visited) using the one accent the app already has.
+Open: on a starred place, does the star even need to stay on the closing pin (the tag's band already says starred)? Dropping it there removes B's only weak spot.

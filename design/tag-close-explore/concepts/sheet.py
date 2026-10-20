@@ -19,6 +19,16 @@ FLOAT = [
     ('float-below', 'D. Float below the tag',
      "The same disc, centred under the stub, where the thumb already is (the lightbox close).", None),
 ]
+PINCOLOR = [
+    ('pin', 'Today: navy (for comparison)',
+     "The owner: navy reads like the visited sticker and disappears.", None),
+    ('pin-paper', 'A. Paper',
+     "The tag's own cream with an ink x and a thin ink ring: the classic light close. No pin on the map is a light disc with a dark x, so it can't read as a place, a category or visited. No new colour.", None),
+    ('pin-orange', 'B. Brand orange',
+     "The one accent (the + badge's colour), with an ink x inside a paper ring: add and close pair up. On a starred place the orange star sits on an orange disc, kept apart only by its paper halo.", None),
+    ('pin-ring', 'C. Orange ring',
+     "Cream disc with a deep-orange x and ring: the accent as a line, not a fill. Lighter than B and keeps the star clear.", None),
+]
 CONCEPTS = [
     ('pin', 'A. The pin is the close (reference)',
      "Last round's favourite, one colour: while the tag is open, the pin it hangs from turns into a navy x. Tap it to close.", None),
@@ -81,18 +91,19 @@ def block(key, title, line, film, cols=5, gap=16):
     return im
 
 if SET == 'float': CONCEPTS = FLOAT
+if SET == 'pincolor': CONCEPTS = PINCOLOR
 blocks = [block(*c) for c in CONCEPTS]
 for c, b in zip(CONCEPTS, blocks):
     pad = 40; out = Image.new('RGB', (b.width + 2 * pad, b.height + 2 * pad), PAPER); out.paste(b, (pad, pad))
-    out.save(os.path.join(D, f'concept-{c[0]}.png'))
+    out.save(os.path.join(D, f'concept-{c[0]}.png' if not (SET == 'pincolor' and c[0] == 'pin') else 'concept-pin-navy.png'))
 pad = 48
 head = Image.new('RGB', (blocks[0].width, 150), PAPER); d = ImageDraw.Draw(head)
-d.text((0, 0), ('Closing the place tag: four different ways' if SET != 'float' else 'Closing the place tag: a close floating outside it'), font=font(52, True), fill=INK)
+d.text((0, 0), ('Closing the place tag: four different ways' if SET != 'float' else 'Closing the place tag: a close floating outside it') if SET != 'pincolor' else 'The pin is the close: which colour?', font=font(52, True), fill=INK)
 d.text((0, 76), 'Each on a plain pin, a starred tag, a visited pin, a plan stop and a district (390 wide, real map). Esc and a keyboard close stay in all.', font=font(26), fill=INK2)
 H = head.height + sum(b.height for b in blocks) + 90 * len(blocks) + 2 * pad
 out = Image.new('RGB', (blocks[0].width + 2 * pad, H), PAPER); out.paste(head, (pad, pad)); y = pad + head.height + 30
 for b in blocks:
     ImageDraw.Draw(out).line((pad, y - 30, out.width - pad, y - 30), fill=(216, 206, 186), width=3)
     out.paste(b, (pad, y)); y += b.height + 90
-out.save(os.path.join(D, 'concepts.png' if SET != 'float' else 'float.png'), optimize=True)
+out.save(os.path.join(D, {'float': 'float.png', 'pincolor': 'pin-colour.png'}.get(SET, 'concepts.png')), optimize=True)
 print(out.size)
