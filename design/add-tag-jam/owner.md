@@ -152,3 +152,7 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 > thats great that the box looks like a box with apoint but now it doesnt follow the visual language anymore
 > also a signpost would only ever have the pole pointing down
 > re: the poles why would a sign not be able to stand above its city? if the map isnt positioned for it to show it just shouldnt show
+
+## 2026-10-20 (on the final Phase 4 sheet, `stills/p4-fixes/9-signposts.png`, `10-family.png`)
+> signposts instead of city badges are approved
+(Standing rule: "yes when i say something is good that means ship it". The map control's cut, above: "yeah lets cut that button it doesnt make sense -- all places should just show all places on the map".)
