@@ -411,3 +411,11 @@
   - The map control is removed (owner). All places zoom is approved.
   - The tag's city to name is `--s1`, × at 80.
   - Prototype 27a3e950.
+- **2026-10-20, Signpost picked:**
+  - Final: the foot on the (mean) location; boards west or east by where each
+    city lies; per-side widths (LA stays alone at the world view); `--s8`
+    boards, `--s1` gap, `--s3` tip and foot; clamped to the clear area.
+  - Lone city: a switch, box or post. I lean post; pending the owner.
+  - Known: Stockholm joins the post at z4.
+  - The tag spacing was reverted here (moved to tag-close-fix).
+  - Prototype 05bbf1fc.
