@@ -22,6 +22,23 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## g7i, after his v105 notes (canvas v110; v105 is on Archive as G7h105)
+
+- **Grid improvement this round:** size by class (the token) and the root shapes. Both are on the main board as before (v105) and now. Details are in jam turn 51.
+- **Classes**, each a cut of a 12px coin with the coin's area:
+  - Wide 12 × 9 1/3 (cup, museum);
+  - Square 10 2/3 (coupe);
+  - Tall 9 1/3 × 12 (tree);
+  - Round, hull = coin (Star);
+  - Open, arms span the coin with every line 1.5px (+);
+  - a lone apex passes by 1/2px.
+- **Fitting:** `fitS()` in `src/boards7.js` does it; no per-icon sizes.
+- **Roots:** slab, post, gable, vessel, loop. Batch 2 needs two more: blade and block.
+- **The coupe:** a clear band over the drink.
+- **Blur:** cup 75.4, tree 75.1, museum 67.2, coupe 50.1, Star 55.3, + 44.8.
+- **Open:** a weight rule for open marks and the coupe's open bowl.
+- **Checks:** 0 slivers; 33/33 symmetric.
+
 ## g7h, after his v99 verdict (canvas v103; v99 is on Archive as G7g)
 
 - **Every meeting point is slightly round, and inside stays tighter than outside:**

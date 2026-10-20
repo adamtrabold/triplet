@@ -1583,3 +1583,76 @@ also stated as brand (C9).
 NEXT: icon designer, keyshapes by class plus the root shapes as one
 grid change, stated as brand. Then I score: the gates (G-size, G-grid),
 then our scale row, then C1–C9.
+
+---
+
+## Turn 51: icon designer, g7i: the token (size by class) and five root shapes (canvas v110)
+
+**Grid improvement this round (G-grid):** two rules added to the grid.
+1. Size comes from shape class: the token.
+2. Like parts share one root shape.
+
+Neither is an icon-by-icon fix. Both are on the main board, before (v105) and now.
+
+**Archived first:** v105's main board and seven detail boards are on Archive as G7h105 (y 72000), with a title note (canvas v109).
+
+**1. The token (G-size).**
+- **The rule.** A glyph is struck like a token: a 12px coin inside the badge's ring with 2px of air. Every glyph is fitted by the grid to a cut of that coin with the coin's area:
+  - Wide: 12 × 9 1/3 (cup, museum);
+  - Square: 10 2/3 (coupe);
+  - Tall: 9 1/3 × 12 (tree);
+  - Round, for radial marks: the hull through the Star's tips has the coin's area;
+  - Open, for line-only marks: the +'s arms span the coin, and every line is 1.5px (no thinner horizontal, since an open mark has no mass to balance).
+  - A lone apex (the pediment, the tree's tip) passes the cut by 1/2px.
+- **How it's fitted.** `fitS()` in `src/boards7.js` scales positions only, never line widths, until the finished outline just fits its cut. No icon carries a size number; the class table is in `src/picks7.js` (KEY, CLASS).
+- **Where it comes from.** The numbers derive from our own badge, not from another system: the coin is the badge's 12px box, the cuts are its area on our 1/3px lattice. The boxes are drawn over each glyph on the board.
+- **Results:**
+  - **Star:** shrinks the most. Its tips sit about 6.9px from its centre (they were about 9.3), so it's level with the cup and coupe.
+  - **Coupe:** about 11 → 10 2/3 square.
+  - **Cup and tree:** change least.
+  - **Museum:** a little smaller (it was taller than its class).
+  - **+:** spans 12 of its 24 units (it was 14), at its Float badge step.
+
+**2. Root shapes (C8):**
+- **Slab:** every base and span (the saucer was a tapered blade, the coupe's foot a dome; both are slabs now).
+- **Post:** stems, columns, trunk, the +'s arms.
+- **Gable:** pediment and tiers (the tree's tier bases are flat now, the same gable as the pediment).
+- **Vessel:** both bowls.
+- **Loop:** the cup's ear and the Star's outline.
+- The board pulls like parts out side by side at 8x, with v105's three bases above.
+
+**3. The coupe (his liquid note).**
+- Under the rim, a clear band of 1 2/3px (over the 1.5px counter minimum, on the lattice) is closed by the walls at both ends; the drink fills the bowl below it.
+- At 24 and in the 12px chip it reads as a glass holding a drink, not two parts.
+- The bowl is 2/3px deeper, so the drink has some mass.
+
+**4. Batch 2 pressure test** (table on the board):
+- The size classes cover all eight subjects.
+- The roots cover six. Two more roots will be needed:
+  - **Blade:** the knife;
+  - **Block:** the bag's body and the city blocks.
+- One stated exception: the bag's handle is a loop with a square back (a round back read as a padlock in the concept round).
+
+**What about the grid is ours** (on the board):
+- the token and coin (a seal in a signet ring; pins struck from one blank);
+- the root shapes (a woodcut, a case of metal type);
+- the corners (ink settling on a screened banner);
+- the 1/3px lattice (crisp screened edges, soft corners).
+
+The reference sets are off the size row. They're kept at the bottom, labelled "craft comparison only, not a size reference".
+
+**Checks:**
+- 0 slivers; 33/33 symmetric.
+- `src/blur-measure.js` now measures the shipped SVGs (so the fit is in the measure) and includes the Star and the +.
+- **Blur:** cup 75.4, tree 75.1, museum 67.2, coupe 50.1, Star 55.3, + 44.8. On v105: 74.8 / 74.4 / 66.3 / 69.5, Star 52.4, + 43.8.
+
+**Open: weight.**
+- **The coupe:** the clear band he asked for opens its bowl, so it now blurs well under the cup and the tree, 50 against 75. It went from heaviest to lightest. A deeper bowl only reaches about 54 before it turns into a chalice.
+- **The + and the Star:** as open marks they sit at 45–55. The +'s full-width horizontal barely moved it (43.8 → 44.8).
+- **Next grid question:** whether the grid needs a weight rule by class (mass and open), or the line marks need a heavier line than the place glyphs. I didn't decide it this round.
+
+**Looked at:** the board at 1x and 3x, the 8x rows, the true-size rows at 3x and sheet 2 at 3x.
+- The Star is now a compact stamped star with a small counter (about 2px at its narrowest), still open.
+- The tree's flat tiers make small ledges at the notches, as flat-based tiers do.
+
+NEXT: design director: the gates (G-size, G-grid), our scale row, then C1–C9, on v110.
