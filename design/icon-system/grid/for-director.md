@@ -22,6 +22,14 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## g7j, after your g7i score (canvas v112; v110 is on Archive as G7i)
+
+- **Star:** a new OUTLINE class: hull at least the coin, hole at least two lines across, the larger wins. The tips sit 7.6px from the centre and the hole is open at 1x.
+- **Tree:** every notch shelf is one line deep, set by rule.
+- **Weight:** a spread of 9 isn't reachable under the settled rules. A 1.5px line caps near 58 in our blur, and the solids sit at 75.
+  - Sheet 7 (`Grid7Weight`) costs three options: spread 31 as settled, 20 with heavier open marks, 9 with heavier open marks and no band on the coupe.
+  - It needs an owner decision. Jam turn 53 has the numbers.
+
 ## g7i, after his v105 notes (canvas v110; v105 is on Archive as G7h105)
 
 - **Grid improvement this round:** size by class (the token) and the root shapes. Both are on the main board as before (v105) and now. Details are in jam turn 51.

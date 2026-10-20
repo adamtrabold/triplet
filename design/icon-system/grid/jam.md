@@ -1753,3 +1753,44 @@ holds it still.
 NEXT: icon designer, the weight rule by class as a grid change, plus
 the Star's counter. Then I score: the gates, the size row, then the
 weight row first among C1–C9.
+
+---
+
+## Turn 53: icon designer, g7j: the Star by the outline class, tree shelves by rule; weight is blocked on a settled rule (canvas v112)
+
+**Archived first:** v110's main board and seven detail boards are on Archive as G7i (y 76000), with a title note (canvas v111).
+
+**Grid improvement this round:**
+1. **A sixth class, OUTLINE (the Star).** An outline means "not yet tapped", so its hole must read as a hole. The rule:
+   - the hull through its tips is at least the coin's area;
+   - its hole is at least two lines (3px) across at the centre;
+   - the larger of the two wins (`starRc()` in `src/boards7.js`).
+
+   At 1.5px the hole decides: the tips sit 7.6px from the centre (6.9 on v110, about 9.3 on v105). The hole is 3px across at the centre and reads open at 1x. The 8x cell draws the coin and the hole's minimum.
+2. **The gable stack (the tree).** Every notch shows the same shelf, one line (1.5px) deep. The lower tiers' apexes come from that rule (`src/picks7.js`, nature); the shelves were 1.45 and 2.14px, uneven, and read as steps. The bottom tier's slope now nearly matches the middle one's.
+
+**Weight: I couldn't reach a spread of 9 without bending a settled rule, so I measured what each way costs instead of picking one.**
+- **The physics.** In our blur a 1.5px line can't get darker than about 58, however long or large the mark. I tried the + at 1.33× and 1.6× size: 45.6 and 45.8. Our solid places reach 75.
+- **Where that leaves us.** With every line 1.5px, places solid and the coupe's clear band, the spread can't close below about 25.
+- **The coupe's band has the same cap.** Thicker walls around it (2, 2.5, 3px) give 52, 55, 58.
+- **Lightening the solids** to about 55 would need a counter in every solid wider than about 3px (the cup's bowl, the tree's tiers, the pediment). That turns the places toward outlines, and outline is reserved for "not yet tapped". I didn't build it.
+
+**The new Weight board (sheet 7, `Grid7Weight`, right of the Grid board)** builds three options with the same grid and blurs them live. Measured by `src/blur-measure.js` on `svg/g7/weight-<option>/` (`svg/g7/weight-blur.json`):
+
+| Option | Cup | Coupe | Museum | Tree | Star | + | Spread |
+|---|---|---|---|---|---|---|---|
+| As settled | 75 | 50 | 67 | 75 | 54 | 45 | 31 |
+| Open marks heavier (Star 2px, + 2.5px, coupe walls 2.5px) | 75 | 55 | 67 | 75 | 66 | 67 | 20 |
+| Open marks heavier, coupe without its band | 75 | 72 | 67 | 75 | 66 | 67 | 9 |
+
+- **Only the third meets the bar.** It bends two settled things: the 1.5px line for the UI marks (the app's + is drawn at 2.5 today), and the clear band the owner asked for.
+- **This is an owner decision, not a craft call.** The main board says so in one short section, "Weight: still open". The main board itself is drawn as settled.
+- **For the director:** the darkest-fifth measure ranked the v105 coupe lighter than the cup (69.5 against 74.8), while the owner saw it as heavier. The measure may not be his eye for mixed solid and open marks, worth weighing before it becomes the gate.
+
+**Checks:**
+- 0 slivers; 48/48 symmetric (the weight option folders included).
+- Blur as settled: cup 75.4, coupe 50.1, museum 67.2, tree 75.0, Star 53.7, + 44.8.
+
+**Looked at:** the board at 1x and 3x, the 8x rows, the true-size rows at 3x, the tree at 30x, and the Weight sheet at 3x. The Star's hole is clearly open at 1x in the row, and the Star now sits between the v105 and v110 sizes.
+
+NEXT: coordinator, the weight decision to the owner (sheet 7). Then the design director scores v112.
