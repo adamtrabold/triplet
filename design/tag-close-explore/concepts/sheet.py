@@ -63,6 +63,14 @@ WASH = [
     ('pin-lw10+pin-nostar', 'Step 2: orange at 10%',
      "Lighter again: nearly the tag's paper with a warm blush. Same x, same edge and shadow.", None),
 ]
+WASH2 = [
+    ('pin-lw10+pin-nostar', 'Reference: orange at 10%',
+     "Last round's lightest step.", None),
+    ('pin-lw6+pin-nostar', 'Step 1: orange at 6%',
+     "Lighter: the tag's paper with a faint warm cast. Same deep-orange x, warm paper edge and soft shadow.", None),
+    ('pin-lw3+pin-nostar', 'Step 2: orange at 3%',
+     "Lighter again: practically the tag's paper. Same x, edge and shadow.", None),
+]
 CONCEPTS = [
     ('pin', 'A. The pin is the close (reference)',
      "Last round's favourite, one colour: while the tag is open, the pin it hangs from turns into a navy x. Tap it to close.", None),
@@ -130,6 +138,7 @@ if SET == 'ringless': CONCEPTS = RINGLESS
 if SET == 'navyorange': CONCEPTS = NAVYORANGE
 if SET == 'lighter': CONCEPTS = LIGHTER
 if SET == 'wash': CONCEPTS = WASH
+if SET == 'wash2': CONCEPTS = WASH2
 blocks = [block(*c) for c in CONCEPTS]
 def star_block(key='pin-odisc'):
     w = blocks[0].width
@@ -147,11 +156,11 @@ if SET == 'ringless':
     sb = star_block(); blocks.append(sb); CONCEPTS = CONCEPTS + [('pin-odisc-star', '', '', None)]
 for c, b in zip(CONCEPTS, blocks):
     pad = 40; out = Image.new('RGB', (b.width + 2 * pad, b.height + 2 * pad), PAPER); out.paste(b, (pad, pad))
-    if SET == 'wash' and c[0].startswith('pin-lwash'): continue
+    if (SET == 'wash' and c[0].startswith('pin-lwash')) or (SET == 'wash2' and c[0].startswith('pin-lw10')): continue
     out.save(os.path.join(D, f'concept-{c[0].replace("+pin-nostar", "")}.png' if not (SET == 'pincolor' and c[0] == 'pin') else 'concept-pin-navy.png'))
 pad = 48
 head = Image.new('RGB', (blocks[0].width, 150), PAPER); d = ImageDraw.Draw(head)
-TITLES = {'float': 'Closing the place tag: a close floating outside it', 'pincolor': 'The pin is the close: which colour?', 'ringless': 'The pin is the close: no ring', 'navyorange': 'The pin is the close: navy with orange', 'lighter': 'The pin is the close: lighter', 'wash': 'The pin is the close: the orange wash, lighter'}
+TITLES = {'float': 'Closing the place tag: a close floating outside it', 'pincolor': 'The pin is the close: which colour?', 'ringless': 'The pin is the close: no ring', 'navyorange': 'The pin is the close: navy with orange', 'lighter': 'The pin is the close: lighter', 'wash': 'The pin is the close: the orange wash, lighter', 'wash2': 'The pin is the close: the wash, lighter still'}
 d.text((0, 0), TITLES.get(SET, 'Closing the place tag: four different ways'), font=font(52, True), fill=INK)
 d.text((0, 76), 'Each on a plain pin, a starred tag, a visited pin, a plan stop and a district (390 wide, real map). Esc and a keyboard close stay in all.', font=font(26), fill=INK2)
 H = head.height + sum(b.height for b in blocks) + 90 * len(blocks) + 2 * pad
@@ -159,5 +168,5 @@ out = Image.new('RGB', (blocks[0].width + 2 * pad, H), PAPER); out.paste(head, (
 for b in blocks:
     ImageDraw.Draw(out).line((pad, y - 30, out.width - pad, y - 30), fill=(216, 206, 186), width=3)
     out.paste(b, (pad, y)); y += b.height + 90
-out.save(os.path.join(D, {'float': 'float.png', 'pincolor': 'pin-colour.png', 'ringless': 'pin-ringless.png', 'navyorange': 'pin-navy-orange.png', 'lighter': 'pin-lighter.png', 'wash': 'pin-wash.png'}.get(SET, 'concepts.png')), optimize=True)
+out.save(os.path.join(D, {'float': 'float.png', 'pincolor': 'pin-colour.png', 'ringless': 'pin-ringless.png', 'navyorange': 'pin-navy-orange.png', 'lighter': 'pin-lighter.png', 'wash': 'pin-wash.png', 'wash2': 'pin-wash-2.png'}.get(SET, 'concepts.png')), optimize=True)
 print(out.size)

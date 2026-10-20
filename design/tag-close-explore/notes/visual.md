@@ -147,3 +147,15 @@ the district's grey-green) the disc's edge holds in both steps. No new token: co
 Sheet: `concepts/pin-wash.png`; phone sheets `concept-pin-lw16.png`, `concept-pin-lw10.png`; updated 1x strip `concepts/strip-1x.png`.
 
 Ship: 16%. It still says "orange, close" at 1x. At 10% the disc reads as a paper button with an orange x, and on the pink-sand tiles it is mostly the edge and the x doing the work.
+
+## Round 8: the wash, lighter still (2026-10-20)
+Owner on the 24/16/10 sheet, verbatim: "i'd say even ighter" (lighter).
+
+Two steps below 10%, shown beside 10% for reference: **6%** (`pin-lw6`) and **3%** (`pin-lw3`). Same 28px disc, deep-orange x
+at 2.4, the tag's warm paper edge and soft shadows, no ring, no star.
+Where it stops holding: it doesn't, at either step. The edge and shadow keep the disc separate even on Gunnuhver's pale
+sand and on the district's grey-green (checked at 3x and at 1x). What goes is the orange: at 6% there is still a faint
+warm cast; at 3% the disc is effectively the tag's paper (the earlier "paper disc" with a deep-orange x), and the orange is only in the x.
+Sheet: `concepts/pin-wash-2.png`; phone sheets `concept-pin-lw6.png`, `concept-pin-lw3.png`; strip `concepts/strip-1x.png` (now 12 pins).
+
+The lightest step I'd defend: 6%, the last step where the disc itself still reads as warm.
