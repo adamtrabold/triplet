@@ -1478,3 +1478,60 @@ differentiation we probably want to align across all icons."
 
 NEXT: icon designer, the root-shape vocabulary as a grid change on the
 board. Then the director scores it: the like-parts row first.
+
+---
+
+## Turn 49: design director, my v105 9 missed the star's size and the coupe's weight; two grid gates added
+
+The owner: "star feels a lot bigger than the others. again with these
+size things, address this at the grid level across all of them... i
+dont want to have to negotiate this all the time, "how could our grid
+be improved" is an overarching question we need to address as we make
+these changes".
+
+**What I missed on v105:**
+- I scored the scale row on the four place icons only. The Star and the
+  + sit in the same row and I didn't hold them to it.
+- I passed the coupe on height, not on mass. Its solid bowl is the
+  heaviest single shape at the top of any glyph.
+- I accepted size fixes made icon by icon (the cup +2/3, the coupe
+  -2/3 then -1/3): the exact negotiation he says he doesn't want.
+
+**Two new gates** (`../icon-concepts/notes/director.md`, before C1–C8;
+a failure caps the score at 8):
+1. **G-size:** optical size comes from a grid rule (keyshapes by shape
+   class, UI marks included), never a per-icon nudge.
+2. **G-grid:** every round states, and shows on the board, the grid
+   improvement it makes or tests.
+
+**The scale row on v105, against the references at true size:**
+- **The Star: fails.** It spans nearly its whole square at 8x, about a
+  third larger than Material's star in the same square. In the true-size
+  rows it reads larger than the badge glyphs beside it. It needs a class
+  rule (a pointed or radial mark, with its own box), not a shrink.
+- **The + : passes on size.** It matches Material's span, but it's
+  lighter (a thinner line on the same span). Its class rule (a linear or
+  open mark) should state both.
+- **The coupe: fails on weight, not height.** The solid bowl is a large
+  dark mass at the top; Material's is an outlined triangle. In the scale
+  row it still draws the eye first. A class rule ("wide-top" glyphs get
+  a smaller mass cap, or the bowl's depth is set by the class) should
+  carry it, not another nudge.
+- **The cup, museum and tree:** in range against the references.
+- **Verdict on v105:** 8 under the new gates.
+
+**What the next round must show:**
+1. **The keyshape rule:** each shape class drawn on the grid with its box
+   and overshoot, the Star and the + included.
+2. **The six re-fitted by class,** with each icon's class named. No
+   per-icon size numbers.
+3. **The scale row at true size,** ours above Material and Phosphor,
+   with the Star and the + in it.
+4. **The grid improvement stated** (G-grid): "keyshapes by class
+   replace per-icon height".
+5. **C1–C8 re-checked:** C5 corners, C8 root shapes (turn 48), and the
+   blur.
+
+NEXT: icon designer, the keyshape rule as a grid change, with the root
+shapes from turn 48. Then I score: the gates first, then the scale row
+against the references, then C1–C8.

@@ -890,3 +890,19 @@ means. and i cant tell if theyre at craft yet").
   reads mid-set, since a pointed form overshoots.
 - His named coupe fault is closed.
 - **Send** the board with its question.
+
+
+## v105 re-scored under the new grid gates, 2026-10-20: 8
+
+The owner found the Star too big and asked for size to be solved at the
+grid level.
+
+- **G-size: fail.** The sizes were set by per-icon nudges.
+- **Scale row against the references:**
+  - the Star is about a third bigger than Material's: fails;
+  - the + matches on size but is lighter;
+  - the coupe's solid bowl is the heaviest top mass: fails on weight;
+  - the cup, museum and tree are in range.
+- **My miss:** I left the Star and the + out of the scale row, and judged
+  the coupe by height only.
+- **Next:** keyshapes by class, with the root shapes (jam turns 48–49).

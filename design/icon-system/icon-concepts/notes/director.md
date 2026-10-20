@@ -680,6 +680,25 @@ be focusing on best practices and principles for icon design".
 
 My recent 9s went on process. This rubric replaces my scoring order.
 
+**Two grid gates (owner, 2026-10-20):** "star feels a lot bigger than
+the others. again with these size things, address this at the grid
+level across all of them... i dont want to have to negotiate this all
+the time, "how could our grid be improved" is an overarching question
+we need to address as we make these changes".
+- **G-size: optical size comes from a grid rule, never a per-icon
+  nudge.**
+  - Keyshapes by shape class (for example circle, square, tall,
+    wide, pointed, open/linear for UI marks), each with its own box and
+    stated overshoot.
+  - Every icon, UI icons included (the Star, the +), is sized by its
+    class.
+  - A size fix that only nudges one icon fails the gate, however good
+    it looks.
+- **G-grid: every round states the grid improvement it makes or tests.**
+  - It's shown on the board as a before/after of the rule.
+  - A round with no grid improvement stated fails the gate.
+- **Both caps:** a gate failure caps the score at 8.
+
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
   - honest framing and fair notes;
@@ -1043,3 +1062,17 @@ C2 and C5 are amended above. **New first check:** the scale row.
 - **Before the next 9, ask of the whole set:**
   - What varies between icons that does the same job?
   - Is that variation deliberate and stated?
+
+
+## Miss on v105 (2026-10-20): the Star's size, the coupe's weight, and per-icon sizing
+
+- I scored scale on the place icons only, judged the coupe by height
+  not mass, and accepted per-icon nudges.
+- **G-size and G-grid are added above.** From now on the scale row always
+  includes the UI marks, and every size fix must be a class rule.
+- **Recurring:** five owner notes in a row have named a set-level rule I
+  hadn't asked for: weight, scale, corners, root shapes, sizing by
+  class.
+- **Ask every round:** "what would the grid have to say so that this
+  can't happen on the next icon?" If the answer is "nothing yet", the
+  round isn't a 9.
