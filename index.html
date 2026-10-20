@@ -2006,9 +2006,9 @@
     .tag-x:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
 
     /* ===== EXPLORATION ONLY (tag-close-concepts, not to land): genuinely different ways to close the
-       tag, one html class each: close-pin | close-fold | close-reel | close-untie | close-flag.
+       tag, one html class each: close-pin | close-fold | close-reel | close-untie.
        .tag-x is the keyboard / VoiceOver close in every one (shown on keyboard focus); a concept
-       either moves it onto its own mark (fold, untie, flag) or hides it (pin, reel). ===== */
+       either moves it onto its own mark (fold, untie) or hides it (pin, reel). ===== */
     .tag-close-mark { display: none; }
     html.close-pin .tag .tag-x:not(:focus-visible), html.close-reel .tag .tag-x:not(:focus-visible) { width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
     html[class*="close-"] .tag-is-open .highlighted-marker { animation: none; }
@@ -2059,20 +2059,17 @@
     html.close-untie .tag-body:has(.tag-band) > .tag-close-mark { color: var(--ink); }
     html.close-untie .tag-close-mark::before { content: ''; position: absolute; inset: 0; background: currentColor;
       -webkit-mask: var(--bow) center / 32px 22px no-repeat; mask: var(--bow) center / 32px 22px no-repeat; }
+    /* the bow is tied ON the eyelet: the patch's grommet ring goes, and a disc of the patch's own
+       paper fills the hole under the knot (the hole showing map through a bow read as a rough join) */
+    html.close-untie .tag.tag .tag-patch { --grommet: transparent; }
+    html.close-untie .tag-close-mark::after { content: ''; position: absolute; z-index: -1; left: 50%; top: 9px; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; background: var(--paper); }
+    html.close-untie .tag-body:has(.tag-band) > .tag-close-mark::after { background: color-mix(in srgb, var(--paper) 28%, var(--star)); }
     /* the untie, for the filmstrip: loosened (loops pulled out to two tails), then the drop */
-    html.close-untie .tag-popup.untie-1 .tag-close-mark { --bow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 22'%3E%3Cg fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.6 9C11 9.6 7 11.8 4.6 15.4'/%3E%3Cpath d='M17.4 9C21 9.6 25 11.8 27.4 15.4'/%3E%3C/g%3E%3Cellipse cx='16' cy='9.2' rx='1.6' ry='1.6' fill='black'/%3E%3C/svg%3E"); }
-    html.close-untie .tag-popup.untie-2 .tag-body, html.close-untie .tag-popup.untie-2 .tag-slip { transform: translateY(26px) rotate(3deg); opacity: .55; transform-origin: 50% 0; }
+    html.close-untie .tag-popup.untie-1 .tag-close-mark { --bow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 22'%3E%3Cg fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15.2 10.2C14 13 13.2 16.4 12.6 21'/%3E%3Cpath d='M16.8 10.2C18.4 12.6 19.4 15.6 19.8 20'/%3E%3C/g%3E%3Cellipse cx='16' cy='9.2' rx='1.6' ry='1.6' fill='black'/%3E%3C/svg%3E"); }
+    html.close-untie .tag-popup.untie-2 .tag-body, html.close-untie .tag-popup.untie-2 .tag-slip { transform: translateY(40px) rotate(4deg); opacity: .9; transform-origin: 50% 0; }
     html.close-untie .tag-popup.untie-2 .tag-string { transform: scaleY(.45); }
     html.close-untie .tag-popup.untie-2 .tag-close-mark { opacity: 0; }
 
-    /* E. INDEX FLAG: a paper flag tucked behind the tag, sticking up off its top edge at the right
-       (a file-folder tab / sticky index flag): an extra piece of stationery that only closes. */
-    html.close-flag .tag-x { top: -22px; right: 22px; width: 44px; height: 44px; }
-    html.close-flag .tag-x svg { width: 10px; height: 10px; margin-top: -14px; color: var(--ink-2); }
-    html.close-flag .tag-x::before { display: none; }
-    html.close-flag .tag-close-mark { display: block; position: absolute; z-index: 0; top: -16px; right: 32px; width: 24px; height: 24px; pointer-events: none;
-      filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)); }
-    html.close-flag .tag-close-mark::before { content: ''; position: absolute; inset: 0; background: var(--paper-raised); border-radius: 4px 4px 0 0; }
 
     .tag-in { position: relative; z-index: 2; padding: var(--s12) var(--s4) 0; }   /* 48: --s3 clear below the 36px band (owner: "not enough padding above the location name") */
     .tag-in.scrolls { overflow-y: auto; overscroll-behavior: contain; }
