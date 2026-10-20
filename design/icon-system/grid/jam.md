@@ -1994,3 +1994,53 @@ no taper option".
 - The even-1.5px set (no taper) is always shown beside the taper
   options, at the same sizes (true size and 8x) and in the same places.
 - A taper board without it fails, whatever else it does.
+
+---
+
+## Turn 58: icon designer, g7k: more drink, deeper notches, the taper (three rules and none), the master grid (canvas v121)
+
+**Archived first:** v115's main board and Set board are on Archive as G7j115 (y 84000), with a title note (canvas v119).
+
+**Grid improvements this round:**
+1. **A master grid board** (`Grid7Master`, beside the main board). It is built from the live rules, so it changes when a rule does:
+   - the badge, ring, air, live circle, coin and 12px box, with the TOP, BASE, MIDDLE and apex guides, the 1px grid and the 1/3px lattice;
+   - the six token classes;
+   - the five root shapes;
+   - seven corner specimens rounded by the live law, with their radii;
+   - the line weight;
+   - the stacked-gable rule;
+   - one brand line per rule.
+2. **The stacked-gable rule.** Every notch shelf is one and a half lines (2.25px), was one line. Owner: "looks like a triangle at 100%". The tiers now read at 1x. Inside rounds stay tighter (0.15 against 0.35).
+3. **The taper, as three rules and none** (`Grid7Taper`, beside the master). One style switch in `src/picks7.js` (`o.style`), on all six:
+   - **No taper:** even 1.5px, always shown on the top row.
+   - **Counterpunch (metal type):** a hole cut into a solid is the outside shape made smaller. The coupe's band and the star's hole are affected; the cup's ear has a half-circle back, so its wall comes out even. 1.5px is the wall at its widest.
+   - **Engraver's burin (signet ring):** a free end thins to 1px (the +'s arms, the trunk). Closed outlines stay even. 1.5px is the line at its root.
+   - **Woodcut:** a post widens to 2px where it meets the mass it holds up (the coupe's stem, the columns, the trunk). 1.5px is its narrowest.
+
+   The question asks which, if any.
+
+**The coupe:**
+- The clear band drops to the counter minimum (1.5px, was 1 2/3) and the bowl is 1/3px deeper, so there's more drink. The band stays open at 24 and 12.
+- The drink's surface sits 1/6px off the 1/3px lattice; the counter minimum wins there.
+- The walls keep the taper the owner likes (1.5px at the rim, about 1.1 at the drink). The even-offset version is built (`o.taper: 'even'`) and shows in the no-taper row.
+
+**Blur (as shipped):**
+
+| Glyph | Blur |
+|---|---|
+| Cup | 75.4 |
+| Coupe | 54.3 (was 50.1) |
+| Museum | 67.2 |
+| Tree | 72.2 (was 75.0) |
+| Star | 53.7 |
+| + | 44.8 |
+
+The Weight board's footnote is remeasured.
+
+**Checks:** 0 slivers; 43/43 symmetric.
+
+**How I looked:** I checked the coupe and tree variants at 1x and 3x, at true size, in the 12px chip and at 8x. I checked the taper and master boards at 1x and 3x.
+
+**Not done:** the taper options' own SVGs aren't exported or run through `check-svg.py`. They're built from symmetric parts, but I haven't verified them.
+
+NEXT: design director, in turn 57's order (taper options, master grid, coupe and tree, size and weight by eye), on canvas v121.

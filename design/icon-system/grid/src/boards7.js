@@ -448,9 +448,9 @@ ${WOPTS.map(([key, title]) => `<div class="srow"><div class="k">${title}</div><d
 // lose the no taper option"). Each option is the same grid with one style switch (picks7.js, o.style).
 const TOPTS = [
   ['none', 'No taper', 'Every line an even 1.5px, the same weight as the badge ring, like neon tube or a screened line.'],
-  ['punch', 'Counterpunch', 'Like the counterpunch a punchcutter strikes into metal type: a hole is the outside shape made smaller, so its wall is full where the shape bulges and thins where it narrows. Applies to holes cut into a solid: the coupe\'s band, the star\'s hole.'],
-  ['burin', 'Engraver\'s burin', 'Like a line engraved into a signet ring: a line thins where it ends free, as the graver lifts out. Applies to free ends: the +\'s arms, the trunk. Closed outlines stay even.'],
-  ['woodcut', 'Woodcut', 'Like wood left standing in a woodcut: an upright is stoutest where it meets the mass it holds up. Applies to posts: the coupe\'s stem, the columns, the trunk.'],
+  ['punch', 'Counterpunch', 'Like the counterpunch a punchcutter strikes into metal type: a hole is the outside shape made smaller, so its wall is full where the shape bulges and thins where it narrows. Applies to holes cut into a solid: the coupe\'s band, the star\'s hole. 1.5px is the wall at its widest.'],
+  ['burin', 'Engraver\'s burin', 'Like a line engraved into a signet ring: a line thins where it ends free, as the graver lifts out. Applies to free ends: the +\'s arms, the trunk. Closed outlines stay even. 1.5px is the line at its root; a free end thins to 1px.'],
+  ['woodcut', 'Woodcut', 'Like wood left standing in a woodcut: an upright is stoutest where it meets the mass it holds up. Applies to posts: the coupe\'s stem, the columns, the trunk. 1.5px is the post at its narrowest; it widens to 2px where it meets the mass.'],
 ];
 const TSET = {};
 for (const [key] of TOPTS) {
@@ -559,17 +559,19 @@ function sheetMaster() {
 <h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${N}">The master grid</h1>
 <p style="margin:0 0 40px;font-size:19px;line-height:1.45;max-width:1150px">Everything a new icon is drawn from, in one place. Built from the live rules, so it changes when a rule does. Units are px at the list size (badge 24).</p>
 <div style="display:grid;grid-template-columns:${24 * S}px 1fr;gap:56px;align-items:start;margin-bottom:64px">
-<div>${title('Badge, air, live area, guides')}${badgeFig}${cap('Ring 1.5 · 2px of air · live circle Ø16 · the coin Ø12 in the 12px box. Grid: 1px; faint: the 1/3px lattice horizontals sit on.')}</div>
-<div>${title('The token: size by class')}<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:28px 16px">${token}</div>${cap('Every cut has the coin\'s area. The grid fits the drawing to its cut; a lone apex passes by 1/2.')}</div>
+<div>${title('Badge, air, live area, guides')}${badgeFig}${cap('The badge is the seal; the glyph is struck inside it like a coin. Ring 1.5 · 2px of air · live circle Ø16 · the coin Ø12 in the 12px box. Grid: 1px; faint: the 1/3px lattice horizontals sit on, so their edges print crisp.')}</div>
+<div>${title('The token: size by class')}<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:28px 16px">${token}</div>${cap('Every cut has the coin\'s area, so none reads bigger: pins struck from one blank. The grid fits the drawing to its cut; a lone apex passes by 1/2.')}</div>
 </div>
 ${title('Root shapes: like parts, one shape')}
-<div style="display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap;margin-bottom:64px">${roots}</div>
+<div style="display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap">${roots}</div>
+${cap('Cut from a few blocks used again and again, like a woodcut or a case of metal type.')}
+<div style="margin-bottom:64px"></div>
 ${title('Corners by joint: every meeting slightly round, inside tighter than outside')}
 ${cornerRow}
-${cap('A round is never more than 0.2 of the shorter edge at its corner. No ink traps.')}
+${cap('Ink settling on a screened banner: soft, never blotted. A round is never more than 0.2 of the shorter edge at its corner. No ink traps.')}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px">
-<div>${title('Line weight')}${weight}</div>
-<div>${title('Stacked gables')}${stack}${cap(`Every notch shelf is the same depth: one and a half lines, ${shelf}px.`)}</div>
+<div>${title('Line weight')}${weight}${cap('One line, the ring\'s weight. Line marks (the +, the star) read lighter than the solid places: that weight question is with you on the Weight board. The taper is open too: three rules and none on the Taper board.')}</div>
+<div>${title('Stacked gables')}${stack}${cap(`Every notch shelf is the same depth, one and a half lines (${shelf}px), so a fir reads as a fir at 100%. Inside rounds tighter than outside.`)}</div>
 </div>
 </div>`;
 }
