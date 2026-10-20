@@ -777,7 +777,7 @@
     .add-name textarea { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; min-height: 28px; padding-right: 32px; }
     /* the x sits on the NAME line (the routing line pushed the name down 34; the add tag's NAME
        line sits 2px lower than the Hanging Tag's name) */
-    #addForm .tag-x { top: 76px; }
+    #addForm .tag-x { top: 76px; right: 0; }
     .add-addr { min-height: 40px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
     .add-addr-text { min-width: 0; overflow-wrap: anywhere; }
     /* THE DISTANCE NOTE (CityDistance): under the address's rule, a form's helper note. */
@@ -1998,10 +1998,21 @@
     .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
-    .tag-x { all: unset; position: absolute; z-index: 4; top: 84px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    /* THE CLOSE x belongs to the TAG'S CORNER, not its content (owner 2026-10-20: "the x should be
+       related to the corner of the overall tag, not the content on the tag"): it never moves with
+       the city line, a one- or two-line name, or a scrolling note. Its glyph centres on the eyelet's
+       axis (18px down: the 36px band's middle line, the hole's height) and --s8 in from the right
+       edge, so its ink clears the 28px chamfer by ~9px. The 44px target overhangs the paper (top -4,
+       right 10), so the x sits on .tag-body, OUTSIDE the clipped stock: the die-cut never trims its
+       hit area. Its press tile is --s6 (inset 10) so the tile stays on the paper inside the chamfer.
+       On the starred band it inks --ink (6:1 on the orange; --ink-2 is 2.6:1). The add tag keeps
+       its own x on its NAME line (#addForm .tag-x). */
+    .tag-x { all: unset; position: absolute; z-index: 4; top: -4px; right: 10px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
+    .tag-body:has(.tag-band) > .tag-x { color: var(--ink); }
     .tag-x svg { width: 14px; height: 14px; display: block; }
-    .tag-x::before { content: ''; position: absolute; inset: 8px; z-index: -1; border-radius: 3px; }
+    .tag-x::before { content: ''; position: absolute; inset: 10px; z-index: -1; border-radius: 3px; }
+    #addForm .tag-x::before { inset: 8px; }
     .tag-x:active::before { background: var(--state-press); }
     .tag-x:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
 
@@ -2011,16 +2022,16 @@
        header's rule, owner: "the gradient should go dark anyways not light"). */
     .tag-in.scrolls + .tag-stub::after { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 10px; pointer-events: none;
       background: linear-gradient(to top, var(--scroll-shadow), transparent); }
-    .tag-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); padding-right: 32px; overflow-wrap: anywhere; margin: 0; }
+    .tag-name { font-stretch: 62%; font-weight: 700; font-size: 26px; line-height: 28px; color: var(--ink); overflow-wrap: anywhere; margin: 0; }   /* full width: the x lives in the corner now */
     .tag-addr { margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
     /* The place tag's spacing (phase 3 fixes; owner: "all the padding above and below the main
        content is gone", "does the spacing adhere to our design system multiples?"): every value on
        the scale. 60 above the first line (.tag-in's --s12 + the routing line's --s3 margin: the
-       band's 36 + --s6 clear); the city line --s6 tall, --s2 to the name; the note rides the
+       band's 36 + --s6 clear); the city line --s6 tall, --s1 to the name; the note rides the
        address line; the field line --s3 above / --s4 to the stub. The ::before only grows the
        city's hit area to 44 ((44 - 24) / 2 = 10). The busiest tags scroll inside on a 375x667
        phone, with the stub's soft shadow (owner: "that trade is fine"). */
-    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s2); }
+    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s1); }   /* --s1 city to name (owner: "the city dropdown should be visually chunked slightly tighter to the attraction name on the tag") */
     .tag-in .route-city { height: var(--s6); }
     .tag-in .route-city::before { top: -10px; bottom: -10px; }
     .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
@@ -5681,10 +5692,11 @@
         + ` aria-label="${escapeAttr(`City: ${cityName}. ${off ? 'Sign in to change it' : 'Change the city'}`)}"${off ? ' aria-disabled="true"' : ''}${dist ? ` aria-describedby="${distId}"` : ''}>`
         + `<span class="route-city-name">${escapeHtml(cityName)}</span>${ROUTE_CHEV}</button></div>`;
       return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
-        + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span><div class="tag-stock">`
+        + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span>`
+        // the x on the body, outside the clipped stock (its target overhangs the die-cut corner); first in tab order
+        + `<button type="button" class="tag-x" aria-label="Close">${x}</button><div class="tag-stock">`
         + (band ? `<span class="tag-band" style="${texVars(loc.id, 'band', 160, .06)}" aria-hidden="true"></span>` : '')
         + '<span class="tag-patch" aria-hidden="true"></span>'
-        + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
         + `<div class="tag-in">${route}<h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
         // The distance note rides the END of the address line (" · ≈ 50 km", unbreakable,
         // wrapping as one piece), the city it is measured from printed on the routing line above.

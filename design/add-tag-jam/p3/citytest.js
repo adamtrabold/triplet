@@ -49,10 +49,11 @@ const sh = require('./lib-p3.js');
   const t1 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), first = t.querySelector('.tag-in').firstElementChild, btn = t.querySelector('.tag-city'), cs = getComputedStyle(t.querySelector('.route-city-name'));
     return { first: first.className, text: btn.textContent, chev: !!btn.querySelector('svg'), label: btn.getAttribute('aria-label'), dist: !!t.querySelector('.tag-dist'), font: [cs.fontSize, cs.fontWeight, cs.letterSpacing, cs.textTransform, cs.color].join(' '),
       left: btn.querySelector('.route-city-name').getBoundingClientRect().left - t.querySelector('.tag-name').getBoundingClientRect().left, hit: btn.getBoundingClientRect().height - 2 * parseFloat(getComputedStyle(btn, '::before').top),
-      x: Math.abs((t.querySelector('.tag-x').getBoundingClientRect().top + 22) - (t.querySelector('.tag-name').getBoundingClientRect().top + 14)) };
+      x: (() => { const s = t.querySelector('.tag-stock').getBoundingClientRect(), i = t.querySelector('.tag-x svg').getBoundingClientRect(), b = t.querySelector('.tag-x').getBoundingClientRect();
+        return { cy: i.top + i.height / 2 - s.top, cr: s.right - (i.left + i.width / 2), w: b.width, h: b.height, onBody: t.querySelector('.tag-x').parentElement.classList.contains('tag-body') }; })() };
   });
   ok('B1 the routing line is the tag\'s first line: the city, caps 12 navy, with the add tag\'s chevron (p3 fixes §1)', t1.first === 'route-line' && t1.text === 'Reykjavík' && t1.chev && /^12px 700 1.44px uppercase rgb\(18, 41, 63\)$/.test(t1.font), t1);
-  ok('B2 left-aligned with the name; 44px target; the x stays on the name line', Math.abs(t1.left) <= 0.5 && t1.hit >= 44 && t1.x <= 1, t1);
+  ok('B2 left-aligned with the name; 44px target; the x is the tag\'s corner (tag-close-fix: glyph centred 18 down on the eyelet axis, --s8 in from the right; a 44px target on the body, outside the clipped stock)', Math.abs(t1.left) <= 0.5 && t1.hit >= 44 && Math.abs(t1.x.cy - 18) <= 0.5 && Math.abs(t1.x.cr - 32) <= 0.5 && t1.x.w === 44 && t1.x.h === 44 && t1.x.onBody, t1);
   ok('B3 inside its city\'s area: no distance note; the button says "City: Reykjavík. Change the city"', !t1.dist && t1.label === 'City: Reykjavík. Change the city', t1);
   await sh.openTag(page, 'rey15');   // re-set as Gunnuhver (outside the box)
   const t2 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), d = t.querySelector('.tag-dist'), a = t.querySelector('.tag-addr'), cs = d && getComputedStyle(d);
@@ -62,12 +63,12 @@ const sh = require('./lib-p3.js');
   await sh.openTag(page, 'rey17');   // re-set as Reykjanesviti: no address details, no short address
   const t3 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), a = t.querySelector('.tag-addr'); return { addr: a && a.textContent, sep: !!(a && a.querySelector('.tag-dist-sep')), dist: (t.querySelector('.tag-dist') || {}).textContent }; });
   ok('B5 no address details: the note stands alone on the address line (coordinates only)', t3.addr === '≈ 50 km from Reykjavík' && !t3.sep && t3.dist === '≈ 50 km from Reykjavík', t3);
-  // the spacing (p3 fixes §2): 60 above the first line, a 24px city line, 8 to the name, fields 12 / 16
+  // the spacing (p3 fixes §2; tag-close-fix: --s1 city to name): 60 above the first line, a 24px city line, 4 to the name, fields 12 / 16
   await sh.openTag(page, 'rey16');
   const sp = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), stock = t.querySelector('.tag-stock').getBoundingClientRect(), line = t.querySelector('.tag-in > .route-line').getBoundingClientRect(),
       name = t.querySelector('.tag-name').getBoundingClientRect(), f = t.querySelector('.tag-fields'), cs = getComputedStyle(f), inn = t.querySelector('.tag-in');
     return { above: line.top - stock.top, line: line.height, toName: name.top - line.bottom, fields: [cs.marginTop, cs.paddingBottom].join(' '), scrolls: inn.classList.contains('scrolls') }; });
-  ok('B7 60 above the first line, the city line 24 tall, 8 to the name, fields 12 / 16; a plain tag never scrolls', sp.above === 60 && sp.line === 24 && sp.toName === 8 && sp.fields === '12px 16px' && !sp.scrolls, sp);
+  ok('B7 60 above the first line, the city line 24 tall, 4 (--s1) to the name, fields 12 / 16; a plain tag never scrolls', sp.above === 60 && sp.line === 24 && sp.toName === 4 && sp.fields === '12px 16px' && !sp.scrolls, sp);
   ok('B6 list rows never carry the note', await ev(() => !document.querySelector('#locationsList .tag-dist') && !/km from/.test(document.getElementById('locationsList').textContent)));
 
   // C. the city menu
