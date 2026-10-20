@@ -140,3 +140,8 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 > killer
 (The owner's standing rule, as relayed by the operator with it: "yes when i say something is good that means ship it".)
 (Also owner-decided this round: the busiest tag may scroll a little on 375x667 -- "that trade is fine"; after a move the list title stays on the current go-to city -- "it should stay on your current city".)
+
+## 2026-10-20 (on the Phase 4 fixes stills)
+> one more note on tag — the city dropdown should be visually chunked slightly tighter to the attraction name on the tag. as for the other questions, i'd rather figure out some sort of cool overlap of the individual bars, or reduction to a multi-location icon with number or just number or something like we do with city stops. have the agents think about that a bit. thats fine about all palces zoom. why does all places have a button at all? i dont understand why that would ever need to show on the map.
+
+> yeah lets cut that button it doesnt make sense -- all places should just show all places on the map and i can do whatever i need to do to go around -- by its nature the user will expect to see a lot if they select that option
