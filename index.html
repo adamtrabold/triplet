@@ -734,6 +734,13 @@
     .sp-board.is-e .sp-tip::after { right: 2.5px; border-left: calc(var(--s3) - 2.5px) solid var(--paper-raised); }
     .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
     .sp-board:active { background: var(--state-press); }
+    /* a lone board with no pole: centred on its city (tip included), no grid */
+    .sp-solo { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: flex; }
+    .sp-solo .sp-board.is-e { margin: 0 var(--s3) 0 0; }
+    .sp-solo .sp-board.is-w { margin: 0 0 0 var(--s3); }
+    .sp-solo { padding: 0; }
+    .sp-solo .sp-board.is-e { border-left: 1.5px solid var(--navy); }
+    .sp-solo .sp-board.is-w { border-right: 1.5px solid var(--navy); }
     .sp-board:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
 
     /* p4-fixes: "All places" -- the menu's name for the same go-to. A quiet paper chip, not
@@ -8119,9 +8126,13 @@
       return gp.members.map((m, i) => (gp.pts[i].x < gp.foot.x - 0.5 || (Math.abs(gp.pts[i].x - gp.foot.x) <= 0.5 && i % 2 === 0)) ? 'w' : 'e');
     }
     const isBox = gp => gp.members.length === 1 && LONE_STYLE === 'box';
+    // 'board' (owner: "maybe they dont need a stick unless they have more than one"): a lone city is
+    // one arrow board with no pole, centred on the city, its tip to the side with room.
+    const isSolo = gp => gp.members.length === 1 && LONE_STYLE === 'board';
     // The sign's rect relative to its foot: { l, r, t, b } (px left/right of, above/below the foot).
     function signRect(gp) {
       if (isBox(gp)) { const z = boxSize(gp.members[0]); return { l: z.w / 2, r: z.w / 2, t: z.h / 2, b: z.h / 2 }; }
+      if (isSolo(gp)) { const w = boardW(gp.members[0]); return { l: w / 2, r: w / 2, t: BOARD_H() / 2, b: BOARD_H() / 2 + 2 }; }
       const sides = signSides(gp);
       let wl = 0, wr = 0;
       gp.members.forEach((m, i) => { const w = boardW(m); if (sides[i] === 'w') wl = Math.max(wl, w); else wr = Math.max(wr, w); });
@@ -8155,9 +8166,10 @@
     }
     function clampToSafe(groups, safe) {
       groups.forEach(gp => {
-        if (gp.members.length === 1 && !isBox(gp)) {   // a lone post points to the side with more room
+        if (gp.members.length === 1 && !isBox(gp)) {   // a lone sign points to the side with more room
           const r = signRect({ ...gp, loneSide: 'e' });
-          gp.loneSide = gp.foot.x + r.r > safe.right && gp.foot.x - r.r >= safe.left ? 'w' : 'e';
+          gp.loneSide = isSolo(gp) ? (gp.foot.x > (safe.left + safe.right) / 2 + r.r ? 'w' : 'e')
+            : (gp.foot.x + r.r > safe.right && gp.foot.x - r.r >= safe.left ? 'w' : 'e');
         }
         const r = signRect(gp);
         gp.foot = { x: Math.min(Math.max(gp.foot.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(gp.foot.y, safe.top + r.t), safe.bottom - r.b) };
@@ -8166,6 +8178,10 @@
     function cityBadgeIcon(gp) {
       const members = gp.members;
       const label = b => `${escapeHtml(b.label)}<span class="tally">${b.count}</span>`;
+      if (isSolo(gp)) {
+        const b = members[0], side = signSides(gp)[0];
+        return L.divIcon({ html: `<div class="sp-solo"><button type="button" class="sp-board is-${side}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}"><span class="sp-tip" aria-hidden="true"></span>${label(b)}</button></div>`, className: 'city-badge-anchor', iconSize: null });
+      }
       if (isBox(gp)) {
         const b = members[0];
         return L.divIcon({ html: `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${label(b)}</button>`, className: 'city-badge-anchor', iconSize: null });
