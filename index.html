@@ -8185,18 +8185,17 @@
       }
       return groups;
     }
-    // p4 (owner: "a signpost would only ever have the pole pointing down"): a post stands with its
-    // foot ON its city('s mean point) and its pole straight down from the boards -- never moved, never
-    // leaning. A lone sign may take whichever side fits. If the sign can't stand there (its boards
-    // would leave the clear area, or the city sits under a control), it is honest about it: no pole,
-    // no dot -- an EDGE SIGN, its boards kept inside the clear area and each pointing toward its city.
+    // p4 (owner: "a signpost would only ever have the pole pointing down"; "if the map isnt positioned
+    // for it to show it just shouldnt show"): a post stands with its foot ON its city('s mean point) and
+    // its pole straight down from the boards -- never moved, never leaning. A lone sign may take
+    // whichever side fits; a sign that doesn't fit the clear area there is not drawn.
     function fitsAt(gp, safe) {
       const q = rectOf(gp);
       return q.x0 >= safe.left && q.x1 <= safe.right && q.y0 >= safe.top && q.y1 <= safe.bottom;
     }
     function clampToSafe(groups, safe) {
       groups.forEach(gp => {
-        gp.tether = null;
+        gp.tether = null; gp.hidden = false;
         const city = mean(gp.pts);
         gp.foot = { x: city.x, y: city.y };
         gp.pointer = false;
@@ -8207,12 +8206,10 @@
         }
         const lone = gp.members.length === 1;
         if (lone) { gp.loneSide = 'e'; if (!fitsAt(gp, safe)) { gp.loneSide = 'w'; if (!fitsAt(gp, safe)) gp.loneSide = 'e'; } }
-        if (fitsAt(gp, safe) && dotVisible(city, safe)) return;
-        // the edge sign
-        gp.pointer = true;
-        const place = () => { const r = signRect(gp); gp.foot = { x: Math.min(Math.max(gp.foot.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(gp.foot.y, safe.top + r.t), safe.bottom - r.b) }; };
-        place();
-        if (lone) { gp.loneSide = city.x >= gp.foot.x ? 'e' : 'w'; gp.foot = { x: city.x, y: city.y }; place(); }
+        // owner: "if the map isnt positioned for it to show it just shouldnt show" -- a sign that can't
+        // stand on its spot inside the clear area (it would cross the map edge or sit under a control:
+        // zoom, account, +, credit) is simply not drawn. No nudging, no edge pointers.
+        gp.hidden = !(fitsAt(gp, safe) && dotVisible(city, safe));
       });
     }
     // One board = one shape: the path of a box with a point, from the board's exact width.
@@ -8290,6 +8287,7 @@
       clampToSafe(groups, safe);
       for (let k = 0; k < 2; k++) { const n = groups.length; groups = mergeSigns(groups); clampToSafe(groups, safe); if (groups.length === n) break; }
       const seen = new Set();
+      groups = groups.filter(gp => !gp.hidden);
       groups.forEach(gp => {
         const key = gp.members.map(m => m.id).join('+');
         seen.add(key);
