@@ -2005,6 +2005,75 @@
     .tag-x:active::before { background: var(--state-press); }
     .tag-x:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
 
+    /* ===== EXPLORATION ONLY (tag-close-concepts, not to land): genuinely different ways to close the
+       tag, one html class each: close-pin | close-fold | close-reel | close-untie | close-flag.
+       .tag-x is the keyboard / VoiceOver close in every one (shown on keyboard focus); a concept
+       either moves it onto its own mark (fold, untie, flag) or hides it (pin, reel). ===== */
+    .tag-close-mark { display: none; }
+    html.close-pin .tag .tag-x:not(:focus-visible), html.close-reel .tag .tag-x:not(:focus-visible) { width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    html[class*="close-"] .tag-is-open .highlighted-marker { animation: none; }
+
+    /* A. THE PIN IS THE CLOSE (reference: the owner's favourite of last round, one colour). The open
+       tag's pin (or a district's dot) becomes a navy disc -- the app's selected colour -- with a
+       cream x and a cream ring. */
+    html.close-pin .tag-is-open .highlighted-marker::after,
+    html.close-pin .tag-is-open .tag-dot::after {
+      content: ''; position: absolute; z-index: 10; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%;
+      background: var(--navy) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 6.5L17.5 17.5M17.5 6.5L6.5 17.5' stroke='%23FAF5EA' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 16px 16px no-repeat; box-shadow: 0 0 0 2px var(--paper-raised), 0 0 0 3px rgba(18, 41, 63, .3); pointer-events: none; }
+    html.close-pin .tag-is-open .tag-dot svg { visibility: hidden; }
+    html.close-pin .tag-is-open .highlighted-marker > :not(.marker-star) { visibility: hidden; }
+    html.close-pin .tag-is-open .highlighted-marker > .marker-star { z-index: 11; }
+    html.close-pin .tag-is-open .tag-dot { position: relative; }
+
+    /* B. DOG-EAR: the tag's top-right corner is FOLDED, not cut -- the chamfer's triangle turned over
+       onto the face, showing the paper's back. Tap the fold to close. On a starred tag the fold is
+       the cream back of the paper lying over the band (the band is printed on the front only). */
+    html.close-fold .tag-x { top: -8px; right: -8px; width: 44px; height: 44px; }
+    html.close-fold .tag-x svg { visibility: hidden; }
+    html.close-fold .tag-x::before { inset: 8px; border-radius: 0; clip-path: polygon(0 0, 100% 100%, 0 100%); }
+    html.close-fold .tag-close-mark { display: block; position: absolute; z-index: 3; top: 0; right: 0; width: 28px; height: 28px; pointer-events: none;
+      filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(-1.5px 1.5px 1.5px rgba(var(--ink-rgb), .16)); }
+    html.close-fold .tag-close-mark::before { content: ''; position: absolute; inset: 0; clip-path: polygon(0 0, 100% 100%, 0 100%);
+      background: linear-gradient(to bottom left, #FDFAF3 0%, #F3ECDD 55%, #E8DFCB 100%); }
+    html.close-fold .tag-close-mark::after { content: ''; position: absolute; left: 4px; top: 14px; width: 10px; height: 10px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 2L8 8M8 2L2 8' stroke='%235A564C' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 10px 10px no-repeat; }
+
+    /* C. BADGE REEL: no mark. The pin is a retractable reel: pull the tag down, let go, and it zips
+       back up into the pin (the pop-out, reversed). --tug is the pull; .reel-go plays the retract. */
+    .tag-popup { --tug: 0px; }
+    html.close-reel .tag-popup.reel-tug .tag-body, html.close-reel .tag-popup.reel-tug .tag-slip { transform: translateY(var(--tug)); }
+    html.close-reel .tag-popup.reel-tug .tag-string { height: calc(var(--tag-drop) + 18px + var(--tug)); }
+    html.close-reel .tag-popup.reel-spring .tag-body, html.close-reel .tag-popup.reel-spring .tag-slip { transition: transform 220ms cubic-bezier(.3, 1.4, .5, 1); }
+    html.close-reel .tag-popup.reel-go .tag-body, html.close-reel .tag-popup.reel-go .tag-slip { animation: tagReel 240ms cubic-bezier(.5, 0, .9, .6) both; transform-origin: 50% 0; }
+    html.close-reel .tag-popup.reel-go .tag-string { animation: tagReelString 240ms cubic-bezier(.5, 0, .9, .6) both; }
+    @keyframes tagReel { from { transform: translateY(var(--tug)) scale(1); opacity: 1; } 80% { opacity: 1; } to { transform: translateY(calc(-1 * var(--tag-drop))) scale(.14); opacity: 0; } }
+    @keyframes tagReelString { from { transform: scaleY(1); } to { transform: scaleY(0); } }
+
+    /* D. UNTIE: the string is TIED through the eyelet in a small bow on the reinforcement patch.
+       Tap the bow: it pulls loose and the tag drops off its string. */
+    html.close-untie .tag-x { top: 0; left: 50%; right: auto; margin-left: -22px; width: 44px; height: 36px; }
+    html.close-untie .tag-x svg { visibility: hidden; }
+    html.close-untie .tag-x::before { inset: 4px 6px; border-radius: 4px; }
+    html.close-untie .tag-close-mark { display: block; position: absolute; z-index: 4; left: 50%; top: 18px; width: 32px; height: 22px; margin: -9px 0 0 -16px; pointer-events: none; color: var(--ink-2);
+      --bow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 22'%3E%3Cg fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.6 8.6C11.5 4.4 6 3.6 5.2 6.8C4.5 9.8 9.6 10.6 14.4 9.6'/%3E%3Cpath d='M17.4 8.6C20.5 4.4 26 3.6 26.8 6.8C27.5 9.8 22.4 10.6 17.6 9.6'/%3E%3Cpath d='M15 10.4C13.8 13.2 12 16.4 9.8 18.6'/%3E%3Cpath d='M17 10.4C18.2 13.2 20 16.4 22.2 18.6'/%3E%3C/g%3E%3Cellipse cx='16' cy='9.2' rx='2.3' ry='2.1' fill='black'/%3E%3C/svg%3E"); }
+    html.close-untie .tag-body:has(.tag-band) > .tag-close-mark { color: var(--ink); }
+    html.close-untie .tag-close-mark::before { content: ''; position: absolute; inset: 0; background: currentColor;
+      -webkit-mask: var(--bow) center / 32px 22px no-repeat; mask: var(--bow) center / 32px 22px no-repeat; }
+    /* the untie, for the filmstrip: loosened (loops pulled out to two tails), then the drop */
+    html.close-untie .tag-popup.untie-1 .tag-close-mark { --bow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 22'%3E%3Cg fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.6 9C11 9.6 7 11.8 4.6 15.4'/%3E%3Cpath d='M17.4 9C21 9.6 25 11.8 27.4 15.4'/%3E%3C/g%3E%3Cellipse cx='16' cy='9.2' rx='1.6' ry='1.6' fill='black'/%3E%3C/svg%3E"); }
+    html.close-untie .tag-popup.untie-2 .tag-body, html.close-untie .tag-popup.untie-2 .tag-slip { transform: translateY(26px) rotate(3deg); opacity: .55; transform-origin: 50% 0; }
+    html.close-untie .tag-popup.untie-2 .tag-string { transform: scaleY(.45); }
+    html.close-untie .tag-popup.untie-2 .tag-close-mark { opacity: 0; }
+
+    /* E. INDEX FLAG: a paper flag tucked behind the tag, sticking up off its top edge at the right
+       (a file-folder tab / sticky index flag): an extra piece of stationery that only closes. */
+    html.close-flag .tag-x { top: -22px; right: 22px; width: 44px; height: 44px; }
+    html.close-flag .tag-x svg { width: 10px; height: 10px; margin-top: -14px; color: var(--ink-2); }
+    html.close-flag .tag-x::before { display: none; }
+    html.close-flag .tag-close-mark { display: block; position: absolute; z-index: 0; top: -16px; right: 32px; width: 24px; height: 24px; pointer-events: none;
+      filter: drop-shadow(0 0 .5px var(--tag-edge)) drop-shadow(0 1px 1px var(--tag-shadow-contact)); }
+    html.close-flag .tag-close-mark::before { content: ''; position: absolute; inset: 0; background: var(--paper-raised); border-radius: 4px 4px 0 0; }
+
     .tag-in { position: relative; z-index: 2; padding: var(--s12) var(--s4) 0; }   /* 48: --s3 clear below the 36px band (owner: "not enough padding above the location name") */
     .tag-in.scrolls { overflow-y: auto; overscroll-behavior: contain; }
     /* ...and the stub casts the same soft ink shadow up onto the note scrolling under it (the list
@@ -5656,7 +5725,7 @@
       const seg = TAG_STAR_STYLE !== 'band', band = TAG_STAR_STYLE !== 'segment' && loc.starred;
       const id = escapeAttr(loc.id);
       const dirHint = escapeAttr('tag-dir-hint-' + loc.id);   // Directions' description (Impeccable A3): it leaves the app for Apple Maps; nothing visible
-      const cls = ['tag', loc.starred ? 'is-starred' : '', loc.visited ? 'is-visited' : '', off ? 'is-off' : '', seg ? 'star-seg' : '', TAG_REVERSED_STAR_KEYLINE ? 'star-keyline' : ''].filter(Boolean).join(' ');
+      const cls = ['tag', sh ? 'is-shape' : '', loc.starred ? 'is-starred' : '', loc.visited ? 'is-visited' : '', off ? 'is-off' : '', seg ? 'star-seg' : '', TAG_REVERSED_STAR_KEYLINE ? 'star-keyline' : ''].filter(Boolean).join(' ');
       const starSvg = inkNow || rubNow
         ? `<svg class="sgp tag-star tag-star-anim ${inkNow ? 'sgp-in' : 'sgp-out'}" viewBox="-1 -1 26 26" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>`
         : `<svg class="tag-star${loc.starred ? '' : ' is-open'}" viewBox="-1 -1 26 26" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`;
@@ -5681,10 +5750,11 @@
         + ` aria-label="${escapeAttr(`City: ${cityName}. ${off ? 'Sign in to change it' : 'Change the city'}`)}"${off ? ' aria-disabled="true"' : ''}${dist ? ` aria-describedby="${distId}"` : ''}>`
         + `<span class="route-city-name">${escapeHtml(cityName)}</span>${ROUTE_CHEV}</button></div>`;
       return `<div class="${cls}" data-id="${id}" tabindex="-1" role="group" aria-label="${escapeAttr(loc.name)}">`
-        + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span><div class="tag-stock">`
+        + `<div class="tag-body"><span class="tag-shadow" aria-hidden="true"><span class="tag-shape"></span></span>`
+        // EXPLORATION (tag-close-concepts): the close on the body, outside the clipped stock, so a concept can put its target over the die-cut
+        + `<button type="button" class="tag-x" aria-label="Close">${x}</button><span class="tag-close-mark" aria-hidden="true"></span><div class="tag-stock">`
         + (band ? `<span class="tag-band" style="${texVars(loc.id, 'band', 160, .06)}" aria-hidden="true"></span>` : '')
         + '<span class="tag-patch" aria-hidden="true"></span>'
-        + `<button type="button" class="tag-x" aria-label="Close">${x}</button>`
         + `<div class="tag-in">${route}<h2 class="tag-name popup-title">${escapeHtml(loc.name)}</h2>`
         // The distance note rides the END of the address line (" · ≈ 50 km", unbreakable,
         // wrapping as one piece), the city it is measured from printed on the routing line above.
@@ -10632,6 +10702,7 @@
       clearTimeout(tagRestoreTimer); clearTimeout(tagLiveTimer); clearTimeout(tagPopTimer);
       hideTagSlip();
       if (tagDot) { map.removeLayer(tagDot); tagDot = null; }
+      map.getContainer().classList.add('tag-is-open');   // EXPLORATION: the open tag's pin can show it is the close
       const c = popup.getElement(), list = document.getElementById('locationsList');
       if (!tagSession) tagSession = { scroll: list.scrollTop, focus: document.activeElement };
       // Selection follows the tag (UX): a pin opened from the map selects its pin and row exactly
@@ -10688,6 +10759,7 @@
       clearTimeout(tagLiveTimer); clearTimeout(tagPopTimer);
       closeTagCityMenu(false);
       hideTagSlip();
+      map.getContainer().classList.remove('tag-is-open');
       const c = popup.getElement(); if (c) c.classList.remove('tag-wait', 'tag-pop');
       if (tagDot) { map.removeLayer(tagDot); tagDot = null; }
       clearTimeout(tagRestoreTimer);
@@ -10713,6 +10785,35 @@
     });
     map.on('popupopen', e => { if (isTagPopup(e.popup)) tagOpened(e.popup); });
     map.on('popupclose', e => { if (isTagPopup(e.popup)) tagClosed(e.popup); });
+    // EXPLORATION (tag-close-concepts, html.close-reel): the badge reel -- pull the tag down, let go
+    // past REEL_GO and it zips back up into the pin; short of it, it springs back. A drag that starts
+    // on a control, or on a note scrolled away from its top, is left alone.
+    const REEL_GO = 44;
+    (function reel() {
+      const pane = map.getPane('popupPane');
+      let y0 = null, pop = null, tug = 0;
+      pane.addEventListener('touchstart', e => {
+        if (!document.documentElement.classList.contains('close-reel') || e.touches.length !== 1) return;
+        const t = e.target; if (t.closest('button, a, label, .tag-x')) return;
+        const inn = t.closest('.tag-in'); if (inn && inn.scrollTop > 0) return;
+        pop = t.closest('.tag-popup'); if (!pop) return;
+        y0 = e.touches[0].clientY; tug = 0; pop.classList.remove('reel-spring');
+      }, { passive: true });
+      pane.addEventListener('touchmove', e => {
+        if (y0 == null || !pop) return;
+        const dy = e.touches[0].clientY - y0;
+        tug = dy <= 0 ? 0 : Math.min(96, dy * 0.6);
+        pop.classList.add('reel-tug'); pop.style.setProperty('--tug', tug + 'px');
+        if (dy > 4) e.preventDefault();
+      }, { passive: false });
+      const end = () => {
+        if (y0 == null || !pop) return;
+        const p = pop; y0 = null; pop = null;
+        if (tug >= REEL_GO) { p.classList.add('reel-go'); setTimeout(() => { map.closePopup(); p.classList.remove('reel-go', 'reel-tug'); p.style.removeProperty('--tug'); }, 240); }
+        else { p.classList.add('reel-spring'); p.style.setProperty('--tug', '0px'); setTimeout(() => p.classList.remove('reel-tug', 'reel-spring'), 240); }
+      };
+      pane.addEventListener('touchend', end); pane.addEventListener('touchcancel', end);
+    })();
     // Signing in or out re-renders every tag (live vs greyed controls); the open one stays open.
     function refreshTags() {
       if (!map) return;
