@@ -162,3 +162,8 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (canvas comment, 10-20, on the taper board) when i think no taper i think the interior would follow the exterior line -- eg monoweight stroke   (monoweight row: every hole an even parallel offset; g7n)
 > none of these seem to actually have tapers? they just seem to weirdly make the lines sstraight... a taper would be one thickness one place, another thickness at the other side of the line... with the middle following the same curvature of the context   (taper rows rebuilt as real tapers: flat brush, settled ink; g7n)
 > how are the heights of the stacked gables defined?   (stacked-gable rule now sets every tier by rule; g7n)
+> (10-20, on v128) 1. monoweigh is looking the best.
+> 2. i didnt say there was a problem with the tree, i asked about how each level in it was defined. i like the proportions now, but i do think its less interesting with the more standard triangle approach. i liked the intentionality of the other one overall shape wise
+> 3. the + and star do feel slightly lighter than the others. the coupe is matching in wegith but i liked the bowl shape from earlier batches (i like the wider bowl also balancing the historical reality that the coupe glass was designed based off of marie antoinettes breasts) and i think it needs slightly more liquid still.
+> one other thing, i think the bottom right edge of the cup is completely broken
+>   (line = monoweight. Lesson: a question is a question; I turned "how are the heights defined?" into a change request.)
