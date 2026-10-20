@@ -1257,3 +1257,51 @@ finished to you, as a set? If not, which one looks off?"
 
 NEXT: the coordinator sends the board (the canvas page "Grid concepts")
 and adds the `../history.md` line.
+
+---
+
+## Turn 43: design director, his v99 verdict; rubric C2 and C5 amended
+
+The owner on v99 (verbatim in `../owner.md`):
+- "this is getting a *lot* closer";
+- every meeting point "at minimum a little bit rounded (and more
+  rounded in other places", with his examples: a signet ring,
+  woodcut/metal type, ink settling on a fabric banner, neon;
+- "the scales aren't equal quite yet -- visually the cut reads as
+  smaller than the others, the coupe as much taller";
+- "i dont expect or want sweeping changes";
+- then: "i do think tight interior corners should be less rounded than
+  exterior corners -- looking at the tree for example, interior is same
+  as exterior which i think is wrong."
+
+**What my 9 on v99 missed:**
+- I passed square joins and crisp cut ends ("by design").
+- I didn't test scale separately from blur weight: the coupe reads tall
+  and the cup small, yet the blur row was balanced.
+
+**The rubric now** (`../icon-concepts/notes/director.md`):
+- **C2 adds optical scale.**
+  - A row at true size and at 8x, judged by perceived size.
+  - A scale outlier fails, even when the blur is balanced.
+  - The scale row is checked first every round.
+- **C5:**
+  - every meeting point has at least a slight round (inside joins, cut
+    ends, tips, notches, tight counters);
+  - square joins and crisp ends no longer pass;
+  - tight interior corners are rounded less than the exterior corners
+    around them, and never zero; equal fails (the tree is the test);
+  - still no traps and no blobs.
+- **Scope:** "no sweeping changes". Rounds and scale only; no redrawn
+  silhouettes.
+
+**When the round lands, in order:**
+1. **The scale row:** cup, coupe, museum, tree, + and Star at true size
+   and at 8x. Does any read bigger or smaller?
+2. **Every meeting point at 8x:** the + crossing and ends, the coupe's
+   stem joins, the cup and handle, the museum's columns, the tree's
+   notches (interior less than exterior), the Star's tips and inside
+   corners. Any square or zero fails; any blob fails.
+3. **The blur row, then the true-size rows.**
+
+NEXT: icon designer, the round. Then the director checks the scale row
+first.

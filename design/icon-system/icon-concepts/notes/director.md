@@ -711,7 +711,17 @@ My recent 9s went on process. This rubric replaces my scoring order.
 - **Fails:** any icon that reads high or low in a row, or a round or
   pointed icon that reads small beside a flat one.
 
-**C2. Equal optical weight and density across the set.**
+**C2. Equal optical weight, density AND scale across the set.**
+*Amended 2026-10-20 by the owner:* "i also think the scales aren't equal
+quite yet -- visually the cut reads as smaller than the others, the
+coupe as much taller, and the rest are sort of in the middle".
+- **Scale is its own test.** In one row at true size and at 8x, every
+  glyph should read the same size (perceived size, not box size).
+- Tall-narrow glyphs (the coupe) read bigger; low-wide ones (the cup)
+  read smaller. Compensate as Apple does, "by scale" [2], plus
+  keylines [5].
+- **A scale outlier fails C2** even if the blur weight is balanced.
+- **Checked first in every round:** the scale row.
 - Keylines (circle, square, portrait and landscape rectangle) exist so
   that every icon takes up a similar visual volume whatever its shape.
   They're "a starting point and guide, not a hard rule"; optics win
@@ -743,7 +753,32 @@ My recent 9s went on process. This rubric replaces my scoring order.
 - **Fails:** any gap under the size's minimum, or a counter shape that
   misreads.
 
-**C5. Corner and join treatment suited to each angle.**
+**C5. Corner and join treatment suited to each angle.** *Amended
+2026-10-20 by the owner:* "that whole thing comes together more when
+all points of meeting are at minimum a little bit rounded (and more
+rounded in other places".
+- His references (examples, not a list): "a signet ring or a
+  woodcut/metal cast type piece... an old school banner that has
+  screened ink on fabric not necessarily bleeding out, but settling a
+  bit less sharp. or even neon signs".
+- **Every meeting point has at least a slight round:**
+  - inside joins, cut ends, tips, notches and tight counters;
+  - square joins and crisp cut ends **no longer pass**;
+  - some places are rounder than others (still "not 100% consistent").
+- **Still no ink traps or notches** (C6), and **no blobs** (the g7
+  "webbed" join). The join round must stay small enough that a join
+  doesn't read darker.
+- His words: "these *are* very close, so i dont expect or want sweeping
+  changes". A round that changes a silhouette, or redraws an icon,
+  fails.
+- **Interior is less than exterior** (owner, 2026-10-20): "i do think
+  tight interior corners should be less rounded than exterior corners
+  -- looking at the tree for example, interior is same as exterior
+  which i think is wrong."
+  - A tight interior corner (notch, counter corner, inside join) gets a
+    smaller round than the exterior corners around it, and never zero.
+  - Equal interior and exterior rounds fail C5. The tree's notches are
+    the test case.
 - His "different architecturally sound principles to how different
   angles intersect". In type, acute joins are opened and obtuse ones
   barely touched, and the treatment follows the angle and the role of
@@ -946,3 +981,15 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
   - the cup's ear could go one 1/3px narrower if he asks.
 - **If he still finds craft gaps:** record which criterion and which
   zoom level I misjudged.
+
+
+## His v99 verdict: my 9 missed two things (2026-10-20)
+
+1. **Square joins and crisp ends:** he wants every meeting point at
+   least slightly rounded, with interiors less than exteriors, never
+   zero.
+2. **Scale:** the coupe reads tall and the cup small. The blur weight
+   doesn't show scale.
+
+C2 and C5 are amended above. **New first check:** the scale row.
+**Scope** from him: "no sweeping changes".
