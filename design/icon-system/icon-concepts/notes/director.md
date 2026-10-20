@@ -934,3 +934,15 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
   - hold any law change against his "slight rounding of interior and
     exterior corners" and "lightly rounded like the rest". Never zero,
     never needle-sharp.
+
+
+## g7g (canvas v99): 9, sent (2026-10-20)
+
+- The law fix (tips 0.3, notches 0.25) restores "slight rounding" set-wide.
+- The tree and the Star are clean at 8x.
+- **Notes for later (not gates):**
+  - the Star fills more of its square than the references;
+  - the tree is faintly serrated in the 12px chip;
+  - the cup's ear could go one 1/3px narrower if he asks.
+- **If he still finds craft gaps:** record which criterion and which
+  zoom level I misjudged.

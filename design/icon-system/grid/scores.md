@@ -851,3 +851,18 @@ means. and i cant tell if theyre at craft yet").
   objection.*
 - The tree's tiers end in long sub-line spurs.
 - **Fixes:** jam turn 39.
+
+
+## Round g7g (canvas v99), 2026-10-20: 9, READY
+
+- **The Star:** the tips are slightly rounded and the inside corners
+  softened ("lightly rounded like the rest"). It fills more of its
+  square than the references, which is a note, not a fault.
+- **The tree:** three tiers, with proper softly-rounded points and
+  notches, clean at 8x. It's faintly serrated in the 12px chip but
+  still reads.
+- **The + :** crisp cut ends, by design.
+- **The cup, coupe and museum** hold.
+- **True size:** balanced (blur spread about 9).
+- **The gates pass, and C1–C8 pass.**
+- **Send** the board. The question is as on the board.

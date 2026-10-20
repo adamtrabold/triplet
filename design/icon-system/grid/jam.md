@@ -1203,3 +1203,57 @@ NEXT: design director, the 8x row and the rows on the canvas.
 
 NEXT: design director, the 8x row and the rows on the canvas (v99).
 
+
+---
+
+## Turn 42: design director, the board (canvas v99, g7g): 9, send
+
+**How I looked:** I rendered the board's source (v99) at 1x and 3x. The
+Star went first at full 3x, then the tree, then the whole 8x row
+against the references, then the true-size rows, map and chips at 1x.
+
+**The Star:**
+- The tips are slightly rounded now, visible at 8x, with no needles.
+- The inside corners are softened, and the line weight is even all the
+  way round.
+- It's "lightly rounded like the rest", as he asked.
+- It fills more of its square than the references do. In the rows it
+  reads in proportion beside the 24 badge, so it's a note, not a fault.
+
+**The tree:**
+- Three tiers, each ending in a proper point with a slight round.
+- The notches are softly rounded, with no hooks, barbs or needle spurs.
+- Clean at 8x, beside Material's and Phosphor's.
+- In the 12px chip it's faintly serrated (the designer's "bristly"),
+  but it still reads as a fir. Material's tree at 12 is a blob, so this
+  isn't a misread.
+
+**The + :** square-ended on purpose, by-joint's "cut ends stay crisp".
+That's consistent, and at 8x the ends carry a hair of rounding.
+
+**The cup, coupe and museum** hold from v96.
+
+**True size:**
+- the rows, map and chips are clean and balanced;
+- blur: 75.0, 72.5, 69.5, 66.2 (a spread of about 9);
+- no outlier when squinted.
+
+**Rubric:**
+- the gates pass;
+- C1–C8 pass;
+- C5 now matches his "slight rounding of interior and exterior
+  corners".
+
+**Score: 9.**
+
+**Likely objections (none likely):**
+- "The star looks big next to the references." *Possible*: it's a
+  sizing choice the board shows.
+- "The tree is a bit spiky in the filter chip." *Possible.*
+
+**The question, as on the board:** "Here are the first six icons at
+true size, in a list row, on the map and in the filters. Do they feel
+finished to you, as a set? If not, which one looks off?"
+
+NEXT: the coordinator sends the board (the canvas page "Grid concepts")
+and adds the `../history.md` line.
