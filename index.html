@@ -8227,16 +8227,16 @@
       if (side === 'e') {
         const tx = w - tip;
         return {
-          fill: `M0 0H${w - t}L${tx + 1} ${h / 2}L${w - t} ${h}H0Z`,
+          fill: `M0 0H${w - t}L${tx} ${h / 2}L${w - t} ${h}H0Z`,
           stroke: closed ? `M${a} ${a}H${w - t}L${tx} ${h / 2}L${w - t} ${h - a}H${a}Z` : `M0 ${a}H${w - t}L${tx} ${h / 2}L${w - t} ${h - a}H0`,
-          shadow: closed ? `M${o} ${o}H${w - t + o}L${tx + 1 + o} ${h / 2 + o}L${w - t + o} ${h + o}H${o}Z` : `M0 ${o}H${w - t + o}L${tx + 1 + o} ${h / 2 + o}L${w - t + o} ${h + o}H0Z`,
+          shadow: closed ? `M${o} ${o}H${w - t + o}L${tx + o} ${h / 2 + o}L${w - t + o} ${h + o}H${o}Z` : `M0 ${o}H${w - t + o}L${tx + o} ${h / 2 + o}L${w - t + o} ${h + o}H0Z`,
         };
       }
       const tx = tip;
       return {
-        fill: `M${w} 0H${t}L${tx - 1} ${h / 2}L${t} ${h}H${w}Z`,
+        fill: `M${w} 0H${t}L${tx} ${h / 2}L${t} ${h}H${w}Z`,
         stroke: closed ? `M${w - a} ${a}H${t}L${tx} ${h / 2}L${t} ${h - a}H${w - a}Z` : `M${w} ${a}H${t}L${tx} ${h / 2}L${t} ${h - a}H${w}`,
-        shadow: closed ? `M${w + o} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w + o}Z` : `M${w} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w}Z`,
+        shadow: closed ? `M${w + o} ${o}H${t + o}L${tx + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w + o}Z` : `M${w} ${o}H${t + o}L${tx + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w}Z`,
       };
     }
     function boardHtml(b, side, style, closed) {
