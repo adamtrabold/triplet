@@ -816,7 +816,26 @@ imo".
   between pixels.
 - **Fails:** a blurred, uneven edge on a stem or plinth at 1x.
 
-**C8. Consistency of metaphor and perspective.**
+**C8. Consistency of metaphor, perspective AND root shapes.** *Amended
+2026-10-20 by the owner:* "how are we determining the root shape of the
+drawing? ... the saucer, the base of the coupe, the museum are all at
+their core different shapes... a trapezoidal base, a circular base, and
+square base respectively. it is adding some visual differentiation we
+probably want to align across all icons."
+- **Parts that do the same job share one root primitive across the
+  set.** Bases, rims and lids, roofs and caps, stems and posts, handles
+  and loops are each drawn from the same root shape wherever they
+  appear.
+- The vocabulary is a grid change, so it's shown as part of the grid,
+  not argued per icon.
+- **Test:**
+  - one row of like parts pulled out of the set (every base side by
+    side, every rim, every post);
+  - they read as one family of shapes at 8x.
+- A like part on a different primitive with no stated reason fails C8.
+  A deliberate exception must say why on the board.
+- **Scope** is still "no sweeping changes": swap a part's root, don't
+  redraw icons.
 - One viewpoint (flat front or side elevation), one level of
   literalness, one level of detail across the set. Fluent names icons
   for the object they depict and avoids modifiers that add complexity
@@ -1009,3 +1028,18 @@ C2 and C5 are amended above. **New first check:** the scale row.
 - **g7i (canvas v105): 9, sent.** The coupe takes 1/3px more, and the
   scale row is even. Every C5 meeting point was already rounded, interior
   less than exterior, in v103.
+
+
+## His v105 note: root shapes (2026-10-20)
+
+- My 9 missed that like parts (bases) use different primitives
+  (trapezoid saucer, round coupe foot, square plinth).
+- **C8 is amended:** like parts share a root primitive.
+- **New check, first after scale:** a row of like parts pulled out of the
+  set.
+- **Pattern across his last four notes:** each names a set-level
+  consistency I scored per icon:
+  - weight → scale → corners at every join → root shapes.
+- **Before the next 9, ask of the whole set:**
+  - What varies between icons that does the same job?
+  - Is that variation deliberate and stated?

@@ -1440,3 +1440,41 @@ and in the true-size rows.
 
 NEXT: the coordinator sends the board (canvas page "Grid concepts", v105)
 and adds the `../history.md` line.
+
+---
+
+## Turn 48: design director, his v105 note: root shapes; rubric C8 amended
+
+The owner (verbatim in `../owner.md`): "how are we determining the root
+shape of the drawing? ... the saucer, the base of the coupe, the museum
+are all at their core different shapes... a trapezoidal base, a
+circular base, and square base respectively. it is adding some visual
+differentiation we probably want to align across all icons."
+
+**What my 9 on v105 missed:**
+- I checked scale, weight and corners. I didn't check that like parts
+  were built from like primitives.
+- C8 asked for one metaphor and perspective, not one shape vocabulary.
+
+**C8 now** (`../icon-concepts/notes/director.md`):
+- parts that do the same job (bases, rims, roofs, posts, handles) share
+  one root primitive across the set;
+- a like part on a different primitive with no stated reason fails;
+- scope stays "no sweeping changes".
+
+**When the designer's root-shape proposal lands, I check:**
+1. **The vocabulary is drawn as part of the grid:** each root primitive
+   (for example the base, the rim, the post) shown once, with the rule
+   for when it's used. It isn't a list in text.
+2. **A row of like parts pulled from the set:** all bases side by side
+   (saucer, coupe foot, museum plinth, tree trunk if it counts), then
+   the rims or roofs, then the posts. They read as one family at 8x.
+3. **The six re-drawn on it at true size and 8x:** the scale row first
+   (unchanged, or still even), then every meeting point (C5 still met),
+   then the blur.
+4. **Each deliberate exception named on the board, with its reason.**
+5. **The future-icon test:** does the vocabulary tell a designer which
+   base to give the next icon (the bed, the bench, the bag)?
+
+NEXT: icon designer, the root-shape vocabulary as a grid change on the
+board. Then the director scores it: the like-parts row first.
