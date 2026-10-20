@@ -397,3 +397,17 @@
   a tall map.
 - **Next:** the owner sees the stills; the owner answers the Plans-hide
   question.
+- **2026-10-20, round 2:**
+  - The owner dropped the joined box and asked for concepts. Built four
+    behind a prototype switch (`triplet.badgeStyle`): Signpost
+    (fingerpost, arrow boards pointing the way each city lies; one tap),
+    Shingled labels (overlapping tiles; one tap), Count badge (2 cities, a
+    tap opens Go to; two taps), Number dot (navy dot with the city count,
+    the tap zooms in; two taps).
+  - My pick is Signpost: individual bars, direction as meaning, one tap.
+    Its quirk is that LA joins the post at the world view, fixable with
+    per-side widths.
+  - A random draw ("route signage at forks") seeded the signpost.
+  - The map control is removed (owner). All places zoom is approved.
+  - The tag's city to name is `--s1`, × at 80.
+  - Prototype 27a3e950.
