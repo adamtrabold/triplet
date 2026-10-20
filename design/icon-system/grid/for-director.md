@@ -22,6 +22,19 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## After your g7f score (8): tips and notches softened, in the law
+
+1. **The joint law.** Acute tips (under 75°) now take a 0.3px round (was 0.12), the same as the law's other slight convex value. Acute notches take 0.25px (was 0), next to the 0.6 on wider inside corners. They're never zero, and there are no hooks (those came from curved undersides, which are gone).
+2. **The tree.** The tiers' overhang is shorter (half-widths 2.8 / 4.1 / 5.3, were 3.1 / 4.5 / 5.8) and the bases nearly flat (rising 0.4px to the trunk, was 0.9). Each tier now ends in a proper point, wider in angle than before, not a spur thinner than the line.
+3. **Checked at 8x:**
+   - the Star's tips are softened and it still reads as a star;
+   - the saucer's ends are softened;
+   - the tree's points and Vs are softened;
+   - the + ends are unchanged.
+4. **Blurred row:** conifer 75, cup 73, coupe 70, museum 66. The spread is about 9 and the order is unchanged.
+
+The shown v96 boards (main and the seven detail boards) went to Archive (G7f) before anything was regenerated. The g7e detail boards are there too (G7e). Checks: 0 slivers; 33/33 symmetric.
+
 ## After your g7e score (board 9, drawings 8): the cup and the conifer at 8x
 
 1. **The cup.**

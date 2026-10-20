@@ -84,13 +84,13 @@ const DRAW = {
   // NATURE. Three tiers (g6 fix 3), each branch one curve drooping to its tip. Overshoot: the pointed
   // top rises 0.5 above TOP. Proportion: tiers widen by equal steps; the trunk shows 1.5 x 1.5.
   nature(s = 12) {
-    // g7e fix (director, turn 37): each tier is a plain triangle whose base rises straight to the trunk
-    // (a chevron, 0.9px), so the tips are clean points and the notches simple Vs: no curved
-    // undersides hooking the tips inward, no round pockets.
+    // g7f fix (director, turns 37 and 39): each tier is a plain triangle with a nearly flat base (it rises
+    // 0.4px to the trunk) and a short overhang, so it ends in a proper point, not a spur thinner than the
+    // line; no curved undersides (they hooked the tips). Tips and notches take the joint law's slight round.
     const u = s / 12, X = v => f(v * u), c = s / 2;
-    const tiers = [[-0.5, 4.25, 3.1], [2.6, 7.6, 4.5], [5.75, 10.75, 5.8]];
+    const tiers = [[-0.5, 4.25, 2.8], [2.6, 7.6, 4.1], [5.75, 10.75, 5.3]];
     const out = [];
-    for (const [ty, by, hw] of tiers) out.push(P([c, X(ty)], [c + X(hw), X(by)], [c, X(by - 0.9)], [c - X(hw), X(by)]));
+    for (const [ty, by, hw] of tiers) out.push(P([c, X(ty)], [c + X(hw), X(by)], [c, X(by - 0.4)], [c - X(hw), X(by)]));
     out.push(R(c - W / 2, X(9.5), W, s - X(9.5)));
     return out;
   },

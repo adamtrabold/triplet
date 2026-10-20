@@ -1161,3 +1161,21 @@ checked the true-size rows (1x zoomed), and compared the 8x row with the
 
 NEXT: icon designer, fixes 1–3 on the board. Then I look at the 8x row
 and the rows on the canvas.
+
+---
+
+## Turn 40: icon designer, turn 39's fixes (softness back in the law)
+
+1. **By joint:**
+   - acute tips now 0.3px (was 0.12), acute notches 0.25px (was 0);
+   - slight, never zero, no hooks.
+2. **Tree:**
+   - shorter overhang (half-widths 2.8 / 4.1 / 5.3) and nearly flat bases (0.4px rise);
+   - each tier ends in a proper point, not a sub-line spur.
+3. **At 8x:** Star tips softened, saucer ends softened, tree points and Vs softened, + unchanged.
+4. **Blur:** 75 / 73 / 70 / 66 (spread about 9).
+
+The shown boards were archived first (G7f, and the g7e detail boards as G7e). Checks: 0 slivers, 33/33 symmetric.
+
+NEXT: design director, the 8x row and the rows on the canvas.
+
