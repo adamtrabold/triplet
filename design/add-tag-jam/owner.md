@@ -148,3 +148,4 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 > oh man i love the signpost even though it's wonky. maybe all of the cities should have that shape. also can you roll out a quick fix in the middle -- the x to close tag is in a very weird space
 > every city should be a signpost... but maybe they dont need a stick unless they have more than one? idk on that run it by the team for an honest opinon -- it could break the allusion
 > rough spots are fine except for the stuff youre not calling out that i cant believe made it past the design director -- the box itself... the point is disconnected completely on some, not totally aligning to the corners... very rough. it should look like a box with a point on one end, not like multiple pieces put together
+> yeah the signpost should just land somewhere between them all with the city sign pointing the correct direction

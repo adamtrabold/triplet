@@ -1346,6 +1346,33 @@ gone; `concepts.js` and the `0-compare-*.png` stills stay as the record.
     stands on the marker's point.
 - **Pole:** `.sp-pole`, 2px `var(--navy)`, spanning every board row and
   running `var(--s3)` below the last one to the foot.
+- **Board revision after the CD's pixel check (supersedes the shadow and
+  outline values below):**
+  - **No offset shadow** on the boards. On a pointed outlined shape it read
+    as a heavier bottom stroke, with stripes in stacks. This departs from the
+    badge family; the owner sees it.
+  - **One 2px navy outline** on whole pixels: the top and bottom strokes are
+    centred on y = 1 and y = h−1, and the tip vertex sits 2px in (miter).
+    The pole is 2px too, so pole and boards are one weight.
+  - **On a post the pole is the board's pole-side edge.** The stroke path is
+    **open** on that side; the fill stays closed. A pointer sign (no pole) and
+    the lone-board prototype close the outline (`boardPath(w, h, t, side,
+    closed)`).
+    - `svg.sp-shape` is `w × h` and holds `path.sp-fill`
+      (`fill: var(--sp-fill, var(--paper-raised))`) and `path.sp-line`
+      (`fill: none; stroke: var(--navy); stroke-width: 2; stroke-linejoin:
+      miter`).
+  - **The stick reaches the dot:** `.sp-pole { z-index: 2 }` draws over the
+    foot dot's paper ring, into the dot's centre. A tether line draws after
+    its dot circles.
+  - The sign's rect has no +2 for a shadow.
+- **Where a shared post stands (owner decided):** "yeah the signpost should
+  just land somewhere between them all with the city sign pointing the
+  correct direction". The foot stays at the mean of its cities, and each
+  board points toward its own city from there.
+  - Checked on the sheet: z4, Copenhagen and Malmö point west, Stockholm
+    east; z7, Copenhagen west, Malmö east; world view, Reykjavík west and
+    Stockholm, Copenhagen and Malmö east.
 - **Board** (`.sp-board`): **ONE shape, a box with a point on one end.**
   Owner: "it should look like a box with a point on one end, not like
   multiple pieces put together".
