@@ -57,7 +57,7 @@ const DRAW = {
     const u = s / 12, X = v => f(v * u), c = s / 2;
     const bd = T(4.667);
     const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.8)} ${X(9)} ${X(bd)} ${X(6)} ${X(bd)}C${X(3)} ${X(bd)} ${X(0.5)} ${X(2.8)} ${X(0.5)} ${X(0)}Z`);
-    const FB = 12 - 2 / 3;                                            // g7h: the foot's base 2/3px up (owner: the coupe reads "as much taller")
+    const FB = 11;                                                    // g7h: the foot's base 1px up, stem 1px shorter (owner: the coupe reads "as much taller"; director: still the biggest at 2/3)
     const stem = R(c - W / 2, X(bd - 0.5), W, X(FB - 1.1) - X(bd - 0.5));
     const ft = T(FB - 2);
     const foot = D(`M${X(2)} ${X(FB)}C${X(2)} ${X(FB - 1.1)} ${X(3.9)} ${X(ft)} ${X(6)} ${X(ft)}C${X(8.1)} ${X(ft)} ${X(10)} ${X(FB - 1.1)} ${X(10)} ${X(FB)}Z`);
