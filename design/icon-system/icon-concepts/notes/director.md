@@ -1173,3 +1173,15 @@ approaches should be as much a part of the brand as anything".
   - deeper tree notches (a fir at 1x);
   - a master grid board that's buildable from alone.
 - **The no-taper option must always appear** beside the taper options (owner: "i just dont want to lose the no taper option"). Without it, the board fails.
+
+
+## g7k (canvas v121): send 8 (2026-10-20)
+
+- The master grid board is a real deliverable (9).
+- The taper board's "no taper" row still carried the coupe's taper. I
+  caught it by putting the coupe from every row side by side at 8x.
+- **Rule for myself:** for any "with vs without" board, crop the same
+  part from every row and compare. Labels aren't evidence.
+- **Also:**
+  - an option invisible at true size isn't a choice;
+  - a taper on the + makes a sparkle (a UI misread).

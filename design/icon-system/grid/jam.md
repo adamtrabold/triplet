@@ -2044,3 +2044,90 @@ The Weight board's footnote is remeasured.
 **Not done:** the taper options' own SVGs aren't exported or run through `check-svg.py`. They're built from symmetric parts, but I haven't verified them.
 
 NEXT: design director, in turn 57's order (taper options, master grid, coupe and tree, size and weight by eye), on canvas v121.
+
+---
+
+## Turn 59: design director, g7k (canvas v121): master grid 9; tree and coupe 9; taper board 7, so the send is 8
+
+**How I looked:** I rendered the three boards' sources (Taper, Master,
+Look) at 1x and 3x, in the turn-57 order.
+
+### 1. The taper board, option by option
+
+**The gate first: is the no-taper option there? Present, but not true.**
+- The top row is labelled "every line an even 1.5px".
+- But its coupe still has the taper he liked: the walls beside the clear
+  band are thin at the rim and thick lower down, because the band is a
+  trapezoid inside a curved bowl.
+- I put the coupe from all four rows side by side at 8x: the band and
+  walls are nearly identical in every row.
+- So he can't see what "no taper" would cost, and his "i dont want to
+  lose the no taper option" isn't actually met.
+
+| Option | Allusion (C9) | Rule by class | 1.5px stated | Visible at true size / 8x | Verdict |
+|---|---|---|---|---|---|
+| No taper | "neon tube or a screened line": clear | — | yes | yes, but the coupe still tapers | **Mislabelled** |
+| Counterpunch | metal type: clear, on brand | holes cut into a solid (the band, the star's hole): a rule | "1.5 is the wall at its widest" | **No.** Indistinguishable from the top row at true size, and barely at 8x. | Not a real choice as drawn |
+| Engraver's burin | signet ring: clear, on brand | free ends thin to 1px: a rule | stated | yes | **Fails C4 / misread.** The + arms taper to points, so the + reads as a sparkle or twinkle, not "add". The trunk thins too. |
+| Woodcut | wood left standing: clear, on brand | posts widen to 2px where they meet the mass: a rule, by class | "1.5 at narrowest, 2 at the mass": stated | yes: the museum's columns, the coupe's stem, the trunk | **The strongest of the three.** At 8x the columns read as turned balusters or spools, a *possible* objection, but honest and consistent. |
+
+- **Construction:** the taper variants weren't run through
+  `check-svg.py` (slivers, symmetry). Fine for options, but required
+  before any one of them ships.
+
+### 2. The master grid board: 9
+
+It's the grid itself, buildable from alone:
+- badge, air, live circle, the coin and the box, the guides;
+- the token by class, the Outline and Open classes included;
+- the five root shapes with their dimensions;
+- the corner law with every value (interior less than exterior);
+- the line weight and the line-mark relationship (pointing to the
+  Weight board);
+- stacked gables.
+
+Each rule carries its brand line (the coin and seal, woodcut and metal
+type, the screened banner). The open items (weight, taper) are named,
+not hidden.
+
+### 3. The coupe and tree: 9
+
+- **The coupe:** more liquid. At true size it reads as a glass with a
+  drink, the clear band still open.
+- **The tree:** notches 1.5 lines deep. At 1x it reads as a fir, not a
+  triangle, by the stacked-gable rule, inside tighter than outside.
+
+### 4. Size and weight by eye
+
+- **Size:** unchanged and even.
+- **Weight:** his call on the Weight board (unchanged).
+
+**Score for the send: 8.** The taper board fails its own gate: the
+no-taper row isn't true. It also offers one invisible option and one
+that misreads the +.
+
+### Fixes (taper board only)
+
+1. **A true no-taper row:** even walls round the coupe's band (a
+   constant 1.5px), so the top row really is no taper. State in one line
+   that the coupe's taper he liked appears only in the rows below.
+2. **Counterpunch:** make it visibly different at true size and 8x
+   (enough to see on the coupe and the star), or drop it and say why in
+   one line. An option he can't see isn't a choice.
+3. **Burin:** the + must stay a +. Either exclude the open marks with a
+   stated exception ("the + keeps cut ends: a tapered + reads as a
+   sparkle"), or drop burin. The trunk is fine either way.
+4. **Woodcut:** keep it as is. If the designer agrees the columns read
+   as balusters at 8x, soften the widening on the columns only, by its
+   own rule (widening scales with post length), not by a nudge.
+5. **Run `check-svg.py`** on every taper variant, and report the result
+   on the board in one line.
+
+**The question:** keep the board's, unchanged: "The taper you liked on
+the coupe, made into a rule three ways, each from a real way of making a
+mark, with no taper at all on the top row. Which do you want, if any?"
+After fix 2, if counterpunch is dropped, change "three ways" to "two
+ways".
+
+NEXT: icon designer, taper-board fixes 1–5. Then I look at the taper
+board only. The master grid, coupe and tree stand at 9.

@@ -960,3 +960,18 @@ The verdict stands within our own set:
   which doesn't say which row and hides that the heavier row also
   thickens the coupe.
 - The fix wording is in jam turn 56. Then it's READY.
+
+
+## Round g7k (canvas v121), 2026-10-20: send 8
+
+- **The master grid board: 9.** It's buildable from alone, with brand
+  lines, and the open items named.
+- **The coupe (more liquid) and the tree (1.5-line notches): 9.**
+- **The taper board: 7.**
+  - The "no taper" row still has the coupe's taper, so his no-taper
+    option isn't really there.
+  - Counterpunch is invisible at true size.
+  - Burin turns the + into a sparkle.
+  - Woodcut is the strongest (a possible baluster read).
+  - The variants are unchecked by `check-svg`.
+- **Fixes:** jam turn 59.
