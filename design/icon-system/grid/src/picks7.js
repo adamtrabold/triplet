@@ -64,7 +64,7 @@ const wSettle = (y, y0, y1) => WMIN + (W - WMIN) * Math.max(0, Math.min(1, (y - 
 // a vertical POST whose width runs w0 (top) to w1 (bottom), straight-sided, centred on cx
 const POSTT = (cx, y0, y1, w0, w1) => ({ ...P([cx - w0 / 2, y0], [cx + w0 / 2, y0], [cx + w1 / 2, y1], [cx - w1 / 2, y1]), root: 'POST' });
 // a horizontal slab's thickness per row: the flat brush makes every horizontal thin
-const slabH = o => o.style === 'brush' ? WMIN : WH;
+const slabH = o => o.style === 'brush' ? WMIN : o.style === 'mono' ? W : WH;   // monoweight: every line 1.5px, bases too (director, turn 64)
 
 // ---- g7i: THE TOKEN, how big each glyph is (owner: "address this at the grid level across all of them...
 // i dont want to have to negotiate this all the time"; "ours should be specific to our app"). Ours: a glyph
@@ -103,7 +103,7 @@ const DRAW = {
     const ct = top + WH / u, cb = eb - WH / u, cr = (cb - ct) / 2, cx = eR - W / u - cr;   // counter, its back a half circle
     const ci = r - 1 / 3;
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
-    const saucer = o.style === 'brush' ? R(0, T(X(bot) + CUT), s, WMIN, { root: 'SLAB' }) : SLAB(0, s, T(X(bot) + CUT));
+    const saucer = o.style === 'brush' || o.style === 'mono' ? R(0, T(X(bot) + CUT), s, slabH(o), { root: 'SLAB' }) : SLAB(0, s, T(X(bot) + CUT));
     if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
       // the loop's wall at its top arm, its back and its bottom arm; the inner edge is two quarter curves that
       // follow the outer half circle, so the width changes smoothly from arm to back to arm

@@ -447,13 +447,13 @@ ${WOPTS.map(([key, title]) => `<div class="srow"><div class="k">${title}</div><d
 // give me a version of icons following it and not following it"; "several options is fine, i just dont want to
 // lose the no taper option"). Each option is the same grid with one style switch (picks7.js, o.style).
 const TOPTS = [
-  ['mono', 'Monoweight', 'Every line the same 1.5px. Every hole\'s inner edge runs parallel to its outer edge, so the inside follows the outside: the coupe\'s band, the cup\'s handle, the star\'s hole. Like neon tube.'],
+  ['mono', 'Monoweight', 'Every line the same 1.5px, the bases too (saucer, foot, plinth, beam). Every hole\'s inner edge runs parallel to its outer edge, so the inside follows the outside: the coupe\'s band, the cup\'s handle, the star\'s hole. Like neon tube.'],
   ['brush', 'Sign painter\'s flat brush', 'The brush is held flat, as on a road sign or a painted banner: a line is full (1.5px) where it runs up and down and thin (1px) where it runs across, changing smoothly around a curve. The handle is full at its back and thin at its arms; the star\'s arms change with their angle; every horizontal (saucer, foot, plinth, rim) is thin.'],
   ['settle', 'Settled ink', 'Ink on a hung, screened banner settles downward: a line is thin (1px) at its top and full (1.5px) at its bottom, changing smoothly down its length. The handle thins at its top arm, the star at its top point; posts (the stem, the columns, the trunk, the +) widen downward.'],
 ];
 // tried and dropped (director, turn 59), each for a stated reason, on the board
 const TDROP = [
-  ['Counterpunch, woodcut and burin (the last three rows)', 'you saw they weren\'t real tapers: each changed a wall or a post at one point and drew the rest straight. Both rules here change the width smoothly along the whole line and keep its curve.'],
+  ['Counterpunch, woodcut and burin (on the board you saw before)', 'you saw they weren\'t real tapers: each changed a wall or a post at one point and drew the rest straight. Both rules here change the width smoothly along the whole line and keep its curve.'],
 ];
 const TSET = {};
 for (const [key] of TOPTS) {
@@ -694,6 +694,24 @@ const OURS = [
   ['The corners', 'Every meeting point is slightly round and the inside settles tighter than the outside: ink settling on a screened banner, not a ruled line (your words).'],
   ['The 1/3px lattice', 'Slabs, rims and liquid lines sit on whole device pixels, so their edges print crisp, as a screened edge does, while the corners stay soft.'],
 ];
+// the tree as on v123 (g7k): hand-set tier bases and widths, only the 2.25px shelf by rule; kept to show the change
+const TREE123 = (() => {
+  const draw = s => { const u = s / 12, X = v => +(v * u).toFixed(3), Y = v => Math.round(v * u * 3) / 3, c = s / 2, L = 1.5 * W / u;
+    const tiers = [[-0.5, 4.25, 2.8], [null, 7.6, 4.1], [null, 10.75, 5.3]];
+    for (let i = 1; i < 3; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r = (hwU - L) / hwL; tiers[i][0] = (byU - r * byL) / (1 - r); }
+    return [...tiers.map(([ty, by, hw]) => E.P([c, X(ty)], [c + X(hw), Y(by)], [c - X(hw), Y(by)])), E.R(c - W / 2, X(9.5), W, s - X(9.5))]; };
+  const s = fitS('nature', 12, { nature: draw }), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = draw(s);
+  const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
+  return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
+})();
+const TREE_Q = 'The tree\'s tiers are now set by rule. Does it still read as your fir?';
+function treeChange() {
+  const N = COL.navy, I2 = COL.ink2;
+  const pair = (nm, d) => `<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="display:flex;align-items:center;gap:10px">${badge(d)}<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg></div>${badge(d, 192)}<div style="font-size:18px;font-weight:700;color:${N}">${nm}</div></div>`;
+  return `<div style="display:grid;grid-template-columns:420px 1fr;gap:48px;align-items:center;margin:0 0 64px">
+<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The tree changed: its tiers are now set by the stacked-gable rule.</div><div style="font-size:17px;line-height:1.45;color:${I2}">Three tiers of equal height, every tier the same gable, every notch one and a half lines deep, the bottom tier spanning the tall class, the trunk showing one line. True size (24 and the 12px chip), then 8x.</div><div style="margin-top:18px;padding:16px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:20px;line-height:1.3;color:${N};font-weight:600">${TREE_Q}</div></div>
+<div style="display:flex;gap:56px">${pair('Before (v123)', TREE123)}${pair('Now', GD.joint[12].nature.d)}</div></div>`;
+}
 function sheetLook() {
   const L = 150, gap = 24, big = 192;
   const plain = inner => `<svg width="${big}" height="${big}" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" fill="${COL.paper}"/>${inner}</svg>`;
@@ -707,12 +725,14 @@ function sheetLook() {
   const tokenRow = `<div style="${grid}"><div style="font-size:20px;font-weight:700;color:${COL.navy};line-height:1.25">Each in its cut<div style="font-size:15px;font-weight:400;color:${COL.ink2}">orange: the class's cut of the coin; grey: the coin</div></div>${LOOK_COLS.map(([id]) => `<div style="display:flex;flex-direction:column;gap:8px">${tokenCell(id, big)}<div style="font-size:14px;line-height:1.3;color:${COL.ink2}">${clsLabel(id)}</div></div>`).join('')}</div>`;
   const b2 = `<table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.4">${['<tr>' + ['Batch 2', 'Concept', 'Size class', 'Root shapes'].map(h => `<th style="text-align:left;padding:8px;border-bottom:2px solid ${COL.navy};font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:${COL.ink2}">${h}</th>`).join('') + '</tr>', ...BATCH2.map(r => '<tr>' + r.map((c, i) => `<td style="padding:8px;border-top:1px solid ${COL.hair};vertical-align:top;${i === 0 ? `font-weight:700;color:${COL.navy}` : ''}">${c}</td>`).join('') + '</tr>')].join('')}</table>`;
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
-<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid changes g7i and g7j</div>
+<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid changes g7i to g7n</div>
 <h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${COL.navy}">One token, five root shapes</h1>
 <p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is the same depth, one and a half lines (g7k: deeper, so the tiers read at 100%). Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
 <div style="margin:0 0 56px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}">
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div>
-<div style="font-size:28px;line-height:1.3;color:${COL.navy};font-weight:600">${LOOK_Q}</div></div>
+<div style="font-size:28px;line-height:1.3;color:${COL.navy};font-weight:600">${LOOK_Q}</div><div style="font-size:24px;line-height:1.3;color:${COL.navy};font-weight:600;margin-top:12px">${TREE_Q}</div></div>
+${sec('The tree')}
+${treeChange()}
 ${sec('True size, where they live in the app: before and now')}
 <div style="display:grid;grid-template-columns:repeat(2, 1fr);column-gap:48px;margin-bottom:64px">${[V105SET, NOWSET].map(inPlace).join('')}</div>
 ${sec('Grid change 1: size by class, the token')}
