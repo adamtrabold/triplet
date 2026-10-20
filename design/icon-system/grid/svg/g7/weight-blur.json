@@ -1,0 +1,26 @@
+{
+ "now": {
+  "cafe": 75.4,
+  "bar": 50.1,
+  "museum": 67.2,
+  "nature": 75.0,
+  "star": 53.7,
+  "plus": 44.8
+ },
+ "open": {
+  "cafe": 75.4,
+  "bar": 55.3,
+  "museum": 67.2,
+  "nature": 75.0,
+  "star": 66.3,
+  "plus": 66.7
+ },
+ "solidcoupe": {
+  "cafe": 75.4,
+  "bar": 71.7,
+  "museum": 67.2,
+  "nature": 75.0,
+  "star": 66.3,
+  "plus": 66.7
+ }
+}

@@ -38,7 +38,10 @@ const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx -
 // i dont want to have to negotiate this all the time"; "ours should be specific to our app"). Ours: a glyph
 // is struck like a token, a coin of 12px that sits in the badge's ring with 2px of air. Every glyph is
 // fitted, by its shape, to a cut of that token with THE SAME AREA as the coin, so none reads bigger:
-//   ROUND  the coin itself, 12 across; a RADIAL mark (the Star) is fitted by its hull: the pentagon
+//   OUTLINE an outline mark (the Star: an outline means "not yet tapped"): the hull through its tips at
+//          least the coin's area AND its hole at least two lines (3px) across at the centre; the larger wins
+//          (boards7.js, starRc()). At 1.5px the hole decides.
+//   ROUND  the coin itself, 12 across; a RADIAL mark is fitted by its hull: the pentagon
 //          through its tips has the coin's area, so its tips reach 6.9px from its centre
 //   SQUARE 10 2/3 square (area of the coin, on the 1/3px lattice): the coupe
 //   WIDE   12 x 9 1/3: the cup, the museum
@@ -50,8 +53,8 @@ const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx -
 // class sets size. Sizes are px at the list step (badge 24, chip, row star, tag star); the + is drawn at
 // its Float badge's step (its 24 viewBox shown at 26.4px).
 const TOKEN = 12, APEX = 0.5;
-const KEY = { ROUND: [12, 12], SQUARE: [T(Math.sqrt(Math.PI * 36)), T(Math.sqrt(Math.PI * 36))], WIDE: [12, T(Math.PI * 36 / 12)], TALL: [T(Math.PI * 36 / 12), 12], OPEN: [12, 12] };
-const CLASS = { cafe: ['WIDE', 0], bar: ['SQUARE', 0], museum: ['WIDE', APEX], nature: ['TALL', APEX], star: ['ROUND', 0], plus: ['OPEN', 0] };
+const KEY = { ROUND: [12, 12], OUTLINE: [12, 12], SQUARE: [T(Math.sqrt(Math.PI * 36)), T(Math.sqrt(Math.PI * 36))], WIDE: [12, T(Math.PI * 36 / 12)], TALL: [T(Math.PI * 36 / 12), 12], OPEN: [12, 12] };
+const CLASS = { cafe: ['WIDE', 0], bar: ['SQUARE', 0], museum: ['WIDE', APEX], nature: ['TALL', APEX], star: ['OUTLINE', 0], plus: ['OPEN', 0] };
 
 const DRAW = {
   // CAFÉ. WIDE. A VESSEL with a LOOP for its ear, on a SLAB saucer. Counters that survive (owner: "why does
@@ -77,18 +80,18 @@ const DRAW = {
   // under the rim, a clear band (1 2/3px, over the 1.5px counter minimum, so it stays open at 12 and 24)
   // runs between the walls, and the liquid fills the bowl below it. The band is closed at both ends by the
   // walls, so the bowl reads as a glass holding a drink, not two parts (g5's single line split it into an "I").
-  bar(s = 12) {
+  bar(s = 12, o = {}) {
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
     const bd = 5.333;
     const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.8)} ${X(9)} ${X(bd)} ${X(6)} ${X(bd)}C${X(3)} ${X(bd)} ${X(0.5)} ${X(2.8)} ${X(0.5)} ${X(0)}Z`, { root: 'VESSEL' });
-    const k = (5.5 - W / u) / 5.5, ix = x => 6 + (x - 6) * k;         // the bowl's inside wall, W in from the outside
+    const k = (5.5 - (o.wall || W) / u) / 5.5, ix = x => 6 + (x - 6) * k;         // the bowl's inside wall, W in from the outside
     const inside = D(`M${X(ix(0.5))} ${X(-1)}H${X(ix(11.5))}C${X(ix(11.5))} ${X(2.8)} ${X(ix(9))} ${X(bd)} ${X(6)} ${X(bd)}C${X(ix(3))} ${X(bd)} ${X(ix(0.5))} ${X(2.8)} ${X(ix(0.5))} ${X(-1)}Z`);
     const rim = WH, liquid = T(rim + 5 / 3);                          // the clear band: under the rim, over the liquid
     const band = cut(I(inside, R(0, rim, s, liquid - rim)));
     const FB = Y(11);
     const stem = POST(c, X(bd - 0.5), FB - WH + 0.01);
     const foot = SLAB(X(2.25), X(9.75), FB - WH);
-    return [bowl, stem, foot, band];
+    return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, band];
   },
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
   // plinth. Counters: the spaces between the columns are plain upright slots (no pills, owner's example).
@@ -107,7 +110,11 @@ const DRAW = {
   // g7i: each tier is a true GABLE, its base flat (it rose 0.4px to the trunk: a fourth shape for one job).
   nature(s = 12) {
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
-    const tiers = [[-0.5, 4.25, 2.8], [2.6, 7.6, 4.1], [5.75, 10.75, 5.3]];
+    // g7j (director: "look at the tree's ledges"): a GABLE STACK's notch shelf (the flat underside a tier shows
+    // past the tier below) equals the line, 1.5px, at every notch. They were 1.45 and 2.14px: uneven shelves
+    // read as steps. Each lower tier's apex is set from that rule, not by hand.
+    const tiers = [[-0.5, 4.25, 2.8], [null, 7.6, 4.1], [null, 10.75, 5.3]], L = W / u;
+    for (let i = 1; i < tiers.length; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r = (hwU - L) / hwL; tiers[i][0] = (byU - r * byL) / (1 - r); }
     const out = [];
     for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));
     out.push(POST(c, X(9.5), s));
@@ -116,15 +123,15 @@ const DRAW = {
 };
 
 // ---- the two UI icons, each in its own 24 viewBox, shown at its app size ----
-function plus(px = 26.4, sc = 1) {
+function plus(px = 26.4, sc = 1, lw = W) {
   // g7i: OPEN class. Both arms are POSTs of the full 1.5px (no thinner horizontal: an open mark has no
   // mass to balance); sc is set by the grid's fit (boards7.js), never by hand.
-  const k = 24 / px, w = W * k, L = 14 * sc;
+  const k = 24 / px, w = lw * k, L = 14 * sc;
   return [R(12 - w / 2, 12 - L / 2, w, L), R(12 - L / 2, 12 - w / 2, L, w)];
 }
-function star(px = 20, sc = 1) {
-  // g7i: a RADIAL mark in the ROUND class, fitted by its hull (the coin's area); sc is set by the grid's fit (boards7.js).
-  const k = 24 / px, w = W * k, cx = 12, cy = 12 + 0.6 * sc, Rc = 9.6 * sc, ri = Rc * 0.47;
+function star(px = 20, sc = 1, lw = W) {
+  // g7j: OUTLINE class (hull at least the coin, hole at least two lines across); sc is set by the grid (boards7.js, starRc()).
+  const k = 24 / px, w = lw * k, cx = 12, cy = 12 + 0.6 * sc, Rc = 9.6 * sc, ri = Rc * 0.47;
   const cl = []; for (let i = 0; i < 10; i++) { const r = i % 2 ? ri : Rc, a = -Math.PI / 2 + i * Math.PI / 5; cl.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
   return [P(...offset(cl, -w / 2)), cut(P(...offset(cl, w / 2)))];
 }
