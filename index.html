@@ -714,7 +714,7 @@
        east boards right; each is its own go-to (44 to the touch). */
     .sp-post {
       position: absolute; left: 0; top: 0; transform: translate(calc(-1 * var(--wl) - 1px), -100%);
-      display: grid; grid-template-columns: var(--wl) 2px var(--wr); row-gap: var(--s1);
+      display: grid; grid-template-columns: var(--wl) 2px var(--wr); row-gap: var(--s2);
       grid-auto-rows: var(--s8); padding-bottom: var(--s4);
       pointer-events: none;   /* the stick and foot are never a tap target (UX); only the boards are */
     }
@@ -8115,7 +8115,7 @@
     }
     const boxSize = b => { const r = measure('city-badge', b); return { w: r.w + 2, h: r.h + 2 }; };   // + the 2px offset shadow
     const boardW = b => measure('sp-board is-e', b).w;   // text + --s2 padding + the --s3 point: the board's outer width (its shadow overhangs 2px)
-    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(1), FOOT = () => sNum(4);
+    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(2), FOOT = () => sNum(4);   // --s2 between stacked boards: each its own sign (CD)
     // The map's clear area for signs, in container px.
     function badgeSafeRect() {
       const mr = map.getContainer().getBoundingClientRect(), g = sNum(2);
@@ -8248,8 +8248,10 @@
         const n = members.length, H = n * BOARD_H() + (n - 1) * BOARD_GAP();
         const dx = gp.tether.x - gp.foot.x, dy = gp.tether.y - gp.foot.y, wl = r.l - 1, wr = r.r - 1, k = (v, a, b) => Math.min(Math.max(v, a), b);
         let px, py;
-        if (dy >= 0) { px = k(dx, -wl + 4, wr - 4); py = 0; }
-        else if (dy <= -H) { px = k(dx, -wl + 4, wr - 4); py = -H; }
+        // a top / bottom stick roots on that board's STRAIGHT edge (never the sloped point)
+        const span = i => { const bw = boardW(members[i]), t = sNum(3); return sides[i] === 'e' ? [2 + 4, bw - t - 2] : [-(bw - t - 2), -2 - 4]; };
+        if (dy >= 0) { const sp = span(n - 1); px = k(dx, sp[0], sp[1]); py = 0; }
+        else if (dy <= -H) { const sp = span(0); px = k(dx, sp[0], sp[1]); py = -H; }
         else { px = dx < 0 ? -wl - sNum(3) : wr + sNum(3); py = k(dy, -H + 4, -4); }
         const d = sNum(2) / 2;
         tether = `<svg class="sp-tether" aria-hidden="true" width="1" height="1" overflow="visible">`
