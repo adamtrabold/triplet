@@ -1781,37 +1781,38 @@ move "it should stay on your current city" (it does).
   GATE FAILED on one new finding,** `kicker-above-heading` ("Reykjavík" above the tag's h2) -- the
   approved routing line itself (waived at landing, above).
 
-## The map's city badge (add-tag-jam phase 4; NOT LANDED -- built on `add-tag-p4`)
+## The map's city signposts (add-tag-jam phase 4; NOT LANDED -- `add-tag-p4`)
 
-Owner: "Great to build"; "Run it per CLAUDE.md lane 2, one phase at a time"; on Go to 3's badges:
-"i like having a badge for the city at a zoomed out level. it's nice. are these clickable? would be
-cool to zoom in if you did."; "Your assumption was right about the box". Spec:
-`design/add-tag-jam/handoff.md` "Phase 4" (design branch; board GoToMap). Notes:
-`design/add-tag-jam/notes/builder.md` (Phase 4). Stills: `design/add-tag-jam/stills/build-p4/`.
-Waits on the CD + UX check and the owner's look.
+Owner: "Great to build"; on the map badges "i like having a badge for the city at a zoomed out
+level"; on the check's options "oh man i love the signpost even though it's wonky. maybe all of
+the cities should have that shape"; "every city should be a signpost"; "a signpost would only ever
+have the pole pointing down"; "if the map isnt positioned for it to show it just shouldnt show";
+on the map control "yeah lets cut that button it doesnt make sense -- all places should just show
+all places on the map"; final: "signposts instead of city badges are approved". Spec:
+`design/add-tag-jam/handoff.md` "Phase 4" + "Phase 4 fixes (after build check)" (design branch);
+reference prototype `design-p4-fixes` 8f3c2a72 (ported; the boxed-badge / lone-board / pointer /
+tether switches deleted). Approved stills `design/add-tag-jam/stills/p4-fixes/9-signposts.png`,
+`10-family.png`; build stills `design/add-tag-jam/stills/build-p4/`.
 
-- **The badge:** below `CITY_BADGE_MAX_ZOOM` = 8 ("we think"), in Places, each shown city with at
-  least one place matching the chips draws one `<button class="city-badge">` at its stored
-  `center`: paper-raised, 1.5px navy, radius 2, padding 5px 9px, `2px 2px 0` navy shadow; caps 13
-  `.08em` navy + the shared `.tally` (= the section tally, `cityTally()`). It replaces that
-  city's pins, clusters and outlines on the map (`badgeCityIds()` in `mapVisibleLocations()` /
-  `mapVisibleNeighborhoodShapes()`); the list never changes with zoom. Hidden cities: none. Plans:
-  none (a plan's stops show as today). z 800 (`Z_CITY_BADGE`). Hit area 44px tall; pressed
-  `--state-press`. Tap / Enter: `goToCity(id)` (the menu's go-to: map at the city's zoom, title,
-  list on its header, nothing hidden). Synced with the clusters (`syncCityBadges()`), keyed by
-  city, so a pan never re-creates one.
-- **"All cities":** a Leaflet control under the zoom buttons (left 10, top 84, 34 tall; Leaflet's
-  border/radius/#fff), ring glyph + caps 11/14 `.1em` navy. Tap: `goToCity(ALL_CITIES)` (= the
-  title menu's "All places": fit every shown place, list to the top). Hidden in Plans and while
-  the add tag is up (builder's calls, flagged).
-- **Gates (Chromium):** `design/add-tag-jam/p4/badgetest.js` 28/28 (zoom sweep 3-15 and back:
-  swap at one zoom, never both/neither; pan + touch-drag: same badge node, 0 removals; list rows
-  identical at 5/13/16; hidden city; chip counts = section tally; all chips off; badge tap +
-  keyboard; All cities place/look/tap; Plans; add tag; cluster tap at 10 lands at 14; list tap
-  from zoom 5 lands solo with its tag; a data-only city keeps its pins); Impeccable `IMPECCABLE
-  GATE PASSED` (static 1/1, runtime 11/11, 0 new; its states don't render the badge zoom);
-  popup-open 20/20 + 20/20, places-ux 30/30, shape-rows 50/50, plan-rows 40/40, tag-sync 12/12;
-  addtest 72/72; citytest 45/45; plantest and sorttest 76/77 identical to main. No row/tag gesture
-  code touched, so not the full gesture gate.
-- **Open:** Copenhagen/Malmö badges overlap at every badge zoom; "All cities" can't frame LA and
-  the Nordics on a phone (minZoom 3) -- both in `docs/backlog.md`.
+- **When:** below `CITY_BADGE_MAX_ZOOM` = 8, in Places, each shown city with a place matching the
+  chips and its centre on screen is a signpost instead of its pins, clusters and outlines
+  (`badgeCityIds()` in `mapVisibleLocations()` / `mapVisibleNeighborhoodShapes()`; the list never
+  changes with zoom). Hidden cities: none. Plans: none. Tally = the section tally (`cityTally()`).
+- **Layout (`syncCityBadges()`):** signs within `--s1` of each other join one post (greedy,
+  repeated), its foot on their mean screen point (a lone post: on the city); boards north to
+  south, west of the pole if the city lies west of the foot, else east, pointing that way; true
+  per-side width, so LA never joins the Nordic post. Poles always vertical; a lone sign takes east,
+  else west; a sign that doesn't fit whole inside the clear area (`badgeSafeRect()`: `--s2` inside
+  the map, below the zoom control / account badge, above the + / credit) or whose spot is under a
+  control is not drawn (no nudging). Keyed by member ids: a pan only moves a sign.
+- **Look:** post = grid `var(--wl) 2px var(--wr)`, rows `--s8`, gap `--s3`, `--s4` of pole to an
+  8px navy foot dot (1.5px paper-raised ring) the pole runs into. Board = ONE inline SVG
+  (`boardPath()`): the board's silhouette offset 2/2 as the navy shadow (filled + stroked, round
+  joins; starts at the pole, never past it), the paper-raised face, one 1.5px navy rule with round
+  joins, open on the pole side; caps 13/16 `.08em` navy + the tally; `--s2` padding + the `--s3`
+  point; 44px target; pressed `--state-press`; focus outline. Only boards tap (`goToCity(id)`).
+- **All places** (title menu): frames the signs when the places only fit at sign zoom
+  (`badgeFitView()` in `fitVisible()`): the closest zoom where every shown city's sign fits the
+  clear area. `minZoom` 3 -> 1 (map and tiles), so LA + the Nordics fit a 390px phone (z1).
+- **The "All cities" map control is gone** (owner, above).
+- **Gates (Chromium):** see the hand-back / landing note.

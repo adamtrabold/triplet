@@ -190,12 +190,12 @@ flowchart LR
   `localStorage` `triplet.hiddenCities`). Phase 1 of `design/add-tag-jam/handoff.md`.
   Re-picking the current city reframes it (the recovery after panning away).
   Category chips survive a go-to.
-- **City badges** (phase 4): below `CITY_BADGE_MAX_ZOOM` (8), in Places, each shown city with a
-  shown place draws one boxed badge (name + tally) at its stored centre instead of its pins,
-  clusters and outlines (`badgeCityIds()` inside `mapVisibleLocations()` /
-  `mapVisibleNeighborhoodShapes()`; drawn by `syncCityBadges()`). Map layer only. A badge tap and
-  the map's "All cities" control (`#allCitiesBtn`, a Leaflet control under the zoom buttons) are
-  go-tos: `goToCity(id)` / `goToCity(ALL_CITIES)`. Neither exists in Plans.
+- **City signposts** (phase 4): below `CITY_BADGE_MAX_ZOOM` (8), in Places, each shown city
+  with a shown place and its centre on screen is a signpost (close cities share a post) instead
+  of its pins, clusters and outlines (`badgeCityIds()` inside `mapVisibleLocations()` /
+  `mapVisibleNeighborhoodShapes()`; laid out and drawn by `syncCityBadges()`). Map layer only. A
+  board tap is a go-to (`goToCity(id)`). All places frames the signs (`badgeFitView()`;
+  `minZoom` 1). None in Plans.
 
 ### List tap → map
 
@@ -382,7 +382,7 @@ Leaflet 1.9.4, supabase-js 2.39.3, OSM raster tiles. GitHub Pages deploys
 | City state | `setActiveCity()` (sole writer), `visibleLocations()`, `focusMap()`, `focusCity()` |
 | City detection | `detectCityContext()`, `matchCity()`, `maybeDetectCity()`, `resolveShapeCity()`, `deriveNewCityConfig()`, `addCity()`, `fetchCities()`, `cleanupOrphanCities()` |
 | Poll, locate | `startPoll()`, `pollTick()`, `noteInteraction()`, `centerOnUserLocation()` |
-| Pins | `SOLO_MIN_ZOOM`, `GLYPH_MIN_ZOOM`, `CITY_BADGE_MAX_ZOOM` / `syncCityBadges()`, `badgeHtml()`, `markerIcon()`, `STICKER` |
+| Pins | `SOLO_MIN_ZOOM`, `GLYPH_MIN_ZOOM`, `CITY_BADGE_MAX_ZOOM` / `syncCityBadges()` (signposts), `badgeHtml()`, `markerIcon()`, `STICKER` |
 | Place details | `buildPopupHtml()`, `TagPopup`, `tagAddress()`, `openPopupOnArrival()`, `highlightMarker()`, `setHighlighted()` |
 | Sort | `SORT_MODES`, `sortLocations()`, `sortShapes()`, `heldOrder()`, `startNearest()` |
 | Plans | `fetchPlans()`, `createPlan()`, `addStop()`, `removeStop()`, `reorderStop()`, `syncPlanCards()`, `applyPlanMap()`, `initPlans()` |

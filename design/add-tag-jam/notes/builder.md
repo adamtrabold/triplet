@@ -365,3 +365,19 @@ Spec: `handoff.md` "Phase 4" (systems + visual: GoToMap, "the boxed city label" 
 ## Checks
 - `design/add-tag-jam/p4/badgetest.js` (28 cases; `p4/lib-p4.js`), stills
   `design/add-tag-jam/stills/build-p4/stills.js`.
+
+## Phase 4, batch B: the signposts (2026-10-20; owner: "signposts instead of city badges are approved")
+Ported `design-p4-fixes` 8f3c2a72 by hand onto 796a41ed, final behaviour only: every city a
+signpost (`syncCityBadges()` + `layoutCityBadges()` / `mergeSigns()` / `placeSigns()` /
+`boardPath()` / `badgeSafeRect()`), posts always vertical, a sign that doesn't fit isn't drawn,
+`badgeFitView()` in `fitVisible()`, `minZoom` 1, the "All cities" control and all its CSS deleted.
+Deleted (not stubbed): the boxed-badge CSS, `LONE_STYLE` + its localStorage switch, `isBox` /
+`isSolo` / `.sp-solo`, the pointer / tether code and CSS, `#allCitiesBtn` from the control lists.
+`sNum()` caches the spacing tokens. The signpost raws (`p4/signpost-cmp.js`, the designer's
+`signpost.js` with LONES=post) render pixel-identical on the build and the prototype (5 views,
+real tiles), so the approved sheet stands; 3x joins checked by eye (one shape, shadow follows
+the point both ways, no notch at the pole, the pole into the dot). badgetest rewritten (26).
+Impeccable: a `signposts` rendered state added to `driver.js` / `gate.mjs`; it shows 37 new
+identities (36 = the pre-existing 10px row-meta rule with the other four cities' names, because
+the state shows every city's rows; 1 = the board's tally, 13px x .8 = 10.4px, the approved badge
+type). Baseline NOT updated: waits on the operator.

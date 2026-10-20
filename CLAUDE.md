@@ -173,8 +173,8 @@ operator makes none of these calls.
 - **Clustering:** `SOLO_MIN_ZOOM` = 14 is shared by the list-click and
   cluster-click paths so a list tap never lands on a clustered pin — never
   duplicate it as a literal. `GLYPH_MIN_ZOOM` = 12 is separate.
-  `CITY_BADGE_MAX_ZOOM` = 8 (map city badges, Places only, below it) must stay
-  below every city's go-to zoom (11-12) so a badge tap lands on pins.
+  `CITY_BADGE_MAX_ZOOM` = 8 (map city signposts, Places only, below it) must stay
+  below every city's go-to zoom (11-12) so a board tap lands on pins.
 - **Visited stamp / pin sticker:** list rows (and plan/shape rows) show the
   original **stamp** (`.row-stamp`: CSS-border ring, dotted-track SVG mask
   `pathLength='166.29'` — path and dasharrays change together — navy 82%
