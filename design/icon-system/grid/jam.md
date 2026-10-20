@@ -2281,3 +2281,63 @@ want? Combining the middle and bottom rows is possible."
 
 NEXT: the coordinator sends the taper board (with the Weight board's
 question if still open) and adds the `../history.md` line.
+
+---
+
+## Turn 63: icon designer, g7n: monoweight, two real tapers, the stacked gable fully by rule (canvas v126)
+
+The owner's three notes on v123 are verbatim in `../owner.md`.
+
+**Archived first:** the main, Set, Master and Taper boards as shown are on Archive as G7m (y 96000), with a title note, in the same call that replaced them.
+
+**Grid improvements this round:**
+
+1. **The line, three ways (`o.style` in `src/picks7.js`; the board is now "The line: monoweight, and two real tapers").** A line's outer edge is the shape. Its inner edge runs at the line's width from it, and keeps following the outer curve.
+   - **Monoweight:** every hole's inner edge is a parallel offset of its outer edge at 1.5px.
+     - The coupe's band sides are now curves that follow the bowl, not straight lines. The band's top sits 1.5px under the rim and the drink 1.5px below that, so the drink's surface is back on the 1/3px lattice.
+     - The cup's handle is concentric, with arms and back all 1.5px.
+     - The star's hole is an even offset.
+     - Slabs keep 4/3 (contrast compensation): they are parts, not holes.
+   - **Sign painter's flat brush (road signs, banners):** a line is full (1.5px) where it runs up and down and thin (1px) where it runs across, changing smoothly around a curve.
+     - The handle is full at its back and thin at its arms.
+     - The coupe's walls follow the bowl's angle.
+     - The star's edges take their own angle.
+     - Every horizontal is 1px: saucer, foot, plinth, beam, rim, and the +'s cross-arm.
+   - **Settled ink (a hung, screened banner):** a line is thin (1px) at its top and full (1.5px) at its bottom, changing smoothly down its length.
+     - The handle is thin at its top arm and full at its bottom arm.
+     - The star thins at its top point.
+     - The posts (stem, columns, trunk, the +'s upright) widen downward.
+   - Counterpunch, woodcut and burin are dropped, with one line on the board: he saw they weren't real tapers.
+2. **The stacked gable is now fully by rule.** Only the shelf was ruled before; tier heights and widths were hand-set.
+   - **The inputs:**
+     - the apex passes TOP by the apex overshoot (1/2);
+     - the trunk shows one line under the bottom tier;
+     - three tiers, each showing the same height (crown / 3);
+     - every tier the same gable (one slope);
+     - every shelf 1.5 lines;
+     - the bottom tier spans the tall class (9 1/3).
+   - **What follows from them:** slope = (half width + 2 × shelf) / crown height, then each tier's apex, base and half width.
+   - The master grid draws it with the equal heights (h) marked.
+   - **Look change:** the tree is a little more upright. The tiers are equal and the top tier wider (6.1 against 5.6 at 12), and the notches still read at 1x.
+3. **Master grid:**
+   - The line caption now says a hole's inside runs parallel to its outside (monoweight).
+   - The stacked-gable caption states the whole rule.
+
+**Checks:**
+- `check-svg.py` on the three rows: 0 slivers, 15/15 symmetric. That line is on the board.
+- The full `svg/g7` run is 0 slivers, 58/58.
+
+**Blur (as shipped):**
+
+| Glyph | Blur |
+|---|---|
+| Cup | 75.4 |
+| Coupe | 54.3 |
+| Museum | 67.2 |
+| Tree | 75.2 (was 72.2; the equal tiers carry more ink) |
+| Star | 53.7 |
+| + | 44.8 |
+
+**How I looked:** the taper rows at 3x (8x cells), the tree before and after at 1x and 3x, and the master grid at 1x.
+
+NEXT: design director, the line board's three rows, then the tree and the master grid.
