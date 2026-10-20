@@ -46,3 +46,8 @@ For the next operator session. Read CLAUDE.md first (process, gates, roles).
 ## Backlog items added this round (on main)
 - Automated Photon-vs-Nominatim search trial (owner: "I want the test automated not manual").
 - Edit a place after adding it; first open centres on the user's location (shipped 2b9ffcc).
+
+## Status 2026-10-20 (operator session 059e9216)
+- Phases 1–3 LANDED on main: 6e0b3bf3 (p1), dab4f745 (p2), 6739a04f (p3). Check records: `checks/p1..p3-cd-ux.md`.
+- Phase 4 BUILT, not landed: branch `add-tag-p4` @ 796a41ed (badgetest 28/28, Impeccable PASSED, map suites green). Builder flags: Copenhagen/Malmö badges overlap; "All cities" can't frame LA + Nordics on a phone; "All cities" vs "All places" naming; control hidden in Plans/add tag; Impeccable doesn't render badge states.
+- Phase 4 CD + UX check NOT done: the container restarted three times mid-check. Partial notes: `checks/p4-cd-partial.md`, `checks/p4-ux-partial.md`. Next: rerun the combined check (briefs verbatim), then designer pass on open looks → owner stills → builder batch B → land, as in phases 1–3.
