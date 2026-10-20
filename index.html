@@ -718,7 +718,7 @@
       grid-auto-rows: var(--s8); padding-bottom: var(--s4);
       pointer-events: none;   /* the stick and foot are never a tap target (UX); only the boards are */
     }
-    .sp-pole { grid-column: 2; grid-row: 1 / span var(--rows); position: relative; background: var(--navy); margin-bottom: calc(-1 * var(--s4)); }
+    .sp-pole { grid-column: 2; grid-row: 1 / span var(--rows); position: relative; z-index: 2; background: var(--navy); margin-bottom: calc(-1 * var(--s4)); }
     /* the foot: where the stick meets the ground -- the city's spot (a navy dot, paper ring) */
     .sp-foot { position: absolute; left: calc(var(--wl) + 1px); bottom: 0; width: var(--s2); height: var(--s2); margin: 0 0 calc(var(--s2) / -2) calc(var(--s2) / -2);
       border-radius: 50%; background: var(--navy); box-shadow: 0 0 0 1.5px var(--paper-raised); }
@@ -742,8 +742,10 @@
     .sp-post .sp-board.is-w { grid-column: 1; justify-self: end; }
     .sp-post .sp-board.is-e { grid-column: 3; justify-self: start; }
     .sp-board .sp-shape { position: absolute; left: 0; top: 0; z-index: -1; overflow: visible; pointer-events: none; }   /* beats leaflet.css .leaflet-map-pane svg { z-index: 200 } */
-    .sp-shape .sp-shadow { fill: var(--navy); }
-    .sp-shape .sp-face { fill: var(--sp-fill, var(--paper-raised)); stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: miter; }
+    /* p4 CD fixes: no offset shadow (it read as a heavier bottom stroke on a pointed shape); one 2px
+       navy outline, the same weight as the pole, so pole and boards are one drawing. */
+    .sp-shape .sp-fill { fill: var(--sp-fill, var(--paper-raised)); }
+    .sp-shape .sp-line { fill: none; stroke: var(--navy); stroke-width: 2; stroke-linejoin: miter; stroke-linecap: butt; }
     .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
     .sp-board:active { --sp-fill: var(--state-press); }
     .sp-lab { position: relative; z-index: 1; display: flex; align-items: baseline; }
@@ -8155,7 +8157,7 @@
       let wl = 0, wr = 0;
       gp.members.forEach((m, i) => { const w = boardW(m); if (sides[i] === 'w') wl = Math.max(wl, w); else wr = Math.max(wr, w); });
       const n = gp.members.length;
-      return { l: wl + 1, r: wr + 1 + 2, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + FOOT(), b: 0 };
+      return { l: wl + 1, r: wr + 1, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + FOOT(), b: 0 };
     }
     function rectOf(gp) { const r = signRect(gp); return { x0: gp.foot.x - r.l, x1: gp.foot.x + r.r, y0: gp.foot.y - r.t, y1: gp.foot.y + r.b }; }
     function signsTouch(A, B) {
@@ -8209,16 +8211,22 @@
       });
     }
     // One board = one shape: the path of a box with a point, from the board's exact width.
-    function boardPath(w, h, t, side) {
-      const i = 0.75, tipX = 1.5;   // stroke inset; the miter tip pulled in so it stays inside the box
-      return side === 'e'
-        ? `M${i} ${i}H${w - t}L${w - tipX} ${h / 2}L${w - t} ${h - i}H${i}Z`
-        : `M${w - i} ${i}H${t}L${tipX} ${h / 2}L${t} ${h - i}H${w - i}Z`;
+    // p4 CD fixes: a 2px outline on whole pixels (top/bottom strokes centred on y 1 and h-1); the
+    // miter tip's vertex 2px in so its point stays inside the box. On a post the pole IS the board's
+    // pole-side edge: the outline is OPEN there (stroke path without that side), the fill closed.
+    function boardPath(w, h, t, side, closed) {
+      const a = 1, tip = 2;
+      if (side === 'e') {
+        const open = `M0 ${a}H${w - t}L${w - tip} ${h / 2}L${w - t} ${h - a}H0`;
+        return { fill: `M0 0H${w - t}L${w - tip + 1} ${h / 2}L${w - t} ${h}H0Z`, stroke: closed ? `M${a} ${a}H${w - t}L${w - tip} ${h / 2}L${w - t} ${h - a}H${a}Z` : open };
+      }
+      const open = `M${w} ${a}H${t}L${tip} ${h / 2}L${t} ${h - a}H${w}`;
+      return { fill: `M${w} 0H${t}L${tip - 1} ${h / 2}L${t} ${h}H${w}Z`, stroke: closed ? `M${w - a} ${a}H${t}L${tip} ${h / 2}L${t} ${h - a}H${w - a}Z` : open };
     }
-    function boardHtml(b, side, style) {
-      const w = boardW(b), h = BOARD_H(), d = boardPath(w, h, sNum(3), side);
+    function boardHtml(b, side, style, closed) {
+      const w = boardW(b), h = BOARD_H(), d = boardPath(w, h, sNum(3), side, closed);
       return `<button type="button" class="sp-board is-${side}" style="width:${w}px;${style}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
-        + `<svg class="sp-shape" width="${w + 2}" height="${h + 2}" viewBox="0 0 ${w + 2} ${h + 2}" aria-hidden="true"><path class="sp-shadow" transform="translate(2 2)" d="${d}"/><path class="sp-face" d="${d}"/></svg>`
+        + `<svg class="sp-shape" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path class="sp-fill" d="${d.fill}"/><path class="sp-line" d="${d.stroke}"/></svg>`
         + `<span class="sp-lab">${escapeHtml(b.label)}<span class="tally">${b.count}</span></span></button>`;
     }
     function cityBadgeIcon(gp) {
@@ -8226,14 +8234,14 @@
       const label = b => `${escapeHtml(b.label)}<span class="tally">${b.count}</span>`;
       if (isSolo(gp)) {
         const b = members[0], side = signSides(gp)[0];
-        return L.divIcon({ html: `<div class="sp-solo">${boardHtml(b, side, '')}</div>`, className: 'city-badge-anchor', iconSize: null });
+        return L.divIcon({ html: `<div class="sp-solo">${boardHtml(b, side, '', true)}</div>`, className: 'city-badge-anchor', iconSize: null });
       }
       if (isBox(gp)) {
         const b = members[0];
         return L.divIcon({ html: `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${label(b)}</button>`, className: 'city-badge-anchor', iconSize: null });
       }
       const sides = signSides(gp), r = signRect(gp);
-      const rows = members.map((b, i) => boardHtml(b, sides[i], `grid-row:${i + 1}`)).join('');
+      const rows = members.map((b, i) => boardHtml(b, sides[i], `grid-row:${i + 1}`, !!gp.pointer)).join('');
       let tether = '';
       if (gp.pointer && gp.tether) {
         // a straight stick from the boards' nearest edge to the dot (marker origin = the sign's foot)
@@ -8244,8 +8252,9 @@
         else if (dy <= -H) { px = k(dx, -wl + 4, wr - 4); py = -H; }
         else { px = dx < 0 ? -wl - sNum(3) : wr + sNum(3); py = k(dy, -H + 4, -4); }
         const d = sNum(2) / 2;
-        tether = `<svg class="sp-tether" aria-hidden="true" width="1" height="1" overflow="visible"><line x1="${px}" y1="${py}" x2="${dx}" y2="${dy}" stroke="var(--navy)" stroke-width="2"/>`
-          + `<circle cx="${dx}" cy="${dy}" r="${d + 1.5}" fill="var(--paper-raised)"/><circle cx="${dx}" cy="${dy}" r="${d}" fill="var(--navy)"/></svg>`;
+        tether = `<svg class="sp-tether" aria-hidden="true" width="1" height="1" overflow="visible">`
+          + `<circle cx="${dx}" cy="${dy}" r="${d + 1.5}" fill="var(--paper-raised)"/><circle cx="${dx}" cy="${dy}" r="${d}" fill="var(--navy)"/>`
+          + `<line x1="${px}" y1="${py}" x2="${dx}" y2="${dy}" stroke="var(--navy)" stroke-width="2"/></svg>`;
       }
       const html = `<div class="sp-anchor">${tether}<div class="sp-post${gp.pointer ? ' is-pointer' : ''}" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(', '))}" style="--wl:${r.l - 1}px;--wr:${r.r - 1}px;--rows:${members.length}">`
         + `<span class="sp-pole" aria-hidden="true"></span><span class="sp-foot" aria-hidden="true"></span>${rows}</div></div>`;
