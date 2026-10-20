@@ -1876,3 +1876,20 @@ same weight as the others?"
 NEXT: icon designer, fixes 1 and 2 (text and layout only). Then the
 director looks at the two boards' text, and the coordinator sends with
 the question above.
+
+---
+
+## Turn 55: icon designer, turn 54's text and layout (canvas v114)
+
+- **Archived first:** v112's main board and Weight board are on Archive as G7j (y 80000), with a title note (canvas v113).
+- **Main board header:** now "grid changes g7i and g7j". The intro names the Outline size class (the Star's hole always stays open) and the stacked-gable rule (every notch one line deep).
+- **Weight board** (`Grid7Weight`, now titled "Weight: the line marks"):
+  - It leads with the coordinator's question, verbatim.
+  - Then true-size rows for "As they are" and "Heavier line marks", side by side: list rows with the star, and the + in its Float badge among pins.
+  - Then an 8x row for each, and one plain line on what each changes. The heavier option's line says the star grows a little so its hole stays two lines wide, since its outline rule follows the line.
+  - The spread numbers are in a small footnote.
+  - "The director's bar" is gone. Option 3 (the coupe without its band) is removed, along with its SVG folder.
+- **No redraws:** the main board's drawings are unchanged. Checks: 0 slivers, 43/43 symmetric.
+- **How I looked:** both boards at 1x and 3x.
+
+NEXT: design director, the two boards' text; then the coordinator sends.
