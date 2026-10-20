@@ -56,6 +56,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-20 · Grid g7i/g7j shown (v115):** size by class ("the token"), five root shapes, Outline class for the Star, stacked-gable tree; Weight board asks: line marks as they are or heavier, and does the coupe match?
 
+- **10-20 · v123 shown:** master grid board; more liquid; deeper tree notches; taper board (no taper / counterpunch / woodcut). Asked: which taper; Weight board still open.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
