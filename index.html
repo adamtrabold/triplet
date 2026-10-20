@@ -741,11 +741,12 @@
     .sp-board.is-w { padding-left: calc(var(--s2) + var(--s3)); }
     .sp-post .sp-board.is-w { grid-column: 1; justify-self: end; }
     .sp-post .sp-board.is-e { grid-column: 3; justify-self: start; }
-    .sp-shape { position: absolute; left: 0; top: 0; z-index: -1; overflow: visible; pointer-events: none; }
+    .sp-board .sp-shape { position: absolute; left: 0; top: 0; z-index: -1; overflow: visible; pointer-events: none; }   /* beats leaflet.css .leaflet-map-pane svg { z-index: 200 } */
     .sp-shape .sp-shadow { fill: var(--navy); }
     .sp-shape .sp-face { fill: var(--sp-fill, var(--paper-raised)); stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: miter; }
     .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
     .sp-board:active { --sp-fill: var(--state-press); }
+    .sp-lab { position: relative; z-index: 1; display: flex; align-items: baseline; }
     /* a lone board with no pole (prototype switch only) */
     .sp-solo { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: flex; }
     .sp-board:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
@@ -8218,7 +8219,7 @@
       const w = boardW(b), h = BOARD_H(), d = boardPath(w, h, sNum(3), side);
       return `<button type="button" class="sp-board is-${side}" style="width:${w}px;${style}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
         + `<svg class="sp-shape" width="${w + 2}" height="${h + 2}" viewBox="0 0 ${w + 2} ${h + 2}" aria-hidden="true"><path class="sp-shadow" transform="translate(2 2)" d="${d}"/><path class="sp-face" d="${d}"/></svg>`
-        + `${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`;
+        + `<span class="sp-lab">${escapeHtml(b.label)}<span class="tally">${b.count}</span></span></button>`;
     }
     function cityBadgeIcon(gp) {
       const members = gp.members;
