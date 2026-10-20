@@ -1988,3 +1988,9 @@ making method) is scored on four things:
 
 NEXT: icon designer, this round. Then the director scores it in the
 order above.
+
+**Added (owner):** "several options is fine, i just dont want to lose the
+no taper option".
+- The even-1.5px set (no taper) is always shown beside the taper
+  options, at the same sizes (true size and 8x) and in the same places.
+- A taper board without it fails, whatever else it does.

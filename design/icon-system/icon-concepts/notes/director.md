@@ -1172,3 +1172,4 @@ approaches should be as much a part of the brand as anything".
   - more coupe liquid;
   - deeper tree notches (a fir at 1x);
   - a master grid board that's buildable from alone.
+- **The no-taper option must always appear** beside the taper options (owner: "i just dont want to lose the no taper option"). Without it, the board fails.
