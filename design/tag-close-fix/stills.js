@@ -1,6 +1,6 @@
 // Tag close-x fix (tweak lane): the Hanging Tag's x across short / two-line / starred / busiest tags,
 // at 390x844 and 375x667, 1x and 3x, with the x's geometry measured against the tag.
-//   node design/tag-close-fix/stills.js [index.html] [outdir]
+//   node design/tag-close-fix/stills.js [index.html] [outdir] [pin]   (pin: the TAG_CLOSE_STYLE 'pin' variant)
 const path = require('path');
 const P = require('../add-tag-jam/p2/lib-p2.js');
 const S = require('../add-tag-jam/p3/lib-p3.js');
@@ -36,6 +36,7 @@ const BUSY = { rey15: { ...S.REAL.rey15, name: 'Gunnhuver geothermal area - fuma
     const page = o.page;
     const shot = async name => { await W(450); await page.screenshot({ path: path.join(OUT, `${w}-${dsf}x-${name}.png`) }); if (dsf === 1) console.log(w, name, JSON.stringify(await measure(page))); };
     await S.install(page);
+    if (process.argv[4] === 'pin') await page.evaluate(() => document.documentElement.classList.add('tag-close-pin'));
     await S.realRows(page, BUSY);
     await page.evaluate(() => { const st = planStops.filter(x => x.plan_id === 'gh-p').sort((a, b) => a.position - b.position); if (st[2]) { st[2].location_id = 'rey15'; st[2].shape_id = null; } choosePlan('gh-p'); }); await W(900);
     await S.openTag(page, 'rey16'); await shot('1-short');

@@ -53,7 +53,7 @@ const sh = require('./lib-p3.js');
         return { cy: i.top + i.height / 2 - s.top, cr: s.right - (i.left + i.width / 2), w: b.width, h: b.height, onBody: t.querySelector('.tag-x').parentElement.classList.contains('tag-body') }; })() };
   });
   ok('B1 the routing line is the tag\'s first line: the city, caps 12 navy, with the add tag\'s chevron (p3 fixes §1)', t1.first === 'route-line' && t1.text === 'Reykjavík' && t1.chev && /^12px 700 1.44px uppercase rgb\(18, 41, 63\)$/.test(t1.font), t1);
-  ok('B2 left-aligned with the name; 44px target; the x is the tag\'s corner (tag-close-fix: glyph centred 18 down on the eyelet axis, --s8 in from the right; a 44px target on the body, outside the clipped stock)', Math.abs(t1.left) <= 0.5 && t1.hit >= 44 && Math.abs(t1.x.cy - 18) <= 0.5 && Math.abs(t1.x.cr - 32) <= 0.5 && t1.x.w === 44 && t1.x.h === 44 && t1.x.onBody, t1);
+  ok('B2 left-aligned with the name; 44px target; the x is the tag\'s corner (tag-close-fix: glyph centred 28 down (the cut corner\'s foot), --s8 in from the right; a 44px target on the body, outside the clipped stock)', Math.abs(t1.left) <= 0.5 && t1.hit >= 44 && Math.abs(t1.x.cy - 28) <= 0.5 && Math.abs(t1.x.cr - 32) <= 0.5 && t1.x.w === 44 && t1.x.h === 44 && t1.x.onBody, t1);
   ok('B3 inside its city\'s area: no distance note; the button says "City: Reykjavík. Change the city"', !t1.dist && t1.label === 'City: Reykjavík. Change the city', t1);
   await sh.openTag(page, 'rey15');   // re-set as Gunnuhver (outside the box)
   const t2 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'), d = t.querySelector('.tag-dist'), a = t.querySelector('.tag-addr'), cs = d && getComputedStyle(d);
