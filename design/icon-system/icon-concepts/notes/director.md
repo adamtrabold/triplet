@@ -1227,3 +1227,4 @@ approaches should be as much a part of the brand as anything".
   - the wider coupe bowl and more liquid;
   - the line marks in the middle weight;
   - monoweight.
+- **Tree correction:** keep the g7n proportions *and* bring back v123's intentional, non-standard-triangle shape, by rule. I overstated him as "v123 back". Score both halves.

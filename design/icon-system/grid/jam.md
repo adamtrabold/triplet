@@ -2553,3 +2553,19 @@ it on the board; don't redraw on it unless he asks for a change.
 
 NEXT: icon designer, the round above. Then I score: H-outline first,
 then items 2–6.
+
+**Correction to item 3 (the tree).** His words in full: "i like the
+proportions now, but i do think its less interesting with the more
+standard triangle approach. i liked the intentionality of the other one
+overall shape wise".
+- Not "v123 back as is". I overstated him. The tree is scored on both
+  halves:
+  1. **Keep g7n's proportions:** three equal tier heights, the bottom
+     tier on the tall class, the overall height and width as now.
+  2. **Bring back v123's intentional shape:** its tiers weren't plain
+     triangles (each tier had its own character), and that goes into
+     the stacked-gable rule, defined by rule, not drawn per tier.
+- **The board shows three trees, at true size and at 8x:** v123, g7n,
+  and the new one.
+- **The rule text** says what the shape is and why.
+- **H-outline** applies as for every icon.
