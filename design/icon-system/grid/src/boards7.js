@@ -280,7 +280,7 @@ function sheetCorners(W_, n) {
 <p class="sm"><b>Plainly:</b> at real size the three are close for every icon now; the slots and line ends no longer round into pills under any law. What each law still costs:</p>
 <ul class="facts">
 <li><b>All three:</b> line joins take the slightest round (0.15px, no notch), the same under every law, so the laws differ only at outside corners and sharp notches.</li>
-<li><b>By joint (proposed, and on the main board):</b> every meeting point at least slightly round; tight inside corners (joins, slots, notches) 0.15px, line ends 0.3, points 0.35, mass corners 0.45, wide corners 0.7. Inside stays tighter than outside.</li>
+<li><b>By joint (proposed, and on the main board):</b> every meeting point at least slightly round; tight inside corners (joins, slots, notches) 0.15px, wide inside corners 0.3, line ends 0.3, points 0.35, mass corners 0.45, wide corners 0.7. Inside stays tighter than outside.</li>
 <li><b>Even wear:</b> the silhouette is softened evenly, so the ends of the + and the plinth read a little blunter at real size.</li>
 <li><b>Pressed:</b> sharp outside corners and filled sharp notches (the conifer); with joins slightly round, it is closer to by joint than before.</li>
 </ul>

@@ -30,10 +30,12 @@ const LAWS7 = {
   // g7h (owner, above): every meeting point takes at least a slight round, and a TIGHT INTERIOR corner
   // (a join, a counter or slot corner, a sharp notch: concave, 105 degrees or less) takes JOIN, well
   // under the exterior values, so the notches read tighter than the tips (the tree was 0.25 against
-  // 0.3). Exterior acute tips move up to 0.35, cut ends stay 0.3, mass corners 0.45, obtuse 0.7.
+  // 0.3). Exterior acute tips move up to 0.35, cut ends stay 0.3, mass corners 0.45, obtuse 0.7. A WIDE
+  // interior corner (over 105, e.g. the Star's shoulders) drops from 0.6 to 0.3, so no inside corner is
+  // rounder than the outside points next to it.
   joint: c => fit(c, c.convex
     ? (c.angle < 75 ? 0.35 : c.angle > 105 ? 0.7 : Math.min(c.lin, c.lout) <= 2 ? 0.3 : 0.45)
-    : (c.angle <= 105 ? JOIN : 0.6)),
+    : (c.angle <= 105 ? JOIN : 0.3)),
   // Even wear: every outside corner worn the same depth (0.28px); inside corners barely touched
   wear: c => { if (join(c)) return SQUARE; const f = 1 / Math.sin((c.angle * Math.PI / 180) / 2) - 1; return fit(c, c.convex ? Math.min(1.8, Math.max(0.15, 0.28 / f)) : Math.min(0.45, Math.max(0.12, 0.06 / f))); },
   // Pressed: ink pools inside corners; outside edges stay sharp

@@ -1305,3 +1305,49 @@ The owner on v99 (verbatim in `../owner.md`):
 
 NEXT: icon designer, the round. Then the director checks the scale row
 first.
+
+---
+
+## Turn 44: icon designer, g7h: every meeting point slightly round, interior tighter; cup and coupe scale
+
+v99's boards went to Archive first (**G7g**, at y 64000, with a title note). Then **canvas v103**: the g7h main board and the seven detail boards.
+
+1. **The joint law, one table** (`src/laws7.js`). Every meeting point has a round, and no inside corner is rounder than the outside around it:
+
+   | Corner | Round (px) |
+   |---|---|
+   | Tight inside: joins, counter and slot corners, notches (concave, 105° or less) | 0.15 (was 0, notches 0.25) |
+   | Wide inside (concave, over 105°, e.g. the Star's shoulders) | 0.3 (was 0.6) |
+   | Cut ends | 0.3 (unchanged) |
+   | Outside tips (under 75°) | 0.35 (was 0.3) |
+   | Outside corners of masses | 0.45 (unchanged) |
+   | Wide outside corners | 0.7 (unchanged) |
+
+   - No round exceeds 0.2 of the shorter edge at its corner, so there are no pills.
+   - The 0.15 is a fill, never a notch, so there are no traps.
+   - A join gains under 0.01px² of ink, so nothing thickens.
+   - Even wear and Pressed share the 0.15 join, so the three laws still differ only at outside corners and notches.
+2. **The tree** (his test): the points are 0.35 and the notches 0.15, so the inside now reads tighter than the outside.
+3. **Scale:**
+   - **The cup:** 2/3px taller (bowl 7 deep, was 6.3; the glyph is 9.3 tall, was 8.7). The ear grows 1/3px with it, so the S into it stays gentle; its counter is 2.25 × 2.67.
+   - **The coupe:** the stem is 2/3px shorter (the glass is 11.3 tall, was 12).
+   - The museum, the tree, the + and the Star are unchanged.
+   - Small moves only; no silhouette was redrawn.
+   - I also tried a bowl 1/2px wider. It took the cup to 76.9 in the blur, so I dropped it.
+4. **Checks:**
+   - Blur: cup 74.8, conifer 74.4, coupe 69.5, museum 66.3. The spread is 8.5 (was 8.8); the cup and conifer swapped first place, about equal.
+   - 0 slivers; 33/33 symmetric.
+5. **How I looked:** the board at 1x and 3x (Playwright), the true-size rows at 3x, the 8x row beside the references, and corners sheet 3. Stills: `stills/g7-board.png`, `g7-sheet-*.png`.
+
+**My read, in your check order:**
+1. **Scale row:** the cup and coupe now sit closer to the museum and tree. At true size the cup no longer reads as the small one. The coupe is still the tallest glyph, but it's thin, so it doesn't read as much taller. If it still does to you, the next step is another 1/3px off the stem.
+2. **Meeting points at 8x:**
+   - the + crossing and the coupe's stem joins show a hairline round, no blob;
+   - the museum's slot corners are slightly round;
+   - the tree's notches are visibly tighter than its points;
+   - the Star's inner points are slightly round, and its shoulders are now no rounder than its tips;
+   - the + ends are 0.3, unchanged.
+   - Nothing is square or zero.
+3. **Blur and true size:** as in item 4; clean at 24 and at the 12px chips.
+
+NEXT: design director, the scale row first, on the canvas (v103).

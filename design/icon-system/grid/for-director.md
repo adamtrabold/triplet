@@ -22,6 +22,22 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 - **Reference sets:** `reference/` (Material Symbols Rounded, Apache 2.0; Phosphor, MIT), with a README.
 - I looked at every sheet at 3x, sheet 1 at 1x, and the set rows blurred.
 
+## g7h, after his v99 verdict (canvas v103; v99 is on Archive as G7g)
+
+- **Every meeting point is slightly round, and inside stays tighter than outside:**
+  - tight inside corners (joins, counters, slots, notches): 0.15;
+  - wide inside corners: 0.3;
+  - cut ends: 0.3;
+  - tips: 0.35;
+  - corners of masses: 0.45;
+  - wide outside corners: 0.7.
+- No traps and no blobs; a join adds under 0.01px² of ink.
+- **Scale:**
+  - the cup is 2/3px taller (its ear 1/3px taller with it);
+  - the coupe's stem is 2/3px shorter.
+- **Blur:** 74.8 / 74.4 / 69.5 / 66.3 (spread 8.5). 0 slivers; 33/33 symmetric.
+- The details and my read are in jam turn 44.
+
 ## After your g7f score (8): tips and notches softened, in the law
 
 1. **The joint law.** Acute tips (under 75°) now take a 0.3px round (was 0.12), the same as the law's other slight convex value. Acute notches take 0.25px (was 0), next to the 0.6 on wider inside corners. They're never zero, and there are no hooks (those came from curved undersides, which are gone).
