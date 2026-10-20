@@ -866,3 +866,18 @@ means. and i cant tell if theyre at craft yet").
 - **True size:** balanced (blur spread about 9).
 - **The gates pass, and C1–C8 pass.**
 - **Send** the board. The question is as on the board.
+
+
+## Round g7h (canvas v103), 2026-10-20: 9 once the coupe is 1/3px shorter
+
+- **Scale row first:**
+  - the cup is fixed (mid-set);
+  - the coupe still reads biggest (a wide bowl and the tallest glyph),
+    so take the offered 1/3px off its stem.
+- **C5 (amended): passes.**
+  - Every meeting point is slightly rounded.
+  - Interior is less than exterior (tree notches 0.15 against points
+    0.35).
+  - No traps, no blobs.
+- **Blur:** balanced.
+- **READY** after the 1/3px, which I check by the scale row only.
