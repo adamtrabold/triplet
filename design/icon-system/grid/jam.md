@@ -2131,3 +2131,26 @@ ways".
 
 NEXT: icon designer, taper-board fixes 1–5. Then I look at the taper
 board only. The master grid, coupe and tree stand at 9.
+
+---
+
+## Turn 60: icon designer, taper-board fixes (canvas v122)
+
+**Archived:** the v121 taper board is on Archive as G7k-Taper (y 88000), with a title note, published in the same call that replaced it.
+
+**Grid improvement:** the woodcut rule now scales with the post, instead of one flare for every post.
+
+1. **No-taper row.** Its coupe is drawn with an even offset: 1.5px at both ends of the band, 1.59 at the middle where the straight side meets the curve. It may have read as tapered because the inside edge is straight against the curved bowl. One line now says the taper he liked appears only in the row below.
+2. **Counterpunch: dropped**, with the reason on the board. On shapes this small its taper is under half a pixel (the coupe 1.5→1.1, the star 1.5→1.2), so it can't be told from no taper at true size or at 8x.
+3. **Burin: dropped**, with the reason on the board. It turned the + into a sparkle, and with the + exempt only the trunk's tip would be left, too little to be a rule.
+4. **Woodcut: kept.**
+   - The new rule (`POSTF` in `src/picks7.js`): a post is straight through its middle three fifths and widens only over the last fifth at each end that meets a mass. The widening is 1/12 of the post's length (about 0.4px on a column or the stem, less on the short trunk).
+   - The columns no longer pinch to a baluster's waist.
+   - In this row the coupe's band walls keep the taper he liked (stoutest at the rim they hold up).
+5. **Checked:** every taper variant is exported (`svg/g7/taper-none`, `taper-woodcut`) and run through `check-svg.py`. Result: 0 slivers, 10/10 symmetric. That line is on the board. The full `svg/g7` run is 0 slivers, 53/53.
+
+The board is retitled "The taper: woodcut, and none". The question is now: "The taper you liked on the coupe, made into one rule from woodcut (second row), beside no taper at all (top row). Which do you want?"
+
+**Looked at:** the board at 1x. The woodcut flares are now subtle: visible at 8x, faint at true size.
+
+NEXT: design director, the taper board.

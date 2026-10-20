@@ -38,6 +38,14 @@ const POSTW = (cx, y0, y1, w0, wm, w1) => { const ym = (y0 + y1) / 2; return { .
 // it and not following it"; "several options is fine, i just dont want to lose the no taper option"). Each is
 // a making method; o.style picks one: 'none' (even 1.5px), 'punch', 'burin', 'woodcut'.
 const FLARE = W + 0.5, FREE = 1;   // woodcut: a post 2px where it meets a mass; burin: a free end thins to 1px
+// WOODCUT (g7l, director: "if the columns read as balusters, soften them by a rule"): a post is straight
+// through its middle three fifths and widens only over the last fifth at each end that meets a mass; the
+// widening grows with the post: 1/12 of its length in all (a 5px column gains about 0.4px, a short trunk
+// less), so long posts don't pinch to a waist like a baluster. top/bot: does that end meet a mass?
+const POSTF = (cx, y0, y1, top, bot) => {
+  const L = y1 - y0, f = L / 12, z = L / 5, wt = W + (top ? f : 0), wb = W + (bot ? f : 0);
+  return { ...P([cx - wt / 2, y0], [cx + wt / 2, y0], [cx + W / 2, y0 + z], [cx + W / 2, y1 - z], [cx + wb / 2, y1], [cx - wb / 2, y1], [cx - W / 2, y1 - z], [cx - W / 2, y0 + z]), root: 'POST' };
+};
 const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx - hw, base]), root: 'GABLE' });
 
 // ---- g7i: THE TOKEN, how big each glyph is (owner: "address this at the grid level across all of them...
@@ -97,7 +105,7 @@ const DRAW = {
     //   otherwise (as shipped since g7i, and the COUNTERPUNCH option): the band is cut by the bowl's own shape
     //     made smaller, so the wall is full (1.5px) at the rim and thins toward the drink (about 1.1px).
     const wall = o.wall || W;
-    if (o.style && o.style !== 'punch') o = { ...o, taper: 'even' };   // only the counterpunch cuts the band by the bowl's shape
+    if (o.style && o.style !== 'punch' && o.taper !== 'cut') o = { ...o, taper: 'even' };   // the band is cut by the bowl's shape (tapered) unless a style says even
     // the clear band, under the rim and over the drink: g7k, the counter minimum, 1.5px (was 1 2/3), so the
     // drink stands higher; its surface sits 1/6px off the 1/3px lattice, the one place the counter minimum wins
     const rim = WH, liquid = rim + W;
@@ -119,7 +127,7 @@ const DRAW = {
       band = cut(I(inside, R(0, rim, s, liquid - rim)));
     }
     const FB = Y(11);
-    const stem = o.style === 'woodcut' ? POSTW(c, X(bd - 0.5), FB - WH + 0.01, FLARE, W, FLARE) : POST(c, X(bd - 0.5), FB - WH + 0.01);
+    const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : POST(c, X(bd - 0.5), FB - WH + 0.01);
     const foot = SLAB(X(2.25), X(9.75), FB - WH);
     return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, band];
   },
@@ -132,7 +140,7 @@ const DRAW = {
     const out = [{ ...P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd]), root: 'GABLE', also: 'SLAB' }];
     const ct = pb + bd, pl = Y(12) - WH;                              // column tops; plinth top
     const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
-    for (let i = 0; i < n; i++) { const cx = x0 + W / 2 + i * (W + gap); out.push(o.style === 'woodcut' ? POSTW(cx, ct - 0.01, pl + 0.01, FLARE, W, FLARE) : POST(cx, ct - 0.01, pl + 0.01)); }
+    for (let i = 0; i < n; i++) { const cx = x0 + W / 2 + i * (W + gap); out.push(o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : POST(cx, ct - 0.01, pl + 0.01)); }
     out.push(SLAB(X(0.25), X(11.75), pl));
     return out;
   },
@@ -148,7 +156,7 @@ const DRAW = {
     for (let i = 1; i < tiers.length; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r = (hwU - L) / hwL; tiers[i][0] = (byU - r * byL) / (1 - r); }
     const out = [];
     for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));
-    out.push(o.style === 'woodcut' ? POSTW(c, X(9.5), s, FLARE, (FLARE + W) / 2, W) : o.style === 'burin' ? POSTW(c, X(9.5), s, W, (W + FREE) / 2, FREE) : POST(c, X(9.5), s));
+    out.push(o.style === 'woodcut' ? POSTF(c, X(9.5), s, true, false) : o.style === 'burin' ? POSTW(c, X(9.5), s, W, (W + FREE) / 2, FREE) : POST(c, X(9.5), s));
     return out;
   },
 };

@@ -1,0 +1,1 @@
+src/check-svg.py on both rows (svg/g7/taper-none, svg/g7/taper-woodcut): 0 slivers; 10/10 symmetric files mirror within 0.01px (the cup is asymmetric by design).
