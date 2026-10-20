@@ -1260,3 +1260,152 @@ tag controls. Both tags.
 
 ### Open for the owner
 - Nothing. The final tag still is `stills/p3-fixes/3-tag-padding.png`.
+
+---
+
+## Phase 4 fixes (after build check)
+
+Designer pass, 2026-10-20, on the CD + UX check (`checks/p4-cd-ux.md`).
+
+- **Reference build:** **`design-p4-fixes`** (0507fbe2), on `add-tag-p4`
+  796a41ed. Diff it against that commit.
+- **Stills** (`stills/p4-fixes/`) use real OSM tiles and the 5-city fixture
+  (the live DB has the same cities). `stills.js` renders them; its tile
+  cache is not committed.
+  - `1-badges.png`: z4, z6, z7, and after All places;
+  - `2-control.png`: the control close-up.
+- **Impeccable gate:** PASSED. The gate doesn't render a badge zoom, so the
+  badges are judged on the stills, not by the gate.
+- **`badgetest.js` needs updating** for these rules:
+  - badges are `[data-city-badge]` buttons, which may be rows inside a
+    `.city-badge-group`;
+  - only cities whose centre is on screen draw.
+
+### 1. Badge collisions (BLOCKER): joined boxes, clear of the controls
+
+**Rule:**
+- **Badges never overlap.** Two or more badges whose boxes would come
+  within `var(--s1)` (4px) of each other **join into one box**: a stacked
+  list of their cities, **north to south**.
+  - **Each row is its own go-to button** (`goToCity(id)`), so every city
+    stays one tap away and unambiguous.
+  - Joining is greedy and repeats until nothing touches.
+  - The joined box is centred on the mean of its cities' screen points.
+- **Badges stay clear of the map's controls.** Every box is kept inside the
+  map's clear area, `var(--s2)` (8px) from each edge, then:
+  - below the bottom of the zoom control, the All places control and the
+    account badge (+ `var(--s2)`);
+  - above the top of the + badge and the credit (− `var(--s2)`).
+  - A box that would cross an edge is nudged inside. Nudged boxes that now
+    touch join again (at most two passes).
+- **Only a city whose centre is on the visible map draws a badge.** An
+  off-screen city is never dragged onto the map.
+- **Keys and taps:**
+  - A box is keyed by its member ids (`'copenhagen+malmo'`), so a pan only
+    moves it (`setLatLng`), never re-creates it.
+  - The marker's click finds `[data-city-badge]` on the tapped element.
+    `bubblingMouseEvents:false`.
+- In the busiest real state, Copenhagen + Malmö are one box at z3–7 and
+  Stockholm is alone from z4. At z1–3 the Nordic cities share one box.
+
+**The joined box** (`.city-badge-group`):
+- The single badge's box: `background:var(--paper-raised)`,
+  `border:1.5px solid var(--navy)`, `border-radius:2px`,
+  `box-shadow:2px 2px 0 var(--navy)`.
+- `display:flex; flex-direction:column; min-width:max-content`.
+- **Rows** (`.city-badge-row`): the menu spec's row.
+  - Box: height 40px, `padding:0 var(--s3)`, caps 13/16, `.08em`,
+    `var(--navy)`, then the tally.
+  - Rules: a 1px `var(--hair)` between rows.
+  - Target: 44px via `::before` −2px top/bottom.
+  - States: pressed `var(--state-press)`; focus a 2px navy outline inset 2.
+- The group has `role="group"` with `aria-label` "Copenhagen and Malmö".
+  Each row has `aria-label` "Go to Copenhagen, 54".
+- The single badge is unchanged.
+
+Why this and not offsets or leaders:
+- A stacked list is the app's own menu box and row, so it reads as "these
+  cities" at a glance, with no strings or dots (owner: "String is too long
+  dot too heavy").
+- Unlike a cluster, it keeps the owner's wish: tap a city, go to that city.
+
+### 2. "All places" framing (BLOCKER): the rule
+
+**Rule, in plain words:** tapping All places (or picking All places in the
+title menu) shows **every shown city's badge, whole and readable, inside the
+clear area**. It zooms out as far as that takes.
+
+The details:
+- **When it applies:** only when the places themselves would need a badge
+  zoom (fit zoom < `CITY_BADGE_MAX_ZOOM`). When all places fit at pin zoom
+  (e.g. one city), today's fit of the places stands.
+- **How:** `badgeFitView()` tries z = `CITY_BADGE_MAX_ZOOM − 1` down to the
+  map's minZoom.
+  - At each z it lays the badges out with the same joining as the map, and
+    takes the first z whose boxes' extent fits the clear area (fix 1's
+    rect).
+  - The extent is centred in the clear area, then `flyTo` (as before).
+- **The map's minZoom drops from 3 to 1** (`L.map` and the tile layer).
+  - On a 390px phone, LA + the Nordics only fit at z1. That lands with
+    **LA** on the left and **Reykjavík / Stockholm / Copenhagen / Malmö**
+    in one box.
+  - At z1 the world is 512px tall, so on a tall map a pale strip of the
+    map's ground shows above it. That's the honest cost of showing both
+    continents on a phone.
+  - worldCopyJump stays on.
+- **The menu's "All places" uses the same code** (`goToCity(ALL_CITIES)` →
+  `fitVisible()`), so the two can never disagree.
+
+### 3. The control's name
+
+**"All places"**: the title menu's and the title's own name for the same
+state (phase 1's one-name rule).
+- The visible text is the accessible name: the `aria-label` is dropped.
+  This fixes the label-in-name miss.
+
+### 4. The control's glyph
+
+**None.** The ring goes:
+- the owner asked "what is this icon?" of it;
+- a ring is the my-location button's mark.
+
+The control is the words alone.
+
+### 5. The control's weight
+
+**Not Leaflet's white box.** It becomes a quiet paper chip, by the owner's
+box rule (a plain paper box takes the dividers' 1px `--hair`):
+- `background:var(--paper-raised)`, `border:1px solid var(--hair)`,
+  `border-radius:2px`, no shadow;
+- `height:var(--s8)` (32), `padding:0 var(--s3)`;
+- caps 11/14, `.1em`, `var(--navy)`;
+- 44 to the touch via `::before` −6px top/bottom;
+- pressed `var(--state-press)`;
+- **`margin-top:var(--s2)`** under the zoom control (it was Leaflet's
+  10px), left edge with the zoom control's.
+
+It now reads clearly below the badges, which keep their navy rule and
+offset shadow. Hidden in Plans and while adding, as built. Whether to hide
+it in Plans is still the owner's yes (UX).
+
+### Checks for the builder
+- **Run:** badgetest (updated), the Impeccable gate.
+- **New coverage:**
+  - at z3–7 in the 5-city fixture, no two `[data-city-badge]` rects overlap,
+    and none overlaps the zoom control, the All places control, the account
+    badge or the + badge;
+  - tapping each row goes to its own city;
+  - after All places at 390×844, every shown city has a `[data-city-badge]`
+    fully inside the map;
+  - the control reads "All places" with no `aria-label`.
+- Add a zoomed-out badge state to the Impeccable gate (needs `--update`
+  approval).
+
+### Open for the owner
+- Cities that sit close together on the zoomed-out map share one box, one
+  line per city, each line still tappable (`1-badges.png`). OK?
+- "All places" now zooms out to the whole world when your cities are on two
+  continents, so they all show. OK?
+- The button under the zoom is now just the words "All places", on paper,
+  with no icon. OK?
+- Still pending from before: should "All places" be hidden in Plans?

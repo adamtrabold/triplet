@@ -369,3 +369,31 @@
     so the extra room is a margin instead.
   - Measured: the plain tag is 184px; the busiest is 280px, which fits at
     390×844 and scrolls at 375×667. Prototype f8591822.
+
+## 2026-10-20, Phase 4 fixes after the build check
+- **Prototype:** `design-p4-fixes` (0507fbe2). Real-tile stills:
+  `stills/p4-fixes/1-badges.png`, `2-control.png`. The Impeccable gate
+  passes (it renders no badge zoom). badgetest needs updating for the
+  groups and the on-screen-only rule.
+- **Decisions:**
+  1. Colliding badges (within `--s1`) join into one stacked box, north to
+     south, each row a go-to (menu-row metrics). Boxes are kept inside the
+     clear area (`--s2` from the top controls, the + badge, the credit and the
+     sides). Only cities whose centre is on screen draw.
+  2. All places = the closest zoom at which every shown city's badge or box
+     fits the clear area. minZoom drops 3 → 1, so LA + the Nordics land at z1
+     on a phone. The menu's All places is the same code.
+  3. The control is named "All places", with no aria-label.
+  4. No glyph (the ring reads as my location).
+  5. A quiet paper chip (hair edge, no shadow, 32 tall, `--s3` padding,
+     `--s2` under the zoom).
+- **Rejected:**
+  - offsets with leader strings (owner: "String is too long dot too heavy");
+  - cluster-style merging that only zooms (loses go-to-a-city);
+  - side-by-side joined badges (too wide at 3–4 cities);
+  - edge-of-screen arrows for off-screen cities (more marks, a new
+    pattern).
+- **Watch:** at z1 a pale strip of the map's ground shows above the world on
+  a tall map.
+- **Next:** the owner sees the stills; the owner answers the Plans-hide
+  question.
