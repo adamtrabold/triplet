@@ -1,7 +1,7 @@
 import sys
 from PIL import Image
 d = sys.argv[1]
-for n in ['cafe', 'bar', 'museum', 'nature', 'ref0', 'ref1', 'ref2', 'ref3']:
+for n in ['cafe', 'bar', 'museum', 'nature', 'star', 'plus', 'ref0', 'ref1', 'ref2', 'ref3']:
     im = Image.open(f'{d}/{n}.png').convert('L'); w, h = im.size; px = im.load()
     vals = []
     for y in range(h):

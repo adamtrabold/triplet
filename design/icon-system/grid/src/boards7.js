@@ -8,6 +8,7 @@ const E = require('./engine.js');
 const B4 = require('./boards4.js');
 const { COL, f2, uiIcon } = B4;
 const P7 = require('./picks7.js');
+const P7H = require('./picks7h.js');   // v105 (g7h) as shown, frozen for the g7i before/after
 const P6 = require('./picks6.js');
 const { LAWS6 } = require('./laws6.js');
 const { LAWS7, LAW_NAMES, scaled, fit, TRAP } = require('./laws7.js');
@@ -26,31 +27,53 @@ const ASK = 'Here are the first six icons at true size, in a list row, on the ma
 // centroid: the box alone floats top-heavy drawings (the coupe) high; the centroid alone over-corrects
 // thin parts. Steps: 1/3px up and down (keeps horizontals on whole device pixels), 1/4px across.
 const r3 = v => Math.round(v * 3) / 3, r4 = v => Math.round(v * 4) / 4;
-function place(id, law, s = 12) {
-  const o = (24 - s) / 2, prims = DRAW[id](s);
-  const raw = E.build(E.xform(prims, 1, 0, 0, o, o), { law });
+// ---- g7i: SIZE BY CLASS (the token). The drawing sets proportions; the grid sets size: fitS() scales
+// each drawing (positions only, never its lines) until its box just fits its class's cut of the token,
+// plus 1/2px for an apex. No icon carries its own size number.
+const { KEY, CLASS, APEX } = P7;
+function fitS(id, A = 12, draw = DRAW) {
+  const [cls, apex] = CLASS[id], [kw, kh] = KEY[cls], bw = kw * A / 12, bh = kh * A / 12 + apex;
+  let s = A;
+  for (let i = 0; i < 6; i++) { const b = measure(E.build(draw[id](s), { law: LAWS7.joint }).d).box; s *= Math.min(bw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }   // the finished outline
+  return s;
+}
+const SFIT = {}; for (const [A] of AIRS) { SFIT[A] = {}; for (const [id] of BATCH) SFIT[A][id] = fitS(id, A); }
+function place(id, law, A = 12) {
+  const s = SFIT[A][id], ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = DRAW[id](s);
+  const raw = E.build(E.xform(prims, 1, 0, 0, ox, oy), { law });
   const m = measure(raw.d), tx = r4(12 - (m.box.cx + m.cx) / 2), ty = r3(12 - (m.box.cy + m.cy) / 2);
   const info = [];
-  const b24 = E.build(E.xform(prims, 1, 0, 0, o + tx, o + ty), { law, centre: [12, 12], info });
-  const c12 = E.build(E.xform(DRAW[id](12), 1, 0, 0, tx, ty), { law });
-  return { b24, c12, raw, tx, ty, m: measure(b24.d), mraw: m, caps: info.filter(x => x.cap).length, curves: E.countCurves(b24.d), d: b24.d };
+  const b24 = E.build(E.xform(prims, 1, 0, 0, ox + tx, oy + ty), { law, centre: [12, 12], info });
+  const c12 = E.build(E.xform(DRAW[id](SFIT[12][id]), 1, 0, 0, (12 - SFIT[12][id]) / 2 + tx, r3((12 - SFIT[12][id]) / 2) + ty), { law });
+  return { b24, c12, raw, tx, ty, s, m: measure(b24.d), mraw: m, caps: info.filter(x => x.cap).length, curves: E.countCurves(b24.d), d: b24.d };
 }
-const GD = {}; // GD[law][s][id]
+const GD = {}; // GD[law][A][id]
 for (const law of LAWS) { GD[law] = {}; for (const [s] of AIRS) { GD[law][s] = {}; for (const [id] of BATCH) GD[law][s][id] = place(id, LAWS7[law], s); } }
 // batch 1 as the owner saw it (g6, by joint), for before/after
 const OLD = {}; for (const [id] of BATCH) OLD[id] = E.build(E.xform(P6.DRAW[id](12), 1, 0, 0, 6, 6), { law: LAWS6.joint });
 const OLDC = {}; for (const [id] of BATCH) OLDC[id] = E.build(P6.DRAW[id](12), { law: LAWS6.joint });
+// v105 as the owner last saw it (g7h), for the g7i before/after: its drawings and its law
+const V105 = {}; for (const [id] of BATCH) { const prims = P7H.DRAW[id](12), raw = E.build(E.xform(prims, 1, 0, 0, 6, 6), { law: LAWS7.joint }); const m = measure(raw.d); V105[id] = E.build(E.xform(prims, 1, 0, 0, 6 + r4(12 - (m.box.cx + m.cx) / 2), 6 + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }); }
+V105.star = E.build(P7H.star(20), { law: scaled(LAWS7.joint, 24 / 20) }); V105.plus = E.build(P7H.plus(26.4), { law: scaled(LAWS7.joint, 24 / 26.4) });
+// the two UI marks, fitted by class: the Star's tips on the coin (ROUND) plus the apex; the +'s arms across it (OPEN)
 const UIP = { plus: [plus, 26.4], star: [star, 20] };
-const UD = {}; for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px), { law: scaled(LAWS7[law], 24 / px), info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
+const USC = {
+  // a RADIAL mark (parts pointing out from a centre: the Star) is fitted by its hull, not its box: the
+  // pentagon through its tips has the coin's area (2.378 R^2 = pi 6^2), so R = 6.9px; in its 24 units, less the line's mitre
+  star: Math.sqrt(Math.PI * 36 / (2.5 * Math.sin(2 * Math.PI / 5))) * 24 / 20 - (W * 24 / 20 / 2) / Math.sin(Math.PI / 10),
+  plus: KEY.OPEN[0] / 14,
+};
+USC.star /= 9.6;
+const UD = {}; for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px, USC[k]), { law: scaled(LAWS7[law], 24 / px), info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
 const UOLD = { plus: E.build(P6.plus(26.4), { law: c => LAWS6.joint(c) * 24 / 26.4 }), star: E.build(P6.star(20), { law: c => LAWS6.joint(c) * 24 / 20 }) };
 // g7 as first sent: line joins ROUNDED (0.6); g7c: joins TRAPPED (turned down by the owner). Kept to show change 14 before and after
 const ROUNDJ = c => (!c.convex && c.angle >= 75 && c.angle <= 105) ? fit(c, 0.6) : LAWS7.joint(c);
 const TRAPJ = c => (!c.convex && c.angle >= 75 && c.angle <= 105) ? TRAP : LAWS7.joint(c);
-const PLUS_TRAP = E.build(plus(26.4), { law: scaled(TRAPJ, 24 / 26.4) });
-const PLUS_ROUND = E.build(plus(26.4), { law: scaled(ROUNDJ, 24 / 26.4) });
-const RING = (() => { const o = 6, prims = DRAW.cafeRing(12), raw = E.build(E.xform(prims, 1, 0, 0, o, o), { law: LAWS7.joint }); const m = measure(raw.d); return E.build(E.xform(prims, 1, 0, 0, o + r4(12 - (m.box.cx + m.cx) / 2), o + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }); })();
-const BAR_ROUND = (() => { const b = GD.joint[12].bar; return E.build(E.xform(DRAW.bar(12), 1, 0, 0, 6 + b.tx, 6 + b.ty), { law: ROUNDJ }); })();
-const BAR_TRAP = (() => { const b = GD.joint[12].bar; return E.build(E.xform(DRAW.bar(12), 1, 0, 0, 6 + b.tx, 6 + b.ty), { law: TRAPJ }); })();
+const PLUS_TRAP = E.build(P7H.plus(26.4), { law: scaled(TRAPJ, 24 / 26.4) });
+const PLUS_ROUND = E.build(P7H.plus(26.4), { law: scaled(ROUNDJ, 24 / 26.4) });
+const RING = (() => { const o = 6, prims = P7H.DRAW.cafeRing(12), raw = E.build(E.xform(prims, 1, 0, 0, o, o), { law: LAWS7.joint }); const m = measure(raw.d); return E.build(E.xform(prims, 1, 0, 0, o + r4(12 - (m.box.cx + m.cx) / 2), o + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }); })();
+const BAR_ROUND = (() => { const b = V105; const prims = P7H.DRAW.bar(12), raw = E.build(E.xform(prims, 1, 0, 0, 6, 6)); const m = measure(raw.d); return E.build(E.xform(prims, 1, 0, 0, 6 + r4(12 - (m.box.cx + m.cx) / 2), 6 + r3(12 - (m.box.cy + m.cy) / 2)), { law: ROUNDJ }); })();
+const BAR_TRAP = (() => { const prims = P7H.DRAW.bar(12), raw = E.build(E.xform(prims, 1, 0, 0, 6, 6)); const m = measure(raw.d); return E.build(E.xform(prims, 1, 0, 0, 6 + r4(12 - (m.box.cx + m.cx) / 2), 6 + r3(12 - (m.box.cy + m.cy) / 2)), { law: TRAPJ }); })();
 const LIVE = Math.PI * 64; // the Ø16 live circle
 const ink = d => 100 * measure(d).area / LIVE;
 

@@ -8,7 +8,7 @@
 // The box is the drawing box. WHERE the drawing sits in the badge is set by its optical centre
 // (src/boards7.js, place()), not by the box: optical centring.
 'use strict';
-const { R, C, P, B, O, A, D, cut } = require('./engine.js');
+const { R, C, P, B, O, A, D, I, cut } = require('./engine.js');
 const W = 1.5;      // a line, upright or diagonal (decided by the owner)
 const WH = 4 / 3;   // a horizontal line, 1.333px: CONTRAST COMPENSATION (a horizontal reads heavier than
                     // an upright of the same width, so it is drawn about 10% thinner, as in type design)
@@ -19,91 +19,112 @@ const T = v => Math.round(v * 3) / 3;   // to the 1/3px lattice
 const CUT = 1;      // a cut between touching parts
 const f = v => +v.toFixed(3);
 
+// ---- g7i: THE ROOT SHAPES (owner, 10-20: "how are we determining the root shape of the drawing? ... the
+// saucer, the base of the coupe, the museum are all at their core different shapes ... we probably want to
+// align across all icons"). Parts that do the same JOB are cut from the same root, in every icon:
+//   SLAB   a horizontal bar, 4/3px thick, ends cut square (the law softens them): every BASE (saucer,
+//          coupe foot, plinth) and every SPAN (the museum's beam). A base is what a thing stands on, so it
+//          is the same flat slab everywhere, like the bed of a press.
+//   POST   an upright bar, 1.5px: every stem, column, trunk and the arms of the +.
+//   GABLE  a triangle on a flat base: every roof and every tier (the pediment, the tree's three tiers).
+//   VESSEL a flat rim whose sides fall into one half-ellipse: every bowl (the cup, the coupe).
+//   LOOP   a band of the line's width around a counter, its back a half circle: every handle (the cup's ear).
+// Horizontal edges of slabs, rims, tier bases and liquid sit on the 1/3px lattice (Y), so they print crisp.
+const SLAB = (x0, x1, y) => R(x0, y, x1 - x0, WH);
+const POST = (cx, y0, y1) => R(cx - W / 2, y0, W, y1 - y0);
+const GABLE = (cx, apex, base, hw) => P([cx, apex], [cx + hw, base], [cx - hw, base]);
+
+// ---- g7i: THE TOKEN, how big each glyph is (owner: "address this at the grid level across all of them...
+// i dont want to have to negotiate this all the time"; "ours should be specific to our app"). Ours: a glyph
+// is struck like a token, a coin of 12px that sits in the badge's ring with 2px of air. Every glyph is
+// fitted, by its shape, to a cut of that token with THE SAME AREA as the coin, so none reads bigger:
+//   ROUND  the coin itself, 12 across; a RADIAL mark (the Star) is fitted by its hull: the pentagon
+//          through its tips has the coin's area, so its tips reach 6.9px from its centre
+//   SQUARE 10 2/3 square (area of the coin, on the 1/3px lattice): the coupe
+//   WIDE   12 x 9 1/3: the cup, the museum
+//   TALL   9 1/3 x 12: the tree
+//   OPEN   a mark made only of lines (the +): its arms span the coin, 12, and every line is the full
+//          1.5px (no thinner horizontals: an open mark has no mass to balance, so it would read light)
+// A lone APEX (the pediment, the tree's tip) passes the cut by 1/2px, because a point shows less of itself.
+// The fit is made by the grid (boards7.js, fitS()), never by hand: the drawing sets proportions, the
+// class sets size. Sizes are px at the list step (badge 24, chip, row star, tag star); the + is drawn at
+// its Float badge's step (its 24 viewBox shown at 26.4px).
+const TOKEN = 12, APEX = 0.5;
+const KEY = { ROUND: [12, 12], SQUARE: [T(Math.sqrt(Math.PI * 36)), T(Math.sqrt(Math.PI * 36))], WIDE: [12, T(Math.PI * 36 / 12)], TALL: [T(Math.PI * 36 / 12), 12], OPEN: [12, 12] };
+const CLASS = { cafe: ['WIDE', 0], bar: ['SQUARE', 0], museum: ['WIDE', APEX], nature: ['TALL', APEX], star: ['ROUND', 0], plus: ['OPEN', 0] };
+
 const DRAW = {
-  // CAFÉ. A cup about 1.15 x as wide as deep, on a saucer as wide as the whole glyph. Counters that
-  // survive (owner: "why does the coffee cup handle cut off on the bottom - it creates a narrow passage"):
-  // see below.
+  // CAFÉ. WIDE. A VESSEL with a LOOP for its ear, on a SLAB saucer. Counters that survive (owner: "why does
+  // the coffee cup handle cut off on the bottom - it creates a narrow passage"): the ear's counter is closed
+  // by the cup's straight inner wall.
   cafe(s = 12) {
-    // g7e fix (director, turn 37): the bowl FLOWS into the ear's base in one tangent curve (no step where
-    // they meet), and the ear is 1/3px narrower and 1/3px taller, so its counter (2.25 x 2.33px) is taller
-    // than wide and reads as a loop, not a boxy "P". Cup and ear are ONE outline. Its counter is closed by
-    // the straight inner wall (no passage). Arms 4/3px (horizontals), back 1.5px.
-    const u = s / 12, X = v => f(v * u), K = 0.5523;
-    const top = T(1), wall = T(4.667), bot = T(8), l = 1.5, r = 8.25, mid = (l + r) / 2;   // g7h: 2/3px taller (owner: the cup "reads as smaller than the others")
+    // g7e: the bowl FLOWS into the ear's base in one tangent curve; cup and ear are ONE outline.
+    // g7i: the saucer is a SLAB (was a tapered blade: a trapezoid, the owner's example).
+    const u = s / 12, X = v => f(v * u), Y = v => T(v * u), K = 0.5523;
+    const top = Y(1) / u, wall = 4.667, bot = Y(8) / u, l = 1.5, r = 8.25, mid = (l + r) / 2;
     const eR = 12 - 1 / 3;                                            // the ear's outer back
-    const eb = top + 5 + 1 / 3, R = (eb - top) / 2, ex = eR - R;       // ear: outer 5 1/3 tall (g7h: grows with the cup, so the S into it stays gentle), its back a half circle
-    // one outline: rim, ear back, ear base, then the bowl's right side as an S from the ear base down to
-    // the bottom (horizontal tangents at both ends), then the left side
-    const body = D(`M${X(l)} ${X(top)}H${X(ex)}C${X(ex + R * K)} ${X(top)} ${X(eR)} ${X(top + R - R * K)} ${X(eR)} ${X(top + R)}C${X(eR)} ${X(top + R + R * K)} ${X(ex + R * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r)}C${X(r - 1.35)} ${X(eb)} ${X(mid + 1.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`);
-    const ct = top + WH, cb = eb - WH, cr = (cb - ct) / 2, cx = eR - W - cr;      // counter, its back a half circle
-    const ci = r - 1 / 3;                                             // the counter's inner edge, into the solid cup
-    const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W)} ${X(ct + cr - cr * K)} ${X(eR - W)} ${X(ct + cr)}C${X(eR - W)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
-    const st = bot + CUT;                                             // saucer top
-    const saucer = D(`M${X(0)} ${X(st)}H${X(12)}C${X(11.55)} ${X(st + 1.05)} ${X(10.9)} ${X(st + WH)} ${X(10.1)} ${X(st + WH)}H${X(1.9)}C${X(1.1)} ${X(st + WH)} ${X(0.45)} ${X(st + 1.05)} ${X(0)} ${X(st)}Z`);
+    const eb = top + 5 + 1 / 3, R_ = (eb - top) / 2, ex = eR - R_;     // ear: outer 5 1/3 tall, its back a half circle
+    const body = D(`M${X(l)} ${X(top)}H${X(ex)}C${X(ex + R_ * K)} ${X(top)} ${X(eR)} ${X(top + R_ - R_ * K)} ${X(eR)} ${X(top + R_)}C${X(eR)} ${X(top + R_ + R_ * K)} ${X(ex + R_ * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r)}C${X(r - 1.35)} ${X(eb)} ${X(mid + 1.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`);
+    const ct = top + WH / u, cb = eb - WH / u, cr = (cb - ct) / 2, cx = eR - W / u - cr;   // counter, its back a half circle
+    const ci = r - 1 / 3;
+    const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
+    const saucer = SLAB(0, s, T(X(bot) + CUT));
     return [body, saucer, counter];
   },
-  cafeRing(s = 12) {
-    const u = s / 12, X = v => f(v * u);
-    const top = 2, bot = T(7.333), l = 0.5, r = 8, mid = (l + r) / 2;
-    const cup = D(`M${X(l)} ${X(top)}H${X(r)}C${X(r)} ${X(5.5)} ${X(6.5)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2)} ${X(bot)} ${X(l)} ${X(5.5)} ${X(l)} ${X(top)}Z`);
-    const ring = O(X(9.6), X(4.4), 1.65 * u, W);
-    const st = bot + CUT;
-    const saucer = D(`M${X(0)} ${X(st)}H${X(12)}C${X(11.55)} ${X(st + 1.05)} ${X(10.9)} ${X(st + WH)} ${X(10.1)} ${X(st + WH)}H${X(1.9)}C${X(1.1)} ${X(st + WH)} ${X(0.45)} ${X(st + 1.05)} ${X(0)} ${X(st)}Z`);
-    return [cup, ring, saucer];
-  },
-  // BAR. Proportion: bowl 11 wide and 4.5 deep (a coupe is shallow), foot 8 wide (about 70% of the bowl),
-  // stem one upright line. Joins: the stem flows into bowl and foot through the corner law.
+  // BAR. SQUARE. A VESSEL (a coupe's bowl is shallow) on a POST stem and a SLAB foot about 70% of the bowl.
+  // g7i (owner: "i like how the material/phosphor examples have a bit of liquid then a clear space alluded
+  // to.. i think that could be helpful to differentiate from a chalice"; and the coupe read "bigger/heavier"):
+  // under the rim, a clear band (1 2/3px, over the 1.5px counter minimum, so it stays open at 12 and 24)
+  // runs between the walls, and the liquid fills the bowl below it. The band is closed at both ends by the
+  // walls, so the bowl reads as a glass holding a drink, not two parts (g5's single line split it into an "I").
   bar(s = 12) {
-    const u = s / 12, X = v => f(v * u), c = s / 2;
-    const bd = T(4.667);
+    const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
+    const bd = 5.333;
     const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.8)} ${X(9)} ${X(bd)} ${X(6)} ${X(bd)}C${X(3)} ${X(bd)} ${X(0.5)} ${X(2.8)} ${X(0.5)} ${X(0)}Z`);
-    const FB = 11;                                                    // g7h: the foot's base 1px up, stem 1px shorter (owner: the coupe reads "as much taller"; director: still the biggest at 2/3)
-    const stem = R(c - W / 2, X(bd - 0.5), W, X(FB - 1.1) - X(bd - 0.5));
-    const ft = T(FB - 2);
-    const foot = D(`M${X(2)} ${X(FB)}C${X(2)} ${X(FB - 1.1)} ${X(3.9)} ${X(ft)} ${X(6)} ${X(ft)}C${X(8.1)} ${X(ft)} ${X(10)} ${X(FB - 1.1)} ${X(10)} ${X(FB)}Z`);
-    return [bowl, stem, foot];
+    const k = (5.5 - W / u) / 5.5, ix = x => 6 + (x - 6) * k;         // the bowl's inside wall, W in from the outside
+    const inside = D(`M${X(ix(0.5))} ${X(-1)}H${X(ix(11.5))}C${X(ix(11.5))} ${X(2.8)} ${X(ix(9))} ${X(bd)} ${X(6)} ${X(bd)}C${X(ix(3))} ${X(bd)} ${X(ix(0.5))} ${X(2.8)} ${X(ix(0.5))} ${X(-1)}Z`);
+    const rim = WH, liquid = T(rim + 5 / 3);                          // the clear band: under the rim, over the liquid
+    const band = cut(I(inside, R(0, rim, s, liquid - rim)));
+    const FB = Y(11);
+    const stem = POST(c, X(bd - 0.5), FB - WH + 0.01);
+    const foot = SLAB(X(2.25), X(9.75), FB - WH);
+    return [bowl, stem, foot, band];
   },
-  // MUSEUM. Proportion: a low pediment (rises 2.67 in 6, about 24 degrees, as classical pediments do), a
-  // plinth that overhangs the columns by 0.5, four columns with spaces equal to the line. (Three columns
-  // were tried in g7 and read as a box with two doors.) Counters: the spaces between the columns are
-  // plain upright slots (no pills, owner's example).
+  // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
+  // plinth. Counters: the spaces between the columns are plain upright slots (no pills, owner's example).
   museum(s = 12) {
-    // g7b fix (director, C2/C3/C4): between g7 and g7b. The pediment sits ON a thin beam (joined, no cut),
-    // the four columns hang from the beam and stand on the plinth, so every gap is a closed 1.5px slot
-    // (no gap under the line). Weight set to meet the coupe and the tree in the blurred row: low pediment,
-    // three-quarter-height columns (the museum is drawn shorter than the box).
-    const u = s / 12, X = v => f(v * u);
-    const pb = T(4), bd = WH;
-    // pediment and beam as one outline (a pentagon), so no coincident corners go through the boolean
-    const out = [P([X(0.25), X(pb) + bd], [X(0.25), X(pb)], [X(6), X(T(1.667))], [X(11.75), X(pb)], [X(11.75), X(pb) + bd])];
-    const ct = X(pb) + bd;                                            // column tops
+    const u = s / 12, X = v => f(v * u), Y = v => T(v * u);
+    const pb = Y(4), bd = WH;
+    // pediment and beam as one outline (a GABLE on a SLAB, joined), so no coincident corners go through the boolean
+    const out = [P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd])];
+    const ct = pb + bd, pl = Y(12) - WH;                              // column tops; plinth top
     const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
-    for (let i = 0; i < n; i++) out.push(R(x0 + i * (W + gap), ct - 0.01, W, s - WH - ct + 0.02));
-    out.push(R(X(0.25), s - WH, X(11.5), WH));                         // plinth on BASE: a horizontal
+    for (let i = 0; i < n; i++) out.push(POST(x0 + W / 2 + i * (W + gap), ct - 0.01, pl + 0.01));
+    out.push(SLAB(X(0.25), X(11.75), pl));
     return out;
   },
-  // NATURE. Three tiers (g6 fix 3), each branch one curve drooping to its tip. Overshoot: the pointed
-  // top rises 0.5 above TOP. Proportion: tiers widen by equal steps; the trunk shows 1.5 x 1.5.
+  // NATURE. TALL, its tip passing by 1/2px. Three GABLE tiers widening by equal steps, on a POST trunk.
+  // g7i: each tier is a true GABLE, its base flat (it rose 0.4px to the trunk: a fourth shape for one job).
   nature(s = 12) {
-    // g7f fix (director, turns 37 and 39): each tier is a plain triangle with a nearly flat base (it rises
-    // 0.4px to the trunk) and a short overhang, so it ends in a proper point, not a spur thinner than the
-    // line; no curved undersides (they hooked the tips). Tips and notches take the joint law's slight round.
-    const u = s / 12, X = v => f(v * u), c = s / 2;
+    const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
     const tiers = [[-0.5, 4.25, 2.8], [2.6, 7.6, 4.1], [5.75, 10.75, 5.3]];
     const out = [];
-    for (const [ty, by, hw] of tiers) out.push(P([c, X(ty)], [c + X(hw), X(by)], [c, X(by - 0.4)], [c - X(hw), X(by)]));
-    out.push(R(c - W / 2, X(9.5), W, s - X(9.5)));
+    for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));
+    out.push(POST(c, X(9.5), s));
     return out;
   },
 };
 
 // ---- the two UI icons, each in its own 24 viewBox, shown at its app size ----
-function plus(px = 26.4) {
-  const k = 24 / px, w = W * k, wh = WH * k;                          // upright 1.5px, horizontal 1.4px
-  return [R(12 - w / 2, 5, w, 14), R(5, 12 - wh / 2, 14, wh)];
+function plus(px = 26.4, sc = 1) {
+  // g7i: OPEN class. Both arms are POSTs of the full 1.5px (no thinner horizontal: an open mark has no
+  // mass to balance); sc is set by the grid's fit (boards7.js), never by hand.
+  const k = 24 / px, w = W * k, L = 14 * sc;
+  return [R(12 - w / 2, 12 - L / 2, w, L), R(12 - L / 2, 12 - w / 2, L, w)];
 }
-function star(px = 20) {
-  const k = 24 / px, w = W * k, cx = 12, cy = 12.6, Rc = 9.6, ri = Rc * 0.47;
+function star(px = 20, sc = 1) {
+  // g7i: a RADIAL mark in the ROUND class, fitted by its hull (the coin's area); sc is set by the grid's fit (boards7.js).
+  const k = 24 / px, w = W * k, cx = 12, cy = 12 + 0.6 * sc, Rc = 9.6 * sc, ri = Rc * 0.47;
   const cl = []; for (let i = 0; i < 10; i++) { const r = i % 2 ? ri : Rc, a = -Math.PI / 2 + i * Math.PI / 5; cl.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
   return [P(...offset(cl, -w / 2)), cut(P(...offset(cl, w / 2)))];
 }
@@ -116,4 +137,4 @@ function offset(pts, d) {
 }
 
 const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature']];
-module.exports = { W, WH, CUT, DRAW, plus, star, BATCH };
+module.exports = { W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T };

@@ -9,6 +9,7 @@
 //   B([x1,y1],[x2,y2],w)  bar: a straight member of width w, butt ends
 //   O(cx,cy,r,w)          ring: centreline radius r, width w
 //   A(cx,cy,r,w,a0,a1)    arc member (degrees, 0 = east, clockwise on screen), butt ends
+//   I(p, q)               intersection of two primitives (g7i: the coupe's clear band, inside its bowl)
 //   any primitive with .cut = true is subtracted after the union.
 //   .pen = true marks a member drawn with the concept's pen (its width is the line).
 'use strict';
@@ -25,12 +26,14 @@ const O = (cx, cy, r, w, o = {}) => ({ t: 'O', cx, cy, r, w, ...o });
 const A = (cx, cy, r, w, a0, a1, o = {}) => ({ t: 'A', cx, cy, r, w, a0, a1, ...o });
 const S = (cx, cy, r, a0, a1, o = {}) => ({ t: 'S', cx, cy, r, a0, a1, ...o });
 const D = (d, o = {}) => ({ t: 'D', d, ...o }); // a drawn closed path (SVG path data, glyph units)
+const I = (p, q, o = {}) => ({ t: 'I', p, q, ...o });
 const cut = (p) => ({ ...p, cut: true });
 const pen = (p) => ({ ...p, pen: true });
 
 function toItem(q, penW) {
   const w = q.pen && penW ? penW : q.w;
   switch (q.t) {
+    case 'I': { const a = toItem(q.p, penW), b = toItem(q.q, penW), r = a.intersect(b); a.remove(); b.remove(); return r; }
     case 'R': return new Path.Rectangle(q.x, q.y, q.w, q.h);
     case 'C': return new Path.Circle(new Point(q.cx, q.cy), q.r);
     case 'D': { const it = new CompoundPath(q.d); if (q.m) { it.scale(q.m[0], new Point(q.m[1], q.m[2])); it.translate(new Point(q.m[3] - q.m[1], q.m[4] - q.m[2])); } return it; }
@@ -196,6 +199,7 @@ function xform(prims, k, ox, oy, tx, ty) {
   const X = x => tx + (x - ox) * k, Y = y => ty + (y - oy) * k;
   return prims.map(q => {
     const s = { ...q };
+    if (q.t === 'I') { const [p2, q2] = xform([q.p, q.q], k, ox, oy, tx, ty); Object.assign(s, { p: p2, q: q2 }); }
     if (q.t === 'R') Object.assign(s, { x: X(q.x), y: Y(q.y), w: q.w * k, h: q.h * k });
     if (q.t === 'C' || q.t === 'S') Object.assign(s, { cx: X(q.cx), cy: Y(q.cy), r: q.r * k });
     if (q.t === 'P') s.pts = q.pts.map(p => [X(p[0]), Y(p[1])]);
@@ -237,4 +241,4 @@ function anatomy(q) {
 // count curve commands in a path (the "minimal bezier" figure on the boards)
 const countCurves = d => (d.match(/C/g) || []).length;
 
-module.exports = { R, C, P, B, O, A, S, D, cut, pen, build, join, xform, countCurves, parts, anatomy };
+module.exports = { R, C, P, B, O, A, S, D, I, cut, pen, build, join, xform, countCurves, parts, anatomy };
