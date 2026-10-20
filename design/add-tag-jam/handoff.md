@@ -1366,6 +1366,15 @@ gone; `concepts.js` and the `0-compare-*.png` stills stay as the record.
     foot dot's paper ring, into the dot's centre. A tether line draws after
     its dot circles.
   - The sign's rect has no +2 for a shadow.
+- **CD re-check fixes:**
+  - **Gap between stacked boards: `var(--s2)` (8px)**: `row-gap` on
+    `.sp-post`, and `BOARD_GAP` in JS. At 4px, two 2px rules read as a
+    ladder.
+  - **An edge sign's stick roots on a straight edge of its box:** the top
+    edge of the top board when the dot is above, the bottom edge of the bottom
+    board when it's below. The stick's x is clamped to that board's straight
+    span (6px in from the pole end, to 2px before the point begins). It never
+    lands on the sloped point.
 - **Where a shared post stands (owner decided):** "yeah the signpost should
   just land somewhere between them all with the city sign pointing the
   correct direction". The foot stays at the mean of its cities, and each
