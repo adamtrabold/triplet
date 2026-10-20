@@ -952,3 +952,11 @@ The verdict stands within our own set:
 - **His call** (question in jam turn 54):
   - the line marks as they are, or heavier;
   - whether the coupe now reads the same weight.
+
+
+## Round g7j-text (canvas v114), 2026-10-20: 9 after one clause
+
+- Both boards' text passes, except the Weight question's coupe clause,
+  which doesn't say which row and hides that the heavier row also
+  thickens the coupe.
+- The fix wording is in jam turn 56. Then it's READY.

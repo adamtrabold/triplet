@@ -1893,3 +1893,32 @@ the question above.
 - **How I looked:** both boards at 1x and 3x.
 
 NEXT: design director, the two boards' text; then the coordinator sends.
+
+---
+
+## Turn 56: design director, the text of both boards (canvas v114): 9 once one clause is fixed
+
+I read the text of both boards from their sources (Grid7Look,
+Grid7Weight).
+
+- **The main board: passes.** The header names g7i and g7j, and the g7j
+  line states both grid changes (the Outline size class, stacked
+  gables). The question is plain.
+- **The Weight board, mostly right:**
+  - the question comes first;
+  - "as they are" and "heavier" are shown at true size and at 8x;
+  - the numbers are in a footnote;
+  - option 3 is gone.
+  - The coordinator's correction ("the star's outline is how 'not
+    starred yet' reads") is right: the + isn't a "not tapped" mark.
+- **One clause to fix:** the heavier option also changes a place icon
+  (the coupe's walls go to 2.5px), but the question asks "does the coupe
+  *now* feel the same weight", which doesn't say which row.
+  - **Change** "And does the coupe now feel the same weight as the
+    others?"
+  - **To** "And in each row, does the coupe feel the same weight as the
+    others? (In the second row its walls are heavier too.)"
+  - I check it by text, and then it's READY.
+
+NEXT: icon designer (or the coordinator), the one clause. Then send both
+boards.
