@@ -2154,3 +2154,67 @@ The board is retitled "The taper: woodcut, and none". The question is now: "The 
 **Looked at:** the board at 1x. The woodcut flares are now subtle: visible at 8x, faint at true size.
 
 NEXT: design director, the taper board.
+
+---
+
+## Turn 61: design director, the taper board (canvas v122): 8; the taper he liked is a passenger, not an option
+
+**How I looked:** I read the board's text from its source and rendered
+it at 1x and 3x. I cropped the coupe and the museum from the No taper
+row and the Woodcut row, side by side at 8x.
+
+**What's right:**
+- **No taper is now true:** the coupe's band walls are even, and the
+  row says the taper he liked appears only below. That fixes turn 59's
+  gate.
+- **Woodcut** is a clear rule, softened by rule (widening is 1/12 of
+  the post's length over the end fifths), with a clear allusion.
+- **Burin** is dropped with a sound reason.
+- **The checks** are on the board (0 slivers, symmetric).
+
+**The coordinator's doubt is right: the taper he liked isn't offered as
+itself.**
+- What he noticed and liked is the coupe's band walls thinning from
+  about 1.5 to 1.1px. That's counterpunch behaviour: a wall around a cut
+  hole, stoutest where it holds the rim.
+- The board drops counterpunch as "can't be told from no taper at true
+  size or at 8x". **His own eye contradicts that.** He saw it, at the
+  sizes he looks at. His eye decides, not our claim about visibility (as
+  with the coupe's weight at v105).
+- The coupe's wall taper now rides inside the Woodcut row ("The coupe's
+  band walls keep the taper you liked"). The woodcut rule is about posts
+  flaring where they meet a mass. The wall taper isn't that rule; it's a
+  per-icon passenger, which fails "rule by class" (G-size and G-grid).
+- **If he picks No taper,** he loses it. **If he picks Woodcut,** he
+  gets it plus flaring columns and stems he didn't ask for. Neither row
+  offers just what he liked.
+- My turn-59 call that counterpunch was "not a real choice as drawn"
+  was wrong for the same reason. I judged visibility by my eye on our
+  render, not by his. Corrected.
+
+**Score: 8.**
+
+**Fix (layout and one rule, no redraw beyond what exists):**
+1. **Three rows:**
+   - **No taper** (as now).
+   - **Counterpunch: "the taper you noticed on the coupe".**
+     - Walls around a hole cut into a solid are stoutest where they
+       hold the outside edge, and thin toward the hole, as the punch
+       leaves them.
+     - Applied by rule wherever a hole is cut into a solid: the coupe's
+       band, the star's hole, the cup's handle loop.
+     - "1.5px is the wall at its widest."
+   - **Woodcut** (as now), with the coupe's wall taper taken out of it,
+     so each row is one rule.
+2. **A plain line on the counterpunch row:** "This is the taper you
+   spotted on the coupe. It's small: zoom in to see it on the star and
+   the cup's handle too."
+3. **The question:** "The taper you liked on the coupe, made into a rule
+   (the middle row), beside a second taper from woodcut (bottom row) and
+   no taper at all (top row). Which do you want? Combining the middle
+   and bottom rows is possible."
+4. **`check-svg.py`** on the counterpunch row too, reported on the
+   board.
+
+NEXT: icon designer, fixes 1–4. Then I look at the taper board's three
+rows only.

@@ -975,3 +975,16 @@ The verdict stands within our own set:
   - Woodcut is the strongest (a possible baluster read).
   - The variants are unchecked by `check-svg`.
 - **Fixes:** jam turn 59.
+
+
+## Round g7k-taper (canvas v122), 2026-10-20: 8
+
+- **No taper:** true now. **Woodcut:** a clear rule. **Burin:** dropped
+  soundly.
+- **But the taper he liked** (the coupe's walls thinning, counterpunch
+  behaviour) was dropped as "invisible", which his eye contradicts. It
+  survives only as a passenger inside Woodcut, a different rule.
+- **Fix:** three rows (none, counterpunch "the one you noticed",
+  woodcut), each one rule (jam turn 61).
+- **My turn-59 "not a real choice" on counterpunch is withdrawn:** I
+  judged visibility by my eye, not his.

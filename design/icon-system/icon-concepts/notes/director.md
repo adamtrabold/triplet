@@ -1185,3 +1185,13 @@ approaches should be as much a part of the brand as anything".
 - **Also:**
   - an option invisible at true size isn't a choice;
   - a taper on the + makes a sparkle (a UI misread).
+
+
+## Taper board v122 (2026-10-20)
+
+- **I was wrong in turn 59:** I called counterpunch "invisible", so not
+  a choice. He had already seen exactly that taper on the coupe.
+- **Rule:** when the owner has noticed something, it's visible by
+  definition. Never drop an option he reacted to on a visibility claim.
+- **Also:** a row must be one rule. A liked feature riding inside
+  another rule's row is a per-icon passenger.
