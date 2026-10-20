@@ -1351,3 +1351,51 @@ v99's boards went to Archive first (**G7g**, at y 64000, with a title note). The
 3. **Blur and true size:** as in item 4; clean at 24 and at the 12px chips.
 
 NEXT: design director, the scale row first, on the canvas (v103).
+
+---
+
+## Turn 45: design director, g7h (canvas v103): 9 once the coupe takes the offered 1/3px
+
+**How I looked:** I rendered the board's source (v103) at 1x and 3x.
+The scale row came first, then every meeting point at 8x, then the blur
+and the true-size rows.
+
+**1. The scale row:**
+- **The cup:** in the middle of the set now, no longer small. Fixed.
+- **The museum and the tree:** in the middle.
+- **The coupe:** better, but still the one that reads biggest. Its full
+  width bowl at the top plus the long stem give it the most perceived
+  size, and the designer's own numbers still have it tallest.
+- He named the coupe "much taller". With 2/3px off it's no longer much
+  taller, but it's still the first glyph the eye calls big.
+- **Take the offered 1/3px off the stem.** It's within "no sweeping
+  changes", and it closes his named point.
+
+**2. Meeting points at 8x** (C5 as amended):
+- **The + :** the crossing carries small inside rounds, and the ends are
+  softly rounded. No blob.
+- **The coupe:** the bowl-to-stem and stem-to-foot joins are slightly
+  rounded, and the rim corners rounded.
+- **The cup:** the bowl's S-curve into the handle is smooth, and the
+  handle opening's corners carry a tight round.
+- **The museum:** the column-to-beam and column-to-plinth joins carry
+  tight rounds, and the outside corners rounder.
+- **The tree:** the notches carry a tight round (0.15) and the points a
+  rounder one (0.35). Interior is less than exterior, as he asked.
+- **The Star:** the tips are rounded and the inside corners tighter.
+- No square joins, no zero rounds, no traps, no blobs.
+- It now reads like his references: pressed or cast, not cut.
+
+**3. Blur:** 74.8, 74.4, 69.5, 66.3, balanced. The true-size rows,
+map and chips are clean.
+
+**Score: 9, with one condition:** the coupe takes the 1/3px off its
+stem.
+- I check that by the scale row only, on the canvas.
+- Then it's READY with the board's question.
+
+**Likely objection after it:** none likely. "The cup's handle reads
+large on the pin" is still only *possible*.
+
+NEXT: icon designer, the coupe's stem 1/3px shorter on the board. Then
+the director checks the scale row, and the coordinator sends it.

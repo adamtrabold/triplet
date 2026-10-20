@@ -993,3 +993,15 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
 
 C2 and C5 are amended above. **New first check:** the scale row.
 **Scope** from him: "no sweeping changes".
+
+
+## g7h (canvas v103): 9, conditional (2026-10-20)
+
+- C5 is met: every meeting point is rounded, and interior is less than
+  exterior. It now reads "pressed or cast".
+- **Scale:** the cup is fixed; the coupe still reads biggest.
+  - Required the designer's offered 1/3px off its stem.
+  - Reason: he named the coupe, and a named fault that's still visible
+    is a likely objection.
+- **Rule for myself:** a fault the owner named by name must be fully
+  closed before a 9, not just improved.
