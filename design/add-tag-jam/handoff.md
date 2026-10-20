@@ -1370,25 +1370,44 @@ one tap away.
 **DECIDED: every city is a signpost** (owner: "every city should be a
 signpost"). The boxed badge goes; a lone city is a board too.
 
-**PENDING (owner asked for honest opinions): does a lone board keep its
-stick?**
-- Prototype switch `localStorage['triplet.loneSign']`:
-  - `post`: one board on its own post, the foot on the city (as in a
-    shared post).
-  - `board`: no pole; the board, tip included, is centred on the city, and
-    sticks appear only on posts with 2+ boards. The tip points to the side
-    with more room (toward the map's centre).
-- Stills: `stills/p4-fixes/8-lone-stick-or-not.png` (z6 with lone
-  Stockholm, and the whole world with lone LA, each both ways) and
-  `8b-lone-crop.png` (3x crop of a lone board both ways).
-- **Designer's opinion: keep the stick.**
-  - A board without a post is an arrow pointing at nothing, which is
-    exactly the thing that breaks the signpost.
-  - With the stick, every city is a sign planted on its spot, and two
-    signs merging into one post reads as one continuous idea.
-  - The one fix it needs: a lone sign nudged in from an edge must keep a
-    full `var(--s3)` foot, never a stub (see Stockholm at z6).
-- A CD and a UX weigh in independently; the owner decides.
+**Sticks for every city** (designer, CD and UX all say keep it; the owner
+gives the final yes). The prototype default is now `loneSign = 'post'`. The
+`box` / `board` values are prototype switches only, so the builder doesn't
+build them.
+
+**Stick rules (fixes from the CD + UX review):**
+- **A stick only ever stands on its city.** The post's foot is the city's
+  (or the close cities' mean) screen point, marked by **a foot dot**:
+  `.sp-foot`, `var(--s2)` (8px) navy, a 1.5px paper-raised ring, centred on
+  the pole's foot.
+- The stick runs **`var(--s4)`** (16) below the last board to the dot (was
+  `--s3`), so it reads at 1x.
+- **A sign that has to be nudged to stay in the clear area** (its city by an
+  edge or behind a control) **drops its stick and dot and becomes a
+  pointer**:
+  - `.sp-post.is-pointer`: no pole, no foot, `padding-bottom: 0`, the
+    board's pole-side border restored;
+  - a lone board's arrow turns toward its city (east if the city lies right
+    of the sign, else west), then the board is re-clamped;
+  - **No stick ever ends in mid-air.**
+  - Example: Stockholm at z6, behind the account badge, and the
+    Copenhagen/Malmö post at z6 by the left edge.
+- **The stick and foot are never a tap target:** `.sp-post` has
+  `pointer-events: none`; only the boards (`pointer-events: auto`) tap.
+- Lone signs not nudged point to the side with room (east unless east
+  would leave the clear area).
+
+**Owner sheet:** `stills/p4-fixes/9-signposts.png` (real tiles, 390×844,
+all with sticks):
+- z4 zoomed out;
+- Copenhagen + Malmö close (z7);
+- All places, whole world;
+- signs by an edge (z6);
+- a 3x crop of a lone sign (LA).
+
+It replaces `6-signpost.png`, `7-every-city-signpost.png`,
+`8-lone-stick-or-not.png` and `8b-lone-crop.png`, which are gone from the
+prototype branch.
 
 **Tag spacing:** **removed from `design-p4-fixes`.** The tag's 4px
 city-to-name change and the × position moved to the separate quick fix on
@@ -1429,11 +1448,13 @@ The earlier name, glyph and weight decisions for the control are void.
   - at z1–7 in the 5-city fixture, no two signs' rects overlap, and none
     overlaps a map control;
   - LA never joins a Nordic post;
+  - every visible stick ends on its city's foot dot; a nudged sign has no
+    stick;
   - every board's tap goes to its own city;
   - after All places at 390×844, every shown city is on screen in a
     badge/group;
   - there's no `#allCitiesBtn`.
 
 ### Open for the owner
-- Does a city on its own keep its stick (`8-lone-stick-or-not.png`)? The
-  designer says keep it.
+- The final yes on sticks for every city (`9-signposts.png`). The designer,
+  CD and UX all say keep them.
