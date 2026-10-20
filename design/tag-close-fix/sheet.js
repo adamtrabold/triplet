@@ -12,7 +12,7 @@ const img = f => 'data:image/png;base64,' + fs.readFileSync(f).toString('base64'
     h1 { font-size: 44px; margin: 0 0 8px; } p.s { margin: 0 0 32px; font-weight: 400; color: #5A564C; }
     h2 { font-size: 32px; margin: 36px 0 12px; }
     .r { display: flex; gap: 20px; } .c { flex: 1; } .k { font-size: 24px; text-transform: uppercase; letter-spacing: .1em; color: #5A564C; margin-bottom: 6px; }
-    .crop { height: 520px; overflow: hidden; border-radius: 8px; position: relative; background: #fff; }
+    .crop { height: 570px; overflow: hidden; border-radius: 8px; position: relative; background: #fff; }
     .crop img { position: absolute; width: 1170px; left: -45px; top: -175px; transform: scale(.5); transform-origin: 0 0; }
   </style><h1>Tag close x: before / after</h1><p class="s">The x now lives in the tag's top-right corner, level with the string hole. City sits 4px closer to the name.</p>`
     + ROWS.map(([w, n, t]) => `<h2>${t}</h2><div class="r">${cell(w, n, 'before')}${cell(w, n, 'after')}</div>`).join('');

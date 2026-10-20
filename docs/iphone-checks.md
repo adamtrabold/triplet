@@ -6,6 +6,7 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- **Tag close x in the corner (tag-close-fix, DRAFT -- not landed):** open any place's tag: the x sits in the tag's top-right corner, level with the string hole, whatever the name's length; on a starred tag it reads dark on the orange band; one tap near it (including just above the tag's corner) closes the tag; the city line sits a touch closer to the name.
 - **The list title, city sections, show/hide, the tab (add-tag-jam phase 1, landed 2026-10-17):**
   (1) tap the list title: the menu opens downward over the list header, cities first, with a
   double rule under "All places" and a navy line above the last row ("Plans 3 ›"); tap that row:

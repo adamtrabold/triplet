@@ -1780,3 +1780,7 @@ move "it should stay on your current city" (it does).
   36/36 · plan-rows 40/40 · places-ux 30/30 · shape-rows 50/50 · tag-sync 12/12. **Impeccable:
   GATE FAILED on one new finding,** `kicker-above-heading` ("Reykjavík" above the tag's h2) -- the
   approved routing line itself (waived at landing, above).
+
+## Tag close x in the tag's corner (tweak lane) -- DRAFT, NOT LANDED (branch `tag-close-fix`)
+
+- Owner: "the x to close tag is in a very weird space"; "the x should be related to the corner of the overall tag, not the content on the tag"; "the city dropdown should be visually chunked slightly tighter to the attraction name on the tag". The Hanging Tag's `.tag-x` moved off the name line (glyph 106px down, 22 from the right, sliding with the city line) to the tag's top-right corner: glyph centred 18px down (the eyelet's axis / the 36px band's middle) and `--s8` 32 in from the right (ink ~9px clear of the 28px chamfer); the 44px box (top -4, right 10) sits on `.tag-body` outside the clipped stock so the die-cut never trims its hit area; press tile `--s6` (inset 10) stays inside the chamfer; on the starred band it inks `--ink` (6:1 on orange). `.tag-name` loses its 32px right padding (full width). Routing line to name `--s2` -> `--s1`. The add tag's x is unchanged (`#addForm .tag-x` top 76, right 0, tile inset 8). Checks: popup-open 20/20 + 20/20, tag-sync 12/12, citytest 45/45 (B2/B7 updated), addtest 72/72, `IMPECCABLE GATE PASSED`. Stills: `design/tag-close-fix/contact-sheet.png`.
