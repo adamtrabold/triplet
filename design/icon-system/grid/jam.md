@@ -1922,3 +1922,75 @@ Grid7Weight).
 
 NEXT: icon designer (or the coordinator), the one clause. Then send both
 boards.
+
+---
+
+## Turn 57: design director, how I'll score the taper options and the rest of this round
+
+**The owner, verbatim:**
+- "i like the handmade look of the taper, but im not sure what in the
+  real world it would allude to -- drawing method? cutting tool? or just
+  drawing style? have the team come up with the rul[e]";
+- "needs a bit more liquid";
+- the tree "looks like a triangle at 100%";
+- "please have a board with the master grid".
+
+**Each taper option** (the designer proposes more than one, each from a
+making method) is scored on four things:
+1. **A clear real-world allusion, on brand (C9).**
+   - Can he name the tool or process from the drawing, in one plain
+     line? Examples: a broad-nib pen or brush, a woodcut gouge, metal
+     type worn at the edges, a stencil bridge, a neon tube's bend.
+   - It fits the brand's printed, hand-marked, souvenir feel and his
+     words (signet, woodcut, metal type, screened banner, neon).
+   - Fails: an allusion that needs explaining, or one any app could
+     use.
+2. **A rule, applied to the whole set by class, not taste per icon
+   (G-size, G-grid).**
+   - The option says exactly where a taper happens (which parts, which
+     direction, how much) and where it never happens.
+   - It's shown on all six plus the + and the Star.
+   - A taper on the coupe alone is a nudge, not a rule.
+3. **How it squares with the 1.5px line.**
+   - The settled line is 1.5px, his choice. The option must state
+     plainly whether 1.5px becomes the line's weight at its narrowest,
+     its average or its widest, and what that does to weight per class
+     (the line marks, the solid glyphs) at true size.
+   - An option that quietly makes every icon heavier or lighter fails.
+4. **It keeps the settled rules:**
+   - outline means "not starred yet" (the Star's hole open at 1x);
+   - slight rounding at every meeting point, interior less than
+     exterior;
+   - the token sizes;
+   - the root shapes;
+   - judgeable at true size and at 8x.
+
+**The other items:**
+- **Coupe liquid:** more liquid, with the clear band still reading at
+  true size. Then the coupe's weight is checked by eye against the cup,
+  museum and tree.
+- **Tree notches:** deep enough that at 1x (his "100%") it reads as a
+  fir, not a triangle, with each notch a set rule of the stacked-gable
+  class, not a one-off. The notch's interior round is still less than
+  its exterior.
+- **The master grid board:** one board that is the grid itself.
+  - The token and its class cuts, the root shapes, the corner law
+    (interior and exterior values), the line, the weight relationship
+    between classes, the air, and now the taper rule.
+  - Drawn, with one line on each rule's brand reason.
+  - Usable to build the next icon from alone (the future-icon test).
+
+**Order when it lands:**
+1. the taper options on 1–4, one by one;
+2. the master grid board;
+3. the coupe and tree at true size, then 8x;
+4. the set's size and weight by eye.
+
+NEXT: icon designer, this round. Then the director scores it in the
+order above.
+
+**Added (owner):** "several options is fine, i just dont want to lose the
+no taper option".
+- The even-1.5px set (no taper) is always shown beside the taper
+  options, at the same sizes (true size and 8x) and in the same places.
+- A taper board without it fails, whatever else it does.
