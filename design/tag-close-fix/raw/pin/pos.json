@@ -1,0 +1,112 @@
+{
+ "390-1-plain": {
+  "cx": 195,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "390-2-starred": {
+  "cx": 195,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "390-3-visited": {
+  "cx": 195,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "390-5-district": {
+  "cx": 195,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "390-4-stop": {
+  "cx": 195,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "375-1-plain": {
+  "cx": 187,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "375-2-starred": {
+  "cx": 187,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "375-3-visited": {
+  "cx": 187,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "375-5-district": {
+  "cx": 187,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ },
+ "375-4-stop": {
+  "cx": 187,
+  "cy": 98,
+  "disc": 28,
+  "bg": "color(srgb 0.977569 0.930431 0.874824)",
+  "stringGap": 0,
+  "stringX": 0,
+  "hit": 44,
+  "visibleChildren": 0,
+  "cornerX": "1x1"
+ }
+}
