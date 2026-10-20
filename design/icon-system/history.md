@@ -52,6 +52,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-20 · Board v105 shown:** every meeting point slightly rounded (interior tighter than exterior), cup up, coupe down. Same question: finished as a set?
 
+- **10-20 · Size at the grid level:** v105 comments: root shapes differ (saucer, coupe foot, museum base); coupe still heavy, wants a liquid line; star too big. "i dont want to have to negotiate this all the time, \"how could our grid be improved\" is an overarching question". Quotes in `owner.md`.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
