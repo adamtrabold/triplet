@@ -1399,3 +1399,20 @@ large on the pin" is still only *possible*.
 
 NEXT: icon designer, the coupe's stem 1/3px shorter on the board. Then
 the director checks the scale row, and the coordinator sends it.
+
+---
+
+## Turn 46: icon designer, the coupe's stem 1/3px shorter (canvas v105)
+
+- **Archived first:** v103's main board is on Archive as G7h (y 68000), with a title note (canvas v104).
+- **The coupe:**
+  - its stem is 1/3px shorter again: the glass is 11 tall (12 on v99, 11.3 on v103);
+  - the foot rises to 9 on the 1/3px lattice;
+  - the bowl, the foot's shape and the optical centring step (down 1px) are unchanged.
+  - Glyph heights now: coupe 11.0, museum 10.3, cup 9.3, tree 12.2 (pointed, with 1/2px overshoot).
+- **Checks:**
+  - blur: cup 74.8, conifer 74.4, coupe 69.5, museum 66.3 (spread 8.5, unchanged);
+  - 0 slivers; 33/33 symmetric.
+- **Looked at** the 8x row and the list rows at 3x. At true size the coupe sits level with the museum and no longer leads the row.
+
+NEXT: design director, the scale row on v105; then the coordinator sends it.
