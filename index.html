@@ -10683,7 +10683,8 @@
         return b;
       }
     });
-    new AllCitiesControl().addTo(map);
+    // p4-fixes: the map control is removed (owner: "why does all places have a button at all?"); the title menu's All places does the job.
+    // new AllCitiesControl().addTo(map);
 
     initAddMapHooks();   // the add tag keeps a picked place under its pin
     map.on('dragend zoomend', noteInteraction);
