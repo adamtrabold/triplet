@@ -1998,31 +1998,38 @@
     .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
-    /* THE CLOSE x belongs to the TAG'S CORNER, not its content (owner 2026-10-20: "the x should be
-       related to the corner of the overall tag, not the content on the tag"): it never moves with
-       the city line, a one- or two-line name, or a scrolling note. Its glyph centres --s8 in from the right and 28px down -- level with the foot of the 28px cut corner,
-       the tag's own corner unit (owner 2026-10-20, on 18 down: "too close to the top"). Its ink is
-       then ~23 from the top and ~27 from the right (optically balanced), ~16 clear of the chamfer,
-       and on a starred tag still wholly on the 36px band (a true 32/32 straddled the band's lower
-       edge). The 44px target (top 6, right 10) sits on .tag-body, OUTSIDE the clipped stock, so the
-       die-cut can never trim its hit area. Its press tile is --s6 (inset 10) so the tile stays on the paper inside the chamfer.
-       On the starred band it inks --ink (6:1 on the orange; --ink-2 is 2.6:1). The add tag keeps
-       its own x on its NAME line (#addForm .tag-x). */
+    /* THE PIN IS THE CLOSE (tag-close-fix; owner 2026-10-20: "pin is making the most sense to me",
+       then "i dont think the close pin needs a ring", "no star needed once expanded because the tag
+       is clear when something is starred", "it needs a disc. i dont mind the screened back orange
+       one, but the orange background should be a bit lighter" ... "yeah 6"). While a tag is open
+       (#map.tag-is-open), the pin it hangs from -- or a district/street's dot -- becomes a 28px disc:
+       brand orange at 6% in the tag's paper, a deep-orange x (2.4 stroke), the tag's warm .5px edge
+       and soft contact + lift shadows; no ring, no star, no category glyph / sticker / stop number
+       (an OWNER OVERRIDE of "preserve the category icon"; the tag names the type, star and stop).
+       A pin tap toggles its Leaflet popup shut; the dot is made a 44px target that closes it
+       (showTagDot()); a pin's target grows from 32 to 44 while open. The string runs up 2px to meet
+       the disc's edge (the 32px pin's radius is 16, the disc's 14); a shape's tag hangs at the same
+       radius (tagPinRadius()). Designer's prototype: design/tag-close-explore/ (pin-lw6). */
+    .tag-is-open .highlighted-marker { animation: none; }
+    .tag-is-open .highlighted-marker > *, .tag-is-open .tag-dot svg { visibility: hidden; }
+    .tag-is-open .highlighted-marker::after, .tag-is-open .tag-dot::after {
+      content: ''; position: absolute; z-index: 10; left: 50%; top: 50%; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%;
+      background: color-mix(in srgb, var(--brand-orange) 6%, var(--paper-raised)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7L17 17M17 7L7 17' stroke='%23A8400C' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 15px 15px no-repeat;
+      box-shadow: 0 0 .5px var(--tag-edge), 0 0 1px var(--tag-edge), 0 1px 1.5px var(--tag-shadow-contact), 0 3px 6px var(--tag-shadow-lift); pointer-events: none; }
+    .tag-is-open .leaflet-marker-icon:has(.highlighted-marker)::before { content: ''; position: absolute; inset: -6px; }
+    .tag-popup .tag-string { top: -2px; height: calc(var(--tag-drop) + 20px); }
+    /* The keyboard / VoiceOver close: the tag's own .tag-x, first in its tab order, visually hidden
+       until it takes keyboard focus -- then it shows in the tag's top-right corner (glyph 28 down,
+       --s8 in: level with the foot of the 28px cut corner). On .tag-body, outside the clipped stock,
+       so the die-cut never trims its 44px target. Esc closes as before. The add tag keeps its
+       visible x on its NAME line (#addForm .tag-x). */
     .tag-x { all: unset; position: absolute; z-index: 4; top: 6px; right: 10px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
+    .tag-popup .tag-x:not(:focus-visible) { width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
     .tag-body:has(.tag-band) > .tag-x { color: var(--ink); }
     .tag-x svg { width: 14px; height: 14px; display: block; }
     .tag-x::before { content: ''; position: absolute; inset: 10px; z-index: -1; border-radius: 3px; }
     #addForm .tag-x::before { inset: 8px; }
-    /* TAG_CLOSE_STYLE 'pin' (a variant, off): the pin is the close. A pin tag's corner x leaves the
-       paper but stays the keyboard / VoiceOver close (it shows again on keyboard focus); the open
-       tag's pin face shows a paper x on its own face colour (the category ink, or the sticker's ink),
-       stops pulsing, and its target grows from 32 to 44. Shapes keep the corner x (no pin). */
-    html.tag-close-pin .tag:not(.is-shape) .tag-x:not(:focus-visible) { width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-    html.tag-close-pin .tag-is-open .highlighted-marker { animation: none; }
-    html.tag-close-pin .tag-is-open .highlighted-marker::after { content: ''; position: absolute; z-index: 3; left: 50%; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%;
-      background: var(--pin-face, var(--navy)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 6.5L17.5 17.5M17.5 6.5L6.5 17.5' stroke='%23FAF5EA' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 14px 14px no-repeat; pointer-events: none; }
-    html.tag-close-pin .tag-is-open .leaflet-marker-icon:has(.highlighted-marker)::before { content: ''; position: absolute; inset: -6px; }
     .tag-x:active::before { background: var(--state-press); }
     .tag-x:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
 
@@ -2217,7 +2224,7 @@
     }
     /* The shape anchor dot (owner: "Dot or something in the middle is fine"): shown only while a
        district's / street's tag is open, at shapeAnchor() -- the Directions point. */
-    .tag-dot { pointer-events: none; }
+    .tag-dot { display: flex; align-items: center; justify-content: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
     /* Auth Modal */
     #authModal {
@@ -5466,9 +5473,9 @@
       const hit = Math.max(size, 24);
       const star = loc.starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
       const html = hit === size
-        ? `<div class="${highlighted ? 'highlighted-marker' : ''}${sp ? ' stk-pin' : ''}"${sp ? ` data-stk="${[size, +spo.near, +spo.hi, spo.ang, spo.sz].join(',')}"` : ''} style="--pin-face:${sp ? STICKER.INK : ink};position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div>`
+        ? `<div class="${highlighted ? 'highlighted-marker' : ''}${sp ? ' stk-pin' : ''}"${sp ? ` data-stk="${[size, +spo.near, +spo.hi, spo.ang, spo.sz].join(',')}"` : ''} style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div>`
         : `<div style="width:${hit}px;height:${hit}px;display:flex;align-items:center;justify-content:center;">` +
-          `<div class="${highlighted ? 'highlighted-marker' : ''}${sp ? ' stk-pin' : ''}"${sp ? ` data-stk="${[size, +spo.near, +spo.hi, spo.ang, spo.sz].join(',')}"` : ''} style="--pin-face:${sp ? STICKER.INK : ink};position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div></div>`;
+          `<div class="${highlighted ? 'highlighted-marker' : ''}${sp ? ' stk-pin' : ''}"${sp ? ` data-stk="${[size, +spo.near, +spo.hi, spo.ang, spo.sz].join(',')}"` : ''} style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${star}</div></div>`;
       return L.divIcon({
         html,
         className: '',
@@ -5547,15 +5554,6 @@
     //                reversed (paper), STARRED in navy.
     //   'both'    -- band + segment.
     const TAG_STAR_STYLE = 'band';
-    // Dial (tag-close-fix, owner: "maybe the icon becomes the x?"): how an open tag closes.
-    //   'corner' -- the x in the tag's top-right corner (.tag-x).
-    //   'pin'    -- the pin the tag hangs from is the close: while its tag is open its face shows
-    //               an x (a pin tap already toggles its Leaflet popup shut) and its hit area grows
-    //               to 44; the corner x stays for keyboard / VoiceOver (shown on keyboard focus).
-    //               Districts/streets (they hang from a dot, no pin) keep the corner x.
-    // A VARIANT for the owner's pick; 'corner' is live. html.tag-close-pin carries it to CSS.
-    const TAG_CLOSE_STYLE = 'corner';
-    if (TAG_CLOSE_STYLE === 'pin') document.documentElement.classList.add('tag-close-pin');
     // Dial: a --figure-deep hairline on the reversed (paper) star. The paper
     // star on --figure is only 1.9-2.7:1; the hairline is >= 4.5:1 against
     // it. Off = the look the owner asked for. Measured per city in shipped.md.
@@ -5686,7 +5684,7 @@
       const seg = TAG_STAR_STYLE !== 'band', band = TAG_STAR_STYLE !== 'segment' && loc.starred;
       const id = escapeAttr(loc.id);
       const dirHint = escapeAttr('tag-dir-hint-' + loc.id);   // Directions' description (Impeccable A3): it leaves the app for Apple Maps; nothing visible
-      const cls = ['tag', sh ? 'is-shape' : '', loc.starred ? 'is-starred' : '', loc.visited ? 'is-visited' : '', off ? 'is-off' : '', seg ? 'star-seg' : '', TAG_REVERSED_STAR_KEYLINE ? 'star-keyline' : ''].filter(Boolean).join(' ');
+      const cls = ['tag', loc.starred ? 'is-starred' : '', loc.visited ? 'is-visited' : '', off ? 'is-off' : '', seg ? 'star-seg' : '', TAG_REVERSED_STAR_KEYLINE ? 'star-keyline' : ''].filter(Boolean).join(' ');
       const starSvg = inkNow || rubNow
         ? `<svg class="sgp tag-star tag-star-anim ${inkNow ? 'sgp-in' : 'sgp-out'}" viewBox="-1 -1 26 26" aria-hidden="true"><g class="sg-ink"><use class="sgp-hollow" href="#g-star-open"/><use class="sgp-fill" href="#g-star"/></g></svg>`
         : `<svg class="tag-star${loc.starred ? '' : ' is-open'}" viewBox="-1 -1 26 26" aria-hidden="true"><use href="#g-star${loc.starred ? '' : '-open'}"/></svg>`;
@@ -5774,7 +5772,7 @@
     function tagPinRadius(popup) {
       const src = popup && popup._source;
       if (src && src.locationId != null) return src.locationId === highlightedId ? 16 : 12;
-      return 6;
+      return 16;   // a district/street: its dot is the 28px close disc while the tag is open (as a selected pin)
     }
     function bindPinPopup(marker, loc) {
       marker.bindPopup(newTagPopup().setContent(buildPopupHtml(loc)));
@@ -6370,7 +6368,7 @@
       const sp = visited ? stickerPinParts({ size, near: true, hi: highlighted, check: false, ang: stickerCorner(r.loc ? r.loc.id : (r.nb ? shapeKey(r.nb.id) : null), starred), sz: -0.5 }) : null;   // a small flap (chord at 0.82 of the radius): the number is printed under it and never cut
       const badge = sp ? sp.base : badgeHtml(category, kind, size, { ink, fill: highlighted ? ink : '#F2EBDD', mark: ink, rim: highlighted ? 2.5 : 2, glyph: false });
       const star = starred ? (sp ? stickerStarHtml(size) : markerStarHtml(size)) : '';
-      const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}${visited ? ' is-visited stk-pin' : ''}" data-n="${r.n}" style="--pin-face:${sp ? STICKER.INK : ink};position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${sp ? stickerPrintHtml(sp.g, `<span class="pin-n${r.n > 9 ? ' two' : ''}"`, `${r.n}</span>`) + sp.flap : `<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>`}${star}</div>`;
+      const html = `<div class="plan-stop${highlighted ? ' highlighted-marker' : ''}${visited ? ' is-visited stk-pin' : ''}" data-n="${r.n}" style="position:relative;width:${size}px;height:${size}px;line-height:0;">${badge}${sp ? stickerPrintHtml(sp.g, `<span class="pin-n${r.n > 9 ? ' two' : ''}"`, `${r.n}</span>`) + sp.flap : `<span class="pin-n${r.n > 9 ? ' two' : ''}">${r.n}</span>`}${star}</div>`;
       return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
     }
 
@@ -10655,15 +10653,18 @@
       const src = popup._source;
       if (!src || src.locationId != null || !src.options) return;
       const ink = src.options.color || '#5A564C';
-      tagDot = L.marker(popup.getLatLng(), { interactive: false, keyboard: false, zIndexOffset: Z_PIN_STARRED - 200,
-        icon: L.divIcon({ className: 'tag-dot', iconSize: [14, 14], iconAnchor: [7, 7],
+      // While the tag is open the dot is the close (the 28px disc, CSS): a 44px target, not keyboard-
+      // reachable (the tag's own .tag-x is the accessible close).
+      tagDot = L.marker(popup.getLatLng(), { interactive: true, keyboard: false, bubblingMouseEvents: false, zIndexOffset: Z_PIN_STARRED - 200,
+        icon: L.divIcon({ className: 'tag-dot', iconSize: [44, 44], iconAnchor: [22, 22],
           html: `<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="var(--paper)"/><circle cx="7" cy="7" r="4" fill="${escapeAttr(ink)}"/></svg>` }) }).addTo(map);
+      tagDot.on('click', ev => { L.DomEvent.stop(ev); if (map._popup === popup) map.closePopup(); });
     }
     function tagOpened(popup) {
       clearTimeout(tagRestoreTimer); clearTimeout(tagLiveTimer); clearTimeout(tagPopTimer);
       hideTagSlip();
       if (tagDot) { map.removeLayer(tagDot); tagDot = null; }
-      map.getContainer().classList.add('tag-is-open');   // TAG_CLOSE_STYLE 'pin': the open tag's pin shows its x
+      map.getContainer().classList.add('tag-is-open');   // the open tag's pin (or dot) shows it is the close
       const c = popup.getElement(), list = document.getElementById('locationsList');
       if (!tagSession) tagSession = { scroll: list.scrollTop, focus: document.activeElement };
       // Selection follows the tag (UX): a pin opened from the map selects its pin and row exactly
