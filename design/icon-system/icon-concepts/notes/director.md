@@ -699,6 +699,8 @@ we need to address as we make these changes".
   - A round with no grid improvement stated fails the gate.
 - **Both caps:** a gate failure caps the score at 8.
 
+**H-outline (a hard check, 2026-10-20):** before any score, trace every icon's outline at 8x on the board's own render. Every corner the object has must be present, with no melts, kinks, lumps or flats where parts meet. A failure caps the score at 7.
+
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
   - honest framing and fair notes;
@@ -1207,3 +1209,21 @@ approaches should be as much a part of the brand as anything".
   the board.
 - **Keep doing:** crop like parts across rows. It caught the 4/3 slabs
   that contradicted the row's own claim.
+
+
+## LESSON 3 (v128, 2026-10-20): the broken cup, and a question taken as a change
+
+- **The cup:** the bowl's lower-right corner melted into the handle in
+  an S-curve, and I passed it four times as "smooth".
+  - **H-outline is added:** trace every outline at 8x; every corner the
+    object has is present; no melts, kinks, lumps or flats.
+  - A failure caps the score at 7.
+- **The tree:** "how are the heights defined?" was a question. We
+  redrew the tree, and I scored the redraw 9.
+  - **Rule:** answer questions; change only on a change request.
+- **Next round:**
+  - the cup's corner;
+  - the v123 tree back;
+  - the wider coupe bowl and more liquid;
+  - the line marks in the middle weight;
+  - monoweight.

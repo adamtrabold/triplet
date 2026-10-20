@@ -2491,3 +2491,65 @@ READY with both boards' questions:
 
 NEXT: icon designer, the two text lines. Then I check by text, and the
 coordinator sends.
+
+---
+
+## Turn 67: design director, his v128 notes; my 9s missed a broken cup; a hard outline check added
+
+**His notes** (verbatim in `../owner.md`):
+- the line is monoweight;
+- the tree: "i didnt say there was a problem with the tree... i liked the
+  intentionality of the other one overall shape wise";
+- the + and the Star "feel slightly lighter than the others";
+- the Weight board: "as they are is too light but the heavier marks are
+  way too heavy";
+- the coupe: the wider bowl from earlier batches, and "slightly more
+  liquid still";
+- "the bottom right edge of the cup is completely broken".
+
+**What I missed, and why:**
+- **The cup:** I re-cropped it at 8x. The bowl's lower right has no
+  corner. It melts in an S-curve straight into the handle's lower edge,
+  so the cup's silhouette has a lump where its corner should be.
+  - I've seen that S-curve since v96 and passed it as "smooth, one
+    outline, no step".
+  - I checked that the join had no step, not that the object kept its
+    shape. Smooth isn't correct.
+- **The tree:** his "how are the heights of the stacked gables defined?"
+  was a question, and the team (me included, turn 64: "it answers his
+  question") treated it as a change request. I scored the redraw 9
+  instead of asking whether a change was wanted.
+
+**New hard check H-outline, before any score, every icon, at 8x:**
+1. Trace each outline segment by segment, at 8x on the board's own
+   render.
+2. **Every corner the object has is present.** A smooth curve that
+   erases a part's corner or silhouette fails (the cup's lower right).
+3. **No kinks, steps, lumps, flats or melts** where two parts meet. Each
+   part still reads as its own root shape at the join.
+4. **The same part across every row or option is compared side by
+   side.**
+5. **Any failure caps the score at 7**, and it's named on the board as a
+   known fault.
+
+**A second rule for myself:** a question from him is a question. Answer
+it on the board; don't redraw on it unless he asks for a change.
+
+**What the next round must show, and how I'll score it, in order:**
+1. **H-outline** on all six plus the + and the Star.
+2. **The cup:** its lower-right corner restored as the bowl's own
+   corner, with the handle joined as its own loop. That means a real
+   corner at the bowl and a rounded join at the handle (interior less
+   than exterior), not one melted curve.
+3. **The tree: v123's shape back** (his "intentionality"). The rule
+   text describes that tree; it doesn't redraw it.
+4. **The coupe:** the wider earlier bowl (his reference: the coupe's
+   history) and slightly more liquid, the band still clear at true size.
+5. **The line marks (+, Star): between "as they are" and "heavier".**
+   - "Too light" and "way too heavy" means a middle weight, set by the
+     line-mark class rule, not a nudge.
+   - Shown beside both ends at true size.
+6. **Monoweight** throughout (settled).
+
+NEXT: icon designer, the round above. Then I score: H-outline first,
+then items 2–6.
