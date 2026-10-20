@@ -723,6 +723,8 @@
     .sp-foot { position: absolute; left: calc(var(--wl) + 1px); bottom: 0; width: var(--s2); height: var(--s2); margin: 0 0 calc(var(--s2) / -2) calc(var(--s2) / -2);
       border-radius: 50%; background: var(--navy); box-shadow: 0 0 0 1.5px var(--paper-raised); }
     .sp-post.is-pointer { padding-bottom: 0; }
+    .sp-anchor { position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none; }
+    .sp-tether { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
     .sp-post.is-pointer .sp-pole, .sp-post.is-pointer .sp-foot { display: none; }
     .sp-post.is-pointer .sp-board.is-w { border-right: 1.5px solid var(--navy); }
     .sp-post.is-pointer .sp-board.is-e { border-left: 1.5px solid var(--navy); }
@@ -8126,7 +8128,17 @@
         const e = document.querySelector(sel), r = e && e.getBoundingClientRect();
         if (r && r.height && r.top - mr.top < mr.height) bottom = Math.min(bottom, r.top - mr.top - g);
       });
-      return { left: g, right: mr.width - g, top, bottom };
+      const controls = ['.leaflet-control-zoom', '#accountBtn', '#floatingAddBtn', '.leaflet-control-attribution'].map(sel => {
+        const e = document.querySelector(sel), r = e && e.getBoundingClientRect();
+        return r && r.height ? { x0: r.left - mr.left, y0: r.top - mr.top, x1: r.right - mr.left, y1: r.bottom - mr.top } : null;
+      }).filter(Boolean);
+      return { left: g, right: mr.width - g, top, bottom, w: mr.width, h: mr.height, controls };
+    }
+    // Is a point (the city's dot) visible: on the map and not under a control?
+    function dotVisible(q, safe) {
+      if (!safe.controls) return true;
+      if (q.x < 4 || q.y < 4 || q.x > safe.w - 4 || q.y > safe.h - 4) return false;
+      return !safe.controls.some(c => q.x > c.x0 - 4 && q.x < c.x1 + 4 && q.y > c.y0 - 4 && q.y < c.y1 + 4);
     }
     // A sign's sides: each member's side ('w' | 'e'). A lone post takes gp.loneSide (default 'e').
     function signSides(gp) {
@@ -8185,7 +8197,12 @@
         // p4-fixes (CD): a stick only ever stands on its city. A sign that had to be nudged (its city
         // sits by an edge or behind a control) drops its stick and becomes a pointer: a lone board's
         // arrow turns toward its city.
-        gp.pointer = gp.pointer || Math.abs(gp.foot.x - at.x) > 0.5 || Math.abs(gp.foot.y - at.y) > 0.5;
+        const city = mean(gp.pts);
+        const moved = Math.abs(gp.foot.x - city.x) > 0.5 || Math.abs(gp.foot.y - city.y) > 0.5;
+        // nudged: the stick still runs to the city's dot whenever that dot is visible (a tether from the
+        // boards' nearest edge); only a city off-screen or under a control loses its stick (a pointer).
+        gp.tether = moved && dotVisible(city, safe) ? { x: city.x, y: city.y } : null;
+        gp.pointer = moved;
         if (gp.pointer && gp.members.length === 1 && !isBox(gp)) {
           gp.loneSide = gp.pts[0].x >= gp.foot.x ? 'e' : 'w';
           const r2 = signRect(gp);   // the turned board, kept inside again
@@ -8207,8 +8224,21 @@
       const sides = signSides(gp), r = signRect(gp);
       const rows = members.map((b, i) => `<button type="button" class="sp-board is-${sides[i]}" style="grid-row:${i + 1}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
         + `<span class="sp-tip" aria-hidden="true"></span>${label(b)}</button>`).join('');
-      const html = `<div class="sp-post${gp.pointer ? ' is-pointer' : ''}" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(', '))}" style="--wl:${r.l - 1}px;--wr:${r.r - 1}px;--rows:${members.length}">`
-        + `<span class="sp-pole" aria-hidden="true"></span><span class="sp-foot" aria-hidden="true"></span>${rows}</div>`;
+      let tether = '';
+      if (gp.pointer && gp.tether) {
+        // a straight stick from the boards' nearest edge to the dot (marker origin = the sign's foot)
+        const n = members.length, H = n * BOARD_H() + (n - 1) * BOARD_GAP();
+        const dx = gp.tether.x - gp.foot.x, dy = gp.tether.y - gp.foot.y, wl = r.l - 1, wr = r.r - 1, k = (v, a, b) => Math.min(Math.max(v, a), b);
+        let px, py;
+        if (dy >= 0) { px = k(dx, -wl + 4, wr - 4); py = 0; }
+        else if (dy <= -H) { px = k(dx, -wl + 4, wr - 4); py = -H; }
+        else { px = dx < 0 ? -wl - sNum(3) : wr + sNum(3); py = k(dy, -H + 4, -4); }
+        const d = sNum(2) / 2;
+        tether = `<svg class="sp-tether" aria-hidden="true" width="1" height="1" overflow="visible"><line x1="${px}" y1="${py}" x2="${dx}" y2="${dy}" stroke="var(--navy)" stroke-width="2"/>`
+          + `<circle cx="${dx}" cy="${dy}" r="${d + 1.5}" fill="var(--paper-raised)"/><circle cx="${dx}" cy="${dy}" r="${d}" fill="var(--navy)"/></svg>`;
+      }
+      const html = `<div class="sp-anchor">${tether}<div class="sp-post${gp.pointer ? ' is-pointer' : ''}" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(', '))}" style="--wl:${r.l - 1}px;--wr:${r.r - 1}px;--rows:${members.length}">`
+        + `<span class="sp-pole" aria-hidden="true"></span><span class="sp-foot" aria-hidden="true"></span>${rows}</div></div>`;
       return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
     }
     function syncCityBadges(badges) {
@@ -8224,7 +8254,7 @@
         const key = gp.members.map(m => m.id).join('+');
         seen.add(key);
         const ll = map.containerPointToLatLng(L.point(gp.foot.x, gp.foot.y));
-        const sig = LONE_STYLE + ':' + (gp.pointer ? 'p:' : '') + signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count).join(',');
+        const sig = LONE_STYLE + ':' + (gp.pointer ? 'p:' : '') + (gp.tether ? Math.round(gp.tether.x - gp.foot.x) + ',' + Math.round(gp.tether.y - gp.foot.y) + ':' : '') + signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count).join(',');
         const had = cityBadgeMarkers.get(key);
         if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp)); had.sig = sig; } return; }
         const marker = L.marker(ll, { icon: cityBadgeIcon(gp), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
