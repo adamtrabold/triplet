@@ -45,6 +45,16 @@ NAVYORANGE = [
     ('pin-onx+pin-nostar', 'B. Orange disc, navy x (the inverse)',
      "A brand-orange disc with a navy x, no ring, no star on the closing pin.", None),
 ]
+LIGHTER = [
+    ('pin-lsmall+pin-nostar', 'A. Smaller orange disc',
+     "The orange disc at 22px instead of 30, a finer navy x. Same idea, a third less mass.", None),
+    ('pin-lpaper+pin-nostar', 'B. Paper disc, orange x',
+     "A disc of the tag's own paper with a deep-orange x: the colour is only in the line. Lightest of the discs.", None),
+    ('pin-lwash+pin-nostar', 'C. Orange wash',
+     "A disc of brand orange washed into paper (about a quarter strength), deep-orange x. Coloured, but pale.", None),
+    ('pin-lglyph+pin-nostar', 'D. Just an orange x',
+     "No disc: a fine orange x on a soft paper halo, the string running up to its crossing. The lightest mark of all.", None),
+]
 CONCEPTS = [
     ('pin', 'A. The pin is the close (reference)',
      "Last round's favourite, one colour: while the tag is open, the pin it hangs from turns into a navy x. Tap it to close.", None),
@@ -110,6 +120,7 @@ if SET == 'float': CONCEPTS = FLOAT
 if SET == 'pincolor': CONCEPTS = PINCOLOR
 if SET == 'ringless': CONCEPTS = RINGLESS
 if SET == 'navyorange': CONCEPTS = NAVYORANGE
+if SET == 'lighter': CONCEPTS = LIGHTER
 blocks = [block(*c) for c in CONCEPTS]
 def star_block(key='pin-odisc'):
     w = blocks[0].width
@@ -130,7 +141,7 @@ for c, b in zip(CONCEPTS, blocks):
     out.save(os.path.join(D, f'concept-{c[0].replace("+pin-nostar", "")}.png' if not (SET == 'pincolor' and c[0] == 'pin') else 'concept-pin-navy.png'))
 pad = 48
 head = Image.new('RGB', (blocks[0].width, 150), PAPER); d = ImageDraw.Draw(head)
-TITLES = {'float': 'Closing the place tag: a close floating outside it', 'pincolor': 'The pin is the close: which colour?', 'ringless': 'The pin is the close: no ring', 'navyorange': 'The pin is the close: navy with orange'}
+TITLES = {'float': 'Closing the place tag: a close floating outside it', 'pincolor': 'The pin is the close: which colour?', 'ringless': 'The pin is the close: no ring', 'navyorange': 'The pin is the close: navy with orange', 'lighter': 'The pin is the close: lighter'}
 d.text((0, 0), TITLES.get(SET, 'Closing the place tag: four different ways'), font=font(52, True), fill=INK)
 d.text((0, 76), 'Each on a plain pin, a starred tag, a visited pin, a plan stop and a district (390 wide, real map). Esc and a keyboard close stay in all.', font=font(26), fill=INK2)
 H = head.height + sum(b.height for b in blocks) + 90 * len(blocks) + 2 * pad
@@ -138,5 +149,5 @@ out = Image.new('RGB', (blocks[0].width + 2 * pad, H), PAPER); out.paste(head, (
 for b in blocks:
     ImageDraw.Draw(out).line((pad, y - 30, out.width - pad, y - 30), fill=(216, 206, 186), width=3)
     out.paste(b, (pad, y)); y += b.height + 90
-out.save(os.path.join(D, {'float': 'float.png', 'pincolor': 'pin-colour.png', 'ringless': 'pin-ringless.png', 'navyorange': 'pin-navy-orange.png'}.get(SET, 'concepts.png')), optimize=True)
+out.save(os.path.join(D, {'float': 'float.png', 'pincolor': 'pin-colour.png', 'ringless': 'pin-ringless.png', 'navyorange': 'pin-navy-orange.png', 'lighter': 'pin-lighter.png'}.get(SET, 'concepts.png')), optimize=True)
 print(out.size)

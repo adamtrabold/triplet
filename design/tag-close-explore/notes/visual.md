@@ -117,3 +117,19 @@ Read: the orange x makes A clearly better than plain navy. A is the account badg
 orange figure), so it feels like part of the app's control family. At 1x it is still a dark disc, the same mass as the
 visited sticker (#3A4C5B) beside other pins, and on dark or water tiles the x carries it alone. B reads more as "close"
 at a glance and can never be taken for visited.
+
+## Round 6: lighter (2026-10-20)
+Owner, verbatim: "i guess the problem that i'm having is that the navy and orange just feel too heavy -- what does the team have for that"
+
+No ring, no star (both decided). Four ways to take weight out, each a different lever:
+- A. **Smaller orange disc** (`pin-lsmall`), size: 22px instead of 30, a 13px navy x at 2.2.
+- B. **Paper disc, orange x** (`pin-lpaper`), fill to line: a 28px paper disc, a deep-orange x at 2.2; colour only in the line.
+- C. **Orange wash** (`pin-lwash`), tint: brand orange at 24% in paper, deep-orange x. No new token (a color-mix of existing ones).
+- D. **Just an orange x** (`pin-lglyph`), no disc: a fine brand-orange x at 2.6 on a soft paper halo, the string run up to its crossing.
+The string meets every smaller disc (it ran up 5px for A and 2px for B/C; a gap under a smaller disc read as a rough join).
+Sheet: `concepts/pin-lighter.png`; phone sheets `concept-pin-lsmall.png`, `concept-pin-lpaper.png`, `concept-pin-lwash.png`,
+`concept-pin-lglyph.png`; every closing pin so far side by side at 1x on the same map spot: `concepts/strip-1x.png`.
+
+Honest read at 1x: B and C come close to vanishing on Reykjavík's pale, pinkish tiles (paper on paper, peach on peach).
+D reads, and it is the lightest, but it's a mark rather than a button. A keeps the "close" reading and loses about a third of the mass.
+Pick: A, smaller orange disc.
