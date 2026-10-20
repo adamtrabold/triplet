@@ -50,6 +50,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-20 · "a *lot* closer":** every meeting point at least a little rounded (signet ring, woodcut, screened banner, neon); cup reads small, coupe tall; "i dont expect or want sweeping changes." Full quote in `owner.md`.
 
+- **10-20 · Board v105 shown:** every meeting point slightly rounded (interior tighter than exterior), cup up, coupe down. Same question: finished as a set?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
