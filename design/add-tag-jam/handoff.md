@@ -1297,58 +1297,104 @@ The owner, verbatim:
   -- by its nature the user will expect to see a lot if they select that
   option"
 
-### 1. Close cities (BLOCKER): four concepts, waiting for the owner's pick
+### 1. Close cities: the Signpost (owner picked)
 
-The joined box from the first pass is **not** what the owner wants. Four
-concepts are built behind a prototype-only switch on `design-p4-fixes`
-(27a3e950): `localStorage['triplet.badgeStyle']` = `signpost` | `shingle` |
-`picker` | `disc`. All four share the collision detection and the clear-area
-rule below. Stills:
-- `stills/p4-fixes/0-compare-close.png`: Copenhagen + Malmö at z6;
-- `0-compare-world.png`: after All places;
-- `0-compare-tap.png`: how a tap reaches one city.
+Owner: "oh man i love the signpost even though it's wonky. maybe all of the
+cities should have that shape."
 
-Each still has real tiles and the 5-city fixture. `concepts.js` renders
-them.
+**Prototype:** `design-p4-fixes` 05bbf1fc. The other three concepts' code is
+gone; `concepts.js` and the `0-compare-*.png` stills stay as the record.
 
-1. **Signpost** (designer's pick): close cities share one fingerpost, one
-   arrow board per city, each pointing to the side its city lies on. A tap
-   on a board goes to that city: one tap, unambiguous.
-2. **Shingled labels:** the city labels overlap like roof tiles, each
-   nudged toward its city, every name showing. A tap on a label goes to that
-   city: one tap.
-3. **Count badge:** close cities become one badge, a two-pin glyph and
-   "2 cities", with the summed tally. A tap opens a short "Go to" list (the
-   menu spec); you pick one. Two taps.
-4. **Number dot:** close cities become a navy dot with the number of
-   cities, like the map's clusters. A tap zooms in until the cities split
-   (here, to pin zoom), then you tap one. Two taps.
+**Stills:**
+- `stills/p4-fixes/6-signpost.png`: z4, Copenhagen + Malmö at z7, the whole
+  world;
+- `7-every-city-signpost.png`: a lone city both ways.
 
-**Why Signpost:**
-- It keeps each city's own bar (the owner's "overlap of the individual
-  bars"), and each stays readable and one tap away.
-- The arrows add meaning: which way each city lies. It's travel signage,
-  not decoration (whimsy that carries meaning).
-- The overlap is the post itself, so nothing hides behind anything.
+**Behaviour:**
+- **Joining:**
+  - Cities whose signs would come within `var(--s1)` (4px) of each other
+    join one post. Greedy, repeating until nothing touches.
+  - The post's **foot stands on the mean of its cities' screen points**: on
+    the city itself for a lone post.
+  - **One board per city, north to south.** Each sits **west of the pole if
+    its city lies west of the foot, else east** (ties alternate), and its
+    arrow points that way.
+  - **A tap on a board = `goToCity(id)`**: one tap, unambiguous.
+- **Far cities keep their own sign.** Collisions use the post's **true width
+  per side** (the widest west board, the widest east board), not 2 × the
+  widest. So at the whole-world view LA stays alone and the Nordic four
+  share a post.
+- **Clear of the map's controls:**
+  - every sign's rect is kept `var(--s2)` inside the clear area: below the
+    zoom control and the account badge, above the + badge and the credit,
+    `var(--s2)` from the sides;
+  - a sign that would cross is nudged in, its foot moving with it;
+  - nudged signs that now touch join again (at most two passes).
+- **Only a city whose centre is on screen draws.** Hidden cities get none.
+  Counts follow the chips.
+- **Keys:** a sign is keyed by its member ids, so a pan only moves it
+  (`setLatLng`).
+- **All places** frames the signs: `badgeFitView()` uses the same layout and
+  each sign's real rect.
 
-**Its known quirk:** at the whole-world view LA joins the Nordic post as a
-board pointing west, because the post is wide. That's correct as a sign, but
-LA isn't at the post. If the owner picks it, the builder computes the post's
-true width per side, so a far city stays on its own.
+**Look (every value on the scale):**
+- **Post:** `.sp-post` is a grid, columns `var(--wl) 2px var(--wr)`.
+  - `--wl` / `--wr` are the widest west / east board, set inline by JS.
+  - Rows `var(--s8)`, `row-gap: var(--s1)`, `padding-bottom: var(--s3)`
+    (the foot).
+  - Transform `translate(calc(-1 * var(--wl) - 1px), -100%)`: the pole
+    stands on the marker's point.
+- **Pole:** `.sp-pole`, 2px `var(--navy)`, spanning every board row and
+  running `var(--s3)` below the last one to the foot.
+- **Board** (`.sp-board`): the badge's voice.
+  - Box: `background: var(--paper-raised)`, `border: 1.5px solid var(--navy)`,
+    `box-shadow: 2px 2px 0 var(--navy)`.
+  - Size: height `var(--s8)`, `padding: 0 var(--s2)`.
+  - Type: caps 13/16, `.08em`, `var(--navy)`, then the tally.
+  - West boards sit in column 1 (`justify-self: end`, no right border,
+    `margin-left: var(--s3)` for the tip). East boards sit in column 3
+    (`justify-self: start`, no left border, `margin-right: var(--s3)`).
+  - Target: 44px via `::before` −6px top/bottom.
+  - States: pressed `var(--state-press)`; focus a 2px navy outline offset 2.
+- **Arrow tip** (`.sp-tip`): a `var(--s3)`-deep navy triangle the full
+  board height on the outer end, with a paper-raised inner triangle 2.5px
+  in, so it reads as the board's outline continuing to a point.
+- **a11y:** the post has `role="group"`, labelled with its cities; each board
+  has `aria-label` "Go to {city}, {n}".
 
-**Settled for any pick:**
-- Badges are a zoom-gated map layer.
-- A tap goes to a city.
-- Every city stays reachable and unambiguous.
-- Nothing overlaps the map's controls: every badge, group or post is kept
-  `var(--s2)` inside the clear area below the zoom control and the account
-  badge, and above the + badge and the credit.
-- Only a city whose centre is on screen draws.
-- Hidden cities get none.
-- Counts follow the chips.
+**Known wonk, kept (owner: "even though it's wonky"):** at z4 the tall
+Copenhagen/Malmö post reaches Stockholm's sign, so Stockholm joins as a
+third board pointing north-east. It reads as a signpost and every city stays
+one tap away.
 
-The exact build values for the chosen concept get written here once the
-owner picks.
+**DECIDED: every city is a signpost** (owner: "every city should be a
+signpost"). The boxed badge goes; a lone city is a board too.
+
+**PENDING (owner asked for honest opinions): does a lone board keep its
+stick?**
+- Prototype switch `localStorage['triplet.loneSign']`:
+  - `post`: one board on its own post, the foot on the city (as in a
+    shared post).
+  - `board`: no pole; the board, tip included, is centred on the city, and
+    sticks appear only on posts with 2+ boards. The tip points to the side
+    with more room (toward the map's centre).
+- Stills: `stills/p4-fixes/8-lone-stick-or-not.png` (z6 with lone
+  Stockholm, and the whole world with lone LA, each both ways) and
+  `8b-lone-crop.png` (3x crop of a lone board both ways).
+- **Designer's opinion: keep the stick.**
+  - A board without a post is an arrow pointing at nothing, which is
+    exactly the thing that breaks the signpost.
+  - With the stick, every city is a sign planted on its spot, and two
+    signs merging into one post reads as one continuous idea.
+  - The one fix it needs: a lone sign nudged in from an edge must keep a
+    full `var(--s3)` foot, never a stub (see Stockholm at z6).
+- A CD and a UX weigh in independently; the owner decides.
+
+**Tag spacing:** **removed from `design-p4-fixes`.** The tag's 4px
+city-to-name change and the × position moved to the separate quick fix on
+`tag-close-fix` (landing on main). The prototype is back to phase 3's values
+(`var(--s2)` city to name, × at 84px) and doesn't touch the ×. When phase 4
+merges, keep main's (tag-close-fix) values.
 
 ### 2. All places (approved): show all places on the map
 
@@ -1376,33 +1422,18 @@ clear area, zooming out as far as that takes.
 
 The earlier name, glyph and weight decisions for the control are void.
 
-### 4. Tag tweak: the city line tighter to the name
-
-On the place's Hanging Tag (phase 3's final values), city to name:
-**`var(--s2)` 8px → `var(--s1)` 4px**:
-`.tag-in > .route-line { margin-bottom: var(--s1) }`.
-- `.tag-x` top 84px → **80px**, so it stays centred on the name's first
-  line.
-- Every other padding is unchanged: `--s12` + `--s3` above, fields
-  `--s3` / `--s4`.
-- **The add tag already has 4px** from its city line to the name
-  (`.route-line` margin-bottom 4px, `var(--s1)`), so both tags now share
-  the value.
-- Still: `stills/p4-fixes/5-tag-city-tighter.png` (before / after, plain
-  and busiest).
-
-### Checks for the builder (after the owner's pick)
+### Checks for the builder
 - **Run:** badgetest (updated for the chosen concept), the Impeccable gate
   (PASSED on the prototype; it renders no badge zoom).
 - **New coverage:**
-  - at z3–7 in the 5-city fixture, no badge, group or post rect overlaps
-    another or a map control;
-  - every city reaches its own go-to in the concept's tap count;
+  - at z1–7 in the 5-city fixture, no two signs' rects overlap, and none
+    overlaps a map control;
+  - LA never joins a Nordic post;
+  - every board's tap goes to its own city;
   - after All places at 390×844, every shown city is on screen in a
     badge/group;
-  - there's no `#allCitiesBtn`;
-  - the tag's city-to-name gap is 4px.
+  - there's no `#allCitiesBtn`.
 
 ### Open for the owner
-- **Which close-cities idea:** Signpost, Shingled labels, Count badge or
-  Number dot (`0-compare-*.png`). The designer picks Signpost.
+- Does a city on its own keep its stick (`8-lone-stick-or-not.png`)? The
+  designer says keep it.
