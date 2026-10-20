@@ -167,3 +167,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > 3. the + and star do feel slightly lighter than the others. the coupe is matching in wegith but i liked the bowl shape from earlier batches (i like the wider bowl also balancing the historical reality that the coupe glass was designed based off of marie antoinettes breasts) and i think it needs slightly more liquid still.
 > one other thing, i think the bottom right edge of the cup is completely broken
 >   (line = monoweight. Lesson: a question is a question; I turned "how are the heights defined?" into a change request.)
+> (10-20, Weight board) i just saw the line marks page --- i think the as they are is too light but the heavier marks are way too heavy

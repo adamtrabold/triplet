@@ -74,3 +74,5 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 | t4 concept cards | 2717977 |
 | Categories locked | db40060 |
 | All 13 concepts picked | c42639d |
+| Stroke 1.5px picked | 527251b |
+| Monoweight line picked | 0acb8f9 |
