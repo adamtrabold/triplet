@@ -82,12 +82,25 @@ const DRAW = {
   // walls, so the bowl reads as a glass holding a drink, not two parts (g5's single line split it into an "I").
   bar(s = 12, o = {}) {
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
-    const bd = 5.333;
+    const bd = 5.667;                                                // g7k (owner: "needs a bit more liquid"): 1/3px deeper
     const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.8)} ${X(9)} ${X(bd)} ${X(6)} ${X(bd)}C${X(3)} ${X(bd)} ${X(0.5)} ${X(2.8)} ${X(0.5)} ${X(0)}Z`, { root: 'VESSEL' });
-    const k = (5.5 - (o.wall || W) / u) / 5.5, ix = x => 6 + (x - 6) * k;         // the bowl's inside wall, W in from the outside
-    const inside = D(`M${X(ix(0.5))} ${X(-1)}H${X(ix(11.5))}C${X(ix(11.5))} ${X(2.8)} ${X(ix(9))} ${X(bd)} ${X(6)} ${X(bd)}C${X(ix(3))} ${X(bd)} ${X(ix(0.5))} ${X(2.8)} ${X(ix(0.5))} ${X(-1)}Z`);
-    const rim = WH, liquid = T(rim + 5 / 3);                          // the clear band: under the rim, over the liquid
-    const band = cut(I(inside, R(0, rim, s, liquid - rim)));
+    // g7k: the walls beside the band are an EVEN offset of the bowl, the line's width (or o.wall) all the
+    // way down (the owner saw the g7i walls taper, 1.5px at the rim to 1.1px at the drink: a scaled copy of
+    // the bowl, not an offset, and no principle). For each edge of the band, the point on the bowl's side
+    // whose inward normal, the wall's width long, lands on that edge; the band's sides run straight between
+    // them (measured: 1.5px at both ends, 1.59 at the middle, the straight side against the curve).
+    const wall = o.wall || W, B = [[X(0.5), 0], [X(0.5), X(2.8)], [X(3), X(bd)], [X(6), X(bd)]];   // the left side, in px
+    const bz = (tt, i) => (1 - tt) ** 3 * B[0][i] + 3 * tt * (1 - tt) ** 2 * B[1][i] + 3 * tt * tt * (1 - tt) * B[2][i] + tt ** 3 * B[3][i];
+    const dz = (tt, i) => 3 * (1 - tt) ** 2 * (B[1][i] - B[0][i]) + 6 * tt * (1 - tt) * (B[2][i] - B[1][i]) + 3 * tt * tt * (B[3][i] - B[2][i]);
+    const inAt = y => {                                                // the wall's inner x at height y (left side)
+      const at = tt => { const dx = dz(tt, 0), dy = dz(tt, 1), L = Math.hypot(dx, dy); return [bz(tt, 0) + dy / L * wall, bz(tt, 1) - dx / L * wall]; };
+      let lo = 0, hi = 1; for (let n = 0; n < 60; n++) { const m = (lo + hi) / 2; if (at(m)[1] < y) lo = m; else hi = m; }
+      return at(lo)[0];
+    };
+    // the clear band, under the rim and over the drink: g7k, the counter minimum, 1.5px (was 1 2/3), so the
+    // drink stands higher; its surface sits 1/6px off the 1/3px lattice, the one place the counter minimum wins
+    const rim = WH, liquid = rim + W, a = inAt(rim), b = inAt(liquid);
+    const band = cut(P([a, rim], [s - a, rim], [s - b, liquid], [b, liquid]));
     const FB = Y(11);
     const stem = POST(c, X(bd - 0.5), FB - WH + 0.01);
     const foot = SLAB(X(2.25), X(9.75), FB - WH);
@@ -110,10 +123,11 @@ const DRAW = {
   // g7i: each tier is a true GABLE, its base flat (it rose 0.4px to the trunk: a fourth shape for one job).
   nature(s = 12) {
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
-    // g7j (director: "look at the tree's ledges"): a GABLE STACK's notch shelf (the flat underside a tier shows
-    // past the tier below) equals the line, 1.5px, at every notch. They were 1.45 and 2.14px: uneven shelves
-    // read as steps. Each lower tier's apex is set from that rule, not by hand.
-    const tiers = [[-0.5, 4.25, 2.8], [null, 7.6, 4.1], [null, 10.75, 5.3]], L = W / u;
+    // GABLE STACK rule: every notch shelf (the flat underside a tier shows past the tier below) is the same at
+    // every notch, set from the line: g7j one line (1.5px; they were 1.45 and 2.14, uneven, and read as
+    // steps); g7k (owner: "i think the branches should be a bit more indented -- looks like a triangle at
+    // 100%") one and a half lines, 2.25px, so the tiers read at true size. Each lower tier's apex follows.
+    const tiers = [[-0.5, 4.25, 2.8], [null, 7.6, 4.1], [null, 10.75, 5.3]], L = 1.5 * W / u;
     for (let i = 1; i < tiers.length; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r = (hwU - L) / hwL; tiers[i][0] = (byU - r * byL) / (1 - r); }
     const out = [];
     for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));

@@ -1,17 +1,17 @@
 {
  "now": {
   "cafe": 75.4,
-  "bar": 50.1,
+  "bar": 55.5,
   "museum": 67.2,
-  "nature": 75.0,
+  "nature": 72.2,
   "star": 53.7,
   "plus": 44.8
  },
  "open": {
   "cafe": 75.4,
-  "bar": 55.3,
+  "bar": 63.7,
   "museum": 67.2,
-  "nature": 75.0,
+  "nature": 72.2,
   "star": 66.3,
   "plus": 66.7
  }
