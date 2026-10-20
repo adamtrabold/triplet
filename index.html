@@ -714,7 +714,7 @@
        east boards right; each is its own go-to (44 to the touch). */
     .sp-post {
       position: absolute; left: 0; top: 0; transform: translate(calc(-1 * var(--wl) - 1px), -100%);
-      display: grid; grid-template-columns: var(--wl) 2px var(--wr); row-gap: var(--s2);
+      display: grid; grid-template-columns: var(--wl) 2px var(--wr); row-gap: var(--s3);
       grid-auto-rows: var(--s8); padding-bottom: var(--s4);
       pointer-events: none;   /* the stick and foot are never a tap target (UX); only the boards are */
     }
@@ -744,9 +744,9 @@
     .sp-board .sp-shape { position: absolute; left: 0; top: 0; z-index: -1; overflow: visible; pointer-events: none; }   /* beats leaflet.css .leaflet-map-pane svg { z-index: 200 } */
     /* p4 CD fixes: no offset shadow (it read as a heavier bottom stroke on a pointed shape); one 2px
        navy outline, the same weight as the pole, so pole and boards are one drawing. */
-    .sp-shape .sp-shadow { fill: var(--navy); }
+    .sp-shape .sp-shadow { fill: var(--navy); stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: round; }
     .sp-shape .sp-fill { fill: var(--sp-fill, var(--paper-raised)); }
-    .sp-shape .sp-line { fill: none; stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: miter; stroke-linecap: butt; }
+    .sp-shape .sp-line { fill: none; stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: butt; }   /* round joins: the badge's 2px corners, softly */
     .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
     .sp-board:active { --sp-fill: var(--state-press); }
     .sp-lab { position: relative; z-index: 1; display: flex; align-items: baseline; }
@@ -8116,7 +8116,7 @@
     }
     const boxSize = b => { const r = measure('city-badge', b); return { w: r.w + 2, h: r.h + 2 }; };   // + the 2px offset shadow
     const boardW = b => measure('sp-board is-e', b).w;   // text + --s2 padding + the --s3 point: the board's outer width (its shadow overhangs 2px)
-    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(2), FOOT = () => sNum(4);   // --s2 between stacked boards: each its own sign (CD)
+    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(3), FOOT = () => sNum(4);   // --s2 between stacked boards: each its own sign (CD)
     // The map's clear area for signs, in container px.
     function badgeSafeRect() {
       const mr = map.getContainer().getBoundingClientRect(), g = sNum(2);
@@ -8236,7 +8236,7 @@
       return {
         fill: `M${w} 0H${t}L${tx - 1} ${h / 2}L${t} ${h}H${w}Z`,
         stroke: closed ? `M${w - a} ${a}H${t}L${tx} ${h / 2}L${t} ${h - a}H${w - a}Z` : `M${w} ${a}H${t}L${tx} ${h / 2}L${t} ${h - a}H${w}`,
-        shadow: closed ? `M${w + o} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t + o} ${h + o}H${w + o}Z` : `M${w} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t + o} ${h + o}H${w}Z`,
+        shadow: closed ? `M${w + o} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w + o}Z` : `M${w} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w}Z`,
       };
     }
     function boardHtml(b, side, style, closed) {
