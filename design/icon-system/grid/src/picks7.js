@@ -231,8 +231,8 @@ const DRAW = {
     // tier's is the tall class's, and the middle steps evenly between; each lower tier's apex follows from the
     // 1.5-line shelf, so the slopes differ (the tip steepest), as a fir's do. Trunk: one line; apex +1/2.
     const N = 3, L = 1.5 * W / u, apex = -APEX, B = 12 - W / u, hwN = KEY.TALL[0] / 2, hw1 = L + W / u / 3;
-    const crown = B - apex, h = crown / (N + 0.5), tiers = [];
-    for (let i = 1; i <= N; i++) { const by = apex + (i + 0.5) * h, hw = hw1 + (hwN - hw1) * (i - 1) / (N - 1); tiers.push([i === 1 ? apex : null, by, hw]); }
+    const crown = B - apex, TK = 1.5, h = crown / (N - 1 + TK), tiers = [];
+    for (let i = 1; i <= N; i++) { const by = apex + (i - 1 + TK) * h, hw = hw1 + (hwN - hw1) * (i - 1) / (N - 1); tiers.push([i === 1 ? apex : null, by, hw]); }
     for (let i = 1; i < N; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r_ = (hwU - L) / hwL; tiers[i][0] = (byU - r_ * byL) / (1 - r_); }
     const out = [], tTop = B - W / u;
     for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));

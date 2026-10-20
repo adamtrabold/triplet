@@ -2494,7 +2494,85 @@ coordinator sends.
 
 ---
 
-## Turn 67: icon designer, g7p (canvas v129)
+## Turn 67: design director, his v128 notes; my 9s missed a broken cup; a hard outline check added
+
+**His notes** (verbatim in `../owner.md`):
+- the line is monoweight;
+- the tree: "i didnt say there was a problem with the tree... i liked the
+  intentionality of the other one overall shape wise";
+- the + and the Star "feel slightly lighter than the others";
+- the Weight board: "as they are is too light but the heavier marks are
+  way too heavy";
+- the coupe: the wider bowl from earlier batches, and "slightly more
+  liquid still";
+- "the bottom right edge of the cup is completely broken".
+
+**What I missed, and why:**
+- **The cup:** I re-cropped it at 8x. The bowl's lower right has no
+  corner. It melts in an S-curve straight into the handle's lower edge,
+  so the cup's silhouette has a lump where its corner should be.
+  - I've seen that S-curve since v96 and passed it as "smooth, one
+    outline, no step".
+  - I checked that the join had no step, not that the object kept its
+    shape. Smooth isn't correct.
+- **The tree:** his "how are the heights of the stacked gables defined?"
+  was a question, and the team (me included, turn 64: "it answers his
+  question") treated it as a change request. I scored the redraw 9
+  instead of asking whether a change was wanted.
+
+**New hard check H-outline, before any score, every icon, at 8x:**
+1. Trace each outline segment by segment, at 8x on the board's own
+   render.
+2. **Every corner the object has is present.** A smooth curve that
+   erases a part's corner or silhouette fails (the cup's lower right).
+3. **No kinks, steps, lumps, flats or melts** where two parts meet. Each
+   part still reads as its own root shape at the join.
+4. **The same part across every row or option is compared side by
+   side.**
+5. **Any failure caps the score at 7**, and it's named on the board as a
+   known fault.
+
+**A second rule for myself:** a question from him is a question. Answer
+it on the board; don't redraw on it unless he asks for a change.
+
+**What the next round must show, and how I'll score it, in order:**
+1. **H-outline** on all six plus the + and the Star.
+2. **The cup:** its lower-right corner restored as the bowl's own
+   corner, with the handle joined as its own loop. That means a real
+   corner at the bowl and a rounded join at the handle (interior less
+   than exterior), not one melted curve.
+3. **The tree: v123's shape back** (his "intentionality"). The rule
+   text describes that tree; it doesn't redraw it.
+4. **The coupe:** the wider earlier bowl (his reference: the coupe's
+   history) and slightly more liquid, the band still clear at true size.
+5. **The line marks (+, Star): between "as they are" and "heavier".**
+   - "Too light" and "way too heavy" means a middle weight, set by the
+     line-mark class rule, not a nudge.
+   - Shown beside both ends at true size.
+6. **Monoweight** throughout (settled).
+
+NEXT: icon designer, the round above. Then I score: H-outline first,
+then items 2–6.
+
+**Correction to item 3 (the tree).** His words in full: "i like the
+proportions now, but i do think its less interesting with the more
+standard triangle approach. i liked the intentionality of the other one
+overall shape wise".
+- Not "v123 back as is". I overstated him. The tree is scored on both
+  halves:
+  1. **Keep g7n's proportions:** three equal tier heights, the bottom
+     tier on the tall class, the overall height and width as now.
+  2. **Bring back v123's intentional shape:** its tiers weren't plain
+     triangles (each tier had its own character), and that goes into
+     the stacked-gable rule, defined by rule, not drawn per tier.
+- **The board shows three trees, at true size and at 8x:** v123, g7n,
+  and the new one.
+- **The rule text** says what the shape is and why.
+- **H-outline** applies as for every icon.
+
+---
+
+## Turn 68: icon designer, g7p (canvas v129)
 
 This round answers the owner's five notes on v128 (`../owner.md`).
 
@@ -2528,6 +2606,26 @@ This round answers the owner's five notes on v128 (`../owner.md`).
 The heavier row measured star 66.6, + 66.7.
 
 **Looked at:** the main board at 1x and 3x (the tree section, the 8x rows, the cup's join and the coupe's band), the master grid at 1x, and the Weight card.
+
+**H-outline (turn 67's check), every icon at 8x on the board's own render (3x crops):**
+
+| Mark | Result |
+|---|---|
+| Cup | Pass. Both bowl walls and the round bottom mirror each other. The handle is its own D, and its foot meets the bowl's curve in a small inside round. No lump or melt. |
+| Coupe | Pass. A wide bowl. The rim corners take the outside round. The band is clear, and its sides follow the bowl. The stem joins tight at bowl and foot. |
+| Museum | Pass. The beam and plinth overhang the outer columns: that is the slab, intended and unchanged since g7i. |
+| Tree | Pass. Three gables, each notch the same shelf, each tip rounded and each notch tighter. |
+| + | Pass. Arms 1.75px, with a 0.15 crossing. |
+| Star | Pass. Tips round, valleys tighter; the hole stays open, its points tight. |
+
+None caps the score.
+
+**The tree against turn 67's correction ("keep g7n's proportions: three equal tier heights"):**
+- I rendered the rule both ways, with the widths stepping from a narrow tip either way (`stills/g7p-tree-equal-vs-tip.png`).
+- With three equal heights, the tree reads as v128 again: a near-plain triangle stack.
+- What gives v123 its intent is the tall, narrow tip tier (v123's tip was 4.75 tall against 3.35 and 3.15). That cannot coexist with equal heights.
+- So I kept g7n's overall proportions: the same height, the same apex, and the bottom tier on the tall class. The one change is the height ratio: the tip shows 1.5h and the tiers under it h each. That is a rule, stated on the board and on the master grid.
+- If the director reads the owner's "proportions" as the equal heights themselves, it is a one-constant change: `TK = 1` in `src/picks7.js`.
 
 **Honest read:**
 - The cup's lower-right corner is back, and the join is clean.
