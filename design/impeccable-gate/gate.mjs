@@ -34,7 +34,7 @@ const FLAGS = ['--json', '--no-config', '--no-inline-ignores', '--no-design-syst
 const STATIC_BASELINE = path.join(HERE, 'baseline.json');
 const RUNTIME_BASELINE = path.join(HERE, 'runtime-baseline.json');
 const HARNESS = path.join(REPO, 'design/gesture-harness');
-const STATES = ['list', 'popup', 'sort', 'add', 'plans']; // driver.js defines each
+const STATES = ['list', 'popup', 'sort', 'add', 'plans', 'signposts']; // driver.js defines each
 // The skill's commands that can run as read-only critics in --review (see README.md for the
 // ones that don't and why). Default review = `evaluate` (critique + audit); the rest are
 // refine/enhance/fix playbooks, opt-in via --all or --commands.

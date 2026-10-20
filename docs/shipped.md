@@ -1781,6 +1781,59 @@ move "it should stay on your current city" (it does).
   GATE FAILED on one new finding,** `kicker-above-heading` ("Reykjavík" above the tag's h2) -- the
   approved routing line itself (waived at landing, above).
 
-## Tag close x in the tag's corner (tweak lane) -- DRAFT, NOT LANDED (branch `tag-close-fix`)
+## The map's city signposts (add-tag-jam phase 4; landed 2026-10-20 from `add-tag-p4`)
 
-- Owner: "the x to close tag is in a very weird space"; "the x should be related to the corner of the overall tag, not the content on the tag"; "the city dropdown should be visually chunked slightly tighter to the attraction name on the tag". The Hanging Tag's `.tag-x` moved off the name line (glyph 106px down, 22 from the right, sliding with the city line) to the tag's top-right corner: glyph centred 28px down (level with the foot of the 28px cut corner; 18 was "too close to the top", a true 32 straddled the starred band's edge) and `--s8` 32 in from the right; the 44px box (top 6, right 10) sits on `.tag-body` outside the clipped stock so the die-cut never trims its hit area; press tile `--s6` (inset 10) stays inside the chamfer; on the starred band it inks `--ink` (6:1 on orange). `.tag-name` loses its 32px right padding (full width). Routing line to name `--s2` -> `--s1`. The add tag's x is unchanged (`#addForm .tag-x` top 76, right 0, tile inset 8). Checks: popup-open 20/20 + 20/20, tag-sync 12/12, citytest 45/45 (B2/B7 updated), addtest 72/72, `IMPECCABLE GATE PASSED`. Variant B behind `TAG_CLOSE_STYLE` ('corner' live | 'pin': the open tag's pin face shows an x and closes it, corner x kept for keyboard/VoiceOver, shapes keep the corner x). Stills: `design/tag-close-fix/contact-sheet.png`.
+Owner: "Great to build"; on the map badges "i like having a badge for the city at a zoomed out
+level"; on the check's options "oh man i love the signpost even though it's wonky. maybe all of
+the cities should have that shape"; "every city should be a signpost"; "a signpost would only ever
+have the pole pointing down"; "if the map isnt positioned for it to show it just shouldnt show";
+on the map control "yeah lets cut that button it doesnt make sense -- all places should just show
+all places on the map"; final: "signposts instead of city badges are approved". Spec:
+`design/add-tag-jam/handoff.md` "Phase 4" + "Phase 4 fixes (after build check)" (design branch);
+reference prototype `design-p4-fixes` 8f3c2a72 (ported; the boxed-badge / lone-board / pointer /
+tether switches deleted). Approved stills `design/add-tag-jam/stills/p4-fixes/9-signposts.png`,
+`10-family.png`; build stills `design/add-tag-jam/stills/build-p4/`.
+
+- **When:** below `CITY_BADGE_MAX_ZOOM` = 8, in Places, each shown city with a place matching the
+  chips and its centre on screen is a signpost instead of its pins, clusters and outlines
+  (`badgeCityIds()` in `mapVisibleLocations()` / `mapVisibleNeighborhoodShapes()`; the list never
+  changes with zoom). Hidden cities: none. Plans: none. Tally = the section tally (`cityTally()`).
+- **Layout (`syncCityBadges()`):** signs within `--s1` of each other join one post (greedy,
+  repeated), its foot on their mean screen point (a lone post: on the city); boards north to
+  south, west of the pole if the city lies west of the foot, else east, pointing that way; true
+  per-side width, so LA never joins the Nordic post. Poles always vertical; a lone sign takes east,
+  else west; a sign that doesn't fit whole inside the clear area (`badgeSafeRect()`: `--s2` inside
+  the map, below the zoom control / account badge, above the + / credit) or whose spot is under a
+  control is not drawn (no nudging). Keyed by member ids: a pan only moves a sign.
+- **Look:** post = grid `var(--wl) 2px var(--wr)`, rows `--s8`, gap `--s3`, `--s4` of pole to an
+  8px navy foot dot (1.5px paper-raised ring) the pole runs into. Board = ONE inline SVG
+  (`boardPath()`): the board's silhouette offset 2/2 as the navy shadow (filled + stroked, round
+  joins; starts at the pole, never past it), the paper-raised face, one 1.5px navy rule with round
+  joins, open on the pole side; caps 13/16 `.08em` navy + the tally at **11px** (the type floor;
+  the badge spec's .8em = 10.4px, raised at landing, operator); `--s2` padding + the `--s3`
+  point; 44px target; pressed `--state-press`; focus outline. Only boards tap (`goToCity(id)`).
+- **All places** (title menu): frames the signs when the places only fit at sign zoom
+  (`badgeFitView()` in `fitVisible()`): the closest zoom where every shown city's sign fits the
+  clear area. `minZoom` 3 -> 1 (map and tiles), so LA + the Nordics fit a 390px phone (z1).
+- **The "All cities" map control is gone** (owner, above).
+- **Gates (Chromium):** `design/add-tag-jam/p4/badgetest.js` 26/26 (zoom sweep 3-15 and back:
+  signs <-> pins at one zoom; no flicker on pan / touch drag; list identical at 5/13/16; z1-7 no
+  overlaps, clear of controls, whole in the clear area, foot on its cities, boards north to south
+  toward their cities, LA alone; Copenhagen + Malmö one post at z7; a sign with no room not drawn;
+  only boards tap, each to its own city, keyboard too; hidden city; chip counts; All places at
+  390px shows every shown city's sign whole; no `#allCitiesBtn`; Plans none; cluster tap at 10
+  lands at 14; list tap from z5 lands solo with its tag); Impeccable `IMPECCABLE GATE PASSED`
+  (static 1/1; runtime 47/47 with a new rendered state `signposts` -- all cities shown, All
+  places; its 36 new entries are the accepted 10px row-meta rule with the other cities' names,
+  operator-approved, nothing else in the baseline changed); popup-open 20/20 + 20/20, places-ux
+  30/30, shape-rows 50/50, plan-rows 40/40, tag-sync 12/12; addtest 72/72; citytest 45/45;
+  plantest and sorttest 76/77 identical to main. No row/tag gesture code touched (not the full
+  gesture gate). The designer's signpost raws (`p4/signpost-cmp.js`, 5 views, real tiles) were
+  pixel-identical on the build and the prototype before the 11px tally.
+## The pin is the close (tweak lane) -- DRAFT, NOT LANDED (branch `tag-close-fix`)
+
+- Owner: "the x to close tag is in a very weird space"; then, picking the pin: "pin is making the most sense to me, but navy feels too much like visited"; "i dont think the close pin needs a ring"; "no star needed once expanded because the tag is clear when something is starred"; "it needs a disc. i dont mind the screened back orange one, but the orange background should be a bit lighter" ... "yeah 6". Also "the city dropdown should be visually chunked slightly tighter to the attraction name on the tag".
+- **The close:** while a tag is open (`#map.tag-is-open`, set/cleared in `tagOpened()`/`tagClosed()`), the pin it hangs from -- and a district/street's dot (`showTagDot()`) -- becomes a 28px disc: `color-mix(--brand-orange 6%, --paper-raised)`, a 15px deep-orange (#A8400C) x at 2.4 stroke, the tag's warm edge (`0 0 .5px` + `0 0 1px --tag-edge`) and contact + lift shadows (`0 1px 1.5px`, `0 3px 6px`); no ring; the pin's star, category glyph, visited sticker and plan-stop number are hidden while it is the close (**owner override of owner-taste "Preserve the category icon"**: the tag itself names the type, star and stop -- owner: "doesnt the tag say "stop X of X" too?"). No pulse while open. Port of the designer's prototype `pin-lw6` (`origin/tag-close-concepts` @ 706629bb, `design/tag-close-explore/`).
+- **Behaviour:** a pin tap already toggled its Leaflet popup shut (unchanged); the pin's target grows 32 -> 44 while open (`::before` inset -6). The dot is now an interactive 44px marker whose tap closes the tag. A district's tag hangs at the selected pin's radius (`tagPinRadius()` 6 -> 16) and the string runs up 2px (`.tag-popup .tag-string` top -2) to meet every disc's lower edge (measured gap 0, centred). The tag's own `.tag-x` stays first in tab order, visually hidden (1px, clipped) until keyboard focus, when it shows 44x44 in the tag's top-right corner (glyph 28 down, `--s8` in), on `.tag-body` outside the clipped stock. Esc unchanged. The corner-x placement and the `TAG_CLOSE_STYLE` dial explored on the way are gone. The add tag's x is unchanged (`#addForm .tag-x` top 76, right 0).
+- **City -> name:** the routing line's bottom margin `--s2` -> `--s1` (port of the designer's p4-fixes value only); the name drops its 32px right padding (nothing on its line now).
+- Checks: see the hand-back / landing note. Stills: `design/tag-close-fix/contact-sheet.png` (`stills.js`, `sheet.js`); probe `design/tag-close-fix/pinprobe.js`.

@@ -173,7 +173,9 @@ pick/redirect before building anything.
   looks: "Good"; `docs/shipped.md`). ~~Phase 2~~ LANDED 2026-10-18 (the add tag; owner on the
   fixes: "I like the change to the add dropdown"; `docs/shipped.md` "The add tag"). ~~Phase 3~~ LANDED 2026-10-19
   (city buckets: the guess by reach, a place's city changed on its tag; owner on the final tag:
-  "killer"; `docs/shipped.md` "City buckets"). Next: 4 (the map's city badge). Known from phase 1: a plan name
+  "killer"; `docs/shipped.md` "City buckets"). ~~Phase 4~~ LANDED 2026-10-20 (the map's city
+  signposts; the "All cities" control cut; owner: "signposts instead of city badges are
+  approved"; `docs/shipped.md` "The map's city signposts"). The jam is complete. Known from phase 1: a plan name
   longer than ~17 characters is cut in the 18px title (UX: accept).
 - **City buckets** (owner, 2026-09-23; decided 2026-10-15) -- LANDED as add-tag-jam phase 3
   (2026-10-19; `docs/shipped.md` "City buckets"). Still open from this item: multi-select

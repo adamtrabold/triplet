@@ -6,7 +6,7 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- **Tag close x in the corner (tag-close-fix, DRAFT -- not landed):** open any place's tag: the x sits in the tag's top-right corner, level with the string hole, whatever the name's length; on a starred tag it reads dark on the orange band; one tap near it (including just above the tag's corner) closes the tag; the city line sits a touch closer to the name.
+- **The pin is the close (tag-close-fix, DRAFT -- not landed):** open a place's tag: its pin becomes a pale-orange disc with an orange x (no star, no icon, no stop number), the string meeting its bottom edge; tap it: the tag closes (try a near-miss just beside the pin too); open a district's tag: its dot does the same; there is no x on the tag itself; the disc stays visible on pale and water tiles; the city line sits a touch closer to the name. VoiceOver: the tag still offers a "Close" button.
 - **The list title, city sections, show/hide, the tab (add-tag-jam phase 1, landed 2026-10-17):**
   (1) tap the list title: the menu opens downward over the list header, cities first, with a
   double rule under "All places" and a navy line above the last row ("Plans 3 ›"); tap that row:
@@ -24,6 +24,15 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   map credit sits above it, the + never touches it, and lowered there's no line under the title;
   (7) star/visit swipes still work on rows right under a header; (8) a long plan name ends in
   "…" right before its count.
+- **The map's city signposts (add-tag-jam phase 4, landed 2026-10-20):** (1) pinch out past the country level: each
+  city you show becomes a signpost standing on its city (Copenhagen and Malmö share one post, each
+  board pointing toward its city); pinch back in: pins/clusters return at the same step; panning
+  never blinks the signs, and a sign near an edge or under a button simply isn't there until you
+  pan it clear; (2) hide a city: its board goes; a category chip off: the counts drop like the
+  section headers'; (3) tap a board: the map flies to that city, the title names it, the list sits
+  on its header; tapping the pole does nothing; (4) title menu > All places: the map zooms all the
+  way out so LA and the Nordic cities all show; (5) the boards' joins look clean on the phone
+  (one shape, shadow follows the point, the pole runs into the dot).
 - **City buckets (add-tag-jam phase 3, landed 2026-10-19):** on your phone, signed
   in, live data. (1) Open Gunnuhver's tag: REYKJAVÍK ⌄ on the first line, and the address line ends
   "· ≈ 50 km from Reykjavík"; Sundhöllin's tag: no note; a long-note tag on a small phone scrolls a

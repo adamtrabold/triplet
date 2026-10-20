@@ -7,7 +7,8 @@
     "popup": 24,
     "sort": 24,
     "add": 24,
-    "plans": 24
+    "plans": 24,
+    "signposts": 116
   },
   "findings": [
     {
@@ -21,9 +22,44 @@
       "reason": "Waived 2026-10-19 (operator-approved, owner informed, no objection; CD would defend it, checks/p3-cd-ux.md): the Hanging Tag's routing line -- the place's city, the owner-approved design (add-tag-jam phase 3, \"R2, left-aligned\") and a working control that opens the city menu, not a decorative eyebrow."
     },
     {
+      "id": "undersized-ui-text | 10px functional text \"area · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"area · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"area · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
       "id": "undersized-ui-text | 10px functional text \"area · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"area · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"attraction · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"attraction · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"attraction · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
     },
     {
       "id": "undersized-ui-text | 10px functional text \"attraction · Reykjavík\" (below 11px floor)",
@@ -31,9 +67,49 @@
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
     },
     {
+      "id": "undersized-ui-text | 10px functional text \"attraction · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"bar · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"bar · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"bar · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
       "id": "undersized-ui-text | 10px functional text \"bar · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"bar · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"cafe · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"cafe · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"cafe · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
     },
     {
       "id": "undersized-ui-text | 10px functional text \"cafe · Reykjavík\" (below 11px floor)",
@@ -41,9 +117,49 @@
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
     },
     {
+      "id": "undersized-ui-text | 10px functional text \"cafe · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"district · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"district · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"district · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
       "id": "undersized-ui-text | 10px functional text \"district · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"district · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"nature · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"nature · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"nature · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
     },
     {
       "id": "undersized-ui-text | 10px functional text \"nature · Reykjavík\" (below 11px floor)",
@@ -51,9 +167,49 @@
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
     },
     {
+      "id": "undersized-ui-text | 10px functional text \"nature · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"restaurant · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"restaurant · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"restaurant · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
       "id": "undersized-ui-text | 10px functional text \"restaurant · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"restaurant · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"shopping · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"shopping · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"shopping · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
     },
     {
       "id": "undersized-ui-text | 10px functional text \"shopping · Reykjavík\" (below 11px floor)",
@@ -61,9 +217,34 @@
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
     },
     {
+      "id": "undersized-ui-text | 10px functional text \"shopping · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"street · Copenhagen\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"street · LA\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"street · Malmö\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+    },
+    {
       "id": "undersized-ui-text | 10px functional text \"street · Reykjavík\" (below 11px floor)",
       "states": "list popup sort add plans",
       "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+    },
+    {
+      "id": "undersized-ui-text | 10px functional text \"street · Stockholm\" (below 11px floor)",
+      "states": "signposts",
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
     }
   ]
 }

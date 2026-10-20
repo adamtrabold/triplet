@@ -27,13 +27,20 @@
         var p = document.querySelector('#titleMenu [data-plan]'); if (p) p.click();
       },
       function () { return document.body.classList.contains('plan-view') && !document.body.classList.contains('plan-none') && document.getElementById('titleMenu').hidden; }],
+    // add-tag-jam phase 4: every fixture city shown, then the title menu's All places -- the map
+    // zooms out to the city signposts (the only state that renders them)
+    signposts: ['#titleBtn', function () {
+        document.getElementById('titleBtn').click();
+        var a = document.querySelector('#titleMenu [data-go="__all__"]'); if (a) a.click();
+      },
+      function () { return document.querySelectorAll('#map .sp-board').length >= 5 && document.getElementById('titleMenu').hidden; }],
   };
   try {
     localStorage.clear();
     localStorage.setItem('triplet.citySelection', 'reykjavik');
     // cities stopped being a list filter (add-tag-jam phase 1): hide the other fixture cities so the
     // list is Reykjavik's section, as the city chip made it before (the gesture harness does the same)
-    localStorage.setItem('triplet.hiddenCities', JSON.stringify(['la', 'copenhagen', 'malmo', 'stockholm']));
+    localStorage.setItem('triplet.hiddenCities', JSON.stringify(S === 'signposts' ? [] : ['la', 'copenhagen', 'malmo', 'stockholm']));
     if (S === 'plans') localStorage.setItem('gh.plans', '1'); // the plans fixture in stub.js (plans builds)
   } catch (e) {}
   var done = false;

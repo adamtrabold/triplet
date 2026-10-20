@@ -190,6 +190,12 @@ flowchart LR
   `localStorage` `triplet.hiddenCities`). Phase 1 of `design/add-tag-jam/handoff.md`.
   Re-picking the current city reframes it (the recovery after panning away).
   Category chips survive a go-to.
+- **City signposts** (phase 4): below `CITY_BADGE_MAX_ZOOM` (8), in Places, each shown city
+  with a shown place and its centre on screen is a signpost (close cities share a post) instead
+  of its pins, clusters and outlines (`badgeCityIds()` inside `mapVisibleLocations()` /
+  `mapVisibleNeighborhoodShapes()`; laid out and drawn by `syncCityBadges()`). Map layer only. A
+  board tap is a go-to (`goToCity(id)`). All places frames the signs (`badgeFitView()`;
+  `minZoom` 1). None in Plans.
 
 ### List tap → map
 
@@ -376,11 +382,11 @@ Leaflet 1.9.4, supabase-js 2.39.3, OSM raster tiles. GitHub Pages deploys
 | City state | `setActiveCity()` (sole writer), `visibleLocations()`, `focusMap()`, `focusCity()` |
 | City detection | `detectCityContext()`, `matchCity()`, `maybeDetectCity()`, `resolveShapeCity()`, `deriveNewCityConfig()`, `addCity()`, `fetchCities()`, `cleanupOrphanCities()` |
 | Poll, locate | `startPoll()`, `pollTick()`, `noteInteraction()`, `centerOnUserLocation()` |
-| Pins | `SOLO_MIN_ZOOM`, `GLYPH_MIN_ZOOM`, `badgeHtml()`, `markerIcon()`, `STICKER` |
+| Pins | `SOLO_MIN_ZOOM`, `GLYPH_MIN_ZOOM`, `CITY_BADGE_MAX_ZOOM` / `syncCityBadges()` (signposts), `badgeHtml()`, `markerIcon()`, `STICKER` |
 | Place details | `buildPopupHtml()`, `TagPopup`, `tagAddress()`, `openPopupOnArrival()`, `highlightMarker()`, `setHighlighted()` |
 | Sort | `SORT_MODES`, `sortLocations()`, `sortShapes()`, `heldOrder()`, `startNearest()` |
 | Plans | `fetchPlans()`, `createPlan()`, `addStop()`, `removeStop()`, `reorderStop()`, `syncPlanCards()`, `applyPlanMap()`, `initPlans()` |
-| Render | `updateUI()` (the single re-render), `syncLocationCards()`, `syncShapeCards()`, `syncMarkers()`, `syncClusterMarkers()`, `syncNeighborhoodLayers()`, `focusShape()` |
+| Render | `updateUI()` (the single re-render), `syncLocationCards()`, `syncShapeCards()`, `syncMarkers()`, `syncClusterMarkers()`, `syncCityBadges()`, `syncNeighborhoodLayers()`, `focusShape()` |
 | Row gestures | `attachStarGesture()`, `beginVisitDrag()`, `settleVisitDrag()`, `DELETE_TAP_SLOP`, `stampTilt()` |
 | Add tag | `addDraft`, `openAddForm()`, `cancelAddForm()`, `searchAddress()` / `rankSearchResults()`, `selectAddress()` (the pick), `osmToType()`, `preGuessCity()` / `guessCity()`, `addDistanceText()`, `alignMapToPin()`, `submitAddTag()` → `handleAddLocationSubmit()` / `handleAddShapeSubmit()`, `finishAdd()`, `clearAddDraft()` |
 | Boot | `L.map(...)`, `tagOpened()`, `tagClosed()`, `restoreCitySelection()`, the `Promise.all` of the four fetches, `startPoll()` |
