@@ -395,9 +395,8 @@ ${ch('Change 13', 'overshoot', 'Practice: overshoot. A pointed top rises past TO
 // blur within about 9, place and UI icons alike", reached by a class rule). Each option is built by the
 // same grid; its SVGs go to svg/g7/weight-<opt>/ so src/blur-measure.js measures it (SVGDIR=...).
 const WOPTS = [
-  ['now', 'As settled', 'Every line 1.5px; the coupe holds its drink under a clear band.', { lw: W, band: true, wall: W }],
-  ['open', 'Open and outline marks carry a heavier line', 'The Star\'s outline 2px and the +\'s arms 2.5px (the app\'s + is drawn at 2.5 today); the coupe keeps its band, its walls 2.5px. Breaks "every line 1.5px" for the UI marks.', { lw: { star: 2, plus: 2.5 }, band: true, wall: 2.5 }],
-  ['solidcoupe', 'Heavier open marks, and the coupe without its band', 'As above, and the coupe solid again (its slab foot kept). Breaks the 1.5px line for the UI marks and drops the clear band you asked for.', { lw: { star: 2, plus: 2.5 }, band: false, wall: W }],
+  ['now', 'As they are', 'Every line 1.5px, the same as the badge ring.', { lw: W, band: true, wall: W }],
+  ['open', 'Heavier line marks', 'The star\'s outline 2px and the +\'s arms 2.5px (the + in the app today is 2.5); the star grows a little so its hole stays two lines wide; the coupe\'s walls around its clear band 2.5px. The other place icons don\'t change.', { lw: { star: 2, plus: 2.5 }, band: true, wall: 2.5 }],
 ];
 const WSET = {};
 for (const [key, , , o] of WOPTS) {
@@ -415,24 +414,32 @@ for (const [key, , , o] of WOPTS) {
 }
 // measured with src/blur-measure.js on each weight-<opt> folder (the darkest fifth of the live circle, 1.5px blur)
 const WBLUR = JSON.parse(fs.existsSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json')) ? fs.readFileSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json'), 'utf8') : '{}');
+const W_Q = "The + and the star are drawn in the same thin line as the badge ring, so they read lighter than the solid place icons. The star\'s outline is how \'not starred yet\' reads. Do they feel right as they are (top row), or do you want them heavier (second row)? And does the coupe now feel the same weight as the others?";
 function sheetWeight(W_, n) {
   const ids = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'];
   const cell = (key, id, px) => id === 'star' || id === 'plus'
     ? `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(${f2(12 - 12 * UIP[id][1] / 24)} ${f2(12 - 12 * UIP[id][1] / 24)}) scale(${f2(UIP[id][1] / 24)})"><path d="${WSET[key][id]}" fill="${COL.navy}"/></g></svg>`
     : badge(WSET[key][id], px);
-  const big = W_ > 500 ? 96 : 52;
-  const rows = WOPTS.map(([key, title, what]) => {
-    const b = WBLUR[key] || {}, vals = ids.map(id => b[id]).filter(v => v != null), spread = vals.length ? (Math.max(...vals) - Math.min(...vals)).toFixed(0) : '?';
-    return `<div class="icon"><h3>${title}</h3><p class="sm">${what}</p>
-<div class="set">${ids.map(id => cell(key, id, 24)).join('')}</div>
-<div class="set big">${ids.map(id => cell(key, id, big)).join('')}</div>
-<div class="set big blur">${ids.map(id => cell(key, id, big)).join('')}</div>
-<p class="sm"><b>Blur, darkest fifth:</b> ${ids.map(id => `${id === 'plus' ? '+' : id === 'cafe' ? 'cup' : id === 'bar' ? 'coupe' : id === 'nature' ? 'tree' : id} ${b[id] != null ? b[id].toFixed(0) : '?'}`).join(', ')}. <b>Spread ${spread}.</b></p></div>`;
-  }).join('');
-  return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · g7j · sheet ${n}</div><h2>Weight: what equal darkness costs</h2>
-<p class="att">The director's bar: equal darkness in our blur within about 9, place and UI icons alike, from a class rule. Measured: a 1.5px line, blurred, can't get darker than about 58, however long or large the mark; our solid place icons reach 75. So within the settled rules (every line 1.5px, places solid, the coupe's clear band) the spread can't close below about 25. Each way to close it bends one settled rule. Here is what each costs, built by the same grid and measured the same way.</p>
-${rows}
-<p class="sm mute">Not tried: lightening the solid places to about 55 would need a counter in every solid wider than about 3px (the cup's bowl, the tree's tiers, the pediment), which turns solid places toward outlines; outline is reserved for "not yet tapped".</p>
+  const ui = (key, id, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${WSET[key][id]}" fill="${COL.navy}"/></svg>`;
+  // true size, where they live: list rows with the star, then the + in its Float badge with pins
+  const live = key => {
+    const rows = [['cafe', 'Kaffeverket', 'CAFÉ', true], ['bar', 'Tjoget', 'BAR', true], ['museum', 'Vasa Museum', 'MUSEUM', false], ['nature', 'Djurgården', 'NATURE', false]]
+      .map(([id, nm, sub, st]) => `<div class="row">${badge(WSET[key][id])}<div class="t">${nm}<small>${sub} · STOCKHOLM</small></div>${st ? ui(key, 'star', 20) : ''}</div>`).join('');
+    const map = `<div class="map" style="height:72px"><div class="pn" style="left:8px;top:6px">${plusBadge(ui(key, 'plus', 26.4), 60)}</div>${[['cafe', 84, 10], ['bar', 120, 40], ['museum', 160, 12], ['nature', 200, 38]].map(([id, x, y]) => `<div class="pn" style="left:${x}px;top:${y}px">${badge(WSET[key][id])}</div>`).join('')}</div>`;
+    return rows + map;
+  };
+  const big = W_ > 500 ? 80 : 44;
+  const name = key => WOPTS.find(o => o[0] === key);
+  const head = key => `<div class="wl" style="font-size:14px;margin:0 0 4px">${name(key)[1]}</div><p class="sm" style="margin:0 0 6px;min-height:${W_ > 500 ? 72 : 120}px">${name(key)[2]}</p>`;
+  const nm = id => id === 'plus' ? '+' : id === 'cafe' ? 'cup' : id === 'bar' ? 'coupe' : id === 'nature' ? 'tree' : id;
+  const foot = WOPTS.map(([key, title]) => { const b = WBLUR[key] || {}, v = ids.map(id => b[id]).filter(x => x != null); return `${title}: ${ids.map(id => `${nm(id)} ${b[id] != null ? b[id].toFixed(0) : '?'}`).join(', ')} (spread ${v.length ? (Math.max(...v) - Math.min(...v)).toFixed(0) : '?'})`; }).join('. ');
+  return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · g7j · sheet ${n}</div><h2>Weight: the line marks</h2>
+<div class="q"><b>The question</b>${W_Q}</div>
+<div class="lab">True size, where they live</div>
+<div class="pair" style="align-items:start">${WOPTS.map(([key]) => `<div style="text-transform:none;letter-spacing:0;align-items:stretch;text-align:left;font-weight:400;color:${COL.ink}">${head(key)}${live(key)}</div>`).join('')}</div>
+<div class="lab">Large (8x)</div>
+${WOPTS.map(([key, title]) => `<div class="srow"><div class="k">${title}</div><div class="set big">${ids.map(id => cell(key, id, big)).join('')}</div></div>`).join('')}
+<p class="sm mute" style="margin-top:14px">Blurred darkness, measured (the darkest fifth of the live circle after a 1.5px blur; src/blur-measure.js): ${foot}.</p>
 </section>`;
 }
 
@@ -551,9 +558,9 @@ function sheetLook() {
   const tokenRow = `<div style="${grid}"><div style="font-size:20px;font-weight:700;color:${COL.navy};line-height:1.25">Each in its cut<div style="font-size:15px;font-weight:400;color:${COL.ink2}">orange: the class's cut of the coin; grey: the coin</div></div>${LOOK_COLS.map(([id]) => `<div style="display:flex;flex-direction:column;gap:8px">${tokenCell(id, big)}<div style="font-size:14px;line-height:1.3;color:${COL.ink2}">${clsLabel(id)}</div></div>`).join('')}</div>`;
   const b2 = `<table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.4">${['<tr>' + ['Batch 2', 'Concept', 'Size class', 'Root shapes'].map(h => `<th style="text-align:left;padding:8px;border-bottom:2px solid ${COL.navy};font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:${COL.ink2}">${h}</th>`).join('') + '</tr>', ...BATCH2.map(r => '<tr>' + r.map((c, i) => `<td style="padding:8px;border-top:1px solid ${COL.hair};vertical-align:top;${i === 0 ? `font-weight:700;color:${COL.navy}` : ''}">${c}</td>`).join('') + '</tr>')].join('')}</table>`;
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
-<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid change g7i</div>
+<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid changes g7i and g7j</div>
 <h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${COL.navy}">One token, five root shapes</h1>
-<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This round adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Before is v105; now is the same six, refitted by the rule. Every icon is a live vector: zoom in on the canvas.</p>
+<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is one line deep. Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
 <div style="margin:0 0 56px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}">
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div>
 <div style="font-size:28px;line-height:1.3;color:${COL.navy};font-weight:600">${LOOK_Q}</div></div>
@@ -574,7 +581,7 @@ ${sec('Large (8x): before and now')}
 ${sec('Pressure test: the batch 2 subjects on this grid')}
 <div style="margin:0 0 64px">${b2}</div>
 ${sec('Weight: still open')}
-${p('Size and shape are now set by the grid; weight is not yet equal. In our blur, a 1.5px line can\'t get darker than about 58, and the solid places reach 75, so the Star, the + and the coupe (whose clear band opens its bowl) read lighter. Closing that bends one settled rule: a heavier line for the Star and the +, or the coupe without its band, or both. The Weight board, to the right, shows each, built and measured the same way.')}
+${p('Size and shape are now set by the grid; weight is not yet equal. In our blur, a 1.5px line can\'t get darker than about 58, and the solid places reach 75, so the Star, the + and the coupe (whose clear band opens its bowl) read lighter. The Weight board, to the right, shows them as they are beside a heavier line for the star and the +.')}
 <div style="margin:0 0 64px"></div>
 ${sec('Craft comparison only, not a size reference: two well-made sets, for drawing quality')}
 <div style="${grid}">${head}${SETS.slice(1).map(row).join('')}</div>
@@ -582,7 +589,7 @@ ${sec('Craft comparison only, not a size reference: two well-made sets, for draw
 }
 function page(W_) { return { css: CSS(W_), cards: [sheetIntro(0), sheetSet(W_, 1), sheetDrawings(W_, 2), sheetCorners(W_, 3), sheetApp(4), sheetAir(W_, 5), sheetGrid(W_, 6), sheetWeight(W_, 7)] }; }
 const NAMES7 = ['Grid7Intro', 'Grid7Set', 'Grid7Drawings', 'Grid7Corners', 'Grid7App', 'Grid7Air', 'Grid7Grid', 'Grid7Weight'];
-const TITLES7 = ['Batch 1, redrawn to the craft bar', 'The set, at real size', 'Each drawing, before and after', 'The corners, on the redrawn set', 'In the app, real size', 'The air in the ring', 'The grid, changed by the redraw', 'Weight: what equal darkness costs'];
+const TITLES7 = ['Batch 1, redrawn to the craft bar', 'The set, at real size', 'Each drawing, before and after', 'The corners, on the redrawn set', 'In the app, real size', 'The air in the ring', 'The grid, changed by the redraw', 'Weight: the line marks'];
 
 if (require.main === module) {
   {
