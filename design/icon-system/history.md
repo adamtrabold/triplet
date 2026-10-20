@@ -58,6 +58,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-20 · v123 shown:** master grid board; more liquid; deeper tree notches; taper board (no taper / counterpunch / woodcut). Asked: which taper; Weight board still open.
 
+- **10-20 · v128 shown:** monoweight row (inside follows outside, 1.5px everywhere), two real tapers (sign painter's brush, settled ink), tree tiers fully by rule (before/now on main board). Asked: which line? still your fir?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
