@@ -54,6 +54,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-20 · Size at the grid level:** v105 comments: root shapes differ (saucer, coupe foot, museum base); coupe still heavy, wants a liquid line; star too big. "i dont want to have to negotiate this all the time, \"how could our grid be improved\" is an overarching question". Quotes in `owner.md`.
 
+- **10-20 · Grid g7i/g7j shown (v115):** size by class ("the token"), five root shapes, Outline class for the Star, stacked-gable tree; Weight board asks: line marks as they are or heavier, and does the coupe match?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
