@@ -1156,3 +1156,19 @@ approaches should be as much a part of the brand as anything".
   and the coupe.
 - **Lesson:** before setting a numeric target, check that it serves his
   rules rather than overriding them.
+
+
+## Taper round (2026-10-20): criteria set
+
+- **The owner likes the coupe's accidental taper** and asked the team
+  for a rule grounded in a real making method.
+- **Score each option on:**
+  1. a clear on-brand allusion (C9);
+  2. a set-wide rule by class, not per icon;
+  3. how it squares with the 1.5px line (stated: narrowest, average or
+     widest), and weight by class;
+  4. it keeps the settled rules (outline hole, corners, token, roots).
+- **Also this round:**
+  - more coupe liquid;
+  - deeper tree notches (a fir at 1x);
+  - a master grid board that's buildable from alone.
