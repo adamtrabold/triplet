@@ -46,6 +46,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-19 · Review on the canvas only:** "i want them on the icon design board as weve discussed many times over" → no separate pages, no screenshots in place of the canvas.
 
+- **10-20 · Batch 1 on the canvas board (v99):** true-size vectors in rows, map, chips beside Material and Phosphor; corners by joint, 2px air (team calls). Asked: "Do they feel finished to you, as a set? If not, which one looks off?"
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
