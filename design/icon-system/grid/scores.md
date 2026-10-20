@@ -906,3 +906,16 @@ grid level.
 - **My miss:** I left the Star and the + out of the scale row, and judged
   the coupe by height only.
 - **Next:** keyshapes by class, with the root shapes (jam turns 48–49).
+
+
+## Correction to the v105 re-score (2026-10-20)
+
+The comparisons with Material are withdrawn as measures (the owner:
+"ours should be specific to our app").
+
+The verdict stands within our own set:
+- the Star reads bigger than the place glyphs;
+- the coupe's bowl is the heaviest top mass;
+- G-size fails (per-icon nudges).
+
+**Still 8.**

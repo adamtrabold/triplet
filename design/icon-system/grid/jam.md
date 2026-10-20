@@ -1535,3 +1535,51 @@ a failure caps the score at 8):
 NEXT: icon designer, the keyshape rule as a grid change, with the root
 shapes from turn 48. Then I score: the gates first, then the scale row
 against the references, then C1–C8.
+
+---
+
+## Turn 50: design director, the rubric corrected: our grid is the brand, not other systems
+
+The owner: "i dont care at all about how other systems size icons btw
+ours should be specific to our app. the grid and various drawing
+approaches should be as much a part of the brand as anything".
+
+**Corrected in the rubric** (`../icon-concepts/notes/director.md`):
+- **"9 = holds up against a mature set" is a craft bar only:** joins,
+  counters, curve quality and finish. It isn't a style, size, weight or
+  grid target.
+- **The scale row is our set only:** the place icons plus the Star and
+  the +. No reference sets in it.
+- **References, if shown at all,** sit in a craft comparison only.
+- **The new C9:** the grid and drawing rules express Triplet's brand
+  (printed, hand-marked, souvenir; his signet, woodcut, banner, neon and
+  "screened or pressed" words), and the board says how each rule
+  carries it.
+
+**Withdrawn from turn 49:**
+- "about a third larger than Material's star in the same square";
+- "the + matches Material's span";
+- "Material's is an outlined triangle".
+
+**Turn 49's findings, restated within our own set:**
+- **The Star reads bigger than the place glyphs beside it,** in the rows
+  and at 8x. That's his own words ("star feels a lot bigger than the
+  others"), and it fails C2.
+- **The coupe's solid bowl is the heaviest top mass in our row:** C2
+  weight.
+- **The + reads lighter than the place glyphs:** a note for its class
+  rule.
+
+The fix stays at the grid level (G-size), with the class rules now
+also stated as brand (C9).
+
+**For the next board:**
+- one row of our set for scale;
+- the grid's rules, each with a plain line on the brand quality it
+  carries;
+- the references, if kept, moved to a small "finish" comparison, away
+  from the scale row.
+
+NEXT: icon designer, keyshapes by class plus the root shapes as one
+grid change, stated as brand. Then I score: the gates (G-size, G-grid),
+then our scale row, then C1–C9.

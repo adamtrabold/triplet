@@ -708,16 +708,22 @@ we need to address as we make these changes".
   A gate failure caps the score at 8, and a pass adds nothing.
 - **Craft earns the score:** C1–C8 below, judged by eye at real size
   (24 badge, 32 pin, 12 chip, at 1x and 3x) before I read any notes.
-- **9 = calibrated against a mature set.** Side by side at real size,
-  in one row with a reference strip, the batch would sit credibly next
-  to a mature system on C1–C8.
-  - The reference strip uses the same subjects, solid style, at the same
-    sizes, from Material Symbols (filled, weight 400, grade 0, optical
-    size 20/24) and SF Symbols (fill, regular).
-  - A batch that looks clumsier than the references on any criterion
-    is at most 8.
-  - The strip is a craft benchmark, not a style target; ours stay
-    Constructed.
+- **9 = finish holds up against a mature set (craft only).**
+  *Amended 2026-10-20 by the owner:* "i dont care at all about how other
+  systems size icons btw ours should be specific to our app. the grid
+  and various drawing approaches should be as much a part of the brand
+  as anything".
+  - **What "holds up" covers:** joins, counters, curve quality and
+    finish. Beside a mature set, our drawing must not look clumsier in
+    those.
+  - **It is not a style, size, weight or grid target.**
+  - **The references** (Material Symbols, Phosphor), if shown at all,
+    sit in a craft comparison only, never in the scale row.
+  - **Size, weight and the grid are judged:**
+    - within our own set (C2, G-size);
+    - against Triplet's brand (C9).
+  - The citations below to Apple's and Material's sizing ([2][5][8])
+    are background on method, not targets.
 
 **C1. Optical, not mathematical, centring, with overshoot.**
 - The eye balances mass, not the bounding box. Asymmetric glyphs
@@ -734,8 +740,10 @@ we need to address as we make these changes".
 *Amended 2026-10-20 by the owner:* "i also think the scales aren't equal
 quite yet -- visually the cut reads as smaller than the others, the
 coupe as much taller, and the rest are sort of in the middle".
-- **Scale is its own test.** In one row at true size and at 8x, every
-  glyph should read the same size (perceived size, not box size).
+- **Scale is its own test.** In one row of **our set only** (place icons
+  plus the Star and the +), at true size and at 8x, every glyph should
+  read the same size (perceived size, not box size). No reference sets
+  in this row.
 - Tall-narrow glyphs (the coupe) read bigger; low-wide ones (the cup)
   read smaller. Compensate as Apple does, "by scale" [2], plus
   keylines [5].
@@ -861,6 +869,24 @@ probably want to align across all icons."
   [13].
 - **Fails:** one icon in a different perspective, more literal or more
   detailed than its neighbours.
+
+**C9. The grid and the drawing rules express Triplet's brand** (added
+2026-10-20, owner: "the grid and various drawing approaches should be
+as much a part of the brand as anything").
+- The rules themselves (keyshapes, root shapes, corner law, joins,
+  weight) carry the brand: printed and hand-marked, souvenir, the
+  vintage road-trip brochure.
+- They draw on his own references, which are examples, not a list:
+  "a signet ring or a woodcut/metal cast type piece... an old school
+  banner that has screened ink on fabric... or even neon signs",
+  "something screened or pressed".
+- **The board says so in plain words:** for each rule, which brand
+  quality it carries and why.
+- **Fails:**
+  - a rule adopted only because another system does it;
+  - a rule whose look could belong to any app.
+- This is judged against the brand and his words, not against other
+  icon sets.
 
 **Sources:**
 - [1] Apple HIG, Icons:
@@ -1076,3 +1102,21 @@ C2 and C5 are amended above. **New first check:** the scale row.
 - **Ask every round:** "what would the grid have to say so that this
   can't happen on the next icon?" If the answer is "nothing yet", the
   round isn't a 9.
+
+
+## Correction (2026-10-20): our grid is the brand
+
+The owner: "i dont care at all about how other systems size icons btw
+ours should be specific to our app. the grid and various drawing
+approaches should be as much a part of the brand as anything".
+
+- **Changed:**
+  - "9 holds up against a mature set" is a craft-finish bar only;
+  - the scale row is our set only;
+  - C9 (brand) is added.
+- **My error in turn 49:** I measured the Star against Material's star.
+  The right measure was always his: the Star against our own place
+  glyphs.
+- **Watch:** I've leant on outside systems as proof three times (keylines,
+  scale by Apple, reference rows). Cite them for method, if at all,
+  never as the target.
