@@ -11,7 +11,7 @@ const P = require('../../p4/lib-p4.js'); const W = P.W;
   const dsf = +process.argv[5] || 3;
   fs.mkdirSync(OUT, { recursive: true }); fs.mkdirSync(TC, { recursive: true });
   const b = await P.lib.launch();
-  for (const lone of ['box', 'post']) {
+  for (const lone of (process.env.LONES || 'box,post').split(',')) {
     const o = await P.open(b, { dsf, file, storage: { 'triplet.loneSign': lone } }); const page = o.page;
     await page.route('**/*tile.openstreetmap.org/**', async r => {
       const u = r.request().url(), f = TC + '/' + u.replace(/[^0-9a-z]/gi, '_');

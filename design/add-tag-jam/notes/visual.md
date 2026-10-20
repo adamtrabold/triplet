@@ -419,3 +419,8 @@
   - Known: Stockholm joins the post at z4.
   - The tag spacing was reverted here (moved to tag-close-fix).
   - Prototype 05bbf1fc.
+- **2026-10-20, every city a signpost** (decided). The stick question:
+  built `loneSign=board` (no pole, centred on the city). My opinion: keep the
+  stick, because a stickless board points at nothing and breaks the
+  metaphor. To fix: a clamped lone sign keeps a full `--s3` foot. Prototype
+  67efbd30.

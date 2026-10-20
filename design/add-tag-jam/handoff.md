@@ -1367,14 +1367,28 @@ Copenhagen/Malmö post reaches Stockholm's sign, so Stockholm joins as a
 third board pointing north-east. It reads as a signpost and every city stays
 one tap away.
 
-**PENDING THE OWNER: should every city be a signpost?**
-- Prototype switch: `localStorage['triplet.loneSign']` = `box` (today's
-  boxed badge, centred on the city) or `post`.
-- `post` makes a lone city one board on its own post: the foot on the city,
-  the board on the side with room (east, unless east would leave the clear
-  area). See `7-every-city-signpost.png`.
-- Designer's lean: **yes, every city a signpost**, so there is one sign
-  language and every sign "stands" on its place. The choice is the owner's.
+**DECIDED: every city is a signpost** (owner: "every city should be a
+signpost"). The boxed badge goes; a lone city is a board too.
+
+**PENDING (owner asked for honest opinions): does a lone board keep its
+stick?**
+- Prototype switch `localStorage['triplet.loneSign']`:
+  - `post`: one board on its own post, the foot on the city (as in a
+    shared post).
+  - `board`: no pole; the board, tip included, is centred on the city, and
+    sticks appear only on posts with 2+ boards. The tip points to the side
+    with more room (toward the map's centre).
+- Stills: `stills/p4-fixes/8-lone-stick-or-not.png` (z6 with lone
+  Stockholm, and the whole world with lone LA, each both ways) and
+  `8b-lone-crop.png` (3x crop of a lone board both ways).
+- **Designer's opinion: keep the stick.**
+  - A board without a post is an arrow pointing at nothing, which is
+    exactly the thing that breaks the signpost.
+  - With the stick, every city is a sign planted on its spot, and two
+    signs merging into one post reads as one continuous idea.
+  - The one fix it needs: a lone sign nudged in from an edge must keep a
+    full `var(--s3)` foot, never a stub (see Stockholm at z6).
+- A CD and a UX weigh in independently; the owner decides.
 
 **Tag spacing:** **removed from `design-p4-fixes`.** The tag's 4px
 city-to-name change and the × position moved to the separate quick fix on
@@ -1421,5 +1435,5 @@ The earlier name, glyph and weight decisions for the control are void.
   - there's no `#allCitiesBtn`.
 
 ### Open for the owner
-- Should every city be a signpost, including a city on its own
-  (`7-every-city-signpost.png`)? The designer leans yes.
+- Does a city on its own keep its stick (`8-lone-stick-or-not.png`)? The
+  designer says keep it.

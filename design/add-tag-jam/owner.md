@@ -146,3 +146,4 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 
 > yeah lets cut that button it doesnt make sense -- all places should just show all places on the map and i can do whatever i need to do to go around -- by its nature the user will expect to see a lot if they select that option
 > oh man i love the signpost even though it's wonky. maybe all of the cities should have that shape. also can you roll out a quick fix in the middle -- the x to close tag is in a very weird space
+> every city should be a signpost... but maybe they dont need a stick unless they have more than one? idk on that run it by the team for an honest opinon -- it could break the allusion
