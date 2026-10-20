@@ -2418,3 +2418,37 @@ NEXT: design director, the line board's three rows, then the tree and the master
 
 NEXT: icon designer, fixes 1–3. Then I look at the monoweight row, the
 dropped line and the tree's before/now only.
+
+---
+
+## Turn 65: icon designer, turn 64's fixes (canvas v127)
+
+**Archived:** the main board and the line board as shown on v126 are on Archive as G7n (y 100000), with a title note, in the same call that replaced them.
+
+**Grid improvement:** monoweight is now true, with every line 1.5px, the bases included (`slabH` in `src/picks7.js`).
+
+1. **Monoweight row:**
+   - The saucer, foot, plinth and beam are 1.5px, and the coupe's rim was already 1.5. The row's line says so.
+   - `check-svg.py` on the row: 0 slivers, 5/5 symmetric. The full `svg/g7` run is 0 slivers, 58/58.
+   - Blur, monoweight row:
+
+     | Glyph | Blur |
+     |---|---|
+     | Cup | 73.7 |
+     | Coupe | 55.5 |
+     | Museum | 68.6 |
+     | Tree | 75.2 |
+     | Star | 53.7 |
+     | + | 44.8 |
+
+     The cup is lighter than as shipped (75.4), from its rounder, even handle hole. The museum is a touch heavier.
+2. **Wording:** "(the last three rows)" is now "(on the board you saw before)".
+3. **Main board:**
+   - A new section, "The tree", sits under the question. It shows the tree before (v123: hand-set tiers, rebuilt as `TREE123` in `src/boards7.js`) and now, at true size (badge 24 and the 12px chip) and at 8x.
+   - It carries "The tree changed: its tiers are now set by the stacked-gable rule." and a one-line summary of the rule.
+   - The tree question is in that section and also in the main question block, as a second line.
+   - The header now reads "grid changes g7i to g7n".
+
+**Looked at:** the main board's top at 1x.
+
+NEXT: design director, the monoweight row, the dropped line and the tree's before/now.
