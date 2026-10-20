@@ -381,3 +381,7 @@ Impeccable: a `signposts` rendered state added to `driver.js` / `gate.mjs`; it s
 identities (36 = the pre-existing 10px row-meta rule with the other four cities' names, because
 the state shows every city's rows; 1 = the board's tally, 13px x .8 = 10.4px, the approved badge
 type). Baseline NOT updated: waits on the operator.
+
+Batch B, landing (2026-10-20): the board tally raised to the 11px floor (`.sp-lab .tally`; operator);
+Impeccable `signposts` state baselined with only its 36 row-meta entries (operator-approved;
+`--update`'s unrelated state-count changes discarded); gate PASSED; landed on main.

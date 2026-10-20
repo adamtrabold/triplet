@@ -23,7 +23,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   map credit sits above it, the + never touches it, and lowered there's no line under the title;
   (7) star/visit swipes still work on rows right under a header; (8) a long plan name ends in
   "…" right before its count.
-- **The map's city signposts (add-tag-jam phase 4):** (1) pinch out past the country level: each
+- **The map's city signposts (add-tag-jam phase 4, landed 2026-10-20):** (1) pinch out past the country level: each
   city you show becomes a signpost standing on its city (Copenhagen and Malmö share one post, each
   board pointing toward its city); pinch back in: pins/clusters return at the same step; panning
   never blinks the signs, and a sign near an edge or under a button simply isn't there until you

@@ -1781,7 +1781,7 @@ move "it should stay on your current city" (it does).
   GATE FAILED on one new finding,** `kicker-above-heading` ("Reykjavík" above the tag's h2) -- the
   approved routing line itself (waived at landing, above).
 
-## The map's city signposts (add-tag-jam phase 4; NOT LANDED -- `add-tag-p4`)
+## The map's city signposts (add-tag-jam phase 4; landed 2026-10-20 from `add-tag-p4`)
 
 Owner: "Great to build"; on the map badges "i like having a badge for the city at a zoomed out
 level"; on the check's options "oh man i love the signpost even though it's wonky. maybe all of
@@ -1809,10 +1809,24 @@ tether switches deleted). Approved stills `design/add-tag-jam/stills/p4-fixes/9-
   8px navy foot dot (1.5px paper-raised ring) the pole runs into. Board = ONE inline SVG
   (`boardPath()`): the board's silhouette offset 2/2 as the navy shadow (filled + stroked, round
   joins; starts at the pole, never past it), the paper-raised face, one 1.5px navy rule with round
-  joins, open on the pole side; caps 13/16 `.08em` navy + the tally; `--s2` padding + the `--s3`
+  joins, open on the pole side; caps 13/16 `.08em` navy + the tally at **11px** (the type floor;
+  the badge spec's .8em = 10.4px, raised at landing, operator); `--s2` padding + the `--s3`
   point; 44px target; pressed `--state-press`; focus outline. Only boards tap (`goToCity(id)`).
 - **All places** (title menu): frames the signs when the places only fit at sign zoom
   (`badgeFitView()` in `fitVisible()`): the closest zoom where every shown city's sign fits the
   clear area. `minZoom` 3 -> 1 (map and tiles), so LA + the Nordics fit a 390px phone (z1).
 - **The "All cities" map control is gone** (owner, above).
-- **Gates (Chromium):** see the hand-back / landing note.
+- **Gates (Chromium):** `design/add-tag-jam/p4/badgetest.js` 26/26 (zoom sweep 3-15 and back:
+  signs <-> pins at one zoom; no flicker on pan / touch drag; list identical at 5/13/16; z1-7 no
+  overlaps, clear of controls, whole in the clear area, foot on its cities, boards north to south
+  toward their cities, LA alone; Copenhagen + Malmö one post at z7; a sign with no room not drawn;
+  only boards tap, each to its own city, keyboard too; hidden city; chip counts; All places at
+  390px shows every shown city's sign whole; no `#allCitiesBtn`; Plans none; cluster tap at 10
+  lands at 14; list tap from z5 lands solo with its tag); Impeccable `IMPECCABLE GATE PASSED`
+  (static 1/1; runtime 47/47 with a new rendered state `signposts` -- all cities shown, All
+  places; its 36 new entries are the accepted 10px row-meta rule with the other cities' names,
+  operator-approved, nothing else in the baseline changed); popup-open 20/20 + 20/20, places-ux
+  30/30, shape-rows 50/50, plan-rows 40/40, tag-sync 12/12; addtest 72/72; citytest 45/45;
+  plantest and sorttest 76/77 identical to main. No row/tag gesture code touched (not the full
+  gesture gate). The designer's signpost raws (`p4/signpost-cmp.js`, 5 views, real tiles) were
+  pixel-identical on the build and the prototype before the 11px tally.
