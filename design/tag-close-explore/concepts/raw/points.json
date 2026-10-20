@@ -480,5 +480,55 @@
   "x": 195,
   "y": 122,
   "fixed": 1
+ },
+ "pin-lw16+pin-nostar-1-plain": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw16+pin-nostar-2-starred": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw16+pin-nostar-3-visited": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw16+pin-nostar-5-district": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw16+pin-nostar-4-stop": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw10+pin-nostar-1-plain": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw10+pin-nostar-2-starred": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw10+pin-nostar-3-visited": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw10+pin-nostar-5-district": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-lw10+pin-nostar-4-stop": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
  }
 }

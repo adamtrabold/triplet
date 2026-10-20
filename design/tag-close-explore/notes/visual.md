@@ -133,3 +133,17 @@ Sheet: `concepts/pin-lighter.png`; phone sheets `concept-pin-lsmall.png`, `conce
 Honest read at 1x: B and C come close to vanishing on Reykjavík's pale, pinkish tiles (paper on paper, peach on peach).
 D reads, and it is the lightest, but it's a mark rather than a button. A keeps the "close" reading and loses about a third of the mass.
 Pick: A, smaller orange disc.
+
+## Round 7: the orange wash, lighter (2026-10-20)
+Owner, verbatim: "it needs a disc. i dont mind the screened back orange one, but the orange background should be a bit lighter."
+
+Two steps, side by side with last round's 24% for comparison:
+- Step 1, **16%** (`pin-lw16`): brand orange at 16% in --paper-raised.
+- Step 2, **10%** (`pin-lw10`): 10%, near paper with a warm blush.
+Both: 28px disc, deep-orange x at 2.4 (was 2.2), no ring. To keep it from vanishing on pale tiles, I used the tag's own
+paper treatment rather than a ring: the owner-approved warm .5px edge (--tag-edge, doubled with a 1px blur) and the
+tag's contact and lift shadows, a touch deeper (0 1px 1.5px, 0 3px 6px). At 3x on the palest stills (Gunnuhver's sand,
+the district's grey-green) the disc's edge holds in both steps. No new token: color-mix of --brand-orange and --paper-raised.
+Sheet: `concepts/pin-wash.png`; phone sheets `concept-pin-lw16.png`, `concept-pin-lw10.png`; updated 1x strip `concepts/strip-1x.png`.
+
+Ship: 16%. It still says "orange, close" at 1x. At 10% the disc reads as a paper button with an orange x, and on the pink-sand tiles it is mostly the edge and the x doing the work.

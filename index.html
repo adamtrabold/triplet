@@ -2068,6 +2068,15 @@
     /* the smaller discs: the string still starts at the 32px pin's edge, so it runs up to meet the disc */
     html.close-pin.pin-lsmall .tag-string { top: -5px; height: calc(var(--tag-drop) + 23px); }
     html.close-pin.pin-lpaper .tag-string, html.close-pin.pin-lwash .tag-string { top: -2px; height: calc(var(--tag-drop) + 20px); }
+    /* THE WASH, LIGHTER (owner: "it needs a disc. i dont mind the screened back orange one, but the orange
+       background should be a bit lighter."): two steps, brand orange at 16% / 10% in --paper-raised; a
+       deep-orange x at 2.4 (was 2.2). Held off pale tiles WITHOUT a ring by the tag's own paper edge --
+       the owner-approved warm .5px edge (--tag-edge) and the tag's contact + lift shadows, a touch deeper. */
+    html.close-pin.pin-lw16 .tag-is-open .highlighted-marker::after, html.close-pin.pin-lw16 .tag-is-open .tag-dot::after, html.close-pin.pin-lw10 .tag-is-open .highlighted-marker::after, html.close-pin.pin-lw10 .tag-is-open .tag-dot::after { width: 28px; height: 28px; margin: -14px 0 0 -14px;
+      box-shadow: 0 0 .5px var(--tag-edge), 0 0 1px var(--tag-edge), 0 1px 1.5px var(--tag-shadow-contact), 0 3px 6px var(--tag-shadow-lift); }
+    html.close-pin.pin-lw16 .tag-is-open .highlighted-marker::after, html.close-pin.pin-lw16 .tag-is-open .tag-dot::after { background: color-mix(in srgb, var(--brand-orange) 16%, var(--paper-raised)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7L17 17M17 7L7 17' stroke='%23A8400C' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 15px 15px no-repeat; }
+    html.close-pin.pin-lw10 .tag-is-open .highlighted-marker::after, html.close-pin.pin-lw10 .tag-is-open .tag-dot::after { background: color-mix(in srgb, var(--brand-orange) 10%, var(--paper-raised)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7L17 17M17 7L7 17' stroke='%23A8400C' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 15px 15px no-repeat; }
+    html.close-pin.pin-lw16 .tag-string, html.close-pin.pin-lw10 .tag-string { top: -2px; height: calc(var(--tag-drop) + 20px); }
     html.close-pin.pin-lglyph .tag-string { top: -16px; height: calc(var(--tag-drop) + 34px); }
     html.close-pin.pin-nostar .tag-is-open .highlighted-marker > .marker-star { visibility: hidden; }
     html.close-pin.pin-ring .tag-is-open .highlighted-marker::after, html.close-pin.pin-ring .tag-is-open .tag-dot::after {

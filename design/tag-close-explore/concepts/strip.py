@@ -6,9 +6,10 @@ D = os.path.dirname(os.path.abspath(__file__))
 F = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 10)
 pts = json.load(open(D + '/raw/points.json'))
 ITEMS = [('pin', 'Navy (first)'), ('pin-odisc', 'Orange disc'), ('pin-nox+pin-nostar', 'Navy, orange x'), ('pin-onx+pin-nostar', 'Orange, navy x'),
-         ('pin-lsmall+pin-nostar', 'A. Small orange'), ('pin-lpaper+pin-nostar', 'B. Paper, orange x'), ('pin-lwash+pin-nostar', 'C. Orange wash'), ('pin-lglyph+pin-nostar', 'D. Orange x only')]
+         ('pin-lsmall+pin-nostar', 'A. Small orange'), ('pin-lpaper+pin-nostar', 'B. Paper, orange x'), ('pin-lwash+pin-nostar', 'C. Orange wash'), ('pin-lglyph+pin-nostar', 'D. Orange x only'),
+         ('pin-lw16+pin-nostar', 'Wash 16%'), ('pin-lw10+pin-nostar', 'Wash 10%')]
 C, G, LH = 100, 8, 16
-out = Image.new('RGB', (4 * C + 5 * G, 2 * (C + LH) + 3 * G), (250, 245, 234)); d = ImageDraw.Draw(out)
+out = Image.new('RGB', (4 * C + 5 * G, 3 * (C + LH) + 4 * G), (250, 245, 234)); d = ImageDraw.Draw(out)
 for i, (k, lb) in enumerate(ITEMS):
     p = pts[k + '-1-plain']; im = Image.open(f'{D}/raw/{k}-1-plain.png')
     x, y, h = round(p['x'] * 3), round((p['y'] - 22) * 3), C * 3 // 2
