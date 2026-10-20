@@ -706,54 +706,35 @@
     .city-badge::before { content: ''; position: absolute; left: -2px; right: -2px; top: -9px; bottom: -9px; }   /* a 44px-tall hit area, as the menu rows' trick */
     .city-badge:active { background: var(--state-press); }
     .city-badge:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
-    /* p4-fixes: badges that would touch join into one box -- the same box (paper-raised, 1.5px navy,
-       the 2px offset navy shadow), a stacked list of their cities, each row the menu spec's 40px row
-       and its own go-to; a 1px --hair rule between rows. */
-    .city-badge-group {
-      position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
-      display: flex; flex-direction: column; min-width: max-content;
-      background: var(--paper-raised); border: 1.5px solid var(--navy); border-radius: 2px; box-shadow: 2px 2px 0 var(--navy);
+    /* p4-fixes: THE SIGNPOST (owner: "i love the signpost"). The post's foot stands on the city
+       (or the mean of close cities); a 2px navy pole rises --s3 above the foot to the boards. A
+       board is the badge's own voice -- paper-raised, 1.5px navy edge, the 2px offset navy shadow,
+       caps 13 + the tally -- --s8 tall, --s1 apart, --s2 inner padding, with an arrow tip (--s3
+       deep) on its outer end, pointing the way its city lies. West boards sit left of the pole,
+       east boards right; each is its own go-to (44 to the touch). */
+    .sp-post {
+      position: absolute; left: 0; top: 0; transform: translate(calc(-1 * var(--wl) - 1px), -100%);
+      display: grid; grid-template-columns: var(--wl) 2px var(--wr); row-gap: var(--s1);
+      grid-auto-rows: var(--s8); padding-bottom: var(--s3);
     }
-    .city-badge-row {
-      all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; height: 40px; padding: 0 var(--s3);
-      white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent;
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
-      font-size: 13px; line-height: 16px; letter-spacing: 0.08em; color: var(--navy);
-    }
-    .city-badge-row + .city-badge-row { border-top: 1px solid var(--hair); }
-    .city-badge-row::before { content: ''; position: absolute; left: 0; right: 0; top: -2px; bottom: -2px; }   /* 44 to the touch, as the menu rows */
-    .city-badge-row:active { background: var(--state-press); }
-    .city-badge-row:focus-visible { outline: 2px solid var(--navy); outline-offset: -2px; }
-    /* PROTOTYPE concepts (p4): signpost / shingle / picker / disc. */
-    .sp-post { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; }
-    .sp-pole { position: absolute; left: 50%; top: -4px; bottom: 0; width: 2px; margin-left: -1px; background: var(--navy); }
-    .sp-arm { position: relative; display: flex; width: 100%; }
-    .sp-arm.is-w { justify-content: flex-end; padding-right: calc(50% + 1px); }
-    .sp-arm.is-e { justify-content: flex-start; padding-left: calc(50% + 1px); }
-    .sp-post { width: max-content; min-width: 0; }
-    .sp-board { all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; height: 30px; gap: 0; white-space: nowrap; cursor: pointer;
+    .sp-pole { grid-column: 2; grid-row: 1 / span var(--rows); position: relative; background: var(--navy); margin-bottom: calc(-1 * var(--s3)); }
+    .sp-board {
+      all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; height: var(--s8); white-space: nowrap; cursor: pointer;
       background: var(--paper-raised); border: 1.5px solid var(--navy); box-shadow: 2px 2px 0 var(--navy); padding: 0 var(--s2);
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: .08em; color: var(--navy); }
-    .sp-arm.is-w .sp-board { border-left: 0; padding-left: 4px; margin-left: 12px; }
-    .sp-arm.is-e .sp-board { border-right: 0; padding-right: 4px; margin-right: 12px; }
-    .sp-tip { position: absolute; top: -1.5px; width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; }
-    .sp-arm.is-w .sp-tip { right: 100%; border-right: 12px solid var(--navy); }
-    .sp-arm.is-e .sp-tip { left: 100%; border-left: 12px solid var(--navy); }
-    .sp-tip::after { content: ''; position: absolute; top: -12.5px; border-top: 12.5px solid transparent; border-bottom: 12.5px solid transparent; }
-    .sp-arm.is-w .sp-tip::after { left: 2.5px; border-right: 9.5px solid var(--paper-raised); }
-    .sp-arm.is-e .sp-tip::after { right: 2.5px; border-left: 9.5px solid var(--paper-raised); }
-    .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -7px; bottom: -7px; }
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: .08em; color: var(--navy);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sp-board.is-w { grid-column: 1; justify-self: end; border-right: 0; margin-left: var(--s3); }
+    .sp-board.is-e { grid-column: 3; justify-self: start; border-left: 0; margin-right: var(--s3); }
+    .sp-tip { position: absolute; top: -1.5px; width: 0; height: 0; border-top: calc(var(--s8) / 2) solid transparent; border-bottom: calc(var(--s8) / 2) solid transparent; }
+    .sp-board.is-w .sp-tip { right: 100%; border-right: var(--s3) solid var(--navy); }
+    .sp-board.is-e .sp-tip { left: 100%; border-left: var(--s3) solid var(--navy); }
+    .sp-tip::after { content: ''; position: absolute; top: calc(var(--s8) / -2 + 2.5px); border-top: calc(var(--s8) / 2 - 2.5px) solid transparent; border-bottom: calc(var(--s8) / 2 - 2.5px) solid transparent; }
+    .sp-board.is-w .sp-tip::after { left: 2.5px; border-right: calc(var(--s3) - 2.5px) solid var(--paper-raised); }
+    .sp-board.is-e .sp-tip::after { right: 2.5px; border-left: calc(var(--s3) - 2.5px) solid var(--paper-raised); }
+    .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
     .sp-board:active { background: var(--state-press); }
-    .sh-stack { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
-    .sh-tile { position: relative; transform: translateX(var(--dx)); margin-top: -8px; z-index: calc(10 + var(--i)); }
-    .sh-tile:first-child { margin-top: 0; }
-    .sh-badge { position: relative; transform: none; left: auto; top: auto; }
-    .cb-multi { gap: 6px; }
-    .cb-multi .cb-pins { width: 18px; height: 18px; display: block; flex: none; }
-    .cb-disc { all: unset; box-sizing: border-box; position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); width: 30px; height: 30px; border-radius: 50%;
-      background: var(--navy); color: var(--paper); border: 2px solid var(--paper-raised); box-shadow: 2px 2px 0 var(--navy); display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-ui); font-weight: 700; font-size: 13px; cursor: pointer; }
-    .cb-disc::before { content: ''; position: absolute; inset: -7px; border-radius: 50%; }
+    .sp-board:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
 
     /* p4-fixes: "All places" -- the menu's name for the same go-to. A quiet paper chip, not
        Leaflet's white box: the plain-paper-box rule (1px --hair edge, no shadow; owner: a paper
@@ -2085,7 +2066,7 @@
     .tag.tag.kbd-open:focus .tag-patch { --grommet: var(--navy); }
     .tag.kbd-open:focus .tag-string { background: var(--navy); }
 
-    .tag-x { all: unset; position: absolute; z-index: 4; top: 80px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    .tag-x { all: unset; position: absolute; z-index: 4; top: 84px; right: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
       color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; isolation: isolate; }
     .tag-x svg { width: 14px; height: 14px; display: block; }
     .tag-x::before { content: ''; position: absolute; inset: 8px; z-index: -1; border-radius: 3px; }
@@ -2107,7 +2088,7 @@
        address line; the field line --s3 above / --s4 to the stub. The ::before only grows the
        city's hit area to 44 ((44 - 24) / 2 = 10). The busiest tags scroll inside on a 375x667
        phone, with the stub's soft shadow (owner: "that trade is fine"). */
-    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s1); }   /* p4-fixes: --s1 city to name (owner: "chunked slightly tighter to the attraction name") */
+    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s2); }
     .tag-in .route-city { height: var(--s6); }
     .tag-in .route-city::before { top: -10px; bottom: -10px; }
     .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
@@ -4590,7 +4571,7 @@
       for (let z = CITY_BADGE_MAX_ZOOM - 1; z >= map.getMinZoom(); z--) {
         const groups = layoutCityBadges(badges, c => map.project(c, z));
         let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-        groups.forEach(gp => { const bx = groupBox(gp.members); x0 = Math.min(x0, gp.pt.x - bx.w / 2); x1 = Math.max(x1, gp.pt.x + bx.w / 2); y0 = Math.min(y0, gp.pt.y - bx.h / 2); y1 = Math.max(y1, gp.pt.y + bx.h / 2); });
+        groups.forEach(gp => { const q = rectOf(gp); x0 = Math.min(x0, q.x0); x1 = Math.max(x1, q.x1); y0 = Math.min(y0, q.y0); y1 = Math.max(y1, q.y1); });
         if (x1 - x0 <= sw && y1 - y0 <= sh || z === map.getMinZoom()) {
           // the extent's centre sits at the clear area's centre
           const mapSize = map.getSize();
@@ -8088,37 +8069,43 @@
     // Keyed by city id, re-iconed only when its name or tally changes, so a pan never re-creates
     // one (no flicker). A tap is the go-to (goToCity(): the map frames the city, the list scrolls
     // to its header, nothing is hidden). Synced wherever the clusters are.
-    // p4-fixes (designer): badges never overlap each other or the map's controls.
-    //  - Two or more badges whose boxes would touch (--s1 apart or less) join into ONE box: a
-    //    stacked list of their cities, north to south, each row its own go-to button (the menu
-    //    spec's 40px row, hair rule between rows) -- "Copenhagen 54 / Malmö 27" at z4-7.
-    //  - A box is kept inside the map's clear area: below the top controls (zoom + All places on
-    //    the left, the account badge on the right) and above the + badge / credit, --s2 from each,
-    //    and --s2 from the sides; only a city whose centre is on screen draws (no off-screen
-    //    city is dragged onto the map). A nudge can create a new touch; groups re-merge.
-    //  - Keyed by its member set, so a pan only moves a box (setLatLng), never re-creates it.
-    const cityBadgeMarkers = new Map();   // group key ('id' or 'id+id') -> { marker, sig }
-    const badgeSizeCache = new Map();
-    const BADGE_ROW_H = 40;               // a group's row: the menu spec's row
+    // p4-fixes (designer; owner picked "the signpost"): close cities share ONE SIGNPOST.
+    //  - Cities whose signs would come within --s1 of each other join one post. Its foot stands on
+    //    their mean location; one arrow board per city, north to south, each on the side its city
+    //    lies (west of the post / east of it) and pointing that way. A tap on a board = that city.
+    //  - A lone city: LONE_STYLE 'box' (the boxed badge, centred on the city) or 'post' (one board on
+    //    its own post, the foot on the city, pointing to the side with more room). Pending the owner.
+    //  - Every sign is kept inside the map's clear area (--s2 inside the zoom control and the account
+    //    badge at the top, the + badge and the credit at the bottom, and the sides); only a city
+    //    whose centre is on screen draws. The post's true width per side is used, so a far city
+    //    (LA at the world view) keeps its own sign.
+    //  - Keyed by member ids: a pan only moves a sign (setLatLng).
+    let LONE_STYLE = 'box';
+    try { LONE_STYLE = localStorage.getItem('triplet.loneSign') || 'box'; } catch (e) { }
+    const cityBadgeMarkers = new Map();   // key ('id' or 'id+id') -> { marker, sig }
+    const signSizeCache = new Map();
     function sNum(n) { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s' + n)) || n * 4; }
-    function badgeSize(b) {
-      const k = b.label + '|' + b.count;
-      if (badgeSizeCache.has(k)) return badgeSizeCache.get(k);
+    function measure(cls, b) {
+      const k = cls + '|' + b.label + '|' + b.count;
+      if (signSizeCache.has(k)) return signSizeCache.get(k);
       const m = document.createElement('div');
-      m.className = 'city-badge'; m.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;top:0;transform:none';
+      m.className = cls; m.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;top:0;transform:none;margin:0';
       m.innerHTML = `${escapeHtml(b.label)}<span class="tally">${b.count}</span>`;
       document.body.appendChild(m);
-      const r = { w: Math.ceil(m.offsetWidth) + 2, h: Math.ceil(m.offsetHeight) + 2 };   // + the 2px offset shadow
-      m.remove(); badgeSizeCache.set(k, r);
+      const r = { w: Math.ceil(m.offsetWidth), h: Math.ceil(m.offsetHeight) };
+      m.remove(); signSizeCache.set(k, r);
       return r;
     }
-    // The map's clear area for badges, in container px.
+    const boxSize = b => { const r = measure('city-badge', b); return { w: r.w + 2, h: r.h + 2 }; };   // + the 2px offset shadow
+    const boardW = b => measure('sp-board', b).w + sNum(3) + 2;   // + the arrow tip (--s3) + the shadow
+    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(1), FOOT = () => sNum(3);
+    // The map's clear area for signs, in container px.
     function badgeSafeRect() {
       const mr = map.getContainer().getBoundingClientRect(), g = sNum(2);
       let top = g, bottom = mr.height - g;
-      ['.leaflet-control-zoom', '#allCitiesBtn', '#accountBtn'].forEach(sel => {
+      ['.leaflet-control-zoom', '#accountBtn'].forEach(sel => {
         const e = document.querySelector(sel), r = e && e.getBoundingClientRect();
-        if (r && r.height && getComputedStyle(e).display !== 'none') top = Math.max(top, r.bottom - mr.top + g);
+        if (r && r.height) top = Math.max(top, r.bottom - mr.top + g);
       });
       ['#floatingAddBtn', '.leaflet-control-attribution'].forEach(sel => {
         const e = document.querySelector(sel), r = e && e.getBoundingClientRect();
@@ -8126,88 +8113,68 @@
       });
       return { left: g, right: mr.width - g, top, bottom };
     }
-    // PROTOTYPE ONLY (p4 concepts for the owner): how close cities read. localStorage
-    // 'triplet.badgeStyle' = 'signpost' | 'shingle' | 'picker' | 'disc' | 'list' (the earlier joined box).
-    let BADGE_STYLE = 'signpost';
-    try { BADGE_STYLE = localStorage.getItem('triplet.badgeStyle') || 'signpost'; } catch (e) { }
-    const BOARD_H = 30, POST = 2;
-    function groupBox(members) {
-      const sizes = members.map(badgeSize);
-      if (members.length === 1) return { w: sizes[0].w, h: sizes[0].h };
-      const wMax = Math.max(...sizes.map(z => z.w));
-      if (BADGE_STYLE === 'signpost') return { w: 2 * (wMax + 14) + POST, h: members.length * (BOARD_H + 4) + 14 };
-      if (BADGE_STYLE === 'shingle') return { w: wMax + 32, h: sizes[0].h + (members.length - 1) * (sizes[0].h - 8) };
-      if (BADGE_STYLE === 'picker') return { w: 132, h: 30 };
-      if (BADGE_STYLE === 'disc') return { w: 34, h: 34 };
-      return { w: wMax + sNum(2), h: members.length * BADGE_ROW_H + 4 };
+    // A sign's sides: each member's side ('w' | 'e'). A lone post takes gp.loneSide (default 'e').
+    function signSides(gp) {
+      if (gp.members.length === 1) return [gp.loneSide || 'e'];
+      return gp.members.map((m, i) => (gp.pts[i].x < gp.foot.x - 0.5 || (Math.abs(gp.pts[i].x - gp.foot.x) <= 0.5 && i % 2 === 0)) ? 'w' : 'e');
     }
-    // Lays the badges out at the map's current zoom and position: groups and their centres (px).
+    const isBox = gp => gp.members.length === 1 && LONE_STYLE === 'box';
+    // The sign's rect relative to its foot: { l, r, t, b } (px left/right of, above/below the foot).
+    function signRect(gp) {
+      if (isBox(gp)) { const z = boxSize(gp.members[0]); return { l: z.w / 2, r: z.w / 2, t: z.h / 2, b: z.h / 2 }; }
+      const sides = signSides(gp);
+      let wl = 0, wr = 0;
+      gp.members.forEach((m, i) => { const w = boardW(m); if (sides[i] === 'w') wl = Math.max(wl, w); else wr = Math.max(wr, w); });
+      const n = gp.members.length;
+      return { l: wl + 1, r: wr + 1, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + FOOT(), b: 0 };
+    }
+    function rectOf(gp) { const r = signRect(gp); return { x0: gp.foot.x - r.l, x1: gp.foot.x + r.r, y0: gp.foot.y - r.t, y1: gp.foot.y + r.b }; }
+    function signsTouch(A, B) {
+      const a = rectOf(A), c = rectOf(B), g = sNum(1);
+      return a.x0 < c.x1 + g && c.x0 < a.x1 + g && a.y0 < c.y1 + g && c.y0 < a.y1 + g;
+    }
+    const mean = pts => ({ x: pts.reduce((t, q) => t + q.x, 0) / pts.length, y: pts.reduce((t, q) => t + q.y, 0) / pts.length });
+    // Lays the signs out (proj: latlng -> px): groups { members, pts, foot }.
     function layoutCityBadges(badges, proj) {
-      const gap = sNum(1);
-      let groups = badges.map(b => ({ members: [b], pt: proj(b.center) }));
-      const touch = (A, B) => {
-        const a = groupBox(A.members), c = groupBox(B.members);
-        return Math.abs(A.pt.x - B.pt.x) * 2 < a.w + c.w + 2 * gap && Math.abs(A.pt.y - B.pt.y) * 2 < a.h + c.h + 2 * gap;
-      };
-      const merge = () => {
-        for (let again = true; again;) {
-          again = false;
-          for (let i = 0; i < groups.length && !again; i++) for (let j = i + 1; j < groups.length && !again; j++) {
-            if (!touch(groups[i], groups[j])) continue;
-            const ms = groups[i].members.concat(groups[j].members).sort((x, y) => y.center[0] - x.center[0]);
-            const pts = ms.map(m => proj(m.center));
-            groups.splice(j, 1);
-            groups[i] = { members: ms, pt: { x: pts.reduce((t, q) => t + q.x, 0) / pts.length, y: pts.reduce((t, q) => t + q.y, 0) / pts.length } };
-            again = true;
-          }
+      let groups = badges.map(b => { const q = proj(b.center); return { members: [b], pts: [q], foot: { x: q.x, y: q.y } }; });
+      return mergeSigns(groups);
+    }
+    function mergeSigns(groups) {
+      for (let again = true; again;) {
+        again = false;
+        for (let i = 0; i < groups.length && !again; i++) for (let j = i + 1; j < groups.length && !again; j++) {
+          if (!signsTouch(groups[i], groups[j])) continue;
+          const pairs = groups[i].members.map((m, k) => [m, groups[i].pts[k]]).concat(groups[j].members.map((m, k) => [m, groups[j].pts[k]]))
+            .sort((x, y) => y[0].center[0] - x[0].center[0]);
+          const pts = pairs.map(p => p[1]);
+          groups[i] = { members: pairs.map(p => p[0]), pts, foot: mean(pts) };
+          groups.splice(j, 1); again = true;
         }
-      };
-      merge();
+      }
       return groups;
     }
     function clampToSafe(groups, safe) {
       groups.forEach(gp => {
-        const bx = groupBox(gp.members);
-        gp.pt = { x: Math.min(Math.max(gp.pt.x, safe.left + bx.w / 2), safe.right - bx.w / 2),
-                  y: Math.min(Math.max(gp.pt.y, safe.top + bx.h / 2), safe.bottom - bx.h / 2) };
+        if (gp.members.length === 1 && !isBox(gp)) {   // a lone post points to the side with more room
+          const r = signRect({ ...gp, loneSide: 'e' });
+          gp.loneSide = gp.foot.x + r.r > safe.right && gp.foot.x - r.r >= safe.left ? 'w' : 'e';
+        }
+        const r = signRect(gp);
+        gp.foot = { x: Math.min(Math.max(gp.foot.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(gp.foot.y, safe.top + r.t), safe.bottom - r.b) };
       });
     }
-    const PIN2 = '<svg class="cb-pins" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M9 20s-5-4.8-5-8.6a5 5 0 0 1 10 0C14 15.2 9 20 9 20z" fill="var(--paper-raised)"/><path d="M15.5 17.5s-4.5-4.3-4.5-7.7a4.5 4.5 0 0 1 9 0c0 3.4-4.5 7.7-4.5 7.7z" fill="var(--paper-raised)"/></g><circle cx="15.5" cy="9.8" r="1.6" fill="currentColor"/></svg>';
-    function cityBadgeIcon(members, gp) {
-      let html;
-      const row = (b, cls, extra = '') => `<button type="button" class="${cls}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${extra && extra.pre || ''}${escapeHtml(b.label)}<span class="tally">${b.count}</span>${extra && extra.post || ''}</button>`;
-      if (members.length > 1 && BADGE_STYLE === 'signpost') {
-        // a fingerpost: one post, one arrow board per city, pointing to the side its city lies on
-        const pts = members.map(m => map.latLngToContainerPoint(m.center));
-        const mx = pts.reduce((t, q) => t + q.x, 0) / pts.length;
-        const boards = members.map((b, i) => { const west = pts[i].x < mx - 0.5 || (Math.abs(pts[i].x - mx) <= 0.5 && i % 2 === 0);
-          return `<div class="sp-arm ${west ? 'is-w' : 'is-e'}">${row(b, 'sp-board', west ? { pre: '<span class="sp-tip" aria-hidden="true"></span>' } : { post: '<span class="sp-tip" aria-hidden="true"></span>' })}</div>`; }).join('');
-        html = `<div class="sp-post" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(' and '))}"><span class="sp-pole" aria-hidden="true"></span>${boards}</div>`;
-        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
-      }
-      if (members.length > 1 && BADGE_STYLE === 'shingle') {
-        const pts = members.map(m => map.latLngToContainerPoint(m.center));
-        const mx = pts.reduce((t, q) => t + q.x, 0) / pts.length;
-        html = `<div class="sh-stack" role="group">` + members.map((b, i) => { const dx = Math.max(-16, Math.min(16, Math.round((pts[i].x - mx) * 2)));
-          return `<div class="sh-tile" style="--dx:${dx}px;--i:${i}">${row(b, 'city-badge sh-badge')}</div>`; }).join('') + '</div>';
-        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
-      }
-      if (members.length > 1 && BADGE_STYLE === 'picker') {
-        html = `<button type="button" class="city-badge cb-multi" data-city-many="${escapeAttr(members.map(m => m.id).join(','))}" aria-label="${members.length} cities: ${escapeAttr(members.map(m => m.label).join(', '))}. Choose one">${PIN2}${members.length} cities<span class="tally">${members.reduce((t, m) => t + m.count, 0)}</span></button>`;
-        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
-      }
-      if (members.length > 1 && BADGE_STYLE === 'disc') {
-        html = `<button type="button" class="cb-disc" data-city-zoom="${escapeAttr(members.map(m => m.id).join(','))}" aria-label="${members.length} cities: ${escapeAttr(members.map(m => m.label).join(', '))}. Zoom in">${members.length}</button>`;
-        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
-      }
-      if (members.length === 1) {
+    function cityBadgeIcon(gp) {
+      const members = gp.members;
+      const label = b => `${escapeHtml(b.label)}<span class="tally">${b.count}</span>`;
+      if (isBox(gp)) {
         const b = members[0];
-        html = `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">` +
-          `${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`;
-      } else {
-        html = `<div class="city-badge-group" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(' and '))}">` + members.map(b =>
-          `<button type="button" class="city-badge-row" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`).join('') + '</div>';
+        return L.divIcon({ html: `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${label(b)}</button>`, className: 'city-badge-anchor', iconSize: null });
       }
+      const sides = signSides(gp), r = signRect(gp);
+      const rows = members.map((b, i) => `<button type="button" class="sp-board is-${sides[i]}" style="grid-row:${i + 1}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
+        + `<span class="sp-tip" aria-hidden="true"></span>${label(b)}</button>`).join('');
+      const html = `<div class="sp-post" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(', '))}" style="--wl:${r.l - 1}px;--wr:${r.r - 1}px;--rows:${members.length}">`
+        + `<span class="sp-pole" aria-hidden="true"></span>${rows}</div>`;
       return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
     }
     function syncCityBadges(badges) {
@@ -8217,64 +8184,23 @@
       let groups = layoutCityBadges(onScreen, c => map.latLngToContainerPoint(c));
       const safe = badgeSafeRect();
       clampToSafe(groups, safe);
-      // a nudge can make two boxes touch: merge those (keeping their placed centres) and clamp again
-      for (let k = 0; k < 2; k++) { const n = groups.length; groups = mergePlaced(groups); clampToSafe(groups, safe); if (groups.length === n) break; }
+      for (let k = 0; k < 2; k++) { const n = groups.length; groups = mergeSigns(groups); clampToSafe(groups, safe); if (groups.length === n) break; }
       const seen = new Set();
       groups.forEach(gp => {
         const key = gp.members.map(m => m.id).join('+');
         seen.add(key);
-        const ll = map.containerPointToLatLng(L.point(gp.pt.x, gp.pt.y));
-        const sig = BADGE_STYLE + ':' + gp.members.map(m => m.label + '|' + m.count + '|' + Math.sign(Math.round(map.latLngToContainerPoint(m.center).x - gp.pt.x))).join(',');
+        const ll = map.containerPointToLatLng(L.point(gp.foot.x, gp.foot.y));
+        const sig = LONE_STYLE + ':' + signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count).join(',');
         const had = cityBadgeMarkers.get(key);
-        if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp.members, gp)); had.sig = sig; } return; }
-        const marker = L.marker(ll, { icon: cityBadgeIcon(gp.members, gp), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
+        if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp)); had.sig = sig; } return; }
+        const marker = L.marker(ll, { icon: cityBadgeIcon(gp), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
         marker.on('click', e => {
           const t = e.originalEvent && e.originalEvent.target, btn = t && t.closest && t.closest('[data-city-badge]');
-          if (btn) { goToCity(btn.dataset.cityBadge); return; }
-          const many = t && t.closest && t.closest('[data-city-many]');
-          if (many) { openCityPicker(many, many.dataset.cityMany.split(',')); return; }
-          const zoom = t && t.closest && t.closest('[data-city-zoom]');
-          if (zoom) zoomToSplit(zoom.dataset.cityZoom.split(','));
+          if (btn) goToCity(btn.dataset.cityBadge);
         });
         cityBadgeMarkers.set(key, { marker, sig });
       });
       cityBadgeMarkers.forEach((e, k) => { if (!seen.has(k)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(k); } });
-    }
-    // Picker concept: the menu spec under the badge, one row per city; a pick is the go-to.
-    function openCityPicker(trig, ids) {
-      let m = document.getElementById('cityPickMenu');
-      if (!m) { m = document.createElement('div'); m.id = 'cityPickMenu'; m.className = 'menu-box'; m.setAttribute('role', 'menu'); document.body.appendChild(m);
-        m.addEventListener('click', e => { const r = e.target.closest('[data-go]'); if (r) { m.hidden = true; goToCity(r.dataset.go); } }); }
-      m.innerHTML = '<div class="menu-cap" aria-hidden="true">Go to</div>' + ids.map(id => `<button type="button" class="menu-row" role="menuitem" data-go="${escapeAttr(id)}">${MENU_SVG.spacer}<span class="menu-lab">${escapeHtml(cityLabel(id))}<span class="tally">${cityTally(id)}</span></span><span class="menu-gap"></span>${MENU_SVG.none}</button>`).join('');
-      m.hidden = false;
-      const r = trig.getBoundingClientRect();
-      m.style.left = `${Math.max(16, Math.min(r.left, innerWidth - 16 - m.offsetWidth))}px`; m.style.top = `${r.bottom + sNum(2)}px`;
-    }
-    // Disc concept: zoom in to the first zoom where these cities no longer join.
-    function zoomToSplit(ids) {
-      const bs = ids.map(id => ({ id, label: cityLabel(id), count: cityTally(id), center: CITIES[id].center }));
-      let z = map.getZoom() + 1;
-      for (; z < CITY_BADGE_MAX_ZOOM; z++) if (layoutCityBadges(bs, c => map.project(c, z)).length === bs.length) break;
-      const c = bs.reduce((t, b) => [t[0] + b.center[0] / bs.length, t[1] + b.center[1] / bs.length], [0, 0]);
-      map.flyTo(c, z, { duration: 0.8 });
-    }
-    // Merge already-placed groups that touch (after a nudge), keeping their placed centres.
-    function mergePlaced(groups) {
-      const gap = sNum(1);
-      const touch = (A, B) => {
-        const a = groupBox(A.members), c = groupBox(B.members);
-        return Math.abs(A.pt.x - B.pt.x) * 2 < a.w + c.w + 2 * gap && Math.abs(A.pt.y - B.pt.y) * 2 < a.h + c.h + 2 * gap;
-      };
-      for (let again = true; again;) {
-        again = false;
-        for (let i = 0; i < groups.length && !again; i++) for (let j = i + 1; j < groups.length && !again; j++) {
-          if (!touch(groups[i], groups[j])) continue;
-          const ms = groups[i].members.concat(groups[j].members).sort((x, y) => y.center[0] - x.center[0]);
-          groups[i] = { members: ms, pt: { x: (groups[i].pt.x + groups[j].pt.x) / 2, y: (groups[i].pt.y + groups[j].pt.y) / 2 } };
-          groups.splice(j, 1); again = true;
-        }
-      }
-      return groups;
     }
 
     // Cluster badge: paper count on a solid field, deliberately not a
