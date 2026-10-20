@@ -48,6 +48,24 @@ const POSTF = (cx, y0, y1, top, bot) => {
 };
 const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx - hw, base]), root: 'GABLE' });
 
+// ---- g7n: THE LINE, three ways (owner, 10-20: "when i think no taper i think the interior would follow the
+// exterior line -- eg monoweight stroke"; "a taper would be one thickness one place, another thickness at the
+// other side of the line... with the middle following the same curvature of the context"). A line's OUTER
+// edge is the shape; its inner edge runs at the line's width from it, and in a tapered row that width changes
+// smoothly along the line while the inner edge keeps following the outer curve.
+//   'mono'   MONOWEIGHT: every line the same 1.5px; every hole's inner edge a parallel offset of its outer edge.
+//   'brush'  SIGN PAINTER'S FLAT BRUSH (road signs, banners): the brush is held flat, so a line is full (1.5px)
+//            where it runs up and down and thin (1px) where it runs across, changing smoothly around a curve.
+//   'settle' SETTLED INK (a screened banner, hung): ink settles downward, so a line is thin (1px) at its top
+//            and full (1.5px) at its bottom, changing smoothly down its length.
+const WMIN = 1;                                                     // a tapered line's thinnest: 2/3 of the line
+const wBrush = ang => WMIN + (W - WMIN) * Math.abs(Math.sin(ang));  // ang: the line's direction
+const wSettle = (y, y0, y1) => WMIN + (W - WMIN) * Math.max(0, Math.min(1, (y - y0) / (y1 - y0)));
+// a vertical POST whose width runs w0 (top) to w1 (bottom), straight-sided, centred on cx
+const POSTT = (cx, y0, y1, w0, w1) => ({ ...P([cx - w0 / 2, y0], [cx + w0 / 2, y0], [cx + w1 / 2, y1], [cx - w1 / 2, y1]), root: 'POST' });
+// a horizontal slab's thickness per row: the flat brush makes every horizontal thin
+const slabH = o => o.style === 'brush' ? WMIN : WH;
+
 // ---- g7i: THE TOKEN, how big each glyph is (owner: "address this at the grid level across all of them...
 // i dont want to have to negotiate this all the time"; "ours should be specific to our app"). Ours: a glyph
 // is struck like a token, a coin of 12px that sits in the badge's ring with 2px of air. Every glyph is
@@ -85,7 +103,17 @@ const DRAW = {
     const ct = top + WH / u, cb = eb - WH / u, cr = (cb - ct) / 2, cx = eR - W / u - cr;   // counter, its back a half circle
     const ci = r - 1 / 3;
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
-    const saucer = SLAB(0, s, T(X(bot) + CUT));
+    const saucer = o.style === 'brush' ? R(0, T(X(bot) + CUT), s, WMIN, { root: 'SLAB' }) : SLAB(0, s, T(X(bot) + CUT));
+    if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
+      // the loop's wall at its top arm, its back and its bottom arm; the inner edge is two quarter curves that
+      // follow the outer half circle, so the width changes smoothly from arm to back to arm
+      const wT = o.style === 'mono' ? W : o.style === 'brush' ? WMIN : WMIN;
+      const wK = o.style === 'mono' ? W : o.style === 'brush' ? W : (WMIN + W) / 2;
+      const wB = o.style === 'mono' ? W : o.style === 'brush' ? WMIN : W;
+      const cy = top + R_, iT = top + wT / u, iB = eb - wB / u, iK = eR - wK / u, ry1 = cy - iT, ry2 = iB - cy, rx = iK - ex;
+      const hole = cut(D(`M${X(ci)} ${X(iT)}H${X(ex)}C${X(ex + rx * K)} ${X(iT)} ${X(iK)} ${X(cy - ry1 * K)} ${X(iK)} ${X(cy)}C${X(iK)} ${X(cy + ry2 * K)} ${X(ex + rx * K)} ${X(iB)} ${X(ex)} ${X(iB)}H${X(ci)}Z`));
+      return [body, saucer, hole];
+    }
     if (o.style === 'punch') {
       // COUNTERPUNCH (g7m): the handle's hole is the ear's own outside shape made smaller, about the ear's
       // middle, so its wall is full (the line, at the arms) at the outer edge and thins toward the back
@@ -113,12 +141,27 @@ const DRAW = {
     //   otherwise (as shipped since g7i, and the COUNTERPUNCH option): the band is cut by the bowl's own shape
     //     made smaller, so the wall is full (1.5px) at the rim and thins toward the drink (about 1.1px).
     const wall = o.wall || W;
-    if (o.style && o.style !== 'punch' && o.taper !== 'cut') o = { ...o, taper: 'even' };   // the band is cut by the bowl's shape (tapered) unless a style says even
+    if (o.style && !['punch', 'mono', 'brush', 'settle'].includes(o.style) && o.taper !== 'cut') o = { ...o, taper: 'even' };   // the band is cut by the bowl's shape (tapered) unless a style says even
     // the clear band, under the rim and over the drink: g7k, the counter minimum, 1.5px (was 1 2/3), so the
     // drink stands higher; its surface sits 1/6px off the 1/3px lattice, the one place the counter minimum wins
     const rim = WH, liquid = rim + W;
     let band;
-    if (o.taper === 'even') {
+    if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
+      // the band's sides are the bowl's inner edge between the rim and the drink: points at the line's width
+      // in from the bowl, joined by one curve that follows the bowl (its handles along the bowl's tangent)
+      const rimT = o.style === 'mono' ? W : o.style === 'brush' ? WMIN : WH, liq = rimT + W;
+      const B = [[X(0.5), 0], [X(0.5), X(2.8)], [X(3), X(bd)], [X(6), X(bd)]];
+      const bz = (tt, i) => (1 - tt) ** 3 * B[0][i] + 3 * tt * (1 - tt) ** 2 * B[1][i] + 3 * tt * tt * (1 - tt) * B[2][i] + tt ** 3 * B[3][i];
+      const dz = (tt, i) => 3 * (1 - tt) ** 2 * (B[1][i] - B[0][i]) + 6 * tt * (1 - tt) * (B[2][i] - B[1][i]) + 3 * tt * tt * (B[3][i] - B[2][i]);
+      const wAt = tt => o.style === 'mono' ? W : o.style === 'brush' ? wBrush(Math.atan2(dz(tt, 1), dz(tt, 0))) : wSettle(bz(tt, 1), 0, X(bd));
+      const at = tt => { const dx = dz(tt, 0), dy = dz(tt, 1), L = Math.hypot(dx, dy), w = wAt(tt); return [bz(tt, 0) + dy / L * w, bz(tt, 1) - dx / L * w]; };
+      const tAt = y => { let lo = 0, hi = 1; for (let n = 0; n < 60; n++) { const m = (lo + hi) / 2; if (at(m)[1] < y) lo = m; else hi = m; } return lo; };
+      const t0 = tAt(rimT), t1 = tAt(liq), p0 = at(t0), p1 = at(t1);
+      const tan = tt => { const a_ = at(tt - 1e-4), b_ = at(tt + 1e-4), L = Math.hypot(b_[0] - a_[0], b_[1] - a_[1]); return [(b_[0] - a_[0]) / L, (b_[1] - a_[1]) / L]; };
+      const ch = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) / 3, d0 = tan(t0), d1 = tan(t1);
+      const c1 = [p0[0] + d0[0] * ch, p0[1] + d0[1] * ch], c2 = [p1[0] - d1[0] * ch, p1[1] - d1[1] * ch], m = x => f(s - x);
+      band = cut(D(`M${f(p0[0])} ${f(rimT)}H${m(p0[0])}C${m(c1[0])} ${f(c1[1])} ${m(c2[0])} ${f(c2[1])} ${m(p1[0])} ${f(liq)}H${f(p1[0])}C${f(c2[0])} ${f(c2[1])} ${f(c1[0])} ${f(c1[1])} ${f(p0[0])} ${f(rimT)}Z`));
+    } else if (o.taper === 'even') {
       const B = [[X(0.5), 0], [X(0.5), X(2.8)], [X(3), X(bd)], [X(6), X(bd)]];   // the left side, in px
       const bz = (tt, i) => (1 - tt) ** 3 * B[0][i] + 3 * tt * (1 - tt) ** 2 * B[1][i] + 3 * tt * tt * (1 - tt) * B[2][i] + tt ** 3 * B[3][i];
       const dz = (tt, i) => 3 * (1 - tt) ** 2 * (B[1][i] - B[0][i]) + 6 * tt * (1 - tt) * (B[2][i] - B[1][i]) + 3 * tt * tt * (B[3][i] - B[2][i]);
@@ -135,21 +178,22 @@ const DRAW = {
       band = cut(I(inside, R(0, rim, s, liquid - rim)));
     }
     const FB = Y(11);
-    const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : POST(c, X(bd - 0.5), FB - WH + 0.01);
-    const foot = SLAB(X(2.25), X(9.75), FB - WH);
+    const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = FB - fh + 0.01;
+    const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : o.style === 'settle' ? POSTT(c, sy0, sy1, wSettle(sy0, 0, s), wSettle(sy1, 0, s)) : POST(c, sy0, sy1);
+    const foot = R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
     return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, band];
   },
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
   // plinth. Counters: the spaces between the columns are plain upright slots (no pills, owner's example).
   museum(s = 12, o = {}) {
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u);
-    const pb = Y(4), bd = WH;
+    const pb = Y(4), bd = slabH(o);
     // pediment and beam as one outline (a GABLE on a SLAB, joined), so no coincident corners go through the boolean
     const out = [{ ...P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd]), root: 'GABLE', also: 'SLAB' }];
-    const ct = pb + bd, pl = Y(12) - WH;                              // column tops; plinth top
+    const ct = pb + bd, pl = Y(12) - slabH(o);                        // column tops; plinth top
     const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
-    for (let i = 0; i < n; i++) { const cx = x0 + W / 2 + i * (W + gap); out.push(o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : POST(cx, ct - 0.01, pl + 0.01)); }
-    out.push(SLAB(X(0.25), X(11.75), pl));
+    for (let i = 0; i < n; i++) { const cx = x0 + W / 2 + i * (W + gap); out.push(o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : o.style === 'settle' ? POSTT(cx, ct - 0.01, pl + 0.01, wSettle(ct, 0, s), wSettle(pl, 0, s)) : POST(cx, ct - 0.01, pl + 0.01)); }
+    out.push(R(X(0.25), pl, X(11.75) - X(0.25), slabH(o), { root: 'SLAB' }));
     return out;
   },
   // NATURE. TALL, its tip passing by 1/2px. Three GABLE tiers widening by equal steps, on a POST trunk.
@@ -160,11 +204,20 @@ const DRAW = {
     // every notch, set from the line: g7j one line (1.5px; they were 1.45 and 2.14, uneven, and read as
     // steps); g7k (owner: "i think the branches should be a bit more indented -- looks like a triangle at
     // 100%") one and a half lines, 2.25px, so the tiers read at true size. Each lower tier's apex follows.
-    const tiers = [[-0.5, 4.25, 2.8], [null, 7.6, 4.1], [null, 10.75, 5.3]], L = 1.5 * W / u;
-    for (let i = 1; i < tiers.length; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r = (hwU - L) / hwL; tiers[i][0] = (byU - r * byL) / (1 - r); }
-    const out = [];
+    // g7n (owner: "how are the heights of the stacked gables defined?"): the whole stack now comes from the
+    // grid, nothing by hand. In the 12-unit box:
+    //   the apex passes TOP by the apex overshoot (1/2); the trunk shows one line (1.5px) under the bottom tier;
+    //   N = 3 tiers, each showing the same height (crown height / N);
+    //   every tier is the SAME gable (one slope), so they read as one tree;
+    //   every notch shelf is one and a half lines (2.25px), which spaces the tier apexes by shelf / slope;
+    //   the bottom tier spans the tall class's width (9 1/3).
+    // Solving those: slope = (half width + (N-1) shelf) / crown height; then each tier's base and half width.
+    const N = 3, L = 1.5 * W / u, apex = -APEX, B = 12 - W / u, hwN = KEY.TALL[0] / 2;
+    const crown = B - apex, m = (hwN + (N - 1) * L) / crown, tiers = [];
+    for (let i = 1; i <= N; i++) { const ty = apex + (i - 1) * L / m, by = apex + i * crown / N; tiers.push([ty, by, m * (by - ty)]); }
+    const out = [], tTop = B - W / u;
     for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));
-    out.push(o.style === 'woodcut' ? POSTF(c, X(9.5), s, true, false) : o.style === 'burin' ? POSTW(c, X(9.5), s, W, (W + FREE) / 2, FREE) : POST(c, X(9.5), s));
+    out.push(o.style === 'woodcut' ? POSTF(c, X(tTop), s, true, false) : o.style === 'burin' ? POSTW(c, X(tTop), s, W, (W + FREE) / 2, FREE) : o.style === 'settle' ? POSTT(c, X(tTop), s, wSettle(X(tTop), 0, s), W) : POST(c, X(tTop), s));
     return out;
   },
 };
@@ -174,6 +227,8 @@ function plus(px = 26.4, sc = 1, lw = W, style) {
   // g7i: OPEN class. Both arms are POSTs of the full 1.5px (no thinner horizontal: an open mark has no
   // mass to balance); sc is set by the grid's fit (boards7.js), never by hand.
   const k = 24 / px, w = lw * k, L = 14 * sc;
+  if (style === 'brush') { const e = WMIN * k; return [R(12 - w / 2, 12 - L / 2, w, L), R(12 - L / 2, 12 - e / 2, L, e)]; }
+  if (style === 'settle') { const e0 = WMIN * k, e1 = W * k, em = (e0 + e1) / 2; return [P([12 - e0 / 2, 12 - L / 2], [12 + e0 / 2, 12 - L / 2], [12 + e1 / 2, 12 + L / 2], [12 - e1 / 2, 12 + L / 2]), R(12 - L / 2, 12 - em / 2, L, em)]; }
   if (style === 'burin') { const e = FREE * k, h = L / 2; return [P([12 - w / 2, 12], [12 - e / 2, 12 - h], [12 + e / 2, 12 - h], [12 + w / 2, 12], [12 + e / 2, 12 + h], [12 - e / 2, 12 + h]), P([12, 12 - w / 2], [12 - h, 12 - e / 2], [12 - h, 12 + e / 2], [12, 12 + w / 2], [12 + h, 12 + e / 2], [12 + h, 12 - e / 2])]; }
   return [R(12 - w / 2, 12 - L / 2, w, L), R(12 - L / 2, 12 - w / 2, L, w)];
 }
@@ -182,6 +237,19 @@ function star(px = 20, sc = 1, lw = W, style) {
   const k = 24 / px, w = lw * k, cx = 12, cy = 12 + 0.6 * sc, Rc = 9.6 * sc, ri = Rc * 0.47;
   const cl = []; for (let i = 0; i < 10; i++) { const r = i % 2 ? ri : Rc, a = -Math.PI / 2 + i * Math.PI / 5; cl.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
   const outer = offset(cl, -w / 2);
+  if (style === 'brush' || style === 'settle') {
+    // each outline edge keeps the outer edge; its inner edge runs through points at that edge's width in from
+    // its two ends (brush: by the edge's direction, the same at both ends; settle: by each end's height)
+    const ys = outer.map(q => q[1]), y0 = Math.min(...ys), y1 = Math.max(...ys), n = outer.length, lines = [];
+    for (let i = 0; i < n; i++) {
+      const a_ = outer[i], b_ = outer[(i + 1) % n], dx = b_[0] - a_[0], dy = b_[1] - a_[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
+      const wa = (style === 'brush' ? wBrush(Math.atan2(dy, dx)) : wSettle(a_[1], y0, y1)) * k, wb = (style === 'brush' ? wBrush(Math.atan2(dy, dx)) : wSettle(b_[1], y0, y1)) * k;
+      lines.push([[a_[0] + nx * wa, a_[1] + ny * wa], [b_[0] + nx * wb, b_[1] + ny * wb]]);
+    }
+    const inner = [];
+    for (let i = 0; i < n; i++) { const [p1, p2] = lines[(i - 1 + n) % n], [q1, q2] = lines[i], e1 = [p2[0] - p1[0], p2[1] - p1[1]], e2 = [q2[0] - q1[0], q2[1] - q1[1]], den = e1[0] * e2[1] - e1[1] * e2[0], tt = ((q1[0] - p1[0]) * e2[1] - (q1[1] - p1[1]) * e2[0]) / den; inner.push([p1[0] + e1[0] * tt, p1[1] + e1[1] * tt]); }
+    return [P(...outer), cut(P(...inner))];
+  }
   if (style === 'punch') {   // the hole is the outside made smaller, scaled so the thickest wall (at the valleys) is the line
     const cyc = cy, rv = Math.hypot(outer[1][0] - cx, outer[1][1] - cyc), e = outer[0], f_ = outer[1], g = outer[2];
     const distSeg = (p, a, b) => { const dx = b[0] - a[0], dy = b[1] - a[1], tt = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy))); return Math.hypot(p[0] - a[0] - tt * dx, p[1] - a[1] - tt * dy); };
@@ -199,4 +267,4 @@ function offset(pts, d) {
 }
 
 const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature']];
-module.exports = { W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE };
+module.exports = { W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };

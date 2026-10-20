@@ -159,3 +159,6 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > i like the handmade look of the taper, but im not sure what in the real world it would allude to -- drawing method? cutting tool? or just drawing style? have the team come up with the rule and give me a version of icons following it and not following it
 > several options is fine, i just dont want to lose the no taper option   (taper board: no taper, counterpunch, burin, woodcut; g7k)
 > (canvas comment, 10-20) please have a board with the master grid   (Grid7Master, beside the main board; g7k)
+> (canvas comment, 10-20, on the taper board) when i think no taper i think the interior would follow the exterior line -- eg monoweight stroke   (monoweight row: every hole an even parallel offset; g7n)
+> none of these seem to actually have tapers? they just seem to weirdly make the lines sstraight... a taper would be one thickness one place, another thickness at the other side of the line... with the middle following the same curvature of the context   (taper rows rebuilt as real tapers: flat brush, settled ink; g7n)
+> how are the heights of the stacked gables defined?   (stacked-gable rule now sets every tier by rule; g7n)

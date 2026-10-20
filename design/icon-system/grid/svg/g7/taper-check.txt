@@ -1,1 +1,1 @@
-src/check-svg.py on all three rows (svg/g7/taper-none, taper-punch, taper-woodcut): 0 slivers; 15/15 symmetric files mirror within 0.01px (the cup is asymmetric by design).
+src/check-svg.py on all three rows (svg/g7/taper-mono, taper-brush, taper-settle): 0 slivers; 15/15 symmetric files mirror within 0.01px (the cup is asymmetric by design).
