@@ -744,8 +744,9 @@
     .sp-board .sp-shape { position: absolute; left: 0; top: 0; z-index: -1; overflow: visible; pointer-events: none; }   /* beats leaflet.css .leaflet-map-pane svg { z-index: 200 } */
     /* p4 CD fixes: no offset shadow (it read as a heavier bottom stroke on a pointed shape); one 2px
        navy outline, the same weight as the pole, so pole and boards are one drawing. */
+    .sp-shape .sp-shadow { fill: var(--navy); }
     .sp-shape .sp-fill { fill: var(--sp-fill, var(--paper-raised)); }
-    .sp-shape .sp-line { fill: none; stroke: var(--navy); stroke-width: 2; stroke-linejoin: miter; stroke-linecap: butt; }
+    .sp-shape .sp-line { fill: none; stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: miter; stroke-linecap: butt; }
     .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
     .sp-board:active { --sp-fill: var(--state-press); }
     .sp-lab { position: relative; z-index: 1; display: flex; align-items: baseline; }
@@ -8157,7 +8158,7 @@
       let wl = 0, wr = 0;
       gp.members.forEach((m, i) => { const w = boardW(m); if (sides[i] === 'w') wl = Math.max(wl, w); else wr = Math.max(wr, w); });
       const n = gp.members.length;
-      return { l: wl + 1, r: wr + 1, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + FOOT(), b: 0 };
+      return { l: wl + 1, r: wr + 1 + 2, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + (gp.pointer ? 0 : FOOT()), b: 0 };   // + 2: the offset shadow
     }
     function rectOf(gp) { const r = signRect(gp); return { x0: gp.foot.x - r.l, x1: gp.foot.x + r.r, y0: gp.foot.y - r.t, y1: gp.foot.y + r.b }; }
     function signsTouch(A, B) {
@@ -8184,49 +8185,67 @@
       }
       return groups;
     }
+    // p4 (owner: "a signpost would only ever have the pole pointing down"): a post stands with its
+    // foot ON its city('s mean point) and its pole straight down from the boards -- never moved, never
+    // leaning. A lone sign may take whichever side fits. If the sign can't stand there (its boards
+    // would leave the clear area, or the city sits under a control), it is honest about it: no pole,
+    // no dot -- an EDGE SIGN, its boards kept inside the clear area and each pointing toward its city.
+    function fitsAt(gp, safe) {
+      const q = rectOf(gp);
+      return q.x0 >= safe.left && q.x1 <= safe.right && q.y0 >= safe.top && q.y1 <= safe.bottom;
+    }
     function clampToSafe(groups, safe) {
       groups.forEach(gp => {
-        if (gp.members.length === 1 && !isBox(gp)) {   // a lone sign points to the side with more room
-          const r = signRect({ ...gp, loneSide: 'e' });
-          gp.loneSide = isSolo(gp) ? (gp.foot.x > (safe.left + safe.right) / 2 + r.r ? 'w' : 'e')
-            : (gp.foot.x + r.r > safe.right && gp.foot.x - r.r >= safe.left ? 'w' : 'e');
-        }
-        const r = signRect(gp);
-        const at = gp.foot;
-        gp.foot = { x: Math.min(Math.max(at.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(at.y, safe.top + r.t), safe.bottom - r.b) };
-        // p4-fixes (CD): a stick only ever stands on its city. A sign that had to be nudged (its city
-        // sits by an edge or behind a control) drops its stick and becomes a pointer: a lone board's
-        // arrow turns toward its city.
+        gp.tether = null;
         const city = mean(gp.pts);
-        const moved = Math.abs(gp.foot.x - city.x) > 0.5 || Math.abs(gp.foot.y - city.y) > 0.5;
-        // nudged: the stick still runs to the city's dot whenever that dot is visible (a tether from the
-        // boards' nearest edge); only a city off-screen or under a control loses its stick (a pointer).
-        gp.tether = moved && dotVisible(city, safe) ? { x: city.x, y: city.y } : null;
-        gp.pointer = moved;
-        if (gp.pointer && gp.members.length === 1 && !isBox(gp)) {
-          gp.loneSide = gp.pts[0].x >= gp.foot.x ? 'e' : 'w';
-          const r2 = signRect(gp);   // the turned board, kept inside again
-          gp.foot = { x: Math.min(Math.max(gp.foot.x, safe.left + r2.l), safe.right - r2.r), y: Math.min(Math.max(gp.foot.y, safe.top + r2.t), safe.bottom - r2.b) };
+        gp.foot = { x: city.x, y: city.y };
+        gp.pointer = false;
+        if (isBox(gp)) {
+          const r = signRect(gp);
+          gp.foot = { x: Math.min(Math.max(city.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(city.y, safe.top + r.t), safe.bottom - r.b) };
+          return;
         }
+        const lone = gp.members.length === 1;
+        if (lone) { gp.loneSide = 'e'; if (!fitsAt(gp, safe)) { gp.loneSide = 'w'; if (!fitsAt(gp, safe)) gp.loneSide = 'e'; } }
+        if (fitsAt(gp, safe) && dotVisible(city, safe)) return;
+        // the edge sign
+        gp.pointer = true;
+        const place = () => { const r = signRect(gp); gp.foot = { x: Math.min(Math.max(gp.foot.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(gp.foot.y, safe.top + r.t), safe.bottom - r.b) }; };
+        place();
+        if (lone) { gp.loneSide = city.x >= gp.foot.x ? 'e' : 'w'; gp.foot = { x: city.x, y: city.y }; place(); }
       });
     }
     // One board = one shape: the path of a box with a point, from the board's exact width.
     // p4 CD fixes: a 2px outline on whole pixels (top/bottom strokes centred on y 1 and h-1); the
     // miter tip's vertex 2px in so its point stays inside the box. On a post the pole IS the board's
     // pole-side edge: the outline is OPEN there (stroke path without that side), the fill closed.
+    // p4 (owner: "it doesnt follow the visual language anymore"): the board is the city badge's /
+    // menu box's family -- paper-raised face, 1.5px navy rule, the 2px 2px offset navy shadow -- drawn
+    // as ONE shape. The shadow is the board's own silhouette offset 2/2 (point included), so it reads
+    // as the badge's shadow, not a heavier stroke. On a post the pole side stays flush: the outline is
+    // open there (the pole is the edge) and the shadow starts AT the pole (no notch) and never pokes
+    // past it.
     function boardPath(w, h, t, side, closed) {
-      const a = 1, tip = 2;
+      const a = 0.75, tip = 1.75, o = 2;   // half the 1.5 rule; the tip vertex in so the miter stays inside; the shadow offset
       if (side === 'e') {
-        const open = `M0 ${a}H${w - t}L${w - tip} ${h / 2}L${w - t} ${h - a}H0`;
-        return { fill: `M0 0H${w - t}L${w - tip + 1} ${h / 2}L${w - t} ${h}H0Z`, stroke: closed ? `M${a} ${a}H${w - t}L${w - tip} ${h / 2}L${w - t} ${h - a}H${a}Z` : open };
+        const tx = w - tip;
+        return {
+          fill: `M0 0H${w - t}L${tx + 1} ${h / 2}L${w - t} ${h}H0Z`,
+          stroke: closed ? `M${a} ${a}H${w - t}L${tx} ${h / 2}L${w - t} ${h - a}H${a}Z` : `M0 ${a}H${w - t}L${tx} ${h / 2}L${w - t} ${h - a}H0`,
+          shadow: closed ? `M${o} ${o}H${w - t + o}L${tx + 1 + o} ${h / 2 + o}L${w - t + o} ${h + o}H${o}Z` : `M0 ${o}H${w - t + o}L${tx + 1 + o} ${h / 2 + o}L${w - t + o} ${h + o}H0Z`,
+        };
       }
-      const open = `M${w} ${a}H${t}L${tip} ${h / 2}L${t} ${h - a}H${w}`;
-      return { fill: `M${w} 0H${t}L${tip - 1} ${h / 2}L${t} ${h}H${w}Z`, stroke: closed ? `M${w - a} ${a}H${t}L${tip} ${h / 2}L${t} ${h - a}H${w - a}Z` : open };
+      const tx = tip;
+      return {
+        fill: `M${w} 0H${t}L${tx - 1} ${h / 2}L${t} ${h}H${w}Z`,
+        stroke: closed ? `M${w - a} ${a}H${t}L${tx} ${h / 2}L${t} ${h - a}H${w - a}Z` : `M${w} ${a}H${t}L${tx} ${h / 2}L${t} ${h - a}H${w}`,
+        shadow: closed ? `M${w + o} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t + o} ${h + o}H${w + o}Z` : `M${w} ${o}H${t + o}L${tx - 1 + o} ${h / 2 + o}L${t + o} ${h + o}H${w}Z`,
+      };
     }
     function boardHtml(b, side, style, closed) {
       const w = boardW(b), h = BOARD_H(), d = boardPath(w, h, sNum(3), side, closed);
       return `<button type="button" class="sp-board is-${side}" style="width:${w}px;${style}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
-        + `<svg class="sp-shape" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path class="sp-fill" d="${d.fill}"/><path class="sp-line" d="${d.stroke}"/></svg>`
+        + `<svg class="sp-shape" width="${w + 2}" height="${h + 2}" viewBox="0 0 ${w + 2} ${h + 2}" aria-hidden="true"><path class="sp-shadow" d="${d.shadow}"/><path class="sp-fill" d="${d.fill}"/><path class="sp-line" d="${d.stroke}"/></svg>`
         + `<span class="sp-lab">${escapeHtml(b.label)}<span class="tally">${b.count}</span></span></button>`;
     }
     function cityBadgeIcon(gp) {
