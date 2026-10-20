@@ -435,3 +435,4 @@ sources are the file where the quote is recorded.
 - Icons, ink traps (2026-10-19, verbatim): "i do not want ink traps... no reason for that on digital imo"
 
 - Icons, corners (2026-10-20, verbatim): "that whole thing comes together more when all points of meeting are at minimum a little bit rounded (and more rounded in other places." Feel: "like a signet ring or a woodcut/metal cast type piece...or even an old school banner that has screened ink on fabric not necessarily bleeding out, but settling a bit less sharp. or even neon signs."
+- Icons, corners (2026-10-20, verbatim): "i do think tight interior corners should be less rounded than exterior corners -- looking at the tree for example, interior is same as exterior which i think is wrong."
