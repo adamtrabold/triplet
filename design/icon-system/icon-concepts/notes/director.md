@@ -1120,3 +1120,20 @@ approaches should be as much a part of the brand as anything".
 - **Watch:** I've leant on outside systems as proof three times (keylines,
   scale by Apple, reference rows). Cite them for method, if at all,
   never as the target.
+
+
+## g7i (canvas v110): 8 (2026-10-20)
+
+- **Real grid gains:**
+  - the token (size by class) fixes size by rule;
+  - root shapes are drawn as like-part rows;
+  - the brand section works;
+  - the batch-2 pressure table is good future guidance.
+- **Blocks:**
+  - the weight spread is about 30 (open marks and the coupe light);
+  - the Star's counter is nearly closed at 1x, so the outline reads as
+    filled. That's a semantic risk, not just craft.
+- **My ruling:** weight becomes a class-based grid rule. I named what it
+  must achieve, not how.
+- **New watch item:** any change to the Star must keep its counter open
+  at 1x. Outline equals "not marked" is the foundation of the system.

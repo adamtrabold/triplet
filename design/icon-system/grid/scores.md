@@ -919,3 +919,19 @@ The verdict stands within our own set:
 - G-size fails (per-icon nudges).
 
 **Still 8.**
+
+
+## Round g7i (canvas v110), 2026-10-20: 8
+
+- **Gates pass:** G-size (the token by class) and G-grid (the token and
+  the five root shapes, shown before and now).
+- **Size row:**
+  - the four place glyphs are one size, by rule;
+  - the Star is overcorrected, and its counter is nearly closed at 1x,
+    so the outline reads as solid. That fails C4 and the outline rule.
+- **Weight row:** a spread of about 30 (the coupe 50, the + 45, the Star
+  55, against the cup and tree 75). C2 fails.
+- **C8 and C9 pass:** root-shape rows, batch-2 guidance, and the brand
+  section.
+- **Weight must be a grid rule.** What it must achieve is in jam turn
+  52.

@@ -1656,3 +1656,100 @@ The reference sets are off the size row. They're kept at the bottom, labelled "c
 - The tree's flat tiers make small ledges at the notches, as flat-based tiers do.
 
 NEXT: design director: the gates (G-size, G-grid), our scale row, then C1–C9, on v110.
+
+---
+
+## Turn 52: design director, g7i (canvas v110): 8; weight needs a grid rule
+
+**How I looked:**
+- I rendered the board's own source (v110) at 1x and 3x;
+- order: the gates, then our size row (the "Now" true-size rows and the
+  8x row), then the weight, then C1–C9;
+- the references sit in a craft-only section at the bottom, and I used
+  them for finish only.
+
+**Gates:**
+- **G-size: pass.** The token is drawn: one coin, cut by shape class
+  (wide, square, tall, round, open). The Star and the + are each sized
+  by their class, and there's no per-icon size number anywhere.
+- **G-grid: pass.** Two grid changes, each shown before and now: the
+  token, and the five root shapes.
+- **The other gates pass:** it's judgeable on the canvas, there are
+  plain labels and one plain question, and the files are clean.
+
+**The size row (our set only):**
+- **The four place glyphs now read one size.** The cup, coupe, museum
+  and tree sit in one size class at true size and at 8x. This is the
+  first time the size is right by rule.
+- **The Star: overcorrected, and its counter is closing.**
+  - At true size in the rows it now reads smaller than the place glyphs
+    and stubby: short points and a small inner hole.
+  - At 1x the hole is close to a dot, so the outline Star starts to read
+    as a solid, starred one.
+  - That breaks the rule the whole set rests on: outline means "not
+    marked yet" (the rules card, and his "outlined icons should be used
+    when something has yet to be tapped by me like Star and visited").
+  - **This fails C4 and the outline rule.** It's more serious than its
+    size.
+- **The + :** right size by its class.
+
+**The weight row (our set):**
+- Cup 75.4, tree 75.1, museum 67.2, Star 55.3, coupe 50.1, + 44.8.
+- That's a spread of about 30, against about 9 at v105. The coupe swung
+  from heaviest to lightest, and the open marks (+, Star) read light.
+- **C2 weight: fails.** The designer flagged it plainly, which is right.
+
+**C1–C9, briefly:**
+- **C1 centring:** passes.
+- **C3 proportion:** the coupe's open band reads as a glass with a drink,
+  a good concept, but its thin rim is what makes it light.
+- **C5 corners:** still met.
+- **C8 root shapes: passes.** It's drawn as rows of like parts (slab,
+  post, gable, vessel, loop), and the batch-2 pressure-test table gives
+  real future guidance. The two named new roots (blade, block) and the
+  one stated exception (the bag's handle) are the right way to grow it.
+- **C9 brand: passes.** "What about the grid is ours" ties each rule to
+  his words: the token and signet, woodcut and metal type, the screened
+  banner.
+- **Minor:** the tree's flat tier bottoms leave small ledges at the
+  notches at 8x.
+
+**Score: 8.** The grid improved for real: size by class and root shapes.
+The new weight spread and the Star's closing counter block a 9.
+
+### Should weight be solved by a grid rule? Yes.
+
+A per-icon fix would repeat the size negotiation he's told us he
+doesn't want (G-size). Weight swings whenever a drawing changes (the
+coupe went from heaviest to lightest in one round), so only a rule
+holds it still.
+
+**What the weight rule must achieve (not how):**
+1. **Every glyph reads equally dark:** in our own blurred row, place
+   icons and UI marks together, within a stated tolerance (about the
+   spread v105 reached, roughly 9 or better).
+2. **It works by class,** so open marks (the +), outline marks (the
+   Star) and solid masses each land on the same darkness without
+   per-icon nudges, and a new icon gets its weight from its class.
+3. **It keeps every settled rule:**
+   - the 1.5px line he chose;
+   - outline means "not marked yet": the Star's counter stays clearly
+     open at true size and at 1x, and nothing else becomes an outline;
+   - the token's sizes;
+   - corners rounded at every meeting point (interior less than
+     exterior);
+   - the root shapes.
+4. **It's shown as a grid change** (G-grid): the rule drawn, the weight
+   row before and after, and a plain line on the brand quality it
+   carries (C9), for example evenly inked, like one pressing.
+5. **Scope:** "no sweeping changes". It adjusts mass within each
+   drawing, without new subjects or silhouettes.
+
+**Also, with it:**
+- the Star sized by its class again, with its counter open at 1x
+  (outline must read as outline);
+- the tree's ledges looked at.
+
+NEXT: icon designer, the weight rule by class as a grid change, plus
+the Star's counter. Then I score: the gates, the size row, then the
+weight row first among C1–C9.
