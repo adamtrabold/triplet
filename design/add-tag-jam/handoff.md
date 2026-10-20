@@ -1346,19 +1346,42 @@ gone; `concepts.js` and the `0-compare-*.png` stills stay as the record.
     stands on the marker's point.
 - **Pole:** `.sp-pole`, 2px `var(--navy)`, spanning every board row and
   running `var(--s3)` below the last one to the foot.
-- **Board** (`.sp-board`): the badge's voice.
-  - Box: `background: var(--paper-raised)`, `border: 1.5px solid var(--navy)`,
-    `box-shadow: 2px 2px 0 var(--navy)`.
-  - Size: height `var(--s8)`, `padding: 0 var(--s2)`.
-  - Type: caps 13/16, `.08em`, `var(--navy)`, then the tally.
-  - West boards sit in column 1 (`justify-self: end`, no right border,
-    `margin-left: var(--s3)` for the tip). East boards sit in column 3
-    (`justify-self: start`, no left border, `margin-right: var(--s3)`).
-  - Target: 44px via `::before` −6px top/bottom.
-  - States: pressed `var(--state-press)`; focus a 2px navy outline offset 2.
-- **Arrow tip** (`.sp-tip`): a `var(--s3)`-deep navy triangle the full
-  board height on the outer end, with a paper-raised inner triangle 2.5px
-  in, so it reads as the board's outline continuing to a point.
+- **Board** (`.sp-board`): **ONE shape, a box with a point on one end.**
+  Owner: "it should look like a box with a point on one end, not like
+  multiple pieces put together".
+  - **Drawing:** each board draws an inline SVG (`svg.sp-shape`, behind the
+    label) from its exact width `w` and height `h = var(--s8)`. It holds two
+    paths with the same silhouette:
+    1. the shadow (`.sp-shadow`, `fill: var(--navy)`,
+       `transform: translate(2 2)`);
+    2. the face (`.sp-face`, `fill: var(--sp-fill, var(--paper-raised))`,
+       `stroke: var(--navy)`, `stroke-width: 1.5`,
+       `stroke-linejoin: miter`): one continuous outline round box and point.
+  - **The path** (`boardPath()`, stroke inset `i = 0.75`, point depth
+    `t = var(--s3)`, tip pulled in 1.5px so the miter stays inside):
+    - east: `M i i H w−t L w−1.5 h/2 L w−t h−i H i Z`;
+    - west: the mirror, `M w−i i H t L 1.5 h/2 L t h−i H w−i Z`.
+  - **The SVG's size is w+2 × h+2**, for the shadow. **Gotcha:** leaflet.css
+    gives `.leaflet-map-pane svg` a `z-index: 200`, so the shape needs
+    `.sp-board .sp-shape { position: absolute; z-index: -1 }` (higher
+    specificity). The button has `isolation: isolate`, and the label sits in
+    `span.sp-lab` (`position: relative; z-index: 1`).
+  - **Button:** `width: {w}px` inline, `height: var(--s8)`, `padding: 0
+    var(--s2)`, plus `var(--s3)` on the pointed side for the point. No CSS
+    border, background or box-shadow (the SVG is the box).
+    - Type: caps 13/16, `.08em`, `var(--navy)`, then the tally.
+    - Target: 44px via `::before` −6px top/bottom.
+    - Pressed: `--sp-fill: var(--state-press)` (the face's fill).
+    - Focus: a 2px navy outline offset 2.
+  - **Width** (`boardW()`): the measured label + `var(--s2)` padding each
+    side + the `var(--s3)` point. The sign's rect adds 2px on the right for
+    the shadow.
+  - **On the post:** west boards sit in column 1 (`justify-self: end`), east
+    boards in column 3 (`justify-self: start`). The flat end meets the pole,
+    with its outline intact.
+- **Self-checked at 3x:** short and long names, both directions, stacked
+  and lone. The outline runs unbroken into the point and the shadow follows
+  it. See the 3x crop row at the foot of `9-signposts.png`.
 - **a11y:** the post has `role="group"`, labelled with its cities; each board
   has `aria-label` "Go to {city}, {n}".
 
