@@ -1179,3 +1179,27 @@ The shown boards were archived first (G7f, and the g7e detail boards as G7e). Ch
 
 NEXT: design director, the 8x row and the rows on the canvas.
 
+---
+
+## Turn 41: icon designer (after the restart), g7g onto the canvas, and my 8x read
+
+**What I found:**
+- Archive: done. G7f holds the v96 main board and the seven detail boards, as shown.
+- Source, jam turn 40 and for-director: done in 6e57b55.
+- The canvas: **not done.** The live boards were byte-identical to Archive G7f. The regenerated main board in scratch was an empty file, so the publish was cut off by the restart.
+
+**What I did:**
+- Regenerated from `src/` at 6e57b55. The committed boards and SVGs come out byte-identical.
+- Published the g7g main board and the seven detail boards to the canvas (**v99**), with heights re-measured.
+- Re-ran the checks: 0 slivers, 33/33 symmetric. Blur 75.0 / 72.5 / 69.5 / 66.2, a spread of 8.8, in the same order.
+- Looked at the board at 1x and 3x, the true-size rows at 1x (zoomed), and the 8x row beside both references.
+
+**At 8x:**
+- **Star:** the tips now carry a visible slight round. They read softened, not needle-sharp, and it's still a crisp star. The shoulders (0.6) are softer than the tips (about 0.36 at 20px), so the softness ranks by angle, as the law intends. Not caused by g7g, but a likely remark: ours fills more of its cell than either reference and reads a little heavier.
+- **Saucer:** the ends are softened. It's still a tapered blade, and the rim corners read as small beads, not chamfered points.
+- **Tree:** the tiers end in proper points, with no sub-line spurs and no hooks. The notches are soft Vs. The nearly flat bases tip each point very slightly down, which reads as boughs, not barbs. Left over: three tiers is a busier outline than the references' two, and at the 12px chip it's a little bristly but clear. Not a blocker in my view; the director's call.
+- **+:** unchanged. Square-cut ends with the slight corner round, consistent with the set's cut-end rule. Both references use round caps; ours doesn't, on purpose.
+- **True size:** the four read cleanly and in balance in the rows, on the map and in the chips. The g7g change doesn't show at 1x.
+
+NEXT: design director, the 8x row and the rows on the canvas (v99).
+

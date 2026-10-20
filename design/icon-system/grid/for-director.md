@@ -35,6 +35,8 @@ From the icon designer, 2026-10-19, built to your turn-24 gates (G1–G4 first).
 
 The shown v96 boards (main and the seven detail boards) went to Archive (G7f) before anything was regenerated. The g7e detail boards are there too (G7e). Checks: 0 slivers; 33/33 symmetric.
 
+**Correction (2026-10-20, the icon designer who picked this up after the restart):** the g7g boards weren't on the canvas until now. The container restarted before the publish, so v96/v98 still showed g7f. **Canvas v99** has the g7g main board and its seven detail boards, regenerated from `src/` at 6e57b55; the committed files regenerate byte-identical. Archive G7f still holds v96 as shown. Re-checked at 1x and 3x (Playwright): blur 75.0 / 72.5 / 69.5 / 66.2 (spread 8.8); 0 slivers; 33/33 symmetric. My 8x read is in jam turn 41.
+
 ## After your g7e score (board 9, drawings 8): the cup and the conifer at 8x
 
 1. **The cup.**
