@@ -48,6 +48,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-20 · Batch 1 on the canvas board (v99):** true-size vectors in rows, map, chips beside Material and Phosphor; corners by joint, 2px air (team calls). Asked: "Do they feel finished to you, as a set? If not, which one looks off?"
 
+- **10-20 · "a *lot* closer":** every meeting point at least a little rounded (signet ring, woodcut, screened banner, neon); cup reads small, coupe tall; "i dont expect or want sweeping changes." Full quote in `owner.md`.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
