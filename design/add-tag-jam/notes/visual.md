@@ -424,3 +424,10 @@
   stick, because a stickless board points at nothing and breaks the
   metaphor. To fix: a clamped lone sign keeps a full `--s3` foot. Prototype
   67efbd30.
+- **2026-10-20, sticks (CD/UX fixes):**
+  - The default is `post`; there is a foot dot (`--s2`) and the stick is
+    `--s4`.
+  - A nudged sign means pointer mode: no stick, the lone arrow toward its
+    city, re-clamped.
+  - `pointer-events: none` on the post.
+  - Prototype ce7cd2f2/0488c54d; owner sheet `9-signposts.png`.
