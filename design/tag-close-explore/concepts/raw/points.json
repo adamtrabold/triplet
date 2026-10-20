@@ -230,5 +230,115 @@
  "pin-ring-4-stop": {
   "x": 195,
   "y": 122
+ },
+ "pin-odisc-1-plain": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc-2-starred": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc-3-visited": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc-5-district": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc-4-stop": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-pdisc-1-plain": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-pdisc-2-starred": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-pdisc-3-visited": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-pdisc-5-district": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-pdisc-4-stop": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-ix-1-plain": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ix-2-starred": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ix-3-visited": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ix-5-district": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ix-4-stop": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ox-1-plain": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ox-2-starred": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ox-3-visited": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ox-5-district": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-ox-4-stop": {
+  "x": 195,
+  "y": 122,
+  "fixed": 1
+ },
+ "pin-odisc+pin-nostar-1-plain": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc+pin-nostar-2-starred": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc+pin-nostar-3-visited": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc+pin-nostar-5-district": {
+  "x": 195,
+  "y": 122
+ },
+ "pin-odisc+pin-nostar-4-stop": {
+  "x": 195,
+  "y": 122
  }
 }

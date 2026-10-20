@@ -86,3 +86,21 @@ Sheet: `concepts/pin-colour.png`; phone sheets `concept-pin-navy.png` (today, fo
 
 Pick: B, brand orange. It's the most unmistakably "close" (loud, action-coloured, never visited) using the one accent the app already has.
 Open: on a starred place, does the star even need to stay on the closing pin (the tag's band already says starred)? Dropping it there removes B's only weak spot.
+
+## Round 4: no ring (2026-10-20)
+Owner, verbatim: "i dont like any of these. i dont think the close pin needs a ring"
+
+Four ringless options, two kinds by two inks, all with existing tokens (none needs a new one):
+- A. **Orange disc** (`pin-odisc`): --brand-orange disc, --ink x, the tag's shadow only.
+- B. **Paper disc** (`pin-pdisc`): --paper-raised disc, --ink x, the tag's shadow and a .5px warm edge. Quiet; on pale tiles it nearly matches the map.
+- C. **Just the x, ink** (`pin-ix`): no disc, a 26px --ink x on a paper halo. The string runs up to the x's crossing
+  (`top: -16px`), so the x hangs from its own knot. A gap between a bare glyph and the string read as a rough join.
+- D. **Just the x, orange** (`pin-ox`): the star's own map treatment applied to the x (orange, --star-deep keyline, paper halo).
+  It has the same string join. Next to the orange star on a starred pin the two marks look alike.
+Star question, answered visually for A: `pin-nostar` hides the closing pin's star. The tag's band already says starred,
+and without the star the orange disc is a single clean mark.
+Sheet: `concepts/pin-ringless.png`; phone sheets `concept-pin-odisc.png`, `concept-pin-pdisc.png`, `concept-pin-ix.png`,
+`concept-pin-ox.png`, `concept-pin-odisc-star.png` (with/without the star).
+
+Pick: A, orange disc, without the star on the closing pin. It's loud enough to read as "close", it's never navy or a
+category colour, and it shares the + badge's colour.
