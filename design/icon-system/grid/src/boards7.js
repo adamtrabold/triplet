@@ -443,6 +443,138 @@ ${WOPTS.map(([key, title]) => `<div class="srow"><div class="k">${title}</div><d
 </section>`;
 }
 
+// ---- g7k: THE TAPER, several making methods beside no taper (owner: "have the team come up with the rule and
+// give me a version of icons following it and not following it"; "several options is fine, i just dont want to
+// lose the no taper option"). Each option is the same grid with one style switch (picks7.js, o.style).
+const TOPTS = [
+  ['none', 'No taper', 'Every line an even 1.5px, the same weight as the badge ring, like neon tube or a screened line.'],
+  ['punch', 'Counterpunch', 'Like the counterpunch a punchcutter strikes into metal type: a hole is the outside shape made smaller, so its wall is full where the shape bulges and thins where it narrows. Applies to holes cut into a solid: the coupe\'s band, the star\'s hole.'],
+  ['burin', 'Engraver\'s burin', 'Like a line engraved into a signet ring: a line thins where it ends free, as the graver lifts out. Applies to free ends: the +\'s arms, the trunk. Closed outlines stay even.'],
+  ['woodcut', 'Woodcut', 'Like wood left standing in a woodcut: an upright is stoutest where it meets the mass it holds up. Applies to posts: the coupe\'s stem, the columns, the trunk.'],
+];
+const TSET = {};
+for (const [key] of TOPTS) {
+  const o = { style: key }, dm = {}; for (const [id] of BATCH) dm[id] = s => DRAW[id](s, o);
+  TSET[key] = {};
+  for (const [id] of BATCH) {
+    const s = fitS(id, 12, dm), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dm[id](s);
+    const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
+    TSET[key][id] = E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
+  }
+  TSET[key].star = E.build(star(20, USC.star, W, key), { law: scaled(LAWS7.joint, 24 / 20) }).d;
+  TSET[key].plus = E.build(plus(26.4, USC.plus, W, key), { law: scaled(LAWS7.joint, 24 / 26.4) }).d;
+}
+const T_Q = 'The taper you liked on the coupe, made into a rule three ways, each from a real way of making a mark, with no taper at all on the top row. Which do you want, if any?';
+function sheetTaper() {
+  const N = COL.navy, I2 = COL.ink2, big = 118;
+  const ids = ['cafe', 'bar', 'museum', 'nature', 'plus', 'star'];
+  const ui = (key, id, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${TSET[key][id]}" fill="${N}"/></svg>`;
+  const cellBig = (key, id) => id === 'star' || id === 'plus'
+    ? `<svg width="${big}" height="${big}" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" fill="${COL.paper}"/><g transform="translate(${f2(12 - 12 * UIP[id][1] / 24)} ${f2(12 - 12 * UIP[id][1] / 24)}) scale(${f2(UIP[id][1] / 24)})"><path d="${TSET[key][id]}" fill="${N}"/></g></svg>`
+    : badge(TSET[key][id], big);
+  const trueSize = key => `<div style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;align-items:center;gap:10px;height:56px;background:#F1E9DB;padding:0 10px;border-bottom:1px solid ${COL.hair}">${badge(TSET[key].bar)}<div style="flex:1;font-size:16px;font-weight:600;color:${COL.ink}">Tjoget<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">BAR · STOCKHOLM</div></div>${ui(key, 'star', 20)}</div><div style="display:flex;align-items:center;gap:8px">${['cafe', 'bar', 'museum', 'nature'].map(id => badge(TSET[key][id])).join('')}${ui(key, 'star', 20)}${plusBadge(ui(key, 'plus', 26.4), 60)}</div><div style="display:flex;align-items:center;gap:8px">${['cafe', 'bar', 'museum', 'nature'].map(id => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${TSET[key][id]}" fill="${N}"/></svg>`).join('')}</div></div>`;
+  const rows = TOPTS.map(([key, nm, line]) => `<div style="display:grid;grid-template-columns:300px 330px 1fr;gap:32px;align-items:center;padding:28px 0;border-top:${key === 'none' ? 4 : 1}px solid ${key === 'none' ? N : COL.hair}">
+<div><div style="font-size:24px;font-weight:700;color:${N};margin-bottom:6px">${nm}</div><div style="font-size:16px;line-height:1.4;color:${I2}">${line}</div></div>
+<div>${trueSize(key)}</div>
+<div style="display:flex;gap:14px">${ids.map(id => cellBig(key, id)).join('')}</div></div>`).join('');
+  return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
+<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${I2};text-transform:uppercase">Icon set · the first six · the taper</div>
+<h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${N}">The taper: three rules, and none</h1>
+<div style="margin:18px 0 40px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div><div style="font-size:26px;line-height:1.3;color:${N};font-weight:600">${T_Q}</div></div>
+<div style="display:grid;grid-template-columns:300px 330px 1fr;gap:32px;font-size:13px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;padding-bottom:10px"><div>The rule</div><div>True size</div><div>Large (8x): café, bar, museum, nature, +, star</div></div>
+${rows}
+</div>`;
+}
+
+// ---- THE MASTER GRID (owner, 10-20: "please have a board with the master grid"): the one source a new
+// icon is drawn from. Every figure here is built from the live rules (KEY/CLASS and the roots in picks7.js,
+// the joint law in laws7.js, fitS() and starRc() here), so the board changes whenever a rule does.
+function sheetMaster() {
+  const N = COL.navy, O = COL.or, H = COL.hair, I2 = COL.ink2, PA = COL.paper;
+  const lab = (x, y, t, o = {}) => `<text x="${f2(x)}" y="${f2(y)}" font-family="Archivo, Arial, sans-serif" font-size="${o.fs || 0.55}" font-weight="${o.fw || 700}" fill="${o.fill || I2}" text-anchor="${o.a || 'start'}">${t}</text>`;
+  const title = t => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 14px">${t}</div>`;
+  const cap = t => `<div style="font-size:15px;line-height:1.35;color:${I2};margin-top:8px;text-align:center">${t}</div>`;
+  const panel = (inner, w) => `<div style="width:${w}px">${inner}</div>`;
+  // 1. THE BADGE: ring, air, live circle, the 12px box (the token), guides, the 1px grid and the 1/3px lattice
+  const S = 30;   // px per unit
+  let g = `<rect x="0" y="0" width="24" height="24" fill="${COL.raised}"/>`;
+  for (let i = 1; i < 72; i++) if (i % 3) g += `<line x1="${f2(i / 3)}" y1="0" x2="${f2(i / 3)}" y2="24" stroke="${H}" stroke-width="0.01" opacity=".6"/><line x1="0" y1="${f2(i / 3)}" x2="24" y2="${f2(i / 3)}" stroke="${H}" stroke-width="0.01" opacity=".6"/>`;
+  for (let i = 1; i < 24; i++) g += `<line x1="${i}" y1="0" x2="${i}" y2="24" stroke="${H}" stroke-width="0.03"/><line x1="0" y1="${i}" x2="24" y2="${i}" stroke="${H}" stroke-width="0.03"/>`;
+  g += `<circle cx="12" cy="12" r="11.25" fill="none" stroke="${N}" stroke-width="1.5"/>`;
+  g += `<circle cx="12" cy="12" r="10.5" fill="none" stroke="${O}" stroke-width="0.04" stroke-dasharray="0.25 0.2"/>`;      // ring's inner edge
+  g += `<circle cx="12" cy="12" r="8" fill="none" stroke="${N}" stroke-width="0.05" stroke-dasharray="0.4 0.25"/>`;         // live circle
+  g += `<circle cx="12" cy="12" r="6" fill="none" stroke="${O}" stroke-width="0.07"/>`;                                     // the coin
+  g += `<rect x="6" y="6" width="12" height="12" fill="none" stroke="${N}" stroke-width="0.05"/>`;                          // the 12px box
+  g += `<line x1="6" y1="12" x2="18" y2="12" stroke="${O}" stroke-width="0.03"/><line x1="12" y1="6" x2="12" y2="18" stroke="${O}" stroke-width="0.03"/>`;
+  g += `<line x1="4.5" y1="6" x2="19.5" y2="6" stroke="${N}" stroke-width="0.03" stroke-dasharray="0.3 0.2"/><line x1="4.5" y1="18" x2="19.5" y2="18" stroke="${N}" stroke-width="0.03" stroke-dasharray="0.3 0.2"/><line x1="4.5" y1="5.5" x2="19.5" y2="5.5" stroke="${O}" stroke-width="0.03" stroke-dasharray="0.15 0.15"/>`;
+  g += lab(19.7, 6.2, 'TOP', { fs: 0.42 }) + lab(19.7, 18.2, 'BASE', { fs: 0.42 }) + lab(19.7, 5.45, 'APEX +1/2', { fs: 0.42, fill: O }) + lab(19.7, 12.15, 'MIDDLE', { fs: 0.42, fill: O });
+  g += lab(12, 3.15, '2PX OF AIR', { a: 'middle', fs: 0.42 }) + lab(12, 5.25, 'LIVE CIRCLE Ø16', { a: 'middle', fs: 0.42 }) + lab(12, 7.05, 'THE COIN Ø12 · THE BOX 12', { a: 'middle', fs: 0.42, fill: O });
+  const badgeFig = `<svg width="${24 * S}" height="${24 * S}" viewBox="0 0 24 24" aria-hidden="true">${g}</svg>`;
+  // 2. THE TOKEN: every class is a cut with the coin's area (drawn at 8x, coin in grey, cut in orange)
+  const C8 = 10, cutFig = (cls, inner) => `<svg width="${16 * C8}" height="${16 * C8}" viewBox="4 4 16 16" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="${COL.raised}"/><circle cx="12" cy="12" r="6" fill="none" stroke="${H}" stroke-width="0.12"/>${inner}</svg>`;
+  const ok = `fill="${O}" fill-opacity=".14" stroke="${O}" stroke-width="0.12"`;
+  const rectCut = ([w, h], apex) => `<rect x="${f2(12 - w / 2)}" y="${f2(12 - h / 2)}" width="${f2(w)}" height="${f2(h)}" ${ok}/>` + (apex ? `<line x1="10" y1="${f2(12 - h / 2 - apex)}" x2="14" y2="${f2(12 - h / 2 - apex)}" stroke="${O}" stroke-width="0.12" stroke-dasharray="0.3 0.2"/>` : '');
+  const sR = starRc(), pent = [...Array(5)].map((_, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5, r = sR + (W / 2) / Math.sin(Math.PI / 10); return `${f2(12 + r * Math.cos(a))},${f2(12 + r * Math.sin(a))}`; }).join(' ');
+  const holeR = 0.47 * sR - (W / 2) / Math.sin(3 * Math.PI / 10);
+  const token = [
+    ['Wide', cutFig('WIDE', rectCut(KEY.WIDE)), `${fr(KEY.WIDE[0])} × ${fr(KEY.WIDE[1])}`, 'cup, museum'],
+    ['Square', cutFig('SQUARE', rectCut(KEY.SQUARE)), `${fr(KEY.SQUARE[0])}`, 'coupe'],
+    ['Tall', cutFig('TALL', rectCut(KEY.TALL, APEX)), `${fr(KEY.TALL[0])} × ${fr(KEY.TALL[1])} · apex +1/2`, 'tree'],
+    ['Round', cutFig('ROUND', `<circle cx="12" cy="12" r="6" ${ok}/>`), 'Ø12', 'radial marks'],
+    ['Outline', cutFig('OUTLINE', `<polygon points="${pent}" ${ok}/><circle cx="12" cy="12" r="${f2(holeR)}" fill="none" stroke="${N}" stroke-width="0.12"/>`), 'hull ≥ coin · hole ≥ 2 lines', 'star'],
+    ['Open', cutFig('OPEN', `<rect x="${12 - W / 2}" y="6" width="${W}" height="12" ${ok}/><rect x="6" y="${12 - W / 2}" width="12" height="${W}" ${ok}/>`), 'arms span 12 · every line 1.5', '+'],
+  ].map(([n, fig, dims, who]) => `<div style="display:flex;flex-direction:column;align-items:center">${fig}<div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${n}</div><div style="font-size:14px;color:${I2};text-align:center">${dims}</div><div style="font-size:14px;color:${I2};text-align:center;font-style:italic">${who}</div></div>`).join('');
+  // 3. ROOT SHAPES, drawn generic from the same helpers as the icons, at 10x, with their dimensions
+  const R10 = 10, root = (prims, vb, nm, dim) => { const d = E.build(prims, { law: LAWS7.joint }).d; return `<div style="display:flex;flex-direction:column;align-items:center"><svg width="${vb[2] * R10}" height="${vb[3] * R10}" viewBox="${vb.join(' ')}" aria-hidden="true"><path d="${d}" fill="${N}"/></svg><div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${nm}</div><div style="font-size:14px;color:${I2};text-align:center">${dim}</div></div>`; };
+  const cupPr = DRAW.cafe(12), barPr = DRAW.bar(12);
+  const roots = [
+    root([E.R(0, 0, 9, WH)], [-0.5, -0.5, 10, WH + 1], 'Slab', 'every base and span · 4/3 thick'),
+    root([E.R(0, 0, W, 7)], [-0.5, -0.5, W + 1, 8], 'Post', 'every stem, column, trunk, arm · 1.5 wide'),
+    root([E.P([4, 0], [8, 3.5], [0, 3.5])], [-0.5, -0.5, 9, 4.5], 'Gable', 'every roof and tier · flat base'),
+    root([barPr[0], ...barPr.filter(p => p.cut)].map(p => p), [-0.2, -0.5, 12.4, 6.6], 'Vessel', 'every bowl · rim, clear band, drink'),
+    root([cupPr[0], cupPr[2]], [6.5, 0.4, 5.6, 6.6], 'Loop', 'every handle and outline · 1.5 band'),
+  ].join('');
+  // 4. CORNERS by joint: specimens built and rounded by the live law, at 16x, radius read from the law
+  const r = (convex, angle, lin = 4, lout = 4) => LAWS7.joint({ convex, angle, lin, lout });
+  const K16 = 16, spec = (prims, vb, nm, rr, mark) => { const d = E.build(prims, { law: LAWS7.joint }).d; return `<div style="display:flex;flex-direction:column;align-items:center"><svg width="${vb[2] * K16}" height="${vb[3] * K16}" viewBox="${vb.join(' ')}" aria-hidden="true"><rect x="${vb[0]}" y="${vb[1]}" width="${vb[2]}" height="${vb[3]}" fill="${COL.raised}"/><path d="${d}" fill="${N}"/>${mark ? `<circle cx="${mark[0]}" cy="${mark[1]}" r="0.55" fill="none" stroke="${O}" stroke-width="0.08"/>` : ''}</svg><div style="font-size:16px;font-weight:700;color:${N};margin-top:6px">${nm}</div><div style="font-size:14px;color:${O};font-weight:700">${rr}</div></div>`; };
+  const corners = [
+    ['Inside', spec([E.R(0, 3, 6, WH), E.R(2.25, 0, W, 3.1)], [0.5, 0, 5, 5], 'Join', `${fr3(r(false, 90))}`, [2.25, 3])],
+    ['Inside', spec([E.P([0, 0], [3, 3], [6, 0], [6, 4], [0, 4])], [0.5, -0.5, 5, 5], 'Notch', `${fr3(r(false, 60))}`, [3, 3])],
+    ['Inside', spec([E.P([0, 4], [2, 2], [6, 2], [6, 5], [0, 5])], [0, 0.8, 5, 5], 'Wide inside', `${fr3(r(false, 135))}`, [2, 2])],
+    ['Outside', spec([E.R(0, 0, W, 6)], [-1, -1, 3.5, 3.5], 'Cut end', `${fr3(r(true, 90, W, 6))}`, [0, 0])],
+    ['Outside', spec([E.P([2, 0], [4, 4.5], [0, 4.5])], [-0.5, -0.5, 5, 5], 'Tip', `${fr3(r(true, 50))}`, [2, 0])],
+    ['Outside', spec([E.R(0, 0, 5, 5)], [-1, -1, 4, 4], 'Mass corner', `${fr3(r(true, 90, 5, 5))}`, [0, 0])],
+    ['Outside', spec([E.P([0, 2], [3, 0], [6, 2], [6, 5], [0, 5])], [-1, -1, 5, 5], 'Wide outside', `${fr3(r(true, 135))}`, [3, 0])],
+  ];
+  const cornerRow = `<div style="display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap">${corners.map(([, s]) => s).join('')}</div>`;
+  // 5. LINE WEIGHT and the lattice
+  const LW = 40, weight = `<svg width="${14 * LW}" height="${6 * LW}" viewBox="0 0 14 6" aria-hidden="true"><rect width="14" height="6" fill="${COL.raised}"/>${[...Array(18)].map((_, j) => `<line x1="0" y1="${f2(j / 3)}" x2="14" y2="${f2(j / 3)}" stroke="${H}" stroke-width="0.02"/>`).join('')}<rect x="1" y="0.5" width="${W}" height="5" fill="${N}"/><rect x="4" y="${f2(2 / 3)}" width="9" height="${f2(WH)}" fill="${N}"/><rect x="4" y="${f2(3 + 1 / 3)}" width="9" height="${W}" fill="${N}" fill-opacity=".55"/>${lab(1.75, 5.9, '1.5', { fs: 0.4, a: 'middle', fill: N })}${lab(8.5, 2.6, 'HORIZONTAL IN A MASS 4/3, ON THE 1/3PX LATTICE', { fs: 0.32, a: 'middle', fill: N })}${lab(8.5, 5.6, 'OPEN MARKS: EVERY LINE 1.5', { fs: 0.32, a: 'middle', fill: N })}</svg>`;
+  // 6. THE STACKED GABLE: the notch shelf, from the live tree
+  const tr = DRAW.nature(12), shelf = 1.5 * W, tg = E.build(tr, { law: LAWS7.joint }).d;
+  const tierB = tr.filter(p => p.root === 'GABLE').map(p => p.pts);
+  const sh = tierB.slice(0, -1).map(pts => { const by = pts[1][1], x = pts[1][0]; return `<line x1="${f2(x - shelf)}" y1="${f2(by + 0.45)}" x2="${f2(x)}" y2="${f2(by + 0.45)}" stroke="${O}" stroke-width="0.12"/><line x1="${f2(x - shelf)}" y1="${f2(by + 0.2)}" x2="${f2(x - shelf)}" y2="${f2(by + 0.7)}" stroke="${O}" stroke-width="0.08"/><line x1="${f2(x)}" y1="${f2(by + 0.2)}" x2="${f2(x)}" y2="${f2(by + 0.7)}" stroke="${O}" stroke-width="0.08"/>`; }).join('');
+  const stack = `<svg width="${14 * 22}" height="${14 * 22}" viewBox="-1 -1 14 14" aria-hidden="true"><rect x="-1" y="-1" width="14" height="14" fill="${COL.raised}"/><path d="${tg}" fill="${N}"/>${sh}</svg>`;
+  return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
+<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${I2};text-transform:uppercase">Icon grid · the master</div>
+<h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${N}">The master grid</h1>
+<p style="margin:0 0 40px;font-size:19px;line-height:1.45;max-width:1150px">Everything a new icon is drawn from, in one place. Built from the live rules, so it changes when a rule does. Units are px at the list size (badge 24).</p>
+<div style="display:grid;grid-template-columns:${24 * S}px 1fr;gap:56px;align-items:start;margin-bottom:64px">
+<div>${title('Badge, air, live area, guides')}${badgeFig}${cap('Ring 1.5 · 2px of air · live circle Ø16 · the coin Ø12 in the 12px box. Grid: 1px; faint: the 1/3px lattice horizontals sit on.')}</div>
+<div>${title('The token: size by class')}<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:28px 16px">${token}</div>${cap('Every cut has the coin\'s area. The grid fits the drawing to its cut; a lone apex passes by 1/2.')}</div>
+</div>
+${title('Root shapes: like parts, one shape')}
+<div style="display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap;margin-bottom:64px">${roots}</div>
+${title('Corners by joint: every meeting slightly round, inside tighter than outside')}
+${cornerRow}
+${cap('A round is never more than 0.2 of the shorter edge at its corner. No ink traps.')}
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px">
+<div>${title('Line weight')}${weight}</div>
+<div>${title('Stacked gables')}${stack}${cap(`Every notch shelf is the same depth: one and a half lines, ${shelf}px.`)}</div>
+</div>
+</div>`;
+}
+const fr3 = v => (Math.round(v * 100) / 100).toString();
+
 // ---- the main board: the set, live vectors, in place at true size and large, beside the references --
 const LOOK_COLS = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature'], ['plus', 'Add (+)'], ['star', 'Star']];
 const LOOK_Q = ASK;
@@ -597,6 +729,9 @@ if (require.main === module) {
     fs.writeFileSync(path.join(ROOT, 'cards-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 7: batch 1 redrawn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
+    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
+<style>body{margin:0}</style></head><body>${fn()}</body></html>\n`);
     fs.writeFileSync(path.join(ROOT, 'board-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Batch 1, the set</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0}</style></head><body>${sheetLook()}</body></html>\n`);
@@ -655,6 +790,31 @@ body{margin:0}
 </style>
 </helmet>
 ${sheetLook()}
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
+`);
+    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${ttl}</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+${fn()}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
 class Component extends DCLogic {

@@ -155,3 +155,7 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > i dont care at all about how other systems size icons btw ours should be specific to our app. the grid and various drawing approaches should be as much a part of the brand as anything
 > (canvas comment, 10-20, on "The set, at real size", v115) needs a bit more liquid   (the coupe: clear band to the 1.5px counter minimum, bowl 1/3px deeper; g7k)
 > (canvas comment, 10-20, on "The set, at real size", v115) i think the branches should be a bit more indented -- looks like a triangle at 100%   (stacked-gable rule: notch shelf from one line to one and a half lines; g7k)
+> (canvas comment, 10-20, on "The corners, on the redrawn set") i think its interesting that the side lines taper... we don't do that on other icons... is there a principle here this is aligning to?   (the coupe's band walls: a scaled cut, no principle)
+> i like the handmade look of the taper, but im not sure what in the real world it would allude to -- drawing method? cutting tool? or just drawing style? have the team come up with the rule and give me a version of icons following it and not following it
+> several options is fine, i just dont want to lose the no taper option   (taper board: no taper, counterpunch, burin, woodcut; g7k)
+> (canvas comment, 10-20) please have a board with the master grid   (Grid7Master, beside the main board; g7k)
