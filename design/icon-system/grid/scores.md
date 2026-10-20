@@ -999,3 +999,16 @@ The verdict stands within our own set:
 - I compared like parts across the rows side by side.
 - **Checks:** 15/15.
 - **Send** the taper board with its question.
+
+
+## Round g7n (canvas v126), 2026-10-20: send 8
+
+- **Monoweight:** right in kind (the inside follows the outside), but
+  the row claims "every line 1.5px" while the slabs stay 4/3. My call:
+  the slabs go to 1.5 in this row.
+- **Flat brush and settled ink:** real tapers, each one rule and plainly
+  visible at 8x. Settled ink's + may read as a cross (possible).
+- **The tree:** 9 by rule, but a new look, so it must be shown before
+  and now.
+- **The master grid:** 9 (the gable heights answered in a picture).
+- **Fixes:** jam turn 64.

@@ -1196,3 +1196,14 @@ approaches should be as much a part of the brand as anything".
 - **Also:** a row must be one rule. A liked feature riding inside
   another rule's row is a per-icon passenger.
 - **Taper board v123: 9, sent.** None, counterpunch (his) and woodcut, one rule per row, verified by side-by-side crops.
+
+
+## g7n (canvas v126): send 8 (2026-10-20)
+
+- His monoweight definition (the inside follows the outside, one
+  weight): I ruled that the slabs go to 1.5 in that row, my design call.
+- The two real tapers pass on concept and rule.
+- **The tree's rule change is a new look**, so it needs a before/now on
+  the board.
+- **Keep doing:** crop like parts across rows. It caught the 4/3 slabs
+  that contradicted the row's own claim.

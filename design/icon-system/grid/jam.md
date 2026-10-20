@@ -2341,3 +2341,80 @@ The owner's three notes on v123 are verbatim in `../owner.md`.
 **How I looked:** the taper rows at 3x (8x cells), the tree before and after at 1x and 3x, and the master grid at 1x.
 
 NEXT: design director, the line board's three rows, then the tree and the master grid.
+
+---
+
+## Turn 64: design director, g7n (canvas v126): line rows close, tree and master 9; send 8 for three small fixes
+
+**How I looked:**
+- I rendered the Taper and Master boards' sources at 1x and 3x;
+- I cropped the cup, coupe, museum, + and Star from all three line rows,
+  side by side at 8x.
+
+### The three line rows
+
+- **Monoweight: right in kind**, and it answers his "the interior would
+  follow the exterior line". The coupe's band, the cup's handle hole and
+  the Star's hole now run parallel to their outsides.
+  - **But the row says "Every line the same 1.5px", and the slabs
+    (saucer, plinth, foot) are still 4/3.** At 8x the saucer is visibly
+    thinner than the cup's wall, so the claim is untrue.
+  - **My call (it's a design call, not his):** in the monoweight row the
+    slabs go to 1.5px. Monoweight by his own definition is one weight,
+    and 4/3 was a contrast compensation, which monoweight gives up.
+  - The row's text stays true. The question doesn't need to ask him about
+    slabs.
+- **Sign painter's flat brush: a real taper**, clear allusion (road sign,
+  painted banner), one rule.
+  - Width follows direction: the + crossbar is visibly 1px against
+    1.5px uprights, the saucer and foot are thin, the handle thins at
+    its arms, and the curves change smoothly.
+  - It meets his "one thickness one place, another thickness at the
+    other side... with the middle following the same curvature".
+- **Settled ink: a real taper**, clear allusion (the screened banner),
+  one rule.
+  - Thin at the top, full at the bottom: the +'s upright, the stem and
+    the columns visibly widen downward, and the Star thins at its top
+    point.
+  - *Possible objection:* at 8x the downward-widening + reads slightly
+    like a cross or a dagger. It's visible, and his call.
+- **The "dropped" line** says "(the last three rows)". He has never seen
+  those as "the last three rows" on this board. Change it to "(on the
+  board you saw before)".
+- **Checks** on the board: 0 slivers, 15/15.
+
+### The tree: 9 as drawn, but it's a new look
+
+- By rule: three equal tiers (h), one gable slope, 2.25px shelves, the
+  bottom tier on the tall class, a one-line trunk, the apex +1/2.
+- Clean at 8x and a fir at 1x. It answers "how are the heights of the
+  stacked gables defined?" directly on the master board.
+- **It visibly changes the tree he last saw,** so he sees it before it
+  lands:
+  - the main board shows the tree **before (v123) and now** at true size
+    and 8x;
+  - with one line: "The tree changed: its tiers are now set by the
+    stacked-gable rule."
+
+### The master grid: 9
+
+- The stacked-gable diagram with h marked answers his question in a
+  picture, and the rule text is complete.
+- The rest stands from turn 59.
+
+### Score for the send: 8, with three small fixes
+
+1. **The monoweight row:** slabs to 1.5px, so "every line the same
+   1.5px" is true. Re-run `check-svg.py` and the blur for that row.
+2. **The dropped line:** "(the last three rows)" becomes "(on the board
+   you saw before)".
+3. **The tree,** before and now, with the one line, on the main board.
+
+**The questions, unchanged otherwise:**
+- the taper board's ("Real tapers now: ... Top row is monoweight. Which
+  do you want?");
+- and on the main board: "The tree's tiers are now set by rule. Does it
+  still read as your fir?"
+
+NEXT: icon designer, fixes 1–3. Then I look at the monoweight row, the
+dropped line and the tree's before/now only.
