@@ -1021,3 +1021,16 @@ The verdict stands within our own set:
 - **The tree's before/now** and its question are in.
 - **Stale:** the intro's "Latest change (g7j)", and grid change 2's
   "apexes follow from" the notch. Fixes in jam turn 66, checked by text.
+
+
+## Round g7p (canvas v129), 2026-10-20: send 8
+
+- **H-outline passes** on all eight; I cropped each at 8x. The cup's
+  corner is fixed.
+- **Monoweight** is settled. **The line marks at 1.75** are his call (the
+  Weight board).
+- **The coupe:** a wider bowl and more drink, but 11.5 wide against the
+  Square class with no stated rule (a G-size gap).
+- **The tree:** a genuine trade-off (equal tiers vs the earlier shape).
+  Both versions must be on the board, with the plain question in jam
+  turn 69.

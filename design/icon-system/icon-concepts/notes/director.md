@@ -1228,3 +1228,13 @@ approaches should be as much a part of the brand as anything".
   - the line marks in the middle weight;
   - monoweight.
 - **Tree correction:** keep the g7n proportions *and* bring back v123's intentional, non-standard-triangle shape, by rule. I overstated him as "v123 back". Score both halves.
+
+
+## g7p (canvas v129): send 8 (2026-10-20)
+
+- H-outline was run and passed on all eight (I cropped each at 8x).
+- **The coupe's 11.5 bowl has no class rule:** a G-size gap.
+- **The tree:** "the proportions now" plus "the intentionality of the
+  other one" conflict, so it's his call. Both trees go on the board.
+- **Rule for myself:** when two of his wishes pull against each other,
+  don't pick one for him. Show both, side by side, and ask plainly.

@@ -2634,3 +2634,74 @@ None caps the score.
 - The coupe sits at 55 in blur. That is the same as v128, which the owner called matching.
 
 NEXT: design director scores v129.
+
+---
+
+## Turn 69: design director, g7p (canvas v129): outline check passes; the tree is his call; send 8 for two fixes
+
+**H-outline, first:**
+- **How:** I rendered the main board's own source at 3x and cropped
+  each icon of the "Now" 8x row on its own: the cup, coupe, museum,
+  tree, + and Star.
+- **The cup: passes.** The bowl keeps its left wall and a rounded
+  bottom. The handle is its own loop, joined with a small round at its
+  lower arm. The bowl's corner no longer melts into the handle.
+- **The coupe: passes.** A wider bowl with rounded rim corners. The
+  band's inner edge runs parallel to the bowl (monoweight). The stem
+  joins are rounded and there are no flats.
+- **The museum: passes.** The pediment, beam, columns and plinth are
+  each their own part, with no lumps. The beam and plinth nubs are the
+  stated overhang.
+- **The tree: passes as drawn.** Clean points, rounded notches, no
+  hooks or ledges.
+- **The + and the Star: pass.** Even 1.75px, rounded joins and ends, and
+  the Star's hole open.
+- **The designer's claim holds.**
+
+**The other items:**
+- **Monoweight:** throughout. Settled.
+- **The line marks at 1.75px:** shown between "as they were" and
+  "heavier" at true size. That meets his "too light ... way too heavy"
+  by a class rule, not a nudge. His call by eye, with the Weight board's
+  question ("Do they now feel as heavy as the place icons?").
+- **The coupe:** his wider bowl and more drink, with the band still
+  clear at true size.
+  - **But the bowl is 11.5 wide** and the coupe's class is Square
+    (10 2/3). Nothing on the board says how the wider bowl fits the
+    token. **That's a G-size gap:** a per-icon width with no rule.
+  - **Fix:** state the rule that allows it. For example, a vessel's rim
+    may span the coin's full width (the cup's saucer already does). The
+    exact wording is the designer's; it must be a class rule and it must
+    apply to any vessel.
+
+**The tree: a genuine trade-off. It's his call, not ours.**
+- **His words:** "i like the proportions now, but i do think its less
+  interesting with the more standard triangle approach. i liked the
+  intentionality of the other one overall shape wise".
+- **"The proportions now" is ambiguous.** It could mean v128's overall
+  size, or its equal tier heights. The designer's own still shows that
+  with equal heights the earlier shape collapses back into v128's plain
+  triangle. With a taller tip (1.5h) the earlier shape comes back, but
+  the tier heights are no longer equal.
+- **On the board now** are v123, v128 and the taller-tip tree. The
+  equal-height version with the earlier shape (`TK = 1`) is missing, so
+  he can't see the trade.
+- **Fix:** add that tree, so the board shows both "now" options side by
+  side at true size and at 8x, labelled plainly:
+  - **"Equal tiers"**
+  - **"Taller tip"**
+  - with v123 and v128 beside them for reference.
+
+**The question for him, in plain words:** "The tree: with equal tiers
+(left) it keeps the proportions you liked but goes back toward a plain
+triangle. With a taller tip (right) it gets the earlier shape back, but
+the tiers aren't equal. Which do you want?"
+
+**Score for the send: 8.** H-outline passes and the craft holds.
+Two fixes are needed:
+1. the coupe's width rule;
+2. both trees on the board, with the question.
+
+NEXT: icon designer, fixes 1–2. Then I check the coupe rule's text and
+the tree pair, and the coordinator sends the main board (with the tree
+question) and the Weight board (with its question).
