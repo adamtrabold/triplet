@@ -1382,16 +1382,26 @@ build them.
   the pole's foot.
 - The stick runs **`var(--s4)`** (16) below the last board to the dot (was
   `--s3`), so it reads at 1x.
-- **A sign that has to be nudged to stay in the clear area** (its city by an
-  edge or behind a control) **drops its stick and dot and becomes a
-  pointer**:
-  - `.sp-post.is-pointer`: no pole, no foot, `padding-bottom: 0`, the
-    board's pole-side border restored;
-  - a lone board's arrow turns toward its city (east if the city lies right
-    of the sign, else west), then the board is re-clamped;
-  - **No stick ever ends in mid-air.**
-  - Example: Stockholm at z6, behind the account badge, and the
-    Copenhagen/Malmö post at z6 by the left edge.
+- **A sign nudged in to stay inside the clear area keeps its stick whenever
+  its city's dot is visible:**
+  - "Visible" means on the map, at least 4px from the map's edge, and not
+    within 4px of the zoom control, the account badge, the + badge or the
+    credit (`dotVisible()`).
+  - The boards sit where they fit (beside, above or below the dot). The
+    stick is a straight 2px navy line from the boards' nearest edge to the
+    dot, with the same `var(--s2)` foot dot:
+    - from the bottom edge (at the dot's x, clamped 4px inside the boards)
+      when the dot is below;
+    - from the top edge when the dot is above;
+    - from the side, `var(--s3)` past the arrow, when the dot is level.
+  - It is drawn as an `svg.sp-tether` in the sign's anchor, `pointer-events:
+    none`.
+  - Examples at z6: Copenhagen + Malmö by the left edge, the dot right under
+    Malmö's board; Stockholm in the top-right corner, a short leaning stick
+    up to its dot.
+- **Only a city whose dot is off-screen or under a control loses the
+  stick:** the sign becomes a pointer (`.sp-post.is-pointer`, a lone arrow
+  turned toward its city). No stick ever ends in mid-air.
 - **The stick and foot are never a tap target:** `.sp-post` has
   `pointer-events: none`; only the boards (`pointer-events: auto`) tap.
 - Lone signs not nudged point to the side with room (east unless east
