@@ -29,12 +29,12 @@ const DRAW = {
     // than wide and reads as a loop, not a boxy "P". Cup and ear are ONE outline. Its counter is closed by
     // the straight inner wall (no passage). Arms 4/3px (horizontals), back 1.5px.
     const u = s / 12, X = v => f(v * u), K = 0.5523;
-    const top = T(1.333), wall = T(4.667), bot = T(7.667), l = 1.5, r = 8.25, mid = (l + r) / 2;
+    const top = T(1), wall = T(4.667), bot = T(8), l = 1.5, r = 8.25, mid = (l + r) / 2;   // g7h: 2/3px taller (owner: the cup "reads as smaller than the others")
     const eR = 12 - 1 / 3;                                            // the ear's outer back
-    const eb = top + 5, R = (eb - top) / 2, ex = eR - R;               // ear: outer 5 tall, its back a half circle
+    const eb = top + 5 + 1 / 3, R = (eb - top) / 2, ex = eR - R;       // ear: outer 5 1/3 tall (g7h: grows with the cup, so the S into it stays gentle), its back a half circle
     // one outline: rim, ear back, ear base, then the bowl's right side as an S from the ear base down to
     // the bottom (horizontal tangents at both ends), then the left side
-    const body = D(`M${X(l)} ${X(top)}H${X(ex)}C${X(ex + R * K)} ${X(top)} ${X(eR)} ${X(top + R - R * K)} ${X(eR)} ${X(top + R)}C${X(eR)} ${X(top + R + R * K)} ${X(ex + R * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r)}C${X(r - 1.35)} ${X(eb)} ${X(mid + 1.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(2.75)} ${X(bot)} ${X(l)} ${X(6.5)} ${X(l)} ${X(wall)}Z`);
+    const body = D(`M${X(l)} ${X(top)}H${X(ex)}C${X(ex + R * K)} ${X(top)} ${X(eR)} ${X(top + R - R * K)} ${X(eR)} ${X(top + R)}C${X(eR)} ${X(top + R + R * K)} ${X(ex + R * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r)}C${X(r - 1.35)} ${X(eb)} ${X(mid + 1.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`);
     const ct = top + WH, cb = eb - WH, cr = (cb - ct) / 2, cx = eR - W - cr;      // counter, its back a half circle
     const ci = r - 1 / 3;                                             // the counter's inner edge, into the solid cup
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W)} ${X(ct + cr - cr * K)} ${X(eR - W)} ${X(ct + cr)}C${X(eR - W)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
@@ -57,9 +57,10 @@ const DRAW = {
     const u = s / 12, X = v => f(v * u), c = s / 2;
     const bd = T(4.667);
     const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.8)} ${X(9)} ${X(bd)} ${X(6)} ${X(bd)}C${X(3)} ${X(bd)} ${X(0.5)} ${X(2.8)} ${X(0.5)} ${X(0)}Z`);
-    const stem = R(c - W / 2, X(bd - 0.5), W, X(10.9) - X(bd - 0.5));
-    const ft = T(10);
-    const foot = D(`M${X(2)} ${X(12)}C${X(2)} ${X(10.9)} ${X(3.9)} ${X(ft)} ${X(6)} ${X(ft)}C${X(8.1)} ${X(ft)} ${X(10)} ${X(10.9)} ${X(10)} ${X(12)}Z`);
+    const FB = 12 - 2 / 3;                                            // g7h: the foot's base 2/3px up (owner: the coupe reads "as much taller")
+    const stem = R(c - W / 2, X(bd - 0.5), W, X(FB - 1.1) - X(bd - 0.5));
+    const ft = T(FB - 2);
+    const foot = D(`M${X(2)} ${X(FB)}C${X(2)} ${X(FB - 1.1)} ${X(3.9)} ${X(ft)} ${X(6)} ${X(ft)}C${X(8.1)} ${X(ft)} ${X(10)} ${X(FB - 1.1)} ${X(10)} ${X(FB)}Z`);
     return [bowl, stem, foot];
   },
   // MUSEUM. Proportion: a low pediment (rises 2.67 in 6, about 24 degrees, as classical pediments do), a
