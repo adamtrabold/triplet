@@ -2218,3 +2218,28 @@ itself.**
 
 NEXT: icon designer, fixes 1–4. Then I look at the taper board's three
 rows only.
+
+---
+
+## Turn 62: icon designer, the taper board's three rows (canvas v123)
+
+**Archived:** v122's taper board is on Archive as G7l-Taper (y 92000), with a title note, in the same call that replaced it.
+
+**Grid improvement:** counterpunch is now one rule covering every hole cut into a solid, applied by `o.style: 'punch'`.
+
+1. **Three rows, one rule each:**
+   - **No taper:** as before, with the coupe's band walls even.
+   - **Counterpunch, "the taper you noticed on the coupe":** a hole cut into a solid is the solid's outside shape made smaller, so the wall is thickest at the outer edge and thins toward the hole. 1.5px is the wall at its widest.
+     - **Coupe:** the band, as shipped (1.5 → about 1.1px).
+     - **Star:** the hole is the outline scaled down (walls 1.5 → about 1.2px).
+     - **Cup handle (new):** the hole is the ear's outside shape scaled about the ear's middle. The arms are the full line and the back thins to about 1.1px. The hole is 1.57 × 2.23px, over the 1.5px minimum. It's now plainly different from the top row at 8x.
+   - **Woodcut:** posts widen into the masses they meet, by the length rule. The coupe's wall taper is taken out (holes stay even), so it's one rule.
+2. **The counterpunch row's line:** "This is the taper you spotted on the coupe. It's small: zoom in to see it on the star and the cup's handle too."
+3. **The question** is the coordinator's wording, verbatim, including that the middle and bottom rows can be combined.
+4. **check-svg.py on all three rows:** 0 slivers, 15/15 symmetric (the line is on the board). The full `svg/g7` run is 0 slivers, 58/58.
+
+Burin stays dropped, with its reason on the board.
+
+**Looked at:** the board at 1x and 3x. Counterpunch now differs visibly from no taper at 8x (the cup's handle, the star's hole).
+
+NEXT: design director, the taper board's three rows.

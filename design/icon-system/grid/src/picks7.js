@@ -74,7 +74,7 @@ const DRAW = {
   // CAFÉ. WIDE. A VESSEL with a LOOP for its ear, on a SLAB saucer. Counters that survive (owner: "why does
   // the coffee cup handle cut off on the bottom - it creates a narrow passage"): the ear's counter is closed
   // by the cup's straight inner wall.
-  cafe(s = 12) {
+  cafe(s = 12, o = {}) {
     // g7e: the bowl FLOWS into the ear's base in one tangent curve; cup and ear are ONE outline.
     // g7i: the saucer is a SLAB (was a tapered blade: a trapezoid, the owner's example).
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), K = 0.5523;
@@ -86,6 +86,14 @@ const DRAW = {
     const ci = r - 1 / 3;
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
     const saucer = SLAB(0, s, T(X(bot) + CUT));
+    if (o.style === 'punch') {
+      // COUNTERPUNCH (g7m): the handle's hole is the ear's own outside shape made smaller, about the ear's
+      // middle, so its wall is full (the line, at the arms) at the outer edge and thins toward the back
+      // (about 1.1px); the hole is 1.57 x 2.23px, over the 1.5px minimum.
+      const xc = (ci + eR) / 2, yc = top + R_, kk = 1 - (W / u) / R_, g = (x, y) => `${X(xc + (x - xc) * kk)} ${X(yc + (y - yc) * kk)}`;
+      const hole = cut(D(`M${g(ci, top)}H${X(xc + (ex - xc) * kk)}C${g(ex + R_ * K, top)} ${g(eR, top + R_ - R_ * K)} ${g(eR, top + R_)}C${g(eR, top + R_ + R_ * K)} ${g(ex + R_ * K, eb)} ${g(ex, eb)}H${X(xc + (ci - xc) * kk)}Z`));
+      return [body, saucer, hole];
+    }
     return [body, saucer, counter];
   },
   // BAR. SQUARE. A VESSEL (a coupe's bowl is shallow) on a POST stem and a SLAB foot about 70% of the bowl.

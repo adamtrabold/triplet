@@ -447,17 +447,17 @@ ${WOPTS.map(([key, title]) => `<div class="srow"><div class="k">${title}</div><d
 // give me a version of icons following it and not following it"; "several options is fine, i just dont want to
 // lose the no taper option"). Each option is the same grid with one style switch (picks7.js, o.style).
 const TOPTS = [
-  ['none', 'No taper', 'Every line an even 1.5px, the same weight as the badge ring, like neon tube or a screened line. The coupe\'s band walls are even here too: the taper you liked appears only in the row below.'],
-  ['woodcut', 'Woodcut', 'Like wood left standing in a woodcut: an upright is stoutest where it meets the mass it holds up. Applies to every post that meets a mass (the coupe\'s stem, the columns, the trunk under its tier): straight through its middle, widening over the last fifth at each joined end by 1/12 of its length. 1.5px is the post at its narrowest. The coupe\'s band walls keep the taper you liked: stoutest at the rim they hold up.'],
+  ['none', 'No taper', 'Every line an even 1.5px, the same weight as the badge ring, like neon tube or a screened line. The coupe\'s band walls are even here too.'],
+  ['punch', 'Counterpunch: the taper you noticed on the coupe', 'Like the counterpunch a punchcutter strikes into metal type: a hole cut into a solid is the solid\'s outside shape made smaller, so the wall around it is thickest at the outer edge and thins toward the hole. Applies to every hole cut into a solid: the coupe\'s band, the star\'s hole, the cup\'s handle. 1.5px is the wall at its widest. This is the taper you spotted on the coupe. It\'s small: zoom in to see it on the star and the cup\'s handle too.'],
+  ['woodcut', 'Woodcut', 'Like wood left standing in a woodcut: an upright is stoutest where it meets the mass it holds up. Applies to every post that meets a mass (the coupe\'s stem, the columns, the trunk under its tier): straight through its middle, widening over the last fifth at each joined end by 1/12 of its length. 1.5px is the post at its narrowest. Holes stay even here.'],
 ];
 // tried and dropped (director, turn 59), each for a stated reason, on the board
 const TDROP = [
-  ['Counterpunch (metal type)', 'a hole cut as the outside shape made smaller. On shapes this small the taper is under half a pixel (the coupe 1.5 to 1.1px, the star 1.5 to 1.2px), so it can\'t be told from no taper at true size or at 8x.'],
   ['Engraver\'s burin (signet ring)', 'a line thins where it ends free. It turned the + into a sparkle, and with the + exempt only the tree\'s trunk tip is left: too little to be a rule.'],
 ];
 const TSET = {};
 for (const [key] of TOPTS) {
-  const o = key === 'woodcut' ? { style: key, taper: 'cut' } : { style: key }, dm = {}; for (const [id] of BATCH) dm[id] = s => DRAW[id](s, o);
+  const o = { style: key }, dm = {}; for (const [id] of BATCH) dm[id] = s => DRAW[id](s, o);
   TSET[key] = {};
   for (const [id] of BATCH) {
     const s = fitS(id, 12, dm), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dm[id](s);
@@ -473,7 +473,7 @@ for (const [key] of TOPTS) {
 }
 // the check-svg.py result on the taper variants, written by the check run (svg/g7/taper-check.txt)
 const TCHECK = fs.existsSync(path.join(ROOT, 'svg', 'g7', 'taper-check.txt')) ? fs.readFileSync(path.join(ROOT, 'svg', 'g7', 'taper-check.txt'), 'utf8').trim() : 'not run';
-const T_Q = 'The taper you liked on the coupe, made into one rule from woodcut (second row), beside no taper at all (top row). Which do you want?';
+const T_Q = 'The taper you liked on the coupe, made into a rule (the middle row), beside a second taper from woodcut (bottom row) and no taper at all (top row). Which do you want? Combining the middle and bottom rows is possible.';
 function sheetTaper() {
   const N = COL.navy, I2 = COL.ink2, big = 118;
   const ids = ['cafe', 'bar', 'museum', 'nature', 'plus', 'star'];
@@ -488,7 +488,7 @@ function sheetTaper() {
 <div style="display:flex;gap:14px">${ids.map(id => cellBig(key, id)).join('')}</div></div>`).join('');
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${I2};text-transform:uppercase">Icon set · the first six · the taper</div>
-<h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${N}">The taper: woodcut, and none</h1>
+<h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${N}">The taper: counterpunch, woodcut, and none</h1>
 <div style="margin:18px 0 40px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div><div style="font-size:26px;line-height:1.3;color:${N};font-weight:600">${T_Q}</div></div>
 <div style="display:grid;grid-template-columns:300px 330px 1fr;gap:32px;font-size:13px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;padding-bottom:10px"><div>The rule</div><div>True size</div><div>Large (8x): café, bar, museum, nature, +, star</div></div>
 ${rows}
