@@ -64,14 +64,18 @@ const UIP = { plus: [plus, 26.4], star: [star, 20] };
 const starRc = (lw = W) => {
   const hullTip = Math.sqrt(Math.PI * 36 / (2.5 * Math.sin(2 * Math.PI / 5)));        // the hull = the coin
   const mitreTip = (lw / 2) / Math.sin(Math.PI / 10), mitreValley = (lw / 2) / Math.sin(3 * Math.PI / 10);
-  const holeRc = (lw + mitreValley) / 0.47;                                              // the hole's centre 2 lines across
+  const holeRc = (W + mitreValley) / 0.47;                                               // the hole 2 base lines (3px) across at the centre, whatever the wall
   return Math.max(hullTip - mitreTip, holeRc);
 };
+// g7p (owner: "the + and star do feel slightly lighter than the others"; on the Weight board: "as they are is too
+// light but the heavier marks are way too heavy"): a LINE MARK (the open and outline classes: made only of lines,
+// no mass to carry weight) draws its line at 7/6 of the line, 1.75px, even all along (monoweight still).
+const LINEW = W * 7 / 6;
 const USC = {
-  star: starRc() * 24 / 20 / 9.6,
+  star: starRc(LINEW) * 24 / 20 / 9.6,
   plus: KEY.OPEN[0] / 14,
 };
-const UD = {}; for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px, USC[k]), { law: scaled(LAWS7[law], 24 / px), info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
+const UD = {}; for (const law of LAWS) { UD[law] = {}; for (const [k, [fn, px]] of Object.entries(UIP)) { const info = []; UD[law][k] = E.build(fn(px, USC[k], LINEW), { law: scaled(LAWS7[law], 24 / px), info }); UD[law][k].caps = info.filter(x => x.cap).length; } }
 const UOLD = { plus: E.build(P6.plus(26.4), { law: c => LAWS6.joint(c) * 24 / 26.4 }), star: E.build(P6.star(20), { law: c => LAWS6.joint(c) * 24 / 20 }) };
 // g7 as first sent: line joins ROUNDED (0.6); g7c: joins TRAPPED (turned down by the owner). Kept to show change 14 before and after
 const ROUNDJ = c => (!c.convex && c.angle >= 75 && c.angle <= 105) ? fit(c, 0.6) : LAWS7.joint(c);
@@ -205,8 +209,8 @@ function sheetIntro(n) {
     ['Counters that survive small sizes', 'no passage narrower than the line; every hole at least 1.5px (the cup\'s handle is a D-shaped ear, its counter 2.25 x 2.67px).'],
     ['Joins and corners by angle, and by size', 'a round never exceeds 0.2 of the shortest edge at its corner, so slots and line ends take only a slight round (no pills).'],
     ['Every meeting point slightly round', 'where a line meets or crosses another part, the join takes the smallest round in the set (0.15px): enough to settle the corner, too small to thicken it, and never a notch (no ink traps, your call). Inside corners stay tighter than outside ones: the + crossing, the coupe\'s stem, the trunk, the slots.'],
-    ['Contrast compensation', 'horizontals are drawn about 10% thinner than uprights (1.33px against 1.5px), because a horizontal reads heavier.'],
-    ['Pixel fitting', 'horizontals are 4/3px, exactly 4 device pixels on a 3x phone, and sit on whole device pixels.'],
+    ['Monoweight (g7p, your pick)', 'one line everywhere, 1.5px, horizontals and uprights alike; a hole\'s inside runs parallel to its outside. Line marks (the + and the Star) carry 1.75px, since they have no mass to carry weight.'],
+    ['Pixel fitting', 'horizontal edges sit on the 1/3px lattice, whole device pixels on a 3x phone.'],
     ['Size by class (g7i, ours)', 'every glyph is fitted by the grid to a cut of one 12px coin with the coin\'s area (wide, square, tall, round, outline, open), so none reads bigger; no per-icon sizes.'],
     ['Root shapes (g7i)', 'like parts share one shape in every icon: slab, post, gable, vessel, loop.'],
   ];
@@ -272,10 +276,10 @@ const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring an
 <p class="sm"><b>Kept: the ear.</b> At 24 it reads as a handle joined to the cup, as both references do; the ring read as a separate bubble.</p>`;
 // ---- sheet 2: each drawing ----------------------------------------------------------------------
 const PRIN = {
-  cafe: [['Counters', 'the handle is a loop joined to the cup over its height; its counter is 2.25 x 2.67px (taller than wide, so it reads as a loop, not a "P"), closed by the cup: no passage (your example).'], ['Flow', 'cup and handle are one outline: the bowl\'s right side rises in one smooth S-curve into the base of the handle, with no step where they meet.'], ['Proportion', 'cup 6.75 wide by 7 deep; the handle grows with it so the S into it stays gentle; the saucer runs the full width.'], ['Size (g7i)', 'Wide class, 12 x 9 1/3, fitted by the grid.'], ['Root shapes (g7i)', 'a vessel with a loop for its ear, on a slab saucer (it was a tapered blade).'], ['Contrast compensation and pixel fitting', 'the saucer is a slab, 4/3px, on whole device pixels.'], ['Optical centring', 'moved down 1/3px.']],
-  bar: [['Proportion', 'a shallow bowl on one upright stem; the foot about 70% of the bowl.'], ['Size (g7i)', 'Square class, 10 2/3, fitted by the grid (no per-icon height).'], ['Root shapes (g7i)', 'a vessel on a post stem and a slab foot (it was a dome).'], ['Liquid (g7i)', 'under the rim a clear band, 1.5px (the counter minimum; g7k, more drink), closed by the walls at both ends; the drink fills the bowl below it, so it reads as a glass, not a chalice (your note), and its top is no longer one dark mass.'], ['Joins', 'the stem meets bowl and foot with the slightest round (0.15px), so the joins settle without thickening; the bowl\'s rim corners take the outside round.'], ['Optical centring', 'its mass is at the top, so it moves down 2/3px (batch 1 floated).']],
-  museum: [['Counters', 'the spaces between the columns are closed upright slots, 1.5px wide, their corners slightly round: no pills (your example), no gap under the line.'], ['Proportion', 'between g7 and g7b: a low pediment (about 22°) set on a thin 4/3px beam; the four columns hang from the beam and stand on the plinth, so they read as a building, as both references do. Three columns were tried in g7 and read as a box with two doors.'], ['Size (g7i)', 'Wide class, 12 x 9 1/3, its apex passing by 1/2px, fitted by the grid.'], ['Root shapes (g7i)', 'a gable on a slab beam, four posts, a slab plinth: unchanged, the shapes the rest now share.'], ['Pixel fitting', 'the plinth is a 4/3px horizontal on whole device pixels.'], ['Optical centring', 'moved up 1px.']],
-  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Joins', 'the trunk meets the lowest tier with the slightest round.'], ['Size (g7i)', 'Tall class, 9 1/3 x 12, its tip passing by 1/2px.'], ['Root shapes (g7i)', 'three gables on a post trunk; each tier\'s base is now flat (it rose 0.4px to the trunk), the same gable as the pediment.'], ['Proportion', 'three triangles widening by equal steps, each with a short overhang, so a tier ends in a proper point, not a spur; the points take the outside round (0.35px) and the notches a tighter one (0.15px), so the inside reads tighter than the outside (your note on the tree); no hooks, never needle-sharp.'], ['Optical centring', 'moved up 1/3px.']],
+  cafe: [['Counters', 'the handle is a loop joined to the cup over its height; its counter is 2.25 x 2.67px (taller than wide, so it reads as a loop, not a "P"), closed by the cup: no passage (your example).'], ['Joins (g7p)', 'the bowl keeps both its walls and both lower corners (it used to melt in an S-curve into the handle\'s foot, which broke its bottom-right corner); the handle is its own loop laid over the right wall, and where they meet the join takes the slightest round (0.15px), inside tighter than outside.'], ['Proportion', 'cup 6.75 wide by 7 deep; the saucer runs the full width.'], ['Size (g7i)', 'Wide class, 12 x 9 1/3, fitted by the grid.'], ['Root shapes (g7i)', 'a vessel with a loop for its ear, on a slab saucer (it was a tapered blade).'], ['Monoweight and pixel fitting', 'the saucer is a slab, 1.5px, its edges on whole device pixels.'], ['Optical centring', 'moved down 1/3px.']],
+  bar: [['Proportion (g7p)', 'the wide, broad-bottomed bowl of the earlier batches (your note), its sides falling steeply from the rim into a flatter bottom, on one upright stem; the foot about 70% of the bowl.'], ['Size (g7i)', 'Square class, 10 2/3, fitted by the grid (no per-icon height).'], ['Root shapes (g7i)', 'a vessel on a post stem and a slab foot (it was a dome).'], ['Liquid (g7i)', 'under the rim a clear band, 1.5px (the counter minimum; g7k and g7p, more drink), closed by the walls at both ends; the drink fills the bowl below it, so it reads as a glass, not a chalice (your note), and its top is no longer one dark mass.'], ['Joins', 'the stem meets bowl and foot with the slightest round (0.15px), so the joins settle without thickening; the bowl\'s rim corners take the outside round.'], ['Optical centring', 'its mass is at the top, so it moves down 2/3px (batch 1 floated).']],
+  museum: [['Counters', 'the spaces between the columns are closed upright slots, 1.5px wide, their corners slightly round: no pills (your example), no gap under the line.'], ['Proportion', 'between g7 and g7b: a low pediment (about 22°) set on a 1.5px beam; the four columns hang from the beam and stand on the plinth, so they read as a building, as both references do. Three columns were tried in g7 and read as a box with two doors.'], ['Size (g7i)', 'Wide class, 12 x 9 1/3, its apex passing by 1/2px, fitted by the grid.'], ['Root shapes (g7i)', 'a gable on a slab beam, four posts, a slab plinth: unchanged, the shapes the rest now share.'], ['Pixel fitting', 'the plinth is a 1.5px slab, its edges on whole device pixels.'], ['Optical centring', 'moved up 1px.']],
+  nature: [['Overshoot', 'the pointed tip rises 1/2px above TOP.'], ['Joins', 'the trunk meets the lowest tier with the slightest round.'], ['Size (g7i)', 'Tall class, 9 1/3 x 12, its tip passing by 1/2px.'], ['Root shapes (g7i)', 'three gables on a post trunk; each tier\'s base is now flat (it rose 0.4px to the trunk), the same gable as the pediment.'], ['Proportion (g7p, by rule)', 'the tip tier is the point and shows 1.5 times the height of each tier under it; the widths step evenly from narrow to the tall class, so each tier is steeper than the one below, as a fir is; each notch shows a 1.5-line shelf, so a tier ends in a proper point, not a spur; the points take the outside round (0.35px) and the notches a tighter one (0.15px), so the inside reads tighter than the outside (your note on the tree); no hooks, never needle-sharp.'], ['Optical centring', 'moved up 1/3px.']],
 };
 function sheetDrawings(W_, n) {
   const big = W_ > 500 ? 220 : 150;
@@ -287,7 +291,7 @@ function sheetDrawings(W_, n) {
 ${id === 'cafe' ? HANDLE : ''}<ul class="pr">${PRIN[id].map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
 <p class="sm mute">${g.curves} curves in the outline, by joint.</p></div>`;
   }).join('');
-  const uis = [['plus', 'The +', 'Uprights 1.5px, the horizontal 4/3px (contrast compensation). The crossing takes the slightest round (0.15px), no notch.'], ['star', 'The Star (not starred)', 'A 1.5px outline. Its counter (the inner star) is 6px across, so it survives at 20px; the tips take a slight round and the inner corners a tighter one.']]
+  const uis = [['plus', 'The +', 'Every arm 1.75px, the line marks\' weight (g7p). The crossing takes the slightest round (0.15px), no notch.'], ['star', 'The Star (not starred)', 'A 1.75px outline (g7p, the line marks\' weight). Its counter (the inner star) is 6px across, so it survives at 20px; the tips take a slight round and the inner corners a tighter one.']]
     .map(([k, nm, txt]) => `<div class="icon"><h3>${nm}</h3><div class="pair"><div>${uiOld(k, big)}Batch 1</div><div>${onGrid(UD.joint[k].d, big, 12, false)}Redrawn</div></div><div class="pair" style="margin-top:8px"><div>${uiOld(k)}</div><div>${ui('joint', k)}</div></div><p class="sm">${txt}</p></div>`).join('');
   return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · batch 1 redrawn · sheet ${n}</div><h2>Each drawing, before and after</h2>
 <p class="att">Batch 1 beside the redraw, on the grid at ${(big / 24).toFixed(1)}x (the redraw shown where it sits after optical centring), then real size: badge 24, chip 12, selected pin 32, and 3x. Under each, the practice behind each change.</p>
@@ -395,9 +399,10 @@ ${ch('Change 13', 'overshoot', 'Practice: overshoot. A pointed top rises past TO
 // blur within about 9, place and UI icons alike", reached by a class rule). Each option is built by the
 // same grid; its SVGs go to svg/g7/weight-<opt>/ so src/blur-measure.js measures it (SVGDIR=...).
 const WOPTS = [
-  ['now', 'As they are', 'Every line 1.5px, the same as the badge ring.', { lw: W, band: true, wall: W }],
+  ['now', 'Before: as they were', 'Every line 1.5px, the same as the badge ring.', { lw: W, band: true, wall: W }],
   ['open', 'Heavier line marks', 'The star\'s outline 2px and the +\'s arms 2.5px (the + in the app today is 2.5); the star grows a little so its hole stays two lines wide; the coupe\'s walls around its clear band 2.5px. The other place icons don\'t change.', { lw: { star: 2, plus: 2.5 }, band: true, wall: 2.5 }],
 ];
+WOPTS.splice(1, 0, ['line', 'Now: the line marks\' rule', 'The star and the + draw their line at 1.75px (7/6 of the line), even all along: they are made only of lines, with no mass to carry weight. The place icons stay 1.5px.', { lw: LINEW, band: true, wall: W }]);
 const WSET = {};
 for (const [key, , , o] of WOPTS) {
   const lw = k => typeof o.lw === 'number' ? o.lw : o.lw[k];
@@ -405,8 +410,8 @@ for (const [key, , , o] of WOPTS) {
   const prims = DRAW.bar(barS, o), ox = (24 - barS) / 2, oy = r3((24 - barS) / 2);
   const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
   const bar = E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
-  const sStar = starRc(lw('star')) * 24 / 20 / 9.6;
-  const ui = { star: E.build(star(20, sStar, lw('star')), { law: scaled(LAWS7.joint, 24 / 20) }).d, plus: E.build(plus(26.4, USC.plus, lw('plus')), { law: scaled(LAWS7.joint, 24 / 26.4) }).d };
+  const sStar = starRc(lw('star')) * 24 / 20 / 9.6 * (o.k || 1);
+  const ui = { star: E.build(star(20, sStar, lw('star')), { law: scaled(LAWS7.joint, 24 / 20) }).d, plus: E.build(plus(26.4, USC.plus * (o.k || 1), lw('plus')), { law: scaled(LAWS7.joint, 24 / 26.4) }).d };
   WSET[key] = { cafe: GD.joint[12].cafe.d, bar, museum: GD.joint[12].museum.d, nature: GD.joint[12].nature.d, ...ui };
   const dir = path.join(ROOT, 'svg', 'g7', `weight-${key}`); fs.mkdirSync(dir, { recursive: true });
   for (const id of ['cafe', 'bar', 'museum', 'nature']) fs.writeFileSync(path.join(dir, `${id}-24.svg`), `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path fill="currentColor" d="${WSET[key][id]}"/></svg>\n`);
@@ -414,7 +419,7 @@ for (const [key, , , o] of WOPTS) {
 }
 // measured with src/blur-measure.js on each weight-<opt> folder (the darkest fifth of the live circle, 1.5px blur)
 const WBLUR = JSON.parse(fs.existsSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json')) ? fs.readFileSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json'), 'utf8') : '{}');
-const W_Q = "The + and the star are drawn in the same thin line as the badge ring, so they read lighter than the solid place icons. The star\'s outline is how \'not starred yet\' reads. Do they feel right as they are (top row), or do you want them heavier (second row)? And in each row, does the coupe feel the same weight as the others? (In the second row its walls are heavier too.)";
+const W_Q = "The + and the star now carry their line at 1.75px, between the two rows you saw (middle row). Do they now feel as heavy as the place icons?";
 function sheetWeight(W_, n) {
   const ids = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'];
   const cell = (key, id, px) => id === 'star' || id === 'plus'
@@ -433,7 +438,7 @@ function sheetWeight(W_, n) {
   const head = key => `<div class="wl" style="font-size:14px;margin:0 0 4px">${name(key)[1]}</div><p class="sm" style="margin:0 0 6px;min-height:${W_ > 500 ? 72 : 120}px">${name(key)[2]}</p>`;
   const nm = id => id === 'plus' ? '+' : id === 'cafe' ? 'cup' : id === 'bar' ? 'coupe' : id === 'nature' ? 'tree' : id;
   const foot = WOPTS.map(([key, title]) => { const b = WBLUR[key] || {}, v = ids.map(id => b[id]).filter(x => x != null); return `${title}: ${ids.map(id => `${nm(id)} ${b[id] != null ? b[id].toFixed(0) : '?'}`).join(', ')} (spread ${v.length ? (Math.max(...v) - Math.min(...v)).toFixed(0) : '?'})`; }).join('. ');
-  return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · g7j · sheet ${n}</div><h2>Weight: the line marks</h2>
+  return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · g7p · sheet ${n}</div><h2>Weight: the line marks</h2>
 <div class="q"><b>The question</b>${W_Q}</div>
 <div class="lab">True size, where they live</div>
 <div class="pair" style="align-items:start">${WOPTS.map(([key]) => `<div style="text-transform:none;letter-spacing:0;align-items:stretch;text-align:left;font-weight:400;color:${COL.ink}">${head(key)}${live(key)}</div>`).join('')}</div>
@@ -532,18 +537,18 @@ function sheetMaster() {
     ['Square', cutFig('SQUARE', rectCut(KEY.SQUARE)), `${fr(KEY.SQUARE[0])}`, 'coupe'],
     ['Tall', cutFig('TALL', rectCut(KEY.TALL, APEX)), `${fr(KEY.TALL[0])} × ${fr(KEY.TALL[1])} · apex +1/2`, 'tree'],
     ['Round', cutFig('ROUND', `<circle cx="12" cy="12" r="6" ${ok}/>`), 'Ø12', 'radial marks'],
-    ['Outline', cutFig('OUTLINE', `<polygon points="${pent}" ${ok}/><circle cx="12" cy="12" r="${f2(holeR)}" fill="none" stroke="${N}" stroke-width="0.12"/>`), 'hull ≥ coin · hole ≥ 2 lines', 'star'],
-    ['Open', cutFig('OPEN', `<rect x="${12 - W / 2}" y="6" width="${W}" height="12" ${ok}/><rect x="6" y="${12 - W / 2}" width="12" height="${W}" ${ok}/>`), 'arms span 12 · every line 1.5', '+'],
+    ['Outline', cutFig('OUTLINE', `<polygon points="${pent}" ${ok}/><circle cx="12" cy="12" r="${f2(holeR)}" fill="none" stroke="${N}" stroke-width="0.12"/>`), 'hull ≥ coin · hole ≥ 2 lines · line 1.75', 'star'],
+    ['Open', cutFig('OPEN', `<rect x="${12 - W / 2}" y="6" width="${W}" height="12" ${ok}/><rect x="6" y="${12 - W / 2}" width="12" height="${W}" ${ok}/>`), 'arms span 12 · every line 1.75', '+'],
   ].map(([n, fig, dims, who]) => `<div style="display:flex;flex-direction:column;align-items:center">${fig}<div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${n}</div><div style="font-size:14px;color:${I2};text-align:center">${dims}</div><div style="font-size:14px;color:${I2};text-align:center;font-style:italic">${who}</div></div>`).join('');
   // 3. ROOT SHAPES, drawn generic from the same helpers as the icons, at 10x, with their dimensions
   const R10 = 10, root = (prims, vb, nm, dim) => { const d = E.build(prims, { law: LAWS7.joint }).d; return `<div style="display:flex;flex-direction:column;align-items:center"><svg width="${vb[2] * R10}" height="${vb[3] * R10}" viewBox="${vb.join(' ')}" aria-hidden="true"><path d="${d}" fill="${N}"/></svg><div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${nm}</div><div style="font-size:14px;color:${I2};text-align:center">${dim}</div></div>`; };
   const cupPr = DRAW.cafe(12), barPr = DRAW.bar(12);
   const roots = [
-    root([E.R(0, 0, 9, WH)], [-0.5, -0.5, 10, WH + 1], 'Slab', 'every base and span · 4/3 thick'),
+    root([E.R(0, 0, 9, W)], [-0.5, -0.5, 10, W + 1], 'Slab', 'every base and span · 1.5 thick'),
     root([E.R(0, 0, W, 7)], [-0.5, -0.5, W + 1, 8], 'Post', 'every stem, column, trunk, arm · 1.5 wide'),
     root([E.P([4, 0], [8, 3.5], [0, 3.5])], [-0.5, -0.5, 9, 4.5], 'Gable', 'every roof and tier · flat base'),
     root([barPr[0], ...barPr.filter(p => p.cut)].map(p => p), [-0.2, -0.5, 12.4, 6.6], 'Vessel', 'every bowl · rim, clear band, drink'),
-    root([cupPr[0], cupPr[2]], [6.5, 0.4, 5.6, 6.6], 'Loop', 'every handle and outline · 1.5 band'),
+    root([cupPr[1], ...cupPr.filter(p => p.cut)], [6.5, 0.4, 5.6, 6.6], 'Loop', 'every handle and outline · 1.5 band'),
   ].join('');
   // 4. CORNERS by joint: specimens built and rounded by the live law, at 16x, radius read from the law
   const r = (convex, angle, lin = 4, lout = 4) => LAWS7.joint({ convex, angle, lin, lout });
@@ -559,7 +564,7 @@ function sheetMaster() {
   ];
   const cornerRow = `<div style="display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap">${corners.map(([, s]) => s).join('')}</div>`;
   // 5. LINE WEIGHT and the lattice
-  const LW = 40, weight = `<svg width="${14 * LW}" height="${6 * LW}" viewBox="0 0 14 6" aria-hidden="true"><rect width="14" height="6" fill="${COL.raised}"/>${[...Array(18)].map((_, j) => `<line x1="0" y1="${f2(j / 3)}" x2="14" y2="${f2(j / 3)}" stroke="${H}" stroke-width="0.02"/>`).join('')}<rect x="1" y="0.5" width="${W}" height="5" fill="${N}"/><rect x="4" y="${f2(2 / 3)}" width="9" height="${f2(WH)}" fill="${N}"/><rect x="4" y="${f2(3 + 1 / 3)}" width="9" height="${W}" fill="${N}" fill-opacity=".55"/>${lab(1.75, 5.9, '1.5', { fs: 0.4, a: 'middle', fill: N })}${lab(8.5, 2.6, 'HORIZONTAL IN A MASS 4/3, ON THE 1/3PX LATTICE', { fs: 0.32, a: 'middle', fill: N })}${lab(8.5, 5.6, 'OPEN MARKS: EVERY LINE 1.5', { fs: 0.32, a: 'middle', fill: N })}</svg>`;
+  const LW = 40, weight = `<svg width="${14 * LW}" height="${6 * LW}" viewBox="0 0 14 6" aria-hidden="true"><rect width="14" height="6" fill="${COL.raised}"/>${[...Array(18)].map((_, j) => `<line x1="0" y1="${f2(j / 3)}" x2="14" y2="${f2(j / 3)}" stroke="${H}" stroke-width="0.02"/>`).join('')}<rect x="1" y="0.5" width="${W}" height="5" fill="${N}"/><rect x="4" y="${f2(2 / 3)}" width="9" height="${W}" fill="${N}"/><rect x="4" y="${f2(3 + 1 / 3)}" width="9" height="${f2(W * 7 / 6)}" fill="${N}" fill-opacity=".55"/>${lab(1.75, 5.9, '1.5', { fs: 0.4, a: 'middle', fill: N })}${lab(8.5, 2.75, 'EVERY LINE 1.5, ON THE 1/3PX LATTICE', { fs: 0.32, a: 'middle', fill: N })}${lab(8.5, 5.75, 'LINE MARKS (STAR, +): 1.75', { fs: 0.32, a: 'middle', fill: N })}</svg>`;
   // 6. THE STACKED GABLE: the notch shelf, from the live tree
   const tr = DRAW.nature(12), shelf = 1.5 * W, tg = E.build(tr, { law: LAWS7.joint }).d;
   const tierB = tr.filter(p => p.root === 'GABLE').map(p => p.pts);
@@ -567,7 +572,7 @@ function sheetMaster() {
   // the tier heights: guides at the apex and every tier base, equal steps marked on the left
   const lv = [tierB[0][0][1], ...tierB.map(pts => pts[1][1])];
   const hg = lv.map(y => `<line x1="-0.6" y1="${f2(y)}" x2="12.6" y2="${f2(y)}" stroke="${O}" stroke-width="0.04" stroke-dasharray="0.25 0.2"/>`).join('')
-    + lv.slice(1).map((y, i) => `<line x1="-0.4" y1="${f2(lv[i] + 0.15)}" x2="-0.4" y2="${f2(y - 0.15)}" stroke="${O}" stroke-width="0.08"/>${lab(-0.65, (lv[i] + y) / 2 + 0.15, 'h', { fs: 0.45, fill: O, a: 'end' })}`).join('');
+    + lv.slice(1).map((y, i) => `<line x1="-0.4" y1="${f2(lv[i] + 0.15)}" x2="-0.4" y2="${f2(y - 0.15)}" stroke="${O}" stroke-width="0.08"/>${lab(-0.65, (lv[i] + y) / 2 + 0.15, i === 0 ? '1.5h' : 'h', { fs: 0.45, fill: O, a: 'end' })}`).join('');
   const stack = `<svg width="${15 * 22}" height="${14 * 22}" viewBox="-2 -1 15 14" aria-hidden="true"><rect x="-2" y="-1" width="15" height="14" fill="${COL.raised}"/>${hg}<path d="${tg}" fill="${N}"/>${sh}</svg>`;
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${I2};text-transform:uppercase">Icon grid · the master</div>
@@ -585,8 +590,8 @@ ${title('Corners by joint: every meeting slightly round, inside tighter than out
 ${cornerRow}
 ${cap('Ink settling on a screened banner: soft, never blotted. A round is never more than 0.2 of the shorter edge at its corner. No ink traps.')}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px">
-<div>${title('Line weight')}${weight}${cap('One line, the ring\'s weight. A hole\'s inside runs parallel to its outside at that weight (monoweight). Two real tapers are on the Line board for you; line marks reading lighter than the solid places is on the Weight board.')}</div>
-<div>${title('Stacked gables')}${stack}${cap(`All by rule: three tiers of equal height (h); every tier the same gable (one slope); every notch shelf one and a half lines (${shelf}px), so a fir reads as a fir at 100%; the bottom tier spans the tall class (9 1/3); the trunk shows one line; the apex passes TOP by 1/2. Inside rounds tighter than outside.`)}</div>
+<div>${title('Line weight')}${weight}${cap('Monoweight: one line, the ring\'s weight, everywhere; a hole\'s inside runs parallel to its outside, horizontals and verticals alike. Line marks (the Outline and Open classes, made only of lines, no mass) carry 7/6 of it, 1.75px, so they come closer to the weight of the solid places without reading bold.')}</div>
+<div>${title('Stacked gables')}${stack}${cap(`All by rule: the tip tier is the tree's point and shows 1.5h, the tiers under it h each; the tip's half width is the shelf plus a third of a line, the bottom tier spans the tall class (9 1/3) and the middle steps evenly between, so each tier is steeper than the one below; every notch shelf one and a half lines (${shelf}px), so a fir reads as a fir at 100%; the trunk shows one line; the apex passes TOP by 1/2. Inside rounds tighter than outside.`)}</div>
 </div>
 </div>`;
 }
@@ -663,7 +668,7 @@ function rootRows(px = 8) {
   const NM = { cafe: 'Café', bar: 'Bar', museum: 'Museum', nature: 'Nature', plus: '+', star: 'Star' };
   for (const [id] of BATCH) {
     const pr = DRAW[id](SFIT[12][id]), cuts = pr.filter(p => p.cut);
-    pr.forEach(p => { if (p.cut) return; for (const r of [p.root, p.also]) if (r && parts[r]) parts[r].push([NM[id], r === 'VESSEL' && p.also === 'LOOP' ? [p, ...cuts.filter(c => c.t === 'D')] : r === 'VESSEL' ? [p, ...cuts] : [p]]); });
+    pr.forEach(p => { if (p.cut) return; for (const r of [p.root, p.also]) if (r && parts[r]) parts[r].push([NM[id], r === 'LOOP' ? [p, ...cuts.filter(c => c.t === 'D')] : r === 'VESSEL' && id === 'bar' ? [p, ...cuts] : [p]]); });
   }
   const pk = UIP.plus[1] / 24, pp = E.xform(plus(UIP.plus[1], USC.plus), pk, 0, 0, 0, 0); pp.forEach(p => parts.POST.push(['+', [p]]));
   const sk = UIP.star[1] / 24; parts.LOOP.push(['Star', E.xform(star(UIP.star[1], USC.star), sk, 0, 0, 0, 0)]);
@@ -704,13 +709,24 @@ const TREE123 = (() => {
   const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
   return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
 })();
-const TREE_Q = 'The tree\'s tiers are now set by rule. Does it still read as your fir?';
+// the tree as on v128 (g7n): three equal heights, one slope; kept to show the change back
+const TREE128 = (() => {
+  const draw = s => { const u = s / 12, X = v => +(v * u).toFixed(3), Y = v => Math.round(v * u * 3) / 3, c = s / 2, L = 1.5 * W / u;
+    const N = 3, apex = -APEX, B = 12 - W / u, hwN = KEY.TALL[0] / 2, crown = B - apex, m = (hwN + (N - 1) * L) / crown, tiers = [];
+    for (let i = 1; i <= N; i++) { const ty = apex + (i - 1) * L / m, by = apex + i * crown / N; tiers.push([ty, by, m * (by - ty)]); }
+    const tTop = B - W / u;
+    return [...tiers.map(([ty, by, hw]) => E.P([c, X(ty)], [c + X(hw), Y(by)], [c - X(hw), Y(by)])), E.R(c - W / 2, X(tTop), W, s - X(tTop))]; };
+  const s = fitS('nature', 12, { nature: draw }), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = draw(s);
+  const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
+  return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
+})();
+const TREE_Q = 'The tree has its earlier shape back, now set by rule. Is this the fir you liked?';
 function treeChange() {
   const N = COL.navy, I2 = COL.ink2;
   const pair = (nm, d) => `<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="display:flex;align-items:center;gap:10px">${badge(d)}<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg></div>${badge(d, 192)}<div style="font-size:18px;font-weight:700;color:${N}">${nm}</div></div>`;
-  return `<div style="display:grid;grid-template-columns:420px 1fr;gap:48px;align-items:center;margin:0 0 64px">
-<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The tree changed: its tiers are now set by the stacked-gable rule.</div><div style="font-size:17px;line-height:1.45;color:${I2}">Three tiers of equal height, every tier the same gable, every notch one and a half lines deep, the bottom tier spanning the tall class, the trunk showing one line. True size (24 and the 12px chip), then 8x.</div><div style="margin-top:18px;padding:16px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:20px;line-height:1.3;color:${N};font-weight:600">${TREE_Q}</div></div>
-<div style="display:flex;gap:56px">${pair('Before (v123)', TREE123)}${pair('Now', GD.joint[12].nature.d)}</div></div>`;
+  return `<div style="display:grid;grid-template-columns:420px 1fr;gap:40px;align-items:center;margin:0 0 64px">
+<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The tree: the earlier shape, now set by rule.</div><div style="font-size:17px;line-height:1.45;color:${I2}">You liked v123's shape; v128 made every tier the same and read as a plain triangle. Now the shape comes back by rule: the top tier is the tree's point and shows one and a half times the height of each tier under it; the top tier is narrow (the shelf plus a third of a line each side), the bottom one spans the tall class, the middle steps evenly between, so each tier is steeper than the one below, as a fir is. Every notch is still one and a half lines deep, and the proportions are v128's. True size (24 and the 12px chip), then 8x.</div><div style="margin-top:18px;padding:16px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:20px;line-height:1.3;color:${N};font-weight:600">${TREE_Q}</div></div>
+<div style="display:flex;gap:40px">${pair('v123 (the shape you liked)', TREE123)}${pair('v128 (one slope)', TREE128)}${pair('Now', GD.joint[12].nature.d)}</div></div>`;
 }
 function sheetLook() {
   const L = 150, gap = 24, big = 192;
@@ -725,9 +741,9 @@ function sheetLook() {
   const tokenRow = `<div style="${grid}"><div style="font-size:20px;font-weight:700;color:${COL.navy};line-height:1.25">Each in its cut<div style="font-size:15px;font-weight:400;color:${COL.ink2}">orange: the class's cut of the coin; grey: the coin</div></div>${LOOK_COLS.map(([id]) => `<div style="display:flex;flex-direction:column;gap:8px">${tokenCell(id, big)}<div style="font-size:14px;line-height:1.3;color:${COL.ink2}">${clsLabel(id)}</div></div>`).join('')}</div>`;
   const b2 = `<table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.4">${['<tr>' + ['Batch 2', 'Concept', 'Size class', 'Root shapes'].map(h => `<th style="text-align:left;padding:8px;border-bottom:2px solid ${COL.navy};font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:${COL.ink2}">${h}</th>`).join('') + '</tr>', ...BATCH2.map(r => '<tr>' + r.map((c, i) => `<td style="padding:8px;border-top:1px solid ${COL.hair};vertical-align:top;${i === 0 ? `font-weight:700;color:${COL.navy}` : ''}">${c}</td>`).join('') + '</tr>')].join('')}</table>`;
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
-<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid changes g7i to g7n</div>
+<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid changes g7i to g7p</div>
 <h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${COL.navy}">One token, five root shapes</h1>
-<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is the same depth, one and a half lines (g7k: deeper, so the tiers read at 100%). Latest (g7n): the tree\'s tiers are set by rule: three equal heights, one slope. Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
+<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is the same depth, one and a half lines (g7k: deeper, so the tiers read at 100%). Latest (g7p): monoweight is the line everywhere; the + and the star draw their line at 1.75px (line marks); the tree has its earlier shape back by rule; the coupe\'s wider bowl is back with more drink; the cup\'s broken corner is fixed. Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
 <div style="margin:0 0 56px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}">
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div>
 <div style="font-size:28px;line-height:1.3;color:${COL.navy};font-weight:600">${LOOK_Q}</div><div style="font-size:24px;line-height:1.3;color:${COL.navy};font-weight:600;margin-top:12px">${TREE_Q}</div></div>
@@ -736,10 +752,10 @@ ${treeChange()}
 ${sec('True size, where they live in the app: before and now')}
 <div style="display:grid;grid-template-columns:repeat(2, 1fr);column-gap:48px;margin-bottom:64px">${[V105SET, NOWSET].map(inPlace).join('')}</div>
 ${sec('Grid change 1: size by class, the token')}
-${p('Every glyph is fitted by the grid, never by hand, to a cut of one 12px coin with the coin\'s area: <b>Wide</b> 12 × 9 1/3, <b>Square</b> 10 2/3, <b>Tall</b> 9 1/3 × 12, <b>Outline</b> for outline marks (the Star, whose outline means "not yet tapped": the hull through its tips at least the coin\'s area, and its hole at least two lines across, so it never reads as filled; at 1.5px the hole decides), and <b>Open</b> for marks made only of lines (the +: its arms span the coin and every line is the full 1.5px, no thinner horizontal). A lone apex (the pediment, the tree\'s tip) passes the cut by 1/2px. The drawing sets proportions; the class sets size. A new icon picks its class and is fitted the same way.')}
+${p('Every glyph is fitted by the grid, never by hand, to a cut of one 12px coin with the coin\'s area: <b>Wide</b> 12 × 9 1/3, <b>Square</b> 10 2/3, <b>Tall</b> 9 1/3 × 12, <b>Outline</b> for outline marks (the Star, whose outline means "not yet tapped": the hull through its tips at least the coin\'s area, and its hole at least two lines across, so it never reads as filled; at 1.5px the hole decides), and <b>Open</b> for marks made only of lines (the +: its arms span the coin). The Outline and Open classes are <b>line marks</b>: with no mass to carry weight, they draw their line at 1.75px (7/6 of the line), even all along. A lone apex (the pediment, the tree\'s tip) passes the cut by 1/2px. The drawing sets proportions; the class sets size. A new icon picks its class and is fitted the same way.')}
 <div style="margin:0 0 64px">${tokenRow}</div>
 ${sec('Grid change 2: root shapes, like parts cut from one shape')}
-${p('Before, the three bases were three shapes: a tapered blade, a dome and a slab (your example). Now every base is the same slab, every bowl the same vessel, every roof and tier the same gable, every upright the same post, every handle and outline the same loop. Where gables stack (the tree), the tiers are equal in height, share one slope, and each notch shows the same 1.5-line shelf. The coupe\'s bowl now holds a drink under a clear band, so it reads as a glass, not a chalice.')}
+${p('Before, the three bases were three shapes: a tapered blade, a dome and a slab (your example). Now every base is the same slab, every bowl the same vessel, every roof and tier the same gable, every upright the same post, every handle and outline the same loop. Where gables stack (the tree), the top tier is the point and shows one and a half tier heights, the widths step evenly from narrow to the tall class, and each notch shows the same 1.5-line shelf. The coupe\'s wide bowl holds a drink under a clear band, so it reads as a glass, not a chalice. The cup\'s bowl keeps both its walls; the handle is its own loop, joined to it.')}
 <div style="display:grid;grid-template-columns:330px 1fr;align-items:end;gap:24px;padding:0 0 18px"><div style="font-size:19px;font-weight:700;color:${COL.ink2};align-self:center">Bases before (v105)</div><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end">${basesBefore()}</div></div>
 ${rootRows()}
 <div style="margin:0 0 64px"></div>
@@ -749,8 +765,8 @@ ${sec('Large (8x): before and now')}
 <div style="${grid};margin-bottom:64px">${head}${row(V105SET)}${row(NOWSET)}</div>
 ${sec('Pressure test: the batch 2 subjects on this grid')}
 <div style="margin:0 0 64px">${b2}</div>
-${sec('Weight: still open')}
-${p('Size and shape are now set by the grid; weight is not yet equal. In our blur, a 1.5px line can\'t get darker than about 58, and the solid places reach 75, so the Star, the + and the coupe (whose clear band opens its bowl) read lighter. The Weight board, to the right, shows them as they are beside a heavier line for the star and the +.')}
+${sec('Weight: the line marks')}
+${p('In our blur, a 1.5px line can\'t get darker than about 58 and the solid places reach 75, so the Star and the + read light. You found 1.5px too light and the heavier row far too heavy; the line marks now draw at 1.75px, between the two. The Weight board, to the right, shows the new row between both rows you saw.')}
 <div style="margin:0 0 64px"></div>
 ${sec('Craft comparison only, not a size reference: two well-made sets, for drawing quality')}
 <div style="${grid}">${head}${SETS.slice(1).map(row).join('')}</div>
