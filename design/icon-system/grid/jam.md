@@ -2491,3 +2491,48 @@ READY with both boards' questions:
 
 NEXT: icon designer, the two text lines. Then I check by text, and the
 coordinator sends.
+
+---
+
+## Turn 67: icon designer, g7p (canvas v129)
+
+This round answers the owner's five notes on v128 (`../owner.md`).
+
+**Grid improvement this round:** a fourth class rule, **line marks**. The Outline and Open classes (the star and the +) are made only of lines, with no mass to carry weight, so they draw their line at 7/6 of the line: 1.75px, even all along. It is a rule of the class, so any new outline or open mark gets it without being drawn by hand. With it, monoweight is the grid's one line (1.5px, horizontals too: the 4/3 contrast compensation is gone from the drawings and from the master grid), and the stacked-gable rule now sets a shape, not just a spacing.
+
+1. **Monoweight is the line.**
+   - Every drawing defaults to `style: 'mono'` (`src/picks7.js`).
+   - The master grid's line panel reads "every line 1.5, on the 1/3px lattice" and "line marks (star, +): 1.75"; the slab root is 1.5 thick.
+   - The taper board is retired: its v128 copy is on Archive (`Archive-G7o-Taper`), and the Weight board takes its slot beside the master grid.
+2. **Tree: the v123 shape, by rule.** The tip tier is the tree's point and shows 1.5h, and the tiers under it show h each. The tip's half width is the shelf plus a third of a line, the bottom tier spans the tall class, and the middle tier steps evenly between, so each tier is steeper than the one below. The 1.5-line shelf and the trunk rule are unchanged. At 8x it matches v123 to within a hair. The main board shows v123, v128 and now side by side, and the master grid's brackets read 1.5h, h, h.
+3. **The + and the star: 1.75px** (`LINEW = W * 7 / 6` in `src/boards7.js`). The star's hole rule now uses the base line (`holeRc = (W + mitreValley) / 0.47`), so the heavier line doesn't grow the star; before that fix it grew about 17%. The Weight board shows three columns and three 8x rows: before (1.5), now (1.75), heavier (2 / 2.5). The question is "between the two rows you saw (in the middle)".
+4. **Coupe: the wider bowl.**
+   - The bowl is 11.5 wide (it was 11) and broad-bottomed. Its sides fall steeply from the rim (the handle is 0.6 of the depth, was 0.49), so at the same depth it holds more drink under the same 1.5px clear band.
+   - The foot is on 10 2/3, so the glass stays inside the square class.
+   - In mono, the band's sides are offset curves of the new bowl.
+5. **The cup bug.**
+   - **Cause:** since g7e (the "flow" fix), the bowl's right side was one S-curve running from the handle's foot down to the bottom. The bowl had no right wall or lower-right corner of its own: it melted into the handle, which left a lump. It got worse when the cup grew taller in g7h.
+   - **Fix:** the bowl is a symmetric VESSEL with both walls. The handle is its own LOOP laid over the right wall, and the union's join takes the law's 0.15 round (inside tighter than outside). The hole starts at the bowl's wall (`ci = r`).
+
+**Checks:** `check-svg.py`: 0 slivers, 63/63 symmetric. Blur on the shipped SVGs (the Weight board's middle row):
+
+| Icon | Blur | Before |
+|---|---|---|
+| cup | 75.7 | |
+| coupe | 55.3 | |
+| museum | 68.6 | |
+| tree | 70.4 | |
+| star | 60.7 | 53.7 |
+| + | 50.9 | 44.8 |
+
+The heavier row measured star 66.6, + 66.7.
+
+**Looked at:** the main board at 1x and 3x (the tree section, the 8x rows, the cup's join and the coupe's band), the master grid at 1x, and the Weight card.
+
+**Honest read:**
+- The cup's lower-right corner is back, and the join is clean.
+- The tree has v123's character again.
+- The + is still the lightest mark: 50.9 against the places' 55 to 76. The owner asked for "closer to as they are", so I stopped there.
+- The coupe sits at 55 in blur. That is the same as v128, which the owner called matching.
+
+NEXT: design director scores v129.

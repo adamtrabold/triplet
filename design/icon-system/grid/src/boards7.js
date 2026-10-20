@@ -419,7 +419,7 @@ for (const [key, , , o] of WOPTS) {
 }
 // measured with src/blur-measure.js on each weight-<opt> folder (the darkest fifth of the live circle, 1.5px blur)
 const WBLUR = JSON.parse(fs.existsSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json')) ? fs.readFileSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json'), 'utf8') : '{}');
-const W_Q = "The + and the star now carry their line at 1.75px, between the two rows you saw (middle row). Do they now feel as heavy as the place icons?";
+const W_Q = "The + and the star now carry their line at 1.75px, between the two rows you saw (in the middle). Do they now feel as heavy as the place icons?";
 function sheetWeight(W_, n) {
   const ids = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'];
   const cell = (key, id, px) => id === 'star' || id === 'plus'
@@ -435,13 +435,13 @@ function sheetWeight(W_, n) {
   };
   const big = W_ > 500 ? 80 : 44;
   const name = key => WOPTS.find(o => o[0] === key);
-  const head = key => `<div class="wl" style="font-size:14px;margin:0 0 4px">${name(key)[1]}</div><p class="sm" style="margin:0 0 6px;min-height:${W_ > 500 ? 72 : 120}px">${name(key)[2]}</p>`;
+  const head = key => `<div class="wl" style="font-size:14px;margin:0 0 4px">${name(key)[1]}</div><p class="sm" style="margin:0 0 6px;min-height:${W_ > 500 ? 104 : 200}px">${name(key)[2]}</p>`;
   const nm = id => id === 'plus' ? '+' : id === 'cafe' ? 'cup' : id === 'bar' ? 'coupe' : id === 'nature' ? 'tree' : id;
   const foot = WOPTS.map(([key, title]) => { const b = WBLUR[key] || {}, v = ids.map(id => b[id]).filter(x => x != null); return `${title}: ${ids.map(id => `${nm(id)} ${b[id] != null ? b[id].toFixed(0) : '?'}`).join(', ')} (spread ${v.length ? (Math.max(...v) - Math.min(...v)).toFixed(0) : '?'})`; }).join('. ');
   return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · g7p · sheet ${n}</div><h2>Weight: the line marks</h2>
 <div class="q"><b>The question</b>${W_Q}</div>
 <div class="lab">True size, where they live</div>
-<div class="pair" style="align-items:start">${WOPTS.map(([key]) => `<div style="text-transform:none;letter-spacing:0;align-items:stretch;text-align:left;font-weight:400;color:${COL.ink}">${head(key)}${live(key)}</div>`).join('')}</div>
+<div class="pair" style="align-items:start;grid-template-columns:repeat(3,minmax(0,1fr))">${WOPTS.map(([key]) => `<div style="text-transform:none;letter-spacing:0;align-items:stretch;text-align:left;font-weight:400;color:${COL.ink}">${head(key)}${live(key)}</div>`).join('')}</div>
 <div class="lab">Large (8x)</div>
 ${WOPTS.map(([key, title]) => `<div class="srow"><div class="k">${title}</div><div class="set big">${ids.map(id => cell(key, id, big)).join('')}</div></div>`).join('')}
 <p class="sm mute" style="margin-top:14px">Blurred darkness, measured (the darkest fifth of the live circle after a 1.5px blur; src/blur-measure.js): ${foot}.</p>
