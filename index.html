@@ -726,31 +726,28 @@
     .sp-anchor { position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none; }
     .sp-tether { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
     .sp-post.is-pointer .sp-pole, .sp-post.is-pointer .sp-foot { display: none; }
-    .sp-post.is-pointer .sp-board.is-w { border-right: 1.5px solid var(--navy); }
-    .sp-post.is-pointer .sp-board.is-e { border-left: 1.5px solid var(--navy); }
+    /* THE BOARD (owner: "it should look like a box with a point on one end, not like multiple pieces
+       put together"): ONE shape -- an inline SVG drawn per board from its exact width: the 2px offset
+       navy shadow (the same silhouette, offset 2/2), then the paper-raised face with ONE continuous
+       1.5px navy outline round box and point (miter join). Box --s8 tall; the point is --s3 deep on
+       the outer end. The button carries the text and the 44px target; the SVG sits behind it. */
     .sp-board {
-      all: unset; pointer-events: auto; box-sizing: border-box; position: relative; display: flex; align-items: center; height: var(--s8); white-space: nowrap; cursor: pointer;
-      background: var(--paper-raised); border: 1.5px solid var(--navy); box-shadow: 2px 2px 0 var(--navy); padding: 0 var(--s2);
+      all: unset; pointer-events: auto; box-sizing: border-box; position: relative; isolation: isolate;
+      display: flex; align-items: center; height: var(--s8); white-space: nowrap; cursor: pointer; padding: 0 var(--s2);
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: .08em; color: var(--navy);
       -webkit-tap-highlight-color: transparent;
     }
-    .sp-board.is-w { grid-column: 1; justify-self: end; border-right: 0; margin-left: var(--s3); }
-    .sp-board.is-e { grid-column: 3; justify-self: start; border-left: 0; margin-right: var(--s3); }
-    .sp-tip { position: absolute; top: -1.5px; width: 0; height: 0; border-top: calc(var(--s8) / 2) solid transparent; border-bottom: calc(var(--s8) / 2) solid transparent; }
-    .sp-board.is-w .sp-tip { right: 100%; border-right: var(--s3) solid var(--navy); }
-    .sp-board.is-e .sp-tip { left: 100%; border-left: var(--s3) solid var(--navy); }
-    .sp-tip::after { content: ''; position: absolute; top: calc(var(--s8) / -2 + 2.5px); border-top: calc(var(--s8) / 2 - 2.5px) solid transparent; border-bottom: calc(var(--s8) / 2 - 2.5px) solid transparent; }
-    .sp-board.is-w .sp-tip::after { left: 2.5px; border-right: calc(var(--s3) - 2.5px) solid var(--paper-raised); }
-    .sp-board.is-e .sp-tip::after { right: 2.5px; border-left: calc(var(--s3) - 2.5px) solid var(--paper-raised); }
+    .sp-board.is-e { padding-right: calc(var(--s2) + var(--s3)); }
+    .sp-board.is-w { padding-left: calc(var(--s2) + var(--s3)); }
+    .sp-post .sp-board.is-w { grid-column: 1; justify-self: end; }
+    .sp-post .sp-board.is-e { grid-column: 3; justify-self: start; }
+    .sp-shape { position: absolute; left: 0; top: 0; z-index: -1; overflow: visible; pointer-events: none; }
+    .sp-shape .sp-shadow { fill: var(--navy); }
+    .sp-shape .sp-face { fill: var(--sp-fill, var(--paper-raised)); stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: miter; }
     .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
-    .sp-board:active { background: var(--state-press); }
-    /* a lone board with no pole: centred on its city (tip included), no grid */
+    .sp-board:active { --sp-fill: var(--state-press); }
+    /* a lone board with no pole (prototype switch only) */
     .sp-solo { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: flex; }
-    .sp-solo .sp-board.is-e { margin: 0 var(--s3) 0 0; }
-    .sp-solo .sp-board.is-w { margin: 0 0 0 var(--s3); }
-    .sp-solo { padding: 0; }
-    .sp-solo .sp-board.is-e { border-left: 1.5px solid var(--navy); }
-    .sp-solo .sp-board.is-w { border-right: 1.5px solid var(--navy); }
     .sp-board:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
 
     /* p4-fixes: "All places" -- the menu's name for the same go-to. A quiet paper chip, not
@@ -8114,7 +8111,7 @@
       return r;
     }
     const boxSize = b => { const r = measure('city-badge', b); return { w: r.w + 2, h: r.h + 2 }; };   // + the 2px offset shadow
-    const boardW = b => measure('sp-board', b).w + sNum(3) + 2;   // + the arrow tip (--s3) + the shadow
+    const boardW = b => measure('sp-board is-e', b).w;   // text + --s2 padding + the --s3 point: the board's outer width (its shadow overhangs 2px)
     const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(1), FOOT = () => sNum(4);
     // The map's clear area for signs, in container px.
     function badgeSafeRect() {
@@ -8157,7 +8154,7 @@
       let wl = 0, wr = 0;
       gp.members.forEach((m, i) => { const w = boardW(m); if (sides[i] === 'w') wl = Math.max(wl, w); else wr = Math.max(wr, w); });
       const n = gp.members.length;
-      return { l: wl + 1, r: wr + 1, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + FOOT(), b: 0 };
+      return { l: wl + 1, r: wr + 1 + 2, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + FOOT(), b: 0 };
     }
     function rectOf(gp) { const r = signRect(gp); return { x0: gp.foot.x - r.l, x1: gp.foot.x + r.r, y0: gp.foot.y - r.t, y1: gp.foot.y + r.b }; }
     function signsTouch(A, B) {
@@ -8210,20 +8207,32 @@
         }
       });
     }
+    // One board = one shape: the path of a box with a point, from the board's exact width.
+    function boardPath(w, h, t, side) {
+      const i = 0.75, tipX = 1.5;   // stroke inset; the miter tip pulled in so it stays inside the box
+      return side === 'e'
+        ? `M${i} ${i}H${w - t}L${w - tipX} ${h / 2}L${w - t} ${h - i}H${i}Z`
+        : `M${w - i} ${i}H${t}L${tipX} ${h / 2}L${t} ${h - i}H${w - i}Z`;
+    }
+    function boardHtml(b, side, style) {
+      const w = boardW(b), h = BOARD_H(), d = boardPath(w, h, sNum(3), side);
+      return `<button type="button" class="sp-board is-${side}" style="width:${w}px;${style}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
+        + `<svg class="sp-shape" width="${w + 2}" height="${h + 2}" viewBox="0 0 ${w + 2} ${h + 2}" aria-hidden="true"><path class="sp-shadow" transform="translate(2 2)" d="${d}"/><path class="sp-face" d="${d}"/></svg>`
+        + `${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`;
+    }
     function cityBadgeIcon(gp) {
       const members = gp.members;
       const label = b => `${escapeHtml(b.label)}<span class="tally">${b.count}</span>`;
       if (isSolo(gp)) {
         const b = members[0], side = signSides(gp)[0];
-        return L.divIcon({ html: `<div class="sp-solo"><button type="button" class="sp-board is-${side}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}"><span class="sp-tip" aria-hidden="true"></span>${label(b)}</button></div>`, className: 'city-badge-anchor', iconSize: null });
+        return L.divIcon({ html: `<div class="sp-solo">${boardHtml(b, side, '')}</div>`, className: 'city-badge-anchor', iconSize: null });
       }
       if (isBox(gp)) {
         const b = members[0];
         return L.divIcon({ html: `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${label(b)}</button>`, className: 'city-badge-anchor', iconSize: null });
       }
       const sides = signSides(gp), r = signRect(gp);
-      const rows = members.map((b, i) => `<button type="button" class="sp-board is-${sides[i]}" style="grid-row:${i + 1}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
-        + `<span class="sp-tip" aria-hidden="true"></span>${label(b)}</button>`).join('');
+      const rows = members.map((b, i) => boardHtml(b, sides[i], `grid-row:${i + 1}`)).join('');
       let tether = '';
       if (gp.pointer && gp.tether) {
         // a straight stick from the boards' nearest edge to the dot (marker origin = the sign's foot)
