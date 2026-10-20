@@ -414,7 +414,7 @@ for (const [key, , , o] of WOPTS) {
 }
 // measured with src/blur-measure.js on each weight-<opt> folder (the darkest fifth of the live circle, 1.5px blur)
 const WBLUR = JSON.parse(fs.existsSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json')) ? fs.readFileSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json'), 'utf8') : '{}');
-const W_Q = "The + and the star are drawn in the same thin line as the badge ring, so they read lighter than the solid place icons. The star\'s outline is how \'not starred yet\' reads. Do they feel right as they are (top row), or do you want them heavier (second row)? And does the coupe now feel the same weight as the others?";
+const W_Q = "The + and the star are drawn in the same thin line as the badge ring, so they read lighter than the solid place icons. The star\'s outline is how \'not starred yet\' reads. Do they feel right as they are (top row), or do you want them heavier (second row)? And in each row, does the coupe feel the same weight as the others? (In the second row its walls are heavier too.)";
 function sheetWeight(W_, n) {
   const ids = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'];
   const cell = (key, id, px) => id === 'star' || id === 'plus'
