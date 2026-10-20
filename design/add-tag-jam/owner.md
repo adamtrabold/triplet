@@ -149,3 +149,6 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 > every city should be a signpost... but maybe they dont need a stick unless they have more than one? idk on that run it by the team for an honest opinon -- it could break the allusion
 > rough spots are fine except for the stuff youre not calling out that i cant believe made it past the design director -- the box itself... the point is disconnected completely on some, not totally aligning to the corners... very rough. it should look like a box with a point on one end, not like multiple pieces put together
 > yeah the signpost should just land somewhere between them all with the city sign pointing the correct direction
+> thats great that the box looks like a box with apoint but now it doesnt follow the visual language anymore
+> also a signpost would only ever have the pole pointing down
+> re: the poles why would a sign not be able to stand above its city? if the map isnt positioned for it to show it just shouldnt show

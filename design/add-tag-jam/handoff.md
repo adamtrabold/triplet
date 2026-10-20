@@ -1346,6 +1346,47 @@ gone; `concepts.js` and the `0-compare-*.png` stills stay as the record.
     stands on the marker's point.
 - **Pole:** `.sp-pole`, 2px `var(--navy)`, spanning every board row and
   running `var(--s3)` below the last one to the foot.
+- **FINAL board look, back in the family** (owner: "thats great that the box
+  looks like a box with apoint but now it doesnt follow the visual language
+  anymore"). This supersedes the two revisions below on look; their geometry
+  notes (open outline at the pole, the stick into the dot, the `--s2` stack
+  gap) still hold.
+  - The family is the approved city badge and the menu box:
+    `--paper-raised` face, a 1.5px `--navy` rule, and the 2px 2px offset
+    `--navy` shadow.
+  - It is drawn as one shape: `svg.sp-shape` is (w+2) × (h+2) and holds
+    `path.sp-shadow` (`fill: var(--navy)`), `path.sp-fill` and `path.sp-line`
+    (`stroke-width: 1.5`, miter). See `boardPath()` on `design-p4-fixes`.
+  - **The shadow is the board's own silhouette offset 2/2, point included.**
+    - On a post, the shadow starts at the pole (east boards: its pole-side x
+      is 0, not 2), so there's no notch.
+    - It never pokes past the pole (west boards: its pole-side x stays at w).
+    - An edge-less closed board (the lone-board prototype) offsets the whole
+      silhouette.
+  - Rule inset is 0.75 (half the 1.5 rule), and the tip vertex sits 1.75px
+    in. The pole stays 2px and is the boards' pole-side edge.
+  - The sign's rect adds 2px on the right for the shadow.
+  - Family comparison: `stills/p4-fixes/10-family.png` (badge, menu box, a
+    lone board and two boards, at 1x enlarged and at 3x).
+- **Posts are always vertical, and a sign that doesn't fit isn't drawn**
+  (owner: "also a signpost would only ever have the pole pointing down";
+  "re: the poles why would a sign not be able to stand above its city? if
+  the map isnt positioned for it to show it just shouldnt show").
+  - The foot always sits on the city (or the shared mean point), with the
+    pole straight down from the boards. Nothing is ever nudged, leaned or
+    tethered.
+  - A lone sign takes whichever side fits (east first, then west).
+  - **If the whole sign (boards + pole + dot) doesn't fit inside the clear
+    area, it is not drawn.** The clear area is `var(--s2)` inside the map
+    edges, below the zoom control and the account badge, and above the + badge
+    and the credit. The sign also isn't drawn if its city's spot sits under a
+    control. Panning brings it back.
+  - "Not drawn" rather than clipped: a half-cut board at the map's edge
+    reads as a broken sign, and it keeps the controls clear without
+    special-casing.
+  - The edge-pointer and tether code from the earlier rounds goes.
+  - The "A city by the edge" panel (Stockholm at z6, by the account button)
+    shows it.
 - **Board revision after the CD's pixel check (supersedes the shadow and
   outline values below):**
   - **No offset shadow** on the boards. On a pointed outlined shape it read
