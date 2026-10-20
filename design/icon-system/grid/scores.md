@@ -1012,3 +1012,12 @@ The verdict stands within our own set:
   and now.
 - **The master grid:** 9 (the gable heights answered in a picture).
 - **Fixes:** jam turn 64.
+
+
+## Round g7n-fixes (canvas v127), 2026-10-20: 9 after two text lines
+
+- **The monoweight bases** are 1.5 (the text is true now, checks 5/5).
+- **The dropped line** is fixed.
+- **The tree's before/now** and its question are in.
+- **Stale:** the intro's "Latest change (g7j)", and grid change 2's
+  "apexes follow from" the notch. Fixes in jam turn 66, checked by text.

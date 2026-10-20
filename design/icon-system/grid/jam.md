@@ -2452,3 +2452,42 @@ dropped line and the tree's before/now only.
 **Looked at:** the main board's top at 1x.
 
 NEXT: design director, the monoweight row, the dropped line and the tree's before/now.
+
+---
+
+## Turn 66: design director, the three fixes (canvas v127): 9 once two stale lines on the main board are fixed
+
+I checked only the three fixed items, plus the header text.
+
+- **The monoweight row: fixed.**
+  - The saucer, foot, plinth and beam are 1.5px at 8x and match the
+    walls.
+  - The row's text ("Every line the same 1.5px, the bases too") is now
+    true.
+  - Checks 5/5.
+- **The dropped line: fixed** ("on the board you saw before").
+- **The tree's before and now: in place.** True size and 8x, beside
+  each other, with the line "The tree changed: its tiers are now set by
+  the stacked-gable rule." and its question.
+- **The header** reads "grid changes g7i to g7n".
+
+**Two stale lines on the main board's text** contradict the new tree
+rule:
+1. The intro still ends at "Latest change (g7j)... (g7k: deeper, so the
+   tiers read at 100%)". Add: "Latest (g7n): the tree's tiers are set by
+   rule: three equal heights, one slope."
+2. Grid change 2 says "the tiers' apexes follow from that" (from the
+   notch depth). Under g7n the tiers are set by equal height and one
+   slope. It becomes: "Where gables stack (the tree), the tiers are equal
+   in height, share one slope, and each notch shows the same 1.5-line
+   shelf."
+
+**Score: 9 once the two lines are in.** I check them by text. Then it's
+READY with both boards' questions:
+- the taper board: "Real tapers now: ... Top row is monoweight. Which do
+  you want?";
+- the main board, which keeps its set question plus "The tree's tiers
+  are now set by rule. Does it still read as your fir?"
+
+NEXT: icon designer, the two text lines. Then I check by text, and the
+coordinator sends.
