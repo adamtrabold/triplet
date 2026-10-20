@@ -935,3 +935,20 @@ The verdict stands within our own set:
   section.
 - **Weight must be a grid rule.** What it must achieve is in jam turn
   52.
+
+
+## Round g7j (canvas v112), 2026-10-20
+
+- **The Star:** 9. The Outline class, about 11px in the row, the hole
+  about 3px and open at 1x.
+- **The tree:** 9. Stacked gables, equal ledges.
+- **The board:** 8.
+  - the stale "G7I" header;
+  - the Weight board is written to my withdrawn bar.
+- **Withdrawn:** equal blur across place and UI marks. Line marks read
+  lighter than solids by design (outline means "not tapped"). The gate is
+  now equal within a class, by eye, plus a stated relationship across
+  classes.
+- **His call** (question in jam turn 54):
+  - the line marks as they are, or heavier;
+  - whether the coupe now reads the same weight.

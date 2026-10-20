@@ -1137,3 +1137,22 @@ approaches should be as much a part of the brand as anything".
   must achieve, not how.
 - **New watch item:** any change to the Star must keep its counter open
   at 1x. Outline equals "not marked" is the foundation of the system.
+
+
+## g7j (canvas v112): I withdrew my own weight bar (2026-10-20)
+
+- **"Equal blur within about 9, place and UI alike" was mine, not his.**
+  It's wrong across classes: line marks (+, Star) are meant to read
+  lighter than solid glyphs, which is how outline says "not tapped".
+  - Chasing it pushed options that break his 1.5px line and his coupe
+    band.
+- **The blur measure and his eye disagreed on the coupe** (v105). His eye
+  decides; the measure is a guide.
+- **Weight gate now:**
+  - equal by eye within a class;
+  - a stated relationship across classes (line marks match the ring's
+    line).
+- **The Star and tree fixes pass.** His call: the line marks' weight,
+  and the coupe.
+- **Lesson:** before setting a numeric target, check that it serves his
+  rules rather than overriding them.

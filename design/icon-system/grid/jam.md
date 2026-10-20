@@ -1794,3 +1794,85 @@ weight row first among C1–C9.
 **Looked at:** the board at 1x and 3x, the 8x rows, the true-size rows at 3x, the tree at 30x, and the Weight sheet at 3x. The Star's hole is clearly open at 1x in the row, and the Star now sits between the v105 and v110 sizes.
 
 NEXT: coordinator, the weight decision to the owner (sheet 7). Then the design director scores v112.
+
+---
+
+## Turn 54: design director, g7j (canvas v112): the Star and tree pass; equal blur was the wrong gate; weight goes to him
+
+**How I looked:**
+- I rendered both boards' own sources (Grid7Look, Grid7Weight) at 1x
+  and 3x;
+- I looked by eye at true size first (rows, map, chips), then at 8x,
+  then at the numbers.
+
+**(1) The Star and tree fixes:**
+- **The Star: passes.**
+  - The new Outline class sizes it with the place glyphs: about 11px in
+    the row, the same size class as the 12px glyphs.
+  - At 1x the hole is about 3px and plainly open, so it reads as an
+    outline, "not yet tapped".
+  - At 8x it's a clean outline star, rounded at every meeting point.
+- **The tree: passes.** Stacked gables with equal 1.5px ledges. Calm at
+  8x and one root shape.
+- **The board:** the main board's header still reads "GRID CHANGE G7I".
+  It must state this round's grid improvement (the Outline class, the
+  stacked gables) for G-grid.
+
+**(2) By eye: is the weight problem real at true size? Partly. And
+equal blur is the wrong gate.**
+- **The + and the Star read lighter than the solid place icons, and
+  that's right, not a fault.**
+  - They're line marks drawn in the same 1.5px line as the badge ring.
+  - At true size they sit with the ring and the text, not with the
+    solid glyphs inside the ring.
+  - Outline reading lighter than solid is how "not yet tapped" reads
+    (his rule). Making them match solid darkness fights his outline
+    rule and his 1.5px line, and options 2 and 3 do exactly that.
+- **The coupe is the only real weight question.**
+  - At true size its open band (his ask: "a bit of liquid then a clear
+    space ... to differentiate from a chalice") makes it read a touch
+    lighter than the cup, museum and tree.
+  - At v105 he saw it heavier, while the measure said lighter. The
+    measure and his eye disagree, as the designer flagged.
+  - His eye decides. The blur measure is a guide, never the gate.
+- **So "equal blur within about 9, place and UI alike" was my bar, not
+  his, and it's wrong across classes.** I withdraw it.
+
+**The weight gate, corrected:**
+- **Within a class, equal by eye:** the solid place glyphs read as one
+  darkness at true size. The blur may support it, never override it.
+- **Across classes, a stated relationship, not equality:** line marks
+  (the +, the Star) match the badge ring's line, the one 1.5px line, and
+  read lighter than solid glyphs by design.
+- **The board shows both** in plain words.
+
+**Scores:**
+- The Star fix: 9.
+- The tree fix: 9.
+- **The board as it stands: 8.** The stale "G7I" header, and the Weight
+  board is written to my withdrawn bar (spreads, "the director's bar",
+  "darkest fifth") rather than to what he can see.
+
+**Before it goes to him (text and layout, no redraw):**
+1. **The main board's header** states g7j's grid improvements: the
+   Outline size class, and the stacked-gable tree.
+2. **The Weight board, rewritten for him:**
+   - lead with the true-size rows of option 1 (as settled) and option 2
+     (heavier line marks), side by side, then the 8x row;
+   - one plain line each on what it changes;
+   - drop the spread numbers from the headline (keep them small, as a
+     footnote);
+   - drop "the director's bar";
+   - **option 3 (no coupe band) leaves the board:** it undoes his own ask.
+
+**(3) The question for him, plain words, on the Weight board:**
+
+"The + and the star are drawn in the same thin line as the badge ring,
+so they read lighter than the solid place icons. That's how an outline
+says 'not tapped yet'. Do they feel right as they are (top row), or do
+you want them heavier (second row)? And does the coupe now feel the
+same weight as the others?"
+
+NEXT: icon designer, fixes 1 and 2 (text and layout only). Then the
+director looks at the two boards' text, and the coordinator sends with
+the question above.
