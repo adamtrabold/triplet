@@ -8186,7 +8186,11 @@
         // sits by an edge or behind a control) drops its stick and becomes a pointer: a lone board's
         // arrow turns toward its city.
         gp.pointer = gp.pointer || Math.abs(gp.foot.x - at.x) > 0.5 || Math.abs(gp.foot.y - at.y) > 0.5;
-        if (gp.pointer && gp.members.length === 1 && !isBox(gp)) gp.loneSide = gp.pts[0].x >= gp.foot.x ? 'e' : 'w';
+        if (gp.pointer && gp.members.length === 1 && !isBox(gp)) {
+          gp.loneSide = gp.pts[0].x >= gp.foot.x ? 'e' : 'w';
+          const r2 = signRect(gp);   // the turned board, kept inside again
+          gp.foot = { x: Math.min(Math.max(gp.foot.x, safe.left + r2.l), safe.right - r2.r), y: Math.min(Math.max(gp.foot.y, safe.top + r2.t), safe.bottom - r2.b) };
+        }
       });
     }
     function cityBadgeIcon(gp) {
