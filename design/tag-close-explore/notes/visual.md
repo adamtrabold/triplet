@@ -104,3 +104,16 @@ Sheet: `concepts/pin-ringless.png`; phone sheets `concept-pin-odisc.png`, `conce
 
 Pick: A, orange disc, without the star on the closing pin. It's loud enough to read as "close", it's never navy or a
 category colour, and it shares the + badge's colour.
+
+## Round 5: navy with orange (2026-10-20)
+Owner, verbatim: "what about navy with orange? no star needed once expanded because the tag is clear when something is starred."
+
+Decided: no star on the closing pin (`pin-nostar`). Two options, both ringless with the tag's shadow only:
+- A. **Navy disc, orange x** (`pin-nox`): --navy disc, brand-orange x (2.8 stroke).
+- B. **Orange disc, navy x** (`pin-onx`): brand-orange disc, --navy x.
+Sheet: `concepts/pin-navy-orange.png`; phone sheets `concept-pin-nox.png`, `concept-pin-onx.png`.
+
+Read: the orange x makes A clearly better than plain navy. A is the account badge's own colourway (navy die,
+orange figure), so it feels like part of the app's control family. At 1x it is still a dark disc, the same mass as the
+visited sticker (#3A4C5B) beside other pins, and on dark or water tiles the x carries it alone. B reads more as "close"
+at a glance and can never be taken for visited.
