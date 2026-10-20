@@ -715,11 +715,19 @@
     .sp-post {
       position: absolute; left: 0; top: 0; transform: translate(calc(-1 * var(--wl) - 1px), -100%);
       display: grid; grid-template-columns: var(--wl) 2px var(--wr); row-gap: var(--s1);
-      grid-auto-rows: var(--s8); padding-bottom: var(--s3);
+      grid-auto-rows: var(--s8); padding-bottom: var(--s4);
+      pointer-events: none;   /* the stick and foot are never a tap target (UX); only the boards are */
     }
-    .sp-pole { grid-column: 2; grid-row: 1 / span var(--rows); position: relative; background: var(--navy); margin-bottom: calc(-1 * var(--s3)); }
+    .sp-pole { grid-column: 2; grid-row: 1 / span var(--rows); position: relative; background: var(--navy); margin-bottom: calc(-1 * var(--s4)); }
+    /* the foot: where the stick meets the ground -- the city's spot (a navy dot, paper ring) */
+    .sp-foot { position: absolute; left: calc(var(--wl) + 1px); bottom: 0; width: var(--s2); height: var(--s2); margin: 0 0 calc(var(--s2) / -2) calc(var(--s2) / -2);
+      border-radius: 50%; background: var(--navy); box-shadow: 0 0 0 1.5px var(--paper-raised); }
+    .sp-post.is-pointer { padding-bottom: 0; }
+    .sp-post.is-pointer .sp-pole, .sp-post.is-pointer .sp-foot { display: none; }
+    .sp-post.is-pointer .sp-board.is-w { border-right: 1.5px solid var(--navy); }
+    .sp-post.is-pointer .sp-board.is-e { border-left: 1.5px solid var(--navy); }
     .sp-board {
-      all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; height: var(--s8); white-space: nowrap; cursor: pointer;
+      all: unset; pointer-events: auto; box-sizing: border-box; position: relative; display: flex; align-items: center; height: var(--s8); white-space: nowrap; cursor: pointer;
       background: var(--paper-raised); border: 1.5px solid var(--navy); box-shadow: 2px 2px 0 var(--navy); padding: 0 var(--s2);
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: .08em; color: var(--navy);
       -webkit-tap-highlight-color: transparent;
@@ -8087,8 +8095,8 @@
     //    whose centre is on screen draws. The post's true width per side is used, so a far city
     //    (LA at the world view) keeps its own sign.
     //  - Keyed by member ids: a pan only moves a sign (setLatLng).
-    let LONE_STYLE = 'box';
-    try { LONE_STYLE = localStorage.getItem('triplet.loneSign') || 'box'; } catch (e) { }
+    let LONE_STYLE = 'post';   // every city a signpost (owner); 'box' / 'board' kept only as prototype switches
+    try { LONE_STYLE = localStorage.getItem('triplet.loneSign') || 'post'; } catch (e) { }
     const cityBadgeMarkers = new Map();   // key ('id' or 'id+id') -> { marker, sig }
     const signSizeCache = new Map();
     function sNum(n) { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s' + n)) || n * 4; }
@@ -8105,7 +8113,7 @@
     }
     const boxSize = b => { const r = measure('city-badge', b); return { w: r.w + 2, h: r.h + 2 }; };   // + the 2px offset shadow
     const boardW = b => measure('sp-board', b).w + sNum(3) + 2;   // + the arrow tip (--s3) + the shadow
-    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(1), FOOT = () => sNum(3);
+    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(1), FOOT = () => sNum(4);
     // The map's clear area for signs, in container px.
     function badgeSafeRect() {
       const mr = map.getContainer().getBoundingClientRect(), g = sNum(2);
@@ -8172,7 +8180,13 @@
             : (gp.foot.x + r.r > safe.right && gp.foot.x - r.r >= safe.left ? 'w' : 'e');
         }
         const r = signRect(gp);
-        gp.foot = { x: Math.min(Math.max(gp.foot.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(gp.foot.y, safe.top + r.t), safe.bottom - r.b) };
+        const at = gp.foot;
+        gp.foot = { x: Math.min(Math.max(at.x, safe.left + r.l), safe.right - r.r), y: Math.min(Math.max(at.y, safe.top + r.t), safe.bottom - r.b) };
+        // p4-fixes (CD): a stick only ever stands on its city. A sign that had to be nudged (its city
+        // sits by an edge or behind a control) drops its stick and becomes a pointer: a lone board's
+        // arrow turns toward its city.
+        gp.pointer = gp.pointer || Math.abs(gp.foot.x - at.x) > 0.5 || Math.abs(gp.foot.y - at.y) > 0.5;
+        if (gp.pointer && gp.members.length === 1 && !isBox(gp)) gp.loneSide = gp.pts[0].x >= gp.foot.x ? 'e' : 'w';
       });
     }
     function cityBadgeIcon(gp) {
@@ -8189,8 +8203,8 @@
       const sides = signSides(gp), r = signRect(gp);
       const rows = members.map((b, i) => `<button type="button" class="sp-board is-${sides[i]}" style="grid-row:${i + 1}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
         + `<span class="sp-tip" aria-hidden="true"></span>${label(b)}</button>`).join('');
-      const html = `<div class="sp-post" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(', '))}" style="--wl:${r.l - 1}px;--wr:${r.r - 1}px;--rows:${members.length}">`
-        + `<span class="sp-pole" aria-hidden="true"></span>${rows}</div>`;
+      const html = `<div class="sp-post${gp.pointer ? ' is-pointer' : ''}" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(', '))}" style="--wl:${r.l - 1}px;--wr:${r.r - 1}px;--rows:${members.length}">`
+        + `<span class="sp-pole" aria-hidden="true"></span><span class="sp-foot" aria-hidden="true"></span>${rows}</div>`;
       return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
     }
     function syncCityBadges(badges) {
@@ -8206,7 +8220,7 @@
         const key = gp.members.map(m => m.id).join('+');
         seen.add(key);
         const ll = map.containerPointToLatLng(L.point(gp.foot.x, gp.foot.y));
-        const sig = LONE_STYLE + ':' + signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count).join(',');
+        const sig = LONE_STYLE + ':' + (gp.pointer ? 'p:' : '') + signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count).join(',');
         const had = cityBadgeMarkers.get(key);
         if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp)); had.sig = sig; } return; }
         const marker = L.marker(ll, { icon: cityBadgeIcon(gp), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
