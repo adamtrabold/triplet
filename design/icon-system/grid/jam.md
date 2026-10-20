@@ -1416,3 +1416,27 @@ the director checks the scale row, and the coordinator sends it.
 - **Looked at** the 8x row and the list rows at 3x. At true size the coupe sits level with the museum and no longer leads the row.
 
 NEXT: design director, the scale row on v105; then the coordinator sends it.
+
+---
+
+## Turn 47: design director, the scale row (canvas v105): 9, send
+
+I checked the scale row only, rendered from the board's source at 8x
+and in the true-size rows.
+
+- **The coupe** (11.0px) no longer reads biggest. Its bowl and the
+  museum's pediment now read as one size class, and the stem no longer
+  drops below the set.
+- **The cup** (9.3) holds the middle. It's wide and low, so it reads
+  about the same size as the museum (10.3).
+- **The tree** (12.2) is the tallest by number, but it's a narrow point,
+  so it reads in the middle. That's correct overshoot for a pointed
+  form (C1).
+- **True-size rows:** no icon reads bigger or smaller.
+- His named fault ("the coupe as much taller") is closed, so the
+  condition from turn 45 is met.
+
+**Score: 9. READY.** The question is as on the board.
+
+NEXT: the coordinator sends the board (canvas page "Grid concepts", v105)
+and adds the `../history.md` line.

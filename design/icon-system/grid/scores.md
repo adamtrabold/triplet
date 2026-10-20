@@ -881,3 +881,12 @@ means. and i cant tell if theyre at craft yet").
   - No traps, no blobs.
 - **Blur:** balanced.
 - **READY** after the 1/3px, which I check by the scale row only.
+
+
+## Round g7i (canvas v105), 2026-10-20: 9, READY
+
+- **Scale row only:** the coupe (11.0) no longer reads biggest; the
+  cup (9.3) and the museum (10.3) are in the middle; the tree (12.2)
+  reads mid-set, since a pointed form overshoots.
+- His named coupe fault is closed.
+- **Send** the board with its question.

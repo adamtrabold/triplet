@@ -1005,3 +1005,7 @@ C2 and C5 are amended above. **New first check:** the scale row.
     is a likely objection.
 - **Rule for myself:** a fault the owner named by name must be fully
   closed before a 9, not just improved.
+
+- **g7i (canvas v105): 9, sent.** The coupe takes 1/3px more, and the
+  scale row is even. Every C5 meeting point was already rounded, interior
+  less than exterior, in v103.
