@@ -689,40 +689,45 @@
        home-screen launch (inset is 0 in a Safari tab). */
     .leaflet-top { margin-top: env(safe-area-inset-top, 0px); }
 
-    /* THE CITY BADGE (add-tag-jam phase 4, GoToMap "the boxed city label"): below
-       CITY_BADGE_MAX_ZOOM, one per shown city, at its stored centre. The menu's box family
-       (paper-raised, navy rule, the 2px offset navy shadow); caps 13 + the tally. The marker
-       icon is a 0x0 anchor; the button centres on it. */
+    /* THE CITY SIGNPOST (add-tag-jam phase 4; owner: "signposts instead of city badges are
+       approved"). Below CITY_BADGE_MAX_ZOOM every shown city is a signpost: a 2px navy pole
+       standing straight up from a foot dot ON the city (close cities share one post, its foot on
+       their mean point), one arrow board per city, pointing the way its city lies. The marker icon
+       is a 0x0 anchor at the foot; the post stands on it. Only the boards tap. */
     .city-badge-anchor { width: 0; height: 0; }
-    .city-badge {
-      position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
-      display: flex; align-items: center; white-space: nowrap;
-      background: var(--paper-raised); border: 1.5px solid var(--navy); border-radius: 2px;
-      padding: 5px 9px; box-shadow: 2px 2px 0 var(--navy);
-      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
-      font-size: 13px; line-height: 16px; letter-spacing: 0.08em; color: var(--navy);
-      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    .sp-anchor { position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none; }
+    .sp-post {
+      position: absolute; left: 0; top: 0; transform: translate(calc(-1 * var(--wl) - 1px), -100%);
+      display: grid; grid-template-columns: var(--wl) 2px var(--wr); row-gap: var(--s3);
+      grid-auto-rows: var(--s8); padding-bottom: var(--s4);
+      pointer-events: none;   /* the pole and foot are never a tap target; only the boards are */
     }
-    .city-badge::before { content: ''; position: absolute; left: -2px; right: -2px; top: -9px; bottom: -9px; }   /* a 44px-tall hit area, as the menu rows' trick */
-    .city-badge:active { background: var(--state-press); }
-    .city-badge:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
-
-    /* "All cities": under the zoom control, Leaflet's own control look (leaflet-bar: the
-       2px rgba(0,0,0,.2) border, 4px radius; #fff as its buttons) -- not a brand surface. */
-    .all-cities-btn {
-      position: relative; display: flex; align-items: center; gap: 5px; height: 34px; box-sizing: border-box;
-      padding: 0 9px 0 7px; background: #fff; background-clip: padding-box; cursor: pointer;
-      font-family: var(--font-ui); color: var(--navy); -webkit-tap-highlight-color: transparent;
+    .sp-pole { grid-column: 2; grid-row: 1 / span var(--rows); position: relative; z-index: 2; background: var(--navy); margin-bottom: calc(-1 * var(--s4)); }   /* runs into the foot dot's centre */
+    .sp-foot { position: absolute; left: calc(var(--wl) + 1px); bottom: 0; width: var(--s2); height: var(--s2); margin: 0 0 calc(var(--s2) / -2) calc(var(--s2) / -2);
+      border-radius: 50%; background: var(--navy); box-shadow: 0 0 0 1.5px var(--paper-raised); }
+    /* THE BOARD: ONE shape (owner: "a box with a point on one end, not like multiple pieces put
+       together") in the badge / menu-box family: an inline SVG per board, from its exact width --
+       the 2px 2px offset navy shadow (the board's own silhouette, point included), the
+       paper-raised face, one 1.5px navy rule (round joins soften the free corners; open on the
+       pole side, where the pole is the edge). The button carries the label and the 44px target. */
+    .sp-board {
+      all: unset; pointer-events: auto; box-sizing: border-box; position: relative; isolation: isolate;
+      display: flex; align-items: center; height: var(--s8); white-space: nowrap; cursor: pointer; padding: 0 var(--s2);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: 0.08em; color: var(--navy);
+      -webkit-tap-highlight-color: transparent;
     }
-    .all-cities-btn::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 44px tall to the touch */
-    .all-cities-btn:active { background: #f4f4f4; }   /* leaflet-bar a:hover's own step */
-    .all-cities-btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
-    .all-cities-ico { width: 16px; height: 16px; flex: none; display: block; }
-    .all-cities-lab {
-      font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 14px;
-      letter-spacing: 0.1em; white-space: nowrap;
-    }
-    body.plan-view .all-cities-btn, body.add-open .all-cities-btn { display: none; }
+    .sp-board.is-e { padding-right: calc(var(--s2) + var(--s3)); }   /* + the point */
+    .sp-board.is-w { padding-left: calc(var(--s2) + var(--s3)); }
+    .sp-post .sp-board.is-w { grid-column: 1; justify-self: end; }
+    .sp-post .sp-board.is-e { grid-column: 3; justify-self: start; }
+    .sp-board .sp-shape { position: absolute; left: 0; top: 0; z-index: -1; overflow: visible; pointer-events: none; }   /* beats leaflet.css .leaflet-map-pane svg { z-index: 200 } */
+    .sp-shape .sp-shadow { fill: var(--navy); stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: round; }   /* stroked too: it meets the face's rule with no paper at the point */
+    .sp-shape .sp-fill { fill: var(--sp-fill, var(--paper-raised)); }
+    .sp-shape .sp-line { fill: none; stroke: var(--navy); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: butt; }
+    .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
+    .sp-board:active { --sp-fill: var(--state-press); }
+    .sp-board:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+    .sp-lab { position: relative; z-index: 1; display: flex; align-items: baseline; }
     /* OSM land beige, not leaflet.css's #ddd: iOS Safari tints its status
        bar from the top fixed layer, so this makes the strip read as map
        (and tiles loading in show beige, not grey). */
@@ -4510,9 +4515,36 @@
 
       const bounds = L.latLngBounds(pts).pad(0.15);
       const animate = opts.animate !== false && !prefersReducedMotion();
+      // Places that only fit at a signpost zoom: frame the SIGNS instead (owner: "all places should
+      // just show all places on the map") -- the closest zoom at which every shown city's sign sits
+      // whole in the clear area, as far out as that takes (minZoom 1: LA + the Nordics on a phone).
+      if (!inPlanView() && map.getBoundsZoom(bounds) < CITY_BADGE_MAX_ZOOM) {
+        const fit = badgeFitView();
+        if (fit) return map.flyTo(fit.center, fit.zoom, animate ? { duration: opts.duration || flyDuration(map.getCenter(), fit.center) } : { animate: false });
+      }
       map.fitBounds(bounds, animate
         ? { animate: true, duration: opts.duration || flyDuration(map.getCenter(), bounds.getCenter()) }
         : { animate: false });
+    }
+
+    // All places at signpost zoom: for z = CITY_BADGE_MAX_ZOOM - 1 down to minZoom, lay the shown
+    // cities' signs out at z (the map's own joining) and take the first z whose signs' extent fits
+    // the clear area; that extent is centred in it.
+    function badgeFitView() {
+      const ids = new Set(visibleLocations().map(l => l.city).concat(visibleNeighborhoodShapes().map(n => n.city)));
+      const badges = sectionCityIds().filter(id => ids.has(id) && CITIES[id] && Array.isArray(CITIES[id].center))
+        .map(id => ({ id, label: cityLabel(id), count: cityTally(id), center: CITIES[id].center }));
+      if (!badges.length) return null;
+      const safe = badgeSafeRect(), sw = safe.right - safe.left, sh = safe.bottom - safe.top, mz = map.getMinZoom(), sz = map.getSize();
+      for (let z = CITY_BADGE_MAX_ZOOM - 1; z >= mz; z--) {
+        let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+        layoutCityBadges(badges, c => map.project(c, z)).forEach(gp => { const q = rectOf(gp); x0 = Math.min(x0, q.x0); x1 = Math.max(x1, q.x1); y0 = Math.min(y0, q.y0); y1 = Math.max(y1, q.y1); });
+        if ((x1 - x0 <= sw && y1 - y0 <= sh) || z === mz) {
+          const cx = (x0 + x1) / 2 + (sz.x / 2 - (safe.left + sw / 2)), cy = (y0 + y1) / 2 + (sz.y / 2 - (safe.top + sh / 2));
+          return { center: map.unproject(L.point(cx, cy), z), zoom: z };
+        }
+      }
+      return null;
     }
 
     // Leaflet's default easing zooms out to world view on a LA↔Stockholm hop,
@@ -5062,8 +5094,8 @@
     const SOLO_MIN_ZOOM = 14;
 
     // The map's city badges (add-tag-jam phase 4; the value is a "we think"): below this zoom, in
-    // Places, each SHOWN city with at least one shown place draws ONE boxed badge (its name + the
-    // tally) at its stored centre, in place of that city's pins and clusters. A zoom-gated MAP
+    // Places, each SHOWN city with at least one shown place is a SIGNPOST (its name + the tally;
+    // syncCityBadges()) standing on its stored centre, in place of that city's pins and clusters. A zoom-gated MAP
     // layer only -- mapVisibleLocations() / mapVisibleNeighborhoodShapes(); the list never changes
     // with zoom. A badge tap is the go-to (goToCity()), which lands at the city's own zoom
     // (cityConfig().zoom: 11-12 today, 12 for a new city), so this must stay below every city's
@@ -7996,30 +8028,163 @@
       return { solo: shapeStops.length ? solo.filter(l => !l.planShape) : solo, clusters, badges };
     }
 
-    // THE CITY BADGE (add-tag-jam phase 4, the boxed city label): a <button> on the map, centred
-    // on the city's stored centre (the icon is a 0x0 anchor; the button centres on it by CSS).
-    // Keyed by city id, re-iconed only when its name or tally changes, so a pan never re-creates
-    // one (no flicker). A tap is the go-to (goToCity(): the map frames the city, the list scrolls
-    // to its header, nothing is hidden). Synced wherever the clusters are.
-    const cityBadgeMarkers = new Map();   // city id -> { marker, sig }
-    function cityBadgeIcon(b) {
-      const html = `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">` +
-        `${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`;
+    // THE CITY SIGNPOST (add-tag-jam phase 4; owner: "signposts instead of city badges are
+    // approved"; CSS .sp-*). For the cities mapVisibleLocations() badges:
+    //  - only a city whose centre is on screen draws;
+    //  - cities whose signs would come within --s1 of each other join ONE post (greedy, repeated
+    //    until nothing touches), its foot on their mean screen point (a lone post: on the city);
+    //    one board per city, north to south, west of the pole if its city lies west of the foot,
+    //    else east (ties alternate), pointing that way. The post's true width per side is used, so
+    //    a far city (LA at the world view) keeps its own sign;
+    //  - posts always stand straight up from their foot (owner: "a signpost would only ever have the
+    //    pole pointing down"); a lone sign takes the east side, else west. A sign that doesn't fit
+    //    whole inside the clear area (badgeSafeRect()), or whose spot sits under a control, is NOT
+    //    drawn (owner: "if the map isnt positioned for it to show it just shouldnt show");
+    //  - keyed by member ids, so a pan only moves a sign (setLatLng); a board tap = goToCity(id).
+    const cityBadgeMarkers = new Map();   // key ('id' or 'id+id+...') -> { marker, sig }
+    const signSizeCache = new Map();
+    const sNumCache = {};
+    function sNum(n) {   // a spacing token (--sN) in px; the scale is fixed, so read once
+      if (!(n in sNumCache)) sNumCache[n] = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s' + n)) || n * 4;
+      return sNumCache[n];
+    }
+    // A board's outer width (label + --s2 padding each side + the --s3 point), measured once per label.
+    function boardW(b) {
+      const k = b.label + '|' + b.count;
+      if (signSizeCache.has(k)) return signSizeCache.get(k);
+      const m = document.createElement('div');
+      m.className = 'sp-board is-e'; m.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;top:0';
+      m.innerHTML = `<span class="sp-lab">${escapeHtml(b.label)}<span class="tally">${b.count}</span></span>`;
+      document.body.appendChild(m);
+      const w = Math.ceil(m.offsetWidth);
+      m.remove(); signSizeCache.set(k, w);
+      return w;
+    }
+    const BOARD_H = () => sNum(8), BOARD_GAP = () => sNum(3), FOOT = () => sNum(4), SHADOW = 2;
+    // The map's clear area for signs, in container px: --s2 inside the map's edges, below the zoom
+    // control and the account badge, above the + badge and the credit; plus those controls' boxes.
+    const SIGN_TOP_CONTROLS = ['.leaflet-control-zoom', '#accountBtn'], SIGN_BOTTOM_CONTROLS = ['#floatingAddBtn', '.leaflet-control-attribution'];
+    function badgeSafeRect() {
+      const mr = map.getContainer().getBoundingClientRect(), g = sNum(2);
+      const box = sel => { const e = document.querySelector(sel), r = e && e.getBoundingClientRect(); return r && r.height ? { x0: r.left - mr.left, y0: r.top - mr.top, x1: r.right - mr.left, y1: r.bottom - mr.top } : null; };
+      let top = g, bottom = mr.height - g;
+      SIGN_TOP_CONTROLS.map(box).filter(Boolean).forEach(c => { top = Math.max(top, c.y1 + g); });
+      SIGN_BOTTOM_CONTROLS.map(box).filter(Boolean).forEach(c => { if (c.y0 < mr.height) bottom = Math.min(bottom, c.y0 - g); });
+      return { left: g, right: mr.width - g, top, bottom, w: mr.width, h: mr.height, controls: SIGN_TOP_CONTROLS.concat(SIGN_BOTTOM_CONTROLS).map(box).filter(Boolean) };
+    }
+    // The city's spot is visible: on the map and not under (within 4px of) a control.
+    function dotVisible(q, safe) {
+      if (q.x < 4 || q.y < 4 || q.x > safe.w - 4 || q.y > safe.h - 4) return false;
+      return !safe.controls.some(c => q.x > c.x0 - 4 && q.x < c.x1 + 4 && q.y > c.y0 - 4 && q.y < c.y1 + 4);
+    }
+    // Each member's side ('w' | 'e'). A lone post takes gp.loneSide (default 'e').
+    function signSides(gp) {
+      if (gp.members.length === 1) return [gp.loneSide || 'e'];
+      return gp.members.map((m, i) => (gp.pts[i].x < gp.foot.x - 0.5 || (Math.abs(gp.pts[i].x - gp.foot.x) <= 0.5 && i % 2 === 0)) ? 'w' : 'e');
+    }
+    // The sign's extent around its foot: px left / right of it and above it (the pole, its 1px
+    // halves, the widest board per side and the shadow's 2px).
+    function signRect(gp) {
+      const sides = signSides(gp);
+      let wl = 0, wr = 0;
+      gp.members.forEach((m, i) => { const w = boardW(m); if (sides[i] === 'w') wl = Math.max(wl, w); else wr = Math.max(wr, w); });
+      const n = gp.members.length;
+      return { l: wl + 1, r: wr + 1 + SHADOW, t: n * BOARD_H() + (n - 1) * BOARD_GAP() + FOOT(), b: 0, wl, wr };
+    }
+    function rectOf(gp) { const r = signRect(gp); return { x0: gp.foot.x - r.l, x1: gp.foot.x + r.r, y0: gp.foot.y - r.t, y1: gp.foot.y + r.b }; }
+    function signsTouch(A, B) {
+      const a = rectOf(A), c = rectOf(B), g = sNum(1);
+      return a.x0 < c.x1 + g && c.x0 < a.x1 + g && a.y0 < c.y1 + g && c.y0 < a.y1 + g;
+    }
+    const meanPt = pts => ({ x: pts.reduce((t, q) => t + q.x, 0) / pts.length, y: pts.reduce((t, q) => t + q.y, 0) / pts.length });
+    // Lays the signs out (proj: latlng -> px): groups { members, pts, foot }.
+    function layoutCityBadges(badges, proj) {
+      return mergeSigns(badges.map(b => { const q = proj(b.center); return { members: [b], pts: [q], foot: { x: q.x, y: q.y } }; }));
+    }
+    function mergeSigns(groups) {
+      for (let again = true; again;) {
+        again = false;
+        for (let i = 0; i < groups.length && !again; i++) for (let j = i + 1; j < groups.length && !again; j++) {
+          if (!signsTouch(groups[i], groups[j])) continue;
+          const pairs = groups[i].members.map((m, k) => [m, groups[i].pts[k]]).concat(groups[j].members.map((m, k) => [m, groups[j].pts[k]]))
+            .sort((x, y) => y[0].center[0] - x[0].center[0]);   // north to south
+          const pts = pairs.map(q => q[1]);
+          groups[i] = { members: pairs.map(q => q[0]), pts, foot: meanPt(pts) };
+          groups.splice(j, 1); again = true;
+        }
+      }
+      return groups;
+    }
+    function fitsAt(gp, safe) {
+      const q = rectOf(gp);
+      return q.x0 >= safe.left && q.x1 <= safe.right && q.y0 >= safe.top && q.y1 <= safe.bottom;
+    }
+    // Each sign stands on its spot: a lone one takes east, else west; one that doesn't fit is hidden.
+    function placeSigns(groups, safe) {
+      groups.forEach(gp => {
+        gp.foot = meanPt(gp.pts);
+        if (gp.members.length === 1) { gp.loneSide = 'e'; if (!fitsAt(gp, safe)) { gp.loneSide = 'w'; if (!fitsAt(gp, safe)) gp.loneSide = 'e'; } }
+        gp.hidden = !(fitsAt(gp, safe) && dotVisible(gp.foot, safe));
+      });
+    }
+    // One board = one shape: a box with a point, from the board's exact width w (h = --s8, point t
+    // deep). The rule is inset half its 1.5px; the tip vertex sits 1.75px in so the round join stays
+    // inside. Open on the pole side (the pole is the edge): the rule has no pole-side stroke, and the
+    // shadow starts AT the pole (east: x 0, no notch) and never pokes past it (west: x w).
+    function boardPath(w, h, t, side) {
+      const a = 0.75, tip = 1.75, o = SHADOW;
+      if (side === 'e') {
+        const tx = w - tip;
+        return {
+          fill: `M0 0H${w - t}L${tx} ${h / 2}L${w - t} ${h}H0Z`,
+          stroke: `M0 ${a}H${w - t}L${tx} ${h / 2}L${w - t} ${h - a}H0`,
+          shadow: `M0 ${o}H${w - t + o}L${tx + o} ${h / 2 + o}L${w - t + o} ${h + o}H0Z`,
+        };
+      }
+      const tx = tip;
+      return {
+        fill: `M${w} 0H${t}L${tx} ${h / 2}L${t} ${h}H${w}Z`,
+        stroke: `M${w} ${a}H${t}L${tx} ${h / 2}L${t} ${h - a}H${w}`,
+        shadow: `M${w} ${o}H${t + o}L${tx + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w}Z`,   // starts at the face's lower corner
+      };
+    }
+    function boardHtml(b, side, row) {
+      const w = boardW(b), h = BOARD_H(), d = boardPath(w, h, sNum(3), side);
+      return `<button type="button" class="sp-board is-${side}" style="width:${w}px;grid-row:${row}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
+        + `<svg class="sp-shape" width="${w + SHADOW}" height="${h + SHADOW}" viewBox="0 0 ${w + SHADOW} ${h + SHADOW}" aria-hidden="true"><path class="sp-shadow" d="${d.shadow}"/><path class="sp-fill" d="${d.fill}"/><path class="sp-line" d="${d.stroke}"/></svg>`
+        + `<span class="sp-lab">${escapeHtml(b.label)}<span class="tally">${b.count}</span></span></button>`;
+    }
+    function cityBadgeIcon(gp) {
+      const sides = signSides(gp), r = signRect(gp);
+      const rows = gp.members.map((b, i) => boardHtml(b, sides[i], i + 1)).join('');
+      const html = `<div class="sp-anchor"><div class="sp-post" role="group" aria-label="${escapeAttr(gp.members.map(m => m.label).join(', '))}" style="--wl:${r.wl}px;--wr:${r.wr}px;--rows:${gp.members.length}">`
+        + `<span class="sp-pole" aria-hidden="true"></span><span class="sp-foot" aria-hidden="true"></span>${rows}</div></div>`;
       return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
     }
     function syncCityBadges(badges) {
       if (!map) return;
+      const size = map.getSize(), safe = badgeSafeRect();
+      const onScreen = badges.filter(b => { const q = map.latLngToContainerPoint(b.center); return q.x >= 0 && q.y >= 0 && q.x <= size.x && q.y <= size.y; });
+      let groups = layoutCityBadges(onScreen, c => map.latLngToContainerPoint(c));
+      placeSigns(groups, safe);
+      // a lone sign that turned west may now touch a neighbour: join again (at most twice)
+      for (let k = 0; k < 2; k++) { const n = groups.length; groups = mergeSigns(groups); placeSigns(groups, safe); if (groups.length === n) break; }
       const seen = new Set();
-      badges.forEach(b => {
-        seen.add(b.id);
-        const sig = b.label + '|' + b.count + '|' + b.center.join(','), had = cityBadgeMarkers.get(b.id);
-        if (had && had.sig === sig) return;
-        if (had) { had.marker.setLatLng(b.center); had.marker.setIcon(cityBadgeIcon(b)); had.sig = sig; return; }
-        const marker = L.marker(b.center, { icon: cityBadgeIcon(b), keyboard: false, zIndexOffset: Z_CITY_BADGE }).addTo(map);
-        marker.on('click', () => goToCity(b.id));
-        cityBadgeMarkers.set(b.id, { marker, sig });
+      groups.filter(gp => !gp.hidden).forEach(gp => {
+        const key = gp.members.map(m => m.id).join('+');
+        seen.add(key);
+        const ll = map.containerPointToLatLng(L.point(gp.foot.x, gp.foot.y));
+        const sig = signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count).join(',');
+        const had = cityBadgeMarkers.get(key);
+        if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp)); had.sig = sig; } return; }
+        const marker = L.marker(ll, { icon: cityBadgeIcon(gp), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
+        marker.on('click', e => {
+          const t = e.originalEvent && e.originalEvent.target, btn = t && t.closest && t.closest('[data-city-badge]');
+          if (btn) goToCity(btn.dataset.cityBadge);
+        });
+        cityBadgeMarkers.set(key, { marker, sig });
       });
-      cityBadgeMarkers.forEach((e, id) => { if (!seen.has(id)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(id); } });
+      cityBadgeMarkers.forEach((e, k) => { if (!seen.has(k)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(k); } });
     }
 
     // Cluster badge: paper count on a solid field, deliberately not a
@@ -8081,7 +8246,7 @@
     // Among equals the starred one wins, so the place the owner cares
     // about is never the one hidden underneath. The selected pin always
     // tops everything.
-    // A city badge (CITY_BADGE_MAX_ZOOM) sits at 800, between the starred cluster and the
+    // A city signpost (CITY_BADGE_MAX_ZOOM) sits at 800, between the starred cluster and the
     // highlighted pin: it stands for a whole city, so no other city's cluster or pin covers it.
     const Z_HIGHLIGHTED = 1000, Z_CITY_BADGE = 800, Z_CLUSTER_STARRED = 700, Z_CLUSTER = 600, Z_PIN_STARRED = 500, Z_PIN_VISITED_DROP = 1000;
     // The Plans ladder (an open plan only; design/plans-deepdive/v3 §4).
@@ -10389,7 +10554,7 @@
     // with no error. worldCopyJump brings them back when panning past ±180°.
     // No maxBounds: a per-city clamp would break the center-me button at a
     // city's edge, and Copenhagen/Malmö are one travel area across the Øresund.
-    map = L.map('map', { minZoom: 3, worldCopyJump: true })
+    map = L.map('map', { minZoom: 1, worldCopyJump: true })   // 1: All places can show LA + the Nordics on a phone (phase 4)
            .setView(CITIES[DEFAULT_CITY].center, CITIES[DEFAULT_CITY].zoom);
     // Standard OSM raster tiles. CARTO's anonymous light_all/rastertiles
     // endpoints now require an API key (they render an "API KEY REQUIRED"
@@ -10400,7 +10565,7 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
       subdomains: 'abc',
-      minZoom: 3,
+      minZoom: 1,
       maxZoom: 19
     }).addTo(map);
 
@@ -10411,25 +10576,6 @@
     const syncAttributionPrefix = () => map.attributionControl.setPrefix(map.getSize().x < 338 ? false : ATTRIBUTION_PREFIX);
     syncAttributionPrefix();
     map.on('resize', syncAttributionPrefix);
-
-    // "All cities" (add-tag-jam phase 4): under the zoom control, in its Leaflet look (the 10px
-    // control gap is Leaflet's own). A tap is the title menu's "All places" go-to
-    // (goToCity(ALL_CITIES)): the map fits every shown place, the list goes to its top. Not in
-    // Plans (no badges there either) or while the add tag is up (CSS).
-    const AllCitiesControl = L.Control.extend({
-      options: { position: 'topleft' },
-      onAdd() {
-        const b = L.DomUtil.create('button', 'leaflet-bar all-cities-btn');
-        b.type = 'button'; b.id = 'allCitiesBtn';
-        b.setAttribute('aria-label', 'Show all my cities');
-        b.innerHTML = MENU_SVG.ring.replace('class="menu-ico"', 'class="all-cities-ico"') + '<span class="all-cities-lab">All cities</span>';
-        L.DomEvent.disableClickPropagation(b);
-        L.DomEvent.disableScrollPropagation(b);
-        b.addEventListener('click', () => goToCity(ALL_CITIES));
-        return b;
-      }
-    });
-    new AllCitiesControl().addTo(map);
 
     initAddMapHooks();   // the add tag keeps a picked place under its pin
     map.on('dragend zoomend', noteInteraction);
