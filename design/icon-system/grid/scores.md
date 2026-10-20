@@ -838,3 +838,16 @@ means. and i cant tell if theyre at craft yet").
   The museum's end nubs are minor.
 - **Fixes:** jam turn 37.
 - **The work changed:** the surface, yes; the drawings, no.
+
+
+## Round g7f (canvas v96), 2026-10-20: 8
+
+- **The cup:** fixed (one outline, a smooth handle join, a real loop).
+- **The true-size rows:** clean and balanced.
+- **The new by-joint tip rule** (a 0.12 round on sharp tips, none on
+  sharp notches) makes the Star, the tree and the saucer needle-sharp at
+  8x. That contradicts "slight rounding of interior and exterior
+  corners" and "lightly rounded like the rest of the icons". *Likely
+  objection.*
+- The tree's tiers end in long sub-line spurs.
+- **Fixes:** jam turn 39.

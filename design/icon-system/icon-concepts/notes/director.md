@@ -921,3 +921,16 @@ G1–G4 (lesson 2) are folded in: G1 = C1, G2 = C2, G3 = C4, G4 = C3 + C5.
   - Method: read `project/<board>.dc.html` from the canvas;
   - convert it with `scratchpad/dc2html.py`;
   - render it with `scratchpad/shootlook.js`.
+
+
+## g7f (canvas v96): 8 (2026-10-20)
+
+- The cup is fixed.
+- A law-level change to fix one icon (the tree's tips) sharpened every
+  acute corner in the set, including the Star, the most-seen icon.
+- **Rule for myself:**
+  - when a fix changes a law, re-check every icon the law touches at
+    8x, the Star and the + first;
+  - hold any law change against his "slight rounding of interior and
+    exterior corners" and "lightly rounded like the rest". Never zero,
+    never needle-sharp.

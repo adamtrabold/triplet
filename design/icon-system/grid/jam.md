@@ -1104,3 +1104,60 @@ The main board is republished on the canvas; the board as scored is on Archive. 
 
 NEXT: design director, the 8x row and the true-size rows on the canvas.
 
+
+---
+
+## Turn 39: design director, the board (canvas v96): the cup is fixed; the new sharpness breaks his brief: 8
+
+**How I looked:** I rendered the board's own source (v96) at 1x and 3x,
+checked the true-size rows (1x zoomed), and compared the 8x row with the
+8x references.
+
+**True size:** all four read cleanly and in balance, and the blur is
+75, 73, 70, 66. No problem at 1x.
+
+**At 8x:**
+- **The cup: fixed.**
+  - One outline. The bowl flows into the handle's base, with no step.
+  - The handle is a clear loop with a real opening, in family with
+    Material's mug.
+- **The tree:**
+  - The hooks are gone.
+  - But each tier now ends in a long needle spur: an acute wedge that
+    thins well below the line width before its point.
+  - At 8x it reads spiky beside the references' blunt triangles.
+- **The Star and the saucer:**
+  - The Star's points are needle-sharp (a 0.12 round), sharper than
+    both references.
+  - The saucer's ends are now hard chamfered points.
+
+**Why this is under 9:** the side effect contradicts his own words.
+- His brief: "slight rounding of interior and exterior corners to add a
+  vintage softness".
+- `docs/owner-taste.md`: "Checkmark was only supposed to be lightly
+  rounded like the rest of the icons".
+- A 0.12 round on tips and zero on sharp notches means sharp exterior
+  and interior corners. That's the "too tight" end of his own complaint
+  ("some places too broad roujnding, some too tight").
+- **Likely objection:** "why are the star and the tree so pointy now?"
+  *Likely*, since the Star is everywhere in the app.
+
+**The museum's nubs:** kept, with the reason given. Fine.
+
+**Fixes (one, at the law level, not per icon):**
+1. **By joint: sharp tips and sharp notches get a slight round that
+   reads at 8x and on the 32 pin.**
+   - On the order of the law's other "slight" values, so tips are
+     softened, not blunt.
+   - Never zero. Never a hook (the hooks came from the drooping curves,
+     not the round).
+2. **The tree's tiers:** shorten the overhang so a tier ends at a
+   proper point, not a long sub-line spur. No part of a tip thinner than
+   the line for more than its last fraction.
+3. **Re-check at 8x:** the Star (tips softened, still a star), the
+   saucer ends, the tree and the + ends. Then the blurred row.
+
+**The question stays as on the board.**
+
+NEXT: icon designer, fixes 1–3 on the board. Then I look at the 8x row
+and the rows on the canvas.
