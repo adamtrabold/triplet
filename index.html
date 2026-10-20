@@ -5097,7 +5097,7 @@
     // Places, each SHOWN city with at least one shown place is a SIGNPOST (its name + the tally;
     // syncCityBadges()) standing on its stored centre, in place of that city's pins and clusters. A zoom-gated MAP
     // layer only -- mapVisibleLocations() / mapVisibleNeighborhoodShapes(); the list never changes
-    // with zoom. A badge tap is the go-to (goToCity()), which lands at the city's own zoom
+    // with zoom. A board tap is the go-to (goToCity()), which lands at the city's own zoom
     // (cityConfig().zoom: 11-12 today, 12 for a new city), so this must stay below every city's
     // zoom or the tap would land on badges again. Not SOLO_MIN_ZOOM / GLYPH_MIN_ZOOM: those still
     // govern everything at and above this one.

@@ -32,7 +32,7 @@ function mapState(page, city) {
     const pins = [...markersById.values()].filter(e => e.loc.city === city).length;
     const clusters = [...clusterMarkersById.keys()].filter(id => id.replace(/^p?cluster:\*?/, '').split(',').some(x => (locations.find(l => l.id === x) || {}).city === city)).length;
     const shapes = [...neighborhoodLayersById.keys()].filter(id => (neighborhoodShapes.find(n => n.id === id) || {}).city === city).length;
-    const b = document.querySelector(`.city-badge[data-city-badge="${city}"]`);
+    const b = document.querySelector(`[data-city-badge="${city}"]`);
     return { zoom: map.getZoom(), pins, clusters, shapes, badge: b ? b.textContent : null };
   }, city);
 }
