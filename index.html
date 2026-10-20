@@ -706,18 +706,40 @@
     .city-badge::before { content: ''; position: absolute; left: -2px; right: -2px; top: -9px; bottom: -9px; }   /* a 44px-tall hit area, as the menu rows' trick */
     .city-badge:active { background: var(--state-press); }
     .city-badge:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+    /* p4-fixes: badges that would touch join into one box -- the same box (paper-raised, 1.5px navy,
+       the 2px offset navy shadow), a stacked list of their cities, each row the menu spec's 40px row
+       and its own go-to; a 1px --hair rule between rows. */
+    .city-badge-group {
+      position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
+      display: flex; flex-direction: column; min-width: max-content;
+      background: var(--paper-raised); border: 1.5px solid var(--navy); border-radius: 2px; box-shadow: 2px 2px 0 var(--navy);
+    }
+    .city-badge-row {
+      all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; height: 40px; padding: 0 var(--s3);
+      white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700;
+      font-size: 13px; line-height: 16px; letter-spacing: 0.08em; color: var(--navy);
+    }
+    .city-badge-row + .city-badge-row { border-top: 1px solid var(--hair); }
+    .city-badge-row::before { content: ''; position: absolute; left: 0; right: 0; top: -2px; bottom: -2px; }   /* 44 to the touch, as the menu rows */
+    .city-badge-row:active { background: var(--state-press); }
+    .city-badge-row:focus-visible { outline: 2px solid var(--navy); outline-offset: -2px; }
 
-    /* "All cities": under the zoom control, Leaflet's own control look (leaflet-bar: the
-       2px rgba(0,0,0,.2) border, 4px radius; #fff as its buttons) -- not a brand surface. */
+    /* p4-fixes: "All places" -- the menu's name for the same go-to. A quiet paper chip, not
+       Leaflet's white box: the plain-paper-box rule (1px --hair edge, no shadow; owner: a paper
+       box takes the dividers' hair), so it never outweighs the navy-ruled city badges. Text only:
+       no ring (the owner asked "what is this icon?", and a ring reads as "my location").
+       --s8 tall, --s2 under the zoom control, --s3 side padding; 44 to the touch. */
+    .all-cities-btn.leaflet-bar { border: 1px solid var(--hair); border-radius: 2px; box-shadow: none; }
+    .leaflet-top.leaflet-left .all-cities-btn { margin-top: var(--s2); }
     .all-cities-btn {
-      position: relative; display: flex; align-items: center; gap: 5px; height: 34px; box-sizing: border-box;
-      padding: 0 9px 0 7px; background: #fff; background-clip: padding-box; cursor: pointer;
+      position: relative; display: flex; align-items: center; height: var(--s8); box-sizing: border-box;
+      padding: 0 var(--s3); background: var(--paper-raised); cursor: pointer;
       font-family: var(--font-ui); color: var(--navy); -webkit-tap-highlight-color: transparent;
     }
-    .all-cities-btn::before { content: ''; position: absolute; left: 0; right: 0; top: -5px; bottom: -5px; }   /* 44px tall to the touch */
-    .all-cities-btn:active { background: #f4f4f4; }   /* leaflet-bar a:hover's own step */
+    .all-cities-btn::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }   /* 44 to the touch */
+    .all-cities-btn:active { background: var(--state-press); }
     .all-cities-btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
-    .all-cities-ico { width: 16px; height: 16px; flex: none; display: block; }
     .all-cities-lab {
       font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 11px; line-height: 14px;
       letter-spacing: 0.1em; white-space: nowrap;
@@ -4509,10 +4531,45 @@
       if (pts.length === 1) return focusMap(pts[0], { atLeast: 13 }, opts);
 
       const bounds = L.latLngBounds(pts).pad(0.15);
+      // p4-fixes: when the places only fit at a badge zoom (below CITY_BADGE_MAX_ZOOM), frame the
+      // CITY BADGES instead: the closest zoom at which every shown city's badge (or joined box) sits
+      // whole inside the map's clear area -- zooming out as far as that takes (to the map's minZoom,
+      // now 1: LA + the Nordics on a 390px phone).
+      if (!inPlanView() && map.getBoundsZoom(bounds) < CITY_BADGE_MAX_ZOOM) {
+        const fit = badgeFitView();
+        if (fit) {
+          const animate = opts.animate !== false && !prefersReducedMotion();
+          return map.flyTo(fit.center, fit.zoom, animate ? { animate: true, duration: opts.duration || flyDuration(map.getCenter(), fit.center) } : { animate: false });
+        }
+      }
       const animate = opts.animate !== false && !prefersReducedMotion();
       map.fitBounds(bounds, animate
         ? { animate: true, duration: opts.duration || flyDuration(map.getCenter(), bounds.getCenter()) }
         : { animate: false });
+    }
+
+    // The All places view at badge zoom: for z = CITY_BADGE_MAX_ZOOM - 1 down to minZoom, lay the
+    // shown cities' badges out at z (the same joining as on the map) and take the first z whose
+    // boxes' extent fits the clear area; centre that extent in it.
+    function badgeFitView() {
+      const ids = sectionCityIds().filter(id => CITIES[id] && Array.isArray(CITIES[id].center) &&
+        (visibleLocations().some(l => l.city === id) || visibleNeighborhoodShapes().some(n => n.city === id)));
+      if (!ids.length) return null;
+      const badges = ids.map(id => ({ id, label: cityLabel(id), count: cityTally(id), center: CITIES[id].center }));
+      const safe = badgeSafeRect(), sw = safe.right - safe.left, sh = safe.bottom - safe.top;
+      for (let z = CITY_BADGE_MAX_ZOOM - 1; z >= map.getMinZoom(); z--) {
+        const groups = layoutCityBadges(badges, c => map.project(c, z));
+        let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+        groups.forEach(gp => { const bx = groupBox(gp.members); x0 = Math.min(x0, gp.pt.x - bx.w / 2); x1 = Math.max(x1, gp.pt.x + bx.w / 2); y0 = Math.min(y0, gp.pt.y - bx.h / 2); y1 = Math.max(y1, gp.pt.y + bx.h / 2); });
+        if (x1 - x0 <= sw && y1 - y0 <= sh || z === map.getMinZoom()) {
+          // the extent's centre sits at the clear area's centre
+          const mapSize = map.getSize();
+          const ex = (x0 + x1) / 2, ey = (y0 + y1) / 2;
+          const cx = ex + (mapSize.x / 2 - (safe.left + sw / 2)), cy = ey + (mapSize.y / 2 - (safe.top + sh / 2));
+          return { center: map.unproject(L.point(cx, cy), z), zoom: z };
+        }
+      }
+      return null;
     }
 
     // Leaflet's default easing zooms out to world view on a LA↔Stockholm hop,
@@ -8001,25 +8058,135 @@
     // Keyed by city id, re-iconed only when its name or tally changes, so a pan never re-creates
     // one (no flicker). A tap is the go-to (goToCity(): the map frames the city, the list scrolls
     // to its header, nothing is hidden). Synced wherever the clusters are.
-    const cityBadgeMarkers = new Map();   // city id -> { marker, sig }
-    function cityBadgeIcon(b) {
-      const html = `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">` +
-        `${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`;
+    // p4-fixes (designer): badges never overlap each other or the map's controls.
+    //  - Two or more badges whose boxes would touch (--s1 apart or less) join into ONE box: a
+    //    stacked list of their cities, north to south, each row its own go-to button (the menu
+    //    spec's 40px row, hair rule between rows) -- "Copenhagen 54 / Malmö 27" at z4-7.
+    //  - A box is kept inside the map's clear area: below the top controls (zoom + All places on
+    //    the left, the account badge on the right) and above the + badge / credit, --s2 from each,
+    //    and --s2 from the sides; only a city whose centre is on screen draws (no off-screen
+    //    city is dragged onto the map). A nudge can create a new touch; groups re-merge.
+    //  - Keyed by its member set, so a pan only moves a box (setLatLng), never re-creates it.
+    const cityBadgeMarkers = new Map();   // group key ('id' or 'id+id') -> { marker, sig }
+    const badgeSizeCache = new Map();
+    const BADGE_ROW_H = 40;               // a group's row: the menu spec's row
+    function sNum(n) { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s' + n)) || n * 4; }
+    function badgeSize(b) {
+      const k = b.label + '|' + b.count;
+      if (badgeSizeCache.has(k)) return badgeSizeCache.get(k);
+      const m = document.createElement('div');
+      m.className = 'city-badge'; m.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;top:0;transform:none';
+      m.innerHTML = `${escapeHtml(b.label)}<span class="tally">${b.count}</span>`;
+      document.body.appendChild(m);
+      const r = { w: Math.ceil(m.offsetWidth) + 2, h: Math.ceil(m.offsetHeight) + 2 };   // + the 2px offset shadow
+      m.remove(); badgeSizeCache.set(k, r);
+      return r;
+    }
+    // The map's clear area for badges, in container px.
+    function badgeSafeRect() {
+      const mr = map.getContainer().getBoundingClientRect(), g = sNum(2);
+      let top = g, bottom = mr.height - g;
+      ['.leaflet-control-zoom', '#allCitiesBtn', '#accountBtn'].forEach(sel => {
+        const e = document.querySelector(sel), r = e && e.getBoundingClientRect();
+        if (r && r.height && getComputedStyle(e).display !== 'none') top = Math.max(top, r.bottom - mr.top + g);
+      });
+      ['#floatingAddBtn', '.leaflet-control-attribution'].forEach(sel => {
+        const e = document.querySelector(sel), r = e && e.getBoundingClientRect();
+        if (r && r.height && r.top - mr.top < mr.height) bottom = Math.min(bottom, r.top - mr.top - g);
+      });
+      return { left: g, right: mr.width - g, top, bottom };
+    }
+    function groupBox(members) {
+      const sizes = members.map(badgeSize);
+      if (members.length === 1) return { w: sizes[0].w, h: sizes[0].h };
+      return { w: Math.max(...sizes.map(z => z.w)) + sNum(2), h: members.length * BADGE_ROW_H + 4 };
+    }
+    // Lays the badges out at the map's current zoom and position: groups and their centres (px).
+    function layoutCityBadges(badges, proj) {
+      const gap = sNum(1);
+      let groups = badges.map(b => ({ members: [b], pt: proj(b.center) }));
+      const touch = (A, B) => {
+        const a = groupBox(A.members), c = groupBox(B.members);
+        return Math.abs(A.pt.x - B.pt.x) * 2 < a.w + c.w + 2 * gap && Math.abs(A.pt.y - B.pt.y) * 2 < a.h + c.h + 2 * gap;
+      };
+      const merge = () => {
+        for (let again = true; again;) {
+          again = false;
+          for (let i = 0; i < groups.length && !again; i++) for (let j = i + 1; j < groups.length && !again; j++) {
+            if (!touch(groups[i], groups[j])) continue;
+            const ms = groups[i].members.concat(groups[j].members).sort((x, y) => y.center[0] - x.center[0]);
+            const pts = ms.map(m => proj(m.center));
+            groups.splice(j, 1);
+            groups[i] = { members: ms, pt: { x: pts.reduce((t, q) => t + q.x, 0) / pts.length, y: pts.reduce((t, q) => t + q.y, 0) / pts.length } };
+            again = true;
+          }
+        }
+      };
+      merge();
+      return groups;
+    }
+    function clampToSafe(groups, safe) {
+      groups.forEach(gp => {
+        const bx = groupBox(gp.members);
+        gp.pt = { x: Math.min(Math.max(gp.pt.x, safe.left + bx.w / 2), safe.right - bx.w / 2),
+                  y: Math.min(Math.max(gp.pt.y, safe.top + bx.h / 2), safe.bottom - bx.h / 2) };
+      });
+    }
+    function cityBadgeIcon(members) {
+      let html;
+      if (members.length === 1) {
+        const b = members[0];
+        html = `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">` +
+          `${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`;
+      } else {
+        html = `<div class="city-badge-group" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(' and '))}">` + members.map(b =>
+          `<button type="button" class="city-badge-row" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${escapeHtml(b.label)}<span class="tally">${b.count}</span></button>`).join('') + '</div>';
+      }
       return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
     }
     function syncCityBadges(badges) {
       if (!map) return;
+      const size = map.getSize();
+      const onScreen = badges.filter(b => { const q = map.latLngToContainerPoint(b.center); return q.x >= 0 && q.y >= 0 && q.x <= size.x && q.y <= size.y; });
+      let groups = layoutCityBadges(onScreen, c => map.latLngToContainerPoint(c));
+      const safe = badgeSafeRect();
+      clampToSafe(groups, safe);
+      // a nudge can make two boxes touch: merge those (keeping their placed centres) and clamp again
+      for (let k = 0; k < 2; k++) { const n = groups.length; groups = mergePlaced(groups); clampToSafe(groups, safe); if (groups.length === n) break; }
       const seen = new Set();
-      badges.forEach(b => {
-        seen.add(b.id);
-        const sig = b.label + '|' + b.count + '|' + b.center.join(','), had = cityBadgeMarkers.get(b.id);
-        if (had && had.sig === sig) return;
-        if (had) { had.marker.setLatLng(b.center); had.marker.setIcon(cityBadgeIcon(b)); had.sig = sig; return; }
-        const marker = L.marker(b.center, { icon: cityBadgeIcon(b), keyboard: false, zIndexOffset: Z_CITY_BADGE }).addTo(map);
-        marker.on('click', () => goToCity(b.id));
-        cityBadgeMarkers.set(b.id, { marker, sig });
+      groups.forEach(gp => {
+        const key = gp.members.map(m => m.id).join('+');
+        seen.add(key);
+        const ll = map.containerPointToLatLng(L.point(gp.pt.x, gp.pt.y));
+        const sig = gp.members.map(m => m.label + '|' + m.count).join(',');
+        const had = cityBadgeMarkers.get(key);
+        if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp.members)); had.sig = sig; } return; }
+        const marker = L.marker(ll, { icon: cityBadgeIcon(gp.members), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
+        marker.on('click', e => {
+          const t = e.originalEvent && e.originalEvent.target, btn = t && t.closest && t.closest('[data-city-badge]');
+          if (btn) goToCity(btn.dataset.cityBadge);
+        });
+        cityBadgeMarkers.set(key, { marker, sig });
       });
-      cityBadgeMarkers.forEach((e, id) => { if (!seen.has(id)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(id); } });
+      cityBadgeMarkers.forEach((e, k) => { if (!seen.has(k)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(k); } });
+    }
+    // Merge already-placed groups that touch (after a nudge), keeping their placed centres.
+    function mergePlaced(groups) {
+      const gap = sNum(1);
+      const touch = (A, B) => {
+        const a = groupBox(A.members), c = groupBox(B.members);
+        return Math.abs(A.pt.x - B.pt.x) * 2 < a.w + c.w + 2 * gap && Math.abs(A.pt.y - B.pt.y) * 2 < a.h + c.h + 2 * gap;
+      };
+      for (let again = true; again;) {
+        again = false;
+        for (let i = 0; i < groups.length && !again; i++) for (let j = i + 1; j < groups.length && !again; j++) {
+          if (!touch(groups[i], groups[j])) continue;
+          const ms = groups[i].members.concat(groups[j].members).sort((x, y) => y.center[0] - x.center[0]);
+          groups[i] = { members: ms, pt: { x: (groups[i].pt.x + groups[j].pt.x) / 2, y: (groups[i].pt.y + groups[j].pt.y) / 2 } };
+          groups.splice(j, 1); again = true;
+        }
+      }
+      return groups;
     }
 
     // Cluster badge: paper count on a solid field, deliberately not a
@@ -10389,7 +10556,7 @@
     // with no error. worldCopyJump brings them back when panning past ±180°.
     // No maxBounds: a per-city clamp would break the center-me button at a
     // city's edge, and Copenhagen/Malmö are one travel area across the Øresund.
-    map = L.map('map', { minZoom: 3, worldCopyJump: true })
+    map = L.map('map', { minZoom: 1, worldCopyJump: true })   // p4-fixes: 1, so All places can show LA + the Nordics on a phone
            .setView(CITIES[DEFAULT_CITY].center, CITIES[DEFAULT_CITY].zoom);
     // Standard OSM raster tiles. CARTO's anonymous light_all/rastertiles
     // endpoints now require an API key (they render an "API KEY REQUIRED"
@@ -10400,7 +10567,7 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
       subdomains: 'abc',
-      minZoom: 3,
+      minZoom: 1,
       maxZoom: 19
     }).addTo(map);
 
@@ -10421,8 +10588,7 @@
       onAdd() {
         const b = L.DomUtil.create('button', 'leaflet-bar all-cities-btn');
         b.type = 'button'; b.id = 'allCitiesBtn';
-        b.setAttribute('aria-label', 'Show all my cities');
-        b.innerHTML = MENU_SVG.ring.replace('class="menu-ico"', 'class="all-cities-ico"') + '<span class="all-cities-lab">All cities</span>';
+        b.innerHTML = '<span class="all-cities-lab">All places</span>';   // p4-fixes: the visible text is the name
         L.DomEvent.disableClickPropagation(b);
         L.DomEvent.disableScrollPropagation(b);
         b.addEventListener('click', () => goToCity(ALL_CITIES));
