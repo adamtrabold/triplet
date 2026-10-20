@@ -30,9 +30,9 @@ const f = v => +v.toFixed(3);
 //   VESSEL a flat rim whose sides fall into one half-ellipse: every bowl (the cup, the coupe).
 //   LOOP   a band of the line's width around a counter, its back a half circle: every handle (the cup's ear).
 // Horizontal edges of slabs, rims, tier bases and liquid sit on the 1/3px lattice (Y), so they print crisp.
-const SLAB = (x0, x1, y) => R(x0, y, x1 - x0, WH);
-const POST = (cx, y0, y1) => R(cx - W / 2, y0, W, y1 - y0);
-const GABLE = (cx, apex, base, hw) => P([cx, apex], [cx + hw, base], [cx - hw, base]);
+const SLAB = (x0, x1, y) => R(x0, y, x1 - x0, WH, { root: 'SLAB' });
+const POST = (cx, y0, y1) => R(cx - W / 2, y0, W, y1 - y0, { root: 'POST' });
+const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx - hw, base]), root: 'GABLE' });
 
 // ---- g7i: THE TOKEN, how big each glyph is (owner: "address this at the grid level across all of them...
 // i dont want to have to negotiate this all the time"; "ours should be specific to our app"). Ours: a glyph
@@ -64,7 +64,7 @@ const DRAW = {
     const top = Y(1) / u, wall = 4.667, bot = Y(8) / u, l = 1.5, r = 8.25, mid = (l + r) / 2;
     const eR = 12 - 1 / 3;                                            // the ear's outer back
     const eb = top + 5 + 1 / 3, R_ = (eb - top) / 2, ex = eR - R_;     // ear: outer 5 1/3 tall, its back a half circle
-    const body = D(`M${X(l)} ${X(top)}H${X(ex)}C${X(ex + R_ * K)} ${X(top)} ${X(eR)} ${X(top + R_ - R_ * K)} ${X(eR)} ${X(top + R_)}C${X(eR)} ${X(top + R_ + R_ * K)} ${X(ex + R_ * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r)}C${X(r - 1.35)} ${X(eb)} ${X(mid + 1.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`);
+    const body = D(`M${X(l)} ${X(top)}H${X(ex)}C${X(ex + R_ * K)} ${X(top)} ${X(eR)} ${X(top + R_ - R_ * K)} ${X(eR)} ${X(top + R_)}C${X(eR)} ${X(top + R_ + R_ * K)} ${X(ex + R_ * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r)}C${X(r - 1.35)} ${X(eb)} ${X(mid + 1.9)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`, { root: 'VESSEL', also: 'LOOP' });
     const ct = top + WH / u, cb = eb - WH / u, cr = (cb - ct) / 2, cx = eR - W / u - cr;   // counter, its back a half circle
     const ci = r - 1 / 3;
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
@@ -80,7 +80,7 @@ const DRAW = {
   bar(s = 12) {
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
     const bd = 5.333;
-    const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.8)} ${X(9)} ${X(bd)} ${X(6)} ${X(bd)}C${X(3)} ${X(bd)} ${X(0.5)} ${X(2.8)} ${X(0.5)} ${X(0)}Z`);
+    const bowl = D(`M${X(0.5)} ${X(0)}H${X(11.5)}C${X(11.5)} ${X(2.8)} ${X(9)} ${X(bd)} ${X(6)} ${X(bd)}C${X(3)} ${X(bd)} ${X(0.5)} ${X(2.8)} ${X(0.5)} ${X(0)}Z`, { root: 'VESSEL' });
     const k = (5.5 - W / u) / 5.5, ix = x => 6 + (x - 6) * k;         // the bowl's inside wall, W in from the outside
     const inside = D(`M${X(ix(0.5))} ${X(-1)}H${X(ix(11.5))}C${X(ix(11.5))} ${X(2.8)} ${X(ix(9))} ${X(bd)} ${X(6)} ${X(bd)}C${X(ix(3))} ${X(bd)} ${X(ix(0.5))} ${X(2.8)} ${X(ix(0.5))} ${X(-1)}Z`);
     const rim = WH, liquid = T(rim + 5 / 3);                          // the clear band: under the rim, over the liquid
@@ -96,7 +96,7 @@ const DRAW = {
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u);
     const pb = Y(4), bd = WH;
     // pediment and beam as one outline (a GABLE on a SLAB, joined), so no coincident corners go through the boolean
-    const out = [P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd])];
+    const out = [{ ...P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd]), root: 'GABLE', also: 'SLAB' }];
     const ct = pb + bd, pl = Y(12) - WH;                              // column tops; plinth top
     const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
     for (let i = 0; i < n; i++) out.push(POST(x0 + W / 2 + i * (W + gap), ct - 0.01, pl + 0.01));
