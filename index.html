@@ -724,6 +724,36 @@
     .city-badge-row::before { content: ''; position: absolute; left: 0; right: 0; top: -2px; bottom: -2px; }   /* 44 to the touch, as the menu rows */
     .city-badge-row:active { background: var(--state-press); }
     .city-badge-row:focus-visible { outline: 2px solid var(--navy); outline-offset: -2px; }
+    /* PROTOTYPE concepts (p4): signpost / shingle / picker / disc. */
+    .sp-post { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; }
+    .sp-pole { position: absolute; left: 50%; top: -4px; bottom: 0; width: 2px; margin-left: -1px; background: var(--navy); }
+    .sp-arm { position: relative; display: flex; width: 100%; }
+    .sp-arm.is-w { justify-content: flex-end; padding-right: calc(50% + 1px); }
+    .sp-arm.is-e { justify-content: flex-start; padding-left: calc(50% + 1px); }
+    .sp-post { width: max-content; min-width: 0; }
+    .sp-board { all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; height: 30px; gap: 0; white-space: nowrap; cursor: pointer;
+      background: var(--paper-raised); border: 1.5px solid var(--navy); box-shadow: 2px 2px 0 var(--navy); padding: 0 var(--s2);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: .08em; color: var(--navy); }
+    .sp-arm.is-w .sp-board { border-left: 0; padding-left: 4px; margin-left: 12px; }
+    .sp-arm.is-e .sp-board { border-right: 0; padding-right: 4px; margin-right: 12px; }
+    .sp-tip { position: absolute; top: -1.5px; width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; }
+    .sp-arm.is-w .sp-tip { right: 100%; border-right: 12px solid var(--navy); }
+    .sp-arm.is-e .sp-tip { left: 100%; border-left: 12px solid var(--navy); }
+    .sp-tip::after { content: ''; position: absolute; top: -12.5px; border-top: 12.5px solid transparent; border-bottom: 12.5px solid transparent; }
+    .sp-arm.is-w .sp-tip::after { left: 2.5px; border-right: 9.5px solid var(--paper-raised); }
+    .sp-arm.is-e .sp-tip::after { right: 2.5px; border-left: 9.5px solid var(--paper-raised); }
+    .sp-board::before { content: ''; position: absolute; left: 0; right: 0; top: -7px; bottom: -7px; }
+    .sp-board:active { background: var(--state-press); }
+    .sh-stack { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+    .sh-tile { position: relative; transform: translateX(var(--dx)); margin-top: -8px; z-index: calc(10 + var(--i)); }
+    .sh-tile:first-child { margin-top: 0; }
+    .sh-badge { position: relative; transform: none; left: auto; top: auto; }
+    .cb-multi { gap: 6px; }
+    .cb-multi .cb-pins { width: 18px; height: 18px; display: block; flex: none; }
+    .cb-disc { all: unset; box-sizing: border-box; position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); width: 30px; height: 30px; border-radius: 50%;
+      background: var(--navy); color: var(--paper); border: 2px solid var(--paper-raised); box-shadow: 2px 2px 0 var(--navy); display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-ui); font-weight: 700; font-size: 13px; cursor: pointer; }
+    .cb-disc::before { content: ''; position: absolute; inset: -7px; border-radius: 50%; }
 
     /* p4-fixes: "All places" -- the menu's name for the same go-to. A quiet paper chip, not
        Leaflet's white box: the plain-paper-box rule (1px --hair edge, no shadow; owner: a paper
@@ -2077,7 +2107,7 @@
        address line; the field line --s3 above / --s4 to the stub. The ::before only grows the
        city's hit area to 44 ((44 - 24) / 2 = 10). The busiest tags scroll inside on a 375x667
        phone, with the stub's soft shadow (owner: "that trade is fine"). */
-    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s2); }
+    .tag-in > .route-line { min-height: var(--s6); padding-bottom: 0; margin-top: var(--s3); margin-bottom: var(--s1); }   /* p4-fixes: --s1 city to name (owner: "chunked slightly tighter to the attraction name") */
     .tag-in .route-city { height: var(--s6); }
     .tag-in .route-city::before { top: -10px; bottom: -10px; }
     .tag-addr .tag-dist { display: inline; padding-top: 0; white-space: nowrap; font-size: 11px; }
@@ -8096,10 +8126,20 @@
       });
       return { left: g, right: mr.width - g, top, bottom };
     }
+    // PROTOTYPE ONLY (p4 concepts for the owner): how close cities read. localStorage
+    // 'triplet.badgeStyle' = 'signpost' | 'shingle' | 'picker' | 'disc' | 'list' (the earlier joined box).
+    let BADGE_STYLE = 'signpost';
+    try { BADGE_STYLE = localStorage.getItem('triplet.badgeStyle') || 'signpost'; } catch (e) { }
+    const BOARD_H = 30, POST = 2;
     function groupBox(members) {
       const sizes = members.map(badgeSize);
       if (members.length === 1) return { w: sizes[0].w, h: sizes[0].h };
-      return { w: Math.max(...sizes.map(z => z.w)) + sNum(2), h: members.length * BADGE_ROW_H + 4 };
+      const wMax = Math.max(...sizes.map(z => z.w));
+      if (BADGE_STYLE === 'signpost') return { w: 2 * (wMax + 14) + POST, h: members.length * (BOARD_H + 4) + 14 };
+      if (BADGE_STYLE === 'shingle') return { w: wMax + 32, h: sizes[0].h + (members.length - 1) * (sizes[0].h - 8) };
+      if (BADGE_STYLE === 'picker') return { w: 132, h: 30 };
+      if (BADGE_STYLE === 'disc') return { w: 34, h: 34 };
+      return { w: wMax + sNum(2), h: members.length * BADGE_ROW_H + 4 };
     }
     // Lays the badges out at the map's current zoom and position: groups and their centres (px).
     function layoutCityBadges(badges, proj) {
@@ -8132,8 +8172,34 @@
                   y: Math.min(Math.max(gp.pt.y, safe.top + bx.h / 2), safe.bottom - bx.h / 2) };
       });
     }
-    function cityBadgeIcon(members) {
+    const PIN2 = '<svg class="cb-pins" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M9 20s-5-4.8-5-8.6a5 5 0 0 1 10 0C14 15.2 9 20 9 20z" fill="var(--paper-raised)"/><path d="M15.5 17.5s-4.5-4.3-4.5-7.7a4.5 4.5 0 0 1 9 0c0 3.4-4.5 7.7-4.5 7.7z" fill="var(--paper-raised)"/></g><circle cx="15.5" cy="9.8" r="1.6" fill="currentColor"/></svg>';
+    function cityBadgeIcon(members, gp) {
       let html;
+      const row = (b, cls, extra = '') => `<button type="button" class="${cls}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">${extra && extra.pre || ''}${escapeHtml(b.label)}<span class="tally">${b.count}</span>${extra && extra.post || ''}</button>`;
+      if (members.length > 1 && BADGE_STYLE === 'signpost') {
+        // a fingerpost: one post, one arrow board per city, pointing to the side its city lies on
+        const pts = members.map(m => map.latLngToContainerPoint(m.center));
+        const mx = pts.reduce((t, q) => t + q.x, 0) / pts.length;
+        const boards = members.map((b, i) => { const west = pts[i].x < mx - 0.5 || (Math.abs(pts[i].x - mx) <= 0.5 && i % 2 === 0);
+          return `<div class="sp-arm ${west ? 'is-w' : 'is-e'}">${row(b, 'sp-board', west ? { pre: '<span class="sp-tip" aria-hidden="true"></span>' } : { post: '<span class="sp-tip" aria-hidden="true"></span>' })}</div>`; }).join('');
+        html = `<div class="sp-post" role="group" aria-label="${escapeAttr(members.map(m => m.label).join(' and '))}"><span class="sp-pole" aria-hidden="true"></span>${boards}</div>`;
+        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
+      }
+      if (members.length > 1 && BADGE_STYLE === 'shingle') {
+        const pts = members.map(m => map.latLngToContainerPoint(m.center));
+        const mx = pts.reduce((t, q) => t + q.x, 0) / pts.length;
+        html = `<div class="sh-stack" role="group">` + members.map((b, i) => { const dx = Math.max(-16, Math.min(16, Math.round((pts[i].x - mx) * 2)));
+          return `<div class="sh-tile" style="--dx:${dx}px;--i:${i}">${row(b, 'city-badge sh-badge')}</div>`; }).join('') + '</div>';
+        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
+      }
+      if (members.length > 1 && BADGE_STYLE === 'picker') {
+        html = `<button type="button" class="city-badge cb-multi" data-city-many="${escapeAttr(members.map(m => m.id).join(','))}" aria-label="${members.length} cities: ${escapeAttr(members.map(m => m.label).join(', '))}. Choose one">${PIN2}${members.length} cities<span class="tally">${members.reduce((t, m) => t + m.count, 0)}</span></button>`;
+        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
+      }
+      if (members.length > 1 && BADGE_STYLE === 'disc') {
+        html = `<button type="button" class="cb-disc" data-city-zoom="${escapeAttr(members.map(m => m.id).join(','))}" aria-label="${members.length} cities: ${escapeAttr(members.map(m => m.label).join(', '))}. Zoom in">${members.length}</button>`;
+        return L.divIcon({ html, className: 'city-badge-anchor', iconSize: null });
+      }
       if (members.length === 1) {
         const b = members[0];
         html = `<button type="button" class="city-badge" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">` +
@@ -8158,17 +8224,39 @@
         const key = gp.members.map(m => m.id).join('+');
         seen.add(key);
         const ll = map.containerPointToLatLng(L.point(gp.pt.x, gp.pt.y));
-        const sig = gp.members.map(m => m.label + '|' + m.count).join(',');
+        const sig = BADGE_STYLE + ':' + gp.members.map(m => m.label + '|' + m.count + '|' + Math.sign(Math.round(map.latLngToContainerPoint(m.center).x - gp.pt.x))).join(',');
         const had = cityBadgeMarkers.get(key);
-        if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp.members)); had.sig = sig; } return; }
-        const marker = L.marker(ll, { icon: cityBadgeIcon(gp.members), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
+        if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp.members, gp)); had.sig = sig; } return; }
+        const marker = L.marker(ll, { icon: cityBadgeIcon(gp.members, gp), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
         marker.on('click', e => {
           const t = e.originalEvent && e.originalEvent.target, btn = t && t.closest && t.closest('[data-city-badge]');
-          if (btn) goToCity(btn.dataset.cityBadge);
+          if (btn) { goToCity(btn.dataset.cityBadge); return; }
+          const many = t && t.closest && t.closest('[data-city-many]');
+          if (many) { openCityPicker(many, many.dataset.cityMany.split(',')); return; }
+          const zoom = t && t.closest && t.closest('[data-city-zoom]');
+          if (zoom) zoomToSplit(zoom.dataset.cityZoom.split(','));
         });
         cityBadgeMarkers.set(key, { marker, sig });
       });
       cityBadgeMarkers.forEach((e, k) => { if (!seen.has(k)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(k); } });
+    }
+    // Picker concept: the menu spec under the badge, one row per city; a pick is the go-to.
+    function openCityPicker(trig, ids) {
+      let m = document.getElementById('cityPickMenu');
+      if (!m) { m = document.createElement('div'); m.id = 'cityPickMenu'; m.className = 'menu-box'; m.setAttribute('role', 'menu'); document.body.appendChild(m);
+        m.addEventListener('click', e => { const r = e.target.closest('[data-go]'); if (r) { m.hidden = true; goToCity(r.dataset.go); } }); }
+      m.innerHTML = '<div class="menu-cap" aria-hidden="true">Go to</div>' + ids.map(id => `<button type="button" class="menu-row" role="menuitem" data-go="${escapeAttr(id)}">${MENU_SVG.spacer}<span class="menu-lab">${escapeHtml(cityLabel(id))}<span class="tally">${cityTally(id)}</span></span><span class="menu-gap"></span>${MENU_SVG.none}</button>`).join('');
+      m.hidden = false;
+      const r = trig.getBoundingClientRect();
+      m.style.left = `${Math.max(16, Math.min(r.left, innerWidth - 16 - m.offsetWidth))}px`; m.style.top = `${r.bottom + sNum(2)}px`;
+    }
+    // Disc concept: zoom in to the first zoom where these cities no longer join.
+    function zoomToSplit(ids) {
+      const bs = ids.map(id => ({ id, label: cityLabel(id), count: cityTally(id), center: CITIES[id].center }));
+      let z = map.getZoom() + 1;
+      for (; z < CITY_BADGE_MAX_ZOOM; z++) if (layoutCityBadges(bs, c => map.project(c, z)).length === bs.length) break;
+      const c = bs.reduce((t, b) => [t[0] + b.center[0] / bs.length, t[1] + b.center[1] / bs.length], [0, 0]);
+      map.flyTo(c, z, { duration: 0.8 });
     }
     // Merge already-placed groups that touch (after a nudge), keeping their placed centres.
     function mergePlaced(groups) {
