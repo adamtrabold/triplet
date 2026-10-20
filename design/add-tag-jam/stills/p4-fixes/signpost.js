@@ -25,6 +25,7 @@ const P = require('../../p4/lib-p4.js'); const W = P.W;
     await P.view(page, [57, 14], 6); await shot('2-z6');
     await P.view(page, [55.64, 12.8], 7); await shot('3-z7');
     await page.evaluate(() => goToCity(ALL_CITIES)); await W(2600); await shot('4-world');
+    await P.view(page, [62, 0], 2); await shot('5-four-z2');
     if (o.errors.length) console.log('errors', o.errors);
     await page.context().close();
   }

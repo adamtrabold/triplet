@@ -1368,6 +1368,22 @@ gone; `concepts.js` and the `0-compare-*.png` stills stay as the record.
   - The sign's rect adds 2px on the right for the shadow.
   - Family comparison: `stills/p4-fixes/10-family.png` (badge, menu box, a
     lone board and two boards, at 1x enlarged and at 3x).
+- **CD polish on the family board (final values):**
+  - Rule `stroke-linejoin: round`, which softens the board's free corners
+    the way the badge's 2px radius does. The pole-side corners stay square,
+    where the pole runs through.
+  - The shadow path is filled **and** stroked (navy, 1.5, round join), so it
+    overlaps the face's rule. The face's tip vertex equals the rule's vertex
+    (`tx`, 1.75px in), so no paper shows at the point.
+  - West boards: the shadow starts exactly at the face corner where the
+    lower slant meets the bottom (an extra `L t h` vertex).
+  - **Stack gap: `var(--s3)` (12px)**, which leaves 10px of clear map between
+    one board's shadow and the next board's rule. This supersedes the `--s2`
+    above: `row-gap: var(--s3)` and `BOARD_GAP = sNum(3)`.
+  - Checked at 1x: the board's rule reads the same weight as the badge's
+    (`10-family.png`).
+  - **Busiest frame for the owner** ("totem"): the Nordic four-board post at
+    z2 is shown as is on `9-signposts.png`; the design is not changed for it.
 - **Posts are always vertical, and a sign that doesn't fit isn't drawn**
   (owner: "also a signpost would only ever have the pole pointing down";
   "re: the poles why would a sign not be able to stand above its city? if
