@@ -4954,3 +4954,26 @@ with the cup, coupe and tree, at the 12px chip, the 24 badge and 72px):
 approach. No geometry changed elsewhere.
 
 **Score: 9. Send.**
+
+---
+
+## Turn: second icon designer, the Grid concepts page cleaned up (canvas v210)
+
+Owner: "clean up all the old stuff first theres so much content to read".
+
+1. **Start here** is short now: one line on the page, then the three open questions, each pointing to its board. sheetStart() in boards7.js writes it.
+2. **What stays on the page.**
+   - Row 1, "Waiting on you, and every icon": Start here, then Decide: line marks under it; Between H2 and H3; Every icon: original and newest.
+   - Row 2, "Decided: the master grid".
+   - Nothing overlaps.
+3. **Moved to the Archive page,** in one titled row (v207, the clean-up). Nothing was deleted. The boards moved:
+   - Decide: more human?
+   - The coupe is B
+   - The six icons now (v134)
+   - The tuned versions: more human, by rule
+   - Corners
+   - The air in the ring
+   - The set, at real size
+   - Each drawing, before and after
+   - In the app, real size
+4. **His own items** ("Artboard 1", "Decide: line marks copy" and his note) were already gone in the live version I merged onto: a page save, 78cb, one minute before my publish. I didn't restore them.
