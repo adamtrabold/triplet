@@ -2843,3 +2843,9 @@ Then I score in the order above.
 - Every tier reads as attached to the one below, at true size and at 8x, the top tier especially.
 - The neck between tiers (the notch shelf against the tier above) must read as one joined shape, not a stacked cap.
 - Checked by eye at 1x and 8x, and named on the board in one line.
+
+**Line marks (owner):** "The middle weight option is close but still too heavy optically".
+- The line-marks class goes between 1.5 and 1.75, set by the class rule, not a nudge on the + or the Star alone.
+- **Check:** at true size (in a list row, on the map and the + badge), beside 1.5 and 1.75 in the same places; then at 8x. It must read lighter than 1.75 and heavier than 1.5 by his eye.
+- **H-claim applies:** the new value is shown beside the previous 1.75, and the + and Star are measured.
+- The Weight board keeps three rows (1.5, the new value, 1.75), with "heavier" retired. Plain question: "The + and the star now sit between the last two. Do they feel as heavy as the place icons now?"
