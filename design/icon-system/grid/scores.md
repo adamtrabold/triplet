@@ -1077,3 +1077,15 @@ The verdict stands within our own set:
   that"). Rules a to f in jam turn 82 work against it.
 - **Next:** the human-drawn exploration (turn 81 criteria plus
   delicacy). Craft bar re-anchored: Material and Phosphor dropped.
+
+
+## Round v136 "More human, by rule", 2026-10-21: 6
+
+- **Harmony fails:** at true size, only the coupe and the tree change.
+- **Delicacy:** H3's thin flared stem and H2's dome carry it. H1's flare
+  without contrast adds weight. The tree's trunk join bulges.
+- **His "humanistic curves" untouched** by any row.
+- **Missing:** the checks on the tuned rows, an in-app row, and the
+  Material/Phosphor comparison strip.
+- **Fix list:** jam turn 85. Rubric re-anchored to Central, Nucleo,
+  Lucide and Apple (H-curve added).

@@ -3592,6 +3592,88 @@ NEXT: design director scores the three tuned sets.
 
 ---
 
+
+## Turn 85: design director, "More human, by rule" (v136/v137): 6, not sent
+
+Scored on turn 81's criteria plus delicacy (turn 82), harmony first.
+
+**1. Harmony across the set: fails.**
+- At true size (the 12px chips and the 24 badges), the tunings are
+  visible on the coupe and the tree only. The cup, the museum and the +
+  read identical to Now in every row; the museum changes only in size
+  (H2's 11/12 fit).
+- So the "human" feeling lives in one or two icons and the rest stay
+  mechanical. Turn 81 named exactly that as a fail.
+- The museum's columns are slots between counters, so the flare rule
+  rightly skips them. But that means no rule on the board reaches the
+  museum at all.
+
+**2. Delicacy at true size, against batch 1's coupe: partial.**
+- **H1 goes the wrong way.** A flare on a 1.5 post adds ink at the join,
+  so the coupe's stem reads thicker and moulded. Batch 1's delicacy came
+  from a thin stem that flared, a contrast between parts. H1 has the
+  flare without the thin.
+- **H2:** the domed foot is the most batch-1 move on the board and it
+  reads at true size. The drooping tiers plus the trunk flare give the
+  tree a bulbous skirt where the trunk meets the lowest tier. That
+  bulge risks his "goofy" note and changes the v123 tree he approved
+  ("i like the proportions now").
+- **H3:** the closest to the feeling. A thin stem flaring into bowl and
+  foot is batch 1's quality, applied as a rule. But it applies to two
+  icons.
+- **His "humanistic approach to curves" isn't addressed by any row.**
+  All three rows tune joins, feet and fit. None tunes the curves
+  themselves (the cup's body, the coupe's bowl, the tree's tiers, the
+  star). That's half of what he said.
+
+**3. Stated as rules: good.**
+- Each row is one named rule, applied by kind of joint. The "Rules that
+  bend" panel is clear and honest.
+- The smaller star is right; it fixes v134's size risk.
+- Not yet checked: H-outline, the counter check and the new H-curve on
+  the tuned rows.
+
+**4. The board: not ready.**
+- No in-app true-size row.
+- The Material and Phosphor comparison strip is missing. The owner wants
+  it back ("just to see how much *better* ours are"), and the "Not used"
+  panel now misquotes the current position.
+
+**Must be done before it goes to him:**
+1. **Harmony.** Each row's rule must visibly reach the whole set at true
+   size, or the row must say plainly which icons it leaves alone and why.
+   A row that changes only the coupe and tree isn't a set tuning.
+2. **Curves.** Address the "humanistic approach to curves" with a stated
+   curve rule (H-curve: continuous curvature, no arc-on-line kinks), at
+   least in one row. How is the designer's call.
+3. **Drop or rethink H1.** Flare without contrast adds weight, against
+   delicacy. Three rows at most still applies.
+4. **The tree.** The trunk-to-tier bulge in H2 and H3 needs fixing, or a
+   plain note that the v123 tree changes.
+5. **Checks.** Run H-outline, the counter check and H-curve on every
+   tuned glyph.
+6. **In-app true-size row** for Now and each tuning.
+7. **Comparison strip.** Restored in v137 (turn 84). Still to do:
+   update the "Not used" panel: Central, Nucleo, Lucide
+   and Apple are the craft bar; Lucide glyphs may be shown, labelled
+   craft reference; Central and Nucleo appear as links only.
+
+**Did the work change?** Yes, it's the first board that moves toward his
+feeling (H3's coupe, H2's foot). Not yet a 9: harmony fails and curves
+are untouched.
+
+**Rubric changes this turn** (notes, "Craft bar: Central, Nucleo,
+Lucide, Apple"):
+- H-curve (curvature continuity);
+- G-air tested with a circle;
+- joins where parts meet or cross: a clean gap or a sweep, never an
+  abrupt cut;
+- every shipped size checked as its own drawing;
+- density and balance by blur at true size;
+- visual quality outranks the grid;
+- the 9 bar is now: no less finished than Central, Nucleo and Lucide at
+  true size; Material and Phosphor are a floor.
+
 ## Turn 86: icon designer, turn 85's must-dos and the coupe options (canvas v138; exploration, nothing shipped)
 
 **Turn 85's must-dos:**
