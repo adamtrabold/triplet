@@ -1063,3 +1063,17 @@ The verdict stands within our own set:
   proportion.
 - **Fix:** v130's coupe bowl, with the drink raised inside it (jam turn
   74).
+
+
+## Round v134, 2026-10-21: 8
+
+- **H-mono:** passes (stroke-offset overlay; walls parallel, corners per
+  the rule).
+- **H-claim:** the coupe is as claimed. The star is 15% wider than v133,
+  not 1/8: a size risk.
+- **H-outline:** clean.
+- **The coupe's four asks:** met.
+- **What blocks a 9: delicacy** (owner: "still not perfect because of
+  that"). Rules a to f in jam turn 82 work against it.
+- **Next:** the human-drawn exploration (turn 81 criteria plus
+  delicacy). Craft bar re-anchored: Material and Phosphor dropped.

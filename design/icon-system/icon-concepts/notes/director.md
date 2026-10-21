@@ -722,17 +722,26 @@ A failure caps the score at 7.
   A gate failure caps the score at 8, and a pass adds nothing.
 - **Craft earns the score:** C1–C8 below, judged by eye at real size
   (24 badge, 32 pin, 12 chip, at 1x and 3x) before I read any notes.
-- **9 = finish holds up against a mature set (craft only).**
+- **9 = finish at the owner's craft bar (craft only).** (Was "holds up
+  against a mature set"; see the 2026-10-21 amendment below.)
   *Amended 2026-10-20 by the owner:* "i dont care at all about how other
   systems size icons btw ours should be specific to our app. the grid
   and various drawing approaches should be as much a part of the brand
   as anything".
   - **What "holds up" covers:** joins, counters, curve quality and
-    finish. Beside a mature set, our drawing must not look clumsier in
-    those.
+    finish. Our drawing must meet his brief and owner-taste in those.
   - **It is not a style, size, weight or grid target.**
-  - **The references** (Material Symbols, Phosphor), if shown at all,
-    sit in a craft comparison only, never in the scale row.
+  - **No reference set is the craft bar.** *Amended 2026-10-21 by the
+    owner:* "material symbols and phosphor symbols are not an example of
+    good craft. apple symbols is much more akin to that. i;ll look for
+    others".
+    - Material and Phosphor are dropped as craft benchmarks and leave
+      the boards.
+    - SF Symbols is closer to his bar, but its licence keeps it off our
+      boards. Apple's HIG [1] and design talks [2] are cited for method
+      only.
+    - Until he sends other references, the bar is his brief, his quotes
+      in `owner.md` and `docs/owner-taste.md`, not any set.
   - **Size, weight and the grid are judged:**
     - within our own set (C2, G-size);
     - against Triplet's brand (C9).
@@ -911,13 +920,13 @@ as much a part of the brand as anything").
   https://en.wikipedia.org/wiki/Overshoot_(typography)
 - [4] Tobias Frere-Jones, Typeface Mechanics 001 (overshoot):
   https://stockholmstypografiskagille.se/typonyheter/typeface-mechanics-001/
-- [5] Material Design, system icons (keyline shapes, 24dp grid):
+- [5] (Not a craft benchmark, owner 2026-10-21.) Material Design, system icons (keyline shapes, 24dp grid):
   https://material.io/design/iconography/system-icons.html
 - [6] Sky, Skycons design guidelines (keylines for optical balance):
   https://sky-ui.cf.sky.com/skycons/design-guidelines
 - [7] Volue Wave, Icon design guidelines ("follow what optically looks
   best"): https://wave.volue.com/tokens/icon-design-guidelines
-- [8] Google, Material Symbols guide (weight, grade, optical size):
+- [8] (Not a craft benchmark, owner 2026-10-21.) Google, Material Symbols guide (weight, grade, optical size):
   https://developers.google.com/fonts/docs/material_symbols
 - [9] Ink traps (acute joins, small sizes):
   https://www.high-logic.com/font-editor/fontcreator/tutorials/create-ink-traps
@@ -1398,3 +1407,49 @@ approaches should be as much a part of the brand as anything".
   4. a judgeable board: at most three versions, plus the current set,
      and one plain question.
 - No icon goes back to batch 1.
+
+## Craft bar re-anchored (2026-10-21)
+
+- Owner: "material symbols and phosphor symbols are not an example of
+  good craft. apple symbols is much more akin to that. i;ll look for
+  others".
+- **Rubric amended:**
+  - Material and Phosphor are no longer craft benchmarks; the reference
+    strip leaves the boards.
+  - SF Symbols is closer, but its licence keeps it off our boards.
+    Apple's HIG and WWDC 2017 "Designing Glyphs" are cited for method
+    only.
+  - Until he sends references, craft is judged against his brief,
+    `owner.md` and `docs/owner-taste.md`.
+- **Lesson:** my 9s leaned on "no clumsier than Material", a low bar he
+  never set. It's part of why my 9s kept missing.
+
+## v134 (2026-10-21): 8, not a 9
+
+- **H-mono:** passes. My stroke-offset overlay strokes the outer contour
+  at 2x line, clipped inside, so the band's inner edge is the true
+  offset.
+  - Walls are parallel on the cup, coupe and star.
+  - Counter corners follow the corner rule, not raw offset arcs.
+  - The star's sharp hole corners leave about 0.27 extra ink at each
+    inner corner. That's how a sharp corner behaves, not a weight fault.
+- **H-claim:**
+  - Coupe bowl wider and flatter than v133, drink larger than v130's:
+    confirmed.
+  - Star hole at least 4px: confirmed. But the star is 15% wider than
+    v133 (18.53 against 16.10 in the 24 frame), not 1/8, and 12% wider
+    than v130. The size risk is open.
+- **Owner on v134:** "i still find myself pining for that original shape
+  ... more delicate ... humanistic approach to curves ... handmade feel
+  ... closer but are still not perfect because of that". The gap is
+  delicacy, not geometry.
+- **Rules that work against delicacy** (jam turn 82):
+  - monoweight with no flare (H-mono's 4° limit forbids flare);
+  - every stem and post one weight, so no part is finer than another;
+  - the corner law's small radii at joins;
+  - slab feet;
+  - the fitting rule filling the cut;
+  - the star's hole minimum, which drives its size up.
+- **Lesson:** I scored how well the rules were executed while the owner
+  judged the feeling. Passing my checks doesn't make a drawing delicate.
+  Delicacy is now its own test in the exploration's criteria.

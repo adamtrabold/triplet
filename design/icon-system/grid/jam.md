@@ -3363,3 +3363,106 @@ eight, beside the current set at true size and at 8x):
 
 NEXT: icon designer, the tuned versions. Then the director scores them
 on 1–4, with harmony first.
+
+
+## Turn 82: design director, v134 scored (8), delicacy and the craft bar
+
+**The owner, verbatim:**
+- On v134: "i still find myself pining for that original shape. i think
+  it's the fact that it feels more delicate. that more humanistic
+  approach to curves gives it a handmade feel that i think calls back to
+  the physicality of making vintage work. these are getting closer but
+  are still not perfect because of that"
+- On references: "material symbols and phosphor symbols are not an
+  example of good craft. apple symbols is much more akin to that. i;ll
+  look for others"
+
+**v134: 8. The work changed and the geometry is right, but it isn't a
+9; he's said so himself.**
+
+1. **H-mono (my own tool):** passes.
+   - The method: the outer contour stroked at 2x line, clipped inside, so
+     the band's inner edge is the true offset.
+   - Walls are parallel on the cup, coupe and star; the counters meet the
+     offset exactly along every wall.
+   - Counter corners now follow the corner rule, not raw offset arcs. The
+     "far too rounded" fault is fixed.
+   - The star's sharp hole corners carry about 0.27 extra ink at each
+     inner corner. That's how a sharp corner behaves, not a weight fault.
+   - The drink's bottom cusp is invisible, since it's the same ink as the
+     bowl.
+2. **H-claim against v130 and v133:**
+   - Coupe bowl wider and flatter at the bottom than v133, drink larger
+     than v130's: confirmed.
+   - Band 1.5: confirmed.
+   - Star hole at least 4px: confirmed. But the star is **15% wider than
+     v133** (18.53 against 16.10 in the 24 frame), not "about 1/8", and
+     12% wider than v130. Shown at 20px, it's about 15.4 px against the
+     place glyphs' 10.7 to 11.6.
+3. **H-outline:** clean at 8x on the six glyphs on the board (cup,
+   coupe, museum, tree, +, star).
+4. **The coupe on his four asks:** wider bowl, more liquid, a band that
+   curves with the bowl, no goblet. All four are met. But his own words
+   now put the coupe's remaining gap in delicacy, not in those asks.
+5. **Star weight and size:**
+   - Weight reads even at 20px; the blur gives 57.6, inside the set's
+     spread.
+   - Size is the risk. The hole minimum (2 lines) at a 2.0-unit line
+     forces growth. He once said "star feels a lot bigger than the
+     others", and this is the biggest star since then.
+
+**What blocks a 9: delicacy.** The rules are executed well; some of the
+rules themselves work against what he's asking for.
+
+**Rules in the current grid that work against delicacy:**
+- **a. Monoweight with no flare.** H-mono's 4° direction limit and
+  constant offset forbid a stroke thickening into a join. A bowl or stem
+  that swells into what it meets is the core of a hand-drawn line. It
+  was the batch-1 coupe's stem and foot.
+- **b. Every stem and post is one weight.** Batch 1's coupe was a
+  solid silhouette whose stem thinned and flared. Ours sets the stem,
+  foot and band all at 1.5 (the tree trunk and museum posts too), so no
+  part is finer than another. Delicacy comes from contrast between
+  parts.
+- **c. The corner law's small join radii** (0.15 and 0.3). Joins meet
+  at near-points rather than sweeping into each other with a fillet.
+  Mechanical at true size.
+- **d. Slab bases.** The coupe's foot and the cup's saucer are
+  rectangles; a domed or tapered base reads made by hand.
+- **e. The fitting rule fills the cut.** Every glyph is pushed to its
+  class edge, so mass is maxed. Delicacy wants some air inside the cut.
+- **f. The star's hole minimum** drives its size up (point 5).
+- The 1/3 lattice and the class cuts don't work against delicacy; they
+  can stay.
+
+**Craft bar:**
+- Material and Phosphor are no longer craft benchmarks; my rubric's "9
+  holds up against a mature set" bar is amended.
+- SF Symbols is closer to his bar, but its licence keeps it off our
+  boards. Apple's HIG and WWDC 2017 "Designing Glyphs" are cited for
+  method only.
+- Until he sends references, craft is judged against his brief,
+  `owner.md` and `docs/owner-taste.md`.
+
+**Next:**
+- The human-drawn exploration is now the next round, before the G-derive
+  audit.
+- **Turn 81's criteria, amended:**
+  1. **Harmony across all eight, first** (unchanged).
+  2. **Delicacy and humanistic curves at true size,** judged against
+     batch 1's coupe as the reference feeling
+     (`owner-marks/batch1-coupe-reference.png`), not its shape. No icon
+     goes back to batch 1.
+  3. **Stated as rules by class or joint.**
+     - A rule may relax one of a to f above, if it's named and applied
+       set-wide.
+     - "Every existing rule held" is relaxed for exactly the rules a
+       version names. That's the point of the round.
+     - H-outline still holds. H-mono becomes "monoweight except where a
+       named flare rule applies, and the flare is identical wherever it
+       applies".
+  4. **A judgeable board:** at most three versions plus the current set,
+     and his plain question.
+- **Star size:** each version also shows the star at a size the set
+  balances with (the hole minimum is open to the designer). Not a fix
+  sent alone.
