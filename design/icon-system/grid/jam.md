@@ -4988,3 +4988,28 @@ Owner: "i wanna see h3 with plate flipped (not foot)". A new row is on the Betwe
 - **The tree:** it is the Between tree, per the owner's "i love this tree what H is this with". From now on that tree is used in every new row.
 - **Checks:** check-svg: no slivers. The flipped cup's counter is 1.50; curve check 0.41/px, the same as the café elsewhere.
 - **Canvas:** v210's layout is kept. Only the Between board's height changed, by 415px, and nothing below it needed to move.
+
+## Turn 112: icon designer, H3 with the saucer flipped, rules tuned to the tree (canvas v213)
+
+- **Superseded:** v212 pinned the Between tree into every row. The owner: "thats fine but also we're building approach rules here remember -- so what rules need to change in this row's approach to make that not an anomaly and to have that decision vector considered throughout all icons". The pin is gone, and v212's board is on the Archive page (Archive-G7ai-Between).
+- **The row:** "H3, saucer flipped, rules tuned to the tree". It is H3 with the saucer flipped, taking the three rule values the loved tree comes from, for every icon:
+  - flares 1.5 → 0.5;
+  - free posts 1.5 → 1.25;
+  - acute tips 0.35 everywhere → a share of the shorter edge (HUMAN `tipShare` 0.0877, 0.35 at most). The star gets the same rule through `o.starTip`.
+  - Sweep and droop were already the same (1/5, 1/2).
+- **What it did:**
+  - Tree: now byte-identical to the Between tree (`cmp`), from the rules alone.
+  - Coupe: the stem is 1.25 and its flares are 0.5.
+  - Cup, museum and +: identical (nothing for the rules to act on).
+  - Star: identical (its tips' edges are long, so the tip rule still gives 0.35).
+- **The board:**
+  - the owner's quote;
+  - a table: each rule, old → new, and what it did per icon;
+  - Before and After rows at true size;
+  - coupe and tree before/after at 8x (128px over 16 units).
+  - The duplicate H3-flipped row and the older plate and tree close-ups were cut so the board stays above the Master row (v210's layout is unchanged). Those close-ups remain in the archived v212.
+- **Checks:**
+  - check-svg: 0 slivers, the tuned row is symmetric (the café is skipped by design);
+  - between-checks pass.
+  - Svgs: `svg/g7/between/h3t-*.svg` and `h3f-*.svg`.
+- **Canvas:** the Between board is 6510 tall (it ends at 6810, before the row-2 title at 7000).
