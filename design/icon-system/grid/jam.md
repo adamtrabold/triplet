@@ -2779,3 +2779,62 @@ one from turn 69.
 
 NEXT: the coordinator sends the boards and adds the `../history.md`
 line.
+
+---
+
+## Turn 72: design director, my v130 9 passed three faults; two hard checks added
+
+The owner on v130: "There is less liquid in the coupe, the internal
+counter lines don't match the external ones, and the tree now looks
+goofy with the less intentional size of tree sections".
+
+**What I missed, and why:**
+1. **Less liquid.** The handoff said "more drink" and I took it as
+   done. I never put the coupe beside the previous version. I checked
+   that the band was clear, not that the drink grew.
+2. **Counters that don't match.** I checked the coupe's band and the
+   Star's hole for "inner edge parallel" by eye at 8x and called them
+   parallel. Eyeballing a curve is not a measurement. Monoweight needs
+   the inner edge to equal the outer edge offset by the line, and I never
+   overlaid it.
+3. **The tree.** I scored the pair as a fair trade-off and checked only
+   that both options were present and labelled. I didn't ask whether
+   either option's tier sizes read as designed. He found the new one
+   "goofy": the tier sizes look arbitrary, not related.
+
+**New hard checks (each, if failed, caps the score at 7):**
+- **H-claim: every claimed change is verified, side by side at 8x,
+  against the previous version.**
+  - Any "more", "less", "wider", "back" or "fixed" in a handoff counts
+    only once I've cropped the same part from the previous canvas version
+    and the new one and seen the change.
+  - Where it's measurable (the drink's area or height, a width), I
+    measure it.
+- **H-mono: the monoweight counters are overlaid.**
+  - At 8x, I draw the parallel offset of each outer edge, inward by the
+    line weight (1.5px; 1.75 for line marks), over each counter: the
+    coupe's band, the cup's handle hole, the Star's hole, any slot.
+  - Every inner edge must sit on that offset, within about 1/12px.
+  - The board shows this overlay for him too.
+
+**The tree: how I'll judge "intentional".**
+- The tier sizes must read as designed relationships, as v123's did.
+  The steps in width and height follow one visible ratio or progression
+  that the eye picks up: for example each tier a set step wider and
+  shorter than the one above, or the tip a clear proportion of the
+  whole.
+- They mustn't read as the leftovers of other constraints.
+- The board states the relationship in one line, and the tree is shown
+  beside v123 at true size and 8x.
+- Both of his tree wishes still stand: the proportions he liked now,
+  and v123's intentionality.
+
+**Order for the next round:**
+1. H-claim, on every claimed change;
+2. H-mono, on every counter;
+3. H-outline;
+4. the tree's intentionality;
+5. then the rest.
+
+NEXT: icon designer, the round: the drink, the counters, the tree.
+Then I score in the order above.

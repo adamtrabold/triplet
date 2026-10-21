@@ -701,6 +701,10 @@ we need to address as we make these changes".
 
 **H-outline (a hard check, 2026-10-20):** before any score, trace every icon's outline at 8x on the board's own render. Every corner the object has must be present, with no melts, kinks, lumps or flats where parts meet. A failure caps the score at 7.
 
+**H-claim (a hard check, 2026-10-21):** every claimed change is verified side by side at 8x against the previous canvas version, and measured where possible. A failure caps the score at 7.
+
+**H-mono (a hard check, 2026-10-21):** at 8x, overlay each outer edge's parallel offset (by the line weight) on every counter. Every inner edge must sit on it, within about 1/12px. A failure caps the score at 7.
+
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
   - honest framing and fair notes;
@@ -1246,3 +1250,22 @@ approaches should be as much a part of the brand as anything".
   its cut. My turn-69 "11.5 exception" came from reading a drawing-box
   number as a size. Measure before ruling.
 - The tree trade-off went to him as a pair.
+
+
+## LESSON 4 (v130, 2026-10-21): I passed claims and eyeballed geometry
+
+- **I passed three faults:**
+  - "more drink" when there was less;
+  - counters I called parallel that weren't;
+  - a tree pair whose new tier sizes read "goofy".
+- **H-claim:** every claimed change is checked side by side against the
+  previous canvas version at 8x, and measured where it's measurable.
+- **H-mono:** overlay the parallel offset of each outer edge (by the
+  line) on every counter at 8x. The inner edge must sit on it.
+- **Tree "intentional":** the tier sizes read as one designed
+  relationship, as v123's did, stated in one line.
+- **The pattern across lessons 1–4:** I keep checking what was asked of
+  the designer (presence, labels, claims) instead of verifying the
+  result against the owner's eye and the previous version.
+- **Standing order:** compare against the previous version, measure,
+  then judge.
