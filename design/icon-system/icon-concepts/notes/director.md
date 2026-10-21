@@ -1643,3 +1643,24 @@ checks; don't eyeball "is it as good as".
 - **Counter check amended:** measure the way the eye reads it (across for
   upright walls, square for flatter ones). Record the other reading as
   the trade.
+
+## LESSON 6 (v147, 2026-10-21): the liquid, six asks, and a trade I made for him
+
+- Owner: "there is *still* not enough liquid in the cup how many times do
+  i have to say it" and "the interior counter shape of the coupe *still*
+  does not look right".
+- **He asked for more liquid six times.** I let one note ("reads as
+  wine glass with the liquid... taller stem or more pancaked bowl")
+  override the other five. I accepted "a flat bowl holds a shallow
+  drink" as a trade he never made.
+- **I scored the counter by wall numbers.** He judges the whole interior,
+  a glass with a drink in it, by eye.
+- **Before any score from now on:**
+  1. Read every note of his on the glyph.
+  2. A repeated ask wins over a single note.
+  3. Apparent conflicts go to him as a question; I never resolve them
+     with a trade.
+  4. Judge the glyph as him, by eye at true size, before any
+     measurement.
+- **The canvas is now edited by him live.** Every round's check starts
+  by confirming nothing of his was overwritten.

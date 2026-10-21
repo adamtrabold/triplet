@@ -4277,3 +4277,77 @@ Owner, on the v143 board: "please order this in order of how we are attacking th
 4. **The coupe:** Newest still shows the coupe as shipped (v134), because HSETS[0] doesn't hold B yet. The row says "You picked B (board: The coupe is B)".
 5. **Archive:** v143's board is on Archive as "Every icon: today and newest (v143)", in its own row. Start here points to the new title.
 6. **The Bar row, fixed in v147:** Newest is now coupe B with its band redrawn (COUPE_B from picks7's options, band 1 1/6px, measured 1.167). It's fitted and centred the way the monoweight set fits every place: the joint law, no easing. It is built inside sheetOriginals(); the other designer's code is unchanged.
+
+
+## Turn 100: design director, my second coupe miss (v144), and criteria for the next round
+
+**The owner, verbatim (on v147):** "i want something between h2 and h3
+-- i like the loosening up, but the coffee cup plate feels too far. and
+the flares too intense. the museum looks completely out of place, so
+there needs to be a pattern for bringing this to the more structural
+icon decisions. also the interior counter shape of the coupe *still*
+does not look right. and there is *still* not enough liquid in the cup
+how many times do i have to say it."
+
+**My miss.** I gave v144 a 9 and passed the coupe again.
+- **Liquid:** he has asked for more liquid six times in `owner.md`:
+  - v105, "a bit of liquid then a clear space";
+  - v115, "needs a bit more liquid";
+  - "slightly more liquid still";
+  - v130, "less liquid";
+  - v133, "make there be more liquid in the bottom";
+  - now.
+- **I read one note wrongly and let it override the other five.** His
+  note was "starting to read as wine glass with the liquid... the taller
+  stem or more pancaked bowl really sell coupeness". It asked for a
+  different SHAPE, not less drink. I accepted "a flat bowl can only hold
+  a shallow drink" as a fair trade (turns 87 and 94). It was never his
+  trade.
+- **Counter shape:** I passed the band on wall thickness and band height.
+  He's judging the whole interior: what the empty part and the drink
+  look like inside the glass, against the outside (v133: "the interior
+  curve matching the exterior curve"). I never judged that whole shape
+  by eye as a glass with a drink in it.
+- **Lesson** (notes, Lesson 6): before scoring a glyph, read EVERY note of
+  his on it in `owner.md`, newest last. Where notes seem to conflict,
+  the repeated ask wins, and the conflict goes to him as a question. I
+  don't resolve it with a trade.
+
+**Before any score next round, in this order:**
+1. **Coupe, judged as him first:**
+   - Coupe B, batch 1's coupe and v134 side by side at true size (12px
+     chip, 24 badge, app row), then at 8x.
+   - Two questions, answered yes or no by eye before any measurement:
+     - Does it read as a glass with a drink in it?
+     - Is there clearly enough liquid, more than v134 and clearly
+       visible at 24px?
+   - A "no" to either is a fail, whatever the numbers say.
+   - Then the interior shape: does the interior (the empty part plus the
+     drink) follow the outside of the bowl, by eye at 8x?
+   - Then my turn-95 counter check (wall across and square; the empty
+     part lighter than the rim).
+2. **The three coupe interpretations he'll point at:**
+   - Clearly distinct: each differs in one visible idea at true size,
+     not in decimals.
+   - Honestly labelled: each label names what it does. If one gives up
+     liquid or wall thickness, the label says so in plain words.
+   - Each must pass point 1's two questions on its own. Don't show him an
+     interpretation that fails them.
+3. **"Between H2 and H3":** the loosening kept. The saucer ("the coffee
+   cup plate feels too far") pulled back. The flares visibly softer than
+   v147's. Judged at true size in the app rows, then 8x.
+4. **The museum and the structural pattern:**
+   - Does the museum now belong in the row, by eye at true size?
+   - Is the pattern stated as a rule for structural icons (buildings,
+     frames, plinths), and could a future structural icon (a hotel, a
+     shop front) follow it?
+5. **Harmony, bases and ends, the H-checks:** as in turns 92 and 94.
+6. **His live edits** (he's editing the canvas):
+   - Before scoring, list the canvas's pages and boards and compare them
+     with the last version I read.
+   - Any board, comment or arrangement of his must still be there,
+     unchanged.
+   - Anything of his that was moved, overwritten or deleted fails the
+     round, whatever the drawings score.
+
+NEXT: the designer's round; then the director scores on 1 to 6.

@@ -1150,3 +1150,13 @@ The verdict stands within our own set:
   the per-icon list is complete.
 - **Condition:** the originals board's overlap fixed or kept off the same
   page.
+
+
+## Correction, g7z (v144), 2026-10-21: 9 withdrawn
+
+- **His verdict:** "*still* not enough liquid ... how many times do i
+  have to say it"; the counter shape "*still* does not look right".
+- **My misses:**
+  - I let one shape note override five liquid asks;
+  - I scored the counter by numbers, not by eye as a glass with a drink.
+- **Criteria for the next round:** jam turn 100.
