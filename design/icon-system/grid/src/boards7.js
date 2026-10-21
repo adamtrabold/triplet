@@ -684,15 +684,23 @@ const OPEN_QS = [
   ['Decide: more human?', 'H2 or H3? And if H3, keep every line 1.5 (monoweight), or let the stem and trunk thin (relaxed)? (The tree\'s less mechanical tiers are part of both.)'],
   ['Decide: line marks', 'At 1 2/3px, do the + and the star feel as heavy as the place icons?'],
 ];
+// g7ab: Start's open questions (the older boards keep OPEN_QS as they were published)
+const START_QS = [
+  ['Between H2 and H3, part 1', 'The coupe: which of (a) a deeper bowl, (b) an open glass or (c) the drink as its own shape is what you mean?'],
+  ['Between H2 and H3, parts 2 and 3', 'Between H2 and H3: is this the balance, and does the museum now belong?'],
+  ['Decide: line marks', 'At 1 2/3px, do the + and the star feel as heavy as the place icons?'],
+];
+const ANSWERED = ['The coupe, A, B or C: B, the flatter bowl. Its inside and its drink are question 1.', 'H1, H2 or H3: H1 dropped; you asked for something between H2 and H3 (question 2).'];
 function sheetStart() {
-  const qs = OPEN_QS.map(([b, q], k) => `<div style="display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:24px;font-weight:700;color:${COL.or}">${k + 1}</div><div><div style="font-size:19px;line-height:1.35;color:${COL.navy};font-weight:600">${q}</div><div style="font-size:16px;color:${COL.ink2};margin-top:2px">Board: ${b}</div></div></div>`).join('');
+  const qs = START_QS.map(([b, q], k) => `<div style="display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:24px;font-weight:700;color:${COL.or}">${k + 1}</div><div><div style="font-size:19px;line-height:1.35;color:${COL.navy};font-weight:600">${q}</div><div style="font-size:16px;color:${COL.ink2};margin-top:2px">Board: ${b}</div></div></div>`).join('');
   const rows = [['1', 'Waiting on you', 'one board per question, top row'], ['2', 'In progress', 'the six icons now, the tuned versions beside them, and, at the end of the row, <b>Every icon: original and newest</b> (every icon in the order we\'re working on them, the original beside the newest drawing)'], ['3', 'Decided', 'the grid: the rules every icon is drawn by'], ['4', 'Detail', 'earlier sheets, for the team; optional']]
     .map(([n, h, s]) => `<div style="padding:8px 0;font-size:19px;line-height:1.35"><b style="color:${COL.navy}">${n} · ${h}</b>: ${s}</div>`).join('');
-  const decided = ['One line, 1.5px, everywhere (monoweight); the + and the star 1 2/3px', 'Every icon sized by its class to the same 12px coin', 'Like parts cut from one shape: slab, post, gable, vessel, loop', 'Every meeting point slightly round, inside tighter than outside', 'Every counter is the outline moved in by one line', 'Edges on the 1/3px lattice', 'The coupe is B, the flatter bowl; its band 1 1/6px, its sides the bowl\'s own curve (board: The coupe is B)']
+  const decided = ['One line, 1.5px, everywhere (monoweight); the + and the star 1 2/3px', 'Every icon sized by its class to the same 12px coin', 'Like parts cut from one shape: slab, post, gable, vessel, loop', 'Every meeting point slightly round, inside tighter than outside', 'Every counter is the outline moved in by one line', 'Edges on the 1/3px lattice', 'The coupe\'s shape is B, the flatter bowl (board: The coupe is B)']
     .map(s => `<li style="margin:0 0 6px">${s}</li>`).join('');
   return phBoard('Grid concepts', 'Start here', `${phP('This page holds the icon grid, the rules every Triplet icon is drawn by, and the first six icons drawn with it.')}
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:22px 0 6px">How it\'s laid out, top to bottom</div>${rows}
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:26px 0 6px">Waiting on you</div>${qs}
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:26px 0 6px">Answered</div><ul style="margin:0;padding-left:22px;font-size:18px;line-height:1.4;color:${COL.ink2}">${ANSWERED.map(s => `<li style="margin:0 0 6px">${s}</li>`).join('')}</ul>
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:26px 0 6px">Already decided</div><ul style="margin:0;padding-left:22px;font-size:18px;line-height:1.4">${decided}</ul>`);
 }
 function sheetDecideTunings() {
