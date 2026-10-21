@@ -711,6 +711,8 @@ we need to address as we make these changes".
 
 A failure caps the score at 7.
 
+**G-derive (a gate, 2026-10-21):** every number in every icon is derived from the grid or listed on the master grid as an exception with its reason. A fresh agent must be able to draw a new icon (the bed or the bag) from the master grid alone and pass every check first time. A failure caps the score at 8.
+
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
   - honest framing and fair notes;
@@ -1321,3 +1323,20 @@ approaches should be as much a part of the brand as anything".
 - **Lesson:** a construction that's "geometrically correct" never
   overrides a rule he stated. When a check and his rule disagree, his
   rule wins, and the check is wrong.
+
+
+## G-derive (2026-10-21): the foundation gate
+
+- The owner: the goal is a foundation, so future icons come out right
+  first time.
+- **Gate:**
+  - every number is derived from the grid or listed as an exception with
+    its reason on the master grid;
+  - I spot-check at least three icons against the SVGs.
+- **First-try test:** the bed or the bag, drawn from the master grid
+  alone by a fresh agent.
+  - It must pass the class cut, corners, H-mono and weight.
+  - Anything it needed becomes a rule.
+- **Also:**
+  - an overshoot explainer on the master grid;
+  - the weight spread stated, with fixes by class only.
