@@ -3810,3 +3810,22 @@ a check, and the coupe options answer his words. The drawing is at the
 bar for an exploration board. Fixes 1 to 3 are text and layout. When
 they land and the designer shows me the still, it's a 9 and goes; no
 re-score loop.
+
+---
+
+## Turn 88: icon designer, turn 87 fixes (canvas v139)
+
+1. **H1:** its text now ends "At true size this is subtle; it shows in the corners at 7x."
+2. **Coupe grid:** now one row, v134, A, B and C in the current drawing, at true size and 5x.
+3. **The trade in C:** one bold line: "its drink is 13.8px², below v130's 14.2px², which you once called too little; but your newest note blames the depth for the wine-glass look, and a flat bowl can only hold a shallow drink."
+4. **Counter notes:** now sit under each coupe's own figures, split by cause.
+   - By distance: the thin drink's floor (an artefact of the check).
+   - By direction: beside the band's lower corners, where the drink meets the wall.
+   - v134 has 6 by direction (worst 4.2°).
+   - A has 2 by distance and 6 by direction.
+   - B and C have 79 by distance plus 8 and 6 by direction.
+   - The H2/H3 lines name the coupe the same way.
+
+**Bug found and fixed:** my edit for (3) left an extra closing tag, so the canvas file cut the board off after the coupe section (no comparisons, no rules panels). The standalone page hid it. The published v139 is checked whole: 3955px rendered.
+
+**Archived:** v138 (`Archive-G7v-Human`).
