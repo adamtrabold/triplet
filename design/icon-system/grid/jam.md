@@ -5013,3 +5013,34 @@ Owner: "i wanna see h3 with plate flipped (not foot)". A new row is on the Betwe
   - between-checks pass.
   - Svgs: `svg/g7/between/h3t-*.svg` and `h3f-*.svg`.
 - **Canvas:** the Between board is 6510 tall (it ends at 6810, before the row-2 title at 7000).
+
+## Turn 113: icon designer, the tuned row: his strategy question answered (canvas v214)
+
+- **On arrival:** turn 112 (another session, v213) had already built the tuned row.
+  - I rebuilt it independently before I saw that, and got the same three rules and the same per-icon results.
+  - So I kept v213 and added only what it lacked. My duplicate is not pushed.
+- **Added to the board:** his first question, quoted ("what does including the new tree do for the strategy with this approach"), with a one-paragraph answer:
+  - Dropped in alone, it made the tree an exception: it was drawn by the Between row's rules, not H3's.
+  - That's why its trunk looked different: 1 1/4px with a 1/2px flare, beside H3's 1 1/2px stem with a 1 1/2px flare.
+  - To keep that tree, the row has to take its rules.
+  - The cost: free posts at 1 1/4px are monoweight's one exception.
+- **Why the Between trunk is 1 1/4 (measured):**
+  - The Between options carry `post: 1.25` (COUPE_S), and `nature()` reads `o.post`, so the trunk has been 1 1/4 since the Between row began.
+  - The Between rules table only names "the coupe's stem 1 1/4px".
+- **Per icon, measured (agrees with v213):**
+  - Coupe: flares 1.28 → 0.5.
+  - Trunk: flare 1.06 → 0.5; ends 0.3 → 0.25 (the fit, a fifth of its width).
+  - Tree tips: 0.35 → 0.35 / 0.22 / 0.15, bottom to top; the point stays 0.35.
+  - Unchanged: the cup apart from its saucer, the museum, the +, and the star (byte-identical to H3's).
+- **Weight (blurred, mean / darkest fifth):**
+  - Coupe: H3 22.3 / 56.0, tuned 21.3 / 53.2.
+  - Tree: 18.0 / 59.2, then 18.0 / 59.4.
+  - Museum: 32.5 / 69.5, still the heaviest.
+- **Checks:**
+  - check-svg: 0 slivers. `h3t-cafe` shows as asymmetric only because the `h3t-` prefix slips past the café's skip-by-design.
+  - between-checks on h3t: cup and museum counters 1.50; nature none.
+  - The coupe band shows the known drink-edge artefact, as H3's does. The star's "off" count is a filename artefact: the lw is chosen by a `star` prefix.
+  - Curve jump: 0.00, and 0.41 on the cup as before.
+- **Canvas:**
+  - Only the Between board changed: +178px, to 6688. It ends at 6988, before the row-2 title at 7000.
+  - The live board matched the v213 build exactly, so it had no hand edits.

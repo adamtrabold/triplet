@@ -1,5 +1,33 @@
 # Visual designer notes: icon system
 
+## Where things stand (2026-10-21, grid round g7, canvas v214)
+
+- **Where the work lives:**
+  - Canvas: https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW, page "Grid concepts".
+  - Code: `grid/src/`. `picks7.js` holds the drawings, `laws7.js` the corner laws (HUMAN included), `boards7.js` the boards.
+  - Run: `TOOLS=<dir with paper@0.12.18 and clipper-lib> node src/boards7.js [out]`.
+  - Checks: `check-svg.py`, `between-checks.js`, `blur-between.js`.
+- **The stage** (owner): "building the underlying system for icon creation and using the first 6 icons as a test of those decisions". Every change is a rule value, never a one-off.
+- **The tuned row** (Between board, "H3, saucer flipped, rules tuned to the tree"):
+  - Turn 112 built it (v213). Turn 113 added the answer to "what does including the new tree do for the strategy" (v214).
+  - The loved tree is H3's sweep and droop, plus HUMAN flare 0.5, plus tipShare 0.0877, plus `post: 1.25` (its trunk, via COUPE_S into `nature()`).
+  - In this row those become row rules (flares 1/2, free posts 1 1/4, tips by their edge), and the tree comes out byte-identical.
+  - They reach only the coupe (stem 1.25, flares 0.5) and the tree. The cup, museum, + and star are unchanged.
+- **Open owner questions (not mine to resolve):**
+  - H2, Between, H3 or tuned;
+  - the liquid: open glass or clear glass;
+  - the plate: rising or flipped;
+  - the museum: sizing and architecture;
+  - the line marks.
+- **Honest gaps:**
+  - None of the tree's rules acts on the museum. "looks completely out of place" is answered only by the museum approaches (sized by weight, cast soft).
+  - Free posts at 1 1/4 are monoweight's one exception.
+- **Lessons:**
+  - A question is a question. Quote him; don't harden opinions into rules.
+  - Fetch the branch and re-read the live canvas before building. Turn 113 first duplicated turn 112, which a parallel session had landed after the brief was written.
+
+---
+
 ## Where things stand (2026-10-14): concept work stopped
 
 Owner: "What the fuck is all of this stuff on the canvas all I want is every
