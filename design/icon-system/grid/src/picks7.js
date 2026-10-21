@@ -142,13 +142,18 @@ const DRAW = {
     // g7r (owner on v130: "There is less liquid in the coupe"): measured (src/drink-measure.js), the drink was
     // 16.1px² in v123-v128 and 14.2 in v130 (the wider bowl was scaled down to fit its class); the bowl is now
     // deeper (6 1/2, was 5 2/3) and fuller at the bottom (0.7, was 0.6), the foot 1/3px lower: 21.5px²
-    const bd = o.bd ?? 6.5;
+    // g7s (owner on v133: "i think v130 bowl was closer -- though it should be wider on the bottom to look more
+    // like a classic coupe. go back to that and make there be more liquid in the bottom in that one"): v130's
+    // saucer bowl, its bottom wider and flatter (handle 1.25 from the side, was 2.75), 1/3 deeper (6, was 5 2/3)
+    // and its sides a touch steeper at the rim (0.55): drink 18.8px² (v130 14.2), still a shallow saucer
+    const bd = o.bd ?? 6;
     // g7p (owner: "i liked the bowl shape from earlier batches (i like the wider bowl ...)" and "it needs slightly
     // more liquid still"): the bowl is wider in the drawing (its rim 11.5 of the 12-unit box, was 11) and broad-bottomed like the g6 coupe, its sides
     // falling steeply from the rim (handle 0.6 of the depth, was 0.49) into a flatter bottom, so at the same
     // depth it holds more drink; the stem is 1/3px shorter so the glass stays square to its class.
-    const bl = 0.25, bk = o.bk ?? 0.7;
-    const bowl = D(`M${X(bl)} ${X(0)}H${X(12 - bl)}C${X(12 - bl)} ${X(bk * bd)} ${X(9.25)} ${X(bd)} ${X(6)} ${X(bd)}C${X(2.75)} ${X(bd)} ${X(bl)} ${X(bk * bd)} ${X(bl)} ${X(0)}Z`, { root: 'VESSEL' });
+    const bl = 0.25, bk = o.bk ?? 0.55;
+    const bx = o.bx ?? 1.25;   // the bottom curve's handle: further in = a wider, flatter bottom (a classic coupe)
+    const bowl = D(`M${X(bl)} ${X(0)}H${X(12 - bl)}C${X(12 - bl)} ${X(bk * bd)} ${X(12 - bx)} ${X(bd)} ${X(6)} ${X(bd)}C${X(bx)} ${X(bd)} ${X(bl)} ${X(bk * bd)} ${X(bl)} ${X(0)}Z`, { root: 'VESSEL' });
     // The band's walls, two ways (owner, 10-20, on the g7i taper: "i like the handmade look of the taper, but im
     // not sure what in the real world it would allude to"; "i just dont want to lose the no taper option"):
     //   o.taper 'even': an EVEN offset of the bowl, the wall's width all the way down (straight sides between
@@ -165,7 +170,7 @@ const DRAW = {
       // the band's sides are the bowl's inner edge between the rim and the drink: points at the line's width
       // in from the bowl, joined by one curve that follows the bowl (its handles along the bowl's tangent)
       const rimT = o.style === 'mono' ? W : o.style === 'brush' ? WMIN : WH, liq = rimT + W;
-      const B = [[X(bl), 0], [X(bl), X(bk * bd)], [X(2.75), X(bd)], [X(6), X(bd)]];
+      const B = [[X(bl), 0], [X(bl), X(bk * bd)], [X(bx), X(bd)], [X(6), X(bd)]];
       const bz = (tt, i) => (1 - tt) ** 3 * B[0][i] + 3 * tt * (1 - tt) ** 2 * B[1][i] + 3 * tt * tt * (1 - tt) * B[2][i] + tt ** 3 * B[3][i];
       const dz = (tt, i) => 3 * (1 - tt) ** 2 * (B[1][i] - B[0][i]) + 6 * tt * (1 - tt) * (B[2][i] - B[1][i]) + 3 * tt * tt * (B[3][i] - B[2][i]);
       const wAt = tt => o.style === 'mono' ? W : o.style === 'brush' ? wBrush(Math.atan2(dz(tt, 1), dz(tt, 0))) : wSettle(bz(tt, 1), 0, X(bd));
@@ -175,7 +180,15 @@ const DRAW = {
       const tan = tt => { const a_ = at(tt - 1e-4), b_ = at(tt + 1e-4), L = Math.hypot(b_[0] - a_[0], b_[1] - a_[1]); return [(b_[0] - a_[0]) / L, (b_[1] - a_[1]) / L]; };
       const ch = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) / 3, d0 = tan(t0), d1 = tan(t1);
       const c1 = [p0[0] + d0[0] * ch, p0[1] + d0[1] * ch], c2 = [p1[0] - d1[0] * ch, p1[1] - d1[1] * ch], m = x => f(s - x);
-      band = o.style === 'mono' ? E([bowl], W, R(-1, -1, s + 2, liq + 1), { mirror: c }) : cut(D(`M${f(p0[0])} ${f(rimT)}H${m(p0[0])}C${m(c1[0])} ${f(c1[1])} ${m(c2[0])} ${f(c2[1])} ${m(p1[0])} ${f(liq)}H${f(p1[0])}C${f(c2[0])} ${f(c2[1])} ${f(c1[0])} ${f(c1[1])} ${f(p0[0])} ${f(rimT)}Z`));
+      // g7s (owner on v133: "i would think the clear area should match the thickness of the stroke. i also dont
+      // see the interior counter feedback being reflected in regards to the interior curve matching the exterior
+      // curve"): the clear area is a CHANNEL one line wide that follows the wall: the whole inside of the bowl
+      // (the outline moved in by a line) is cleared, and the drink is laid back in as the outline moved in by
+      // two lines, below the surface; so the clear area is the stroke's width under the rim and down both
+      // sides, and its inner edge is the outer curve, a line in, all the way down. o.chan: where the channel
+      // stops (a share of the bowl's depth; the drink meets the wall below it), 1 = all the way round.
+      const chanY = o.chan == null ? null : X(o.chan * bd);
+      band = o.style === 'mono' && o.chan == null ? E([bowl], W, R(-1, -1, s + 2, liq + 1), { mirror: c }) : o.style === 'mono' ? [E([bowl], W, null, { mirror: c }), E([bowl], 2 * W, R(-1, liq, s + 2, 50), { mirror: c, fill: true, cut: false }), ...(chanY != null && o.chan < 1 ? [E([bowl], W, R(-1, Math.max(liq, chanY), s + 2, 50), { mirror: c, fill: true, cut: false })] : [])] : cut(D(`M${f(p0[0])} ${f(rimT)}H${m(p0[0])}C${m(c1[0])} ${f(c1[1])} ${m(c2[0])} ${f(c2[1])} ${m(p1[0])} ${f(liq)}H${f(p1[0])}C${f(c2[0])} ${f(c2[1])} ${f(c1[0])} ${f(c1[1])} ${f(p0[0])} ${f(rimT)}Z`));
     } else if (o.taper === 'even') {
       const B = [[X(0.5), 0], [X(0.5), X(2.8)], [X(3), X(bd)], [X(6), X(bd)]];   // the left side, in px
       const bz = (tt, i) => (1 - tt) ** 3 * B[0][i] + 3 * tt * (1 - tt) ** 2 * B[1][i] + 3 * tt * tt * (1 - tt) * B[2][i] + tt ** 3 * B[3][i];
@@ -192,11 +205,11 @@ const DRAW = {
       const inside = D(`M${X(ix(0.5))} ${X(-1)}H${X(ix(11.5))}C${X(ix(11.5))} ${X(2.8)} ${X(ix(9))} ${X(bd)} ${X(6)} ${X(bd)}C${X(ix(3))} ${X(bd)} ${X(ix(0.5))} ${X(2.8)} ${X(ix(0.5))} ${X(-1)}Z`);
       band = cut(I(inside, R(0, rim, s, liquid - rim)));
     }
-    const FB = Y(o.fb ?? 11);
+    const FB = Y(o.fb ?? 10.833);
     const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = FB - fh + 0.01;
     const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : o.style === 'settle' ? POSTT(c, sy0, sy1, wSettle(sy0, 0, s), wSettle(sy1, 0, s)) : POST(c, sy0, sy1);
     const foot = R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
-    return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, band];
+    return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, ...(Array.isArray(band) ? band : [band])];
   },
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
   // plinth. Counters: the spaces between the columns are plain upright slots (no pills, owner's example).
@@ -273,7 +286,7 @@ function plus(px = 26.4, sc = 1, lw = W, style) {
 }
 function star(px = 20, sc = 1, lw = W, style) {
   // g7j: OUTLINE class (hull at least the coin, hole at least two lines across); sc is set by the grid (boards7.js, starRc()).
-  const k = 24 / px, w = lw * k, cx = 12, cy = 12 + 0.6 * sc, Rc = 9.6 * sc, ri = Rc * 0.47;
+  const k = 24 / px, w = lw * k, cx = 12, cy = 12 + 0.6 * sc, Rc = 9.6 * sc, ri = Rc * STAR.ri;
   const cl = []; for (let i = 0; i < 10; i++) { const r = i % 2 ? ri : Rc, a = -Math.PI / 2 + i * Math.PI / 5; cl.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
   const outer = offset(cl, -w / 2);
   if (style === 'brush' || style === 'settle') {
@@ -309,6 +322,7 @@ function offset(pts, d) {
   return out;
 }
 
+const STAR = { ri: 0.47 };   // the star's inner radius, a share of its outer (its points' slenderness)
 const TREE_NOTCH = 0.6;   // g7r: a notch is 0.6 of the half width of the tier above it (its neck the other 0.4)
 const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature']];
-module.exports = { W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };
+module.exports = { STAR, W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };
