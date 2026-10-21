@@ -4977,3 +4977,14 @@ Owner: "clean up all the old stuff first theres so much content to read".
    - Each drawing, before and after
    - In the app, real size
 4. **His own items** ("Artboard 1", "Decide: line marks copy" and his note) were already gone in the live version I merged onto: a page save, 78cb, one minute before my publish. I didn't restore them.
+
+---
+
+## Turn 111: icon designer, H3 with the saucer flipped (canvas v211)
+
+Owner: "i wanna see h3 with plate flipped (not foot)". A new row is on the Between board, after H3 (v147).
+- **What is in it:** H3 as it was (flares 1.5, mass 0.6, the coupe's dome foot, B's coupe), with only the cup's saucer turned over. The saucer is flat on top, and its underside is H3's dome, a line deep, with its ends at the top line (picks7 `saucerFlip`).
+- **Where it shows:** at true size in the row, and at 8x beside H3's saucer.
+- **The tree:** it is the Between tree, per the owner's "i love this tree what H is this with". From now on that tree is used in every new row.
+- **Checks:** check-svg: no slivers. The flipped cup's counter is 1.50; curve check 0.41/px, the same as the café elsewhere.
+- **Canvas:** v210's layout is kept. Only the Between board's height changed, by 415px, and nothing below it needed to move.

@@ -578,6 +578,8 @@ const HSETS = [
   ['Now (v134): monoweight', 'The set as it is: the baseline.', {}, LAWS7.joint, 1, false, 0],
   ['H2: monoweight, eased, settled', 'Every mass\'s outside corners and joins ease out of their lines (no jump in curvature); every line end (the saucer\'s, the plinth\'s, the coupe\'s foot, the trunk) keeps the same plain round, so the terminals match across all eight. Every base is a slab. The tree keeps today\'s proportions, but its tiers are drawn, not ruled: their sides sweep in a fifth of a line and their undersides droop half a line (you: "the less mechanical triangles"). Every glyph sits with 1/12 more air. At true size this is subtle; it shows in the corners at 7x.', { droop: 0.5, bow: -0.2, ...COUPE_B }, LAWS7.joint, 11 / 12, true, EASE],
   ['H3: monoweight, with flares', 'H2, plus personality. THE BASE RULE: what stands on a table has a domed foot (the saucer, the coupe\'s foot); what stands on the ground keeps a flat base (the museum\'s plinth, the tree\'s trunk). THE FLARE RULE: a post flares into the mass it meets (the coupe\'s stem at both ends, the trunk into its tier); counters, slots and line marks never flare. Every line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  // g7ag (owner: "i wanna see h3 with plate flipped (not foot)")
+  ['H3, plate flipped', 'H3 as it was, with only the cup\'s saucer turned over: flat on top, rounded underneath. The coupe\'s foot stays H3\'s dome.', { droop: 0.5, bow: -0.2, dome: true, saucerFlip: true, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
@@ -607,7 +609,9 @@ const HSETS = [
   const mus = nm === 'Between H2 and H3' ? MUSEUM_V.map(([, , v]) => fitPlace('museum', v)) : null;
   return { nm, rule, ds, coupes, ease, bar1, silBar, cv, mus };
 });
-const HOLD = HSETS.filter(S => !S.nm.startsWith('Between')), BETW = HSETS.find(S => S.nm === 'Between H2 and H3'), BFLIP = HSETS.find(S => S.nm === 'Between, plates flipped');   // g7aa: the v144 boards keep their four rows
+const HOLD = HSETS.filter(S => !S.nm.startsWith('Between') && S.nm !== 'H3, plate flipped'), H3F = HSETS.find(S => S.nm === 'H3, plate flipped'), BETW = HSETS.find(S => S.nm === 'Between H2 and H3'), BFLIP = HSETS.find(S => S.nm === 'Between, plates flipped');   // g7aa: the v144 boards keep their four rows
+// g7ag (owner on the Between tree: "i love this tree what H is this with"): the Between tree is the tree in every new row
+H3F.ds.nature = BETW.ds.nature;
 { // g7aa: the between row and the three coupes as svg files, for check-svg.py and the counter checks
   const dir = path.join(__dirname, '../svg/g7/between'); fs.mkdirSync(dir, { recursive: true });
   const svg = d => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="${d}"/></svg>`;
@@ -616,6 +620,7 @@ const HOLD = HSETS.filter(S => !S.nm.startsWith('Between')), BETW = HSETS.find(S
   BETW.cv.forEach(({ d }, k) => fs.writeFileSync(path.join(dir, `bar-${'abcd'[k]}.svg`), svg(d)));
   BETW.mus.forEach((d, k) => fs.writeFileSync(path.join(dir, `museum-${k + 1}.svg`), svg(d)));
   for (const id of ['cafe', 'bar']) fs.writeFileSync(path.join(dir, `${id}-flipped.svg`), svg(BFLIP.ds[id]));
+  fs.writeFileSync(path.join(dir, 'cafe-h3-flipped.svg'), svg(H3F.ds.cafe));
 }
 // checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
 // (where the outline's direction is continuous), the jump in curvature between the two sides, 1/px
@@ -792,7 +797,7 @@ function clearWalls(d, sil) {
   cp.remove(); so.remove(); return r;
 }
 function sheetBetween() {
-  const N = COL.navy, I2 = COL.ink2, S = BETW, SF = BFLIP, H2 = HSETS[1], H3 = HSETS[2];
+  const N = COL.navy, I2 = COL.ink2, S = BETW, SF = BFLIP, H2 = HSETS[1], H3 = HSETS[2];   // H3F: H3 with its saucer flipped
   const kick = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:30px 0 8px">${t_}</div>`;
   const quote = q => `<div style="margin:6px 0 12px;padding:10px 14px;background:${COL.paper};font-size:17px;line-height:1.4;color:${N}">You: "${q}"</div>`;
   const chip = d => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
@@ -833,7 +838,8 @@ ${kick('2 · Between H2 and H3')}
 ${quote('what if the plate was flipped the other way with the rounding on the bottom')}
 ${quote('top two sections\' tree branch ends feel more rounded than bottom one')}
 ${phP('Two rows: the plate as it was (its top rises) and flipped (flat on top, rounded underneath, the coupe\'s foot too). The tree\'s tips now take a round that is a share of the tip\'s shorter edge, so a small tier\'s tip is as round, for its size, as the bottom one\'s: 0.35, 0.23 and 0.15, bottom to top (all were 0.35).')}
-${setRow(H2, 'H2')}${setRow(S, 'Between: the plate\'s top rises')}${setRow(SF, 'Between: the plate flipped')}${setRow(H3, 'H3 (v147)')}
+${setRow(H2, 'H2')}${setRow(S, 'Between: the plate\'s top rises')}${setRow(SF, 'Between: the plate flipped')}${setRow(H3, 'H3 (v147)')}${setRow(H3F, 'H3, the saucer flipped (the coupe\'s foot as H3; the tree you loved)')}
+${quote('i wanna see h3 with plate flipped (not foot)')}<div style="display:flex;gap:14px;flex-wrap:wrap;margin:14px 0">${fig(H3.ds.cafe, 'H3 plate', 120)}${fig(H3F.ds.cafe, 'H3 plate flipped', 120)}</div>
 <div style="display:flex;gap:14px;flex-wrap:wrap;margin:14px 0">${fig(S.ds.cafe, 'Plate rises', 120)}${fig(SF.ds.cafe, 'Plate flipped', 120)}${fig(S.ds.bar, 'Foot rises', 120)}${fig(SF.ds.bar, 'Foot flipped', 120)}</div>
 <div style="display:flex;gap:14px;margin:6px 0 14px">${fig(frozen('nature'), 'Tree, v205: every tip 0.35', 150)}${fig(S.ds.nature, 'Tree, now: tips by their edge', 150)}</div>
 <div style="display:flex;gap:18px;align-items:center;margin:8px 0"><div>${appRows(S)}</div></div>
