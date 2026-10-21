@@ -1125,3 +1125,15 @@ The verdict stands within our own set:
 - **H3:** domed saucer and coupe foot against a flat plinth and trunk.
   There's no stated rule and no per-icon list, so it fails until both
   land (jam turn 94).
+
+
+## Correction, g7y coupe board (v142), 2026-10-21: 9 withdrawn
+
+- Owner picked B. "the counter is still wrong both in size and in
+  curvature".
+- **My miss:** I passed the counter on its measured height and its
+  perpendicular offset.
+  - Measured across, as the eye reads it, the wall widens 1.55 to 1.78
+    toward the drink.
+  - The light band reads as heavy as the rim.
+- **New counter check** in jam turn 95.
