@@ -66,6 +66,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · v130 verdict:** "There is less liquid in the coupe, the internal counter lines don't match the external ones, and the tree now looks goofy". Claims of "more drink" and "parallel offsets" were not true to his eye.
 
+- **10-21 · Overreach again:** "hold on i never said to do that" / "i said it was conceptually more interesting" (batch 1 coupe). Lesson: an opinion is not an instruction.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
