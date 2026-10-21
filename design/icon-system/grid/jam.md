@@ -4078,3 +4078,57 @@ answers "i would need to see these in context to the others".
 
 **Did the work change?** Yes. H2 is settled, the coupe's empty band
 meets his rule, and the context he asked for is there.
+
+
+## Turn 95: design director, my miss on coupe B's counter, and the new counter check
+
+**The owner, verbatim** (canvas comment on "Decide: the coupe"): "ok
+without including the other decisions that still need to be made, shape
+wise b is it. but the counter is still wrong both in size and in
+curvature i'm getting tired of leaving this feedback!"
+
+He picked **B** for its shape. I gave the board a 9 and passed its
+counter, so this is my miss.
+
+**What I got wrong:**
+- I passed the counter on its measured height (1.333, "equal or a
+  little thinner") and on a perpendicular offset check. Both pass on
+  paper. He judges by eye, and by eye it fails in two ways.
+- **Size:** the light band reads as heavy as the dark rim. A light gap
+  between dark lines reads wider than it measures. The board itself
+  said so, and I still used the ruler.
+- **Curvature:** I've re-measured B (v142) at 8x.
+  - The wall measured square to the curve is a constant 1.50 (top 1.51,
+    middle 1.50, bottom 1.49). That's why my check passed.
+  - Measured across, as the eye reads it beside a near-vertical outer
+    wall, the wall widens from **1.55 at the top to 1.61 in the middle
+    and 1.78 at the bottom**: 15% thicker toward the drink. (v134: 1.53,
+    1.57, 1.67.)
+  - The counter's sides are the offset of a curve with a tighter radius,
+    so they turn inward faster than the outer wall beside them. They
+    read as slanting in, not running parallel. That's the curve he
+    marked on v133 (`owner-marks/v133-coupe-curves.png`), and the
+    coordinator's diagnosis (`owner-marks/v142-coupeB-band-diagnosis.png`)
+    shows the same.
+- **The pattern:** he's raised this counter four times. I've passed it
+  each time on a number that measured the wrong thing.
+
+**What must change in the drawing** (how is the designer's call):
+- The counter's sides read parallel to the outer wall beside them, top
+  to bottom, at 8x and at true size.
+- The light band reads clearly lighter than the rim, judged by eye at
+  true size, not by its height in px.
+
+**My counter check from now on** (before I pass any counter):
+1. Crop it at 8x.
+2. Draw the outer curve offset by one line over it.
+3. Measure the wall at the top, middle and bottom, both square to the
+   curve AND across (as the eye reads it). Any growth over 1/12px
+   between top and bottom fails.
+4. Judge the counter's optical size against the stroke by eye, at true
+   size and at 8x, beside the rim. Its measured height is never the
+   pass.
+5. Check his own words on that glyph in `owner.md` before scoring.
+
+**Re-score:** "Decide: the coupe" was 9; it's withdrawn. The shape
+decision (B) stands as his. The counter goes back to the designer.
