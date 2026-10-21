@@ -1593,3 +1593,11 @@ checks; don't eyeball "is it as good as".
 - **Lesson:** his clash note is about endings. Rules for joins and
   corners don't cover how a part ENDS (base, foot, trunk end, arm end).
   Endings now need their own rule per direction.
+
+- **Coupe counter (H-counter, 2026-10-21):** "the empty part should be
+  equal to the thickness of the stroke. or maybe even a little thinner"
+  ("as ive said a few times now"). It's now a hard check, measured at the
+  gap's tallest point.
+- **Lesson:** in turn 87 I judged C's gap against v134 instead of against
+  his stated rule. Before scoring, check every owner rule in `owner.md`
+  that applies to the glyph, not just the last version.

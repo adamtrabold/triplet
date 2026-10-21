@@ -3961,6 +3961,24 @@ asks):
    decision layout he asked for ("have an agent reorganize the decision
    boards to be clearer").
 
+**Added after his coupe comment** (canvas comment on "Decide: the
+coupe"): "i would need to see these in context to the others to decide
+between. also regardless, there nees to be a smaller counter in the
+drink -- as ive said a few times now, the empty part should be equal to
+the thickness of the stroke. or maybe even a little thinner if that
+isn't optically what turns out"
+
+8. **The coupe's empty part: a hard check (H-counter).** The empty gap
+   between the band and the drink's surface must be measured at its
+   tallest. It should equal the stroke (1.5) or be a little thinner,
+   judged by eye at true size. Any coupe over 1.5 fails, whatever else
+   it does.
+   - **My miss:** in turn 87 I passed C's gap as "about as tall as
+     v134's". I compared it with the last version, not with his rule,
+     and he'd said it before.
+9. **The coupe options in context:** A, B and C each shown inside the
+   full set of eight at true size, not on their own.
+
 **Not scored:** whether H2 or H3 wins. That's his call.
 
 NEXT: the icon designer's H2/H3 push; then the director scores on 1 to 7.
