@@ -3107,3 +3107,61 @@ the rule. Then I run H-mono in this final form with my own tools
 (distance and direction via `mono2.py`; corner radii measured), then
 H-claim against v133 and v130, H-outline, then the coupe against his
 words.
+
+---
+
+## Turn 77: design director, the foundation gate (G-derive)
+
+The owner: "the goal of this is to establish the foundation for all
+future icons.. ideally future ones come out perfect on first try". He's
+also curious about overshoot, and notes "i do notice the weighting
+inconsistencies still between icons, if extremely slight".
+
+**New gate, G-derive** (a failure caps the score at 8):
+
+1. **Every number in every icon is derived or listed.**
+   - **Derived:** it comes from the grid. That means the line (1.5, line
+     marks 1 2/3), the 1/3px lattice, the coin and its class cuts, the
+     shared fractions (the apex +1/2, the 1.5-line notch shelf, the
+     corner-law values, the tier ratios), the root shapes' sizes, the air
+     and the box.
+   - **Listed:** any number not derived is on the master grid as a named
+     exception, with its reason.
+   - An unlisted, underived number fails.
+2. **The audit is on the master grid,** per icon: each dimension, the
+   rule it comes from, or its exception line. I spot-check at least
+   three icons myself, against the SVG sources.
+3. **The first-try test:** a new icon, the bed or the bag, drawn from the
+   master grid alone (no reference to the existing six) by an agent who
+   hasn't seen the drawings.
+   - **It passes when:**
+     - it fits its class cut;
+     - every meeting point follows the corner law;
+     - its counters pass H-mono;
+     - its weight sits within the set's blur range by eye;
+     - it needs no per-icon number that the grid doesn't give.
+   - **It's shown on the master grid,** labelled as the test, beside the
+     six. Anything it needed that the grid didn't say becomes a grid rule
+     or a listed exception.
+4. **Overshoot (his curiosity): one plain section on the master grid.**
+   - What overshoot is: round and pointed forms run slightly past a flat
+     guide so they read the same size.
+   - Where the grid uses it: the lone apex +1/2, the tree's tip, the
+     pediment.
+   - Shown at 8x beside a no-overshoot version.
+   - Not a question to him unless he asks.
+5. **Weight, "extremely slight" inconsistencies:** the blur row, all
+   eight, at true size, with the spread stated. Any icon outside the
+   set's range by eye is named, and fixed by a class rule, not a nudge
+   (G-size).
+
+**Order of scoring once the audit lands:**
+1. H-claim;
+2. H-mono (distance, direction, corners);
+3. H-outline;
+4. G-derive (the audit spot-checked, then the first-try test);
+5. weight by eye;
+6. the rest.
+
+NEXT: the icon designer finishes the counter round. Then the audit and
+the first-try test. Then the director scores them in the order above.
