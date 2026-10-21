@@ -4693,7 +4693,7 @@ Everything else on the board is at 9:
 - **Crop:** the 8x and 24x, v204 beside now, with the chip and badges, is at `stills/g7ad-museum-eaves-8x.png`.
 
 
-## Turn 108: design director, my miss on the beam-shed museum, and the next round's gates
+## Turn 107b: design director, my miss on the beam-shed museum, and the next round's gates
 
 **The owner, verbatim:**
 - On the Between museum (beam shed, eaves stepped): "no this is awful".
@@ -4797,3 +4797,89 @@ All five quotes are in `owner.md`. The v205 board is archived; the owner said "n
 **Start:**
 - Question 1 is now the open glass against more clear glass.
 - Question 2 is now the plate (rising or flipped) and the three ways to draw buildings.
+
+
+## Turn 109: design director, g7ae (v206): 8, two of the three museum approaches don't look good
+
+(My gates turn, written before the designer's 108, is relabelled 107b.)
+
+Scored on the turn-107b gates, in order, at 1x and 3x renders of the
+published board.
+
+**1. His items:** diffed against my saved v204 copy.
+- "Artboard 1", "Decide: line marks copy" and his note are identical.
+- The only additions are the team's v205 archive board and its title.
+- **Pass.**
+
+**2. His five notes, each answered visibly and quoted:**
+- **Coupe sides** ("too straight compared to the rest of the shape"):
+  - At 3x the side now turns from the rim, one curve to the bottom, with
+    no upright run and no S. **Pass.**
+  - The open glass's mouth has short straight inner edges at the rim
+    ears. They're tiny, but name them if he asks.
+- **Shallow bowl, softer flares** ("very stout instead of delicate"):
+  - B's bowl kept, stem 1 1/4, flares 1/2.
+  - It reads lighter and more delicate than v205 (a).
+  - The stem breaks monoweight, and the board's table says so. **Pass.**
+- **Liquid:**
+  - The board puts the trade to him as a question ("The open glass, or
+    more clear glass and less drink?") with honest figures. Only the
+    open glass beats v134.
+  - That's Lesson 6 done right: it doesn't trade for him. **Pass.**
+- **Plate flipped:** a full row and the 8x pairs, quoted. **Pass.**
+- **Tree tips:**
+  - The tips now scale with their tier (0.35 / 0.23 / 0.15). Beside v205
+    at 3x, the top tips no longer read as knobs.
+  - **Pass.**
+- **Museum** ("how might this style be reflected in architectural
+  things"): answered with three approaches on H2's museum, every part
+  kept. Judged below.
+
+**3. The museum, by eye first:** does each look good, and does each look
+like a museum?
+- **H2's base:** yes. Still the heaviest in the row; the board says so.
+- **Columns that swell:** no.
+  - At this size the swell pinches every opening into an hourglass, so
+    the slots read as bone shapes or a barrel, not columns.
+  - Good entasis is felt, not seen. Here it's seen.
+- **Long lines drawn like the tree:** no.
+  - The drooping beam makes the openings uneven in height, so the
+    building reads as sagging.
+  - The concave roof reads as a pagoda.
+  - A droop that reads as growth on a tree reads as failure on a
+    building.
+- **Joins that flare like the stem:** nearly.
+  - It looks like a museum. The flares give the columns capitals and
+    bases, which is the right idea.
+  - But the round-notched slots read a little fussy at 8x.
+  - It's the only one I'd show.
+- **At true size,** none of the three looks different from H2 in the
+  row. So none yet answers "looks completely out of place". The board
+  says honestly that none lightens it.
+
+**4. The coupe, as him:**
+- The open glass reads as a glass with a drink in it (like batch 1), with
+  clearly more liquid (8.5).
+- The other three are honestly shown as the clear-glass cost.
+- **Pass.**
+
+**5. Checks:** I didn't re-run them. The board reports:
+- check-svg clean;
+- curve 0.00 at non-end joins;
+- the counters' only flags are the known drink-edge artefact;
+- entasis columns 1.27 to 1.50 by design.
+
+**Score: 8. Before it goes out:**
+1. **Every museum approach shown must look good, and like a museum, by
+   eye.**
+   - Swell and droop fail as drawn. Rework them so the idea is felt, not
+     seen (or replace them), or drop them.
+   - Two good approaches beat three with two bad ones.
+   - How is the designer's call.
+2. **At least one approach must visibly change the museum at true
+   size**, in the row beside the cup, coupe and tree. His complaint was
+   about how it sits in the row, and a change only visible at 8x
+   doesn't answer it.
+
+Everything else is at 9: the coupe, the plate, the tree, the liquid
+question, and his items.

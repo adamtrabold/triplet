@@ -1705,3 +1705,10 @@ checks; don't eyeball "is it as good as".
   compared to the rest of the shape". The outer sides run straight and
   upright before curving. New check: look at every curved silhouette at
   8x for straight runs. The curve check only reads jumps at joins.
+
+## v206 (2026-10-21): 8
+
+- Judged the museum by eye first (Lesson 7). Two of the three approaches
+  don't look good, though they all "keep every part".
+- A droop that reads as growth on a tree reads as failure on a building.
+  Entasis at icon size must be felt, not seen.

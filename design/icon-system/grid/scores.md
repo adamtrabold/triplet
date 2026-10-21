@@ -1206,3 +1206,15 @@ The verdict stands within our own set:
 - **Coupe:** his note on the outer sides being too straight adds a
   straight-run check for curved silhouettes.
 - **Next round's gates:** jam turn 108.
+
+
+## Round g7ae (canvas v206), 2026-10-21: 8
+
+- **His items:** unchanged.
+- **His five notes:** all answered and quoted. The coupe's sides, the
+  shallow bowl and softer flares, the flipped plate and the tree tips
+  pass. Liquid is put to him as a question.
+- **Museum by eye:** swell (hourglass slots) and droop (reads as
+  sagging, pagoda roof) don't look good. The flared joins nearly do. None
+  shows at true size.
+- **Fixes:** jam turn 109.
