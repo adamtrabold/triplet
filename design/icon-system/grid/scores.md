@@ -1205,4 +1205,4 @@ The verdict stands within our own set:
   fails.
 - **Coupe:** his note on the outer sides being too straight adds a
   straight-run check for curved silhouettes.
-- **Next round's gates:** jam turn 107.
+- **Next round's gates:** jam turn 108.

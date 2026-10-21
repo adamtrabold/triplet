@@ -4693,7 +4693,7 @@ Everything else on the board is at 9:
 - **Crop:** the 8x and 24x, v204 beside now, with the chip and badges, is at `stills/g7ad-museum-eaves-8x.png`.
 
 
-## Turn 107: design director, my miss on the beam-shed museum, and the next round's gates
+## Turn 108: design director, my miss on the beam-shed museum, and the next round's gates
 
 **The owner, verbatim:**
 - On the Between museum (beam shed, eaves stepped): "no this is awful".
