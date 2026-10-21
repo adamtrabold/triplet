@@ -2838,3 +2838,8 @@ goofy with the less intentional size of tree sections".
 
 NEXT: icon designer, the round: the drink, the counters, the tree.
 Then I score in the order above.
+
+**Added to the tree check (owner):** "The top tier of the tree looks like it's coming off".
+- Every tier reads as attached to the one below, at true size and at 8x, the top tier especially.
+- The neck between tiers (the notch shelf against the tier above) must read as one joined shape, not a stacked cap.
+- Checked by eye at 1x and 8x, and named on the board in one line.

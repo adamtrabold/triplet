@@ -1269,3 +1269,4 @@ approaches should be as much a part of the brand as anything".
   result against the owner's eye and the previous version.
 - **Standing order:** compare against the previous version, measure,
   then judge.
+- **Tree, also:** every tier reads as attached to the one below at true size and 8x (owner: "The top tier of the tree looks like it's coming off").
