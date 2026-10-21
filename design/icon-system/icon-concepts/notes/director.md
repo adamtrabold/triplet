@@ -1764,3 +1764,19 @@ checks; don't eyeball "is it as good as".
   well the measures come out.
 - Archive parts 1, 2 and the old table (board 9.8k px).
 - Next: the designer's fixes (turn 119), then re-score.
+
+## g7al (v218, 2026-10-21): 8
+
+- The archive was checked by sha256 against my saved v217 read: identical.
+- The question block (both readings, asked) is the model for any
+  ambiguity.
+- **My share:** turn 119 struck the two moves that were connecting the
+  museum (flares, sweep) and offered nothing in their place. The museum in
+  the row is back to "completely disconnected". When I rule out a fix, I
+  name what still has to be answered, and check the next round answers it
+  where he looks.
+- Watch for rules whose wording covers more than they mean ("built lines"
+  against the plate rule). A seventh icon follows the words.
+- Five museum options in two parts is too many; one section, at most two
+  options.
+- Next: museum fixes (turn 121), then re-score.

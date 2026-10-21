@@ -338,3 +338,12 @@ museum's flared slots read as pills at 8x (his 10-19 objection); the swept
 pediment leans toward a tent. Archive parts 1, 2 and the old table. Full
 entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn
 119.
+
+## Icon system, g7al (v218, 2026-10-21): 8
+
+The question with both readings, square openings, a straight roof, the
+drink and the archive (sha matches) all pass. The museum in the row barely
+changed, so it's still "completely disconnected" at true size; I removed
+its connecting moves in turn 119 without a replacement. Part 2 repeats the
+museum on the old row and contradicts the Openings rule. Fixes in
+`grid/jam.md` turn 121.

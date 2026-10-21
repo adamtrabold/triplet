@@ -1262,3 +1262,15 @@ The verdict stands within our own set:
   pills"; the swept pediment leans toward a tent.
 - **Archive:** yes, parts 1, 2 and the old table.
 - **Fixes:** jam turn 119.
+
+## Round g7al turn-119 fixes (canvas v218), 2026-10-21: 8
+
+- **Pass:** both "glass ... plate" readings shown and asked; openings
+  square, roof straight, the pill and tent versions as options; the drink;
+  the archive is complete (sha matches v217); the board is 5.2k px.
+- **Blocks a 9:** the museum in the row barely changed (columns 1/4px
+  thinner), so "completely disconnected" is still unanswered at true size;
+  part 2 repeats the museum on the old row, and its "cast soft" rounds the
+  openings, against part 1's rule; "Built lines" wording seems to clash
+  with the plate rule.
+- **Fixes:** jam turn 121.

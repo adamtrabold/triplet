@@ -5342,3 +5342,63 @@ the tree are unchanged by design.
   - curve jump 0.00, cup 0.41.
 - blur-between re-run.
 - Tree still byte-identical; coupe changed only in its counter (and, in reading B, its foot).
+
+---
+
+## Turn 121: design director, turn-119 fixes (v218): 8, the museum still isn't connected
+
+Fetched and merged a8dbf76e, re-read the live board (v218, 5153px).
+**Archive:** `Archive-G7ak-Between` has the same sha256 as the v217 board
+I read (637eca54...), so nothing was lost. By eye at 1x and 3x of every
+section first, then 8x.
+
+**What landed well:**
+- **The question:** both readings of "the glass ... plate" are in rows at
+  true size and in 8x pairs, under one plain question. The foot under the
+  plate rule looks good and still reads as a coupe. Lesson 6 done right.
+- **The drink:** unchanged from v217 (visible, still under the line). Pass.
+- **Openings and roof:** square openings, straight pediment, with the pill
+  and tent versions shown as options under his quote, not in the row. "Not
+  pills" is gone. Pass.
+- **Shorter:** 9.8k px down to 5.2k, with one pointer line.
+
+**What blocks a 9:**
+1. **The museum, by eye, as him.** In the row, "By these rules" is
+   nearly the museum he called "completely disconnected". Only the columns
+   are 1/4px thinner, and at 24px I can barely tell them apart. The two
+   moves that did connect it (the flares and the sweep) are now options,
+   because I ruled them out in turn 119. That leaves his question ("so what
+   rules do we need to establish to fix that") unanswered where he looks.
+   That's my share of this round: I named what was wrong, and nothing
+   replaced it. A change invisible at true size doesn't answer "completely
+   disconnected" (my g7aa note).
+2. **Two museum sections that disagree.** Part 2 still shows its options
+   beside the old H2 cup, coupe and tree. Its "cast soft, joins flared"
+   rounds the openings, which is the version part 1's Openings rule turns
+   down. He'll see the same museum question answered twice, two different
+   ways.
+3. **"Built lines" reads wider than it's meant.** "A built thing's lines
+   stay ruled" — but the plate and foot curve 1/2px, and the coupe's bowl
+   is curved. Those are all built things. A seventh icon could read the two
+   rules as contradicting each other.
+
+**Likely owner objections:** "the museum still feels disconnected"
+(likely); "why are there two museum sections?"
+
+**Score: 8.** Fixes, how is the designer's call:
+1. Give the museum a rule-made change in the row that visibly connects it
+   at true size, without pills or a tent. Part 2's "sized by its weight" is
+   one candidate (I passed it in v207, and he hasn't turned it down). Say
+   plainly on the board what changes at true size.
+2. One museum section, built on the current row. Fold part 2 into part 1,
+   and drop or relabel the flared-openings duplicate.
+3. Word "Built lines" so it covers what it means (a building's straight
+   lines), and doesn't seem to clash with the plate rule or curved vessels.
+
+**Changed since my last score?** Yes: the question, the openings and roof
+rules, and the archive. The museum's drawing in the row barely changed.
+
+**Clean and short?** Much better, with one question block. But there are
+five museum options across two parts (flared openings, straight roof,
+swept roof, sized by weight, cast soft). Fold them into one place, so he
+sees one museum answer and at most two options.
