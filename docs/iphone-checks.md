@@ -6,7 +6,7 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- **The pin is the close (tag-close-fix, DRAFT -- not landed):** open a place's tag: its pin becomes a pale-orange disc with an orange x (no star, no icon, no stop number), the string meeting its bottom edge; tap it: the tag closes (try a near-miss just beside the pin too); open a district's tag: its dot does the same; there is no x on the tag itself; the disc stays visible on pale and water tiles; the city line sits a touch closer to the name. VoiceOver: the tag still offers a "Close" button.
+- **The pin is the close (tag-close-fix, landed 2026-10-21):** open a place's tag: its pin becomes a pale-orange disc with an orange x (no star, no icon, no stop number), the string meeting its bottom edge; tap it: the tag closes (try a near-miss just beside the pin too); open a district's tag: its dot does the same; there is no x on the tag itself; the disc stays visible on pale and water tiles; the city line sits a touch closer to the name. VoiceOver: the tag still offers a "Close" button.
 - **The list title, city sections, show/hide, the tab (add-tag-jam phase 1, landed 2026-10-17):**
   (1) tap the list title: the menu opens downward over the list header, cities first, with a
   double rule under "All places" and a navy line above the last row ("Plans 3 ›"); tap that row:

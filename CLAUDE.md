@@ -188,7 +188,10 @@ operator makes none of these calls.
   `design/visited-system/stamp-first/README.md`. Tweak-lane work
   self-reviews against `docs/owner-taste.md` before handing back. The
   place popup is the **Hanging Tag** (`TagPopup`, `buildPopupHtml()`): its
-  Visited segment carries the same `.row-stamp` at 1.1x.
+  Visited segment carries the same `.row-stamp` at 1.1x. **The pin is the
+  close** (2026-10-21): while a tag is open its pin (or a shape's dot) shows a
+  28px pale-orange disc with a deep-orange x, 44px target; the tag's `.tag-x`
+  is keyboard/VoiceOver-only (owner override of "preserve the category icon").
 - **Brand orange, star and selection colours** (2026-10-07): ONE accent, the
   **brand orange** `--brand-orange` #EE7434 / `--brand-orange-deep` #A8400C
   (read through `--figure`/`--figure-deep`/`--star`): account and + buttons,

@@ -32,6 +32,7 @@ pick/redirect before building anything.
     `nominatim.openstreetmap.org` both return HTTP 200, so the script can
     run here or in CI. Keep request volume polite: a handful of queries with
     delays between them.
+- **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
   -- it should be the experience pre-sign in"); spec: `docs/shipped.md`
@@ -503,8 +504,8 @@ pick/redirect before building anything.
   add/account buttons' pressed fill is the off-token literal `#1B3A57`; map
   it to a token or leave it. Hover styles exist only on three menu items.
   Known polish (not restyled, from `design/state-system/README.md`): the
-  popup star tile's right edge sits 4px from the popup title; the popup's
-  right-side tiles (close x and Mark Visited) do not share a right edge. By
+  popup star tile's right edge sits 4px from the popup title. (The popup's
+  close x is now the pin itself, 2026-10-21, so its tile edge note is moot.) By
   design, not bugs: the row delete X has no pressed look (the row press is
   the feedback); hover is pointer-only (raised paper) and touch uses pressed.
 
