@@ -438,3 +438,4 @@ sources are the file where the quote is recorded.
 - Icons, corners (2026-10-20, verbatim): "i do think tight interior corners should be less rounded than exterior corners -- looking at the tree for example, interior is same as exterior which i think is wrong."
 - Icons, process (2026-10-20, verbatim): "star feels a lot bigger than the others. again with these size things, address this at the grid level across all of them... i dont want to have to negotiate this all the time, "how could our grid be improved" is an overarching question we need to address as we make these changes"
 - Icons, grid (2026-10-20, verbatim): "i dont care at all about how other systems size icons btw ours should be specific to our app. the grid and various drawing approaches should be as much a part of the brand as anything"
+- Icons, grid (2026-10-21, verbatim): "the goal of this is to establish the foundation for all future icons.. ideally future ones come out perfect on first try."
