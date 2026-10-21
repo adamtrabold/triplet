@@ -180,3 +180,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-21, screenshot grid/owner-marks/batch1-coupe-reference.png, batch 1 coupe) in regards to my coupe shape comments, this shape is imperfect, but conceptually far more interesting to me for the coupe
 > hold on i never said to do that
 > i said it was conceptually more interesting   (I had made batch 1's coupe 'the direction'. Withdrawn: it's a reference he finds interesting, not an instruction. Lesson: quote, don't convert opinions into orders.)
+> i dont want an agent to go put that one back -- everything still needs to be harmonious. what i'm thinking beyond that is i wonder if there isnt a way to bring in more of those rounded, flared, "human drawn" shapes - we do not need to lose the approach so far, but rather tune it some.
