@@ -86,6 +86,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · v216 shown:** "H3, saucer flipped, rules tuned to the tree": the tree now comes from the row's rules (posts 1¼ with ½ flares, tips by edge, sweep and droop), so the row is Between with H3's plates and foot; one rules table; his strategy question answered on the board; coupe-side change slight (the rim's eased corner still meets the side upright). Director 7 (v214) → 9 (v215, copy fix in v216). Asked: does this row read as one system? Do the coupe sides still look straight?
 
+- **10-21 · Stuck on the museum (v217-v219):** coupe and tree fixed per owner; rules for the rest: plate, posts 1¼, openings square, straight-lined buildings, "resting parts" (1px cut where a part sits on supports). Director 7 → 8 → 7; the drink passes; the museum keeps failing ("disconnected" unanswered at true size; v219 reads squat, a lid over a comb). Stuck note sent asking what "disconnected" means to him and which "glass … plate" he meant.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
