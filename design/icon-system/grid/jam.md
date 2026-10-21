@@ -5587,3 +5587,62 @@ The coupe, tree, cup, star and + are byte-identical.
   - blur-between was re-run.
   - Only museum svgs changed (now `museum-r2`, `-base`, `-v219`, `-v220`); the tree, coupe, cup, star and + are byte-identical.
 - **Canvas:** the Between board went from 4963 to 4088 px tall. The live v220 board had no owner edits (its sha matched my build).
+
+---
+
+## Turn 127: design director, the gable's body and Joins (v221): 9 after three board edits
+
+Fetched and merged 2ef476e1, re-read the live board (v221, 4088px; it
+matches turn 126, no owner edits). By eye at 1x and 3x first (12px chip,
+24 badge, 72px, 8x), then the code and the master grid.
+
+**The museum, by eye (Lesson 7):** it looks good, and it looks like a
+museum. A solid separated gable rests on the beam across the cut. The
+columns are taller than the roof, and the openings are square. It's tied to
+the family two ways he can name: the cut, as the cup sits on its saucer, and
+the outer posts' flares, as the coupe's stem meets its bowl and foot. That
+answers "connected ... to the systemic approach" and "build some of that
+in". All my v219 and v220 objections are fixed: not squat, not a comb, the
+beam is back, no slivers (ends 1.2 units).
+
+**Weight where he looks:** in the 24 badges it's a touch denser than the
+cup, about as heavy as the museum in "Before", not glaring. The board says
+it plainly (31.7 against 28.4) and names his open "sized by its weight"
+pick as the lever, not applied. That's the right call.
+
+**The class move: a sound rule, written as a one-off.**
+- The grid's classes are about proportion (wide, square, tall), so "a
+  glyph's class follows its drawn proportion" is a system rule. A
+  flat-roofed hotel or city blocks stays wide; a gabled building on a beam
+  comes out square. A future icon gets it right the first time.
+- But as built, it's a museum-only override (`cls: STRUCT_CLS`, which only
+  the museum reads, against picks7's `CLASS` table). The rules table
+  doesn't state it. And "Decided: the master grid" still lists the museum
+  as Wide. He decided that board, so moving the museum off it is his to
+  know about, not ours to do quietly.
+- The Resting parts rule says the cut's "room comes from the load". This
+  time the room came from the class. The two now disagree.
+
+**A claim the eye doesn't fully back:** "the flared outer posts read as a
+capital and a base in the 24 badge". At 24 they're felt, not read; they're
+clear at 72 and 8x. Say that.
+
+**Likely owner objections:** "why is the museum in a different class now?"
+(if he notices the master grid disagreeing); "still a bit heavy" (named,
+his pick).
+
+**Score: 9 after three board edits** (no drawing changes), before it goes
+to him:
+1. Put the class rule in the rules table ("a glyph's class follows its
+   drawn proportion"), with what it does to a future hotel or city blocks.
+   Flag on the board that this moves the museum from Wide to Square on his
+   decided master grid. Making the code general (not a museum-only
+   override) can follow, but the board must state the rule.
+2. Make Resting parts agree with it: the cut's room comes from the load
+   or the class, never the supports.
+3. Change the true-size line to what the eye sees: the flares are felt at
+   24 and read at 72 and up.
+
+**Changed since my last score?** Yes: the gable's body, the class move,
+the row's museum now takes Joins, B and C archived. Everything else is
+byte-identical.

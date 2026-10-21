@@ -1812,3 +1812,16 @@ checks; don't eyeball "is it as good as".
 - **A new approach must not contradict a rule already on the board.** C
   did.
 - Next: a solid gable, base + A only (turn 125), then re-score.
+
+## g7ao (v221, 2026-10-21): 9 after three board edits
+
+- The museum is finally right by eye and connects by grammar (the cut,
+  the outer flares).
+- **Class move:** sound as a rule (class follows the drawn proportion),
+  but built as a museum-only override and absent from the table. It also
+  quietly changes his decided master grid. A change to a board he decided
+  must be flagged to him on the board.
+- A new rule can contradict an older rule's wording (Resting parts'
+  "room from the load"). Re-read the table whole after any change.
+- Claims at true size: "felt" vs "read". Say which.
+- Next: three board edits, then it goes to him.

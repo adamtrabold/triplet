@@ -361,3 +361,11 @@ The beam and full-height columns are back. The gable's ends are thinned to
 0.43 (a sliver; he likes that gable). Keep A · Joins; cut B (trapezoid)
 and C (pagoda, breaks the straight-lined-buildings rule). Fixes in
 `grid/jam.md` turn 125.
+
+## Icon system, g7ao (v221, 2026-10-21): 9 after three board edits
+
+The museum is right by eye: a solid gable on the beam across the cut,
+outer flares like the stem. Before sending: state the class rule and flag
+the museum's move from Wide to Square on his decided master grid;
+reconcile Resting parts; soften the 24px claim. Fixes in `grid/jam.md`
+turn 127.

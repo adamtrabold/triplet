@@ -1298,3 +1298,15 @@ The verdict stands within our own set:
 - **Keep A · Joins** (a real system rule; it reads as a capital and a
   base). **Cut B and C.**
 - **Fixes:** jam turn 125.
+
+## Round g7ao gable body + Joins (canvas v221), 2026-10-21: 9 after three board edits
+
+- **By eye:** the museum looks good and like a museum. Its solid gable
+  rests on the beam (the cut, like the cup); the outer posts flare like
+  the stem. My v219/v220 objections are fixed. Weight +3 over the cup,
+  named, his pick.
+- **Before sending:** state the class rule ("class follows drawn
+  proportion") in the table, and flag the museum's move from Wide to
+  Square on his decided master grid; reconcile Resting parts' "room
+  comes from the load"; the flares are felt at 24, not read.
+- **Fixes:** jam turn 127.
