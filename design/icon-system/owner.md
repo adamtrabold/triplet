@@ -187,3 +187,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > another icon craft example https://nucleoapp.com/
 > i do actually like keeping material and phosphor in there just to see how much *better* ours are
 > one more craft example https://lucide.dev/icons/
+> i think the thing that's getting me about the coupe right now is that its starting to read as wine glass with the liquid... i think the taller stem or more pancaked bowl really sell coupeness
