@@ -743,6 +743,14 @@ function sheetOriginals() {
   const dash = `<div style="font-size:18px;color:${I2}" aria-label="none">–</div>`;
   // the newest, at scale sc, each on the box the app gives it (the badge 24 in a 30 cell, the + on its 60px Float badge, the star 20)
   const P = id => sc => badge(ds[id], 24 * sc);
+  // the coupe he picked: B with its band redrawn (COUPE_B, 1 1/6px), fitted and centred exactly as the monoweight set
+  // fits every place (HSETS[0]: the joint law, no easing), so it sits in the same set as the other five
+  const barB = (() => {
+    const opts = { law: LAWS7.joint, tightHoles: true }, [cls, apex] = CLASS.bar, kw = KEY[cls][0], bh = KEY[cls][1] + apex, dr = sz => DRAW.bar(sz, { style: 'mono', ...COUPE_B });
+    let sz = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(sz), opts).d).box; sz *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
+    const ox = (24 - sz) / 2, oy = r3((24 - sz) / 2), prims = dr(sz), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
+    return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), opts).d;
+  })();
   const plusNew = sc => plusBadge(uiPath(ds.plus, 26.4 * sc), 60 * sc);
   const starNew = sc => uiPath(ds.star, 20 * sc);
   const B1 = 'Drawn (batch 1)', ND = 'Not drawn yet', NEW = 'New since the original';
@@ -751,7 +759,7 @@ function sheetOriginals() {
   const rows = [
     ['Batch 1 · drawn', 'The first six, drawn to the grid and in review now.'],
     ['Café', ['badge-cafe'], P('cafe'), `${B1} · cup and saucer`],
-    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`, 'You picked B (board: The coupe is B); shown as shipped until B is in the set'],
+    ['Bar', ['badge-bar'], sc => badge(barB, 24 * sc), `${B1} · the coupe: B, the flatter bowl`, 'Your pick, with its band redrawn at 1 1/6px (board: The coupe is B)'],
     ['Museum', null, P('museum'), `${B1} · column front`, 'New category: there was no icon'],
     ['Nature', ['badge-nature'], P('nature'), `${B1} · conifer`],
     ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'Original: the navy + button. Newest: on the orange Float badge it moved to'],
@@ -816,7 +824,7 @@ ${cell(t1, CW[0], bg, h1)}${cell(n1, CW[1], bg, h1)}${cell(tL, CW[2], bg, hL)}${
   }).join('');
   const count = rows.filter(r => r[3] !== undefined && !r[3].endsWith(NEW)), drawnN = count.filter(r => r[3].startsWith(B1)).length;
   return phBoard('In progress', 'Every icon: original and newest', `${phP('You: "give me a board with the original icons next to the newest version of icon in order of what we\'re actually making", then "please order this in order of how we are attacking them" and "i want original and newest".')}
-${phP('One row per icon, in the order we\'re working on them. <b>Original</b> is the icon as it was when this project started, from the 10-13 inventory ("Every icon today", in its colours). <b>Newest</b> is the latest drawing: the set as it stands (monoweight, the coupe as shipped at v134, the + and the star at 1 2/3px), in navy; colour comes later. The first pair is true size; the larger pair is the same scale for both (the row says which).')}
+${phP('One row per icon, in the order we\'re working on them. <b>Original</b> is the icon as it was when this project started, from the 10-13 inventory ("Every icon today", in its colours). <b>Newest</b> is the latest drawing: the set as it stands (monoweight, the coupe B with its band redrawn, the + and the star at 1 2/3px), in navy; colour comes later. The first pair is true size; the larger pair is the same scale for both (the row says which).')}
 <div style="margin:6px 0 4px;font-size:20px;line-height:1.4;color:${N}"><b>${drawnN} of ${count.length} drawn</b>: café, bar, museum, nature, the + and the star. Four controls are new since the original and are counted on their own.</div>
 ${body}
 <div style="margin-top:26px;font-size:17px;line-height:1.45;color:${I2}"><b style="color:${N}">Not listed:</b> Area and Other are gone (the locked list). The visited stamp and sticker, clusters, plan stop numbers, you-are-here and the tag's anchor dot stay as they are. The filter chips use the place icons. Leaflet's attribution flag isn't ours.</div>`);
