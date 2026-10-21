@@ -183,3 +183,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > i dont want an agent to go put that one back -- everything still needs to be harmonious. what i'm thinking beyond that is i wonder if there isnt a way to bring in more of those rounded, flared, "human drawn" shapes - we do not need to lose the approach so far, but rather tune it some.
 > (10-21, on v134) i still find myself pining for that original shape. i think it's the fact that it feels more delicate. that more humanistic approach to curves gives it a handmade feel that i think calls back to the physicality of making vintage work. these are getting closer but are still not perfect because of that
 > i also just want to note that material symbols and phosphor symbols are not an example of good craft. apple symbols is much more akin to that. i;ll look for others
+> heres another icon reference (not for visual style but for craft bar) https://iconists.co/central
