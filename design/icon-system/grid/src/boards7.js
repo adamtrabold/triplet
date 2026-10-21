@@ -658,7 +658,7 @@ const OPEN_QS = [
 ];
 function sheetStart() {
   const qs = OPEN_QS.map(([b, q], k) => `<div style="display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:24px;font-weight:700;color:${COL.or}">${k + 1}</div><div><div style="font-size:19px;line-height:1.35;color:${COL.navy};font-weight:600">${q}</div><div style="font-size:16px;color:${COL.ink2};margin-top:2px">Board: ${b}</div></div></div>`).join('');
-  const rows = [['1', 'Waiting on you', 'one board per question, top row'], ['2', 'In progress', 'the six icons now, the tuned versions beside them, and, at the end of the row, <b>Every icon: today and newest</b> (every icon in the order we\'re making them, today beside the newest drawing)'], ['3', 'Decided', 'the grid: the rules every icon is drawn by'], ['4', 'Detail', 'earlier sheets, for the team; optional']]
+  const rows = [['1', 'Waiting on you', 'one board per question, top row'], ['2', 'In progress', 'the six icons now, the tuned versions beside them, and, at the end of the row, <b>Every icon: original and newest</b> (every icon in the order we\'re working on them, the original beside the newest drawing)'], ['3', 'Decided', 'the grid: the rules every icon is drawn by'], ['4', 'Detail', 'earlier sheets, for the team; optional']]
     .map(([n, h, s]) => `<div style="padding:8px 0;font-size:19px;line-height:1.35"><b style="color:${COL.navy}">${n} · ${h}</b>: ${s}</div>`).join('');
   const decided = ['One line, 1.5px, everywhere (monoweight); the + and the star 1 2/3px', 'Every icon sized by its class to the same 12px coin', 'Like parts cut from one shape: slab, post, gable, vessel, loop', 'Every meeting point slightly round, inside tighter than outside', 'Every counter is the outline moved in by one line', 'Edges on the 1/3px lattice']
     .map(s => `<li style="margin:0 0 6px">${s}</li>`).join('');
@@ -683,7 +683,7 @@ function sheetDecideCoupe() {
 }
 // (g7y: the tree's decision folded into the human direction; its board is archived)
 // g7z (owner: "give me a board with the original icons next to the newest version of icon in order of what we're
-// actually making"): one row per icon, the locked order; today's from the inventory's renders (inventory-png, cut
+// actually making"), reordered by the order of work, originals only: the 10-13 inventory renders (inventory-png, cut
 // and stored at 6x by originals.json), the newest from the shipped set (Now, v134)
 const ORIG = JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/originals.json'), 'utf8'));
 function sheetOriginals() {
@@ -695,49 +695,53 @@ function sheetOriginals() {
   const P = id => sc => badge(ds[id], 24 * sc);
   const plusNew = sc => plusBadge(uiPath(ds.plus, 26.4 * sc), 60 * sc);
   const starNew = sc => uiPath(ds.star, 20 * sc);
-  const B1 = 'Drawn (batch 1)', ND = 'Not drawn yet';
-  // [name, today: originals.json keys (null: no icon in the app yet), newest: (scale) => html (null: not drawn), status, note]
+  const B1 = 'Drawn (batch 1)', ND = 'Not drawn yet', NEW = 'New since the original: none in the 10-13 app';
+  // [name, original: originals.json keys (null: none), newest: (scale) => html (null: not drawn), status, note]
+  // the order of work (owner: "please order this in order of how we are attacking them")
   const rows = [
-    ['Places'],
-    ['Restaurant', ['badge-restaurant'], null, `${ND} · pick: fork and knife`],
+    ['Batch 1 · drawn', 'The first six, drawn to the grid and in review now.'],
     ['Café', ['badge-cafe'], P('cafe'), `${B1} · cup and saucer`],
-    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`],
-    ['Venue', null, null, `${ND} · pick: the curtain`, 'New category: no icon in the app yet'],
-    ['Museum', null, P('museum'), `${B1} · column front`, 'New category: no icon in the app yet'],
-    ['Landmark', null, null, `${ND} · pick: the ⌘ loop`, 'New category: no icon in the app yet'],
-    ['Attraction', ['badge-attraction'], null, `${ND} · pick: Ferris wheel`],
-    ['Park', null, null, `${ND} · pick: park bench`, 'New category: no icon in the app yet'],
+    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`, 'You picked the flatter bowl (B); its counter is being redrawn'],
+    ['Museum', null, P('museum'), `${B1} · column front`, 'New category: there was no icon'],
     ['Nature', ['badge-nature'], P('nature'), `${B1} · conifer`],
-    ['Shopping', ['badge-shopping'], null, `${ND} · pick: bag`],
+    ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'On its Float badge'],
+    ['Star', ['g-star-open', 'g-star'], starNew, `${B1} · lines 1 2/3px`, 'Original: empty and starred. Newest: the outline; the starred fill comes later'],
+    ['Batch 2 · next · not drawn yet', 'The eight subjects already tested on the grid (the batch 2 pressure test on the main board). That test sets no order inside the batch, so this one is a proposal: the two icons that need a new root shape first (the knife\'s blade; the bag\'s and the city blocks\' block), then the six that fit the roots we have.'],
+    ['Restaurant', ['badge-restaurant'], null, `${ND} · pick: fork and knife`, 'New root to test: the blade'],
+    ['Shopping', ['badge-shopping'], null, `${ND} · pick: bag`, 'New root to test: the block'],
+    ['Neighbourhood', ['badge-district'], null, `${ND} · pick: city blocks`, 'The block again. The original is called District'],
     ['Hotel', ['badge-hotel'], null, `${ND} · pick: bed`],
-    ['Shapes'],
-    ['Neighbourhood', ['badge-district'], null, `${ND} · pick: city blocks`, 'Today it’s called District'],
+    ['Park', null, null, `${ND} · pick: park bench`, 'New category: there was no icon'],
+    ['Venue', null, null, `${ND} · pick: the curtain`, 'New category: there was no icon'],
+    ['Landmark', null, null, `${ND} · pick: the ⌘ loop`, 'New category: there was no icon'],
+    ['Attraction', ['badge-attraction'], null, `${ND} · pick: Ferris wheel`],
+    ['After batch 2 · not drawn yet', 'The last place-type icon.'],
     ['Street', ['badge-street'], null, `${ND} · pick: walker`],
-    ['The app’s controls'],
-    ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'Shown on its orange Float badge'],
-    ['Star', ['g-star-open', 'g-star'], starNew, `${B1} · lines 1 2/3px`, 'Today: empty and starred. Newest: the outline; the starred fill comes later'],
-    ['Account', ['ctl-account'], null, ND, 'Today: the sign-in badge, signed in'],
-    ['Close ×', ['ctl-add-open'], null, ND, 'The place tag and the add tag use the same ×'],
+    ['Then the controls · not drawn yet', 'In the inventory\'s order.'],
+    ['Account', ['ctl-account'], null, ND, 'Original: the account button'],
+    ['Close the add form ×', ['ctl-add-open'], null, ND, 'Original: the + button, turned to ×'],
     ['Sort', ['ctl-sort'], null, ND],
     ['Filters', ['ctl-filters'], null, ND],
     ['Locate', ['ctl-locate'], null, ND],
+    ['Close the tag ×', ['tag-x'], null, ND],
     ['Directions', ['tag-directions'], null, ND, 'On the place tag'],
     ['Mark visited ✓', ['tag-ochk'], null, ND, 'On the place tag, before the stamp'],
-    ['Empty list', ['empty-compass'], null, ND, 'Today: the Directions compass, greyed'],
-    ['Tick (the current choice)', ['sort-check', 'menu-check'], null, ND, 'Today there are two: the sort menu’s and the list-title menu’s'],
-    ['New plan +', ['menu-plus'], null, ND, 'The add tag’s Add button uses the same +'],
-    ['Chevrons', ['ctl-title-chev', 'menu-chev'], null, ND, 'Down: the list title, the add tag’s city and type, the place tag’s city. Right: menu rows and plan rows'],
-    ['Zoom + / −', ['ctl-zoom'], null, ND, 'Today: Leaflet’s own text buttons'],
-    ['Lower the list', ['ctl-collapse'], null, ND, 'The list’s tab'],
-    ['Row delete ×', ['ctl-delete'], null, ND, 'Today: a text character'],
-    ['Remove from plan ×', ['plan-x'], null, ND, 'Today: a text character'],
-    ['Add to plan +', ['plan-add'], null, ND, 'Today: the × character, turned'],
-    ['New in the app since the inventory (10-13)'],
-    ['A city / All places', ['menu-ring'], null, ND, 'The list-title menu'],
-    ['Plans', ['menu-route'], null, ND, 'The list-title menu and the Plans list'],
-    ['Show / hide a city', ['sec-eye'], null, ND, 'A city’s header in the list; hidden adds a slash'],
-    ['Home screen'],
-    ['Home-screen icon', ['home'], null, ND, 'Today: the apple-touch-icon, at 60px'],
+    ['Empty list', ['empty-compass'], null, ND, 'Original: the Directions compass, greyed'],
+    ['Tick (the current choice)', ['sort-check', 'plan-check'], null, ND, 'Original: the sort menu\'s and the plan list\'s, one drawing'],
+    ['New plan +', ['plan-plus'], null, ND],
+    ['More (···)', ['plan-more'], null, ND, 'Original: the plan list\'s rename and delete'],
+    ['Menu chevron', ['plan-chev'], null, ND, 'Original: the plan picker\'s'],
+    ['Zoom + / −', ['ctl-zoom'], null, ND, 'Original: Leaflet\'s own text buttons'],
+    ['Lower the list', ['ctl-collapse'], null, ND, 'Original: a text character'],
+    ['Row delete ×', ['ctl-delete'], null, ND, 'Original: a text character'],
+    ['Remove from plan ×', ['plan-x'], null, ND, 'Original: a text character'],
+    ['Add to plan +', ['plan-add'], null, ND, 'Original: the × character, turned'],
+    ['Right chevron', null, null, ND, `${NEW}. Now on menu rows and plan rows`],
+    ['A city / All places', null, null, ND, `${NEW}. Now in the list-title menu (a ring)`],
+    ['Plans', null, null, ND, `${NEW}. Now in the list-title menu and the Plans list (a route)`],
+    ['Show / hide a city', null, null, ND, `${NEW}. Now on a city's header in the list (an eye)`],
+    ['Last, once the set is done', 'Owner: "Home Screen icon will also need to feel naturally part of the family".'],
+    ['Home-screen icon', ['home'], null, ND, 'Original: the apple-touch-icon, at 60px'],
   ];
   // the larger view: one scale per row for today AND the newest (3x, or less where today's render is wide)
   const scaleOf = today => { if (!today) return MAXL; const w = today.reduce((a, k) => a + ORIG[k].w, 0) + 6 * (today.length - 1), h = Math.max(...today.map(k => ORIG[k].h)); return Math.min(MAXL, Math.floor(ROOM / Math.max(w, h) * 2) / 2); };   // half steps, so the label reads plainly
@@ -745,7 +749,7 @@ function sheetOriginals() {
   const lab = t => `<div style="font-size:15px;letter-spacing:.06em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 4px">${t}</div>`;
   let n = 0;
   const body = rows.map(([nm, today, nw, status, note]) => {
-    if (status === undefined) return `<div style="font-size:16px;letter-spacing:.12em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin:34px 0 6px">${nm}</div>`;
+    if (status === undefined) return `<div style="margin:40px 0 8px"><div style="font-size:17px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase">${nm}</div>${today ? `<div style="font-size:17px;line-height:1.4;color:${I2};margin-top:4px">${today}</div>` : ''}</div>`;
     n++;
     const sc = scaleOf(today), bg = today ? ORIG[today[0]].bg : COL.paper, drawn = status.startsWith(B1);
     const t1 = today ? today.map(k => img(k)).join('') : dash, tL = today ? today.map(k => img(k, sc)).join('') : none;
@@ -756,16 +760,15 @@ function sheetOriginals() {
 <div style="font-size:22px;font-weight:700;color:${N};line-height:1.2"><span style="color:${I2};font-weight:600">${n}.</span> ${nm}</div>
 <div style="font-size:18px;line-height:1.35;margin-top:3px;color:${drawn ? COL.ord : I2};font-weight:${drawn ? 700 : 500}">${status}</div>${note ? `<div style="font-size:17px;line-height:1.35;color:${I2};margin-top:2px">${note}</div>` : ''}
 <div style="display:flex;gap:12px;align-items:stretch;margin-top:12px">
-<div>${lab('Today')}${cell(t1, 92, bg, 72)}</div><div>${lab('Newest')}${cell(n1, 92, bg, 72)}</div>
-<div>${lab(`Today, ${big}`)}${cell(tL, 214, bg, hL)}</div><div>${lab(`Newest, ${big}`)}${cell(nL, 214, bg, hL)}</div></div></div>`;
+<div>${lab('Original')}${cell(t1, 92, bg, 72)}</div><div>${lab('Newest')}${cell(n1, 92, bg, 72)}</div>
+<div>${lab(`Original, ${big}`)}${cell(tL, 214, bg, hL)}</div><div>${lab(`Newest, ${big}`)}${cell(nL, 214, bg, hL)}</div></div></div>`;
   }).join('');
-  const count = rows.filter(r => r[3] !== undefined), drawnN = count.filter(r => r[3].startsWith(B1)).length;
-  return phBoard('In progress', 'Every icon: today and newest', `${phP('You: "give me a board with the original icons next to the newest version of icon in order of what we\'re actually making".')}
-${phP('One row per icon, in the order we\'re making them. <b>Today</b> is the app as it is now, in its colours. <b>Newest</b> is the latest drawing: the set as it stands (monoweight, the coupe as shipped at v134, the + and the star at 1 2/3px), in navy; colour comes later. The first pair is true size; the larger pair is the same scale for both. Each sits on the surface it sits on in the app.')}
-<div style="margin:6px 0 4px;font-size:20px;line-height:1.4;color:${N}"><b>${drawnN} of ${count.length} drawn</b>: café, bar, museum, nature, the + and the star.</div>
+  const count = rows.filter(r => r[3] !== undefined && !String(r[4] || '').startsWith(NEW)), drawnN = count.filter(r => r[3].startsWith(B1)).length;
+  return phBoard('In progress', 'Every icon: original and newest', `${phP('You: "give me a board with the original icons next to the newest version of icon in order of what we\'re actually making", then "please order this in order of how we are attacking them" and "i want original and newest".')}
+${phP('One row per icon, in the order we\'re working on them. <b>Original</b> is the icon as it was when this project started, from the 10-13 inventory ("Every icon today", in its colours). <b>Newest</b> is the latest drawing: the set as it stands (monoweight, the coupe as shipped at v134, the + and the star at 1 2/3px), in navy; colour comes later. The first pair is true size; the larger pair is the same scale for both.')}
+<div style="margin:6px 0 4px;font-size:20px;line-height:1.4;color:${N}"><b>${drawnN} of ${count.length} drawn</b>: café, bar, museum, nature, the + and the star. Four controls are new since the original and are counted on their own.</div>
 ${body}
-<div style="margin-top:26px;font-size:17px;line-height:1.45;color:${I2}"><b style="color:${N}">Where today comes from:</b> the place badges, the tag's icons, the zoom and the in-row characters are the inventory's renders from 10-13 (their code hasn't changed); the +, the account, the top bar, the list tab, the menus, the eye and the add tag are rendered from the app on main now.</div>
-<div style="margin-top:12px;font-size:17px;line-height:1.45;color:${I2}"><b style="color:${N}">Not listed:</b> Area and Other are gone (the locked list). The Plans list's old tick, + and ··· menu are gone from the app. The visited stamp and sticker, clusters, plan stop numbers, you-are-here and the tag's anchor dot stay as they are. The filter chips use the place icons. The add tag's city menu shows a pin only for a new city; it isn't shown here.</div>`);
+<div style="margin-top:26px;font-size:17px;line-height:1.45;color:${I2}"><b style="color:${N}">Not listed:</b> Area and Other are gone (the locked list). The visited stamp and sticker, clusters, plan stop numbers, you-are-here and the tag's anchor dot stay as they are. The filter chips use the place icons. Leaflet's attribution flag isn't ours.</div>`);
 }
 function sheetMaster() {
   const N = COL.navy, O = COL.or, H = COL.hair, I2 = COL.ink2, PA = COL.paper;
@@ -1115,7 +1118,7 @@ if (require.main === module) {
     fs.writeFileSync(path.join(ROOT, 'cards-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 7: batch 1 redrawn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
-    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule'], ['start-g7.html', sheetStart, 'Start here'], ['decide-tunings-g7.html', sheetDecideTunings, 'Decide: more human?'], ['decide-coupe-g7.html', sheetDecideCoupe, 'Decide: the coupe'], ['originals-g7.html', sheetOriginals, 'Every icon: today and newest']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
+    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule'], ['start-g7.html', sheetStart, 'Start here'], ['decide-tunings-g7.html', sheetDecideTunings, 'Decide: more human?'], ['decide-coupe-g7.html', sheetDecideCoupe, 'Decide: the coupe'], ['originals-g7.html', sheetOriginals, 'Every icon: original and newest']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0}</style></head><body>${fn()}</body></html>\n`);
     fs.writeFileSync(path.join(ROOT, 'board-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Batch 1, the set</title>
@@ -1185,7 +1188,7 @@ renderVals() { return {}; }
 </body>
 </html>
 `);
-    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule'], ['Grid7Start', sheetStart, 'Start here'], ['Grid7DecideTunings', sheetDecideTunings, 'Decide: more human?'], ['Grid7DecideCoupe', sheetDecideCoupe, 'Decide: the coupe'], ['Grid7Originals', sheetOriginals, 'Every icon: today and newest']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
+    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule'], ['Grid7Start', sheetStart, 'Start here'], ['Grid7DecideTunings', sheetDecideTunings, 'Decide: more human?'], ['Grid7DecideCoupe', sheetDecideCoupe, 'Decide: the coupe'], ['Grid7Originals', sheetOriginals, 'Every icon: original and newest']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">

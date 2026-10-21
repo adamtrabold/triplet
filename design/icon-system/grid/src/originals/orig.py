@@ -1,5 +1,7 @@
-# Today's icons, from the inventory's 12x renders, cut to what the board needs and stored at 6x as PNG data URIs
-# Run: python3 design/icon-system/grid/src/originals/orig.py <today-ctl.js outDir>
+# The ORIGINAL icons (owner: "i dont want today and newest, i want original and newest"): the 10-13 inventory's
+# 12x renders (inventory-png/, the canvas page "Every icon today"), as they were when the project started, cut to
+# what the board needs and stored at 6x as PNG data URIs. Nothing is re-rendered from the app as it is now.
+# Run: python3 design/icon-system/grid/src/originals/orig.py
 import json, base64, io, sys, os
 from PIL import Image
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../../..')) + '/'
@@ -29,16 +31,10 @@ for nm, (a, b) in zip(names, runs):
     box = (int(c - half), int(H / 2 - half), int(c + half), int(H / 2 + half))
     im = row.crop(box).resize((30 * S, 30 * S), Image.LANCZOS)
     res['badge-' + nm] = {'w': 30, 'h': 30, 'uri': uri(im)}
-# only the inventory renders whose code is unchanged on main (the plan ledger's +, more and chevron are gone)
-for key in ['tag-x', 'tag-directions', 'tag-ochk', 'empty-compass', 'ctl-zoom', 'g-star', 'g-star-open', 'ctl-delete', 'plan-x', 'plan-add']:
+for key in ['ctl-add', 'ctl-add-open', 'ctl-account', 'ctl-sort', 'ctl-filters', 'ctl-locate', 'tag-x', 'tag-directions', 'tag-ochk', 'empty-compass', 'sort-check', 'plan-check', 'plan-plus', 'plan-more', 'plan-chev', 'ctl-zoom', 'g-star', 'g-star-open', 'ctl-collapse', 'ctl-delete', 'plan-x', 'plan-add']:
     m = meta[key]; im = Image.open(INV + key + '.png').convert('RGB')
     res[key] = {'w': m['w'], 'h': m['h'], 'uri': uri(im.resize((round(m['w'] * S), round(m['h'] * S)), Image.LANCZOS))}
-# controls rendered from origin/main today (today-ctl.js, 6x): these replace the 10-13 inventory's renders
-NOW = sys.argv[1].rstrip('/') + '/'
-nm = json.load(open(NOW + 'meta.json'))
-for key, m in nm.items():
-    im = Image.open(NOW + key + '.png').convert('RGB')
-    res[key] = {'w': m['w'], 'h': m['h'], 'uri': uri(im), 'now': True}
+# the home-screen icon: apple-touch-icon.png, unchanged since 10-01
 ati = Image.open(REPO + 'apple-touch-icon.png').convert('RGB')
 res['home'] = {'w': 60, 'h': 60, 'uri': uri(ati.resize((360, 360), Image.LANCZOS))}
 # each render's own background (the surface it sits on in the app), for the board's tiles
