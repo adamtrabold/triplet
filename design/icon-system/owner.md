@@ -208,3 +208,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > the trunk of this tree looks different from the others   (v212 pinned the Between tree in every row; superseded the same day)
 > thats fine but also we're building approach rules here remember -- so what rules need to change in this row's approach to make that not an anomaly and to have that decision vector considered throughout all icons   (the row's rules tuned to the tree's values for every icon: v213)
 > (10-21, to the new orchestrator) the important thing is that the stage we are in is building the underlying system for icon creation and using the first 6 icons as a test of those decisions. so everything we do is towards consistent iconography by design
+> (10-21, on v216, the tuned row) youre missing my point -- the between tree is perfect. what changes need to happen to h2 to make that tree fit in   (the tree is fixed; the rest of the approach changes to fit it. He wrote h2.)
