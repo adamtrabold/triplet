@@ -5491,3 +5491,21 @@ size.
 **Changed since my last score?** Yes, visibly: the museum, the rule set,
 the one section. The coupe, the tree, the drink and the question are
 unchanged.
+
+---
+
+## Turn 124: icon designer (third), the museum: building the flaring in (canvas v220)
+
+Owner: "When I say connected I mean to the systemic approach. I like the separated gable … it's the flaring effects that the museum and other structures like it aren't going to naturally make. How might we build some of that in?"
+
+- **Where the flaring lives in the coupe and the tree:** where a post meets a mass (the stem into bowl and foot, the trunk into its tier), where a mass ends in the air (a tier hangs past the one below, its underside falling to its tip), and in an outline that widens to the ground. A building has all three places; it is only drawn so no rule reaches them. Each approach is one rule that reaches one place.
+- **The base first (turn 123's fixes):** picks7 `structMuseum` (`o.struct`). The separated gable is kept and rests on the beam across the 1px cut; beam, columns (1 1/4) and plinth are one piece; the columns are full height, taller than the roof. The cut's room comes from a lower roof (`gb 4, ap 1.333`), never from the supports. Resting parts now carries the limits in the rule: at most one cut per icon; both parts read whole; the cut never shortens the supports. It is the row's museum (R2, R2B). Still the WIDE class (a SQUARE fit was tried: no visible gain).
+- **A · Joins** (`cap`, `foot`): an outer post flares 1/2px into the beam and the base on the OUTSIDE, as the stem does; past the post the beam and base thin to 1px ends (the plate rule). Openings stay square. Future building: corner walls flare into cornice and base; windows square.
+- **B · Outline** (`batter 0.6`, `sweep`): the outer posts' outside edges sweep out to the base in one concave curve, as the tree and the coupe's foot widen downward; the openings' sides stay upright. Future: outer walls sweep out at the foot.
+- **C · Ends** (`eave`): the roof passes the beam by a shelf (0.9 unit); under it the underside falls 0.4px to a 1px end, as a tier's underside falls to its tip. Slopes straight. Future: any roof, awning or cornice hangs and dips.
+- **How I got there:** a real draw (shuf) gave "root flare at a trunk's base", "bookbinding", "joinery". The root flare pointed at the base (A's foot, B); type's bracketed serif (a stem bracketed into a projecting serif, never into the counter) gave "flare on the outside only".
+- **Dropped:** the roof ending in a point (a sliver under the line, the v204 barb again); a straight batter (a trapezoid base, his 10-20 root-shape note); flares inside openings (pills); a steeper roof for a deeper droop (tent / house).
+- **True size:** each changes the 24-badge outline; at the 12px chip the differences are under a pixel and the cut greys to half a pixel (said on the board). Blur (overall / darkest fifth): base 28.5/61.1, A 28.2/61.0, B 29.3/61.4, C 28.6/62.6; cup 28.4/70.8. All four sit at the cup's weight, so "sized by its weight" is off the board (it remains in the archived v219 board).
+- **Board:** one museum section replacing v219's: his quote, where the flaring comes from, v219 beside the base, A/B/C each with rule + future building + row + chip/24/72/8x + weight, one true-size paragraph, one question ("Which of these, if any, connects the museum to the coupe and the tree for you?"). v219's board is on Archive as `Archive-G7am-Between` (x 3360, y 156200). Between board 3598 → 4963; nothing else moved; the live board matched the build (no owner edits).
+- **Fixed points:** tree, coupe (r2, r2b), cup, star, + svgs byte-identical; only museum svgs changed (`museum-r2-v219.svg` = the old `museum-r2.svg`).
+- **Checks:** check-svg: 0 slivers, symmetric (café skipped). between-checks: museum-r2 / -a / -b / -c openings 1.25-1.50 (the 1 1/4 columns by design, as in turn 120); curve jump 0.00. blur-between re-run.

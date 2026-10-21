@@ -281,6 +281,7 @@ const DRAW = {
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
   // plinth. Counters: the spaces between the columns are plain upright slots (no pills, owner's example).
   museum(s = 12, o = { style: 'mono' }) {   // g7p: monoweight is the line (owner: "monoweigh is looking the best")
+    if (o.struct) return structMuseum(s, o);
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u);
     const pb = Y(4), bd = o.beam === 0 ? 0 : slabH(o), ap = X(o.apex ?? 1.667), fz = bd ? 0 : (o.fascia ?? 0), flush = !bd && o.eave === 'flush', eL = flush ? X(0.75) : X(0.25), eR = flush ? X(11.25) : X(11.75);
     // pediment and beam as one outline (a GABLE on a SLAB, joined), so no coincident corners go through the boolean
@@ -448,4 +449,59 @@ const VESSEL_SIDE = { bk: 0.5, bx: 1.5, lean: 0 };
 const STAR = { ri: 0.47 };   // the star's inner radius, a share of its outer (its points' slenderness)
 const TREE_NOTCH = 0.6;   // g7r: a notch is 0.6 of the half width of the tier above it (its neck the other 0.4)
 const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature']];
+// g7an (owner, answering what "disconnected" means: "When I say connected I mean to the systemic approach. I like the
+// separated gable … it's the flaring effects that the museum and other structures like it aren't going to naturally make.
+// How might we build some of that in?"). A building drawn from parts, with the separated gable kept and the beam back:
+//   GABLE (the roof)  rests on the BEAM across the 1px cut (resting parts);
+//   BEAM              a slab, joined to the columns (one piece with the colonnade);
+//   POSTS             the columns, o.colW wide, full height between beam and plinth; openings square (tight corners);
+//   SLAB (the plinth) on the ground.
+// The flaring vocabulary comes from two places in the coupe and the tree: where a mass ENDS IN THE AIR (the tier's tip:
+// it hangs past what is under it, its underside lifting away, its tip rounded by its edge) and where a post RISES OUT OF
+// A BASE (the stem out of the foot: the base's ends fall away under the post, and the post flares into it). A building
+// has both places; it is only built so the rules never reach them. o.struct:
+//   ap, gb      apex and gable base (units); span the colonnade's outer width (units)
+//   beamOver    how far the beam and gable base pass the colonnade (units)
+//   eave        {over (units past the beam), droop (px)}: THE ROOF HANGS LIKE A TIER (the ends rule)
+//   foot        {over (units past the colonnade), flare (px)}: THE BASE IS A FOOT (the rise rule): past the outer
+//               posts the plinth's top falls to the plate rule's 1px end, and the outer posts flare into it on the
+//               OUTSIDE only (an opening is a counter: it stays square)
+function structMuseum(s, o) {
+  const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2, st = o.struct, sh = slabH(o), cw = o.colW ?? W;
+  const ap = X(st.ap ?? 1.667), gb = Y(st.gb ?? 3.667), bt = gb + CUT, ct = bt + sh, pl = Y(12) - sh;
+  const hs = X((st.span ?? 10.5) / 2), xa = c - hs, xb = c + hs, bo = X(st.beamOver ?? 0.5), bL = xa - bo, bR = xb + bo;
+  const out = [];
+  // the roof
+  const ev = st.eave;
+  if (ev) {
+    // the eave: the gable passes the beam by a shelf (ev.over) and its end hangs: an upright ev.end tall at the end,
+    // and under the shelf the underside falls ev.droop to the end's foot, as a tier's underside falls to its tip
+    const e = X(ev.over), dr = ev.droop, t = ev.end === 'tip' ? -dr : (ev.end ?? 0.5), k = ev.k ?? 0.55;
+    out.push({ ...D(`M${f(bL)} ${f(gb)}H${f(bR)}Q${f(bR + e * k)} ${f(gb)} ${f(bR + e)} ${f(gb + dr)}${t > -dr ? `V${f(gb - t)}` : ''}L${f(c)} ${f(ap)}L${f(bL - e)} ${f(t > -dr ? gb - t : gb + dr)}${t > -dr ? `V${f(gb + dr)}` : ''}Q${f(bL - e * k)} ${f(gb)} ${f(bL)} ${f(gb)}Z`), root: 'GABLE' });
+  } else { const ge = st.gEnd ?? 0.5; out.push(ge ? { ...P([bL, gb], [bL, gb - ge], [c, ap], [bR, gb - ge], [bR, gb]), root: 'GABLE' } : { ...P([bL, gb], [c, ap], [bR, gb]), root: 'GABLE' }); }
+  // the beam and the colonnade, one piece; openings square
+  const cp = st.cap;
+  if (cp) {
+    // THE CAPITAL (the rise rule at the top): past the outer posts the beam's underside rises to a 1px end, and the
+    // outer posts flare into it on the outside; the beam's top stays flat, so the cut stays even
+    const dp = cp.drop ?? (sh - 1), fr = cp.flare ?? 0.5, k = cp.k ?? 0.5, by = bt + sh;
+    out.push({ ...D(`M${f(bL)} ${f(bt)}H${f(bR)}V${f(by - dp)}C${f(bR - bo * k)} ${f(by - dp)} ${f(xb)} ${f(by - dp * 0.1)} ${f(xb)} ${f(by + fr)}H${f(xb - cw)}V${f(by)}H${f(xa + cw)}V${f(by + fr)}H${f(xa)}C${f(xa)} ${f(by - dp * 0.1)} ${f(bL + bo * k)} ${f(by - dp)} ${f(bL)} ${f(by - dp)}Z`), root: 'SLAB' });
+  } else out.push(R(bL, bt, bR - bL, sh, { root: 'SLAB' }));
+  const n = o.cols ?? 4, gp = (2 * hs - n * cw) / (n - 1), bat = st.batter || 0;
+  for (let i = 0; i < n; i++) { const x = xa + i * (cw + gp);
+    // THE BATTER (the widening rule): an outer post's OUTSIDE edge leans out toward the ground by st.batter px, as the
+    // tree and the coupe's foot widen downward; its inside edge, an opening's side, stays upright
+    if (bat && st.sweep && (i === 0 || i === n - 1)) { const q = st.sweep, y0 = ct - 0.01, y1 = pl + 0.01, ys = y0 + (y1 - y0) * (q.from ?? 0);   // THE SWEEP: the same lean, drawn as one concave curve (the tree's sweep, the coupe foot's rise)
+      out.push(i === 0 ? D(`M${f(x)} ${f(y0)}H${f(x + cw)}V${f(y1)}H${f(x - bat)}Q${f(x)} ${f(y1 - (y1 - ys) * (q.k ?? 0.3))} ${f(x)} ${f(ys)}Z`) : D(`M${f(x)} ${f(y0)}H${f(x + cw)}V${f(ys)}Q${f(x + cw)} ${f(y1 - (y1 - ys) * (q.k ?? 0.3))} ${f(x + cw + bat)} ${f(y1)}H${f(x)}Z`)); }
+    else if (bat && (i === 0 || i === n - 1)) out.push(i === 0 ? P([x, ct - 0.01], [x + cw, ct - 0.01], [x + cw, pl + 0.01], [x - bat, pl + 0.01]) : P([x, ct - 0.01], [x + cw, ct - 0.01], [x + cw + bat, pl + 0.01], [x, pl + 0.01]));
+    else out.push(R(x, ct - 0.01, cw, pl - ct + 0.02, { root: 'POST' })); }
+  // the plinth
+  const ft = st.foot;
+  if (ft) {
+    const po = X(ft.over), pL = xa - po, pR = xb + po, dp = ft.drop ?? (sh - 1), fr = ft.flare ?? 0.5, k = ft.k ?? 0.5;
+    // right shoulder from the end up into the outer post, then mirrored (the openings' floor stays the flat plinth top)
+    out.push({ ...D(`M${f(pL)} ${f(pl + sh)}H${f(pR)}V${f(pl + dp)}C${f(pR - po * k)} ${f(pl + dp)} ${f(xb)} ${f(pl + dp * 0.1)} ${f(xb)} ${f(pl - fr)}H${f(xb - cw)}V${f(pl)}H${f(xa + cw)}V${f(pl - fr)}H${f(xa)}C${f(xa)} ${f(pl + dp * 0.1)} ${f(pL + po * k)} ${f(pl + dp)} ${f(pL)} ${f(pl + dp)}Z`), root: 'SLAB' });
+  } else out.push(R(xa - X(st.plOver ?? 0.5), pl, 2 * hs + 2 * X(st.plOver ?? 0.5), sh, { root: 'SLAB' }));
+  return out;
+}
 module.exports = { VESSEL_SIDE, STAR, W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };

@@ -1,5 +1,18 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-21, canvas v220, turn 124; third icon designer)
+
+- **His question:** "it's the flaring effects that the museum and other structures like it aren't going to naturally make. How might we build some of that in?" "Connected" = to the systemic approach. He likes the separated gable (keep it).
+- **Base museum now (row R2/R2B):** picks7 `structMuseum` (`o.struct`, boards7 `STRUCT = { gb: 4, ap: 1.333 }`): gable rests on the beam across the 1px cut; beam + 1 1/4 columns + plinth one piece; columns full height. Fixes turn 123 (comb, lost beam). Resting parts rule now has the limits written in.
+- **Three approaches, each a rule at one place** (boards7 `MUSEUM_F`, R2.mus2[0..2]; [3] = v219 for the before):
+  - A Joins: outer posts flare 1/2px into beam and base, outside only; beam/base ends 1px (`cap`, `foot`).
+  - B Outline: outer posts' outsides sweep out 0.6px to the base (`batter`, `sweep`, `plOver 0.9`).
+  - C Ends: roof overhangs the beam 0.9 unit, underside falls 0.4px to a 1px end (`eave`).
+- **Weights:** all at the cup's (28.2-29.3 vs 28.4). Sizing by weight no longer needed; removed from the board.
+- **Open, his call:** which (if any) of A/B/C; they combine (A+C, B+C). The "glass … plate" question and the liquid style are untouched.
+- **Honest gaps:** at 12px the A/B/C differences are under a pixel and the cut greys out. Openings are 1.25-1.50 (columns 1 1/4). C's ends and B's sweep are new curve types on a building; check the director's tent/pagoda and trapezoid objections by eye.
+- **Tooling:** `scratchpad/d3/v.js` (fit one glyph with the R2 row; `CLS=` env overrides the class), `view.js` (row + chip/24/72/8x PNG), `shot.js` (screenshot the museum section), `mkpub.py` (canvas publish folder).
+
 ## Update (2026-10-21, canvas v219, turn 122)
 
 - **Score:** the director gave v218 an 8 (turn 121): the museum barely changed at true size. Fixed with the **Resting parts** rule. A load set on separate supports gets the 1px cut (cup on saucer, roof on columns); one-piece things join and flare. The museum now has a cut under its roof. Blur 27.9 against the cup's 28.4.
