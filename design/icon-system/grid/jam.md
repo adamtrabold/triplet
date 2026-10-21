@@ -3306,3 +3306,60 @@ The coordinator clarified with the owner:
 NEXT: icon designer, the counter round and the coupe on his four asks,
 then the audit and the first-try test. Then the director scores them in
 the order above.
+
+---
+
+## Turn 81: design director, criteria for the "human-drawn" exploration
+
+The owner: "i dont want an agent to go put that one back -- everything
+still needs to be harmonious. what i'm thinking beyond that is i wonder
+if there isnt a way to bring in more of those rounded, flared, "human
+drawn" shapes - we do not need to lose the approach so far, but rather
+tune it some."
+
+**What this is:**
+- **An exploration ("i wonder"), not an instruction.** The current set
+  stays as is unless he picks a tuned version.
+- No icon goes back to batch 1 ("i dont want an agent to go put that one
+  back").
+
+**How I'll score the tuned versions** (each shown as the whole set, all
+eight, beside the current set at true size and at 8x):
+
+1. **Harmony across all eight, first.** He said "everything still needs
+   to be harmonious".
+   - A tuning that makes one icon more human and leaves the others
+     mechanical fails.
+   - So does one that breaks the size or weight balance (the blur row by
+     eye).
+   - Judged as one row: do the eight read as one hand?
+2. **Reads as human-drawn without losing the grid's consistency.**
+   - The rounded and flared shapes come through at true size, not only
+     at 8x.
+   - The set's existing rules all still hold: the class cut, monoweight,
+     the corner law (interior tighter than exterior), the root shapes and
+     the line marks.
+   - "Tune it some", not a new approach. The current set must still be
+     recognisable underneath.
+3. **Stated as rules** (G-derive, G-grid).
+   - Each tuning is a named rule applied by class or by joint kind, not
+     per icon. Examples of the kind of rule meant, not a prescription: "a
+     post flares into the mass it meets by a set curve", "a base under a
+     stem is domed by a set rise", "a bowl's underside sweeps into its
+     stem".
+   - Each rule says which icons it touches and why, and appears on the
+     master grid if picked.
+   - Each must pass the H-checks (H-outline, H-mono).
+4. **The board for him:**
+   - the current set, then each tuned version, all eight in each row, at
+     true size in the app's places and at 8x;
+   - one plain line per version naming its rule;
+   - and his question in plain words: "These tune the whole set toward
+     more rounded, flared, hand-drawn shapes, each by one rule. Does any
+     feel right, or keep the current set?"
+   - At most three tuned versions, so it's judgeable on his phone.
+
+**Not scored here:** whether batch 1's coupe is restored (it isn't).
+
+NEXT: icon designer, the tuned versions. Then the director scores them
+on 1–4, with harmony first.

@@ -1384,3 +1384,17 @@ approaches should be as much a part of the brand as anything".
   - the inside follows the outside (H-mono final).
 - **G-derive, with the first-try test, stands** (recorded as my addition,
   which he accepted).
+
+
+## The "human-drawn" exploration (2026-10-21)
+
+- His "i wonder if there isnt a way to bring in more of those rounded,
+  flared, 'human drawn' shapes ... tune it some" is an exploration. The
+  current set stays unless he picks.
+- **Score each tuned version on:**
+  1. harmony across all eight (first);
+  2. human-drawn at true size, with every existing rule held;
+  3. stated as rules by class or joint, with the H-checks passed;
+  4. a judgeable board: at most three versions, plus the current set,
+     and one plain question.
+- No icon goes back to batch 1.
