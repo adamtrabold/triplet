@@ -5237,3 +5237,76 @@ Owner: "youre missing my point -- the between tree is perfect. what changes need
   - Between board 7311 → 9799.
   - Row-2 title 7740 → 10230; Master 8040 → 10530.
   - The live board matched the build apart from its height, so there were no hand edits to keep.
+
+---
+
+## Turn 119: design director, "2b · The coupe and the tree are fixed: rules for the rest" (v217): 7
+
+Fetched and merged ef9a475a, re-read the live board (v217, 9798px; it
+matches the build, no owner edits). By eye at 1x and 3x of the published
+section (12px chip, 24 badge, 72px, the 8x pairs), then the svgs at about
+11x, with the row in badges.
+
+**The coupe:** only the counter subpath differs between h3t-bar and
+bar-r2, so it's unchanged apart from the drink. With the band at 5/6 the
+light line is visibly thinner at 24px and 72px, and the glass reads less
+empty, which is the "sliiiightly" he asked for. It's still under the line,
+as his rule says. His 7th ask for more liquid is answered in his direction,
+with nothing traded away (Lesson 6). **Pass.**
+
+**The tree:** byte-identical. **Pass.**
+
+**"the glass being on something so rounded as a plate":** the board reads
+it as the cup on its saucer, and says why. That isn't defensible as the
+only reading. He calls the saucer "plate", but he calls the coupe "glass";
+he's never called the cup that. His "but" follows straight after "coup,
+after ... perfect". The coupe's domed foot is a rounded plate under a
+glass. Both readings are live. Per Lesson 6, an ambiguity goes to him as a
+question, shown, not decided by us.
+
+**The cup:** the saucer is now a slab, flat on top with a 1/2px drop
+underneath. It sits calmly at 24px and is no longer the roundest thing in
+the row. Fine as one reading's answer.
+
+**The museum, by eye first (Lesson 7):**
+- At true size it's lighter (blur 29.5 against the cup's 28.4) and softer.
+  It sits nearer the family than before.
+- At 8x the openings read as rounded capsules: three pill-ended holes
+  between thin bars. That's his own objection from 10-19 ("why is the
+  interior of the museum pillars totally rounded pill shapes"). The board
+  tells him "they are not pills", which argues with his eye. He'll see
+  pills.
+- The pediment's sweep (the tiers' 1/5 line on a roof) reads as a soft tent
+  at 8x, a step toward the pagoda I flagged in v206. It still reads as a
+  pediment, but only just; check it by eye.
+- A rule that would give every future building (hotel, city blocks)
+  pill-ended openings fails the system test, even if it brings this museum
+  closer.
+
+**Seventh icon:** the plate, post and gable rules are general and
+readable. The flare-in-a-slot rule is the one that would carry the fault
+into every building.
+
+**Likely owner objections:**
+- "the glass" meant the coupe's foot (likely enough to matter).
+- "the museum pillars are pills again" (likely).
+- The roof as a tent (possible).
+
+**Score: 7.** Fixes, how is the designer's call:
+1. Show both readings of "the glass ... plate": the cup on its new saucer,
+   and the coupe with its foot answered by the plate rule, side by side in
+   the row. Ask him which he meant. Don't change the coupe he called
+   perfect without the question.
+2. The museum's openings must not read as pills at 8x. Find a way to join
+   it to the family that keeps the openings square-cornered (tight, as
+   counters), or show the flared slots only as an option with his 10-19
+   quote beside it. Remove "they are not pills".
+3. Judge the swept pediment by eye at 8x beside a straight one. Keep it
+   only if it reads as a classical pediment, not a tent.
+
+**Archive (his file-reading note):** yes, move parts 1, 2 and the old
+tuned-row table to the Archive. Keep only one line pointing to them, and
+keep part 3 while the museum's sizing waits on his pick.
+
+**Changed since my last score?** Yes: a new row of rules. The coupe and
+the tree are unchanged by design.

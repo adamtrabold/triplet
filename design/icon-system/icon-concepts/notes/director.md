@@ -1747,3 +1747,20 @@ checks; don't eyeball "is it as good as".
   an eased corner meets a curved side), to change for every icon.
 - Board claims must match the eye: the vessel-sides caption overclaims.
 - Next: the designer's copy edit, then it can go to him.
+
+## g7aj (v217, 2026-10-21): 7
+
+- Coupe: only the counter subpath changed (checked by path diff). The
+  drink is visible at true size. His 7th liquid ask is met.
+- **Ambiguity rule applied:** "the glass being on something so rounded as
+  a plate". He says "plate" for the saucer but "glass" for the coupe. The
+  board picked one reading. Ambiguities are shown both ways and asked.
+- **Museum by eye:** lighter and closer at true size, but the flare-in-
+  slot rule makes pill-ended openings at 8x. That's his 10-19 objection.
+  A board line telling him "they are not pills" argues with his eye; never
+  pass that.
+- **System test:** a rule that fixes one icon but would carry a known
+  owner objection into every future icon of that class fails, however
+  well the measures come out.
+- Archive parts 1, 2 and the old table (board 9.8k px).
+- Next: the designer's fixes (turn 119), then re-score.

@@ -329,3 +329,12 @@ eased rim corner still meets them upright, as in Between; my turn-114
 claim on them was overstated. Copy edit: the caption and table must not
 claim "no upright run". Full entry in `icon-concepts/notes/director.md`;
 fixes in `grid/jam.md` turn 116.
+
+## Icon system, g7aj rules row (v217, 2026-10-21): 7
+
+The coupe (band 5/6, more drink, visible) and the tree pass. Blocks: "the
+glass ... plate" was read only as the cup (show both readings, ask); the
+museum's flared slots read as pills at 8x (his 10-19 objection); the swept
+pediment leans toward a tent. Archive parts 1, 2 and the old table. Full
+entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn
+119.

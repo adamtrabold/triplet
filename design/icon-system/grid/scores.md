@@ -1251,3 +1251,14 @@ The verdict stands within our own set:
   straight". The caption and the table overclaim it; that copy edit comes
   before it goes to him.
 - **Fixes:** jam turn 116.
+
+## Round g7aj rules from the coupe and tree (canvas v217), 2026-10-21: 7
+
+- **Coupe:** only the band changed (5/6). More drink is visible at 24 and
+  72; his 7th ask answered. **Tree:** byte-identical.
+- **Blocks a 9:** "the glass ... plate" read only as the cup (the coupe's
+  domed foot is a live reading: show both, ask); the museum's flared slots
+  read as pills at 8x (his 10-19 objection), and the board says "not
+  pills"; the swept pediment leans toward a tent.
+- **Archive:** yes, parts 1, 2 and the old table.
+- **Fixes:** jam turn 119.
