@@ -198,3 +198,7 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-21, on v147) i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate feels too far. and the flares too intense. the museum looks completely out of place, so there needs to be a pattern for bringing this to the more structural icon decisions. also the interior counter shape of the coupe *still* does not look right. and there is *still* not enough liquid in the cup how many times do i have to say it.
 > (10-21, canvas comment on Between, coupe (a) at 8x) this line on the left and right is waht looks wrong -- it looks too straight compared to the rest of the shape   (the bowl's outer sides run straight and upright under the rim before curving; grid/owner-marks/v205-coupe-abc-sides.png)
 > (10-21, canvas comment on the Between museum, beam shed, eaves stepped) no this is awful
+> (10-21, canvas comment on Between) what if the plate was flipped the other way with the rounding on the bottom
+> (10-21, canvas comment on Between) how might this style be reflected in architectural things like this that are a lot of straight lines
+> (10-21, canvas comment on Between) top two sections' tree branch ends feel more rounded than bottom one
+> (10-21, canvas comment on Between) the shorter bowl i think is necessary -- when it drops this far down it starts looking too wine glass or chalice-y...especially with the hard edged flares... very stout instead of delicate
