@@ -687,15 +687,15 @@ function sheetDecideCoupe() {
 // and stored at 6x by originals.json), the newest from the shipped set (Now, v134)
 const ORIG = JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/originals.json'), 'utf8'));
 function sheetOriginals() {
-  const N = COL.navy, I2 = COL.ink2, ds = HSETS[0].ds, MAXL = 3, ROOM = 150;
+  const N = COL.navy, I2 = COL.ink2, ds = HSETS[0].ds, MAXL = 3, ROOM = 128;
   const img = (k, sc = 1) => { const o = ORIG[k]; return `<img src="${o.uri}" width="${f2(o.w * sc)}" height="${f2(o.h * sc)}" alt="" style="display:block;flex:none">`; };
-  const none = `<div style="font-size:16px;line-height:1.25;color:${I2};text-align:center;padding:0 4px">none yet</div>`;
+  const none = `<div style="font-size:16px;line-height:1.25;color:${I2};text-align:center;padding:0 4px">none</div>`;
   const dash = `<div style="font-size:18px;color:${I2}" aria-label="none">–</div>`;
   // the newest, at scale sc, each on the box the app gives it (the badge 24 in a 30 cell, the + on its 60px Float badge, the star 20)
   const P = id => sc => badge(ds[id], 24 * sc);
   const plusNew = sc => plusBadge(uiPath(ds.plus, 26.4 * sc), 60 * sc);
   const starNew = sc => uiPath(ds.star, 20 * sc);
-  const B1 = 'Drawn (batch 1)', ND = 'Not drawn yet', NEW = 'New since the original: none in the 10-13 app';
+  const B1 = 'Drawn (batch 1)', ND = 'Not drawn yet', NEW = 'New since the original';
   // [name, original: originals.json keys (null: none), newest: (scale) => html (null: not drawn), status, note]
   // the order of work (owner: "please order this in order of how we are attacking them")
   const rows = [
@@ -704,9 +704,9 @@ function sheetOriginals() {
     ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`, 'You picked the flatter bowl (B); its counter is being redrawn'],
     ['Museum', null, P('museum'), `${B1} · column front`, 'New category: there was no icon'],
     ['Nature', ['badge-nature'], P('nature'), `${B1} · conifer`],
-    ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'On its Float badge'],
+    ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'Original: the navy + button. Newest: on the orange Float badge it moved to'],
     ['Star', ['g-star-open', 'g-star'], starNew, `${B1} · lines 1 2/3px`, 'Original: empty and starred. Newest: the outline; the starred fill comes later'],
-    ['Batch 2 · next · not drawn yet', 'The eight subjects already tested on the grid (the batch 2 pressure test on the main board). That test sets no order inside the batch, so this one is a proposal: the two icons that need a new root shape first (the knife\'s blade; the bag\'s and the city blocks\' block), then the six that fit the roots we have.'],
+    ['Batch 2 · next · not drawn yet', 'The eight subjects already tested on the grid (the batch 2 pressure test on the main board). That test sets no order inside the batch, so this one is a proposal: first the three that need a new root shape (the knife\'s blade; the block, in the bag and the city blocks), then the five that fit the roots we have.'],
     ['Restaurant', ['badge-restaurant'], null, `${ND} · pick: fork and knife`, 'New root to test: the blade'],
     ['Shopping', ['badge-shopping'], null, `${ND} · pick: bag`, 'New root to test: the block'],
     ['Neighbourhood', ['badge-district'], null, `${ND} · pick: city blocks`, 'The block again. The original is called District'],
@@ -736,36 +736,37 @@ function sheetOriginals() {
     ['Row delete ×', ['ctl-delete'], null, ND, 'Original: a text character'],
     ['Remove from plan ×', ['plan-x'], null, ND, 'Original: a text character'],
     ['Add to plan +', ['plan-add'], null, ND, 'Original: the × character, turned'],
-    ['Right chevron', null, null, ND, `${NEW}. Now on menu rows and plan rows`],
-    ['A city / All places', null, null, ND, `${NEW}. Now in the list-title menu (a ring)`],
-    ['Plans', null, null, ND, `${NEW}. Now in the list-title menu and the Plans list (a route)`],
-    ['Show / hide a city', null, null, ND, `${NEW}. Now on a city's header in the list (an eye)`],
+    ['Right chevron', null, null, `${ND} · ${NEW}`, 'In the app now on menu rows and plan rows'],
+    ['A city / All places', null, null, `${ND} · ${NEW}`, 'In the app now in the list-title menu (a ring)'],
+    ['Plans', null, null, `${ND} · ${NEW}`, 'In the app now in the list-title menu and the Plans list (a route)'],
+    ['Show / hide a city', null, null, `${ND} · ${NEW}`, 'In the app now on a city\'s header in the list (an eye)'],
     ['Last, once the set is done', 'Owner: "Home Screen icon will also need to feel naturally part of the family".'],
     ['Home-screen icon', ['home'], null, ND, 'Original: the apple-touch-icon, at 60px'],
   ];
   // the larger view: one scale per row for today AND the newest (3x, or less where today's render is wide)
   const scaleOf = today => { if (!today) return MAXL; const w = today.reduce((a, k) => a + ORIG[k].w, 0) + 6 * (today.length - 1), h = Math.max(...today.map(k => ORIG[k].h)); return Math.min(MAXL, Math.floor(ROOM / Math.max(w, h) * 2) / 2); };   // half steps, so the label reads plainly
-  const cell = (inner, w, bg, minH) => `<div style="width:${w}px;min-height:${minH}px;display:flex;gap:6px;align-items:center;justify-content:center;flex:none;background:${bg || 'transparent'};border-radius:4px;box-shadow:inset 0 0 0 1px ${COL.hair}">${inner}</div>`;
-  const lab = t => `<div style="font-size:15px;letter-spacing:.06em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 4px">${t}</div>`;
+  // compact (the board must sit inside its canvas row): the words on the left, the four views on the right in one line
+  const CW = [62, 62, 136, 136], TXT = 236;
+  const cell = (inner, w, bg, minH) => `<div style="width:${w}px;min-height:${minH}px;display:flex;gap:4px;align-items:center;justify-content:center;flex:none;background:${bg || 'transparent'};border-radius:4px;box-shadow:inset 0 0 0 1px ${COL.hair}">${inner}</div>`;
+  const heads = `<div style="display:flex;gap:12px;align-items:end;margin:0 0 6px;padding-left:${TXT + 12}px;font-size:15px;line-height:1.2;letter-spacing:.04em;font-weight:700;color:${I2};text-transform:uppercase">${['Original', 'Newest', 'Original, larger', 'Newest, larger'].map((t, k) => `<div style="width:${CW[k]}px;flex:none">${t}</div>`).join('')}</div>`;
+  const words = (nm, status, note, drawn, extra = '') => `<div style="width:${TXT}px;flex:none"><div style="font-size:21px;font-weight:700;color:${N};line-height:1.2"><span style="color:${I2};font-weight:600">${n}.</span> ${nm}</div>
+<div style="font-size:17px;line-height:1.3;margin-top:3px;color:${drawn ? COL.ord : I2};font-weight:${drawn ? 700 : 500}">${status}</div>${note ? `<div style="font-size:17px;line-height:1.3;color:${I2};margin-top:2px">${note}</div>` : ''}${extra}</div>`;
   let n = 0;
   const body = rows.map(([nm, today, nw, status, note]) => {
-    if (status === undefined) return `<div style="margin:40px 0 8px"><div style="font-size:17px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase">${nm}</div>${today ? `<div style="font-size:17px;line-height:1.4;color:${I2};margin-top:4px">${today}</div>` : ''}</div>`;
+    if (status === undefined) return `<div style="margin:34px 0 10px"><div style="font-size:17px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase">${nm}</div>${today ? `<div style="font-size:17px;line-height:1.4;color:${I2};margin-top:4px">${today}</div>` : ''}</div>${heads}`;
     n++;
+    if (!today && !nw) return `<div style="display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid ${COL.hair}">${words(nm, status, note, false)}<div style="font-size:17px;line-height:1.35;color:${I2}">No original and nothing drawn yet.</div></div>`;
     const sc = scaleOf(today), bg = today ? ORIG[today[0]].bg : COL.paper, drawn = status.startsWith(B1);
     const t1 = today ? today.map(k => img(k)).join('') : dash, tL = today ? today.map(k => img(k, sc)).join('') : none;
-    const n1 = nw ? nw(1) : dash, nL = nw ? nw(sc) : `<div style="font-size:16px;color:${I2}">not drawn yet</div>`;
-    const hL = Math.max(72, Math.round(Math.max(today ? Math.max(...today.map(k => ORIG[k].h)) : 30, nm.startsWith('+') ? 64 : 0) * sc) + 20);
-    const big = `${sc}x`;
-    return `<div style="padding:16px 0 18px;border-top:1px solid ${COL.hair}">
-<div style="font-size:22px;font-weight:700;color:${N};line-height:1.2"><span style="color:${I2};font-weight:600">${n}.</span> ${nm}</div>
-<div style="font-size:18px;line-height:1.35;margin-top:3px;color:${drawn ? COL.ord : I2};font-weight:${drawn ? 700 : 500}">${status}</div>${note ? `<div style="font-size:17px;line-height:1.35;color:${I2};margin-top:2px">${note}</div>` : ''}
-<div style="display:flex;gap:12px;align-items:stretch;margin-top:12px">
-<div>${lab('Original')}${cell(t1, 92, bg, 72)}</div><div>${lab('Newest')}${cell(n1, 92, bg, 72)}</div>
-<div>${lab(`Original, ${big}`)}${cell(tL, 214, bg, hL)}</div><div>${lab(`Newest, ${big}`)}${cell(nL, 214, bg, hL)}</div></div></div>`;
+    const n1 = nw ? nw(1) : dash, nL = nw ? nw(sc) : `<div style="font-size:16px;color:${I2};text-align:center">not drawn yet</div>`;
+    const hL = Math.max(64, Math.round(Math.max(today ? Math.max(...today.map(k => ORIG[k].h)) : 30, nm.startsWith('+') ? 64 : 0) * sc) + 14);
+    const h1 = Math.max(64, Math.round(Math.max(today ? Math.max(...today.map(k => ORIG[k].h)) : 30, nm.startsWith('+') ? 64 : 0)) + 10);
+    return `<div style="display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid ${COL.hair}">${words(nm, status, note, drawn, `<div style="font-size:17px;color:${I2};margin-top:2px">Larger: ${sc}x</div>`)}
+${cell(t1, CW[0], bg, h1)}${cell(n1, CW[1], bg, h1)}${cell(tL, CW[2], bg, hL)}${cell(nL, CW[3], bg, hL)}</div>`;
   }).join('');
-  const count = rows.filter(r => r[3] !== undefined && !String(r[4] || '').startsWith(NEW)), drawnN = count.filter(r => r[3].startsWith(B1)).length;
+  const count = rows.filter(r => r[3] !== undefined && !r[3].endsWith(NEW)), drawnN = count.filter(r => r[3].startsWith(B1)).length;
   return phBoard('In progress', 'Every icon: original and newest', `${phP('You: "give me a board with the original icons next to the newest version of icon in order of what we\'re actually making", then "please order this in order of how we are attacking them" and "i want original and newest".')}
-${phP('One row per icon, in the order we\'re working on them. <b>Original</b> is the icon as it was when this project started, from the 10-13 inventory ("Every icon today", in its colours). <b>Newest</b> is the latest drawing: the set as it stands (monoweight, the coupe as shipped at v134, the + and the star at 1 2/3px), in navy; colour comes later. The first pair is true size; the larger pair is the same scale for both.')}
+${phP('One row per icon, in the order we\'re working on them. <b>Original</b> is the icon as it was when this project started, from the 10-13 inventory ("Every icon today", in its colours). <b>Newest</b> is the latest drawing: the set as it stands (monoweight, the coupe as shipped at v134, the + and the star at 1 2/3px), in navy; colour comes later. The first pair is true size; the larger pair is the same scale for both (the row says which).')}
 <div style="margin:6px 0 4px;font-size:20px;line-height:1.4;color:${N}"><b>${drawnN} of ${count.length} drawn</b>: café, bar, museum, nature, the + and the star. Four controls are new since the original and are counted on their own.</div>
 ${body}
 <div style="margin-top:26px;font-size:17px;line-height:1.45;color:${I2}"><b style="color:${N}">Not listed:</b> Area and Other are gone (the locked list). The visited stamp and sticker, clusters, plan stop numbers, you-are-here and the tag's anchor dot stay as they are. The filter chips use the place icons. Leaflet's attribution flag isn't ours.</div>`);
