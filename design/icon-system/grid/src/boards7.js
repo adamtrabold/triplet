@@ -751,7 +751,7 @@ function sheetOriginals() {
   const rows = [
     ['Batch 1 · drawn', 'The first six, drawn to the grid and in review now.'],
     ['Café', ['badge-cafe'], P('cafe'), `${B1} · cup and saucer`],
-    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`, 'You picked B, the flatter bowl: see "The coupe is B". Until B is in the set, this row shows the coupe as shipped'],
+    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`, 'You picked B (board: The coupe is B); shown as shipped until B is in the set'],
     ['Museum', null, P('museum'), `${B1} · column front`, 'New category: there was no icon'],
     ['Nature', ['badge-nature'], P('nature'), `${B1} · conifer`],
     ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'Original: the navy + button. Newest: on the orange Float badge it moved to'],
@@ -796,9 +796,9 @@ function sheetOriginals() {
   // the larger view: one scale per row for today AND the newest (3x, or less where today's render is wide)
   const scaleOf = today => { if (!today) return MAXL; const w = today.reduce((a, k) => a + ORIG[k].w, 0) + 6 * (today.length - 1), h = Math.max(...today.map(k => ORIG[k].h)); return Math.min(MAXL, Math.floor(ROOM / Math.max(w, h) * 2) / 2); };   // half steps, so the label reads plainly
   // compact (the board must sit inside its canvas row): the words on the left, the four views on the right in one line
-  const CW = [62, 62, 136, 136], TXT = 236;
+  const CW = [72, 72, 128, 128], TXT = 236;
   const cell = (inner, w, bg, minH) => `<div style="width:${w}px;min-height:${minH}px;display:flex;gap:4px;align-items:center;justify-content:center;flex:none;background:${bg || 'transparent'};border-radius:4px;box-shadow:inset 0 0 0 1px ${COL.hair}">${inner}</div>`;
-  const heads = `<div style="display:flex;gap:12px;align-items:end;margin:0 0 6px;padding-left:${TXT + 12}px;font-size:15px;line-height:1.2;letter-spacing:.04em;font-weight:700;color:${I2};text-transform:uppercase">${['Original', 'Newest', 'Original, larger', 'Newest, larger'].map((t, k) => `<div style="width:${CW[k]}px;flex:none">${t}</div>`).join('')}</div>`;
+  const heads = `<div style="display:flex;gap:12px;align-items:end;margin:0 0 6px;padding-left:${TXT + 12}px;font-size:15px;line-height:1.2;font-weight:700;color:${I2}">${['Original', 'Newest', 'Original, larger', 'Newest, larger'].map((t, k) => `<div style="width:${CW[k]}px;flex:none">${t}</div>`).join('')}</div>`;
   const words = (nm, status, note, drawn, extra = '') => `<div style="width:${TXT}px;flex:none"><div style="font-size:21px;font-weight:700;color:${N};line-height:1.2"><span style="color:${I2};font-weight:600">${n}.</span> ${nm}</div>
 <div style="font-size:17px;line-height:1.3;margin-top:3px;color:${drawn ? COL.ord : I2};font-weight:${drawn ? 700 : 500}">${status}</div>${note ? `<div style="font-size:17px;line-height:1.3;color:${I2};margin-top:2px">${note}</div>` : ''}${extra}</div>`;
   let n = 0;
