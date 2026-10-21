@@ -3364,6 +3364,71 @@ eight, beside the current set at true size and at 8x):
 NEXT: icon designer, the tuned versions. Then the director scores them
 on 1–4, with harmony first.
 
+---
+
+## Turn 80: icon designer, g7s: counter corners, the star, the v130 saucer coupe (canvas v134)
+
+Done in this round: the owner's v133 notes, the direction test from turn 75, and turn 74's cup note. The batch-1 coupe stays parked, per the coordinator's correction. The grid audit, the overshoot explanation and the "more human-drawn" exploration are next.
+
+**Grid improvement this round:** a counter is the outline *before rounding*, moved in by one line with mitred (sharp) joins; then the corner rule rounds the counter's own corners, and every corner of a counter takes the inside round (`tightHoles` in `src/engine.js`). That replaces g7r's erosion, whose round joins made the inner corners "far too rounded". The offset check now tests direction as well as distance.
+
+1. **The offset check (turn 75).**
+   - **Why it missed the band:** it measured only distance. A straight side can sit a line from a curve without following it.
+   - **What it does now:** every wall sample must also run within 4° of the outline straight across.
+   - **Corners:** a sample on a tight turn of either edge (over 10° within 0.12px) is classed as a corner. Corners are listed separately, never passed.
+   - **Drink surface:** a level counter edge across from a non-level outline is the drink's surface, also listed separately.
+   - **Overlay:** it now draws the outline moved in by the line (orange) under the coloured samples.
+2. **Counter corners.**
+   - **Engine:** the mitred offset of the unrounded outline (Clipper `jtMiter`). I also fixed the erosion's corner clustering, which smoothed a polygon with no corners into a blob.
+   - **Measured on every counter** (off counts are distance + direction):
+
+     | Counter | v130 | v133 | Now |
+     |---|---|---|---|
+     | Cup handle | 0 of 32 | 0 of 32 | 0 of 32 |
+     | Coupe band | 52 of 282, worst turn 19.5° | 8 of 249, 5.4° | **6 of 235, worst turn 4.2°** (direction, next to the band's corners) |
+     | Museum slots | 0 | 0 | 0 |
+     | Star hole | 0 of 235 | 13 of 250, 6.8° | **0 of 465** |
+
+   - **Exception, stated on the board:** the cup handle's two left corners run up to 0.15px over. That is the corner rule.
+3. **The star.**
+   - **Cause:** v133's hole was small and its inner corners rounded over.
+   - **Fix:** the Outline class's hole rule is now at least 2 2/3 lines (4px) across (was 2 lines). The inner-radius ratio is one shared constant (`STAR.ri`).
+   - The hole is 7.96px tip to tip (v133 5.93); the walls are 1.67 to 1.68px; the star is about an eighth wider. The board says so.
+   - Ink at 20px is 72.4px² (v133 59.3). Blur: star 57.6, + 48.4.
+   - The board shows v130, v133 and now beside the + and the place icons at true size and 8x.
+4. **The coupe.**
+   - **Shape:** v130's saucer bowl with a wider, flatter bottom (bottom handle 1.25 from the side, was 2.75), 1/3 deeper (6), rim handle 0.55, foot 1/6 lower.
+   - **Band:** 1.5px tall; its sides are the bowl's outline moved in by one line, curving with it.
+   - **Drink:**
+
+     | Coupe | Drink | Depth at centre |
+     |---|---|---|
+     | v130 | 14.2 px² | 2.09 |
+     | v133 | 21.5 px² | 2.87 |
+     | Now | **18.8 px²** | 2.46 |
+
+     That is +33% on v130. It is less than v133, which got its drink from a goblet-deep bowl; the board says so.
+   - **Shown:** 8x bowl overlays for v130, v133 and now. v130's band sides cut across the curve.
+
+**Checks:**
+- `check-svg.py`: 0 slivers, 75/75 symmetric.
+- Blur:
+
+  | Icon | Blur |
+  |---|---|
+  | Cup | 75.7 |
+  | Coupe | 58.4 |
+  | Museum | 68.6 |
+  | Tree | 71.4 |
+  | Star (1 2/3) | 57.6 |
+  | + | 48.4 |
+
+**Archived:** v133's ten boards (`Archive-G7r-*`).
+
+NEXT: design director scores v134. Then I do the grid audit ("every number, and where it comes from"), the overshoot explanation and the human-drawn exploration (not shipped unless he picks).
+
+---
+
 
 ## Turn 82: design director, v134 scored (8), delicacy and the craft bar
 

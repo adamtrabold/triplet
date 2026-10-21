@@ -68,6 +68,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · Overreach again:** "hold on i never said to do that" / "i said it was conceptually more interesting" (batch 1 coupe). Lesson: an opinion is not an instruction.
 
+- **10-21 · Pining for batch 1:** "it feels more delicate. that more humanistic approach to curves gives it a handmade feel ... still not perfect because of that" → the human-drawn exploration becomes the next priority.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)

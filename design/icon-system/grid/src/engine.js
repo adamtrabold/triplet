@@ -90,6 +90,10 @@ function corners(item, law, info, opts = {}) {
   const kids = item instanceof CompoundPath ? item.children.slice() : [item];
   const out = [];
   for (const p of kids) {
+    // g7s (owner: "tight interior corners should be less rounded than exterior corners"; on the eroded star:
+    // "far too rounded on the interior joins"): with opts.tightHoles, every corner of a COUNTER takes the
+    // inside round, whichever way the ink turns there
+    const isHole = opts.tightHoles && kids.filter(k => k !== p && k.contains(p.firstSegment.point)).length % 2 === 1;
     // drop slivers the booleans leave where two parts meet almost tangent
     for (let i = p.segments.length - 1; i > 0 && p.segments.length > 3; i--) {
       const s = p.segments[i], q = p.segments[i - 1];
@@ -110,7 +114,7 @@ function corners(item, law, info, opts = {}) {
       const inkAngle = convex ? interior : interior; // for concave, the empty side holds `interior`
       const straight = prev.isStraight() && next.isStraight();
       const lin = prev.length, lout = next.length;
-      let r = law({ convex, angle: inkAngle, lin, lout, straight, pt: [P0.x, P0.y] });
+      let r = law({ convex: isHole ? false : convex, angle: inkAngle, lin, lout, straight, pt: [P0.x, P0.y] });
       // an INK TRAP (g7 fix, contrast compensation at joins): the law may return { trap: [a, t] } for
       // a join; the corner is then cut by a small V: from a point a back along each edge to a point t
       // into the ink along the corner's bisector, thinning the join instead of adding ink to it.
@@ -218,13 +222,15 @@ function xform(prims, k, ox, oy, tx, ty) {
 
 // the outline d moved in by w (Minkowski erosion, exact round joins via Clipper), as a paper item whose
 // smooth runs are fitted curves and whose true corners stay corners (so the law rounds them as usual)
-function erode(d, w) {
+function erode(d, w, miter = true) {
   const CL = require(path.join(process.env.TOOLS || '/tmp/claude-0/-home-user-la-trip-map/04f8fb34-0476-5960-add5-8bd3d6d8820e/scratchpad/tools', 'node_modules/clipper-lib/clipper.js'));
   const K = 1e5, src = new CompoundPath(d); src.flatten(0.002);
   const kids = src.children && src.children.length ? src.children : [src];
   const polys = kids.map(k => k.segments.map(s => ({ X: Math.round(s.point.x * K), Y: Math.round(s.point.y * K) })));
   src.remove();
-  const co = new CL.ClipperOffset(2, 0.001 * K); co.AddPaths(polys, CL.JoinType.jtRound, CL.EndType.etClosedPolygon);
+  // g7s (owner: "far too rounded on the interior joins"): mitred joins, so a counter's corners stay corners
+  // and the corner law rounds them like any other (tight inside); round joins (the g7r erosion) are kept as an option
+  const co = new CL.ClipperOffset(50, 0.001 * K); co.AddPaths(polys, miter ? CL.JoinType.jtMiter : CL.JoinType.jtRound, CL.EndType.etClosedPolygon);
   const sol = []; co.Execute(sol, -w * K);
   const out = new CompoundPath({});
   for (const poly of sol) {
@@ -234,8 +240,20 @@ function erode(d, w) {
     // a corner: the direction turns by more than 12 degrees over 0.03px either side
     const dirAt = (i, s) => { let j = i, L = 0; while (L < 0.03) { const k = (j + s + n) % n; L += pts[j].getDistance(pts[k]); j = k; if (j === i) break; } return s > 0 ? pts[j].subtract(pts[i]) : pts[i].subtract(pts[j]); };
     const corner = pts.map((_, i) => { const a = dirAt(i, -1), b = dirAt(i, 1); return Math.abs(a.getDirectedAngle(b)) > 12; });
-    // keep one corner per cluster (the sharpest turn)
-    const ci = []; for (let i = 0; i < n; i++) if (corner[i] && !corner[(i - 1 + n) % n]) { let j = i, best = i, bt = 0; while (corner[j]) { const t_ = Math.abs(pts[(j - 1 + n) % n].subtract(pts[j]).getDirectedAngle(pts[(j + 1) % n].subtract(pts[j]))); const tt = 180 - t_; if (tt > bt) { bt = tt; best = j; } j = (j + 1) % n; if (j === i) break; } ci.push(best); }
+    // keep one corner per cluster (the sharpest turn); a cluster is a run of corner points closer than 0.05px
+    const sharp = k => 180 - Math.abs(pts[(k - 1 + n) % n].subtract(pts[k]).getDirectedAngle(pts[(k + 1) % n].subtract(pts[k])));
+    const near = k => pts[k].getDistance(pts[(k + 1) % n]) < 0.05;
+    const ci = [];
+    if (corner.every(Boolean) && !pts.some((_, k) => near(k))) { for (let k = 0; k < n; k++) ci.push(k); }
+    else {
+      let start = corner.findIndex((c, k) => c && !(corner[(k - 1 + n) % n] && near((k - 1 + n) % n)));
+      if (start >= 0) for (let c = 0, k = start; c < n; c++, k = (k + 1) % n) {
+        if (!corner[k] || (corner[(k - 1 + n) % n] && near((k - 1 + n) % n))) continue;
+        let best = k, bt = sharp(k), j = k;
+        while (near(j) && corner[(j + 1) % n] && (j + 1) % n !== k) { j = (j + 1) % n; if (sharp(j) > bt) { bt = sharp(j); best = j; } }
+        ci.push(best);
+      }
+    }
     const path_ = new Path({ closed: true });
     if (!ci.length) { pts.forEach(q => path_.add(q)); path_.simplify(0.002); out.addChild(path_); continue; }
     ci.sort((a, b) => a - b);
@@ -255,17 +273,20 @@ function build(prims, { law, penW, info, centre, noCaps } = {}) {
   const ers = prims.filter(q => q.t === 'E');
   if (ers.length) {
     let acc = join(prims.filter(q => q.t !== 'E'), penW);
-    for (const q of ers) {
-      const of = build(q.of, { law, penW, noCaps }).d;
-      let hole = erode(of, q.w);
+    // counters first (cut), then fills (g7s: the coupe's drink, an erosion laid back inside its counter)
+    for (const q of [...ers.filter(e => !e.fill), ...ers.filter(e => e.fill)]) {
+      // the outline before the law (its corners sharp), moved in by the line with mitred joins; the law then
+      // rounds the counter's own corners in the final pass (g7s). q.round: the g7r way (law first, round joins)
+      const of = q.round ? build(q.of, { law, penW, noCaps }).d : (() => { const it = join(q.of, penW), d = it.pathData; it.remove(); return d; })();
+      let hole = erode(of, q.w, !q.round);
       if (q.clip) { const c = toItem(q.clip, penW), h2 = hole.intersect(c); hole.remove(); c.remove(); hole = h2; }
       if (q.mirror != null) {   // a symmetric counter stays symmetric: keep the left half, mirror it across
         const half = new Path.Rectangle(new Point(-1000, -1000), new Point(q.mirror, 1000)), l = hole.intersect(half); half.remove(); hole.remove();
         const r = l.clone(); r.scale(-1, 1, new Point(q.mirror, 0)); hole = l.unite(r); l.remove(); r.remove();
       }
-      const s = acc.subtract(hole); acc.remove(); hole.remove(); acc = s;
+      const s = q.fill ? acc.unite(hole) : acc.subtract(hole); acc.remove(); hole.remove(); acc = s;
     }
-    const d = law ? corners(acc, law, info, { noCaps }) : acc.pathData;
+    const d = law ? corners(acc, law, info, { noCaps, tightHoles: true }) : acc.pathData;
     const b = acc.bounds; acc.remove();
     let far = 0;
     if (centre) { const fl = new CompoundPath(d); fl.flatten(0.05); for (const k of (fl.children && fl.children.length ? fl.children : [fl])) for (const s of k.segments) far = Math.max(far, Math.hypot(s.point.x - centre[0], s.point.y - centre[1])); fl.remove(); }
