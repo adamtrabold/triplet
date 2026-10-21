@@ -170,3 +170,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-20, Weight board) i just saw the line marks page --- i think the as they are is too light but the heavier marks are way too heavy
 > (10-21, on v130) There is less liquid in the coupe, the internal counter lines don't match the external ones, and the tree now looks goofy with the less intentional size of tree sections
 > The top tier of the tree looks like it's coming off
+> The middle weight option is close but still too heavy optically   (+ and Star at 1.75px)
