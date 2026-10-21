@@ -64,6 +64,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · v130 shown:** cup corner fixed; monoweight everywhere; + and Star at 1.75px; wider coupe bowl, more drink; fitting rule on the master grid; tree: equal tiers vs taller tip. Asked: which tree? + and star heavy enough?
 
+- **10-21 · v130 verdict:** "There is less liquid in the coupe, the internal counter lines don't match the external ones, and the tree now looks goofy". Claims of "more drink" and "parallel offsets" were not true to his eye.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)

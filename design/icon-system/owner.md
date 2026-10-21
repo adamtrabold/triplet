@@ -168,3 +168,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > one other thing, i think the bottom right edge of the cup is completely broken
 >   (line = monoweight. Lesson: a question is a question; I turned "how are the heights defined?" into a change request.)
 > (10-20, Weight board) i just saw the line marks page --- i think the as they are is too light but the heavier marks are way too heavy
+> (10-21, on v130) There is less liquid in the coupe, the internal counter lines don't match the external ones, and the tree now looks goofy with the less intentional size of tree sections
