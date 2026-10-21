@@ -1160,3 +1160,17 @@ The verdict stands within our own set:
   - I let one shape note override five liquid asks;
   - I scored the counter by numbers, not by eye as a glass with a drink.
 - **Criteria for the next round:** jam turn 100.
+
+
+## Round g7aa "Between H2 and H3" (canvas v199), 2026-10-21: 7, not sendable
+
+- **His items:** Artboard 1, the line-marks copy and his note are
+  present, with no overlap. His note's text is empty, so confirm it.
+- **Coupe:** all three options give clearly more liquid (7.2 to 9.3
+  against v134's 5.1). The board says B can't hold enough.
+  - Labels: (b) and (c) need their trades.
+  - The interior counter is ruled out by our rule instead of asked.
+- **Between row:** passes (half-dome plates, 3/4 flares).
+- **Museum:** the pattern is good, but there's no visible change at
+  true size, so it doesn't yet belong.
+- **Fix list:** jam turn 102.

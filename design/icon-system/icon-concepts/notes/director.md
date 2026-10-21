@@ -1664,3 +1664,15 @@ checks; don't eyeball "is it as good as".
      measurement.
 - **The canvas is now edited by him live.** Every round's check starts
   by confirming nothing of his was overwritten.
+
+## g7aa (v199, 2026-10-21): 7
+
+- **His canvas items:** I checked presence and placement. I can't check
+  "unchanged" without his saved version, and his note's text is empty.
+  Next time, save a copy of canvas.json each time I read it, so I can
+  diff.
+- **Our rule against his ask:** the board ruled out the crescent with
+  the no-ink-traps rule. Per Lesson 6, our rules don't pre-resolve his
+  ask; show it with its trade, or ask.
+- **Museum:** a change invisible at true size doesn't answer "completely
+  out of place".

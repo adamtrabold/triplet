@@ -4398,3 +4398,104 @@ Owner (v147): "i want something between h2 and h3 -- i like the loosening up, bu
 **Canvas:**
 - The board sits at the end of row 1. Rows 2 to 4 of the team's boards moved down 1318px.
 - The owner's own items (the Weight copy, Artboard 1, his note) were not touched. The index was built from the version he saved.
+
+
+## Turn 102: design director, "Between H2 and H3" (v199): 7, not sendable
+
+Scored on turn 100's gates, in order. Rendered from the published board
+at 1x and 3x.
+
+**Gate 6 first: his canvas items.**
+- I compared the published canvas.json with what I could see of his
+  edits:
+  - "Artboard 1" (`Artboard-sgke`, at 4474/884, 1333x791, an empty white
+    stage) is present.
+  - "Decide: line marks copy" (`Grid7Weight-mxhs`, at 4045/-1047, its
+    own 61 KB file, distinct from the team's Weight board) is present.
+  - His note (`note-g58yjy`, at 4492/512) is present.
+  - None of the team's boards overlaps them. The Between board runs x
+    3360 to 4120, and Artboard 1 starts at x 4474.
+- canvas.json was identical across the two latest published versions.
+- **Limit:** I don't hold a copy of the version he saved, so I can
+  confirm presence and placement, not "unchanged". **His note's text is
+  empty** in the published file. If it had text when he saved it, that
+  text was lost. Someone must check with him or against his saved
+  version.
+
+**Gate 1: the coupe, judged as him.** I set v134, batch 1 and B (v144)
+side by side at the 12px chip and the 24 badge, then looked at the
+options at 24px, in the app row and large.
+- **B (v144):** a glass with a drink in it? Barely. Enough liquid? No.
+  2.0px² is less than half of v134's. The board says so plainly, which
+  is right.
+- **(a) A deeper bowl:** a glass with a drink? Yes, the v134 kind (a rim
+  bar, a clear band, then solid). More liquid? Yes, clearly (7.8). But
+  at 24px it reads as a heavy goblet, toward the chalice and wine glass
+  he has turned down before. The label owns the trade ("gives up some
+  of the flatness"). It passes the two questions; the shape risk is his
+  call.
+- **(b) An open glass:** a glass with a drink? Yes. It's closest to
+  batch 1's solid glass and to the "bit of liquid then a clear space"
+  he liked in Material. More liquid? Yes, the most (9.3). At true size
+  the two rim corners stand up as small points. Not a fault, but the
+  label should say it reads as a solid glass, like batch 1.
+- **(c) The drink as its own shape:** a glass with a drink? Yes, the
+  clearest of the three. More liquid? Yes (7.2). But it's the only
+  outline drawing in a set of solid masses. That harmony trade isn't on
+  its label.
+- **Interior counter shape:** none of (a) to (c) answers his "the
+  interior counter shape of the coupe *still* does not look right" as
+  its own question.
+  - The board rules out the most literal reading (the clear part as a
+    crescent under the rim) with our own no-ink-traps rule.
+  - Our rules don't overrule his ask (Lesson 6). A conflict goes to him
+    as a question.
+
+**Gate 2: the three interpretations.**
+- **Distinct:** yes. Three visibly different ideas at true size.
+- **Labelled honestly:** (a) yes. (b) needs "reads as a solid glass,
+  like batch 1". (c) needs "the only outline drawing in the set".
+
+**Gate 3: between H2 and H3.**
+- The plates rise half a line: the saucer no longer "too far".
+- The flares at 3/4 read clearly softer than v147's at 3x and true size.
+- The loosening is kept (eased corners, tree sweep and droop).
+- **Pass.**
+
+**Gate 4: the museum.**
+- **The pattern** ("built things keep their straight lines and wear at
+  their joins") is a good rule. It's stated, derivable, and names the
+  icons it would govern (Hotel, Neighbourhood, Venue). G-derive pass.
+- **Does the museum now belong?** No.
+  - At the 24 badge and the 12px chip, the Between museum is
+    indistinguishable from H2's. The designer flags this too.
+  - He said it "looks completely out of place". A change you can't see
+    at true size can't fix that.
+  - Its solid block is also still the heaviest mass in the row by eye.
+    His "out of place" may be weight as much as corners.
+  - **Fail.**
+
+**Gate 5:** harmony is only as good as the museum (fail by gate 4).
+Bases and ends follow the table-or-ground rule. I didn't re-run the
+H-checks this round. The board reports the curve check at 0.00 and the
+museum's slots at 1.50.
+
+**Score: 7. Not sendable. What must land first:**
+1. **The museum belongs at true size.** The pattern's effect must show
+   at the 24 badge in the Between row, beside the cup, coupe and tree.
+   Check its weight by blur against them as well as its corners. How is
+   the designer's call.
+2. **The interior counter as his question, not our rule.** Show the
+   clear part as a crescent under the rim (or whatever the designer
+   reads as his "interior counter shape"), labelled with its trade
+   ("its ends thin below a line"). Or ask him plainly in one line which
+   of the shown counters he means. Keep at most four coupes to point
+   at.
+3. **The labels:** (b) add "reads as a solid glass, like batch 1"; (c)
+   add "the only outline drawing in the set".
+4. **His note:** confirm with him, or against his saved version, that
+   `note-g58yjy` had no text. If it did, restore it.
+
+**Did the work change?** Yes. The liquid now answers his six asks in
+three clearly different ways, and the Between row answers "the plate
+too far" and "flares too intense". The museum doesn't yet.
