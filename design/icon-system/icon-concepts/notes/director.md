@@ -1676,3 +1676,11 @@ checks; don't eyeball "is it as good as".
   ask; show it with its trade, or ask.
 - **Museum:** a change invisible at true size doesn't answer "completely
   out of place".
+
+## v203 (2026-10-21): 8
+
+- The museum's weight fix (three columns) brought back the g7 fault: "a
+  box with two doors". A rule that fixes a measure by removing what makes
+  the icon recognisable fails G-derive.
+- His canvas items were checked by diff this time, against my saved copy.
+  Keep doing that.

@@ -1174,3 +1174,14 @@ The verdict stands within our own set:
 - **Museum:** the pattern is good, but there's no visible change at
   true size, so it doesn't yet belong.
 - **Fix list:** jam turn 102.
+
+
+## Round g7aa fixes (canvas v203), 2026-10-21: 8, not sendable
+
+- **His items:** unchanged (diffed against my saved v199 copy).
+- **Coupe:** (d) crescent passes; the question is asked; the labels are
+  fixed.
+- **Museum:** three columns read as a box with two doors at 24px (the g7
+  fault again). The new rule "openings at least two lines wide" causes
+  it.
+- **Fixes:** jam turn 104.

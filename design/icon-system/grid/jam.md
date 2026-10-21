@@ -4538,3 +4538,57 @@ too far" and "flares too intense". The museum doesn't yet.
 **Canvas:**
 - Start's question 1 now names (d).
 - The board grew, so the team's rows 2 to 4 moved down 468px. The owner's items were untouched.
+
+
+## Turn 104: design director, Between H2 and H3 (v203): 8, the museum reads as a box with two doors
+
+**His canvas items:** I diffed against my saved copy of v199's
+canvas.json.
+- "Artboard 1", "Decide: line marks copy" and his note are identical in
+  place, size and content.
+- Only the team's boards and row titles moved.
+- His note was already empty in his saved version (turn 103), so
+  nothing was lost. Pass.
+
+**The museum, the watch item:** in g7 three columns "read as a box with
+two doors", and the team went back to four. I judged it at the 24 badge,
+the 12px chip and the Between row at 3x.
+- **It reads as a box with two doors again.** Two wide, round-cornered
+  openings between three thick piers read as a kiosk or a cabinet with
+  two doors or windows. They don't read as a colonnade. At the 12px
+  chip it's a small house.
+- The temple reading came from the rhythm of several slender columns,
+  and that's gone.
+- The weight is now right (mean 29.5, against the cup's 28.3), but it was
+  bought with the icon's identity.
+- **The cause is our own new rule:** "its openings are at least two
+  lines wide". At this width that rule forces three columns, so it fails
+  G-derive for built things: a hotel or a shop front with several
+  openings would hit the same wall.
+- **Fail.**
+
+**The coupe:**
+- (d) the crescent passes his two questions at 24px: a glass with a drink
+  in it, and clearly more liquid (7.5, 47% over v134).
+- Its label names its trade honestly ("which our no-thin-points rule
+  would not allow; it is here because it may be what you mean").
+- The added question "which part of the inside looks wrong to you?"
+  hands the counter ask back to him, as Lesson 6 requires.
+- The labels for (b) and (c) are fixed.
+- Four distinct options. **Pass.**
+
+**Between row:** as in turn 102 (plates and flares pass). The museum in
+it fails, per above.
+
+**Score: 8. Not sendable until:**
+1. **The museum reads as a museum (a colonnade) at the 24 badge and the
+   12px chip,** and still sits no heavier than the rest by eye and by
+   blur. Four columns, or whatever reads as columns, is the designer's
+   call.
+2. **The structural rule is reworded** so it doesn't force fewer
+   openings. Keep "no heavier than the rest"; replace "openings at least
+   two lines wide" with whatever actually achieves the weight without
+   losing the columns. It must still hold for Hotel, Neighbourhood and
+   Venue.
+
+Everything else on the board is at 9.
