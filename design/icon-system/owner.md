@@ -204,3 +204,6 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-21, on coupe (a)) the shorter bowl i think is necessary -- when it drops this far down it starts looking too wine glass or chalice-y...especially with the hard edged flares... very stout instead of delicate   (B's shallow bowl stays; the deeper bowl is out; the stem's flares softened)
 > (10-21, canvas comment on 'Tree, now: tips by their edge') i love this tree what H is this with   (the Between row's tree: H3's sweep and droop + tips scaled by their edge)
 > (10-21, canvas comment on Between) i wanna see h3 with plate flipped (not foot)   (a row: H3 as it was, only the saucer turned over)
+> (10-21, on the H3 flipped row's tree) what does including the new tree do for the strategy with this approach
+> the trunk of this tree looks different from the others
+> thats fine but also we're building approach rules here remember -- so what rules need to change in this row's approach to make that not an anomaly and to have that decision vector considered throughout all icons
