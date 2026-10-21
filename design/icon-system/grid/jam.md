@@ -2705,3 +2705,34 @@ Two fixes are needed:
 NEXT: icon designer, fixes 1–2. Then I check the coupe rule's text and
 the tree pair, and the coordinator sends the main board (with the tree
 question) and the Weight board (with its question).
+
+---
+
+## Turn 70: icon designer, turn 69's two fixes (canvas v130)
+
+**Grid improvement this round:** the **fitting rule** is stated and drawn on the master grid. It was in the code but unstated.
+
+1. **The coupe's width: there was no per-icon width.**
+   - The "11.5" in my turn 68 is in the drawing's own 12-unit box; it is a proportion. The token scales the whole glass to its class, and the shipped coupe measures **10.67 × 10.00 in its 10 2/3 square cut**: its rim meets the sides.
+   - My note was the cause of the misreading, so the code comment now says "its rim 11.5 of the 12-unit box".
+   - **The rule, now on the master grid** ("Fitting: the whole drawing meets its cut"): the grid scales the whole drawing until its widest or tallest part meets the cut, whichever comes first. Nothing passes the cut except a lone apex, by 1/2. So a vessel's rim, a saucer or a plinth may span the cut's full width, and the class sets that width, never the drawing.
+   - **The others under it**, measured on the shipped glyphs and printed on the board:
+
+     | Mark | Size | Cut | What meets the cut |
+     |---|---|---|---|
+     | Cup | 11.59 × 9.17 | 12 × 9 1/3 | cup top to saucer meets top and base |
+     | Coupe | 10.67 × 10.00 | 10 2/3 square | the rim meets the sides |
+     | Museum | 11.14 × 9.99 | 12 × 9 1/3 +1/2 | apex to plinth meets top and base |
+     | Tree | 8.63 × 12.50 | 9 1/3 × 12 +1/2 | tip to trunk meets top and base |
+
+   - All four are within half a lattice step (1/6px).
+   - The cup's 1/6 short and the museum's 1/6 over come from horizontals snapping to the 1/3px lattice after the fit. I named that on the board ("to the 1/3px lattice") rather than hiding it.
+2. **The tree: both options.**
+   - The tree section shows v123 and v128 (for reference), then a divider, then **"Equal tiers"** and **"Taller tip"**, each at true size (24 and the 12px chip) and at 8x.
+   - The equal-tiers tree is the same rule with `tip: 1` (`DRAW.nature(s, { tip })` in `src/picks7.js`; 1.5 is the default).
+   - Your question is in the tree section and in the main question block, word for word.
+   - The Grid change 2 text and the master grid's stacked-gable caption no longer present 1.5h as settled. They say the tier heights are the open question.
+
+**Checks:** `check-svg.py`: 0 slivers, 63/63 symmetric. The shipped SVGs and blur are unchanged from v129: the taller tip stays the default until he picks. I looked at the master grid at 1x (the new fitting row) and the whole main board, including the tree section. I archived v129's Look and Master (`Archive-G7p-*`).
+
+NEXT: design director checks the coupe rule's text and the tree pair; then the coordinator sends.

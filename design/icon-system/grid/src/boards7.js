@@ -540,6 +540,17 @@ function sheetMaster() {
     ['Outline', cutFig('OUTLINE', `<polygon points="${pent}" ${ok}/><circle cx="12" cy="12" r="${f2(holeR)}" fill="none" stroke="${N}" stroke-width="0.12"/>`), 'hull ≥ coin · hole ≥ 2 lines · line 1.75', 'star'],
     ['Open', cutFig('OPEN', `<rect x="${12 - W / 2}" y="6" width="${W}" height="12" ${ok}/><rect x="6" y="${12 - W / 2}" width="12" height="${W}" ${ok}/>`), 'arms span 12 · every line 1.75', '+'],
   ].map(([n, fig, dims, who]) => `<div style="display:flex;flex-direction:column;align-items:center">${fig}<div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${n}</div><div style="font-size:14px;color:${I2};text-align:center">${dims}</div><div style="font-size:14px;color:${I2};text-align:center;font-style:italic">${who}</div></div>`).join('');
+  // 2b. FITTING (g7q): the whole drawing is fitted, never a part; its widest or tallest part meets the cut
+  const FIT8 = 10, fitFig = id => {
+    const d = GD.joint[12][id].d, b = measure(d).box, [cls, apex] = CLASS[id], [kw, kh] = KEY[cls];
+    const dx = 12 - (b.x0 + b.x1) / 2, dy = 12 - (b.y0 + b.y1) / 2 + apex / 2;
+    const fitsW = Math.abs((b.x1 - b.x0) - kw) <= 1 / 6 + 1e-3, fitsH = Math.abs((b.y1 - b.y0) - kh - apex) <= 1 / 6 + 1e-3;
+    const svg = `<svg width="${16 * FIT8}" height="${16 * FIT8}" viewBox="4 4 16 16" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="${COL.raised}"/><circle cx="12" cy="12" r="6" fill="none" stroke="${H}" stroke-width="0.12"/>${rectCut(KEY[cls], apex)}<path d="${d}" transform="translate(${f2(dx)} ${f2(dy)})" fill="${N}"/></svg>`;
+    const part = { cafe: ['the saucer', 'cup top to saucer'], bar: ['the rim', 'rim to foot'], museum: ['the plinth', 'apex to plinth'], nature: ['the bottom tier', 'tip to trunk'] }[id];
+    const what = fitsW ? `${part[0]} meets the sides` : `${part[1]} meets top and base`;
+    return `<div style="display:flex;flex-direction:column;align-items:center">${svg}<div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${({ cafe: 'Café', bar: 'Bar', museum: 'Museum', nature: 'Nature' })[id]}</div><div style="font-size:14px;color:${I2};text-align:center">${what}</div><div style="font-size:14px;color:${I2};text-align:center">${(b.x1 - b.x0).toFixed(2)} × ${(b.y1 - b.y0).toFixed(2)} in a ${fr(kw)} × ${fr(kh)}${apex ? ' +1/2' : ''} cut${fitsW || fitsH ? '' : ' (!)'}</div></div>`;
+  };
+  const fitRow = ['cafe', 'bar', 'museum', 'nature'].map(fitFig).join('');
   // 3. ROOT SHAPES, drawn generic from the same helpers as the icons, at 10x, with their dimensions
   const R10 = 10, root = (prims, vb, nm, dim) => { const d = E.build(prims, { law: LAWS7.joint }).d; return `<div style="display:flex;flex-direction:column;align-items:center"><svg width="${vb[2] * R10}" height="${vb[3] * R10}" viewBox="${vb.join(' ')}" aria-hidden="true"><path d="${d}" fill="${N}"/></svg><div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${nm}</div><div style="font-size:14px;color:${I2};text-align:center">${dim}</div></div>`; };
   const cupPr = DRAW.cafe(12), barPr = DRAW.bar(12);
@@ -582,6 +593,10 @@ function sheetMaster() {
 <div>${title('Badge, air, live area, guides')}${badgeFig}${cap('The badge is the seal; the glyph is struck inside it like a coin. Ring 1.5 · 2px of air · live circle Ø16 · the coin Ø12 in the 12px box. Grid: 1px; faint: the 1/3px lattice horizontals sit on, so their edges print crisp.')}</div>
 <div>${title('The token: size by class')}<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:28px 16px">${token}</div>${cap('Every cut has the coin\'s area, so none reads bigger: pins struck from one blank. The grid fits the drawing to its cut; a lone apex passes by 1/2.')}</div>
 </div>
+${title('Fitting: the whole drawing meets its cut')}
+<div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap">${fitRow}</div>
+${cap('The grid scales the whole drawing until its widest or its tallest part meets the cut, whichever comes first; nothing passes the cut except a lone apex, by 1/2. So a vessel\'s rim, a saucer or a plinth may span the cut\'s full width, and it is the class that sets that width, never the drawing. A drawing\'s own numbers (the coupe\'s rim is 11.5 of its 12-unit box) are proportions, not sizes. Measured on the shipped glyphs, to the 1/3px lattice.')}
+<div style="margin-bottom:64px"></div>
 ${title('Root shapes: like parts, one shape')}
 <div style="display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap">${roots}</div>
 ${cap('Cut from a few blocks used again and again, like a woodcut or a case of metal type.')}
@@ -591,7 +606,7 @@ ${cornerRow}
 ${cap('Ink settling on a screened banner: soft, never blotted. A round is never more than 0.2 of the shorter edge at its corner. No ink traps.')}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px">
 <div>${title('Line weight')}${weight}${cap('Monoweight: one line, the ring\'s weight, everywhere; a hole\'s inside runs parallel to its outside, horizontals and verticals alike. Line marks (the Outline and Open classes, made only of lines, no mass) carry 7/6 of it, 1.75px, so they come closer to the weight of the solid places without reading bold.')}</div>
-<div>${title('Stacked gables')}${stack}${cap(`All by rule: the tip tier is the tree's point and shows 1.5h, the tiers under it h each; the tip's half width is the shelf plus a third of a line, the bottom tier spans the tall class (9 1/3) and the middle steps evenly between, so each tier is steeper than the one below; every notch shelf one and a half lines (${shelf}px), so a fir reads as a fir at 100%; the trunk shows one line; the apex passes TOP by 1/2. Inside rounds tighter than outside.`)}</div>
+<div>${title('Stacked gables')}${stack}${cap(`All by rule (shown: the taller-tip option; with equal tiers the tip shows h too): the tip tier is the tree's point and shows 1.5h, the tiers under it h each; the tip's half width is the shelf plus a third of a line, the bottom tier spans the tall class (9 1/3) and the middle steps evenly between, so each tier is steeper than the one below; every notch shelf one and a half lines (${shelf}px), so a fir reads as a fir at 100%; the trunk shows one line; the apex passes TOP by 1/2. Inside rounds tighter than outside.`)}</div>
 </div>
 </div>`;
 }
@@ -720,13 +735,20 @@ const TREE128 = (() => {
   const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
   return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
 })();
-const TREE_Q = 'The tree has its earlier shape back, now set by rule. Is this the fir you liked?';
+// the equal-tiers option (g7q): the same rule with the tip tier showing h, like the others
+const TREE_EQ = (() => {
+  const draw = s => DRAW.nature(s, { style: 'mono', tip: 1 });
+  const s = fitS('nature', 12, { nature: draw }), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = draw(s);
+  const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
+  return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
+})();
+const TREE_Q = 'The tree: with equal tiers (left) it keeps the proportions you liked but goes back toward a plain triangle. With a taller tip (right) it gets the earlier shape back, but the tiers aren\'t equal. Which do you want?';
 function treeChange() {
   const N = COL.navy, I2 = COL.ink2;
   const pair = (nm, d) => `<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="display:flex;align-items:center;gap:10px">${badge(d)}<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg></div>${badge(d, 192)}<div style="font-size:18px;font-weight:700;color:${N}">${nm}</div></div>`;
-  return `<div style="display:grid;grid-template-columns:420px 1fr;gap:40px;align-items:center;margin:0 0 64px">
-<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The tree: the earlier shape, now set by rule.</div><div style="font-size:17px;line-height:1.45;color:${I2}">You liked v123's shape; v128 made every tier the same and read as a plain triangle. Now the shape comes back by rule: the top tier is the tree's point and shows one and a half times the height of each tier under it; the top tier is narrow (the shelf plus a third of a line each side), the bottom one spans the tall class, the middle steps evenly between, so each tier is steeper than the one below, as a fir is. Every notch is still one and a half lines deep, and the proportions are v128's. True size (24 and the 12px chip), then 8x.</div><div style="margin-top:18px;padding:16px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:20px;line-height:1.3;color:${N};font-weight:600">${TREE_Q}</div></div>
-<div style="display:flex;gap:40px">${pair('v123 (the shape you liked)', TREE123)}${pair('v128 (one slope)', TREE128)}${pair('Now', GD.joint[12].nature.d)}</div></div>`;
+  return `<div style="display:grid;grid-template-columns:400px 1fr;gap:32px;align-items:center;margin:0 0 64px">
+<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The tree: two ways, both by rule.</div><div style="font-size:17px;line-height:1.45;color:${I2}">Both keep v128's height, width and 1.5-line notches, and both narrow the top tier and step the widths evenly down to the tall class. <b>Equal tiers:</b> every tier shows the same height. <b>Taller tip:</b> the top tier, the tree's point, shows one and a half times the height of each tier under it, as v123's did. v123 and v128 are on the left for reference. True size (24 and the 12px chip), then 8x.</div><div style="margin-top:18px;padding:16px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:20px;line-height:1.3;color:${N};font-weight:600">${TREE_Q}</div></div>
+<div style="display:flex;gap:28px">${pair('v123', TREE123)}${pair('v128', TREE128)}<div style="width:2px;background:${COL.hair};align-self:stretch"></div>${pair('Equal tiers', TREE_EQ)}${pair('Taller tip', GD.joint[12].nature.d)}</div></div>`;
 }
 function sheetLook() {
   const L = 150, gap = 24, big = 192;
@@ -743,7 +765,7 @@ function sheetLook() {
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid changes g7i to g7p</div>
 <h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${COL.navy}">One token, five root shapes</h1>
-<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is the same depth, one and a half lines (g7k: deeper, so the tiers read at 100%). Latest (g7p): monoweight is the line everywhere; the + and the star draw their line at 1.75px (line marks); the tree has its earlier shape back by rule; the coupe\'s wider bowl is back with more drink; the cup\'s broken corner is fixed. Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
+<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is the same depth, one and a half lines (g7k: deeper, so the tiers read at 100%). Latest (g7p): monoweight is the line everywhere; the + and the star draw their line at 1.75px (line marks); the tree has two options by rule (below); the coupe\'s wider bowl is back with more drink; the cup\'s broken corner is fixed. Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
 <div style="margin:0 0 56px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}">
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div>
 <div style="font-size:28px;line-height:1.3;color:${COL.navy};font-weight:600">${LOOK_Q}</div><div style="font-size:24px;line-height:1.3;color:${COL.navy};font-weight:600;margin-top:12px">${TREE_Q}</div></div>
@@ -755,7 +777,7 @@ ${sec('Grid change 1: size by class, the token')}
 ${p('Every glyph is fitted by the grid, never by hand, to a cut of one 12px coin with the coin\'s area: <b>Wide</b> 12 × 9 1/3, <b>Square</b> 10 2/3, <b>Tall</b> 9 1/3 × 12, <b>Outline</b> for outline marks (the Star, whose outline means "not yet tapped": the hull through its tips at least the coin\'s area, and its hole at least two lines across, so it never reads as filled; at 1.5px the hole decides), and <b>Open</b> for marks made only of lines (the +: its arms span the coin). The Outline and Open classes are <b>line marks</b>: with no mass to carry weight, they draw their line at 1.75px (7/6 of the line), even all along. A lone apex (the pediment, the tree\'s tip) passes the cut by 1/2px. The drawing sets proportions; the class sets size. A new icon picks its class and is fitted the same way.')}
 <div style="margin:0 0 64px">${tokenRow}</div>
 ${sec('Grid change 2: root shapes, like parts cut from one shape')}
-${p('Before, the three bases were three shapes: a tapered blade, a dome and a slab (your example). Now every base is the same slab, every bowl the same vessel, every roof and tier the same gable, every upright the same post, every handle and outline the same loop. Where gables stack (the tree), the top tier is the point and shows one and a half tier heights, the widths step evenly from narrow to the tall class, and each notch shows the same 1.5-line shelf. The coupe\'s wide bowl holds a drink under a clear band, so it reads as a glass, not a chalice. The cup\'s bowl keeps both its walls; the handle is its own loop, joined to it.')}
+${p('Before, the three bases were three shapes: a tapered blade, a dome and a slab (your example). Now every base is the same slab, every bowl the same vessel, every roof and tier the same gable, every upright the same post, every handle and outline the same loop. Where gables stack (the tree), the widths step evenly from narrow to the tall class and each notch shows the same 1.5-line shelf; the tier heights (equal, or a taller tip) are the open question above. The coupe\'s wide bowl holds a drink under a clear band, so it reads as a glass, not a chalice. The cup\'s bowl keeps both its walls; the handle is its own loop, joined to it.')}
 <div style="display:grid;grid-template-columns:330px 1fr;align-items:end;gap:24px;padding:0 0 18px"><div style="font-size:19px;font-weight:700;color:${COL.ink2};align-self:center">Bases before (v105)</div><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end">${basesBefore()}</div></div>
 ${rootRows()}
 <div style="margin:0 0 64px"></div>
