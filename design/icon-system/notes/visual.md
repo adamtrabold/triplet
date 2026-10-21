@@ -1,5 +1,15 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-21, canvas v218, turn 120)
+
+- **Score:** the director gave v217 a 7 (turn 119). The coupe, the drink and the tree passed. Fixed in one batch:
+  - **"Glass … plate":** both readings are now in the row (R2 and R2B, coupe foot `dome: 0.5`), with the question to him.
+  - **Museum:** the openings are square, by a new "Openings" rule (tight; flares never reach inside). The flared version is an option under his 10-19 pill quote.
+  - **Pediment:** a new "Built lines" rule (built = ruled; sweep and droop are for living things). The swept roof is an option.
+- **Board:** parts 1 and 2 and the tuned table were moved to the Archive as `Archive-G7ak-Between` (the whole v217 board). The live board is 5154 tall; row 2 is at 7000 and Master at 7300.
+- **Open, his calls:** which plate he meant; museum sizing by weight; the liquid style (bar vs open). The museum is still 2 blur points over the cup.
+- **Lesson:** don't tell him what he sees ("not pills"). Show the option beside his quote.
+
 ## Update (2026-10-21, canvas v217, turn 118; second icon designer)
 
 - **Fixed points (owner):** "Coupe, after" and "Tree, after" in the tuned row are "perfect". The task is rules that make the rest belong. He named two failures: the plate ("the glass being on something so rounded as a plate feels off") and the museum ("completely disconnected"). He also wanted "slightly more drink".

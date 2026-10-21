@@ -5310,3 +5310,35 @@ keep part 3 while the museum's sizing waits on his pick.
 
 **Changed since my last score?** Yes: a new row of rules. The coupe and
 the tree are unchanged by design.
+
+---
+
+## Turn 120: icon designer, turn 119 fixes as rules (canvas v218)
+
+1. **"The glass … plate", both readings, asked.** The board has two "After" rows and a question: "which did you mean, the cup on its saucer, or the coupe on its foot?"
+   - The plate rule is now stated once for every base: it departs from flat by 1/2px at the centre, so its ends stay 1px. What a thing sits on curves underneath.
+   - Reading B also applies the rule to the coupe's foot. The curve stays on top, where the stem rises, 1/2px (row opt `dome: 0.5`; `bar-r2b.svg`). Otherwise it is "Coupe, after" with the new drink.
+   - 8x pairs: saucer before and after, coupe after, foot under the rule.
+2. **Museum openings: square, by the corner rule.**
+   - The new rule "Openings": an opening's corners are tight interior corners, slightly rounded, less than the outside ones, and a post's flare never reaches inside an opening.
+   - The columns stay at 1 1/4 (picks7 `o.colW` now works in the plain colonnade branch too).
+   - The flared version is shown only as an option, under his 10-19 quote ("why is the interior of the museum pillars totally rounded pill shapes").
+   - "They are not pills" is gone.
+   - Blur: 30.5/64.2, against the cup's 28.4/70.8 (H2's museum was 32.5/69.5).
+3. **The pediment.** At 8x beside a straight one, the swept roof leans toward a tent.
+   - New rule "Built lines": a built thing's lines stay ruled; drawn lines (sweep, droop) are for living things. So the row keeps the roof straight.
+   - The swept roof is shown beside it as an option.
+4. **Archive.**
+   - The whole v217 board is on the Archive page as `Archive-G7ak-Between` (x 2520, y 156200). That holds parts 1 and 2, the tuned row and its table. Nothing was deleted.
+   - The live board keeps one pointer line, part 1 (the rules, both readings, the drink, the museum) and part 2 (museum architecture and sizing, his pick). It is 5154 tall.
+   - The row-2 title is at 7000 and Master at 7300, below Originals.
+   - The live canvas was my own v217, so there were no owner edits to keep.
+
+**Checks:**
+- check-svg: 0 slivers, symmetric (café skipped).
+- between-checks:
+  - museum-r2 openings 1.25-1.50 (the columns by design);
+  - bar-r2 and bar-r2b band, the known drink-edge artefact;
+  - curve jump 0.00, cup 0.41.
+- blur-between re-run.
+- Tree still byte-identical; coupe changed only in its counter (and, in reading B, its foot).

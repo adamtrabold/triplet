@@ -23,6 +23,10 @@
   "mean": 22.3,
   "core": 57.5
  },
+ "bar-r2b": {
+  "mean": 22.7,
+  "core": 57.7
+ },
  "bar": {
   "mean": 21.3,
   "core": 57.6
@@ -51,9 +55,17 @@
   "mean": 32.4,
   "core": 69.8
  },
+ "museum-r2-flared": {
+  "mean": 29.9,
+  "core": 64.1
+ },
+ "museum-r2-swept": {
+  "mean": 29.3,
+  "core": 62.7
+ },
  "museum-r2": {
-  "mean": 29.5,
-  "core": 63.4
+  "mean": 30.5,
+  "core": 64.2
  },
  "museum": {
   "mean": 32.5,
