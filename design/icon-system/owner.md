@@ -171,3 +171,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-21, on v130) There is less liquid in the coupe, the internal counter lines don't match the external ones, and the tree now looks goofy with the less intentional size of tree sections
 > The top tier of the tree looks like it's coming off
 > The middle weight option is close but still too heavy optically   (+ and Star at 1.75px)
+> (10-21, on v133, with a marked screenshot: grid/owner-marks/v133-coupe-curves.png, red lines on the bowl outside vs the band inside) i think v130 bowl was closer -- though it should be wider on the bottom to look more like a classic coupe. go back to that and make there be more liquid in the bottom in that one. i would think the clear area should match the thickness of the stroke. i also dont see the interior counter feedback being reflected in regards to the interior curve matching the exterior curve.
