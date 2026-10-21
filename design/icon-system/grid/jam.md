@@ -4276,3 +4276,4 @@ Owner, on the v143 board: "please order this in order of how we are attacking th
    - The board is 6,498px tall. It ends at y 9,741, above row 3's title (10,603), so it no longer overlaps anything. No other boards were moved.
 4. **The coupe:** Newest still shows the coupe as shipped (v134), because HSETS[0] doesn't hold B yet. The row says "You picked B (board: The coupe is B)".
 5. **Archive:** v143's board is on Archive as "Every icon: today and newest (v143)", in its own row. Start here points to the new title.
+6. **The Bar row, fixed in v147:** Newest is now coupe B with its band redrawn (COUPE_B from picks7's options, band 1 1/6px, measured 1.167). It's fitted and centred the way the monoweight set fits every place: the joint law, no easing. It is built inside sheetOriginals(); the other designer's code is unchanged.
