@@ -28,12 +28,17 @@ const S = (cx, cy, r, a0, a1, o = {}) => ({ t: 'S', cx, cy, r, a0, a1, ...o });
 const D = (d, o = {}) => ({ t: 'D', d, ...o }); // a drawn closed path (SVG path data, glyph units)
 const I = (p, q, o = {}) => ({ t: 'I', p, q, ...o });
 const cut = (p) => ({ ...p, cut: true });
+// E(of, w, clip): a COUNTER cut as the outline of `of` (after the corner law) moved in by w, everywhere at once
+// (g7r, monoweight: "every inner edge is a true parallel offset of its outer edge"); clip, a primitive, keeps
+// only the part of it that is the counter (the coupe's band stops at the drink). Always a cut.
+const E = (of, w, clip = null, o = {}) => ({ t: 'E', of, w, clip, cut: true, ...o });
 const pen = (p) => ({ ...p, pen: true });
 
 function toItem(q, penW) {
   const w = q.pen && penW ? penW : q.w;
   switch (q.t) {
     case 'I': { const a = toItem(q.p, penW), b = toItem(q.q, penW), r = a.intersect(b); a.remove(); b.remove(); return r; }
+    case 'E': { const of = join(q.of, penW), h = erode(of.pathData, q.w); of.remove(); if (!q.clip) return h; const c = toItem(q.clip, penW), r = h.intersect(c); h.remove(); c.remove(); return r; }   // construction only (before the law)
     case 'R': return new Path.Rectangle(q.x, q.y, q.w, q.h);
     case 'C': return new Path.Circle(new Point(q.cx, q.cy), q.r);
     case 'D': { const it = new CompoundPath(q.d); if (q.m) { it.scale(q.m[0], new Point(q.m[1], q.m[2])); it.translate(new Point(q.m[3] - q.m[1], q.m[4] - q.m[2])); } return it; }
@@ -200,6 +205,7 @@ function xform(prims, k, ox, oy, tx, ty) {
   return prims.map(q => {
     const s = { ...q };
     if (q.t === 'I') { const [p2, q2] = xform([q.p, q.q], k, ox, oy, tx, ty); Object.assign(s, { p: p2, q: q2 }); }
+    if (q.t === 'E') Object.assign(s, { of: xform(q.of, k, ox, oy, tx, ty), w: q.w * k, clip: q.clip ? xform([q.clip], k, ox, oy, tx, ty)[0] : null, mirror: q.mirror == null ? null : X(q.mirror) });
     if (q.t === 'R') Object.assign(s, { x: X(q.x), y: Y(q.y), w: q.w * k, h: q.h * k });
     if (q.t === 'C' || q.t === 'S') Object.assign(s, { cx: X(q.cx), cy: Y(q.cy), r: q.r * k });
     if (q.t === 'P') s.pts = q.pts.map(p => [X(p[0]), Y(p[1])]);
@@ -210,7 +216,61 @@ function xform(prims, k, ox, oy, tx, ty) {
   });
 }
 
+// the outline d moved in by w (Minkowski erosion, exact round joins via Clipper), as a paper item whose
+// smooth runs are fitted curves and whose true corners stay corners (so the law rounds them as usual)
+function erode(d, w) {
+  const CL = require(path.join(process.env.TOOLS || '/tmp/claude-0/-home-user-la-trip-map/04f8fb34-0476-5960-add5-8bd3d6d8820e/scratchpad/tools', 'node_modules/clipper-lib/clipper.js'));
+  const K = 1e5, src = new CompoundPath(d); src.flatten(0.002);
+  const kids = src.children && src.children.length ? src.children : [src];
+  const polys = kids.map(k => k.segments.map(s => ({ X: Math.round(s.point.x * K), Y: Math.round(s.point.y * K) })));
+  src.remove();
+  const co = new CL.ClipperOffset(2, 0.001 * K); co.AddPaths(polys, CL.JoinType.jtRound, CL.EndType.etClosedPolygon);
+  const sol = []; co.Execute(sol, -w * K);
+  const out = new CompoundPath({});
+  for (const poly of sol) {
+    let pts = poly.map(q => new Point(q.X / K, q.Y / K));
+    pts = pts.filter((q, i) => q.getDistance(pts[(i + 1) % pts.length]) > 0.003);
+    const n = pts.length; if (n < 3) continue;
+    // a corner: the direction turns by more than 12 degrees over 0.03px either side
+    const dirAt = (i, s) => { let j = i, L = 0; while (L < 0.03) { const k = (j + s + n) % n; L += pts[j].getDistance(pts[k]); j = k; if (j === i) break; } return s > 0 ? pts[j].subtract(pts[i]) : pts[i].subtract(pts[j]); };
+    const corner = pts.map((_, i) => { const a = dirAt(i, -1), b = dirAt(i, 1); return Math.abs(a.getDirectedAngle(b)) > 12; });
+    // keep one corner per cluster (the sharpest turn)
+    const ci = []; for (let i = 0; i < n; i++) if (corner[i] && !corner[(i - 1 + n) % n]) { let j = i, best = i, bt = 0; while (corner[j]) { const t_ = Math.abs(pts[(j - 1 + n) % n].subtract(pts[j]).getDirectedAngle(pts[(j + 1) % n].subtract(pts[j]))); const tt = 180 - t_; if (tt > bt) { bt = tt; best = j; } j = (j + 1) % n; if (j === i) break; } ci.push(best); }
+    const path_ = new Path({ closed: true });
+    if (!ci.length) { pts.forEach(q => path_.add(q)); path_.simplify(0.002); out.addChild(path_); continue; }
+    ci.sort((a, b) => a - b);
+    for (let c = 0; c < ci.length; c++) {
+      const i0 = ci[c], i1 = ci[(c + 1) % ci.length], run = [];
+      for (let j = i0; ; j = (j + 1) % n) { run.push(pts[j]); if (j === i1 && run.length > 1) break; }
+      const seg = new Path(run); if (run.length > 2) seg.simplify(0.002);
+      seg.segments.forEach((s, k) => { if (k === seg.segments.length - 1) return; if (k === 0 && path_.segments.length) { path_.lastSegment.handleOut = s.handleOut; return; } path_.add(new paper.Segment(s.point, k === 0 ? null : s.handleIn, s.handleOut)); });
+      const last = seg.lastSegment; if (c === ci.length - 1) { path_.firstSegment.handleIn = last.handleIn; } else { path_.add(new paper.Segment(last.point, last.handleIn, null)); }
+      seg.remove();
+    }
+    out.addChild(path_);
+  }
+  return out;
+}
 function build(prims, { law, penW, info, centre, noCaps } = {}) {
+  const ers = prims.filter(q => q.t === 'E');
+  if (ers.length) {
+    let acc = join(prims.filter(q => q.t !== 'E'), penW);
+    for (const q of ers) {
+      const of = build(q.of, { law, penW, noCaps }).d;
+      let hole = erode(of, q.w);
+      if (q.clip) { const c = toItem(q.clip, penW), h2 = hole.intersect(c); hole.remove(); c.remove(); hole = h2; }
+      if (q.mirror != null) {   // a symmetric counter stays symmetric: keep the left half, mirror it across
+        const half = new Path.Rectangle(new Point(-1000, -1000), new Point(q.mirror, 1000)), l = hole.intersect(half); half.remove(); hole.remove();
+        const r = l.clone(); r.scale(-1, 1, new Point(q.mirror, 0)); hole = l.unite(r); l.remove(); r.remove();
+      }
+      const s = acc.subtract(hole); acc.remove(); hole.remove(); acc = s;
+    }
+    const d = law ? corners(acc, law, info, { noCaps }) : acc.pathData;
+    const b = acc.bounds; acc.remove();
+    let far = 0;
+    if (centre) { const fl = new CompoundPath(d); fl.flatten(0.05); for (const k of (fl.children && fl.children.length ? fl.children : [fl])) for (const s of k.segments) far = Math.max(far, Math.hypot(s.point.x - centre[0], s.point.y - centre[1])); fl.remove(); }
+    return { d, far, bounds: { x: b.x, y: b.y, w: b.width, h: b.height } };
+  }
   const it = join(prims, penW);
   const d = law ? corners(it, law, info, { noCaps }) : it.pathData;
   const b = it.bounds;
@@ -241,4 +301,4 @@ function anatomy(q) {
 // count curve commands in a path (the "minimal bezier" figure on the boards)
 const countCurves = d => (d.match(/C/g) || []).length;
 
-module.exports = { R, C, P, B, O, A, S, D, I, cut, pen, build, join, xform, countCurves, parts, anatomy };
+module.exports = { R, C, P, B, O, A, S, D, I, E, erode, cut, pen, build, join, xform, countCurves, parts, anatomy };

@@ -1,26 +1,26 @@
 {
  "now": {
   "cafe": 75.7,
-  "bar": 55.3,
+  "bar": 60.5,
   "museum": 68.6,
-  "nature": 70.4,
-  "star": 53.7,
+  "nature": 71.4,
+  "star": 52.6,
   "plus": 44.8
  },
  "line": {
   "cafe": 75.7,
-  "bar": 55.3,
+  "bar": 60.5,
   "museum": 68.6,
-  "nature": 70.4,
-  "star": 60.7,
-  "plus": 50.9
+  "nature": 71.4,
+  "star": 57.3,
+  "plus": 48.4
  },
- "open": {
+ "was": {
   "cafe": 75.7,
-  "bar": 59.2,
+  "bar": 60.5,
   "museum": 68.6,
-  "nature": 70.4,
-  "star": 66.6,
-  "plus": 66.7
+  "nature": 71.4,
+  "star": 59.2,
+  "plus": 50.9
  }
 }

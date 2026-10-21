@@ -70,7 +70,10 @@ const starRc = (lw = W) => {
 // g7p (owner: "the + and star do feel slightly lighter than the others"; on the Weight board: "as they are is too
 // light but the heavier marks are way too heavy"): a LINE MARK (the open and outline classes: made only of lines,
 // no mass to carry weight) draws its line at 7/6 of the line, 1.75px, even all along (monoweight still).
-const LINEW = W * 7 / 6;
+// g7r: the line marks' line, 1 2/3px (10/9 of the line), down from 1.75 (owner: "still too heavy optically");
+// 1 2/3 rather than 1 5/8 because it sits on the grid's 1/3px lattice (5 device pixels on a 3x phone)
+const LINEW = 5 / 3, LINEW_FRAC = '10/9';
+const frT = v => { const w = Math.floor(v + 1e-6), r = Math.round((v - w) * 3); return r === 0 ? `${w}` : r === 3 ? `${w + 1}` : `${w} ${r}/3`; };
 const USC = {
   star: starRc(LINEW) * 24 / 20 / 9.6,
   plus: KEY.OPEN[0] / 14,
@@ -209,7 +212,7 @@ function sheetIntro(n) {
     ['Counters that survive small sizes', 'no passage narrower than the line; every hole at least 1.5px (the cup\'s handle is a D-shaped ear, its counter 2.25 x 2.67px).'],
     ['Joins and corners by angle, and by size', 'a round never exceeds 0.2 of the shortest edge at its corner, so slots and line ends take only a slight round (no pills).'],
     ['Every meeting point slightly round', 'where a line meets or crosses another part, the join takes the smallest round in the set (0.15px): enough to settle the corner, too small to thicken it, and never a notch (no ink traps, your call). Inside corners stay tighter than outside ones: the + crossing, the coupe\'s stem, the trunk, the slots.'],
-    ['Monoweight (g7p, your pick)', 'one line everywhere, 1.5px, horizontals and uprights alike; a hole\'s inside runs parallel to its outside. Line marks (the + and the Star) carry 1.75px, since they have no mass to carry weight.'],
+    ['Monoweight (g7p, your pick)', 'one line everywhere, 1.5px, horizontals and uprights alike; every counter is the outline moved in by one line (g7r), so each wall is exactly the line. Line marks (the + and the Star) carry 1 2/3px, since they have no mass to carry weight.'],
     ['Pixel fitting', 'horizontal edges sit on the 1/3px lattice, whole device pixels on a 3x phone.'],
     ['Size by class (g7i, ours)', 'every glyph is fitted by the grid to a cut of one 12px coin with the coin\'s area (wide, square, tall, round, outline, open), so none reads bigger; no per-icon sizes.'],
     ['Root shapes (g7i)', 'like parts share one shape in every icon: slab, post, gable, vessel, loop.'],
@@ -291,7 +294,7 @@ function sheetDrawings(W_, n) {
 ${id === 'cafe' ? HANDLE : ''}<ul class="pr">${PRIN[id].map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
 <p class="sm mute">${g.curves} curves in the outline, by joint.</p></div>`;
   }).join('');
-  const uis = [['plus', 'The +', 'Every arm 1.75px, the line marks\' weight (g7p). The crossing takes the slightest round (0.15px), no notch.'], ['star', 'The Star (not starred)', 'A 1.75px outline (g7p, the line marks\' weight). Its counter (the inner star) is 6px across, so it survives at 20px; the tips take a slight round and the inner corners a tighter one.']]
+  const uis = [['plus', 'The +', 'Every arm 1 2/3px, the line marks\' weight (g7r). The crossing takes the slightest round (0.15px), no notch.'], ['star', 'The Star (not starred)', 'A 1 2/3px outline (g7r, the line marks\' weight). Its counter (the inner star) is 6px across, so it survives at 20px; the tips take a slight round and the inner corners a tighter one.']]
     .map(([k, nm, txt]) => `<div class="icon"><h3>${nm}</h3><div class="pair"><div>${uiOld(k, big)}Batch 1</div><div>${onGrid(UD.joint[k].d, big, 12, false)}Redrawn</div></div><div class="pair" style="margin-top:8px"><div>${uiOld(k)}</div><div>${ui('joint', k)}</div></div><p class="sm">${txt}</p></div>`).join('');
   return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · batch 1 redrawn · sheet ${n}</div><h2>Each drawing, before and after</h2>
 <p class="att">Batch 1 beside the redraw, on the grid at ${(big / 24).toFixed(1)}x (the redraw shown where it sits after optical centring), then real size: badge 24, chip 12, selected pin 32, and 3x. Under each, the practice behind each change.</p>
@@ -398,16 +401,19 @@ ${ch('Change 13', 'overshoot', 'Practice: overshoot. A pointed top rises past TO
 // ---- g7j: WEIGHT, the cost of each way to equal darkness (director, turn 52: "equal darkness in our own
 // blur within about 9, place and UI icons alike", reached by a class rule). Each option is built by the
 // same grid; its SVGs go to svg/g7/weight-<opt>/ so src/blur-measure.js measures it (SVGDIR=...).
+// g7r (owner on the Weight board: "The middle weight option is close but still too heavy optically"): the line
+// marks come down from 1.75; rows: 1.5 (as they were), the new rule, 1.75 (v130). TRYW: a trial row.
 const WOPTS = [
-  ['now', 'Before: as they were', 'Every line 1.5px, the same as the badge ring.', { lw: W, band: true, wall: W }],
-  ['open', 'Heavier line marks', 'The star\'s outline 2px and the +\'s arms 2.5px (the + in the app today is 2.5); the star grows a little so its hole stays two lines wide; the coupe\'s walls around its clear band 2.5px. The other place icons don\'t change.', { lw: { star: 2, plus: 2.5 }, band: true, wall: 2.5 }],
+  ['now', '1.5px: as they were', 'Every line 1.5px, the same as the badge ring.', { lw: W, band: true, wall: W }],
+  ['line', `${frT(LINEW)}px: the line marks now`, `The star and the + draw their line at ${frT(LINEW)}px (${LINEW_FRAC} of the line, on the 1/3px lattice), even all along: they are made only of lines, with no mass to carry weight. The place icons stay 1.5px.`, { lw: LINEW, band: true, wall: W }],
+  ['was', '1.75px: what you saw', 'The middle row on the board you saw (v130): "close but still too heavy optically".', { lw: W * 7 / 6, band: true, wall: W }],
 ];
-WOPTS.splice(1, 0, ['line', 'Now: the line marks\' rule', 'The star and the + draw their line at 1.75px (7/6 of the line), even all along: they are made only of lines, with no mass to carry weight. The place icons stay 1.5px.', { lw: LINEW, band: true, wall: W }]);
+if (process.env.TRYW) WOPTS.splice(2, 0, ['try', `${process.env.TRYW}px: trial`, 'trial', { lw: +process.env.TRYW, band: true, wall: W }]);
 const WSET = {};
 for (const [key, , , o] of WOPTS) {
   const lw = k => typeof o.lw === 'number' ? o.lw : o.lw[k];
-  const barS = fitS('bar', 12, { bar: s => DRAW.bar(s, o) });
-  const prims = DRAW.bar(barS, o), ox = (24 - barS) / 2, oy = r3((24 - barS) / 2);
+  const barS = fitS('bar', 12, { bar: s => DRAW.bar(s, { style: 'mono', ...o }) });
+  const prims = DRAW.bar(barS, { style: 'mono', ...o }), ox = (24 - barS) / 2, oy = r3((24 - barS) / 2);
   const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
   const bar = E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
   const sStar = starRc(lw('star')) * 24 / 20 / 9.6 * (o.k || 1);
@@ -419,7 +425,7 @@ for (const [key, , , o] of WOPTS) {
 }
 // measured with src/blur-measure.js on each weight-<opt> folder (the darkest fifth of the live circle, 1.5px blur)
 const WBLUR = JSON.parse(fs.existsSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json')) ? fs.readFileSync(path.join(ROOT, 'svg', 'g7', 'weight-blur.json'), 'utf8') : '{}');
-const W_Q = "The + and the star now carry their line at 1.75px, between the two rows you saw (in the middle). Do they now feel as heavy as the place icons?";
+const W_Q = "The + and the star now sit between the last two. Do they feel as heavy as the place icons now?";
 function sheetWeight(W_, n) {
   const ids = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'];
   const cell = (key, id, px) => id === 'star' || id === 'plus'
@@ -438,7 +444,7 @@ function sheetWeight(W_, n) {
   const head = key => `<div class="wl" style="font-size:14px;margin:0 0 4px">${name(key)[1]}</div><p class="sm" style="margin:0 0 6px;min-height:${W_ > 500 ? 104 : 200}px">${name(key)[2]}</p>`;
   const nm = id => id === 'plus' ? '+' : id === 'cafe' ? 'cup' : id === 'bar' ? 'coupe' : id === 'nature' ? 'tree' : id;
   const foot = WOPTS.map(([key, title]) => { const b = WBLUR[key] || {}, v = ids.map(id => b[id]).filter(x => x != null); return `${title}: ${ids.map(id => `${nm(id)} ${b[id] != null ? b[id].toFixed(0) : '?'}`).join(', ')} (spread ${v.length ? (Math.max(...v) - Math.min(...v)).toFixed(0) : '?'})`; }).join('. ');
-  return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · g7p · sheet ${n}</div><h2>Weight: the line marks</h2>
+  return `<section class="card" id="c${n}"><div class="no">Grid · round 7 · g7r · sheet ${n}</div><h2>Weight: the line marks</h2>
 <div class="q"><b>The question</b>${W_Q}</div>
 <div class="lab">True size, where they live</div>
 <div class="pair" style="align-items:start;grid-template-columns:repeat(3,minmax(0,1fr))">${WOPTS.map(([key]) => `<div style="text-transform:none;letter-spacing:0;align-items:stretch;text-align:left;font-weight:400;color:${COL.ink}">${head(key)}${live(key)}</div>`).join('')}</div>
@@ -537,8 +543,8 @@ function sheetMaster() {
     ['Square', cutFig('SQUARE', rectCut(KEY.SQUARE)), `${fr(KEY.SQUARE[0])}`, 'coupe'],
     ['Tall', cutFig('TALL', rectCut(KEY.TALL, APEX)), `${fr(KEY.TALL[0])} × ${fr(KEY.TALL[1])} · apex +1/2`, 'tree'],
     ['Round', cutFig('ROUND', `<circle cx="12" cy="12" r="6" ${ok}/>`), 'Ø12', 'radial marks'],
-    ['Outline', cutFig('OUTLINE', `<polygon points="${pent}" ${ok}/><circle cx="12" cy="12" r="${f2(holeR)}" fill="none" stroke="${N}" stroke-width="0.12"/>`), 'hull ≥ coin · hole ≥ 2 lines · line 1.75', 'star'],
-    ['Open', cutFig('OPEN', `<rect x="${12 - W / 2}" y="6" width="${W}" height="12" ${ok}/><rect x="6" y="${12 - W / 2}" width="12" height="${W}" ${ok}/>`), 'arms span 12 · every line 1.75', '+'],
+    ['Outline', cutFig('OUTLINE', `<polygon points="${pent}" ${ok}/><circle cx="12" cy="12" r="${f2(holeR)}" fill="none" stroke="${N}" stroke-width="0.12"/>`), 'hull ≥ coin · hole ≥ 2 lines · line 1 2/3', 'star'],
+    ['Open', cutFig('OPEN', `<rect x="${12 - W / 2}" y="6" width="${W}" height="12" ${ok}/><rect x="6" y="${12 - W / 2}" width="12" height="${W}" ${ok}/>`), 'arms span 12 · every line 1 2/3', '+'],
   ].map(([n, fig, dims, who]) => `<div style="display:flex;flex-direction:column;align-items:center">${fig}<div style="font-size:18px;font-weight:700;color:${N};margin-top:8px">${n}</div><div style="font-size:14px;color:${I2};text-align:center">${dims}</div><div style="font-size:14px;color:${I2};text-align:center;font-style:italic">${who}</div></div>`).join('');
   // 2b. FITTING (g7q): the whole drawing is fitted, never a part; its widest or tallest part meets the cut
   const FIT8 = 10, fitFig = id => {
@@ -575,15 +581,15 @@ function sheetMaster() {
   ];
   const cornerRow = `<div style="display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap">${corners.map(([, s]) => s).join('')}</div>`;
   // 5. LINE WEIGHT and the lattice
-  const LW = 40, weight = `<svg width="${14 * LW}" height="${6 * LW}" viewBox="0 0 14 6" aria-hidden="true"><rect width="14" height="6" fill="${COL.raised}"/>${[...Array(18)].map((_, j) => `<line x1="0" y1="${f2(j / 3)}" x2="14" y2="${f2(j / 3)}" stroke="${H}" stroke-width="0.02"/>`).join('')}<rect x="1" y="0.5" width="${W}" height="5" fill="${N}"/><rect x="4" y="${f2(2 / 3)}" width="9" height="${W}" fill="${N}"/><rect x="4" y="${f2(3 + 1 / 3)}" width="9" height="${f2(W * 7 / 6)}" fill="${N}" fill-opacity=".55"/>${lab(1.75, 5.9, '1.5', { fs: 0.4, a: 'middle', fill: N })}${lab(8.5, 2.75, 'EVERY LINE 1.5, ON THE 1/3PX LATTICE', { fs: 0.32, a: 'middle', fill: N })}${lab(8.5, 5.75, 'LINE MARKS (STAR, +): 1.75', { fs: 0.32, a: 'middle', fill: N })}</svg>`;
+  const LW = 40, weight = `<svg width="${14 * LW}" height="${6 * LW}" viewBox="0 0 14 6" aria-hidden="true"><rect width="14" height="6" fill="${COL.raised}"/>${[...Array(18)].map((_, j) => `<line x1="0" y1="${f2(j / 3)}" x2="14" y2="${f2(j / 3)}" stroke="${H}" stroke-width="0.02"/>`).join('')}<rect x="1" y="0.5" width="${W}" height="5" fill="${N}"/><rect x="4" y="${f2(2 / 3)}" width="9" height="${W}" fill="${N}"/><rect x="4" y="${f2(3 + 1 / 3)}" width="9" height="${f2(LINEW)}" fill="${N}" fill-opacity=".55"/>${lab(1.75, 5.9, '1.5', { fs: 0.4, a: 'middle', fill: N })}${lab(8.5, 2.75, 'EVERY LINE 1.5, ON THE 1/3PX LATTICE', { fs: 0.32, a: 'middle', fill: N })}${lab(8.5, 5.75, 'LINE MARKS (STAR, +): 1 2/3', { fs: 0.32, a: 'middle', fill: N })}</svg>`;
   // 6. THE STACKED GABLE: the notch shelf, from the live tree
   const tr = DRAW.nature(12), shelf = 1.5 * W, tg = E.build(tr, { law: LAWS7.joint }).d;
   const tierB = tr.filter(p => p.root === 'GABLE').map(p => p.pts);
-  const sh = tierB.slice(0, -1).map(pts => { const by = pts[1][1], x = pts[1][0]; return `<line x1="${f2(x - shelf)}" y1="${f2(by + 0.45)}" x2="${f2(x)}" y2="${f2(by + 0.45)}" stroke="${O}" stroke-width="0.12"/><line x1="${f2(x - shelf)}" y1="${f2(by + 0.2)}" x2="${f2(x - shelf)}" y2="${f2(by + 0.7)}" stroke="${O}" stroke-width="0.08"/><line x1="${f2(x)}" y1="${f2(by + 0.2)}" x2="${f2(x)}" y2="${f2(by + 0.7)}" stroke="${O}" stroke-width="0.08"/>`; }).join('');
+  const sh = tierB.slice(0, -1).map(pts => { const by = pts[1][1], x = pts[1][0], shelf = 0.6 * (pts[1][0] - pts[0][0]); return `<line x1="${f2(x - shelf)}" y1="${f2(by + 0.45)}" x2="${f2(x)}" y2="${f2(by + 0.45)}" stroke="${O}" stroke-width="0.12"/><line x1="${f2(x - shelf)}" y1="${f2(by + 0.2)}" x2="${f2(x - shelf)}" y2="${f2(by + 0.7)}" stroke="${O}" stroke-width="0.08"/><line x1="${f2(x)}" y1="${f2(by + 0.2)}" x2="${f2(x)}" y2="${f2(by + 0.7)}" stroke="${O}" stroke-width="0.08"/>`; }).join('');
   // the tier heights: guides at the apex and every tier base, equal steps marked on the left
   const lv = [tierB[0][0][1], ...tierB.map(pts => pts[1][1])];
   const hg = lv.map(y => `<line x1="-0.6" y1="${f2(y)}" x2="12.6" y2="${f2(y)}" stroke="${O}" stroke-width="0.04" stroke-dasharray="0.25 0.2"/>`).join('')
-    + lv.slice(1).map((y, i) => `<line x1="-0.4" y1="${f2(lv[i] + 0.15)}" x2="-0.4" y2="${f2(y - 0.15)}" stroke="${O}" stroke-width="0.08"/>${lab(-0.65, (lv[i] + y) / 2 + 0.15, i === 0 ? '1.5h' : 'h', { fs: 0.45, fill: O, a: 'end' })}`).join('');
+    + lv.slice(1).map((y, i) => `<line x1="-0.4" y1="${f2(lv[i] + 0.15)}" x2="-0.4" y2="${f2(y - 0.15)}" stroke="${O}" stroke-width="0.08"/>${lab(-0.65, (lv[i] + y) / 2 + 0.15, ['4.83', '3', '3.33'][i], { fs: 0.4, fill: O, a: 'end' })}`).join('');
   const stack = `<svg width="${15 * 22}" height="${14 * 22}" viewBox="-2 -1 15 14" aria-hidden="true"><rect x="-2" y="-1" width="15" height="14" fill="${COL.raised}"/>${hg}<path d="${tg}" fill="${N}"/>${sh}</svg>`;
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${I2};text-transform:uppercase">Icon grid · the master</div>
@@ -605,8 +611,8 @@ ${title('Corners by joint: every meeting slightly round, inside tighter than out
 ${cornerRow}
 ${cap('Ink settling on a screened banner: soft, never blotted. A round is never more than 0.2 of the shorter edge at its corner. No ink traps.')}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px">
-<div>${title('Line weight')}${weight}${cap('Monoweight: one line, the ring\'s weight, everywhere; a hole\'s inside runs parallel to its outside, horizontals and verticals alike. Line marks (the Outline and Open classes, made only of lines, no mass) carry 7/6 of it, 1.75px, so they come closer to the weight of the solid places without reading bold.')}</div>
-<div>${title('Stacked gables')}${stack}${cap(`All by rule (shown: the taller-tip option; with equal tiers the tip shows h too): the tip tier is the tree's point and shows 1.5h, the tiers under it h each; the tip's half width is the shelf plus a third of a line, the bottom tier spans the tall class (9 1/3) and the middle steps evenly between, so each tier is steeper than the one below; every notch shelf one and a half lines (${shelf}px), so a fir reads as a fir at 100%; the trunk shows one line; the apex passes TOP by 1/2. Inside rounds tighter than outside.`)}</div>
+<div>${title('Line weight')}${weight}${cap('Monoweight: one line, the ring\'s weight, everywhere, horizontals and verticals alike; every counter is the finished outline moved in by one line, so each wall is the line. Line marks (the Outline and Open classes, made only of lines, no mass) carry 10/9 of it, 1 2/3px (on the lattice), so they come closer to the weight of the solid places without reading bold.')}</div>
+<div>${title('Stacked gables')}${stack}${cap(`All by rule: the tiers keep v123\'s relationships, heights 4.83 : 3 : 3.33 and half widths 2.8 : 4.1 : 5.3 (tip to base), fitted to the crown (apex +1/2 to the trunk\'s line) and the tall class\'s width; each notch is 0.6 of the half width of the tier above it, so its neck is the other 0.4 and every tier holds on to the one below; the trunk shows one line. Inside rounds tighter than outside.`)}</div>
 </div>
 </div>`;
 }
@@ -714,41 +720,74 @@ const OURS = [
   ['The corners', 'Every meeting point is slightly round and the inside settles tighter than the outside: ink settling on a screened banner, not a ruled line (your words).'],
   ['The 1/3px lattice', 'Slabs, rims and liquid lines sit on whole device pixels, so their edges print crisp, as a screened edge does, while the corners stay soft.'],
 ];
-// the tree as on v123 (g7k): hand-set tier bases and widths, only the 2.25px shelf by rule; kept to show the change
-const TREE123 = (() => {
-  const draw = s => { const u = s / 12, X = v => +(v * u).toFixed(3), Y = v => Math.round(v * u * 3) / 3, c = s / 2, L = 1.5 * W / u;
-    const tiers = [[-0.5, 4.25, 2.8], [null, 7.6, 4.1], [null, 10.75, 5.3]];
-    for (let i = 1; i < 3; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r = (hwU - L) / hwL; tiers[i][0] = (byU - r * byL) / (1 - r); }
-    return [...tiers.map(([ty, by, hw]) => E.P([c, X(ty)], [c + X(hw), Y(by)], [c - X(hw), Y(by)])), E.R(c - W / 2, X(9.5), W, s - X(9.5))]; };
+// ---- g7r: the trees compared, each fitted by the grid, with their tiers measured in px at 24
+function fitTree(draw) {
   const s = fitS('nature', 12, { nature: draw }), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = draw(s);
   const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
-  return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
-})();
-// the tree as on v128 (g7n): three equal heights, one slope; kept to show the change back
-const TREE128 = (() => {
-  const draw = s => { const u = s / 12, X = v => +(v * u).toFixed(3), Y = v => Math.round(v * u * 3) / 3, c = s / 2, L = 1.5 * W / u;
-    const N = 3, apex = -APEX, B = 12 - W / u, hwN = KEY.TALL[0] / 2, crown = B - apex, m = (hwN + (N - 1) * L) / crown, tiers = [];
-    for (let i = 1; i <= N; i++) { const ty = apex + (i - 1) * L / m, by = apex + i * crown / N; tiers.push([ty, by, m * (by - ty)]); }
-    const tTop = B - W / u;
-    return [...tiers.map(([ty, by, hw]) => E.P([c, X(ty)], [c + X(hw), Y(by)], [c - X(hw), Y(by)])), E.R(c - W / 2, X(tTop), W, s - X(tTop))]; };
-  const s = fitS('nature', 12, { nature: draw }), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = draw(s);
-  const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
-  return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
-})();
-// the equal-tiers option (g7q): the same rule with the tip tier showing h, like the others
-const TREE_EQ = (() => {
-  const draw = s => DRAW.nature(s, { style: 'mono', tip: 1 });
-  const s = fitS('nature', 12, { nature: draw }), ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = draw(s);
-  const m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law: LAWS7.joint }).d);
-  return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
-})();
-const TREE_Q = 'The tree: with equal tiers (left) it keeps the proportions you liked but goes back toward a plain triangle. With a taller tip (right) it gets the earlier shape back, but the tiers aren\'t equal. Which do you want?';
+  const d = E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law: LAWS7.joint }).d;
+  // tiers: [apex y, base y, half width]; shown height: tip from its apex, the rest base to base; neck: the
+  // tier below's width where the tier above ends; notch: the tier above's half width less half the neck
+  const g = prims.filter(q => q.t === 'P' && q.pts.length === 3).map(q => [q.pts[0][1], q.pts[1][1], q.pts[1][0] - q.pts[0][0]]).sort((a, b) => a[0] - b[0]);
+  const st = g.map(([ty, by, hw], k) => {
+    const shown = k ? by - g[k - 1][1] : by - ty;
+    const nk = k < g.length - 1 ? (() => { const [ty2, by2, hw2] = g[k + 1]; return 2 * hw2 * (by - ty2) / (by2 - ty2); })() : null;
+    return { shown, hw, neck: nk, notch: nk == null ? null : hw - nk / 2 };
+  });
+  return { d, st, w: measure(d).box.x1 - measure(d).box.x0, h: measure(d).box.y1 - measure(d).box.y0 };
+}
+const W_ = W;
+const TREE123D = s => { const u = s / 12, X = v => +(v * u).toFixed(3), Y = v => Math.round(v * u * 3) / 3, c = s / 2, L = 1.5 * W_ / u;
+  const tiers = [[-0.5, 4.25, 2.8], [null, 7.6, 4.1], [null, 10.75, 5.3]];
+  for (let i = 1; i < 3; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r = (hwU - L) / hwL; tiers[i][0] = (byU - r * byL) / (1 - r); }
+  return [...tiers.map(([ty, by, hw]) => E.P([c, X(ty)], [c + X(hw), Y(by)], [c - X(hw), Y(by)])), E.R(c - W_ / 2, X(9.5), W_, s - X(9.5))]; };
+const TREES = {
+  v123: fitTree(TREE123D),
+  v130: fitTree(s => DRAW.nature(s, { style: 'mono', tip: 1.5 })),
+  now: fitTree(s => DRAW.nature(s)),
+};
+const TREE123 = TREES.v123.d;
+const TREE_Q = 'The tree now takes v123\'s tier sizes as its rule, fitted to the current height and width, and every tier holds on to the one below. Is this the shape you liked?';
 function treeChange() {
-  const N = COL.navy, I2 = COL.ink2;
+  const N = COL.navy, I2 = COL.ink2, f2_ = v => v == null ? '–' : v.toFixed(2);
   const pair = (nm, d) => `<div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div style="display:flex;align-items:center;gap:10px">${badge(d)}<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg></div>${badge(d, 192)}<div style="font-size:18px;font-weight:700;color:${N}">${nm}</div></div>`;
-  return `<div style="display:grid;grid-template-columns:400px 1fr;gap:32px;align-items:center;margin:0 0 64px">
-<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The tree: two ways, both by rule.</div><div style="font-size:17px;line-height:1.45;color:${I2}">Both keep v128's height, width and 1.5-line notches, and both narrow the top tier and step the widths evenly down to the tall class. <b>Equal tiers:</b> every tier shows the same height. <b>Taller tip:</b> the top tier, the tree's point, shows one and a half times the height of each tier under it, as v123's did. v123 and v128 are on the left for reference. True size (24 and the 12px chip), then 8x.</div><div style="margin-top:18px;padding:16px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:20px;line-height:1.3;color:${N};font-weight:600">${TREE_Q}</div></div>
-<div style="display:flex;gap:28px">${pair('v123', TREE123)}${pair('v128', TREE128)}<div style="width:2px;background:${COL.hair};align-self:stretch"></div>${pair('Equal tiers', TREE_EQ)}${pair('Taller tip', GD.joint[12].nature.d)}</div></div>`;
+  const row = (nm, T) => `<tr><td style="padding:6px 8px;font-weight:700;color:${N}">${nm}</td><td style="padding:6px 8px">${T.st.map(x => f2_(x.shown)).join(' : ')}</td><td style="padding:6px 8px">${(T.st[0].shown / T.st[1].shown).toFixed(2)} : 1 : ${(T.st[2].shown / T.st[1].shown).toFixed(2)}</td><td style="padding:6px 8px">${T.st.map(x => f2_(x.hw)).join(' : ')}</td><td style="padding:6px 8px">${T.st.slice(0, 2).map(x => f2_(x.neck)).join(' · ')}</td><td style="padding:6px 8px">${f2_(T.w)} × ${f2_(T.h)}</td></tr>`;
+  const th = h => `<th style="text-align:left;padding:6px 8px;border-bottom:2px solid ${N};font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:${I2}">${h}</th>`;
+  const table = `<table style="border-collapse:collapse;font-size:15px;margin-top:20px"><tr>${th('Tree')}${th('Tier heights shown, px (tip to base)')}${th('As ratios, middle = 1')}${th('Half widths, px')}${th('Neck under tip · under middle, px')}${th('Size, px')}</tr>${row('v123', TREES.v123)}${row('v130 (taller tip)', TREES.v130)}${row('Now', TREES.now)}</table>`;
+  return `<div style="display:grid;grid-template-columns:400px 1fr;gap:32px;align-items:center;margin:0 0 24px">
+<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The tree: v123's tier sizes, as the rule.</div><div style="font-size:17px;line-height:1.45;color:${I2}">The tiers keep v123's relationships: heights 4.83 : 3 : 3.33 (v123 as it was seen at 24) and half widths 2.8 : 4.1 : 5.3, tip to base, fitted to the current height and width (the tall class). Each notch is now a share of the tier above it (0.6 of its half width), not a fixed depth, so the neck under every tier is the other 0.4 and no tier reads as coming off. v130's taller tip, for comparison. True size (24 and the 12px chip), then 8x.</div><div style="margin-top:18px;padding:16px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:20px;line-height:1.3;color:${N};font-weight:600">${TREE_Q}</div></div>
+<div style="display:flex;gap:28px">${pair('v123', TREES.v123.d)}${pair('v130: taller tip', TREES.v130.d)}<div style="width:2px;background:${COL.hair};align-self:stretch"></div>${pair('Now', GD.joint[12].nature.d)}</div></div>
+<div style="margin:0 0 64px">${table}<div style="font-size:15px;color:${I2};margin-top:8px">Measured on each tree as the grid fits it at 24. The neck under v130's tip was ${TREES.v130.st[0].neck.toFixed(2)}px, which is why its top tier read as coming off; now ${TREES.now.st[0].neck.toFixed(2)}px.</div></div>`;
+}
+// ---- g7r: before and after, measured (the coupe's drink, every counter's walls)
+const { drink: DRINK } = require('./drink-measure.js');
+const { check: OCHECK, overlay: OVERLAY } = require('./offset-check.js');
+const svgD = f => fs.readFileSync(path.join(ROOT, 'svg', 'g7', f), 'utf8').match(/<path[^>]* d="([^"]+)"/g).map(m => m.match(/d="([^"]+)"/)[1]).pop();
+function measuredG7r() {
+  const N = COL.navy, I2 = COL.ink2;
+  const th = h => `<th style="text-align:left;padding:6px 8px;border-bottom:2px solid ${N};font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:${I2}">${h}</th>`;
+  const td = (v, b) => `<td style="padding:6px 8px;border-top:1px solid ${COL.hair};${b ? `font-weight:700;color:${N}` : ''}">${v}</td>`;
+  // the drink
+  const cps = [['v123 to v128', svgD('before-g7r/bar-24-v128.svg')], ['v130', svgD('before-g7r/bar-24.svg')], ['Now', GD.joint[12].bar.d]].map(([nm, d]) => [nm, d, DRINK(d)]);
+  const drinkRows = cps.map(([nm, , r], k) => `<tr>${td(nm, true)}${td(r.area.toFixed(1) + ' px²', k === 2)}${td(r.depth.toFixed(2) + ' px')}${td(r.surface.toFixed(2) + ' px')}${td(k === 2 ? '+' + Math.round(100 * (r.area / cps[0][2].area - 1)) + '% on v128, +' + Math.round(100 * (r.area / cps[1][2].area - 1)) + '% on v130' : '')}</tr>`).join('');
+  const glass = (nm, d) => `<div style="display:flex;flex-direction:column;align-items:center;gap:8px">${badge(d)}${badge(d, 192)}<div style="font-size:16px;font-weight:700;color:${N}">${nm}</div></div>`;
+  // the counters
+  const cnt = [['Cup handle', 'cafe-24.svg', 1.5, 'cafe'], ['Coupe band', 'bar-24.svg', 1.5, 'bar'], ['Museum slots', 'museum-24.svg', 1.5, 'museum'], ['Star hole', 'star-20.svg', null, 'star']].map(([nm, f, line, id]) => {
+    const before = OCHECK(svgD('before-g7r/' + f), line || 1.75 * 24 / 20), now = OCHECK(id === 'star' ? UD.joint.star.d : GD.joint[12][id].d, line || LINEW * 24 / 20);
+    const sum = r => { const n = r.holes.reduce((a, h) => a + h.n, 0), o = r.holes.reduce((a, h) => a + h.off, 0), mx = Math.max(...r.holes.map(h => h.max || 0)), mn = Math.min(...r.holes.map(h => h.min || 99)); return { share: n ? o / n : 0, mn, mx }; };
+    return [nm, sum(before), sum(now), line ? 1.5 : null];
+  });
+  const ovl = (d, line) => OVERLAY(d, OCHECK(d, line), 6).replace('<svg xmlns="http://www.w3.org/2000/svg"', '<svg aria-hidden="true"').replace(/width="144" height="144" viewBox="0 0 24 24"/, 'width="144" height="144" viewBox="4 4 16 16"');
+  const ov = [['Coupe, v130', ovl(svgD('before-g7r/bar-24.svg'), 1.5)], ['Coupe, now', ovl(GD.joint[12].bar.d, 1.5)], ['Star, v130', ovl(svgD('before-g7r/star-20.svg'), 2.1)], ['Star, now', ovl(UD.joint.star.d, LINEW * 24 / 20)], ['Cup, now', ovl(GD.joint[12].cafe.d, 1.5)], ['Museum, now', ovl(GD.joint[12].museum.d, 1.5)]];
+  const sc = 24 / 20, cntRows = cnt.map(([nm, b, n, line]) => { const k = line ? 1 : 1 / sc; return `<tr>${td(nm, true)}${td(Math.round(100 * b.share) + '% off · walls ' + (b.mn * k).toFixed(2) + '–' + (b.mx * k).toFixed(2) + ' px')}${td(Math.round(100 * n.share) + '% off · walls ' + (n.mn * k).toFixed(2) + '–' + (n.mx * k).toFixed(2) + ' px', true)}</tr>`; }).join('');
+  return `<div style="margin:0 0 28px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
+<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">The coupe's drink</div><div style="font-size:17px;line-height:1.45;color:${I2}">You saw less liquid in v130, and it was less: its wider bowl was scaled down to fit the square class, so the drink shrank. Now the bowl is deeper and fuller at the bottom, still inside its class. Measured: the ink under the clear band, down to the stem (src/drink-measure.js).</div>
+<table style="border-collapse:collapse;font-size:15px;margin-top:14px"><tr>${th('Coupe')}${th('Drink')}${th('Depth at centre')}${th('Surface')}${th('')}</tr>${drinkRows}</table>
+<div style="display:flex;gap:24px;margin-top:20px">${cps.map(([nm, d]) => glass(nm, d)).join('')}</div></div>
+<div><div style="font-size:22px;font-weight:700;color:${N};margin-bottom:8px">Counters: the inside follows the outside</div><div style="font-size:17px;line-height:1.45;color:${I2}">Every counter is now cut as the finished outline moved in by one line, so each wall is the line, all the way round. Measured on every counter: along each wall, the distance straight across to the outline; "off" is any wall more than 0.08px from the line (src/offset-check.js). The star's hole was the centreline offset with sharp corners, which left its inner corners up to 13% thick. The coupe's band walls were close; its 20% was the drink, whose surface sat under a line and a half above the bowl's bottom, so it read as one more line, not a drink.</div>
+<table style="border-collapse:collapse;font-size:15px;margin-top:14px"><tr>${th('Counter')}${th('v130')}${th('Now')}</tr>${cntRows}</table>
+<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:16px">${ov.map(([nm, s]) => `<div style="display:flex;flex-direction:column;align-items:center;gap:4px">${s}<div style="font-size:13px;font-weight:700;color:${N}">${nm}</div></div>`).join('')}</div>
+<div style="font-size:14px;color:${I2};margin-top:6px">The overlay at 8x: each dot is a point on a counter's edge; green sits one line in from the outline (within 0.08px), red does not.</div>
+<div style="font-size:14px;color:${I2};margin-top:8px">Walls in px at their own size (the star at 20: its line ${frT(1.75 * 1)} in v130, ${frT(LINEW)} now).</div></div></div>`;
 }
 function sheetLook() {
   const L = 150, gap = 24, big = 192;
@@ -765,19 +804,22 @@ function sheetLook() {
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon set · the first six · grid changes g7i to g7p</div>
 <h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${COL.navy}">One token, five root shapes</h1>
-<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is the same depth, one and a half lines (g7k: deeper, so the tiers read at 100%). Latest (g7p): monoweight is the line everywhere; the + and the star draw their line at 1.75px (line marks); the tree has two options by rule (below); the coupe\'s wider bowl is back with more drink; the cup\'s broken corner is fixed. Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
+<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1200px">You asked for size and root shape to come from the grid, not from icon-by-icon fixes. This adds both to the grid: how big a glyph is now comes from its shape class, and parts that do the same job are cut from the same shape. Latest change (g7j): an <b>Outline</b> size class for the Star, sized so its hole always stays open (an outline means "not starred yet"), and a rule for <b>stacked gables</b>: every notch in the tree is the same depth, one and a half lines (g7k: deeper, so the tiers read at 100%). Latest (g7p): monoweight is the line everywhere; the + and the star are line marks; Latest (g7r): the line marks come down to 1 2/3px; every counter is the outline moved in by one line; the coupe holds a third more drink; the tree takes v123\'s tier relationships as its rule; the coupe\'s wider bowl is back with more drink; the cup\'s broken corner is fixed. Before is v105; now is the same six, refitted by the rules. Every icon is a live vector: zoom in on the canvas.</p>
 <div style="margin:0 0 56px;padding:28px 32px;background:${COL.paper};border-top:4px solid ${COL.or}">
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div>
 <div style="font-size:28px;line-height:1.3;color:${COL.navy};font-weight:600">${LOOK_Q}</div><div style="font-size:24px;line-height:1.3;color:${COL.navy};font-weight:600;margin-top:12px">${TREE_Q}</div></div>
 ${sec('The tree')}
 ${treeChange()}
+${sec('Measured: what changed this round')}
+${measuredG7r()}
+<div style="margin:0 0 64px"></div>
 ${sec('True size, where they live in the app: before and now')}
 <div style="display:grid;grid-template-columns:repeat(2, 1fr);column-gap:48px;margin-bottom:64px">${[V105SET, NOWSET].map(inPlace).join('')}</div>
 ${sec('Grid change 1: size by class, the token')}
-${p('Every glyph is fitted by the grid, never by hand, to a cut of one 12px coin with the coin\'s area: <b>Wide</b> 12 × 9 1/3, <b>Square</b> 10 2/3, <b>Tall</b> 9 1/3 × 12, <b>Outline</b> for outline marks (the Star, whose outline means "not yet tapped": the hull through its tips at least the coin\'s area, and its hole at least two lines across, so it never reads as filled; at 1.5px the hole decides), and <b>Open</b> for marks made only of lines (the +: its arms span the coin). The Outline and Open classes are <b>line marks</b>: with no mass to carry weight, they draw their line at 1.75px (7/6 of the line), even all along. A lone apex (the pediment, the tree\'s tip) passes the cut by 1/2px. The drawing sets proportions; the class sets size. A new icon picks its class and is fitted the same way.')}
+${p('Every glyph is fitted by the grid, never by hand, to a cut of one 12px coin with the coin\'s area: <b>Wide</b> 12 × 9 1/3, <b>Square</b> 10 2/3, <b>Tall</b> 9 1/3 × 12, <b>Outline</b> for outline marks (the Star, whose outline means "not yet tapped": the hull through its tips at least the coin\'s area, and its hole at least two lines across, so it never reads as filled; at 1.5px the hole decides), and <b>Open</b> for marks made only of lines (the +: its arms span the coin). The Outline and Open classes are <b>line marks</b>: with no mass to carry weight, they draw their line at 1 2/3px (10/9 of the line, on the 1/3px lattice), even all along. A lone apex (the pediment, the tree\'s tip) passes the cut by 1/2px. The drawing sets proportions; the class sets size. A new icon picks its class and is fitted the same way.')}
 <div style="margin:0 0 64px">${tokenRow}</div>
 ${sec('Grid change 2: root shapes, like parts cut from one shape')}
-${p('Before, the three bases were three shapes: a tapered blade, a dome and a slab (your example). Now every base is the same slab, every bowl the same vessel, every roof and tier the same gable, every upright the same post, every handle and outline the same loop. Where gables stack (the tree), the widths step evenly from narrow to the tall class and each notch shows the same 1.5-line shelf; the tier heights (equal, or a taller tip) are the open question above. The coupe\'s wide bowl holds a drink under a clear band, so it reads as a glass, not a chalice. The cup\'s bowl keeps both its walls; the handle is its own loop, joined to it.')}
+${p('Before, the three bases were three shapes: a tapered blade, a dome and a slab (your example). Now every base is the same slab, every bowl the same vessel, every roof and tier the same gable, every upright the same post, every handle and outline the same loop. Where gables stack (the tree), the tiers keep v123\'s heights and widths (4.83 : 3 : 3.33 and 2.8 : 4.1 : 5.3), fitted to the tall class, and each notch is 0.6 of the half width of the tier above it. The coupe\'s wide bowl holds a drink under a clear band, so it reads as a glass, not a chalice. The cup\'s bowl keeps both its walls; the handle is its own loop, joined to it.')}
 <div style="display:grid;grid-template-columns:330px 1fr;align-items:end;gap:24px;padding:0 0 18px"><div style="font-size:19px;font-weight:700;color:${COL.ink2};align-self:center">Bases before (v105)</div><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end">${basesBefore()}</div></div>
 ${rootRows()}
 <div style="margin:0 0 64px"></div>
@@ -788,7 +830,7 @@ ${sec('Large (8x): before and now')}
 ${sec('Pressure test: the batch 2 subjects on this grid')}
 <div style="margin:0 0 64px">${b2}</div>
 ${sec('Weight: the line marks')}
-${p('In our blur, a 1.5px line can\'t get darker than about 58 and the solid places reach 75, so the Star and the + read light. You found 1.5px too light and the heavier row far too heavy; the line marks now draw at 1.75px, between the two. The Weight board, to the right, shows the new row between both rows you saw.')}
+${p('In our blur, a 1.5px line can\'t get darker than about 58 and the solid places reach 75, so the Star and the + read light. You found 1.5px too light and the heavier row far too heavy; the line marks drew at 1.75px in v130, which you found close but still too heavy; they now draw at 1 2/3px. The Weight board, to the right, shows the new row between both rows you saw.')}
 <div style="margin:0 0 64px"></div>
 ${sec('Craft comparison only, not a size reference: two well-made sets, for drawing quality')}
 <div style="${grid}">${head}${SETS.slice(1).map(row).join('')}</div>

@@ -2849,3 +2849,72 @@ Then I score in the order above.
 - **Check:** at true size (in a list row, on the map and the + badge), beside 1.5 and 1.75 in the same places; then at 8x. It must read lighter than 1.75 and heavier than 1.5 by his eye.
 - **H-claim applies:** the new value is shown beside the previous 1.75, and the + and Star are measured.
 - The Weight board keeps three rows (1.5, the new value, 1.75), with "heavier" retired. Plain question: "The + and the star now sit between the last two. Do they feel as heavy as the place icons now?"
+
+---
+
+## Turn 73: icon designer, g7r: the drink, the counters, the tree, the line marks (canvas v133)
+
+**Grid improvement this round:** two new rules.
+- **Counters are offsets.** A counter is the finished outline moved in by one line: the engine's new `E(of, w, clip, { mirror })`, an exact Minkowski erosion via Clipper, mirrored so symmetric glyphs stay symmetric.
+- **Tree notches are proportional.** A notch is a share of the tier above it, not a fixed depth.
+
+Two new measuring tools sit beside them: `src/offset-check.js` and `src/drink-measure.js`. The main board has a new section, "Measured: what changed this round", with before and after for every claim.
+
+1. **The coupe's drink (H-claim).**
+   - **Measured:** ink under the band, down to the stem.
+
+     | Version | Drink area | Depth |
+     |---|---|---|
+     | v123 to v128 | 16.1 px² | 2.41 px |
+     | v130 | 14.2 px² | 2.09 px |
+     | Now | **21.5 px²** | 2.87 px |
+
+     That is +33% on v128 and +51% on v130.
+   - **Cause:** the owner was right. v130's wider bowl was scaled down to fit the square class, so its drink shrank. My "more drink" claim was never measured.
+   - **Fix:** the bowl is deeper (6 1/2, was 5 2/3) and fuller at the bottom (handle 0.7, was 0.6), and the foot is 1/3 lower. It stays inside the class (10.67 × 10.33).
+   - The board shows v128, v130 and now side by side at true size and 8x, with the table.
+2. **Counters (H-mono).**
+   - **Tool:** `src/offset-check.js` measures every counter's wall straight across to the outline. A wall is "off" if it is more than 0.08px from the line.
+   - **What was off in v130:**
+     - **Star hole: 33% of the hole's edge off, walls 1.75 to 1.98px** (in px at its true size, 20px). The hole was the centreline offset, mitred, so its valley walls were up to 13% thick.
+     - **Coupe band: 20% of the band's edge off.** The walls were within 0.03px; the 20% was the drink surface, under 1.5 lines above the bowl's bottom.
+     - **Cup handle and museum slots: 0% off.**
+   - **Fix:** the star hole and the coupe band are now cut by `E` (erosion).
+   - **Now:** every counter is 0% off, with walls of 1.48 to 1.51px (the star 1.66 to 1.69px at 1 2/3).
+   - **On the board:** the table plus 8x overlays (green dots on the line, red off it) for the coupe and star before and after, and the cup and museum now.
+   - The star's hole now has round valleys (radius = outer valley + line): that is what a true parallel offset of its outline looks like.
+3. **The tree.**
+   - **Rule:** v123's tier relationships.
+     - **Heights:** 4.83 : 3 : 3.33, tip to base. That is v123 as it was seen at 24 (its drawn 4.75 : 3.35 : 3.15 landed on the 1/3px lattice as these): a tall tip, a short middle, a longer base. That rhythm is what read as intentional.
+     - **Half widths:** 2.8 : 4.1 : 5.3.
+     - Fitted to the current crown and the tall class.
+   - **Coming off:** the notch is 0.6 of the half width of the tier above it, so the neck is always the other 0.4.
+
+     | Tree | Neck under the tip | Heights shown, px | Ratio |
+     |---|---|---|---|
+     | v130 | 0.94px (why it read as coming off) | 4.85 : 3.33 : 3.33 | 1.45 : 1 : 1.00 |
+     | Now | 1.95px | 4.85 : 3 : 3.67 | 1.62 : 1 : 1.22 |
+     | v123 | | | 1.61 : 1 : 1.11 |
+
+   - **Honest read:** the now tree is narrower than v123 (8.6 against 9.3 wide), because it is fitted to the current height. v123's flare came partly from being shorter. The lattice also gives the base 3.67 against v123's 3.33 at this scale.
+   - The board shows v123, v130 and now at true size and 8x, with the measured table and the one-line relationship.
+4. **Line marks: 1 2/3px** (10/9 of the line). I chose it over 1 5/8 because it sits on the 1/3px lattice (5 device pixels at 3x); at true size the two can't be told apart.
+   - The Weight board has three rows: 1.5, 1 2/3 and 1.75 (v130). "Heavier" is retired.
+   - The question is the director's, word for word.
+
+   | Line marks | Star | + |
+   |---|---|---|
+   | 1.5px | 52.6 | 44.8 |
+   | **1 2/3px** | **57.3** | **48.4** |
+   | 1.75px | 59.2 | 50.9 |
+
+   The place icons measure cup 75.7, coupe 60.5 (up from 55.3: more drink), museum 68.6 and tree 71.4.
+
+**Checks:**
+- `check-svg.py`: 0 slivers, 72/72 symmetric.
+- `offset-check`: 0% off on all counters.
+- H-outline at 8x on the board's render: the tree tiers are attached, the coupe band is clean, and the star hole's valleys are round.
+
+**Archived:** v130's ten grid boards (`Archive-G7q-*`).
+
+NEXT: design director scores v133: H-claim, H-mono, H-outline, the tree.

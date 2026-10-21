@@ -8,7 +8,7 @@
 // The box is the drawing box. WHERE the drawing sits in the badge is set by its optical centre
 // (src/boards7.js, place()), not by the box: optical centring.
 'use strict';
-const { R, C, P, B, O, A, D, I, cut } = require('./engine.js');
+const { R, C, P, B, O, A, D, I, E, cut } = require('./engine.js');
 const W = 1.5;      // a line, upright or diagonal (decided by the owner)
 const WH = 4 / 3;   // a horizontal line, 1.333px: CONTRAST COMPENSATION (a horizontal reads heavier than
                     // an upright of the same width, so it is drawn about 10% thinner, as in type design)
@@ -139,12 +139,15 @@ const DRAW = {
   // walls, so the bowl reads as a glass holding a drink, not two parts (g5's single line split it into an "I").
   bar(s = 12, o = { style: 'mono' }) {   // g7p: monoweight is the line (owner: "monoweigh is looking the best")
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2;
-    const bd = 5.667;                                                // g7k (owner: "needs a bit more liquid"): 1/3px deeper
+    // g7r (owner on v130: "There is less liquid in the coupe"): measured (src/drink-measure.js), the drink was
+    // 16.1px² in v123-v128 and 14.2 in v130 (the wider bowl was scaled down to fit its class); the bowl is now
+    // deeper (6 1/2, was 5 2/3) and fuller at the bottom (0.7, was 0.6), the foot 1/3px lower: 21.5px²
+    const bd = o.bd ?? 6.5;
     // g7p (owner: "i liked the bowl shape from earlier batches (i like the wider bowl ...)" and "it needs slightly
     // more liquid still"): the bowl is wider in the drawing (its rim 11.5 of the 12-unit box, was 11) and broad-bottomed like the g6 coupe, its sides
     // falling steeply from the rim (handle 0.6 of the depth, was 0.49) into a flatter bottom, so at the same
     // depth it holds more drink; the stem is 1/3px shorter so the glass stays square to its class.
-    const bl = 0.25, bk = 0.6;
+    const bl = 0.25, bk = o.bk ?? 0.7;
     const bowl = D(`M${X(bl)} ${X(0)}H${X(12 - bl)}C${X(12 - bl)} ${X(bk * bd)} ${X(9.25)} ${X(bd)} ${X(6)} ${X(bd)}C${X(2.75)} ${X(bd)} ${X(bl)} ${X(bk * bd)} ${X(bl)} ${X(0)}Z`, { root: 'VESSEL' });
     // The band's walls, two ways (owner, 10-20, on the g7i taper: "i like the handmade look of the taper, but im
     // not sure what in the real world it would allude to"; "i just dont want to lose the no taper option"):
@@ -172,7 +175,7 @@ const DRAW = {
       const tan = tt => { const a_ = at(tt - 1e-4), b_ = at(tt + 1e-4), L = Math.hypot(b_[0] - a_[0], b_[1] - a_[1]); return [(b_[0] - a_[0]) / L, (b_[1] - a_[1]) / L]; };
       const ch = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) / 3, d0 = tan(t0), d1 = tan(t1);
       const c1 = [p0[0] + d0[0] * ch, p0[1] + d0[1] * ch], c2 = [p1[0] - d1[0] * ch, p1[1] - d1[1] * ch], m = x => f(s - x);
-      band = cut(D(`M${f(p0[0])} ${f(rimT)}H${m(p0[0])}C${m(c1[0])} ${f(c1[1])} ${m(c2[0])} ${f(c2[1])} ${m(p1[0])} ${f(liq)}H${f(p1[0])}C${f(c2[0])} ${f(c2[1])} ${f(c1[0])} ${f(c1[1])} ${f(p0[0])} ${f(rimT)}Z`));
+      band = o.style === 'mono' ? E([bowl], W, R(-1, -1, s + 2, liq + 1), { mirror: c }) : cut(D(`M${f(p0[0])} ${f(rimT)}H${m(p0[0])}C${m(c1[0])} ${f(c1[1])} ${m(c2[0])} ${f(c2[1])} ${m(p1[0])} ${f(liq)}H${f(p1[0])}C${f(c2[0])} ${f(c2[1])} ${f(c1[0])} ${f(c1[1])} ${f(p0[0])} ${f(rimT)}Z`));
     } else if (o.taper === 'even') {
       const B = [[X(0.5), 0], [X(0.5), X(2.8)], [X(3), X(bd)], [X(6), X(bd)]];   // the left side, in px
       const bz = (tt, i) => (1 - tt) ** 3 * B[0][i] + 3 * tt * (1 - tt) ** 2 * B[1][i] + 3 * tt * tt * (1 - tt) * B[2][i] + tt ** 3 * B[3][i];
@@ -189,7 +192,7 @@ const DRAW = {
       const inside = D(`M${X(ix(0.5))} ${X(-1)}H${X(ix(11.5))}C${X(ix(11.5))} ${X(2.8)} ${X(ix(9))} ${X(bd)} ${X(6)} ${X(bd)}C${X(ix(3))} ${X(bd)} ${X(ix(0.5))} ${X(2.8)} ${X(ix(0.5))} ${X(-1)}Z`);
       band = cut(I(inside, R(0, rim, s, liquid - rim)));
     }
-    const FB = Y(10.667);
+    const FB = Y(o.fb ?? 11);
     const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = FB - fh + 0.01;
     const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : o.style === 'settle' ? POSTT(c, sy0, sy1, wSettle(sy0, 0, s), wSettle(sy1, 0, s)) : POST(c, sy0, sy1);
     const foot = R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
@@ -231,9 +234,26 @@ const DRAW = {
     // tier's is the tall class's, and the middle steps evenly between; each lower tier's apex follows from the
     // 1.5-line shelf, so the slopes differ (the tip steepest), as a fir's do. Trunk: one line; apex +1/2.
     const N = 3, L = 1.5 * W / u, apex = -APEX, B = 12 - W / u, hwN = KEY.TALL[0] / 2, hw1 = L + W / u / 3;
-    const crown = B - apex, TK = o.tip ?? 1.5, h = crown / (N - 1 + TK), tiers = [];
-    for (let i = 1; i <= N; i++) { const by = apex + (i - 1 + TK) * h, hw = hw1 + (hwN - hw1) * (i - 1) / (N - 1); tiers.push([i === 1 ? apex : null, by, hw]); }
-    for (let i = 1; i < N; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r_ = (hwU - L) / hwL; tiers[i][0] = (byU - r_ * byL) / (1 - r_); }
+    const crown = B - apex, tiers = [];
+    if (o.tip != null) {   // g7p/g7q: one taller-tip factor (shown in v129-v130, kept for the before/after)
+      const TK = o.tip, h = crown / (N - 1 + TK);
+      for (let i = 1; i <= N; i++) { const by = apex + (i - 1 + TK) * h, hw = hw1 + (hwN - hw1) * (i - 1) / (N - 1); tiers.push([i === 1 ? apex : null, by, hw]); }
+      for (let i = 1; i < N; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r_ = (hwU - L) / hwL; tiers[i][0] = (byU - r_ * byL) / (1 - r_); }
+    } else {
+      // g7r (owner on v130: "the tree now looks goofy with the less intentional size of tree sections" and
+      // "The top tier of the tree looks like it's coming off"): V123'S TIER RELATIONSHIPS ARE THE RULE.
+      //   heights: the tiers show 4.83 : 3 : 3.33 of the crown, tip to bottom: v123 as it was SEEN at 24 (its
+      //     drawn 4.75 : 3.35 : 3.15 landed on the 1/3px lattice as these), a tall tip, a short middle, a
+      //     longer base: the rhythm that read as intentional;
+      //   widths: half widths 2.8 : 4.1 : 5.3 (v123's), the bottom one the tall class's;
+      //   notches: each notch is a share of the tier above it (TREE_NOTCH of its half width), not a fixed
+      //   depth, so the neck under every tier stays a fixed share of it and no tier reads as coming off.
+      // Fitted to the current height (apex +1/2 to the trunk's line) and width (the tall class).
+      const HV = o.hv || [4.83, 3, 3.33], WV = [2.8, 4.1, 5.3], sH = HV.reduce((a, b) => a + b, 0), sig = o.notch ?? TREE_NOTCH;
+      let cum = 0;
+      for (let i = 0; i < N; i++) { cum += HV[i]; tiers.push([i === 0 ? apex : null, apex + crown * cum / sH, hwN * WV[i] / WV[N - 1]]); }
+      for (let i = 1; i < N; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r_ = (hwU - sig * hwU) / hwL; tiers[i][0] = (byU - r_ * byL) / (1 - r_); }
+    }
     const out = [], tTop = B - W / u;
     for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));
     out.push(o.style === 'woodcut' ? POSTF(c, X(tTop), s, true, false) : o.style === 'burin' ? POSTW(c, X(tTop), s, W, (W + FREE) / 2, FREE) : o.style === 'settle' ? POSTT(c, X(tTop), s, wSettle(X(tTop), 0, s), W) : POST(c, X(tTop), s));
@@ -275,7 +295,11 @@ function star(px = 20, sc = 1, lw = W, style) {
     let lo = 0.3, hi = 0.99; for (let n = 0; n < 50; n++) { const m = (lo + hi) / 2, q = [cx + (f_[0] - cx) * m, cyc + (f_[1] - cyc) * m]; if (Math.min(distSeg(q, e, f_), distSeg(q, f_, g)) > w) lo = m; else hi = m; }
     return [P(...outer), cut(P(...outer.map(([x, y]) => [cx + (x - cx) * lo, cyc + (y - cyc) * lo])))];
   }
-  return [P(...outer), cut(P(...offset(cl, w / 2)))];
+  // g7r (owner: "the internal counter lines don't match the external ones"): the hole is the finished outline
+  // (tips and valleys rounded by the law) moved in by the line, so every wall is exactly the line, the
+  // valleys' inner edge a round of their radius plus the line; it was the centreline offset, mitred, which
+  // left the valley walls up to 13% thick
+  return [P(...outer), E([P(...outer)], w, null, { mirror: cx })];
 }
 function offset(pts, d) {
   const n = pts.length, lines = [];
@@ -285,5 +309,6 @@ function offset(pts, d) {
   return out;
 }
 
+const TREE_NOTCH = 0.6;   // g7r: a notch is 0.6 of the half width of the tier above it (its neck the other 0.4)
 const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature']];
 module.exports = { W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };
