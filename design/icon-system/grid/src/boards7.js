@@ -467,7 +467,7 @@ function sheetWeight(W_, n) {
 <div class="q"><b>The question</b>${W_Q}</div>
 <div class="lab">True size, where they live</div>
 <div class="pair" style="align-items:start;grid-template-columns:repeat(3,minmax(0,1fr))">${WOPTS.map(([key]) => `<div style="text-transform:none;letter-spacing:0;align-items:stretch;text-align:left;font-weight:400;color:${COL.ink}">${head(key)}${live(key)}</div>`).join('')}</div>
-<div class="lab">Large (8x), with the line each row draws, measured</div>
+<div class="lab">Large (${frT(big / 24)}x: a 24px badge drawn at ${big}px), with the line each row draws, measured</div>
 ${WOPTS.map(([key, title]) => `<div class="srow"><div class="k">${title}<br><span class="mute" style="font-weight:400">${WMEAS[key]}</span></div><div class="set big">${ids.map(id => cell(key, id, big)).join('')}</div></div>`).join('')}
 <p class="sm mute" style="margin-top:14px">Blurred darkness, measured (the darkest fifth of the live circle after a 1.5px blur; src/blur-measure.js): ${foot}.</p>
 </section>`;
