@@ -5509,3 +5509,65 @@ Owner: "When I say connected I mean to the systemic approach. I like the separat
 - **Board:** one museum section replacing v219's: his quote, where the flaring comes from, v219 beside the base, A/B/C each with rule + future building + row + chip/24/72/8x + weight, one true-size paragraph, one question ("Which of these, if any, connects the museum to the coupe and the tree for you?"). v219's board is on Archive as `Archive-G7am-Between` (x 3360, y 156200). Between board 3598 → 4963; nothing else moved; the live board matched the build (no owner edits).
 - **Fixed points:** tree, coupe (r2, r2b), cup, star, + svgs byte-identical; only museum svgs changed (`museum-r2-v219.svg` = the old `museum-r2.svg`).
 - **Checks:** check-svg: 0 slivers, symmetric (café skipped). between-checks: museum-r2 / -a / -b / -c openings 1.25-1.50 (the 1 1/4 columns by design, as in turn 120); curve jump 0.00. blur-between re-run.
+
+---
+
+## Turn 125: design director, "the museum: building the flaring in" (v220): 7; keep A, cut B and C, give the gable back its ends
+
+His direction (round count reset): "When I say connected I mean to the
+systemic approach. I like the separated gable … it's the flaring effects
+that the museum and other structures like it aren't going to naturally
+make. How might we build some of that in?"
+
+Fetched and merged 6ce32e5c, re-read the live board (v220, 4962px; it
+matches turn 124, no owner edits). By eye at 1x and 3x of the board first,
+then the museum svgs at about 17x with the row in 24px and 12px badges,
+then the path numbers.
+
+**My v219 objections:** fixed. The beam is back, the colonnade stands
+under it, and the columns (3.0 tall) are taller than the roof (2.1). It
+reads as a temple again, not a lid over a comb.
+
+**New fault, in the base and so in all three: the gable's ends are
+slivers.** The cut's room came out of the roof. The gable's eave ends are
+now 0.43 of a unit tall (v219's were 1.30), thinner than any line in the
+set and under the plate rule's 1px end. At 24px each end is under half a
+pixel, so the roof reads as a thin triangle ending in points: the v204
+barb again, now on the part he said he likes. He liked v219's gable, a
+solid shape. The cut's room should come from somewhere that doesn't thin
+it.
+
+**The approaches, by eye and as system rules:**
+- **A · Joins:** looks good, and like a museum. The outer posts' outside
+  flare reads as a capital and a base, the way the coupe's stem meets its
+  bowl and foot. Openings stay square. A hotel's corner walls flaring into
+  cornice and base would come out right the first time. It's the one that
+  answers "the flaring effects … aren't going to naturally make". **Keep.**
+- **B · Outline:** the bottom-only concave sweep reads as a splayed foot
+  or a piece of furniture. At 24px the base widens into a trapezoid, which
+  is his 10-20 root-shape note. It also flares at the same place as A's
+  foot, only louder and only at the bottom. Not 9-worthy. **Cut.**
+- **C · Ends:** the hooked eaves read as a pagoda brim, a droop on a
+  building. It also breaks the board's own "Straight-lined buildings" rule
+  (sweep and droop are for living things), so a future hotel would get two
+  conflicting rules. Not 9-worthy. **Cut.**
+
+**12px:** the board says honestly that the differences are under a pixel
+and the cut greys to half a pixel. That's fine, and true.
+
+**Likely owner objections:** "the roof looks thin and pointy now" (likely,
+on the gable he likes); B as a trapezoid; C as a pagoda.
+
+**Score: 7.** Fixes, how is the designer's call:
+1. Give the gable back a solid body. Its eave ends should be at least the
+   plate rule's 1px, ideally v219's. Take the cut's room from somewhere
+   that doesn't thin it (the building grows within its class, or the
+   pitch, or the plinth). Check the ends at 8x and in the 24 badge.
+2. Show the base and A only. Cut B and C, with one "not used" line of
+   reasons. Keep his question, worded for one approach ("Does A connect
+   the museum to the coupe and the tree for you?").
+3. State A as a rule in the rules table, with what it does to a future
+   hotel, landmark and venue, as the board already does in its text.
+
+**Changed since my last score?** Yes: a new base and three approaches.
+The coupe, tree, cup, star and + are byte-identical.

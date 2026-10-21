@@ -1796,3 +1796,19 @@ checks; don't eyeball "is it as good as".
   the chip, not only at 24.
 - Next: the museum with full-height columns and the rule's limits (turn
   123), then re-score.
+
+## g7an (v220, 2026-10-21): 7
+
+- The owner's direction reset the round count: "connected" means to the
+  systemic approach; he likes the separated gable; build the flaring in.
+- v219 objections fixed (beam, column height).
+- **Found by path numbers after the eye flagged it:** the gable's eave
+  ends are 0.43 units, down from v219's 1.30. Room taken for one fix
+  thinned the part he praised. When he praises a part, measure it before
+  and after every change.
+- Keep A (outside flare at post joins; it maps to the coupe's stem). Cut
+  B (trapezoid, his root-shape note) and C (a droop on a building; it
+  breaks the board's own straight-lined-buildings rule).
+- **A new approach must not contradict a rule already on the board.** C
+  did.
+- Next: a solid gable, base + A only (turn 125), then re-score.

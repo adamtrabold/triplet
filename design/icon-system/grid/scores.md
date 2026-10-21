@@ -1285,3 +1285,16 @@ The verdict stands within our own set:
   removing identity again. The cut greys out at 12px. The rule needs
   limits (one cut; whole parts; the cut never shortens supports).
 - **Fixes:** jam turn 123.
+
+## Round g7an museum flaring (canvas v220), 2026-10-21: 7
+
+- **Fixed from v219:** the beam is back, the columns are full height
+  (taller than the roof), and it reads as a temple.
+- **Blocks a 9:** the separated gable's eave ends are 0.43 units (v219:
+  1.30). That's a sliver under the 1px end rule, and the roof reads
+  pointy at 24px. B (bottom sweep) reads as a trapezoid or furniture foot.
+  C (hooked eaves) reads as a pagoda and breaks the board's own
+  "Straight-lined buildings" rule.
+- **Keep A · Joins** (a real system rule; it reads as a capital and a
+  base). **Cut B and C.**
+- **Fixes:** jam turn 125.

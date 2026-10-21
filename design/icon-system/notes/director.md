@@ -354,3 +354,10 @@ Resting parts is the right idea. The museum's columns lost about half
 their height to the cut, so it reads as a lid over a comb; that's the
 weight met by removing identity again. The rule needs limits. Fixes in
 `grid/jam.md` turn 123.
+
+## Icon system, g7an (v220, 2026-10-21): 7
+
+The beam and full-height columns are back. The gable's ends are thinned to
+0.43 (a sliver; he likes that gable). Keep A · Joins; cut B (trapezoid)
+and C (pagoda, breaks the straight-lined-buildings rule). Fixes in
+`grid/jam.md` turn 125.
