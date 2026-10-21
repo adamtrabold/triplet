@@ -1115,3 +1115,13 @@ The verdict stands within our own set:
   - name the flag's real place (the drink's surface, not the band
     corners);
   - quote his "wine glass with the liquid" verbatim in C's trade line.
+
+
+## Round g7y (canvas v142), 2026-10-21: coupe board 9 (send); tunings board 8
+
+- **Coupe counter** measured 1.333 in A, B and C (v134 1.50). Meets his
+  rule. Shown in context.
+- **H2:** bases and ends all slabs; passes.
+- **H3:** domed saucer and coupe foot against a flat plinth and trunk.
+  There's no stated rule and no per-icon list, so it fails until both
+  land (jam turn 94).

@@ -1601,3 +1601,11 @@ checks; don't eyeball "is it as good as".
 - **Lesson:** in turn 87 I judged C's gap against v134 instead of against
   his stated rule. Before scoring, check every owner rule in `owner.md`
   that applies to the glyph, not just the last version.
+
+## g7y (v142, 2026-10-21): coupe 9, tunings 8
+
+- I measured the coupe's empty band myself (1.333 in A/B/C) before
+  passing it, per the H-counter lesson.
+- **H3's endings:** a rule that changes (the saucer was "stays a slab"
+  in v138, domed now) must say why on the board. Otherwise he sees a
+  mix.
