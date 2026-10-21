@@ -1274,3 +1274,14 @@ The verdict stands within our own set:
   openings, against part 1's rule; "Built lines" wording seems to clash
   with the plate rule.
 - **Fixes:** jam turn 121.
+
+## Round g7am resting parts (canvas v219), 2026-10-21: 7
+
+- **Pass:** one museum section with one option; "Straight-lined
+  buildings" wording; the board is clean (3.6k px). The Resting parts idea
+  is strong (it ties the museum to the cup by grammar).
+- **Blocks a 9:** the museum reads as a lid over a comb. Its columns are
+  about half height and the beam is gone, so the weight was met by
+  removing identity again. The cut greys out at 12px. The rule needs
+  limits (one cut; whole parts; the cut never shortens supports).
+- **Fixes:** jam turn 123.

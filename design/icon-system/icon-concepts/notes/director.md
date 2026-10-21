@@ -1780,3 +1780,19 @@ checks; don't eyeball "is it as good as".
 - Five museum options in two parts is too many; one section, at most two
   options.
 - Next: museum fixes (turn 121), then re-score.
+
+## g7am (v219, 2026-10-21): 7
+
+- Resting parts (the 1px cut between a load and its supports) is the
+  first museum idea from the family's own grammar. Keep the idea.
+- The execution took the cut out of the columns: about half height,
+  squat, a "lid over a comb". It's the third time the museum's weight was
+  met by removing what makes it a museum (three columns, the beam shed,
+  now short columns). Check every museum round for it first.
+- **System-rule test:** a rule that adds a feature (a cut) needs its
+  limits written in: how many, what each part must still read as, and
+  what may not give up space.
+- 12px: a 1px cut is half a pixel there. Ask what the icon reads as at
+  the chip, not only at 24.
+- Next: the museum with full-height columns and the rule's limits (turn
+  123), then re-score.

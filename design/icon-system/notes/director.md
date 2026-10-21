@@ -347,3 +347,10 @@ changed, so it's still "completely disconnected" at true size; I removed
 its connecting moves in turn 119 without a replacement. Part 2 repeats the
 museum on the old row and contradicts the Openings rule. Fixes in
 `grid/jam.md` turn 121.
+
+## Icon system, g7am (v219, 2026-10-21): 7
+
+Resting parts is the right idea. The museum's columns lost about half
+their height to the cut, so it reads as a lid over a comb; that's the
+weight met by removing identity again. The rule needs limits. Fixes in
+`grid/jam.md` turn 123.

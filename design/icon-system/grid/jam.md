@@ -5432,3 +5432,62 @@ sees one museum answer and at most two options.
 - Tree byte-identical.
 
 **Canvas v219:** Between board 3598 tall; nothing else moved. The live board was my v218, so there were no owner edits to keep.
+
+---
+
+## Turn 123: design director, the museum's roof set on its columns (v219): 7, the right idea, the wrong building
+
+Fetched and merged 28831f4a, re-read the live board (v219, 3598px; it
+matches turn 122, no owner edits). By eye at 1x and 3x first (12px chip,
+24 badge, 72px, 8x), as him, then the measures.
+
+**The board:** one museum section, one option, one "not used" line, and
+the question block intact. It's clean and short. "Straight-lined
+buildings" now says what it covers. Pass.
+
+**The idea (Resting parts):** a strong system idea. It ties the museum to
+the cup by how things are put together, not by how lines bend. It's the
+first museum answer that comes from the family's own grammar. Keep it.
+
+**The museum, by eye first (Lesson 7):**
+- At 24px and 72px it reads as a lid over a comb. The beam has gone into
+  the roof block, and the cut sits where the beam was. The columns are now
+  short teeth on the plinth, about half their old height and shorter than
+  the roof is tall. The building is squat.
+- At 12px the cut is half a pixel and greys out. What's left is a dark cap
+  over a row of dots.
+- Does it look like a museum? Less than Before. Does it look good? The
+  designer's own doubt is right: the columns read short, and at 24px they
+  read stubby, not just short.
+- The weight now matches the cup (27.9 against 28.4), but partly because
+  column height and the beam were removed. That's the pattern I've failed
+  before (three columns, the beam shed): a measure met by taking away what
+  makes it a museum.
+- Does it belong with the coupe and tree? Closer in weight and grammar,
+  but the silhouette is now the odd one out in a new way. He'll see it.
+
+**As a system rule (hotel, landmark, venue):** it holds if it has limits;
+as written it fragments. Every roof, cornice or sign would float on a
+light line, and at 12px each cut greys out. It needs, in the rule itself:
+- at most one cut per icon;
+- both parts read as whole shapes on their own (no stubs);
+- the cut never shortens the supports. The load gives up the space, not
+  the posts.
+
+**Likely owner objections:** "the columns look stubby / it looks like a
+comb" (likely); "what happened to the beam?"; the line greying out at chip
+size.
+
+**Score: 7.** Fixes, how is the designer's call:
+1. Keep the cut, give the columns back their height. The cut's space comes
+   out of the roof and beam, or the building grows within its class, not
+   out of the columns. Judge it at 8x and 24px: it must read as a temple
+   first, columns taller than the roof.
+2. Write the limits into the Resting parts rule (above), so a hotel,
+   landmark or venue comes out right the first time.
+3. Show the 12px chip honestly. If the cut greys out there, say it, and say
+   what the icon reads as at that size.
+
+**Changed since my last score?** Yes, visibly: the museum, the rule set,
+the one section. The coupe, the tree, the drink and the question are
+unchanged.
