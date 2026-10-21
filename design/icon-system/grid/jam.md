@@ -3728,3 +3728,85 @@ All four stay in the square class. With a flat bowl the drink is a thin layer un
 **Archived:** the scored v137 board (`Archive-G7u-Human`).
 
 NEXT: design director scores v138.
+
+
+## Turn 87: design director, "More human, by rule" v138: 8, three fixes to a 9
+
+**The owner's words this is judged against:**
+- the feeling: "more delicate ... humanistic approach to curves ...
+  handmade feel";
+- the coupe: "its starting to read as wine glass with the liquid... i
+  think the taller stem or more pancaked bowl really sell coupeness".
+
+**1. Harmony across the set: passes now.**
+- H1's eased-curve rule touches every outside round and join of all
+  eight, the + and the star included. Each row names what it leaves
+  alone.
+- H2 and H3 add their rules on top, named.
+- The in-app rows (list rows with the star, the map with the + and pins)
+  show every row at true size. That's what turn 85 asked.
+- The star balanced to the +'s arms fixes v134's size risk.
+
+**2. Delicacy at true size: improved, still modest.**
+- The curve check is real progress: the worst jump in curvature falls
+  from 10.44/px (Now) to 1.31 (H1, H2) and 1.53 (H3). Corners now leave
+  their lines the way a hand stroke does. This is the "humanistic
+  curves" half of his note, and it's now a rule.
+- **At true size the curve rule is subtle.** In the 24 badges and the
+  in-app rows, H1 is hard to tell from Now; it shows at 7x. Expect "I
+  can't see a difference". The board should say so plainly, not leave
+  him hunting.
+- H3 is the most delicate: the thin stem flaring into a domed foot is
+  batch 1's quality as a rule. The H2/H3 tree change is stated plainly
+  on the board, so that's acceptable as a choice for him.
+
+**3. The checks.**
+- **Curve check:** passes, figures printed per row.
+- **Counter check, the coupe "offs" in H2/H3 and in B/C:** I verified the
+  designer's explanation, and it holds.
+  - The check measures from each counter edge to the nearest outline.
+  - The drink is the same ink as the bowl, so the counter's lower edge
+    is the drink's surface, and the ink below it runs to the bowl's
+    underside. That's drink plus wall, about 1.9px, not a 1.5 wall.
+  - In Now and H1 the drink is deep enough that this distance passes
+    the check's 1.5-line cut-off and isn't counted. In H2/H3 (glyph
+    1/12 smaller) and in B/C (flat bowl) it's under the cut-off, so it's
+    counted as a thick wall.
+  - The 18.2° worst turn is the same edge: a flat drink surface against
+    a curved underside.
+  - It's an artefact of the check, not a weight fault. The walls that
+    are walls (band, bowl sides) pass.
+- **Outline:** clean at the 5x/7x views.
+
+**4. The coupe, on "the taller stem or more pancaked bowl really sell
+coupeness".**
+- **C (both) reads most like a coupe**, at true size and in the 12px
+  chip: wide, flat and up on a stem. I agree with the designer.
+- A alone still reads as a wine glass, because the bowl is still deep. B
+  alone is close, but a short stem under a flat bowl reads as a dish.
+- **Likely objection to C:** its drink is 13.8 px², below v130's 14.2,
+  which he called too little ("less liquid"). But his newest note blames
+  the liquid for the wine-glass read, so C's thin layer, read by its
+  surface, answers the newer ask. The board must name this tension in
+  one line, so he decides it knowingly.
+- C's slit (the air between band and drink) is about as tall as v134's,
+  so it doesn't get worse at the chip.
+
+**What blocks a 9: the board, not the drawing.**
+1. **Say what shows at true size.** Under H1, one line: "At true size
+   this is subtle; it shows in the corners at 7x." This stops him
+   hunting for a change he can't see.
+2. **Cut the coupe grid to one row.** It's 16 coupes (4 options x 4
+   tunings), too many to judge on a phone. Show A, B and C once, in the
+   Now drawing, at true size and 5x. Keep the per-tuning figures in the
+   notes, not on the board.
+3. **Name the drink tension for C** in one line: "C has the least drink
+   (13.8 px², under v130's 14.2 you found too little); the flat bowl
+   reads by its surface, not its depth." Also put the counter-check
+   artefact note next to the figures it explains, not at the foot.
+
+**Did the work change?** Yes: harmony now passes, curves have a rule and
+a check, and the coupe options answer his words. The drawing is at the
+bar for an exploration board. Fixes 1 to 3 are text and layout. When
+they land and the designer shows me the still, it's a 9 and goes; no
+re-score loop.

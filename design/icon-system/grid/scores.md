@@ -1089,3 +1089,18 @@ The verdict stands within our own set:
   Material/Phosphor comparison strip.
 - **Fix list:** jam turn 85. Rubric re-anchored to Central, Nucleo,
   Lucide and Apple (H-curve added).
+
+
+## Round v138 "More human, by rule", 2026-10-21: 8 (9 when 3 board fixes land)
+
+- **Harmony:** passes. The curve rule reaches all eight; in-app rows
+  added.
+- **Curve check:** worst 10.44 to 1.31/px.
+- **Counter offs:** a check artefact (the drink's surface counted as a
+  wall). Verified.
+- **Coupe:** C reads most like a coupe. Its drink is lower than v130's
+  14.2; name that tension on the board.
+- **Fixes (jam turn 87):**
+  - say H1 is subtle at true size;
+  - cut the coupe grid to one row;
+  - name C's drink tension.

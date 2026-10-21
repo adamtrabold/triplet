@@ -1552,3 +1552,18 @@ approaches should be as much a part of the brand as anything".
 **Lesson:** the owner named the bar by example. Read the published
 method of each (Lucide's spec is the most explicit) and turn it into
 checks; don't eyeball "is it as good as".
+
+## v138 (2026-10-21): 8, a 9 when the board fixes land
+
+- Harmony passes, and the curve rule is the first answer to his
+  "humanistic curves". The H-curve figure (10.44 to 1.31/px) is the
+  kind of check the craft-bar study asked for.
+- **Counter "offs" on a filled drink are an artefact.** The drink's
+  surface is the counter's lower edge, so the check reads drink plus
+  wall as one thick wall. A future check should exclude edges that border
+  a fill.
+- **Coupe C.** The tension between "less liquid" (v130) and "wine glass
+  with the liquid" (now) goes on the board as one line; the decision
+  is his.
+- **Lesson:** a board that shows 16 variants of one icon isn't phone-
+  judgeable. Variants of one icon go in one row, in one drawing.
