@@ -523,7 +523,7 @@ const starAt = (opts = {}) => { let lo = 0.3, hi = 1.2, d; for (let k = 0; k < 3
 const COUPES = [
   ['v134', 'As shipped', {}],
   ['A: taller stem', 'The bowl as shipped, the stem a line longer (the glass fills its square).', { fb: 11.75 }],
-  ['B: flatter bowl', 'A pancaked bowl (depth 5 1/2, sides falling fast into a wide flat bottom); the drink a thin layer, read by its surface.', { bd: 5.5, bk: 0.35, bx: 0.5, fb: 10.333 }],
+  ['B: flatter bowl', 'A pancaked bowl with a wide flat bottom; the drink a thin layer, read by its surface.', { bd: 5.5, bk: 0.35, bx: 0.5, fb: 10.333 }],
   ['C: both', 'The flat bowl on the long stem.', { bd: 5.5, bk: 0.35, bx: 0.5, fb: 11.75 }],
 ];
 const EASE = 2.3;
@@ -614,6 +614,51 @@ ${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1
 <p style="margin:0"><b>The Outline class</b>: in H1 to H3 the star's points reach as far as the +'s arms (the shipped star's 4px hole minimum made it 15% wider than v133); its hole is then about 2 lines.</p></div></div>
 <div>${title('Craft bar, and comparisons')}<div style="font-size:16px;line-height:1.5">The craft bar, for finish and construction rigour rather than style: Central, Nucleo, Lucide and Apple's published method. None is copied; Lucide glyphs may appear only labelled "craft reference". Material and Phosphor are shown above for comparison, not as a craft benchmark (you: "just to see how much *better* ours are").</div></div></div>
 </div>`;
+}
+// ---- the page's reading order (g7x, owner: "i am struggling to figure out how to read the file at this point"):
+// a START HERE board, and one DECIDE board per open question, each 760 wide so it reads on a phone
+const PH = { w: 760, pad: '36px 32px 40px' };
+const phBoard = (kicker, title, body) => `<div style="width:${PH.w}px;box-sizing:border-box;padding:${PH.pad};background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
+<div style="font-size:15px;letter-spacing:.12em;font-weight:700;color:${COL.ord};text-transform:uppercase">${kicker}</div>
+<h1 style="margin:6px 0 18px;font-size:38px;line-height:1.1;color:${COL.navy}">${title}</h1>${body}</div>`;
+const phQ = q => `<div style="margin:0 0 24px;padding:18px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:24px;line-height:1.3;color:${COL.navy};font-weight:600">${q}</div>`;
+const phP = s => `<p style="margin:0 0 12px;font-size:19px;line-height:1.45">${s}</p>`;
+const phOpt = (label, line, glyphs) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${COL.navy}">${label}</div><div style="font-size:17px;line-height:1.4;color:${COL.ink2};margin:2px 0 10px">${line}</div><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">${glyphs}</div></div>`;
+const phDetail = s => `<div style="margin-top:18px;font-size:16px;color:${COL.ink2}">Detail: ${s}</div>`;
+const uiPath = (d, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${COL.navy}"/></svg>`;
+const OPEN_QS = [
+  ['Decide: more human?', 'Keep the current set, or tune it toward more rounded, hand-drawn shapes (H1, H2 or H3)?'],
+  ['Decide: the coupe', 'Which reads most like a coupe: A (taller stem), B (flatter bowl) or C (both)?'],
+  ['Decide: line marks', 'At 1 2/3px, do the + and the star feel as heavy as the place icons?'],
+  ['Decide: the tree', 'Is this the tree shape you liked?'],
+];
+function sheetStart() {
+  const qs = OPEN_QS.map(([b, q], k) => `<div style="display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:24px;font-weight:700;color:${COL.or}">${k + 1}</div><div><div style="font-size:19px;line-height:1.35;color:${COL.navy};font-weight:600">${q}</div><div style="font-size:16px;color:${COL.ink2};margin-top:2px">Board: ${b}</div></div></div>`).join('');
+  const rows = [['1', 'Waiting on you', 'one board per question, top row'], ['2', 'In progress', 'the six icons now, and the tuned versions beside them'], ['3', 'Decided', 'the grid: the rules every icon is drawn by'], ['4', 'Detail', 'earlier sheets, for the team; optional']]
+    .map(([n, h, s]) => `<div style="padding:8px 0;font-size:19px;line-height:1.35"><b style="color:${COL.navy}">${n} · ${h}</b>: ${s}</div>`).join('');
+  const decided = ['One line, 1.5px, everywhere (monoweight); the + and the star 1 2/3px', 'Every icon sized by its class to the same 12px coin', 'Like parts cut from one shape: slab, post, gable, vessel, loop', 'Every meeting point slightly round, inside tighter than outside', 'Every counter is the outline moved in by one line', 'Edges on the 1/3px lattice']
+    .map(s => `<li style="margin:0 0 6px">${s}</li>`).join('');
+  return phBoard('Grid concepts', 'Start here', `${phP('This page holds the icon grid, the rules every Triplet icon is drawn by, and the first six icons drawn with it.')}
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:22px 0 6px">How it\'s laid out, top to bottom</div>${rows}
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:26px 0 6px">Waiting on you</div>${qs}
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:26px 0 6px">Already decided</div><ul style="margin:0;padding-left:22px;font-size:18px;line-height:1.4">${decided}</ul>`);
+}
+function sheetDecideTunings() {
+  const SHORT = ['As shipped.', 'Every outside corner eases into its line, like a hand\'s stroke.', 'H1, plus a domed coupe foot, drooping branches, and more air.', 'H2, plus a thin stem and trunk that flare into their joins.'];
+  const opt = (S, k) => phOpt(S.nm, SHORT[k], `${BATCH.map(([id]) => badge(S.ds[id])).join('')}${uiPath(S.ds.plus, 26.4)}${uiPath(S.ds.star, 20)}<span style="width:8px"></span>${BATCH.map(([id]) => badge(S.ds[id], 72)).join('')}`);
+  return phBoard('Waiting on you · 1', 'Decide: more human?', `${phQ(OPEN_QS[0][1])}${HSETS.map(opt).join('')}${phDetail('"More human, by rule" (row 2), with every rule, the checks and the in-app view.')}`);
+}
+function sheetDecideCoupe() {
+  const cs = HSETS[0].coupes;
+  const opt = (k) => { const [nm, line] = COUPES[k]; return phOpt(nm, line, `${badge(cs[k])}${badge(cs[k], 120)}`); };
+  return phBoard('Waiting on you · 2', 'Decide: the coupe', `${phQ(OPEN_QS[1][1])}${phP('You: "its starting to read as wine glass with the liquid... i think the taller stem or more pancaked bowl really sell coupeness".')}${[0, 1, 2, 3].map(opt).join('')}
+<div style="margin-top:14px;font-size:17px;line-height:1.4;color:${COL.navy}">The trade: a flat bowl holds a thinner drink (C ${DRINK(cs[3]).area.toFixed(1)}px², v130 14.2px²); it reads by its surface, not its depth.</div>${phDetail('"More human, by rule" (row 2), the coupe section.')}`);
+}
+function sheetDecideTree() {
+  const opt = (nm, line, d) => phOpt(nm, line, `${badge(d)}${badge(d, 120)}`);
+  return phBoard('Waiting on you · 4', 'Decide: the tree', `${phQ(OPEN_QS[3][1])}${phP('You: "the tree now looks goofy with the less intentional size of tree sections" and "The top tier of the tree looks like it\'s coming off".')}
+${opt('Now', 'v123\'s tier sizes as the rule, fitted to today\'s height and width; every tier holds on to the one below.', GD.joint[12].nature.d)}${opt('v123', 'The shape you liked.', TREES.v123.d)}${opt('v130', 'The one that looked goofy; its top tier read as coming off.', TREES.v130.d)}
+${phDetail('the main board (row 2), "The tree", with the measured tier sizes.')}`);
 }
 function sheetMaster() {
   const N = COL.navy, O = COL.or, H = COL.hair, I2 = COL.ink2, PA = COL.paper;
@@ -965,7 +1010,7 @@ if (require.main === module) {
     fs.writeFileSync(path.join(ROOT, 'cards-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 7: batch 1 redrawn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
-    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
+    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule'], ['start-g7.html', sheetStart, 'Start here'], ['decide-tunings-g7.html', sheetDecideTunings, 'Decide: more human?'], ['decide-coupe-g7.html', sheetDecideCoupe, 'Decide: the coupe'], ['decide-tree-g7.html', sheetDecideTree, 'Decide: the tree']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0}</style></head><body>${fn()}</body></html>\n`);
     fs.writeFileSync(path.join(ROOT, 'board-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Batch 1, the set</title>
@@ -1035,7 +1080,7 @@ renderVals() { return {}; }
 </body>
 </html>
 `);
-    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
+    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule'], ['Grid7Start', sheetStart, 'Start here'], ['Grid7DecideTunings', sheetDecideTunings, 'Decide: more human?'], ['Grid7DecideCoupe', sheetDecideCoupe, 'Decide: the coupe'], ['Grid7DecideTree', sheetDecideTree, 'Decide: the tree']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">

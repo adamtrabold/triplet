@@ -3885,3 +3885,26 @@ not a fault.**
 Both edits are made in place (text only), in the source and the published board.
 1. **Each coupe's figures:** "where the drink's surface meets the bowl wall (the check reads the drink's edge as a wall; an artefact)".
 2. **C's trade:** "your newest note says \"its starting to read as wine glass with the liquid\"".
+
+---
+
+## Turn 91: icon designer, the Grid concepts page reorganised (canvas v141; no drawing changed)
+
+Owner: "i am struggling to figure out how to read the file at this point". The page now reads top to bottom in four titled rows.
+
+1. **Waiting on you.** Five phone-width boards (760px, body type 17-19px), each of the four decisions with one plain question:
+   - "Start here": what the page is, the layout, the four open questions pointing to their boards, and what is already decided;
+   - "Decide: more human?";
+   - "Decide: the coupe";
+   - "Decide: line marks" (the Weight board);
+   - "Decide: the tree".
+2. **In progress.** The six icons now (the main board) beside the tuned versions ("More human, by rule").
+3. **Decided: the grid.** The master grid, the corners and the air.
+4. **Detail, for the team (optional).** The set, each drawing, and in the app.
+
+**Archived, not deleted:**
+- the old intro card (superseded by Start here);
+- the old "grid, changed by the redraw" card (superseded by the master grid);
+- the old row titles.
+
+The canvas still opens where it did. I rendered the new boards at phone width (390pt at 2x) and read them before publishing. Unchanged boards were only moved, not rewritten.
