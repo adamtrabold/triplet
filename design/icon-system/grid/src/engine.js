@@ -277,7 +277,33 @@ function erode(d, w, miter = true) {
   }
   return out;
 }
-function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease } = {}) {
+// g7z: a glyph drawn symmetric stays symmetric after the law. corners() treats an edge by its direction of
+// travel, so a symmetric outline whose halves run opposite ways came out up to 0.2px off (the H3 coupe, once its
+// stem flared into the domed foot). Keep the left half of the FINISHED outline, mirror it across x, and drop the
+// collinear points the seam leaves on straight lines.
+function symD(d, x) {
+  const it = new CompoundPath(d), half = new Path.Rectangle(new Point(-1000, -1000), new Point(x, 1000));
+  const l = it.intersect(half); it.remove(); half.remove();
+  const r = l.clone(); r.scale(-1, 1, new Point(x, 0)); const u = l.unite(r); l.remove(); r.remove();
+  for (const k of (u.children && u.children.length ? u.children : [u])) {
+    for (let i = k.segments.length - 1; i >= 0 && k.segments.length > 3; i--) {
+      const s = k.segments[i], p = s.previous, n = s.next;
+      if (!s.handleIn.isZero() || !s.handleOut.isZero() || !p.handleOut.isZero() || !n.handleIn.isZero()) continue;
+      const a = s.point.subtract(p.point), b = n.point.subtract(s.point);
+      if (Math.abs(a.cross(b)) < 1e-4 * a.length * b.length && a.dot(b) > 0) s.remove();
+    }
+  }
+  // absolute commands, as corners() writes them (the checks read M, L, C, Z)
+  const n = v => +v.toFixed(4), P = q => `${n(q.x)} ${n(q.y)}`;
+  let out = '';
+  for (const k of (u.children && u.children.length ? u.children : [u])) {
+    out += `M${P(k.firstSegment.point)}`;
+    for (const c of k.curves) out += c.hasHandles() ? `C${P(c.point1.add(c.handle1))} ${P(c.point2.add(c.handle2))} ${P(c.point2)}` : `L${P(c.point2)}`;
+    out += 'Z';
+  }
+  u.remove(); return out;
+}
+function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease, sym } = {}) {
   const ers = prims.filter(q => q.t === 'E');
   if (ers.length) {
     let acc = join(prims.filter(q => q.t !== 'E'), penW);
@@ -294,14 +320,14 @@ function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease } = {}
       }
       const s = q.fill ? acc.unite(hole) : acc.subtract(hole); acc.remove(); hole.remove(); acc = s;
     }
-    const d = law ? corners(acc, law, info, { noCaps, tightHoles: true, ease }) : acc.pathData;
+    let d = law ? corners(acc, law, info, { noCaps, tightHoles: true, ease }) : acc.pathData; if (sym != null) d = symD(d, sym);
     const b = acc.bounds; acc.remove();
     let far = 0;
     if (centre) { const fl = new CompoundPath(d); fl.flatten(0.05); for (const k of (fl.children && fl.children.length ? fl.children : [fl])) for (const s of k.segments) far = Math.max(far, Math.hypot(s.point.x - centre[0], s.point.y - centre[1])); fl.remove(); }
     return { d, far, bounds: { x: b.x, y: b.y, w: b.width, h: b.height } };
   }
   const it = join(prims, penW);
-  const d = law ? corners(it, law, info, { noCaps, tightHoles, ease }) : it.pathData;
+  let d = law ? corners(it, law, info, { noCaps, tightHoles, ease }) : it.pathData; if (sym != null) d = symD(d, sym);
   const b = it.bounds;
   // farthest ink point from the badge centre, for the fit check
   let far = 0;

@@ -210,7 +210,9 @@ const DRAW = {
       band = cut(I(inside, R(0, rim, s, liquid - rim)));
     }
     const FB = Y(o.fb ?? 10.833);
-    const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = FB - fh + 0.01;
+    // g7z: on a DOME the stem runs down into the foot (half its height), so its sides meet the dome's arc in a
+    // real join that flares like the trunk's; ending at the dome's crown left a 0.13px ledge at each side
+    const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = o.dome ? FB - fh / 2 : FB - fh + 0.01;
     const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : o.style === 'settle' ? POSTT(c, sy0, sy1, wSettle(sy0, 0, s), wSettle(sy1, 0, s)) : o.post ? R(c - o.post / 2, sy0, o.post, sy1 - sy0, { root: 'POST' }) : POST(c, sy0, sy1);   // o.post (g7t exploration): a free-standing post's width
     // g7t exploration, o.dome: a foot that holds a glass up by its stem is a DOME (its top a low arc, a line
     // high at the centre, its ends worn to the corner rule), as batch 1's was; a base an object sits flat on

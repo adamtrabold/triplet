@@ -551,7 +551,7 @@ const EASE = 2.3;
 const HSETS = [
   ['Now (v134): monoweight', 'The set as it is: the baseline.', {}, LAWS7.joint, 1, false, 0],
   ['H2: monoweight, eased, settled', 'Every mass\'s outside corners and joins ease out of their lines (no jump in curvature); every line end (the saucer\'s, the plinth\'s, the coupe\'s foot, the trunk) keeps the same plain round, so the terminals match across all eight. Every base is a slab. The tree keeps today\'s proportions, but its tiers are drawn, not ruled: their sides sweep in a fifth of a line and their undersides droop half a line (you: "the less mechanical triangles"). Every glyph sits with 1/12 more air. At true size this is subtle; it shows in the corners at 7x.', { droop: 0.5, bow: -0.2, bandH: BAND }, LAWS7.joint, 11 / 12, true, EASE],
-  ['H3: monoweight, with flares', 'H2, plus personality: where a post meets a mass (the coupe\'s stem, the trunk, the cup\'s handle) the join flares with a round of one line; a base that holds something on a ring or a point (the coupe\'s foot, the saucer) is a DOME, a line high at its centre; the plinth, which carries a wall, stays a slab. Every line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, bandH: BAND }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  ['H3: monoweight, with flares', 'H2, plus personality. THE BASE RULE: what stands on a table has a domed foot (the saucer, the coupe\'s foot); what stands on the ground keeps a flat base (the museum\'s plinth, the tree\'s trunk). THE FLARE RULE: a post flares into the mass it meets (the coupe\'s stem at both ends, the trunk into its tier); counters, slots and line marks never flare. Every line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, bandH: BAND }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, bandH: BAND }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
 ].map(([nm, rule, o, law, fk, bal, ease]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined };
@@ -559,7 +559,8 @@ const HSETS = [
     const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = s => DRAW[id](s, { style: 'mono', ...o, ...extra });
     let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
-    return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), opts).d;
+    const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = o.dome && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
+    return E.build(E.xform(prims, 1, 0, 0, ox + tx, oy + r3(12 - (m.box.cy + m.cy) / 2)), { ...opts, sym }).d;
   };
   const ds = {};
   for (const [id] of BATCH) ds[id] = fitPlace(id);
@@ -634,7 +635,7 @@ ${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1
 <div>${title('Rules that bend')}<div style="font-size:16px;line-height:1.5">
 <p style="margin:0 0 10px"><b>The corner law</b> keeps its radii in every tuning; the tunings change only how a mass\'s round meets its lines (eased, not a compass arc). Line ends keep the plain round everywhere.</p>
 <p style="margin:0 0 10px"><b>Interior tighter than exterior</b> (your rule) bends in H3 only, at one kind of corner: where a post flares into a mass. Counters, slots and the tree\'s notches stay tight in every tuning.</p>
-<p style="margin:0 0 10px"><b>Every base is a slab</b> holds in H2. In H3 a base that holds something on a ring or a point is a DOME (the coupe\'s foot, the saucer; later a lamp, a trophy, a bell); the plinth, which carries a wall, stays a slab.</p>
+<p style="margin:0 0 10px"><b>Every base is a slab</b> holds in H2. In H3 it becomes <b>table or ground</b>: what stands on a table has a domed foot (the saucer, the coupe\'s foot; later a lamp, a trophy, a vase); what stands on the ground keeps a flat base (the plinth, the trunk; later a bench, a sign). v138 kept the saucer a slab because no dome existed yet; under this rule it domes with the coupe.</p>
 <p style="margin:0 0 10px"><b>Monoweight</b> (your pick) holds in H2 and H3. Only "H3 relaxed" thins the free-standing posts, and says so in its name.</p>
 <p style="margin:0"><b>The Outline class</b>: in the tunings the star\'s points reach as far as the +\'s arms (the shipped star\'s 4px hole minimum made it 15% wider than v133); its hole is then about 2 lines.</p></div></div>
 <div>${title('Craft bar, and comparisons')}<div style="font-size:16px;line-height:1.5">The craft bar, for finish and construction rigour rather than style: Central, Nucleo, Lucide and Apple's published method. None is copied; Lucide glyphs may appear only labelled "craft reference". Material and Phosphor are shown above for comparison, not as a craft benchmark (you: "just to see how much *better* ours are").</div></div></div>
@@ -668,9 +669,21 @@ function sheetStart() {
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:26px 0 6px">Already decided</div><ul style="margin:0;padding-left:22px;font-size:18px;line-height:1.4">${decided}</ul>`);
 }
 function sheetDecideTunings() {
-  const SHORT = ['As shipped: the baseline.', 'Corners ease into their lines; every line end and every base matches (slabs); tree tiers drawn, not ruled; more air.', 'H2, plus flares where posts meet masses, and domed bases under the coupe and the cup. Every line 1.5.', 'H3, with the stem and trunk thinned to 1 1/4px (monoweight relaxed there only).'];
+  const SHORT = ['As shipped: the baseline.', 'Corners ease into their lines; every line end and every base matches (slabs); tree tiers drawn, not ruled; more air.', 'H2, plus flares where a post meets a mass, and one base rule: on a table, a domed foot; on the ground, a flat base. Every line 1.5.', 'H3, with the stem and trunk thinned to 1 1/4px (monoweight relaxed there only).'];
   const opt = (S, k) => phOpt(S.nm, SHORT[k], `${BATCH.map(([id]) => badge(S.ds[id])).join('')}${uiPath(S.ds.plus, 26.4)}${uiPath(S.ds.star, 20)}<span style="width:8px"></span>${BATCH.map(([id]) => badge(S.ds[id], 72)).join('')}`);
-  return phBoard('Waiting on you · 1', 'Decide: more human?', `${phQ(OPEN_QS[0][1])}${HSETS.map(opt).join('')}${phDetail('"More human, by rule" (row 2), with every rule, the checks and the in-app view.')}`);
+  // g7z (director, turn 94): H3's every base, end and join, per icon, with the rule each follows. Radii are
+  // measured from the build at the 12px drawing (src/h3-ends.js prints them).
+  const H3L = [
+    ['Café', 'Saucer: domed (on a table)', 'Saucer ends 0.6 (a domed foot\'s round)', 'Cup on saucer: the join round 0.2 (a mass on a base, not a post). Handle: a loop; its inside corners stay tight, 0.15'],
+    ['Coupe', 'Foot: domed (on a table)', 'Foot ends 0.6; rim corners 0.6', 'Stem flares 1.44 into the bowl and into the foot. Drink band corners tight'],
+    ['Museum', 'Plinth: flat (on the ground)', 'Plinth and eave ends 0.1 to 0.3 (the end round, fitted to a 1.5 slab); apex 0.7', 'The columns are the walls between slots, so their corners are slot corners: tight, 0.15, no flare. That\'s why it matches H2'],
+    ['Tree', 'Trunk: flat (on the ground)', 'Trunk end 0.3; tier tips 0.35', 'Trunk flares 0.93 into the bottom tier (capped by the tier\'s short edge). Notches tight, 0.15'],
+    ['+', 'None', 'Arm ends: the plain round', 'The crossing keeps the line join. A line mark has no mass, so nothing flares'],
+    ['Star', 'None', 'Tips: the joint round', 'Valleys and the hole\'s corners tight. No flare, as for the +'],
+  ].map(([n, b, e, j]) => `<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${COL.navy}">${n}</div><div style="font-size:16px;line-height:1.4;margin-top:2px"><b>Base</b>: ${b}<br><b>Ends</b>: ${e}<br><b>Joins</b>: ${j}</div></div>`).join('');
+  const h3Rules = `<div style="margin-top:26px;padding:18px 20px;background:${COL.paper};border-left:4px solid ${COL.or}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin-bottom:6px">H3's base rule</div><div style="font-size:21px;line-height:1.35;color:${COL.navy};font-weight:600">What stands on a table has a domed foot; what stands on the ground keeps a flat base.</div><div style="font-size:16px;line-height:1.4;margin-top:6px">So the saucer and the coupe's foot dome, and the plinth and the trunk stay flat. And one flare rule: a post flares into the mass it meets; counters, slots and line marks never do.</div></div>
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:24px 0 4px">H3, every base, end and join</div>${H3L}`;
+  return phBoard('Waiting on you · 1', 'Decide: more human?', `${phQ(OPEN_QS[0][1])}${HSETS.map(opt).join('')}${h3Rules}${phDetail('"More human, by rule" (row 2), with every rule, the checks and the in-app view.')}`);
 }
 function sheetDecideCoupe() {
   const S0 = HSETS[0], cs = S0.coupes, N = COL.navy;
