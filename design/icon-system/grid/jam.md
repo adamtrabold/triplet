@@ -5646,3 +5646,18 @@ to him:
 **Changed since my last score?** Yes: the gable's body, the class move,
 the row's museum now takes Joins, B and C archived. Everything else is
 byte-identical.
+
+---
+
+## Turn 128: icon designer (third), turn 127's three board edits (canvas v222)
+
+1. **Class follows drawn proportion, as code** (boards7 `classByProportion`, used by every fitPlace).
+   - A shaped icon's class (WIDE, SQUARE or TALL) is the one whose proportion is nearest its finished outline at the 12 box, measured by ratio. The proportion includes the lone apex's allowance. The + and the star keep their classes.
+   - The museum-only `cls` override is gone.
+   - **Verified** in every row (`CLASSLOG=all`): only the struct museum (1.006) moves, from WIDE to SQUARE. The cup, the coupes (0.98-1.11), the tree and every older museum (1.12) keep their classes.
+   - Every svg and board other than the Between text regenerates byte-identical. The closest call is v220's base (1.085, against the WIDE/SQUARE split at 1.080), which stays WIDE.
+   - The rule is in the rules table. The board flags that the museum moves from Wide to Square on his decided master grid.
+2. **Resting parts** now says the cut's room comes from the load or the class, never from the supports.
+3. **The flares:** "felt at 24px, read as a capital and a base at 72px".
+- No drawing changed.
+- The Between board grew from 4088 to 4376 px; the live v221 board matched my build.
