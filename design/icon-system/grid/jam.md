@@ -4351,3 +4351,50 @@ how many times do i have to say it."
      round, whatever the drawings score.
 
 NEXT: the designer's round; then the director scores on 1 to 6.
+
+---
+
+## Turn 101: icon designer, g7aa: "Between H2 and H3", one board (canvas v199)
+
+Owner (v147): "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate feels too far. and the flares too intense. the museum looks completely out of place, so there needs to be a pattern for bringing this to the more structural icon decisions. also the interior counter shape of the coupe *still* does not look right. and there is *still* not enough liquid in the cup how many times do i have to say it."
+
+**1. The coupe: "Which of these is what you mean?"**
+- **Drink measure** (`src/liquid.js`): the ink inside the glass's walls (the silhouette moved in by one line), at 24px.
+  - v134: 5.1px². Batch 1: 5.3 (a solid glass, no clear part). B at v144: 2.0.
+  - B's flat bowl, closed by its bar across the rim, cannot hold more. No counter shape fixes that, and the board says so plainly.
+- **Three options, each changing one idea.** Each passes, by my eye at 24px, "a glass with a drink in it" and "clearly more liquid than v134".
+  - **(a) A deeper bowl** (bd 6.75, stem to 11).
+    - Drink 7.8px², 52% more than v134.
+    - The wall beside the band measures 1.50 / 1.50 / 1.50 across and 1.48 / 1.47 / 1.44 square.
+    - Trade, stated on the board: some of the flatness he picked.
+  - **(b) An open glass:** B's silhouette with no bar across the rim. The mouth is the clear part (1 1/6). Its sides are the bowl's curve moved in by the line.
+    - Drink 9.3px², 81% more than v134.
+    - Wall beside the mouth: 1.49 / 1.50 / 1.50 across.
+  - **(c) The drink as its own shape:** an outline glass, with the drink a separate shape inside it and a 5/6 gap all round.
+    - Drink 7.2px², 41% more than v134.
+    - The glass's wall measures 1.50 square, an even true offset.
+    - Trade, stated on the board: the flat bowl (it's rounder and deeper).
+- **Not shown:** a literal crescent under the rim. It pinches to slivers where it meets the walls (the no-ink-traps rule).
+
+**2. Between H2 and H3** (row 5 of HSETS; the v144 boards keep their four rows).
+- **Plates and feet:** a slab whose top rises 1/2px at the centre, so its ends are 1px and its crown 1.5. H3's dome came down to a point at the ends.
+- **Flares:** 3/4px, half of H3's 1.5.
+- **Unchanged from H3:** mass corners 0.6 eased; line ends 0.3; counters tight 0.15; the tree's sweep and droop.
+- The row is shown in the set beside H2 and H3, in app rows, and at 8x. The coupe in it is (a) until he picks.
+
+**3. The museum: a pattern for built things** ("keep their straight lines, wear at their joins").
+- Beam, columns and plinth stay straight. The roof sweeps in 1/10 of a line, half the tree's sweep.
+- Columns get a capital and a base: the slots' corners round to 0.5, a third of the slot. That is under the outside's 0.6, so slots don't become pills.
+- The outer columns meet the beam and plinth with the same 0.5.
+- Slab ends take the line-end round.
+- A base on the ground stays flat.
+- It governs Hotel, Neighbourhood and Venue. Landmark's ⌘ loop is a sign, not a building.
+
+**Checks** (`src/between-checks.js`, check-svg on `svg/g7/between/`):
+- check-svg: no slivers; everything symmetric except the café (asymmetric by design).
+- Counters: museum slots 1.50. Coupe (a)'s band is 1.45 to 1.50 square, by design, since it holds 1.5 across.
+- Curve check: 0.00/px at non-end joins (the café 0.41).
+
+**Canvas:**
+- The board sits at the end of row 1. Rows 2 to 4 of the team's boards moved down 1318px.
+- The owner's own items (the Weight copy, Artboard 1, his note) were not touched. The index was built from the version he saved.

@@ -112,7 +112,7 @@ const DRAW = {
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
     // g7y exploration, o.dome (H3): a base that holds something on a ring or a point is a DOME, the saucer too
     const sy = T(X(bot) + CUT), sh = slabH(o);
-    const saucer = o.dome ? D(`M0 ${f(sy + sh)}C0 ${f(sy + 0.2 * sh)} ${f(0.3 * s)} ${f(sy)} ${f(s / 2)} ${f(sy)}C${f(0.7 * s)} ${f(sy)} ${f(s)} ${f(sy + 0.2 * sh)} ${f(s)} ${f(sy + sh)}Z`, { root: 'DOME' }) : o.style === 'brush' || o.style === 'mono' ? R(0, sy, s, sh, { root: 'SLAB' }) : SLAB(0, s, sy);
+    const saucer = typeof o.dome === 'number' ? D(`M0 ${f(sy + sh)}V${f(sy + o.dome)}C${f(0.3 * s)} ${f(sy - o.dome / 3)} ${f(0.7 * s)} ${f(sy - o.dome / 3)} ${f(s)} ${f(sy + o.dome)}V${f(sy + sh)}Z`, { root: 'DOME' }) : o.dome ? D(`M0 ${f(sy + sh)}C0 ${f(sy + 0.2 * sh)} ${f(0.3 * s)} ${f(sy)} ${f(s / 2)} ${f(sy)}C${f(0.7 * s)} ${f(sy)} ${f(s)} ${f(sy + 0.2 * sh)} ${f(s)} ${f(sy + sh)}Z`, { root: 'DOME' }) : o.style === 'brush' || o.style === 'mono' ? R(0, sy, s, sh, { root: 'SLAB' }) : SLAB(0, s, sy);
     if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
       // the loop's wall at its top arm, its back and its bottom arm; the inner edge is two quarter curves that
       // follow the outer half circle, so the width changes smoothly from arm to back to arm
@@ -198,7 +198,7 @@ const DRAW = {
       // the wall read 1.55 wide at the band's top and 1.72 at its bottom. o.bandSide 'shift' (the coupe from g7z, B):
       // each side of the band is the bowl's own curve over the band's height, moved in by the line. Same curve,
       // same curvature as the outside; the wall is the line wide all the way down. Without it: v142's true offset (v134 and A-C as shown).
-      if (o.style === 'mono' && o.chan == null && o.bandSide === 'shift') {
+      if (o.style === 'mono' && o.chan == null && o.coupe !== 'inner' && (o.bandSide === 'shift' || o.coupe === 'open')) {
         const Lc = [[X(6), X(bd)], [X(bx), X(bd)], [X(bl), X(bk * bd)], [X(bl), 0]];   // the bowl's left side, bottom to rim
         const pt = (q, tt) => [0, 1].map(i => (1 - tt) ** 3 * q[0][i] + 3 * tt * (1 - tt) ** 2 * q[1][i] + 3 * tt * tt * (1 - tt) * q[2][i] + tt ** 3 * q[3][i]);
         const tY = y => { let lo = 0, hi = 1; for (let n = 0; n < 60; n++) { const m = (lo + hi) / 2; if (pt(Lc, m)[1] > y) lo = m; else hi = m; } return (lo + hi) / 2; };
@@ -209,7 +209,21 @@ const DRAW = {
         };
         const q = sub(Lc, tY(liq), tY(rimT)).map(([x, y]) => [x + W, y]);   // drink level up to the rim, moved in by the line
         const mq = q.map(([x, y]) => [s - x, y]);
+        if (o.coupe === 'open') {
+          // g7aa (b) OPEN GLASS: no bar across the rim. The bowl is a wall a line wide, open at the top like a
+          // glass seen from the side; the clear part is its mouth, the bowl's own sides moved in by the line, down
+          // to the drink's flat surface (o.bandH below the rim: the empty part, at or under the stroke)
+          const qo = sub(Lc, tY(o.bandH ?? W), 1).map(([x, y]) => [x + W, y]), mo = qo.map(([x, y]) => [s - x, y]);
+          band = cut(D(`M${f(qo[0][0])} ${f(qo[0][1])}C${f(qo[1][0])} ${f(qo[1][1])} ${f(qo[2][0])} ${f(qo[2][1])} ${f(qo[3][0])} ${f(qo[3][1])}V-1H${f(mo[3][0])}V${f(mo[3][1])}C${f(mo[2][0])} ${f(mo[2][1])} ${f(mo[1][0])} ${f(mo[1][1])} ${f(mo[0][0])} ${f(mo[0][1])}Z`));
+        } else
         band = cut(D(`M${f(q[0][0])} ${f(q[0][1])}C${f(q[1][0])} ${f(q[1][1])} ${f(q[2][0])} ${f(q[2][1])} ${f(q[3][0])} ${f(q[3][1])}H${f(mq[3][0])}C${f(mq[2][0])} ${f(mq[2][1])} ${f(mq[1][0])} ${f(mq[1][1])} ${f(mq[0][0])} ${f(mq[0][1])}Z`));
+      } else
+      if (o.coupe === 'inner') {
+        // g7aa (c) THE DRINK AS ITS OWN SHAPE: the glass drawn as an outline a line wide (open at the top), and
+        // the drink inside it a separate dark shape, a clear gap of o.bandH between them all round, its surface
+        // flat, o.bandH below the rim
+        const g = o.bandH ?? W, up = D(`M${X(bl)} ${f(-2 * W)}H${X(12 - bl)}V0C${X(12 - bl)} ${X(bk * bd)} ${X(12 - bx)} ${X(bd)} ${X(6)} ${X(bd)}C${X(bx)} ${X(bd)} ${X(bl)} ${X(bk * bd)} ${X(bl)} 0Z`);
+        band = [E([up], W, null, { mirror: c }), E([up], W + g, R(-1, g, s + 2, 50), { mirror: c, fill: true, cut: false })];
       } else
       band = o.style === 'mono' && o.chan == null ? E([bowl], W, R(-1, -1, s + 2, liq + 1), { mirror: c }) : o.style === 'mono' ? [E([bowl], W, null, { mirror: c }), E([bowl], 2 * W, R(-1, liq, s + 2, 50), { mirror: c, fill: true, cut: false }), ...(chanY != null && o.chan < 1 ? [E([bowl], W, R(-1, Math.max(liq, chanY), s + 2, 50), { mirror: c, fill: true, cut: false })] : [])] : cut(D(`M${f(p0[0])} ${f(rimT)}H${m(p0[0])}C${m(c1[0])} ${f(c1[1])} ${m(c2[0])} ${f(c2[1])} ${m(p1[0])} ${f(liq)}H${f(p1[0])}C${f(c2[0])} ${f(c2[1])} ${f(c1[0])} ${f(c1[1])} ${f(p0[0])} ${f(rimT)}Z`));
     } else if (o.taper === 'even') {
@@ -236,7 +250,7 @@ const DRAW = {
     // g7t exploration, o.dome: a foot that holds a glass up by its stem is a DOME (its top a low arc, a line
     // high at the centre, its ends worn to the corner rule), as batch 1's was; a base an object sits flat on
     // (the saucer, the plinth) stays a SLAB
-    const foot = o.dome ? D(`M${X(2)} ${f(FB)}C${X(2)} ${f(FB - 0.8 * fh)} ${X(3.9)} ${f(FB - fh)} ${f(c)} ${f(FB - fh)}C${X(8.1)} ${f(FB - fh)} ${X(10)} ${f(FB - 0.8 * fh)} ${X(10)} ${f(FB)}Z`, { root: 'DOME' }) : R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
+    const foot = typeof o.dome === 'number' ? D(`M${X(2)} ${f(FB)}V${f(FB - fh + o.dome)}C${X(4.4)} ${f(FB - fh - o.dome / 3)} ${X(7.6)} ${f(FB - fh - o.dome / 3)} ${X(10)} ${f(FB - fh + o.dome)}V${f(FB)}Z`, { root: 'DOME' }) : o.dome ? D(`M${X(2)} ${f(FB)}C${X(2)} ${f(FB - 0.8 * fh)} ${X(3.9)} ${f(FB - fh)} ${f(c)} ${f(FB - fh)}C${X(8.1)} ${f(FB - fh)} ${X(10)} ${f(FB - 0.8 * fh)} ${X(10)} ${f(FB)}Z`, { root: 'DOME' }) : R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
     return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, ...(Array.isArray(band) ? band : [band])];
   },
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
@@ -248,6 +262,17 @@ const DRAW = {
     const out = [{ ...P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd]), root: 'GABLE', also: 'SLAB' }];
     const ct = pb + bd, pl = Y(12) - slabH(o);                        // column tops; plinth top
     const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
+    if (o.capital) {
+      const r = Math.min(o.capital, gap / 3), k = 0.5523;
+      if (o.roofBow ?? o.bow) { const bw = o.roofBow ?? o.bow, sl = (x0_, y0_, x1_, y1_) => { const mx = (x0_ + x1_) / 2, my = (y0_ + y1_) / 2, L = Math.hypot(x1_ - x0_, y1_ - y0_), nx = (y1_ - y0_) / L, ny = -(x1_ - x0_) / L, sg = Math.sign((mx - s / 2) * nx || 1); return `Q${f(mx + sg * nx * 2 * bw)} ${f(my + sg * ny * 2 * bw)} ${f(x1_)} ${f(y1_)}`; };
+        out[0] = { ...D(`M${X(0.25)} ${f(pb + bd)}V${f(pb)}${sl(X(0.25), pb, X(6), X(1.667))}${sl(X(6), X(1.667), X(11.75), pb)}V${f(pb + bd)}Z`), root: 'GABLE', also: 'SLAB' }; }
+      out.push(R(x0, ct - 0.01, span, pl - ct + 0.02, { root: 'POST' }));   // the colonnade, its slots cut below
+      for (let i = 0; i < n - 1; i++) { const a = x0 + W + i * (W + gap), b = a + gap;
+        out.push(cut(D(`M${f(a + r)} ${f(ct)}H${f(b - r)}C${f(b - r + r * k)} ${f(ct)} ${f(b)} ${f(ct + r - r * k)} ${f(b)} ${f(ct + r)}V${f(pl - r)}C${f(b)} ${f(pl - r + r * k)} ${f(b - r + r * k)} ${f(pl)} ${f(b - r)} ${f(pl)}H${f(a + r)}C${f(a + r - r * k)} ${f(pl)} ${f(a)} ${f(pl - r + r * k)} ${f(a)} ${f(pl - r)}V${f(ct + r)}C${f(a)} ${f(ct + r - r * k)} ${f(a + r - r * k)} ${f(ct)} ${f(a + r)} ${f(ct)}Z`))); }
+      // the outer columns' capitals and bases: a quarter-round fill in each corner where a column meets an overhang
+      const fil = (x, y, dx, dy) => D(`M${f(x)} ${f(y)}H${f(x + dx * r)}C${f(x + dx * r * (1 - k))} ${f(y)} ${f(x)} ${f(y + dy * r * (1 - k))} ${f(x)} ${f(y + dy * r)}Z`);
+      out.push(fil(x0 + 0.01, ct - 0.01, -1, 1), fil(x0 + span - 0.01, ct - 0.01, 1, 1), fil(x0 + 0.01, pl + 0.01, -1, -1), fil(x0 + span - 0.01, pl + 0.01, 1, -1));
+    } else
     for (let i = 0; i < n; i++) { const cx = x0 + W / 2 + i * (W + gap); out.push(o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : o.style === 'settle' ? POSTT(cx, ct - 0.01, pl + 0.01, wSettle(ct, 0, s), wSettle(pl, 0, s)) : POST(cx, ct - 0.01, pl + 0.01)); }
     out.push(R(X(0.25), pl, X(11.75) - X(0.25), slabH(o), { root: 'SLAB' }));
     return out;

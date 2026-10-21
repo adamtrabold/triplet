@@ -553,19 +553,32 @@ const COUPES = [
 // drink's surface back on the 1/3px lattice (1.5 + 1 1/6 = 2 2/3)
 const BAND_B = 7 / 6, COUPE_B = { bd: 5.5, bk: 0.35, bx: 0.5, fb: 10.333, bandH: BAND_B, bandSide: 'shift' };
 const EASE = 2.3;
+// g7aa (owner on v147: "also the interior counter shape of the coupe *still* does not look right. and there is
+// *still* not enough liquid in the cup how many times do i have to say it"): B's flat bowl, closed by its rim bar,
+// holds less drink than v134 (measured, src/liquid.js). Three ways to give it clearly more, one idea each:
+const COUPE_V = [
+  ['(a) A deeper bowl', 'B\'s shape with the bowl a little deeper and the stem a little longer, so the drink under the clear band is half the glass. It gives up some of the flatness you picked.', { ...COUPE_B, bd: 6.75, fb: 11 }],
+  ['(b) An open glass', 'B\'s shape exactly, with no bar across the rim: the glass is open at the top, its mouth is the clear part (1 1/6px, under the stroke) and the drink fills the rest. Its sides are the bowl\'s own curve moved in by the line.', { ...COUPE_B, coupe: 'open', fb: 11 }],
+  ['(c) The drink as its own shape', 'The glass drawn as an outline, the drink a separate dark shape inside it with a flat surface and a clear gap (5/6px) all round. The bowl is rounder and deeper so the drink can be big; it gives up the flat bowl.', { ...COUPE_B, coupe: 'inner', bandH: 5 / 6, bd: 6.5, fb: 11 }],
+];
 const HSETS = [
   ['Now (v134): monoweight', 'The set as it is: the baseline.', {}, LAWS7.joint, 1, false, 0],
   ['H2: monoweight, eased, settled', 'Every mass\'s outside corners and joins ease out of their lines (no jump in curvature); every line end (the saucer\'s, the plinth\'s, the coupe\'s foot, the trunk) keeps the same plain round, so the terminals match across all eight. Every base is a slab. The tree keeps today\'s proportions, but its tiers are drawn, not ruled: their sides sweep in a fifth of a line and their undersides droop half a line (you: "the less mechanical triangles"). Every glyph sits with 1/12 more air. At true size this is subtle; it shows in the corners at 7x.', { droop: 0.5, bow: -0.2, ...COUPE_B }, LAWS7.joint, 11 / 12, true, EASE],
   ['H3: monoweight, with flares', 'H2, plus personality. THE BASE RULE: what stands on a table has a domed foot (the saucer, the coupe\'s foot); what stands on the ground keeps a flat base (the museum\'s plinth, the tree\'s trunk). THE FLARE RULE: a post flares into the mass it meets (the coupe\'s stem at both ends, the trunk into its tier); counters, slots and line marks never flare. Every line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
+  // feels too far. and the flares too intense. the museum looks completely out of place")
+  ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre (H3\'s domes rose a whole line); the flares are half H3\'s (3/4px); the museum follows the structural pattern.', { droop: 0.5, bow: -0.2, dome: 0.5, capital: 0.5, roofBow: -0.1, ...COUPE_V[0][2] }, HUMAN({ flare: 0.75, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
 ].map(([nm, rule, o, law, fk, bal, ease]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined };
-  const fitPlace = (id, extra = {}) => {
-    const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = s => DRAW[id](s, { style: 'mono', ...o, ...extra });
+  const fitPlace = (id, extra = {}, withSil = false) => {
+    const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
     let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
     const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = o.dome && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
-    return E.build(E.xform(prims, 1, 0, 0, ox + tx, oy + r3(12 - (m.box.cy + m.cy) / 2)), { ...opts, sym }).d;
+    const ty = oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;
+    // g7aa: the silhouette (no band, no drink) placed exactly as the glyph is, for the liquid measure
+    return withSil ? { d, sil: E.build(E.xform(dr(s, { band: false }), 1, 0, 0, ox + tx, ty), { ...opts, sym }).d } : d;
   };
   const ds = {};
   for (const [id] of BATCH) ds[id] = fitPlace(id);
@@ -573,8 +586,17 @@ const HSETS = [
   ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease }).d : UD.joint.plus.d;
   const coupes = COUPES.map(([, , co]) => fitPlace('bar', co));
   const bar1 = o.bandSide === 'shift' ? fitPlace('bar', { bandH: 1 }) : null;   // g7z: the thinner band, for the coupe board
-  return { nm, rule, ds, coupes, ease, bar1 };
+  const silBar = fitPlace('bar', {}, true).sil;   // g7aa: the coupe's silhouette, for the liquid measure
+  const cv = nm.startsWith('Between') ? COUPE_V.map(([, , v]) => fitPlace('bar', v, true)) : null;
+  return { nm, rule, ds, coupes, ease, bar1, silBar, cv };
 });
+const HOLD = HSETS.filter(S => !S.cv), BETW = HSETS.find(S => S.cv);   // g7aa: the v144 boards keep their four rows
+{ // g7aa: the between row and the three coupes as svg files, for check-svg.py and the counter checks
+  const dir = path.join(__dirname, '../svg/g7/between'); fs.mkdirSync(dir, { recursive: true });
+  const svg = d => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="${d}"/></svg>`;
+  for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `${id}.svg`), svg(BETW.ds[id]));
+  BETW.cv.forEach(({ d }, k) => fs.writeFileSync(path.join(dir, `bar-${'abc'[k]}.svg`), svg(d)));
+}
 // checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
 // (where the outline's direction is continuous), the jump in curvature between the two sides, 1/px
 function curveJump(d) {
@@ -630,7 +652,7 @@ function sheetHuman() {
 <div style="display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:center;margin:0 0 30px">
 <div>${title('The feeling: batch 1\'s coupe')}<div style="font-size:16px;line-height:1.45;color:${I2}">Shown for the feeling only, not as a target. What made it feel drawn by hand: a <b>thin stem that flared</b> into the bowl and the foot, a <b>domed foot</b>, a bowl that was one <b>full curve</b>, and, in its tree, <b>drooping</b> branches. The tunings carry these as rules to every icon.</div></div>
 <div style="display:flex;gap:18px;align-items:center">${badge(b1)}${badge(b1, 168)}</div></div>
-${HSETS.map(setRow).join('')}
+${HOLD.map(setRow).join('')}
 <div style="margin-top:44px">${title('The coupe, three ways, in the current drawing: true size, then 5x')}<div style="display:grid;grid-template-columns:150px repeat(4, 1fr);gap:18px 20px;align-items:start">${cHead}${cRow(HSETS[0])}</div>
 <div style="font-size:14px;color:${I2};margin-top:10px">Every coupe stays in the square class, monoweight, the band 1 1/3px (v134: 1.5) with its sides one line in from the bowl. A flat bowl (B, C) leaves room for only a thin drink under the band, read by its surface, not its depth.</div><div style="font-size:16px;color:${N};font-weight:600;margin-top:10px">The drink in C: with the band at 1 1/3px, C holds ${DRINK(HSETS[0].coupes[3]).area.toFixed(1)}px², a little more than v130's 14.2px² (which you once called too little), in a flat bowl that can only hold a shallow layer; your newest note says the deep one was "starting to read as wine glass with the liquid".</div></div>
 ${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;padding:22px 0;border-top:1px solid ${COL.hair};margin-top:30px">
@@ -688,7 +710,7 @@ function sheetDecideTunings() {
   ].map(([n, b, e, j]) => `<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${COL.navy}">${n}</div><div style="font-size:16px;line-height:1.4;margin-top:2px"><b>Base</b>: ${b}<br><b>Ends</b>: ${e}<br><b>Joins</b>: ${j}</div></div>`).join('');
   const h3Rules = `<div style="margin-top:26px;padding:18px 20px;background:${COL.paper};border-left:4px solid ${COL.or}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin-bottom:6px">H3's base rule</div><div style="font-size:21px;line-height:1.35;color:${COL.navy};font-weight:600">What stands on a table has a domed foot; what stands on the ground keeps a flat base.</div><div style="font-size:16px;line-height:1.4;margin-top:6px">So the saucer and the coupe's foot dome, and the plinth and the trunk stay flat. And one flare rule: a post flares into the mass it meets; counters, slots and line marks never do.</div></div>
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:24px 0 4px">H3, every base, end and join</div>${H3L}`;
-  return phBoard('Waiting on you · 1', 'Decide: more human?', `${phQ(OPEN_QS[0][1])}${HSETS.map(opt).join('')}${h3Rules}${phDetail('"More human, by rule" (row 2), with every rule, the checks and the in-app view.')}`);
+  return phBoard('Waiting on you · 1', 'Decide: more human?', `${phQ(OPEN_QS[0][1])}${HOLD.map(opt).join('')}${h3Rules}${phDetail('"More human, by rule" (row 2), with every rule, the checks and the in-app view.')}`);
 }
 function sheetDecideCoupeV142() {   // v142's board, as the owner saw it (archived on the canvas)
   const S0 = HSETS[0], cs = S0.coupes, N = COL.navy;
@@ -709,8 +731,8 @@ function sheetDecideCoupe() {
   const fig = (d, cap) => `<div style="flex:1;min-width:0"><svg viewBox="-0.4 -0.4 12.8 6.4" style="width:100%;display:block;background:${COL.paper}" aria-hidden="true"><path d="${d}" fill="${N}"/><path d="${SIDE}" transform="translate(${W} 0)" fill="none" stroke="${O}" stroke-width="0.045"/><path d="${SIDE}" transform="translate(12 0) scale(-1 1) translate(${W} 0)" fill="none" stroke="${O}" stroke-width="0.045"/></svg><div style="font-size:16px;line-height:1.35;color:${N};margin-top:6px">${cap}</div></div>`;
   const w0 = bandWall(v142);
   const row = (nm, w, hi) => `<tr style="border-top:1px solid ${COL.hair}${hi ? `;font-weight:700;color:${N}` : ''}"><td style="padding:8px 6px 8px 0">${nm}</td>${['top', 'mid', 'bot'].map(k => `<td style="padding:8px 6px;text-align:right">${w[k].across.toFixed(2)}</td>`).join('')}<td style="padding:8px 0 8px 6px;text-align:right">${w.h.toFixed(2)}</td></tr>`;
-  const sets = HSETS.slice(1).map(S => [S.nm.split(':')[0], S.ds]);
-  const walls = [['v142 (B as you saw it)', w0, false], ...HSETS.slice(1).map(S => [S.nm.split(':')[0] + ', now', bandWall(S.ds.bar), true])];
+  const sets = HOLD.slice(1).map(S => [S.nm.split(':')[0], S.ds]);
+  const walls = [['v142 (B as you saw it)', w0, false], ...HOLD.slice(1).map(S => [S.nm.split(':')[0] + ', now', bandWall(S.ds.bar), true])];
   const listRows = ds => [['cafe', 'Kaffeverket', 'CAFÉ'], ['bar', 'Tjoget', 'BAR'], ['museum', 'Vasa Museum', 'MUSEUM'], ['nature', 'Djurgården', 'NATURE']]
     .map(([id, nm, sub]) => `<div style="display:flex;align-items:center;gap:10px;height:56px;background:${COL.paper};padding:0 10px;border-bottom:1px solid ${COL.hair}">${badge(ds[id])}<div style="flex:1;font-size:16px;font-weight:600;line-height:1.15">${nm}<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">${sub} · STOCKHOLM</div></div></div>`).join('');
   // in the badge: H2's coupe as the set draws it, and the same fitted with a 1px band
@@ -730,6 +752,61 @@ ${phP('A light gap between dark lines reads wider than it measures, so the band 
 <div style="display:flex;gap:28px;align-items:end;margin:8px 0 6px">${[[nowB, '1 1/6 (this)'], [thin, '1']].map(([d, l]) => `<div style="text-align:center"><div style="display:flex;gap:10px;align-items:center">${badge(d)}${badge(d, 72)}${badge(d, 150)}</div><div style="font-size:16px;color:${N};margin-top:6px;font-weight:700">${l}</div></div>`).join('')}</div>
 ${kick('B in the set, and in the app')}${inSet}
 ${phDetail('the drawing is picks7 bar with bandSide "shift"; the wall measure is src/band-wall.js.')}`);
+}
+// g7aa: ONE board, "Between H2 and H3": the coupe question first, then the between row, then the museum's pattern
+const { liquid: liquidOf } = require('./liquid.js');
+// the wall beside the clear part, at its top, middle and bottom: across (left wall's width on a level line) and
+// square (the shortest distance from the clear part's edge to the outside)
+function clearWalls(d, sil) {
+  const cp = new paperLib.CompoundPath(d), kids = cp.children && cp.children.length ? cp.children : [cp];
+  const so = new paperLib.CompoundPath(sil || d), sk = so.children && so.children.length ? so.children : [so];
+  const outer = sk.reduce((a, k) => (Math.abs(k.area) > Math.abs(a.area) ? k : a)), b = outer.bounds;
+  const xsAt = y => { const ln = new paperLib.Path.Line(new paperLib.Point(b.left - 1, y), new paperLib.Point(b.right + 1, y)); const xs = cp.getIntersections(ln).map(i => i.point.x).sort((p_, q_) => p_ - q_); ln.remove(); return xs; };
+  let y0 = null, y1 = null;
+  for (let y = b.top + 0.02; y < b.top + b.height * 0.6; y += 0.02) { const n = xsAt(y).length; if (n >= 4 && y0 == null) y0 = y; if (n >= 4) y1 = y; else if (y0 != null) break; }
+  const at = y => { const xs = xsAt(y), p = new paperLib.Point(xs[1], y); return { across: xs[1] - xs[0], sq: p.getDistance(outer.getNearestPoint(p)) }; };
+  const e = 0.2, r = y0 == null ? null : { top: at(y0 + e), mid: at((y0 + y1) / 2), bot: at(y1 - e), h: y1 - y0 };
+  cp.remove(); so.remove(); return r;
+}
+function sheetBetween() {
+  const N = COL.navy, I2 = COL.ink2, S = BETW, H2 = HSETS[1], H3 = HSETS[2];
+  const kick = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:30px 0 8px">${t_}</div>`;
+  const chip = d => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
+  const x8 = (d, px = 128) => `<svg width="${px}" height="${px}" viewBox="4 4 16 16" style="background:${COL.paper};flex:none" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
+  const row1 = (d, nm, sub) => `<div style="display:flex;align-items:center;gap:10px;height:56px;background:${COL.paper};padding:0 10px;border-bottom:1px solid ${COL.hair};width:250px;box-sizing:border-box">${badge(d)}<div style="flex:1;font-size:16px;font-weight:600;line-height:1.15">${nm}<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">${sub} · STOCKHOLM</div></div></div>`;
+  const L0 = liquidOf(HSETS[0].ds.bar, HSETS[0].silBar), L1 = liquidOf(OLD.bar.d, OLD.bar.d), LB = liquidOf(H2.ds.bar, H2.silBar);
+  const ref = (d, nm, L) => `<div style="text-align:center"><div style="display:flex;gap:8px;align-items:center;justify-content:center">${chip(d)}${badge(d)}${badge(d, 72)}</div><div style="font-size:16px;font-weight:700;color:${N};margin-top:6px">${nm}</div><div style="font-size:15px;color:${I2}">drink ${L.liquid.toFixed(1)}px²</div></div>`;
+  const opts = COUPE_V.map(([nm, line], k) => { const { d, sil } = S.cv[k], L = liquidOf(d, sil), w = clearWalls(d, sil);
+    const more = Math.round(100 * (L.liquid / L0.liquid - 1));
+    return `<div style="padding:18px 0;border-top:1px solid ${COL.hair}"><div style="font-size:23px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div>
+<div style="display:flex;gap:14px;align-items:center">${chip(d)}${badge(d)}${badge(d, 72)}${row1(d, 'Tjoget', 'BAR')}${x8(d)}</div>
+<div style="font-size:16px;line-height:1.4;color:${N};margin-top:10px"><b>Drink ${L.liquid.toFixed(1)}px²</b>, ${more}% more than v134's ${L0.liquid.toFixed(1)}; ${Math.round(100 * L.share)}% of the glass's inside${!w ? '' : k === 0 ? `. The wall beside the clear band: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom), ${w.top.sq.toFixed(2)} / ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl` : k === 1 ? `. The wall beside the open mouth: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom)` : `. The glass's wall: ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl, beside and under the drink (an even outline; read across, it widens where the bowl turns)`}.</div></div>`; }).join('');
+  const setRow = (R, label) => `<div style="padding:14px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">${label}</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${BATCH.map(([id]) => badge(R.ds[id])).join('')}${uiPath(R.ds.plus, 26.4)}${uiPath(R.ds.star, 20)}<span style="width:10px"></span>${BATCH.map(([id]) => badge(R.ds[id], 72)).join('')}</div></div>`;
+  const rules = [['Plates and feet (things on a table)', 'a slab whose top rises 1/2px at the centre: ends 1px, crown 1.5', 'a dome: ends to a point, crown 1.5'], ['Flares (a post into a mass)', '3/4px', '1 1/2px'], ['Outside corners of a mass', '0.6, eased', '0.6, eased'], ['Line ends', '0.3', '0.3'], ['Counters and slots', 'tight, 0.15 (the museum\'s slots 0.5: the structural pattern, below)', 'tight, 0.15'], ['Tree tiers', 'sides sweep in 1/5px, undersides droop 1/2px', 'the same']]
+    .map(([a, b, c]) => `<tr style="border-top:1px solid ${COL.hair}"><td style="padding:8px 8px 8px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px">${b}</td><td style="padding:8px 0 8px 8px;color:${I2}">${c}</td></tr>`).join('');
+  const appRows = [['cafe', 'Kaffeverket', 'CAFÉ'], ['bar', 'Tjoget', 'BAR'], ['museum', 'Vasa Museum', 'MUSEUM'], ['nature', 'Djurgården', 'NATURE']].map(([id, nm, sub]) => row1(S.ds[id], nm, sub)).join('');
+  const musH2 = H2.ds.museum, musB = S.ds.museum;
+  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('You: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate feels too far. and the flares too intense. the museum looks completely out of place, so there needs to be a pattern for bringing this to the more structural icon decisions. also the interior counter shape of the coupe *still* does not look right. and there is *still* not enough liquid in the cup how many times do i have to say it."')}
+${kick('1 · The coupe')}${phQ('Which of these is what you mean?')}
+${phP(`Measured at 24px, B as you last saw it holds <b>${LB.liquid.toFixed(1)}px²</b> of drink; v134 held ${L0.liquid.toFixed(1)}. With a bar across its rim and a clear band under it, B's flat bowl has almost no room left for drink, and no counter shape changes that. So each option below changes one thing to give it clearly more. Drink = the ink inside the glass's walls, measured the same way on each (src/liquid.js).`)}
+<div style="display:flex;gap:26px;justify-content:space-between;margin:12px 0 6px">${ref(HSETS[0].ds.bar, 'v134', L0)}${ref(OLD.bar.d, 'Batch 1', L1)}${ref(H2.ds.bar, 'B, as at v144', LB)}</div>
+${opts}
+${kick('2 · Between H2 and H3')}
+${phP('H3\'s loosening, pulled back: the plates rise half a line, not a whole one, and the flares are half as big. The coupe shown is (a) until you pick. True size, then 3x.')}
+${setRow(H2, 'H2')}${setRow(S, 'Between')}${setRow(H3, 'H3 (v147)')}
+<div style="display:flex;gap:18px;align-items:center;margin:14px 0"><div>${appRows}</div><div style="display:flex;flex-direction:column;gap:8px">${x8(S.ds.cafe)}${x8(S.ds.bar)}</div></div>
+<table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.35;margin-top:8px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0"></td><td style="padding:4px 8px">Between</td><td style="padding:4px 0 4px 8px">H3 (v147)</td></tr>${rules}</table>
+${kick('3 · The museum: a pattern for built things')}
+${phP('<b>Built things keep their straight lines and wear at their joins.</b> The cup, the coupe and the tree loosen in their curves; a building has few, so it loosens where its parts meet:')}
+<ol style="margin:0 0 12px;padding-left:24px;font-size:18px;line-height:1.45">
+<li>Beam, columns and plinth stay straight. The roof's slopes sweep in a tenth of a line, half the tree's sweep, so the roof is drawn, not ruled.</li>
+<li>Where a column meets the beam or the plinth it has a capital and a base: the slot's corners round to 0.5px, a third of the slot's width (under the 0.6 of an outside corner, so inside stays tighter than outside, and a slot never becomes a pill).</li>
+<li>The outer columns meet the beam and plinth with the same 0.5 round.</li>
+<li>Slab ends (beam, plinth, steps) take the line-end round, 0.3 at most, as the plate's ends do.</li>
+<li>A base on the ground stays flat (the table-or-ground rule).</li></ol>
+<div style="display:flex;gap:18px;align-items:center;margin:8px 0">${[[musH2, 'H2 and H3 (v147)'], [musB, 'Between']].map(([d, l]) => `<div style="text-align:center">${x8(d, 200)}<div style="display:flex;gap:8px;justify-content:center;margin-top:6px">${chip(d)}${badge(d)}${badge(d, 72)}</div><div style="font-size:16px;font-weight:700;color:${N};margin-top:4px">${l}</div></div>`).join('')}</div>
+${phP('It would govern every built icon still to draw: <b>Hotel</b> (the bed: a frame of slabs and posts), <b>Neighbourhood</b> (city blocks: slabs with straight streets between), and Venue (the curtain\'s frame). Landmark\'s pick, the ⌘ loop, is a sign rather than a building, so it follows the line rules instead.')}
+${phDetail('the drawings are picks7 (coupe, dome, capital); the measures are src/liquid.js and the wall check on this board.')}`);
 }
 // (g7y: the tree's decision folded into the human direction; its board is archived)
 // g7z (owner: "give me a board with the original icons next to the newest version of icon in order of what we're
@@ -1177,7 +1254,7 @@ if (require.main === module) {
     fs.writeFileSync(path.join(ROOT, 'cards-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 7: batch 1 redrawn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
-    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule'], ['start-g7.html', sheetStart, 'Start here'], ['decide-tunings-g7.html', sheetDecideTunings, 'Decide: more human?'], ['decide-coupe-g7.html', sheetDecideCoupe, 'Decide: the coupe'], ['originals-g7.html', sheetOriginals, 'Every icon: original and newest']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
+    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule'], ['start-g7.html', sheetStart, 'Start here'], ['decide-tunings-g7.html', sheetDecideTunings, 'Decide: more human?'], ['decide-coupe-g7.html', sheetDecideCoupe, 'Decide: the coupe'], ['between-g7.html', sheetBetween, 'Between H2 and H3'], ['originals-g7.html', sheetOriginals, 'Every icon: original and newest']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0}</style></head><body>${fn()}</body></html>\n`);
     fs.writeFileSync(path.join(ROOT, 'board-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Batch 1, the set</title>
@@ -1247,7 +1324,7 @@ renderVals() { return {}; }
 </body>
 </html>
 `);
-    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule'], ['Grid7Start', sheetStart, 'Start here'], ['Grid7DecideTunings', sheetDecideTunings, 'Decide: more human?'], ['Grid7DecideCoupe', sheetDecideCoupe, 'Decide: the coupe'], ['Grid7Originals', sheetOriginals, 'Every icon: original and newest']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
+    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule'], ['Grid7Start', sheetStart, 'Start here'], ['Grid7DecideTunings', sheetDecideTunings, 'Decide: more human?'], ['Grid7DecideCoupe', sheetDecideCoupe, 'Decide: the coupe'], ['Grid7Between', sheetBetween, 'Between H2 and H3'], ['Grid7Originals', sheetOriginals, 'Every icon: original and newest']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
