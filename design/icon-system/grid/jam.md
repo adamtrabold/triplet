@@ -4078,3 +4078,34 @@ answers "i would need to see these in context to the others".
 
 **Did the work change?** Yes. H2 is settled, the coupe's empty band
 meets his rule, and the context he asked for is there.
+
+---
+
+## Turn 95: icon designer, g7z: the coupe is B with its band redrawn; H3's base rule (canvas v144)
+
+**The coupe.** Owner: "shape wise b is it. but the counter is still wrong both in size and in curvature i'm getting tired of leaving this feedback!"
+
+1. **Curvature, measured:**
+   - v142's band was a true offset, so its wall measured 1.50 square to the bowl.
+   - But across the band the bowl turns, and a true offset bends tighter than the curve it follows. Its sides leaned in faster than the bowl.
+   - Straight across, which is how the eye reads an upright wall, the wall measured 1.54 at the top, 1.58 in the middle and 1.67 at the bottom (on the board's drawing).
+   - **The fix:** each band side is now the bowl's own curve over the band's height, moved in by the line (picks7 `bandSide: 'shift'`). The sides have the same curvature as the outside.
+   - **The wall straight across** is 1.50 at the top, middle and bottom in H2, H3 and H3 relaxed (`src/band-wall.js`).
+   - **The trade:** measured square to the bowl, the wall is now 1.44, 1.38 and 1.28, because the bowl leans in. The board states this.
+   - **The overlay:** the outside moved in by exactly 1.5px, drawn at 8x over v142 and over the new band. The new band's sides sit on it.
+2. **Size:** the band is 1 1/6px, down from 1 1/3; the stroke is 1.5. It also puts the drink's surface back on the 1/3px lattice (2 2/3). 1px is shown beside it.
+3. **B is the coupe** in H2, H3 and H3 relaxed: in the set row, the app rows and at 150px.
+   - The Now row stays v134, the baseline.
+   - The v142 coupe board is archived.
+   - The coupe question is off Start.
+4. **Checks:**
+   - check-svg: no slivers, and the coupe, museum and tree are symmetric.
+   - offset-check now flags the coupe band (1.40 to 1.50 square), by design, since the band holds 1.5 across.
+
+**H3 (director turn 94):**
+- **The base rule** is now stated on the board: "What stands on a table has a domed foot; what stands on the ground keeps a flat base."
+- **The flare rule:** a post flares into the mass it meets; counters, slots and line marks never do.
+- **Every base, end and join, per icon:** measured with `src/h3-ends.js`, listed on "Decide: more human?".
+- **Two fixes found while listing:**
+  - The coupe's stem ended at the dome's crown and left a 0.13px ledge. It now runs into the foot and flares 1.44 at both ends.
+  - The H3 outline came out up to 0.2px asymmetric, because `corners()` reads edges by their direction of travel. H3's symmetric glyphs are now mirrored after the corner law (engine `build({ sym })`).
