@@ -4592,3 +4592,34 @@ it fails, per above.
    Venue.
 
 Everything else on the board is at 9.
+
+---
+
+## Turn 105: icon designer, turn 104 fix: the museum keeps four columns and loses its beam (canvas v204)
+
+1. **The museum keeps all four columns.** The beam is gone: the roof now sits on the columns, and the openings run up to it, so the columns read taller and more slender.
+   - Blurred darkness (`src/museum-blur.js`):
+
+     | Glyph | Mean | Darkest fifth |
+     |---|---|---|
+     | Museum, v199 | 32.3 | 69.9 |
+     | **Museum, now** | **29.3** | **62.3** |
+     | Cup | 28.3 | 70.6 |
+     | Coupe | 26.1 | 63.7 |
+     | Tree | 17.9 | 59.0 |
+
+   - It is no longer the heaviest shape in the row.
+   - Also tried, all with four columns:
+     - A lower roof: mean 33.3 at apex 2.5, 32.1 at apex 3, so no lighter.
+     - No beam with a lower roof: mean 29.7, darkest fifth 57.5, but it reads squat.
+     - No beam with a straight roof: mean 29.6, darkest fifth 62.1.
+   - At the 24 badge and the 12px chip it reads as a temple front: a roof, four columns and a base.
+2. **The structural rule, reworded:** "No heavier than the rest, by eye and by blur: a building sheds a part rather than its rhythm." The "openings at least two lines wide" rule is gone.
+   - The other rules follow the change: the columns meet the roof (no beam), and slab ends now means the plinth and steps.
+
+**Checks:**
+- check-svg: no slivers; everything symmetric except the café.
+- Museum counters: 1.50, 1.50, 1.50.
+- The curve check's line-end figure for the museum is 26.67/px, at the eave tips (acute points rounded like the tree's tips). Non-end joins: 0.00.
+
+**Canvas:** only the board changed. The team's rows 2 to 4 moved down 26px. The owner's items were untouched; the live canvas was still v203.

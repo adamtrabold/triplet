@@ -264,15 +264,15 @@ const DRAW = {
   // plinth. Counters: the spaces between the columns are plain upright slots (no pills, owner's example).
   museum(s = 12, o = { style: 'mono' }) {   // g7p: monoweight is the line (owner: "monoweigh is looking the best")
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u);
-    const pb = Y(4), bd = slabH(o);
+    const pb = Y(4), bd = o.beam === 0 ? 0 : slabH(o), ap = X(o.apex ?? 1.667);
     // pediment and beam as one outline (a GABLE on a SLAB, joined), so no coincident corners go through the boolean
-    const out = [{ ...P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd]), root: 'GABLE', also: 'SLAB' }];
+    const out = [bd ? { ...P([X(0.25), pb + bd], [X(0.25), pb], [X(6), ap], [X(11.75), pb], [X(11.75), pb + bd]), root: 'GABLE', also: 'SLAB' } : { ...P([X(0.25), pb + 0.01], [X(6), ap], [X(11.75), pb + 0.01]), root: 'GABLE' }];
     const ct = pb + bd, pl = Y(12) - slabH(o);                        // column tops; plinth top
     const n = o.cols ?? 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
     if (o.capital) {
       const r = Math.min(o.capital, gap / 3), k = 0.5523;
       if (o.roofBow ?? o.bow) { const bw = o.roofBow ?? o.bow, sl = (x0_, y0_, x1_, y1_) => { const mx = (x0_ + x1_) / 2, my = (y0_ + y1_) / 2, L = Math.hypot(x1_ - x0_, y1_ - y0_), nx = (y1_ - y0_) / L, ny = -(x1_ - x0_) / L, sg = Math.sign((mx - s / 2) * nx || 1); return `Q${f(mx + sg * nx * 2 * bw)} ${f(my + sg * ny * 2 * bw)} ${f(x1_)} ${f(y1_)}`; };
-        out[0] = { ...D(`M${X(0.25)} ${f(pb + bd)}V${f(pb)}${sl(X(0.25), pb, X(6), X(1.667))}${sl(X(6), X(1.667), X(11.75), pb)}V${f(pb + bd)}Z`), root: 'GABLE', also: 'SLAB' }; }
+        out[0] = bd ? { ...D(`M${X(0.25)} ${f(pb + bd)}V${f(pb)}${sl(X(0.25), pb, X(6), ap)}${sl(X(6), ap, X(11.75), pb)}V${f(pb + bd)}Z`), root: 'GABLE', also: 'SLAB' } : { ...D(`M${X(0.25)} ${f(pb + 0.01)}${sl(X(0.25), pb + 0.01, X(6), ap)}${sl(X(6), ap, X(11.75), pb + 0.01)}Z`), root: 'GABLE' }; }
       out.push(R(x0, ct - 0.01, span, pl - ct + 0.02, { root: 'POST' }));   // the colonnade, its slots cut below
       for (let i = 0; i < n - 1; i++) { const a = x0 + W + i * (W + gap), b = a + gap;
         out.push(cut(D(`M${f(a + r)} ${f(ct)}H${f(b - r)}C${f(b - r + r * k)} ${f(ct)} ${f(b)} ${f(ct + r - r * k)} ${f(b)} ${f(ct + r)}V${f(pl - r)}C${f(b)} ${f(pl - r + r * k)} ${f(b - r + r * k)} ${f(pl)} ${f(b - r)} ${f(pl)}H${f(a + r)}C${f(a + r - r * k)} ${f(pl)} ${f(a)} ${f(pl - r + r * k)} ${f(a)} ${f(pl - r)}V${f(ct + r)}C${f(a)} ${f(ct + r - r * k)} ${f(a + r - r * k)} ${f(ct)} ${f(a + r)} ${f(ct)}Z`))); }

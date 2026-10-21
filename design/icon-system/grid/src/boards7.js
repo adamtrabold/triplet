@@ -570,7 +570,7 @@ const HSETS = [
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
-  ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre (H3\'s domes rose a whole line); the flares are half H3\'s (3/4px); the museum follows the structural pattern.', { droop: 0.5, bow: -0.2, dome: 0.5, capital: 0.5, roofBow: -0.1, cols: 3, ...COUPE_V[0][2] }, HUMAN({ flare: 0.75, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre (H3\'s domes rose a whole line); the flares are half H3\'s (3/4px); the museum follows the structural pattern.', { droop: 0.5, bow: -0.2, dome: 0.5, capital: 0.5, roofBow: -0.1, beam: 0, ...COUPE_V[0][2] }, HUMAN({ flare: 0.75, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
 ].map(([nm, rule, o, law, fk, bal, ease]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined };
   const fitPlace = (id, extra = {}, withSil = false) => {
@@ -809,11 +809,11 @@ ${setRow(H2, 'H2')}${setRow(S, 'Between')}${setRow(H3, 'H3 (v147)')}
 ${kick('3 · The museum: a pattern for built things')}
 ${phP('<b>Built things keep their straight lines and wear at their joins.</b> The cup, the coupe and the tree loosen in their curves; a building has few, so it loosens where its parts meet:')}
 <ol style="margin:0 0 12px;padding-left:24px;font-size:18px;line-height:1.45">
-<li><b>No heavier than the rest.</b> A building is the heaviest shape in the row by eye, so its openings are at least two lines wide: three columns, not four. Blurred (the darkness inside the live circle after a 1.5px blur, src/museum-blur.js): the museum went from 32.3 to 29.5; the cup is 28.3, the coupe 26.1, the tree 17.9.</li>
-<li>Beam, columns and plinth stay straight. The roof's slopes sweep in a tenth of a line, half the tree's sweep, so the roof is drawn, not ruled.</li>
-<li>Where a column meets the beam or the plinth it has a capital and a base: the opening's corners round to 0.5px (under the 0.6 of an outside corner, so inside stays tighter than outside, and an opening never becomes a pill).</li>
-<li>The outer columns meet the beam and plinth with the same 0.5 round.</li>
-<li>Slab ends (beam, plinth, steps) take the line-end round, 0.3 at most, as the plate's ends do.</li>
+<li><b>No heavier than the rest</b>, by eye and by blur. A building is the heaviest shape in the row, so it sheds a part rather than its rhythm: here the beam goes and the roof sits on the columns, and all four columns stay. Blurred (the darkness inside the live circle after a 1.5px blur, src/museum-blur.js), the museum went from 32.3 to 29.3 overall and from 69.9 to 62.3 at its darkest; the cup is 28.3 and 70.6, the coupe 26.1 and 63.7, the tree 17.9 and 59.0.</li>
+<li>Columns and plinth stay straight. The roof's slopes sweep in a tenth of a line, half the tree's sweep, so the roof is drawn, not ruled.</li>
+<li>Where a column meets the roof or the plinth it has a capital and a base: the opening's corners round to 0.5px (under the 0.6 of an outside corner, so inside stays tighter than outside, and an opening never becomes a pill).</li>
+<li>The outer columns meet the roof and plinth with the same 0.5 round.</li>
+<li>Slab ends (plinth, steps) take the line-end round, 0.3 at most, as the plate's ends do.</li>
 <li>A base on the ground stays flat (the table-or-ground rule).</li></ol>
 <div style="display:flex;gap:18px;align-items:center;margin:8px 0">${[[musH2, 'H2 and H3 (v147)'], [musB, 'Between']].map(([d, l]) => `<div style="text-align:center">${x8(d, 200)}<div style="display:flex;gap:8px;justify-content:center;margin-top:6px">${chip(d)}${badge(d)}${badge(d, 72)}</div><div style="font-size:16px;font-weight:700;color:${N};margin-top:4px">${l}</div></div>`).join('')}</div>
 ${phP('It would govern every built icon still to draw: <b>Hotel</b> (the bed: a frame of slabs and posts), <b>Neighbourhood</b> (city blocks: slabs with straight streets between), and Venue (the curtain\'s frame). Landmark\'s pick, the ⌘ loop, is a sign rather than a building, so it follows the line rules instead.')}
