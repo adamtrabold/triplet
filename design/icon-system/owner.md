@@ -175,3 +175,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-21, on v133) the new approach to counters, the star for example, is becoming *far* too rounded on the interior joins
 > it is the same on the new coupe
 > (10-21, screenshot grid/owner-marks/v133-star-heavy.png) the star also seems way heavier than the others
+> (10-21, master grid, stacked gables) i love how this looks, but im curious how these relationships map to our grid and underlying philosophy. a rule is awesome, but i want them all to make sense together. amazing if this is already the case im looking for an explanation don't knee jerk try to fix something i dont know if something is wrong   (answered in chat; no change made)
