@@ -442,3 +442,5 @@ sources are the file where the quote is recorded.
 - Icons, curves (2026-10-21, verbatim): "i still find myself pining for that original shape. i think it's the fact that it feels more delicate. that more humanistic approach to curves gives it a handmade feel that i think calls back to the physicality of making vintage work. these are getting closer but are still not perfect because of that"
 - Icons, references (2026-10-21, verbatim): "i also just want to note that material symbols and phosphor symbols are not an example of good craft. apple symbols is much more akin to that. i;ll look for others"
 - Icons, craft-bar reference (2026-10-21, verbatim): "heres another icon reference (not for visual style but for craft bar) https://iconists.co/central"
+- Icons, craft-bar reference (2026-10-21, verbatim): "another icon craft example https://nucleoapp.com/"
+- Icons, craft-bar reference (2026-10-21, verbatim): "one more craft example https://lucide.dev/icons/"
