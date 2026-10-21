@@ -74,6 +74,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · H1 dropped; push H2/H3:** "h3 i like the added personality. so lets keep pushing down these lines, keeping monoweight as potential, and flat droppingh1". H2's rounded cup base and trunk conflict with the coupe base and museum.
 
+- **10-21 · Coupe = B (flatter bowl):** "shape wise b is it. but the counter is still wrong both in size and in curvature i'm getting tired of leaving this feedback!" Orchestrator inspected it himself: band sides run diagonal against a near-vertical outer wall. `grid/owner-marks/v142-coupeB-band-diagnosis.png`
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
