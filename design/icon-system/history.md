@@ -78,6 +78,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · v144 shown:** coupe B band redrawn (sides follow the bowl; wall 1.50 across top/mid/bottom; band 1⅙, 1px option); H3 base rule ("table: domed foot; ground: flat base") with per-icon list. Asked: H2 or H3? band OK?
 
+- **10-21 · Between H2 and H3:** saucer too far, flares too intense, museum out of place (needs a structural pattern); coupe counter "*still*" wrong and "*still* not enough liquid ... how many times do i have to say it." Process failure: repeated asks not landing.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
