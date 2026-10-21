@@ -62,6 +62,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-20 · Monoweight picked:** "monoweigh is looking the best." Tree: "i didnt say there was a problem with the tree, i asked about how each level in it was defined" (keep proportions, bring back the earlier shape). + and star a touch light; wider coupe bowl, more liquid; cup edge broken. Lesson: answer questions, don't turn them into changes.
 
+- **10-21 · v130 shown:** cup corner fixed; monoweight everywhere; + and Star at 1.75px; wider coupe bowl, more drink; fitting rule on the master grid; tree: equal tiers vs taller tip. Asked: which tree? + and star heavy enough?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
