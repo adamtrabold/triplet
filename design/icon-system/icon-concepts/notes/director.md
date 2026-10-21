@@ -740,8 +740,18 @@ A failure caps the score at 7.
     - SF Symbols is closer to his bar, but its licence keeps it off our
       boards. Apple's HIG [1] and design talks [2] are cited for method
       only.
-    - Until he sends other references, the bar is his brief, his quotes
-      in `owner.md` and `docs/owner-taste.md`, not any set.
+    - **The craft bar, owner-named (2026-10-21): Central, Nucleo,
+      Lucide and Apple's SF Symbols**, read for craft, never as a style.
+      What they imply is under "Craft bar: Central, Nucleo, Lucide,
+      Apple" at the end of these notes.
+    - **Material and Phosphor go back on the boards as a comparison
+      only** (owner: "i do actually like keeping material and phosphor in
+      there just to see how much *better* ours are"). They aren't the
+      bar.
+    - **What may appear on boards:** Lucide glyphs (ISC licence), labelled
+      "craft reference". Material and Phosphor as the comparison strip.
+      Central, Nucleo and SF Symbols: a link only (commercial or
+      restricted licences).
   - **Size, weight and the grid are judged:**
     - within our own set (C2, G-size);
     - against Triplet's brand (C9).
@@ -1453,3 +1463,92 @@ approaches should be as much a part of the brand as anything".
 - **Lesson:** I scored how well the rules were executed while the owner
   judged the feeling. Passing my checks doesn't make a drawing delicate.
   Delicacy is now its own test in the exploration's criteria.
+
+## Craft bar: Central, Nucleo, Lucide, Apple (2026-10-21)
+
+**The owner, verbatim:**
+- "heres another icon reference (not for visual style but for craft
+  bar) https://iconists.co/central"
+- "another icon craft example https://nucleoapp.com/"
+- "one more craft example https://lucide.dev/icons/"
+- "i do actually like keeping material and phosphor in there just to see
+  how much *better* ours are"
+
+**What I could reach:**
+- **Central** (iconists, Martin David and Andreas Storm; commercial):
+  - From its page: a 24 grid with a 2px safe area (20 live) and "key
+    shapes ... merely guidelines". The fill styles aren't automatic: "This
+    is more than just copy, paste and fill ... we carefully review and
+    adjust each icon". "All icons are handcrafted."
+  - From the page's own example glyphs, rendered large in my scratchpad
+    only:
+    - Each of 3 weights x 5 corner styles is redrawn, not scaled.
+      Proportions and gaps shift with the weight so counters stay open.
+    - Inner radii follow outer radii (concentric).
+    - The envelope flap's curve lands cleanly in the corners at every
+      weight.
+    - The round styles use soft, continuous corners, not plain circular
+      arcs.
+- **Nucleo** (Claudia Romano and Sebastiano Guerriero, since 2014;
+  commercial):
+  - Its page says little about method ("meticulously crafted").
+  - Its homepage glyphs show:
+    - Overlaps are cut back with a clean gap: an arrow over a window
+      frame, a headset's cable.
+    - Every terminal is treated the same way.
+    - Small circles are sized optically against the line, not as a
+      plain dot.
+- **Lucide** (ISC). It publishes a full specification
+  (lucide.dev/contribute/icons/specification) and design principles.
+  The parts that bear on craft:
+  - Corners: radius set by element size and angle, with a stated
+    exception for 90° diagonals (1+√2), "even very sharp corners usually
+    need a small amount of rounding", and corners stay sharp where more
+    than two lines meet.
+  - Spacing: at least 2px between elements and inside shapes, tested
+    with a 2px circle. "Elements should not terminate with an abrupt cut
+    where another element visually continues or intersects them."
+  - Visual weight and balance: matched by blurring against a circle and
+    a square; asymmetric icons moved off centre to look centred.
+  - Density: blur at true size and fix areas that go dark.
+  - Curves: "Curves should not contain unintended or abrupt changes in
+    curvature"; prefer simple arcs; align adjoining control points for
+    continuous curvature; no unneeded points.
+  - Shared geometry: shared elements reuse established geometry.
+  - Priority: pixel alignment never outranks visual quality.
+- **Apple** (HIG, WWDC 2017 "Designing Glyphs"): optical sizing by scale,
+  a family's weights drawn as one design, and a designer's eye over the
+  maths. Method only, never on a board.
+
+**What it implies for our rubric:**
+1. **Curvature continuity becomes a check (new, H-curve).** No abrupt
+   change of curvature where a curve meets a line or another curve. Two
+   things fail it: a circular arc butted onto a straight, and a fillet
+   that kinks. This is the "humanistic curves" half of his v134 note, and
+   none of our checks tested it.
+2. **The inside-gap test, made ours (G-air).** The live air between parts
+   and inside counters gets a stated minimum, tested with a circle of that
+   diameter. Ours is 2px of air at 24 (already our rule); now it's
+   checked by the circle, not by eye.
+3. **Joins where parts cross or meet** (C-joins). Either a clean cut-back
+   gap (Nucleo) or a continuous sweep, never an abrupt cut (Lucide).
+   Corners where three or more edges meet stay sharp at true size.
+4. **Variants are redrawn, not scaled or filled** (Central). Any size or
+   weight we ship, such as the 12px chip, the badge or the app icon, is
+   checked as its own drawing.
+5. **Blur at true size for density and balance** (Lucide, already in our
+   weight row). It's now judged at true size in the app, not at 8x.
+6. **Visual quality outranks the grid** (Lucide, Apple). The 1/3 lattice
+   and the cuts are servants. A grid rule that makes a glyph worse at
+   true size is the rule's fault, which is how the owner has judged us
+   all along.
+7. **The 9 bar:** a glyph set "at the owner's craft bar" means none of
+   our eight looks less finished than Central, Nucleo or Lucide at true
+   size in their curves, joins, gaps and balance. Style, weight and size
+   stay ours (his: "ours should be specific to our app"). Material and
+   Phosphor are shown so we can see we're better than them, which is a
+   floor, not the bar.
+
+**Lesson:** the owner named the bar by example. Read the published
+method of each (Lucide's spec is the most explicit) and turn it into
+checks; don't eyeball "is it as good as".
