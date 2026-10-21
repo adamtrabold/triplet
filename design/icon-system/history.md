@@ -76,6 +76,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · Coupe = B (flatter bowl):** "shape wise b is it. but the counter is still wrong both in size and in curvature i'm getting tired of leaving this feedback!" Orchestrator inspected it himself: band sides run diagonal against a near-vertical outer wall. `grid/owner-marks/v142-coupeB-band-diagnosis.png`
 
+- **10-21 · v144 shown:** coupe B band redrawn (sides follow the bowl; wall 1.50 across top/mid/bottom; band 1⅙, 1px option); H3 base rule ("table: domed foot; ground: flat base") with per-icon list. Asked: H2 or H3? band OK?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)

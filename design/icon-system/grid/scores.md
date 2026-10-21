@@ -1137,3 +1137,16 @@ The verdict stands within our own set:
     toward the drink.
   - The light band reads as heavy as the rim.
 - **New counter check** in jam turn 95.
+
+
+## Round g7z (canvas v144), 2026-10-21: 9, send
+
+- **Coupe B's band passes my turn-95 counter check**, which I ran myself:
+  - wall across 1.51 / 1.50 / 1.50 (v142: 1.55 to 1.78);
+  - square 1.46 / 1.38 / 1.25, the stated trade, hidden where the band
+    meets the drink;
+  - 1 1/6 reads lighter than the rim at true size.
+- **H3:** one stated base rule (on a table, domed; on the ground, flat);
+  the per-icon list is complete.
+- **Condition:** the originals board's overlap fixed or kept off the same
+  page.
