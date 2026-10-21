@@ -18,7 +18,7 @@ function fit(id, o, law = LAW, ease = 2.3, fk = 11 / 12) {
 const BASE = { droop: 0.5, bow: -0.2, dome: 0.5 };
 const A = { bd: 6.75, bk: 0.35, bx: 0.5, fb: 11, bandH: 7 / 6, bandSide: 'shift' };
 const V = JSON.parse(process.env.VARS || '[]');
-const glyphs = [['cafe', fit('cafe', BASE)], ['coupe', fit('bar', { ...BASE, ...A })], ['tree', fit('nature', BASE)], ['museum H2', fit('museum', {}, LAWS7.joint, 2.3)], ['museum v199', fit('museum', { ...BASE, capital: 0.5, roofBow: -0.1 })], ['museum v203 (3 columns)', fit('museum', { ...BASE, capital: 0.5, roofBow: -0.1, cols: 3 })], ['museum between (no beam)', fit('museum', { ...BASE, capital: 0.5, roofBow: -0.1, beam: 0 })]];
+const glyphs = [['cafe', fit('cafe', BASE)], ['coupe', fit('bar', { ...BASE, ...A })], ['tree', fit('nature', BASE)], ['museum H2', fit('museum', {}, LAWS7.joint, 2.3)], ['museum v199', fit('museum', { ...BASE, capital: 0.5, roofBow: -0.1 })], ['museum v203 (3 columns)', fit('museum', { ...BASE, capital: 0.5, roofBow: -0.1, cols: 3 })], ['museum v204 (no beam)', fit('museum', { ...BASE, capital: 0.5, roofBow: -0.1, beam: 0 })], ['museum between (no beam, eaves like the step)', fit('museum', { ...BASE, capital: 0.5, roofBow: -0.1, beam: 0, fascia: 1.5 })]];
 for (const [nm, o] of V) glyphs.push([nm, fit('museum', { ...BASE, ...o })]);
 const out = process.argv[2]; fs.mkdirSync(out, { recursive: true });
 (async () => {

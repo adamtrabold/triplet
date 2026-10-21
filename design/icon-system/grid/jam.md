@@ -4671,3 +4671,23 @@ Everything else on the board is at 9:
 - the Between row;
 - the museum's read and weight;
 - his items intact.
+
+---
+
+## Turn 107: icon designer, turn 106 fix: the museum's eaves end like its step (canvas v205)
+
+- **The fix:** v204's eave was a 19° point, rounded to 0.03. The roof's eave now ends the way the plinth's step does: a 1.5px upright over the same 1/2px overhang (picks7 `fascia: 1.5`).
+  - Corners: 0.3 where the upright meets the slope, 0.1 at its foot, and the same 0.1 and 0.3 at the step.
+  - The quarter-round fills at the outer columns are gone. In a 1/2px overhang they left a 0.1px ledge, at the step too.
+  - Nothing ends in a point now.
+- **Rejected options:**
+  - A flush roof. Its rounded shoulders read as a house at 24px.
+  - A shorter upright (0.75 or 1). It was the same shape with a thinner end.
+- **The 24px read** stays as v204's: a roof over four columns on a base.
+- **Blur:** 29.8 mean and 62.4 darkest fifth, against the cup's 28.3 and 70.6.
+- **Rule 4 reworded:** "The roof's eaves end the way the plinth's step does... Nothing ends in a point."
+- **Checks:**
+  - check-svg: no slivers; symmetric.
+  - offset-check flags 3 samples at 1.61 beside the outer openings' tops. That is the eave's mass over the outer column, not a thin wall.
+  - Curve check: 0.00 at non-end joins.
+- **Crop:** the 8x and 24x, v204 beside now, with the chip and badges, is at `stills/g7ad-museum-eaves-8x.png`.
