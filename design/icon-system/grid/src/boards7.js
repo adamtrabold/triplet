@@ -513,57 +513,106 @@ ${rows}
 // ---- THE MASTER GRID (owner, 10-20: "please have a board with the master grid"): the one source a new
 // icon is drawn from. Every figure here is built from the live rules (KEY/CLASS and the roots in picks7.js,
 // the joint law in laws7.js, fitS() and starRc() here), so the board changes whenever a rule does.
-// ---- g7t EXPLORATION: more human, by rule (not shipped unless he picks one) --------------------------
+// ---- g7t/g7u EXPLORATION: more human, by rule (not shipped unless he picks one) ----------------------
 const H_Q = 'These tune the whole set toward more rounded, flared, hand-drawn shapes, each by one rule. Does any feel right, or keep the current set?';   // the director's wording (turn 81)
-// the star at a size that balances with the set (director, turn 82: the hole minimum drove it 15% wider
-// than v133): its points reach as far as the +'s arms, each at its own size
+// the star at a size that balances with the set (director, turn 82): its points reach as far as the +'s arms
 const PLUS_SPAN = (() => { const b = measure(UD.joint.plus.d).box; return (b.x1 - b.x0) * 26.4 / 24; })();
-const STAR_BAL = (() => { let lo = 0.3, hi = 1.2, d; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; d = E.build(star(20, m, LINEW), { law: scaled(LAWS7.joint, 24 / 20) }).d; const b = measure(d).box; if ((b.x1 - b.x0) * 20 / 24 > PLUS_SPAN) hi = m; else lo = m; } return d; })();
+const starAt = (opts = {}) => { let lo = 0.3, hi = 1.2, d; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; d = E.build(star(20, m, LINEW), { law: scaled(LAWS7.joint, 24 / 20), ...opts }).d; const b = measure(d).box; if ((b.x1 - b.x0) * 20 / 24 > PLUS_SPAN) hi = m; else lo = m; } return d; };
+// g7u (owner on the coupe: "its starting to read as wine glass with the liquid... i think the taller stem or
+// more pancaked bowl really sell coupeness"): three coupes, each in the size class, the band the stroke
+const COUPES = [
+  ['v134', 'As shipped', {}],
+  ['A: taller stem', 'The bowl as shipped, the stem a line longer (the glass fills its square).', { fb: 11.75 }],
+  ['B: flatter bowl', 'A pancaked bowl (depth 5 1/2, sides falling fast into a wide flat bottom); the drink a thin layer, read by its surface.', { bd: 5.5, bk: 0.35, bx: 0.5, fb: 10.333 }],
+  ['C: both', 'The flat bowl on the long stem.', { bd: 5.5, bk: 0.35, bx: 0.5, fb: 11.75 }],
+];
+const EASE = 2.3;
 const HSETS = [
-  ['Now (v134): monoweight', 'The set as it is: every join takes the tight inside round (0.15px); the star as shipped.', {}, LAWS7.joint, 1, false],
-  ['H1: monoweight, plus flares at joins', 'Where a post meets a mass (a stem, a trunk, a handle), the join FLARES with a round of one line (1.5px) that may sweep up to 0.45 of the shorter edge, so joins sweep instead of meeting at near-points. Counters, slots and notches stay tight. The star\'s points reach as far as the +\'s arms.', {}, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 1, true],
-  ['H2: monoweight, flares, a domed foot, drooping branches, and air', 'H1, plus three rules: a foot that holds a glass up by its stem is a DOME (a new root shape); a tier\'s underside lifts toward the trunk by half a line, so the branches droop; and the fit stops at 11/12 of the cut, so no glyph is pushed to the edge of its box.', { droop: 0.5, dome: true }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true],
-  ['H3: monoweight relaxed: free posts 1 1/4, flaring into their joins', 'H2, plus: a post that stands free (the coupe\'s stem, the trunk) thins to 1 1/4px between its joins and flares out of them with a line and a half (2.25px), as batch 1\'s stem did. Walls, counters and every other line stay 1.5.', { droop: 0.5, dome: true, post: 1.25 }, HUMAN({ flare: 2.25, mass: 0.6, end: 0.3 }), 11 / 12, true],
-].map(([nm, rule, o, law, fk, bal]) => {
+  ['Now (v134): monoweight', 'The set as it is. Every round is a compass arc: its curvature jumps where it meets a line.', {}, LAWS7.joint, 1, false, 0],
+  ['H1: monoweight, eased curves', 'A CURVE RULE for every icon: each outside round and join starts 2.3 times farther from its corner and eases out of the line with no jump in curvature, a hand\'s stroke rather than a compass arc; the corner is about as deep as before. Counter corners stay tight. Reaches all eight: every outside corner and join of the cup, coupe, museum, tree, + and Star.', {}, LAWS7.joint, 1, true, EASE],
+  ['H2: monoweight, eased curves, a domed foot, drooping branches, and air', 'H1, plus: a foot that holds a glass up by its stem is a DOME (the coupe); a tier\'s underside lifts toward the trunk by half a line (the tree); and the fit stops at 11/12 of the cut, so every glyph sits with more air. The cup, museum, + and Star change by the curve rule and the air only.', { droop: 0.5, dome: true }, LAWS7.joint, 11 / 12, true, EASE],
+  ['H3: monoweight relaxed: free posts 1 1/4, flaring into their joins', 'H2, plus: a post that stands free (the coupe\'s stem, the trunk) thins to 1 1/4px and flares into the mass it meets with a round of one line, as batch 1\'s stem did; the cup\'s handle joins flare the same way. The museum, + and Star change by the curve rule and the air only. The v123 tree changes: its trunk flares into the lowest tier.', { droop: 0.5, dome: true, post: 1.25 }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+].map(([nm, rule, o, law, fk, bal, ease]) => {
+  const opts = { law, tightHoles: true, ease: ease || undefined };
+  const fitPlace = (id, extra = {}) => {
+    const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = s => DRAW[id](s, { style: 'mono', ...o, ...extra });
+    let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
+    const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
+    return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), opts).d;
+  };
   const ds = {};
-  for (const [id] of BATCH) {
-    const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = s => DRAW[id](s, { style: 'mono', ...o });
-    let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), { law, tightHoles: true }).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
-    const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law, tightHoles: true }).d);
-    ds[id] = E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law, tightHoles: true }).d;
-  }
-  ds.star = bal ? STAR_BAL : UD.joint.star.d;
-  return { nm, rule, ds };
+  for (const [id] of BATCH) ds[id] = fitPlace(id);
+  ds.star = bal ? starAt({ ease: ease || undefined, tightHoles: true }) : UD.joint.star.d;
+  ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease }).d : UD.joint.plus.d;
+  const coupes = COUPES.map(([, , co]) => fitPlace('bar', co));
+  return { nm, rule, ds, coupes, ease };
 });
+// checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
+// (where the outline's direction is continuous), the jump in curvature between the two sides, 1/px
+function curveJump(d) {
+  const cp = new paperLib.CompoundPath(d), kids = cp.children && cp.children.length ? cp.children : [cp];
+  let worst = 0, n = 0;
+  for (const k of kids) { if (kids.some(o => o !== k && o.contains(k.firstSegment.point))) continue;   // outlines only: counters keep tight compass rounds
+    const cv = k.curves; for (let q = 0; q < cv.length; q++) {
+    const a = cv[q], b = cv[(q + 1) % cv.length], ta = a.getTangentAtTime(1), tb = b.getTangentAtTime(0);
+    if (Math.abs(ta.getDirectedAngle(tb)) > 2) continue;
+    const ka = Math.abs(a.getCurvatureAtTime(1)), kb = Math.abs(b.getCurvatureAtTime(0)); if (!isFinite(ka) || !isFinite(kb)) continue;
+    worst = Math.max(worst, Math.abs(ka - kb)); n++;
+  } }
+  cp.remove(); return { worst, n };
+}
+const paperLib = require(path.join(process.env.TOOLS || '/tmp/claude-0/-home-user-la-trip-map/04f8fb34-0476-5960-add5-8bd3d6d8820e/scratchpad/tools', 'node_modules/paper/dist/paper-core.js'));
 function sheetHuman() {
   const N = COL.navy, I2 = COL.ink2, O = COL.or;
   const title = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 14px">${t_}</div>`;
-  const ui = (id, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${UD.joint[id].d}" fill="${N}"/></svg>`;
+  const uiD = (d, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
   const chip12 = d => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
   const b1 = OLD.bar.d;
+  // in the app, at true size: list rows with the star, and the + in its Float badge with pins
+  const inApp = S => {
+    const rows = [['cafe', 'Kaffeverket', 'CAFÉ', true], ['bar', 'Tjoget', 'BAR', false], ['museum', 'Vasa Museum', 'MUSEUM', true], ['nature', 'Djurgården', 'NATURE', false]]
+      .map(([id, nm, sub, st]) => `<div style="display:flex;align-items:center;gap:10px;height:56px;background:${COL.paper};padding:0 10px;border-bottom:1px solid ${COL.hair}">${badge(S.ds[id])}<div style="flex:1;font-size:16px;font-weight:600;line-height:1.15">${nm}<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">${sub} · STOCKHOLM</div></div>${st ? uiD(S.ds.star, 20) : ''}</div>`).join('');
+    const map = `<div style="position:relative;height:72px;background:#E8E4DA;margin-top:6px">${['cafe', 'bar', 'museum', 'nature'].map((id, k) => `<div style="position:absolute;left:${84 + 44 * k}px;top:${k % 2 ? 38 : 8}px;line-height:0">${badge(S.ds[id])}</div>`).join('')}<div style="position:absolute;left:8px;top:6px;line-height:0">${plusBadge(uiD(S.ds.plus, 26.4), 60)}</div></div>`;
+    return `<div style="width:330px">${rows}${map}</div>`;
+  };
+  const checks = S => {
+    const ids = ['cafe', 'bar', 'museum', 'nature'];
+    const oc = ids.map(id => OCHECK(S.ds[id], 1.5)).concat([OCHECK(S.ds.star, LINEW * 24 / 20)]);
+    const off = oc.reduce((a, r) => a + r.holes.reduce((b, h) => b + h.off, 0), 0), nn = oc.reduce((a, r) => a + r.holes.reduce((b, h) => b + h.n, 0), 0), md = Math.max(...oc.map(r => Math.max(0, ...r.holes.map(h => h.maxDir || 0))));
+    const cj = [...ids.map(id => curveJump(S.ds[id])), curveJump(S.ds.star), curveJump(S.ds.plus)];
+    const who = ids.concat(['star']).map((id, k) => [id, oc[k].holes.reduce((a, h) => a + h.off, 0)]).filter(([, o]) => o).map(([id, o]) => `${id} ${o}`).join(', ');
+    return `Counters: ${off} of ${nn} wall points off${who ? ` (${who})` : ''}, worst turn ${md.toFixed(1)}°. Outlines: worst curvature jump at a smooth join ${Math.max(...cj.map(c => c.worst)).toFixed(2)}/px over ${cj.reduce((a, c) => a + c.n, 0)} joins.`;
+  };
   const setRow = S => `<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;padding:22px 0;border-top:1px solid ${COL.hair}">
-<div><div style="font-size:21px;font-weight:700;color:${N};margin-bottom:6px">${S.nm}</div><div style="font-size:16px;line-height:1.45;color:${I2}">${S.rule}</div></div>
-<div><div style="display:flex;gap:14px;align-items:center">${BATCH.map(([id]) => badge(S.ds[id])).join('')}${ui('plus', 26.4)}<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="${S.ds.star}" fill="${N}"/></svg><span style="width:12px"></span>${BATCH.map(([id]) => chip12(S.ds[id])).join('')}</div>
-<div style="display:flex;gap:16px;margin-top:14px;align-items:center">${BATCH.map(([id]) => badge(S.ds[id], 168)).join('')}<svg width="185" height="185" viewBox="0 0 24 24" aria-hidden="true"><path d="${UD.joint.plus.d}" fill="${N}"/></svg><svg width="140" height="140" viewBox="0 0 24 24" aria-hidden="true"><path d="${S.ds.star}" fill="${N}"/></svg></div></div></div>`;
+<div><div style="font-size:21px;font-weight:700;color:${N};margin-bottom:6px">${S.nm}</div><div style="font-size:16px;line-height:1.45;color:${I2}">${S.rule}</div><div style="font-size:13px;line-height:1.4;color:${I2};margin-top:8px">${checks(S)}</div></div>
+<div><div style="display:flex;gap:24px;align-items:flex-start">${inApp(S)}<div><div style="display:flex;gap:14px;align-items:center">${BATCH.map(([id]) => badge(S.ds[id])).join('')}${uiD(S.ds.plus, 26.4)}${uiD(S.ds.star, 20)}<span style="width:12px"></span>${BATCH.map(([id]) => chip12(S.ds[id])).join('')}</div>
+<div style="display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap">${BATCH.map(([id]) => badge(S.ds[id], 168)).join('')}${uiD(S.ds.plus, 185)}${uiD(S.ds.star, 140)}</div></div></div></div></div>`;
+  // the coupe options in every row, with their drink and checks
+  const cHead = `<div></div>${COUPES.map(([nm, txt]) => `<div><div style="font-size:17px;font-weight:700;color:${N}">${nm}</div><div style="font-size:13px;line-height:1.35;color:${I2}">${txt}</div></div>`).join('')}`;
+  const cRow = S => `<div style="font-size:16px;font-weight:700;color:${N};align-self:center">${S.nm.split(':')[0]}</div>${S.coupes.map(d => { const r = DRINK(d), b = measure(d).box, oc = OCHECK(d, 1.5).holes[0]; return `<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start"><div style="display:flex;gap:8px;align-items:center">${badge(d)}${badge(d, 120)}</div><div style="font-size:12px;color:${I2}">${(b.x1 - b.x0).toFixed(2)} × ${(b.y1 - b.y0).toFixed(2)} · drink ${r.area.toFixed(1)}px², surface ${r.surface.toFixed(1)}px · counter ${oc.off}/${oc.n} off</div></div>`; }).join('')}`;
   return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${I2};text-transform:uppercase">Icon grid · an exploration, nothing ships unless you pick it</div>
 <h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${N}">More human, by rule</h1>
-<p style="margin:0 0 18px;font-size:19px;line-height:1.45;max-width:1200px">You said: "i still find myself pining for that original shape. i think it's the fact that it feels more delicate. that more humanistic approach to curves gives it a handmade feel that i think calls back to the physicality of making vintage work." Below, three tunings of the whole set, each a grid rule applied to all of them, not a redraw of one, at true size (with the 12px chips) and at 7x. Counters and the size classes stay as they are.</p>
-<div style="margin:0 0 36px;padding:24px 28px;background:${COL.paper};border-top:4px solid ${O}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div><div style="font-size:26px;line-height:1.3;color:${N};font-weight:600">${H_Q}</div></div>
+<p style="margin:0 0 18px;font-size:19px;line-height:1.45;max-width:1200px">You said: "i still find myself pining for that original shape. i think it's the fact that it feels more delicate. that more humanistic approach to curves gives it a handmade feel that i think calls back to the physicality of making vintage work." Below, the set as it is and three tunings of the whole set, each a grid rule applied to all of them, in the app at true size, then at 7x. Counters and the size classes stay as they are. Then the coupe, three ways (you: "the taller stem or more pancaked bowl really sell coupeness"), inside each tuning.</p>
+<div style="margin:0 0 36px;padding:24px 28px;background:${COL.paper};border-top:4px solid ${O}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The questions</div><div style="font-size:26px;line-height:1.3;color:${N};font-weight:600">${H_Q}</div><div style="font-size:22px;line-height:1.3;color:${N};font-weight:600;margin-top:10px">And the coupe: which of A, B or C reads most like a coupe?</div></div>
 <div style="display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:center;margin:0 0 30px">
-<div>${title('The feeling: batch 1\'s coupe')}<div style="font-size:16px;line-height:1.45;color:${I2}">Shown for the feeling only, not as a target. What made it feel drawn by hand: its stem <b>flared</b> into the bowl and the foot (its joins took a round of about a line), its foot was a <b>dome</b>, not a slab, its bowl a full curve, and its tree (not shown) had <b>drooping</b> branches. Those are the qualities the tunings carry, as rules, to every icon.</div></div>
-<div style="display:flex;gap:18px;align-items:center">${badge(b1)}${badge(b1, 192)}</div></div>
+<div>${title('The feeling: batch 1\'s coupe')}<div style="font-size:16px;line-height:1.45;color:${I2}">Shown for the feeling only, not as a target. What made it feel drawn by hand: a <b>thin stem that flared</b> into the bowl and the foot, a <b>domed foot</b>, a bowl that was one <b>full curve</b>, and, in its tree, <b>drooping</b> branches. The tunings carry these as rules to every icon.</div></div>
+<div style="display:flex;gap:18px;align-items:center">${badge(b1)}${badge(b1, 168)}</div></div>
 ${HSETS.map(setRow).join('')}
-${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;padding:22px 0;border-top:1px solid ${COL.hair}">
+<div style="margin-top:44px">${title('The coupe, three ways, in each tuning: true size, then 5x')}<div style="display:grid;grid-template-columns:150px repeat(4, 1fr);gap:18px 20px;align-items:start">${cHead}${HSETS.map(cRow).join('')}</div>
+<div style="font-size:14px;color:${I2};margin-top:10px">Every coupe stays in the square class, monoweight, the band the stroke's height with its sides one line in from the bowl. A flat bowl (B, C) leaves room for only a thin drink under the band: its floor sits about 1.9px over the bowl's underside, so the counter check counts it as a thick wall, not a drink. Its drink reads by its surface, not its depth. In H2 and H3 the air rule makes every glyph 1/12 smaller while the lines stay 1.5, so every coupe's drink gets thinner the same way (the counter offs named under H2 and H3 are that floor).</div></div>
+${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;padding:22px 0;border-top:1px solid ${COL.hair};margin-top:30px">
 <div><div style="font-size:21px;font-weight:700;color:${N};margin-bottom:6px">${nm.split(' (')[0]}</div><div style="font-size:16px;line-height:1.45;color:${I2}">For comparison, not a craft benchmark: in our badge, at our box.</div></div>
 <div><div style="display:flex;gap:14px;align-items:center">${rs.slice(0, 4).map(r => refInBadge(r)).join('')}${refBare(rs[4], 26.4)}${refBare(rs[5], 20)}</div>
-<div style="display:flex;gap:16px;margin-top:14px;align-items:center">${rs.slice(0, 4).map(r => refInBadge(r, 168)).join('')}${refBare(rs[4], 185)}${refBare(rs[5], 140)}</div></div></div>`).join('')}
+<div style="display:flex;gap:10px;margin-top:14px;align-items:center">${rs.slice(0, 4).map(r => refInBadge(r, 168)).join('')}${refBare(rs[4], 185)}${refBare(rs[5], 140)}</div></div></div>`).join('')}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:36px">
 <div>${title('Rules that bend')}<div style="font-size:16px;line-height:1.5">
-<p style="margin:0 0 10px"><b>Interior tighter than exterior</b> (your rule) bends at one kind of corner only: a join where a post meets a mass. A flare is an inside corner rounder than the outside ones next to it; that is what makes it read as pulled, not cut. Counters, slots and the tree's notches stay tight in every tuning.</p>
-<p style="margin:0 0 10px"><b>Every base is a slab</b> (your root-shape ask) gains one exception in H2 and H3: a foot that holds something up by a stem is a DOME. Today that is only the coupe; later it would be a lamp, a trophy, a bell. A base something sits flat on (the saucer, the plinth) stays a slab.</p>
-<p style="margin:0 0 10px"><b>Monoweight</b> (your pick) holds in H1 and H2; H3 relaxes it for free-standing posts only, and says so in its name.</p><p style="margin:0 0 10px"><b>The Outline class</b>: in H1 to H3 the star\'s points reach as far as the +\'s arms (the shipped star\'s 4px hole minimum made it 15% wider than v133, the biggest yet); its hole is then 2 lines, the old minimum.</p><p style="margin:0"><b>The fit</b> (H2, H3) stops at 11/12 of the cut. The + has no joins to flare.</p></div></div>
-<div>${title('Not used')}<div style="font-size:16px;line-height:1.5">No other icon set is used as a model here. Material and Phosphor are shown at the foot for comparison, not as a craft benchmark (you: "not an example of good craft", and "just to see how much *better* ours are"). Apple's published method for drawing glyphs is studied for practice only; none of its glyphs are shown.</div></div></div>
+<p style="margin:0 0 10px"><b>The corner law</b> keeps its radii in every tuning; H1 to H3 change only how a round meets its lines (eased, not a compass arc).</p>
+<p style="margin:0 0 10px"><b>Interior tighter than exterior</b> (your rule) bends in H3 only, at one kind of corner: where a thin post flares into a mass. Counters, slots and the tree's notches stay tight in every tuning.</p>
+<p style="margin:0 0 10px"><b>Every base is a slab</b> gains one exception in H2 and H3: a foot that holds something up by a stem is a DOME (the coupe now; a lamp, a trophy, a bell later). The saucer and the plinth stay slabs.</p>
+<p style="margin:0 0 10px"><b>Monoweight</b> (your pick) holds in H1 and H2; H3 relaxes it for free-standing posts only, and says so in its name.</p>
+<p style="margin:0"><b>The Outline class</b>: in H1 to H3 the star's points reach as far as the +'s arms (the shipped star's 4px hole minimum made it 15% wider than v133); its hole is then about 2 lines.</p></div></div>
+<div>${title('Craft bar, and comparisons')}<div style="font-size:16px;line-height:1.5">The craft bar, for finish and construction rigour rather than style: Central, Nucleo, Lucide and Apple's published method. None is copied; Lucide glyphs may appear only labelled "craft reference". Material and Phosphor are shown above for comparison, not as a craft benchmark (you: "just to see how much *better* ours are").</div></div></div>
 </div>`;
 }
 function sheetMaster() {

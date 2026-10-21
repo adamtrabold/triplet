@@ -3589,3 +3589,60 @@ NEXT: design director scores the three on turn 81's criteria, harmony first. The
 Owner: "i do actually like keeping material and phosphor in there just to see how much *better* ours are". The Material and Phosphor strips are back on the main board, the Set board and the Drawings handle row, and are new at the foot of "More human, by rule". Each is labelled "for comparison, not a craft benchmark". The v136 boards are archived (`Archive-G7t-*`). The human board moved down to clear the longer main board. Central (iconists.co/central) is noted as the craft bar for finish and construction rigour only; none of its glyphs are on any board.
 
 NEXT: design director scores the three tuned sets.
+
+---
+
+## Turn 86: icon designer, turn 85's must-dos and the coupe options (canvas v138; exploration, nothing shipped)
+
+**Turn 85's must-dos:**
+1. **Each row reaches the whole set.**
+   - **A curve rule (H1):** `ease` in `src/engine.js`. Each outside round and join starts 2.3 times farther from its corner, and both handles reach 0.92 of the way to the corner, so the curve leaves the line with no jump in curvature. The corner stays about as deep as before.
+   - It touches every outside corner of all eight icons, including the + and the Star.
+   - Counter corners stay tight compass rounds: easing them made the walls drift near the corners.
+   - **Each row names what it leaves alone:** H2 changes the cup, museum, + and Star by the curve rule and the air only.
+2. **Curve check:** at every smooth join on an outline, the jump in curvature.
+   - Now: worst 10.44/px.
+   - H1 and H2: 1.31.
+   - H3: 1.53.
+   - Printed under each row.
+3. **H1 dropped.** The old H1, a flare on a 1.5 stem, is gone. Flares now appear only in H3, where the free posts thin to 1 1/4 and flare with one line.
+4. **Tree (H3):** stated plainly on the board: the v123 tree changes, its trunk flaring into the lowest tier. I did not shape the skirt away.
+5. **Checks on every tuned glyph,** printed per row:
+
+   | Row | Counter points off | Worst turn |
+   |---|---|---|
+   | Now | 6 of 1431 (coupe) | 4.2° |
+   | H1 | 0 of 1172 | 3.9° |
+   | H2 | 63 of 1078 (coupe) | 18.2° |
+   | H3 | 11 of 1020 (coupe) | 7.1° |
+
+   The H2 and H3 coupe offs come from the air rule: the glyph is 1/12 smaller while the lines stay 1.5, so the drink's floor sits under 1.5 lines from the bowl's underside and the check counts it as a wall. The board says so.
+6. **In-app rows:** each row shows list rows with the star, and the map with the + badge and pins, at true size.
+7. **Craft bar panel:** Central, Nucleo, Lucide and Apple's method, for finish only. Material and Phosphor are shown for comparison, not as a craft benchmark. No Lucide glyphs are shown yet.
+
+**Rows now:**
+- **Now:** monoweight.
+- **H1:** monoweight, eased curves.
+- **H2:** eased curves, a domed foot, drooping branches, and air.
+- **H3:** monoweight relaxed: free posts 1 1/4, flaring into their joins (plus everything in H2).
+- The star is balanced in H1 to H3: its points reach as far as the +'s arms.
+
+**Coupe options (owner: "the taller stem or more pancaked bowl really sell coupeness"):** each shown inside every row at true size and 5x, with its size, drink, surface and counter result.
+
+| Option | Change | Drink (Now row) |
+|---|---|---|
+| v134 | as shipped | 18.8 px² |
+| A: taller stem | a line longer (`fb` 11.75) | 17.8 px² |
+| B: flatter bowl | pancaked: depth 5 1/2, rim handle 0.35, bottom handle 0.5 | 14.7 px² |
+| C: both | the flat bowl on the long stem | 13.8 px² |
+
+All four stay in the square class. With a flat bowl the drink is a thin layer under the 1.5px band, read by its surface. The counter check counts its floor as a thick wall, and the board says so.
+
+**My read:**
+- **Coupe:** C reads most like a coupe: wide, flat and stemmed.
+- **Curve rule:** at true size it is subtle. At 7x, corners soften into the lines.
+- **Delicacy:** H3 is still the most delicate.
+
+**Archived:** the scored v137 board (`Archive-G7u-Human`).
+
+NEXT: design director scores v138.

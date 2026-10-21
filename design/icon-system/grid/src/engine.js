@@ -120,8 +120,13 @@ function corners(item, law, info, opts = {}) {
       // into the ink along the corner's bisector, thinning the join instead of adding ink to it.
       if (r && r.trap) { cs.push({ d: r.trap[0], trap: true, N: P0.add(bis.multiply(-r.trap[1])), ang, turn, convex, angle: inkAngle }); if (info) info.push({ trap: true, x: r3(P0.x), y: r3(P0.y) }); continue; }
       if (!r || r <= 0) { cs.push(null); continue; }
-      let d = r * Math.tan(ang / 2);
-      cs.push({ d, r, ang, turn, convex, angle: inkAngle });
+      // g7u EASE (a curve rule, exploration): opts.ease = e > 1 starts the round e times farther from the
+      // corner and pulls both handles to the corner, so the curve eases out of the line with no jump in
+      // curvature (a hand's stroke, not a compass arc); e = 2.3 keeps the corner about as deep as the arc
+      // a counter's corners stay tight compass rounds (tight interior), so its walls stay one line all round
+      const ez = opts.ease && !isHole ? opts.ease : 0;
+      let d = r * Math.tan(ang / 2) * (ez || 1);
+      cs.push({ d, r, ang, turn, convex, angle: inkAngle, ease: !!ez });
       if (info) info.push({ x: r3(P0.x), y: r3(P0.y), r: r3(r), convex, angle: Math.round(inkAngle) });
     }
     // COLLISION RULE (g6 fix): two rounds that want more than a straight edge holds, where the edge
@@ -183,7 +188,8 @@ function corners(item, law, info, opts = {}) {
         const tb = nx.getTimeAt(b.d) ?? 0;
         const pA = cv.getPointAtTime(t1 == null ? 1 : t1), pB = nx.getPointAtTime(tb);
         const tA = cv.getTangentAtTime(t1 == null ? 1 : t1), tB = nx.getTangentAtTime(tb);
-        const h = (4 / 3) * Math.tan(b.ang / 4) * (b.d / Math.tan(b.ang / 2));
+        // eased: the handles reach 0.92 of the way to the corner along each edge (near-continuous curvature)
+        const h = b.ease ? 0.92 * b.d : (4 / 3) * Math.tan(b.ang / 4) * (b.d / Math.tan(b.ang / 2));
         segs.push({ kind: 'C', pts: [pA, pA.add(tA.multiply(h)), pB.subtract(tB.multiply(h)), pB] });
       }
     }
@@ -269,7 +275,7 @@ function erode(d, w, miter = true) {
   }
   return out;
 }
-function build(prims, { law, penW, info, centre, noCaps, tightHoles } = {}) {
+function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease } = {}) {
   const ers = prims.filter(q => q.t === 'E');
   if (ers.length) {
     let acc = join(prims.filter(q => q.t !== 'E'), penW);
@@ -286,14 +292,14 @@ function build(prims, { law, penW, info, centre, noCaps, tightHoles } = {}) {
       }
       const s = q.fill ? acc.unite(hole) : acc.subtract(hole); acc.remove(); hole.remove(); acc = s;
     }
-    const d = law ? corners(acc, law, info, { noCaps, tightHoles: true }) : acc.pathData;
+    const d = law ? corners(acc, law, info, { noCaps, tightHoles: true, ease }) : acc.pathData;
     const b = acc.bounds; acc.remove();
     let far = 0;
     if (centre) { const fl = new CompoundPath(d); fl.flatten(0.05); for (const k of (fl.children && fl.children.length ? fl.children : [fl])) for (const s of k.segments) far = Math.max(far, Math.hypot(s.point.x - centre[0], s.point.y - centre[1])); fl.remove(); }
     return { d, far, bounds: { x: b.x, y: b.y, w: b.width, h: b.height } };
   }
   const it = join(prims, penW);
-  const d = law ? corners(it, law, info, { noCaps, tightHoles }) : it.pathData;
+  const d = law ? corners(it, law, info, { noCaps, tightHoles, ease }) : it.pathData;
   const b = it.bounds;
   // farthest ink point from the badge centre, for the fit check
   let far = 0;
