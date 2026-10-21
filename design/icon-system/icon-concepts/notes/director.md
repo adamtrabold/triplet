@@ -1567,3 +1567,14 @@ checks; don't eyeball "is it as good as".
   is his.
 - **Lesson:** a board that shows 16 variants of one icon isn't phone-
   judgeable. Variants of one icon go in one row, in one drawing.
+
+## v139 (2026-10-21): 9 after two copy edits
+
+- The coupe A/B/C direction flags (17–20°) are an artefact. The drink's
+  flat surface gets paired with the bowl's curved underside. The true
+  offset overlay at 8x shows the walls and band corners clean.
+- **Lesson:** the overlay settles in one look what the numeric checks
+  argue about. Use it first on any flagged corner, before calling a
+  fault or an artefact.
+- **Lesson:** board copy that paraphrases him ("blames the depth") must
+  quote him instead.

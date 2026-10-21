@@ -3829,3 +3829,51 @@ re-score loop.
 **Bug found and fixed:** my edit for (3) left an extra closing tag, so the canvas file cut the board off after the coupe section (no comparisons, no rules panels). The standalone page hid it. The published v139 is checked whole: 3955px rendered.
 
 **Archived:** v138 (`Archive-G7v-Human`).
+
+
+## Turn 89: design director, v139: 9, send after two copy edits
+
+**The 17 to 20° "band corner" flags on coupe A, B and C: an artefact,
+not a fault.**
+- **How I checked:** at 8x I stroked each coupe's outer contour at twice
+  the line width, clipped inside, so the band's inner edge is the true
+  1.5 offset. I compared v134, A, B and C at the corner where the
+  counter meets the bowl wall.
+- **What it shows:**
+  - In all four, the true offset meets the counter wall exactly, from
+    the band down to the drink. There's no sliver of extra ink and no
+    thin spot.
+  - The band's lower corners carry the same tiny corner-rule round as
+    v134's.
+- **Where the flags come from:** the corner where the drink's surface
+  meets the bowl wall.
+  - The drink is the same ink as the bowl, so its flat surface is an
+    edge of the counter. The check pairs it with the curved underside of
+    the bowl and reports the angle between them.
+  - A flatter bowl brings that underside closer to the drink's edge, so
+    the pair falls inside the check's range and gets counted (17.5° A,
+    19.8° B, 18.3° C). In v134's deeper bowl it mostly didn't (4.2°).
+  - It's the same cause as the distance "offs": the drink's edge is read
+    as a wall.
+- In B and C the counter now ends in a sharper wedge where the drink
+  meets the wall. That's a flat bowl's geometry and reads fine at true
+  size.
+
+**The still (v139, 3954px, checked whole):**
+- turn 87's three fixes are in;
+- the coupe is one row;
+- the comparisons and both panels render;
+- harmony and checks are as scored in turn 87.
+
+**Two copy edits before it goes** (text only, no re-check needed):
+1. In each coupe's figures, "beside the band's lower corners, where the
+   drink meets the wall" → "where the drink's surface meets the bowl
+   wall (the check reads the drink's edge as a wall; an artefact)". The
+   band corners are clean, and the current words point him at the wrong
+   place.
+2. The C trade line paraphrases him ("blames the depth"). His words
+   were "its starting to read as wine glass with the liquid". Quote them:
+   "...but you said it was 'starting to read as wine glass with the
+   liquid', and a flat bowl can only hold a shallow drink."
+
+**Score: 9.** Send it once those two edits land.

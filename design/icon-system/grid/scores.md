@@ -1104,3 +1104,14 @@ The verdict stands within our own set:
   - say H1 is subtle at true size;
   - cut the coupe grid to one row;
   - name C's drink tension.
+
+
+## Round v139 "More human, by rule", 2026-10-21: 9, send after 2 copy edits
+
+- **The coupe A/B/C 17–20° direction flags are a check artefact** (the
+  drink's surface paired with the bowl underside). Verified at 8x with
+  the true-offset overlay; the band corners are clean.
+- **Copy edits:**
+  - name the flag's real place (the drink's surface, not the band
+    corners);
+  - quote his "wine glass with the liquid" verbatim in C's trade line.
