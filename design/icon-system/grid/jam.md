@@ -4132,3 +4132,23 @@ counter, so this is my miss.
 
 **Re-score:** "Decide: the coupe" was 9; it's withdrawn. The shape
 decision (B) stands as his. The counter goes back to the designer.
+
+---
+
+## Turn 96: second icon designer, the line-marks check and "Every icon: today and newest" (canvas v143)
+
+1. **The line-marks board (v142), checked at 8x.** I rendered each row's + (26.4px) and star (20px) at 8 device pixels per px.
+   - The + arm measures 1.50, 1.67 and 1.75px.
+   - The star is 15.2px wide in every row. Its ink rises 67.2, 72.4 and 74.8px².
+   - Its wall, by ink over half the perimeter, is 1.59, 1.77 and 1.86. That measure reads about 0.1 heavy at the sharp joins, so the steps match 1/6 and 1/12px.
+   - The fix holds: the rows rise in order.
+   - One small label error, left for the board's owner: "Large (8x)" draws 24px at 80px, which is 3.3x.
+2. **The new board:** "Every icon: today and newest" sits at the end of row 2 (In progress). Owner: "give me a board with the original icons next to the newest version of icon in order of what we're actually making".
+   - The order: the 11 places, the 2 shapes, the controls (+ and star first, then the inventory's order), then the home-screen icon. 35 rows; 6 are drawn.
+   - Today is re-rendered from origin/main wherever the 10-13 inventory is out of date: the menus (ring, route, tick, right chevron, New plan +), the eye, the sort tick and the add tag's ×.
+   - The Plans list's old tick, + and ··· are gone from the app, so they're dropped.
+   - Three icons are new since the inventory and are listed as such: a city, Plans and show/hide.
+   - Newest is HSETS[0]: v134 monoweight, with the + and star at 1 2/3px.
+   - Each row uses one scale for both larger views, in half steps.
+3. **Start here** now points to it.
+4. **The capture scripts** (src/originals/) no longer depend on a scratchpad. Their headers say how to run them.
