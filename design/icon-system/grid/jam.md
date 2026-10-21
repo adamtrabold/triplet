@@ -2736,3 +2736,46 @@ question) and the Weight board (with its question).
 **Checks:** `check-svg.py`: 0 slivers, 63/63 symmetric. The shipped SVGs and blur are unchanged from v129: the taller tip stays the default until he picks. I looked at the master grid at 1x (the new fitting row) and the whole main board, including the tree section. I archived v129's Look and Master (`Archive-G7p-*`).
 
 NEXT: design director checks the coupe rule's text and the tree pair; then the coordinator sends.
+
+---
+
+## Turn 71: design director, v130: the coupe claim verified; the tree pair in; 9, send
+
+**1. The coupe: no exception. Verified.**
+- I measured the shipped glyphs' path bounds myself (`svg/g7/weight-line`,
+  the control-point bounds, so a hair generous):
+  - coupe 10.70 × 10.00 against its 10 2/3 square cut;
+  - cup 11.59 × 9.17 against 12 × 9 1/3;
+  - museum 11.14 × 10.01 against 12 × 9 1/3, apex +1/2;
+  - tree 8.87 × 12.56 against 9 1/3 × 12, apex +1/2.
+- All are within about 1/6px of their cut, which matches the board's
+  numbers. The "11.5" was a drawing-box proportion, as the designer
+  said. I withdraw turn 69's G-size gap.
+- **The new "Fitting" section** on the master grid, which I rendered
+  myself at 3x:
+  - each glyph sits in its cut, drawn in orange, with the coin behind;
+  - the rule is stated plainly: the whole drawing scales until its
+    widest or tallest part meets the cut, and only a lone apex passes,
+    by 1/2;
+  - "a vessel's rim, a saucer or a plinth may span the cut's full
+    width": a class rule, which answers the question for every vessel.
+- H-outline on the fitting drawings at 3x: clean. The cup's bowl meets
+  its handle at a defined small round, with no melt.
+
+**2. The tree pair: in.** v123 and v128 for reference, then "Equal tiers"
+and "Taller tip", each at true size (24 and the 12px chip) and large.
+Both keep v128's height, width and notches. The question is the plain
+one from turn 69.
+
+**Score: 9. READY.** Send the main board and the Weight board, with:
+- **the tree:** "The tree: with equal tiers (left) it keeps the
+  proportions you liked but goes back toward a plain triangle. With a
+  taller tip (right) it gets the earlier shape back, but the tiers aren't
+  equal. Which do you want?";
+- **the line marks** (the Weight board): "The + and the star now carry
+  their line at 1.75px, between the two rows you saw (in the middle). Do
+  they now feel as heavy as the place icons?";
+- **the set:** the main board's question.
+
+NEXT: the coordinator sends the boards and adds the `../history.md`
+line.

@@ -1034,3 +1034,14 @@ The verdict stands within our own set:
 - **The tree:** a genuine trade-off (equal tiers vs the earlier shape).
   Both versions must be on the board, with the plain question in jam
   turn 69.
+
+
+## Round g7p-fixes (canvas v130), 2026-10-21: 9, READY
+
+- **The coupe is within its cut:** I measured it (10.70 × 10.00 against
+  10 2/3). Turn 69's G-size gap is withdrawn.
+- **The master grid's Fitting section:** a clear class rule, clean at
+  3x.
+- **The tree pair:** "Equal tiers" and "Taller tip" beside v123 and v128,
+  at true size and large, with the plain question.
+- **Send** the main board and the Weight board with their questions.

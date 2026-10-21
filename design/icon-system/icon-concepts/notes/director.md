@@ -1238,3 +1238,11 @@ approaches should be as much a part of the brand as anything".
   other one" conflict, so it's his call. Both trees go on the board.
 - **Rule for myself:** when two of his wishes pull against each other,
   don't pick one for him. Show both, side by side, and ask plainly.
+
+
+## v130 (2026-10-21): 9, sent
+
+- I measured the glyph bounds myself and confirmed the coupe sits within
+  its cut. My turn-69 "11.5 exception" came from reading a drawing-box
+  number as a size. Measure before ruling.
+- The tree trade-off went to him as a pair.
