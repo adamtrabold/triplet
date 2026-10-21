@@ -84,6 +84,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · Between v207 shown:** coupe sides one curve, shallow bowl, ½ flares, 1¼ stem; liquid question (open glass vs clear glass); flipped plate; tree tips scaled; museum: beam back, "sized by its weight" (a tenth smaller) and "cast soft".
 
+- **10-21 · v216 shown:** "H3, saucer flipped, rules tuned to the tree": the tree now comes from the row's rules (posts 1¼ with ½ flares, tips by edge, sweep and droop), so the row is Between with H3's plates and foot; one rules table; his strategy question answered on the board; coupe-side change slight (the rim's eased corner still meets the side upright). Director 7 (v214) → 9 (v215, copy fix in v216). Asked: does this row read as one system? Do the coupe sides still look straight?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
