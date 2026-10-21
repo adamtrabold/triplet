@@ -5111,3 +5111,36 @@ fix lives in the shared rules, each new row re-opens closed notes.
 
 **Changed since my last score?** Yes: a new row (my last score, 9, was the
 v207 museum rework).
+
+## Turn 115: icon designer, turn 114 fixes in one batch (canvas v215)
+
+1. **The vessel rule.**
+   - New in picks7: `VESSEL_SIDE` {bk 0.5, bx 1.5, lean 0}. A curved side is one curve from the rim, with no upright run and no S. That is the Between coupe's fix; until now it lived only inside that row's options.
+   - The tuned row now spreads it into its coupe, so any row can take it.
+   - Measured on the coupe side, least curvature over peak: 17% → 38%.
+   - Tried leaning the side in at the rim (lean 0.5 and 1). It makes a straight diagonal under the rim: 8% and 1%, and an S at 1. Not used.
+   - New check, `src/curve-even.js`, on every curve drawn in the row:
+     - cup bottom 44%, tree underside 49%: fine;
+     - the saucer's underside (2%) and the foot's top (5%) run flat across the middle.
+   - The flat domes are flagged on the board, not changed. A dome a line deep across 11px can't be one even curve without turning into a pointed lens.
+   - By eye at 8x the change from H3's coupe is small. The rim's eased corner still enters the side vertically, as it does in the Between coupe too.
+2. **Plates and feet are a rule** in the table:
+   - what a thing sits on is flat on top, with its dome underneath (the saucer);
+   - what rises into a stem domes up to meet it (the foot);
+   - what stands on the ground is flat.
+   - It's flagged as his call ("not foot").
+3. **Line ends:** the rule always was a fifth of the line's width, 0.3 at most (the law's fit). The table now says so: 0.3 on 1.5px lines and the marks, 0.25 on a 1 1/4px post. The drawings didn't change.
+4. **The strategy answer now says it plainly:** this row is the Between row with H3's plates and foot.
+   - Still H3: the saucer's full dome (flipped), the domed foot, and the bar across the coupe's rim (the liquid question is open).
+   - The museum's sizing waits on his pick in part 3.
+5. **One table.** Columns: rule, H3, Between, this row, with a "Here:" line per icon under each rule. It replaces both earlier tables; the rules that are the same in all three get one line.
+
+**Checks:**
+- check-svg: 0 slivers.
+- h3t-bar: the counter shows the known drink-edge artefact; curve jump 0.00.
+- Only the coupe svg changed.
+
+**Canvas:**
+- Between board 7195 tall (+507).
+- Row 2 moved down 620: its title to 7620, Master to 7920.
+- The live board was my own v214, so there were no owner edits to keep.

@@ -429,7 +429,14 @@ function offset(pts, d) {
   return out;
 }
 
+// g7aj VESSEL SIDE RULE (owner on v205's coupe: "this line on the left and right is waht looks wrong -- it looks too
+// straight compared to the rest of the shape"): a vessel's side drawn as a curve is ONE curve from the rim to the
+// bottom, turning from the rim on, with no upright run and no S: its two handles balanced for the most even curvature
+// (searched in g7ae: the rim handle half the depth down, the bottom handle 1 1/2 in from the side, no lean). A side drawn
+// straight (the cup's wall) is a line, and is not a curve gone straight. Was a fix inside the Between coupe only; now
+// any row spreads it into its coupe options, so a row built from another base doesn't bring the upright run back.
+const VESSEL_SIDE = { bk: 0.5, bx: 1.5, lean: 0 };
 const STAR = { ri: 0.47 };   // the star's inner radius, a share of its outer (its points' slenderness)
 const TREE_NOTCH = 0.6;   // g7r: a notch is 0.6 of the half width of the tier above it (its neck the other 0.4)
 const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature', 'Nature']];
-module.exports = { STAR, W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };
+module.exports = { VESSEL_SIDE, STAR, W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };

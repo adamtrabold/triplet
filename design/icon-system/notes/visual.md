@@ -1,5 +1,17 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-21, canvas v215, turn 115)
+
+- **Score:** the director gave v214 a 7 (turn 114). All five fixes are made as rules (jam turn 115).
+  - **VESSEL_SIDE** (picks7) is now a shared rule.
+  - **Plates and feet** is a rule in the table: sits-on is flat on top; rises-into-a-stem domes up; ground is flat.
+  - **Line ends** are stated as a fifth of the width, 0.3 at most.
+  - **The board says plainly** that the row is Between with H3's plates and foot.
+  - **One rules table:** rule, H3, Between, this row, with a "Here:" line under each rule.
+- **New check:** `src/curve-even.js`. Its numbers mirror picks7, so keep them in step.
+- **Open question:** the domes run flat across the middle (2%, 5%). I flagged that, not fixed it. The coupe's rim corner still enters the side vertically, in Between too. If he still calls the sides straight, the eased rim corner, not the handles, is the next suspect.
+- **Canvas layout:** the Between board is 7195 tall, and row 2 now starts at 7620.
+
 ## Where things stand (2026-10-21, grid round g7, canvas v214)
 
 - **Where the work lives:**
