@@ -3910,7 +3910,7 @@ Owner: "i am struggling to figure out how to read the file at this point". The p
 The canvas still opens where it did. I rendered the new boards at phone width (390pt at 2x) and read them before publishing. Unchanged boards were only moved, not rewritten.
 
 
-## Turn 90: design director, criteria for the H2/H3 push
+## Turn 92: design director, criteria for the H2/H3 push
 
 **The owner, verbatim** (canvas comment on "Decide: more human?"): "i
 can't decide between h2 and h3 here... the fully rounded cup base and
