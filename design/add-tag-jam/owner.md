@@ -156,3 +156,18 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 ## 2026-10-20 (on the final Phase 4 sheet, `stills/p4-fixes/9-signposts.png`, `10-family.png`)
 > signposts instead of city badges are approved
 (Standing rule: "yes when i say something is good that means ship it". The map control's cut, above: "yeah lets cut that button it doesnt make sense -- all places should just show all places on the map".)
+
+## 2026-10-20/21 (the tag's close, tweak lane `tag-close-fix`)
+> can you roll out a quick fix in the middle -- the x to close tag is in a very weird space
+> the x should be related to the corner of the overall tag, not the content on the tag
+> no that is an awkward distance from the top / right. feels far enough to the left of the right edge, but too close to the top
+> maybe the icon becomes the x?
+> theres no scenario where a numbered pin would be where the tag comes out of
+> ohh on a plan. but doesnt the tag say "stop X of X" too?
+> no districts and streets could also have an x in the dot
+> pin is making the most sense to me, but navy feels too much like visited
+> i dont think the close pin needs a ring
+> no star needed once expanded because the tag is clear when something is starred
+> it needs a disc. i dont mind the screened back orange one, but the orange background should be a bit lighter
+> yeah 6
+> Yes   (on the built sheet, `design/tag-close-fix/contact-sheet.png` on main)
