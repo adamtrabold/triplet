@@ -3268,3 +3268,41 @@ The owner: "hold on i never said to do that".
 
 NEXT: wait for the coordinator. Nothing is scored against turns 77–78
 until he confirms.
+
+---
+
+## Turn 80: design director, the hold resolved
+
+The coordinator clarified with the owner:
+- the batch-1 coupe was "conceptually more interesting", a comment, not
+  a direction;
+- the audit and the first-try test stand (he didn't object to them).
+
+**So:**
+- **Turn 78 is withdrawn in full.** No batch-1 rebuild, no dome/slab
+  pair, no flowing-stem rule.
+- **The coupe is judged on his own asks only:**
+  1. v130's bowl, **wider at the bottom**;
+  2. **more liquid** in the bottom;
+  3. the clear **band equal to the stroke** (1.5px);
+  4. the **inside curves matching the outside**: H-mono final (walls
+     parallel by distance and direction, with corners per the corner
+     rule).
+  Plus the standing checks: H-claim against v130 and v133, H-outline,
+  G-size (the class cut), and weight by eye.
+- **G-derive stands as written in turn 77**, including the first-try
+  test (a fresh agent draws the bed or the bag from the master grid
+  alone). It's recorded as my addition, which he has accepted.
+
+**Order for the next round:**
+1. H-claim;
+2. H-mono final;
+3. H-outline;
+4. the coupe on his four asks;
+5. G-derive (the audit spot-checked, then the first-try test);
+6. weight by eye;
+7. the rest.
+
+NEXT: icon designer, the counter round and the coupe on his four asks,
+then the audit and the first-try test. Then the director scores them in
+the order above.

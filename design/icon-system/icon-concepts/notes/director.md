@@ -711,7 +711,7 @@ we need to address as we make these changes".
 
 A failure caps the score at 7.
 
-**G-derive (a gate, 2026-10-21):** every number in every icon is derived from the grid or listed on the master grid as an exception with its reason. A failure caps the score at 8. *(ON HOLD, 2026-10-21: this whole gate is my framing, and the first-try test was my addition, not his ask. Unconfirmed until the coordinator says.)*
+**G-derive (a gate, 2026-10-21):** every number in every icon is derived from the grid or listed on the master grid as an exception with its reason. A failure caps the score at 8. A fresh agent must be able to draw a new icon (the bed or the bag) from the master grid alone and pass every check first time. *(My addition; he accepted it, 2026-10-21.)*
 
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
@@ -1372,3 +1372,15 @@ approaches should be as much a part of the brand as anything".
 - **Standing:** his own coupe asks (v130's bowl, wider at the bottom,
   more liquid, the band = the stroke, the inside follows the outside,
   corners per the rule) and the H-checks.
+
+
+## Hold resolved (2026-10-21)
+
+- Turn 78 (the batch-1 coupe direction) is withdrawn. It was a comment.
+- **The coupe is judged on his four asks only:**
+  - v130's bowl, wider at the bottom;
+  - more liquid;
+  - the band = the stroke;
+  - the inside follows the outside (H-mono final).
+- **G-derive, with the first-try test, stands** (recorded as my addition,
+  which he accepted).
