@@ -3581,3 +3581,11 @@ Each quality is a rule applied by joint kind or class, never per icon.
 - the shipped star's size (turn 82). The balanced star is shown as the proposal.
 
 NEXT: design director scores the three on turn 81's criteria, harmony first. The grid audit follows on whichever he picks.
+
+---
+
+## Turn 84: icon designer, the comparisons restored (canvas v137)
+
+Owner: "i do actually like keeping material and phosphor in there just to see how much *better* ours are". The Material and Phosphor strips are back on the main board, the Set board and the Drawings handle row, and are new at the foot of "More human, by rule". Each is labelled "for comparison, not a craft benchmark". The v136 boards are archived (`Archive-G7t-*`). The human board moved down to clear the longer main board. Central (iconists.co/central) is noted as the craft bar for finish and construction rigour only; none of its glyphs are on any board.
+
+NEXT: design director scores the three tuned sets.

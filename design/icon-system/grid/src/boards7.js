@@ -224,7 +224,7 @@ function sheetIntro(n) {
 <div class="q"><b>And</b>"${Q_PRACTICE}"</div>
 <p class="att">The same six (café, bar, museum, nature, the + and the Star), redrawn at 1.5px. Every change below comes from an established icon-design practice, named where it's used:</p>
 <ul class="facts">${P.map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
-<p class="sm"><b>Sheet 1 is the set</b>, judged together at real size, (the reference sets are retired). Sheet 2 is each drawing, before and after. Sheet 6 is the grid, changed by this redraw.</p>
+<p class="sm"><b>Sheet 1 is the set</b>, judged together at real size, (two other sets appear for comparison, not a craft benchmark). Sheet 2 is each drawing, before and after. Sheet 6 is the grid, changed by this redraw.</p>
 <p class="sm mute">The main board (Batch 1: the set) is drawn with the proposed corners, by joint, and 2px of air (the team's call: the difference doesn't show at true size). Visited and the home-screen icon are unchanged.</p>
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;
@@ -259,14 +259,25 @@ function sheetSet(W_, n) {
 <div class="lab">Interiors, enlarged 8x, with their widths</div>
 <div class="set big">${INTERIORS}</div>
 <p class="sm mute">Every counter and slot is at least the line (1.5px), so it stays open at 12px and 24px. The one gap under it is the 1px cut between the cup and its saucer, open at both ends (a gap, not a passage).</p>
-<p class="sm mute">(g7t: the Material and Phosphor comparison rows are retired; you: "material symbols and phosphor symbols are not an example of good craft". They stay on the archived boards.)</p>
+<div class="lab">Ours, then Material, then Phosphor (for comparison, not a craft benchmark): 24px and 12px, at 1x</div>
+<div class="srow"><div class="k">Ours, 24</div><div class="set">${newRow(24)}${uis(false)}</div></div>
+${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">${nm.split(' (')[0]}, 24</div><div class="set">${rs.map(r => refBare(r)).join('')}</div></div>`).join('')}
+<div class="srow"><div class="k">Ours, 12</div><div class="set">${BATCH.map(([id]) => chip(GD.joint[12][id].c12.d)).join('')}</div></div>
+${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">${nm.split(' (')[0]}, 12</div><div class="set">${rs.slice(0, 4).map(r => refBare(r, 12)).join('')}</div></div>`).join('')}
+<div class="lab">The same subjects in our badge, at our 12px box, then blurred</div>
+<div class="srow"><div class="k">Ours</div><div class="set">${newRow(24)}</div></div>
+${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">${nm.split(' (')[0]}</div><div class="set">${rs.slice(0, 4).map(r => refInBadge(r)).join('')}</div></div>`).join('')}
+<div class="srow"><div class="k">Blurred: ours</div><div class="set big blur">${newRow(48)}</div></div>
+${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">Blurred: ${nm.split(' (')[0]}</div><div class="set big blur">${rs.slice(0, 4).map(r => refInBadge(r, 48)).join('')}</div></div>`).join('')}
+<div class="srow"><div class="k">Ours, faint centre line</div><div class="set">${BATCH.map(([id]) => badge(GD.joint[12][id].d, 24, `<line x1="0" y1="12" x2="24" y2="12" stroke="${COL.or}" stroke-opacity=".55" stroke-width="0.5"/>`)).join('')}</div></div>
+<p class="sm mute">The references use their own grids (Material: 2px lines, 20px live area; Phosphor: 1.5px). Shown to judge craft (joins, counters, proportion), not to copy. Plainly: in our set the conifer and the cup read darkest and the museum lightest, within a small spread. In our badge at our 12px box, both references look lighter than ours overall; that is our 1.5px line at a 12px drawing, which you chose for weight. SF Symbols isn't shown: Apple's licence doesn't allow its symbols outside Apple-platform work, and they can't be downloaded here, so Phosphor stands in.</p>
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;
 }
 
-const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring, at 24 and 3x</div>
-<div class="set">${badge(GD.joint[12].cafe.d)}${badge(RING.d)}</div>
-<div class="set big">${badge(GD.joint[12].cafe.d, 72)}${badge(RING.d, 72)}</div>
+const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring and the two comparison cups (for comparison, not a craft benchmark), at 24 and 3x</div>
+<div class="set">${badge(GD.joint[12].cafe.d)}${badge(RING.d)}${refInBadge(REFS[0][1][0])}${refInBadge(REFS[1][1][0])}</div>
+<div class="set big">${badge(GD.joint[12].cafe.d, 72)}${badge(RING.d, 72)}${refInBadge(REFS[0][1][0], 72)}${refInBadge(REFS[1][1][0], 72)}</div>
 <p class="sm"><b>Kept: the ear.</b> At 24 it reads as a handle joined to the cup, as both references do; the ring read as a separate bubble.</p>`;
 // ---- sheet 2: each drawing ----------------------------------------------------------------------
 const PRIN = {
@@ -543,12 +554,16 @@ function sheetHuman() {
 <div>${title('The feeling: batch 1\'s coupe')}<div style="font-size:16px;line-height:1.45;color:${I2}">Shown for the feeling only, not as a target. What made it feel drawn by hand: its stem <b>flared</b> into the bowl and the foot (its joins took a round of about a line), its foot was a <b>dome</b>, not a slab, its bowl a full curve, and its tree (not shown) had <b>drooping</b> branches. Those are the qualities the tunings carry, as rules, to every icon.</div></div>
 <div style="display:flex;gap:18px;align-items:center">${badge(b1)}${badge(b1, 192)}</div></div>
 ${HSETS.map(setRow).join('')}
+${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;padding:22px 0;border-top:1px solid ${COL.hair}">
+<div><div style="font-size:21px;font-weight:700;color:${N};margin-bottom:6px">${nm.split(' (')[0]}</div><div style="font-size:16px;line-height:1.45;color:${I2}">For comparison, not a craft benchmark: in our badge, at our box.</div></div>
+<div><div style="display:flex;gap:14px;align-items:center">${rs.slice(0, 4).map(r => refInBadge(r)).join('')}${refBare(rs[4], 26.4)}${refBare(rs[5], 20)}</div>
+<div style="display:flex;gap:16px;margin-top:14px;align-items:center">${rs.slice(0, 4).map(r => refInBadge(r, 168)).join('')}${refBare(rs[4], 185)}${refBare(rs[5], 140)}</div></div></div>`).join('')}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:36px">
 <div>${title('Rules that bend')}<div style="font-size:16px;line-height:1.5">
 <p style="margin:0 0 10px"><b>Interior tighter than exterior</b> (your rule) bends at one kind of corner only: a join where a post meets a mass. A flare is an inside corner rounder than the outside ones next to it; that is what makes it read as pulled, not cut. Counters, slots and the tree's notches stay tight in every tuning.</p>
 <p style="margin:0 0 10px"><b>Every base is a slab</b> (your root-shape ask) gains one exception in H2 and H3: a foot that holds something up by a stem is a DOME. Today that is only the coupe; later it would be a lamp, a trophy, a bell. A base something sits flat on (the saucer, the plinth) stays a slab.</p>
 <p style="margin:0 0 10px"><b>Monoweight</b> (your pick) holds in H1 and H2; H3 relaxes it for free-standing posts only, and says so in its name.</p><p style="margin:0 0 10px"><b>The Outline class</b>: in H1 to H3 the star\'s points reach as far as the +\'s arms (the shipped star\'s 4px hole minimum made it 15% wider than v133, the biggest yet); its hole is then 2 lines, the old minimum.</p><p style="margin:0"><b>The fit</b> (H2, H3) stops at 11/12 of the cut. The + has no joins to flare.</p></div></div>
-<div>${title('Not used')}<div style="font-size:16px;line-height:1.5">No other icon set is used as a model here (you: Material and Phosphor are "not an example of good craft"). Apple's published method for drawing glyphs is studied for practice only; none of its glyphs are shown.</div></div></div>
+<div>${title('Not used')}<div style="font-size:16px;line-height:1.5">No other icon set is used as a model here. Material and Phosphor are shown at the foot for comparison, not as a craft benchmark (you: "not an example of good craft", and "just to see how much *better* ours are"). Apple's published method for drawing glyphs is studied for practice only; none of its glyphs are shown.</div></div></div>
 </div>`;
 }
 function sheetMaster() {
@@ -675,7 +690,7 @@ const SETS = (() => {
   const refs = REFS.map(([nm, rs]) => {
     const at = id => rs[CATS.indexOf(id)];
     return {
-      name: nm.split(' (')[0], sub: nm.includes('Material') ? 'Google\'s set, for comparison' : 'for comparison',
+      name: nm.split(' (')[0], sub: 'for comparison, not a craft benchmark',
       badge: (id, px = 24) => refInBadge(at(id), px),
       pin: id => `<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15.25" fill="${COL.navy}" stroke="${COL.navy}" stroke-width="1.5"/><g transform="translate(4 4)">${refG(at(id), COL.paper)}</g></svg>`,
       chip: id => `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><g transform="translate(-6 -6)">${refG(at(id), COL.navy)}</g></svg>`,
@@ -887,6 +902,8 @@ ${sec('Pressure test: the batch 2 subjects on this grid')}
 ${sec('Weight: the line marks')}
 ${p('In our blur, a 1.5px line can\'t get darker than about 58 and the solid places reach 75, so the Star and the + read light. You found 1.5px too light and the heavier row far too heavy; the line marks drew at 1.75px in v130, which you found close but still too heavy; they now draw at 1 2/3px. The Weight board, to the right, shows the new row between both rows you saw.')}
 <div style="margin:0 0 64px"></div>
+${sec('Material and Phosphor: for comparison, not a craft benchmark')}
+<div style="${grid}">${head}${SETS.slice(1).map(row).join('')}</div>
 </div>`;
 }
 function page(W_) { return { css: CSS(W_), cards: [sheetIntro(0), sheetSet(W_, 1), sheetDrawings(W_, 2), sheetCorners(W_, 3), sheetApp(4), sheetAir(W_, 5), sheetGrid(W_, 6), sheetWeight(W_, 7)] }; }
