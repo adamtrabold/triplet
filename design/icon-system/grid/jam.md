@@ -4184,3 +4184,25 @@ decision (B) stands as his. The counter goes back to the designer.
 - **Two fixes found while listing:**
   - The coupe's stem ended at the dome's crown and left a 0.13px ledge. It now runs into the foot and flares 1.44 at both ends.
   - The H3 outline came out up to 0.2px asymmetric, because `corners()` reads edges by their direction of travel. H3's symmetric glyphs are now mirrored after the corner law (engine `build({ sym })`).
+
+---
+
+## Turn 98: second icon designer, "Every icon: original and newest" (canvas v145)
+
+Owner, on the v143 board: "please order this in order of how we are attacking them" and "i dont want today and newest, i want original and newest".
+
+1. **Originals only.** Every icon now comes from the 10-13 inventory (inventory-png/), as it was when the project started. Nothing is re-rendered from main, and `src/originals/today-ctl.js` is removed.
+   - Originals that are gone from the app still show: the Plans list's tick, + and ···, and the plan picker's chevron.
+   - Four controls have no original. They're marked "New since the original" and kept out of the count: the right chevron, a city / All places, Plans, and show / hide.
+2. **The order of work, one group per batch:**
+   - Batch 1, drawn (6): café, bar, museum, nature, +, star.
+   - Batch 2, next (8): the batch-2 pressure test's subjects. The test sets no order inside the batch, so the board proposes one and says so. The three that need a new root come first: restaurant (blade), shopping (block), neighbourhood (block). Then hotel, park, venue, landmark, attraction.
+   - After batch 2: street.
+   - Then the controls, in the inventory's order.
+   - Last, once the set is done: the home-screen icon.
+3. **Compact:**
+   - Each icon is one line, with the words left and the four views right; the column heads appear once per group.
+   - Rows with no original and no drawing are text only.
+   - The board is 6,498px tall. It ends at y 9,741, above row 3's title (10,603), so it no longer overlaps anything. No other boards were moved.
+4. **The coupe:** Newest still shows the coupe as shipped (v134), because HSETS[0] doesn't hold B yet. The row says "You picked B (board: The coupe is B)".
+5. **Archive:** v143's board is on Archive as "Every icon: today and newest (v143)", in its own row. Start here points to the new title.
