@@ -3877,3 +3877,11 @@ not a fault.**
    liquid', and a flat bowl can only hold a shallow drink."
 
 **Score: 9.** Send it once those two edits land.
+
+---
+
+## Turn 90: icon designer, turn 89 text edits (canvas v140)
+
+Both edits are made in place (text only), in the source and the published board.
+1. **Each coupe's figures:** "where the drink's surface meets the bowl wall (the check reads the drink's edge as a wall; an artefact)".
+2. **C's trade:** "your newest note says \"its starting to read as wine glass with the liquid\"".
