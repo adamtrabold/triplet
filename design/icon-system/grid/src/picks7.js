@@ -46,6 +46,21 @@ const POSTF = (cx, y0, y1, top, bot) => {
   const L = y1 - y0, f = L / 12, z = L / 5, wt = W + (top ? f : 0), wb = W + (bot ? f : 0);
   return { ...P([cx - wt / 2, y0], [cx + wt / 2, y0], [cx + W / 2, y0 + z], [cx + W / 2, y1 - z], [cx + wb / 2, y1], [cx - wb / 2, y1], [cx - W / 2, y1 - z], [cx - W / 2, y0 + z]), root: 'POST' };
 };
+// g7af: a polygon with each corner rounded: the corner is trimmed by d along both edges (at most half of either
+// edge) and joined by a cubic whose handles reach 0.55 of the way back to the corner
+const roundPoly = (pts, d) => {
+  const n = pts.length, seg = [];
+  for (let i = 0; i < n; i++) {
+    const P0 = pts[(i + n - 1) % n], P1 = pts[i], P2 = pts[(i + 1) % n];
+    const l0 = Math.hypot(P1[0] - P0[0], P1[1] - P0[1]), l1 = Math.hypot(P2[0] - P1[0], P2[1] - P1[1]), dd = Math.min(d, l0 / 2, l1 / 2);
+    const a = [P1[0] + (P0[0] - P1[0]) * dd / l0, P1[1] + (P0[1] - P1[1]) * dd / l0], b = [P1[0] + (P2[0] - P1[0]) * dd / l1, P1[1] + (P2[1] - P1[1]) * dd / l1];
+    const h = 0.55, c1 = [a[0] + (P1[0] - a[0]) * h, a[1] + (P1[1] - a[1]) * h], c2 = [b[0] + (P1[0] - b[0]) * h, b[1] + (P1[1] - b[1]) * h];
+    seg.push({ a, b, c1, c2 });
+  }
+  let s = `M${f(seg[0].b[0])} ${f(seg[0].b[1])}`;
+  for (let i = 1; i <= n; i++) { const g = seg[i % n]; s += `L${f(g.a[0])} ${f(g.a[1])}C${f(g.c1[0])} ${f(g.c1[1])} ${f(g.c2[0])} ${f(g.c2[1])} ${f(g.b[0])} ${f(g.b[1])}`; }
+  return s + 'Z';
+};
 const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx - hw, base]), root: 'GABLE' });
 
 // ---- g7n: THE LINE, three ways (owner, 10-20: "when i think no taper i think the interior would follow the
@@ -279,7 +294,7 @@ const DRAW = {
       const A = o.arch, e = A.entasis || 0, dB = A.droop || 0, r = Math.min(A.capital || 0, gap / 3), k = 0.5523, bwR = A.roofBow || 0;
       const xc = s / 2, hw = X(11.75) - xc, yt = x => ct + dB * (1 - ((x - xc) / hw) ** 2), ytd = x => -2 * dB * (x - xc) / (hw * hw);
       const sl = (x0_, y0_, x1_, y1_) => { if (!bwR) return `L${f(x1_)} ${f(y1_)}`; const mx = (x0_ + x1_) / 2, my = (y0_ + y1_) / 2, L = Math.hypot(x1_ - x0_, y1_ - y0_), nx = (y1_ - y0_) / L, ny = -(x1_ - x0_) / L, sg = Math.sign((mx - s / 2) * nx || 1); return `Q${f(mx + sg * nx * 2 * bwR)} ${f(my + sg * ny * 2 * bwR)} ${f(x1_)} ${f(y1_)}`; };
-      out[0] = { ...D(`M${X(0.25)} ${f(pb + bd)}V${f(pb)}${sl(X(0.25), pb, X(6), ap)}${sl(X(6), ap, X(11.75), pb)}V${f(pb + bd)}${dB ? `Q${f(xc)} ${f(pb + bd + 2 * dB)} ${X(0.25)} ${f(pb + bd)}` : ''}Z`), root: 'GABLE', also: 'SLAB' };
+      out[0] = A.cast ? { ...D(roundPoly([[X(0.25), pb + bd], [X(0.25), pb], [X(6), ap], [X(11.75), pb], [X(11.75), pb + bd]], A.cast)), root: 'GABLE', also: 'SLAB' } : { ...D(`M${X(0.25)} ${f(pb + bd)}V${f(pb)}${sl(X(0.25), pb, X(6), ap)}${sl(X(6), ap, X(11.75), pb)}V${f(pb + bd)}${dB ? `Q${f(xc)} ${f(pb + bd + 2 * dB)} ${X(0.25)} ${f(pb + bd)}` : ''}Z`), root: 'GABLE', also: 'SLAB' };
       const mid = (ct + pl) / 2, R_ = x => x + 0.0001;
       out.push({ ...D(`M${f(x0 + e)} ${f(ct - 0.01)}H${f(x0 + span - e)}${e ? `Q${f(x0 + span + e)} ${f(mid)} ${f(x0 + span - e)} ${f(pl + 0.01)}` : `V${f(pl + 0.01)}`}H${f(x0 + e)}${e ? `Q${f(x0 - e)} ${f(mid)} ${f(x0 + e)} ${f(ct - 0.01)}` : ''}Z`), root: 'POST' });
       const cor = (x1, y1, x2, y2, x3, y3) => r > 0.05 ? `C${f(x1)} ${f(y1)} ${f(x2)} ${f(y2)} ${f(x3)} ${f(y3)}` : '';
@@ -288,7 +303,7 @@ const DRAW = {
         const sideMid = (yt(b_) + r + pl - r) / 2;
         out.push(cut(D(`M${f(a_ + r)} ${f(ta)}${dB ? `Q${f(xm)} ${f(cy)} ${f(b_ - r)} ${f(tb)}` : `H${f(b_ - r)}`}${cor(b_ - r + r * k, tb, b_, yt(b_) + r - r * k, b_, yt(b_) + r)}${e ? `Q${f(b_ - 2 * e)} ${f(sideMid)} ${f(b_)} ${f(pl - r)}` : `V${f(pl - r)}`}${cor(b_, pl - r + r * k, b_ - r + r * k, pl, b_ - r, pl)}H${f(a_ + r)}${cor(a_ + r - r * k, pl, a_, pl - r + r * k, a_, pl - r)}${e ? `Q${f(a_ + 2 * e)} ${f(sideMid)} ${f(a_)} ${f(yt(a_) + r)}` : `V${f(yt(a_) + r)}`}${cor(a_, yt(a_) + r - r * k, a_ + r - r * k, ta, a_ + r, ta)}Z`)));
       }
-      if (r > 0.05) { const fil = (x, y, dx, dy) => D(`M${f(x)} ${f(y)}H${f(x + dx * r)}C${f(x + dx * r * (1 - k))} ${f(y)} ${f(x)} ${f(y + dy * r * (1 - k))} ${f(x)} ${f(y + dy * r)}Z`);
+      if (r > 0.05 && !A.plainOuter) { const fil = (x, y, dx, dy) => D(`M${f(x)} ${f(y)}H${f(x + dx * r)}C${f(x + dx * r * (1 - k))} ${f(y)} ${f(x)} ${f(y + dy * r * (1 - k))} ${f(x)} ${f(y + dy * r)}Z`);
         out.push(fil(x0 + 0.01, yt(x0) - 0.01, -1, 1), fil(x0 + span - 0.01, yt(x0 + span) - 0.01, 1, 1), fil(x0 + 0.01, pl + 0.01, -1, -1), fil(x0 + span - 0.01, pl + 0.01, 1, -1)); }
     } else
     if (o.capital) {
@@ -304,7 +319,7 @@ const DRAW = {
       if (!flush && !fz) out.push(fil(x0 + 0.01, pl + 0.01, -1, -1), fil(x0 + span - 0.01, pl + 0.01, 1, -1));   // flush: the outer columns are the building's sides, no fills (a fill in a 1/2px step left a 0.1px ledge)
     } else
     for (let i = 0; i < n; i++) { const cx = x0 + W / 2 + i * (W + gap); out.push(o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : o.style === 'settle' ? POSTT(cx, ct - 0.01, pl + 0.01, wSettle(ct, 0, s), wSettle(pl, 0, s)) : POST(cx, ct - 0.01, pl + 0.01)); }
-    out.push(R(X(0.25), pl, X(11.75) - X(0.25), slabH(o), { root: 'SLAB' }));
+    out.push(o.arch && o.arch.cast ? { ...D(roundPoly([[X(0.25), pl], [X(11.75), pl], [X(11.75), pl + slabH(o)], [X(0.25), pl + slabH(o)]], o.arch.cast)), root: 'SLAB' } : R(X(0.25), pl, X(11.75) - X(0.25), slabH(o), { root: 'SLAB' }));
     return out;
   },
   // NATURE. TALL, its tip passing by 1/2px. Three GABLE tiers widening by equal steps, on a POST trunk.

@@ -32,16 +32,12 @@
   "core": 70.6
  },
  "museum-1": {
-  "mean": 31.6,
-  "core": 67.5
+  "mean": 27.2,
+  "core": 71
  },
  "museum-2": {
   "mean": 32.4,
-  "core": 71.9
- },
- "museum-3": {
-  "mean": 32.7,
-  "core": 70
+  "core": 69.8
  },
  "museum": {
   "mean": 32.5,

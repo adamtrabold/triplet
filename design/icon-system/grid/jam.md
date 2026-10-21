@@ -4883,3 +4883,25 @@ like a museum?
 
 Everything else is at 9: the coupe, the plate, the tree, the liquid
 question, and his items.
+
+---
+
+## Turn 110: icon designer, turn 109 fix: the museum, two approaches (canvas v207)
+
+- **Dropped:** "columns that swell" (the openings pinched into bones) and "long lines drawn like the tree" (the building sagged).
+- **1. Sized by its weight.** A shape that fills its whole box, as a building does, is drawn a tenth smaller than its class, and every part stays.
+  - Blur: 27.2 / 71.0, against the cup's 28.3 / 70.6. H2's museum was 32.5 / 69.5.
+  - It visibly changes how the museum sits in the row at true size. Checked at 1x and 3x beside the cup, coupe and tree.
+  - Also tried a scale of 0.94 (too little) and 0.86 (too small).
+- **2. Cast soft, joins flared.** The outside corners round 0.6 (picks7 `arch.cast`, a rounded-polygon helper), and the openings' corners round 0.5.
+  - The outer fills are gone; they were the fussy part at 8x.
+  - Blur: 32.4 / 69.8. It is felt at 72px and up, and it combines with the first.
+  - A 0.75 round was tried; the slab ends turned to knobs.
+- **Checks:**
+  - check-svg: no slivers; symmetric.
+  - Museum counters: 1.46 to 1.50.
+  - Curve check: 0.00 at non-end joins.
+- **Canvas:**
+  - The v206 board is archived as Archive-G7af-Between.
+  - The team's rows 2 to 4 moved down 75px.
+  - The owner's items were untouched; the live canvas was still v206.

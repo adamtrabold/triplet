@@ -571,9 +571,8 @@ const COUPE_V = [
 // g7ae (owner on the museum: "how might this style be reflected in architectural things like this that are a lot of
 // straight lines"; on the beam-shed museum: "no this is awful"): H2's museum is the base again; three rules, one each
 const MUSEUM_V = [
-  ['Columns that swell', 'Every upright swells to the line at mid-height and is a little thinner at its ends (entasis), as a real column or the coupe\'s stem does. The rule for any straight-lined building: posts and uprights swell, 1/6px a side.', { arch: { entasis: 0.15 } }],
-  ['Long lines drawn like the tree', 'The roof\'s slopes sweep in a fifth of a line and the beam\'s underside droops half a line, the tree\'s own numbers. The rule: every long horizontal and every slope is drawn, not ruled.', { arch: { droop: 0.5, roofBow: -0.2 } }],
-  ['Joins that flare like the stem', 'Where a column meets the beam and the plinth it flares, half a line, as the coupe\'s stem flares into its bowl and foot. The rule: wherever a post meets a mass, it flares; long lines stay straight.', { arch: { capital: 0.5 } }],
+  ['Sized by its weight', 'A shape that fills its whole box, as a building does, is drawn a tenth smaller than its class, so its blurred weight sits with the cup\'s rather than above it; every part stays. The rule for any straight-lined building (a hotel, city blocks): it is sized by its weight, not its box.', { fitScale: 0.9 }],
+  ['Cast soft, joins flared', 'The building\'s outside corners round by 0.6px, as the cup\'s and coupe\'s do, and where a column meets the beam or the plinth the opening\'s corners round by half a line, as the coupe\'s stem flares. Lines stay straight; the hand is in the corners and joins. It combines with the first.', { arch: { cast: 0.6, capital: 0.5, plainOuter: true } }],
 ];
 const HSETS = [
   ['Now (v134): monoweight', 'The set as it is: the baseline.', {}, LAWS7.joint, 1, false, 0],
@@ -588,7 +587,7 @@ const HSETS = [
 ].map(([nm, rule, o, law, fk, bal, ease]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined };
   const fitPlace = (id, extra = {}, withSil = false) => {
-    const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
+    const fk_ = fk * (extra.fitScale || 1), [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk_, bh = (KEY[cls][1] + apex) * fk_, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
     let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
     const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = (o.dome || typeof o.under === 'number') && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
@@ -824,7 +823,7 @@ function sheetBetween() {
   const rules = [['Plates and feet (things on a table)', 'top rises 1/2px at the centre (or, flipped, the underside drops 1/2px)', 'a dome: ends to a point'], ['Flares (a post into a mass)', '1/2px', '1 1/2px'], ['The coupe\'s stem', '1 1/4px', '1 1/2px'], ['Outside corners of a mass', '0.6, eased', '0.6, eased'], ['Acute tips', 'a share of the shorter edge (0.35 at most): the tree\'s tips 0.35 / 0.23 / 0.15, bottom to top', '0.35 everywhere'], ['Line ends', '0.3', '0.3'], ['Counters and slots', 'tight, 0.15', 'tight, 0.15'], ['Tree tiers', 'sides sweep in 1/5px, undersides droop 1/2px', 'the same']]
     .map(([a, b, c]) => `<tr style="border-top:1px solid ${COL.hair}"><td style="padding:8px 8px 8px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px">${b}</td><td style="padding:8px 0 8px 8px;color:${I2}">${c}</td></tr>`).join('');
   const musRows = [['H2\'s museum (the base)', 'As H2 drew it: four columns, a beam, a straight roof, a plinth. Every approach below starts from it.', S.ds.museum, 'museum'], ...MUSEUM_V.map(([nm, line], k) => [nm, line, S.mus[k], `museum-${k + 1}`])]
-    .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center">${trio(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(S.ds.nature, 72)}${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
+    .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center"><div style="display:flex;gap:6px;align-items:center;padding:8px;background:${COL.paper}">${badge(S.ds.cafe)}${badge(S.ds.bar)}${badge(d)}${badge(S.ds.nature)}</div>${chip(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(d, 72)}${badge(S.ds.nature, 72)}</div><div style="margin-top:10px">${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
   return phBoard('Waiting on you', 'Between H2 and H3', `${phP('This round: your five notes on v205, each answered below.')}
 ${kick('1 · The coupe')}
 ${quote('this line on the left and right is waht looks wrong -- it looks too straight compared to the rest of the shape')}
@@ -846,7 +845,7 @@ ${setRow(H2, 'H2')}${setRow(S, 'Between: the plate\'s top rises')}${setRow(SF, '
 <table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.35;margin-top:8px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0"></td><td style="padding:4px 8px">Between</td><td style="padding:4px 0 4px 8px">H3 (v147)</td></tr>${rules}</table>
 ${kick('3 · The museum: architecture')}
 ${quote('how might this style be reflected in architectural things like this that are a lot of straight lines')}
-${phP('The beam-shed museum is gone ("no this is awful"), and its rule with it. H2\'s museum is the base. Three ways to bring the set\'s hand to a building of straight lines, each a rule a hotel, city blocks or the curtain\'s frame could follow. Each keeps all its parts; the weight is shown as it is.')}
+${phP('The beam-shed museum is gone ("no this is awful"), and its rule with it. H2\'s museum is the base. Two ways to bring the set\'s hand to a building of straight lines, each a rule a hotel, city blocks or the curtain\'s frame could follow, each shown beside the cup, coupe and tree at true size. Each keeps all its parts; the weight is shown as it is. (Swelling columns and drooping lines are dropped: they pinched the openings and made the building sag.) The first changes how the museum sits in the row at true size; the second is felt at 72px and up.')}
 ${musRows}
 ${phDetail('the drawings are picks7 (coupe lean, plate under, museum arch); the measures are src/liquid.js and src/blur-between.js.')}`);
 }
