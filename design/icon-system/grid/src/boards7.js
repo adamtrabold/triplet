@@ -588,8 +588,8 @@ const HSETS = [
   // on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to
   // establish to fix that"; "i will say "coupe after" needs slightly more drink"): the coupe and the tree are fixed; four rules
   // carry them to the rest, and the drink rule moves the coupe's surface up a lattice line
-  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, built lines ruled, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
-  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, built lines ruled, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
+  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a roof cut from its columns, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, restCut: { top: 1 }, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
+  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a roof cut from its columns, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, restCut: { top: 1 }, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
@@ -619,7 +619,7 @@ const HSETS = [
   // g7ae: the museum's architecture, three ways on H2's four-column, beamed drawing (MUSEUM_V)
   const mus = nm === 'Between H2 and H3' ? MUSEUM_V.map(([, , v]) => fitPlace('museum', v)) : null;
   // g7al: the museum options the rules row shows beside its own (flared slots; swept roof)
-  const mus2 = nm === 'Rules from the coupe and tree' ? [fitPlace('museum', { capital: 0.5, plainOuter: true }), fitPlace('museum', { roofBow: -0.2 * 1.5 })] : null;
+  const mus2 = nm === 'Rules from the coupe and tree' ? [fitPlace('museum', { fitScale: 0.9 })] : null;   // g7am: the one museum option (his open pick, v207)
   return { nm, rule, ds, coupes, ease, bar1, silBar, cv, mus, mus2 };
 });
 const R2 = HSETS.find(S => S.nm === 'Rules from the coupe and tree');
@@ -638,7 +638,7 @@ const HOLD = HSETS.filter(S => !S.nm.startsWith('Between') && !S.nm.startsWith('
   for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `h3t-${id}.svg`), svg(H3T.ds[id]));
   // g7ak: the row by the rules from the coupe and tree
   for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `${id}-r2.svg`), svg(R2.ds[id]));
-  fs.writeFileSync(path.join(dir, 'bar-r2b.svg'), svg(R2B.ds.bar)); fs.writeFileSync(path.join(dir, 'museum-r2-flared.svg'), svg(R2.mus2[0])); fs.writeFileSync(path.join(dir, 'museum-r2-swept.svg'), svg(R2.mus2[1]));
+  fs.writeFileSync(path.join(dir, 'bar-r2b.svg'), svg(R2B.ds.bar)); fs.writeFileSync(path.join(dir, 'museum-r2-w.svg'), svg(R2.mus2[0]));
   fs.writeFileSync(path.join(dir, 'h3f-nature.svg'), svg(H3F.ds.nature)); fs.writeFileSync(path.join(dir, 'h3f-star.svg'), svg(H3F.ds.star)); fs.writeFileSync(path.join(dir, 'h3f-bar.svg'), svg(H3F.ds.bar)); fs.writeFileSync(path.join(dir, 'h3f-museum.svg'), svg(H3F.ds.museum)); fs.writeFileSync(path.join(dir, 'h3f-plus.svg'), svg(H3F.ds.plus));
 }
 // checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
@@ -858,8 +858,8 @@ function sheetBetween() {
   const R2RULES = [
     ['Plates', 'H3\'s dome turned under: ends thin to a point', 'A plate departs from flat by 1/2px at the centre, so its ends stay 1px (2/3 of the line). What a thing sits on curves underneath, flat on top.', 'Cup: the saucer. The coupe\'s foot: see the question below. Museum, tree: they stand on the ground, flat (unchanged).'],
     ['Posts', '1 1/4px for a free post; the columns exempt', 'Every post that holds a mass up is 1 1/4px, columns included.', 'Museum: the four columns, so each opening is 1/3px wider (the outside edges stay). Coupe stem, trunk: already. +: holds nothing up, 1 1/2.'],
-    ['Openings', 'tight, 0.15', 'The same, kept: an opening\'s corners are tight interior corners, slightly rounded, less than the outside ones. A post\'s flare never reaches inside an opening.', 'Museum: square-cornered openings. Coupe and tree: their flares are outside joins, unchanged.'],
-    ['Built lines', '(no rule)', 'A built thing\'s lines stay ruled; drawn lines (sweep, droop) are for living things.', 'Museum: the pediment stays straight. Tree: keeps its sweep and droop.'],
+    ['Resting parts', '(no rule; the cup was cut from its saucer by the 1px cut)', 'A load set on separate supports is cut from them by the 1px cut: the cup on its saucer, a roof on its columns. Parts made as one piece (a glass, a tree) join, and a post flares into the mass it grows into.', 'Museum: a 1px cut under the roof; the columns stand on the base, joined, with square openings at their feet. Cup: as it was. Coupe, tree: one piece each, unchanged.'],
+    ['Straight-lined buildings', '(no rule)', 'A building\'s walls, beams and roof slopes stay straight; sweep and droop are for living things. The 1/2px a plate rule gives a base and a vessel\'s curved side are not touched by this.', 'Museum: the pediment stays straight. Tree: keeps its sweep and droop.'],
     ['The clear band under a rim', '7/6px', '5/6px, so the drink\'s surface sits on the next 1/3px lattice line up. Still under the line, as you asked ("equal to the thickness of the stroke. or maybe even a little thinner").', 'Coupe only. 1px was tried: at 24px it didn\'t show.'],
   ];
   const r2Rules = () => `<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.35;margin:6px 0 10px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0;width:16%">Rule</td><td style="padding:4px 8px;width:24%">Was</td><td style="padding:4px 0 4px 8px">Now</td></tr>${R2RULES.map(([a, b, c, e]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 8px 2px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px 8px 2px;color:${I2}">${b}</td><td style="padding:8px 0 2px 8px;color:${N}">${c}</td></tr><tr style="vertical-align:top"><td></td><td colspan="2" style="padding:2px 0 10px 8px;color:${N}"><b>Here:</b> ${e}</td></tr>`).join('')}<tr style="border-top:1px solid ${COL.hair}"><td colspan="3" style="padding:8px 0;color:${N}"><b>Unchanged:</b> line ends, tips by their edge, flares 1/2px, mass corners 0.6, the vessel side, the tree\'s sweep and droop. The + and the star: nothing in these rules acts on them.</td></tr></table>`;
@@ -880,18 +880,13 @@ ${kick('The drink')}
 <div style="display:flex;gap:12px;justify-content:flex-start;margin:14px 0">${fig(H3T.ds.bar, 'Coupe, after (band 7/6)', 128)}${fig(R2.ds.bar, 'More drink (band 5/6)', 128)}</div>
 ${phP(`${LB.liquid.toFixed(1)}px² → ${LA.liquid.toFixed(1)}px² of drink, the surface 1/3px higher. Nothing else in the coupe changed.`)}
 ${kick('The museum')}
-<div style="display:flex;gap:12px;justify-content:flex-start;margin:14px 0">${fig(H3T.ds.museum, 'Before', 128)}${fig(R2.ds.museum, 'By these rules', 128)}</div>
-${phP(`Columns at 1 1/4px, like the coupe's stem and the tree's trunk; the openings keep tight, square corners; the pediment stays straight. Weight (blurred, overall / darkest fifth): ${bl('museum')} → ${bl('museum-r2')}; the cup ${bl('cafe-r2')}, the coupe ${bl('bar-r2')}, the tree ${bl('nature-r2')}. Sizing it by its weight (part 2) stays your pick and is not in this row.`)}
-${phP('<b>Two options, not in the row:</b>')}
-${quote('why is the interior of the museum pillars totally rounded pill shapes')}
-<div style="display:flex;gap:12px;justify-content:flex-start;margin:14px 0">${fig(R2.mus2[0], 'Flared into the openings', 128)}${fig(R2.ds.museum, 'Straight roof (in the row)', 128)}${fig(R2.mus2[1], 'Swept roof', 128)}</div>
-${phP(`<b>Flared into the openings</b> (the stem's 1/2px flare at each column's top and foot, ${bl('museum-r2-flared')}): at 8x the openings read as pills, your 10-19 note, so the row keeps them square. <b>Swept roof</b> (the tiers' 1/5-line sweep on the pediment): at 8x it leans toward a tent, so the row keeps the roof straight and the sweep for living things.`)}
-<div style="display:flex;gap:18px;align-items:center;margin:8px 0"><div>${appRows(R2)}</div></div>
-${kick('2 · The museum: architecture and sizing')}
+${quote('the museum feels completely disconnected')}
 ${quote('how might this style be reflected in architectural things like this that are a lot of straight lines')}
-${phP('The beam-shed museum is gone ("no this is awful"), and its rule with it. H2\'s museum is the base. Two ways to bring the set\'s hand to a building of straight lines, each a rule a hotel, city blocks or the curtain\'s frame could follow, each shown beside the cup, coupe and tree at true size. Each keeps all its parts; the weight is shown as it is. (Swelling columns and drooping lines are dropped: they pinched the openings and made the building sag.) The first changes how the museum sits in the row at true size; the second is felt at 72px and up.')}
-${musRows}
-${phDetail('the drawings are picks7 (coupe lean, plate under, museum arch); the measures are src/liquid.js and src/blur-between.js.')}`);
+<div style="display:flex;gap:12px;justify-content:flex-start;margin:14px 0">${fig(H3T.ds.museum, 'Before', 128)}${fig(R2.ds.museum, 'By these rules', 128)}${fig(R2.mus2[0], 'Option: also sized by its weight', 128)}</div>
+${phP(`<b>What changes at true size:</b> the roof now sits on its columns with a 1px cut under it, the same cut the cup sits on its saucer with, so a light line runs across under the roof and the columns read as posts standing on the base (1 1/4px, like the coupe's stem and the trunk). The building reads as parts set on parts, the way the cup does, not one block. The pediment stays straight and the openings stay square. Weight (blurred, overall / darkest fifth): ${bl('museum')} → ${bl('museum-r2')}; the cup ${bl('cafe-r2')}, the coupe ${bl('bar-r2')}, the tree ${bl('nature-r2')}.`)}
+${phP(`<b>The option</b> is "sized by its weight" from v207, still your pick: the building a tenth smaller than its class. It isn't in the row. With the cut, the museum already weighs about what the cup does; sized down as well, it drops to ${bl('museum-r2-w')}, well under the cup, so the cut alone may settle the weight. Not used: cutting the columns from the base too (they turn into a dotted line), flaring into the openings (pills, your 10-19 note), and a swept roof (it reads as a tent).`)}
+<div style="display:flex;gap:18px;align-items:center;margin:8px 0"><div>${appRows(R2)}</div></div>
+${phDetail('the drawings are picks7 (plate, colW, restCut); the measures are src/liquid.js and src/blur-between.js.')}`);
 }
 // (g7y: the tree's decision folded into the human direction; its board is archived)
 // g7z (owner: "give me a board with the original icons next to the newest version of icon in order of what we're

@@ -5402,3 +5402,33 @@ rules, and the archive. The museum's drawing in the row barely changed.
 five museum options across two parts (flared openings, straight roof,
 swept roof, sized by weight, cast soft). Fold them into one place, so he
 sees one museum answer and at most two options.
+
+---
+
+## Turn 122: icon designer, the museum: a roof set on its columns (canvas v219)
+
+**1. A visible, rule-made museum change.**
+- How I got there: a random draw gave "ship hull lines". It didn't help directly, but it pushed me to look at how built things are put together rather than how their lines bend. The family already holds one built joint: the cup is set on its saucer with the 1px cut.
+- New rule, **Resting parts:** a load set on separate supports is cut from them by the 1px cut (the cup on its saucer, a roof on its columns). Parts made as one piece (a glass, a tree) join, and a post flares into the mass it grows into.
+  - Museum: a 1px cut under the beam. The columns (1 1/4px, per the post rule) stand on the plinth, joined, with square openings at their feet.
+  - Cup, coupe, tree: unchanged.
+- At true size a light line now runs under the roof, and the building reads as parts set on parts rather than one block. No pills, no tent; the pediment is straight.
+- Blur: 32.5/69.5 → 27.9/58.3, against the cup's 28.4/70.8. That is the first museum that weighs what the cup does.
+- A future hotel or landmark follows it: roofs, cornices and signs set on their supports get the cut.
+- Tried and dropped: also cutting the columns from the base. They became stubs, a dotted line at 24px.
+- picks7 `o.restCut {top}`.
+
+**2. One museum section,** on the current row: before, by these rules, and one option.
+- The option is "sized by its weight" (his open pick, labelled so). With the cut it drops to 23.0, well under the cup, and the board says the cut alone may settle the weight.
+- Old part 2 is off the live board: H2's museum, sized by weight beside the old row, and "cast soft". They remain in the archived v217 board.
+- Flared openings and the swept roof are named in one "not used" line, with reasons.
+
+**3. "Built lines" → "Straight-lined buildings":** a building's walls, beams and roof slopes stay straight; sweep and droop are for living things. It says the plate rule's 1/2px and a vessel's curved side are not touched by it.
+
+**Checks:**
+- check-svg: 0 slivers, symmetric (café skipped).
+- between-checks: museum-r2 has no closed counters now; coupe band, the known artefact; curve jump 0.00.
+- blur-between re-run.
+- Tree byte-identical.
+
+**Canvas v219:** Between board 3598 tall; nothing else moved. The live board was my v218, so there were no owner edits to keep.

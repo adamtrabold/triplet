@@ -326,7 +326,8 @@ const DRAW = {
     { const cw = o.colW ?? W, gp = (span - n * cw) / (n - 1);   // g7ak: o.colW, the posts-hold-a-mass width; outer edges stay
       if (o.roofBow) { const bw = o.roofBow, sl = (x0_, y0_, x1_, y1_) => { const mx = (x0_ + x1_) / 2, my = (y0_ + y1_) / 2, L = Math.hypot(x1_ - x0_, y1_ - y0_), nx = (y1_ - y0_) / L, ny = -(x1_ - x0_) / L, sg = Math.sign((mx - s / 2) * nx || 1); return `Q${f(mx + sg * nx * 2 * bw)} ${f(my + sg * ny * 2 * bw)} ${f(x1_)} ${f(y1_)}`; };
         if (bd) out[0] = { ...D(`M${X(0.25)} ${f(pb + bd)}V${f(pb)}${sl(X(0.25), pb, X(6), ap)}${sl(X(6), ap, X(11.75), pb)}V${f(pb + bd)}Z`), root: 'GABLE', also: 'SLAB' }; }
-    for (let i = 0; i < n; i++) { const cx = x0 + cw / 2 + i * (cw + gp); out.push(cw !== W ? R(cx - cw / 2, ct - 0.01, cw, pl - ct + 0.02, { root: 'POST' }) : o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : o.style === 'settle' ? POSTT(cx, ct - 0.01, pl + 0.01, wSettle(ct, 0, s), wSettle(pl, 0, s)) : POST(cx, ct - 0.01, pl + 0.01)); } }
+    const cT = o.restCut?.top ? CUT : -0.01, cB = o.restCut?.bot ? CUT : -0.01;   // g7am REST RULE: a part that rests on another is cut from it
+    for (let i = 0; i < n; i++) { const cx = x0 + cw / 2 + i * (cw + gp); out.push(cw !== W || o.restCut ? R(cx - cw / 2, ct + cT, cw, pl - ct - cT - cB, { root: 'POST' }) : o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : o.style === 'settle' ? POSTT(cx, ct - 0.01, pl + 0.01, wSettle(ct, 0, s), wSettle(pl, 0, s)) : POST(cx, ct - 0.01, pl + 0.01)); } }
     out.push(o.arch && o.arch.cast ? { ...D(roundPoly([[X(0.25), pl], [X(11.75), pl], [X(11.75), pl + slabH(o)], [X(0.25), pl + slabH(o)]], o.arch.cast)), root: 'SLAB' } : R(X(0.25), pl, X(11.75) - X(0.25), slabH(o), { root: 'SLAB' }));
     return out;
   },

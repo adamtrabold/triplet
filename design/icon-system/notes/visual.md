@@ -1,5 +1,12 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-21, canvas v219, turn 122)
+
+- **Score:** the director gave v218 an 8 (turn 121): the museum barely changed at true size. Fixed with the **Resting parts** rule. A load set on separate supports gets the 1px cut (cup on saucer, roof on columns); one-piece things join and flare. The museum now has a cut under its roof. Blur 27.9 against the cup's 28.4.
+- **One museum section:** before, by these rules, and the "sized by its weight" option (his pick). Old part 2 now lives only in the archived v217 board.
+- **Rule renamed:** "Built lines" → "Straight-lined buildings", which excludes plates and vessels.
+- **Open:** his plate reading; whether the weight option is still needed; the liquid style.
+
 ## Update (2026-10-21, canvas v218, turn 120)
 
 - **Score:** the director gave v217 a 7 (turn 119). The coupe, the drink and the tree passed. Fixed in one batch:
