@@ -192,6 +192,25 @@ const DRAW = {
       // sides, and its inner edge is the outer curve, a line in, all the way down. o.chan: where the channel
       // stops (a share of the bowl's depth; the drink meets the wall below it), 1 = all the way round.
       const chanY = o.chan == null ? null : X(o.chan * bd);
+      // g7z (owner on v142's B: "the counter is still wrong both in size and in curvature"): measured, v142's band
+      // WAS the true offset (the wall 1.50 square to the bowl at the band's top, middle and bottom), but across
+      // the band the bowl turns, so a true offset bends tighter than the outside and its sides lean in faster:
+      // the wall read 1.55 wide at the band's top and 1.72 at its bottom. o.bandSide 'shift' (the coupe from g7z, B):
+      // each side of the band is the bowl's own curve over the band's height, moved in by the line. Same curve,
+      // same curvature as the outside; the wall is the line wide all the way down. Without it: v142's true offset (v134 and A-C as shown).
+      if (o.style === 'mono' && o.chan == null && o.bandSide === 'shift') {
+        const Lc = [[X(6), X(bd)], [X(bx), X(bd)], [X(bl), X(bk * bd)], [X(bl), 0]];   // the bowl's left side, bottom to rim
+        const pt = (q, tt) => [0, 1].map(i => (1 - tt) ** 3 * q[0][i] + 3 * tt * (1 - tt) ** 2 * q[1][i] + 3 * tt * tt * (1 - tt) * q[2][i] + tt ** 3 * q[3][i]);
+        const tY = y => { let lo = 0, hi = 1; for (let n = 0; n < 60; n++) { const m = (lo + hi) / 2; if (pt(Lc, m)[1] > y) lo = m; else hi = m; } return (lo + hi) / 2; };
+        const lerp = (a, b, tt) => [a[0] + (b[0] - a[0]) * tt, a[1] + (b[1] - a[1]) * tt];
+        const sub = (q, ta, tb) => {   // the exact piece of a cubic between ta and tb (de Casteljau, twice)
+          const cut1 = (q, tt) => { const a = lerp(q[0], q[1], tt), b = lerp(q[1], q[2], tt), c_ = lerp(q[2], q[3], tt), ab = lerp(a, b, tt), bc = lerp(b, c_, tt), m = lerp(ab, bc, tt); return [[m, bc, c_, q[3]], [q[0], a, ab, m]]; };
+          const [tail] = cut1(q, ta); return cut1(tail, (tb - ta) / (1 - ta))[1];
+        };
+        const q = sub(Lc, tY(liq), tY(rimT)).map(([x, y]) => [x + W, y]);   // drink level up to the rim, moved in by the line
+        const mq = q.map(([x, y]) => [s - x, y]);
+        band = cut(D(`M${f(q[0][0])} ${f(q[0][1])}C${f(q[1][0])} ${f(q[1][1])} ${f(q[2][0])} ${f(q[2][1])} ${f(q[3][0])} ${f(q[3][1])}H${f(mq[3][0])}C${f(mq[2][0])} ${f(mq[2][1])} ${f(mq[1][0])} ${f(mq[1][1])} ${f(mq[0][0])} ${f(mq[0][1])}Z`));
+      } else
       band = o.style === 'mono' && o.chan == null ? E([bowl], W, R(-1, -1, s + 2, liq + 1), { mirror: c }) : o.style === 'mono' ? [E([bowl], W, null, { mirror: c }), E([bowl], 2 * W, R(-1, liq, s + 2, 50), { mirror: c, fill: true, cut: false }), ...(chanY != null && o.chan < 1 ? [E([bowl], W, R(-1, Math.max(liq, chanY), s + 2, 50), { mirror: c, fill: true, cut: false })] : [])] : cut(D(`M${f(p0[0])} ${f(rimT)}H${m(p0[0])}C${m(c1[0])} ${f(c1[1])} ${m(c2[0])} ${f(c2[1])} ${m(p1[0])} ${f(liq)}H${f(p1[0])}C${f(c2[0])} ${f(c2[1])} ${f(c1[0])} ${f(c1[1])} ${f(p0[0])} ${f(rimT)}Z`));
     } else if (o.taper === 'even') {
       const B = [[X(0.5), 0], [X(0.5), X(2.8)], [X(3), X(bd)], [X(6), X(bd)]];   // the left side, in px
@@ -210,7 +229,9 @@ const DRAW = {
       band = cut(I(inside, R(0, rim, s, liquid - rim)));
     }
     const FB = Y(o.fb ?? 10.833);
-    const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = FB - fh + 0.01;
+    // g7z: on a DOME the stem runs down into the foot (half its height), so its sides meet the dome's arc in a
+    // real join that flares like the trunk's; ending at the dome's crown left a 0.13px ledge at each side
+    const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = o.dome ? FB - fh / 2 : FB - fh + 0.01;
     const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : o.style === 'settle' ? POSTT(c, sy0, sy1, wSettle(sy0, 0, s), wSettle(sy1, 0, s)) : o.post ? R(c - o.post / 2, sy0, o.post, sy1 - sy0, { root: 'POST' }) : POST(c, sy0, sy1);   // o.post (g7t exploration): a free-standing post's width
     // g7t exploration, o.dome: a foot that holds a glass up by its stem is a DOME (its top a low arc, a line
     // high at the centre, its ends worn to the corner rule), as batch 1's was; a base an object sits flat on

@@ -547,26 +547,33 @@ const COUPES = [
   ['B: flatter bowl', 'A pancaked bowl with a wide flat bottom; the drink a thin layer, read by its surface.', { bd: 5.5, bk: 0.35, bx: 0.5, fb: 10.333, bandH: BAND }],
   ['C: both', 'The flat bowl on the long stem.', { bd: 5.5, bk: 0.35, bx: 0.5, fb: 11.75, bandH: BAND }],
 ];
+// g7z: the coupe is B (owner: "shape wise b is it. but the counter is still wrong both in size and in curvature"):
+// its band's sides are the bowl's own curve moved in by the line (picks7 bandSide 'shift'), so the wall is 1.5
+// across at the band's top, middle and bottom; the band 1 1/6px, under the stroke as he asked, and it puts the
+// drink's surface back on the 1/3px lattice (1.5 + 1 1/6 = 2 2/3)
+const BAND_B = 7 / 6, COUPE_B = { bd: 5.5, bk: 0.35, bx: 0.5, fb: 10.333, bandH: BAND_B, bandSide: 'shift' };
 const EASE = 2.3;
 const HSETS = [
   ['Now (v134): monoweight', 'The set as it is: the baseline.', {}, LAWS7.joint, 1, false, 0],
-  ['H2: monoweight, eased, settled', 'Every mass\'s outside corners and joins ease out of their lines (no jump in curvature); every line end (the saucer\'s, the plinth\'s, the coupe\'s foot, the trunk) keeps the same plain round, so the terminals match across all eight. Every base is a slab. The tree keeps today\'s proportions, but its tiers are drawn, not ruled: their sides sweep in a fifth of a line and their undersides droop half a line (you: "the less mechanical triangles"). Every glyph sits with 1/12 more air. At true size this is subtle; it shows in the corners at 7x.', { droop: 0.5, bow: -0.2, bandH: BAND }, LAWS7.joint, 11 / 12, true, EASE],
-  ['H3: monoweight, with flares', 'H2, plus personality: where a post meets a mass (the coupe\'s stem, the trunk, the cup\'s handle) the join flares with a round of one line; a base that holds something on a ring or a point (the coupe\'s foot, the saucer) is a DOME, a line high at its centre; the plinth, which carries a wall, stays a slab. Every line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, bandH: BAND }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
-  ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, bandH: BAND }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  ['H2: monoweight, eased, settled', 'Every mass\'s outside corners and joins ease out of their lines (no jump in curvature); every line end (the saucer\'s, the plinth\'s, the coupe\'s foot, the trunk) keeps the same plain round, so the terminals match across all eight. Every base is a slab. The tree keeps today\'s proportions, but its tiers are drawn, not ruled: their sides sweep in a fifth of a line and their undersides droop half a line (you: "the less mechanical triangles"). Every glyph sits with 1/12 more air. At true size this is subtle; it shows in the corners at 7x.', { droop: 0.5, bow: -0.2, ...COUPE_B }, LAWS7.joint, 11 / 12, true, EASE],
+  ['H3: monoweight, with flares', 'H2, plus personality. THE BASE RULE: what stands on a table has a domed foot (the saucer, the coupe\'s foot); what stands on the ground keeps a flat base (the museum\'s plinth, the tree\'s trunk). THE FLARE RULE: a post flares into the mass it meets (the coupe\'s stem at both ends, the trunk into its tier); counters, slots and line marks never flare. Every line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
 ].map(([nm, rule, o, law, fk, bal, ease]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined };
   const fitPlace = (id, extra = {}) => {
     const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = s => DRAW[id](s, { style: 'mono', ...o, ...extra });
     let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
-    return E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), opts).d;
+    const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = o.dome && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
+    return E.build(E.xform(prims, 1, 0, 0, ox + tx, oy + r3(12 - (m.box.cy + m.cy) / 2)), { ...opts, sym }).d;
   };
   const ds = {};
   for (const [id] of BATCH) ds[id] = fitPlace(id);
   ds.star = bal ? starAt({ ease: ease || undefined, tightHoles: true }) : UD.joint.star.d;
   ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease }).d : UD.joint.plus.d;
   const coupes = COUPES.map(([, , co]) => fitPlace('bar', co));
-  return { nm, rule, ds, coupes, ease };
+  const bar1 = o.bandSide === 'shift' ? fitPlace('bar', { bandH: 1 }) : null;   // g7z: the thinner band, for the coupe board
+  return { nm, rule, ds, coupes, ease, bar1 };
 });
 // checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
 // (where the outline's direction is continuous), the jump in curvature between the two sides, 1/px
@@ -634,7 +641,7 @@ ${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1
 <div>${title('Rules that bend')}<div style="font-size:16px;line-height:1.5">
 <p style="margin:0 0 10px"><b>The corner law</b> keeps its radii in every tuning; the tunings change only how a mass\'s round meets its lines (eased, not a compass arc). Line ends keep the plain round everywhere.</p>
 <p style="margin:0 0 10px"><b>Interior tighter than exterior</b> (your rule) bends in H3 only, at one kind of corner: where a post flares into a mass. Counters, slots and the tree\'s notches stay tight in every tuning.</p>
-<p style="margin:0 0 10px"><b>Every base is a slab</b> holds in H2. In H3 a base that holds something on a ring or a point is a DOME (the coupe\'s foot, the saucer; later a lamp, a trophy, a bell); the plinth, which carries a wall, stays a slab.</p>
+<p style="margin:0 0 10px"><b>Every base is a slab</b> holds in H2. In H3 it becomes <b>table or ground</b>: what stands on a table has a domed foot (the saucer, the coupe\'s foot; later a lamp, a trophy, a vase); what stands on the ground keeps a flat base (the plinth, the trunk; later a bench, a sign). v138 kept the saucer a slab because no dome existed yet; under this rule it domes with the coupe.</p>
 <p style="margin:0 0 10px"><b>Monoweight</b> (your pick) holds in H2 and H3. Only "H3 relaxed" thins the free-standing posts, and says so in its name.</p>
 <p style="margin:0"><b>The Outline class</b>: in the tunings the star\'s points reach as far as the +\'s arms (the shipped star\'s 4px hole minimum made it 15% wider than v133); its hole is then about 2 lines.</p></div></div>
 <div>${title('Craft bar, and comparisons')}<div style="font-size:16px;line-height:1.5">The craft bar, for finish and construction rigour rather than style: Central, Nucleo, Lucide and Apple's published method. None is copied; Lucide glyphs may appear only labelled "craft reference". Material and Phosphor are shown above for comparison, not as a craft benchmark (you: "just to see how much *better* ours are").</div></div></div>
@@ -653,14 +660,13 @@ const phDetail = s => `<div style="margin-top:18px;font-size:16px;color:${COL.in
 const uiPath = (d, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${COL.navy}"/></svg>`;
 const OPEN_QS = [
   ['Decide: more human?', 'H2 or H3? And if H3, keep every line 1.5 (monoweight), or let the stem and trunk thin (relaxed)? (The tree\'s less mechanical tiers are part of both.)'],
-  ['Decide: the coupe', 'Which reads most like a coupe: A (taller stem), B (flatter bowl) or C (both)?'],
   ['Decide: line marks', 'At 1 2/3px, do the + and the star feel as heavy as the place icons?'],
 ];
 function sheetStart() {
   const qs = OPEN_QS.map(([b, q], k) => `<div style="display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:24px;font-weight:700;color:${COL.or}">${k + 1}</div><div><div style="font-size:19px;line-height:1.35;color:${COL.navy};font-weight:600">${q}</div><div style="font-size:16px;color:${COL.ink2};margin-top:2px">Board: ${b}</div></div></div>`).join('');
   const rows = [['1', 'Waiting on you', 'one board per question, top row'], ['2', 'In progress', 'the six icons now, the tuned versions beside them, and, at the end of the row, <b>Every icon: original and newest</b> (every icon in the order we\'re working on them, the original beside the newest drawing)'], ['3', 'Decided', 'the grid: the rules every icon is drawn by'], ['4', 'Detail', 'earlier sheets, for the team; optional']]
     .map(([n, h, s]) => `<div style="padding:8px 0;font-size:19px;line-height:1.35"><b style="color:${COL.navy}">${n} · ${h}</b>: ${s}</div>`).join('');
-  const decided = ['One line, 1.5px, everywhere (monoweight); the + and the star 1 2/3px', 'Every icon sized by its class to the same 12px coin', 'Like parts cut from one shape: slab, post, gable, vessel, loop', 'Every meeting point slightly round, inside tighter than outside', 'Every counter is the outline moved in by one line', 'Edges on the 1/3px lattice']
+  const decided = ['One line, 1.5px, everywhere (monoweight); the + and the star 1 2/3px', 'Every icon sized by its class to the same 12px coin', 'Like parts cut from one shape: slab, post, gable, vessel, loop', 'Every meeting point slightly round, inside tighter than outside', 'Every counter is the outline moved in by one line', 'Edges on the 1/3px lattice', 'The coupe is B, the flatter bowl; its band 1 1/6px, its sides the bowl\'s own curve (board: The coupe is B)']
     .map(s => `<li style="margin:0 0 6px">${s}</li>`).join('');
   return phBoard('Grid concepts', 'Start here', `${phP('This page holds the icon grid, the rules every Triplet icon is drawn by, and the first six icons drawn with it.')}
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:22px 0 6px">How it\'s laid out, top to bottom</div>${rows}
@@ -668,11 +674,23 @@ function sheetStart() {
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:26px 0 6px">Already decided</div><ul style="margin:0;padding-left:22px;font-size:18px;line-height:1.4">${decided}</ul>`);
 }
 function sheetDecideTunings() {
-  const SHORT = ['As shipped: the baseline.', 'Corners ease into their lines; every line end and every base matches (slabs); tree tiers drawn, not ruled; more air.', 'H2, plus flares where posts meet masses, and domed bases under the coupe and the cup. Every line 1.5.', 'H3, with the stem and trunk thinned to 1 1/4px (monoweight relaxed there only).'];
+  const SHORT = ['As shipped: the baseline.', 'Corners ease into their lines; every line end and every base matches (slabs); tree tiers drawn, not ruled; more air.', 'H2, plus flares where a post meets a mass, and one base rule: on a table, a domed foot; on the ground, a flat base. Every line 1.5.', 'H3, with the stem and trunk thinned to 1 1/4px (monoweight relaxed there only).'];
   const opt = (S, k) => phOpt(S.nm, SHORT[k], `${BATCH.map(([id]) => badge(S.ds[id])).join('')}${uiPath(S.ds.plus, 26.4)}${uiPath(S.ds.star, 20)}<span style="width:8px"></span>${BATCH.map(([id]) => badge(S.ds[id], 72)).join('')}`);
-  return phBoard('Waiting on you · 1', 'Decide: more human?', `${phQ(OPEN_QS[0][1])}${HSETS.map(opt).join('')}${phDetail('"More human, by rule" (row 2), with every rule, the checks and the in-app view.')}`);
+  // g7z (director, turn 94): H3's every base, end and join, per icon, with the rule each follows. Radii are
+  // measured from the build at the 12px drawing (src/h3-ends.js prints them).
+  const H3L = [
+    ['Café', 'Saucer: domed (on a table)', 'Saucer ends 0.6 (a domed foot\'s round)', 'Cup on saucer: the join round 0.2 (a mass on a base, not a post). Handle: a loop; its inside corners stay tight, 0.15'],
+    ['Coupe', 'Foot: domed (on a table)', 'Foot ends 0.6; rim corners 0.6', 'Stem flares 1.44 into the bowl and into the foot. Drink band corners tight'],
+    ['Museum', 'Plinth: flat (on the ground)', 'Plinth and eave ends 0.1 to 0.3 (the end round, fitted to a 1.5 slab); apex 0.7', 'The columns are the walls between slots, so their corners are slot corners: tight, 0.15, no flare. That\'s why it matches H2'],
+    ['Tree', 'Trunk: flat (on the ground)', 'Trunk end 0.3; tier tips 0.35', 'Trunk flares 0.93 into the bottom tier (capped by the tier\'s short edge). Notches tight, 0.15'],
+    ['+', 'None', 'Arm ends: the plain round', 'The crossing keeps the line join. A line mark has no mass, so nothing flares'],
+    ['Star', 'None', 'Tips: the joint round', 'Valleys and the hole\'s corners tight. No flare, as for the +'],
+  ].map(([n, b, e, j]) => `<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${COL.navy}">${n}</div><div style="font-size:16px;line-height:1.4;margin-top:2px"><b>Base</b>: ${b}<br><b>Ends</b>: ${e}<br><b>Joins</b>: ${j}</div></div>`).join('');
+  const h3Rules = `<div style="margin-top:26px;padding:18px 20px;background:${COL.paper};border-left:4px solid ${COL.or}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin-bottom:6px">H3's base rule</div><div style="font-size:21px;line-height:1.35;color:${COL.navy};font-weight:600">What stands on a table has a domed foot; what stands on the ground keeps a flat base.</div><div style="font-size:16px;line-height:1.4;margin-top:6px">So the saucer and the coupe's foot dome, and the plinth and the trunk stay flat. And one flare rule: a post flares into the mass it meets; counters, slots and line marks never do.</div></div>
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:24px 0 4px">H3, every base, end and join</div>${H3L}`;
+  return phBoard('Waiting on you · 1', 'Decide: more human?', `${phQ(OPEN_QS[0][1])}${HSETS.map(opt).join('')}${h3Rules}${phDetail('"More human, by rule" (row 2), with every rule, the checks and the in-app view.')}`);
 }
-function sheetDecideCoupe() {
+function sheetDecideCoupeV142() {   // v142's board, as the owner saw it (archived on the canvas)
   const S0 = HSETS[0], cs = S0.coupes, N = COL.navy;
   const listRows = ds => [['cafe', 'Kaffeverket', 'CAFÉ', true], ['bar', 'Tjoget', 'BAR', false], ['museum', 'Vasa Museum', 'MUSEUM', true], ['nature', 'Djurgården', 'NATURE', false]]
     .map(([id, nm, sub, st]) => `<div style="display:flex;align-items:center;gap:10px;height:56px;background:${COL.paper};padding:0 10px;border-bottom:1px solid ${COL.hair}">${badge(ds[id])}<div style="flex:1;font-size:16px;font-weight:600;line-height:1.15">${nm}<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">${sub} · STOCKHOLM</div></div>${st ? uiPath(ds.star, 20) : ''}</div>`).join('');
@@ -680,6 +698,38 @@ function sheetDecideCoupe() {
     return phOpt(nm, `${line} Clear band ${bh.toFixed(2)}px (the stroke 1.5).`, `<div style="display:flex;gap:10px;align-items:center;width:100%">${['cafe', 'bar', 'museum', 'nature'].map(id => badge(ds[id])).join('')}${uiPath(ds.plus, 26.4)}${uiPath(ds.star, 20)}</div><div style="display:flex;gap:18px;align-items:center;margin-top:10px"><div style="width:330px">${listRows(ds)}</div>${badge(cs[k], 150)}</div>`); };
   return phBoard('Waiting on you · 2', 'Decide: the coupe', `${phQ(OPEN_QS[1][1])}${phP('You: "the empty part should be equal to the thickness of the stroke. or maybe even a little thinner". A light gap between two dark lines reads wider than it measures, so A, B and C draw it 1 1/3px (8/9 of the line); v134 drew it 1.5 and you saw it as taller. Each is shown in the set and in the app.')}${[0, 1, 2, 3].map(opt).join('')}
 <div style="margin-top:14px;font-size:17px;line-height:1.4;color:${N}">The drink in C: ${DRINK(cs[3]).area.toFixed(1)}px², a little more than v130's 14.2px², in a shallow layer that reads by its surface, not its depth.</div>${phDetail('"More human, by rule" (row 2), the coupe section.')}`);
+}
+// g7z: the coupe is decided (B); this board shows the band redrawn, with the proof he asked for
+const { wall: bandWall } = require('./band-wall.js');
+function sheetDecideCoupe() {
+  const N = COL.navy, O = COL.or, I2 = COL.ink2;
+  const SIDE = 'M6 5.5C0.5 5.5 0.25 1.925 0.25 0';   // B's bowl, its left side (bd 5.5, bk 0.35, bx 0.5), in the 12px drawing
+  const draw = (o, law = LAWS7.joint, ease) => E.build(DRAW.bar(12, { style: 'mono', ...o }), { law, tightHoles: true, ease }).d;
+  const v142 = draw({ ...COUPE_B, bandSide: undefined, bandH: 4 / 3 }), now = draw({ droop: 0.5, bow: -0.2, ...COUPE_B }, LAWS7.joint, EASE);
+  const fig = (d, cap) => `<div style="flex:1;min-width:0"><svg viewBox="-0.4 -0.4 12.8 6.4" style="width:100%;display:block;background:${COL.paper}" aria-hidden="true"><path d="${d}" fill="${N}"/><path d="${SIDE}" transform="translate(${W} 0)" fill="none" stroke="${O}" stroke-width="0.045"/><path d="${SIDE}" transform="translate(12 0) scale(-1 1) translate(${W} 0)" fill="none" stroke="${O}" stroke-width="0.045"/></svg><div style="font-size:16px;line-height:1.35;color:${N};margin-top:6px">${cap}</div></div>`;
+  const w0 = bandWall(v142);
+  const row = (nm, w, hi) => `<tr style="border-top:1px solid ${COL.hair}${hi ? `;font-weight:700;color:${N}` : ''}"><td style="padding:8px 6px 8px 0">${nm}</td>${['top', 'mid', 'bot'].map(k => `<td style="padding:8px 6px;text-align:right">${w[k].across.toFixed(2)}</td>`).join('')}<td style="padding:8px 0 8px 6px;text-align:right">${w.h.toFixed(2)}</td></tr>`;
+  const sets = HSETS.slice(1).map(S => [S.nm.split(':')[0], S.ds]);
+  const walls = [['v142 (B as you saw it)', w0, false], ...HSETS.slice(1).map(S => [S.nm.split(':')[0] + ', now', bandWall(S.ds.bar), true])];
+  const listRows = ds => [['cafe', 'Kaffeverket', 'CAFÉ'], ['bar', 'Tjoget', 'BAR'], ['museum', 'Vasa Museum', 'MUSEUM'], ['nature', 'Djurgården', 'NATURE']]
+    .map(([id, nm, sub]) => `<div style="display:flex;align-items:center;gap:10px;height:56px;background:${COL.paper};padding:0 10px;border-bottom:1px solid ${COL.hair}">${badge(ds[id])}<div style="flex:1;font-size:16px;font-weight:600;line-height:1.15">${nm}<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">${sub} · STOCKHOLM</div></div></div>`).join('');
+  // in the badge: H2's coupe as the set draws it, and the same fitted with a 1px band
+  const nowB = HSETS[1].ds.bar, thin = HSETS[1].bar1;
+  const inSet = sets.map(([nm, ds]) => phOpt(nm, '', `<div style="display:flex;gap:10px;align-items:center">${BATCH.map(([id]) => badge(ds[id])).join('')}${uiPath(ds.plus, 26.4)}${uiPath(ds.star, 20)}</div><div style="display:flex;gap:18px;align-items:center;margin-top:10px;width:100%"><div style="width:330px">${listRows(ds)}</div>${badge(ds.bar, 150)}</div>`)).join('');
+  const kick = t => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:26px 0 8px">${t}</div>`;
+  return phBoard('Decided · the coupe', 'The coupe is B, its band redrawn', `${phP('You: "shape wise b is it. but the counter is still wrong both in size and in curvature i\'m getting tired of leaving this feedback!"')}
+${kick('Curvature: what was wrong, and the fix')}
+${phP(`v142 built the band's sides as a true offset: every point exactly a line from the bowl, measured square to it. But across the band the bowl turns, and a true offset bends tighter than the curve it follows, so its sides leaned in faster than the bowl. Read straight across, the way the eye reads an upright wall, the wall grew from ${w0.top.across.toFixed(2)} at the band's top to ${w0.bot.across.toFixed(2)} at its bottom.`)}
+${phP('Now each side of the band <b>is the bowl\'s own curve</b> over the band\'s height, moved in by the line: the same curve, with the same curvature, as the outside. The orange line is the outside moved in by exactly one line (1.5px), drawn over the band at 8x.')}
+<div style="display:flex;gap:16px;margin:10px 0 18px">${fig(v142, 'v142: the band\'s sides leave the orange line')}${fig(now, 'Now: the band\'s sides sit on it')}</div>
+${kick('The wall beside the band, measured (px)')}
+<table style="width:100%;border-collapse:collapse;font-size:17px;line-height:1.3"><tr style="color:${I2};font-size:14px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 6px 4px 0"></td><td style="text-align:right;padding:4px 6px">Top</td><td style="text-align:right;padding:4px 6px">Middle</td><td style="text-align:right;padding:4px 6px">Bottom</td><td style="text-align:right;padding:4px 0 4px 6px">Band</td></tr>${walls.map(([n, w, h]) => row(n, w, h)).join('')}</table>
+<div style="font-size:15px;color:${I2};margin-top:6px">Straight across, on the finished outline, 0.2px inside the band's top and bottom edges (clear of its corner rounds). Measured square to the bowl instead (the shortest distance), the trade shows: v142 held ${w0.top.sq.toFixed(2)} / ${w0.mid.sq.toFixed(2)} / ${w0.bot.sq.toFixed(2)}; now ${walls[1][1].top.sq.toFixed(2)} / ${walls[1][1].mid.sq.toFixed(2)} / ${walls[1][1].bot.sq.toFixed(2)}, because the bowl leans in across the band.</div>
+${kick('Size: 1 1/6px, under the stroke')}
+${phP('A light gap between dark lines reads wider than it measures, so the band is 1 1/6px (was 1 1/3; the stroke is 1.5). It also puts the drink\'s surface back on the 1/3px grid (1.5 + 1 1/6 = 2 2/3). If it should go thinner still, 1px is beside it.')}
+<div style="display:flex;gap:28px;align-items:end;margin:8px 0 6px">${[[nowB, '1 1/6 (this)'], [thin, '1']].map(([d, l]) => `<div style="text-align:center"><div style="display:flex;gap:10px;align-items:center">${badge(d)}${badge(d, 72)}${badge(d, 150)}</div><div style="font-size:16px;color:${N};margin-top:6px;font-weight:700">${l}</div></div>`).join('')}</div>
+${kick('B in the set, and in the app')}${inSet}
+${phDetail('the drawing is picks7 bar with bandSide "shift"; the wall measure is src/band-wall.js.')}`);
 }
 // (g7y: the tree's decision folded into the human direction; its board is archived)
 // g7z (owner: "give me a board with the original icons next to the newest version of icon in order of what we're
@@ -701,7 +751,7 @@ function sheetOriginals() {
   const rows = [
     ['Batch 1 · drawn', 'The first six, drawn to the grid and in review now.'],
     ['Café', ['badge-cafe'], P('cafe'), `${B1} · cup and saucer`],
-    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`, 'You picked the flatter bowl (B); its counter is being redrawn'],
+    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`, 'You picked B, the flatter bowl: see "The coupe is B". Until B is in the set, this row shows the coupe as shipped'],
     ['Museum', null, P('museum'), `${B1} · column front`, 'New category: there was no icon'],
     ['Nature', ['badge-nature'], P('nature'), `${B1} · conifer`],
     ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'Original: the navy + button. Newest: on the orange Float badge it moved to'],
