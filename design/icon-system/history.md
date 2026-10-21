@@ -80,6 +80,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · Between H2 and H3:** saucer too far, flares too intense, museum out of place (needs a structural pattern); coupe counter "*still*" wrong and "*still* not enough liquid ... how many times do i have to say it." Process failure: repeated asks not landing.
 
+- **10-21 · Between board v205 shown:** coupe (a) deeper / (b) open / (c) drink shape / (d) crescent + "which part of the inside looks wrong to you?"; Between row (½-dome plates, ¾ flares); museum: beam shed, four columns, eaves end like the step. `grid/stills/g7ad-museum-eaves-8x.png`
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
