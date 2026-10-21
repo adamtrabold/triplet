@@ -194,3 +194,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-21, Decide: line marks) why is 1 2/3rds reading thinner? shouldnt it look thicker?
 > (10-21, Decide: line marks) i think theres an error here -- these look the same too
 > (10-21, Decide: the tree) this is the best shape proportions wise, but what i liked about the other one was the less mechanical triangles -- feeds into that human line of thinking on board 1. thats the decision vector still open
+> (10-21, canvas comment on Decide: the coupe) ok without including the other decisions that still need to be made, shape wise b is it. but the counter is still wrong both in size and in curvature i'm getting tired of leaving this feedback!   (coupe shape = B)

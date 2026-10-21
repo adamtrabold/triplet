@@ -1601,3 +1601,33 @@ checks; don't eyeball "is it as good as".
 - **Lesson:** in turn 87 I judged C's gap against v134 instead of against
   his stated rule. Before scoring, check every owner rule in `owner.md`
   that applies to the glyph, not just the last version.
+
+## g7y (v142, 2026-10-21): coupe 9, tunings 8
+
+- I measured the coupe's empty band myself (1.333 in A/B/C) before
+  passing it, per the H-counter lesson.
+- **H3's endings:** a rule that changes (the saucer was "stays a slab"
+  in v138, domed now) must say why on the board. Otherwise he sees a
+  mix.
+
+## LESSON 5 (v142, 2026-10-21): I passed a counter on numbers, four times
+
+- Owner: "the counter is still wrong both in size and in curvature i'm
+  getting tired of leaving this feedback!" He's raised it four times; I
+  passed it each time.
+- **What the numbers missed:**
+  - Wall square to the curve: 1.50 constant (passes).
+  - Wall across, as the eye reads it beside a near-vertical outer wall:
+    1.55 to 1.78 in B (fails).
+  - The counter's height (1.333) passes the rule as written, but the light
+    band reads as heavy as the rim.
+- **Counter check from now on, before any pass:**
+  1. 8x crop.
+  2. Outer curve offset by one line drawn over it.
+  3. The wall at the top, middle and bottom, square AND across. Growth
+     over 1/12 fails.
+  4. The optical size of the counter against the stroke, judged by eye
+     at true size beside the rim.
+  5. His words on that glyph checked in `owner.md` first.
+- **Lesson:** when he repeats a note, my check is measuring the wrong
+  thing. Stop and measure what his eye measures before scoring again.
