@@ -1,5 +1,18 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-21, canvas v221, turn 126)
+
+- **Director, v220 (turn 125), scored 7:** keep A · Joins; cut B (it reads as a trapezoid or a furniture foot) and C (it reads as a pagoda, and it breaks Straight-lined buildings). His third fault was that the gable's ends were slivers (0.43).
+- **Done:**
+  - **The gable:** ends 1.2 units (1.02px). The room comes from the class: the temple is as tall as it is wide, so it is fitted to the SQUARE class (boards7 `STRUCT`, `STRUCT_CLS`, the fitPlace `cls` override). The columns keep their 2.8px.
+  - **The row's museum** = the base plus Joins (`JOINS`).
+  - **The rules table** has a Joins row.
+  - **The section** shows the base and A only, with one question. B and C are in Archive-G7an-Between (the v220 board).
+- **Open:**
+  - The museum is about 3 blur points over the cup (31.7 against 28.4) because of the solid gable. "Sized by its weight" (his v207 pick) would level it; it is flagged on the board, not applied.
+  - The plate question and the liquid style are unchanged.
+- **B/C code** stays in picks7 `structMuseum` (batter/sweep, eave) for history; no row uses it.
+
 ## Update (2026-10-21, canvas v220, turn 124; third icon designer)
 
 - **His question:** "it's the flaring effects that the museum and other structures like it aren't going to naturally make. How might we build some of that in?" "Connected" = to the systemic approach. He likes the separated gable (keep it).

@@ -55,25 +55,21 @@
   "mean": 32.4,
   "core": 69.8
  },
- "museum-r2-a": {
-  "mean": 28.2,
-  "core": 61
- },
- "museum-r2-b": {
-  "mean": 29.3,
-  "core": 61.4
- },
- "museum-r2-c": {
-  "mean": 28.6,
-  "core": 62.6
+ "museum-r2-base": {
+  "mean": 31.9,
+  "core": 63.7
  },
  "museum-r2-v219": {
   "mean": 27.9,
   "core": 58.3
  },
- "museum-r2": {
+ "museum-r2-v220": {
   "mean": 28.5,
   "core": 61.1
+ },
+ "museum-r2": {
+  "mean": 31.7,
+  "core": 63.6
  },
  "museum": {
   "mean": 32.5,

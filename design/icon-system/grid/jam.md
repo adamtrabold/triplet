@@ -5571,3 +5571,19 @@ on the gable he likes); B as a trapezoid; C as a pagoda.
 
 **Changed since my last score?** Yes: a new base and three approaches.
 The coupe, tree, cup, star and + are byte-identical.
+
+---
+
+## Turn 126: icon designer (third), turn 125 fixes: the gable's body, Joins as the rule (canvas v221)
+
+1. **The gable's body:** its ends are now 1.2 units (1.02px, at least the 1px end rule; v220's were 0.43 of a unit) and the pitch is about the same (the rise is 2.3 units, was 2.17). **Where the room came from: the class, by rule.** With the gable set on its beam, the temple's drawing is as tall as it is wide (11.5 x 11.5 units), so the grid fits it to the SQUARE class (the coupe's), not WIDE. The museum was height-bound in WIDE, so the square class's extra height pays for the ends. Its width barely changes (9.8px either way), and the columns keep their height in px (2.8, the same as v220). boards7 `STRUCT = { gb: 4, ap: 0.5, gEnd: 1.2 }`, `STRUCT_CLS`, and fitPlace's `cls` override, which only the museum reads. Rejected options: a flatter pitch (it reads as a lid), a shorter pediment (it shortened the columns), and staying in WIDE (the whole glyph shrank, s 9.45).
+2. **Base and A only:** the row's museum now takes Joins (`JOINS`: cap and foot flares at 1/2px). The section shows v220's thin gable, the gable with its body, and Joins in the row, with one question: "Does Joins connect the museum to the coupe and the tree for you?" B and C are on the Archive page in the archived v220 board (`Archive-G7an-Between`, x 4200, y 156200), titled with why each was cut. The section also has a one-line "not used" note.
+3. **Joins in the rules table:** the rule, and what it does to a future hotel, landmark or venue.
+- **Weight, flagged on the board:** the museum blurs to 31.7/63.6 against the cup's 28.4/70.8, about 3 points heavier, because the solid gable adds ink. The board names his open v207 pick, "sized by its weight", as the rule that would level it. I didn't apply it; that's his call.
+- **True size, by eye:** at 24px it reads as a temple with a solid roof, and the outer flares read as a capital and a base. At 12px the flares are under a pixel and the cut greys out, as the board says.
+- **Checks:**
+  - check-svg: 0 slivers, symmetric (the café is skipped).
+  - between-checks: museum openings 1.25-1.50 (the 1 1/4 columns, by design); curve jump 0.00.
+  - blur-between was re-run.
+  - Only museum svgs changed (now `museum-r2`, `-base`, `-v219`, `-v220`); the tree, coupe, cup, star and + are byte-identical.
+- **Canvas:** the Between board went from 4963 to 4088 px tall. The live v220 board had no owner edits (its sha matched my build).
