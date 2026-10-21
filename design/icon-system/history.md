@@ -72,6 +72,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · Human board v140 shown:** H1 eased curves (all eight), H2 + domed foot, drooping branches, air, H3 + thin flaring posts; coupe A taller stem / B flatter bowl / C both. Asked: which tuning, if any? which coupe?
 
+- **10-21 · H1 dropped; push H2/H3:** "h3 i like the added personality. so lets keep pushing down these lines, keeping monoweight as potential, and flat droppingh1". H2's rounded cup base and trunk conflict with the coupe base and museum.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
