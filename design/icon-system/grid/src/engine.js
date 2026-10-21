@@ -286,6 +286,9 @@ function symD(d, x) {
   const l = it.intersect(half); it.remove(); half.remove();
   const r = l.clone(); r.scale(-1, 1, new Point(x, 0)); const u = l.unite(r); l.remove(); r.remove();
   for (const k of (u.children && u.children.length ? u.children : [u])) {
+    // g7ae: the seam can split a curve into slivers a hundredth of a px long; fold them into their neighbours
+    // (in mirror pairs, so the outline stays symmetric: a point just off the seam, next to a point on it, goes)
+    for (let i = k.segments.length - 1; i >= 0 && k.segments.length > 3; i--) { const s = k.segments[i], off = Math.abs(s.point.x - x); if (off > 1e-6 && off < 0.012 && [s.next, s.previous].some(q => Math.abs(q.point.x - x) < 1e-6 && q.point.getDistance(s.point) < 0.012)) s.remove(); }
     for (let i = k.segments.length - 1; i >= 0 && k.segments.length > 3; i--) {
       const s = k.segments[i], p = s.previous, n = s.next;
       if (!s.handleIn.isZero() || !s.handleOut.isZero() || !p.handleOut.isZero() || !n.handleIn.isZero()) continue;

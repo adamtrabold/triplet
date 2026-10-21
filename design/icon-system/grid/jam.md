@@ -4751,3 +4751,49 @@ outline's curvature, which neither my counter check nor the curve check
    liquid; the interior and the outer sides both following the bowl.
 5. **Harmony, bases and ends, the H-checks** (with the outer-silhouette
    straight-run check added).
+
+---
+
+## Turn 108: icon designer, g7ae: five owner notes in one round (canvas v206)
+
+All five quotes are in `owner.md`. The v205 board is archived; the owner said "no this is awful" about its museum.
+
+**1. The coupe.** Owner: "this line on the left and right is waht looks wrong -- it looks too straight compared to the rest of the shape". Also: "the shorter bowl i think is necessary ... very stout instead of delicate".
+- **Sides.** The bowl's handles are balanced for the most even curvature with no S. This came from a search: bk 0.5, bx 1.5, no lean. A lean inward made an S-curve, which is a straight spot of its own.
+  - In the top third, the curvature is now at least 46% of its peak, up from 17%.
+- **Bowl.** B's shallow bowl stays (bd 5.5). The deeper bowl is gone.
+- **Stem.** 1 1/4px, with flares of 1/2px (they were 1.5 and 3/4). The coupe's blur fell to 21.3 mean, so it reads lighter.
+- **Liquid.** In the shallow bowl only the open glass holds more than v134:
+
+  | Version | Drink | vs v134 |
+  |---|---|---|
+  | Open glass | 8.5px² | +66% |
+  | Outline glass, drink inside | 4.1 | -20% |
+  | Bar and crescent | 2.9 | -44% |
+  | Bar and band | 2.1 | -58% |
+
+  - So it goes to him as a question: "The open glass, or more clear glass and less drink?"
+  - The open glass is in the row until he picks.
+
+**2. The plate flipped.** Owner: "what if the plate was flipped the other way with the rounding on the bottom". A second Between row shows the plate and the coupe's foot flat on top, with the underside dropping 1/2px at the centre (picks7 `under`). It is shown at true size and 8x, beside the rising plate.
+
+**3. The tree.** Owner: "top two sections' tree branch ends feel more rounded than bottom one".
+- An acute tip's round is now a share of its shorter edge, at most 0.35 (HUMAN `tipShare` 0.0877).
+- The tips are 0.35, 0.23 and 0.15 from bottom to top; all were 0.35.
+
+**4. The museum.** Owner: "how might this style be reflected in architectural things like this that are a lot of straight lines".
+- H2's four-column, beamed museum is the base. Three rules are shown on it (picks7 `arch`):
+  - **Columns that swell** (entasis, 1/6px a side; the ends thinner, so no added weight): blur 31.6 / 67.5.
+  - **Long lines drawn like the tree** (the roof sweeps in 1/5, the beam's underside droops 1/2): 32.4 / 71.9.
+  - **Joins that flare like the stem** (1/2px): 32.7 / 70.0.
+- The base measures 32.5 / 69.5; the cup 28.3 / 70.6. The weight is shown as it is; no parts were removed.
+
+**Checks:**
+- check-svg: no slivers; symmetric except the café. `symD` now folds the seam's hundredth-px slivers, in mirror pairs.
+- Counters: only the reference coupes' bands and crescents flag; that is their drink-edge artefact.
+- Entasis columns measure 1.27 to 1.50 by design.
+- Curve check: 0.00 at non-end joins.
+
+**Start:**
+- Question 1 is now the open glass against more clear glass.
+- Question 2 is now the plate (rising or flipped) and the three ways to draw buildings.

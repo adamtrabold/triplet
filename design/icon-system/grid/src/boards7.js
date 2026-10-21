@@ -556,12 +556,24 @@ const EASE = 2.3;
 // g7aa (owner on v147: "also the interior counter shape of the coupe *still* does not look right. and there is
 // *still* not enough liquid in the cup how many times do i have to say it"): B's flat bowl, closed by its rim bar,
 // holds less drink than v134 (measured, src/liquid.js). Three ways to give it clearly more, one idea each:
+// g7ae (owner on (a) at 8x: "this line on the left and right is waht looks wrong -- it looks too straight compared to
+// the rest of the shape"; on (a): "the shorter bowl i think is necessary -- when it drops this far down it starts looking
+// too wine glass or chalice-y...especially with the hard edged flares... very stout instead of delicate"): B's shallow
+// bowl, its sides one curve from the rim: the handles balanced for the most even curvature with no inflection (searched:
+// the top handle 0.5 of the depth, the bottom 1.5 from the side; a lean inward made an S, a straight spot of its own); the stem 1 1/4px, its flares half a line. In this bowl only an open rim holds more drink than v134.
+const COUPE_S = { bd: 5.5, bk: 0.5, lean: 0, bx: 1.5, fb: 11, post: 1.25, bandH: 7 / 6, bandSide: 'shift' };
 const COUPE_V = [
-  ['(a) A deeper bowl', 'B\'s shape with the bowl a little deeper and the stem a little longer, so the drink under the clear band is half the glass. It gives up some of the flatness you picked.', { ...COUPE_B, bd: 6.75, fb: 11 }],
-  ['(b) An open glass', 'B\'s shape exactly, with no bar across the rim: the glass is open at the top, its mouth is the clear part (1 1/6px, under the stroke) and the drink fills the rest. Its sides are the bowl\'s own curve moved in by the line. It reads as a solid glass, like batch 1.', { ...COUPE_B, coupe: 'open', fb: 11 }],
-  ['(c) The drink as its own shape', 'The glass drawn as an outline, the drink a separate dark shape inside it with a flat surface and a clear gap (5/6px) all round. The bowl is rounder and deeper so the drink can be big; it gives up the flat bowl, and it would be the only outline drawing in the set.', { ...COUPE_B, coupe: 'inner', bandH: 5 / 6, bd: 6.5, fb: 11 }],
-  // g7ab (director turn 102: "Our rules don't overrule his ask"): the literal reading, with its trade on the label
-  ['(d) The clear part as a crescent', '(a)\'s bowl, with the clear part shaped like the bowl: the stroke\'s height (1.5px) at the middle, its lower edge sagging like the bowl\'s bottom, thinning toward the walls. Its ends thin below a line (to 1/2px), which our no-thin-points rule would not allow; it is here because it may be what you mean.', { ...COUPE_B, bd: 6.75, fb: 11, coupe: 'crescent', bandH: 1.5 }],
+  ['An open glass', 'B\'s shallow bowl with no bar across the rim: the mouth is the clear part (1 1/6px, under the stroke) and the drink fills the bowl. It reads as a solid glass, like batch 1.', { ...COUPE_S, coupe: 'open' }],
+  ['The glass as an outline, the drink inside it', 'The glass drawn as an outline and the drink a shape inside it, a 2/3px gap all round. The most drink any version with clear glass around it holds in this bowl.', { ...COUPE_S, coupe: 'inner', bandH: 2 / 3 }],
+  ['A bar across the rim, a clear crescent under it', 'The bar across the rim, and under it a clear crescent that follows the bowl (1 1/6px at the middle).', { ...COUPE_S, coupe: 'crescent' }],
+  ['A bar across the rim, a clear band under it', 'The bar across the rim and a clear band under it, as B was; its sides now follow the new curve.', { ...COUPE_S, coupe: 'band' }],
+];
+// g7ae (owner on the museum: "how might this style be reflected in architectural things like this that are a lot of
+// straight lines"; on the beam-shed museum: "no this is awful"): H2's museum is the base again; three rules, one each
+const MUSEUM_V = [
+  ['Columns that swell', 'Every upright swells to the line at mid-height and is a little thinner at its ends (entasis), as a real column or the coupe\'s stem does. The rule for any straight-lined building: posts and uprights swell, 1/6px a side.', { arch: { entasis: 0.15 } }],
+  ['Long lines drawn like the tree', 'The roof\'s slopes sweep in a fifth of a line and the beam\'s underside droops half a line, the tree\'s own numbers. The rule: every long horizontal and every slope is drawn, not ruled.', { arch: { droop: 0.5, roofBow: -0.2 } }],
+  ['Joins that flare like the stem', 'Where a column meets the beam and the plinth it flares, half a line, as the coupe\'s stem flares into its bowl and foot. The rule: wherever a post meets a mass, it flares; long lines stay straight.', { arch: { capital: 0.5 } }],
 ];
 const HSETS = [
   ['Now (v134): monoweight', 'The set as it is: the baseline.', {}, LAWS7.joint, 1, false, 0],
@@ -570,14 +582,16 @@ const HSETS = [
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
-  ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre (H3\'s domes rose a whole line); the flares are half H3\'s (3/4px); the museum follows the structural pattern.', { droop: 0.5, bow: -0.2, dome: 0.5, capital: 0.5, roofBow: -0.1, beam: 0, fascia: 1.5, ...COUPE_V[0][2] }, HUMAN({ flare: 0.75, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre; the flares are a third of H3\'s (1/2px); every tip\'s round is a share of its edge; the museum is H2\'s, its architecture open (below).', { droop: 0.5, bow: -0.2, dome: 0.5, ...COUPE_V[0][2] }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
+  // g7ae (owner: "what if the plate was flipped the other way with the rounding on the bottom")
+  ['Between, plates flipped', 'The same, with the plate and the coupe\'s foot flat on top and rounded underneath: the underside drops 1/2px at the centre, like a saucer\'s.', { droop: 0.5, bow: -0.2, under: 0.5, ...COUPE_V[0][2] }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
 ].map(([nm, rule, o, law, fk, bal, ease]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined };
   const fitPlace = (id, extra = {}, withSil = false) => {
     const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
     let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
-    const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = o.dome && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
+    const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = (o.dome || typeof o.under === 'number') && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
     const ty = oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;
     // g7aa: the silhouette (no band, no drink) placed exactly as the glyph is, for the liquid measure
     return withSil ? { d, sil: E.build(E.xform(dr(s, { band: false }), 1, 0, 0, ox + tx, ty), { ...opts, sym }).d } : d;
@@ -589,15 +603,20 @@ const HSETS = [
   const coupes = COUPES.map(([, , co]) => fitPlace('bar', co));
   const bar1 = o.bandSide === 'shift' ? fitPlace('bar', { bandH: 1 }) : null;   // g7z: the thinner band, for the coupe board
   const silBar = fitPlace('bar', {}, true).sil;   // g7aa: the coupe's silhouette, for the liquid measure
-  const cv = nm.startsWith('Between') ? COUPE_V.map(([, , v]) => fitPlace('bar', v, true)) : null;
-  return { nm, rule, ds, coupes, ease, bar1, silBar, cv };
+  const cv = nm === 'Between H2 and H3' ? COUPE_V.map(([, , v]) => fitPlace('bar', v, true)) : null;
+  // g7ae: the museum's architecture, three ways on H2's four-column, beamed drawing (MUSEUM_V)
+  const mus = nm === 'Between H2 and H3' ? MUSEUM_V.map(([, , v]) => fitPlace('museum', v)) : null;
+  return { nm, rule, ds, coupes, ease, bar1, silBar, cv, mus };
 });
-const HOLD = HSETS.filter(S => !S.cv), BETW = HSETS.find(S => S.cv);   // g7aa: the v144 boards keep their four rows
+const HOLD = HSETS.filter(S => !S.nm.startsWith('Between')), BETW = HSETS.find(S => S.nm === 'Between H2 and H3'), BFLIP = HSETS.find(S => S.nm === 'Between, plates flipped');   // g7aa: the v144 boards keep their four rows
 { // g7aa: the between row and the three coupes as svg files, for check-svg.py and the counter checks
   const dir = path.join(__dirname, '../svg/g7/between'); fs.mkdirSync(dir, { recursive: true });
   const svg = d => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="${d}"/></svg>`;
   for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `${id}.svg`), svg(BETW.ds[id]));
+  for (const f_ of fs.readdirSync(dir)) if (/^(bar-|museum-)/.test(f_)) fs.unlinkSync(path.join(dir, f_));
   BETW.cv.forEach(({ d }, k) => fs.writeFileSync(path.join(dir, `bar-${'abcd'[k]}.svg`), svg(d)));
+  BETW.mus.forEach((d, k) => fs.writeFileSync(path.join(dir, `museum-${k + 1}.svg`), svg(d)));
+  for (const id of ['cafe', 'bar']) fs.writeFileSync(path.join(dir, `${id}-flipped.svg`), svg(BFLIP.ds[id]));
 }
 // checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
 // (where the outline's direction is continuous), the jump in curvature between the two sides, 1/px
@@ -688,8 +707,8 @@ const OPEN_QS = [
 ];
 // g7ab: Start's open questions (the older boards keep OPEN_QS as they were published)
 const START_QS = [
-  ['Between H2 and H3, part 1', 'The coupe: which of (a) a deeper bowl, (b) an open glass, (c) the drink as its own shape or (d) the clear part as a crescent is what you mean?'],
-  ['Between H2 and H3, parts 2 and 3', 'Between H2 and H3: is this the balance, and does the museum now belong?'],
+  ['Between H2 and H3, part 1', 'The coupe, in the shallow bowl: the open glass (more drink than v134), or more clear glass and less drink?'],
+  ['Between H2 and H3, parts 2 and 3', 'Between H2 and H3: the plate rising or flipped? And which of three ways should buildings be drawn?'],
   ['Decide: line marks', 'At 1 2/3px, do the + and the star feel as heavy as the place icons?'],
 ];
 const ANSWERED = ['The coupe, A, B or C: B, the flatter bowl. Its inside and its drink are question 1.', 'H1, H2 or H3: H1 dropped; you asked for something between H2 and H3 (question 2).'];
@@ -779,45 +798,57 @@ function clearWalls(d, sil) {
   cp.remove(); so.remove(); return r;
 }
 function sheetBetween() {
-  const N = COL.navy, I2 = COL.ink2, S = BETW, H2 = HSETS[1], H3 = HSETS[2];
+  const N = COL.navy, I2 = COL.ink2, S = BETW, SF = BFLIP, H2 = HSETS[1], H3 = HSETS[2];
   const kick = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:30px 0 8px">${t_}</div>`;
+  const quote = q => `<div style="margin:6px 0 12px;padding:10px 14px;background:${COL.paper};font-size:17px;line-height:1.4;color:${N}">You: "${q}"</div>`;
   const chip = d => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
   const x8 = (d, px = 128) => `<svg width="${px}" height="${px}" viewBox="4 4 16 16" style="background:${COL.paper};flex:none" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
+  const trio = d => `${chip(d)}${badge(d)}${badge(d, 72)}`;
+  const fig = (d, label, px = 150) => `<div style="text-align:center">${x8(d, px)}<div style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:6px">${trio(d)}</div><div style="font-size:15px;font-weight:700;color:${N};margin-top:4px">${label}</div></div>`;
   const row1 = (d, nm, sub) => `<div style="display:flex;align-items:center;gap:10px;height:56px;background:${COL.paper};padding:0 10px;border-bottom:1px solid ${COL.hair};width:250px;box-sizing:border-box">${badge(d)}<div style="flex:1;font-size:16px;font-weight:600;line-height:1.15">${nm}<div style="font-size:10.5px;letter-spacing:.08em;font-weight:700;opacity:.72;margin-top:2px">${sub} · STOCKHOLM</div></div></div>`;
-  const L0 = liquidOf(HSETS[0].ds.bar, HSETS[0].silBar), L1 = liquidOf(OLD.bar.d, OLD.bar.d), LB = liquidOf(H2.ds.bar, H2.silBar);
-  const ref = (d, nm, L) => `<div style="text-align:center"><div style="display:flex;gap:8px;align-items:center;justify-content:center">${chip(d)}${badge(d)}${badge(d, 72)}</div><div style="font-size:16px;font-weight:700;color:${N};margin-top:6px">${nm}</div><div style="font-size:15px;color:${I2}">drink ${L.liquid.toFixed(1)}px²</div></div>`;
-  const opts = COUPE_V.map(([nm, line], k) => { const { d, sil } = S.cv[k], L = liquidOf(d, sil), w = clearWalls(d, sil);
-    const more = Math.round(100 * (L.liquid / L0.liquid - 1));
-    return `<div style="padding:18px 0;border-top:1px solid ${COL.hair}"><div style="font-size:23px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div>
-<div style="display:flex;gap:14px;align-items:center">${chip(d)}${badge(d)}${badge(d, 72)}${row1(d, 'Tjoget', 'BAR')}${x8(d)}</div>
-<div style="font-size:16px;line-height:1.4;color:${N};margin-top:10px"><b>Drink ${L.liquid.toFixed(1)}px²</b>, ${more}% more than v134's ${L0.liquid.toFixed(1)}; ${Math.round(100 * L.share)}% of the glass's inside${!w ? '' : k === 3 ? `. The clear part is 1.5px tall at the middle (the stroke) and 1/2px at its ends; the wall beside it, ${w.top.across.toFixed(2)} across` : k === 0 ? `. The wall beside the clear part: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom), ${w.top.sq.toFixed(2)} / ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl` : k === 1 ? `. The wall beside the open mouth: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom)` : `. The glass's wall: ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl, beside and under the drink (an even outline; read across, it widens where the bowl turns)`}.</div></div>`; }).join('');
+  const frozen = id => fs.readFileSync(path.join(__dirname, `../svg/g7/before-g7ae/${id}.svg`), 'utf8').match(/ d="([^"]+)"/)[1];
+  let BL = {}; try { BL = JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/between/blur.json'), 'utf8')); } catch (e_) {}
+  const bl = k => BL[k] ? `${BL[k].mean.toFixed(1)} / ${BL[k].core.toFixed(1)}` : '(not measured)';
+  // the side's curvature, rim to bottom: how even it is (the least in the top third over the most anywhere)
+  const even = (bk, ln, bx, bd = 5.5, bl_ = 0.25) => { const P_ = [[bl_, 0], [bl_ + ln, bk * bd], [bx, bd], [6, bd]]; let top = 1e9, mx = 0;
+    for (let q = 0; q <= 60; q++) { const tt = q / 60, d1 = [0, 1].map(k_ => 3 * (1 - tt) ** 2 * (P_[1][k_] - P_[0][k_]) + 6 * tt * (1 - tt) * (P_[2][k_] - P_[1][k_]) + 3 * tt * tt * (P_[3][k_] - P_[2][k_])), d2 = [0, 1].map(k_ => 6 * (1 - tt) * (P_[2][k_] - 2 * P_[1][k_] + P_[0][k_]) + 6 * tt * (P_[3][k_] - 2 * P_[2][k_] + P_[1][k_]));
+      const y = (1 - tt) ** 3 * P_[0][1] + 3 * tt * (1 - tt) ** 2 * P_[1][1] + 3 * tt * tt * (1 - tt) * P_[2][1] + tt ** 3 * P_[3][1], k_ = Math.abs(d1[0] * d2[1] - d1[1] * d2[0]) / Math.hypot(...d1) ** 3; mx = Math.max(mx, k_); if (y < bd / 3) top = Math.min(top, k_); }
+    return top / mx; };
+  const L0 = liquidOf(HSETS[0].ds.bar, HSETS[0].silBar);
+  const opts = COUPE_V.map(([nm, line], k) => { const { d, sil } = S.cv[k], L = liquidOf(d, sil), more = Math.round(100 * (L.liquid / L0.liquid - 1));
+    return `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${k === 0 ? 'Yes: ' : 'Or: '}${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div>
+<div style="display:flex;gap:14px;align-items:center">${trio(d)}${row1(d, 'Tjoget', 'BAR')}${x8(d)}</div>
+<div style="font-size:16px;line-height:1.4;color:${N};margin-top:8px"><b>Drink ${L.liquid.toFixed(1)}px²</b>: ${more >= 0 ? `${more}% more than` : `${-more}% less than`} v134's ${L0.liquid.toFixed(1)}.</div></div>`; }).join('');
   const setRow = (R, label) => `<div style="padding:14px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">${label}</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${BATCH.map(([id]) => badge(R.ds[id])).join('')}${uiPath(R.ds.plus, 26.4)}${uiPath(R.ds.star, 20)}<span style="width:10px"></span>${BATCH.map(([id]) => badge(R.ds[id], 72)).join('')}</div></div>`;
-  const rules = [['Plates and feet (things on a table)', 'a slab whose top rises 1/2px at the centre: ends 1px, crown 1.5', 'a dome: ends to a point, crown 1.5'], ['Flares (a post into a mass)', '3/4px', '1 1/2px'], ['Outside corners of a mass', '0.6, eased', '0.6, eased'], ['Line ends', '0.3', '0.3'], ['Counters and slots', 'tight, 0.15 (the museum\'s openings 0.5: the structural pattern, below)', 'tight, 0.15'], ['Tree tiers', 'sides sweep in 1/5px, undersides droop 1/2px', 'the same']]
+  const appRows = R => [['cafe', 'Kaffeverket', 'CAFÉ'], ['bar', 'Tjoget', 'BAR'], ['museum', 'Vasa Museum', 'MUSEUM'], ['nature', 'Djurgården', 'NATURE']].map(([id, nm, sub]) => row1(R.ds[id], nm, sub)).join('');
+  const rules = [['Plates and feet (things on a table)', 'top rises 1/2px at the centre (or, flipped, the underside drops 1/2px)', 'a dome: ends to a point'], ['Flares (a post into a mass)', '1/2px', '1 1/2px'], ['The coupe\'s stem', '1 1/4px', '1 1/2px'], ['Outside corners of a mass', '0.6, eased', '0.6, eased'], ['Acute tips', 'a share of the shorter edge (0.35 at most): the tree\'s tips 0.35 / 0.23 / 0.15, bottom to top', '0.35 everywhere'], ['Line ends', '0.3', '0.3'], ['Counters and slots', 'tight, 0.15', 'tight, 0.15'], ['Tree tiers', 'sides sweep in 1/5px, undersides droop 1/2px', 'the same']]
     .map(([a, b, c]) => `<tr style="border-top:1px solid ${COL.hair}"><td style="padding:8px 8px 8px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px">${b}</td><td style="padding:8px 0 8px 8px;color:${I2}">${c}</td></tr>`).join('');
-  const appRows = [['cafe', 'Kaffeverket', 'CAFÉ'], ['bar', 'Tjoget', 'BAR'], ['museum', 'Vasa Museum', 'MUSEUM'], ['nature', 'Djurgården', 'NATURE']].map(([id, nm, sub]) => row1(S.ds[id], nm, sub)).join('');
-  const musH2 = H2.ds.museum, musB = S.ds.museum;
-  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('You: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate feels too far. and the flares too intense. the museum looks completely out of place, so there needs to be a pattern for bringing this to the more structural icon decisions. also the interior counter shape of the coupe *still* does not look right. and there is *still* not enough liquid in the cup how many times do i have to say it."')}
-${kick('1 · The coupe')}${phQ('Which of these is what you mean? Or, in a line: which part of the inside looks wrong to you?')}
-${phP(`Measured at 24px, B as you last saw it holds <b>${LB.liquid.toFixed(1)}px²</b> of drink; v134 held ${L0.liquid.toFixed(1)}. With a bar across its rim and a clear band under it, B's flat bowl has almost no room left for drink, and no counter shape changes that. So each option below changes one thing to give it clearly more. Drink = the ink inside the glass's walls, measured the same way on each (src/liquid.js).`)}
-<div style="display:flex;gap:26px;justify-content:space-between;margin:12px 0 6px">${ref(HSETS[0].ds.bar, 'v134', L0)}${ref(OLD.bar.d, 'Batch 1', L1)}${ref(H2.ds.bar, 'B, as at v144', LB)}</div>
+  const musRows = [['H2\'s museum (the base)', 'As H2 drew it: four columns, a beam, a straight roof, a plinth. Every approach below starts from it.', S.ds.museum, 'museum'], ...MUSEUM_V.map(([nm, line], k) => [nm, line, S.mus[k], `museum-${k + 1}`])]
+    .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center">${trio(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(S.ds.nature, 72)}${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
+  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('This round: your five notes on v205, each answered below.')}
+${kick('1 · The coupe')}
+${quote('this line on the left and right is waht looks wrong -- it looks too straight compared to the rest of the shape')}
+${quote('the shorter bowl i think is necessary -- when it drops this far down it starts looking too wine glass or chalice-y...especially with the hard edged flares... very stout instead of delicate')}
+${phP(`<b>The sides.</b> The bowl's top handle sat straight below the rim, so each side dropped upright for a third of the depth before it turned. Now the two handles are balanced so the side turns from the rim on, one curve to the bottom: in the top third its curvature never drops below ${Math.round(100 * even(0.5, 0, 1.5))}% of its peak (it was ${Math.round(100 * even(0.35, 0, 0.5))}%), and it has no straight spot or S.`)}
+${phP('<b>The depth.</b> B\'s shallow bowl stays; the deeper bowl is gone. <b>The stem</b> is 1 1/4px and its flares are half a line (they were 1 1/2 and 3/4), so the glass reads lighter.')}
+<div style="display:flex;gap:18px;margin:6px 0 4px">${fig(frozen('bar'), 'v205 (a)')}${fig(S.ds.bar, 'Now (the open glass)')}</div>
+${phQ('In a shallow bowl only the open glass holds more drink than v134. The open glass, or more clear glass and less drink?')}
+${phP('Drink = the ink inside the glass\'s walls, measured the same way on each (src/liquid.js). The open glass is the only one that answers "more liquid"; the other three are here so you can see what clear glass costs.')}
 ${opts}
 ${kick('2 · Between H2 and H3')}
-${phP('H3\'s loosening, pulled back: the plates rise half a line, not a whole one, and the flares are half as big. The coupe shown is (a) until you pick. True size, then 3x.')}
-${setRow(H2, 'H2')}${setRow(S, 'Between')}${setRow(H3, 'H3 (v147)')}
-<div style="display:flex;gap:18px;align-items:center;margin:14px 0"><div>${appRows}</div><div style="display:flex;flex-direction:column;gap:8px">${x8(S.ds.cafe)}${x8(S.ds.bar)}</div></div>
+${quote('what if the plate was flipped the other way with the rounding on the bottom')}
+${quote('top two sections\' tree branch ends feel more rounded than bottom one')}
+${phP('Two rows: the plate as it was (its top rises) and flipped (flat on top, rounded underneath, the coupe\'s foot too). The tree\'s tips now take a round that is a share of the tip\'s shorter edge, so a small tier\'s tip is as round, for its size, as the bottom one\'s: 0.35, 0.23 and 0.15, bottom to top (all were 0.35).')}
+${setRow(H2, 'H2')}${setRow(S, 'Between: the plate\'s top rises')}${setRow(SF, 'Between: the plate flipped')}${setRow(H3, 'H3 (v147)')}
+<div style="display:flex;gap:14px;flex-wrap:wrap;margin:14px 0">${fig(S.ds.cafe, 'Plate rises', 120)}${fig(SF.ds.cafe, 'Plate flipped', 120)}${fig(S.ds.bar, 'Foot rises', 120)}${fig(SF.ds.bar, 'Foot flipped', 120)}</div>
+<div style="display:flex;gap:14px;margin:6px 0 14px">${fig(frozen('nature'), 'Tree, v205: every tip 0.35', 150)}${fig(S.ds.nature, 'Tree, now: tips by their edge', 150)}</div>
+<div style="display:flex;gap:18px;align-items:center;margin:8px 0"><div>${appRows(S)}</div></div>
 <table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.35;margin-top:8px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0"></td><td style="padding:4px 8px">Between</td><td style="padding:4px 0 4px 8px">H3 (v147)</td></tr>${rules}</table>
-${kick('3 · The museum: a pattern for built things')}
-${phP('<b>Built things keep their straight lines and wear at their joins.</b> The cup, the coupe and the tree loosen in their curves; a building has few, so it loosens where its parts meet:')}
-<ol style="margin:0 0 12px;padding-left:24px;font-size:18px;line-height:1.45">
-<li><b>No heavier than the rest</b>, by eye and by blur. A building is the heaviest shape in the row, so it sheds a part rather than its rhythm: here the beam goes and the roof sits on the columns, and all four columns stay. Blurred (the darkness inside the live circle after a 1.5px blur, src/museum-blur.js), the museum went from 32.3 to 29.8 overall and from 69.9 to 62.4 at its darkest; the cup is 28.3 and 70.6, the coupe 26.1 and 63.7, the tree 17.9 and 59.0.</li>
-<li>Columns and plinth stay straight. The roof's slopes sweep in a tenth of a line, half the tree's sweep, so the roof is drawn, not ruled.</li>
-<li>Where a column meets the roof or the plinth it has a capital and a base: the opening's corners round to 0.5px (under the 0.6 of an outside corner, so inside stays tighter than outside, and an opening never becomes a pill).</li>
-<li>The roof\'s eaves end the way the plinth\'s step does: a line-high upright over a 1/2px overhang, the same slab end at the top and the bottom. The outer columns meet both with the plain join. Nothing ends in a point.</li>
-<li>Slab ends (plinth, steps) take the line-end round, 0.3 at most, as the plate's ends do.</li>
-<li>A base on the ground stays flat (the table-or-ground rule).</li></ol>
-<div style="display:flex;gap:18px;align-items:center;margin:8px 0">${[[musH2, 'H2 and H3 (v147)'], [musB, 'Between']].map(([d, l]) => `<div style="text-align:center">${x8(d, 200)}<div style="display:flex;gap:8px;justify-content:center;margin-top:6px">${chip(d)}${badge(d)}${badge(d, 72)}</div><div style="font-size:16px;font-weight:700;color:${N};margin-top:4px">${l}</div></div>`).join('')}</div>
-${phP('It would govern every built icon still to draw: <b>Hotel</b> (the bed: a frame of slabs and posts), <b>Neighbourhood</b> (city blocks: slabs with straight streets between), and Venue (the curtain\'s frame). Landmark\'s pick, the ⌘ loop, is a sign rather than a building, so it follows the line rules instead.')}
-${phDetail('the drawings are picks7 (coupe, dome, capital); the measures are src/liquid.js and the wall check on this board.')}`);
+${kick('3 · The museum: architecture')}
+${quote('how might this style be reflected in architectural things like this that are a lot of straight lines')}
+${phP('The beam-shed museum is gone ("no this is awful"), and its rule with it. H2\'s museum is the base. Three ways to bring the set\'s hand to a building of straight lines, each a rule a hotel, city blocks or the curtain\'s frame could follow. Each keeps all its parts; the weight is shown as it is.')}
+${musRows}
+${phDetail('the drawings are picks7 (coupe lean, plate under, museum arch); the measures are src/liquid.js and src/blur-between.js.')}`);
 }
 // (g7y: the tree's decision folded into the human direction; its board is archived)
 // g7z (owner: "give me a board with the original icons next to the newest version of icon in order of what we're

@@ -54,6 +54,9 @@ const HUMAN = h => c => {
   if (c.hole) return fit(c, c.angle <= 105 ? JOIN : 0.3);
   if (!c.convex && c.angle >= 75 && c.angle <= 105 && Math.min(c.lin, c.lout) >= 1.5) return Math.min(h.flare, 0.45 * Math.min(c.lin, c.lout));
   if (c.convex && c.angle >= 75 && c.angle <= 105) return fit(c, Math.min(c.lin, c.lout) <= 2 ? h.end : h.mass);
+  // g7ae (owner: "top two sections' tree branch ends feel more rounded than bottom one"): h.tipShare, an acute tip's
+  // round as a share of its shorter edge (0.35 at most), so a small tier's tip is as round, for its size, as a big one's
+  if (h.tipShare && c.convex && c.angle < 75) return Math.min(LAWS7.joint(c), h.tipShare * Math.min(c.lin, c.lout));
   return LAWS7.joint(c);
 };
 module.exports = { LAWS7, LAW_NAMES, fit, scaled, TRAP, JOIN, HUMAN };
