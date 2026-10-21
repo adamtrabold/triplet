@@ -11,7 +11,7 @@ const P7 = require('./picks7.js');
 const P7H = require('./picks7h.js');   // v105 (g7h) as shown, frozen for the g7i before/after
 const P6 = require('./picks6.js');
 const { LAWS6 } = require('./laws6.js');
-const { LAWS7, LAW_NAMES, scaled, fit, TRAP } = require('./laws7.js');
+const { LAWS7, LAW_NAMES, scaled, fit, TRAP, HUMAN } = require('./laws7.js');
 const { measure } = require('./optics.js');
 const { W, WH, DRAW, plus, star, BATCH } = P7;
 const ROOT = path.join(__dirname, '..');
@@ -224,7 +224,7 @@ function sheetIntro(n) {
 <div class="q"><b>And</b>"${Q_PRACTICE}"</div>
 <p class="att">The same six (café, bar, museum, nature, the + and the Star), redrawn at 1.5px. Every change below comes from an established icon-design practice, named where it's used:</p>
 <ul class="facts">${P.map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul>
-<p class="sm"><b>Sheet 1 is the set</b>, judged together at real size, (two mature sets appear only as a craft comparison, never as a size reference). Sheet 2 is each drawing, before and after. Sheet 6 is the grid, changed by this redraw.</p>
+<p class="sm"><b>Sheet 1 is the set</b>, judged together at real size, (two other sets appear for comparison, not a craft benchmark). Sheet 2 is each drawing, before and after. Sheet 6 is the grid, changed by this redraw.</p>
 <p class="sm mute">The main board (Batch 1: the set) is drawn with the proposed corners, by joint, and 2px of air (the team's call: the difference doesn't show at true size). Visited and the home-screen icon are unchanged.</p>
 <div class="q"><b>The question</b>${ASK}</div>
 </section>`;
@@ -259,7 +259,7 @@ function sheetSet(W_, n) {
 <div class="lab">Interiors, enlarged 8x, with their widths</div>
 <div class="set big">${INTERIORS}</div>
 <p class="sm mute">Every counter and slot is at least the line (1.5px), so it stays open at 12px and 24px. The one gap under it is the 1px cut between the cup and its saucer, open at both ends (a gap, not a passage).</p>
-<div class="lab">Ours, then Material, then Phosphor: 24px and 12px, at 1x</div>
+<div class="lab">Ours, then Material, then Phosphor (for comparison, not a craft benchmark): 24px and 12px, at 1x</div>
 <div class="srow"><div class="k">Ours, 24</div><div class="set">${newRow(24)}${uis(false)}</div></div>
 ${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">${nm.split(' (')[0]}, 24</div><div class="set">${rs.map(r => refBare(r)).join('')}</div></div>`).join('')}
 <div class="srow"><div class="k">Ours, 12</div><div class="set">${BATCH.map(([id]) => chip(GD.joint[12][id].c12.d)).join('')}</div></div>
@@ -275,7 +275,7 @@ ${REFS.map(([nm, rs]) => `<div class="srow"><div class="k">Blurred: ${nm.split('
 </section>`;
 }
 
-const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring and both reference cups, at 24 and 3x</div>
+const HANDLE = `<div class="lab">The handle: the ear (now) beside the g7 ring and the two comparison cups (for comparison, not a craft benchmark), at 24 and 3x</div>
 <div class="set">${badge(GD.joint[12].cafe.d)}${badge(RING.d)}${refInBadge(REFS[0][1][0])}${refInBadge(REFS[1][1][0])}</div>
 <div class="set big">${badge(GD.joint[12].cafe.d, 72)}${badge(RING.d, 72)}${refInBadge(REFS[0][1][0], 72)}${refInBadge(REFS[1][1][0], 72)}</div>
 <p class="sm"><b>Kept: the ear.</b> At 24 it reads as a handle joined to the cup, as both references do; the ring read as a separate bubble.</p>`;
@@ -513,6 +513,59 @@ ${rows}
 // ---- THE MASTER GRID (owner, 10-20: "please have a board with the master grid"): the one source a new
 // icon is drawn from. Every figure here is built from the live rules (KEY/CLASS and the roots in picks7.js,
 // the joint law in laws7.js, fitS() and starRc() here), so the board changes whenever a rule does.
+// ---- g7t EXPLORATION: more human, by rule (not shipped unless he picks one) --------------------------
+const H_Q = 'These tune the whole set toward more rounded, flared, hand-drawn shapes, each by one rule. Does any feel right, or keep the current set?';   // the director's wording (turn 81)
+// the star at a size that balances with the set (director, turn 82: the hole minimum drove it 15% wider
+// than v133): its points reach as far as the +'s arms, each at its own size
+const PLUS_SPAN = (() => { const b = measure(UD.joint.plus.d).box; return (b.x1 - b.x0) * 26.4 / 24; })();
+const STAR_BAL = (() => { let lo = 0.3, hi = 1.2, d; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; d = E.build(star(20, m, LINEW), { law: scaled(LAWS7.joint, 24 / 20) }).d; const b = measure(d).box; if ((b.x1 - b.x0) * 20 / 24 > PLUS_SPAN) hi = m; else lo = m; } return d; })();
+const HSETS = [
+  ['Now (v134): monoweight', 'The set as it is: every join takes the tight inside round (0.15px); the star as shipped.', {}, LAWS7.joint, 1, false],
+  ['H1: monoweight, plus flares at joins', 'Where a post meets a mass (a stem, a trunk, a handle), the join FLARES with a round of one line (1.5px) that may sweep up to 0.45 of the shorter edge, so joins sweep instead of meeting at near-points. Counters, slots and notches stay tight. The star\'s points reach as far as the +\'s arms.', {}, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 1, true],
+  ['H2: monoweight, flares, a domed foot, drooping branches, and air', 'H1, plus three rules: a foot that holds a glass up by its stem is a DOME (a new root shape); a tier\'s underside lifts toward the trunk by half a line, so the branches droop; and the fit stops at 11/12 of the cut, so no glyph is pushed to the edge of its box.', { droop: 0.5, dome: true }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true],
+  ['H3: monoweight relaxed: free posts 1 1/4, flaring into their joins', 'H2, plus: a post that stands free (the coupe\'s stem, the trunk) thins to 1 1/4px between its joins and flares out of them with a line and a half (2.25px), as batch 1\'s stem did. Walls, counters and every other line stay 1.5.', { droop: 0.5, dome: true, post: 1.25 }, HUMAN({ flare: 2.25, mass: 0.6, end: 0.3 }), 11 / 12, true],
+].map(([nm, rule, o, law, fk, bal]) => {
+  const ds = {};
+  for (const [id] of BATCH) {
+    const [cls, apex] = CLASS[id], kw = KEY[cls][0] * fk, bh = (KEY[cls][1] + apex) * fk, dr = s => DRAW[id](s, { style: 'mono', ...o });
+    let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), { law, tightHoles: true }).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
+    const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), { law, tightHoles: true }).d);
+    ds[id] = E.build(E.xform(prims, 1, 0, 0, ox + r4(12 - (m.box.cx + m.cx) / 2), oy + r3(12 - (m.box.cy + m.cy) / 2)), { law, tightHoles: true }).d;
+  }
+  ds.star = bal ? STAR_BAL : UD.joint.star.d;
+  return { nm, rule, ds };
+});
+function sheetHuman() {
+  const N = COL.navy, I2 = COL.ink2, O = COL.or;
+  const title = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 14px">${t_}</div>`;
+  const ui = (id, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${UD.joint[id].d}" fill="${N}"/></svg>`;
+  const chip12 = d => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
+  const b1 = OLD.bar.d;
+  const setRow = S => `<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;padding:22px 0;border-top:1px solid ${COL.hair}">
+<div><div style="font-size:21px;font-weight:700;color:${N};margin-bottom:6px">${S.nm}</div><div style="font-size:16px;line-height:1.45;color:${I2}">${S.rule}</div></div>
+<div><div style="display:flex;gap:14px;align-items:center">${BATCH.map(([id]) => badge(S.ds[id])).join('')}${ui('plus', 26.4)}<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="${S.ds.star}" fill="${N}"/></svg><span style="width:12px"></span>${BATCH.map(([id]) => chip12(S.ds[id])).join('')}</div>
+<div style="display:flex;gap:16px;margin-top:14px;align-items:center">${BATCH.map(([id]) => badge(S.ds[id], 168)).join('')}<svg width="185" height="185" viewBox="0 0 24 24" aria-hidden="true"><path d="${UD.joint.plus.d}" fill="${N}"/></svg><svg width="140" height="140" viewBox="0 0 24 24" aria-hidden="true"><path d="${S.ds.star}" fill="${N}"/></svg></div></div></div>`;
+  return `<div style="width:1600px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
+<div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${I2};text-transform:uppercase">Icon grid · an exploration, nothing ships unless you pick it</div>
+<h1 style="margin:6px 0 10px;font-size:44px;line-height:1.1;color:${N}">More human, by rule</h1>
+<p style="margin:0 0 18px;font-size:19px;line-height:1.45;max-width:1200px">You said: "i still find myself pining for that original shape. i think it's the fact that it feels more delicate. that more humanistic approach to curves gives it a handmade feel that i think calls back to the physicality of making vintage work." Below, three tunings of the whole set, each a grid rule applied to all of them, not a redraw of one, at true size (with the 12px chips) and at 7x. Counters and the size classes stay as they are.</p>
+<div style="margin:0 0 36px;padding:24px 28px;background:${COL.paper};border-top:4px solid ${O}"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin-bottom:8px">The question</div><div style="font-size:26px;line-height:1.3;color:${N};font-weight:600">${H_Q}</div></div>
+<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:center;margin:0 0 30px">
+<div>${title('The feeling: batch 1\'s coupe')}<div style="font-size:16px;line-height:1.45;color:${I2}">Shown for the feeling only, not as a target. What made it feel drawn by hand: its stem <b>flared</b> into the bowl and the foot (its joins took a round of about a line), its foot was a <b>dome</b>, not a slab, its bowl a full curve, and its tree (not shown) had <b>drooping</b> branches. Those are the qualities the tunings carry, as rules, to every icon.</div></div>
+<div style="display:flex;gap:18px;align-items:center">${badge(b1)}${badge(b1, 192)}</div></div>
+${HSETS.map(setRow).join('')}
+${REFS.map(([nm, rs]) => `<div style="display:grid;grid-template-columns:330px 1fr;gap:28px;padding:22px 0;border-top:1px solid ${COL.hair}">
+<div><div style="font-size:21px;font-weight:700;color:${N};margin-bottom:6px">${nm.split(' (')[0]}</div><div style="font-size:16px;line-height:1.45;color:${I2}">For comparison, not a craft benchmark: in our badge, at our box.</div></div>
+<div><div style="display:flex;gap:14px;align-items:center">${rs.slice(0, 4).map(r => refInBadge(r)).join('')}${refBare(rs[4], 26.4)}${refBare(rs[5], 20)}</div>
+<div style="display:flex;gap:16px;margin-top:14px;align-items:center">${rs.slice(0, 4).map(r => refInBadge(r, 168)).join('')}${refBare(rs[4], 185)}${refBare(rs[5], 140)}</div></div></div>`).join('')}
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:36px">
+<div>${title('Rules that bend')}<div style="font-size:16px;line-height:1.5">
+<p style="margin:0 0 10px"><b>Interior tighter than exterior</b> (your rule) bends at one kind of corner only: a join where a post meets a mass. A flare is an inside corner rounder than the outside ones next to it; that is what makes it read as pulled, not cut. Counters, slots and the tree's notches stay tight in every tuning.</p>
+<p style="margin:0 0 10px"><b>Every base is a slab</b> (your root-shape ask) gains one exception in H2 and H3: a foot that holds something up by a stem is a DOME. Today that is only the coupe; later it would be a lamp, a trophy, a bell. A base something sits flat on (the saucer, the plinth) stays a slab.</p>
+<p style="margin:0 0 10px"><b>Monoweight</b> (your pick) holds in H1 and H2; H3 relaxes it for free-standing posts only, and says so in its name.</p><p style="margin:0 0 10px"><b>The Outline class</b>: in H1 to H3 the star\'s points reach as far as the +\'s arms (the shipped star\'s 4px hole minimum made it 15% wider than v133, the biggest yet); its hole is then 2 lines, the old minimum.</p><p style="margin:0"><b>The fit</b> (H2, H3) stops at 11/12 of the cut. The + has no joins to flare.</p></div></div>
+<div>${title('Not used')}<div style="font-size:16px;line-height:1.5">No other icon set is used as a model here. Material and Phosphor are shown at the foot for comparison, not as a craft benchmark (you: "not an example of good craft", and "just to see how much *better* ours are"). Apple's published method for drawing glyphs is studied for practice only; none of its glyphs are shown.</div></div></div>
+</div>`;
+}
 function sheetMaster() {
   const N = COL.navy, O = COL.or, H = COL.hair, I2 = COL.ink2, PA = COL.paper;
   const lab = (x, y, t, o = {}) => `<text x="${f2(x)}" y="${f2(y)}" font-family="Archivo, Arial, sans-serif" font-size="${o.fs || 0.55}" font-weight="${o.fw || 700}" fill="${o.fill || I2}" text-anchor="${o.a || 'start'}">${t}</text>`;
@@ -637,7 +690,7 @@ const SETS = (() => {
   const refs = REFS.map(([nm, rs]) => {
     const at = id => rs[CATS.indexOf(id)];
     return {
-      name: nm.split(' (')[0], sub: nm.includes('Material') ? 'Google\'s set, for comparison' : 'for comparison',
+      name: nm.split(' (')[0], sub: 'for comparison, not a craft benchmark',
       badge: (id, px = 24) => refInBadge(at(id), px),
       pin: id => `<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15.25" fill="${COL.navy}" stroke="${COL.navy}" stroke-width="1.5"/><g transform="translate(4 4)">${refG(at(id), COL.paper)}</g></svg>`,
       chip: id => `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><g transform="translate(-6 -6)">${refG(at(id), COL.navy)}</g></svg>`,
@@ -849,7 +902,7 @@ ${sec('Pressure test: the batch 2 subjects on this grid')}
 ${sec('Weight: the line marks')}
 ${p('In our blur, a 1.5px line can\'t get darker than about 58 and the solid places reach 75, so the Star and the + read light. You found 1.5px too light and the heavier row far too heavy; the line marks drew at 1.75px in v130, which you found close but still too heavy; they now draw at 1 2/3px. The Weight board, to the right, shows the new row between both rows you saw.')}
 <div style="margin:0 0 64px"></div>
-${sec('Craft comparison only, not a size reference: two well-made sets, for drawing quality')}
+${sec('Material and Phosphor: for comparison, not a craft benchmark')}
 <div style="${grid}">${head}${SETS.slice(1).map(row).join('')}</div>
 </div>`;
 }
@@ -863,7 +916,7 @@ if (require.main === module) {
     fs.writeFileSync(path.join(ROOT, 'cards-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 7: batch 1 redrawn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
-    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
+    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0}</style></head><body>${fn()}</body></html>\n`);
     fs.writeFileSync(path.join(ROOT, 'board-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Batch 1, the set</title>
@@ -933,7 +986,7 @@ renderVals() { return {}; }
 </body>
 </html>
 `);
-    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
+    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">

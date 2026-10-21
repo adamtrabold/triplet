@@ -114,7 +114,7 @@ function corners(item, law, info, opts = {}) {
       const inkAngle = convex ? interior : interior; // for concave, the empty side holds `interior`
       const straight = prev.isStraight() && next.isStraight();
       const lin = prev.length, lout = next.length;
-      let r = law({ convex: isHole ? false : convex, angle: inkAngle, lin, lout, straight, pt: [P0.x, P0.y] });
+      let r = law({ convex: isHole ? false : convex, hole: isHole, angle: inkAngle, lin, lout, straight, pt: [P0.x, P0.y] });
       // an INK TRAP (g7 fix, contrast compensation at joins): the law may return { trap: [a, t] } for
       // a join; the corner is then cut by a small V: from a point a back along each edge to a point t
       // into the ink along the corner's bisector, thinning the join instead of adding ink to it.
@@ -269,7 +269,7 @@ function erode(d, w, miter = true) {
   }
   return out;
 }
-function build(prims, { law, penW, info, centre, noCaps } = {}) {
+function build(prims, { law, penW, info, centre, noCaps, tightHoles } = {}) {
   const ers = prims.filter(q => q.t === 'E');
   if (ers.length) {
     let acc = join(prims.filter(q => q.t !== 'E'), penW);
@@ -293,7 +293,7 @@ function build(prims, { law, penW, info, centre, noCaps } = {}) {
     return { d, far, bounds: { x: b.x, y: b.y, w: b.width, h: b.height } };
   }
   const it = join(prims, penW);
-  const d = law ? corners(it, law, info, { noCaps }) : it.pathData;
+  const d = law ? corners(it, law, info, { noCaps, tightHoles }) : it.pathData;
   const b = it.bounds;
   // farthest ink point from the badge centre, for the fit check
   let far = 0;

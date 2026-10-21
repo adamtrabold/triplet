@@ -3532,8 +3532,68 @@ rules themselves work against what he's asking for.
   balances with (the hole minimum is open to the designer). Not a fix
   sent alone.
 
+---
 
-## Turn 84: design director, "More human, by rule" (v136): 6, not sent
+## Turn 83: icon designer, g7t: more human, by rule (canvas v136, an exploration; nothing shipped)
+
+A new board, **"More human, by rule"** (`Grid7Human`, below the main board), shows three tuned sets beside the current one. The question uses turn 81's wording.
+
+**What made batch 1 feel drawn by hand:**
+- its stem **flared** into the bowl and the foot (the g6 law gave its joins a round of about a line);
+- its foot was a **dome**;
+- its tree's branches **drooped**;
+- turn 82 adds: its stem was thinner than the line, and nothing was pushed to the edge of its box.
+
+Each quality is a rule applied by joint kind or class, never per icon.
+
+**Engine and law:**
+- `HUMAN(h)` in `src/laws7.js`: a join where a post meets a mass (concave, 75–105°, both edges at least a line long) flares with `h.flare`, up to 0.45 of the shorter edge. Counter corners (`c.hole`) and notches stay tight.
+- `build(..., { tightHoles })` passes `hole` to the law.
+
+**Drawing options** (`src/picks7.js`; the shipped default is unchanged):
+- `droop`: a tier's underside lifts toward the trunk, and the tier below still reaches a line up into it;
+- `dome`: the coupe's foot is a DOME root;
+- `post`: the width of a free-standing post.
+
+**The four rows:**
+- **Now (v134): monoweight.**
+- **H1: monoweight, plus flares at joins** (1 line, 1.5px). The star is balanced: its points reach as far as the +'s arms.
+- **H2: monoweight, flares, a domed foot, drooping branches, and air.** The droop is half a line; the fit stops at 11/12 of the cut.
+- **H3: monoweight relaxed: free posts 1 1/4, flaring into their joins** (2.25px). Only the stem and trunk thin; walls, counters and every other line stay 1.5.
+
+**Rules that bend, stated on the board:**
+- **Interior tighter than exterior:** bends at post-to-mass joins only. Counters, slots and notches stay tight.
+- **Every base is a slab:** H2 and H3 add DOME for a base that holds something up by a stem (the coupe now; a lamp, trophy or bell later). The saucer and the plinth stay slabs.
+- **Monoweight:** relaxed only in H3, and its name says so.
+- **The star:** the shipped star's 4px hole minimum made it 15% wider (turn 82). In H1 to H3 its points reach as far as the +'s arms instead, and its hole falls back to about 2 lines.
+
+**Retired:** the Material and Phosphor comparisons are gone from the main board, Set and Drawings (the owner: "not an example of good craft"). The v134 copies are on Archive as `Archive-G7s-*`. Apple's method is studied only; none of its glyphs are on the board.
+
+**My read:**
+- **H1:** the flares are subtle at true size.
+- **H2:** the dome and the flared stem read clearly.
+- **H3:** closest to batch 1's delicacy (the thin stem and trunk sweeping into their joins), and still one family with the rest.
+- **Museum:** barely changes in any of the three, because its joins are slot corners, which stay tight.
+
+**Not done yet:**
+- H-checks on the tuned sets;
+- a true-size "in the app" row (list rows and the map);
+- the shipped star's size (turn 82). The balanced star is shown as the proposal.
+
+NEXT: design director scores the three on turn 81's criteria, harmony first. The grid audit follows on whichever he picks.
+
+---
+
+## Turn 84: icon designer, the comparisons restored (canvas v137)
+
+Owner: "i do actually like keeping material and phosphor in there just to see how much *better* ours are". The Material and Phosphor strips are back on the main board, the Set board and the Drawings handle row, and are new at the foot of "More human, by rule". Each is labelled "for comparison, not a craft benchmark". The v136 boards are archived (`Archive-G7t-*`). The human board moved down to clear the longer main board. Central (iconists.co/central) is noted as the craft bar for finish and construction rigour only; none of its glyphs are on any board.
+
+NEXT: design director scores the three tuned sets.
+
+---
+
+
+## Turn 85: design director, "More human, by rule" (v136/v137): 6, not sent
 
 Scored on turn 81's criteria plus delicacy (turn 82), harmony first.
 
@@ -3593,8 +3653,8 @@ Scored on turn 81's criteria plus delicacy (turn 82), harmony first.
 5. **Checks.** Run H-outline, the counter check and H-curve on every
    tuned glyph.
 6. **In-app true-size row** for Now and each tuning.
-7. **Comparison strip.** Put Material and Phosphor back, labelled
-   "comparison". Update the "Not used" panel: Central, Nucleo, Lucide
+7. **Comparison strip.** Restored in v137 (turn 84). Still to do:
+   update the "Not used" panel: Central, Nucleo, Lucide
    and Apple are the craft bar; Lucide glyphs may be shown, labelled
    craft reference; Central and Nucleo appear as links only.
 

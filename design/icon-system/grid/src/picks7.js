@@ -207,8 +207,11 @@ const DRAW = {
     }
     const FB = Y(o.fb ?? 10.833);
     const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = FB - fh + 0.01;
-    const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : o.style === 'settle' ? POSTT(c, sy0, sy1, wSettle(sy0, 0, s), wSettle(sy1, 0, s)) : POST(c, sy0, sy1);
-    const foot = R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
+    const stem = o.style === 'woodcut' ? POSTF(c, X(bd - 0.5), FB - WH + 0.01, true, true) : o.style === 'settle' ? POSTT(c, sy0, sy1, wSettle(sy0, 0, s), wSettle(sy1, 0, s)) : o.post ? R(c - o.post / 2, sy0, o.post, sy1 - sy0, { root: 'POST' }) : POST(c, sy0, sy1);   // o.post (g7t exploration): a free-standing post's width
+    // g7t exploration, o.dome: a foot that holds a glass up by its stem is a DOME (its top a low arc, a line
+    // high at the centre, its ends worn to the corner rule), as batch 1's was; a base an object sits flat on
+    // (the saucer, the plinth) stays a SLAB
+    const foot = o.dome ? D(`M${X(2)} ${f(FB)}C${X(2)} ${f(FB - 0.8 * fh)} ${X(3.9)} ${f(FB - fh)} ${f(c)} ${f(FB - fh)}C${X(8.1)} ${f(FB - fh)} ${X(10)} ${f(FB - 0.8 * fh)} ${X(10)} ${f(FB)}Z`, { root: 'DOME' }) : R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
     return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, ...(Array.isArray(band) ? band : [band])];
   },
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
@@ -266,10 +269,15 @@ const DRAW = {
       let cum = 0;
       for (let i = 0; i < N; i++) { cum += HV[i]; tiers.push([i === 0 ? apex : null, apex + crown * cum / sH, hwN * WV[i] / WV[N - 1]]); }
       for (let i = 1; i < N; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r_ = (hwU - sig * hwU) / hwL; tiers[i][0] = (byU - r_ * byL) / (1 - r_); }
+      // a drooping underside lifts the tier's middle: the tier below must still reach a line up into it
+      if (o.droop) for (let i = 1; i < N; i++) tiers[i][0] = Math.min(tiers[i][0], tiers[i - 1][1] - (o.droop + 1) * W / u);
     }
     const out = [], tTop = B - W / u;
-    for (const [ty, by, hw] of tiers) out.push(GABLE(c, X(ty), Y(by), X(hw)));
-    out.push(o.style === 'woodcut' ? POSTF(c, X(tTop), s, true, false) : o.style === 'burin' ? POSTW(c, X(tTop), s, W, (W + FREE) / 2, FREE) : o.style === 'settle' ? POSTT(c, X(tTop), s, wSettle(X(tTop), 0, s), W) : POST(c, X(tTop), s));
+    // g7t exploration, o.droop (in lines): each tier's underside lifts toward the trunk by that much, so the
+    // branch tips droop, as batch 1's did (a gable whose base is a shallow arc)
+    const dr = (o.droop || 0) * W;
+    for (const [ty, by, hw] of tiers) out.push(dr ? { ...D(`M${f(c)} ${X(ty)}L${f(c + X(hw))} ${Y(by)}Q${f(c + X(hw) * 0.45)} ${f(Y(by) - dr)} ${f(c)} ${f(Y(by) - dr)}Q${f(c - X(hw) * 0.45)} ${f(Y(by) - dr)} ${f(c - X(hw))} ${Y(by)}Z`), root: 'GABLE' } : GABLE(c, X(ty), Y(by), X(hw)));
+    out.push(o.style === 'woodcut' ? POSTF(c, X(tTop), s, true, false) : o.style === 'burin' ? POSTW(c, X(tTop), s, W, (W + FREE) / 2, FREE) : o.style === 'settle' ? POSTT(c, X(tTop), s, wSettle(X(tTop), 0, s), W) : o.post ? R(c - o.post / 2, X(tTop), o.post, s - X(tTop), { root: 'POST' }) : POST(c, X(tTop), s));
     return out;
   },
 };

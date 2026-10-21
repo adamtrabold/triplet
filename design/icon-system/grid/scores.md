@@ -1087,5 +1087,5 @@ The verdict stands within our own set:
 - **His "humanistic curves" untouched** by any row.
 - **Missing:** the checks on the tuned rows, an in-app row, and the
   Material/Phosphor comparison strip.
-- **Fix list:** jam turn 84. Rubric re-anchored to Central, Nucleo,
+- **Fix list:** jam turn 85. Rubric re-anchored to Central, Nucleo,
   Lucide and Apple (H-curve added).

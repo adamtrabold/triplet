@@ -42,4 +42,18 @@ const LAWS7 = {
   press: c => join(c) ? SQUARE : fit(c, c.convex ? 0.22 : (c.angle < 75 ? 0.45 : 0.9)),
 };
 const LAW_NAMES = { joint: 'By joint', wear: 'Even wear', press: 'Pressed' };
-module.exports = { LAWS7, LAW_NAMES, fit, scaled, TRAP, JOIN };
+// g7t EXPLORATION (owner on v134: "i still find myself pining for that original shape. i think it's the fact
+// that it feels more delicate. that more humanistic approach to curves gives it a handmade feel that i think
+// calls back to the physicality of making vintage work"): HUMAN(h) is the joint law with FLARES. Where a
+// post meets a mass at about a right angle (a JOIN: concave, 75-105 degrees, both edges at least a line
+// long), the corner flares with a round of h.flare, as a stem is pulled out of the glass or a trunk grows
+// into its branches; it may take up to 0.45 of the shorter edge (FIT is 0.2), so a flare can read. Counter
+// and slot corners (h.hole) and sharp notches stay tight (JOIN): the inside of a counter is never flared.
+// Outside mass corners take h.mass, cut ends h.end. Everything else is the joint law.
+const HUMAN = h => c => {
+  if (c.hole) return fit(c, c.angle <= 105 ? JOIN : 0.3);
+  if (!c.convex && c.angle >= 75 && c.angle <= 105 && Math.min(c.lin, c.lout) >= 1.5) return Math.min(h.flare, 0.45 * Math.min(c.lin, c.lout));
+  if (c.convex && c.angle >= 75 && c.angle <= 105) return fit(c, Math.min(c.lin, c.lout) <= 2 ? h.end : h.mass);
+  return LAWS7.joint(c);
+};
+module.exports = { LAWS7, LAW_NAMES, fit, scaled, TRAP, JOIN, HUMAN };
