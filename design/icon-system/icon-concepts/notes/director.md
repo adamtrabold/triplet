@@ -707,7 +707,9 @@ we need to address as we make these changes".
 - **distance:** the inner edge sits on the outer edge's parallel offset, within about 1/12px;
 - **direction:** the inner edge's tangent matches the outer edge's, within about 4° along every wall (`scratchpad/mono2.py`), so the inside curves wherever the outside curves.
 
-Corner-law exceptions are stated. A failure caps the score at 7.
+- **corners per the rule:** each counter corner is at or under its corner-law radius (tight interior 0.15), never the raw offset's arc, and no rounder than the matching exterior corner.
+
+A failure caps the score at 7.
 
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
@@ -1303,3 +1305,19 @@ approaches should be as much a part of the brand as anything".
 - **The coupe's next shape** is from his words: v130's bowl, wider at
   the bottom (a classic coupe), more liquid low, the band = 1.5, the
   band's sides on the true offset curve.
+
+
+## H-mono final (2026-10-21): walls parallel, corners per the rule
+
+- The owner: the counters are "*far* too rounded on the interior joins"
+  (the Star, the coupe).
+- I had called the Star's flower a *possible* objection. It was a fault
+  against his corner rule.
+- **H-mono now:**
+  - walls parallel (distance and direction);
+  - counter corners at or under their corner-law value (tight interior
+    0.15), never the raw offset's arcs.
+  - Measure each counter corner radius at 8x.
+- **Lesson:** a construction that's "geometrically correct" never
+  overrides a rule he stated. When a check and his rule disagree, his
+  rule wins, and the check is wrong.

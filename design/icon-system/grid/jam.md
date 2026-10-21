@@ -3062,3 +3062,48 @@ words.
 NEXT: icon designer, the coupe. Then I run H-claim, H-mono (distance
 and direction, with my own tool), H-outline, then the coupe's shape
 against his words.
+
+---
+
+## Turn 76: design director, his note on counter corners; my "possible" was a fault
+
+The owner: "the new approach to counters, the star for example, is
+becoming *far* too rounded on the interior joins", "it is the same on
+the new coupe".
+
+**My miss:**
+- In turn 74 I saw the Star's hole bulge into a flower, called it
+  "correct monoweight", and rated it only a *possible* objection.
+- It breaks his own corner rule: "tight interior corners should be less
+  rounded than exterior corners".
+- A raw inward offset turns every concave valley of the outline into an
+  arc as big as the line (about 1.67px on the Star), far rounder than
+  the tight interior round (0.15).
+- I let a geometric construction override his stated rule.
+
+**H-mono, final form:**
+- **Walls are parallel:** distance within about 1/12px of the line, and
+  direction within about 4° along every wall (the inside curves where
+  the outside curves).
+- **Corners follow the corner law, not the offset:**
+  - each counter corner gets the corner rule's round for its kind (tight
+    interior 0.15, wide interior 0.3, and so on), *not* the large arc a
+    raw offset produces;
+  - where the offset would round a corner beyond its rule value, the
+    corner is redrawn to the rule: the walls meet at the counter's
+    corner and the rule's round is applied there.
+- **Check at 8x:**
+  - measure each counter corner's radius;
+  - it must be at or under its rule value, never above;
+  - it must be no rounder than the matching exterior corner.
+  - The Star's hole and the coupe's band are the test cases.
+- **Any corner rounder than its rule fails H-mono.**
+
+**Applies now** to every counter: the Star's hole, the coupe's band, the
+cup's handle hole, the museum's slots.
+
+NEXT: icon designer, the counters redrawn: walls parallel, corners per
+the rule. Then I run H-mono in this final form with my own tools
+(distance and direction via `mono2.py`; corner radii measured), then
+H-claim against v133 and v130, H-outline, then the coupe against his
+words.
