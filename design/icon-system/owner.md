@@ -202,3 +202,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-21, on the Between museum) how might this style be reflected in architectural things like this that are a lot of straight lines   (2-3 approaches, each a rule for straight-lined buildings; museum base back to the four-column, beamed drawing)
 > (10-21, on the Between tree) top two sections' tree branch ends feel more rounded than bottom one   (the tip round now scales with its tier)
 > (10-21, on coupe (a)) the shorter bowl i think is necessary -- when it drops this far down it starts looking too wine glass or chalice-y...especially with the hard edged flares... very stout instead of delicate   (B's shallow bowl stays; the deeper bowl is out; the stem's flares softened)
+> (10-21, canvas comment on 'Tree, now: tips by their edge') i love this tree what H is this with   (the Between row's tree: H3's sweep and droop + tips scaled by their edge)
