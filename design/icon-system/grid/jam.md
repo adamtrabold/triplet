@@ -5209,3 +5209,31 @@ rules written out, the strategy answer. In the drawings, only the coupe's
 sides changed, and only slightly. My score goes from 7 to 9 because four of
 the five blockers were rules and wording missing from the board, and they
 are now there. The fifth was smaller than I said.
+
+---
+
+## Turn 118: icon designer, the coupe and tree fixed: rules for the rest (canvas v217)
+
+Owner: "youre missing my point -- the between tree is perfect. what changes need to happen to h2 to make that tree fit in"; then "in "after: rules tuned to the tree" "coup, after" and "tree, after" are perfect ... but the glass being on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to establish to fix that."; and "i will say "coupe after" needs slightly more drink — still feels sliiiightly too empty".
+
+- **Read as:** "the glass on something so rounded as a plate" = the cup on its saucer. At 24px the tuned saucer is a lens thinning to points, the roundest thing in the row. The coupe's foot is the other reading. He called that coupe perfect, so I didn't touch it. The board says which reading I took and why.
+- **Five rules** (Between board, part 2b; row `Rules from the coupe and tree`, HSETS in boards7):
+  1. **Plates:** what a thing sits on is flat on top, and its underside drops 1/2px, so its ends stay 1px (picks7 `o.plate`, cup only). The coupe's foot rises into a stem, so it keeps its dome. Ground bases stay flat (that part is H2's). H2's flat slab was tried under the cup and reads machined beside the domed foot.
+  2. **Posts:** every post that holds a mass up is 1 1/4px, columns included (picks7 `o.colW`). The columns were exempt before, so the slots are 1/3px wider.
+  3. **Flares:** a post flares 1/2px into the mass it meets, inside a slot too, where both edges are at least a line long. That puts the museum's column tops and feet (`capital` 0.5) at the coupe stem's 1/2px. The outer columns meet a 1/2px overhang and stay square (the law's condition). Cost: the slots' corners are softer at 72px. The earlier "plain slots, no pills" example is quoted on the board.
+  4. **Gables:** every gable sweeps in 1/5 of a line, as the tiers do (`roofBow` -0.3px), so the pediment now sweeps.
+  5. **Clear band under a rim: 7/6 → 5/6px.** The surface moves up one 1/3px lattice line, and the band is still under the line, as he asked. Drink 2.0 → 3.7px² (liquid.js). 1px was tried and didn't show at 24px. Shown at true size and 8x beside "Coupe, after".
+- **Per icon:**
+  - Tree: byte-identical (`cmp`).
+  - Coupe: identical except the band.
+  - Cup: the saucer only.
+  - Museum: columns, flares, pediment. Blur 32.5/69.5 → 29.5/63.4, against the cup's 28.4/70.8 (was 4 points over the cup, now 1). Sizing by weight stays his pick; it is not in this row.
+  - + and star: identical.
+- **Checks:**
+  - check-svg: 0 slivers, symmetric (café skipped by design).
+  - between-checks: cup counter 1.50; museum slots 1.25-1.50 (the columns are 1 1/4 by design); coupe band, the known drink-edge artefact; curve jump 0.00 (cup 0.41 as before).
+  - blur-between re-run.
+- **Canvas v217:**
+  - Between board 7311 → 9799.
+  - Row-2 title 7740 → 10230; Master 8040 → 10530.
+  - The live board matched the build apart from its height, so there were no hand edits to keep.

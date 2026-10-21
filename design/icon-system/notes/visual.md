@@ -1,5 +1,16 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-21, canvas v217, turn 118; second icon designer)
+
+- **Fixed points (owner):** "Coupe, after" and "Tree, after" in the tuned row are "perfect". The task is rules that make the rest belong. He named two failures: the plate ("the glass being on something so rounded as a plate feels off") and the museum ("completely disconnected"). He also wanted "slightly more drink".
+- **Built:** row `Rules from the coupe and tree` (boards7 HSETS, handle `R2`) and section 2b on the Between board.
+  - Five rules: plates drop 1/2px under, ends 1px (`o.plate`, cup only); every post that holds a mass up is 1 1/4, columns too (`o.colW`); flares 1/2 inside slots too (`capital` 0.5, `plainOuter`); gables sweep like tiers (`roofBow` -0.3); clear band 5/6.
+  - Svgs: `svg/g7/between/*-r2.svg`.
+- **Reading I chose:** plate = the cup's saucer. Stated on the board. If he meant the coupe's foot, the plate rule would need to reach the foot, and the coupe was declared perfect, so ask.
+- **Costs shown:** the museum's slot corners soften (an earlier "no pills" example). The museum is still 1 blur point over the cup (it was 4). Monoweight's exception now covers the columns too.
+- **Open, his calls:** museum sizing by weight; open glass vs bar (the coupe keeps the bar); whether the long Between board's older parts (1, 2, the tuned table) can go to the Archive. I asked the orchestrator rather than moving them.
+- **Tooling:** `scratchpad/d2/v.js` fits one glyph with the tuned row's law and opts (quick variants). `view.py` renders a true-size + 8x sheet. `sec.js` screenshots one board section.
+
 ## Update (2026-10-21, canvas v215, turn 115)
 
 - **Score:** the director gave v214 a 7 (turn 114). All five fixes are made as rules (jam turn 115).

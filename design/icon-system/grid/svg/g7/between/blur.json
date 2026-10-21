@@ -19,11 +19,23 @@
   "mean": 21.4,
   "core": 57.8
  },
+ "bar-r2": {
+  "mean": 22.3,
+  "core": 57.5
+ },
  "bar": {
   "mean": 21.3,
   "core": 57.6
  },
  "cafe-flipped": {
+  "mean": 28.4,
+  "core": 70.8
+ },
+ "cafe-h3-flipped": {
+  "mean": 27.6,
+  "core": 70.7
+ },
+ "cafe-r2": {
   "mean": 28.4,
   "core": 70.8
  },
@@ -39,9 +51,17 @@
   "mean": 32.4,
   "core": 69.8
  },
+ "museum-r2": {
+  "mean": 29.5,
+  "core": 63.4
+ },
  "museum": {
   "mean": 32.5,
   "core": 69.5
+ },
+ "nature-r2": {
+  "mean": 18,
+  "core": 59.4
  },
  "nature": {
   "mean": 18,

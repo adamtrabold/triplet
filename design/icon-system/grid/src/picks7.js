@@ -127,7 +127,10 @@ const DRAW = {
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
     // g7y exploration, o.dome (H3): a base that holds something on a ring or a point is a DOME, the saucer too
     const sy = T(X(bot) + CUT), sh = slabH(o);
-    const saucer = o.saucerFlip ? D(`M0 ${f(sy)}C0 ${f(sy + 0.8 * sh)} ${f(0.3 * s)} ${f(sy + sh)} ${f(s / 2)} ${f(sy + sh)}C${f(0.7 * s)} ${f(sy + sh)} ${f(s)} ${f(sy + 0.8 * sh)} ${f(s)} ${f(sy)}Z`, { root: 'DOME' }) : typeof o.under === 'number' ? D(`M0 ${f(sy)}H${f(s)}V${f(sy + sh - o.under)}C${f(0.7 * s)} ${f(sy + sh + o.under / 3)} ${f(0.3 * s)} ${f(sy + sh + o.under / 3)} 0 ${f(sy + sh - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M0 ${f(sy + sh)}V${f(sy + o.dome)}C${f(0.3 * s)} ${f(sy - o.dome / 3)} ${f(0.7 * s)} ${f(sy - o.dome / 3)} ${f(s)} ${f(sy + o.dome)}V${f(sy + sh)}Z`, { root: 'DOME' }) : o.dome ? D(`M0 ${f(sy + sh)}C0 ${f(sy + 0.2 * sh)} ${f(0.3 * s)} ${f(sy)} ${f(s / 2)} ${f(sy)}C${f(0.7 * s)} ${f(sy)} ${f(s)} ${f(sy + 0.2 * sh)} ${f(s)} ${f(sy + sh)}Z`, { root: 'DOME' }) : o.style === 'brush' || o.style === 'mono' ? R(0, sy, s, sh, { root: 'SLAB' }) : SLAB(0, s, sy);
+    // g7ak PLATE RULE (owner on v216: "the glass being on something so rounded as a plate feels off"): o.plate, a plate a
+    // thing sits on: flat on top, its underside dropping o.plate px at the centre, so its ends keep the slab less that
+    // (1/2 on a 1 1/2px slab: ends 1px); never a lens thinning to a point. A cup-only option, so the coupe's foot keeps its dome
+    const saucer = typeof o.plate === 'number' ? D(`M0 ${f(sy)}H${f(s)}V${f(sy + sh - o.plate)}C${f(0.7 * s)} ${f(sy + sh + o.plate / 3)} ${f(0.3 * s)} ${f(sy + sh + o.plate / 3)} 0 ${f(sy + sh - o.plate)}Z`, { root: 'DOME' }) : o.saucerFlip ? D(`M0 ${f(sy)}C0 ${f(sy + 0.8 * sh)} ${f(0.3 * s)} ${f(sy + sh)} ${f(s / 2)} ${f(sy + sh)}C${f(0.7 * s)} ${f(sy + sh)} ${f(s)} ${f(sy + 0.8 * sh)} ${f(s)} ${f(sy)}Z`, { root: 'DOME' }) : typeof o.under === 'number' ? D(`M0 ${f(sy)}H${f(s)}V${f(sy + sh - o.under)}C${f(0.7 * s)} ${f(sy + sh + o.under / 3)} ${f(0.3 * s)} ${f(sy + sh + o.under / 3)} 0 ${f(sy + sh - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M0 ${f(sy + sh)}V${f(sy + o.dome)}C${f(0.3 * s)} ${f(sy - o.dome / 3)} ${f(0.7 * s)} ${f(sy - o.dome / 3)} ${f(s)} ${f(sy + o.dome)}V${f(sy + sh)}Z`, { root: 'DOME' }) : o.dome ? D(`M0 ${f(sy + sh)}C0 ${f(sy + 0.2 * sh)} ${f(0.3 * s)} ${f(sy)} ${f(s / 2)} ${f(sy)}C${f(0.7 * s)} ${f(sy)} ${f(s)} ${f(sy + 0.2 * sh)} ${f(s)} ${f(sy + sh)}Z`, { root: 'DOME' }) : o.style === 'brush' || o.style === 'mono' ? R(0, sy, s, sh, { root: 'SLAB' }) : SLAB(0, s, sy);
     if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
       // the loop's wall at its top arm, its back and its bottom arm; the inner edge is two quarter curves that
       // follow the outer half circle, so the width changes smoothly from arm to back to arm
@@ -307,16 +310,18 @@ const DRAW = {
         out.push(fil(x0 + 0.01, yt(x0) - 0.01, -1, 1), fil(x0 + span - 0.01, yt(x0 + span) - 0.01, 1, 1), fil(x0 + 0.01, pl + 0.01, -1, -1), fil(x0 + span - 0.01, pl + 0.01, 1, -1)); }
     } else
     if (o.capital) {
-      const r = Math.min(o.capital, gap / 3), k = 0.5523;
+      const r = Math.min(o.capital, ((span - n * (o.colW ?? W)) / (n - 1)) / 3), k = 0.5523;
       if (o.roofBow ?? o.bow) { const bw = o.roofBow ?? o.bow, sl = (x0_, y0_, x1_, y1_) => { const mx = (x0_ + x1_) / 2, my = (y0_ + y1_) / 2, L = Math.hypot(x1_ - x0_, y1_ - y0_), nx = (y1_ - y0_) / L, ny = -(x1_ - x0_) / L, sg = Math.sign((mx - s / 2) * nx || 1); return `Q${f(mx + sg * nx * 2 * bw)} ${f(my + sg * ny * 2 * bw)} ${f(x1_)} ${f(y1_)}`; };
         out[0] = bd ? { ...D(`M${X(0.25)} ${f(pb + bd)}V${f(pb)}${sl(X(0.25), pb, X(6), ap)}${sl(X(6), ap, X(11.75), pb)}V${f(pb + bd)}Z`), root: 'GABLE', also: 'SLAB' } : { ...D(`M${eL} ${f(pb + (fz || 0.01))}${fz ? `V${f(pb)}` : ''}${sl(eL, pb + (fz ? 0 : 0.01), X(6), ap)}${sl(X(6), ap, eR, pb + (fz ? 0 : 0.01))}${fz ? `V${f(pb + fz)}` : ''}Z`), root: 'GABLE' }; }
       out.push(R(x0, ct - 0.01, span, pl - ct + 0.02, { root: 'POST' }));   // the colonnade, its slots cut below
-      for (let i = 0; i < n - 1; i++) { const a = x0 + W + i * (W + gap), b = a + gap;
+      // g7ak POST RULE: o.colW, a column's width (a post that holds a mass up: the free-post width); the outer edges stay
+      const cw = o.colW ?? W, gp = (span - n * cw) / (n - 1);
+      for (let i = 0; i < n - 1; i++) { const a = x0 + cw + i * (cw + gp), b = a + gp;
         out.push(cut(D(`M${f(a + r)} ${f(ct)}H${f(b - r)}C${f(b - r + r * k)} ${f(ct)} ${f(b)} ${f(ct + r - r * k)} ${f(b)} ${f(ct + r)}V${f(pl - r)}C${f(b)} ${f(pl - r + r * k)} ${f(b - r + r * k)} ${f(pl)} ${f(b - r)} ${f(pl)}H${f(a + r)}C${f(a + r - r * k)} ${f(pl)} ${f(a)} ${f(pl - r + r * k)} ${f(a)} ${f(pl - r)}V${f(ct + r)}C${f(a)} ${f(ct + r - r * k)} ${f(a + r - r * k)} ${f(ct)} ${f(a + r)} ${f(ct)}Z`))); }
       // the outer columns' capitals and bases: a quarter-round fill in each corner where a column meets an overhang
       const fil = (x, y, dx, dy) => D(`M${f(x)} ${f(y)}H${f(x + dx * r)}C${f(x + dx * r * (1 - k))} ${f(y)} ${f(x)} ${f(y + dy * r * (1 - k))} ${f(x)} ${f(y + dy * r)}Z`);
-      if (!flush && !fz) out.push(fil(x0 + 0.01, ct + fz - 0.01, -1, 1), fil(x0 + span - 0.01, ct + fz - 0.01, 1, 1));
-      if (!flush && !fz) out.push(fil(x0 + 0.01, pl + 0.01, -1, -1), fil(x0 + span - 0.01, pl + 0.01, 1, -1));   // flush: the outer columns are the building's sides, no fills (a fill in a 1/2px step left a 0.1px ledge)
+      if (!flush && !fz && !o.plainOuter) out.push(fil(x0 + 0.01, ct + fz - 0.01, -1, 1), fil(x0 + span - 0.01, ct + fz - 0.01, 1, 1));
+      if (!flush && !fz && !o.plainOuter) out.push(fil(x0 + 0.01, pl + 0.01, -1, -1), fil(x0 + span - 0.01, pl + 0.01, 1, -1));   // flush: the outer columns are the building's sides, no fills (a fill in a 1/2px step left a 0.1px ledge)
     } else
     for (let i = 0; i < n; i++) { const cx = x0 + W / 2 + i * (W + gap); out.push(o.style === 'woodcut' ? POSTF(cx, ct - 0.01, pl + 0.01, true, true) : o.style === 'settle' ? POSTT(cx, ct - 0.01, pl + 0.01, wSettle(ct, 0, s), wSettle(pl, 0, s)) : POST(cx, ct - 0.01, pl + 0.01)); }
     out.push(o.arch && o.arch.cast ? { ...D(roundPoly([[X(0.25), pl], [X(11.75), pl], [X(11.75), pl + slabH(o)], [X(0.25), pl + slabH(o)]], o.arch.cast)), root: 'SLAB' } : R(X(0.25), pl, X(11.75) - X(0.25), slabH(o), { root: 'SLAB' }));
