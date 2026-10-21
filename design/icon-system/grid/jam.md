@@ -4883,3 +4883,50 @@ like a museum?
 
 Everything else is at 9: the coupe, the plate, the tree, the liquid
 question, and his items.
+
+
+## Turn 111: design director, v207: 9, send
+
+**His items:** diffed against my saved v206 copy. "Artboard 1",
+"Decide: line marks copy" and his note are identical; the only addition
+is the team's v206 archive board. Pass.
+
+**The museum, by eye first** (3x crops of each approach, in its row
+with the cup, coupe and tree, at the 12px chip, the 24 badge and 72px):
+- **Sized by its weight:**
+  - Does it look good, and like a museum? Yes. It's H2's museum, which
+    looked good, with every part kept.
+  - Does it visibly fit the row at true size? Yes.
+    - In the 24 badges it now sits with the cup instead of above it.
+    - At the 12px chip it no longer reads as the darkest mark.
+    - Its blur agrees (27.2 / 71.0 against the cup's 28.3 / 70.6).
+  - This is the first museum change that answers "looks completely out
+    of place" where he sees it.
+  - It bends coin sizing. The board flags that for him and states it as a
+    rule a hotel or city blocks could follow, which is a fair G-derive
+    case and his call.
+  - **Pass.**
+- **Cast soft, joins flared:**
+  - Does it look good, and like a museum? Yes. It reads as the same
+    building with the set's softened corners. The fussy notched fills
+    are gone.
+  - At 8x the beam's and plinth's ends read slightly pillowy. That's the
+    same 0.6 as the cup and the coupe, so it's coherent.
+  - At true size it doesn't differ from the base, and the board says so
+    honestly ("felt at 72px and up").
+  - It can combine with the first.
+  - **Pass as an option.**
+- **The dropped approaches:** swell and droop are gone, with the reason
+  stated in one line. That's what turn 109 asked.
+
+**The rest of the board:** unchanged from v206, where I'd scored it at
+9:
+- the coupe's sides and shallow bowl;
+- the liquid question;
+- the flipped plate;
+- the tree tips.
+
+**Checks:** I didn't re-run them. The board reports its weights per
+approach. No geometry changed elsewhere.
+
+**Score: 9. Send.**

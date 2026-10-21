@@ -1218,3 +1218,14 @@ The verdict stands within our own set:
   sagging, pagoda roof) don't look good. The flared joins nearly do. None
   shows at true size.
 - **Fixes:** jam turn 109.
+
+
+## Round g7af museum rework (canvas v207), 2026-10-21: 9, send
+
+- **Sized by its weight:**
+  - looks good and like a museum;
+  - visibly sits with the cup at 24px and 12px;
+  - the coin-sizing exception is flagged for him.
+- **Cast soft:** looks good. It's felt only at 72px and up, and the board
+  says so.
+- **His items:** unchanged (diffed).
