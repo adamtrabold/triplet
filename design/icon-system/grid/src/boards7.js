@@ -658,7 +658,7 @@ const OPEN_QS = [
 ];
 function sheetStart() {
   const qs = OPEN_QS.map(([b, q], k) => `<div style="display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:24px;font-weight:700;color:${COL.or}">${k + 1}</div><div><div style="font-size:19px;line-height:1.35;color:${COL.navy};font-weight:600">${q}</div><div style="font-size:16px;color:${COL.ink2};margin-top:2px">Board: ${b}</div></div></div>`).join('');
-  const rows = [['1', 'Waiting on you', 'one board per question, top row'], ['2', 'In progress', 'the six icons now, and the tuned versions beside them'], ['3', 'Decided', 'the grid: the rules every icon is drawn by'], ['4', 'Detail', 'earlier sheets, for the team; optional']]
+  const rows = [['1', 'Waiting on you', 'one board per question, top row'], ['2', 'In progress', 'the six icons now, the tuned versions beside them, and, at the end of the row, <b>Every icon: today and newest</b> (every icon in the order we\'re making them, today beside the newest drawing)'], ['3', 'Decided', 'the grid: the rules every icon is drawn by'], ['4', 'Detail', 'earlier sheets, for the team; optional']]
     .map(([n, h, s]) => `<div style="padding:8px 0;font-size:19px;line-height:1.35"><b style="color:${COL.navy}">${n} · ${h}</b>: ${s}</div>`).join('');
   const decided = ['One line, 1.5px, everywhere (monoweight); the + and the star 1 2/3px', 'Every icon sized by its class to the same 12px coin', 'Like parts cut from one shape: slab, post, gable, vessel, loop', 'Every meeting point slightly round, inside tighter than outside', 'Every counter is the outline moved in by one line', 'Edges on the 1/3px lattice']
     .map(s => `<li style="margin:0 0 6px">${s}</li>`).join('');
@@ -687,73 +687,83 @@ function sheetDecideCoupe() {
 // and stored at 6x by originals.json), the newest from the shipped set (Now, v134)
 const ORIG = JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/originals.json'), 'utf8'));
 function sheetOriginals() {
-  const N = COL.navy, I2 = COL.ink2, ds = HSETS[0].ds, LG = 3;
+  const N = COL.navy, I2 = COL.ink2, ds = HSETS[0].ds, MAXL = 3, ROOM = 150;
   const img = (k, sc = 1) => { const o = ORIG[k]; return `<img src="${o.uri}" width="${f2(o.w * sc)}" height="${f2(o.h * sc)}" alt="" style="display:block;flex:none">`; };
-  const none = () => `<div style="font-size:14px;line-height:1.25;color:${I2};text-align:center">none in the app</div>`;
-  const plusNew = (sc = 1) => plusBadge(uiPath(ds.plus, 26.4 * sc), 56 * sc);
-  // [name, today: inventory keys (or null: no icon in the app), newest: (scale) => html (or null), status, note on today]
-  const P = (id, sc) => badge(ds[id], 24 * sc), U = (d, px) => sc => uiPath(d, px * sc);
-  const B1 = 'Drawn in batch 1', ND = 'Not drawn yet';
+  const none = `<div style="font-size:16px;line-height:1.25;color:${I2};text-align:center;padding:0 4px">none yet</div>`;
+  // the newest, at scale sc, each on the box the app gives it (the badge 24 in a 30 cell, the + on its 60px Float badge, the star 20)
+  const P = id => sc => badge(ds[id], 24 * sc);
+  const plusNew = sc => plusBadge(uiPath(ds.plus, 26.4 * sc), 60 * sc);
+  const starNew = sc => uiPath(ds.star, 20 * sc);
+  const B1 = 'Drawn (batch 1)', ND = 'Not drawn yet';
+  // [name, today: originals.json keys (null: no icon in the app yet), newest: (scale) => html (null: not drawn), status, note]
   const rows = [
-    ['Places', null],
+    ['Places'],
     ['Restaurant', ['badge-restaurant'], null, `${ND} · pick: fork and knife`],
-    ['Café', ['badge-cafe'], sc => P('cafe', sc), `${B1} · cup and saucer`],
-    ['Bar', ['badge-bar'], sc => P('bar', sc), `${B1} · the coupe, as shipped (v134)`],
+    ['Café', ['badge-cafe'], P('cafe'), `${B1} · cup and saucer`],
+    ['Bar', ['badge-bar'], P('bar'), `${B1} · the coupe, as shipped (v134)`],
     ['Venue', null, null, `${ND} · pick: the curtain`, 'New category: no icon in the app yet'],
-    ['Museum', null, sc => P('museum', sc), `${B1} · column front`, 'New category: no icon in the app yet'],
-    ['Landmark', null, null, `${ND} · pick: the Nordic loop (⌘)`, 'New category: no icon in the app yet'],
+    ['Museum', null, P('museum'), `${B1} · column front`, 'New category: no icon in the app yet'],
+    ['Landmark', null, null, `${ND} · pick: the ⌘ loop`, 'New category: no icon in the app yet'],
     ['Attraction', ['badge-attraction'], null, `${ND} · pick: Ferris wheel`],
     ['Park', null, null, `${ND} · pick: park bench`, 'New category: no icon in the app yet'],
-    ['Nature', ['badge-nature'], sc => P('nature', sc), `${B1} · conifer`],
+    ['Nature', ['badge-nature'], P('nature'), `${B1} · conifer`],
     ['Shopping', ['badge-shopping'], null, `${ND} · pick: bag`],
     ['Hotel', ['badge-hotel'], null, `${ND} · pick: bed`],
-    ['Shapes', null],
-    ['Neighbourhood', ['badge-district'], null, `${ND} · pick: city blocks`, 'Today: District'],
+    ['Shapes'],
+    ['Neighbourhood', ['badge-district'], null, `${ND} · pick: city blocks`, 'Today it’s called District'],
     ['Street', ['badge-street'], null, `${ND} · pick: walker`],
-    ['The app’s controls', null],
-    ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'Today: the whole Float badge'],
-    ['Star', ['g-star-open', 'g-star'], U(ds.star, 20), `${B1} · the outline (not yet starred)`, 'Today: open and starred'],
+    ['The app’s controls'],
+    ['+ (add a place)', ['ctl-add'], plusNew, `${B1} · lines 1 2/3px`, 'Shown on its orange Float badge'],
+    ['Star', ['g-star-open', 'g-star'], starNew, `${B1} · lines 1 2/3px`, 'Today: empty and starred. Newest: the outline; the starred fill comes later'],
     ['Account', ['ctl-account'], null, ND, 'Today: the sign-in badge, signed in'],
-    ['Close the add form ×', ['ctl-add-open'], null, ND, 'Today: the form’s ×, the same as the tag’s'],
+    ['Close ×', ['ctl-add-open'], null, ND, 'The place tag and the add tag use the same ×'],
     ['Sort', ['ctl-sort'], null, ND],
     ['Filters', ['ctl-filters'], null, ND],
     ['Locate', ['ctl-locate'], null, ND],
-    ['Close tag ×', ['tag-x'], null, ND],
-    ['Directions', ['tag-directions'], null, ND],
+    ['Directions', ['tag-directions'], null, ND, 'On the place tag'],
+    ['Mark visited ✓', ['tag-ochk'], null, ND, 'On the place tag, before the stamp'],
     ['Empty list', ['empty-compass'], null, ND, 'Today: the Directions compass, greyed'],
-    ['Current choice tick (sort, plan)', ['sort-check'], null, ND],
-    ['New plan +', ['plan-plus'], null, ND],
-    ['More (…)', ['plan-more'], null, ND],
-    ['Menu chevron (list title, plan picker)', ['ctl-title-chev'], null, ND, 'Today: the list title’s chevron'],
-    ['Zoom + / −', ['ctl-zoom'], null, ND, 'Today: Leaflet’s text buttons'],
-    ['Lower the list', ['ctl-collapse'], null, ND, 'Today: the list tab, a chevron over a bar'],
+    ['Tick (the current choice)', ['sort-check', 'menu-check'], null, ND, 'Today there are two: the sort menu’s and the list-title menu’s'],
+    ['New plan +', ['menu-plus'], null, ND, 'The add tag’s Add button uses the same +'],
+    ['Chevrons', ['ctl-title-chev', 'menu-chev'], null, ND, 'Down: the list title, the add tag’s city and type, the place tag’s city. Right: menu rows and plan rows'],
+    ['Zoom + / −', ['ctl-zoom'], null, ND, 'Today: Leaflet’s own text buttons'],
+    ['Lower the list', ['ctl-collapse'], null, ND, 'The list’s tab'],
     ['Row delete ×', ['ctl-delete'], null, ND, 'Today: a text character'],
     ['Remove from plan ×', ['plan-x'], null, ND, 'Today: a text character'],
-    ['Add to plan +', ['plan-add'], null, ND, 'Today: a text character, turned'],
-    ['Home screen', null],
-    ['Home-screen icon', ['home'], null, ND, 'Today: apple-touch-icon, at 60px'],
+    ['Add to plan +', ['plan-add'], null, ND, 'Today: the × character, turned'],
+    ['New in the app since the inventory (10-13)'],
+    ['A city / All places', ['menu-ring'], null, ND, 'The list-title menu'],
+    ['Plans', ['menu-route'], null, ND, 'The list-title menu and the Plans list'],
+    ['Show / hide a city', ['sec-eye'], null, ND, 'A city’s header in the list; hidden adds a slash'],
+    ['Home screen'],
+    ['Home-screen icon', ['home'], null, ND, 'Today: the apple-touch-icon, at 60px'],
   ];
-  // every icon sits on a tile of the surface it sits on in the app (the newest on the same surface, so the pair compares)
-  const cell = (inner, w, bg) => `<div style="width:${w}px;align-self:stretch;min-height:${w === 64 ? 56 : 120}px;display:flex;gap:6px;align-items:center;justify-content:center;flex:none;background:${bg || 'transparent'};border-radius:4px">${inner}</div>`;
-  const big = k => { const o = ORIG[k]; return Math.min(LG, 150 / Math.max(o.w, o.h)); };
-  const head = `<div style="display:flex;gap:10px;align-items:end;padding:0 0 8px;font-size:14px;letter-spacing:.08em;font-weight:700;color:${I2};text-transform:uppercase"><div style="flex:1">Icon</div>${cell('Today', 64)}${cell('Newest', 64)}${cell('Today, larger', 170)}${cell('Newest, larger', 170)}</div>`;
+  // the larger view: one scale per row for today AND the newest (3x, or less where today's render is wide)
+  const scaleOf = today => { if (!today) return MAXL; const w = today.reduce((a, k) => a + ORIG[k].w, 0) + 6 * (today.length - 1), h = Math.max(...today.map(k => ORIG[k].h)); return Math.min(MAXL, ROOM / Math.max(w, h)); };
+  const cell = (inner, w, bg, minH) => `<div style="width:${w}px;min-height:${minH}px;display:flex;gap:6px;align-items:center;justify-content:center;flex:none;background:${bg || 'transparent'};border-radius:4px">${inner}</div>`;
+  const lab = t => `<div style="font-size:15px;letter-spacing:.06em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 4px">${t}</div>`;
   let n = 0;
   const body = rows.map(([nm, today, nw, status, note]) => {
-    if (status === undefined) return `<div style="font-size:15px;letter-spacing:.12em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin:26px 0 4px">${nm}</div>`;
+    if (status === undefined) return `<div style="font-size:16px;letter-spacing:.12em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin:34px 0 6px">${nm}</div>`;
     n++;
-    const t1 = today ? today.map(k => img(k)).join('') : none(), t3 = today ? today.map(k => img(k, big(k) / (today.length > 1 ? 1.6 : 1))).join('') : none(), bg = today ? ORIG[today[0]].bg : COL.paper;
-    const n1 = nw ? nw(1) : '', n3 = nw ? nw(nm.startsWith('+') ? 2 : LG) : `<div style="font-size:15px;color:${I2}">not drawn yet</div>`;
-    const drawn = status.startsWith(B1);
-    return `<div style="display:flex;gap:10px;align-items:center;padding:12px 0;border-top:1px solid ${COL.hair}">
-<div style="flex:1;min-width:0"><div style="font-size:19px;font-weight:700;color:${N};line-height:1.2"><span style="color:${I2};font-weight:600">${n}.</span> ${nm}</div><div style="font-size:15px;line-height:1.35;margin-top:3px;color:${drawn ? COL.ord : I2};font-weight:${drawn ? 700 : 400}">${status}</div>${note ? `<div style="font-size:14px;line-height:1.3;color:${I2};margin-top:2px">${note}</div>` : ''}</div>
-${cell(t1, 64, bg)}${cell(n1, 64, bg)}${cell(t3, 170, bg)}${cell(n3, 170, bg)}</div>`;
+    const sc = scaleOf(today), bg = today ? ORIG[today[0]].bg : COL.paper, drawn = status.startsWith(B1);
+    const t1 = today ? today.map(k => img(k)).join('') : none, tL = today ? today.map(k => img(k, sc)).join('') : none;
+    const n1 = nw ? nw(1) : '', nL = nw ? nw(sc) : `<div style="font-size:16px;color:${I2}">not drawn yet</div>`;
+    const big = `${f2(sc)}x`.replace('.00x', 'x');
+    return `<div style="padding:16px 0 18px;border-top:1px solid ${COL.hair}">
+<div style="font-size:22px;font-weight:700;color:${N};line-height:1.2"><span style="color:${I2};font-weight:600">${n}.</span> ${nm}</div>
+<div style="font-size:18px;line-height:1.35;margin-top:3px;color:${drawn ? COL.ord : I2};font-weight:${drawn ? 700 : 500}">${status}</div>${note ? `<div style="font-size:17px;line-height:1.35;color:${I2};margin-top:2px">${note}</div>` : ''}
+<div style="display:flex;gap:12px;align-items:stretch;margin-top:12px">
+<div>${lab('Today')}${cell(t1, 92, bg, 72)}</div><div>${lab('Newest')}${cell(n1, 92, bg, 72)}</div>
+<div>${lab(`Today, ${big}`)}${cell(tL, 214, bg, 164)}</div><div>${lab(`Newest, ${big}`)}${cell(nL, 214, bg, 164)}</div></div></div>`;
   }).join('');
-  return phBoard('In progress', 'Today and newest, every icon', `${phP('You: "give me a board with the original icons next to the newest version of icon in order of what we\'re actually making".')}
-${phP('One row per icon, in the order they\'re being made. <b>Today</b> is the app as it is now, in its colours (from the "Every icon today" inventory). <b>Newest</b> is the latest drawing: the set as shipped at v134 (monoweight, the current coupe), in navy; colour comes later. The first pair is true size; "larger" is 3x (the + is 2x, on its badge). Each pair sits on the surface it sits on in the app.')}
-${phP('Where today comes from: the place badges, the + and the controls in the top bar, the list tab and the add form are rendered from the app on main now; the tag, menu, plan and in-row controls are the inventory\'s renders from 10-13 (their code hasn\'t changed since).')}
-<div style="margin:6px 0 4px;font-size:19px;line-height:1.4;color:${N}"><b>${rows.filter(r => r[3] && r[3].startsWith(B1)).length} of ${rows.filter(r => r[3] !== undefined).length} drawn</b> (batch 1: café, bar, museum, nature, the + and the star).</div>
-${head}${body}
-<div style="margin-top:22px;font-size:16px;line-height:1.45;color:${I2}">Not listed, and why: Area and Other are gone (the locked list). The Visited stamp and sticker, clusters, plan stop numbers, you-are-here and the tag's anchor dot stay as they are. The filter chips use the place icons. Leaflet's attribution flag isn't ours.</div>`);
+  const count = rows.filter(r => r[3] !== undefined), drawnN = count.filter(r => r[3].startsWith(B1)).length;
+  return phBoard('In progress', 'Every icon: today and newest', `${phP('You: "give me a board with the original icons next to the newest version of icon in order of what we\'re actually making".')}
+${phP('One row per icon, in the order we\'re making them. <b>Today</b> is the app as it is now, in its colours. <b>Newest</b> is the latest drawing: the set as it stands (monoweight, the coupe as shipped at v134, the + and the star at 1 2/3px), in navy; colour comes later. The first pair is true size; the larger pair is the same scale for both. Each sits on the surface it sits on in the app.')}
+<div style="margin:6px 0 4px;font-size:20px;line-height:1.4;color:${N}"><b>${drawnN} of ${count.length} drawn</b>: café, bar, museum, nature, the + and the star.</div>
+${body}
+<div style="margin-top:26px;font-size:17px;line-height:1.45;color:${I2}"><b style="color:${N}">Where today comes from:</b> the place badges, the tag's icons, the zoom and the in-row characters are the inventory's renders from 10-13 (their code hasn't changed); the +, the account, the top bar, the list tab, the menus, the eye and the add tag are rendered from the app on main now.</div>
+<div style="margin-top:12px;font-size:17px;line-height:1.45;color:${I2}"><b style="color:${N}">Not listed:</b> Area and Other are gone (the locked list). The Plans list's old tick, + and ··· menu are gone from the app. The visited stamp and sticker, clusters, plan stop numbers, you-are-here and the tag's anchor dot stay as they are. The filter chips use the place icons. The add tag's city menu shows a pin only for a new city; it isn't shown here.</div>`);
 }
 function sheetMaster() {
   const N = COL.navy, O = COL.or, H = COL.hair, I2 = COL.ink2, PA = COL.paper;
@@ -1103,7 +1113,7 @@ if (require.main === module) {
     fs.writeFileSync(path.join(ROOT, 'cards-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390"><title>Grid round 7: batch 1 redrawn</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0;background:#E4DCCB}${css}</style></head><body><div class="cards">${cards.join('\n')}</div></body></html>\n`);
-    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule'], ['start-g7.html', sheetStart, 'Start here'], ['decide-tunings-g7.html', sheetDecideTunings, 'Decide: more human?'], ['decide-coupe-g7.html', sheetDecideCoupe, 'Decide: the coupe'], ['originals-g7.html', sheetOriginals, 'Today and newest, every icon']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
+    for (const [f, fn, ttl] of [['master-g7.html', sheetMaster, 'The master grid'], ['taper-g7.html', sheetTaper, 'The taper'], ['human-g7.html', sheetHuman, 'More human, by rule'], ['start-g7.html', sheetStart, 'Start here'], ['decide-tunings-g7.html', sheetDecideTunings, 'Decide: more human?'], ['decide-coupe-g7.html', sheetDecideCoupe, 'Decide: the coupe'], ['originals-g7.html', sheetOriginals, 'Every icon: today and newest']]) fs.writeFileSync(path.join(ROOT, f), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${ttl}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap">
 <style>body{margin:0}</style></head><body>${fn()}</body></html>\n`);
     fs.writeFileSync(path.join(ROOT, 'board-g7.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Batch 1, the set</title>
@@ -1173,7 +1183,7 @@ renderVals() { return {}; }
 </body>
 </html>
 `);
-    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule'], ['Grid7Start', sheetStart, 'Start here'], ['Grid7DecideTunings', sheetDecideTunings, 'Decide: more human?'], ['Grid7DecideCoupe', sheetDecideCoupe, 'Decide: the coupe'], ['Grid7Originals', sheetOriginals, 'Today and newest, every icon']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
+    for (const [nm, fn, ttl] of [['Grid7Master', sheetMaster, 'The master grid'], ['Grid7Taper', sheetTaper, 'The taper'], ['Grid7Human', sheetHuman, 'More human, by rule'], ['Grid7Start', sheetStart, 'Start here'], ['Grid7DecideTunings', sheetDecideTunings, 'Decide: more human?'], ['Grid7DecideCoupe', sheetDecideCoupe, 'Decide: the coupe'], ['Grid7Originals', sheetOriginals, 'Every icon: today and newest']]) fs.writeFileSync(path.join(out, 'project', nm + '.dc.html'), `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
