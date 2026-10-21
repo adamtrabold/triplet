@@ -690,6 +690,7 @@ function sheetOriginals() {
   const N = COL.navy, I2 = COL.ink2, ds = HSETS[0].ds, MAXL = 3, ROOM = 150;
   const img = (k, sc = 1) => { const o = ORIG[k]; return `<img src="${o.uri}" width="${f2(o.w * sc)}" height="${f2(o.h * sc)}" alt="" style="display:block;flex:none">`; };
   const none = `<div style="font-size:16px;line-height:1.25;color:${I2};text-align:center;padding:0 4px">none yet</div>`;
+  const dash = `<div style="font-size:18px;color:${I2}" aria-label="none">–</div>`;
   // the newest, at scale sc, each on the box the app gives it (the badge 24 in a 30 cell, the + on its 60px Float badge, the star 20)
   const P = id => sc => badge(ds[id], 24 * sc);
   const plusNew = sc => plusBadge(uiPath(ds.plus, 26.4 * sc), 60 * sc);
@@ -739,23 +740,24 @@ function sheetOriginals() {
     ['Home-screen icon', ['home'], null, ND, 'Today: the apple-touch-icon, at 60px'],
   ];
   // the larger view: one scale per row for today AND the newest (3x, or less where today's render is wide)
-  const scaleOf = today => { if (!today) return MAXL; const w = today.reduce((a, k) => a + ORIG[k].w, 0) + 6 * (today.length - 1), h = Math.max(...today.map(k => ORIG[k].h)); return Math.min(MAXL, ROOM / Math.max(w, h)); };
-  const cell = (inner, w, bg, minH) => `<div style="width:${w}px;min-height:${minH}px;display:flex;gap:6px;align-items:center;justify-content:center;flex:none;background:${bg || 'transparent'};border-radius:4px">${inner}</div>`;
+  const scaleOf = today => { if (!today) return MAXL; const w = today.reduce((a, k) => a + ORIG[k].w, 0) + 6 * (today.length - 1), h = Math.max(...today.map(k => ORIG[k].h)); return Math.min(MAXL, Math.floor(ROOM / Math.max(w, h) * 2) / 2); };   // half steps, so the label reads plainly
+  const cell = (inner, w, bg, minH) => `<div style="width:${w}px;min-height:${minH}px;display:flex;gap:6px;align-items:center;justify-content:center;flex:none;background:${bg || 'transparent'};border-radius:4px;box-shadow:inset 0 0 0 1px ${COL.hair}">${inner}</div>`;
   const lab = t => `<div style="font-size:15px;letter-spacing:.06em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 4px">${t}</div>`;
   let n = 0;
   const body = rows.map(([nm, today, nw, status, note]) => {
     if (status === undefined) return `<div style="font-size:16px;letter-spacing:.12em;font-weight:700;color:${COL.ord};text-transform:uppercase;margin:34px 0 6px">${nm}</div>`;
     n++;
     const sc = scaleOf(today), bg = today ? ORIG[today[0]].bg : COL.paper, drawn = status.startsWith(B1);
-    const t1 = today ? today.map(k => img(k)).join('') : none, tL = today ? today.map(k => img(k, sc)).join('') : none;
-    const n1 = nw ? nw(1) : '', nL = nw ? nw(sc) : `<div style="font-size:16px;color:${I2}">not drawn yet</div>`;
-    const big = `${f2(sc)}x`.replace('.00x', 'x');
+    const t1 = today ? today.map(k => img(k)).join('') : dash, tL = today ? today.map(k => img(k, sc)).join('') : none;
+    const n1 = nw ? nw(1) : dash, nL = nw ? nw(sc) : `<div style="font-size:16px;color:${I2}">not drawn yet</div>`;
+    const hL = Math.max(72, Math.round(Math.max(today ? Math.max(...today.map(k => ORIG[k].h)) : 30, nm.startsWith('+') ? 64 : 0) * sc) + 20);
+    const big = `${sc}x`;
     return `<div style="padding:16px 0 18px;border-top:1px solid ${COL.hair}">
 <div style="font-size:22px;font-weight:700;color:${N};line-height:1.2"><span style="color:${I2};font-weight:600">${n}.</span> ${nm}</div>
 <div style="font-size:18px;line-height:1.35;margin-top:3px;color:${drawn ? COL.ord : I2};font-weight:${drawn ? 700 : 500}">${status}</div>${note ? `<div style="font-size:17px;line-height:1.35;color:${I2};margin-top:2px">${note}</div>` : ''}
 <div style="display:flex;gap:12px;align-items:stretch;margin-top:12px">
 <div>${lab('Today')}${cell(t1, 92, bg, 72)}</div><div>${lab('Newest')}${cell(n1, 92, bg, 72)}</div>
-<div>${lab(`Today, ${big}`)}${cell(tL, 214, bg, 164)}</div><div>${lab(`Newest, ${big}`)}${cell(nL, 214, bg, 164)}</div></div></div>`;
+<div>${lab(`Today, ${big}`)}${cell(tL, 214, bg, hL)}</div><div>${lab(`Newest, ${big}`)}${cell(nL, 214, bg, hL)}</div></div></div>`;
   }).join('');
   const count = rows.filter(r => r[3] !== undefined), drawnN = count.filter(r => r[3].startsWith(B1)).length;
   return phBoard('In progress', 'Every icon: today and newest', `${phP('You: "give me a board with the original icons next to the newest version of icon in order of what we\'re actually making".')}
