@@ -5044,3 +5044,70 @@ Owner: "i wanna see h3 with plate flipped (not foot)". A new row is on the Betwe
 - **Canvas:**
   - Only the Between board changed: +178px, to 6688. It ends at 6988, before the row-2 title at 7000.
   - The live board matched the v213 build exactly, so it had no hand edits.
+
+---
+
+## Turn 114: design director, "H3, saucer flipped, rules tuned to the tree" (v214): 7, the coupe's straight sides are back
+
+Scored as a test of the system (owner: "we're building approach rules here
+remember"; "ideally future ones come out perfect on first try"). Re-fetched
+the branch and re-read the live board first: it matches turns 112-113, no
+hand edits. Judged by eye at 1x and 3x of the published board (12px chip, 24
+badge, 72px, the 8x pairs), then at 8x of the svgs beside the Between row's.
+
+**What works:**
+- The tree now comes out of the rules (byte-identical to the Between tree),
+  and its trunk is the coupe's stem: one post rule, one flare rule, one tip
+  rule. "the trunk of this tree looks different from the others" is answered
+  where he sees it.
+- The tuned coupe reads lighter and more delicate than H3's trumpet stem,
+  which is what "very stout instead of delicate" asked for.
+- His strategy question is quoted and answered in plain words, with the cost
+  (1 1/4px posts break monoweight) stated.
+
+**What a seventh icon would inherit wrongly:**
+1. **The coupe's sides.** At 8x, the tuned coupe (H3's bowl) drops straight
+   and upright under the rim before it turns: the exact fault he marked on
+   v205 ("this line on the left and right ... looks too straight compared to
+   the rest of the shape"). The Between coupe fixed it; the tuned row didn't
+   take the fix, because it was made as one row's drawing, not a rule.
+   "Coupe, after" at 8x puts it in front of him.
+2. **Plates and feet split.** The saucer is now flat on top with a dome
+   under; the coupe's foot stays a dome on top. That's his call ("not foot"),
+   but the row's rules table doesn't list it, so a seventh thing that sits on
+   a table has no rule to follow.
+3. **Line ends.** The trunk ends at 0.25 ("a fifth of its width"); the
+   table under it says line ends 0.3. One of them isn't the rule.
+4. **What's left of H3.** With the tree's three values taken, the tuned row
+   differs from "Between: the plate flipped" only in its plates and foot
+   (same museum, flares, posts and tips). That is the plainest answer to
+   "what does including the new tree do for the strategy", and the board
+   doesn't say it. The museum isn't sized by its weight either; say that
+   waits on his pick.
+5. **Two rule tables.** The Between-vs-H3 table now sits under the tuned
+   table as a third set of values ("i am struggling to figure out how to
+   read the file").
+
+**Likely owner objections:** "the coupe sides are still too straight"
+(near certain, he's said it); "so how is this different from Between?";
+the 1 1/4px posts beside a 1.5px line as a new weight inconsistency.
+
+**Score: 7.** Fixes, how is the designer's call:
+1. Carry the coupe-sides fix into the row as a rule (curved silhouettes turn
+   from their ends, no upright run), applied to every icon; check every
+   curved outline at 8x for straight runs.
+2. Put plates and feet in the row's rules table: state the saucer/foot split
+   as a rule a new table-sitting thing can follow, or flag it to him as the
+   one open exception.
+3. Make the line-end value in the table the one the drawings use.
+4. Add one sentence to the strategy answer: what's still H3 in this row
+   (plates and foot), and that the museum's sizing waits on his pick.
+5. One rules table for this row, every rule with its per-icon effect.
+
+**What keeps blocking a 9:** fixes are made inside one row's picks, so a new
+row assembled from another base brings back faults he has already named
+(the straight sides now; the museum's weight before). Until every accepted
+fix lives in the shared rules, each new row re-opens closed notes.
+
+**Changed since my last score?** Yes: a new row (my last score, 9, was the
+v207 museum rework).

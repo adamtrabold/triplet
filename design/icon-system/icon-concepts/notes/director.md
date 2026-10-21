@@ -1712,3 +1712,22 @@ checks; don't eyeball "is it as good as".
   don't look good, though they all "keep every part".
 - A droop that reads as growth on a tree reads as failure on a building.
   Entasis at icon size must be felt, not seen.
+
+## g7ai tuned row (v214, 2026-10-21): 7
+
+- Scored as a system test: does a seventh icon come out right from the
+  rules? The tree does now (rules alone; trunk = stem).
+- **Miss found by eye at 8x against the Between row's svgs:** the tuned
+  coupe is H3's bowl, whose sides drop upright under the rim, the fault he
+  marked on v205. The fix lived in the Between row's drawing, not a rule,
+  so a row built from H3 lost it.
+- **Check added:** before scoring any new row, list every owner note
+  already answered on the board and confirm each holds in the new row's
+  svgs, not just in the row where it was fixed.
+- Other gaps: plates/feet split (his "not foot") missing from the rules
+  table; trunk ends 0.25 vs table 0.3; the row now differs from Between
+  flipped only in plates/foot and the board doesn't say so; two tables.
+- **Recurring blocker:** fixes stay row-local (picks), so new rows re-open
+  closed notes. Push every accepted fix into the shared rule set.
+- Next: the designer's fixes (jam 114), then re-score; nothing to him
+  before 9.

@@ -312,3 +312,12 @@ shipping it.
   ("A · Blaze" label; C's half has the stamp kept, so the lists match).
   `considered-3x` is cleared to send. The Round 3 send list in scores.md
   is final.
+
+## Icon system, g7ai tuned row (v214, 2026-10-21): 7
+
+Full entry in `icon-concepts/notes/director.md` (the icon rubric and
+lessons live there). Short: the tree now comes from the rules; the tuned
+coupe brings back the straight upright sides he marked on v205; the
+plates/feet rule, the line-end value and "what's left of H3" are missing
+from the board. Fixes in `grid/jam.md` turn 114. Recurring blocker: fixes
+stay row-local.

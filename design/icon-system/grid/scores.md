@@ -1229,3 +1229,14 @@ The verdict stands within our own set:
 - **Cast soft:** looks good. It's felt only at 72px and up, and the board
   says so.
 - **His items:** unchanged (diffed).
+
+## Round g7ai tuned row (canvas v214), 2026-10-21: 7
+
+- **Tree:** from the rules alone; trunk = the coupe's stem. Strategy
+  question answered plainly with its cost.
+- **Blocks a 9:** the tuned coupe keeps H3's bowl with straight upright
+  sides under the rim (his v205 note; Between fixed it, the row didn't take
+  it); plates/feet split not in the rules table; trunk ends 0.25 vs table
+  0.3; the board doesn't say the row now differs from Between flipped only
+  in plates and foot; two rule tables.
+- **Fixes:** jam turn 114.
