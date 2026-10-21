@@ -82,6 +82,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-21 · Between board v205 shown:** coupe (a) deeper / (b) open / (c) drink shape / (d) crescent + "which part of the inside looks wrong to you?"; Between row (½-dome plates, ¾ flares); museum: beam shed, four columns, eaves end like the step. `grid/stills/g7ad-museum-eaves-8x.png`
 
+- **10-21 · Between v207 shown:** coupe sides one curve, shallow bowl, ½ flares, 1¼ stem; liquid question (open glass vs clear glass); flipped plate; tree tips scaled; museum: beam back, "sized by its weight" (a tenth smaller) and "cast soft".
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
