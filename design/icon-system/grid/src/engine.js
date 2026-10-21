@@ -124,7 +124,9 @@ function corners(item, law, info, opts = {}) {
       // corner and pulls both handles to the corner, so the curve eases out of the line with no jump in
       // curvature (a hand's stroke, not a compass arc); e = 2.3 keeps the corner about as deep as the arc
       // a counter's corners stay tight compass rounds (tight interior), so its walls stay one line all round
-      const ez = opts.ease && !isHole ? opts.ease : 0;
+      // g7y: line ENDS (a corner on an edge shorter than 2 lines: the end of a slab, a stem, a trunk) keep the
+      // law's plain round, so terminals read the same in every icon; only the corners of masses and joins ease
+      const ez = opts.ease && !isHole && Math.min(lin, lout) >= 3 ? opts.ease : 0;
       let d = r * Math.tan(ang / 2) * (ez || 1);
       cs.push({ d, r, ang, turn, convex, angle: inkAngle, ease: !!ez });
       if (info) info.push({ x: r3(P0.x), y: r3(P0.y), r: r3(r), convex, angle: Math.round(inkAngle) });

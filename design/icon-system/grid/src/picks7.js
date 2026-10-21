@@ -110,7 +110,9 @@ const DRAW = {
     const ct = top + WH / u, cb = eb - WH / u, cr = (cb - ct) / 2, cx = eR - W / u - cr;   // counter, its back a half circle
     const ci = r;                                                     // g7p: the hole starts at the bowl's wall, so the bowl keeps it
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
-    const saucer = o.style === 'brush' || o.style === 'mono' ? R(0, T(X(bot) + CUT), s, slabH(o), { root: 'SLAB' }) : SLAB(0, s, T(X(bot) + CUT));
+    // g7y exploration, o.dome (H3): a base that holds something on a ring or a point is a DOME, the saucer too
+    const sy = T(X(bot) + CUT), sh = slabH(o);
+    const saucer = o.dome ? D(`M0 ${f(sy + sh)}C0 ${f(sy + 0.2 * sh)} ${f(0.3 * s)} ${f(sy)} ${f(s / 2)} ${f(sy)}C${f(0.7 * s)} ${f(sy)} ${f(s)} ${f(sy + 0.2 * sh)} ${f(s)} ${f(sy + sh)}Z`, { root: 'DOME' }) : o.style === 'brush' || o.style === 'mono' ? R(0, sy, s, sh, { root: 'SLAB' }) : SLAB(0, s, sy);
     if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
       // the loop's wall at its top arm, its back and its bottom arm; the inner edge is two quarter curves that
       // follow the outer half circle, so the width changes smoothly from arm to back to arm
@@ -169,7 +171,9 @@ const DRAW = {
     if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
       // the band's sides are the bowl's inner edge between the rim and the drink: points at the line's width
       // in from the bowl, joined by one curve that follows the bowl (its handles along the bowl's tangent)
-      const rimT = o.style === 'mono' ? W : o.style === 'brush' ? WMIN : WH, liq = rimT + W;
+      // g7y (owner: "the empty part should be equal to the thickness of the stroke. or maybe even a little
+      // thinner if that isn't optically what turns out"): o.bandH, the clear band's height (default the line)
+      const rimT = o.style === 'mono' ? W : o.style === 'brush' ? WMIN : WH, liq = rimT + (o.bandH ?? W);
       const B = [[X(bl), 0], [X(bl), X(bk * bd)], [X(bx), X(bd)], [X(6), X(bd)]];
       const bz = (tt, i) => (1 - tt) ** 3 * B[0][i] + 3 * tt * (1 - tt) ** 2 * B[1][i] + 3 * tt * tt * (1 - tt) * B[2][i] + tt ** 3 * B[3][i];
       const dz = (tt, i) => 3 * (1 - tt) ** 2 * (B[1][i] - B[0][i]) + 6 * tt * (1 - tt) * (B[2][i] - B[1][i]) + 3 * tt * tt * (B[3][i] - B[2][i]);
@@ -276,7 +280,11 @@ const DRAW = {
     // g7t exploration, o.droop (in lines): each tier's underside lifts toward the trunk by that much, so the
     // branch tips droop, as batch 1's did (a gable whose base is a shallow arc)
     const dr = (o.droop || 0) * W;
-    for (const [ty, by, hw] of tiers) out.push(dr ? { ...D(`M${f(c)} ${X(ty)}L${f(c + X(hw))} ${Y(by)}Q${f(c + X(hw) * 0.45)} ${f(Y(by) - dr)} ${f(c)} ${f(Y(by) - dr)}Q${f(c - X(hw) * 0.45)} ${f(Y(by) - dr)} ${f(c - X(hw))} ${Y(by)}Z`), root: 'GABLE' } : GABLE(c, X(ty), Y(by), X(hw)));
+    // g7y exploration, o.bow (in lines): each tier's sides bow outward by that much at their middle, so the
+    // tiers read as drawn branches, not ruled triangles (the owner on the tree: "the less mechanical triangles")
+    const bw = (o.bow || 0) * W;
+    const bowSide = (x0, y0, x1, y1) => { if (!bw) return `L${f(x1)} ${f(y1)}`; const mx = (x0 + x1) / 2, my = (y0 + y1) / 2, L = Math.hypot(x1 - x0, y1 - y0), nx = (y1 - y0) / L, ny = -(x1 - x0) / L, s_ = Math.sign((mx - c) * nx || 1); return `Q${f(mx + s_ * nx * 2 * bw)} ${f(my + s_ * ny * 2 * bw)} ${f(x1)} ${f(y1)}`; };
+    for (const [ty, by, hw] of tiers) out.push(dr ? { ...D(`M${f(c)} ${X(ty)}${bowSide(c, X(ty), c + X(hw), Y(by))}Q${f(c + X(hw) * 0.45)} ${f(Y(by) - dr)} ${f(c)} ${f(Y(by) - dr)}Q${f(c - X(hw) * 0.45)} ${f(Y(by) - dr)} ${f(c - X(hw))} ${Y(by)}${bowSide(c - X(hw), Y(by), c, X(ty))}Z`), root: 'GABLE' } : GABLE(c, X(ty), Y(by), X(hw)));
     out.push(o.style === 'woodcut' ? POSTF(c, X(tTop), s, true, false) : o.style === 'burin' ? POSTW(c, X(tTop), s, W, (W + FREE) / 2, FREE) : o.style === 'settle' ? POSTT(c, X(tTop), s, wSettle(X(tTop), 0, s), W) : o.post ? R(c - o.post / 2, X(tTop), o.post, s - X(tTop), { root: 'POST' }) : POST(c, X(tTop), s));
     return out;
   },
