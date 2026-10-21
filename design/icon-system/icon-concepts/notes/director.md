@@ -1340,3 +1340,18 @@ approaches should be as much a part of the brand as anything".
 - **Also:**
   - an overshoot explainer on the master grid;
   - the weight spread stated, with fixes by class only.
+
+
+## The coupe concept (2026-10-21)
+
+- The owner: the batch-1 coupe (a wide shallow bowl, a flowing stem, a
+  domed foot) is "imperfect, but conceptually far more interesting".
+- **Judge the coupe:** the batch-1 concept, plus monoweight, more liquid
+  low, the band at 1.5, offset-true band sides with corners per the
+  rule, and the class cut.
+- **The domed foot against the slab root** is his call. The board shows
+  both, with a plain question.
+- **The flowing stem against the straight post** is stated as a rule or
+  a listed exception.
+- **Lesson:** the root-shape rule tidied away something he found
+  interesting. Rules serve his concept; where they conflict, show it.

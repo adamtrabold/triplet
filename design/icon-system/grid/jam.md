@@ -3165,3 +3165,72 @@ inconsistencies still between icons, if extremely slight".
 
 NEXT: the icon designer finishes the counter round. Then the audit and
 the first-try test. Then the director scores them in the order above.
+
+---
+
+## Turn 78: design director, the coupe judged against the batch-1 concept
+
+The owner: "in regards to my coupe shape comments, this shape is
+imperfect, but conceptually far more interesting to me for the coupe".
+The reference is `owner-marks/batch1-coupe-reference.png`, the batch-1
+(g6) coupe.
+
+**What the concept is** (from the reference, at 8x):
+- **The bowl:** wide and shallow, broad at the bottom, a true saucer
+  coupe, the rim nearly the full cut width.
+- **The stem:** it flows: the bowl's underside sweeps down into the stem
+  in one continuous curve, and the stem flares again into the foot. It
+  isn't a post butted onto a bowl.
+- **The foot:** domed, a low rounded mound, not a flat slab.
+- **The silhouette** reads as one poured object, a glass with a waist,
+  rather than parts stacked from blocks.
+
+**How I'll judge the coupe** (his concept plus his recent asks; all
+must hold):
+1. **The batch-1 concept is the shape:** a wide shallow bowl broad at the
+   bottom, a flowing stem, a domed foot, read as one object. "Imperfect"
+   means the execution is ours to perfect, not the concept to change.
+2. **The rest stays settled:**
+   - monoweight;
+   - more liquid, in the bottom of the bowl;
+   - the clear band at 1.5, the stroke's height;
+   - the band's sides the true offset of the bowl's curve, with corners
+     per the corner rule (H-mono final);
+   - his "a bit of liquid then a clear space" to keep it from reading as
+     a chalice.
+3. **The grid holds:**
+   - it fits its class cut (G-size);
+   - every meeting point follows the corner law;
+   - H-outline is clean;
+   - every number is derived or listed (G-derive).
+4. **Weight:** within the set's range by eye, in the blur row.
+
+**The tension: the domed foot against the slab root shape.**
+- The root shapes say every base is a slab. His concept has a domed
+  foot.
+- **This isn't ours to settle silently.** The board shows it plainly
+  with two coupes, both with the batch-1 bowl and stem, side by side at
+  true size and 8x:
+  - **(a) a domed foot,** as a new or extended root shape (for example,
+    "a foot under a stem may be a dome"), with the rule stated, and
+    whether the cup's saucer and the museum's plinth would follow;
+  - **(b) the slab foot,** the root shape as is.
+- **The plain question:** "Your batch-1 coupe has a domed foot. Our grid
+  says every base is a flat slab. Keep the dome for the coupe (left), and
+  make it a rule for any foot under a stem, or the flat slab (right)?"
+- **The flowing stem** is a separate tension (the post root shape is
+  straight). The board says plainly how the flow fits the grid: a stated
+  rule, for example "a stem meets its bowl and foot through a curve of
+  set radius", or a listed exception (G-derive).
+
+**Scoring order for the coupe:**
+1. H-claim (against batch 1 and v133);
+2. H-mono final;
+3. H-outline;
+4. the concept (1);
+5. the settled asks (2);
+6. G-derive;
+7. the dome/slab pair present, with its question.
+
+NEXT: icon designer, the coupe from the batch-1 concept, with the
+dome/slab pair. Then the director scores it in the order above.
