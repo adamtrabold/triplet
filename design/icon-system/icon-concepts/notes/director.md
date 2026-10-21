@@ -1684,3 +1684,10 @@ checks; don't eyeball "is it as good as".
   the icon recognisable fails G-derive.
 - His canvas items were checked by diff this time, against my saved copy.
   Keep doing that.
+
+## v204 (2026-10-21): 8, then 9 on the eave fix
+
+- The museum now reads and belongs.
+- **The eave tips:** dropping the beam left a 0.25px overhang that ends
+  in a near-sharp point. Removing a part can leave a sliver where it
+  was attached. Check every edge it used to cover.

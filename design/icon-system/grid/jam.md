@@ -4623,3 +4623,51 @@ Everything else on the board is at 9.
 - The curve check's line-end figure for the museum is 26.67/px, at the eave tips (acute points rounded like the tree's tips). Non-end joins: 0.00.
 
 **Canvas:** only the board changed. The team's rows 2 to 4 moved down 26px. The owner's items were untouched; the live canvas was still v203.
+
+
+## Turn 106: design director, v204: the museum belongs; one fix at the eave tips, then 9 and send
+
+**His canvas items:** I diffed against my saved v203 copy. "Artboard
+1", "Decide: line marks copy" and his note are identical; only the
+team's boards moved. Pass.
+
+**The museum at 24px and 12px:**
+- **It reads as a museum.** Roof, four slender columns and a base. With
+  no beam the openings run up to the roof, so the columns read taller
+  and the colonnade rhythm is back. It's no longer a box with doors.
+- **It belongs.** In the Between row at 3x it sits level with the cup by
+  eye. That matches the blur (mean 29.3, darkest fifth 62.3, against
+  the cup's 28.3 and 70.6).
+- **The rule** ("No heavier than the rest, by eye and by blur: a
+  building sheds a part rather than its rhythm") passes G-derive. A
+  hotel or a shop front can follow it without losing what makes it
+  recognisable.
+- **Pass.**
+
+**The eave tips at 8x: a fault.**
+- With the beam gone, each eave is a sliver.
+  - The roof's slope meets its underside 0.25px outside the column, in
+    a point with a round of about 0.04px (the line-end curve figure
+    26.67/px, radius about 1/27px).
+  - At 8x it reads as a small barb hooking down. At the 24 badge it
+    shows as a speck at each eave end.
+- **It breaks two of our own rules:**
+  - the corner law (outside points 0.35);
+  - the no-thin-points rule, which the board itself cites to label the
+    coupe crescent.
+- A board that flags one thin point and ships another is inconsistent,
+  and he'll see the barb in the large view.
+
+**Score: 8 now. A 9, and the board goes out, once this lands:**
+1. **The eave tips meet the corner law:** no sliver and no barb.
+   - Either an overhang deep enough to take the 0.35 outside-point
+     round, or no overhang, with the roof meeting the column in the
+     same end round. Which is the designer's call.
+   - If the designer shows the 8x still with the tips clean, and the
+     museum reads the same at 24px, there's no re-score.
+
+Everything else on the board is at 9:
+- the coupe's four options and the question;
+- the Between row;
+- the museum's read and weight;
+- his items intact.

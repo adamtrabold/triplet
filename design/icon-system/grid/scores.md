@@ -1185,3 +1185,13 @@ The verdict stands within our own set:
   fault again). The new rule "openings at least two lines wide" causes
   it.
 - **Fixes:** jam turn 104.
+
+
+## Round g7aa museum fix (canvas v204), 2026-10-21: 8, a 9 when the eave tips are fixed
+
+- **Museum:** four columns, no beam. Reads as a museum at 24 and 12px
+  and belongs by eye and blur.
+- **Eave tips:** a 0.25px sliver with a ~0.04 round, which breaks the
+  corner law and no-thin-points. Fix, show the 8x still, then send. No
+  re-score.
+- **His items:** unchanged (diffed).
