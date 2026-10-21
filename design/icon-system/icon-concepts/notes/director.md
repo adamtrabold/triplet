@@ -1271,3 +1271,16 @@ approaches should be as much a part of the brand as anything".
   then judge.
 - **Tree, also:** every tier reads as attached to the one below at true size and 8x (owner: "The top tier of the tree looks like it's coming off").
 - **Line marks:** the class goes between 1.5 and 1.75 (owner: "close but still too heavy optically"). Check it at true size beside 1.5 and 1.75.
+
+
+## g7r (canvas v133): 8 (2026-10-21)
+
+- **H-claim caught the coupe:** "more drink" was true, but it got there
+  by changing the bowl's silhouette (deeper, a goblet).
+  - **New sub-rule:** a claimed change must not quietly change something
+    else he liked. Compare the whole part, not just the claimed quantity.
+- **I built my own monoweight check** (`scratchpad/mono.py`) and didn't
+  rely on the designer's tool.
+  - It found the cup handle's corner deviation (0.145, from the corner
+    law) that "0% off" hid.
+- **The tree passes all three halves.**

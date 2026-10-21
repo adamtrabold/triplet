@@ -2918,3 +2918,83 @@ Two new measuring tools sit beside them: `src/offset-check.js` and `src/drink-me
 **Archived:** v130's ten grid boards (`Archive-G7q-*`).
 
 NEXT: design director scores v133: H-claim, H-mono, H-outline, the tree.
+
+---
+
+## Turn 74: design director, v133 (g7r): 8; the coupe got its drink by deepening the bowl
+
+**Method:**
+- I pulled the "Now" 8x glyphs from v133's main board source and from
+  the archived v130 board (Archive-G7q-Look), and rendered each pair side
+  by side at 20x.
+- I ran my own monoweight check (`scratchpad/mono.py`, independent of
+  `src/offset-check.js`): it flattens each glyph, takes every hole, and
+  measures each edge sample's distance to the nearest other contour.
+
+**1. H-claim, each against v130:**
+- **More drink: confirmed,** and more than "slightly". The drink is
+  visibly larger, and the designer's numbers (21.5 against 14.2 px², up
+  about half) match what I see.
+  - **But it was made by deepening the bowl.** The rim is the same width
+    and the stem is shorter, so the bowl now drops lower and its sides
+    run steeper.
+  - Side by side, v130 is a shallow wide coupe and v133 is close to a
+    goblet. That moves toward the chalice he asked us to steer away from
+    ("a bit of liquid then a clear space ... to differentiate from a
+    chalice"). It also leaves the bowl shape he said he liked ("i liked
+    the bowl shape from earlier batches").
+  - He asked for "slightly more liquid", not a new bowl. **Likely
+    objection.**
+- **Counters corrected: confirmed by my own check.**
+  - The coupe's band walls are 1.476–1.523 against a 1.5 line, all
+    within 0.08.
+  - The Star's hole walls are 1.997–2.107 in the 24 box. Shown at 20px
+    that's 1.66–1.76 against a 1 2/3 line, within about 0.09 at the
+    worst point.
+  - The cup's handle hole is on the line except at its two left corners
+    (up to 1.645, so 0.145 over), where the corner law's tight interior
+    round meets the outer round. That's the corner law, not a mismatch.
+    The board should state that exception in one line.
+- **The tree's joint: confirmed.** The top tier's neck is visibly wider
+  than v130's, so the tip no longer looks like it's coming off.
+- **The line marks at 1 2/3: confirmed.** The + reads a hair lighter than
+  v130's 1.75 at 20x, and lighter in the rows.
+
+**2. H-mono:** passes (above), with the one stated corner exception.
+
+**3. H-outline** on all eight at 20x: clean.
+- No melts, kinks or flats.
+- The cup's bowl and handle hold, and the Star's points stay crisp.
+- The Star's hole now bulges at its inner corners: the true inward offset
+  of the outline's valleys. It's correct monoweight, but at 8x the hole
+  reads a little like a flower. *Possible objection*, not a fault.
+
+**4. The tree:**
+- **Intentional: yes.** The tiers follow v123's relationships: tip
+  height about 1.62, middle 1, bottom 1.22; widths stepping 2.8, 4.1,
+  5.3, an even step. It reads as designed, as v123 did.
+- **Attached: yes,** with the tip joint about twice as wide.
+- **Proportions:** it's narrower than v123 (8.6 against 9.3), within the
+  tall class, close to v130's overall size, which he liked.
+
+**Score: 8.** One likely objection: the coupe's bowl changed shape to
+carry the drink.
+
+### Fix (the coupe only)
+
+1. **Restore v130's bowl silhouette:** the same rim, the same depth, the
+   same stem length.
+2. **Get "slightly more" liquid inside that bowl:**
+   - by raising the drink line, so the clear band sits higher and the
+     drink fills more of the bowl;
+   - the band stays the monoweight 1.5 walls, with at least a 1.5px
+     clear space at true size;
+   - the target is a visible but modest increase over v130, about v128's
+     16.1 or a little more, not +50%.
+3. **Show it** beside v130 at 8x and at true size, with the drink areas
+   in one line (H-claim).
+4. **State the cup's handle-corner exception** in one line on the
+   board.
+
+NEXT: icon designer, the coupe. Then I check it against v130, and the
+rest stands.

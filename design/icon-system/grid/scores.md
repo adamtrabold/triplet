@@ -1045,3 +1045,21 @@ The verdict stands within our own set:
 - **The tree pair:** "Equal tiers" and "Taller tip" beside v123 and v128,
   at true size and large, with the plain question.
 - **Send** the main board and the Weight board with their questions.
+
+
+## Round g7r (canvas v133), 2026-10-21: 8
+
+- **H-claim:**
+  - more drink: confirmed (about +50%), but made by deepening the bowl,
+    toward a goblet or chalice and away from the bowl he liked. Likely
+    objection.
+  - the counters, the tree joint and the line marks at 1 2/3: confirmed.
+- **H-mono:** passes on my independent check. The coupe's band is within
+  0.03; the Star at 20px within about 0.09; the cup handle's two corners
+  are a corner-law exception to state.
+- **H-outline:** clean. The Star's hole bulges (correct offset; a
+  possible flower read).
+- **The tree:** intentional (v123's ratios), attached, and in
+  proportion.
+- **Fix:** v130's coupe bowl, with the drink raised inside it (jam turn
+  74).
