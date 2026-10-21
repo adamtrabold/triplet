@@ -4691,3 +4691,63 @@ Everything else on the board is at 9:
   - offset-check flags 3 samples at 1.61 beside the outer openings' tops. That is the eave's mass over the outer column, not a thin wall.
   - Curve check: 0.00 at non-end joins.
 - **Crop:** the 8x and 24x, v204 beside now, with the chip and badges, is at `stills/g7ad-museum-eaves-8x.png`.
+
+
+## Turn 107: design director, my miss on the beam-shed museum, and the next round's gates
+
+**The owner, verbatim:**
+- On the Between museum (beam shed, eaves stepped): "no this is awful".
+- On coupe (a) at 8x: "this line on the left and right is waht looks
+  wrong -- it looks too straight compared to the rest of the shape"
+  (`owner-marks/v205-coupe-abc-sides.png`).
+- The coordinator reports five notes on this board in all:
+  1. the coupe's straight upright sides;
+  2. flip the plate;
+  3. the museum's straight-lines question;
+  4. the tree's top tips read rounder;
+  5. keep the bowl shallow, with softer flares.
+- As I write, `owner.md` holds the coupe-sides note and the museum
+  verdict. The other three are taken from the coordinator's summary and
+  get quoted verbatim once they're filed.
+
+**My miss.** I passed the beam-shed museum: "reads as a museum" plus
+level blur, and I called the eave tips the only fault.
+- I asked whether it was recognisable, and whether it was the right
+  weight. I didn't ask whether it was good.
+- Dropping the beam fixed the weight by removing part of what makes a
+  temple front a temple front: the entablature that the roof sits on.
+  That's the same move as the three-column version (turn 104), and I
+  caught that one only because the coordinator warned me.
+- **Lesson 7:** a change that fixes a measure by removing a defining
+  part is suspect, whatever the measure says.
+  - Judge any museum change (and any change that removes a part) first
+    by eye: does it look good, and does it look like a museum? Only then
+    check the read and the blur.
+
+**The coupe's sides:** I passed the band's sides on the across-wall
+measure (turns 98, 102). He's now pointing at the OUTER sides: they run
+straight and upright under the rim before curving. That's the
+outline's curvature, which neither my counter check nor the curve check
+(which only reads jumps at joins) looked at.
+- **New gate:** the outer silhouette of every curved vessel is judged at
+  8x for straight runs that should be curve. A straight upright run in a
+  bowl fails, however good the counter is.
+
+**Gates for the next round, in order:**
+1. **His items on the canvas:** diffed against my saved copy.
+2. **The five notes, each answered visibly**, each quoted verbatim on
+   the board beside its change:
+   - the coupe's sides curve all the way, no straight upright run, at
+     8x and true size;
+   - the plate flipped, as he asked;
+   - the museum's straight-lines question answered as he put it;
+   - the tree's top tips no rounder than the other tips by eye;
+   - the bowl stays shallow and the flares are softer.
+3. **The museum, by eye first:** does it look good, and does it look
+   like a museum, beside the cup, coupe and tree at true size and 8x?
+   Then its read and its blur. No part that defines a temple front is
+   removed to hit a number.
+4. **The coupe, as him:** a glass with a drink in it; clearly enough
+   liquid; the interior and the outer sides both following the bowl.
+5. **Harmony, bases and ends, the H-checks** (with the outer-silhouette
+   straight-run check added).

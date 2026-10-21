@@ -1195,3 +1195,14 @@ The verdict stands within our own set:
   corner law and no-thin-points. Fix, show the 8x still, then send. No
   re-score.
 - **His items:** unchanged (diffed).
+
+
+## Correction, v204/v205 museum, 2026-10-21: my pass withdrawn
+
+- **His verdict:** "no this is awful". I passed it on its read and its
+  blur.
+- **Lesson 7:** judge by eye first; a weight fix that removes a part
+  fails.
+- **Coupe:** his note on the outer sides being too straight adds a
+  straight-run check for curved silhouettes.
+- **Next round's gates:** jam turn 107.

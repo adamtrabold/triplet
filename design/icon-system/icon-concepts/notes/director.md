@@ -1691,3 +1691,17 @@ checks; don't eyeball "is it as good as".
 - **The eave tips:** dropping the beam left a 0.25px overhang that ends
   in a near-sharp point. Removing a part can leave a sliver where it
   was attached. Check every edge it used to cover.
+
+## LESSON 7 (v205, 2026-10-21): "no this is awful", the museum I passed
+
+- I passed the beam-shed museum on "reads as a museum" plus level blur.
+  He: "no this is awful".
+- The weight was fixed by removing identity again (the beam, after the
+  three columns).
+- **From now on:** any change that removes a part is judged first by
+  eye: does it look good, and does it look like the thing? Then the
+  measures. A measure met by removing a defining part fails.
+- **The coupe:** "this line on the left and right ... looks too straight
+  compared to the rest of the shape". The outer sides run straight and
+  upright before curving. New check: look at every curved silhouette at
+  8x for straight runs. The curve check only reads jumps at joins.
