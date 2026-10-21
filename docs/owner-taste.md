@@ -444,3 +444,4 @@ sources are the file where the quote is recorded.
 - Icons, craft-bar reference (2026-10-21, verbatim): "heres another icon reference (not for visual style but for craft bar) https://iconists.co/central"
 - Icons, craft-bar reference (2026-10-21, verbatim): "another icon craft example https://nucleoapp.com/"
 - Icons, craft-bar reference (2026-10-21, verbatim): "one more craft example https://lucide.dev/icons/"
+- Icons, process (2026-10-21, verbatim): "we're building approach rules here remember -- so what rules need to change in this row's approach to make that not an anomaly and to have that decision vector considered throughout all icons"
