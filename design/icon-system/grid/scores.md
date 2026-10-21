@@ -1240,3 +1240,14 @@ The verdict stands within our own set:
   0.3; the board doesn't say the row now differs from Between flipped only
   in plates and foot; two rule tables.
 - **Fixes:** jam turn 114.
+
+## Round g7ai tuned row, turn-114 fixes (canvas v215), 2026-10-21: 9 after one copy edit
+
+- **Fixed:** plates/feet are a rule; line ends are a fifth of the width,
+  0.3 at most; the strategy answer says "Between with H3's plates and
+  foot"; one table.
+- **Coupe sides:** barely changed by eye. Under the rim, the eased corner
+  meets the side upright, as in Between. Probably not his v205 "too
+  straight". The caption and the table overclaim it; that copy edit comes
+  before it goes to him.
+- **Fixes:** jam turn 116.

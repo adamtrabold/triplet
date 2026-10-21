@@ -5144,3 +5144,68 @@ v207 museum rework).
 - Between board 7195 tall (+507).
 - Row 2 moved down 620: its title to 7620, Master to 7920.
 - The live board was my own v214, so there were no owner edits to keep.
+
+---
+
+## Turn 116: design director, the tuned row with the turn-114 fixes (v215): 9 after one copy edit
+
+Fetched and merged 5314278b, re-read the live board (v215; no owner edits,
+the designer's v214 was the live version). By eye at 1x and 3x of the
+published board first (12px chip, 24 badge, 72px, the 8x pairs), then a
+bowl crop at about 64x of the v214 coupe, the v215 coupe and the Between
+coupe (bar-d) side by side.
+
+**The coupe's sides, by eye:**
+- v214 and v215 are almost the same: the change is real (curvature 17% to
+  38%) but you can barely see it, even in the crop. At true size it's
+  invisible.
+- All three (v214, v215, Between) have the same thing under the rim: the
+  0.6 eased corner meets the side upright, then it curves. The designer's
+  doubt is right.
+- Would he still call them straight? Probably not the way he meant on v205.
+  His mark there was a long upright run, about a third of the bowl. What's
+  left is a short upright where the corner meets the side. The Between
+  coupe has had the same since v206, and I passed it there. If he does
+  still see it, the cause is the corner rule: how an eased corner meets a
+  curved side. The fix would then be a rule change for every icon, not a
+  coupe patch.
+- **My miss in turn 114:** I said Between had fixed the sides and this row
+  hadn't. The crop shows the v214 coupe was already close to Between's. I
+  overstated it, from a comparison at too small a size.
+
+**The other four fixes:** all in, and they read plainly.
+- **Plates and feet** are a rule with its three cases. The split is
+  flagged as his call ("not foot"), and a new thing that sits on a table
+  has a rule to follow.
+- **Line ends:** a fifth of the line's width, 0.3 at most. The trunk's
+  0.25 now follows from it.
+- **Strategy:** "this row is now the Between row with H3's plates and foot"
+  is the plainest possible answer. The museum's sizing and the liquid are
+  named as waiting on his picks.
+- **One table:** H3 / Between / this row, with "Here:" per icon. A seventh
+  icon can be drawn from it.
+
+**System test:** every quality of the tree is now a rule value in the
+table, and every icon shows what each rule does to it. The two open items
+(museum sizing, liquid) are his picks, so they're not one-offs. The flat
+middles of the domes are flagged honestly.
+
+**Likely owner objections:**
+- "The sides still look straight" (possible, not likely). The board must
+  not claim more than the eye sees.
+- 1 1/4px posts beside a 1.5px line (stated as the cost).
+- The museum is still heaviest (it waits on his pick, and the board says
+  so).
+
+**Score: 9 after one copy edit**, before it goes to him:
+1. The caption ("its sides turn from the rim in one curve, as the Between
+   coupe's do") and the table ("one curve from the rim to the bottom, no
+   upright run") claim more than the eye sees. Say instead that the change
+   is slight at 8x, and that the rim's eased corner still meets the side
+   upright, as in Between. Wording is the designer's call.
+
+**Changed since my last score?** Yes, mostly on the board: one table, the
+rules written out, the strategy answer. In the drawings, only the coupe's
+sides changed, and only slightly. My score goes from 7 to 9 because four of
+the five blockers were rules and wording missing from the board, and they
+are now there. The fifth was smaller than I said.

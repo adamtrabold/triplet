@@ -1731,3 +1731,19 @@ checks; don't eyeball "is it as good as".
   closed notes. Push every accepted fix into the shared rule set.
 - Next: the designer's fixes (jam 114), then re-score; nothing to him
   before 9.
+
+## g7ai v215 (2026-10-21): 9 after one copy edit
+
+- All four board/rule fixes are in and plain; the table works as a recipe
+  for a seventh icon.
+- **Coupe sides:** I crop-compared v214, v215 and Between's bar-d at about
+  64x. They're nearly identical. The eased 0.6 rim corner meets the side
+  upright in all three. My turn-114 claim ("Between fixed it, this row
+  didn't") was overstated, from a too-small comparison.
+- **Lesson:** before saying one drawing has a fault another fixed, crop
+  both at the same large scale side by side. If the difference isn't
+  visible there, it isn't the cause.
+- If he still calls the sides straight, the cause is the corner rule (how
+  an eased corner meets a curved side), to change for every icon.
+- Board claims must match the eye: the vessel-sides caption overclaims.
+- Next: the designer's copy edit, then it can go to him.

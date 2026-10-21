@@ -321,3 +321,11 @@ coupe brings back the straight upright sides he marked on v205; the
 plates/feet rule, the line-end value and "what's left of H3" are missing
 from the board. Fixes in `grid/jam.md` turn 114. Recurring blocker: fixes
 stay row-local.
+
+## Icon system, g7ai v215 (2026-10-21): 9 after one copy edit
+
+The four rule/board fixes are in. The coupe's sides barely change, and the
+eased rim corner still meets them upright, as in Between; my turn-114
+claim on them was overstated. Copy edit: the caption and table must not
+claim "no upright run". Full entry in `icon-concepts/notes/director.md`;
+fixes in `grid/jam.md` turn 116.
