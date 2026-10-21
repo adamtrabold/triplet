@@ -711,7 +711,7 @@ we need to address as we make these changes".
 
 A failure caps the score at 7.
 
-**G-derive (a gate, 2026-10-21):** every number in every icon is derived from the grid or listed on the master grid as an exception with its reason. A fresh agent must be able to draw a new icon (the bed or the bag) from the master grid alone and pass every check first time. A failure caps the score at 8.
+**G-derive (a gate, 2026-10-21):** every number in every icon is derived from the grid or listed on the master grid as an exception with its reason. A failure caps the score at 8. *(ON HOLD, 2026-10-21: this whole gate is my framing, and the first-try test was my addition, not his ask. Unconfirmed until the coordinator says.)*
 
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
@@ -1355,3 +1355,20 @@ approaches should be as much a part of the brand as anything".
   a listed exception.
 - **Lesson:** the root-shape rule tidied away something he found
   interesting. Rules serve his concept; where they conflict, show it.
+
+
+## On hold (2026-10-21): "hold on i never said to do that"
+
+- **Unconfirmed:**
+  - turn 78's batch-1 coupe direction (I made his "conceptually more
+    interesting" comment into a rebuild order);
+  - turn 77's first-try test (my addition, presented inside his gate).
+- **Same error as lesson 3:** I turned a comment into a change. And I
+  presented my own additions as if they were his asks.
+- **Rules for myself:**
+  - label every criterion I add as *mine* in the record;
+  - never present it as his;
+  - a comment is a comment until he asks for a change.
+- **Standing:** his own coupe asks (v130's bowl, wider at the bottom,
+  more liquid, the band = the stroke, the inside follows the outside,
+  corners per the rule) and the H-checks.

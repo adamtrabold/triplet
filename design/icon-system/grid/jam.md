@@ -3234,3 +3234,37 @@ must hold):
 
 NEXT: icon designer, the coupe from the batch-1 concept, with the
 dome/slab pair. Then the director scores it in the order above.
+
+---
+
+## Turn 79: design director, on hold: the batch-1 coupe direction and my first-try test
+
+The owner: "hold on i never said to do that".
+
+**Unconfirmed until the coordinator comes back:**
+1. **Turn 78, the coupe "judged against the batch-1 concept"**, including
+   the dome/slab pair and the flowing-stem rule. He said the batch-1
+   shape is "conceptually far more interesting to me for the coupe". I
+   turned that into a direction (rebuild from batch 1) and a scoring
+   order. That's the "question taken as a change" error again, now with
+   a comment. **Nobody builds from turn 78.**
+2. **Turn 77's first-try test** (a fresh agent drawing the bed or the
+   bag from the master grid alone). It was my addition, not his ask, and
+   I framed it as part of his gate. **Removed from the gate until he
+   confirms.**
+
+**What stands:**
+- G-derive's first half: every number derived from the grid or listed as
+  an exception on the master grid. That serves his "foundation for all
+  future icons", but **it's also my framing**, so it waits on the
+  coordinator's word too, as part of the same hold.
+- The coupe's settled asks from his own words:
+  - v130's bowl, wider at the bottom;
+  - more liquid in the bottom;
+  - the clear band = the stroke;
+  - the inside curve matching the outside;
+  - counter corners per the corner rule.
+- H-claim, H-mono (final), H-outline.
+
+NEXT: wait for the coordinator. Nothing is scored against turns 77–78
+until he confirms.
