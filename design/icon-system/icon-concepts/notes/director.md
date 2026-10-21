@@ -703,7 +703,11 @@ we need to address as we make these changes".
 
 **H-claim (a hard check, 2026-10-21):** every claimed change is verified side by side at 8x against the previous canvas version, and measured where possible. A failure caps the score at 7.
 
-**H-mono (a hard check, 2026-10-21):** at 8x, overlay each outer edge's parallel offset (by the line weight) on every counter. Every inner edge must sit on it, within about 1/12px. A failure caps the score at 7.
+**H-mono (a hard check, rewritten 2026-10-21):** at 8x, for every counter walled by a line:
+- **distance:** the inner edge sits on the outer edge's parallel offset, within about 1/12px;
+- **direction:** the inner edge's tangent matches the outer edge's, within about 4° along every wall (`scratchpad/mono2.py`), so the inside curves wherever the outside curves.
+
+Corner-law exceptions are stated. A failure caps the score at 7.
 
 **How a score is built:**
 - **Process items are pass/fail gates, worth zero points:**
@@ -1284,3 +1288,18 @@ approaches should be as much a part of the brand as anything".
   - It found the cup handle's corner deviation (0.145, from the corner
     law) that "0% off" hid.
 - **The tree passes all three halves.**
+
+
+## H-mono rewritten (2026-10-21): distance isn't shape
+
+- The owner marked the coupe band's straight sides against the bowl's
+  curve. Both distance checks (the designer's and mine) said 0%.
+- **H-mono now also needs direction:** an inner edge's tangent matches
+  the outer edge's tangent within about 4° along every wall.
+  - `scratchpad/mono2.py` does this (v130 band: 87 of 146 segments over
+    4°).
+- **Lesson:** a check only proves what it measures. Before trusting a
+  numeric check, ask whether it measures what he's looking at.
+- **The coupe's next shape** is from his words: v130's bowl, wider at
+  the bottom (a classic coupe), more liquid low, the band = 1.5, the
+  band's sides on the true offset curve.

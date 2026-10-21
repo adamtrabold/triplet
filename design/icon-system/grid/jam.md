@@ -2998,3 +2998,67 @@ carry the drink.
 
 NEXT: icon designer, the coupe. Then I check it against v130, and the
 rest stands.
+
+---
+
+## Turn 75: design director, his v133 coupe note; my H-mono check was the wrong test
+
+His note (verbatim in `../owner.md`, marked screenshot
+`owner-marks/v133-coupe-curves.png`, red on the bowl's outer curve against
+the band's inner side):
+- "i think v130 bowl was closer -- though it should be wider on the
+  bottom to look more like a classic coupe";
+- "make there be more liquid in the bottom";
+- "the clear area should match the thickness of the stroke";
+- "i also dont see the interior counter feedback being reflected in
+  regards to the interior curve matching the exterior curve".
+
+**I verified the counter check myself, and it was the wrong test.**
+- Both the designer's `offset-check.js` and my own `mono.py` measured
+  *distance*: each inner-edge point's distance to the nearest outer edge.
+  On v130's coupe band that's within 0.03 of 1.5 everywhere, so both
+  reported "0% off".
+- **But distance isn't shape.** A short straight side can sit about 1.5
+  from a curve along its length and still not *be* that curve, which is
+  exactly what he marked.
+- **A direction test catches it.** I added `scratchpad/mono2.py`: for
+  each inner-edge segment, compare its direction with the nearest
+  outer-edge direction.
+  - On v130's band: 87 of 146 wall segments differ by more than 4°,
+    the worst 54°.
+  - On v133's: 86 of 288, the worst 84°.
+  - Some of that is at the band's corners, but the sides fail along
+    their length.
+- **My turn-74 "counters confirmed by my own check" is withdrawn.**
+
+**H-mono, rewritten.** At 8x, every counter that's walled by a line has:
+- **distance:** the inner edge sits on the outer edge's parallel offset,
+  within about 1/12px;
+- **direction:** along every wall, the inner edge's direction matches
+  the outer edge's, within about 4°;
+- **curvature, implied:** where the outside curves, the inside curves
+  with it (the true offset curve, not a chord), and where the outside is
+  straight, the inside is straight.
+- Corners are excepted only where the corner law sets them, and stated.
+- The board shows the offset curve overlaid on each counter, so he can
+  see the match.
+
+**The coupe, for the next round** (his words decide; this replaces turn
+74's fix):
+1. **The bowl:** start from v130's, and make it **wider at the bottom**
+   like a classic coupe, a broad shallow saucer bowl rather than a cone.
+   It must stay a coupe: not a goblet (v133), not a chalice.
+2. **More liquid, in the bottom:** the drink fills the lower bowl.
+3. **The clear band = the stroke:** the band's height is 1.5px, the same
+   as the walls.
+4. **The band's sides are the true offset of the bowl's curve** (H-mono
+   as rewritten): curved where the bowl curves, overlaid on the board.
+5. **H-claim:** shown beside v130 and v133 at true size and at 8x, with
+   the drink area and the band height in one line.
+
+The v133 score stays at 8. The coupe fix is now as above, from his
+words.
+
+NEXT: icon designer, the coupe. Then I run H-claim, H-mono (distance
+and direction, with my own tool), H-outline, then the coupe's shape
+against his words.
