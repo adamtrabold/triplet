@@ -189,3 +189,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > one more craft example https://lucide.dev/icons/
 > i think the thing that's getting me about the coupe right now is that its starting to read as wine glass with the liquid... i think the taller stem or more pancaked bowl really sell coupeness
 > i am struggling to figure out how to read the file at this point -- have an agent reorganize the decision boards to be clearer. i still want to see all the grid stuff / the examples of all of the in progress ones together / etc.
+> (10-21, canvas comment on Decide: more human?) i can't decide between h2 and h3 here... the fully rounded cup base and tree trunk in h2 conflict with the base of the coupe and the general design of the museum, so its hard to judge. h3 i like the added personality. so lets keep pushing down these lines, keeping monoweight as potential, and flat droppingh1
