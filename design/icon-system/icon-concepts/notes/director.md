@@ -1578,3 +1578,18 @@ checks; don't eyeball "is it as good as".
   fault or an artefact.
 - **Lesson:** board copy that paraphrases him ("blames the depth") must
   quote him instead.
+
+## The H2/H3 push (2026-10-21)
+
+- Owner: H1 dropped; push H2 and H3; "keeping monoweight as potential".
+  H2's "fully rounded cup base and tree trunk ... conflict with the base
+  of the coupe and the general design of the museum"; "h3 i like the
+  added personality".
+- **New scored criteria (jam turn 90):**
+  - consistency of bases and stem ends, within each direction, one stated
+    rule per kind of ending, listed end by end;
+  - H3's personality, spread across all eight and calm beside the
+    museum and the +.
+- **Lesson:** his clash note is about endings. Rules for joins and
+  corners don't cover how a part ENDS (base, foot, trunk end, arm end).
+  Endings now need their own rule per direction.

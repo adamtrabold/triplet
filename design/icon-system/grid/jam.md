@@ -3908,3 +3908,59 @@ Owner: "i am struggling to figure out how to read the file at this point". The p
 - the old row titles.
 
 The canvas still opens where it did. I rendered the new boards at phone width (390pt at 2x) and read them before publishing. Unchanged boards were only moved, not rewritten.
+
+
+## Turn 90: design director, criteria for the H2/H3 push
+
+**The owner, verbatim** (canvas comment on "Decide: more human?"): "i
+can't decide between h2 and h3 here... the fully rounded cup base and
+tree trunk in h2 conflict with the base of the coupe and the general
+design of the museum, so its hard to judge. h3 i like the added
+personality. so lets keep pushing down these lines, keeping monoweight
+as potential, and flat droppingh1"
+
+**What's settled:**
+- H1 is dropped.
+- H2 and H3 both continue.
+- Monoweight stays a live option. It's not ruled out by H3's thin
+  posts; it's a possible answer.
+
+**Order of scoring for the next round** (my existing order, plus his two
+asks):
+1. **Harmony across all eight, first.**
+2. **Consistency of bases and stem ends within each direction (new).**
+   His fault in H2 is a clash of endings: the cup's base and the tree
+   trunk are fully rounded, but the coupe's base and the museum's
+   plinth aren't. So within H2, and separately within H3:
+   - **Bases:** every base (the saucer, the coupe's foot, the museum's
+     plinth and steps, the tree's trunk end) follows one stated rule.
+     Either they all end the same way, or a named rule says why one
+     differs (for example, "a foot under a stem is domed; a base
+     something sits on is flat"). The rule must survive a look at all
+     eight in one row at true size.
+   - **Stem and post ends:** every free end (the coupe stem's ends, the
+     trunk, the + arms, the cup handle's joins, the museum's columns
+     where they meet the beams) is cut, rounded or flared by one rule
+     per direction.
+   - **Checked by eye:** all eight in a row at true size and at 8x. Then
+     a list of every base and end, with the rule each one follows. Any
+     end without a rule fails.
+3. **Delicacy at true size**, against batch 1's coupe as the feeling.
+4. **H3's personality (new).** He likes it. Judged as: does the
+   push keep or grow what reads as character (the thin flared posts,
+   the domed foot) across the whole set, not in the coupe and tree only?
+   And does it stay calm next to the museum and the +? Personality that
+   lives in two icons is a harmony fail (point 1).
+5. **The H-checks:** outline; counters with the drink's edge excluded
+   (turn 89); curve continuity; the true-offset overlay at 8x on any
+   flagged corner.
+6. **Monoweight as potential.** Wherever H3 thins a post, the board shows
+   (or names) its monoweight counterpart, so he can still choose it.
+   One pair, not a new row per icon.
+7. **The board:** phone-judgeable. It must sit in the reorganised
+   decision layout he asked for ("have an agent reorganize the decision
+   boards to be clearer").
+
+**Not scored:** whether H2 or H3 wins. That's his call.
+
+NEXT: the icon designer's H2/H3 push; then the director scores on 1 to 7.
