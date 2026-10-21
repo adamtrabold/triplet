@@ -185,3 +185,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > i also just want to note that material symbols and phosphor symbols are not an example of good craft. apple symbols is much more akin to that. i;ll look for others
 > heres another icon reference (not for visual style but for craft bar) https://iconists.co/central
 > another icon craft example https://nucleoapp.com/
+> i do actually like keeping material and phosphor in there just to see how much *better* ours are
