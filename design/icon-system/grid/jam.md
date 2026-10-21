@@ -3908,3 +3908,29 @@ Owner: "i am struggling to figure out how to read the file at this point". The p
 - the old row titles.
 
 The canvas still opens where it did. I rendered the new boards at phone width (390pt at 2x) and read them before publishing. Unchanged boards were only moved, not rewritten.
+
+---
+
+## Turn 92: icon designer, g7y: H1 dropped, H2/H3 pushed, the coupe band, the line-marks fix (canvas v142)
+
+Owner: "lets keep pushing down these lines, keeping monoweight as potential, and flat droppingh1". Also: "the empty part should be equal to the thickness of the stroke. or maybe even a little thinner".
+
+1. **H1 is dropped.** The Human board is archived as it was at v141.
+2. **H2 (settled):** bases and terminals now match across all eight.
+   - Why the cup base and tree trunk read fully round: the eased trims collided into semicircle caps on short edges.
+   - The fix: ease applies only where both edges are 3px or longer, so line ends keep the plain round and bases stay slabs.
+   - Curve check: 0.41/px at the non-end joins, against 7.23/px for Now.
+3. **H3:** flares where a post meets a mass (HUMAN flare 1.5) and domed feet. It is shown monoweight and relaxed (post 1.25).
+4. **The coupe's clear band is 1⅓px:**
+   - measured 1.33 for A, B and C, against 1.50 for v134;
+   - A, B and C are shown inside the full set and in app list rows;
+   - C's drink measures 15.3.
+5. **The tree:** it keeps the v123 proportions. Its tiers are now drawn rather than ruled (droop 0.5, bow -0.2) and are part of the H2/H3 rows. The tree decision board is archived.
+6. **The line-marks board bug** (owner: "why is 1 2/3rds reading thinner?"):
+   - The cause: each row sized the star from its own line, so the heavier rows drew bigger stars (14.4, 15.2 and 15.6px wide) and the three rows looked alike.
+   - Now every row uses the same outline, 15.2px wide.
+   - The + measures 1.50, 1.67 and 1.75. The star walls measure 1.50, 1.67 and 1.75.
+   - Blur: the star reads 53.1, 57.6 and 60.1, and the + reads 44.8, 48.4 and 50.9.
+7. **Checks:**
+   - check-svg passes with no slivers and symmetry held;
+   - offset-check's only failures are the coupe's drink floor and surface, a check artefact.
