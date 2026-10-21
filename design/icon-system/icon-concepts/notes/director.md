@@ -1631,3 +1631,15 @@ checks; don't eyeball "is it as good as".
   5. His words on that glyph checked in `owner.md` first.
 - **Lesson:** when he repeats a note, my check is measuring the wrong
   thing. Stop and measure what his eye measures before scoring again.
+
+## g7z (v144, 2026-10-21): 9
+
+- I ran the new counter check myself on coupe B:
+  - across 1.51 / 1.50 / 1.50;
+  - square 1.46 / 1.38 / 1.25.
+- **Ruled across**, because the eye reads an upright wall against the
+  wall beside it. The square thinning sits where the band meets the
+  drink, so it's invisible.
+- **Counter check amended:** measure the way the eye reads it (across for
+  upright walls, square for flatter ones). Record the other reading as
+  the trade.

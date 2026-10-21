@@ -4184,3 +4184,74 @@ decision (B) stands as his. The counter goes back to the designer.
 - **Two fixes found while listing:**
   - The coupe's stem ended at the dome's crown and left a 0.13px ledge. It now runs into the foot and flares 1.44 at both ends.
   - The H3 outline came out up to 0.2px asymmetric, because `corners()` reads edges by their direction of travel. H3's symmetric glyphs are now mirrored after the corner law (engine `build({ sym })`).
+
+
+## Turn 98: design director, g7z (v144): coupe B's band passes my counter check; H3 passes; 9, send
+
+**Coupe B, run through the turn-95 counter check myself.** Glyphs pulled
+from the v144 coupe board.
+
+1. **8x, with the outer curve offset by one line drawn over it.** The
+   band's sides now carry the bowl's own curvature. At the band's lowest
+   corners the offset line sits a little inside the counter, which is the
+   trade the designer stated.
+2. **Wall at the band's top, middle and bottom:**
+   | | Top | Middle | Bottom |
+   |---|---|---|---|
+   | Across (as the eye reads it) | 1.51 | 1.50 | 1.50 |
+   | Square to the curve | 1.46 | 1.38 | 1.25 |
+   | v142 across | 1.55 | 1.61 | 1.78 |
+
+   These match the board's own figures within 0.03.
+3. **The across-vs-square trade, ruled by eye against his words** ("wrong
+   both in size and in curvature"):
+   - **Across governs here.** The bowl's outer wall beside the band is
+     near-upright, and the eye compares the band's side with the wall
+     next to it, not along the curve's normal. v142's fault was exactly
+     that comparison.
+   - **Where the square wall is thinnest** (1.25, at the band's bottom
+     corners), the band ends in the drink. The drink is the same ink, so
+     no thin wall is visible there.
+   - At 8x and at the 150px, 24px and 12px sizes, the walls beside the
+     band read even. Its sides read parallel to the bowl.
+   - **Pass on curvature.**
+4. **Size, by eye beside the rim, at true size and at 150px:**
+   - 1 1/6 reads clearly lighter than the 1.5 rim and still reads as a
+     band at 24px. That's his "equal to the thickness of the stroke. or
+     maybe even a little thinner".
+   - 1px nearly closes at the 24 badge and at the 12px chip.
+   - **Pass for 1 1/6.** The 1px variant may stay beside it as his
+     option.
+5. **His words checked** (`owner.md`): "shape wise b is it". The coupe is
+   B in H2, H3 and H3 relaxed, in the set and in the app. Pass.
+
+**My counter check, amended:** step 3 measures the wall the way the eye
+reads it. Measure across for a wall within about 30° of upright, and
+square for a wall that runs nearer horizontal. Any growth or shrink over
+1/12 in that reading fails. The other reading is recorded as the trade.
+
+**H3, per turn 94:**
+- **The base rule is stated:** "What stands on a table has a domed foot;
+  what stands on the ground keeps a flat base."
+  - At 3x it holds across all eight: the saucer and the coupe foot are
+    domed; the plinth and the trunk are flat.
+  - It answers his H2 note about the cup base and trunk clashing with the
+    coupe and the museum.
+  - The rule is one sentence a future icon can follow (a lamp, a vase:
+    domed; a tent, a fountain: flat). That's what G-derive asks.
+- **The per-icon list:** every base, end and join on all six glyphs on
+  the board has a stated value and a reason. No orphan ends. Pass.
+- **The flare rule** (a post flares into the mass it meets; counters,
+  slots and line marks never do) reads consistent: the coupe stem and
+  the tree trunk flare; the + and the star don't.
+- **The stem ledge and the asymmetry are fixed.** I didn't re-measure
+  them.
+- **Personality:** in the cup, the coupe and the tree, under one rule;
+  the museum, + and star stay calm by the same rule. Pass.
+
+**Verdict: 9 for both decision boards. Send.**
+- **Condition:** the originals board overlaps row 3. If it shares a page
+  with these boards when the canvas link goes out, fix it or move it off
+  first. These two boards need nothing more.
+- **Did the work change?** Yes. The counter fault he raised four times is
+  fixed in both size and curvature, and H3 now has one stated base rule.
