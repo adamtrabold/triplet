@@ -558,8 +558,10 @@ const EASE = 2.3;
 // holds less drink than v134 (measured, src/liquid.js). Three ways to give it clearly more, one idea each:
 const COUPE_V = [
   ['(a) A deeper bowl', 'B\'s shape with the bowl a little deeper and the stem a little longer, so the drink under the clear band is half the glass. It gives up some of the flatness you picked.', { ...COUPE_B, bd: 6.75, fb: 11 }],
-  ['(b) An open glass', 'B\'s shape exactly, with no bar across the rim: the glass is open at the top, its mouth is the clear part (1 1/6px, under the stroke) and the drink fills the rest. Its sides are the bowl\'s own curve moved in by the line.', { ...COUPE_B, coupe: 'open', fb: 11 }],
-  ['(c) The drink as its own shape', 'The glass drawn as an outline, the drink a separate dark shape inside it with a flat surface and a clear gap (5/6px) all round. The bowl is rounder and deeper so the drink can be big; it gives up the flat bowl.', { ...COUPE_B, coupe: 'inner', bandH: 5 / 6, bd: 6.5, fb: 11 }],
+  ['(b) An open glass', 'B\'s shape exactly, with no bar across the rim: the glass is open at the top, its mouth is the clear part (1 1/6px, under the stroke) and the drink fills the rest. Its sides are the bowl\'s own curve moved in by the line. It reads as a solid glass, like batch 1.', { ...COUPE_B, coupe: 'open', fb: 11 }],
+  ['(c) The drink as its own shape', 'The glass drawn as an outline, the drink a separate dark shape inside it with a flat surface and a clear gap (5/6px) all round. The bowl is rounder and deeper so the drink can be big; it gives up the flat bowl, and it would be the only outline drawing in the set.', { ...COUPE_B, coupe: 'inner', bandH: 5 / 6, bd: 6.5, fb: 11 }],
+  // g7ab (director turn 102: "Our rules don't overrule his ask"): the literal reading, with its trade on the label
+  ['(d) The clear part as a crescent', '(a)\'s bowl, with the clear part shaped like the bowl: the stroke\'s height (1.5px) at the middle, its lower edge sagging like the bowl\'s bottom, thinning toward the walls. Its ends thin below a line (to 1/2px), which our no-thin-points rule would not allow; it is here because it may be what you mean.', { ...COUPE_B, bd: 6.75, fb: 11, coupe: 'crescent', bandH: 1.5 }],
 ];
 const HSETS = [
   ['Now (v134): monoweight', 'The set as it is: the baseline.', {}, LAWS7.joint, 1, false, 0],
@@ -568,7 +570,7 @@ const HSETS = [
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
-  ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre (H3\'s domes rose a whole line); the flares are half H3\'s (3/4px); the museum follows the structural pattern.', { droop: 0.5, bow: -0.2, dome: 0.5, capital: 0.5, roofBow: -0.1, ...COUPE_V[0][2] }, HUMAN({ flare: 0.75, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
+  ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre (H3\'s domes rose a whole line); the flares are half H3\'s (3/4px); the museum follows the structural pattern.', { droop: 0.5, bow: -0.2, dome: 0.5, capital: 0.5, roofBow: -0.1, cols: 3, ...COUPE_V[0][2] }, HUMAN({ flare: 0.75, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
 ].map(([nm, rule, o, law, fk, bal, ease]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined };
   const fitPlace = (id, extra = {}, withSil = false) => {
@@ -595,7 +597,7 @@ const HOLD = HSETS.filter(S => !S.cv), BETW = HSETS.find(S => S.cv);   // g7aa: 
   const dir = path.join(__dirname, '../svg/g7/between'); fs.mkdirSync(dir, { recursive: true });
   const svg = d => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="${d}"/></svg>`;
   for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `${id}.svg`), svg(BETW.ds[id]));
-  BETW.cv.forEach(({ d }, k) => fs.writeFileSync(path.join(dir, `bar-${'abc'[k]}.svg`), svg(d)));
+  BETW.cv.forEach(({ d }, k) => fs.writeFileSync(path.join(dir, `bar-${'abcd'[k]}.svg`), svg(d)));
 }
 // checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
 // (where the outline's direction is continuous), the jump in curvature between the two sides, 1/px
@@ -686,7 +688,7 @@ const OPEN_QS = [
 ];
 // g7ab: Start's open questions (the older boards keep OPEN_QS as they were published)
 const START_QS = [
-  ['Between H2 and H3, part 1', 'The coupe: which of (a) a deeper bowl, (b) an open glass or (c) the drink as its own shape is what you mean?'],
+  ['Between H2 and H3, part 1', 'The coupe: which of (a) a deeper bowl, (b) an open glass, (c) the drink as its own shape or (d) the clear part as a crescent is what you mean?'],
   ['Between H2 and H3, parts 2 and 3', 'Between H2 and H3: is this the balance, and does the museum now belong?'],
   ['Decide: line marks', 'At 1 2/3px, do the + and the star feel as heavy as the place icons?'],
 ];
@@ -788,14 +790,14 @@ function sheetBetween() {
     const more = Math.round(100 * (L.liquid / L0.liquid - 1));
     return `<div style="padding:18px 0;border-top:1px solid ${COL.hair}"><div style="font-size:23px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div>
 <div style="display:flex;gap:14px;align-items:center">${chip(d)}${badge(d)}${badge(d, 72)}${row1(d, 'Tjoget', 'BAR')}${x8(d)}</div>
-<div style="font-size:16px;line-height:1.4;color:${N};margin-top:10px"><b>Drink ${L.liquid.toFixed(1)}px²</b>, ${more}% more than v134's ${L0.liquid.toFixed(1)}; ${Math.round(100 * L.share)}% of the glass's inside${!w ? '' : k === 0 ? `. The wall beside the clear band: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom), ${w.top.sq.toFixed(2)} / ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl` : k === 1 ? `. The wall beside the open mouth: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom)` : `. The glass's wall: ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl, beside and under the drink (an even outline; read across, it widens where the bowl turns)`}.</div></div>`; }).join('');
+<div style="font-size:16px;line-height:1.4;color:${N};margin-top:10px"><b>Drink ${L.liquid.toFixed(1)}px²</b>, ${more}% more than v134's ${L0.liquid.toFixed(1)}; ${Math.round(100 * L.share)}% of the glass's inside${!w ? '' : k === 3 ? `. The clear part is 1.5px tall at the middle (the stroke) and 1/2px at its ends; the wall beside it, ${w.top.across.toFixed(2)} across` : k === 0 ? `. The wall beside the clear part: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom), ${w.top.sq.toFixed(2)} / ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl` : k === 1 ? `. The wall beside the open mouth: ${w.top.across.toFixed(2)} / ${w.mid.across.toFixed(2)} / ${w.bot.across.toFixed(2)} across (top / middle / bottom)` : `. The glass's wall: ${w.mid.sq.toFixed(2)} / ${w.bot.sq.toFixed(2)} square to the bowl, beside and under the drink (an even outline; read across, it widens where the bowl turns)`}.</div></div>`; }).join('');
   const setRow = (R, label) => `<div style="padding:14px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">${label}</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${BATCH.map(([id]) => badge(R.ds[id])).join('')}${uiPath(R.ds.plus, 26.4)}${uiPath(R.ds.star, 20)}<span style="width:10px"></span>${BATCH.map(([id]) => badge(R.ds[id], 72)).join('')}</div></div>`;
-  const rules = [['Plates and feet (things on a table)', 'a slab whose top rises 1/2px at the centre: ends 1px, crown 1.5', 'a dome: ends to a point, crown 1.5'], ['Flares (a post into a mass)', '3/4px', '1 1/2px'], ['Outside corners of a mass', '0.6, eased', '0.6, eased'], ['Line ends', '0.3', '0.3'], ['Counters and slots', 'tight, 0.15 (the museum\'s slots 0.5: the structural pattern, below)', 'tight, 0.15'], ['Tree tiers', 'sides sweep in 1/5px, undersides droop 1/2px', 'the same']]
+  const rules = [['Plates and feet (things on a table)', 'a slab whose top rises 1/2px at the centre: ends 1px, crown 1.5', 'a dome: ends to a point, crown 1.5'], ['Flares (a post into a mass)', '3/4px', '1 1/2px'], ['Outside corners of a mass', '0.6, eased', '0.6, eased'], ['Line ends', '0.3', '0.3'], ['Counters and slots', 'tight, 0.15 (the museum\'s openings 0.5: the structural pattern, below)', 'tight, 0.15'], ['Tree tiers', 'sides sweep in 1/5px, undersides droop 1/2px', 'the same']]
     .map(([a, b, c]) => `<tr style="border-top:1px solid ${COL.hair}"><td style="padding:8px 8px 8px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px">${b}</td><td style="padding:8px 0 8px 8px;color:${I2}">${c}</td></tr>`).join('');
   const appRows = [['cafe', 'Kaffeverket', 'CAFÉ'], ['bar', 'Tjoget', 'BAR'], ['museum', 'Vasa Museum', 'MUSEUM'], ['nature', 'Djurgården', 'NATURE']].map(([id, nm, sub]) => row1(S.ds[id], nm, sub)).join('');
   const musH2 = H2.ds.museum, musB = S.ds.museum;
   return phBoard('Waiting on you', 'Between H2 and H3', `${phP('You: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate feels too far. and the flares too intense. the museum looks completely out of place, so there needs to be a pattern for bringing this to the more structural icon decisions. also the interior counter shape of the coupe *still* does not look right. and there is *still* not enough liquid in the cup how many times do i have to say it."')}
-${kick('1 · The coupe')}${phQ('Which of these is what you mean?')}
+${kick('1 · The coupe')}${phQ('Which of these is what you mean? Or, in a line: which part of the inside looks wrong to you?')}
 ${phP(`Measured at 24px, B as you last saw it holds <b>${LB.liquid.toFixed(1)}px²</b> of drink; v134 held ${L0.liquid.toFixed(1)}. With a bar across its rim and a clear band under it, B's flat bowl has almost no room left for drink, and no counter shape changes that. So each option below changes one thing to give it clearly more. Drink = the ink inside the glass's walls, measured the same way on each (src/liquid.js).`)}
 <div style="display:flex;gap:26px;justify-content:space-between;margin:12px 0 6px">${ref(HSETS[0].ds.bar, 'v134', L0)}${ref(OLD.bar.d, 'Batch 1', L1)}${ref(H2.ds.bar, 'B, as at v144', LB)}</div>
 ${opts}
@@ -807,8 +809,9 @@ ${setRow(H2, 'H2')}${setRow(S, 'Between')}${setRow(H3, 'H3 (v147)')}
 ${kick('3 · The museum: a pattern for built things')}
 ${phP('<b>Built things keep their straight lines and wear at their joins.</b> The cup, the coupe and the tree loosen in their curves; a building has few, so it loosens where its parts meet:')}
 <ol style="margin:0 0 12px;padding-left:24px;font-size:18px;line-height:1.45">
+<li><b>No heavier than the rest.</b> A building is the heaviest shape in the row by eye, so its openings are at least two lines wide: three columns, not four. Blurred (the darkness inside the live circle after a 1.5px blur, src/museum-blur.js): the museum went from 32.3 to 29.5; the cup is 28.3, the coupe 26.1, the tree 17.9.</li>
 <li>Beam, columns and plinth stay straight. The roof's slopes sweep in a tenth of a line, half the tree's sweep, so the roof is drawn, not ruled.</li>
-<li>Where a column meets the beam or the plinth it has a capital and a base: the slot's corners round to 0.5px, a third of the slot's width (under the 0.6 of an outside corner, so inside stays tighter than outside, and a slot never becomes a pill).</li>
+<li>Where a column meets the beam or the plinth it has a capital and a base: the opening's corners round to 0.5px (under the 0.6 of an outside corner, so inside stays tighter than outside, and an opening never becomes a pill).</li>
 <li>The outer columns meet the beam and plinth with the same 0.5 round.</li>
 <li>Slab ends (beam, plinth, steps) take the line-end round, 0.3 at most, as the plate's ends do.</li>
 <li>A base on the ground stays flat (the table-or-ground rule).</li></ol>

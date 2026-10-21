@@ -198,7 +198,7 @@ const DRAW = {
       // the wall read 1.55 wide at the band's top and 1.72 at its bottom. o.bandSide 'shift' (the coupe from g7z, B):
       // each side of the band is the bowl's own curve over the band's height, moved in by the line. Same curve,
       // same curvature as the outside; the wall is the line wide all the way down. Without it: v142's true offset (v134 and A-C as shown).
-      if (o.style === 'mono' && o.chan == null && o.coupe !== 'inner' && (o.bandSide === 'shift' || o.coupe === 'open')) {
+      if (o.style === 'mono' && o.chan == null && o.coupe !== 'inner' && (o.bandSide === 'shift' || o.coupe === 'open' || o.coupe === 'crescent')) {
         const Lc = [[X(6), X(bd)], [X(bx), X(bd)], [X(bl), X(bk * bd)], [X(bl), 0]];   // the bowl's left side, bottom to rim
         const pt = (q, tt) => [0, 1].map(i => (1 - tt) ** 3 * q[0][i] + 3 * tt * (1 - tt) ** 2 * q[1][i] + 3 * tt * tt * (1 - tt) * q[2][i] + tt ** 3 * q[3][i]);
         const tY = y => { let lo = 0, hi = 1; for (let n = 0; n < 60; n++) { const m = (lo + hi) / 2; if (pt(Lc, m)[1] > y) lo = m; else hi = m; } return (lo + hi) / 2; };
@@ -209,6 +209,13 @@ const DRAW = {
         };
         const q = sub(Lc, tY(liq), tY(rimT)).map(([x, y]) => [x + W, y]);   // drink level up to the rim, moved in by the line
         const mq = q.map(([x, y]) => [s - x, y]);
+        if (o.coupe === 'crescent') {
+          // g7ab (d) THE CLEAR PART AS A CRESCENT: under the rim, full height (o.bandH) at the middle, its lower edge
+          // a sag like the bowl's, thinning toward the walls to o.crescentEnd (1/2px: below a line, by design)
+          const te = o.crescentEnd ?? 0.5, yE = rimT + te, qc = sub(Lc, tY(yE), tY(rimT)).map(([x, y]) => [x + W, y]), mc = qc.map(([x, y]) => [s - x, y]);
+          const xL = qc[0][0], xR = mc[0][0], a_ = (xR - xL) * 0.3, yH = (4 * liq - yE) / 3;
+          band = cut(D(`M${f(qc[3][0])} ${f(qc[3][1])}H${f(mc[3][0])}C${f(mc[2][0])} ${f(mc[2][1])} ${f(mc[1][0])} ${f(mc[1][1])} ${f(xR)} ${f(yE)}C${f(xR - a_)} ${f(yH)} ${f(xL + a_)} ${f(yH)} ${f(xL)} ${f(yE)}C${f(qc[1][0])} ${f(qc[1][1])} ${f(qc[2][0])} ${f(qc[2][1])} ${f(qc[3][0])} ${f(qc[3][1])}Z`));
+        } else
         if (o.coupe === 'open') {
           // g7aa (b) OPEN GLASS: no bar across the rim. The bowl is a wall a line wide, open at the top like a
           // glass seen from the side; the clear part is its mouth, the bowl's own sides moved in by the line, down
@@ -261,7 +268,7 @@ const DRAW = {
     // pediment and beam as one outline (a GABLE on a SLAB, joined), so no coincident corners go through the boolean
     const out = [{ ...P([X(0.25), pb + bd], [X(0.25), pb], [X(6), X(1.667)], [X(11.75), pb], [X(11.75), pb + bd]), root: 'GABLE', also: 'SLAB' }];
     const ct = pb + bd, pl = Y(12) - slabH(o);                        // column tops; plinth top
-    const n = 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
+    const n = o.cols ?? 4, span = X(10.5), gap = (span - n * W) / (n - 1), x0 = X(0.75);
     if (o.capital) {
       const r = Math.min(o.capital, gap / 3), k = 0.5523;
       if (o.roofBow ?? o.bow) { const bw = o.roofBow ?? o.bow, sl = (x0_, y0_, x1_, y1_) => { const mx = (x0_ + x1_) / 2, my = (y0_ + y1_) / 2, L = Math.hypot(x1_ - x0_, y1_ - y0_), nx = (y1_ - y0_) / L, ny = -(x1_ - x0_) / L, sg = Math.sign((mx - s / 2) * nx || 1); return `Q${f(mx + sg * nx * 2 * bw)} ${f(my + sg * ny * 2 * bw)} ${f(x1_)} ${f(y1_)}`; };

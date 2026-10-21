@@ -4499,3 +4499,42 @@ museum's slots at 1.50.
 **Did the work change?** Yes. The liquid now answers his six asks in
 three clearly different ways, and the Between row answers "the plate
 too far" and "flares too intense". The museum doesn't yet.
+
+---
+
+## Turn 103: icon designer, turn 102 fixes (canvas v203)
+
+1. **The museum now belongs by weight, visibly.**
+   - Blurred darkness inside the live circle (`src/museum-blur.js`):
+
+     | Glyph | Mean | Core |
+     |---|---|---|
+     | Museum, H2 | 32.5 | 69.5 |
+     | Museum, v199 | 32.3 | 69.9 |
+     | **Museum, three columns (now)** | **29.5** | **61.2** |
+     | Cup | 28.3 | 70.6 |
+     | Coupe | 26.1 | 63.7 |
+     | Tree | 17.9 | 59.0 |
+
+   - It is no longer the heaviest shape in the row.
+   - The change is three columns, not four: two openings 3px wide, their corners at 0.5. It shows at the 24 badge and the chip.
+   - The structural pattern gains a first rule: "No heavier than the rest. Its openings are at least two lines wide."
+2. **(d) The clear part as a crescent**, the fourth and last coupe option.
+   - (a)'s bowl. The clear part is 1.5px tall at the middle, its lower edge sags like the bowl, and its ends thin to 1/2px.
+   - The label names the trade: "which our no-thin-points rule would not allow; it is here because it may be what you mean".
+   - Drink 7.5px², 47% more than v134. The wall beside the clear part is 1.50 across.
+   - The question now adds, in one line: "which part of the inside looks wrong to you?"
+3. **Labels:**
+   - (b) adds "It reads as a solid glass, like batch 1."
+   - (c) adds "it would be the only outline drawing in the set".
+4. **His note (note-g58yjy):** its text was already empty in his saved version 1792599096, which I read before v199. Nothing was lost and nothing needed restoring.
+
+**Checks:**
+- check-svg: no slivers; everything symmetric except the café.
+- Counters: museum openings 1.50.
+- Curve check: 0.00/px at non-end joins.
+- Coupe (d): its band is 1.48 to 1.50 square at the walls.
+
+**Canvas:**
+- Start's question 1 now names (d).
+- The board grew, so the team's rows 2 to 4 moved down 468px. The owner's items were untouched.
