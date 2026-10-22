@@ -1,5 +1,49 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-22, canvas v225, turn 132; fifth icon designer)
+
+- **Owner on v223:**
+  - "can you see the wobbliness ... further away from the point itself ... on the line coming out of it ... perfect on every icon ever created" (marks: `owner-marks/v223-tree-tip-wobble.png`, `v223-coupe-stem-foot-wobble.png`).
+  - Then: "plus *might* feel a bit light ... the star feels heavy" (`v223-row-line-marks.png`).
+- **Diagnosis:** G2 without G3.
+  - Coupe flares: a linear curvature ramp and a V crest give knees where the line leaves the round.
+  - Tree tip: one eased cubic. Its curvature creeps up over 2/3 of the flank, then spikes: a shoulder, then a nose.
+  - join-check couldn't see either (it reads curvature, not its rate).
+- **Done, as engine rules** (engine.js `opts.join.fair`; boards7 `JOIN8 = { ...JOIN7, fair: true, hillKeep: 'depth' }` on R2/R2B):
+  - **Rounds.** `hillRound`: per half, a raised-cosine curvature spiral from the edge's own curvature to a crest, through the g7aq round's deepest point. Solved by 6x6 Newton. Fallbacks: 'fit', then 'law'.
+  - **Room.** Two passes share each edge's room (no slivers).
+  - **S-span.** A corner into a short opposite bend becomes one S (the museum capital).
+  - **Fewest cubics.** `pieces`: one cubic, else two (Nelder-Mead with a dip penalty), else 3-6 on the hill. Accepted against the fair check's knee limit; signed monotone.
+  - **Precision.** Output at 5 decimals in fair mode. symD takes a `dec` argument and rebuilds a seam crossing whose handles were dropped.
+- **New check** `src/fair-check.js` (KNEE / TAIL / DIP / JUMP, with a rounding tolerance):
+  - v223 row: 172 faults (it fails all three marks).
+  - After, shown row: 4 (the cup's handle).
+  - After, other row: 6 (+2 tails at the domed coupe foot's ends).
+- **Tried and dropped:**
+  - 'law' (the crest at the law radius): the tree's tips came out longer and spikier, +5.6% wide.
+  - A ramp or smooth piece across drawn tangent joins: a circle can't be eased into a line without moving it (clothoid shift). Removed from the code.
+- **Effects:**
+  - Sizes kept (tree 6.96 -> 7.03 wide, same height); the tree's noses a touch rounder.
+  - Curves in the row: 189 -> 393.
+  - Svgs: before frozen in `svg/g7/before-g7ar/`.
+- **Speed:** boards7 takes about 40 min now.
+  - The class and the first 4 size passes use the g7aq rounds (`fast`).
+  - starAt bisects on g7aq rounds, then takes 3 secant steps on the hill rounds.
+  - R2/R2B skip `coupes` and `bar1` (unused).
+- **Weight:** `src/mark-weight.js` gives blurred p80 darkness: star 53, + 39, a 1.5px line 37.
+  - Rule proposed: line marks solved to one darkness T.
+  - Board options: A 39 (+1.67 / star 1.19), B 42.5 (1.81 / 1.29), C 46 (2.06 / 1.41).
+  - Not applied: waiting on his pick.
+- **Board:** section "0 · The wobble on the line leaving a join" on Between (8558 tall); v224 archived as `Archive-G7ar-Between` (x 5880, y 148000); Master at y 9158. `sectionJoins` is kept in boards7 but unused.
+- **Open:**
+  - Does the tree still read as "perfect"?
+  - Curve count vs "minimal bezier curves".
+  - The cup's handle needs a drawing rule (a drawn bend meeting a line starts from no bend).
+  - The domed coupe foot's end tails (other row).
+  - The knee threshold is calibrated only on his marks.
+  - His open questions from before are untouched (Joins, Wide -> Square, "glass ... plate", the liquid).
+- **Tooling** (scratchpad `d5/`): `v.js` (R2B glyph; JOIN env), `gen.sh`, `zoom.js` (crops + curvature comb), `kplot.js` (curvature vs length), `prof.js`, `apex.sh`, `weigh.js`, `marks.js` (option rows at 1x/3x), `symtest.js`, `raw.js`, `mkpub.py`.
+
 ## Update (2026-10-22, canvas v223, turn 129; fourth icon designer)
 
 - **Owner on v222:** optical vertical centring per icon, always; one join pattern for sharp corners (the tree's tiers looked like different approaches); no humps or wobbles at joins ("architectural and smooth ... impeccably constructed at every join"). Plus the coupe band: "the counter edge looks less curved than the exterior edge" (7th+ time; see owner.md v130-v147).

@@ -5765,3 +5765,71 @@ centring per icon, the band's ends. The drawings are otherwise the same.
 2. **Centring:** the rule now says a top-heavy drawing "sits a little below its box centre". The numbers are labelled as measured against v222's placement (halfway from box centre to ink centre, snapped to 1/3px). The cup and coupe moved up because v222 pulled them further toward their weight, and they still sit below their box centres (cup 0.15px, coupe 0.41px). The museum moved down because v222 lifted it toward its base.
 3. **The band's end:** drawn by eye as one curve to echo the wall, not a true offset (over a 5/6px band a true offset is a straight line, which is what he saw before).
 - No drawing changed (svgs byte-identical; only the Between board's copy). Between 7392 → 7592 px; it still ends above the master grid (y 7992). The live v223 board matched my build.
+
+---
+
+## Turn 132: icon designer (fifth), the wobble on the line leaving a join, and the weight of the + and star (canvas v225)
+
+Owner (v223): "can you see the wobbliness i'm talking about in these? ... on the tip of the tree join type -- further away from the point itself on both sides... and on the bowl of the cup on either side ... and on the foot of the cup... same thing not at the join itself, but on the line coming out of it. again, we need to have programmatic approaches here so that this is perfect on every icon ever created." Then: "plus *might* feel a bit light (can't exactly tell because...) the star feels heavy".
+
+**The answer: yes.** It isn't the corner. It's how fast the bend changes as the line leaves the corner. The g7aq rounds were G2 (no step in curvature) but not G3:
+- Coupe flares (bowl/stem, stem/foot): each half's curvature ramped linearly from the edge and peaked in a V at the bisector. So the rate of bend jumps where the line leaves the round (a knee) and again at the crest.
+- Tree tip: one eased cubic, its handles to the corner. Its curvature stays about 0.01-0.2 for 1.7 units down each flank (2/3 of the tip), then spikes to 4.4 at the point. That gives a soft shoulder far from the tip and a hard nose. There is also a curvature step (the flank's -0.08 sweep to 0) where the ease began.
+- join-check passed all of v223 (0 faults) because it reads the curvature, not its rate.
+
+**Engine (engine.js, opts.join.fair; boards7 `JOIN8 = { ...JOIN7, fair: true, hillKeep: 'depth' }` on R2 and R2B):**
+1. `hillRound`: every round, eased tips included, is a spiral designed by its curvature. Each half is a raised cosine from the edge's own curvature to a crest, with slope 0 at both ends (G3: no knee, no V). A 6x6 Newton solve finds where each half leaves its edge, each half's length, the crest and the tangent at M, so the round passes through the g7aq round's deepest point and every shape keeps its size.
+   - Fallbacks, in order: 'fit' (the short side takes all its room; crest and depth move less than 0.05), then the crest at the law's radius.
+   - Two passes share each edge between its two rounds, so no sliver of edge is left between them.
+2. A corner running into a short bend the other way (the museum capital) becomes one S to where the bend ends, landing with the next edge's curvature. This replaces the g7aq slide pass in fair mode.
+3. Each half is written as the fewest cubics that hold the hill: one; else two (Nelder-Mead on the meeting point, with a dip penalty); else 3-6 pieces on the hill. Every option is accepted against the fair check's own knee limit, and must stay one hill (monotone, read signed).
+4. symD writes 5 decimals in fair mode, and rebuilds as one G2 cubic any seam crossing whose handles the booleans dropped. Output is also at 5 decimals, since 4 broke the curvature of short pieces.
+
+Tried and dropped:
+- A crest at the law's radius ('law'): the tree's tips got longer and spikier (+5.6% width). 'depth' keeps the tree's size (6.96 -> 7.03 wide, same height); its noses are a touch rounder.
+- A ramp or smooth piece for drawn tangent joins (an arc running into a line): impossible without moving the arc, because a clothoid needs a shift. Not done.
+
+**New check `src/fair-check.js`:**
+- KNEE: a jump in the rate of bend over max(2, 0.25 x local crest^2).
+- TAIL: a round not halfway up its bend until more than 70% of the way along.
+- DIP: a round that eases off and tightens again.
+- JUMP: a step in curvature, lines included.
+- Steps smaller than the file's rounding are not faults.
+
+Results:
+- v223 row: 172 faults, including all three of his marks (old check: 0).
+- After, the shown row: 4 faults, all at the cup's handle (drawn arcs tangent to straights; needs a drawing rule).
+- After, the other row: 6 (the same 4, plus 2 tails at the ends of the domed coupe foot).
+- Old join-check on the after rows: 0, except 2 HUMPs at the band end in the other row.
+
+**Weight (`src/mark-weight.js`; numbers in svg/g7/between/mark-weight.json):**
+- Blurred darkness (p80 after a 1.5px blur, at true size): star 53, + 39, a lone 1.5px line 37. Both marks use the same 1 2/3px line; the star's walls merge around its small hole.
+- Rule proposed, LINE MARKS BY DARKNESS: each line mark's line is solved to one darkness T.
+- Three options on the board, checked to differ at 1x and 3x:
+  - A: T=39 (+ 1.67, star 1.19).
+  - B: T=42.5 (+ 1.81, star 1.29).
+  - C: T=46 (+ 2.06, star 1.41).
+- Not applied to the row: that's his call.
+
+**Canvas v225:**
+- New section at the top of Between, "0 · The wobble on the line leaving a join". It has:
+  - his quote and the answer;
+  - his crops beside v223 and after, with curvature plots;
+  - the plan in three rules, and the proof;
+  - the before/after row, what changed, and the handle still open;
+  - the weight part with options A/B/C.
+- The v224 board is on Archive as `Archive-G7ar-Between` (x 5880, y 148000).
+- Between is 7592 -> 8558 px tall; Master moved to y 9158.
+
+**Checks run:**
+- fair-check and join-check on every svg of both rows.
+- The mark-weight solve.
+- By eye at 72px, 9x and his zoom: the tree tip, both coupe flares, the band end, the museum capital.
+- boards7 regenerated. Only the R2/R2B rows and the Between board change; R2's coupes and bar1 are now skipped as unused.
+- Impeccable gate not run (a design board, not index.html).
+
+**Unsure:**
+- Whether the rounder noses still read as his "perfect" tree.
+- Curves in the row went from 189 to 393 (his "minimal bezier curves").
+- The knee threshold is calibrated on his marks (the smallest he caught: 5.7), not proven against his eye elsewhere.
+- The + options are subtle at 1x.
