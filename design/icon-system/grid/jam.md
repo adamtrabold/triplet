@@ -5833,3 +5833,50 @@ Results:
 - Curves in the row went from 189 to 393 (his "minimal bezier curves").
 - The knee threshold is calibrated on his marks (the smallest he caught: 5.7), not proven against his eye elsewhere.
 - The + options are subtle at 1x.
+
+---
+
+## Turn 133: design director, "0 · The wobble on the line leaving a join" (v225): 7, the tree's tips turned into knobs
+
+Read the live board (v225, 8558px) and rendered it at 1x and 3x. Opened his three v223 marks. Rendered the R2 svgs before (03d218b6) and after (dd70ce7c) at 12/24/72px, then at his zoom and closer (bowl/stem, stem/foot and the tree's tips, at 150px a unit).
+
+**What's right:**
+- The diagnosis is right, and it answers "can you see the wobbliness" plainly. It's a jump in how fast the bend changes, just outside the corner.
+- The new check fails all three of his marks, where the old one passed them. Keep it.
+- The engine rule (each round's bend rises and falls smoothly) is the right kind of answer to "programmatic ... perfect on every icon".
+
+**What blocks a 9, by eye:**
+1. **The tree's tips are now knobs.**
+   - At 72px the after tree's tips read softer. At 8x and closer, the side tips end in round blobs, not points.
+   - That brings back his v222 complaint ("round knobs"), on the tree he called "perfect".
+   - The plot agrees: the orange hill is low and wide, so the bend starts *further* from the point than the navy did. That's the opposite of fixing "further away from the point itself".
+   - The board's "a touch rounder" undersells it.
+2. **The bowl-into-stem crops show the foot.** Both "v223, same place" and "after" under "the bowl into the stem" use viewBox `9.3 12.805 5.4 3`, the same as the foot section. His bowl mark has no before/after on the board.
+3. **The coupe's flares look the same before and after**, both at his zoom and at 150px a unit. The fix is shown in a plot, not to his eye. The orange bowl plot also still has a step near its left knee.
+4. **The handle:** "perfect on every icon ever created" can't sit next to 4 known faults in the shown row.
+
+**Likely owner objections:**
+- "The tree tips look blobby now; I said that tree was perfect" (very likely).
+- "I can't see the difference on the cup" (likely).
+- "Where's the bowl?" (likely).
+
+**Score: 7.** Fixes, in one batch:
+1. **Tips:**
+   - Keep v223's nose sharpness (its peak bend, the one-pattern tip).
+   - Make the hill *short*, so the flank runs straight right up to it.
+   - Keep the tip's length by running the flanks on, not by fattening the nose.
+   - Show the tree before/after at 72px and 8x. It must not read rounder.
+2. Fix the bowl crops: the right viewBox, in his framing. Check the left-knee step in the orange plot.
+3. Show each join with its bend drawn on the outline itself (a comb), before beside after, so the knee shows in the shape, not only in a chart.
+4. **Handle: yes, this round,** as an engine rule, not a hand redraw. A drawn bend that meets a straight starts from no bend, and the arc may shift by the tiny amount that takes. The row then has 0 faults.
+5. **Curves (189 → 393): acceptable.**
+   - "Minimal bezier curves" means the fewest that hold the shape, not the old count.
+   - Make it a rule: one cubic per half where it holds within the knee limit, two at most.
+   - Tell him the count and why. Don't claim "minimal".
+6. **Weight:**
+   - Say that A leaves the + as it is; only the star changes.
+   - At 72px, A's star (1.19) reads spindly next to the + (1.67). Say which size the rule is solved at, and show 72px.
+
+**Recurring blocker:** a fix is checked by its own measure (a check, a plot), and its side effect lands on a fixed point he loves (the tree, again). Engine-wide rules need a fixed-point guard. The coupe, the tree and the museum's v222 drawing must read unchanged at 72px, by eye, before anything else counts.
+
+**Changed since my last score?** Yes: the engine's rounds, a new check, the weight options. The drawings change only at the joins.

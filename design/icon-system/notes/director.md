@@ -376,3 +376,12 @@ His v222 marks are fixed by eye. The counter's end now reads as curved as
 the outside: an optical curve, measured. Before sending: name the tree's
 sharper upper tips, fix the centring copy, say the band's end is optical.
 Fixes in `grid/jam.md` turn 130.
+
+## Icon system, g7ar wobble (v225, 2026-10-22): 7
+
+The diagnosis (a jump in the rate of bend) and fair-check are right. What blocks:
+- The hill rounds turned the tree's tips into knobs.
+- The board's bowl crops show the foot.
+- By eye, the coupe looks the same before and after.
+
+Handle: fix it this round, as an engine rule. Curve count: acceptable, as a rule. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 133.

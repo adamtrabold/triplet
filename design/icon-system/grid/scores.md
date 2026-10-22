@@ -1324,3 +1324,16 @@ The verdict stands within our own set:
   "perfect" tree); centring copy says "sink" but the numbers say up; say
   the band's end is an optical curve, not an offset.
 - **Fixes:** jam turn 130.
+
+## Round g7ar wobble + line-mark weight (canvas v225), 2026-10-22: 7
+
+- **Diagnosis:** right (the rate of bend; the new check fails his marks). Keep it.
+- **Blocks:**
+  - The tree's tips now read as round knobs at 72px and 8x: his v222 complaint, on a fixed point.
+  - The bowl crops reuse the foot's viewBox.
+  - The coupe's flares show no difference by eye.
+  - The handle's 4 faults.
+- **Curves 189 → 393:** acceptable, as a rule (one cubic per half, two at most), stated honestly.
+- **Handle:** fix it this round, as an engine rule.
+- **Weight:** A leaves the + unchanged. At 72px A's star reads spindly. Name the size the rule is solved at.
+- **Fixes:** jam turn 133.

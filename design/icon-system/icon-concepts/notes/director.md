@@ -1840,3 +1840,13 @@ checks; don't eyeball "is it as good as".
 - Watch copy that contradicts its own numbers (centring "sink" against
   "up").
 - Next: three copy edits, then it goes to him.
+
+## g7ar wobble (v225, 2026-10-22): 7
+
+- Rendered the R2 svgs before (03d218b6) and after (dd70ce7c) at 12/24/72px, at his zoom, and at 150px a unit. The board at 1x/3x.
+- A G3 "hill" with its crest held at depth spreads the bend wide, so the tips go round (a low, wide hill). For a sharp tip, keep the peak and shorten the hill.
+- A kind of board bug: crops that reuse another section's viewBox. Check every crop's viewBox against its label.
+- A fix shown only in a plot hasn't been shown to him. Ask for combs on the outline, before and after.
+- Recurring: engine-wide fixes land on fixed points (the tree, twice now). Guard: the fixed points must read unchanged at 72px, by eye.
+- Open: the curve-count rule (one per half, two at most), the handle rule, and which size the weight is solved at.
+- Next: one batch of six fixes, then rescore.
