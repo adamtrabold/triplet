@@ -14,6 +14,8 @@
 //          not halfway up until more than TAIL_MAX of the way along. The bend reaches far out along the edges (a soft
 //          shoulder away from the point) and the point reads as a separate knob. A raised cosine is halfway at 0.5.
 //   JUMP   a break in curvature at a node over JUMP_MIN, a line meeting a round included (a plain compass fillet).
+//   SHOULDER (g7as) walking from a round's foot to its crest, the bend's rate of growth stalls (under 2/5 of the lower peak
+//          either side, each over a quarter of the top one): two bends in one round, the bend flattening and then growing again.
 // node fair-check.js file.svg ... (exit 1 if any fault)   or require('./fair-check').check(d) -> [{ kind, at, ... }]
 'use strict';
 const fs = require('fs'), { parse, kAt } = require('./join-check');
@@ -57,6 +59,18 @@ function check(d) {
       if (!(A(i) >= CREST_MIN && A(i) > A(i - 1) + 1e-9 && [1, 2, 3, 4, 5, 6].every(o => A(i) >= A(i - o) - 0.02 * A(i) && A(i) >= A(i + o) - 0.02 * A(i)))) continue;
       if (crests.some(q => Math.abs(q - pts[i].L) < 0.08)) continue; crests.push(pts[i].L);
       const crest = A(i), sgn = Math.sign(pts[i].k), half = [];
+      // SHOULDER (g7as): walking from a round's foot to its crest, the bend should grow at a rate that rises once and falls
+      // once. A stall in between (the rate drops under 2/5 of the lower of the peaks either side, each over a quarter of the
+      // top one) is two bends where the eye wants one: the v225 valleys' two-piece fits, the bend flattening where the pieces
+      // meet and growing again. Its own walk: out from the crest until the bend is under 4% of it (a small rise of up to 5% of
+      // the crest is walked through, so a stall can't end the round early), stopping where it climbs into the next round.
+      for (const dir of [-1, 1]) {
+        let g = i, st = 0, lowest = crest; while (st < m / 2 && Math.sign(pts[(g + dir + m) % m].k) === sgn && A(g + dir) > 0.04 * crest && A(g + dir) <= lowest + 0.05 * crest) { g += dir; st++; lowest = Math.min(lowest, A(g)); }
+        const sl = []; for (let j = g; j !== i; j -= dir) { const a = (j + m) % m, b = (j - dir + m) % m, dL = Math.abs(pts[b].L - pts[a].L); if (dL > 1e-6 && dL < 0.5) sl.push(Math.max(0, A(b) - A(a)) / dL); }
+        const S = Math.max(0, ...sl), lo = Math.floor(sl.length * 0.12), hi = Math.ceil(sl.length * 0.88);
+        let pre = 0; const post = []; for (let j = sl.length - 1, mx = 0; j >= 0; j--) { mx = Math.max(mx, sl[j]); post[j] = mx; }
+        for (let j = 0; j < sl.length; j++) { const after = j + 1 < sl.length ? post[j + 1] : 0, lowPk = Math.min(pre, after); if (j >= lo && j < hi && S > 2 && lowPk > 0.25 * S && sl[j] < 0.4 * lowPk) { if (!faults.some(x => x.kind === 'SHOULDER' && Math.hypot(x.at[0] - pts[i].p[0], x.at[1] - pts[i].p[1]) < 0.05)) faults.push({ kind: 'SHOULDER', at: pts[i].p.map(v => +v.toFixed(2)), crest: +(sgn * crest).toFixed(2), stall: +(sl[j] / S).toFixed(2) }); break; } pre = Math.max(pre, sl[j]); }
+      }
       for (const dir of [-1, 1]) {
         let j = i, steps = 0; while (steps < m / 2 && Math.sign(pts[(j + dir + m) % m].k) === sgn && A(j + dir) <= A(j) + 1e-6) { j += dir; steps++; }
         // DIP: the walk stopped while the line still bends hard, and it bends harder again just past: two crests in one round, a wobble

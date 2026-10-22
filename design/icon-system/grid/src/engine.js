@@ -87,6 +87,37 @@ function join(prims, penW) {
 // replaced by ONE cubic (a circular-arc fit), so each rounded corner adds exactly one curve.
 const r3 = v => Math.round(v * 1000) / 1000, r3g = r3;
 function corners(item, law, info, opts = {}) {
+  // g7as TIPS LAND WHERE THEY WERE (director, turn 133: "keep the tip's length by running the flanks on, not by fattening the
+  // nose"): with opts.join.tipLand, a sharp tip keeps the eased tip's nose (J.tipKeep 'crest') and still lands exactly where
+  // the eased tip's point was: its two edges are re-aimed (each turned and scaled about its other end) so that they meet
+  // just far enough beyond that point for the short round to end on it. The flanks then run straight (their own drawn bend)
+  // right up into the nose, which is what the eye already read as the tip's line; the silhouette keeps its size.
+  if (opts.join && opts.join.fair && opts.join.tipLand && !opts._probe) {
+    // per tip: where its point was (T, the eased tip's apex on the drawing as drawn) and its nose (kC, the eased tip's peak
+    // bend there); each pass re-aims the edges and moves the corner by what the apex still misses
+    const tips = [];
+    for (let pass = 0; pass < (opts.join.tipLand === true ? 3 : opts.join.tipLand); pass++) {
+      const probe = [], cl = item.clone({ insert: false }); corners(cl, law, null, { ...opts, _probe: probe, join: { ...opts.join, _tips: tips } }); cl.remove();
+      if (!probe.length) break;
+      for (const h of probe) { let tp = tips.find(x => x.P.getDistance(h.P0) < 1e-6); if (!tp) { tp = { T: h.M0, kC: h.kC, P: h.P0 }; tips.push(tp); } tp.Q = h.P0.add(tp.T.subtract(h.M)); tp.err = tp.T.getDistance(h.M); }
+      const kidsT = item instanceof CompoundPath ? item.children.slice() : [item];
+      for (const p of kidsT) {
+        const segs = p.segments, n = segs.length, P = segs.map(s => s.point.clone()), Q = P.map(pt => { const h = tips.find(x => x.P.getDistance(pt) < 1e-6); return h ? h.Q : pt; });
+        if (Q.every((q, i) => q === P[i])) continue;
+        const hIn = segs.map(s => s.handleIn.clone()), hOut = segs.map(s => s.handleOut.clone());
+        const cmul = (v, a, b) => new Point(v.x * a - v.y * b, v.x * b + v.y * a);
+        for (let j = 0; j < n; j++) {
+          const k = (j + 1) % n, A = P[j], B = P[k], A2 = Q[j], B2 = Q[k], dv = B.subtract(A), dv2 = B2.subtract(A2), den = dv.x * dv.x + dv.y * dv.y; if (den < 1e-12) continue;
+          const qa = (dv2.x * dv.x + dv2.y * dv.y) / den, qb = (dv2.y * dv.x - dv2.x * dv.y) / den;   // q = dv2 / dv (complex)
+          segs[j].handleOut = cmul(hOut[j], qa, qb); segs[k].handleIn = cmul(hIn[k], qa, qb);
+        }
+        for (let j = 0; j < n; j++) segs[j].point = Q[j];
+      }
+      for (const tp of tips) tp.P = tp.Q;
+      if (process.env.TIPDBG) console.error('tipLand pass', pass, tips.map(x => x.err.toFixed(4)).join(' '));
+    }
+    opts = { ...opts, join: { ...opts.join, _tips: tips } };
+  }
   const kids = item instanceof CompoundPath ? item.children.slice() : [item];
   const out = [];
   for (const p of kids) {
@@ -185,11 +216,36 @@ function corners(item, law, info, opts = {}) {
     // wants (alone); then an edge two rounds both want is shared in proportion to what they asked, and each is solved
     // within its share (if the law's crest doesn't fit its share, the g7aq depth is kept instead).
     if (opts.join && opts.join.fair) {
+      // g7as DRAWN BENDS START FROM NO BEND (director, turn 133, the cup's handle: "a drawn bend that meets a straight starts
+      // from no bend, and the arc may shift by the tiny amount that takes"): where a drawn arc runs on from a line (or a gentler
+      // bend) with no corner, its bend switched on at once (a step in curvature, the check's JUMP). With opts.join.arcEase the
+      // arc's half from that node to its middle is redrawn: the bend ramps up from the edge's own by the same even ramp the
+      // rounds use, then holds a slightly tighter arc to the middle, which it reaches exactly (place, direction, and the same
+      // bend from both sides). The ramp starts a little back along the line, so the arc moves in by a hair (reported).
+      if (opts.join.arcEase) for (let i = 0; i < n; i++) {
+        if (cs[i]) continue;
+        const cin = curves[(i - 1 + n) % n], cout = curves[i];
+        const kin = cin.isStraight() ? 0 : kOf(cin, 1), kout = cout.isStraight() ? 0 : kOf(cout, 0);
+        if (Math.abs(kin - kout) < (opts.join.arcJump ?? 0.05)) continue;
+        const arcOut = Math.abs(kout) > Math.abs(kin), arc = arcOut ? cout : cin, edge = arcOut ? cin : cout;
+        if (arc.isStraight()) continue;
+        const kq = [0.02, 0.5, 0.98].map(q => kOf(arc, q)); if (Math.max(...kq) - Math.min(...kq) > 0.03 * Math.abs(kq[1])) continue;   // a true arc only
+        const nxt = arcOut ? (i + 1) % n : (i - 1 + n) % n, farNode = arcOut ? curves[(i + 1) % n] : curves[(i - 2 + n) % n];
+        const farK = farNode.isStraight() ? 0 : kOf(farNode, arcOut ? 0 : 1), farSmooth = !cs[nxt] && Math.abs(farK - kq[1]) < 0.03 * Math.abs(kq[1]);
+        const dQ = farSmooth ? arc.length : arc.length / 2;   // to the arc's middle: its own, or past a smooth node into its other piece
+        // the edge's room: what the corner at its far end (if any) leaves of it
+        const eFar = arcOut ? cs[(i - 1 + n) % n] : cs[(i + 1) % n], room = edge.length - (eFar && !eFar.arcEase ? (eFar.d || 0) * 1.6 + 0.05 : edge.length / 2);
+        const sol = arcEase(edge, arc, arcOut, dQ, { ...opts.join, room });
+        if (opts.join.log) opts.join.log.push(sol ? 'arcEase' : 'noArcEase');
+        if (!sol) continue;
+        cs[i] = { arcEase: true, sSpan: true, jrSol: sol.sol, dIn: arcOut ? sol.a : dQ, dOut: arcOut ? dQ : sol.a, turn: 0, ang: 0, d: 0, P0: cout.point1, shift: sol.shift };
+        if (opts.join.arcLog) opts.join.arcLog.push({ at: [cout.point1.x, cout.point1.y], k: kq[1], k2: sol.k2, a: sol.a, shift: sol.shift, n: sol.sol.length });
+      }
       // a corner running straight into a short drawn bend the other way (a beam's end into a capital's flare): the corner
       // and the bend become ONE S, from the corner's straight edge to where the bend meets what follows it (taking that
       // edge's curvature there, so the post runs on with no step); the S crosses straight at its middle (g7aq's S rule)
       for (let i = 0; i < n; i++) {
-        const b = cs[i]; if (!b || b.trap) continue;
+        const b = cs[i]; if (!b || b.trap || b.arcEase) continue;
         for (const side of ['out', 'in']) {
           const ce = side === 'out' ? curves[i] : curves[(i - 1 + n) % n], other = side === 'out' ? curves[(i - 1 + n) % n] : curves[i];
           if (ce.isStraight() || ce.length > 2) continue;
@@ -221,12 +277,13 @@ function corners(item, law, info, opts = {}) {
         const roomIn = share(wI, pw ? pw[1] : null, cin.length), roomOut = share(wO, nw ? nw[0] : null, cout.length);
         // the law's crest; if it doesn't fit its share, the g7aq depth; if that doesn't either, the round takes all its room
         // on the short side and its crest tightens to fit (a round never pushes into its neighbour)
-        const sol = hillRound(cin, cout, b, roomIn, roomOut, opts.join) || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, hillKeep: 'fit', fitSide: wO - roomOut >= wI - roomIn ? 'out' : 'in' })
-          || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, hillKeep: 'depth' });
+        const sol = hillRound(cin, cout, b, roomIn, roomOut, opts.join) || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, tipKeep: undefined, hillKeep: 'fit', fitSide: wO - roomOut >= wI - roomIn ? 'out' : 'in' })
+          || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, tipKeep: undefined, hillKeep: 'depth' });
         if (opts.join.log) opts.join.log.push(sol ? 'fair' : 'nofair');
         if (process.env.FAIRDBG && !sol) console.error(b.P0.x.toFixed(2), b.P0.y.toFixed(2), b.ease ? 'EASE' : 'jr', 'NO', 'd', b.d.toFixed(2), 'want', wI.toFixed(2), wO.toFixed(2), 'room', roomIn.toFixed(2), roomOut.toFixed(2), 'turn', (b.turn * 180 / Math.PI).toFixed(0), 'edges', cin.isStraight() ? 'L' : 'C', cout.isStraight() ? 'L' : 'C');
         if (process.env.FAIRDBG && sol) console.error(b.P0.x.toFixed(2), b.P0.y.toFixed(2), b.ease ? 'EASE' : 'jr', 'd', b.d.toFixed(2), '->', sol.dI.toFixed(2), sol.dO.toFixed(2), 'kM', (sol.kM ?? 0).toFixed(2), 'dz', (sol.dDepth ?? 0).toFixed(3), 'cubics', sol.sol.length);
         if (process.env.FAIRDBG3 && sol) for (const P of sol.sol) { const c_ = P[0].getDistance(P[3]), h0 = P[0].getDistance(P[1]), h1 = P[3].getDistance(P[2]); if (Math.min(h0, h1) < 0.1 * c_) console.error("DEGEN", b.P0.x.toFixed(2), b.P0.y.toFixed(2), P[0].x.toFixed(3), P[0].y.toFixed(3), "chord", c_.toFixed(3), "h", h0.toFixed(4), h1.toFixed(4), "n", sol.sol.length); }
+        if (opts._probe && b.ease && b.angle < (opts.join.tipAngle ?? 75) && sol && sol.M && sol.kM && Math.abs(sol.dDepth) > 1e-4) opts._probe.push({ P0: b.P0.clone(), M0: sol.M0, M: sol.M, bis: b.bis, kC: sol.kM });
         if (sol) { b.dIn = sol.dI; b.dOut = sol.dO; b.jrSol = sol.sol; } else { b.dIn = Math.min(b.d, roomIn); b.dOut = Math.min(b.d, roomOut); }
       }
     }
@@ -387,6 +444,49 @@ function joinRound(c, pA, tA, kA, pB, tB, kB) {
 // a straight line and peaked in a V (a knee where the line leaves the round, a crease at its deepest point), and an eased
 // tip was one cubic whose curvature crept up from almost 0 a long way out along the flank and then shot up at the point:
 // a soft shoulder far from the point, then a hard nose. The eye reads a sudden change in how fast a line bends as a hitch.
+// g7as arcEase: one half of a drawn arc that runs on from an edge with no corner. Walking from the edge toward the arc's
+// middle Q: the bend ramps from the edge's own (k0) to k2 by the even ramp (raised cosine) over a share J.arcRamp of the
+// way, then holds k2 to Q. Solved (Newton, 3x3): a (how far back along the edge the ramp starts), the length, and k2, so
+// the walk ends exactly on Q in Q's direction. Written as the ramp (one cubic, else two) and the arc (one cubic): two or
+// three curves where there was one. Returns { a, k2, shift, sol } or null.
+function arcEase(edge, arc, arcOut, dQ, J) {
+  const rho = J.arcRamp ?? 0.5, w = u => u >= rho ? 1 : (1 - Math.cos(Math.PI * u / rho)) / 2, ang = v => Math.atan2(v.y, v.x);
+  const wrap = x => { while (x > Math.PI) x -= 2 * Math.PI; while (x < -Math.PI) x += 2 * Math.PI; return x; };
+  // the edge, walking toward the node; the arc's middle, in the walking direction (walking backwards flips the bend's sign)
+  const onEdge = dist => { if (dist > Math.min(edge.length * 0.95, J.room ?? Infinity) || dist < 0) return null; const t = arcOut ? edge.getTimeAt(edge.length - dist) : edge.getTimeAt(dist); if (t == null) return null; const tg = edge.getTangentAtTime(t), k = edge.isStraight() ? 0 : kOf(edge, t); return { p: edge.getPointAtTime(t), a: ang(arcOut ? tg : tg.multiply(-1)), k: arcOut ? k : -k }; };
+  const tQ = arcOut ? arc.getTimeAt(dQ) : arc.getTimeAt(arc.length - dQ); if (tQ == null) return null;
+  const Q = arc.getPointAtTime(tQ), tgQ = arc.getTangentAtTime(tQ), aQ = ang(arcOut ? tgQ : tgQ.multiply(-1)), kArc = arcOut ? kOf(arc, tQ) : -kOf(arc, tQ);
+  const run = (S, L, k2, N = 160, keep = false) => {
+    let x = S.p.x, y = S.p.y, th = S.a; const h = L / N, pts = keep ? [{ x, y, th, k: S.k }] : null;
+    for (let i = 0; i < N; i++) { const u = (i + 0.5) / N, km = S.k + (k2 - S.k) * w(u), thm = th + km * h / 2; x += h * Math.cos(thm); y += h * Math.sin(thm); th += km * h; if (keep) pts.push({ x, y, th, k: S.k + (k2 - S.k) * w((i + 1) / N) }); }
+    return keep ? pts : { x, y, th };
+  };
+  const res = v => { const [a, L, k2] = v; if (!(a > 0.002 && L > 0.01)) return null; const S = onEdge(a); if (!S) return null; const e = run(S, L, k2); return [e.x - Q.x, e.y - Q.y, (e.th - S.a) - wrap(aQ - S.a)]; };
+  let v = [Math.min(0.25 * rho * dQ, (J.room ?? edge.length) * 0.5), dQ * 1.05, kArc * 1.02], r = res(v); if (!r) return null;
+  for (let it = 0; it < 60; it++) {
+    const n2 = Math.hypot(...r); if (n2 < 1e-10) break;
+    const Jm = []; for (let j = 0; j < 3; j++) { const hj = 1e-6 * Math.max(1, Math.abs(v[j])), vv = v.slice(); vv[j] += hj; const rr = res(vv); if (!rr) return null; Jm.push(rr.map((x, i) => (x - r[i]) / hj)); }
+    const A = [0, 1, 2].map(i => [Jm[0][i], Jm[1][i], Jm[2][i]]), det = M3 => M3[0][0] * (M3[1][1] * M3[2][2] - M3[1][2] * M3[2][1]) - M3[0][1] * (M3[1][0] * M3[2][2] - M3[1][2] * M3[2][0]) + M3[0][2] * (M3[1][0] * M3[2][1] - M3[1][1] * M3[2][0]);
+    const D = det(A); if (Math.abs(D) < 1e-14) return null;
+    const dv = [0, 1, 2].map(j => det(A.map((row, i) => row.map((x, c) => c === j ? r[i] : x))) / D);
+    let step = 1, ok = false;
+    for (let ls = 0; ls < 14; ls++, step /= 2) { const vv = v.map((x, j) => x - step * dv[j]), rr = res(vv); if (rr && Math.hypot(...rr) < n2) { v = vv; r = rr; ok = true; break; } }
+    if (!ok) break;
+  }
+  if (process.env.ARCDBG) console.error('arcEase', arcOut ? 'out' : 'in', 'Q', Q.x.toFixed(2), Q.y.toFixed(2), 'kArc', kArc.toFixed(3), 'res', Math.hypot(...r).toExponential(1), 'v', v.map(x => x.toFixed(4)).join(','), 'edge', edge.length.toFixed(2));
+  if (Math.hypot(...r) > 1e-7 || Math.sign(v[2]) !== Math.sign(kArc)) return null;
+  const [a, L, k2] = v, S = onEdge(a), pts = run(S, L, k2, 320, true), iR = Math.round(320 * rho), P = q => new Point(q.x, q.y), T = q => new Point(Math.cos(q.th), Math.sin(q.th));
+  const dev = (C, i0, i1) => { let m = 0; const B = []; for (let q = 0; q <= 64; q++) B.push(bzP(C, q / 64)); for (let i = i0; i <= i1; i += 2) { let dm = Infinity; for (const b of B) dm = Math.min(dm, (b.x - pts[i].x) ** 2 + (b.y - pts[i].y) ** 2); m = Math.max(m, dm); } return Math.sqrt(m); };
+  const cub = (i0, i1) => { const A_ = pts[i0], B_ = pts[i1], h = g2Handles(P(A_), T(A_), A_.k, P(B_), T(B_), B_.k); return h ? [P(A_), P(A_).add(T(A_).multiply(h[0])), P(B_).subtract(T(B_).multiply(h[1])), P(B_)] : null; };
+  let ramp = null; { const c1 = cub(0, iR); if (c1 && dev(c1, 0, iR) <= (J.hillTol2 ?? 0.02) / 4) ramp = [c1]; else { const m = Math.round(iR / 2), c2 = cub(0, m), c3 = cub(m, iR); if (c2 && c3) ramp = [c2, c3]; } }
+  if (!ramp) return null;
+  const R = pts[iR], phi = (L * (1 - rho)) * k2, hA = (4 / 3) * Math.tan(phi / 4) / k2, arcC = [P(R), P(R).add(T(R).multiply(hA)), Q.add(new Point(Math.cos(aQ), Math.sin(aQ)).multiply(-hA)), Q.clone()];
+  let sol = [...ramp, arcC];
+  if (!arcOut) sol = sol.reverse().map(C => [C[3], C[2], C[1], C[0]]);
+  // the shift: how far the redrawn half runs from the drawn arc, at most (the drawn arc as it was, sampled)
+  let shift = 0; { const ctr = Q.add(new Point(-Math.sin(aQ), Math.cos(aQ)).multiply(1 / kArc)), rr = Math.abs(1 / kArc); for (let i = iR; i <= 320; i += 4) shift = Math.max(shift, Math.abs(Math.hypot(pts[i].x - ctr.x, pts[i].y - ctr.y) - rr)); }
+  return { a, k2: arcOut ? k2 : -k2, shift, sol };
+}
 // The hill round is DESIGNED BY ITS CURVATURE: each half (edge to the corner's deepest point M) bends by a raised cosine,
 //   k(s) = kE + (kM - kE) (1 - cos(pi s / L)) / 2,
 // so the bend grows from the edge's own curvature with no jolt, crests flat at M, and is halfway up halfway along: one
@@ -396,7 +496,7 @@ function joinRound(c, pA, tA, kA, pB, tB, kB) {
 // is then written as the FEWEST cubics that follow it (one where one does, within J.hillTol of the hill, else two, three).
 // Returns { dI, dO, sol: [cubics...] } or null (the caller keeps the g7aq round).
 function hillRound(cin, cout, c, roomIn, roomOut, J) {
-  const sg = Math.sign(c.turn), rho = J.hillRamp ?? 1, w = u => u >= rho ? 1 : (1 - Math.cos(Math.PI * u / rho)) / 2, ang = v => Math.atan2(v.y, v.x);
+  const sg = Math.sign(c.turn), rho = J.hillRamp ?? 1, isTip = c.ease && J.tipKeep && c.angle < (J.tipAngle ?? 75), pw = isTip ? (J.tipPow ?? 1) : 1, w = u => u >= rho ? 1 : ((1 - Math.cos(Math.PI * u / rho)) / 2) ** pw, ang = v => Math.atan2(v.y, v.x);
   const wrap = a => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
   const edgeAt = (cv, dist, isIn) => { const t = isIn ? cv.getTimeAt(Math.max(0, cv.length - dist)) : cv.getTimeAt(Math.min(cv.length, dist)); if (t == null) return null; return { p: cv.getPointAtTime(t), a: ang(cv.getTangentAtTime(t)), k: cv.isStraight() ? 0 : kOf(cv, t) }; };
   // the g7aq round at this corner, as the reference: its point on the bisector (M0) and its curvature there (the crest the
@@ -415,7 +515,15 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   }
   if (!M0) { if (process.env.FAIRDBG) console.error("   why: no M0"); return null; }
   // J.hillKeep: 'crest' keeps the corner's crest curvature (its depth then follows), 'depth' keeps its deepest point
-  const keep = J.hillKeep ?? 'crest', keepCrest = keep !== 'depth';
+  // g7as SHARP TIPS (director, turn 133: the hill tips read as knobs): a convex tip of a mass (an eased corner) keeps the
+  // eased tip's own nose (its crest, J.tipKeep 'crest'), so its hill is only as long as that bend needs and the flanks run
+  // straight right up into it; joins keep their depth (J.hillKeep)
+  const keep = (isTip && J.tipKeep) || (J.hillKeep ?? 'crest'), keepCrest = keep !== 'depth';
+  // a sharp tip keeps the eased tip's PEAK bend (its tightest point, which on a lopsided tip is off the bisector), not its
+  // bend at the bisector
+  const tipRec = isTip && J._tips ? J._tips.find(x => x.P.getDistance(c.P0) < 1e-6) : null;
+  if (tipRec && tipRec.kC && keep === 'crest') kC = tipRec.kC;
+  else if (isTip && keep === 'crest') { let km = 0; for (const P of ref) for (let q = 0; q <= 200; q++) km = Math.max(km, Math.abs(kBez(P, Math.min(1 - 1e-4, Math.max(1e-4, q / 200))))); kC = sg * km * (J.tipShare ?? 1); }
   if (keep === 'law') kC = sg / (c.r * Math.min(1, Math.min(c.d, roomIn, roomOut) / c.d0));   // the crest is the law's own radius
   if (process.env.FAIRDBG) console.error('   ref crest', kC.toFixed(2), 'law r', c.r.toFixed(3), 'law k', (1 / c.r).toFixed(2));
   let M = M0;
@@ -437,12 +545,15 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
     const [, L1, , L2, , phi] = v, { dI, dO, kM, M } = unpack(v); if (!(dI > 0.005 && dO > 0.005 && L1 > 0.005 && L2 > 0.005 && dI <= roomIn && dO <= roomOut)) return null;
     const A = edgeAt(cin, dI, true), Bq = edgeAt(cout, dO, false); if (!A || !Bq) return null;
     const aM = aM0 + phi, e1 = run(A.p, A.a, A.k, kM, L1), e2 = run(M, aM, kM, Bq.k, L2, 48, false, true);
-    return [e1.x - M.x, e1.y - M.y, wrap(e1.th - aM), e2.x - Bq.p.x, e2.y - Bq.p.y, wrap(e2.th - Bq.a)];
+    // the turns read unwrapped (each half turns by less than half a circle), so a half can never loop round to land
+    return [e1.x - M.x, e1.y - M.y, (e1.th - A.a) - wrap(aM - A.a), e2.x - Bq.p.x, e2.y - Bq.p.y, (e2.th - aM) - wrap(Bq.a - aM)];
   };
   const chordIn = Math.max(0.05, c.d), turn1 = Math.abs(c.turn) / 2;
   let best = null;
   for (const f0 of c.ease ? [0.35, 0.5, 0.7, 1] : [1, 0.7, 1.4]) {
-    const d0 = Math.min(chordIn * f0, roomIn * 0.95, roomOut * 0.95), L0 = d0 * 1.1, kM0 = sg * 2 * turn1 / L0;
+    // a kept crest sets the hill's length (each half turns about half the corner at about half the crest); else from the chord
+    const Lk = keepCrest && keep !== 'fit' && Math.abs(kC) > 1e-6 ? 2 * turn1 / Math.abs(kC) * f0 / (c.ease ? 0.35 : 1) : 0;
+    const d0 = Math.min(Lk ? Lk : chordIn * f0, roomIn * 0.95, roomOut * 0.95), L0 = Lk || d0 * 1.1, kM0 = sg * 2 * turn1 / L0;
     let v = keep === 'fit' ? [fitIn ? 0 : d0, L0, fitOut ? 0 : d0, L0, kC || kM0, 0] : [d0, L0, d0, L0, keepCrest ? 0 : kM0, 0], r = res(v); if (!r) continue;
     for (let it = 0; it < 40; it++) {
       const n2 = Math.hypot(...r); if (n2 < 1e-9) break;
@@ -453,7 +564,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
       for (let ls = 0; ls < 12; ls++, step /= 2) { const vv = v.map((x, j) => x - step * dv[j]), rr = res(vv); if (rr && Math.hypot(...rr) < n2) { v = vv; r = rr; ok = true; break; } }
       if (!ok) break;
     }
-    if (process.env.FAIRDBG2 && keep === "fit") console.error("      fit f0", f0, "res", Math.hypot(...r).toExponential(2), "v", v.map(x => x.toFixed(3)).join(","), "room", roomIn.toFixed(2), roomOut.toFixed(2), "kC", kC.toFixed(2));
+    if (process.env.FAIRDBG2 && (keep === "fit" || process.env.FAIRDBG2 === "all")) console.error("      fit f0", f0, "res", Math.hypot(...r).toExponential(2), "v", v.map(x => x.toFixed(3)).join(","), "room", roomIn.toFixed(2), roomOut.toFixed(2), "kC", kC.toFixed(2));
     if (Math.hypot(...r) < 1e-6 && Math.sign(unpack(v).kM) === sg) { best = v; break; }
   }
   if (!best) { if (process.env.FAIRDBG) console.error("   why: no solve"); return null; }
@@ -489,17 +600,20 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
     const cost2 = v => {
       const b_ = build2(v); if (!b_) return 1e9;
       const e1 = (kd(b_.P1, 0) - sl(0)) / stol, e2 = (kd(b_.P1, 1) - kd(b_.P2, 0)) / stol, e3 = (kd(b_.P2, 1) - sl(NS)) / stol;
-      const dv = Math.max(dev(b_.P1, 0, b_.q, true), dev(b_.P2, b_.q, NS, true)) / tol;
+      const dv = Math.max(dev(b_.P1, 0, b_.q, true), dev(b_.P2, b_.q, NS, true)) / (J.maxPieces === 2 ? (J.hillTol2 ?? 0.02) : tol);
       // and a dip (the bend easing off and tightening again inside the hill) costs as much as a knee
       const dir = Math.sign(k1 - k0) || 1, tk = 0.03 * Math.max(Math.abs(k0), Math.abs(k1)); let dip = 0; { const ks = [b_.P1, b_.P2].flatMap(P => Array.from({ length: 13 }, (_, q) => kBez(P, q / 12))); for (let q = 1; q < ks.length; q++) { const v_ = -dir * (ks[q] - ks[q - 1]); if (v_ > 0) dip += (v_ / tk) ** 2; } }
-      return e1 * e1 + e2 * e2 + e3 * e3 + dip + (dv > 1 ? 10 * (dv - 1) ** 2 : 0) + 0.01 * dv * dv;
+      // g7as: the two pieces follow the hill's BEND, not only its place: where they stall (the bend stops growing at the
+      // pieces' meeting point and starts again, a shoulder) the eye reads two bends; scored against the hill sampled by length
+      let kv = 0; if (J.maxPieces === 2) { const span = Math.max(1e-6, Math.abs(k1 - k0)); for (const [P, i0, i1] of [[b_.P1, 0, b_.q], [b_.P2, b_.q, NS]]) { let Lp = 0; const Ls = [0]; let pr = bzP(P, 0); for (let s_ = 1; s_ <= 16; s_++) { const pt = bzP(P, s_ / 16); Lp += pt.getDistance(pr); pr = pt; Ls.push(Lp); } for (let s_ = 1; s_ < 16; s_++) { const qi = Math.round(i0 + (i1 - i0) * Ls[s_] / Lp); kv += ((kBez(P, s_ / 16) - S[qi].k) / (0.03 * span)) ** 2 / 30; } } }
+      return e1 * e1 + e2 * e2 + e3 * e3 + dip + kv + (dv > 1 ? 10 * (dv - 1) ** 2 : 0) + 0.01 * dv * dv;
     };
     let best2 = null;
-    for (const u0 of fl > 0 ? [fl / NS, 0.5, 0.3, 0.7] : [0.5, 0.35, 0.65, 0.25, 0.75]) {
+    for (const u0 of fl > 0 ? [fl / NS, 0.5, 0.3, 0.7] : J.maxPieces === 2 ? [0.5, 0.35, 0.65, 0.25, 0.75, 0.15, 0.85] : [0.5, 0.35, 0.65, 0.25, 0.75]) {
       const scale = [0.15, tol * 2, 0.05, Math.max(0.05, 0.1 * Math.abs(k1 - k0))];
       const v = nelderMead(cost2, [u0, 0, 0, 0], scale, 260);
       if (!best2 || v.f < best2.f) best2 = v;
-      if (best2.f < 0.5) break;
+      if (best2.f < (J.maxPieces === 2 ? 1.5 : 0.5)) break;
     }
     if (best2) {
       const b_ = build2(best2.x);
@@ -508,6 +622,11 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
         // and the pieces together still make one hill: the bend only grows toward the crest (a dip between the pieces is a wobble)
         const mono = hillMono;
         if (ok && mono([b_.P1, b_.P2])) return [b_.P1, b_.P2];
+        // g7as AT MOST TWO (director, turn 133: "one cubic per half where it holds within the knee limit, two at most"): with
+        // J.maxPieces 2, two pieces that keep the knee limit and one hill are taken even where they stray from the ideal hill by
+        // more than hillTol, up to J.hillTol2 (the hill is the aim; the knee limit and the single hill are what the eye reads)
+        const kOK = Math.abs(kd(b_.P1, 0) - sl(0)) <= kl2 && Math.abs(kd(b_.P1, 1) - kd(b_.P2, 0)) <= kl2 && Math.abs(kd(b_.P2, 1) - sl(NS)) <= kl2;
+        if (J.maxPieces === 2 && kOK && mono([b_.P1, b_.P2]) && Math.max(dev(b_.P1, 0, b_.q), dev(b_.P2, b_.q, NS)) <= (J.hillTol2 ?? 0.02)) return [b_.P1, b_.P2];
         if (ok && process.env.FAIRDBG2) console.error("      mono fail", k0.toFixed(2), k1.toFixed(2), [b_.P1, b_.P2].flatMap(P => [0, 0.25, 0.5, 0.75, 1].map(t => kBez(P, t).toFixed(2))).join(" "));
         if (process.env.FAIRDBG2) console.error('      two failed', best2.f.toFixed(3), kd(b_.P1, 0).toFixed(2), sl(0).toFixed(2), kd(b_.P1, 1).toFixed(2), kd(b_.P2, 0).toFixed(2), kd(b_.P2, 1).toFixed(2), sl(NS).toFixed(2), 'stol', stol.toFixed(2), 'dev', Math.max(dev(b_.P1, 0, b_.q), dev(b_.P2, b_.q, NS)).toFixed(4));
       }
@@ -515,7 +634,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
     // three to six pieces, their meeting points ON the hill (each piece held to the hill's place, tangent and bend there);
     // accepted on the fair check's own knee limit
     const klim = Math.max(2.5, 0.2 * Math.max(Math.abs(k0), Math.abs(k1)) ** 2);
-    for (let n = 3; n <= 6; n++) {
+    for (let n = 3; n <= (J.maxPieces ?? 6); n++) {
       const Ps = []; let bad = false;
       for (let j = 0; j < n && !bad; j++) { const i0 = Math.round(NS * j / n), i1 = Math.round(NS * (j + 1) / n), P = cubic(nodeAt(i0), nodeAt(i1)); if (!P || dev(P, i0, i1) > tol) bad = true; else Ps.push(P); }
       if (process.env.FAIRDBG2) console.error("      n", n, "bad", bad, bad ? "" : "mono " + hillMono(Ps), bad ? "" : Ps.map(P => kd(P, 0).toFixed(1) + "/" + kd(P, 1).toFixed(1)).join(" "), "edge sl", sl(0).toFixed(2), sl(NS).toFixed(2), "k", k0.toFixed(2), k1.toFixed(2));
@@ -531,7 +650,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   const h1 = pieces(A.p, A.a, A.k, kM, L1, false), h2 = pieces(M, aM, kM, Bq.k, L2, true); if (!h1 || !h2) { if (process.env.FAIRDBG) console.error("   why: no fit", !!h1, !!h2); return null; }
   const S0 = [...h1, ...h2], kS = kBez(S0[0], 1e-4), kE_ = kBez(S0[S0.length - 1], 1 - 1e-4);
   if (Math.abs(kS - A.k) > 0.1 || Math.abs(kE_ - Bq.k) > 0.1) { if (process.env.FAIRDBG) console.error("   why: ends off", kS.toFixed(2), A.k.toFixed(2), kE_.toFixed(2), Bq.k.toFixed(2)); return null; }   // never leave an edge with a step in its bend
-  return { dI, dO, sol: S0, kM, L1, L2, dDepth: M.subtract(M0).dot(c.bis) };
+  return { dI, dO, sol: S0, kM, L1, L2, dDepth: M.subtract(M0).dot(c.bis), M, M0, kC: kM };
 }
 function nelderMead(f, x0, step, iters) {   // a small Nelder-Mead minimiser: returns { x, f }
   const n = x0.length; let P = [x0.slice()]; for (let i = 0; i < n; i++) { const x = x0.slice(); x[i] += step[i]; P.push(x); }

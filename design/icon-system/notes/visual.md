@@ -1,5 +1,56 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-22, canvas v226, turn 134; sixth icon designer)
+
+- **Director on v225 (turn 133), score 7:**
+  - the tree's tips became knobs;
+  - the bowl crops showed the foot;
+  - the coupe looked the same before and after at his zoom;
+  - the handle still had 4 faults;
+  - the curve count;
+  - the weight options.
+- **Done, as engine rules.** boards7 `JOIN9 = { ...JOIN8, tipKeep: 'crest', tipLand: true, tipPow: 2, maxPieces: 2, arcEase: true, arcRamp: 0.3, arcLog: [] }`; mark-weight.js uses the same values.
+  - **Tips** (an eased corner under `tipAngle` 75°):
+    - They keep the eased tip's true peak bend.
+    - Their hill rises as the square of the raised cosine.
+    - `tipLand` re-aims the tip's two edges (a similarity about each edge's far end) so the short hill's apex lands on v223's apex. This is done in a pre-pass at the top of `corners()`: it probes on a clone, keeps each tip's target and crest from the drawing as drawn, and runs 3 passes.
+    - Why: v223's tips crest at 19 / 11 / 7; the 'depth' hill gave 6.6 / 4.1 / 2.6, which read as knobs.
+  - **arcEase** (`arcEase()` in engine.js): at a smooth node with a curvature jump onto a true arc, the bend ramps up over 3/10 of the half, holds a slightly tighter arc, and lands on the arc's middle. Newton 3x3, within the edge's room. The shift is at most 0.05 units.
+  - **maxPieces 2**: the 3-6 piece loop is skipped. A relaxed two-piece fit is accepted up to `hillTol2` 0.02, with more restarts. The two-piece cost now includes how well the pieces follow the hill's curvature (`kv`, at 3% of the span), which removes the v225 star-valley stalls.
+  - **hillRound fixes**: the turn residual is read unwrapped (no looped halves), and a kept crest seeds the hill's length.
+- **fair-check**: a new **SHOULDER** check (a stall in the rate of bend inside a round's half, found by its own walk).
+- **Results:**
+  - Shown row (R2B): 0 faults (v223 178, v225 22).
+  - Other row (R2): 2 TAILs (the domed foot).
+  - join-check: 2 HUMPs at the band ends.
+  - Curves: 189 → 396.
+  - Tree: 6.96 × 11.46 → 6.98 × 11.46.
+- **Bug fixed:** boards7 `shiftD` now writes 5 decimals; at 4 it put a knee in the star.
+- **Board (Between, section 0, rewritten):**
+  - his quote and the answer;
+  - three joins, each with his crop, v223, now, a comb of the bend drawn on the outline (v223 beside now), the plot and "how large";
+  - the rules table (5 rules) and the proof;
+  - the rows;
+  - the tree tips trio (v223 / v225 knobs / now) at 72px and 8x;
+  - the handle;
+  - the weight options at 1x and 72px. A keeps the +; the weight is solved at true size.
+  - The v225 board is archived as `Archive-G7as-Between` (x 6720, y 148000). The v225 svgs are in `svg/g7/before-g7as/`.
+- **Weight** (mark-weight.json, targets 39 / 43 / 47):
+  - A: + 1.67, star 1.20.
+  - B: + 1.82, star 1.32.
+  - C: + 2.06, star 1.45; the + only reaches 46.
+  - At 1x the star differences are small.
+- **Open:**
+  - Do the slimmer tip ends still read as his "perfect" tree?
+  - The band-end HUMPs (old check).
+  - Wider weight spacing if he can't see A/B/C at 1x.
+  - His older open questions are untouched (Joins, Wide → Square, glass/plate, the liquid).
+- **Tooling** (scratchpad `d6/`):
+  - `v.js` (R2B glyph), `gen.sh` (with an EXTRA join json), `st.js` (star and + via mark-weight), `sr.js` (the star exactly as starAt builds it);
+  - `zr.js` (crops relative to the box; comb; RATE=1 for a dk/ds comb), `crests.js` (every crest with its k and half-width), `kplot.js`, `sizes.js` (12/24/72 rows), `shot.js` (board screenshots).
+  - Patch scripts `p*.py` (the sandbox refuses heredoc python, so patches go in files).
+  - boards7 takes about 35 min.
+
 ## Update (2026-10-22, canvas v225, turn 132; fifth icon designer)
 
 - **Owner on v223:**

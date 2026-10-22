@@ -5880,3 +5880,82 @@ Read the live board (v225, 8558px) and rendered it at 1x and 3x. Opened his thre
 **Recurring blocker:** a fix is checked by its own measure (a check, a plot), and its side effect lands on a fixed point he loves (the tree, again). Engine-wide rules need a fixed-point guard. The coupe, the tree and the museum's v222 drawing must read unchanged at 72px, by eye, before anything else counts.
 
 **Changed since my last score?** Yes: the engine's rounds, a new check, the weight options. The drawings change only at the joins.
+
+---
+
+## Turn 134: icon designer (sixth), turn 133's fixes on v225: sharp tips that land, the handle, two curves a half (canvas v226)
+
+I took over mid-task from the fifth designer. Every fix below is an engine rule. In boards7, `JOIN9 = { ...JOIN8, tipKeep: 'crest', tipLand: true, tipPow: 2, maxPieces: 2, arcEase: true, arcRamp: 0.3 }`, used on R2/R2B; mark-weight.js uses the same values.
+
+**The answer (unchanged from turn 132): yes.** The wobble is a step in how fast the bend changes, just outside the corner (G2 without G3):
+- At the coupe's flares it shows as knees.
+- At the tree's tips it shows as a long, creeping shoulder and then a spike at the point.
+- The v223 join-check read the bend itself, not its rate of change, so it passed all of these.
+
+**The fixes, in the director's order:**
+
+1. **The tree's tips had become knobs.**
+   - Why: v223's tips peak at a bend of 19 / 11 / 7 (radius 0.05-0.15 units). The 'depth' hill kept v223's apex with a wide, low hill, so it crested at only 6.6 / 4.1 / 2.6.
+   - A TIP is now any eased corner under 75°, and two rules apply to it.
+   - `tipKeep 'crest'`: the tip keeps the eased tip's peak bend. On a lopsided tip that peak sits off the bisector, so the true peak is used.
+   - `tipPow 2`: the hill rises as the square of the raised cosine. The bend stays near zero up the flank and gathers at the point. It is still G3, and still halfway up by 64% of the way, so there is no TAIL.
+   - `tipLand`: a short hill on its own pushes every tip out toward the drawn corner. The tree grew spiky, which is why turn 132 dropped 'law'. So each tip's two edges are re-aimed (each turned and scaled about its far end) to meet just beyond v223's apex, and the tip lands where it was. This takes three passes; the landing error is at most 0.034 units (0.1px at 72).
+   - Result: the crests are 18.9 / 10.7 / 6.75 (v223: 18.9 / 10.7 / 6.65), with the tips in the same places. The tree goes from 6.96 × 11.46 to 6.98 × 11.46.
+   - Cost: the tips are a touch slimmer near the point, because v223's shoulders bulged out past the straight line.
+   - Also fixed in hillRound: the turn is now read unwrapped (one crest solve had converged on a half that looped), and a kept crest now sets the starting length of the hill.
+
+2. **The handle: `arcEase`.**
+   - The case: a drawn arc that runs on from a line with no corner.
+   - The rule: the arc's half from that node to its middle ramps up from the edge's bend over 3/10 of the way. It then holds a slightly tighter arc to the middle and lands there exactly (place, direction and bend).
+   - Solved by Newton on three values (how far back along the line the ramp starts, the length, the held bend), within the edge's room.
+   - Written as one or two cubics for the ramp, plus one for the arc.
+   - The arc moves in by at most 0.05 units (0.15px at 72).
+   - The cup: 4 JUMPs → 0.
+
+3. **Curves: `maxPieces 2`.**
+   - One cubic per half where it holds within the knee limit, else two, never more.
+   - Two pieces may stray from the ideal hill by up to 0.02 units (`hillTol2`), as long as they keep the knee limit and stay one hill.
+   - The two-piece fit is now also scored on how well it follows the hill's bend, so it can't stall where the pieces meet. That stall was in v225's star valleys and the coupe's band ends.
+   - The row goes from 189 curves (v223) to 396. The board says so plainly and doesn't call it minimal.
+
+4. **The board.**
+   - The bowl and the foot each have their own crop, centred on the stem, with both sides shown.
+   - Each join shows the bend drawn on the outline (a comb, v223 beside now) as well as the plot.
+   - Each join has a "how large" figure: the most the line moves there, at 72px. The bowl moves 0.17px; the tree's tip moves 0.54px, mostly from the tip landing.
+   - The board says plainly that the coupe's joins barely change shape at his zoom.
+
+5. **Weight.**
+   - A keeps the + as it is (1.67px) and only thins the star.
+   - The weights are solved at true size: the + in its 26px slot, the star in its 20px slot, blurred 1.5px.
+   - Each option is shown at 1x and at 72px; at 72px, A's star looks spindly.
+   - Re-solved on the new star:
+     - A 39: + 1.67, star 1.20.
+     - B 43: + 1.82, star 1.32.
+     - C 47: + 2.06, star 1.45. The + only reaches 46, and the board says so.
+
+**New check: SHOULDER, in fair-check.**
+- Walking a round's half from its foot to its crest, the rate of bend must rise once and fall once.
+- It fails a stall: the rate drops under 2/5 of the lower of the peaks either side, where each of those peaks is over a quarter of the top one.
+- The check walks the round on its own and passes through small stalls, so a stall can't end the round early.
+
+**Also fixed:** boards7 `shiftD` (the optical shift for the + and the star) rounded y to 4 decimals, which put a knee in the star. It now keeps 5.
+
+**Checks run:**
+- fair-check on every row svg:
+  - Shown row (R2B): **0 faults** (v223: 178; v225: 22).
+  - Other row: 2 (the domed foot's TAILs, already known).
+- join-check: the shown row is clean except for 2 HUMPs at the coupe's band ends. That is the counter end drawn as one curve, as in v225's other row; the fair check passes it.
+- By eye at 1x, 24, 72 and 8x: the tree reads as v223's with crisper points. The coupe, cup and museum are unchanged at 72.
+- boards7 regenerated.
+- Impeccable not run (this is a design board, not index.html).
+
+**Canvas v226:**
+- Section 0 on the Between board is rewritten in place.
+- The v225 board is archived as `Archive-G7as-Between` (x 6720, y 148000).
+- The v225 svgs are frozen in `svg/g7/before-g7as/`.
+
+**Unsure:**
+- Whether the slimmer tips still read as his tree. The 72px trio is on the board.
+- At 1x the A/B/C star difference is small; it shows clearly at 72px.
+- The band-end HUMPs on the old check.
+- tipLand re-aims edges by a hair. The shapes are kept by measure, but that is still a drawing touch made by the engine.
