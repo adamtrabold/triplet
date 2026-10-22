@@ -534,7 +534,16 @@ ${rows}
 const H_Q = 'These tune the whole set toward more rounded, flared, hand-drawn shapes, each by one rule. Does any feel right, or keep the current set?';   // the director's wording (turn 81)
 // the star at a size that balances with the set (director, turn 82): its points reach as far as the +'s arms
 const PLUS_SPAN = (() => { const b = measure(UD.joint.plus.d).box; return (b.x1 - b.x0) * 26.4 / 24; })();
-const starAt = (opts = {}) => { let lo = 0.3, hi = 1.2, d; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; d = E.build(star(20, m, LINEW), { law: scaled(LAWS7.joint, 24 / 20), ...opts }).d; const b = measure(d).box; if ((b.x1 - b.x0) * 20 / 24 > PLUS_SPAN) hi = m; else lo = m; } return d; };
+const starAt = (opts = {}) => {
+  // g7ar: with the hill rounds, the bisection reads the g7aq rounds, then three secant steps on the hill rounds themselves
+  const fair = opts.join && opts.join.fair, o0 = fair ? { ...opts, join: { ...opts.join, fair: false } } : opts;
+  let lo = 0.3, hi = 1.2, d; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; d = E.build(star(20, m, LINEW), { law: scaled(LAWS7.joint, 24 / 20), ...o0 }).d; const b = measure(d).box; if ((b.x1 - b.x0) * 20 / 24 > PLUS_SPAN) hi = m; else lo = m; }
+  if (!fair) return d;
+  const span = m => { const dd = E.build(star(20, m, LINEW), { law: scaled(LAWS7.joint, 24 / 20), ...opts }).d, b = measure(dd).box; return [(b.x1 - b.x0) * 20 / 24 - PLUS_SPAN, dd]; };
+  let m0 = (lo + hi) / 2, m1 = m0 * 0.99, [f0, d0] = span(m0), [f1, d1] = span(m1);
+  for (let k = 0; k < 3 && Math.abs(f1) > 1e-4 && f1 !== f0; k++) { const m2 = m1 - f1 * (m1 - m0) / (f1 - f0); m0 = m1; f0 = f1; m1 = m2; [f1, d1] = span(m1); }
+  return d1;
+};
 // g7u (owner on the coupe: "its starting to read as wine glass with the liquid... i think the taller stem or
 // more pancaked bowl really sell coupeness"): three coupes, each in the size class, the band the stroke
 // the clear band, optically the stroke: a light gap between two dark lines reads wider than it measures
@@ -561,6 +570,12 @@ const EASE = 2.3;
 //   - every round is solved to meet its edges with their own curvature and to bend evenly (no flat-then-round, no hump);
 //   - a counter's end that is itself a curve (the band's end beside the bowl) is drawn as one curve, its corners merged.
 const JOIN7 = { ease: EASE, trim: 1.4, ends2: 1.5 };
+// g7ar (owner on v223: "can you see the wobbliness ... further away from the point itself on both sides ... on the line
+// coming out of it. again, we need to have programmatic approaches here so that this is perfect on every icon ever
+// created."): THE HILL ROUND, an engine rule (engine.js hillRound, opts.join.fair): every round is drawn by its curvature,
+// a raised cosine from each edge's own bend up to a round crest and back, reaching as deep as the g7aq round, so nothing changes speed on the
+// line leaving a join; a corner running into a short bend the other way becomes one S. Checked by src/fair-check.js.
+const JOIN8 = { ...JOIN7, fair: true, hillKeep: 'depth' };   // each round reaches exactly as far into its corner as before ('law', the crest at the law's radius, made the tree's tips longer and spikier)
 // g7aq OPTICAL CENTRING, per icon (owner on v222: "vertical centering should be optical always on a per-icon basis"): the
 // point set on the badge's centre is the drawing's box centre, pulled down by half the distance its ink sits ABOVE that
 // centre (a top-heavy drawing, the cup or the coupe, sinks toward its weight); a drawing whose weight sits low (a building
@@ -628,8 +643,8 @@ const HSETS = [
   // on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to
   // establish to fix that"; "i will say "coupe after" needs slightly more drink"): the coupe and the tree are fixed; four rules
   // carry them to the rest, and the drink rule moves the coupe's surface up a lattice line
-  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN7, optical: true }],
-  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN7, optical: true }],
+  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN8, optical: true }],
+  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN8, optical: true }],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
@@ -638,9 +653,12 @@ const HSETS = [
   ['Between, plates flipped', 'The same, with the plate and the coupe\'s foot flat on top and rounded underneath: the underside drops 1/2px at the centre, like a saucer\'s.', { droop: 0.5, bow: -0.2, under: 0.5, ...COUPE_V[0][2] }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
 ].map(([nm, rule, o, law, fk, bal, ease, X = {}]) => {
   const opts = { law, tightHoles: true, ease: ease || undefined, join: X.join };
+  // g7ar: the hill rounds are slow to solve; the class and the first passes of the size fit read the g7aq rounds (the same
+  // corners, a hair different), the last two passes and every drawing shown use the hill rounds
+  const fast = X.join && X.join.fair ? { ...opts, join: { ...X.join, fair: false } } : opts;
   const fitPlace = (id, extra = {}, withSil = false) => {
-    const fk_ = fk * (extra.fitScale || 1), [cls0, apex] = CLASS[id], cls = classByProportion(id, () => DRAW[id](12, { style: 'mono', ...o, ...extra }), opts, apex, cls0, nm), kw = KEY[cls][0] * fk_, bh = (KEY[cls][1] + apex) * fk_, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
-    let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
+    const fk_ = fk * (extra.fitScale || 1), [cls0, apex] = CLASS[id], cls = classByProportion(id, () => DRAW[id](12, { style: 'mono', ...o, ...extra }), fast, apex, cls0, nm), kw = KEY[cls][0] * fk_, bh = (KEY[cls][1] + apex) * fk_, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
+    let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), k < 4 ? fast : opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
     const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = (o.dome || typeof o.under === 'number') && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
     const ty = X.optical ? oy + 12 - opticalY(m) : oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;
@@ -653,8 +671,8 @@ const HSETS = [
   ds.star = bal ? starAt({ ease: ease || undefined, tightHoles: true, join: X.join, ...(o.starTip ? { law: scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), o.starTip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20) } : {}) }) : UD.joint.star.d;
   ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease, join: X.join }).d : UD.joint.plus.d;
   if (X.optical) for (const k of ['star', 'plus']) { const m_ = measure(ds[k]); ds[k] = shiftD(ds[k], 12 - opticalY(m_)); }   // g7aq: the marks too, in their own slots
-  const coupes = COUPES.map(([, , co]) => fitPlace('bar', co));
-  const bar1 = o.bandSide === 'shift' ? fitPlace('bar', { bandH: 1 }) : null;   // g7z: the thinner band, for the coupe board
+  const coupes = X.join && X.join.fair ? [] : COUPES.map(([, , co]) => fitPlace('bar', co));   // g7ar: shown only for the first row
+  const bar1 = o.bandSide === 'shift' && !(X.join && X.join.fair) ? fitPlace('bar', { bandH: 1 }) : null;   // g7z: the thinner band, for the coupe board
   const silBar = fitPlace('bar', {}, true).sil;   // g7aa: the coupe's silhouette, for the liquid measure
   const cv = nm === 'Between H2 and H3' ? COUPE_V.map(([, , v]) => fitPlace('bar', v, true)) : null;
   // g7ae: the museum's architecture, three ways on H2's four-column, beamed drawing (MUSEUM_V)
@@ -896,6 +914,80 @@ ${pair('museum', 0.97, 0.53, 2.6, 'Found by the check: the museum\'s beam end in
 ${pair('cafe', 0.64, 0.57, 2.2, 'Found by the check: the cup\'s side into its handle\'s foot')}
 ${phP(`<b>Checked:</b> the new join check (src/join-check.js) walks every outline\'s curvature and counts a flat-then-round break, a hump or a ripple at any join. Before, this row had ${faults(before)}; after, ${faults(after)}, and the other row the same. Checks only prove what they measure: every join above was also judged by eye at true size and at 8x and up. At true size the change is felt more than seen: the tree's tiers now end alike, the museum sits lower and the joins read cleaner at 72px.`)}`;
 }
+// g7ar: the wobble on the line leaving a join (owner on v223), and the weight of the + and the star. Before = the v223 row
+// as he saw it, frozen in svg/g7/before-g7ar/.
+const FC = require('./fair-check.js');
+const MWB = { plus: lw => { const d = require('./mark-weight.js').plusD(lw); return shiftD(d, 12 - opticalY(measure(d))); }, star: lw => { const d = require('./mark-weight.js').starD(lw); return shiftD(d, 12 - opticalY(measure(d))); } };
+const MW = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/between/mark-weight.json'), 'utf8')); } catch (e) { return null; } })();
+function sectionWobble(kick, quote) {
+  const N = COL.navy, I2 = COL.ink2, OR = COL.or;
+  const B4 = id => fs.readFileSync(path.join(__dirname, `../svg/g7/before-g7ar/${id}.svg`), 'utf8').match(/ d="([^"]+)"/)[1];
+  const mark = f => `data:image/png;base64,${fs.readFileSync(path.join(__dirname, `../owner-marks/${f}`)).toString('base64')}`;
+  const ids = [['cafe', 'cafe-r2'], ['bar', 'bar-r2b'], ['museum', 'museum-r2'], ['nature', 'nature-r2']];
+  const before = Object.fromEntries(ids.map(([k, f]) => [k, B4(f)])), after = Object.fromEntries(ids.map(([k]) => [k, R2B.ds[k]]));
+  before.star = B4('star-r2'); before.plus = B4('plus-r2'); after.star = R2B.ds.star; after.plus = R2B.ds.plus;
+  const count = ds => { const by = {}; let n = 0; for (const d of Object.values(ds)) for (const x of FC.check(d)) { n++; by[x.kind] = (by[x.kind] || 0) + 1; } return { n, by }; };
+  const cB = count(before), cA = count(after), cA1 = count({ ...Object.fromEntries(ids.map(([k]) => [k, R2.ds[k]])), star: R2.ds.star, plus: R2.ds.plus });
+  const oldJC = Object.values(before).reduce((n, d) => n + JC.check(d).length, 0);
+  // a crop around a join: the same place on each glyph, found from its own box
+  const vb = (d, fx, fy, w, h) => { const b = measure(d).box; return [b.x0 + fx * (b.x1 - b.x0) - w / 2, b.y0 + fy * (b.y1 - b.y0) - h / 2, w, h]; };
+  const crop = (d, fx, fy, w, h, px) => { const [x, y] = vb(d, fx, fy, w, h); return `<svg width="${Math.round(px * w / h)}" height="${px}" viewBox="${f2(x)} ${f2(y)} ${w} ${h}" style="background:${COL.paper};flex:none;display:block" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`; };
+  // the curvature along the outline through the point nearest (fx, fy) of the glyph's box, +-hl units, before and after
+  const prof = (d, fx, fy, hl) => {
+    const b = measure(d).box, X = b.x0 + fx * (b.x1 - b.x0), Y = b.y0 + fy * (b.y1 - b.y0), bz = (P, t, i) => (1 - t) ** 3 * P[0][i] + 3 * t * (1 - t) ** 2 * P[1][i] + 3 * t * t * (1 - t) * P[2][i] + t ** 3 * P[3][i];
+    let best = null; const subs = JC.parse(d).map(segs => { const pts = []; let L = 0, prev = null; for (const s of segs) for (let k = 0; k <= 80; k++) { const t = k / 80, q = [bz(s.P, t, 0), bz(s.P, t, 1)]; if (prev) L += Math.hypot(q[0] - prev[0], q[1] - prev[1]); prev = q; pts.push({ L, k: s.k === 'L' ? 0 : JC.kAt(s.P, t), q, node: k === 0 }); } return pts; });
+    subs.forEach((pts, i) => pts.forEach((p, j) => { const dd = Math.hypot(p.q[0] - X, p.q[1] - Y); if (!best || dd < best.dd) best = { dd, i, j }; }));
+    // centred on the round's crest (the tightest point within 0.6 of the nearest point), so before and after line up
+    const pts0 = subs[best.i], tot = pts0[pts0.length - 1].L, L0 = pts0[best.j].L; let cj = best.j;
+    pts0.forEach((p, j) => { let s = p.L - L0; if (s > tot / 2) s -= tot; if (s < -tot / 2) s += tot; if (Math.abs(s) < 0.6 && Math.abs(p.k) > Math.abs(pts0[cj].k)) cj = j; });
+    const pts = pts0, c = pts[cj].L; const out = [];
+    for (const p of pts) { let s = p.L - c; if (s > tot / 2) s -= tot; if (s < -tot / 2) s += tot; if (Math.abs(s) <= hl) out.push({ s, k: p.k, node: p.node }); }
+    return out.sort((a, b_) => a.s - b_.s);
+  };
+  const plot = (pb, pa, hl, km, notes) => {
+    const W_ = 696, H_ = 150, sx = s => 4 + (s + hl) / (2 * hl) * (W_ - 8), sy = k => H_ / 2 - Math.max(-km, Math.min(km, k)) / km * (H_ / 2 - 8);
+    const line = (p, col, w) => `<polyline fill="none" stroke="${col}" stroke-width="${w}" points="${p.map(q => `${sx(q.s).toFixed(1)},${sy(q.k).toFixed(1)}`).join(' ')}"/>`;
+    return `<svg width="${W_}" height="${H_}" viewBox="0 0 ${W_} ${H_}" style="display:block;background:#fff;border:1px solid ${COL.hair}" aria-hidden="true"><line x1="0" x2="${W_}" y1="${H_ / 2}" y2="${H_ / 2}" stroke="${COL.hair}"/>${line(pb, N, 2)}${line(pa, OR, 2.5)}${notes(sx, sy)}</svg>`;
+  };
+  const tag = (sx, sy, s, k, txt, col = N) => `<circle cx="${sx(s)}" cy="${sy(k)}" r="5" fill="none" stroke="${col}" stroke-width="1.5"/><text x="${sx(s) + 8}" y="${sy(k) + (k > 0 ? 14 : -6)}" font-size="13" font-family="Archivo,Arial,sans-serif" fill="${col}">${txt}</text>`;
+  const joinFig = (id, mk, [fx, fy, w, h], [px_, py_], hl, km, label, read, notes) => `<div style="padding:14px 0;border-top:1px solid ${COL.hair}">
+<div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">${label}</div>
+<div style="display:flex;gap:12px;align-items:flex-end"><div><img src="${mark(mk)}" alt="" style="height:${w / h > 1.2 ? 120 : 150}px;width:auto;display:block;background:${COL.paper}"><div style="font-size:13px;color:${I2};margin-top:4px">your screenshot (v223)</div></div><div>${crop(before[id], fx, fy, w, h, w / h > 1.2 ? 120 : 150)}<div style="font-size:13px;color:${I2};margin-top:4px">v223, same place</div></div><div>${crop(after[id], fx, fy, w, h, w / h > 1.2 ? 120 : 150)}<div style="font-size:13px;color:${N};font-weight:700;margin-top:4px">after</div></div></div>
+<div style="font-size:15px;color:${I2};margin:10px 0 4px">How hard the line bends, walking along it through the join (up: bending one way, down: the other; flat on the middle line: straight). <b style="color:${N}">Navy: v223</b>, <b style="color:${OR}">orange: after</b>.</div>
+${plot(prof(before[id], px_, py_, hl), prof(after[id], px_, py_, hl), hl, km, notes)}
+<div style="font-size:16px;line-height:1.4;color:${N};margin-top:8px">${read}</div></div>`;
+  const row = (ds, label) => `<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">${label}</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${BATCH.map(([id]) => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${ds[id]}" fill="${N}"/></svg>`).join('')}<span style="width:6px"></span>${BATCH.map(([id]) => badge(ds[id])).join('')}${uiPath(ds.plus, 26.4)}${uiPath(ds.star, 20)}<span style="width:10px"></span>${BATCH.map(([id]) => badge(ds[id], 72)).join('')}</div></div>`;
+  const tipW = (() => { const a = measure(after.nature).box, b = measure(before.nature).box; return { a: a.x1 - a.x0, b: b.x1 - b.x0 }; })();
+  const curves = ds => Object.values(ds).reduce((n, d) => n + (d.match(/C/g) || []).length, 0);
+  const RULES = [
+    ['Rounds drawn by their bend', 'Every round, tips and joins alike, is built from how hard it bends: the bend rises from the edge\'s own (a line\'s none, a bowl\'s gentle one) by an even ramp with no jolt, crests round with no point, and eases back the same way. It reaches exactly as deep into its corner as before, so every shape keeps its size. Nothing changes speed on the line just outside a corner, and the bend can\'t creep out along the edge.'],
+    ['A corner into a bend the other way', 'Where a corner runs into a short drawn bend the other way (the museum\'s beam end into its capital), the two are one S, and it lands on the next edge with that edge\'s own bend.'],
+    ['The fewest curves that hold it', 'Each half of a round is one curve where one follows the ramp, else two. Tips now take four curves where they took two.'],
+  ];
+  const wRow = (lw, label, sub) => { const pd = lw ? MWB.plus(lw.plus) : after.plus, sd = lw ? MWB.star(lw.star) : after.star; return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid ${COL.hair}"><div style="width:190px;font-size:16px;line-height:1.3;color:${N}"><b>${label}</b><div style="font-size:13px;color:${I2}">${sub}</div></div>${BATCH.map(([id]) => badge(after[id])).join('')}${uiPath(pd, 26.4)}${uiPath(sd, 20)}<span style="width:14px"></span>${uiPath(pd, 26.4 * 3)}${uiPath(sd, 60)}</div>`; };
+  const T = MW ? Object.keys(MW.targets).map(Number).sort((a, b) => a - b) : [];
+  const wOpts = MW ? T.map((t, i) => wRow(MW.targets[t], `${'ABC'[i]}: darkness ${t}`, `+ ${MW.targets[t].plus.toFixed(2)}px, star ${MW.targets[t].star.toFixed(2)}px`)).join('') : '';
+  return `${kick('0 · The wobble on the line leaving a join')}
+${quote('this is a *lot* better but still not perfect. can you see the wobbliness i\'m talking about in these? i dont know how to describe it and would like to ensure they can see it to develop a plan. both on the tip of the tree join type -- further away from the point itself on both sides... and on the bowl of the cup on either side (again, further away from the point itself...maybe it\'s how it\'s exiting the point?) and on the foot of the cup... same thing not at the join itself, but on the line coming out of it. again, we need to have programmatic approaches here so that this is perfect on every icon ever created.')}
+${phP('<b>Yes, I see it.</b> It isn\'t at the corner, it\'s how the line changes speed as it leaves the corner. The v223 rounds met each edge without a step in how hard they bend, but not in <i>how fast that bend changes</i>:')}
+${phP('<b>The coupe\'s flares</b> (bowl into stem, stem into foot): the bend switched on at full rate the instant the line left the bowl, the stem or the foot, and came to a point at the corner. The line goes from steady to turning with a jolt: a knee, just outside the join, on both sides. <b>The tree\'s tip</b>: the bend crept up from nothing two thirds of the way down each flank, then shot up at the point. The flank never runs straight; a soft shoulder far from the tip, then a hard nose. That is the wobble you saw "further away from the point".')}
+${phP(`The v223 check passed all three because it measured the bend itself (a step, a flat spot, a ripple), not its rate of change. A check that passes what your eye fails measured the wrong thing; the new one (below) fails all three.`)}
+${joinFig('nature', 'v223-tree-tip-wobble.png', [0.5, 0.12, 2.9, 2.7], [0.5, 0], 2.2, 5, 'The tree\'s tip', 'Navy: the bend is near zero far down the flank (left and right) and creeps up slowly, then spikes at the tip. That long faint run-up is the shoulder; the spike is the nose. Orange: the flank runs straight (its own slight sweep) until close to the tip, then the bend rises and falls as one smooth hill.', (sx, sy) => tag(sx, sy, -1.2, 0.15, 'shoulder: the bend creeps up') + tag(sx, sy, 0, 4.4, 'nose'))}
+${joinFig('bar', 'v223-coupe-stem-foot-wobble.png', [0.5, 0.71, 5.4, 3.0], [0.42, 0.53], 1.2, 3, 'The coupe: the bowl into the stem', 'Navy: from the bowl the bend dives at full rate at once (the knee on the left), comes to a point at the corner, and stops at once into the stem (the knee on the right). Orange: it eases in from the bowl\'s own bend, crests round, and eases out into the stem.', (sx, sy) => tag(sx, sy, -0.55, -0.05, 'knee') + tag(sx, sy, 0.5, -0.05, 'knee'))}
+${joinFig('bar', 'v223-coupe-stem-foot-wobble.png', [0.5, 0.71, 5.4, 3.0], [0.4, 0.84], 1.2, 3, 'The coupe: the stem into the foot', 'The same join turned over: the knee where the line leaves the stem, and the knee where it runs out onto the foot\'s top. After: both eased.', (sx, sy) => tag(sx, sy, -0.52, -0.05, 'knee') + tag(sx, sy, 0.55, 0.05, 'knee'))}
+${kick('The plan, as rules in the engine')}
+<table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.4;margin:6px 0 10px">${RULES.map(([a, b]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 10px 8px 0;width:26%;font-weight:700;color:${N}">${a}</td><td style="padding:8px 0;color:${N}">${b}</td></tr>`).join('')}</table>
+${phP(`<b>The proof, on every outline:</b> a new check (src/fair-check.js) walks each outline and fails a <i>knee</i> (a jump in how fast the line bends, over a quarter of the local crest's bend squared), a <i>tail</i> (a round not halfway up its bend until more than 70% of the way along it), a <i>dip</i> (a round that eases off and tightens again) and a <i>step</i> in the bend itself, lines included. It fails all three of your marks on v223. This row: v223 ${cB.n} faults (the old check: ${oldJC}), after ${cA.n}${cA.n ? ` (${Object.entries(after).map(([k, d]) => [k, FC.check(d)]).filter(([, f]) => f.length).map(([k, f]) => `${k === 'cafe' ? 'the cup' : k === 'bar' ? 'the coupe' : 'the ' + k}: ${f.length} ${[...new Set(f.map(x => x.kind.toLowerCase()))].join('/')}`).join('; ')})` : ''}; the other row ${cA1.n}. The cup's are its handle (below); the other row's two more are the ends of its domed coupe foot, where the bend still runs up late (the next fix on the list).`)}
+${row(before, 'Before: v223, as you saw it')}${row(after, 'After: the same row, rounds drawn by their bend')}
+${phP(`<b>What else changed:</b> no drawing changed and every icon keeps its size (the tree ${tipW.b.toFixed(2)} → ${tipW.a.toFixed(2)} units wide). What shows is the tips: with the bend spread evenly instead of piled at the point, the tree\'s noses are a touch rounder (crops above, and the 72px row). Does it still read as the tree you called perfect? I also tried keeping the noses as tight (the crest at the law\'s radius): the tips then ran longer and spikier, which changes the tree more, so not that. The cost in curves: the row has ${curves(before)} before, ${curves(after)} after, since each half of a round is often two curves now.`)}
+${phP(`<b>Not solved yet:</b> the cup\'s handle. Its arcs are drawn running straight into its flat parts with no corner, so there is no round for the engine to draw; a circle can\'t be eased into a line without moving the circle. The check reports these 4 places. The fix is a drawing rule (a drawn bend that meets a line starts from no bend, as the rounds now do), the next step if you agree.`)}
+${MW ? `${kick('And the weight of the + and the star')}
+${quote('im also not sure the weight is perfect yet on the plus and star... plus *might* feel a bit light (can\'t exactly tell because...) the star feels heavy')}
+${phP(`Both are drawn with the same 1 2/3px line, and the same line reads at different weights: the star\'s five walls stand close around a small hole, so at reading size they run together into one dark shape; the +'s two bars stand alone. Blurred as the eye sums them (the darker fifth after a 1.5px blur, at true size), the star reads ${MW.now.star.toFixed(0)} and the + ${MW.now.plus.toFixed(0)}, about what a lone 1.5px line reads (37).`)}
+${phP('<b>The rule:</b> a line mark\'s line is solved so that it reads at one darkness, the same for every line mark; a future line mark gets its line from the same solve, so it comes out matched. The one open value is how dark. Three, from the +\'s darkness today to the middle of the two:')}
+${wRow(null, 'Now', 'both 1 2/3px')}${wOpts}
+${phQ('Which darkness for the line marks: A, B or C (or neither)?')}` : ''}`;
+}
 function sheetBetween() {
   const N = COL.navy, I2 = COL.ink2, S = BETW, SF = BFLIP, H2 = HSETS[1], H3 = HSETS[2];   // H3F: H3 with its saucer flipped
   const kick = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:30px 0 8px">${t_}</div>`;
@@ -948,8 +1040,8 @@ function sheetBetween() {
   const r2Rules = () => `<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.35;margin:6px 0 10px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0;width:16%">Rule</td><td style="padding:4px 8px;width:24%">Was</td><td style="padding:4px 0 4px 8px">Now</td></tr>${R2RULES.map(([a, b, c, e]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 8px 2px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px 8px 2px;color:${I2}">${b}</td><td style="padding:8px 0 2px 8px;color:${N}">${c}</td></tr><tr style="vertical-align:top"><td></td><td colspan="2" style="padding:2px 0 10px 8px;color:${N}"><b>Here:</b> ${e}</td></tr>`).join('')}<tr style="border-top:1px solid ${COL.hair}"><td colspan="3" style="padding:8px 0;color:${N}"><b>Unchanged:</b> line ends, tips by their edge, flares 1/2px, mass corners 0.6, the vessel side, the tree\'s sweep and droop. The + and the star: nothing in these rules acts on them.</td></tr></table>`;
   const musRows = [['H2\'s museum (the base)', 'As H2 drew it: four columns, a beam, a straight roof, a plinth. Every approach below starts from it.', S.ds.museum, 'museum'], ...MUSEUM_V.map(([nm, line], k) => [nm, line, S.mus[k], `museum-${k + 1}`])]
     .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center"><div style="display:flex;gap:6px;align-items:center;padding:8px;background:${COL.paper}">${badge(S.ds.cafe)}${badge(S.ds.bar)}${badge(d)}${badge(S.ds.nature)}</div>${chip(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(d, 72)}${badge(S.ds.nature, 72)}</div><div style="margin-top:10px">${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
-  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Your earlier notes on this board (the coupe options, H2 / Between / H3, the tuned row and its table) are on the Archive page, as v217; the board as you saw it on 10-22, before the joins and centring rules, is there as v222.')}
-${sectionJoins(kick, quote)}
+  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Your earlier notes on this board (the coupe options, H2 / Between / H3, the tuned row and its table) are on the Archive page, as v217; the board as you saw it on 10-22, before the joins and centring rules, is there as v222, and as v223 (the joins and centring as rules, which this section builds on).')}
+${sectionWobble(kick, quote)}
 ${kick('1 · The coupe and the tree are fixed: rules for the rest')}
 ${quote('youre missing my point -- the between tree is perfect. what changes need to happen to h2 to make that tree fit in')}
 ${quote('in "after: rules tuned to the tree" "coup, after" and "tree, after" are perfect ... but the glass being on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to establish to fix that.')}

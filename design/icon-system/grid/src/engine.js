@@ -179,7 +179,58 @@ function corners(item, law, info, opts = {}) {
     // g7aq: a join round that can't be solved evenly where it meets a curved edge (the edge bends hard right at the corner,
     // as a flare drawn from a beam's end does) slides its end along that edge, up to three times its trim, to where the
     // edge has eased enough for one even round: the corner and the flare become one built transition, not a knuckle
-    if (opts.join) for (let i = 0; i < n; i++) {
+    // g7ar HILL JOINS (owner on v223: "not at the join itself, but on the line coming out of it"): with opts.join.fair every
+    // round, eased tips included, is drawn by hillRound (below): its curvature rises from each edge's own and falls back as
+    // one smooth, even hill, cresting at the law's radius. Two passes: each round first says how much of its edges it
+    // wants (alone); then an edge two rounds both want is shared in proportion to what they asked, and each is solved
+    // within its share (if the law's crest doesn't fit its share, the g7aq depth is kept instead).
+    if (opts.join && opts.join.fair) {
+      // a corner running straight into a short drawn bend the other way (a beam's end into a capital's flare): the corner
+      // and the bend become ONE S, from the corner's straight edge to where the bend meets what follows it (taking that
+      // edge's curvature there, so the post runs on with no step); the S crosses straight at its middle (g7aq's S rule)
+      for (let i = 0; i < n; i++) {
+        const b = cs[i]; if (!b || b.trap) continue;
+        for (const side of ['out', 'in']) {
+          const ce = side === 'out' ? curves[i] : curves[(i - 1 + n) % n], other = side === 'out' ? curves[(i - 1 + n) % n] : curves[i];
+          if (ce.isStraight() || ce.length > 2) continue;
+          const kc = kOf(ce, side === 'out' ? 0.02 : 0.98); if (!(Math.sign(kc) === -Math.sign(b.turn) && Math.abs(kc) > 0.3)) continue;
+          const far = side === 'out' ? (i + 1) % n : (i - 1 + n) % n, fc = cs[far];   // the join at the bend's far end
+          if (fc) continue;
+          const beyond = side === 'out' ? curves[(i + 1) % n] : curves[(i - 2 + n) % n], kBy = beyond.isStraight() ? 0 : kOf(beyond, side === 'out' ? 0 : 1);
+          const dS = Math.min(b.d, other.length * 0.5), tS = side === 'out' ? other.getTimeAt(other.length - dS) : other.getTimeAt(dS); if (tS == null) continue;
+          const pS = other.getPointAtTime(tS), tgS = other.getTangentAtTime(tS), kS = other.isStraight() ? 0 : kOf(other, tS);
+          const pE = side === 'out' ? ce.getPointAtTime(1) : ce.getPointAtTime(0), tgE = side === 'out' ? ce.getTangentAtTime(1) : ce.getTangentAtTime(0);
+          const [pA, tA, kA, pB, tB, kB] = side === 'out' ? [pS, tgS, kS, pE, tgE, kBy] : [pE, tgE, kBy, pS, tgS, kS];
+          const u = tA.add(tB).normalize(), D_ = pB.subtract(pA), al = D_.dot(u), Mid = pA.add(pB).multiply(0.5), tM = u.multiply(al).add(D_.subtract(u.multiply(al)).multiply(2)).normalize();
+          const h1 = g2Handles(pA, tA, kA, Mid, tM, 0), h2 = g2Handles(Mid, tM, 0, pB, tB, kB); if (!h1 || !h2) continue;
+          b.jrSol = [[pA, pA.add(tA.multiply(h1[0])), Mid.subtract(tM.multiply(h1[1])), Mid], [Mid, Mid.add(tM.multiply(h2[0])), pB.subtract(tB.multiply(h2[1])), pB]];
+          if (side === 'out') { b.dIn = dS; b.dOut = ce.length; } else { b.dIn = ce.length; b.dOut = dS; }
+          b.sSpan = true;
+          if (opts.join.log) opts.join.log.push('S');
+          break;
+        }
+      }
+      const want = cs.map((b, i) => { if (!b || b.trap) return null; if (b.sSpan) return [b.dIn, b.dOut]; const w = hillRound(curves[(i - 1 + n) % n], curves[i], b, curves[(i - 1 + n) % n].length * 0.98, curves[i].length * 0.98, { ...opts.join, solveOnly: true }); return w ? [w.dI, w.dO] : [b.d, b.d]; });
+      for (let i = 0; i < n; i++) {
+        const b = cs[i]; if (!b || b.trap || b.sSpan) continue;
+        const cin = curves[(i - 1 + n) % n], cout = curves[i], wI = want[i][0], wO = want[i][1];   // cin runs from corner i-1 to corner i
+        const pw = want[(i - 1 + n) % n], nw = want[(i + 1) % n];
+        // two rounds that between them want all but a sliver of the edge (or more) meet exactly on it: no sliver of edge is left
+        // between them (a sliver of a drawn curve can carry a bend of its own, a step either side)
+        const share = (mine, other, L) => other == null || mine + other <= L - 0.08 ? L - (other || 0) : L * mine / (mine + other);
+        const roomIn = share(wI, pw ? pw[1] : null, cin.length), roomOut = share(wO, nw ? nw[0] : null, cout.length);
+        // the law's crest; if it doesn't fit its share, the g7aq depth; if that doesn't either, the round takes all its room
+        // on the short side and its crest tightens to fit (a round never pushes into its neighbour)
+        const sol = hillRound(cin, cout, b, roomIn, roomOut, opts.join) || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, hillKeep: 'fit', fitSide: wO - roomOut >= wI - roomIn ? 'out' : 'in' })
+          || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, hillKeep: 'depth' });
+        if (opts.join.log) opts.join.log.push(sol ? 'fair' : 'nofair');
+        if (process.env.FAIRDBG && !sol) console.error(b.P0.x.toFixed(2), b.P0.y.toFixed(2), b.ease ? 'EASE' : 'jr', 'NO', 'd', b.d.toFixed(2), 'want', wI.toFixed(2), wO.toFixed(2), 'room', roomIn.toFixed(2), roomOut.toFixed(2), 'turn', (b.turn * 180 / Math.PI).toFixed(0), 'edges', cin.isStraight() ? 'L' : 'C', cout.isStraight() ? 'L' : 'C');
+        if (process.env.FAIRDBG && sol) console.error(b.P0.x.toFixed(2), b.P0.y.toFixed(2), b.ease ? 'EASE' : 'jr', 'd', b.d.toFixed(2), '->', sol.dI.toFixed(2), sol.dO.toFixed(2), 'kM', (sol.kM ?? 0).toFixed(2), 'dz', (sol.dDepth ?? 0).toFixed(3), 'cubics', sol.sol.length);
+        if (process.env.FAIRDBG3 && sol) for (const P of sol.sol) { const c_ = P[0].getDistance(P[3]), h0 = P[0].getDistance(P[1]), h1 = P[3].getDistance(P[2]); if (Math.min(h0, h1) < 0.1 * c_) console.error("DEGEN", b.P0.x.toFixed(2), b.P0.y.toFixed(2), P[0].x.toFixed(3), P[0].y.toFixed(3), "chord", c_.toFixed(3), "h", h0.toFixed(4), h1.toFixed(4), "n", sol.sol.length); }
+        if (sol) { b.dIn = sol.dI; b.dOut = sol.dO; b.jrSol = sol.sol; } else { b.dIn = Math.min(b.d, roomIn); b.dOut = Math.min(b.d, roomOut); }
+      }
+    }
+    if (opts.join && !opts.join.fair) for (let i = 0; i < n; i++) {
       const b = cs[i]; if (!b || !b.jr || caps.has(i) || caps.has((i - 1 + n) % n)) continue;
       const cin = curves[(i - 1 + n) % n], cout = curves[i], nxt = cs[(i + 1) % n], prv = cs[(i - 2 + n) % n];
       const roomOut = cout.length - (nxt ? (nxt.dIn ?? nxt.d) : 0) - 0.05, roomIn = cin.length - (prv ? (prv.dOut ?? prv.d) : 0) - 0.05;
@@ -264,7 +315,7 @@ function corners(item, law, info, opts = {}) {
       }
     }
     if (!segs.length) continue;  // a degenerate piece the booleans left: nothing to draw
-    const rd = opts.join ? (v => Math.round(v * 1e4) / 1e4) : r3g;   // g7aq: a join round's short handles need the 4th decimal to keep its curvature
+    const rd = opts.join ? (opts.join.fair ? v => Math.round(v * 1e5) / 1e5 : v => Math.round(v * 1e4) / 1e4) : r3g;   // g7ar: a hill's short pieces need the 5th decimal (at 4, a 0.005 handle loses its bend)   // g7aq: a join round's short handles need the 4th decimal to keep its curvature
     let d = `M${rd(segs[0].pts[0].x)} ${rd(segs[0].pts[0].y)}`;
     for (const s of segs) {
       const [p0, c1, c2, p3] = s.pts;
@@ -330,6 +381,180 @@ function joinRound(c, pA, tA, kA, pB, tB, kB) {
   }
   return null;
 }
+// g7ar THE HILL ROUND (owner on v223: "can you see the wobbliness ... further away from the point itself on both sides
+// ... maybe it's how it's exiting the point? ... not at the join itself, but on the line coming out of it"). The g7aq
+// rounds met each edge's curvature (G2) but not how fast it changes: a join round's curvature ramped up from the edge in
+// a straight line and peaked in a V (a knee where the line leaves the round, a crease at its deepest point), and an eased
+// tip was one cubic whose curvature crept up from almost 0 a long way out along the flank and then shot up at the point:
+// a soft shoulder far from the point, then a hard nose. The eye reads a sudden change in how fast a line bends as a hitch.
+// The hill round is DESIGNED BY ITS CURVATURE: each half (edge to the corner's deepest point M) bends by a raised cosine,
+//   k(s) = kE + (kM - kE) (1 - cos(pi s / L)) / 2,
+// so the bend grows from the edge's own curvature with no jolt, crests flat at M, and is halfway up halfway along: one
+// smooth, even hill (curvature continuous, and its rate of change too). M is where it was (the law's depth for a join,
+// the eased tip's own apex for a tip), so a silhouette keeps its depth; what is solved is where each half leaves its edge
+// (dI, dO), each half's length, the crest kM and the tangent at M, so both halves meet M and their edges exactly. Each half
+// is then written as the FEWEST cubics that follow it (one where one does, within J.hillTol of the hill, else two, three).
+// Returns { dI, dO, sol: [cubics...] } or null (the caller keeps the g7aq round).
+function hillRound(cin, cout, c, roomIn, roomOut, J) {
+  const sg = Math.sign(c.turn), rho = J.hillRamp ?? 1, w = u => u >= rho ? 1 : (1 - Math.cos(Math.PI * u / rho)) / 2, ang = v => Math.atan2(v.y, v.x);
+  const wrap = a => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
+  const edgeAt = (cv, dist, isIn) => { const t = isIn ? cv.getTimeAt(Math.max(0, cv.length - dist)) : cv.getTimeAt(Math.min(cv.length, dist)); if (t == null) return null; return { p: cv.getPointAtTime(t), a: ang(cv.getTangentAtTime(t)), k: cv.isStraight() ? 0 : kOf(cv, t) }; };
+  // the g7aq round at this corner, as the reference: its point on the bisector (M0) and its curvature there (the crest the
+  // eye reads as how round the corner is: the law's radius, as g7aq drew it)
+  const A0 = edgeAt(cin, Math.min(c.d, roomIn), true), B0 = edgeAt(cout, Math.min(c.d, roomOut), false); if (!A0 || !B0) return null;
+  const tA0 = new Point(Math.cos(A0.a), Math.sin(A0.a)), tB0 = new Point(Math.cos(B0.a), Math.sin(B0.a));
+  let ref = null;
+  if (!c.ease) { const jr = joinRound(c, A0.p, tA0, A0.k, B0.p, tB0, B0.k); if (jr) ref = jr; }
+  if (!ref) { const g = g2Handles(A0.p, tA0, A0.k, B0.p, tB0, B0.k) || g2Handles(A0.p, tA0, 0, B0.p, tB0, 0); if (!g) { if (process.env.FAIRDBG) console.error("   why: no ref"); return null; } ref = [[A0.p, A0.p.add(tA0.multiply(g[0])), B0.p.subtract(tB0.multiply(g[1])), B0.p]]; }
+  const nrm = new Point(-c.bis.y, c.bis.x);
+  let M0 = null, kC = 0;
+  for (const P of ref) {
+    const side = t => bzP(P, t).subtract(c.P0).dot(nrm); if (Math.sign(side(0)) === Math.sign(side(1)) && Math.abs(side(1)) > 1e-7) continue;
+    let lo = 0, hi = 1; if (Math.abs(side(1)) <= 1e-7) lo = hi = 1; else for (let it = 0; it < 50; it++) { const mid = (lo + hi) / 2; if (Math.sign(side(mid)) === Math.sign(side(lo))) lo = mid; else hi = mid; }
+    M0 = bzP(P, lo); kC = kBez(P, Math.min(1 - 1e-4, Math.max(1e-4, lo))); break;
+  }
+  if (!M0) { if (process.env.FAIRDBG) console.error("   why: no M0"); return null; }
+  // J.hillKeep: 'crest' keeps the corner's crest curvature (its depth then follows), 'depth' keeps its deepest point
+  const keep = J.hillKeep ?? 'crest', keepCrest = keep !== 'depth';
+  if (keep === 'law') kC = sg / (c.r * Math.min(1, Math.min(c.d, roomIn, roomOut) / c.d0));   // the crest is the law's own radius
+  if (process.env.FAIRDBG) console.error('   ref crest', kC.toFixed(2), 'law r', c.r.toFixed(3), 'law k', (1 / c.r).toFixed(2));
+  let M = M0;
+  const aM0 = ang(c.tin.add(c.tout));
+  // integrate one half: from (p, a) with curvature k0 -> k1 by the raised cosine over length L; N steps (midpoint rule)
+  // (rev: the half from the crest down to an edge, its plateau first: the weight mirrored)
+  const run = (p, a, k0, k1, L, N = 48, keep = false, rev = false) => {
+    const W = rev ? u => 1 - w(1 - u) : w;
+    let x = p.x, y = p.y, th = a; const pts = keep ? [{ x, y, th, k: k0 }] : null, h = L / N;
+    for (let i = 0; i < N; i++) { const km = k0 + (k1 - k0) * W((i + 0.5) / N), thm = th + km * h / 2; x += h * Math.cos(thm); y += h * Math.sin(thm); th += km * h; if (keep) pts.push({ x, y, th, k: k0 + (k1 - k0) * W((i + 1) / N) }); }
+    return keep ? pts : { x, y, th };
+  };
+  // unknowns v = [dI, L1, dO, L2, kM or the depth offset along the bisector, phi]; 'fit' (a round with less room than it
+  // wants): the short side takes all its room, and the crest and the depth are both solved
+  const fitOut = keep === 'fit' && J.fitSide !== 'in', fitIn = keep === 'fit' && J.fitSide === 'in';
+  const unpack = v => keep === 'fit' ? { dI: fitIn ? roomIn : v[0], dO: fitOut ? roomOut : v[2], kM: v[4], M: M0.add(c.bis.multiply(fitIn ? v[0] : v[2])) }
+    : keepCrest ? { dI: v[0], dO: v[2], kM: kC, M: M0.add(c.bis.multiply(v[4])) } : { dI: v[0], dO: v[2], kM: v[4], M: M0 };
+  const res = v => {
+    const [, L1, , L2, , phi] = v, { dI, dO, kM, M } = unpack(v); if (!(dI > 0.005 && dO > 0.005 && L1 > 0.005 && L2 > 0.005 && dI <= roomIn && dO <= roomOut)) return null;
+    const A = edgeAt(cin, dI, true), Bq = edgeAt(cout, dO, false); if (!A || !Bq) return null;
+    const aM = aM0 + phi, e1 = run(A.p, A.a, A.k, kM, L1), e2 = run(M, aM, kM, Bq.k, L2, 48, false, true);
+    return [e1.x - M.x, e1.y - M.y, wrap(e1.th - aM), e2.x - Bq.p.x, e2.y - Bq.p.y, wrap(e2.th - Bq.a)];
+  };
+  const chordIn = Math.max(0.05, c.d), turn1 = Math.abs(c.turn) / 2;
+  let best = null;
+  for (const f0 of c.ease ? [0.35, 0.5, 0.7, 1] : [1, 0.7, 1.4]) {
+    const d0 = Math.min(chordIn * f0, roomIn * 0.95, roomOut * 0.95), L0 = d0 * 1.1, kM0 = sg * 2 * turn1 / L0;
+    let v = keep === 'fit' ? [fitIn ? 0 : d0, L0, fitOut ? 0 : d0, L0, kC || kM0, 0] : [d0, L0, d0, L0, keepCrest ? 0 : kM0, 0], r = res(v); if (!r) continue;
+    for (let it = 0; it < 40; it++) {
+      const n2 = Math.hypot(...r); if (n2 < 1e-9) break;
+      const Jm = []; for (let j = 0; j < 6; j++) { const hj = 1e-6 * Math.max(1, Math.abs(v[j])), vv = v.slice(); vv[j] += hj; const rr = res(vv); if (!rr) { Jm.length = 0; break; } Jm.push(rr.map((x, i) => (x - r[i]) / hj)); }
+      if (Jm.length < 6) break;
+      const dv = solve6(Jm, r); if (!dv) break;
+      let step = 1, ok = false;
+      for (let ls = 0; ls < 12; ls++, step /= 2) { const vv = v.map((x, j) => x - step * dv[j]), rr = res(vv); if (rr && Math.hypot(...rr) < n2) { v = vv; r = rr; ok = true; break; } }
+      if (!ok) break;
+    }
+    if (process.env.FAIRDBG2 && keep === "fit") console.error("      fit f0", f0, "res", Math.hypot(...r).toExponential(2), "v", v.map(x => x.toFixed(3)).join(","), "room", roomIn.toFixed(2), roomOut.toFixed(2), "kC", kC.toFixed(2));
+    if (Math.hypot(...r) < 1e-6 && Math.sign(unpack(v).kM) === sg) { best = v; break; }
+  }
+  if (!best) { if (process.env.FAIRDBG) console.error("   why: no solve"); return null; }
+  if (keep === "fit" && Math.abs(unpack(best).M.subtract(M0).dot(c.bis)) > 0.05) { if (process.env.FAIRDBG) console.error("   why: fit moves the corner"); return null; }   // a tightened crest may not move the corner's depth visibly
+  if (J.solveOnly) return { dI: unpack(best).dI, dO: unpack(best).dO };
+  const [, L1, , L2, , phi] = best, { dI, dO, kM } = unpack(best); M = unpack(best).M; const A = edgeAt(cin, dI, true), Bq = edgeAt(cout, dO, false), aM = aM0 + phi;
+  // a half's curvature must stay one hill: from the edge's to the crest, never past the crest
+  if (sg * kM < sg * A.k || sg * kM < sg * Bq.k) { if (process.env.FAIRDBG) console.error("   why: crest below edge"); return null; }
+  // a half written as cubics: ONE where one follows the hill (its place within J.hillTol, and it leaves its ends bending at
+  // the hill's own rate), else TWO, their meeting point, tangent and curvature there solved so all three ends bend at the
+  // hill's rate (no knee where the pieces meet); three or four even pieces only if two can't
+  const pieces = (p, a, k0, k1, L, rev) => {
+    const NS = 240, S = run(p, a, k0, k1, L, NS, true, rev), tol = J.hillTol ?? 0.004;
+    const stol = Math.max(0.7, (J.hillSlopeTol ?? 0.12) * Math.max(Math.abs(k0), Math.abs(k1)) ** 2);   // relative to the round: a tight round may change faster
+    const sl = q => { const a_ = Math.max(0, q - 1), b_ = Math.min(NS, q + 1); return (S[b_].k - S[a_].k) / ((b_ - a_) * L / NS); };
+    const kd = (P, t) => { const e = 1e-3, a_ = Math.max(0, Math.min(1 - 2 * e, t - e)), b_ = a_ + 2 * e; return (kBez(P, b_) - kBez(P, a_)) / bzP(P, b_).getDistance(bzP(P, a_)); };
+    const nodeAt = q => ({ p: new Point(S[q].x, S[q].y), th: S[q].th, k: S[q].k });
+    // the pieces make one hill: read signed, the bend only moves from k0 toward k1 (an edge bending the other way passes
+    // through straight once, never back), within 3% of the larger
+    const hillMono = Ps => { const ks = Ps.flatMap(P => Array.from({ length: 25 }, (_, q) => kBez(P, q / 24))), dir = Math.sign(k1 - k0) || 1, tolK = 0.03 * Math.max(Math.abs(k0), Math.abs(k1)); for (let q = 1; q < ks.length; q++) if (dir * (ks[q] - ks[q - 1]) < -tolK) return false; return true; };
+    const cubic = (A_, B_) => { const t0 = new Point(Math.cos(A_.th), Math.sin(A_.th)), t1 = new Point(Math.cos(B_.th), Math.sin(B_.th)); const h = g2Handles(A_.p, t0, A_.k, B_.p, t1, B_.k) || (Math.abs(A_.th - B_.th) < 0.02 && Math.max(Math.abs(A_.k), Math.abs(B_.k)) * A_.p.getDistance(B_.p) < 0.004 ? [A_.p.getDistance(B_.p) / 3, A_.p.getDistance(B_.p) / 3] : null); const ch = A_.p.getDistance(B_.p); return h && Math.min(h[0], h[1]) >= 0.08 * ch ? [A_.p, A_.p.add(t0.multiply(h[0])), B_.p.subtract(t1.multiply(h[1])), B_.p] : null; };
+    const dev = (P, q0, q1, fast) => { let w_ = 0; const T = []; for (let t = 0; t <= 1.0001; t += 1 / 64) T.push(bzP(P, t)); for (let q = q0; q <= q1; q += fast ? 12 : 4) { let dm = Infinity; for (const pt of T) dm = Math.min(dm, (pt.x - S[q].x) ** 2 + (pt.y - S[q].y) ** 2); w_ = Math.max(w_, dm); } return Math.sqrt(w_); };
+    // one
+    { const P = cubic(nodeAt(0), nodeAt(NS)); if (P && dev(P, 0, NS) <= tol && hillMono([P]) && Math.abs(kd(P, 0) - sl(0)) <= stol && Math.abs(kd(P, 1) - sl(NS)) <= stol) return [P]; }
+    // two: v = [split index share u, normal offset of the meeting point, its tangent turn, its curvature change]
+    const fl = S.findIndex((q, i) => i > 0 && i < NS && Math.sign(q.k) !== Math.sign(S[i - 1].k) && Math.abs(S[i - 1].k) > 1e-9);
+    const build2 = v => {
+      const q = Math.max(8, Math.min(NS - 8, Math.round(v[0] * NS))), Q = nodeAt(q), nrm = new Point(-Math.sin(Q.th), Math.cos(Q.th));
+      const Qn = { p: Q.p.add(nrm.multiply(v[1])), th: Q.th + v[2], k: Q.k + v[3] };
+      const P1 = cubic(nodeAt(0), Qn), P2 = cubic(Qn, nodeAt(NS)); if (!P1 || !P2) return null;
+      return { P1, P2, q };
+    };
+    const cost2 = v => {
+      const b_ = build2(v); if (!b_) return 1e9;
+      const e1 = (kd(b_.P1, 0) - sl(0)) / stol, e2 = (kd(b_.P1, 1) - kd(b_.P2, 0)) / stol, e3 = (kd(b_.P2, 1) - sl(NS)) / stol;
+      const dv = Math.max(dev(b_.P1, 0, b_.q, true), dev(b_.P2, b_.q, NS, true)) / tol;
+      // and a dip (the bend easing off and tightening again inside the hill) costs as much as a knee
+      const dir = Math.sign(k1 - k0) || 1, tk = 0.03 * Math.max(Math.abs(k0), Math.abs(k1)); let dip = 0; { const ks = [b_.P1, b_.P2].flatMap(P => Array.from({ length: 13 }, (_, q) => kBez(P, q / 12))); for (let q = 1; q < ks.length; q++) { const v_ = -dir * (ks[q] - ks[q - 1]); if (v_ > 0) dip += (v_ / tk) ** 2; } }
+      return e1 * e1 + e2 * e2 + e3 * e3 + dip + (dv > 1 ? 10 * (dv - 1) ** 2 : 0) + 0.01 * dv * dv;
+    };
+    let best2 = null;
+    for (const u0 of fl > 0 ? [fl / NS, 0.5, 0.3, 0.7] : [0.5, 0.35, 0.65, 0.25, 0.75]) {
+      const scale = [0.15, tol * 2, 0.05, Math.max(0.05, 0.1 * Math.abs(k1 - k0))];
+      const v = nelderMead(cost2, [u0, 0, 0, 0], scale, 260);
+      if (!best2 || v.f < best2.f) best2 = v;
+      if (best2.f < 0.5) break;
+    }
+    if (best2) {
+      const b_ = build2(best2.x);
+      if (b_) {
+        const kl2 = Math.max(2.5, 0.2 * Math.max(Math.abs(k0), Math.abs(k1)) ** 2), ok = Math.abs(kd(b_.P1, 0) - sl(0)) <= kl2 && Math.abs(kd(b_.P1, 1) - kd(b_.P2, 0)) <= kl2 && Math.abs(kd(b_.P2, 1) - sl(NS)) <= kl2 && Math.max(dev(b_.P1, 0, b_.q), dev(b_.P2, b_.q, NS)) <= tol * 1.5;
+        // and the pieces together still make one hill: the bend only grows toward the crest (a dip between the pieces is a wobble)
+        const mono = hillMono;
+        if (ok && mono([b_.P1, b_.P2])) return [b_.P1, b_.P2];
+        if (ok && process.env.FAIRDBG2) console.error("      mono fail", k0.toFixed(2), k1.toFixed(2), [b_.P1, b_.P2].flatMap(P => [0, 0.25, 0.5, 0.75, 1].map(t => kBez(P, t).toFixed(2))).join(" "));
+        if (process.env.FAIRDBG2) console.error('      two failed', best2.f.toFixed(3), kd(b_.P1, 0).toFixed(2), sl(0).toFixed(2), kd(b_.P1, 1).toFixed(2), kd(b_.P2, 0).toFixed(2), kd(b_.P2, 1).toFixed(2), sl(NS).toFixed(2), 'stol', stol.toFixed(2), 'dev', Math.max(dev(b_.P1, 0, b_.q), dev(b_.P2, b_.q, NS)).toFixed(4));
+      }
+    }
+    // three to six pieces, their meeting points ON the hill (each piece held to the hill's place, tangent and bend there);
+    // accepted on the fair check's own knee limit
+    const klim = Math.max(2.5, 0.2 * Math.max(Math.abs(k0), Math.abs(k1)) ** 2);
+    for (let n = 3; n <= 6; n++) {
+      const Ps = []; let bad = false;
+      for (let j = 0; j < n && !bad; j++) { const i0 = Math.round(NS * j / n), i1 = Math.round(NS * (j + 1) / n), P = cubic(nodeAt(i0), nodeAt(i1)); if (!P || dev(P, i0, i1) > tol) bad = true; else Ps.push(P); }
+      if (process.env.FAIRDBG2) console.error("      n", n, "bad", bad, bad ? "" : "mono " + hillMono(Ps), bad ? "" : Ps.map(P => kd(P, 0).toFixed(1) + "/" + kd(P, 1).toFixed(1)).join(" "), "edge sl", sl(0).toFixed(2), sl(NS).toFixed(2), "k", k0.toFixed(2), k1.toFixed(2));
+      if (bad || !hillMono(Ps)) continue;
+      // the fair check's own knee rule at every node: a step in the rate of bend over max(2, a quarter of the local crest squared)
+      const kmx = P => Math.max(...[0, 0.25, 0.5, 0.75, 1].map(t => Math.abs(kBez(P, t)))), lim = (...ks) => Math.max(2, 0.25 * Math.max(...ks) ** 2);
+      if (Math.abs(kd(Ps[0], 0) - sl(0)) > lim(Math.abs(k0), kmx(Ps[0]), n > 1 ? kmx(Ps[1]) : 0) || Math.abs(kd(Ps[n - 1], 1) - sl(NS)) > lim(Math.abs(k1), kmx(Ps[n - 1]), n > 1 ? kmx(Ps[n - 2]) : 0)) continue;
+      let kn = false; for (let j = 1; j < n; j++) if (Math.abs(kd(Ps[j - 1], 1) - kd(Ps[j], 0)) > lim(kmx(Ps[j - 1]), kmx(Ps[j]), kmx(Ps[Math.min(n - 1, j + 1)]), kmx(Ps[Math.max(0, j - 2)]))) kn = true;
+      if (!kn) return Ps;
+    }
+    return null;
+  };
+  const h1 = pieces(A.p, A.a, A.k, kM, L1, false), h2 = pieces(M, aM, kM, Bq.k, L2, true); if (!h1 || !h2) { if (process.env.FAIRDBG) console.error("   why: no fit", !!h1, !!h2); return null; }
+  const S0 = [...h1, ...h2], kS = kBez(S0[0], 1e-4), kE_ = kBez(S0[S0.length - 1], 1 - 1e-4);
+  if (Math.abs(kS - A.k) > 0.1 || Math.abs(kE_ - Bq.k) > 0.1) { if (process.env.FAIRDBG) console.error("   why: ends off", kS.toFixed(2), A.k.toFixed(2), kE_.toFixed(2), Bq.k.toFixed(2)); return null; }   // never leave an edge with a step in its bend
+  return { dI, dO, sol: S0, kM, L1, L2, dDepth: M.subtract(M0).dot(c.bis) };
+}
+function nelderMead(f, x0, step, iters) {   // a small Nelder-Mead minimiser: returns { x, f }
+  const n = x0.length; let P = [x0.slice()]; for (let i = 0; i < n; i++) { const x = x0.slice(); x[i] += step[i]; P.push(x); }
+  let F = P.map(f);
+  for (let it = 0; it < iters; it++) {
+    const ord = F.map((v, i) => i).sort((i, j) => F[i] - F[j]); P = ord.map(i => P[i]); F = ord.map(i => F[i]);
+    const c = Array(n).fill(0); for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) c[j] += P[i][j] / n;
+    const at = t => c.map((v, j) => v + t * (P[n][j] - v));
+    const xr = at(-1), fr = f(xr);
+    if (fr < F[0]) { const xe = at(-2), fe = f(xe); if (fe < fr) { P[n] = xe; F[n] = fe; } else { P[n] = xr; F[n] = fr; } }
+    else if (fr < F[n - 1]) { P[n] = xr; F[n] = fr; }
+    else { const xc = at(0.5), fc = f(xc); if (fc < F[n]) { P[n] = xc; F[n] = fc; } else { for (let i = 1; i <= n; i++) { P[i] = P[i].map((v, j) => P[0][j] + 0.5 * (v - P[0][j])); F[i] = f(P[i]); } } }
+  }
+  let bi = 0; for (let i = 1; i <= n; i++) if (F[i] < F[bi]) bi = i; return { x: P[bi], f: F[bi] };
+}
+function solve6(A, b) {   // Gaussian elimination, partial pivoting; A[j][i] = d r_i / d v_j (rows are the Jacobian's columns)
+  const n = 6, M_ = []; for (let i = 0; i < n; i++) { M_.push([]); for (let j = 0; j < n; j++) M_[i].push(A[j][i]); M_[i].push(b[i]); }
+  for (let c = 0; c < n; c++) { let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M_[r][c]) > Math.abs(M_[p][c])) p = r; if (Math.abs(M_[p][c]) < 1e-14) return null; [M_[c], M_[p]] = [M_[p], M_[c]];
+    for (let r = 0; r < n; r++) if (r !== c) { const f = M_[r][c] / M_[c][c]; for (let k = c; k <= n; k++) M_[r][k] -= f * M_[c][k]; } }
+  return M_.map((row, i) => row[n] / row[i]);
+}
+const bzP = (P, t) => P[0].multiply((1 - t) ** 3).add(P[1].multiply(3 * t * (1 - t) ** 2)).add(P[2].multiply(3 * t * t * (1 - t))).add(P[3].multiply(t ** 3));
+const bzD = (P, t) => P[1].subtract(P[0]).multiply(3 * (1 - t) ** 2).add(P[2].subtract(P[1]).multiply(6 * t * (1 - t))).add(P[3].subtract(P[2]).multiply(3 * t * t));
 function kBez(P, t) {
   const d1 = P[1].subtract(P[0]).multiply(3 * (1 - t) ** 2).add(P[2].subtract(P[1]).multiply(6 * t * (1 - t))).add(P[3].subtract(P[2]).multiply(3 * t * t));
   const d2 = P[2].subtract(P[1].multiply(2)).add(P[0]).multiply(6 * (1 - t)).add(P[3].subtract(P[2].multiply(2)).add(P[1]).multiply(6 * t));
@@ -406,8 +631,9 @@ function erode(d, w, miter = true) {
 // travel, so a symmetric outline whose halves run opposite ways came out up to 0.2px off (the H3 coupe, once its
 // stem flared into the domed foot). Keep the left half of the FINISHED outline, mirror it across x, and drop the
 // collinear points the seam leaves on straight lines.
-function symD(d, x) {
+function symD(d, x, dec = 4) {
   const it = new CompoundPath(d), half = new Path.Rectangle(new Point(-1000, -1000), new Point(x, 1000));
+  const seamPts = []; for (const k of (it.children.length ? it.children : [it])) for (const s of k.segments) if (Math.abs(s.point.x - x) < 1e-4) seamPts.push({ p: s.point.clone(), hi: s.handleIn.clone(), ho: s.handleOut.clone() });
   const l = it.intersect(half); it.remove(); half.remove();
   const r = l.clone(); r.scale(-1, 1, new Point(x, 0)); const u = l.unite(r); l.remove(); r.remove();
   for (const k of (u.children && u.children.length ? u.children : [u])) {
@@ -421,8 +647,27 @@ function symD(d, x) {
       if (Math.abs(a.cross(b)) < 1e-4 * a.length * b.length && a.dot(b) > 0) s.remove();
     }
   }
+  // g7ar: a point on the seam can come out of the booleans with one handle dropped (a curve that crossed the seam at its own
+  // end: a hill's crest); the outline is symmetric, so the dropped handle is the mirror of the kept one
+  for (const k of (u.children && u.children.length ? u.children : [u])) for (const s of k.segments) {
+    if (Math.abs(s.point.x - x) > 1e-6) continue;
+    if (s.handleIn.length < 1e-3 && s.handleOut.length < 1e-3 && dec > 4) {
+      // both dropped (the booleans cut a round's crest a hair off the seam): the crossing is rebuilt as ONE cubic from the
+      // node before to the node after, held to their tangent and bend (G2), symmetric by construction
+      const pv = s.previous, nx = s.next, cin = pv.previous ? new Path([pv.previous.clone(), pv.clone()]).firstCurve : null, cout = nx.next ? new Path([nx.clone(), nx.next.clone()]).firstCurve : null;
+      if (cin && cout && cin.length > 1e-3 && cout.length > 1e-3) {
+        const tA = cin.getTangentAtTime(1), kA = cin.isStraight() ? 0 : kOf(cin, 1), tB = cout.getTangentAtTime(0), kB = cout.isStraight() ? 0 : kOf(cout, 0);
+        const h = g2Handles(pv.point, tA, kA, nx.point, tB, kB);
+        if (h) { pv.handleOut = tA.multiply(h[0]); nx.handleIn = tB.multiply(-h[1]); s.remove(); }
+        cin.path.remove(); cout.path.remove();
+      }
+      continue;
+    }
+    if (s.handleIn.isZero() && !s.handleOut.isZero() && s.handleOut.length > 1e-4) s.handleIn = new Point(-s.handleOut.x, s.handleOut.y);
+    else if (s.handleOut.isZero() && !s.handleIn.isZero() && s.handleIn.length > 1e-4) s.handleOut = new Point(-s.handleIn.x, s.handleIn.y);
+  }
   // absolute commands, as corners() writes them (the checks read M, L, C, Z)
-  const n = v => +v.toFixed(4), P = q => `${n(q.x)} ${n(q.y)}`;
+  const n = v => +v.toFixed(dec), P = q => `${n(q.x)} ${n(q.y)}`;
   let out = '';
   for (const k of (u.children && u.children.length ? u.children : [u])) {
     out += `M${P(k.firstSegment.point)}`;
@@ -448,14 +693,14 @@ function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease, sym, 
       }
       const s = q.fill ? acc.unite(hole) : acc.subtract(hole); acc.remove(); hole.remove(); acc = s;
     }
-    let d = law ? corners(acc, law, info, { noCaps, tightHoles: true, ease, join: jn }) : acc.pathData; if (sym != null) d = symD(d, sym);
+    let d = law ? corners(acc, law, info, { noCaps, tightHoles: true, ease, join: jn }) : acc.pathData; if (sym != null) d = symD(d, sym, jn && jn.fair ? 5 : 4);
     const b = acc.bounds; acc.remove();
     let far = 0;
     if (centre) { const fl = new CompoundPath(d); fl.flatten(0.05); for (const k of (fl.children && fl.children.length ? fl.children : [fl])) for (const s of k.segments) far = Math.max(far, Math.hypot(s.point.x - centre[0], s.point.y - centre[1])); fl.remove(); }
     return { d, far, bounds: { x: b.x, y: b.y, w: b.width, h: b.height } };
   }
   const it = join(prims, penW);
-  let d = law ? corners(it, law, info, { noCaps, tightHoles, ease, join: jn }) : it.pathData; if (sym != null) d = symD(d, sym);
+  let d = law ? corners(it, law, info, { noCaps, tightHoles, ease, join: jn }) : it.pathData; if (sym != null) d = symD(d, sym, jn && jn.fair ? 5 : 4);
   const b = it.bounds;
   // farthest ink point from the badge centre, for the fit check
   let far = 0;
