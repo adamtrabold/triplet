@@ -12,7 +12,7 @@
   - Output at 4 decimals in join mode (short handles lost their curvature at 3).
   - Optical centring: box centre pulled down by half of (box cy − ink cy) when positive; no lattice snap; the star and + too.
 - **New check:** `src/join-check.js` (JUMP / HUMP / WOBBLE on the finished outline). Row before 37 faults, after 0. It doesn't flag curvature spikes at deliberate tips; I added a cusp guard in `g2Handles` (speed under a fifth of the chord) instead.
-- **Board:** section 0 on the Between board; v222 board archived as `Archive-G7aq-Between` (x 5040, y 156200); Between 7392 tall; Master moved to y 7992. Before svgs frozen in `svg/g7/before-g7aq/`.
+- **Board:** section 0 on the Between board; v222 board archived as `Archive-G7aq-Between` (x 5040, y 156200); Between 7592 tall after turn 131 (v224: director 9 after three copy edits, made: tree tips cost, centring measured against v222, band end by eye); Master moved to y 7992. Before svgs frozen in `svg/g7/before-g7aq/`.
 - **Open / unsure:** the tree's upper tips are now eased like the bottom one (sharper, thinner): is that "one pattern" to him or a change to his "perfect" tree? The band's ends now curve (a true offset over 0.8px is straight; he never saw it as parallel). Star 0.37px lower. The rest of the HSETS rows still use the old engine (history). His open questions (Joins, Wide → Square, "glass … plate") untouched.
 - **Tooling** (scratchpad `d4/`): `v.js` (one glyph by R2B; env JOIN, OPT, NOSYM, CORN), `big.js` (render at size; VB, RING), `prof.js` (curvature per segment in a box), `cen.js` (vertical centres), `nudge.js` (offset sheet), `shot.js` (board section screenshots), `mkpub.py`.
 
