@@ -5755,3 +5755,13 @@ to him:
 
 **Changed since my last score?** Yes: engine-level joins (37 faults to 0),
 centring per icon, the band's ends. The drawings are otherwise the same.
+
+
+---
+
+## Turn 131: icon designer (fourth), turn 130's three copy edits (canvas v224)
+
+1. **The tree's tips:** the "One join pattern" rule now says the cost plainly: the two upper tips are as sharp as the bottom one, so they read sharper and thinner than in v222.
+2. **Centring:** the rule now says a top-heavy drawing "sits a little below its box centre". The numbers are labelled as measured against v222's placement (halfway from box centre to ink centre, snapped to 1/3px). The cup and coupe moved up because v222 pulled them further toward their weight, and they still sit below their box centres (cup 0.15px, coupe 0.41px). The museum moved down because v222 lifted it toward its base.
+3. **The band's end:** drawn by eye as one curve to echo the wall, not a true offset (over a 5/6px band a true offset is a straight line, which is what he saw before).
+- No drawing changed (svgs byte-identical; only the Between board's copy). Between 7392 → 7592 px; it still ends above the master grid (y 7992). The live v223 board matched my build.
