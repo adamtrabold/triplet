@@ -553,6 +553,21 @@ const COUPES = [
 // drink's surface back on the 1/3px lattice (1.5 + 1 1/6 = 2 2/3)
 const BAND_B = 7 / 6, COUPE_B = { bd: 5.5, bk: 0.35, bx: 0.5, fb: 10.333, bandH: BAND_B, bandSide: 'shift' };
 const EASE = 2.3;
+// g7aq (owner on v222: "the join patterns for sharp corners like this tree don't seem to be the same quite yet at a pattern
+// level"; "a slight wobbliness at some of the joins because of the rounding mechanics ... they should be architectural and
+// smooth with no visible humps or wobbles... they should feel impeccably constructed at every join"; on the coupe's band:
+// "the counter edge looks less curved than the exterior edge"): ONE JOIN, as engine rules (engine.js corners, opts.join):
+//   - every outside corner of a mass eases (by its kind, never by the length of its edges), the rest take the join round;
+//   - every round is solved to meet its edges with their own curvature and to bend evenly (no flat-then-round, no hump);
+//   - a counter's end that is itself a curve (the band's end beside the bowl) is drawn as one curve, its corners merged.
+const JOIN7 = { ease: EASE, trim: 1.4, ends2: 1.5 };
+// g7aq OPTICAL CENTRING, per icon (owner on v222: "vertical centering should be optical always on a per-icon basis"): the
+// point set on the badge's centre is the drawing's box centre, pulled down by half the distance its ink sits ABOVE that
+// centre (a top-heavy drawing, the cup or the coupe, sinks toward its weight); a drawing whose weight sits low (a building
+// on its plinth, a tree on its trunk) is not lifted: the eye measures its clearance, top and bottom. No lattice snap: the
+// position is the optical one, exactly (the 1/3px lattice could leave a drawing up to 1/6px off it).
+const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
+const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(4) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
 // g7aa (owner on v147: "also the interior counter shape of the coupe *still* does not look right. and there is
 // *still* not enough liquid in the cup how many times do i have to say it"): B's flat bowl, closed by its rim bar,
 // holds less drink than v134 (measured, src/liquid.js). Three ways to give it clearly more, one idea each:
@@ -613,30 +628,31 @@ const HSETS = [
   // on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to
   // establish to fix that"; "i will say "coupe after" needs slightly more drink"): the coupe and the tree are fixed; four rules
   // carry them to the rest, and the drink rule moves the coupe's surface up a lattice line
-  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
-  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
+  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN7, optical: true }],
+  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN7, optical: true }],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
   ['Between H2 and H3', 'H3\'s loosening, pulled back: the plates are slabs whose tops rise half a line at the centre; the flares are a third of H3\'s (1/2px); every tip\'s round is a share of its edge; the museum is H2\'s, its architecture open (below).', { droop: 0.5, bow: -0.2, dome: 0.5, ...COUPE_V[0][2] }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
   // g7ae (owner: "what if the plate was flipped the other way with the rounding on the bottom")
   ['Between, plates flipped', 'The same, with the plate and the coupe\'s foot flat on top and rounded underneath: the underside drops 1/2px at the centre, like a saucer\'s.', { droop: 0.5, bow: -0.2, under: 0.5, ...COUPE_V[0][2] }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE],
-].map(([nm, rule, o, law, fk, bal, ease]) => {
-  const opts = { law, tightHoles: true, ease: ease || undefined };
+].map(([nm, rule, o, law, fk, bal, ease, X = {}]) => {
+  const opts = { law, tightHoles: true, ease: ease || undefined, join: X.join };
   const fitPlace = (id, extra = {}, withSil = false) => {
     const fk_ = fk * (extra.fitScale || 1), [cls0, apex] = CLASS[id], cls = classByProportion(id, () => DRAW[id](12, { style: 'mono', ...o, ...extra }), opts, apex, cls0, nm), kw = KEY[cls][0] * fk_, bh = (KEY[cls][1] + apex) * fk_, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
     let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
     const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = (o.dome || typeof o.under === 'number') && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
-    const ty = oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;
+    const ty = X.optical ? oy + 12 - opticalY(m) : oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;
     // g7aa: the silhouette (no band, no drink) placed exactly as the glyph is, for the liquid measure
     return withSil ? { d, sil: E.build(E.xform(dr(s, { band: false }), 1, 0, 0, ox + tx, ty), { ...opts, sym }).d } : d;
   };
   const ds = {};
   for (const [id] of BATCH) ds[id] = fitPlace(id);
   // g7ah: o.starTip, the tip-by-edge rule on the star too (its tips are acute tips like the tree's)
-  ds.star = bal ? starAt({ ease: ease || undefined, tightHoles: true, ...(o.starTip ? { law: scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), o.starTip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20) } : {}) }) : UD.joint.star.d;
-  ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease }).d : UD.joint.plus.d;
+  ds.star = bal ? starAt({ ease: ease || undefined, tightHoles: true, join: X.join, ...(o.starTip ? { law: scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), o.starTip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20) } : {}) }) : UD.joint.star.d;
+  ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease, join: X.join }).d : UD.joint.plus.d;
+  if (X.optical) for (const k of ['star', 'plus']) { const m_ = measure(ds[k]); ds[k] = shiftD(ds[k], 12 - opticalY(m_)); }   // g7aq: the marks too, in their own slots
   const coupes = COUPES.map(([, , co]) => fitPlace('bar', co));
   const bar1 = o.bandSide === 'shift' ? fitPlace('bar', { bandH: 1 }) : null;   // g7z: the thinner band, for the coupe board
   const silBar = fitPlace('bar', {}, true).sil;   // g7aa: the coupe's silhouette, for the liquid measure
@@ -843,6 +859,43 @@ function clearWalls(d, sil) {
   const e = 0.2, r = y0 == null ? null : { top: at(y0 + e), mid: at((y0 + y1) / 2), bot: at(y1 - e), h: y1 - y0 };
   cp.remove(); so.remove(); return r;
 }
+// g7aq: the joins and centring section (owner on v222). Before = the v222 drawings, frozen in svg/g7/before-g7aq/.
+const JC = require('./join-check.js');
+function sectionJoins(kick, quote) {
+  const N = COL.navy, I2 = COL.ink2;
+  const B4 = id => fs.readFileSync(path.join(__dirname, `../svg/g7/before-g7aq/${id}.svg`), 'utf8').match(/ d="([^"]+)"/)[1];
+  const mark = f => `data:image/png;base64,${fs.readFileSync(path.join(__dirname, `../owner-marks/${f}`)).toString('base64')}`;
+  const ids = [['cafe', 'cafe-r2'], ['bar', 'bar-r2b'], ['museum', 'museum-r2'], ['nature', 'nature-r2']];
+  const before = Object.fromEntries(ids.map(([k, f]) => [k, B4(f)])), after = Object.fromEntries(ids.map(([k]) => [k, R2B.ds[k]]));
+  before.star = B4('star-r2'); before.plus = B4('plus-r2'); after.star = R2B.ds.star; after.plus = R2B.ds.plus;
+  const faults = ds => Object.values(ds).reduce((n, d) => n + JC.check(d).length, 0);
+  const row = (ds, label) => `<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">${label}</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${BATCH.map(([id]) => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${ds[id]}" fill="${N}"/></svg>`).join('')}<span style="width:6px"></span>${BATCH.map(([id]) => badge(ds[id])).join('')}${uiPath(ds.plus, 26.4)}${uiPath(ds.star, 20)}<span style="width:10px"></span>${BATCH.map(([id]) => badge(ds[id], 72)).join('')}</div></div>`;
+  // a crop of a join: the same place on each glyph, found from its own box (the after glyphs sit at their optical centre)
+  const crop = (d, fx, fy, sz, px = 150) => { const b = measure(d).box, x = b.x0 + fx * (b.x1 - b.x0) - sz / 2, y = b.y0 + fy * (b.y1 - b.y0) - sz / 2; return `<svg width="${px}" height="${px}" viewBox="${f2(x)} ${f2(y)} ${sz} ${sz}" style="background:${COL.paper};flex:none" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`; };
+  const pair = (id, fx, fy, sz, label, mk) => `<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:17px;font-weight:700;color:${N};margin-bottom:6px">${label} <span style="font-weight:400;color:${I2}">(${Math.round(150 / sz)}x)</span></div><div style="display:flex;gap:12px;align-items:center">${mk ? `<div style="text-align:center"><img src="${mark(mk)}" alt="" style="height:150px;width:auto;display:block;background:${COL.paper}"><div style="font-size:13px;color:${I2};margin-top:4px">your mark (v222)</div></div>` : ''}<div style="text-align:center">${crop(before[id], fx, fy, sz)}<div style="font-size:13px;color:${I2};margin-top:4px">before (v222)</div></div><div style="text-align:center">${crop(after[id], fx, fy, sz)}<div style="font-size:13px;color:${N};font-weight:700;margin-top:4px">after</div></div></div></div>`;
+  const moved = id => { const a = measure(after[id]).box.cy - measure(before[id]).box.cy; return `${id === 'cafe' ? 'cup' : id === 'bar' ? 'coupe' : id === 'nature' ? 'tree' : id} ${a >= 0 ? 'down' : 'up'} ${Math.abs(a).toFixed(2)}px`; };
+  const RULES3 = [
+    ['Optical centring, per icon', 'Each icon is set on the badge by its own optical centre: its box\'s centre, pulled down by half the distance its ink sits above it, so a top-heavy drawing (the cup, the coupe) sinks toward its weight; a drawing heavy at the foot (the museum on its plinth, the tree on its trunk) is not lifted, its clearance above and below is what the eye compares. Placed exactly, no 1/3px snap. The star and the + by the same rule in their slots.'],
+    ['One join pattern', 'A corner\'s treatment follows its kind, never the length of its edges: every outside corner of a mass (a tip, a rim, an apex) takes the same eased curve; every inside corner, flare, notch, counter and line end takes one compact round. The tree\'s upper tips were plain arcs and its bottom tips eased only because their edges were longer (the engine\'s old 3px test); now all three tiers end the same way.'],
+    ['No humps: every join built', 'Every round meets its edges with their own curvature and bends evenly to its tightest point and back (one peak, no flat-then-round). Where a corner runs straight into a bend the other way (the museum\'s beam end into its capital), the two become one S. A counter\'s end that runs beside a curved wall is one curve, so it follows the wall (the coupe\'s band).'],
+  ];
+  return `${kick('0 · The joins and the centring, as rules')}
+${quote('these are looking so so good. a few things that still stand out. vertical centering should be optical always on a per-icon basis. the join patterns for sharp corners like this tree don\'t seem to be the same quite yet at a pattern level - these look like slightly different approaches (screenshot attached). there also seems to be a slight wobbliness at some of the joins because of the rounding mechanics on various icons (a few screenshots attached). not sure how to solve, but they should be architectural and smooth with no visible humps or wobbles... they should feel impeccably constructed at every join.')}
+${quote('im still concerned that the counter edge looks less curved than the exterior edge... this is a screenshot of the left edge, but it\'s the same on the right.')}
+<table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.4;margin:6px 0 10px">${RULES3.map(([a, b]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 10px 8px 0;width:24%;font-weight:700;color:${N}">${a}</td><td style="padding:8px 0;color:${N}">${b}</td></tr>`).join('')}</table>
+${phP('All three live in the engine, so every icon gets them, and so will the next one. No drawing changed: the coupe, the tree\'s shape and the museum are as they were (each the same size); only their joins, the band\'s ends and where they sit.')}
+${row(before, 'Before (v222): "After: the plate rule on the coupe\'s foot too"')}${row(after, 'After: the same row, joins and centring by the rules')}
+${phP(`<b>Centring:</b> ${BATCH.map(([id]) => moved(id)).join(', ')}; the star ${(measure(after.star).box.cy - measure(before.star).box.cy).toFixed(2)}px down in its slot. The row "After: the plate rule on the cup\'s saucer" below takes the same rules.`)}
+${kick('The joins you marked, and the ones the check found')}
+${pair('nature', 0.26, 0.5, 7.5, 'The tree: tips and notches, one pattern', 'v222-tree-joins.png')}
+${pair('bar', 0.08, 0.1, 2.4, 'The coupe: rim into the side (no flat spot after the corner)', 'v222-wobble-c.png')}
+${pair('bar', 0.3, 0.86, 3.4, 'The coupe: foot end, the foot\'s top, into the stem', 'v222-wobble-a.png')}
+${pair('bar', 0.62, 0.55, 2.2, 'The stem into the bowl (the same join as the museum\'s capital)', 'v222-wobble-b.png')}
+${pair('bar', 0.21, 0.24, 2.2, 'The band\'s end beside the bowl', 'v222-coupe-band-edge.png')}
+${pair('museum', 0.97, 0.53, 2.6, 'Found by the check: the museum\'s beam end into its capital (a knuckle, now one S)')}
+${pair('cafe', 0.64, 0.57, 2.2, 'Found by the check: the cup\'s side into its handle\'s foot')}
+${phP(`<b>Checked:</b> the new join check (src/join-check.js) walks every outline\'s curvature and counts a flat-then-round break, a hump or a ripple at any join. Before, this row had ${faults(before)}; after, ${faults(after)}, and the other row the same. Checks only prove what they measure: every join above was also judged by eye at true size and at 8x and up. At true size the change is felt more than seen: the tree's tiers now end alike, the museum sits lower and the joins read cleaner at 72px.`)}`;
+}
 function sheetBetween() {
   const N = COL.navy, I2 = COL.ink2, S = BETW, SF = BFLIP, H2 = HSETS[1], H3 = HSETS[2];   // H3F: H3 with its saucer flipped
   const kick = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:30px 0 8px">${t_}</div>`;
@@ -895,7 +948,8 @@ function sheetBetween() {
   const r2Rules = () => `<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.35;margin:6px 0 10px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0;width:16%">Rule</td><td style="padding:4px 8px;width:24%">Was</td><td style="padding:4px 0 4px 8px">Now</td></tr>${R2RULES.map(([a, b, c, e]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 8px 2px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px 8px 2px;color:${I2}">${b}</td><td style="padding:8px 0 2px 8px;color:${N}">${c}</td></tr><tr style="vertical-align:top"><td></td><td colspan="2" style="padding:2px 0 10px 8px;color:${N}"><b>Here:</b> ${e}</td></tr>`).join('')}<tr style="border-top:1px solid ${COL.hair}"><td colspan="3" style="padding:8px 0;color:${N}"><b>Unchanged:</b> line ends, tips by their edge, flares 1/2px, mass corners 0.6, the vessel side, the tree\'s sweep and droop. The + and the star: nothing in these rules acts on them.</td></tr></table>`;
   const musRows = [['H2\'s museum (the base)', 'As H2 drew it: four columns, a beam, a straight roof, a plinth. Every approach below starts from it.', S.ds.museum, 'museum'], ...MUSEUM_V.map(([nm, line], k) => [nm, line, S.mus[k], `museum-${k + 1}`])]
     .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center"><div style="display:flex;gap:6px;align-items:center;padding:8px;background:${COL.paper}">${badge(S.ds.cafe)}${badge(S.ds.bar)}${badge(d)}${badge(S.ds.nature)}</div>${chip(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(d, 72)}${badge(S.ds.nature, 72)}</div><div style="margin-top:10px">${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
-  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Your earlier notes on this board (the coupe options, H2 / Between / H3, the tuned row and its table) are on the Archive page, as v217.')}
+  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Your earlier notes on this board (the coupe options, H2 / Between / H3, the tuned row and its table) are on the Archive page, as v217; the board as you saw it on 10-22, before the joins and centring rules, is there as v222.')}
+${sectionJoins(kick, quote)}
 ${kick('1 · The coupe and the tree are fixed: rules for the rest')}
 ${quote('youre missing my point -- the between tree is perfect. what changes need to happen to h2 to make that tree fit in')}
 ${quote('in "after: rules tuned to the tree" "coup, after" and "tree, after" are perfect ... but the glass being on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to establish to fix that.')}

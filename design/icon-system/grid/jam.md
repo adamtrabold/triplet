@@ -5661,3 +5661,30 @@ byte-identical.
 3. **The flares:** "felt at 24px, read as a capital and a base at 72px".
 - No drawing changed.
 - The Between board grew from 4088 to 4376 px; the live v221 board matched my build.
+
+
+---
+
+## Turn 129: icon designer (fourth), joins and optical centring as engine rules (canvas v223)
+
+Owner (v222): "vertical centering should be optical always on a per-icon basis. the join patterns for sharp corners like this tree don't seem to be the same quite yet at a pattern level ... a slight wobbliness at some of the joins because of the rounding mechanics ... they should be architectural and smooth with no visible humps or wobbles... they should feel impeccably constructed at every join." And: "im still concerned that the counter edge looks less curved than the exterior edge".
+
+**His marks, identified:** `v222-tree-joins` = the tree's left side (two plain-arc upper tips beside an eased bottom tip); `wobble-a` = the coupe's foot (end corner, the foot's top, into the stem); `wobble-b` = a stem flare meeting the bowl's curved underside (the museum's capital is the same join); `wobble-c` = the coupe's rim corner into its side (a flat spot right after the corner); `coupe-band-edge` = the band's end, a short straight cut beside the curved wall.
+
+**Causes, in the engine (`corners()`):**
+- The ease was chosen by edge LENGTH (`min(lin, lout) >= 3`), so corners of one kind split: the tree's apex and bottom tips eased, its upper tips plain arcs.
+- Every round assumed its edges were straight: handles from the corner's angle, curvature 0 at the round's ends. Where the edge was a curve, the round ended flat and the edge bent again (the rim), or a circular arc met a curve with a curvature step (flares, the foot).
+- A corner running straight into a bend the other way (the museum's beam end into its capital) was rounded as a 90° corner: a knuckle.
+
+**The three rules (all in the engine, `opts.join`; boards7 `JOIN7`, `opticalY`):**
+1. **Optical centring, per icon:** the box centre, pulled down by half the distance the ink sits above it; a drawing heavy at the foot is not lifted. Exact, no 1/3px snap. The star and + by the same rule in their slots. Effect: cup up 0.10px, coupe up 0.09, museum down 0.26 (it read high), tree down 0.10, star down 0.37.
+2. **One join pattern:** by kind, never length. Every outside corner of a mass (tip, rim, apex) eases; every inside corner, flare, notch, counter and line end takes one compact round (two mirrored cubics through the law arc's deepest point). The tree's three tiers now end alike.
+3. **No humps:** every round is solved to meet its edges with their own tangent and curvature and to bend evenly (one peak). Where that can't be solved, the round slides along the curved edge until it can; where a corner runs into an opposite bend, the two become one S. A counter end that is itself a curve (the band's end) is one curve, so it follows the wall.
+
+**Per icon:** the coupe, the tree's shape and the museum keep their drawings and sizes (box heights identical); only joins, the band's ends and placement changed. Both rows ("plate rule on the cup's saucer" and "on the coupe's foot too") take the rules; older rows are untouched (history).
+
+**Checks:** new `src/join-check.js` (curvature walk: JUMP = curvature break between curves, HUMP = a bend with a near-flat valley beside another peak, WOBBLE = a short gentle lobe between two opposite ones). This row: 37 faults before, 0 after; the other row 0. check-svg: 0 slivers, symmetric (café by design). between-checks: coupe band walls 1.38-2.25 (before 1.35-2.24, the known rim artefact), museum openings 1.25-1.50, curve jump 0.00. blur-between re-run (museum 31.7/63.6, unchanged). By eye at true size, 72px and 20-68x on every marked join plus two the check found (the museum's capital knuckle, the cup's handle foot). Only the Between board changed (every other board byte-identical).
+
+**Canvas v223:** section "0 · The joins and the centring, as rules" at the top of the Between board (his two quotes, the three rules, before/after rows, before/after crops beside his marks). The v222 board is on Archive as `Archive-G7aq-Between` (x 5040, y 156200). Between 4376 → 7392 px; the master grid moved down to y 7992 so they don't overlap.
+
+**Unsure:** whether the eased tips on the tree's upper tiers (now as sharp as the bottom one) read as "the same pattern" to him or as thinner; whether the band's curved ends answer "less curved than the exterior" (they now curve, which a true offset over 0.8px can't show); the star sits 0.37px lower in its slot under the same rule. His open questions (Joins, Wide → Square, which "glass … plate") are untouched.

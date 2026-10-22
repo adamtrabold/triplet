@@ -20,12 +20,12 @@
   "core": 57.8
  },
  "bar-r2": {
-  "mean": 22.3,
-  "core": 57.5
+  "mean": 22.4,
+  "core": 57.4
  },
  "bar-r2b": {
-  "mean": 22.7,
-  "core": 57.7
+  "mean": 22.9,
+  "core": 58
  },
  "bar": {
   "mean": 21.3,
@@ -40,8 +40,8 @@
   "core": 70.7
  },
  "cafe-r2": {
-  "mean": 28.4,
-  "core": 70.8
+  "mean": 28.6,
+  "core": 70.9
  },
  "cafe": {
   "mean": 28.3,
@@ -56,16 +56,16 @@
   "core": 69.8
  },
  "museum-r2-base": {
-  "mean": 31.9,
-  "core": 63.7
+  "mean": 31.8,
+  "core": 63.6
  },
  "museum-r2-v219": {
   "mean": 27.9,
-  "core": 58.3
+  "core": 58.8
  },
  "museum-r2-v220": {
-  "mean": 28.5,
-  "core": 61.1
+  "mean": 27.5,
+  "core": 61.6
  },
  "museum-r2": {
   "mean": 31.7,
@@ -76,8 +76,8 @@
   "core": 69.5
  },
  "nature-r2": {
-  "mean": 18,
-  "core": 59.4
+  "mean": 18.3,
+  "core": 60
  },
  "nature": {
   "mean": 18,

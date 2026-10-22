@@ -89,6 +89,7 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 - **10-21 · Stuck on the museum (v217-v219):** coupe and tree fixed per owner; rules for the rest: plate, posts 1¼, openings square, straight-lined buildings, "resting parts" (1px cut where a part sits on supports). Director 7 → 8 → 7; the drink passes; the museum keeps failing ("disconnected" unanswered at true size; v219 reads squat, a lid over a comb). Stuck note sent asking what "disconnected" means to him and which "glass … plate" he meant.
 
 - **10-21 · v222 shown:** museum connected to the system by two rules: "Joins" (outer posts flare 1/2px into the mass they hold or stand on, outside only, as the coupe's stem; openings stay square) and the separated gable (resting parts: the cut's room from the load or the class, never the supports). "Class follows drawn proportion" moves the museum Wide → Square (flagged). Approaches B (outline sweep: trapezoid) and C (eaves past the beam: pagoda) cut to Archive. Director 7 (v220) → 9 (v221, edits in v222). Asked: does Joins connect the museum? Which "glass … plate"?
+- **10-22 · v223 shown:** his v222 notes as three engine rules: optical centring per icon (box centre pulled toward a top-heavy drawing's weight; museum down 0.26px), one join pattern (ease by a corner's kind, not its edge length: the tree's three tiers now end alike), every join solved to meet its edges' curvature with no hump (the band's ends now one curve; the museum's capital one S). New join check: 37 faults → 0. v222 board archived.
 
 ## Milestone commits
 

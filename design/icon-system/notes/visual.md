@@ -1,5 +1,21 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-22, canvas v223, turn 129; fourth icon designer)
+
+- **Owner on v222:** optical vertical centring per icon, always; one join pattern for sharp corners (the tree's tiers looked like different approaches); no humps or wobbles at joins ("architectural and smooth ... impeccably constructed at every join"). Plus the coupe band: "the counter edge looks less curved than the exterior edge" (7th+ time; see owner.md v130-v147).
+- **His marks** (`grid/owner-marks/v222-*`): tree-joins = tree left side; wobble-a = coupe foot end → foot top → stem; wobble-b = stem flare into the bowl's underside (same join as the museum capital); wobble-c = coupe rim corner into the side; coupe-band-edge = the band's left end.
+- **Done, as engine rules** (engine.js `corners()` with `opts.join`; boards7 `JOIN7 = { ease: 2.3, trim: 1.4, ends2: 1.5 }`, `opticalY`, `shiftD`; HSETS tuple 8th element `{ join, optical }`, set on R2 and R2B only):
+  - Ease by KIND (convex, not a counter, not a line end), not by edge length (the old `min(lin,lout) >= 3` split the tree).
+  - Eased corners: handles solved for G2 (`g2Handles`), else handles to the tangents' crossing (curvature 0 at the ends).
+  - Other corners: `joinRound` = two mirrored cubics through the law arc's deepest point, curvature rising monotonically to the bisector; trim 1.4x the arc's. If unsolvable: slide the ends along the curved edge (up to 3x), then a single even cubic, then an S through the chord's middle (`ss`, the museum capital).
+  - Counter ends that are themselves curves (the band) merge into one curve (`ends2`); slot ends (straight) are untouched.
+  - Output at 4 decimals in join mode (short handles lost their curvature at 3).
+  - Optical centring: box centre pulled down by half of (box cy − ink cy) when positive; no lattice snap; the star and + too.
+- **New check:** `src/join-check.js` (JUMP / HUMP / WOBBLE on the finished outline). Row before 37 faults, after 0. It doesn't flag curvature spikes at deliberate tips; I added a cusp guard in `g2Handles` (speed under a fifth of the chord) instead.
+- **Board:** section 0 on the Between board; v222 board archived as `Archive-G7aq-Between` (x 5040, y 156200); Between 7392 tall; Master moved to y 7992. Before svgs frozen in `svg/g7/before-g7aq/`.
+- **Open / unsure:** the tree's upper tips are now eased like the bottom one (sharper, thinner): is that "one pattern" to him or a change to his "perfect" tree? The band's ends now curve (a true offset over 0.8px is straight; he never saw it as parallel). Star 0.37px lower. The rest of the HSETS rows still use the old engine (history). His open questions (Joins, Wide → Square, "glass … plate") untouched.
+- **Tooling** (scratchpad `d4/`): `v.js` (one glyph by R2B; env JOIN, OPT, NOSYM, CORN), `big.js` (render at size; VB, RING), `prof.js` (curvature per segment in a box), `cen.js` (vertical centres), `nudge.js` (offset sheet), `shot.js` (board section screenshots), `mkpub.py`.
+
 ## Update (2026-10-21, canvas v221, turn 126)
 
 - **Director, v220 (turn 125), scored 7:** keep A · Joins; cut B (it reads as a trapezoid or a furniture foot) and C (it reads as a pagoda, and it breaks Straight-lined buildings). His third fault was that the gable's ends were slivers (0.43).

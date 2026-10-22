@@ -85,7 +85,7 @@ function join(prims, penW) {
 // For every corner of the joined outline: is it convex (the ink side is the inside of the
 // turn) and what is its interior angle on the ink side? The law gives a radius; the corner is
 // replaced by ONE cubic (a circular-arc fit), so each rounded corner adds exactly one curve.
-const r3 = v => Math.round(v * 1000) / 1000;
+const r3 = v => Math.round(v * 1000) / 1000, r3g = r3;
 function corners(item, law, info, opts = {}) {
   const kids = item instanceof CompoundPath ? item.children.slice() : [item];
   const out = [];
@@ -126,16 +126,34 @@ function corners(item, law, info, opts = {}) {
       // a counter's corners stay tight compass rounds (tight interior), so its walls stay one line all round
       // g7y: line ENDS (a corner on an edge shorter than 2 lines: the end of a slab, a stem, a trunk) keep the
       // law's plain round, so terminals read the same in every icon; only the corners of masses and joins ease
-      const ez = opts.ease && !isHole && Math.min(lin, lout) >= 3 ? opts.ease : 0;
-      let d = r * Math.tan(ang / 2) * (ez || 1);
-      cs.push({ d, r, ang, turn, convex, angle: inkAngle, ease: !!ez });
+      // g7aq ONE JOIN (owner on v222: "the join patterns for sharp corners like this tree don't seem to be the same quite
+      // yet at a pattern level"): the length test above split corners of one kind by the size of their edges (the tree's
+      // bottom tips and apex eased, its upper tips plain arcs). opts.join = { ease, holes, ends } makes the ease a rule of
+      // the corner's KIND: every corner of a mass eases; counters ease when join.holes; line ends when join.ends.
+      // With opts.join: the OUTSIDE corners of a mass (convex, not a line end, not a counter) ease, whatever their size;
+      // every other corner (joins, flares, notches, counters, line ends) takes the compact JOIN ROUND (joinRound below).
+      const J = opts.join, isEnd = convex && Math.abs(ang - Math.PI / 2) < 0.2 && Math.min(lin, lout) < 3;
+      const ez = J ? (convex && !isHole && !isEnd ? J.ease : 0) : opts.ease && !isHole && Math.min(lin, lout) >= 3 ? opts.ease : 0;
+      // with opts.join every round is the JOIN ROUND (below): it starts join.trim times as far from the corner as the
+      // compass arc of the law's radius would, so it has room to ease in and out
+      let d = J && !ez ? r * Math.tan(ang / 2) * J.trim : r * Math.tan(ang / 2) * (ez || 1);
+      cs.push({ d, d0: d, r, ang, turn, convex, angle: inkAngle, ease: !!ez, jr: !!J && !ez, P0, bis, tin, tout });
       if (info) info.push({ x: r3(P0.x), y: r3(P0.y), r: r3(r), convex, angle: Math.round(inkAngle) });
+    }
+    // g7aq COUNTER ENDS (owner on v222, the coupe's band: "im still concerned that the counter edge looks less curved than
+    // the exterior edge"): with opts.join.ends2, a counter's END (an edge shorter than join.ends2 between two corners
+    // that turn the same way and is itself a curve, e.g. the band's end against the bowl; a slot's straight end is not) is drawn as one curve: its two corners' rounds grow
+    // until they meet at the end's middle, so the end follows the wall beside it instead of reading as a straight cut.
+    if (opts.join && opts.join.ends2 && isHole) for (let i = 0; i < n; i++) {
+      const a = cs[i], b = cs[(i + 1) % n], cv = curves[i], L = cv.length;
+      if (!a || !b || cv.isStraight() || L >= opts.join.ends2 || Math.sign(a.turn) !== Math.sign(b.turn)) continue;   // an end that is itself a curve: it runs beside a curved wall
+      for (const c of [a, b]) { const k = (L / 2) / c.d; c.r *= k; c.d = L / 2; c.d0 = c.d; }
     }
     // COLLISION RULE (g6 fix): two rounds that want more than a straight edge holds, where the edge
     // ends in two right-angle turns the same way (a slot end, a bar end), become ONE true arc: a
     // semicircle of radius L/2 centred on the edge, drawn as two equal quarter arcs meeting at its middle.
     const caps = new Set();
-    if (!opts.noCaps) for (let i = 0; i < n; i++) {
+    if (!opts.noCaps && !opts.join) for (let i = 0; i < n; i++) {
       const a = cs[i], b = cs[(i + 1) % n], cv = curves[i], L = cv.length;
       if (!a || !b || a.trap || b.trap || !cv.isStraight() || a.d + b.d <= L - 0.2) continue;   // they collide, or would leave a sliver
       const q = Math.PI / 2;
@@ -158,6 +176,43 @@ function corners(item, law, info, opts = {}) {
       else if (da + db > L * 0.96) { const k = (L * 0.96) / (da + db); if (a) a.d = Math.min(a.d, a.d * k); if (b) b.d = Math.min(b.d, b.d * k); }
     }
     for (let i = 0; i < n; i++) if (cs[i] && cs[i].d < 0.005) cs[i] = null; // a round that gave way entirely is a plain corner
+    // g7aq: a join round that can't be solved evenly where it meets a curved edge (the edge bends hard right at the corner,
+    // as a flare drawn from a beam's end does) slides its end along that edge, up to three times its trim, to where the
+    // edge has eased enough for one even round: the corner and the flare become one built transition, not a knuckle
+    if (opts.join) for (let i = 0; i < n; i++) {
+      const b = cs[i]; if (!b || !b.jr || caps.has(i) || caps.has((i - 1 + n) % n)) continue;
+      const cin = curves[(i - 1 + n) % n], cout = curves[i], nxt = cs[(i + 1) % n], prv = cs[(i - 2 + n) % n];
+      const roomOut = cout.length - (nxt ? (nxt.dIn ?? nxt.d) : 0) - 0.05, roomIn = cin.length - (prv ? (prv.dOut ?? prv.d) : 0) - 0.05;
+      // one == 'jr': the two-half join round; 'one': a single even cubic (it may turn from convex to concave once, as a
+      // corner flowing into a flare must), its tightest bend no tighter than the law's round allows (3 / r)
+      const at = (dI, dO, how) => {
+        const t1 = cin.getTimeAt(cin.length - dI), tb = cout.getTimeAt(dO); if (t1 == null || tb == null) return null;
+        const pA = cin.getPointAtTime(t1), tA = cin.getTangentAtTime(t1), pB = cout.getPointAtTime(tb), tB = cout.getTangentAtTime(tb);
+        const kA = cin.isStraight() ? 0 : kOf(cin, t1), kB = cout.isStraight() ? 0 : kOf(cout, tb);
+        if (how === 'jr') return joinRound(b, pA, tA, kA, pB, tB, kB);
+        if (how === 'ss') {   // an S through the chord's middle: two even halves, straight (curvature 0) where they meet
+          // the S turns at the chord's middle, leaning twice as far from the edges' direction as the chord does (so each half has room to bend)
+          const u = tA.add(tB).normalize(), D_ = pB.subtract(pA), al = D_.dot(u), Mid = pA.add(pB).multiply(0.5), tM = u.multiply(al).add(D_.subtract(u.multiply(al)).multiply(2)).normalize();
+          const h1 = g2Handles(pA, tA, kA, Mid, tM, 0), h2 = g2Handles(Mid, tM, 0, pB, tB, kB); if (!h1 || !h2) return null;
+          return [[pA, pA.add(tA.multiply(h1[0])), Mid.subtract(tM.multiply(h1[1])), Mid], [Mid, Mid.add(tM.multiply(h2[0])), pB.subtract(tB.multiply(h2[1])), pB]];
+        }
+        const h = g2Handles(pA, tA, kA, pB, tB, kB); if (!h) return null;
+        const P = [pA, pA.add(tA.multiply(h[0])), pB.subtract(tB.multiply(h[1])), pB]; let flips = 0, last = 0;
+        for (let q = 0; q <= 40; q++) { const k = kBez(P, q / 40); if (Math.abs(k) > 3 / b.r) return null; const sg = Math.abs(k) < 0.05 ? 0 : Math.sign(k); if (sg && last && sg !== last) flips++; if (sg) last = sg; }
+        return flips <= 1 ? [P] : null;
+      };
+      if (at(b.d, b.d, 'jr')) continue;
+      let best = null;
+      for (const how of ['jr', 'one']) { for (const f of [1, 1.25, 1.5, 2, 2.5, 3]) for (const [mi, mo] of [[1, f], [f, 1], [f, f]]) {
+        if (cin.isStraight() && cout.isStraight()) continue;   // two straight edges always solve; a curved edge on either side may need room on both
+        const dI = Math.min(b.d * mi, roomIn), dO = Math.min(b.d * mo, roomOut); if (dI <= 0 || dO <= 0) continue;
+        const sol = at(dI, dO, how); if (sol && (!best || dI + dO < best.dI + best.dO)) best = { dI, dO, sol };
+      } if (best) break; }
+      // still none: the curved edge is mostly a bend of its own the other way (a flare drawn from a beam's end); the round
+      // and that bend become ONE S, from the straight edge to where the curved edge ends, through the middle of its chord
+      if (!best) { const curvedOut = !cout.isStraight(), dI = curvedOut ? b.d : Math.max(0.01, roomIn), dO = curvedOut ? Math.max(0.01, roomOut) : b.d; const sol = at(dI, dO, 'ss'); if (sol) best = { dI, dO, sol }; }
+      if (best) { b.dIn = best.dI; b.dOut = best.dO; b.jrSol = best.sol; }
+    }
     // emit: trimmed curves + one cubic per rounded corner
     const segs = []; // cubic list [p0,c1,c2,p3]
     const part = (cv, t0, t1) => {
@@ -173,9 +228,10 @@ function corners(item, law, info, opts = {}) {
         segs.push({ kind: 'C', pts: [apex, apex.add(tE.multiply(K90 * r)), pB.subtract(tB.multiply(K90 * r)), pB] });
         continue;
       }
-      const t0 = a ? cv.getTimeAt(a.d) : 0, t1 = b ? cv.getTimeAt(L - b.d) : 1;
+      const aO = a ? (a.dOut ?? a.d) : 0, bI = b ? (b.dIn ?? b.d) : 0;
+      const t0 = a ? cv.getTimeAt(aO) : 0, t1 = b ? cv.getTimeAt(L - bI) : 1;
       // a curve whose two rounds now meet has nothing left of itself: emit no zero-length piece
-      if (L - (a ? a.d : 0) - (b ? b.d : 0) > 0.01) segs.push({ kind: cv.isStraight() ? 'L' : 'C', pts: part(cv, t0 == null ? 0 : t0, t1 == null ? 1 : t1) });
+      if (L - aO - bI > 0.01) segs.push({ kind: cv.isStraight() ? 'L' : 'C', pts: part(cv, t0 == null ? 0 : t0, t1 == null ? 1 : t1) });
       if (b && b.cap === 'start') { // the first quarter: from this curve to the middle of the capped edge
         const ce = curves[(i + 1) % n], r = ce.length / 2;
         const pA = cv.getPointAtTime(t1 == null ? 1 : t1), tA = cv.getTangentAtTime(t1 == null ? 1 : t1);
@@ -187,29 +243,98 @@ function corners(item, law, info, opts = {}) {
         segs.push({ kind: 'L', pts: [pA, pA, b.N, b.N] }, { kind: 'L', pts: [b.N, b.N, pB, pB] });
       } else if (b) {
         const nx = curves[(i + 1) % n];
-        const tb = nx.getTimeAt(b.d) ?? 0;
+        const tb = nx.getTimeAt(b.dOut ?? b.d) ?? 0;
         const pA = cv.getPointAtTime(t1 == null ? 1 : t1), pB = nx.getPointAtTime(tb);
         const tA = cv.getTangentAtTime(t1 == null ? 1 : t1), tB = nx.getTangentAtTime(tb);
         // eased: the handles reach 0.92 of the way to the corner along each edge (near-continuous curvature)
         const h = b.ease ? 0.92 * b.d : (4 / 3) * Math.tan(b.ang / 4) * (b.d / Math.tan(b.ang / 2));
-        segs.push({ kind: 'C', pts: [pA, pA.add(tA.multiply(h)), pB.subtract(tB.multiply(h)), pB] });
+        // g7aq (owner: "a slight wobbliness at some of the joins because of the rounding mechanics ... no visible humps or
+        // wobbles"): with opts.join the round is solved, not guessed. Its handles are found so that the round leaves each
+        // edge with that edge's OWN curvature (a line's 0, a bowl's bend), so nothing goes flat and bends again where a round
+        // meets a curve (the old handles assumed both edges were straight).
+        const kA = cv.isStraight() ? 0 : kOf(cv, t1 == null ? 1 : t1), kB = nx.isStraight() ? 0 : kOf(nx, tb);
+        const jr = b.jrSol ? b.jrSol : b.jr ? joinRound(b, pA, tA, kA, pB, tB, kB) : null;
+        // where the edges bend away from the round (a concave side into a convex tip) no cubic can take their curvature
+        // without an S inside the round; it then leaves them straight (curvature 0, its handles meeting where the edges'
+        // tangents cross), so the turn from the edge's slight hollow into the round happens exactly at the join
+        const g = !jr && opts.join ? g2Handles(pA, tA, kA, pB, tB, kB) || (b.ease ? g2Handles(pA, tA, 0, pB, tB, 0) : null) : null;   // a join round with no even solution: one cubic that still meets both curvatures
+        if (opts.join && opts.join.log) opts.join.log.push(jr ? 'join' : g ? 'g2' : 'fallback');
+        if (jr) segs.push(...jr.map(pts => ({ kind: 'C', pts })));
+        else segs.push({ kind: 'C', pts: g ? [pA, pA.add(tA.multiply(g[0])), pB.subtract(tB.multiply(g[1])), pB] : [pA, pA.add(tA.multiply(h)), pB.subtract(tB.multiply(h)), pB] });
       }
     }
     if (!segs.length) continue;  // a degenerate piece the booleans left: nothing to draw
-    let d = `M${r3(segs[0].pts[0].x)} ${r3(segs[0].pts[0].y)}`;
+    const rd = opts.join ? (v => Math.round(v * 1e4) / 1e4) : r3g;   // g7aq: a join round's short handles need the 4th decimal to keep its curvature
+    let d = `M${rd(segs[0].pts[0].x)} ${rd(segs[0].pts[0].y)}`;
     for (const s of segs) {
       const [p0, c1, c2, p3] = s.pts;
       // a straight left shorter than 0.2px between two rounded corners (or by the booleans) is a
       // sliver: drop it, and the next curve starts from here (the g2 must-do; moves a point < 0.2px)
       if (s.kind === 'L' && p0.getDistance(p3) < 0.2) continue;
-      if (s.kind === 'L') d += `L${r3(p3.x)} ${r3(p3.y)}`;
-      else d += `C${r3(c1.x)} ${r3(c1.y)} ${r3(c2.x)} ${r3(c2.y)} ${r3(p3.x)} ${r3(p3.y)}`;
+      if (s.kind === 'L') d += `L${rd(p3.x)} ${rd(p3.y)}`;
+      else d += `C${rd(c1.x)} ${rd(c1.y)} ${rd(c2.x)} ${rd(c2.y)} ${rd(p3.x)} ${rd(p3.y)}`;
     }
     out.push(d + 'Z');
   }
   return out.join('');
 }
 
+// g7aq: signed curvature of a paper curve at time t (the same sign as a cubic's own (B' x B'') / |B'|^3)
+function kOf(cv, t) {
+  const P = [cv.point1, cv.point1.add(cv.handle1), cv.point2.add(cv.handle2), cv.point2];
+  const tt = Math.min(1 - 1e-4, Math.max(1e-4, t));
+  const d1 = P[1].subtract(P[0]).multiply(3 * (1 - tt) ** 2).add(P[2].subtract(P[1]).multiply(6 * tt * (1 - tt))).add(P[3].subtract(P[2]).multiply(3 * tt * tt));
+  const d2 = P[2].subtract(P[1].multiply(2)).add(P[0]).multiply(6 * (1 - tt)).add(P[3].subtract(P[2].multiply(2)).add(P[1]).multiply(6 * tt));
+  const v = d1.length; return v < 1e-9 ? 0 : (d1.x * d2.y - d1.y * d2.x) / v ** 3;
+}
+// g7aq: the handles (a along tA from pA, b back along tB from pB) of the one cubic that meets both edges with their own
+// tangent AND curvature (G2). With both curvatures 0 the handles meet at the corner (the ease); otherwise solved by
+// Newton from there. Returns null when no positive solution exists (the caller keeps the plain ease).
+function g2Handles(pA, tA, kA, pB, tB, kB) {
+  const cr = (u, v) => u.x * v.y - u.y * v.x, D = pB.subtract(pA), X = cr(tA, tB), cA = cr(tA, D), cB = cr(D, tB);
+  if (Math.abs(X) < 1e-6) return null;
+  let a = cB / X, b = cA / X; if (!(a > 0 && b > 0)) return null;
+  const a0 = a, b0 = b;
+  for (let it = 0; it < 60; it++) {
+    const f1 = 1.5 * kA * a * a - cA + b * X, f2 = 1.5 * kB * b * b - cB + a * X;
+    if (Math.abs(f1) + Math.abs(f2) < 1e-10) break;
+    const j11 = 3 * kA * a, j12 = X, j21 = X, j22 = 3 * kB * b, det = j11 * j22 - j12 * j21;
+    if (Math.abs(det) < 1e-12) return null;
+    a -= (f1 * j22 - f2 * j12) / det; b -= (j11 * f2 - j21 * f1) / det;
+  }
+  const L = D.length; if (!(a > 0.02 * L && b > 0.02 * L && a < 2 * L && b < 2 * L)) return null;   // handles within twice the chord: no loops
+  { // no cusp: the curve keeps moving (its speed never falls under a fifth of the chord's)
+    const P0 = pA, P1 = pA.add(tA.multiply(a)), P2 = pB.subtract(tB.multiply(b)), P3 = pB;
+    for (let i = 0; i <= 20; i++) { const t = i / 20, v = P1.subtract(P0).multiply(3 * (1 - t) ** 2).add(P2.subtract(P1).multiply(6 * t * (1 - t))).add(P3.subtract(P2).multiply(3 * t * t)); if (v.length < 0.2 * L) return null; }
+  }
+  if (Math.abs(1.5 * kA * a * a - cA + b * X) + Math.abs(1.5 * kB * b * b - cB + a * X) > 1e-6) return null;
+  return [a, b];
+}
+// g7aq THE JOIN ROUND (owner on v222: "they should be architectural and smooth with no visible humps or wobbles... they
+// should feel impeccably constructed at every join"): one construction for every corner of every icon. The law still
+// names a radius r; the round is two cubics, mirror halves about the corner's bisector, that
+//   - pass through the deepest point of the compass arc of radius r (so a corner is exactly as deep as the law says),
+//   - leave each edge with that edge's own tangent and curvature (a line's 0, a bowl's bend): no kink, no flat spot,
+//   - bend evenly: the curvature only rises from each edge to the bisector, its tightest point (no second peak, no hump).
+// It starts join.trim times as far from the corner as the arc would (the room an even bend needs). If the edges are too
+// short (clamped), the whole round scales down with its start, keeping its shape. Returns the two cubics, or null.
+function joinRound(c, pA, tA, kA, pB, tB, kB) {
+  const k = Math.min(1, c.d / c.d0), r = c.r * k, phi = Math.PI - c.ang;
+  const sg = Math.sign(c.turn), M = c.P0.add(c.bis.multiply(r / Math.sin(phi / 2) - r)), tM = c.tin.add(c.tout).normalize();
+  const mono = (P, up) => { let prev = null; for (let i = 0; i <= 32; i++) { const t = i / 32, v = sg * kBez(P, t); if (prev != null && (up ? v < prev - 1e-3 : v > prev + 1e-3)) return false; prev = v; } return true; };
+  for (let m = 1; m <= 4; m += 0.02) {
+    const kM = sg * m / r, h1 = g2Handles(pA, tA, kA, M, tM, kM), h2 = g2Handles(M, tM, kM, pB, tB, kB);
+    if (!h1 || !h2) continue;
+    const P1 = [pA, pA.add(tA.multiply(h1[0])), M.subtract(tM.multiply(h1[1])), M], P2 = [M, M.add(tM.multiply(h2[0])), pB.subtract(tB.multiply(h2[1])), pB];
+    if (mono(P1, true) && mono(P2, false)) return [P1, P2];
+  }
+  return null;
+}
+function kBez(P, t) {
+  const d1 = P[1].subtract(P[0]).multiply(3 * (1 - t) ** 2).add(P[2].subtract(P[1]).multiply(6 * t * (1 - t))).add(P[3].subtract(P[2]).multiply(3 * t * t));
+  const d2 = P[2].subtract(P[1].multiply(2)).add(P[0]).multiply(6 * (1 - t)).add(P[3].subtract(P[2].multiply(2)).add(P[1]).multiply(6 * t));
+  const v = d1.length; return v < 1e-9 ? 0 : (d1.x * d2.y - d1.y * d2.x) / v ** 3;
+}
 // transform primitives: scale k about (ox,oy) then move to (tx,ty). Pen widths are NOT scaled
 // (the pen is a screen width); every other width scales.
 function xform(prims, k, ox, oy, tx, ty) {
@@ -306,7 +431,7 @@ function symD(d, x) {
   }
   u.remove(); return out;
 }
-function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease, sym } = {}) {
+function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease, sym, join: jn } = {}) {
   const ers = prims.filter(q => q.t === 'E');
   if (ers.length) {
     let acc = join(prims.filter(q => q.t !== 'E'), penW);
@@ -323,14 +448,14 @@ function build(prims, { law, penW, info, centre, noCaps, tightHoles, ease, sym }
       }
       const s = q.fill ? acc.unite(hole) : acc.subtract(hole); acc.remove(); hole.remove(); acc = s;
     }
-    let d = law ? corners(acc, law, info, { noCaps, tightHoles: true, ease }) : acc.pathData; if (sym != null) d = symD(d, sym);
+    let d = law ? corners(acc, law, info, { noCaps, tightHoles: true, ease, join: jn }) : acc.pathData; if (sym != null) d = symD(d, sym);
     const b = acc.bounds; acc.remove();
     let far = 0;
     if (centre) { const fl = new CompoundPath(d); fl.flatten(0.05); for (const k of (fl.children && fl.children.length ? fl.children : [fl])) for (const s of k.segments) far = Math.max(far, Math.hypot(s.point.x - centre[0], s.point.y - centre[1])); fl.remove(); }
     return { d, far, bounds: { x: b.x, y: b.y, w: b.width, h: b.height } };
   }
   const it = join(prims, penW);
-  let d = law ? corners(it, law, info, { noCaps, tightHoles, ease }) : it.pathData; if (sym != null) d = symD(d, sym);
+  let d = law ? corners(it, law, info, { noCaps, tightHoles, ease, join: jn }) : it.pathData; if (sym != null) d = symD(d, sym);
   const b = it.bounds;
   // farthest ink point from the badge centre, for the fit check
   let far = 0;
@@ -359,4 +484,4 @@ function anatomy(q) {
 // count curve commands in a path (the "minimal bezier" figure on the boards)
 const countCurves = d => (d.match(/C/g) || []).length;
 
-module.exports = { R, C, P, B, O, A, S, D, I, E, erode, cut, pen, build, join, xform, countCurves, parts, anatomy };
+module.exports = { R, C, P, B, O, A, S, D, I, E, erode, cut, pen, build, join, xform, countCurves, parts, anatomy, g2Handles, joinRound };
