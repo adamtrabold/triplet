@@ -5959,3 +5959,40 @@ I took over mid-task from the fifth designer. Every fix below is an engine rule.
 - At 1x the A/B/C star difference is small; it shows clearly at 72px.
 - The band-end HUMPs on the old check.
 - tipLand re-aims edges by a hair. The shapes are kept by measure, but that is still a drawing touch made by the engine.
+
+---
+
+## Turn 135: design director, v226 (sharp tips that land, arcs that ease in): 7, the tree's tip now pinches into a bulb
+
+Merged e006dfdd and re-read the live board (v226, 9966px). Rendered it at 1x and 3x. Rendered the R2 svgs: v223 (03d218b6) beside now, at 12/24/72px, then 20x and about 135px a unit on the tree's top tip, a side tip and the star.
+
+**At true size (12/24/72):**
+- The tree reads like v223 again; the v225 knobs are gone.
+- The coupe, cup, museum and star are unchanged by eye. That's right.
+
+**At his zoom and closer:**
+- **Coupe flares (bowl/stem, stem/foot):** smooth, with the right crops now, and the comb shows it in the shape. Pass.
+- **Handle:** eases in, no visible shift. Pass.
+- **Tree top tip: a new wobble.**
+  - The flanks run in, then bend the *other* way just under the nose, which sits on them as a small round cap: a bulb on a neck.
+  - The board's own comb shows it: orange teeth (bending the other way) on both sides of the nose.
+  - The plot shows the same thing: the orange rises in two steps (a shoulder on each side).
+  - It reads in the board's "now" crop at about his zoom, as concave flanks pinching to a point: "further away from the point itself on both sides" again, now as an S.
+  - v223 was one convex bell. Holding v223's peak sharpness *and* its depth forced the S.
+- **Side tips:** a teardrop with a small round end. Better than v225; there's a hint of the same pinch.
+- **Band ends (the old check's 2 HUMPs):** clean by eye at 20x. That's the old check's limit; fair-check supersedes it there. Say so on the board.
+- **Weight:** A keeps the + as it is, solved at true size, with 72px shown and the spindly star at 72 named. Pass. The A/B/C stars differing only slightly at 1x is acceptable, since the difference is stated and shows at 72.
+- **Curves 396, at most two a half:** stated. Pass.
+
+**Likely owner objection:** "the tree tip has a little bulb now / the sides pinch in near the point" (likely: he zooms on exactly this spot).
+
+**Score: 7.** One fix:
+1. **A convex corner's round never bends the other way.**
+   - Add INFLECT to fair-check: any sign change in the bend inside a round at a convex corner.
+   - Solve the tip so its bend is never negative. It rises from the flank's own sweep, without dipping, in one hill.
+   - If v223's peak and v223's depth can't both hold without an S, give up depth (the tip ends a hair lower or wider), not the convexity.
+   - Show the top tip and a side tip: v223, v225, now, at 72px and at his zoom, with the comb. No orange teeth near any tip.
+
+**Recurring blocker:** each fix holds its own measure (v225: the knee; v226: v223's sharpness and depth) and pays for it somewhere the check doesn't look. The tips have now failed twice, two different ways. Guard: every round at a convex corner stays convex, enforced in the check.
+
+**Changed since my last score?** Yes: five fixes are in, four pass by eye, and the tip changed character.

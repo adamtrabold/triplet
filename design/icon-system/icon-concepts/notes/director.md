@@ -1850,3 +1850,10 @@ checks; don't eyeball "is it as good as".
 - Recurring: engine-wide fixes land on fixed points (the tree, twice now). Guard: the fixed points must read unchanged at 72px, by eye.
 - Open: the curve-count rule (one per half, two at most), the handle rule, and which size the weight is solved at.
 - Next: one batch of six fixes, then rescore.
+
+## g7as (v226, 2026-10-22): 7
+
+- Rendered v223 against now at true size, then at 135px a unit on the tips. Read the board's combs for orange teeth (bending the other way) near convex corners: that's an S.
+- The tips have failed twice, in different ways: v225 a round knob (a wide, low hill), v226 a bulb on a neck (peak and depth both held). The constraint that's missing is convexity.
+- The old join-check's HUMPs at the band ends are its limit; fair-check supersedes it.
+- Next: the INFLECT rule and the tips redone, then rescore. If it's clean, this goes to him.

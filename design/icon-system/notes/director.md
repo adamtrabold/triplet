@@ -385,3 +385,7 @@ The diagnosis (a jump in the rate of bend) and fair-check are right. What blocks
 - By eye, the coupe looks the same before and after.
 
 Handle: fix it this round, as an engine rule. Curve count: acceptable, as a rule. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 133.
+
+## Icon system, g7as (v226, 2026-10-22): 7
+
+Four of five turn-133 fixes pass by eye: the flares, the handle, the weight and the curve rule. The tree's top tip now pinches into a bulb, an S under the nose, from holding v223's peak and depth together. One fix: convex rounds stay convex (an INFLECT check); give up depth, not convexity. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 135.

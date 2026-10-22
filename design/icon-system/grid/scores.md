@@ -1337,3 +1337,10 @@ The verdict stands within our own set:
 - **Handle:** fix it this round, as an engine rule.
 - **Weight:** A leaves the + unchanged. At 72px A's star reads spindly. Name the size the rule is solved at.
 - **Fixes:** jam turn 133.
+
+## Round g7as tips + handle + weight (canvas v226), 2026-10-22: 7
+
+- **Pass by eye:** the coupe's flares (with the right crops and the comb), the handle, true size (the tree reads like v223 again), the weight (A keeps the +, solved at true size, 72px shown), the curve rule.
+- **Band ends:** clean at 20x. The old check's 2 HUMPs are its limit.
+- **Block:** the tree's top tip pinches into a bulb. The flanks bend the other way under the nose (orange teeth in the board's own comb; two-step rise in the plot). Side tips show a hint of the same.
+- **Fix:** an INFLECT check, and convex rounds stay convex. Give up depth, not convexity. Jam turn 135.
