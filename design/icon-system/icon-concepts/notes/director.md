@@ -1825,3 +1825,18 @@ checks; don't eyeball "is it as good as".
   "room from the load"). Re-read the table whole after any change.
 - Claims at true size: "felt" vs "read". Say which.
 - Next: three board edits, then it goes to him.
+
+## g7aq (v223, 2026-10-22): 9 after three copy edits
+
+- Opened all six marks; each fixed by eye at its own zoom.
+- **Counter check (Lesson 5) run:** rendered at 100px/unit, measured the
+  wall across per row (before 1.50 even with a straight end; after 1.50 in
+  the middle, 1.6-1.8 at the corners, a convex end). Judged by eye with the
+  outer curve in frame: it reads as curved. Over a short band, a true
+  offset looks straight, so "as curved" needs an optical curve. Note it as
+  the counter's rule if he accepts it.
+- An engine change that alters a part he called "perfect" (the tree's
+  upper tips) is his ask here. The board still names it so he can judge.
+- Watch copy that contradicts its own numbers (centring "sink" against
+  "up").
+- Next: three copy edits, then it goes to him.

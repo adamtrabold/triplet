@@ -5688,3 +5688,70 @@ Owner (v222): "vertical centering should be optical always on a per-icon basis. 
 **Canvas v223:** section "0 · The joins and the centring, as rules" at the top of the Between board (his two quotes, the three rules, before/after rows, before/after crops beside his marks). The v222 board is on Archive as `Archive-G7aq-Between` (x 5040, y 156200). Between 4376 → 7392 px; the master grid moved down to y 7992 so they don't overlap.
 
 **Unsure:** whether the eased tips on the tree's upper tiers (now as sharp as the bottom one) read as "the same pattern" to him or as thinner; whether the band's curved ends answer "less curved than the exterior" (they now curve, which a true offset over 0.8px can't show); the star sits 0.37px lower in its slot under the same rule. His open questions (Joins, Wide → Square, which "glass … plate") are untouched.
+
+---
+
+## Turn 130: design director, "0 · The joins and the centring, as rules" (v223): 9 after three copy edits
+
+Fetched and merged 03d218b6, re-read the live board (v223, 7392px; it
+matches turn 129). I opened all six of his v222 marks. By eye at 1x and 3x
+first, then each mark's zoom, then the svgs at 100px a unit, before
+(`before-g7aq/`) beside after.
+
+**His marks, by eye at their own zoom:**
+- **Tree tips** (`v222-tree-joins`): the upper tips were round knobs
+  beside an eased bottom tip. Now all three tiers end alike: one pattern.
+  **Fixed.**
+- **Foot** (`wobble-a`): the foot's top runs into the stem in one even
+  curve, with no dip. **Fixed.**
+- **Stem into bowl** (`wobble-b`): one smooth flare, no hump. The museum's
+  capital, the same join, follows. **Fixed.**
+- **Rim into side** (`wobble-c`): no flat spot after the corner. **Fixed.**
+- **Optical centring:** the rule is per icon and in the engine. In the
+  rows the museum no longer reads high. The star (0.37 down) sits fine
+  beside the + at true size.
+
+**The counter, his fifth ask (Lesson 5: measure what his eye measures):**
+- I rendered the coupe at 100px a unit and measured the wall across, row
+  by row, from the outside edge to the band's end. Before: 1.50 the whole
+  way down, with a straight diagonal end, small rounds at its corners. That
+  was his complaint: an even wall, but the end reads as a straight cut.
+  After: 1.50 through the middle, growing to 1.6-1.8 at the corners.
+- By eye at 8x, with the bowl in frame, the end is now one convex curve,
+  and it echoes the bowl's curve. It no longer reads as a straight cut. It
+  reads as curved as the outside.
+- It's optical, not a parallel offset. Over a band 0.84 units tall a true
+  offset can't show the curve; the board says so in turn 129's notes, but
+  not on the board.
+- **Pass, by eye.**
+
+**Unasked changes:**
+- **The tree:** the upper tips are now sharper and thinner. He asked for
+  one pattern, so this is his ask, but it changes the tree he called
+  "perfect". The board must tell him in one line, so he judges it, not us.
+- **The coupe:** only the joins and the band's ends changed (box heights
+  identical). **The museum:** joins and placement only.
+
+**Copy that doesn't match the eye:**
+- The centring row says the top-heavy cup and coupe "sink toward its
+  weight", but the line under it says "cup up 0.10px, coupe up 0.09px".
+  Say what the move is relative to (v222's placement), or he'll read a
+  contradiction.
+- "A counter's end ... is one curve, so it follows the wall": it echoes
+  the wall optically; it isn't an offset of it. Say that plainly.
+
+**Likely owner objections:** "the tree's top tips look sharper; I loved
+that tree" (possible); the centring numbers reading backwards (likely if
+he reads them).
+
+**Score: 9 after three copy edits** (no drawing changes), before it goes
+to him:
+1. One line by the tree crops: the upper tips are now eased like the
+   bottom one, so they're sharper and thinner. Is that the one pattern he
+   meant?
+2. Make the centring copy agree with the numbers (say relative to what).
+3. Say the band's end is drawn as an optical curve echoing the wall,
+   since a true offset over its 0.84 height would look straight.
+
+**Changed since my last score?** Yes: engine-level joins (37 faults to 0),
+centring per icon, the band's ends. The drawings are otherwise the same.

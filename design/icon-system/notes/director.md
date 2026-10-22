@@ -369,3 +369,10 @@ outer flares like the stem. Before sending: state the class rule and flag
 the museum's move from Wide to Square on his decided master grid;
 reconcile Resting parts; soften the 24px claim. Fixes in `grid/jam.md`
 turn 127.
+
+## Icon system, g7aq (v223, 2026-10-22): 9 after three copy edits
+
+His v222 marks are fixed by eye. The counter's end now reads as curved as
+the outside: an optical curve, measured. Before sending: name the tree's
+sharper upper tips, fix the centring copy, say the band's end is optical.
+Fixes in `grid/jam.md` turn 130.

@@ -1310,3 +1310,17 @@ The verdict stands within our own set:
   Square on his decided master grid; reconcile Resting parts' "room
   comes from the load"; the flares are felt at 24, not read.
 - **Fixes:** jam turn 127.
+
+## Round g7aq joins + centring (canvas v223), 2026-10-22: 9 after three copy edits
+
+- **His marks, by eye at their zoom:** tree tips one pattern; foot, stem
+  into bowl and rim into side are smooth; the museum no longer reads high.
+  All fixed.
+- **Counter (5th ask):** measured across at 100px/unit. Before: 1.50
+  even, straight end. After: 1.50 in the middle, 1.6-1.8 at the corners,
+  the end one convex curve that echoes the bowl. Reads as curved by eye.
+  Pass.
+- **Before sending:** tell him the tree's upper tips are now sharper (his
+  "perfect" tree); centring copy says "sink" but the numbers say up; say
+  the band's end is an optical curve, not an offset.
+- **Fixes:** jam turn 130.
