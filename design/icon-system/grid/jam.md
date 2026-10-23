@@ -322,3 +322,25 @@ Director (turn 150): the cup's wall cut its 1.02×-wide ellipse at an angle, a k
 - **SHOULDER guard:** the steady-edge stop only applies once the bend is under a quarter of the crest, so a round that spreads is still walked and flagged. Totals unchanged.
 - **Now:** cup one curve again, within 0.15px of v234 at 72; row svgs fair-check clean (with KINK).
 - **Canvas v237** (v236 was the cleanup agent's): section 0 of Between and the Construction Roots section only (the live Between, as the cleanup left it, with only section 0 replaced; the repo's between-g7.html is boards7's full render).
+
+---
+
+## Turn 152: design director, v237 (the cup's ellipse wall to wall, tangent): 9, send
+
+Merged db9e0887 and re-read the live Between board (v237: sections 0, 0c and 1 after the v236 cleanup). Rendered the cup, v234 (`before-g7ax/`) against now, at 12/24/72px and at 21, 75 and 240px a unit.
+
+**Cup's bottom:**
+- **True size:** reads as v234.
+- **His zoom (75px a unit):** the wall runs straight into one continuous curve, with no knee and no chamfer. It's indistinguishable from v234.
+- **240px a unit:** a smooth tangent entry.
+- **Pass.**
+
+**Section 0** now reads as one story: the foot and the plate (the cap rule), then the bowl and the cup on their ellipses. The tangent rule is stated, with v235's knee as the reason. The before/after crops and the 12/24/72 rows are honest. Every piece in the audit has a root.
+
+**The checks:** KINK fails v235's cup and nothing earlier. That's the right calibration. The SHOULDER guard is in, and the fair check is clean on all six.
+
+**Likely owner objections:** the plate's ends "too rounded" (possible; the board asks him).
+
+**Score: 9. Send.** No fixes.
+
+**Changed since my last score?** Yes: the cup made tangent, the KINK check, the SHOULDER guard.

@@ -1391,3 +1391,9 @@ The verdict stands within our own set:
 - **Fair-check change:** legitimate in principle (a round ends where it lands on its root's steady side). It needs a guard: the rim round's run must match the law.
 - **Block:** the cup's wall now meets its 1.02×-wide ellipse at an angle, a visible knee at his zoom. Rule: an ellipse meets a parallel straight tangent at its widest point, never cut. The check should catch short cut rounds.
 - **Fixes:** jam turn 150.
+
+## Round g7ay cup tangent (canvas v237), 2026-10-23: 9, send
+
+- **Cup's bottom:** one continuous curve, tangent at the wall, at true size, 75 and 240px a unit; matches v234.
+- **KINK check:** fails v235 only. The SHOULDER guard is in. Every piece has a root.
+- **Fixes:** none (jam turn 152).

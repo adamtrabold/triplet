@@ -419,3 +419,7 @@ The cap rule fixes the foot by eye, and the Roots rule and audit are strong. The
 ## Icon system, g7ax (v235, 2026-10-23): 7
 
 The coupe on its ellipse passes. The fair-check change is legitimate but needs a guard. The cup's bottom now kinks where the wall cuts its ellipse. Fix: an ellipse meets a parallel straight tangent, at its widest point. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 150.
+
+## Icon system, g7ay (v237, 2026-10-23): 9, send
+
+The cup's ellipse is tangent wall to wall; no knee at his zoom. Roots complete; checks calibrated (KINK, SHOULDER guard). Goes to him with the plate question. Jam turn 152.

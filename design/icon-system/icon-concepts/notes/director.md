@@ -1896,3 +1896,9 @@ checks; don't eyeball "is it as good as".
 - A root fitted by numbers (1.02×) can bring back a corner. Where a root meets a straight that parallels its axis, it must be tangent. Look at every join a root change creates, at 75 and 240px a unit.
 - When a check is changed to pass, ask what it would now miss, and add the guard in the same change.
 - Next: the cup made tangent, the check guards, then rescore.
+
+## g7ay (v237, 2026-10-23): 9, send
+
+- Root rules so far: the cap rule (a slab cut by one ellipse), cut ellipses for curved edges, tangent where an ellipse meets a parallel straight.
+- Checks: fair (knee, tail, dip, shoulder + guard, inflect, shelf, kink).
+- Open with him: whether the plate's ends read too rounded.
