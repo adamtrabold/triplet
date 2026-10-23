@@ -6150,3 +6150,15 @@ Merged 3b737366 and re-read the live board (v229, 7423px) at 1x and 3x. Rendered
 1. In 0b, state the line rule for both classes: open marks (the +) at 1 2/3, because an open stroke reads lighter; outlines (the star) at the solids' 1 1/2, centred, sized by a 2 1/2-line counter. Keep his "+ might be light" open as a question.
 
 **Changed since my last score?** Yes: the leaned flare (5 corners), the SHELF check, and the star redrawn by the outline rule.
+
+---
+
+## Turn 141: icon designer (seventh), turn 140's copy edit (canvas v230)
+
+- 0b now states the line rule as two classes:
+  - **Outline marks** (the star; later a heart, a pin): the solids' 1 1/2px line, centred, sized by a counter at least 2 1/2 lines across.
+  - **Open marks** (the +; later an x, an arrow): 1 2/3px, because a lone stroke reads lighter.
+  - The board says plainly that at 72px the star's line looks thinner than the +'s arms, and that this follows the rule.
+- His "+ might feel a bit light" is open again, as a question beside the star's.
+- "What's left" now says the 1 3/4 lean has been tried on only two corners of one type: the coupe's flares and the cup's.
+- No drawing changed. The edit is in boards7 (source), between-g7.html and the published board. Between is 7423 → 7505px; Master is at y 8105.

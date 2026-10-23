@@ -16,6 +16,7 @@
   - Replaces the A/B/C darkness options (kept in mark-weight.json for the record). The + (open mark) is unchanged at 1 2/3.
   - Seen at 1x/3x/72: 2 lines (old) still cramped; 2 2/3 (g7s's 4px) makes the star 14.6px, visibly big; 2 1/2 chosen by eye. "Same size, thinner line" (1.44px) was close at 1x but makes the line differ per outline icon; rejected for one line across outline marks.
 - **Board:** Between section 0 rewritten as "0 · The hump at the coupe's flares, and the star's counter" (+ "0b · Outline icons"). v228's board archived as `Archive-G7au-Between` (x 8400, y 148000). v228 svgs frozen in `svg/g7/before-g7au/`.
+- **Turn 141 (v230):** 0b states the two-class line rule (outlines 1 1/2, open marks 1 2/3); "+ might feel light" is an open question; the lean is stated as tried on the coupe and cup only.
 - **Open:**
   - Does the hump read gone at his zoom? The stem side of each flare is now short and firm.
   - flareLean 1.75 is set by eye on the coupe, checked on the cup only.
@@ -43,6 +44,7 @@
   - The tips are shown as rows (v223, v225, now, now with the comb), each with the tree at 12/24/72 and the top, side and bottom tips at about his zoom.
   - The band-end HUMP note is on the board.
   - v226 is archived as `Archive-G7at-Between` (x 7560, y 148000); its svgs are frozen in `svg/g7/before-g7at/`.
+- **Turn 141 (v230):** 0b states the two-class line rule (outlines 1 1/2, open marks 1 2/3); "+ might feel light" is an open question; the lean is stated as tried on the coupe and cup only.
 - **Open:**
   - tipSoft is calibrated on one tree.
   - The top is blunter than v223's bell.
@@ -87,6 +89,7 @@
   - B: + 1.82, star 1.32.
   - C: + 2.06, star 1.45; the + only reaches 46.
   - At 1x the star differences are small.
+- **Turn 141 (v230):** 0b states the two-class line rule (outlines 1 1/2, open marks 1 2/3); "+ might feel light" is an open question; the lean is stated as tried on the coupe and cup only.
 - **Open:**
   - Do the slimmer tip ends still read as his "perfect" tree?
   - The band-end HUMPs (old check).
@@ -133,6 +136,7 @@
   - Board options: A 39 (+1.67 / star 1.19), B 42.5 (1.81 / 1.29), C 46 (2.06 / 1.41).
   - Not applied: waiting on his pick.
 - **Board:** section "0 · The wobble on the line leaving a join" on Between (8558 tall); v224 archived as `Archive-G7ar-Between` (x 5880, y 148000); Master at y 9158. `sectionJoins` is kept in boards7 but unused.
+- **Turn 141 (v230):** 0b states the two-class line rule (outlines 1 1/2, open marks 1 2/3); "+ might feel light" is an open question; the lean is stated as tried on the coupe and cup only.
 - **Open:**
   - Does the tree still read as "perfect"?
   - Curve count vs "minimal bezier curves".
@@ -166,6 +170,7 @@
   - **The row's museum** = the base plus Joins (`JOINS`).
   - **The rules table** has a Joins row.
   - **The section** shows the base and A only, with one question. B and C are in Archive-G7an-Between (the v220 board).
+- **Turn 141 (v230):** 0b states the two-class line rule (outlines 1 1/2, open marks 1 2/3); "+ might feel light" is an open question; the lean is stated as tried on the coupe and cup only.
 - **Open:**
   - The museum is about 3 blur points over the cup (31.7 against 28.4) because of the solid gable. "Sized by its weight" (his v207 pick) would level it; it is flagged on the board, not applied.
   - The plate question and the liquid style are unchanged.
