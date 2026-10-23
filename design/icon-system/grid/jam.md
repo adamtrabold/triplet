@@ -6021,3 +6021,29 @@ Merged e006dfdd and re-read the live board (v226, 9966px). Rendered it at 1x and
 **Unsure:**
 - `tipSoft` 6 sits between the top tip (4.4) and the bottom tips (6.65). It is a set value for where a cap starts to read as a bulb, calibrated on this tree only.
 - The top is blunter than v223's bell: v223's bell came from its convex shoulders, which were the wobble he marked. At his zoom it is a dome on tapering sides, with no neck.
+
+---
+
+## Turn 137: design director, v227 (no convex round bends the other way): 9 after two copy edits
+
+Merged 5368b6d1 and re-read the live board (v227, 10473px) at 1x and 3x. Rendered the R2 svgs, v223 (03d218b6) beside now: 12/24/72px, then the tree's top two tiers at 38px a unit, then the top tip, a side tip and the star at about 135px a unit.
+
+**At true size:** the tree, the coupe, the cup, the museum, the + and the star read as v223. **It's his tree.**
+
+**At his zoom and closer:**
+- **Top tip:** one smooth convex dome on straight flanks. There's no neck and no bulb, and the comb has no teeth bending the other way. It's a touch blunter and lower than v223's; that's the price I asked for (depth given up, not convexity). Pass.
+- **Side tips:** points, no knob, no pinch. They are *slimmer near the point* than v223's (since v226). The board says they "keep v223's points", which is true of the point's sharpness but not of how it looks. He'll see slimmer.
+- **Coupe flares, handle, weight, curve rule:** as v226, all pass.
+- **Wobble, his ask:** none visible at any join I looked at.
+
+**Is the soft-tip threshold a sound rule?** Not as written, if it's a number chosen to split this tree's tips. A rule for "every icon ever created" should read as geometry: when a tip's round can't hold the peak bend in the room its flanks give it, draw it as one hill (soft). Otherwise keep the point. Tested on the tree and the star. Say that on the board, and say it's been tested on two icons only.
+
+**Likely owner objections:** "the top's a bit blunter" (possible; he can judge it, so name it). "The side tips look thinner" (possible).
+
+**Score: 9 after two copy edits** (no drawing changes):
+1. One line by the tips: the top is a touch blunter and lower than v223's; the side tips are as sharp but slimmer near the point. Ask him if it's still his tree.
+2. State the soft-tip rule as geometry (the bend the tip needs against the room it has), and say it's been tested on the tree and the star only.
+
+**Recurring blocker:** resolved this round. Convexity was the missing constraint, and it's now in the check.
+
+**Changed since my last score?** Yes: the top tip redrawn as one hill, the INFLECT check, three tips shown at a time.

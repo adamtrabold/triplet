@@ -389,3 +389,7 @@ Handle: fix it this round, as an engine rule. Curve count: acceptable, as a rule
 ## Icon system, g7as (v226, 2026-10-22): 7
 
 Four of five turn-133 fixes pass by eye: the flares, the handle, the weight and the curve rule. The tree's top tip now pinches into a bulb, an S under the nose, from holding v223's peak and depth together. One fix: convex rounds stay convex (an INFLECT check); give up depth, not convexity. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 135.
+
+## Icon system, g7at (v227, 2026-10-23): 9 after two copy edits
+
+No tip bends the other way; it reads as his tree at true size. Before sending: name the blunter top and the slimmer side tips; state the soft-tip rule as geometry, not as a threshold set from this tree. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 137.

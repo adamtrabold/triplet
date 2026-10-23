@@ -1344,3 +1344,11 @@ The verdict stands within our own set:
 - **Band ends:** clean at 20x. The old check's 2 HUMPs are its limit.
 - **Block:** the tree's top tip pinches into a bulb. The flanks bend the other way under the nose (orange teeth in the board's own comb; two-step rise in the plot). Side tips show a hint of the same.
 - **Fix:** an INFLECT check, and convex rounds stay convex. Give up depth, not convexity. Jam turn 135.
+
+## Round g7at convex tips (canvas v227), 2026-10-23: 9 after two copy edits
+
+- **True size:** reads as v223. His tree.
+- **Top tip:** one convex dome, no neck or bulb, a touch blunter and lower. Side tips: sharp, slimmer near the point than v223.
+- **Everything else** passes as in v226.
+- **Before sending:** name the blunter top and the slimmer sides. State the soft-tip rule as geometry (the bend it needs against the room it has), tested on two icons only.
+- **Fixes:** jam turn 137.

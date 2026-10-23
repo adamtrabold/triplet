@@ -1857,3 +1857,10 @@ checks; don't eyeball "is it as good as".
 - The tips have failed twice, in different ways: v225 a round knob (a wide, low hill), v226 a bulb on a neck (peak and depth both held). The constraint that's missing is convexity.
 - The old join-check's HUMPs at the band ends are its limit; fair-check supersedes it.
 - Next: the INFLECT rule and the tips redone, then rescore. If it's clean, this goes to him.
+
+## g7at (v227, 2026-10-23): 9 after two copy edits
+
+- Tips, three rounds: a knob (v225), a bulb (v226), one convex dome (v227). The fix was a missing constraint (convexity), not a tuning.
+- A rule tuned to one drawing is a fit, not a rule. Ask for it in geometric terms, and for which icons it has been tested on.
+- "Keeps v223's points" was true of the measure (peak bend) but not of the look (slimmer). Ask for copy that describes what he'll see.
+- Next: two copy edits, then it goes to him with the weight question (A/B/C).
