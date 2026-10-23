@@ -9,7 +9,10 @@ Stills: `stills/1-today-and-address.png` (raw: `T1-today`, `S1-address-search`, 
 
 - The add tag keeps its lines (city, NAME, ADDRESS, NOTES, TYPE). ADDRESS stops being a read-only
   printout and becomes a line you can write on, exactly like NAME (caption printed on the empty
-  line, pencil ink, the rule turns navy while you type; 16px entry so iOS never zooms).
+  line, pencil ink, the rule turns navy while you type; 16px entry so iOS never zooms). **While a
+  line is being written on, its caption stays printed above the entry** (ADDRESS over the typed
+  address, as the City Label's rename keeps CITY NAME), so it's never in doubt which line you're
+  on; an empty NAME line above still shows NAME.
 - **Typing in NAME** searches by name (today's search, unchanged). **Typing in ADDRESS** runs the
   same worldwide search with what you typed; its results open under the ADDRESS rule. Result rows
   are today's ("1007 North Orange Street / Address · Wilmington, United States").

@@ -98,7 +98,9 @@
     const row = document.getElementById('addAddrRow');
     row.classList.add('cc-addr-field', 'has-text');
     row.style.borderBottomColor = 'var(--navy)';
-    document.getElementById('addAddr').innerHTML = `<span class="cc-addr-text" style="color:var(--ink)">${text}</span><span class="cc-caret"></span>`;
+    // while it is written on, the line keeps its caption above the entry (B4's CITY NAME pattern), so
+    // the address being typed is plainly on the ADDRESS line, under the empty NAME line
+    document.getElementById('addAddr').innerHTML = `<span class="cc-cap" style="display:block;margin-top:8px">Address</span><span class="cc-addr-text" style="color:var(--ink)">${text}</span><span class="cc-caret"></span>`;
     const res = document.getElementById('addResults');
     const top = row.getBoundingClientRect().bottom - res.parentElement.getBoundingClientRect().top;
     res.style.setProperty('--res-top', top + 'px');
@@ -107,10 +109,10 @@
   };
   CC.setName = text => { const n = document.getElementById('nameInput'); n.value = text; n.dispatchEvent(new Event('input')); autoGrow(n); document.getElementById('addNameRow').classList.toggle('has-text', !!text); };
   CC.hideResults = () => { const r = document.getElementById('addResults'); r.hidden = true; };
-  CC.addrShown = (text, dist) => {
+  CC.addrShown = (text, dist, cap) => {
     const row = document.getElementById('addAddrRow');
     row.classList.add('has-text'); row.style.borderBottomColor = '';
-    document.getElementById('addAddr').innerHTML = `${text}${dist ? `<span class="tag-dist-sep" aria-hidden="true"> · </span><span class="tag-dist" style="display:inline;padding:0;white-space:nowrap">${dist}</span>` : ''}`;
+    document.getElementById('addAddr').innerHTML = `${cap ? `<span class="cc-cap" style="display:block;margin-top:8px">${cap}</span>` : ''}${text}${dist ? `<span class="tag-dist-sep" aria-hidden="true"> · </span><span class="tag-dist" style="display:inline;padding:0;white-space:nowrap">${dist}</span>` : ''}`;
     const d = document.getElementById('addDist'); if (d) d.hidden = true;
   };
   CC.routeLine = (label, isNew) => {

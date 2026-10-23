@@ -31,11 +31,14 @@ async function createLabel(page, picked) {
     const n = document.getElementById('nameInput'); n.style.textTransform = 'uppercase'; n.style.fontSize = '34px'; n.style.lineHeight = '36px'; n.style.color = 'var(--navy)';
   });
   await P.typeName(page, 'Philadelphia');
+  // the line keeps its caption once written on (as B4's rename), so CITY NAME and CENTRE read as two lines
+  await page.evaluate(() => { const r = document.getElementById('addNameRow'); r.insertAdjacentHTML('beforebegin', '<div class="cc-cap" id="ccNameCap">City name</div>');
+    const res = document.getElementById('addResults'); res.style.setProperty('--res-top', (r.getBoundingClientRect().bottom - res.parentElement.getBoundingClientRect().top) + 'px'); });
   if (picked) { await P.pick(page, 0); await W(1500); await blur(page); }
   await page.evaluate(picked => {
     if (picked) {
       CC.hideResults(); CC.setName('Philadelphia');
-      CC.addrShown('Philadelphia, Pennsylvania, United States');
+      CC.addrShown('Philadelphia, Pennsylvania, United States', '', 'Centre');
       const pin = document.getElementById('addPin'); pin.className = 'is-dot';
       pin.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="var(--paper-raised)"/><circle cx="7" cy="7" r="4" fill="var(--navy)"/></svg>';
       document.getElementById('addForm').classList.add('is-picked');
