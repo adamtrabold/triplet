@@ -1370,3 +1370,10 @@ The verdict stands within our own set:
   - Findings: #2 needs a recommendation; #4 and #5 go to the notes; the Lucide/Central claim is unverified.
 - **Two sheets:** keep both, with the shapes overlay as the hero.
 - **Fixes:** jam turn 143.
+
+## Round: Construction board v232, 2026-10-23: 9 after one small board edit
+
+- **Changed:** the cup (concentric circles, an ellipse), the coupe (an ellipse, arcs, handles), close-ups of the 7 kinds of round, the template, findings edited (#2 recommends, #4 and #5 moved off).
+- **Edit:** the museum sheet is busy. Drop the keylines that repeat a slab's edge, and move the stray label off the C marker.
+- **His one decision:** finding #2 (the counter rule).
+- **Fixes:** jam turn 145.

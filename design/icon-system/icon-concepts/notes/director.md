@@ -1878,3 +1878,9 @@ checks; don't eyeball "is it as good as".
 - Show things at the scale they exist: a 0.15 round at 30px a unit is a speck. Inset it.
 - Findings for him should be decisions with a recommendation, or nothing. Housekeeping (seams, unused notes) goes to the notes.
 - Next: the cup and coupe roots made whole, corner insets, the template, a findings edit. Then rescore.
+
+## Construction board v232 (2026-10-23): 9 after one small board edit
+
+- Construction reads when the primitives are whole and extend past the glyph (concentric circles, the ellipse, slopes past the apex).
+- Busy keylines are acceptable only when the parts are simple. Cut any keyline that only repeats an edge.
+- Next: the museum edit, then it goes to him with the counter-rule question.

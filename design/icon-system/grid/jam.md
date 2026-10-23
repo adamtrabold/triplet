@@ -6265,3 +6265,29 @@ Read `project/Grid7Construction.dc.html` (live v231, 1700 × 6869px) and rendere
 5. Labels are bigger (sheet labels 13 → 15px, notes 15 → 16px). The board is now 1800 × 9112, at the same place.
 
 **Checks:** board screenshots at 1x; construction.json unchanged (6/6 identical); no drawing changed.
+
+---
+
+## Turn 145: design director, Construction board v232: 9 after one small board edit
+
+Merged 0ba469f8, re-read the live board (v232, 1800 × 9112px) and rendered it at 1x, full width.
+
+**What changed, by eye** (yes, it really changed):
+- **Cup:** the ear and its counter are two whole concentric circles. The vessel's corner is set against the dashed ellipse, with its handles drawn. The plate's dome shows its handles. You can now see what made it. Pass.
+- **Coupe:** the bowl is against its ellipse and its arcs, the band's keylines sit between rim and drink, the post is 1 1/4 and the foot shows its handles. Pass.
+- **Museum:** the gable's slopes run past the apex, and the slabs, posts and flares read as parts. It's busy: about eight horizontal keylines cross the columns, and the C marker sits on a stray label at the right capital. It still reads, because the parts are plain rectangles.
+- **Seven kinds of round, close up:** one real corner each at about 150px a unit, with the crest circle, the edge points and the piece gaps visible. Exactly what was missing. Pass.
+- **Template:** the class cuts, the coin, the lattice, the centre ticks, swatches that visibly differ at scale, and the round law in one line. A seventh icon can start here. Pass.
+- **Findings:**
+  - #1 is honest and tied to his own words.
+  - #2 brings a recommendation, with the one exception named and grounded in his v142 rejection. It ends "say yes", the right shape for a decision.
+  - #4 and #5 are off the board.
+
+**Likely owner objections:** "the museum's sheet is busy" (possible).
+
+**Score: 9 after one small board edit:**
+1. Museum shapes sheet: drop the horizontal keylines that only repeat a slab's edge (keep the cut lines and the flare keylines), and move the stray label off the C marker.
+
+**Should he decide anything?** Yes, one thing: finding #2 (the star's offset as the counter rule, the coupe's band the named exception). Everything else is information.
+
+**Changed since my last score?** Yes: all four of turn 143's fixes are in.

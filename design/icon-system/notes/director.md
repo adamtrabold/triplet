@@ -407,3 +407,7 @@ The tree, the star and the + are at the craft bar. Blocks:
 - The findings need a recommendation (counters) and housekeeping moved off the board.
 
 Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 143.
+
+## Icon system, Construction board v232 (2026-10-23): 9 after one small board edit
+
+All four of turn 143's fixes are in, by eye. Edit: thin the museum sheet's keylines. He decides one thing: the counter rule (finding #2). Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 145.
