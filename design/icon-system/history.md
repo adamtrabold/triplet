@@ -95,6 +95,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-23 · v230 shown:** the coupe's hump = a "shelf" (bowl and foot met the stem nearly level; the round split evenly, so the bowl ran flat into a knuckle). Engine rule "leaned flare": at that corner type the round runs 1.75x along the curve vs the line (tried on coupe and cup); new SHELF check (v228: 5 faults → 0). Outline icons: the 1.5px line centred, counter ≥ 2.5 lines; star 13.2 → 14.1px, hole 3.1 → 4.0; replaces A/B/C. Two line classes stated: open marks 1⅔, outlines 1½; "+ might be light" left open. Director 9 (copy in v230).
 
+- **10-23 · v233 shown:** Construction board (Grid concepts, right of the master grid): per icon a shapes sheet (the code's own construction, logged from engine.js; byte-identical rebuild) and a corners sheet, 4x close-up per round kind, a blank template, how a seventh icon is built. Findings: rounds are 2-4-cubic curves (the price of "no wobbles"); counters made four ways → recommend one method (the star's: outline moved in by the line, rounded tight; coupe band the exception). Director 8 (v231) → 9 (v232, edit in v233). Asked: yes to one counter method?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
