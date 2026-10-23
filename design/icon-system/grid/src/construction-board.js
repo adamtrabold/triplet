@@ -69,7 +69,7 @@ const SH = {
     notes: G => [
       ['A', [12, 7.6], `<b>Gable</b>: two slopes (run on past the apex) on 1.2 upright ends; apex 1/2 over the top.`],
       ['B', [14.4, 10.43], `<b>The separated gable:</b> it rests on its beam across the 1px cut (a part that rests on another is cut from it).`],
-      ['C', [16.7, 12.25], `<b>Capital and foot:</b> past the outer posts the beam and the plinth thin to 1px ends; the outer posts flare 1/2 into them, outside only.`],
+      ['C', [17.6, 13.93], `<b>Capital and foot:</b> past the outer posts the beam and the plinth thin to 1px ends; the outer posts flare 1/2 into them, outside only.`],
       ['D', [12, 13.95], `<b>Four posts</b>, 1 1/4 (post rule), standing full height between the beam and the plinth; the openings are the gaps they leave.`],
       ['E', [12, 19.2], `<b>Class follows drawn proportion:</b> drawn ${f2(G.classFrom.ratio)}:1, so Square, not Wide.`],
     ] },
@@ -140,16 +140,16 @@ function keyGeom(G, skip = []) {
   });
   return { lines: [...lines.values()], circles: [...circles.values()], cubics, ellipses };
 }
-function keylines(G, skip, noEll) {
+function keylines(G, skip, noEll, keepH) {
   const K_ = keyGeom(G, skip), w = f(u(1.3)), OR = COL.or, OD = COL.ord;
   let s = '';
-  for (const L of K_.lines) { const ext = L.diag ? 2.2 : 1.1, a = L.e.multiply(L.t0 - ext).add(L.n.multiply(L.off)), b = L.e.multiply(L.t1 + ext).add(L.n.multiply(L.off)); s += `<line x1="${f(a.x)}" y1="${f(a.y)}" x2="${f(b.x)}" y2="${f(b.y)}" stroke="${OR}" stroke-width="${w}"/>`; }
+  for (const L of K_.lines) { if (keepH && Math.abs(L.e.y) < 1e-3 && !keepH.some(y => Math.abs(Math.abs(L.off) - y) < 0.03)) continue; const ext = L.diag ? 2.2 : 1.1, a = L.e.multiply(L.t0 - ext).add(L.n.multiply(L.off)), b = L.e.multiply(L.t1 + ext).add(L.n.multiply(L.off)); s += `<line x1="${f(a.x)}" y1="${f(a.y)}" x2="${f(b.x)}" y2="${f(b.y)}" stroke="${OR}" stroke-width="${w}"/>`; }
   for (const { C, r } of K_.circles) s += `<circle cx="${f(C.x)}" cy="${f(C.y)}" r="${f(r)}" fill="none" stroke="${OR}" stroke-width="${w}"/><circle cx="${f(C.x)}" cy="${f(C.y)}" r="${f(u(2.5))}" fill="${OR}"/>`;
   const seenE = new Set(); for (const E_ of K_.ellipses) if (!noEll && !seenE.has(`${f2(E_.C.x)},${f2(E_.C.y)}`) && seenE.add(`${f2(E_.C.x)},${f2(E_.C.y)}`)) s += `<ellipse cx="${f(E_.C.x)}" cy="${f(E_.C.y)}" rx="${f(E_.rx)}" ry="${f(E_.ry)}" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(1.1))}" stroke-dasharray="${f(u(5))} ${f(u(4))}"/>`;
   for (const P of K_.cubics) s += `<path d="M${f(P[0].x)} ${f(P[0].y)}L${f(P[1].x)} ${f(P[1].y)}M${f(P[3].x)} ${f(P[3].y)}L${f(P[2].x)} ${f(P[2].y)}" stroke="${OD}" stroke-width="${f(u(1.1))}" fill="none"/>${[P[1], P[2]].map(q => `<rect x="${f(q.x - u(3))}" y="${f(q.y - u(3))}" width="${f(u(6))}" height="${f(u(6))}" fill="${COL.raised}" stroke="${OD}" stroke-width="${f(u(1.3))}"/>`).join('')}${[P[0], P[3]].map(q => `<circle cx="${f(q.x)}" cy="${f(q.y)}" r="${f(u(3))}" fill="${OD}"/>`).join('')}`;
   return s;
 }
-const KEYED = { cafe: { skip: [] }, bar: { skip: [3] }, museum: { skip: [], noEll: true } };
+const KEYED = { cafe: { skip: [] }, bar: { skip: [3] }, museum: { skip: [], noEll: true, keepH: [9.931, 10.931, 12.931, 14.931] } };   // turn 145: the museum keeps only the cut's two lines and the flares' levels; a horizontal that only repeats a slab's edge is dropped
 const KG = Object.fromEntries(Object.keys(KEYED).map(id => [id, keyGeom(J[id], KEYED[id].skip)]));
 if (process.env.KEYDBG) for (const id of Object.keys(KEYED)) { const g_ = keyGeom(J[id], KEYED[id].skip); console.log(id, 'lines', g_.lines.length, 'circles', g_.circles.map(q => `${f2(q.C.x)},${f2(q.C.y)} r${f2(q.r)}`).join(' '), 'cubics', g_.cubics.length, 'ellipses', g_.ellipses.map(e => `c${f2(e.C.x)},${f2(e.C.y)} ${f2(e.rx)}x${f2(e.ry)} k ${e.k.map(f2).join('/')}`).join(' ; ')); }
 
@@ -164,7 +164,7 @@ function shapesSvg(id) {
   // the root shapes as the engine received them: placed and sized, before the union; cuts dashed
   const sh = G.dy ? `<g transform="translate(0 ${f(G.dy)})">` : '<g>';
   s += sh;
-  if (KEYED[id]) s += keylines(G, KEYED[id].skip, KEYED[id].noEll);
+  if (KEYED[id]) s += keylines(G, KEYED[id].skip, KEYED[id].noEll, KEYED[id].keepH);
   if (id === 'bar') {   // the band's sides: the bowl's own side, moved in by the line
     const cp = new paper.CompoundPath(G.parts[0]);
     for (const c of cp.children.length ? cp.children[0].curves : cp.curves) { if (c.isStraight()) continue; const sg = c.bounds.center.x < (G.sym || 12) ? 1 : -1, q = c.clone({ insert: false }); const P = [c.point1, c.point1.add(c.handle1), c.point2.add(c.handle2), c.point2].map(v => v.add(new paper.Point(sg * 1.5, 0)));

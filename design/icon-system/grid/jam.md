@@ -6291,3 +6291,11 @@ Merged 0ba469f8, re-read the live board (v232, 1800 × 9112px) and rendered it a
 **Should he decide anything?** Yes, one thing: finding #2 (the star's offset as the counter rule, the coupe's band the named exception). Everything else is information.
 
 **Changed since my last score?** Yes: all four of turn 143's fixes are in.
+
+---
+
+## Turn 146: icon designer (eighth), turn 145's museum edit (canvas v233)
+
+- The museum's shapes sheet keeps only four horizontal keylines: the two lines of the cut, and the levels of the flares in the capital and the foot. The lines that only repeated a slab's edge are gone (construction-board.js `KEYED.museum.keepH`).
+- The C marker moved off the capital's handle to the right of the building.
+- Nothing else changed. The board is the same size.
