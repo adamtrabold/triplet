@@ -33,7 +33,22 @@ async function dark(page, d, px) {
     v.sort((a, b) => a - b); return 100 * v[Math.floor(v.length * 0.8)];
   }, [svg, S]);
 }
-module.exports = { plusD, starD, LINEW };
+// g7au THE OUTLINE RULE (owner on v228: "I think the stroke is inner stroke so it's making the counter shape feel cramped"):
+// an outline mark takes the set's line (1 1/2px) centred on its drawn shape and is sized by its counter, 2 1/2 lines across
+// at the centre (boards7 starHoleRc / starOutline). This replaces the darkness targets above for the star; the targets stay
+// for the record. node src/mark-weight.js --outline writes svg/g7/between/outline-weight.json { before, after, plus }.
+const OUTLINE_HOLE = 2.5, W = 1.5;
+const starHoleRc = (lw = W, holeLines = OUTLINE_HOLE) => (holeLines * lw / 2 + (lw / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri;
+const starOutlineD = () => E.build(P7.star(20, starHoleRc(W) * 24 / 20 / 9.6, W), { law: starLaw, ease: EASE, tightHoles: true, join: JOIN8 }).d;
+module.exports = { plusD, starD, starOutlineD, LINEW };
+if (require.main === module && process.argv.includes('--outline')) (async () => {
+  const b = await chromium.launch(); const page = await b.newPage(); await page.setContent('<body></body>');
+  const rd = f => fs.readFileSync(path.join(__dirname, '../svg/g7/' + f), 'utf8').match(/ d="([^"]+)"/)[1];
+  const out = { before: await dark(page, rd('before-g7au/star-r2.svg'), 20), after: await dark(page, starOutlineD(), 20), plus: await dark(page, rd('before-g7au/plus-r2.svg'), 26.4) };
+  console.log(out); await b.close();
+  fs.writeFileSync(path.join(__dirname, '../svg/g7/between/outline-weight.json'), JSON.stringify(out, null, 1));
+})();
+else
 if (require.main === module) (async () => {
   const targets = process.argv.slice(2).map(Number); if (!targets.length) targets.push(46);
   const b = await chromium.launch(); const page = await b.newPage(); await page.setContent('<body></body>');

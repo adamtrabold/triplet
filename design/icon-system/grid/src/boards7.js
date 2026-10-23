@@ -544,6 +544,17 @@ const starAt = (opts = {}) => {
   for (let k = 0; k < 3 && Math.abs(f1) > 1e-4 && f1 !== f0; k++) { const m2 = m1 - f1 * (m1 - m0) / (f1 - f0); m0 = m1; f0 = f1; m1 = m2; [f1, d1] = span(m1); }
   return d1;
 };
+// g7au THE OUTLINE RULE (owner on v228: "Also think the problem with the star weight is the counter size now. I think the
+// stroke is inner stroke so it's making the counter shape feel cramped. Let's find the right balance there for the outline
+// icons."): he was right. starAt fitted the star by its OUTSIDE (its points to the +'s arms) and drew it with the line
+// marks' 1 2/3px, so every bit of weight came out of the counter (3.1px across; the class rule asks 4). An OUTLINE mark is
+// now drawn like the solids: the set's line (1 1/2px, W) centred on the drawn shape, and sized by its COUNTER: 2 1/2 lines
+// across at the centre (3 3/4px; g7s's class rule asked 4px, but the row's star never used it); its outside follows (14px
+// across, the +'s arms 13.2). The +, an open mark, is not touched.
+const starTipLaw = tip => tip ? scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), tip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20) : scaled(LAWS7.joint, 24 / 20);
+const OUTLINE_HOLE = 2.5;   // the counter, in lines across at the centre (valley to valley through the centre)
+const starHoleRc = (lw = W, holeLines = OUTLINE_HOLE) => (holeLines * lw / 2 + (lw / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri;   // the drawn star's tip radius (px at its 20px slot) that leaves that counter
+const starOutline = (opts = {}) => E.build(star(20, starHoleRc(W) * 24 / 20 / 9.6, W), { law: scaled(LAWS7.joint, 24 / 20), ...opts }).d;
 // g7u (owner on the coupe: "its starting to read as wine glass with the liquid... i think the taller stem or
 // more pancaked bowl really sell coupeness"): three coupes, each in the size class, the band the stroke
 // the clear band, optically the stroke: a light gap between two dark lines reads wider than it measures
@@ -584,6 +595,12 @@ const JOIN8 = { ...JOIN7, fair: true, hillKeep: 'depth' };
 // (noReverse), and a soft tip (v223's peak bend under tipSoft, the top tip) is drawn as one wide hill rather than a round cap
 // on a concave neck: its crest is v223's peak squared over tipSoft (it ends a hair lower and wider); sharp tips keep theirs
 const JOIN9 = { ...JOIN8, tipKeep: 'crest', tipLand: true, tipPow: 1, tipSoft: 6, noReverse: true, maxPieces: 2, arcEase: true, arcRamp: 0.3, arcLog: [] };   // arcLog: every eased arc end, for the board (how far the arc moved)   // each round reaches exactly as far into its corner as before ('law', the crest at the law's radius, made the tree's tips longer and spikier)
+// g7au LEANED FLARE (owner on v228: "On the corner types on the coupe, there is still an awkward hump on the bowl and foot on
+// either side as a result of the round shape"): a round between a line and a gentle curve that bends the other way (the
+// coupe's stem into its bowl and its foot, the cup's handle into its side) leans onto the curve: its run along the curve
+// 1 3/4 times its run along the line, cresting at the corner law's own radius (engine.js flareLean). It was an even hill,
+// so the curve ran on level into a shelf and the round sat on it as a knuckle. Checked by fair-check's SHELF.
+const JOIN10 = { ...JOIN9, flareLean: 1.75, flareLog: [] };
 // g7aq OPTICAL CENTRING, per icon (owner on v222: "vertical centering should be optical always on a per-icon basis"): the
 // point set on the badge's centre is the drawing's box centre, pulled down by half the distance its ink sits ABOVE that
 // centre (a top-heavy drawing, the cup or the coupe, sinks toward its weight); a drawing whose weight sits low (a building
@@ -651,8 +668,8 @@ const HSETS = [
   // on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to
   // establish to fix that"; "i will say "coupe after" needs slightly more drink"): the coupe and the tree are fixed; four rules
   // carry them to the rest, and the drink rule moves the coupe's surface up a lattice line
-  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN9, optical: true }],
-  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN9, optical: true }],
+  ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN10, optical: true, outline: true }],
+  ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5 }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN10, optical: true, outline: true }],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
@@ -676,7 +693,7 @@ const HSETS = [
   const ds = {};
   for (const [id] of BATCH) ds[id] = fitPlace(id);
   // g7ah: o.starTip, the tip-by-edge rule on the star too (its tips are acute tips like the tree's)
-  ds.star = bal ? starAt({ ease: ease || undefined, tightHoles: true, join: X.join, ...(o.starTip ? { law: scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), o.starTip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20) } : {}) }) : UD.joint.star.d;
+  ds.star = X.outline ? starOutline({ ease: ease || undefined, tightHoles: true, join: X.join, law: starTipLaw(o.starTip) }) : bal ? starAt({ ease: ease || undefined, tightHoles: true, join: X.join, ...(o.starTip ? { law: scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), o.starTip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20) } : {}) }) : UD.joint.star.d;
   ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease, join: X.join }).d : UD.joint.plus.d;
   if (X.optical) for (const k of ['star', 'plus']) { const m_ = measure(ds[k]); ds[k] = shiftD(ds[k], 12 - opticalY(m_)); }   // g7aq: the marks too, in their own slots
   const coupes = X.join && X.join.fair ? [] : COUPES.map(([, , co]) => fitPlace('bar', co));   // g7ar: shown only for the first row
@@ -927,6 +944,60 @@ ${phP(`<b>Checked:</b> the new join check (src/join-check.js) walks every outlin
 const FC = require('./fair-check.js');
 const MWB = { plus: lw => { const d = require('./mark-weight.js').plusD(lw); return shiftD(d, 12 - opticalY(measure(d))); }, star: lw => { const d = require('./mark-weight.js').starD(lw); return shiftD(d, 12 - opticalY(measure(d))); } };
 const MW = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/between/mark-weight.json'), 'utf8')); } catch (e) { return null; } })();
+// g7au (owner on v228): the hump at the coupe's flares (the leaned flare) and the star's counter (the outline rule)
+function sectionHump(kick, quote) {
+  const N = COL.navy, I2 = COL.ink2, OR = COL.or;
+  const B8 = id => fs.readFileSync(path.join(__dirname, `../svg/g7/before-g7au/${id}.svg`), 'utf8').match(/ d="([^"]+)"/)[1];   // v228, as he saw it
+  const mark = f => `data:image/png;base64,${fs.readFileSync(path.join(__dirname, `../owner-marks/${f}`)).toString('base64')}`;
+  const ids = [['cafe', 'cafe-r2'], ['bar', 'bar-r2b'], ['museum', 'museum-r2'], ['nature', 'nature-r2']];
+  const before = Object.fromEntries(ids.map(([k, f]) => [k, B8(f)])), after = Object.fromEntries(ids.map(([k]) => [k, R2B.ds[k]]));
+  before.star = B8('star-r2'); before.plus = B8('plus-r2'); after.star = R2B.ds.star; after.plus = R2B.ds.plus;
+  const count = (ds, kind) => Object.values(ds).reduce((n, d) => n + FC.check(d).filter(x => !kind || x.kind === kind).length, 0);
+  const bz = (P, t, i) => (1 - t) ** 3 * P[0][i] + 3 * t * (1 - t) ** 2 * P[1][i] + 3 * t * t * (1 - t) * P[2][i] + t ** 3 * P[3][i];
+  const vb = (d, fx, fy, w, h) => { const b = measure(d).box; return [b.x0 + fx * (b.x1 - b.x0) - w / 2, b.y0 + fy * (b.y1 - b.y0) - h / 2, w, h]; };
+  const crop = (d, fx, fy, w, h, px) => { const [x, y] = vb(d, fx, fy, w, h); return `<svg width="${Math.round(px * w / h)}" height="${px}" viewBox="${f2(x)} ${f2(y)} ${w} ${h}" style="background:${COL.paper};flex:none;display:block" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`; };
+  const cap = (t, strong) => `<div style="font-size:13px;color:${strong ? N : I2};${strong ? 'font-weight:700;' : ''}margin-top:4px">${t}</div>`;
+  const sizes = d => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>${badge(d)}<svg width="72" height="72" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
+  const pair = (id, [fx, fy, w, h], px, label) => `<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">${label}</div>
+<div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap"><div>${crop(before[id], fx, fy, w, h, px)}${cap('v228')}</div><div>${crop(after[id], fx, fy, w, h, px)}${cap('now', true)}</div></div></div>`;
+  // how far the outline moved (units of the 24 grid), each glyph placed by its own box, inside a crop
+  const moved = (dB, dA, fx, fy, w, h) => {
+    const samp = (d, [x0, y0]) => { const out = []; for (const segs of JC.parse(d)) for (const s_ of segs) for (let q = 0; q <= 60; q++) { const t = q / 60; out.push([bz(s_.P, t, 0) - x0, bz(s_.P, t, 1) - y0]); } return out; };
+    const pb = samp(dB, vb(dB, fx, fy, w, h)), pa = samp(dA, vb(dA, fx, fy, w, h)).filter(([x, y]) => x > 0 && x < w && y > 0 && y < h);
+    let mx = 0; for (const a of pa) { let m = Infinity; for (const b of pb) m = Math.min(m, Math.hypot(a[0] - b[0], a[1] - b[1])); mx = Math.max(mx, m); } return mx;
+  };
+  const BOWL = [0.5, 0.536, 4.6, 2.3], FOOT = [0.5, 0.80, 4.6, 2.3], CUPJ = [0.62, 0.56, 2.2, 1.4];
+  const mvBar = Math.max(moved(before.bar, after.bar, ...BOWL), moved(before.bar, after.bar, ...FOOT)), mvCup = moved(before.cafe, after.cafe, ...CUPJ);
+  const fl = JOIN10.flareLog.filter(x => !x.fail), flFail = JOIN10.flareLog.filter(x => x.fail).length;
+  const shB = count(before, 'SHELF'), shA = count(after, 'SHELF'), allA = count(after);
+  // the star: its size and counter, before and after (px at its 20px slot)
+  const starNums = d => { const subs = JC.parse(d).map(segs => { const p = []; for (const s_ of segs) for (let q = 0; q <= 30; q++) p.push([bz(s_.P, q / 30, 0), bz(s_.P, q / 30, 1)]); return p; });
+    const ar = p => { let a = 0; for (let i = 0; i < p.length; i++) { const u = p[i], v = p[(i + 1) % p.length]; a += u[0] * v[1] - v[0] * u[1]; } return Math.abs(a / 2); };
+    subs.sort((a, b) => ar(b) - ar(a)); const O = subs[0], H = subs[1], cx = H.reduce((a, q) => a + q[0], 0) / H.length, cy = H.reduce((a, q) => a + q[1], 0) / H.length, k = 20 / 24;
+    const xs = O.map(q => q[0]); return { w: (Math.max(...xs) - Math.min(...xs)) * k, hole: 2 * Math.min(...H.map(q => Math.hypot(q[0] - cx, q[1] - cy))) * k, holeA: ar(H) * k * k }; };
+  const sB = starNums(before.star), sA = starNums(after.star), plusW = (() => { const b = measure(after.plus).box; return (b.x1 - b.x0) * 26.4 / 24; })();
+  const DK = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/between/outline-weight.json'), 'utf8')); } catch (e) { return null; } })();
+  const markRow = (ds, label, strong) => `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid ${COL.hair};flex-wrap:wrap"><div style="width:110px;font-size:16px;color:${strong ? N : I2};${strong ? 'font-weight:700' : ''}">${label}</div>${BATCH.filter(([id]) => id !== 'star' && id !== 'plus').map(([id]) => badge(ds[id])).join('')}${uiPath(ds.plus, 26.4)}${uiPath(ds.star, 20)}<span style="width:14px"></span>${uiPath(ds.plus, 79)}${uiPath(ds.star, 60)}</div>`;
+  return `${kick('0 · The hump at the coupe\'s flares, and the star\'s counter')}
+${quote('This is almost perfect. On the corner types on the coupe, there is still an awkward hump on the bowl and foot on either side as a result of the round shape. I\'m not sure how to smooth it further programmatically but let\'s do one more try. Also think the problem with the star weight is the counter size now. I think the stroke is inner stroke so it\'s making the counter shape feel cramped. Let\'s find the right balance there for the outline icons.')}
+${phP('<b>The hump, named: a shelf.</b> The bowl and the foot meet the stem almost level. The round there was an even hill: its bend was split half and half between the stem and the bowl (or foot). So the bowl ran on nearly level right up to the round, making a short flat shelf, and the round sat on that shelf as a separate knuckle. That\'s the hump on either side.')}
+${phP('<b>Why the check passed it:</b> it measured how smoothly the bend changes, and the bend did change smoothly. It never asked <i>where</i> the bend sits. A new check, <b>shelf</b>, does: at a round between a line and a gentle curve that bends the other way, the run along the curve must be at least 1 1/2 times the run along the line. v228 fails it at all four coupe flares.')}
+${phP(`<b>The rule, in the engine (every corner of this type, in any icon): the leaned flare.</b> A round between a line and a gentle curve that bends the other way leans onto the curve. Its run along the curve is 1 3/4 times its run along the line, and it crests at the corner law's own radius (the even hill crested tighter). So the curve starts bending into the stem earlier and there is no level stretch for a knuckle to sit on. Why 1 3/4: it is the most an even hill can lean while keeping a real run on the line side (at 2 that run shrinks to a step).`)}
+<div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 4px"><div><img src="${mark('v223-coupe-stem-foot-wobble.png')}" alt="" style="height:150px;width:auto;display:block;background:${COL.paper}">${cap('your earlier screenshot (v223), the same joins')}</div></div>
+${pair('bar', BOWL, 150, 'The bowl into the stem, both sides')}
+${pair('bar', FOOT, 150, 'The stem into the foot, both sides')}
+${pair('cafe', CUPJ, 150, 'The same type on the cup: the handle\'s underside into the cup\'s side')}
+<div style="padding:12px 0;border-top:1px solid ${COL.hair}"><div style="font-size:19px;font-weight:700;color:${N};margin-bottom:8px">At 12, 24 and 72px</div><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span style="width:60px;font-size:14px;color:${I2}">v228</span>${sizes(before.bar)}${sizes(before.cafe)}</div><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:8px"><span style="width:60px;font-size:14px;color:${N};font-weight:700">now</span>${sizes(after.bar)}${sizes(after.cafe)}</div></div>
+${phP(`<b>What it touches:</b> ${shB} corners: the coupe's four flares and the cup's corner under its handle, the only other corner of this type in the set. The museum's capitals are an S of two rounds, a different type, and don't change; nor do the tree, the + and the star's corners. <b>How large:</b> the coupe's flares move ${(mvBar * 3).toFixed(2)}px at most at 72px (${(mvBar / 2).toFixed(2)}px in the 24px badge); the cup's corner ${(mvCup * 3).toFixed(2)}px at 72px. The flares reach a little further along the bowl and foot and a little less far down the stem; the coupe's shape and drink are unchanged.`)}
+${phP(`<b>The proof:</b> shelf faults in the row: ${shB} in v228, ${shA} now. Every other fault the fair check knows (knee, tail, dip, shoulder, inflect, step): ${allA - shA} now. One fix to the check itself: the inflect check used to walk from a convex round all the way along a gentle edge into the next round, so a leaned flare at the far end of the bowl read as the rim's round bending back; it now stops 4 half-widths from the crest.`)}
+${phP('<b>What\'s left, honestly:</b> the lean is a set value (1 3/4) chosen by eye on the coupe and checked on the cup; the check\'s line (1 1/2) is below it so a near miss still fails. The stem side of each flare is now short and firm: that\'s the price of putting the bend on the bowl. If you still see a hump, tell me which side and I\'ll look at the stem end next.')}
+${kick('0b · Outline icons: the line and the counter')}
+${phP(`<b>You were right: it was an inner stroke, in effect.</b> The star was sized by its outside (its points as far as the +'s arms) and drawn with the line marks' 1 2/3px line, so every bit of weight came out of the counter: ${sB.hole.toFixed(1)}px across. The star's own class rule asks for a bigger counter, but the row's star never used it.`)}
+${phP(`<b>The rule (every outline icon): an outline is drawn like the solids.</b> The set's line, 1 1/2px (the walls of the cup and coupe), sits centred on the drawn shape, and the icon is sized by its counter: at least 2 1/2 lines across at the centre. The outside follows. The star: ${sB.w.toFixed(1)} → ${sA.w.toFixed(1)}px across (the +'s arms: ${plusW.toFixed(1)}); its counter ${sB.hole.toFixed(1)} → ${sA.hole.toFixed(1)}px across, with ${Math.round(100 * (sA.holeA / sB.holeA - 1))}% more open area. The + has no counter, so it isn't touched (1 2/3px).`)}
+${markRow(before, 'v228')}${markRow(after, 'now', true)}
+${phP(`<b>This replaces the A/B/C darkness options.</b> They thinned the line at the same outside, which opened the counter but made the star spindly at 72px. ${DK ? `The darkness measure for the record (blurred, at true size): star ${DK.before.toFixed(0)} → ${DK.after.toFixed(0)}, the + ${DK.plus.toFixed(0)}. The star still measures darker than the +, because its walls face each other across the counter; to my eye at 1x it no longer reads heavier.` : ''} <b>Two questions:</b> does the star now feel balanced with the +? And is it too big, at ${sA.w.toFixed(1)}px against the +'s ${plusW.toFixed(1)}?`)}
+`;
+}
 function sectionWobble(kick, quote) {
   const N = COL.navy, I2 = COL.ink2, OR = COL.or;
   const B4 = id => fs.readFileSync(path.join(__dirname, `../svg/g7/before-g7ar/${id}.svg`), 'utf8').match(/ d="([^"]+)"/)[1];   // v223, as he saw it
@@ -1087,8 +1158,8 @@ function sheetBetween() {
   const r2Rules = () => `<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.35;margin:6px 0 10px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0;width:16%">Rule</td><td style="padding:4px 8px;width:24%">Was</td><td style="padding:4px 0 4px 8px">Now</td></tr>${R2RULES.map(([a, b, c, e]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 8px 2px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px 8px 2px;color:${I2}">${b}</td><td style="padding:8px 0 2px 8px;color:${N}">${c}</td></tr><tr style="vertical-align:top"><td></td><td colspan="2" style="padding:2px 0 10px 8px;color:${N}"><b>Here:</b> ${e}</td></tr>`).join('')}<tr style="border-top:1px solid ${COL.hair}"><td colspan="3" style="padding:8px 0;color:${N}"><b>Unchanged:</b> line ends, tips by their edge, flares 1/2px, mass corners 0.6, the vessel side, the tree\'s sweep and droop. The + and the star: nothing in these rules acts on them.</td></tr></table>`;
   const musRows = [['H2\'s museum (the base)', 'As H2 drew it: four columns, a beam, a straight roof, a plinth. Every approach below starts from it.', S.ds.museum, 'museum'], ...MUSEUM_V.map(([nm, line], k) => [nm, line, S.mus[k], `museum-${k + 1}`])]
     .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center"><div style="display:flex;gap:6px;align-items:center;padding:8px;background:${COL.paper}">${badge(S.ds.cafe)}${badge(S.ds.bar)}${badge(d)}${badge(S.ds.nature)}</div>${chip(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(d, 72)}${badge(S.ds.nature, 72)}</div><div style="margin-top:10px">${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
-  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Your earlier notes on this board (the coupe options, H2 / Between / H3, the tuned row and its table) are on the Archive page, as v217; the board as you saw it on 10-22, before the joins and centring rules, is there as v222, and as v223 (the joins and centring as rules, which this section builds on).')}
-${sectionWobble(kick, quote)}
+  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Your earlier notes on this board (the coupe options, H2 / Between / H3, the tuned row and its table) are on the Archive page, as v217; the board as you saw it on 10-22, before the joins and centring rules, is there as v222, and as v223 (the joins and centring as rules); the wobble round (v228: hill rounds, tips, the weight options) is there as v228.')}
+${sectionHump(kick, quote)}
 ${kick('1 · The coupe and the tree are fixed: rules for the rest')}
 ${quote('youre missing my point -- the between tree is perfect. what changes need to happen to h2 to make that tree fit in')}
 ${quote('in "after: rules tuned to the tree" "coup, after" and "tree, after" are perfect ... but the glass being on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to establish to fix that.')}

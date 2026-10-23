@@ -277,13 +277,37 @@ function corners(item, law, info, opts = {}) {
         const roomIn = share(wI, pw ? pw[1] : null, cin.length), roomOut = share(wO, nw ? nw[0] : null, cout.length);
         // the law's crest; if it doesn't fit its share, the g7aq depth; if that doesn't either, the round takes all its room
         // on the short side and its crest tightens to fit (a round never pushes into its neighbour)
-        const sol = hillRound(cin, cout, b, roomIn, roomOut, opts.join) || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, tipKeep: undefined, hillKeep: 'fit', fitSide: wO - roomOut >= wI - roomIn ? 'out' : 'in' })
+        let sol = hillRound(cin, cout, b, roomIn, roomOut, opts.join) || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, tipKeep: undefined, hillKeep: 'fit', fitSide: wO - roomOut >= wI - roomIn ? 'out' : 'in' })
           || hillRound(cin, cout, b, roomIn, roomOut, { ...opts.join, tipKeep: undefined, hillKeep: 'depth' });
         if (opts.join.log) opts.join.log.push(sol ? 'fair' : 'nofair');
         if (process.env.FAIRDBG && !sol) console.error(b.P0.x.toFixed(2), b.P0.y.toFixed(2), b.ease ? 'EASE' : 'jr', 'NO', 'd', b.d.toFixed(2), 'want', wI.toFixed(2), wO.toFixed(2), 'room', roomIn.toFixed(2), roomOut.toFixed(2), 'turn', (b.turn * 180 / Math.PI).toFixed(0), 'edges', cin.isStraight() ? 'L' : 'C', cout.isStraight() ? 'L' : 'C');
         if (process.env.FAIRDBG && sol) console.error(b.P0.x.toFixed(2), b.P0.y.toFixed(2), b.ease ? 'EASE' : 'jr', 'd', b.d.toFixed(2), '->', sol.dI.toFixed(2), sol.dO.toFixed(2), 'kM', (sol.kM ?? 0).toFixed(2), 'dz', (sol.dDepth ?? 0).toFixed(3), 'cubics', sol.sol.length);
         if (process.env.FAIRDBG3 && sol) for (const P of sol.sol) { const c_ = P[0].getDistance(P[3]), h0 = P[0].getDistance(P[1]), h1 = P[3].getDistance(P[2]); if (Math.min(h0, h1) < 0.1 * c_) console.error("DEGEN", b.P0.x.toFixed(2), b.P0.y.toFixed(2), P[0].x.toFixed(3), P[0].y.toFixed(3), "chord", c_.toFixed(3), "h", h0.toFixed(4), h1.toFixed(4), "n", sol.sol.length); }
         if (opts._probe && b.ease && b.angle < (opts.join.tipAngle ?? 75) && sol && sol.M && sol.kM && Math.abs(sol.dDepth) > 1e-4) opts._probe.push({ P0: b.P0.clone(), M0: sol.M0, M: sol.M, bis: b.bis, kC: sol.kM });
+        // g7au LEANED FLARE (owner on v228: "On the corner types on the coupe, there is still an awkward hump on the bowl and
+        // foot on either side as a result of the round shape"): a round between a LINE and a gentle CURVE THAT BENDS THE OTHER
+        // WAY (a stem into a bowl or a foot, a handle into a cup's side; gentle: its bend under a quarter of the round's) was an
+        // even hill, its bend split half and half. The curve meets the corner nearly level, so it ran on level into a shelf
+        // and the round sat on it as a knuckle: the hump. With opts.join.flareLean = R the round leans onto the curve: its run
+        // along the curve is R times its run along the line (1.75: the most the even hill leans with a real half left on the
+        // line; at 2 that half shrinks to a step), and it crests at the corner law's own radius (the plain hill crested
+        // tighter). Both runs are scaled together until it does; its crest slides off the bisector toward the line.
+        if (sol && opts.join.flareLean && !b.convex && !b.ease) {
+          const kI = cin.isStraight() ? 0 : kOf(cin, 0.999), kO = cout.isStraight() ? 0 : kOf(cout, 0.001), sg = Math.sign(b.turn);
+          const gentle = k => Math.abs(k) > 0.03 && Math.abs(k) < 0.25 * Math.abs(sol.kM), lineK = k => Math.abs(k) < 1e-3;
+          const side = Math.sign(kI) === -sg && gentle(kI) && lineK(kO) ? 'in' : Math.sign(kO) === -sg && gentle(kO) && lineK(kI) ? 'out' : null;
+          if (side) {
+            const R = opts.join.flareLean, lineBase = side === 'in' ? sol.dO : sol.dI, far = side === 'in' ? Math.min(roomIn, cin.length * 0.98) : Math.min(roomOut, cout.length * 0.98);
+            const lineRoom = side === 'in' ? roomOut : roomIn, kL = 1 / b.r;
+            const tryS = sc => { const lineL = Math.min(lineRoom, lineBase * sc), curveL = Math.min(far, R * lineL), rI = side === 'in' ? curveL : lineL, rO = side === 'out' ? curveL : lineL;
+              const s2 = hillRound(cin, cout, b, rI, rO, { ...opts.join, tipKeep: undefined, hillKeep: 'flare', flareFrom: sol }); return s2 ? { s2, g: Math.abs(s2.kM) - kL } : null; };
+            const T0 = (sol.dI + sol.dO) / (1 + R) / lineBase; let a = T0, ea = tryS(a), c_ = T0 * 1.25, ec = tryS(c_), got = null;
+            for (let it = 0; it < 12 && ea && ec; it++) { if (Math.abs(ec.g) < 1e-3 * kL) { got = ec; break; } const n_ = Math.max(0.3, Math.min(3, c_ - ec.g * (c_ - a) / (ec.g - ea.g || 1e-9))); a = c_; ea = ec; c_ = n_; ec = tryS(c_); }
+            if (process.env.FLAREDBG) console.error('flare', b.P0.x.toFixed(2), b.P0.y.toFixed(2), side, got ? 'dI ' + got.s2.dI.toFixed(3) + ' dO ' + got.s2.dO.toFixed(3) + ' kM ' + got.s2.kM.toFixed(2) : 'FAIL (plain hill kept)');
+            if (opts.join.flareLog) opts.join.flareLog.push(got ? { at: [b.P0.x, b.P0.y], side, dI: got.s2.dI, dO: got.s2.dO, kM: got.s2.kM, plain: [sol.dI, sol.dO, sol.kM] } : { at: [b.P0.x, b.P0.y], fail: true });
+            if (got) sol = got.s2;
+          }
+        }
         if (sol) { b.dIn = sol.dI; b.dOut = sol.dO; b.jrSol = sol.sol; } else { b.dIn = Math.min(b.d, roomIn); b.dOut = Math.min(b.d, roomOut); }
       }
     }
@@ -544,10 +568,13 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   // unknowns v = [dI, L1, dO, L2, kM or the depth offset along the bisector, phi]; 'fit' (a round with less room than it
   // wants): the short side takes all its room, and the crest and the depth are both solved
   const fitOut = keep === 'fit' && J.fitSide !== 'in', fitIn = keep === 'fit' && J.fitSide === 'in';
-  const unpack = v => keep === 'fit' ? { dI: fitIn ? roomIn : v[0], dO: fitOut ? roomOut : v[2], kM: v[4], M: M0.add(c.bis.multiply(fitIn ? v[0] : v[2])) }
+  // 'flare' (g7au, the leaned flare): both runs are given (roomIn, roomOut), and the crest point M moves freely (along and
+  // across the bisector), with the crest bend; it is reached from the plain hill by continuation (J.flareFrom)
+  const flR = [roomIn, roomOut];
+  const unpack = v => keep === 'flare' ? { dI: flR[0], dO: flR[1], kM: v[4], M: M0.add(c.bis.multiply(v[0])).add(nrm.multiply(v[2])) } : keep === 'fit' ? { dI: fitIn ? roomIn : v[0], dO: fitOut ? roomOut : v[2], kM: v[4], M: M0.add(c.bis.multiply(fitIn ? v[0] : v[2])) }
     : keepCrest ? { dI: v[0], dO: v[2], kM: kC, M: M0.add(c.bis.multiply(v[4])) } : { dI: v[0], dO: v[2], kM: v[4], M: M0 };
   const res = v => {
-    const [, L1, , L2, , phi] = v, { dI, dO, kM, M } = unpack(v); if (!(dI > 0.005 && dO > 0.005 && L1 > 0.005 && L2 > 0.005 && dI <= roomIn && dO <= roomOut)) return null;
+    const [, L1, , L2, , phi] = v, { dI, dO, kM, M } = unpack(v); if (!(dI > 0.005 && dO > 0.005 && L1 > 0.005 && L2 > 0.005 && (keep === 'flare' || (dI <= roomIn && dO <= roomOut)))) return null;
     const A = edgeAt(cin, dI, true), Bq = edgeAt(cout, dO, false); if (!A || !Bq) return null;
     const aM = aM0 + phi, e1 = run(A.p, A.a, A.k, kM, L1), e2 = run(M, aM, kM, Bq.k, L2, 48, false, true);
     // the turns read unwrapped (each half turns by less than half a circle), so a half can never loop round to land
@@ -555,7 +582,30 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   };
   const chordIn = Math.max(0.05, c.d), turn1 = Math.abs(c.turn) / 2;
   let best = null;
+  // a flare is reached from the plain hill at this corner (J.flareFrom) by moving its two legs out in small steps,
+  // each solved from the last (a continuation: the lopsided hill is a long way from any guess)
+  if (keep === 'flare' && J.flareFrom) {
+    const F0 = J.flareFrom; let v = [0, F0.L1, 0, F0.L2, F0.kM, F0.phi], ok = true;
+    for (let st = 1; st <= 12 && ok; st++) {
+      const u = st / 12; flR[0] = F0.dI + (roomIn - F0.dI) * u; flR[1] = F0.dO + (roomOut - F0.dO) * u;
+      let r = res(v); if (!r) { ok = false; if (process.env.FLAREDBG) console.error('   res null at', v.map(x => x.toFixed(3)).join(',')); break; }
+      for (let it = 0; it < 40; it++) {
+        const n2 = Math.hypot(...r); if (n2 < 1e-10) break;
+        const Jm = []; for (let j = 0; j < 6; j++) { const hj = 1e-6 * Math.max(1, Math.abs(v[j])), vv = v.slice(); vv[j] += hj; const rr = res(vv); if (!rr) { Jm.length = 0; break; } Jm.push(rr.map((x, i) => (x - r[i]) / hj)); }
+        if (Jm.length < 6) break;
+        const dv = solve6(Jm, r); if (!dv) break;
+        let step = 1, okk = false;
+        for (let ls = 0; ls < 12; ls++, step /= 2) { const vv = v.map((x, j) => x - step * dv[j]), rr = res(vv); if (rr && Math.hypot(...rr) < n2) { v = vv; r = rr; okk = true; break; } }
+        if (!okk) break;
+      }
+      if (Math.hypot(...r) > 1e-6) { ok = false; if (process.env.FLAREDBG) console.error('   res', Math.hypot(...r).toExponential(2), 'v', v.map(x => x.toFixed(3)).join(','), 'r', r.map(x => x.toExponential(1)).join(',')); }
+    }
+    if (process.env.FLAREDBG) console.error('   flare continuation', ok ? 'ok' : 'stuck at ' + flR.map(x => x.toFixed(3)).join(','));
+    if (!ok) return null;
+    best = v;
+  }
   for (const f0 of c.ease ? [0.35, 0.5, 0.7, 1] : [1, 0.7, 1.4]) {
+    if (best) break;
     // a kept crest sets the hill's length (each half turns about half the corner at about half the crest); else from the chord
     const Lk = keepCrest && keep !== 'fit' && Math.abs(kC) > 1e-6 ? 2 * turn1 / Math.abs(kC) * f0 / (c.ease ? 0.35 : 1) : 0;
     const d0 = Math.min(Lk ? Lk : chordIn * f0, roomIn * 0.95, roomOut * 0.95), L0 = Lk || d0 * 1.1, kM0 = sg * 2 * turn1 / L0;
@@ -655,7 +705,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   const h1 = pieces(A.p, A.a, A.k, kM, L1, false), h2 = pieces(M, aM, kM, Bq.k, L2, true); if (!h1 || !h2) { if (process.env.FAIRDBG) console.error("   why: no fit", !!h1, !!h2); return null; }
   const S0 = [...h1, ...h2], kS = kBez(S0[0], 1e-4), kE_ = kBez(S0[S0.length - 1], 1 - 1e-4);
   if (Math.abs(kS - A.k) > 0.1 || Math.abs(kE_ - Bq.k) > 0.1) { if (process.env.FAIRDBG) console.error("   why: ends off", kS.toFixed(2), A.k.toFixed(2), kE_.toFixed(2), Bq.k.toFixed(2)); return null; }   // never leave an edge with a step in its bend
-  return { dI, dO, sol: S0, kM, L1, L2, dDepth: M.subtract(M0).dot(c.bis), M, M0, kC: kM };
+  return { dI, dO, sol: S0, kM, L1, L2, phi, dDepth: M.subtract(M0).dot(c.bis), M, M0, kC: kM };
 }
 function nelderMead(f, x0, step, iters) {   // a small Nelder-Mead minimiser: returns { x, f }
   const n = x0.length; let P = [x0.slice()]; for (let i = 0; i < n; i++) { const x = x0.slice(); x[i] += step[i]; P.push(x); }

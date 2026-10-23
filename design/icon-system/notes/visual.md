@@ -1,5 +1,28 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-23, canvas v229, turn 139; seventh icon designer)
+
+- **Owner on v228:** "almost perfect"; "an awkward hump on the bowl and foot on either side as a result of the round shape ... one more try"; "the problem with the star weight is the counter size now. I think the stroke is inner stroke ... find the right balance there for the outline icons."
+- **The hump, named: a shelf.** The bowl and the foot meet the stem almost level (their bend 0.08-0.16, the corner turns ~80°). The hill round was even (each half ~0.72 units, crest on the bisector), so the bowl ran on level right up to the round and the round sat on it as a knuckle. fair-check measured how the bend changes (smooth), never where it sits.
+- **Engine rule: the leaned flare** (engine.js `opts.join.flareLean`; boards7 `JOIN10 = { ...JOIN9, flareLean: 1.75, flareLog: [] }` on R2/R2B):
+  - Type: a non-eased concave round between a straight line and a gentle curve bending the other way (|k| > 0.03 and under a quarter of the round's crest). In the set: the coupe's 4 flares and the cup's corner under its handle. The museum capitals (S-spans) and everything else are untouched (museum and tree byte-identical by the engine path; logs show no flare there).
+  - The round's run on the curve = 1.75 x its run on the line; both scaled (secant) until its crest = the law's own radius (1/r; coupe 2.00, was 2.32). New hillRound mode `hillKeep: 'flare'`: both runs given, the crest point M free in 2D, reached from the plain hill by a 12-step continuation (`J.flareFrom`; the plain solve now returns `phi`).
+  - Why 1.75: the two-half raised-cosine hill can lean to about 2.1:1 before the line-side half collapses; at 2 it was a 0.02-unit step on the stem (seen in L1). 1.5 left a faint shelf on the foot.
+  - Tried and dropped: longer runs with depth free (the 'fit' path, F=2: a stout trumpet, stem looks thicker); equal ink (the knuckle stays: removing the shelf needs a little more ink along the curve); flareLine < 1 with a sideways-only crest (no solution).
+- **Check:** fair-check **SHELF** (a crest between a line and a gentle opposite-bending curve; the run onto the curve must be >= 1.5 x the run onto the line, walking to where the bend crosses zero / meets the line). v228: 4 on the coupe + 1 on the cup; now 0. Also fixed INFLECT: its walk now stops 4 half-widths from the crest (it had walked from the rim's round down the whole bowl into the flare). It still fails v226's tree (7).
+- **Outline rule** (boards7 `starOutline`, `starHoleRc`, `OUTLINE_HOLE = 2.5`, row tuple `outline: true`; mark-weight.js `starOutlineD`, `--outline` writes `outline-weight.json`):
+  - His read was right: starAt fitted the star by its outside (points to the +'s arms, director turn 82) with the line marks' 1 2/3px, so the weight came out of the counter (3.1px across inscribed; starRc's class rule of 4px was never used by the row).
+  - Rule: an outline mark is drawn like the solids: the set's 1 1/2px line centred on the drawn shape, sized by its counter, 2 1/2 lines across at the centre (valley to valley). The outside follows: star 13.2 -> 14.1px across (+ arms 13.2); counter 3.1 -> 4.0px across, +60% open area. Darkness (blur p80): star 53 -> 47, + 39.
+  - Replaces the A/B/C darkness options (kept in mark-weight.json for the record). The + (open mark) is unchanged at 1 2/3.
+  - Seen at 1x/3x/72: 2 lines (old) still cramped; 2 2/3 (g7s's 4px) makes the star 14.6px, visibly big; 2 1/2 chosen by eye. "Same size, thinner line" (1.44px) was close at 1x but makes the line differ per outline icon; rejected for one line across outline marks.
+- **Board:** Between section 0 rewritten as "0 · The hump at the coupe's flares, and the star's counter" (+ "0b · Outline icons"). v228's board archived as `Archive-G7au-Between` (x 8400, y 148000). v228 svgs frozen in `svg/g7/before-g7au/`.
+- **Open:**
+  - Does the hump read gone at his zoom? The stem side of each flare is now short and firm.
+  - flareLean 1.75 is set by eye on the coupe, checked on the cup only.
+  - Is the star too big at 14.1px, and does it balance the + (39 vs 47 by blur; by eye it no longer reads heavier at 1x)?
+  - Older open questions untouched (glass/plate, liquid style, tipSoft as geometry in code).
+- **Tooling** (scratchpad `d7/`): `j9.sh` (one glyph by v.js with JOIN9 + extra json; env S=<scale> skips the size fit, ~20 s), `batch.sh`, `all.sh`, `star.js` (star variants: span, counter, darkness), `srow.js` (row + 72px sheet per star), `zr.js`, `prof.js`, `p*.py` patches. boards7 takes about 45 min (the flare continuation adds ~10).
+
 ## Update (2026-10-23, canvas v227, turn 136)
 
 - **Director on v226 (turn 135), score 7.** One fault: the top tip pinched into a bulb on a neck. The cause was v223's peak bend and its depth held together, sitting on swept-in flanks (-0.10, about 30° of turn).

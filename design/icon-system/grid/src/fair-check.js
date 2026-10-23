@@ -15,12 +15,14 @@
 //          shoulder away from the point) and the point reads as a separate knob. A raised cosine is halfway at 0.5.
 //   JUMP   a break in curvature at a node over JUMP_MIN, a line meeting a round included (a plain compass fillet).
 //   INFLECT (g7as) a round at a convex corner bends the other way inside its own curves (an S in the round: a bulb on a neck).
+//   SHELF (g7au) a round between a line and a curve that bends the other way, drawn even: the curve runs on level into a
+//          shelf and the round sits on it as a knuckle (the coupe's flares at v228). The run onto the curve must be 1.5x the line's.
 //   SHOULDER (g7as) walking from a round's foot to its crest, the bend's rate of growth stalls (under 2/5 of the lower peak
 //          either side, each over a quarter of the top one): two bends in one round, the bend flattening and then growing again.
 // node fair-check.js file.svg ... (exit 1 if any fault)   or require('./fair-check').check(d) -> [{ kind, at, ... }]
 'use strict';
 const fs = require('fs'), { parse, kAt } = require('./join-check');
-const KNEE_MIN = 2, KNEE_REL = 0.25, KNEE_SHARE = 0.5, TAIL_MAX = 0.7, JUMP_MIN = 0.35, CREST_MIN = 1.2, N = 48;
+const SHELF_MIN = 1.5, KNEE_MIN = 2, KNEE_REL = 0.25, KNEE_SHARE = 0.5, TAIL_MAX = 0.7, JUMP_MIN = 0.35, CREST_MIN = 1.2, N = 48;
 const bz = (P, t, i) => (1 - t) ** 3 * P[0][i] + 3 * t * (1 - t) ** 2 * P[1][i] + 3 * t * t * (1 - t) * P[2][i] + t ** 3 * P[3][i];
 const dk = (P, t) => {   // dk/ds of a cubic at t, one-sided at its ends
   const e = 1e-3, a = Math.max(0, Math.min(1 - 2 * e, t - e)), b = a + 2 * e;
@@ -68,7 +70,8 @@ function check(d) {
       // toward the ink) never bends the other way. Walking out from its crest, the bend may reach zero only where the round
       // ends (at a node); a sign change inside one of the round's own curves is an S in the round.
       if (sgn === inkSign) for (const dir of [-1, 1]) {
-        let j = i, st = 0; while (st < m / 2 && pts[(j + dir + m) % m].k * sgn > 0.02 * crest) { j += dir; st++; }
+        let hw = i; while (A(hw) > 0.5 * crest && Math.abs(hw - i) < m / 2) hw += dir; const reach = 4 * (dir < 0 ? Lof(hw, i) : Lof(i, hw));   // g7au: the round reaches at most 4 half-widths from its crest; past that is its edge, which may bend the other way into the next round (a bowl into a flare)
+        let j = i, st = 0; while (st < m / 2 && pts[(j + dir + m) % m].k * sgn > 0.02 * crest && (dir < 0 ? Lof(j + dir, i) : Lof(i, j + dir)) <= reach) { j += dir; st++; }
         const s0 = pts[(j + m) % m].s; let q = j, st2 = 0, low = 0;
         while (st2 < N && pts[(q + dir + m) % m].s === s0) { q += dir; st2++; low = Math.min(low, pts[(q + m) % m].k * sgn); }
         if (low < -0.02 && !faults.some(x => x.kind === 'INFLECT' && Math.hypot(x.at[0] - pts[i].p[0], x.at[1] - pts[i].p[1]) < 0.05)) faults.push({ kind: 'INFLECT', at: pts[i].p.map(v => +v.toFixed(2)), crest: +(sgn * crest).toFixed(2), reverse: +(sgn * low).toFixed(3) });
@@ -84,6 +87,19 @@ function check(d) {
         const S = Math.max(0, ...sl), lo = Math.floor(sl.length * 0.12), hi = Math.ceil(sl.length * 0.88);
         let pre = 0; const post = []; for (let j = sl.length - 1, mx = 0; j >= 0; j--) { mx = Math.max(mx, sl[j]); post[j] = mx; }
         for (let j = 0; j < sl.length; j++) { const after = j + 1 < sl.length ? post[j + 1] : 0, lowPk = Math.min(pre, after); if (j >= lo && j < hi && S > 2 && lowPk > 0.25 * S && sl[j] < 0.4 * lowPk) { if (!faults.some(x => x.kind === 'SHOULDER' && Math.hypot(x.at[0] - pts[i].p[0], x.at[1] - pts[i].p[1]) < 0.05)) faults.push({ kind: 'SHOULDER', at: pts[i].p.map(v => +v.toFixed(2)), crest: +(sgn * crest).toFixed(2), stall: +(sl[j] / S).toFixed(2) }); break; } pre = Math.max(pre, sl[j]); }
+      }
+      // SHELF (g7au; owner on v228: "On the corner types on the coupe, there is still an awkward hump on the bowl and foot on
+      // either side as a result of the round shape"): a round between a LINE and a gentle CURVE THAT BENDS THE OTHER WAY (a
+      // stem into a bowl or a foot; gentle: its bend under a quarter of the round's, so an S of two rounds, the museum's
+      // capital, is another kind) drawn even, its bend split half and half. The curve meets the round nearly level, so it runs
+      // on as a level shelf and the round sits on it as a knuckle: the hump. Walking out from the crest to where the bend
+      // ends (it crosses zero, or a line starts), the run onto the curve must be at least SHELF_MIN times the run onto the line.
+      if (sgn !== inkSign) {
+        const run = dir => { let j = i, st = 0; while (st < m / 2 && pts[(j + dir + m) % m].k * sgn > 0.004 * crest) { j += dir; st++; } return j; };
+        const beyond = (j, dir) => { let L0 = pts[(j + m) % m].L, sum = 0, cnt = 0, q = j; while (cnt < 400) { q += dir; const pq = pts[(q + m) % m]; let dl = Math.abs(pq.L - L0); if (dl > L / 2) dl = L - dl; if (dl > 0.4) break; sum += pq.k; cnt++; } return cnt ? sum / cnt : 0; };
+        const side = [-1, 1].map(dir => { const j = run(dir), kb = beyond(j, dir); return { span: dir < 0 ? Lof(j, i) : Lof(i, j), kind: Math.abs(kb) < 0.01 ? 'line' : Math.sign(kb) === -sgn && Math.abs(kb) > 0.03 && Math.abs(kb) < 0.25 * crest ? 'curve' : 'other' }; });
+        const cv = side.find(x => x.kind === 'curve'), ln = side.find(x => x.kind === 'line');
+        if (cv && ln && cv.span < SHELF_MIN * ln.span && !faults.some(x => x.kind === 'SHELF' && Math.hypot(x.at[0] - pts[i].p[0], x.at[1] - pts[i].p[1]) < 0.05)) faults.push({ kind: 'SHELF', at: pts[i].p.map(v => +v.toFixed(2)), crest: +(sgn * crest).toFixed(2), onCurve: +cv.span.toFixed(3), onLine: +ln.span.toFixed(3) });
       }
       for (const dir of [-1, 1]) {
         let j = i, steps = 0; while (steps < m / 2 && Math.sign(pts[(j + dir + m) % m].k) === sgn && A(j + dir) <= A(j) + 1e-6) { j += dir; steps++; }

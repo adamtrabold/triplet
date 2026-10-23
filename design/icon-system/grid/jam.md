@@ -6057,3 +6057,65 @@ Merged 5368b6d1 and re-read the live board (v227, 10473px) at 1x and 3x. Rendere
    - The code still uses the numeric threshold (`tipSoft` 6: v223's peak bend). I didn't switch it to a geometric test, because I couldn't verify the drawings would come out identical without a full rebuild and comparison. The board says so.
 
 No drawing changed. The edits are copy only, in boards7 (source) and the published board. Between grew 10473 → 10567px; Master moved to y 11167.
+
+
+---
+
+## Turn 139: icon designer (seventh), the hump at the coupe's flares and the star's counter (canvas v229)
+
+Owner (v228): "This is almost perfect. On the corner types on the coupe, there is still an awkward hump on the bowl and foot on either side as a result of the round shape. I'm not sure how to smooth it further programmatically but let's do one more try. Also think the problem with the star weight is the counter size now. I think the stroke is inner stroke so it's making the counter shape feel cramped. Let's find the right balance there for the outline icons."
+
+**The hump, named: a shelf.** The bowl and the foot meet the stem almost level (their bend 0.08-0.16; the corner turns about 80°). The hill round was even: each half about 0.72 units, its crest on the bisector. So the bowl ran on level right up to the round, and the round sat on that short flat as a knuckle. Seen plainly at about 75-130px a unit.
+
+**Why the check passed it:** fair-check measures how smoothly the bend changes. It did change smoothly. The check never asked where the bend sits.
+
+**Engine rule: the leaned flare** (engine.js `opts.join.flareLean`; boards7 `JOIN10 = { ...JOIN9, flareLean: 1.75 }` on R2/R2B).
+- Type: a concave round between a straight line and a gentle curve that bends the other way (bend over 0.03 and under a quarter of the round's crest).
+- The round leans onto the curve: its run along the curve is 1 3/4 times its run along the line. Both runs are scaled until it crests at the corner law's own radius (coupe 2.00; the even hill crested at 2.32).
+- New hillRound mode 'flare': both runs fixed, the crest point free in 2D, reached from the plain hill by continuation.
+- Why 1 3/4: the even hill can lean to about 2.1:1 before its line-side half collapses. At 2 it was a 0.02-unit step on the stem. At 1 1/2 a faint shelf stayed on the foot.
+- Tried and dropped:
+  - longer runs with the depth free: a stout trumpet;
+  - the same ink as the even round: the knuckle stays (removing the shelf needs a little ink along the curve);
+  - a shorter line run with the crest moved sideways only: no solution.
+
+**Per icon:**
+- Coupe: 4 flares. They move 0.17px at most at 72px; at true size there's no visible change.
+- Cup: the corner under the handle, the only other corner of this type. It moves 0.06px at 72px.
+- Museum (its capitals are an S of two rounds, another type), tree, +: byte-identical.
+- Star: see below.
+
+**Check: SHELF in fair-check.** At such a round, the run onto the curve must be at least 1 1/2 times the run onto the line. v228: 5 faults (coupe 4, cup 1). Now: 0.
+- INFLECT fixed: its walk now stops 4 half-widths from the crest. It had walked from the rim's round down the whole bowl into the flare. It still fails v226's tree (7).
+
+**Outline rule.** His read was right.
+- starAt fitted the star by its outside (points to the +'s arms) with the line marks' 1 2/3px. So the weight came out of the counter: 3.1px across. starRc's class rule (4px) was never used by the row.
+- Rule (boards7 `starOutline` / `OUTLINE_HOLE = 2.5`; mark-weight.js `starOutlineD`): an outline mark is drawn like the solids.
+  - The set's 1 1/2px line, centred on the drawn shape.
+  - Sized by its counter: 2 1/2 lines across at the centre. The outside follows.
+- Star: 13.2 → 14.1px across (the +'s arms are 13.2). Counter 3.1 → 4.0px across, 60% more open area. Blur darkness 53 → 47 (+ 39).
+- The + is unchanged (an open mark has no counter).
+- **This replaces A/B/C.**
+- Seen at 1x/3x/72:
+  - 2 lines: still cramped.
+  - 2 2/3 lines: 14.6px, visibly big.
+  - "Same size, thinner line" (1.44px): close, but it gives each outline icon its own line.
+
+**Canvas v229:**
+- Between section 0 rewritten: "The hump at the coupe's flares, and the star's counter", plus 0b, outline icons.
+- The v228 board is archived as `Archive-G7au-Between` (x 8400, y 148000).
+- Between is now 7423px; Master at y 8023.
+- v228 svgs frozen in `svg/g7/before-g7au/`.
+
+**Checks run:**
+- fair-check on every row svg: the shown row is clean; the other row has its known 2 TAILs.
+- Museum, tree and + svgs are byte-identical to v228.
+- mark-weight `--outline`.
+- By eye at 12/24/72 and at about his zoom.
+- boards7 regenerated.
+- Impeccable not run (a design board, not index.html).
+
+**Unsure:**
+- Whether the hump reads gone to him. The stem side of each flare is now short and firm.
+- 1 3/4 is set by eye on the coupe and checked on the cup only.
+- Whether the star is too big at 14.1px. It still measures darker than the + by blur.
