@@ -6162,3 +6162,45 @@ Merged 3b737366 and re-read the live board (v229, 7423px) at 1x and 3x. Rendered
 - His "+ might feel a bit light" is open again, as a question beside the star's.
 - "What's left" now says the 1 3/4 lean has been tried on only two corners of one type: the coupe's flares and the cup's.
 - No drawing changed. The edit is in boards7 (source), between-g7.html and the published board. Between is 7423 → 7505px; Master is at y 8105.
+
+---
+
+## Turn 142: icon designer (eighth), the construction diagram (canvas v231)
+
+Owner (v230): "These are looking great. I want to see a diagram now that overlays the shapes used to make these shapes on top of them, a construction diagram"
+
+**The board:** a new board, "Construction" (`Grid7Construction.dc.html`, 1700 × 6869, on the Grid concepts page at x 1680, y 8105, beside the master grid). Each of the six gets two sheets at 30px a unit on the 24 grid, plus its true sizes and notes:
+- **Shapes:** the 1px grid and 1/3px lattice, the 12 box and live circle, the class's cut (× 11/12), and the root shapes as the engine got them (sized and placed, before the union; cuts dashed). It also shows the counters, the mirror axis, and the box centre, ink centre and optical centre on the badge's middle. Lettered notes give each drawing rule's values.
+- **Corners:** every round the engine drew, coloured by its kind (outside corner, tip, line end, join or flare, leaned flare, counter corner, drawn bend rebuilt). Each shows its tightest-point circle and where it leaves each edge; the leaned flare's two runs are dotted. Numbered notes give the law's radius for each kind.
+- After the six: the engine's order as eight steps (how a seventh icon is built), then the findings.
+
+**It is the code's own construction.**
+- `src/construction.js` rebuilds the R2B row the way boards7's fitPlace / starOutline / plus do.
+- It uses a logging-only hook in the engine (`opts.join.cornerLog`). The hook records every round as it is emitted: its corner, kind, law radius, ends, crest and cubics.
+- Each finished outline is compared byte for byte with the row's svg: **6 of 6 identical**. They were built with the hook on, so the hook doesn't change the output.
+- `src/construction-board.js` draws the board from `svg/g7/construction.json`.
+
+**Findings** (on the board; nothing changed):
+1. Every round is a hill of bend made of 2-4 cubics, not a circle. Curves per glyph: cup 45, coupe 60, museum 92, tree 72, star 80, + 48. Central or Lucide would use one curve a corner.
+2. Counters are made four ways:
+   - an offset (the star);
+   - the bowl's side shifted sideways (the coupe's band);
+   - hand-drawn quarter curves (the cup's ear);
+   - the gaps the posts leave (the museum).
+   Open question: should one of them become the rule?
+3. Some drawn curves are only aims:
+   - the museum's capital and foot curves set only where the engine's S starts and ends;
+   - the cup's loop is eased in;
+   - tip landing re-aims the tree's tiers, so the drawn points move 0.4px (top) to 1.0px (bottom tier); the star's move 0.25.
+4. The mirror hides one seam. Built whole, the museum's right half has a 0.0004px step at the capital (3-decimal rounding in picks7), so its outer opening's corners would take 0.10, not 0.15. The mirror replaces that half. An asymmetric icon has no such safety net.
+5. Every slab in this row is 1 1/2 (monoweight); the 4/3 horizontal in picks7's notes isn't used.
+
+**Checks:**
+- construction.js: 6/6 identical.
+- Board screenshots at 1x and 3x.
+- No drawing changed; the engine edit only adds logging.
+- Impeccable not run (a design board, not index.html).
+
+**Unsure:**
+- Whether two sheets per icon are easier for him to read than one combined overlay.
+- The corners sheet is dense at the museum's openings.

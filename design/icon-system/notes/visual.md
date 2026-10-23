@@ -1,5 +1,25 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-23, canvas v231, turn 142; eighth icon designer)
+
+- **Owner on v230:** "These are looking great. I want to see a diagram now that overlays the shapes used to make these shapes on top of them, a construction diagram".
+- **Done:** a new "Construction" board, `Grid7Construction.dc.html` (1700 × 6869, Grid page, x 1680 y 8105, right of Master). No drawing changes.
+  - Per icon: a Shapes sheet (grid, cut, roots, counters, mirror, optical centre; lettered notes) and a Corners sheet (each round coloured by kind, with its crest circle and edge points; numbered notes). Then true sizes, the 8-step build order and five findings.
+- **Proof:**
+  - `src/construction.js` rebuilds R2B (values copied from boards7, so it runs in about 9 min, not 45). It writes `svg/g7/construction.json` and compares each glyph with `svg/g7/between/{cafe-r2,bar-r2b,museum-r2,nature-r2,star-r2,plus-r2}.svg`: 6/6 identical.
+  - Engine hook `opts.join.cornerLog` (logging only; cs entries also carry `hole`, `end`, `flared`, `crest`, `kM`).
+  - If boards7's R2B values change, update construction.js's copy, then re-run it and `construction-board.js <outdir>`.
+- **Findings** (open, for the director and owner):
+  1. Each round has 2-4 cubics (curve count vs "minimal bezier curves").
+  2. Four counter methods.
+  3. Drawn curves that are only aims (museum capital S, the cup's loop arc ease, tree and star tip landing: 0.4-1.0 / 0.25px).
+  4. The mirror hides a 0.0004px seam in the museum's right half (picks7 rounding).
+  5. Slabs are 1.5, not 4/3, in this row.
+- **Board tooling** (scratchpad `d8/`): `shot.js` (full page or a clip at any scale), `mkpub.py` (adds the board to canvas.json with an overlap check), patch scripts `p*.py`. Marker placements are hand-set in `CORNER_AT` and `SH` in construction-board.js.
+- **Open:**
+  - Is two sheets per icon right for him?
+  - Should one counter method become the rule?
+
 ## Update (2026-10-23, canvas v229, turn 139; seventh icon designer)
 
 - **Owner on v228:** "almost perfect"; "an awkward hump on the bowl and foot on either side as a result of the round shape ... one more try"; "the problem with the star weight is the counter size now. I think the stroke is inner stroke ... find the right balance there for the outline icons."

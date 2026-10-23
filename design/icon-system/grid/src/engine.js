@@ -168,7 +168,7 @@ function corners(item, law, info, opts = {}) {
       // with opts.join every round is the JOIN ROUND (below): it starts join.trim times as far from the corner as the
       // compass arc of the law's radius would, so it has room to ease in and out
       let d = J && !ez ? r * Math.tan(ang / 2) * J.trim : r * Math.tan(ang / 2) * (ez || 1);
-      cs.push({ d, d0: d, r, ang, turn, convex, angle: inkAngle, ease: !!ez, jr: !!J && !ez, P0, bis, tin, tout });
+      cs.push({ d, d0: d, r, ang, turn, convex, angle: inkAngle, ease: !!ez, jr: !!J && !ez, P0, bis, tin, tout, hole: isHole, end: isEnd });
       if (info) info.push({ x: r3(P0.x), y: r3(P0.y), r: r3(r), convex, angle: Math.round(inkAngle) });
     }
     // g7aq COUNTER ENDS (owner on v222, the coupe's band: "im still concerned that the counter edge looks less curved than
@@ -305,10 +305,10 @@ function corners(item, law, info, opts = {}) {
             for (let it = 0; it < 12 && ea && ec; it++) { if (Math.abs(ec.g) < 1e-3 * kL) { got = ec; break; } const n_ = Math.max(0.3, Math.min(3, c_ - ec.g * (c_ - a) / (ec.g - ea.g || 1e-9))); a = c_; ea = ec; c_ = n_; ec = tryS(c_); }
             if (process.env.FLAREDBG) console.error('flare', b.P0.x.toFixed(2), b.P0.y.toFixed(2), side, got ? 'dI ' + got.s2.dI.toFixed(3) + ' dO ' + got.s2.dO.toFixed(3) + ' kM ' + got.s2.kM.toFixed(2) : 'FAIL (plain hill kept)');
             if (opts.join.flareLog) opts.join.flareLog.push(got ? { at: [b.P0.x, b.P0.y], side, dI: got.s2.dI, dO: got.s2.dO, kM: got.s2.kM, plain: [sol.dI, sol.dO, sol.kM] } : { at: [b.P0.x, b.P0.y], fail: true });
-            if (got) sol = got.s2;
+            if (got) { sol = got.s2; b.flared = side; }
           }
         }
-        if (sol) { b.dIn = sol.dI; b.dOut = sol.dO; b.jrSol = sol.sol; } else { b.dIn = Math.min(b.d, roomIn); b.dOut = Math.min(b.d, roomOut); }
+        if (sol) { b.dIn = sol.dI; b.dOut = sol.dO; b.jrSol = sol.sol; b.crest = sol.M; b.kM = sol.kM; } else { b.dIn = Math.min(b.d, roomIn); b.dOut = Math.min(b.d, roomOut); }
       }
     }
     if (opts.join && !opts.join.fair) for (let i = 0; i < n; i++) {
@@ -391,6 +391,9 @@ function corners(item, law, info, opts = {}) {
         // tangents cross), so the turn from the edge's slight hollow into the round happens exactly at the join
         const g = !jr && opts.join ? g2Handles(pA, tA, kA, pB, tB, kB) || (b.ease ? g2Handles(pA, tA, 0, pB, tB, 0) : null) : null;   // a join round with no even solution: one cubic that still meets both curvatures
         if (opts.join && opts.join.log) opts.join.log.push(jr ? 'join' : g ? 'g2' : 'fallback');
+        // g7av CONSTRUCTION LOG (the Construction board): with opts.join.cornerLog, every round as drawn: its corner, kind, law radius,
+        // where it leaves each edge, its crest and its cubics. Logging only; the outline is the same with or without it.
+        if (opts.join && opts.join.cornerLog && !opts._probe) opts.join.cornerLog.push({ P0: b.P0 && [b.P0.x, b.P0.y], pA: [pA.x, pA.y], pB: [pB.x, pB.y], r: b.r, angle: b.angle, convex: b.convex, hole: !!b.hole, end: !!b.end, ease: !!b.ease, sSpan: !!b.sSpan, arcEase: !!b.arcEase, flared: b.flared || null, crest: b.crest ? [b.crest.x, b.crest.y] : null, kM: b.kM ?? null, edges: [cv.isStraight() ? 'L' : 'C', nx.isStraight() ? 'L' : 'C'], cubics: (jr || []).map(P => P.map(q => [q.x, q.y])), how: jr ? 'hill' : g ? 'g2' : 'plain' });
         if (jr) segs.push(...jr.map(pts => ({ kind: 'C', pts })));
         else segs.push({ kind: 'C', pts: g ? [pA, pA.add(tA.multiply(g[0])), pB.subtract(tB.multiply(g[1])), pB] : [pA, pA.add(tA.multiply(h)), pB.subtract(tB.multiply(h)), pB] });
       }
