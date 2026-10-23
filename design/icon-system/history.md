@@ -93,6 +93,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-23 · v228 shown:** the wobble answered (a jump in the rate of bend as a line leaves a corner; the old check measured bend, not its rate). Engine fairing for every round (at most two curves a half; 189 → 397 curves, stated), handle eased, no convex corner bends back (INFLECT), soft tips as one hill (geometric rule stated; code still a number, tipSoft 6). New fair-check: v223 178 faults → 0. + / star weight: one rule (equal darkness at true size), options A/B/C. Director 7 (v225) → 7 (v226) → 9 (v227, copy in v228). Asked: still his tree? which weight?
 
+- **10-23 · v230 shown:** the coupe's hump = a "shelf" (bowl and foot met the stem nearly level; the round split evenly, so the bowl ran flat into a knuckle). Engine rule "leaned flare": at that corner type the round runs 1.75x along the curve vs the line (tried on coupe and cup); new SHELF check (v228: 5 faults → 0). Outline icons: the 1.5px line centred, counter ≥ 2.5 lines; star 13.2 → 14.1px, hole 3.1 → 4.0; replaces A/B/C. Two line classes stated: open marks 1⅔, outlines 1½; "+ might be light" left open. Director 9 (copy in v230).
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
