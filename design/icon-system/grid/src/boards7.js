@@ -828,16 +828,17 @@ const OPEN_QS = [
 ];
 // g7ab: Start's open questions (the older boards keep OPEN_QS as they were published)
 const START_QS = [
-  ['Between H2 and H3, part 1', 'The coupe, in the shallow bowl: the open glass (more drink than v134), or more clear glass and less drink?'],
-  ['Between H2 and H3, parts 2 and 3', 'Between H2 and H3: the plate rising or flipped? And which of three ways should buildings be drawn?'],
-  ['Decide: line marks', 'At 1 2/3px, do the + and the star feel as heavy as the place icons?'],
+  ['Between H2 and H3, section 0', 'The foot, the plate, the bowl and the cup, each from one ellipse: does the foot read as one shape? Do the coupe and the cup still look like yours? Does the cup still sit right on its plate, now its ends are a little thinner?'],
+  ['Between H2 and H3, section 0c', 'The star at the 1 1/2px line, sized by its counter: does it feel balanced with the +? Is it too big at 14.1px against the +\'s 13.2? And does the + still feel a bit light?'],
+  ['Between H2 and H3, section 1', '"The glass being on something so rounded as a plate": did you mean the cup on its saucer, or the coupe on its foot?'],
+  ['Between H2 and H3, section 1 (the museum)', 'Does Joins connect the museum to the coupe and the tree? And is the museum moving from Wide to Square on the master grid all right?'],
 ];
 const ANSWERED = ['The coupe, A, B or C: B, the flatter bowl. Its inside and its drink are question 1.', 'H1, H2 or H3: H1 dropped; you asked for something between H2 and H3 (question 2).'];
 // g7ag (owner: "clean up all the old stuff first theres so much content to read"): one line on the page, then the
 // open questions only, each pointing to its board. Everything older is on the Archive page.
 function sheetStart() {
   const qs = START_QS.map(([b, q], k) => `<div style="display:grid;grid-template-columns:36px 1fr;gap:10px;padding:14px 0;border-top:1px solid ${COL.hair}"><div style="font-size:24px;font-weight:700;color:${COL.or}">${k + 1}</div><div><div style="font-size:20px;line-height:1.35;color:${COL.navy};font-weight:600">${q}</div><div style="font-size:17px;color:${COL.ink2};margin-top:4px">Board: ${b}</div></div></div>`).join('');
-  return phBoard('Grid concepts', 'Start here', `${phP('The icon grid: the questions waiting on you, then the master grid and every icon, original beside newest. Everything older is on the Archive page.')}
+  return phBoard('Grid concepts', 'Start here', `${phP('The icon grid. Row 1: these questions, the current round (Between H2 and H3) and every icon, original beside newest. Row 2: the master grid and how each icon is built (Construction). Everything older is on the Archive page.')}
 <div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:24px 0 6px">Waiting on you</div>${qs}`);
 }
 function sheetDecideTunings() {
@@ -956,7 +957,7 @@ const FC = require('./fair-check.js');
 const MWB = { plus: lw => { const d = require('./mark-weight.js').plusD(lw); return shiftD(d, 12 - opticalY(measure(d))); }, star: lw => { const d = require('./mark-weight.js').starD(lw); return shiftD(d, 12 - opticalY(measure(d))); } };
 const MW = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/between/mark-weight.json'), 'utf8')); } catch (e) { return null; } })();
 // g7au (owner on v228): the hump at the coupe's flares (the leaned flare) and the star's counter (the outline rule)
-function sectionHump(kick, quote) {
+function sectionHump(kick, quote, part = 'hump') {
   const N = COL.navy, I2 = COL.ink2, OR = COL.or;
   const B8 = id => fs.readFileSync(path.join(__dirname, `../svg/g7/before-g7au/${id}.svg`), 'utf8').match(/ d="([^"]+)"/)[1];   // v228, as he saw it
   const mark = f => `data:image/png;base64,${fs.readFileSync(path.join(__dirname, `../owner-marks/${f}`)).toString('base64')}`;
@@ -989,7 +990,9 @@ function sectionHump(kick, quote) {
   const sB = starNums(before.star), sA = starNums(after.star), plusW = (() => { const b = measure(after.plus).box; return (b.x1 - b.x0) * 26.4 / 24; })();
   const DK = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/between/outline-weight.json'), 'utf8')); } catch (e) { return null; } })();
   const markRow = (ds, label, strong) => `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid ${COL.hair};flex-wrap:wrap"><div style="width:110px;font-size:16px;color:${strong ? N : I2};${strong ? 'font-weight:700' : ''}">${label}</div>${BATCH.filter(([id]) => id !== 'star' && id !== 'plus').map(([id]) => badge(ds[id])).join('')}${uiPath(ds.plus, 26.4)}${uiPath(ds.star, 20)}<span style="width:14px"></span>${uiPath(ds.plus, 79)}${uiPath(ds.star, 60)}</div>`;
-  return `${kick('0b · Before this round: the hump at the coupe\'s flares (v228), and the star\'s counter')}
+  // v236 clean-up (owner: "Yeah the boards are untenable to view so cleanup would be freat"): 0b (the hump) is on the
+  // Archive page as its own board; 0c (the outline rule, with the open star / + question) stays live. part = 'hump' | 'outline'.
+  const all = `${kick('0b · Before this round: the hump at the coupe\'s flares (v228), and the star\'s counter')}
 ${quote('This is almost perfect. On the corner types on the coupe, there is still an awkward hump on the bowl and foot on either side as a result of the round shape. I\'m not sure how to smooth it further programmatically but let\'s do one more try. Also think the problem with the star weight is the counter size now. I think the stroke is inner stroke so it\'s making the counter shape feel cramped. Let\'s find the right balance there for the outline icons.')}
 ${phP('<b>The hump, named: a shelf.</b> The bowl and the foot meet the stem almost level. The round there was an even hill: its bend was split half and half between the stem and the bowl (or foot). So the bowl ran on nearly level right up to the round, making a short flat shelf, and the round sat on that shelf as a separate knuckle. That\'s the hump on either side.')}
 ${phP('<b>Why the check passed it:</b> it measured how smoothly the bend changes, and the bend did change smoothly. It never asked <i>where</i> the bend sits. A new check, <b>shelf</b>, does: at a round between a line and a gentle curve that bends the other way, the run along the curve must be at least 1 1/2 times the run along the line. v228 fails it at all four coupe flares.')}
@@ -1008,6 +1011,8 @@ ${phP(`<b>The rule, for the two kinds of line mark.</b> <b>Outline marks</b> (th
 ${markRow(before, 'v228')}${markRow(after, 'now', true)}
 ${phP(`<b>This replaces the A/B/C darkness options.</b> They thinned the line at the same outside, which opened the counter but made the star spindly at 72px. ${DK ? `The darkness measure for the record (blurred, at true size): star ${DK.before.toFixed(0)} → ${DK.after.toFixed(0)}, the + ${DK.plus.toFixed(0)}. The star still measures darker than the +, because its walls face each other across the counter; to my eye at 1x it no longer reads heavier.` : ''} <b>Questions:</b> does the star now feel balanced with the +? Is it too big, at ${sA.w.toFixed(1)}px against the +'s ${plusW.toFixed(1)}? And you said the + "might feel a bit light": is it still?`)}
 `;
+  const at = all.indexOf(kick('0c · Outline icons: the line and the counter'));
+  return part === 'outline' ? all.slice(at) : all.slice(0, at);
 }
 function sectionWobble(kick, quote) {
   const N = COL.navy, I2 = COL.ink2, OR = COL.or;
@@ -1206,9 +1211,9 @@ function sheetBetween() {
   const r2Rules = () => `<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.35;margin:6px 0 10px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0;width:16%">Rule</td><td style="padding:4px 8px;width:24%">Was</td><td style="padding:4px 0 4px 8px">Now</td></tr>${R2RULES.map(([a, b, c, e]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 8px 2px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px 8px 2px;color:${I2}">${b}</td><td style="padding:8px 0 2px 8px;color:${N}">${c}</td></tr><tr style="vertical-align:top"><td></td><td colspan="2" style="padding:2px 0 10px 8px;color:${N}"><b>Here:</b> ${e}</td></tr>`).join('')}<tr style="border-top:1px solid ${COL.hair}"><td colspan="3" style="padding:8px 0;color:${N}"><b>Unchanged:</b> line ends, tips by their edge, flares 1/2px, mass corners 0.6, the vessel side, the tree\'s sweep and droop. The + and the star: nothing in these rules acts on them.</td></tr></table>`;
   const musRows = [['H2\'s museum (the base)', 'As H2 drew it: four columns, a beam, a straight roof, a plinth. Every approach below starts from it.', S.ds.museum, 'museum'], ...MUSEUM_V.map(([nm, line], k) => [nm, line, S.mus[k], `museum-${k + 1}`])]
     .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center"><div style="display:flex;gap:6px;align-items:center;padding:8px;background:${COL.paper}">${badge(S.ds.cafe)}${badge(S.ds.bar)}${badge(d)}${badge(S.ds.nature)}</div>${chip(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(d, 72)}${badge(S.ds.nature, 72)}</div><div style="margin-top:10px">${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
-  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Your earlier notes on this board (the coupe options, H2 / Between / H3, the tuned row and its table) are on the Archive page, as v217; the board as you saw it on 10-22, before the joins and centring rules, is there as v222, and as v223 (the joins and centring as rules); the wobble round (v228: hill rounds, tips, the weight options) is there as v228; this board as you saw it at v233 is there too.')}
+  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Section 0 is this round. 0c is the outline rule for the star and the +. Section 1 is the current row and its rules table, with the museum. Everything older on this board is on the Archive page, each round its own board: v217, v222, v223, v228, v233, and the hump at the coupe\'s flares (0b, v230).')}
 ${sectionRoots(kick, quote)}
-${sectionHump(kick, quote)}
+${sectionHump(kick, quote, 'outline')}
 ${kick('1 · The coupe and the tree are fixed: rules for the rest')}
 ${quote('youre missing my point -- the between tree is perfect. what changes need to happen to h2 to make that tree fit in')}
 ${quote('in "after: rules tuned to the tree" "coup, after" and "tree, after" are perfect ... but the glass being on something so rounded as a plate feels off and the museum feels completely disconnected. so what rules do we need to establish to fix that.')}
