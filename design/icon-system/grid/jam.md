@@ -6119,3 +6119,34 @@ Owner (v228): "This is almost perfect. On the corner types on the coupe, there i
 - Whether the hump reads gone to him. The stem side of each flare is now short and firm.
 - 1 3/4 is set by eye on the coupe and checked on the cup only.
 - Whether the star is too big at 14.1px. It still measures darker than the + by blur.
+
+---
+
+## Turn 140: design director, v229 (leaned flare, outline rule): 9 after one copy edit
+
+Merged 3b737366 and re-read the live board (v229, 7423px) at 1x and 3x. Rendered the R2 svgs, v228 (`before-g7au/`) beside now: 12/24/72px, then the coupe's flares at about 55px a unit and 145px a unit.
+
+**At true size:** the coupe and the cup are unchanged. The star now has an open counter, and at 12 and 24 it sits in the row at the badges' weight.
+
+**The hump, at his zoom:**
+- v228: the bowl runs on level and the round sits on that flat as a knuckle, on both sides. The foot has the same thing, smaller.
+- Now: the bend starts out on the bowl and the foot, and runs into the stem as one sweep. The knuckle is gone, on all four flares, at 55px a unit and at 145.
+- The stem end is a little shorter and firmer. It reads as a clean turn, not a hump.
+- The board's crops show the difference plainly.
+- **Reads gone. Pass.**
+
+**Is 1.75 sound?** It is a set value, like the corner law's radius. It's defensible because it's bounded on both sides: 1.5 leaves a shelf, about 2.1 collapses the line side. SHELF fails at 1.5, so a near miss is caught. It has been tested on two corners of one type (the coupe and the cup). Keep it, and say so; the board already does.
+
+**Star:**
+- **Breathes:** the counter goes 3.1 → 4.0px. By eye the star is no longer cramped, and at 1x it no longer reads heavier than the +.
+- **Size:** 14.1 against the +'s 13.2 is right optically, because a star fills less of its box. It doesn't look big in the 24 row. At 72 it's a touch big; that's acceptable.
+- **The gap:** the rule says "every outline icon: the set's 1 1/2px line", but the + keeps 1 2/3. At 72 the star's line visibly reads thinner than the +'s arms. So the two marks are on two lines, and the board doesn't state that as a rule.
+  - If it's meant (an open mark's line reads lighter, so it gets 1 2/3; an outline's walls take the solids' 1 1/2), say so as the rule for both classes. Then a future open mark (an x, an arrow) and a future outline (a heart, a pin) each know their line.
+  - He asked whether the + "might feel a bit light". Keep that question open in one line.
+
+**Likely owner objections:** "the star's line is thinner than the plus now" (possible, at 72). The hump: unlikely.
+
+**Score: 9 after one copy edit:**
+1. In 0b, state the line rule for both classes: open marks (the +) at 1 2/3, because an open stroke reads lighter; outlines (the star) at the solids' 1 1/2, centred, sized by a 2 1/2-line counter. Keep his "+ might be light" open as a question.
+
+**Changed since my last score?** Yes: the leaned flare (5 corners), the SHELF check, and the star redrawn by the outline rule.

@@ -1864,3 +1864,10 @@ checks; don't eyeball "is it as good as".
 - A rule tuned to one drawing is a fit, not a rule. Ask for it in geometric terms, and for which icons it has been tested on.
 - "Keeps v223's points" was true of the measure (peak bend) but not of the look (slimmer). Ask for copy that describes what he'll see.
 - Next: two copy edits, then it goes to him with the weight question (A/B/C).
+
+## g7au (v229, 2026-10-23): 9 after one copy edit
+
+- The hump was about *where* the bend sat, not how smoothly it changed. Every check measures one property, so ask which property his word names (hump = position, wobble = rate, bulb = sign).
+- A set value is acceptable when it's bounded on both sides and the check sits inside the bound (lean 1.5 < 1.75 < 2.1).
+- A rule that claims "every X" while a sibling keeps a different value must state the split as a rule (the + at 1 2/3, the star at 1 1/2).
+- Next: one copy edit, then it goes to him.

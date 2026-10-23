@@ -1352,3 +1352,10 @@ The verdict stands within our own set:
 - **Everything else** passes as in v226.
 - **Before sending:** name the blunter top and the slimmer sides. State the soft-tip rule as geometry (the bend it needs against the room it has), tested on two icons only.
 - **Fixes:** jam turn 137.
+
+## Round g7au leaned flare + outline rule (canvas v229), 2026-10-23: 9 after one copy edit
+
+- **Hump:** gone by eye, on all four flares, at his zoom and at 145px a unit. 1.75 is a bounded set value (1.5 shelves, about 2.1 collapses), tested on two corners.
+- **Star:** the counter goes 3.1 → 4.0. It breathes and no longer reads heavier at 1x. 14.1px is right optically.
+- **Gap:** the + keeps 1 2/3 while the "outline" rule says 1 1/2. State both classes' lines as the rule.
+- **Fixes:** jam turn 140.
