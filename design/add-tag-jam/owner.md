@@ -171,3 +171,9 @@ Read as: Places/Plans menu with the quiet bottom row approved; fix icon centring
 > it needs a disc. i dont mind the screened back orange one, but the orange background should be a bit lighter
 > yeah 6
 > Yes   (on the built sheet, `design/tag-close-fix/contact-sheet.png` on main)
+
+## 2026-10-23 (the add tag's close, tweak lane `add-tag-close`)
+> I don't see this in the add places tag only in existing places
+> Disc on a string   (picked: blank tag and while typing)
+> Disc always   (picked: once a place is picked)
+> Yes   (on the sheet, `design/add-tag-close/contact-sheet.png` on main)
