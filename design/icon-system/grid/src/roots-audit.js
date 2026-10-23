@@ -21,9 +21,9 @@ const V = P7.VESSEL_SIDE, bd = 5.5;   // the row's coupe: COUPE_B's depth, the v
 const rows = [];
 const add = (icon, piece, root, d, k, note) => rows.push({ icon, piece, root, units: d, px24: d * k, px72: d * k * 3, note });
 // the cup's body: its bottom corner (wall foot to bottom middle), picks7 cafe: one cubic, handles 2.17 down and 1.25 in
-{ const r = 8.25, mid = 4.875, w = 4.667, b = 8; add('cup', 'body: the bottom corners', 'quarter ellipse', gap(samp(t => bz([[r, w], [r, b - 1.167], [r - 1.25, b], [mid, b]], t)), ell(mid, w, r - mid, b - w, 0, Math.PI / 2)), px('cafe'), 'squarer than the ellipse'); }
+{ const r = 8.25, mid = 4.875, w = 4.667, b = 8; add('cup', 'body (v234, replaced): the bottom corners', 'quarter ellipse', gap(samp(t => bz([[r, w], [r, b - 1.167], [r - 1.25, b], [mid, b]], t)), ell(mid, w, r - mid, b - w, 0, Math.PI / 2)), px('cafe'), 'squarer than the ellipse'); }
 // the coupe's bowl: rim to bottom middle, the vessel side rule
-{ add('coupe', 'bowl: its sides', 'half ellipse', gap(samp(t => bz([[11.75, 0], [11.75 - V.lean, V.bk * bd], [12 - V.bx, bd], [6, bd]], t)), ell(6, 0, 5.75, bd, 0, Math.PI / 2)), px('bar'), 'squarer than the ellipse'); }
+{ add('coupe', 'bowl (v234, replaced): its sides', 'half ellipse', gap(samp(t => bz([[11.75, 0], [11.75 - V.lean, V.bk * bd], [12 - V.bx, bd], [6, bd]], t)), ell(6, 0, 5.75, bd, 0, Math.PI / 2)), px('bar'), 'squarer than the ellipse'); }
 // v233's plate and foot: one cubic each, handles at 3/10 and 7/10, 1/2 of rise
 { add('cup', 'plate (v233): its underside', 'circle arc', gap(samp(t => bz([[12, 1], [8.4, 1.5 + 0.5 / 3], [3.6, 1.5 + 0.5 / 3], [0, 1]], t)), arcThrough(0, 12, 1, 0.5, true)), px('cafe'), 'one arc to the eye; its ends drew their own rounds'); }
 { add('coupe', 'foot (v233): its top', 'circle arc', gap(samp(t => bz([[2, 0.5], [4.4, -1 / 6], [7.6, -1 / 6], [10, 0.5]], t)), arcThrough(2, 10, 0.5, 0.5, false)), px('bar'), 'one arc to the eye; its ends drew their own rounds'); }
@@ -40,7 +40,8 @@ const holeOf = d => { const cp = new paper.CompoundPath(d), kids = cp.children.s
 const hA = holeOf(sharp()), hB = holeOf(sharp('root')); let sg = 0; for (let s = 0; s < hB.length; s += 0.01) { const p = hB.getPointAt(s); sg = Math.max(sg, hA.getNearestPoint(p).getDistance(p)); }
 const starRatio = P7.star(20, rc, W, 'root')[1].ratio;
 // the coupe band's wall, square to the bowl, along the band (its sides are the bowl's side moved in sideways by the line)
-const u = J.bar.s / 12, B = [[0.25, 0], [0.25 + V.lean, V.bk * bd], [V.bx, bd], [6, bd]].map(p => p.map(v => v * u)), pts = samp(t => bz(B, t), 4000);
+// g7ax: the bowl's side is its ellipse (picks7 bowlRoot 7/8, bowlWide: rx = 5.75, centre bd/8 below the rim)
+const u = J.bar.s / 12, eRy = 7 / 8 * bd, eCy = bd - eRy, pts = samp(t => { const a = Math.PI / 2 + t * Math.PI / 2; return [(6 + 5.75 * Math.cos(a)) * u, (eCy + eRy * Math.sin(a)) * u]; }, 4000).filter(p => p[1] >= 0);
 const band = [W, W + 5 / 12, W + 5 / 6].map(y => { const p = pts.reduce((b, q) => Math.abs(q[1] - y) < Math.abs(b[1] - y) ? q : b), q = [p[0] + W, p[1]]; return Math.min(...pts.map(r => Math.hypot(r[0] - q[0], r[1] - q[1]))); });
 const out = { rows, star: { ratio: starRatio, gapUnits: sg, gap72: sg * 3 }, bandWall: band };
 fs.writeFileSync(path.join(__dirname, '../svg/g7/roots-audit.json'), JSON.stringify(out, null, 1));

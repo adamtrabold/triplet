@@ -74,6 +74,15 @@ const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx -
 //                       is the upright end under it)
 // up: the curve on top (a foot: a stem stands on its crown); otherwise the curve underneath (a plate: a thing sits on its flat).
 // yb is the flat side's y. Returns a primitive (an I of the root and the slab when the ends cut it).
+// g7ax ONE ELLIPSE PER CURVED EDGE (director, turn 148, on the owner's "I want it all defined by the shapes and proportions not
+// stroke logic"): the vessels' curved sides are arcs of one ellipse each, cut where they meet their neighbours (the coupe's rim
+// line; the cup's straight walls). ELL_ARC: the one cubic that follows the ellipse (cx, cy, rx, ry) from parametric angle a to b
+// (y down; handles 4/3 tan((b - a) / 4) of the derivative: within 1/10000 of the ellipse for a quarter).
+const ELL_ARC = (cx, cy, rx, ry, a, b) => {
+  const P = t => [cx + rx * Math.cos(t), cy + ry * Math.sin(t)], Dv = t => [-rx * Math.sin(t), ry * Math.cos(t)], k = 4 / 3 * Math.tan((b - a) / 4);
+  const p0 = P(a), p3 = P(b), d0 = Dv(a), d3 = Dv(b);
+  return [p0, [p0[0] + k * d0[0], p0[1] + k * d0[1]], [p3[0] - k * d3[0], p3[1] - k * d3[1]], p3];
+};
 const CAP = (x0, x1, yb, h, spec, up = true) => {
   const sg = up ? -1 : 1, Y_ = v => f(yb + sg * v), K = 0.5523, xc = (x0 + x1) / 2, hw = (x1 - x0) / 2;
   if (spec.root === 'circle') {
@@ -143,7 +152,14 @@ const DRAW = {
     // melted into a lump under the handle. Now the bowl is a VESSEL with both walls (the right one mirrors
     // the left), and the handle is its own LOOP laid over the right wall; the union meets in a join, which the
     // law rounds at 0.15 (inside tighter than outside).
-    const bowlP = D(`M${X(l)} ${X(top)}H${X(r)}V${X(wall)}C${X(r)} ${X(bot - 1.167)} ${X(r - 1.25)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`, { root: 'VESSEL' });
+    // g7ax o.cupRoot { over, ry }: the cup's bottom is the lower half of ONE ellipse on the cup's centre line, rx = over x the
+    // half width (so the straight walls cut it a little inside its widest point: a corner the law rounds), ry = a share of the
+    // cup's depth, its lowest point the cup's bottom; the walls run straight down to where they cut it
+    const cr_ = o.cupRoot, hwC = (r - l) / 2;
+    const bowlP = cr_ ? (() => { const rx = hwC * cr_.over, ry = cr_.ry * (bot - top), cy = bot - ry, a = Math.acos(hwC / rx), yc = cy + ry * Math.sin(a);
+      const R = ELL_ARC(mid, cy, rx, ry, a, Math.PI / 2), L = ELL_ARC(mid, cy, rx, ry, Math.PI / 2, Math.PI - a), q = v => `${X(v[0])} ${X(v[1])}`;
+      return D(`M${X(l)} ${X(top)}H${X(r)}V${X(yc)}C${q(R[1])} ${q(R[2])} ${q(R[3])}C${q(L[1])} ${q(L[2])} ${q(L[3])}Z`, { root: 'VESSEL', cap: { cx: X(mid), cy: X(cy), rx: X(rx), ry: X(ry), over: cr_.over } }); })()
+      : D(`M${X(l)} ${X(top)}H${X(r)}V${X(wall)}C${X(r)} ${X(bot - 1.167)} ${X(r - 1.25)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`, { root: 'VESSEL' });
     const earP = D(`M${X(r - 0.75)} ${X(top)}H${X(ex)}C${X(ex + R_ * K)} ${X(top)} ${X(eR)} ${X(top + R_ - R_ * K)} ${X(eR)} ${X(top + R_)}C${X(eR)} ${X(top + R_ + R_ * K)} ${X(ex + R_ * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r - 0.75)}Z`, { root: 'LOOP' });
     const body = bowlP;
     const ct = top + WH / u, cb = eb - WH / u, cr = (cb - ct) / 2, cx = eR - W / u - cr;   // counter, its back a half circle
@@ -200,7 +216,14 @@ const DRAW = {
     // depth it holds more drink; the stem is 1/3px shorter so the glass stays square to its class.
     const bl = 0.25, bk = o.bk ?? 0.55, ln = o.lean ?? 0;
     const bx = o.bx ?? 1.25;   // the bottom curve's handle: further in = a wider, flatter bottom (a classic coupe)
-    const bowl = D(`M${X(bl)} ${X(0)}H${X(12 - bl)}C${X(12 - bl - ln)} ${X(bk * bd)} ${X(12 - bx)} ${X(bd)} ${X(6)} ${X(bd)}C${X(bx)} ${X(bd)} ${X(bl + ln)} ${X(bk * bd)} ${X(bl)} ${X(0)}Z`, { root: 'VESSEL' });
+    // g7ax o.bowlRoot (ry, a share of the bowl's depth): the bowl's sides are ONE ellipse on the glass's centre line, its lowest
+    // point the bowl's bottom, its centre (1 - ry) of the depth below the rim, so the rim line cuts it a little above its widest
+    // point and the side turns from the rim on (no upright run: the vessel side rule); rx follows from passing the rim's corners
+    const br_ = o.bowlRoot, bE = br_ ? (() => { const ry = br_ * bd, cy = bd - ry, rx = o.bowlWide ? 6 - bl : (6 - bl) / Math.sqrt(1 - cy * cy / (ry * ry)), hr = rx * Math.sqrt(1 - cy * cy / (ry * ry)), a = Math.atan2(-cy / ry, hr / rx); return { ry, cy, rx, a, hr }; })() : null;   // o.bowlWide: the ellipse's widest point keeps the glass's width (the rim cut a hair inside it)
+    // each side in two cubics, split at the ellipse's widest point (a cubic over more than a quarter bends unevenly)
+    const mA = bE && o.bowlSplit === "even" ? (bE.a + Math.PI / 2) / 2 : 0, sideR2 = bE ? ELL_ARC(6, bE.cy, bE.rx, bE.ry, bE.a, mA) : null, sideR = bE ? ELL_ARC(6, bE.cy, bE.rx, bE.ry, mA, Math.PI / 2) : null, sideL = bE ? ELL_ARC(6, bE.cy, bE.rx, bE.ry, Math.PI / 2, Math.PI - mA) : null, sideL2 = bE ? ELL_ARC(6, bE.cy, bE.rx, bE.ry, Math.PI - mA, Math.PI - bE.a) : null, qq = v => `${X(v[0])} ${X(v[1])}`;
+    const bowl = bE ? D(`M${X(6 - bE.hr)} ${X(0)}H${X(6 + bE.hr)}C${qq(sideR2[1])} ${qq(sideR2[2])} ${qq(sideR2[3])}C${qq(sideR[1])} ${qq(sideR[2])} ${qq(sideR[3])}C${qq(sideL[1])} ${qq(sideL[2])} ${qq(sideL[3])}C${qq(sideL2[1])} ${qq(sideL2[2])} ${qq(sideL2[3])}Z`, { root: 'VESSEL', cap: { cx: X(6), cy: X(bE.cy), rx: X(bE.rx), ry: X(bE.ry), over: 1 } })
+      : D(`M${X(bl)} ${X(0)}H${X(12 - bl)}C${X(12 - bl - ln)} ${X(bk * bd)} ${X(12 - bx)} ${X(bd)} ${X(6)} ${X(bd)}C${X(bx)} ${X(bd)} ${X(bl + ln)} ${X(bk * bd)} ${X(bl)} ${X(0)}Z`, { root: 'VESSEL' });
     // The band's walls, two ways (owner, 10-20, on the g7i taper: "i like the handmade look of the taper, but im
     // not sure what in the real world it would allude to"; "i just dont want to lose the no taper option"):
     //   o.taper 'even': an EVEN offset of the bowl, the wall's width all the way down (straight sides between
@@ -244,7 +267,7 @@ const DRAW = {
       // each side of the band is the bowl's own curve over the band's height, moved in by the line. Same curve,
       // same curvature as the outside; the wall is the line wide all the way down. Without it: v142's true offset (v134 and A-C as shown).
       if (o.style === 'mono' && o.chan == null && o.coupe !== 'inner' && (o.bandSide === 'shift' || o.coupe === 'open' || o.coupe === 'crescent')) {
-        const Lc = [[X(6), X(bd)], [X(bx), X(bd)], [X(bl + ln), X(bk * bd)], [X(bl), 0]];   // the bowl's left side, bottom to rim
+        const Lc = sideL2 ? (mA ? sideL2 : sideL).map(v => [X(v[0]), X(v[1])]) : [[X(6), X(bd)], [X(bx), X(bd)], [X(bl + ln), X(bk * bd)], [X(bl), 0]];   // the bowl's left side, bottom to rim (g7ax: the ellipse's arc)
         const pt = (q, tt) => [0, 1].map(i => (1 - tt) ** 3 * q[0][i] + 3 * tt * (1 - tt) ** 2 * q[1][i] + 3 * tt * tt * (1 - tt) * q[2][i] + tt ** 3 * q[3][i]);
         const tY = y => { let lo = 0, hi = 1; for (let n = 0; n < 60; n++) { const m = (lo + hi) / 2; if (pt(Lc, m)[1] > y) lo = m; else hi = m; } return (lo + hi) / 2; };
         const lerp = (a, b, tt) => [a[0] + (b[0] - a[0]) * tt, a[1] + (b[1] - a[1]) * tt];

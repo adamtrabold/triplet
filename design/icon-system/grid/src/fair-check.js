@@ -82,7 +82,11 @@ function check(d) {
       // meet and growing again. Its own walk: out from the crest until the bend is under 4% of it (a small rise of up to 5% of
       // the crest is walked through, so a stall can't end the round early), stopping where it climbs into the next round.
       for (const dir of [-1, 1]) {
-        let g = i, st = 0, lowest = crest; while (st < m / 2 && Math.sign(pts[(g + dir + m) % m].k) === sgn && A(g + dir) > 0.04 * crest && A(g + dir) <= lowest + 0.05 * crest) { g += dir; st++; lowest = Math.min(lowest, A(g)); }
+        // g7ax: the walk also stops where the round has landed on a curved edge's own steady bend (an ellipse's side): the
+        // bend stays within a tenth of itself for the next half unit outward. A stall inside a round is short, so it is still
+        // walked through; a whole root curve is not counted as the round (the coupe's bowl, an ellipse, rising gently into its rim)
+        const steady = g0 => { const a0 = A(g0); if (a0 < 0.08 * crest) return false; let L0 = pts[(g0 + m) % m].L, q = g0, n_ = 0; while (n_ < m / 2) { q += dir; n_++; const dl = Math.abs(pts[(q + m) % m].L - L0); if (Math.abs(A(q) - a0) > 0.1 * a0 || Math.sign(pts[(q + m) % m].k) !== sgn) return false; if (dl >= 0.5) return true; } return false; };
+        let g = i, st = 0, lowest = crest; while (st < m / 2 && Math.sign(pts[(g + dir + m) % m].k) === sgn && A(g + dir) > 0.04 * crest && A(g + dir) <= lowest + 0.05 * crest && !steady(g)) { g += dir; st++; lowest = Math.min(lowest, A(g)); }
         const sl = []; for (let j = g; j !== i; j -= dir) { const a = (j + m) % m, b = (j - dir + m) % m, dL = Math.abs(pts[b].L - pts[a].L); if (dL > 1e-6 && dL < 0.5) sl.push(Math.max(0, A(b) - A(a)) / dL); }
         const S = Math.max(0, ...sl), lo = Math.floor(sl.length * 0.12), hi = Math.ceil(sl.length * 0.88);
         let pre = 0; const post = []; for (let j = sl.length - 1, mx = 0; j >= 0; j--) { mx = Math.max(mx, sl[j]); post[j] = mx; }

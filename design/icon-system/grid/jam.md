@@ -6364,3 +6364,25 @@ Merged 5a0f15f8 and read both live boards (v234): Between section 0 and Construc
 1. Put the bowl and the cup's bottom on cut ellipses by the generalised cap rule. Fill in the audit rows, and show any visible change. Then every row reads root, near or from-a-root.
 
 **Changed since my last score?** Yes: the cap rule, counters redefined as shapes, the Roots audit.
+
+---
+
+## Turn 149: icon designer (ninth), turn 148's block: the bowl and the cup from one ellipse each (canvas v235)
+
+Director (turn 148): the two curves left without a root (the coupe's bowl, the cup's bottom) go against "all defined by the shapes and proportions"; fix them as a rule: a curved edge is part of one ellipse, cut where it meets its neighbours; not a half ellipse through the curve's ends (v205's upright sides); keep the drink, band and cup looks; fair check clean.
+
+**The rule, extended** (picks7 `ELL_ARC`, options `bowlRoot` / `bowlWide` / `bowlSplit` and `cupRoot`; boards7 `VESSEL_ROOT = { bowlRoot: 7/8, bowlWide: true, bowlSplit: 'even', cupRoot: { over: 1.02, ry: 4/9 } }`, on R2 (cup) and R2B (cup and coupe); copied in construction.js):
+- **Coupe bowl:** one ellipse, its lowest point the bowl's bottom, 7/8 of the depth tall (its centre bd/8 below the rim), its widest point the glass's width; the rim line cuts it just above that, so the side turns from the rim on. Drawn as two cubics a side of equal turn. The band is still the bowl's side moved in (now the ellipse's arc).
+- **Cup bottom:** one ellipse 1.02 × the cup's width, 4/9 of its depth; the straight walls cut it a little inside its widest point.
+
+**How it was found** (scratch `d9/fit*.js`): the half ellipse through the ends is 0.74px at 72 off (and less drink); an ellipse cut below its widest point (sides leaning in) is worse (0.87-1.34); the best is a centre just below the rim (0.32px). Variants: the bowl as one cubic a side → SHOULDERs at the rim corners and KNEEs at the band; split at the widest point → clean but the rim round is cut short (fit limit by the short piece: a crisp rim, visible at 72), and the glass 2% smaller; even split + widest point = the glass's width → rim corners look like v234 (curvature profiles nearly identical) but 4 SHOULDERs at the rim corners. Cup: no cut (rx = half width) → 1 JUMP; cut at 1.02 → clean.
+
+**One fix to the check** (fair-check SHOULDER): the walk out from a round's crest now also stops where the bend has settled onto a curved edge's steady bend (within 1/10 for the next half unit). Why: an ellipse's bend rises gently toward its end, so the walk counted the whole bowl side as part of the rim's round and read that slow rise as a stall. A real stall inside a round is short and is still walked through. Every frozen row's count is unchanged (v223 / v225 / v226 / v228 / v233 / v234 and the 36 between svgs: identical totals; v225 still 20 SHOULDERs).
+
+**Effect:** cup bottom moves under 0.2px at 72 (0.06 at 24). Coupe: the glass sits about 1% smaller in its class (s 10.30 → 10.22: the full width is now reached below the rim, inside the box) and the rim corners sit a hair in; the outline moves up to 0.58px at 72 (0.19 at 24), mostly the size change; the bowl's own shape under 0.3px. Band wall square to the bowl 1.41 → 1.21 (v234 1.44 → 1.30). Shown before/after on both boards.
+
+**Canvas v235:** Construction Roots: audit now has a root for every piece; new "The bowl and the cup" figures (v234 handles vs the ellipse whole), true sizes, the check fix stated; vessel side rule's handles listed as replaced. Between section 0: v234 → now for the bowl and the cup.
+
+**Checks:** fair-check on the six row svgs: clean; construction.js 6/6 identical; museum, tree, +, star unchanged; boards looked at at 1x.
+
+**Unsure:** the check change is mine; the director should judge it. The coupe being 1% smaller follows from the class fit, not a choice.

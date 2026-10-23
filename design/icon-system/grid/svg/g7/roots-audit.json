@@ -2,20 +2,20 @@
  "rows": [
   {
    "icon": "cup",
-   "piece": "body: the bottom corners",
+   "piece": "body (v234, replaced): the bottom corners",
    "root": "quarter ellipse",
    "units": 0.15565319034637498,
-   "px24": 0.1393373815821663,
-   "px72": 0.4180121447464989,
+   "px24": 0.1393605277919602,
+   "px72": 0.41808158337588064,
    "note": "squarer than the ellipse"
   },
   {
    "icon": "coupe",
-   "piece": "bowl: its sides",
+   "piece": "bowl (v234, replaced): its sides",
    "root": "half ellipse",
    "units": 0.2880628810846655,
-   "px24": 0.24732830307554274,
-   "px72": 0.7419849092266282,
+   "px24": 0.24545120414371768,
+   "px72": 0.736353612431153,
    "note": "squarer than the ellipse"
   },
   {
@@ -23,8 +23,8 @@
    "piece": "plate (v233): its underside",
    "root": "circle arc",
    "units": 0.01356342684764623,
-   "px24": 0.012141687414351772,
-   "px72": 0.03642506224305531,
+   "px24": 0.01214370434649843,
+   "px72": 0.03643111303949529,
    "note": "one arc to the eye; its ends drew their own rounds"
   },
   {
@@ -32,8 +32,8 @@
    "piece": "foot (v233): its top",
    "root": "circle arc",
    "units": 0.011595165785402404,
-   "px24": 0.0099555092512606,
-   "px72": 0.0298665277537818,
+   "px24": 0.00987995188257721,
+   "px72": 0.029639855647731632,
    "note": "one arc to the eye; its ends drew their own rounds"
   },
   {
@@ -70,8 +70,8 @@
   "gap72": 0.00004016017912954537
  },
  "bandWall": [
-  1.4415317557466187,
-  1.3854833853590456,
-  1.2966686571064063
+  1.4108181115335856,
+  1.320871115488736,
+  1.2083610725817293
  ]
 }

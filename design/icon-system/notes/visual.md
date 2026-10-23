@@ -1,5 +1,14 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-23, canvas v235, turn 149)
+
+- **Director turn 148 (score 8):** the coupe's bowl and the cup's bottom were left without a root; fix as a rule (one ellipse per curved edge, cut by its neighbours), not a half ellipse through the ends.
+- **Done:** picks7 `ELL_ARC` (one cubic per ellipse arc); `o.bowlRoot` (ry share of the depth; 7/8), `o.bowlWide` (rx = the glass's half width, the rim cut a hair inside), `o.bowlSplit: 'even'` (two cubics a side of equal turn; split at the widest point made the rim round crisp via the law's fit limit), the band's `Lc` = the ellipse arc; `o.cupRoot { over: 1.02, ry: 4/9 }` (walls cut the ellipse; over 1 = a JUMP). boards7 `VESSEL_ROOT` on R2 (cup) and R2B; construction.js copy. v234 frozen in `svg/g7/before-g7ax/`.
+- **Check change (mine, stated on both boards):** fair-check SHOULDER's walk stops where a round lands on a curved edge's steady bend (within 1/10 over 0.5 units). All frozen rows' totals unchanged (scratch `d9/fcall.js`).
+- **Effect:** cup bottom < 0.2px at 72; coupe 1% smaller (s 10.30 → 10.22), outline up to 0.58px at 72 (mostly size), bowl shape < 0.3; band wall square 1.41 → 1.21 (was 1.44 → 1.30). Row svgs fair-check clean; construction 6/6 identical.
+- **Board:** Construction audit now a root for every piece; vessel figures (`vesselSvg`); Between section 0 adds v234 → now for the bowl and cup. Canvas: Master and Construction moved to y 10785 (Between 10405 tall).
+- **Open:** the director's read of the check change; whether the 1% smaller coupe reads to him.
+
 ## Update (2026-10-23, canvas v234, turn 147; ninth icon designer)
 
 - **Owner on v233:** "So an icon should have root shapes at its core that are then connected / disconnected to create the greater form ... notably the foot ... each top point on the left and right side are drawing their own arc, when the top edge should be crafted holistically from the top of a circle or ellipses". On finding #2 (counters): "Yeah I want it all defined by the shapes and proportions not stroke logic"; "I mean it shouldn't change anything should it?"

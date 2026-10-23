@@ -21,7 +21,8 @@ const STRUCT = { gb: 4, ap: 0.5, gEnd: 1.2 }, JOINS = { cap: { flare: 0.5 }, foo
 // g7aw: THE CAP RULE (a base with a curved side is a slab cut by one ellipse: 7/6 of its width, its full height), on the
 // coupe's foot and the cup's plate (picks7 CAP); a copy of boards7's CAP_RULE
 const CAP_RULE = { root: 'ellipse', ry: 1, over: 7 / 6 };
-const O = { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5, cap: CAP_RULE, capPlate: CAP_RULE };
+const VESSEL_ROOT = { bowlRoot: 7 / 8, bowlWide: true, bowlSplit: 'even', cupRoot: { over: 1.02, ry: 4 / 9 } };   // a copy of boards7's
+const O = { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5, cap: CAP_RULE, capPlate: CAP_RULE, ...VESSEL_ROOT };
 const HUMAN_V = { flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 };
 const LAW = HUMAN(HUMAN_V), FK = 11 / 12;
 const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
