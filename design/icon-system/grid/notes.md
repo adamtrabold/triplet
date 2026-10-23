@@ -78,3 +78,13 @@ Product designer (icon specialist). Owner, verbatim: "we're not at drawing step 
 ## Round g7 (2026-10-19), batch 1 redrawn after "none of these are yet at the craft level i need"
 
 - The six redrawn to named icon-design practices. `src/picks7.js` (drawings), `src/laws7.js` (laws with the size fit), `src/optics.js` (area, centroid), `src/boards7.js` (sheets; `place()` = optical centring). Reference sets in `reference/`. `cards-g7.html`, `stills/g7-*`, `svg/g7/`.
+
+## The live Grid concepts page (v236 clean-up, 2026-10-23)
+
+Owner: "Yeah the boards are untenable to view so cleanup would be freat". The page holds only what's current, in two titled rows (notes `gridRow1`, `gridRow2`, kind title1), 80px between frames:
+
+- **Row 1 · Waiting on you:** Start here (`Grid7Start`, a short index: one line, then each open question with its board and section) · Between H2 and H3 (`Grid7Between`: section 0 = this round, 0c = the outline rule, 1 = the current row, its rules table and the museum) · Every icon: original and newest (`Grid7Originals`).
+- **Row 2 · Decided:** the master grid (`Grid7Master`) · Construction (`Grid7Construction`, from `src/construction-board.js`).
+- Generator: `TOOLS=<folder with paper> node src/boards7.js <out>` writes Start (`START_QS`, `sheetStart()`) and Between (`sheetBetween()`: `sectionRoots`, then `sectionHump(kick, quote, 'outline')` = 0c only, then section 1). `sectionHump(..., 'hump')` (0b) is kept for history only; it is on the Archive page as `Archive-G7aw-Hump`. A full run takes over 30 minutes; the v236 clean-up was published by slicing the live v235 board at its section kicks (byte-identical to what this code writes for 0, 0c and 1), not by a run, so the first designer to run it should diff its Between and Start against the live ones.
+- **A new round:** put it in section 0; move the old section 0 to the Archive page as its own board (copy the live HTML slice into `Archive-<round>-<topic>.dc.html`, title it with the version and topic, set its page to `archive` in canvas.json, in a new titled row), never delete. Update `START_QS` so Start points to each open question. Row 1's boards sit at the row title's y + 300; row 2 sits below the tallest row-1 board; nothing overlaps.
+- `Grid7Weight` ("Decide: line marks") is archived (superseded by v230's outline rule; its question lives on in 0c). `page()` still writes it into `<out>`: don't republish it to the live page.
