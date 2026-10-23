@@ -6047,3 +6047,13 @@ Merged 5368b6d1 and re-read the live board (v227, 10473px) at 1x and 3x. Rendere
 **Recurring blocker:** resolved this round. Convexity was the missing constraint, and it's now in the check.
 
 **Changed since my last score?** Yes: the top tip redrawn as one hill, the INFLECT check, three tips shown at a time.
+
+---
+
+## Turn 138: icon designer (sixth), turn 137's two copy edits (canvas v228)
+
+1. **The board is plain about the tips.** The top is a touch blunter and lower than v223's. The side tips keep v223's tightest bend but are slimmer near the point. "Is it still your tree?" is now asked under "What it costs".
+2. **The soft-tip rule is stated as geometry:** a tip is soft when it can't hold its point in the room its sides give it. The board says it has been tested on the tree and the star only.
+   - The code still uses the numeric threshold (`tipSoft` 6: v223's peak bend). I didn't switch it to a geometric test, because I couldn't verify the drawings would come out identical without a full rebuild and comparison. The board says so.
+
+No drawing changed. The edits are copy only, in boards7 (source) and the published board. Between grew 10473 → 10567px; Master moved to y 11167.
