@@ -6299,3 +6299,34 @@ Merged 0ba469f8, re-read the live board (v232, 1800 × 9112px) and rendered it a
 - The museum's shapes sheet keeps only four horizontal keylines: the two lines of the cut, and the levels of the flares in the capital and the foot. The lines that only repeated a slab's edge are gone (construction-board.js `KEYED.museum.keepH`).
 - The C marker moved off the capital's handle to the right of the building.
 - Nothing else changed. The board is the same size.
+
+---
+
+## Turn 147: icon designer (ninth), every piece from a root shape: the foot and the plate from one ellipse, the counters as shapes (canvas v234)
+
+Owner (v233): "So an icon should have root shapes at its core that are then connected / disconnected to create the greater form. I'm realizing not all pieces have clear root shapes they are derived from - notably the foot (currently in use on the coupe) which I think is what's causing the hump…each top point on the left and right side are drawing their own arc, when the top edge should be crafted holistically from the top of a circle or ellipses". On finding #2: "Yeah I want it all defined by the shapes and proportions not stroke logic", then "I mean it shouldn't change anything should it?"
+
+**The rule (Roots, five lines, on the Construction board):**
+1. Every piece is one root shape drawn whole (circle, ellipse, rectangle, triangle, regular star, line), sized and placed by proportion.
+2. The form is roots connected (one outline) and disconnected (cuts).
+3. A curved edge belongs to its root, ends included; the only rounds are where roots meet or are cut.
+4. A counter is a root too: the same shape on the same centre made smaller, the space a spacing leaves, or a root moved. Never an offset by the stroke.
+5. A seventh icon names each piece's root and proportions first; an edge that can't be named is the one to fix.
+
+**The audit** (`src/roots-audit.js` → `svg/g7/roots-audit.json`; table on the board):
+- Root, exact: the rims and walls, the cup's ear and its counter, the stem, every museum part but the flares, the tree's tiers and trunk, the star, the + arms.
+- Near (under 0.1px at 72 from the root): the museum's capital/base flares (quarter ellipse, 0.025), the tree's swept sides (arc, 0.002) and drooping undersides (arc, 0.08).
+- No root: the coupe's bowl sides (0.74px at 72 from the half ellipse) and the cup's bottom corners (0.42). Both are fixed points: shown, not changed; his call.
+- The foot and the plate: v233's drawn top was already within 0.03px of a circle at 72. What he saw is the ends: each top corner took its own round from the law. Rebuilt.
+
+**The cap rule** (picks7 `CAP`, boards7 `CAP_RULE = { root: 'ellipse', ry: 1, over: 7/6 }`, options `cap` (foot) and `capPlate` (plate)): a base with a curved side is a slab cut by one ellipse, 7/6 of its width and its full height. The ellipse makes the curved side and both shoulders; the slab's ends cut it at about half its height (0.515), and only those cuts take the law's round. Foot: ellipse on top. Plate: underneath. Replaces the plate rule and the domed foot.
+- Tried and dropped (svgs in `svg/g7/roots-tried/`): one circle with the old ends (0.03px change, ends still their own rounds); the ellipse turning upright with no cut (the best roll, but 2 JUMPs + 2 TAILs: its bend switches on at the upright; a curve ease in the engine couldn't land within the upright's room, removed); a half ellipse (a beak at the base; 2 TAILs); cuts at over 1.06 / 1.08 / 1.125 (KNEE / INFLECT / TAIL). 7/6 and 1.15 are clean.
+- **The leaned flare stays:** the cap foot without it gives 4 SHELFs (bowl and foot): any root's crown is level under the stem.
+
+**Counters as shapes and proportions:** cup ear = circle on the ear's centre, 0.37 of its radius (byte-identical; now tagged as a root); museum openings = rectangles left by the column spacing (identical); coupe band = the bowl's side moved in (identical); star = the same star ×0.528 (picks7 `star(..., 'root')`), replacing the erosion: 1.3e-5 units before the rounds, within 0.002px at 72 after. Monoweight holds where the hole is the outside's shape on the same centre or the space between parallel posts; the band is 1 1/2 across, 1.44 → 1.30 square to the bowl (as approved since v144). A future ellipse counter: the same ellipse less a wall on each axis (8 × 10, wall 1 1/2: 1.49-1.50; scaled it would be 1.50-1.88).
+
+**Canvas v234:** Construction board: new "Roots" section at the top (rule, audit, the foot before/after with its ellipse drawn whole at 56px a unit, at his zoom and true size, the tries, the plate, the four counters, rules retired/kept); per-icon sheets rebuilt (cup and coupe sheets show the cap's ellipse whole; notes updated); finding #2 removed (answered); recipe steps 1 and 4 rewritten. Between: new section 0 (the foot and the plate, v233 vs now, true size and zoom); the old section 0 is now 0b/0c; the v233 board archived.
+
+**Checks:** construction.js 6/6 identical to the new row svgs (cup, coupe, star changed; museum, tree, + byte-identical to v233); fair-check on the six row svgs: all clean; the cup and coupe move 0.50 / 0.55px at 72 at most (cmp.js), the star 0.002px; boards rendered and looked at at 1x; Impeccable not run (design boards, not index.html).
+
+**Unsure:** the plate's ends are thinner (about 0.66px at 24): it might read rounder to him ("the glass being on something so rounded as a plate feels off" is still open). 7/6 is chosen by eye inside the clean band (7/6 and 1.15 clean, 1.125 not); it is calibrated on one foot and one plate.

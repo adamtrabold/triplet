@@ -39,7 +39,7 @@ async function dark(page, d, px) {
 // for the record. node src/mark-weight.js --outline writes svg/g7/between/outline-weight.json { before, after, plus }.
 const OUTLINE_HOLE = 2.5, W = 1.5;
 const starHoleRc = (lw = W, holeLines = OUTLINE_HOLE) => (holeLines * lw / 2 + (lw / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri;
-const starOutlineD = () => E.build(P7.star(20, starHoleRc(W) * 24 / 20 / 9.6, W), { law: starLaw, ease: EASE, tightHoles: true, join: JOIN8 }).d;
+const starOutlineD = () => E.build(P7.star(20, starHoleRc(W) * 24 / 20 / 9.6, W, 'root'), { law: starLaw, ease: EASE, tightHoles: true, join: JOIN8 }).d;
 module.exports = { plusD, starD, starOutlineD, LINEW };
 if (require.main === module && process.argv.includes('--outline')) (async () => {
   const b = await chromium.launch(); const page = await b.newPage(); await page.setContent('<body></body>');

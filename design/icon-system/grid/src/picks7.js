@@ -62,6 +62,30 @@ const roundPoly = (pts, d) => {
   return s + 'Z';
 };
 const GABLE = (cx, apex, base, hw) => ({ ...P([cx, apex], [cx + hw, base], [cx - hw, base]), root: 'GABLE' });
+// g7aw THE CAP (owner on v233: "an icon should have root shapes at its core that are then connected / disconnected to create
+// the greater form ... notably the foot ... each top point on the left and right side are drawing their own arc, when the top
+// edge should be crafted holistically from the top of a circle or ellipses"). A base with a curved side is a SLAB cut by ONE
+// root curve drawn whole: the curved side and its two shoulders are that one root, so no end draws its own arc.
+//   spec.root 'circle'  the curved side is one arc of one circle (rise: how far the crown stands above the ends), the
+//                       ends upright, the shoulders where the slab's ends cut the circle (the law rounds those cuts)
+//   spec.root 'ellipse' the curved side is the half of one ellipse: rx = the half width x spec.over (1: the ellipse's own
+//                       sides are the shoulders, it turns upright at the ends; over 1: the slab's ends cut it a little
+//                       inside its widest point and the law rounds that cut), ry = spec.ry of the base's height (the rest
+//                       is the upright end under it)
+// up: the curve on top (a foot: a stem stands on its crown); otherwise the curve underneath (a plate: a thing sits on its flat).
+// yb is the flat side's y. Returns a primitive (an I of the root and the slab when the ends cut it).
+const CAP = (x0, x1, yb, h, spec, up = true) => {
+  const sg = up ? -1 : 1, Y_ = v => f(yb + sg * v), K = 0.5523, xc = (x0 + x1) / 2, hw = (x1 - x0) / 2;
+  if (spec.root === 'circle') {
+    const rise = spec.rise, e = h - rise, R = (hw * hw + rise * rise) / (2 * rise), th = Math.asin(hw / R), L = 4 / 3 * Math.tan(th / 2) * R;
+    return D(`M${f(x0)} ${f(yb)}V${Y_(e)}C${f(x0 + L * Math.cos(th))} ${Y_(e + L * Math.sin(th))} ${f(x1 - L * Math.cos(th))} ${Y_(e + L * Math.sin(th))} ${f(x1)} ${Y_(e)}V${f(yb)}Z`, { root: 'CIRCLE', also: 'SLAB', cap: { cx: xc, cy: yb + sg * (h - R), r: R } });
+  }
+  const over = spec.over ?? 1, rx = hw * over, ry = spec.ry * h, e = h - ry;
+  const ell = `M${f(xc - rx)} ${Y_(e)}C${f(xc - rx)} ${Y_(e + ry * K)} ${f(xc - rx * K)} ${Y_(h)} ${f(xc)} ${Y_(h)}C${f(xc + rx * K)} ${Y_(h)} ${f(xc + rx)} ${Y_(e + ry * K)} ${f(xc + rx)} ${Y_(e)}V${Y_(-1)}H${f(xc - rx)}Z`;
+  const meta = { root: 'ELLIPSE', also: 'SLAB', cap: { cx: xc, cy: yb + sg * e, rx, ry } };
+  if (over === 1) return D(`M${f(x0)} ${f(yb)}V${Y_(e)}C${f(x0)} ${Y_(e + ry * K)} ${f(xc - rx * K)} ${Y_(h)} ${f(xc)} ${Y_(h)}C${f(xc + rx * K)} ${Y_(h)} ${f(x1)} ${Y_(e + ry * K)} ${f(x1)} ${Y_(e)}V${f(yb)}Z`, meta);
+  return I(D(ell), R(x0, up ? yb - h - 1 : yb, x1 - x0, h + 1), meta);
+};
 
 // ---- g7n: THE LINE, three ways (owner, 10-20: "when i think no taper i think the interior would follow the
 // exterior line -- eg monoweight stroke"; "a taper would be one thickness one place, another thickness at the
@@ -130,7 +154,7 @@ const DRAW = {
     // g7ak PLATE RULE (owner on v216: "the glass being on something so rounded as a plate feels off"): o.plate, a plate a
     // thing sits on: flat on top, its underside dropping o.plate px at the centre, so its ends keep the slab less that
     // (1/2 on a 1 1/2px slab: ends 1px); never a lens thinning to a point. A cup-only option, so the coupe's foot keeps its dome
-    const saucer = typeof o.plate === 'number' ? D(`M0 ${f(sy)}H${f(s)}V${f(sy + sh - o.plate)}C${f(0.7 * s)} ${f(sy + sh + o.plate / 3)} ${f(0.3 * s)} ${f(sy + sh + o.plate / 3)} 0 ${f(sy + sh - o.plate)}Z`, { root: 'DOME' }) : o.saucerFlip ? D(`M0 ${f(sy)}C0 ${f(sy + 0.8 * sh)} ${f(0.3 * s)} ${f(sy + sh)} ${f(s / 2)} ${f(sy + sh)}C${f(0.7 * s)} ${f(sy + sh)} ${f(s)} ${f(sy + 0.8 * sh)} ${f(s)} ${f(sy)}Z`, { root: 'DOME' }) : typeof o.under === 'number' ? D(`M0 ${f(sy)}H${f(s)}V${f(sy + sh - o.under)}C${f(0.7 * s)} ${f(sy + sh + o.under / 3)} ${f(0.3 * s)} ${f(sy + sh + o.under / 3)} 0 ${f(sy + sh - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M0 ${f(sy + sh)}V${f(sy + o.dome)}C${f(0.3 * s)} ${f(sy - o.dome / 3)} ${f(0.7 * s)} ${f(sy - o.dome / 3)} ${f(s)} ${f(sy + o.dome)}V${f(sy + sh)}Z`, { root: 'DOME' }) : o.dome ? D(`M0 ${f(sy + sh)}C0 ${f(sy + 0.2 * sh)} ${f(0.3 * s)} ${f(sy)} ${f(s / 2)} ${f(sy)}C${f(0.7 * s)} ${f(sy)} ${f(s)} ${f(sy + 0.2 * sh)} ${f(s)} ${f(sy + sh)}Z`, { root: 'DOME' }) : o.style === 'brush' || o.style === 'mono' ? R(0, sy, s, sh, { root: 'SLAB' }) : SLAB(0, s, sy);
+    const saucer = o.capPlate ? CAP(0, s, sy, sh, o.capPlate, false) : typeof o.plate === 'number' ? D(`M0 ${f(sy)}H${f(s)}V${f(sy + sh - o.plate)}C${f(0.7 * s)} ${f(sy + sh + o.plate / 3)} ${f(0.3 * s)} ${f(sy + sh + o.plate / 3)} 0 ${f(sy + sh - o.plate)}Z`, { root: 'DOME' }) : o.saucerFlip ? D(`M0 ${f(sy)}C0 ${f(sy + 0.8 * sh)} ${f(0.3 * s)} ${f(sy + sh)} ${f(s / 2)} ${f(sy + sh)}C${f(0.7 * s)} ${f(sy + sh)} ${f(s)} ${f(sy + 0.8 * sh)} ${f(s)} ${f(sy)}Z`, { root: 'DOME' }) : typeof o.under === 'number' ? D(`M0 ${f(sy)}H${f(s)}V${f(sy + sh - o.under)}C${f(0.7 * s)} ${f(sy + sh + o.under / 3)} ${f(0.3 * s)} ${f(sy + sh + o.under / 3)} 0 ${f(sy + sh - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M0 ${f(sy + sh)}V${f(sy + o.dome)}C${f(0.3 * s)} ${f(sy - o.dome / 3)} ${f(0.7 * s)} ${f(sy - o.dome / 3)} ${f(s)} ${f(sy + o.dome)}V${f(sy + sh)}Z`, { root: 'DOME' }) : o.dome ? D(`M0 ${f(sy + sh)}C0 ${f(sy + 0.2 * sh)} ${f(0.3 * s)} ${f(sy)} ${f(s / 2)} ${f(sy)}C${f(0.7 * s)} ${f(sy)} ${f(s)} ${f(sy + 0.2 * sh)} ${f(s)} ${f(sy + sh)}Z`, { root: 'DOME' }) : o.style === 'brush' || o.style === 'mono' ? R(0, sy, s, sh, { root: 'SLAB' }) : SLAB(0, s, sy);
     if (o.style === 'mono' || o.style === 'brush' || o.style === 'settle') {
       // the loop's wall at its top arm, its back and its bottom arm; the inner edge is two quarter curves that
       // follow the outer half circle, so the width changes smoothly from arm to back to arm
@@ -138,7 +162,10 @@ const DRAW = {
       const wK = o.style === 'mono' ? W : o.style === 'brush' ? W : (WMIN + W) / 2;
       const wB = o.style === 'mono' ? W : o.style === 'brush' ? WMIN : W;
       const cy = top + R_, iT = top + wT / u, iB = eb - wB / u, iK = eR - wK / u, ry1 = cy - iT, ry2 = iB - cy, rx = iK - ex;
-      const hole = cut(D(`M${X(ci)} ${X(iT)}H${X(ex)}C${X(ex + rx * K)} ${X(iT)} ${X(iK)} ${X(cy - ry1 * K)} ${X(iK)} ${X(cy)}C${X(iK)} ${X(cy + ry2 * K)} ${X(ex + rx * K)} ${X(iB)} ${X(ex)} ${X(iB)}H${X(ci)}Z`));
+      // g7aw (owner: "I want it all defined by the shapes and proportions not stroke logic"): in monoweight the ear's counter is
+      // a CIRCLE on the ear's own centre (ex, cy), its radius the ear's less the wall (rx = ry1 = ry2 = R_ - W), run on to the
+      // cup's wall as a slot; the same numbers as before, now named as a root
+      const hole = cut(D(`M${X(ci)} ${X(iT)}H${X(ex)}C${X(ex + rx * K)} ${X(iT)} ${X(iK)} ${X(cy - ry1 * K)} ${X(iK)} ${X(cy)}C${X(iK)} ${X(cy + ry2 * K)} ${X(ex + rx * K)} ${X(iB)} ${X(ex)} ${X(iB)}H${X(ci)}Z`, { root: 'CIRCLE', also: 'SLOT' }));
       return [body, earP, saucer, hole];
     }
     if (o.style === 'punch') {
@@ -241,6 +268,8 @@ const DRAW = {
           const qo = sub(Lc, tY(o.bandH ?? W), 1).map(([x, y]) => [x + W, y]), mo = qo.map(([x, y]) => [s - x, y]);
           band = cut(D(`M${f(qo[0][0])} ${f(qo[0][1])}C${f(qo[1][0])} ${f(qo[1][1])} ${f(qo[2][0])} ${f(qo[2][1])} ${f(qo[3][0])} ${f(qo[3][1])}V-1H${f(mo[3][0])}V${f(mo[3][1])}C${f(mo[2][0])} ${f(mo[2][1])} ${f(mo[1][0])} ${f(mo[1][1])} ${f(mo[0][0])} ${f(mo[0][1])}Z`));
         } else
+        // g7aw: the band is the bowl's own root curve (its side between rim and drink) moved in sideways by the wall; a root
+        // shape moved, not an offset (owner on finding #2: "defined by the shapes and proportions not stroke logic")
         band = cut(D(`M${f(q[0][0])} ${f(q[0][1])}C${f(q[1][0])} ${f(q[1][1])} ${f(q[2][0])} ${f(q[2][1])} ${f(q[3][0])} ${f(q[3][1])}H${f(mq[3][0])}C${f(mq[2][0])} ${f(mq[2][1])} ${f(mq[1][0])} ${f(mq[1][1])} ${f(mq[0][0])} ${f(mq[0][1])}Z`));
       } else
       if (o.coupe === 'inner') {
@@ -275,7 +304,7 @@ const DRAW = {
     // g7t exploration, o.dome: a foot that holds a glass up by its stem is a DOME (its top a low arc, a line
     // high at the centre, its ends worn to the corner rule), as batch 1's was; a base an object sits flat on
     // (the saucer, the plinth) stays a SLAB
-    const foot = typeof o.under === 'number' ? D(`M${X(2)} ${f(FB - fh)}H${X(10)}V${f(FB - o.under)}C${X(7.6)} ${f(FB + o.under / 3)} ${X(4.4)} ${f(FB + o.under / 3)} ${X(2)} ${f(FB - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M${X(2)} ${f(FB)}V${f(FB - fh + o.dome)}C${X(4.4)} ${f(FB - fh - o.dome / 3)} ${X(7.6)} ${f(FB - fh - o.dome / 3)} ${X(10)} ${f(FB - fh + o.dome)}V${f(FB)}Z`, { root: 'DOME' }) : o.dome ? D(`M${X(2)} ${f(FB)}C${X(2)} ${f(FB - 0.8 * fh)} ${X(3.9)} ${f(FB - fh)} ${f(c)} ${f(FB - fh)}C${X(8.1)} ${f(FB - fh)} ${X(10)} ${f(FB - 0.8 * fh)} ${X(10)} ${f(FB)}Z`, { root: 'DOME' }) : R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
+    const foot = o.cap ? CAP(X(2), X(10), FB, fh, o.cap, true) : typeof o.under === 'number' ? D(`M${X(2)} ${f(FB - fh)}H${X(10)}V${f(FB - o.under)}C${X(7.6)} ${f(FB + o.under / 3)} ${X(4.4)} ${f(FB + o.under / 3)} ${X(2)} ${f(FB - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M${X(2)} ${f(FB)}V${f(FB - fh + o.dome)}C${X(4.4)} ${f(FB - fh - o.dome / 3)} ${X(7.6)} ${f(FB - fh - o.dome / 3)} ${X(10)} ${f(FB - fh + o.dome)}V${f(FB)}Z`, { root: 'DOME' }) : o.dome ? D(`M${X(2)} ${f(FB)}C${X(2)} ${f(FB - 0.8 * fh)} ${X(3.9)} ${f(FB - fh)} ${f(c)} ${f(FB - fh)}C${X(8.1)} ${f(FB - fh)} ${X(10)} ${f(FB - 0.8 * fh)} ${X(10)} ${f(FB)}Z`, { root: 'DOME' }) : R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
     return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, ...(Array.isArray(band) ? band : [band])];
   },
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
@@ -424,6 +453,14 @@ function star(px = 20, sc = 1, lw = W, style) {
     const distSeg = (p, a, b) => { const dx = b[0] - a[0], dy = b[1] - a[1], tt = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy))); return Math.hypot(p[0] - a[0] - tt * dx, p[1] - a[1] - tt * dy); };
     let lo = 0.3, hi = 0.99; for (let n = 0; n < 50; n++) { const m = (lo + hi) / 2, q = [cx + (f_[0] - cx) * m, cyc + (f_[1] - cyc) * m]; if (Math.min(distSeg(q, e, f_), distSeg(q, f_, g)) > w) lo = m; else hi = m; }
     return [P(...outer), cut(P(...outer.map(([x, y]) => [cx + (x - cx) * lo, cyc + (y - cyc) * lo])))];
+  }
+  // g7aw COUNTERS FROM ROOT SHAPES (owner on finding #2: "Yeah I want it all defined by the shapes and proportions not stroke
+  // logic"; "I mean it shouldn't change anything should it?"): the hole is the star itself, on the same centre, made smaller.
+  // A regular star's ten edges all stand the same distance (a) from its centre, so the smaller star that leaves walls of w is
+  // the star scaled by (a - w) / a; no offsetting. Same drawing as the erosion below (to Clipper's 1e-5 grid).
+  if (style === 'root') {
+    const [p, q] = [outer[0], outer[1]], ex = q[0] - p[0], ey = q[1] - p[1], a = Math.abs((p[0] - cx) * ey - (p[1] - cy) * ex) / Math.hypot(ex, ey), kk = (a - w) / a;
+    return [{ ...P(...outer), root: 'STAR' }, { ...cut(P(...outer.map(([x, y]) => [cx + (x - cx) * kk, cy + (y - cy) * kk]))), root: 'STAR', ratio: kk }];
   }
   // g7r (owner: "the internal counter lines don't match the external ones"): the hole is the finished outline
   // (tips and valleys rounded by the law) moved in by the line, so every wall is exactly the line, the

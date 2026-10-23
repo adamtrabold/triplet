@@ -45,22 +45,22 @@ const ROOTCOL = COL.or;
 const SH = {
   cafe: {
     title: 'Café', who: 'cup on a plate',
-    tags: [['VESSEL', 8.2, 9.1], ['LOOP', 15.9, 7.2], ['PLATE (DOME)', 7.2, 17.2], ['COUNTER', 14.75, 13.8, 'cut']],
+    tags: [['VESSEL', 8.2, 9.1], ['LOOP', 15.9, 7.2], ['PLATE (CAP)', 7.2, 17.2], ['COUNTER', 14.75, 13.8, 'cut']],
     notes: G => [
       ['A', [8.7, 12.6], `<b>Vessel.</b> A flat rim and two straight walls (keylines), and under them one curve a side. It is squarer than an ellipse: its handles (squares) reach 0.63 of the way to the corner; an ellipse's (dashed) reach 0.55.`],
       ['B', [17.3, 9.9], `<b>Loop.</b> The ear's back is half of a whole circle (r ${f2(KG.cafe.circles[0].r)}), laid over the right wall; the union joins them.`],
-      ['C', [15.75, 10.29], `<b>Its counter</b> is a circle on the same centre, r ${f2(KG.cafe.circles[1].r)}: smaller by exactly the line, so the loop is a true offset, 1 1/2 all round.`],
-      ['D', [12, 16.85], `<b>Plate rule.</b> Flat on top; the underside one curve (handles at 3/10 and 7/10) dropping 1/2 at the middle, so its ends are 1px. 1px cut above it.`],
+      ['C', [15.75, 10.29], `<b>Its counter</b> is a circle on the same centre, r ${f2(KG.cafe.circles[1].r)} (0.37 of the ear's), so the wall is even, 1 1/2 all round.`],
+      ['D', [12, 16.85], `<b>Cap rule</b> (a plate): flat on top; underneath, one ellipse 7/6 its width and its full height, cut by the plate's ends. 1px cut above it.`],
       ['E', [12, 6.15], `<b>Size class:</b> Wide. Its saucer meets the sides of the cut. <b>No mirror</b>: the only glyph built whole.`],
     ] },
   bar: {
     title: 'Bar', who: 'coupe',
-    tags: [['VESSEL', 5.9, 7.2], ['POST 1 1/4', 13.0, 14.25], ['FOOT (DOME)', 5.6, 17.85], ['BAND', 4.6, 9.75, 'cut']],
+    tags: [['VESSEL', 5.9, 7.2], ['POST 1 1/4', 13.0, 14.25], ['FOOT (CAP)', 5.6, 17.85], ['BAND', 4.6, 9.75, 'cut']],
     notes: G => [
       ['A', [12, 12.15], `<b>Vessel.</b> A flat rim and one curve a side to a flat bottom (the vessel side rule). Against the ellipse that turns the same corner (dashed), its handles reach 0.50 down the side and 0.78 along the bottom: a broad, flat-bottomed bowl.`],
       ['B', [9.05, 9.82], `<b>The clear band</b> is cut by the bowl's own side moved in 1 1/2 (dashed), between the rim's underside and the drink's surface (keylines): 5/6 tall, its sides the outside's own curve.`],
       ['C', [12, 14.1], `<b>Post rule.</b> A post that holds a mass up is 1 1/4. It runs half-way into the foot, so its sides meet the foot in a real join.`],
-      ['D', [12, 16.3], `<b>The foot by the plate rule:</b> flat underneath, its top rises 1/2 at the middle; ends 1px.`],
+      ['D', [12, 16.3], `<b>Cap rule</b> (a foot): flat underneath; its top and shoulders one ellipse (whole, orange), 7/6 its width and its full height, cut by the foot's ends.`],
       ['E', [12, 6.15], `<b>Size class:</b> Square. The rim meets the sides. Right half = the left, mirrored.`],
     ] },
   museum: {
@@ -88,7 +88,7 @@ const SH = {
     tags: [['CENTRELINE STAR', 14.2, 5.3], ['OUTLINE', 17.8, 8.6], ['COUNTER', 13.6, 16.3, 'cut']],
     notes: G => [
       ['A', [16.15, 8.95], `<b>Centreline star:</b> inner radius 0.47 of the outer (its points' slenderness). Its outside is that star moved out by half the line, mitred.`],
-      ['B', [7.75, 11.45], `<b>Outline rule:</b> the counter is the outside (before rounding) moved in by the line; then the law rounds it, tight.`],
+      ['B', [7.75, 11.45], `<b>Its counter:</b> the same star on the same centre, ${f2(G.prims.find(p => p.cut).ratio || 0)} its size (dashed); then the law rounds it, tight.`],
       ['C', [12, 12.75], `<b>Sized by its counter:</b> 2 1/2 lines across at the centre, valley to valley; the outside follows.`],
       ['D', [18.6, 10.35], `<b>The line:</b> the solids' 1 1/2px, drawn in its own 24 box at 20px (${f2(G.lw)} units).`],
     ] },
@@ -149,7 +149,7 @@ function keylines(G, skip, noEll, keepH) {
   for (const P of K_.cubics) s += `<path d="M${f(P[0].x)} ${f(P[0].y)}L${f(P[1].x)} ${f(P[1].y)}M${f(P[3].x)} ${f(P[3].y)}L${f(P[2].x)} ${f(P[2].y)}" stroke="${OD}" stroke-width="${f(u(1.1))}" fill="none"/>${[P[1], P[2]].map(q => `<rect x="${f(q.x - u(3))}" y="${f(q.y - u(3))}" width="${f(u(6))}" height="${f(u(6))}" fill="${COL.raised}" stroke="${OD}" stroke-width="${f(u(1.3))}"/>`).join('')}${[P[0], P[3]].map(q => `<circle cx="${f(q.x)}" cy="${f(q.y)}" r="${f(u(3))}" fill="${OD}"/>`).join('')}`;
   return s;
 }
-const KEYED = { cafe: { skip: [] }, bar: { skip: [3] }, museum: { skip: [], noEll: true, keepH: [9.931, 10.931, 12.931, 14.931] } };   // turn 145: the museum keeps only the cut's two lines and the flares' levels; a horizontal that only repeats a slab's edge is dropped
+const KEYED = { cafe: { skip: [2] }, bar: { skip: [2, 3] }, museum: { skip: [], noEll: true, keepH: [9.931, 10.931, 12.931, 14.931] } };   // turn 145: the museum keeps only the cut's two lines and the flares' levels; a horizontal that only repeats a slab's edge is dropped
 const KG = Object.fromEntries(Object.keys(KEYED).map(id => [id, keyGeom(J[id], KEYED[id].skip)]));
 if (process.env.KEYDBG) for (const id of Object.keys(KEYED)) { const g_ = keyGeom(J[id], KEYED[id].skip); console.log(id, 'lines', g_.lines.length, 'circles', g_.circles.map(q => `${f2(q.C.x)},${f2(q.C.y)} r${f2(q.r)}`).join(' '), 'cubics', g_.cubics.length, 'ellipses', g_.ellipses.map(e => `c${f2(e.C.x)},${f2(e.C.y)} ${f2(e.rx)}x${f2(e.ry)} k ${e.k.map(f2).join('/')}`).join(' ; ')); }
 
@@ -165,6 +165,7 @@ function shapesSvg(id) {
   const sh = G.dy ? `<g transform="translate(0 ${f(G.dy)})">` : '<g>';
   s += sh;
   if (KEYED[id]) s += keylines(G, KEYED[id].skip, KEYED[id].noEll, KEYED[id].keepH);
+  for (const p of G.prims) if (p.cap) s += `<ellipse cx="${f(p.cap.cx)}" cy="${f(p.cap.cy)}" rx="${f(p.cap.rx)}" ry="${f(p.cap.ry)}" fill="none" stroke="${COL.or}" stroke-width="${f(u(1.6))}"/><circle cx="${f(p.cap.cx)}" cy="${f(p.cap.cy)}" r="${f(u(2.5))}" fill="${COL.or}"/>`;   // g7aw: a cap's root ellipse, whole
   if (id === 'bar') {   // the band's sides: the bowl's own side, moved in by the line
     const cp = new paper.CompoundPath(G.parts[0]);
     for (const c of cp.children.length ? cp.children[0].curves : cp.curves) { if (c.isStraight()) continue; const sg = c.bounds.center.x < (G.sym || 12) ? 1 : -1, q = c.clone({ insert: false }); const P = [c.point1, c.point1.add(c.handle1), c.point2.add(c.handle2), c.point2].map(v => v.add(new paper.Point(sg * 1.5, 0)));
@@ -354,10 +355,10 @@ function recipe() {
   const step = (n, t, b) => `<div style="padding:14px 16px;background:${COL.paper};border-top:4px solid ${COL.or}"><div style="font-size:13px;letter-spacing:.1em;font-weight:700;color:${COL.ord};text-transform:uppercase">Step ${n}</div><div style="font-size:19px;font-weight:700;color:${COL.navy};margin:2px 0 6px">${t}</div><div style="font-size:15px;line-height:1.4;color:${COL.ink}">${b}</div></div>`;
   return `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:0 0 14px">How a seventh icon is built: the engine's order</div>
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 44px">
-${step(1, 'Draw it from root shapes', 'In the 12-unit box: slabs (bases, beams), posts (stems, columns, trunks), gables (roofs, tiers), vessels (bowls), loops (handles), domes (plates, feet). Lines 1 1/2; a post that holds a mass up 1 1/4; horizontal edges on the 1/3px lattice; a part that rests on another is cut 1px from it.')}
+${step(1, 'Draw it from root shapes', 'In the 12-unit box, every piece one root drawn whole (see Roots): slabs (beams), posts (stems, columns, trunks), gables (roofs, tiers), vessels (bowls), loops (handles), caps (plates, feet: a slab cut by one ellipse). Lines 1 1/2; a post that holds a mass up 1 1/4; horizontal edges on the 1/3px lattice; a part that rests on another is cut 1px from it.')}
 ${step(2, 'Let its proportion pick the class', 'Wide, Square or Tall: whichever cut of the coin is nearest the drawing\'s own width to height (a lone apex counts 1/2 more). Line marks: Outline (sized by its counter, 2 1/2 lines) or Open (arms span 12).')}
 ${step(3, 'Size it to the cut', 'Positions scale, line widths never do, until the finished outline just meets the cut × 11/12 in width or height.')}
-${step(4, 'Join, then cut the counters', 'The shapes are united; counters and gaps are subtracted. A counter is the outline around it moved in by the line, so its wall is a line wide (recommended as the rule; see the findings).')}
+${step(4, 'Join, then cut the counters', 'The shapes are united; counters and gaps are subtracted. A counter is a root too: the same shape on the same centre made smaller, the space a spacing leaves, or a root moved; sized by proportion, never by offsetting.')}
 ${step(5, 'Round every corner by its kind', 'The law sets a radius by angle and by what meets (mass corners 0.6, line ends 0.3, tips by their edge, joins and counters 0.15, flares 1/2; never over 0.2 of the shorter edge). Each round is solved as a smooth hill of bend, not an arc.')}
 ${step(6, 'Mirror', 'A symmetric glyph keeps its left half after the rounds and mirrors it, so both sides are exactly alike.')}
 ${step(7, 'Centre it by eye, by rule', 'Across: half-way between its box centre and its ink centre, to 1/4px. Up and down: its box centre, pulled down by half of how far its ink sits above it.')}
@@ -370,13 +371,140 @@ function findings() {
   const li = (t, b) => `<li style="margin:0 0 14px"><b style="color:${COL.navy}">${t}</b> ${b}</li>`;
   const curves = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'].map(id => `${SH[id].title.toLowerCase()} ${(J[id].d.match(/C/g) || []).length}`).join(', ');
   return `<div style="border-top:2px solid ${COL.hair};padding:40px 0 0"><h2 style="margin:0 0 6px;font-size:34px;color:${COL.navy}">What the construction shows</h2>
-<p style="margin:0 0 20px;font-size:17px;line-height:1.45;color:${COL.ink2};max-width:1100px">Drawn from the engine's own record, these are where the build doesn't reduce to clean shapes, or where one job is done more than one way. No drawing changed for this board.</p>
+<p style="margin:0 0 20px;font-size:17px;line-height:1.45;color:${COL.ink2};max-width:1100px">Drawn from the engine's own record, these are where the build doesn't reduce to clean shapes, or where one job is done more than one way. (v233's second finding, the counters, is answered: see Roots.)</p>
 <ol style="margin:0;padding-left:26px;font-size:17px;line-height:1.45;color:${COL.ink};max-width:1300px">
 ${li('The curve count is the price of no wobbles.', 'You asked for joins with "no visible humps or wobbles". A compass round can\'t give that: its bend switches on at once where it meets a line. So every round here is a hill of bend, 2 to 4 cubics, rising from the edge\'s own bend and falling back (the dashed circle is only its tightest point). That makes the set curve-heavy: ' + curves + '. For comparison, Lucide (checked in its source) draws on a 2px centreline: its cup\'s corners are single arcs, and its star and museum have no drawn rounds at all; the stroke\'s round join softens them.')}
-${li('Counters: one rule, recommended.', 'Today a counter is made one of four ways: the star\'s outline moved in by the line; the coupe\'s band, the bowl\'s side shifted sideways; the cup\'s ear, a circle on the loop\'s own centre; the museum\'s openings, the gaps between posts. <b>We recommend the star\'s way as the rule: a counter is the outline around it moved in by the line, then rounded tight.</b> It\'s the only one a seventh icon follows without choosing, and it keeps every wall exactly a line wide. Two of the others already are it: the ear\'s circle is the loop\'s back moved in by exactly the line, and a gap between upright posts is the same rectangle an offset gives. So adopting it changes neither at any size. The one real difference is the coupe\'s band: a true offset there leans its sides in faster than the bowl (v142, which you turned down: "the counter is still wrong both in size and in curvature"), and the shift is your approved fix. So we\'d keep the band as the rule\'s one named exception: <i>a clear band across a vessel follows the vessel\'s side</i>. Not built: say yes and it goes into the engine as a rule.')}
 ${li('Some drawn curves are only aims.', 'The museum\'s capital and foot curves set where an S begins and ends; the engine draws the S. The cup\'s loop is eased in where it leaves a straight. The tree\'s tiers are re-aimed so each tip lands where the eased tip was: the drawn points move ' + 'about 0.4px (top tier) to 1px (bottom tier). So the orange shapes are exact everywhere except at those places.')}
 </ol>
 <p style="margin:24px 0 0;font-size:15px;color:${COL.ink2}">Built by <code>src/construction.js</code> (the row rebuilt with a logging hook in the engine; each finished outline compared with the row's svg: ${['cafe', 'bar', 'museum', 'nature', 'star', 'plus'].filter(id => J[id].same).length} of 6 identical) and <code>src/construction-board.js</code>.</p></div>`;
+}
+
+// g7aw ROOTS (owner on v233: "an icon should have root shapes at its core that are then connected / disconnected to create the
+// greater form ... the top edge should be crafted holistically from the top of a circle or ellipses"; on finding #2: "Yeah I want
+// it all defined by the shapes and proportions not stroke logic", "I mean it shouldn't change anything should it?"). The rule,
+// the audit of every piece (src/roots-audit.js), the foot and the plate rebuilt from one ellipse (before = v233, frozen in
+// svg/g7/before-g7aw/), the tries that were dropped (svg/g7/roots-tried/), and the four counters as root shapes.
+const FCK = require('./fair-check.js');
+const AUD = JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/roots-audit.json'), 'utf8'));
+const BJ = JSON.parse(fs.readFileSync(path.join(__dirname, '../svg/g7/before-g7aw/construction.json'), 'utf8'));
+const svgOf = rel => fs.readFileSync(path.join(__dirname, '../svg/g7', rel), 'utf8').match(/ d="([^"]+)"/)[1];
+function roots() {
+  const N = COL.navy, I2 = COL.ink2, OR = COL.or, OD = COL.ord;
+  const aud = (icon, piece) => AUD.rows.find(r => r.icon === icon && r.piece.startsWith(piece));
+  const near = r => `${r.px72 < 0.01 ? r.px72.toFixed(3) : f2(r.px72)}px at 72`;
+  // ---- the rule
+  const rule = [
+    ['Every piece is one root shape, drawn whole:', 'a circle, an ellipse, a rectangle (a slab or a post), a triangle (a gable), a regular star, or a straight line. Its size and its place are proportions of the grid and of the other roots.'],
+    ['The form is roots connected and disconnected:', 'joined into one outline, or cut apart (a counter, the 1px cut between resting parts, a slab\'s end cutting an ellipse).'],
+    ['A curved edge belongs to its root, ends included.', 'No end draws its own arc. The only rounds are where roots meet or are cut, and the law sets each by its kind.'],
+    ['A counter is a root too:', 'the same shape on the same centre made smaller (circle in circle, star in star), the space a spacing leaves (rectangles between posts), or a root moved (the bowl\'s side moved in for the band). Sized by proportion; never by offsetting the outline by the stroke.'],
+    ['For a seventh icon:', 'before drawing, name each piece\'s root and its proportions. An edge you can\'t name that way is the one to fix.'],
+  ].map(([a, b], i) => `<div style="display:flex;gap:14px;margin:0 0 10px"><span style="flex:none;width:26px;height:26px;border-radius:13px;background:${OR};color:${COL.raised};font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">${i + 1}</span><span style="font-size:18px;line-height:1.45"><b style="color:${N}">${a}</b> ${b}</span></div>`).join('');
+  // ---- the audit
+  const ok = t => `<span style="color:#3E6B2F;font-weight:700">${t}</span>`, fix = t => `<span style="color:${OD};font-weight:700">${t}</span>`, open = t => `<span style="color:#7A2436;font-weight:700">${t}</span>`;
+  const rows = [
+    ['Cup', 'rim and walls', 'rectangle', ok('root'), ''],
+    ['', 'bottom corners', 'none: one drawn curve a side', open('no root'), `squarer than the quarter ellipse through its ends by ${near(aud('cup', 'body'))}. A fixed point: shown, not changed.`],
+    ['', 'ear', 'circle (half) and two arms', ok('root'), ''],
+    ['', 'ear\'s counter', 'circle on the ear\'s centre, its radius 0.37 of the ear\'s, run on to the wall as a slot', ok('root'), 'named as a root this round; same drawing, byte for byte'],
+    ['', 'plate', 'was: a drawn curve, each end its own round', fix('rebuilt'), 'the cap rule: a slab cut by one ellipse (below)'],
+    ['Coupe', 'rim', 'rectangle (the bowl\'s flat top)', ok('root'), ''],
+    ['', 'bowl\'s sides', 'none: one drawn curve a side (the vessel side rule)', open('no root'), `squarer than the half ellipse through its ends by ${near(aud('coupe', 'bowl'))}. A fixed point: shown, not changed.`],
+    ['', 'clear band', 'the bowl\'s side moved in', ok('from the bowl'), 'a root moved; it inherits the bowl\'s answer'],
+    ['', 'drink', 'the bowl, below the band', ok('from the bowl'), ''],
+    ['', 'stem', 'rectangle (a post, 1 1/4)', ok('root'), ''],
+    ['', 'foot', 'was: a drawn curve, each end its own round', fix('rebuilt'), 'the cap rule: a slab cut by one ellipse (below)'],
+    ['Museum', 'gable', 'triangle on two short uprights', ok('root'), ''],
+    ['', 'beam, plinth', 'rectangles (slabs)', ok('root'), ''],
+    ['', 'columns', 'rectangles (posts, 1 1/4)', ok('root'), ''],
+    ['', 'openings', 'rectangles: the spacing of the columns', ok('root'), ''],
+    ['', 'capital and base flares', 'quarter ellipse (drawn)', ok('near'), `${near(aud('museum', 'capital'))} from it; the engine draws an S there anyway`],
+    ['Tree', 'tiers', 'triangles', ok('root'), ''],
+    ['', 'their swept sides', 'circle arc (drawn as a parabola)', ok('near'), `${near(aud('tree', 'tiers: the swept'))} from it`],
+    ['', 'their drooping undersides', 'circle arc (drawn as two parabolas)', ok('near'), `${near(aud('tree', 'tiers: the drooping'))} from it (the bottom tier)`],
+    ['', 'trunk', 'rectangle (a post, 1 1/4)', ok('root'), ''],
+    ['Star', 'star', 'regular ten-point star, inner radius 0.47', ok('root'), ''],
+    ['', 'counter', `the same star, ${f2(AUD.star.ratio)} its size`, fix('redefined'), 'was the outline moved in by the line; same drawing (below)'],
+    ['Plus', 'arms', 'two rectangles', ok('root'), ''],
+  ];
+  const table = `<table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.35;margin:4px 0 0"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 6px 0;width:8%">Icon</td><td style="padding:4px 8px 6px;width:17%">Piece</td><td style="padding:4px 8px 6px;width:30%">Root</td><td style="padding:4px 8px 6px;width:11%">From it?</td><td style="padding:4px 0 6px 8px">Measured</td></tr>${rows.map(([a, b, c, d, e]) => `<tr style="border-top:1px solid ${a ? COL.hair : '#EEE6D6'};vertical-align:top"><td style="padding:7px 8px 5px 0;font-weight:700;color:${N}">${a}</td><td style="padding:7px 8px 5px">${b}</td><td style="padding:7px 8px 5px;color:${I2}">${c}</td><td style="padding:7px 8px 5px">${d}</td><td style="padding:7px 0 5px 8px;color:${I2}">${e}</td></tr>`).join('')}</table>`;
+  // ---- the foot: v233 beside now, the root drawn whole
+  const footSvg = (G, label, after) => {
+    const vb = [6.4, 13.2, 11.2, 5.6], px = 56, W_ = vb[2] * px, H_ = vb[3] * px, uu = v => v / px;
+    let s = `<rect x="${vb[0]}" y="${vb[1]}" width="${vb[2]}" height="${vb[3]}" fill="${COL.raised}"/>`;
+    for (let q = Math.ceil(vb[0]); q <= vb[0] + vb[2]; q++) s += `<line x1="${q}" y1="${vb[1]}" x2="${q}" y2="${vb[1] + vb[3]}" stroke="${COL.hair}" stroke-width="${f(uu(1))}"/>`;
+    for (let q = Math.ceil(vb[1]); q <= vb[1] + vb[3]; q++) s += `<line x1="${vb[0]}" y1="${q}" x2="${vb[0] + vb[2]}" y2="${q}" stroke="${COL.hair}" stroke-width="${f(uu(1))}"/>`;
+    s += `<path d="${G.d}" fill="${N}" fill-opacity=".18"/><path d="${G.d}" fill="none" stroke="${N}" stroke-width="${f(uu(1.2))}"/>`;
+    const footI = G.prims.findIndex(p => p.root === 'DOME' || (p.cap && p.root === 'ELLIPSE'));
+    if (!after) {
+      // the drawn top: one curve, its handles
+      const cp = new paper.CompoundPath(G.parts[footI]);
+      for (const c of (cp.children.length ? cp.children[0] : cp).curves) if (!c.isStraight()) { const P = [c.point1, c.point1.add(c.handle1), c.point2.add(c.handle2), c.point2]; s += `<path d="M${f(P[0].x)} ${f(P[0].y)}C${f(P[1].x)} ${f(P[1].y)} ${f(P[2].x)} ${f(P[2].y)} ${f(P[3].x)} ${f(P[3].y)}" fill="none" stroke="${OR}" stroke-width="${f(uu(1.6))}"/><path d="M${f(P[0].x)} ${f(P[0].y)}L${f(P[1].x)} ${f(P[1].y)}M${f(P[3].x)} ${f(P[3].y)}L${f(P[2].x)} ${f(P[2].y)}" stroke="${OD}" stroke-width="${f(uu(1.1))}"/>${[P[1], P[2]].map(q => `<rect x="${f(q.x - uu(3))}" y="${f(q.y - uu(3))}" width="${f(uu(6))}" height="${f(uu(6))}" fill="${COL.raised}" stroke="${OD}" stroke-width="${f(uu(1.3))}"/>`).join('')}`; }
+      cp.remove();
+    } else {
+      const E_ = G.prims[footI].cap, hw = E_.rx / (E_.over || 7 / 6), x0 = E_.cx - hw, x1 = E_.cx + hw, yb = E_.cy, yt = yb - E_.ry;
+      s += `<ellipse cx="${f(E_.cx)}" cy="${f(E_.cy)}" rx="${f(E_.rx)}" ry="${f(E_.ry)}" fill="none" stroke="${OR}" stroke-width="${f(uu(1.8))}"/><circle cx="${f(E_.cx)}" cy="${f(E_.cy)}" r="${f(uu(3))}" fill="${OR}"/>`;
+      for (const x of [x0, x1]) s += `<line x1="${f(x)}" y1="${f(yt - 0.7)}" x2="${f(x)}" y2="${f(yb + 0.6)}" stroke="${OR}" stroke-width="${f(uu(1.2))}" stroke-dasharray="${f(uu(5))} ${f(uu(3))}"/>`;
+      s += `<line x1="${f(E_.cx - E_.rx - 0.3)}" y1="${f(yb)}" x2="${f(E_.cx + E_.rx + 0.3)}" y2="${f(yb)}" stroke="${OR}" stroke-width="${f(uu(1.2))}"/>`;
+    }
+    // the rounds at the foot's ends (each end's own round before; the cuts' rounds now)
+    for (const c of G.corners) { const y = c.P0 ? c.P0[1] : c.pA[1]; if (!c.convex || y < G.mFin.box.y1 - 1.6 || y > G.mFin.box.y1 - 0.2) continue; const dd = c.cubics.map((P, j) => `${j ? '' : `M${f(P[0][0])} ${f(P[0][1])}`}C${f(P[1][0])} ${f(P[1][1])} ${f(P[2][0])} ${f(P[2][1])} ${f(P[3][0])} ${f(P[3][1])}`).join(''); s += `<path d="${dd}" fill="none" stroke="${KIND.end.c}" stroke-width="${f(uu(5))}" stroke-linecap="round"/>`; }
+    return `<div><svg width="${Math.round(W_)}" height="${Math.round(H_)}" viewBox="${vb.join(' ')}" role="img" aria-label="${label}" style="display:block">${s}</svg><div style="font-size:15px;font-weight:700;color:${N};margin-top:6px">${label}</div></div>`;
+  };
+  const N8 = (d, x, y, w, h, px) => `<svg width="${Math.round(px * w / h)}" height="${px}" viewBox="${f2(x)} ${f2(y)} ${w} ${h}" style="background:${COL.paper};display:block" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
+  const ring = `<circle cx="12" cy="12" r="11.25" fill="${COL.paper}" stroke="${N}" stroke-width="1.5"/>`;
+  const sz = d => `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">${ring}<path d="${d}" fill="${N}"/></svg><svg width="72" height="72" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
+  const zoomFoot = d => { const b = pathBox(d); return N8(d, b.x0 - 0.3, b.y1 - 2.1, 3.6, 2.4, 170); };
+  const zoomPlate = d => { const b = pathBox(d); return N8(d, b.x0 - 0.3, b.y1 - 1.9, 4.4, 2.2, 150); };
+  const cell = (inner, t, sub, strong) => `<div>${inner}<div style="font-size:15px;font-weight:700;color:${strong ? N : I2};margin-top:6px">${t}</div>${sub ? `<div style="font-size:14px;color:${I2};max-width:250px;line-height:1.35">${sub}</div>` : ''}</div>`;
+  const nf = d => { const n = FCK.check(d).length; return n ? `${n} faults in the fair check` : 'fair check clean'; };
+  const tried = [['roots-tried/bar-circle.svg', 'One circle, the old ends', 'no visible change: within 0.03px of v233 at 72; the ends still draw their own rounds'], ['roots-tried/bar-ellipse-upright.svg', 'The ellipse turning upright, no cut', 'the nicest roll, but its bend switches on at once at the upright (a jump)'], ['roots-tried/bar-half-ellipse.svg', 'A whole half ellipse', 'the ends come to a beak']];
+  const tryRow = tried.map(([f_, t, sub]) => cell(zoomFoot(svgOf(f_)), t, `${sub}; ${nf(svgOf(f_))}`)).join('');
+  // ---- the counters as root shapes
+  const ctr = (id, vb, extra, t, how, same) => { const G = J[id], px = 250, uu = v => v * vb[2] / px; return `<div style="width:${px}px"><svg width="${px}" height="${px}" viewBox="${vb.join(' ')}" style="display:block;background:${COL.raised}" aria-hidden="true"><path d="${G.d}" fill="${N}" fill-opacity=".18"/><path d="${G.d}" fill="none" stroke="${N}" stroke-width="${f(uu(1.1))}"/>${extra(uu)}</svg><div style="font-size:17px;font-weight:700;color:${N};margin-top:8px">${t}</div><div style="font-size:15px;line-height:1.4;color:${COL.ink};margin-top:2px">${how}</div><div style="font-size:14px;line-height:1.35;color:${I2};margin-top:4px">${same}</div></div>`; };
+  const cupX = uu => KG.cafe.circles.map(({ C, r }) => `<circle cx="${f(C.x)}" cy="${f(C.y)}" r="${f(r)}" fill="none" stroke="${OR}" stroke-width="${f(uu(1.6))}"/>`).join('') + `<circle cx="${f(KG.cafe.circles[0].C.x)}" cy="${f(KG.cafe.circles[0].C.y)}" r="${f(uu(3))}" fill="${OR}"/>`;
+  const starX = uu => { const G = J.star, i = G.prims.findIndex(p => p.cut); return `<path d="${G.parts[0]}" transform="translate(0 ${f(G.dy)})" fill="none" stroke="${OR}" stroke-width="${f(uu(1.6))}"/><path d="${G.parts[i]}" transform="translate(0 ${f(G.dy)})" fill="none" stroke="${OR}" stroke-width="${f(uu(1.6))}" stroke-dasharray="${f(uu(5))} ${f(uu(3))}"/><circle cx="${G.centre[0]}" cy="${f(G.centre[1] + G.dy)}" r="${f(uu(3))}" fill="${OR}"/>`; };
+  const musX = uu => { const G = J.museum, posts = G.parts.map((d, i) => [d, G.prims[i]]).filter(([, p]) => p.root === 'POST').map(([d]) => pathBox(d)).sort((a, b) => a.x0 - b.x0); let s = ''; for (let i = 0; i + 1 < posts.length; i++) { const a = posts[i], b = posts[i + 1]; s += `<rect x="${f(a.x1)}" y="${f(a.y0)}" width="${f(b.x0 - a.x1)}" height="${f(a.y1 - a.y0)}" fill="none" stroke="${OR}" stroke-width="${f(uu(1.6))}" stroke-dasharray="${f(uu(5))} ${f(uu(3))}"/>`; } return s; };
+  const barX = uu => { const G = J.bar, cp = new paper.CompoundPath(G.parts[0]); let s = ''; for (const c of cp.children.length ? cp.children[0].curves : cp.curves) { if (c.isStraight()) continue; const sg = c.bounds.center.x < (G.sym || 12) ? 1 : -1; const P = [c.point1, c.point1.add(c.handle1), c.point2.add(c.handle2), c.point2]; const Q = P.map(v => v.add(new paper.Point(sg * 1.5, 0))); s += `<path d="M${f(P[0].x)} ${f(P[0].y)}C${f(P[1].x)} ${f(P[1].y)} ${f(P[2].x)} ${f(P[2].y)} ${f(P[3].x)} ${f(P[3].y)}" fill="none" stroke="${OR}" stroke-width="${f(uu(1.6))}"/><path d="M${f(Q[0].x)} ${f(Q[0].y)}C${f(Q[1].x)} ${f(Q[1].y)} ${f(Q[2].x)} ${f(Q[2].y)} ${f(Q[3].x)} ${f(Q[3].y)}" fill="none" stroke="${OR}" stroke-width="${f(uu(1.6))}" stroke-dasharray="${f(uu(5))} ${f(uu(3))}"/>`; } cp.remove(); return s; };
+  const bw = AUD.bandWall.map(v => v.toFixed(2));
+  const counters = [
+    ctr('cafe', (() => { const { C, r } = KG.cafe.circles[0]; return [C.x - r - 2.2, C.y - r - 1.2, 2 * r + 3.4, 2 * r + 3.4].map(f); })(), cupX, 'The cup\'s ear', 'A circle on the ear\'s own centre, its radius 0.37 of the ear\'s, run on to the cup\'s wall as a slot. Two concentric circles: the wall is even all round, 1 1/2.', 'Same drawing, byte for byte (it always was this circle; now it is named as one).'),
+    ctr('museum', [5, 8.5, 14, 14], musX, 'The museum\'s openings', 'Rectangles: what the four columns\' spacing leaves between the beam and the plinth. The columns are 1 1/4 (the post rule).', 'Same drawing, byte for byte (nothing to change: they were never offsets).'),
+    ctr('star', [3, 3, 18, 18], starX, 'The star\'s counter', `The same star on the same centre, ${f2(AUD.star.ratio)} its size. A regular star's ten edges all stand the same distance from its centre, so the smaller star leaves every wall the same, 1 1/2.`, `Same drawing: under 0.0001px apart at 72 before the rounds (the old erosion ran on a 1/100000 grid); after the rounds, within 0.002px at 72.`),
+    ctr('bar', [6.6, 6.9, 10.8, 10.8], barX, 'The coupe\'s clear band', 'The bowl\'s own side (solid) moved in sideways (dashed), between the rim and the drink: a root moved, not an offset. Walls 1 1/2 across; measured square to the bowl they are ' + bw.join(' → ') + 'px down the band, the look you approved at v144.', 'Same drawing, byte for byte (it was already the bowl\'s shape).'),
+  ].join('');
+  const tbl = (r) => r.map(([a, b]) => `<div style="padding:10px 0;border-top:1px solid ${COL.hair};display:flex;gap:18px"><div style="width:260px;flex:none;font-weight:700;color:${N};font-size:17px">${a}</div><div style="font-size:17px;line-height:1.45">${b}</div></div>`).join('');
+  const retire = tbl([
+    ['The plate rule', '<b>Retired.</b> Its drawn curve ("flat on top, the underside dropping 1/2px at the centre, ends 1px") is now the cap rule\'s ellipse underneath. One rule draws the plate and the foot.'],
+    ['The domed foot', '<b>Retired</b> (the dome options in the code stay only for the archived rows). The foot is the cap rule\'s ellipse on top.'],
+    ['The leaned flare', '<b>Kept.</b> Built without it, the four shelves come back where the stem meets the bowl and the foot: a root\'s crown is level under the stem, whatever the root. So it is still the rule for that kind of corner (a line into a gentle curve bending the other way).'],
+    ['"A counter is the outline moved in by the line"', '<b>Replaced</b>, as you asked, by rule 4 above. The star was the only icon built that way.'],
+  ]);
+  return `<div style="border-top:2px solid ${COL.hair};padding:36px 0 44px">
+<h2 style="margin:0 0 10px;font-size:34px;color:${N}">Roots: every piece from a root shape</h2>
+<div style="margin:0 0 10px;padding:14px 18px;background:${COL.paper};border-top:4px solid ${OR};font-size:19px;line-height:1.4;color:${N};font-weight:600;max-width:1400px">"So an icon should have root shapes at its core that are then connected / disconnected to create the greater form. I'm realizing not all pieces have clear root shapes they are derived from - notably the foot (currently in use on the coupe) which I think is what's causing the hump…each top point on the left and right side are drawing their own arc, when the top edge should be crafted holistically from the top of a circle or ellipses"</div>
+<div style="margin:0 0 26px;padding:14px 18px;background:${COL.paper};font-size:19px;line-height:1.4;color:${N};font-weight:600;max-width:1400px">On the counters: "Yeah I want it all defined by the shapes and proportions not stroke logic" · "I mean it shouldn't change anything should it?"</div>
+<div style="max-width:1300px"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 14px">The rule, for every icon</div>${rule}</div>
+<div style="margin-top:30px"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:0 0 6px">The audit: every piece of the six</div>${table}
+<p style="margin:12px 0 0;font-size:15px;line-height:1.4;color:${I2};max-width:1300px">"Near": a drawn curve that sits within a tenth of a pixel of its root at 72px (measured by src/roots-audit.js). "No root": more than that, so a rebuild from its ellipse would show. The coupe's bowl and the cup's bottom are your fixed points, so they wait on you.</p></div>
+<h3 style="margin:40px 0 6px;font-size:26px;color:${N}">The foot, rebuilt from one ellipse</h3>
+<p style="margin:0 0 18px;font-size:17px;line-height:1.45;max-width:1300px">v233: the top was one drawn curve (handles shown), but each end made its own round (thick) where it met the upright. Now: the cap rule. One ellipse (orange, drawn whole past the glyph: 7/6 the foot's width, its full height, centred on its base) makes the top and both shoulders; the slab's ends (dashed) cut it at about half its height, and only those cuts take a round (thick), set by the law. The stem's flares into it are unchanged. The shoulders move 0.18px at most in the 24px badge, 0.55px at 72.</p>
+<div style="display:flex;gap:28px;flex-wrap:wrap">${footSvg(BJ.bar, 'v233', false)}${footSvg(J.bar, 'Now: the cap rule', true)}</div>
+<div style="display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap;margin:22px 0 0">
+${cell(zoomFoot(BJ.bar.d), 'v233, at about your zoom', '')}${cell(zoomFoot(J.bar.d), 'Now', nf(J.bar.d), true)}
+<div style="padding:12px 14px;background:${COL.paper}"><div style="display:flex;gap:14px;align-items:center"><span style="width:44px;font-size:14px;color:${I2}">v233</span>${sz(BJ.bar.d)}</div><div style="display:flex;gap:14px;align-items:center;margin-top:8px"><span style="width:44px;font-size:14px;color:${N};font-weight:700">now</span>${sz(J.bar.d)}</div></div></div>
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:26px 0 10px">Tried and dropped</div>
+<div style="display:flex;gap:28px;flex-wrap:wrap">${tryRow}</div>
+<h3 style="margin:40px 0 6px;font-size:26px;color:${N}">The plate: the same rule, upside down</h3>
+<p style="margin:0 0 18px;font-size:17px;line-height:1.45;max-width:1300px">The cup sits on the flat; the ellipse is underneath, 7/6 the plate's width and its full height. Its ends are a little thinner than the plate rule's 1px. Is that still the plate you want?</p>
+<div style="display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap">${cell(zoomPlate(BJ.cafe.d), 'v233: the plate rule', '')}${cell(zoomPlate(J.cafe.d), 'Now: the cap rule', nf(J.cafe.d), true)}
+<div style="padding:12px 14px;background:${COL.paper}"><div style="display:flex;gap:14px;align-items:center"><span style="width:44px;font-size:14px;color:${I2}">v233</span>${sz(BJ.cafe.d)}</div><div style="display:flex;gap:14px;align-items:center;margin-top:8px"><span style="width:44px;font-size:14px;color:${N};font-weight:700">now</span>${sz(J.cafe.d)}</div></div></div>
+<h3 style="margin:40px 0 6px;font-size:26px;color:${N}">The four counters, as shapes and proportions</h3>
+<p style="margin:0 0 18px;font-size:17px;line-height:1.45;max-width:1300px">You asked whether it changes anything: it doesn't. Three were already root shapes and are now named as them; the star's is rebuilt as a smaller star and comes out the same. Monoweight holds, for a reason that is about shapes: the walls are even wherever the hole is the same shape as the outside on the same centre (circle in circle, regular star in star) or the space between parallel posts. Where that isn't true, proportion alone would let the walls vary: a smaller ellipse inside an ellipse, scaled, is thicker at its ends than its sides. So a future counter in an ellipse takes the same ellipse less a wall on each axis: in an 8 × 10 ellipse with a 1 1/2 wall that keeps the walls at 1.49 to 1.50 (scaled instead, they would run 1.50 to 1.88).</p>
+<div style="display:flex;gap:28px;flex-wrap:wrap">${counters}</div>
+<h3 style="margin:40px 0 6px;font-size:26px;color:${N}">Rules this retires, and the one it keeps</h3>
+${retire}
+</div>`;
 }
 
 function sheet() {
@@ -385,6 +513,7 @@ function sheet() {
 <h1 style="margin:6px 0 14px;font-size:44px;line-height:1.1;color:${COL.navy}">Construction</h1>
 <div style="margin:0 0 24px;padding:18px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:22px;line-height:1.35;color:${COL.navy};font-weight:600;max-width:1150px">"These are looking great. I want to see a diagram now that overlays the shapes used to make these shapes on top of them, a construction diagram"</div>
 <p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1150px">Each of the six, as the engine builds it, on the 24 grid. Large, left: the shapes it is built from, run past the glyph, with its size class, mirror and optical centre (40px a unit). Right: every round it drew, coloured by its kind. Every line here is read from the code's record of the build, not drawn after it.</p>
+${roots()}
 ${legend()}
 ${closeUps()}
 ${['cafe', 'bar', 'museum', 'nature', 'star', 'plus'].map(iconRow).join('')}
