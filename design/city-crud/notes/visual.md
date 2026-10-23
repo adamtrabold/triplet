@@ -2,7 +2,42 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## Where things stand (2026-10-23)
+## v2: where things stand now (2026-10-23, later) -- READ THIS FIRST
+
+The owner saw the v1 stills and changed scope: "Ok I'm realizing this is going to suck. I still want
+to be able to move things to different / new cities for the close use case but for the more complex
+roadtrip example that should just Be a saved plan". Then: "Delete is good but not rename — cities
+should Be the names of real citirs".
+
+- Current concept: `concepts/v2-lean.md` (one concept; one alternative described in text, not
+  drawn). Jobs v2 + coverage at the top of `jobs.md`; v1 jobs kept below as history.
+- Stills: `stills/v2/1-name-and-address.png`, `2-move-to-a-city.png`, `3-roadtrip-is-a-plan.png`,
+  `4-delete-a-city.png`; raws in `stills/v2/raw/`; one script makes both
+  (`CHROME=/opt/pw-browsers/chromium-1243/chrome-linux64/chrome node design/city-crud/stills/v2/stills.js`,
+  `sheets` as the argument re-renders only the sheets). v1 stills kept as they were.
+- Decisions: the guess unchanged; "Find a city" (real settlements only) replaces free naming; no
+  move / re-centre (centre comes from the real city's record); the PLAN line on the add tag only
+  with a plan open; a roadtrip stop filed under its real town (the plan's legs read as the route);
+  Delete city… as the gone-to city's foot, moving places by default.
+- Caption check done frame by frame (two fixes: sheet 3's second caption now says what the frame
+  shows; sheet 4's frames scrolled so the foot and the whole confirm are on screen).
+- v1 open questions 1-5 fall away (no buckets, no label, no navy band); 6 (delete-too) stays; 7
+  (rename-to-merge) falls away (no rename).
+
+### Open questions (v2, for the owner)
+1. Roadtrip stops are filed under their real town (NEW Lewes), so the plan reads Philadelphia →
+   Lewes, at the cost of one small city per far town in Places. OK, or file them under the nearest
+   city you have?
+2. The PLAN line shows only when you tap + with a plan open. OK, or offer "add to a plan" on every
+   add?
+3. Deleting a city: move its places (default) or delete them too. Is "delete them too" wanted?
+4. Delete city… lives under the city you've gone to (like a plan's foot). OK as the place for it?
+
+### Not drawn yet
+Signed-out greying of Find a city / Delete city…; the "stop write failed" line; a Find-a-city
+result that matches a city you already have; 375x667 fits.
+
+## v1: where things stood (2026-10-23) -- history
 
 - `jobs.md` written first (J1-J10 from the owner's words, J11-J17 inferred), with the coverage table.
 - Three concepts that differ in kind (`concepts/A-*.md`, `B-*.md`, `C-*.md`) plus the shared

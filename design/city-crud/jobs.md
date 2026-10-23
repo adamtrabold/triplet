@@ -1,5 +1,59 @@
 # City CRUD + adding a place: jobs
 
+## v2 (2026-10-23, after the owner's scope change) -- CURRENT
+
+Owner, after the v1 stills: "Ok I'm realizing this is going to suck. I still want to be able to move
+things to different / new cities for the close use case but for the more complex roadtrip example
+that should just Be a saved plan". Then: "Delete is good but not rename — cities should Be the names
+of real citirs". Still standing: "Name and address should be separate."; "Cures [Cities] should have
+crud principles" (now sized by the ruling above: create, read, delete; no rename).
+
+| # | Job | From |
+|---|-----|------|
+| J1 | **Move a place to a different city** that's close by. | "move things to different / new cities for the close use case" |
+| J2 | **Move a place to a new city** (one I haven't added), even when the place sits just outside it. | same; the first message's Longwood-near-Philadelphia story |
+| J3 | **Do the same while adding** (file a new place under a city I haven't added yet). | first message: "put a place in that was in a city I hadn't added yet" |
+| J4 | **New cities are real cities**: I pick one; I never type a made-up name. | "cities should Be the names of real citirs" |
+| J5 | **Fix a city the app made while I was working** (move the place out; the wrong city goes). | first message: "you can't edit one even if it creates a new one while you're working" |
+| J6 | **Delete a city, knowing what happens to its places.** | "Delete is good" |
+| J7 | **Save a roadtrip as a plan:** put stops into a plan as I add them. | "the more complex roadtrip example that should just Be a saved plan" |
+| J8 | **Put a place I already have into a plan.** | same (shipped: + in the plan's "Add places") |
+| J9 | **See the roadtrip in order, with where each stop is.** | same (shipped: the plan's stops in leg sections) |
+| J10 | **Find a place by its address** on an address line. | "Name and address should be separate" |
+| J11 | **Name the place what I call it**, separate from the address. | same |
+| J12 *(inferred)* | **Save an address-only place under my own name.** | follows from J10 + J11 |
+| J13 *(inferred)* | **Nothing lost when a city is deleted** (stars, visited, plan stops). | v1 J15 |
+| J14 *(inferred)* | **See both truths:** the city a place is filed in and the town it's really in. | owner 2026-10-15: "comfortably balance the idea of the city it belongs to in the app vs the city the address actually places it" |
+| J15 *(inferred)* | **Signed out: can't change cities, and told why.** | shipped rule |
+
+Dropped from v1 with the owner's words: renaming a city, free-named buckets, a city standing for a
+trip, re-centring a city (`concepts/v2-lean.md` says why it isn't needed), several far roadtrip
+stops in one city bucket, seeing a bucket's stops together (the plan does it).
+
+### Coverage (v2, checked against `stills/v2/`)
+
+| Job | v2 · Lean cities, plans for trips | Where |
+|-----|-----|-----|
+| J1 move to another city | ✓ | the city menu on the place's tag (shipped) |
+| J2 move to a new city | ✓ | "Find a city" in that menu (V3 → V4) |
+| J3 same while adding | ✓ | the same menu on the add tag |
+| J4 real cities only | ✓ | the search lists only real cities (city / town / village results) |
+| J5 fix a city made mid-work | ✓ | move the place out (V3 → V4); the emptied auto city is cleaned up (shipped), or delete it (V7, V8) |
+| J6 delete a city | ✓ | "Delete city…" under the gone-to city's section (V7, V8) |
+| J7 roadtrip into a plan as I add | ✓ | the add tag's PLAN line when a plan is open (V5 → V6) |
+| J8 existing place into a plan | ✓ | shipped (+ in the plan's Add places) |
+| J9 see the roadtrip in order | ✓ | shipped legs; each stop under its real town (V6) |
+| J10 address search | ✓ | V1 |
+| J11 name separate | ✓ | V2 |
+| J12 address-only, my name | ✓ | V2 |
+| J13 nothing lost on delete | ✓ | move is the default (V8) |
+| J14 both truths | ✓ | address line + distance note (V4) |
+| J15 signed out | ✓ | shipped slip on the city line; the delete foot greyed with the same slip (not drawn) |
+
+---
+
+## v1 (history: superseded by v2 above)
+
 Written before reading the spec, from the owner's words (verbatim in `notes/visual.md` and below).
 Every concept in `concepts/` is checked against this list. A concept fails if a job can't be
 completed, whatever the spec says.

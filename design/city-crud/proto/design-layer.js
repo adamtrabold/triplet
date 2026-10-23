@@ -78,10 +78,10 @@
     ['phl05', 'Cape Henlopen State Park', 'nature', 38.7709, -75.1033, 'Cape Henlopen Drive · Lewes', false, false],
     ['phl06', 'Dogfish Head Brewings & Eats', 'bar', 38.7197, -75.0807, '320 Rehoboth Avenue · Rehoboth Beach', false, false],
   ];
-  CC.seedPhilly = (withPlaces = true) => {
+  CC.seedPhilly = (withPlaces = true, only = null) => {
     CITIES.philadelphia = { ...CC.PHL };
     if (withPlaces) {
-      const rows = CC.PHL_ROWS.map(([id, name, category, lat, lng, short, starred, visited], i) => ({ id, name, category, lat, lng, short_address: short, address: short, notes: null, starred, visited,
+      const rows = CC.PHL_ROWS.filter(r => !only || only.includes(r[0])).map(([id, name, category, lat, lng, short, starred, visited], i) => ({ id, name, category, lat, lng, short_address: short, address: short, notes: null, starred, visited,
         city: 'philadelphia', created_at: new Date(Date.UTC(2026, 9, 20, 0, i)).toISOString() }));
       rows.forEach(r => window.__ROWS.push(r));
       locations = locations.concat(rows);
