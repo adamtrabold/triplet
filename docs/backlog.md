@@ -32,6 +32,7 @@ pick/redirect before building anything.
     `nominatim.openstreetmap.org` both return HTTP 200, so the script can
     run here or in CI. Keep request volume polite: a handful of queries with
     delays between them.
+- **Add tag: the close disc too** -- LANDED 2026-10-23 (owner: "I don't see this in the add places tag only in existing places"; "Disc on a string", "Disc always"; on the sheet: "Yes"). The add tag hangs from the same close disc in every state; spec `docs/shipped.md` "The add tag's close is the disc too". Open: the owner's iPhone pass (notch check for the docked disc).
 - **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
