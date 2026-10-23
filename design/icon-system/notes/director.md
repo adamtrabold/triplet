@@ -411,3 +411,7 @@ Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 143
 ## Icon system, Construction board v232 (2026-10-23): 9 after one small board edit
 
 All four of turn 143's fixes are in, by eye. Edit: thin the museum sheet's keylines. He decides one thing: the counter rule (finding #2). Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 145.
+
+## Icon system, g7aw roots (v234, 2026-10-23): 8
+
+The cap rule fixes the foot by eye, and the Roots rule and audit are strong. The block: the two "no root" pieces are handed back to him. Fit them now to cut ellipses (the cap rule generalised), not to half-ellipses through their ends. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 148.

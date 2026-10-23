@@ -1377,3 +1377,10 @@ The verdict stands within our own set:
 - **Edit:** the museum sheet is busy. Drop the keylines that repeat a slab's edge, and move the stray label off the C marker.
 - **His one decision:** finding #2 (the counter rule).
 - **Fixes:** jam turn 145.
+
+## Round g7aw roots + cap rule (canvas v234), 2026-10-23: 8
+
+- **Foot:** one ellipse over crown and shoulders; reads as one shape; the hump is gone. The plate is the same rule, with its ends a touch rounder (asked of him). 7/6 is stated.
+- **Roots section:** a strong five-line rule and an honest audit.
+- **Block:** the coupe's bowl and the cup's bottom are left "no root" (0.74 and 0.42px at 72) and handed to him, against his "all defined by the shapes". Generalise the cap rule (an arc of one ellipse, cut by its neighbours) and fit both now. Not the half-ellipse through the ends (v205's upright sides).
+- **Fixes:** jam turn 148.

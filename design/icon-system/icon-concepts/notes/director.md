@@ -1884,3 +1884,9 @@ checks; don't eyeball "is it as good as".
 - Construction reads when the primitives are whole and extend past the glyph (concentric circles, the ellipse, slopes past the apex).
 - Busy keylines are acceptable only when the parts are simple. Cut any keyline that only repeats an edge.
 - Next: the museum edit, then it goes to him with the counter-rule question.
+
+## g7aw roots (v234, 2026-10-23): 8
+
+- When he states a principle, exceptions count against it unless they can't be avoided. "Fixed point" protects how a thing looks, not how it's built.
+- A root fitted through a piece's endpoints is the wrong test. A cut ellipse (its centre outside the piece, cut by its neighbours) fits squarer curves and leaning sides; that's the cap rule's own move.
+- Next: the bowl and the cup's bottom on cut ellipses, the audit filled in, then rescore. If they're invisible at 72, it goes to him.

@@ -6330,3 +6330,37 @@ Owner (v233): "So an icon should have root shapes at its core that are then conn
 **Checks:** construction.js 6/6 identical to the new row svgs (cup, coupe, star changed; museum, tree, + byte-identical to v233); fair-check on the six row svgs: all clean; the cup and coupe move 0.50 / 0.55px at 72 at most (cmp.js), the star 0.002px; boards rendered and looked at at 1x; Impeccable not run (design boards, not index.html).
 
 **Unsure:** the plate's ends are thinner (about 0.66px at 24): it might read rounder to him ("the glass being on something so rounded as a plate feels off" is still open). 7/6 is chosen by eye inside the clean band (7/6 and 1.15 clean, 1.125 not); it is calibrated on one foot and one plate.
+
+---
+
+## Turn 148: design director, v234 (roots, the cap rule): 8, two pieces still have no root
+
+Merged 5a0f15f8 and read both live boards (v234): Between section 0 and Construction's new Roots section. Rendered the row: v233 (`before-g7aw/`) against now, at 12/24/72px, then the coupe's foot and the cup's plate at about 40 and 95px a unit.
+
+**At true size:** no change you can see in any of the six. That's right.
+
+**The foot, at his zoom:**
+- v233: a gentle top run, then a separate round at each end, with a knuckle where they meet.
+- Now: one ellipse rolls from the crown over both shoulders into a short upright. It reads as one shape, the top of an ellipse, as he described.
+- The stem's flares into it are unchanged and smooth. **The hump reads gone. Pass.**
+- The plate, upside down, is the same rule. Its ends are a touch thinner and rounder underneath. At 72 it still reads as a saucer; "too rounded" is possible but unlikely. The board asks him, which is right.
+- The construction figure (the whole ellipse past the glyph, the slab's dashed cuts, rounds only at the cuts) shows the rule plainly. The three "tried and dropped" make the reasons visible. 7/6 is a set proportion, like the others: acceptable, and stated.
+
+**The Roots section:**
+- The five-line rule is the best statement of the system so far. Line 5 ("an edge you can't name that way is the one to fix") is a real test for a seventh icon.
+- The audit is honest.
+
+**What blocks a 9: the two "no root" rows.**
+- He stated a principle ("root shapes at its core", "all defined by the shapes and proportions") and expects no visible change ("it shouldn't change anything should it?").
+- The coupe's bowl sides and the cup's bottom corners are 0.74 and 0.42px from a root at 72, which is 0.25 and 0.14px in the 24px badge. "Fixed point" was about how they look, not how they're built. So the board leaves his principle with two exceptions and hands them back to him.
+- **My call: put them on roots now, as a rule. Don't use the half-ellipse through the ends**; that's rounder and brings back the upright sides he rejected on v205. **Generalise the cap rule instead:** a curved edge is an arc of one ellipse, cut where it meets its neighbours.
+  - Bowl: an ellipse, its centre above the rim, cut by the rim line, so the side meets the rim leaning, as he approved. Its proportions come from a fit to today's curve.
+  - Cup bottom: one ellipse whose quarter runs past the walls and is cut by them (that's what makes it squarer than an inscribed quarter).
+  - If each lands within about 0.1px at 72 ("near"), it's done with no visible change. If not, show the rebuild at 72 and at his zoom beside today's, and say what moved.
+
+**Likely owner objections:** "why do two pieces still have no root?" (likely: he just named the principle). The plate's ends "too rounded" (possible).
+
+**Score: 8.** One fix:
+1. Put the bowl and the cup's bottom on cut ellipses by the generalised cap rule. Fill in the audit rows, and show any visible change. Then every row reads root, near or from-a-root.
+
+**Changed since my last score?** Yes: the cap rule, counters redefined as shapes, the Roots audit.
