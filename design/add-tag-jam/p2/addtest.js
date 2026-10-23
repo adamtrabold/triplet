@@ -162,7 +162,7 @@ const { W } = P;
   await P.openAdd(page); await P.typeName(page, 'Sund');
   await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /District · Reykjavik/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
   ok('H1 Sund (boundary=administrative, neighbourhood) -> District; the address line says where ("Reykjavik, Iceland"), never a sentence', await ev(() => addDraft.type === 'district' && document.getElementById('addAddr').textContent === 'Reykjavik, Iceland'), await ev(() => document.getElementById('addAddr').textContent));
-  ok('H1d a District hangs from the 14px shape dot, not the pin', await ev(() => { const p = document.getElementById('addPin'); return p.classList.contains('is-dot') && p.getBoundingClientRect().width === 14 && !p.querySelector('use'); }));
+  ok('H1d a District hangs from the same 28px close disc as a place (add-tag-close: no dot, no badge)', await ev(() => { const p = document.getElementById('addPin'); return getComputedStyle(p, '::after').width === '28px' && !p.children.length; }));
   await W(300);
   ok('H1b the District\'s outline shows before ADD (TypeDetected)', await ev(() => !!addOutlineLayer && map.hasLayer(addOutlineLayer) && addOutlineLayer.getLatLngs()[0].length > 10));
   await ev(() => { document.getElementById('addTypeBtn').click(); document.querySelector('#addTypeMenu [data-type="cafe"]').click(); });
@@ -188,7 +188,20 @@ const { W } = P;
   await P.openAdd(page);
   ok('I3 + again: the kept pick hangs, the place under the pin', await ev(() => { const pin = document.getElementById('addPin').getBoundingClientRect(), mr = map.getContainer().getBoundingClientRect(), pt = map.latLngToContainerPoint([addDraft.pick.lat, addDraft.pick.lng]); return document.getElementById('nameInput').value === 'Hallgrímskirkja' && Math.hypot(pin.left + 16 - mr.left - pt.x, pin.top + 16 - mr.top - pt.y) <= 1; }));
   await ev(() => document.getElementById('addCancel').click()); await W(400);
-  ok('I4 the x cancels', await ev(() => !addFormOpen()));
+  ok('I4 the (keyboard) Cancel button cancels', await ev(() => !addFormOpen()));
+
+  // X. the close disc the tag hangs from (add-tag-close; owner: "Disc on a string", "Disc always")
+  await reset();
+  await P.openAdd(page);
+  const k1 = await ev(() => { const p = document.getElementById('addPin'), r = p.getBoundingClientRect(), a = getComputedStyle(p, '::after'), bf = getComputedStyle(p, '::before'), st = document.querySelector('#addForm .tag-string').getBoundingClientRect(), x = document.getElementById('addCancel').getBoundingClientRect();
+    return { disc: a.width, hit: r.width - 2 * parseFloat(bf.top), gap: Math.round(st.top - (r.top + r.height / 2 + 14)), x: x.width, first: document.querySelector('#addForm button') === document.getElementById('addCancel') }; });
+  ok('X1 blank: the tag hangs from the 28px close disc on its string (gap 0), a 44px target; Cancel visually hidden, first in tab order', k1.disc === '28px' && k1.hit === 44 && k1.gap === 0 && k1.x <= 1 && k1.first, k1);
+  await P.typeName(page, 'Hallgrímskirkja'); await P.pick(page, 0);
+  const kv0 = await ev(() => ({ c: addView.center, z: addView.zoom }));
+  ok('X2 picked: the disc shows no type badge; the place under its centre', await ev(() => { const p = document.getElementById('addPin'), r = p.getBoundingClientRect(), mr = map.getContainer().getBoundingClientRect(), pt = map.latLngToContainerPoint([addDraft.pick.lat, addDraft.pick.lng]); return !p.children.length && Math.hypot(r.left + 16 - mr.left - pt.x, r.top + 16 - mr.top - pt.y) <= 1; }));
+  await P.tap(page, '#addPin'); await W(500);
+  const kv1 = await ev(() => ({ c: map.getCenter(), z: map.getZoom(), open: addFormOpen(), pick: !!addDraft.pick }));
+  ok('X3 a tap on the disc cancels exactly as the x did: the view back, the draft kept', !kv1.open && kv1.pick && kv1.z === kv0.z && Math.abs(kv1.c.lat - kv0.c.lat) < 1e-6, { kv0, kv1 });
 
   // J. one height: the blank and the picked tag are the same height (no note, one-line name)
   await reset();
