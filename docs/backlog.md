@@ -32,6 +32,16 @@ pick/redirect before building anything.
     `nominatim.openstreetmap.org` both return HTTP 200, so the script can
     run here or in CI. Keep request volume polite: a handful of queries with
     delays between them.
+- **City CRUD v2** (owner, 2026-10-23: "There’s really no good way to add a new city" ... "Name
+  and address should be separate. Cures [Cities] should have crud principles."; v2: "move things to
+  different / new cities for the close use case but for the more complex roadtrip example that
+  should just Be a saved plan"; "Delete is good but not rename — cities should Be the names of real
+  citirs"). DRAFT status: BUILT on `claude/city-place-creation-workflow-vcblfw` (name / address
+  lines, Find a city, the PLAN line; `docs/shipped.md` "City CRUD v2", draft), awaiting the
+  combined CD + UX check, then land. **Delete city: ON HOLD** (owner, after approval: "Idk about
+  delete city though — brainstorm better options"); not built. Open for the check:
+  `design/city-crud/notes/builder.md` "Deviations". Designer's open questions (unanswered; the
+  defaults are built): roadtrip stops under their real town; PLAN line only with a plan open.
 - **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
@@ -335,6 +345,16 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- **A failed plan stop shows two messages** (builder, city-crud v2, 2026-10-23). When ADD saves the
+  place but its stop write fails, the add tag says "Saved, but not added to the plan — try again."
+  while `planWrite()`'s shipped write banner says "Couldn't save. Try again." at the top. Reads a
+  little contradictory. Repro: `design/city-crud/build/stills/raw/B7-stop-failed.png`
+  (`window.__failNext = 'plan_stops'` in cctest's lib). A UX call: silence the banner for this
+  path, or word one of them differently.
+- **The Impeccable gate never renders the city-crud states** (builder, 2026-10-23): its runtime
+  states (list, popup, sort, add, plans, signposts) don't open a city menu with Find a city, the
+  PLAN line or ADDRESS being written, so new findings there can't be caught. Adding states is a
+  baseline change (owner/operator approval).
 - **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
   seen while testing the suggestions-over-x tweak). `node
   design/gesture-harness/plans.js index.html` is 31/32 on origin/main

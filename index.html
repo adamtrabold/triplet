@@ -910,7 +910,7 @@
       border-bottom: 1.5px solid var(--navy); font-family: var(--font-ui); font-size: 16px; line-height: 20px; color: var(--ink); caret-color: var(--navy); }
     .menu-find-in::placeholder { color: var(--ink-2); opacity: 1; }
     .menu-find-in::-webkit-search-cancel-button { display: none; }
-    .menu-find-in:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    .menu-find-in:focus { border-bottom-width: 2px; }   /* writing: the caret and a firmer rule (a text entry always matches :focus-visible; no box, as drawn) */
     .menu-res.add-res { padding-left: 40px; }   /* under the entry's text, as drawn (stills/v2 V3) */
     .menu-find-note { padding: var(--s3) var(--s3) var(--s3) 40px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
     .menu-box.is-finding .menu-foot { position: static; }
@@ -4347,7 +4347,10 @@
       if (query.trim().length < 2) { hideAutocomplete(); return; }
       addResultsSrc = src;
       showAddResults('<div class="add-res-note">Searching…</div>');
-      const isStale = () => seq !== searchSeq || addSearchInput(src).value !== query;
+      // a pick made meanwhile also ends it: the quiet near-cities pass could otherwise reopen the
+      // results over a picked place (its NAME can still read the query)
+      const pickAt = addDraft.pick;
+      const isStale = () => seq !== searchSeq || addSearchInput(src).value !== query || addDraft.pick !== pickAt;
       try {
         const data = await nominatimWithFallback(query, currentSearchCityConfig(), { limit: 10, addressdetails: true, timeout: 5000 }, isStale);
         if (isStale()) return;

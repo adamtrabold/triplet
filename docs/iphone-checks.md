@@ -6,6 +6,17 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- **City CRUD v2 (DRAFT: not landed yet; check once it lands):** (1) tap +, then tap ADDRESS: the
+  keyboard comes up with no zoom; type a street address: the results open under ADDRESS, its
+  caption stays above what you type, the rule goes navy; pick one: ADDRESS shows it, NAME takes its
+  name; write your own NAME ("Rental, night 2"): no search runs; ADD files it at that address;
+  (2) clear ADDRESS and tap away: the pin leaves; (3) somewhere none of your cities is near, the
+  city line reads CITY before a pick; (4) on a place's tag (and on the add tag) open the city menu,
+  type a real city in "+ Find a city…": only cities / towns / villages, nearest first, "≈ n km
+  away"; pick a new one: it's made and the place moves there (the emptied old auto city is
+  removed); pick one you already have: it just moves; with the keyboard up the search line and its
+  results stay inside the box; (5) in Plans with a plan open, tap +: the PLAN line shows that plan
+  and STOP n; ADD: the place is the plan's next stop; "Not in a plan" adds it without a stop.
 - **The pin is the close (tag-close-fix, landed 2026-10-21):** open a place's tag: its pin becomes a pale-orange disc with an orange x (no star, no icon, no stop number), the string meeting its bottom edge; tap it: the tag closes (try a near-miss just beside the pin too); open a district's tag: its dot does the same; there is no x on the tag itself; the disc stays visible on pale and water tiles; the city line sits a touch closer to the name. VoiceOver: the tag still offers a "Close" button.
 - **The list title, city sections, show/hide, the tab (add-tag-jam phase 1, landed 2026-10-17):**
   (1) tap the list title: the menu opens downward over the list header, cities first, with a
