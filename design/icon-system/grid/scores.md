@@ -1384,3 +1384,10 @@ The verdict stands within our own set:
 - **Roots section:** a strong five-line rule and an honest audit.
 - **Block:** the coupe's bowl and the cup's bottom are left "no root" (0.74 and 0.42px at 72) and handed to him, against his "all defined by the shapes". Generalise the cap rule (an arc of one ellipse, cut by its neighbours) and fit both now. Not the half-ellipse through the ends (v205's upright sides).
 - **Fixes:** jam turn 148.
+
+## Round g7ax bowl + cup on cut ellipses (canvas v235), 2026-10-23: 7
+
+- **Coupe:** passes. Shallow, and the short upright under the rim is as in v234, not v205.
+- **Fair-check change:** legitimate in principle (a round ends where it lands on its root's steady side). It needs a guard: the rim round's run must match the law.
+- **Block:** the cup's wall now meets its 1.02×-wide ellipse at an angle, a visible knee at his zoom. Rule: an ellipse meets a parallel straight tangent at its widest point, never cut. The check should catch short cut rounds.
+- **Fixes:** jam turn 150.
