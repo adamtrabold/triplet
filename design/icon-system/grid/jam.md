@@ -6204,3 +6204,38 @@ Owner (v230): "These are looking great. I want to see a diagram now that overlay
 **Unsure:**
 - Whether two sheets per icon are easier for him to read than one combined overlay.
 - The corners sheet is dense at the museum's openings.
+
+---
+
+## Turn 143: design director, the Construction board (v231): 8, the cup and coupe trace their outlines instead of showing their shapes
+
+Read `project/Grid7Construction.dc.html` (live v231, 1700 × 6869px) and rendered it at 1x. I judged it against his ask ("overlays the shapes used to make these shapes on top of them") and against the construction sheets of Central, Nucleo and Apple's SF Symbols templates: thin keylines of whole primitives over a solid glyph, plus a blank template you draw on.
+
+**What's right:**
+- It's the code's own record (6 of 6 rebuilt byte-identical), so nothing on it is decoration.
+- Plain legend, quiet palette, the true sizes beside each icon.
+- **The tree, the star and the + are construction sheets at the craft bar.** The tree's three sharp gables run past the glyph and show the notch and the droop as moves. The star shows its centreline star, the outline and the counter. The + shows its two posts and the coin they span. You can see how they're made.
+- The museum is close: gable, slab and posts read as parts.
+- The 8 steps are the right spine for a seventh icon.
+
+**What blocks a 9:**
+1. **The cup and the coupe bury their construction.** Their orange "roots" sit exactly on the glyph's outline (vessel, loop, band, foot), so the overlay is a trace, not the shapes that made it. Overlay a whole ellipse for the bowl, the loop's whole circle and its counter's, the slabs and the dome's whole arc, in thin keylines extended past the glyph, as the tree does. These two are his fixed points; they're the sheets he'll look at hardest.
+2. **The corners sheet can't show its subject at 30px a unit.** A 0.15 round is about 4px, so the counter corners and their crest circles are specks (the cup's 4, the star's 3, the museum's 3). Add one inset per kind of round at about 4x: the crest circle, where it leaves each edge, the hill.
+3. **No template.** SF Symbols' bar is the blank sheet you draw on. Add one: the three class cuts on the coin, the 1/3 lattice, the optical-centre ticks, and the line widths as swatches (1 1/2, posts 1 1/4, open marks 1 2/3, the band 5/6). Without it a seventh icon starts from prose.
+4. **The findings need an edit before he reads them:**
+   - #1 is honest. Say it plainly: the curve count is the price of his "no wobbles" ask. The "Central or Lucide would use one curve a corner" claim is unverified; check it or soften it.
+   - #2 (counters four ways) is a real system question. Bring a recommendation: the star's "outline moved in by the line" is the only one a seventh icon follows without choosing. Show whether adopting it changes any of the four at true size. Don't hand him an open engineering question.
+   - #4 (the mirror seam, 0.0004px) and #5 (an unused 4/3px note) are housekeeping. Fix #4 in code (snap the post to the drawing's precision) and move both to the notes, off his board.
+
+**Two sheets or one?** Keep two. One combined overlay would bury both. But his ask is the shapes overlay, so make it the hero (larger, first, with the glyph solid and quiet under thin keylines). The corners sheet is the second read.
+
+**Legibility:** at 1700px wide it reads on a screen. On his phone he'll pinch per sheet, which is fine on a canvas. Labels and keylines hold at about 2x; the corner specks don't (see 2).
+
+**Likely owner objections:**
+- "the cup and coupe just outline themselves; where are the shapes?" (likely)
+- "I can't see the corners" (likely on the phone)
+- "why am I being asked about counters?" (possible)
+
+**Score: 8.** Fixes: 1-4 above, in one batch.
+
+**Changed since my last score?** A new board; first score.

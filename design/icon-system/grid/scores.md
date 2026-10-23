@@ -1359,3 +1359,14 @@ The verdict stands within our own set:
 - **Star:** the counter goes 3.1 → 4.0. It breathes and no longer reads heavier at 1x. 14.1px is right optically.
 - **Gap:** the + keeps 1 2/3 while the "outline" rule says 1 1/2. State both classes' lines as the rule.
 - **Fixes:** jam turn 140.
+
+## Round: Construction board (canvas v231), 2026-10-23: 8
+
+- **At the bar:** the tree, the star and the + (whole primitives past the glyph); the museum is close. It's the code's record (6/6 byte-identical). The 8 steps are a good spine.
+- **Blocks:**
+  - The cup's and coupe's roots trace their outlines; they need whole ellipse, circle, slab and dome keylines.
+  - The corner rounds are specks at 30px a unit; they need 4x insets per kind.
+  - No blank template (class cuts, lattice, centre ticks, line swatches).
+  - Findings: #2 needs a recommendation; #4 and #5 go to the notes; the Lucide/Central claim is unverified.
+- **Two sheets:** keep both, with the shapes overlay as the hero.
+- **Fixes:** jam turn 143.

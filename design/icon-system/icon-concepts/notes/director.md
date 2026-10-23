@@ -1871,3 +1871,10 @@ checks; don't eyeball "is it as good as".
 - A set value is acceptable when it's bounded on both sides and the check sits inside the bound (lean 1.5 < 1.75 < 2.1).
 - A rule that claims "every X" while a sibling keeps a different value must state the split as a rule (the + at 1 2/3, the star at 1 1/2).
 - Next: one copy edit, then it goes to him.
+
+## Construction board (v231, 2026-10-23): 8
+
+- The craft bar for construction is whole primitives drawn as thin keylines past the glyph (Central, Nucleo), plus a blank template (SF Symbols). A root that sits on the outline is a trace, not construction.
+- Show things at the scale they exist: a 0.15 round at 30px a unit is a speck. Inset it.
+- Findings for him should be decisions with a recommendation, or nothing. Housekeeping (seams, unused notes) goes to the notes.
+- Next: the cup and coupe roots made whole, corner insets, the template, a findings edit. Then rescore.

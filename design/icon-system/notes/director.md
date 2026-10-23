@@ -397,3 +397,13 @@ No tip bends the other way; it reads as his tree at true size. Before sending: n
 ## Icon system, g7au (v229, 2026-10-23): 9 after one copy edit
 
 The hump reads gone (leaned flare, SHELF check). The star breathes under the outline rule. One edit: state the line for both classes (open + at 1 2/3, outline star at 1 1/2), since at 72 they visibly differ. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 140.
+
+## Icon system, Construction board (v231, 2026-10-23): 8
+
+The tree, the star and the + are at the craft bar. Blocks:
+- The cup and the coupe trace their outlines instead of overlaying whole shapes.
+- The corner rounds are too small to see.
+- There's no blank template for a seventh icon.
+- The findings need a recommendation (counters) and housekeeping moved off the board.
+
+Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 143.
