@@ -16,7 +16,7 @@ const E = require('./engine.js'), P7 = require('./picks7.js');
 const { LAWS7, scaled } = require('./laws7.js');
 const { measure } = require('./optics.js');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
-const LINEW = 5 / 3, EASE = 2.3, JOIN8 = { ease: EASE, trim: 1.4, ends2: 1.5, fair: true, hillKeep: 'depth', tipKeep: 'crest', tipLand: true, tipPow: 2, maxPieces: 2, arcEase: true, arcRamp: 0.3 }, starTip = 0.0877;   // g7as: boards7 JOIN9
+const LINEW = 5 / 3, EASE = 2.3, JOIN8 = { ease: EASE, trim: 1.4, ends2: 1.5, fair: true, hillKeep: 'depth', tipKeep: 'crest', tipLand: true, tipPow: 1, tipSoft: 6, noReverse: true, maxPieces: 2, arcEase: true, arcRamp: 0.3 }, starTip = 0.0877;   // g7at: boards7 JOIN9
 const T = n => Math.round(n * 3) / 3, KEY_OPEN = 12;
 // the + and the star exactly as the R2 row builds them (boards7: plus(26.4, USC.plus, lw); starAt, its points as far as the +'s arms)
 const PLUS_SPAN = (() => { const b = measure(E.build(P7.plus(26.4, KEY_OPEN / 14, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4) }).d).box; return (b.x1 - b.x0) * 26.4 / 24; })();

@@ -1,5 +1,29 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-23, canvas v227, turn 136)
+
+- **Director on v226 (turn 135), score 7.** One fault: the top tip pinched into a bulb on a neck. The cause was v223's peak bend and its depth held together, sitting on swept-in flanks (-0.10, about 30° of turn).
+- **Done, as engine rules** (JOIN9 + mark-weight):
+  - `noReverse`: in hillRound, `edgeAt` treats an edge that bends against a convex round as having no bend, so the round rises from 0 and the S sits at the joint.
+  - `tipSoft 6`: a tip's kept crest is min(peak, peak²/6). Only the tree's top changes (4.4 → 3.2); the side tips and the star keep their points.
+  - `tipPow 1`.
+  - Tried and dropped:
+    - tipSoft 8.8: the top became v225's dome.
+    - depth-kept tips: knobs.
+    - tipShare 0.5: the bottom tips became knobs.
+- **fair-check:** a new **INFLECT** check. A sign change inside a curve of a round that turns toward the ink; ink side = the sign of the largest path's area. It fails all 7 of v226's tips and passes v223 and every other glyph.
+- **Results:**
+  - Shown row: 0 faults.
+  - Tree: 6.98 × 11.46.
+  - Weights unchanged: A 1.67 / 1.20, B 1.82 / 1.32, C 2.06 / 1.45.
+- **Board:**
+  - The tips are shown as rows (v223, v225, now, now with the comb), each with the tree at 12/24/72 and the top, side and bottom tips at about his zoom.
+  - The band-end HUMP note is on the board.
+  - v226 is archived as `Archive-G7at-Between` (x 7560, y 148000); its svgs are frozen in `svg/g7/before-g7at/`.
+- **Open:**
+  - tipSoft is calibrated on one tree.
+  - The top is blunter than v223's bell.
+
 ## Update (2026-10-22, canvas v226, turn 134; sixth icon designer)
 
 - **Director on v225 (turn 133), score 7:**

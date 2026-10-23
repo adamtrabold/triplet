@@ -14,6 +14,7 @@
 //          not halfway up until more than TAIL_MAX of the way along. The bend reaches far out along the edges (a soft
 //          shoulder away from the point) and the point reads as a separate knob. A raised cosine is halfway at 0.5.
 //   JUMP   a break in curvature at a node over JUMP_MIN, a line meeting a round included (a plain compass fillet).
+//   INFLECT (g7as) a round at a convex corner bends the other way inside its own curves (an S in the round: a bulb on a neck).
 //   SHOULDER (g7as) walking from a round's foot to its crest, the bend's rate of growth stalls (under 2/5 of the lower peak
 //          either side, each over a quarter of the top one): two bends in one round, the bend flattening and then growing again.
 // node fair-check.js file.svg ... (exit 1 if any fault)   or require('./fair-check').check(d) -> [{ kind, at, ... }]
@@ -28,7 +29,11 @@ const dk = (P, t) => {   // dk/ds of a cubic at t, one-sided at its ends
 function check(d) {
   const q = 0.5 * 10 ** -Math.max(...(d.match(/\.\d+/g) || [".0"]).map(s => s.length - 1));   // half the last written decimal
   const faults = [];
-  for (const segs of parse(d)) {
+  // which way the ink lies: the paths come out of the booleans with counters reversed, so a turn toward the ink has the sign
+  // of the largest path's area (y down); INFLECT reads it
+  const subs = parse(d), area = segs => segs.reduce((s, g) => s + (g.P[0][0] * g.P[3][1] - g.P[3][0] * g.P[0][1]), 0);
+  const inkSign = Math.sign(subs.map(area).reduce((a, b) => Math.abs(b) > Math.abs(a) ? b : a, 0)) || 1;
+  for (const segs of subs) {
     const n = segs.length; if (!n) continue;
     const isL = s => s.k === 'L';
     // nodes: curvature and its slope each side
@@ -52,13 +57,22 @@ function check(d) {
     // rounds: sample the whole outline by arc length; every crest of |k| over CREST_MIN is a round; walk out each side to
     // its foot (where the curvature has come back to within 3% of the crest above the edge's level, or stops falling)
     const pts = []; let L = 0, prev = null;
-    segs.forEach(s => { for (let q = 0; q <= N; q++) { const t = q / N, p = [bz(s.P, t, 0), bz(s.P, t, 1)]; if (prev) L += Math.hypot(p[0] - prev[0], p[1] - prev[1]); prev = p; pts.push({ L, k: isL(s) ? 0 : kAt(s.P, t), p }); } });
+    segs.forEach(s => { for (let q = 0; q <= N; q++) { const t = q / N, p = [bz(s.P, t, 0), bz(s.P, t, 1)]; if (prev) L += Math.hypot(p[0] - prev[0], p[1] - prev[1]); prev = p; pts.push({ L, k: isL(s) ? 0 : kAt(s.P, t), p, s }); } });
     const crests = [], m = pts.length, A = i => Math.abs(pts[(i + m) % m].k), Lof = (i, j) => { let s = pts[(j + m) % m].L - pts[(i + m) % m].L; if (s < 0) s += L; return s; };
     for (let i = 0; i < m; i++) {
       // a crest: the tightest point within six samples either side (a node's doubled sample, or a hair of mismatch between two pieces, is not a crest)
       if (!(A(i) >= CREST_MIN && A(i) > A(i - 1) + 1e-9 && [1, 2, 3, 4, 5, 6].every(o => A(i) >= A(i - o) - 0.02 * A(i) && A(i) >= A(i + o) - 0.02 * A(i)))) continue;
       if (crests.some(q => Math.abs(q - pts[i].L) < 0.08)) continue; crests.push(pts[i].L);
       const crest = A(i), sgn = Math.sign(pts[i].k), half = [];
+      // INFLECT (g7as; director, turn 135, the tree's top tip as a bulb on a neck): a round at a convex corner (one that turns
+      // toward the ink) never bends the other way. Walking out from its crest, the bend may reach zero only where the round
+      // ends (at a node); a sign change inside one of the round's own curves is an S in the round.
+      if (sgn === inkSign) for (const dir of [-1, 1]) {
+        let j = i, st = 0; while (st < m / 2 && pts[(j + dir + m) % m].k * sgn > 0.02 * crest) { j += dir; st++; }
+        const s0 = pts[(j + m) % m].s; let q = j, st2 = 0, low = 0;
+        while (st2 < N && pts[(q + dir + m) % m].s === s0) { q += dir; st2++; low = Math.min(low, pts[(q + m) % m].k * sgn); }
+        if (low < -0.02 && !faults.some(x => x.kind === 'INFLECT' && Math.hypot(x.at[0] - pts[i].p[0], x.at[1] - pts[i].p[1]) < 0.05)) faults.push({ kind: 'INFLECT', at: pts[i].p.map(v => +v.toFixed(2)), crest: +(sgn * crest).toFixed(2), reverse: +(sgn * low).toFixed(3) });
+      }
       // SHOULDER (g7as): walking from a round's foot to its crest, the bend should grow at a rate that rises once and falls
       // once. A stall in between (the rate drops under 2/5 of the lower of the peaks either side, each over a quarter of the
       // top one) is two bends where the eye wants one: the v225 valleys' two-piece fits, the bend flattening where the pieces

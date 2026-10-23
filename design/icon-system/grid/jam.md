@@ -5996,3 +5996,28 @@ Merged e006dfdd and re-read the live board (v226, 9966px). Rendered it at 1x and
 **Recurring blocker:** each fix holds its own measure (v225: the knee; v226: v223's sharpness and depth) and pays for it somewhere the check doesn't look. The tips have now failed twice, two different ways. Guard: every round at a convex corner stays convex, enforced in the check.
 
 **Changed since my last score?** Yes: five fixes are in, four pass by eye, and the tip changed character.
+
+---
+
+## Turn 136: icon designer (sixth), turn 135's one fix: no tip bends the other way (canvas v227)
+
+**Why the top tip pinched.** The tree's flanks are drawn swept in, at a bend of -0.10 along their whole length; the top flanks turn about 30° that way. v223's eased round covered the top 1.2 units of each flank with a convex bend, which is the bell. v226 held v223's peak (4.4, a nose radius of 0.23) and its depth together. That left a round cap sitting on steep, swept-in sides: an S, which reads as a bulb on a neck. The side tips peak at 7-19 (radius 0.05-0.15): a point, not a cap, so they only showed a hint of it.
+
+**Engine (boards7 `JOIN9`, mark-weight.js the same):**
+- `noReverse`: a round at a convex corner never bends the other way. Where its edge sweeps the other way, the round starts from no bend and rises in one hill. The S sits at the joint, as a step of at most the edge's own 0.10 (under the 0.35 step limit), never inside the round.
+- `tipSoft: 6`: a tip whose v223 peak bend is soft is not held to that peak. Its crest becomes peak² / 6, capped at the peak. A round cap on a swept-in neck is the bulb, so a soft tip is drawn as one wider hill; it ends a hair lower and wider, as turn 135 allowed. Only the top tip is soft: 4.4 → 3.2. The side tips (6.65 to 18.9) and the star's (6.8) keep their points.
+  - I tried 8.8 first. The top came out at 2.2, the same dome as v225's knobs, so not that.
+- `tipPow 1`: back to the plain even ramp. The square bought nothing once a tip no longer bends the other way.
+
+**Check: INFLECT in fair-check.** Walking out from a crest that turns toward the ink, the bend may reach zero only where the round ends (at a node). A sign change inside one of the round's own curves is a fault. v226's tree: 7 INFLECT (every tip). v223: 0. Everything else in the row: 0.
+
+**Board (section 0 only):**
+- The tips figure is now rows: v223, v225, now, and "now, the bend drawn on". Each row shows the tree at 12, 24 and 72px, then the top tip, an upper side tip and a bottom tip at about his zoom.
+- The rule text is "Tips: one convex hill, sharp or soft".
+- The proof lists the inflect check, and says the old check's two band-end HUMPs are clean by eye at 20x, with the new check superseding the old one there.
+
+**Checks run:** fair-check on every row svg. The shown row has 0 faults. By eye at 12/24/72 and at his zoom: the top is one dome with no neck, and the side tips are pointed. boards7 regenerated; mark-weight re-solved. The v226 svgs are frozen in `svg/g7/before-g7at/`.
+
+**Unsure:**
+- `tipSoft` 6 sits between the top tip (4.4) and the bottom tips (6.65). It is a set value for where a cap starts to read as a bulb, calibrated on this tree only.
+- The top is blunter than v223's bell: v223's bell came from its convex shoulders, which were the wobble he marked. At his zoom it is a dome on tapering sides, with no neck.

@@ -498,7 +498,12 @@ function arcEase(edge, arc, arcOut, dQ, J) {
 function hillRound(cin, cout, c, roomIn, roomOut, J) {
   const sg = Math.sign(c.turn), rho = J.hillRamp ?? 1, isTip = c.ease && J.tipKeep && c.angle < (J.tipAngle ?? 75), pw = isTip ? (J.tipPow ?? 1) : 1, w = u => u >= rho ? 1 : ((1 - Math.cos(Math.PI * u / rho)) / 2) ** pw, ang = v => Math.atan2(v.y, v.x);
   const wrap = a => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
-  const edgeAt = (cv, dist, isIn) => { const t = isIn ? cv.getTimeAt(Math.max(0, cv.length - dist)) : cv.getTimeAt(Math.min(cv.length, dist)); if (t == null) return null; return { p: cv.getPointAtTime(t), a: ang(cv.getTangentAtTime(t)), k: cv.isStraight() ? 0 : kOf(cv, t) }; };
+  // g7as NO REVERSE BEND (director, turn 135: the tree's top tip pinched into a bulb on a neck): with J.noReverse, the round
+  // at a convex corner never bends the other way. Where its edge bends the other way (the tree's flanks sweep in), the round
+  // starts from no bend (a step of at most the edge's own slight sweep at the joint, under the check's step limit) and
+  // rises in one hill, so the S sits at the joint, never inside the round
+  const noRev = J.noReverse && c.convex, kEdge = k => noRev && Math.sign(k) === -sg ? 0 : k;
+  const edgeAt = (cv, dist, isIn) => { const t = isIn ? cv.getTimeAt(Math.max(0, cv.length - dist)) : cv.getTimeAt(Math.min(cv.length, dist)); if (t == null) return null; return { p: cv.getPointAtTime(t), a: ang(cv.getTangentAtTime(t)), k: kEdge(cv.isStraight() ? 0 : kOf(cv, t)) }; };
   // the g7aq round at this corner, as the reference: its point on the bisector (M0) and its curvature there (the crest the
   // eye reads as how round the corner is: the law's radius, as g7aq drew it)
   const A0 = edgeAt(cin, Math.min(c.d, roomIn), true), B0 = edgeAt(cout, Math.min(c.d, roomOut), false); if (!A0 || !B0) return null;
@@ -523,7 +528,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   // bend at the bisector
   const tipRec = isTip && J._tips ? J._tips.find(x => x.P.getDistance(c.P0) < 1e-6) : null;
   if (tipRec && tipRec.kC && keep === 'crest') kC = tipRec.kC;
-  else if (isTip && keep === 'crest') { let km = 0; for (const P of ref) for (let q = 0; q <= 200; q++) km = Math.max(km, Math.abs(kBez(P, Math.min(1 - 1e-4, Math.max(1e-4, q / 200))))); kC = sg * km * (J.tipShare ?? 1); }
+  else if (isTip && keep === 'crest') { let km = 0; for (const P of ref) for (let q = 0; q <= 200; q++) km = Math.max(km, Math.abs(kBez(P, Math.min(1 - 1e-4, Math.max(1e-4, q / 200))))); kC = sg * Math.min(km, J.tipSoft ? km * km / J.tipSoft : km) * (J.tipShare ?? 1); }
   if (keep === 'law') kC = sg / (c.r * Math.min(1, Math.min(c.d, roomIn, roomOut) / c.d0));   // the crest is the law's own radius
   if (process.env.FAIRDBG) console.error('   ref crest', kC.toFixed(2), 'law r', c.r.toFixed(3), 'law k', (1 / c.r).toFixed(2));
   let M = M0;
