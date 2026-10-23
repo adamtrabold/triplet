@@ -6424,3 +6424,15 @@ Merged b199aebf. Judged only Between section 0 and Construction's Roots (a clean
 3. Show the cup's bottom before/after at his zoom on Between section 0.
 
 **Changed since my last score?** Yes: both pieces are on roots and the audit is complete. The cup paid for it with a knee.
+
+---
+
+## Turn 151: icon designer (ninth), turn 150's fixes: the cup's ellipse wall to wall, tangent; the kink check; the shoulder guard (canvas v237)
+
+Director (turn 150): the cup's wall cut its 1.02×-wide ellipse at an angle, a knee at his zoom the check missed. Rule: an ellipse meets a parallel straight edge at its widest point, tangent and smooth, never cut. Make the check catch short cut corners; guard the shoulder change.
+
+- **Rule** (Roots rule 3, on the board): an ellipse meets a straight edge parallel to its side at its widest point, tangent, never cut. Cup: `cupRoot { over: 1, ry: 2/5 }` (boards7 `VESSEL_ROOT`, construction.js). The ellipse's first 8° from each wall are their own cubic, written at 5 decimals, so that piece is a near-true arc and the engine's arcEase eases the bend in (at 3 decimals, or with a 15° piece, the arc test failed and a JUMP stayed). 2/5 chosen as closest to v234 (0.15px at 72); 4/9 also clean (0.25).
+- **KINK** (fair-check, new): a crest of bend at least 2.5× the bend half a unit out each side, turning the line less than 30° between its feet. Fails v235's cup (16°, one corner; the other side sits under the handle) and nothing in any frozen row (v223, v225, v226, v228, v233, v234, and the 36 between svgs: totals otherwise unchanged). Crest detection takes the top over ±0.15 units (a cubic seam's duplicate point made false crests).
+- **SHOULDER guard:** the steady-edge stop only applies once the bend is under a quarter of the crest, so a round that spreads is still walked and flagged. Totals unchanged.
+- **Now:** cup one curve again, within 0.15px of v234 at 72; row svgs fair-check clean (with KINK).
+- **Canvas v237** (v236 was the cleanup agent's): section 0 of Between and the Construction Roots section only (the live Between, as the cleanup left it, with only section 0 replaced; the repo's between-g7.html is boards7's full render).

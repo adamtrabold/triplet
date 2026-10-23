@@ -157,7 +157,14 @@ const DRAW = {
     // cup's depth, its lowest point the cup's bottom; the walls run straight down to where they cut it
     const cr_ = o.cupRoot, hwC = (r - l) / 2;
     const bowlP = cr_ ? (() => { const rx = hwC * cr_.over, ry = cr_.ry * (bot - top), cy = bot - ry, a = Math.acos(hwC / rx), yc = cy + ry * Math.sin(a);
-      const R = ELL_ARC(mid, cy, rx, ry, a, Math.PI / 2), L = ELL_ARC(mid, cy, rx, ry, Math.PI / 2, Math.PI - a), q = v => `${X(v[0])} ${X(v[1])}`;
+      const q = v => `${X(v[0])} ${X(v[1])}`, q5 = v => `${+(v[0] * u).toFixed(5)} ${+(v[1] * u).toFixed(5)}`, C_ = (a0, a1) => { const P = ELL_ARC(mid, cy, rx, ry, a0, a1); return `C${q5(P[1])} ${q5(P[2])} ${q5(P[3])}`; };   // 5 decimals: a short arc piece keeps its bend
+      // g7ay (director, turn 150: "an ellipse meets a parallel straight edge at its widest point, tangent and smooth, never cut"):
+      // over 1 = the ellipse is exactly wall to wall and the walls run into it at its widest point. Its first 8 degrees from each
+      // wall are their own cubic, so that piece is a near-true arc and the engine eases the bend in there (arcEase), as it does
+      // where any arc runs on from a line
+      const E15 = 8 * Math.PI / 180;
+      if (cr_.over === 1) return D(`M${X(l)} ${X(top)}H${X(r)}V${+(cy * u).toFixed(5)}${C_(0, E15)}${C_(E15, Math.PI / 2)}${C_(Math.PI / 2, Math.PI - E15)}${C_(Math.PI - E15, Math.PI)}Z`, { root: 'VESSEL', cap: { cx: X(mid), cy: X(cy), rx: X(rx), ry: X(ry), over: 1 } });
+      const R = ELL_ARC(mid, cy, rx, ry, a, Math.PI / 2), L = ELL_ARC(mid, cy, rx, ry, Math.PI / 2, Math.PI - a);
       return D(`M${X(l)} ${X(top)}H${X(r)}V${X(yc)}C${q(R[1])} ${q(R[2])} ${q(R[3])}C${q(L[1])} ${q(L[2])} ${q(L[3])}Z`, { root: 'VESSEL', cap: { cx: X(mid), cy: X(cy), rx: X(rx), ry: X(ry), over: cr_.over } }); })()
       : D(`M${X(l)} ${X(top)}H${X(r)}V${X(wall)}C${X(r)} ${X(bot - 1.167)} ${X(r - 1.25)} ${X(bot)} ${X(mid)} ${X(bot)}C${X(l + 1.25)} ${X(bot)} ${X(l)} ${X(bot - 1.167)} ${X(l)} ${X(wall)}Z`, { root: 'VESSEL' });
     const earP = D(`M${X(r - 0.75)} ${X(top)}H${X(ex)}C${X(ex + R_ * K)} ${X(top)} ${X(eR)} ${X(top + R_ - R_ * K)} ${X(eR)} ${X(top + R_)}C${X(eR)} ${X(top + R_ + R_ * K)} ${X(ex + R_ * K)} ${X(eb)} ${X(ex)} ${X(eb)}H${X(r - 0.75)}Z`, { root: 'LOOP' });

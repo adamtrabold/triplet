@@ -85,7 +85,9 @@ function check(d) {
         // g7ax: the walk also stops where the round has landed on a curved edge's own steady bend (an ellipse's side): the
         // bend stays within a tenth of itself for the next half unit outward. A stall inside a round is short, so it is still
         // walked through; a whole root curve is not counted as the round (the coupe's bowl, an ellipse, rising gently into its rim)
-        const steady = g0 => { const a0 = A(g0); if (a0 < 0.08 * crest) return false; let L0 = pts[(g0 + m) % m].L, q = g0, n_ = 0; while (n_ < m / 2) { q += dir; n_++; const dl = Math.abs(pts[(q + m) % m].L - L0); if (Math.abs(A(q) - a0) > 0.1 * a0 || Math.sign(pts[(q + m) % m].k) !== sgn) return false; if (dl >= 0.5) return true; } return false; };
+        // guard (director, turn 150): the steady stop only counts once the bend is down to a quarter of the crest, so a round that
+        // spreads (stays steep far out) is still walked, and still flagged
+        const steady = g0 => { const a0 = A(g0); if (a0 < 0.08 * crest || a0 > 0.25 * crest) return false; let L0 = pts[(g0 + m) % m].L, q = g0, n_ = 0; while (n_ < m / 2) { q += dir; n_++; const dl = Math.abs(pts[(q + m) % m].L - L0); if (Math.abs(A(q) - a0) > 0.1 * a0 || Math.sign(pts[(q + m) % m].k) !== sgn) return false; if (dl >= 0.5) return true; } return false; };
         let g = i, st = 0, lowest = crest; while (st < m / 2 && Math.sign(pts[(g + dir + m) % m].k) === sgn && A(g + dir) > 0.04 * crest && A(g + dir) <= lowest + 0.05 * crest && !steady(g)) { g += dir; st++; lowest = Math.min(lowest, A(g)); }
         const sl = []; for (let j = g; j !== i; j -= dir) { const a = (j + m) % m, b = (j - dir + m) % m, dL = Math.abs(pts[b].L - pts[a].L); if (dL > 1e-6 && dL < 0.5) sl.push(Math.max(0, A(b) - A(a)) / dL); }
         const S = Math.max(0, ...sl), lo = Math.floor(sl.length * 0.12), hi = Math.ceil(sl.length * 0.88);
@@ -119,7 +121,34 @@ function check(d) {
       for (const hh of half) if (hh && hh.share > TAIL_MAX && hh.span > 0.15) { faults.push({ kind: 'TAIL', at: pts[i].p.map(v => +v.toFixed(2)), crest: +(sgn * crest).toFixed(2), halfway: +hh.share.toFixed(2), span: +hh.span.toFixed(2) }); break; }
     }
   }
+  faults.push(...kinks(subs));
   return faults;
+}
+// KINK (g7ax; director, turn 150, on v235's cup: "the straight wall cuts the 1.02x-wide ellipse at an angle, a visible knee where
+// v234 had one curve, and the fair check missed it"): a round that turns the line by less than KINK_TURN between its two
+// feet. A corner that shallow is not a corner to the eye but a knee in one line; where a straight edge runs into a curve that
+// gently, the two should meet tangent (an ellipse at its widest point) and be eased, not cut and rounded. A round is a crest of
+// bend at least KINK_PEAK times the bend at its feet (half a unit out either side), so a gentle curve is never one.
+const KINK_TURN = 30 * Math.PI / 180, KINK_PEAK = 2.5;
+function kinks(subs) {
+  const out = [];
+  for (const segs of subs) {
+    const pts = []; let L = 0, prev = null;
+    for (const s of segs) for (let q = 0; q <= N; q++) { const t = q / N, p = [bz(s.P, t, 0), bz(s.P, t, 1)]; if (prev) L += Math.hypot(p[0] - prev[0], p[1] - prev[1]); prev = p; pts.push({ L, k: s.k === 'L' ? 0 : kAt(s.P, t), p }); }
+    const m = pts.length, A = j => Math.abs(pts[((j % m) + m) % m].k), at = j => pts[((j % m) + m) % m];
+    const away = (i, dir, dist) => { let j = i, d = 0; while (d < dist && Math.abs(j - i) < m / 2) { const a = at(j), b = at(j + dir); d += Math.abs(b.L - a.L) < 1 ? Math.abs(b.L - a.L) : 0; j += dir; } return j; };
+    for (let i = 0; i < m; i++) {
+      const c = A(i); if (c < CREST_MIN) continue;
+      { let top = true; for (const dir of [-1, 1]) for (let j = i + dir, d = 0; d < 0.15 && Math.abs(j - i) < m / 2; j += dir) { const dl = Math.abs(at(j).L - at(j - dir).L); d += dl < 1 ? dl : 0; if (A(j) > c + 1e-9) { top = false; break; } } if (!top) continue; }   // the top of its own crest, a cubic seam's duplicate point aside
+      const sg = Math.sign(at(i).k), lo = away(i, -1, 0.5), hi = away(i, 1, 0.5), base = Math.max(Math.sign(at(lo).k) === sg ? A(lo) : 0, Math.sign(at(hi).k) === sg ? A(hi) : 0); if (base * KINK_PEAK > c) continue;
+      // the feet: out from the crest until the bend is down to a tenth of the way to the edge's level (a small rise at a cubic's
+      // seam is walked through)
+      const foot = dir => { let j = i, low = c, n_ = 0; while (n_ < m / 2 && Math.sign(at(j + dir).k) === sg && A(j + dir) > base + 0.1 * (c - base) && A(j + dir) <= low + 0.03 * c) { j += dir; n_++; low = Math.min(low, A(j)); } return j; };
+      const f0 = foot(-1), f1 = foot(1); let turn = 0; for (let j = f0; j < f1; j++) { const a = at(j), b = at(j + 1), dl = Math.abs(b.L - a.L); if (dl < 1) turn += (a.k + b.k) / 2 * dl; }
+      if (Math.abs(turn) < KINK_TURN && !out.some(x => Math.hypot(x.at[0] - at(i).p[0], x.at[1] - at(i).p[1]) < 0.1)) out.push({ kind: 'KINK', at: at(i).p.map(v => +v.toFixed(2)), crest: +(sg * c).toFixed(2), turnDeg: +(Math.abs(turn) * 180 / Math.PI).toFixed(1) });
+    }
+  }
+  return out;
 }
 module.exports = { check };
 if (require.main === module) {

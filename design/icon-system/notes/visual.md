@@ -1,5 +1,12 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-23, canvas v237, turn 151)
+
+- **Director turn 150 (7):** the cup's wall cut its 1.02× ellipse into a knee; rule: an ellipse meets a parallel straight edge at its widest point, tangent, never cut.
+- **Done:** `cupRoot { over: 1, ry: 2/5 }`; picks7 writes the ellipse's first 8° from each wall as its own cubic at 5 decimals so arcEase eases the bend in (3 decimals or 15° failed its true-arc test). fair-check: new KINK (crest ≥ 2.5× the bend 0.5 units out, turn < 30°; crest taken over ±0.15 units) fails v235's cup only; SHOULDER steady-stop guarded (only under 1/4 of the crest). Frozen totals unchanged. v235 cup frozen in `svg/g7/before-g7ay/`.
+- **Canvas:** the cleanup agent reorganised Between (v236); I splice only section 0 into the live file (scratch `d9/splice.py`: from the "0 · Every piece" kick to the next kick).
+- **Open:** director's read of KINK/guard.
+
 ## Update (2026-10-23, canvas v235, turn 149)
 
 - **Director turn 148 (score 8):** the coupe's bowl and the cup's bottom were left without a root; fix as a rule (one ellipse per curved edge, cut by its neighbours), not a half ellipse through the ends.
