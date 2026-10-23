@@ -2,7 +2,24 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v2: where things stand now (2026-10-23, later) -- READ THIS FIRST
+## v3: Delete city reopened (2026-10-23, latest) -- READ THIS FIRST
+
+Owner: "Idk about delete city though — brainstorm better options". Everything else in v2 stands and
+is being built (a builder pushes to this branch too; don't touch `notes/builder.md`).
+- `concepts/v3-instead-of-delete.md`: the job behind "delete" (mistake city / out of the way /
+  forget a trip), five options that differ in kind (A cities come and go with their places, B move
+  them all, C pack a trip away, D catch it at birth, E let them migrate), the recommendation (A) and
+  its rules.
+- Stills: `stills/v3/1-A-cities-come-and-go.png` (A, recommended), `stills/v3/2-C-pack-a-trip-away.png`
+  (C); script `stills/v3/stills.js`. Captions checked frame by frame; three fixes (A2 and A4 scrolled
+  so the drying header and the hidden Stockholm header are on screen; C2's map no longer shows
+  Stockholm's pins; A3's caption claims only what the menu shows).
+- If A is taken: the v2 build drops its "Delete city…" foot and its confirm.
+- Open questions: (1) no delete control at all: the eye for done trips, and deleting places to
+  forget one: OK? (2) a wrong city holding several places needs one move each: OK, or add B's
+  "Move all"? (3) do the 5 seed cities follow the same rule (vanish when empty)?
+
+## v2: where things stood (2026-10-23, later)
 
 The owner saw the v1 stills and changed scope: "Ok I'm realizing this is going to suck. I still want
 to be able to move things to different / new cities for the close use case but for the more complex
