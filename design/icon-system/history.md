@@ -97,6 +97,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-23 · v233 shown:** Construction board (Grid concepts, right of the master grid): per icon a shapes sheet (the code's own construction, logged from engine.js; byte-identical rebuild) and a corners sheet, 4x close-up per round kind, a blank template, how a seventh icon is built. Findings: rounds are 2-4-cubic curves (the price of "no wobbles"); counters made four ways → recommend one method (the star's: outline moved in by the line, rounded tight; coupe band the exception). Director 8 (v231) → 9 (v232, edit in v233). Asked: yes to one counter method?
 
+- **10-23 · v237 shown (after cleanup v236):** every piece from a root shape. Cap rule (a base with a curved side = slab cut by one ellipse, 7/6 wide, full height; foot on its crown, plate on its flat; replaces the plate rule and domed foot); coupe bowl and cup bottom each one ellipse (an ellipse meets a parallel straight edge at its widest point, tangent); counters redefined by shapes and proportions (no visible change); leaned flare kept. New checks: kink (<30°), shoulder guard. Director 8 (v234) → 7 (v235) → 9 (v237). Canvas cleaned (v236), jam turns 1-139 → jam-archive-1.md. Asked: plate ends too round? still his tree?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
