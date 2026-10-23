@@ -6386,3 +6386,41 @@ Director (turn 148): the two curves left without a root (the coupe's bowl, the c
 **Checks:** fair-check on the six row svgs: clean; construction.js 6/6 identical; museum, tree, +, star unchanged; boards looked at at 1x.
 
 **Unsure:** the check change is mine; the director should judge it. The coupe being 1% smaller follows from the class fit, not a choice.
+
+---
+
+## Turn 150: design director, v235 (the bowl and the cup's bottom on cut ellipses): 7, the cup's wall now kinks into its bottom
+
+Merged b199aebf. Judged only Between section 0 and Construction's Roots (a cleanup agent is moving the rest). Rendered v234 (`before-g7ax/`) against now: 12/24/72px, then the coupe at 27/60/90px a unit and the cup at 21/75/240px a unit.
+
+**At true size:** both glyphs read as before.
+
+**Coupe:**
+- The bowl still reads shallow and broad. It's a touch fuller at the top and about 1% smaller.
+- The sides under the rim stand upright for a very short run before curving in. That's the same as v234, not the long straight run of v205.
+- **Pass, by eye.**
+
+**The rim's shoulder and the fair-check change:**
+- By eye at 60 and 90px a unit, the rim corner is one clean round onto the ellipse's side. There's no knuckle and no shelf.
+- Stopping the SHOULDER walk where the bend runs steady (an ellipse's own side) is **legitimate in principle**: a round ends where it lands on its root. Frozen rows are unchanged.
+- But it needs a guard, so it can't hide a round that has spread. The rim round's measured run must still match the law's, and the check should report it.
+
+**Cup: a real fault.**
+- At 75 and 240px a unit, the straight wall meets the bottom ellipse at an angle. A small law round turns it, then the line runs on almost straight. That's a visible knee: the knee class this round set out to remove.
+- v234 was one continuous curve there. At 21px a unit the cup reads slightly chamfered at the bottom.
+- Cause: an ellipse 1.02× the cup's width can only meet a vertical wall by cutting it at an angle.
+- The fair check passed it, so the check misses a short cut round between a straight and a curve.
+
+**Likely owner objection:** "the cup's bottom has a corner now / a bucket" (likely at his zoom).
+
+**Score: 7.** Fixes:
+1. **Rule: where an ellipse meets a straight line parallel to one of its axes, it meets it at its widest point, tangent, never cut.**
+   - Cup: the ellipse exactly the wall-to-wall width, its widest point where the wall ends; fit its depth to today's squarer curve.
+   - If the fit can't match, accept the visible change and show it, but no corner.
+   - The coupe's rim cut stays, since the rim isn't parallel to the side.
+2. Fair check:
+   - Flag a cut round under the knee limit that turns more than about 15° between a straight and a curve (it would have caught the cup).
+   - Add the rim guard above.
+3. Show the cup's bottom before/after at his zoom on Between section 0.
+
+**Changed since my last score?** Yes: both pieces are on roots and the audit is complete. The cup paid for it with a knee.

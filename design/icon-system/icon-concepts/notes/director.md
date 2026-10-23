@@ -1890,3 +1890,9 @@ checks; don't eyeball "is it as good as".
 - When he states a principle, exceptions count against it unless they can't be avoided. "Fixed point" protects how a thing looks, not how it's built.
 - A root fitted through a piece's endpoints is the wrong test. A cut ellipse (its centre outside the piece, cut by its neighbours) fits squarer curves and leaning sides; that's the cap rule's own move.
 - Next: the bowl and the cup's bottom on cut ellipses, the audit filled in, then rescore. If they're invisible at 72, it goes to him.
+
+## g7ax (v235, 2026-10-23): 7
+
+- A root fitted by numbers (1.02×) can bring back a corner. Where a root meets a straight that parallels its axis, it must be tangent. Look at every join a root change creates, at 75 and 240px a unit.
+- When a check is changed to pass, ask what it would now miss, and add the guard in the same change.
+- Next: the cup made tangent, the check guards, then rescore.
