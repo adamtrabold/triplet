@@ -790,6 +790,9 @@
     .route-city[hidden] { display: none; }
     .route-city-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
       font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .12em; }
+    /* no city near the map before a pick: the line prints its caption, CITY (the lines' caption voice) */
+    .route-city-name.is-cap { font-weight: 500; color: var(--ink-2); }
+    .route-city[aria-expanded="true"] .route-city-name.is-cap { color: inherit; }
     .add-chev { width: 12px; height: 12px; flex: none; display: block; }
     .route-city:active:not([aria-expanded="true"]) { background: var(--state-press); }   /* pressed, as the tag's other controls */
     .route-city[aria-expanded="true"] { background: var(--navy); color: var(--paper); }
@@ -821,6 +824,17 @@
     #addForm .tag-x { top: 76px; right: 0; }
     .add-addr { min-height: 40px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
     .add-addr-text { min-width: 0; overflow-wrap: anywhere; }
+    /* ADDRESS is a line you write on, like NAME (city-crud, concepts/0-shared-name-and-address.md):
+       at rest it prints the picked place's address (the span above); its 16px entry (the iOS no-zoom
+       floor) lies over the line, unseen, so a tap lands on it and writes there. */
+    .add-addr textarea { font-size: 16px; line-height: 20px; min-height: 20px; }
+    .add-addr:not(.is-writing) textarea { position: absolute; inset: 0; height: 100%; opacity: 0; }
+    .add-addr.is-writing .add-addr-text { display: none; }
+    /* A line being written on: its rule turns navy, and once it holds text its caption stays
+       printed above the entry, so it's never in doubt which line you're on. */
+    .add-f.is-writing { border-bottom-color: var(--navy); }
+    .add-f.is-writing.has-text { flex-direction: column; align-items: stretch; padding-top: var(--s2); }
+    .add-f.is-writing.has-text > .add-cap { display: block; position: static; order: -1; }
     /* THE DISTANCE NOTE (CityDistance): under the address's rule, a form's helper note. */
     .add-dist, .tag-dist { padding-top: 4px; font-stretch: 100%; font-weight: 400; font-size: 11px; line-height: 14px; color: var(--ink-2); }
     .add-dist[hidden] { display: none; }
@@ -843,6 +857,13 @@
     .add-type-btn[aria-expanded="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
     .add-type-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
       font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .12em; color: inherit; }
+    /* PLAN (city-crud v2, "a roadtrip is a plan"): TYPE's row voice under a hair rule, shown only
+       when + was tapped with a plan open; STOP n at its end, printed STOP and a stamped number, as the
+       Hanging Tag's field line prints it. */
+    .add-plan { grid-template-columns: 40px minmax(0, 1fr) auto; border-top: 1px solid var(--hair); }
+    .add-plan[hidden] { display: none; }
+    .add-stop { justify-self: end; white-space: nowrap; }
+    .add-stop .tag-stamp { margin: -3px -2px; letter-spacing: .01em; }
     /* a save that failed, or a shape OSM doesn't know: one printed line above the stub; nothing is cleared */
     .add-err { padding: 4px 0 6px; font-size: 13px; line-height: 18px; color: var(--ink); }
     .add-err[hidden] { display: none; }
@@ -874,12 +895,25 @@
     /* The tag's menus (City, Type): the shared .menu-box, opened just under their triggers. */
     #addMenuScrim, #tagMenuScrim { position: fixed; inset: 0; z-index: 2550; background: transparent; }
     #addMenuScrim[hidden], #tagMenuScrim[hidden] { display: none; }
-    #addCityMenu, #addTypeMenu, #tagCityMenu { overflow-y: auto; overscroll-behavior: contain; max-width: calc(100vw - 2 * var(--gutter)); }
+    #addCityMenu, #addTypeMenu, #addPlanMenu, #tagCityMenu { overflow-y: auto; overscroll-behavior: contain; max-width: calc(100vw - 2 * var(--gutter)); }
     .menu-cap.is-mid { border-top: 1px solid var(--hair); }
     /* ONE rule above "New city": the city row just before it drops its own (it doubled with the
        caption's top rule into a 2px band). The New city block is pinned (sticky) at the foot. */
     .menu-row.before-foot { border-bottom-color: transparent; }
     .menu-foot { position: sticky; bottom: 0; z-index: 1; background: var(--paper-raised); }
+    /* FIND A CITY (city-crud v2): the city menu's last line is a search for real cities -- the +
+       and a 16px entry on a navy rule (the iOS no-zoom floor), its results (the add tag's result
+       rows) under it. While it holds a search the foot stops pinning, so its results scroll with
+       the cities instead of outgrowing the box. */
+    .menu-find { position: relative; display: flex; align-items: center; gap: var(--s2); height: 48px; padding: 0 var(--s3); border-bottom: 1px solid var(--hair); cursor: text; }
+    .menu-find-in { all: unset; box-sizing: border-box; flex: 1 1 auto; min-width: 0; height: 32px; padding: 0 var(--s2); background: var(--paper);
+      border-bottom: 1.5px solid var(--navy); font-family: var(--font-ui); font-size: 16px; line-height: 20px; color: var(--ink); caret-color: var(--navy); }
+    .menu-find-in::placeholder { color: var(--ink-2); opacity: 1; }
+    .menu-find-in::-webkit-search-cancel-button { display: none; }
+    .menu-find-in:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    .menu-res.add-res { padding-left: 40px; }   /* under the entry's text, as drawn (stills/v2 V3) */
+    .menu-find-note { padding: var(--s3) var(--s3) var(--s3) 40px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+    .menu-box.is-finding .menu-foot { position: static; }
     .menu-badge { width: 20px; height: 20px; flex: none; display: block; }
     .menu-ico.is-quiet { color: var(--ink-2); }
     body.add-menu-open .leaflet-control-attribution, body.tag-menu-open .leaflet-control-attribution { visibility: hidden; }   /* as sort: never half-covered */
@@ -2773,10 +2807,11 @@
         <div class="tag-in add-in">
           <div class="route-line"><button type="button" id="addCityBtn" class="route-city" aria-haspopup="menu" aria-expanded="false" aria-controls="addCityMenu"><span class="route-city-name" id="addCityName"></span><span class="new-stamp" id="addNewStamp" hidden><span class="new-stamp-in" aria-hidden="true"><svg viewBox="0 0 72 32" preserveAspectRatio="none" aria-hidden="true"><path d="M36 .75H37.5A33.75 14.75 0 0 1 71.25 15.5V16.5A33.75 14.75 0 0 1 37.5 31.25H34.5A33.75 14.75 0 0 1 .75 16.5V15.5A33.75 14.75 0 0 1 34.5 .75Z" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" pathLength="166.29" stroke-dasharray="0 1.9797"/></svg><span class="new-stamp-ring">New</span></span></span><svg class="add-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
           <div class="add-f add-name" id="addNameRow"><textarea id="nameInput" rows="1" aria-label="Name" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search"></textarea><span class="add-cap" aria-hidden="true">Name</span></div>
-          <div class="add-f add-addr" id="addAddrRow"><span class="add-addr-text" id="addAddr"></span><span class="add-cap" aria-hidden="true">Address</span></div>
+          <div class="add-f add-addr" id="addAddrRow"><span class="add-addr-text" id="addAddr" aria-hidden="true"></span><textarea id="addrInput" rows="1" aria-label="Address" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search"></textarea><span class="add-cap" aria-hidden="true">Address</span></div>
           <div class="add-dist" id="addDist" hidden></div>
           <div class="add-f add-notes" id="addNotesRow"><textarea id="notesInput" rows="1" aria-label="Notes"></textarea><span class="add-cap" aria-hidden="true">Notes</span></div>
           <div class="add-type"><span class="tag-lab" id="addTypeLab">Type</span><button type="button" id="addTypeBtn" class="add-type-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="addTypeMenu" aria-label="Type"><span class="add-type-val" id="addTypeVal"></span><svg class="add-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+          <div class="add-type add-plan" id="addPlanRow" hidden><span class="tag-lab" id="addPlanLab">Plan</span><button type="button" id="addPlanBtn" class="add-type-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="addPlanMenu" aria-label="Plan"><span class="add-type-val" id="addPlanVal"></span><svg class="add-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="tag-plan add-stop" id="addStopNo"></span></div>
           <div class="add-err" id="addErr" role="status" hidden></div>
         </div>
         <div id="addResults" role="listbox" aria-label="Places" hidden></div>
@@ -2788,6 +2823,7 @@
   <div id="addMenuScrim" hidden></div>
   <div id="addCityMenu" class="menu-box" role="menu" aria-label="City" hidden></div>
   <div id="addTypeMenu" class="menu-box" role="menu" aria-label="Type" hidden></div>
+  <div id="addPlanMenu" class="menu-box" role="menu" aria-label="Plan" hidden></div>
   <!-- The Hanging Tag's city menu (add-tag-jam phase 3): the same menu, under the tag's routing line. -->
   <div id="tagMenuScrim" hidden></div>
   <div id="tagCityMenu" class="menu-box" role="menu" aria-label="City" hidden></div>
@@ -3958,6 +3994,7 @@
       if (cfg.bounded) params.set('bounded', '1');                          // HARD filter to viewbox — only set by the unscoped-region fallback
       if (opts.addressdetails) params.set('addressdetails', '1');
       if (opts.polygonGeojson) params.set('polygon_geojson', '1');
+      if (opts.featureType) params.set('featureType', opts.featureType);   // 'city': settlements only (Find a city)
       params.set('accept-language', 'en');   // names, towns and countries in English, not the local language
 
       const init = {};
@@ -4173,6 +4210,8 @@
     let searchSeq = 0;
     let addResultsData = [];          // the rows on screen, in order (a row's data-i indexes it)
     let addResultsQuery = '';         // the text those rows answer (an unnamed address hit is named from it)
+    let addResultsSrc = 'name';       // the line those rows answer: 'name' or 'addr' (city-crud: each line searches)
+    const addSearchInput = src => document.getElementById(src === 'addr' ? 'addrInput' : 'nameInput');
     // The distance tier: 0 in the map's view (+25%), 1 within SEARCH_CITY_NEAR_KM of one of your
     // cities, 2 the rest (3: no coordinates).
     function searchTier(r) {
@@ -4301,11 +4340,14 @@
       return /(^|[\s,])\d+[a-z]?([\s,]|$)/i.test(String(query)) && (key === 'highway' || key === 'building' || key === 'place');
     }
 
-    async function searchAddress(query) {
+    // src: the line being written on ('name' or 'addr'); its results open under its rule.
+    async function searchAddress(query, src = 'name') {
+      if (addSearchInput(src).value !== query) return;   // the line moved on before the debounce fired (a revert, a pick)
       const seq = ++searchSeq;
       if (query.trim().length < 2) { hideAutocomplete(); return; }
+      addResultsSrc = src;
       showAddResults('<div class="add-res-note">Searching…</div>');
-      const isStale = () => seq !== searchSeq || document.getElementById('nameInput').value !== query;
+      const isStale = () => seq !== searchSeq || addSearchInput(src).value !== query;
       try {
         const data = await nominatimWithFallback(query, currentSearchCityConfig(), { limit: 10, addressdetails: true, timeout: 5000 }, isStale);
         if (isStale()) return;
@@ -4334,11 +4376,11 @@
           : '<div class="add-res-note">Search failed — wait a moment and try again.</div>');
       }
     }
-    // The panel runs from under NAME's rule to the tag's foot (over the stub too: ADD waits for a
-    // pick anyway, and with the keyboard up the stub is under it).
+    // The panel runs from under the searching line's rule (NAME's or ADDRESS's) to the tag's foot
+    // (over the stub too: ADD waits for a pick anyway, and with the keyboard up the stub is under it).
     function showAddResults(html) {
       const res = document.getElementById('addResults'), stock = document.querySelector('#addForm .tag-stock');
-      const row = document.getElementById('addNameRow');
+      const row = document.getElementById(addResultsSrc === 'addr' ? 'addAddrRow' : 'addNameRow');
       res.style.setProperty('--res-top', `${row.getBoundingClientRect().bottom - stock.getBoundingClientRect().top}px`);
       res.innerHTML = html; res.hidden = false; res.scrollTop = 0;
     }
@@ -9674,7 +9716,11 @@
     // The draft. city: { id } (one of CITIES) or { newCity: { label, details, lat, lng } } (ADD makes
     // it, NEW-stamped) or null. cityHand / typeHand: a hand pick in this add, never overridden by a
     // guess (today's userOverrodeCity, and its TYPE twin).
-    const addDraft = { pick: null, city: null, cityHand: false, type: ADD_TYPE_DEFAULT, typeHand: false, starred: false, visited: false };
+    // city-crud v2: plan (a plan id, or null: "Not in a plan") with planLine (the PLAN line shows:
+    // + was tapped with a plan open in Plans); saved: the place ADD already saved when only its stop
+    // failed (a retry adds just the stop). city: { newCity: { label, cfg } } is a found city (Find a
+    // city), made at ADD from its own config.
+    const addDraft = { pick: null, city: null, cityHand: false, type: ADD_TYPE_DEFAULT, typeHand: false, starred: false, visited: false, plan: null, planLine: false, saved: null };
     let addRestore = null;    // { collapsed, scroll, tag } while the tag is up
     let addView = null;       // the map's view when + was tapped (cancel goes back to it)
     let addSaving = false, addErrText = '', addAligning = false;
@@ -9714,16 +9760,17 @@
 
     // ---- the city ----
     const cityKey = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
-    // Before a pick: the city the map's centre would file under (today's defaultFormCity(): the city
-    // whose area holds it, else the nearest within 150 km, else the last go-to's). No city: null.
-    // Display only (phase 3): a pin can't be added before a pick, and the pick guesses again.
+    // Before a pick: the city the map's centre would file under (the city whose area holds it, else
+    // the nearest within 150 km). No city near the map: null, and the line prints its caption CITY
+    // (city-crud: it no longer falls back to the last go-to's city, which printed REYKJAVÍK on an add
+    // in Pennsylvania). Display only (phase 3): a pin can't be added before a pick, and the pick
+    // guesses again.
     function preGuessCity() {
       if (!map || !Object.keys(CITIES).length) return null;
       const c = map.getCenter(), m = matchCity(c.lat, c.lng);
       if (m) return { id: m };
       const near = rankCitiesByProximity([c.lat, c.lng], 150)[0];
-      if (near) return { id: near.cityId };
-      return CITIES[activeCity] ? { id: activeCity } : { id: Object.keys(CITIES)[0] };
+      return near ? { id: near.cityId } : null;
     }
     // THE GUESS (add-tag-jam phase 3, "the city-bucket model"): the nearest of your cities whose
     // stored centre is within CITY_REACH_KM (about a day trip) -- measured to the centre, so an
@@ -9756,6 +9803,110 @@
       const d = await nominatimReverse(lat, lng);
       if (d) { if (onDetails) onDetails(d); g = guessCity(lat, lng, d); }
       return g || nearestCityAnywhere(lat, lng);
+    }
+    // ---- FIND A CITY (city-crud v2; concepts/v2-lean.md): the city menu's search for REAL cities.
+    // The add tag's search, filtered to settlements (Nominatim featureType=city, then only city /
+    // town / village: never a county or region), ranked nearest the place. A pick that is one of
+    // your cities (same name, same country) just picks it; a new one is made from the result's own
+    // name, centre and box (cityConfigFromFound(): no second lookup), by today's addCity().
+    const FIND_CITY_KINDS = new Set(['city', 'town', 'village']);
+    const FIND_CITY_MAX = 5;
+    // "≈ 45 km": under 10 km to the km, else to 5 km (placeDistanceText()'s rounding).
+    const roundKm = km => km < 10 ? Math.max(1, Math.round(km)) : Math.round(km / 5) * 5;
+    function foundCity(r, near) {
+      const a = r.address || {}, lat = parseFloat(r.lat), lng = parseFloat(r.lon);
+      const kind = r.addresstype || (osmPair(r).key === 'place' ? osmPair(r).value : '');
+      if (!FIND_CITY_KINDS.has(kind) || !isFinite(lat) || !isFinite(lng)) return null;
+      // the real name: "Village of Philadelphia" is Philadelphia (townOf()'s prefix rule)
+      const raw = String(r.name || '').trim(), name = raw.replace(TOWN_PREFIX_RE, '').trim() || raw;
+      const cc = String(a.country_code || '').toLowerCase();
+      if (!name || !cc) return null;
+      const km = near ? haversineKm(near, [lat, lng]) : null;
+      const region = [a.state || a.province || a.region || a.county || '', a.country || ''].filter(Boolean).join(', ');
+      return { name, cc, country: a.country || cc.toUpperCase(), lat, lng, bbox: (r.boundingbox || []).map(Number), km,
+        where: [RESULT_PLACE_WORDS[kind] || 'City', region, km != null ? `≈ ${roundKm(km).toLocaleString('en')} km away` : ''].filter(Boolean).join(' · ') };
+    }
+    async function findCities(query, near) {
+      const cfg = near ? { viewbox: `${near[1] - 1},${near[0] - 1},${near[1] + 1},${near[0] + 1}` } : {};   // a SOFT hint only: worldwide
+      const data = await nominatim(query, cfg, { limit: 10, addressdetails: true, featureType: 'city', timeout: 5000 });
+      const out = [];
+      (data || []).map(r => foundCity(r, near)).filter(Boolean)
+        .sort((a, b) => (a.km == null || b.km == null) ? 0 : a.km - b.km)
+        .forEach(f => { if (!out.some(o => o.cc === f.cc && cityKey(o.name) === cityKey(f.name) && haversineKm([o.lat, o.lng], [f.lat, f.lng]) < 15)) out.push(f); });
+      return out.slice(0, FIND_CITY_MAX);
+    }
+    // One of your cities by name (its label, or its search name: "LA" is Los Angeles) and country.
+    function existingCityFor(f) {
+      return Object.keys(CITIES).find(id => {
+        const c = CITIES[id], names = [c.label, String(c.geocodeSuffix || '').split(',')[0]].map(cityKey);
+        const ccs = String(c.countrycodes || '').toLowerCase().split(',').map(x => x.trim());
+        return names.includes(cityKey(f.name)) && ccs.includes(f.cc);
+      }) || null;
+    }
+    function freshCityId(label, cc) {
+      let id = slugifyCityId(label) || 'city';
+      if (CITIES[id]) id = `${id}-${cc}`;
+      let n = 2; const base = id;
+      while (CITIES[id]) id = `${base}-${n++}`;
+      return id;
+    }
+    // A found city's config, from the result alone. A box wider or taller than ~3 degrees isn't a
+    // city's (deriveNewCityConfig()'s sanity guard): a fixed box around its centre instead.
+    function cityConfigFromFound(f) {
+      const [s, n, w, e] = f.bbox.length === 4 ? f.bbox : [NaN, NaN, NaN, NaN];
+      const ok = [s, n, w, e].every(isFinite) && e - w <= 3 && n - s <= 3;
+      return {
+        id: freshCityId(f.name, f.cc), label: f.name, center: [f.lat, f.lng], zoom: 12,
+        geocodeSuffix: `${f.name}, ${f.country}`, countrycodes: f.cc,
+        viewbox: ok ? `${w},${s},${e},${n}` : `${f.lng - 0.15},${f.lat - 0.15},${f.lng + 0.15},${f.lat + 0.15}`,
+        lowConfidence: !ok
+      };
+    }
+    // The search line inside a city menu: typing searches (1 request/s, as the add tag's), the
+    // results land under it. `near` is the place's point; `onPick(found)` gets the chosen result.
+    let findCitySeq = 0;
+    function findCityRowsHtml(list) {
+      return list.map((f, i) => `<button type="button" class="add-res menu-res" role="menuitem" tabindex="-1" data-find="${i}" aria-label="${escapeAttr(`${f.name}, ${f.where}`)}">`
+        + `<span class="add-res-name">${escapeHtml(f.name)}</span><span class="add-res-where">${escapeHtml(f.where)}</span></button>`).join('');
+    }
+    function wireFindCity(menu, near, onPick, onResize) {
+      const input = menu.querySelector('.menu-find-in'), out = menu.querySelector('.menu-find-res');
+      if (!input || !out) return;
+      let found = [];
+      const show = html => {
+        out.innerHTML = html; menu.classList.toggle('is-finding', !!html); onResize();
+        if (html) menu.scrollTop = Math.max(0, input.closest('.menu-find').offsetTop);   // the search line at the box's top, its results under it
+      };
+      const run = debounce(async q => {
+        const seq = ++findCitySeq;
+        if (q.trim().length < 2 || input.value !== q) return;
+        try {
+          const list = await findCities(q.trim(), near);
+          if (seq !== findCitySeq || input.value !== q || !input.isConnected) return;
+          found = list;
+          show(list.length ? findCityRowsHtml(list) : '<div class="menu-find-note">No cities called that — try another name.</div>');
+        } catch (err) {
+          if (seq !== findCitySeq || !input.isConnected) return;
+          found = [];
+          show(`<div class="menu-find-note">${err && err.name === 'TimeoutError' ? 'Search timed out — try again.' : 'Search failed — wait a moment and try again.'}</div>`);
+        }
+      }, 1000);
+      input.addEventListener('input', () => {
+        found = [];
+        if (input.value.trim().length < 2) { ++findCitySeq; show(''); return; }
+        show('<div class="menu-find-note">Searching…</div>');
+        run(input.value);
+      });
+      input.addEventListener('keydown', e => {
+        const first = out.querySelector('.menu-res');
+        if (e.key === 'ArrowDown' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); if (first) first.focus({ preventScroll: true }); }
+        else if (['ArrowUp', 'Home', 'End'].includes(e.key)) e.stopPropagation();   // the caret's keys, not the menu's
+      });
+      out.addEventListener('click', e => {
+        const b = e.target.closest('.menu-res'); if (!b) return;
+        e.stopPropagation();
+        const f = found[Number(b.dataset.find)]; if (f) onPick(f);
+      });
     }
     const addCityIsNew = () => !!(addDraft.city && addDraft.city.newCity);
     const addCityLabel = () => !addDraft.city ? '' : addDraft.city.newCity ? addDraft.city.newCity.label : cityLabel(addDraft.city.id);
@@ -9790,21 +9941,25 @@
     // the check; your other cities; then "New city" + "+ {real town}" when there's a town to make.
     // No tallies. One builder for the add tag and the Hanging Tag.
     const CITY_PIN_ICO = '<svg class="menu-ico is-quiet" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>';
+    const FIND_PLUS_ICO = '<svg class="menu-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     function cityMenuHtml(curId, town, townOn) {
       let html = '<div class="menu-cap" aria-hidden="true">City</div>';
       const ids = sectionCityIds().filter(id => CITIES[id]);
       ids.forEach((id, i) => {
         const on = !townOn && id === curId;
-        html += `<button type="button" class="menu-row${town && i === ids.length - 1 ? ' before-foot' : ''}" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-city="${escapeAttr(id)}">`
+        html += `<button type="button" class="menu-row${i === ids.length - 1 ? ' before-foot' : ''}" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-city="${escapeAttr(id)}">`
           + (on ? CITY_PIN_ICO : MENU_SVG.spacer)
           + `<span class="menu-lab">${escapeHtml(cityLabel(id))}</span><span class="menu-gap"></span>${on ? MENU_SVG.check : MENU_SVG.none}</button>`;
       });
+      // "New city" (+ the real town, when there is one to make) and "+ Find a city…" are one block
+      // pinned to the menu's foot (sticky), so with many cities they are always in reach while the
+      // cities scroll above them.
+      html += '<div class="menu-foot"><div class="menu-cap is-mid" aria-hidden="true">New city</div>';
       if (town) {
-        // "New city" + "+ town" are one block pinned to the menu's foot (sticky), so with
-        // many cities the town is always in reach while the cities scroll above it.
-        html += '<div class="menu-foot"><div class="menu-cap is-mid" aria-hidden="true">New city</div>'
-          + `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${!!townOn}" tabindex="-1" data-newcity="1" aria-label="New city: ${escapeAttr(town.label)}">${MENU_SVG.spacer}<span class="menu-lab">+ ${escapeHtml(town.label)}</span><span class="menu-gap"></span>${townOn ? MENU_SVG.check : MENU_SVG.none}</button></div>`;
+        html += `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${!!townOn}" tabindex="-1" data-newcity="1" aria-label="New city: ${escapeAttr(town.label)}">${MENU_SVG.spacer}<span class="menu-lab">+ ${escapeHtml(town.label)}</span><span class="menu-gap"></span>${townOn ? MENU_SVG.check : MENU_SVG.none}</button>`;
       }
+      html += `<div class="menu-find" role="presentation">${FIND_PLUS_ICO}<input type="search" class="menu-find-in" placeholder="Find a city…" aria-label="Find a city" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false"></div>`
+        + '<div class="menu-find-res" role="group" aria-label="Cities found"></div></div>';
       return html;
     }
     // A menu --s2 under its trigger, left-aligned, kept on screen (phase 2 / 3 fixes): floor = 8px
@@ -9852,15 +10007,20 @@
     }
     // ADD is ready with a picked place (a pin) or a name (a district / street: the outline is found
     // at ADD), and not while saving.
-    // What ADD's line says while it waits: empty NAME "Name it first"; a name but no place picked
-    // "Pick a place" (phase 2 fixes). Ready: no line.
+    // What ADD's line says while it waits (phase 2 fixes; city-crud below). Ready: no line.
+    // city-crud (concepts/0-shared-name-and-address.md): NAME IT FIRST only when NAME is empty after
+    // a pick (an address-only place takes your name); before a pick it waits on the place, which
+    // either line can find. A district / street still needs its name (the outline is found by it).
     function addGoHint() {
-      return document.getElementById('nameInput').value.trim() ? 'Pick a place' : 'Name it first';
+      const named = !!document.getElementById('nameInput').value.trim();
+      return !named && (addDraft.pick || isShapeCategory(addDraft.type)) ? 'Name it first' : 'Pick a place';
     }
     function addReady() {
       if (addSaving) return false;
-      if (isShapeCategory(addDraft.type)) return !!document.getElementById('nameInput').value.trim();
-      return !!addDraft.pick;
+      if (addDraft.saved) return true;   // the place is saved; ADD retries its stop
+      const named = !!document.getElementById('nameInput').value.trim();
+      if (isShapeCategory(addDraft.type)) return named;
+      return !!addDraft.pick && named;
     }
     function renderAddStub(anim) {
       const stub = document.getElementById('addStub');
@@ -9888,27 +10048,34 @@
       const band = document.getElementById('addBand');
       band.hidden = !d.starred;
       if (d.starred) band.setAttribute('style', texVars('add-draft', 'band', 160, .06));
-      // the routing line
-      const btn = document.getElementById('addCityBtn'), label = addCityLabel();
-      btn.hidden = !d.city;
-      document.getElementById('addCityName').textContent = label;
+      // the routing line; no city near the map before a pick: its caption, CITY (still a menu). A
+      // picked place whose guess is still out: blank until it lands.
+      const btn = document.getElementById('addCityBtn'), label = addCityLabel(), cityName = document.getElementById('addCityName');
+      btn.hidden = !d.city && addPicked();
+      cityName.textContent = d.city ? label : 'City';
+      cityName.classList.toggle('is-cap', !d.city);
       document.getElementById('addNewStamp').hidden = !addCityIsNew();
-      btn.setAttribute('aria-label', d.city ? `City: ${label}${addCityIsNew() ? ', new city' : ''}. Change the city` : 'City');
+      btn.setAttribute('aria-label', d.city ? `City: ${label}${addCityIsNew() ? ', new city' : ''}. Change the city` : 'City. Choose a city');
       // NAME / address / notes captions
       const name = document.getElementById('nameInput');
       document.getElementById('addNameRow').classList.toggle('has-text', !!name.value);
       document.getElementById('addNotesRow').classList.toggle('has-text', !!document.getElementById('notesInput').value);
       // a District / Street prints where it is (the pick's town, country), never a sentence; no pick:
       // the slot stays empty with its caption, like a place's
-      const addr = !d.pick ? '' : shape ? (d.pick.where || '') : (d.pick.short || d.pick.address);
+      // ADDRESS (city-crud): at rest it prints the pick's address and its entry holds the same text;
+      // while it is written on, the entry is left alone (the typed search).
+      const addrRow = document.getElementById('addAddrRow'), addrIn = document.getElementById('addrInput'), writing = addrRow.classList.contains('is-writing');
+      if (!writing && addPicked()) addrIn.value = addPickAddress();
+      const addr = addPicked() ? addPickAddress() : addrIn.value;   // no pick yet: a typed address stays on the line
       document.getElementById('addAddr').textContent = addr;
-      document.getElementById('addAddrRow').classList.toggle('has-text', !!addr);
+      addrRow.classList.toggle('has-text', writing ? !!addrIn.value : !!addr);
       const dist = addDistanceText(), distEl = document.getElementById('addDist');
       distEl.textContent = dist; distEl.hidden = !dist;
       if (dist) btn.setAttribute('aria-describedby', 'addDist'); else btn.removeAttribute('aria-describedby');   // the note is about the city
       // TYPE, and the pin above the tag that follows it (the selected pin's grammar: ink field, paper glyph)
       document.getElementById('addTypeVal').textContent = addTypeName(d.type);
       document.getElementById('addTypeBtn').setAttribute('aria-label', `Type: ${addTypeName(d.type)}. Change the type`);
+      renderAddPlan();
       const ink = categoryInk(d.type);
       // owner: "Districts and streets need no map pin": a shape hangs from the shipped anchor dot
       // (showTagDot(): paper r6 + ink r4, 14px); a place from its pin
@@ -9922,6 +10089,30 @@
       syncAddOutline();
       renderAddGo();
       if (addFormOpen()) placeAddTag();
+    }
+    // The pick's address as the ADDRESS line prints it: a place's short address (else its full one);
+    // a District / Street's where (its town, country).
+    function addPickAddress() {
+      const p = addDraft.pick;
+      return !p ? '' : isShapeCategory(addDraft.type) ? (p.where || '') : (p.short || p.address || '');
+    }
+    // ---- THE PLAN LINE (city-crud v2, "a roadtrip is a plan"): only when + was tapped with a plan
+    // open in Plans, preset to that plan. STOP n: the place's position if ADD files it now (the
+    // plan's stops + 1), printed STOP and a stamped number. "Not in a plan": no STOP.
+    const addPlanOk = () => !!(addDraft.plan && plans.some(p => p.id === addDraft.plan));
+    function renderAddPlan() {
+      const row = document.getElementById('addPlanRow'), d = addDraft;
+      row.hidden = !d.planLine;
+      if (!d.planLine) return;
+      const plan = addPlanOk() ? plans.find(p => p.id === d.plan) : null;
+      const name = plan ? plan.name : 'Not in a plan';
+      document.getElementById('addPlanVal').textContent = name;
+      document.getElementById('addPlanBtn').setAttribute('aria-label', `Plan: ${name}. Change the plan`);
+      const stopEl = document.getElementById('addStopNo');
+      if (!plan) { stopEl.innerHTML = ''; stopEl.removeAttribute('aria-label'); return; }
+      const n = planRowsFor(plan.id).length + 1;
+      stopEl.setAttribute('aria-label', `Stop ${n}`);
+      stopEl.innerHTML = `<span aria-hidden="true">Stop <span class="tag-stamp" style="--tilt:${typeTilt('add-draft', 1)}deg;${texVars('add-draft', 'n', 170, .1)}">${n}</span></span>`;
     }
     // The picked area's own outline: Nominatim /lookup by its OSM id (once per pick), drawn in the
     // shape layer's style while the tag is up and TYPE is District / Street; ADD reuses it.
@@ -9977,10 +10168,11 @@
       // docking: the keyboard is up and would cover what you're writing
       const vv = window.visualViewport, act = document.activeElement;
       let docked = false;
-      if (keyboardUp() && (act === document.getElementById('nameInput') || act === document.getElementById('notesInput'))) {
+      // NAME and ADDRESS (city-crud: each one searches) dock, so their results have the room
+      if (keyboardUp() && (act === document.getElementById('nameInput') || act === document.getElementById('addrInput') || act === document.getElementById('notesInput'))) {
         const vBottom = vv.offsetTop + vv.height - 8;
         const fieldBottom = act.getBoundingClientRect().bottom - (form.getBoundingClientRect().top + drop) + top;
-        if (act.id === 'nameInput' || fieldBottom > vBottom) { top = vv.offsetTop + a.mapTop; docked = true; }
+        if (act.id === 'nameInput' || act.id === 'addrInput' || fieldBottom > vBottom) { top = vv.offsetTop + a.mapTop; docked = true; }
       }
       form.classList.toggle('is-lifted', docked && addPicked());
       form.style.left = `${Math.round(a.cx - w / 2)}px`;
@@ -10033,6 +10225,9 @@
       if (addRestore.tag != null) map.closePopup();   // one tag on screen at a time
       addView = { center: map.getCenter(), zoom: map.getZoom() };
       if (!addDraft.cityHand && !addDraft.pick) addDraft.city = preGuessCity();
+      // the PLAN line: only with a plan open in Plans, preset to it (each +)
+      const openPlan = inPlanView() && plansAvailable === true ? activePlan() : null;
+      addDraft.planLine = !!openPlan; addDraft.plan = openPlan ? openPlan.id : null;
       addErrText = '';
       showAddForm(true);
       if (!railQuery.matches && !addRestore.collapsed) toggleSheetCollapsed();
@@ -10060,6 +10255,7 @@
       if (document.activeElement && document.getElementById('addForm').contains(document.activeElement)) document.activeElement.blur();
       if (addView) { addAligning = true; try { map.setView(addView.center, addView.zoom, { animate: false }); } finally { addAligning = false; } }   // back under the wash, before it goes
       addView = null;
+      if (addDraft.saved) clearAddDraft();   // the place is saved (only its stop failed): nothing left to keep
       rideBack(true);
       document.getElementById('floatingAddBtn').focus({ preventScroll: true });
     }
@@ -10076,7 +10272,7 @@
       if (document.getElementById('authModal').classList.contains('show')) return;
       e.preventDefault();
       if (addMenuOpen()) { closeAddMenus(true); return; }
-      if (!document.getElementById('addResults').hidden) { hideAutocomplete(); return; }
+      if (!document.getElementById('addResults').hidden) { hideAutocomplete(); addrSettleSoon(); return; }
       cancelAddForm();
     });
     // The credit is never covered: the tag's foot clears it (addOpenArea()). Kept as a no-op hook for
@@ -10089,14 +10285,24 @@
     }
 
     // ---- the menus (City, Type): the shared .menu-box, just under their triggers ----
-    const addMenuOpen = () => !document.getElementById('addCityMenu').hidden || !document.getElementById('addTypeMenu').hidden;
+    const ADD_MENUS = [['addCityMenu', 'addCityBtn'], ['addTypeMenu', 'addTypeBtn'], ['addPlanMenu', 'addPlanBtn']];
+    const addMenuOpen = () => ADD_MENUS.some(([m]) => !document.getElementById(m).hidden);
     function openAddMenu(which) {
       closeAddMenus(false);
-      const menu = document.getElementById(which === 'city' ? 'addCityMenu' : 'addTypeMenu');
-      const trig = document.getElementById(which === 'city' ? 'addCityBtn' : 'addTypeBtn');
+      const [menuId, trigId] = ADD_MENUS[which === 'city' ? 0 : which === 'plan' ? 2 : 1];
+      const menu = document.getElementById(menuId), trig = document.getElementById(trigId);
       let html = '';
       if (which === 'city') {
-        html = cityMenuHtml(addDraft.city && addDraft.city.id, addNewTownOption(), addCityIsNew());
+        const town = addNewTownOption(), c = addDraft.city;
+        html = cityMenuHtml(c && c.id, town, !!(c && c.newCity && town && cityKey(c.newCity.label) === cityKey(town.label) && !c.newCity.cfg));
+      } else if (which === 'plan') {
+        html += '<div class="menu-cap" aria-hidden="true">Plan</div>';
+        plans.forEach(p => {
+          const on = p.id === addDraft.plan;
+          html += `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${on}" tabindex="-1" data-plan="${escapeAttr(p.id)}">${MENU_SVG.spacer}<span class="menu-lab">${escapeHtml(p.name)}</span><span class="menu-gap"></span>${on ? MENU_SVG.check : MENU_SVG.none}</button>`;
+        });
+        const none = !addPlanOk();
+        html += `<button type="button" class="menu-row" role="menuitemradio" aria-checked="${none}" tabindex="-1" data-plan="">${MENU_SVG.spacer}<span class="menu-lab">Not in a plan</span><span class="menu-gap"></span>${none ? MENU_SVG.check : MENU_SVG.none}</button>`;
       } else {
         html += '<div class="menu-cap" aria-hidden="true">Type</div>';
         ADD_TYPES.forEach(t => {
@@ -10105,6 +10311,17 @@
         });
       }
       menu.innerHTML = html;
+      menu.classList.remove('is-finding');
+      if (which === 'city') {
+        const p = addDraft.pick, c = map.getCenter();
+        wireFindCity(menu, p ? [p.lat, p.lng] : [c.lat, c.lng], f => {
+          const id = existingCityFor(f);
+          addDraft.city = id ? { id } : { newCity: { label: f.name, cfg: cityConfigFromFound(f) } };   // a new one is made at ADD, NEW-stamped
+          addDraft.cityHand = true;
+          closeAddMenus(true);
+          renderAddTag();
+        }, placeAddMenu);
+      }
       document.getElementById('addMenuScrim').hidden = false;
       document.body.classList.add('add-menu-open');
       menu.hidden = false;
@@ -10118,13 +10335,13 @@
     // Just under its trigger, left-aligned; its height fits the visible viewport (the keyboard
     // counts) and re-fits whenever that changes.
     function placeAddMenu() {
-      [['addCityMenu', 'addCityBtn'], ['addTypeMenu', 'addTypeBtn']].forEach(([m, b]) => {
+      ADD_MENUS.forEach(([m, b]) => {
         const menu = document.getElementById(m); if (!menu || menu.hidden) return;
         placeMenuUnder(menu, document.getElementById(b), m === 'addCityMenu');
       });
     }
     function closeAddMenus(refocus) {
-      [['addCityMenu', 'addCityBtn'], ['addTypeMenu', 'addTypeBtn']].forEach(([m, b]) => {
+      ADD_MENUS.forEach(([m, b]) => {
         const menu = document.getElementById(m), btn = document.getElementById(b);
         if (!menu || menu.hidden) return;
         menu.hidden = true; menu.classList.remove('opening');
@@ -10136,8 +10353,9 @@
     }
     document.getElementById('addCityBtn').onclick = () => { if (!document.getElementById('addCityMenu').hidden) closeAddMenus(true); else openAddMenu('city'); };
     document.getElementById('addTypeBtn').onclick = () => { if (!document.getElementById('addTypeMenu').hidden) closeAddMenus(true); else openAddMenu('type'); };
+    document.getElementById('addPlanBtn').onclick = () => { if (!document.getElementById('addPlanMenu').hidden) closeAddMenus(true); else openAddMenu('plan'); };
     document.getElementById('addMenuScrim').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); closeAddMenus(true); });
-    ['addCityMenu', 'addTypeMenu'].forEach(id => {
+    ['addCityMenu', 'addTypeMenu', 'addPlanMenu'].forEach(id => {
       const menu = document.getElementById(id);
       menu.addEventListener('click', e => {
         const r = e.target.closest('.menu-row'); if (!r) return;
@@ -10145,11 +10363,12 @@
         if (d.city) { addDraft.city = { id: d.city }; addDraft.cityHand = true; }   // a hand pick wins for this add
         else if (d.newcity) { const t = addNewTownOption(); if (t) { addDraft.city = { newCity: t }; addDraft.cityHand = true; } }
         else if (d.type) setAddType(d.type, true);
+        else if (d.plan !== undefined) addDraft.plan = d.plan || null;
         closeAddMenus(true);
         renderAddTag();
       });
       menu.addEventListener('keydown', e => {
-        const opts = [...menu.querySelectorAll('.menu-row')], i = opts.indexOf(document.activeElement);
+        const opts = [...menu.querySelectorAll('.menu-row, .menu-res')], i = opts.indexOf(document.activeElement);
         const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
         if (e.key === 'ArrowDown') go(i + 1);
         else if (e.key === 'ArrowUp') go(i - 1);
@@ -10173,17 +10392,23 @@
     }
 
     // ---- the pick ----
+    // A pick from either line fills both (city-crud): ADDRESS gets the pick's address; NAME takes
+    // the pick's own name from a NAME search (today's), but from an ADDRESS search a name you've
+    // written stays (an empty NAME takes the pick's name, "street number" for an address hit).
     function selectAddress(item) {
       const r = addResultsData[Number(item.dataset.i)];
       if (!r) return;
       const lat = parseFloat(r.lat), lng = parseFloat(r.lon);
       if (!isFinite(lat) || !isFinite(lng)) return;
       const details = r.address && Object.keys(r.address).length ? r.address : null;
-      const name = resultName(r, addResultsQuery), pair = osmPair(r);
+      const name = resultName(r, addResultsQuery), pair = osmPair(r), src = addResultsSrc;
       addDraft.pick = { name, address: r.display_name || name, short: details ? deriveShortAddress(details, name) : '', lat, lng, addressDetails: details,
         osmKey: pair.key, osmValue: pair.value, osmType: r.osm_type || '', osmId: r.osm_id || null, where: resultTown(r) };
+      addDraft.saved = null;   // a new place: a retry would no longer be about the saved one
       const nameEl = document.getElementById('nameInput');
-      nameEl.value = name; autoGrow(nameEl);
+      if (!(src === 'addr' && nameEl.value.trim())) { nameEl.value = name; autoGrow(nameEl); }
+      const addrEl = document.getElementById('addrInput');
+      addrEl.blur(); document.getElementById('addAddrRow').classList.remove('is-writing'); addrEl.style.height = '';
       // TYPE from the pick; an address hit, or a pair the table doesn't know, is Other (a TYPE set
       // by hand in this add stays).
       if (!addDraft.typeHand) addDraft.type = (!isAddressHit(r, addResultsQuery) && osmToType(pair.key, pair.value, r.addresstype)) || 'other';
@@ -10202,6 +10427,7 @@
       addErrText = '';
       hideAutocomplete();
       nameEl.blur();
+      addrEl.value = addPickAddress();
       renderAddTag();
       // the one map move, hidden under the wash; then the wash lifts and the pin stands on the place
       requestAnimationFrame(() => {
@@ -10221,7 +10447,8 @@
       if (choice && choice.id && CITIES[choice.id]) return choice.id;
       if (choice && choice.newCity) {
         const n = choice.newCity;
-        const cfg = await deriveNewCityConfig(n.details, n.lat, n.lng);
+        // a found city (Find a city) brings its own config; its id is checked again now
+        const cfg = n.cfg ? { ...n.cfg, id: CITIES[n.cfg.id] ? freshCityId(n.cfg.label, n.cfg.countrycodes) : n.cfg.id } : await deriveNewCityConfig(n.details, n.lat, n.lng);
         if (!cfg) return null;
         return (await addCity(cfg)) ? cfg.id : null;
       }
@@ -10245,7 +10472,24 @@
         ...shortAddressFields(p.addressDetails, name)
       });
       if (!ok) { addFail('<span class="tag-lab">Couldn’t save</span>try again. Nothing is lost.'); return; }
-      finishAdd(() => locations.filter(l => l.name === name && Math.abs(l.lat - p.lat) < 1e-6 && Math.abs(l.lng - p.lng) < 1e-6).pop());
+      await finishAddInPlan(() => locations.filter(l => l.name === name && Math.abs(l.lat - p.lat) < 1e-6 && Math.abs(l.lng - p.lng) < 1e-6).pop());
+    }
+    // ADD with the PLAN line on a plan (city-crud v2): the place is saved, then its stop is added
+    // (addStop(), appended: STOP n). A stop that fails leaves the place saved and says so on the
+    // tag; the tag stays up, and ADD tries the stop again (addDraft.saved). "Not in a plan": as before.
+    const ADD_STOP_FAILED = '<span class="tag-lab">Saved,</span>but not added to the plan — try again.';
+    async function finishAddInPlan(findNew) {
+      const found = findNew();
+      if (found && addPlanOk()) {
+        const target = found.shapeKey ? { shapeId: shapeIdOf(found.shapeKey) } : { locationId: found.id };
+        const already = stopsOf(addDraft.plan).some(s => target.shapeId != null ? Number(s.shape_id) === target.shapeId : s.location_id === target.locationId);
+        if (!already && !(await addStop(addDraft.plan, target))) {
+          addDraft.saved = found.shapeKey ? { shapeKey: found.shapeKey } : { id: found.id };
+          addFail(ADD_STOP_FAILED);
+          return;
+        }
+      }
+      finishAdd(() => found);
     }
     // A district / street: the outline is fetched now, from the pick's own OSM object when there is
     // one (Nominatim lookup), else by name near the pick, else by name in the line's city. City:
@@ -10302,7 +10546,7 @@
           ...shortAddressFields(point.addressDetails, name)
         });
         if (!ok) { addFail('<span class="tag-lab">Couldn’t save</span>try again. Nothing is lost.'); return; }
-        finishAdd(() => locations.filter(l => l.name === `${name} (approx.)` && l.city === city).pop());
+        await finishAddInPlan(() => locations.filter(l => l.name === `${name} (approx.)` && l.city === city).pop());
         return;
       }
       const resolved = resolveShapeCity(geometry, segmentLengths);
@@ -10320,7 +10564,7 @@
         geometry: resolved.cleanedGeometry, starred: addDraft.starred, visited: addDraft.visited
       });
       if (!ok) { addFail('<span class="tag-lab">Couldn’t save</span>try again. Nothing is lost.'); return; }
-      finishAdd(() => { const s = neighborhoodShapes.filter(n => n.label === name && n.city === city).pop(); return s ? { shapeKey: 'shape:' + s.id } : null; });
+      await finishAddInPlan(() => { const s = neighborhoodShapes.filter(n => n.label === name && n.city === city).pop(); return s ? { shapeKey: 'shape:' + s.id } : null; });
     }
     // Saved: the draft clears, the tag goes, the list comes back, and the new place's own tag opens
     // through the list's row-tap path (the map flies to it).
@@ -10338,9 +10582,10 @@
       }, TAG_SHEET_MS + 40);
     }
     function clearAddDraft() {
-      Object.assign(addDraft, { pick: null, city: null, cityHand: false, type: ADD_TYPE_DEFAULT, typeHand: false, starred: false, visited: false });
+      Object.assign(addDraft, { pick: null, city: null, cityHand: false, type: ADD_TYPE_DEFAULT, typeHand: false, starred: false, visited: false, plan: null, planLine: false, saved: null });
       addErrText = '';
-      ['nameInput', 'notesInput'].forEach(id => { const el = document.getElementById(id); el.value = ''; autoGrow(el); });
+      ['nameInput', 'addrInput', 'notesInput'].forEach(id => { const el = document.getElementById(id); el.value = ''; autoGrow(el); });
+      document.getElementById('addrInput').style.height = '';
       renderAddStub();
       renderAddTag();
     }
@@ -10353,7 +10598,8 @@
       addSaving = true; addErrText = '';
       renderAddTag();
       try {
-        if (isShapeCategory(addDraft.type)) await handleAddShapeSubmit();
+        if (addDraft.saved) { const s = addDraft.saved; await finishAddInPlan(() => s); }   // only the stop is left to add
+        else if (isShapeCategory(addDraft.type)) await handleAddShapeSubmit();
         else await handleAddLocationSubmit();
       } catch (err) {
         console.error('Add failed:', err);
@@ -10364,11 +10610,15 @@
     // ---- the tag's own events ----
     const debouncedSearch = debounce(searchAddress, 1000);   // Nominatim's 1 request/s etiquette
     const nameInput = document.getElementById('nameInput');
+    // After a pick, NAME is just the name (city-crud): typing in it no longer searches, so "Rental,
+    // night 2" doesn't throw "No places called that". A different place: write in ADDRESS, or clear
+    // it (an emptied ADDRESS lets the pick go, and NAME searches again).
     nameInput.addEventListener('input', () => {
       autoGrow(nameInput);
       document.getElementById('addNameRow').classList.toggle('has-text', !!nameInput.value);
       renderAddGo();
-      debouncedSearch(nameInput.value);
+      if (!addPicked()) debouncedSearch(nameInput.value, 'name');
+      else if (addResultsSrc === 'name') hideAutocomplete();
     });
     nameInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') { e.preventDefault(); const first = document.querySelector('#addResults .add-res'); if (first) first.focus(); else nameInput.blur(); }
@@ -10380,20 +10630,65 @@
     notesInput.addEventListener('input', () => { autoGrow(notesInput); document.getElementById('addNotesRow').classList.toggle('has-text', !!notesInput.value); placeAddTag(); });
     notesInput.addEventListener('focus', () => requestAnimationFrame(placeAddTag));
     notesInput.addEventListener('blur', () => setTimeout(() => { if (addFormOpen()) placeAddTag(); }, 0));
+    // A line being written on (city-crud): its rule goes navy and, once it holds text, its caption
+    // stays printed above the entry (.is-writing).
+    [['addNameRow', nameInput], ['addNotesRow', notesInput]].forEach(([rowId, el]) => {
+      const row = document.getElementById(rowId);
+      el.addEventListener('focus', () => row.classList.add('is-writing'));
+      el.addEventListener('blur', () => row.classList.remove('is-writing'));
+    });
+    // ADDRESS (city-crud): typing runs the same worldwide search; its results open under ADDRESS's
+    // rule. Leaving it without a pick puts the picked place's address back -- or, emptied, lets the
+    // pick go (the pin leaves; NAME searches again).
+    const addrInput = document.getElementById('addrInput'), addrRow = document.getElementById('addAddrRow');
+    function addrSettle() {
+      if (!addFormOpen() || document.activeElement === addrInput || !document.getElementById('addResults').hidden) return;
+      if (!addPicked()) { renderAddTag(); return; }
+      if (!addrInput.value.trim()) {
+        addDraft.pick = null; addDraft.saved = null;
+        if (!addDraft.cityHand) addDraft.city = preGuessCity();
+        syncAddWash();
+      }
+      addrInput.value = addPickAddress();
+      renderAddTag();
+    }
+    const addrSettleSoon = () => setTimeout(addrSettle, 0);
+    addrInput.addEventListener('focus', () => {
+      addrRow.classList.add('is-writing');
+      addrRow.classList.toggle('has-text', !!addrInput.value);
+      autoGrow(addrInput);
+      requestAnimationFrame(placeAddTag);
+    });
+    addrInput.addEventListener('blur', () => {
+      addrRow.classList.remove('is-writing');
+      addrInput.style.height = '';
+      setTimeout(() => { if (addFormOpen()) { placeAddTag(); addrSettle(); } }, 0);
+    });
+    addrInput.addEventListener('input', () => {
+      autoGrow(addrInput);
+      addrRow.classList.toggle('has-text', !!addrInput.value);
+      placeAddTag();
+      debouncedSearch(addrInput.value, 'addr');
+    });
     // a tap on an empty line's caption writes on that line
     document.getElementById('addNotesRow').addEventListener('click', () => notesInput.focus());
     document.getElementById('addNameRow').addEventListener('click', e => { if (e.target !== nameInput) nameInput.focus(); });
+    addrRow.addEventListener('click', e => { if (e.target !== addrInput) addrInput.focus(); });
+    addrInput.addEventListener('keydown', e => {   // NAME's keys, on ADDRESS
+      if (e.key === 'Enter') { e.preventDefault(); const first = document.querySelector('#addResults .add-res'); if (first) first.focus(); else addrInput.blur(); }
+      else if (e.key === 'ArrowDown') { const first = document.querySelector('#addResults .add-res'); if (first) { e.preventDefault(); first.focus(); } }
+    });
     const results = document.getElementById('addResults');
     results.addEventListener('click', e => { const r = e.target.closest('.add-res'); if (r) selectAddress(r); });
     results.addEventListener('keydown', e => {
       const opts = [...results.querySelectorAll('.add-res')], i = opts.indexOf(document.activeElement);
       if (e.key === 'ArrowDown' && i >= 0) { e.preventDefault(); (opts[i + 1] || opts[i]).focus(); }
-      else if (e.key === 'ArrowUp' && i >= 0) { e.preventDefault(); (opts[i - 1] || nameInput).focus(); }
+      else if (e.key === 'ArrowUp' && i >= 0) { e.preventDefault(); (opts[i - 1] || addSearchInput(addResultsSrc)).focus(); }
     });
-    // the results close on a tap anywhere but NAME and the results
+    // the results close on a tap anywhere but the line that searched and the results
     document.addEventListener('click', e => {
       if (!addFormOpen() || results.hidden) return;
-      if (!e.target.closest('#addResults, #addNameRow')) hideAutocomplete();
+      if (!e.target.closest(`#addResults, #${addResultsSrc === 'addr' ? 'addAddrRow' : 'addNameRow'}`)) { hideAutocomplete(); addrSettleSoon(); }
     });
     // the stub: ADD, and the tag's own Star and Mark visited (looks and motion as a place's tag)
     document.getElementById('addStub').addEventListener('click', e => {
@@ -10677,8 +10972,13 @@
     function renderTagCityMenu() {
       const key = tagCityMenuKey, item = rowItem(key), menu = document.getElementById('tagCityMenu');
       if (!item) return;
+      // a Find a city search in progress is never wiped by a late re-render (the town's lookup)
+      const find = menu.querySelector('.menu-find-in');
+      if (find && (find.value || document.activeElement === find)) return;
       const had = menu.contains(document.activeElement) ? document.activeElement.dataset : null;
       menu.innerHTML = cityMenuHtml(item.city, tagNewTown(key), false);
+      menu.classList.remove('is-finding');
+      wireFindCity(menu, placePoint(item), f => { closeTagCityMenu(true); movePlaceToFoundCity(key, f); }, placeTagCityMenu);
       if (had) {
         const back = had.city ? menu.querySelector(`[data-city="${CSS.escape(had.city)}"]`) : menu.querySelector('[data-newcity]');
         if (back) back.focus({ preventScroll: true });
@@ -10736,7 +11036,7 @@
         else if (d.newcity) { const town = tagNewTown(key); closeTagCityMenu(true); if (town) movePlaceToNewCity(key, town); }
       });
       menu.addEventListener('keydown', e => {
-        const opts = [...menu.querySelectorAll('.menu-row')], i = opts.indexOf(document.activeElement);
+        const opts = [...menu.querySelectorAll('.menu-row, .menu-res')], i = opts.indexOf(document.activeElement);
         const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
         if (e.key === 'ArrowDown') go(i + 1);
         else if (e.key === 'ArrowUp') go(i - 1);
@@ -10821,6 +11121,17 @@
       if (!await requireAuth()) return false;
       const cfg = await deriveNewCityConfig(town.details, town.lat, town.lng);
       if (!cfg || !await addCity(cfg)) return false;
+      return setPlaceCity(key, cfg.id);
+    }
+    // "Find a city" on the Hanging Tag (city-crud v2): one of your cities just files the place
+    // there; a new real city is made from the result first (addCity(), its own config), then the
+    // move -- as "+ town" does.
+    async function movePlaceToFoundCity(key, f) {
+      if (!await requireAuth()) return false;
+      const id = existingCityFor(f), item = rowItem(key);
+      if (id) return item && item.city === id ? true : setPlaceCity(key, id);
+      const cfg = cityConfigFromFound(f);
+      if (!await addCity(cfg)) return false;
       return setPlaceCity(key, cfg.id);
     }
 

@@ -79,11 +79,15 @@ const { W } = P;
   ok('D4 the city button is open (navy, aria-expanded)', await ev(() => document.getElementById('addCityBtn').getAttribute('aria-expanded') === 'true' && getComputedStyle(document.getElementById('addCityBtn')).backgroundColor === 'rgb(18, 41, 63)'));
   await ev(() => document.querySelector('#addCityMenu [data-city="copenhagen"]').click()); await W(150);
   const before = await ev(() => map.getCenter());
+  const reqsBefore = o.requests.length;
   await ev(() => { const i = document.getElementById('nameInput'); i.value = 'Sundhöll'; i.dispatchEvent(new Event('input', { bubbles: true })); }); await W(250);
   const d = await ev(() => ({ pick: addDraft.pick, city: addDraft.city, type: addDraft.type, wash: document.getElementById('addWash').classList.contains('is-on'), pin: getComputedStyle(document.getElementById('addPin')).display, addr: document.getElementById('addAddr').textContent, c: map.getCenter() }));
   ok('D5 editing NAME keeps the pick (place, address, OSM pair), the wash off, the map still', !!d.pick && d.pick.osmValue === 'sports_centre' && !d.wash && d.addr === 'Barónsstígur 45A · Miðborg' && Math.abs(d.c.lat - before.lat) < 1e-9, d);
   ok('D6 City and TYPE stay as last set by hand', d.city.id === 'copenhagen' && d.type === 'nature', d);
-  ok('D6b typing re-runs the results only', await ev(() => !document.getElementById('addResults').hidden || true) && o.requests.some(u => u.includes('q=Sundh%C3%B6ll&') || u.includes('q=Sundh%C3%B6ll')));
+  // city-crud (concepts/0-shared-name-and-address.md): after a pick NAME is just the name -- typing
+  // in it no longer searches (was phase 2's "typing re-runs the results only")
+  await W(1300);
+  ok('D6b after a pick, typing in NAME no longer searches (city-crud)', await ev(() => document.getElementById('addResults').hidden) && !o.requests.slice(reqsBefore).some(u => u.includes('/search')), o.requests.slice(reqsBefore));
   await ev(() => { hideAutocomplete(); const i = document.getElementById('nameInput'); i.value = 'Sundhöllin'; i.dispatchEvent(new Event('input', { bubbles: true })); hideAutocomplete(); window.__ins = []; document.getElementById('submitBtn').click(); }); await W(1400);
   ok('D7 W1: the place saves under my own name ("Sundhöllin"), at the picked place, as set', await ev(() => { const r = window.__ins.find(x => x[0] === 'locations'); return !!r && r[1][0].name === 'Sundhöllin' && Math.abs(r[1][0].lat - 64.14167) < 1e-3 && r[1][0].city === 'copenhagen' && r[1][0].category === 'nature' && r[1][0].address.startsWith('Sundhöll Reykjavíkur'); }), await ev(() => window.__ins));
   await ev(() => map.closePopup()); await W(400);
@@ -98,8 +102,10 @@ const { W } = P;
   ok('W1 an unnamed address hit is named from its street and number ("Laugavegur 18"), never "18"', await ev(() => { const n = [...document.querySelectorAll('#addResults .add-res-name')].map(e => e.textContent); return n.includes('Laugavegur 18') && !n.includes('18'); }));
   await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res-name')].findIndex(e => e.textContent === 'Laugavegur 18'); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
   ok('W2 ... the pick: name Laugavegur 18, TYPE Other (not Street, not the old default)', await ev(() => document.getElementById('nameInput').value === 'Laugavegur 18' && addDraft.type === 'other'), await ev(() => [document.getElementById('nameInput').value, addDraft.type]));
+  await reset(); await P.openAdd(page);   // city-crud: NAME searches only before a pick
   await P.typeName(page, 'Vesterbrogade 10');
   ok('W3 "Vesterbrogade 10" rows read "Vesterbrogade 10"', await ev(() => [...document.querySelectorAll('#addResults .add-res-name')].every(e => e.textContent === 'Vesterbrogade 10')));
+  await reset(); await P.openAdd(page);
   await P.typeName(page, 'Grettisgata 20');
   await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /^Grettisgata$/.test(r.querySelector('.add-res-name').textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
   ok('W4 a street found for a typed house number is not auto-typed Street', await ev(() => addDraft.type !== 'street' && addDraft.type === 'other'), await ev(() => addDraft.type));
@@ -208,7 +214,12 @@ const { W } = P;
   const n2 = await hint();
   await P.typeName(page, 'Hallgrímskirkja'); await P.pick(page, 0);
   const n3 = await hint();
-  ok('N1 ADD\'s line: "Name it first" -> "Pick a place" -> ready, no line', JSON.stringify([n1, n2, n3]) === JSON.stringify([[false, 'Name it first'], [false, 'Pick a place'], [true, null]]), [n1, n2, n3]);
+  await ev(() => { const i = document.getElementById('nameInput'); i.value = ''; i.dispatchEvent(new Event('input', { bubbles: true })); });
+  const n4 = await hint();
+  await ev(() => { const i = document.getElementById('nameInput'); i.value = 'Hallgrímskirkja'; i.dispatchEvent(new Event('input', { bubbles: true })); });
+  // city-crud (concepts/0-shared-name-and-address.md): before a pick ADD waits on the place either
+  // line can find ("Pick a place", was "Name it first"); NAME IT FIRST only when NAME is empty after a pick
+  ok('N1 ADD\'s line: "Pick a place" -> "Pick a place" -> ready, no line -> NAME emptied after the pick: "Name it first"', JSON.stringify([n1, n2, n3, n4]) === JSON.stringify([[false, 'Pick a place'], [false, 'Pick a place'], [true, null], [false, 'Name it first']]), [n1, n2, n3, n4]);
   ok('N2 the TYPE trigger is the city button\'s voice: no box, no badge, navy caps', await ev(() => { const b = document.getElementById('addTypeBtn'), cs = getComputedStyle(b); return parseFloat(cs.borderTopWidth) === 0 && !b.querySelector('.menu-badge, svg circle') && cs.color === 'rgb(18, 41, 63)' && b.getBoundingClientRect().height === 28; }));
   for (const [w, h] of [[390, 844], [375, 667]]) {
     await page.setViewportSize({ width: w, height: h }); await W(500);

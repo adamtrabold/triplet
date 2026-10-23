@@ -13,7 +13,8 @@ function png1(r, g, b) {
   return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(Buffer.from([0, r, g, b]))), chunk('IEND', Buffer.alloc(0))]);
 }
 const TILE = png1(0xE8, 0xE4, 0xDA);
-const launch = () => chromium.launch({ executablePath: '/opt/pw-browsers/' + fs.readdirSync('/opt/pw-browsers').find(d => d.startsWith('chromium-')) + '/chrome-linux/chrome' });
+// CHROME overrides the path (as the gesture harness's lib.js does): some containers ship chrome-linux64/.
+const launch = () => chromium.launch({ executablePath: process.env.CHROME || ('/opt/pw-browsers/' + fs.readdirSync('/opt/pw-browsers').find(d => d.startsWith('chromium-')) + '/chrome-linux/chrome') });
 // opts: dsf, w, h, storage {k:v} (localStorage before load), geo {latitude, longitude} (grants permission),
 // init (extra init script fn), reduced
 async function open(browser, { dsf = 1, w = 390, h = 844, storage = {}, geo = null, init = null, reduced = false, touch = true, clock = false } = {}) {
