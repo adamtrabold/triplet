@@ -91,6 +91,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 - **10-21 · v222 shown:** museum connected to the system by two rules: "Joins" (outer posts flare 1/2px into the mass they hold or stand on, outside only, as the coupe's stem; openings stay square) and the separated gable (resting parts: the cut's room from the load or the class, never the supports). "Class follows drawn proportion" moves the museum Wide → Square (flagged). Approaches B (outline sweep: trapezoid) and C (eaves past the beam: pagoda) cut to Archive. Director 7 (v220) → 9 (v221, edits in v222). Asked: does Joins connect the museum? Which "glass … plate"?
 - **10-22 · v223 shown:** his v222 notes as three engine rules: optical centring per icon (box centre pulled toward a top-heavy drawing's weight; museum down 0.26px), one join pattern (ease by a corner's kind, not its edge length: the tree's three tiers now end alike), every join solved to meet its edges' curvature with no hump (the band's ends now one curve; the museum's capital one S). New join check: 37 faults → 0. v222 board archived.
 
+- **10-23 · v228 shown:** the wobble answered (a jump in the rate of bend as a line leaves a corner; the old check measured bend, not its rate). Engine fairing for every round (at most two curves a half; 189 → 397 curves, stated), handle eased, no convex corner bends back (INFLECT), soft tips as one hill (geometric rule stated; code still a number, tipSoft 6). New fair-check: v223 178 faults → 0. + / star weight: one rule (equal darkness at true size), options A/B/C. Director 7 (v225) → 7 (v226) → 9 (v227, copy in v228). Asked: still his tree? which weight?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
