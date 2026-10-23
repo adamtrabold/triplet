@@ -21,7 +21,8 @@ const f = v => +(+v).toFixed(3), f1 = v => (+v).toFixed(1), f2 = v => (+v).toFix
 const fr = v => { const w = Math.floor(v + 1e-6), t = v - w; const fs_ = [[0, ''], [1 / 6, '1/6'], [1 / 4, '1/4'], [1 / 3, '1/3'], [1 / 2, '1/2'], [2 / 3, '2/3'], [3 / 4, '3/4'], [5 / 6, '5/6'], [1, '']]; for (const [q, s] of fs_) if (Math.abs(t - q) < 0.004) return q === 1 ? `${w + 1}` : s ? (w ? `${w} ${s}` : s) : `${w}`; return v.toFixed(2); };
 const kindOf = c => c.arcEase || c.sSpan ? 's' : c.hole ? 'counter' : c.end ? 'end' : c.convex ? (c.ease && c.angle < 75 ? 'tip' : 'mass') : c.flared ? 'lean' : 'join';
 const pathBox = d => { const p = new paper.CompoundPath(d), b = p.bounds; p.remove(); return { x0: b.x, y0: b.y, x1: b.x + b.width, y1: b.y + b.height, cx: b.x + b.width / 2, cy: b.y + b.height / 2 }; };
-const VB = [3, 3, 18, 18], PX = 540, K = PX / VB[2];   // 30px a unit of the 24 grid
+const VB = [3, 3, 18, 18]; let PX = 540, K = PX / VB[2];   // px a unit of the 24 grid, set per sheet
+const setScale = px => { PX = px; K = px / VB[2]; };
 const u = px => px / K;                                  // screen px -> units
 const T = (x, y, t, o = {}) => `<text x="${f(x)}" y="${f(y)}" font-family="Archivo, Arial, sans-serif" font-size="${f(u(o.fs || 13))}" font-weight="${o.fw || 700}" fill="${o.fill || COL.ink2}" text-anchor="${o.a || 'start'}" letter-spacing="${f(u(o.ls ?? 0.6))}" paint-order="stroke" stroke="${COL.raised}" stroke-width="${f(u(o.halo ?? 3))}" stroke-linejoin="round">${t}</text>`;
 
@@ -31,11 +32,11 @@ function gridLayer() {
   for (let i = VB[0] + 1; i < VB[0] + VB[2]; i++) g += `<line x1="${i}" y1="${VB[1]}" x2="${i}" y2="${VB[1] + VB[3]}" stroke="${COL.hair}" stroke-width="${f(u(1))}"/><line x1="${VB[0]}" y1="${i}" x2="${VB[0] + VB[2]}" y2="${i}" stroke="${COL.hair}" stroke-width="${f(u(1))}"/>`;
   g += `<circle cx="12" cy="12" r="8" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(1))}" stroke-dasharray="${f(u(5))} ${f(u(4))}" opacity=".7"/>`;
   g += `<rect x="6" y="6" width="12" height="12" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(1))}" opacity=".8"/>`;
-  for (const v of [6, 12, 18]) g += T(v, VB[1] + u(15), `${v}`, { fs: 11, a: 'middle', fw: 600 }) + T(VB[0] + u(5), v + u(4), `${v}`, { fs: 11, fw: 600 });
+  for (const v of [6, 12, 18]) g += T(v, VB[1] + u(16), `${v}`, { fs: 13, a: 'middle', fw: 600 }) + T(VB[0] + u(5), v + u(5), `${v}`, { fs: 13, fw: 600 });
   return g;
 }
-const glyphFill = d => `<path d="${d}" fill="${COL.navy}" fill-opacity=".13" fill-rule="nonzero"/><path d="${d}" fill="none" stroke="${COL.navy}" stroke-width="${f(u(1))}" opacity=".85"/>`;
-const marker = (x, y, t, col, lx, ly) => `${lx != null ? `<line x1="${f(lx)}" y1="${f(ly)}" x2="${f(x)}" y2="${f(y)}" stroke="${col}" stroke-width="${f(u(1.2))}"/>` : ''}<circle cx="${f(x)}" cy="${f(y)}" r="${f(u(11))}" fill="${col}" stroke="${COL.raised}" stroke-width="${f(u(2))}"/>${T(x, y + u(4.6), t, { fs: 13, a: 'middle', fill: COL.raised, halo: 0, ls: 0 })}`;
+const glyphFill = (d, a = 0.13) => `<path d="${d}" fill="${COL.navy}" fill-opacity="${a}" fill-rule="nonzero"/><path d="${d}" fill="none" stroke="${COL.navy}" stroke-width="${f(u(1))}" opacity=".85"/>`;
+const marker = (x, y, t, col, lx, ly) => `${lx != null ? `<line x1="${f(lx)}" y1="${f(ly)}" x2="${f(x)}" y2="${f(y)}" stroke="${col}" stroke-width="${f(u(1.2))}"/>` : ''}<circle cx="${f(x)}" cy="${f(y)}" r="${f(u(13))}" fill="${col}" stroke="${COL.raised}" stroke-width="${f(u(2))}"/>${T(x, y + u(5.4), t, { fs: 15, a: 'middle', fill: COL.raised, halo: 0, ls: 0 })}`;
 const svgWrap = (inner, label) => `<svg width="${PX}" height="${PX}" viewBox="${VB.join(' ')}" role="img" aria-label="${label}" style="display:block;flex:none">${inner}</svg>`;
 
 // ---- per icon: what the sheet says about its shapes (A, B, ... on the shapes diagram), from the code's own values
@@ -46,18 +47,18 @@ const SH = {
     title: 'Café', who: 'cup on a plate',
     tags: [['VESSEL', 8.2, 9.1], ['LOOP', 15.9, 7.2], ['PLATE (DOME)', 7.2, 17.2], ['COUNTER', 14.75, 13.8, 'cut']],
     notes: G => [
-      ['A', [8.7, 12.6], `<b>Vessel.</b> A flat rim, two straight walls (a side drawn straight is a line), and one half-ellipse under them: two cubics.`],
-      ['B', [17.3, 9.9], `<b>Loop.</b> The ear: its back a half circle (two quarter cubics), laid over the right wall; the union joins them.`],
-      ['C', [15.75, 10.29], `<b>Its counter</b> is drawn, not offset: two quarter curves that follow the back, so the band is 1 1/2 at the arms and the back.`],
-      ['D', [12, 16.85], `<b>Plate rule.</b> Flat on top; the underside drops 1/2 at the middle, so its ends are 1px. 1px cut above it.`],
+      ['A', [8.7, 12.6], `<b>Vessel.</b> A flat rim and two straight walls (keylines), and under them one curve a side. It is squarer than an ellipse: its handles (squares) reach 0.63 of the way to the corner; an ellipse's (dashed) reach 0.55.`],
+      ['B', [17.3, 9.9], `<b>Loop.</b> The ear's back is half of a whole circle (r ${f2(KG.cafe.circles[0].r)}), laid over the right wall; the union joins them.`],
+      ['C', [15.75, 10.29], `<b>Its counter</b> is a circle on the same centre, r ${f2(KG.cafe.circles[1].r)}: smaller by exactly the line, so the loop is a true offset, 1 1/2 all round.`],
+      ['D', [12, 16.85], `<b>Plate rule.</b> Flat on top; the underside one curve (handles at 3/10 and 7/10) dropping 1/2 at the middle, so its ends are 1px. 1px cut above it.`],
       ['E', [12, 6.15], `<b>Size class:</b> Wide. Its saucer meets the sides of the cut. <b>No mirror</b>: the only glyph built whole.`],
     ] },
   bar: {
     title: 'Bar', who: 'coupe',
     tags: [['VESSEL', 5.9, 7.2], ['POST 1 1/4', 13.0, 14.25], ['FOOT (DOME)', 5.6, 17.85], ['BAND', 4.6, 9.75, 'cut']],
     notes: G => [
-      ['A', [12, 12.15], `<b>Vessel.</b> A flat rim and one curve a side to the bottom (the vessel side rule: handles 1/2 the depth down and 1 1/2 in).`],
-      ['B', [9.05, 9.82], `<b>The clear band</b> is the bowl's own side over the band's height, moved in by the line: same curve as the outside. 5/6 tall under a 1 1/2 rim.`],
+      ['A', [12, 12.15], `<b>Vessel.</b> A flat rim and one curve a side to a flat bottom (the vessel side rule). Against the ellipse that turns the same corner (dashed), its handles reach 0.50 down the side and 0.78 along the bottom: a broad, flat-bottomed bowl.`],
+      ['B', [9.05, 9.82], `<b>The clear band</b> is cut by the bowl's own side moved in 1 1/2 (dashed), between the rim's underside and the drink's surface (keylines): 5/6 tall, its sides the outside's own curve.`],
       ['C', [12, 14.1], `<b>Post rule.</b> A post that holds a mass up is 1 1/4. It runs half-way into the foot, so its sides meet the foot in a real join.`],
       ['D', [12, 16.3], `<b>The foot by the plate rule:</b> flat underneath, its top rises 1/2 at the middle; ends 1px.`],
       ['E', [12, 6.15], `<b>Size class:</b> Square. The rim meets the sides. Right half = the left, mirrored.`],
@@ -66,10 +67,10 @@ const SH = {
     title: 'Museum', who: 'temple',
     tags: [['GABLE', 8.0, 7.75], ['BEAM (SLAB)', 3.6, 10.55], ['POST 1 1/4', 8.95, 14.15], ['PLINTH (SLAB)', 3.6, 18.0]],
     notes: G => [
-      ['A', [12, 7.6], `<b>Gable</b> with 1.2 upright ends, apex 1/2 over the top.`],
+      ['A', [12, 7.6], `<b>Gable</b>: two slopes (run on past the apex) on 1.2 upright ends; apex 1/2 over the top.`],
       ['B', [14.4, 10.43], `<b>The separated gable:</b> it rests on its beam across the 1px cut (a part that rests on another is cut from it).`],
       ['C', [16.7, 12.25], `<b>Capital and foot:</b> past the outer posts the beam and the plinth thin to 1px ends; the outer posts flare 1/2 into them, outside only.`],
-      ['D', [12, 13.95], `<b>Openings</b> are the gaps the posts leave: square, tight. Posts 1 1/4 (post rule).`],
+      ['D', [12, 13.95], `<b>Four posts</b>, 1 1/4 (post rule), standing full height between the beam and the plinth; the openings are the gaps they leave.`],
       ['E', [12, 19.2], `<b>Class follows drawn proportion:</b> drawn ${f2(G.classFrom.ratio)}:1, so Square, not Wide.`],
     ] },
   nature: {
@@ -100,17 +101,77 @@ const SH = {
     ] },
 };
 
+// THE KEYLINES (director, turn 143: "overlay a whole ellipse for the bowl, the loop's whole circle and its counter's, the slabs
+// and the dome's whole arc, in thin keylines extended past the glyph"): read from each root shape's own segments, as the
+// engine got them. A straight edge runs on past its ends; a quarter circle (a cubic whose handles are 0.552 of its radius,
+// at right angles) is drawn as its whole circle; any other curve shows its handles, and where its ends meet at a right
+// angle, the ellipse that would fill the same corner (dashed), with how far its handles reach against an ellipse's 0.552.
+const KAPPA = 0.5523;
+function keyGeom(G, skip = []) {
+  const lines = new Map(), circles = new Map(), cubics = [], ellipses = [];
+  G.parts.forEach((d, i) => {
+    if (G.prims[i].t === 'E') return;   // a part in skip shows its straight edges only
+    const cp = new paper.CompoundPath(d);
+    for (const k of (cp.children.length ? cp.children : [cp])) for (const c of k.curves) {
+      const A = c.point1, B = c.point2;
+      if (c.length < 0.05) continue;
+      if (c.isStraight()) {
+        const dv = B.subtract(A).normalize(), ang = ((Math.atan2(dv.y, dv.x) + Math.PI) % Math.PI), n = new paper.Point(-Math.sin(ang), Math.cos(ang)), off = A.dot(n);
+        const key = `${ang.toFixed(2)}|${(Math.round(off * 20) / 20).toFixed(2)}`, e = new paper.Point(Math.cos(ang), Math.sin(ang)), ta = A.dot(e), tb = B.dot(e);
+        const L = lines.get(key) || { e, n, off, t0: 1e9, t1: -1e9, diag: Math.abs(Math.sin(2 * ang)) > 0.05 };
+        L.t0 = Math.min(L.t0, ta, tb); L.t1 = Math.max(L.t1, ta, tb); lines.set(key, L); continue;
+      }
+      if (skip.includes(i)) continue;
+      const P = [A, A.add(c.handle1), B.add(c.handle2), B], h0 = P[1].subtract(P[0]), h1 = P[3].subtract(P[2]);
+      const perp = Math.abs(h0.normalize().dot(h1.normalize())) < 0.02;
+      if (perp && Math.abs(h0.length - h1.length) < 0.02 * h0.length) {
+        const r = h0.length / KAPPA, nn = new paper.Point(-h0.y, h0.x).normalize();
+        for (const C of [P[0].add(nn.multiply(r)), P[0].subtract(nn.multiply(r))]) if (Math.abs(C.getDistance(P[3]) - r) < 0.03 * r) { if (![...circles.values()].some(q => q.C.getDistance(C) < 0.05 && Math.abs(q.r - r) < 0.05)) circles.set(`${C.x.toFixed(2)},${C.y.toFixed(2)},${r.toFixed(2)}`, { C, r }); break; }
+        if ([...circles.values()].some(q => Math.abs(q.C.getDistance(P[0]) - q.r) < 0.03 * q.r && Math.abs(q.C.getDistance(P[3]) - q.r) < 0.03 * q.r)) continue;
+      }
+      cubics.push(P);
+      if (perp) {   // the corner Q where the two end tangents meet; the ellipse that turns the same corner
+        const t0 = h0.normalize(), t1 = h1.normalize(), den = t0.x * t1.y - t0.y * t1.x; if (Math.abs(den) < 1e-6) continue;
+        const w = P[3].subtract(P[0]), a = (w.x * t1.y - w.y * t1.x) / den, Q = P[0].add(t0.multiply(a)), Ce = P[0].add(P[3]).subtract(Q);
+        ellipses.push({ C: Ce, rx: Math.abs(Q.x - Ce.x) || Math.abs(P[0].x - Ce.x), ry: Math.abs(Q.y - Ce.y) || Math.abs(P[0].y - Ce.y), k: [h0.length / P[0].getDistance(Q), h1.length / P[3].getDistance(Q)], Q });
+      }
+    }
+    cp.remove();
+  });
+  return { lines: [...lines.values()], circles: [...circles.values()], cubics, ellipses };
+}
+function keylines(G, skip, noEll) {
+  const K_ = keyGeom(G, skip), w = f(u(1.3)), OR = COL.or, OD = COL.ord;
+  let s = '';
+  for (const L of K_.lines) { const ext = L.diag ? 2.2 : 1.1, a = L.e.multiply(L.t0 - ext).add(L.n.multiply(L.off)), b = L.e.multiply(L.t1 + ext).add(L.n.multiply(L.off)); s += `<line x1="${f(a.x)}" y1="${f(a.y)}" x2="${f(b.x)}" y2="${f(b.y)}" stroke="${OR}" stroke-width="${w}"/>`; }
+  for (const { C, r } of K_.circles) s += `<circle cx="${f(C.x)}" cy="${f(C.y)}" r="${f(r)}" fill="none" stroke="${OR}" stroke-width="${w}"/><circle cx="${f(C.x)}" cy="${f(C.y)}" r="${f(u(2.5))}" fill="${OR}"/>`;
+  const seenE = new Set(); for (const E_ of K_.ellipses) if (!noEll && !seenE.has(`${f2(E_.C.x)},${f2(E_.C.y)}`) && seenE.add(`${f2(E_.C.x)},${f2(E_.C.y)}`)) s += `<ellipse cx="${f(E_.C.x)}" cy="${f(E_.C.y)}" rx="${f(E_.rx)}" ry="${f(E_.ry)}" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(1.1))}" stroke-dasharray="${f(u(5))} ${f(u(4))}"/>`;
+  for (const P of K_.cubics) s += `<path d="M${f(P[0].x)} ${f(P[0].y)}L${f(P[1].x)} ${f(P[1].y)}M${f(P[3].x)} ${f(P[3].y)}L${f(P[2].x)} ${f(P[2].y)}" stroke="${OD}" stroke-width="${f(u(1.1))}" fill="none"/>${[P[1], P[2]].map(q => `<rect x="${f(q.x - u(3))}" y="${f(q.y - u(3))}" width="${f(u(6))}" height="${f(u(6))}" fill="${COL.raised}" stroke="${OD}" stroke-width="${f(u(1.3))}"/>`).join('')}${[P[0], P[3]].map(q => `<circle cx="${f(q.x)}" cy="${f(q.y)}" r="${f(u(3))}" fill="${OD}"/>`).join('')}`;
+  return s;
+}
+const KEYED = { cafe: { skip: [] }, bar: { skip: [3] }, museum: { skip: [], noEll: true } };
+const KG = Object.fromEntries(Object.keys(KEYED).map(id => [id, keyGeom(J[id], KEYED[id].skip)]));
+if (process.env.KEYDBG) for (const id of Object.keys(KEYED)) { const g_ = keyGeom(J[id], KEYED[id].skip); console.log(id, 'lines', g_.lines.length, 'circles', g_.circles.map(q => `${f2(q.C.x)},${f2(q.C.y)} r${f2(q.r)}`).join(' '), 'cubics', g_.cubics.length, 'ellipses', g_.ellipses.map(e => `c${f2(e.C.x)},${f2(e.C.y)} ${f2(e.rx)}x${f2(e.ry)} k ${e.k.map(f2).join('/')}`).join(' ; ')); }
+
 function shapesSvg(id) {
   const G = J[id], S = SH[id];
+  setScale(720);
   let s = gridLayer();
   // class cut (the place icons): the cut's size about the finished box's centre
   if (G.cut) { const b = G.mFin.box, [w, h] = G.cut, cx = b.cx, cy = b.cy; s += `<rect x="${f(cx - w / 2)}" y="${f(cy - h / 2)}" width="${f(w)}" height="${f(h)}" fill="${COL.or}" fill-opacity=".07" stroke="${COL.or}" stroke-width="${f(u(1.2))}" stroke-dasharray="${f(u(6))} ${f(u(3))}"/>`; }
   if (id === 'plus') s += `<circle cx="12" cy="12" r="6" fill="${COL.or}" fill-opacity=".07" stroke="${COL.or}" stroke-width="${f(u(1.2))}" stroke-dasharray="${f(u(6))} ${f(u(3))}"/>`;
-  s += glyphFill(G.d);
+  s += glyphFill(G.d, 0.2);
   // the root shapes as the engine received them: placed and sized, before the union; cuts dashed
   const sh = G.dy ? `<g transform="translate(0 ${f(G.dy)})">` : '<g>';
   s += sh;
-  G.parts.forEach((d, i) => { const p = G.prims[i]; if (p.t === 'E') return; s += `<path d="${d}" fill="none" stroke="${ROOTCOL}" stroke-width="${f(u(1.6))}" ${p.cut ? `stroke-dasharray="${f(u(4))} ${f(u(2.5))}"` : ''} stroke-linejoin="round"/>`; });
+  if (KEYED[id]) s += keylines(G, KEYED[id].skip, KEYED[id].noEll);
+  if (id === 'bar') {   // the band's sides: the bowl's own side, moved in by the line
+    const cp = new paper.CompoundPath(G.parts[0]);
+    for (const c of cp.children.length ? cp.children[0].curves : cp.curves) { if (c.isStraight()) continue; const sg = c.bounds.center.x < (G.sym || 12) ? 1 : -1, q = c.clone({ insert: false }); const P = [c.point1, c.point1.add(c.handle1), c.point2.add(c.handle2), c.point2].map(v => v.add(new paper.Point(sg * 1.5, 0)));
+      s += `<path d="M${f(P[0].x)} ${f(P[0].y)}C${f(P[1].x)} ${f(P[1].y)} ${f(P[2].x)} ${f(P[2].y)} ${f(P[3].x)} ${f(P[3].y)}" fill="none" stroke="${COL.or}" stroke-width="${f(u(1.3))}" stroke-dasharray="${f(u(5))} ${f(u(3))}"/>`; }
+    cp.remove();
+  }
+  if (!KEYED[id]) G.parts.forEach((d, i) => { const p = G.prims[i]; if (p.t === 'E') return; s += `<path d="${d}" fill="none" stroke="${ROOTCOL}" stroke-width="${f(u(1.6))}" ${p.cut ? `stroke-dasharray="${f(u(4))} ${f(u(2.5))}"` : ''} stroke-linejoin="round"/>`; });
   // counters by offset (E): the outline it is taken from (thin), and the counter (dashed)
   G.prims.forEach((p, i) => { if (p.t !== 'E') return; s += `<path d="${G.parts[i]}" fill="none" stroke="${ROOTCOL}" stroke-width="${f(u(1.6))}" stroke-dasharray="${f(u(4))} ${f(u(2.5))}"/>`; });
   s += '</g>';
@@ -119,13 +180,13 @@ function shapesSvg(id) {
     s += `<polygon points="${pts.join(' ')}" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(1))}" stroke-dasharray="${f(u(2))} ${f(u(2))}"/><circle cx="${c[0]}" cy="${f(c[1] + G.dy)}" r="${f(R)}" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(0.8))}" opacity=".5"/><circle cx="${c[0]}" cy="${f(c[1] + G.dy)}" r="${f(ri)}" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(0.8))}" opacity=".5"/>`;
   }
   // the mirror
-  if (G.sym != null) s += `<line x1="${f(G.sym)}" y1="${VB[1] + 0.9}" x2="${f(G.sym)}" y2="${VB[1] + VB[3] - 0.3}" stroke="${COL.navy}" stroke-width="${f(u(1.2))}" stroke-dasharray="${f(u(10))} ${f(u(3))} ${f(u(2))} ${f(u(3))}"/>${T(G.sym + u(6), VB[1] + VB[3] - u(9), 'MIRROR', { fs: 11, fill: COL.navy })}`;
+  if (G.sym != null) s += `<line x1="${f(G.sym)}" y1="${VB[1] + 0.9}" x2="${f(G.sym)}" y2="${VB[1] + VB[3] - 0.3}" stroke="${COL.navy}" stroke-width="${f(u(1.2))}" stroke-dasharray="${f(u(10))} ${f(u(3))} ${f(u(2))} ${f(u(3))}"/>${T(G.sym + u(6), VB[1] + VB[3] - u(9), 'MIRROR', { fs: 13, fill: COL.navy })}`;
   // optical centre: the badge's middle (orange), the box centre (open square), the ink centroid (dot)
   const b = G.mFin.box, oy = b.cy - 0.5 * Math.max(0, b.cy - G.mFin.cy), ox = (b.cx + G.mFin.cx) / 2;
   s += `<line x1="${VB[0] + 0.2}" y1="12" x2="${VB[0] + 1.6}" y2="12" stroke="${COL.or}" stroke-width="${f(u(2))}"/><line x1="${VB[0] + VB[2] - 1.6}" y1="12" x2="${VB[0] + VB[2] - 0.2}" y2="12" stroke="${COL.or}" stroke-width="${f(u(2))}"/>`;
   s += `<rect x="${f(b.cx - u(5))}" y="${f(b.cy - u(5))}" width="${f(u(10))}" height="${f(u(10))}" fill="${COL.raised}" stroke="${COL.navy}" stroke-width="${f(u(1.5))}"/><circle cx="${f(G.mFin.cx)}" cy="${f(G.mFin.cy)}" r="${f(u(4))}" fill="${COL.navy}"/><circle cx="${f(ox)}" cy="${f(oy)}" r="${f(u(6.5))}" fill="none" stroke="${COL.or}" stroke-width="${f(u(2.2))}"/>`;
   // root names
-  for (const [t, x, y, cut] of S.tags) s += T(x, y, t, { fs: 12, fill: COL.ord });
+  for (const [t, x, y, cut] of S.tags) s += T(x, y, t, { fs: 15, fill: COL.ord });
   // lettered notes
   for (const [L, [x, y]] of S.notes(G)) s += marker(x, y, L, COL.or);
   return svgWrap(s, `${S.title}: its root shapes on the 24 grid`);
@@ -138,6 +199,7 @@ function groupCorners(G) {
 }
 function cornersSvg(id) {
   const G = J[id];
+  setScale(480);
   let s = gridLayer() + glyphFill(G.d) + (G.dy ? `<g transform="translate(0 ${f(G.dy)})">` : '<g>');
   const mir = G.sym != null ? `transform="translate(${f(2 * G.sym)} 0) scale(-1 1)"` : null;
   const one = (c, extra = '') => { const k = KIND[kindOf(c)], dd = c.cubics.map((P, i) => `${i ? '' : `M${f(P[0][0])} ${f(P[0][1])}`}C${f(P[1][0])} ${f(P[1][1])} ${f(P[2][0])} ${f(P[2][1])} ${f(P[3][0])} ${f(P[3][1])}`).join('');
@@ -190,7 +252,7 @@ const sizes = (id, d) => {
   if (id === 'plus' || id === 'star') { const px = id === 'plus' ? 26.4 : 20; return `<svg width="${px}" height="${px}" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${N}"/></svg><svg width="${px * 3}" height="${px * 3}" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`; }
   return `<svg width="12" height="12" viewBox="6 6 12 12" aria-hidden="true"><path d="${d}" fill="${N}"/></svg><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">${ring}<path d="${d}" fill="${N}"/></svg><svg width="72" height="72" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="${N}"/></svg>`;
 };
-const note = (L, col, html) => `<div style="display:flex;gap:10px;align-items:flex-start;margin:0 0 10px"><span style="flex:none;width:22px;height:22px;border-radius:11px;background:${col};color:${COL.raised};font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px">${L}</span><span style="font-size:15px;line-height:1.4;color:${COL.ink}">${html}</span></div>`;
+const note = (L, col, html) => `<div style="display:flex;gap:10px;align-items:flex-start;margin:0 0 10px"><span style="flex:none;width:22px;height:22px;border-radius:11px;background:${col};color:${COL.raised};font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px">${L}</span><span style="font-size:16px;line-height:1.4;color:${COL.ink}">${html}</span></div>`;
 
 function iconRow(id) {
   const G = J[id], S = SH[id], cs = cornersSvg(id);
@@ -202,7 +264,7 @@ function iconRow(id) {
   const nCurves = (G.d.match(/C/g) || []).length;
   return `<div style="padding:40px 0 44px;border-top:2px solid ${COL.hair}">
 <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 18px"><h2 style="margin:0;font-size:34px;line-height:1.1;color:${COL.navy}">${S.title}</h2><span style="font-size:17px;color:${COL.ink2}">${S.who}</span><span style="margin-left:auto;font-size:14px;color:${COL.ink2}">rebuilt from the code: ${G.same ? 'identical to the row, byte for byte' : '<b style="color:#A8400C">differs from the row</b>'} · ${nCurves} curves</span></div>
-<div style="display:flex;gap:36px;align-items:flex-start">
+<div style="display:flex;gap:32px;align-items:flex-start">
 <div>${shapesSvg(id)}<div style="font-size:13px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin-top:10px">Shapes · grid, cut, roots, mirror, centre</div></div>
 <div>${cs.svg}<div style="font-size:13px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin-top:10px">Corners · every round, by kind</div></div>
 <div style="flex:1;min-width:0">
@@ -214,12 +276,67 @@ ${cornerNotes}
 </div></div></div>`;
 }
 
+// THE ROUNDS, CLOSE UP (director, turn 143: "a 0.15 round is about 4px ... add one inset per kind of round at about 4x"): one
+// real corner of each kind, at about 150px a unit: the outline before the round (dashed), the round (its hill), its crest
+// circle, and where it leaves each edge.
+const CLOSE = [['mass', 'bar', 1, 'the coupe\'s rim'], ['tip', 'nature', 0, 'the tree\'s bottom tier'], ['end', 'bar', 0, 'the coupe\'s foot'], ['join', 'nature', 1, 'a notch of the tree'], ['lean', 'bar', 1, 'the coupe\'s bowl into its stem'], ['counter', 'museum', 0, 'an opening of the museum'], ['s', 'museum', 0, 'the museum\'s capital']];
+function closeUps() {
+  const cell = ([k, id, i, where]) => {
+    const G = J[id], c = groupCorners(G)[k][i], pts = c.cubics.flat(), xs = pts.map(q => q[0]), ys = pts.map(q => q[1]);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2, span = Math.max(0.9, 2.2 * Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)));
+    const px = 222, sc = px / span, uu = v => v / sc, vb = [cx - span / 2, cy - span / 2, span, span];
+    let g = `<rect x="${f(vb[0])}" y="${f(vb[1])}" width="${f(span)}" height="${f(span)}" fill="${COL.raised}"/>`;
+    for (let q = Math.ceil(vb[0] * 3); q <= (vb[0] + span) * 3; q++) g += `<line x1="${f(q / 3)}" y1="${f(vb[1])}" x2="${f(q / 3)}" y2="${f(vb[1] + span)}" stroke="${COL.hair}" stroke-width="${f(uu(q % 3 ? 0.7 : 1.2))}"/>`;
+    for (let q = Math.ceil(vb[1] * 3); q <= (vb[1] + span) * 3; q++) g += `<line x1="${f(vb[0])}" y1="${f(q / 3)}" x2="${f(vb[0] + span)}" y2="${f(q / 3)}" stroke="${COL.hair}" stroke-width="${f(uu(q % 3 ? 0.7 : 1.2))}"/>`;
+    g += `<path d="${G.d}" fill="${COL.navy}" fill-opacity=".2"/><path d="${G.sharp}" fill="none" stroke="${COL.ink2}" stroke-width="${f(uu(1.3))}" stroke-dasharray="${f(uu(6))} ${f(uu(4))}"/><path d="${G.d}" fill="none" stroke="${COL.navy}" stroke-width="${f(uu(1.2))}"/>`;
+    const col = KIND[k].c, dd = c.cubics.map((P, j) => `${j ? '' : `M${f(P[0][0])} ${f(P[0][1])}`}C${f(P[1][0])} ${f(P[1][1])} ${f(P[2][0])} ${f(P[2][1])} ${f(P[3][0])} ${f(P[3][1])}`).join('');
+    g += `<path d="${dd}" fill="none" stroke="${col}" stroke-width="${f(uu(5))}" stroke-linecap="round"/>`;
+    for (let j = 1; j < c.cubics.length; j++) { const q = c.cubics[j][0]; g += `<line x1="${f(q[0])}" y1="${f(q[1])}" x2="${f(q[0])}" y2="${f(q[1])}" stroke="${COL.raised}" stroke-width="${f(uu(3))}" stroke-linecap="round"/>`; }
+    let cr = '';
+    if (c.crest && c.kM) { const R = 1 / Math.abs(c.kM), P = c.crest, mx = (c.pA[0] + c.pB[0]) / 2, my = (c.pA[1] + c.pB[1]) / 2, dx = mx - P[0], dy = my - P[1], L = Math.hypot(dx, dy) || 1; g += `<circle cx="${f(P[0] + dx / L * R)}" cy="${f(P[1] + dy / L * R)}" r="${f(R)}" fill="none" stroke="${col}" stroke-width="${f(uu(1.4))}" stroke-dasharray="${f(uu(5))} ${f(uu(3))}"/><circle cx="${f(P[0])}" cy="${f(P[1])}" r="${f(uu(3.5))}" fill="${col}"/>`; cr = ` · tightest r ${f2(R)}`; }
+    for (const q of [c.pA, c.pB]) g += `<circle cx="${f(q[0])}" cy="${f(q[1])}" r="${f(uu(4.5))}" fill="${COL.raised}" stroke="${col}" stroke-width="${f(uu(2))}"/>`;
+    const law = c.r != null ? `law ${f2(c.r)}` : 'no law radius: an S';
+    return `<div style="width:${px}px"><svg width="${px}" height="${px}" viewBox="${vb.map(f).join(' ')}" role="img" aria-label="${KIND[k].nm}, close up" style="display:block">${g}</svg><div style="display:flex;align-items:center;gap:8px;margin-top:10px"><span style="width:14px;height:14px;border-radius:7px;background:${col};flex:none"></span><span style="font-size:17px;font-weight:700;color:${COL.navy}">${KIND[k].nm}</span></div><div style="font-size:15px;line-height:1.35;color:${COL.ink2};margin-top:2px">${where}<br>${law}${cr} · ${c.cubics.length} cubics</div></div>`;
+  };
+  return `<div style="border-top:2px solid ${COL.hair};padding:36px 0 44px"><h2 style="margin:0 0 6px;font-size:30px;color:${COL.navy}">The seven kinds of round, close up</h2>
+<p style="margin:0 0 22px;font-size:17px;line-height:1.45;color:${COL.ink2};max-width:1200px">One real corner of each kind, at about 150px a unit (4x the shapes sheets). Dashed grey: the outline before the round. Thick: the round as drawn, its pieces split by a gap. Dashed circle: its tightest point. Open dots: where it leaves each edge. Grid: the 1/3px lattice.</p>
+<div style="display:flex;gap:14px;flex-wrap:wrap">${CLOSE.map(cell).join('')}</div></div>`;
+}
+
+// THE TEMPLATE (director, turn 143: "SF Symbols' bar is the blank sheet you draw on"): the badge on the 24 grid, with the three
+// shape classes' cuts as the engine fits them (x 11/12), the coin for the line marks, the lattice, the centre ticks, and the
+// line widths as swatches at the same scale. Read from picks7's KEY and the row's values.
+function template() {
+  setScale(720);
+  const T_ = v => Math.round(v * 3) / 3, KEY_ = { WIDE: [12, T_(Math.PI * 36 / 12)], SQUARE: [T_(Math.sqrt(Math.PI * 36)), T_(Math.sqrt(Math.PI * 36))], TALL: [T_(Math.PI * 36 / 12), 12] }, FK_ = 11 / 12;
+  let g = gridLayer();
+  g += `<circle cx="12" cy="12" r="6" fill="none" stroke="${COL.ink2}" stroke-width="${f(u(1.2))}"/>`;
+  const cut = (w, h, col, dash, lab, lx, ly) => `<rect x="${f(12 - w / 2)}" y="${f(12 - h / 2)}" width="${f(w)}" height="${f(h)}" fill="none" stroke="${col}" stroke-width="${f(u(1.8))}" stroke-dasharray="${dash}"/>${T(lx, ly, lab, { fs: 15, fill: col })}`;
+  const [ww, wh] = KEY_.WIDE.map(v => v * FK_), [sw_] = KEY_.SQUARE.map(v => v * FK_), [tw, th] = [KEY_.TALL[0] * FK_, (KEY_.TALL[1] + 0.5) * FK_];
+  g += cut(ww, wh, COL.or, '', `WIDE ${fr(ww)} × ${fr(wh)}`, 12 - ww / 2 + u(8), 12 + wh / 2 - u(10));
+  g += cut(sw_, sw_, '#2F6FA8', `${f(u(8))} ${f(u(4))}`, `SQUARE ${fr(sw_)}`, 12 + sw_ / 2 - u(112), 12 - sw_ / 2 + u(22));
+  g += cut(tw, th, '#6B4C9A', `${f(u(3))} ${f(u(3))}`, `TALL ${fr(tw)} × ${fr(th)} (APEX +1/2)`, 12 - tw / 2, 12 + th / 2 + u(20));
+  g += T(12, 6 - u(10), 'THE COIN Ø12: OPEN MARKS SPAN IT', { fs: 13, a: 'middle', fill: COL.ink2 });
+  g += `<line x1="${VB[0] + 0.2}" y1="12" x2="${VB[0] + 1.6}" y2="12" stroke="${COL.or}" stroke-width="${f(u(2.5))}"/><line x1="${VB[0] + VB[2] - 1.6}" y1="12" x2="${VB[0] + VB[2] - 0.2}" y2="12" stroke="${COL.or}" stroke-width="${f(u(2.5))}"/><line x1="12" y1="${VB[1] + 0.2}" x2="12" y2="${VB[1] + 1.2}" stroke="${COL.or}" stroke-width="${f(u(2.5))}"/><line x1="12" y1="${VB[1] + VB[3] - 1.2}" x2="12" y2="${VB[1] + VB[3] - 0.2}" stroke="${COL.or}" stroke-width="${f(u(2.5))}"/>`;
+  const sheet_ = svgWrap(g, 'The template: the 24 grid with the class cuts');
+  // swatches at the same scale (40px a unit)
+  const S_ = 40, bar = (w, lab, sub, gap) => `<div style="display:flex;align-items:center;gap:18px;margin:0 0 16px"><svg width="${S_ * 4}" height="${Math.round(S_ * (gap ? 3 + gap : w) + 8)}" aria-hidden="true">${gap ? `<rect x="0" y="0" width="${S_ * 4}" height="${S_ * 1.5}" fill="${COL.navy}"/><rect x="0" y="${S_ * (1.5 + gap)}" width="${S_ * 4}" height="${S_ * 1.5}" fill="${COL.navy}"/>` : `<rect x="0" y="4" width="${S_ * 4}" height="${S_ * w}" fill="${COL.navy}"/>`}</svg><div><div style="font-size:19px;font-weight:700;color:${COL.navy}">${lab}</div><div style="font-size:15px;color:${COL.ink2};line-height:1.35">${sub}</div></div></div>`;
+  const sw = [bar(1.5, '1 1/2: the line', 'every wall, slab, beam and plinth; outline marks (the star)'), bar(1.25, '1 1/4: a post that holds a mass up', 'stems, columns, trunks'), bar(5 / 3, '1 2/3: an open mark', 'the +, later an x or an arrow'), bar(0, '5/6: the clear band', 'a clear gap between two walls (the coupe)', 5 / 6), bar(0, '1: the cut', 'between parts that rest on each other', 1)].join('');
+  const law = `<div style="margin-top:8px;font-size:15px;line-height:1.5;color:${COL.ink}"><b style="color:${COL.navy}">Rounds, by kind</b> (the law, px at 24): outside corners 0.6 · wide outside 0.7 · line ends 0.3 · tips 0.35, or 0.0877 of the shorter edge · joins, notches, counters 0.15 · wide inside 0.3 · flares 1/2 · never over 0.2 of the shorter edge.</div>`;
+  return `<div style="border-top:2px solid ${COL.hair};padding:36px 0 44px"><h2 style="margin:0 0 6px;font-size:30px;color:${COL.navy}">Template: start a seventh icon here</h2>
+<p style="margin:0 0 22px;font-size:17px;line-height:1.45;color:${COL.ink2};max-width:1200px">The 24 grid at 40px a unit with what the engine fits to: the three shape classes' cuts (× 11/12, as fitted), the coin, the 12 box and live circle, the 1/3px lattice and the centre ticks. Draw inside the cut of the class your drawing's proportion is nearest; the engine sizes, rounds and centres it.</p>
+<div style="display:flex;gap:44px;align-items:flex-start"><div>${sheet_}</div><div style="flex:1;min-width:0;padding-top:6px"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:0 0 16px">Line widths, at the same scale</div>${sw}${law}</div></div></div>`;
+}
+
 function legend() {
   const sw = (svg, t) => `<div style="display:flex;align-items:center;gap:10px;font-size:15px;color:${COL.ink}"><svg width="44" height="22" viewBox="0 0 44 22" aria-hidden="true">${svg}</svg>${t}</div>`;
   const kinds = ['mass', 'tip', 'end', 'join', 'lean', 'counter', 's'].map(k => sw(`<path d="M4 18 C 14 18 18 14 22 11 S 30 4 40 4" fill="none" stroke="${KIND[k].c}" stroke-width="4" stroke-linecap="round"/>`, KIND[k].nm)).join('');
   return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;margin:0 0 40px">
 <div><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${COL.ink2};text-transform:uppercase;margin:0 0 12px">Shapes diagram</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px">
-${sw(`<rect x="3" y="4" width="38" height="14" fill="none" stroke="${COL.or}" stroke-width="1.6"/>`, 'A root shape, placed and sized')}
+${sw(`<line x1="0" y1="11" x2="44" y2="11" stroke="${COL.or}" stroke-width="1.3"/><circle cx="22" cy="11" r="2.5" fill="${COL.or}"/>`, 'Keyline, run past the shape · a circle\'s centre')}
+${sw(`<path d="M6 17 L16 6 M38 17 L28 6" stroke="${COL.ord}" stroke-width="1.1"/><rect x="13" y="3" width="6" height="6" fill="${COL.raised}" stroke="${COL.ord}" stroke-width="1.3"/><rect x="25" y="3" width="6" height="6" fill="${COL.raised}" stroke="${COL.ord}" stroke-width="1.3"/><circle cx="6" cy="17" r="3" fill="${COL.ord}"/><circle cx="38" cy="17" r="3" fill="${COL.ord}"/>`, 'A drawn curve\'s handles')}
+${sw(`<ellipse cx="22" cy="11" rx="19" ry="8" fill="none" stroke="${COL.ink2}" stroke-width="1.1" stroke-dasharray="5 4"/>`, 'The ellipse that would turn the same corner')}
+${sw(`<rect x="3" y="4" width="38" height="14" fill="none" stroke="${COL.or}" stroke-width="1.6"/>`, 'A root shape (tree, star, +)')}
 ${sw(`<rect x="3" y="4" width="38" height="14" fill="none" stroke="${COL.or}" stroke-width="1.6" stroke-dasharray="4 2.5"/>`, 'A cut: a counter or gap')}
 ${sw(`<rect x="3" y="4" width="38" height="14" fill="${COL.or}" fill-opacity=".07" stroke="${COL.or}" stroke-width="1.2" stroke-dasharray="6 3"/>`, 'The size class\'s cut')}
 ${sw(`<line x1="22" y1="1" x2="22" y2="21" stroke="${COL.navy}" stroke-width="1.2" stroke-dasharray="10 3 2 3"/>`, 'The mirror axis')}
@@ -240,7 +357,7 @@ function recipe() {
 ${step(1, 'Draw it from root shapes', 'In the 12-unit box: slabs (bases, beams), posts (stems, columns, trunks), gables (roofs, tiers), vessels (bowls), loops (handles), domes (plates, feet). Lines 1 1/2; a post that holds a mass up 1 1/4; horizontal edges on the 1/3px lattice; a part that rests on another is cut 1px from it.')}
 ${step(2, 'Let its proportion pick the class', 'Wide, Square or Tall: whichever cut of the coin is nearest the drawing\'s own width to height (a lone apex counts 1/2 more). Line marks: Outline (sized by its counter, 2 1/2 lines) or Open (arms span 12).')}
 ${step(3, 'Size it to the cut', 'Positions scale, line widths never do, until the finished outline just meets the cut × 11/12 in width or height.')}
-${step(4, 'Join, then cut the counters', 'The shapes are united; counters and gaps are subtracted. A counter keeps the wall a line wide (see the findings: four ways today).')}
+${step(4, 'Join, then cut the counters', 'The shapes are united; counters and gaps are subtracted. A counter is the outline around it moved in by the line, so its wall is a line wide (recommended as the rule; see the findings).')}
 ${step(5, 'Round every corner by its kind', 'The law sets a radius by angle and by what meets (mass corners 0.6, line ends 0.3, tips by their edge, joins and counters 0.15, flares 1/2; never over 0.2 of the shorter edge). Each round is solved as a smooth hill of bend, not an arc.')}
 ${step(6, 'Mirror', 'A symmetric glyph keeps its left half after the rounds and mirrors it, so both sides are exactly alike.')}
 ${step(7, 'Centre it by eye, by rule', 'Across: half-way between its box centre and its ink centre, to 1/4px. Up and down: its box centre, pulled down by half of how far its ink sits above it.')}
@@ -253,25 +370,25 @@ function findings() {
   const li = (t, b) => `<li style="margin:0 0 14px"><b style="color:${COL.navy}">${t}</b> ${b}</li>`;
   const curves = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'].map(id => `${SH[id].title.toLowerCase()} ${(J[id].d.match(/C/g) || []).length}`).join(', ');
   return `<div style="border-top:2px solid ${COL.hair};padding:40px 0 0"><h2 style="margin:0 0 6px;font-size:34px;color:${COL.navy}">What the construction shows</h2>
-<p style="margin:0 0 20px;font-size:17px;line-height:1.45;color:${COL.ink2};max-width:1100px">Drawn from the engine's own record, these are the places where the build doesn't reduce to clean shapes, or where one job is done more than one way. They're findings, not changes: no drawing changed for this board.</p>
+<p style="margin:0 0 20px;font-size:17px;line-height:1.45;color:${COL.ink2};max-width:1100px">Drawn from the engine's own record, these are where the build doesn't reduce to clean shapes, or where one job is done more than one way. No drawing changed for this board.</p>
 <ol style="margin:0;padding-left:26px;font-size:17px;line-height:1.45;color:${COL.ink};max-width:1300px">
-${li('Every round is a hill of bend, not a circle.', 'Each is 2 to 4 cubics whose bend rises from the edge\'s own and falls back; the dashed circle is only its tightest point. No compass draws them; only the engine can. That is what keeps the lines leaving a join smooth, and it is also why the set has many curves: ' + curves + '. Central or Lucide would use one curve a corner.')}
-${li('Counters are made four ways.', 'The star\'s counter is its outline moved in by the line. The coupe\'s band is the bowl\'s side shifted sideways by the line. The cup\'s ear is two quarter curves drawn to follow its back. The museum\'s openings are just the gaps the posts leave. All four keep the wall a line wide, but only the first is one rule a seventh icon could follow without choosing. <b>Question:</b> should one of them become the rule?')}
+${li('The curve count is the price of no wobbles.', 'You asked for joins with "no visible humps or wobbles". A compass round can\'t give that: its bend switches on at once where it meets a line. So every round here is a hill of bend, 2 to 4 cubics, rising from the edge\'s own bend and falling back (the dashed circle is only its tightest point). That makes the set curve-heavy: ' + curves + '. For comparison, Lucide (checked in its source) draws on a 2px centreline: its cup\'s corners are single arcs, and its star and museum have no drawn rounds at all; the stroke\'s round join softens them.')}
+${li('Counters: one rule, recommended.', 'Today a counter is made one of four ways: the star\'s outline moved in by the line; the coupe\'s band, the bowl\'s side shifted sideways; the cup\'s ear, a circle on the loop\'s own centre; the museum\'s openings, the gaps between posts. <b>We recommend the star\'s way as the rule: a counter is the outline around it moved in by the line, then rounded tight.</b> It\'s the only one a seventh icon follows without choosing, and it keeps every wall exactly a line wide. Two of the others already are it: the ear\'s circle is the loop\'s back moved in by exactly the line, and a gap between upright posts is the same rectangle an offset gives. So adopting it changes neither at any size. The one real difference is the coupe\'s band: a true offset there leans its sides in faster than the bowl (v142, which you turned down: "the counter is still wrong both in size and in curvature"), and the shift is your approved fix. So we\'d keep the band as the rule\'s one named exception: <i>a clear band across a vessel follows the vessel\'s side</i>. Not built: say yes and it goes into the engine as a rule.')}
 ${li('Some drawn curves are only aims.', 'The museum\'s capital and foot curves set where an S begins and ends; the engine draws the S. The cup\'s loop is eased in where it leaves a straight. The tree\'s tiers are re-aimed so each tip lands where the eased tip was: the drawn points move ' + 'about 0.4px (top tier) to 1px (bottom tier). So the orange shapes are exact everywhere except at those places.')}
-${li('The mirror hides one seam.', 'Built whole, the museum\'s right half has a 0.0004px step where the capital meets the outer post (the drawing rounds to 3 decimals, the post doesn\'t), so its outer opening\'s corners would take 0.10 instead of 0.15. The mirror replaces the right half with the left, so it never shows. An asymmetric icon wouldn\'t have that safety net.')}
-${li('Every slab is the line, 1 1/2.', 'The 4/3px horizontal in the drawing code\'s notes isn\'t used by this row: monoweight makes bases and beams 1 1/2. Only the posts that hold a mass up (1 1/4), the coupe\'s band (5/6) and the + (1 2/3) differ.')}
 </ol>
 <p style="margin:24px 0 0;font-size:15px;color:${COL.ink2}">Built by <code>src/construction.js</code> (the row rebuilt with a logging hook in the engine; each finished outline compared with the row's svg: ${['cafe', 'bar', 'museum', 'nature', 'star', 'plus'].filter(id => J[id].same).length} of 6 identical) and <code>src/construction-board.js</code>.</p></div>`;
 }
 
 function sheet() {
-  return `<div style="width:1700px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
+  return `<div style="width:1800px;box-sizing:border-box;padding:56px 64px 64px;background:${COL.raised};font-family:Archivo,Arial,sans-serif;color:${COL.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${COL.ink2};text-transform:uppercase">Icon grid · the system's proof</div>
 <h1 style="margin:6px 0 14px;font-size:44px;line-height:1.1;color:${COL.navy}">Construction</h1>
 <div style="margin:0 0 24px;padding:18px 20px;background:${COL.paper};border-top:4px solid ${COL.or};font-size:22px;line-height:1.35;color:${COL.navy};font-weight:600;max-width:1150px">"These are looking great. I want to see a diagram now that overlays the shapes used to make these shapes on top of them, a construction diagram"</div>
-<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1150px">Each of the six, as the engine builds it, on the 24 grid at 30px a unit. Left: the root shapes it was given, its size class, mirror and optical centre. Right: every round it drew, coloured by its kind. Every line here is read from the code's record of the build, not drawn after it.</p>
+<p style="margin:0 0 36px;font-size:19px;line-height:1.45;max-width:1150px">Each of the six, as the engine builds it, on the 24 grid. Large, left: the shapes it is built from, run past the glyph, with its size class, mirror and optical centre (40px a unit). Right: every round it drew, coloured by its kind. Every line here is read from the code's record of the build, not drawn after it.</p>
 ${legend()}
+${closeUps()}
 ${['cafe', 'bar', 'museum', 'nature', 'star', 'plus'].map(iconRow).join('')}
+${template()}
 <div style="border-top:2px solid ${COL.hair};padding:40px 0 0">${recipe()}</div>
 ${findings()}
 </div>`;
@@ -300,7 +417,7 @@ body{margin:0}
 </helmet>
 ${html}
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1700,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1800,"height":1000}}'>
 class Component extends DCLogic {
 renderVals() { return {}; }
 }

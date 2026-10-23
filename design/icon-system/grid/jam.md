@@ -6239,3 +6239,29 @@ Read `project/Grid7Construction.dc.html` (live v231, 1700 × 6869px) and rendere
 **Score: 8.** Fixes: 1-4 above, in one batch.
 
 **Changed since my last score?** A new board; first score.
+
+---
+
+## Turn 144: icon designer (eighth), turn 143's fixes on the Construction board (canvas v232)
+
+1. **Keylines, not traces** (cup, coupe, museum). These are read from each root shape's own segments:
+   - a straight edge runs on past its ends;
+   - a quarter circle (handles 0.552 of the radius, at right angles) is drawn as its whole circle, with its centre;
+   - any other curve shows its handles, and where its ends turn a right angle, the ellipse that would turn the same corner (dashed).
+   What that shows:
+   - **Cup:** the bowl's bottom is squarer than an ellipse (handles 0.63 against 0.55). The ear's back is a whole circle (r 2.39) and its counter a circle on the same centre (r 0.89, smaller by exactly the line), so the loop is a true offset. The plate's underside is one curve.
+   - **Coupe:** against the ellipse, the bowl's handles reach 0.50 down the side and 0.78 along the bottom. The band's sides are the bowl's side moved in 1 1/2 (dashed), between the keylines of the rim's underside and the drink's surface.
+   - **Museum:** the gable's slopes run past the apex, and the slabs and posts are keylines.
+   - The shapes sheet is now the main one: 720px (40px a unit), glyph at 20% tint.
+2. **The seven kinds of round, close up**, near the top of the board: one real corner of each kind at about 150px a unit. Each shows the outline before the round (dashed), the round, its tightest-point circle and its edge points. The tip close-up also shows the landing: the drawn gable sits outside the finished tip.
+3. **Template:** the 24 grid at 40px a unit, with the Wide / Square / Tall cuts (× 11/12, Tall with its apex), the coin, the 12 box, live circle, lattice and centre ticks. Beside it, line swatches at the same scale (1 1/2, 1 1/4, 1 2/3, the 5/6 band, the 1px cut) and the law's radii by kind.
+4. **Findings:**
+   - #1 now says the curve count is the price of "no visible humps or wobbles". I checked Lucide's source (lucide-static 0.400.0: coffee, landmark, star): it draws on a 2px centreline, its cup's corners are single arcs, and its star and museum have no drawn rounds (the round stroke join softens them). I dropped Central and Nucleo (not checked).
+   - #2 is now a recommendation (my call, as designer): **a counter is the outline around it moved in by the line, then rounded tight** (the star's way). It is the only method a seventh icon can follow without choosing.
+     - The cup's ear already equals it (concentric circle, r − 1.5), and so do the museum's openings (rectangles), so adopting it changes neither.
+     - The coupe's band is the one named exception: "a clear band across a vessel follows the vessel's side". A true offset there was v142, which he turned down ("wrong both in size and in curvature"); the shift is his approved fix.
+     - Not built; it goes into the engine only on his yes.
+   - #4 (the museum's mirror seam) and #5 (slabs are 1 1/2, not 4/3) moved to `notes/visual.md`. I didn't fix the seam in picks7: the brief says no drawing changes, and the mirror makes it invisible.
+5. Labels are bigger (sheet labels 13 → 15px, notes 15 → 16px). The board is now 1800 × 9112, at the same place.
+
+**Checks:** board screenshots at 1x; construction.json unchanged (6/6 identical); no drawing changed.

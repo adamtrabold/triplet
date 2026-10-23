@@ -1,5 +1,23 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-23, canvas v232, turn 144)
+
+- **Director turn 143 (score 8):** the cup and coupe traced their outlines; the rounds were specks; no template; findings needed edits.
+- **Done:**
+  - Keylines in construction-board.js (`keyGeom`/`keylines`, `KEYED`: cup, coupe, museum). Straight edges extended, quarter circles drawn whole, other curves shown with handles plus the comparison ellipse.
+  - The coupe's shifted band side, dashed.
+  - The shapes sheet at 720px; corners at 480.
+  - `closeUps()` (7 kinds, one real corner each).
+  - `template()` (class cuts, coin, swatches, law).
+  - Findings 1-2 rewritten, 4-5 removed.
+  - Board 1800 × 9112.
+- **Counter recommendation** (on the board, not built): the outline moved in by the line, the star's way. The cup's ear and the museum's openings already equal it; the coupe's band is the named exception (the shift, his approved fix since g7z). Build it as an engine rule only on his yes.
+- **Housekeeping, moved off the board:**
+  - (a) The museum's right half, built whole, has a 0.0004px step where the capital meets the outer post. Cause: structMuseum's `f()` rounds to 3 decimals, `R()` doesn't. That makes the outer opening's corners 0.10, not 0.15. symD hides it. Fix later: round the post's x with `f()`; it changes no output while the mirror is on.
+  - (b) picks7's WH (4/3 horizontal) note is stale for the monoweight rows: `slabH` gives 1.5.
+- **Lucide checked** (lucide-static 0.400.0, coffee/landmark/star): 2px centreline, corners are single arcs or the round stroke join. Central and Nucleo were not checked.
+- **Open:** his read of the counter recommendation, and whether the museum's keylines are too busy (many horizontals at the capital tabs).
+
 ## Update (2026-10-23, canvas v231, turn 142; eighth icon designer)
 
 - **Owner on v230:** "These are looking great. I want to see a diagram now that overlays the shapes used to make these shapes on top of them, a construction diagram".
