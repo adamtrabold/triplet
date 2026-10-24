@@ -495,7 +495,7 @@ function roots() {
   ]);
   return `<div style="border-top:2px solid ${COL.hair};padding:36px 0 44px">
 <h2 style="margin:0 0 10px;font-size:34px;color:${N}">Roots: the audit of every piece</h2>
-<p style="margin:0 0 6px;font-size:17px;line-height:1.45;max-width:1300px">Every piece of the six and the root it is drawn from (rules 1 to 4 of the spec). How the foot, the plate, the bowl and the cup came onto their ellipses (v233 to v237) is on the Archive page with the v237 board.</p>
+<p style="margin:0 0 6px;font-size:17px;line-height:1.45;max-width:1300px">Every piece of the six and the root it is drawn from (rules 2 to 5 of the spec). How the foot, the plate, the bowl and the cup came onto their ellipses (v233 to v237) is on the Archive page with the v237 board.</p>
 <div style="margin-top:14px">${table}
 <p style="margin:12px 0 0;font-size:15px;line-height:1.4;color:${I2};max-width:1300px">"Near": a drawn curve within a tenth of a pixel of its root at 72px (measured by src/roots-audit.js); rebuilding those would change nothing you could see.</p></div>
 <h3 style="margin:40px 0 6px;font-size:26px;color:${N}">The four counters, as shapes</h3>

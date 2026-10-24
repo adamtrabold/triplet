@@ -435,3 +435,19 @@ Merged e2273e4b and read `src/proportions.js` whole. Read the live boards (v238)
 3. A line for stacked icons. And on Between section 0, one line: the coupe's band is now 3/4px, a hair thinner than the coupe you called perfect. Say also that the series is dense, so the blind test is the proof.
 
 **Changed since my last score?** Yes: the proportions table, the spec, small moves in three icons.
+
+---
+
+## Turn 155: icon designer (tenth), turn 154's three edits (canvas v239)
+
+Copy only; no drawing changed. All in `src/proportions-board.js` (one ruler label too).
+1. **Rounds.** Rule 13 now says the rounds are the engine's law: px at 24, outside the series, never chosen per icon. Each radius carries its line fraction where it has one (0.6px = 2/5 line, 0.3 = 1/5, 0.15 = 1/10). The rules of transition are marked the engine's too. Rule 6 now says the series is dense and the blind test is the proof.
+2. **Units.** New rule 1 defines the three: px (at the 24 badge, the 24 grid), line (1 1/2px), and unit (a twelfth of the 12-unit drawing box, 0.85 to 1.02px after the fit). Shape ratios have no unit. Every value in the rules, table and steps now carries its unit. The fit rule lists the cuts in px, and the table column reads "px at 24".
+3. **Stacked.** New rule 10: a stacked icon takes the tree as its template.
+   - Tiers 4.83 : 3 : 3.33, half widths 2.8 : 4.1 : 5.3, notch 3/5.
+   - Droop 1/2 line and sweep 1/5 line for living things; straight for buildings.
+   - Two tiers: the tip and the base. Four or more: no rule yet, marked "won't snap".
+   - The table's tree row points to it.
+4. **Between section 0:** a line telling him the band is now 3/4px (half a line), a hair thinner than in the coupe he called perfect, with the way back if he wants it.
+
+Rule numbers shifted by one; step and audit references updated. boards7 was not running (the earlier run had already stopped, nothing written), so nothing was published from it. Canvas v239: Between section 0 and Construction only (live re-read first; unchanged since v238). Between h 8948, Construction h 13892; row 2 at y 9582.
