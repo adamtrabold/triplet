@@ -69,6 +69,22 @@ const PROP = {
                                  // proportions now"); the nearest series values move the middle tier 0.2px at 24 (stated on the board)
     notch: 3 / 5,                // a notch is 3/5 of the half width of the tier above it
   },
+  // ---- blind test (src/picks-blind.js): two icons drawn from the Construction board's spec alone
+  bed: {
+    // the mattress is the widest root (1); the headboard a post (line.post) at its head end, running to the floor
+    mattress: 1 / 4,    // the mattress is 1/4 as tall as it is wide
+    rise: 1 / 3,        // the headboard stands 1/3 of the mattress's width above the mattress
+    pillow: 1 / 3,      // the pillow (an ellipse) is 1/3 of the mattress's width
+    pillowH: 1 / 2,     // and 1/2 as tall as it is wide
+    // the legs (posts) show one line under the mattress (reusing the tree trunk's rule); the pillow rests on the mattress
+    // across the cut (line.cut)
+  },
+  person: {
+    // OUTLINE mark. The shoulders' ellipse is the widest root (1); sized by its smallest counter, 2 1/2 lines across
+    head: 1 / 2,        // the head (a circle) is 1/2 as wide as the shoulders
+    shoulders: 4 / 5,   // the shoulders: the top half of one ellipse 4/5 as tall as it is wide (the vessel value, reused)
+    // the head rests on the shoulders across the cut (line.cut); every counter is its root less a wall (rule 5)
+  },
   star: {
     ri: 0.47,           // WON'T SNAP: the points' slenderness (inner radius / outer), a shape choice; 1/2 would fatten the points
                         // (inner radius +6%; not drawn)
