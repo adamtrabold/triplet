@@ -344,3 +344,58 @@ Merged db9e0887 and re-read the live Between board (v237: sections 0, 0c and 1 a
 **Score: 9. Send.** No fixes.
 
 **Changed since my last score?** Yes: the cup made tangent, the KINK check, the SHOULDER guard.
+
+---
+
+## Turn 153: icon designer (tenth), the proportions: every root from a simple ratio of another (canvas v238)
+
+Owner, after v237: "Yeah let's try for a ten also it's be best if the underlying shapes were proportionally related to each other and the grid so they weren't just random."
+
+**The system** (`src/proportions.js`, `PROP`: one table; picks7 reads it through `o.prop`, boards7 row R3 "The proportions", construction.js and both boards read it):
+- **One series:** fractions in halves, thirds, quarters, fifths and sixths, or a whole number and one of them (1 4/5, 2 1/2). I measured 38 root measures in the six (scratch `d10/meas.js`). Within 2%, this series already held 19 of them as drawn. A single geometric ratio holds far fewer: the golden section 2, root 2 6, powers of 3/4 4. Precedent: harmonic ratios of small whole numbers (Alberti, Palladio, Bringhurst's page proportions). The series is dense on purpose, and the board says plainly that it proves nothing on its own.
+- **Each ratio names its parent:** a shape is a fraction of another root. The widest root is 1, because the fit makes it the cut, so a ratio to the box meant nothing. A thickness is a fraction of the line: px, never scaled.
+- **Two rules of transition** (not proportions): the flare lean, 1 3/4, and the soft tip (a crest radius over 1/6px = 1/9 line). Their values live in PROP.transition and are read by boards7 JOIN9/JOIN10 and construction.js.
+
+**The values set by eye:**
+- Cap 7/6 → the slab's ends cut the ellipse at 1/2 its height, so over = 2/√3 = 1.155. 1.15 was already tried clean.
+- Bowl 7/8 and cup 2/5 → one value: every vessel ellipse is 4/5 as tall as wide. The coupe's rim cuts its ellipse 1/5 of its height above the centre, so the bowl is 6/5 of the ellipse deep. 5/6 with a rim cut of 1/6 was also clean, but 4/5 is closer to v237 on both and lets the cup and coupe share one value.
+- Star counter 5/2 lines: already a thickness on the series.
+- Band 5/6px (5/9 line, off the series) → 1/2 line (3/4px). That is 1/12px thinner, so more drink.
+
+**Snapped, by icon:**
+- **Cup:** the saucer is 1 4/5 of the cup (was 16/9); the cup is square; the ear is 4/5 of the depth; the counter slot is 1/2 line; the cup is balanced on its saucer by ink centre (it was 0.07 units off).
+  - Tried and dropped: "cup + ear = 5/6 saucer" with "ear reaches 1/2 cup". That makes the slot 0.6px, which gives KNEE ×2, SHOULDER and TAIL at the counter's wall corners; the slot needs about 0.63px or more.
+  - Also dropped: saucer 7/4 (the cup refits 2% smaller).
+- **Coupe:** the stem shows 1/2 the bowl's depth; the foot's ellipse is 4/5 of the bowl's.
+- **Museum:** overhang 1/3 post (1/3 line gave 4 TAILs at the capital); pitch 1/3; columns 1/3 of the colonnade.
+- **Grid:** the proportions needed two fixes, applied to R3 only.
+  - The class is read at the fitted size. At s=12 the px parts make the museum read Wide.
+  - The fit is solved by halving when the six passes stop short of both sides. v237's cup did, with a lattice step in the way.
+
+**Won't snap (stated on both boards):**
+- Tree tier heights 4.83:3:3.33 and widths 2.8:4.1:5.3. Equal steps 2:3:4 were tried and turn the tip tier into a spire (`svg/g7/roots-tried/tree-234.svg`).
+- The star's inner radius, 0.47.
+- The open-mark line, 1 2/3 (a weight rule).
+
+**Moved:** cup 0.08px at 24 (0.24 at 72); coupe 0.07 (0.22); museum 0.12 (0.36; apex 0.08 lower). Tree, star and + are byte-identical.
+
+**Boards (v238):**
+- Between: section 0 replaced ("Proportions"); v237's section 0 moved to the Archive as `Archive-G7az-Roots`.
+- Construction:
+  - New top section, "The spec: draw a new icon from this": the series as rulers, 15 rules in one list, the table, 8 steps, and the four shaped icons' proportions on their construction.
+  - Kept: the drawing sheet. Changed: Roots trimmed to the audit and counters; the old recipe replaced.
+  - v237's Construction moved to the Archive as `Archive-G7az-Construction`.
+- Start: question 1 updated. Row 2 moved down 500px because Between grew.
+
+**Checks:**
+- construction.js: 6/6 IDENTICAL to the r3 svgs.
+- fair-check on the six r3 svgs: clean (KINK included).
+- check-svg: the same zero-length segments and the +'s 0.025 asymmetry as r2 (inherited, not new).
+- No-prop builds of the four shaped glyphs are byte-identical to v237 (the picks7 changes sit behind `o.prop`).
+- boards7 full run: see notes/visual.md.
+
+**Unsure:**
+- The band at 3/4px. His words were "equal to the thickness of the stroke. or maybe even a little thinner"; it is now half.
+- The fit solve and the class at fitted size are grid changes, applied to the new row only.
+- 4/5 against 5/6 for the vessels was a near tie.
+- The tree sits outside the series by design.

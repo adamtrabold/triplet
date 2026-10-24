@@ -8,6 +8,7 @@ const E = require('./engine.js');
 const B4 = require('./boards4.js');
 const { COL, f2, uiIcon } = B4;
 const P7 = require('./picks7.js');
+const { PROP, capOver } = require('./proportions.js');   // g7az: the one table of proportions (picks7 o.prop reads it too)
 const P7H = require('./picks7h.js');   // v105 (g7h) as shown, frozen for the g7i before/after
 const P6 = require('./picks6.js');
 const { LAWS6 } = require('./laws6.js');
@@ -595,13 +596,13 @@ const JOIN8 = { ...JOIN7, fair: true, hillKeep: 'depth' };
 // g7at (director, turn 135: the top tip pinched into a bulb on a neck): a convex corner's round never bends the other way
 // (noReverse), and a soft tip (v223's peak bend under tipSoft, the top tip) is drawn as one wide hill rather than a round cap
 // on a concave neck: its crest is v223's peak squared over tipSoft (it ends a hair lower and wider); sharp tips keep theirs
-const JOIN9 = { ...JOIN8, tipKeep: 'crest', tipLand: true, tipPow: 1, tipSoft: 6, noReverse: true, maxPieces: 2, arcEase: true, arcRamp: 0.3, arcLog: [] };   // arcLog: every eased arc end, for the board (how far the arc moved)   // each round reaches exactly as far into its corner as before ('law', the crest at the law's radius, made the tree's tips longer and spikier)
+const JOIN9 = { ...JOIN8, tipKeep: 'crest', tipLand: true, tipPow: 1, tipSoft: PROP.transition.tipSoft, noReverse: true, maxPieces: 2, arcEase: true, arcRamp: 0.3, arcLog: [] };   // arcLog: every eased arc end, for the board (how far the arc moved)   // each round reaches exactly as far into its corner as before ('law', the crest at the law's radius, made the tree's tips longer and spikier)
 // g7au LEANED FLARE (owner on v228: "On the corner types on the coupe, there is still an awkward hump on the bowl and foot on
 // either side as a result of the round shape"): a round between a line and a gentle curve that bends the other way (the
 // coupe's stem into its bowl and its foot, the cup's handle into its side) leans onto the curve: its run along the curve
 // 1 3/4 times its run along the line, cresting at the corner law's own radius (engine.js flareLean). It was an even hill,
 // so the curve ran on level into a shelf and the round sat on it as a knuckle. Checked by fair-check's SHELF.
-const JOIN10 = { ...JOIN9, flareLean: 1.75, flareLog: [] };
+const JOIN10 = { ...JOIN9, flareLean: PROP.transition.flareLean, flareLog: [] };
 // g7aw THE CAP RULE (owner on v233: "an icon should have root shapes at its core that are then connected / disconnected ... the top
 // edge should be crafted holistically from the top of a circle or ellipses"): a base with a curved side (the coupe's foot, the cup's
 // plate) is a slab cut by ONE ellipse, 7/6 of the base's width and its full height; the slab's ends cut it, and only those cuts
@@ -681,6 +682,10 @@ const HSETS = [
   // carry them to the rest, and the drink rule moves the coupe's surface up a lattice line
   ['Rules from the coupe and tree', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, capPlate: CAP_RULE, cupRoot: VESSEL_ROOT.cupRoot }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN10, optical: true, outline: true }],
   ['Rules from the coupe and tree, the foot by the plate rule', 'The tuned row with the plate rule (the cup\'s saucer), every post that holds a mass up at 1 1/4px, a gable resting on its beam, buildings straight-lined, and the clear band 5/6px.', { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5, cap: CAP_RULE, capPlate: CAP_RULE, ...VESSEL_ROOT }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN10, optical: true, outline: true }],
+  // g7az THE PROPORTIONS (owner, 10-24: "Yeah let's try for a ten also it's be best if the underlying shapes were proportionally related
+  // to each other and the grid so they weren't just random."): R2B drawn from src/proportions.js (o.prop): every root sized and placed by
+  // a ratio in halves to sixths of its parent root, every thickness a ratio of the line; the class read at the fitted size, the fit solved
+  ['The proportions', 'R2B with every root sized and placed by a simple ratio of its parent (src/proportions.js).', { droop: PROP.line.droop, bow: PROP.line.bow, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: +(PROP.line.post * W).toFixed(10), starTip: 0.0877, plate: 0.5, colW: +(PROP.line.post * W).toFixed(10), struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5, ...VESSEL_ROOT, prop: PROP, cap: { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) }, capPlate: { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) } }, HUMAN({ flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 }), 11 / 12, true, EASE, { join: JOIN10, optical: true, outline: true, prop: true }],
   ['H3 relaxed: free posts 1 1/4, flaring into their joins', 'H3, with monoweight relaxed for free-standing posts only: the coupe\'s stem and the trunk thin to 1 1/4px between their flares, as batch 1\'s stem did. Every other line stays 1.5.', { droop: 0.5, bow: -0.2, dome: true, post: 1.25, ...COUPE_B }, HUMAN({ flare: 1.5, mass: 0.6, end: 0.3 }), 11 / 12, true, EASE],
   // g7aa (owner on v147: "i want something between h2 and h3 -- i like the loosening up, but the coffee cup plate
   // feels too far. and the flares too intense. the museum looks completely out of place")
@@ -693,8 +698,15 @@ const HSETS = [
   // corners, a hair different), the last two passes and every drawing shown use the hill rounds
   const fast = X.join && X.join.fair ? { ...opts, join: { ...X.join, fair: false } } : opts;
   const fitPlace = (id, extra = {}, withSil = false) => {
-    const fk_ = fk * (extra.fitScale || 1), [cls0, apex] = CLASS[id], cls = classByProportion(id, () => DRAW[id](12, { style: 'mono', ...o, ...extra }), fast, apex, cls0, nm), kw = KEY[cls][0] * fk_, bh = (KEY[cls][1] + apex) * fk_, dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
+    const fk_ = fk * (extra.fitScale || 1), [cls0, apex] = CLASS[id], dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...o, ...extra, ...x });
+    // g7az (X.prop): the class by the drawing's proportion AT ITS FITTED SIZE (px parts don't scale, so at 12 a drawing reads squatter than shown)
+    const fitTo = c => { const kw_ = KEY[c][0] * fk_, bh_ = (KEY[c][1] + apex) * fk_; let s_ = 12; for (let k = 0; k < 4; k++) { const b = measure(E.build(dr(s_), fast).d).box; s_ *= Math.min(kw_ / (b.x1 - b.x0), bh_ / (b.y1 - b.y0)); } return s_; };
+    const cls = classByProportion(id, () => X.prop && ['WIDE', 'SQUARE', 'TALL'].includes(cls0) ? dr(fitTo(cls0)) : DRAW[id](12, { style: 'mono', ...o, ...extra }), fast, apex, cls0, nm), kw = KEY[cls][0] * fk_, bh = (KEY[cls][1] + apex) * fk_;
     let s = 12; for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), k < 4 ? fast : opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
+    // g7az THE FIT AS A SOLVE (X.prop): if the passes stop short of the cut on both sides (a lattice step in the way: the cup at v237),
+    // the largest size that fits, by halving
+    if (X.prop) { const fits = s_ => { const b = measure(E.build(dr(s_), fast).d).box; return { ok: b.x1 - b.x0 <= kw + 1e-3 && b.y1 - b.y0 <= bh + 1e-3, touch: Math.abs(b.x1 - b.x0 - kw) < 5e-3 || Math.abs(b.y1 - b.y0 - bh) < 5e-3 }; };
+      const f0 = fits(s); if (!(f0.ok && f0.touch)) { let lo = f0.ok ? s : s * 0.9, hi = f0.ok ? s * 1.1 : s; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (fits(m).ok) lo = m; else hi = m; } s = lo; } }
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
     const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = (o.dome || typeof o.under === 'number') && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
     const ty = X.optical ? oy + 12 - opticalY(m) : oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;
@@ -722,7 +734,8 @@ const HSETS = [
 if (process.env.CLASSLOG) for (const [k, v] of Object.entries(CLASS_LOG)) console.error(k, '|', [...v].filter(x => !/(\w+)->\1$/.test(x) || process.env.CLASSLOG === 'all').join(' ; '));
 const R2 = HSETS.find(S => S.nm === 'Rules from the coupe and tree');
 const R2B = HSETS.find(S => S.nm === 'Rules from the coupe and tree, the foot by the plate rule');
-const HOLD = HSETS.filter(S => !S.nm.startsWith('Between') && !S.nm.startsWith('H3, ') && S !== R2 && S !== R2B), H3F = HSETS.find(S => S.nm === 'H3, plate flipped'), H3T = HSETS.find(S => S.nm === 'H3, saucer flipped, rules tuned to the tree'), BETW = HSETS.find(S => S.nm === 'Between H2 and H3'), BFLIP = HSETS.find(S => S.nm === 'Between, plates flipped');   // g7aa: the v144 boards keep their four rows
+const R3 = HSETS.find(S => S.nm === 'The proportions');   // g7az
+const HOLD = HSETS.filter(S => !S.nm.startsWith('Between') && !S.nm.startsWith('H3, ') && S !== R2 && S !== R2B && S !== R3), H3F = HSETS.find(S => S.nm === 'H3, plate flipped'), H3T = HSETS.find(S => S.nm === 'H3, saucer flipped, rules tuned to the tree'), BETW = HSETS.find(S => S.nm === 'Between H2 and H3'), BFLIP = HSETS.find(S => S.nm === 'Between, plates flipped');   // g7aa: the v144 boards keep their four rows
 { // g7aa: the between row and the three coupes as svg files, for check-svg.py and the counter checks
   const dir = path.join(__dirname, '../svg/g7/between'); fs.mkdirSync(dir, { recursive: true });
   const svg = d => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="${d}"/></svg>`;
@@ -736,7 +749,8 @@ const HOLD = HSETS.filter(S => !S.nm.startsWith('Between') && !S.nm.startsWith('
   for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `h3t-${id}.svg`), svg(H3T.ds[id]));
   // g7ak: the row by the rules from the coupe and tree
   for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `${id}-r2.svg`), svg(R2.ds[id]));
-  fs.writeFileSync(path.join(dir, 'bar-r2b.svg'), svg(R2B.ds.bar)); R2.mus2.forEach((d, k) => fs.writeFileSync(path.join(dir, `museum-r2-${['base', 'v219', 'v220'][k]}.svg`), svg(d)));
+  fs.writeFileSync(path.join(dir, 'bar-r2b.svg'), svg(R2B.ds.bar));
+  for (const id of ['cafe', 'bar', 'museum', 'nature', 'star', 'plus']) fs.writeFileSync(path.join(dir, `${id}-r3.svg`), svg(R3.ds[id]));   // g7az: the proportions row R2.mus2.forEach((d, k) => fs.writeFileSync(path.join(dir, `museum-r2-${['base', 'v219', 'v220'][k]}.svg`), svg(d)));
   fs.writeFileSync(path.join(dir, 'h3f-nature.svg'), svg(H3F.ds.nature)); fs.writeFileSync(path.join(dir, 'h3f-star.svg'), svg(H3F.ds.star)); fs.writeFileSync(path.join(dir, 'h3f-bar.svg'), svg(H3F.ds.bar)); fs.writeFileSync(path.join(dir, 'h3f-museum.svg'), svg(H3F.ds.museum)); fs.writeFileSync(path.join(dir, 'h3f-plus.svg'), svg(H3F.ds.plus));
 }
 // checks on every tuned glyph: counters (distance and direction), and the CURVE CHECK: at every smooth join
@@ -828,7 +842,7 @@ const OPEN_QS = [
 ];
 // g7ab: Start's open questions (the older boards keep OPEN_QS as they were published)
 const START_QS = [
-  ['Between H2 and H3, section 0', 'The foot, the plate, the bowl and the cup, each from one ellipse: does the foot read as one shape? Do the coupe and the cup still look like yours? Does the cup still sit right on its plate, now its ends are a little thinner?'],
+  ['Between H2 and H3, section 0', 'Every root now comes from a simple ratio of another root (the spec is at the top of Construction): do the cup, the coupe and the museum still read as yours? Is the band at half a line right? (Still open from v237: does the cup sit right on its plate?)'],
   ['Between H2 and H3, section 0c', 'The star at the 1 1/2px line, sized by its counter: does it feel balanced with the +? Is it too big at 14.1px against the +\'s 13.2? And does the + still feel a bit light?'],
   ['Between H2 and H3, section 1', '"The glass being on something so rounded as a plate": did you mean the cup on its saucer, or the coupe on its foot?'],
   ['Between H2 and H3, section 1 (the museum)', 'Does Joins connect the museum to the coupe and the tree? And is the museum moving from Wide to Square on the master grid all right?'],
@@ -1211,8 +1225,8 @@ function sheetBetween() {
   const r2Rules = () => `<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.35;margin:6px 0 10px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 4px 0;width:16%">Rule</td><td style="padding:4px 8px;width:24%">Was</td><td style="padding:4px 0 4px 8px">Now</td></tr>${R2RULES.map(([a, b, c, e]) => `<tr style="border-top:1px solid ${COL.hair};vertical-align:top"><td style="padding:8px 8px 2px 0;font-weight:600;color:${N}">${a}</td><td style="padding:8px 8px 2px;color:${I2}">${b}</td><td style="padding:8px 0 2px 8px;color:${N}">${c}</td></tr><tr style="vertical-align:top"><td></td><td colspan="2" style="padding:2px 0 10px 8px;color:${N}"><b>Here:</b> ${e}</td></tr>`).join('')}<tr style="border-top:1px solid ${COL.hair}"><td colspan="3" style="padding:8px 0;color:${N}"><b>Unchanged:</b> line ends, tips by their edge, flares 1/2px, mass corners 0.6, the vessel side, the tree\'s sweep and droop. The + and the star: nothing in these rules acts on them.</td></tr></table>`;
   const musRows = [['H2\'s museum (the base)', 'As H2 drew it: four columns, a beam, a straight roof, a plinth. Every approach below starts from it.', S.ds.museum, 'museum'], ...MUSEUM_V.map(([nm, line], k) => [nm, line, S.mus[k], `museum-${k + 1}`])]
     .map(([nm, line, d, key]) => `<div style="padding:16px 0;border-top:1px solid ${COL.hair}"><div style="font-size:21px;font-weight:700;color:${N}">${nm}</div><div style="font-size:17px;line-height:1.4;color:${I2};margin:4px 0 10px">${line}</div><div style="display:flex;gap:14px;align-items:center"><div style="display:flex;gap:6px;align-items:center;padding:8px;background:${COL.paper}">${badge(S.ds.cafe)}${badge(S.ds.bar)}${badge(d)}${badge(S.ds.nature)}</div>${chip(d)}${badge(S.ds.cafe, 72)}${badge(S.ds.bar, 72)}${badge(d, 72)}${badge(S.ds.nature, 72)}</div><div style="margin-top:10px">${x8(d)}</div><div style="font-size:16px;color:${N};margin-top:8px">Weight (blurred darkness, overall / darkest fifth): <b>${bl(key)}</b>; the cup ${bl('cafe')}, the coupe ${bl('bar')}, the tree ${bl('nature')}.</div></div>`).join('');
-  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Section 0 is this round. 0c is the outline rule for the star and the +. Section 1 is the current row and its rules table, with the museum. Everything older on this board is on the Archive page, each round its own board: v217, v222, v223, v228, v233, and the hump at the coupe\'s flares (0b, v230).')}
-${sectionRoots(kick, quote)}
+  return phBoard('Waiting on you', 'Between H2 and H3', `${phP('Section 0 is this round. 0c is the outline rule for the star and the +. Section 1 is the current row and its rules table, with the museum. Everything older on this board is on the Archive page, each round its own board: v217, v222, v223, v228, v233, the hump at the coupe\'s flares (0b, v230), and every piece from a root shape (v237).')}
+${require('./proportions-board.js').section(kick, quote, { phP, phQ, badge })}
 ${sectionHump(kick, quote, 'outline')}
 ${kick('1 · The coupe and the tree are fixed: rules for the rest')}
 ${quote('youre missing my point -- the between tree is perfect. what changes need to happen to h2 to make that tree fit in')}

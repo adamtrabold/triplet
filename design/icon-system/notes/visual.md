@@ -1,5 +1,41 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-24, canvas v238, turn 153; tenth icon designer)
+
+- **Owner after v237:** "Yeah let's try for a ten also it's be best if the underlying shapes were proportionally related to each other and the grid so they weren't just random." Next is a blind test: a fresh designer draws new icons only from the Construction board's spec.
+- **The system** (`src/proportions.js`, `PROP`, the one table):
+  - The series is halves to sixths (plus a whole and one of them).
+  - Shapes are fractions of a parent root (the widest root = 1); thicknesses are fractions of the line.
+  - Two rules of transition (flareLean 7/4, tipSoft 6 = a crest radius over 1/6px).
+  - `capOver(end)` turns the cap's "ends at half its height" into 2/√3.
+- **Code:**
+  - picks7, all behind `o.prop` (old rows unchanged; no-prop rebuild byte-identical):
+    - cafe: `pc` (saucer 9/5, square, ear 4/5, slot = line.slot; balance by a second pass with `o._l`, measuring the ink of body + ear − hole via optics; saucer top = ceil to the lattice ≥ 1px below the cup);
+    - bar: bd = 6/5·ry, bowlRoot 5/6, band and post from PROP; FB = T(1.5·bd·u + fh); foot hw = 4/5·5.75/over;
+    - structMuseum: overP = 1/3 post, ap from pitch, pl = T(ct + 2hs/3), drops and flares = step;
+    - nature: PROP.tree, whose values equal the old ones.
+  - boards7: `R3` row 'The proportions' (X.prop: class at fitted size + fit solve), writes `between/<id>-r3.svg`; JOIN9 tipSoft and JOIN10 flareLean from PROP; sheetBetween section 0 = `proportions-board.js` section(); START_QS[0] updated.
+  - construction.js: rebuilds R3 (copies the class-at-size and fit solve), FILES = r3.
+  - construction-board.js: `spec()` first (from proportions-board.js), then the drawing sheet (template), Roots trimmed to the audit and counters, legend, close-ups, icon rows, findings; recipe() no longer called. Icon-sheet notes updated.
+  - roots-audit.js: band from PROP.
+- **Frozen befores:** `svg/g7/before-g7az/` (v237's r2 svgs, construction.json, roots-audit.json).
+- **Results:** cup 0.08px at 24, coupe 0.07, museum 0.12; tree, star and + identical. construction 6/6 identical; fair-check clean.
+- **Tried and dropped:**
+  - Cup "with ear 5/6 + reach 1/2" (slot 0.6px → KNEE/SHOULDER/TAIL at the counter corners).
+  - Cup with lattice-snapped depth (the fit oscillates; the cup grew or shrank 2%).
+  - Saucer 7/4 (cup 2% smaller).
+  - Museum overhang 1/3 line (4 TAILs).
+  - Tree 2:3:4 (a spire).
+  - Vessel 5/6 + rim 1/6 (clean; 4/5 is closer).
+- **Canvas v238:** Between section 0 replaced (old → `Archive-G7az-Roots`, archive y 174300, note `archiveG7az`); Construction replaced (old → `Archive-G7az-Construction`); Start q1; Between h 8826; gridRow2 title y 9160, Master and Construction y 9460. Splice tooling: scratch `d10/prep.py`, `gen0.js`, `hgt.js`, `shoot.js`, `xp.js` (R3 glyph build; env PPATCH patches PROP), `meas.js`.
+- **Open:**
+  - Band at 3/4px.
+  - The tree outside the series by design.
+  - The fit solve and class at fitted size apply to R3 only (should they be the grid rule for all?).
+  - The plate question from v237 is still open (carried on Start).
+  - "+ might feel light" is still open.
+- **Next:** the blind test. If the blind designer stumbles, the fix goes in the spec (and PROP), not in a drawing.
+
 ## Update (2026-10-23, canvas v237, turn 151)
 
 - **Director turn 150 (7):** the cup's wall cut its 1.02× ellipse into a knee; rule: an ellipse meets a parallel straight edge at its widest point, tangent, never cut.

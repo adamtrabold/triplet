@@ -1,0 +1,77 @@
+{
+ "rows": [
+  {
+   "icon": "cup",
+   "piece": "body (v234, replaced): the bottom corners",
+   "root": "quarter ellipse",
+   "units": 0.15565319034637498,
+   "px24": 0.1393605277919602,
+   "px72": 0.41808158337588064,
+   "note": "squarer than the ellipse"
+  },
+  {
+   "icon": "coupe",
+   "piece": "bowl (v234, replaced): its sides",
+   "root": "half ellipse",
+   "units": 0.2880628810846655,
+   "px24": 0.24545120414371768,
+   "px72": 0.736353612431153,
+   "note": "squarer than the ellipse"
+  },
+  {
+   "icon": "cup",
+   "piece": "plate (v233): its underside",
+   "root": "circle arc",
+   "units": 0.01356342684764623,
+   "px24": 0.01214370434649843,
+   "px72": 0.03643111303949529,
+   "note": "one arc to the eye; its ends drew their own rounds"
+  },
+  {
+   "icon": "coupe",
+   "piece": "foot (v233): its top",
+   "root": "circle arc",
+   "units": 0.011595165785402404,
+   "px24": 0.00987995188257721,
+   "px72": 0.029639855647731632,
+   "note": "one arc to the eye; its ends drew their own rounds"
+  },
+  {
+   "icon": "tree",
+   "piece": "tiers: the drooping underside",
+   "root": "circle arc",
+   "units": 0.02616382942852727,
+   "px24": 0.026615951917318286,
+   "px72": 0.07984785575195485,
+   "note": "near"
+  },
+  {
+   "icon": "tree",
+   "piece": "tiers: the swept sides",
+   "root": "circle arc",
+   "units": 0.0007499923197550051,
+   "px24": 0.000762952517156845,
+   "px72": 0.002288857551470535,
+   "note": "near"
+  },
+  {
+   "icon": "museum",
+   "piece": "capital and foot: the flares",
+   "root": "quarter ellipse",
+   "units": 0.009676569254227869,
+   "px24": 0.008227403594177613,
+   "px72": 0.02468221078253284,
+   "note": "near"
+  }
+ ],
+ "star": {
+  "ratio": 0.5278946317121707,
+  "gapUnits": 0.000013386726376515125,
+  "gap72": 0.00004016017912954537
+ },
+ "bandWall": [
+  1.4108181115335856,
+  1.320871115488736,
+  1.2083610725817293
+ ]
+}

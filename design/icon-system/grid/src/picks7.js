@@ -8,7 +8,7 @@
 // The box is the drawing box. WHERE the drawing sits in the badge is set by its optical centre
 // (src/boards7.js, place()), not by the box: optical centring.
 'use strict';
-const { R, C, P, B, O, A, D, I, E, cut } = require('./engine.js');
+const { R, C, P, B, O, A, D, I, E, cut, build } = require('./engine.js');
 const W = 1.5;      // a line, upright or diagonal (decided by the owner)
 const WH = 4 / 3;   // a horizontal line, 1.333px: CONTRAST COMPENSATION (a horizontal reads heavier than
                     // an upright of the same width, so it is drawn about 10% thinner, as in type design)
@@ -144,9 +144,13 @@ const DRAW = {
     // g7e: the bowl FLOWS into the ear's base in one tangent curve; cup and ear are ONE outline.
     // g7i: the saucer is a SLAB (was a tapered blade: a trapezoid, the owner's example).
     const u = s / 12, X = v => f(v * u), Y = v => T(v * u), K = 0.5523;
-    const top = Y(1) / u, wall = 4.667, bot = Y(8) / u, l = 1.5, r = 8.25, mid = (l + r) / 2;
-    const eR = 12 - 1 / 3;                                            // the ear's outer back
-    const eb = top + 5 + 1 / 3, R_ = (eb - top) / 2, ex = eR - R_;     // ear: outer 5 1/3 tall, its back a half circle
+    // g7az o.prop (src/proportions.js, PROP.cup): the cup from proportions. The saucer is the widest root (the cut); the cup with
+    // it is saucer (1 4/5) of the cup's width; the ear's counter runs straight from the wall for a slot (1/2 line) before its half circle; the cup is as deep as wide (depth 1, to the lattice); the ear 4/5 of the depth; the cup and ear placed by weight,
+    // their ink centre over the saucer's centre (o._l: the left wall, found by a first pass that measures the ink)
+    const pc = o.prop && o.prop.cup, bwP = pc ? 12 / pc.saucer : 0;
+    const top = Y(1) / u, wall = 4.667, l = pc ? (o._l ?? 1.5) : 1.5, r = pc ? l + bwP : 8.25, mid = (l + r) / 2, bot = pc ? top + pc.depth * bwP : Y(8) / u;   // square (its bottom is the ellipse's, so off the lattice; the saucer's top below it is on it)
+    const eb = pc ? top + pc.ear * (bot - top) : top + 5 + 1 / 3, R_ = (eb - top) / 2;
+    const eR = pc ? r + o.prop.line.slot * W / u + R_ : 12 - 1 / 3, ex = eR - R_;   // the ear's outer back     // ear: outer 5 1/3 tall, its back a half circle
     // g7p (owner: "the bottom right edge of the cup is completely broken"): since g7e the bowl's right side
     // was one S-curve from the handle's foot down to the bottom, so the bowl had no right wall or corner and
     // melted into a lump under the handle. Now the bowl is a VESSEL with both walls (the right one mirrors
@@ -155,8 +159,8 @@ const DRAW = {
     // g7ax o.cupRoot { over, ry }: the cup's bottom is the lower half of ONE ellipse on the cup's centre line, rx = over x the
     // half width (so the straight walls cut it a little inside its widest point: a corner the law rounds), ry = a share of the
     // cup's depth, its lowest point the cup's bottom; the walls run straight down to where they cut it
-    const cr_ = o.cupRoot, hwC = (r - l) / 2;
-    const bowlP = cr_ ? (() => { const rx = hwC * cr_.over, ry = cr_.ry * (bot - top), cy = bot - ry, a = Math.acos(hwC / rx), yc = cy + ry * Math.sin(a);
+    const cr_ = pc ? { over: 1, ryRx: o.prop.ellipse.vessel } : o.cupRoot, hwC = (r - l) / 2;   // g7az: ry = 5/6 of rx (every vessel's ellipse)
+    const bowlP = cr_ ? (() => { const rx = hwC * cr_.over, ry = cr_.ryRx ? cr_.ryRx * rx : cr_.ry * (bot - top), cy = bot - ry, a = Math.acos(hwC / rx), yc = cy + ry * Math.sin(a);
       const q = v => `${X(v[0])} ${X(v[1])}`, q5 = v => `${+(v[0] * u).toFixed(5)} ${+(v[1] * u).toFixed(5)}`, C_ = (a0, a1) => { const P = ELL_ARC(mid, cy, rx, ry, a0, a1); return `C${q5(P[1])} ${q5(P[2])} ${q5(P[3])}`; };   // 5 decimals: a short arc piece keeps its bend
       // g7ay (director, turn 150: "an ellipse meets a parallel straight edge at its widest point, tangent and smooth, never cut"):
       // over 1 = the ellipse is exactly wall to wall and the walls run into it at its widest point. Its first 8 degrees from each
@@ -173,7 +177,7 @@ const DRAW = {
     const ci = r;                                                     // g7p: the hole starts at the bowl's wall, so the bowl keeps it
     const counter = cut(D(`M${X(ci)} ${X(ct)}H${X(cx)}C${X(cx + cr * K)} ${X(ct)} ${X(eR - W / u)} ${X(ct + cr - cr * K)} ${X(eR - W / u)} ${X(ct + cr)}C${X(eR - W / u)} ${X(ct + cr + cr * K)} ${X(cx + cr * K)} ${X(cb)} ${X(cx)} ${X(cb)}H${X(ci)}Z`));
     // g7y exploration, o.dome (H3): a base that holds something on a ring or a point is a DOME, the saucer too
-    const sy = T(X(bot) + CUT), sh = slabH(o);
+    const sy = pc ? Math.ceil((bot * u + CUT) * 3 - 1e-6) / 3 : T(X(bot) + CUT), sh = slabH(o);   // g7az: the saucer's top on the first lattice line at least a cut (1px) below the cup
     // g7ak PLATE RULE (owner on v216: "the glass being on something so rounded as a plate feels off"): o.plate, a plate a
     // thing sits on: flat on top, its underside dropping o.plate px at the centre, so its ends keep the slab less that
     // (1/2 on a 1 1/2px slab: ends 1px); never a lens thinning to a point. A cup-only option, so the coupe's foot keeps its dome
@@ -189,6 +193,9 @@ const DRAW = {
       // a CIRCLE on the ear's own centre (ex, cy), its radius the ear's less the wall (rx = ry1 = ry2 = R_ - W), run on to the
       // cup's wall as a slot; the same numbers as before, now named as a root
       const hole = cut(D(`M${X(ci)} ${X(iT)}H${X(ex)}C${X(ex + rx * K)} ${X(iT)} ${X(iK)} ${X(cy - ry1 * K)} ${X(iK)} ${X(cy)}C${X(iK)} ${X(cy + ry2 * K)} ${X(ex + rx * K)} ${X(iB)} ${X(ex)} ${X(iB)}H${X(ci)}Z`, { root: 'CIRCLE', also: 'SLOT' }));
+      // g7az BALANCE (PROP.cup.balance): the cup and its ear sit with their ink centre over the saucer's centre; measured on the sharp
+      // union, then the whole cup moved (every part of it is placed from its left wall), to 1/1000 of a unit
+      if (pc && pc.balance && o._l == null) { const { measure } = require('./optics.js'), m = measure(build([body, earP, hole]).d); return DRAW.cafe(s, { ...o, _l: +(l + (s / 2 - m.cx) / u).toFixed(3) }); }
       return [body, earP, saucer, hole];
     }
     if (o.style === 'punch') {
@@ -216,6 +223,9 @@ const DRAW = {
     // like a classic coupe. go back to that and make there be more liquid in the bottom in that one"): v130's
     // saucer bowl, its bottom wider and flatter (handle 1.25 from the side, was 2.75), 1/3 deeper (6, was 5 2/3)
     // and its sides a touch steeper at the rim (0.55): drink 18.8px² (v130 14.2), still a shallow saucer
+    // g7az o.prop (PROP.coupe): the bowl's ellipse is the widest root (its width the glass's), 5/6 as tall as wide; the rim line
+    // cuts it rimCut (1/6) of its height above its centre, so the bowl is 7/6 of the ellipse deep; the band half a line; the stem a post
+    if (o.prop) { const P_ = o.prop, rx = 6 - 0.25, ry = P_.ellipse.vessel * rx; o = { ...o, bd: (1 + P_.coupe.rimCut) * ry, bowlRoot: 1 / (1 + P_.coupe.rimCut), bowlWide: true, bowlSplit: 'even', bandH: P_.line.band * W, post: P_.line.post * W }; }
     const bd = o.bd ?? 6;
     // g7p (owner: "i liked the bowl shape from earlier batches (i like the wider bowl ...)" and "it needs slightly
     // more liquid still"): the bowl is wider in the drawing (its rim 11.5 of the 12-unit box, was 11) and broad-bottomed like the g6 coupe, its sides
@@ -326,7 +336,7 @@ const DRAW = {
       const inside = D(`M${X(ix(0.5))} ${X(-1)}H${X(ix(11.5))}C${X(ix(11.5))} ${X(2.8)} ${X(ix(9))} ${X(bd)} ${X(6)} ${X(bd)}C${X(ix(3))} ${X(bd)} ${X(ix(0.5))} ${X(2.8)} ${X(ix(0.5))} ${X(-1)}Z`);
       band = cut(I(inside, R(0, rim, s, liquid - rim)));
     }
-    const FB = Y(o.fb ?? 10.833);
+    const FB = o.prop ? T((1 + o.prop.coupe.stem) * bd * u + slabH(o)) : Y(o.fb ?? 10.833);   // g7az: the stem shows half the bowl's depth; the foot's base on the lattice
     // g7z: on a DOME the stem runs down into the foot (half its height), so its sides meet the dome's arc in a
     // real join that flares like the trunk's; ending at the dome's crown left a 0.13px ledge at each side
     const fh = slabH(o), sy0 = X(bd - 0.5), sy1 = o.dome && typeof o.under !== 'number' ? FB - fh / 2 : FB - fh + 0.01;
@@ -334,7 +344,8 @@ const DRAW = {
     // g7t exploration, o.dome: a foot that holds a glass up by its stem is a DOME (its top a low arc, a line
     // high at the centre, its ends worn to the corner rule), as batch 1's was; a base an object sits flat on
     // (the saucer, the plinth) stays a SLAB
-    const foot = o.cap ? CAP(X(2), X(10), FB, fh, o.cap, true) : typeof o.under === 'number' ? D(`M${X(2)} ${f(FB - fh)}H${X(10)}V${f(FB - o.under)}C${X(7.6)} ${f(FB + o.under / 3)} ${X(4.4)} ${f(FB + o.under / 3)} ${X(2)} ${f(FB - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M${X(2)} ${f(FB)}V${f(FB - fh + o.dome)}C${X(4.4)} ${f(FB - fh - o.dome / 3)} ${X(7.6)} ${f(FB - fh - o.dome / 3)} ${X(10)} ${f(FB - fh + o.dome)}V${f(FB)}Z`, { root: 'DOME' }) : o.dome ? D(`M${X(2)} ${f(FB)}C${X(2)} ${f(FB - 0.8 * fh)} ${X(3.9)} ${f(FB - fh)} ${f(c)} ${f(FB - fh)}C${X(8.1)} ${f(FB - fh)} ${X(10)} ${f(FB - 0.8 * fh)} ${X(10)} ${f(FB)}Z`, { root: 'DOME' }) : R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
+    const fhw = o.prop && o.cap ? o.prop.coupe.foot * (6 - 0.25) / o.cap.over : 4;   // g7az: the foot's ellipse 4/5 as wide as the bowl's
+    const foot = o.cap ? CAP(X(6 - fhw), X(6 + fhw), FB, fh, o.cap, true) : typeof o.under === 'number' ? D(`M${X(2)} ${f(FB - fh)}H${X(10)}V${f(FB - o.under)}C${X(7.6)} ${f(FB + o.under / 3)} ${X(4.4)} ${f(FB + o.under / 3)} ${X(2)} ${f(FB - o.under)}Z`, { root: 'DOME' }) : typeof o.dome === 'number' ? D(`M${X(2)} ${f(FB)}V${f(FB - fh + o.dome)}C${X(4.4)} ${f(FB - fh - o.dome / 3)} ${X(7.6)} ${f(FB - fh - o.dome / 3)} ${X(10)} ${f(FB - fh + o.dome)}V${f(FB)}Z`, { root: 'DOME' }) : o.dome ? D(`M${X(2)} ${f(FB)}C${X(2)} ${f(FB - 0.8 * fh)} ${X(3.9)} ${f(FB - fh)} ${f(c)} ${f(FB - fh)}C${X(8.1)} ${f(FB - fh)} ${X(10)} ${f(FB - 0.8 * fh)} ${X(10)} ${f(FB)}Z`, { root: 'DOME' }) : R(X(2.25), FB - fh, X(9.75) - X(2.25), fh, { root: 'SLAB' });
     return o.band === false ? [bowl, stem, foot] : [bowl, stem, foot, ...(Array.isArray(band) ? band : [band])];
   },
   // MUSEUM. WIDE, its apex passing by 1/2px. A GABLE pediment on a SLAB beam, four POST columns, a SLAB
@@ -429,7 +440,7 @@ const DRAW = {
       //   notches: each notch is a share of the tier above it (TREE_NOTCH of its half width), not a fixed
       //   depth, so the neck under every tier stays a fixed share of it and no tier reads as coming off.
       // Fitted to the current height (apex +1/2 to the trunk's line) and width (the tall class).
-      const HV = o.hv || [4.83, 3, 3.33], WV = [2.8, 4.1, 5.3], sH = HV.reduce((a, b) => a + b, 0), sig = o.notch ?? TREE_NOTCH;
+      const pt_ = o.prop && o.prop.tree, HV = pt_ ? pt_.heights : o.hv || [4.83, 3, 3.33], WV = pt_ ? pt_.widths : [2.8, 4.1, 5.3], sH = HV.reduce((a, b) => a + b, 0), sig = pt_ ? pt_.notch : o.notch ?? TREE_NOTCH;   // g7az o.prop: PROP.tree
       let cum = 0;
       for (let i = 0; i < N; i++) { cum += HV[i]; tiers.push([i === 0 ? apex : null, apex + crown * cum / sH, hwN * WV[i] / WV[N - 1]]); }
       for (let i = 1; i < N; i++) { const [, byU, hwU] = tiers[i - 1], [, byL, hwL] = tiers[i], r_ = (hwU - sig * hwU) / hwL; tiers[i][0] = (byU - r_ * byL) / (1 - r_); }
@@ -535,8 +546,13 @@ const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature
 //               OUTSIDE only (an opening is a counter: it stays square)
 function structMuseum(s, o) {
   const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2, st = o.struct, sh = slabH(o), cw = o.colW ?? W;
-  const ap = X(st.ap ?? 1.667), gb = Y(st.gb ?? 3.667), bt = gb + CUT, ct = bt + sh, pl = Y(12) - sh;
-  const hs = X((st.span ?? 10.5) / 2), xa = c - hs, xb = c + hs, bo = X(st.beamOver ?? 0.5), bL = xa - bo, bR = xb + bo;
+  // g7az o.prop (PROP.museum, PROP.line): the beam is the widest root (11 1/2 units, the cut); it passes the colonnade by 1/3 of a
+  // post each side, as the plinth does; the roof rises pitch (1/3) of its run from the top of its 4/5-line ends; the columns
+  // stand columns (1/3) of the colonnade's width tall, to the lattice
+  const pm = o.prop && o.prop.museum, stepP = o.prop ? o.prop.line.step * W : 0, overP = pm ? pm.over * o.prop.line.post * W : 0;
+  const gb = Y(st.gb ?? 3.667), bt = gb + CUT, ct = bt + sh;
+  const hs = pm ? X(11.5 / 2) - overP : X((st.span ?? 10.5) / 2), xa = c - hs, xb = c + hs, bo = pm ? overP : X(st.beamOver ?? 0.5), bL = xa - bo, bR = xb + bo;
+  const geP = pm ? o.prop.line.gableEnd * W : null, ap = pm ? f(gb - geP - pm.pitch * (bR - bL) / 2) : X(st.ap ?? 1.667), pl = pm ? T(ct + pm.columns * 2 * hs) : Y(12) - sh;
   const out = [];
   // the roof
   const ev = st.eave;
@@ -545,13 +561,13 @@ function structMuseum(s, o) {
     // and under the shelf the underside falls ev.droop to the end's foot, as a tier's underside falls to its tip
     const e = X(ev.over), dr = ev.droop, t = ev.end === 'tip' ? -dr : (ev.end ?? 0.5), k = ev.k ?? 0.55;
     out.push({ ...D(`M${f(bL)} ${f(gb)}H${f(bR)}Q${f(bR + e * k)} ${f(gb)} ${f(bR + e)} ${f(gb + dr)}${t > -dr ? `V${f(gb - t)}` : ''}L${f(c)} ${f(ap)}L${f(bL - e)} ${f(t > -dr ? gb - t : gb + dr)}${t > -dr ? `V${f(gb + dr)}` : ''}Q${f(bL - e * k)} ${f(gb)} ${f(bL)} ${f(gb)}Z`), root: 'GABLE' });
-  } else { const ge = st.gEnd ?? 0.5; out.push(ge ? { ...P([bL, gb], [bL, gb - ge], [c, ap], [bR, gb - ge], [bR, gb]), root: 'GABLE' } : { ...P([bL, gb], [c, ap], [bR, gb]), root: 'GABLE' }); }
+  } else { const ge = geP ?? st.gEnd ?? 0.5; out.push(ge ? { ...P([bL, gb], [bL, gb - ge], [c, ap], [bR, gb - ge], [bR, gb]), root: 'GABLE' } : { ...P([bL, gb], [c, ap], [bR, gb]), root: 'GABLE' }); }
   // the beam and the colonnade, one piece; openings square
   const cp = st.cap;
   if (cp) {
     // THE CAPITAL (the rise rule at the top): past the outer posts the beam's underside rises to a 1px end, and the
     // outer posts flare into it on the outside; the beam's top stays flat, so the cut stays even
-    const dp = cp.drop ?? (sh - 1), fr = cp.flare ?? 0.5, k = cp.k ?? 0.5, by = bt + sh;
+    const dp = pm ? stepP : cp.drop ?? (sh - 1), fr = pm ? stepP : cp.flare ?? 0.5, k = cp.k ?? 0.5, by = bt + sh;
     out.push({ ...D(`M${f(bL)} ${f(bt)}H${f(bR)}V${f(by - dp)}C${f(bR - bo * k)} ${f(by - dp)} ${f(xb)} ${f(by - dp * 0.1)} ${f(xb)} ${f(by + fr)}H${f(xb - cw)}V${f(by)}H${f(xa + cw)}V${f(by + fr)}H${f(xa)}C${f(xa)} ${f(by - dp * 0.1)} ${f(bL + bo * k)} ${f(by - dp)} ${f(bL)} ${f(by - dp)}Z`), root: 'SLAB' });
   } else out.push(R(bL, bt, bR - bL, sh, { root: 'SLAB' }));
   const n = o.cols ?? 4, gp = (2 * hs - n * cw) / (n - 1), bat = st.batter || 0;
@@ -565,7 +581,7 @@ function structMuseum(s, o) {
   // the plinth
   const ft = st.foot;
   if (ft) {
-    const po = X(ft.over), pL = xa - po, pR = xb + po, dp = ft.drop ?? (sh - 1), fr = ft.flare ?? 0.5, k = ft.k ?? 0.5;
+    const po = pm ? overP : X(ft.over), pL = xa - po, pR = xb + po, dp = pm ? stepP : ft.drop ?? (sh - 1), fr = pm ? stepP : ft.flare ?? 0.5, k = ft.k ?? 0.5;
     // right shoulder from the end up into the outer post, then mirrored (the openings' floor stays the flat plinth top)
     out.push({ ...D(`M${f(pL)} ${f(pl + sh)}H${f(pR)}V${f(pl + dp)}C${f(pR - po * k)} ${f(pl + dp)} ${f(xb)} ${f(pl + dp * 0.1)} ${f(xb)} ${f(pl - fr)}H${f(xb - cw)}V${f(pl)}H${f(xa + cw)}V${f(pl - fr)}H${f(xa)}C${f(xa)} ${f(pl + dp * 0.1)} ${f(pL + po * k)} ${f(pl + dp)} ${f(pL)} ${f(pl + dp)}Z`), root: 'SLAB' });
   } else out.push(R(xa - X(st.plOver ?? 0.5), pl, 2 * hs + 2 * X(st.plOver ?? 0.5), sh, { root: 'SLAB' }));

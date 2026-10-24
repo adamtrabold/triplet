@@ -40,9 +40,10 @@ const holeOf = d => { const cp = new paper.CompoundPath(d), kids = cp.children.s
 const hA = holeOf(sharp()), hB = holeOf(sharp('root')); let sg = 0; for (let s = 0; s < hB.length; s += 0.01) { const p = hB.getPointAt(s); sg = Math.max(sg, hA.getNearestPoint(p).getDistance(p)); }
 const starRatio = P7.star(20, rc, W, 'root')[1].ratio;
 // the coupe band's wall, square to the bowl, along the band (its sides are the bowl's side moved in sideways by the line)
-// g7ax: the bowl's side is its ellipse (picks7 bowlRoot 7/8, bowlWide: rx = 5.75, centre bd/8 below the rim)
-const u = J.bar.s / 12, eRy = 7 / 8 * bd, eCy = bd - eRy, pts = samp(t => { const a = Math.PI / 2 + t * Math.PI / 2; return [(6 + 5.75 * Math.cos(a)) * u, (eCy + eRy * Math.sin(a)) * u]; }, 4000).filter(p => p[1] >= 0);
-const band = [W, W + 5 / 12, W + 5 / 6].map(y => { const p = pts.reduce((b, q) => Math.abs(q[1] - y) < Math.abs(b[1] - y) ? q : b), q = [p[0] + W, p[1]]; return Math.min(...pts.map(r => Math.hypot(r[0] - q[0], r[1] - q[1]))); });
+// g7az: the bowl's side is its ellipse by PROP (4/5 as tall as wide, rx = 5.75; the rim 1/5 of its height above its centre), the band half a line
+const { PROP } = require('./proportions.js'), eRy = PROP.ellipse.vessel * 5.75, eCy = PROP.coupe.rimCut * eRy, bandH = PROP.line.band * W;
+const u = J.bar.s / 12, pts = samp(t => { const a = Math.PI / 2 + t * Math.PI / 2; return [(6 + 5.75 * Math.cos(a)) * u, (eCy + eRy * Math.sin(a)) * u]; }, 4000).filter(p => p[1] >= 0);
+const band = [W, W + bandH / 2, W + bandH].map(y => { const p = pts.reduce((b, q) => Math.abs(q[1] - y) < Math.abs(b[1] - y) ? q : b), q = [p[0] + W, p[1]]; return Math.min(...pts.map(r => Math.hypot(r[0] - q[0], r[1] - q[1]))); });
 const out = { rows, star: { ratio: starRatio, gapUnits: sg, gap72: sg * 3 }, bandWall: band };
 fs.writeFileSync(path.join(__dirname, '../svg/g7/roots-audit.json'), JSON.stringify(out, null, 1));
 for (const r of rows) console.log(`${r.icon.padEnd(7)} ${r.piece.padEnd(34)} vs ${r.root.padEnd(16)} ${r.px24.toFixed(3)}px at 24, ${r.px72.toFixed(3)}px at 72`);
