@@ -568,7 +568,8 @@ function structMuseum(s, o) {
     // THE CAPITAL (the rise rule at the top): past the outer posts the beam's underside rises to a 1px end, and the
     // outer posts flare into it on the outside; the beam's top stays flat, so the cut stays even
     const dp = pm ? stepP : cp.drop ?? (sh - 1), fr = pm ? stepP : cp.flare ?? 0.5, k = cp.k ?? 0.5, by = bt + sh;
-    out.push({ ...D(`M${f(bL)} ${f(bt)}H${f(bR)}V${f(by - dp)}C${f(bR - bo * k)} ${f(by - dp)} ${f(xb)} ${f(by - dp * 0.1)} ${f(xb)} ${f(by + fr)}H${f(xb - cw)}V${f(by)}H${f(xa + cw)}V${f(by + fr)}H${f(xa)}C${f(xa)} ${f(by - dp * 0.1)} ${f(bL + bo * k)} ${f(by - dp)} ${f(bL)} ${f(by - dp)}Z`), root: 'SLAB' });
+    // g7ba: drawn by joins.js heldSlab, the one drawing of OVERHANG + HOLDS (the same path as before, byte for byte)
+    out.push(require('./joins.js').heldSlab({ x0: bL, x1: bR, yFar: bt, yNear: by, left: { x: xa, w: cw, over: bo }, right: { x: xb, w: cw, over: bo }, dp, fr, k }));
   } else out.push(R(bL, bt, bR - bL, sh, { root: 'SLAB' }));
   const n = o.cols ?? 4, gp = (2 * hs - n * cw) / (n - 1), bat = st.batter || 0;
   for (let i = 0; i < n; i++) { const x = xa + i * (cw + gp);
@@ -583,8 +584,8 @@ function structMuseum(s, o) {
   if (ft) {
     const po = pm ? overP : X(ft.over), pL = xa - po, pR = xb + po, dp = pm ? stepP : ft.drop ?? (sh - 1), fr = pm ? stepP : ft.flare ?? 0.5, k = ft.k ?? 0.5;
     // right shoulder from the end up into the outer post, then mirrored (the openings' floor stays the flat plinth top)
-    out.push({ ...D(`M${f(pL)} ${f(pl + sh)}H${f(pR)}V${f(pl + dp)}C${f(pR - po * k)} ${f(pl + dp)} ${f(xb)} ${f(pl + dp * 0.1)} ${f(xb)} ${f(pl - fr)}H${f(xb - cw)}V${f(pl)}H${f(xa + cw)}V${f(pl - fr)}H${f(xa)}C${f(xa)} ${f(pl + dp * 0.1)} ${f(pL + po * k)} ${f(pl + dp)} ${f(pL)} ${f(pl + dp)}Z`), root: 'SLAB' });
+    out.push(require('./joins.js').heldSlab({ x0: pL, x1: pR, yFar: pl + sh, yNear: pl, left: { x: xa, w: cw, over: po }, right: { x: xb, w: cw, over: po }, dp, fr, k }));   // g7ba: joins.js
   } else out.push(R(xa - X(st.plOver ?? 0.5), pl, 2 * hs + 2 * X(st.plOver ?? 0.5), sh, { root: 'SLAB' }));
   return out;
 }
-module.exports = { VESSEL_SIDE, STAR, W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN };
+module.exports = { VESSEL_SIDE, STAR, W, WH, CUT, DRAW, plus, star, BATCH, KEY, CLASS, TOKEN, APEX, T, FLARE, FREE, WMIN, CAP, ELL_ARC };

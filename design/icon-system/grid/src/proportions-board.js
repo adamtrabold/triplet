@@ -19,6 +19,7 @@ const svgD = rel => fs.readFileSync(path.join(G7, rel), 'utf8').match(/ d="([^"]
 const IDS = ['cafe', 'bar', 'museum', 'nature', 'star', 'plus'];
 const NAME = { cafe: 'cup', bar: 'coupe', museum: 'museum', nature: 'tree', star: 'star', plus: '+' };
 const BEFORE = { cafe: 'before-g7az/cafe-r2.svg', bar: 'before-g7az/bar-r2b.svg', museum: 'before-g7az/museum-r2.svg', nature: 'before-g7az/nature-r2.svg', star: 'before-g7az/star-r2.svg', plus: 'before-g7az/plus-r2.svg' };
+const KEYSQ = Math.round(Math.sqrt(Math.PI * 36) * 3) / 3, KEYW1 = Math.round(Math.PI * 3 * 3) / 3;   // the Square cut and the Wide cut's height (12-unit coin)
 const NOW = Object.fromEntries(IDS.map(id => [id, `between/${id}-r3.svg`]));
 // a fraction as words ("1 4/5", "2/3")
 const FR = [[1 / 6, '1/6'], [1 / 5, '1/5'], [1 / 4, '1/4'], [1 / 3, '1/3'], [2 / 5, '2/5'], [1 / 2, '1/2'], [3 / 5, '3/5'], [2 / 3, '2/3'], [3 / 4, '3/4'], [4 / 5, '4/5'], [5 / 6, '5/6']];
@@ -90,6 +91,41 @@ ${phQ('Do the cup, the coupe and the museum still read as yours? And is the band
 ${phP('The spec, with every rule, the table and the steps, is at the top of the Construction board. A new icon will be drawn from it blind.')}`;
 }
 
+// ---------------------------------------------------------------- the joins, on the six (and the re-run bed), at 8x
+// Each kind: crops of the six where the kind occurs, and the re-run bed (svg/blind/blind.json bed2) where it takes the same rule.
+function joinsFig(withBed = true) {
+  const D6 = Object.fromEntries(IDS.map(id => [id, svgD(NOW[id])]));
+  const BJ = path.join(__dirname, '../svg/blind/blind.json'), bed = withBed && fs.existsSync(BJ) ? (JSON.parse(fs.readFileSync(BJ, 'utf8')).bed2 || {}).d : null;
+  const SC = 22;   // px a unit: every crop at one scale, so the kinds compare
+  const c = (d, vb, lab, mine) => `<div style="flex:none">${crop(d, vb[0], vb[1], vb[2], vb[3], Math.round(vb[3] * SC))}${cap(lab, mine)}</div>`;
+  const K = [
+    ['Holds', 'a post flares a step into what it holds, on faces open to the outside; leaned into a curve', [[D6.bar, [9.8, 11.6, 4.4, 4.6], 'coupe: stem, both ends'], [D6.nature, [9.8, 14.2, 4.4, 3.6], 'tree: trunk into the tier']], bed && [bed, [6.2, 10.6, 5.0, 4.6], 'bed: headboard, both faces']],
+    ['Overhang', 'past the last post by 1/3 post; the face drops a step past it; flare and drop one curve', [[D6.museum, [14.4, 10.6, 3.0, 6.6], 'museum: beam and plinth']], bed && [bed, [15.4, 11.2, 3.0, 5.2], 'bed: mattress at the foot leg']],
+    ['Rests', 'cut free on every face it touches, flat on flat: one even cut', [[D6.museum, [12.0, 8.2, 5.4, 3.6], 'museum: gable on the beam'], [D6.cafe, [7.4, 12.0, 7.0, 4.8], 'cup on its saucer']], bed && [bed, [7.2, 7.6, 7.0, 4.6], 'bed: pillow, on and against']],
+    ['Base', 'one support: a cap; two or more posts: a slab with holds and overhang; legs to the ground: none', [[D6.bar, [8.2, 13.8, 7.6, 3.3], 'coupe: cap under a post'], [D6.cafe, [6.3, 13.4, 11.4, 3.4], 'saucer: cap under a thing'], [D6.museum, [7.0, 14.0, 10.0, 3.0], 'plinth: slab under posts']], bed && [bed, [6.4, 13.0, 11.6, 3.4], 'bed: legs, no base']],
+    ['Free', 'a post ends square (the line-end round); a living mass hangs to a tip', [[D6.nature, [10.6, 16.0, 2.8, 2.0], 'tree: trunk foot'], [D6.nature, [13.6, 14.6, 2.6, 2.4], 'tree: a tier\'s tip']], bed && [bed, [6.2, 7.4, 2.4, 2.0], 'bed: headboard top']],
+  ];
+  return `<div style="display:flex;flex-direction:column;gap:12px">${K.map(([n, t, ev, b]) => `<div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;padding:12px 14px;background:${COL.paper};border-left:4px solid ${OR}"><div style="width:170px;flex:none"><div style="font-size:19px;font-weight:700;color:${N}">${n}</div><div style="font-size:14px;line-height:1.35;color:${COL.ink};margin-top:2px">${t}</div></div><div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;flex:1;min-width:0">${ev.map(e => c(...e)).join('')}${b ? `<div style="flex:none;border-left:1px dashed ${COL.hair};padding-left:12px">${c(...b, true)}</div>` : ''}</div></div>`).join('')}</div>
+<p style="margin:8px 0 0;font-size:15px;color:${I2};max-width:1300px">Crops of the finished glyphs, all at ${SC}px a unit (a unit = 1px of the 24px badge). Left: where the six have the kind. Right of the dashed line: the re-run bed, which got each treatment by naming its joins, not by being drawn like the six.</p>`;
+}
+
+// ---- the rounds, one table (PROP.rounds), two columns: on the spec and the master grid
+function roundsTable() {
+  const RS = PROP.rounds.shaped, RL = PROP.rounds.line;
+  const rr = (k, sh, ln) => `<tr style="border-top:1px solid ${COL.hair}"><td style="padding:7px 8px 5px 0;font-weight:700;color:${N}">${k}</td><td style="padding:7px 8px 5px;color:${OD};font-weight:700">${sh}</td><td style="padding:7px 0 5px 8px;color:${OD};font-weight:700">${ln}</td></tr>`;
+  return `<table style="width:100%;max-width:1100px;border-collapse:collapse;font-size:16px;line-height:1.35;margin:0 0 6px"><tr style="color:${I2};font-size:13px;letter-spacing:.06em;text-transform:uppercase"><td style="padding:4px 8px 6px 0;width:44%">Corner (radius in px on screen)</td><td style="padding:4px 8px 6px">Shaped marks</td><td style="padding:4px 0 6px 8px">Line marks (outline, open)</td></tr>
+${rr('Tip (outside, under 75°)', `${RS.tip}, or ${RS.tipShare} × the shorter edge if less`, `${RL.tip}, or ${RL.tipShare} × the shorter edge if less`)}
+${rr(`Line end (outside, 75-105°, an edge ${RS.endEdge}px or less)`, RS.end, RL.end)}
+${rr('Mass corner (outside, 75-105°)', RS.mass, RL.mass)}
+${rr('Wide outside (over 105°)', RS.wideOut, RL.wideOut)}
+${rr(`Flare (inside, 75-105°, both edges ${RS.flareEdge}px or more)`, `${RS.flare} (up to ${RS.flareFit} × the shorter edge)`, 'none: a join')}
+${rr('Join, notch (inside, 105° or less)', RS.join, RL.join)}
+${rr('Wide inside (over 105°)', RS.wideIn, RL.wideIn)}
+${rr('A counter\'s corners', `${RS.join} (105° or less), ${RS.wideIn} wider`, 'as any corner (the star\'s counter has tips)')}
+${rr('Never more than', `${RS.fit} × the shorter edge (a flare ${RS.flareFit})`, `${RL.fit} × the shorter edge`)}
+</table>`;
+}
+
 // ---------------------------------------------------------------- Construction, the spec
 function spec() {
   const J = JSON.parse(fs.readFileSync(path.join(G7, 'construction.json'), 'utf8'));
@@ -99,29 +135,33 @@ function spec() {
   const RW = 1500, rl = (x0, w, ticks, stagger) => ticks.slice().sort((p, q) => p[0] - q[0]).map(([v, t, sub, hi], k) => { const x = x0 + v * w, up = stagger && k % 2 ? 22 : 0; return `<line x1="${f(x)}" y1="${(hi ? 26 : 40) - up}" x2="${f(x)}" y2="${74 + up}" stroke="${hi ? OD : N}" stroke-width="${hi ? 2.5 : 1.5}"/><text x="${f(x)}" y="${20 - up + (stagger ? 22 : 0)}" font-family="Archivo,Arial,sans-serif" font-size="16" font-weight="700" fill="${hi ? OD : N}" text-anchor="middle">${t}</text>${sub ? `<text x="${f(x)}" y="${96 + up}" font-family="Archivo,Arial,sans-serif" font-size="13" fill="${I2}" text-anchor="middle">${sub}</text>` : ''}`; }).join('');
   const shapeTicks = [[0, '0'], ...SERIES.map(v => [v, fr(v), '', false])];
   const shapeRuler = `<svg width="${RW}" height="110" viewBox="0 0 ${RW} 110" role="img" aria-label="The series, for shapes: halves to sixths of a parent root" style="display:block"><rect x="40" y="56" width="${RW - 80}" height="18" fill="${N}" fill-opacity=".14"/><line x1="40" y1="74" x2="${RW - 40}" y2="74" stroke="${N}" stroke-width="1.5"/>${rl(40, RW - 80, shapeTicks)}</svg>`;
-  const used = [[1 / 3, '1/3 (½px)', 'flare, drop, apex', true], [1 / 2, '1/2 (¾px)', 'band, slot, droop', true], [2 / 3, '2/3 (1px)', 'the cut', true], [4 / 5, '4/5 (1.2px)', 'gable ends', true], [5 / 6, '5/6 (1¼px)', 'a post', true], [1, '1 (1½px)', 'the line', true], [5 / 2, '2 1/2 (3¾px)', 'outline counter', true], [1 / 5, '1/5 (0.3px)', 'sweep', true]];
+  const used = [[1 / 3, '1/3 (½px)', 'flare, drop, apex', true], [1 / 2, '1/2 (¾px)', 'band, slot, droop', true], [2 / 3, '2/3 (1px)', 'the cut', true], [4 / 5, '4/5 (1.2px)', 'gable ends', true], [5 / 6, '5/6 (1¼px)', 'a post', true], [1, '1 (1½px)', 'the line', true], [5 / 2, '2 1/2 (3¾px)', 'the star\'s counter (outline counters: 2 lines or more)', true], [1 / 5, '1/5 (0.3px)', 'sweep', true]];
   const LW = 1500, lx0 = 40, lw = (LW - 80) / 2.6;
   // the thickness marks as bars, each its length in px at 40px a pixel, one under the other (they sit too close for one ruler)
   const lineRuler = `<div style="display:grid;grid-template-columns:auto 1fr;gap:8px 18px;align-items:center;max-width:900px">${used.slice().sort((p, q) => p[0] - q[0]).map(([v, t, sub]) => `<svg width="${Math.round(v * LINE * 40) + 2}" height="16" aria-hidden="true" style="display:block"><rect x="0" y="0" width="${f(v * LINE * 40)}" height="16" fill="${v === 1 ? N : OD}"/></svg><div style="font-size:16px;color:${N}"><b>${t}</b> <span style="color:${I2}">${sub}</span></div>`).join('')}</div>`;
   // ---- every rule, one list
+  const RS = PROP.rounds.shaped, RL = PROP.rounds.line, JN = PROP.joins, OL = PROP.outline;
   const rules = [
     ['Units.', 'Three, and every value here names its own. <b>px</b>: pixels at the 24px badge (the 24 grid: 1 square = 1px). <b>line</b>: the line, 1 1/2px; a thickness is in lines, its px in brackets. <b>unit</b>: a twelfth of the drawing box you draw in (the 12-unit box); the fit scales it, so 1 unit is 0.85 to 1.02px in the six. A shape proportion is a ratio of two roots and has no unit.'],
-    ['Roots.', 'Every piece is one root shape drawn whole: a circle, an ellipse, a rectangle (slab or post), a triangle (gable), a regular star, a straight line. Name each piece\'s root before drawing; an edge you can\'t name that way is the one to fix.'],
-    ['Connect and cut.', 'Roots are joined into one outline, or cut apart: a counter, a cut of 2/3 line (1px) between parts that rest on each other (at most one per icon), a slab\'s end cutting an ellipse.'],
-    ['A curved edge belongs to its root, ends included.', 'No end draws its own arc; rounds only where roots meet or are cut. An ellipse meets a straight edge parallel to its side at its widest point, tangent, never cut. A base with a curved side is a cap: a slab cut by one ellipse its full height, the slab\'s ends cutting it at half its height (on top under a stem, underneath under a thing that sits).'],
+    ['Roots.', `Every piece is one root shape drawn whole: a circle, an ellipse, a rectangle (a slab, a mass or a post: rule 5), a triangle (gable), a regular star, a straight line. Name each piece\'s root before drawing; an edge you can\'t name that way is the one to fix. <b>An ellipse drawn whole is at least ${fr(PROP.ellipseWhole.min)} as tall as it is wide</b>; flatter is a cap (rule 6) or a rectangle the law rounds (a 1/2 ellipse\'s ends bend too fast at any size: the blind bed\'s pillow).`],
+    ['Connect and cut.', 'Roots are joined into one outline or cut apart. Which, and how the join looks, is decided by the <b>kind</b> of join (rule 4), never by the icon. The cuts: a counter; a slab\'s end cutting an ellipse (a cap); the resting cut, 2/3 line (1px).'],
+    ['The joins: what makes it ours.', `Every place two roots meet is one of five kinds, and the kind decides the treatment. Name each join\'s kind with its roots (step 1); a new part type then gets the family\'s treatment by rule. <b>Holds:</b> a post carries a mass or stands on a base: it flares a step (${fr(JN.flare)} line, ${px(JN.flare)}px) into it, leaned where the mass is curved, on every face open to the outside; a face into a closed counter stays tight (the coupe\'s stem, both ends; the tree\'s trunk; the museum\'s columns). <b>Overhang:</b> a slab or mass that runs past its last post passes it by ${fr(JN.over)} of a post; past the post its face toward the post drops a step, and the flare and the drop are one curve, the capital (the museum\'s beam and plinth). A mass that ends on a post that runs on past it (a headboard, a wall) has no overhang: it holds, on both faces. <b>Rests:</b> a part that lies on or leans against another and is not fixed to it is cut free, the cut on every face it touches; its face toward the support follows it, flat on flat, so the cut is even (the gable on the beam, the cup on its saucer). <b>Base:</b> under one support, a cap (rule 6: ellipse on top under a post, the coupe\'s foot; underneath under a thing that sits, the saucer); under two or more posts, a slab with holds and overhang at its outer posts (the plinth); posts that reach the ground themselves (legs, a trunk) have no base. <b>Free:</b> an end that meets nothing: a post or line ends square with the line-end round, nothing added (the trunk\'s foot, the + arms); a mass hanging in the air ends in a tip if it is living (the tiers, drooping), square by overhang if it is built (the beam; eaves were turned down). The figure below shows each kind on the six.`],
+    ['Slab or mass.', `A horizontal block that carries or caps something (a beam, a plinth, a saucer, a foot, a shelf, a table top) is a <b>slab</b>: one line thick, never scaled. A block that is the thing itself (the cup\'s body, a mattress, a suitcase, a book) is a <b>mass</b>: a shape, sized by its ratio to the widest root, at least ${PROP.block.massMin} lines (${px(PROP.block.massMin)}px) tall. Test: if it still names the thing drawn one line thick, it\'s a slab.`],
+    ['A curved edge belongs to its root, ends included.', 'No end draws its own arc; rounds only where roots meet or are cut. An ellipse meets a straight edge parallel to its side at its widest point, tangent, never cut. <b>A cap</b> is a slab or mass cut by one ellipse its full height, the ends cutting it at half its height: every base with a curved side (rule 4), and every soft part with a curved top that rests on something (a cushion, a loaf: ellipse on top, flat on its support, its end cut upright against whatever it leans on).'],
     ['A counter is a root.', 'The same shape on the same centre made smaller (circle in circle, star in star), the space a spacing leaves, or a root moved (the bowl\'s side moved in). An ellipse counter: the same ellipse less a wall on each axis. A counter that runs into a wall runs straight for 1/2 line (3/4px) first.'],
     ['One series.', 'Every proportion you choose is a fraction in halves, thirds, quarters, fifths or sixths, or a whole and one of them (the rulers above). The series is dense (twelve marks between 0 and 1), so it proves nothing by itself; what holds it together is that every ratio names its parent, and the proof is an icon drawn blind from this page.'],
     ['Shapes are fractions of a root.', 'The widest root is 1 (the class fit makes it the cut). Every other root is a fraction of it or of the root it belongs to (the table).'],
-    ['Thicknesses are fractions of the line.', 'The line is 1 1/2px (1 line) and never scales; posts, cuts, gaps, steps and counters across are fractions of it (the second ruler). Outline marks keep the line; open marks (the +) draw 1 2/3px (10/9 line), set by darkness, not by the series.'],
+    ['Thicknesses are fractions of the line; the lattice places edges.', `The line is 1 1/2px (1 line) and never scales; posts, cuts, gaps, steps and counters across are fractions of it (the second ruler). Outline marks keep the line; open marks (the +) draw 1 2/3px (10/9 line), set by darkness. <b>The 1/3px lattice places a part\'s first edge.</b> A thickness that is a <b>part</b> (a line, post, slab, wall) is exact, and its far edge may sit off the lattice (the beam\'s underside). A thickness that is a <b>space or a shown length</b> (a cut, a gap, how much of a post shows) is a minimum: the next part starts on the first lattice line at least that far away (the cup\'s saucer sits a cut or a little more below the cup; legs that show one line show 1 2/3px).`],
     ['Vessels.', 'A vessel\'s curved side is one ellipse, 4/5 as tall as it is wide.'],
     ['Stacked.', 'A thing made of tiers or floors (a tree, a pagoda, a stack) takes the tree as its template: three tiers showing 4.83 : 3 : 3.33 of the height, tip to base; half widths 2.8 : 4.1 : 5.3, the bottom one the class\'s half width; each notch 3/5 of the half width of the tier above; a living thing\'s tiers droop 1/2 line (3/4px) and sweep in 1/5 line (0.3px), a building\'s stay straight. Two tiers: the tip and the base (4.83 : 3.33, 2.8 : 5.3). Four or more: no rule yet; draw it, show the cost and mark it "won\'t snap". (These numbers are his chosen rhythm, off the series on purpose.)'],
-    ['Placed by weight.', 'A part that rests on another sits with its ink centre over the other\'s centre (the cup on its saucer). A symmetric icon is drawn about its axis and mirrored.'],
-    ['The class.', 'Wide, Square or Tall: whichever cut of the coin is nearest the drawing\'s own width to height, read at its fitted size; a lone apex passes the cut by a step (1/3 line, 1/2px). Line marks: Outline (sized by its counter, 2 1/2 lines (3 3/4px) across) or Open (arms span the 12px coin).'],
-    ['The fit.', 'Positions scale, thicknesses never do, until the finished outline meets the cut × 11/12 in width or height (solved, not stepped). The cuts in px: Wide 11 × 8.56, Square 9.78, Tall 8.56 × 11.46 (the drawing sheet below).'],
-    ['Rounds, by kind.', '<b>The engine\'s law, not yours: outside the series, never chosen per icon.</b> Radii in px at 24: mass corners 0.6px (2/5 line), wide outside corners 0.7px, line ends 0.3px (1/5 line), tips 0.35px or 0.0877 × the tip\'s shorter edge, whichever is smaller; joins, notches and counters 0.15px (1/10 line); wide inside corners 0.3px; flares 1/2px (a step, 1/3 line); no round over 0.2 × the shorter edge. The engine picks the kind from the corner\'s angle and draws each round as a smooth hill of bend, not an arc.'],
+    ['Placed by weight.', 'A part resting on <b>one</b> other part alone sits with its ink centre over that part\'s centre (the cup on its saucer). A part resting on one part <b>and against another</b> sits against it, across the same cut (a pillow on the mattress, against the headboard). A symmetric icon is drawn about its axis and mirrored.'],
+    ['One resting part, one cut.', `At most ${JN.restingParts === 1 ? 'one part' : JN.restingParts + ' parts'} per icon is cut free (rule 4, rests). It is cut on every face it touches, all at 2/3 line (1px), and that counts as one cut.`],
+    ['The class.', `Shaped: Wide, Square or Tall, whichever cut of the coin is nearest the drawing\'s own width to height, read at its fitted size; a lone apex passes the cut by a step (1/3 line, 1/2px). Open (the +): arms span the 12px coin. <b>Outline</b> (the star, the person): sized by its <b>outside</b>, never by a counter, to the <b>outline cut</b>: the same three classes scaled so Square is the star\'s width on screen, ${OL.square}px (Wide ${f2(OL.square * 12 / KEYSQ)} × ${f2(OL.square * KEYW1 / KEYSQ)}px, Tall the other way). It is drawn in its own 24 box at whatever slot the app shows it (the row star 20px, the account button 24px), the line 1 1/2px on screen; the slot only sets the box\'s scale. Each closed counter is then checked: at least ${OL.counterMin} lines (${px(OL.counterMin)}px) across. If one falls short, change a proportion from the series, never the size. (The star\'s own counter is 2 1/2 lines, its shape; two counters stacked at 2 1/2 lines need 14.5px of height, more than the cut.)`],
+    ['The fit.', 'Positions scale, thicknesses never do, until the finished outline meets the cut × 11/12 in width or height (solved, not stepped; positions to 1/1000 of a unit). The cuts in px: Wide 11 × 8.56, Square 9.78, Tall 8.56 × 11.46 (the drawing sheet below); outline cuts as rule 15.'],
+    ['Rounds, by kind: one table, the engine\'s.', '<b>The engine\'s law, not yours: outside the series, never chosen per icon.</b> The table below is the one the engine is built from (src/proportions.js, PROP.rounds; src/rounds-check.js checks the engine against it, corner by corner). Shaped marks flare; line marks (outline and open) have no masses to flare, and their mass corners are lighter. The engine picks the kind from the corner\'s angle and draws each round as a smooth hill of bend, not an arc.'],
     ['Two rules of transition.', `At a flare into a gentle curve bending the other way, the round runs ${fr(PROP.transition.flareLean)} as far along the curve as along the line. A tip whose round would be wider than 1/6px (1/9 line) goes soft (one wide hill). Both are the engine\'s, like the rounds.`],
     ['Centred by eye, by rule.', 'Across: half-way between its box centre and its ink centre, to 1/4px (on the 24 grid). Up and down: its box centre, pulled down by half of how far its ink sits above it.'],
-    ['Checked.', 'The fair check clean (knee, tail, jump, inflect, shelf, shoulder, kink); looked at at 12, 24 and 72px and beside the other six.'],
+    ['Checked.', `The fair check clean (knee, tail, jump, inflect, shelf, shoulder, kink); an outline mark\'s counters at least ${OL.counterMin} lines; looked at at 12, 24 and 72px and beside the other six.`],
   ].map(([a, b], i) => `<div style="display:flex;gap:14px;margin:0 0 10px"><span style="flex:none;width:28px;height:28px;border-radius:14px;background:${OR};color:${COL.raised};font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">${i + 1}</span><span style="font-size:18px;line-height:1.45"><b style="color:${N}">${a}</b> ${b}</span></div>`).join('');
   // ---- the table
   const P_ = PROP, L_ = P_.line;
@@ -134,13 +174,19 @@ function spec() {
     ['', 'a counter running into a wall, straight first', `${fr(L_.slot)} line`, `${px(L_.slot)}px`, 'the cup\'s ear'],
     ['', 'an outline mark\'s counter, across', `${fr(L_.outlineCounter)} lines`, `${px(L_.outlineCounter)}px`, 'star'],
     ['', 'a tier\'s droop · its sweep', `${fr(L_.droop)} · ${fr(-L_.bow)} line`, `${px(L_.droop)}px · ${px(-L_.bow)}px`, 'tree'],
+    ['Join', 'holds: a post flares into what it holds (outside faces)', `${fr(PROP.joins.flare)} line`, `${px(PROP.joins.flare)}px`, 'coupe stem, tree trunk, museum columns'],
+    ['', 'overhang: past the last post · the drop past it', `${fr(PROP.joins.over)} post · ${fr(PROP.joins.drop)} line`, `${px(PROP.joins.over * L_.post)}px · ${px(PROP.joins.drop)}px`, 'museum beam and plinth'],
+    ['', 'rests: parts cut free per icon · the cut', `${PROP.joins.restingParts} · ${fr(L_.cut)} line`, `${px(L_.cut)}px`, 'gable, cup'],
+    ['Block', 'a slab · a mass at least', `1 line · ${PROP.block.massMin} lines`, `1.5px · ${px(PROP.block.massMin)}px`, 'beam, plinth, saucer · cup body, mattress'],
+    ['Outline', 'the outline cut (Square) · a closed counter at least', `the star\'s width · ${PROP.outline.counterMin} lines`, `${PROP.outline.square}px · ${px(PROP.outline.counterMin)}px`, 'star, person'],
     ['Shape', 'every vessel\'s ellipse: height / width', fr(P_.ellipse.vessel), '', 'cup bottom, coupe bowl'],
     ['', 'a cap: where the slab\'s ends cut its ellipse', `${fr(P_.cap.end)} its height`, `ellipse ${capOver().toFixed(3)} × the slab`, 'cup saucer, coupe foot'],
     ['', 'cup: saucer / cup width · depth / width · ear / depth', `${fr(P_.cup.saucer)} · ${fr(P_.cup.depth)} · ${fr(P_.cup.ear)}`, '', 'cup (and balanced on the saucer)'],
     ['', 'coupe: rim above the ellipse\'s centre · stem / bowl depth · foot ellipse / bowl ellipse', `${fr(P_.coupe.rimCut)} of its height · ${fr(P_.coupe.stem)} · ${fr(P_.coupe.foot)}`, '', 'coupe'],
     ['', 'museum: overhang · roof rise / run · columns / colonnade', `${fr(P_.museum.over)} post · ${fr(P_.museum.pitch)} · ${fr(P_.museum.columns)}`, `${px(P_.museum.over * L_.post)}px overhang`, 'museum'],
+    ['', 'a whole ellipse: height / width, at least', fr(PROP.ellipseWhole.min), '', 'flatter: a cap'],
     ['', 'tree: a notch / the tier above\'s half width', fr(P_.tree.notch), '', 'tree'],
-    ['Won\'t snap', 'tree (and any stacked icon, rule 10): tier heights · half widths, tip to bottom', `${P_.tree.heights.join(' : ')} · ${P_.tree.widths.join(' : ')}`, 'ratios', 'v123\'s rhythm; 2 : 3 : 4 tried (a spire)'],
+    ['Won\'t snap', 'tree (and any stacked icon, rule 12): tier heights · half widths, tip to bottom', `${P_.tree.heights.join(' : ')} · ${P_.tree.widths.join(' : ')}`, 'ratios', 'v123\'s rhythm; 2 : 3 : 4 tried (a spire)'],
     ['', 'star: inner / outer radius', `${P_.star.ri}`, '', 'a shape choice'],
     ['Transition', 'flare lean · soft tip', `${fr(P_.transition.flareLean)} · round over 1/6px`, '1/6px = 1/9 line', 'engine.js'],
   ];
@@ -148,9 +194,9 @@ function spec() {
   // ---- the steps
   const step = (n, t, b) => `<div style="padding:14px 16px;background:${COL.paper};border-top:4px solid ${OR}"><div style="font-size:13px;letter-spacing:.1em;font-weight:700;color:${OD};text-transform:uppercase">Step ${n}</div><div style="font-size:19px;font-weight:700;color:${N};margin:2px 0 6px">${t}</div><div style="font-size:15px;line-height:1.4;color:${COL.ink}">${b}</div></div>`;
   const steps = `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
-${step(1, 'Name the roots', 'List each piece and its root shape (rule 2). Pick the widest root: it is 1.')}
+${step(1, 'Name the roots and the joins', 'List each piece and its root shape (rule 2), whether it is a slab or a mass (rule 5), and every join\'s kind: holds, overhang, rests, base or free (rule 4). Pick the widest root: it is 1.')}
 ${step(2, 'Give every root a ratio', 'Each root\'s size and place as a fraction of its parent from the series; each thickness as a fraction of the line (the table: reuse a value where the job is the same, e.g. any post is 5/6 line, any vessel 4/5). Write the ratios down before drawing.')}
-${step(3, 'Draw it in the 12-unit box', 'Widest root across the box (12 units); the rest from their ratios; horizontal edges on the 1/3px lattice; caps, vessels, stacks and counters by rules 4, 5, 9 and 10.')}
+${step(3, 'Draw it in the 12-unit box', 'Widest root across the box (12 units); the rest from their ratios; horizontal edges on the 1/3px lattice; each join by its kind (rule 4); caps, counters, vessels and stacks by rules 6, 7, 11 and 12; outline marks sized by their outside (rule 15).')}
 ${step(4, 'Let the engine finish it', 'It joins and cuts, picks the class at the fitted size, fits to the cut, rounds every corner by its kind, mirrors, and centres it by rule.')}
 ${step(5, 'Check it', 'The fair check clean; at 12, 24 and 72px; in a row beside the six.')}
 ${step(6, 'If something won\'t snap', 'Show the nearest series value and the cost beside your value, and mark it "won\'t snap", as the tree\'s tiers are.')}
@@ -188,6 +234,8 @@ ${H('The series, for shapes: the fractions of a parent root')}${shapeRuler}
 ${H('The series, for thicknesses: fractions of the line (1 1/2px), drawn at 40px a pixel')}${lineRuler}
 <p style="margin:2px 0 0;font-size:15px;color:${I2};max-width:1300px">The marks in use, and what they are for. Thicknesses are px: they never scale with the fit.</p>
 ${H('Every rule, in one list')}<div style="max-width:1400px">${rules}</div>
+${H('The joins, on the six')}${joinsFig()}
+${H('Rule 17: the rounds, one table')}${roundsTable()}
 ${H('The table')}${table}
 ${H('The steps')}${steps}
 ${H('The proportions of the four shaped icons, on the engine\'s own construction')}
@@ -195,7 +243,7 @@ ${H('The proportions of the four shaped icons, on the engine\'s own construction
 <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">${cupD}${barD}${musD}${treeD}</div>
 </div>`;
 }
-module.exports = { section, spec };
+module.exports = { section, spec, joinsFig, roundsTable };
 if (require.main === module) {
   const kick = t_ => `<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:${I2};text-transform:uppercase;margin:30px 0 8px">${t_}</div>`;
   const quote = q => `<div style="margin:6px 0 12px;padding:10px 14px;background:${COL.paper};font-size:17px;line-height:1.4;color:${N}">You: "${q}"</div>`;

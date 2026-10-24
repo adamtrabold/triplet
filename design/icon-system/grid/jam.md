@@ -490,3 +490,45 @@ Read `blind-test.md`. Rendered the six beside the person, the blind bed and the 
    If both land by eye, it's a 10 on the system.
 
 **Changed since my last score?** A first score on the blind test.
+
+---
+
+## Turn 157: icon designer (eleventh), the blind test's seven gaps as rules; the bed and the person re-run (canvas v241)
+
+Director (turn 156): the system 7; neither blind icon reads as family; seven gaps, the first "no rule for the family's character on new joins". Owner: "Yeah let's try for a ten also it's be best if the underlying shapes were proportionally related to each other and the grid so they weren't just random."
+
+**Each gap and its rule** (every value in `src/proportions.js`; the spec's rules renumbered 1-20 on Construction):
+1. **Character → rule 4, the joins** (`PROP.joins`). Every join is one of five kinds, and the kind sets the treatment:
+   - **holds**: a post flares a step into what it carries, on outside faces, leaned into a curve (coupe stem ×2, tree trunk, museum columns);
+   - **overhang**: past the last post by 1/3 post, the face drops a step, the flare and the drop are one curve (museum beam and plinth); a mass that ends on a post running on past it has none;
+   - **rests**: cut free on every face it touches, flat on flat (gable, cup);
+   - **base**: one support is a cap (foot, saucer); two or more posts, a slab with holds and overhang (plinth); legs that reach the ground, none;
+   - **free**: a post ends square; a living mass hangs to a tip; eaves stay out ("no this is awful").
+   - A soft resting part with a curved top is a cap. The capital is now one function, `src/joins.js heldSlab`; picks7 structMuseum draws its beam and plinth with it (byte-identical).
+2. **Outline sizing → rule 15** (`PROP.outline`): sized by the outside to the outline cut (the shaped cuts scaled so Square = the star's 14.07px on screen), drawn at its slot with the line 1 1/2px on screen; counters checked at 2 lines or more, never the sizer. 2 1/2 can't be the floor: two stacked counters at 2 1/2 lines need 14.5px of height. Code: `blind.js outlineFit`.
+3. **Corner tables → rule 17, one table** (`PROP.rounds`, columns shaped and line). `laws7 fromTable` builds the law; construction.js and blind.js use it. `src/rounds-check.js`: equal to HUMAN(…) and to the star's law on 164,880 corners.
+4. **Slab or mass → rule 5** (`PROP.block`): carries or caps = a slab, one line; is the thing = a mass, a ratio, at least 2 lines.
+5. **Line vs lattice → rule 10** (`PROP.lattice`): the lattice places a part's first edge; a part's thickness is exact (its far edge may sit off the lattice); a space or a shown length is a minimum, the next part on the first lattice line past it (what the saucer already did).
+6. **One cut → rule 14**: at most one part cut free; cut on every face it touches = one cut.
+7. **Master grid**: rebuilt from the code (`src/master-board.js`); v240's is on the Archive.
+- Plus the blind designer's two, kept: rule 13 (placed by weight, scoped) and rule 2 (a whole ellipse at least 2/3).
+
+**The re-run (a check, not blind)**: `picks-blind.js bed2 / person2`, `PROP.bed2 / person2`.
+- **Bed:** mattress a mass; headboard holds and runs on (flares on both faces, free top); foot leg holds with an overhang (the museum's capital); legs, no base, show 1 2/3px; the pillow rests on and against, a cap, 2/5 × 1/2.
+  - Tried: pillow 1/3 (a crumb at 24); 2/3 tall (2 KINK: a cap taller than half its width turns its ends under 30°).
+  - Wide, 11 × 8.00, ink 46px². Fair and join check clean.
+- **Person:** outline cut, Square, 13.02 × 14.07px (blind 16.76 × 16.19). Shoulders a half circle (4/5 left their counter 2.6px at this size), head 1/2; counters 3.54px each (2.36 lines); the line marks' rounds. Clean.
+- Two engine fragilities met, handled as a convention and stated: the outline fit's size and the centring offset at full float precision fell to KNEEs (rx 6.5350749… vs 6.535; ty 7.9999967 vs 8). Both are now written to 1/1000 of a unit, as picks7 writes every position (re-run builds only; the six untouched).
+- **By eye** (true size, then 72, at 3x): the person now sits with the star as one family. The bed is the right weight; the pillow rests right and wears the coupe foot's crown; the capital at the foot reads at 72, a hair at 24, and on a 2px-deep mass looks more like a slanted corner than the museum's beam end. Closer, not certainly "ours" yet. Asked him.
+
+**The six:** byte for byte the same (construction.js 6/6 identical with the table law and heldSlab).
+
+**Canvas v241:**
+- Between: the top section is now "Blind test, round 1: what failed and the rules that fix it" (blind beside re-run, the row at 12/24/72, the seven gaps, the joins figure, both constructions); v240's section → `Archive-G7ba-Blind`.
+- Construction: the spec replaced (rules 1-20, the joins figure, the round table, new table rows, steps 1 and 3).
+- Master rebuilt; v240's → `Archive-G7ba-Master`. Start q1 replaced.
+- Between h 14760; row 2 moved to y 15440 (title 15140); archive row at y 189000.
+
+**Checks:** rounds-check (pass); construction.js 6/6 identical; fair and join check on bed2 and person2 (clean); boards rendered at 1x (Between at 760, Master 1600, the spec 1800) and looked at. Impeccable not run (design boards, not index.html).
+
+**Unsure:** the dome shoulders; whether the capital belongs on a mass (the rule says yes: it's an overhang); 2 lines as the outline counter floor (my reading; the director wrote 2 1/2); the 1/1000 rounding is a convention, not yet engine law.

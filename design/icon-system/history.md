@@ -101,6 +101,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-24 · v239 shown:** proportions: halves to sixths (a shape = a fraction of its parent root, the widest root = 1; a thickness = a fraction of the line); bowl and cup ellipses one rule (4/5 as tall as wide); cap 7/6 derived (2/√3); band 3/4px (half a line, thinner: flagged); flare lean and soft tip = transition rules; tree tiers and star off-series, stacked-icon rule added. `src/proportions.js` is the one table. Construction board "The spec" (15 rules, units, 8 steps). Director 9 (copy in v239); caveat: fractions dense, the blind test is the proof. Blind test started: Hotel (bed) and Account (person), from the spec alone.
 
+- **10-24 · v241 shown:** blind test round 1 (director 7): the seven gaps as rules: the joins (holds, overhang, rests, base, free: the family's character by the kind of join), outline marks sized by their outside to the star's cut (counters a check, 2 lines), one round table (engine built from it), slab or mass, the lattice rule, one cut, master grid rebuilt. Bed and person re-run under them (person 16.8 → 14.1px wide, shoulders a dome; bed: capital at the foot, pillow a cap). The six unchanged. Asked: do they read as family? dome shoulders OK?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)

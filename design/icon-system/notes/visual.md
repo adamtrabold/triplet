@@ -1,5 +1,30 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-24, canvas v241, turn 157; eleventh icon designer)
+
+- **Where it stands:** the blind test (v240, director 7) found seven spec gaps. All seven are now rules in `src/proportions.js` and in the Construction spec (rules 1-20). The bed and the person were re-run by me under them (a check, not blind). A second blind round (fresh designer, two other icons: a shaped one with joins, an outline with one counter) is next; the spec is the deliverable.
+- **New code:**
+  - `PROP.joins` (five kinds: holds, overhang, rests, base, free; flare, over, drop, k, restingParts);
+  - `PROP.block` (slab 1 line / mass at least 2 lines), `PROP.lattice`, `PROP.rounds` (shaped / line columns, holeTight), `PROP.outline` (square 14.07, counterMin 2), `PROP.ellipseWhole` (2/3), `PROP.bed2`, `PROP.person2`.
+  - `src/joins.js heldSlab` (the capital; `right.open` closes up the post's outside edge so an open inside face takes the engine flare). picks7 structMuseum uses it (byte-identical); picks7 now exports CAP, ELL_ARC.
+  - `laws7 fromTable`; construction.js uses it for the shaped, star and + laws (6/6 identical). `src/rounds-check.js` proves the table = the old laws.
+  - `picks-blind.js bed2(s, {p})`, `person2(slot, rx)`; `blind.js`: `outlineFit` (outline cut, class by aspect, size floored to 1/1000), `counters()`, ids bed2 / bed2n (pillow 1/3) / bed2h (2/3 tall, 2 KINK) / person2; re-run builds round the centring offset to 1/1000 (`o3`).
+  - `src/blind-board.js` = the new Between section (reads blind.json); round 1's board code is `blind-board-r1.js` (→ `svg/blind/section-r1.html`).
+  - `src/proportions-board.js`: rules rewritten; `joinsFig()` (crops at 22px a unit, rows per kind, the bed on the right), `roundsTable()`; both exported.
+  - `src/master-board.js`: the master grid from the code (classes with the outline cut, the fit from construction.json, blocks, joins, rounds, line, stacked); `master-g7.html` is its preview.
+- **Canvas v241:** Between top section replaced (old → `Archive-G7ba-Blind`, archive x 0 y 189300; note `archiveG7ba` y 189000); Construction spec spliced (from the "The spec" border-top div to the next border-top div); Master body replaced (old → `Archive-G7ba-Master`, x 840 y 189300); Start q1. Between h 14760, Master h 3740, Construction h 16260; gridRow2 y 15140, row-2 boards y 15440. Splice tooling: scratch `d11/splice.py`, `canvas.py`, `hgt.js`, `row.js`, `px.js`, `bx.js`.
+- **Decisions and why:**
+  - The person's shoulders became a half circle: 4/5 can't keep the shoulders' counter at 2 lines inside the 14.07 cut (the rule: change a proportion, never the size).
+  - The counter floor is 2 lines, not the director's 2 1/2: two stacked counters at 2 1/2 need 14.5px > 14.07 (stated on the board).
+  - The line column of the round table is the star's law (no flares, mass 0.45), kept as the code had it.
+  - The pillow is a cap (rule 6, a soft resting part with a curved top): 2/5 wide, 1/2 tall.
+- **Open:**
+  - Owner: do the re-run bed and person read as family? Is a dome all right for the shoulders?
+  - Whether the capital suits a mass as deep as the mattress (it reads as a slanted corner at 72).
+  - Make the 1/1000 rounding of the fit and the centring engine law (it would move the six by under 1/1000 unit, so they need a rebuild check).
+  - Older items unchanged: band at 3/4px, the cup on its plate, + weight, the museum Wide → Square.
+- **Next:** the director scores v241; then the second blind round from the spec alone.
+
 ## Update (2026-10-24, canvas v238, turn 153; tenth icon designer)
 
 - **Owner after v237:** "Yeah let's try for a ten also it's be best if the underlying shapes were proportionally related to each other and the grid so they weren't just random." Next is a blind test: a fresh designer draws new icons only from the Construction board's spec.

@@ -89,6 +89,84 @@ const PROP = {
     ri: 0.47,           // WON'T SNAP: the points' slenderness (inner radius / outer), a shape choice; 1/2 would fatten the points
                         // (inner radius +6%; not drawn)
   },
+  // ---- g7ba BLIND TEST, ROUND 1: THE RULES THAT FIX IT (director, turn 156: "the spec says how to build roots, but not what makes
+  // our icons ours"). Every value below is read by the code (picks7 structMuseum and joins.js, laws7 fromTable, blind.js) and by the
+  // spec on the Construction board (proportions-board.js), so the spec and the engine can't disagree.
+  //
+  // THE JOINS (gap 1: the family's character, by the kind of join, so a new part type gets it by rule). Every place two roots
+  // meet is one of five kinds; the kind, not the icon, decides the treatment. The evidence is the six:
+  //   HOLDS   a post carries a mass, or stands on a base: it FLARES a step into it (the engine's flare round, 1/2px; leaned where
+  //           the mass is curved), on every face open to the outside; a face into a closed counter stays tight.
+  //           [coupe stem into bowl and foot; tree trunk into the bottom tier; museum columns into beam and plinth]
+  //   OVERHANG a slab or mass that runs past its last post passes it by 1/3 of a post; past the post its face toward the post
+  //           drops a step, and the post's flare and the drop are ONE curve (the capital). A mass that ends ON a post that runs
+  //           on past it (a headboard, a wall) has no overhang: HOLDS on both faces.   [museum beam and plinth]
+  //   RESTS   a part that lies on (or leans against) another and is not fixed to it is CUT FREE, the cut on every face it
+  //           touches; its face toward the support follows the support (flat on flat), so the cut is even.
+  //           [the gable on the beam; the cup on its saucer]
+  //   BASE    what meets the ground or the table. Under ONE support it is a CAP (ellipse on top under a post: the coupe's foot;
+  //           underneath under a thing that sits: the saucer). Under TWO OR MORE posts it is a SLAB, with HOLDS and OVERHANG at
+  //           its outer posts (the plinth). Posts that reach the ground themselves (legs, a trunk) have no base.
+  //   FREE    an end that meets nothing: a post or line ends square with the line-end round, nothing added (the trunk's foot,
+  //           the + arms); a mass hanging in the air ends in a tip if it is living (the tiers, drooping), square by OVERHANG if
+  //           it is built (the beam; eaves were tried and turned down: "no this is awful").
+  // A soft part with a curved top that rests on something (a cushion, a loaf) is a CAP too, ellipse on top, flat on its support:
+  // a curved side is always a cap or a vessel, never a free flat ellipse (see ellipse.wholeMin).
+  joins: {
+    kinds: ['holds', 'overhang', 'rests', 'base', 'free'],
+    flare: 1 / 3,       // HOLDS: the flare, in lines (1/2px): the engine's flare round (rounds.shaped.flare is this in px)
+    over: 1 / 3,        // OVERHANG: past the last post by 1/3 of a post (museum.over is this)
+    drop: 1 / 3,        // OVERHANG: the face toward the post drops a step past it, in lines (1/2px)
+    k: 1 / 2,           // OVERHANG: the capital curve's handle, as a share of the overhang (the museum's)
+    restingParts: 1,    // RESTS: at most ONE part per icon is cut free; it is cut on every face it touches, one cut (gap 6)
+  },
+  // SLAB OR MASS (gap 4): a horizontal block that carries or caps something (a beam, a plinth, a saucer, a foot, a shelf, a table
+  // top) is a SLAB: one line thick, never scaled. A block that IS the thing (the cup's body, a mattress, a suitcase, a book) is a
+  // MASS: a shape, sized by its ratio to the widest root. Test: if it still names the thing drawn one line thick, it's a slab.
+  block: { slab: 1, massMin: 2 },   // a slab is 1 line; a mass is at least 2 lines tall (3px), or it reads as a slab
+  // THE LATTICE AND THICKNESSES (gap 5): the 1/3px lattice places a part's first edge. A thickness that is a PART (a line, post,
+  // slab, wall) is exact, and its far edge may sit off the lattice (the beam's underside). A thickness that is a SPACE or a SHOWN
+  // LENGTH (a cut, a gap, how much of a post shows) is a minimum: the next part starts on the first lattice line at least that far
+  // away (the cup's saucer: a cut of 1px or a little more; a post that shows one line shows 1 2/3px).
+  lattice: 1 / 3,
+  // ROUNDS, ONE TABLE (gap 3): the engine's law, in px on screen, never chosen per icon. laws7.fromTable builds the law from this,
+  // and construction.js / blind.js use it (the six rebuild byte for byte). Two columns: SHAPED marks (solid, in the badge) and LINE
+  // marks (outline and open: the star, the person, the +), which have no masses to flare, so no flares and lighter mass corners.
+  //   angles: concave or convex; 'square' = 75-105 degrees; under 75 a tip; over 105 wide. holeTight: a counter's corners take
+  //   join (square) or wideIn, whatever their turn (shaped); line marks round a counter's corners like any corner (the star's
+  //   counter is the star made smaller: its tips are tips)
+  rounds: {
+    shaped: { tip: 0.35, tipShare: 0.0877, end: 0.3, endEdge: 2, mass: 0.6, wideOut: 0.7, flare: 0.5, flareEdge: 1.5, flareFit: 0.45, join: 0.15, wideIn: 0.3, fit: 0.2, holeTight: true },
+    line: { tip: 0.35, tipShare: 0.0877, end: 0.3, endEdge: 2, mass: 0.45, wideOut: 0.7, flare: null, join: 0.15, wideIn: 0.3, fit: 0.2, holeTight: false },
+  },
+  // OUTLINE MARKS (gap 2): every outline mark is the same size: SIZED BY ITS OUTSIDE to the OUTLINE CUT, the class cuts (Wide,
+  // Square, Tall, as for shaped icons) scaled to the star, the first outline mark: its Square cut is the star's width on screen,
+  // 14.07px. Drawn in its own 24 box at whatever slot the app shows it (20px row star, 24px account button), the line 1 1/2px ON
+  // SCREEN; the slot only sets the box's scale. Its counters are CHECKED, not the sizer: each closed counter at least 2 lines (3px)
+  // across. If one falls short, change a proportion from the series, never the size. (The star's own counter is 2 1/2 lines: its
+  // shape, one counter. Two counters stacked at 2 1/2 lines need 14.5px of height, over the cut, so 2 1/2 can't be the floor.)
+  outline: { square: 14.07, counterMin: 2 },
+  // A WHOLE ELLIPSE (the bed's pillow failed TAIL at 1/2): an ellipse drawn whole is at least 2/3 as tall as it is wide; flatter is a
+  // cap (a slab cut by an ellipse) or a rectangle the law rounds.
+  ellipseWhole: { min: 2 / 3 },
+  // PLACED BY WEIGHT, SCOPED (rule 11; the pillow sat mid-mattress, "a loaf on a bench"): a part resting on ONE other part alone sits
+  // with its ink centre over that part's centre (the cup on its saucer). A part resting on one part AND against another sits
+  // against it, across the same cut (a pillow against the headboard).
+  // ---- the re-run under the fixed spec (not blind: a check of the rules), src/picks-blind.js bed2 / person2
+  bed2: {
+    mattress: 1 / 4,    // a MASS (it is the thing), 1/4 as tall as wide; the widest root
+    rise: 1 / 3,        // the headboard, a post, stands 1/3 of the mattress's width above it (HOLDS both faces: it runs on past)
+    pillow: 2 / 5,      // the pillow, a CAP resting (RESTS: flat on the mattress, its end against the headboard), 2/5 of the mattress
+                        // (1/3 read as a crumb at 24; a cap no taller than its width: at 2/3 the ends turn under 30 degrees, KINK)
+    pillowH: 1 / 2,     // its height 1/2 its width (a cap: the ellipse its full height, its ends cut at half its height)
+    // the foot leg holds the mattress up: OVERHANG at the foot (1/3 post past it, the underside drops a step, one curve); the legs reach
+    // the floor (no base), showing at least one line (the lattice rule: 1 2/3px); FREE ends
+  },
+  person2: {
+    // OUTLINE mark, sized by its outside to the outline cut; counters checked at 2 lines
+    head: 1 / 2,        // the head (a circle) is 1/2 as wide as the shoulders
+    shoulders: 1,       // the shoulders: the top half of a CIRCLE (4/5 left the shoulders' counter 2.6px at the outline cut)
+  },
   // ---- rules of transition (engine.js), not proportions of shapes
   transition: {
     flareLean: 7 / 4,   // at a flare (a line into a gentle curve bending the other way) the round runs 1 3/4 as far along the

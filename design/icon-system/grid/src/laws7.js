@@ -59,4 +59,17 @@ const HUMAN = h => c => {
   if (h.tipShare && c.convex && c.angle < 75) return Math.min(LAWS7.joint(c), h.tipShare * Math.min(c.lin, c.lout));
   return LAWS7.joint(c);
 };
-module.exports = { LAWS7, LAW_NAMES, fit, scaled, TRAP, JOIN, HUMAN };
+// g7ba ONE TABLE (director, turn 156, gap 3: "Rule 14's corner table differs from the code the star uses. Spec and engine disagree
+// silently, so one table, the code's, goes in the spec"): the law built from a table in src/proportions.js (PROP.rounds.shaped,
+// PROP.rounds.line), in px on screen. fromTable(PROP.rounds.shaped) answers exactly as HUMAN({ flare 0.5, mass 0.6, end 0.3,
+// tipShare 0.0877 }) (the shaped six); fromTable(PROP.rounds.line) exactly as the joint law with the tip share (the star; the +,
+// which has no tips, as the joint law). Checked corner by corner by src/rounds-check.js.
+const fromTable = t => c => {
+  const sq = c.angle >= 75 && c.angle <= 105, e = Math.min(c.lin, c.lout), F = r => Math.min(r, t.fit * e);
+  if (t.holeTight && c.hole) return F(c.angle <= 105 ? t.join : t.wideIn);
+  if (t.flare && !c.convex && sq && e >= t.flareEdge) return Math.min(t.flare, t.flareFit * e);
+  if (c.convex && sq) return F(e <= t.endEdge ? t.end : t.mass);
+  if (c.convex && c.angle < 75) return Math.min(F(t.tip), t.tipShare * e);
+  return F(c.convex ? t.wideOut : c.angle <= 105 ? t.join : t.wideIn);
+};
+module.exports = { LAWS7, LAW_NAMES, fit, scaled, TRAP, JOIN, HUMAN, fromTable };

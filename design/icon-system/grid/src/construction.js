@@ -8,7 +8,7 @@
 'use strict';
 const fs = require('fs'), path = require('path');
 const E = require('./engine.js'), P7 = require('./picks7.js');
-const { LAWS7, HUMAN, scaled } = require('./laws7.js');
+const { LAWS7, HUMAN, scaled, fromTable } = require('./laws7.js');
 const { measure } = require('./optics.js');
 const { DRAW, KEY, CLASS, W, plus, star } = P7;
 const r3 = v => Math.round(v * 3) / 3, r4 = v => Math.round(v * 4) / 4;
@@ -28,12 +28,13 @@ const { PROP, capOver } = require('./proportions.js'), LN = k => +(k * W).toFixe
 const O = { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5, cap: CAP_RULE, capPlate: CAP_RULE, ...VESSEL_ROOT,
   prop: PROP, cap: CAP_P, capPlate: CAP_P, post: LN(PROP.line.post), colW: LN(PROP.line.post), droop: PROP.line.droop, bow: PROP.line.bow };
 const HUMAN_V = { flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 };
-const LAW = HUMAN(HUMAN_V), FK = 11 / 12;
+// g7ba: the law from the one table (PROP.rounds; src/rounds-check.js proves it answers as HUMAN(HUMAN_V) and the star's law did)
+const LAW = fromTable(PROP.rounds.shaped), LINE_LAW = fromTable(PROP.rounds.line), FK = 11 / 12;
 const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
 const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(5) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
 const LINEW = 5 / 3, OUTLINE_HOLE = 2.5;
 const starHoleRc = (lw = W, holeLines = OUTLINE_HOLE) => (holeLines * lw / 2 + (lw / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri;
-const starTipLaw = tip => scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), tip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20);
+const starTipLaw = tip => scaled(LINE_LAW, 24 / 20);   // g7ba: the line marks' column of the table (tip share PROP.rounds.line.tipShare = O.starTip)
 
 // the law, logged: every call the corner pass makes, with what the law answered and which branch of HUMAN answered it
 const lawWhy = c => {
@@ -93,7 +94,7 @@ function mark(id) {
     return { id, cls: 'OUTLINE', slot: 20, sc: rc, Rc: 9.6 * rc, ri: 9.6 * rc * P7.STAR.ri, centre: [12, 12 + 0.6 * rc], lw: W * 24 / 20, holeLines: OUTLINE_HOLE, dy, mPre: m, mFin: measure(shiftD(d0, dy)),
       prims: prims.map(q => primOut(q)), parts: E.parts(prims).map(p => p.d), sharp: E.build(prims).d, d0, d: shiftD(d0, dy), laws: dedupe(laws), corners: cornerLog };
   }
-  const sc = KEY.OPEN[0] / 14, prims = plus(26.4, sc, LINEW), base = scaled(LAWS7.joint, 24 / 26.4);
+  const sc = KEY.OPEN[0] / 14, prims = plus(26.4, sc, LINEW), base = scaled(LINE_LAW, 24 / 26.4);
   const law = c => { const r = base(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: c.convex ? 'cut end' : 'join' }); return r; };
   const d0 = E.build(prims, { law, ease: EASE, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = 12 - opticalY(m);
   return { id, cls: 'OPEN', slot: 26.4, sc, L: 14 * sc, lw: LINEW * 24 / 26.4, dy, mPre: m, mFin: measure(shiftD(d0, dy)),

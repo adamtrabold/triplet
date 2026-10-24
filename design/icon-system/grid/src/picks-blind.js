@@ -68,4 +68,43 @@ function person(slot = 24) {
   ];
 }
 
-module.exports = { bed, person };
+// ---- g7ba THE RE-RUN under the fixed spec (not blind: a check of the rules; PROP.bed2, PROP.person2, PROP.joins).
+// Each part's treatment is named by its JOIN KIND (PROP.joins), not chosen for the bed:
+//   mattress   a MASS (it is the thing), the widest root, 1/4 as tall as wide
+//   headboard  a post that HOLDS the mattress and runs on past it (up to its top, down to the floor): no overhang; the engine's
+//              flare round on both faces (above and under the mattress); its top a FREE end
+//   foot leg   a post that HOLDS the mattress at its foot: OVERHANG, the mattress passes it by 1/3 post, its underside past the leg
+//              drops a step and the leg flares a step into it, one curve (joins.js heldSlab, the museum's capital)
+//   legs       reach the floor themselves: no BASE; they show at least one line (the lattice rule: the first lattice line past it)
+//   pillow     RESTS on the mattress and against the headboard: cut free on both faces, one cut; a soft part with a curved top is
+//              a CAP (ellipse on top, flat on the mattress, its end cut upright against the headboard), 1/3 of the mattress wide
+function bed2(s = 12, o = {}) {
+  const { heldSlab } = require('./joins.js'), { CAP } = require('./picks7.js'), { capOver } = require('./proportions.js');
+  const P = { ...PROP.bed2, ...(o.p || {}) }, L = PROP.line, J = PROP.joins, u = s / 12;
+  const mw = 12 * u, post = L.post * LINE, cutW = L.cut * LINE, step = J.drop * LINE, over = J.over * post;
+  const yT = T(P.rise * mw), yB = T(yT + P.mattress * mw), yF = Tup(yB + LINE);
+  const xR = mw - over;                                        // the foot leg's outside edge: the mattress passes it by the overhang
+  const pw = P.pillow * mw, ph = P.pillowH * pw, px0 = post + cutW, yb = yT - cutW;
+  return [
+    heldSlab({ x0: 0, x1: mw, yFar: yT, yNear: yB, left: null, right: { x: xR, w: post, over, open: true }, dp: step, fr: J.flare * LINE, k: J.k, meta: { root: 'RECT', name: 'mattress' } }),
+    R(0, 0, post, yF, { root: 'POST', name: 'headboard' }),
+    R(xR - post, yB - 0.01, post, yF - yB + 0.01, { root: 'POST', name: 'foot leg' }),
+    { ...CAP(px0, px0 + pw, yb, ph, { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) }, true), name: 'pillow' },
+  ];
+}
+// the person, an OUTLINE mark: drawn at its slot in its own 24 box, rx (the shoulders' half width, box units) set by the outline fit
+// (blind.js), the line 1 1/2px on screen. Roots as before; the shoulders now the top half of a circle (PROP.person2.shoulders = 1).
+function person2(slot = 24, rx = 7) {
+  const P = PROP.person2, L = PROP.line, k = 24 / slot, w = LINE * k, cutW = L.cut * LINE * k;
+  const ry = P.shoulders * rx, Rh = P.head * rx, total = ry + cutW + 2 * Rh, cx = 12;
+  const yb = T(12 + total / 2), hy = yb - ry - cutW - Rh;
+  const sh = { cx, cy: yb, rx, ry }, ct = { cx, cy: yb, rx: rx - w, ry: ry - w };
+  return [
+    D(topHalf(cx, yb, rx, ry), { root: 'ELLIPSE', name: 'shoulders', cap: sh }),
+    cut(I(D(ellipse(cx, yb, rx - w, ry - w)), R(cx - rx, yb - ry, 2 * rx, ry - w), { root: 'ELLIPSE', name: 'shoulders counter', cap: ct })),
+    C(cx, hy, Rh, { root: 'CIRCLE', name: 'head' }),
+    cut(C(cx, hy, Rh - w, { root: 'CIRCLE', name: 'head counter' })),
+  ];
+}
+
+module.exports = { bed, person, bed2, person2 };
