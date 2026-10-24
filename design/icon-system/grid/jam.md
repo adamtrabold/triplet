@@ -392,7 +392,7 @@ Owner, after v237: "Yeah let's try for a ten also it's be best if the underlying
 - fair-check on the six r3 svgs: clean (KINK included).
 - check-svg: the same zero-length segments and the +'s 0.025 asymmetry as r2 (inherited, not new).
 - No-prop builds of the four shaped glyphs are byte-identical to v237 (the picks7 changes sit behind `o.prop`).
-- boards7 full run: see notes/visual.md.
+- boards7 full run: NOT completed (stopped at the 80-minute background limit before writing anything). The live boards were spliced (section 0 from proportions-board.js, the same function boards7 now calls). The first full run should diff its Between, Start and svgs against the live ones and the repo.
 
 **Unsure:**
 - The band at 3/4px. His words were "equal to the thickness of the stroke. or maybe even a little thinner"; it is now half.

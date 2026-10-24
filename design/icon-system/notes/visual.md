@@ -34,6 +34,7 @@
   - The fit solve and class at fitted size apply to R3 only (should they be the grid rule for all?).
   - The plate question from v237 is still open (carried on Start).
   - "+ might feel light" is still open.
+- **boards7 not run to completion** (stopped at the 80-minute background limit, nothing written). Its edits (R3, the svg writes, section 0 via proportions-board.js) are untested end to end. The first full run must diff its Between, Start and svgs against the live ones and the repo (old rows should come out byte-identical).
 - **Next:** the blind test. If the blind designer stumbles, the fix goes in the spec (and PROP), not in a drawing.
 
 ## Update (2026-10-23, canvas v237, turn 151)
