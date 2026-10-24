@@ -433,3 +433,7 @@ A real system for thicknesses and vessels; the shape series is dense, so the bli
 - tell him about the band.
 
 Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 154.
+
+## Icon system, blind test (v240, 2026-10-24): the system 7
+
+The person is oversize; the bed is the right weight but generic. The spec builds roots but doesn't carry the family's character into new joins. Fix seven gaps as rules, re-run, then a second blind round on two new icons. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 156.

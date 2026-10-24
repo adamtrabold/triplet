@@ -1909,3 +1909,10 @@ checks; don't eyeball "is it as good as".
 - Read a spec as the blind designer will. Contradictions between rules, and mixed units, are what break a first try.
 - Fixed points changed to fit a system (the band, 5/6 → 3/4px) must be named to him.
 - Next: three copy edits, then the blind test: a fresh designer draws a shaped icon and an outline icon from the spec alone.
+
+## Blind test (v240, 2026-10-24): the system 7
+
+- "Landed" by the checks isn't landed by eye. Judge size and character beside the six at 24 and 72.
+- A spec can be consistent and still not *ours*. The character (flares at post-to-mass joins, caps on free slab ends, leaned joins) has to be a rule by part type, or new icons come out generic.
+- Outline marks: size by the outside to the star's optical size; the counter minimum is a check, not the sizer.
+- Next: seven rules fixed, the bed and person re-run, then a second blind round with a fresh designer (a shaped icon with curves; a one-counter outline).

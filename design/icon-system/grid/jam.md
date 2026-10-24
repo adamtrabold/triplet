@@ -451,3 +451,42 @@ Copy only; no drawing changed. All in `src/proportions-board.js` (one ruler labe
 4. **Between section 0:** a line telling him the band is now 3/4px (half a line), a hair thinner than in the coupe he called perfect, with the way back if he wants it.
 
 Rule numbers shifted by one; step and audit references updated. boards7 was not running (the earlier run had already stopped, nothing written), so nothing was published from it. Canvas v239: Between section 0 and Construction only (live re-read first; unchanged since v238). Between h 8948, Construction h 13892; row 2 at y 9582.
+
+---
+
+## Turn 156: design director, the blind test (v240): the system scores 7
+
+Read `blind-test.md`. Rendered the six beside the person, the blind bed and the fixed bed from `svg/blind/`, at 24, 72 and 240px, at 1x and 3x. I judged as him, true size first.
+
+**Beside the six, by eye:**
+- **The person** has the family's line and the star's construction. But it's **too big**: 16.8 × 16.2px in a 24 slot, against the star's 14.1 and the +'s 13.2. At 24 and 72 it's the largest, heaviest mark in the row. "Landed first time" is true of the checks, not the eye. The cause is spec gap 1: two counters, and sizing by the smaller counter blew the outside up.
+- **The fixed bed** fits the row in weight. But it has **none of the family's character**. The headboard meets the mattress as a plain corner, with no flare. The legs are plain posts. The pillow is a free oval. Next to the coupe, cup and museum (flares, caps, leaned joins) it reads as a generic library bed. The blind bed is the same, with the pillow adrift ("a loaf on a bench" is fair).
+- So neither new icon looks like a member of the family yet. One is the wrong size; the other is the right size without the family's features.
+
+**Is the bed's failure a real rule failure?** Yes. Rule 11 was written from one case (the cup on its saucer).
+- **"Rests on one part and against another: it sits against it, across the same cut"** generalises: books, a ladder, a pillow, a lean-to. Keep it.
+- **"A whole ellipse is at least 2/3 as tall as wide; flatter is a slab with caps"** generalises too. A very flat ellipse's ends bend too fast for any size. State it as a root rule, not a check workaround.
+
+**The deeper failure:** the spec says how to build roots, but not what makes our icons ours. The flares, caps and leaned joins appear only where the six's part types happen to call for them. A new part type gets none. That's the gap between "consistent" and "ours".
+
+**Spec gaps, worst first, for the next blind icon:**
+1. **No rule for the family's character on new joins** (my finding). Every new shaped icon will come out generic.
+2. **Outline size:** two counters and no slot rule. It made the person oversize. Size every outline mark by its outside to the star's optical size, and keep each counter at least 2 1/2 lines across as a check, not as the sizer.
+3. **Rule 14's corner table differs from the code the star uses.** Spec and engine disagree silently, so one table, the code's, goes in the spec.
+4. **Slab vs mass is undefined.** It decides the weight of every block.
+5. **The line (1 1/2px) is off the 1/3px lattice.** Say which wins at a baseline. It made the legs 1 2/3.
+6. **"One cut per icon"** with one part cut on two faces: say it's one cut.
+7. **The master grid is stale** on the outline numbers. Update or retire it.
+
+**Score: the system, 7.** The fixed bed and the person show it's close, and the checks and roots work. But a blind designer got one icon the wrong size and one without the family's character.
+
+**To reach a 10:**
+1. Fix gaps 1-7 as rules in the spec and in `proportions.js`, including a character rule. For example: where a post meets a slab or mass it holds up, it flares a step (the coupe's and museum's rule); a free end of a slab takes a cap. Make it apply by part type, so a bed gets it.
+2. Re-run the bed and the person on the new rules, show them beside the six, and the owner judges.
+3. **Then a second blind round, with a fresh designer, on two different icons:**
+   - a shaped one with curves and joins (a shopping bag or a bell);
+   - an outline with one counter (a map pin or a heart).
+
+   If both land by eye, it's a 10 on the system.
+
+**Changed since my last score?** A first score on the blind test.

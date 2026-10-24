@@ -1408,3 +1408,12 @@ The verdict stands within our own set:
   - A rule for stacked icons.
   - The band line on section 0.
 - **Fixes:** jam turn 154.
+
+## Round: blind test (canvas v240), 2026-10-24: the system 7
+
+- **Person:** checks clean, but oversize (16.8 × 16.2 vs the star's 14.1). Sized by its smaller counter.
+- **Fixed bed:** the right weight, but generic. No flares or caps; the family's character isn't in the spec for new joins.
+- **Bed's rule failures are real.** "Sits against" and "a whole ellipse at least 2/3" both generalise.
+- **Gaps ranked:** character rule, outline size, the corner-table mismatch, slab vs mass, line vs lattice, one-cut wording, stale master grid.
+- **Next:** fix them as rules, re-run the two, then a second blind round (a bag or bell; a pin or heart).
+- **Fixes:** jam turn 156.
