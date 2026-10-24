@@ -1902,3 +1902,10 @@ checks; don't eyeball "is it as good as".
 - Root rules so far: the cap rule (a slab cut by one ellipse), cut ellipses for curved edges, tangent where an ellipse meets a parallel straight.
 - Checks: fair (knee, tail, dip, shoulder + guard, inflect, shelf, kink).
 - Open with him: whether the plate's ends read too rounded.
+
+## g7az proportions (v238, 2026-10-24): 9 after three edits
+
+- A dense fraction series (12 marks in 0-1) snaps almost anything. A system is real only where a value is *derived* (the cap's 2/√3) or one rule replaces two (the vessel ellipse).
+- Read a spec as the blind designer will. Contradictions between rules, and mixed units, are what break a first try.
+- Fixed points changed to fit a system (the band, 5/6 → 3/4px) must be named to him.
+- Next: three copy edits, then the blind test: a fresh designer draws a shaped icon and an outline icon from the spec alone.

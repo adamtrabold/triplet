@@ -399,3 +399,39 @@ Owner, after v237: "Yeah let's try for a ten also it's be best if the underlying
 - The fit solve and the class at fitted size are grid changes, applied to the new row only.
 - 4/5 against 5/6 for the vessels was a near tie.
 - The tree sits outside the series by design.
+
+---
+
+## Turn 154: design director, v238 (proportions, the spec): 9 after three edits
+
+Merged e2273e4b and read `src/proportions.js` whole. Read the live boards (v238): Construction's "The spec" and Between section 0. Rendered the coupe, cup and museum, v237 (`before-g7az/`) against now: 12/24/72px, 27px a unit, and the 24px coupe pixel by pixel at 1x and 3x.
+
+**At true size:** cup, coupe and museum read as v237. The tree, star and + are byte-identical.
+
+**The band (3/4px, was 5/6px):**
+- At 3x (a phone) it reads as a clear band, a hair thinner. At 1x both versions are a grey smear; that's no worse than before.
+- The drink still reads full, so it's no step back on his 7 asks.
+- But it's a change to the coupe he called "perfect", made to fit the series. He must be told plainly, not find it.
+
+**Real system, or relabelling?**
+- **Mostly real**, in three places:
+  - Thicknesses are fractions of the line, in px, never scaled.
+  - One vessel rule (an ellipse 4/5 as tall as wide) now makes both the bowl and the cup.
+  - The cap is cut at half its height, so 7/6-by-eye now *follows* (2/√3).
+  - Each ratio names its parent.
+- **Partly relabelling.** The shape series has 12 marks between 0 and 1, so almost any value lands near one. The code says so itself ("the series is dense, so it proves nothing by itself"); the board should too. The proof is the blind test.
+- **"So they weren't just random":** the tree's tiers and the star's 0.47 are marked "won't snap", with reasons: his chosen rhythm, a shape choice. That's honest and acceptable for fixed points he chose. But a seventh stacked icon has no rule to follow.
+
+**Can a blind designer draw from it?** Nearly. Clear rulers, 15 rules, a table, 8 steps, and the four built examples. Three things will trip them:
+1. **Rule 12 contradicts rule 5.** Rule 5 says every proportion is in halves to sixths. The round law is 0.6, 0.7, 0.3, 0.35, 0.0877, 0.15 and 0.2: decimals off the series, the most frequent number in any icon. Either express them as line fractions where they are (0.6px = 2/5 line, 0.3 = 1/5) or state plainly that rounds are the engine's law in px, outside the series, never chosen by the designer.
+2. **Units.** px at the 24 badge, units on the 24 grid and "the 12 box" are mixed, so a reader can't tell which a number is in. Label every value with its unit, and say once how they convert.
+3. **A stacked icon** (tiers, floors) has nothing to follow, since the tree won't snap. Name what a new stacked icon does: either the old stacked-gable rule or the tree's rhythm as the template.
+
+**Likely owner objections:** "the band is thinner" (possible). "Most of these are random decimals" (on rule 12; likely if he reads it).
+
+**Score: 9 after three edits** (copy, no drawing changes) before the blind test:
+1. Rule 12: rounds as line fractions, or explicitly engine law in px, outside the series.
+2. Units on every value, with one conversion line.
+3. A line for stacked icons. And on Between section 0, one line: the coupe's band is now 3/4px, a hair thinner than the coupe you called perfect. Say also that the series is dense, so the blind test is the proof.
+
+**Changed since my last score?** Yes: the proportions table, the spec, small moves in three icons.

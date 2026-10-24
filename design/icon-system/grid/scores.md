@@ -1397,3 +1397,14 @@ The verdict stands within our own set:
 - **Cup's bottom:** one continuous curve, tangent at the wall, at true size, 75 and 240px a unit; matches v234.
 - **KINK check:** fails v235 only. The SHOULDER guard is in. Every piece has a root.
 - **Fixes:** none (jam turn 152).
+
+## Round g7az proportions + spec (canvas v238), 2026-10-24: 9 after three edits
+
+- **True size:** unchanged by eye. The band (3/4px) reads at 3x and the drink still reads. He must be told it's thinner.
+- **System:** real for thicknesses, the vessel and the cap. The shape series is dense (the code says so), so the blind test is the proof. The won't-snaps are honest.
+- **Edits:**
+  - Rule 12's round decimals contradict rule 5: line fractions, or engine law outside the series.
+  - Units on every value.
+  - A rule for stacked icons.
+  - The band line on section 0.
+- **Fixes:** jam turn 154.

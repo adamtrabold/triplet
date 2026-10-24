@@ -423,3 +423,13 @@ The coupe on its ellipse passes. The fair-check change is legitimate but needs a
 ## Icon system, g7ay (v237, 2026-10-23): 9, send
 
 The cup's ellipse is tangent wall to wall; no knee at his zoom. Roots complete; checks calibrated (KINK, SHOULDER guard). Goes to him with the plate question. Jam turn 152.
+
+## Icon system, g7az proportions (v238, 2026-10-24): 9 after three edits
+
+A real system for thicknesses and vessels; the shape series is dense, so the blind test proves it. Before the blind designer reads it:
+- fix rule 12 against rule 5 (round decimals);
+- label units on every value;
+- add a rule for stacked icons;
+- tell him about the band.
+
+Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 154.
