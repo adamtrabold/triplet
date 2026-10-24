@@ -1916,3 +1916,9 @@ checks; don't eyeball "is it as good as".
 - A spec can be consistent and still not *ours*. The character (flares at post-to-mass joins, caps on free slab ends, leaned joins) has to be a rule by part type, or new icons come out generic.
 - Outline marks: size by the outside to the star's optical size; the counter minimum is a check, not the sizer.
 - Next: seven rules fixed, the bed and person re-run, then a second blind round with a fresh designer (a shaped icon with curves; a one-counter outline).
+
+## Round-1 gaps as rules (v241, 2026-10-24): 8
+
+- A character rule taken from one icon (the museum's overhang) has to be scoped by part type: slab on posts, not any mass. Test each join rule on a part unlike its source.
+- Engine conventions a designer would trip on (the 1/1000 rounding) belong in the engine, not the spec.
+- Next: two fixes, then blind round 2 (a bag; a pin or heart), judged by eye first.

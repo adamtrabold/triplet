@@ -437,3 +437,7 @@ Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 154
 ## Icon system, blind test (v240, 2026-10-24): the system 7
 
 The person is oversize; the bed is the right weight but generic. The spec builds roots but doesn't carry the family's character into new joins. Fix seven gaps as rules, re-run, then a second blind round on two new icons. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 156.
+
+## Icon system, round-1 gaps as rules (v241, 2026-10-24): 8
+
+The person reads as family; the bed is close, but the overhang drop on a mass reads as a chamfer. Fix that (overhang is a slab's treatment), make the 1/1000 rounding engine law, then blind round 2. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 158.

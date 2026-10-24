@@ -532,3 +532,37 @@ Director (turn 156): the system 7; neither blind icon reads as family; seven gap
 **Checks:** rounds-check (pass); construction.js 6/6 identical; fair and join check on bed2 and person2 (clean); boards rendered at 1x (Between at 760, Master 1600, the spec 1800) and looked at. Impeccable not run (design boards, not index.html).
 
 **Unsure:** the dome shoulders; whether the capital belongs on a mass (the rule says yes: it's an overhang); 2 lines as the outline counter floor (my reading; the director wrote 2 1/2); the 1/1000 rounding is a convention, not yet engine law.
+
+---
+
+## Turn 158: design director, v241 (round 1's gaps as rules; the bed and the person re-run): 8, ready for round 2 after two fixes
+
+Merged ac026fc8 and read turn 157. Rendered the six beside the round-1 bed, bed2 (shown) with its two variants, the round-1 person and person2, at 24, 72 and 240px, at 1x and 3x.
+
+**Person2:**
+- The star's size, the star's line. The head and shoulders are two roots with a cut between, and both holes open.
+- **Reads as family at 24 and 72.**
+- The dome shoulders are a cap: the system's own language, and a common, legible account form.
+- A counter floor of 2 lines (not my 2 1/2) is acceptable: two stacked holes at 2 1/2 can't fit at the star's size, and the reason is stated. **Pass.**
+
+**Bed2:**
+- The right weight.
+- The pillow now wears the coupe foot's crown and sits against the headboard. That's the family showing.
+- The headboard's hold flares read at 72.
+- **But the foot's overhang drop on a 2px-deep mass reads as a slanted corner, a chamfer**, at 72 and at 240. The variant without it is cleaner.
+- The rule is applied correctly; the rule is wrong for this case. The museum's overhang works on a slab carried by a row of posts. On a mass ending just past a single leg, the drop is a ledge too small to read as a ledge.
+
+**The spec:**
+- Rule 4 (joins by kind) is the missing character rule, and it generalises: holds, overhang, rests, base, free.
+- The table law reproduces the old laws on 164,880 corners, with the six byte-identical.
+- Slab vs mass, the lattice and the one-cut wording are all clear.
+- The master grid is rebuilt from code.
+
+**Likely owner objections:** "the bed's foot end looks clipped" (likely at 72).
+
+**Score: 8.** Ready for blind round 2 after:
+1. **Overhang is a slab's treatment.** It applies to a slab carried by two or more posts. A mass on legs takes holds only (the flare), no drop. Rebuild bed2 by it; that's the no-flare variant's foot plus the leg's hold flare.
+2. **Make the 1/1000 rounding engine law.** The engine writes every size and offset to 1/1000 of a unit for any new build. A blind designer must not need to know it.
+3. Tell the round-2 designer nothing beyond the spec, and give them a bag (curves, joins, a handle) and a pin or a heart (one counter). Judge both by eye beside the six at 24 and 72 before any check.
+
+**Changed since my last score?** Yes: seven gaps as rules, one round table, the re-run bed and person.

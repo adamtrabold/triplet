@@ -1417,3 +1417,10 @@ The verdict stands within our own set:
 - **Gaps ranked:** character rule, outline size, the corner-table mismatch, slab vs mass, line vs lattice, one-cut wording, stale master grid.
 - **Next:** fix them as rules, re-run the two, then a second blind round (a bag or bell; a pin or heart).
 - **Fixes:** jam turn 156.
+
+## Round: round-1 gaps as rules (canvas v241), 2026-10-24: 8, ready after two fixes
+
+- **Person2:** family. The star's size, cap shoulders, a 2-line counter floor (stated).
+- **Bed2:** right weight, crown pillow. The foot's overhang drop on a mass reads as a chamfer.
+- **Spec:** rule 4 (joins by kind) carries the character; one round table (6/6 identical).
+- **Fixes:** overhang only on slabs carried by 2+ posts; the 1/1000 rounding made engine law. Then blind round 2 (a bag; a pin or heart). Jam turn 158.
