@@ -99,6 +99,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-23 · v237 shown (after cleanup v236):** every piece from a root shape. Cap rule (a base with a curved side = slab cut by one ellipse, 7/6 wide, full height; foot on its crown, plate on its flat; replaces the plate rule and domed foot); coupe bowl and cup bottom each one ellipse (an ellipse meets a parallel straight edge at its widest point, tangent); counters redefined by shapes and proportions (no visible change); leaned flare kept. New checks: kink (<30°), shoulder guard. Director 8 (v234) → 7 (v235) → 9 (v237). Canvas cleaned (v236), jam turns 1-139 → jam-archive-1.md. Asked: plate ends too round? still his tree?
 
+- **10-24 · v239 shown:** proportions: halves to sixths (a shape = a fraction of its parent root, the widest root = 1; a thickness = a fraction of the line); bowl and cup ellipses one rule (4/5 as tall as wide); cap 7/6 derived (2/√3); band 3/4px (half a line, thinner: flagged); flare lean and soft tip = transition rules; tree tiers and star off-series, stacked-icon rule added. `src/proportions.js` is the one table. Construction board "The spec" (15 rules, units, 8 steps). Director 9 (copy in v239); caveat: fractions dense, the blind test is the proof. Blind test started: Hotel (bed) and Account (person), from the spec alone.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
